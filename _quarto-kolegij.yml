@@ -1,0 +1,28 @@
+# Profil „kolegij" — nastavno izdanje iz istih izvora.
+# Pokreni: quarto render --profile kolegij   (izlaz: docs-kolegij/)
+#
+# Razlika prema knjizi:
+#   1. kod je OTVOREN (code-fold: false) jer se na seminaru čita i pokreće
+#   2. seminarski materijali i tjedni raspored su u glavnoj navigaciji
+#   3. rješenja zadataka se prikazuju (::: {.content-visible when-profile="kolegij"})
+#
+# U .qmd-ovima se sadržaj namijenjen samo nastavi omata u:
+#   ::: {.content-visible when-profile="kolegij"}
+#   Rješenje …
+#   :::
+# a sadržaj koji u nastavnom izdanju treba nestati u:
+#   ::: {.content-hidden when-profile="kolegij"}
+
+project:
+  output-dir: docs-kolegij
+
+book:
+  title: "Osnove statistike za društvene znanosti — nastavno izdanje"
+
+format:
+  html:
+    code-fold: false
+    code-tools: true
+
+execute:
+  echo: true

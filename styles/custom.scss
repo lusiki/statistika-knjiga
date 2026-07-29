@@ -1,0 +1,27 @@
+// =====================================================================
+//  custom.scss — glavna tema knjige (svijetli i tamni compile)
+// =====================================================================
+//  Sastav:
+//    _tokens.scss      dizajnerski tokeni (JEDINA datoteka s hexovima)
+//    _base.scss        tipografski temelj + var(--tok-*) svojstva
+//    _callouts.scss    pedagoške kutije, sažetak, zadaci
+//    _widgets.scss     okvir i kontrole interaktivnih grafova
+//    _components.scss  naslovnica, kartice, navigacija
+//    _nastava.scss     silabus i tjedni raspored
+//
+//  Quarto slojne oznake (scss:defaults / scss:rules) prepoznaje samo u
+//  datotekama navedenima u `theme:` u _quarto.yml, ne u partialima. Zato
+//  su tokeni uvučeni u defaults blok, a ostali partiali u rules blok.
+// =====================================================================
+
+/*-- scss:defaults --*/
+
+@import "tokens";
+
+/*-- scss:rules --*/
+
+@import "base";
+@import "callouts";
+@import "widgets";
+@import "components";
+@import "nastava";

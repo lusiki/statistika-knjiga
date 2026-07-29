@@ -1,0 +1,65 @@
+# PDF profil.
+# Pokreni preko: powershell -File scripts/render-book-pdf.ps1
+#   (NE golim `quarto render --profile pdf` — vidi zaglavlje te skripte)
+# Izlaz: pdf/Statistika.pdf
+#
+# Ova datoteka nadjačava _quarto.yml. Sve što ovdje nije navedeno nasljeđuje
+# se iz zadane konfiguracije, pa HTML build ostaje netaknut.
+#
+# DODACI: PDF nosi samo literaturu (references.qmd) i dodatke A–F, dok web
+# zadržava i samostalne stranice (pojmovnik, interakcije, podaci, resursi,
+# uči-uz-AI, predavanja, silabus, raspored). To se NE može riješiti odavde —
+# Quarto spaja `book.appendices` polja aditivno, pa kraći popis ovdje samo
+# produljuje onaj iz _quarto.yml. Umjesto toga scripts/render-book-pdf.ps1
+# privremeno prepiše blok dodataka u _quarto.yml i vrati ga nakon rendera.
+
+project:
+  output-dir: pdf
+
+book:
+  title: "Osnove statistike za društvene znanosti"
+  subtitle: "Udžbenik za studente koji moraju razumjeti istraživanje"
+  output-file: "Statistika"
+
+format:
+  pdf:
+    documentclass: scrbook
+    classoption:
+      - headings=standardclasses
+    pdf-engine: xelatex
+    papersize: a4
+    geometry:
+      - margin=3.2cm
+    lang: hr-HR
+    toc: true
+    toc-depth: 2
+    toc-title: "Sadržaj"
+    number-sections: false
+    colorlinks: true
+    fig-pos: "H"
+    # Boje, pisma i naslovnica dolaze iz tiskarskog sloja teme.
+    include-in-header:
+      - tex/theme.tex
+    include-after-body:
+      - tex/colophon.tex
+
+# Statički blizanci interaktivnih grafova koriste Unicode znakove u
+# oznakama (Δ, →, ₙ, ≥). Zadani Windows uređaj ih ispušta; cairo_pdf ih
+# ispisuje ispravno. Pozadina je prozirna da se boja papira definira samo
+# na jednom mjestu (\pagecolor u tex/theme.tex).
+knitr:
+  opts_chunk:
+    dev: "cairo_pdf"
+    dev.args:
+      cairo_pdf:
+        bg: "transparent"
+
+filters:
+  - pdf-filters/strip-ojs.lua
+  # Infografike u SVG-u prethodno se rasteriziraju (scripts/svg-to-png.R),
+  # a ovaj filter prepisuje .svg u .png samo za PDF build.
+  - pdf-filters/swap-svg-png.lua
+  # Pedagoške kutije (.callout-vinjeta/divljina/model/greska) omataju se u
+  # tcolorbox okruženja definirana u tex/theme.tex; bez ovoga bi u PDF-u
+  # ispale kao obični pasusi.
+  - pdf-filters/book-callouts.lua

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bookwright/shared/conventions.schema.json",
+  "title": "Book structural conventions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["labels", "bands"],
+  "properties": {
+    "note": { "type": "string" },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "opener": { "type": "string" },
+        "figure_prefix": { "type": "string" },
+        "definition": { "type": "string" },
+        "callout_applied": { "type": "string" },
+        "callout_empirical": { "type": "string" },
+        "exercise": { "type": "string" }
+      }
+    },
+    "opener_exempt": { "type": "array", "items": { "type": "string" } },
+    "bands": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "definitions_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+        "figures_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+        "callout_applied_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+        "callout_empirical_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+        "exercises_min": { "type": "integer" }
+      }
+    }
+  }
+}

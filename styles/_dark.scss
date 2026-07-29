@@ -1,0 +1,64 @@
+// =====================================================================
+//  _dark.scss — tamni način
+// =====================================================================
+//  Učitava se SAMO u tamnom compileu (vidi theme.dark u _quarto.yml),
+//  iza custom.scss. Radi na dvije razine:
+//
+//   1. defaults — nadjačava $tok-* varijable prije nego se komponente
+//      kompajliraju, pa sve što koristi tokene automatski potamni.
+//   2. rules — samo ono što Bootstrap ili Quarto tvrdoglavo boje sami.
+//
+//  Nikad ne dodajite ovdje pravilo koje ponavlja komponentu iz svijetle
+//  teme. Ako komponenta ne radi u tamnom načinu, ona negdje koristi
+//  sirovi hex umjesto tokena — popravlja se ondje, ne ovdje.
+// =====================================================================
+
+/*-- scss:defaults --*/
+
+// Invertirani tokeni. Imena su ista, značenja ostaju ista.
+$tok-paper:       #17171A;
+$tok-paper-soft:  #202024;
+$tok-ink:         #E8E8EA;
+$tok-ink-soft:    #C2C2C7;
+$tok-ink-mute:    #94949B;
+$tok-ink-faint:   #6B6B73;
+$tok-accent:      #7FB2E5;
+$tok-accent-deep: #A9CDF2;
+$tok-accent-wash: #1B2733;
+$tok-emphasis:    #E08A8A;
+$tok-archival:    #D3AE72;
+
+$tok-rule-faint:  rgba(255, 255, 255, 0.07);
+$tok-rule:        rgba(255, 255, 255, 0.14);
+$tok-rule-strong: rgba(255, 255, 255, 0.30);
+
+$body-color: $tok-ink;
+$body-bg:    $tok-paper;
+$primary:    $tok-accent;
+$link-color: $tok-accent;
+
+/*-- scss:rules --*/
+
+// Bootstrap komponente koje se boje izvan tokena.
+.navbar, .offcanvas, .dropdown-menu, .modal-content {
+  background-color: $tok-paper;
+  color: $tok-ink;
+}
+
+.form-control, .form-select {
+  background-color: $tok-paper-soft;
+  color: $tok-ink;
+  border-color: $tok-rule;
+}
+
+// Quarto pretraga.
+.aa-Panel, .aa-Item, .aa-ItemContent {
+  background: $tok-paper-soft;
+  color: $tok-ink;
+}
+
+// Grafovi renderirani s bijelom pozadinom (statički PDF blizanci ako se
+// slučajno prikažu u HTML-u) dobiju blagi filter da ne bliješte.
+img.svijetli-graf {
+  filter: invert(0.92) hue-rotate(180deg);
+}

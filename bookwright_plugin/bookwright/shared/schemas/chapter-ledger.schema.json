@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bookwright/shared/chapter-ledger.schema.json",
+  "title": "Book chapter ledger",
+  "description": "One record per chapter. The single source of truth for chapter state, read and updated by book-conductor.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["book", "chapters"],
+  "properties": {
+    "book": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string" },
+        "last_updated": { "type": "string" }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "file", "title", "stage"],
+        "properties": {
+          "id": { "type": "string" },
+          "file": { "type": "string" },
+          "title": { "type": "string" },
+          "stage": {
+            "type": "string",
+            "enum": ["stub", "draft", "enriched", "style_swept", "figures_done", "coauthor_review", "final"],
+            "description": "Lifecycle stage. Order is stub, draft, enriched, style_swept, figures_done, coauthor_review, final."
+          },
+          "self_items": {
+            "type": "array",
+            "description": "Open work you can do now without waiting for a co-author.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "note"],
+              "properties": {
+                "id": { "type": "string" },
+                "slot": { "type": "string", "description": "Optional enrichment slot (mechanism, empirics, comparative, tradeoff, methodology)." },
+                "note": { "type": "string" },
+                "status": { "type": "string", "enum": ["todo", "in_progress", "done"] }
+              }
+            }
+          },
+          "coauthor_asks": {
+            "type": "array",
+            "description": "Items reserved for a co-author (Croatian or domestic material). Never auto filled.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "what"],
+              "properties": {
+                "id": { "type": "string" },
+                "what": { "type": "string" },
+                "owner": { "type": ["string", "null"] },
+                "status": { "type": "string", "enum": ["open", "sent", "received", "done"] }
+              }
+            }
+          },
+          "last_render": { "type": "string", "enum": ["unknown", "ok", "failed"] },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

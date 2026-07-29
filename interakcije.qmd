@@ -1,0 +1,73 @@
+---
+title: "Interakcije"
+toc: false
+number-sections: false
+lang: hr-HR
+format:
+  html:
+    page-layout: full
+---
+
+<!-- =====================================================================
+  Hub svih interaktivnih grafova. Čita data/widgets.json, koji je jedini
+  popis widgeta u projektu (generira ga scripts, održava se ručno).
+  Stranica radi i dok su svi widgeti u statusu „planiran".
+===================================================================== -->
+
+Svako poglavlje nosi jedan interaktivni graf. Grafovi nisu ukras uz tekst
+nego dio argumenta: ideja se najprije vidi, pa tek onda imenuje. Ovdje su svi
+na jednom mjestu, pa se mogu koristiti i odvojeno od poglavlja, na predavanju
+ili pri ponavljanju.
+
+Četiri grafa nose glavnu argumentaciju knjige i grade se prvi. To su stroj
+središnjeg graničnog teorema, hvatač intervala, simulator p-vrijednosti i
+pješčanik p-hakiranja.
+
+```{ojs}
+//| echo: false
+inventar = FileAttachment("data/widgets.json").json()
+```
+
+```{ojs}
+//| echo: false
+viewof filtar = Inputs.radio(["svi", "nosivi", "planirani", "gotovi"], {
+  label: "Prikaži", value: "svi"
+})
+```
+
+```{ojs}
+//| echo: false
+{
+  const svi = inventar.widgets;
+  const w = svi.filter(x =>
+    filtar === "svi" ? true :
+    filtar === "nosivi" ? x.prioritet === "nosivi" :
+    filtar === "planirani" ? x.status === "planiran" :
+    x.status === "gotov");
+
+  const kartica = (x) => htl.html`<a class="hub-card" href="${
+      x.poglavlje.replace(/^chapters\//, "chapters/").replace(/\.qmd$/, ".html")
+    }">
+    <span class="hub-num">${x.id}</span>
+    <span class="hub-name">${x.naziv}</span>
+    <span class="hub-desc">${x.naslovPoglavlja}</span>
+    <span class="hub-znak">${x.prioritet === "nosivi" ? "nosivi · " : ""}${x.status}</span>
+  </a>`;
+
+  return htl.html`<div class="hub-grid">${w.map(kartica)}</div>`;
+}
+```
+
+::: {.razdjelnik}
+§
+:::
+
+## Kako su grafovi napravljeni
+
+Grafovi se izvršavaju u pregledniku, u Observableu, i ne traže ni instalaciju
+ni račun. Svaki ima statičkog blizanca koji se ispisuje u tiskanom izdanju, pa
+knjiga na papiru pokazuje isti sadržaj bez interakcije. Tko želi vidjeti kod,
+otvara ga u samom poglavlju.
+
+<!-- TODO Kad prvi widget bude gotov, dodaj ovdje kratku uputu o tome kako se
+     graf koristi na predavanju (puni zaslon, početne vrijednosti, gumb ↺). -->

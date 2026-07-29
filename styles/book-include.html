@@ -1,0 +1,437 @@
+<script>
+/* =====================================================================
+   book-include.html — ponašanje stranice (include-after-body)
+   ---------------------------------------------------------------------
+   Sve vizualno živi u styles/ (SCSS + styles.css). Ovdje nema boja ni
+   pisama; moduli samo dodaju elemente i klase koje CSS zna stilizirati.
+
+   Moduli
+     1. traka napretka čitanja
+     2. pregled na prijelaz za unutarnje poveznice
+     3. dinkus (*** u prozi -> stilizirani razdjelnik)
+     4. sidra uz naslove
+     5. samostalne stranice bez knjižnog okvira
+     6. čišćenje sidebara
+     7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
+     8. sklopivi prozni blokovi („Što isprobati")
+     9. AI izbornik u podnožju poglavlja
+   ===================================================================== */
+(function () {
+  "use strict";
+
+  // -------------------------------------------------------------------
+  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+  // -------------------------------------------------------------------
+  var SAMOSTALNE = [
+    "/index.html",
+    "/pojmovnik.html",
+    "/interakcije.html",
+    "/podaci.html",
+    "/resursi.html",
+    "/uci-s-ai.html",
+    "/predavanja.html",
+    "/silabus.html",
+    "/raspored.html"
+  ];
+
+  // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
+  // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
+  var UPUTA =
+    "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
+    "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
+    "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
+    "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
+    "gradi intuiciju prije formule, prilagodi se mojoj razini i na zahtjev sažmi " +
+    "gradivo, izradi kviz, kartice ili plan učenja. Na početku me pitaj što učim " +
+    "i koji mi je cilj.";
+
+  // -------------------------------------------------------------------
+  // 1. Traka napretka čitanja
+  // -------------------------------------------------------------------
+  function setupProgressBar() {
+    if (document.getElementById("reading-progress")) return;
+    var bar = document.createElement("div");
+    bar.id = "reading-progress";
+    document.body.appendChild(bar);
+
+    var ticking = false;
+    function update() {
+      var doc = document.documentElement;
+      var scrollTop = window.scrollY || doc.scrollTop;
+      var max = (doc.scrollHeight - doc.clientHeight) || 1;
+      var pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
+      bar.style.width = pct + "%";
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
+
+  // -------------------------------------------------------------------
+  // 2. Pregled na prijelaz za unutarnje poveznice (#sidra u dokumentu)
+  // -------------------------------------------------------------------
+  function setupInternalHover() {
+    var tip = null, hideTimer = null;
+
+    function ensureTip() {
+      if (tip) return tip;
+      tip = document.createElement("div");
+      tip.className = "internal-hover-preview";
+      document.body.appendChild(tip);
+      return tip;
+    }
+
+    function show(target, text, title) {
+      var t = ensureTip();
+      t.innerHTML = "";
+      if (title) {
+        var h = document.createElement("div");
+        h.className = "ihp-title";
+        h.textContent = title;
+        t.appendChild(h);
+      }
+      var body = document.createElement("div");
+      body.textContent = text;
+      t.appendChild(body);
+
+      var rect = target.getBoundingClientRect();
+      var left = window.scrollX + rect.left;
+      var maxLeft = window.scrollX + document.documentElement.clientWidth - 400;
+      if (left > maxLeft) left = maxLeft;
+      if (left < 8) left = 8;
+      t.style.top = (window.scrollY + rect.bottom + 8) + "px";
+      t.style.left = left + "px";
+      t.classList.add("visible");
+    }
+
+    function hide() { if (tip) tip.classList.remove("visible"); }
+
+    document.addEventListener("mouseover", function (e) {
+      var a = e.target.closest && e.target.closest("a[href^='#']");
+      if (!a) return;
+      if (a.classList.contains("citation") || a.classList.contains("footnote-ref")) return;
+      if (a.closest(".sidebar, nav, .toc, #TOC, .quarto-secondary-nav")) return;
+
+      var hash = a.getAttribute("href").slice(1);
+      if (!hash) return;
+      var tgt = document.getElementById(hash);
+      if (!tgt) return;
+
+      var titleEl = tgt.querySelector("h1, h2, h3, h4") ||
+                    (tgt.tagName.match(/^H[1-6]$/) ? tgt : null);
+      var title = titleEl ? titleEl.textContent.trim() : "";
+      var ctx = (tgt.textContent || "").trim().replace(/\s+/g, " ");
+      if (title) ctx = ctx.replace(title, "").trim();
+      ctx = ctx.slice(0, 280) + (ctx.length > 280 ? "…" : "");
+
+      clearTimeout(hideTimer);
+      show(a, ctx, title);
+    });
+
+    document.addEventListener("mouseout", function (e) {
+      var a = e.target.closest && e.target.closest("a[href^='#']");
+      if (!a) return;
+      hideTimer = setTimeout(hide, 120);
+    });
+
+    window.addEventListener("scroll", hide, { passive: true });
+  }
+
+  // -------------------------------------------------------------------
+  // 3. Dinkus — pasus koji je samo "***" postaje razdjelnik
+  // -------------------------------------------------------------------
+  function setupDinkus() {
+    document.querySelectorAll("main p").forEach(function (p) {
+      var t = p.textContent.trim();
+      if (t === "***" || t === "* * *" || t === "◆ ◆ ◆") {
+        var div = document.createElement("div");
+        div.className = "dinkus";
+        p.parentNode.replaceChild(div, p);
+      }
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 4. Sidra uz naslove
+  // -------------------------------------------------------------------
+  function setupAnchorLinks() {
+    var article = document.querySelector("main.content") || document.querySelector("main");
+    if (!article) return;
+    article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
+      if (h.classList.contains("title")) return;
+      if (h.querySelector("a.anchorjs-link")) return;
+      var link = document.createElement("a");
+      link.className = "anchorjs-link";
+      link.href = "#" + h.id;
+      link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
+      h.appendChild(link);
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 5. Samostalne stranice — bez knjižnog okvira
+  // -------------------------------------------------------------------
+  function setupStandalonePages() {
+    var path = location.pathname;
+    var isStandalone = SAMOSTALNE.some(function (p) { return path.endsWith(p); });
+    if (!isStandalone) return;
+
+    document.body.classList.add("standalone-page");
+
+    var sb = document.getElementById("quarto-sidebar");
+    if (sb) sb.style.display = "none";
+    var msb = document.getElementById("quarto-margin-sidebar");
+    if (msb) msb.style.display = "none";
+    document.querySelectorAll(".quarto-page-breadcrumbs").forEach(function (el) { el.remove(); });
+
+    // Quarto dodaje "Appendix A — " prefiks dodacima; na hub stranicama smeta.
+    var strip = function (s) {
+      return s.replace(/^Appendix\s+\S*\s*[—–-]\s*/i, "").replace(/^\s*[—–-]\s+/, "").trim();
+    };
+    var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
+    if (titleEl) titleEl.textContent = strip(titleEl.textContent);
+    document.title = strip(document.title);
+  }
+
+  // -------------------------------------------------------------------
+  // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
+  //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
+  //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
+  // -------------------------------------------------------------------
+  function removePrunedItems() {
+    var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
+    document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
+      .forEach(function (a) {
+        var href = a.getAttribute("href") || "";
+        var hide = endings.some(function (e) { return href.endsWith(e); });
+        if (hide) {
+          a.style.display = "none";
+          var li = a.closest(".sidebar-item");
+          if (li) li.style.display = "none";
+        }
+      });
+  }
+
+  function pruneSidebar() {
+    removePrunedItems();
+    setTimeout(removePrunedItems, 200);
+    setTimeout(removePrunedItems, 800);
+  }
+
+  // -------------------------------------------------------------------
+  // 7. Upravljačke ploče interaktivnih grafova
+  //    Observable rendira kontrole asinkrono, pa MutationObserver hvata
+  //    njihovo pojavljivanje. Ploča se sklapa u <details>, klizači dobiju
+  //    ispunu trake (--fill) i gumb za povratak na početne vrijednosti.
+  // -------------------------------------------------------------------
+  function setupOjsPanels() {
+    function paintFill(r) {
+      var min = parseFloat(r.min), max = parseFloat(r.max);
+      if (!isFinite(min)) min = 0;
+      if (!isFinite(max)) max = 100;
+      var pct = max > min ? ((r.value - min) / (max - min)) * 100 : 0;
+      r.style.setProperty("--fill", pct.toFixed(2) + "%");
+    }
+
+    function enhanceRange(r) {
+      if (r.dataset.ojsEnhanced) return;
+      r.dataset.ojsEnhanced = "1";
+      r.dataset.ojsInitial = r.value;
+      paintFill(r);
+      r.addEventListener("input", function () {
+        paintFill(r);
+        var num = r.parentElement && r.parentElement.querySelector('input[type="number"]');
+        if (num) {
+          num.classList.remove("ojs-pulse");
+          void num.offsetWidth;
+          num.classList.add("ojs-pulse");
+        }
+      });
+    }
+
+    function collapsePanel(panel) {
+      if (panel.dataset.ojsCollapsed) return;
+      var parent = panel.parentElement;
+      if (!parent) return;
+      panel.dataset.ojsCollapsed = "1";
+
+      var details = document.createElement("details");
+      details.className = "ojs-collapsible";
+      var summary = document.createElement("summary");
+      summary.className = "ojs-collapsible-summary";
+      summary.innerHTML =
+        '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
+        '<span class="ojs-collapsible-label">Parametri simulacije</span>' +
+        '<span class="ojs-collapsible-hint">otvori za promjenu vrijednosti</span>';
+
+      parent.insertBefore(details, panel);
+      details.appendChild(summary);
+      details.appendChild(panel);
+    }
+
+    function enhancePanel(panel) {
+      if (panel.dataset.ojsPanel) return;
+      panel.dataset.ojsPanel = "1";
+      panel.querySelectorAll("select").forEach(function (s) {
+        if (s.dataset.ojsInitial === undefined) s.dataset.ojsInitial = s.value;
+      });
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ojs-reset";
+      btn.textContent = "↺ početne vrijednosti";
+      btn.title = "Vrati početne vrijednosti";
+      btn.addEventListener("click", function () {
+        panel.querySelectorAll('input[type="range"]').forEach(function (r) {
+          if (r.dataset.ojsInitial === undefined) return;
+          r.value = r.dataset.ojsInitial;
+          r.dispatchEvent(new Event("input", { bubbles: true }));
+        });
+        panel.querySelectorAll("select").forEach(function (s) {
+          if (s.dataset.ojsInitial === undefined) return;
+          s.value = s.dataset.ojsInitial;
+          s.dispatchEvent(new Event("input", { bubbles: true }));
+          s.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+      });
+      panel.appendChild(btn);
+      collapsePanel(panel);
+    }
+
+    var scanQueued = false;
+    function scan() {
+      scanQueued = false;
+      document.querySelectorAll('form[class^="oi-"] input[type="range"]').forEach(enhanceRange);
+      document.querySelectorAll('form[class^="oi-"]').forEach(function (f) {
+        if (f.classList.contains("quarto-ojs-table-fixup")) return;
+        var p = f.parentElement;
+        if (p && p.tagName === "DIV") enhancePanel(p);
+      });
+    }
+    function queueScan() {
+      if (scanQueued) return;
+      scanQueued = true;
+      window.requestAnimationFrame(scan);
+    }
+
+    scan();
+    new MutationObserver(queueScan).observe(document.body, { childList: true, subtree: true });
+  }
+
+  // -------------------------------------------------------------------
+  // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
+  // -------------------------------------------------------------------
+  function wrapCollapsible(node, label, hint) {
+    if (node.dataset.ojsCollapsibleWrapped) return;
+    var parent = node.parentElement;
+    if (!parent) return;
+    node.dataset.ojsCollapsibleWrapped = "1";
+
+    var details = document.createElement("details");
+    details.className = "ojs-collapsible ojs-collapsible-prose";
+    var summary = document.createElement("summary");
+    summary.className = "ojs-collapsible-summary";
+    summary.innerHTML =
+      '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
+      '<span class="ojs-collapsible-label"></span>' +
+      '<span class="ojs-collapsible-hint"></span>';
+    summary.querySelector(".ojs-collapsible-label").textContent = label;
+    summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
+
+    var body = document.createElement("div");
+    body.className = "ojs-collapsible-body";
+
+    parent.insertBefore(details, node);
+    details.appendChild(summary);
+    details.appendChild(body);
+    body.appendChild(node);
+  }
+
+  function setupProseCollapsibles() {
+    var main = document.querySelector("main.content") || document.querySelector("main");
+    if (!main) return;
+
+    main.querySelectorAll("p").forEach(function (p) {
+      if (p.dataset.ojsCollapsibleWrapped) return;
+      var strong = p.querySelector(":scope > strong:first-child");
+      if (!strong) return;
+      if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
+      strong.remove();
+      if (p.firstChild && p.firstChild.nodeType === 3) {
+        p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
+      }
+      wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 9. AI izbornik u podnožju poglavlja
+  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+  //    koji generira R/build-ai-exports.R.
+  // -------------------------------------------------------------------
+  function setupChapterAI() {
+    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+    if (!m) return;
+    if (document.querySelector(".ai-cta")) return;
+    var slug = m[1];
+
+    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
+                  "?poglavlje=" + encodeURIComponent(slug);
+    var absMd   = location.origin + mdHref;
+    var q = encodeURIComponent(
+      UPUTA +
+      "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
+      absMd);
+
+    var box = document.createElement("div");
+    box.className = "ai-cta-foot";
+
+    var det = document.createElement("details");
+    det.className = "ai-cta";
+    det.innerHTML =
+      "<summary>🤖 Pitaj AI o ovom poglavlju</summary>" +
+      '<div class="ai-cta-menu">' +
+        '<a href="' + mdHref + '" download>⬇ Preuzmi tekst (.md)</a>' +
+        '<a href="https://claude.ai/new?q=' + q + '" target="_blank" rel="noopener">Otvori u Claudeu</a>' +
+        '<a href="https://chatgpt.com/?q=' + q + '" target="_blank" rel="noopener">Otvori u ChatGPT-u</a>' +
+        '<a href="' + uciHref + '">Sve opcije i cijela knjiga →</a>' +
+      "</div>";
+
+    var pm = document.createElement("a");
+    pm.className = "ai-cta-pm";
+    pm.href = pmHref;
+    pm.innerHTML = "🕸 Pojmovi ovog poglavlja u mreži";
+
+    box.appendChild(det);
+    box.appendChild(pm);
+
+    var article = document.querySelector("main.content") || document.querySelector("main");
+    if (!article) return;
+    var fn = article.querySelector("section.footnotes, #refs, section#footnotes");
+    if (fn) fn.parentNode.insertBefore(box, fn);
+    else article.appendChild(box);
+  }
+
+  // -------------------------------------------------------------------
+  function init() {
+    try { setupProgressBar(); } catch (e) {}
+    try { setupInternalHover(); } catch (e) {}
+    try { setupDinkus(); } catch (e) {}
+    try { setupAnchorLinks(); } catch (e) {}
+    try { setupStandalonePages(); } catch (e) {}
+    try { pruneSidebar(); } catch (e) {}
+    try { setupOjsPanels(); } catch (e) {}
+    try { setupProseCollapsibles(); } catch (e) {}
+    try { setupChapterAI(); } catch (e) {}
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>

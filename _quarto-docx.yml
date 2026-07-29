@@ -1,0 +1,51 @@
+# Word (DOCX) profil — rukopis za lekturu, izdavača i recenzente.
+# Pokreni: powershell -File scripts/render-book-docx.ps1
+#   (NE golim `quarto render --profile docx`)
+# Izlaz: word/Statistika.docx
+#
+# Zrcali PDF profil. Nadjačava _quarto.yml; HTML build je netaknut. Kao i kod
+# PDF-a, skripta privremeno skrati blok dodataka u _quarto.yml (Quarto spaja
+# `book.appendices` aditivno) i renderira s `--to docx`, pa u word/ ne curi HTML.
+#
+# Samostalne stranice (pojmovnik, interakcije, podaci …) su web-only i ne
+# prevode se u Word, pa rukopis nosi samo literaturu i dodatke A–F.
+
+project:
+  output-dir: word
+
+book:
+  title: "Osnove statistike za društvene znanosti"
+  subtitle: "Udžbenik za studente koji moraju razumjeti istraživanje"
+  output-file: "Statistika"
+
+format:
+  docx:
+    toc: true
+    toc-depth: 2
+    toc-title: "Sadržaj"
+    number-sections: false
+    lang: hr-HR
+    fig-align: center
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    highlight-style: github
+
+# Svaki graf postoji kao par blizanaca: interaktivni OJS graf iza
+# `.content-visible when-format="html"` i statički R graf iza
+# `.content-visible when-format="pdf"`. Quarto razrješuje `when-format` prije
+# ijednog korisničkog filtera i ne prihvaća višeformatne vrijednosti, pa je
+# jedini način da se u DOCX-u pojave statički blizanci privremena zamjena
+# when-format="pdf" -> when-format="docx". To radi scripts/render-book-docx.ps1
+# za vrijeme rendera i vraća natrag nakon njega.
+
+filters:
+  # OJS blokovi su samo za preglednik; makni sve koje format-gate nije sakrio.
+  - pdf-filters/strip-ojs.lua
+  # Pandoc ne može ugraditi SVG u DOCX bez rsvg-convert; prepiši izvore
+  # infografika na prethodno rasterizirane PNG blizance (scripts/svg-to-png.R).
+  - pdf-filters/swap-svg-png.lua
+  # Vrati oznake pedagoških kutija da prežive u Wordu.
+  - docx-filters/book-callouts-docx.lua
+  # Omotaj gole višeredne prikazne jednadžbe u `aligned` da ih pandoc pretvori
+  # u izvornu Word matematiku umjesto da ih spusti na sirovi TeX.
+  - docx-filters/multiline-math-docx.lua

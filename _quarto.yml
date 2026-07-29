@@ -1,0 +1,236 @@
+project:
+  type: book
+  output-dir: docs
+  execute-dir: project
+  # AI-konzumabilni izvoz (notes/ai-export-spec.md). Generira docs/ai/*.md,
+  # docs/llms.txt, docs/llms-full.txt i data/ai-exports.json prije rendera.
+  # Skripta je obavijena tryCatch-om pa nikad ne ruši build.
+  pre-render:
+    - R/build-ai-exports.R
+  resources:
+    - robots.txt
+    # Predavanja (reveal.js) renderiraju se zasebno u predavanja/ i ovdje se
+    # kopiraju u docs/predavanja/. Dodaj svaki novi .html deck u ovaj popis.
+    # - predavanja/01-zasto-statistika.html
+
+book:
+  title: "Osnove statistike za društvene znanosti"
+  subtitle: "Udžbenik za studente koji moraju razumjeti istraživanje"
+  author:
+    - name: "Luka Šikić"
+  date: last-modified
+  date-format: "D MMMM YYYY"
+  language: hr-HR
+
+  description: "Udžbenik statistike za društvene znanosti — statističko mišljenje, opisivanje podataka, uzorkovanje i procjena, zaključivanje, linearni modeli i statistika u doba algoritama."
+
+  # Vizualni identitet još nije odabran (vidi DESIGN.md). Otključaj kad
+  # naslovnica i favicon postoje kao datoteke:
+  # cover-image: cover.png
+  # favicon: images/favicon.ico
+
+  site-url: "https://example.github.io/Statistika/"
+
+  navbar:
+    pinned: true
+    left:
+      - text: "Knjiga"
+        href: chapters/00-predgovor.qmd
+      - text: "Interakcije"
+        href: interakcije.html
+      - text: "Praktikum"
+        href: dodaci/a-praktikum.html
+      - text: "Pojmovnik"
+        href: pojmovnik.html
+      - text: "Podaci"
+        href: podaci.html
+      - text: "Uči uz AI"
+        href: uci-s-ai.html
+      - text: "Nastava"
+        menu:
+          - text: "Predavanja"
+            href: predavanja.html
+          - text: "Silabus"
+            href: silabus.html
+          - text: "Tjedni raspored"
+            href: raspored.html
+      - text: "Resursi"
+        href: resursi.html
+    right: []
+
+  search:
+    location: sidebar
+    type: overlay
+  page-navigation: true
+  reader-mode: true
+  sharing: [twitter, facebook, linkedin]
+
+  sidebar:
+    style: docked
+    background: light
+    collapse-level: 4
+    tools:
+      - icon: file-earmark-pdf
+        href: pdf/Statistika.pdf
+        text: "Preuzmi PDF (radna verzija)"
+
+  page-footer:
+    center: "© 2026 · Osnove statistike za društvene znanosti"
+
+  chapters:
+    - index.qmd
+    - chapters/00-predgovor.qmd
+    - part: "DIO I: STATISTIČKO MIŠLJENJE"
+      chapters:
+        - chapters/01-zasto-statistika.qmd
+        - chapters/02-mjerenje-i-dizajn.qmd
+        - chapters/03-kako-brojke-zavode.qmd
+    - part: "DIO II: OPISIVANJE PODATAKA"
+      chapters:
+        - chapters/04-sazimanje-podataka.qmd
+        - chapters/05-vizualizacija.qmd
+        - chapters/06-povezanost.qmd
+    - part: "DIO III: OD UZORKA DO POPULACIJE"
+      chapters:
+        - chapters/07-vjerojatnost.qmd
+        - chapters/08-uzorkovanje.qmd
+        - chapters/09-procjena.qmd
+    - part: "DIO IV: ZAKLJUČIVANJE"
+      chapters:
+        - chapters/10-logika-testiranja.qmd
+        - chapters/11-velicina-ucinka-i-snaga.qmd
+        - chapters/12-kriza-i-obnova.qmd
+    - part: "DIO V: MODELI"
+      chapters:
+        - chapters/13-kategoricki-podaci.qmd
+        - chapters/14-dvije-grupe.qmd
+        - chapters/15-vise-grupa.qmd
+        - chapters/16-regresija.qmd
+        - chapters/17-doba-algoritama.qmd
+    - part: "ZAVRŠNICA"
+      chapters:
+        - chapters/18-vase-prvo-istrazivanje.qmd
+
+  appendices:
+    - references.qmd
+    - dodaci/a-praktikum.qmd
+    - dodaci/b-jamovi.qmd
+    - dodaci/c-katalog-podataka.qmd
+    - dodaci/d-koji-test.qmd
+    - dodaci/e-rjecnik.qmd
+    - dodaci/f-ai-protokol.qmd
+    # Samostalne stranice — u appendices su da se renderiraju; iz sidebara
+    # ih sklanja pruneSidebar u styles/book-include.html, a dohvaćaju se
+    # iz navbara.
+    - pojmovnik.qmd
+    - interakcije.qmd
+    - podaci.qmd
+    - resursi.qmd
+    - uci-s-ai.qmd
+    - predavanja.qmd
+    - silabus.qmd
+    - raspored.qmd
+
+bibliography: references.bib
+
+# PRIVREMENO. Dok nijedno poglavlje ne nosi [@kljuc] citat, bibliografija je
+# prazna, a prazno LaTeX okruženje CSLReferences ruši PDF render ("perhaps a
+# missing \item"). `@*` uvrštava sve unose iz references.bib, pa stranica
+# Literatura ima sadržaj i ujedno pokazuje što je u sjemenskoj bibliografiji.
+# U knjizi nocite mora stajati OVDJE; u YAML-u datoteke references.qmd Quarto
+# ga u book načinu ignorira.
+#
+# OBRIŠITE ova dva retka čim prvo poglavlje dobije stvarne citate — inače će
+# literatura zauvijek prikazivati i radove koje knjiga nigdje ne citira.
+nocite: |
+  @*
+
+crossref:
+  # Ravna (kontinuirana) numeracija — poglavlja su nenumerirana
+  # (number-sections: false), pa bi "Slika 7.1" referencirala nevidljiv broj.
+  chapters: false
+  fig-title: "Slika"
+  tbl-title: "Tablica"
+  sec-prefix: "Poglavlje"
+  fig-prefix: "Slika"
+  tbl-prefix: "Tablica"
+  thm-title: "Teorem"
+  thm-prefix: "Teorem"
+  lem-title: "Lema"
+  lem-prefix: "Lema"
+  cor-title: "Korolar"
+  cor-prefix: "Korolar"
+  prp-title: "Propozicija"
+  prp-prefix: "Propozicija"
+  def-title: "Definicija"
+  def-prefix: "Definicija"
+  exm-title: "Primjer"
+  exm-prefix: "Primjer"
+  exr-title: "Zadatak"
+  exr-prefix: "Zadatak"
+
+format:
+  html:
+    theme:
+      light:
+        - cosmo
+        - styles/custom.scss
+      dark:
+        - cosmo
+        - styles/custom.scss
+        - styles/_dark.scss
+    css: styles/styles.css
+    lightbox: auto
+    code-copy: true
+    code-fold: true            # kod je presavijen (načelo 4); praktikum ga otvara
+    code-summary: "Prikaži kod"
+    code-tools: true
+    code-link: true
+    code-overflow: scroll
+    code-line-numbers: false
+    code-block-bg: true
+    highlight-style: github
+    toc: true
+    toc-depth: 3
+    toc-expand: 2
+    toc-location: right
+    number-sections: false
+    smooth-scroll: true
+    anchor-sections: true
+    link-external-icon: true
+    link-external-newwindow: true
+    fig-responsive: true
+    fig-align: center
+    fig-cap-location: bottom
+    fig-width: 8
+    fig-height: 6
+    tbl-cap-location: top
+    reference-location: margin
+    citation-location: margin
+    theorem-appearance: clouds
+    definition-appearance: clouds
+    proposition-appearance: simple
+    proof-appearance: simple
+    fontsize: 1.02rem
+    linestretch: 1.6
+    lang: hr-HR
+    citations-hover: true
+    footnotes-hover: true
+    crossrefs-hover: true
+    # Vanjska pisma. Otključaj i zamijeni kad tipografija bude odabrana
+    # (DESIGN.md, korak 3); mora se poklapati s design-tokens.yml i _tokens.scss.
+    # include-in-header:
+    #   - text: |
+    #       <link rel="preconnect" href="https://fonts.googleapis.com">
+    #       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    #       <link href="https://fonts.googleapis.com/css2?family=…&display=swap" rel="stylesheet">
+    include-after-body:
+      - styles/book-include.html
+    prefer-html: true
+
+execute:
+  freeze: auto
+  cache: true
+  echo: true
+  warning: false
+  message: false

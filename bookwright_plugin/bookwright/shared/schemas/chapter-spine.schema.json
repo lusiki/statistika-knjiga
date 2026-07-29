@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bookwright/shared/chapter-spine.schema.json",
+  "title": "Chapter spine",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chapters"],
+  "properties": {
+    "note": { "type": "string" },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "key_aspects": { "type": "array", "items": { "type": "string" } },
+          "key_terms": { "type": "array", "items": { "type": "string" } },
+          "ratified": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

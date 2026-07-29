@@ -1,0 +1,96 @@
+{
+  "note": "Strukturne konvencije knjige. VRIJEDNOSTI SU POCETNE PRETPOSTAVKE, ne mjerenja. Kad cetiri ili pet poglavlja budu napisana, pokreni `Rscript bookwright_plugin/bookwright/skills/book-continuity/scripts/structure_scan.R chapters/*.qmd` i `structure_lint.R`, izmjeri stvarnu raspodjelu i zamijeni pojaseve ispod. Do tada linter prijavljuje sum. Kostur poglavlja je fiksan i opisan u CLAUDE.md.",
+  "labels": {
+    "opener": "callout-vinjeta",
+    "figure_prefix": "fig-",
+    "definition": "def-",
+    "callout_wild": "callout-divljina",
+    "callout_ai": "callout-model",
+    "callout_error": "callout-greska",
+    "exercise_tiers": [
+      "Konceptualni",
+      "Računski",
+      "Kritički",
+      "Revizija modela"
+    ]
+  },
+  "opener_exempt": [
+    "00-predgovor"
+  ],
+  "bands": {
+    "definitions_per_chapter": [
+      1,
+      5
+    ],
+    "figures_per_chapter": [
+      1,
+      6
+    ],
+    "callout_wild_per_chapter": [
+      1,
+      2
+    ],
+    "callout_ai_per_chapter": [
+      2,
+      2
+    ],
+    "exercises_min": 4
+  },
+  "structure": {
+    "note": "S7 pojasevi ritma odjeljaka. Predlozak je 'essay' za sva poglavlja; ova knjiga nema katalog-poglavlja. Deep-dive iznimka je 16-regresija (~6000 rijeci, sintezno poglavlje). word_chapter_max je mekana granica koja oznacava poglavlje za pregled, ne tvrdo ogranicenje.",
+    "vodic_label": "Vinjeta",
+    "summary_label": "Sažetak",
+    "catalogue_chapters": [],
+    "deep_dive_chapters": [
+      "16-regresija"
+    ],
+    "deep_dive_note": "16-regresija je sankcionirano dugo poglavlje (plan: ~6000 rijeci, vrhunac knjige). Prijava premasene duljine na njemu je ocekivana, ne patologija.",
+    "word_chapter_max": 5500,
+    "evenness_cv_max": 0.55,
+    "element_words": {
+      "callout": 70,
+      "figure": 60,
+      "ojs": 60,
+      "table": 50
+    },
+    "coda_min_ratio_to_median": 0.6,
+    "scaffold_min_prose_words": 60,
+    "essay": {
+      "sections": [
+        6,
+        9
+      ],
+      "pars": [
+        3,
+        10
+      ],
+      "words": [
+        200,
+        700
+      ],
+      "ratio_max": 3,
+      "vodic_pars": [
+        2,
+        4
+      ],
+      "par_words": [
+        40,
+        130
+      ]
+    },
+    "catalogue": {
+      "entry_pars": [
+        2,
+        4
+      ],
+      "entry_words": [
+        120,
+        400
+      ],
+      "frame_pars": [
+        4,
+        12
+      ]
+    }
+  }
+}

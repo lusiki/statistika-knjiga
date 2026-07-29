@@ -1,0 +1,124 @@
+/* =========================================================
+   styles.css — nadopuna custom.scss-a
+   Ovdje žive samo ona pravila koja moraju nadjačati Quartov
+   vlastiti CSS (!important) ili se odnose na elemente koje
+   ubacuje JavaScript iz book-include.html.
+
+   PRAVILO: nijedan sirovi hex. Sve boje idu preko var(--tok-*)
+   svojstava definiranih u styles/_base.scss.
+   ========================================================= */
+
+/* --- sakrij naslovnicu i samostalne stranice iz sidebara --------- */
+.sidebar-item:has(a.sidebar-link[href="./index.html"]),
+.sidebar-item:has(a.sidebar-link[href="../index.html"]) {
+  display: none !important;
+}
+
+/* --- samostalne stranice (naslovnica, pojmovnik, dodaci, hubovi) - */
+body.standalone-page #quarto-sidebar,
+body.standalone-page #quarto-margin-sidebar,
+body.standalone-page .sidebar.sidebar-navigation {
+  display: none !important;
+}
+body.standalone-page .page-columns {
+  display: block !important;
+  grid-template-columns: 1fr !important;
+}
+body.standalone-page main.content,
+body.standalone-page #quarto-document-content {
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  grid-column: 1 / -1 !important;
+}
+
+/* --- pregled na prijelaz za unutarnje poveznice ------------------ */
+.internal-hover-preview {
+  position: absolute;
+  z-index: 1500;
+  max-width: 380px;
+  padding: 0.7rem 0.85rem;
+  background: var(--tok-paper-soft);
+  border: 1px solid var(--tok-rule);
+  border-radius: var(--tok-radius);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
+  font-family: var(--tok-font-sans);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--tok-ink-soft);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.internal-hover-preview.visible { opacity: 1; }
+.internal-hover-preview .ihp-title {
+  font-weight: 600;
+  color: var(--tok-ink);
+  margin-bottom: 0.25rem;
+}
+
+/* --- sidro uz naslove -------------------------------------------- */
+a.anchorjs-link {
+  margin-left: 0.4rem;
+  opacity: 0;
+  text-decoration: none;
+  color: var(--tok-ink-faint);
+  transition: opacity 0.12s ease;
+}
+a.anchorjs-link::before { content: "#"; }
+h2:hover a.anchorjs-link,
+h3:hover a.anchorjs-link,
+h4:hover a.anchorjs-link { opacity: 1; }
+
+/* --- dinkus (razdjelnik unutar odjeljka) ------------------------- */
+.dinkus {
+  text-align: center;
+  margin: 2.2rem 0;
+  color: var(--tok-ink-faint);
+  letter-spacing: 0.8em;
+}
+.dinkus::before { content: "◆ ◆ ◆"; }
+
+/* --- AI izbornik u podnožju poglavlja ---------------------------- */
+.ai-cta { margin: 0; font-family: var(--tok-font-mono); }
+.ai-cta > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--tok-accent);
+  border: 1px solid var(--tok-rule);
+  border-radius: var(--tok-radius);
+  padding: 0.45rem 0.8rem;
+  width: max-content;
+}
+.ai-cta > summary::-webkit-details-marker { display: none; }
+.ai-cta > summary:hover,
+.ai-cta[open] > summary {
+  background: var(--tok-accent);
+  color: var(--tok-paper);
+  border-color: var(--tok-accent);
+}
+.ai-cta-menu { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.55rem; }
+.ai-cta-menu a,
+.ai-cta-pm {
+  font-family: var(--tok-font-mono);
+  font-size: 0.74rem;
+  text-decoration: none;
+  color: var(--tok-accent);
+  border: 1px solid var(--tok-rule);
+  border-radius: var(--tok-radius);
+  padding: 0.4rem 0.72rem;
+  line-height: 1.2;
+}
+.ai-cta-menu a:hover,
+.ai-cta-pm:hover {
+  background: var(--tok-accent);
+  color: var(--tok-paper);
+  border-color: var(--tok-accent);
+}
+.ai-cta-pm { display: inline-flex; align-items: center; gap: 0.4rem; }

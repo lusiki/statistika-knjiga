@@ -1,0 +1,191 @@
+% =====================================================================
+%  theme.tex — tiskarski sloj teme (xelatex / scrbook)
+%  Uključuje se preko _quarto-pdf.yml: include-in-header.
+% =====================================================================
+%  Preslikava design-tokens.yml i styles/_tokens.scss. Provjera sinkronizacije:
+%      Rscript scripts/check-tokens.R
+%
+%  PLACEHOLDER: paleta je neutralna, a pisma su LaTeX-ova zadana (Latin
+%  Modern) da PDF gradi bez ijedne vanjske datoteke. Blok za brendirana
+%  pisma je pripremljen i zaključan dolje. Vidi DESIGN.md.
+% =====================================================================
+
+% ---- paleta (JEDINO mjesto s bojama u tiskarskom sloju) -------------
+\definecolor{paper}{HTML}{FFFFFF}       % token:paper
+\definecolor{papersoft}{HTML}{F4F4F5}   % token:paper-soft
+\definecolor{ink}{HTML}{18181B}         % token:ink
+\definecolor{inksoft}{HTML}{3F3F46}     % token:ink-soft
+\definecolor{inkmute}{HTML}{71717A}     % token:ink-mute
+\definecolor{inkfaint}{HTML}{A1A1AA}    % token:ink-faint
+\definecolor{accent}{HTML}{2563A8}      % token:accent
+\definecolor{accentdeep}{HTML}{1B4A7D}  % token:accent-deep
+\definecolor{accentwash}{HTML}{E8F0F8}  % token:accent-wash
+\definecolor{emphasis}{HTML}{9C2B2B}    % token:emphasis
+\definecolor{archival}{HTML}{8A6D3B}    % token:archival
+
+% ---- boja papira i teksta -------------------------------------------
+\pagecolor{paper}
+\AtBeginDocument{\color{ink}}
+\definecolor{shadecolor}{HTML}{F4F4F5}   % podloga blokova koda -> paper-soft
+
+% ---- pisma ----------------------------------------------------------
+\usepackage{fontspec}
+% PLACEHOLDER: bez \setmainfont, pa xelatex koristi Latin Modern i PDF se
+% gradi na svakom stroju. Kad tipografija bude odabrana, stavite statičke
+% instance u fonts/print/ i otključajte blok ispod (uskladite s design-tokens.yml).
+%
+% \setmainfont{NazivSerifa}[
+%   Path = fonts/print/ , Extension = .ttf ,
+%   UprightFont = *-Regular , ItalicFont = *-Italic ,
+%   BoldFont = *-SemiBold , BoldItalicFont = *-BoldItalic ]
+% \setsansfont{NazivSansa}[
+%   Path = fonts/print/ , Extension = .ttf ,
+%   UprightFont = *-Regular , ItalicFont = *-Italic , BoldFont = *-Bold ]
+% \setmonofont{NazivMona}[
+%   Path = fonts/print/ , Extension = .ttf ,
+%   UprightFont = *-Regular , BoldFont = *-SemiBold , Scale = 0.86 ]
+
+% Natpis u velikim slovima s razmakom (eyebrow). Bez fontspec LetterSpace
+% opcije, pa radi i sa zadanim pismom.
+\newcommand{\eyebrow}[2][accent]{{\sffamily\bfseries\footnotesize\color{#1}\MakeUppercase{#2}}}
+
+% ---- poveznice ------------------------------------------------------
+\AtBeginDocument{\hypersetup{
+  linkcolor=accentdeep, citecolor=accentdeep,
+  urlcolor=accentdeep, filecolor=accentdeep }}
+
+% =====================================================================
+%  NASLOVI
+% =====================================================================
+
+% ---- DIO (part) -----------------------------------------------------
+\setkomafont{part}{\normalfont\color{ink}}
+\renewcommand*{\partformat}{}
+\renewcommand*{\partheadstartvskip}{\null\vskip 8em}
+\renewcommand*{\partheadendvskip}{\vfil\newpage}
+\newcommand{\BookPartHead}[1]{%
+  \raggedright
+  {\color{archival}\rule{\linewidth}{0.8pt}}\par
+  \vskip 0.85em
+  {\bfseries\color{ink}\fontsize{28}{33}\selectfont #1\par}%
+  \vskip 0.85em
+  {\color{accent}\rule{\linewidth}{1.5pt}}%
+}
+\renewcommand{\partlineswithprefixformat}[3]{\BookPartHead{#3}}
+
+% ---- POGLAVLJE ------------------------------------------------------
+% Natpis "Poglavlje" gasi se u dodacima da literatura ne bude krivo označena.
+\newif\ifbookeyebrow \bookeyebrowtrue
+\let\bookoldappendix\appendix
+\renewcommand{\appendix}{\bookoldappendix\bookeyebrowfalse}
+\setkomafont{chapter}{\bfseries\color{ink}}
+\renewcommand*{\chapterformat}{}
+\renewcommand*{\chapterheadstartvskip}{\null\vskip 5.5em}
+\newcommand{\BookChapHead}[1]{%
+  \raggedright
+  \ifbookeyebrow {\eyebrow{Poglavlje}\par}\vskip 0.55em \fi
+  {\usekomafont{chapter}\fontsize{22}{26}\selectfont #1\par}%
+  \vskip 0.45em
+  {\color{accent}\rule{\linewidth}{1.3pt}}%
+  \par\vskip 2.2em
+}
+\renewcommand{\chapterlinesformat}[3]{\BookChapHead{#3}}
+\renewcommand{\chapterlineswithprefixformat}[3]{\BookChapHead{#3}}
+
+% ---- ODJELJCI -------------------------------------------------------
+\setkomafont{section}{\bfseries\color{accentdeep}}
+\setkomafont{subsection}{\bfseries\color{accentdeep}}
+\setkomafont{subsubsection}{\sffamily\bfseries\color{inksoft}}
+\setkomafont{paragraph}{\sffamily\bfseries\color{inksoft}}
+
+% ---- sadržaj --------------------------------------------------------
+\setkomafont{partentry}{\bfseries\color{ink}}
+\setkomafont{chapterentry}{\color{ink}}
+
+% =====================================================================
+%  ŽIVA PAGINA
+% =====================================================================
+\usepackage[automark]{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[section]{chapter}
+\setkomafont{pagehead}{\sffamily\footnotesize\color{inkmute}}
+\setkomafont{pagenumber}{\normalfont\ttfamily\footnotesize\color{inkmute}}
+\setkomafont{headsepline}{\color{accent}}
+\lehead{{\normalfont\sffamily\upshape\footnotesize\color{inkmute}\leftmark}}
+\rohead{{\normalfont\sffamily\upshape\footnotesize\color{inkmute}\rightmark}}
+\cfoot*{{\ttfamily\footnotesize\color{inkmute}\thepage}}
+\KOMAoptions{headsepline=0.6pt}
+\pagestyle{scrheadings}
+
+% =====================================================================
+%  NUMERACIJA TEOREMA — ravna i kontinuirana
+%  Odjeljci su nenumerirani, pa je zadano "Definicija 0.0.1" besmisleno.
+% =====================================================================
+\usepackage{remreset}
+\makeatletter
+\newcommand{\bk@flatten}[1]{%
+  \@ifundefined{c@#1}{}{\@removefromreset{#1}{section}\@namedef{the#1}{\arabic{#1}}}}
+\AtBeginDocument{%
+  \bk@flatten{definition}\bk@flatten{proposition}\bk@flatten{theorem}%
+  \bk@flatten{lemma}\bk@flatten{corollary}\bk@flatten{example}\bk@flatten{exercise}%
+}
+\makeatother
+
+% =====================================================================
+%  PEDAGOŠKE KUTIJE  (omata ih pdf-filters/book-callouts.lua)
+% =====================================================================
+\usepackage[most]{tcolorbox}
+\newtcolorbox{bookcallout}[2]{%
+  enhanced, breakable, sharp corners,
+  colback=papersoft, colframe=#1,
+  boxrule=0.4pt, leftrule=3pt,
+  left=14pt, right=13pt, top=11pt, bottom=12pt,
+  before skip=12pt, after skip=12pt,
+  fontupper=\color{ink},
+  coltitle=#1, fonttitle=\sffamily\bfseries\footnotesize,
+  attach title to upper={\par\vskip 7pt},
+  title={#2}%
+}
+% Natpisi se predaju VEĆ VELIKIM SLOVIMA, bez \MakeUppercase. Razlog je Đ:
+% automatsko povećavanje slova ispisalo ga je kao goli D („NADITE GREŠKU"),
+% dok literalno Đ prolazi ispravno.
+\newenvironment{calloutvinjeta}{\begin{bookcallout}{archival}{VINJETA}}{\end{bookcallout}}
+\newenvironment{calloutdivljina}{\begin{bookcallout}{emphasis}{STATISTIKA U DIVLJINI}}{\end{bookcallout}}
+\newenvironment{calloutmodel}{\begin{bookcallout}{accent}{PITAJTE MODEL}}{\end{bookcallout}}
+\newenvironment{calloutgreska}{\begin{bookcallout}{emphasis}{NAĐITE GREŠKU}}{\end{bookcallout}}
+
+% =====================================================================
+%  OPISI SLIKA I TABLICA
+% =====================================================================
+\setkomafont{caption}{\sffamily\small\color{inkmute}}
+\setkomafont{captionlabel}{\sffamily\bfseries\color{accentdeep}}
+
+% =====================================================================
+%  NASLOVNICA (nadjačava \maketitle; ide prije sadržaja)
+% =====================================================================
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{titlepage}%
+  \newgeometry{margin=2.6cm}%
+  \raggedright
+  \null\vskip 4.5em
+  \eyebrow[inkmute]{Udžbenik statistike}\par
+  \vskip 0.9em
+  {\color{accent}\rule{\linewidth}{1pt}}\par
+  \vskip 1.6em
+  {\bfseries\color{ink}\fontsize{34}{40}\selectfont \@title\par}%
+  \ifx\@subtitle\@empty\else
+    \vskip 0.8em
+    {\itshape\fontsize{15}{20}\selectfont\color{inksoft}\@subtitle\par}%
+  \fi
+  \vfill
+  {\color{archival}\rule{\linewidth}{0.6pt}}\par
+  \vskip 0.9em
+  {\sffamily\large\color{ink}%
+    \renewcommand{\and}{\ \textcolor{archival}{\textperiodcentered}\ }\@author\par}%
+  \vskip 0.5em
+  {\rmfamily\color{inkmute}\@date\par}%
+  \restoregeometry
+  \end{titlepage}%
+}
+\makeatother

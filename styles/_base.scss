@@ -1,0 +1,207 @@
+// =====================================================================
+//  _base.scss — tipografski temelj i CSS custom properties
+// =====================================================================
+//  Samo pravila (rules). Tokeni dolaze iz _tokens.scss.
+// =====================================================================
+
+// Sve komponente (uključujući JS u book-include.html) čitaju dizajn odavde,
+// pa promjena tokena ne traži diranje nijedne komponente.
+:root {
+  --tok-paper:       #{$tok-paper};
+  --tok-paper-soft:  #{$tok-paper-soft};
+  --tok-ink:         #{$tok-ink};
+  --tok-ink-soft:    #{$tok-ink-soft};
+  --tok-ink-mute:    #{$tok-ink-mute};
+  --tok-ink-faint:   #{$tok-ink-faint};
+  --tok-accent:      #{$tok-accent};
+  --tok-accent-deep: #{$tok-accent-deep};
+  --tok-accent-wash: #{$tok-accent-wash};
+  --tok-emphasis:    #{$tok-emphasis};
+  --tok-archival:    #{$tok-archival};
+  --tok-rule-faint:  #{$tok-rule-faint};
+  --tok-rule:        #{$tok-rule};
+  --tok-rule-strong: #{$tok-rule-strong};
+  --tok-font-serif:  #{inspect($tok-font-serif)};
+  --tok-font-sans:   #{inspect($tok-font-sans)};
+  --tok-font-mono:   #{inspect($tok-font-mono)};
+  --tok-measure:     #{$tok-measure};
+  --tok-radius:      #{$tok-radius};
+  --tok-radius-lg:   #{$tok-radius-lg};
+  --tok-rule-width:  #{$tok-rule-width};
+}
+
+// --- tijelo ----------------------------------------------------------
+body {
+  font-family: $tok-font-serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+main p,
+main li,
+main dd {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-align: left;   // ne justify — bolje za dijakritiku i kratke retke
+}
+
+main p { margin: 0 0 $tok-space 0; }
+
+// Mjera retka. Vrijedi za prozu, ne za tablice, grafove i pločice.
+main > section > p,
+main > section > ul,
+main > section > ol,
+main > p {
+  max-width: $tok-measure;
+}
+
+// --- naslovi ---------------------------------------------------------
+h1, .title {
+  font-family: $tok-font-serif;
+  font-weight: 600;
+  color: $tok-ink;
+  letter-spacing: -0.018em;
+  line-height: 1.12;
+}
+
+h2 {
+  font-family: $tok-font-serif;
+  font-weight: 600;
+  color: $tok-ink;
+  letter-spacing: -0.012em;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid $tok-rule-faint;
+  border-bottom: none;   // poništava Quartovu zadanu crtu
+  padding-bottom: 0;
+  line-height: 1.25;
+}
+
+h3 {
+  font-family: $tok-font-serif;
+  font-weight: 600;
+  color: $tok-ink;
+  letter-spacing: -0.01em;
+  margin-top: 2rem;
+}
+
+h4, h5, h6 {
+  font-family: $tok-font-sans;
+  font-weight: 600;
+  color: $tok-ink-soft;
+  letter-spacing: -0.005em;
+}
+
+// Mali natpis iznad naslova poglavlja (ručno: [Poglavlje 8]{.kicker}).
+.kicker {
+  display: block;
+  font-family: $tok-font-sans;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
+  margin-bottom: 0.5rem;
+}
+
+// Tracked-caps natpis, koristi se u pločicama i zaglavljima stranica.
+.section-label {
+  font-family: $tok-font-sans;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
+}
+
+// --- poveznice -------------------------------------------------------
+a {
+  color: $tok-accent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+a:hover { color: $tok-accent-deep; }
+
+// --- kod -------------------------------------------------------------
+code, pre {
+  font-family: $tok-font-mono;
+}
+div.sourceCode {
+  background: $tok-paper-soft;
+  border: 1px solid $tok-rule-faint;
+  border-radius: $tok-radius;
+}
+
+// --- tablice ---------------------------------------------------------
+table {
+  font-family: $tok-font-sans;
+  font-size: 0.92rem;
+}
+thead th {
+  border-bottom: 1.5px solid $tok-rule-strong;
+  font-weight: 600;
+}
+tbody tr:nth-child(even) { background: $tok-paper-soft; }
+caption, .table-caption {
+  color: $tok-ink-mute;
+  font-family: $tok-font-sans;
+  font-size: 0.85rem;
+}
+
+// --- citati u bloku --------------------------------------------------
+blockquote {
+  border-left: 2px solid $tok-archival;
+  padding-left: 1.1rem;
+  color: $tok-ink-soft;
+  font-style: italic;
+}
+
+// --- slike i opisi ---------------------------------------------------
+figure { margin: 2rem 0; }
+figcaption, .figure-caption, .quarto-figure figcaption {
+  font-family: $tok-font-sans;
+  font-size: 0.85rem;
+  color: $tok-ink-mute;
+  line-height: 1.45;
+}
+
+// --- bilješke i marginalni citati ------------------------------------
+.column-margin {
+  font-family: $tok-font-sans;
+  font-size: 0.78rem;
+  color: $tok-ink-mute;
+  line-height: 1.45;
+}
+
+// --- definicije, teoremi ---------------------------------------------
+// Quarto renderira #def-/#thm-/#prp- divove; ovdje samo mirni okvir.
+.theorem, .definition, .proposition, .lemma, .corollary {
+  background: $tok-paper-soft;
+  border-left: 2px solid $tok-ink-faint;
+  padding: 0.9rem 1.1rem;
+  border-radius: 0 $tok-radius $tok-radius 0;
+  margin: 1.5rem 0;
+}
+
+// --- pristupačnost ---------------------------------------------------
+:focus-visible {
+  outline: 2px solid $tok-accent;
+  outline-offset: 2px;
+}
+
+// --- traka napretka čitanja (ubacuje je book-include.html) -----------
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0;
+  background: $tok-accent;
+  z-index: 2000;
+  transition: width 0.08s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #reading-progress { transition: none; }
+}

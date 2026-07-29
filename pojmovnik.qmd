@@ -1,0 +1,157 @@
+---
+title: "Pojmovnik"
+toc: false
+number-sections: false
+lang: hr-HR
+format:
+  html:
+    page-layout: full
+---
+
+<!-- =====================================================================
+  Mreža pojmova. Čita data/concept-graph.json, koji gradi
+  R/build-concept-graph.R iz `::: {#def-slug}` divova u poglavljima.
+  Pojam koji dobije definicijski div automatski ulazi ovamo — popis se
+  nigdje ne održava ručno.
+
+  Pokreni nakon promjene poglavlja:  Rscript R/build-concept-graph.R
+
+  Poveznica iz podnožja poglavlja dolazi s ?poglavlje=<slug>, pa se stranica
+  otvara filtrirana na to poglavlje.
+===================================================================== -->
+
+Svaki pojam koji knjiga formalno definira nalazi se ovdje, zajedno s
+poglavljem u kojem je uveden i s pojmovima uz koje se pojavljuje. Bridovi ne
+znače hijerarhiju nego supojavljivanje: dva su pojma povezana ako ih knjiga
+koristi zajedno, a deblji brid znači češće zajedno.
+
+```{ojs}
+//| echo: false
+graf = FileAttachment("data/concept-graph.json").json()
+```
+
+```{ojs}
+//| echo: false
+pocetnoPoglavlje = {
+  const p = new URLSearchParams(window.location.search).get("poglavlje");
+  return p ? "chapters/" + p + ".qmd" : "sva";
+}
+```
+
+```{ojs}
+//| echo: false
+poglavljaPopis = {
+  const m = new Map();
+  for (const n of graf.nodes) m.set(n.chapter, n.chapterTitle);
+  return ["sva", ...m.keys()];
+}
+```
+
+```{ojs}
+//| echo: false
+viewof izborPoglavlja = Inputs.select(poglavljaPopis, {
+  label: "Poglavlje",
+  value: poglavljaPopis.includes(pocetnoPoglavlje) ? pocetnoPoglavlje : "sva",
+  format: k => k === "sva" ? "sva poglavlja"
+    : (graf.nodes.find(n => n.chapter === k) || {}).chapterTitle || k
+})
+```
+
+```{ojs}
+//| echo: false
+viewof trazi = Inputs.text({ label: "Traži pojam", placeholder: "npr. standardna pogreška" })
+```
+
+```{ojs}
+//| echo: false
+vidljivi = {
+  const q = (trazi || "").toLowerCase().trim();
+  return graf.nodes.filter(n =>
+    (izborPoglavlja === "sva" || n.chapter === izborPoglavlja) &&
+    (q === "" || n.term.toLowerCase().includes(q) ||
+     (n.firstSentence || "").toLowerCase().includes(q)));
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  if (!graf.nodes.length) {
+    return htl.html`<p><em>Mreža je prazna. Pojmovi ulaze ovamo čim poglavlja
+      dobiju <code>::: {#def-…}</code> divove; zatim pokreni
+      <code>Rscript R/build-concept-graph.R</code>.</em></p>`;
+  }
+
+  const sirina = 900, visina = 560;
+  const idovi = new Set(vidljivi.map(n => n.id));
+  const cvorovi = vidljivi.map(n => ({...n}));
+  const bridovi = graf.edges
+    .filter(e => idovi.has(e.source) && idovi.has(e.target) && e.weight >= 2)
+    .map(e => ({...e}));
+
+  const boja = getComputedStyle(document.documentElement)
+    .getPropertyValue("--tok-accent").trim() || "#2563A8";
+  const crta = getComputedStyle(document.documentElement)
+    .getPropertyValue("--tok-ink-faint").trim() || "#A1A1AA";
+  const tekst = getComputedStyle(document.documentElement)
+    .getPropertyValue("--tok-ink").trim() || "#18181B";
+
+  const svg = d3.create("svg")
+    .attr("viewBox", [0, 0, sirina, visina])
+    .attr("style", "max-width:100%;height:auto;font-family:var(--tok-font-sans);font-size:10px");
+
+  const sim = d3.forceSimulation(cvorovi)
+    .force("link", d3.forceLink(bridovi).id(d => d.id).distance(70).strength(0.3))
+    .force("charge", d3.forceManyBody().strength(-160))
+    .force("center", d3.forceCenter(sirina / 2, visina / 2))
+    .force("collide", d3.forceCollide(22));
+
+  const link = svg.append("g")
+    .attr("stroke", crta).attr("stroke-opacity", 0.45)
+    .selectAll("line").data(bridovi).join("line")
+    .attr("stroke-width", d => Math.min(3, 0.5 + d.weight / 4));
+
+  const g = svg.append("g").selectAll("g").data(cvorovi).join("g")
+    .style("cursor", "pointer");
+
+  g.append("circle")
+    .attr("r", d => 4 + Math.min(10, (d.mentions || 1) * 1.4))
+    .attr("fill", boja).attr("fill-opacity", 0.75)
+    .append("title").text(d => d.firstSentence || d.term);
+
+  g.append("text")
+    .attr("x", 10).attr("dy", "0.32em")
+    .attr("fill", tekst)
+    .text(d => d.term);
+
+  sim.on("tick", () => {
+    link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+    g.attr("transform", d => `translate(${d.x},${d.y})`);
+  });
+
+  invalidation.then(() => sim.stop());
+  return svg.node();
+}
+```
+
+## Popis pojmova
+
+```{ojs}
+//| echo: false
+{
+  if (!vidljivi.length) {
+    return htl.html`<p><em>Nema pojmova za odabrani filtar.</em></p>`;
+  }
+  const red = (n) => htl.html`<div style="border-top:1px solid var(--tok-rule-faint);padding:.7rem 0">
+    <a href="${n.chapter.replace(/\.qmd$/, ".html")}#def-${n.id}"
+       style="font-family:var(--tok-font-serif);font-weight:600">${n.term}</a>
+    <span style="font-family:var(--tok-font-sans);font-size:.72rem;color:var(--tok-ink-mute)">
+      · ${n.chapterTitle}</span>
+    <div style="font-family:var(--tok-font-sans);font-size:.84rem;color:var(--tok-ink-soft);margin-top:.2rem">
+      ${n.firstSentence || ""}</div>
+  </div>`;
+  const sorted = [...vidljivi].sort((a, b) => a.term.localeCompare(b.term, "hr"));
+  return htl.html`<div>${sorted.map(red)}</div>`;
+}
+```

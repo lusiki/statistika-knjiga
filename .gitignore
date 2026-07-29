@@ -1,0 +1,75 @@
+### R ###
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+### Quarto ###
+/.quarto/
+**/*.quarto_ipynb
+
+### Build artifacts — do not commit ###
+index_cache/
+index_files/
+*_cache/
+*_files/
+chapters/*.html
+chapters/*_files/
+dodaci/*.html
+dodaci/*_files/
+
+# Nastavno izdanje (quarto render --profile kolegij) je lokalni artefakt.
+/docs-kolegij/
+
+# Root-level render spillover — canonical output is docs/
+/*.html
+/site_libs/
+/*.tex
+/*.aux
+/*.log
+/*.toc
+/*.pdf
+
+### PDF profile spurious output — only the .pdf is canonical ###
+# `quarto render --profile pdf` also writes HTML into pdf/ because the profile
+# inherits format settings from _quarto.yml. Ignore everything in pdf/ except
+# the actual PDF.
+pdf/*
+!pdf/Statistika.pdf
+
+# docs/pdf is the served PDF folder; renders also copy resources into it.
+docs/pdf/*
+!docs/pdf/Statistika.pdf
+
+### Word (DOCX) profile output — only the .docx is canonical ###
+# The Word file is a LOCAL manuscript artifact, never served from the website.
+word/*
+!word/Statistika.docx
+
+### Fonts ###
+# Variable-font sources fetched locally are regenerable. The book PDF (xelatex)
+# needs the STATIC instances in fonts/print/, so those ARE tracked — they are a
+# build input for the print theme.
+fonts/*
+!fonts/print/
+
+### Design packages ###
+# design/ holds incoming design material (CSS exports, Figma dumps, PDFs).
+# Track the brief and the README; ignore heavy binaries.
+design/*.zip
+design/*.fig
+design/*.sketch
+
+### Temp / scratch ###
+tmp/
+/tmp_*.R
+/tmp_*.py
+/tmp_*.qmd
+
+### Editors / OS ###
+.vscode/
+.DS_Store
+Thumbs.db
+
+### Claude Code ###
+.claude/

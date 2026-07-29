@@ -1,0 +1,37 @@
+# robots.txt — Javne politike u Hrvatskoj
+# Kopira se u docs/ preko `resources:` u _quarto.yml.
+#
+# Politika: dopuštamo da AI-asistenti dohvate stranicu kad to korisnik
+# zatraži (paste-a-link tijek iz notes/ai-export-spec.md). Sve je dopušteno.
+User-agent: *
+Allow: /
+
+# Eksplicitno dopušteni korisnički (user-initiated) dohvatitelji — kad student
+# zalijepi poveznicu na poglavlje ili /ai/<poglavlje>.md u chatbota.
+User-agent: ChatGPT-User
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+
+# ---------------------------------------------------------------------------
+# ODLUKA AUTORA (vidi ai-export-spec.md, Open decisions #2): treniranje modela.
+# Gornja pravila DOPUŠTAJU i crawlere za treniranje. Ako želite dopustiti
+# korisnički dohvat, ali ZABRANITI treniranje na knjizi, odkomentirajte blok:
+#
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ClaudeBot
+# Disallow: /
+# User-agent: Google-Extended
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
+# ---------------------------------------------------------------------------
+
+Sitemap: https://lusiki.github.io/Javne-politike/sitemap.xml

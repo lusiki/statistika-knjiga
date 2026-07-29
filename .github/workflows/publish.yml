@@ -1,0 +1,152 @@
+name: Render and deploy Quarto book
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Authenticate Quarto's GitHub API calls. `tinytex: true` below makes
+      # Setup Quarto resolve the latest rstudio/tinytex-releases via
+      # api.github.com; unauthenticated that is 60 req/hr/IP and intermittently
+      # 403s on shared runners, hard-failing the step.
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.1'
+          use-public-rspm: true
+
+      - name: Setup Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      # renv is the target state, but the repo builds before `renv::init()` has
+      # been run. Detect the lockfile and take the matching path.
+      - name: Detect renv lockfile
+        id: renv
+        run: |
+          if [ -f renv.lock ]; then echo "has=true" >> "$GITHUB_OUTPUT";
+          else echo "has=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Restore R packages from renv.lock
+        if: steps.renv.outputs.has == 'true'
+        uses: r-lib/actions/setup-renv@v2
+
+      - name: Install R packages (no lockfile yet)
+        if: steps.renv.outputs.has != 'true'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::ggplot2
+            any::dplyr
+            any::tidyr
+            any::yaml
+            any::jsonlite
+            any::stringr
+            any::stringi
+            any::knitr
+            any::rmarkdown
+            any::downlit
+            any::xml2
+
+      - name: Check design token sync (design-tokens.yml vs SCSS vs LaTeX)
+        # Non-blocking: a token drift should be visible in the log, but it must
+        # not stop the site from deploying.
+        continue-on-error: true
+        run: Rscript scripts/check-tokens.R
+
+      - name: Render HTML book
+        run: quarto render
+
+      - name: Render PDF (separate profile, print appendix set)
+        id: pdf
+        continue-on-error: true
+        run: |
+          set -e
+          # The PDF carries only the bibliography and appendices A-F, while the
+          # HTML site keeps the full set. Quarto profiles MERGE appendix arrays,
+          # so _quarto-pdf.yml cannot shrink the list — we temporarily rewrite the
+          # book-level `  appendices:` block in _quarto.yml for the render, then
+          # always restore it. Mirrors scripts/render-book-pdf.ps1 (Windows-only).
+          cp _quarto.yml _quarto.yml.cibak
+          trap 'mv -f _quarto.yml.cibak _quarto.yml' EXIT
+          awk '
+            /^  appendices:[[:space:]]*$/ {
+              print "  appendices:";
+              print "    - references.qmd";
+              print "    - dodaci/a-praktikum.qmd";
+              print "    - dodaci/b-jamovi.qmd";
+              print "    - dodaci/c-katalog-podataka.qmd";
+              print "    - dodaci/d-koji-test.qmd";
+              print "    - dodaci/e-rjecnik.qmd";
+              print "    - dodaci/f-ai-protokol.qmd";
+              print "";
+              skip=1; next
+            }
+            skip==1 {
+              # consume the old block body: deeper-indented items, "  #" comments,
+              # and blank lines; stop at the next line that begins a new key.
+              if ($0 ~ /^    / || $0 ~ /^  #/ || $0 ~ /^[[:space:]]*$/) next;
+              skip=0
+            }
+            { print }
+          ' _quarto.yml.cibak > _quarto.yml
+          # Sanity: the swap must have kept the rest of the config intact.
+          grep -q "^  appendices:" _quarto.yml
+          grep -q "^bibliography:" _quarto.yml
+          quarto render --profile pdf
+
+      - name: Copy freshly-built PDF into docs for Pages download
+        if: steps.pdf.outcome == 'success'
+        run: |
+          mkdir -p docs/pdf
+          cp pdf/Statistika.pdf docs/pdf/Statistika.pdf
+
+      - name: Warn if PDF render failed (deploying HTML only, old PDF stays)
+        if: steps.pdf.outcome != 'success'
+        run: |
+          echo "::warning::PDF render failed — docs/pdf/Statistika.pdf will be the previously-committed version, not a fresh build. Check the 'Render PDF' step logs above."
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

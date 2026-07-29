@@ -1,0 +1,74 @@
+// =====================================================================
+//  _nastava.scss — silabus, tjedni raspored, hub predavanja
+// =====================================================================
+
+// --- tjedni raspored -------------------------------------------------
+.tjedni { margin: 2rem 0; }
+
+.tjedan {
+  display: grid;
+  grid-template-columns: 4rem 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid $tok-rule-faint;
+}
+@media (max-width: 700px) {
+  .tjedan { grid-template-columns: 3rem 1fr; }
+}
+
+.tjedan .tj-broj {
+  font-family: $tok-font-mono;
+  font-size: 0.8rem;
+  color: $tok-ink-faint;
+}
+.tjedan .tj-tema {
+  font-family: $tok-font-serif;
+  font-size: 1rem;
+  color: $tok-ink;
+}
+.tjedan .tj-tema a { text-decoration: none; }
+.tjedan .tj-tema a:hover { text-decoration: underline; }
+
+// --- oznake statusa --------------------------------------------------
+.znak {
+  font-family: $tok-font-sans;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 0.12rem 0.55rem;
+  white-space: nowrap;
+}
+.znak-planirano { color: $tok-ink-faint; }
+.znak-u-izradi  { color: $tok-archival; }
+.znak-gotovo    { color: $tok-accent; }
+
+// --- silabus ---------------------------------------------------------
+.silabus-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1.2rem;
+  border-top: 1px solid $tok-rule;
+  border-bottom: 1px solid $tok-rule;
+  padding: 1.1rem 0;
+  margin: 1.8rem 0 2.4rem;
+}
+.silabus-meta .polje {
+  font-family: $tok-font-sans;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
+}
+.silabus-meta .vrijednost {
+  display: block;
+  font-family: $tok-font-serif;
+  font-size: 1rem;
+  color: $tok-ink;
+  letter-spacing: normal;
+  text-transform: none;
+  margin-top: 0.2rem;
+}

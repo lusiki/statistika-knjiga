@@ -1,0 +1,130 @@
+// =====================================================================
+//  _callouts.scss — pedagoške kutije knjige
+// =====================================================================
+//  Četiri prepoznatljiva signala koja se ponavljaju u svakom poglavlju
+//  (vidi kostur poglavlja u CLAUDE.md i STYLE.md):
+//
+//    ::: {.callout-vinjeta}    otvarajući slučaj
+//    ::: {.callout-divljina}   „Statistika u divljini" — rastavljena tvrdnja
+//    ::: {.callout-model}      „Pitajte model" — rad s asistentom
+//    ::: {.callout-greska}     podmetnuta greška koju čitatelj traži
+//
+//  Naziv kategorije ispisuje CSS (::before), ne autor — kutija u .qmd-u
+//  sadrži samo sadržaj. Za PDF isti se divovi omataju u tcolorbox preko
+//  pdf-filters/book-callouts.lua i tex/theme.tex.
+// =====================================================================
+
+.callout-vinjeta,
+.callout-divljina,
+.callout-model,
+.callout-greska {
+  position: relative;
+  background: $tok-paper-soft;
+  border: 1px solid $tok-rule-faint;
+  border-left: $tok-rule-width solid $tok-ink-faint;
+  border-radius: 0 $tok-radius $tok-radius 0;
+  padding: 1.5rem 1.3rem 1.1rem;
+  margin: 2rem 0;
+
+  > *:first-child { margin-top: 0; }
+  > *:last-child  { margin-bottom: 0; }
+
+  p { max-width: none; }
+
+  // natpis kategorije
+  &::before {
+    content: attr(data-oznaka);
+    position: absolute;
+    top: 0.72rem;
+    left: 1.3rem;
+    font-family: $tok-font-sans;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+}
+
+.callout-vinjeta {
+  border-left-color: $tok-archival;
+  &::before { content: "Vinjeta"; color: $tok-archival; }
+}
+
+.callout-divljina {
+  border-left-color: $tok-emphasis;
+  &::before { content: "Statistika u divljini"; color: $tok-emphasis; }
+}
+
+.callout-model {
+  border-left-color: $tok-accent;
+  background: $tok-accent-wash;
+  &::before { content: "Pitajte model"; color: $tok-accent-deep; }
+}
+
+.callout-greska {
+  border-left-color: $tok-emphasis;
+  border-style: dashed;
+  border-left-style: solid;
+  &::before { content: "Nađite grešku"; color: $tok-emphasis; }
+}
+
+// Neobavezni naslov slučaja: prvi podebljani odlomak unutar kutije.
+.callout-divljina > p:first-of-type > strong:first-child,
+.callout-vinjeta  > p:first-of-type > strong:first-child {
+  display: block;
+  font-family: $tok-font-sans;
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+// =====================================================================
+//  Sažetak i pojmovi — zatvarajući blok poglavlja
+//  Upotreba: ## Sažetak {.sazetak}  /  ## Pojmovi {.pojmovi}
+// =====================================================================
+.sazetak, .pojmovi {
+  font-family: $tok-font-sans;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
+  border-top: 1px solid $tok-rule;
+  padding-top: 0.9rem;
+  margin-top: 3rem;
+}
+
+// Proza ispod natpisa vraća se u serifni registar knjige.
+.sazetak + p, .pojmovi + p, .pojmovi + table, .pojmovi + dl {
+  font-family: $tok-font-serif;
+  font-size: 1rem;
+  text-transform: none;
+  letter-spacing: normal;
+  color: $tok-ink;
+}
+
+// =====================================================================
+//  Zadaci — četiri razine na kraju poglavlja
+//  Upotreba: ### Konceptualni {.zadaci-razina} …
+// =====================================================================
+.zadaci-razina {
+  font-family: $tok-font-sans;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $tok-accent-deep;
+  margin-top: 1.6rem;
+}
+
+// =====================================================================
+//  Simbol iz interaktivnog grafa spomenut u tekstu: [n]{.var}
+// =====================================================================
+.var {
+  font-family: $tok-font-mono;
+  font-size: 0.88em;
+  background: $tok-accent-wash;
+  border: 1px solid $tok-rule-faint;
+  border-radius: 3px;
+  padding: 0.05em 0.32em;
+  color: $tok-accent-deep;
+}

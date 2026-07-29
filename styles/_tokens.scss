@@ -1,0 +1,69 @@
+// =====================================================================
+//  _tokens.scss — HTML sloj dizajnerskih tokena
+// =====================================================================
+//  Preslikava design-tokens.yml. NIJEDNA druga .scss/.css/.html datoteka u
+//  repozitoriju ne smije sadržavati sirovi hex ili ime pisma — sve se
+//  referencira preko $tok-* varijabli ili var(--tok-*) svojstava.
+//
+//  Ova datoteka je PARTIAL bez Quarto slojnih oznaka: uvlači se u
+//  defaults blok datoteke custom.scss (`@import "tokens";`), pa smije
+//  sadržavati isključivo deklaracije varijabli.
+//
+//  ZAŠTO SVE NOSI !default. Quarto spaja defaults blokove svih tema
+//  OBRNUTIM redoslijedom (zadnja navedena tema ide prva), pa u tamnom
+//  compileu _dark.scss dodijeli svoje vrijednosti PRIJE ovih. Bez
+//  !default ove bi ih zatim pregazile i tamni način ne bi radio.
+//
+//  Provjera sinkronizacije s design-tokens.yml i tex/theme.tex:
+//      Rscript scripts/check-tokens.R
+//
+//  Zamjena dizajna: DESIGN.md.
+// =====================================================================
+
+// --- površine --------------------------------------------------------
+$tok-paper:       #FFFFFF !default;   // token:paper
+$tok-paper-soft:  #F4F4F5 !default;   // token:paper-soft
+
+// --- tekst -----------------------------------------------------------
+$tok-ink:         #18181B !default;   // token:ink
+$tok-ink-soft:    #3F3F46 !default;   // token:ink-soft
+$tok-ink-mute:    #71717A !default;   // token:ink-mute
+$tok-ink-faint:   #A1A1AA !default;   // token:ink-faint
+
+// --- akcenti ---------------------------------------------------------
+$tok-accent:      #2563A8 !default;   // token:accent
+$tok-accent-deep: #1B4A7D !default;   // token:accent-deep
+$tok-accent-wash: #E8F0F8 !default;   // token:accent-wash
+$tok-emphasis:    #9C2B2B !default;   // token:emphasis
+$tok-archival:    #8A6D3B !default;   // token:archival
+
+// --- izvedene vlasne crte (uvijek iz ink-a, nikad novi hex) ----------
+$tok-rule-faint:  rgba($tok-ink, 0.07) !default;
+$tok-rule:        rgba($tok-ink, 0.14) !default;
+$tok-rule-strong: rgba($tok-ink, 0.30) !default;
+
+// --- pisma -----------------------------------------------------------
+// PLACEHOLDER: sistemski stogovi, bez vanjskih fontova.
+$tok-font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif !default;       // token-font:serif
+$tok-font-sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !default;   // token-font:sans
+$tok-font-mono:  ui-monospace, SFMono-Regular, Consolas, monospace !default;          // token-font:mono
+
+// --- mjerilo i ritam -------------------------------------------------
+$tok-measure:    68ch !default;     // mjera retka za dugo čitanje
+$tok-radius:     4px !default;
+$tok-radius-lg:  8px !default;
+$tok-rule-width: 3px !default;      // lijeva crta pedagoških kutija
+$tok-space:      1.1rem !default;   // osnovni razmak između pasusa
+
+// --- Bootstrap preslikavanje ----------------------------------------
+// !default da _dark.scss može nadjačati pri tamnom compileu.
+$body-color:             $tok-ink !default;
+$body-bg:                $tok-paper !default;
+$font-family-base:       $tok-font-sans;
+$font-family-serif:      $tok-font-serif;
+$font-family-sans-serif: $tok-font-sans;
+$font-family-monospace:  $tok-font-mono;
+$primary:                $tok-accent !default;
+$link-color:             $tok-accent !default;
+$callout-border-width:   $tok-rule-width;
+$callout-border-radius:  $tok-radius;

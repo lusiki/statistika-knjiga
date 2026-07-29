@@ -1,0 +1,76 @@
+<!-- =====================================================================
+  PREDLOŽAK WIDGETA. Kopiraj u poglavlje i zamijeni `wNN`.
+  Ova datoteka se ne renderira (podvučeni prefiks) i nije u _quarto.yml.
+  Pravila: widgets/README.md
+===================================================================== -->
+
+## Interakcija — NAZIV WIDGETA
+
+Uvodni pasus u glasu poglavlja. Kaže što graf pokazuje i zašto je važan baš na
+ovom mjestu u argumentu. Ne opisuje kontrole; to radi blok „Što isprobati".
+
+::: {.content-visible when-format="html"}
+
+```{ojs}
+//| echo: false
+viewof wNN_par = Inputs.form({
+  n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"}),
+  k: Inputs.range([100, 5000], {value: 1000, step: 100, label: "Broj ponavljanja:"})
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-wNN
+//| fig-cap: "Opis grafa, rečenica koja završava točkom."
+//| fig-alt: "Opis onoga što se vidi pri početnim vrijednostima, za čitače zaslona."
+{
+  // Boje iz teme — nikad sirovi hex (DESIGN.md).
+  const css = getComputedStyle(document.documentElement);
+  const boja    = css.getPropertyValue("--tok-accent").trim();
+  const neutral = css.getPropertyValue("--tok-ink-mute").trim();
+
+  // Determinizam: ista slika pri svakom otvaranju.
+  const rng = d3.randomLcg(42);
+  const norm = d3.randomNormal.source(rng)(0, 1);
+
+  const uzorci = Array.from({length: wNN_par.k}, () =>
+    d3.mean(Array.from({length: wNN_par.n}, norm)));
+
+  return Plot.plot({
+    height: 300,
+    marginLeft: 50,
+    style: { background: "transparent", fontFamily: "var(--tok-font-sans)" },
+    x: { label: "Aritmetička sredina uzorka" },
+    y: { label: "Broj uzoraka" },
+    marks: [
+      Plot.rectY(uzorci, Plot.binX({y: "count"}, {x: d => d, fill: boja, fillOpacity: 0.75})),
+      Plot.ruleX([0], {stroke: neutral, strokeDasharray: "3,3"}),
+      Plot.ruleY([0], {stroke: neutral})
+    ]
+  });
+}
+```
+
+:::
+
+::: {.content-visible when-format="pdf"}
+
+```{r}
+#| echo: false
+#| label: fig-wNN-print
+#| fig-cap: "Isti sadržaj pri jednoj razumnoj postavci parametara."
+#| fig-alt: "Opis za čitače zaslona."
+set.seed(42)
+uzorci <- replicate(1000, mean(rnorm(50)))
+
+ggplot(data.frame(m = uzorci), aes(m)) +
+  geom_histogram(bins = 30, fill = boje_knjige[["glavna"]], alpha = 0.8) +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = tok_boja("ink-mute")) +
+  labs(x = "Aritmetička sredina uzorka", y = "Broj uzoraka")
+```
+
+:::
+
+**Što isprobati.** Numerirani pokusi, od očitog slučaja prema
+protuintuitivnom. Bez dvotočja i bez podebljanja osim ove uvodne oznake.

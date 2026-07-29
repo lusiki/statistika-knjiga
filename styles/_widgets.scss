@@ -1,0 +1,160 @@
+// =====================================================================
+//  _widgets.scss — okvir za interaktivne grafove (OJS)
+// =====================================================================
+//  Knjiga nosi jedan središnji widget po poglavlju (popis: data/widgets.json).
+//  Svaki se sastoji od upravljačke ploče (Inputs.form) i grafa. Ploču
+//  book-include.html asinkrono omata u sklopivi <details> i dodaje gumb za
+//  povratak na početne vrijednosti, pa .qmd izvor ostaje čist.
+// =====================================================================
+
+// --- okvir grafa -----------------------------------------------------
+.widget-frame {
+  border: 1px solid $tok-rule-faint;
+  border-radius: $tok-radius-lg;
+  padding: 1.1rem 1.1rem 0.8rem;
+  margin: 2rem 0;
+  background: $tok-paper;
+}
+
+.widget-frame .widget-naslov {
+  font-family: $tok-font-sans;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
+  margin-bottom: 0.6rem;
+}
+
+// --- sklopiva ploča --------------------------------------------------
+details.ojs-collapsible {
+  border: 1px solid $tok-rule-faint;
+  border-radius: $tok-radius;
+  background: $tok-paper-soft;
+  margin: 1rem 0 1.4rem;
+}
+
+.ojs-collapsible-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.6rem 0.9rem;
+  font-family: $tok-font-sans;
+  font-size: 0.8rem;
+  color: $tok-ink-soft;
+
+  &::-webkit-details-marker { display: none; }
+}
+
+.ojs-collapsible-icon {
+  width: 0; height: 0;
+  border-left: 5px solid $tok-ink-mute;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.15s ease;
+}
+details[open] > .ojs-collapsible-summary .ojs-collapsible-icon {
+  transform: rotate(90deg);
+}
+
+.ojs-collapsible-label { font-weight: 600; }
+.ojs-collapsible-hint  { color: $tok-ink-faint; font-size: 0.74rem; }
+
+.ojs-collapsible-body { padding: 0 0.9rem 0.9rem; }
+
+// --- kontrole (Observable Inputs) ------------------------------------
+form[class^="oi-"] {
+  font-family: $tok-font-sans;
+  font-size: 0.82rem;
+  color: $tok-ink-soft;
+  padding: 0.2rem 0.9rem 0.9rem;
+}
+
+form[class^="oi-"] label {
+  color: $tok-ink-soft;
+  font-weight: 500;
+}
+
+// Klizač: ispuna trake do trenutne vrijednosti (--fill postavlja JS).
+form[class^="oi-"] input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    #{$tok-accent} 0%,
+    #{$tok-accent} var(--fill, 0%),
+    #{$tok-rule} var(--fill, 0%),
+    #{$tok-rule} 100%
+  );
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: $tok-accent;
+    border: 2px solid $tok-paper;
+    box-shadow: 0 0 0 1px $tok-rule;
+    cursor: pointer;
+  }
+  &::-moz-range-thumb {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: $tok-accent;
+    border: 2px solid $tok-paper;
+    cursor: pointer;
+  }
+}
+
+// Brojčana pločica uz klizač.
+form[class^="oi-"] input[type="number"] {
+  font-family: $tok-font-mono;
+  font-size: 0.8rem;
+  background: $tok-paper;
+  border: 1px solid $tok-rule;
+  border-radius: 3px;
+  color: $tok-ink;
+  padding: 0.1rem 0.3rem;
+}
+
+.ojs-pulse { animation: ojs-pulse 0.4s ease; }
+@keyframes ojs-pulse {
+  0%   { background: $tok-accent-wash; }
+  100% { background: $tok-paper; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ojs-pulse { animation: none; }
+}
+
+// Gumb za povratak na početne vrijednosti (ubacuje ga book-include.html).
+.ojs-reset {
+  font-family: $tok-font-sans;
+  font-size: 0.72rem;
+  color: $tok-ink-mute;
+  background: transparent;
+  border: 1px solid $tok-rule;
+  border-radius: $tok-radius;
+  padding: 0.25rem 0.6rem;
+  margin: 0 0.9rem 0.9rem;
+  cursor: pointer;
+
+  &:hover { color: $tok-accent; border-color: $tok-accent; }
+}
+
+// Uski ekrani: labela iznad kontrole.
+@media (max-width: 600px) {
+  form[class^="oi-"] label {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+}
+
+// --- „Što isprobati" blok uz graf ------------------------------------
+.ojs-collapsible-prose .ojs-collapsible-body {
+  font-family: $tok-font-serif;
+  font-size: 0.95rem;
+  color: $tok-ink-soft;
+}

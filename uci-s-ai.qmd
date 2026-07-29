@@ -1,0 +1,131 @@
+---
+title: "Uči uz AI"
+toc: false
+number-sections: false
+lang: hr-HR
+format:
+  html:
+    page-layout: full
+---
+
+<!-- =====================================================================
+  Stranica čita data/ai-exports.json, manifest koji generira
+  R/build-ai-exports.R kao Quarto pre-render hook. U repozitoriju je urezana
+  prazna sjemenska inačica, pa se stranica renderira i prije prvog izvoza.
+===================================================================== -->
+
+[Pomagalo za učenje]{.section-label}
+
+Cijelu knjigu ili pojedino poglavlje možete dati svojem asistentu i postavljati
+pitanja, tražiti sažetke ili provjeravati razumijevanje. Pripremljene su čiste
+tekstualne verzije koje asistent lako čita. Sve radi u vašem asistentu, bez
+prijave i bez troška.
+
+Knjiga na to gleda kao na dio gradiva, a ne kao na zaobilaženje. Asistentu se
+prepušta računanje, a zadržavaju se prosudba, provjera i odgovornost. Pravila
+te suradnje skupljena su u Dodatku F, a svako poglavlje ima vlastitu kutiju
+„Pitajte model" s uputom za svoj zadatak.
+
+```{ojs}
+//| echo: false
+manifest = FileAttachment("data/ai-exports.json").json()
+```
+
+## Jedno poglavlje
+
+Poglavlje je dovoljno malo da stane u svaki standardni razgovor i daje točne
+odgovore jer je tekst usko vezan uz vaše pitanje. Odaberite poglavlje pa
+preuzmite tekst ili ga otvorite u asistentu.
+
+```{ojs}
+//| echo: false
+viewof poglavlje = manifest.chapters.length
+  ? Inputs.select(manifest.chapters, { label: "Poglavlje", format: c => c.title })
+  : Inputs.select([{title: "(izvoz još nije generiran)"}], { label: "Poglavlje" })
+```
+
+```{ojs}
+//| echo: false
+{
+  const c = poglavlje;
+  if (!c || !c.slug) {
+    return htl.html`<p><em>Izvoz još nije generiran. Pokreni
+      <code>Rscript R/build-ai-exports.R</code> ili <code>quarto render</code>.</em></p>`;
+  }
+  const uputa = manifest.promptShort;
+  const rel = "ai/" + c.slug + ".md";
+  const q = encodeURIComponent(
+    uputa +
+    "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
+    c.mdUrl);
+  const kopiraj = (txt, btn) => {
+    navigator.clipboard.writeText(txt);
+    const staro = btn.textContent;
+    btn.textContent = "kopirano ✓";
+    setTimeout(() => { btn.textContent = staro; }, 1400);
+  };
+  return htl.html`<div class="hero-cta">
+    <a class="btn-knjiga primarni" href="${rel}" download>↓ preuzmi .md · ~${Math.round(c.tokensApprox/1000)}k tok.</a>
+    <a class="btn-knjiga" href="https://claude.ai/new?q=${q}" target="_blank" rel="noopener">↗ Claude</a>
+    <a class="btn-knjiga" href="https://chatgpt.com/?q=${q}" target="_blank" rel="noopener">↗ ChatGPT</a>
+    <button class="btn-knjiga" onclick=${(e) => kopiraj(c.mdUrl, e.currentTarget)}>⧉ kopiraj poveznicu</button>
+  </div>`;
+}
+```
+
+## Cijeli dio ili cijela knjiga
+
+Paket jednog dijela knjige koristan je za ponavljanje prije ispita, a cijela
+knjiga za pitanja koja povezuju udaljena poglavlja. Cijela knjiga traži
+asistent s velikim kontekstom.
+
+```{ojs}
+//| echo: false
+{
+  const r = [];
+  for (const d of manifest.dios || []) {
+    r.push(htl.html`<a class="btn-knjiga" href="ai/dio-${d.n}.md" download>↓ ${d.label}</a>`);
+  }
+  r.push(htl.html`<a class="btn-knjiga primarni" href="llms-full.txt" download>↓ cijela knjiga</a>`);
+  r.push(htl.html`<a class="btn-knjiga" href="llms.txt">karta izvoza (llms.txt)</a>`);
+  return htl.html`<div class="hero-cta">${r}</div>`;
+}
+```
+
+## Puna mentorska uputa
+
+Kratka uputa iznad stane u poveznicu. Ova je potpuna, s pravilima o
+utemeljenosti, računanju i privatnosti. Zalijepite je u razgovor prije nego
+priložite tekst.
+
+```{ojs}
+//| echo: false
+{
+  const kopiraj = (txt, btn) => {
+    navigator.clipboard.writeText(txt);
+    const staro = btn.textContent;
+    btn.textContent = "kopirano ✓";
+    setTimeout(() => { btn.textContent = staro; }, 1400);
+  };
+  return htl.html`<div>
+    <div class="hero-cta"><button class="btn-knjiga primarni"
+      onclick=${(e) => kopiraj(manifest.prompt, e.currentTarget)}>⧉ kopiraj uputu</button></div>
+    <pre style="white-space:pre-wrap;font-family:var(--tok-font-mono);font-size:.76rem;
+                background:var(--tok-paper-soft);border:1px solid var(--tok-rule-faint);
+                border-radius:var(--tok-radius);padding:1rem;margin-top:.8rem;">${manifest.prompt}</pre>
+  </div>`;
+}
+```
+
+::: {.razdjelnik}
+§
+:::
+
+## Što asistent ne može
+
+Asistent ne zna ništa što nije u priloženom tekstu, pa će na pitanje o
+poglavlju koje niste priložili odgovoriti nagađanjem ako ga na to ne
+upozorite. Ne provjerava vlastite izračune ako ga ne zatražite da pokaže
+postupak. Ne zna koji su podaci vaši ni jesu li osobni, pa je to vaša
+odgovornost. Kutija „Nađite grešku" u svakom poglavlju vježba upravo tu
+razliku između odgovora koji zvuči točno i odgovora koji jest točan.

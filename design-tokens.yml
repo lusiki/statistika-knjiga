@@ -1,0 +1,75 @@
+# =====================================================================
+#  design-tokens.yml — JEDINI IZVOR ISTINE ZA DIZAJN (design single source of truth)
+# =====================================================================
+#  Ovdje se mijenja izgled knjige. Sve ostalo (SCSS, LaTeX, R grafovi)
+#  preslikava ove vrijednosti i provjerava se skriptom:
+#
+#      Rscript scripts/check-tokens.R
+#
+#  Postupak zamjene dizajna opisan je u DESIGN.md.
+#
+#  ZAŠTO NIJE _brand.yml. Quarto ima vlastiti brand sloj koji čita _brand.yml
+#  i sam ubacuje SCSS varijable i pisma. Ovdje se namjerno ne koristi: njegova
+#  se shema mijenja s inačicama Quarta, prihvaća samo dio onoga što nam treba
+#  (nema trećeg, sans registra) i uvodi drugi put kojim boja može ući u stranicu.
+#  Ova je datoteka obični YAML koji čitaju R tema grafova i scripts/check-tokens.R,
+#  a stil se u cijelosti gradi iz styles/custom.scss. Ako se ikad prijeđe na
+#  Quarto brand, datoteka se preimenuje u _brand.yml i `- brand` se vraća u
+#  popis `theme:` u _quarto.yml.
+#
+#  TRENUTNO STANJE: NAMJERNO NEUTRALNI PLACEHOLDER.
+#  Paleta i tipografija dolje su privremene, sistemske i bezlične — knjiga
+#  se renderira i radi, ali još nema vizualni identitet. Ne gradite ništa
+#  oko konkretnih vrijednosti; gradite oko IMENA tokena (paper, ink,
+#  accent, emphasis, archival).
+# =====================================================================
+
+meta:
+  name: "Osnove statistike za društvene znanosti"
+  link: https://example.github.io/Statistika/
+
+color:
+  palette:
+    # --- površine ---
+    paper:        "#FFFFFF"   # token:paper        pozadina stranice
+    paper-soft:   "#F4F4F5"   # token:paper-soft   elevirane plohe, kutije, kod
+    # --- tekst ---
+    ink:          "#18181B"   # token:ink          tijelo teksta i naslovi
+    ink-soft:     "#3F3F46"   # token:ink-soft     sekundarni tekst
+    ink-mute:     "#71717A"   # token:ink-mute     natpisi, opisi slika
+    ink-faint:    "#A1A1AA"   # token:ink-faint    vlasne crte, separatori
+    # --- akcenti ---
+    accent:       "#2563A8"   # token:accent       PRIMARNI (poveznice, gumbi, aktivno)
+    accent-deep:  "#1B4A7D"   # token:accent-deep  hover / tiskane poveznice
+    accent-wash:  "#E8F0F8"   # token:accent-wash  vrlo svijetla podloga akcenta
+    emphasis:     "#9C2B2B"   # token:emphasis     naglasak i upozorenje, štedljivo
+    archival:     "#8A6D3B"   # token:archival     treći akcent (vremenske crte, oznake)
+
+  foreground: ink
+  background: paper
+  primary: accent
+  secondary: ink-soft
+  success: accent-deep
+  info: accent
+  warning: archival
+  danger: emphasis
+
+typography:
+  # PLACEHOLDER: sistemski stogovi, bez vanjskih fontova. Kad odaberete
+  # prava pisma, otključajte preconnect blok u _quarto.yml (include-in-header)
+  # i stavite statičke instance u fonts/print/ za PDF.
+  base:
+    family: "Georgia, 'Iowan Old Style', 'Times New Roman', serif"   # token-font:serif
+    size: 1.02rem
+    line-height: 1.6
+  headings:
+    family: "Georgia, 'Iowan Old Style', 'Times New Roman', serif"
+    weight: 600
+    color: ink
+  monospace:
+    family: "ui-monospace, SFMono-Regular, Consolas, monospace"       # token-font:mono
+    size: 0.85em
+
+# UI / sans registar (natpisi, navigacija, oznake kutija, tablice).
+ui-font:
+  family: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"  # token-font:sans

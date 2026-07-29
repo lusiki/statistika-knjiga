@@ -1,0 +1,88 @@
+/*-- scss:defaults --*/
+
+// =====================================================================
+//  theme.scss — reveal.js tema predavanja
+// =====================================================================
+//  Preslikava iste tokene kao knjiga. Ako se dizajn promijeni u
+//  design-tokens.yml, ovdje se mijenjaju iste tri vrijednosti.
+//  Provjeru sinkronizacije radi Rscript scripts/check-tokens.R samo za
+//  knjigu, ne i za ovu datoteku — pazite ručno.
+// =====================================================================
+
+$tok-paper:      #FFFFFF;
+$tok-paper-soft: #F4F4F5;
+$tok-ink:        #18181B;
+$tok-ink-mute:   #71717A;
+$tok-accent:     #2563A8;
+$tok-emphasis:   #9C2B2B;
+$tok-archival:   #8A6D3B;
+
+$tok-font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+$tok-font-sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$tok-font-mono:  ui-monospace, SFMono-Regular, Consolas, monospace;
+
+$body-bg:          $tok-paper;
+$body-color:       $tok-ink;
+$link-color:       $tok-accent;
+$link-color-hover: $tok-accent;
+
+$font-family-sans-serif: $tok-font-sans;
+$presentation-font-size-root: 34px;
+$presentation-heading-font: $tok-font-serif;
+$presentation-heading-color: $tok-ink;
+$presentation-heading-font-weight: 600;
+$code-block-font-size: 0.62em;
+
+/*-- scss:rules --*/
+
+.reveal .slides section {
+  text-align: left;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  text-transform: none;
+  letter-spacing: -0.015em;
+}
+
+// Natpis iznad naslova slajda: [Poglavlje 8]{.kicker}
+.reveal .kicker {
+  display: block;
+  font-family: $tok-font-sans;
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
+  margin-bottom: 0.3em;
+}
+
+// Naslovni slajd dijela predavanja.
+.reveal section.dio {
+  border-top: 2px solid $tok-archival;
+  border-bottom: 3px solid $tok-accent;
+  padding: 1.2em 0;
+}
+
+// Pedagoške kutije, ista imena klasa kao u knjizi.
+.reveal .callout-vinjeta,
+.reveal .callout-divljina,
+.reveal .callout-model,
+.reveal .callout-greska {
+  background: $tok-paper-soft;
+  border-left: 4px solid $tok-ink-mute;
+  padding: 0.5em 0.7em;
+  font-size: 0.8em;
+}
+.reveal .callout-vinjeta  { border-left-color: $tok-archival; }
+.reveal .callout-divljina { border-left-color: $tok-emphasis; }
+.reveal .callout-model    { border-left-color: $tok-accent; }
+.reveal .callout-greska   { border-left-color: $tok-emphasis; }
+
+.reveal code, .reveal pre { font-family: $tok-font-mono; }
+
+// Izvor ispod grafa ili navoda.
+.reveal .izvor {
+  font-family: $tok-font-sans;
+  font-size: 0.4em;
+  color: $tok-ink-mute;
+}
