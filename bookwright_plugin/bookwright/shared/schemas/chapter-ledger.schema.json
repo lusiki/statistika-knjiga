@@ -10,7 +10,7 @@
     "book": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["title"],
+      "required": ["title", "last_updated"],
       "properties": {
         "title": { "type": "string" },
         "last_updated": { "type": "string" }
@@ -21,7 +21,16 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "file", "title", "stage"],
+        "required": [
+          "id",
+          "file",
+          "title",
+          "stage",
+          "self_items",
+          "coauthor_asks",
+          "last_render",
+          "notes"
+        ],
         "properties": {
           "id": { "type": "string" },
           "file": { "type": "string" },
@@ -40,7 +49,10 @@
               "required": ["id", "note"],
               "properties": {
                 "id": { "type": "string" },
-                "slot": { "type": "string", "description": "Optional enrichment slot (mechanism, empirics, comparative, tradeoff, methodology)." },
+                "slot": {
+                  "type": "string",
+                  "description": "Optional canonical enrichment slot: mechanism unpacking, empirical evidence, comparative or methodological context, failure mode or counterview, or interpretation note. Free text remains accepted for backward compatibility."
+                },
                 "note": { "type": "string" },
                 "status": { "type": "string", "enum": ["todo", "in_progress", "done"] }
               }
@@ -48,7 +60,7 @@
           },
           "coauthor_asks": {
             "type": "array",
-            "description": "Items reserved for a co-author (Croatian or domestic material). Never auto filled.",
+            "description": "Legacy field name for bounded work requiring an author, co-author, course-owner, licence/access, source-approval, or other external decision. Geography alone never routes an item here.",
             "items": {
               "type": "object",
               "additionalProperties": false,

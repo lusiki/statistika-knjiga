@@ -3,12 +3,12 @@
 Quarto knjiga — udžbenik statistike za studente društvenih znanosti koji moraju
 razumjeti istraživanje, a ne postati analitičari.
 
-### 📖 &nbsp;Knjiga uživo → **<https://lusiki.github.io/Statistika/>**
+### 📖 &nbsp;Knjiga uživo → **<https://lusiki.github.io/statistika-knjiga/>**
 
-[![Render and deploy](https://github.com/lusiki/Statistika/actions/workflows/publish.yml/badge.svg)](https://github.com/lusiki/Statistika/actions/workflows/publish.yml)
+[![Render and deploy](https://github.com/lusiki/statistika-knjiga/actions/workflows/publish.yml/badge.svg)](https://github.com/lusiki/statistika-knjiga/actions/workflows/publish.yml)
 
 Stranica se ponovno gradi sama pri svakom pushu na `main`; PDF radne verzije
-stoji na [`/pdf/Statistika.pdf`](https://lusiki.github.io/Statistika/pdf/Statistika.pdf).
+stoji na [`/pdf/Statistika.pdf`](https://lusiki.github.io/statistika-knjiga/pdf/Statistika.pdf).
 
 **Stanje: kostur.** Cijeli pogon radi (build, izvozi, PDF, CI, uređivački
 alati) i knjiga ima vizualni identitet. Nijedno poglavlje još nema sadržaj —
@@ -19,7 +19,7 @@ ono što je na stranici je struktura, ne tekst. Plan knjige je
 
 ```bash
 # 1. R okruženje (jednom)
-Rscript scripts/init-renv.R
+python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/init-renv.R
 
 # 2. pregled u pregledniku
 quarto preview
@@ -37,9 +37,9 @@ je u `scripts/init-renv.R`.
 | `quarto render --profile kolegij` | nastavno izdanje u `docs-kolegij/`, kod otvoren, rješenja vidljiva |
 | `powershell -File scripts/render-book-pdf.ps1` | `pdf/Statistika.pdf` |
 | `powershell -File scripts/render-book-docx.ps1` | `word/Statistika.docx`, rukopis za lekturu |
-| `Rscript scripts/check-tokens.R` | jesu li slojevi dizajna usklađeni |
-| `Rscript R/build-ai-exports.R` | tekstualni izvoz knjige za AI asistente |
-| `Rscript R/build-concept-graph.R` | mreža pojmova za pojmovnik |
+| `python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R` | jesu li slojevi dizajna usklađeni |
+| `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-ai-exports.R` | tekstualni izvoz knjige za AI asistente |
+| `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-concept-graph.R` | mreža pojmova za pojmovnik |
 
 PDF i DOCX **ne** pokreću se golim `quarto render --profile …`. Quarto spaja
 popise dodataka aditivno, pa profil ne može skratiti popis; PowerShell skripte
@@ -55,7 +55,7 @@ privremeno prepišu `_quarto.yml` i uvijek ga vrate.
 | dodati podatke | `R/fetch-podaci.R` i `dodaci/c-katalog-podataka.qmd` |
 | promijeniti redoslijed poglavlja | `_quarto.yml` |
 | napraviti prezentaciju | `predavanja/README.md` |
-| razumjeti cjelinu | `CLAUDE.md` |
+| razumjeti cjelinu | `AGENTS.md` |
 
 ## Dizajn
 
@@ -69,11 +69,13 @@ postupak zamjene su u [DESIGN.md](DESIGN.md); izvorni paket iz kojeg je
 preslikan stoji u `knjiga-stil/`.
 
 Dizajn živi u točno četiri datoteke, a `design-tokens.yml` je izvor istine.
-Sinkronizaciju slojeva provjerava `Rscript scripts/check-tokens.R`.
+Sinkronizaciju slojeva provjerava
+`python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R`.
 
 ## Pisanje
 
-- [CLAUDE.md](CLAUDE.md) — operativni priručnik, kostur poglavlja, konvencije
+- [AGENTS.md](AGENTS.md) — zajednički operativni priručnik za Codex i Claude Code
+- [CLAUDE.md](CLAUDE.md) — Claude Code ulaz koji učitava `AGENTS.md`
 - [STYLE.md](STYLE.md) — uređivački stil, tvrda pravila H1–H9, meka S1–S9
 - [ENRICHMENT.md](ENRICHMENT.md) — kako se poglavlje produbljuje
 - [notes/struktura-knjige.md](notes/struktura-knjige.md) — plan knjige
@@ -82,15 +84,27 @@ Sva proza je na hrvatskom (hr-HR).
 
 ## Uređivački alati
 
-`bookwright_plugin/` je mali uređivački tim koji živi uz repozitorij: voditelj
+`bookwright_plugin/` je mali uređivački tim za Codex i Claude Code koji živi uz repozitorij: voditelj
 koji prati stanje poglavlja, provjera stila s R linterom, produbljivanje,
 provjera uvoda uz slike, panel kritičara po poglavlju i provjera dosljednosti
 kroz cijelu knjigu. Nije build ovisnost. Upute su u
 `bookwright_plugin/README.md`.
 
+Codex instalacija iz korijena repozitorija:
+
+```powershell
+codex plugin marketplace add .
+codex plugin add bookwright@statistika-local
+```
+
+Nakon instalacije ili nadogradnje otvorite novu dretvu kako bi Codex učitao
+vještine. Claude Code koristi lokalni marketplace u `bookwright_plugin/`;
+točne naredbe za oba domaćina i razvojni postupak nadogradnje nalaze se u
+`bookwright_plugin/README.md`.
+
 ## Objava
 
-Knjiga je na <https://lusiki.github.io/Statistika/>.
+Knjiga je na <https://lusiki.github.io/statistika-knjiga/>.
 
 Push na `main` pokreće [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
 koji renderira knjigu, pokuša PDF (neblokirajuće, stari ostaje ako padne) i

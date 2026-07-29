@@ -1,6 +1,7 @@
 # Interaktivni grafovi (widgeti)
 
-Sedamnaest widgeta, jedan po poglavlju osim završnice. Popis je
+Sedamnaest widgeta, po jedan u numeriranim poglavljima 1–17. Predgovor i
+završnica nemaju widget. Popis je
 [`data/widgets.json`](../data/widgets.json) i on je jedini izvor istine —
 stranica `interakcije.qmd` ga čita, a ovaj dokument opisuje kako se widget
 gradi.
@@ -33,7 +34,7 @@ Svaki widget ima četiri dijela, i sva četiri su obavezna.
    slučaja prema protuintuitivnom. Također se automatski sklapa.
 
 Uz njih ide **statički blizanac** za tisak, R blok iza
-`when-format="pdf"` gate-a. Obrazac je u `CLAUDE.md`.
+`when-format="pdf"` gate-a. Obrazac je u `AGENTS.md`.
 
 ## Pravila
 

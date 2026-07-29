@@ -1,41 +1,65 @@
 ---
 name: book-conductor
-description: The manager for the "Osnove statistike za društvene znanosti" book. Use whenever you want the status of the book, want to know what to work on next, want to sort a chapter's open work into a self pile versus a co-author pile, or want to turn a co-author task into a short bounded request. Reads the chapter ledger and reports a one line per chapter dashboard, applies the self vs co-author routing rules, and enforces the book checkpoints. Trigger on phrases like where does the book stand, what can I do now, what is blocked on an outside decision, status of chapter N, route this work, draft a co-author ask.
+description: Manage the Osnove statistike za društvene znanosti book. Use for a chapter-status dashboard, choosing the next task, routing work that can proceed versus work needing an author or external decision, drafting a bounded outside ask, or checking whether a chapter may be marked final. Read and update the chapter ledger, apply routing rules, and enforce book checkpoints.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
-# Book Conductor (manager)
+# Book Conductor
 
-## Purpose
-Hold the state of the whole book in one place and answer three questions on demand. Where does every chapter stand, what can be done now without waiting for anyone, and what is genuinely blocked on a co-author. The skill reads and updates the chapter ledger, applies the routing rules, drafts bounded co-author requests, and refuses to mark a chapter final until the book checkpoints pass.
+Keep the book's state in one ledger and answer three questions: where every
+chapter stands, what can proceed now, and what genuinely requires outside input.
 
-## When to use
-Use this skill to get a status dashboard, to decide the next action, to sort a chapter's open work into self or co-author piles, to draft a low effort co-author request, or to check a chapter against the book checkpoints before calling it final. For the actual editing jobs invoke the specific skill instead (book-style, book-enrich, book-review).
+## Inputs and path resolution
 
-## Inputs / Outputs
-Inputs. The chapter ledger at `${CLAUDE_PLUGIN_ROOT}/shared/chapter-ledger.json`, the routing rules at `assets/routing-rules.json`, the checkpoint list at `assets/checklist.json`, and the book repo itself (`chapters/`, `references.bib`, `STYLE.md`, `ENRICHMENT.md`). The ledger is the single source of truth for chapter state.
+Resolve `<repo-root>` from the active Git checkout and use
+`<repo-root>/bookwright_plugin/bookwright/shared/chapter-ledger.json` as the
+state source. Installed plugins run from a cache, so never write mutable state
+under an installed `<plugin-root>`. Resolve `<skill-root>` as the directory
+containing this `SKILL.md`. Use `<skill-root>/assets/routing-rules.json` for
+routing and `<skill-root>/assets/checklist.json` for final checks. Read the
+repository's `AGENTS.md`, `STYLE.md`, `ENRICHMENT.md`,
+`notes/struktura-knjige.md`, `references.bib`, `chapters/`, and `data/` as
+needed.
 
-Outputs. A status dashboard (one line per chapter, grouped by stage, with blocked chapters and pending co-author asks surfaced), an updated ledger, sorted self and co-author task lists, and drafted co-author requests.
-
-## Workflow
-Pick the mode that fits, or infer it and say which you chose.
-
-1. Status. Read the ledger. Emit one line per chapter showing its stage, its open self items, and its open co-author asks. Group by stage so the front of the book and the unfinished tail are both visible at a glance. Call out any chapter whose last render failed and any co-author ask open a long time. See `reference/status-report.md`.
-
-2. Route. For a given chapter or the whole book, take each open piece of work and sort it using `assets/routing-rules.json`. Anything matching a self rule goes in the self pile and can be done now with book-style, book-enrich, book-review, or a figure built from data already in `data/atlas`. Anything matching a co-author rule (Croatian empirics, HNB or MFin data, a domestic example, a domestic reform specific, a sign off on a contested domestic claim) goes in the co-author pile and is never auto filled. Write the result back to the ledger.
-
-3. Ask. For each co-author item, draft a short bounded request following `reference/coauthor-asks.md`. The request names the exact thing needed, shows that the surrounding prose is already written, and points at the single slot where it drops in. The goal is the smallest possible action on their side.
-
-4. Check. Before a chapter moves to final, run it against `assets/checklist.json`. The blocking items are the book checkpoints. Do not mark final if any blocking item fails. Record pass or fail with a short note in the ledger.
+Resolve `<plugin-root>` by walking up from the actual location of this
+`SKILL.md`. A host-provided plugin-root variable may be used only after checking
+that it resolves to the same existing directory. Pass concrete absolute paths
+to shell commands; do not depend on shell-specific variable syntax.
 
 ## Modes
-`status`, `route`, `ask`, `check`. If none is given, infer from the request and state the choice.
 
-## Quality gates / checklist
-The blocking items in `assets/checklist.json` are the five book checkpoints. No fabricated citation or finding in committed prose. No system generated Croatian empiric or domestic example in committed prose. The chapter renders cleanly. No unresolved continuity contradiction at assembly. STYLE.md hard rules pass before any prose commit.
+Infer the mode when omitted and state the selected mode.
 
-## Knowledge base & references
-Load on demand. `reference/status-report.md` (how to read the ledger and shape the dashboard), `reference/coauthor-asks.md` (how to write a bounded request). Shared state lives at `${CLAUDE_PLUGIN_ROOT}/shared/chapter-ledger.json` and `${CLAUDE_PLUGIN_ROOT}/shared/concept-ledger.json`.
+1. `status` — Read the ledger and emit one line per chapter with its stage,
+   count of open self items, and count of outside asks. Group by stage. Surface
+   failed renders and every open outside ask. Follow
+   `<skill-root>/reference/status-report.md`.
+2. `route` — Sort each open item through `assets/routing-rules.json`. Work is
+   `self` when the repository already contains the evidence, data, rules, or
+   authority needed. Record it in `self_items`. Work becomes an outside ask when
+   it needs a new source not yet verified, a licence/access decision, course
+   policy, scope choice, or authorial sign-off. Record it in `coauthor_asks`;
+   that legacy field name means any author, co-author, or external decision.
+3. `ask` — Draft one small request per outside item using
+   `reference/coauthor-asks.md`. Name the exact evidence or decision, expected
+   form, insertion point, owner, and why repository evidence cannot resolve it.
+4. `check` — Run the chapter through `assets/checklist.json`. Execute
+   deterministic checks where available and report judgment checks separately.
+   Do not mark a chapter final while a blocking item fails.
 
-## Autonomy note
-The conductor reports state and proposes routing and requests. It does not decide what a chapter should say, and it never fabricates the co-author material it is waiting for. You evaluate, edit, and ratify every output. It makes the management easier, it does not take it over.
+Write ledger changes only when the user requested a state change or approved a
+proposed routing decision. Preserve existing notes and unrelated entries.
+
+## Quality gates
+
+Never invent a citation, study, empirical quantity, page, or source. Croatian
+examples follow the same rule as all others: use them when verifiable and flag
+them when not. Require a clean targeted render, cleared style checks, figure
+introductions, a resolved chapter spine, consistent terminology, all four
+exercise tiers, and no unresolved blocking contradiction before `final`.
+
+## References
+
+Load `<skill-root>/reference/status-report.md` for dashboards and
+`<skill-root>/reference/coauthor-asks.md` for bounded requests. Use the shared
+schemas when editing ledger JSON.

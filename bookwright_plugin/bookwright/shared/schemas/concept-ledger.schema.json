@@ -1,25 +1,102 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://bookwright/shared/concept-ledger.schema.json",
-  "title": "Concept ledger",
-  "description": "Defined terms and where each is introduced and reused, so no term is defined twice or used before introduction.",
+  "title": "Concept and notation ledger",
+  "description": "Canonical Croatian terms, English equivalents, reuse, and book-wide symbol meanings.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["concepts"],
+  "required": [
+    "note",
+    "concepts",
+    "notation"
+  ],
   "properties": {
-    "note": { "type": "string" },
+    "note": {
+      "type": "string"
+    },
     "concepts": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["term", "introduced_in"],
+        "required": [
+          "term",
+          "introduced_in"
+        ],
         "properties": {
-          "term": { "type": "string" },
-          "canonical_definition": { "type": "string" },
-          "introduced_in": { "type": "string", "description": "Chapter id where the term is first defined." },
-          "reused_in": { "type": "array", "items": { "type": "string" } },
-          "notes": { "type": "string" }
+          "term": {
+            "type": "string"
+          },
+          "english_term": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "canonical_definition": {
+            "type": "string"
+          },
+          "introduced_in": {
+            "type": "string",
+            "description": "Chapter id where the term first receives its #def- div."
+          },
+          "reused_in": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "symbols": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "symbol",
+          "meaning",
+          "introduced_in"
+        ],
+        "properties": {
+          "symbol": {
+            "type": "string"
+          },
+          "meaning": {
+            "type": "string"
+          },
+          "concept": {
+            "type": "string"
+          },
+          "introduced_in": {
+            "type": "string"
+          },
+          "reused_in": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
         }
       }
     }

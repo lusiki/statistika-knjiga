@@ -1,18 +1,79 @@
 # Architecture
 
-Bookwright treats the book as a matrix, not a line. One axis is each chapter's lifecycle (stub, draft, enriched, style swept, figures done, co-author review, final). The other axis is the work that only makes sense across the whole book (continuity, terminology, the arc). The MVP covers the per chapter axis and the status tracking, and leaves the book wide axis for later.
+Bookwright treats the book as a matrix. One axis is the lifecycle of each
+chapter (`stub`, `draft`, `enriched`, `style_swept`, `figures_done`,
+`coauthor_review`, `final`). The other axis contains work that only makes sense
+across the complete book, including terminology, structural rhythm, voice, and
+the narrative arc.
 
-## Pieces
+## Components
 
-* The manager is `book-conductor`, a skill folder whose SKILL.md is short and whose assets hold the routing rules and the checkpoint list. The chapter ledger and its schema live on the shelf.
-* The workers are `book-style`, `book-enrich`, and `book-review`, one job each.
-* The critics are five read only agents under `agents/`, dispatched by `book-review`.
-* The shelf is `shared/`, holding the two ledgers and the schemas.
+Six skills divide the work by responsibility:
 
-## How they connect
+- `book-conductor` owns status, routing, outside asks, and final checkpoints.
+- `book-style` owns the `STYLE.md` prose pass.
+- `book-enrich` owns the five `ENRICHMENT.md` value slots.
+- `book-figure` owns figure-introduction checks.
+- `book-review` owns the six-critic chapter panel and approved revision loop.
+- `book-continuity` owns whole-book structure, spines, terms, voice, and arc.
 
-Two kinds of connection, the same as sciagent. Direct calls are only the manager handing work to a job, and `book-review` dispatching a critic. Everything else is coordinated through shared files. The conductor reads and writes `shared/chapter-ledger.json`. The critics and jobs read the book repo and the concept ledger. The checkpoints are the conductor reading `book-conductor/assets/checklist.json` and refusing to advance a chapter to final until the blocking items pass. Every reference to a shared file uses `${CLAUDE_PLUGIN_ROOT}` so it resolves wherever the plugin is installed.
+Eight read-only critic roles live under `agents/`. The chapter panel contains
+`critic-methods`, `critic-skeptic`, `critic-pedagogy`, `critic-evidence`,
+`critic-style`, and `critic-structure`. The whole-book panel contains
+`critic-voice` and `critic-arc`.
 
-## The routing
+Four mutable registries live under `shared/`:
 
-`book-conductor/assets/routing-rules.json` is the rule that keeps you unblocked. Self work (mechanism, international evidence, comparison, style, structural draft, a figure from existing data, a continuity fix) is done now. Co-author work (Croatian empirics, HNB or MFin data, domestic examples and reforms, a sign off on a contested domestic claim) is never auto filled and surfaces as a bounded request. This mirrors the analytic versus external split in sciagent and respects the reserved zone in ENRICHMENT.md.
+- `chapter-ledger.json` stores lifecycle and open-work state.
+- `chapter-spine.json` stores ratified key aspects and key terms.
+- `concept-ledger.json` stores canonical concepts and notation.
+- `conventions.json` stores current structural names, widget policy, exceptions,
+  and provisional count bands.
+
+Every registry has a schema under `shared/schemas/`.
+
+## Data flow
+
+The conductor reads and updates the live chapter ledger. Worker skills read the
+book contract and propose or apply work within their narrow responsibility.
+Chapter critics read the same chapter and shared context independently; the
+review skill merges equivalent findings, ranks severity before agreement, and
+surfaces disagreement. Continuity checks chapters in `_quarto.yml` order and
+updates a shared registry only after approval.
+
+Installed plugin files provide read-only instructions and defaults. Mutable
+state is read from the active repository's
+`bookwright_plugin/bookwright/shared/` directory so an installed cache cannot
+become a second source of truth.
+
+## Routing
+
+Work remains self-service when the repository already contains the authority,
+source, data, or rule needed to complete it. This includes verifiable Croatian
+and international evidence. Work becomes an outside ask only when it requires
+an unresolved authorial choice, a new source or bibliography approval,
+licensing or access, course policy, or a sign-off that repository evidence
+cannot settle.
+
+The legacy JSON field `coauthor_asks` is retained for compatibility. It means
+any bounded author, co-author, course-owner, or external decision.
+
+## Integrity rails
+
+The evidence rail is geographic-neutral. No workflow may invent a citation,
+study, empirical quantity, page, finding, or source. A dataset used for an
+analysis must have verifiable provenance and a Dodatak C entry.
+
+The structural rail uses the current book vocabulary: `#def-`,
+`callout-vinjeta`, `callout-divljina`, `callout-model`, `callout-greska`, and
+the four exercise tiers. `data/widgets.json` is the operational widget
+inventory; numbered chapters 1–17 require a registered widget and static twin,
+while the preface and capstone are exempt.
+
+## Host adapters
+
+The skill and role prose is host-neutral. Claude Code discovers the Claude
+plugin and Markdown role definitions. Codex discovers `AGENTS.md`, the Codex
+plugin manifest, and project agent configurations under `.codex/agents/`.
+When parallel subagents are unavailable, a panel may run sequentially only if
+all roles remain separate and the fallback is disclosed.

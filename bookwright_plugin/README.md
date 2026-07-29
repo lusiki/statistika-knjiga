@@ -1,83 +1,111 @@
 # Bookwright
 
-Editorial tooling for the *Osnove statistike za društvene znanosti* Quarto book.
-It is a small editorial team that lives beside the book repo so the work keeps
-moving between review cycles.
+Editorial tooling for the *Osnove statistike za društvene znanosti* Quarto
+book. Bookwright keeps chapter state, applies the book's style and enrichment
+rules, checks figures and continuity, and provides independent editorial
+review.
 
-## What is here
+## Components
 
-A manager, the per chapter jobs, the whole book checker, and eight read only
-critics.
+- `book-conductor` maintains the chapter dashboard, routes work, and enforces
+  the final checkpoints.
+- `book-style` applies `STYLE.md` with a deterministic linter and a manual
+  manuscript pass.
+- `book-enrich` applies the five value slots in `ENRICHMENT.md`.
+- `book-figure` checks the prose introduction required before each logical
+  figure or widget/static-twin pair.
+- `book-review` runs six read-only chapter critics and synthesises findings by
+  severity and agreement.
+- `book-continuity` audits the complete book in canonical `_quarto.yml` order,
+  maintains the chapter spine and terminology registries, and runs the two
+  book-wide critics.
 
-* `book-conductor` (manager). Tracks the status of every chapter, sorts each
-  open task into what can be done now and what is blocked on an outside
-  decision, and enforces the book checkpoints.
-* `book-style`. Enforces STYLE.md, with an R linter that flags the hard rules.
-* `book-enrich`. Applies ENRICHMENT.md, adding one or two paragraph insertions
-  in one of five value slots. Never invents empirics.
-* `book-figure`. Checks that every figure has a prose paragraph before it (R
-  detector) and drafts the missing intro under STYLE.md.
-* `book-review`. Runs the six critic chapter panel, synthesizes with agreement
-  scoring, revises with your confirmation.
-* `book-continuity`. Whole book, read only. Counts structure against
-  `conventions.json`, reconciles each chapter against `chapter-spine.json`,
-  checks terminology, and dispatches the two book wide critics.
-* `agents/`. Six chapter critics (economist, skeptic, pedagogy, evidence, style,
-  structure) plus two book wide critics (voice, arc).
+The six chapter critics cover statistical methods, skepticism, pedagogy,
+evidence, style, and structure. The two book-wide critics cover voice and
+narrative arc.
 
-The `critic-economist` agent is inherited from the previous book and is the
-weakest fit here. Either retarget it as a methods critic (does the chapter get
-the statistics right, are the assumptions stated, is the interpretation
-defensible) or drop it from the panel. Decide before the first review cycle.
+## Evidence rule
 
-## Two file types
+Bookwright never invents a citation, study, number, sample size, effect,
+finding, page, or source. Croatian evidence is not a reserved category. It is
+welcome under the same rule as international evidence when its source is named,
+verifiable, and represented in `references.bib` or the data catalogue as
+appropriate.
 
-MD files are the instructions Claude reads (every SKILL.md, every critic, the
-reference docs). JSON files are the lists Claude checks and the data it carries
-(the checklists, the schemas, and the ledgers in `shared/`).
+## Shared state
 
-## The shared files
+The four files under `bookwright/shared/` are seeded, but they are not all
+empty:
 
-All four are **seeded and empty**, which is correct for a skeleton repo.
+- `chapter-ledger.json` contains all 19 chapter records and is the live
+  lifecycle dashboard.
+- `chapter-spine.json` contains one provisional record per chapter. Key aspects
+  and key terms remain empty until proposed and ratified.
+- `concept-ledger.json` starts without concepts or notation and grows with
+  `#def-` definitions and book-wide notation decisions.
+- `conventions.json` contains the current callout names, four exercise tiers,
+  widget policy, and provisional structural bands. Recalibrate the numeric
+  bands only after four or five chapters contain real prose.
 
-* `shared/chapter-ledger.json` — the live dashboard, pre-filled with all 19
-  chapter files at stage `stub`. Move a chapter's stage as it progresses.
-* `shared/concept-ledger.json` — the running list of defined terms. A term
-  enters when it gets a `::: {#def-…}` div. Must stay consistent with
-  `data/concept-graph.json`, which is built from the same divs.
-* `shared/conventions.json` — structural bands and labels. **The numbers are
-  starting guesses.** Run `book-continuity scan` once four or five chapters
-  exist, measure the real distribution, and replace them. Until then the
-  structure linter reports noise.
-* `shared/chapter-spine.json` — per chapter key aspects and key terms that the
-  vignette, the definitions and the exercises all reconcile to. Empty;
-  `book-continuity spine` proposes them from the plan and you ratify.
+JSON schemas live in `bookwright/shared/schemas/`.
 
-## Install (local marketplace)
+## Host scaffolding
 
-From Claude Code, add this folder as a local marketplace and install the
-`bookwright` plugin. Run Claude Code from inside the book repo so the skills can
-see `chapters/`, `references.bib`, `STYLE.md`, and `ENRICHMENT.md`.
+The repository exposes the same workflows to both hosts:
 
-## Use
+- Claude Code uses the manifests under `.claude-plugin/`, the skills under
+  `bookwright/skills/`, and the read-only role prompts under
+  `bookwright/agents/`.
+- Codex reads the root `AGENTS.md`, project agents under `.codex/agents/`, the
+  Codex plugin manifest under `bookwright/.codex-plugin/`, and the repository
+  marketplace entry under `.agents/plugins/marketplace.json`.
 
-Open the book repo and ask in plain language.
+Run either host from the book repository so the workflows use the live
+`chapters/`, `data/`, `references.bib`, `STYLE.md`, `ENRICHMENT.md`, and shared
+registries rather than an installed cache.
 
-* where does the book stand → book-conductor reports the dashboard
-* what can I work on next → book-conductor routes the work
-* sweep chapter 8 for style → book-style runs the linter then the pass
-* check the figures in chapter 5 → book-figure runs the detector
-* enrich chapter 12 → book-enrich proposes insertions for approval
-* review chapter 8 → book-review runs the critic panel
-* check consistency across the book → book-continuity scans and runs the voice
-  and arc critics
-* propose the spine for chapter 3 → book-continuity proposes key aspects and
-  terms
+## Install
 
-## Not included
+For Codex, run from the repository root:
 
-A writer that drafts and repairs the vignette, the definition wording and the
-four exercise tiers against the spine. Until it exists, `book-continuity` and
-the structure critic tell you what is off and you write the fix by hand. Widgets
-and figures generated from data are also out of scope; those are specified in
-`widgets/README.md`.
+```powershell
+codex plugin marketplace add . --json
+codex plugin add bookwright@statistika-local --json
+```
+
+For Claude Code, run from the repository root:
+
+```powershell
+claude plugin marketplace add ./bookwright_plugin
+claude plugin install bookwright@bookwright-local
+```
+
+Open a new host session after installing or updating so the skills are
+rediscovered. During development, update the Codex plugin cache-buster before
+reinstalling:
+
+```powershell
+py -3.11 $env:USERPROFILE\.codex\skills\.system\plugin-creator\scripts\update_plugin_cachebuster.py .\bookwright_plugin\bookwright
+codex plugin add bookwright@statistika-local --json
+```
+
+## Typical requests
+
+- `Where does the book stand?` — show the chapter dashboard.
+- `What can I work on next?` — route the current open work.
+- `Sweep chapter 8 for style.` — lint and manually inspect its prose.
+- `Check the figures in chapter 5.` — inspect logical figures and their
+  introductions.
+- `Enrich chapter 12.` — propose focused insertions for approval.
+- `Review chapter 8.` — run the six-critic chapter panel.
+- `Check continuity across the book.` — scan structure, terms, voice, and arc.
+- `Propose the spine for chapter 3.` — propose key aspects and `#def-` terms for
+  ratification.
+
+## Deliberate boundary
+
+Bookwright diagnoses missing or weak vignettes, definitions, exercises,
+widgets, and figures, but it does not invent evidence or silently author
+repairs. Approved prose work is handled through the relevant skill. Widget
+implementation and data acquisition remain governed by `widgets/README.md`,
+`data/README.md`, and Dodatak C.

@@ -1,33 +1,55 @@
 ---
 name: book-continuity
-description: The whole book consistency checker and spine keeper for the "Osnove statistike za društvene znanosti" book. Use whenever you want to check the book for consistency across chapters, set or review the key aspects and key terms of a chapter, measure structural symmetry, or run the book wide voice and arc review. Reads every chapter, counts structural elements against the conventions, reconciles each chapter against its spine, checks terminology against the concept ledger, and dispatches the book wide critics. Never edits chapter prose. Trigger on phrases like check consistency, is the book homogeneous, propose the spine for chapter N, are the chapters symmetrical, run the arc or voice review.
+description: Check consistency across the Osnove statistike za društvene znanosti book. Use to scan chapter structure, propose or ratify a chapter spine, reconcile terminology, compare chapters for symmetry, or run the whole-book voice and narrative-arc panel. Maintain shared registries when approved, report findings, and never edit chapter prose.
 allowed-tools: Read, Write, Bash
 ---
 
-# Book Continuity (whole book)
+# Book Continuity
 
-## Purpose
-Hold the book together across chapters. It measures structure against `${CLAUDE_PLUGIN_ROOT}/shared/conventions.json`, reconciles each chapter against `${CLAUDE_PLUGIN_ROOT}/shared/chapter-spine.json`, checks terminology against `${CLAUDE_PLUGIN_ROOT}/shared/concept-ledger.json`, and runs the book wide review. It reports and it maintains the shared registries. It never edits chapter prose.
+Hold the book together across chapters. Resolve `<repo-root>` from the active
+Git checkout and read live `conventions.json`, `chapter-spine.json`, and
+`concept-ledger.json` from
+`<repo-root>/bookwright_plugin/bookwright/shared/`. Installed plugins run from a
+cache, so never write shared state under an installed `<plugin-root>`. Treat
+`notes/struktura-knjige.md` as the plan and `_quarto.yml` as canonical chapter
+order.
 
-## When to use
-For a consistency sweep, to propose or revise a chapter spine, to measure structural symmetry across chapters, or to run the voice and arc review. For writing or repairing the elements use `book-structure` and `book-figure`. For per chapter critique use `book-review`.
+Resolve `<plugin-root>` from the installed environment or this `SKILL.md` path.
+Use concrete paths in commands. Run R checks through
+`<plugin-root>/scripts/run_rscript.py` so Windows does not require `Rscript` on
+`PATH`.
 
 ## Modes
-- `scan`. Run `Rscript ${CLAUDE_PLUGIN_ROOT}/skills/book-continuity/scripts/structure_scan.R chapters/*.qmd`. It prints, per chapter, opener presence and the counts of `Definicija`, figures, `callout-praksa`, `callout-empirija`, and the closing exercise. Read `shared/conventions.json` and flag any count outside its band and any non exempt chapter missing the opener. On the first run, also report the current distribution and propose bands for you to ratify into `conventions.json`.
-- `spine`. For a chapter, read it and propose a short set of key aspects and the handful of key terms that earn a `Definicija`. Present them. On approval, write them into `shared/chapter-spine.json` with `ratified` true.
-- `terms`. Compare term usage against `shared/concept-ledger.json` and flag a term defined twice, used before its introducing chapter, or named differently for one concept.
-- `panel`. Dispatch the book wide critics at `${CLAUDE_PLUGIN_ROOT}/agents/`, `critic-voice` and `critic-arc`, over the chapters, and synthesize the way `book-review` does, ranking by agreement.
 
-If no mode is given, infer and say which.
+- `scan` — Run `structure_scan.R` over `chapters/*.qmd`. Report
+  `callout-vinjeta`, `#def-` definitions, figures, `callout-divljina`, the two AI
+  boxes (`callout-model` and `callout-greska`), and all four exercise tiers.
+  Compare counts with `shared/conventions.json`. Starting bands are provisional
+  until four or five chapters contain real prose.
+- `rhythm` — Run `structure_lint.R` over the requested chapters and report its
+  candidates without editing prose.
+- `spine` — Propose the chapter's small set of load-bearing aspects and key
+  terms from the plan and draft. Present it first; write
+  `shared/chapter-spine.json` only after approval and set `ratified` accurately.
+- `terms` — Compare definitions and usage against `concept-ledger.json`. Flag a
+  term defined twice, used before its introducing chapter, or named two ways.
+  Update registries only after approval.
+- `panel` — Run `critic-voice` and `critic-arc` as independent read-only
+  subagents and synthesize agreement and disagreement.
 
-## Workflow
-Run the relevant detector or dispatch, gather results, and hand back a report. Writes are limited to the shared registries, chiefly `chapter-spine.json`, and only after you approve. Chapter files are never edited here.
+For Codex, prefer the project agents `critic_voice` and `critic_arc` under
+`.codex/agents/`. For Claude Code or another host, dispatch the host-neutral
+prompts under `<plugin-root>/agents/`. If subagents are unavailable, run the
+roles sequentially with separate outputs and say that the fallback was used.
 
-## Quality gates / checklist
-`assets/checklist.json`. Counts measured against the bands, spine ratified per chapter, terminology reconciled, book wide critics run for a full pass.
+## Command pattern
 
-## Knowledge base & references
-`reference/checks.md` (the consistency battery and the script versus reader split). `scripts/structure_scan.R` (the counting sweep). It reuses `${CLAUDE_PLUGIN_ROOT}/skills/book-figure/scripts/figure_intro_check.R` for the figure paragraph rule. Shared state at `${CLAUDE_PLUGIN_ROOT}/shared/`.
+```text
+python <plugin-root>/scripts/run_rscript.py <plugin-root>/skills/book-continuity/scripts/structure_scan.R "chapters/*.qmd"
+```
 
-## Autonomy note
-It diagnoses and proposes. It writes only the spine, only with your approval, and it never touches chapter prose. You ratify the spine and the bands, and you decide what to fix.
+## Boundaries
+
+Report and maintain shared registries; never edit chapter prose in this skill.
+Use `book-style`, `book-enrich`, or `book-figure` for approved repairs. Follow
+`reference/checks.md` and `assets/checklist.json`.

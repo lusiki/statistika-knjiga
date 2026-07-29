@@ -3,15 +3,15 @@
 Radni dokument strukture knjige. Verzija 1, srpanj 2026.
 
 > **Napomena o statusu.** Ovo je izvorni plan knjige, prenesen doslovno. On je
-> mjerodavan za opseg, redoslijed i sadržaj poglavlja. `CLAUDE.md` je operativni
+> mjerodavan za opseg, redoslijed i sadržaj poglavlja. `AGENTS.md` je operativni
 > priručnik i preslikava ga; ako se njih dvoje raziđu, ovaj dokument ima
-> prednost, a `CLAUDE.md` se ispravlja. Dopune zabilježene pri postavljanju
+> prednost, a `AGENTS.md` se ispravlja. Dopune zabilježene pri postavljanju
 > repozitorija su na dnu, jasno odvojene.
 
 Purpose. This document elaborates the five part structure into a chapter level
 blueprint, with source mapping to the existing course, per chapter scope, the
 interactive inventory, datasets, and a production plan. It is written to drop
-into the new repo as the planning note that CLAUDE.md and the bookwright skills
+into the new repo as the planning note that AGENTS.md and the bookwright skills
 read.
 
 ## Publika i obećanje
@@ -311,16 +311,18 @@ student has an assistant, critique tasks, local data, in class simulation games.
 
 ## Interaktivni inventar
 
-Fourteen widgets total, one per chapter except the capstone, listed above. Build
-order follows pedagogical weight, the CLT machine first, then the interval
+Seventeen widgets total, one in every numbered chapter from 1 through 17; the
+preface and capstone are exempt. Build order follows pedagogical weight, the CLT
+machine first, then the interval
 catcher, the p value simulator and the p hacking sandbox, since these four carry
 the book's core argument. All widgets ship with a static figure twin for print,
 produced through the existing filter chain.
 
 ## Plan proizvodnje
 
-Faza 1. Template repo from the engine, seed chapter smoke test, CLAUDE.md and
-STYLE.md rewritten for this book. A few days.
+Faza 1. Template repo from the engine, seed chapter smoke test, canonical
+AGENTS.md with a CLAUDE.md import shim, and STYLE.md rewritten for this book. A
+few days.
 
 Faza 2. Port wave, chapters 1, 4, 7, 13 and the praktikum, where existing
 lectures carry most of the load. This wave builds momentum and validates the
@@ -370,20 +372,16 @@ profile.
 Ove su stavke uočene pri prenošenju plana u repozitorij i nisu izmjene plana
 nego pitanja za autora.
 
-## Broj widgeta se ne slaže
+## Broj widgeta je razriješen
 
-Odjeljak „Interaktivni inventar" kaže četrnaest widgeta, ali su u opisima
-poglavlja navedena sedamnaest, po jedan za svako poglavlje od 1 do 17. U
-`data/widgets.json` upisano ih je sedamnaest, jer je to ono što plan zapravo
-opisuje. Ako je broj četrnaest namjeran, treba imenovati tri poglavlja koja
-dijele widget ili ostaju bez njega. Kandidati za spajanje su poglavlje 6
-(pogodi korelaciju) s poglavljem 1 (Simpson), i poglavlje 15 (dekompozicija
-varijance) s poglavljem 14 (uzorkivač dviju grupa).
+Opisi poglavlja navode sedamnaest widgeta, po jedan za svako poglavlje od 1 do
+17, pa je stara zbirna brojka četrnaest ispravljena. `data/widgets.json` je
+operativni izvor istine; predgovor i završno poglavlje 18 nemaju widget.
 
 ## Naslov i adresa repozitorija
 
-Adresa je razriješena: repozitorij je `github.com/lusiki/Statistika`, knjiga se
-objavljuje na `lusiki.github.io/Statistika`. (Postojeći `lusiki/Osnove-statistike`
+Adresa je razriješena: repozitorij je `github.com/lusiki/statistika-knjiga`, knjiga se
+objavljuje na `lusiki.github.io/statistika-knjiga`. (Postojeći `lusiki/Osnove-statistike`
 je stranica kolegija, ne knjiga.) Naslov („Osnove statistike za društvene
 znanosti") i autorstvo i dalje su radne vrijednosti iz otvorene odluke 1.
 

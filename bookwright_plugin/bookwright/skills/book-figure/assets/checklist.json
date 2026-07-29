@@ -1,9 +1,35 @@
 {
   "skill": "book-figure",
   "items": [
-    { "id": "figure-has-preceding-paragraph", "description": "Each figure has a prose paragraph immediately before it (not a heading, list, callout, or another figure).", "severity": "high", "blocking": true },
-    { "id": "intro-is-single-paragraph", "description": "The intro is one paragraph, not a multi paragraph digression.", "severity": "medium", "blocking": true },
-    { "id": "intro-style-clean", "description": "The intro passes the book-style linter.", "severity": "high", "blocking": true },
-    { "id": "intro-describes-figure", "description": "The intro states what the figure shows and why it matters; judged by a critic, not the script.", "severity": "medium", "blocking": false }
+    {
+      "id": "logical-figure-has-preceding-paragraph",
+      "description": "Each logical figure, including an HTML widget and static-twin pair, has a prose paragraph before the outer figure or format gate.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "intro-is-single-paragraph",
+      "description": "The introduction is one substantive paragraph rather than a heading, list, comment, callout fence, or multi-paragraph digression.",
+      "severity": "medium",
+      "blocking": true
+    },
+    {
+      "id": "intro-style-clean",
+      "description": "The introduction passes the current STYLE.md hard rules and style linter.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "intro-explains-figure",
+      "description": "The introduction states what the figure shows and why it matters at this point in the argument.",
+      "severity": "medium",
+      "blocking": false
+    },
+    {
+      "id": "widget-has-static-twin",
+      "description": "A registered widget has an equivalent static print figure; the two are counted as one logical figure.",
+      "severity": "high",
+      "blocking": true
+    }
   ]
 }

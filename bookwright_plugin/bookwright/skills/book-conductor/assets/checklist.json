@@ -1,18 +1,101 @@
 {
   "skill": "book-conductor",
   "items": [
-    { "id": "no-fabricated-citation-or-finding", "description": "No invented citation, finding, or page number in committed prose.", "severity": "high", "blocking": true },
-    { "id": "no-system-generated-croatian-empirics", "description": "No auto generated Croatian empiric or domestic example in committed prose; such items stay co-author asks.", "severity": "high", "blocking": true },
-    { "id": "chapter-renders-clean", "description": "quarto preview of the chapter renders without error and callouts and citations resolve.", "severity": "high", "blocking": true },
-    { "id": "no-unresolved-continuity-contradiction", "description": "No open contradiction or double definition against the concept ledger at assembly.", "severity": "high", "blocking": true },
-    { "id": "style-hard-rules-pass", "description": "book-style linter and the manual pass clear the STYLE.md hard rules.", "severity": "high", "blocking": true },
-    { "id": "every-figure-has-styled-intro", "description": "book-figure detector finds a prose paragraph before every figure and each intro passes the style linter.", "severity": "high", "blocking": true },
-    { "id": "opener-present-on-nonexempt-chapter", "description": "Every chapter not in conventions.json opener_exempt opens with a callout-vinjeta block.", "severity": "high", "blocking": true },
-    { "id": "definitions-confined-to-key-terms", "description": "Definicija blocks cover only the chapter spine key terms.", "severity": "high", "blocking": true },
-    { "id": "terminology-consistent", "description": "book-continuity terms check passes, no double definition or term used before introduction.", "severity": "high", "blocking": true },
-    { "id": "element-counts-within-band", "description": "Definicija, figure, and callout counts sit inside the conventions bands.", "severity": "medium", "blocking": false },
-    { "id": "exercises-four-tiers", "description": "Chapter closes with the four exercise tiers (konceptualni, racunski, kriticki, revizija modela).", "severity": "medium", "blocking": false },
-    { "id": "exercises-drill-key-terms", "description": "Exercises use the chapter spine key terms, not only recall them.", "severity": "medium", "blocking": false },
-    { "id": "difficulty-scaffolded", "description": "Concepts are introduced before they are used.", "severity": "medium", "blocking": false }
+    {
+      "id": "no-fabricated-citation-or-finding",
+      "description": "No invented citation, study, empirical quantity, finding, page, or source appears in committed prose.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "empirical-material-verifiable",
+      "description": "Every empirical addition, Croatian or international, names verifiable support; unsupported material is flagged rather than completed.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "dataset-provenance-registered",
+      "description": "Every dataset used by the chapter has a verified source and licence and an entry in Dodatak C.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "chapter-renders-clean",
+      "description": "A targeted Quarto render of the chapter succeeds and callouts, citations, figures, and format gates resolve.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "no-todo-or-placeholder",
+      "description": "No unresolved TODO, placeholder figure, empty required callout, or empty exercise tier remains in the chapter.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "no-unresolved-continuity-contradiction",
+      "description": "No open contradiction, duplicate definition, or broken dependency remains against the shared registries.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "style-hard-rules-pass",
+      "description": "The book-style linter and manual pass clear all current STYLE.md hard rules H1-H9.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "every-figure-has-styled-intro",
+      "description": "Each logical figure or widget/static-twin pair has the required prose introduction, and the introduction passes the style check.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "widget-inventory-and-twin",
+      "description": "Every widget-required chapter has one entry in data/widgets.json and a static print twin; exempt chapters follow conventions.json.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "opener-present-on-nonexempt-chapter",
+      "description": "Every non-exempt chapter opens with a non-placeholder callout-vinjeta block.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "definitions-confined-to-key-terms",
+      "description": "The chapter spine is ratified, and #def- divs cover only its load-bearing key terms.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "terminology-consistent",
+      "description": "The continuity terms check finds no duplicate definition, premature use, inconsistent name, or notation collision.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "exercises-four-tiers",
+      "description": "The chapter closes with substantive Konceptualni, Računski, Kritički, and Revizija modela exercise tiers.",
+      "severity": "high",
+      "blocking": true
+    },
+    {
+      "id": "element-counts-within-band",
+      "description": "Definition, logical-figure, and callout counts sit inside the provisional conventions bands or carry an approved exception.",
+      "severity": "medium",
+      "blocking": false
+    },
+    {
+      "id": "exercises-drill-key-terms",
+      "description": "Exercises require use and judgment of chapter-spine terms rather than recall alone.",
+      "severity": "medium",
+      "blocking": false
+    },
+    {
+      "id": "difficulty-scaffolded",
+      "description": "Concepts are introduced before use, and intuition or simulation precedes formalism.",
+      "severity": "medium",
+      "blocking": false
+    }
   ]
 }

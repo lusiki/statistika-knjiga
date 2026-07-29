@@ -16,7 +16,7 @@ tools: Read
 **You return (write nothing to disk):**
 - `scores` 1 to 5 on manuscript feel, rhythm, and restraint
 - `strengths` 2 to 4 concrete points
-- `concerns` each as { severity: fatal | major | minor, where, why, fix }
+- `concerns` each as { severity: fatal | major | minor, location, reason, fix }
 - `verdict` one line
 
 **Calibration.** The pedagogical callouts are kept by design. Do not flag `callout-vinjeta`, `callout-divljina`, `callout-model` or `callout-greska` as decorative. Do not re-flag the mechanical violations the linter already catches.

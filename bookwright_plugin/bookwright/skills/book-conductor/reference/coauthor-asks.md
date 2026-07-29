@@ -1,34 +1,36 @@
 # Outside asks
 
-How to write a request that costs the person answering it almost nothing.
+An outside ask is work the repository cannot resolve because it needs a
+decision, permission, access, or source approval. Croatian subject matter is
+not by itself an outside ask.
 
-A weak ask is `please review the chapter`. It stalls because it is unbounded. A
-strong ask names one concrete thing, shows the surrounding prose is already
-written, and points at the one slot where the contribution drops in.
+A weak ask such as `please review the chapter` is unbounded. A strong ask names
+one action and supplies the context needed to answer it quickly.
 
-Template.
-- what is needed, in one sentence
-- the exact form (a dataset, a number, two sentences, one example, a decision)
-- the slot, shown as the text immediately before and after the gap
-- who it is for (owner, or TODO confirm)
-- why it cannot be done here (it is an author decision, a licensing question, or
-  domestic data nobody else can source)
+For each ask, state:
 
-Example.
-The `callout-divljina` box in the sampling chapter needs one real Croatian
-election or opinion poll with its published margin of error and sample size,
-from a source that can be cited. The paragraphs around it are written. It drops
-in between the paragraph ending `distribucija uzorkovanja` and the paragraph
-beginning `Ista logika`. For the course leader, who knows which pollsters
-publish methodology.
+- what is needed in one sentence;
+- the exact expected form, such as one decision, a verified source, a licence,
+  or access to a dataset;
+- the precise insertion point or registry field it affects;
+- the owner, or `TODO confirm` when ownership is unknown;
+- why existing repository evidence cannot settle it.
 
-Typical outside asks in this book.
-- a dataset whose licence must be confirmed before it can ship in `data/`
-  (Dodatak C)
-- a published claim for a `callout-divljina` box, where the source must be
-  verifiable and citable
-- an open decision from `notes/struktura-knjige.md` (title, jamovi depth,
-  example language, licence, embedded tutor)
-- anything about course assessment, which belongs to whoever teaches it
+Example:
 
-One ask, one action. Never bundle several into one message.
+> Confirm whether the book may redistribute the selected survey extract in
+> `data/`, and provide the licence or terms that support the decision. The
+> planned file and variables are already listed in Dodatak C. This requires the
+> dataset owner's terms rather than an editorial judgment.
+
+Typical outside asks include:
+
+- approval to add and use a source that is not yet in `references.bib`;
+- a dataset licence, access condition, or redistribution decision;
+- an unresolved title, scope, example-language, licence, or embedded-tutor
+  decision from `notes/struktura-knjige.md`;
+- a course assessment or disclosure rule owned by the course leader;
+- authorial sign-off on a genuinely contested claim after available evidence
+  has been assembled.
+
+One ask carries one action. Never bundle several decisions into one request.

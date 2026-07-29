@@ -24,7 +24,7 @@
 # urezane (committane) datoteke u docs/ai.
 
 # --- konfiguracija (uredi ovdje; ovo su autorske odluke) -------------------
-SITE_URL   <- "https://lusiki.github.io/Statistika"
+SITE_URL   <- "https://lusiki.github.io/statistika-knjiga"
 BOOK_TITLE <- "Osnove statistike za društvene znanosti"
 BOOK_DESC  <- paste(
   "Udžbenik statistike za društvene znanosti — statističko mišljenje,",

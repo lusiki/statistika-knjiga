@@ -1,5 +1,5 @@
 {
-  "note": "Strukturne konvencije knjige. VRIJEDNOSTI SU POCETNE PRETPOSTAVKE, ne mjerenja. Kad cetiri ili pet poglavlja budu napisana, pokreni `Rscript bookwright_plugin/bookwright/skills/book-continuity/scripts/structure_scan.R chapters/*.qmd` i `structure_lint.R`, izmjeri stvarnu raspodjelu i zamijeni pojaseve ispod. Do tada linter prijavljuje sum. Kostur poglavlja je fiksan i opisan u CLAUDE.md.",
+  "note": "Strukturne konvencije knjige. Brojčani pojasevi početne su pretpostavke, a ne mjerenja. Nakon što četiri ili pet poglavlja dobije stvarnu prozu, pokreni book-continuity scan i rhythm, izmjeri raspodjelu i ratificiraj nove pojaseve. TODO komentari, prazni kosturi i statički blizanci ne računaju se kao dovršen sadržaj. Fiksni kostur opisan je u AGENTS.md.",
   "labels": {
     "opener": "callout-vinjeta",
     "figure_prefix": "fig-",
@@ -14,9 +14,36 @@
       "Revizija modela"
     ]
   },
-  "opener_exempt": [
-    "00-predgovor"
-  ],
+  "opener_exempt": [],
+  "widget_policy": {
+    "inventory": "data/widgets.json",
+    "required_chapters": [
+      "01-zasto-statistika",
+      "02-mjerenje-i-dizajn",
+      "03-kako-brojke-zavode",
+      "04-sazimanje-podataka",
+      "05-vizualizacija",
+      "06-povezanost",
+      "07-vjerojatnost",
+      "08-uzorkovanje",
+      "09-procjena",
+      "10-logika-testiranja",
+      "11-velicina-ucinka-i-snaga",
+      "12-kriza-i-obnova",
+      "13-kategoricki-podaci",
+      "14-dvije-grupe",
+      "15-vise-grupa",
+      "16-regresija",
+      "17-doba-algoritama"
+    ],
+    "exempt_chapters": [
+      "00-predgovor",
+      "18-vase-prvo-istrazivanje"
+    ],
+    "static_twin_required": true,
+    "logical_pair_count": 1,
+    "note": "data/widgets.json je operativni izvor istine. HTML widget i njegov statički blizanac čine jednu logičku figuru."
+  },
   "bands": {
     "definitions_per_chapter": [
       1,
@@ -37,14 +64,22 @@
     "exercises_min": 4
   },
   "structure": {
-    "note": "S7 pojasevi ritma odjeljaka. Predlozak je 'essay' za sva poglavlja; ova knjiga nema katalog-poglavlja. Deep-dive iznimka je 16-regresija (~6000 rijeci, sintezno poglavlje). word_chapter_max je mekana granica koja oznacava poglavlje za pregled, ne tvrdo ogranicenje.",
+    "note": "S7 pojasevi ritma odjeljaka. Predložak je essay za sva poglavlja. Poglavlje 16 sankcionirana je deep-dive iznimka. Sažetak, Pojmovi i Zadaci fiksni su završni elementi i ne određuju težinu posljednjeg sadržajnog odjeljka.",
+    "opener_class": "callout-vinjeta",
     "vodic_label": "Vinjeta",
     "summary_label": "Sažetak",
+    "tail_labels": [
+      "Sažetak",
+      "Pojmovi",
+      "Zadaci"
+    ],
+    "exercise_parent_label": "Zadaci",
+    "tail_sections_excluded_from_body_rhythm": true,
     "catalogue_chapters": [],
     "deep_dive_chapters": [
       "16-regresija"
     ],
-    "deep_dive_note": "16-regresija je sankcionirano dugo poglavlje (plan: ~6000 rijeci, vrhunac knjige). Prijava premasene duljine na njemu je ocekivana, ne patologija.",
+    "deep_dive_note": "16-regresija je sankcionirano dugo sintezno poglavlje planiranog opsega oko 6000 riječi. Premašenje opće meke granice na njemu nije samo po sebi patologija.",
     "word_chapter_max": 5500,
     "evenness_cv_max": 0.55,
     "element_words": {

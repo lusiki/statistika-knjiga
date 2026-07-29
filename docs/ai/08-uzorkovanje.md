@@ -2,7 +2,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://lusiki.github.io/Statistika/chapters/08-uzorkovanje.html
+> Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 

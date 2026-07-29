@@ -12,7 +12,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://lusiki.github.io/Statistika/chapters/13-kategoricki-podaci.html
+> Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -54,7 +54,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://lusiki.github.io/Statistika/chapters/14-dvije-grupe.html
+> Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -96,7 +96,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://lusiki.github.io/Statistika/chapters/15-vise-grupa.html
+> Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -138,7 +138,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://lusiki.github.io/Statistika/chapters/16-regresija.html
+> Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -180,7 +180,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://lusiki.github.io/Statistika/chapters/17-doba-algoritama.html
+> Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 

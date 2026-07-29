@@ -1,14 +1,24 @@
 # Value slots
 
-Short restatement of ENRICHMENT.md. `ENRICHMENT.md` is the full source, including the landmark literature map. Read it before drafting.
+`ENRICHMENT.md` is authoritative. Each one- or two-paragraph insertion fills
+exactly one slot:
 
-Each insertion fills exactly one slot or it is restatement.
-1. Mechanism unpacking. The how behind a stated outcome.
-2. Empirical evidence. A cited international or EU finding behind an intuition.
-3. Comparative or cross system context. EU, OECD, institutional, or historical comparison.
-4. Trade off or counterview. The principled other side, a binding constraint, an unresolved tension.
-5. Methodological or identification note. How a claim is measured or identified.
+1. **Mechanism unpacking** — show what the procedure does to the data and why
+   the result holds.
+2. **Empirical evidence** — add a verifiable published social-science finding,
+   including magnitude and uncertainty when reported.
+3. **Comparative / methodological context** — compare neighbouring procedures,
+   assumptions, alternatives, or historical choices.
+4. **Failure mode / counterview** — show where the procedure breaks, which
+   assumption carries it, or the principled objection.
+5. **Interpretation note** — state what the result licenses the reader to
+   conclude and what it does not.
 
-Asymmetry test. Look for a concept introduced but never unpacked, a result without its mechanism, theory without empirics, one side of a debate, an opaque identification claim. Each such point is a candidate.
+Look for a procedure never unpacked, an implicit mechanism, a method with no
+empirical use, a missing failure mode, or a result left uninterpreted. A formula
+without prior intuition is an H9 style repair, not enrichment.
 
-Constraints. One to two paragraphs each, Croatian, STYLE.md conformant, no Croatian empirics, cite from `references.bib` or flag, pass the substantive test.
+Every introduced study, number, effect, sample size, finding, or page must be
+verified against `references.bib`. If the source is absent, identify the
+evidence needed and wait before drafting empirical prose. Croatian examples are
+welcome under the same verification standard as international examples.

@@ -338,8 +338,9 @@ not answer it. No meta sentence announcing what the chapter will do.
 
 ### Interakcija
 
-One widget per chapter, named and registered in `data/widgets.json`. Follows
-the twin pattern (see CLAUDE.md). Preceded by one prose paragraph in chapter
+One widget in each numbered chapter 1–17, named and registered in
+`data/widgets.json`; the preface and chapter 18 are exempt. Follows the twin
+pattern (see AGENTS.md). Preceded by one prose paragraph in chapter
 voice saying what it shows and why it matters at this point in the argument;
 the caption does not satisfy this, and a heading directly above a widget is a
 violation. May carry one guidance block after it: the bold lead
@@ -464,13 +465,14 @@ bare dangling "Izvor:".
 ## Linting
 
 ```bash
-Rscript bookwright_plugin/bookwright/skills/book-style/scripts/style_lint.R chapters/<file>.qmd
-Rscript bookwright_plugin/bookwright/skills/book-continuity/scripts/structure_lint.R chapters/<file>.qmd
+python bookwright_plugin/bookwright/scripts/run_rscript.py bookwright_plugin/bookwright/skills/book-style/scripts/style_lint.R chapters/<file>.qmd
+python bookwright_plugin/bookwright/scripts/run_rscript.py bookwright_plugin/bookwright/skills/book-continuity/scripts/structure_lint.R chapters/<file>.qmd
 ```
 
 Mapping: "colon in prose" → H1, "mid-sentence em dash" → H2, "mechanical opener
-/ restatement" → H3/H5, "colon in chapter title" → H6. The linter is zone-blind,
-so judge every hit against the Prose zones table. Known false-positive classes:
+/ restatement" → H3/H5, "colon in chapter title" → H6. The linter excludes
+structural zones but still reports candidates, so judge every hit against the
+Prose zones table. Potential false-positive classes:
 
 1. Table caption marker lines (`: Caption {#tbl-...}`) — syntax, not prose.
 2. Table alignment rows (`| :--- |`).

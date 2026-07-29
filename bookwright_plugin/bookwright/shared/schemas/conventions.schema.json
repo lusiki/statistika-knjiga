@@ -4,31 +4,333 @@
   "title": "Book structural conventions",
   "type": "object",
   "additionalProperties": false,
-  "required": ["labels", "bands"],
+  "required": [
+    "labels",
+    "opener_exempt",
+    "widget_policy",
+    "bands",
+    "structure"
+  ],
   "properties": {
-    "note": { "type": "string" },
+    "note": {
+      "type": "string"
+    },
     "labels": {
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "opener",
+        "figure_prefix",
+        "definition",
+        "callout_wild",
+        "callout_ai",
+        "callout_error",
+        "exercise_tiers"
+      ],
       "properties": {
-        "opener": { "type": "string" },
-        "figure_prefix": { "type": "string" },
-        "definition": { "type": "string" },
-        "callout_applied": { "type": "string" },
-        "callout_empirical": { "type": "string" },
-        "exercise": { "type": "string" }
+        "opener": {
+          "type": "string"
+        },
+        "figure_prefix": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "callout_wild": {
+          "type": "string"
+        },
+        "callout_ai": {
+          "type": "string"
+        },
+        "callout_error": {
+          "type": "string"
+        },
+        "exercise_tiers": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "callout_applied": {
+          "type": "string",
+          "deprecated": true
+        },
+        "callout_empirical": {
+          "type": "string",
+          "deprecated": true
+        },
+        "exercise": {
+          "type": "string",
+          "deprecated": true
+        }
       }
     },
-    "opener_exempt": { "type": "array", "items": { "type": "string" } },
+    "opener_exempt": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "widget_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inventory",
+        "required_chapters",
+        "exempt_chapters",
+        "static_twin_required",
+        "logical_pair_count"
+      ],
+      "properties": {
+        "inventory": {
+          "type": "string"
+        },
+        "required_chapters": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "exempt_chapters": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "static_twin_required": {
+          "type": "boolean"
+        },
+        "logical_pair_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
     "bands": {
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "definitions_per_chapter",
+        "figures_per_chapter",
+        "callout_wild_per_chapter",
+        "callout_ai_per_chapter",
+        "exercises_min"
+      ],
       "properties": {
-        "definitions_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
-        "figures_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
-        "callout_applied_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
-        "callout_empirical_per_chapter": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
-        "exercises_min": { "type": "integer" }
+        "definitions_per_chapter": {
+          "$ref": "#/$defs/integerBand"
+        },
+        "figures_per_chapter": {
+          "$ref": "#/$defs/integerBand"
+        },
+        "callout_wild_per_chapter": {
+          "$ref": "#/$defs/integerBand"
+        },
+        "callout_ai_per_chapter": {
+          "$ref": "#/$defs/integerBand"
+        },
+        "exercises_min": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "callout_applied_per_chapter": {
+          "$ref": "#/$defs/integerBand",
+          "deprecated": true
+        },
+        "callout_empirical_per_chapter": {
+          "$ref": "#/$defs/integerBand",
+          "deprecated": true
+        }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "opener_class",
+        "summary_label",
+        "tail_labels",
+        "exercise_parent_label",
+        "catalogue_chapters",
+        "deep_dive_chapters",
+        "word_chapter_max",
+        "evenness_cv_max",
+        "element_words",
+        "coda_min_ratio_to_median",
+        "scaffold_min_prose_words",
+        "essay",
+        "catalogue"
+      ],
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "opener_class": {
+          "type": "string"
+        },
+        "vodic_label": {
+          "type": "string",
+          "description": "Legacy reader-compatible label. New checks use opener_class."
+        },
+        "summary_label": {
+          "type": "string"
+        },
+        "tail_labels": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "exercise_parent_label": {
+          "type": "string"
+        },
+        "tail_sections_excluded_from_body_rhythm": {
+          "type": "boolean"
+        },
+        "catalogue_chapters": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "deep_dive_chapters": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "deep_dive_note": {
+          "type": "string"
+        },
+        "word_chapter_max": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "evenness_cv_max": {
+          "type": "number",
+          "minimum": 0
+        },
+        "element_words": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "callout",
+            "figure",
+            "ojs",
+            "table"
+          ],
+          "properties": {
+            "callout": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "figure": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ojs": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "table": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "coda_min_ratio_to_median": {
+          "type": "number",
+          "minimum": 0
+        },
+        "scaffold_min_prose_words": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "essay": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sections",
+            "pars",
+            "words",
+            "ratio_max",
+            "vodic_pars",
+            "par_words"
+          ],
+          "properties": {
+            "sections": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "pars": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "words": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "ratio_max": {
+              "type": "number",
+              "minimum": 1
+            },
+            "vodic_pars": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "par_words": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "allow_h3": {
+              "type": "boolean"
+            }
+          }
+        },
+        "catalogue": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "entry_pars",
+            "entry_words",
+            "frame_pars"
+          ],
+          "properties": {
+            "entry_pars": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "entry_words": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "frame_pars": {
+              "$ref": "#/$defs/integerBand"
+            },
+            "allow_h3": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "integerBand": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "integer",
+        "minimum": 0
       }
     }
   }
