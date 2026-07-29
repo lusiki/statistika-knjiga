@@ -3,7 +3,7 @@ title: "Kako brojke zavode"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   novo poglavlje, dijelom sastavljeno iz fragmenata tjedna 1
   OPSEG:   ~5000 riječi
   WIDGET:  w03 · Istraživač margine pogreške
@@ -23,35 +23,69 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Američko statističko udruženje objavilo je izjavu o p-vrijednostima nakon
+desetljeća u kojima se jedan prag često koristio kao zamjena za znanstveni sud
+[@wasserstein2016]. Problem nije bio u tome što su istraživači zaboravili
+računati. Problem je nastajao kada je jedan broj preuzimao značenje koje mu
+postupak nije davao.
+
+Sličan prijenos značenja događa se u naslovima anketa, postocima bez nazivnika
+i grafovima kojima odabrani raspon osi pretvara malu promjenu u dramatičan lom.
+Broj može biti točan, a prikaz ipak voditi prema zaključku koji podaci ne nose.
+
+Kako razlikovati računsku pogrešku od mnogo češće pogreške u okviru, usporedbi
+i jeziku?
 :::
 
-## Naslov prvog odjeljka
+## Četiri provjere jedne tvrdnje
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Prva provjera traži izvor. Tvrdnja koja navodi istraživanje mora omogućiti
+pronalaženje izvornog izvještaja, tablice ili skupa podataka. Poveznica na
+drugi članak nije podrijetlo brojke, a navođenje ustanove bez godine i
+istraživanja nije dovoljno da bi se nalaz provjerio.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Druga provjera traži nazivnik. Porast od pedeset posto može značiti prijelaz s
+dva slučaja na tri ili s dva milijuna na tri milijuna. Postotak opisuje omjer,
+dok **postotni bod** opisuje razliku između dvaju postotaka. Njihova zamjena
+može višestruko povećati dojam promjene iako je aritmetika pojedinačnih brojeva
+točna.
+
+Treća provjera traži usporedbu. Graf bez zajedničke nule nije automatski
+nepošten, ali skraćena os mora biti vidljiva i opravdana. Odabir početnog
+razdoblja, izostavljanje jedne skupine ili isticanje samo povoljnog ishoda
+mijenja priču. Čitatelj zato pita koje bi razumno drugačije uokvirivanje
+pokazalo isti podatak.
+
+Četvrta provjera traži neizvjesnost. Rezultat ankete nije svojstvo uzorka koje
+će se bez promjene ponoviti u populaciji. Margina pogreške opisuje samo
+uzoračku promjenjivost pod određenim pretpostavkama. Ne obuhvaća pristran
+okvir, neodaziv, loše pitanje ni naknadno biranje najzanimljivijeg rezultata.
+
+## Protokol skeptičnog čitanja
+
+Skeptičnost nije automatsko odbacivanje. Ona usporava prijelaz od podatka prema
+tvrdnji. Najprije utvrđujemo tko je proizveo broj i za koju svrhu. Zatim
+provjeravamo jedinicu analize, nazivnik, vremenski okvir i usporednu skupinu.
+Tek tada procjenjujemo koliko neizvjesnost i dizajn dopuštaju zaključak.
+
+Isti protokol vrijedi za ljudski i strojno proizveden tekst. Asistent može
+izmisliti izvor, popuniti ćeliju koja nedostaje ili zaokružiti rezultat do
+lažne preciznosti. Uvjerljiv stil nije dokaz podrijetla. Svaka brojka mora
+ostaviti trag do podataka ili postupka iz kojeg je nastala.
 
 ## Interakcija — Istraživač margine pogreške
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Planirani istraživač prikazuje kako se margina pogreške mijenja s veličinom
+uzorka i blizinom rezultata sredini ljestvice. Njegova je svrha pokazati zašto
+veći uzorak povećava preciznost, ali ne liječi sustavnu pristranost ankete.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w03_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w03 — Istraživač margine pogreške.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w03 — Istraživač margine pogreške. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +93,8 @@ md`**Widget w03 — Istraživač margine pogreške.** Interaktivni graf još nij
 ```{r}
 #| echo: false
 #| label: fig-w03
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani prikaz preciznosti ankete pri različitim uzorcima."
+#| fig-alt: "Mjesto za prikaz sve uže margine pogreške s rastom uzorka."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w03 još nije izrađen") +
@@ -68,65 +102,111 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Povećavajte uzorak i promatrajte brzinu sužavanja margine.
+2. Zadržite uzorak jednakim, a promijenite procijenjeni udio.
+3. Uključite sustavnu pristranost i provjerite zašto uži interval ne mora biti
+   bliži istini.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Prag koji nije presuda.** Izjava Američkog statističkog udruženja naglasila
+je da p-vrijednost sama ne mjeri veličinu ni važnost učinka i ne određuje treba
+li rezultat smatrati znanstveno vrijednim [@wasserstein2016].
+
+Naslov koji istraživanje svodi na „dokazano" ili „nije dokazano" uklanja
+procjenu, neizvjesnost i dizajn. Broj ostaje vidljiv, a upravo informacije
+potrebne za njegovo tumačenje nestaju.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent je koristan kao strogi čitatelj ako dobije izvornu tablicu i jasnu
+zabranu nadopunjavanja nedostajućih podataka. Treba tražiti da odvoji provjeru
+aritmetike od procjene dizajna i jezika. Nakon odgovora ručno se otvara svaki
+navedeni izvor i provjerava postoji li broj u njemu.
+
+> Rastavi ovu statističku tvrdnju na izvor, brojnik, nazivnik, usporedbu,
+> neizvjesnost i dopušten zaključak. Ne dopunjuj podatke koji nisu priloženi i
+> jasno označi što nije moguće provjeriti.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Anketa pokazuje vodstvo jedne opcije, ali se intervali procjena dviju opcija
+preklapaju. Zbog preklapanja možemo zaključiti da među njima sigurno nema
+razlike. Uzorak je opisan, a postoci se zbrajaju do cjeline.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je zaključak da preklapanje intervala dokazuje nepostojanje razlike.
+Odnos dviju procjena mora se procijeniti izravno, uz dizajn ankete i ovisnost
+procjena, a ne samo pogledom na dva odvojena intervala.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simuliramo dvije ankete o istoj podršci, jednu s manjim i jednu s većim
+uzorkom. Obje su pošteno uzorkovane iz iste zamišljene populacije. Cilj nije
+dobiti stvarni izborni rezultat, nego vidjeti što se mijenja kada povećamo broj
+opažanja.
+
+```{r}
+#| label: tbl-margina-simulacija
+#| tbl-cap: "Simulirane procjene pri dvjema veličinama uzorka. Izrada autora."
+
+sim_ankete <- tibble(
+  uzorak = c("manji", "veći"),
+  n = c(250, 1000),
+  podrska = c(0.52, 0.52)
+) |>
+  mutate(
+    standardna_pogreska = sqrt(podrska * (1 - podrska) / n),
+    margina = 1.96 * standardna_pogreska,
+    prikaz = paste0("± ", hr_broj(100 * margina, 1), " %")
+  )
+
+sim_ankete |>
+  select(Uzorak = uzorak, `Veličina uzorka` = n, `Margina pogreške` = prikaz) |>
+  knitr::kable(align = c("l", "r", "r"))
+```
+
+Veći uzorak daje užu marginu, ali obje ankete dijele pretpostavku da je
+uzorkovanje nepristrano. Kada bi okvir isključio dio populacije, tablica bi i
+dalje mogla pokazivati veliku računsku preciznost. Strog prikaz zato uz marginu
+navodi način odabira ispitanika, datum, formulaciju pitanja i naručitelja.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Brojke zavode kada izgube izvor, nazivnik, usporedbu ili neizvjesnost. Pogreška
+ne mora biti u računu jer često nastaje u izboru prikaza i jezika kojim se
+rezultat pretvara u tvrdnju. Skeptični protokol jednak je za novinski naslov,
+znanstveni sažetak i odgovor modela. U sljedećem dijelu knjige isti se zahtjev
+primjenjuje na sažimanje i vizualizaciju vlastitih podataka.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+nazivnik (*denominator*), postotni bod (*percentage point*), margina pogreške
+(*margin of error*), pristranost (*bias*), lažna preciznost (*false
+precision*), podrijetlo podatka (*data provenance*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Objasnite razliku između pedesetpostotnog rasta i rasta od pedeset postotnih
+bodova. Predajte vlastiti primjer bez stvarnih empirijskih tvrdnji.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite simulirane podatke `sim_ankete`. Dodajte treću veličinu uzorka i
+predajte tablicu s pripadajućom marginom pogreške.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Pročitajte izjavu o p-vrijednostima i izdvojite jednu tvrdnju koju ona
+dopušta te jednu koju izričito ne dopušta [@wasserstein2016]. Predajte dvije
+rečenice i citat izvora.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite analizu modela iz okvira iznad. Odvojite točne provjere od jedne
+pogrešne interpretacije i napišite provjerljiviju zamjenu.

@@ -3,7 +3,7 @@ title: "Vjerojatnost koliko treba"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 7, skraćeni prijenos
   OPSEG:   ~4500 riječi
   WIDGET:  w07 · Simulator novčića i A/B kampanje
@@ -23,35 +23,64 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Simmons i suradnici pokazali su kako velik broj razumno zvučećih analitičkih
+odluka može povećati vjerojatnost lažno pozitivnog rezultata [@simmons2011].
+Svaka pojedina odluka mogla je izgledati bezazleno. Problem je postao vidljiv
+tek kada se promatrao cijeli niz mogućih putova kroz podatke.
+
+Istraživač zato ne pita samo je li opaženi rezultat moguć pod jednom
+pretpostavkom. Mora pitati koliko je prilika postupak dao slučajnosti da
+proizvede nešto što izgleda uvjerljivo.
+
+Kako računati s neizvjesnošću bez pretvaranja vjerojatnosti u obećanje o jednom
+događaju?
 :::
 
-## Naslov prvog odjeljka
+## Neizvjesnost kao raspodjela
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+**Vjerojatnost** povezuje događaj sa skupom mogućih ishoda. U dugom nizu
+ponavljanja može se čitati kao relativna učestalost. U situaciji koja se neće
+ponoviti može izražavati stupanj uvjerenja pod jasno navedenim informacijama.
+Ta dva čitanja ne moraju biti suparnici, ali zahtijevaju da kažemo na što se
+broj odnosi.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Pravilo komplementa prevodi vjerojatnost događaja u vjerojatnost da se događaj
+ne dogodi. Zbrajanje pripada međusobno isključivim ishodima, dok množenje
+povezuje zajedničko pojavljivanje neovisnih događaja. Najčešća pogreška nije
+računska, nego sadržajna pretpostavka da su događaji neovisni samo zato što je
+to zgodno za račun.
+
+Binomna situacija ima ponovljene pokušaje, dva ishoda i jednaku vjerojatnost
+uspjeha u svakom pokušaju. Glasanje, klik i odgovor na pitanje mogu se tako
+modelirati samo kada jedinice i pokušaji dovoljno dobro odgovaraju tim
+uvjetima. Model nije opis cijelog svijeta, nego kontrolirana slika dijela
+procesa.
+
+## Obrasci mnogih ponavljanja
+
+Pojedinačni ishodi mogu biti neuredni, dok raspodjela velikog broja ishoda
+pokazuje stabilan oblik. Normalna krivulja opisuje mnoge takve obrasce oko
+središta. Pravilo približnih područja oko sredine korisno je za orijentaciju,
+ali se ne primjenjuje na svaku asimetričnu ili višemodalnu raspodjelu.
+
+QQ prikaz uspoređuje poredane podatke s poredanim vrijednostima očekivanima pod
+odabranom raspodjelom. Točke blizu pravca podupiru približan oblik, dok
+sustavna zakrivljenost pokazuje odstupanje. Prikaz ne izdaje presudu o tome je
+li analiza dopuštena. On pokazuje gdje pretpostavka pristaje, a gdje se lomi.
 
 ## Interakcija — Simulator novčića i A/B kampanje
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Planirani simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
+Čitatelj mijenja stvarnu stopu uspjeha i broj pokušaja te promatra kako se
+kratki nizovi kolebaju, dok se raspodjela mnogih ponavljanja stabilizira.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w07_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w07 — Simulator novčića i A/B kampanje.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w07 — Simulator novčića i A/B kampanje. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +88,8 @@ md`**Widget w07 — Simulator novčića i A/B kampanje.** Interaktivni graf još
 ```{r}
 #| echo: false
 #| label: fig-w07
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirana raspodjela uspjeha kroz mnoge ponovljene kampanje."
+#| fig-alt: "Mjesto za histogram broja uspjeha u ponovljenim pokušajima."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w07 još nije izrađen") +
@@ -68,65 +97,103 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Pokrenite nekoliko kratkih nizova pri jednakim stopama.
+2. Povećajte broj pokušaja i promatrajte relativnu učestalost.
+3. Usporedite jednu ekstremnu kampanju s raspodjelom svih kampanja.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Mnogo prilika za slučajnost.** Analitička fleksibilnost omogućuje da se među
+mnogim ishodima, podskupinama i trenucima zaustavljanja izdvoji rezultat koji
+izgleda rijetko, iako je cijeli postupak takav nalaz učinio mnogo vjerojatnijim
+[@simmons2011].
+
+Čitanje jednog rezultata zato mora uključiti broj pokušaja i odluke donesene
+nakon gledanja podataka. Vjerojatnost pripada postupku koji je rezultat
+proizveo, a ne samo njegovoj posljednjoj tablici.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može simulirati postupak i usporediti analitički račun sa
+učestalostima u ponavljanjima. Treba mu jasno opisati skup mogućih ishoda,
+neovisnost i sve putove kojima je analiza mogla doći do rezultata. Modeli često
+računaju pod prešutnom pretpostavkom neovisnosti.
+
+> Simuliraj ovaj slučaj mnogo puta i prikaži raspodjelu ishoda. Prije računanja
+> navedi koje pretpostavke koristiš o neovisnosti i jednakoj vjerojatnosti
+> pokušaja.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+U nizu je više puta zaredom zabilježen isti ishod. Budući da se ravnoteža mora
+vratiti, sljedeći pokušaj sada ima veću vjerojatnost suprotnog ishoda.
+Pojedinačni pokušaji provedeni su pod jednakim uvjetima.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je kockarska zabluda. Ako su pokušaji neovisni i uvjeti jednaki,
+prethodni niz ne mijenja vjerojatnost sljedećeg ishoda.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simuliramo mnogo kampanja s jednakom stvarnom stopom odgovora. Svaka kampanja
+daje nešto drukčiji udio, iako se temeljni proces ne mijenja. Histogram
+prikazuje koliko je raspršena ta slučajna varijacija.
+
+```{r}
+#| label: fig-binomna-simulacija
+#| echo: true
+#| fig-cap: "Raspodjela simuliranih stopa uspjeha. Izrada autora."
+#| fig-alt: "Histogram simuliranih stopa uspjeha zbijen je oko zadane vjerojatnosti."
+
+sim_kampanje <- tibble(
+  uspjesi = rbinom(2000, size = 100, prob = 0.30),
+  stopa = uspjesi / 100
+)
+
+ggplot(sim_kampanje, aes(stopa)) +
+  geom_histogram(binwidth = 0.01) +
+  labs(x = "Simulirana stopa uspjeha", y = "Broj kampanja")
+```
+
+Jedna kampanja može završiti daleko od središta bez promjene stvarne stope.
+Zaključak se zato ne temelji na tome izgleda li jedan rezultat neobično, nego
+na usporedbi s raspodjelom koju bi cijeli postupak mogao proizvesti.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Vjerojatnost opisuje neizvjesnost unutar jasno određenog skupa mogućnosti.
+Pravila računanja vrijede samo uz sadržajne pretpostavke o događajima i
+neovisnosti. Simulacija pokazuje kako stabilna raspodjela nastaje iz neurednih
+pojedinačnih ishoda. Poglavlje o uzorkovanju tu će logiku primijeniti na
+statistike koje se mijenjaju od uzorka do uzorka.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+vjerojatnost (*probability*), događaj (*event*), neovisnost (*independence*),
+binomna raspodjela (*binomial distribution*), normalna raspodjela (*normal
+distribution*), QQ prikaz (*Q–Q plot*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Objasnite zašto niz jednakih ishoda ne mijenja vjerojatnost sljedećeg pokušaja
+ako su pokušaji neovisni. Predajte jedan odlomak.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Promijenite veličinu pokušaja u objektu `sim_kampanje` i predajte dva histograma
+s kratkom usporedbom raspršenosti.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Objasnite kako više analitičkih putova mijenja čitanje rijetkog rezultata
+[@simmons2011]. Predajte dijagram mogućih odluka.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite analizu modela iz okvira. Imenujte pretpostavku koju navodi, jednu
+pogrešku i ispravnu vjerojatnostnu interpretaciju.

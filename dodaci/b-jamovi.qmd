@@ -3,7 +3,7 @@ title: "Dodatak B — Put bez koda"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — konceptualna mapa bez krhkih snimki zaslona
   IZVOR:   novo
   OPSEG:   ~4000 riječi
   NAPOMENA: OTVORENA ODLUKA: dokumentiraju li se točni izbornici (snimke zaslona brzo zastare) ili dodatak ostaje konceptualan. Vidi notes/struktura-knjige.md.
@@ -12,8 +12,37 @@ title: "Dodatak B — Put bez koda"
   Pratitelj u jamoviju, četiri stranice po dijelu knjige, koji svaku analizu iz knjige preslikava na softver s izbornicima, za odsjeke koji ne uče programiranje.
 ===================================================================== -->
 
-<!-- TODO Uvodni pasus koji kaže čemu dodatak služi i kako se koristi. -->
+Ovaj dodatak prati analize iz knjige u jamoviju. Namjerno se oslanja na nazive
+analiza i očekivane izlaze, a ne na snimke zaslona koje se mijenjaju s verzijom
+sučelja. Čitatelj bez programiranja tako može reproducirati statistički
+postupak, dok iste provjere dizajna i interpretacije ostaju obvezne.
 
-## Naslov prvog odjeljka
+## Priprema podataka
 
-<!-- TODO Zamijeni naslov. -->
+Svaki redak predstavlja jedinicu analize, a svaki stupac varijablu. Prije
+odabira analize provjeravamo razinu mjerenja koju jamovi prikazuje ikonom uz
+ime stupca. Pogrešno postavljena razina može sakriti postupak ili ponuditi
+račun koji nema sadržajno značenje.
+
+U opisnom modulu najprije tražimo broj valjanih opažanja, nedostajuće
+vrijednosti, prikladnu mjeru središta i raspršenosti te graf raspodjele.
+Izlaz spremamo uz datoteku podataka i bilježimo verziju programa.
+
+## Povezanost i skupine
+
+Za dvije brojčane varijable biramo korelacijsku matricu i uključujemo raspršeni
+prikaz. Pearsonov i Spearmanov koeficijent uspoređujemo tek nakon pregleda
+oblika. Za dvije skupine odabiremo neovisni ili upareni t-test prema jedinici
+analize, a ne prema rasporedu stupaca.
+
+Kod više skupina koristimo ANOVA-u, uključujemo prikaz reziduala, veličinu
+učinka i unaprijed obrazložene usporedbe. Hi-kvadrat analiza pripada
+kontingencijskim tablicama i uz test treba pokazati očekivane frekvencije,
+reziduale i Cramérovo V.
+
+## Izvoz koji se može provjeriti
+
+Tablica iz jamovija nije samostalan zaključak. Uz nju čuvamo opis varijabli,
+dizajna, svih uključenih opcija i razloga odabira. U izvještaj prenosimo
+procjenu i interval prije testa, a graf preuređujemo samo ako promjena ne skriva
+ljestvicu, skupine ili pojedinačna opažanja.

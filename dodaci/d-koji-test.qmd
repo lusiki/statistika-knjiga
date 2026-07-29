@@ -3,7 +3,7 @@ title: "Dodatak D — Koji test kada"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — tekstualna odluka prije završnog stabla
   IZVOR:   novo
   OPSEG:   ~1500 riječi
   NAPOMENA: Vizualni element, ne proza. Radi se kao SVG s PNG blizancem za tisak (scripts/svg-to-png.R).
@@ -12,8 +12,36 @@ title: "Dodatak D — Koji test kada"
   Stablo odlučivanja na jednom dvolistu, od vrste podataka i pitanja do poglavlja i postupka, plus sažeti pregled formula.
 ===================================================================== -->
 
-<!-- TODO Uvodni pasus koji kaže čemu dodatak služi i kako se koristi. -->
+Odabir postupka počinje istraživačkim pitanjem, dizajnom i vrstom ishoda.
+Stablo ne može popraviti loše mjerenje ni stvoriti neovisna opažanja. Ono samo
+povezuje dobro postavljeno pitanje s poglavljem i početnim modelom.
 
-## Naslov prvog odjeljka
+## Put od pitanja do modela
 
-<!-- TODO Zamijeni naslov. -->
+Za opis jedne brojčane varijable koristimo raspodjelu, mjeru središta i
+raspršenosti. Za dvije brojčane varijable polazimo od raspršenog dijagrama i
+korelacije, a prema potrebi prelazimo na regresiju. Za kategoričke varijable
+polazimo od frekvencija, udjela i kontingencijske tablice.
+
+Brojčani ishod i dvije neovisne skupine vode prema Welchovu t-testu ili
+linearnom modelu s binarnim prediktorom. Iste jedinice mjerene dvaput vode prema
+uparenom postupku. Više skupina vodi prema ANOVA-i kao linearnom modelu s
+kategoričkim prediktorom.
+
+| Pitanje | Ishod | Dizajn | Početni postupak |
+|---|---|---|---|
+| Kakva je raspodjela | brojčani | jedan uzorak | sažeci i graf |
+| Jesu li varijable povezane | dvije brojčane | opažajni | korelacija i regresija |
+| Razlikuju li se dvije skupine | brojčani | neovisni | Welchov t-test |
+| Mijenja li se ista jedinica | brojčani | upareni | upareni t-test |
+| Razlikuje li se više skupina | brojčani | neovisni | ANOVA |
+| Jesu li kategorije povezane | kategorički | tablica frekvencija | hi-kvadrat ili Fisherov test |
+
+: Početni izbor postupka prema pitanju i dizajnu. Izrada autora.
+
+## Provjere nakon odabira
+
+Nakon izbora pregledavamo neovisnost, oblik raspodjele, reziduale, veličinu
+uzorka i očekivane frekvencije. Izvještavamo procjenu, interval i veličinu
+učinka prije odluke o testu. Ako pretpostavka ne pristaje, mijenjamo pitanje,
+model ili način izvještavanja uz sadržajno obrazloženje.

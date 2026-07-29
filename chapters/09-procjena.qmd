@@ -3,7 +3,7 @@ title: "Procjena"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 8, druga polovica, iznova izgrađeno
   OPSEG:   ~4000 riječi
   WIDGET:  w09 · Hvatač intervala
@@ -23,35 +23,60 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Cumming je zagovarao izvještavanje procjena i intervala kao središte
+statističkog zaključivanja, umjesto oslanjanja na samu odluku o značajnosti
+[@cumming2014]. Pomak mijenja pitanje koje postavljamo podacima. Umjesto
+binarnog prolaza pitamo koliki je učinak i koliko je procjena precizna.
+
+Interval ipak nije ukras oko točkaste procjene. Njegovo značenje dolazi iz
+postupka koji bi kroz ponovljene uzorke stvarao intervale, među kojima neki
+obuhvaćaju populacijsku vrijednost, a neki je promašuju.
+
+Kako iz jednog opaženog intervala pošteno govoriti o vrijednosti koja ostaje
+nepoznata?
 :::
 
-## Naslov prvog odjeljka
+## Od točke prema rasponu
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+**Točkasta procjena** daje jednu vrijednost iz uzorka. Ona je najbolji sažeti
+pogodak koji trenutačno imamo, ali drugi bi uzorak dao drugi rezultat. Interval
+pouzdanosti toj procjeni dodaje raspon usklađen s njezinom uzoračkom
+promjenjivošću.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Širi interval nije znak lošeg istraživača. On može pošteno pokazivati mali
+uzorak ili vrlo promjenjive podatke. Uži interval označava veću preciznost pod
+pretpostavkama postupka. Ne govori da su mjera, uzorak i model nepristrani.
+
+Razina pouzdanosti pripada dugoročnom postupku. Kada bismo uzorkovanje i izradu
+intervala ponavljali, unaprijed određeni udio intervala obuhvatio bi fiksnu
+populacijsku vrijednost. Nakon što je jedan interval izračunat, njegova je
+granica opažena, a populacijska vrijednost ostaje nepoznata.
+
+## Bootstrap iz uzorka
+
+Bootstrap ponovljeno izvlači opažanja s vraćanjem iz dostupnog uzorka, računa
+željenu statistiku i slaže dobivene vrijednosti u raspodjelu [@efron1979].
+Postupak tako približava pitanje što bi se dogodilo s procjenom kada bismo mogli
+ponoviti prikupljanje sličnih podataka.
+
+Njegova snaga je prilagodljivost. Može se primijeniti na medijan, razliku,
+korelaciju i druge statistike za koje jednostavna formula nije pri ruci.
+Njegova granica ostaje početni uzorak. Ako on ne predstavlja populaciju ili je
+premalen da zabilježi važan dio raspodjele, resampling ponavlja tu prazninu.
 
 ## Interakcija — Hvatač intervala
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Hvatač intervala prikazuje niz ponovljenih uzoraka i njihove intervale oko iste
+populacijske vrijednosti. Većina je hvata, a neki je promašuju. Tek niz
+intervala čini značenje razine pouzdanosti vidljivim.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w09_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w09 — Hvatač intervala.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w09 — Hvatač intervala. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +84,8 @@ md`**Widget w09 — Hvatač intervala.** Interaktivni graf još nije izrađen. S
 ```{r}
 #| echo: false
 #| label: fig-w09
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani niz intervala oko jedne populacijske vrijednosti."
+#| fig-alt: "Mjesto za mnoge vodoravne intervale, od kojih nekoliko promašuje istu okomitu crtu."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w09 još nije izrađen") +
@@ -68,65 +93,109 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Generirajte jedan interval i zabilježite obuhvaća li cilj.
+2. Povećajte broj ponavljanja bez promjene postupka.
+3. Usporedite preciznost pri različitim veličinama uzorka.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Procjena prije odluke.** Pristup „novih statistika" stavlja veličinu učinka,
+interval i metaanalitičko povezivanje nalaza ispred binarne odluke o
+značajnosti [@cumming2014].
+
+Interval ne jamči da je istina blizu sredine ni da je istraživanje valjano.
+Njegova vrijednost je u tome što čitatelju pokazuje koje su veličine još
+usklađene s postupkom i koliko prostora ostaje za znanstvenu nesigurnost.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može bootstrapirati gotovo svaku statistiku, ali treba provjeriti
+uzorkuje li s vraćanjem, čuva li strukturu uparenih ili grupiranih podataka i
+ponavlja li dovoljno puta. Modeli često daju pogrešno probabilističko značenje
+već izračunatom intervalu.
+
+> Izračunaj točkastu procjenu i bootstrap interval. Sačuvaj strukturu podataka,
+> opiši postupak resamplinga i interpretiraj razinu pouzdanosti kao svojstvo
+> ponovljenog postupka.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Bootstrap raspodjela je približno simetrična i interval je uredno izračunat iz
+njezinih krajeva. Postoji devedesetpetpostotna vjerojatnost da se fiksna
+populacijska vrijednost nalazi unutar upravo ovog opaženog intervala.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je pripisivanje vjerojatnosti fiksnom parametru nakon izračuna
+frekventističkog intervala. Razina pouzdanosti opisuje dugoročni udio intervala
+koji obuhvaćaju parametar.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simulirani uzorak sadrži ocjene povjerenja. Zanimaju nas medijan i njegova
+nesigurnost jer raspodjela nije savršeno simetrična. Bootstrap uzorci ponovno
+izvlače opažene ocjene s vraćanjem i za svaki izračunavaju medijan.
+
+```{r}
+#| label: tbl-bootstrap-interval
+#| tbl-cap: "Bootstrap procjena medijana simuliranih ocjena. Izrada autora."
+
+sim_povjerenje <- tibble(
+  ocjena = sample(1:10, 80, replace = TRUE,
+                  prob = c(2, 3, 5, 7, 10, 12, 14, 12, 9, 6))
+)
+
+boot_medijani <- replicate(
+  3000,
+  median(sample(sim_povjerenje$ocjena, replace = TRUE))
+)
+
+tibble(
+  procjena = median(sim_povjerenje$ocjena),
+  donja = quantile(boot_medijani, 0.025),
+  gornja = quantile(boot_medijani, 0.975)
+) |>
+  knitr::kable(digits = 1)
+```
+
+Tablica je rezultat simuliranog nastavnog primjera, a ne nalaz o stvarnom
+povjerenju. Ona pokazuje redoslijed izvještavanja. Najprije dolazi procjena,
+zatim raspon nesigurnosti i naposljetku ograničenje uzorka i mjere.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Procjena počinje jednom vrijednošću, ali ne završava njome. Interval prikazuje
+preciznost postupka i mora se tumačiti kroz ponovljeno uzorkovanje. Bootstrap
+približava tu promjenjivost resamplingom dostupnog uzorka, bez čarobnog
+popravljanja njegove pristranosti. Sljedeće poglavlje uvodi testiranje kao još
+jedan način usporedbe opaženog rezultata s raspodjelom mogućih rezultata.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+točkasta procjena (*point estimate*), interval pouzdanosti (*confidence
+interval*), preciznost (*precision*), bootstrap (*bootstrap*), resampling
+(*resampling*), parametar (*parameter*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Objasnite zašto razina pouzdanosti pripada postupku, a ne nepoznatom parametru
+nakon izračuna intervala. Predajte jedan odlomak.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite `sim_povjerenje`. Bootstrapirajte aritmetičku sredinu i medijan te
+predajte usporednu tablicu intervala.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite zašto izvještaj usmjeren na procjenu i interval daje više informacija
+od same odluke o značajnosti [@cumming2014]. Predajte tri rečenice.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku interpretaciju iz okvira. Imenujte točan postupak, jednu
+pogrešnu rečenicu i frekventistički ispravnu zamjenu.

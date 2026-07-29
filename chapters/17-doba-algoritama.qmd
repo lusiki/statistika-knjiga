@@ -3,7 +3,7 @@ title: "Statistika u doba algoritama"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — prošireni argument, bez widgeta
   IZVOR:   novo poglavlje
   OPSEG:   ~5500 riječi
   WIDGET:  w17 · Istraživač pravednosti
@@ -23,35 +23,92 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Chouldechova je analizirala instrumente za predviđanje povratka u kriminal i
+pokazala da se poželjna mjerila pravednosti mogu sukobiti kada se temeljne
+stope razlikuju među skupinama [@chouldechova2017]. Jednako tumačenje
+predviđenog rizika, jednake stope lažno pozitivnih odluka i jednaka ukupna
+točnost ne mogu se uvijek postići istodobno.
+
+To nije samo matematička neugodnost. Prag modela odlučuje tko će biti
+zaustavljen, provjeren, preporučen ili uskraćen. Pogreške imaju različite
+posljedice, a zbirna ocjena skriva na koga padaju.
+
+Kako statistički čitati algoritam koji ne opisuje samo društvo, nego sudjeluje
+u raspodjeli pažnje, prilika i rizika?
 :::
 
-## Naslov prvog odjeljka
+## Predikcija na novim podacima
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Algoritamski model uči obrazac na skupu za treniranje i provjerava ga na
+odvojenom skupu za testiranje. Razdvajanje postoji zato što model može naučiti
+slučajnu posebnost podataka koje je već vidio. **Preprilagodba** nastaje kada
+pristajanje treningu raste, a sposobnost generalizacije na nove slučajeve
+slabi.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Predikcija i objašnjenje postavljaju različite kriterije dobrog modela
+[@breiman2001]. Predikcijski model vrednuje pogrešku na novim podacima.
+Objašnjavajući model traži koeficijente i strukturu koje možemo povezati s
+teorijom. Visoka prediktivna uspješnost ne pretvara korištene varijable u
+uzroke.
+
+Klasifikacija prevodi rezultat modela u kategoriju pomoću praga. Pomicanje
+praga mijenja odnos lažno pozitivnih i lažno negativnih odluka. Ne postoji
+prag koji minimizira svaku vrstu pogreške bez odluke o njihovoj cijeni.
+
+## Algoritam kao društvena infrastruktura
+
+Sustav preporuke ne predviđa samo što će osoba možda odabrati. Rangiranjem
+sadržaja mijenja ono što osoba uopće može vidjeti. Podaci o prethodnom
+ponašanju tako postaju ulaz u okruženje koje proizvodi sljedeće ponašanje.
+Promatrač i predmet promatranja ulaze u povratnu petlju.
+
+Metrika poput vremena zadržavanja nije neutralna zamjena za zadovoljstvo,
+informiranost ili javnu vrijednost. Ona operacionalizira cilj sustava.
+Optimizacija zatim vrlo učinkovito povećava ono što je izmjereno, uključujući
+slučajeve u kojima mjera slabo predstavlja društvenu svrhu.
+
+Društvenoznanstveno pitanje zato uključuje vlasništvo nad podacima, institucionalni
+cilj, mogućnost žalbe i skupine koje nose pogreške. Tehnička dokumentacija
+modela nije potpuna bez opisa konteksta njegove uporabe.
+
+## Pravednost i temeljne stope
+
+Mjere pravednosti promatraju različite dijelove tablice odluka. Jednaka stopa
+lažno pozitivnih odluka usredotočuje se na osobe bez ishoda. Jednaka
+prediktivna vrijednost pita koliko je pozitivnih odluka doista pozitivno.
+Kada se temeljne stope razlikuju, ta se mjerila mogu matematički razići
+[@chouldechova2017; @barocas2023].
+
+Izbor mjerila nije samo tehnički. On određuje koju vrstu pogreške i koju
+populaciju sustav štiti. Poštena analiza zato prikazuje više mjerila po skupini,
+objašnjava prag i navodi institucionalnu posljedicu svake pogreške.
+
+## Jezični modeli kao distribucije
+
+Veliki jezični model proizvodi tekst predviđanjem sljedećih dijelova niza iz
+raspodjele naučene na velikom korpusu. Tečnost je rezultat uspješnog
+modeliranja jezičnih obrazaca. Nije ugrađena provjera da tvrdnja odgovara
+stvarnom izvoru.
+
+Model može dati korisnu strukturu, kod ili alternativno objašnjenje, ali
+činjenice moraju ostati vezane uz provjerljive dokumente i podatke. Kada izvor
+nije dostupan, odgovoran odgovor označava prazninu. Samouvjerena rečenica bez
+podrijetla samo je predikcija koja zvuči kao znanje.
 
 ## Interakcija — Istraživač pravednosti
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Istraživač pravednosti mijenja klasifikacijski prag za dvije skupine s
+različitim temeljnim stopama. Uz isti model čitatelj promatra kako se točnost,
+lažno pozitivne i lažno negativne odluke te prediktivna vrijednost ne kreću
+zajedno.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w17_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w17 — Istraživač pravednosti.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w17 — Istraživač pravednosti. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +116,8 @@ md`**Widget w17 — Istraživač pravednosti.** Interaktivni graf još nije izra
 ```{r}
 #| echo: false
 #| label: fig-w17
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani učinci klasifikacijskog praga na dvije skupine."
+#| fig-alt: "Mjesto za stope pogrešaka dviju skupina koje se mijenjaju s pragom."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w17 još nije izrađen") +
@@ -68,65 +125,120 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Primijenite isti prag na skupine s jednakim temeljnim stopama.
+2. Promijenite temeljnu stopu jedne skupine.
+3. Pokušajte istodobno izjednačiti više mjerila pravednosti.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Jednaka ocjena, različite pogreške.** Analiza instrumenata za procjenu rizika
+pokazala je sukob između kalibracije i jednakosti određenih stopa pogreške kada
+se temeljne stope razlikuju [@chouldechova2017].
+
+Tvrdnja da je model „pravedan" zato nije potpuna bez imenovanja mjerila,
+skupina, praga i posljedica. Agregatna točnost može ostati jednaka dok se vrste
+pogrešaka vrlo nejednako raspoređuju.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može izračunati tablice zabune i mjerila po skupinama. Treba mu dati
+stvarne ishode, predviđene rezultate i prag, bez osobnih identifikatora.
+Provjeravamo nazivnike svake stope i tražimo da sukob mjerila ne riješi
+neobrazloženom tvrdnjom da je jedno „najpoštenije".
+
+> Izračunaj tablicu zabune i stope pogrešaka zasebno po skupinama. Objasni kako
+> prag i temeljne stope mijenjaju mjerila, a vrijednosni izbor ostavi jasno
+> označenim.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Model ima jednaku ukupnu točnost u dvjema skupinama, a prag je za obje jednak.
+Zato je algoritam pravedan i nije potrebno pregledavati zasebne stope pogreške.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je zaključak da jednaka ukupna točnost dokazuje pravednost. Lažno
+pozitivne i lažno negativne odluke mogu se različito rasporediti unatoč istoj
+točnosti.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simuliramo dvije skupine s različitim temeljnim stopama i isti bučni
+prediktivni rezultat. Jedan zajednički prag pretvara rezultat u odluku.
+Izračun ne tvrdi da je neka stvarna skupina takva. Pokazuje kako nazivnici
+stvaraju različita mjerila.
+
+```{r}
+#| label: tbl-pravednost
+#| tbl-cap: "Stope pogrešaka u simuliranom klasifikacijskom primjeru. Izrada autora prema @barocas2023."
+
+sim_klasifikacija <- bind_rows(
+  tibble(skupina = "A", ishod = rbinom(2000, 1, 0.20)),
+  tibble(skupina = "B", ishod = rbinom(2000, 1, 0.45))
+) |>
+  mutate(
+    rezultat = pmin(pmax(0.15 + 0.65 * ishod + rnorm(n(), 0, 0.25), 0), 1),
+    odluka = rezultat >= 0.50
+  )
+
+sim_klasifikacija |>
+  group_by(skupina) |>
+  summarise(
+    temeljna_stopa = mean(ishod == 1),
+    lazno_pozitivni = mean(odluka[ishod == 0]),
+    lazno_negativni = mean(!odluka[ishod == 1]),
+    tocnost = mean(odluka == (ishod == 1)),
+    .groups = "drop"
+  ) |>
+  knitr::kable(digits = 2)
+```
+
+Tablica pokazuje da jedno mjerilo ne opisuje cijelu raspodjelu odluka.
+Promjena praga može smanjiti jednu pogrešku i povećati drugu. Odluka o
+prihvatljivom odnosu zahtijeva znanje o posljedicama, mogućnosti žalbe i
+instituciji koja model primjenjuje.
+
+Ista disciplina vrijedi za sustave preporuke i jezične modele. Prije procjene
+rezultata moramo znati koji je cilj optimiziran, na kojim je podacima sustav
+učen i kako njegove pogreške ulaze u društvenu praksu.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Algoritamski model procjenjujemo na novim podacima i prema cilju koji je doista
+optimiziran. Klasifikacijski prag raspoređuje vrste pogrešaka, a različite
+temeljne stope mogu dovesti mjerila pravednosti u sukob. Sustavi preporuke
+mijenjaju okruženje koje mjere, dok jezični modeli proizvode tečan tekst bez
+ugrađenog jamstva istinitosti. Statistička pismenost zato ostaje odgovornost za
+izvor, nazivnik, cilj i posljedice odluke.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+skup za treniranje (*training set*), skup za testiranje (*test set*),
+preprilagodba (*overfitting*), klasifikacijski prag (*classification
+threshold*), tablica zabune (*confusion matrix*), temeljna stopa (*base rate*),
+algoritamska pravednost (*algorithmic fairness*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Objasnite zašto jednaka ukupna točnost ne jamči jednake posljedice za dvije
+skupine. Predajte dvije moguće tablice zabune.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Promijenite prag u objektu `sim_klasifikacija` i predajte graf dviju stopa
+pogreške po skupini.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite zašto se mjerila pravednosti mogu sukobiti kada se temeljne stope
+razlikuju [@chouldechova2017; @barocas2023]. Predajte odlomak bez proglašenja
+jednog mjerila univerzalno najboljim.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku analizu iz okvira. Imenujte dvije stvarne provjere, jednu
+neopravdanu tvrdnju o pravednosti i mjerila koja još treba prikazati.

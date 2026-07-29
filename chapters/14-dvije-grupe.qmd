@@ -3,7 +3,7 @@ title: "Uspoređivanje dviju grupa"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 11, umjerena prerada
   OPSEG:   ~4500 riječi
   WIDGET:  w14 · Uzorkivač dviju grupa
@@ -23,35 +23,61 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Cumming je usporedbu skupina smjestio u okvir procjene razlike i njezina
+intervala, umjesto odluke koja završava oznakom značajnosti [@cumming2014].
+Time se uredničko pitanje mijenja. Nije dovoljno znati prolazi li rezultat
+prag. Treba znati kolika je razlika i koje su veličine još spojive s podacima.
+
+Isti brojčani ishod može nastati iz dviju neovisnih skupina, iz ponovljenog
+mjerenja istih osoba ili iz usporedbe jednog uzorka s referentnom vrijednošću.
+Računi izgledaju srodno, ali jedinica neovisnosti nije ista.
+
+Kako jednu usporedbu dviju sredina povezati s dizajnom, učinkom i općim jezikom
+modela?
 :::
 
-## Naslov prvog odjeljka
+## Jedna razlika, tri dizajna
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Jednouzoračni t-test uspoređuje sredinu uzorka s referentnom vrijednošću.
+Neovisni t-test uspoređuje dvije skupine različitih jedinica. Upareni t-test
+svodi ponovljena mjerenja na razliku unutar iste jedinice i analizira te
+razlike. Odabir testa zato počinje pitanjem tko ili što nosi dva rezultata.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Welchova inačica neovisnog testa ne zahtijeva jednake varijance i razuman je
+početni izbor kada nema snažnog razloga za strožu pretpostavku. Normalnost se
+procjenjuje na razini ostataka ili razlika relevantnih za model, a ne
+mehaničkim testom nad svakim stupcem.
+
+Krajnja opažanja traže pregled, ne automatsko brisanje. Mogu biti pogreške,
+rijetki legitimni slučajevi ili znak da sredina nije prikladan sažetak.
+Wilcoxonov postupak mijenja pitanje prema rangovima i nije samo t-test koji se
+uključuje kada jedan test normalnosti prijeđe prag.
+
+## Binarni prediktor kao model
+
+Usporedba dviju skupina može se zapisati linearnim modelom u kojem kategorija
+predviđa brojčani ishod. Početna vrijednost predstavlja sredinu referentne
+skupine, a koeficijent skupine njihovu razliku. Time t-test postaje poseban
+slučaj jezika koji će se proširiti u poglavlju o regresiji.
+
+Model ne zamjenjuje dizajn. Koeficijent opisuje prilagođenu ili neprilagođenu
+razliku ovisno o uključenim varijablama, dok kauzalno značenje dolazi iz načina
+dodjele skupina. Izvještaj najprije daje razliku u izvornim jedinicama i
+interval, zatim test i standardiziranu veličinu učinka.
 
 ## Interakcija — Uzorkivač dviju grupa
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Uzorkivač dviju grupa prikazuje preklapanje pojedinačnih rezultata i
+raspodjelu procijenjene razlike kroz ponavljanja. Čitatelj odvojeno mijenja
+stvarnu razliku, varijabilnost i veličinu uzorka.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w14_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w14 — Uzorkivač dviju grupa.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w14 — Uzorkivač dviju grupa. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +85,8 @@ md`**Widget w14 — Uzorkivač dviju grupa.** Interaktivni graf još nije izrađ
 ```{r}
 #| echo: false
 #| label: fig-w14
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani prikaz dviju skupina i distribucije njihove razlike."
+#| fig-alt: "Mjesto za dvije skupine opažanja i histogram razlika sredina."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w14 još nije izrađen") +
@@ -68,65 +94,105 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Povećajte razliku uz jednaku varijabilnost.
+2. Povećajte varijabilnost uz jednaku razliku.
+3. Pretvorite neovisni dizajn u upareni i promatrajte što se računa.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Interval umjesto etikete.** Pristup usmjeren na procjenu traži razliku i
+interval prije zaključka o testu [@cumming2014]. Dvije studije mogu imati sličnu
+procjenu, ali različitu preciznost, pa će binarna oznaka sakriti ono što ih
+najviše razlikuje.
+
+Graf pojedinačnih opažanja dodatno pokazuje preklapanje i krajnje slučajeve.
+Sredine bez raspodjela pretvaraju dvije skupine u dvije točke.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može odabrati t-test tek nakon što dobije opis dizajna i identifikator
+jedinice. Treba provjeriti je li uparivanje sačuvano, koristi li Welchovu
+inačicu za neovisne skupine i izvještava li razliku, interval i učinak. Modeli
+često zamijene neovisni i upareni dizajn.
+
+> Prepoznaj jesu li mjerenja neovisna ili uparena. Prikaži pojedinačna
+> opažanja, procijeni razliku s intervalom i tek zatim provedi odgovarajući
+> test.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Iste su osobe mjerene prije i nakon intervencije, a svi parovi imaju ispravan
+identifikator. Analiza je ipak provedena kao test dviju neovisnih skupina jer
+svaki stupac sadrži zasebne vrijednosti.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je zanemarivanje uparenog dizajna. Jedinica analize je promjena unutar
+osobe, pa se testiraju razlike parova.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simuliramo dvije neovisne skupine s brojčanim ishodom. Analiza izračunava
+razliku sredina, Welchov interval i standardizirani učinak. Simulacija ne
+predstavlja stvarnu studiju, nego pokazuje redoslijed izvještavanja.
+
+```{r}
+#| label: tbl-dvije-grupe
+#| tbl-cap: "Procjena razlike u simuliranim skupinama. Izrada autora."
+
+sim_dvije <- tibble(
+  skupina = rep(c("A", "B"), each = 50),
+  ishod = c(rnorm(50, 50, 10), rnorm(50, 55, 12))
+)
+
+test_dvije <- t.test(ishod ~ skupina, data = sim_dvije)
+
+tibble(
+  razlika = diff(rev(test_dvije$estimate)),
+  donja = test_dvije$conf.int[1],
+  gornja = test_dvije$conf.int[2]
+) |>
+  knitr::kable(digits = 2)
+```
+
+Interval pokazuje koje su razlike usklađene s ovim uzorkom. Izvještaj još
+treba opis skupina, raspodjele i dizajn dodjele. Tek nasumična dodjela može
+razliku uvjerljivo povezati s intervencijom.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Usporedba dviju grupa počinje dizajnom i jedinicom neovisnosti. Jednouzoračni,
+neovisni i upareni postupak različite su inačice iste logike procjene razlike.
+Linearni model s binarnim prediktorom otkriva zajednički okvir, dok učinak i
+interval čuvaju sadržajno značenje. Sljedeće poglavlje širi isti model na više
+skupina i uvodi problem mnogih usporedbi.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+neovisne skupine (*independent groups*), upareni podaci (*paired data*),
+Welchov t-test (*Welch's t-test*), razlika sredina (*mean difference*),
+binarni prediktor (*binary predictor*), Wilcoxonov test (*Wilcoxon test*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Razlikujte neovisni i upareni dizajn prema jedinici analize. Predajte po jedan
+primjer i objasnite što se u svakom uspoređuje.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite `sim_dvije`. Izračunajte razliku, interval i Cohenov d te
+predajte jedan odlomak interpretacije.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite zašto interval razlike nosi više informacija od same oznake
+značajnosti [@cumming2014]. Predajte kratku bilješku recenzentu.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku analizu iz okvira. Imenujte stvarni dizajn, jednu pogrešku u
+testu i rezultat koji bi trebalo računati.

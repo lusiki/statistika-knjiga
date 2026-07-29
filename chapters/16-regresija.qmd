@@ -3,7 +3,7 @@ title: "Regresija, opći okvir"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — prošireni sintezni argument, bez widgeta
   IZVOR:   tjedan 13, prošireno u sintezno poglavlje
   OPSEG:   ~6000 riječi
   WIDGET:  w16 · Regresijski pravac
@@ -23,35 +23,86 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Breiman je suprotstavio dvije kulture statističkog modeliranja. Jedna je
+naglašavala objašnjenje odnosa kroz podatkovni model, a druga prediktivnu
+uspješnost algoritma na novim podacima [@breiman2001]. Razlika nije bila samo
+tehnička. Određivala je što se smatra dobrim odgovorom.
+
+Model može precizno opisati prosječnu povezanost, slabo predviđati pojedince i
+ne govoriti ništa sigurno o uzroku. Drugi model može dobro predviđati, a ostati
+težak za sadržajno objašnjenje. Isti podatak ne rješava automatski sva tri
+zadatka.
+
+Kako linearni model povezati s ranijim usporedbama, a pritom odvojiti opis,
+predviđanje i uzročni zaključak?
 :::
 
-## Naslov prvog odjeljka
+## Pravac i pogreške
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Jednostavna regresija traži pravac koji sažima očekivani ishod duž vrijednosti
+prediktora. Svako opažanje ostavlja **rezidual**, okomitu razliku između
+opažene i modelirane vrijednosti. Metoda najmanjih kvadrata bira koeficijente
+koji čine zbroj kvadrata tih razlika najmanjim.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Nagib opisuje prosječnu promjenu ishoda povezanu s jediničnom promjenom
+prediktora. Odsječak je očekivani ishod kada prediktor ima referentnu
+vrijednost. Ako ta vrijednost nema smisla u podacima, odsječak je računski
+potreban, ali sadržajno slab. Centriranje prediktora može mu dati korisniju
+referencu bez promjene pristajanja modela.
+
+R-kvadrat opisuje udio varijabilnosti ishoda koji model sažima u promatranom
+uzorku. Nije ocjena istinitosti, ne jamči dobru predikciju na novim podacima i
+ne određuje važnost pojedinog koeficijenta. Visoka vrijednost može pripadati
+modelu koji promašuje uzročni mehanizam.
+
+## Više prediktora i kontrola
+
+Višestruka regresija procjenjuje povezanost jednog prediktora s ishodom uz
+jednake vrijednosti ostalih uključenih prediktora. Izraz „uz kontrolu" opisuje
+računsku usporedbu, a ne eksperimentalnu kontrolu. Ako važan konfundirajući
+čimbenik nije izmjeren ili je loše izmjeren, koeficijent ga ne može ukloniti.
+
+Prediktori koji nose vrlo sličnu informaciju međusobno dijele objašnjenje.
+Koeficijenti tada mogu postati nestabilni i osjetljivi na male promjene uzorka.
+Multikolinearnost nije dokaz da su podaci pogrešni. Pokazuje da uzorak teško
+razdvaja doprinose prediktora koji se zajedno kreću.
+
+Poglavlja o dvjema i više skupina već su koristila isti okvir. Binarni
+prediktor modelira razliku dviju sredina, a kategorički prediktor skup sredina.
+T-test i ANOVA nisu otoci izvan regresije, nego posebni oblici istog modela.
+
+## Dijagnostika prije priče
+
+Rezidualni prikaz provjerava ostaje li nakon pravca sustavan obrazac.
+Zakrivljenost upućuje na pogrešan funkcijski oblik, lijevak na promjenjivu
+varijancu, a izdvojene točke na mogući utjecaj pojedinih opažanja. Dijagnostika
+ne daje automatsku odluku o brisanju, nego pokazuje gdje model treba
+obrazloženje ili promjenu.
+
+Predviđanje se provjerava na podacima koji nisu sudjelovali u prilagodbi
+modela. Dobro pristajanje u uzorku može biti rezultat učenja njegove slučajne
+buke. Ta se granica između pristajanja i generalizacije u sljedećem poglavlju
+pretvara u središnji problem algoritamskih modela.
+
+Uzročna tvrdnja zahtijeva više od popisa kontrolnih varijabli. Potrebni su
+vremenski redoslijed, uvjerljiva struktura konfundiranja i dizajn koji opravdava
+usporedbu. Regresija može izvesti prilagođenu povezanost. Ne može iz samih
+podataka odlučiti koje je varijable trebalo mjeriti niti jesu li posljedica,
+uzrok ili zajednički ishod.
 
 ## Interakcija — Regresijski pravac
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Regresijski pravac u planiranoj interakciji može se pomicati preko oblaka
+točaka. Svaki pomak mijenja reziduale i njihov kvadrat, dok drugi prediktor
+pokazuje kako se prilagođeni nagib razlikuje od zbirnog odnosa.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w16_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w16 — Regresijski pravac.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w16 — Regresijski pravac. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +110,8 @@ md`**Widget w16 — Regresijski pravac.** Interaktivni graf još nije izrađen. 
 ```{r}
 #| echo: false
 #| label: fig-w16
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani pravac s prikazom reziduala i drugog prediktora."
+#| fig-alt: "Mjesto za oblak točaka, pomični pravac i okomite reziduale."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w16 još nije izrađen") +
@@ -68,65 +119,124 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Pomaknite pravac i pronađite položaj s najmanjim kvadratima reziduala.
+2. Dodajte jedno utjecajno opažanje.
+3. Uključite drugi prediktor i usporedite zbirni s prilagođenim nagibom.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Dvije kulture modeliranja.** Breiman je opisao napetost između modela
+usmjerenih na podatkovni mehanizam i algoritamskih postupaka usmjerenih na
+predikciju [@breiman2001].
+
+Članak koji model naziva „boljim" mora zato navesti kriterij. Bolje pristajanje,
+stabilniji koeficijent, manja pogreška na novim podacima i uvjerljiviji uzročni
+dizajn nisu ista postignuća.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može prilagoditi model, izraditi dijagnostičke grafove i prevesti
+koeficijente u prozu. Treba mu zadati ulogu svake varijable, referentne
+kategorije i cilj analize. Provjeravamo kod, jedinice, reziduale, podatke za
+provjeru predikcije i svaki prijelaz iz povezanosti prema uzroku.
+
+> Prilagodi linearni model i protumači koeficijente u izvornim jedinicama.
+> Prikaži intervale, dijagnostiku reziduala i odvojenu provjeru predikcije.
+> Uzročni jezik koristi samo ako ga dizajn izričito opravdava.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Model uključuje dob, obrazovanje i početni rezultat, a rezidualni prikazi ne
+pokazuju velik problem. Koeficijent korištenja platforme zato predstavlja
+čisti uzročni učinak korištenja na ishod.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je pretvaranje prilagođene povezanosti u čisti uzročni učinak. Uključene
+kontrole ne jamče da su izmjereni svi konfunderi niti rješavaju obrnuti smjer.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simuliramo odnos vremena provedenog uz sadržaj, prethodnog interesa i
+angažmana. Budući da interes utječe i na vrijeme i na ishod, jednostavni nagib
+miješa dvije priče. Višestruki model procjenjuje odnos vremena s angažmanom uz
+jednaku razinu simuliranog interesa.
+
+```{r}
+#| label: tbl-regresija-primjer
+#| tbl-cap: "Koeficijenti jednostavnog i prilagođenog simuliranog modela. Izrada autora."
+
+sim_reg <- tibble(
+  interes = rnorm(250),
+  vrijeme = 20 + 7 * interes + rnorm(250, 0, 6),
+  angazman = 30 + 0.6 * vrijeme + 8 * interes + rnorm(250, 0, 8)
+)
+
+model_jedan <- lm(angazman ~ vrijeme, data = sim_reg)
+model_dva <- lm(angazman ~ vrijeme + interes, data = sim_reg)
+
+izdvoji_nagib <- function(model, naziv) {
+  red <- summary(model)$coefficients["vrijeme", ]
+  tibble(
+    model = naziv,
+    estimate = red[["Estimate"]],
+    std.error = red[["Std. Error"]]
+  )
+}
+
+bind_rows(
+  izdvoji_nagib(model_jedan, "jednostavni"),
+  izdvoji_nagib(model_dva, "prilagođeni")
+) |>
+  knitr::kable(digits = 2)
+```
+
+Razlika koeficijenata pokazuje što račun znači pod ovom poznatom simulacijom.
+U stvarnoj opažačkoj studiji ne bismo znali jesmo li izmjerili sve potrebne
+čimbenike. Prilagodba je transparentna usporedba pod uvjetom uključenih
+varijabli, a ne automatska identifikacija uzroka.
+
+Model se zatim provjerava na rezidualima i, za predikcijski cilj, na odvojenim
+podacima. Koeficijenti služe objašnjenju prosječnih odnosa, a pogreška
+predikcije procjenjuje uporabljivost za nove jedinice. Oba rezultata pripadaju
+istom modelu, ali odgovaraju na različita pitanja.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Regresija ujedinjuje usporedbu skupina i odnose brojčanih varijabli u jednom
+jeziku očekivanih vrijednosti i reziduala. Više prediktora daje prilagođene
+povezanosti, ali riječ „kontrola" ne stvara eksperiment. Dijagnostika pokazuje
+gdje model ne pristaje, dok provjera na novim podacima odvaja pristajanje od
+predikcije. Sljedeće poglavlje širi predikcijski cilj na klasifikaciju,
+algoritamsko rangiranje i društvene posljedice pogrešaka.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+linearna regresija (*linear regression*), rezidual (*residual*), metoda
+najmanjih kvadrata (*least squares*), koeficijent determinacije
+(*R-squared*), višestruka regresija (*multiple regression*), multikolinearnost
+(*multicollinearity*), predikcija (*prediction*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Objasnite kako su t-test i ANOVA posebni slučajevi linearnog modela. Predajte
+jednu skicu s binarnim i jednom s višerazinskim prediktorom.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite `sim_reg`. Usporedite jednostavni i prilagođeni model, nacrtajte
+reziduale i predajte tablicu koeficijenata.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite tvrdnju da model s boljim pristajanjem nužno daje bolje objašnjenje i
+predikciju [@breiman2001]. Predajte dva odvojena kriterija provjere.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku analizu iz okvira. Izdvojite ispravne dijagnostičke tvrdnje,
+jedan uzročni skok i dodatni dizajnerski dokaz koji bi bio potreban.

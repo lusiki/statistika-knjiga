@@ -5,7 +5,7 @@ code-fold: false
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — početni tijek rada i jezgra tidyversea
   IZVOR:   tjedni 2 do 4, sažeto
   OPSEG:   ~12000 riječi
   NAPOMENA: Jedini dio knjige u kojem kod NIJE presavijen (code-fold: false gore).
@@ -14,8 +14,96 @@ code-fold: false
   Instalacija, glagoli paketa tidyverse, uvoz i čišćenje podataka, pisanje funkcija, reproducibilne skripte. Pisano tako da se može čitati samostalno.
 ===================================================================== -->
 
-<!-- TODO Uvodni pasus koji kaže čemu dodatak služi i kako se koristi. -->
+Praktikum je radni pratitelj knjige. Poglavlja se mogu čitati bez otvaranja
+koda, dok ovaj dodatak pokazuje kako se analiza reproducira u R-u. Primjeri
+polaze od malih objekata, zatim prelaze na tablice, čišćenje, grupiranje,
+vizualizaciju i funkcije.
 
-## Naslov prvog odjeljka
+```{r}
+#| include: false
+source("R/setup.R")
+```
 
-<!-- TODO Zamijeni naslov. -->
+## Radni prostor koji se može ponoviti
+
+Analizu pišemo u skripti, a ne kao niz naredbi koje ostaju samo u konzoli.
+Projektna mapa čuva podatke, kod i rezultate na predvidljivim mjestima.
+Relativne putanje omogućuju da isti projekt radi na drugom računalu.
+
+```{r}
+#| eval: false
+# Jednom po novom projektu
+dir.create("data", showWarnings = FALSE)
+dir.create("outputs", showWarnings = FALSE)
+```
+
+Objekt nastaje operatorom pridruživanja. Ime treba opisivati sadržaj, dok
+komentar objašnjava razlog odluke koji se ne vidi iz samog koda.
+
+```{r}
+stope_odgovora <- c(0.42, 0.47, 0.45, 0.51)
+mean(stope_odgovora)
+```
+
+## Tablica i cjevovod
+
+Tibble je tablica u kojoj stupci predstavljaju varijable, a redci opažanja.
+Cjevovod šalje rezultat jednog koraka u sljedeći i time kod približava
+redoslijedu analitičkog objašnjenja.
+
+```{r}
+anketa <- tibble(
+  skupina = c("A", "A", "B", "B"),
+  rezultat = c(4, 5, 6, 7)
+)
+
+anketa |>
+  group_by(skupina) |>
+  summarise(
+    n = n(),
+    sredina = mean(rezultat),
+    .groups = "drop"
+  )
+```
+
+Glagol `filter()` bira redke, `select()` stupce, `mutate()` stvara varijable,
+`arrange()` uređuje redoslijed, a `summarise()` sažima. `group_by()` mijenja
+jedinicu sažimanja i zato se nakon uporabe mora jasno vidjeti ostaje li tablica
+grupirana.
+
+## Uvoz i provjera
+
+Uvezenu datoteku najprije pregledavamo. Provjeravamo imena i tipove stupaca,
+broj redaka, nedostajuće vrijednosti i nemoguće kategorije prije svake
+transformacije.
+
+```{r}
+# primjer <- readr::read_csv("data/primjer.csv")
+# dplyr::glimpse(primjer)
+# colSums(is.na(primjer))
+```
+
+Čišćenje ne prepisuje izvornu datoteku. Stvara novi objekt ili novu datoteku,
+a svaka promjena ostaje zapisana u skripti. Ručna promjena ćelije bez zapisa
+prekida reproducibilnost.
+
+## Funkcije i završna provjera
+
+Funkcija izdvaja ponovljeni postupak i daje mu ime. Korisna je kada ista
+provjera ili tablica mora vrijediti za više varijabli.
+
+```{r}
+opis <- function(x) {
+  tibble(
+    n = sum(!is.na(x)),
+    sredina = mean(x, na.rm = TRUE),
+    sd = sd(x, na.rm = TRUE)
+  )
+}
+
+opis(anketa$rezultat)
+```
+
+Prije predaje projekt pokrećemo iz čiste sesije. Rezultati moraju nastati iz
+skripte bez oslanjanja na objekte koji su slučajno ostali u memoriji. Verzije
+paketa, izvor podataka i nasumično sjeme pripadaju istom reprodukcijskom zapisu.

@@ -9,31 +9,134 @@
 ---
 
 **Vinjeta.**
+Simmons i suradnici pokazali su kako velik broj razumno zvučećih analitičkih
+odluka može povećati vjerojatnost lažno pozitivnog rezultata (Simmons, 2011).
+Svaka pojedina odluka mogla je izgledati bezazleno. Problem je postao vidljiv
+tek kada se promatrao cijeli niz mogućih putova kroz podatke.
 
-## Naslov prvog odjeljka
+Istraživač zato ne pita samo je li opaženi rezultat moguć pod jednom
+pretpostavkom. Mora pitati koliko je prilika postupak dao slučajnosti da
+proizvede nešto što izgleda uvjerljivo.
+
+Kako računati s neizvjesnošću bez pretvaranja vjerojatnosti u obećanje o jednom
+događaju?
+
+## Neizvjesnost kao raspodjela
+
+**Vjerojatnost** povezuje događaj sa skupom mogućih ishoda. U dugom nizu
+ponavljanja može se čitati kao relativna učestalost. U situaciji koja se neće
+ponoviti može izražavati stupanj uvjerenja pod jasno navedenim informacijama.
+Ta dva čitanja ne moraju biti suparnici, ali zahtijevaju da kažemo na što se
+broj odnosi.
+
+Pravilo komplementa prevodi vjerojatnost događaja u vjerojatnost da se događaj
+ne dogodi. Zbrajanje pripada međusobno isključivim ishodima, dok množenje
+povezuje zajedničko pojavljivanje neovisnih događaja. Najčešća pogreška nije
+računska, nego sadržajna pretpostavka da su događaji neovisni samo zato što je
+to zgodno za račun.
+
+Binomna situacija ima ponovljene pokušaje, dva ishoda i jednaku vjerojatnost
+uspjeha u svakom pokušaju. Glasanje, klik i odgovor na pitanje mogu se tako
+modelirati samo kada jedinice i pokušaji dovoljno dobro odgovaraju tim
+uvjetima. Model nije opis cijelog svijeta, nego kontrolirana slika dijela
+procesa.
+
+## Obrasci mnogih ponavljanja
+
+Pojedinačni ishodi mogu biti neuredni, dok raspodjela velikog broja ishoda
+pokazuje stabilan oblik. Normalna krivulja opisuje mnoge takve obrasce oko
+središta. Pravilo približnih područja oko sredine korisno je za orijentaciju,
+ali se ne primjenjuje na svaku asimetričnu ili višemodalnu raspodjelu.
+
+QQ prikaz uspoređuje poredane podatke s poredanim vrijednostima očekivanima pod
+odabranom raspodjelom. Točke blizu pravca podupiru približan oblik, dok
+sustavna zakrivljenost pokazuje odstupanje. Prikaz ne izdaje presudu o tome je
+li analiza dopuštena. On pokazuje gdje pretpostavka pristaje, a gdje se lomi.
 
 ## Interakcija — Simulator novčića i A/B kampanje
 
+Planirani simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
+Čitatelj mijenja stvarnu stopu uspjeha i broj pokušaja te promatra kako se
+kratki nizovi kolebaju, dok se raspodjela mnogih ponavljanja stabilizira.
+
 **Što isprobati.**
 
+1. Pokrenite nekoliko kratkih nizova pri jednakim stopama.
+2. Povećajte broj pokušaja i promatrajte relativnu učestalost.
+3. Usporedite jednu ekstremnu kampanju s raspodjelom svih kampanja.
+
 **Statistika u divljini.**
+**Mnogo prilika za slučajnost.** Analitička fleksibilnost omogućuje da se među
+mnogim ishodima, podskupinama i trenucima zaustavljanja izdvoji rezultat koji
+izgleda rijetko, iako je cijeli postupak takav nalaz učinio mnogo vjerojatnijim
+(Simmons, 2011).
+
+Čitanje jednog rezultata zato mora uključiti broj pokušaja i odluke donesene
+nakon gledanja podataka. Vjerojatnost pripada postupku koji je rezultat
+proizveo, a ne samo njegovoj posljednjoj tablici.
 
 **Pitajte model.**
+Asistent može simulirati postupak i usporediti analitički račun sa
+učestalostima u ponavljanjima. Treba mu jasno opisati skup mogućih ishoda,
+neovisnost i sve putove kojima je analiza mogla doći do rezultata. Modeli često
+računaju pod prešutnom pretpostavkom neovisnosti.
+
+> Simuliraj ovaj slučaj mnogo puta i prikaži raspodjelu ishoda. Prije računanja
+> navedi koje pretpostavke koristiš o neovisnosti i jednakoj vjerojatnosti
+> pokušaja.
 
 **Nađite grešku.**
+U nizu je više puta zaredom zabilježen isti ishod. Budući da se ravnoteža mora
+vratiti, sljedeći pokušaj sada ima veću vjerojatnost suprotnog ishoda.
+Pojedinačni pokušaji provedeni su pod jednakim uvjetima.
+
+Greška je kockarska zabluda. Ako su pokušaji neovisni i uvjeti jednaki,
+prethodni niz ne mijenja vjerojatnost sljedećeg ishoda.
 
 ## Razrađeni primjer
 
+Simuliramo mnogo kampanja s jednakom stvarnom stopom odgovora. Svaka kampanja
+daje nešto drukčiji udio, iako se temeljni proces ne mijenja. Histogram
+prikazuje koliko je raspršena ta slučajna varijacija.
+
+*Slika. Raspodjela simuliranih stopa uspjeha. Izrada autora.*
+
+Jedna kampanja može završiti daleko od središta bez promjene stvarne stope.
+Zaključak se zato ne temelji na tome izgleda li jedan rezultat neobično, nego
+na usporedbi s raspodjelom koju bi cijeli postupak mogao proizvesti.
+
 ## Sažetak
 
+Vjerojatnost opisuje neizvjesnost unutar jasno određenog skupa mogućnosti.
+Pravila računanja vrijede samo uz sadržajne pretpostavke o događajima i
+neovisnosti. Simulacija pokazuje kako stabilna raspodjela nastaje iz neurednih
+pojedinačnih ishoda. Poglavlje o uzorkovanju tu će logiku primijeniti na
+statistike koje se mijenjaju od uzorka do uzorka.
+
 ## Pojmovi
+
+vjerojatnost (*probability*), događaj (*event*), neovisnost (*independence*),
+binomna raspodjela (*binomial distribution*), normalna raspodjela (*normal
+distribution*), QQ prikaz (*Q–Q plot*)
 
 ## Zadaci
 
 ### Konceptualni
 
+Objasnite zašto niz jednakih ishoda ne mijenja vjerojatnost sljedećeg pokušaja
+ako su pokušaji neovisni. Predajte jedan odlomak.
+
 ### Računski
+
+Promijenite veličinu pokušaja u objektu `sim_kampanje` i predajte dva histograma
+s kratkom usporedbom raspršenosti.
 
 ### Kritički
 
+Objasnite kako više analitičkih putova mijenja čitanje rijetkog rezultata
+(Simmons, 2011). Predajte dijagram mogućih odluka.
+
 ### Revizija modela
+
+Ocijenite analizu modela iz okvira. Imenujte pretpostavku koju navodi, jednu
+pogrešku i ispravnu vjerojatnostnu interpretaciju.

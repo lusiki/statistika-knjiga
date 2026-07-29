@@ -3,7 +3,7 @@ title: "Uzorkovanje"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 8, prva polovica, izgrađeno oko simulacije
   OPSEG:   ~4500 riječi
   WIDGET:  w08 · CLT stroj
@@ -23,35 +23,60 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Efron je bootstrap predstavio kao način procjene nesigurnosti kada imamo jedan
+uzorak, a teorijski račun nije jednostavan [@efron1979]. Postupak se ponaša kao
+da uzorak predstavlja malu dostupnu populaciju i iz njega mnogo puta izvlači
+nova opažanja s vraćanjem.
+
+Ta ideja ima smisla tek kada razumijemo što se događa prije bootstrapiranja.
+Svaki stvarni uzorak samo je jedan mogući ishod postupka odabira. Drugi uzorak
+iz iste populacije dao bi drugu sredinu, udio ili korelaciju.
+
+Kako iz jednog uzorka učimo o cijeloj raspodjeli rezultata koje nismo vidjeli?
 :::
 
-## Naslov prvog odjeljka
+## Od populacije do uzorka
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+**Populacija** je skup jedinica o kojima želimo zaključivati. **Uzorak** je dio
+jedinica koje smo stvarno promatrali. Razlika nije samo u veličini. Uzorak
+nastaje postupkom odabira, a taj postupak određuje koje populacijske jedinice
+imaju priliku postati podatak.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Kada bismo nasumično uzorkovanje ponovili mnogo puta, svaki bi uzorak dao
+drugačiju statistiku. Raspodjela tih mogućih statistika naziva se
+**distribucija uzorkovanja**. Ona ne opisuje raspršenost pojedinaca, nego
+raspršenost procjene kroz ponovljene uzorke.
+
+Standardna pogreška sažima tu raspršenost. S rastom uzorka procjene se obično
+zbijaju jer svako pojedinačno opažanje nosi manji dio ukupnog rezultata. Dobit
+nije linearna. Udvostručavanje uzorka ne prepolovljuje automatski standardnu
+pogrešku, pa vrlo veliki uzorci mogu biti skupi za sve manji dobitak preciznosti.
+
+## Oblik koji se pojavljuje
+
+Središnji granični teorem najprije se može vidjeti. Iz asimetrične populacije
+uzimamo mnogo uzoraka, računamo njihove sredine i slažemo ih u novi histogram.
+Kako uzorci rastu, histogram sredina postaje pravilniji i zbijeniji iako
+izvorna populacija nije normalna.
+
+Taj obrazac omogućuje približne račune za mnoge procjene, ali ne popravlja
+pristran odabir. Tisuće odgovora iz zatvorenog okvira ne postaju
+reprezentativne samo zato što im je standardna pogreška mala. Slučajna
+promjenjivost i sustavna pristranost različiti su problemi.
 
 ## Interakcija — CLT stroj
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+CLT stroj gradi distribuciju uzorkovanja pred čitateljem. Izvorna populacija,
+veličina uzorka i broj ponavljanja mogu se mijenjati odvojeno, pa je vidljivo
+što utječe na oblik, a što na raspršenost uzoračkih sredina.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w08_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w08 — CLT stroj.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w08 — CLT stroj. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +84,8 @@ md`**Widget w08 — CLT stroj.** Interaktivni graf još nije izrađen. Specifika
 ```{r}
 #| echo: false
 #| label: fig-w08
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani stroj za nastanak distribucije uzorkovanja."
+#| fig-alt: "Mjesto za izvornu populaciju i histogram mnogih uzoračkih sredina."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w08 još nije izrađen") +
@@ -68,65 +93,108 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Uzimajte male uzorke iz simetrične populacije.
+2. Promijenite populaciju u snažno asimetričnu.
+3. Povećajte uzorak i odvojeno promatrajte oblik i širinu distribucije sredina.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Jedan uzorak kao privremena populacija.** Bootstrap iznova uzorkuje opažanja
+iz dostupnog uzorka kako bi približio promjenjivost procjene [@efron1979].
+Postupak ne stvara nove vrste jedinica i ne nadoknađuje dio populacije koji
+nikada nije mogao ući u uzorak.
+
+Tvrdnja da je rezultat „bootstrapiran" zato govori o procjeni slučajne
+nesigurnosti. Ne dokazuje reprezentativnost niti valjanost mjerenja.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može napisati simulaciju distribucije uzorkovanja, ali treba mu
+odvojeno zadati populaciju, postupak odabira, veličinu uzorka i statistiku.
+Provjeravamo uzorkuje li s vraćanjem samo kada je to namjera i brka li
+raspršenost pojedinaca sa standardnom pogreškom procjene.
+
+> Simuliraj mnogo neovisnih uzoraka iz zadane populacije. Prikaži raspodjelu
+> uzoračkih sredina i odvojeno opiši standardnu devijaciju opažanja te
+> standardnu pogrešku sredine.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Veći nasumični uzorak daje užu distribuciju uzoračkih sredina. Budući da je
+standardna pogreška manja, vrijednosti pojedinaca u većem uzorku također su
+međusobno sličnije.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je zamjena dviju razina varijabilnosti. Veći uzorak sužava raspodjelu
+procjene, ali ne mora smanjiti razlike među pojedincima u svakom uzorku.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Stvaramo desno asimetričnu simuliranu populaciju i iz nje ponavljano uzimamo
+uzorke dviju veličina. Za svaki uzorak računamo sredinu. Usporedba dviju
+distribucija pokazuje da veći uzorci daju zbijenije procjene.
+
+```{r}
+#| label: fig-clt-primjer
+#| echo: true
+#| fig-cap: "Distribucije sredina pri dvjema veličinama uzorka. Izrada autora."
+#| fig-alt: "Dvije distribucije uzoračkih sredina, pri čemu je ona za veći uzorak uža."
+
+populacija <- rexp(100000, rate = 1)
+
+sim_sredine <- bind_rows(
+  tibble(n = "manji uzorak",
+         sredina = replicate(1500, mean(sample(populacija, 10)))),
+  tibble(n = "veći uzorak",
+         sredina = replicate(1500, mean(sample(populacija, 80))))
+)
+
+ggplot(sim_sredine, aes(sredina, fill = n)) +
+  geom_histogram(position = "identity", alpha = 0.55, bins = 35) +
+  scale_fill_knjiga() +
+  labs(x = "Uzoračka sredina", y = "Broj uzoraka", fill = "Veličina")
+```
+
+Izvorna populacija ostaje asimetrična u oba slučaja. Mijenja se ponašanje
+sredine kroz ponavljanja. Ta razlika između raspodjele opažanja i raspodjele
+statistike nosi cijelo kasnije zaključivanje.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Uzorak je jedan ishod postupka odabira, a distribucija uzorkovanja opisuje kako
+bi se procjena mijenjala kroz ponavljanja. Standardna pogreška pripada procjeni,
+ne pojedincima. Veći uzorci obično povećavaju preciznost, ali ne uklanjaju
+sustavnu pristranost. Poglavlje o procjeni upotrijebit će tu raspodjelu kako bi
+izgradilo interval oko vrijednosti koju ne možemo izravno vidjeti.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+populacija (*population*), uzorak (*sample*), distribucija uzorkovanja
+(*sampling distribution*), standardna pogreška (*standard error*), središnji
+granični teorem (*central limit theorem*), reprezentativnost
+(*representativeness*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Razlikujte raspodjelu opažanja od distribucije uzoračkih sredina. Predajte
+skicu i dva popratna objašnjenja.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Promijenite veličine uzorka u simulaciji `sim_sredine` i predajte graf koji
+pokazuje promjenu širine distribucije.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Objasnite što bootstrap može, a što ne može nadoknaditi kada je početni uzorak
+pristran [@efron1979]. Predajte jedan odlomak.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite analizu modela iz okvira. Izdvojite točan zaključak o preciznosti,
+jednu zamjenu razina varijabilnosti i njezin popravak.

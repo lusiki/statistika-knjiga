@@ -3,7 +3,7 @@ title: "Sažimanje podataka"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 5, opsežan prijenos
   OPSEG:   ~5000 riječi
   WIDGET:  w04 · Oblikovanje distribucije
@@ -22,35 +22,68 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Tukey je istraživačku analizu podataka postavio kao postupak u kojem sažetak
+otvara pitanja umjesto da ih zatvara [@tukey1977]. Isti prosjek može pripadati
+zbijenoj skupini sličnih opažanja ili raspodjeli u kojoj se većina nalazi
+daleko od nekoliko ekstremnih vrijednosti. Broj je u oba slučaja pravilno
+izračunat, ali iskustvo tipičnog opažanja nije isto.
+
+U društvenim podacima takva razlika mijenja zaključak. Prosječno vrijeme,
+prihod ili broj dijeljenja može snažno povući mala skupina iznimnih slučajeva.
+Medijan će ostati stabilniji, ali će zauzvrat zanemariti koliko su ti slučajevi
+daleko od sredine.
+
+Koji sažetak čuva ono što je važno u raspodjeli, a što pritom skriva?
 :::
 
-## Naslov prvog odjeljka
+## Središte i raspodjela
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+**Aritmetička sredina** raspoređuje ukupan zbroj ravnomjerno na sva opažanja.
+Zato koristi svaku vrijednost i zato je osjetljiva na krajnosti. **Medijan**
+traži srednje mjesto nakon poredavanja. On se manje mijenja kada se jedno
+opažanje udalji, ali ne govori koliko je udaljeno. Mod opisuje najčešću
+vrijednost ili kategoriju i osobito je koristan kada prosjek uopće nema
+sadržajno značenje.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Mjera središta ne opisuje koliko se opažanja razlikuju. Dvije skupine mogu
+imati jednaku sredinu, a jedna može biti gotovo jednolična dok druga pokriva
+širok raspon. Raspon koristi samo krajeve. Interkvartilni raspon prati srednju
+polovinu raspodjele. Standardna devijacija opisuje tipičnu udaljenost od
+aritmetičke sredine i zbog toga se mijenja zajedno s ekstremnim vrijednostima.
+
+Izbor se ne svodi na pitanje koja je mjera najbolja. Sredina i raspršenost
+moraju odgovarati obliku podataka i tvrdnji koju želimo poduprijeti. Kada je
+raspodjela asimetrična, medijan i interkvartilni raspon često bolje opisuju
+tipično opažanje. Kada je približno simetrična, sredina i standardna devijacija
+zajedno daju sadržajan prikaz.
+
+## Položaj unutar skupine
+
+Ponekad nas ne zanima samo sirova vrijednost, nego njezin položaj u odnosu na
+druge. **Standardizirana vrijednost** izražava koliko je standardnih devijacija
+opažanje udaljeno od sredine. Time vrijednosti na različitim ljestvicama
+prevodimo na zajednički jezik položaja, ali ne uklanjamo nepravilnosti
+raspodjele.
+
+Desno asimetrični podaci često nastaju kada nekoliko slučajeva može biti vrlo
+veliko, dok je donja granica prirodna. Logaritamska transformacija sabija veće
+vrijednosti i može učiniti omjere vidljivijima. Ona nije popravak za svaki
+neugodan graf. Promijenjena ljestvica mijenja pitanje, pa interpretacija mora
+govoriti o razmjernim, a ne apsolutnim razlikama.
 
 ## Interakcija — Oblikovanje distribucije
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Planirani oblikovatelj raspodjele dopušta pomicanje pojedinačnih točaka i
+odmah pokazuje reakciju sredine, medijana i mjera raspršenosti. Tako postaje
+vidljivo koje mjere slušaju svako opažanje, a koje prvenstveno čuvaju redoslijed.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w04_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w04 — Oblikovanje distribucije.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w04 — Oblikovanje distribucije. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -58,8 +91,8 @@ md`**Widget w04 — Oblikovanje distribucije.** Interaktivni graf još nije izra
 ```{r}
 #| echo: false
 #| label: fig-w04
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani prikaz reakcije sažetaka na promjenu raspodjele."
+#| fig-alt: "Mjesto za raspodjelu s označenom sredinom i medijanom."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w04 još nije izrađen") +
@@ -67,65 +100,110 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Pomaknite jednu središnju točku i usporedite sredinu s medijanom.
+2. Udaljite jednu krajnju točku bez mijenjanja redoslijeda.
+3. Oblikujte dvije raspodjele iste sredine, ali različite raspršenosti.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Prosjek kao početak pregleda.** Tukey je zagovarao istraživački pristup u
+kojem se podaci pregledavaju iz više kutova prije konačnog modeliranja
+[@tukey1977]. Izvještaj koji navodi samo prosjek uklanja upravo oblik koji bi
+mogao objasniti zašto taj prosjek nije tipičan.
+
+Odgovorna tablica zato uparuje mjeru središta s mjerom raspršenosti i brojem
+opažanja. Graf zatim pokazuje asimetriju, praznine i krajnje slučajeve koje tri
+sažetka ne mogu nositi.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može izraditi tablicu sažetaka, ali mu treba zatražiti broj valjanih
+opažanja i postupanje s nedostajućim vrijednostima. Treba provjeriti računa li
+svaku skupinu iz ispravnog podskupa i je li za asimetričnu raspodjelu ponudio
+mjeru koja opisuje tipično opažanje.
+
+> Sažmi svaku skupinu brojem opažanja, prikladnom mjerom središta i prikladnom
+> mjerom raspršenosti. Obrazloži izbor nakon pregleda oblika raspodjele i
+> prikaži koliko vrijednosti nedostaje.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Raspodjela broja dijeljenja izrazito je desno asimetrična. Medijan i
+interkvartilni raspon zato opisuju tipičnu objavu. Budući da je medijan otporan
+na krajnje vrijednosti, takve vrijednosti možemo ukloniti prije svake daljnje
+analize.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je automatsko uklanjanje krajnjih vrijednosti. Otpornost medijana
+objašnjava njegovu stabilnost, ali ne određuje jesu li krajnji slučajevi
+pogreške, legitimna opažanja ili predmet istraživanja.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simulirani niz predstavlja angažman objava. Jedna objava privukla je mnogo više
+reakcija od ostalih. Usporedba sredine i medijana pokazuje kako taj slučaj
+mijenja pojam tipične objave, dok interkvartilni raspon opisuje središnji dio
+raspodjele.
+
+```{r}
+#| label: tbl-sazeci
+#| tbl-cap: "Sažeci simulirane raspodjele angažmana. Izrada autora."
+
+sim_angazman <- tibble(
+  angazman = c(8, 9, 10, 10, 11, 12, 12, 13, 14, 70)
+)
+
+sim_angazman |>
+  summarise(
+    opažanja = n(),
+    sredina = mean(angazman),
+    medijan = median(angazman),
+    standardna_devijacija = sd(angazman),
+    interkvartilni_raspon = IQR(angazman)
+  ) |>
+  knitr::kable(digits = 1)
+```
+
+Nijedan sažetak nije pogrešan. Sredina odgovara na pitanje o ravnomjernoj
+raspodjeli ukupnog angažmana, a medijan o položaju srednje objave. Izvještaj
+treba imenovati pitanje i pokazati raspodjelu kako čitatelj ne bi morao
+nagađati koje značenje nosi riječ „prosječno".
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Sažetak je odluka o tome koji dio raspodjele čuvamo u malom broju vrijednosti.
+Mjera središta bez raspršenosti ostavlja pola priče neispričanom, a obje zajedno
+još ne pokazuju oblik. Standardizacija opisuje položaj, dok transformacija
+mijenja ljestvicu i traži novu interpretaciju. Sljedeće poglavlje zato podatke
+vraća u prostor i pokazuje kako graf postaje dio argumenta.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+aritmetička sredina (*mean*), medijan (*median*), interkvartilni raspon
+(*interquartile range*), standardna devijacija (*standard deviation*),
+standardizirana vrijednost (*z-score*), asimetrija (*skewness*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Predvidite kako će se sredina, medijan i interkvartilni raspon promijeniti kada
+jedno najveće opažanje dodatno poraste. Predajte obrazloženje bez računanja.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite `sim_angazman`. Izračunajte sažetke prije i nakon uklanjanja
+najveće vrijednosti te predajte jednu usporednu tablicu.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Objasnite zašto istraživačka analiza ne završava jednom mjerom središta
+[@tukey1977]. Predajte popis triju dodatnih provjera u punim rečenicama.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku analizu iz okvira. Imenujte dobar izbor sažetka, jednu
+neopravdanu odluku i postupak kojim biste je provjerili.

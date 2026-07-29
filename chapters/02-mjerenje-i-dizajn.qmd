@@ -3,7 +3,7 @@ title: "Mjerenje i istraživački dizajn"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 1, druga polovica; umjerena prerada i novi materijal
   OPSEG:   ~5500 riječi
   WIDGET:  w02 · Prikaz konfundera
@@ -23,35 +23,77 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Berkeleyjski podaci iz prethodnog poglavlja bilježili su prijave, ishode upisa,
+spol kandidata i odjel. Nisu bilježili kvalitetu prijave, savjet koji je
+kandidat dobio prije prijave ni način na koji su pojedini odjeli donosili
+odluke [@bickel1975]. Tablica je zato mogla pokazati raspored ishoda, ali nije
+mogla izravno izmjeriti svaki postupak koji je do tih ishoda doveo.
+
+Istraživači su se morali vratiti korak unatrag. Prije pitanja o razlici trebalo
+je utvrditi što pojedini redak predstavlja, koje su usporedbe opravdane i koje
+alternativne priče podaci još dopuštaju. Više računanja nije moglo nadomjestiti
+ono što nije bilo izmjereno.
+
+Kako društvenu pojavu pretvaramo u podatke, a da pritom ne zamijenimo mjeru za
+pojavu koju želimo razumjeti?
 :::
 
-## Naslov prvog odjeljka
+## Mjerenje prije računanja
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Društvene znanosti najčešće proučavaju pojave koje ne možemo položiti na vagu.
+Povjerenje, politička otuđenost, osjećaj sigurnosti i izloženost medijima
+moraju se prevesti u opažanja. Taj se prijevod naziva **operacionalizacija**.
+Isto teorijsko pitanje može postati jedno anketno pitanje, skup tvrdnji,
+ponašajni trag ili procjena promatrača. Svaki izbor zahvaća dio pojave i
+istodobno nešto izostavlja.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Varijabla nije samo stupac s urednim imenom. Ona je trag odluke o tome što će
+se računati kao razlika među opažanjima. Nominalna mjera razvrstava u
+kategorije, ordinalna čuva redoslijed, intervalna dopušta usporedbu razlika, a
+omjerna ima smisleno ishodište. Razina mjerenja ne određuje koliko je tema
+važna. Određuje koje će računske operacije imati sadržajno značenje.
+
+Dobra mjera mora biti dovoljno postojana da slične slučajeve ne raspoređuje
+proizvoljno. Tu postojanost nazivamo **pouzdanošću**. Istodobno mora zahvatiti
+upravo pojavu o kojoj želimo zaključivati, što opisujemo **valjanošću**.
+Pouzdana mjera može svaki put jednako promašiti cilj. Valjana mjera bez
+pouzdanosti ne dopušta razlikovanje stvarne promjene od pogreške mjerenja.
+
+## Dizajn i doseg zaključka
+
+Podaci nasljeđuju snage i slabosti postupka kojim su nastali. U eksperimentu
+istraživač mijenja jedan uvjet i nasumično raspoređuje jedinice, pa skupine
+prije intervencije nastoji učiniti usporedivima. U opažačkoj studiji bilježi
+svijet kakav jest. Takva studija može obuhvatiti prirodnije okolnosti i širu
+populaciju, ali razliku među skupinama ne može automatski pripisati jednom
+uzroku.
+
+Treća varijabla koja je povezana i s mogućim uzrokom i s ishodom može stvoriti
+ili prikriti vezu. Nazivamo je **konfundirajućom varijablom**. Njezino
+prepoznavanje počinje sadržajnim znanjem, a ne naredbom u programu. Program
+može prilagoditi model za dob, obrazovanje ili prethodno ponašanje tek nakon što
+netko obrazloži zašto su baš te varijable važne i kako su izmjerene.
+
+Anketa dodaje još jednu razinu dizajna. Formulacija pitanja određuje što
+ispitanik razumije, ponuđeni odgovori određuju što smije reći, a okvir
+uzorkovanja određuje tko uopće može biti izabran. Velik broj odgovora ne
+popravlja sustavno izostavljanje dijela populacije. Precizno mjerenje pogrešne
+skupine ostaje precizno mjerenje pogrešne skupine.
 
 ## Interakcija — Prikaz konfundera
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Planirani prikaz pokazuje odnos dviju varijabli prije i nakon uključivanja
+treće. Opažanja ostaju ista, ali se mijenja usporedba. Čitatelj tako vidi da
+statistička prilagodba ne briše podatke, nego pita kako bi izgledala veza među
+jedinicama koje su slične prema relevantnom obilježju.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w02_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w02 — Prikaz konfundera.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w02 — Prikaz konfundera. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +101,8 @@ md`**Widget w02 — Prikaz konfundera.** Interaktivni graf još nije izrađen. S
 ```{r}
 #| echo: false
 #| label: fig-w02
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani prikaz veze prije i nakon uključivanja treće varijable."
+#| fig-alt: "Mjesto za dva prikaza iste veze, bez konfundera i s njime."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w02 još nije izrađen") +
@@ -68,65 +110,114 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Promatrajte početnu vezu bez treće varijable.
+2. Uključite konfundirajuću varijablu i usporedite smjer veze.
+3. Promijenite njezinu povezanost s ishodom i pronađite slučaj u kojem se
+   početni zaključak preokreće.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Što mjeri stopa prijma.** Zbirna stopa u Berkeleyju opisivala je ishod
+prijava, ali nije sama mjerila namjeru, kriterije odlučivanja ni iskustvo
+kandidata [@bickel1975]. Pretvaranje te stope u potpunu ocjenu pravednosti
+preskače operacionalizaciju pojma pravednosti.
+
+Odgovorno čitanje zato najprije pita koja je jedinica analize i koje su
+varijable dostupne. Tek nakon toga procjenjuje koji dizajn može razlikovati
+suparnička objašnjenja.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može pretvoriti istraživačko pitanje u nacrt varijabli i upozoriti na
+moguće konfundere. Njegov popis nije dokaz da su mjere valjane. Treba provjeriti
+odgovara li svaka predložena varijabla stvarnom instrumentu, tko nedostaje iz
+okvira uzorkovanja i dopušta li dizajn kauzalni zaključak.
+
+> Za ovo istraživačko pitanje predloži jedinicu analize, način mjerenja ishoda,
+> mogući konfundirajući čimbenik i dizajn. Za svaku odluku navedi što se iz
+> prikupljenih podataka neće moći zaključiti.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+U opažačkoj anketi studenti koji dulje koriste društvene mreže prijavili su
+niže povjerenje u institucije. Obje su varijable izmjerene istim upitnikom i
+analiza je uključila dob. Rezultat zato dokazuje da dulje korištenje društvenih
+mreža smanjuje povjerenje.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je tvrdnja o dokazanom uzroku. Istodobno mjerenje dviju varijabli i
+prilagodba za dob ne uklanjaju obrnuti smjer veze ni druge neizmjerene
+konfundirajuće čimbenike.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Zamislimo istraživanje povjerenja u lokalne institucije. Teorijski pojam
+pretvaramo u tri tvrdnje s istom ljestvicom odgovora. Prije računanja ukupnog
+rezultata pregledavamo nedostajuće vrijednosti, smjer svake tvrdnje i slažu li
+se odgovori dovoljno da ih ima smisla sažeti.
+
+Sljedeći kod stvara mali simulirani primjer. Tablica nije nalaz o stvarnoj
+populaciji. Ona pokazuje postupak kojim se odgovori pretvaraju u mjeru i čuva
+pojedinačne stavke uz izvedeni rezultat.
+
+```{r}
+#| label: tbl-mjerenje-primjer
+#| tbl-cap: "Simulirani odgovori i izvedena mjera povjerenja. Izrada autora."
+
+sim_mjerenje <- tibble(
+  ispitanik = paste0("I", 1:6),
+  tvrdnja_1 = c(4, 3, 2, 5, 2, 4),
+  tvrdnja_2 = c(4, 4, 2, 5, 1, 3),
+  tvrdnja_3 = c(3, 3, 2, 4, 2, 4)
+) |>
+  mutate(povjerenje = rowMeans(pick(starts_with("tvrdnja"))))
+
+sim_mjerenje |>
+  knitr::kable(align = c("l", "r", "r", "r", "r"))
+```
+
+Prosjek stavki sažima odgovore, ali ne dokazuje valjanost instrumenta.
+Istraživač još mora obrazložiti sadržaj tvrdnji, provjeriti kako ih ispitanici
+razumiju i opisati tko je mogao ući u uzorak. Analiza počinje tek kada su te
+odluke vidljive.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Mjerenje prevodi teorijske pojave u opažanja, a istraživački dizajn određuje
+dokle zaključak smije dosegnuti. Pouzdanost, valjanost i razina mjerenja nisu
+tehnički dodatci nakon prikupljanja podataka, nego svojstva odluka donesenih
+prije njega. Eksperiment i opažačka studija odgovaraju na različito snažna
+pitanja, osobito kada je riječ o uzrocima. Sljedeće poglavlje okreće taj pogled
+prema tvrdnjama koje skrivaju upravo te odluke.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+operacionalizacija (*operationalization*), razina mjerenja (*level of
+measurement*), pouzdanost (*reliability*), valjanost (*validity*),
+konfundirajuća varijabla (*confounder*), okvir uzorkovanja (*sampling frame*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Razlikujte pouzdanu mjeru od valjane mjere na vlastitom primjeru. Predajte
+objašnjenje u kojem ista mjera može biti pouzdana, ali nevaljana.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite simulirane podatke `sim_mjerenje`. Izračunajte izvedenu mjeru
+nakon izostavljanja svake pojedine tvrdnje i predajte tablicu usporedbe.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite što se iz Berkeleyjskih podataka može zaključiti o ishodima, a što
+ne može o postupku odlučivanja [@bickel1975]. Predajte dva stupca s dopuštenim i
+nedopuštenim zaključcima.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite analizu modela iz okvira iznad. Imenujte dizajn, prepoznajte jednu
+neopravdanu tvrdnju i napišite inačicu koja poštuje ograničenja dizajna.

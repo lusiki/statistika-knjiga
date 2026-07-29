@@ -3,7 +3,7 @@ title: "Povezanost"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   izdvojeno iz tjedna 5, prošireno
   OPSEG:   ~4000 riječi
   WIDGET:  w06 · Pogodi korelaciju
@@ -22,35 +22,63 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Anscombeova četiri skupa imaju gotovo jednaku Pearsonovu korelaciju, iako
+njihovi grafovi prikazuju različite odnose [@anscombe1973]. Analitičar koji je
+dobio samo koeficijent mogao je uredno izvijestiti o smjeru i jačini linearne
+veze, a ipak propustiti zakrivljenost ili jedno opažanje koje određuje cijeli
+rezultat.
+
+Korelacija je bila točno izračunata. Nije pogriješila u računu, nego je sažela
+samo jedan aspekt odnosa. Poteškoća je nastala kada je taj sažetak pročitan kao
+potpuna slika.
+
+Što koeficijent povezanosti čuva, a koje odnose ostavlja izvan kadra?
 :::
 
-## Naslov prvog odjeljka
+## Zajedničko kretanje
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Dvije su varijable povezane kada se njihov raspored mijenja zajedno. Pozitivna
+veza znači da se veće vrijednosti jedne češće pojavljuju uz veće vrijednosti
+druge. Negativna veza spaja veće vrijednosti jedne s manjima druge. Slaba
+linearna veza ne znači da odnosa nema jer zakrivljeni obrazac može imati
+koeficijent blizu nule.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+**Kovarijanca** prati zajedničko odstupanje od sredina, ali zadržava jedinice
+obiju varijabli. Pearsonova korelacija standardizira taj odnos pa se kreće na
+zajedničkoj ljestvici. Ona opisuje smjer i jačinu linearnog odnosa. Spearmanova
+korelacija radi s rangovima i zato bolje podnosi monotone odnose i dio krajnjih
+vrijednosti.
+
+Koeficijent se uvijek čita uz raspršeni dijagram. Graf otkriva je li odnos
+linearan, stvaraju li skupine lažni oblak i određuje li jedno opažanje nagib.
+Matrica korelacija može sažeti mnogo parova, ali ne zamjenjuje pregled
+najvažnijih odnosa.
+
+## Granice jednog broja
+
+Ograničenje raspona slabi korelaciju jer iz uzorka uklanja dio varijacije koja
+je nosila odnos. U skupini u kojoj su svi vrlo slični teško je vidjeti obrazac
+koji postoji u široj populaciji. Miješanje različitih podskupina može učiniti
+suprotno i proizvesti odnos koji se unutar svake skupine smanji ili preokrene.
+
+Povezanost ne određuje smjer uzroka. Varijabla može utjecati na drugu, smjer
+može biti obrnut, obje može oblikovati treći čimbenik, a uzorak može nastati
+slučajno. Statistička kontrola sužava neke mogućnosti tek uz uvjerljiv dizajn i
+sadržajno obrazloženje.
 
 ## Interakcija — Pogodi korelaciju
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Planirana igra prikazuje raspršene oblake bez koeficijenta i traži procjenu
+smjera i jačine. Nakon odgovora otkriva broj i pokazuje primjere u kojima
+ljudsko oko ili Pearsonov sažetak propuštaju nelinearnost i podskupine.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w06_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w06 — Pogodi korelaciju.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w06 — Pogodi korelaciju. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -58,8 +86,8 @@ md`**Widget w06 — Pogodi korelaciju.** Interaktivni graf još nije izrađen. S
 ```{r}
 #| echo: false
 #| label: fig-w06
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirani niz raspršenih dijagrama za procjenu korelacije."
+#| fig-alt: "Mjesto za oblake točaka različitog smjera, jačine i oblika."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w06 još nije izrađen") +
@@ -67,65 +95,110 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Procijenite znak jasnog linearnog odnosa.
+2. Usporedite zbijeni i raspršeni oblak istog nagiba.
+3. Pronađite nelinearni odnos kojem je Pearsonova korelacija blizu nule.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Ista korelacija, različita struktura.** Anscombeov kvartet pokazuje četiri
+skupa s gotovo jednakim koeficijentom, ali samo jedan približno odgovara
+jednostavnom linearnom sažetku [@anscombe1973].
+
+Tvrdnja o „snažnoj povezanosti" zato treba graf, opis uzorka i provjeru
+utjecajnih opažanja. Koeficijent je koristan sažetak nakon tih provjera, a ne
+zamjena za njih.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može izračunati Pearsonovu i Spearmanovu korelaciju i opisati graf.
+Treba mu zatražiti provjeru linearnosti, krajnjih vrijednosti, podskupina i
+ograničenja raspona. Nakon odgovora valja provjeriti jesu li redovi u dvjema
+varijablama ispravno upareni i je li iz povezanosti izveden nedopušten uzrok.
+
+> Usporedi Pearsonovu i Spearmanovu korelaciju, opiši oblik raspršenog
+> dijagrama i provjeri utjecaj krajnjih opažanja. Zaključak ograniči na
+> povezanost koju dizajn podupire.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Raspršeni dijagram pokazuje pozitivan približno linearan odnos bez izdvojenih
+točaka, a Pearsonov i Spearmanov koeficijent slični su. Zbog toga veća
+vrijednost prve varijable uzrokuje porast druge.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je kauzalni zaključak. Slaganje dvaju koeficijenata i uredan graf
+podupiru opis povezanosti, ali ne određuju vremenski smjer ni isključuju treće
+varijable.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Ponovno koristimo `anscombe`, sada usmjereni na ono što koeficijent čuva.
+Računamo Pearsonovu korelaciju za svaki skup i stavljamo je uz opis obrasca.
+Rezultati su gotovo jednaki, dok graf iz prethodnog poglavlja pokazuje da su
+mehanizmi odnosa različiti [@anscombe1973].
+
+```{r}
+#| label: tbl-anscombe-korelacije
+#| tbl-cap: "Pearsonove korelacije Anscombeova kvarteta. Izrada autora prema @anscombe1973."
+
+anscombe_korelacije <- tibble(
+  skup = c("I", "II", "III", "IV"),
+  korelacija = c(
+    cor(anscombe$x1, anscombe$y1),
+    cor(anscombe$x2, anscombe$y2),
+    cor(anscombe$x3, anscombe$y3),
+    cor(anscombe$x4, anscombe$y4)
+  )
+)
+
+anscombe_korelacije |>
+  mutate(korelacija = hr_broj(korelacija, 3)) |>
+  knitr::kable(align = c("l", "r"))
+```
+
+Tablica potvrđuje da je Pearsonova korelacija vjerna linearnom sažetku koji je
+izračunala. Ne potvrđuje da je linearni sažetak prikladan za svaki skup.
+Ispravan izvještaj zato spaja koeficijent, graf, broj opažanja i ograničenje
+dizajna.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Korelacija sažima smjer i jačinu određenog oblika zajedničkog kretanja. Graf
+otkriva linearnost, podskupine, ograničenje raspona i utjecajna opažanja koja
+jedan koeficijent ne može nositi. Pearsonov i Spearmanov pristup odgovaraju na
+različita pitanja, a nijedan sam ne dokazuje uzrok. Sljedeći dio knjige uvodi
+vjerojatnost kako bismo razlikovali stabilan obrazac od onoga što može nastati
+običnom promjenjivošću.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+kovarijanca (*covariance*), Pearsonova korelacija (*Pearson correlation*),
+Spearmanova korelacija (*Spearman correlation*), linearnost (*linearity*),
+ograničenje raspona (*range restriction*), utjecajno opažanje (*influential
+observation*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Nacrtajte dva različita odnosa koja mogu imati sličnu Pearsonovu korelaciju.
+Predajte skicu i objašnjenje onoga što se u koeficijentu gubi.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite `anscombe`. Izračunajte Pearsonovu i Spearmanovu korelaciju za
+svaki skup te predajte usporednu tablicu [@anscombe1973].
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite tvrdnju da jednaka korelacija znači jednaku podatkovnu priču.
+Upotrijebite Anscombeov kvartet kao provjeru [@anscombe1973].
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku analizu iz okvira. Imenujte točne dijagnostičke provjere,
+jedan nedopušten zaključak i dizajn koji bi ga mogao bolje poduprijeti.

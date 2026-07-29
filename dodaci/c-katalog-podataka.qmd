@@ -3,7 +3,7 @@ title: "Dodatak C — Katalog podataka"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — evidentirani skupovi trenutačnog rukopisa
   IZVOR:   novo
   OPSEG:   ~3000 riječi
   NAPOMENA: Održava se zajedno s data/ i R/fetch-podaci.R. Stranica podaci.qmd čita isti popis.
@@ -12,8 +12,35 @@ title: "Dodatak C — Katalog podataka"
   Svaki skup podataka korišten u knjizi, s izvorom, licencom, varijablama i putanjom za preuzimanje. Jezgra su Europsko društveno istraživanje (hrvatski valovi), DZS i Eurostat.
 ===================================================================== -->
 
-<!-- TODO Uvodni pasus koji kaže čemu dodatak služi i kako se koristi. -->
+Katalog povezuje svaki skup podataka s izvorom, licencom, jedinicom analize i
+poglavljima koja ga koriste. Skup bez provjerljivog podrijetla i uvjeta uporabe
+ne ulazi u knjigu. Simulacije nastale u kodu nisu empirijski skupovi i navode se
+odvojeno.
 
-## Naslov prvog odjeljka
+## Ugrađeni skupovi
 
-<!-- TODO Zamijeni naslov. -->
+Trenutačni djelomični rukopis koristi dva ugrađena skupa iz distribucije R-a.
+Prije konačnog izdanja provjerit će se uvjeti zasebne redistribucije svakog
+skupa. Knjiga ih sada poziva iz lokalne instalacije i ne pohranjuje njihove
+kopije u `data/`.
+
+| Skup | Izvor | Jedinica | Uporaba |
+|---|---|---|---|
+| `UCBAdmissions` | Berkeleyjski podaci o prijavama [@bickel1975] | ćelija tablice frekvencija | poglavlja o statističkom mišljenju i kategoričkim podacima |
+| `anscombe` | Anscombeov kvartet [@anscombe1973] | par brojčanih opažanja | poglavlja o vizualizaciji i povezanosti |
+
+: Ugrađeni skupovi u djelomičnom rukopisu. Izrada autora.
+
+## Simulirani nastavni podaci
+
+Poglavlja o vjerojatnosti, uzorkovanju, procjeni, testiranju, snazi, modelima i
+algoritmima stvaraju podatke kodom uz fiksirano sjeme iz `R/setup.R`.
+Simulacije služe učenju mehanizma i nikada se ne opisuju kao nalaz o stvarnoj
+populaciji. Svaki rezultat može se ponovno proizvesti iz koda u poglavlju.
+
+## Sljedeći podatkovni val
+
+Plan knjige predviđa provjerene društvenoznanstvene skupove iz Europskoga
+društvenog istraživanja, DZS-a i Eurostata. Za svaki budući unos katalog mora
+navesti izdanje ili val, trajnu poveznicu, licencu, datum preuzimanja, jedinicu
+analize, varijable korištene u knjizi i sve korake obrade.

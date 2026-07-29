@@ -3,7 +3,7 @@ title: "Logika testiranja"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 9, prva polovica, restrukturirano
   OPSEG:   ~4500 riječi
   WIDGET:  w10 · Simulator p-vrijednosti
@@ -23,35 +23,66 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Američko statističko udruženje moralo je javno razjasniti p-vrijednost jer je
+jedan računski izlaz prečesto služio kao automatska odluka o postojanju učinka
+[@wasserstein2016]. Istraživački izvještaji pretvarali su prag u granicu između
+rezultata koji „postoje" i onih koji „ne postoje", iako postupak nije mogao
+nositi takvu podjelu.
+
+Testiranje ne počinje pragom. Počinje zamišljenim svijetom u kojem nema učinka
+koji tražimo, a zatim pita koliko je opaženi rezultat neobičan u tom svijetu.
+Odgovor ovisi o modelu, testnoj statistici i svim odlukama koje su proizvele
+podatke.
+
+Što mala p-vrijednost govori o podacima, a što ne može reći o hipotezi?
 :::
 
-## Naslov prvog odjeljka
+## Svijet bez učinka
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Postupak najprije postavlja **nultu hipotezu**, precizan model svijeta bez
+razlike ili veze koju istražujemo. Alternativna hipoteza opisuje odstupanje
+koje nas zanima. Te hipoteze nisu dvije jednako dokazane priče. Test je
+konstruiran tako da procjenjuje ponašanje podataka pod nultim modelom.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Simulacija tu logiku pokazuje bez formule. Oznake skupina možemo nasumično
+premještati kada nulta hipoteza tvrdi da skupine nisu različite. Nakon svakog
+premještanja računamo razliku. Dobivena nulta raspodjela govori koliko se velike
+razlike pojavljuju samo zbog slučajnog rasporeda.
+
+**P-vrijednost** je udio rezultata pod nultim modelom koji su barem toliko
+neusklađeni s njime kao opaženi rezultat. Ona nije vjerojatnost da je nulta
+hipoteza istinita, nije vjerojatnost da je nalaz slučajan i ne mjeri važnost
+učinka [@wasserstein2016].
+
+## Dvije vrste pogreške
+
+Odbacivanje istinite nulte hipoteze stvara pogrešku prve vrste. Neodbacivanje
+nulte hipoteze kada relevantan učinak postoji stvara pogrešku druge vrste.
+Snižavanje praga otežava prvi tip pogreške, ali uz jednak dizajn može olakšati
+drugi. Nema postupka koji obje mogućnosti uklanja besplatno.
+
+Neodbacivanje nije prihvaćanje nulte hipoteze. Rezultat može biti kompatibilan
+s nedostatkom učinka, ali i s nizom učinaka koje neprecizan uzorak nije mogao
+razlikovati. Zbog toga test čitamo uz procjenu i interval, a ne umjesto njih.
+
+Bayesovski pristup izravnije uspoređuje kako podaci mijenjaju početna uvjerenja
+o modelima. U ovoj knjizi ostaje pogled kroz prozor, a ne drugi puni račun.
+Važno je prepoznati da odgovara na drugo pitanje i zahtijeva eksplicitne
+početne pretpostavke.
 
 ## Interakcija — Simulator p-vrijednosti
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Simulator p-vrijednosti stvara rezultate kada je nulta hipoteza istinita i
+kada nije. Čitatelj promatra koliko se p-vrijednosti mijenjaju od uzorka do
+uzorka i zašto jedan rezultat ne može biti potvrda postupka u cjelini.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w10_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w10 — Simulator p-vrijednosti.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w10 — Simulator p-vrijednosti. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -59,8 +90,8 @@ md`**Widget w10 — Simulator p-vrijednosti.** Interaktivni graf još nije izra�
 ```{r}
 #| echo: false
 #| label: fig-w10
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirana raspodjela p-vrijednosti pod dvama modelima."
+#| fig-alt: "Mjesto za dva histograma p-vrijednosti kada učinka nema i kada postoji."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w10 još nije izrađen") +
@@ -68,65 +99,111 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Generirajte više uzoraka pod istinitom nultom hipotezom.
+2. Uključite mali učinak i zadržite uzorak jednakim.
+3. Povećajte uzorak bez promjene učinka i promatrajte odluke te procjene.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Značajnost bez veličine.** Izjava Američkog statističkog udruženja navodi da
+znanstveni zaključak ili odluka ne bi smjeli ovisiti samo o tome prelazi li
+p-vrijednost određeni prag [@wasserstein2016].
+
+Naslov koji rezultat pretvara u „dokazano" uklanja nulti model, veličinu
+učinka, interval i kvalitetu dizajna. Odgovorno čitanje vraća te dijelove prije
+nego što procijeni doprinos nalaza.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može provesti test i simulirati nultu raspodjelu, ali mu treba zatražiti
+da prvo imenuje nultu hipotezu, testnu statistiku i jedinicu permutiranja.
+Provjeravamo odgovara li test dizajnu, jesu li opažanja neovisna i tumači li
+p-vrijednost kao vjerojatnost hipoteze.
+
+> Opiši nultu hipotezu, izgradi nultu raspodjelu simulacijom i usporedi opaženu
+> statistiku s njome. Izvijesti procjenu i interval prije p-vrijednosti.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Test je prikladan za dizajn, procjena i interval su prikazani, a p-vrijednost
+je mala. Zato je vjerojatnost da je nulta hipoteza istinita jednaka toj
+p-vrijednosti.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je zamjena uvjetnih vjerojatnosti. P-vrijednost opisuje podatke pod
+nultim modelom, a ne vjerojatnost nultog modela nakon opaženih podataka.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simuliramo dvije skupine bez stvarne razlike i promatramo jednu opaženu razliku
+sredina. Permutacijski postupak miješa oznake skupina, čuva sve ishode i gradi
+raspodjelu razlika usklađenu s nultom hipotezom.
+
+```{r}
+#| label: fig-permutacijski-test
+#| echo: true
+#| fig-cap: "Nulta raspodjela razlike sredina u simuliranom primjeru. Izrada autora."
+#| fig-alt: "Histogram permutiranih razlika sredina sa zabilježenom opaženom razlikom."
+
+sim_test <- tibble(
+  skupina = rep(c("A", "B"), each = 40),
+  ishod = c(rnorm(40, 50, 10), rnorm(40, 54, 10))
+)
+
+opazena <- with(sim_test, mean(ishod[skupina == "B"]) -
+                            mean(ishod[skupina == "A"]))
+
+nulte_razlike <- replicate(3000, {
+  perm <- sample(sim_test$skupina)
+  mean(sim_test$ishod[perm == "B"]) - mean(sim_test$ishod[perm == "A"])
+})
+
+ggplot(tibble(razlika = nulte_razlike), aes(razlika)) +
+  geom_histogram(bins = 35) +
+  geom_vline(xintercept = opazena) +
+  labs(x = "Razlika pod nultim modelom", y = "Broj permutacija")
+```
+
+Graf pokazuje koliko je opažena razlika udaljena od onoga što stvara postupak
+bez grupnog učinka. Zaključak ne završava odbacivanjem ili neodbacivanjem.
+Vraća se procjeni razlike, njezinoj preciznosti i dizajnu koji određuje smijemo
+li govoriti o uzroku.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Testiranje uspoređuje opaženi rezultat s raspodjelom pod preciznom nultom
+hipotezom. P-vrijednost opisuje tu neusklađenost i ne govori kolika je
+vjerojatnost hipoteze ni koliko je učinak važan. Dvije vrste pogreške povezuju
+prag s posljedicama odluke. Sljedeće poglavlje zato stavlja veličinu učinka i
+snagu ispred rituala značajnosti.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+nulta hipoteza (*null hypothesis*), alternativna hipoteza (*alternative
+hypothesis*), testna statistika (*test statistic*), p-vrijednost (*p-value*),
+pogreška prve vrste (*Type I error*), pogreška druge vrste (*Type II error*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Objasnite zašto p-vrijednost nije vjerojatnost nulte hipoteze. Predajte
+objašnjenje koje razlikuje uvjetovanje na model od uvjerenja o modelu.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Promijenite veličinu razlike u objektu `sim_test`. Predajte dvije nulte
+raspodjele i usporedbu opaženih statistika.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite tvrdnju da prelazak praga sam određuje znanstvenu važnost nalaza
+[@wasserstein2016]. Predajte kratku uredničku bilješku.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku interpretaciju iz okvira. Imenujte ispravan postupak, jednu
+zamjenu vjerojatnosti i ispravnu rečenicu o rezultatu.

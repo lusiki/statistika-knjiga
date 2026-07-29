@@ -3,7 +3,7 @@ title: "Vaše prvo istraživanje"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — vođeni projekt i protokol rada s asistentom
   IZVOR:   novo, izgrađeno iz praktičnog projekta kolegija
   OPSEG:   ~5000 riječi
   WIDGET:  bez widgeta
@@ -23,75 +23,197 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Na kraju kolegija istraživački tim ima rok, zanimljivo pitanje i datoteku koja
+još nije spremna za analizu. Jedan član želi odmah otvoriti model, drugi želi
+prvo popraviti mjerenje, a treći predlaže da cijelu datoteku pošalju javnom AI
+asistentu kako bi uštedjeli vrijeme.
+
+Moramo odlučiti što je jedinica analize, odakle podaci dolaze, koja je tvrdnja
+unaprijed postavljena i koje su varijable osjetljive. Tek nakon toga možemo
+opisati uzorak, nacrtati raspodjele i odabrati model.
+
+Kako završiti prvo istraživanje tako da se svaki zaključak može provjeriti i da
+odgovornost ne nestane između podataka, koda i asistenta?
 :::
 
-## Naslov prvog odjeljka
+## Istraživanje kao trag odluka
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Počinjemo pitanjem koje se može povezati s jedinicom analize, populacijom,
+mjerama i usporedbom. Razlikujemo opisno pitanje od prediktivnog i uzročnog.
+Ta odluka određuje dizajn, a dizajn granicu zaključka koju ne smijemo kasnije
+proširiti zato što rezultat izgleda zanimljivo.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Prije analize stvaramo zapis podrijetla podataka, licence, načina prikupljanja i
+svih koraka čišćenja. Ne prepisujemo izvornu datoteku. Svaka izvedena varijabla
+dobiva objašnjenje, a svako isključivanje razlog koji se može pregledati.
+
+Plan razlikuje potvrđujuće odluke donesene prije gledanja ishoda od
+istraživačkih odluka koje su nastale nakon njega. Neočekivan obrazac smijemo
+istražiti. Ne smijemo ga naknadno predstaviti kao jedinu unaprijed postavljenu
+hipotezu.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Izvještaj koji nosi procjenu.** Pristup usmjeren na procjene traži da
+izvještaj vodi veličinom učinka i intervalom, a ne samo binarnom odlukom
+[@cumming2014].
+
+U našem radu to znači da tablica i graf moraju pokazati jedinice, ljestvice i
+neizvjesnost. Metoda dolazi uz razlog odabira, a zaključak uz granicu
+generalizacije.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može predložiti kod, provjeriti dosljednost i kritizirati nacrt
+izvještaja. Dajemo mu strukturu ili potpuno simulirane podatke, a ne osobne
+odgovore ispitanika. Svaki dobiveni kod pokrećemo lokalno, svaku brojku
+uspoređujemo s izlazom i svaki izvor otvaramo.
+
+> Pomozi mi provjeriti ovaj plan i reproducibilan kod. Odvoji statistički račun
+> od sadržajne prosudbe, označi što moram ručno provjeriti i ne traži osobne
+> podatke sudionika.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Tim je sačuvao izvornu datoteku, dokumentirao čišćenje i pokrenuo kod lokalno.
+Kako bi dobio bolji opis uzorka, učitao je neanonimiziranu datoteku s odgovorima
+i kontaktnim podacima u javni model.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je slanje osobnih podataka javnom modelu. Reproducibilnost i korisnost
+alata ne uklanjaju obvezu privatnosti, minimizacije podataka i odobrenog načina
+obrade.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Vodimo jedno potpuno simulirano istraživanje o odnosu vremena izloženosti
+informativnom sadržaju i rezultata na kratkom testu znanja. Simulacija nam
+omogućuje prikaz cijelog postupka bez izmišljanja empirijskog nalaza o stvarnim
+studentima.
+
+Najprije zapisujemo pitanje. Zanima nas opisna povezanost dviju varijabli u
+simuliranom uzorku, ne uzročni učinak. Jedinica analize je osoba, a ishod
+rezultat testa. Dodatno bilježimo prethodni interes jer može biti povezan i s
+izloženošću i sa znanjem.
+
+```{r}
+#| include: false
+
+sim_projekt <- tibble(
+  id = seq_len(240),
+  interes = rnorm(240),
+  izlozenost = pmax(0, 35 + 8 * interes + rnorm(240, 0, 10)),
+  znanje = 45 + 0.35 * izlozenost + 6 * interes + rnorm(240, 0, 8)
+)
+```
+
+Prije modela pregledavamo nedostajuće vrijednosti, raspodjele i moguće
+nemoguće vrijednosti. Simulacija nema nedostajuće podatke, ali kod za provjeru
+ostaje dio analize jer stvarna datoteka gotovo nikada nije tako uredna.
+
+```{r}
+#| label: tbl-projekt-opis
+#| tbl-cap: "Opis simuliranih varijabli prvog istraživanja. Izrada autora."
+
+sim_projekt |>
+  summarise(
+    opažanja = n(),
+    prosjek_izlozenosti = mean(izlozenost),
+    sd_izlozenosti = sd(izlozenost),
+    prosjek_znanja = mean(znanje),
+    sd_znanja = sd(znanje)
+  ) |>
+  knitr::kable(digits = 1)
+```
+
+Graf prethodi modelu jer moramo vidjeti linearnost, krajnja opažanja i
+raspršenost. Ne tumačimo nagib prije nego što provjerimo odgovara li pravac
+obliku podataka.
+
+```{r}
+#| label: fig-projekt-odnos
+#| echo: true
+#| fig-cap: "Izloženost i znanje u simuliranom istraživanju. Izrada autora."
+#| fig-alt: "Raspršeni dijagram pokazuje pozitivan odnos simulirane izloženosti i rezultata znanja."
+
+ggplot(sim_projekt, aes(izlozenost, znanje)) +
+  geom_point(alpha = 0.55) +
+  geom_smooth(method = "lm") +
+  labs(x = "Simulirana izloženost", y = "Simulirani rezultat znanja")
+```
+
+Jednostavni model opisuje zbirni odnos. Prilagođeni model dodaje prethodni
+interes i pokazuje kako se koeficijent mijenja kada uspoređujemo osobe s
+jednakim simuliranim interesom.
+
+```{r}
+#| label: tbl-projekt-model
+#| tbl-cap: "Koeficijent izloženosti u dvama simuliranim modelima. Izrada autora."
+
+projekt_jedan <- lm(znanje ~ izlozenost, data = sim_projekt)
+projekt_dva <- lm(znanje ~ izlozenost + interes, data = sim_projekt)
+
+koeficijent <- function(model, naziv) {
+  red <- summary(model)$coefficients["izlozenost", ]
+  tibble(
+    model = naziv,
+    procjena = red[["Estimate"]],
+    standardna_pogreska = red[["Std. Error"]]
+  )
+}
+
+bind_rows(
+  koeficijent(projekt_jedan, "zbirni"),
+  koeficijent(projekt_dva, "prilagođeni")
+) |>
+  knitr::kable(digits = 2)
+```
+
+Zaključak pišemo skromno. U simuliranom uzorku veća izloženost povezana je s
+višim rezultatom, a dio zbirne povezanosti dijeli se s prethodnim interesom.
+Ne tvrdimo da izloženost uzrokuje znanje jer opažački model i uključivanje
+jedne kontrole ne identificiraju uzrok.
+
+Na kraju spremamo skriptu, verziju podataka, izlaz i bilješku o korištenju
+asistenta. Čitatelj mora moći ponoviti tablicu i graf bez pristupa našem
+razgovoru s modelom. Objavljujemo samo ono za što imamo pravo i uklanjamo
+izravne identifikatore prema unaprijed odobrenom protokolu.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+Prvo istraživanje završavamo tragom odluka od pitanja do ograničenog zaključka.
+Mjerenje, dizajn, opis, graf i model moraju govoriti o istoj jedinici i istoj
+populaciji. Asistent može ubrzati račun i provjeru, ali ne dobiva osobne podatke
+i ne postaje izvor. Reproducibilan rad omogućuje da nalaz provjerimo i kada
+rezultat nije onakav kakav smo očekivali.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+istraživački plan (*research plan*), trag odluka (*decision trail*),
+potvrđujuća analiza (*confirmatory analysis*), istraživačka analiza
+(*exploratory analysis*), reproducibilan tijek rada (*reproducible workflow*),
+minimizacija podataka (*data minimization*), objava uporabe AI-ja (*AI
+disclosure*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Napišite istraživačko pitanje i odvojite opisni, prediktivni i uzročni oblik
+istog pitanja. Predajte tri rečenice s granicom svakog zaključka.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite `sim_projekt`. Reproducirajte tablicu, graf i oba modela te
+predajte jednu izvršivu skriptu i kratak izvještaj.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Uredite izvještaj tako da procjena i interval prethode odluci o testu
+[@cumming2014]. Predajte izvorni i revidirani odlomak.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite postupak iz okvira. Imenujte dobre reproducibilne odluke, jednu
+povredu privatnosti i siguran način dobivanja iste vrste pomoći.

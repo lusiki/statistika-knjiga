@@ -3,7 +3,7 @@ title: "Uspoređivanje više grupa"
 ---
 
 <!-- =====================================================================
-  STATUS:  kostur — bez sadržaja
+  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
   IZVOR:   tjedan 12, umjerena prerada
   OPSEG:   ~4000 riječi
   WIDGET:  w15 · Dekompozicija varijance
@@ -22,35 +22,62 @@ source("R/setup.R")
 ```
 
 ::: {.callout-vinjeta}
-<!-- TODO Stvaran otvarajući slučaj, najviše jedna stranica, dva do četiri
-     pasusa. Uvijek pitanje s kojim se netko stvarno suočio. Kutija završava
-     pitanjem na koje poglavlje odgovara i ne odgovara na njega. Oznaka
-     kategorije se ne upisuje — ispisuje je CSS. -->
+Analitička fleksibilnost postaje posebno vidljiva kada istraživanje sadrži više
+skupina i ishoda. Svaka nova parna usporedba daje još jednu priliku da
+slučajnost proizvede privlačan rezultat, čak i kada pojedinačni testovi slijede
+uobičajeni prag [@simmons2011].
+
+Istraživač zato prvo postavlja zajedničko pitanje o cijelom skupu sredina.
+Tek nakon njega traži parove ili kontraste koji nose sadržajnu razliku. Time se
+analiza usklađuje s pitanjem, a ne s najpovoljnijim rezultatom.
+
+Kako više skupina usporediti kao jedan model, a zatim objasniti gdje se razlike
+nalaze?
 :::
 
-## Naslov prvog odjeljka
+## Varijanca između i unutar
 
-<!-- TODO Zamijeni naslov. Bez dvotočja, nominalna fraza (STYLE.md, H6). -->
+Analiza varijance uspoređuje razlike među sredinama s razlikama među
+pojedincima unutar skupina. Ako su skupne sredine daleko, a opažanja unutar
+svake skupine razmjerno zbijena, omjer tih dviju vrsta varijacije raste.
+**F-statistika** sažima upravo taj odnos.
 
-<!-- TODO Izgradnja pojma. Proza i slike razvijaju ideju, predavačkim tonom,
-     analogije nose teret. Simulacija prije formalizma (STYLE.md, S8), a
-     nijedan simbol ne dolazi bez proznog objašnjenja (H9). -->
+Naziv ANOVA može zavesti jer je ishod usporedba sredina, a račun prolazi kroz
+varijancu. Postupak je linearni model s kategoričkim prediktorom. Svaka
+kategorija određuje očekivanu vrijednost, dok reziduali opisuju ono što skupna
+pripadnost nije objasnila.
+
+Ukupni test ne govori koja se skupina razlikuje. Tukeyjev postupak uspoređuje
+parove uz kontrolu obiteljske pogreške. Planirani kontrasti mogu biti
+učinkovitiji kada proizlaze iz unaprijed postavljenog pitanja. Naknadno
+pregledavanje svih mogućih parova i prijavljivanje samo zanimljivih vraća
+problem nevidljivih putova.
+
+## Veličina i pretpostavke
+
+Eta-kvadrat opisuje udio varijabilnosti povezan sa skupnim razlikama, ali može
+biti pristran prema većim vrijednostima u malim uzorcima. Omega-kvadrat nudi
+konzervativniju procjenu. Obje mjere trebaju interval ili barem jasnu napomenu o
+preciznosti i kontekstu.
+
+Pretpostavke se pregledavaju na rezidualima. Neovisnost dolazi iz dizajna,
+približna normalnost iz oblika ostataka, a homogenost varijance iz usporedbe
+raspršenosti skupina. Kruskal-Wallisov test prelazi na rangove kada je takvo
+pitanje prikladnije, ali ni on ne popravlja ovisna opažanja ili loš dizajn.
 
 ## Interakcija — Dekompozicija varijance
 
-<!-- TODO Jedan pasus u glasu poglavlja koji kaže što graf pokazuje i zašto je
-     važan na ovom mjestu u argumentu. Naslov iznad grafa NE zamjenjuje taj
-     pasus (STYLE.md, Figures). -->
+Planirana dekompozicija prikazuje ukupno odstupanje kao dio između skupina i
+dio unutar njih. Pomicanjem sredina ili raspršivanjem opažanja čitatelj vidi
+zašto isti razmak sredina ne daje uvijek isti F-omjer.
 
 ::: {.content-visible when-format="html"}
 ```{ojs}
 //| echo: false
-// TODO Upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
 // viewof w15_par = Inputs.form({
 //   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
 // })
-md`**Widget w15 — Dekompozicija varijance.** Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+md`Widget w15 — Dekompozicija varijance. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
 ```
 :::
 
@@ -58,8 +85,8 @@ md`**Widget w15 — Dekompozicija varijance.** Interaktivni graf još nije izra�
 ```{r}
 #| echo: false
 #| label: fig-w15
-#| fig-cap: "TODO Opis statičkog blizanca."
-#| fig-alt: "TODO Opis za čitače zaslona."
+#| fig-cap: "Planirana dekompozicija varijance između i unutar skupina."
+#| fig-alt: "Mjesto za tri skupine s označenim skupnim sredinama i odstupanjima opažanja."
 ggplot() +
   annotate("text", x = 0, y = 0, size = 3.5,
            label = "Statički blizanac widgeta w15 još nije izrađen") +
@@ -67,65 +94,105 @@ ggplot() +
 ```
 :::
 
-**Što isprobati.** <!-- TODO Numerirani pokusi, od očitog slučaja prema
-protuintuitivnom. Blok se automatski sklapa; bez dvotočja i bez podebljanja
-osim ove uvodne oznake. -->
+**Što isprobati.**
+
+1. Izjednačite sredine uz nepromijenjena opažanja.
+2. Razmaknite sredine uz jednaku varijabilnost.
+3. Povećajte raspršenost unutar skupina bez promjene sredina.
 
 ::: {.callout-divljina}
-<!-- TODO **Naslov slučaja.** Jedna stvarna objavljena tvrdnja, anketa, naslov
-     ili graf, rastavljena u tekućoj prozi, najviše dva pasusa. Izvor imenovan
-     i citiran [@kljuc]. Kutija pokazuje rasuđivanje, ne presudu. -->
+**Mnogo usporedbi, jedna priča.** Fleksibilan izbor ishoda i podskupina može
+povećati stopu lažno pozitivnih nalaza i kada svaki pojedinačni test izgleda
+uobičajeno [@simmons2011].
+
+Zajednički model i unaprijed obrazloženi kontrasti čine obitelj pitanja
+vidljivom. Korekcija nije kazna za istraživača, nego računovodstvo prilika koje
+je postupak dao slučajnosti.
 :::
 
 ::: {.callout-model}
-<!-- TODO Kako se zadatak ovog poglavlja radi s asistentom. Što tražiti, ŠTO
-     PROVJERITI i gdje modeli tipično griješe baš na ovom zadatku. Kutija koja
-     samo kaže da AI može pomoći nije napisana (STYLE.md, S9). -->
+Asistent može provesti ANOVA-u i post-hoc usporedbe, ali treba mu zadati
+planirane kontraste i referentnu skupinu. Provjeravamo reziduale, broj
+usporedbi, korekciju i veličinu učinka. Modeli često iz značajnog ukupnog testa
+izvode tvrdnju da se svaka skupina razlikuje od svake druge.
+
+> Prikaži skupne raspodjele, procijeni zajednički model i tek nakon ukupnog
+> testa provedi unaprijed obrazložene usporedbe. Izvijesti korekciju, učinak i
+> intervale razlika.
 :::
 
 ::: {.callout-greska}
-<!-- TODO Kratka AI-generirana analiza s TOČNO JEDNOM stvarnom greškom koju
-     čitatelj mora naći. Greška mora biti one vrste koju asistenti doista
-     rade. Nikad tipfeler, nikad besmislica. -->
+Ukupni F-test pokazuje da model sa skupinama poboljšava opis podataka, a
+reziduali ne otkrivaju ozbiljan problem. Zato se sve skupine međusobno
+statistički razlikuju.
 
 ::: {.content-visible when-profile="kolegij"}
-<!-- TODO Rješenje. Vidljivo samo u nastavnom izdanju. -->
+Greška je zaključak o svim parovima iz ukupnog testa. Potrebne su planirane ili
+post-hoc usporedbe s odgovarajućom kontrolom višestrukosti.
 :::
 :::
 
 ## Razrađeni primjer
 
-<!-- TODO Jedna cjelovita analiza, ispričana od pitanja do zaključka, s
-     presavijenim kodom ispod proze. Proza stoji sama: čitatelj koji ne otvori
-     nijedan blok koda i dalje prati cijelu analizu. Svaka brojka u pripovijesti
-     dolazi iz koda koji je stvarno tu. -->
+Simuliramo tri skupine i brojčani ishod. Graf bi trebao prethoditi modelu, a
+kod zatim procjenjuje zajedničku ANOVA-u. Tukeyjev postupak dolazi nakon
+ukupnog pitanja i pokazuje koji su parovi dovoljno precizno razdvojeni.
+
+```{r}
+#| label: tbl-anova-primjer
+#| tbl-cap: "Tukeyjeve usporedbe simuliranih skupina. Izrada autora."
+
+sim_vise <- tibble(
+  skupina = rep(c("A", "B", "C"), each = 45),
+  ishod = c(rnorm(45, 50, 9), rnorm(45, 54, 9), rnorm(45, 62, 9))
+)
+
+model_vise <- aov(ishod ~ skupina, data = sim_vise)
+
+TukeyHSD(model_vise)$skupina |>
+  as.data.frame() |>
+  tibble::rownames_to_column("usporedba") |>
+  knitr::kable(digits = 2)
+```
+
+Parne procjene imaju vlastite intervale i ne moraju sve voditi prema istoj
+odluci. Sadržajni zaključak vraća se veličinama razlika, a ne samo oznakama
+nakon korekcije.
 
 ## Sažetak {.sazetak}
 
-<!-- TODO Jedan pasus, tri do šest rečenica, u glasu poglavlja. Sažima POTEZ
-     poglavlja: što je utvrđeno, koja napetost ostaje, što predaje sljedećem
-     poglavlju. Bez novih citata i bez ponavljanja rečenica iz vinjete. -->
+ANOVA uspoređuje varijaciju između skupina s varijacijom unutar njih i time
+više sredina smješta u jedan linearni model. Ukupni test ne identificira
+parove, pa nakon njega dolaze planirani kontrasti ili korigirane post-hoc
+usporedbe. Veličina učinka i reziduali ostaju nužni za tumačenje. Sljedeće
+poglavlje uklanja granicu između „testova" i pokazuje linearni model kao opći
+okvir.
 
 ## Pojmovi {.pojmovi}
 
-<!-- TODO Ključni pojmovi, hrvatski i engleski jedno uz drugo, redom kojim ih
-     poglavlje uvodi. Svaki pojam s #def- divom mora biti ovdje. -->
+analiza varijance (*analysis of variance*), F-statistika (*F-statistic*),
+varijanca između skupina (*between-group variance*), Tukeyjev HSD (*Tukey's
+HSD*), eta-kvadrat (*eta squared*), Kruskal-Wallisov test
+(*Kruskal–Wallis test*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-<!-- TODO Bez računanja: čitatelj objašnjava, razlikuje ili predviđa. -->
+Objasnite zašto značajan ukupni test ne znači da se svaki par skupina razlikuje.
+Predajte skicu triju sredina koja to pokazuje.
 
 ### Računski {.zadaci-razina}
 
-<!-- TODO Izračun ili mala analiza, s imenovanim podacima (Dodatak C). -->
+Upotrijebite `sim_vise`. Procijenite ukupni model, eta-kvadrat i Tukeyjeve
+usporedbe te predajte jednu tablicu.
 
 ### Kritički {.zadaci-razina}
 
-<!-- TODO Objavljena tvrdnja, graf ili sažetak koji treba prosuditi. -->
+Prosudite kako broj analitičkih putova utječe na čitanje najmanje p-vrijednosti
+među mnogim skupinama [@simmons2011]. Predajte jedan odlomak.
 
 ### Revizija modela {.zadaci-razina}
 
-<!-- TODO AI-generirano rješenje koje čitatelj ocjenjuje, imenujući što je
-     točno, što nije i kako to zna. -->
+Ocijenite modelsku analizu iz okvira. Izdvojite točan zaključak o ukupnom
+modelu, jednu neopravdanu tvrdnju o parovima i potreban nastavak analize.
