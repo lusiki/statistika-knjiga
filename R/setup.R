@@ -22,7 +22,7 @@ source("R/theme_book.R")
 # Knjižna pisma u grafovima. Ako showtext/sysfonts nisu instalirani ili
 # preuzimanje ne uspije, tema tiho pada na sistemska pisma — graf se uvijek
 # nacrta. Zato tryCatch, a ne stop.
-tryCatch(ucitaj_fontove(), error = function(e) invisible(NULL))
+.pisma_ok <- isTRUE(tryCatch(ucitaj_fontove(), error = function(e) FALSE))
 
 # Tema + zadane vrijednosti geoma (točke u tinti, glatka krivulja u okeru).
 postavi_temu()
@@ -32,11 +32,14 @@ postavi_temu()
 # svakom renderu. Ako poglavlje treba drugo sjeme, postavlja ga lokalno.
 set.seed(2026)
 
+# fig.showtext se postavlja SAMO ako su pisma stvarno učitana. knitr uz
+# fig.showtext = TRUE zove showtext::showtext_begin() pri otvaranju uređaja,
+# pa bi bez instaliranog paketa srušio render — a CI ga ne mora imati.
 knitr::opts_chunk$set(
   fig.align = "center",
   out.width = "100%",
   dpi = 300,
-  fig.showtext = TRUE
+  fig.showtext = .pisma_ok
 )
 
 # Hrvatski zapis brojeva u ispisu (decimalni zarez).

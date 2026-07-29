@@ -72,6 +72,11 @@ jobs:
             any::rmarkdown
             any::downlit
             any::xml2
+            # Knjižna pisma u grafovima (Newsreader, Public Sans, JetBrains
+            # Mono). Bez njih se sve i dalje renderira, ali figure izgube
+            # tipografiju knjige — R/setup.R tada tiho gasi fig.showtext.
+            any::showtext
+            any::sysfonts
 
       - name: Check design token sync (design-tokens.yml vs SCSS vs LaTeX)
         # Non-blocking: a token drift should be visible in the log, but it must
