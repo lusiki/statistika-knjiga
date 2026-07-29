@@ -58,34 +58,246 @@
 ---
 
 **Vinjeta.**
+Podaci o upisima na Sveučilište Kalifornije u Berkeleyju 1973. godine otvorili
+su ozbiljno pitanje. Jesu li njegovi poslijediplomski programi pri upisu
+diskriminirali žene (Bickel, 1975)? Zbirni podaci upućivali su upravo na to.
+Među prijavama u šest najvećih odjela stopa prijma iznosila je
+`r paste0(hr_broj(100 * stopa_muskarci, 1), " %")` za muškarce i
+`r paste0(hr_broj(100 * stopa_zene, 1), " %")` za žene (Bickel, 1975).
 
-## Naslov prvog odjeljka
+Istraživački tim zatim je iste prijave razdvojio prema odjelu. Slika se
+promijenila. U `r odjeli_prednost_zene` od šest odjela stopa prijma za žene
+bila je barem jednaka stopi za muškarce, dok su se žene češće prijavljivale na
+odjele na kojima je prijam bio teži za sve kandidate (Bickel, 1975). Zbirni jaz
+nije nestao iz tablice, ali njegovo se značenje više nije moglo čitati na isti
+način.
+
+Oba su prikaza nastala iz istih prijava i oba su računski točna. Jedan sugerira
+veliku razliku, a drugi pokazuje da sastav prijava tu razliku snažno oblikuje.
+Kojoj slici treba vjerovati kada ispravan izračun vodi prema pogrešnom
+zaključku?
+
+## Broj nije zaključak
+
+Berkeleyjski slučaj ne pokazuje da su podaci nepouzdani. Pokazuje nešto
+zahtjevnije. Podaci ne donose zaključak bez pitanja koje im postavljamo i bez
+usporedbe kojom na to pitanje odgovaramo. Zbirna stopa odgovara na pitanje tko
+je češće primljen u promatranoj skupini prijava. Stope po odjelima odgovaraju na
+pitanje kako su prolazili kandidati koji su se prijavili na isti odjel. Ta su
+pitanja povezana, ali nisu ista.
+
+**Statistika** počinje upravo na mjestu na kojem prestaje jednostavno
+prebrojavanje. Njezina zadaća nije proizvesti broj, nego odrediti što taj broj
+može poduprijeti. Pritom mora sačuvati vezu između pitanja, načina mjerenja,
+usporedbe i zaključka. Izračun može biti besprijekoran, a tvrdnja izgrađena na
+njemu ipak pogrešna jer broj odgovara na drugo pitanje od onoga koje nas
+zanima.
+
+Zbog toga podatke nije korisno zamišljati kao suprotnost ljudskom iskustvu.
+Anegdota može otkriti problem, predložiti mehanizam ili pokazati posljedicu
+koju tablica skriva. Ne može nam sama reći koliko je pojava raširena ni što bi
+se dogodilo u drugim okolnostima. Podaci proširuju pogled preko pojedinačnog
+slučaja, ali zauzvrat traže odluke o tome koga smo promatrali, što smo mjerili i
+s čime rezultat uspoređujemo.
+
+Broj zato ne govori sam za sebe. Govori unutar postupka koji možemo pregledati,
+ponoviti i osporiti. Strogost statističkog pristupa ne sastoji se u tome da
+svakom dojmu suprotstavimo izračun. Sastoji se u tome da učinimo vidljivima
+korake između opažanja i tvrdnje.
+
+## Signal u promjenjivom svijetu
+
+Društvene pojave rijetko se ponavljaju na potpuno isti način. Dvije osobe
+izložene istoj poruci ne moraju joj jednako vjerovati. Ista anketa provedena na
+drugom uzorku neće vratiti potpuno jednake postotke. Čak se i ponašanje iste
+osobe mijenja s vremenom i okolnostima. Ta promjenjivost nije kvar podataka.
+Ona je razlog zbog kojeg nam statistika treba.
+
+U takvoj promjenjivosti pokušavamo razlučiti **signal** od **šuma**. Signal je
+obrazac koji nas zanima, poput razlike među skupinama ili povezanosti dviju
+pojava. Šum obuhvaća ostale izvore varijacije zbog kojih opažanja ne pristaju
+savršeno uz obrazac. Granica među njima nije zadana unaprijed. Ono što je šum
+za jedno pitanje može postati signal za drugo.
+
+Ako proučavamo razlikuje li se povjerenje u institucije među dobnim skupinama,
+pojedinačne razlike unutar svake skupine otežavaju nam da vidimo opći obrazac.
+Ako zatim pitamo zašto se ljudi iste dobi razlikuju, upravo te pojedinačne
+razlike postaju predmet istraživanja. Statističko mišljenje zato ne uklanja
+varijabilnost. Ono je raspoređuje prema pitanju koje pokušavamo razjasniti.
+
+Usporedba je pritom važnija od samog velikog ili malog broja. Pad, rast ili
+razlika dobivaju značenje tek kada znamo prema čemu ih mjerimo. Ponekad je
+usporedba druga skupina, ponekad ranije razdoblje, a ponekad raspon rezultata
+koji bi mogli nastati običnom promjenjivošću. Kasnija poglavlja izgradit će
+računske postupke za te usporedbe. Za sada je važan njihov zajednički temelj.
+Tvrdnja postaje statistička tek kada jasno kaže što se s čim uspoređuje.
+
+## Zbirna slika i skrivena struktura
+
+Zbirni rezultat često izgleda kao najpotpuniji prikaz jer obuhvaća sva
+opažanja. Ipak, ukupni prosjek ili stopa uvijek su mješavina rezultata
+podskupina i zastupljenosti tih podskupina. Skupina koja je brojnija snažnije
+povlači ukupni rezultat prema sebi. Promjena sastava stoga može promijeniti
+zbirnu stopu čak i kada se ništa nije promijenilo unutar pojedinih podskupina.
+
+U Berkeleyju su se odjeli znatno razlikovali po težini upisa, a prijave
+muškaraca i žena nisu bile jednako raspoređene među njima. Žene su se češće
+prijavljivale na selektivnije odjele, pa je njihova zbirna stopa snažnije
+odražavala upravo te odjele. Usporedba unutar odjela uklonila je taj učinak
+sastava iz neposredne usporedbe, zbog čega se obrazac vidljiv u ukupnim
+podacima oslabio ili preokrenuo (Bickel, 1975).
+
+Takav se obrat naziva **Simpsonov paradoks**. Riječ je o obrascu u kojem se
+povezanost vidljiva u združenim podacima promijeni ili preokrene kada podatke
+razdvojimo prema relevantnoj trećoj varijabli (Simpson, 1951). Paradoks nije u
+aritmetici. Svaka stopa ostaje točna. Neobičnost nastaje zato što iste brojke
+opisuju različite usporedbe, a naš se zaključak promijeni kada to napokon
+primijetimo.
+
+Razdvajanje podataka ipak nije čarobni postupak koji uvijek otkriva konačnu
+istinu. Podskupine moraju imati sadržajno opravdanje. Ako podatke dijelimo na
+dovoljno mnogo proizvoljnih načina, prije ili poslije pronaći ćemo privlačan
+obrazac koji nema stabilno značenje. Statistička disciplina traži da objasnimo
+zašto je određena podjela važna prije nego što njezin rezultat proglasimo
+odgovorom.
+
+Simpsonov paradoks zato nije tek neobičan trik s tablicama. On sažima razlog
+postojanja statistike. Promatrani broj moramo povezati sa strukturom podataka
+koja ga je proizvela, a zaključak ograničiti na usporedbu koju smo doista
+napravili.
 
 ## Interakcija — Simpsonov paradoks
 
+Interaktivni prikaz rastavlja jednu zbirnu stopu na dvije podskupine. Brojevi
+opažanja ostaju isti, ali prebacivanje između združenog i razdvojenog pogleda
+mijenja usporedbu koju vidimo. Time postaje vidljivo kako sastav skupina može
+proizvesti zbirni rezultat suprotan obrascu unutar svake od njih.
+
 **Što isprobati.**
 
+1. Najprije usporedite samo zbirne stope i zapišite koja skupina izgleda
+   uspješnije.
+2. Uključite prikaz podskupina i provjerite ostaje li smjer razlike jednak.
+3. Promijenite zastupljenost podskupina bez mijenjanja njihovih stopa i
+   promatrajte kada se zbirni zaključak preokrene.
+
 **Statistika u divljini.**
+**Privid pristranosti u zbirnoj stopi.** Tvrdnja da su muškarci u Berkeleyju
+1973. primani češće od žena aritmetički je točna za šest najvećih odjela
+(Bickel, 1975). Problem nastaje tek kada tu zbirnu razliku pretvorimo u
+objašnjenje postupka upisa. Ukupna stopa istodobno spaja odluke različitih
+odjela i različitu raspodjelu prijava među njima.
+
+Odgovorno čitanje zato ne odbacuje zbirnu stopu, ali od nje traži pomoćne
+informacije. Potrebni su brojevi prijava i primljenih kandidata unutar svakog
+odjela te objašnjenje zbog čega je odjel relevantna podjela. Tek tada vidimo
+koji dio razlike nastaje unutar usporedivih skupina, a koji zbog njihova
+različitog sastava.
 
 **Pitajte model.**
+Asistent može brzo izračunati zbirne stope i ponoviti izračun po podskupinama,
+ali mu treba dati stvarne brojnike i nazivnike. Nakon odgovora valja provjeriti
+daju li zbrojevi ćelija objavljene ukupne vrijednosti i je li svaka stopa
+izračunata s odgovarajućim nazivnikom. Modeli osobito lako nadopune ćeliju
+koja nedostaje ili svaku razliku između zbirnog i grupiranog prikaza proglase
+Simpsonovim paradoksom.
+
+> Usporedi zbirne stope prijma sa stopama po odjelima. Prikaži broj prijava,
+> broj primljenih i nazivnik svake stope. Opiši kako sastav prijava mijenja
+> zbirni rezultat, ali nemoj iz tih tablica izvoditi kauzalni zaključak.
 
 **Nađite grešku.**
+Zbirna stopa prijma bila je viša za muškarce, dok je u četiri od šest odjela
+stopa za žene bila barem jednaka stopi za muškarce (Bickel, 1975). Žene su se
+češće prijavljivale na selektivnije odjele (Bickel, 1975). Stoga je izbor
+odjela uzrokovao cijeli zbirni jaz.
+
+Greška je kauzalni zaključak u posljednjoj rečenici. Tablica pokazuje da
+raspodjela prijava po odjelima objašnjava statističku strukturu zbirnog jaza,
+ali sama ne dokazuje zašto su kandidati birali određene odjele niti da je time
+objašnjen svaki mogući oblik pristranosti.
 
 ## Razrađeni primjer
 
+Berkeleyjski podaci omogućuju da cijeli problem pratimo bez složenog modela.
+Svaki redak izvorne tablice govori o ishodu prijave, spolu kandidata i odjelu.
+Prvi korak združuje odjele te za svaku skupinu dijeli broj primljenih s ukupnim
+brojem prijava.
+
+*Slika. Zbirne stope prijma u šest najvećih odjela. Izrada autora prema @bickel1975.*
+
+Zbirna tablica pokazuje velik jaz. Primljeno je
+`r paste0(hr_broj(100 * stopa_muskarci, 1), " %")` muškaraca i
+`r paste0(hr_broj(100 * stopa_zene, 1), " %")` žena među prijavama obuhvaćenim
+ovim podacima (Bickel, 1975). Kada bismo ovdje stali, bilo bi razumljivo
+posumnjati da je ista razlika prisutna u odlukama svakog odjela. Ta pretpostavka
+ipak nije sadržana u zbirnoj stopi.
+
+Sljedeći korak ne mijenja nijednu prijavu. Mijenja samo razinu na kojoj ih
+uspoređujemo. Stope sada računamo zasebno u svakom odjelu, čime kandidati iz
+selektivnog odjela više ne utječu izravno na usporedbu kandidata u odjelu s
+višom prolaznošću.
+
+*Slika. Stope prijma prema odjelu i spolu. Izrada autora prema @bickel1975.*
+
+Stope po odjelima više ne podržavaju jednostavnu priču prema kojoj se isti jaz
+ponavlja posvuda. U četiri od šest odjela stopa za žene barem je jednaka stopi
+za muškarce, dok je u preostala dva niža (Bickel, 1975). Presudan je i raspored
+prijava. Velik dio prijava žena završio je u odjelima s niskim stopama prijma,
+pa su ti odjeli dobili veću težinu u njihovoj zbirnoj stopi (Bickel, 1975).
+
+Zbirna stopa može se zamisliti kao prosjek odjelnih stopa u kojem odjeli nemaju
+jednaku težinu. Njihova težina ovisi o broju prijava iz svake skupine. Zato dvije
+skupine mogu imati sličan ili obrnut odnos unutar odjela, a ipak vrlo različite
+ukupne stope. Obrat ne proizvodi pogrešan račun. Proizvode ga različiti utezi u
+dvama zbirnim prosjecima.
+
+Ova analiza još ne daje konačan sud o pravednosti upisa. Odjelne tablice ne
+govore zašto su prijave raspoređene upravo tako, kako su kandidati usmjeravani
+ni jesu li kriteriji unutar odjela bili primijenjeni jednako. One postižu nešto
+uže i nužno. Pokazuju da zbirnu razliku ne smijemo tumačiti kao izravnu sliku
+odluka unutar svakog odjela. Statistički postupak nije zatvorio pitanje, nego ga
+je napokon postavio dovoljno precizno.
+
 ## Sažetak
 
+Statistika povezuje podatke s usporedbom koja određenom zaključku daje značenje.
+Promjenjivost nije smetnja koju uklanjamo, nego građa iz koje razlučujemo signal
+i šum. Simpsonov paradoks pokazuje da točan zbirni rezultat može zavesti kada
+skriva sastav podskupina. Strog pristup zato ne završava izračunom, nego
+provjerava kako su podaci nastali, što je uspoređeno i dokle zaključak smije
+dosegnuti. Sljedeći korak vodi prema mjerenju i istraživačkom dizajnu, gdje se
+odlučuje što će uopće postati podatak.
+
 ## Pojmovi
+
+statistika (*statistics*), signal (*signal*), šum (*noise*), zbirni podaci
+(*aggregate data*), podskupina (*subgroup*), Simpsonov paradoks
+(*Simpson's paradox*)
 
 ## Zadaci
 
 ### Konceptualni
 
+Objasnite kako dvije računski točne stope mogu poduprijeti različite zaključke.
+U odgovoru razlikujte zbirnu usporedbu od usporedbe unutar podskupina.
+
 ### Računski
+
+Upotrijebite podatke `UCBAdmissions` iz R-a. Izračunajte stopu prijma prema
+spolu najprije bez odjela, a zatim zasebno po odjelima. Predajte dvije tablice i
+jedan odlomak koji opisuje promjenu obrasca.
 
 ### Kritički
 
+Prosudite tvrdnju da zbirni jaz u stopama prijma sam po sebi dokazuje
+pristranost svakog odjela u Berkeleyju (Bickel, 1975). Navedite koju dodatnu
+usporedbu tvrdnja preskače i što ni ta dodatna usporedba ne može dokazati.
+
 ### Revizija modela
+
+Ocijenite analizu modela iz okvira iznad. Imenujte točne korake, izdvojite jednu
+neopravdanu tvrdnju i napišite njezinu oprezniju zamjenu.
 
 ---
 
