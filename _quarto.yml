@@ -29,7 +29,9 @@ book:
   # cover-image: cover.png
   # favicon: images/favicon.ico
 
-  site-url: "https://example.github.io/Statistika/"
+  site-url: "https://lusiki.github.io/Statistika/"
+  repo-url: "https://github.com/lusiki/Statistika"
+  repo-branch: main
 
   navbar:
     pinned: true
@@ -67,7 +69,8 @@ book:
 
   sidebar:
     style: docked
-    background: light
+    # Bez `background:` — Bootstrapov bg-light je hladno sivi i pregazio bi
+    # topli papir. Boju sidebara postavlja styles/_components.scss iz tokena.
     collapse-level: 4
     tools:
       - icon: file-earmark-pdf
@@ -189,7 +192,9 @@ format:
     code-overflow: scroll
     code-line-numbers: false
     code-block-bg: true
-    highlight-style: github
+    # Tiho bojanje sintakse u knjižnoj paleti; tiskani blok ima svoju,
+    # sivu inačicu (_quarto-pdf.yml).
+    highlight-style: styles/statistika.theme
     toc: true
     toc-depth: 3
     toc-expand: 2
@@ -202,28 +207,34 @@ format:
     fig-responsive: true
     fig-align: center
     fig-cap-location: bottom
-    fig-width: 8
-    fig-height: 6
+    # Format grafa prati stupac teksta (680 px), ne širinu prozora.
+    fig-width: 6.6
+    fig-height: 4.0
     tbl-cap-location: top
     reference-location: margin
     citation-location: margin
-    theorem-appearance: clouds
-    definition-appearance: clouds
+    # Definicije nose glavni oblik sustava (2 px oker crta + blaga ispuna),
+    # propozicije i dokazi samo crtu. Izgled je u styles/_base.scss.
+    theorem-appearance: default
+    definition-appearance: default
     proposition-appearance: simple
     proof-appearance: simple
-    fontsize: 1.02rem
-    linestretch: 1.6
+    fontsize: 1.0625rem
+    linestretch: 1.62
     lang: hr-HR
     citations-hover: true
     footnotes-hover: true
     crossrefs-hover: true
-    # Vanjska pisma. Otključaj i zamijeni kad tipografija bude odabrana
-    # (DESIGN.md, korak 3); mora se poklapati s design-tokens.yml i _tokens.scss.
-    # include-in-header:
-    #   - text: |
-    #       <link rel="preconnect" href="https://fonts.googleapis.com">
-    #       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    #       <link href="https://fonts.googleapis.com/css2?family=…&display=swap" rel="stylesheet">
+    # Mreža: stupac teksta 680 px, margina 260 px. Mjera od 66 znakova
+    # drži se u SCSS-u (--tok-measure); ovo je okvir oko nje.
+    grid:
+      sidebar-width: 280px
+      body-width: 680px
+      margin-width: 260px
+      gutter-width: 2.2rem
+    # Pisma knjige: Newsreader · Literata · Public Sans · JetBrains Mono.
+    include-in-header:
+      - styles/head.html
     include-after-body:
       - styles/book-include.html
     prefer-html: true

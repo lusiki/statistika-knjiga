@@ -12,7 +12,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://example.github.io/Statistika/chapters/07-vjerojatnost.html
+> Izvor: https://lusiki.github.io/Statistika/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -54,7 +54,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://example.github.io/Statistika/chapters/08-uzorkovanje.html
+> Izvor: https://lusiki.github.io/Statistika/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -96,7 +96,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://example.github.io/Statistika/chapters/09-procjena.html
+> Izvor: https://lusiki.github.io/Statistika/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 

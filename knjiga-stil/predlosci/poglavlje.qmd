@@ -1,0 +1,203 @@
+---
+title: "Uzorkovanje"
+subtitle: "Zašto anketa na 800 ljudi može reći nešto pouzdano o četiri milijuna"
+---
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     PREDLOŽAK POGLAVLJA
+     Kopirajte ovu datoteku u poglavlja/NN-naziv.qmd i pišite preko sadržaja.
+     Redoslijed odjeljaka je fiksan (kostur iz plana knjige) — ne mijenjajte ga.
+     Svi elementi ispod definirani su u knjiga-stil/filters/statistika.lua.
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 28 min | Stroj za CLT | ESS HR 2023 | pogl. 4, 7 |
+:::
+
+## Vinjeta {.unnumbered}
+
+::: {.vinjeta}
+U studenome 2024. agencija je objavila da 34 % građana vjeruje Crkvi. Tjedan
+dana kasnije druga je agencija objavila 41 %. Obje su anketirale oko tisuću
+ljudi. Obje su bile točne.
+:::
+
+## Izgradnja pojma
+
+Kad iz populacije izvučemo tisuću ljudi i izračunamo postotak, dobili smo jedan
+broj. Da smo izvukli drugih tisuću, dobili bismo drugi. Statistika ne pokušava
+izbjeći tu varijabilnost — pokušava je izmjeriti.^[Zato objavljena anketa uvijek
+nosi marginu pogreške. Ako je nema, to nije rezultat nego dojam. → pogl. 3]
+
+Zamislite da postupak ponovite tisuću puta. Ti se brojevi ne rasipaju nasumično
+nego se slažu u oblik toliko predvidljiv da na njemu počiva gotovo cijelo
+[statističko zaključivanje]{.pojam def="Izvođenje tvrdnji o populaciji na temelju uzorka." en="statistical inference" ch="8"}.
+
+::: {.definicija term="Distribucija uzorkovanja" en="sampling distribution"}
+Distribucija neke statistike (npr. aritmetičke sredine) preko svih mogućih
+uzoraka zadane veličine iz iste populacije. Nije distribucija podataka —
+distribucija je *procjene*.
+:::
+
+::: {.column-margin}
+Margina drži bilješke, izvore i sitne figure. Nikad ne nosi ništa nužno za
+razumijevanje glavnog teksta.
+:::
+
+## Interakcija
+
+::: {.widget id="08.1" title="Stroj za središnji granični teorem" fig="8.4" static="slike/08-clt.svg"}
+
+```{ojs}
+//| echo: false
+viewof n = Inputs.range([2, 200], {value: 30, step: 1, label: "Veličina uzorka n"})
+viewof oblik = Inputs.radio(["iskrivljena", "uniformna", "bimodalna"],
+                            {value: "iskrivljena", label: "Oblik populacije"})
+```
+
+```{ojs}
+//| echo: false
+sredine = {
+  const rng = d3.randomLcg(2026);
+  const izvuci = () => oblik === "uniformna" ? rng()
+    : oblik === "bimodalna" ? (rng() < 0.5 ? 0.08 + rng() * 0.22 : 0.68 + rng() * 0.24)
+    : Math.min(1, -Math.log(1 - rng()) / 5);
+  return Array.from({length: 800}, () =>
+    d3.mean(Array.from({length: n}, izvuci)));
+}
+
+Plot.plot({
+  height: 220,
+  marginLeft: 44,
+  style: {fontFamily: "JetBrains Mono", fontSize: 11, background: "transparent"},
+  x: {label: "aritmetička sredina uzorka →"},
+  y: {label: "↑ broj uzoraka", grid: false},
+  marks: [
+    Plot.rectY(sredine, Plot.binX({y: "count"}, {x: d => d, fill: "#c08a16", thresholds: 46})),
+    Plot.ruleY([0], {stroke: "#16150f"})
+  ]
+})
+```
+
+:::
+
+## Statistika u divljini
+
+::: {.divljina claim="Podrška stranci porasla je za 3 postotna boda, izvan margine pogreške." source="dnevni portal, ožujak 2025."}
+Margina pogreške odnosi se na jednu procjenu, ne na razliku dviju. Razlika ima
+svoju, otprilike 1,4 puta veću pogrešku. Tri boda kod $n = 1\,000$ nisu izvan
+ničega.
+:::
+
+## Pitajte model
+
+::: {.pitajte prompt="Objasni razliku između standardne devijacije i standardne pogreške na mojim podacima. Navedi koje pretpostavke praviš."}
+Asistent dobro objašnjava što je standardna pogreška. Loše procjenjuje je li vaš
+uzorak reprezentativan — to ne može znati iz podataka koje mu date.
+
+**Provjerite:** je li $n$ koje model navodi jednako $n$ u vašoj tablici.
+:::
+
+::: {.pogreska}
+Interval pouzdanosti od 95 % ne znači da je vjerojatnost 95 % da parametar leži
+u *ovom* intervalu. Svojstvo pripada postupku, ne pojedinom intervalu.
+:::
+
+## Razrađeni primjer
+
+::: {.primjer}
+### Pitanje
+
+Razlikuje li se povjerenje u medije između dobnih skupina u Hrvatskoj?
+
+### Podaci
+
+ESS HR val 11, varijable `trstprl` i `agea`, $n = 1\,810$.
+
+### Model
+
+Linearni model s dobnom skupinom kao prediktorom — isti okvir kao t-test iz
+pogl. 14.
+:::
+
+::: {.panel-tabset}
+## R
+
+```{r}
+#| label: model-r
+#| eval: false
+set.seed(2026)
+
+model <- lm(trstprl ~ dobna_skupina, data = ess)
+broom::tidy(model, conf.int = TRUE)
+```
+
+## Python
+
+```{python}
+#| label: model-py
+#| eval: false
+rng = np.random.default_rng(2026)
+
+model = smf.ols("trstprl ~ C(dobna_skupina)", data=ess).fit()
+model.conf_int()
+```
+:::
+
+| Prediktor | β | SE | 95 % CI | p |
+|:---|---:|---:|---:|---:|
+| (odsječak) | 4,82 | 0,09 | [4,64; 5,00] | <0,001 |
+| dob 30–49 | −0,41 | 0,12 | [−0,65; −0,17] | 0,001 |
+| dob 50+ | 0,26 | 0,11 | [0,04; 0,48] | 0,021 |
+
+: Povjerenje u medije prema dobnoj skupini. Referentna kategorija 18–29. Bez zvjezdica značajnosti — intervali nose informaciju koju bi zvjezdice sakrile. {#tbl-povjerenje}
+
+<details>
+<summary>Izvod: zašto SE = σ/√n</summary>
+
+Neka su $X_1 \dots X_n$ nezavisne, jednako distribuirane, s očekivanjem $\mu$ i
+konačnom varijancom $\sigma^2$. Tada je
+
+$$\operatorname{Var}(\bar X) = \frac{1}{n^2}\sum_{i=1}^{n}\operatorname{Var}(X_i) = \frac{\sigma^2}{n}$$
+
+Standardna pogreška je korijen te veličine. Zato četverostruko veći uzorak
+prepolovi pogrešku — a ne učetverostruči preciznost.
+
+</details>
+
+## Sažetak i pojmovi {.unnumbered}
+
+::: {.sazetak}
+- Jedan uzorak daje jednu procjenu; ponovljeno uzorkovanje daje distribuciju.
+- Ta je distribucija približno normalna bez obzira na oblik populacije.
+- Njezino raspršenje, standardna pogreška, pada s $\sqrt{n}$ — ne s $n$.
+:::
+
+::: {.pojmovi}
+| distribucija uzorkovanja | sampling distribution |
+|---|---|
+| standardna pogreška | standard error |
+| središnji granični teorem | central limit theorem |
+| okvir uzorkovanja | sampling frame |
+:::
+
+::: {.zadaci}
+### Pojmovno
+
+1. Objasnite vlastitim riječima zašto distribucija uzorkovanja nije distribucija podataka.
+2. Kolegica tvrdi da veći uzorak smanjuje varijabilnost populacije. Gdje griješi?
+
+### Računski
+
+3. Za $\sigma = 2{,}4$ i $n = 144$ izračunajte standardnu pogrešku. Koliki $n$ treba za polovicu te vrijednosti?
+
+### Kritički
+
+4. Nađite objavljenu anketu bez navedene veličine uzorka. Što sve ne možete zaključiti?
+
+### Revizija modela
+
+5. U priloženoj analizi asistent je zamijenio $\sigma$ i SE. Nađite pogrešku i objasnite posljedicu za zaključak.
+:::

@@ -382,11 +382,15 @@ varijance) s poglavljem 14 (uzorkivač dviju grupa).
 
 ## Naslov i adresa repozitorija
 
-Otvorena odluka 1 nije razriješena, pa su naslov („Osnove statistike za
-društvene znanosti"), adresa (`example.github.io/Statistika`) i autorstvo
-upisani kao radne vrijednosti. Mijenjaju se na četiri mjesta: `_quarto.yml`,
-`design-tokens.yml`, `SITE_URL` u `R/build-ai-exports.R` i konstanta `UPUTA` u
-`styles/book-include.html`.
+Adresa je razriješena: repozitorij je `github.com/lusiki/Statistika`, knjiga se
+objavljuje na `lusiki.github.io/Statistika`. (Postojeći `lusiki/Osnove-statistike`
+je stranica kolegija, ne knjiga.) Naslov („Osnove statistike za društvene
+znanosti") i autorstvo i dalje su radne vrijednosti iz otvorene odluke 1.
+
+Adresa je upisana na tri mjesta i mijenja se zajedno: `site-url` i `repo-url` u
+`_quarto.yml`, `link` u `design-tokens.yml` i `SITE_URL` u
+`R/build-ai-exports.R`. Konstanta `UPUTA` u `styles/book-include.html` nosi samo
+tekst upute — poveznicu na poglavlje gradi iz `location.origin`, pa se ne dira.
 
 ## Naslijeđeni engine nije prenesen doslovno
 

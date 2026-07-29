@@ -1,88 +1,172 @@
+/*-- scss:uses --*/
+// Pisma knjige. Sloj `uses` postoji upravo zato da @import ostane na vrhu
+// spojene datoteke — u `rules` bloku bi ga Quartova pravila pregazila.
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 /*-- scss:defaults --*/
 
 // =====================================================================
 //  theme.scss — reveal.js tema predavanja
 // =====================================================================
 //  Preslikava iste tokene kao knjiga. Ako se dizajn promijeni u
-//  design-tokens.yml, ovdje se mijenjaju iste tri vrijednosti.
+//  design-tokens.yml, ovdje se mijenjaju iste vrijednosti.
 //  Provjeru sinkronizacije radi Rscript scripts/check-tokens.R samo za
 //  knjigu, ne i za ovu datoteku — pazite ručno.
+//
+//  Predavanje je knjiga na projektoru: isti topli papir, isti oker koji
+//  znači dodir, isti displejni serif u svijetlom rezu. Slajd smije biti
+//  prazniji od stranice, ali ne smije biti druge boje.
 // =====================================================================
 
-$tok-paper:      #FFFFFF;
-$tok-paper-soft: #F4F4F5;
-$tok-ink:        #18181B;
-$tok-ink-mute:   #71717A;
-$tok-accent:     #2563A8;
-$tok-emphasis:   #9C2B2B;
-$tok-archival:   #8A6D3B;
+$tok-paper:       #FBFAF6;
+$tok-paper-soft:  #F3EFE6;
+$tok-surface:     #FFFFFF;
+$tok-ink:         #16150F;
+$tok-ink-soft:    #33322A;
+$tok-ink-mute:    #6E6C61;
+$tok-ink-faint:   #9B9789;
+$tok-rule:        #E4DFD2;
+$tok-rule-soft:   #EFEBE0;
+$tok-accent:      #C08A16;
+$tok-accent-deep: #8A6212;
+$tok-accent-dark: #5C4109;
+$tok-accent-wash: #FAF2DE;
 
-$tok-font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
-$tok-font-sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-$tok-font-mono:  ui-monospace, SFMono-Regular, Consolas, monospace;
+$tok-font-display: "Newsreader", Georgia, serif;
+$tok-font-serif:   "Literata", Georgia, serif;
+$tok-font-sans:    "Public Sans", system-ui, -apple-system, sans-serif;
+$tok-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
 $body-bg:          $tok-paper;
-$body-color:       $tok-ink;
-$link-color:       $tok-accent;
-$link-color-hover: $tok-accent;
+$body-color:       $tok-ink-soft;
+$link-color:       $tok-accent-deep;
+$link-color-hover: $tok-accent-dark;
 
-$font-family-sans-serif: $tok-font-sans;
+$font-family-sans-serif: $tok-font-serif;
 $presentation-font-size-root: 34px;
-$presentation-heading-font: $tok-font-serif;
+$presentation-font-family: $tok-font-serif;
+$presentation-heading-font: $tok-font-display;
 $presentation-heading-color: $tok-ink;
-$presentation-heading-font-weight: 600;
+$presentation-heading-font-weight: 300;
 $code-block-font-size: 0.62em;
 
 /*-- scss:rules --*/
 
-.reveal .slides section {
-  text-align: left;
-}
+.reveal .slides section { text-align: left; }
 
 .reveal h1, .reveal h2, .reveal h3 {
   text-transform: none;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.022em;
+  line-height: 1.06;
 }
+
+// Brojke su i na slajdu monospace, tabularne.
+.reveal table,
+.reveal .broj { font-family: $tok-font-mono; font-variant-numeric: tabular-nums lining-nums; }
+
+// Tablice: bez okomitih linija, bez zebre — kao u knjizi.
+.reveal table th {
+  font-family: $tok-font-sans;
+  font-size: 0.5em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
+  border-bottom: 1px solid $tok-ink;
+}
+.reveal table td { border-bottom: 1px solid $tok-rule-soft; }
 
 // Natpis iznad naslova slajda: [Poglavlje 8]{.kicker}
 .reveal .kicker {
-  display: block;
-  font-family: $tok-font-sans;
-  font-size: 0.42em;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: $tok-font-mono;
+  font-size: 0.4em;
+  font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: $tok-ink-mute;
-  margin-bottom: 0.3em;
+  color: $tok-accent-deep;
+  margin-bottom: 0.4em;
+
+  &::before {
+    content: "";
+    width: 1.4em;
+    height: 1px;
+    background: currentColor;
+  }
 }
 
-// Naslovni slajd dijela predavanja.
+// Naslovni slajd dijela predavanja: vlas linija gore, teška dolje.
 .reveal section.dio {
-  border-top: 2px solid $tok-archival;
-  border-bottom: 3px solid $tok-accent;
+  border-top: 1px solid $tok-rule;
+  border-bottom: 2px solid $tok-ink;
   padding: 1.2em 0;
 }
 
-// Pedagoške kutije, ista imena klasa kao u knjizi.
+// Pedagoške kutije, ista imena klasa i isti signali kao u knjizi:
+// crta i oznaka, nikad ispuna u boji.
 .reveal .callout-vinjeta,
 .reveal .callout-divljina,
 .reveal .callout-model,
 .reveal .callout-greska {
-  background: $tok-paper-soft;
-  border-left: 4px solid $tok-ink-mute;
-  padding: 0.5em 0.7em;
   font-size: 0.8em;
-}
-.reveal .callout-vinjeta  { border-left-color: $tok-archival; }
-.reveal .callout-divljina { border-left-color: $tok-emphasis; }
-.reveal .callout-model    { border-left-color: $tok-accent; }
-.reveal .callout-greska   { border-left-color: $tok-emphasis; }
+  padding: 0.5em 0;
+  position: relative;
 
-.reveal code, .reveal pre { font-family: $tok-font-mono; }
+  &::before {
+    display: block;
+    font-family: $tok-font-mono;
+    font-size: 0.55em;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+  }
+}
+.reveal .callout-vinjeta {
+  border-top: 2px solid $tok-ink;
+  border-bottom: 1px solid $tok-rule;
+  &::before { content: "Vinjeta"; color: $tok-ink-mute; }
+  p { font-family: $tok-font-display; font-style: italic; font-weight: 300; }
+}
+.reveal .callout-divljina {
+  background: $tok-ink;
+  color: $tok-paper-soft;
+  padding: 0.7em 0.9em;
+  &::before { content: "Statistika u divljini"; color: $tok-accent; }
+}
+.reveal .callout-model {
+  border: 1px dotted $tok-ink-mute;
+  padding: 0.7em 0.9em;
+  &::before { content: "Pitajte model"; color: $tok-ink; }
+}
+.reveal .callout-greska {
+  border-top: 3px solid $tok-ink;
+  &::before {
+    content: "Nađite grešku";
+    color: $tok-ink;
+    width: max-content;
+    text-decoration: underline;
+    text-decoration-color: $tok-accent;
+    text-underline-offset: 3px;
+  }
+}
+
+// Ligature u kodu isključene — čitatelj mora moći prepisati svaki znak.
+.reveal code, .reveal pre {
+  font-family: $tok-font-mono;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
 
 // Izvor ispod grafa ili navoda.
 .reveal .izvor {
-  font-family: $tok-font-sans;
-  font-size: 0.4em;
-  color: $tok-ink-mute;
+  font-family: $tok-font-mono;
+  font-size: 0.38em;
+  color: $tok-ink-faint;
 }
+
+// Napredak i kontrole u okeru: to je jedino što se na slajdu dodiruje.
+.reveal .progress span { background: $tok-accent; }
+.reveal .controls { color: $tok-accent; }

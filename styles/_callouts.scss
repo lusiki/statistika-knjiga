@@ -9,122 +9,331 @@
 //    ::: {.callout-model}      „Pitajte model" — rad s asistentom
 //    ::: {.callout-greska}     podmetnuta greška koju čitatelj traži
 //
+//  plus zatvarajući blok poglavlja: .primjer, .sazetak, .pojmovi, .zadaci-razina.
+//
+//  PRAVILO SUSTAVA. Svaki tip kutije razlikuje se CRTOM I OZNAKOM, nikad
+//  bojom pozadine. Tiskani blok je jednobojan; kad se boja oduzme, kutije
+//  moraju ostati međusobno razlučive. Zato: vinjeta ima 2 px gornju crtu,
+//  divljina je obrnuta traka, „pitajte model" ima točkasti okvir, a greška
+//  3 px gornju crtu bez ispune.
+//
 //  Naziv kategorije ispisuje CSS (::before), ne autor — kutija u .qmd-u
 //  sadrži samo sadržaj. Za PDF isti se divovi omataju u tcolorbox preko
 //  pdf-filters/book-callouts.lua i tex/theme.tex.
 // =====================================================================
+
+// Zajednička oznaka kategorije: mono verzal s razmaknutim slovima.
+%oznaka-kutije {
+  display: block;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
 
 .callout-vinjeta,
 .callout-divljina,
 .callout-model,
 .callout-greska {
   position: relative;
-  background: $tok-paper-soft;
-  border: 1px solid $tok-rule-faint;
-  border-left: $tok-rule-width solid $tok-ink-faint;
-  border-radius: 0 $tok-radius $tok-radius 0;
-  padding: 1.5rem 1.3rem 1.1rem;
-  margin: 2rem 0;
+  border-radius: 0;
+  max-width: $tok-measure;
 
   > *:first-child { margin-top: 0; }
   > *:last-child  { margin-bottom: 0; }
 
   p { max-width: none; }
 
-  // natpis kategorije
-  &::before {
-    content: attr(data-oznaka);
-    position: absolute;
-    top: 0.72rem;
-    left: 1.3rem;
-    font-family: $tok-font-sans;
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+  // Svaka kutija ispisuje vlastitu oznaku ispod (načelo: oznaka, ne boja).
+  &::before { @extend %oznaka-kutije; }
+}
+
+// ---------------------------------------------------------------------
+//  Vinjeta — otvarajući slučaj
+//  2 px gornja crta, vlas donja, tekst u displejnom kurzivu.
+// ---------------------------------------------------------------------
+.callout-vinjeta {
+  background: transparent;
+  border: 0;
+  border-top: $tok-rule-width solid $tok-ink;
+  border-bottom: 1px solid $tok-rule;
+  padding: 1.75rem 0 2rem;
+  margin: 0 0 3.5rem;
+
+  &::before { content: "Vinjeta"; color: $tok-ink-mute; }
+
+  p {
+    font-family: $tok-font-display;
+    font-size: 1.375rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.45;
+    color: $tok-ink;
+    max-width: 52ch;
   }
 }
 
-.callout-vinjeta {
-  border-left-color: $tok-archival;
-  &::before { content: "Vinjeta"; color: $tok-archival; }
-}
-
+// ---------------------------------------------------------------------
+//  Statistika u divljini — obrnuta tamna traka
+//  Jedini element koji obrće papir. Tvrdnja stoji kao navod, rastavljanje
+//  ispod nje u prigušenom tonu.
+// ---------------------------------------------------------------------
 .callout-divljina {
-  border-left-color: $tok-emphasis;
-  &::before { content: "Statistika u divljini"; color: $tok-emphasis; }
+  background: $tok-ink;
+  color: $tok-paper-soft;
+  border: 0;
+  padding: 2.25rem 2.5rem;
+  margin: 3.5rem 0;
+  max-width: none;
+
+  &::before { content: "Statistika u divljini"; color: $tok-accent; }
+
+  p, li { color: $tok-paper-soft; max-width: 60ch; }
+  a { color: $tok-accent; text-decoration-color: rgba($tok-accent, 0.6); }
+  a:hover { color: $tok-accent-wash; }
+  code { background: transparent; color: $tok-accent-wash; }
 }
 
-.callout-model {
-  border-left-color: $tok-accent;
-  background: $tok-accent-wash;
-  &::before { content: "Pitajte model"; color: $tok-accent-deep; }
-}
-
-.callout-greska {
-  border-left-color: $tok-emphasis;
-  border-style: dashed;
-  border-left-style: solid;
-  &::before { content: "Nađite grešku"; color: $tok-emphasis; }
-}
-
-// Neobavezni naslov slučaja: prvi podebljani odlomak unutar kutije.
-.callout-divljina > p:first-of-type > strong:first-child,
-.callout-vinjeta  > p:first-of-type > strong:first-child {
+// Naslov slučaja postaje sam navod: displejni kurziv na bijelom.
+.callout-divljina > p:first-of-type > strong:first-child {
   display: block;
-  font-family: $tok-font-sans;
-  font-size: 0.95rem;
-  margin-bottom: 0.35rem;
+  font-family: $tok-font-display;
+  font-size: 1.375rem;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.35;
+  color: $tok-surface;
+  max-width: 46ch;
+  margin-bottom: 1rem;
 }
 
-// =====================================================================
-//  Sažetak i pojmovi — zatvarajući blok poglavlja
-//  Upotreba: ## Sažetak {.sazetak}  /  ## Pojmovi {.pojmovi}
-// =====================================================================
-.sazetak, .pojmovi {
-  font-family: $tok-font-sans;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: $tok-ink-mute;
+// ---------------------------------------------------------------------
+//  Pitajte model — glas stroja
+//  Točkasti okvir; upit se piše kao blok citat i dobiva mono traku.
+// ---------------------------------------------------------------------
+.callout-model {
+  background: transparent;
+  border: 1px dotted $tok-ink-mute;
+  padding: 1.5rem 1.75rem;
+  margin: 3rem 0;
+
+  &::before { content: "Pitajte model"; color: $tok-ink; }
+
+  blockquote {
+    font-family: $tok-font-mono;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.6;
+    background: $tok-paper-soft;
+    color: $tok-ink-soft;
+    border: 0;
+    padding: 0.875rem 1rem;
+    margin: 1.25rem 0 0;
+    max-width: none;
+
+    p { margin: 0; }
+    p + p { margin-top: 0.6rem; }
+    p::before { content: "> "; color: $tok-ink-faint; }
+  }
+}
+
+// ---------------------------------------------------------------------
+//  Nađite grešku — AI analiza s točno jednom greškom
+//  3 px gornja crta, bez ispune. Oznaka podcrtana okerom: greška je
+//  zadatak, a zadatak je nešto što čitatelj dodiruje.
+// ---------------------------------------------------------------------
+.callout-greska {
+  background: transparent;
+  border: 0;
+  border-top: 3px solid $tok-ink;
+  padding: 1rem 0 0;
+  margin: 3rem 0;
+
+  &::before {
+    content: "Nađite grešku";
+    color: $tok-ink;
+    width: max-content;
+    text-decoration: underline;
+    text-decoration-color: $tok-accent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+}
+
+// Rješenje vidljivo samo u nastavnom izdanju (profil `kolegij`).
+.callout-greska .quarto-profile-kolegij,
+.callout-greska > div:last-child:not(:first-child) {
   border-top: 1px solid $tok-rule;
-  padding-top: 0.9rem;
-  margin-top: 3rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
 }
 
-// Proza ispod natpisa vraća se u serifni registar knjige.
-.sazetak + p, .pojmovi + p, .pojmovi + table, .pojmovi + dl {
-  font-family: $tok-font-serif;
-  font-size: 1rem;
-  text-transform: none;
-  letter-spacing: normal;
-  color: $tok-ink;
+// =====================================================================
+//  Razrađeni primjer — viseći mono brojevi koraka
+//  ::: {.primjer}  s podnaslovima ### Pitanje / ### Podaci / ### Model
+// =====================================================================
+.primjer {
+  counter-reset: korak;
+  margin: 3rem 0;
+
+  &::before {
+    @extend %oznaka-kutije;
+    content: "Razrađeni primjer";
+    color: $tok-accent-deep;
+  }
+
+  > h3 {
+    counter-increment: korak;
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    font-family: $tok-font-display;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: $tok-ink;
+    border-top: 1px solid $tok-rule-soft;
+    padding-top: 1.15rem;
+    margin: 0 0 0.5rem;
+
+    &::before {
+      content: counter(korak, decimal-leading-zero);
+      font-family: $tok-font-mono;
+      font-size: 0.8125rem;
+      color: $tok-accent-deep;
+    }
+  }
+
+  > h3 + p,
+  > h3 + p + p { margin-left: 4rem; }
+}
+
+// =====================================================================
+//  Sažetak — uvučena traka
+//  Piše se kao ## Sažetak {.sazetak}; klasa sjedi i na naslovu i na
+//  odjeljku koji Quarto oko njega omota, pa traka obuhvaća oboje.
+// =====================================================================
+section.sazetak {
+  background: $tok-paper-soft;
+  padding: 2.25rem 2.5rem;
+  margin: 4.5rem 0 2rem;
+  max-width: none;
+
+  > *:last-child { margin-bottom: 0; }
+
+  p, ul, ol { max-width: 58ch; }
+
+  // Strelice umjesto točaka: sažetak vodi dalje, ne nabraja.
+  ul {
+    list-style: none;
+    padding-left: 1.5rem;
+
+    li { position: relative; }
+    li::before {
+      content: "→";
+      position: absolute;
+      left: -1.5rem;
+      color: $tok-accent-deep;
+      font-family: $tok-font-mono;
+    }
+  }
+}
+
+h2.sazetak,
+h2.pojmovi {
+  @extend %oznaka-kutije;
+  font-size: 0.6875rem;
+  color: $tok-ink-mute;
+  border-top: 0;
+  padding-top: 0;
+  margin: 0 0 1.25rem;
+  max-width: none;
+}
+
+// =====================================================================
+//  Pojmovi — hrvatski i engleski u paru
+//  Dvostupčana tablica u odjeljku ## Pojmovi {.pojmovi}.
+// =====================================================================
+section.pojmovi {
+  margin: 3rem 0;
+  border-top: 1px solid $tok-rule;
+  padding-top: 1.75rem;
+
+  table {
+    border: 0;
+    font-size: 0.9375rem;
+    max-width: 46rem;
+  }
+  thead { display: none; }
+  td {
+    border-bottom: 1px solid $tok-rule-soft;
+    padding: 0.75rem 0;
+    vertical-align: baseline;
+  }
+  td:first-child {
+    font-family: $tok-font-serif;
+    color: $tok-ink;
+    text-align: left;
+  }
+  td:last-child {
+    font-family: $tok-font-sans;
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: $tok-ink-faint;
+    text-align: right;
+  }
 }
 
 // =====================================================================
 //  Zadaci — četiri razine na kraju poglavlja
-//  Upotreba: ### Konceptualni {.zadaci-razina} …
+//  ### Konceptualni {.zadaci-razina} …
 // =====================================================================
-.zadaci-razina {
-  font-family: $tok-font-sans;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+section.zadaci-razina {
+  border-top: 1px solid $tok-rule;
+  padding: 1.5rem 0;
+  margin: 0;
+
+  ol {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    counter-reset: zadatak;
+  }
+  ol > li {
+    counter-increment: zadatak;
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    max-width: 68ch;
+
+    &::before {
+      content: counter(zadatak, decimal-leading-zero);
+      font-family: $tok-font-mono;
+      font-size: 0.75rem;
+      color: $tok-ink-faint;
+      padding-top: 0.25rem;
+    }
+  }
+}
+
+h3.zadaci-razina {
+  @extend %oznaka-kutije;
+  font-size: 0.6875rem;
   color: $tok-accent-deep;
-  margin-top: 1.6rem;
+  margin: 0 0 0.75rem;
 }
 
 // =====================================================================
 //  Simbol iz interaktivnog grafa spomenut u tekstu: [n]{.var}
 // =====================================================================
 .var {
-  font-family: $tok-font-mono;
   font-size: 0.88em;
   background: $tok-accent-wash;
-  border: 1px solid $tok-rule-faint;
-  border-radius: 3px;
+  border-radius: $tok-radius;
   padding: 0.05em 0.32em;
   color: $tok-accent-deep;
 }

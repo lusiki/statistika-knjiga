@@ -1,17 +1,24 @@
 // =====================================================================
 //  _nastava.scss — silabus, tjedni raspored, hub predavanja
 // =====================================================================
+//  Iste ruke kao knjiga: vlas linija umjesto okvira, mono za brojke i
+//  oznake, serif za teme. Status se razlikuje TEŽINOM CRTE, ne bojom —
+//  isto pravilo koje drži pedagoške kutije čitljivima u crno-bijelom tisku.
+// =====================================================================
 
 // --- tjedni raspored -------------------------------------------------
-.tjedni { margin: 2rem 0; }
+.tjedni {
+  margin: 2.5rem 0;
+  border-top: 1px solid $tok-rule;
+}
 
 .tjedan {
   display: grid;
   grid-template-columns: 4rem 1fr auto;
   gap: 1rem;
   align-items: baseline;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid $tok-rule-faint;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid $tok-rule-soft;
 }
 @media (max-width: 700px) {
   .tjedan { grid-template-columns: 3rem 1fr; }
@@ -19,7 +26,9 @@
 
 .tjedan .tj-broj {
   font-family: $tok-font-mono;
-  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
   color: $tok-ink-faint;
 }
 .tjedan .tj-tema {
@@ -31,37 +40,38 @@
 .tjedan .tj-tema a:hover { text-decoration: underline; }
 
 // --- oznake statusa --------------------------------------------------
+// Bez druge boje: prazno → isprekidano → puno.
 .znak {
-  font-family: $tok-font-sans;
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-family: $tok-font-mono;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   border: 1px solid currentColor;
-  border-radius: 999px;
-  padding: 0.12rem 0.55rem;
+  border-radius: $tok-radius;
+  padding: 0.14rem 0.5rem;
   white-space: nowrap;
 }
-.znak-planirano { color: $tok-ink-faint; }
-.znak-u-izradi  { color: $tok-archival; }
-.znak-gotovo    { color: $tok-accent; }
+.znak-planirano { color: $tok-ink-faint; border-style: dotted; }
+.znak-u-izradi  { color: $tok-ink-mute;  border-style: dashed; }
+.znak-gotovo    { color: $tok-ink;       border-style: solid; }
 
 // --- silabus ---------------------------------------------------------
 .silabus-meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 1.2rem;
+  gap: 1.4rem;
   border-top: 1px solid $tok-rule;
   border-bottom: 1px solid $tok-rule;
-  padding: 1.1rem 0;
-  margin: 1.8rem 0 2.4rem;
+  padding: 1.3rem 0;
+  margin: 2rem 0 2.6rem;
 }
 .silabus-meta .polje {
-  font-family: $tok-font-sans;
-  font-size: 0.68rem;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: $tok-ink-mute;
+  color: $tok-ink-faint;
 }
 .silabus-meta .vrijednost {
   display: block;
@@ -70,5 +80,5 @@
   color: $tok-ink;
   letter-spacing: normal;
   text-transform: none;
-  margin-top: 0.2rem;
+  margin-top: 0.3rem;
 }

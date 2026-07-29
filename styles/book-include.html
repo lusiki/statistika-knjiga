@@ -15,6 +15,9 @@
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
      8. sklopivi prozni blokovi („Što isprobati")
      9. AI izbornik u podnožju poglavlja
+    10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
+    11. traka metapodataka na otvaranju poglavlja
+    12. pamćenje stanja widgeta po stranici
    ===================================================================== */
 (function () {
   "use strict";
@@ -416,6 +419,144 @@
   }
 
   // -------------------------------------------------------------------
+  // 10. Pojmovi na dodir
+  //     [statističko zaključivanje]{.pojam def="…" en="…" ch="8"}
+  //     Pandoc atribute prenosi doslovno na <span>, pa oblačić gradimo
+  //     odavde. Izgled je u styles/_base.scss (.pojam__oblacic).
+  // -------------------------------------------------------------------
+  function setupPojmovi() {
+    var pojmovi = document.querySelectorAll("span.pojam");
+    if (!pojmovi.length) return;
+
+    pojmovi.forEach(function (el) {
+      if (el.dataset.pojamSpreman) return;
+      el.dataset.pojamSpreman = "1";
+
+      var def = el.getAttribute("def") || "";
+      var en  = el.getAttribute("en")  || "";
+      var ch  = el.getAttribute("ch")  || "";
+      if (!def && !en && !ch) return;
+
+      el.setAttribute("tabindex", "0");
+
+      var tip = document.createElement("span");
+      tip.className = "pojam__oblacic";
+      tip.setAttribute("role", "tooltip");
+
+      var glava = document.createElement("span");
+      glava.className = "pojam__glava";
+      glava.textContent = el.textContent.trim();
+      tip.appendChild(glava);
+
+      if (def) tip.appendChild(document.createTextNode(def));
+      if (en) {
+        var e = document.createElement("em");
+        e.className = "pojam__en";
+        e.textContent = " " + en;
+        tip.appendChild(e);
+      }
+      if (ch) {
+        var c = document.createElement("span");
+        c.className = "pojam__pogl";
+        c.textContent = "→ pogl. " + ch;
+        tip.appendChild(c);
+      }
+      el.appendChild(tip);
+    });
+
+    // Dodir i tipkovnica: klik otvara, klik izvan zatvara (CSS pokriva miš).
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest && e.target.closest("span.pojam");
+      document.querySelectorAll("span.pojam.je-otvoren").forEach(function (o) {
+        if (o !== t) o.classList.remove("je-otvoren");
+      });
+      if (t) { t.classList.toggle("je-otvoren"); e.stopPropagation(); }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      document.querySelectorAll("span.pojam.je-otvoren")
+        .forEach(function (o) { o.classList.remove("je-otvoren"); });
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 11. Traka metapodataka na otvaranju poglavlja
+  //     U .qmd-u se piše kao obična tablica unutar ::: {.chapter-meta};
+  //     ovdje postaje jedan redak parova natpis / vrijednost.
+  // -------------------------------------------------------------------
+  function setupChapterMeta() {
+    document.querySelectorAll(".chapter-meta").forEach(function (box) {
+      var table = box.querySelector("table");
+      if (!table || box.dataset.metaSpremna) return;
+      box.dataset.metaSpremna = "1";
+
+      var glave = [].map.call(table.querySelectorAll("thead th"),
+        function (th) { return th.textContent.trim(); });
+      var polja = [].map.call(table.querySelectorAll("tbody tr:first-child td"),
+        function (td) { return td.textContent.trim(); });
+      if (!glave.length) return;
+
+      var red = document.createElement("div");
+      red.className = "chapter-meta__row";
+      glave.forEach(function (g, i) {
+        var cell = document.createElement("div");
+        var k = document.createElement("span");
+        k.className = "chapter-meta__key";
+        k.textContent = g;
+        cell.appendChild(k);
+        cell.appendChild(document.createTextNode(polja[i] || "—"));
+        red.appendChild(cell);
+      });
+
+      var wrap = table.closest(".table, figure") || table;
+      wrap.parentNode.replaceChild(red, wrap);
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 12. Pamćenje stanja widgeta
+  //     Čitatelj koji odscrola i vrati se ne gubi svoje istraživanje.
+  //     Ključ je po stranici; vrijednosti su samo brojevi i nizovi iz
+  //     kontrola, pa localStorage ne nosi ništa osobno.
+  // -------------------------------------------------------------------
+  function setupWidgetMemory() {
+    var kljuc = "statistika:widget:" + location.pathname;
+    var IZBOR = ".widget-frame input, .widget-frame select, " +
+                'form[class^="oi-"] input, form[class^="oi-"] select';
+
+    function spremi() {
+      var s = {};
+      document.querySelectorAll(IZBOR).forEach(function (el, i) {
+        if (el.type === "checkbox" || el.type === "radio") s[i] = el.checked;
+        else s[i] = el.value;
+      });
+      try { localStorage.setItem(kljuc, JSON.stringify(s)); } catch (e) {}
+    }
+
+    function vrati() {
+      var s;
+      try { s = JSON.parse(localStorage.getItem(kljuc) || "null"); } catch (e) { return; }
+      if (!s) return;
+      var polja = document.querySelectorAll(IZBOR);
+      if (!polja.length) return;
+      polja.forEach(function (el, i) {
+        if (!(i in s)) return;
+        if (el.type === "checkbox" || el.type === "radio") el.checked = !!s[i];
+        else el.value = s[i];
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+        el.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    }
+
+    // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
+    // je dovoljan jer se stanje pamti na svaku promjenu.
+    window.setTimeout(vrati, 600);
+    document.addEventListener("input", function (e) {
+      if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
+    });
+  }
+
+  // -------------------------------------------------------------------
   function init() {
     try { setupProgressBar(); } catch (e) {}
     try { setupInternalHover(); } catch (e) {}
@@ -426,6 +567,9 @@
     try { setupOjsPanels(); } catch (e) {}
     try { setupProseCollapsibles(); } catch (e) {}
     try { setupChapterAI(); } catch (e) {}
+    try { setupPojmovi(); } catch (e) {}
+    try { setupChapterMeta(); } catch (e) {}
+    try { setupWidgetMemory(); } catch (e) {}
   }
 
   if (document.readyState === "loading") {

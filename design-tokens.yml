@@ -11,65 +11,108 @@
 #  ZAŠTO NIJE _brand.yml. Quarto ima vlastiti brand sloj koji čita _brand.yml
 #  i sam ubacuje SCSS varijable i pisma. Ovdje se namjerno ne koristi: njegova
 #  se shema mijenja s inačicama Quarta, prihvaća samo dio onoga što nam treba
-#  (nema trećeg, sans registra) i uvodi drugi put kojim boja može ući u stranicu.
-#  Ova je datoteka obični YAML koji čitaju R tema grafova i scripts/check-tokens.R,
-#  a stil se u cijelosti gradi iz styles/custom.scss. Ako se ikad prijeđe na
-#  Quarto brand, datoteka se preimenuje u _brand.yml i `- brand` se vraća u
-#  popis `theme:` u _quarto.yml.
+#  (nema četvrtog, displejnog registra) i uvodi drugi put kojim boja može ući
+#  u stranicu. Ova je datoteka obični YAML koji čitaju R tema grafova i
+#  scripts/check-tokens.R, a stil se u cijelosti gradi iz styles/custom.scss.
 #
-#  TRENUTNO STANJE: NAMJERNO NEUTRALNI PLACEHOLDER.
-#  Paleta i tipografija dolje su privremene, sistemske i bezlične — knjiga
-#  se renderira i radi, ali još nema vizualni identitet. Ne gradite ništa
-#  oko konkretnih vrijednosti; gradite oko IMENA tokena (paper, ink,
-#  accent, emphasis, archival).
+#  IDENTITET: „prozračni uredništveni" (airy editorial).
+#  Topao papir, jedan oker akcent, knjižni serif, crno-bijeli tiskani blok.
+#  Puna specifikacija sustava je u DESIGN.md; izvorni paket iz kojeg je
+#  preslikan stoji u knjiga-stil/.
+#
+#  ČETIRI NAČELA KOJA OVE VRIJEDNOSTI NOSE
+#    1. Zrak je građa. Odjeljke razdvaja bjelina i vlas linija, nikad okvir,
+#       sjena ni zaobljena kartica.
+#    2. Oker znači dodir. Jedina boja naglaska rezervirana je za interakciju
+#       i navođenje. Nikad kao ukras i nikad kao boja podataka.
+#    3. Crno-bijelo prvo. Značenje nose debljina linije, položaj i tekstualna
+#       oznaka; blok se tiska jednobojno.
+#    4. Brojke su monospace, tabularne i verzalne.
 # =====================================================================
 
 meta:
   name: "Osnove statistike za društvene znanosti"
-  link: https://example.github.io/Statistika/
+  link: https://lusiki.github.io/Statistika/
 
 color:
   palette:
-    # --- površine ---
-    paper:        "#FFFFFF"   # token:paper        pozadina stranice
-    paper-soft:   "#F4F4F5"   # token:paper-soft   elevirane plohe, kutije, kod
-    # --- tekst ---
-    ink:          "#18181B"   # token:ink          tijelo teksta i naslovi
-    ink-soft:     "#3F3F46"   # token:ink-soft     sekundarni tekst
-    ink-mute:     "#71717A"   # token:ink-mute     natpisi, opisi slika
-    ink-faint:    "#A1A1AA"   # token:ink-faint    vlasne crte, separatori
-    # --- akcenti ---
-    accent:       "#2563A8"   # token:accent       PRIMARNI (poveznice, gumbi, aktivno)
-    accent-deep:  "#1B4A7D"   # token:accent-deep  hover / tiskane poveznice
-    accent-wash:  "#E8F0F8"   # token:accent-wash  vrlo svijetla podloga akcenta
-    emphasis:     "#9C2B2B"   # token:emphasis     naglasak i upozorenje, štedljivo
-    archival:     "#8A6D3B"   # token:archival     treći akcent (vremenske crte, oznake)
+    # --- površine ---------------------------------------------------
+    paper:        "#FBFAF6"   # token:paper        stranica — topla, nikad čisto bijela
+    paper-soft:   "#F3EFE6"   # token:paper-soft   uvučene trake: sažetak, kod, ispune
+    surface:      "#FFFFFF"   # token:surface      ploha widgeta — jedino što „pluta"
+    # --- tekst ------------------------------------------------------
+    ink:          "#16150F"   # token:ink          naslovi, tamne trake
+    ink-soft:     "#33322A"   # token:ink-soft     tijelo teksta
+    ink-mute:     "#6E6C61"   # token:ink-mute     sekundarno
+    ink-faint:    "#9B9789"   # token:ink-faint    potpisi, izvori
+    # --- vlas linije (strukturne, ne izvedene iz tinte) -------------
+    rule:         "#E4DFD2"   # token:rule         strukturna vlas linija
+    rule-soft:    "#EFEBE0"   # token:rule-soft    meka vlas linija
+    # --- akcent: OKER. Samo interakcija i navođenje. -----------------
+    accent:       "#C08A16"   # token:accent       grafika: crte, ispune, točke
+    accent-deep:  "#8A6212"   # token:accent-deep  tekst i poveznice (AA na papiru, 5,1:1)
+    accent-dark:  "#5C4109"   # token:accent-dark  prijelaz mišem, posjećeno
+    accent-wash:  "#FAF2DE"   # token:accent-wash  ispuna definicija
+    # --- paleta podataka --------------------------------------------
+    # Poredana po SVJETLINI da preživi pretvorbu u sivo: tiskani blok je
+    # jednobojan i ovih pet tonova u njemu postaju pet razlučivih sivih.
+    # Treba li serija više od pet razina, mijenja se oblik točke ili
+    # uzorak ispune — nikad ton.
+    data-1:       "#16150F"   # token:data-1        8 %  tinta
+    data-2:       "#40566B"   # token:data-2       34 %  škriljevac
+    data-3:       "#8A6212"   # token:data-3       42 %  tamni oker
+    data-4:       "#9B9789"   # token:data-4       62 %  topla siva
+    data-5:       "#C9C2B0"   # token:data-5       78 %  blijeda
+    # --- jedina druga boja u sustavu --------------------------------
+    # Greška u ispisu koda. Ne koristi se nigdje u prozi ni u grafovima.
+    alert:        "#8A2A12"   # token:alert        pogreška u izlazu koda
 
-  foreground: ink
+  foreground: ink-soft
   background: paper
-  primary: accent
-  secondary: ink-soft
+  primary: accent-deep
+  secondary: ink-mute
   success: accent-deep
-  info: accent
-  warning: archival
-  danger: emphasis
+  info: accent-deep
+  warning: accent
+  danger: alert
 
 typography:
-  # PLACEHOLDER: sistemski stogovi, bez vanjskih fontova. Kad odaberete
-  # prava pisma, otključajte preconnect blok u _quarto.yml (include-in-header)
-  # i stavite statičke instance u fonts/print/ za PDF.
-  base:
-    family: "Georgia, 'Iowan Old Style', 'Times New Roman', serif"   # token-font:serif
-    size: 1.02rem
-    line-height: 1.6
-  headings:
-    family: "Georgia, 'Iowan Old Style', 'Times New Roman', serif"
-    weight: 600
-    color: ink
-  monospace:
-    family: "ui-monospace, SFMono-Regular, Consolas, monospace"       # token-font:mono
-    size: 0.85em
+  # Četiri registra, sva četiri s punom Latin Extended-A podrškom (č ć đ š ž).
+  # Web ih učitava iz styles/head.html; PDF ih traži u sustavu i tiho pada
+  # na Latin Modern ako ih nema (vidi tex/theme.tex).
 
-# UI / sans registar (natpisi, navigacija, oznake kutija, tablice).
+  # Displej: naslovi, otvaranje poglavlja, kurzivni navodi.
+  # Rez 300 na velikim veličinama, NIKAD bold.
+  display:
+    family: "Newsreader, Georgia, serif"                              # token-font:display
+    weight: 300
+    tracking: -0.022em
+
+  # Tijelo teksta.
+  base:
+    family: "Literata, Georgia, serif"                                # token-font:serif
+    size: 1.0625rem      # 17 px zaslon; 10,5 pt / 14,5 pt u tisku
+    line-height: 1.62
+
+  headings:
+    family: "Newsreader, Georgia, serif"
+    weight: 400
+    color: ink
+
+  # Kod, brojke, oznake, „eyebrow". Ligature ISKLJUČENE — vidi DESIGN.md.
+  monospace:
+    family: "'JetBrains Mono', ui-monospace, SFMono-Regular, monospace"  # token-font:mono
+    size: 0.8125rem
+
+# UI / sans registar (sučelje, potpisi, margina, izvori, glave tablica).
 ui-font:
-  family: "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"  # token-font:sans
+  family: "'Public Sans', system-ui, -apple-system, sans-serif"       # token-font:sans
+  size: 0.8125rem
+
+# Mjera i ritam.
+layout:
+  measure: 66ch          # stupac teksta nikad širi od 66 znakova
+  radius: 2px            # gotovo pravi kut: papir, ne sučelje aplikacije
+  rule-width: 2px        # lijeva crta definicije, gornja crta vinjete
+  body-width: 680px
+  margin-width: 260px

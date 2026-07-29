@@ -1,0 +1,171 @@
+% ─────────────────────────────────────────────────────────────────────────────
+%  preamble.tex — print block for "Osnove statistike za društvene znanosti"
+%  B5 (176 × 250 mm) · scrbook · lualatex · BLACK & WHITE interior
+%
+%  Fonts: same four families as the digital edition. Install them locally
+%  (Google Fonts) or swap the \setmainfont lines for what your printer has.
+% ─────────────────────────────────────────────────────────────────────────────
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{croatian}
+
+\setmainfont{Literata}[
+  Numbers        = {Proportional, OldStyle},
+  Ligatures      = TeX,
+  UprightFont    = *-Regular,
+  BoldFont       = *-SemiBold,
+  ItalicFont     = *-Italic ]
+\newfontfamily\stdisplay{Newsreader}[
+  UprightFont = *-Light, BoldFont = *-Regular, ItalicFont = *-LightItalic, Ligatures = TeX ]
+\newfontfamily\stui{Public Sans}[
+  UprightFont = *-Regular, BoldFont = *-SemiBold, ItalicFont = *-Italic ]
+\setmonofont{JetBrains Mono}[
+  Scale = 0.86, Numbers = {Monospaced, Lining}, Ligatures = ResetAll ]  % ligatures OFF
+
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{marginnote}
+\usepackage{ragged2e}
+\usepackage{booktabs}
+\usepackage{caption}
+\tcbuselibrary{skins, breakable}
+
+% ─── Ink only. Ochre degrades to black, washes to 4 % gray. ──────────────────
+\definecolor{stink}{HTML}{16150F}
+\definecolor{sttext}{HTML}{33322A}
+\definecolor{stmuted}{HTML}{5A584F}
+\definecolor{stfaint}{HTML}{8A887F}
+\definecolor{stwash}{gray}{0.955}
+\definecolor{stline}{gray}{0.82}
+
+\color{sttext}
+
+% ─── Headings in the display serif, light, never bold ────────────────────────
+\addtokomafont{disposition}{\stdisplay\mdseries\color{stink}}
+\setkomafont{chapter}{\stdisplay\fontsize{30pt}{32pt}\selectfont\color{stink}}
+\setkomafont{section}{\stdisplay\fontsize{16pt}{19pt}\selectfont\color{stink}}
+\setkomafont{subsection}{\stdisplay\fontsize{13pt}{16pt}\selectfont\color{stink}}
+\setkomafont{caption}{\stui\fontsize{8.5pt}{11pt}\selectfont\color{stmuted}}
+\setkomafont{captionlabel}{\ttfamily\fontsize{7.5pt}{10pt}\selectfont\color{stink}}
+\captionsetup{justification=raggedright, singlelinecheck=false, skip=8pt}
+
+% ─── Chapter opener: number, part, title, lead ───────────────────────────────
+\renewcommand*{\chapterheadstartvskip}{\vspace*{6\baselineskip}}
+\renewcommand*{\chapterheadendvskip}{\vspace{2.4\baselineskip}}
+\renewcommand*{\chapterformat}{%
+  {\ttfamily\fontsize{8.5pt}{10pt}\selectfont\letterspace\color{stink}%
+   POGLAVLJE \thechapter\par\vspace{1.4\baselineskip}}}
+\newcommand{\letterspace}{\addfontfeature{LetterSpace=18}}
+\newcommand{\stlead}[1]{%
+  \vspace{0.4\baselineskip}%
+  {\fontsize{12.5pt}{17pt}\selectfont\color{sttext}\RaggedRight #1\par}%
+  \vspace{1.2\baselineskip}\hrule height 0.4pt \vspace{2\baselineskip}}
+
+% ─── Margin notes ────────────────────────────────────────────────────────────
+\renewcommand*{\marginfont}{\stui\fontsize{8pt}{10.5pt}\selectfont\color{stmuted}\RaggedRight}
+\renewcommand*{\raggedleftmarginnote}{\RaggedRight}
+
+% ─── Shared box geometry ─────────────────────────────────────────────────────
+\newcommand{\stlbl}[1]{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\letterspace\color{stink}#1\par}\vspace{6pt}}
+
+% Vinjeta — 1.2 pt rule above, hairline below, display italic
+\newenvironment{stvinjeta}{%
+  \par\vspace{4pt}\hrule height 1.2pt \vspace{10pt}%
+  \stlbl{VINJETA}%
+  \stdisplay\itshape\fontsize{13pt}{18pt}\selectfont\color{stink}\RaggedRight
+}{%
+  \par\vspace{10pt}\hrule height 0.4pt \vspace{16pt}\normalfont
+}
+
+% Definicija — left rule + 4 % wash
+\newenvironment{stdefinicija}[1]{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=0pt,
+    leftrule=1.6pt, colframe=stink, colback=stwash,
+    left=12pt, right=12pt, top=11pt, bottom=11pt, before skip=14pt, after skip=14pt]
+  \stlbl{DEFINICIJA}%
+  {\stdisplay\fontsize{12.5pt}{15pt}\selectfont\color{stink}#1\par}\vspace{5pt}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+\newcommand{\stdefen}[1]{\par\vspace{7pt}{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{stfaint}#1}}
+
+% Statistika u divljini — full 1.6 pt frame (the dark band inverts for print)
+\newenvironment{stdivljina}[1]{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=1.6pt,
+    colframe=stink, colback=white,
+    left=14pt, right=14pt, top=13pt, bottom=13pt, before skip=16pt, after skip=16pt]
+  \stlbl{STATISTIKA U DIVLJINI}%
+  {\stdisplay\itshape\fontsize{12.5pt}{16pt}\selectfont\color{stink}„#1”\par}\vspace{8pt}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+\newcommand{\stsource}[1]{\par\vspace{8pt}{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{stfaint}#1}}
+
+% Pitajte model — dotted frame
+\newenvironment{stpitajte}{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=0.6pt,
+    colframe=stmuted, colback=white, borderline={0.6pt}{0pt}{stmuted, dotted},
+    frame hidden, left=12pt, right=12pt, top=11pt, bottom=11pt,
+    before skip=16pt, after skip=16pt]
+  \stlbl{PITAJTE MODEL}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+\newcommand{\stprompt}[1]{%
+  \par\vspace{8pt}%
+  \begin{tcolorbox}[sharp corners, boxrule=0pt, colback=stwash,
+    left=9pt, right=9pt, top=8pt, bottom=8pt]
+  {\ttfamily\fontsize{8.5pt}{12pt}\selectfont\color{sttext}> #1}
+  \end{tcolorbox}}
+
+% Česta pogreška — 2.4 pt top rule, no fill
+\newenvironment{stpogreska}{%
+  \par\vspace{14pt}\hrule height 2.4pt \vspace{9pt}%
+  \stlbl{ČESTA POGREŠKA}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\par\vspace{14pt}\normalfont}
+
+% Sažetak — recessed band
+\newenvironment{stsazetak}{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=0pt, colback=stwash,
+    left=14pt, right=14pt, top=13pt, bottom=13pt, before skip=18pt, after skip=14pt]
+  \stlbl{SAŽETAK POGLAVLJA}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+
+% Razrađeni primjer — hanging step numbers via subsection hooks
+\newenvironment{stprimjer}{%
+  \par\vspace{16pt}\stlbl{RAZRAĐENI PRIMJER}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\par\vspace{14pt}\normalfont}
+
+% Zadaci / pojmovi
+\newenvironment{stzadaci}{%
+  \par\vspace{20pt}\hrule height 0.4pt \vspace{10pt}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\par\vspace{10pt}\normalfont}
+\newenvironment{stpojmovi}{%
+  \par\vspace{16pt}\stlbl{POJMOVI}%
+  \stui\fontsize{8.5pt}{12pt}\selectfont
+}{\par\vspace{12pt}\normalfont}
+
+% ─── Tables: no verticals, no zebra, rules top and bottom only ───────────────
+\setlength{\heavyrulewidth}{0.9pt}
+\setlength{\lightrulewidth}{0.4pt}
+\renewcommand{\arraystretch}{1.22}
+
+% ─── Running heads ───────────────────────────────────────────────────────────
+\usepackage[automark]{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[section]{chapter}
+\ihead*{}
+\ohead*{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{stfaint}\headmark}
+\ofoot*{\ttfamily\fontsize{8pt}{10pt}\selectfont\color{stmuted}\pagemark}
+\setkomafont{pageheadfoot}{\normalfont}
+
+% ─── Links: ink, never blue ──────────────────────────────────────────────────
+\usepackage{hyperref}
+\hypersetup{colorlinks=false, allbordercolors={1 1 1}, pdfborderstyle={/S/U/W 0}}
+
+% Widows and orphans
+\widowpenalty=10000
+\clubpenalty=10000

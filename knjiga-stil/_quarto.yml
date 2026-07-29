@@ -1,0 +1,167 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Osnove statistike za društvene znanosti — Quarto book configuration
+#
+# Copy the whole `knjiga-stil/` folder into your book repo, then copy the
+# contents of THIS file into the repo's own `_quarto.yml` (or use it as is and
+# move the folder's files to the root — paths below assume the folder is kept).
+# ─────────────────────────────────────────────────────────────────────────────
+
+project:
+  type: book
+  output-dir: _knjiga
+  preview:
+    port: 4321
+
+book:
+  title: "Osnove statistike za društvene znanosti"
+  subtitle: "Mišljenje, podaci i modeli za studente društvenih znanosti"
+  author: "—"
+  date: last-modified
+  date-format: "D. M. YYYY."
+  language: hr
+  search: true
+  page-navigation: true
+  reader-mode: true
+  repo-actions: [source, issue]
+  downloads: [pdf]
+  sidebar:
+    style: floating
+    border: false
+    collapse-level: 1
+  chapters:
+    - index.qmd
+    - part: "Dio I. Statističko mišljenje"
+      chapters:
+        - poglavlja/01-zasto-statistika.qmd
+        - poglavlja/02-mjerenje.qmd
+        - poglavlja/03-kako-brojke-zavode.qmd
+    - part: "Dio II. Opisivanje podataka"
+      chapters:
+        - poglavlja/04-sazimanje.qmd
+        - poglavlja/05-vizualizacija.qmd
+        - poglavlja/06-povezanost.qmd
+    - part: "Dio III. Od uzorka do populacije"
+      chapters:
+        - poglavlja/07-vjerojatnost.qmd
+        - poglavlja/08-uzorkovanje.qmd
+        - poglavlja/09-procjena.qmd
+    - part: "Dio IV. Zaključivanje"
+      chapters:
+        - poglavlja/10-logika-testiranja.qmd
+        - poglavlja/11-velicina-ucinka.qmd
+        - poglavlja/12-kriza-i-obnova.qmd
+    - part: "Dio V. Modeli"
+      chapters:
+        - poglavlja/13-kategoricki-podaci.qmd
+        - poglavlja/14-dvije-grupe.qmd
+        - poglavlja/15-vise-grupa.qmd
+        - poglavlja/16-regresija.qmd
+        - poglavlja/17-algoritmi.qmd
+    - poglavlja/18-vase-prvo-istrazivanje.qmd
+  appendices:
+    - dodaci/a-r-praktikum.qmd
+    - dodaci/b-put-bez-koda.qmd
+    - dodaci/c-katalog-podataka.qmd
+    - dodaci/d-koji-test-kada.qmd
+    - dodaci/e-rjecnik.qmd
+    - dodaci/f-protokol-asistent.qmd
+
+# ─── Croatian UI strings ─────────────────────────────────────────────────────
+lang: hr
+language:
+  title-block-author-single: "Autor"
+  section-title-footnotes: "Bilješke"
+  crossref-fig-title: "Slika"
+  crossref-tbl-title: "Tablica"
+  crossref-eq-prefix: "jedn."
+  crossref-sec-title: "Odjeljak"
+  code-summary: "Prikaži kod"
+  toc-title-document: "Na ovoj stranici"
+  search-text-placeholder: "Pretraži knjigu"
+
+# ─── Shared behaviour ────────────────────────────────────────────────────────
+filters:
+  - knjiga-stil/filters/statistika.lua
+
+bibliography: literatura.bib
+csl: knjiga-stil/apa-hr.csl        # optional; delete the line if unused
+number-depth: 2
+crossref:
+  fig-prefix: slika
+  tbl-prefix: tablica
+
+execute:
+  freeze: auto            # cached renders; simulations stay reproducible
+  warning: false
+  message: false
+
+knitr:
+  opts_chunk:
+    dev: svg
+    fig.width: 6.6
+    fig.height: 4.0
+    dpi: 300
+    fig.showtext: true
+
+format:
+  # ── Digital edition ────────────────────────────────────────────────────────
+  html:
+    theme:
+      - cosmo
+      - knjiga-stil/scss/_statistika.scss
+    css: knjiga-stil/css/statistika-extras.css
+    include-in-header:
+      - knjiga-stil/html/head.html
+    include-after-body:
+      - knjiga-stil/html/foot.html
+    toc: true
+    toc-depth: 2
+    toc-title: "Na ovoj stranici"
+    number-sections: true
+    code-fold: true
+    code-summary: "Prikaži kod"
+    code-tools: false
+    code-line-numbers: false
+    code-copy: true
+    highlight-style: knjiga-stil/statistika.theme
+    fig-cap-location: bottom
+    tbl-cap-location: bottom
+    reference-location: margin
+    citation-location: margin
+    link-external-newwindow: true
+    grid:
+      sidebar-width: 280px
+      body-width: 680px
+      margin-width: 260px
+      gutter-width: 2.2rem
+    anchor-sections: true
+    smooth-scroll: false
+
+  # ── Print block: B5, black & white interior ────────────────────────────────
+  pdf:
+    documentclass: scrbook
+    classoption: [twoside, open=right, numbers=noenddot]
+    papersize: b5
+    pdf-engine: lualatex
+    include-in-header: knjiga-stil/tisak/preamble.tex
+    geometry:
+      - paperwidth=176mm
+      - paperheight=250mm
+      - inner=22mm
+      - outer=42mm
+      - top=22mm
+      - bottom=25mm
+      - marginparwidth=32mm
+      - marginparsep=5mm
+    fontsize: 10.5pt
+    linestretch: 1.18
+    colorlinks: false
+    link-citations: true
+    number-sections: true
+    toc: true
+    toc-depth: 1
+    lof: false
+    lot: false
+    fig-cap-location: bottom
+    keep-tex: true
+    cite-method: biblatex

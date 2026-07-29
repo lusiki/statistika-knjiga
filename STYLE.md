@@ -323,6 +323,12 @@ New in this book.
 The sanctioned non-prose elements and their formats. Everything not listed here
 is prose and follows the rules above.
 
+**This section governs what goes in each element. Its visual form — the rule
+weight, the label, the typeface — is specified in [DESIGN.md](DESIGN.md) §5 and
+drawn by CSS.** Never type a category label into a box, never write a raw
+`<div>`, never write an inline style. If an element you need does not exist,
+ask for the design system to be extended; do not improvise one in a chapter.
+
 ### Vinjeta
 
 `::: {.callout-vinjeta}`. Opens the chapter, immediately after the title. One
@@ -354,6 +360,9 @@ and where it does not. Never mocks the source.
 use an assistant for this chapter's task, what to ask, what to verify, where
 models typically fail. Second beat: a short AI-produced analysis containing one
 planted realistic mistake. See S9 for what counts.
+
+The prompt itself, when the box shows one, is written as an ordinary block
+quote inside `callout-model`; CSS renders it as a monospace strip.
 
 ### Razrađeni primjer
 
@@ -400,6 +409,17 @@ One or two sentences, genus + differentia, no colon. The surrounding prose uses
 the term immediately before or after the div. Which terms earn a div is a spine
 decision, not a style one — and a `#def-` div automatically enters the concept
 graph and the glossary.
+
+A term that does not earn a div may still carry a hover gloss:
+
+```markdown
+[statističko zaključivanje]{.pojam def="Izvođenje tvrdnji o populaciji na
+temelju uzorka." en="statistical inference" ch="8"}
+```
+
+This is a reading aid, not a definition. It does not enter the glossary, and it
+does not discharge S2 — a term that needs its English original in prose still
+gets it once, at first mention.
 
 ### Figures and tables
 

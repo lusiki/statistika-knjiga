@@ -11,31 +11,61 @@
 //  Nikad ne dodajite ovdje pravilo koje ponavlja komponentu iz svijetle
 //  teme. Ako komponenta ne radi u tamnom načinu, ona negdje koristi
 //  sirovi hex umjesto tokena — popravlja se ondje, ne ovdje.
+//
+//  NAČELO OSTAJE ISTO. Papir je i dalje topao, samo tamn; oker i dalje
+//  znači „ovo se može dodirnuti"; paleta podataka i dalje je poredana po
+//  svjetlini, samo obrnuto, pa i u tamnom načinu preživi sivi tisak.
 // =====================================================================
 
 /*-- scss:defaults --*/
 
-// Invertirani tokeni. Imena su ista, značenja ostaju ista.
-$tok-paper:       #17171A;
-$tok-paper-soft:  #202024;
-$tok-ink:         #E8E8EA;
-$tok-ink-soft:    #C2C2C7;
-$tok-ink-mute:    #94949B;
-$tok-ink-faint:   #6B6B73;
-$tok-accent:      #7FB2E5;
-$tok-accent-deep: #A9CDF2;
-$tok-accent-wash: #1B2733;
-$tok-emphasis:    #E08A8A;
-$tok-archival:    #D3AE72;
+// --- površine: topla tama, nikad čisto crno -------------------------
+$tok-paper:       #14130E;
+$tok-paper-soft:  #1D1C15;
+$tok-surface:     #1A1913;
 
-$tok-rule-faint:  rgba(255, 255, 255, 0.07);
-$tok-rule:        rgba(255, 255, 255, 0.14);
-$tok-rule-strong: rgba(255, 255, 255, 0.30);
+// --- tekst: obrnute uloge, ista imena -------------------------------
+$tok-ink:         #F2EFE4;
+$tok-ink-soft:    #DCD8CA;
+$tok-ink-mute:    #A5A093;
+$tok-ink-faint:   #7D796D;
 
-$body-color: $tok-ink;
-$body-bg:    $tok-paper;
-$primary:    $tok-accent;
-$link-color: $tok-accent;
+// --- vlas linije ----------------------------------------------------
+$tok-rule:        #33322A;
+$tok-rule-soft:   #26251E;
+
+// --- oker: svjetliji rez, ista uloga --------------------------------
+$tok-accent:      #D9A62E;
+$tok-accent-deep: #E8BF57;   // tekst i poveznice na tamnom papiru
+$tok-accent-dark: #F0D183;   // prijelaz mišem
+$tok-accent-wash: #2A2417;
+
+// --- paleta podataka: ista rasprostranjenost, obrnut smjer ----------
+$tok-data-1:      #EDEAE0;
+$tok-data-2:      #8FA7C0;
+$tok-data-3:      #D9A62E;
+$tok-data-4:      #9B9789;
+$tok-data-5:      #5C574B;
+
+$tok-alert:       #D87A5E;
+
+// --- izvedene prozirnosti -------------------------------------------
+$tok-rule-strong: rgba(#F2EFE4, 0.34);
+$tok-shadow:      rgba(#000000, 0.45);
+
+// --- Bootstrap ------------------------------------------------------
+$body-color:       $tok-ink-soft;
+$body-bg:          $tok-paper;
+$headings-color:   $tok-ink;
+$primary:          $tok-accent-deep;
+$secondary:        $tok-ink-mute;
+$link-color:       $tok-accent-deep;
+$link-hover-color: $tok-accent-dark;
+$border-color:     $tok-rule;
+$card-bg:          $tok-surface;
+$card-border-color: $tok-rule;
+$code-color:       $tok-ink;
+$code-bg:          $tok-paper-soft;
 
 /*-- scss:rules --*/
 
@@ -57,8 +87,20 @@ $link-color: $tok-accent;
   color: $tok-ink;
 }
 
-// Grafovi renderirani s bijelom pozadinom (statički PDF blizanci ako se
-// slučajno prikažu u HTML-u) dobiju blagi filter da ne bliješte.
+// „Statistika u divljini" je u svijetlom načinu obrnuta tamna traka. Na
+// tamnom papiru bi nestala, pa se obrće natrag: svijetla ploha, tamna slova.
+.callout-divljina {
+  background: $tok-ink;
+  color: $tok-paper;
+
+  p, li { color: $tok-paper-soft; }
+  &::before { color: $tok-accent-dark; }
+}
+.callout-divljina > p:first-of-type > strong:first-child { color: $tok-paper; }
+
+// Statički blizanci grafova renderiraju se na prozirnoj podlozi, pa im
+// tamni način ne smeta. Iznimka je uvezena rasterska slika sa svijetlom
+// pozadinom: njoj se u .qmd-u doda klasa .svijetli-graf.
 img.svijetli-graf {
   filter: invert(0.92) hue-rotate(180deg);
 }

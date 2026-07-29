@@ -6,10 +6,12 @@
 -- Samo DOCX (zrcali pdf-filters/book-callouts.lua).
 
 local labels = {
-  ["callout-vinjeta"]  = "Vinjeta",
-  ["callout-divljina"] = "Statistika u divljini",
-  ["callout-model"]    = "Pitajte model",
-  ["callout-greska"]   = "Nađite grešku",
+  ["callout-vinjeta"]  = "VINJETA",
+  ["callout-divljina"] = "STATISTIKA U DIVLJINI",
+  ["callout-model"]    = "PITAJTE MODEL",
+  ["callout-greska"]   = "NAĐITE GREŠKU",
+  ["primjer"]          = "RAZRAĐENI PRIMJER",
+  ["sazetak"]          = "SAŽETAK POGLAVLJA",
 }
 
 function Div(el)
@@ -26,4 +28,21 @@ function Div(el)
     end
   end
   return nil
+end
+
+-- Pojam s definicijom na dodir: u rukopisu ostaje kurziv s engleskim
+-- terminom u zagradi, jer Word nema oblačić ni marginu.
+function Span(el)
+  if not FORMAT:match("docx") then
+    return nil
+  end
+  if not el.classes:includes("pojam") then return nil end
+
+  local out = pandoc.List({ pandoc.Emph(el.content) })
+  local en = el.attributes["en"]
+  if en then
+    out:insert(pandoc.Space())
+    out:insert(pandoc.Str("(" .. en .. ")"))
+  end
+  return out
 end

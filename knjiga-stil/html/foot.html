@@ -1,0 +1,79 @@
+<script>
+/* statistika — small behaviours the theme cannot do in CSS alone */
+(function () {
+  "use strict";
+
+  /* 1. Eyebrow label above every numbered section, from the part title. */
+  /* 2. Chapter meta strip: turn the leading table into the metadata row. */
+  var meta = document.querySelector(".chapter-meta table");
+  if (meta) {
+    var head = [].map.call(meta.querySelectorAll("thead th"), function (th) { return th.textContent.trim(); });
+    var body = [].map.call(meta.querySelectorAll("tbody td"), function (td) { return td.textContent.trim(); });
+    var strip = document.createElement("div");
+    strip.className = "st-chapter__meta";
+    strip.innerHTML = head.map(function (h, i) {
+      return '<div><span style="color:#9b9789">' + h + "</span>&nbsp;&nbsp;" + (body[i] || "") + "</div>";
+    }).join("");
+    meta.parentNode.replaceChild(strip, meta);
+  }
+
+  /* 3. Glossary terms: keyboard + touch open (CSS handles hover). */
+  document.querySelectorAll(".st-term").forEach(function (t) {
+    t.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = t.classList.contains("is-open");
+      document.querySelectorAll(".st-term.is-open").forEach(function (o) { o.classList.remove("is-open"); });
+      if (!open) t.classList.add("is-open");
+    });
+  });
+  document.addEventListener("click", function () {
+    document.querySelectorAll(".st-term.is-open").forEach(function (o) { o.classList.remove("is-open"); });
+  });
+
+  /* 4. Reading progress: a 1px ochre rule at the top of the viewport. */
+  var bar = document.createElement("div");
+  bar.setAttribute("aria-hidden", "true");
+  bar.style.cssText = "position:fixed;top:0;left:0;height:1px;width:0;background:#c08a16;z-index:2000;transition:width .08s linear";
+  document.body.appendChild(bar);
+  var tick = false;
+  window.addEventListener("scroll", function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + "%";
+      tick = false;
+    });
+  }, { passive: true });
+
+  /* 5. Widgets: remember control state per chapter so a reader who scrolls
+        away and back does not lose their exploration. */
+  var key = "st-widget:" + location.pathname;
+  function save() {
+    var s = {};
+    document.querySelectorAll(".st-widget input, .st-widget select").forEach(function (el, i) {
+      if (el.type === "checkbox" || el.type === "radio") { if (el.checked) s[i] = el.value || true; }
+      else s[i] = el.value;
+    });
+    try { localStorage.setItem(key, JSON.stringify(s)); } catch (e) {}
+  }
+  function restore() {
+    var s;
+    try { s = JSON.parse(localStorage.getItem(key) || "null"); } catch (e) { return; }
+    if (!s) return;
+    document.querySelectorAll(".st-widget input, .st-widget select").forEach(function (el, i) {
+      if (!(i in s)) return;
+      if (el.type === "checkbox" || el.type === "radio") el.checked = (el.value === s[i] || s[i] === true);
+      else el.value = s[i];
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  }
+  window.addEventListener("load", function () { setTimeout(restore, 400); });
+  document.addEventListener("input", function (e) {
+    if (e.target.closest && e.target.closest(".st-widget")) save();
+  });
+})();
+</script>
+<style>
+  .st-term.is-open .st-term__tip { visibility: visible; opacity: 1; transform: translateY(0); }
+</style>

@@ -3,8 +3,16 @@
 Quarto knjiga — udžbenik statistike za studente društvenih znanosti koji moraju
 razumjeti istraživanje, a ne postati analitičari.
 
+### 📖 &nbsp;Knjiga uživo → **<https://lusiki.github.io/Statistika/>**
+
+[![Render and deploy](https://github.com/lusiki/Statistika/actions/workflows/publish.yml/badge.svg)](https://github.com/lusiki/Statistika/actions/workflows/publish.yml)
+
+Stranica se ponovno gradi sama pri svakom pushu na `main`; PDF radne verzije
+stoji na [`/pdf/Statistika.pdf`](https://lusiki.github.io/Statistika/pdf/Statistika.pdf).
+
 **Stanje: kostur.** Cijeli pogon radi (build, izvozi, PDF, CI, uređivački
-alati). Nijedno poglavlje još nema sadržaj. Plan knjige je
+alati) i knjiga ima vizualni identitet. Nijedno poglavlje još nema sadržaj —
+ono što je na stranici je struktura, ne tekst. Plan knjige je
 [notes/struktura-knjige.md](notes/struktura-knjige.md).
 
 ## Prvo pokretanje
@@ -51,11 +59,17 @@ privremeno prepišu `_quarto.yml` i uvijek ga vrate.
 
 ## Dizajn
 
-Knjiga **još nema vizualni identitet**. Paleta i tipografija su namjerno
-neutralni placeholder, pa se sve renderira i radi, ali ništa ne izgleda gotovo.
+Identitet knjige zove se **prozračni uredništveni**: topao papir, jedan oker
+akcent koji uvijek znači „ovo se može dodirnuti", knjižni serif i crno-bijeli
+tiskani blok u formatu B5.
 
-Dizajn živi u točno četiri datoteke, a `design-tokens.yml` je izvor istine. Postupak
-zamjene i obrazac za brief su u [DESIGN.md](DESIGN.md).
+Pet načela — zrak je građa · oker znači dodir · crno-bijelo prvo · brojke su
+monospace · mjera prije širine. Puna specifikacija, repertoar elemenata i
+postupak zamjene su u [DESIGN.md](DESIGN.md); izvorni paket iz kojeg je
+preslikan stoji u `knjiga-stil/`.
+
+Dizajn živi u točno četiri datoteke, a `design-tokens.yml` je izvor istine.
+Sinkronizaciju slojeva provjerava `Rscript scripts/check-tokens.R`.
 
 ## Pisanje
 
@@ -76,12 +90,22 @@ kroz cijelu knjigu. Nije build ovisnost. Upute su u
 
 ## Objava
 
-Push na `main` pokreće `.github/workflows/publish.yml`, koji renderira knjigu,
-pokuša PDF (neblokirajuće) i objavi `docs/` na GitHub Pages.
+Knjiga je na <https://lusiki.github.io/Statistika/>.
 
-Prije prve objave zamijenite radne vrijednosti na četiri mjesta: `site-url` u
-`_quarto.yml`, `link` u `design-tokens.yml`, `SITE_URL` u `R/build-ai-exports.R` i
-konstantu `UPUTA` u `styles/book-include.html`.
+Push na `main` pokreće [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
+koji renderira knjigu, pokuša PDF (neblokirajuće, stari ostaje ako padne) i
+objavi `docs/` na GitHub Pages. Izvor za Pages je **GitHub Actions**, ne grana —
+`docs/` u repozitoriju je samo urezani zadnji build, ne ono što se poslužuje.
+
+Ručno pokretanje bez pusha ide preko kartice Actions („Run workflow") ili:
+
+```bash
+gh workflow run publish.yml
+gh run watch
+```
+
+Adresa je upisana na tri mjesta i mijenja se zajedno: `site-url` i `repo-url` u
+`_quarto.yml`, `link` u `design-tokens.yml`, `SITE_URL` u `R/build-ai-exports.R`.
 
 ## Podrijetlo
 

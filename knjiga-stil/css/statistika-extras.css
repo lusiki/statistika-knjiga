@@ -1,0 +1,200 @@
+/*  statistika-extras.css
+    Rules the SCSS theme layer cannot express because they depend on runtime
+    Quarto markup (glossary tooltips, margin column behaviour, OJS widgets).
+    Loaded after the theme.                                                   */
+
+/* ── Inline glossary term ─────────────────────────────────────────────────── */
+.st-term {
+  position: relative;
+  border-bottom: 1px dotted var(--st-accent, #c08a16);
+  cursor: help;
+  outline: none;
+}
+.st-term__tip {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 40;
+  width: 300px;
+  max-width: 78vw;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity .13s ease, transform .13s ease, visibility 0s .13s;
+  background: var(--st-ink, #16150f);
+  color: #e8e6df;
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 12.5px;
+  font-style: normal;
+  line-height: 1.5;
+  padding: 12px 14px;
+  border-radius: 2px;
+  box-shadow: 0 6px 22px rgba(22, 21, 15, .16);
+}
+.st-term:hover .st-term__tip,
+.st-term:focus .st-term__tip,
+.st-term:focus-within .st-term__tip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+.st-term__head {
+  display: block;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--st-accent, #c08a16);
+  margin-bottom: 6px;
+}
+.st-term__en { color: #b9b6ac; }
+.st-term__ch {
+  display: block;
+  margin-top: 8px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  color: #8b887d;
+}
+
+/* ── Callout extras produced by the Lua filter ────────────────────────────── */
+.st-def__en {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: #a99a72;
+  margin-top: 14px;
+}
+.st-wild__src {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: #7d7a71;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #2e2d26;
+}
+.st-summary__label,
+.st-worked__label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--st-muted, #6e6c61);
+  display: block;
+  margin-bottom: 14px;
+}
+.st-worked__label { color: var(--st-accent-700, #8a6212); }
+
+/* Worked example: h3 becomes a numbered step */
+.st-worked { counter-reset: stkorak; }
+.st-worked > h3 {
+  counter-increment: stkorak;
+  font-family: "Newsreader", Georgia, serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--st-ink, #16150f);
+  border-top: 1px solid var(--st-line-soft, #efebe0);
+  padding-top: 18px;
+  margin: 0 0 8px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  align-items: baseline;
+}
+.st-worked > h3::before {
+  content: counter(stkorak, decimal-leading-zero);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 13px;
+  color: var(--st-accent-700, #8a6212);
+}
+.st-worked > h3 + p { margin-left: 64px; }
+
+/* Exercises: h3 becomes a tier label */
+.st-ex > h3 {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--st-accent-700, #8a6212);
+  border-top: 1px solid var(--st-line, #e4dfd2);
+  padding-top: 20px;
+  margin: 0 0 12px;
+}
+.st-ex ol { padding-left: 0; list-style: none; counter-reset: stzad; }
+.st-ex ol li {
+  counter-increment: stzad;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  padding: 6px 0;
+  max-width: 68ch;
+}
+.st-ex ol li::before {
+  content: counter(stzad, decimal-leading-zero);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--st-faint, #9b9789);
+  padding-top: 4px;
+}
+
+/* Glossary strip: a two-column markdown table renders as HR / EN pairs */
+.st-glossary table { border: 0; font-size: 15px; }
+.st-glossary thead { display: none; }
+.st-glossary td { border-bottom: 1px solid var(--st-line-soft, #efebe0); padding: 12px 0; }
+.st-glossary td:first-child { font-family: "Literata", Georgia, serif; color: var(--st-ink, #16150f); text-align: left; }
+.st-glossary td:last-child {
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--st-faint, #9b9789);
+  text-align: right;
+}
+
+/* ── OJS widgets inherit the book's type ──────────────────────────────────── */
+.st-widget .observablehq,
+.st-widget form { font-family: "Public Sans", system-ui, sans-serif; }
+.st-widget .observablehq--inspect { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; }
+.st-widget form label,
+.st-widget form > div > label {
+  font-family: "JetBrains Mono", ui-monospace, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--st-muted, #6e6c61) !important;
+}
+.st-widget input[type="range"] { accent-color: var(--st-accent, #c08a16); }
+.st-widget svg text { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+/* ── Margin column ────────────────────────────────────────────────────────── */
+.column-margin {
+  font-family: "Public Sans", system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--st-muted, #6e6c61);
+  border-top: 1px solid var(--st-line, #e4dfd2);
+  padding-top: 10px;
+}
+.column-margin .footnote-back { display: none; }
+
+@media (max-width: 1000px) {
+  .column-margin {
+    border-left: 2px solid var(--st-line, #e4dfd2);
+    border-top: 0;
+    padding: 0 0 0 16px;
+    margin: 24px 0;
+  }
+}
+
+/* ── Code: ligatures OFF (see STYLE.md §3) ────────────────────────────────── */
+pre, code, kbd, samp, .st-mono, div.sourceCode, .cell-output {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
+
+/* ── Print ────────────────────────────────────────────────────────────────── */
+@media print {
+  .st-term__tip { display: none; }
+  .st-widget__tag { display: none; }
+}

@@ -26,17 +26,35 @@ format:
     documentclass: scrbook
     classoption:
       - headings=standardclasses
+      - twoside
+      - open=right
+      - numbers=noenddot
     pdf-engine: xelatex
-    papersize: a4
+    # Format bloka: B5 (176 × 250 mm). Satnica je uska da stupac teksta
+    # ostane na 66 znakova, a vanjski rub širok da primi bilješke i izvore
+    # (DESIGN.md, §7 „Mreža").
+    papersize: b5
     geometry:
-      - margin=3.2cm
+      - paperwidth=176mm
+      - paperheight=250mm
+      - inner=22mm
+      - outer=38mm
+      - top=22mm
+      - bottom=25mm
+      - marginparwidth=28mm
+      - marginparsep=5mm
+    fontsize: 10.5pt
+    linestretch: 1.18
     lang: hr-HR
     toc: true
     toc-depth: 2
     toc-title: "Sadržaj"
     number-sections: false
-    colorlinks: true
+    # Poveznice u tinti, nikad plave — boju postavlja tex/theme.tex.
+    colorlinks: false
     fig-pos: "H"
+    # Blok je crno-bijel, pa i ispis koda ide u sivim tonovima.
+    highlight-style: styles/statistika-tisak.theme
     # Boje, pisma i naslovnica dolaze iz tiskarskog sloja teme.
     include-in-header:
       - tex/theme.tex
@@ -47,9 +65,15 @@ format:
 # oznakama (Δ, →, ₙ, ≥). Zadani Windows uređaj ih ispušta; cairo_pdf ih
 # ispisuje ispravno. Pozadina je prozirna da se boja papira definira samo
 # na jednom mjestu (\pagecolor u tex/theme.tex).
+#
+# Širina je usklađena sa satnicom B5 bloka; grafovi se ne skaliraju u
+# stranici nego se crtaju u konačnoj veličini, pa oznake osi zadrže zadanih
+# 8,2 pt i ostanu čitljive.
 knitr:
   opts_chunk:
     dev: "cairo_pdf"
+    fig.width: 4.7
+    fig.height: 3.0
     dev.args:
       cairo_pdf:
         bg: "transparent"

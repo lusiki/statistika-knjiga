@@ -1,0 +1,301 @@
+/*-----------------------------------------------------------------------------
+  OSNOVE STATISTIKE ZA DRUŠTVENE ZNANOSTI — Quarto book theme
+  Identity: "airy editorial" · warm paper · ochre accent · book-grade serif
+
+  USAGE in _quarto.yml:
+    format:
+      html:
+        theme: [cosmo, _statistika.scss]
+
+  Design rules encoded here
+  1. Air is the material. Sections breathe; hairlines separate, boxes do not.
+  2. One accent (ochre). It marks INTERACTION. If it is ochre, you can touch it.
+  3. Print is black & white. Every element is legible with color removed —
+     meaning is carried by rule weight, position and label, never by hue.
+  4. Numerals are always monospaced, tabular and lining.
+-----------------------------------------------------------------------------*/
+
+/*-- scss:uses --*/
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/*-- scss:defaults --*/
+
+// ─── Paper & ink ────────────────────────────────────────────────────────────
+$st-paper:      #fbfaf6;   // page — warm near-white, never pure #fff
+$st-paper-alt:  #f3efe6;   // recessed bands, summaries
+$st-surface:    #ffffff;   // widget / figure surfaces (float above paper)
+$st-ink:        #16150f;   // headings, dark bands
+$st-ink-2:      #33322a;   // body text
+$st-muted:      #6e6c61;   // secondary
+$st-faint:      #9b9789;   // captions, sources, tertiary
+$st-line:       #e4dfd2;   // hairline
+$st-line-soft:  #efebe0;
+
+// ─── Accent — ochre. Reserved for interaction & wayfinding ──────────────────
+$st-accent:     #c08a16;   // graphic accent: rules, fills, dots
+$st-accent-700: #8a6212;   // text/link accent (AA on paper: 5.1:1)
+$st-accent-900: #5c4109;
+$st-accent-050: #faf2de;   // wash
+
+// ─── Data palette — ordered by LIGHTNESS so it survives grayscale ───────────
+// Print interior is B&W: these convert to five distinct grays.
+$st-d1: #16150f;  // 8%  ink
+$st-d2: #40566b;  // 34% slate
+$st-d3: #8a6212;  // 42% ochre-dark
+$st-d4: #9b9789;  // 62% warm gray
+$st-d5: #c9c2b0;  // 78% pale
+$st-data: ($st-d1, $st-d2, $st-d3, $st-d4, $st-d5);
+
+// ─── Type ────────────────────────────────────────────────────────────────────
+// Newsreader  display  · Literata body · Public Sans UI · JetBrains Mono data
+$font-family-sans-serif: "Public Sans", system-ui, -apple-system, sans-serif;
+$font-family-serif:      "Literata", Georgia, serif;
+$font-family-monospace:  "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+$st-display:             "Newsreader", Georgia, serif;
+
+$font-family-base:   $font-family-serif;
+$headings-font-family: $st-display;
+$headings-font-weight: 400;          // display serif at 400, never bold
+$headings-color:     $st-ink;
+$headings-line-height: 1.1;
+
+$font-size-base:     1.0625rem;      // 17px reading size
+$line-height-base:   1.62;
+$h1-font-size:       3.25rem;
+$h2-font-size:       2.125rem;
+$h3-font-size:       1.4rem;
+$h4-font-size:       1.125rem;
+$lead-font-size:     1.3rem;
+
+// ─── Bootstrap bindings ──────────────────────────────────────────────────────
+$primary:          $st-accent-700;
+$secondary:        $st-muted;
+$body-bg:          $st-paper;
+$body-color:       $st-ink-2;
+$link-color:       $st-accent-700;
+$link-hover-color: $st-accent-900;
+$border-color:     $st-line;
+$border-radius:    2px;              // near-square: paper, not app chrome
+$border-radius-sm: 2px;
+$border-radius-lg: 3px;
+$card-bg:          $st-surface;
+$card-border-color: $st-line;
+$code-color:       $st-ink;
+$code-bg:          $st-accent-050;
+
+/*-- scss:rules --*/
+
+:root {
+  --st-paper: #{$st-paper};      --st-paper-alt: #{$st-paper-alt};
+  --st-ink: #{$st-ink};          --st-ink-2: #{$st-ink-2};
+  --st-muted: #{$st-muted};      --st-faint: #{$st-faint};
+  --st-line: #{$st-line};        --st-line-soft: #{$st-line-soft};
+  --st-accent: #{$st-accent};    --st-accent-700: #{$st-accent-700};
+  --st-accent-050: #{$st-accent-050};
+  @for $i from 1 through 5 { --st-d#{$i}: #{nth($st-data, $i)}; }
+  --st-measure: 66ch;
+  accent-color: #{$st-accent};   // native sliders/checkboxes in widgets
+}
+
+body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased;
+       font-variant-numeric: oldstyle-nums proportional-nums; }
+::selection { background: $st-accent-050; color: $st-ink; }
+
+h1, h2, h3, .st-chapter__title { text-wrap: balance; overflow-wrap: break-word; hyphens: auto; }
+p, li { text-wrap: pretty; }
+
+// Reading measure — the single most important rule in the book
+.page-columns .column-body > p,
+.page-columns .column-body > ul,
+.page-columns .column-body > ol,
+.page-columns .column-body > blockquote { max-width: var(--st-measure); }
+
+// Numerals are always tabular mono in data contexts
+.st-num, table td, table th, .st-mono {
+  font-family: $font-family-monospace; font-variant-numeric: tabular-nums lining-nums;
+}
+
+// Programming ligatures OFF everywhere. JetBrains Mono would otherwise paint
+// R's `<-` as `←`, and `<=` `>=` `!=` `%>%` as glyphs absent from the keyboard.
+// Readers here are assumed to have no programming background: they must be able
+// to retype every character they see.
+pre, code, kbd, samp, .st-mono, div.sourceCode {
+  font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0;
+}
+
+// ─── Eyebrow ─────────────────────────────────────────────────────────────────
+.st-eyebrow {
+  font-family: $font-family-monospace; font-size: .6875rem; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: $st-accent-700;
+  display: inline-flex; align-items: center; gap: .625rem;
+}
+.st-eyebrow::before { content: ""; width: 20px; height: 1px; background: $st-accent-700; }
+
+// ─── Chapter opener ──────────────────────────────────────────────────────────
+.st-chapter { padding: 7.5rem 0 4rem; border-bottom: 1px solid $st-line; margin-bottom: 4.5rem; }
+.st-chapter__num {
+  font-family: $font-family-monospace; font-size: .75rem; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase; color: $st-accent-700;
+}
+.st-chapter__part { font-family: $font-family-monospace; font-size: .75rem;
+  letter-spacing: .18em; text-transform: uppercase; color: $st-faint; }
+.st-chapter__title {
+  font-family: $st-display; font-weight: 300; font-size: clamp(2.75rem, 6vw, 4.5rem);
+  line-height: 1.02; letter-spacing: -.022em; color: $st-ink; max-width: 16ch;
+  margin: 1.75rem 0 0;
+}
+.st-chapter__lead { font-family: $font-family-serif; font-size: 1.3rem; line-height: 1.5;
+  color: $st-ink-2; max-width: 54ch; margin-top: 2rem; }
+.st-chapter__meta { display: flex; flex-wrap: wrap; gap: 2.5rem; margin-top: 3.5rem;
+  padding-top: 1.5rem; border-top: 1px solid $st-line; font-family: $font-family-monospace;
+  font-size: .75rem; color: $st-muted; }
+
+// ─── Sidenotes / margin column ───────────────────────────────────────────────
+.st-sidenote, .column-margin {
+  font-family: $font-family-sans-serif; font-size: .8125rem; line-height: 1.5;
+  color: $st-muted;
+}
+.st-sidenote { border-top: 1px solid $st-line; padding-top: .625rem; }
+.st-sidenote__ref, .footnote-ref { font-family: $font-family-monospace; font-size: .7em;
+  color: $st-accent-700; vertical-align: super; text-decoration: none; }
+
+// ─── Callout system ──────────────────────────────────────────────────────────
+// Every callout is distinguished by RULE and LABEL, so B&W print keeps meaning.
+%st-label { font-family: $font-family-monospace; font-size: .6875rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: .75rem; }
+
+// definicija / ključni pojam — accent left rule + wash
+.callout.callout-style-default.callout-definicija,
+.st-def {
+  background: $st-accent-050; border: 0; border-left: 2px solid $st-accent;
+  padding: 1.5rem 1.75rem; margin: 2.5rem 0; max-width: var(--st-measure);
+}
+.st-def__label { @extend %st-label; color: $st-accent-700; }
+.st-def__term  { font-family: $st-display; font-size: 1.25rem; color: $st-ink; }
+
+// vinjeta — opening case, hairlines top & bottom, italic lead
+.st-vignette { border-top: 2px solid $st-ink; border-bottom: 1px solid $st-line;
+  padding: 1.75rem 0 2rem; margin: 0 0 3rem; }
+.st-vignette__label { @extend %st-label; color: $st-muted; }
+.st-vignette p { font-family: $st-display; font-size: 1.375rem; font-style: italic;
+  font-weight: 300; line-height: 1.45; color: $st-ink; max-width: 52ch; }
+
+// statistika u divljini — inverted band
+.st-wild { background: $st-ink; color: #e8e6df; padding: 2.25rem 2.5rem; margin: 3rem 0; }
+.st-wild__label { @extend %st-label; color: $st-accent; }
+.st-wild__claim { font-family: $st-display; font-size: 1.375rem; font-weight: 300;
+  font-style: italic; color: #fff; max-width: 46ch; margin: 0 0 1.25rem; }
+.st-wild p { color: #b9b6ac; max-width: 60ch; }
+
+// pitajte model — dotted frame, machine voice
+.st-ask { border: 1px dotted $st-muted; padding: 1.5rem 1.75rem; margin: 3rem 0; }
+.st-ask__label { @extend %st-label; color: $st-ink; }
+.st-ask__prompt { font-family: $font-family-monospace; font-size: .8125rem; line-height: 1.6;
+  background: $st-paper-alt; padding: .875rem 1rem; color: $st-ink-2; }
+
+// česta pogreška — heavy top rule, no fill
+.st-warn { border-top: 3px solid $st-ink; padding-top: 1rem; margin: 3rem 0; }
+.st-warn__label { @extend %st-label; color: $st-ink;
+  text-decoration: underline; text-decoration-color: $st-accent; text-underline-offset: 4px; }
+
+// razrađeni primjer — hanging mono step numbers
+.st-worked { margin: 3rem 0; }
+.st-worked__step { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem;
+  padding: 1.25rem 0; border-top: 1px solid $st-line-soft; }
+.st-worked__n { font-family: $font-family-monospace; font-size: .8125rem; color: $st-accent-700; padding-top: .2rem; }
+
+// sažetak — recessed band
+.st-summary { background: $st-paper-alt; padding: 2.25rem 2.5rem; margin: 4rem 0 2rem; }
+
+// ─── Interactive widget frame ────────────────────────────────────────────────
+.st-widget { background: $st-surface; border: 1px solid $st-line; margin: 3rem 0; }
+.st-widget__head { display: flex; justify-content: space-between; align-items: baseline;
+  gap: 1.5rem; padding: 1.25rem 1.5rem; border-bottom: 1px solid $st-line-soft; }
+.st-widget__title { font-family: $st-display; font-size: 1.125rem; color: $st-ink; margin: 0; }
+.st-widget__tag { font-family: $font-family-monospace; font-size: .6875rem;
+  letter-spacing: .12em; text-transform: uppercase; color: $st-accent-700; }
+.st-widget__body { padding: 1.75rem 1.5rem; }
+.st-widget__controls { display: grid; gap: 1.25rem; padding: 1.25rem 1.5rem;
+  border-top: 1px solid $st-line-soft; background: $st-paper; }
+.st-widget__foot { padding: .875rem 1.5rem; border-top: 1px solid $st-line-soft;
+  font-family: $font-family-monospace; font-size: .6875rem; color: $st-faint;
+  display: flex; justify-content: space-between; gap: 1rem; }
+input[type="range"] { accent-color: $st-accent; width: 100%; }
+
+// print: widget is replaced by its static twin (SVG) via the filter chain
+@media print { .st-widget__controls, .st-widget__foot { display: none; } }
+
+// ─── Code: folded by default, R/Python tabs ──────────────────────────────────
+div.sourceCode { background: $st-paper-alt; border: 1px solid $st-line; border-radius: 2px; }
+pre code { font-size: .8125rem; line-height: 1.6; }
+.panel-tabset > .nav-tabs { border-bottom: 1px solid $st-line; gap: .25rem; }
+.panel-tabset > .nav-tabs .nav-link {
+  font-family: $font-family-monospace; font-size: .75rem; letter-spacing: .06em;
+  text-transform: uppercase; color: $st-muted; border: 0; border-bottom: 2px solid transparent;
+  border-radius: 0; padding: .5rem .875rem;
+}
+.panel-tabset > .nav-tabs .nav-link.active { color: $st-ink; border-bottom-color: $st-accent; background: transparent; }
+details > summary { font-family: $font-family-monospace; font-size: .75rem; letter-spacing: .08em;
+  text-transform: uppercase; color: $st-accent-700; cursor: pointer; padding: .5rem 0;
+  border-top: 1px solid $st-line; list-style: none; }
+details > summary::marker, details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "+ "; }
+details[open] > summary::before { content: "– "; }
+
+// ─── Glossary term (hoverable) ───────────────────────────────────────────────
+.st-term { border-bottom: 1px dotted $st-accent; cursor: help; color: inherit; }
+.st-glossary { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0; border-top: 1px solid $st-line; }
+.st-glossary__row { padding: .875rem 0; border-bottom: 1px solid $st-line-soft; padding-right: 1.5rem; }
+.st-glossary__hr { font-family: $font-family-serif; color: $st-ink; }
+.st-glossary__en { font-family: $font-family-sans-serif; font-size: .8125rem; color: $st-faint; font-style: italic; }
+
+// ─── Figures & tables ────────────────────────────────────────────────────────
+figure { margin: 3rem 0; }
+figcaption, .figure-caption { font-family: $font-family-sans-serif; font-size: .8125rem;
+  line-height: 1.5; color: $st-muted; margin-top: .875rem; max-width: 60ch; }
+.st-fig__num { font-family: $font-family-monospace; font-size: .6875rem; letter-spacing: .1em;
+  text-transform: uppercase; color: $st-accent-700; display: block; margin-bottom: .25rem; }
+.st-fig__source { font-family: $font-family-monospace; font-size: .6875rem; color: $st-faint; margin-top: .5rem; }
+
+table { font-size: .875rem; width: 100%; }
+table thead th { font-family: $font-family-sans-serif; font-size: .6875rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; color: $st-muted;
+  border-bottom: 1px solid $st-ink; padding: .5rem .75rem; }
+table tbody td { border-bottom: 1px solid $st-line-soft; padding: .5rem .75rem; }
+table tbody td:not(:first-child), table thead th:not(:first-child) { text-align: right; }
+table tbody tr:last-child td { border-bottom: 1px solid $st-ink; }
+
+// ─── Exercises ───────────────────────────────────────────────────────────────
+.st-ex { margin: 4rem 0 0; }
+.st-ex__tier { border-top: 1px solid $st-line; padding: 1.5rem 0; }
+.st-ex__tier-label { @extend %st-label; color: $st-accent-700; }
+.st-ex__list { list-style: none; padding: 0; margin: 0; counter-reset: ex; }
+.st-ex__list li { display: grid; grid-template-columns: 2.5rem 1fr; gap: .75rem;
+  padding: .5rem 0; counter-increment: ex; max-width: 68ch; }
+.st-ex__list li::before { content: counter(ex, decimal-leading-zero);
+  font-family: $font-family-monospace; font-size: .75rem; color: $st-faint; padding-top: .25rem; }
+
+// ─── Navigation & TOC ────────────────────────────────────────────────────────
+#quarto-sidebar, #TOC { font-family: $font-family-sans-serif; }
+.sidebar-item-text { font-size: .875rem; }
+#TOC .nav-link { font-size: .8125rem; color: $st-muted; border-left: 1px solid $st-line; padding-left: .875rem; }
+#TOC .nav-link.active { color: $st-ink; border-left-color: $st-accent; }
+.navbar { border-bottom: 1px solid $st-line; background: $st-paper !important; }
+
+// ─── Print ───────────────────────────────────────────────────────────────────
+// Interior is BLACK & WHITE. Accent degrades to ink; washes degrade to 4% gray.
+@media print {
+  :root { --st-accent: #000; --st-accent-700: #000; --st-accent-050: #f2f2f2; }
+  body { background: #fff; font-size: 10.5pt; }
+  .st-def { background: #f4f4f4; border-left-color: #000; }
+  .st-wild { background: #fff; color: #000; border: 2px solid #000; }
+  .st-wild__claim, .st-wild p { color: #000; }
+  .st-eyebrow, .st-eyebrow::before, .st-def__label, .st-ex__tier-label,
+  .st-fig__num, .st-widget__tag { color: #000; background-color: #000; }
+  .st-eyebrow, .st-def__label, .st-ex__tier-label, .st-fig__num, .st-widget__tag { background: none; }
+  .st-term { border-bottom: 1px dotted #666; }
+  a { color: #000; text-decoration: none; }
+  .st-chapter { page-break-after: avoid; }
+  figure, .st-widget, table { page-break-inside: avoid; }
+}

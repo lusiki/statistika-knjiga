@@ -138,7 +138,10 @@ dodaci/               appendices A–F
 widgets/              widget inventory, template and build order
 styles/               _tokens.scss (design), _base, _callouts, _widgets,
                       _components, _nastava, custom.scss, _dark.scss,
-                      styles.css, book-include.html
+                      styles.css, head.html (fonts), book-include.html,
+                      statistika.theme + statistika-tisak.theme (syntax)
+knjiga-stil/          the design package this identity was mapped from —
+                      reference only, not a build dependency
 R/                    setup.R (sourced by every chapter), theme_book.R,
                       build-ai-exports.R (pre-render hook), build-concept-graph.R,
                       fetch-podaci.R
@@ -192,6 +195,8 @@ Otvarajući slučaj poglavlja.
 
 ::: {.callout-model}
 Kako se ovaj zadatak radi s asistentom, što tražiti i što provjeriti.
+
+> Sam upit, kao obični blok citat — CSS ga pretvara u mono traku.
 :::
 
 ::: {.callout-greska}
@@ -199,7 +204,28 @@ Kratka AI-analiza s jednom greškom koju čitatelj mora naći.
 :::
 ```
 
-The category label is drawn by CSS. Do not type it into the box.
+The category label is drawn by CSS. Do not type it into the box, and never
+write a raw `<div>` or an inline style — if an element does not exist, ask for
+the system to be extended rather than improvising one.
+
+Three further authoring affordances, all specified in DESIGN.md §5:
+
+```markdown
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 28 min | Stroj za CLT | ESS HR 2023 | pogl. 4, 7 |
+:::
+
+…počiva cijelo [statističko zaključivanje]{.pojam
+  def="Izvođenje tvrdnji o populaciji na temelju uzorka."
+  en="statistical inference" ch="8"}.
+
+::: {.widget-frame data-naslov="Stroj za CLT" data-oznaka="Widget 08.1 · interaktivno"}
+```
+
+`.pojam` gives a term a hover definition; it does **not** replace the `#def-`
+div, since only `#def-` divs enter the glossary and the concept graph.
 
 ### Widget / print-twin pattern
 
@@ -252,11 +278,22 @@ div enters the glossary automatically.
 source("R/setup.R")
 ```
 
-This loads ggplot2/dplyr/tidyr, sets `theme_knjiga()`, fixes the random seed
-(2026 — the book simulates constantly and figures must be stable across
-renders) and sets a Croatian decimal comma. Use `boje_knjige`,
-`scale_fill_knjiga()` and `scale_color_knjiga()`; for print twins use `sivo` /
-`scale_*_sivo()`. **Never hardcode a hex in a chapter.**
+This loads ggplot2/dplyr/tidyr, registers the book's typefaces, sets
+`theme_knjiga()` and the geom defaults, fixes the random seed (2026 — the book
+simulates constantly and figures must be stable across renders) and sets a
+Croatian decimal comma.
+
+Use `boje_knjige` and `scale_fill_knjiga()` / `scale_color_knjiga()` for
+categories, `skala_naglasak()` when one series must stand out, `hr_broj` for
+axis labels, and `sivo` / `scale_*_sivo()` for print twins.
+**Never hardcode a hex in a chapter.**
+
+Two rules the palette encodes. It is ordered **by lightness, not by hue**, so
+the black-and-white print interior turns it into five distinct grays; past five
+levels change the point shape or the fill pattern, never the tone. And **ochre
+is not a data colour** — it means "you can touch this", so it enters a figure
+only through `skala_naglasak()`, and then it means "look here", not
+"this is category A".
 
 ### OJS / Observable
 Interactive charts execute in the browser, not via R. The control panel is
@@ -265,12 +302,33 @@ wrapped into a collapsible `<details>` and given a reset button automatically by
 
 ## Design
 
-The book has **no visual identity yet** — the palette and type are a deliberate
-neutral placeholder. Read [DESIGN.md](DESIGN.md) before touching anything
-visual. The short version: design lives in exactly four files (`design-tokens.yml` is
-the source of truth; `styles/_tokens.scss` and `tex/theme.tex` mirror it;
-`R/theme_book.R` reads it), no other file may contain a raw hex, and
-`Rscript scripts/check-tokens.R` enforces that.
+The book's visual identity is **airy editorial**: warm paper, one ochre accent,
+a book-grade serif, and a black-and-white print block. The full specification is
+[DESIGN.md](DESIGN.md); read it before touching anything visual. The reference
+package it was mapped from is kept in `knjiga-stil/`.
+
+Five principles, binding on every element:
+
+1. **Air is the material.** Hairlines and whitespace separate sections — never
+   a box, a shadow or a rounded card.
+2. **Ochre means touch.** The one accent is reserved for interaction and
+   wayfinding. Never decoration, never a data colour.
+3. **Black and white first.** Meaning is carried by rule weight, position and
+   label. Every element must survive having its colour removed.
+4. **Numerals are monospace**, tabular and lining, everywhere.
+5. **Measure before width.** The text column never exceeds 66 characters.
+
+Mechanically: design lives in exactly four files (`design-tokens.yml` is the
+source of truth; `styles/_tokens.scss` and `tex/theme.tex` mirror it;
+`R/theme_book.R` reads it). Four further files legitimately carry values —
+`styles/_dark.scss`, `styles/head.html` and the two `.theme` syntax files —
+and are listed in DESIGN.md §2. No other file may contain a raw hex or a font
+name, and `Rscript scripts/check-tokens.R` enforces that.
+
+**Code ligatures are off everywhere.** JetBrains Mono would otherwise paint R's
+`<-` as `←`, and `<=` `>=` `!=` `%>%` as glyphs absent from the keyboard. The
+reader is assumed to have no programming background and must be able to retype
+every character they see.
 
 ## Deployment
 

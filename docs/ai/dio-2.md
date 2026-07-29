@@ -12,7 +12,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://example.github.io/Statistika/chapters/04-sazimanje-podataka.html
+> Izvor: https://lusiki.github.io/Statistika/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -54,7 +54,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://example.github.io/Statistika/chapters/05-vizualizacija.html
+> Izvor: https://lusiki.github.io/Statistika/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
@@ -96,7 +96,7 @@
 
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
-> Izvor: https://example.github.io/Statistika/chapters/06-povezanost.html
+> Izvor: https://lusiki.github.io/Statistika/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
 > Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 

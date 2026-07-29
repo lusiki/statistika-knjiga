@@ -5,33 +5,92 @@
 //  Svaki se sastoji od upravljačke ploče (Inputs.form) i grafa. Ploču
 //  book-include.html asinkrono omata u sklopivi <details> i dodaje gumb za
 //  povratak na početne vrijednosti, pa .qmd izvor ostaje čist.
+//
+//  Widget je JEDINI element koji „pluta" iznad papira: bijela ploha u vlas
+//  okviru. Sve ostalo u knjizi leži na papiru. Kontrole stoje na papirnatoj
+//  podlozi ispod grafa, odvojene linijom, jer su drugi red — graf je sadržaj,
+//  kontrole su sučelje.
+//
+//  U .qmd-u:
+//    ::: {.widget-frame data-naslov="Stroj za CLT" data-oznaka="Widget 08.1 · interaktivno"}
+//    ```{ojs} … ```
+//    :::
 // =====================================================================
 
 // --- okvir grafa -----------------------------------------------------
 .widget-frame {
-  border: 1px solid $tok-rule-faint;
-  border-radius: $tok-radius-lg;
-  padding: 1.1rem 1.1rem 0.8rem;
-  margin: 2rem 0;
-  background: $tok-paper;
+  background: $tok-surface;
+  border: 1px solid $tok-rule;
+  border-radius: 0;
+  padding: 0;
+  margin: 3rem 0;
 }
 
-.widget-frame .widget-naslov {
-  font-family: $tok-font-sans;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+// Zaglavlje: naslov lijevo, oznaka widgeta desno u okeru.
+.widget-frame::before {
+  content: attr(data-naslov);
+  display: block;
+  font-family: $tok-font-display;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: $tok-ink;
+  padding: 1.25rem 1.5rem 0;
+}
+.widget-frame[data-oznaka]::after {
+  content: attr(data-oznaka);
+  display: block;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: $tok-ink-mute;
+  color: $tok-accent-deep;
+  padding: 0.35rem 1.5rem 1.25rem;
+  border-bottom: 1px solid $tok-rule-soft;
+  margin-bottom: 1.5rem;
+}
+
+// Bez oznake zaglavlje i dalje mora imati donju crtu.
+.widget-frame:not([data-oznaka])::before {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid $tok-rule-soft;
+  margin-bottom: 1.5rem;
+}
+.widget-frame:not([data-naslov])::before { content: none; }
+
+.widget-frame > *:not(details) { padding-left: 1.5rem; padding-right: 1.5rem; }
+.widget-frame > *:last-child { margin-bottom: 1.5rem; }
+
+// Zadržana klasa iz ranijeg kostura: naslov upisan u .qmd-u.
+.widget-frame .widget-naslov {
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $tok-accent-deep;
   margin-bottom: 0.6rem;
 }
 
+// Podnožje: broj slike i napomena za tisak.
+.widget-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1.5rem;
+  border-top: 1px solid $tok-rule-soft;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  color: $tok-ink-faint;
+}
+
 // --- sklopiva ploča --------------------------------------------------
+// Na papirnatoj podlozi, odvojena linijom: kontrole su ispod sadržaja.
 details.ojs-collapsible {
-  border: 1px solid $tok-rule-faint;
-  border-radius: $tok-radius;
-  background: $tok-paper-soft;
-  margin: 1rem 0 1.4rem;
+  border: 0;
+  border-top: 1px solid $tok-rule-soft;
+  border-radius: 0;
+  background: $tok-paper;
+  margin: 1.5rem 0 0;
 }
 
 .ojs-collapsible-summary {
@@ -40,17 +99,19 @@ details.ojs-collapsible {
   gap: 0.5rem;
   cursor: pointer;
   list-style: none;
-  padding: 0.6rem 0.9rem;
-  font-family: $tok-font-sans;
-  font-size: 0.8rem;
-  color: $tok-ink-soft;
+  padding: 0.7rem 1.5rem;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $tok-accent-deep;
 
   &::-webkit-details-marker { display: none; }
 }
 
 .ojs-collapsible-icon {
   width: 0; height: 0;
-  border-left: 5px solid $tok-ink-mute;
+  border-left: 5px solid $tok-accent;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   transition: transform 0.15s ease;
@@ -59,21 +120,31 @@ details[open] > .ojs-collapsible-summary .ojs-collapsible-icon {
   transform: rotate(90deg);
 }
 
-.ojs-collapsible-label { font-weight: 600; }
-.ojs-collapsible-hint  { color: $tok-ink-faint; font-size: 0.74rem; }
+.ojs-collapsible-label { font-weight: 500; }
+.ojs-collapsible-hint {
+  color: $tok-ink-faint;
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
 
-.ojs-collapsible-body { padding: 0 0.9rem 0.9rem; }
+.ojs-collapsible-body { padding: 0 1.5rem 1rem; }
 
 // --- kontrole (Observable Inputs) ------------------------------------
 form[class^="oi-"] {
   font-family: $tok-font-sans;
   font-size: 0.82rem;
   color: $tok-ink-soft;
-  padding: 0.2rem 0.9rem 0.9rem;
+  padding: 0.2rem 1.5rem 1rem;
 }
 
-form[class^="oi-"] label {
-  color: $tok-ink-soft;
+// Natpis kontrole je oznaka, ne proza: mono verzal.
+form[class^="oi-"] label,
+.widget-frame form label {
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $tok-ink-mute;
   font-weight: 500;
 }
 
@@ -81,8 +152,8 @@ form[class^="oi-"] label {
 form[class^="oi-"] input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  height: 3px;
-  border-radius: 2px;
+  height: 2px;
+  border-radius: 0;
   background: linear-gradient(
     to right,
     #{$tok-accent} 0%,
@@ -93,37 +164,54 @@ form[class^="oi-"] input[type="range"] {
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 14px; height: 14px;
+    width: 13px; height: 13px;
     border-radius: 50%;
     background: $tok-accent;
-    border: 2px solid $tok-paper;
+    border: 2px solid $tok-surface;
     box-shadow: 0 0 0 1px $tok-rule;
     cursor: pointer;
   }
   &::-moz-range-thumb {
-    width: 12px; height: 12px;
+    width: 11px; height: 11px;
     border-radius: 50%;
     background: $tok-accent;
-    border: 2px solid $tok-paper;
+    border: 2px solid $tok-surface;
     cursor: pointer;
   }
 }
 
-// Brojčana pločica uz klizač.
-form[class^="oi-"] input[type="number"] {
+// Brojčana pločica uz klizač — tabularni mono, kao svaka brojka u knjizi.
+form[class^="oi-"] input[type="number"],
+form[class^="oi-"] input[type="text"] {
   font-family: $tok-font-mono;
+  font-variant-numeric: tabular-nums lining-nums;
   font-size: 0.8rem;
-  background: $tok-paper;
+  background: $tok-surface;
   border: 1px solid $tok-rule;
-  border-radius: 3px;
+  border-radius: $tok-radius;
   color: $tok-ink;
-  padding: 0.1rem 0.3rem;
+  padding: 0.1rem 0.35rem;
 }
+
+form[class^="oi-"] select {
+  font-family: $tok-font-sans;
+  font-size: 0.8rem;
+  background: $tok-surface;
+  border: 1px solid $tok-rule;
+  border-radius: $tok-radius;
+  color: $tok-ink;
+  padding: 0.15rem 0.35rem;
+}
+
+// Oznake na osima interaktivnih grafova prate knjigu.
+.widget-frame svg text,
+.observablehq svg text { font-family: $tok-font-mono; }
+.observablehq--inspect { font-family: $tok-font-mono; font-size: 0.75rem; }
 
 .ojs-pulse { animation: ojs-pulse 0.4s ease; }
 @keyframes ojs-pulse {
   0%   { background: $tok-accent-wash; }
-  100% { background: $tok-paper; }
+  100% { background: $tok-surface; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ojs-pulse { animation: none; }
@@ -131,17 +219,18 @@ form[class^="oi-"] input[type="number"] {
 
 // Gumb za povratak na početne vrijednosti (ubacuje ga book-include.html).
 .ojs-reset {
-  font-family: $tok-font-sans;
-  font-size: 0.72rem;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
   color: $tok-ink-mute;
   background: transparent;
   border: 1px solid $tok-rule;
   border-radius: $tok-radius;
-  padding: 0.25rem 0.6rem;
-  margin: 0 0.9rem 0.9rem;
+  padding: 0.28rem 0.6rem;
+  margin: 0 1.5rem 1rem;
   cursor: pointer;
 
-  &:hover { color: $tok-accent; border-color: $tok-accent; }
+  &:hover { color: $tok-accent-deep; border-color: $tok-accent; }
 }
 
 // Uski ekrani: labela iznad kontrole.
@@ -153,8 +242,26 @@ form[class^="oi-"] input[type="number"] {
 }
 
 // --- „Što isprobati" blok uz graf ------------------------------------
-.ojs-collapsible-prose .ojs-collapsible-body {
-  font-family: $tok-font-serif;
-  font-size: 0.95rem;
-  color: $tok-ink-soft;
+.ojs-collapsible-prose {
+  background: transparent;
+  border-top: 1px solid $tok-rule;
+  margin: 1.5rem 0 2.5rem;
+
+  .ojs-collapsible-summary { padding-left: 0; padding-right: 0; }
+  .ojs-collapsible-body {
+    padding: 0 0 1rem;
+    font-family: $tok-font-serif;
+    font-size: 0.95rem;
+    color: $tok-ink-soft;
+    max-width: $tok-measure;
+  }
+}
+
+// --- tisak -----------------------------------------------------------
+// Widget zamjenjuje statični blizanac (filter chain); kontrole nestaju.
+@media print {
+  .ojs-collapsible,
+  .widget-foot,
+  .widget-frame[data-oznaka]::after { display: none; }
+  .widget-frame { border: 1px solid $tok-rule; }
 }

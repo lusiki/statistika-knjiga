@@ -21,49 +21,89 @@
 // =====================================================================
 
 // --- površine --------------------------------------------------------
-$tok-paper:       #FFFFFF !default;   // token:paper
-$tok-paper-soft:  #F4F4F5 !default;   // token:paper-soft
+$tok-paper:       #FBFAF6 !default;   // token:paper
+$tok-paper-soft:  #F3EFE6 !default;   // token:paper-soft
+$tok-surface:     #FFFFFF !default;   // token:surface
 
 // --- tekst -----------------------------------------------------------
-$tok-ink:         #18181B !default;   // token:ink
-$tok-ink-soft:    #3F3F46 !default;   // token:ink-soft
-$tok-ink-mute:    #71717A !default;   // token:ink-mute
-$tok-ink-faint:   #A1A1AA !default;   // token:ink-faint
+$tok-ink:         #16150F !default;   // token:ink
+$tok-ink-soft:    #33322A !default;   // token:ink-soft
+$tok-ink-mute:    #6E6C61 !default;   // token:ink-mute
+$tok-ink-faint:   #9B9789 !default;   // token:ink-faint
 
-// --- akcenti ---------------------------------------------------------
-$tok-accent:      #2563A8 !default;   // token:accent
-$tok-accent-deep: #1B4A7D !default;   // token:accent-deep
-$tok-accent-wash: #E8F0F8 !default;   // token:accent-wash
-$tok-emphasis:    #9C2B2B !default;   // token:emphasis
-$tok-archival:    #8A6D3B !default;   // token:archival
+// --- vlas linije -----------------------------------------------------
+// Strukturne, ne izvedene iz tinte: topli papir traži toplu liniju, a
+// rgba(ink, .1) na njemu izgleda sivo i mrtvo.
+$tok-rule:        #E4DFD2 !default;   // token:rule
+$tok-rule-soft:   #EFEBE0 !default;   // token:rule-soft
 
-// --- izvedene vlasne crte (uvijek iz ink-a, nikad novi hex) ----------
-$tok-rule-faint:  rgba($tok-ink, 0.07) !default;
-$tok-rule:        rgba($tok-ink, 0.14) !default;
-$tok-rule-strong: rgba($tok-ink, 0.30) !default;
+// --- akcent: OKER. Samo interakcija i navođenje. ----------------------
+$tok-accent:      #C08A16 !default;   // token:accent
+$tok-accent-deep: #8A6212 !default;   // token:accent-deep
+$tok-accent-dark: #5C4109 !default;   // token:accent-dark
+$tok-accent-wash: #FAF2DE !default;   // token:accent-wash
+
+// --- paleta podataka, poredana po svjetlini --------------------------
+$tok-data-1:      #16150F !default;   // token:data-1
+$tok-data-2:      #40566B !default;   // token:data-2
+$tok-data-3:      #8A6212 !default;   // token:data-3
+$tok-data-4:      #9B9789 !default;   // token:data-4
+$tok-data-5:      #C9C2B0 !default;   // token:data-5
+
+// --- jedina druga boja u sustavu -------------------------------------
+$tok-alert:       #8A2A12 !default;   // token:alert
+
+// --- izvedene prozirnosti (nikad novi hex) ---------------------------
+$tok-rule-strong: rgba($tok-ink, 0.34) !default;
+$tok-shadow:      rgba($tok-ink, 0.16) !default;
 
 // --- pisma -----------------------------------------------------------
-// PLACEHOLDER: sistemski stogovi, bez vanjskih fontova.
-$tok-font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif !default;       // token-font:serif
-$tok-font-sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !default;   // token-font:sans
-$tok-font-mono:  ui-monospace, SFMono-Regular, Consolas, monospace !default;          // token-font:mono
+// Newsreader displej · Literata tijelo · Public Sans sučelje · JetBrains Mono
+// brojke i kod. Učitava ih styles/head.html.
+$tok-font-display: "Newsreader", Georgia, serif !default;                            // token-font:display
+$tok-font-serif:   "Literata", Georgia, serif !default;                              // token-font:serif
+$tok-font-sans:    "Public Sans", system-ui, -apple-system, sans-serif !default;      // token-font:sans
+$tok-font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, monospace !default; // token-font:mono
 
 // --- mjerilo i ritam -------------------------------------------------
-$tok-measure:    68ch !default;     // mjera retka za dugo čitanje
-$tok-radius:     4px !default;
-$tok-radius-lg:  8px !default;
-$tok-rule-width: 3px !default;      // lijeva crta pedagoških kutija
-$tok-space:      1.1rem !default;   // osnovni razmak između pasusa
+$tok-measure:    66ch !default;     // mjera retka — najvažnije pravilo u knjizi
+$tok-radius:     2px !default;      // gotovo pravi kut: papir, ne sučelje aplikacije
+$tok-radius-lg:  3px !default;
+$tok-rule-width: 2px !default;      // lijeva crta definicije, gornja crta vinjete
+$tok-space:      1.15rem !default;  // osnovni razmak između pasusa
 
 // --- Bootstrap preslikavanje ----------------------------------------
 // !default da _dark.scss može nadjačati pri tamnom compileu.
-$body-color:             $tok-ink !default;
+$body-color:             $tok-ink-soft !default;
 $body-bg:                $tok-paper !default;
-$font-family-base:       $tok-font-sans;
+$font-family-base:       $tok-font-serif;
 $font-family-serif:      $tok-font-serif;
 $font-family-sans-serif: $tok-font-sans;
 $font-family-monospace:  $tok-font-mono;
-$primary:                $tok-accent !default;
-$link-color:             $tok-accent !default;
+
+$headings-font-family:   $tok-font-display;
+$headings-font-weight:   400;          // displejni serif na 400, nikad bold
+$headings-color:         $tok-ink !default;
+$headings-line-height:   1.12;
+
+$font-size-base:         1.0625rem;    // 17 px
+$line-height-base:       1.62;
+$h1-font-size:           3.25rem;
+$h2-font-size:           2.125rem;
+$h3-font-size:           1.4rem;
+$h4-font-size:           1.125rem;
+
+$primary:                $tok-accent-deep !default;
+$secondary:              $tok-ink-mute !default;
+$link-color:             $tok-accent-deep !default;
+$link-hover-color:       $tok-accent-dark !default;
+$border-color:           $tok-rule !default;
+$border-radius:          $tok-radius;
+$border-radius-sm:       $tok-radius;
+$border-radius-lg:       $tok-radius-lg;
+$card-bg:                $tok-surface !default;
+$card-border-color:      $tok-rule !default;
+$code-color:             $tok-ink !default;
+$code-bg:                $tok-accent-wash !default;
 $callout-border-width:   $tok-rule-width;
-$callout-border-radius:  $tok-radius;
+$callout-border-radius:  0;

@@ -3,97 +3,141 @@
 // =====================================================================
 //  Namjerno malen skup komponenti. Sve boje i pisma dolaze iz tokena,
 //  pa zamjena dizajna ne traži diranje ove datoteke.
+//
+//  Načelo se drži i ovdje: zrak i vlas linija, nikad sjena ni zaobljena
+//  kartica; oker se pojavljuje samo ondje gdje se nešto može dodirnuti.
 // =====================================================================
 
 // --- navbar ----------------------------------------------------------
 .navbar {
   background-color: $tok-paper;
   box-shadow: none;
-  border-bottom: 1px solid $tok-rule-faint;
+  border-bottom: 1px solid $tok-rule;
 }
-.navbar .navbar-brand,
-.navbar .nav-link {
-  font-family: $tok-font-sans;
-  font-size: 0.86rem;
+.navbar .navbar-brand {
+  font-family: $tok-font-display;
+  font-size: 1.05rem;
+  font-weight: 400;
   color: $tok-ink;
 }
-.navbar .nav-link:hover { color: $tok-accent; }
+.navbar .nav-link {
+  font-family: $tok-font-sans;
+  font-size: 0.85rem;
+  color: $tok-ink-soft;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link.active { color: $tok-accent-deep; }
 
 // --- sidebar ---------------------------------------------------------
 #quarto-sidebar {
   background: $tok-paper;
-  border-right: 1px solid $tok-rule-faint;
+  border-right: 1px solid $tok-rule;
 }
-#quarto-sidebar .sidebar-link { font-family: $tok-font-sans; font-size: 0.85rem; }
-#quarto-sidebar .sidebar-item-section > .sidebar-item-container > .sidebar-item-text {
+#quarto-sidebar .sidebar-link {
   font-family: $tok-font-sans;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-size: 0.84rem;
+  color: $tok-ink-soft;
+}
+#quarto-sidebar .sidebar-link:hover { color: $tok-accent-deep; }
+#quarto-sidebar .sidebar-item-section > .sidebar-item-container > .sidebar-item-text,
+#quarto-sidebar .sidebar-item-text.sidebar-part {
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: $tok-ink-faint;
+}
+
+// --- sadržaj stranice (desni TOC) ------------------------------------
+#TOC, #quarto-margin-sidebar { font-family: $tok-font-sans; }
+#TOC .nav-link {
+  font-size: 0.8125rem;
   color: $tok-ink-mute;
+  border-left: 1px solid $tok-rule;
+  padding-left: 0.875rem;
+}
+#TOC .nav-link.active {
+  color: $tok-ink;
+  border-left-color: $tok-accent;
+}
+.sidebar nav[role="doc-toc"] > h2,
+#toc-title {
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $tok-ink-faint;
+  border: 0;
+  padding: 0;
+  margin-bottom: 0.75rem;
 }
 
 // --- naslovnica: hero ------------------------------------------------
 .hero {
   display: grid;
   grid-template-columns: 1.35fr 1fr;
-  gap: 3rem;
+  gap: 3.5rem;
   align-items: center;
-  margin: 2rem 0 3rem;
+  margin: 3rem 0 4rem;
 }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; gap: 2rem; }
 }
 
 .hero-title {
-  font-family: $tok-font-serif;
-  font-size: clamp(2rem, 4.5vw, 3.1rem);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  margin: 0.4rem 0 0.9rem;
+  font-family: $tok-font-display;
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  color: $tok-ink;
+  margin: 0.4rem 0 1rem;
   border: none;
   padding: 0;
+  max-width: 16ch;
 }
 
 .hero-lede {
   font-family: $tok-font-serif;
-  font-size: 1.12rem;
-  line-height: 1.55;
+  font-size: 1.3rem;
+  line-height: 1.5;
   color: $tok-ink-soft;
-  max-width: 46ch;
+  max-width: 54ch;
 }
 
 .hero-cta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-top: 1.6rem;
+  margin-top: 2rem;
 }
 
 .btn-knjiga {
-  font-family: $tok-font-sans;
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-family: $tok-font-mono;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   text-decoration: none;
-  padding: 0.6rem 1.1rem;
+  padding: 0.65rem 1.1rem;
   border-radius: $tok-radius;
   border: 1px solid $tok-accent;
-  color: $tok-accent;
+  color: $tok-accent-deep;
   background: transparent;
   transition: background 0.15s, color 0.15s;
 
-  &:hover { background: $tok-accent; color: $tok-paper; }
-  &.primarni { background: $tok-accent; color: $tok-paper; }
-  &.primarni:hover { background: $tok-accent-deep; border-color: $tok-accent-deep; }
+  &:hover { background: $tok-accent; color: $tok-surface; }
+  &.primarni { background: $tok-accent; color: $tok-surface; }
+  &.primarni:hover { background: $tok-accent-dark; border-color: $tok-accent-dark; }
 }
 
 // Naslovnica bez slike: tipografska pločica.
 .cover-card {
   border: 1px solid $tok-rule;
-  border-radius: $tok-radius-lg;
-  padding: 2.2rem 1.8rem;
-  background: $tok-paper-soft;
+  border-radius: 0;
+  padding: 2.4rem 2rem;
+  background: $tok-surface;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -101,112 +145,124 @@
   justify-content: space-between;
 }
 .cover-card .cover-title {
-  font-family: $tok-font-serif;
-  font-size: 1.7rem;
-  line-height: 1.15;
-  font-weight: 600;
+  font-family: $tok-font-display;
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: $tok-ink;
   border: none;
   margin: 0;
   padding: 0;
 }
 .cover-card .cover-foot {
-  font-family: $tok-font-sans;
-  font-size: 0.78rem;
-  color: $tok-ink-mute;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $tok-ink-faint;
 }
 
 // --- brojčana traka --------------------------------------------------
 .brojke {
   display: flex;
   flex-wrap: wrap;
-  gap: 2.4rem;
-  border-top: 1px solid $tok-rule-faint;
-  border-bottom: 1px solid $tok-rule-faint;
-  padding: 1.1rem 0;
-  margin: 2.5rem 0;
+  gap: 2.75rem;
+  border-top: 1px solid $tok-rule;
+  border-bottom: 1px solid $tok-rule;
+  padding: 1.3rem 0;
+  margin: 3rem 0;
 }
 .brojke .brojka {
   font-family: $tok-font-mono;
-  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 1.6rem;
   color: $tok-ink;
   line-height: 1.1;
 }
 .brojke .oznaka {
   display: block;
-  font-family: $tok-font-sans;
-  font-size: 0.68rem;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: $tok-ink-mute;
-  margin-top: 0.25rem;
+  color: $tok-ink-faint;
+  margin-top: 0.35rem;
 }
 
 // --- mreža kartica (hub stranice: interakcije, predavanja, dodaci) ---
 .hub-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
+  gap: 0;
+  border-top: 1px solid $tok-rule;
+  margin: 2.5rem 0;
 }
 
 .hub-card {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  border: 1px solid $tok-rule-faint;
-  border-radius: $tok-radius-lg;
-  padding: 1.1rem 1.1rem 1.2rem;
-  background: $tok-paper;
+  border: 0;
+  border-bottom: 1px solid $tok-rule-soft;
+  border-radius: 0;
+  padding: 1.3rem 1.5rem 1.4rem 0;
+  background: transparent;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s, transform 0.15s;
+  transition: background 0.15s;
 
   &:hover {
-    border-color: $tok-accent;
-    transform: translateY(-2px);
+    background: $tok-accent-wash;
+    transform: none;
   }
+  &:hover .hub-name { color: $tok-accent-deep; }
 }
 .hub-card .hub-num {
   font-family: $tok-font-mono;
-  font-size: 0.72rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
   color: $tok-ink-faint;
 }
 .hub-card .hub-name {
-  font-family: $tok-font-serif;
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-family: $tok-font-display;
+  font-size: 1.15rem;
+  font-weight: 400;
   color: $tok-ink;
 }
 .hub-card .hub-desc {
   font-family: $tok-font-sans;
-  font-size: 0.8rem;
+  font-size: 0.8125rem;
   color: $tok-ink-mute;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 .hub-card .hub-znak {
-  font-family: $tok-font-sans;
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
+  font-family: $tok-font-mono;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: $tok-accent;
+  color: $tok-accent-deep;
 }
 
 // --- razdjelnik odjeljaka -------------------------------------------
 .razdjelnik {
   text-align: center;
   color: $tok-ink-faint;
-  margin: 3rem 0;
-  font-family: $tok-font-serif;
+  margin: 3.5rem 0;
+  font-family: $tok-font-display;
 }
 
 // --- podnožje knjige -------------------------------------------------
-.book-meta-footer {
-  border-top: 1px solid $tok-rule-faint;
-  margin-top: 3rem;
-  padding-top: 1.2rem;
-  font-family: $tok-font-sans;
-  font-size: 0.78rem;
-  color: $tok-ink-mute;
+.book-meta-footer,
+.nav-footer {
+  border-top: 1px solid $tok-rule;
+  margin-top: 3.5rem;
+  padding-top: 1.4rem;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: $tok-ink-faint;
+  background: $tok-paper;
 }
 
 // --- podnožje poglavlja: AI izbornik --------------------------------
@@ -216,7 +272,19 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem;
-  margin: 2.6rem 0 1rem;
-  padding-top: 1.4rem;
+  margin: 3.5rem 0 1rem;
+  padding-top: 1.5rem;
   border-top: 1px solid $tok-rule;
 }
+
+// --- listanje poglavlja ----------------------------------------------
+.page-navigation {
+  border-top: 1px solid $tok-rule;
+  padding-top: 1.5rem;
+}
+.nav-page .nav-page-text {
+  font-family: $tok-font-display;
+  font-size: 1.05rem;
+  color: $tok-ink;
+}
+.nav-page a { text-decoration: none; }

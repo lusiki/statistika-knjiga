@@ -43,7 +43,7 @@ body.standalone-page #quarto-document-content {
   background: var(--tok-paper-soft);
   border: 1px solid var(--tok-rule);
   border-radius: var(--tok-radius);
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 22px var(--tok-shadow);
   font-family: var(--tok-font-sans);
   font-size: 0.8rem;
   line-height: 1.4;
@@ -75,13 +75,15 @@ h4:hover a.anchorjs-link { opacity: 1; }
 /* --- dinkus (razdjelnik unutar odjeljka) ------------------------- */
 .dinkus {
   text-align: center;
-  margin: 2.2rem 0;
+  margin: 2.6rem 0;
   color: var(--tok-ink-faint);
   letter-spacing: 0.8em;
 }
 .dinkus::before { content: "◆ ◆ ◆"; }
 
-/* --- AI izbornik u podnožju poglavlja ---------------------------- */
+/* --- AI izbornik u podnožju poglavlja ----------------------------
+   Sve je ovdje dodirljivo, pa sve smije nositi oker (DESIGN.md, načelo 2).
+   Oblik prati ostatak sustava: mono verzal, gotovo pravi kut, bez sjene. */
 .ai-cta { margin: 0; font-family: var(--tok-font-mono); }
 .ai-cta > summary {
   display: inline-flex;
@@ -89,8 +91,10 @@ h4:hover a.anchorjs-link { opacity: 1; }
   gap: 0.4rem;
   cursor: pointer;
   list-style: none;
-  font-size: 0.78rem;
-  color: var(--tok-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tok-accent-deep);
   border: 1px solid var(--tok-rule);
   border-radius: var(--tok-radius);
   padding: 0.45rem 0.8rem;
@@ -100,16 +104,17 @@ h4:hover a.anchorjs-link { opacity: 1; }
 .ai-cta > summary:hover,
 .ai-cta[open] > summary {
   background: var(--tok-accent);
-  color: var(--tok-paper);
+  color: var(--tok-surface);
   border-color: var(--tok-accent);
 }
 .ai-cta-menu { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.55rem; }
 .ai-cta-menu a,
 .ai-cta-pm {
   font-family: var(--tok-font-mono);
-  font-size: 0.74rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
   text-decoration: none;
-  color: var(--tok-accent);
+  color: var(--tok-accent-deep);
   border: 1px solid var(--tok-rule);
   border-radius: var(--tok-radius);
   padding: 0.4rem 0.72rem;
@@ -118,7 +123,7 @@ h4:hover a.anchorjs-link { opacity: 1; }
 .ai-cta-menu a:hover,
 .ai-cta-pm:hover {
   background: var(--tok-accent);
-  color: var(--tok-paper);
+  color: var(--tok-surface);
   border-color: var(--tok-accent);
 }
 .ai-cta-pm { display: inline-flex; align-items: center; gap: 0.4rem; }

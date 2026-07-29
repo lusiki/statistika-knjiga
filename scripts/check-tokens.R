@@ -4,14 +4,14 @@
 #   Rscript scripts/check-tokens.R
 #
 # Dizajn knjige živi na točno četiri mjesta:
-#   design-tokens.yml            IZVOR ISTINE (paleta + pisma)
+#   design-tokens.yml     IZVOR ISTINE (paleta + pisma)
 #   styles/_tokens.scss   HTML sloj
 #   tex/theme.tex         tiskarski (LaTeX) sloj
 #   R/theme_book.R        grafovi — ČITA design-tokens.yml, pa se ne provjerava
 #
 # Slojevi se povezuju oznakama u komentaru:
-#   _tokens.scss:  $tok-accent: #2563A8;            // token:accent
-#   theme.tex:     \definecolor{accent}{HTML}{2563A8}  % token:accent
+#   _tokens.scss:  $tok-accent: #C08A16;               // token:accent
+#   theme.tex:     \definecolor{accent}{HTML}{C08A16}  % token:accent
 #
 # Skripta usporedi hex vrijednosti po imenu tokena i ispiše svaku razliku
 # s brojem retka. Izlazni kod 1 ako nešto ne odgovara, pa se može staviti
@@ -41,11 +41,12 @@ if (is.null(paleta)) stop("design-tokens.yml nema color.palette blok.")
 izvor <- vapply(paleta, norm_hex, character(1))
 
 # --- 2. pokupi oznake `token:<ime>` iz sloja --------------------------------
+# Ime tokena smije nositi znamenku (data-1 … data-5), pa razred obuhvaća 0-9.
 pokupi <- function(datoteka) {
   redci <- readLines(datoteka, warn = FALSE, encoding = "UTF-8")
-  idx <- grep("token:[a-z-]+", redci)
+  idx <- grep("token:[a-z0-9-]+", redci)
   if (length(idx) == 0) return(list(hex = character(0), red = integer(0)))
-  ime <- sub(".*token:([a-z-]+).*", "\\1", redci[idx])
+  ime <- sub(".*token:([a-z0-9-]+).*", "\\1", redci[idx])
   hex <- sub(".*?#?([0-9A-Fa-f]{6}).*", "\\1", redci[idx])
   ok  <- grepl("[0-9A-Fa-f]{6}", redci[idx])
   list(hex = setNames(norm_hex(hex[ok]), ime[ok]), red = setNames(idx[ok], ime[ok]))
@@ -92,13 +93,23 @@ for (naziv in names(slojevi)) {
 
 # --- 4. sirovi hex izvan sloja tokena ---------------------------------------
 # Dizajn se mijenja na jednom mjestu samo ako nigdje drugdje nema hexova.
-# _dark.scss je drugi legitiman sloj tokena (invertirane vrijednosti za tamni
-# način) pa je izuzet iz ove provjere, kao i sam _tokens.scss.
+# Tri datoteke su izuzete jer su i same legitimni nositelji vrijednosti:
+#
+#   styles/_tokens.scss   sam sloj tokena
+#   styles/_dark.scss     invertirani tokeni za tamni način
+#   styles/head.html      `theme-color` čita preglednik, ne stranica, pa ne
+#                         može proći kroz CSS varijablu
+#
+# Izvan popisa su i .theme datoteke (statistika.theme, statistika-tisak.theme):
+# Pandoc traži hex u samoj temi. Sve četiri se mijenjaju ZAJEDNO s
+# design-tokens.yml — vidi DESIGN.md.
 kandidati <- c(
   list.files(put("styles"), pattern = "\\.(scss|css)$", full.names = TRUE),
   list.files(put("styles"), pattern = "\\.html$", full.names = TRUE)
 )
-kandidati <- setdiff(kandidati, c(TOKENS, put("styles", "_dark.scss")))
+kandidati <- setdiff(kandidati, c(TOKENS,
+                                  put("styles", "_dark.scss"),
+                                  put("styles", "head.html")))
 # Negativni pogled unaprijed izbjegava lažne pogotke na CSS selektorima i
 # Quarto sidrima koja slučajno počinju heksadekadskim slovima (#def-, #fed…).
 HEX_RE <- "#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})(?![0-9A-Za-z_-])"

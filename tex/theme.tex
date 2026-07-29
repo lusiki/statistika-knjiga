@@ -5,116 +5,168 @@
 %  Preslikava design-tokens.yml i styles/_tokens.scss. Provjera sinkronizacije:
 %      Rscript scripts/check-tokens.R
 %
-%  PLACEHOLDER: paleta je neutralna, a pisma su LaTeX-ova zadana (Latin
-%  Modern) da PDF gradi bez ijedne vanjske datoteke. Blok za brendirana
-%  pisma je pripremljen i zaključan dolje. Vidi DESIGN.md.
+%  TISKANI BLOK JE CRNO-BIJEL. Tokeni ispod postoje da bi sloj bio usklađen
+%  s izvorom istine, ali ih raspored NE koristi u boji: oker degradira u
+%  tintu, ispune u 4 % sivu, paleta podataka u pet razlučivih sivih. To nije
+%  osiromašenje nego uvjet — svaki element knjige mora ostati razumljiv kad
+%  se boja oduzme, pa se značenje nosi debljinom crte, položajem i oznakom.
+%
+%  PISMA. Newsreader · Literata · Public Sans · JetBrains Mono. Ako nisu
+%  instalirana u sustavu, blok se tiho gradi na Latin Modernu — PDF nikad
+%  ne pada zbog pisma. Instalacija: fonts/print/README.md.
 % =====================================================================
 
 % ---- paleta (JEDINO mjesto s bojama u tiskarskom sloju) -------------
-\definecolor{paper}{HTML}{FFFFFF}       % token:paper
-\definecolor{papersoft}{HTML}{F4F4F5}   % token:paper-soft
-\definecolor{ink}{HTML}{18181B}         % token:ink
-\definecolor{inksoft}{HTML}{3F3F46}     % token:ink-soft
-\definecolor{inkmute}{HTML}{71717A}     % token:ink-mute
-\definecolor{inkfaint}{HTML}{A1A1AA}    % token:ink-faint
-\definecolor{accent}{HTML}{2563A8}      % token:accent
-\definecolor{accentdeep}{HTML}{1B4A7D}  % token:accent-deep
-\definecolor{accentwash}{HTML}{E8F0F8}  % token:accent-wash
-\definecolor{emphasis}{HTML}{9C2B2B}    % token:emphasis
-\definecolor{archival}{HTML}{8A6D3B}    % token:archival
+\definecolor{paper}{HTML}{FBFAF6}       % token:paper
+\definecolor{papersoft}{HTML}{F3EFE6}   % token:paper-soft
+\definecolor{surface}{HTML}{FFFFFF}     % token:surface
+\definecolor{ink}{HTML}{16150F}         % token:ink
+\definecolor{inksoft}{HTML}{33322A}     % token:ink-soft
+\definecolor{inkmute}{HTML}{6E6C61}     % token:ink-mute
+\definecolor{inkfaint}{HTML}{9B9789}    % token:ink-faint
+\definecolor{rulecol}{HTML}{E4DFD2}     % token:rule
+\definecolor{rulesoft}{HTML}{EFEBE0}    % token:rule-soft
+\definecolor{accent}{HTML}{C08A16}      % token:accent
+\definecolor{accentdeep}{HTML}{8A6212}  % token:accent-deep
+\definecolor{accentdark}{HTML}{5C4109}  % token:accent-dark
+\definecolor{accentwash}{HTML}{FAF2DE}  % token:accent-wash
+\definecolor{dataone}{HTML}{16150F}     % token:data-1
+\definecolor{datatwo}{HTML}{40566B}     % token:data-2
+\definecolor{datathree}{HTML}{8A6212}   % token:data-3
+\definecolor{datafour}{HTML}{9B9789}    % token:data-4
+\definecolor{datafive}{HTML}{C9C2B0}    % token:data-5
+\definecolor{alert}{HTML}{8A2A12}       % token:alert
+
+% ---- izvedene tiskarske vrijednosti ---------------------------------
+% Ove, a ne one gore, ulaze u raspored. Ovdje se boja gasi.
+\definecolor{bktext}{gray}{0.17}     % tijelo — tinta, ne čisto crno
+\definecolor{bkink}{gray}{0.06}      % naslovi i teške crte
+\definecolor{bkmuted}{gray}{0.36}    % sekundarno
+\definecolor{bkfaint}{gray}{0.54}    % potpisi, izvori, živa pagina
+\definecolor{bkwash}{gray}{0.955}    % ispuna definicija i sažetaka (4 %)
+\definecolor{bkrule}{gray}{0.82}     % vlas linija
 
 % ---- boja papira i teksta -------------------------------------------
-\pagecolor{paper}
-\AtBeginDocument{\color{ink}}
-\definecolor{shadecolor}{HTML}{F4F4F5}   % podloga blokova koda -> paper-soft
+% Papir se NE tiska: topli ton digitalnog izdanja tražio bi punu ispunu
+% preko svake stranice. Blok ide na bijelo, jednobojno.
+\pagecolor{white}
+\AtBeginDocument{\color{bktext}}
+\definecolor{shadecolor}{gray}{0.955}   % podloga blokova koda
 
 % ---- pisma ----------------------------------------------------------
 \usepackage{fontspec}
-% PLACEHOLDER: bez \setmainfont, pa xelatex koristi Latin Modern i PDF se
-% gradi na svakom stroju. Kad tipografija bude odabrana, stavite statičke
-% instance u fonts/print/ i otključajte blok ispod (uskladite s design-tokens.yml).
-%
-% \setmainfont{NazivSerifa}[
-%   Path = fonts/print/ , Extension = .ttf ,
-%   UprightFont = *-Regular , ItalicFont = *-Italic ,
-%   BoldFont = *-SemiBold , BoldItalicFont = *-BoldItalic ]
-% \setsansfont{NazivSansa}[
-%   Path = fonts/print/ , Extension = .ttf ,
-%   UprightFont = *-Regular , ItalicFont = *-Italic , BoldFont = *-Bold ]
-% \setmonofont{NazivMona}[
-%   Path = fonts/print/ , Extension = .ttf ,
-%   UprightFont = *-Regular , BoldFont = *-SemiBold , Scale = 0.86 ]
+\usepackage{iftex}
 
-% Natpis u velikim slovima s razmakom (eyebrow). Bez fontspec LetterSpace
-% opcije, pa radi i sa zadanim pismom.
-\newcommand{\eyebrow}[2][accent]{{\sffamily\bfseries\footnotesize\color{#1}\MakeUppercase{#2}}}
+\newif\ifbkfonts \bkfontsfalse
+\IfFontExistsTF{Literata}{\IfFontExistsTF{Newsreader}{\bkfontstrue}{}}{}
 
-% ---- poveznice ------------------------------------------------------
+\ifbkfonts
+  \setmainfont{Literata}[
+    Numbers   = {Proportional, OldStyle},
+    Ligatures = TeX ]
+  \newfontfamily\bkdisplay{Newsreader}[
+    UprightFont = *-Light,
+    BoldFont    = *-Regular,
+    ItalicFont  = *-LightItalic,
+    Ligatures   = TeX ]
+  \IfFontExistsTF{Public Sans}{%
+    \setsansfont{Public Sans}[Ligatures = TeX]}{}
+  % LIGATURE U KODU ISKLJUČENE. JetBrains Mono bi inače R-ov `<-` ispisao
+  % kao strelicu, a `<=` `>=` `!=` `%>%` kao znakove kojih nema na
+  % tipkovnici. Čitatelj mora moći prepisati svaki znak koji vidi.
+  \IfFontExistsTF{JetBrains Mono}{%
+    \setmonofont{JetBrains Mono}[
+      Scale     = 0.86,
+      Numbers   = {Monospaced, Lining},
+      Ligatures = ResetAll ]}{}
+\else
+  % Rezerva: Latin Modern. Blok se gradi svugdje, bez ijednog preuzimanja.
+  \newcommand{\bkdisplay}{\rmfamily}
+\fi
+
+% Razmaknuta verzalna oznaka („eyebrow"). Razmicanje slova traži pismo
+% učitano preko fontspeca; bez knjižnih pisama ispisuje se bez razmicanja.
+\ifbkfonts
+  \newcommand{\bkls}[1]{{\addfontfeature{LetterSpace=14}#1}}
+\else
+  \newcommand{\bkls}[1]{#1}
+\fi
+\newcommand{\eyebrow}[2][bkink]{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{#1}\bkls{#2}}}
+
+% ---- poveznice: tinta, nikad plavo ----------------------------------
 \AtBeginDocument{\hypersetup{
-  linkcolor=accentdeep, citecolor=accentdeep,
-  urlcolor=accentdeep, filecolor=accentdeep }}
+  colorlinks=true,
+  linkcolor=bkink, citecolor=bkink,
+  urlcolor=bkink, filecolor=bkink }}
 
 % =====================================================================
-%  NASLOVI
+%  NASLOVI — displejni serif, svijetli rez, nikad bold
 % =====================================================================
 
 % ---- DIO (part) -----------------------------------------------------
-\setkomafont{part}{\normalfont\color{ink}}
+\setkomafont{part}{\normalfont\color{bkink}}
 \renewcommand*{\partformat}{}
 \renewcommand*{\partheadstartvskip}{\null\vskip 8em}
 \renewcommand*{\partheadendvskip}{\vfil\newpage}
 \newcommand{\BookPartHead}[1]{%
   \raggedright
-  {\color{archival}\rule{\linewidth}{0.8pt}}\par
-  \vskip 0.85em
-  {\bfseries\color{ink}\fontsize{28}{33}\selectfont #1\par}%
-  \vskip 0.85em
-  {\color{accent}\rule{\linewidth}{1.5pt}}%
+  {\color{bkink}\rule{\linewidth}{1.2pt}}\par
+  \vskip 1.1em
+  {\bkdisplay\mdseries\color{bkink}\fontsize{30}{34}\selectfont #1\par}%
+  \vskip 1.1em
+  {\color{bkrule}\rule{\linewidth}{0.4pt}}%
 }
 \renewcommand{\partlineswithprefixformat}[3]{\BookPartHead{#3}}
 
 % ---- POGLAVLJE ------------------------------------------------------
-% Natpis "Poglavlje" gasi se u dodacima da literatura ne bude krivo označena.
+% Otvaranje: oznaka POGLAVLJE u monou, naslov u displejnom serifu na
+% najviše ~14 znakova širine, pa vlas linija. Bez slike, bez broja kao
+% ukrasa. Natpis se gasi u dodacima da literatura ne bude krivo označena.
 \newif\ifbookeyebrow \bookeyebrowtrue
 \let\bookoldappendix\appendix
 \renewcommand{\appendix}{\bookoldappendix\bookeyebrowfalse}
-\setkomafont{chapter}{\bfseries\color{ink}}
+\setkomafont{chapter}{\bkdisplay\mdseries\color{bkink}}
 \renewcommand*{\chapterformat}{}
-\renewcommand*{\chapterheadstartvskip}{\null\vskip 5.5em}
+\renewcommand*{\chapterheadstartvskip}{\null\vskip 6em}
+\renewcommand*{\chapterheadendvskip}{\vskip 2.4em}
 \newcommand{\BookChapHead}[1]{%
   \raggedright
-  \ifbookeyebrow {\eyebrow{Poglavlje}\par}\vskip 0.55em \fi
-  {\usekomafont{chapter}\fontsize{22}{26}\selectfont #1\par}%
-  \vskip 0.45em
-  {\color{accent}\rule{\linewidth}{1.3pt}}%
-  \par\vskip 2.2em
+  \ifbookeyebrow {\eyebrow{POGLAVLJE \thechapter}\par}\vskip 1.3em \fi
+  {\usekomafont{chapter}\fontsize{30}{33}\selectfont #1\par}%
+  \vskip 1.1em
+  {\color{bkrule}\rule{\linewidth}{0.4pt}}%
 }
 \renewcommand{\chapterlinesformat}[3]{\BookChapHead{#3}}
 \renewcommand{\chapterlineswithprefixformat}[3]{\BookChapHead{#3}}
 
+% Uvodna rečenica ispod naslova poglavlja.
+\newcommand{\bklead}[1]{%
+  \vskip 0.3\baselineskip
+  {\fontsize{12.5pt}{17pt}\selectfont\color{bktext}\raggedright #1\par}%
+  \vskip 1.2\baselineskip}
+
 % ---- ODJELJCI -------------------------------------------------------
-\setkomafont{section}{\bfseries\color{accentdeep}}
-\setkomafont{subsection}{\bfseries\color{accentdeep}}
-\setkomafont{subsubsection}{\sffamily\bfseries\color{inksoft}}
-\setkomafont{paragraph}{\sffamily\bfseries\color{inksoft}}
+\setkomafont{section}{\bkdisplay\mdseries\color{bkink}}
+\setkomafont{subsection}{\bkdisplay\mdseries\color{bkink}}
+\setkomafont{subsubsection}{\sffamily\bfseries\color{bktext}}
+\setkomafont{paragraph}{\sffamily\bfseries\color{bktext}}
 
 % ---- sadržaj --------------------------------------------------------
-\setkomafont{partentry}{\bfseries\color{ink}}
-\setkomafont{chapterentry}{\color{ink}}
+\setkomafont{partentry}{\bkdisplay\mdseries\color{bkink}}
+\setkomafont{chapterentry}{\color{bkink}}
 
 % =====================================================================
-%  ŽIVA PAGINA
+%  ŽIVA PAGINA — mono, prigušena, bez crte u boji
 % =====================================================================
 \usepackage[automark]{scrlayer-scrpage}
 \clearpairofpagestyles
 \automark[section]{chapter}
-\setkomafont{pagehead}{\sffamily\footnotesize\color{inkmute}}
-\setkomafont{pagenumber}{\normalfont\ttfamily\footnotesize\color{inkmute}}
-\setkomafont{headsepline}{\color{accent}}
-\lehead{{\normalfont\sffamily\upshape\footnotesize\color{inkmute}\leftmark}}
-\rohead{{\normalfont\sffamily\upshape\footnotesize\color{inkmute}\rightmark}}
-\cfoot*{{\ttfamily\footnotesize\color{inkmute}\thepage}}
-\KOMAoptions{headsepline=0.6pt}
+\setkomafont{pagehead}{\normalfont}
+\setkomafont{pagenumber}{\normalfont}
+\lehead{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\leftmark}}
+\rohead{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\rightmark}}
+\cfoot*{{\ttfamily\fontsize{8pt}{10pt}\selectfont\color{bkmuted}\thepage}}
+\KOMAoptions{headsepline=off}
 \pagestyle{scrheadings}
 
 % =====================================================================
@@ -134,31 +186,106 @@
 % =====================================================================
 %  PEDAGOŠKE KUTIJE  (omata ih pdf-filters/book-callouts.lua)
 % =====================================================================
+%  Svaka kutija razlikuje se CRTOM I OZNAKOM, ne ispunom u boji:
+%
+%    Vinjeta            1,2 pt gornja crta + vlas donja, displejni kurziv
+%    Statistika u divljini   bijela ploha u 1,6 pt crnom okviru
+%    Pitajte model      točkasti okvir, upit u monou na 4 % sivoj
+%    Nađite grešku      2,4 pt gornja crta, bez ispune
+%    Razrađeni primjer  viseći mono brojevi koraka
+%
+%  Natpisi se predaju VEĆ VELIKIM SLOVIMA, bez \MakeUppercase. Razlog je Đ:
+%  automatsko povećavanje slova ispisalo ga je kao goli D („NADITE GREŠKU"),
+%  dok literalno Đ prolazi ispravno.
+% =====================================================================
 \usepackage[most]{tcolorbox}
-\newtcolorbox{bookcallout}[2]{%
-  enhanced, breakable, sharp corners,
-  colback=papersoft, colframe=#1,
-  boxrule=0.4pt, leftrule=3pt,
-  left=14pt, right=13pt, top=11pt, bottom=12pt,
-  before skip=12pt, after skip=12pt,
-  fontupper=\color{ink},
-  coltitle=#1, fonttitle=\sffamily\bfseries\footnotesize,
-  attach title to upper={\par\vskip 7pt},
-  title={#2}%
+\usepackage{marginnote}
+
+\newcommand{\bklbl}[1]{{\eyebrow{#1}\par}\vspace{7pt}}
+
+% Vinjeta
+\newenvironment{calloutvinjeta}{%
+  \par\vspace{6pt}{\color{bkink}\hrule height 1.2pt}\vspace{11pt}%
+  \bklbl{VINJETA}%
+  \bkdisplay\itshape\fontsize{13pt}{18pt}\selectfont\color{bkink}\raggedright
+}{%
+  \par\vspace{11pt}{\color{bkrule}\hrule height 0.4pt}\vspace{16pt}\normalfont\color{bktext}%
 }
-% Natpisi se predaju VEĆ VELIKIM SLOVIMA, bez \MakeUppercase. Razlog je Đ:
-% automatsko povećavanje slova ispisalo ga je kao goli D („NADITE GREŠKU"),
-% dok literalno Đ prolazi ispravno.
-\newenvironment{calloutvinjeta}{\begin{bookcallout}{archival}{VINJETA}}{\end{bookcallout}}
-\newenvironment{calloutdivljina}{\begin{bookcallout}{emphasis}{STATISTIKA U DIVLJINI}}{\end{bookcallout}}
-\newenvironment{calloutmodel}{\begin{bookcallout}{accent}{PITAJTE MODEL}}{\end{bookcallout}}
-\newenvironment{calloutgreska}{\begin{bookcallout}{emphasis}{NAĐITE GREŠKU}}{\end{bookcallout}}
+
+% Statistika u divljini — na zaslonu obrnuta tamna traka; u tisku bi puna
+% crna ploha progutala tekst i papir, pa se obrće u okvir.
+\newenvironment{calloutdivljina}{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=1.6pt,
+    colframe=bkink, colback=white,
+    left=14pt, right=14pt, top=13pt, bottom=13pt,
+    before skip=16pt, after skip=16pt]
+  \bklbl{STATISTIKA U DIVLJINI}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+
+% Pitajte model — točkasti okvir, glas stroja
+\newenvironment{calloutmodel}{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, frame hidden,
+    boxrule=0pt, colback=white,
+    borderline={0.6pt}{0pt}{bkmuted, dotted},
+    left=12pt, right=12pt, top=11pt, bottom=11pt,
+    before skip=16pt, after skip=16pt]
+  \bklbl{PITAJTE MODEL}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+
+% Nađite grešku — teška gornja crta, bez ispune
+\newenvironment{calloutgreska}{%
+  \par\vspace{14pt}{\color{bkink}\hrule height 2.4pt}\vspace{10pt}%
+  \bklbl{NAĐITE GREŠKU}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\par\vspace{14pt}\normalfont\normalsize}
+
+% Razrađeni primjer
+\newenvironment{calloutprimjer}{%
+  \par\vspace{16pt}\bklbl{RAZRAĐENI PRIMJER}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\par\vspace{14pt}\normalfont\normalsize}
+
+% Sažetak — uvučena traka
+\newenvironment{calloutsazetak}{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=0pt, colback=bkwash,
+    left=14pt, right=14pt, top=13pt, bottom=13pt,
+    before skip=18pt, after skip=14pt]
+  \bklbl{SAŽETAK POGLAVLJA}%
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+
+% Definicija — 1,6 pt lijeva crta + 4 % siva ispuna. Quarto sam ispisuje
+% oznaku „Definicija 1", pa je ovdje nema.
+\newenvironment{calloutdefinicija}{%
+  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=0pt,
+    leftrule=1.6pt, colframe=bkink, colback=bkwash,
+    left=12pt, right=12pt, top=11pt, bottom=11pt,
+    before skip=14pt, after skip=14pt]
+  \fontsize{9.5pt}{13.5pt}\selectfont
+}{\end{tcolorbox}}
+
+% =====================================================================
+%  TABLICE — bez okomitih linija, bez zebre
+% =====================================================================
+\setlength{\heavyrulewidth}{0.9pt}
+\setlength{\lightrulewidth}{0.4pt}
+\renewcommand{\arraystretch}{1.22}
 
 % =====================================================================
 %  OPISI SLIKA I TABLICA
+%  Oznaka u monou, rečenica u sansu, oboje prigušeno.
 % =====================================================================
-\setkomafont{caption}{\sffamily\small\color{inkmute}}
-\setkomafont{captionlabel}{\sffamily\bfseries\color{accentdeep}}
+\setkomafont{caption}{\sffamily\fontsize{8.5pt}{11.5pt}\selectfont\color{bkmuted}}
+\setkomafont{captionlabel}{\ttfamily\fontsize{7.5pt}{10pt}\selectfont\color{bkink}}
+
+% ---- bilješke uz rub -------------------------------------------------
+\renewcommand*{\marginfont}{\sffamily\fontsize{8pt}{10.5pt}\selectfont\color{bkmuted}\raggedright}
+
+% ---- udovice i siročad ----------------------------------------------
+\widowpenalty=10000
+\clubpenalty=10000
 
 % =====================================================================
 %  NASLOVNICA (nadjačava \maketitle; ide prije sadržaja)
@@ -166,25 +293,25 @@
 \makeatletter
 \renewcommand{\maketitle}{%
   \begin{titlepage}%
-  \newgeometry{margin=2.6cm}%
+  \newgeometry{inner=26mm, outer=26mm, top=30mm, bottom=26mm}%
   \raggedright
-  \null\vskip 4.5em
-  \eyebrow[inkmute]{Udžbenik statistike}\par
-  \vskip 0.9em
-  {\color{accent}\rule{\linewidth}{1pt}}\par
-  \vskip 1.6em
-  {\bfseries\color{ink}\fontsize{34}{40}\selectfont \@title\par}%
+  \null\vskip 5em
+  \eyebrow[bkfaint]{UDŽBENIK STATISTIKE}\par
+  \vskip 1.1em
+  {\color{bkink}\rule{\linewidth}{1.2pt}}\par
+  \vskip 2em
+  {\bkdisplay\mdseries\color{bkink}\fontsize{34}{38}\selectfont \@title\par}%
   \ifx\@subtitle\@empty\else
-    \vskip 0.8em
-    {\itshape\fontsize{15}{20}\selectfont\color{inksoft}\@subtitle\par}%
+    \vskip 1em
+    {\itshape\fontsize{14}{19}\selectfont\color{bktext}\@subtitle\par}%
   \fi
   \vfill
-  {\color{archival}\rule{\linewidth}{0.6pt}}\par
-  \vskip 0.9em
-  {\sffamily\large\color{ink}%
-    \renewcommand{\and}{\ \textcolor{archival}{\textperiodcentered}\ }\@author\par}%
-  \vskip 0.5em
-  {\rmfamily\color{inkmute}\@date\par}%
+  {\color{bkrule}\rule{\linewidth}{0.4pt}}\par
+  \vskip 1em
+  {\sffamily\large\color{bkink}%
+    \renewcommand{\and}{\ \textperiodcentered\ }\@author\par}%
+  \vskip 0.6em
+  {\ttfamily\fontsize{8pt}{10pt}\selectfont\color{bkfaint}\@date\par}%
   \restoregeometry
   \end{titlepage}%
 }
