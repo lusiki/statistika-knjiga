@@ -56,6 +56,13 @@ jobs:
         if: steps.renv.outputs.has == 'true'
         uses: r-lib/actions/setup-renv@v2
 
+      # showtext + sysfonts nose knjižna pisma u grafovima (Newsreader, Public
+      # Sans, JetBrains Mono). Bez njih se sve i dalje renderira, ali figure
+      # izgube tipografiju knjige — R/setup.R tada tiho gasi fig.showtext.
+      #
+      # NE STAVLJAJ KOMENTAR UNUTAR `packages: |`. To je YAML literal blok, pa
+      # svaki redak ide pak-u kao ime paketa; redak koji počinje s `#` ruši
+      # korak s "Cannot parse packages".
       - name: Install R packages (no lockfile yet)
         if: steps.renv.outputs.has != 'true'
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -72,9 +79,6 @@ jobs:
             any::rmarkdown
             any::downlit
             any::xml2
-            # Knjižna pisma u grafovima (Newsreader, Public Sans, JetBrains
-            # Mono). Bez njih se sve i dalje renderira, ali figure izgube
-            # tipografiju knjige — R/setup.R tada tiho gasi fig.showtext.
             any::showtext
             any::sysfonts
 
