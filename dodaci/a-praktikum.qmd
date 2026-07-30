@@ -114,12 +114,22 @@ svugdje gdje se prenese cijela mapa projekta.
 
 Preostaje učitati alate. Sav kod u ovom dodatku pretpostavlja da je na početku
 sesije izvršen sljedeći redak, koji učitava zbirku paketa opisanu niže u
-odjeljku o paketima.
+odjeljku o paketima. Ovo je jedini redak koji morate pokrenuti prije svih
+ostalih primjera.
 
 ```{r}
-#| message: false
-#| warning: false
+#| eval: false
 library(tidyverse)
+```
+
+```{r}
+#| include: false
+# Pogonsko učitavanje. Redak iznad prikazan je čitatelju jer je to ono što on
+# doista upisuje, a ne izvršava se jer okruženje u kojem se knjiga gradi
+# namjerno drži uzak skup paketa. Ovdje se učitava točno ono što primjeri u
+# ovom dodatku izvršavaju, a što R/setup.R već nije učinio.
+library(stringr)
+library(forcats)
 ```
 
 ## Prve naredbe i objekti
