@@ -16,6 +16,10 @@ suppressPackageStartupMessages({
   library(tidyr)
 })
 
+# Simulirani nastavni skupovi. Učitavaju se prije fiksiranja sjemena jer
+# generator čuva i vraća zatečeno stanje RNG-a (vidi R/podaci-nastavni.R).
+source("R/podaci-nastavni.R")
+
 # Hrvatski zapis brojeva mora biti postavljen prije nego što ggplot2 izradi
 # oznake osi ili poglavlje ispiše tablicu.
 options(OutDec = ",", scipen = 999)

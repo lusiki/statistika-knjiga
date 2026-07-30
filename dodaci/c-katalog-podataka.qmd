@@ -38,6 +38,33 @@ algoritmima stvaraju podatke kodom uz fiksirano sjeme iz `R/setup.R`.
 Simulacije služe učenju mehanizma i nikada se ne opisuju kao nalaz o stvarnoj
 populaciji. Svaki rezultat može se ponovno proizvesti iz koda u poglavlju.
 
+Jedan simulirani skup nije lokalan za pojedino poglavlje nego prolazi kroz više
+njih, pa ima vlastiti unos. Njegov generator živi u `R/podaci-nastavni.R` i
+poziva se iz `R/setup.R`, tako da je skup dostupan svakom poglavlju pod imenom
+`anketa_mreze` bez dodatnog učitavanja. Generator nosi vlastito sjeme i vraća
+zatečeno stanje generatora slučajnih brojeva, pa učitavanje skupa ne pomiče
+nijednu kasniju simulaciju u poglavlju.
+
+| Svojstvo | Opis |
+|---|---|
+| Ime | `anketa_mreze` |
+| Podrijetlo | simulacija, `R/podaci-nastavni.R`, sjeme 4001 |
+| Jedinica analize | ispitanik |
+| Veličina | 300 opažanja |
+| Varijable | `ispitanik`, `dob`, `dobna_skupina`, `minute_dnevno`, `povjerenje` |
+| Oblik | dnevno vrijeme korištenja je lognormalno po dobnoj skupini, pa je zbirna raspodjela nagnuta prema većim vrijednostima |
+| Uporaba | poglavlja o sažimanju podataka, vizualizaciji i povezanosti |
+| Licenca | nije primjenjiva, skup nastaje kodom u ovom repozitoriju |
+
+: Simulirana anketa o korištenju društvenih mreža. Izrada autora.
+
+Skup je nastavno pomagalo i nije mjerenje. Nijedna brojka izvedena iz njega ne
+smije se navesti kao tvrdnja o korištenju društvenih mreža u Hrvatskoj ni
+igdje drugdje, a poglavlja koja ga koriste to kažu na prvom mjestu na kojem se
+pojavi. Postoji zato da poglavlja o opisivanju podataka rade na istim
+ispitanicima, pa čitatelj isti uzorak prepoznaje u sažecima, grafovima i
+koeficijentima.
+
 ## Sljedeći podatkovni val
 
 Plan knjige predviđa provjerene društvenoznanstvene skupove iz Europskoga

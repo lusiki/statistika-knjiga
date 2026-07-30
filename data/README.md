@@ -12,5 +12,10 @@ Skupovi podataka koje knjiga koristi, plus dvije generirane datoteke.
 Svaki skup podataka mora imati unos u Dodatku C (izvor, licenca, varijable,
 putanja). Skup bez tog unosa ne smije se koristiti u poglavlju.
 
+Simulirani nastavni skupovi ne stoje ovdje kao datoteke. Generator je
+`R/podaci-nastavni.R`, poziva ga `R/setup.R`, a skup `anketa_mreze` time je
+dostupan svakom poglavlju. Kod je jedini izvor, pa se nema što urezivati osim
+njega, i nijedna simulirana brojka ne smije se navesti kao mjerenje.
+
 Podaci koji opisuju pojedince ne ulaze ovamo bez anonimizacije, i ne ulaze u
 razgovor s AI asistentom ni tada (Dodatak F).
