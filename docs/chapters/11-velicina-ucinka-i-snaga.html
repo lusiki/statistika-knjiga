@@ -103,6 +103,9 @@ div.csl-indent {
 <link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -734,8 +737,11 @@ window.Quarto = {
    
   <ul>
   <li><a href="#razlika-koja-nešto-znači" id="toc-razlika-koja-nešto-znači" class="nav-link active" data-scroll-target="#razlika-koja-nešto-znači">Razlika koja nešto znači</a></li>
-  <li><a href="#planiranje-unatrag" id="toc-planiranje-unatrag" class="nav-link" data-scroll-target="#planiranje-unatrag">Planiranje unatrag</a></li>
+  <li><a href="#kad-je-značajno-a-nije-važno" id="toc-kad-je-značajno-a-nije-važno" class="nav-link" data-scroll-target="#kad-je-značajno-a-nije-važno">Kad je značajno, a nije važno</a></li>
+  <li><a href="#snaga-kao-svojstvo-plana" id="toc-snaga-kao-svojstvo-plana" class="nav-link" data-scroll-target="#snaga-kao-svojstvo-plana">Snaga kao svojstvo plana</a></li>
   <li><a href="#interakcija-istraživač-snage" id="toc-interakcija-istraživač-snage" class="nav-link" data-scroll-target="#interakcija-istraživač-snage">Interakcija — Istraživač snage</a></li>
+  <li><a href="#podsnažene-studije-pretjeruju" id="toc-podsnažene-studije-pretjeruju" class="nav-link" data-scroll-target="#podsnažene-studije-pretjeruju">Podsnažene studije pretjeruju</a></li>
+  <li><a href="#planiranje-unatrag" id="toc-planiranje-unatrag" class="nav-link" data-scroll-target="#planiranje-unatrag">Planiranje unatrag</a></li>
   <li><a href="#razrađeni-primjer" id="toc-razrađeni-primjer" class="nav-link" data-scroll-target="#razrađeni-primjer">Razrađeni primjer</a></li>
   <li><a href="#sažetak" id="toc-sažetak" class="nav-link" data-scroll-target="#sažetak">Sažetak</a></li>
   <li><a href="#pojmovi" id="toc-pojmovi" class="nav-link" data-scroll-target="#pojmovi">Pojmovi</a></li>
@@ -854,14 +860,35 @@ window.Quarto = {
 </script>
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument, strukturni elementi i widget dovršeni
-  IZVOR:   tjedan 9, druga polovica, prošireno
+  STATUS:  cjelovit nacrt — prijenos tjedna 9, druga polovica, runda 5
+  IZVOR:   tjedan 9, odjeljci 10, 11 i 13, prošireno
   OPSEG:   ~4000 riječi
   WIDGET:  w11 · Istraživač snage
   FAZA:    3 (plan proizvodnje, notes/struktura-knjige.md)
 
   SADRŽAJ (iz plana):
   Cohenov d, praktična nasuprot statističkoj značajnosti, snaga i njezine odrednice, zašto podsnažene studije zavaravaju u oba smjera, planiranje studije unatrag od učinka do kojega nam je stalo.
+
+  PODRIJETLO (runda 5, notes/plan-prijenosa.md):
+  1. Poglavlje nastavlja usporedbu iz poglavlja o logici testiranja, na istoj
+     simuliranoj populaciji iz R/podaci-nastavni.R. Ta razlika u populaciji
+     iznosi 0,74 boda i poznata je, pa se pretjerivanje procjena može izmjeriti
+     umjesto opisati.
+  2. VLASNIŠTVO POJMA. Definicija standardizirane razlike do runde 4 stajala je
+     u poglavlju o dvjema grupama, koje dolazi kasnije. Plan taj pojam dodjeljuje
+     ovom poglavlju, pa je definicijski div premješten ovamo, a poglavlje o
+     dvjema grupama sada se na njega poziva. Zapisano u concept-ledger.json.
+  3. IZOSTAVLJENA tablica malog, srednjeg i velikog učinka kao ljestvica za
+     očitavanje. Orijentacijske vrijednosti navode se jednom, uz napomenu kako
+     ih je i sam izvor ponudio [@cohen1988].
+  4. IZOSTAVLJENO višestruko testiranje i APA predlošci izvještavanja iz istog
+     predavanja. Prvo pripada poglavlju o više grupa i poglavlju o krizi.
+  5. Krivulja snage izmjerena je permutacijskim postupkom iz prethodnog
+     poglavlja, pa se vrijednost pri tristo jedinica poklapa s ondje izmjerenom
+     stopom. To je namjerno, jer je riječ o istoj brojci pod dva imena.
+  6. A/B primjer s golemim uzorkom prenesen je iz predavanja, ali s
+     konstruiranim podacima označenima kao takvi, budući da izvorni skup knjizi
+     nije dostupan.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
@@ -878,55 +905,128 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>5 min</td>
+<td>22 min</td>
 <td>Istraživač snage</td>
-<td>simulacija</td>
+<td>simulirana populacija</td>
 <td>pogl. 9, 10</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="callout-vinjeta page-columns page-full">
-<p>Cohen je kritizirao praksu u kojoj je statistička značajnost zamjenjivala razmišljanje o veličini i važnosti učinka <span class="citation" data-cites="cohen1994">(<a href="../references.html#ref-cohen1994" role="doc-biblioref">Cohen 1994.</a>)</span>. Vrlo velik uzorak može malu razliku učiniti lako uočljivom, dok mali uzorak može propustiti učinak koji bi bio važan ljudima na koje se odluka odnosi.</p>
-<div class="no-row-height column-margin column-container"></div><p>Problem zato nije riješen pitanjem postoji li razlika. Istraživač mora prije prikupljanja podataka odrediti koja bi razlika promijenila zaključak ili postupanje. Tek tada veličina uzorka postaje planska odluka.</p>
+<p>Cohen je 1994. objavio kritiku prakse u kojoj je statistička značajnost zamijenila razmišljanje o veličini i važnosti učinka, pod naslovom koji je podsjećao da neke tvrdnje ne trebaju test <span class="citation" data-cites="cohen1994">(<a href="../references.html#ref-cohen1994" role="doc-biblioref">Cohen 1994.</a>)</span>. Nije prigovarao računu. Prigovarao je tome što je jedan broj preuzeo posao prosudbe.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-cohen1994" class="csl-entry" role="listitem">
+Cohen, Jacob. 1994. <span>„The Earth Is Round (p &lt; .05)“</span>. <em>American Psychologist</em> 49 (12): 997–1003.
+</div></div><p>Prigovor je imao vrlo konkretan oblik. Recenzent koji pročita da je razlika značajna ne doznaje je li riječ o pomaku koji bi promijenio nečiju odluku ili o razlici koju je otkrio samo dovoljno velik uzorak. Autor mu tu informaciju nije uskratio namjerno, nego zato što obrazac izvještavanja nije tražio da je napiše.</p>
 <p>Koliko podataka trebamo da bismo pouzdano uočili učinak koji je vrijedan uočavanja?</p>
 </div>
 <section id="razlika-koja-nešto-znači" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="razlika-koja-nešto-znači">Razlika koja nešto znači</h2>
-<p><strong>Veličina učinka</strong> opisuje koliko su skupine, uvjeti ili varijable udaljeni na ljestvici koja omogućuje usporedbu. Sirova razlika čuva izvorne jedinice i često je najlakša za sadržajno tumačenje. Standardizirana razlika poput Cohenova d izražava pomak u jedinicama zajedničke standardne devijacije <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Standardizacija ne odlučuje što je važno. Pragovi za „mali”, „srednji” i „veliki” učinak mogu služiti kao gruba orijentacija, ali društvena posljedica ovisi o ishodu, trošku, vremenu i populaciji. Mala promjena može biti važna kada se odnosi na mnogo ljudi ili na ozbiljan ishod.</p>
-<p>Statistička i praktična važnost zato se izvještavaju odvojeno. Procjena i interval govore koje su veličine usklađene s podacima. Sadržajna prosudba govori koje bi od tih veličina opravdale odluku.</p>
+<p>Poglavlje nastavlja usporedbu iz prethodnog. Isti simulirani stanovnici, isto pitanje o povjerenju u medije među čitateljima tiska i portala, ali sada s punom populacijom umjesto uzorka, jer nas zanima što je istina, a ne kako je pogađamo.</p>
+<p>Razlika iznosi 0,74 boda na ljestvici od jedan do deset. Ta brojka je najvažniji rezultat cijele usporedbe i mora stajati u izvornim jedinicama, jer se samo tako o njoj može odlučivati. Uredništvo koje razmišlja o preraspodjeli sadržaja treba znati govori li se o tri četvrtine boda ili o tri boda.</p>
+<p>Sama razlika ipak ne kaže koliko je velika u odnosu na to kako su ljudi raspoređeni. Bod razlike znači jedno kad su svi odgovori zbijeni oko sredine, a nešto posve drugo kad se protežu preko cijele ljestvice. Standardizirana mjera tu usporedbu ugrađuje u sam broj.</p>
+<div id="def-standardizirana-razlika" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Standardizirana razlika</strong> je razlika dviju sredina podijeljena združenom standardnom devijacijom skupina, pa se izražava u standardnim devijacijama umjesto u izvornim jedinicama.</p>
+<p><span class="math display">\[d = \frac{\bar{x}_2 - \bar{x}_1}{s_{\text{zdr}}}\]</span></p>
+<p>Oznaka <span class="math inline">\(s_{\text{zdr}}\)</span> stoji za združenu standardnu devijaciju, dakle za zajedničku mjeru raspršenosti unutar obiju skupina.</p>
+</div>
+<p>Povjerenje se u ovoj populaciji raspršuje sa združenom standardnom devijacijom od 1,91 boda, pa razlika od 0,74 boda daje standardiziranu razliku od 0,39. Dvije skupine dakle dijeli nešto više od trećine standardne devijacije, što znači da se njihove raspodjele u najvećem dijelu preklapaju i da po jednom ispitaniku ne bi bilo moguće pogoditi odakle se informira.</p>
+<p>Standardna devijacija kao mjerna jedinica ipak ostaje apstraktna, pa isti učinak vrijedi izraziti i na način koji se može zamisliti. Izvučemo li nasumce jednog čitatelja tiska i jednog čitatelja portala, prvi ima više povjerenja u 60,7 % slučajeva. Kad razlike ne bi bilo, taj bi udio iznosio pedeset posto, pa je učinak veličine kakvu ovdje gledamo pomak od desetak postotnih bodova u tako postavljenom pitanju. Rečenica tog oblika prolazi kroz uredničku raspravu bolje od bilo koje standardizirane mjere, jer nitko ne mora znati što je standardna devijacija da bi razumio ishod.</p>
+<p>Orijentacijske vrijednosti za takve mjere postoje i najčešće se navode prema Cohenu, koji ih je ponudio kao pomoć u odsutnosti boljeg oslonca, a ne kao ljestvicu za očitavanje <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>. Što je učinak ove veličine sadržajno, odlučuje usporedba s drugim učincima u istom području i cijena postupanja, a ne tablica pragova. Standardizacija služi tome da se ta usporedba uopće može napraviti, jer razlike izmjerene u minutama, bodovima i postocima inače nemaju zajednički jezik.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-cohen1988" class="csl-entry" role="listitem">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2. izd. Lawrence Erlbaum Associates.
+</div></div></section>
+<section id="kad-je-značajno-a-nije-važno" class="level2">
+<h2 class="anchored" data-anchor-id="kad-je-značajno-a-nije-važno">Kad je značajno, a nije važno</h2>
+<p>Test odgovara na pitanje je li s podacima uskladiva i nula. To pitanje s veličinom učinka ima manje veze nego što se pretpostavlja, i najlakše se to vidi kad je uzorak vrlo velik.</p>
+<p>Zamislimo portal koji uspoređuje dvije naslovnice. Prva ima stvarnu stopu klika od 2,00 %, druga od 2,05 %, a svaka je prikazana pola milijuna puta. Podaci ispod su konstruirani za ovu svrhu i nisu nalaz ni o kojoj stvarnoj kampanji.</p>
+<p>U simuliranom pokusu prva je naslovnica postigla 1,976 %, a druga 2,076 %. Razlika iznosi 0,101 postotnog boda uz interval od 0,045 do 0,156, a p-vrijednost je 0,00036. Po svakom kriteriju iz prethodnog poglavlja rezultat je jasan, jer nulti model ovakvu razliku gotovo nikada ne proizvodi.</p>
+<p>Prevedeno natrag u odluku, dobitak je jedan dodatni klik na otprilike tisuću prikaza. Isplati li se zbog toga mijenjati naslovnicu, ovisi o trošku promjene i o tome što jedan klik vrijedi, a ni jedno ni drugo nije u podacima. Statistička značajnost ovdje govori samo to da je uzorak bio dovoljno velik da razliku ove veličine odvoji od nule.</p>
+<p>Ista logika radi i u suprotnom smjeru. Razlika koja bi promijenila uredničku odluku može ostati neznačajna ako je uzorak malen, i tada izostanak značajnosti ne govori o svijetu nego o količini prikupljenih podataka. Zbog toga se značajnost i važnost izvještavaju odvojeno, i zbog toga procjena s intervalom uvijek stoji ispred testa.</p>
 </section>
-<section id="planiranje-unatrag" class="level2">
-<h2 class="anchored" data-anchor-id="planiranje-unatrag">Planiranje unatrag</h2>
-<p><strong>Statistička snaga</strong> je vjerojatnost da postupak prepozna određeni učinak kada on postoji. Raste s većim učinkom, većim uzorkom, manjom varijabilnošću i liberalnijim pragom. Ti se čimbenici ne mogu tumačiti odvojeno od dizajna i posljedica pogrešaka.</p>
-<p>Slaba snaga ne proizvodi samo više propuštenih nalaza. Među rezultatima koji ipak prijeđu prag procijenjeni učinci mogu biti nestabilni i pretjerani. Planiranje zato počinje najmanjim učinkom vrijednim pažnje, željenom preciznošću i dostupnim resursima, a ne pitanjem koliko je sudionika ostalo do kraja semestra.</p>
+<section id="snaga-kao-svojstvo-plana" class="level2">
+<h2 class="anchored" data-anchor-id="snaga-kao-svojstvo-plana">Snaga kao svojstvo plana</h2>
+<p>Vjerojatnost da postupak pronađe učinak koji postoji nije svojstvo testa nego kombinacije nekoliko odluka, od kojih se većina donosi prije podataka.</p>
+<div id="def-statisticka-snaga" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Statistička snaga</strong> je vjerojatnost da postupak odbaci nultu hipotezu kad je ona lažna, dakle udio ponavljanja u kojima bi učinak zadane veličine bio otkriven.</p>
+</div>
+<p>Prethodno je poglavlje na ovoj populaciji izmjerilo da postupak stvarnu razliku pronalazi u otprilike četiri od pet uzoraka od tristo osoba. Ta brojka upravo je snaga, i sada je vrijedi izmjeriti na više veličina uzorka.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-krivulja-snage" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-krivulja-snage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,05 pri stvarnoj razlici od 0,74 boda. Tristo simuliranih studija po retku. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-krivulja-snage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Jedinica u uzorku</th>
+<th style="text-align: right;">Snaga</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">22,7 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">35,7 %</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">56,7 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">79,7 %</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">93,7 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">99,7 %</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Rast nije ravnomjeran i to je najvažnije u tablici. Podizanje uzorka sa šezdeset na tristo osoba snagu diže s 22,7 % na 79,7 %, a svako daljnje ulaganje kupuje sve manje, jer je udio ograničen odozgo. Studija sa šezdeset osoba nije upola lošija od studije s tristo, nego je gotovo beskorisna za ovo pitanje.</p>
+<p>Četiri stvari određuju gdje se na toj krivulji nalazimo. Veći stvarni učinak lakše se otkriva, veći uzorak daje precizniju procjenu, manja raspršenost ishoda čisti signal, a blaži prag propušta više rezultata. Prve dvije obično su jedine koje istraživač može mijenjati, i samo je druga u njegovim rukama nakon što je pitanje postavljeno.</p>
+<p>Konvencija traži barem 80 %, i kao svaka konvencija služi kao polazište, a ne kao dokaz. Ako propuštena razlika nosi ozbiljnu posljedicu, osamdeset posto je premalo, a ako je istraživanje prvo u nizu i služi kao provjera izvedivosti, može biti previše.</p>
 </section>
-<section id="interakcija-istraživač-snage" class="level2 page-columns page-full">
+<section id="interakcija-istraživač-snage" class="level2">
 <h2 class="anchored" data-anchor-id="interakcija-istraživač-snage">Interakcija — Istraživač snage</h2>
-<p>Istraživač snage povezuje veličinu učinka, uzorak i prag. Čitatelj mijenja jedan element dok ostale drži jednakima i vidi da ista odluka ima različite posljedice za male i velike učinke.</p>
+<p>Sljedeći prikaz odvaja tri odluke koje se u praksi donose zajedno. Čitatelj mijenja stvarnu veličinu učinka, broj jedinica i prag, svaki put samo jedno, i prati kako se pomiče udio uzoraka u kojima bi postupak nešto našao.</p>
 <div class="widget-frame" data-naslov="Istraživač snage" data-oznaka="Widget 11.1 · interaktivno">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="87" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 86;"><span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>viewof w11_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ucinak</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.1</span><span class="op">,</span> <span class="fl">0.8</span>]<span class="op">,</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.35</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Standardizirana razlika"</span>}</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">10</span><span class="op">,</span> <span class="dv">300</span>]<span class="op">,</span></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">80</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Veličina svake skupine"</span>}</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>  <span class="dt">prag</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.10</span>]<span class="op">,</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prag odluke"</span>}</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ponavljanja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">3000</span>]<span class="op">,</span></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">1500</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Ponavljanja po točki"</span>}</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="316" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 315;"><span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>viewof w11_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ucinak</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.1</span><span class="op">,</span> <span class="fl">0.8</span>]<span class="op">,</span></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.35</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Standardizirana razlika"</span>}</span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">10</span><span class="op">,</span> <span class="dv">300</span>]<span class="op">,</span></span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">80</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Veličina svake skupine"</span>}</span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>  <span class="dt">prag</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.01</span><span class="op">,</span> <span class="fl">0.10</span>]<span class="op">,</span></span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prag odluke"</span>}</span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ponavljanja</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">500</span><span class="op">,</span> <span class="dv">3000</span>]<span class="op">,</span></span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">1500</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Ponavljanja po točki"</span>}</span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -937,117 +1037,117 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="112" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 111;"><span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> krivulja <span class="op">=</span> <span class="st">"var(--tok-data-2)"</span><span class="op">;</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">erf</span>(x) {</span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> predznak <span class="op">=</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="op">-</span><span class="dv">1</span> <span class="op">:</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x)<span class="op">;</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> z)<span class="op">;</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> y <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (((((<span class="fl">1.061405429</span> <span class="op">*</span> t <span class="op">-</span> <span class="fl">1.453152027</span>) <span class="op">*</span> t) <span class="op">+</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>      <span class="fl">1.421413741</span>) <span class="op">*</span> t <span class="op">-</span> <span class="fl">0.284496736</span>) <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.254829592</span>) <span class="op">*</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>      t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>z <span class="op">*</span> z)<span class="op">;</span></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> predznak <span class="op">*</span> y<span class="op">;</span></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalnaF <span class="op">=</span> x <span class="kw">=&gt;</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fu">erf</span>(x <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span>))<span class="op">;</span></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">kvantilNormalne</span>(p) {</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> donja <span class="op">=</span> <span class="op">-</span><span class="dv">8</span><span class="op">;</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gornja <span class="op">=</span> <span class="dv">8</span><span class="op">;</span></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">60</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) {</span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> sredina <span class="op">=</span> (donja <span class="op">+</span> gornja) <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">normalnaF</span>(sredina) <span class="op">&lt;</span> p) donja <span class="op">=</span> sredina<span class="op">;</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> gornja <span class="op">=</span> sredina<span class="op">;</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (donja <span class="op">+</span> gornja) <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> kriticna <span class="op">=</span> <span class="fu">kvantilNormalne</span>(<span class="dv">1</span> <span class="op">-</span> w11_par<span class="op">.</span><span class="at">prag</span> <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1111</span>)<span class="op">;</span></span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> standardna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> krivuljaSnage <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">10</span><span class="op">,</span> <span class="dv">301</span><span class="op">,</span> <span class="dv">10</span>)<span class="op">.</span><span class="fu">map</span>(n <span class="kw">=&gt;</span> {</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sredinaZ <span class="op">=</span> w11_par<span class="op">.</span><span class="at">ucinak</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> odbacivanja <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> w11_par<span class="op">.</span><span class="at">ponavljanja</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) {</span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(sredinaZ <span class="op">+</span> <span class="fu">standardna</span>()) <span class="op">&gt;=</span> kriticna) odbacivanja <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {n<span class="op">,</span> <span class="dt">snaga</span><span class="op">:</span> odbacivanja <span class="op">/</span> w11_par<span class="op">.</span><span class="at">ponavljanja</span>}<span class="op">;</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> odabrana <span class="op">=</span> krivuljaSnage<span class="op">.</span><span class="fu">find</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">n</span> <span class="op">===</span> w11_par<span class="op">.</span><span class="at">n</span>)<span class="op">;</span></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">200</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">410</span> <span class="op">:</span> <span class="dv">340</span><span class="op">,</span></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">66</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"14px"</span> <span class="op">:</span> <span class="st">"12px"</span></span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Veličina svake skupine"</span><span class="op">,</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">300</span>]<span class="op">,</span></span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Statistička snaga"</span><span class="op">,</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> postotak<span class="op">.</span><span class="fu">format</span>(d)</span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="fl">0.8</span>]<span class="op">,</span> {</span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> linija<span class="op">,</span></span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.2</span><span class="op">,</span></span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span></span>
-<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">lineY</span>(krivuljaSnage<span class="op">,</span> {</span>
-<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span></span>
-<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"snaga"</span><span class="op">,</span></span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> krivulja<span class="op">,</span></span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span></span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>([odabrana]<span class="op">,</span> {</span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span></span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"snaga"</span><span class="op">,</span></span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> naglasak<span class="op">,</span></span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">5</span></span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
-<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
-<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
-<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;Za n = </span><span class="sc">${</span>w11_par<span class="op">.</span><span class="at">n</span><span class="sc">}</span><span class="vs"> simulirana snaga iznosi </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(odabrana<span class="op">.</span><span class="at">snaga</span>)<span class="sc">}</span><span class="vs">.&lt;/p&gt;</span></span>
-<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="341" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 340;"><span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> krivulja <span class="op">=</span> <span class="st">"var(--tok-data-2)"</span><span class="op">;</span></span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">erf</span>(x) {</span>
+<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> predznak <span class="op">=</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="op">-</span><span class="dv">1</span> <span class="op">:</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x)<span class="op">;</span></span>
+<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> z)<span class="op">;</span></span>
+<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> y <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (((((<span class="fl">1.061405429</span> <span class="op">*</span> t <span class="op">-</span> <span class="fl">1.453152027</span>) <span class="op">*</span> t) <span class="op">+</span></span>
+<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>      <span class="fl">1.421413741</span>) <span class="op">*</span> t <span class="op">-</span> <span class="fl">0.284496736</span>) <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.254829592</span>) <span class="op">*</span></span>
+<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>      t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>z <span class="op">*</span> z)<span class="op">;</span></span>
+<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> predznak <span class="op">*</span> y<span class="op">;</span></span>
+<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalnaF <span class="op">=</span> x <span class="kw">=&gt;</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fu">erf</span>(x <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span>))<span class="op">;</span></span>
+<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">kvantilNormalne</span>(p) {</span>
+<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> donja <span class="op">=</span> <span class="op">-</span><span class="dv">8</span><span class="op">;</span></span>
+<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> gornja <span class="op">=</span> <span class="dv">8</span><span class="op">;</span></span>
+<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">60</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) {</span>
+<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> sredina <span class="op">=</span> (donja <span class="op">+</span> gornja) <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">normalnaF</span>(sredina) <span class="op">&lt;</span> p) donja <span class="op">=</span> sredina<span class="op">;</span></span>
+<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> gornja <span class="op">=</span> sredina<span class="op">;</span></span>
+<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (donja <span class="op">+</span> gornja) <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> kriticna <span class="op">=</span> <span class="fu">kvantilNormalne</span>(<span class="dv">1</span> <span class="op">-</span> w11_par<span class="op">.</span><span class="at">prag</span> <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1111</span>)<span class="op">;</span></span>
+<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> standardna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> krivuljaSnage <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">10</span><span class="op">,</span> <span class="dv">301</span><span class="op">,</span> <span class="dv">10</span>)<span class="op">.</span><span class="fu">map</span>(n <span class="kw">=&gt;</span> {</span>
+<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sredinaZ <span class="op">=</span> w11_par<span class="op">.</span><span class="at">ucinak</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n <span class="op">/</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> odbacivanja <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> w11_par<span class="op">.</span><span class="at">ponavljanja</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) {</span>
+<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(sredinaZ <span class="op">+</span> <span class="fu">standardna</span>()) <span class="op">&gt;=</span> kriticna) odbacivanja <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {n<span class="op">,</span> <span class="dt">snaga</span><span class="op">:</span> odbacivanja <span class="op">/</span> w11_par<span class="op">.</span><span class="at">ponavljanja</span>}<span class="op">;</span></span>
+<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> odabrana <span class="op">=</span> krivuljaSnage<span class="op">.</span><span class="fu">find</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">n</span> <span class="op">===</span> w11_par<span class="op">.</span><span class="at">n</span>)<span class="op">;</span></span>
+<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
+<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
+<span id="cb2-397"><a href="#cb2-397" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb2-398"><a href="#cb2-398" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">200</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
+<span id="cb2-399"><a href="#cb2-399" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
+<span id="cb2-400"><a href="#cb2-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-401"><a href="#cb2-401" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-402"><a href="#cb2-402" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
+<span id="cb2-403"><a href="#cb2-403" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">410</span> <span class="op">:</span> <span class="dv">340</span><span class="op">,</span></span>
+<span id="cb2-404"><a href="#cb2-404" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">66</span> <span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
+<span id="cb2-405"><a href="#cb2-405" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">16</span> <span class="op">:</span> <span class="dv">24</span><span class="op">,</span></span>
+<span id="cb2-406"><a href="#cb2-406" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">54</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
+<span id="cb2-407"><a href="#cb2-407" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb2-408"><a href="#cb2-408" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb2-409"><a href="#cb2-409" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-410"><a href="#cb2-410" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
+<span id="cb2-411"><a href="#cb2-411" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"14px"</span> <span class="op">:</span> <span class="st">"12px"</span></span>
+<span id="cb2-412"><a href="#cb2-412" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-413"><a href="#cb2-413" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb2-414"><a href="#cb2-414" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Veličina svake skupine"</span><span class="op">,</span></span>
+<span id="cb2-415"><a href="#cb2-415" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">300</span>]<span class="op">,</span></span>
+<span id="cb2-416"><a href="#cb2-416" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
+<span id="cb2-417"><a href="#cb2-417" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-418"><a href="#cb2-418" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb2-419"><a href="#cb2-419" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Statistička snaga"</span><span class="op">,</span></span>
+<span id="cb2-420"><a href="#cb2-420" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></span>
+<span id="cb2-421"><a href="#cb2-421" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-422"><a href="#cb2-422" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> postotak<span class="op">.</span><span class="fu">format</span>(d)</span>
+<span id="cb2-423"><a href="#cb2-423" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="fl">0.8</span>]<span class="op">,</span> {</span>
+<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> linija<span class="op">,</span></span>
+<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.2</span><span class="op">,</span></span>
+<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,3"</span></span>
+<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">lineY</span>(krivuljaSnage<span class="op">,</span> {</span>
+<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span></span>
+<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"snaga"</span><span class="op">,</span></span>
+<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> krivulja<span class="op">,</span></span>
+<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span></span>
+<span id="cb2-435"><a href="#cb2-435" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-436"><a href="#cb2-436" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>([odabrana]<span class="op">,</span> {</span>
+<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span></span>
+<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"snaga"</span><span class="op">,</span></span>
+<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> naglasak<span class="op">,</span></span>
+<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
+<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
+<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
+<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;Za n = </span><span class="sc">${</span>w11_par<span class="op">.</span><span class="at">n</span><span class="sc">}</span><span class="vs"> simulirana snaga iznosi </span><span class="sc">${</span>postotak<span class="op">.</span><span class="fu">format</span>(odabrana<span class="op">.</span><span class="at">snaga</span>)<span class="sc">}</span><span class="vs">.&lt;/p&gt;</span></span>
+<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w11" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1068,55 +1168,101 @@ Slika&nbsp;1: Simulirana snaga kroz veličine uzorka u idealiziranom postupku s 
 <li>Zadržite učinak jednakim i povećavajte uzorak.</li>
 <li>Zadržite uzorak jednakim i smanjujte učinak.</li>
 <li>Spustite prag odluke i provjerite koliko je jedinica potrebno za istu snagu.</li>
-<li>Povećajte broj ponavljanja i promatrajte koliko se krivulja zaglađuje.</li>
+<li>Postavite standardiziranu razliku na 0,10 i pokušajte dosegnuti 80 %.</li>
 </ol>
-<p>Krivulja pokazuje zašto snaga nije trajno svojstvo testa. Ona pripada određenoj kombinaciji učinka, uzorka, varijabilnosti i praga, pa se mora planirati za rezultat koji bi bio sadržajno važan.</p>
-<div class="callout-divljina page-columns page-full">
-<p><strong>Zemlja je okrugla.</strong> Cohenov naslov sažima kritiku rituala u kojem poznata ili trivijalna razlika dobiva oznaku važnosti samo zato što je p-vrijednost mala <span class="citation" data-cites="cohen1994">(<a href="../references.html#ref-cohen1994" role="doc-biblioref">Cohen 1994.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Odgovoran izvještaj navodi učinak i njegov interval, a zatim objašnjava što raspon znači u sadržajnom kontekstu. Prag ne može obaviti tu prosudbu umjesto istraživača i čitatelja.</p>
+<p>Posljednji korak ne uspijeva unutar ponuđenog raspona, i to je poanta. Za male učinke potreban uzorak raste brže nego što većina istraživanja može podnijeti, pa odluka o tome koji je učinak vrijedan traženja mora doći prije odluke o uzorku.</p>
+</section>
+<section id="podsnažene-studije-pretjeruju" class="level2">
+<h2 class="anchored" data-anchor-id="podsnažene-studije-pretjeruju">Podsnažene studije pretjeruju</h2>
+<p>Uobičajena pouka o slaboj snazi glasi da se stvarni učinci propuštaju. To je točno, a nije najgori dio. Studija sa slabom snagom kvari i one nalaze koje proizvede, i to se na poznatoj populaciji može izmjeriti.</p>
+<p>Ponovili smo isto pitanje na tri tisuće studija sa šezdeset osoba. Prosjek svih procjena iznosi 0,74 boda i praktički se poklapa sa stvarnom razlikom od 0,74, dakle postupak sam po sebi nije pristran.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-pretjerivanje" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Gornji histogram obuhvaća sve studije i centriran je na stvarnoj razlici. Donji obuhvaća samo studije koje su prešle prag i ima dva odvojena nakupljanja, veliko desno od stvarne razlike i vrlo malo lijevo od nule.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pretjerivanje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="11-velicina-ucinka-i-snaga_files/figure-html/fig-pretjerivanje-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;2: Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji."><img src="11-velicina-ucinka-i-snaga_files/figure-html/fig-pretjerivanje-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Gornji histogram obuhvaća sve studije i centriran je na stvarnoj razlici. Donji obuhvaća samo studije koje su prešle prag i ima dva odvojena nakupljanja, veliko desno od stvarne razlike i vrlo malo lijevo od nule."></a>
 </div>
-<div class="callout-model">
-<p>Asistent može izračunati standardizirani učinak i provesti analizu snage, ali mu treba dati dizajn, očekivanu varijabilnost i najmanji važan učinak. Provjeravamo koristi li neovisni ili upareni postupak, brka li postignutu snagu s kvalitetom rezultata i tretira li konvencionalni prag kao sadržajnu činjenicu.</p>
-<blockquote class="blockquote">
-<p>Planiraj uzorak iz najmanjeg učinka vrijednog pažnje, željene snage i odabranog dizajna. Prikaži osjetljivost zaključka na svaku pretpostavku.</p>
-</blockquote>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pretjerivanje-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;2: Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji.
+</figcaption>
+</figure>
 </div>
-<div class="callout-greska">
-<p>Procjena učinka i interval pravilno su izračunati, a dizajn je uzet u obzir. Budući da je test statistički značajan, učinak je nužno dovoljno velik da bude praktično važan.</p>
 </div>
+</div>
+<p>Donji panel prikazuje ono što bi se objavilo. Među studijama koje su prešle prag prosječna procjena iznosi 1,50 boda, dakle 2,0 puta više od istine. Razlog je mehanički i nema veze s poštenjem istraživača. Uz slabu snagu prag prelaze samo uzorci u kojima je slučajnost razliku slučajno uvećala, jer manja procjena s ovako malim uzorkom prag ne može prijeći. Najmanja značajna procjena u ovoj simulaciji iznosi 0,84 boda.</p>
+<p>Drugi smjer rjeđi je, ali nije nemoguć. Među značajnim nalazima 0,15 % ima suprotan predznak od stvarne razlike, dakle tvrdi da čitatelji portala imaju više povjerenja. Takav bi rad prošao recenziju jednako lako kao svaki drugi, jer je iznutra besprijekoran.</p>
+<p>Ista simulacija s pet stotina osoba daje procjene koje istinu premašuju za faktor 1,03, dakle iskrivljenja praktički nema. Pretjerivanje nije svojstvo područja ni teme, nego posljedica toga što se prag primjenjuje na procjene koje su preraspršene za veličinu učinka koji se traži.</p>
+<p>Za čitatelja objavljenih radova iz toga slijedi konkretan postupak. Kad rad na malom uzorku izvještava o velikom učinku uz p-vrijednost tik ispod praga, najvjerojatnije objašnjenje nije da je učinak zaista tolik nego da je uzorak propustio samo one procjene koje su slučajno ispale velike. Interval to obično odaje, jer se u takvim radovima proteže od jedva zamjetne do nevjerojatno velike vrijednosti. Zato se prvo gleda koliko je jedinica bilo i koliko je interval širok, a tek onda što piše u zaključku.</p>
+</section>
+<section id="planiranje-unatrag" class="level2">
+<h2 class="anchored" data-anchor-id="planiranje-unatrag">Planiranje unatrag</h2>
+<p>Iz svega prethodnog slijedi da uzorak nije stvar raspoloživosti nego odluke, i da ta odluka počinje na kraju.</p>
+<div id="def-najmanji-vazan-ucinak" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>Najmanji važan učinak</strong> je najmanja razlika koja bi promijenila zaključak, odluku ili postupanje, određena sadržajno i prije prikupljanja podataka.</p>
+</div>
+<p>Postavlja ga istraživač, a ne račun, i obrazlaže se troškom postupanja, ozbiljnošću ishoda i onim što je u istom području već izmjereno. Tek kad je zapisan, pitanje o veličini uzorka ima odgovor, jer se snaga uvijek računa za neku određenu veličinu učinka.</p>
+<p>Redoslijed je time obrnut od uobičajenog. Ne pita se koliko se ispitanika može prikupiti pa se nada da će biti dovoljno, nego se kreće od razlike koja bi nešto značila, dodaje se željena snaga, i iz toga izlazi broj jedinica. Ako je taj broj neizvediv, to je nalaz sam po sebi i treba ga znati prije istraživanja, a ne poslije.</p>
+<p>Postoji i drugi način planiranja, bliži načelu po kojem je ova knjiga napisana. Umjesto da se pita koliko je jedinica potrebno da bi se prešao prag, pita se koliko ih je potrebno da bi procjena bila dovoljno precizna. Uz raspršenost iz ove populacije interval razlike širok je 1,06 boda pri stotinu ljudi po skupini, 0,61 pri tristo i 0,37 pri osamsto. Istraživač koji zna da mu je za odluku potrebna procjena unutar pola boda odatle čita odgovor izravno, bez ijedne pretpostavke o tome koliki je stvarni učinak.</p>
+<p>Ta je razlika u pristupu važnija nego što izgleda. Planiranje prema snazi zahtijeva da se pogodi veličina učinka koji se traži, a upravo je ta veličina ono što se ne zna i zbog čega se istraživanje provodi. Planiranje prema preciznosti tu pretpostavku ne treba, jer širina intervala ovisi samo o raspršenosti i broju jedinica. Studija planirana na taj način ne obećava da će nešto naći, nego da će, što god nađe, biti dovoljno precizno da se o tome može odlučivati.</p>
 </section>
 <section id="razrađeni-primjer" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Planiramo simuliranu usporedbu dviju neovisnih skupina. Ne polazimo od očekivanja da ćemo „dobiti značajnost”, nego od standardizirane razlike koju bi imalo smisla pouzdano uočiti. Funkcija zatim pokazuje potreban broj jedinica po skupini <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-cohen1988" class="csl-entry" role="listitem">
-Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2. izd. Lawrence Erlbaum Associates.
-</div></div><div class="cell" data-layout-align="center">
-<div id="tbl-snaga-plan" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<p>Pretpostavimo da bi uredništvo reagiralo na razliku od pola boda i da očekuje raspršenost sličnu onoj u ovoj populaciji. Analiza ispod za nekoliko veličina uzorka broji u kolikom udjelu simuliranih studija bi takva razlika bila otkrivena.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Prikaži kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>najmanji_ucinak <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rasprsenost <span class="ot">&lt;-</span> <span class="fl">1.9</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>snaga_za <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">replicate</span>(<span class="dv">2000</span>, {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    prva <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, rasprsenost)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    druga <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, najmanji_ucinak, rasprsenost)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    razlika <span class="ot">&lt;-</span> <span class="fu">mean</span>(druga) <span class="sc">-</span> <span class="fu">mean</span>(prva)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abs</span>(razlika) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span> <span class="sc">*</span> rasprsenost<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n) <span class="sc">&gt;=</span> <span class="fl">1.96</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  }))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>, <span class="dv">250</span>), snaga_za)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>plan</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0,4620 0,6350 0,7505 0,8325</code></pre>
+</div>
+</div>
+<p>Funkcija <code>replicate</code> ponavlja cijelu zamišljenu studiju dvije tisuće puta, a <code>sapply</code> isti račun provodi za svaku ponuđenu veličinu uzorka. Granica 1,96 dolazi iz pravila područja koje uvodi poglavlje o vjerojatnosti, pa se ovdje ništa novo ne pretpostavlja.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-plan-uzorka" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-snaga-plan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;1: Planiranje uzorka za nekoliko simuliranih scenarija. Izrada autora.
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-plan-uzorka-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Udio simuliranih studija u kojima bi razlika od pola boda bila otkrivena, pri četirima veličinama uzorka po skupini. Izrada autora.
 </figcaption>
-<div aria-describedby="tbl-snaga-plan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-plan-uzorka-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">Cohenov d</th>
 <th style="text-align: right;">Jedinica po skupini</th>
+<th style="text-align: right;">Snaga</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0,2</td>
-<td style="text-align: right;">394</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">46,2 %</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">0,4</td>
-<td style="text-align: right;">100</td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">63,5 %</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">0,6</td>
-<td style="text-align: right;">45</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">75,0 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">83,2 %</td>
 </tr>
 </tbody>
 </table>
@@ -1125,11 +1271,30 @@ Tablica&nbsp;1: Planiranje uzorka za nekoliko simuliranih scenarija. Izrada auto
 </figure>
 </div>
 </div>
-<p>Tablica pokazuje cijenu traženja manjih učinaka pod istim kriterijima. Konačan plan ipak treba provjeru odustajanja, kvalitete mjerenja i izvedivosti. Račun ne odlučuje koji je učinak vrijedan ulaganja.</p>
+<p>Za razliku od pola boda treba između dvjesto i dvjesto pedeset ljudi po skupini da bi se dosegla uobičajena granica od osamdeset posto. Ako uredništvo može prikupiti stotinu, plan je i dalje moguć, ali izvještaj mora unaprijed reći da će studija razliku te veličine propustiti u više od polovice slučajeva.</p>
+<p>Račun ne odlučuje ništa od onoga što je važno. Pola boda kao granicu postavio je netko tko zna što se s tom razlikom radi, raspršenost je procijenjena iz ranijih mjerenja, a odustajanje ispitanika i kvaliteta mjerenja nisu ni ušli u simulaciju. Ono što račun daje jest jedini pošten oblik rečenice o uzorku, u kojem broj jedinica stoji uz učinak koji se njime može uočiti.</p>
+<div class="callout-divljina page-columns page-full">
+<p><strong>Neuspjeh snage.</strong> Skupina istraživača objavila je pregled u kojem tvrdi da je prosječna statistička snaga studija u neuroznanosti vrlo niska, i da posljedice toga uključuju precijenjene veličine učinka i slabu ponovljivost rezultata <span class="citation" data-cites="button2013">(<a href="../references.html#ref-button2013" role="doc-biblioref">Button i sur. 2013.</a>)</span>. Rad je naslovljen kao neuspjeh snage i čitan je najčešće kao poziv na veće uzorke.</p>
+<div class="no-row-height column-margin column-container"></div><p>Ono što se u tom čitanju gubi jest drugi dio tvrdnje. Niska snaga ne smanjuje samo izglede da se pravi učinak pronađe, nego smanjuje i vjerojatnost da statistički značajan nalaz odgovara stvarnom učinku. To je ista mehanika koju simulacija u prethodnom odjeljku mjeri, gdje su procjene koje su prešle prag u prosjeku dvostruko veće od istine. Iz toga slijedi da podsnaženo područje ne proizvodi samo manje nalaza nego i lošije, pa preporuka nije čitati takve radove opreznije, nego ne vjerovati veličini učinka koju objavljuju.</p>
+</div>
+<div class="callout-model">
+<p>Asistent pouzdano izračuna standardiziranu razliku i provede analizu snage, a sam ne zna ono što u nju ulazi. Prije poziva mu treba dizajn, očekivana raspršenost ishoda i najmanji učinak koji bi nešto značio, jer bez posljednjega snaga nema referencu. Provjeravamo tri stvari. Prva je koristi li nazivnik koji odgovara dizajnu, budući da se kod uparenih mjerenja dijeli standardnom devijacijom razlika. Druga je uzima li konvencionalne pragove kao sadržajnu činjenicu i naziva li učinak malim prije nego što je pitao o čemu se radi. Treća je računa li snagu iz učinka koji je već opažen, što je najčešća i najskuplja pogreška u ovom području.</p>
+<blockquote class="blockquote">
+<p>Reci mi koji ulaz nedostaje prije nego što izračunaš snagu. Zatim izračunaj potreban uzorak za nekoliko veličina učinka i pokaži koliko se odgovor mijenja ako je stvarni učinak upola manji od pretpostavljenog.</p>
+</blockquote>
+</div>
+<div class="callout-greska">
+<p>Nakon male studije s tridesetero ljudi po skupini asistent je uz nalaz priložio i ovu provjeru.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d_opazeni <span class="ot">&lt;-</span> (<span class="fu">mean</span>(tisak) <span class="sc">-</span> <span class="fu">mean</span>(portal)) <span class="sc">/</span> sd_zdruzena</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">n =</span> <span class="dv">30</span>, <span class="at">delta =</span> d_opazeni, <span class="at">sd =</span> <span class="dv">1</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">type =</span> <span class="st">"two.sample"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Uz ispis je dodao obrazloženje. Opažena razlika daje standardiziranu razliku oko 0,78, a snaga izračunata za tu vrijednost i trideset ljudi po skupini iznosi 0,84. Budući da je snaga iznad uobičajene granice, zaključuje da je studija bila dovoljno velika i da se procijenjenoj razlici može vjerovati.</p>
+</div>
 </section>
 <section id="sažetak" class="level2 sazetak">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
-<p>Veličina učinka vraća sadržaj pitanju koliko je razlika velika, a interval pokazuje koliko je procjena precizna. Snaga povezuje učinak, uzorak, varijabilnost i prag prije prikupljanja podataka. Statistička značajnost ne određuje praktičnu važnost, a mali uzorci mogu iskriviti i otkrivene učinke. Sljedeće poglavlje pokazuje što se događa kada sustav nagrađuje odluku, a skriva cijeli put koji je do nje doveo.</p>
+<p>Veličina učinka vraća pitanju koliko je razlika velika, a standardizirana mjera čini je usporedivom preko različitih ljestvica. Statistička značajnost i praktična važnost odgovaraju na različita pitanja, pa golem uzorak proizvodi značajnost za razlike koje nikoga ne zanimaju, dok premali uzorak propušta one koje bi promijenile odluku. Snaga povezuje učinak, uzorak, raspršenost i prag, a mjerenje na poznatoj populaciji pokazuje koliko brzo pada kad uzorak popusti. Studije sa slabom snagom pritom ne griješe samo propuštanjem, jer među njihovim objavljenim nalazima procjene su u prosjeku dvostruko veće od istine, a poneka ima i pogrešan predznak. Sljedeće poglavlje pokazuje što se događa kada sustav nagrađuje objavljeni nalaz, a skriva cijeli put koji je do njega doveo.</p>
 </section>
 <section id="pojmovi" class="level2 pojmovi">
 <h2 class="pojmovi anchored" data-anchor-id="pojmovi">Pojmovi</h2>
@@ -1139,7 +1304,7 @@ Tablica&nbsp;1: Planiranje uzorka za nekoliko simuliranih scenarija. Izrada auto
 <dd>
 <span class="terminology-list__en" lang="en">effect size</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">Cohenov d</span></dt>
+<dt><span class="terminology-list__hr" lang="hr">standardizirana razlika</span></dt>
 <dd>
 <span class="terminology-list__en" lang="en">Cohen’s d</span>
 </dd>
@@ -1166,21 +1331,21 @@ Tablica&nbsp;1: Planiranje uzorka za nekoliko simuliranih scenarija. Izrada auto
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
 <section id="konceptualni" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="konceptualni">Konceptualni</h3>
-<p>Objasnite kako velik uzorak može proizvesti statistički značajan, ali praktično nevažan rezultat. Predajte jedan primjer bez stvarnih empirijskih brojki.</p>
+<p>Objasnite u jednom odlomku zašto među objavljenim nalazima podsnaženih studija procjene učinka sustavno premašuju istinu, iako nijedan pojedinačni istraživač nije napravio ništa nedopušteno. Imenujte korak u kojem nastaje iskrivljenje.</p>
 </section>
 <section id="računski" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="računski">Računski</h3>
-<p>Proširite objekt <code>scenariji</code> drugom željenom snagom i predajte tablicu potrebnih uzoraka.</p>
+<p>Dvije skupine imaju sredine 5,4 i 4,6 uz združenu standardnu devijaciju 1,9. Izračunajte razliku i standardiziranu razliku, a zatim ponovite račun uz združenu standardnu devijaciju 3,8. Objasnite koja se od dviju brojki promijenila i zašto. Zatim u widgetu poglavlja pronađite koliko je jedinica po skupini potrebno da se manja od dviju standardiziranih razlika otkrije u četiri od pet pokušaja.</p>
 </section>
 <section id="kritički" class="level3 zadaci-razina page-columns page-full">
 <h3 class="zadaci-razina anchored" data-anchor-id="kritički">Kritički</h3>
-<p>Prosudite Cohenovu kritiku odlučivanja samo prema pragu <span class="citation" data-cites="cohen1994">(<a href="../references.html#ref-cohen1994" role="doc-biblioref">Cohen 1994.</a>)</span>. Predajte kratak urednički standard za izvještavanje.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-cohen1994" class="csl-entry" role="listitem">
-Cohen, Jacob. 1994. <span>„The Earth Is Round (p &lt; .05)“</span>. <em>American Psychologist</em> 49 (12): 997–1003.
+<p>Prosudite tvrdnju da niska prosječna snaga nekog područja znači samo da istraživanja propuštaju stvarne učinke <span class="citation" data-cites="button2013">(<a href="../references.html#ref-button2013" role="doc-biblioref">Button i sur. 2013.</a>)</span>. Predajte kratku uredničku bilješku i navedite podatak koji bi vam trebao da procijenite koliko je objavljena veličina učinka precijenjena.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-button2013" class="csl-entry" role="listitem">
+Button, Katherine S., John P. A. Ioannidis, Claire Mokrysz, i sur. 2013. <span>„Power Failure: Why Small Sample Size Undermines the Reliability of Neuroscience“</span>. <em>Nature Reviews Neuroscience</em> 14 (5): 365–76. <a href="https://doi.org/10.1038/nrn3475">https://doi.org/10.1038/nrn3475</a>.
 </div></div></section>
 <section id="revizija-modela" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="revizija-modela">Revizija modela</h3>
-<p>Ocijenite modelsku analizu iz okvira. Izdvojite točne računske korake, jednu pogrešnu prosudbu važnosti i podatak koji bi za tu prosudbu bio potreban.</p>
+<p>Ocijenite provjeru iz okvira o pogrešci. Imenujte što je u pozivu ispravno, argument u kojem stoji kružnost, redak koda u kojem ona ulazi u račun, i napišite čime bi taj argument trebalo zamijeniti.</p>
 
 
 
@@ -3746,6 +3911,38 @@ window._ojs.runtime.interpretFromScriptTags();
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

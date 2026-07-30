@@ -526,6 +526,142 @@ material becomes chapter 11.
 By the end of this round the demonstration and evidence registers are both
 exercised and Dio III and Dio IV are complete except for chapter 12.
 
+#### Round 5 — done, 30 July 2026
+
+| Job | Target | Delivered | Shape held |
+|---|---|---|---|
+| ch7 Vjerojatnost | 4 500 | ~3 230 | cut, then expansion |
+| ch10 Logika testiranja | 4 500 | ~2 890 | heavy cut plus restructuring |
+| ch11 Veličina učinka i snaga | 4 000 | ~2 650 | expansion |
+
+**These counts are not comparable to the ones recorded in rounds 1 to 4.** They
+come from one counter applied uniformly, which measures chapter 13 at 3 126,
+chapter 14 at 2 677 and chapter 5 at 3 693. Earlier rounds used a looser count
+and their recorded figures run roughly a quarter higher. Measured against
+chapters written the same way, chapter 7 is the second longest ported chapter in
+the book and chapter 11 the shortest.
+
+Both linters are clean on all three, the figure-introduction check passes, all
+three render, and every number in all three chapters is computed inline from the
+code that is in the file. Section rhythm holds at eleven, eleven and ten sections
+with body evenness 0,27, 0,22 and 0,26.
+
+**The two error rates stopped being definitions.** Because the population is
+known, chapter 10 can pick a question whose answer it already has. Women and men
+differ in trust by 0,018 of a point, so the null is true, and across eight
+hundred fresh samples the permutation procedure crosses the 0,05 threshold in
+5,0 % of them. Readers of print and of portals differ by 0,74 of a point, so the
+null is false, and the same procedure finds it in 79,5 %. Chapter 11 then names
+the second number power and measures the whole curve, from 22,7 % at sixty
+people to 99,7 % at eight hundred. Ordinary teaching asserts that alpha equals
+the threshold; here the book counts.
+
+**The strongest passage in the round is the streak selection bias, and it is in
+chapter 7.** A fair coin has no memory by construction, yet the average share of
+heads on the flips that follow three heads is 0,459 in sequences of a hundred
+and 0,356 in sequences of twenty. The gap of roughly four percentage points at
+n = 100 is the same order as the effect the hot-hand literature was looking for,
+so the measuring procedure itself pushes toward the conclusion that was drawn.
+That measurement is what earns the divljina box, which dissects the canonical
+finding [@gilovich1985] against its later correction [@miller2018] without
+borrowing a single number from either.
+
+**Chapter 11 measures the winner's curse rather than describing it.** Across
+three thousand studies of sixty people the average estimate is 0,74, exactly the
+truth. Among the studies that crossed the threshold the average is 1,50, twice
+the truth, and 0,15 % of them carry the wrong sign. At five hundred people the
+exaggeration factor falls to 1,03. The mechanism is visible in one figure and
+needs no appeal to anyone's honesty, which is what the book's own rule about
+statistics not being a morality play requires.
+
+**Four bibliography debts paid, none of them on the list.** The plan budgeted no
+sources for round 5 and all three chapters needed one, because in each the
+lecture supplied no genuine published claim. `gilovich1985` carries chapter 7's
+vignette and `miller2018` its divljina, `greenland2016` gives chapter 10 a
+divljina distinct from the ASA statement that carries its vignette, and
+`button2013` gives chapter 11 the underpowered-field box. All four were verified
+against Crossref and OpenAlex.
+
+**One citation was deliberately written thinner than it could have been.** The
+median-power figure that circulates from `button2013` is not in any record this
+checkout could verify, since the article is paywalled and neither index carries
+an abstract with it. The box therefore cites only what the published abstract
+states, that average power in the field is very low and that the consequences
+include overestimated effects and low reproducibility. Same discipline as the
+missing end page on `squire1988` and the missing subtitle on `matejka2017`.
+`amrhein2019` was considered for chapter 10 and dropped for the same reason,
+since nothing beyond its title could be verified.
+
+**Cohen's d changed owner.** Round 4 put the definition div for standardizirana
+razlika in chapter 14, but the plan assigns the concept to chapter 11, which
+comes first. The div moved, chapter 14 keeps the formula and a back reference,
+its prerequisite line changed from chapters 9, 10 and 13 to chapters 10, 11 and
+13, and both the concept and the notation entry moved in
+`concept-ledger.json`. **This is the first ordering collision the port has
+produced, and it was invisible until the earlier chapter was written.** Worth
+checking for the same pattern in round 6, where chapter 16 harvests material
+planted in chapters 2, 14 and 15.
+
+**The plan's own instruction was the one thing that had to be departed from in
+chapter 10.** Week 9 teaches the whole t apparatus, and chapter 14 took it in
+round 4, so the entire one-sample, two-sample, Welch and `t.test()` layer was
+cut here rather than duplicated. What carries chapter 10 instead is the
+permutation test, which fits the ladder's demonstration register and needs no
+distributional assumption. The one-tailed test went out entirely, since no later
+chapter uses it and the plan forbids porting what is not used later. Multiple
+testing and the Bonferroni correction went to chapters 15 and 12, which already
+own the family-wise error rate and the forking paths.
+
+**The plan asks for a framed Bayesian box on two pages and DESIGN.md has no such
+element.** STYLE.md forbids improvising one, so it became a `##` section. The
+content is unchanged and the decision is recorded in the chapter header. If a
+framed aside is genuinely wanted, it should be added to the design system rather
+than invented in a chapter.
+
+**Chapter 10 had a hole that only surfaced during writing.** Its vignette is the
+ASA statement, whose central claim is that conclusions should not rest on whether
+p crosses a threshold, and the draft then used 0,05 throughout without ever
+saying what the threshold is. A new section now says it is a convention, that
+0,048 and 0,052 are the same evidence, and it measures how much the p-value
+itself moves under repetition. Across the eight hundred samples with a real and
+constant difference the median p is 0,003, a quarter of the samples land above
+0,033, and a tenth above 0,134. That instability is the strongest available
+argument for reporting the estimate and its interval first, and no source is
+needed for it because the book measures it.
+
+**A round 4 drift was found and half repaired.** STYLE.md H10 says that from the
+visualisation chapter onward the artifact graded in the *revizija modela* tier
+includes its code, which chapters 5 and 6 do and chapters 13, 14 and 15 do not.
+Chapters 7, 10 and 11 now carry a short unexecuted block inside
+`callout-greska`. **Chapters 13, 14 and 15 still owe theirs**, and that is a
+round 6 cleanup item rather than something to fix silently here.
+
+**Eleven concepts and seven notation entries entered `concept-ledger.json`**,
+taking it to forty-two concepts against forty-two definition divs, and the
+concept graph rebuilds to the same forty-two. Entering them surfaced two
+collisions. *Neovisnost* is a property of events in chapter 7 and a property of
+units in chapter 14, where it is called jedinica neovisnosti, and the ledger
+carries the warning on both. And the Greek letters for the two error rates
+collide twice over, since alpha is also the conventional symbol for the
+reliability measure named in chapter 2 and beta without an index would collide
+with the model coefficients of chapter 14. The book never writes the reliability
+measure as a symbol and never writes a bare beta for a coefficient, and the
+ledger now records both rules. That is the third and fourth such catch after
+*pouzdanost* in round 2 and the standardized residual in round 4, which confirms
+the round 4 suggestion that the collision check belongs in the per-chapter
+procedure.
+
+**The widget registry needed updating and would not have failed loudly.** The
+*Što isprobati* lists for w10 and w11 changed in the chapters, and
+`data/widgets.json` still carried the old text. Both are now back in step. The
+registry is not checked against chapter prose by any script, so this is a manual
+step and belongs in the per-chapter procedure below.
+
+All three land under target, as every ported chapter so far has. Chapter 11 is
+the shortest and the likeliest candidate for a later enrichment pass, with the
+distinction between planning for power and planning for precision the natural
+place to thicken.
+
 ### Round 6 — the summit and the capstone
 
 **W13 → ch16.  Practical project → ch18.**
@@ -564,7 +700,14 @@ Unchanged for every job above.
 5. **Relabel every dataset as simulated**, following `R/podaci-nastavni.R`, and
    register it in Dodatak C. No course dataset is empirical.
 6. **Widen the komunikologija framing** at least once per chapter.
-7. Render, run both linters, read it aloud.
+7. **Check the concept ledger for a collision before writing**, both on the term
+   and on the symbol. Four have been caught after the fact and none before it.
+8. **Check that the chapter owns the concepts the plan assigns it**, since a
+   later chapter may have taken one while the earlier one was still a skeleton.
+   Round 5 found Cohen's d in chapter 14.
+9. **Sync `data/widgets.json` with the chapter's own *Što isprobati* text.** No
+   script compares the two.
+10. Render, run both linters and the figure-introduction check, read it aloud.
 
 ## Bibliography debts
 
@@ -583,6 +726,10 @@ Not in `references.bib` and needed by the rounds above. Never add from memory.
 | ch13 divljina, round 4 | Cochran 1954, where the expected-count-of-five convention comes from | paid, `cochran1954` |
 | ch14 divljina, round 4 | Belia et al. 2005, researchers misreading error bars and CI overlap | paid, `belia2005` |
 | ch15 divljina, round 4 | Nieuwenhuis et al. 2011, comparing effects by their significance | paid, `nieuwenhuis2011` |
+| ch7 vinjeta, round 5 | Gilovich, Vallone & Tversky 1985, the hot hand as a misperception of random sequences | paid, `gilovich1985` |
+| ch7 divljina, round 5 | Miller & Sanjurjo 2018, the streak selection bias that reverses the canonical finding | paid, `miller2018` |
+| ch10 divljina, round 5 | Greenland et al. 2016, twenty-five misinterpretations of p-values, intervals and power | paid, `greenland2016` |
+| ch11 divljina, round 5 | Button et al. 2013, low average power and what it does to published effects | paid, `button2013`, cited only for what its abstract states |
 
 ## Not available, scheduled later
 
@@ -596,10 +743,12 @@ No lecture source exists for any of these, and none is a port.
   protokol
 - **17 divljina boxes** minus the two round 2 sourced independently
   (`squire1988`, `hoekstra2014`), minus the two round 3 sourced independently
-  (`cleveland1984`, `matejka2017`), and minus the three round 4 sourced
-  independently (`cochran1954`, `belia2005`, `nieuwenhuis2011`). The Berkeley
-  case week 1 supplies now carries chapter 13's vignette rather than its
-  divljina, so it no longer counts against this list.
+  (`cleveland1984`, `matejka2017`), minus the three round 4 sourced
+  independently (`cochran1954`, `belia2005`, `nieuwenhuis2011`), and minus the
+  three round 5 sourced independently (`miller2018`, `greenland2016`,
+  `button2013`). The Berkeley case week 1 supplies now carries chapter 13's
+  vignette rather than its divljina, so it no longer counts against this list.
+  Ten remain, and all of them belong to chapters with no lecture source.
 
 Note that all three chapters carrying the book's contemporary identity are in
 this list. The port delivers the spine and none of the identity, so the port

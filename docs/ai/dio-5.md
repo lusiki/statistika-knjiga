@@ -446,7 +446,7 @@ veličinu izvještaj morao sadržavati da se taj zaključak ne može izvesti.
 
 | Vrijeme čitanja | Widget | Podaci | Preduvjet |
 |---|---|---|---|
-| 24 min | Uzorkivač dviju grupa | simulirana populacija | pogl. 9, 10, 13 |
+| 24 min | Uzorkivač dviju grupa | simulirana populacija | pogl. 10, 11, 13 |
 
 **Vinjeta.**
 Cumming je urednicima psihologijskih časopisa predložio promjenu koja izgleda
@@ -622,9 +622,9 @@ raspršena. Bod razlike na ljestvici čije su vrijednosti zbijene znači nešto
 sasvim drugo nego bod razlike na ljestvici na kojoj su ljudi raspoređeni široko.
 Standardizirana veličina učinka upravo to uzima u obzir.
 
-**Standardizirana razlika** je razlika dviju sredina podijeljena združenom
-standardnom devijacijom skupina, pa se izražava u standardnim devijacijama
-umjesto u izvornim jedinicama.
+Standardiziranu razliku uvelo je poglavlje o veličini učinka i snazi, gdje je
+razlika sredina podijeljena združenom standardnom devijacijom skupina, pa se
+izražava u standardnim devijacijama umjesto u izvornim jedinicama.
 
 $$d = \frac{\bar{x}_2 - \bar{x}_1}{s_{\text{zdr}}}$$
 

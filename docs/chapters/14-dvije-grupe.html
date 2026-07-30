@@ -887,6 +887,9 @@ window.Quarto = {
      prikazuje kao test čija osjetljivost ovisi o veličini uzorka i koji zato
      ne može zamijeniti pogled na raspodjelu.
   5. Okvir divljine nosi [@belia2005], a ne Cumminga, jer Cumming nosi vinjetu.
+  6. RUNDA 5. Definicijski div standardizirane razlike premješten je u poglavlje
+     o veličini učinka i snazi, kojemu ga plan dodjeljuje i koje dolazi ranije.
+     Ovdje je zadržan zapis formule i izračun za ove podatke, uz uputnicu.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
@@ -912,7 +915,7 @@ window.Quarto = {
 <td>24 min</td>
 <td>Uzorkivač dviju grupa</td>
 <td>simulirana populacija</td>
-<td>pogl. 9, 10, 13</td>
+<td>pogl. 10, 11, 13</td>
 </tr>
 </tbody>
 </table>
@@ -947,24 +950,24 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="248" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 247;"><span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>viewof w14_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>  <span class="dt">dizajn</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Neovisne skupine"</span><span class="op">,</span> <span class="st">"Uparena mjerenja"</span>]<span class="op">,</span></span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="st">"Neovisne skupine"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Dizajn"</span>}</span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">15</span><span class="op">,</span> <span class="dv">150</span>]<span class="op">,</span></span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Jedinice po skupini ili broj parova"</span>}</span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">razlika</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span><span class="op">,</span> <span class="dv">12</span>]<span class="op">,</span></span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Stvarna razlika"</span>}</span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>  <span class="dt">sd</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">4</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span></span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Standardna devijacija ishoda"</span>}</span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="251" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 250;"><span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>viewof w14_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>  <span class="dt">dizajn</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Neovisne skupine"</span><span class="op">,</span> <span class="st">"Uparena mjerenja"</span>]<span class="op">,</span></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="st">"Neovisne skupine"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Dizajn"</span>}</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">15</span><span class="op">,</span> <span class="dv">150</span>]<span class="op">,</span></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Jedinice po skupini ili broj parova"</span>}</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>  <span class="dt">razlika</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span><span class="op">,</span> <span class="dv">12</span>]<span class="op">,</span></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Stvarna razlika"</span>}</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>  )<span class="op">,</span></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>  <span class="dt">sd</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">4</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Standardna devijacija ishoda"</span>}</span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -975,215 +978,215 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="273" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 272;"><span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
-<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> skupinaA <span class="op">=</span> <span class="st">"var(--tok-data-2)"</span><span class="op">;</span></span>
-<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> skupinaB <span class="op">=</span> <span class="st">"var(--tok-data-4)"</span><span class="op">;</span></span>
-<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> procjene <span class="op">=</span> <span class="st">"var(--tok-data-5)"</span><span class="op">;</span></span>
-<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
-<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> povrsina <span class="op">=</span> <span class="st">"var(--tok-surface)"</span><span class="op">;</span></span>
-<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
-<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
-<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
-<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
-<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1414</span>)<span class="op">;</span></span>
-<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> standardna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korelacija <span class="op">=</span> <span class="fl">0.65</span><span class="op">;</span></span>
-<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> skupina1<span class="op">;</span></span>
-<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> skupina2<span class="op">;</span></span>
-<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> standardnaPogreska<span class="op">;</span></span>
-<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (w14_par<span class="op">.</span><span class="at">dizajn</span> <span class="op">===</span> <span class="st">"Uparena mjerenja"</span>) {</span>
-<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> parovi <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">n</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z1 <span class="op">=</span> <span class="fu">standardna</span>()<span class="op">;</span></span>
-<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z2 <span class="op">=</span> <span class="fu">standardna</span>()<span class="op">;</span></span>
-<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {</span>
-<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>        <span class="dt">a</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> z1<span class="op">,</span></span>
-<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>        <span class="dt">b</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">razlika</span> <span class="op">+</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span></span>
-<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>          (korelacija <span class="op">*</span> z1 <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">-</span> korelacija <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span> z2)</span>
-<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>      }<span class="op">;</span></span>
-<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>    skupina1 <span class="op">=</span> parovi<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">a</span>)<span class="op">;</span></span>
-<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>    skupina2 <span class="op">=</span> parovi<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">b</span>)<span class="op">;</span></span>
-<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>    standardnaPogreska <span class="op">=</span></span>
-<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>      w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> korelacija) <span class="op">/</span> w14_par<span class="op">.</span><span class="at">n</span>)<span class="op">;</span></span>
-<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>    skupina1 <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(</span>
-<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">length</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">n</span>}<span class="op">,</span></span>
-<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>      () <span class="kw">=&gt;</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="fu">standardna</span>()</span>
-<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
-<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a>    skupina2 <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(</span>
-<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">length</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">n</span>}<span class="op">,</span></span>
-<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>      () <span class="kw">=&gt;</span> w14_par<span class="op">.</span><span class="at">razlika</span> <span class="op">+</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="fu">standardna</span>()</span>
-<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
-<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>    standardnaPogreska <span class="op">=</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">/</span> w14_par<span class="op">.</span><span class="at">n</span>)<span class="op">;</span></span>
-<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> procijenjeneRazlike <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(</span>
-<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">length</span><span class="op">:</span> <span class="dv">1500</span>}<span class="op">,</span></span>
-<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a>    () <span class="kw">=&gt;</span> w14_par<span class="op">.</span><span class="at">razlika</span> <span class="op">+</span> standardnaPogreska <span class="op">*</span> <span class="fu">standardna</span>()</span>
-<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> serije <span class="op">=</span> [</span>
-<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednosti</span><span class="op">:</span> skupina1}<span class="op">,</span></span>
-<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednosti</span><span class="op">:</span> skupina2}<span class="op">,</span></span>
-<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Razlike kroz ponavljanja"</span><span class="op">,</span> <span class="dt">vrijednosti</span><span class="op">:</span> procijenjeneRazlike}</span>
-<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
-<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sveVrijednosti <span class="op">=</span> serije<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">vrijednosti</span>)<span class="op">;</span></span>
-<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> donja <span class="op">=</span> d3<span class="op">.</span><span class="fu">min</span>(sveVrijednosti)<span class="op">;</span></span>
-<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gornja <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(sveVrijednosti)<span class="op">;</span></span>
-<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> raspon <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1</span><span class="op">,</span> gornja <span class="op">-</span> donja)<span class="op">;</span></span>
-<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> domena <span class="op">=</span> [donja <span class="op">-</span> <span class="fl">0.04</span> <span class="op">*</span> raspon<span class="op">,</span> gornja <span class="op">+</span> <span class="fl">0.04</span> <span class="op">*</span> raspon]<span class="op">;</span></span>
-<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> binoviUzorak <span class="op">=</span> d3<span class="op">.</span><span class="fu">bin</span>()<span class="op">.</span><span class="fu">domain</span>(domena)<span class="op">.</span><span class="fu">thresholds</span>(<span class="dv">28</span>)<span class="op">;</span></span>
-<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> binoviProcjene <span class="op">=</span> d3<span class="op">.</span><span class="fu">bin</span>()<span class="op">.</span><span class="fu">domain</span>(domena)<span class="op">.</span><span class="fu">thresholds</span>(<span class="dv">120</span>)<span class="op">;</span></span>
-<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> histogrami <span class="op">=</span> serije<span class="op">.</span><span class="fu">flatMap</span>(serija <span class="kw">=&gt;</span> {</span>
-<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> binovi <span class="op">=</span> serija<span class="op">.</span><span class="at">panel</span> <span class="op">===</span> <span class="st">"Razlike kroz ponavljanja"</span></span>
-<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>      <span class="op">?</span> binoviProcjene</span>
-<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> binoviUzorak<span class="op">;</span></span>
-<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">binovi</span>(serija<span class="op">.</span><span class="at">vrijednosti</span>)<span class="op">.</span><span class="fu">map</span>(bin <span class="kw">=&gt;</span> ({</span>
-<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>      <span class="dt">panel</span><span class="op">:</span> serija<span class="op">.</span><span class="at">panel</span><span class="op">,</span></span>
-<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x1</span><span class="op">:</span> bin<span class="op">.</span><span class="at">x0</span><span class="op">,</span></span>
-<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x2</span><span class="op">:</span> bin<span class="op">.</span><span class="at">x1</span><span class="op">,</span></span>
-<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>      <span class="dt">udio</span><span class="op">:</span> bin<span class="op">.</span><span class="at">length</span> <span class="op">/</span> serija<span class="op">.</span><span class="at">vrijednosti</span><span class="op">.</span><span class="at">length</span></span>
-<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
-<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najvisiUdio <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(histogrami<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">udio</span>)<span class="op">;</span></span>
-<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gornjaGranicaY <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="fl">0.01</span><span class="op">,</span> najvisiUdio <span class="op">*</span> <span class="fl">1.3</span>)<span class="op">;</span></span>
-<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredine <span class="op">=</span> [</span>
-<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednost</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednost</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">razlika</span>}</span>
-<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
-<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> opisDizajna <span class="op">=</span> w14_par<span class="op">.</span><span class="at">dizajn</span> <span class="op">===</span> <span class="st">"Uparena mjerenja"</span></span>
-<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">"u uparenom dizajnu uz korelaciju 0,65"</span></span>
-<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"u dizajnu neovisnih skupina"</span><span class="op">;</span></span>
-<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> statusTekst <span class="op">=</span></span>
-<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>    <span class="vs">`Standardna pogreška iznosi </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(standardnaPogreska)<span class="sc">}</span><span class="vs"> `</span> <span class="op">+</span></span>
-<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>    <span class="vs">`</span><span class="sc">${</span>opisDizajna<span class="sc">}</span><span class="vs">.`</span><span class="op">;</span></span>
-<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
-<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
-<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">200</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
-<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vrloUsko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">240</span><span class="op">;</span></span>
-<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
-<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> sirina <span class="op">&lt;</span> <span class="dv">480</span> <span class="op">?</span> <span class="dv">560</span> <span class="op">:</span> <span class="dv">500</span><span class="op">,</span></span>
-<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
-<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">52</span><span class="op">,</span></span>
-<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
-<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> <span class="st">"13px"</span></span>
-<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
-<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [</span>
-<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span></span>
-<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span></span>
-<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Razlike kroz ponavljanja"</span></span>
-<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
-<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a>      <span class="dt">range</span><span class="op">:</span> [skupinaA<span class="op">,</span> skupinaB<span class="op">,</span> procjene]<span class="op">,</span></span>
-<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a>      <span class="dt">legend</span><span class="op">:</span> <span class="kw">false</span></span>
-<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
-<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> vrloUsko</span>
-<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a>        <span class="op">?</span> <span class="st">"Ishod ili procijenjena razlika"</span></span>
-<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span> <span class="st">"Vrijednost ishoda ili procijenjene razlike"</span><span class="op">,</span></span>
-<span id="cb2-397"><a href="#cb2-397" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> domena<span class="op">,</span></span>
-<span id="cb2-398"><a href="#cb2-398" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
-<span id="cb2-399"><a href="#cb2-399" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-400"><a href="#cb2-400" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
-<span id="cb2-401"><a href="#cb2-401" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Udio opažanja"</span><span class="op">,</span></span>
-<span id="cb2-402"><a href="#cb2-402" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> gornjaGranicaY]<span class="op">,</span></span>
-<span id="cb2-403"><a href="#cb2-403" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-404"><a href="#cb2-404" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> sirina <span class="op">&lt;</span> <span class="dv">480</span> <span class="op">?</span> <span class="dv">4</span> <span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
-<span id="cb2-405"><a href="#cb2-405" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> postotak<span class="op">.</span><span class="fu">format</span>(d)</span>
-<span id="cb2-406"><a href="#cb2-406" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-407"><a href="#cb2-407" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fy</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
-<span id="cb2-408"><a href="#cb2-408" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-409"><a href="#cb2-409" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(histogrami<span class="op">,</span> {</span>
-<span id="cb2-410"><a href="#cb2-410" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x1</span><span class="op">:</span> <span class="st">"x1"</span><span class="op">,</span></span>
-<span id="cb2-411"><a href="#cb2-411" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x2</span><span class="op">:</span> <span class="st">"x2"</span><span class="op">,</span></span>
-<span id="cb2-412"><a href="#cb2-412" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span></span>
-<span id="cb2-413"><a href="#cb2-413" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
-<span id="cb2-414"><a href="#cb2-414" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
-<span id="cb2-415"><a href="#cb2-415" aria-hidden="true" tabindex="-1"></a>        <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.5</span></span>
-<span id="cb2-416"><a href="#cb2-416" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-417"><a href="#cb2-417" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>(sredine<span class="op">,</span> {</span>
-<span id="cb2-418"><a href="#cb2-418" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijednost"</span><span class="op">,</span></span>
-<span id="cb2-419"><a href="#cb2-419" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
-<span id="cb2-420"><a href="#cb2-420" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-421"><a href="#cb2-421" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"3,3"</span></span>
-<span id="cb2-422"><a href="#cb2-422" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-423"><a href="#cb2-423" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>(</span>
-<span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a>        [{<span class="dt">panel</span><span class="op">:</span> <span class="st">"Razlike kroz ponavljanja"</span><span class="op">,</span> <span class="dt">vrijednost</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">razlika</span>}]<span class="op">,</span></span>
-<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijednost"</span><span class="op">,</span></span>
-<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
-<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a>          <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
-<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span></span>
-<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
-<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a>        [</span>
-<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a>          {</span>
-<span id="cb2-435"><a href="#cb2-435" aria-hidden="true" tabindex="-1"></a>            <span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span></span>
-<span id="cb2-436"><a href="#cb2-436" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> domena[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">0.025</span> <span class="op">*</span> raspon<span class="op">,</span></span>
-<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> gornjaGranicaY <span class="op">*</span> <span class="fl">0.93</span><span class="op">,</span></span>
-<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Skupina A · uzorak"</span></span>
-<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
-<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a>          {</span>
-<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a>            <span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span></span>
-<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> domena[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">0.025</span> <span class="op">*</span> raspon<span class="op">,</span></span>
-<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> gornjaGranicaY <span class="op">*</span> <span class="fl">0.93</span><span class="op">,</span></span>
-<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Skupina B · uzorak"</span></span>
-<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
-<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a>          {</span>
-<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a>            <span class="dt">panel</span><span class="op">:</span> <span class="st">"Razlike kroz ponavljanja"</span><span class="op">,</span></span>
-<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> domena[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">0.025</span> <span class="op">*</span> raspon<span class="op">,</span></span>
-<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> gornjaGranicaY <span class="op">*</span> <span class="fl">0.93</span><span class="op">,</span></span>
-<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Razlike · ponavljanja"</span></span>
-<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>          }</span>
-<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
-<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
-<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
-<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
-<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">2</span><span class="op">,</span></span>
-<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dy</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
-<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a>          <span class="dt">stroke</span><span class="op">:</span> povrsina<span class="op">,</span></span>
-<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
-<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a>          <span class="dt">paintOrder</span><span class="op">:</span> <span class="st">"stroke"</span><span class="op">,</span></span>
-<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontSize</span><span class="op">:</span> sirina <span class="op">&lt;</span> <span class="dv">480</span> <span class="op">?</span> <span class="st">"11px"</span> <span class="op">:</span> <span class="st">"12px"</span><span class="op">,</span></span>
-<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
-<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
-<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
-<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> okvir <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">;</span></span>
-<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> status <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"p"</span>)<span class="op">;</span></span>
-<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="at">className</span> <span class="op">=</span> <span class="st">"small"</span><span class="op">;</span></span>
-<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"role"</span><span class="op">,</span> <span class="st">"status"</span>)<span class="op">;</span></span>
-<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"aria-live"</span><span class="op">,</span> <span class="st">"polite"</span>)<span class="op">;</span></span>
-<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> statusTekst<span class="op">;</span></span>
-<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a>  okvir<span class="op">.</span><span class="fu">append</span>(status<span class="op">,</span> graf)<span class="op">;</span></span>
-<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> okvir<span class="op">;</span></span>
-<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="276" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 275;"><span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> skupinaA <span class="op">=</span> <span class="st">"var(--tok-data-2)"</span><span class="op">;</span></span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> skupinaB <span class="op">=</span> <span class="st">"var(--tok-data-4)"</span><span class="op">;</span></span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> procjene <span class="op">=</span> <span class="st">"var(--tok-data-5)"</span><span class="op">;</span></span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--tok-accent-deep)"</span><span class="op">;</span></span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> povrsina <span class="op">=</span> <span class="st">"var(--tok-surface)"</span><span class="op">;</span></span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sans <span class="op">=</span> <span class="st">"var(--tok-font-sans)"</span><span class="op">;</span></span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> broj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>    <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> postotak <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="st">"percent"</span><span class="op">,</span></span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1414</span>)<span class="op">;</span></span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> standardna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korelacija <span class="op">=</span> <span class="fl">0.65</span><span class="op">;</span></span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> skupina1<span class="op">;</span></span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> skupina2<span class="op">;</span></span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> standardnaPogreska<span class="op">;</span></span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (w14_par<span class="op">.</span><span class="at">dizajn</span> <span class="op">===</span> <span class="st">"Uparena mjerenja"</span>) {</span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> parovi <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">n</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z1 <span class="op">=</span> <span class="fu">standardna</span>()<span class="op">;</span></span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z2 <span class="op">=</span> <span class="fu">standardna</span>()<span class="op">;</span></span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {</span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>        <span class="dt">a</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> z1<span class="op">,</span></span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a>        <span class="dt">b</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">razlika</span> <span class="op">+</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span></span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>          (korelacija <span class="op">*</span> z1 <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">-</span> korelacija <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span> z2)</span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>      }<span class="op">;</span></span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>    skupina1 <span class="op">=</span> parovi<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">a</span>)<span class="op">;</span></span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>    skupina2 <span class="op">=</span> parovi<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">b</span>)<span class="op">;</span></span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>    standardnaPogreska <span class="op">=</span></span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>      w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> korelacija) <span class="op">/</span> w14_par<span class="op">.</span><span class="at">n</span>)<span class="op">;</span></span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a>    skupina1 <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(</span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">length</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">n</span>}<span class="op">,</span></span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>      () <span class="kw">=&gt;</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="fu">standardna</span>()</span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>    skupina2 <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(</span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">length</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">n</span>}<span class="op">,</span></span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>      () <span class="kw">=&gt;</span> w14_par<span class="op">.</span><span class="at">razlika</span> <span class="op">+</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="fu">standardna</span>()</span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>    standardnaPogreska <span class="op">=</span> w14_par<span class="op">.</span><span class="at">sd</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">/</span> w14_par<span class="op">.</span><span class="at">n</span>)<span class="op">;</span></span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> procijenjeneRazlike <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(</span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">length</span><span class="op">:</span> <span class="dv">1500</span>}<span class="op">,</span></span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>    () <span class="kw">=&gt;</span> w14_par<span class="op">.</span><span class="at">razlika</span> <span class="op">+</span> standardnaPogreska <span class="op">*</span> <span class="fu">standardna</span>()</span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> serije <span class="op">=</span> [</span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednosti</span><span class="op">:</span> skupina1}<span class="op">,</span></span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednosti</span><span class="op">:</span> skupina2}<span class="op">,</span></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Razlike kroz ponavljanja"</span><span class="op">,</span> <span class="dt">vrijednosti</span><span class="op">:</span> procijenjeneRazlike}</span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sveVrijednosti <span class="op">=</span> serije<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">vrijednosti</span>)<span class="op">;</span></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> donja <span class="op">=</span> d3<span class="op">.</span><span class="fu">min</span>(sveVrijednosti)<span class="op">;</span></span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gornja <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(sveVrijednosti)<span class="op">;</span></span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> raspon <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1</span><span class="op">,</span> gornja <span class="op">-</span> donja)<span class="op">;</span></span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> domena <span class="op">=</span> [donja <span class="op">-</span> <span class="fl">0.04</span> <span class="op">*</span> raspon<span class="op">,</span> gornja <span class="op">+</span> <span class="fl">0.04</span> <span class="op">*</span> raspon]<span class="op">;</span></span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> binoviUzorak <span class="op">=</span> d3<span class="op">.</span><span class="fu">bin</span>()<span class="op">.</span><span class="fu">domain</span>(domena)<span class="op">.</span><span class="fu">thresholds</span>(<span class="dv">28</span>)<span class="op">;</span></span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> binoviProcjene <span class="op">=</span> d3<span class="op">.</span><span class="fu">bin</span>()<span class="op">.</span><span class="fu">domain</span>(domena)<span class="op">.</span><span class="fu">thresholds</span>(<span class="dv">120</span>)<span class="op">;</span></span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> histogrami <span class="op">=</span> serije<span class="op">.</span><span class="fu">flatMap</span>(serija <span class="kw">=&gt;</span> {</span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> binovi <span class="op">=</span> serija<span class="op">.</span><span class="at">panel</span> <span class="op">===</span> <span class="st">"Razlike kroz ponavljanja"</span></span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>      <span class="op">?</span> binoviProcjene</span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> binoviUzorak<span class="op">;</span></span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">binovi</span>(serija<span class="op">.</span><span class="at">vrijednosti</span>)<span class="op">.</span><span class="fu">map</span>(bin <span class="kw">=&gt;</span> ({</span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>      <span class="dt">panel</span><span class="op">:</span> serija<span class="op">.</span><span class="at">panel</span><span class="op">,</span></span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x1</span><span class="op">:</span> bin<span class="op">.</span><span class="at">x0</span><span class="op">,</span></span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x2</span><span class="op">:</span> bin<span class="op">.</span><span class="at">x1</span><span class="op">,</span></span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>      <span class="dt">udio</span><span class="op">:</span> bin<span class="op">.</span><span class="at">length</span> <span class="op">/</span> serija<span class="op">.</span><span class="at">vrijednosti</span><span class="op">.</span><span class="at">length</span></span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> najvisiUdio <span class="op">=</span> d3<span class="op">.</span><span class="fu">max</span>(histogrami<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">udio</span>)<span class="op">;</span></span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gornjaGranicaY <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="fl">0.01</span><span class="op">,</span> najvisiUdio <span class="op">*</span> <span class="fl">1.3</span>)<span class="op">;</span></span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sredine <span class="op">=</span> [</span>
+<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednost</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span> <span class="dt">vrijednost</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">razlika</span>}</span>
+<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> opisDizajna <span class="op">=</span> w14_par<span class="op">.</span><span class="at">dizajn</span> <span class="op">===</span> <span class="st">"Uparena mjerenja"</span></span>
+<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">"u uparenom dizajnu uz korelaciju 0,65"</span></span>
+<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"u dizajnu neovisnih skupina"</span><span class="op">;</span></span>
+<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> statusTekst <span class="op">=</span></span>
+<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>    <span class="vs">`Standardna pogreška iznosi </span><span class="sc">${</span>broj<span class="op">.</span><span class="fu">format</span>(standardnaPogreska)<span class="sc">}</span><span class="vs"> `</span> <span class="op">+</span></span>
+<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a>    <span class="vs">`</span><span class="sc">${</span>opisDizajna<span class="sc">}</span><span class="vs">.`</span><span class="op">;</span></span>
+<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
+<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
+<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirina <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">200</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
+<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> vrloUsko <span class="op">=</span> sirina <span class="op">&lt;</span> <span class="dv">240</span><span class="op">;</span></span>
+<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirina<span class="op">,</span></span>
+<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> sirina <span class="op">&lt;</span> <span class="dv">480</span> <span class="op">?</span> <span class="dv">560</span> <span class="op">:</span> <span class="dv">500</span><span class="op">,</span></span>
+<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">62</span><span class="op">,</span></span>
+<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">52</span><span class="op">,</span></span>
+<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> sans<span class="op">,</span></span>
+<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> <span class="st">"13px"</span></span>
+<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [</span>
+<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span></span>
+<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span></span>
+<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Razlike kroz ponavljanja"</span></span>
+<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a>      ]<span class="op">,</span></span>
+<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a>      <span class="dt">range</span><span class="op">:</span> [skupinaA<span class="op">,</span> skupinaB<span class="op">,</span> procjene]<span class="op">,</span></span>
+<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a>      <span class="dt">legend</span><span class="op">:</span> <span class="kw">false</span></span>
+<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb2-397"><a href="#cb2-397" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> vrloUsko</span>
+<span id="cb2-398"><a href="#cb2-398" aria-hidden="true" tabindex="-1"></a>        <span class="op">?</span> <span class="st">"Ishod ili procijenjena razlika"</span></span>
+<span id="cb2-399"><a href="#cb2-399" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span> <span class="st">"Vrijednost ishoda ili procijenjene razlike"</span><span class="op">,</span></span>
+<span id="cb2-400"><a href="#cb2-400" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> domena<span class="op">,</span></span>
+<span id="cb2-401"><a href="#cb2-401" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> broj<span class="op">.</span><span class="fu">format</span>(d)</span>
+<span id="cb2-402"><a href="#cb2-402" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-403"><a href="#cb2-403" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb2-404"><a href="#cb2-404" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Udio opažanja"</span><span class="op">,</span></span>
+<span id="cb2-405"><a href="#cb2-405" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> gornjaGranicaY]<span class="op">,</span></span>
+<span id="cb2-406"><a href="#cb2-406" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-407"><a href="#cb2-407" aria-hidden="true" tabindex="-1"></a>      <span class="dt">ticks</span><span class="op">:</span> sirina <span class="op">&lt;</span> <span class="dv">480</span> <span class="op">?</span> <span class="dv">4</span> <span class="op">:</span> <span class="dv">5</span><span class="op">,</span></span>
+<span id="cb2-408"><a href="#cb2-408" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> d <span class="kw">=&gt;</span> postotak<span class="op">.</span><span class="fu">format</span>(d)</span>
+<span id="cb2-409"><a href="#cb2-409" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-410"><a href="#cb2-410" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fy</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
+<span id="cb2-411"><a href="#cb2-411" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-412"><a href="#cb2-412" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">rectY</span>(histogrami<span class="op">,</span> {</span>
+<span id="cb2-413"><a href="#cb2-413" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x1</span><span class="op">:</span> <span class="st">"x1"</span><span class="op">,</span></span>
+<span id="cb2-414"><a href="#cb2-414" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x2</span><span class="op">:</span> <span class="st">"x2"</span><span class="op">,</span></span>
+<span id="cb2-415"><a href="#cb2-415" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"udio"</span><span class="op">,</span></span>
+<span id="cb2-416"><a href="#cb2-416" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
+<span id="cb2-417"><a href="#cb2-417" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
+<span id="cb2-418"><a href="#cb2-418" aria-hidden="true" tabindex="-1"></a>        <span class="dt">inset</span><span class="op">:</span> <span class="fl">0.5</span></span>
+<span id="cb2-419"><a href="#cb2-419" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-420"><a href="#cb2-420" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>(sredine<span class="op">,</span> {</span>
+<span id="cb2-421"><a href="#cb2-421" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijednost"</span><span class="op">,</span></span>
+<span id="cb2-422"><a href="#cb2-422" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
+<span id="cb2-423"><a href="#cb2-423" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"3,3"</span></span>
+<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>(</span>
+<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a>        [{<span class="dt">panel</span><span class="op">:</span> <span class="st">"Razlike kroz ponavljanja"</span><span class="op">,</span> <span class="dt">vrijednost</span><span class="op">:</span> w14_par<span class="op">.</span><span class="at">razlika</span>}]<span class="op">,</span></span>
+<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijednost"</span><span class="op">,</span></span>
+<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
+<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a>          <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
+<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span></span>
+<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb2-435"><a href="#cb2-435" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>(</span>
+<span id="cb2-436"><a href="#cb2-436" aria-hidden="true" tabindex="-1"></a>        [</span>
+<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a>          {</span>
+<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a>            <span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina A u jednom uzorku"</span><span class="op">,</span></span>
+<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> domena[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">0.025</span> <span class="op">*</span> raspon<span class="op">,</span></span>
+<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> gornjaGranicaY <span class="op">*</span> <span class="fl">0.93</span><span class="op">,</span></span>
+<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Skupina A · uzorak"</span></span>
+<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
+<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a>          {</span>
+<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a>            <span class="dt">panel</span><span class="op">:</span> <span class="st">"Skupina B u jednom uzorku"</span><span class="op">,</span></span>
+<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> domena[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">0.025</span> <span class="op">*</span> raspon<span class="op">,</span></span>
+<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> gornjaGranicaY <span class="op">*</span> <span class="fl">0.93</span><span class="op">,</span></span>
+<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Skupina B · uzorak"</span></span>
+<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a>          }<span class="op">,</span></span>
+<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a>          {</span>
+<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a>            <span class="dt">panel</span><span class="op">:</span> <span class="st">"Razlike kroz ponavljanja"</span><span class="op">,</span></span>
+<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> domena[<span class="dv">1</span>] <span class="op">-</span> <span class="fl">0.025</span> <span class="op">*</span> raspon<span class="op">,</span></span>
+<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> gornjaGranicaY <span class="op">*</span> <span class="fl">0.93</span><span class="op">,</span></span>
+<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>            <span class="dt">oznaka</span><span class="op">:</span> <span class="st">"Razlike · ponavljanja"</span></span>
+<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>          }</span>
+<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fy</span><span class="op">:</span> <span class="st">"panel"</span><span class="op">,</span></span>
+<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"oznaka"</span><span class="op">,</span></span>
+<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
+<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">2</span><span class="op">,</span></span>
+<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dy</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a>          <span class="dt">stroke</span><span class="op">:</span> povrsina<span class="op">,</span></span>
+<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
+<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a>          <span class="dt">paintOrder</span><span class="op">:</span> <span class="st">"stroke"</span><span class="op">,</span></span>
+<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontSize</span><span class="op">:</span> sirina <span class="op">&lt;</span> <span class="dv">480</span> <span class="op">?</span> <span class="st">"11px"</span> <span class="op">:</span> <span class="st">"12px"</span><span class="op">,</span></span>
+<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
+<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a>      )<span class="op">,</span></span>
+<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> linija})</span>
+<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> okvir <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">;</span></span>
+<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> status <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"p"</span>)<span class="op">;</span></span>
+<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="at">className</span> <span class="op">=</span> <span class="st">"small"</span><span class="op">;</span></span>
+<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"role"</span><span class="op">,</span> <span class="st">"status"</span>)<span class="op">;</span></span>
+<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"aria-live"</span><span class="op">,</span> <span class="st">"polite"</span>)<span class="op">;</span></span>
+<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a>  status<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> statusTekst<span class="op">;</span></span>
+<span id="cb2-482"><a href="#cb2-482" aria-hidden="true" tabindex="-1"></a>  okvir<span class="op">.</span><span class="fu">append</span>(status<span class="op">,</span> graf)<span class="op">;</span></span>
+<span id="cb2-483"><a href="#cb2-483" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> okvir<span class="op">;</span></span>
+<span id="cb2-484"><a href="#cb2-484" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w14" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1232,10 +1235,8 @@ Slika&nbsp;1: Jedan simulirani uzorak dviju skupina i raspodjela procijenjene ra
 <section id="što-razlika-sama-ne-kaže" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="što-razlika-sama-ne-kaže">Što razlika sama ne kaže</h2>
 <p>Razlika u izvornim jedinicama nosi značenje samo dok se zna koliko je ljestvica raspršena. Bod razlike na ljestvici čije su vrijednosti zbijene znači nešto sasvim drugo nego bod razlike na ljestvici na kojoj su ljudi raspoređeni široko. Standardizirana veličina učinka upravo to uzima u obzir.</p>
-<div id="def-standardizirana-razlika" class="theorem definition">
-<p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>Standardizirana razlika</strong> je razlika dviju sredina podijeljena združenom standardnom devijacijom skupina, pa se izražava u standardnim devijacijama umjesto u izvornim jedinicama.</p>
+<p>Standardiziranu razliku uvelo je poglavlje o veličini učinka i snazi, gdje je razlika sredina podijeljena združenom standardnom devijacijom skupina, pa se izražava u standardnim devijacijama umjesto u izvornim jedinicama.</p>
 <p><span class="math display">\[d = \frac{\bar{x}_2 - \bar{x}_1}{s_{\text{zdr}}}\]</span></p>
-</div>
 <p>Za naše dvije skupine ta veličina iznosi 0,59. Uobičajene orijentacijske vrijednosti postoje i najčešće se navode prema Cohenu, ali ih je i sam izvor ponudio kao pomoć u odsutnosti boljeg oslonca <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>. Kod uparenog dizajna nazivnik je drugi, jer se dijeli standardnom devijacijom razlika, pa dvije veličine s istim imenom nisu izravno usporedive. Naš upareni skup daje 0,53.</p>
 <div class="no-row-height column-margin column-container"><div id="ref-cohen1988" class="csl-entry" role="listitem">
 Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2. izd. Lawrence Erlbaum Associates.
