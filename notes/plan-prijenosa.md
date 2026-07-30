@@ -302,6 +302,98 @@ deficit mid-draft. Week 10 §13 (Simpson's paradox, stratified analysis) is a
 natural donor — the plan already has Simpson returning quantitatively in
 chapter 6.
 
+#### Round 3 — done, 30 July 2026
+
+| Job | Target | Delivered | Shape held |
+|---|---|---|---|
+| ch5 Vizualizacija | 4 500 | ~3 850 | cut, then expansion |
+| ch6 Povezanost | 4 000 | ~3 465 | expansion |
+| W6 mechanics → Dodatak A | — | ~5 000 → ~6 100 | heavy cut |
+
+Both linters clean on both chapters, all three files render, and every number in
+both chapters is computed inline from the code that is in the file. Section
+rhythm holds at body evenness 0,27 on chapter 5 and 0,25 on chapter 6. These are
+the best target ratios in the port so far, at 86 % and 87 % against 82 % and
+74 % in round 2.
+
+**Chapter 5 was two ports, not one.** The plan calls week 6 a cutting port, and
+that is true of the lecture as an artefact, since roughly two thirds of it is
+ggplot2 mechanics that H10 evicts. What remains after the eviction is *smaller*
+than the chapter target, so the concept half was an expansion. Naming the shape
+once per job is not enough when the ladder removes a fixed fraction of the
+source; the shape has to be named for what survives the eviction.
+
+**The praktikum absorbed the mechanics and is now the book's structural
+outlier.** Week 6's geometries, aesthetic mapping inside and outside `aes()`,
+facets, labels, themes, scales, axis formatting and `ggsave` all landed there,
+taking it from roughly 5 000 to 6 100 prose words against its 12 000 target. Two
+deliberate cuts. The patchwork package went out entirely, because composing
+several plots on a page is layout rather than reading, and because it would add
+a build dependency that `publish.yml` does not install. Colour selection is
+taught through `brewer` and `viridis` and never through a literal colour value,
+since DESIGN.md forbids one outside the four design files and `check-tokens.R`
+enforces it.
+
+**`limits` against `coord_cartesian()` turned out to be the load-bearing
+mechanic.** Chapter 5 argues that a truncated axis is a claim about the data.
+The appendix now shows that the two ways of truncating are not equivalent, since
+`limits` discards observations before anything is computed and silently moves
+every fitted line, while `coord_cartesian()` changes only the visible window.
+That pairing is the appendix earning its place, because the chapter can state
+the principle but only the appendix can show that the honest version and the
+dishonest version differ by one function name.
+
+**Three bibliography debts paid, one of them not on the list.** `cleveland1984`
+and `wilkinson2005` were both scheduled. `matejka2017` was not, and it took over
+chapter 6's divljina box so that Anscombe stops carrying the vignette, the
+divljina and the worked example in two consecutive chapters. Its entry
+deliberately carries only the short title, because neither Crossref nor OpenAlex
+records the subtitle that circulates in secondary sources, and ACM blocks
+automated retrieval. Same discipline as the missing end page on `squire1988`.
+`tufte2001` was already in the bib and unused; it now anchors the claim about
+decoration, which had been leaning on intuition.
+
+**The divljina boxes stopped being demonstrations.** Both chapters had been
+using Anscombe, which is a constructed teaching example rather than a claim
+somebody published and somebody else repeated. Chapter 5 now dissects the
+absolute prohibition on pie charts against what `cleveland1984` actually
+measured, and chapter 6 dissects the popular reading of the Datasaurus. Both
+boxes end where the box is supposed to end, on the difference between the
+finding and what was made of it.
+
+**One deliberate departure from the plan.** The plan sends week 10 §13 to
+chapter 6, and the source example there is a click-through rate by device, so a
+difference of proportions. It came across as a *correlation* reversal instead,
+built as three departments where the pooled coefficient is
+positive and every within-department coefficient is negative. The reason is that
+the quantitative return of the paradox in a correlation chapter is a question
+about the sign of a coefficient, and the proportion version already belongs to
+chapter 13, which carries `simpson1951` and `bickel1975` for exactly that.
+
+**Two numbers in the draft did not survive contact with the data**, and both
+were caught by computing before writing rather than after. The agreement-of-sign
+figure is 27 %, not the above-half value the prose first implied, because the
+relationship is negative — the draft had silently assumed a positive one.
+And restricting the sample to the youngest age group does not push the
+correlation toward zero, it pushes it to +0,18, the opposite sign. That is the
+better illustration and it is now the honest one, since the generator gives that
+subgroup no internal age effect at all, so the whole 0,18 is what noise produces
+on 90 observations. The chapter says so, and the same pair of facts became the
+`callout-greska`.
+
+**`conventions.json` has no template that fits the praktikum, and this is now
+blocking.** The structure linter measures every file against `essay`. The
+appendix flagged 11 candidates before this round and 17 after, and switching it
+to the existing `catalogue` template makes it worse at 24, because catalogue
+bands expect entries of 120 to 400 words. The real conflict is that the essay
+template treats any `##` carrying three or more `###` subsections as a monster,
+which a syntax manual cannot avoid and should not try to. Splitting the ggplot2
+material into four top-level sections was worth doing on its own merits and
+removed the 1 243-word section, but it cannot remove the flag class. **Round 4
+should either add a `manual` template or exempt `dodaci/` from S7 section
+rhythm.** Left untouched this round rather than ratified mid-port, since the
+round 2 precedent is to measure first and change the band deliberately.
+
 ### Round 4 — the instrument batch
 
 **W10 → ch13.  W11 → ch14.  W12 → ch15.**
@@ -382,8 +474,9 @@ Not in `references.bib` and needed by the rounds above. Never add from memory.
 | Dodatak A, round 1 | Wickham & Grolemund, *R for Data Science* | paid, `wickham2023` |
 | ch8 divljina, round 2 | Squire 1988, why the 1936 *Literary Digest* poll failed | paid, `squire1988` |
 | ch9 divljina, round 2 | Hoekstra et al. 2014, misinterpretation of confidence intervals | paid, `hoekstra2014` |
-| ch5, already outstanding | Cleveland & McGill, graphical perception | open |
-| ch5, already outstanding | Wilkinson, *The Grammar of Graphics* | open |
+| ch5, already outstanding | Cleveland & McGill, graphical perception | paid, `cleveland1984` |
+| ch5, already outstanding | Wilkinson, *The Grammar of Graphics* | paid, `wilkinson2005` |
+| ch6 divljina, round 3 | Matejka & Fitzmaurice 2017, identical statistics from very different data | paid, `matejka2017` |
 
 ## Not available, scheduled later
 
@@ -395,8 +488,9 @@ No lecture source exists for any of these, and none is a port.
 - **Predgovor** — drafted, not ported
 - **Dodatak B** jamovi, **C** katalog, **D** koji test, **E** rječnik, **F**
   protokol
-- **17 divljina boxes** minus the one Berkeley case week 1 supplies, and minus the
-  two round 2 sourced independently (`squire1988`, `hoekstra2014`)
+- **17 divljina boxes** minus the one Berkeley case week 1 supplies, minus the
+  two round 2 sourced independently (`squire1988`, `hoekstra2014`), and minus the
+  two round 3 sourced independently (`cleveland1984`, `matejka2017`)
 
 Note that all three chapters carrying the book's contemporary identity are in
 this list. The port delivers the spine and none of the identity, so the port

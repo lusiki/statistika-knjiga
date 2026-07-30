@@ -103,6 +103,9 @@ div.csl-indent {
 <link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -131,37 +134,95 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- =====================================================================
+
      head.html — pisma knjige (include-in-header)
+
      ---------------------------------------------------------------------
+
      Četiri obitelji, sve s Google Fontsa, sve s punom hrvatskom
+
      dijakritikom (č ć đ š ž):
 
+
+
        Newsreader      displej — naslovi, otvaranje poglavlja, navodi
+
        Literata        tijelo teksta
+
        Public Sans     sučelje, potpisi, margina, izvori, glave tablica
+
        JetBrains Mono  kod, brojke, oznake, „eyebrow"
 
+
+
      Imena pisama žive u styles/_tokens.scss; ovdje su samo poveznice na
+
      datoteke. Za PDF ih treba instalirati lokalno — tex/theme.tex ih traži
+
      u sustavu i tiho pada na Latin Modern ako ih nema.
 
+
+
      ŠESTI NOSITELJ BOJE. `theme-color` ne može se izraziti tokenom jer ga
+
      čita preglednik, ne stranica. Vrijednost je token:paper i mijenja se
+
      zajedno s njim (vidi DESIGN.md).
+
      ================================================================== -->
 
+
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=Public+Sans:ital,wght@0,400..700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
 
+
+
 <meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
+
 <meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
 
+
+
 <!-- Oznaka stranice: tri rastuća stupca, s okerom kao signalom navođenja. -->
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
+
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -676,7 +737,11 @@ div.csl-indent {
    
   <ul>
   <li><a href="#zajedničko-kretanje" id="toc-zajedničko-kretanje" class="nav-link active" data-scroll-target="#zajedničko-kretanje">Zajedničko kretanje</a></li>
-  <li><a href="#granice-jednog-broja" id="toc-granice-jednog-broja" class="nav-link" data-scroll-target="#granice-jednog-broja">Granice jednog broja</a></li>
+  <li><a href="#zajedničko-kretanje-bez-jedinica" id="toc-zajedničko-kretanje-bez-jedinica" class="nav-link" data-scroll-target="#zajedničko-kretanje-bez-jedinica">Zajedničko kretanje bez jedinica</a></li>
+  <li><a href="#koliko-znači-jedan-koeficijent" id="toc-koliko-znači-jedan-koeficijent" class="nav-link" data-scroll-target="#koliko-znači-jedan-koeficijent">Koliko znači jedan koeficijent</a></li>
+  <li><a href="#rangovi-umjesto-vrijednosti" id="toc-rangovi-umjesto-vrijednosti" class="nav-link" data-scroll-target="#rangovi-umjesto-vrijednosti">Rangovi umjesto vrijednosti</a></li>
+  <li><a href="#kada-koeficijent-zavarava" id="toc-kada-koeficijent-zavarava" class="nav-link" data-scroll-target="#kada-koeficijent-zavarava">Kada koeficijent zavarava</a></li>
+  <li><a href="#kada-se-predznak-preokrene" id="toc-kada-se-predznak-preokrene" class="nav-link" data-scroll-target="#kada-se-predznak-preokrene">Kada se predznak preokrene</a></li>
   <li><a href="#interakcija-pogodi-korelaciju" id="toc-interakcija-pogodi-korelaciju" class="nav-link" data-scroll-target="#interakcija-pogodi-korelaciju">Interakcija — Pogodi korelaciju</a></li>
   <li><a href="#razrađeni-primjer" id="toc-razrađeni-primjer" class="nav-link" data-scroll-target="#razrađeni-primjer">Razrađeni primjer</a></li>
   <li><a href="#sažetak" id="toc-sažetak" class="nav-link" data-scroll-target="#sažetak">Sažetak</a></li>
@@ -796,20 +861,48 @@ div.csl-indent {
 </script>
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument, strukturni elementi i dovršen widget
-  IZVOR:   izdvojeno iz tjedna 5, prošireno
+  STATUS:  cjelovit nacrt — prijenos tjedna 5, odjeljak 9, runda 3
+  IZVOR:   izdvojeno iz tjedna 5 (§9), prošireno, Simpson iz tjedna 10 (§13)
   OPSEG:   ~4000 riječi
   WIDGET:  w06 · Pogodi korelaciju
   FAZA:    3 (plan proizvodnje, notes/struktura-knjige.md)
+  NAPOMENA: Prema ljestvici izlaganja (notes/struktura-knjige.md) ovo poglavlje
+  ne uvodi nijedan novi obrazac koda. Ono je dokaz da sustav radi, jer čitatelj
+  u njemu čita poziv grafa koji ga nitko nije učio.
 
   SADRŽAJ (iz plana):
   Intuicija kovarijance, Pearson i Spearman, korelacijske matrice čitane vizualno, sužavanje raspona, korelacija nasuprot uzročnosti na stvarnim slučajevima iz društvenih znanosti, kvantitativni povratak Simpsonova paradoksa.
+
+  PODRIJETLO (runda 3, notes/plan-prijenosa.md):
+  1. Osnovni izvor je tjedan 5, odjeljak 9, u cijelosti (9.1 do 9.6). Plan ga
+     mjeri na oko 1500 riječi prema cilju od 4000, pa je proširenje planirano
+     unaprijed, a ne otkriveno usput.
+  2. Simpsonov paradoks dolazi iz tjedna 10, odjeljka 13, kako plan traži.
+     Izvorni primjer je stopa klikova po uređaju, dakle omjer. Ovdje je
+     preveden u korelaciju, jer je kvantitativni povratak paradoksa u poglavlju
+     o povezanosti pitanje predznaka koeficijenta, a ne razlike udjela. Verzija
+     s udjelima ostaje poglavlju o kategoričkim podacima.
+  3. IZOSTAVLJEN Cohenov prag za jačinu korelacije kao pravilo. Knjiga navodi
+     orijentaciju uz izvor [@cohen1988] i uz uvjet koji izvor sam postavlja, a
+     ne kao ljestvicu za očitavanje.
+  4. Nastavni skup tjedna 5 (anketa o TikToku) knjiga nema. Svi su primjeri
+     preračunati na `anketa_mreze` i na ugrađeni `anscombe`. Korelacije izvora
+     (do -0,99) posljedica su njegova generatora i ne prenose se.
+  5. Okvir divljine više ne nosi Anscombea, jer ga nosi vinjeta. Sada nosi
+     Datasaurus [@matejka2017], koji isti argument izvodi konstruktivno.
+  6. Notacija r, rho i r_s upisana je u concept-ledger.json.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
 ===================================================================== -->
 <div class="chapter-meta">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Vrijeme čitanja</th>
@@ -820,9 +913,9 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td>5 min</td>
+<td>20 min</td>
 <td>Pogodi korelaciju</td>
-<td>Anscombeov kvartet</td>
+<td>simulirana anketa, Anscombeov kvartet</td>
 <td>pogl. 4, 5</td>
 </tr>
 </tbody>
@@ -830,19 +923,147 @@ div.csl-indent {
 </div>
 <div class="callout-vinjeta page-columns page-full">
 <p>Anscombeova četiri skupa imaju gotovo jednaku Pearsonovu korelaciju, iako njihovi grafovi prikazuju različite odnose <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>. Analitičar koji je dobio samo koeficijent mogao je uredno izvijestiti o smjeru i jačini linearne veze, a ipak propustiti zakrivljenost ili jedno opažanje koje određuje cijeli rezultat.</p>
-<div class="no-row-height column-margin column-container"></div><p>Korelacija je bila točno izračunata. Nije pogriješila u računu, nego je sažela samo jedan aspekt odnosa. Poteškoća je nastala kada je taj sažetak pročitan kao potpuna slika.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-anscombe1973" class="csl-entry" role="listitem">
+Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The American Statistician</em> 27 (1): 17–21.
+</div></div><p>Korelacija je bila točno izračunata. Nije pogriješila u računu, nego je sažela samo jedan aspekt odnosa. Poteškoća je nastala kada je taj sažetak pročitan kao potpuna slika.</p>
 <p>Što koeficijent povezanosti čuva, a koje odnose ostavlja izvan kadra?</p>
 </div>
 <section id="zajedničko-kretanje" class="level2">
 <h2 class="anchored" data-anchor-id="zajedničko-kretanje">Zajedničko kretanje</h2>
-<p>Dvije su varijable povezane kada se njihov raspored mijenja zajedno. Pozitivna veza znači da se veće vrijednosti jedne češće pojavljuju uz veće vrijednosti druge. Negativna veza spaja veće vrijednosti jedne s manjima druge. Slaba linearna veza ne znači da odnosa nema jer zakrivljeni obrazac može imati koeficijent blizu nule.</p>
-<p><strong>Kovarijanca</strong> prati zajedničko odstupanje od sredina, ali zadržava jedinice obiju varijabli. Pearsonova korelacija standardizira taj odnos pa se kreće na zajedničkoj ljestvici. Ona opisuje smjer i jačinu linearnog odnosa. Spearmanova korelacija radi s rangovima i zato bolje podnosi monotone odnose i dio krajnjih vrijednosti.</p>
-<p>Koeficijent se uvijek čita uz raspršeni dijagram. Graf otkriva je li odnos linearan, stvaraju li skupine lažni oblak i određuje li jedno opažanje nagib. Matrica korelacija može sažeti mnogo parova, ali ne zamjenjuje pregled najvažnijih odnosa.</p>
+<p>Dvije su varijable povezane kada se njihov raspored mijenja zajedno. Pozitivna veza znači da se veće vrijednosti jedne češće pojavljuju uz veće vrijednosti druge. Negativna veza spaja veće vrijednosti jedne s manjima druge. Slaba linearna veza ne znači da odnosa nema, jer zakrivljeni obrazac može imati koeficijent blizu nule.</p>
+<p>Do mjere se dolazi pitanjem koje se može postaviti za svakog pojedinog ispitanika. Je li iznad prosjeka u obje varijable, ispod prosjeka u obje, ili iznad u jednoj i ispod u drugoj. U simuliranoj anketi <code>anketa_mreze</code>, koja ima 300 ispitanika i nije mjerenje nego nastavni skup proizveden kodom, na istu stranu prosjeka u dobi i u dnevnim minutama odstupa 27 % ispitanika. Kada varijable ne bi bile povezane, taj bi udio bio blizu polovine, jer bi predznaci dvaju odstupanja bili neovisni. Udio znatno ispod polovine znak je da odstupanja redovito idu na suprotne strane, dakle da je veza negativna. Sam udio ipak ne kaže koliko je veza jaka, jer ne razlikuje jedva prijeđeni prosjek od krajnje vrijednosti.</p>
+<p>Odgovor na to daje umnožak. Za svakog se ispitanika pomnože njegova odstupanja od dviju sredina, čime se veliko slaganje nagrađuje jače od malog, a neslaganje ulazi s negativnim predznakom. Prosjek tih umnožaka po cijelom uzorku mjera je zajedničkog kretanja.</p>
+<div id="def-kovarijanca" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Kovarijanca</strong> je prosjek umnožaka odstupanja dviju varijabli od njihovih sredina, uz djelitelj umanjen za jedan, pa je pozitivna kada opažanja odstupaju na istu stranu i negativna kada odstupaju na suprotne.</p>
+</div>
+<p>Zapisano simbolima, gdje <span class="math inline">\(x_i\)</span> i <span class="math inline">\(y_i\)</span> označavaju vrijednosti izmjerene kod istog opažanja, <span class="math inline">\(\bar{x}\)</span> i <span class="math inline">\(\bar{y}\)</span> njihove sredine, a <span class="math inline">\(n\)</span> broj opažanja, kovarijanca glasi</p>
+<p><span class="math display">\[\operatorname{Cov}(x, y) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}).\]</span></p>
+<p>Djelitelj <span class="math inline">\(n-1\)</span> isti je onaj iz poglavlja o sažimanju podataka, a formula je poopćenje varijance, jer varijanca nastaje kada se ista varijabla stavi na oba mjesta.</p>
+<p>Jedna osobina kovarijancu čini neupotrebljivom za izvještavanje. Ona nosi jedinice obiju varijabli pomnožene jedna s drugom. Kovarijanca dobi i dnevnih minuta u anketi iznosi -293,1, a kovarijanca dobi i istog vremena izraženog u satima -4,9. Odnos se nije promijenio, promijenila se jedinica, a broj se promijenio šezdeset puta. Vrijednost kovarijance zato ne govori ništa dok se ne zna u čemu je mjereno, i nijedan se par varijabli po njoj ne može usporediti s drugim parom.</p>
 </section>
-<section id="granice-jednog-broja" class="level2">
-<h2 class="anchored" data-anchor-id="granice-jednog-broja">Granice jednog broja</h2>
-<p>Ograničenje raspona slabi korelaciju jer iz uzorka uklanja dio varijacije koja je nosila odnos. U skupini u kojoj su svi vrlo slični teško je vidjeti obrazac koji postoji u široj populaciji. Miješanje različitih podskupina može učiniti suprotno i proizvesti odnos koji se unutar svake skupine smanji ili preokrene.</p>
-<p>Povezanost ne određuje smjer uzroka. Varijabla može utjecati na drugu, smjer može biti obrnut, obje može oblikovati treći čimbenik, a uzorak može nastati slučajno. Statistička kontrola sužava neke mogućnosti tek uz uvjerljiv dizajn i sadržajno obrazloženje.</p>
+<section id="zajedničko-kretanje-bez-jedinica" class="level2">
+<h2 class="anchored" data-anchor-id="zajedničko-kretanje-bez-jedinica">Zajedničko kretanje bez jedinica</h2>
+<p>Rješenje je već napisano u poglavlju o sažimanju podataka. Standardizirana vrijednost pretvara opažanje u broj standardnih devijacija od sredine i time odbacuje jedinicu. Ako se prije množenja obje varijable standardiziraju, umnožak više ne ovisi o tome mjeri li se vrijeme u minutama ili satima.</p>
+<div id="def-korelacija" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Pearsonova korelacija</strong> je prosjek umnožaka standardiziranih vrijednosti dviju varijabli, pa mjeri smjer i jačinu njihove linearne veze na ljestvici od <span class="math inline">\(-1\)</span> do <span class="math inline">\(+1\)</span>, neovisno o mjernim jedinicama.</p>
+</div>
+<p>Uzoračku korelaciju označavamo slovom <span class="math inline">\(r\)</span>, a odgovarajuću vrijednost cijele populacije grčkim slovom <span class="math inline">\(\rho\)</span>, po istom pravilu po kojem su u poglavlju o sažimanju podataka uzorak nosio latinicu, a populacija grčka slova. Definicija se zapisuje kao</p>
+<p><span class="math display">\[r = \frac{1}{n-1} \sum_{i=1}^{n} z_{x_i} \, z_{y_i} = \frac{\operatorname{Cov}(x, y)}{s_x \, s_y},\]</span></p>
+<p>gdje su <span class="math inline">\(z_{x_i}\)</span> i <span class="math inline">\(z_{y_i}\)</span> standardizirane vrijednosti dviju varijabli kod istog opažanja, a <span class="math inline">\(s_x\)</span> i <span class="math inline">\(s_y\)</span> njihove standardne devijacije. Dva zapisa daju isti broj, jer dijeljenje kovarijance standardnim devijacijama i standardiziranje prije množenja isti su postupak izveden različitim redom.</p>
+<p>Da to nije samo tvrdnja, provjerava se izravno. Prosjek umnožaka standardiziranih vrijednosti dobi i dnevnih minuta u anketi iznosi -0,559, a ugrađeni izračun korelacije daje -0,559. Ista korelacija izračunata na satima umjesto minuta iznosi -0,559, dakle nepromijenjeno, dok se kovarijanca u istoj zamjeni pomaknula šezdeset puta. Standardizacija je učinila upravo ono zbog čega je uvedena.</p>
+<p>Krajnje vrijednosti ljestvice imaju geometrijsko značenje. Vrijednost <span class="math inline">\(+1\)</span> znači da sve točke leže na jednom uzlaznom pravcu, <span class="math inline">\(-1\)</span> da leže na silaznom, a nula da linearne veze nema. Sve između mjeri koliko se oblak približio pravcu, i to je cijeli sadržaj koeficijenta. Ono što on ne mjeri jest nagib tog pravca, pa korelacija od -0,56 ne govori za koliko se minuta mijenja vrijeme korištenja po godini dobi. Taj broj daje tek regresija, i to je razlika koju poglavlje o regresiji razrađuje.</p>
+</section>
+<section id="koliko-znači-jedan-koeficijent" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="koliko-znači-jedan-koeficijent">Koliko znači jedan koeficijent</h2>
+<p>Nakon izračuna redovito slijedi pitanje je li dobiveni broj velik. Cohen je za društvene znanosti ponudio orijentacijske vrijednosti, po kojima se korelacija oko 0,10 opisuje kao mala, oko 0,30 kao srednja, a oko 0,50 kao velika <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>. Te se vrijednosti citiraju toliko često da su stekle status ljestvice za očitavanje, što nisu.</p>
+<div class="no-row-height column-margin column-container"></div><p>Uvjet stoji već kod izvora. Vrijednosti su ponuđene za polja u kojima ne postoji bolja osnova za prosudbu i izričito ustupaju mjesto poznavanju područja <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>. U predviđanju pojedinačnog ponašanja korelacija od 0,30 ozbiljan je nalaz, a u provjeri pouzdanosti mjernog instrumenta 0,50 je razlog za odbacivanje instrumenta. Isti broj u dvama kontekstima nosi suprotne prosudbe, pa se veličina ne očitava iz tablice nego iz literature koja mjeri isto što i mi.</p>
+<p>Jedna preinaka koeficijenta ipak pomaže prosudbi, jer ga stavlja na ljestvicu koja se lakše tumači. Kvadrirana korelacija kaže koliki je udio varijance jedne varijable zajednički s drugom, pa korelacija od -0,56 znači da dvije varijable dijele 31 % varijance, dok preostalih 69 % ostaje neobjašnjeno. Kvadriranje je pritom nemilosrdno prema srednjim vrijednostima, jer korelacija od 0,30, koju bi mnogi opisali kao osrednju, dijeli devet posto varijance. Poglavlje o regresiji istu veličinu koristi kao mjeru prilagodbe modela.</p>
+<p>Druga polovina odgovora nema veze s veličinom. Koeficijent izračunat na uzorku procjena je, pa nosi vlastitu nesigurnost, koja opada s brojem opažanja. Korelacija od 0,40 na trideset ispitanika i ista korelacija na tri tisuće ispitanika dva su vrlo različita nalaza, iako je broj jednak. Dio knjige o uzorkovanju i procjeni tu nesigurnost izračunava, a do tada vrijedi da se korelacija bez broja opažanja uz sebe ne može prosuditi.</p>
+<p>Kada se varijabli nakupi, korelacije svih parova slažu se u matricu, koja je simetrična i na dijagonali nosi jedinice, jer je svaka varijabla savršeno povezana sama sa sobom.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-korelacije-anketa" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-korelacije-anketa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Korelacije triju brojčanih varijabli simulirane ankete. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-korelacije-anketa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">dob</th>
+<th style="text-align: right;">minute_dnevno</th>
+<th style="text-align: right;">povjerenje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">dob</td>
+<td style="text-align: right;">1,00</td>
+<td style="text-align: right;">-0,56</td>
+<td style="text-align: right;">-0,33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">minute_dnevno</td>
+<td style="text-align: right;">-0,56</td>
+<td style="text-align: right;">1,00</td>
+<td style="text-align: right;">0,18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">povjerenje</td>
+<td style="text-align: right;">-0,33</td>
+<td style="text-align: right;">0,18</td>
+<td style="text-align: right;">1,00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Matrica je ekonomična i opasna u istoj mjeri. Tri varijable daju tri para, deset varijabli daje četrdeset pet, a pregled u kojem se traži najveći broj prestaje biti provjera hipoteze i postaje njezino izmišljanje. Poglavlje o krizi i obnovi pokazuje što se s takvim pretraživanjem dogodi kada mu se doda testiranje. Ovdje je dovoljno pravilo da matrica služi za pregled, a da svaki par koji ulazi u zaključak dobije vlastiti raspršeni dijagram.</p>
+</section>
+<section id="rangovi-umjesto-vrijednosti" class="level2">
+<h2 class="anchored" data-anchor-id="rangovi-umjesto-vrijednosti">Rangovi umjesto vrijednosti</h2>
+<p>Pearsonova korelacija mjeri koliko se oblak približio pravcu, pa je zakrivljena veza za nju djelomično nevidljiva. Odnos u kojem jedna varijabla stalno raste s drugom, ali sve sporije, postoji i uredan je, a mjeren pravcem izgleda slabije nego što jest.</p>
+<p>Za takve slučajeve podaci se prije računanja zamjenjuju rangovima. Najmanja vrijednost dobiva prvi rang, sljedeća drugi, i tako redom, nakon čega se na rangove primijeni isti Pearsonov izračun. Rangiranje čuva poredak i odbacuje razmake, pa rezultat mjeri je li kretanje dosljedno u jednom smjeru bez zahtjeva da bude pravocrtno. Tako dobivena <strong>Spearmanova korelacija</strong>, koja se označava sa <span class="math inline">\(r_s\)</span>, mjeri monotonu vezu.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-zakrivljeno" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Raspršeni dijagram dobi i dnevnih minuta; točke padaju strmo do tridesetih godina, a zatim se izravnavaju uz nisku razinu." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-zakrivljeno-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06-povezanost_files/figure-html/fig-zakrivljeno-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Dob i dnevno vrijeme korištenja u simuliranoj anketi. Veza je dosljedno silazna, ali nije pravocrtna, pa je mjera koja traži pravac strože kažnjava."><img src="06-povezanost_files/figure-html/fig-zakrivljeno-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Raspršeni dijagram dobi i dnevnih minuta; točke padaju strmo do tridesetih godina, a zatim se izravnavaju uz nisku razinu."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-zakrivljeno-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;1: Dob i dnevno vrijeme korištenja u simuliranoj anketi. Veza je dosljedno silazna, ali nije pravocrtna, pa je mjera koja traži pravac strože kažnjava.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Oblak pada strmo u mlađim godinama i izravnava se poslije, što je oblik koji pravac ne može pratiti. Pearsonova korelacija dobi i dnevnih minuta iznosi -0,56, a Spearmanova -0,68. Razlika u istom smjeru redovit je znak da je veza monotona, ali zakrivljena. Potvrda dolazi odmah, jer korelacija dobi s logaritmom minuta, koja zakrivljenost uklanja, iznosi -0,68 i približila se Spearmanovoj vrijednosti.</p>
+<p>Iz toga slijedi jednostavna dijagnostika. Kada se dva koeficijenta slažu, veza je približno pravocrtna i Pearsonov je izbor u redu. Kada se razilaze, zakrivljenost je vjerojatna i graf će je pokazati. Spearmanova mjera uz to slabije reagira na pojedinačno krajnje opažanje, jer krajnja vrijednost dobiva samo sljedeći rang umjesto vlastite udaljenosti, pa se koristi i kada podaci sadrže malo opažanja koja izrazito odudaraju.</p>
+<p>Nijedna od dviju mjera ne vidi vezu koja nije monotona. Kada je zadovoljstvo niže i pri vrlo malom i pri vrlo velikom opterećenju, oba koeficijenta mogu ispasti blizu nule, jer se uzlazni i silazni dio međusobno ponište. To nije znak da odnosa nema nego znak da nijedan jedan broj taj odnos ne može nositi.</p>
+</section>
+<section id="kada-koeficijent-zavarava" class="level2">
+<h2 class="anchored" data-anchor-id="kada-koeficijent-zavarava">Kada koeficijent zavarava</h2>
+<p>Prvi način na koji koeficijent zavara nije pogreška računanja nego izbor onoga tko je birao uzorak. Korelacija mjeri koliko varijacije jedne varijable prati varijaciju druge, pa uklanjanje varijacije uklanja i mjeru.</p>
+<div id="def-ogranicenje-raspona" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>Ograničenje raspona</strong> (<em>range restriction</em>) je smanjenje izmjerene povezanosti do kojeg dolazi kada uzorak pokriva samo dio raspona jedne varijable, pa unutar njega ostaje premalo varijacije da bi se odnos vidio.</p>
+</div>
+<p>Anketa to pokazuje na sebi. U cijelom uzorku korelacija dobi i dnevnih minuta iznosi -0,56. Ograničimo li se na najmlađu dobnu skupinu, u kojoj je 90 ispitanika unutar raspona od sedam godina, ista korelacija iznosi 0,18, dakle slabo i k tome u suprotnom smjeru. Vrijedi znati odakle taj drugi broj dolazi. Generator koji je skup proizveo razlikuje dobne skupine, a unutar skupine svim ispitanicima dodjeljuje istu raspodjelu, pa je prava vrijednost unutar te skupine nula. Dobivenih 0,18 cijelim je iznosom ono što promjenjivost uzorka proizvede na 90 opažanja.</p>
+<p>Veza između dobi i vremena korištenja time nije opovrgnuta. Nestao je raspon dobi unutar kojeg se mogla očitati, i to je razlog zbog kojeg se studija provedena na studentima jedne generacije ne može uzeti kao dokaz da dob nije važna. Isto vrijedi za svaku selekciju koja prethodi mjerenju, dakle za uzorke sastavljene od primljenih kandidata, zaposlenih radnika ili preživjelih poduzeća. Poglavlje o mjerenju i dizajnu isti postupak opisuje kao pitanje o tome tko je ušao u skup.</p>
+<p>Isti izračun pokazao je i drugi način na koji koeficijent zavara, jer je broj različit od nule ovdje nastao iz uzorka u kojem veze nema. Što je opažanja manje, to je takav ishod vjerojatniji, pa koeficijent bez broja opažanja uz sebe ne nosi dovoljno da bi se prosudio. Treći je način osjetljivost na pojedinačno opažanje, jer jedna vrijednost daleko od ostalih pomiče oba prosjeka i obje standardne devijacije, a s njima i sam koeficijent. Sva tri načina nose isti simptom, dakle broj koji izgleda uvjerljivo, i sva tri otkriva isti postupak, dakle pogled na raspršeni dijagram prije nego što se broj negdje zapiše.</p>
+</section>
+<section id="kada-se-predznak-preokrene" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="kada-se-predznak-preokrene">Kada se predznak preokrene</h2>
+<p>Najteži slučaj nije oslabljen nego preokrenut koeficijent. On nastaje kada uzorak sadrži podskupine koje se razlikuju po razini obiju varijabli, a promatraju se zbirno.</p>
+<p>Zamislimo tri odjela jedne organizacije, koji se razlikuju po tome koliko su njihovi zaposlenici iskusni i koliko su zadovoljni poslom. Podaci koji slijede konstruirani su za ovu svrhu i nisu mjerenje. Unutar svakog odjela zadovoljstvo blago opada s godinama staža, dok su odjeli s iskusnijim zaposlenicima ujedno oni s višim zadovoljstvom.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-simpson" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Lijevo je raspršeni dijagram s jednim uzlaznim pravcem kroz sve točke, desno isti podaci s tri odvojena silazna pravca, po jedan za svaki odjel." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simpson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06-povezanost_files/figure-html/fig-simpson-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;2: Konstruirani podaci u kojima zbirna veza raste, a veza unutar svakog odjela pada. Isti su podaci prikazani jednom bez oznake odjela i jednom s njom."><img src="06-povezanost_files/figure-html/fig-simpson-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Lijevo je raspršeni dijagram s jednim uzlaznim pravcem kroz sve točke, desno isti podaci s tri odvojena silazna pravca, po jedan za svaki odjel."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simpson-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;2: Konstruirani podaci u kojima zbirna veza raste, a veza unutar svakog odjela pada. Isti su podaci prikazani jednom bez oznake odjela i jednom s njom.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Zbirna korelacija staža i zadovoljstva iznosi 0,76, dakle jasno pozitivna. Unutar odjela ona iznosi -0,77, -0,66 i -0,71, dakle negativna u sva tri. Nijedan broj nije pogrešno izračunat i nijedan ne proturječi drugome, jer odgovaraju na različita pitanja. Zbirni koeficijent mjeri i razliku među odjelima i odnos unutar njih odjednom, a razlika među odjelima ovdje je toliko veća da određuje predznak.</p>
+<p>Ista je pojava koju je Simpson opisao na tablicama frekvencija <span class="citation" data-cites="simpson1951">(<a href="../references.html#ref-simpson1951" role="doc-biblioref">Simpson 1951.</a>)</span>, a poglavlje o statističkom mišljenju pokazalo je na stvarnom slučaju prijamnog postupka u Berkeleyju, gdje se zbirna razlika u stopama prijma raspala čim su odjeli razdvojeni <span class="citation" data-cites="bickel1975">(<a href="../references.html#ref-bickel1975" role="doc-biblioref">Bickel i sur. 1975.</a>)</span>. Vizualni oblik iste pojave nose mala višestruka polja iz poglavlja o vizualizaciji. Zajedničko im je da razlika među skupinama i odnos unutar skupina nisu ista veličina, i da ih zbirni broj spaja u jedan.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-simpson1951" class="csl-entry" role="listitem">
+Simpson, E. H. 1951. <span>„The Interpretation of Interaction in Contingency Tables“</span>. <em>Journal of the Royal Statistical Society, Series B</em> 13 (2): 238–41.
+</div><div id="ref-bickel1975" class="csl-entry" role="listitem">
+Bickel, P. J., E. A. Hammel, i J. W. O’Connell. 1975. <span>„Sex Bias in Graduate Admissions: Data from Berkeley“</span>. <em>Science</em> 187 (4175): 398–404. <a href="https://doi.org/10.1126/science.187.4175.398">https://doi.org/10.1126/science.187.4175.398</a>.
+</div></div><p>Društvene znanosti taj problem susreću u obliku koji nema ni jednu podskupinu nego samo pogrešnu jedinicu analize. Korelacije se često računaju na zemljama, županijama ili školama, dakle na prosjecima, jer su podaci u tom obliku dostupni. Prosjeci su glatkiji od pojedinaca, pa su korelacije među njima redovito znatno jače, a njihov smjer ne mora vrijediti unutar tih jedinica. Zaključak o pojedincu izveden iz veze među skupinama naziva se <strong>ekološkom pogreškom</strong> (<em>ecological fallacy</em>), i ne otklanja se boljim izračunom nego samo podacima o pojedincima. Tvrdnja izračunata na razini zemalja legitiman je nalaz o zemljama, i ništa više od toga.</p>
+<p>Odatle slijedi ono što se o uzroku smije reći. Varijabla koja je povezana i s pretpostavljenim uzrokom i s ishodom prisvaja dio veze koja se pripisuje uzroku, i to je konfundirajuća varijabla iz poglavlja o mjerenju i dizajnu. Odjel je ovdje takva varijabla, jer određuje i staž i zadovoljstvo. Kada je poznata i izmjerena, razdvajanje je popravlja. Kada nije izmjerena, ona i dalje djeluje, a koeficijent o njoj ne javlja ništa.</p>
+<p>Zbog toga povezanost sama ne određuje uzrok. Veza između dviju varijabli podnosi četiri objašnjenja, jer prva može djelovati na drugu, druga na prvu, obje može oblikovati treća, ili je obrazac nastao pukom promjenjivošću uzorka. Koeficijent je jednak u sva četiri slučaja i ne razlikuje ih. Razlikuje ih dizajn istraživanja, o kojem je poglavlje o mjerenju i dizajnu već govorilo, pa je smjer tvrdnje koju o povezanosti smijemo iznijeti određen prije nego što je izračunata.</p>
 </section>
 <section id="interakcija-pogodi-korelaciju" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="interakcija-pogodi-korelaciju">Interakcija — Pogodi korelaciju</h2>
@@ -851,12 +1072,12 @@ div.csl-indent {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="88" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 87;"><span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>viewof w06_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>  <span class="dt">a</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.70</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak A"</span>})<span class="op">,</span></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>  <span class="dt">b</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak B"</span>})<span class="op">,</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>  <span class="dt">c</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak C"</span>})<span class="op">,</span></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  <span class="dt">d</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak D"</span>})</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="443" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 442;"><span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a>viewof w06_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a>  <span class="dt">a</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.70</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak A"</span>})<span class="op">,</span></span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a>  <span class="dt">b</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak B"</span>})<span class="op">,</span></span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a>  <span class="dt">c</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.20</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak C"</span>})<span class="op">,</span></span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a>  <span class="dt">d</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.50</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Procjena za oblak D"</span>})</span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -867,37 +1088,37 @@ div.csl-indent {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="98" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 97;"><span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>w06_scenariji <span class="op">=</span> {</span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ciljevi <span class="op">=</span> [</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak A"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.80</span>}<span class="op">,</span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak B"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.35</span>}<span class="op">,</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak C"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="fl">0.40</span>}<span class="op">,</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak D"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="fl">0.75</span>}</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">korelacija</span>(podaci) {</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> mx <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">x</span>)<span class="op">;</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> my <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">;</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> brojnik <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> (d<span class="op">.</span><span class="at">x</span> <span class="op">-</span> mx) <span class="op">*</span> (d<span class="op">.</span><span class="at">y</span> <span class="op">-</span> my))<span class="op">;</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nazivnik <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(</span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>      d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> (d<span class="op">.</span><span class="at">x</span> <span class="op">-</span> mx) <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>      d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> (d<span class="op">.</span><span class="at">y</span> <span class="op">-</span> my) <span class="op">**</span> <span class="dv">2</span>)</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> brojnik <span class="op">/</span> nazivnik<span class="op">;</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ciljevi<span class="op">.</span><span class="fu">map</span>((scenarij<span class="op">,</span> j) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">606</span> <span class="op">+</span> j)<span class="op">;</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> normalna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> podaci <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">54</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> x <span class="op">=</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z <span class="op">=</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> y <span class="op">=</span> scenarij<span class="op">.</span><span class="at">rho</span> <span class="op">*</span> x <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">-</span> scenarij<span class="op">.</span><span class="at">rho</span> <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span> z<span class="op">;</span></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {<span class="dt">oblak</span><span class="op">:</span> scenarij<span class="op">.</span><span class="at">oblak</span><span class="op">,</span> x<span class="op">,</span> y}<span class="op">;</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="op">...</span>scenarij<span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fu">korelacija</span>(podaci)<span class="op">,</span> podaci}<span class="op">;</span></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="453" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 452;"><span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>w06_scenariji <span class="op">=</span> {</span>
+<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ciljevi <span class="op">=</span> [</span>
+<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak A"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.80</span>}<span class="op">,</span></span>
+<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak B"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.35</span>}<span class="op">,</span></span>
+<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak C"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="fl">0.40</span>}<span class="op">,</span></span>
+<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">oblak</span><span class="op">:</span> <span class="st">"Oblak D"</span><span class="op">,</span> <span class="dt">rho</span><span class="op">:</span> <span class="fl">0.75</span>}</span>
+<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>  <span class="kw">function</span> <span class="fu">korelacija</span>(podaci) {</span>
+<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> mx <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">x</span>)<span class="op">;</span></span>
+<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> my <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">;</span></span>
+<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> brojnik <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> (d<span class="op">.</span><span class="at">x</span> <span class="op">-</span> mx) <span class="op">*</span> (d<span class="op">.</span><span class="at">y</span> <span class="op">-</span> my))<span class="op">;</span></span>
+<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nazivnik <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(</span>
+<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a>      d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> (d<span class="op">.</span><span class="at">x</span> <span class="op">-</span> mx) <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span></span>
+<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a>      d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span> (d<span class="op">.</span><span class="at">y</span> <span class="op">-</span> my) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> brojnik <span class="op">/</span> nazivnik<span class="op">;</span></span>
+<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ciljevi<span class="op">.</span><span class="fu">map</span>((scenarij<span class="op">,</span> j) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">606</span> <span class="op">+</span> j)<span class="op">;</span></span>
+<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> normalna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> podaci <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">54</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> x <span class="op">=</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
+<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z <span class="op">=</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
+<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> y <span class="op">=</span> scenarij<span class="op">.</span><span class="at">rho</span> <span class="op">*</span> x <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">1</span> <span class="op">-</span> scenarij<span class="op">.</span><span class="at">rho</span> <span class="op">**</span> <span class="dv">2</span>) <span class="op">*</span> z<span class="op">;</span></span>
+<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {<span class="dt">oblak</span><span class="op">:</span> scenarij<span class="op">.</span><span class="at">oblak</span><span class="op">,</span> x<span class="op">,</span> y}<span class="op">;</span></span>
+<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="op">...</span>scenarij<span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="fu">korelacija</span>(podaci)<span class="op">,</span> podaci}<span class="op">;</span></span>
+<span id="cb2-482"><a href="#cb2-482" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-483"><a href="#cb2-483" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
@@ -908,7 +1129,7 @@ div.csl-indent {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="133" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 132;"><span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>w06_tocke <span class="op">=</span> w06_scenariji<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">podaci</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="488" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 487;"><span id="cb3-488"><a href="#cb3-488" aria-hidden="true" tabindex="-1"></a>w06_tocke <span class="op">=</span> w06_scenariji<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">podaci</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
@@ -919,51 +1140,51 @@ div.csl-indent {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="141" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 140;"><span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
-<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
-<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
-<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
-<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
-<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
-<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
-<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">860</span> <span class="op">:</span> <span class="dv">760</span><span class="op">,</span></span>
-<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">52</span> <span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
-<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">64</span><span class="op">,</span></span>
-<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">48</span> <span class="op">:</span> <span class="dv">52</span><span class="op">,</span></span>
-<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"var(--tok-font-mono)"</span><span class="op">,</span></span>
-<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"12px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
-<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
-<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
-<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fy</span><span class="op">:</span> {</span>
-<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span></span>
-<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="st">"Oblak A"</span><span class="op">,</span> <span class="st">"Oblak B"</span><span class="op">,</span> <span class="st">"Oblak C"</span><span class="op">,</span> <span class="st">"Oblak D"</span>]</span>
-<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})<span class="op">,</span></span>
-<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})<span class="op">,</span></span>
-<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(w06_tocke<span class="op">,</span> {</span>
-<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fy</span><span class="op">:</span> <span class="st">"oblak"</span><span class="op">,</span></span>
-<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
-<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>        <span class="dt">opacity</span><span class="op">:</span> <span class="fl">0.72</span></span>
-<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="496" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 495;"><span id="cb4-496"><a href="#cb4-496" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-497"><a href="#cb4-497" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--tok-ink)"</span><span class="op">;</span></span>
+<span id="cb4-498"><a href="#cb4-498" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prigusena <span class="op">=</span> <span class="st">"var(--tok-rule)"</span><span class="op">;</span></span>
+<span id="cb4-499"><a href="#cb4-499" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb4-500"><a href="#cb4-500" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb4-501"><a href="#cb4-501" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb4-502"><a href="#cb4-502" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb4-503"><a href="#cb4-503" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">-</span></span>
+<span id="cb4-504"><a href="#cb4-504" aria-hidden="true" tabindex="-1"></a>      <span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>)</span>
+<span id="cb4-505"><a href="#cb4-505" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb4-506"><a href="#cb4-506" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">240</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))<span class="op">;</span></span>
+<span id="cb4-507"><a href="#cb4-507" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> usko <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
+<span id="cb4-508"><a href="#cb4-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-509"><a href="#cb4-509" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-510"><a href="#cb4-510" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
+<span id="cb4-511"><a href="#cb4-511" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">860</span> <span class="op">:</span> <span class="dv">760</span><span class="op">,</span></span>
+<span id="cb4-512"><a href="#cb4-512" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">52</span> <span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb4-513"><a href="#cb4-513" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">64</span><span class="op">,</span></span>
+<span id="cb4-514"><a href="#cb4-514" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> usko <span class="op">?</span> <span class="dv">48</span> <span class="op">:</span> <span class="dv">52</span><span class="op">,</span></span>
+<span id="cb4-515"><a href="#cb4-515" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb4-516"><a href="#cb4-516" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb4-517"><a href="#cb4-517" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb4-518"><a href="#cb4-518" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"var(--tok-font-mono)"</span><span class="op">,</span></span>
+<span id="cb4-519"><a href="#cb4-519" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> usko <span class="op">?</span> <span class="st">"12px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
+<span id="cb4-520"><a href="#cb4-520" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb4-521"><a href="#cb4-521" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb4-522"><a href="#cb4-522" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb4-523"><a href="#cb4-523" aria-hidden="true" tabindex="-1"></a>    <span class="dt">fy</span><span class="op">:</span> {</span>
+<span id="cb4-524"><a href="#cb4-524" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb4-525"><a href="#cb4-525" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="st">"Oblak A"</span><span class="op">,</span> <span class="st">"Oblak B"</span><span class="op">,</span> <span class="st">"Oblak C"</span><span class="op">,</span> <span class="st">"Oblak D"</span>]</span>
+<span id="cb4-526"><a href="#cb4-526" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb4-527"><a href="#cb4-527" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-528"><a href="#cb4-528" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})<span class="op">,</span></span>
+<span id="cb4-529"><a href="#cb4-529" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> prigusena})<span class="op">,</span></span>
+<span id="cb4-530"><a href="#cb4-530" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(w06_tocke<span class="op">,</span> {</span>
+<span id="cb4-531"><a href="#cb4-531" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb4-532"><a href="#cb4-532" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb4-533"><a href="#cb4-533" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fy</span><span class="op">:</span> <span class="st">"oblak"</span><span class="op">,</span></span>
+<span id="cb4-534"><a href="#cb4-534" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb4-535"><a href="#cb4-535" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
+<span id="cb4-536"><a href="#cb4-536" aria-hidden="true" tabindex="-1"></a>        <span class="dt">opacity</span><span class="op">:</span> <span class="fl">0.72</span></span>
+<span id="cb4-537"><a href="#cb4-537" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb4-538"><a href="#cb4-538" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-539"><a href="#cb4-539" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb4-540"><a href="#cb4-540" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w06" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -973,7 +1194,7 @@ div.csl-indent {
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-w06-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;1: Četiri deterministički simulirana oblaka bez prikazanih koeficijenata. Zajedničke osi omogućuju usporedbu smjera i zbijenosti.
+Slika&nbsp;3: Četiri deterministički simulirana oblaka bez prikazanih koeficijenata. Zajedničke osi omogućuju usporedbu smjera i zbijenosti.
 </figcaption>
 </figure>
 </div>
@@ -981,21 +1202,21 @@ Slika&nbsp;1: Četiri deterministički simulirana oblaka bez prikazanih koeficij
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="190" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 189;"><span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> procjene <span class="op">=</span> [w06_par<span class="op">.</span><span class="at">a</span><span class="op">,</span> w06_par<span class="op">.</span><span class="at">b</span><span class="op">,</span> w06_par<span class="op">.</span><span class="at">c</span><span class="op">,</span> w06_par<span class="op">.</span><span class="at">d</span>]<span class="op">;</span></span>
-<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rezultat <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(</span>
-<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>    w06_scenariji<span class="op">,</span></span>
-<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>    (d<span class="op">,</span> i) <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(procjene[i] <span class="op">-</span> d<span class="op">.</span><span class="at">r</span>) <span class="op">&lt;=</span> <span class="fl">0.10</span> <span class="op">?</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span></span>
-<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zapis <span class="op">=</span> procjene</span>
-<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>(v <span class="kw">=&gt;</span> v<span class="op">.</span><span class="fu">toLocaleString</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>      <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>      <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
-<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>    }))</span>
-<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">join</span>(<span class="st">" · "</span>)<span class="op">;</span></span>
-<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p class="widget-foot" role="status" aria-live="polite"&gt;Trenutačni rezultat </span><span class="sc">${</span>rezultat<span class="sc">}</span><span class="vs"> od 4. Procjene redom iznose </span><span class="sc">${</span>zapis<span class="sc">}</span><span class="vs">. Pogodak odstupa najviše 0,10 od izračunate korelacije.&lt;/p&gt;`</span><span class="op">;</span></span>
-<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="545" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 544;"><span id="cb5-545"><a href="#cb5-545" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-546"><a href="#cb5-546" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> procjene <span class="op">=</span> [w06_par<span class="op">.</span><span class="at">a</span><span class="op">,</span> w06_par<span class="op">.</span><span class="at">b</span><span class="op">,</span> w06_par<span class="op">.</span><span class="at">c</span><span class="op">,</span> w06_par<span class="op">.</span><span class="at">d</span>]<span class="op">;</span></span>
+<span id="cb5-547"><a href="#cb5-547" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rezultat <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(</span>
+<span id="cb5-548"><a href="#cb5-548" aria-hidden="true" tabindex="-1"></a>    w06_scenariji<span class="op">,</span></span>
+<span id="cb5-549"><a href="#cb5-549" aria-hidden="true" tabindex="-1"></a>    (d<span class="op">,</span> i) <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(procjene[i] <span class="op">-</span> d<span class="op">.</span><span class="at">r</span>) <span class="op">&lt;=</span> <span class="fl">0.10</span> <span class="op">?</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb5-550"><a href="#cb5-550" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb5-551"><a href="#cb5-551" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zapis <span class="op">=</span> procjene</span>
+<span id="cb5-552"><a href="#cb5-552" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>(v <span class="kw">=&gt;</span> v<span class="op">.</span><span class="fu">toLocaleString</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb5-553"><a href="#cb5-553" aria-hidden="true" tabindex="-1"></a>      <span class="dt">minimumFractionDigits</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb5-554"><a href="#cb5-554" aria-hidden="true" tabindex="-1"></a>      <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">2</span></span>
+<span id="cb5-555"><a href="#cb5-555" aria-hidden="true" tabindex="-1"></a>    }))</span>
+<span id="cb5-556"><a href="#cb5-556" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">join</span>(<span class="st">" · "</span>)<span class="op">;</span></span>
+<span id="cb5-557"><a href="#cb5-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-558"><a href="#cb5-558" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;p class="widget-foot" role="status" aria-live="polite"&gt;Trenutačni rezultat </span><span class="sc">${</span>rezultat<span class="sc">}</span><span class="vs"> od 4. Procjene redom iznose </span><span class="sc">${</span>zapis<span class="sc">}</span><span class="vs">. Pogodak odstupa najviše 0,10 od izračunate korelacije.&lt;/p&gt;`</span><span class="op">;</span></span>
+<span id="cb5-559"><a href="#cb5-559" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="expression">
@@ -1012,82 +1233,60 @@ Slika&nbsp;1: Četiri deterministički simulirana oblaka bez prikazanih koeficij
 <li>Pokušajte ostvariti četiri pogotka, zatim opišite koji je oblak bilo najteže procijeniti.</li>
 </ol>
 <div class="callout-divljina page-columns page-full">
-<p><strong>Ista korelacija, različita struktura.</strong> Anscombeov kvartet pokazuje četiri skupa s gotovo jednakim koeficijentom, ali samo jedan približno odgovara jednostavnom linearnom sažetku <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Tvrdnja o „snažnoj povezanosti” zato treba graf, opis uzorka i provjeru utjecajnih opažanja. Koeficijent je koristan sažetak nakon tih provjera, a ne zamjena za njih.</p>
+<p><strong>Dinosaur s urednim sažetkom.</strong> Anscombeove je skupove trebalo sastaviti ručno, pa je dugo ostajalo otvoreno koliko je takvih slučajeva uopće moguće. Matejka i Fitzmaurice odgovorili su postupkom koji polazi od zadanog skupa i sitnim pomacima točaka mijenja njegov oblik, a pritom sredine, standardne devijacije i korelaciju drži nepromijenjenima do druge decimale <span class="citation" data-cites="matejka2017">(<a href="../references.html#ref-matejka2017" role="doc-biblioref">Matejka i Fitzmaurice 2017.</a>)</span>. Iz istog sažetka tako su izveli niz oblika, među njima zvijezde, križeve i obris dinosaura.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-matejka2017" class="csl-entry" role="listitem">
+Matejka, Justin, i George Fitzmaurice. 2017. <span>„Same Stats, Different Graphs“</span>. <em>Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems</em>, 1290–94. <a href="https://doi.org/10.1145/3025453.3025912">https://doi.org/10.1145/3025453.3025912</a>.
+</div></div><p>Dohvat nalaza vrijedi izmjeriti. Rad ne pokazuje da je korelacija nestabilna niti da je pogrešno izračunata, jer je u svim tim skupovima ista i točna. Ono što pokazuje jest da sažetak od nekoliko brojeva ne određuje skup podataka, pa put od podataka do sažetka ide samo u jednom smjeru. Iz toga slijedi obveza koja je skromnija od pouke koja se uz rad obično navodi, dakle da se uz koeficijent prikaže i oblik iz kojeg je nastao, a ne da se koeficijent napusti.</p>
 </div>
-<div class="callout-model">
+<div class="callout-model page-columns page-full">
 <p>Asistent može izračunati Pearsonovu i Spearmanovu korelaciju i opisati graf. Treba mu zatražiti provjeru linearnosti, krajnjih vrijednosti, podskupina i ograničenja raspona. Nakon odgovora valja provjeriti jesu li redovi u dvjema varijablama ispravno upareni i je li iz povezanosti izveden nedopušten uzrok.</p>
-<blockquote class="blockquote">
+<p>Tri promašaja ponavljaju se dovoljno često da ih vrijedi tražiti unaprijed. Asistent rado veličinu koeficijenta očitava s Cohenove ljestvice bez uvjeta koji uz nju ide <span class="citation" data-cites="cohen1988">(<a href="../references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988.</a>)</span>. Rado navodi korelaciju bez broja opažanja, pa se nesigurnost procjene ne može prosuditi. I rado prelazi s opisa veze na jezik učinka, u kojem jedna varijabla „dovodi do” druge, iako je izračunao samo zajedničko kretanje.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-cohen1988" class="csl-entry" role="listitem">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2. izd. Lawrence Erlbaum Associates.
+</div></div><blockquote class="blockquote">
 <p>Usporedi Pearsonovu i Spearmanovu korelaciju, opiši oblik raspršenog dijagrama i provjeri utjecaj krajnjih opažanja. Zaključak ograniči na povezanost koju dizajn podupire.</p>
 </blockquote>
 </div>
 <div class="callout-greska">
-<p>Raspršeni dijagram pokazuje pozitivan približno linearan odnos bez izdvojenih točaka, a Pearsonov i Spearmanov koeficijent slični su. Zbog toga veća vrijednost prve varijable uzrokuje porast druge.</p>
+<p>Na pitanje o odnosu dobi i vremena korištenja asistent je napisao ovu analizu.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dobna_skupina <span class="sc">==</span> <span class="st">"18 do 24"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">r =</span> <span class="fu">cor</span>(dob, minute_dnevno),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Uz ispis je dodao obrazloženje. Korelacija u toj skupini iznosi 0,18 uz 90 ispitanika, dakle slaba je i pozitivna. Budući da je skupina dobno homogena i bez krajnjih vrijednosti, procjena je čista od miješanja naraštaja, pa zaključuje da dob i vrijeme korištenja praktički nisu povezani.</p>
 </div>
 </section>
-<section id="razrađeni-primjer" class="level2 page-columns page-full">
+<section id="razrađeni-primjer" class="level2">
 <h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Ponovno koristimo <code>anscombe</code>, sada usmjereni na ono što koeficijent čuva. Računamo Pearsonovu korelaciju za svaki skup i stavljamo je uz opis obrasca. Rezultati su gotovo jednaki, dok graf iz prethodnog poglavlja pokazuje da su mehanizmi odnosa različiti <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><div class="cell" data-layout-align="center">
+<p>Zadatak je ispravno izvijestiti o povezanosti dviju varijabli iz simulirane ankete, dakle dobi i dnevnog vremena korištenja društvenih mreža. Postupak ima tri koraka i svaki od njih odgovara jednoj provjeri iz ovog poglavlja. Najprije se pogleda oblik, zatim se izračunaju obje mjere, i tek se onda piše rečenica.</p>
+<div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>anscombe_korelacije <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">skup =</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span>),</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">korelacija =</span> <span class="fu">c</span>(</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cor</span>(anscombe<span class="sc">$</span>x1, anscombe<span class="sc">$</span>y1),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cor</span>(anscombe<span class="sc">$</span>x2, anscombe<span class="sc">$</span>y2),</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cor</span>(anscombe<span class="sc">$</span>x3, anscombe<span class="sc">$</span>y3),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cor</span>(anscombe<span class="sc">$</span>x4, anscombe<span class="sc">$</span>y4)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>anscombe_korelacije <span class="sc">|&gt;</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">korelacija =</span> <span class="fu">hr_broj</span>(korelacija, <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>, <span class="st">"r"</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sazetak <span class="ot">&lt;-</span> anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pearson =</span> <span class="fu">cor</span>(dob, minute_dnevno),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">spearman =</span> <span class="fu">cor</span>(dob, minute_dnevno, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>sazetak</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div id="tbl-anscombe-korelacije" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-anscombe-korelacije-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;1: Pearsonove korelacije Anscombeova kvarteta. Izrada autora.
-</figcaption>
-<div aria-describedby="tbl-anscombe-korelacije-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">skup</th>
-<th style="text-align: right;">korelacija</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">I</td>
-<td style="text-align: right;">0,816</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">II</td>
-<td style="text-align: right;">0,816</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">III</td>
-<td style="text-align: right;">0,816</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">IV</td>
-<td style="text-align: right;">0,817</td>
-</tr>
-</tbody>
-</table>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      n pearson spearman
+  &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+1   300  -0.559   -0.680</code></pre>
 </div>
 </div>
-</figure>
-</div>
-</div>
-<p>Tablica potvrđuje da je Pearsonova korelacija vjerna linearnom sažetku koji je izračunala. Ne potvrđuje da je linearni sažetak prikladan za svaki skup. Ispravan izvještaj zato spaja koeficijent, graf, broj opažanja i ograničenje dizajna.</p>
+<p>Poziv <code>summarise</code> i njegov niz glagola dolaze iz poglavlja o sažimanju podataka, a funkcija <code>cor</code> jedina je novost i računa korelaciju dvaju stupaca, po zadanom Pearsonovu. Argument <code>method</code> mijenja mjeru u Spearmanovu. Ovo poglavlje ne uvodi nijedan novi obrazac čitanja koda, što je i njegova svrha, jer se ista tri elementa pojavljuju od poglavlja o sažimanju nadalje.</p>
+<p>Raspršeni dijagram iz odjeljka o rangovima pokazao je da veza pada strmo u mlađim godinama i izravnava se poslije. Uz taj oblik dva koeficijenta imaju smisla zajedno, jer Pearsonova vrijednost od -0,56 mjeri koliko je oblak blizu pravca, a Spearmanova od -0,68 koliko je kretanje dosljedno silazno. Razlika među njima nije neslaganje nego opis zakrivljenosti.</p>
+<p>Iz toga slijedi rečenica koju je dopušteno napisati. U ovom simuliranom uzorku od 300 ispitanika dob i dnevno vrijeme korištenja povezani su negativno i dosljedno, uz Spearmanovu korelaciju od -0,68, dok je veza zakrivljena, pa je Pearsonova vrijednost od -0,56 niža. Rečenica navodi mjeru, njezinu veličinu, broj opažanja i oblik odnosa, a ne navodi uzrok, jer podaci dolaze iz jednokratnog mjerenja bez ikakve intervencije.</p>
 </section>
 <section id="sažetak" class="level2 sazetak">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
-<p>Korelacija sažima smjer i jačinu određenog oblika zajedničkog kretanja. Graf otkriva linearnost, podskupine, ograničenje raspona i utjecajna opažanja koja jedan koeficijent ne može nositi. Pearsonov i Spearmanov pristup odgovaraju na različita pitanja, a nijedan sam ne dokazuje uzrok. Sljedeći dio knjige uvodi vjerojatnost kako bismo razlikovali stabilan obrazac od onoga što može nastati običnom promjenjivošću.</p>
+<p>Kovarijanca mjeri zajedničko odstupanje od sredina, a korelacija je ista mjera očišćena od jedinica, pa se kreće između minus jedan i plus jedan i mjeri koliko je oblak blizu pravca. Spearmanova inačica radi s rangovima, pa mjeri dosljednost smjera bez zahtjeva da veza bude pravocrtna, a njihovo je razilaženje najjeftinija dijagnostika zakrivljenosti u knjizi. Jedan broj ne može nositi ni oblik odnosa, ni širinu raspona iz kojeg je izračunat, ni podskupine koje ga mogu preokrenuti, i sve troje otkriva prikaz iz prethodnog poglavlja. Iz povezanosti se ne izvodi uzrok, jer četiri različita objašnjenja proizvode isti koeficijent, a razlikuje ih dizajn a ne izračun. Sve dosad izračunato odnosilo se na uzorak pred nama, pa sljedeći dio knjige uvodi vjerojatnost i pita koliko se od takvog obrasca može očekivati i kad veze nema.</p>
 </section>
 <section id="pojmovi" class="level2 pojmovi">
 <h2 class="pojmovi anchored" data-anchor-id="pojmovi">Pojmovi</h2>
@@ -1105,9 +1304,17 @@ Tablica&nbsp;1: Pearsonove korelacije Anscombeova kvarteta. Izrada autora.
 <dd>
 <span class="terminology-list__en" lang="en">Spearman correlation</span>
 </dd>
+<dt><span class="terminology-list__hr" lang="hr">monotona veza</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">monotonic relationship</span>
+</dd>
 <dt><span class="terminology-list__hr" lang="hr">linearnost</span></dt>
 <dd>
 <span class="terminology-list__en" lang="en">linearity</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">matrica korelacija</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">correlation matrix</span>
 </dd>
 <dt><span class="terminology-list__hr" lang="hr">ograničenje raspona</span></dt>
 <dd>
@@ -1117,28 +1324,34 @@ Tablica&nbsp;1: Pearsonove korelacije Anscombeova kvarteta. Izrada autora.
 <dd>
 <span class="terminology-list__en" lang="en">influential observation</span>
 </dd>
+<dt><span class="terminology-list__hr" lang="hr">konfundirajuća varijabla</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">confounder</span>
+</dd>
+<dt><span class="terminology-list__hr" lang="hr">ekološka pogreška</span></dt>
+<dd>
+<span class="terminology-list__en" lang="en">ecological fallacy</span>
+</dd>
 </dl>
 </div>
 </section>
-<section id="zadaci" class="level2 page-columns page-full">
+<section id="zadaci" class="level2">
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
 <section id="konceptualni" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="konceptualni">Konceptualni</h3>
-<p>Nacrtajte dva različita odnosa koja mogu imati sličnu Pearsonovu korelaciju. Predajte skicu i objašnjenje onoga što se u koeficijentu gubi.</p>
+<p>Nacrtajte dva različita odnosa koja mogu imati sličnu Pearsonovu korelaciju, i uz svaki napišite što bi izvještaj koji navodi samo koeficijent propustio. Predajte skicu i objašnjenje.</p>
 </section>
-<section id="računski" class="level3 zadaci-razina page-columns page-full">
+<section id="računski" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="računski">Računski</h3>
-<p>Upotrijebite <code>anscombe</code>. Izračunajte Pearsonovu i Spearmanovu korelaciju za svaki skup te predajte usporednu tablicu <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div></section>
-<section id="kritički" class="level3 zadaci-razina page-columns page-full">
+<p>Upotrijebite tablicu korelacija koju poglavlje ispisuje za tri varijable simulirane ankete. Za svaki od triju parova zapišite smjer veze i procijenite, prema onome što ste vidjeli na raspršenom dijagramu dobi i minuta, bi li se Spearmanova vrijednost razlikovala od Pearsonove i u kojem smjeru. Zatim upotrijebite interakciju poglavlja i za svaki od četiriju oblaka zabilježite koliko je vaša procjena promašila. Predajte tablicu sa sedam redaka i jednom rečenicom obrazloženja u svakom. Postupak za ponavljanje izračuna nad cijelim skupom nalazi se u praktikumu.</p>
+</section>
+<section id="kritički" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="kritički">Kritički</h3>
-<p>Prosudite tvrdnju da jednaka korelacija znači jednaku podatkovnu priču. Upotrijebite Anscombeov kvartet kao provjeru <span class="citation" data-cites="anscombe1973">(<a href="../references.html#ref-anscombe1973" role="doc-biblioref">Anscombe 1973.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-anscombe1973" class="csl-entry" role="listitem">
-Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The American Statistician</em> 27 (1): 17–21.
-</div></div></section>
+<p>Pronađite objavljenu tvrdnju u kojoj se iz povezanosti dviju društvenih pojava izvodi preporuka za djelovanje. Odredite koje od četiriju objašnjenja veze tekst pretpostavlja, koju bi treću varijablu trebalo isključiti i kakav bi dizajn to mogao učiniti. Predajte odlomak s presudom i s uvjetom pod kojim bi preporuka bila opravdana.</p>
+</section>
 <section id="revizija-modela" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="revizija-modela">Revizija modela</h3>
-<p>Ocijenite modelsku analizu iz okvira. Imenujte točne dijagnostičke provjere, jedan nedopušten zaključak i dizajn koji bi ga mogao bolje poduprijeti.</p>
+<p>Ocijenite analizu iz okvira o pogrešci. Imenujte što je u pozivu ispravno izvedeno, redak koda koji proizvodi pogrešan zaključak, mehanizam zbog kojeg koeficijent pada, i napišite ispravljenu rečenicu izvještaja.</p>
 
 
 
@@ -1147,1035 +1360,2065 @@ Anscombe, F. J. 1973. <span>„Graphs in Statistical Analysis“</span>. <em>The
 
 </main> <!-- /main -->
 <script>
+
 /* =====================================================================
+
    book-include.html — ponašanje stranice (include-after-body)
+
    ---------------------------------------------------------------------
+
    Sve vizualno živi u styles/ (SCSS + styles.css). Ovdje nema boja ni
+
    pisama; moduli samo dodaju elemente i klase koje CSS zna stilizirati.
 
+
+
    Moduli
+
      1. traka napretka čitanja
+
      2. pregled na prijelaz za unutarnje poveznice
+
      3. dinkus (*** u prozi -> stilizirani razdjelnik)
+
      4. sidra uz naslove
+
      5. samostalne stranice bez knjižnog okvira
+
      5a. aktivno stanje roditelja izbornika Nastava
+
      6. čišćenje sidebara
+
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
+
      8. sklopivi prozni blokovi („Što isprobati")
+
      9. AI izbornik u podnožju poglavlja
+
      10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
+
      11. traka metapodataka na otvaranju poglavlja
+
      12. pamćenje stanja widgeta po stranici
+
      13. organizacija mobilne navigacije
+
      14. lokalni oporavak resursa stranice 404
+
      15. uklanjanje oznake vanjske poveznice s istog izvorišta
+
      16. pristupačno vodoravno pomicanje širokih tablica
+
      17. hrvatski pristupačni nazivi pretraživanja
+
    ===================================================================== */
+
 (function () {
+
   "use strict";
 
+
+
   // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
+
   // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
+
   // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
+
   function seedPojmovnikSearch() {
+
     if (!document.body.classList.contains("pojmovnik-page")) return;
+
     if (document.getElementById("quarto-search")) return;
+
     var navbar = document.querySelector("#quarto-header .navbar");
+
     if (!navbar) return;
+
     var host = document.createElement("div");
+
     host.id = "quarto-search";
+
     host.title = "Pretraži knjigu";
+
     var tools = navbar.querySelector(".quarto-navbar-tools");
+
     if (tools) tools.appendChild(host);
+
     else navbar.querySelector(".navbar-container").appendChild(host);
+
   }
+
+
 
   seedPojmovnikSearch();
 
+
+
   // -------------------------------------------------------------------
+
   // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
+
   // -------------------------------------------------------------------
+
   var SAMOSTALNE = [
+
     "/index.html",
+
     "/pojmovnik.html",
+
     "/interakcije.html",
+
     "/podaci.html",
+
     "/resursi.html",
+
     "/uci-s-ai.html",
+
     "/predavanja.html",
+
     "/silabus.html",
+
     "/raspored.html",
+
     "/404.html"
+
   ];
 
+
+
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
+
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
+
   var UPUTA =
+
     "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
+
     "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
+
     "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
+
     "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
+
     "gradi intuiciju prije formule, prilagodi se mojoj razini i na zahtjev sažmi " +
+
     "gradivo, izradi kviz, kartice ili plan učenja. Na početku me pitaj što učim " +
+
     "i koji mi je cilj.";
 
+
+
   // -------------------------------------------------------------------
+
   // 1. Traka napretka čitanja
+
   // -------------------------------------------------------------------
+
   function setupProgressBar() {
+
     if (document.getElementById("reading-progress")) return;
+
     var bar = document.createElement("div");
+
     bar.id = "reading-progress";
+
     document.body.appendChild(bar);
 
+
+
     var ticking = false;
+
     function update() {
+
       var doc = document.documentElement;
+
       var scrollTop = window.scrollY || doc.scrollTop;
+
       var max = (doc.scrollHeight - doc.clientHeight) || 1;
+
       var pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
+
       bar.style.width = pct + "%";
+
       ticking = false;
+
     }
+
     window.addEventListener("scroll", function () {
+
       if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+
     }, { passive: true });
+
     update();
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 2. Pregled na prijelaz za unutarnje poveznice (#sidra u dokumentu)
+
   // -------------------------------------------------------------------
+
   function setupInternalHover() {
+
     var tip = null, hideTimer = null;
 
+
+
     function ensureTip() {
+
       if (tip) return tip;
+
       tip = document.createElement("div");
+
       tip.className = "internal-hover-preview";
+
       document.body.appendChild(tip);
+
       return tip;
+
     }
+
+
 
     function show(target, text, title) {
+
       var t = ensureTip();
+
       t.innerHTML = "";
+
       if (title) {
+
         var h = document.createElement("div");
+
         h.className = "ihp-title";
+
         h.textContent = title;
+
         t.appendChild(h);
+
       }
+
       var body = document.createElement("div");
+
       body.textContent = text;
+
       t.appendChild(body);
 
+
+
       var rect = target.getBoundingClientRect();
+
       var left = window.scrollX + rect.left;
+
       var maxLeft = window.scrollX + document.documentElement.clientWidth - 400;
+
       if (left > maxLeft) left = maxLeft;
+
       if (left < 8) left = 8;
+
       t.style.top = (window.scrollY + rect.bottom + 8) + "px";
+
       t.style.left = left + "px";
+
       t.classList.add("visible");
+
     }
+
+
 
     function hide() { if (tip) tip.classList.remove("visible"); }
 
+
+
     document.addEventListener("mouseover", function (e) {
+
       var a = e.target.closest && e.target.closest("a[href^='#']");
+
       if (!a) return;
+
       if (a.classList.contains("citation") || a.classList.contains("footnote-ref")) return;
+
       if (a.closest(".sidebar, nav, .toc, #TOC, .quarto-secondary-nav")) return;
 
+
+
       var hash = a.getAttribute("href").slice(1);
+
       if (!hash) return;
+
       var tgt = document.getElementById(hash);
+
       if (!tgt) return;
 
+
+
       var titleEl = tgt.querySelector("h1, h2, h3, h4") ||
+
                     (tgt.tagName.match(/^H[1-6]$/) ? tgt : null);
+
       var title = titleEl ? titleEl.textContent.trim() : "";
+
       var ctx = (tgt.textContent || "").trim().replace(/\s+/g, " ");
+
       if (title) ctx = ctx.replace(title, "").trim();
+
       ctx = ctx.slice(0, 280) + (ctx.length > 280 ? "…" : "");
 
+
+
       clearTimeout(hideTimer);
+
       show(a, ctx, title);
+
     });
+
+
 
     document.addEventListener("mouseout", function (e) {
+
       var a = e.target.closest && e.target.closest("a[href^='#']");
+
       if (!a) return;
+
       hideTimer = setTimeout(hide, 120);
+
     });
+
+
 
     window.addEventListener("scroll", hide, { passive: true });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 3. Dinkus — pasus koji je samo "***" postaje razdjelnik
+
   // -------------------------------------------------------------------
+
   function setupDinkus() {
+
     document.querySelectorAll("main p").forEach(function (p) {
+
       var t = p.textContent.trim();
+
       if (t === "***" || t === "* * *" || t === "◆ ◆ ◆") {
+
         var div = document.createElement("div");
+
         div.className = "dinkus";
+
         p.parentNode.replaceChild(div, p);
+
       }
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 4. Sidra uz naslove
-  // -------------------------------------------------------------------
-  function setupAnchorLinks() {
-    var article = document.querySelector("main.content") || document.querySelector("main");
-    if (!article) return;
-    article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
-      if (h.classList.contains("title")) return;
-      if (h.querySelector("a.anchorjs-link")) return;
-      var link = document.createElement("a");
-      link.className = "anchorjs-link";
-      link.href = "#" + h.id;
-      link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
-      h.appendChild(link);
-    });
-  }
 
   // -------------------------------------------------------------------
-  // 5. Samostalne stranice — bez knjižnog okvira
+
+  function setupAnchorLinks() {
+
+    var article = document.querySelector("main.content") || document.querySelector("main");
+
+    if (!article) return;
+
+    article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
+
+      if (h.classList.contains("title")) return;
+
+      if (h.querySelector("a.anchorjs-link")) return;
+
+      var link = document.createElement("a");
+
+      link.className = "anchorjs-link";
+
+      link.href = "#" + h.id;
+
+      link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
+
+      h.appendChild(link);
+
+    });
+
+  }
+
+
+
   // -------------------------------------------------------------------
+
+  // 5. Samostalne stranice — bez knjižnog okvira
+
+  // -------------------------------------------------------------------
+
   function setupStandalonePages() {
+
     var path = location.pathname;
+
     var normalized = path.endsWith("/") ? path + "index.html" : path;
+
     var isStandalone =
+
       document.body.classList.contains("standalone-page") ||
+
       document.body.classList.contains("not-found-page") ||
+
       SAMOSTALNE.some(function (p) { return normalized.endsWith(p); });
+
     if (!isStandalone) return;
+
+
 
     document.body.classList.add("standalone-page");
 
+
+
     var sb = document.getElementById("quarto-sidebar");
+
     if (sb) sb.style.display = "none";
+
     var msb = document.getElementById("quarto-margin-sidebar");
+
     if (msb) msb.style.display = "none";
+
     document.querySelectorAll(".quarto-page-breadcrumbs").forEach(function (el) { el.remove(); });
 
+
+
     // Quarto dodaje "Appendix A — " prefiks dodacima; na hub stranicama smeta.
+
     var strip = function (s) {
+
       return s.replace(/^Appendix\s+\S*\s*[—–-]\s*/i, "").replace(/^\s*[—–-]\s+/, "").trim();
+
     };
+
     var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
+
     if (titleEl) titleEl.textContent = strip(titleEl.textContent);
+
     document.title = strip(document.title);
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
+
   // -------------------------------------------------------------------
+
   function setupNastavaActiveState() {
+
     var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+
     var isNastava = pages.some(function (page) {
+
       return location.pathname.endsWith(page);
+
     });
+
     if (!isNastava) return;
 
+
+
     var parent = document.getElementById("nav-menu-nastava");
+
     if (!parent) return;
+
     parent.classList.add("active", "section-active");
+
     parent.setAttribute("aria-current", "true");
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
+
   //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
+
   //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
+
   // -------------------------------------------------------------------
+
   function removePrunedItems() {
+
     var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
+
     document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
+
       .forEach(function (a) {
+
         var href = a.getAttribute("href") || "";
+
         var hide = endings.some(function (e) { return href.endsWith(e); });
+
         if (hide) {
+
           a.style.display = "none";
+
           var li = a.closest(".sidebar-item");
+
           if (li) li.style.display = "none";
+
         }
+
       });
+
   }
+
+
 
   function pruneSidebar() {
+
     removePrunedItems();
+
     setTimeout(removePrunedItems, 200);
+
     setTimeout(removePrunedItems, 800);
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 7. Upravljačke ploče interaktivnih grafova
+
   //    Observable rendira kontrole asinkrono, pa MutationObserver hvata
+
   //    njihovo pojavljivanje. Ploča se sklapa u <details>, klizači dobiju
+
   //    ispunu trake (--fill) i gumb za povratak na početne vrijednosti.
+
   // -------------------------------------------------------------------
+
   function setupOjsPanels() {
+
     function paintFill(r) {
+
       var min = parseFloat(r.min), max = parseFloat(r.max);
+
       if (!isFinite(min)) min = 0;
+
       if (!isFinite(max)) max = 100;
+
       var pct = max > min ? ((r.value - min) / (max - min)) * 100 : 0;
+
       r.style.setProperty("--fill", pct.toFixed(2) + "%");
+
     }
+
+
 
     function enhanceRange(r) {
+
       if (r.dataset.ojsEnhanced) return;
+
       r.dataset.ojsEnhanced = "1";
+
       r.dataset.ojsInitial = r.value;
+
       paintFill(r);
+
       r.addEventListener("input", function () {
+
         paintFill(r);
+
         var num = r.parentElement && r.parentElement.querySelector('input[type="number"]');
+
         if (num) {
+
           num.classList.remove("ojs-pulse");
+
           void num.offsetWidth;
+
           num.classList.add("ojs-pulse");
+
         }
+
       });
+
     }
+
+
 
     function panelMeta(panel) {
+
       var host = panel.closest && panel.closest("[data-ojs-label]");
+
       var widget = panel.closest && panel.closest(".widget-frame[data-naslov]");
+
       var widgetTitle = widget && widget.getAttribute("data-naslov");
+
       return {
+
         label: host && host.getAttribute("data-ojs-label") ||
+
           (widgetTitle ? "Postavke: " + widgetTitle : "Parametri simulacije"),
+
         hint: host && host.getAttribute("data-ojs-hint") ||
+
           "otvori za promjenu vrijednosti"
+
       };
+
     }
+
+
 
     function collapsePanel(panel) {
+
       if (panel.dataset.ojsCollapsed) return;
+
       var parent = panel.parentElement;
+
       if (!parent) return;
+
       panel.dataset.ojsCollapsed = "1";
+
       var meta = panelMeta(panel);
 
+
+
       var details = document.createElement("details");
+
       details.className = "ojs-collapsible";
+
       var summary = document.createElement("summary");
+
       summary.className = "ojs-collapsible-summary";
+
       summary.innerHTML =
+
         '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
+
         '<span class="ojs-collapsible-label"></span>' +
+
         '<span class="ojs-collapsible-hint"></span>';
+
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
+
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
 
+
+
       parent.insertBefore(details, panel);
+
       details.appendChild(summary);
+
       details.appendChild(panel);
+
     }
+
+
 
     function enhancePanel(panel) {
+
       if (panel.dataset.ojsPanel) return;
+
       panel.dataset.ojsPanel = "1";
+
       panel.querySelectorAll("input, select, textarea").forEach(function (el) {
+
         if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
+
         if (el.type === "checkbox" || el.type === "radio") {
+
           el.dataset.ojsInitialChecked = el.checked ? "1" : "0";
+
         }
+
       });
+
       var btn = document.createElement("button");
+
       btn.type = "button";
+
       btn.className = "ojs-reset";
+
       btn.textContent = "↺ početne vrijednosti";
+
       btn.title = "Vrati početne vrijednosti";
+
       btn.addEventListener("click", function () {
+
         panel.querySelectorAll('input[type="range"]').forEach(function (r) {
+
           if (r.dataset.ojsInitial === undefined) return;
+
           r.value = r.dataset.ojsInitial;
+
           r.dispatchEvent(new Event("input", { bubbles: true }));
+
         });
+
         panel.querySelectorAll(
+
           'input:not([type="range"]), select, textarea'
+
         ).forEach(function (el) {
+
           if (el.dataset.ojsInitial === undefined) return;
+
           if (el.type === "checkbox" || el.type === "radio") {
+
             el.checked = el.dataset.ojsInitialChecked === "1";
+
           } else {
+
             el.value = el.dataset.ojsInitial;
+
           }
+
           el.dispatchEvent(new Event("input", { bubbles: true }));
+
           el.dispatchEvent(new Event("change", { bubbles: true }));
+
         });
+
       });
+
       panel.appendChild(btn);
+
       collapsePanel(panel);
+
     }
+
+
 
     var scanQueued = false;
+
     function scan() {
+
       scanQueued = false;
+
       document.querySelectorAll('form[class^="oi-"] input[type="range"]').forEach(enhanceRange);
+
       document.querySelectorAll('form[class^="oi-"]').forEach(function (f) {
+
         if (f.classList.contains("quarto-ojs-table-fixup")) return;
+
         var p = f.parentElement;
+
         if (p && p.tagName === "DIV") enhancePanel(p);
+
       });
+
       document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
+
         if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
+
         if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
+
       });
+
     }
+
     function queueScan() {
+
       if (scanQueued) return;
+
       scanQueued = true;
+
       window.requestAnimationFrame(scan);
+
     }
+
+
 
     scan();
+
     new MutationObserver(queueScan).observe(document.body, { childList: true, subtree: true });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
+
   // -------------------------------------------------------------------
+
   function wrapCollapsible(node, label, hint) {
+
     if (node.dataset.ojsCollapsibleWrapped) return null;
+
     var parent = node.parentElement;
+
     if (!parent) return null;
+
     node.dataset.ojsCollapsibleWrapped = "1";
 
+
+
     var details = document.createElement("details");
+
     details.className = "ojs-collapsible ojs-collapsible-prose";
+
     var summary = document.createElement("summary");
+
     summary.className = "ojs-collapsible-summary";
+
     summary.innerHTML =
+
       '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
+
       '<span class="ojs-collapsible-label"></span>' +
+
       '<span class="ojs-collapsible-hint"></span>';
+
     summary.querySelector(".ojs-collapsible-label").textContent = label;
+
     summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
 
+
+
     var body = document.createElement("div");
+
     body.className = "ojs-collapsible-body";
 
+
+
     parent.insertBefore(details, node);
+
     details.appendChild(summary);
+
     details.appendChild(body);
+
     body.appendChild(node);
+
     return body;
+
   }
+
+
 
   function setupProseCollapsibles() {
+
     var main = document.querySelector("main.content") || document.querySelector("main");
+
     if (!main) return;
 
+
+
     main.querySelectorAll("p").forEach(function (p) {
+
       if (p.dataset.ojsCollapsibleWrapped) return;
+
       var strong = p.querySelector(":scope > strong:first-child");
+
       if (!strong) return;
+
       if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
+
       var next = p.nextElementSibling;
+
       strong.remove();
+
       if (p.firstChild && p.firstChild.nodeType === 3) {
+
         p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
+
       }
+
       var body = wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
+
       if (body && next && (next.matches("ol") || next.matches("ul"))) {
+
         body.appendChild(next);
+
       }
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 9. AI izbornik u podnožju poglavlja
+
   //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
+
   //    koji generira R/build-ai-exports.R.
+
   // -------------------------------------------------------------------
+
   function setupChapterAI() {
+
     var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
+
     if (!m) return;
+
     if (document.querySelector(".ai-cta")) return;
+
     var slug = m[1];
 
+
+
     var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
+
     var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
+
     var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
+
                   "?poglavlje=" + encodeURIComponent(slug);
+
     var absMd   = location.origin + mdHref;
+
     var q = encodeURIComponent(
+
       UPUTA +
+
       "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
+
       absMd);
 
+
+
     var box = document.createElement("div");
+
     box.className = "ai-cta-foot";
 
+
+
     var det = document.createElement("details");
+
     det.className = "ai-cta";
+
     det.innerHTML =
+
       "<summary>🤖 Pitaj AI o ovom poglavlju</summary>" +
+
       '<div class="ai-cta-menu">' +
+
         '<a href="' + mdHref + '" download>⬇ Preuzmi tekst (.md)</a>' +
+
         '<a href="https://claude.ai/new?q=' + q + '" target="_blank" rel="noopener">Otvori u Claudeu</a>' +
+
         '<a href="https://chatgpt.com/?q=' + q + '" target="_blank" rel="noopener">Otvori u ChatGPT-u</a>' +
+
         '<a href="' + uciHref + '">Sve opcije i cijela knjiga →</a>' +
+
       "</div>";
 
+
+
     var pm = document.createElement("a");
+
     pm.className = "ai-cta-pm";
+
     pm.href = pmHref;
+
     pm.innerHTML = "🕸 Pojmovi ovog poglavlja u mreži";
 
+
+
     box.appendChild(det);
+
     box.appendChild(pm);
 
+
+
     var article = document.querySelector("main.content") || document.querySelector("main");
+
     if (!article) return;
+
     var fn = article.querySelector("section.footnotes, #refs, section#footnotes");
+
     if (fn) fn.parentNode.insertBefore(box, fn);
+
     else article.appendChild(box);
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 10. Pojmovi na dodir
+
   //     [statističko zaključivanje]{.pojam def="…" en="…" ch="8"}
+
   //     Pandoc atribute prenosi doslovno na <span>, pa oblačić gradimo
+
   //     odavde. Izgled je u styles/_base.scss (.pojam__oblacic).
+
   // -------------------------------------------------------------------
+
   function setupPojmovi() {
+
     var pojmovi = document.querySelectorAll("span.pojam");
+
     if (!pojmovi.length) return;
 
+
+
     pojmovi.forEach(function (el) {
+
       if (el.dataset.pojamSpreman) return;
+
       el.dataset.pojamSpreman = "1";
 
+
+
       var def = el.getAttribute("def") || "";
+
       var en  = el.getAttribute("en")  || "";
+
       var ch  = el.getAttribute("ch")  || "";
+
       if (!def && !en && !ch) return;
+
+
 
       el.setAttribute("tabindex", "0");
 
+
+
       var tip = document.createElement("span");
+
       tip.className = "pojam__oblacic";
+
       tip.setAttribute("role", "tooltip");
 
+
+
       var glava = document.createElement("span");
+
       glava.className = "pojam__glava";
+
       glava.textContent = el.textContent.trim();
+
       tip.appendChild(glava);
 
+
+
       if (def) tip.appendChild(document.createTextNode(def));
+
       if (en) {
+
         var e = document.createElement("em");
+
         e.className = "pojam__en";
+
         e.textContent = " " + en;
+
         tip.appendChild(e);
+
       }
+
       if (ch) {
+
         var c = document.createElement("span");
+
         c.className = "pojam__pogl";
+
         c.textContent = "→ pogl. " + ch;
+
         tip.appendChild(c);
+
       }
+
       el.appendChild(tip);
+
     });
+
+
 
     // Dodir i tipkovnica: klik otvara, klik izvan zatvara (CSS pokriva miš).
+
     document.addEventListener("click", function (e) {
+
       var t = e.target.closest && e.target.closest("span.pojam");
+
       document.querySelectorAll("span.pojam.je-otvoren").forEach(function (o) {
+
         if (o !== t) o.classList.remove("je-otvoren");
+
       });
+
       if (t) { t.classList.toggle("je-otvoren"); e.stopPropagation(); }
+
     });
+
     document.addEventListener("keydown", function (e) {
+
       if (e.key !== "Escape") return;
+
       document.querySelectorAll("span.pojam.je-otvoren")
+
         .forEach(function (o) { o.classList.remove("je-otvoren"); });
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 11. Traka metapodataka na otvaranju poglavlja
+
   //     U .qmd-u se piše kao obična tablica unutar ::: {.chapter-meta};
+
   //     ovdje postaje jedan redak parova natpis / vrijednost.
+
   // -------------------------------------------------------------------
+
   function setupChapterMeta() {
+
     document.querySelectorAll(".chapter-meta").forEach(function (box) {
+
       var table = box.querySelector("table");
+
       if (!table || box.dataset.metaSpremna) return;
+
       box.dataset.metaSpremna = "1";
 
+
+
       var glave = [].map.call(table.querySelectorAll("thead th"),
+
         function (th) { return th.textContent.trim(); });
+
       var polja = [].map.call(table.querySelectorAll("tbody tr:first-child td"),
+
         function (td) { return td.textContent.trim(); });
+
       if (!glave.length) return;
 
+
+
       var red = document.createElement("div");
+
       red.className = "chapter-meta__row";
+
       glave.forEach(function (g, i) {
+
         var cell = document.createElement("div");
+
         var k = document.createElement("span");
+
         k.className = "chapter-meta__key";
+
         k.textContent = g;
+
         cell.appendChild(k);
+
         cell.appendChild(document.createTextNode(polja[i] || "—"));
+
         red.appendChild(cell);
+
       });
+
+
 
       var wrap = table.closest(".table, figure") || table;
+
       wrap.parentNode.replaceChild(red, wrap);
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 12. Pamćenje stanja widgeta
+
   //     Čitatelj koji odscrola i vrati se ne gubi svoje istraživanje.
+
   //     Ključ je po stranici; vrijednosti su samo brojevi i nizovi iz
+
   //     kontrola, pa localStorage ne nosi ništa osobno.
+
   // -------------------------------------------------------------------
+
   function setupWidgetMemory() {
+
     var kljuc = "statistika:widget:" + location.pathname;
+
     var IZBOR = ".widget-frame input, .widget-frame select, " +
+
                 'form[class^="oi-"] input, form[class^="oi-"] select';
 
+
+
     function spremi() {
+
       var s = {};
+
       document.querySelectorAll(IZBOR).forEach(function (el, i) {
+
         if (el.type === "checkbox" || el.type === "radio") s[i] = el.checked;
+
         else s[i] = el.value;
+
       });
+
       try { localStorage.setItem(kljuc, JSON.stringify(s)); } catch (e) {}
+
     }
+
+
 
     function vrati() {
+
       var s;
+
       try { s = JSON.parse(localStorage.getItem(kljuc) || "null"); } catch (e) { return; }
+
       if (!s) return;
+
       var polja = document.querySelectorAll(IZBOR);
+
       if (!polja.length) return;
+
       polja.forEach(function (el, i) {
+
         if (!(i in s)) return;
+
         if (el.type === "checkbox" || el.type === "radio") el.checked = !!s[i];
+
         else el.value = s[i];
+
         el.dispatchEvent(new Event("input", { bubbles: true }));
+
         el.dispatchEvent(new Event("change", { bubbles: true }));
+
       });
+
     }
+
+
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
+
     // je dovoljan jer se stanje pamti na svaku promjenu.
+
     window.setTimeout(vrati, 600);
+
     document.addEventListener("input", function (e) {
+
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 13. Mobilna navigacija
+
   //     Zatvoreno zaglavlje ostaje jedan redak. Pretraga, bočni izbornik
+
   //     i hamburger čine jednu skupinu, a sekundarni alati sele u otvoreni
+
   //     glavni izbornik. Na širokom zaslonu sve se vraća na Quartova mjesta.
+
   // -------------------------------------------------------------------
+
   function setupMobileNavbar() {
+
     var navbar = document.querySelector("#quarto-header .navbar");
+
     if (!navbar) return;
+
     var container = navbar.querySelector(".navbar-container");
+
     var collapse = navbar.querySelector(".navbar-collapse");
+
     var toggler = navbar.querySelector(".navbar-toggler");
+
     if (!container || !collapse || !toggler) return;
 
+
+
     var tools = navbar.querySelector(".quarto-navbar-tools");
+
     var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
+
     var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
+
     var searchButton = secondary && secondary.querySelector(".quarto-search-button");
+
     if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
+
       var searchHost = navbar.querySelector("#quarto-search");
+
       if (searchHost) searchHost.hidden = true;
+
       searchButton = document.createElement("button");
+
       searchButton.type = "button";
+
       searchButton.className = "btn quarto-search-button";
+
       searchButton.setAttribute("aria-label", "Pretraži knjigu");
+
       searchButton.setAttribute("title", "Pretraži knjigu");
+
       searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
+
       searchButton.addEventListener("click", function () {
+
         if (window.quartoOpenSearch) window.quartoOpenSearch();
+
       });
+
       if (tools) tools.appendChild(searchButton);
+
       else container.insertBefore(searchButton, toggler);
+
     }
+
     var brandTitle = navbar.querySelector(".navbar-title");
+
     var fullBrand = brandTitle ? brandTitle.textContent.trim() : "";
+
     var actions = null;
 
+
+
     function markerFor(el, name) {
+
       if (!el) return null;
+
       var marker = document.createComment("navbar-" + name);
+
       el.parentNode.insertBefore(marker, el);
+
       return marker;
+
     }
+
+
 
     var positions = [
+
       { node: toggler, marker: markerFor(toggler, "toggler") },
+
       { node: tools, marker: markerFor(tools, "tools") },
+
       { node: sidebarButton, marker: markerFor(sidebarButton, "sidebar") },
+
       { node: searchButton, marker: markerFor(searchButton, "search") }
+
     ];
 
+
+
     function restore(item) {
+
       if (item.node && item.marker && item.marker.parentNode) {
+
         item.marker.parentNode.insertBefore(item.node, item.marker);
+
       }
+
     }
 
+
+
     function localize() {
+
       toggler.setAttribute("aria-label", "Otvori navigaciju");
+
       if (sidebarButton) {
+
         sidebarButton.setAttribute("aria-label", "Otvori sadržaj knjige");
+
       }
+
       if (searchButton) {
+
         var searchControl = searchButton.matches("button")
+
           ? searchButton
+
           : searchButton.querySelector("button");
+
         if (searchControl) {
+
           searchControl.setAttribute("aria-label", "Pretraži knjigu");
+
           searchControl.setAttribute("title", "Pretraži knjigu");
+
         }
+
       }
+
+
 
       var labels = {
+
         "Source Code": "Izvorni kod",
+
         "Share": "Podijeli",
+
         "Toggle dark mode": "Promijeni temu",
+
         "Toggle light mode": "Promijeni temu",
+
         "Toggle reader mode": "Način čitanja"
+
       };
+
       navbar.querySelectorAll(".quarto-navigation-tool").forEach(function (a) {
+
         var source = a.getAttribute("title") || a.getAttribute("aria-label") || "";
+
         if (!labels[source]) return;
+
         a.setAttribute("title", labels[source]);
+
         a.setAttribute("aria-label", labels[source]);
+
       });
+
     }
+
+
 
     function organize(mobile) {
+
       document.body.classList.toggle("navbar-mobile-organized", mobile);
+
       if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
+
       if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
 
+
+
       if (mobile) {
+
         if (!actions) {
+
           actions = document.createElement("div");
+
           actions.className = "mobile-navbar-actions";
+
           container.insertBefore(actions, collapse);
+
         }
+
         if (sidebarButton) actions.appendChild(sidebarButton);
+
         if (searchButton) actions.appendChild(searchButton);
+
         actions.appendChild(toggler);
+
         if (tools) collapse.appendChild(tools);
+
       } else {
+
         positions.forEach(restore);
+
         if (actions) {
+
           actions.remove();
+
           actions = null;
+
         }
+
       }
+
     }
 
+
+
     localize();
+
     var mq = window.matchMedia("(max-width: 991.98px)");
+
     organize(mq.matches);
+
     var onChange = function (e) { organize(e.matches); };
+
     if (mq.addEventListener) mq.addEventListener("change", onChange);
+
     else mq.addListener(onChange);
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 14. Stranica 404 pri lokalnom posluživanju iz korijena
+
   //     Lokalni resursi ugrađuju se nakon rendera, ali navigacijske poveznice
+
   //     i dalje nose produkcijski podput. Izvan tog podputa vraćamo ih na
+
   //     lokalni korijen; na GitHub Pagesu ostaju netaknute.
+
   // -------------------------------------------------------------------
+
   function setupNotFoundFallback() {
+
     if (!document.body.classList.contains("not-found-page")) return;
+
     var offset = document.querySelector('meta[name="quarto:offset"]');
+
     var prefix = offset ? (offset.getAttribute("content") || "") : "";
+
     prefix = prefix.replace(/\/+$/, "");
+
     if (!prefix || prefix === "/" ||
+
         location.pathname === prefix ||
+
         location.pathname.indexOf(prefix + "/") === 0) return;
 
+
+
     document.querySelectorAll("[href], [src]").forEach(function (el) {
+
       ["href", "src"].forEach(function (attr) {
+
         var value = el.getAttribute(attr);
+
         if (!value || value.indexOf(prefix + "/") !== 0) return;
+
         el.setAttribute(attr, value.slice(prefix.length));
+
       });
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 15. Poveznice s istog izvorišta
+
   //     Quarto ih u lokalnom pregledu katkad označi kao vanjske prije nego
+
   //     što razriješi adresu. `no-external` sprečava naknadno ukrašavanje,
+
   //     a već dodani znak i otvaranje u novoj kartici uklanjaju se.
+
   // -------------------------------------------------------------------
+
   function setupSameOriginLinks() {
+
     var queued = false;
+
+
 
     function clean() {
+
       queued = false;
+
       document.querySelectorAll("a[href]").forEach(function (a) {
+
         var url;
+
         try { url = new URL(a.getAttribute("href"), location.href); }
+
         catch (e) { return; }
+
         if (url.origin !== location.origin) return;
 
+
+
         a.classList.add("no-external");
+
         a.classList.remove("external", "external-link");
+
         a.removeAttribute("data-external");
+
         if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
 
+
+
         var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean)
+
           .filter(function (token) {
+
             return token !== "external" && token !== "noopener" &&
+
               token !== "noreferrer";
+
           });
+
         if (rel.length) a.setAttribute("rel", rel.join(" "));
+
         else a.removeAttribute("rel");
+
       });
+
     }
 
+
+
     function queue() {
+
       if (queued) return;
+
       queued = true;
+
       window.requestAnimationFrame(clean);
+
     }
+
+
 
     clean();
+
     window.setTimeout(clean, 250);
+
     new MutationObserver(queue).observe(document.body, {
+
       childList: true,
+
       subtree: true
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 16. Široke tablice
+
   //     Vodoravno pomicanje dobiva tipkovni fokus, jasan naziv i vidljivu
+
   //     uputu samo kada je tablica doista šira od raspoloživog prostora.
+
   // -------------------------------------------------------------------
+
   function setupAccessibleTables() {
+
     var nextId = 0;
+
     var queued = false;
+
     var resizeObserver = typeof ResizeObserver === "function"
+
       ? new ResizeObserver(queueScan)
+
       : null;
 
+
+
     function tableLabel(table) {
+
       var caption = table.querySelector("caption");
+
       var figure = table.closest("figure");
+
       if (!caption && figure) caption = figure.querySelector("figcaption");
+
       var text = caption && caption.textContent
+
         ? caption.textContent.trim().replace(/\s+/g, " ")
+
         : "";
+
       return text ? "Tablica: " + text : "Tablica s vodoravnim pomicanjem";
+
     }
+
+
 
     function wrapperFor(table) {
+
       var parent = table.parentElement;
+
       if (parent && (
+
         parent.classList.contains("table-responsive") ||
+
         parent.classList.contains("cell-output-display")
+
       )) {
+
         return parent;
+
       }
+
+
 
       var wrapper = document.createElement("div");
+
       wrapper.className = "table-responsive";
+
       table.parentNode.insertBefore(wrapper, table);
+
       wrapper.appendChild(table);
+
       return wrapper;
+
     }
+
+
 
     function update(table, scroller, hint) {
+
       if (!table.isConnected || !scroller.isConnected) return;
+
       var overflows = table.scrollWidth > scroller.clientWidth + 1;
+
       scroller.classList.toggle("table-scrollable", overflows);
+
       hint.hidden = !overflows;
 
+
+
       if (overflows) {
+
         if (!scroller.hasAttribute("tabindex")) {
+
           scroller.tabIndex = 0;
+
           scroller.dataset.tableManagedTabindex = "1";
+
         }
+
         if (!scroller.hasAttribute("role")) {
+
           scroller.setAttribute("role", "region");
+
           scroller.dataset.tableManagedRole = "1";
+
         }
+
         if (!scroller.hasAttribute("aria-label")) {
+
           scroller.setAttribute("aria-label", tableLabel(table));
+
           scroller.dataset.tableManagedLabel = "1";
+
         }
+
         var describedBy = (scroller.getAttribute("aria-describedby") || "")
+
           .split(/\s+/).filter(Boolean);
+
         if (describedBy.indexOf(hint.id) === -1) describedBy.push(hint.id);
+
         scroller.setAttribute("aria-describedby", describedBy.join(" "));
+
       } else {
+
         if (scroller.dataset.tableManagedTabindex) {
+
           scroller.removeAttribute("tabindex");
+
           delete scroller.dataset.tableManagedTabindex;
+
         }
+
         if (scroller.dataset.tableManagedRole) {
+
           scroller.removeAttribute("role");
+
           delete scroller.dataset.tableManagedRole;
+
         }
+
         if (scroller.dataset.tableManagedLabel) {
+
           scroller.removeAttribute("aria-label");
+
           delete scroller.dataset.tableManagedLabel;
+
         }
+
         var remaining = (scroller.getAttribute("aria-describedby") || "")
+
           .split(/\s+/).filter(Boolean)
+
           .filter(function (id) { return id !== hint.id; });
+
         if (remaining.length) {
+
           scroller.setAttribute("aria-describedby", remaining.join(" "));
+
         } else {
+
           scroller.removeAttribute("aria-describedby");
+
         }
+
       }
+
     }
+
+
 
     function prepare(table) {
+
       if (table.dataset.tableScrollerReady || table.closest(".chapter-meta")) {
+
         return;
+
       }
+
       table.dataset.tableScrollerReady = "1";
+
       var scroller = wrapperFor(table);
+
       var hint = document.createElement("p");
+
       hint.className = "table-scroll-hint";
+
       hint.id = "table-scroll-hint-" + (++nextId);
+
       hint.textContent = "↔ Pomaknite tablicu za preostale stupce";
+
       hint.hidden = true;
+
       scroller.insertAdjacentElement("afterend", hint);
 
+
+
       var refresh = function () {
+
         window.requestAnimationFrame(function () {
+
           update(table, scroller, hint);
+
         });
+
       };
+
       refresh();
+
       table.addEventListener("load", refresh, true);
+
       if (resizeObserver) resizeObserver.observe(scroller);
+
     }
+
+
 
     function scan() {
+
       queued = false;
+
       document.querySelectorAll("main table, #quarto-content table")
+
         .forEach(prepare);
+
     }
+
+
 
     function queueScan() {
+
       if (queued) return;
+
       queued = true;
+
       window.requestAnimationFrame(scan);
+
     }
+
+
 
     scan();
+
     window.addEventListener("load", queueScan);
+
     window.addEventListener("resize", queueScan);
+
     new MutationObserver(queueScan).observe(document.body, {
+
       childList: true,
+
       subtree: true
+
     });
+
   }
 
+
+
   // -------------------------------------------------------------------
+
   // 17. Pretraživanje
+
   //     Quarto prevodi vidljivi tekst iz `language`, ali Algolijina ovojnica
+
   //     zadržava nekoliko engleskih pristupačnih naziva. Prevodimo i početne
+
   //     elemente i kontrole koje se umeću tek kada se pretraživanje otvori.
+
   // -------------------------------------------------------------------
+
   function setupSearchLocalization() {
+
     var translations = {
+
       "Search": "Pretraži",
+
       "Clear": "Očisti pretraživanje",
+
       "Cancel": "Odustani",
+
       "Submit": "Pretraži",
+
       "Close": "Zatvori",
+
       "Reset": "Vrati početno"
+
     };
+
     var queued = false;
 
+
+
     function localize() {
+
       queued = false;
+
       document.querySelectorAll(
+
         ".aa-Autocomplete, .aa-DetachedSearchButton, " +
+
         ".aa-DetachedOverlay [aria-label], " +
+
         ".aa-DetachedOverlay [title], " +
+
         ".aa-DetachedOverlay [placeholder]"
+
       ).forEach(function (element) {
+
         ["aria-label", "title", "placeholder"].forEach(function (attribute) {
+
           var value = element.getAttribute(attribute);
+
           if (value && translations[value]) {
+
             element.setAttribute(attribute, translations[value]);
+
           }
+
         });
+
       });
+
     }
+
+
 
     function queue() {
+
       if (queued) return;
+
       queued = true;
+
       window.requestAnimationFrame(localize);
+
     }
 
+
+
     localize();
+
     new MutationObserver(queue).observe(document.body, {
+
       childList: true,
+
       subtree: true
+
     });
+
   }
+
+
 
   // -------------------------------------------------------------------
+
   function init() {
+
     try { setupProgressBar(); } catch (e) {}
+
     try { setupInternalHover(); } catch (e) {}
+
     try { setupDinkus(); } catch (e) {}
+
     try { setupAnchorLinks(); } catch (e) {}
+
     try { setupStandalonePages(); } catch (e) {}
+
     try { setupNastavaActiveState(); } catch (e) {}
+
     try { pruneSidebar(); } catch (e) {}
+
     try { setupOjsPanels(); } catch (e) {}
+
     try { setupProseCollapsibles(); } catch (e) {}
+
     try { setupChapterAI(); } catch (e) {}
+
     try { setupPojmovi(); } catch (e) {}
+
     try { setupChapterMeta(); } catch (e) {}
+
     try { setupWidgetMemory(); } catch (e) {}
+
     try { setupMobileNavbar(); } catch (e) {}
+
     try { setupNotFoundFallback(); } catch (e) {}
+
     try { setupSameOriginLinks(); } catch (e) {}
+
     try { setupAccessibleTables(); } catch (e) {}
+
     try { setupSearchLocalization(); } catch (e) {}
+
   }
 
+
+
   if (document.readyState === "loading") {
+
     document.addEventListener("DOMContentLoaded", init);
+
   } else {
+
     init();
+
   }
+
 })();
+
 </script>
+
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3MDZfcGFyID0gSW5wdXRzLmZvcm0oe1xuICBhOiBJbnB1dHMucmFuZ2UoWy0xLCAxXSwge3ZhbHVlOiAtMC43MCwgc3RlcDogMC4wNSwgbGFiZWw6IFwiUHJvY2plbmEgemEgb2JsYWsgQVwifSksXG4gIGI6IElucHV0cy5yYW5nZShbLTEsIDFdLCB7dmFsdWU6IC0wLjIwLCBzdGVwOiAwLjA1LCBsYWJlbDogXCJQcm9jamVuYSB6YSBvYmxhayBCXCJ9KSxcbiAgYzogSW5wdXRzLnJhbmdlKFstMSwgMV0sIHt2YWx1ZTogMC4yMCwgc3RlcDogMC4wNSwgbGFiZWw6IFwiUHJvY2plbmEgemEgb2JsYWsgQ1wifSksXG4gIGQ6IElucHV0cy5yYW5nZShbLTEsIDFdLCB7dmFsdWU6IDAuNTAsIHN0ZXA6IDAuMDUsIGxhYmVsOiBcIlByb2NqZW5hIHphIG9ibGFrIERcIn0pXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidzA2X3NjZW5hcmlqaSA9IHtcbiAgY29uc3QgY2lsamV2aSA9IFtcbiAgICB7b2JsYWs6IFwiT2JsYWsgQVwiLCByaG86IC0wLjgwfSxcbiAgICB7b2JsYWs6IFwiT2JsYWsgQlwiLCByaG86IC0wLjM1fSxcbiAgICB7b2JsYWs6IFwiT2JsYWsgQ1wiLCByaG86IDAuNDB9LFxuICAgIHtvYmxhazogXCJPYmxhayBEXCIsIHJobzogMC43NX1cbiAgXTtcblxuICBmdW5jdGlvbiBrb3JlbGFjaWphKHBvZGFjaSkge1xuICAgIGNvbnN0IG14ID0gZDMubWVhbihwb2RhY2ksIGQgPT4gZC54KTtcbiAgICBjb25zdCBteSA9IGQzLm1lYW4ocG9kYWNpLCBkID0+IGQueSk7XG4gICAgY29uc3QgYnJvam5payA9IGQzLnN1bShwb2RhY2ksIGQgPT4gKGQueCAtIG14KSAqIChkLnkgLSBteSkpO1xuICAgIGNvbnN0IG5heml2bmlrID0gTWF0aC5zcXJ0KFxuICAgICAgZDMuc3VtKHBvZGFjaSwgZCA9PiAoZC54IC0gbXgpICoqIDIpICpcbiAgICAgIGQzLnN1bShwb2RhY2ksIGQgPT4gKGQueSAtIG15KSAqKiAyKVxuICAgICk7XG4gICAgcmV0dXJuIGJyb2puaWsgLyBuYXppdm5paztcbiAgfVxuXG4gIHJldHVybiBjaWxqZXZpLm1hcCgoc2NlbmFyaWosIGopID0+IHtcbiAgICBjb25zdCBybmcgPSBkMy5yYW5kb21MY2coNjA2ICsgaik7XG4gICAgY29uc3Qgbm9ybWFsbmEgPSBkMy5yYW5kb21Ob3JtYWwuc291cmNlKHJuZykoMCwgMSk7XG4gICAgY29uc3QgcG9kYWNpID0gQXJyYXkuZnJvbSh7bGVuZ3RoOiA1NH0sICgpID0+IHtcbiAgICAgIGNvbnN0IHggPSBub3JtYWxuYSgpO1xuICAgICAgY29uc3QgeiA9IG5vcm1hbG5hKCk7XG4gICAgICBjb25zdCB5ID0gc2NlbmFyaWoucmhvICogeCArIE1hdGguc3FydCgxIC0gc2NlbmFyaWoucmhvICoqIDIpICogejtcbiAgICAgIHJldHVybiB7b2JsYWs6IHNjZW5hcmlqLm9ibGFrLCB4LCB5fTtcbiAgICB9KTtcbiAgICByZXR1cm4gey4uLnNjZW5hcmlqLCByOiBrb3JlbGFjaWphKHBvZGFjaSksIHBvZGFjaX07XG4gIH0pO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidzA2X3RvY2tlID0gdzA2X3NjZW5hcmlqaS5mbGF0TWFwKGQgPT4gZC5wb2RhY2kpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ7XG4gIGNvbnN0IHRpbnRhID0gXCJ2YXIoLS10b2staW5rKVwiO1xuICBjb25zdCBwcmlndXNlbmEgPSBcInZhcigtLXRvay1ydWxlKVwiO1xuICBjb25zdCBjZWxpamEgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLndpZGdldC1mcmFtZSAuY2VsbFwiKTtcbiAgY29uc3Qgc3RpbENlbGlqZSA9IGNlbGlqYSA/IGdldENvbXB1dGVkU3R5bGUoY2VsaWphKSA6IG51bGw7XG4gIGNvbnN0IGxva2FsbmFTaXJpbmEgPSBjZWxpamFcbiAgICA/IGNlbGlqYS5jbGllbnRXaWR0aCAtXG4gICAgICBwYXJzZUZsb2F0KHN0aWxDZWxpamUucGFkZGluZ0xlZnQpIC1cbiAgICAgIHBhcnNlRmxvYXQoc3RpbENlbGlqZS5wYWRkaW5nUmlnaHQpXG4gICAgOiB3aWR0aDtcbiAgY29uc3Qgc2lyaW5hR3JhZmEgPSBNYXRoLm1heCgyNDAsIE1hdGgubWluKHdpZHRoLCBsb2thbG5hU2lyaW5hKSk7XG4gIGNvbnN0IHVza28gPSBzaXJpbmFHcmFmYSA8IDQ4MDtcblxuICByZXR1cm4gUGxvdC5wbG90KHtcbiAgICB3aWR0aDogc2lyaW5hR3JhZmEsXG4gICAgaGVpZ2h0OiB1c2tvID8gODYwIDogNzYwLFxuICAgIG1hcmdpbkxlZnQ6IHVza28gPyA1MiA6IDYwLFxuICAgIG1hcmdpblJpZ2h0OiA2NCxcbiAgICBtYXJnaW5Cb3R0b206IHVza28gPyA0OCA6IDUyLFxuICAgIHN0eWxlOiB7XG4gICAgICBiYWNrZ3JvdW5kOiBcInRyYW5zcGFyZW50XCIsXG4gICAgICBjb2xvcjogdGludGEsXG4gICAgICBmb250RmFtaWx5OiBcInZhcigtLXRvay1mb250LW1vbm8pXCIsXG4gICAgICBmb250U2l6ZTogdXNrbyA/IFwiMTJweFwiIDogXCIxM3B4XCJcbiAgICB9LFxuICAgIHg6IHtsYWJlbDogXCJ4XCIsIGdyaWQ6IHRydWV9LFxuICAgIHk6IHtsYWJlbDogXCJ5XCIsIGdyaWQ6IHRydWV9LFxuICAgIGZ5OiB7XG4gICAgICBsYWJlbDogbnVsbCxcbiAgICAgIGRvbWFpbjogW1wiT2JsYWsgQVwiLCBcIk9ibGFrIEJcIiwgXCJPYmxhayBDXCIsIFwiT2JsYWsgRFwiXVxuICAgIH0sXG4gICAgbWFya3M6IFtcbiAgICAgIFBsb3QucnVsZVgoWzBdLCB7c3Ryb2tlOiBwcmlndXNlbmF9KSxcbiAgICAgIFBsb3QucnVsZVkoWzBdLCB7c3Ryb2tlOiBwcmlndXNlbmF9KSxcbiAgICAgIFBsb3QuZG90KHcwNl90b2NrZSwge1xuICAgICAgICB4OiBcInhcIixcbiAgICAgICAgeTogXCJ5XCIsXG4gICAgICAgIGZ5OiBcIm9ibGFrXCIsXG4gICAgICAgIGZpbGw6IHRpbnRhLFxuICAgICAgICByOiAzLFxuICAgICAgICBvcGFjaXR5OiAwLjcyXG4gICAgICB9KVxuICAgIF1cbiAgfSk7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ7XG4gIGNvbnN0IHByb2NqZW5lID0gW3cwNl9wYXIuYSwgdzA2X3Bhci5iLCB3MDZfcGFyLmMsIHcwNl9wYXIuZF07XG4gIGNvbnN0IHJlenVsdGF0ID0gZDMuc3VtKFxuICAgIHcwNl9zY2VuYXJpamksXG4gICAgKGQsIGkpID0+IE1hdGguYWJzKHByb2NqZW5lW2ldIC0gZC5yKSA8PSAwLjEwID8gMSA6IDBcbiAgKTtcbiAgY29uc3QgemFwaXMgPSBwcm9jamVuZVxuICAgIC5tYXAodiA9PiB2LnRvTG9jYWxlU3RyaW5nKFwiaHItSFJcIiwge1xuICAgICAgbWluaW11bUZyYWN0aW9uRGlnaXRzOiAyLFxuICAgICAgbWF4aW11bUZyYWN0aW9uRGlnaXRzOiAyXG4gICAgfSkpXG4gICAgLmpvaW4oXCIgwrcgXCIpO1xuXG4gIHJldHVybiBodG1sYDxwIGNsYXNzPVwid2lkZ2V0LWZvb3RcIiByb2xlPVwic3RhdHVzXCIgYXJpYS1saXZlPVwicG9saXRlXCI+VHJlbnV0YcSNbmkgcmV6dWx0YXQgJHtyZXp1bHRhdH0gb2QgNC4gUHJvY2plbmUgcmVkb20gaXpub3NlICR7emFwaXN9LiBQb2dvZGFrIG9kc3R1cGEgbmFqdmnFoWUgMCwxMCBvZCBpenJhxI11bmF0ZSBrb3JlbGFjaWplLjwvcD5gO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd3MDZfcGFyJykifV19
 </script>
@@ -2674,6 +3917,38 @@ window._ojs.runtime.interpretFromScriptTags();
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

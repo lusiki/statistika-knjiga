@@ -721,7 +721,19 @@ div.csl-indent {
   <li><a href="#rad-s-tekstom" id="toc-rad-s-tekstom" class="nav-link" data-scroll-target="#rad-s-tekstom">Rad s tekstom</a></li>
   <li><a href="#faktori-i-redoslijed-kategorija" id="toc-faktori-i-redoslijed-kategorija" class="nav-link" data-scroll-target="#faktori-i-redoslijed-kategorija">Faktori i redoslijed kategorija</a></li>
   <li><a href="#čišćenje-neurednih-podataka" id="toc-čišćenje-neurednih-podataka" class="nav-link" data-scroll-target="#čišćenje-neurednih-podataka">Čišćenje neurednih podataka</a></li>
-  <li><a href="#grafovi" id="toc-grafovi" class="nav-link" data-scroll-target="#grafovi">Grafovi</a></li>
+  <li><a href="#grafovi" id="toc-grafovi" class="nav-link" data-scroll-target="#grafovi">Grafovi</a>
+  <ul class="collapse">
+  <li><a href="#jedna-brojčana-varijabla" id="toc-jedna-brojčana-varijabla" class="nav-link" data-scroll-target="#jedna-brojčana-varijabla">Jedna brojčana varijabla</a></li>
+  <li><a href="#jedna-kategorijalna-varijabla" id="toc-jedna-kategorijalna-varijabla" class="nav-link" data-scroll-target="#jedna-kategorijalna-varijabla">Jedna kategorijalna varijabla</a></li>
+  <li><a href="#brojčana-varijabla-po-skupinama" id="toc-brojčana-varijabla-po-skupinama" class="nav-link" data-scroll-target="#brojčana-varijabla-po-skupinama">Brojčana varijabla po skupinama</a></li>
+  <li><a href="#dvije-brojčane-varijable" id="toc-dvije-brojčane-varijable" class="nav-link" data-scroll-target="#dvije-brojčane-varijable">Dvije brojčane varijable</a></li>
+  <li><a href="#pridruživanje-unutar-i-izvan-aes" id="toc-pridruživanje-unutar-i-izvan-aes" class="nav-link" data-scroll-target="#pridruživanje-unutar-i-izvan-aes">Pridruživanje unutar i izvan aes()</a></li>
+  <li><a href="#polja" id="toc-polja" class="nav-link" data-scroll-target="#polja">Polja</a></li>
+  <li><a href="#oznake" id="toc-oznake" class="nav-link" data-scroll-target="#oznake">Oznake</a></li>
+  <li><a href="#teme-i-ljestvice" id="toc-teme-i-ljestvice" class="nav-link" data-scroll-target="#teme-i-ljestvice">Teme i ljestvice</a></li>
+  <li><a href="#spremanje" id="toc-spremanje" class="nav-link" data-scroll-target="#spremanje">Spremanje</a></li>
+  <li><a href="#četiri-česte-pogreške" id="toc-četiri-česte-pogreške" class="nav-link" data-scroll-target="#četiri-česte-pogreške">Četiri česte pogreške</a></li>
+  </ul></li>
   <li><a href="#pisanje-funkcija" id="toc-pisanje-funkcija" class="nav-link" data-scroll-target="#pisanje-funkcija">Pisanje funkcija</a></li>
   <li><a href="#skripta-quarto-i-ponovljivost" id="toc-skripta-quarto-i-ponovljivost" class="nav-link" data-scroll-target="#skripta-quarto-i-ponovljivost">Skripta, Quarto i ponovljivost</a></li>
   <li><a href="#greške-i-dijagnostika" id="toc-greške-i-dijagnostika" class="nav-link" data-scroll-target="#greške-i-dijagnostika">Greške i dijagnostika</a></li>
@@ -1950,55 +1962,344 @@ Instagram    TikTok     Other
 </section>
 <section id="grafovi" class="level2">
 <h2 class="anchored" data-anchor-id="grafovi">Grafovi</h2>
-<p>Sustavnu gramatiku paketa ggplot2 razrađuje poglavlje o vizualizaciji. Ovdje je dovoljno znati da se graf gradi slaganjem slojeva, pri čemu <code>ggplot()</code> prima podatke, <code>aes()</code> pridružuje varijable svojstvima grafa, a <code>geom_</code> sloj određuje oblik prikaza. Slojevi se spajaju znakom <code>+</code>, a ne cjevovodom.</p>
+<p>Zašto je graf skup odluka, a ne vrsta slike, razrađuje poglavlje o vizualizaciji. Ovaj odjeljak uči kako se te odluke zapisuju u paketu ggplot2. Redoslijed izlaganja slijedi redoslijed odluka, pa se najprije gradi kostur, a zatim se dodaju geometrija, polja, ljestvice i oznake.</p>
+<p>Svaki graf ima tri obavezna dijela. Funkcija <code>ggplot()</code> prima tablicu, <code>aes()</code> pridružuje varijable svojstvima grafa, a sloj <code>geom_</code> određuje oblik prikaza. Slojevi se spajaju znakom <code>+</code>, a ne cjevovodom, i to je razlika koju vrijedi zapamtiti odmah, jer je zamjena tih dvaju znakova najčešća pogreška početnika.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb214"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb214-1"><a href="#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> minute_dnevno)) <span class="sc">+</span></span>
-<span id="cb214-2"><a href="#cb214-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
-<span id="cb214-3"><a href="#cb214-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Minute dnevno"</span>, <span class="at">y =</span> <span class="st">"Broj ispitanika"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb214"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb214-1"><a href="#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> minute_dnevno))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="a-praktikum_files/figure-html/unnamed-chunk-65-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="a-praktikum_files/figure-html/unnamed-chunk-65-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Histogram dnevnih minuta s dugim desnim repom."></a></p>
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-65-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="a-praktikum_files/figure-html/unnamed-chunk-65-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Prazan koordinatni sustav s osi za dnevne minute i bez ijedne oznake."></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Zamjena jednog sloja mijenja prikaz, a podaci ostaju isti. Time se dobiva usporedba koju traži zadatak u poglavlju o vizualizaciji.</p>
+<p>Poziv bez geometrije nacrta osi i ništa više. To nije greška nego točan prikaz onoga što je zatraženo, jer podaci i pridruživanje postoje, a odluka o obliku oznake nije donesena.</p>
+<section id="jedna-brojčana-varijabla" class="level3">
+<h3 class="anchored" data-anchor-id="jedna-brojčana-varijabla">Jedna brojčana varijabla</h3>
+<p>Histogram dijeli raspon varijable na jednako široke razrede i broji opažanja u svakom.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb215"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb215-1"><a href="#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
-<span id="cb215-2"><a href="#cb215-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb215-3"><a href="#cb215-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb215"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb215-1"><a href="#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb215-2"><a href="#cb215-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb215-3"><a href="#cb215-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Minute dnevno"</span>, <span class="at">y =</span> <span class="st">"Broj ispitanika"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="a-praktikum_files/figure-html/unnamed-chunk-66-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="a-praktikum_files/figure-html/unnamed-chunk-66-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Kutijasti dijagram dnevnih minuta po dobnim skupinama."></a></p>
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-66-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="a-praktikum_files/figure-html/unnamed-chunk-66-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Histogram dnevnih minuta s dugim desnim repom."></a></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Razlika među tim dvama prikazima nije kozmetička. Histogram čuva oblik cijele raspodjele i ne računa ništa prije crtanja. Kutijasti dijagram prije crtanja izračunava medijan i kvartile, pa oblik unutar kutije više nije vidljiv, ali se skupine lako uspoređuju. Svaki prikaz nešto čuva i nešto odbacuje, što je argument koji poglavlje o vizualizaciji razrađuje.</p>
+<p>Argument <code>bins</code> zadaje broj razreda, a <code>binwidth</code> njihovu širinu, i navodi se jedan ili drugi. Zadanih trideset razreda gotovo nikada nije pravi izbor, pa vrijedi isprobati nekoliko vrijednosti i vidjeti mijenja li se oblik. Ako se mijenja jako, oblik nije svojstvo podataka nego izbora razreda.</p>
+<p>Krivulja gustoće daje glađu inačicu istog prikaza i ne ovisi o razredima.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb216"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb216-2"><a href="#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"grey70"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb216-3"><a href="#cb216-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Minute dnevno"</span>, <span class="at">y =</span> <span class="st">"Gustoća"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-67-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="a-praktikum_files/figure-html/unnamed-chunk-67-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Krivulja gustoće dnevnih minuta s vrhom pri manjim vrijednostima."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Argument <code>alpha</code> zadaje prozirnost, gdje nula znači posve prozirno, a jedinica posve neprozirno. Prozirnost je nužna kada se prikazi preklapaju, jer bez nje gornji sloj skriva donji.</p>
+</section>
+<section id="jedna-kategorijalna-varijabla" class="level3">
+<h3 class="anchored" data-anchor-id="jedna-kategorijalna-varijabla">Jedna kategorijalna varijabla</h3>
+<p>Za kategorije postoje dva sloja i razlika među njima je u tome tko broji. Funkcija <code>geom_bar()</code> prebrojava retke sama, dok <code>geom_col()</code> crta vrijednosti koje ste već izračunali.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb217"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb217-1"><a href="#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina)) <span class="sc">+</span></span>
+<span id="cb217-2"><a href="#cb217-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb217-3"><a href="#cb217-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Broj ispitanika"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-68-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="a-praktikum_files/figure-html/unnamed-chunk-68-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Stupčasti prikaz broja ispitanika po dobnim skupinama."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb218"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb218-2"><a href="#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
+<span id="cb218-3"><a href="#cb218-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prosjek =</span> <span class="fu">mean</span>(minute_dnevno), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb218-4"><a href="#cb218-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dobna_skupina =</span> <span class="fu">fct_reorder</span>(dobna_skupina, prosjek)) <span class="sc">|&gt;</span></span>
+<span id="cb218-5"><a href="#cb218-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> prosjek, <span class="at">y =</span> dobna_skupina)) <span class="sc">+</span></span>
+<span id="cb218-6"><a href="#cb218-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb218-7"><a href="#cb218-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Prosječne minute dnevno"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-69-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="a-praktikum_files/figure-html/unnamed-chunk-69-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Stupčasti prikaz prosječnih dnevnih minuta po dobnim skupinama, poredan po veličini."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Drugi primjer pokazuje tri navike odjednom. Cjevovod vodi do <code>ggplot()</code>, gdje se prelazi na znak <code>+</code>. Funkcija <code>fct_reorder()</code> iz odjeljka o faktorima poreda kategorije po brojčanoj veličini umjesto po abecedi. I kategorijalna varijabla stavljena je na okomitu os, čime se dobiva vodoravni prikaz, koji duga imena kategorija podnosi bez zakretanja teksta.</p>
+<p>Kada kategorija ima dvije, druga ulazi kroz ispunu.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb219"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb219-1"><a href="#cb219-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb219-2"><a href="#cb219-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">razina =</span> <span class="fu">if_else</span>(povjerenje <span class="sc">&gt;=</span> <span class="dv">7</span>, <span class="st">"visoko"</span>, <span class="st">"nisko"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb219-3"><a href="#cb219-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina, <span class="at">fill =</span> razina)) <span class="sc">+</span></span>
+<span id="cb219-4"><a href="#cb219-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb219-5"><a href="#cb219-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Broj ispitanika"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-70-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="a-praktikum_files/figure-html/unnamed-chunk-70-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Grupirani stupčasti prikaz razine povjerenja po dobnim skupinama."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Argument <code>position</code> određuje raspored stupaca. Vrijednost <code>"dodge"</code> stavlja ih jedan uz drugi i čuva apsolutne brojeve, <code>"stack"</code> ih slaže jedan na drugi, a <code>"fill"</code> svaki stupac rastegne na punu visinu i time prikazuje udjele umjesto brojeva. Izbor među njima je izbor pitanja, jer prvi prikazuje koliko ih ima, a treći kako su raspoređeni.</p>
+</section>
+<section id="brojčana-varijabla-po-skupinama" class="level3">
+<h3 class="anchored" data-anchor-id="brojčana-varijabla-po-skupinama">Brojčana varijabla po skupinama</h3>
+<p>Kutijasti dijagram prije crtanja izračunava medijan i kvartile.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb220"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb220-1"><a href="#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb220-2"><a href="#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb220-3"><a href="#cb220-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-71-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="a-praktikum_files/figure-html/unnamed-chunk-71-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Kutijasti dijagram dnevnih minuta po dobnim skupinama."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Razlika prema histogramu nije kozmetička. Histogram čuva oblik cijele raspodjele i ne računa ništa prije crtanja. Kutijasti dijagram oblik unutar kutije više ne pokazuje, ali skupine uspoređuje bez napora. Svaki prikaz nešto čuva i nešto odbacuje, što je argument koji poglavlje o vizualizaciji razrađuje.</p>
+<p>Ono što je kutija odbacila može se vratiti dodavanjem sloja s opažanjima.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb221"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb221-1"><a href="#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb221-2"><a href="#cb221-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb221-3"><a href="#cb221-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb221-4"><a href="#cb221-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-72-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="a-praktikum_files/figure-html/unnamed-chunk-72-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Kutijasti dijagram s razasutim pojedinačnim opažanjima preko njega."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Funkcija <code>geom_jitter()</code> točkama dodaje mali slučajni pomak, jer bi inače sve opažanja iste skupine pala na isti okomiti pravac. Argument <code>width</code> zadaje koliko se smije pomaknuti, a vrijednost veća od polovine razmaka među kategorijama počinje miješati skupine. Argument <code>outlier.shape = NA</code> uklanja točke koje kutija sama crta, jer bi se inače udvostručile. Redoslijed slojeva je bitan, jer se svaki sljedeći crta preko prethodnog.</p>
+<p>Violinski prikaz radi obrnuto od kutije i pokazuje oblik umjesto kvartila.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb222"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb222-1"><a href="#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb222-2"><a href="#cb222-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
+<span id="cb222-3"><a href="#cb222-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-73-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="a-praktikum_files/figure-html/unnamed-chunk-73-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Violinski prikaz raspodjele dnevnih minuta po dobnim skupinama."></a></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dvije-brojčane-varijable" class="level3">
+<h3 class="anchored" data-anchor-id="dvije-brojčane-varijable">Dvije brojčane varijable</h3>
+<p>Raspršeni dijagram jedini je prikaz koji ne mora ništa izračunati.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb223"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb223-1"><a href="#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dob, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb223-2"><a href="#cb223-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb223-3"><a href="#cb223-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Dob"</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-74-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="a-praktikum_files/figure-html/unnamed-chunk-74-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Raspršeni dijagram dobi i dnevnih minuta s prozirnim oznakama."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Prozirnost je ovdje nužna, a ne ukrasna. Bez nje se preklopljene točke ne razlikuju od pojedinačnih, pa se gustoća oblaka ne vidi.</p>
+<p>Sloj <code>geom_smooth()</code> provlači kroz oblak procijenjeni prosječni odnos.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb224"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dob, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb224-4"><a href="#cb224-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Dob"</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-75-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="a-praktikum_files/figure-html/unnamed-chunk-75-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Isti raspršeni dijagram s dodanim pravcem najmanjih kvadrata."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Argument <code>method = "lm"</code> traži pravac najmanjih kvadrata, a bez njega se crta prilagodljiva krivulja koja slijedi oblik podataka. Siva vrpca oko linije je interval pouzdanosti, i uklanja se argumentom <code>se = FALSE</code>. Ta linija je model, a ne podatak, pa se čita zajedno s oblakom iz kojega je izvučena. Poglavlje o regresiji pokazuje kako nastaje.</p>
+</section>
+<section id="pridruživanje-unutar-i-izvan-aes" class="level3">
+<h3 class="anchored" data-anchor-id="pridruživanje-unutar-i-izvan-aes">Pridruživanje unutar i izvan aes()</h3>
+<p>Ovo je mjesto na kojem se griješi najčešće i na kojem poruka o grešci najmanje pomaže. Pravilo ima jednu rečenicu. Unutar <code>aes()</code> ide ime varijable, izvan <code>aes()</code> ide zadana vrijednost.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb225"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb225-1"><a href="#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dob, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb225-2"><a href="#cb225-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb225-3"><a href="#cb225-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Dob"</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-76-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="a-praktikum_files/figure-html/unnamed-chunk-76-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Raspršeni dijagram u kojem su sve oznake jednake boje."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">razina =</span> <span class="fu">if_else</span>(povjerenje <span class="sc">&gt;=</span> <span class="dv">7</span>, <span class="st">"visoko"</span>, <span class="st">"nisko"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb226-3"><a href="#cb226-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dob, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb226-4"><a href="#cb226-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> razina), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb226-5"><a href="#cb226-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Dob"</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>, <span class="at">shape =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-77-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="a-praktikum_files/figure-html/unnamed-chunk-77-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Raspršeni dijagram u kojem oblik oznake razlikuje razinu povjerenja."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>U prvom pozivu boja je zadana vrijednost i vrijedi za sve oznake, pa legende nema. U drugom je oblik pridružen varijabli, pa ggplot2 legendu izradi sam. Kada se ime boje zabunom stavi unutar <code>aes()</code>, paket ga protumači kao jednočlanu kategorijalnu varijablu, sve oznake oboji jednako i doda beskorisnu legendu s jednim unosom. Graf pritom ne javlja nikakvu grešku.</p>
+</section>
+<section id="polja" class="level3">
+<h3 class="anchored" data-anchor-id="polja">Polja</h3>
+<p>Funkcija <code>facet_wrap()</code> ponavlja isti graf za svaku razinu varijable. Tilda ispred imena čita se kao „po”.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb227"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb227-1"><a href="#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb227-2"><a href="#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">24</span>) <span class="sc">+</span></span>
+<span id="cb227-3"><a href="#cb227-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> dobna_skupina, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb227-4"><a href="#cb227-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Minute dnevno"</span>, <span class="at">y =</span> <span class="st">"Broj ispitanika"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-78-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img src="a-praktikum_files/figure-html/unnamed-chunk-78-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Četiri histograma dnevnih minuta, po jedan za svaku dobnu skupinu."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Argument <code>nrow</code> ili <code>ncol</code> određuje raspored polja. Po zadanom sva polja dijele istu os, što je i svrha postupka, jer se položaji smiju uspoređivati između polja. Argument <code>scales = "free_y"</code> to napušta i svakom polju daje vlastiti raspon, čime usporedba razina prestaje biti moguća. Vrijedi ga upotrijebiti samo kada se uspoređuje oblik, i tada to reći u tekstu uz graf.</p>
+<p>Za dvije kategorijalne varijable odjednom služi <code>facet_grid()</code>, koja polja slaže u matricu, s varijablom za retke lijevo i varijablom za stupce desno od tilde.</p>
+</section>
+<section id="oznake" class="level3">
+<h3 class="anchored" data-anchor-id="oznake">Oznake</h3>
+<p>Funkcija <code>labs()</code> imenuje sve što se na grafu vidi.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb228"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dob, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb228-2"><a href="#cb228-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb228-3"><a href="#cb228-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb228-4"><a href="#cb228-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb228-5"><a href="#cb228-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Vrijeme korištenja opada s dobi"</span>,</span>
+<span id="cb228-6"><a href="#cb228-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Simulirana anketa, 300 ispitanika"</span>,</span>
+<span id="cb228-7"><a href="#cb228-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Dob"</span>,</span>
+<span id="cb228-8"><a href="#cb228-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Minute dnevno"</span>,</span>
+<span id="cb228-9"><a href="#cb228-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Izrada autora. Podaci su simulirani i nisu mjerenje."</span></span>
+<span id="cb228-10"><a href="#cb228-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-79-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="a-praktikum_files/figure-html/unnamed-chunk-79-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Raspršeni dijagram dobi i dnevnih minuta s naslovom, podnaslovom i potpisom."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Naslov koji izriče nalaz čitatelju kaže više od naslova koji opisuje sadržaj, pa je „Vrijeme korištenja opada s dobi” korisnije od „Odnos dobi i vremena korištenja”. Potpis nosi izvor podataka i napomenu o postupku, i u ovoj knjizi nikada ne izostaje.</p>
+</section>
+<section id="teme-i-ljestvice" class="level3">
+<h3 class="anchored" data-anchor-id="teme-i-ljestvice">Teme i ljestvice</h3>
+<p>Tema određuje sve što nije podatak, dakle pozadinu, mrežu, pisma i položaj legende. Ugrađene teme uključuju <code>theme_minimal()</code>, <code>theme_bw()</code>, <code>theme_classic()</code> i <code>theme_void()</code>, a postavljaju se po grafu ili jednom za cijelu sesiju pozivom <code>theme_set()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb229"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina)) <span class="sc">+</span></span>
+<span id="cb229-2"><a href="#cb229-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb229-3"><a href="#cb229-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Broj ispitanika"</span>) <span class="sc">+</span></span>
+<span id="cb229-4"><a href="#cb229-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb229-5"><a href="#cb229-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb229-6"><a href="#cb229-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb229-7"><a href="#cb229-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span></span>
+<span id="cb229-8"><a href="#cb229-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-80-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-16"><img src="a-praktikum_files/figure-html/unnamed-chunk-80-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Isti stupčasti prikaz s minimalističkom temom i bez okomite mreže."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Funkcija <code>theme()</code> mijenja pojedinačne elemente, pri čemu <code>element_blank()</code> element uklanja, a <code>element_text()</code> mu mijenja pismo i veličinu. Poziv <code>theme()</code> dolazi nakon gotove teme, jer bi ga inače gotova tema pregazila.</p>
+<p>Boje kategorija zadaju se ljestvicama. Ručni izbor traži <code>scale_fill_manual()</code> uz popis vrijednosti, a gotove skupove nude <code>scale_fill_brewer()</code> i <code>scale_fill_viridis_d()</code>. Skup viridis vrijedi poznavati jer je izrađen tako da jednakim koracima u podacima odgovaraju jednaki koraci u boji, ostaje razlučiv u sivim tonovima i čitljiv osobama koje boje razlikuju drukčije. Nastavak <code>_d</code> označava kategorijalnu varijablu, a <code>_c</code> neprekinutu.</p>
+<p>Ova knjiga vlastite boje ne bira u poglavljima nego ih uzima iz svoje palete, pa se u njezinim izvorima ne pojavljuje nijedan zapis boje. Razlog je u tome što paleta mora ostati razlučiva i u crno-bijelom tisku, što se postiže poretkom po svjetlini, a ne po tonu.</p>
+<p>Oznake na osima uređuju se funkcijama <code>scale_x_continuous()</code> i <code>scale_y_continuous()</code>, gdje <code>breaks</code> zadaje položaje oznaka, a <code>labels</code> njihov zapis.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb230"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb230-1"><a href="#cb230-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb230-2"><a href="#cb230-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
+<span id="cb230-3"><a href="#cb230-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prosjek =</span> <span class="fu">mean</span>(minute_dnevno), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb230-4"><a href="#cb230-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina, <span class="at">y =</span> prosjek)) <span class="sc">+</span></span>
+<span id="cb230-5"><a href="#cb230-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb230-6"><a href="#cb230-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">25</span>)) <span class="sc">+</span></span>
+<span id="cb230-7"><a href="#cb230-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Prosječne minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-81-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-17"><img src="a-praktikum_files/figure-html/unnamed-chunk-81-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Stupčasti prikaz s oznakama osi na svakih pedeset minuta."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Jedan par argumenata zaslužuje posebnu pozornost, jer izgledaju zamjenjivo, a nisu. Argument <code>limits</code> unutar ljestvice odbacuje opažanja izvan raspona prije crtanja, pa se s njima gubi i sve što se iz njih računa, uključujući pravce i prosjeke. Funkcija <code>coord_cartesian()</code> mijenja samo prikazani izrez i sva opažanja zadržava u izračunu.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb231"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb231-1"><a href="#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dob, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
+<span id="cb231-2"><a href="#cb231-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb231-3"><a href="#cb231-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb231-4"><a href="#cb231-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>)) <span class="sc">+</span></span>
+<span id="cb231-5"><a href="#cb231-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Dob"</span>, <span class="at">y =</span> <span class="st">"Minute dnevno"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="a-praktikum_files/figure-html/unnamed-chunk-82-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-18"><img src="a-praktikum_files/figure-html/unnamed-chunk-82-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Raspršeni dijagram s ograničenim prikazom okomite osi i sačuvanim pravcem."></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Kada isti raspon zadate preko <code>limits</code>, pravac se promijeni, jer je izračunat bez odbačenih opažanja. To je tiha pogreška koja graf ne ruši, pa za sužavanje pogleda uvijek koristite <code>coord_cartesian()</code>.</p>
+</section>
+<section id="spremanje" class="level3">
+<h3 class="anchored" data-anchor-id="spremanje">Spremanje</h3>
+<p>Gotov se graf sprema funkcijom <code>ggsave()</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb232"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb232-1"><a href="#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"outputs/dob-minute.png"</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="fl">3.6</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Bez imenovanog grafa sprema se posljednji nacrtani. Dimenzije se zadaju u inčima, a <code>dpi</code> određuje razlučivost, pri čemu je 300 uobičajeno za tisak, a 150 dovoljno za prezentaciju. Nastavak u imenu datoteke određuje format, gdje <code>.png</code> daje rastersku sliku prikladnu za zaslon, a <code>.pdf</code> i <code>.svg</code> vektorsku, koja se može povećati bez gubitka oštrine.</p>
+</section>
+<section id="četiri-česte-pogreške" class="level3">
+<h3 class="anchored" data-anchor-id="četiri-česte-pogreške">Četiri česte pogreške</h3>
+<p>Prva je znak <code>|&gt;</code> umjesto <code>+</code> između slojeva. Cjevovod vodi do <code>ggplot()</code>, a unutar grafa slojevi se zbrajaju.</p>
+<p>Druga je brojčana varijabla pridružena ispuni stupčastog prikaza, čime nastaje neprekinuta ljestvica boja ondje gdje su potrebne kategorije. Popravak je pretvoriti varijablu u faktor.</p>
+<p>Treća je previše skupina u jednom prikazu. Preko tri ili četiri boje legenda prestaje pomagati, pa je bolje prijeći na polja.</p>
+<p>Četvrta je nedostajuća vrijednost koja tiho postane vlastita kategorija ili vlastito polje. Prikaz izgleda ispravno, a sadrži skupinu koja ne postoji. Provjera funkcijom <code>count()</code> prije crtanja to otkriva odmah.</p>
+</section>
 </section>
 <section id="pisanje-funkcija" class="level2">
 <h2 class="anchored" data-anchor-id="pisanje-funkcija">Pisanje funkcija</h2>
 <p>Kada se isti postupak ponavlja nad različitim varijablama, vrijedi mu dati ime. Funkcija se sastoji od imena, popisa argumenata i tijela, a vraća vrijednost posljednjeg izraza.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb216"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a>opis <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb216-2"><a href="#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb216-3"><a href="#cb216-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)),</span>
-<span id="cb216-4"><a href="#cb216-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb216-5"><a href="#cb216-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">medijan =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb216-6"><a href="#cb216-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb216-7"><a href="#cb216-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb216-8"><a href="#cb216-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb216-9"><a href="#cb216-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb216-10"><a href="#cb216-10" aria-hidden="true" tabindex="-1"></a><span class="fu">opis</span>(anketa_mreze<span class="sc">$</span>minute_dnevno)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb233"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb233-1"><a href="#cb233-1" aria-hidden="true" tabindex="-1"></a>opis <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb233-2"><a href="#cb233-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb233-3"><a href="#cb233-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)),</span>
+<span id="cb233-4"><a href="#cb233-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb233-5"><a href="#cb233-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">medijan =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb233-6"><a href="#cb233-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb233-7"><a href="#cb233-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb233-8"><a href="#cb233-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb233-9"><a href="#cb233-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb233-10"><a href="#cb233-10" aria-hidden="true" tabindex="-1"></a><span class="fu">opis</span>(anketa_mreze<span class="sc">$</span>minute_dnevno)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
       n sredina medijan    sd
   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
 1   300    50.1      39  39.2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb218"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opis</span>(anketa_mreze<span class="sc">$</span>povjerenje)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb235"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb235-1"><a href="#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opis</span>(anketa_mreze<span class="sc">$</span>povjerenje)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
       n sredina medijan    sd
@@ -2008,19 +2309,19 @@ Instagram    TikTok     Other
 </div>
 <p>Argumenti mogu imati zadane vrijednosti, koje se koriste kada ih pozivatelj ne navede.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb220"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb220-1"><a href="#cb220-1" aria-hidden="true" tabindex="-1"></a>opis_zaokruzeno <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">decimala =</span> <span class="dv">1</span>) {</span>
-<span id="cb220-2"><a href="#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opis</span>(x) <span class="sc">|&gt;</span></span>
-<span id="cb220-3"><a href="#cb220-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(sredina, medijan, sd), \(v) <span class="fu">round</span>(v, decimala)))</span>
-<span id="cb220-4"><a href="#cb220-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb220-5"><a href="#cb220-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb220-6"><a href="#cb220-6" aria-hidden="true" tabindex="-1"></a><span class="fu">opis_zaokruzeno</span>(anketa_mreze<span class="sc">$</span>minute_dnevno)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb237"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb237-1"><a href="#cb237-1" aria-hidden="true" tabindex="-1"></a>opis_zaokruzeno <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">decimala =</span> <span class="dv">1</span>) {</span>
+<span id="cb237-2"><a href="#cb237-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opis</span>(x) <span class="sc">|&gt;</span></span>
+<span id="cb237-3"><a href="#cb237-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(sredina, medijan, sd), \(v) <span class="fu">round</span>(v, decimala)))</span>
+<span id="cb237-4"><a href="#cb237-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb237-5"><a href="#cb237-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-6"><a href="#cb237-6" aria-hidden="true" tabindex="-1"></a><span class="fu">opis_zaokruzeno</span>(anketa_mreze<span class="sc">$</span>minute_dnevno)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
       n sredina medijan    sd
   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
 1   300    50.1      39  39.2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb222"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb222-1"><a href="#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opis_zaokruzeno</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="at">decimala =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb239"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb239-1"><a href="#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opis_zaokruzeno</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="at">decimala =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
       n sredina medijan    sd
@@ -2031,14 +2332,14 @@ Instagram    TikTok     Other
 <p>Zapis <code>\(v)</code> skraćeni je oblik za <code>function(v)</code> i koristan je za kratke funkcije koje se predaju drugim funkcijama.</p>
 <p>U funkciju je korisno ugraditi provjeru ulaza, kako bi pogreška bila prijavljena na mjestu gdje je nastala, a ne nekoliko koraka poslije.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb224"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb224-1"><a href="#cb224-1" aria-hidden="true" tabindex="-1"></a>udio_iznad <span class="ot">&lt;-</span> <span class="cf">function</span>(x, granica) {</span>
-<span id="cb224-2"><a href="#cb224-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x)) {</span>
-<span id="cb224-3"><a href="#cb224-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Varijabla mora biti brojčana."</span>)</span>
-<span id="cb224-4"><a href="#cb224-4" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb224-5"><a href="#cb224-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(x <span class="sc">&gt;</span> granica, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb224-6"><a href="#cb224-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb224-7"><a href="#cb224-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb224-8"><a href="#cb224-8" aria-hidden="true" tabindex="-1"></a><span class="fu">udio_iznad</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="dv">120</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb241"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb241-1"><a href="#cb241-1" aria-hidden="true" tabindex="-1"></a>udio_iznad <span class="ot">&lt;-</span> <span class="cf">function</span>(x, granica) {</span>
+<span id="cb241-2"><a href="#cb241-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x)) {</span>
+<span id="cb241-3"><a href="#cb241-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">"Varijabla mora biti brojčana."</span>)</span>
+<span id="cb241-4"><a href="#cb241-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb241-5"><a href="#cb241-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(x <span class="sc">&gt;</span> granica, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb241-6"><a href="#cb241-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb241-7"><a href="#cb241-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-8"><a href="#cb241-8" aria-hidden="true" tabindex="-1"></a><span class="fu">udio_iznad</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="dv">120</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6,333333</code></pre>
 </div>
@@ -2049,48 +2350,48 @@ Instagram    TikTok     Other
 <h2 class="anchored" data-anchor-id="skripta-quarto-i-ponovljivost">Skripta, Quarto i ponovljivost</h2>
 <p>Analiza se piše u datoteci, a ne u konzoli. Uredna skripta ima zaglavlje s opisom, zatim učitavanje paketa, zatim učitavanje podataka, pa pregled, obradu i tek onda rezultate.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
-<span id="cb226-2"><a href="#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Analiza korištenja društvenih mreža</span></span>
-<span id="cb226-3"><a href="#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Autor: Ime Prezime</span></span>
-<span id="cb226-4"><a href="#cb226-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Datum: 2026-07-30</span></span>
-<span id="cb226-5"><a href="#cb226-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
-<span id="cb226-6"><a href="#cb226-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-7"><a href="#cb226-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Paketi ----</span></span>
-<span id="cb226-8"><a href="#cb226-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb226-9"><a href="#cb226-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-10"><a href="#cb226-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Podaci ----</span></span>
-<span id="cb226-11"><a href="#cb226-11" aria-hidden="true" tabindex="-1"></a>anketa <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/anketa.csv"</span>)</span>
-<span id="cb226-12"><a href="#cb226-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-13"><a href="#cb226-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Pregled ----</span></span>
-<span id="cb226-14"><a href="#cb226-14" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(anketa)</span>
-<span id="cb226-15"><a href="#cb226-15" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(anketa))</span>
-<span id="cb226-16"><a href="#cb226-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-17"><a href="#cb226-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Obrada ----</span></span>
-<span id="cb226-18"><a href="#cb226-18" aria-hidden="true" tabindex="-1"></a>anketa_cista <span class="ot">&lt;-</span> anketa <span class="sc">|&gt;</span></span>
-<span id="cb226-19"><a href="#cb226-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(minute_dnevno)) <span class="sc">|&gt;</span></span>
-<span id="cb226-20"><a href="#cb226-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sati_dnevno =</span> minute_dnevno <span class="sc">/</span> <span class="dv">60</span>)</span>
-<span id="cb226-21"><a href="#cb226-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-22"><a href="#cb226-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Rezultati ----</span></span>
-<span id="cb226-23"><a href="#cb226-23" aria-hidden="true" tabindex="-1"></a>sazetak <span class="ot">&lt;-</span> anketa_cista <span class="sc">|&gt;</span></span>
-<span id="cb226-24"><a href="#cb226-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
-<span id="cb226-25"><a href="#cb226-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">prosjek =</span> <span class="fu">mean</span>(minute_dnevno), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
-<span id="cb226-26"><a href="#cb226-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-27"><a href="#cb226-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Izvoz ----</span></span>
-<span id="cb226-28"><a href="#cb226-28" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(sazetak, <span class="st">"outputs/sazetak.csv"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb243"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb243-1"><a href="#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb243-2"><a href="#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Analiza korištenja društvenih mreža</span></span>
+<span id="cb243-3"><a href="#cb243-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Autor: Ime Prezime</span></span>
+<span id="cb243-4"><a href="#cb243-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Datum: 2026-07-30</span></span>
+<span id="cb243-5"><a href="#cb243-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb243-6"><a href="#cb243-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-7"><a href="#cb243-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Paketi ----</span></span>
+<span id="cb243-8"><a href="#cb243-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb243-9"><a href="#cb243-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-10"><a href="#cb243-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Podaci ----</span></span>
+<span id="cb243-11"><a href="#cb243-11" aria-hidden="true" tabindex="-1"></a>anketa <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/anketa.csv"</span>)</span>
+<span id="cb243-12"><a href="#cb243-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-13"><a href="#cb243-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Pregled ----</span></span>
+<span id="cb243-14"><a href="#cb243-14" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(anketa)</span>
+<span id="cb243-15"><a href="#cb243-15" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(anketa))</span>
+<span id="cb243-16"><a href="#cb243-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-17"><a href="#cb243-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Obrada ----</span></span>
+<span id="cb243-18"><a href="#cb243-18" aria-hidden="true" tabindex="-1"></a>anketa_cista <span class="ot">&lt;-</span> anketa <span class="sc">|&gt;</span></span>
+<span id="cb243-19"><a href="#cb243-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(minute_dnevno)) <span class="sc">|&gt;</span></span>
+<span id="cb243-20"><a href="#cb243-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sati_dnevno =</span> minute_dnevno <span class="sc">/</span> <span class="dv">60</span>)</span>
+<span id="cb243-21"><a href="#cb243-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-22"><a href="#cb243-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Rezultati ----</span></span>
+<span id="cb243-23"><a href="#cb243-23" aria-hidden="true" tabindex="-1"></a>sazetak <span class="ot">&lt;-</span> anketa_cista <span class="sc">|&gt;</span></span>
+<span id="cb243-24"><a href="#cb243-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
+<span id="cb243-25"><a href="#cb243-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">prosjek =</span> <span class="fu">mean</span>(minute_dnevno), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb243-26"><a href="#cb243-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-27"><a href="#cb243-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Izvoz ----</span></span>
+<span id="cb243-28"><a href="#cb243-28" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(sazetak, <span class="st">"outputs/sazetak.csv"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Komentar koji završava s četiri crtice R-ova okruženja prepoznaju kao naslov odjeljka i prikazuju ga u navigaciji, što u dugoj skripti znatno olakšava snalaženje.</p>
 <p>Čišćenje nikada ne prepisuje izvornu datoteku. Stvara novi objekt ili novu datoteku, a svaka promjena ostaje zapisana u skripti. Ručna izmjena ćelije u tablici prekida ponovljivost, jer nakon nje nitko, uključujući vas, ne može rekonstruirati put od sirovih podataka do rezultata.</p>
 <p>Kada uz kod treba i tekst, umjesto skripte koristi se Quarto dokument, isti alat kojim je izrađena ova knjiga. Takav dokument ima tri dijela, i to zaglavlje u kojem se zadaju naslov i format, tekst pisan u Markdownu i blokove koda čiji se rezultati ugrađuju u dokument pri izradi. Ponašanje svakog bloka podešava se opcijama, među kojima <code>echo</code> odlučuje hoće li se kod vidjeti, <code>eval</code> hoće li se izvršiti, a <code>warning</code> i <code>message</code> hoće li se poruke prikazati. Izvještaj za naručitelja tako može sakriti kod, a isti izvor za kolegicu analitičarku može ga pokazati.</p>
 <p>Quarto uz to omogućuje da broj u rečenici dođe izravno iz izračuna, umjesto da se prepisuje rukom. Takav se umetnuti kod piše unutar obrnutih navodnika s oznakom jezika, u obliku prikazanom niže.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb227"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb227-1"><a href="#cb227-1" aria-hidden="true" tabindex="-1"></a>U uzorku je 300 ispitanika, a prosječno dnevno</span>
-<span id="cb227-2"><a href="#cb227-2" aria-hidden="true" tabindex="-1"></a>vrijeme iznosi 50,1 minuta.</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb244"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb244-1"><a href="#cb244-1" aria-hidden="true" tabindex="-1"></a>U uzorku je 300 ispitanika, a prosječno dnevno</span>
+<span id="cb244-2"><a href="#cb244-2" aria-hidden="true" tabindex="-1"></a>vrijeme iznosi 50,1 minuta.</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Pri izradi dokumenta na mjestu svakog takvog izraza pojavljuje se njegov rezultat, dakle brojevi koje daju sljedeći pozivi.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb228"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb228-1"><a href="#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(anketa_mreze)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb245"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb245-1"><a href="#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(anketa_mreze)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 300</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb230"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb230-1"><a href="#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(anketa_mreze<span class="sc">$</span>minute_dnevno), <span class="dv">1</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb247"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb247-1"><a href="#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(anketa_mreze<span class="sc">$</span>minute_dnevno), <span class="dv">1</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50,1</code></pre>
 </div>
@@ -2098,13 +2399,13 @@ Instagram    TikTok     Other
 <p>Ovo je više od udobnosti. Broj prepisan rukom razilazi se s podacima čim se podaci promijene, a nitko to ne primijeti jer rečenica i dalje izgleda uredno. Broj koji dolazi iz koda ne može se raziću s tablicom iz koje je izračunat. Poglavlja ove knjige pisana su tako da svaka brojka u prozi dolazi iz izračuna, upravo zbog toga.</p>
 <p>Prije predaje analizu pokrenite iz čiste sesije, dakle nakon što ste obrisali sve objekte i ponovno pokrenuli R. Rezultati moraju nastati iz skripte, a ne iz objekata koji su slučajno ostali u memoriji. Ako analiza uključuje slučajne brojeve, sjeme generatora postavite funkcijom <code>set.seed()</code> na početku, jer bez toga isti kod pri svakom pokretanju daje malo drukčije brojeve.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb232"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb232-1"><a href="#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb232-2"><a href="#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="dv">30</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb249"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb249-1"><a href="#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb249-2"><a href="#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="dv">30</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 53,8</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb234"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb234-1"><a href="#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb234-2"><a href="#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="dv">30</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb251"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb251-1"><a href="#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb251-2"><a href="#cb251-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(anketa_mreze<span class="sc">$</span>minute_dnevno, <span class="dv">30</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 53,8</code></pre>
 </div>
@@ -2117,7 +2418,7 @@ Instagram    TikTok     Other
 <p>Poruka <code>object 'x' not found</code> znači da objekt s tim imenom ne postoji. Uzrok je najčešće tipfeler u imenu, nepokrenut raniji redak ili pokretanje koda izvan redoslijeda. Poruka <code>unexpected symbol</code> označava sintaktičku pogrešku, obično zaboravljeni zarez, operator ili zatvorenu zagradu. Poruka <code>does not exist in current working directory</code> znači da R ne nalazi datoteku, pa provjerite ime, veliko i malo slovo te putanju, a <code>getwd()</code> će vam reći gdje R uopće traži. Poruka <code>could not find function</code> znači da paket nije učitan, pa provjerite je li <code>library()</code> na vrhu skripte pokrenut.</p>
 <p>Upozorenja se razlikuju od grešaka. Greška zaustavlja izvršavanje, a upozorenje ga ne zaustavlja nego javlja da se dogodilo nešto neobično.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb236"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb236-1"><a href="#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"10"</span>, <span class="st">"20"</span>, <span class="st">"trideset"</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb253"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb253-1"><a href="#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">c</span>(<span class="st">"10"</span>, <span class="st">"20"</span>, <span class="st">"trideset"</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: NAs introduced by coercion</code></pre>
 </div>
@@ -2128,16 +2429,16 @@ Instagram    TikTok     Other
 <p>R je prva dva teksta pretvorio u brojeve, treći nije mogao i na njegovo je mjesto stavio <code>NA</code>. Kod se izvršio do kraja, a rezultat je tiho izgubio jednu vrijednost. Upozorenja zato treba čitati jednako pažljivo kao greške, jer najčešće govore o problemu s podacima, a ne s kodom.</p>
 <p>Kada dugačak cjevovod ne radi, ne tražite grešku u cjelini. Pokrenite ga korak po korak i nakon svakog koraka pogledajte rezultat.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb239"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb239-1"><a href="#cb239-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
-<span id="cb239-2"><a href="#cb239-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dob <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
-<span id="cb239-3"><a href="#cb239-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb256"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb256-1"><a href="#cb256-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb256-2"><a href="#cb256-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dob <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb256-3"><a href="#cb256-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 139</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb241"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb241-1"><a href="#cb241-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
-<span id="cb241-2"><a href="#cb241-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dob <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
-<span id="cb241-3"><a href="#cb241-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
-<span id="cb241-4"><a href="#cb241-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb258"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb258-1"><a href="#cb258-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb258-2"><a href="#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dob <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
+<span id="cb258-3"><a href="#cb258-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
+<span id="cb258-4"><a href="#cb258-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   dobna_skupina     n
@@ -2149,8 +2450,8 @@ Instagram    TikTok     Other
 <p>Prvi korak potvrđuje da filtriranje uopće nešto zadržava, drugi da grupiranje daje očekivane skupine. Postupno građenje cjevovoda uz provjeru nakon svakog koraka najbrži je način da se pronađe mjesto na kojem se nešto raspalo.</p>
 <p>Za pomoć oko pojedine funkcije služi upitnik ispred njezina imena. Stranica pomoći opisuje argumente i završava primjerima, koji su gotovo uvijek korisniji od opisa.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb243"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb243-1"><a href="#cb243-1" aria-hidden="true" tabindex="-1"></a>?mean</span>
-<span id="cb243-2"><a href="#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb260"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb260-1"><a href="#cb260-1" aria-hidden="true" tabindex="-1"></a>?mean</span>
+<span id="cb260-2"><a href="#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Kada pomoć ne pomogne, potraga na internetu gotovo uvijek uspije, uz jedan savjet. Pretrazi dodajte riječ <code>tidyverse</code> ili ime paketa, jer ćete inače dobiti odgovore u drukčijoj sintaksi od one koju ovdje koristimo.</p>
 </section>
@@ -2161,29 +2462,29 @@ Instagram    TikTok     Other
 <h3 class="anchored" data-anchor-id="zbirne-i-skupne-stope-iz-poglavlja-1">Zbirne i skupne stope iz poglavlja 1</h3>
 <p>Poglavlje o statističkom mišljenju uspoređuje zbirnu stopu sa stopama po podskupinama. Postupak ima tri koraka. Najprije se izračunaju stope unutar skupina, zatim zbirna stopa, i naposljetku se usporede.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb244"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb244-1"><a href="#cb244-1" aria-hidden="true" tabindex="-1"></a>upisi <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(UCBAdmissions)</span>
-<span id="cb244-2"><a href="#cb244-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb244-3"><a href="#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Stope po odjelu i spolu</span></span>
-<span id="cb244-4"><a href="#cb244-4" aria-hidden="true" tabindex="-1"></a>po_odjelu <span class="ot">&lt;-</span> upisi <span class="sc">|&gt;</span></span>
-<span id="cb244-5"><a href="#cb244-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Dept, Gender) <span class="sc">|&gt;</span></span>
-<span id="cb244-6"><a href="#cb244-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb244-7"><a href="#cb244-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">prijave =</span> <span class="fu">sum</span>(Freq),</span>
-<span id="cb244-8"><a href="#cb244-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">primljeni =</span> <span class="fu">sum</span>(Freq[Admit <span class="sc">==</span> <span class="st">"Admitted"</span>]),</span>
-<span id="cb244-9"><a href="#cb244-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stopa =</span> primljeni <span class="sc">/</span> prijave,</span>
-<span id="cb244-10"><a href="#cb244-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb244-11"><a href="#cb244-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb244-12"><a href="#cb244-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb244-13"><a href="#cb244-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Zbirna stopa, bez odjela</span></span>
-<span id="cb244-14"><a href="#cb244-14" aria-hidden="true" tabindex="-1"></a>zbirno <span class="ot">&lt;-</span> upisi <span class="sc">|&gt;</span></span>
-<span id="cb244-15"><a href="#cb244-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">|&gt;</span></span>
-<span id="cb244-16"><a href="#cb244-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb244-17"><a href="#cb244-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">prijave =</span> <span class="fu">sum</span>(Freq),</span>
-<span id="cb244-18"><a href="#cb244-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">primljeni =</span> <span class="fu">sum</span>(Freq[Admit <span class="sc">==</span> <span class="st">"Admitted"</span>]),</span>
-<span id="cb244-19"><a href="#cb244-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">stopa =</span> primljeni <span class="sc">/</span> prijave,</span>
-<span id="cb244-20"><a href="#cb244-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb244-21"><a href="#cb244-21" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb244-22"><a href="#cb244-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb244-23"><a href="#cb244-23" aria-hidden="true" tabindex="-1"></a>zbirno</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb261"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb261-1"><a href="#cb261-1" aria-hidden="true" tabindex="-1"></a>upisi <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(UCBAdmissions)</span>
+<span id="cb261-2"><a href="#cb261-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-3"><a href="#cb261-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Stope po odjelu i spolu</span></span>
+<span id="cb261-4"><a href="#cb261-4" aria-hidden="true" tabindex="-1"></a>po_odjelu <span class="ot">&lt;-</span> upisi <span class="sc">|&gt;</span></span>
+<span id="cb261-5"><a href="#cb261-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Dept, Gender) <span class="sc">|&gt;</span></span>
+<span id="cb261-6"><a href="#cb261-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb261-7"><a href="#cb261-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">prijave =</span> <span class="fu">sum</span>(Freq),</span>
+<span id="cb261-8"><a href="#cb261-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">primljeni =</span> <span class="fu">sum</span>(Freq[Admit <span class="sc">==</span> <span class="st">"Admitted"</span>]),</span>
+<span id="cb261-9"><a href="#cb261-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stopa =</span> primljeni <span class="sc">/</span> prijave,</span>
+<span id="cb261-10"><a href="#cb261-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb261-11"><a href="#cb261-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb261-12"><a href="#cb261-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-13"><a href="#cb261-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Zbirna stopa, bez odjela</span></span>
+<span id="cb261-14"><a href="#cb261-14" aria-hidden="true" tabindex="-1"></a>zbirno <span class="ot">&lt;-</span> upisi <span class="sc">|&gt;</span></span>
+<span id="cb261-15"><a href="#cb261-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">|&gt;</span></span>
+<span id="cb261-16"><a href="#cb261-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb261-17"><a href="#cb261-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">prijave =</span> <span class="fu">sum</span>(Freq),</span>
+<span id="cb261-18"><a href="#cb261-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">primljeni =</span> <span class="fu">sum</span>(Freq[Admit <span class="sc">==</span> <span class="st">"Admitted"</span>]),</span>
+<span id="cb261-19"><a href="#cb261-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">stopa =</span> primljeni <span class="sc">/</span> prijave,</span>
+<span id="cb261-20"><a href="#cb261-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb261-21"><a href="#cb261-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb261-22"><a href="#cb261-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb261-23"><a href="#cb261-23" aria-hidden="true" tabindex="-1"></a>zbirno</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   Gender prijave primljeni stopa
@@ -2194,10 +2495,10 @@ Instagram    TikTok     Other
 </div>
 <p>Zbirna tablica pokazuje razliku u korist muškaraca. Usporedba po odjelima pokazuje drukčiju sliku, a broj odjela u kojima žene prolaze barem jednako dobro dobiva se preoblikovanjem u široki oblik.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb246"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb246-1"><a href="#cb246-1" aria-hidden="true" tabindex="-1"></a>po_odjelu <span class="sc">|&gt;</span></span>
-<span id="cb246-2"><a href="#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dept, Gender, stopa) <span class="sc">|&gt;</span></span>
-<span id="cb246-3"><a href="#cb246-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> stopa) <span class="sc">|&gt;</span></span>
-<span id="cb246-4"><a href="#cb246-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">zene_bolje =</span> Female <span class="sc">&gt;=</span> Male)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb263"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb263-1"><a href="#cb263-1" aria-hidden="true" tabindex="-1"></a>po_odjelu <span class="sc">|&gt;</span></span>
+<span id="cb263-2"><a href="#cb263-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dept, Gender, stopa) <span class="sc">|&gt;</span></span>
+<span id="cb263-3"><a href="#cb263-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> stopa) <span class="sc">|&gt;</span></span>
+<span id="cb263-4"><a href="#cb263-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">zene_bolje =</span> Female <span class="sc">&gt;=</span> Male)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   Dept    Male Female zene_bolje
@@ -2212,12 +2513,12 @@ Instagram    TikTok     Other
 </div>
 <p>Ključ mehanizma leži u raspodjeli prijava, jer zbirna stopa svakom odjelu daje težinu prema broju prijava iz te skupine.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb248"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb248-1"><a href="#cb248-1" aria-hidden="true" tabindex="-1"></a>po_odjelu <span class="sc">|&gt;</span></span>
-<span id="cb248-2"><a href="#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">|&gt;</span></span>
-<span id="cb248-3"><a href="#cb248-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">udio_prijava =</span> <span class="dv">100</span> <span class="sc">*</span> prijave <span class="sc">/</span> <span class="fu">sum</span>(prijave)) <span class="sc">|&gt;</span></span>
-<span id="cb248-4"><a href="#cb248-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb248-5"><a href="#cb248-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dept, Gender, stopa, udio_prijava) <span class="sc">|&gt;</span></span>
-<span id="cb248-6"><a href="#cb248-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> <span class="fu">c</span>(stopa, udio_prijava))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb265"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb265-1"><a href="#cb265-1" aria-hidden="true" tabindex="-1"></a>po_odjelu <span class="sc">|&gt;</span></span>
+<span id="cb265-2"><a href="#cb265-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">|&gt;</span></span>
+<span id="cb265-3"><a href="#cb265-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">udio_prijava =</span> <span class="dv">100</span> <span class="sc">*</span> prijave <span class="sc">/</span> <span class="fu">sum</span>(prijave)) <span class="sc">|&gt;</span></span>
+<span id="cb265-4"><a href="#cb265-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb265-5"><a href="#cb265-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Dept, Gender, stopa, udio_prijava) <span class="sc">|&gt;</span></span>
+<span id="cb265-6"><a href="#cb265-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> <span class="fu">c</span>(stopa, udio_prijava))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   Dept  stopa_Male stopa_Female udio_prijava_Male udio_prijava_Female
@@ -2235,27 +2536,27 @@ Instagram    TikTok     Other
 <h3 class="anchored" data-anchor-id="provjera-instrumenta-iz-poglavlja-2">Provjera instrumenta iz poglavlja 2</h3>
 <p>Poglavlje o mjerenju okreće ljestvicu niječno formulirane tvrdnje i provjerava slaže li se svaka tvrdnja s ostatkom instrumenta. Postupak se lako primjenjuje na bilo koji upitnik.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb250"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb250-1"><a href="#cb250-1" aria-hidden="true" tabindex="-1"></a>odgovori <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb250-2"><a href="#cb250-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>ispitanik, <span class="sc">~</span>t1, <span class="sc">~</span>t2, <span class="sc">~</span>t3, <span class="sc">~</span>t4,</span>
-<span id="cb250-3"><a href="#cb250-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I01"</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>,</span>
-<span id="cb250-4"><a href="#cb250-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I02"</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>,</span>
-<span id="cb250-5"><a href="#cb250-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I03"</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
-<span id="cb250-6"><a href="#cb250-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I04"</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>,</span>
-<span id="cb250-7"><a href="#cb250-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I05"</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>,</span>
-<span id="cb250-8"><a href="#cb250-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I06"</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span></span>
-<span id="cb250-9"><a href="#cb250-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb250-10"><a href="#cb250-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb250-11"><a href="#cb250-11" aria-hidden="true" tabindex="-1"></a>stavke <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"t1"</span>, <span class="st">"t2"</span>, <span class="st">"t3"</span>, <span class="st">"t4"</span>)</span>
-<span id="cb250-12"><a href="#cb250-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb250-13"><a href="#cb250-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Korelacija svake tvrdnje sa zbrojem preostalih</span></span>
-<span id="cb250-14"><a href="#cb250-14" aria-hidden="true" tabindex="-1"></a>stavka_ukupno <span class="ot">&lt;-</span> <span class="cf">function</span>(podaci, stavke) {</span>
-<span id="cb250-15"><a href="#cb250-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(stavke, <span class="cf">function</span>(s) {</span>
-<span id="cb250-16"><a href="#cb250-16" aria-hidden="true" tabindex="-1"></a>    ostatak <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(podaci[<span class="fu">setdiff</span>(stavke, s)])</span>
-<span id="cb250-17"><a href="#cb250-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cor</span>(podaci[[s]], ostatak)</span>
-<span id="cb250-18"><a href="#cb250-18" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb250-19"><a href="#cb250-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb250-20"><a href="#cb250-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb250-21"><a href="#cb250-21" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">stavka_ukupno</span>(odgovori, stavke), <span class="dv">2</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb267"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb267-1"><a href="#cb267-1" aria-hidden="true" tabindex="-1"></a>odgovori <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb267-2"><a href="#cb267-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>ispitanik, <span class="sc">~</span>t1, <span class="sc">~</span>t2, <span class="sc">~</span>t3, <span class="sc">~</span>t4,</span>
+<span id="cb267-3"><a href="#cb267-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I01"</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>,</span>
+<span id="cb267-4"><a href="#cb267-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I02"</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>,</span>
+<span id="cb267-5"><a href="#cb267-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I03"</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
+<span id="cb267-6"><a href="#cb267-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I04"</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>,</span>
+<span id="cb267-7"><a href="#cb267-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I05"</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>,</span>
+<span id="cb267-8"><a href="#cb267-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"I06"</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">3</span></span>
+<span id="cb267-9"><a href="#cb267-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb267-10"><a href="#cb267-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb267-11"><a href="#cb267-11" aria-hidden="true" tabindex="-1"></a>stavke <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"t1"</span>, <span class="st">"t2"</span>, <span class="st">"t3"</span>, <span class="st">"t4"</span>)</span>
+<span id="cb267-12"><a href="#cb267-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb267-13"><a href="#cb267-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Korelacija svake tvrdnje sa zbrojem preostalih</span></span>
+<span id="cb267-14"><a href="#cb267-14" aria-hidden="true" tabindex="-1"></a>stavka_ukupno <span class="ot">&lt;-</span> <span class="cf">function</span>(podaci, stavke) {</span>
+<span id="cb267-15"><a href="#cb267-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(stavke, <span class="cf">function</span>(s) {</span>
+<span id="cb267-16"><a href="#cb267-16" aria-hidden="true" tabindex="-1"></a>    ostatak <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(podaci[<span class="fu">setdiff</span>(stavke, s)])</span>
+<span id="cb267-17"><a href="#cb267-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cor</span>(podaci[[s]], ostatak)</span>
+<span id="cb267-18"><a href="#cb267-18" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb267-19"><a href="#cb267-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb267-20"><a href="#cb267-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb267-21"><a href="#cb267-21" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">stavka_ukupno</span>(odgovori, stavke), <span class="dv">2</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   t1    t2    t3    t4 
  0,86  0,57  0,86 -0,94 </code></pre>
@@ -2263,17 +2564,17 @@ Instagram    TikTok     Other
 </div>
 <p>Negativna vrijednost kod četvrte tvrdnje znak je niječne formulacije. Ljestvica se okreće tako da se odgovor oduzme od najveće moguće vrijednosti uvećane za jedan, dakle od šest za ljestvicu od 1 do 5.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb252"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb252-1"><a href="#cb252-1" aria-hidden="true" tabindex="-1"></a>okrenuto <span class="ot">&lt;-</span> odgovori <span class="sc">|&gt;</span></span>
-<span id="cb252-2"><a href="#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t4 =</span> <span class="dv">6</span> <span class="sc">-</span> t4)</span>
-<span id="cb252-3"><a href="#cb252-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-4"><a href="#cb252-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">stavka_ukupno</span>(okrenuto, stavke), <span class="dv">2</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb269"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb269-1"><a href="#cb269-1" aria-hidden="true" tabindex="-1"></a>okrenuto <span class="ot">&lt;-</span> odgovori <span class="sc">|&gt;</span></span>
+<span id="cb269-2"><a href="#cb269-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t4 =</span> <span class="dv">6</span> <span class="sc">-</span> t4)</span>
+<span id="cb269-3"><a href="#cb269-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-4"><a href="#cb269-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">stavka_ukupno</span>(okrenuto, stavke), <span class="dv">2</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  t1   t2   t3   t4 
 0,94 0,82 0,94 0,94 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb254"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb254-1"><a href="#cb254-1" aria-hidden="true" tabindex="-1"></a>okrenuto <span class="sc">|&gt;</span></span>
-<span id="cb254-2"><a href="#cb254-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">povjerenje =</span> <span class="fu">rowMeans</span>(<span class="fu">pick</span>(<span class="fu">all_of</span>(stavke)))) <span class="sc">|&gt;</span></span>
-<span id="cb254-3"><a href="#cb254-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ispitanik, povjerenje)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb271"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb271-1"><a href="#cb271-1" aria-hidden="true" tabindex="-1"></a>okrenuto <span class="sc">|&gt;</span></span>
+<span id="cb271-2"><a href="#cb271-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">povjerenje =</span> <span class="fu">rowMeans</span>(<span class="fu">pick</span>(<span class="fu">all_of</span>(stavke)))) <span class="sc">|&gt;</span></span>
+<span id="cb271-3"><a href="#cb271-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ispitanik, povjerenje)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
   ispitanik povjerenje
@@ -2292,18 +2593,18 @@ Instagram    TikTok     Other
 <h3 class="anchored" data-anchor-id="mjere-središta-i-raspršenosti-iz-poglavlja-4">Mjere središta i raspršenosti iz poglavlja 4</h3>
 <p>Poglavlje o sažimanju podataka traži usporedbu mjera središta i raspršenosti te njihovu osjetljivost na ekstremnu vrijednost. Sve se dobiva jednim sažetkom.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb256"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb256-1"><a href="#cb256-1" aria-hidden="true" tabindex="-1"></a>minute <span class="ot">&lt;-</span> anketa_mreze<span class="sc">$</span>minute_dnevno</span>
-<span id="cb256-2"><a href="#cb256-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb256-3"><a href="#cb256-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb256-4"><a href="#cb256-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">length</span>(minute),</span>
-<span id="cb256-5"><a href="#cb256-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sredina =</span> <span class="fu">mean</span>(minute),</span>
-<span id="cb256-6"><a href="#cb256-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">medijan =</span> <span class="fu">median</span>(minute),</span>
-<span id="cb256-7"><a href="#cb256-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">skracena10 =</span> <span class="fu">mean</span>(minute, <span class="at">trim =</span> <span class="fl">0.10</span>),</span>
-<span id="cb256-8"><a href="#cb256-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">sd</span>(minute),</span>
-<span id="cb256-9"><a href="#cb256-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">iqr =</span> <span class="fu">IQR</span>(minute),</span>
-<span id="cb256-10"><a href="#cb256-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">raspon =</span> <span class="fu">diff</span>(<span class="fu">range</span>(minute))</span>
-<span id="cb256-11"><a href="#cb256-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb256-12"><a href="#cb256-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(v) <span class="fu">round</span>(v, <span class="dv">1</span>)))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb273"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb273-1"><a href="#cb273-1" aria-hidden="true" tabindex="-1"></a>minute <span class="ot">&lt;-</span> anketa_mreze<span class="sc">$</span>minute_dnevno</span>
+<span id="cb273-2"><a href="#cb273-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-3"><a href="#cb273-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb273-4"><a href="#cb273-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">length</span>(minute),</span>
+<span id="cb273-5"><a href="#cb273-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sredina =</span> <span class="fu">mean</span>(minute),</span>
+<span id="cb273-6"><a href="#cb273-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">medijan =</span> <span class="fu">median</span>(minute),</span>
+<span id="cb273-7"><a href="#cb273-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">skracena10 =</span> <span class="fu">mean</span>(minute, <span class="at">trim =</span> <span class="fl">0.10</span>),</span>
+<span id="cb273-8"><a href="#cb273-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">sd</span>(minute),</span>
+<span id="cb273-9"><a href="#cb273-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">iqr =</span> <span class="fu">IQR</span>(minute),</span>
+<span id="cb273-10"><a href="#cb273-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">raspon =</span> <span class="fu">diff</span>(<span class="fu">range</span>(minute))</span>
+<span id="cb273-11"><a href="#cb273-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb273-12"><a href="#cb273-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), \(v) <span class="fu">round</span>(v, <span class="dv">1</span>)))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
       n sredina medijan skracena10    sd   iqr raspon
@@ -2313,17 +2614,17 @@ Instagram    TikTok     Other
 </div>
 <p>Osjetljivost se pokazuje tako da se najveća vrijednost zamijeni znatno većom, a zatim se isti sažetak ponovi. Medijan i međukvartilni raspon jedva se pomaknu, dok sredina i standardna devijacija reagiraju snažno.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb258"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb258-1"><a href="#cb258-1" aria-hidden="true" tabindex="-1"></a>minute_izmijenjeno <span class="ot">&lt;-</span> minute</span>
-<span id="cb258-2"><a href="#cb258-2" aria-hidden="true" tabindex="-1"></a>minute_izmijenjeno[<span class="fu">which.max</span>(minute)] <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">max</span>(minute)</span>
-<span id="cb258-3"><a href="#cb258-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb258-4"><a href="#cb258-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb258-5"><a href="#cb258-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">verzija =</span> <span class="fu">c</span>(<span class="st">"izvorno"</span>, <span class="st">"s ekstremom"</span>),</span>
-<span id="cb258-6"><a href="#cb258-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sredina =</span> <span class="fu">c</span>(<span class="fu">mean</span>(minute), <span class="fu">mean</span>(minute_izmijenjeno)),</span>
-<span id="cb258-7"><a href="#cb258-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">medijan =</span> <span class="fu">c</span>(<span class="fu">median</span>(minute), <span class="fu">median</span>(minute_izmijenjeno)),</span>
-<span id="cb258-8"><a href="#cb258-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fu">sd</span>(minute), <span class="fu">sd</span>(minute_izmijenjeno)),</span>
-<span id="cb258-9"><a href="#cb258-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">iqr =</span> <span class="fu">c</span>(<span class="fu">IQR</span>(minute), <span class="fu">IQR</span>(minute_izmijenjeno))</span>
-<span id="cb258-10"><a href="#cb258-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb258-11"><a href="#cb258-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(v) <span class="fu">round</span>(v, <span class="dv">1</span>)))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb275"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb275-1"><a href="#cb275-1" aria-hidden="true" tabindex="-1"></a>minute_izmijenjeno <span class="ot">&lt;-</span> minute</span>
+<span id="cb275-2"><a href="#cb275-2" aria-hidden="true" tabindex="-1"></a>minute_izmijenjeno[<span class="fu">which.max</span>(minute)] <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">max</span>(minute)</span>
+<span id="cb275-3"><a href="#cb275-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb275-4"><a href="#cb275-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb275-5"><a href="#cb275-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">verzija =</span> <span class="fu">c</span>(<span class="st">"izvorno"</span>, <span class="st">"s ekstremom"</span>),</span>
+<span id="cb275-6"><a href="#cb275-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sredina =</span> <span class="fu">c</span>(<span class="fu">mean</span>(minute), <span class="fu">mean</span>(minute_izmijenjeno)),</span>
+<span id="cb275-7"><a href="#cb275-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">medijan =</span> <span class="fu">c</span>(<span class="fu">median</span>(minute), <span class="fu">median</span>(minute_izmijenjeno)),</span>
+<span id="cb275-8"><a href="#cb275-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fu">c</span>(<span class="fu">sd</span>(minute), <span class="fu">sd</span>(minute_izmijenjeno)),</span>
+<span id="cb275-9"><a href="#cb275-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">iqr =</span> <span class="fu">c</span>(<span class="fu">IQR</span>(minute), <span class="fu">IQR</span>(minute_izmijenjeno))</span>
+<span id="cb275-10"><a href="#cb275-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb275-11"><a href="#cb275-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(v) <span class="fu">round</span>(v, <span class="dv">1</span>)))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   verzija     sredina medijan    sd   iqr
@@ -2334,12 +2635,12 @@ Instagram    TikTok     Other
 </div>
 <p>Poglavlje uspoređuje i položaj sredine i medijana na izvornoj te na logaritamskoj ljestvici.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb260"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb260-1"><a href="#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb260-2"><a href="#cb260-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ljestvica =</span> <span class="fu">c</span>(<span class="st">"izvorna"</span>, <span class="st">"logaritamska"</span>),</span>
-<span id="cb260-3"><a href="#cb260-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sredina =</span> <span class="fu">c</span>(<span class="fu">mean</span>(minute), <span class="fu">mean</span>(<span class="fu">log</span>(minute))),</span>
-<span id="cb260-4"><a href="#cb260-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">medijan =</span> <span class="fu">c</span>(<span class="fu">median</span>(minute), <span class="fu">median</span>(<span class="fu">log</span>(minute)))</span>
-<span id="cb260-5"><a href="#cb260-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb260-6"><a href="#cb260-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">razlika =</span> <span class="fu">round</span>(sredina <span class="sc">-</span> medijan, <span class="dv">2</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb277"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb277-1"><a href="#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb277-2"><a href="#cb277-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">ljestvica =</span> <span class="fu">c</span>(<span class="st">"izvorna"</span>, <span class="st">"logaritamska"</span>),</span>
+<span id="cb277-3"><a href="#cb277-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">sredina =</span> <span class="fu">c</span>(<span class="fu">mean</span>(minute), <span class="fu">mean</span>(<span class="fu">log</span>(minute))),</span>
+<span id="cb277-4"><a href="#cb277-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">medijan =</span> <span class="fu">c</span>(<span class="fu">median</span>(minute), <span class="fu">median</span>(<span class="fu">log</span>(minute)))</span>
+<span id="cb277-5"><a href="#cb277-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb277-6"><a href="#cb277-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">razlika =</span> <span class="fu">round</span>(sredina <span class="sc">-</span> medijan, <span class="dv">2</span>))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   ljestvica    sredina medijan razlika
@@ -2354,15 +2655,15 @@ Instagram    TikTok     Other
 <h3 class="anchored" data-anchor-id="izračuni-iza-četiriju-prikaza-iz-poglavlja-5">Izračuni iza četiriju prikaza iz poglavlja 5</h3>
 <p>Poglavlje o vizualizaciji pita što svaki prikaz čuva i što izračunava prije crtanja. Odgovor se najlakše vidi tako da se isti izračuni naprave izravno.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb262"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb262-1"><a href="#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Što računa kutijasti dijagram</span></span>
-<span id="cb262-2"><a href="#cb262-2" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
-<span id="cb262-3"><a href="#cb262-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
-<span id="cb262-4"><a href="#cb262-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb262-5"><a href="#cb262-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">q1 =</span> <span class="fu">quantile</span>(minute_dnevno, <span class="fl">0.25</span>),</span>
-<span id="cb262-6"><a href="#cb262-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">medijan =</span> <span class="fu">median</span>(minute_dnevno),</span>
-<span id="cb262-7"><a href="#cb262-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">q3 =</span> <span class="fu">quantile</span>(minute_dnevno, <span class="fl">0.75</span>),</span>
-<span id="cb262-8"><a href="#cb262-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb262-9"><a href="#cb262-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb279"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb279-1"><a href="#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Što računa kutijasti dijagram</span></span>
+<span id="cb279-2"><a href="#cb279-2" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb279-3"><a href="#cb279-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
+<span id="cb279-4"><a href="#cb279-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb279-5"><a href="#cb279-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">q1 =</span> <span class="fu">quantile</span>(minute_dnevno, <span class="fl">0.25</span>),</span>
+<span id="cb279-6"><a href="#cb279-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">medijan =</span> <span class="fu">median</span>(minute_dnevno),</span>
+<span id="cb279-7"><a href="#cb279-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">q3 =</span> <span class="fu">quantile</span>(minute_dnevno, <span class="fl">0.75</span>),</span>
+<span id="cb279-8"><a href="#cb279-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb279-9"><a href="#cb279-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   dobna_skupina    q1 medijan    q3
@@ -2372,10 +2673,10 @@ Instagram    TikTok     Other
 3 35 do 44       18.2    26    44.5
 4 45 i više       9      15    24.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb264"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb264-1"><a href="#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Što računa stupičasti prikaz prosjeka</span></span>
-<span id="cb264-2"><a href="#cb264-2" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
-<span id="cb264-3"><a href="#cb264-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
-<span id="cb264-4"><a href="#cb264-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prosjek =</span> <span class="fu">round</span>(<span class="fu">mean</span>(minute_dnevno), <span class="dv">1</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb281"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb281-1"><a href="#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Što računa stupičasti prikaz prosjeka</span></span>
+<span id="cb281-2"><a href="#cb281-2" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
+<span id="cb281-3"><a href="#cb281-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dobna_skupina) <span class="sc">|&gt;</span></span>
+<span id="cb281-4"><a href="#cb281-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prosjek =</span> <span class="fu">round</span>(<span class="fu">mean</span>(minute_dnevno), <span class="dv">1</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   dobna_skupina prosjek
@@ -2389,20 +2690,20 @@ Instagram    TikTok     Other
 <p>Histogram i raspršeni prikaz ne računaju ništa od toga, jer crtaju pojedinačna opažanja ili njihove razrede. Usporedba pokazuje koliko se informacije gubi na putu od svih opažanja do jednog stupca po skupini.</p>
 <p>Isti se postupak primjenjuje i na Anscombeov kvartet, koji je ugrađen u R.</p>
 <div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb266"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb266-1"><a href="#cb266-1" aria-hidden="true" tabindex="-1"></a>anscombe <span class="sc">|&gt;</span></span>
-<span id="cb266-2"><a href="#cb266-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb266-3"><a href="#cb266-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">everything</span>(),</span>
-<span id="cb266-4"><a href="#cb266-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"skup"</span>),</span>
-<span id="cb266-5"><a href="#cb266-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"(.)(.)"</span></span>
-<span id="cb266-6"><a href="#cb266-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb266-7"><a href="#cb266-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(skup) <span class="sc">|&gt;</span></span>
-<span id="cb266-8"><a href="#cb266-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb266-9"><a href="#cb266-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina_x =</span> <span class="fu">mean</span>(x),</span>
-<span id="cb266-10"><a href="#cb266-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina_y =</span> <span class="fu">round</span>(<span class="fu">mean</span>(y), <span class="dv">2</span>),</span>
-<span id="cb266-11"><a href="#cb266-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_y =</span> <span class="fu">round</span>(<span class="fu">sd</span>(y), <span class="dv">2</span>),</span>
-<span id="cb266-12"><a href="#cb266-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">korelacija =</span> <span class="fu">round</span>(<span class="fu">cor</span>(x, y), <span class="dv">2</span>),</span>
-<span id="cb266-13"><a href="#cb266-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb266-14"><a href="#cb266-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb283"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb283-1"><a href="#cb283-1" aria-hidden="true" tabindex="-1"></a>anscombe <span class="sc">|&gt;</span></span>
+<span id="cb283-2"><a href="#cb283-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb283-3"><a href="#cb283-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">everything</span>(),</span>
+<span id="cb283-4"><a href="#cb283-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"skup"</span>),</span>
+<span id="cb283-5"><a href="#cb283-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">"(.)(.)"</span></span>
+<span id="cb283-6"><a href="#cb283-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb283-7"><a href="#cb283-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(skup) <span class="sc">|&gt;</span></span>
+<span id="cb283-8"><a href="#cb283-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb283-9"><a href="#cb283-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina_x =</span> <span class="fu">mean</span>(x),</span>
+<span id="cb283-10"><a href="#cb283-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sredina_y =</span> <span class="fu">round</span>(<span class="fu">mean</span>(y), <span class="dv">2</span>),</span>
+<span id="cb283-11"><a href="#cb283-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_y =</span> <span class="fu">round</span>(<span class="fu">sd</span>(y), <span class="dv">2</span>),</span>
+<span id="cb283-12"><a href="#cb283-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">korelacija =</span> <span class="fu">round</span>(<span class="fu">cor</span>(x, y), <span class="dv">2</span>),</span>
+<span id="cb283-13"><a href="#cb283-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb283-14"><a href="#cb283-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   skup  sredina_x sredina_y  sd_y korelacija

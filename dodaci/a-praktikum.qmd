@@ -1102,10 +1102,37 @@ briše dokaz o tome što je zapravo bilo u podacima.
 
 ## Grafovi
 
-Sustavnu gramatiku paketa ggplot2 razrađuje poglavlje o vizualizaciji. Ovdje je
-dovoljno znati da se graf gradi slaganjem slojeva, pri čemu `ggplot()` prima
-podatke, `aes()` pridružuje varijable svojstvima grafa, a `geom_` sloj određuje
-oblik prikaza. Slojevi se spajaju znakom `+`, a ne cjevovodom.
+Zašto je graf skup odluka, a ne vrsta slike, razrađuje poglavlje o
+vizualizaciji. Ovaj odjeljak uči kako se te odluke zapisuju u paketu ggplot2.
+Redoslijed izlaganja slijedi redoslijed odluka, pa se najprije gradi kostur, a
+zatim se dodaju geometrija, polja, ljestvice i oznake.
+
+Svaki graf ima tri obavezna dijela. Funkcija `ggplot()` prima tablicu, `aes()`
+pridružuje varijable svojstvima grafa, a sloj `geom_` određuje oblik prikaza.
+Slojevi se spajaju znakom `+`, a ne cjevovodom, i to je razlika koju vrijedi
+zapamtiti odmah, jer je zamjena tih dvaju znakova najčešća pogreška početnika.
+
+```{r}
+#| fig-alt: "Prazan koordinatni sustav s osi za dnevne minute i bez ijedne oznake."
+#| fig-width: 6
+#| fig-height: 2.6
+ggplot(anketa_mreze, aes(x = minute_dnevno))
+```
+
+Poziv bez geometrije nacrta osi i ništa više. To nije greška nego točan prikaz
+onoga što je zatraženo, jer podaci i pridruživanje postoje, a odluka o obliku
+oznake nije donesena.
+
+## Geometrija prema vrsti podataka
+
+Sljedeća četiri izbora pokrivaju gotovo sve što opisna analiza treba. Redoslijed
+prati tablicu iz poglavlja o vizualizaciji, dakle jednu brojčanu varijablu, jednu
+kategorijalnu, brojčanu po skupinama i dvije brojčane.
+
+### Jedna brojčana varijabla
+
+Histogram dijeli raspon varijable na jednako široke razrede i broji opažanja u
+svakom.
 
 ```{r}
 #| fig-alt: "Histogram dnevnih minuta s dugim desnim repom."
@@ -1116,8 +1143,82 @@ ggplot(anketa_mreze, aes(x = minute_dnevno)) +
   labs(x = "Minute dnevno", y = "Broj ispitanika")
 ```
 
-Zamjena jednog sloja mijenja prikaz, a podaci ostaju isti. Time se dobiva
-usporedba koju traži zadatak u poglavlju o vizualizaciji.
+Argument `bins` zadaje broj razreda, a `binwidth` njihovu širinu, i navodi se
+jedan ili drugi. Zadanih trideset razreda gotovo nikada nije pravi izbor, pa
+vrijedi isprobati nekoliko vrijednosti i vidjeti mijenja li se oblik. Ako se
+mijenja jako, oblik nije svojstvo podataka nego izbora razreda.
+
+Krivulja gustoće daje glađu inačicu istog prikaza i ne ovisi o razredima.
+
+```{r}
+#| fig-alt: "Krivulja gustoće dnevnih minuta s vrhom pri manjim vrijednostima."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = minute_dnevno)) +
+  geom_density(fill = "grey70", alpha = 0.4) +
+  labs(x = "Minute dnevno", y = "Gustoća")
+```
+
+Argument `alpha` zadaje prozirnost, gdje nula znači posve prozirno, a jedinica
+posve neprozirno. Prozirnost je nužna kada se prikazi preklapaju, jer bez nje
+gornji sloj skriva donji.
+
+### Jedna kategorijalna varijabla
+
+Za kategorije postoje dva sloja i razlika među njima je u tome tko broji.
+Funkcija `geom_bar()` prebrojava retke sama, dok `geom_col()` crta vrijednosti
+koje ste već izračunali.
+
+```{r}
+#| fig-alt: "Stupčasti prikaz broja ispitanika po dobnim skupinama."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dobna_skupina)) +
+  geom_bar() +
+  labs(x = NULL, y = "Broj ispitanika")
+```
+
+```{r}
+#| fig-alt: "Stupčasti prikaz prosječnih dnevnih minuta po dobnim skupinama, poredan po veličini."
+#| fig-width: 6
+#| fig-height: 3.4
+anketa_mreze |>
+  group_by(dobna_skupina) |>
+  summarise(prosjek = mean(minute_dnevno), .groups = "drop") |>
+  mutate(dobna_skupina = fct_reorder(dobna_skupina, prosjek)) |>
+  ggplot(aes(x = prosjek, y = dobna_skupina)) +
+  geom_col() +
+  labs(x = "Prosječne minute dnevno", y = NULL)
+```
+
+Drugi primjer pokazuje tri navike odjednom. Cjevovod vodi do `ggplot()`, gdje se
+prelazi na znak `+`. Funkcija `fct_reorder()` iz odjeljka o faktorima poreda
+kategorije po brojčanoj veličini umjesto po abecedi. I kategorijalna varijabla
+stavljena je na okomitu os, čime se dobiva vodoravni prikaz, koji duga imena
+kategorija podnosi bez zakretanja teksta.
+
+Kada kategorija ima dvije, druga ulazi kroz ispunu.
+
+```{r}
+#| fig-alt: "Grupirani stupčasti prikaz razine povjerenja po dobnim skupinama."
+#| fig-width: 6
+#| fig-height: 3.4
+anketa_mreze |>
+  mutate(razina = if_else(povjerenje >= 7, "visoko", "nisko")) |>
+  ggplot(aes(x = dobna_skupina, fill = razina)) +
+  geom_bar(position = "dodge") +
+  labs(x = NULL, y = "Broj ispitanika", fill = NULL)
+```
+
+Argument `position` određuje raspored stupaca. Vrijednost `"dodge"` stavlja ih
+jedan uz drugi i čuva apsolutne brojeve, `"stack"` ih slaže jedan na drugi, a
+`"fill"` svaki stupac rastegne na punu visinu i time prikazuje udjele umjesto
+brojeva. Izbor među njima je izbor pitanja, jer prvi prikazuje koliko ih ima, a
+treći kako su raspoređeni.
+
+### Brojčana varijabla po skupinama
+
+Kutijasti dijagram prije crtanja izračunava medijan i kvartile.
 
 ```{r}
 #| fig-alt: "Kutijasti dijagram dnevnih minuta po dobnim skupinama."
@@ -1128,11 +1229,268 @@ ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
   labs(x = NULL, y = "Minute dnevno")
 ```
 
-Razlika među tim dvama prikazima nije kozmetička. Histogram čuva oblik cijele
-raspodjele i ne računa ništa prije crtanja. Kutijasti dijagram prije crtanja
-izračunava medijan i kvartile, pa oblik unutar kutije više nije vidljiv, ali se
-skupine lako uspoređuju. Svaki prikaz nešto čuva i nešto odbacuje, što je
-argument koji poglavlje o vizualizaciji razrađuje.
+Razlika prema histogramu nije kozmetička. Histogram čuva oblik cijele raspodjele
+i ne računa ništa prije crtanja. Kutijasti dijagram oblik unutar kutije više ne
+pokazuje, ali skupine uspoređuje bez napora. Svaki prikaz nešto čuva i nešto
+odbacuje, što je argument koji poglavlje o vizualizaciji razrađuje.
+
+Ono što je kutija odbacila može se vratiti dodavanjem sloja s opažanjima.
+
+```{r}
+#| fig-alt: "Kutijasti dijagram s razasutim pojedinačnim opažanjima preko njega."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
+  geom_jitter(width = 0.15, alpha = 0.25) +
+  geom_boxplot(fill = NA, outlier.shape = NA) +
+  labs(x = NULL, y = "Minute dnevno")
+```
+
+Funkcija `geom_jitter()` točkama dodaje mali slučajni pomak, jer bi inače sve
+opažanja iste skupine pala na isti okomiti pravac. Argument `width` zadaje
+koliko se smije pomaknuti, a vrijednost veća od polovine razmaka među
+kategorijama počinje miješati skupine. Argument `outlier.shape = NA` uklanja
+točke koje kutija sama crta, jer bi se inače udvostručile. Redoslijed slojeva je
+bitan, jer se svaki sljedeći crta preko prethodnog.
+
+Violinski prikaz radi obrnuto od kutije i pokazuje oblik umjesto kvartila.
+
+```{r}
+#| fig-alt: "Violinski prikaz raspodjele dnevnih minuta po dobnim skupinama."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
+  geom_violin() +
+  labs(x = NULL, y = "Minute dnevno")
+```
+
+### Dvije brojčane varijable
+
+Raspršeni dijagram jedini je prikaz koji ne mora ništa izračunati.
+
+```{r}
+#| fig-alt: "Raspršeni dijagram dobi i dnevnih minuta s prozirnim oznakama."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dob, y = minute_dnevno)) +
+  geom_point(alpha = 0.3) +
+  labs(x = "Dob", y = "Minute dnevno")
+```
+
+Prozirnost je ovdje nužna, a ne ukrasna. Bez nje se preklopljene točke ne
+razlikuju od pojedinačnih, pa se gustoća oblaka ne vidi.
+
+Sloj `geom_smooth()` provlači kroz oblak procijenjeni prosječni odnos.
+
+```{r}
+#| message: false
+#| fig-alt: "Isti raspršeni dijagram s dodanim pravcem najmanjih kvadrata."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dob, y = minute_dnevno)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  labs(x = "Dob", y = "Minute dnevno")
+```
+
+Argument `method = "lm"` traži pravac najmanjih kvadrata, a bez njega se crta
+prilagodljiva krivulja koja slijedi oblik podataka. Siva vrpca oko linije je
+interval pouzdanosti, i uklanja se argumentom `se = FALSE`. Ta linija je model,
+a ne podatak, pa se čita zajedno s oblakom iz kojega je izvučena. Poglavlje o
+regresiji pokazuje kako nastaje.
+
+## Pridruživanje, polja i oznake
+
+### Pridruživanje unutar i izvan aes()
+
+Ovo je mjesto na kojem se griješi najčešće i na kojem poruka o grešci najmanje
+pomaže. Pravilo ima jednu rečenicu. Unutar `aes()` ide ime varijable, izvan
+`aes()` ide zadana vrijednost.
+
+```{r}
+#| fig-alt: "Raspršeni dijagram u kojem su sve oznake jednake boje."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dob, y = minute_dnevno)) +
+  geom_point(colour = "grey40", alpha = 0.4) +
+  labs(x = "Dob", y = "Minute dnevno")
+```
+
+```{r}
+#| fig-alt: "Raspršeni dijagram u kojem oblik oznake razlikuje razinu povjerenja."
+#| fig-width: 6
+#| fig-height: 3.4
+anketa_mreze |>
+  mutate(razina = if_else(povjerenje >= 7, "visoko", "nisko")) |>
+  ggplot(aes(x = dob, y = minute_dnevno)) +
+  geom_point(aes(shape = razina), alpha = 0.5) +
+  labs(x = "Dob", y = "Minute dnevno", shape = NULL)
+```
+
+U prvom pozivu boja je zadana vrijednost i vrijedi za sve oznake, pa legende
+nema. U drugom je oblik pridružen varijabli, pa ggplot2 legendu izradi sam.
+Kada se ime boje zabunom stavi unutar `aes()`, paket ga protumači kao
+jednočlanu kategorijalnu varijablu, sve oznake oboji jednako i doda beskorisnu
+legendu s jednim unosom. Graf pritom ne javlja nikakvu grešku.
+
+### Polja
+
+Funkcija `facet_wrap()` ponavlja isti graf za svaku razinu varijable. Tilda
+ispred imena čita se kao „po".
+
+```{r}
+#| fig-alt: "Četiri histograma dnevnih minuta, po jedan za svaku dobnu skupinu."
+#| fig-width: 6.4
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = minute_dnevno)) +
+  geom_histogram(bins = 24) +
+  facet_wrap(~ dobna_skupina, nrow = 1) +
+  labs(x = "Minute dnevno", y = "Broj ispitanika")
+```
+
+Argument `nrow` ili `ncol` određuje raspored polja. Po zadanom sva polja dijele
+istu os, što je i svrha postupka, jer se položaji smiju uspoređivati između
+polja. Argument `scales = "free_y"` to napušta i svakom polju daje vlastiti
+raspon, čime usporedba razina prestaje biti moguća. Vrijedi ga upotrijebiti samo
+kada se uspoređuje oblik, i tada to reći u tekstu uz graf.
+
+Za dvije kategorijalne varijable odjednom služi `facet_grid()`, koja polja slaže
+u matricu, s varijablom za retke lijevo i varijablom za stupce desno od tilde.
+
+### Oznake
+
+Funkcija `labs()` imenuje sve što se na grafu vidi.
+
+```{r}
+#| message: false
+#| fig-alt: "Raspršeni dijagram dobi i dnevnih minuta s naslovom, podnaslovom i potpisom."
+#| fig-width: 6
+#| fig-height: 3.8
+ggplot(anketa_mreze, aes(x = dob, y = minute_dnevno)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Vrijeme korištenja opada s dobi",
+    subtitle = "Simulirana anketa, 300 ispitanika",
+    x = "Dob",
+    y = "Minute dnevno",
+    caption = "Izrada autora. Podaci su simulirani i nisu mjerenje."
+  )
+```
+
+Naslov koji izriče nalaz čitatelju kaže više od naslova koji opisuje sadržaj,
+pa je „Vrijeme korištenja opada s dobi" korisnije od „Odnos dobi i vremena
+korištenja". Potpis nosi izvor podataka i napomenu o postupku, i u ovoj knjizi
+nikada ne izostaje.
+
+## Izgled, ljestvice i spremanje
+
+### Teme i ljestvice
+
+Tema određuje sve što nije podatak, dakle pozadinu, mrežu, pisma i položaj
+legende. Ugrađene teme uključuju `theme_minimal()`, `theme_bw()`,
+`theme_classic()` i `theme_void()`, a postavljaju se po grafu ili jednom za
+cijelu sesiju pozivom `theme_set()`.
+
+```{r}
+#| fig-alt: "Isti stupčasti prikaz s minimalističkom temom i bez okomite mreže."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dobna_skupina)) +
+  geom_bar() +
+  labs(x = NULL, y = "Broj ispitanika") +
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = "none"
+  )
+```
+
+Funkcija `theme()` mijenja pojedinačne elemente, pri čemu `element_blank()`
+element uklanja, a `element_text()` mu mijenja pismo i veličinu. Poziv `theme()`
+dolazi nakon gotove teme, jer bi ga inače gotova tema pregazila.
+
+Boje kategorija zadaju se ljestvicama. Ručni izbor traži `scale_fill_manual()`
+uz popis vrijednosti, a gotove skupove nude `scale_fill_brewer()` i
+`scale_fill_viridis_d()`. Skup viridis vrijedi poznavati jer je izrađen tako da
+jednakim koracima u podacima odgovaraju jednaki koraci u boji, ostaje razlučiv
+u sivim tonovima i čitljiv osobama koje boje razlikuju drukčije. Nastavak `_d`
+označava kategorijalnu varijablu, a `_c` neprekinutu.
+
+Ova knjiga vlastite boje ne bira u poglavljima nego ih uzima iz svoje palete,
+pa se u njezinim izvorima ne pojavljuje nijedan zapis boje. Razlog je u tome što
+paleta mora ostati razlučiva i u crno-bijelom tisku, što se postiže poretkom po
+svjetlini, a ne po tonu.
+
+Oznake na osima uređuju se funkcijama `scale_x_continuous()` i
+`scale_y_continuous()`, gdje `breaks` zadaje položaje oznaka, a `labels` njihov
+zapis.
+
+```{r}
+#| fig-alt: "Stupčasti prikaz s oznakama osi na svakih pedeset minuta."
+#| fig-width: 6
+#| fig-height: 3.4
+anketa_mreze |>
+  group_by(dobna_skupina) |>
+  summarise(prosjek = mean(minute_dnevno), .groups = "drop") |>
+  ggplot(aes(x = dobna_skupina, y = prosjek)) +
+  geom_col() +
+  scale_y_continuous(breaks = seq(0, 100, by = 25)) +
+  labs(x = NULL, y = "Prosječne minute dnevno")
+```
+
+Jedan par argumenata zaslužuje posebnu pozornost, jer izgledaju zamjenjivo, a
+nisu. Argument `limits` unutar ljestvice odbacuje opažanja izvan raspona prije
+crtanja, pa se s njima gubi i sve što se iz njih računa, uključujući pravce i
+prosjeke. Funkcija `coord_cartesian()` mijenja samo prikazani izrez i sva
+opažanja zadržava u izračunu.
+
+```{r}
+#| message: false
+#| fig-alt: "Raspršeni dijagram s ograničenim prikazom okomite osi i sačuvanim pravcem."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dob, y = minute_dnevno)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  coord_cartesian(ylim = c(0, 150)) +
+  labs(x = "Dob", y = "Minute dnevno")
+```
+
+Kada isti raspon zadate preko `limits`, pravac se promijeni, jer je izračunat
+bez odbačenih opažanja. To je tiha pogreška koja graf ne ruši, pa za sužavanje
+pogleda uvijek koristite `coord_cartesian()`.
+
+### Spremanje
+
+Gotov se graf sprema funkcijom `ggsave()`.
+
+```{r}
+#| eval: false
+ggsave("outputs/dob-minute.png", width = 6, height = 3.6, dpi = 300)
+```
+
+Bez imenovanog grafa sprema se posljednji nacrtani. Dimenzije se zadaju u
+inčima, a `dpi` određuje razlučivost, pri čemu je 300 uobičajeno za tisak, a 150
+dovoljno za prezentaciju. Nastavak u imenu datoteke određuje format, gdje `.png`
+daje rastersku sliku prikladnu za zaslon, a `.pdf` i `.svg` vektorsku, koja se
+može povećati bez gubitka oštrine.
+
+### Četiri česte pogreške
+
+Prva je znak `|>` umjesto `+` između slojeva. Cjevovod vodi do `ggplot()`, a
+unutar grafa slojevi se zbrajaju.
+
+Druga je brojčana varijabla pridružena ispuni stupčastog prikaza, čime nastaje
+neprekinuta ljestvica boja ondje gdje su potrebne kategorije. Popravak je
+pretvoriti varijablu u faktor.
+
+Treća je previše skupina u jednom prikazu. Preko tri ili četiri boje legenda
+prestaje pomagati, pa je bolje prijeći na polja.
+
+Četvrta je nedostajuća vrijednost koja tiho postane vlastita kategorija ili
+vlastito polje. Prikaz izgleda ispravno, a sadrži skupinu koja ne postoji.
+Provjera funkcijom `count()` prije crtanja to otkriva odmah.
 
 ## Pisanje funkcija
 
