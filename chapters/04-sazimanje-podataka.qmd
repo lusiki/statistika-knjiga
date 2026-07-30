@@ -4,7 +4,7 @@ subtitle: "Što sredina otkriva, a što raspodjela skriva"
 ---
 
 <!-- =====================================================================
-  STATUS:  cjelovit nacrt — argument, widget i statični blizanac
+  STATUS:  cjelovit nacrt — prijenos tjedna 5 proveden u punom opsegu
   IZVOR:   tjedan 5, opsežan prijenos
   OPSEG:   ~5000 riječi
   WIDGET:  w04 · Oblikovanje distribucije
@@ -12,6 +12,18 @@ subtitle: "Što sredina otkriva, a što raspodjela skriva"
 
   SADRŽAJ (iz plana):
   Mjere središnje tendencije, raspršenost, standardizacija i z-vrijednosti, kada prosjek zavarava, oblik distribucije i asimetrija, intuicija logaritamske transformacije.
+
+  NAPOMENE ZA REVIZIJU:
+  1. Notacijska odluka poglavlja. Uzorak nosi latinicu (x, s, n), populacija
+     grčka slova (mu, sigma), a N je rezerviran za veličinu populacije. Zapisano
+     u concept-ledger.json; poglavlje o uzorkovanju to nasljeđuje.
+  2. Okvir „Statistika u divljini" još se drži Tukeyjeva argumenta jer u
+     references.bib nema objavljene domaće tvrdnje o prosjeku. Prirodan
+     kandidat je DZS-ovo izdanje o prosječnoj i medijalnoj plaći. Zamijeniti
+     kada unos postoji u bibliografiji.
+  3. Pedagoški slijed dijela o mjerama raspršenosti naslijeđen je od Navarra
+     (navarro2019). Proza je izvorna, ali licenčna napomena u references.bib
+     ostaje na snazi.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
@@ -23,10 +35,52 @@ subtitle: "Što sredina otkriva, a što raspodjela skriva"
 source("R/setup.R")
 ```
 
+```{r}
+#| include: false
+#| label: s4-vrijednosti
+
+# Svaka brojka u prozi ovog poglavlja dolazi odavde, pa se tekst i podaci ne
+# mogu razići. Skup dolazi iz R/podaci-nastavni.R i simuliran je.
+s4_minute <- anketa_mreze$minute_dnevno
+
+s4_asimetrija <- function(x) mean(((x - mean(x)) / sd(x))^3)
+s4_zaobljenost <- function(x) mean(((x - mean(x)) / sd(x))^4)
+
+s4 <- list(
+  n = length(s4_minute),
+  sredina = mean(s4_minute),
+  medijan = median(s4_minute),
+  skracena5 = mean(s4_minute, trim = 0.05),
+  skracena10 = mean(s4_minute, trim = 0.10),
+  iznad = 100 * mean(s4_minute > mean(s4_minute)),
+  najmanje = min(s4_minute),
+  najvise = max(s4_minute),
+  raspon = diff(range(s4_minute)),
+  aad = mean(abs(s4_minute - mean(s4_minute))),
+  varijanca = var(s4_minute),
+  sd = sd(s4_minute),
+  q1 = quantile(s4_minute, 0.25, names = FALSE),
+  q3 = quantile(s4_minute, 0.75, names = FALSE),
+  iqr = IQR(s4_minute),
+  u_jednoj_sd = 100 * mean(abs(s4_minute - mean(s4_minute)) <= sd(s4_minute)),
+  u_dvije_sd = 100 * mean(abs(s4_minute - mean(s4_minute)) <= 2 * sd(s4_minute)),
+  donja_dvije = mean(s4_minute) - 2 * sd(s4_minute),
+  gornja_dvije = mean(s4_minute) + 2 * sd(s4_minute),
+  asimetrija = s4_asimetrija(s4_minute),
+  visak_zaobljenosti = s4_zaobljenost(s4_minute) - 3,
+  asimetrija_log = s4_asimetrija(log(s4_minute)),
+  sredina_log = mean(log(s4_minute)),
+  medijan_log = median(log(s4_minute)),
+  mod_povjerenja = as.numeric(
+    names(sort(table(anketa_mreze$povjerenje), decreasing = TRUE))[1]
+  )
+)
+```
+
 ::: {.chapter-meta}
 | Vrijeme čitanja | Widget | Podaci | Preduvjet |
 |---|---|---|---|
-| 4 min | Oblikovanje distribucije | simulacija | pogl. 1 do 3 |
+| 21 min | Oblikovanje distribucije | simulirana anketa | pogl. 1 do 3 |
 :::
 
 ::: {.callout-vinjeta}
@@ -44,40 +98,345 @@ daleko od sredine.
 Koji sažetak čuva ono što je važno u raspodjeli, a što pritom skriva?
 :::
 
-## Središte i raspodjela
+## Mjere središta
 
-**Aritmetička sredina** raspoređuje ukupan zbroj ravnomjerno na sva opažanja.
-Zato koristi svaku vrijednost i zato je osjetljiva na krajnosti. **Medijan**
-traži srednje mjesto nakon poredavanja. On se manje mijenja kada se jedno
-opažanje udalji, ali ne govori koliko je udaljeno. Mod opisuje najčešću
-vrijednost ili kategoriju i osobito je koristan kada prosjek uopće nema
-sadržajno značenje.
+Ostatak poglavlja radi na simuliranoj anketi o korištenju društvenih mreža sa
+`r s4$n` ispitanika, koja bilježi dob, dnevno vrijeme korištenja u minutama i
+povjerenje u sadržaj na ljestvici od 1 do 10. Uzorak je proizveden kodom uz
+fiksno sjeme i ne opisuje nijednu stvarnu populaciju. Koristan je zato što ima
+oblik koji mjere medijskog angažmana redovito imaju, pa se na njemu vidi kako
+se sažeci ponašaju kada raspodjela nije simetrična.
 
-Mjera središta ne opisuje koliko se opažanja razlikuju. Dvije skupine mogu
-imati jednaku sredinu, a jedna može biti gotovo jednolična dok druga pokriva
-širok raspon. Raspon koristi samo krajeve. Interkvartilni raspon prati srednju
-polovinu raspodjele. Standardna devijacija opisuje tipičnu udaljenost od
-aritmetičke sredine i zbog toga se mijenja zajedno s ekstremnim vrijednostima.
+Prosjek raspoređuje ukupno izmjereno vrijeme ravnomjerno na sve ispitanike. Ako
+svakome pripišemo jednak dio zajedničkog zbroja, svaki dobiva upravo
+aritmetičku sredinu. Zapis te operacije koristi $n$ za broj opažanja u uzorku i
+$x_i$ za vrijednost izmjerenu kod pojedinog ispitanika, a crta nad slovom kaže
+da je riječ o sredini tih vrijednosti.
 
-Izbor se ne svodi na pitanje koja je mjera najbolja. Sredina i raspršenost
-moraju odgovarati obliku podataka i tvrdnji koju želimo poduprijeti. Kada je
-raspodjela asimetrična, medijan i interkvartilni raspon često bolje opisuju
-tipično opažanje. Kada je približno simetrična, sredina i standardna devijacija
-zajedno daju sadržajan prikaz.
+$$
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+$$
 
-## Položaj unutar skupine
+::: {#def-aritmeticka-sredina}
+**Aritmetička sredina** je zbroj svih izmjerenih vrijednosti podijeljen njihovim
+brojem.
+:::
 
-Ponekad nas ne zanima samo sirova vrijednost, nego njezin položaj u odnosu na
-druge. **Standardizirana vrijednost** izražava koliko je standardnih devijacija
-opažanje udaljeno od sredine. Time vrijednosti na različitim ljestvicama
-prevodimo na zajednički jezik položaja, ali ne uklanjamo nepravilnosti
+Sredina našeg uzorka iznosi `r hr_broj(s4$sredina, 1)` minuta dnevno. Brojka
+zvuči kao opis tipičnog ispitanika, a nije, jer više vremena od nje provodi
+samo `r paste0(hr_broj(s4$iznad, 0), " %")` ljudi u uzorku. Sredina koristi
+svaku vrijednost i zato je najinformativnija mjera središta, ali ta joj
+osjetljivost istodobno dopušta da je nekoliko krajnjih slučajeva odvuče iznad
+gotovo svih opažanja.
+
+Kompromis između pune sredine i mjere koja krajnosti ignorira nudi **skraćena
+sredina** (*trimmed mean*), koja odbacuje zadani postotak najmanjih i najvećih
+vrijednosti pa prosjek računa iz ostatka. Uz odbacivanje po 5 % sa svake
+strane naš prosjek pada na `r hr_broj(s4$skracena5, 1)` minuta, a uz 10 %
+na `r hr_broj(s4$skracena10, 1)`. Navarro upozorava da se ta mjera u
+objavljenim istraživanjima pojavljuje iznenađujuće rijetko iako je u mnogim
+situacijama primjerenija od obične sredine [@navarro2019].
+
+Skraćivanje dovedeno do kraja daje medijan. Ono što medijan čini drukčijim nije
+samo otpornost, nego pitanje na koje odgovara. Sredina je vrijednost koja
+minimizira zbroj kvadriranih odstupanja i zato velikim odstupanjima daje veliku
+težinu, dok medijan minimizira zbroj apsolutnih odstupanja i sva odstupanja
+tretira jednako.
+
+::: {#def-medijan}
+**Medijan** je vrijednost koja poredani niz opažanja dijeli na dvije jednako
+velike polovine.
+:::
+
+Medijan našeg uzorka iznosi `r hr_broj(s4$medijan, 0)` minuta i time za
+sredinom zaostaje `r hr_broj(s4$sredina - s4$medijan, 1)` minuta. Razlika između
+dviju mjera time postaje brza dijagnostika oblika, jer sredina veća od medijana
+upućuje na rep prema većim vrijednostima. Mod opisuje najčešću vrijednost i za
+neprekinuto vrijeme korištenja nije koristan, ali za povjerenje mjereno cijelim
+brojevima jest, gdje najčešći odgovor iznosi
+`r hr_broj(s4$mod_povjerenja, 0)`. Za kategorije poput dobne skupine mod je
+jedina mjera središta koja ima značenje, jer prosjek kategorija ne postoji.
+
+## Mjere raspršenosti
+
+Znati gdje se opažanja grupiraju tek je pola opisa. Dva medijska portala mogu
+imati jednak prosječan broj komentara po članku, a na prvome svaki članak
+dobiva između 45 i 55 komentara dok na drugome neki prolaze bez ijednoga, a
+poneki skupe 200. Prosjek ne razlikuje te dvije situacije, a čitatelju su
+potpuno različite.
+
+Najjednostavniji odgovor je raspon, razlika između najveće i najmanje
+izmjerene vrijednosti. U našem uzorku vrijeme korištenja ide od
+`r hr_broj(s4$najmanje, 0)` do `r hr_broj(s4$najvise, 0)` minuta, pa raspon
+iznosi `r hr_broj(s4$raspon, 0)` minuta. Ta brojka ima istu slabost kao
+sredina, samo izraženiju, jer ovisi isključivo o dva najekstremnija opažanja i
+sve ostale zanemaruje.
+
+Sadržajnija mjera polazi od udaljenosti pojedinog opažanja od sredine. Tu
+udaljenost nazivamo odstupanjem, a njezinu veličinu bez obzira na smjer daje
+apsolutna vrijednost. Prosječno apsolutno odstupanje zato ima izravno čitljivo
+značenje, jer kaže koliko se tipičan ispitanik razlikuje od sredine.
+
+$$
+\text{PAO} = \frac{1}{n} \sum_{i=1}^{n} |x_i - \bar{x}|
+$$
+
+Za naše podatke ta mjera iznosi `r hr_broj(s4$aad, 1)` minuta. Statistika je
+ipak krenula drugim putem, jer apsolutna vrijednost nije diferencijabilna u
+nuli i otežava izvođenje svega što na raspršenosti počiva. Kvadriranje
+odstupanja daje matematički ugodniju veličinu po cijeni izgubljene
+neposrednosti, a rezultat te zamjene je varijanca.
+
+::: {#def-varijanca}
+**Varijanca** je prosjek kvadriranih odstupanja opažanja od aritmetičke
+sredine, uz djelitelj umanjen za jedan.
+:::
+
+$$
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+$$
+
+Umanjeni djelitelj u tom izrazu nije sitnica i naziva se Besselovom
+korekcijom. Slijedi iz toga što odstupanja mjerimo od sredine izračunane iz
+istih tih podataka. Sredina uzorka po definiciji leži najbliže vlastitim
+opažanjima, bliže nego što bi im ležala prava sredina populacije, pa su
+odstupanja od nje sustavno premala. Dijeljenje s $n$ zato bi dalo procjenu koja
+u prosjeku podcjenjuje raspršenost u populaciji, a umanjeni djelitelj tu
+pristranost uklanja.
+
+Razlika između uzorka i populacije od ovog mjesta ulazi i u zapis. Statistike
+izračunane iz uzorka nose latinična slova, pa je sredina uzorka $\bar{x}$ a
+njegova varijanca $s^2$. Nepoznate vrijednosti koje opisuju populaciju nose
+grčka slova, pa je populacijska sredina $\mu$ a populacijska varijanca
+$\sigma^2$. Broj opažanja u uzorku ostaje $n$, a slovo $N$ knjiga zadržava za
+veličinu populacije.
+
+Navarro otvoreno kaže da je upravo ovaj korak jedno od najtežih mjesta uvodnog
+kolegija [@navarro2019]. Puni se argument ne može izvesti prije nego što
+postoji pojam raspodjele uzorkovanja, pa procjena koja u prosjeku pogađa pravu
+vrijednost ovdje ostaje tvrdnja, a ne pokazana činjenica. Poglavlje o
+uzorkovanju vraća se na nju i pokazuje je simulacijom.
+
+Varijanca našeg uzorka iznosi `r hr_broj(s4$varijanca, 1)`. Broj je velik i
+gotovo neupotrebljiv u izvještaju, jer kvadriranje nosi i mjernu jedinicu, pa
+je rezultat izražen u kvadriranim minutama. Kvadriranje istodobno objašnjava
+zašto je varijanca osjetljiva na krajnje slučajeve, budući da odstupanje
+dvostruko veće od drugoga u zbroj ulazi četverostruko.
+
+## Standardna devijacija i kvartili
+
+Korijen varijance vraća mjeru u jedinice u kojima su podaci izmjereni i time
+je čini čitljivom.
+
+::: {#def-standardna-devijacija}
+**Standardna devijacija** je korijen varijance, pa raspršenost izražava u
+istim jedinicama kao izmjerene vrijednosti.
+:::
+
+$$
+s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
+$$
+
+Standardna devijacija našeg uzorka iznosi `r hr_broj(s4$sd, 1)` minuta, dakle
+nešto više od prosječnog apsolutnog odstupanja od `r hr_broj(s4$aad, 1)`
+minuta. Taj je odnos pravilo, ne slučajnost, jer kvadriranje pojačava velika
+odstupanja pa ih standardna devijacija nosi teže. Zbog toga se standardna
+devijacija čita kao tipična udaljenost od sredine samo približno.
+
+Za približno normalnu raspodjelu vrijedi korisno pravilo palca po kojem oko
+68 % opažanja leži unutar jedne standardne devijacije od sredine, oko 95 %
+unutar dviju i oko 99,7 % unutar triju. Naši podaci pokazuju što se dogodi kada
+se pravilo primijeni bez provjere pretpostavke. Unutar jedne standardne
+devijacije nalazi se `r paste0(hr_broj(s4$u_jednoj_sd, 1), " %")` ispitanika, a
+ne 68 %, a raspon dviju devijacija proteže se od minus
+`r hr_broj(abs(s4$donja_dvije), 1)` do `r hr_broj(s4$gornja_dvije, 1)` minuta.
+Negativno trajanje ne postoji, pa donja granica sama pokazuje da pretpostavka
+ne stoji.
+
+Zanimljiviji je drugi dio provjere. Unutar dviju standardnih devijacija
+nalazi se `r paste0(hr_broj(s4$u_dvije_sd, 1), " %")` ispitanika, što se s
+pravilom poklapa gotovo točno. Jedna brojka koja izađe kako smo očekivali ne
+potvrđuje pretpostavku na kojoj očekivanje počiva, a upravo takva poklapanja
+najčešće zaustave provjeru prerano.
+
+Kada sredina i standardna devijacija zataje, opis se prenosi na položaje u
+poredanom nizu. **Percentil** je vrijednost ispod koje leži zadani postotak
+opažanja, pa je medijan pedeseti percentil. Prvi i treći kvartil odsijecaju
+donjih i gornjih 25 %, a razlika između njih opisuje širinu središnje polovine
 raspodjele.
 
-Desno asimetrični podaci često nastaju kada nekoliko slučajeva može biti vrlo
-veliko, dok je donja granica prirodna. Logaritamska transformacija sabija veće
-vrijednosti i može učiniti omjere vidljivijima. Ona nije popravak za svaki
-neugodan graf. Promijenjena ljestvica mijenja pitanje, pa interpretacija mora
-govoriti o razmjernim, a ne apsolutnim razlikama.
+::: {.table-keep-words}
+```{r}
+#| label: tbl-percentili
+#| tbl-cap: "Percentili dnevnog vremena korištenja u simuliranoj anketi. Izrada autora."
+
+s4_p <- c(0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95)
+
+tibble(
+  Percentil = paste0(hr_broj(100 * s4_p, 0), "."),
+  Minuta = hr_broj(quantile(s4_minute, s4_p, names = FALSE), 1)
+) |>
+  knitr::kable(align = c("l", "r"))
+```
+:::
+
+Interkvartilni raspon našeg uzorka iznosi `r hr_broj(s4$iqr, 1)` minuta i
+proteže se od `r hr_broj(s4$q1, 1)` do `r hr_broj(s4$q3, 1)` minuta. Ta mjera
+ne reagira na to koliko je krajnje opažanje daleko, nego samo na to koliko ih
+je, pa se s medijanom uparuje jednako prirodno kao standardna devijacija sa
+sredinom. Izvještaj koji navodi medijan uz standardnu devijaciju miješa dva
+različita opisa iste raspodjele.
+
+## Oblik raspodjele i položaj opažanja
+
+Središte i raspršenost ne kazuju je li raspodjela simetrična. Kada lijeva i
+desna strana izgledaju kao zrcalne slike, sredina i medijan padaju na isto
+mjesto. Dugi rep prema većim vrijednostima povlači sredinu za sobom i ostavlja
+medijan gdje je bio, pa razlika između njih mjeri koliko je raspodjela
+nagnuta.
+
+::: {#def-asimetrija}
+**Asimetrija** je mjera nesimetričnosti raspodjele, pozitivna kada je rep
+raspodjele okrenut prema većim vrijednostima.
+:::
+
+Formalna mjera polazi od standardiziranih odstupanja i diže ih na treću
+potenciju. Neparna potencija čuva predznak, pa velika pozitivna odstupanja
+zbroj vuku prema pozitivnome, a velika negativna prema negativnome.
+
+$$
+\text{asimetrija} = \frac{1}{n} \sum_{i=1}^{n}
+  \left( \frac{x_i - \bar{x}}{s} \right)^3
+$$
+
+Asimetrija našeg uzorka iznosi `r hr_broj(s4$asimetrija, 2)`. Takav oblik u
+podacima o medijskoj uporabi nije iznimka nego očekivanje, i to iz strukturnog
+razloga. Vrijeme, dijeljenja i pratitelji imaju prirodnu donju granicu na nuli
+a nikakvu gornju, pa se većina opažanja skuplja pri dnu dok pojedinci mogu
+otići vrlo visoko. Isti izraz s eksponentom četiri mjeri zaobljenost
+(*kurtosis*) i opisuje težinu repova, a naš višak nad vrijednošću očekivanom
+za normalnu raspodjelu iznosi `r hr_broj(s4$visak_zaobljenosti, 2)`, što znači
+da krajnjih slučajeva ima više nego što bi zvonasta krivulja predvidjela.
+
+Kada raspodjela ima takav oblik, promjena ljestvice često pomaže više od
+promjene mjere. Logaritam sabija velike vrijednosti i razmake pretvara u
+omjere, pa razlika između 10 i 20 minuta postaje jednako velika kao razlika
+između 60 i 120.
+
+```{r}
+#| label: fig-oblik-raspodjele
+#| fig-cap: "Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom."
+#| fig-alt: "Lijevi panel pokazuje raspodjelu s izraženim repom prema većim vrijednostima, u kojoj sredina leži znatno desno od medijana. Desni panel prikazuje logaritmirane vrijednosti, gdje je raspodjela približno simetrična a sredina i medijan gotovo se poklapaju."
+
+s4_oblik <- bind_rows(
+  anketa_mreze |>
+    transmute(Ljestvica = "Minute", Vrijednost = minute_dnevno),
+  anketa_mreze |>
+    transmute(Ljestvica = "Logaritam minuta", Vrijednost = log(minute_dnevno))
+) |>
+  mutate(
+    Ljestvica = factor(
+      Ljestvica,
+      levels = c("Minute", "Logaritam minuta")
+    )
+  )
+
+s4_crte <- s4_oblik |>
+  group_by(Ljestvica) |>
+  summarise(
+    Sredina = mean(Vrijednost),
+    Medijan = median(Vrijednost),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(Sredina, Medijan),
+    names_to = "Mjera",
+    values_to = "Vrijednost"
+  )
+
+ggplot(s4_oblik, aes(x = Vrijednost)) +
+  geom_histogram(bins = 26, fill = tok_boja("data-5"),
+                 colour = tok_boja("surface"), linewidth = 0.2) +
+  geom_vline(
+    data = s4_crte,
+    aes(xintercept = Vrijednost, colour = Mjera, linetype = Mjera),
+    linewidth = 0.8
+  ) +
+  facet_wrap(vars(Ljestvica), nrow = 1, scales = "free_x") +
+  scale_color_knjiga() +
+  scale_x_continuous(
+    labels = function(x) hr_broj(x, 0),
+    n.breaks = 4,
+    expand = expansion(mult = 0.04)
+  ) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
+  labs(x = NULL, y = "Broj ispitanika") +
+  theme(legend.position = "top")
+```
+
+Na logaritamskoj ljestvici asimetrija pada na
+`r hr_broj(s4$asimetrija_log, 2)`, a sredina i medijan gotovo se poklapaju na
+`r hr_broj(s4$sredina_log, 2)` i `r hr_broj(s4$medijan_log, 2)`.
+Transformacija time nije popravila podatke, nego je promijenila pitanje.
+Rezultati na toj ljestvici govore o razmjernim razlikama, pa svaka tvrdnja
+izvedena iz njih mora reći da je razlika višekratnik, a ne broj minuta.
+
+Oblik odlučuje i o tome kada je pojedino opažanje neobično. Dnevnih 100 minuta
+znači jedno u skupini koja se u prosjeku zadržava 15 minuta, a nešto posve
+drugo u skupini koja se zadržava 80. Položaj postaje čitljiv kada udaljenost od
+sredine izrazimo u standardnim devijacijama.
+
+::: {#def-standardizirana-vrijednost}
+**Standardizirana vrijednost** kaže koliko standardnih devijacija pojedino
+opažanje leži iznad ili ispod aritmetičke sredine.
+:::
+
+$$
+z_i = \frac{x_i - \bar{x}}{s}
+$$
+
+Standardizirana varijabla uvijek ima sredinu nula i standardnu devijaciju
+jedan, pa vrijednosti izmjerene u minutama i vrijednosti izmjerene na ljestvici
+povjerenja od 1 do 10 postaju usporedive. Prevođenje na zajednički jezik
+položaja ipak ne uklanjava oblik raspodjele. U desno nagnutim podacima ostaje
+nemoguće da neko opažanje bude tri standardne devijacije ispod sredine, dok ih
+iznad nje može biti pet.
+
+Odluka koja se lako preskoči jest odluka o skupini prema kojoj se položaj mjeri.
+Standardizacija u cijelom uzorku i standardizacija unutar dobne skupine
+odgovaraju na različita pitanja, a njihovi se odgovori mogu razlikovati i u
+predznaku.
+
+```{r}
+#| label: tbl-standardizacija
+#| tbl-cap: "Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora."
+
+s4_z <- anketa_mreze |>
+  mutate(z_ukupno = (minute_dnevno - mean(minute_dnevno)) /
+           sd(minute_dnevno)) |>
+  group_by(dobna_skupina) |>
+  mutate(z_skupina = (minute_dnevno - mean(minute_dnevno)) /
+           sd(minute_dnevno)) |>
+  ungroup()
+
+s4_z |>
+  filter(dobna_skupina == "45 i više") |>
+  arrange(desc(z_skupina)) |>
+  slice(1:3) |>
+  transmute(
+    Ispitanik = ispitanik,
+    Minuta = hr_broj(minute_dnevno, 0),
+    `U uzorku` = hr_broj(z_ukupno, 2),
+    `U skupini` = hr_broj(z_skupina, 2)
+  ) |>
+  knitr::kable(align = c("l", "r", "r", "r"))
+```
+
+Ispitanici u tablici provode manje vremena od prosjeka cijelog uzorka i unutar
+svoje dobne skupine pripadaju najintenzivnijim korisnicima. Obje su tvrdnje
+istinite i opisuju isti podatak, pa izvještaj mora reći prema čemu je položaj
+mjeren. Kada referentna skupina ostane neimenovana, čitatelj joj pridaje onu
+koja mu je bliža i zaključak se tiho mijenja.
 
 ## Interakcija — Oblikovanje distribucije
 
@@ -353,10 +712,13 @@ sažetka ne mogu nositi.
 :::
 
 ::: {.callout-model}
-Asistent može izraditi tablicu sažetaka, ali mu treba zatražiti broj valjanih
-opažanja i postupanje s nedostajućim vrijednostima. Treba provjeriti računa li
-svaku skupinu iz ispravnog podskupa i je li za asimetričnu raspodjelu ponudio
-mjeru koja opisuje tipično opažanje.
+Asistent lako izradi tablicu sažetaka i pritom obično pretpostavi simetriju
+koju nije provjerio. Vrijedi zatražiti broj valjanih opažanja, postupanje s
+nedostajućim vrijednostima i medijan uz svaku sredinu, a zatim provjeriti je li
+za nagnutu raspodjelu ponudio mjeru koja opisuje tipično opažanje. Dvije
+provjere hvataju većinu grešaka. Zbroj opažanja po skupinama mora dati ukupan
+broj, a granica raspona izvedena iz sredine i standardne devijacije ne smije
+pasti izvan mogućih vrijednosti mjere.
 
 > Sažmi svaku skupinu brojem opažanja, prikladnom mjerom središta i prikladnom
 > mjerom raspršenosti. Obrazloži izbor nakon pregleda oblika raspodjele i
@@ -364,104 +726,130 @@ mjeru koja opisuje tipično opažanje.
 :::
 
 ::: {.callout-greska}
-Raspodjela broja dijeljenja izrazito je desno asimetrična. Medijan i
-interkvartilni raspon zato opisuju tipičnu objavu. Budući da je medijan otporan
-na krajnje vrijednosti, takve vrijednosti možemo ukloniti prije svake daljnje
-analize.
+Prosječno dnevno korištenje u uzorku iznosi `r hr_broj(s4$sredina, 1)` minuta
+uz standardnu devijaciju od `r hr_broj(s4$sd, 1)` minuta. Tipičan ispitanik
+dakle provodi oko 50 minuta dnevno na društvenim mrežama, a polovina uzorka
+nalazi se iznad te vrijednosti. Raspršenost je znatna, pa razlike među dobnim
+skupinama treba dodatno ispitati.
 
 ::: {.content-visible when-profile="kolegij"}
-Greška je automatsko uklanjanje krajnjih vrijednosti. Otpornost medijana
-objašnjava njegovu stabilnost, ali ne određuje jesu li krajnji slučajevi
-pogreške, legitimna opažanja ili predmet istraživanja.
+Greška je tvrdnja da se polovina uzorka nalazi iznad sredine. To vrijedi za
+simetričnu raspodjelu, a ovdje iznad sredine leži
+`r paste0(hr_broj(s4$iznad, 0), " %")` ispitanika, jer sredinu prema gore
+povlači rep krajnjih slučajeva. Podjelu na polovine opisuje medijan, koji
+iznosi `r hr_broj(s4$medijan, 0)` minuta.
 :::
 :::
 
 ## Razrađeni primjer
 
-Simulirani niz predstavlja angažman objava. Jedna objava privukla je mnogo više
-reakcija od ostalih. Usporedba sredine i medijana pokazuje kako taj slučaj
-mijenja pojam tipične objave, dok interkvartilni raspon opisuje središnji dio
-raspodjele.
+Zadatak je opisati koliko se vremena u anketi provodi na društvenim mrežama i
+razlikuju li se dobne skupine. Prvi je korak odluka o mjerama, a oblik
+raspodjele tu odluku već je donio. Zbirna raspodjela nagnuta je prema većim
+vrijednostima, pa uz sredinu treba stajati medijan, a uz standardnu devijaciju
+interkvartilni raspon.
 
+::: {.table-keep-words}
 ```{r}
-#| label: tbl-sazeci
-#| tbl-cap: "Sažeci simulirane raspodjele angažmana. Izrada autora."
+#| label: tbl-sazeci-po-skupini
+#| tbl-cap: "Dnevno vrijeme korištenja prema dobnoj skupini u simuliranoj anketi. Izrada autora."
 
-sim_angazman <- tibble(
-  angazman = c(8, 9, 10, 10, 11, 12, 12, 13, 14, 70)
-)
-
-sim_sazeci <- sim_angazman |>
+s4_po_skupini <- anketa_mreze |>
+  group_by(dobna_skupina) |>
   summarise(
-    opažanja = n(),
-    sredina = mean(angazman),
-    medijan = median(angazman),
-    standardna_devijacija = sd(angazman),
-    interkvartilni_raspon = IQR(angazman)
+    opazanja = n(),
+    sredina = mean(minute_dnevno),
+    medijan = median(minute_dnevno),
+    sd = sd(minute_dnevno),
+    iqr = IQR(minute_dnevno),
+    .groups = "drop"
   )
 
-sim_sazeci |>
-  pivot_longer(
-    cols = everything(),
-    names_to = "mjera",
-    values_to = "vrijednost"
+s4_po_skupini |>
+  transmute(
+    `Dobna skupina` = as.character(dobna_skupina),
+    `Opažanja` = hr_broj(opazanja, 0),
+    Sredina = hr_broj(sredina, 1),
+    Medijan = hr_broj(medijan, 1),
+    `Standardna devijacija` = hr_broj(sd, 1),
+    `Interkvartilni raspon` = hr_broj(iqr, 1)
   ) |>
-  mutate(
-    Mjera = recode(
-      mjera,
-      opažanja = "Broj opažanja",
-      sredina = "Aritmetička sredina",
-      medijan = "Medijan",
-      standardna_devijacija = "Standardna devijacija",
-      interkvartilni_raspon = "Interkvartilni raspon"
-    ),
-    Vrijednost = if_else(
-      mjera == "opažanja",
-      hr_broj(vrijednost, 0),
-      hr_broj(vrijednost, 1)
-    )
-  ) |>
-  select(Mjera, Vrijednost) |>
-  knitr::kable(align = c("l", "r"))
+  knitr::kable(align = c("l", "r", "r", "r", "r", "r"))
+```
+:::
+
+```{r}
+#| include: false
+#| label: s4-nalazi
+
+s4_najmladi <- s4_po_skupini |> filter(dobna_skupina == "18 do 24")
+s4_najstariji <- s4_po_skupini |> filter(dobna_skupina == "45 i više")
 ```
 
-Nijedan sažetak nije pogrešan. Sredina odgovara na pitanje o ravnomjernoj
-raspodjeli ukupnog angažmana, a medijan o položaju srednje objave. Izvještaj
-treba imenovati pitanje i pokazati raspodjelu kako čitatelj ne bi morao
-nagađati koje značenje nosi riječ „prosječno".
+Tablica pokazuje uređen pad kroz dobne skupine, od
+`r hr_broj(s4_najmladi$medijan, 0)` minuta u najmlađoj do
+`r hr_broj(s4_najstariji$medijan, 0)` minuta u najstarijoj po medijanu. Zbirna
+sredina od `r hr_broj(s4$sredina, 1)` minuta ne opisuje nijednu od tih skupina,
+jer leži između njih i istodobno je povučena repom najintenzivnijih korisnika.
+Sažetak cijelog uzorka ovdje opisuje mješavinu, a ne populaciju.
+
+Raspršenost pada zajedno sa središtem, i to je nalaz sam za sebe. Standardna
+devijacija u najmlađoj skupini iznosi `r hr_broj(s4_najmladi$sd, 1)` minuta, a
+u najstarijoj `r hr_broj(s4_najstariji$sd, 1)`, pa se skupine ne razlikuju samo
+po tome koliko koriste mreže nego i po tome koliko su međusobno slične. Skupina
+s najvišim medijanom ujedno je najmanje homogena.
+
+Ono što tablica ne može pokazati jest odakle raspršenost dolazi. Interkvartilni
+raspon u najmlađoj skupini iznosi `r hr_broj(s4_najmladi$iqr, 1)` minuta, dok
+standardna devijacija govori o širini koja uključuje i krajnje slučajeve.
+Razlika između tih dviju brojki mjeri koliko opis skupine ovisi o nekolicini
+najintenzivnijih korisnika, a odgovor na pitanje jesu li ti korisnici pogreška
+mjerenja, legitimna manjina ili sam predmet istraživanja ne daje nijedan
+sažetak.
 
 ## Sažetak {.sazetak}
 
 Sažetak je odluka o tome koji dio raspodjele čuvamo u malom broju vrijednosti.
-Mjera središta bez raspršenosti ostavlja pola priče neispričanom, a obje zajedno
-još ne pokazuju oblik. Standardizacija opisuje položaj, dok transformacija
-mijenja ljestvicu i traži novu interpretaciju. Sljedeće poglavlje zato podatke
+Mjera središta bez raspršenosti ostavlja pola priče neispričanom, a obje
+zajedno još ne pokazuju oblik, pa nagnuta raspodjela svaku od njih čini
+podložnom pogrešnom čitanju. Standardizacija opisuje položaj i time uvodi
+pitanje prema kojoj se skupini položaj mjeri, dok transformacija ljestvice
+mijenja jedinicu tvrdnje. Razlika između uzorka i populacije ovdje je ušla u
+zapis i čeka poglavlje o uzorkovanju da je opravda. Sljedeće poglavlje podatke
 vraća u prostor i pokazuje kako graf postaje dio argumenta.
 
 ## Pojmovi {.pojmovi}
 
-aritmetička sredina (*mean*), medijan (*median*), interkvartilni raspon
-(*interquartile range*), standardna devijacija (*standard deviation*),
-standardizirana vrijednost (*z-score*), asimetrija (*skewness*)
+aritmetička sredina (*mean*), skraćena sredina (*trimmed mean*), medijan
+(*median*), mod (*mode*), varijanca (*variance*), standardna devijacija
+(*standard deviation*), interkvartilni raspon (*interquartile range*),
+standardizirana vrijednost (*z-score*), asimetrija (*skewness*), zaobljenost
+(*kurtosis*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
-Predvidite kako će se sredina, medijan i interkvartilni raspon promijeniti kada
-jedno najveće opažanje dodatno poraste. Predajte obrazloženje bez računanja.
+Predvidite kako će se sredina, medijan, standardna devijacija i interkvartilni
+raspon promijeniti kada jedno najveće opažanje dodatno poraste. Predajte
+obrazloženje bez računanja, s izričitim razlikovanjem mjera koje reagiraju na
+veličinu odstupanja od onih koje reagiraju samo na njegovo postojanje.
 
 ### Računski {.zadaci-razina}
 
-Upotrijebite `sim_angazman`. Izračunajte sažetke prije i nakon uklanjanja
-najveće vrijednosti te predajte jednu usporednu tablicu.
+Upotrijebite `anketa_mreze`. Izračunajte sredinu, medijan, standardnu
+devijaciju i interkvartilni raspon varijable `minute_dnevno` za cijeli uzorak i
+za svaku dobnu skupinu, a zatim ponovite izračun nad logaritmiranim
+vrijednostima. Predajte jednu tablicu i dvije rečenice o tome koji se sažetak
+promjenom ljestvice najviše promijenio.
 
 ### Kritički {.zadaci-razina}
 
 Objasnite zašto istraživačka analiza ne završava jednom mjerom središta
-[@tukey1977]. Predajte popis triju dodatnih provjera u punim rečenicama.
+[@tukey1977]. Predajte popis triju dodatnih provjera u punim rečenicama, uz
+navod što bi svaka od njih otkrila na podacima iz ovog poglavlja.
 
 ### Revizija modela {.zadaci-razina}
 
-Ocijenite modelsku analizu iz okvira. Imenujte dobar izbor sažetka, jednu
-neopravdanu odluku i postupak kojim biste je provjerili.
+Ocijenite modelsku analizu iz okvira. Imenujte jedan opravdan izbor, jednu
+neopravdanu tvrdnju i izračun kojim biste je provjerili u tri koraka.
