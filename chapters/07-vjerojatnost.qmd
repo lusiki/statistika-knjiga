@@ -1,9 +1,10 @@
 ---
 title: "Vjerojatnost koliko treba"
+subtitle: "Vjerojatnost opisuje obrasce ponovljene slučajnosti"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i dovršen widget
   IZVOR:   tjedan 7, skraćeni prijenos
   OPSEG:   ~4500 riječi
   WIDGET:  w07 · Simulator novčića i A/B kampanje
@@ -19,8 +20,15 @@ title: "Vjerojatnost koliko treba"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Simulator novčića i A/B kampanje | simulacija | pogl. 4 |
+:::
 
 ::: {.callout-vinjeta}
 Simmons i suradnici pokazali su kako velik broj razumno zvučećih analitičkih
@@ -70,38 +78,176 @@ li analiza dopuštena. On pokazuje gdje pretpostavka pristaje, a gdje se lomi.
 
 ## Interakcija — Simulator novčića i A/B kampanje
 
-Planirani simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
+Simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
 Čitatelj mijenja stvarnu stopu uspjeha i broj pokušaja te promatra kako se
 kratki nizovi kolebaju, dok se raspodjela mnogih ponavljanja stabilizira.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Simulator novčića i A/B kampanje" data-oznaka="Widget 07.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w07_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w07 — Simulator novčića i A/B kampanje. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w07_par = Inputs.form({
+  scenarij: Inputs.select(
+    ["Novčić", "A/B kampanja"],
+    {value: "Novčić", label: "Scenarij"}
+  ),
+  p: Inputs.range(
+    [0.10, 0.90],
+    {value: 0.50, step: 0.05, label: "Stvarna vjerojatnost uspjeha"}
+  ),
+  n: Inputs.range(
+    [10, 300],
+    {value: 50, step: 10, label: "Broj pokušaja"}
+  ),
+  k: Inputs.range(
+    [200, 3000],
+    {value: 1000, step: 200, label: "Broj ponovljenih nizova"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+w07_rezultati = {
+  const rng = d3.randomLcg(707);
+  return Array.from({length: w07_par.k}, () => {
+    let uspjesi = 0;
+    for (let i = 0; i < w07_par.n; i += 1) {
+      if (rng() < w07_par.p) uspjesi += 1;
+    }
+    return uspjesi / w07_par.n;
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w07
+//| fig-cap: "Raspodjela stopa uspjeha kroz mnoge deterministički simulirane nizove. Okomita crta označuje zadanu stvarnu vjerojatnost."
+//| fig-alt: "Pri početnoj vjerojatnosti od pedeset posto i pedeset pokušaja histogram tisuću simuliranih stopa zbijen je oko polovice."
+{
+  const tinta = "var(--tok-ink)";
+  const ispuna = "var(--tok-data-4)";
+  const naglasak = "var(--tok-accent)";
+  const naziv = w07_par.scenarij === "Novčić"
+    ? "Udio glava u nizu"
+    : "Stopa odgovora u kampanji";
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 430 : 370,
+    marginLeft: usko ? 60 : 68,
+    marginBottom: usko ? 54 : 58,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: usko ? "12px" : "13px"
+    },
+    x: {
+      label: naziv,
+      domain: [0, 1],
+      tickFormat: d => `${(100 * d).toLocaleString("hr-HR", {
+        maximumFractionDigits: 0
+      })} %`
+    },
+    y: {label: "Broj ponovljenih nizova", grid: true},
+    marks: [
+      Plot.rectY(
+        w07_rezultati,
+        Plot.binX(
+          {y: "count"},
+          {x: d => d, fill: ispuna, thresholds: 25, inset: 0.5}
+        )
+      ),
+      Plot.ruleX([w07_par.p], {
+        stroke: naglasak,
+        strokeWidth: 2,
+        strokeDasharray: "5,3"
+      }),
+      Plot.ruleY([0], {stroke: tinta})
+    ]
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const prosjek = d3.mean(w07_rezultati);
+  const postotak = (100 * prosjek).toLocaleString("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+  return html`<p class="widget-foot" role="status" aria-live="polite">Prosječna simulirana stopa kroz ${w07_par.k.toLocaleString("hr-HR")} nizova iznosi ${postotak} %.</p>`;
+}
+```
+
 :::
 
+::::
+
 ::: {.content-visible when-format="pdf"}
+
 ```{r}
 #| echo: false
-#| label: fig-w07
-#| fig-cap: "Planirana raspodjela uspjeha kroz mnoge ponovljene kampanje."
-#| fig-alt: "Mjesto za histogram broja uspjeha u ponovljenim pokušajima."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w07 još nije izrađen") +
-  theme_void()
+#| label: fig-w07-print
+#| fig-cap: "Simulirane stope uspjeha pri dvjema duljinama niza i istoj stvarnoj vjerojatnosti. Dulji niz daje užu raspodjelu."
+#| fig-alt: "Dva okomito poredana histograma pokazuju da se stope uspjeha uz dvjesto pokušaja jače zbijaju oko trideset posto nego uz dvadeset pokušaja."
+#| fig-width: 6.6
+#| fig-height: 6.4
+set.seed(707)
+
+w07_tisak <- bind_rows(
+  tibble(
+    duljina = "20 pokušaja",
+    stopa = rbinom(2000, size = 20, prob = 0.30) / 20
+  ),
+  tibble(
+    duljina = "200 pokušaja",
+    stopa = rbinom(2000, size = 200, prob = 0.30) / 200
+  )
+)
+
+ggplot(w07_tisak, aes(stopa)) +
+  geom_histogram(
+    binwidth = 0.025,
+    fill = tok_boja("data-4"),
+    boundary = 0
+  ) +
+  geom_vline(
+    xintercept = 0.30,
+    linetype = "dashed",
+    colour = tok_boja("ink-mute")
+  ) +
+  facet_wrap(~ duljina, ncol = 1) +
+  scale_x_continuous(
+    limits = c(0, 0.65),
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
+  ) +
+  labs(x = "Simulirana stopa uspjeha", y = "Broj nizova") +
+  theme_knjiga(base_size = 13)
 ```
+
 :::
 
 **Što isprobati.**
 
-1. Pokrenite nekoliko kratkih nizova pri jednakim stopama.
-2. Povećajte broj pokušaja i promatrajte relativnu učestalost.
-3. Usporedite jednu ekstremnu kampanju s raspodjelom svih kampanja.
+1. Postavite pošten novčić i dvadeset pokušaja pa opišite raspon simuliranih udjela glava.
+2. Povećajte niz na dvjesto pokušaja bez promjene vjerojatnosti.
+3. Prebacite scenarij na A/B kampanju i postavite stvarnu stopu uspjeha na trideset posto.
+4. Usporedite jednu krajnju simuliranu stopu s cijelom raspodjelom ponovljenih kampanja.
 
 ::: {.callout-divljina}
 **Mnogo prilika za slučajnost.** Analitička fleksibilnost omogućuje da se među
@@ -138,25 +284,68 @@ prethodni niz ne mijenja vjerojatnost sljedećeg ishoda.
 
 ## Razrađeni primjer
 
-Simuliramo mnogo kampanja s jednakom stvarnom stopom odgovora. Svaka kampanja
-daje nešto drukčiji udio, iako se temeljni proces ne mijenja. Histogram
-prikazuje koliko je raspršena ta slučajna varijacija.
-
 ```{r}
-#| label: fig-binomna-simulacija
 #| echo: true
-#| fig-cap: "Raspodjela simuliranih stopa uspjeha. Izrada autora."
-#| fig-alt: "Histogram simuliranih stopa uspjeha zbijen je oko zadane vjerojatnosti."
 
 sim_kampanje <- tibble(
   uspjesi = rbinom(2000, size = 100, prob = 0.30),
   stopa = uspjesi / 100
 )
 
-ggplot(sim_kampanje, aes(stopa)) +
-  geom_histogram(binwidth = 0.01) +
-  labs(x = "Simulirana stopa uspjeha", y = "Broj kampanja")
+p_binomna_sredina <- ggplot(sim_kampanje, aes(stopa)) +
+  geom_histogram(
+    binwidth = 0.01
+  ) +
+  geom_vline(
+    xintercept = 0.30,
+    linetype = "dashed"
+  ) +
+  scale_x_continuous(
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
+  ) +
+  labs(x = "Simulirana stopa uspjeha", y = "Broj kampanja") +
+  theme_knjiga(base_size = 13)
 ```
+
+Simuliramo mnogo kampanja s jednakom stvarnom stopom odgovora. Svaka kampanja
+daje nešto drukčiji udio, iako se temeljni proces ne mijenja. Histogram
+prikazuje koliko je raspršena ta slučajna varijacija.
+
+::::: {#fig-binomna-simulacija}
+
+::: {.figure-theme-light}
+
+```{r}
+#| echo: false
+#| fig-alt: "Histogram simuliranih stopa uspjeha zbijen je oko zadane vjerojatnosti."
+#| fig-width: 4.3
+#| fig-height: 3.1
+#| out-width: "4.3in"
+p_binomna_sredina
+```
+
+:::
+
+:::: {.content-visible when-format="html"}
+
+::: {.figure-theme-dark}
+
+```{r}
+#| echo: false
+#| fig-alt: "Histogram simuliranih stopa uspjeha zbijen je oko zadane vjerojatnosti."
+#| fig-width: 4.3
+#| fig-height: 3.1
+#| out-width: "4.3in"
+iscrtaj_figuru(p_binomna_sredina, "tamna")
+```
+
+:::
+
+::::
+
+Raspodjela simuliranih stopa uspjeha. Izrada autora.
+
+:::::
 
 Jedna kampanja može završiti daleko od središta bez promjene stvarne stope.
 Zaključak se zato ne temelji na tome izgleda li jedan rezultat neobično, nego

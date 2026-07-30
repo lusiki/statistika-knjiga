@@ -1,9 +1,10 @@
 ---
 title: "Kategorički podaci"
+subtitle: "Od frekvencija u ćelijama do obrazaca povezanosti"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i widget dovršeni
   IZVOR:   tjedan 10, opsežan prijenos
   OPSEG:   ~4500 riječi
   WIDGET:  w13 · Očekivano i opaženo
@@ -19,8 +20,15 @@ title: "Kategorički podaci"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Očekivano i opaženo | UCBAdmissions | pogl. 4, 7, 10 |
+:::
 
 ::: {.callout-vinjeta}
 Berkeleyjski podaci mogu se zapisati kao tablica frekvencija. Redovi označuju
@@ -70,38 +78,218 @@ tablica može miješati odnose i različitu zastupljenost slojeva
 
 ## Interakcija — Očekivano i opaženo
 
-Planirani prikaz dopušta mijenjanje opaženih ćelija uz jednake rubne zbrojeve.
+Prikaz dopušta mijenjanje opaženih ćelija uz jednake rubne zbrojeve.
 Očekivane frekvencije ostaju referentna mreža, a doprinos svake ćelije ukupnoj
-statistici postaje vidljiv.
+statistici postaje vidljiv. Puni krug označuje opaženu frekvenciju, prazni romb
+očekivanu, a broj uz njih doprinos ćelije.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Očekivano i opaženo" data-oznaka="Widget 13.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w13_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w13 — Očekivano i opaženo. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w13_par = Inputs.form({
+  n: Inputs.range(
+    [10, 200],
+    {value: 80, step: 10, label: "Rubni zbroj svake skupine"}
+  ),
+  pomak: Inputs.range(
+    [-80, 80],
+    {value: 45, step: 5, label: "Pomak prema dijagonali u postocima"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+//| label: fig-w13
+//| fig-cap: "Opažene i očekivane frekvencije u tablici dva puta dva s jednakim rubnim zbrojevima."
+//| fig-alt: "Pri početnoj postavci dijagonalne ćelije imaju više, a preostale manje opažanja od očekivanih frekvencija. Svaka ćelija prikazuje svoj doprinos ukupnom odstupanju."
+{
+  const tinta = "var(--tok-ink)";
+  const ocekivano = "var(--tok-data-2)";
+  const povrsina = "var(--tok-surface)";
+  const linija = "var(--tok-rule)";
+  const sans = "var(--tok-font-sans)";
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+
+  const referenca = w13_par.n / 2;
+  const pomak = Math.round(referenca * w13_par.pomak / 100);
+  const celije = [
+    {celija: "A · da", opazeno: referenca + pomak},
+    {celija: "A · ne", opazeno: referenca - pomak},
+    {celija: "B · da", opazeno: referenca - pomak},
+    {celija: "B · ne", opazeno: referenca + pomak}
+  ].map(d => ({
+    ...d,
+    ocekivano: referenca,
+    doprinos: (d.opazeno - referenca) ** 2 / referenca
+  }));
+  const hiKvadrat = d3.sum(celije, d => d.doprinos);
+  const cramerV = Math.sqrt(hiKvadrat / (2 * w13_par.n));
+  const najveca = d3.max(celije, d => Math.max(d.opazeno, d.ocekivano));
+  const statusTekst =
+    `Hi-kvadrat statistika ${broj.format(hiKvadrat)} · ` +
+    `Cramérovo V ${broj.format(cramerV)}.`;
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirina = Math.max(200, Math.min(width, lokalnaSirina));
+
+  const graf = Plot.plot({
+    width: sirina,
+    height: sirina < 480 ? 400 : 360,
+    marginLeft: sirina < 480 ? 58 : 82,
+    marginRight: sirina < 480 ? 48 : 70,
+    marginBottom: 48,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: sans,
+      fontSize: "13px"
+    },
+    x: {
+      label: "Frekvencija",
+      domain: [0, Math.max(12, najveca * 1.42)],
+      grid: true,
+      ticks: sirina < 480 ? 4 : 6,
+      tickFormat: d => broj.format(d)
+    },
+    y: {label: null},
+    marks: [
+      Plot.ruleY(celije, {
+        y: "celija",
+        x1: "ocekivano",
+        x2: "opazeno",
+        stroke: linija,
+        strokeWidth: 2
+      }),
+      Plot.dot(celije, {
+        x: "ocekivano",
+        y: "celija",
+        symbol: "diamond",
+        fill: povrsina,
+        stroke: ocekivano,
+        strokeWidth: 2,
+        r: 6
+      }),
+      Plot.dot(celije, {
+        x: "opazeno",
+        y: "celija",
+        fill: tinta,
+        r: 5.5
+      }),
+      Plot.text(celije, {
+        x: d => Math.max(d.opazeno, d.ocekivano),
+        y: "celija",
+        text: d => broj.format(d.doprinos),
+        dx: sirina < 480 ? 10 : 14,
+        textAnchor: "start",
+        fill: tinta,
+        fontSize: "13px",
+        fontWeight: 600
+      })
+    ]
+  });
+
+  const okvir = document.createElement("div");
+  const sazetak = document.createElement("p");
+  sazetak.className = "ojs-collapsible-hint";
+  const status = document.createElement("span");
+  const kljuc = document.createElement("span");
+  status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  status.textContent = statusTekst;
+  kljuc.textContent =
+    " ◇ prazni romb = očekivano; ● puni krug = opaženo; " +
+    "broj = doprinos ćelije.";
+  sazetak.append(status, kljuc);
+  okvir.append(sazetak, graf);
+  return okvir;
+}
+```
+
 :::
+
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w13
-#| fig-cap: "Planirana usporedba opaženih i očekivanih frekvencija."
-#| fig-alt: "Mjesto za ćelije tablice s prikazom viška i manjka prema nezavisnosti."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w13 još nije izrađen") +
-  theme_void()
+#| cache: false
+#| label: fig-w13-print
+#| fig-cap: "Opažene i očekivane frekvencije pri trima odstupanjima uz jednake rubne zbrojeve."
+#| fig-alt: "U prvom panelu opažene i očekivane točke se podudaraju. U sljedeća dva panela udaljenost punih krugova od praznih rombova raste, a brojevi pokazuju doprinose ćelija."
+#| fig-width: 6.6
+#| fig-height: 5.2
+w13_stanja <- tibble(
+  stanje = factor(
+    c("Bez odstupanja", "Umjereno odstupanje", "Veće odstupanje"),
+    levels = c("Bez odstupanja", "Umjereno odstupanje", "Veće odstupanje")
+  ),
+  pomak = c(0, 18, 32)
+)
+
+w13_celije <- tidyr::crossing(
+  w13_stanja,
+  celija = factor(
+    c("A · da", "A · ne", "B · da", "B · ne"),
+    levels = rev(c("A · da", "A · ne", "B · da", "B · ne"))
+  )
+) |>
+  mutate(
+    ocekivano = 40,
+    dijagonala = celija %in% c("A · da", "B · ne"),
+    opazeno = if_else(dijagonala, ocekivano + pomak, ocekivano - pomak),
+    doprinos = (opazeno - ocekivano)^2 / ocekivano
+  )
+
+ggplot(w13_celije, aes(y = celija)) +
+  geom_segment(
+    aes(x = ocekivano, xend = opazeno, yend = celija),
+    colour = sivo[[4]],
+    linewidth = 0.8
+  ) +
+  geom_point(aes(x = ocekivano), shape = 5, size = 2.5, colour = sivo[[2]]) +
+  geom_point(aes(x = opazeno), shape = 16, size = 2.2, colour = sivo[[1]]) +
+  geom_text(
+    aes(
+      x = pmax(ocekivano, opazeno),
+      label = hr_broj(doprinos, 1)
+    ),
+    hjust = -0.25,
+    size = 3,
+    colour = sivo[[1]]
+  ) +
+  facet_wrap(~ stanje, ncol = 1) +
+  scale_x_continuous(limits = c(0, 86), labels = function(x) hr_broj(x, 0)) +
+  labs(
+    x = "Frekvencija",
+    y = NULL,
+    subtitle = "◇ prazni romb: očekivano · ● puni krug: opaženo · broj: doprinos ćelije"
+  ) +
+  theme_knjiga(base_size = 13)
 ```
 :::
 
 **Što isprobati.**
 
 1. Postavite opažene frekvencije jednake očekivanima.
-2. Premjestite opažanja između dviju ćelija uz iste rubne zbrojeve.
-3. Smanjite očekivane frekvencije i promatrajte granicu aproksimacije.
+2. Pomaknite opažanja u oba smjera i provjerite ostaju li rubni zbrojevi jednaki.
+3. Povećajte pomak i pratite doprinose ćelija te Cramérovo V.
+4. Smanjite rubni zbroj na deset i provjerite očekivane frekvencije.
+
+Udaljenost opaženoga od očekivanoga nosi testnu statistiku, ali položaj ćelije
+nosi tumačenje. Jedan zbirni rezultat zato nije dovoljan bez reziduala i mjere
+jačine veze.
 
 ::: {.callout-divljina}
 **Zbirna tablica upisa.** U Berkeleyjskim podacima zbirni ishod prijave i spol
@@ -141,13 +329,20 @@ tablicu ishoda prema spolu. Zatim uspoređuje opažene i očekivane frekvencije.
 
 ```{r}
 #| label: tbl-ucb-hi-kvadrat
-#| tbl-cap: "Opažene frekvencije i test nezavisnosti za zbirne podatke. Izrada autora prema @bickel1975."
+#| cache: false
+#| tbl-cap: "Opažene frekvencije u zbirnim podacima o prijavama. Izrada autora prema @bickel1975."
 
 ucb_tablica <- margin.table(UCBAdmissions, c(1, 2))
 ucb_test <- chisq.test(ucb_tablica)
 
-ucb_tablica |>
-  knitr::kable()
+ucb_prikaz <- tibble(
+  `Ishod prijave` = c("Primljeni", "Odbijeni"),
+  `Muškarci` = as.integer(ucb_tablica[, "Male"]),
+  `Žene` = as.integer(ucb_tablica[, "Female"])
+)
+
+ucb_prikaz |>
+  knitr::kable(align = c("l", "r", "r"))
 ```
 
 Test sažima neusklađenost zbirne tablice s nezavisnošću. Povratak odjelima

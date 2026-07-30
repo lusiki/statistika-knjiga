@@ -1,9 +1,10 @@
 ---
 title: "Veličina učinka i snaga"
+subtitle: "Koliki je učinak i koliko ga pouzdano vidimo"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i widget dovršeni
   IZVOR:   tjedan 9, druga polovica, prošireno
   OPSEG:   ~4000 riječi
   WIDGET:  w11 · Istraživač snage
@@ -18,8 +19,15 @@ title: "Veličina učinka i snaga"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Istraživač snage | simulacija | pogl. 9, 10 |
+:::
 
 ::: {.callout-vinjeta}
 Cohen je kritizirao praksu u kojoj je statistička značajnost zamjenjivala
@@ -71,26 +79,200 @@ Istraživač snage povezuje veličinu učinka, uzorak i prag. Čitatelj mijenja
 jedan element dok ostale drži jednakima i vidi da ista odluka ima različite
 posljedice za male i velike učinke.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Istraživač snage" data-oznaka="Widget 11.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w11_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w11 — Istraživač snage. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w11_par = Inputs.form({
+  ucinak: Inputs.range(
+    [0.1, 0.8],
+    {value: 0.35, step: 0.05, label: "Standardizirana razlika"}
+  ),
+  n: Inputs.range(
+    [10, 300],
+    {value: 80, step: 10, label: "Veličina svake skupine"}
+  ),
+  prag: Inputs.range(
+    [0.01, 0.10],
+    {value: 0.05, step: 0.01, label: "Prag odluke"}
+  ),
+  ponavljanja: Inputs.range(
+    [500, 3000],
+    {value: 1500, step: 500, label: "Ponavljanja po točki"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+//| label: fig-w11
+//| fig-cap: "Simulirana snaga kroz veličine uzorka u idealiziranom postupku s poznatom varijabilnošću."
+//| fig-alt: "Pri početnoj standardiziranoj razlici 0,35 krivulja snage raste s veličinom svake skupine, a označena je vrijednost za osamdeset jedinica."
+{
+  const tinta = "var(--tok-ink)";
+  const krivulja = "var(--tok-data-2)";
+  const naglasak = "var(--tok-accent-deep)";
+  const linija = "var(--tok-rule)";
+  const sans = "var(--tok-font-sans)";
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+  const postotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    maximumFractionDigits: 0
+  });
+
+  function erf(x) {
+    const predznak = x < 0 ? -1 : 1;
+    const z = Math.abs(x);
+    const t = 1 / (1 + 0.3275911 * z);
+    const y = 1 - (((((1.061405429 * t - 1.453152027) * t) +
+      1.421413741) * t - 0.284496736) * t + 0.254829592) *
+      t * Math.exp(-z * z);
+    return predznak * y;
+  }
+
+  const normalnaF = x => 0.5 * (1 + erf(x / Math.SQRT2));
+
+  function kvantilNormalne(p) {
+    let donja = -8;
+    let gornja = 8;
+    for (let i = 0; i < 60; i += 1) {
+      const sredina = (donja + gornja) / 2;
+      if (normalnaF(sredina) < p) donja = sredina;
+      else gornja = sredina;
+    }
+    return (donja + gornja) / 2;
+  }
+
+  const kriticna = kvantilNormalne(1 - w11_par.prag / 2);
+  const rng = d3.randomLcg(1111);
+  const standardna = d3.randomNormal.source(rng)(0, 1);
+  const krivuljaSnage = d3.range(10, 301, 10).map(n => {
+    const sredinaZ = w11_par.ucinak * Math.sqrt(n / 2);
+    let odbacivanja = 0;
+    for (let i = 0; i < w11_par.ponavljanja; i += 1) {
+      if (Math.abs(sredinaZ + standardna()) >= kriticna) odbacivanja += 1;
+    }
+    return {n, snaga: odbacivanja / w11_par.ponavljanja};
+  });
+  const odabrana = krivuljaSnage.find(d => d.n === w11_par.n);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirina = Math.max(200, Math.min(width, lokalnaSirina));
+  const usko = sirina < 480;
+
+  const graf = Plot.plot({
+    width: sirina,
+    height: usko ? 410 : 340,
+    marginLeft: usko ? 66 : 62,
+    marginRight: usko ? 16 : 24,
+    marginBottom: usko ? 54 : 48,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: sans,
+      fontSize: usko ? "14px" : "12px"
+    },
+    x: {
+      label: "Veličina svake skupine",
+      domain: [10, 300],
+      tickFormat: d => broj.format(d)
+    },
+    y: {
+      label: "Statistička snaga",
+      domain: [0, 1],
+      grid: true,
+      tickFormat: d => postotak.format(d)
+    },
+    marks: [
+      Plot.ruleY([0.8], {
+        stroke: linija,
+        strokeWidth: 1.2,
+        strokeDasharray: "4,3"
+      }),
+      Plot.lineY(krivuljaSnage, {
+        x: "n",
+        y: "snaga",
+        stroke: krivulja,
+        strokeWidth: 2
+      }),
+      Plot.dot([odabrana], {
+        x: "n",
+        y: "snaga",
+        fill: naglasak,
+        stroke: tinta,
+        r: 5
+      }),
+      Plot.ruleY([0], {stroke: linija})
+    ]
+  });
+
+  return html`<div>
+    ${graf}
+    <p class="widget-foot" role="status" aria-live="polite">Za n = ${w11_par.n} simulirana snaga iznosi ${postotak.format(odabrana.snaga)}.</p>
+  </div>`;
+}
+```
+
 :::
+
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w11
-#| fig-cap: "Planirana krivulja snage pri različitim učincima i uzorcima."
-#| fig-alt: "Mjesto za krivulje koje rastu s veličinom učinka i uzorka."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w11 još nije izrađen") +
-  theme_void()
+#| cache: false
+#| label: fig-w11-print
+#| fig-cap: "Simulirana snaga kroz veličine uzorka pri trima standardiziranim razlikama."
+#| fig-alt: "Tri rastuće krivulje pokazuju da veća stvarna razlika postiže jednaku snagu s manjim uzorkom."
+#| fig-width: 6.6
+#| fig-height: 4.8
+set.seed(1111)
+
+w11_snaga <- tidyr::crossing(
+  d = c(0.2, 0.4, 0.6),
+  n = seq(20, 300, by = 10)
+) |>
+  rowwise() |>
+  mutate(
+    snaga = mean(
+      abs(rnorm(2000, mean = d * sqrt(n / 2), sd = 1)) >= qnorm(0.975)
+    )
+  ) |>
+  ungroup() |>
+  mutate(
+    ucinak = factor(
+      d,
+      levels = c(0.2, 0.4, 0.6),
+      labels = c("d = 0,2", "d = 0,4", "d = 0,6")
+    )
+  )
+
+ggplot(w11_snaga, aes(n, snaga, colour = ucinak, linetype = ucinak)) +
+  geom_hline(yintercept = 0.8, colour = sivo[[4]], linetype = "dashed") +
+  geom_line(linewidth = 0.75) +
+  scale_color_sivo(name = "Standardizirana razlika") +
+  scale_linetype_manual(
+    name = "Standardizirana razlika",
+    values = c("solid", "22", "42")
+  ) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 0)) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
+  ) +
+  labs(x = "Veličina svake skupine", y = "Statistička snaga") +
+  theme_knjiga(base_size = 13) +
+  theme(legend.position = "bottom")
 ```
 :::
 
@@ -98,7 +280,12 @@ ggplot() +
 
 1. Zadržite učinak jednakim i povećavajte uzorak.
 2. Zadržite uzorak jednakim i smanjujte učinak.
-3. Usporedite snagu s očekivanom širinom intervala.
+3. Spustite prag odluke i provjerite koliko je jedinica potrebno za istu snagu.
+4. Povećajte broj ponavljanja i promatrajte koliko se krivulja zaglađuje.
+
+Krivulja pokazuje zašto snaga nije trajno svojstvo testa. Ona pripada
+određenoj kombinaciji učinka, uzorka, varijabilnosti i praga, pa se mora
+planirati za rezultat koji bi bio sadržajno važan.
 
 ::: {.callout-divljina}
 **Zemlja je okrugla.** Cohenov naslov sažima kritiku rituala u kojem poznata ili
@@ -137,11 +324,12 @@ jedinicama.
 Planiramo simuliranu usporedbu dviju neovisnih skupina. Ne polazimo od
 očekivanja da ćemo „dobiti značajnost", nego od standardizirane razlike koju bi
 imalo smisla pouzdano uočiti. Funkcija zatim pokazuje potreban broj jedinica po
-skupini.
+skupini [@cohen1988].
 
 ```{r}
 #| label: tbl-snaga-plan
-#| tbl-cap: "Planiranje uzorka za nekoliko simuliranih scenarija. Izrada autora prema @cohen1988."
+#| cache: false
+#| tbl-cap: "Planiranje uzorka za nekoliko simuliranih scenarija. Izrada autora."
 
 scenariji <- tibble(d = c(0.2, 0.4, 0.6)) |>
   rowwise() |>
@@ -154,6 +342,10 @@ scenariji <- tibble(d = c(0.2, 0.4, 0.6)) |>
   ungroup()
 
 scenariji |>
+  transmute(
+    `Cohenov d` = hr_broj(d, 1),
+    `Jedinica po skupini` = hr_broj(n_po_skupini, 0)
+  ) |>
   knitr::kable(align = c("r", "r"))
 ```
 

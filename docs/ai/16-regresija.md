@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Regresijski pravac | simulacija | pogl. 6, 14 i 15 |
 
 **Vinjeta.**
 Breiman je suprotstavio dvije kulture statističkog modeliranja. Jedna je
@@ -77,15 +81,21 @@ uzrok ili zajednički ishod.
 
 ## Interakcija — Regresijski pravac
 
-Regresijski pravac u planiranoj interakciji može se pomicati preko oblaka
-točaka. Svaki pomak mijenja reziduale i njihov kvadrat, dok drugi prediktor
-pokazuje kako se prilagođeni nagib razlikuje od zbirnog odnosa.
+Pomični pravac pretvara metodu najmanjih kvadrata u vidljiv kriterij. Svaka
+promjena nagiba ili odsječka mijenja duljine reziduala i njihov zbroj kvadrata,
+a uključivanje prethodnog interesa otkriva razliku između zbirnog i
+prilagođenog odnosa.
+
+*Slika. Regresijski pravac — pomični pravac, reziduali i usporedba zbirnog s prilagođenim nagibom.*
 
 **Što isprobati.**
 
-1. Pomaknite pravac i pronađite položaj s najmanjim kvadratima reziduala.
-2. Dodajte jedno utjecajno opažanje.
-3. Uključite drugi prediktor i usporedite zbirni s prilagođenim nagibom.
+1. Mijenjajte odsječak i nagib dok se zbroj kvadrata ne približi prikazanom
+   minimumu.
+2. Povećajte samo nagib za jednu jedinicu i pratite koji se reziduali najviše
+   produljuju.
+3. Uključite model s prethodnim interesom i usporedite njegov nagib sa zbirnim
+   pravcem.
 
 **Statistika u divljini.**
 **Dvije kulture modeliranja.** Breiman je opisao napetost između modela

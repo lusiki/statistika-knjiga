@@ -15,16 +15,25 @@
 .tjedan {
   display: grid;
   grid-template-columns: 4rem 1fr auto;
+  grid-template-areas: "broj tema status";
   gap: 1rem;
   align-items: baseline;
   padding: 0.9rem 0;
   border-bottom: 1px solid $tok-rule-soft;
 }
 @media (max-width: 700px) {
-  .tjedan { grid-template-columns: 3rem 1fr; }
+  .tjedan {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    grid-template-areas:
+      "broj tema"
+      ". status";
+    gap: 0.35rem 0.75rem;
+    align-items: start;
+  }
 }
 
 .tjedan .tj-broj {
+  grid-area: broj;
   font-family: $tok-font-mono;
   font-variant-numeric: tabular-nums lining-nums;
   font-size: 0.75rem;
@@ -32,12 +41,24 @@
   color: $tok-ink-faint;
 }
 .tjedan .tj-tema {
+  grid-area: tema;
+  min-width: 0;
   font-family: $tok-font-serif;
   font-size: 1rem;
   color: $tok-ink;
 }
 .tjedan .tj-tema a { text-decoration: none; }
 .tjedan .tj-tema a:hover { text-decoration: underline; }
+.tjedan .tj-status {
+  grid-area: status;
+  justify-self: end;
+}
+.tjedan .tj-broj > p,
+.tjedan .tj-tema > p,
+.tjedan .tj-status > p { margin: 0; }
+@media (max-width: 700px) {
+  .tjedan .tj-status { justify-self: start; }
+}
 
 // --- oznake statusa --------------------------------------------------
 // Bez druge boje: prazno → isprekidano → puno.
@@ -81,4 +102,10 @@
   letter-spacing: normal;
   text-transform: none;
   margin-top: 0.3rem;
+}
+@media (max-width: 700px) {
+  .silabus-meta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem 1rem;
+  }
 }

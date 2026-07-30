@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/18-vase-prvo-istrazivanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | bez widgeta | simulacija | pogl. 2, 5 i 16 |
 
 **Vinjeta.**
 Na kraju kolegija istraživački tim ima rok, zanimljivo pitanje i datoteku koja
@@ -72,10 +76,14 @@ informativnom sadržaju i rezultata na kratkom testu znanja. Simulacija nam
 omogućuje prikaz cijelog postupka bez izmišljanja empirijskog nalaza o stvarnim
 studentima.
 
+### Pitanje i jedinica analize
+
 Najprije zapisujemo pitanje. Zanima nas opisna povezanost dviju varijabli u
 simuliranom uzorku, ne uzročni učinak. Jedinica analize je osoba, a ishod
 rezultat testa. Dodatno bilježimo prethodni interes jer može biti povezan i s
 izloženošću i sa znanjem.
+
+### Simulacija i provjera podataka
 
 Prije modela pregledavamo nedostajuće vrijednosti, raspodjele i moguće
 nemoguće vrijednosti. Simulacija nema nedostajuće podatke, ali kod za provjeru
@@ -83,17 +91,25 @@ ostaje dio analize jer stvarna datoteka gotovo nikada nije tako uredna.
 
 *Slika. Opis simuliranih varijabli prvog istraživanja. Izrada autora.*
 
+### Graf prije modela
+
 Graf prethodi modelu jer moramo vidjeti linearnost, krajnja opažanja i
 raspršenost. Ne tumačimo nagib prije nego što provjerimo odgovara li pravac
 obliku podataka.
 
-*Slika. Izloženost i znanje u simuliranom istraživanju. Izrada autora.*
+Sljedeća slika prikazuje rezultat te provjere za simulirani uzorak.
+
+Izloženost i znanje u simuliranom istraživanju. Izrada autora.
+
+### Zbirni i prilagođeni model
 
 Jednostavni model opisuje zbirni odnos. Prilagođeni model dodaje prethodni
 interes i pokazuje kako se koeficijent mijenja kada uspoređujemo osobe s
 jednakim simuliranim interesom.
 
 *Slika. Koeficijent izloženosti u dvama simuliranim modelima. Izrada autora.*
+
+### Ograničeni zaključak i trag odluka
 
 Zaključak pišemo skromno. U simuliranom uzorku veća izloženost povezana je s
 višim rezultatom, a dio zbirne povezanosti dijeli se s prethodnim interesom.

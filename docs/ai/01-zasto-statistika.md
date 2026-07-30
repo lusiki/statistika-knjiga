@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 8 min | Simpsonov paradoks | UCBAdmissions | bez preduvjeta |
 
 **Vinjeta.**
 Podaci o upisima na Sveučilište Kalifornije u Berkeleyju 1973. godine otvorili
@@ -119,10 +123,13 @@ napravili.
 
 ## Interakcija — Simpsonov paradoks
 
-Interaktivni prikaz rastavlja jednu zbirnu stopu na dvije podskupine. Brojevi
-opažanja ostaju isti, ali prebacivanje između združenog i razdvojenog pogleda
-mijenja usporedbu koju vidimo. Time postaje vidljivo kako sastav skupina može
-proizvesti zbirni rezultat suprotan obrascu unutar svake od njih.
+Interaktivni prikaz gradi transparentan primjer s dvjema skupinama i dvjema
+podskupinama. Stope unutar podskupina ostaju jednake, dok klizači mijenjaju
+njihovu zastupljenost u svakoj skupini. Prebacivanje pogleda pokazuje kako
+različiti utezi mogu proizvesti zbirni rezultat suprotan obrascu unutar obje
+podskupine.
+
+*Slika. Zbirne stope i stope po podskupinama u konstruiranom primjeru Simpsonova paradoksa.*
 
 **Što isprobati.**
 
@@ -189,7 +196,7 @@ uspoređujemo. Stope sada računamo zasebno u svakom odjelu, čime kandidati iz
 selektivnog odjela više ne utječu izravno na usporedbu kandidata u odjelu s
 višom prolaznošću.
 
-*Slika. Stope prijma prema odjelu i spolu. Izrada autora prema @bickel1975.*
+Stope prijma prema odjelu i spolu. Izrada autora prema bickel1975.
 
 Stope po odjelima više ne podržavaju jednostavnu priču prema kojoj se isti jaz
 ponavlja posvuda. U četiri od šest odjela stopa za žene barem je jednaka stopi

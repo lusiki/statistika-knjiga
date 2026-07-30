@@ -1,9 +1,10 @@
 ---
 title: "Procjena"
+subtitle: "Interval pokazuje koliko je procjena precizna"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i dovršen widget
   IZVOR:   tjedan 8, druga polovica, iznova izgrađeno
   OPSEG:   ~4000 riječi
   WIDGET:  w09 · Hvatač intervala
@@ -19,8 +20,15 @@ title: "Procjena"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Hvatač intervala | simulacija | pogl. 8 |
+:::
 
 ::: {.callout-vinjeta}
 Cumming je zagovarao izvještavanje procjena i intervala kao središte
@@ -68,36 +76,229 @@ premalen da zabilježi važan dio raspodjele, resampling ponavlja tu prazninu.
 
 Hvatač intervala prikazuje niz ponovljenih uzoraka i njihove intervale oko iste
 populacijske vrijednosti. Većina je hvata, a neki je promašuju. Tek niz
-intervala čini značenje razine pouzdanosti vidljivim.
+intervala čini značenje razine pouzdanosti vidljivim. Simulacija koristi
+normalnu populaciju poznate standardne devijacije kako bi odvojila logiku
+obuhvata od procjene same standardne devijacije.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Hvatač intervala" data-oznaka="Widget 09.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w09_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w09 — Hvatač intervala. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w09_par = Inputs.form({
+  n: Inputs.range(
+    [10, 200],
+    {value: 40, step: 5, label: "Veličina uzorka"}
+  ),
+  razina: Inputs.select(
+    ["90 %", "95 %", "99 %"],
+    {value: "95 %", label: "Razina pouzdanosti"}
+  ),
+  k: Inputs.select(
+    [20, 50, 100],
+    {value: 50, label: "Broj intervala"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+w09_intervali = {
+  const rng = d3.randomLcg(908);
+  const normalna = d3.randomNormal.source(rng)(0, 1);
+  const kriticna = {
+    "90 %": 1.645,
+    "95 %": 1.960,
+    "99 %": 2.576
+  }[w09_par.razina];
+  const pogreska = 1 / Math.sqrt(w09_par.n);
+
+  return Array.from({length: w09_par.k}, (_, i) => {
+    let zbroj = 0;
+    for (let j = 0; j < w09_par.n; j += 1) zbroj += normalna();
+    const procjena = zbroj / w09_par.n;
+    const donja = procjena - kriticna * pogreska;
+    const gornja = procjena + kriticna * pogreska;
+    return {
+      red: i + 1,
+      procjena,
+      donja,
+      gornja,
+      obuhvaca: donja <= 0 && gornja >= 0
+    };
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w09
+//| fig-cap: "Intervali iz ponovljenih simuliranih uzoraka oko fiksne populacijske sredine. Istaknuti intervali promašuju okomitu ciljnu crtu."
+//| fig-alt: "Pedeset vodoravnih intervala uglavnom presijeca okomitu crtu na nuli, dok je nekoliko intervala u cijelosti s jedne strane crte."
+{
+  const tinta = "var(--tok-ink)";
+  const prigusena = "var(--tok-ink-mute)";
+  const naglasak = "var(--tok-accent)";
+  const obuhvaceni = w09_intervali.filter(d => d.obuhvaca);
+  const promasaji = w09_intervali.filter(d => !d.obuhvaca);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(280, Math.min(width, lokalnaSirina));
+  const mobilno = sirinaGrafa < 480;
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: mobilno
+      ? Math.max(500, Math.min(780, 170 + w09_par.k * 6))
+      : Math.max(460, Math.min(740, 145 + w09_par.k * 5.8)),
+    marginLeft: mobilno ? 28 : 24,
+    marginRight: 20,
+    marginBottom: mobilno ? 62 : 54,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: mobilno ? "15px" : "13px"
+    },
+    x: {
+      label: "Interval procjene",
+      domain: [-1.8, 1.8],
+      nice: false,
+      grid: true
+    },
+    y: {axis: null, reverse: true},
+    marks: [
+      Plot.ruleX([0], {
+        stroke: tinta,
+        strokeWidth: 1.4
+      }),
+      Plot.ruleY(obuhvaceni, {
+        y: "red",
+        x1: "donja",
+        x2: "gornja",
+        stroke: prigusena,
+        strokeWidth: 1.2
+      }),
+      Plot.ruleY(promasaji, {
+        y: "red",
+        x1: "donja",
+        x2: "gornja",
+        stroke: naglasak,
+        strokeWidth: 2.4
+      }),
+      Plot.dot(obuhvaceni, {
+        x: "procjena",
+        y: "red",
+        fill: tinta,
+        r: 2.6
+      }),
+      Plot.dot(promasaji, {
+        x: "procjena",
+        y: "red",
+        fill: naglasak,
+        r: 2.6
+      }),
+      Plot.text(promasaji, {
+        x: "procjena",
+        y: "red",
+        text: () => "×",
+        fill: naglasak,
+        fontSize: mobilno ? 15 : 13,
+        dy: 1
+      })
+    ]
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const obuhvaceni = d3.sum(w09_intervali, d => d.obuhvaca ? 1 : 0);
+  const udio = (100 * obuhvaceni / w09_intervali.length).toLocaleString(
+    "hr-HR",
+    {minimumFractionDigits: 1, maximumFractionDigits: 1}
+  );
+  return html`<p class="widget-foot" role="status" aria-live="polite">Cilj obuhvaća ${obuhvaceni} od ${w09_intervali.length} intervala, odnosno ${udio} %.</p>`;
+}
+```
+
 :::
 
+::::
+
 ::: {.content-visible when-format="pdf"}
+
 ```{r}
 #| echo: false
-#| label: fig-w09
-#| fig-cap: "Planirani niz intervala oko jedne populacijske vrijednosti."
-#| fig-alt: "Mjesto za mnoge vodoravne intervale, od kojih nekoliko promašuje istu okomitu crtu."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w09 još nije izrađen") +
-  theme_void()
+#| label: fig-w09-print
+#| fig-cap: "Pedeset intervala iz ponovljenih simuliranih uzoraka i fiksna populacijska sredina. Križići označuju intervale koji promašuju cilj."
+#| fig-alt: "Pedeset vodoravnih intervala većinom presijeca okomitu crtu na nuli, a intervali koji je ne presijecaju označeni su križićem."
+#| fig-width: 6.6
+#| fig-height: 6.8
+set.seed(909)
+
+w09_tisak <- tibble(
+  red = 1:50,
+  procjena = replicate(50, mean(rnorm(40))),
+  pogreska = 1 / sqrt(40)
+) |>
+  mutate(
+    donja = procjena - 1.96 * pogreska,
+    gornja = procjena + 1.96 * pogreska,
+    ishod = if_else(
+      donja <= 0 & gornja >= 0,
+      "Obuhvaća",
+      "Promašuje"
+    ),
+    ishod = factor(ishod, levels = c("Obuhvaća", "Promašuje"))
+  )
+
+ggplot(
+  w09_tisak,
+  aes(y = red, colour = ishod, shape = ishod)
+) +
+  geom_vline(
+    xintercept = 0,
+    colour = tok_boja("ink"),
+    linewidth = 0.5
+  ) +
+  geom_segment(
+    aes(x = donja, xend = gornja, yend = red),
+    linewidth = 0.65
+  ) +
+  geom_point(aes(x = procjena), size = 1.8) +
+  skala_naglasak(
+    "Promašuje",
+    razine = levels(w09_tisak$ishod),
+    tip = "colour"
+  ) +
+  scale_shape_manual(values = c(16, 4)) +
+  scale_y_reverse(breaks = NULL) +
+  scale_x_continuous(
+    limits = c(-1.8, 1.8),
+    breaks = seq(-1.5, 1.5, by = 0.5),
+    labels = hr_broj,
+    expand = expansion(mult = 0)
+  ) +
+  labs(x = "Interval procjene", y = NULL) +
+  theme_knjiga(base_size = 13, mreza = "x")
 ```
+
 :::
 
 **Što isprobati.**
 
-1. Generirajte jedan interval i zabilježite obuhvaća li cilj.
-2. Povećajte broj ponavljanja bez promjene postupka.
-3. Usporedite preciznost pri različitim veličinama uzorka.
+1. Zadržite pedeset intervala i prebrojite one koji ne sijeku okomitu ciljnu crtu.
+2. Povećajte broj intervala na sto bez promjene veličine uzorka ili razine pouzdanosti.
+3. Usporedite širinu intervala pri uzorcima veličine dvadeset i sto.
+4. Promijenite razinu pouzdanosti s devedeset na devedeset i devet posto te opišite odnos širine i obuhvata.
 
 ::: {.callout-divljina}
 **Procjena prije odluke.** Pristup „novih statistika" stavlja veličinu učinka,
@@ -152,12 +353,29 @@ boot_medijani <- replicate(
   median(sample(sim_povjerenje$ocjena, replace = TRUE))
 )
 
-tibble(
-  procjena = median(sim_povjerenje$ocjena),
-  donja = quantile(boot_medijani, 0.025),
-  gornja = quantile(boot_medijani, 0.975)
-) |>
-  knitr::kable(digits = 1)
+w09_tablica <- tibble(
+  `Procjena medijana` = hr_broj(median(sim_povjerenje$ocjena), 1),
+  `Donja granica` = hr_broj(quantile(boot_medijani, 0.025), 1),
+  `Gornja granica` = hr_broj(quantile(boot_medijani, 0.975), 1)
+)
+
+if (knitr::is_html_output()) {
+  knitr::kable(
+    w09_tablica,
+    format = "html",
+    align = c("r", "r", "r"),
+    table.attr = paste(
+      'class="table table-sm"',
+      'data-quarto-disable-processing="true"'
+    )
+  )
+} else {
+  knitr::kable(
+    w09_tablica,
+    format = "pipe",
+    align = c("r", "r", "r")
+  )
+}
 ```
 
 Tablica je rezultat simuliranog nastavnog primjera, a ne nalaz o stvarnom

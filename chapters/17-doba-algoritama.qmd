@@ -1,9 +1,10 @@
 ---
 title: "Statistika u doba algoritama"
+subtitle: "Kako predviđanja postaju društvene odluke"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — prošireni argument, bez widgeta
+  STATUS:  djelomični nacrt — prošireni argument i dovršen widget
   IZVOR:   novo poglavlje
   OPSEG:   ~5500 riječi
   WIDGET:  w17 · Istraživač pravednosti
@@ -19,8 +20,15 @@ title: "Statistika u doba algoritama"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Istraživač pravednosti | simulacija | pogl. 7 i 16 |
+:::
 
 ::: {.callout-vinjeta}
 Chouldechova je analizirala instrumente za predviđanje povratka u kriminal i
@@ -98,38 +106,243 @@ podrijetla samo je predikcija koja zvuči kao znanje.
 ## Interakcija — Istraživač pravednosti
 
 Istraživač pravednosti mijenja klasifikacijski prag za dvije skupine s
-različitim temeljnim stopama. Uz isti model čitatelj promatra kako se točnost,
-lažno pozitivne i lažno negativne odluke te prediktivna vrijednost ne kreću
-zajedno.
+različitim temeljnim stopama, ali jednakom kvalitetom rezultata uvjetno na
+stvarni ishod. Tako se vidi kako zajednički prag može izjednačiti neke stope
+pogreške, a ipak proizvesti različitu prediktivnu vrijednost i točnost.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Istraživač pravednosti" data-oznaka="Widget 17.1 · interaktivno"}
 ```{ojs}
 //| echo: false
-// viewof w17_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w17 — Istraživač pravednosti. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w17_par = Inputs.form({
+  prag: Inputs.range([0.2, 0.8], {
+    value: 0.6, step: 0.05, label: "Zajednički klasifikacijski prag:"
+  }),
+  temeljna_a: Inputs.range([0.1, 0.6], {
+    value: 0.2, step: 0.05, label: "Temeljna stopa skupine A:"
+  }),
+  temeljna_b: Inputs.range([0.1, 0.6], {
+    value: 0.45, step: 0.05, label: "Temeljna stopa skupine B:"
+  })
+})
+```
+
+[Rezultat se učitava.]{#w17-status .visually-hidden role="status" aria-live="polite"}
+
+```{ojs}
+//| echo: false
+//| label: fig-w17
+//| fig-cap: "Istraživač pravednosti — četiri mjerila po skupini pri zajedničkom klasifikacijskom pragu."
+//| fig-alt: "Pri pragu 0,60 i temeljnim stopama 20 i 45 posto dvije skupine imaju jednake stope lažno pozitivnih i lažno negativnih odluka, ali različitu prediktivnu vrijednost i točnost."
+{
+  const tinta = "var(--widget-ink)";
+  const pravilo = "var(--widget-grid)";
+  const bojaA = "var(--widget-ink)";
+  const bojaB = "var(--widget-ink-secondary)";
+  const formatPostotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    maximumFractionDigits: 0
+  });
+  const rng = d3.randomLcg(1717);
+  const normalna = d3.randomNormal.source(rng)(0, 1);
+  const ograniči = x => Math.max(0, Math.min(1, x));
+  const negativni = Array.from(
+    {length: 6000},
+    () => ograniči(0.30 + 0.18 * normalna())
+  );
+  const pozitivni = Array.from(
+    {length: 6000},
+    () => ograniči(0.70 + 0.18 * normalna())
+  );
+  const fpr = d3.mean(negativni, d => d >= w17_par.prag);
+  const fnr = d3.mean(pozitivni, d => d < w17_par.prag);
+  const tpr = 1 - fnr;
+  const tnr = 1 - fpr;
+  const celija =
+    document.getElementById("fig-w17")?.closest(".cell") ??
+    document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      (parseFloat(stilCelije.paddingLeft) || 0) -
+      (parseFloat(stilCelije.paddingRight) || 0)
+    : width;
+  const sirinaGrafa = Math.max(
+    1,
+    Math.floor(Math.min(width, lokalnaSirina))
+  );
+  const mobilno = sirinaGrafa < 480;
+  const vrloUsko = sirinaGrafa < 330;
+  const skupine = mobilno
+    ? ["A", "B"]
+    : ["Skupina A", "Skupina B"];
+  const redoslijedMetrika = [
+    mobilno ? "Lažno +" : "Lažno pozitivni",
+    mobilno ? "Lažno −" : "Lažno negativni",
+    vrloUsko
+      ? "Pred. vr."
+      : "Pred. vrijednost",
+    "Točnost"
+  ];
+
+  const mjerila = (skupina, temeljna) => {
+    const pozitivnaPrediktivna =
+      temeljna * tpr /
+      (temeljna * tpr + (1 - temeljna) * fpr);
+    const tocnost = temeljna * tpr + (1 - temeljna) * tnr;
+    return [
+      {skupina, metrika: redoslijedMetrika[0], stopa: fpr},
+      {skupina, metrika: redoslijedMetrika[1], stopa: fnr},
+      {
+        skupina,
+        metrika: redoslijedMetrika[2],
+        stopa: pozitivnaPrediktivna
+      },
+      {skupina, metrika: redoslijedMetrika[3], stopa: tocnost}
+    ];
+  };
+  const redoviA = mjerila(skupine[0], w17_par.temeljna_a);
+  const redoviB = mjerila(skupine[1], w17_par.temeljna_b);
+  const redovi = [...redoviA, ...redoviB];
+  const vanjskeOznake = redovi;
+  const sazetakTekst =
+    `Prag ${formatPostotak.format(w17_par.prag)}. ` +
+    `Skupina A: prediktivna vrijednost ${formatPostotak.format(redoviA[2].stopa)}, ` +
+    `točnost ${formatPostotak.format(redoviA[3].stopa)}; ` +
+    `skupina B: prediktivna vrijednost ${formatPostotak.format(redoviB[2].stopa)}, ` +
+    `točnost ${formatPostotak.format(redoviB[3].stopa)}.`;
+
+  const graf = Plot.plot({
+    width: sirinaGrafa,
+    height: mobilno ? 500 : 480,
+    marginTop: mobilno ? 34 : 40,
+    marginRight: mobilno ? 44 : 80,
+    marginBottom: mobilno ? 52 : 46,
+    marginLeft: vrloUsko ? 86 : 140,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: mobilno ? "14px" : "13px"
+    },
+    x: {
+      label: "Stopa",
+      domain: [0, 1],
+      grid: true,
+      tickFormat: d => `${Math.round(d * 100)} %`
+    },
+    y: {
+      label: null,
+      domain: redoslijedMetrika
+    },
+    fy: {
+      label: null,
+      domain: skupine
+    },
+    color: {
+      domain: skupine,
+      range: [bojaA, bojaB],
+      legend: false
+    },
+    marks: [
+      Plot.barX(redovi, {
+        x: "stopa",
+        y: "metrika",
+        fy: "skupina",
+        fill: "skupina",
+        insetTop: 3,
+        insetBottom: 3
+      }),
+      Plot.text(vanjskeOznake, {
+        x: "stopa",
+        y: "metrika",
+        fy: "skupina",
+        text: d => formatPostotak.format(d.stopa),
+        dx: 5,
+        textAnchor: "start",
+        fill: tinta
+      }),
+      Plot.ruleX([0], {stroke: pravilo})
+    ]
+  });
+  const ziviSazetak = document.getElementById("w17-status");
+  if (ziviSazetak) ziviSazetak.textContent = sazetakTekst;
+  return graf;
+}
 ```
 :::
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w17
-#| fig-cap: "Planirani učinci klasifikacijskog praga na dvije skupine."
-#| fig-alt: "Mjesto za stope pogrešaka dviju skupina koje se mijenjaju s pragom."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w17 još nije izrađen") +
-  theme_void()
+#| label: fig-w17-print
+#| fig-cap: "Istraživač pravednosti — jednake uvjetne stope pogreške ne daju jednaku prediktivnu vrijednost kada se temeljne stope razlikuju."
+#| fig-alt: "Pri zajedničkom pragu 0,60 dva okomito složena prikaza uspoređuju četiri stope u skupinama s temeljnim stopama 20 i 45 posto. Stope lažno pozitivnih i lažno negativnih odluka jednake su, dok se prediktivna vrijednost i točnost razlikuju."
+#| fig-height: 5.8
+#| fig-bg: transparent
+set.seed(1717)
+
+negativni_w17 <- pmin(pmax(rnorm(6000, 0.30, 0.18), 0), 1)
+pozitivni_w17 <- pmin(pmax(rnorm(6000, 0.70, 0.18), 0), 1)
+prag_w17 <- 0.60
+fpr_w17 <- mean(negativni_w17 >= prag_w17)
+fnr_w17 <- mean(pozitivni_w17 < prag_w17)
+tpr_w17 <- 1 - fnr_w17
+tnr_w17 <- 1 - fpr_w17
+
+mjerila_w17 <- function(skupina, temeljna) {
+  tibble(
+    skupina = skupina,
+    metrika = factor(
+      c(
+        "Lažno pozitivni",
+        "Lažno negativni",
+        "Pozitivna prediktivna vrijednost",
+        "Točnost"
+      ),
+      levels = c(
+        "Lažno pozitivni",
+        "Lažno negativni",
+        "Pozitivna prediktivna vrijednost",
+        "Točnost"
+      )
+    ),
+    stopa = c(
+      fpr_w17,
+      fnr_w17,
+      temeljna * tpr_w17 /
+        (temeljna * tpr_w17 + (1 - temeljna) * fpr_w17),
+      temeljna * tpr_w17 + (1 - temeljna) * tnr_w17
+    )
+  )
+}
+
+prikaz_w17 <- bind_rows(
+  mjerila_w17("Skupina A · temeljna stopa 20 %", 0.20),
+  mjerila_w17("Skupina B · temeljna stopa 45 %", 0.45)
+)
+
+ggplot(prikaz_w17, aes(stopa, metrika, fill = skupina)) +
+  geom_col(width = 0.68, show.legend = FALSE) +
+  facet_wrap(~skupina, ncol = 1) +
+  scale_fill_sivo() +
+  scale_x_continuous(
+    limits = c(0, 1),
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
+  ) +
+  labs(x = "Stopa", y = NULL) +
+  theme_knjiga(mreza = "x")
 ```
 :::
 
 **Što isprobati.**
 
-1. Primijenite isti prag na skupine s jednakim temeljnim stopama.
-2. Promijenite temeljnu stopu jedne skupine.
-3. Pokušajte istodobno izjednačiti više mjerila pravednosti.
+1. Postavite obje temeljne stope na 20 % i usporedite sva četiri mjerila.
+2. Vratite skupinu B na 45 % te pronađite mjerila koja se razilaze iako je
+   prag zajednički.
+3. Pomaknite prag prema 0,30 pa prema 0,70 i provjerite može li jedno
+   podešenje istodobno smanjiti obje vrste pogreške.
 
 ::: {.callout-divljina}
 **Jednaka ocjena, različite pogreške.** Analiza instrumenata za procjenu rizika
@@ -183,7 +396,7 @@ sim_klasifikacija <- bind_rows(
     odluka = rezultat >= 0.50
   )
 
-sim_klasifikacija |>
+sazetak_pravednosti <- sim_klasifikacija |>
   group_by(skupina) |>
   summarise(
     temeljna_stopa = mean(ishod == 1),
@@ -191,8 +404,40 @@ sim_klasifikacija |>
     lazno_negativni = mean(!odluka[ishod == 1]),
     tocnost = mean(odluka == (ishod == 1)),
     .groups = "drop"
+  )
+
+redoslijed_mjera <- c(
+  "Temeljna stopa",
+  "Lažno pozitivni",
+  "Lažno negativni",
+  "Točnost"
+)
+
+sazetak_pravednosti |>
+  pivot_longer(
+    -skupina,
+    names_to = "mjera",
+    values_to = "vrijednost"
   ) |>
-  knitr::kable(digits = 2)
+  mutate(
+    Mjera = recode(
+      mjera,
+      temeljna_stopa = "Temeljna stopa",
+      lazno_pozitivni = "Lažno pozitivni",
+      lazno_negativni = "Lažno negativni",
+      tocnost = "Točnost"
+    ),
+    Mjera = factor(Mjera, levels = redoslijed_mjera),
+    Skupina = paste("Skupina", skupina),
+    Vrijednost = paste0(
+      formatC(100 * vrijednost, format = "f", digits = 1, decimal.mark = ","),
+      " %"
+    )
+  ) |>
+  select(Mjera, Skupina, Vrijednost) |>
+  pivot_wider(names_from = Skupina, values_from = Vrijednost) |>
+  arrange(Mjera) |>
+  knitr::kable(align = c("l", "r", "r"))
 ```
 
 Tablica pokazuje da jedno mjerilo ne opisuje cijelu raspodjelu odluka.

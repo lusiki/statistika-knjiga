@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Uzorkivač dviju grupa | simulacija | pogl. 4, 9–11 |
 
 **Vinjeta.**
 Cumming je usporedbu skupina smjestio u okvir procjene razlike i njezina
@@ -54,13 +58,21 @@ interval, zatim test i standardiziranu veličinu učinka.
 
 Uzorkivač dviju grupa prikazuje preklapanje pojedinačnih rezultata i
 raspodjelu procijenjene razlike kroz ponavljanja. Čitatelj odvojeno mijenja
-stvarnu razliku, varijabilnost i veličinu uzorka.
+stvarnu razliku, varijabilnost i veličinu uzorka. Uparena simulacija zadržava
+fiksnu pozitivnu povezanost dvaju mjerenja iste jedinice.
+
+*Slika. Jedan simulirani uzorak dviju skupina i raspodjela procijenjene razlike kroz ponovljene uzorke.*
 
 **Što isprobati.**
 
 1. Povećajte razliku uz jednaku varijabilnost.
 2. Povećajte varijabilnost uz jednaku razliku.
-3. Pretvorite neovisni dizajn u upareni i promatrajte što se računa.
+3. Povećajte uzorak bez promjene razlike i varijabilnosti.
+4. Pretvorite neovisni dizajn u upareni i usporedite raspodjelu procjena.
+
+Preklapanje pojedinačnih ishoda i preciznost procijenjene razlike nisu ista
+stvar. Uparivanje povećava preciznost samo kada analiza sačuva vezu između
+dvaju mjerenja iste jedinice.
 
 **Statistika u divljini.**
 **Interval umjesto etikete.** Pristup usmjeren na procjenu traži razliku i

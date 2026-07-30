@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Oblikovanje distribucije | simulacija | pogl. 1 do 3 |
 
 **Vinjeta.**
 Tukey je istraživačku analizu podataka postavio kao postupak u kojem sažetak
@@ -59,15 +63,19 @@ govoriti o razmjernim, a ne apsolutnim razlikama.
 
 ## Interakcija — Oblikovanje distribucije
 
-Planirani oblikovatelj raspodjele dopušta pomicanje pojedinačnih točaka i
-odmah pokazuje reakciju sredine, medijana i mjera raspršenosti. Tako postaje
-vidljivo koje mjere slušaju svako opažanje, a koje prvenstveno čuvaju redoslijed.
+Oblikovatelj raspodjele pomiče jedno krajnje opažanje i širi preostalih devet
+oko njihova zajedničkog središta. Sredina, medijan i dvije mjere raspršenosti
+mijenjaju se pred čitateljem. Tako postaje vidljivo koje mjere slušaju svaku
+vrijednost, a koje prvenstveno čuvaju redoslijed.
+
+*Slika. Reakcija mjera središta i raspršenosti na oblik konstruirane raspodjele.*
 
 **Što isprobati.**
 
-1. Pomaknite jednu središnju točku i usporedite sredinu s medijanom.
-2. Udaljite jednu krajnju točku bez mijenjanja redoslijeda.
-3. Oblikujte dvije raspodjele iste sredine, ali različite raspršenosti.
+1. Spustite krajnje opažanje sa 70 na 14 i usporedite sredinu s medijanom.
+2. Vratite ga na 70 i provjerite koja se mjera središta više pomaknula.
+3. Postavite krajnje opažanje na 11 pa povećajte faktor raspršenosti i
+   usporedite dvije raspodjele iste sredine.
 
 **Statistika u divljini.**
 **Prosjek kao početak pregleda.** Tukey je zagovarao istraživački pristup u

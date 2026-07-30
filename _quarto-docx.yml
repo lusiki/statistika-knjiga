@@ -3,12 +3,9 @@
 #   (NE golim `quarto render --profile docx`)
 # Izlaz: word/Statistika.docx
 #
-# Zrcali PDF profil. Nadjačava _quarto.yml; HTML build je netaknut. Kao i kod
-# PDF-a, skripta privremeno skrati blok dodataka u _quarto.yml (Quarto spaja
-# `book.appendices` aditivno) i renderira s `--to docx`, pa u word/ ne curi HTML.
-#
-# Samostalne stranice (pojmovnik, interakcije, podaci …) su web-only i ne
-# prevode se u Word, pa rukopis nosi samo literaturu i dodatke A–F.
+# Zrcali PDF profil. Nadjačava _quarto.yml; HTML build je netaknut. Literatura
+# je u kanonskom `book.references`, a `book.appendices` već sadržava samo
+# dodatke A–F, pa se struktura knjige ne prepisuje tijekom rendera.
 
 project:
   output-dir: word

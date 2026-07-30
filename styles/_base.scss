@@ -57,6 +57,23 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+// Desni stupac podnožja služi kao Quarto render-dependency za samostalne
+// hubove. `visibility` ga uklanja iz fokusa i stabla pristupačnosti, ali čuva
+// treći stupac pa autorska oznaka ostaje geometrijski centrirana.
+.nav-footer-right {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+// Na telefonu su lijevi i desni stupac samo praznina odnosno skriveni
+// render-dependency. Njihovi grid-redci ne smiju produljiti podnožje.
+@media (max-width: 600px) {
+  .nav-footer-left,
+  .nav-footer-right {
+    display: none;
+  }
+}
+
 ::selection { background: $tok-accent-wash; color: $tok-ink; }
 
 main p,
@@ -167,6 +184,14 @@ h4, h5, h6 {
   }
 }
 
+// HTML filter izvodi broj iz kanonske izlazne putanje `chapters/NN-*.html` i umeće
+// oznaku neposredno prije naslova, bez dupliciranja teksta u 18 izvora.
+#title-block-header .chapter-kicker {
+  display: flex;
+  width: max-content;
+  margin-bottom: 1rem;
+}
+
 // Tracked-caps natpis bez crtice, za pločice i zaglavlja stranica.
 .section-label {
   font-family: $tok-font-mono;
@@ -190,9 +215,13 @@ h4, h5, h6 {
   color: $tok-ink-soft;
 }
 .chapter-meta__row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2.5rem;
+}
+.chapter-meta__row > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .chapter-meta__key {
   color: $tok-ink-faint;
@@ -201,6 +230,23 @@ h4, h5, h6 {
 .chapter-meta table { border: 0; margin: 0; }
 .chapter-meta table thead th { border: 0; }
 .chapter-meta table tbody td { border: 0; }
+
+@media (max-width: 600px) {
+  .chapter-meta__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+  }
+
+  .chapter-meta__row > div {
+    line-height: 1.45;
+  }
+
+  .chapter-meta__key {
+    display: block;
+    margin: 0 0 0.2rem;
+  }
+}
 
 // --- poveznice -------------------------------------------------------
 // Oker znači dodir. Ovo je jedino mjesto na kojem boja ulazi u prozu.
@@ -215,11 +261,22 @@ a:hover {
   text-decoration-color: currentColor;
 }
 
+// DOI-jevi i drugi strojno sastavljeni URL-ovi ne smiju širiti stupac ni
+// dokument. `anywhere` djeluje tek kada je raspoloživa širina iscrpljena.
+main a,
+.csl-entry,
+.csl-entry a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
 // --- brojke ----------------------------------------------------------
 // Sve brojke u tablicama, izlazima i legendama su monospace, tabularne,
 // verzalne. `[1 810]{.broj}` u prozi kad se broj mora poravnati sa stupcem.
 .broj, .st-num, .var,
-table td, table th,
+.numeric, [data-type="numeric"],
+.table-number,
 .cell-output pre {
   font-family: $tok-font-mono;
   font-variant-numeric: tabular-nums lining-nums;
@@ -239,8 +296,21 @@ div.sourceCode {
   background: $tok-paper-soft;
   border: 1px solid $tok-rule;
   border-radius: $tok-radius;
+  scrollbar-width: thin;
+  scrollbar-color: $tok-ink-mute $tok-paper-soft;
+}
+pre.sourceCode,
+div.sourceCode pre {
+  // Gumb za kopiranje stoji iznad desnog ruba; završetak retka ostaje vidljiv.
+  padding-right: 3.75rem;
 }
 pre code { font-size: 0.8125rem; line-height: 1.6; }
+
+// Komentari su pomoć čitatelju, ne dekoracija, pa moraju ostati čitljivi u
+// oba načina prikaza i ne smiju pasti na najslabiji ton.
+.sourceCode .co {
+  color: $tok-ink-mute !important;
+}
 
 // Kartice R / Python. Aktivna kartica nosi oker donji rub — jedini oker
 // u bloku koda, jer je to jedino što se ondje može dodirnuti.
@@ -287,12 +357,22 @@ details.derivation[open] > summary::before { content: "– "; }
 
 // --- tablice ---------------------------------------------------------
 // Bez okomitih linija, bez zebre. Glava u sansu verzalom, crna crta ispod
-// glave i ispod zadnjeg retka. Brojke desno poravnate.
-table {
+// glave i ispod zadnjeg retka. Tekst ostaje u sansu; samo eksplicitno
+// brojčani stupci dobivaju mono i desno poravnanje.
+table,
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: #{$tok-ink-soft};
+  --bs-table-striped-bg: transparent;
+  --bs-table-striped-color: #{$tok-ink-soft};
+  --bs-table-hover-bg: transparent;
+  --bs-table-active-bg: transparent;
   font-family: $tok-font-sans;
   font-size: 0.875rem;
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
+  caption-side: top;
 }
 thead th {
   font-family: $tok-font-sans;
@@ -304,21 +384,102 @@ thead th {
   border-bottom: 1px solid $tok-ink;
   padding: 0.5rem 0.75rem;
   vertical-align: bottom;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 tbody td {
+  font-family: $tok-font-sans;
   border-bottom: 1px solid $tok-rule-soft;
   padding: 0.5rem 0.75rem;
+  text-align: left;
+  overflow-wrap: anywhere;
 }
 tbody tr:last-child td { border-bottom: 1px solid $tok-ink; }
-tbody tr:nth-child(even) { background: transparent; }   // zebra se ne koristi
-tbody td:not(:first-child),
-thead th:not(:first-child) { text-align: right; }
 
-caption, .table-caption {
+// Pandoc označava poravnanje stupca inline stilom; za R-ove tablice to je
+// pouzdan signal brojčanih ćelija. Glave ostaju u Public Sansu.
+tbody td[style*="text-align: right"],
+tbody td[style*="text-align:right"],
+tbody td.text-end,
+tbody td.numeric,
+tbody td[data-type="numeric"] {
+  font-family: $tok-font-mono;
+  font-variant-numeric: tabular-nums lining-nums;
+  text-align: right;
+}
+
+// Bootstrapova zebra nije `background` retka nego golema unutarnja sjena
+// ćelije, pa je treba poništiti na samoj ćeliji.
+.table-striped > tbody > tr:nth-of-type(odd) > *,
+table > tbody > tr:nth-child(odd) > *,
+table > tbody > tr:nth-child(even) > * {
+  --bs-table-color-type: inherit;
+  --bs-table-bg-type: transparent;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+caption,
+.table-caption,
+.quarto-float-tbl > figcaption,
+.quarto-float-tbl .quarto-float-caption {
   font-family: $tok-font-sans;
   font-size: 0.8125rem;
+  line-height: 1.5;
   color: $tok-ink-mute;
   text-align: left;
+  width: 100%;
+  max-width: 60ch;
+  margin-inline: 0;
+}
+
+// Izlazi iz R-a imaju omotač koji može preuzeti vodoravno pomicanje. To
+// zadržava usporedbu stupaca bez širenja cijele stranice.
+.cell-output-display:has(> table),
+.table-responsive {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}
+
+.table-scrollable {
+  position: relative;
+  scrollbar-gutter: stable;
+
+  &:focus-visible {
+    outline: 2px solid $tok-accent;
+    outline-offset: 3px;
+  }
+
+  table {
+    margin-bottom: 0;
+  }
+
+  th:first-child,
+  td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: $tok-paper;
+    border-right: 1px solid $tok-rule;
+  }
+
+  thead th:first-child {
+    z-index: 2;
+  }
+}
+
+.table-scroll-hint {
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  letter-spacing: 0.06em;
+  color: $tok-ink-mute;
+  margin: 0.45rem 0 1rem;
 }
 
 // --- citati u bloku --------------------------------------------------
@@ -375,8 +536,24 @@ figcaption .quarto-float-caption-prefix,
   color: $tok-ink-mute;
   border-top: 1px solid $tok-rule;
   padding-top: 0.625rem;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .column-margin .footnote-back { display: none; }
+.column-margin:empty {
+  display: none !important;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.column-margin a,
+.column-margin .csl-entry,
+.margin-caption,
+.margin-caption a {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
 
 .footnote-ref, .st-sidenote__ref {
   font-family: $tok-font-mono;
@@ -386,13 +563,101 @@ figcaption .quarto-float-caption-prefix,
   text-decoration: none;
 }
 
-// Ispod 1 000 px margina pada u tijek teksta iza odlomka na koji se odnosi.
-@media (max-width: 1000px) {
-  .column-margin {
+// Pri 1 100 px Quarto još pokušava zadržati punih 260 px margine, zbog čega
+// dokument postaje širi od prozora. Ispod desktopne širine bilješka zato
+// postaje sljedeći blok u stupcu teksta.
+@media (max-width: 1199px) {
+  // Quarto proširuje tablične floatove do rubova zaslona. Na širinama bez
+  // pune marginalne mreže float ostaje u stupcu teksta, a sama tablica klizi
+  // unutar svojega omotača.
+  .page-columns .cell[id^="tbl-"].page-full,
+  .page-columns .quarto-float-tbl.page-full {
+    display: block;
+    grid-column: body-content-start / body-content-end !important;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+
+  .page-columns .column-margin,
+  .page-columns .margin-caption,
+  .page-columns div.aside,
+  .page-columns aside:not(.footnotes):not(.sidebar) {
+    grid-column: body-content-start / body-content-end !important;
+    position: static;
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+    z-index: auto;
     border-top: 0;
     border-left: 2px solid $tok-rule;
     padding: 0 0 0 1rem;
     margin: 1.5rem 0;
+  }
+
+  .page-columns .no-row-height.column-margin {
+    height: auto;
+    overflow: visible;
+  }
+}
+
+// Bibliografija ima viseću uvlaku na širokom zaslonu, ali na telefonu ona
+// nepotrebno krade mjeru dugim DOI-jevima.
+@media (max-width: 600px) {
+  #refs.hanging-indent .csl-entry,
+  .hanging-indent .csl-entry {
+    margin-left: 1rem;
+    text-indent: -1rem;
+  }
+
+  // Izravne Pandoc tablice nemaju omotač; na uskom zaslonu same postaju
+  // tipkovnički i dodirno pomičan prostor.
+  main > table,
+  main > section > table,
+  main section > table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  thead th,
+  tbody td {
+    padding-inline: 0.5rem;
+  }
+
+  // U usporednim tablicama riječi ostaju cijele. Ako stupci više ne stanu,
+  // postojeći JS omotač uključuje tipkovnički i dodirno dostupan klizač.
+  .table-keep-words {
+    thead th,
+    tbody td {
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+
+  // Pet usporednih procjena moraju ostati poravnate; na telefonu se zato
+  // pomiču kao tablica umjesto da se glave lome usred riječi.
+  .table-comparison-wide table {
+    min-width: 34rem;
+  }
+
+  // `code-overflow: scroll` čuva mogućnost prepisivanja koda. Kratka oznaka
+  // ispod bloka jasno kaže da se nastavak retka nalazi vodoravno.
+  .code-copy-outer-scaffold:has(div.sourceCode)::after {
+    content: "↔ pomaknite za ostatak retka";
+    display: block;
+    font-family: $tok-font-mono;
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $tok-ink-mute;
+    margin-top: 0.35rem;
   }
 }
 

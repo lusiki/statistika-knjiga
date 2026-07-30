@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Isti podaci, četiri grafa | Anscombeov kvartet | pogl. 4 |
 
 **Vinjeta.**
 Anscombe je sastavio četiri skupa podataka s gotovo jednakim uobičajenim
@@ -53,15 +57,18 @@ tekst mora opisati uzorak, a graf treba preživjeti crno-bijeli tisak.
 
 ## Interakcija — Isti podaci, četiri grafa
 
-Planirana interakcija prikazuje iste podatke četirima geometrijama. Promjena
+Interakcija prikazuje iste simulirane podatke četirima geometrijama. Promjena
 grafa ne mijenja opažanja, ali mijenja usporedbu koja postaje laka ili teška.
 Čitatelj tako bira prikaz prema tvrdnji, a ne prema dojmu atraktivnosti.
 
+*Slika. Isti simulirani podaci prikazani odabranom geometrijom. Izbor prikaza mijenja vidljivu usporedbu, ne opažanja.*
+
 **Što isprobati.**
 
-1. Odaberite prikaz za usporedbu veličine kategorija.
-2. Promijenite raspon osi bez promjene podataka.
-3. Isključite boju i provjerite ostaje li značenje čitljivo.
+1. Odaberite raspršeni dijagram i opišite odnos varijabli bez sažimanja po skupinama.
+2. Prijeđite na histogram i utvrdite koja je prethodna informacija nestala.
+3. Usporedite raspodjelu po skupinama s prikazom njihovih sredina.
+4. Odaberite graf za tvrdnju o razlikama među tipičnim ishodima i obrazložite izbor.
 
 **Statistika u divljini.**
 **Četiri jednaka sažetka.** Anscombeov kvartet pokazuje da jednake sredine,
@@ -97,7 +104,8 @@ Podaci `anscombe` ugrađeni su u R i reproduciraju objavljeni kvartet
 (Anscombe, 1973). Sažeci četiriju parova gotovo su jednaki. Raspršeni prikazi
 zato nose dio analize koji tablica ne može sačuvati.
 
-*Slika. Anscombeov kvartet — jednaki sažeci, različiti oblici. Izrada autora prema @anscombe1973.*
+Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora
+prema anscombe1973.
 
 Prvi skup približno odgovara linearnoj priči. Drugi traži zakrivljeni opis.
 Treći i četvrti pokazuju koliko jedno opažanje može određivati pravac.

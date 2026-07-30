@@ -1,9 +1,10 @@
 ---
 title: "Mjerenje i istraživački dizajn"
+subtitle: "Od društvene pojave do opravdanog zaključka"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  cjelovit nacrt — argument, widget i statični blizanac
   IZVOR:   tjedan 1, druga polovica; umjerena prerada i novi materijal
   OPSEG:   ~5500 riječi
   WIDGET:  w02 · Prikaz konfundera
@@ -19,8 +20,15 @@ title: "Mjerenje i istraživački dizajn"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Prikaz konfundera | simulacija | pogl. 1 |
+:::
 
 ::: {.callout-vinjeta}
 Berkeleyjski podaci iz prethodnog poglavlja bilježili su prijave, ishode upisa,
@@ -82,31 +90,274 @@ skupine ostaje precizno mjerenje pogrešne skupine.
 
 ## Interakcija — Prikaz konfundera
 
-Planirani prikaz pokazuje odnos dviju varijabli prije i nakon uključivanja
-treće. Opažanja ostaju ista, ali se mijenja usporedba. Čitatelj tako vidi da
-statistička prilagodba ne briše podatke, nego pita kako bi izgledala veza među
-jedinicama koje su slične prema relevantnom obilježju.
+Prikaz pokazuje odnos dviju varijabli prije i nakon razlikovanja jedinica prema
+trećoj varijabli. Opažanja ostaju ista, ali se mijenja usporedba. Pomak ishoda
+povezan s trećom varijablom može zbirnu vezu preokrenuti iako je odnos unutar
+obiju podskupina stabilan.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Prikaz konfundera" data-oznaka="Widget 02.1 · interaktivno"}
 ```{ojs}
 //| echo: false
-// viewof w02_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w02 — Prikaz konfundera. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w02_par = Inputs.form({
+  pogled: Inputs.select(
+    ["Zbirno", "Prema trećoj varijabli"],
+    {value: "Zbirno", label: "Pogled"}
+  ),
+  pomak: Inputs.range(
+    [0, 5],
+    {
+      value: 4,
+      step: 0.25,
+      label: "Razlika ishoda povezana s trećom varijablom"
+    }
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+w02_tema = Generators.observe(obavijesti => {
+  let revizija = 0;
+  const osvjezi = () => obavijesti(++revizija);
+  const promatrac = new MutationObserver(osvjezi);
+  const postavke = {
+    attributes: true,
+    attributeFilter: ["class", "data-bs-theme"]
+  };
+  promatrac.observe(document.documentElement, postavke);
+  promatrac.observe(document.body, postavke);
+  osvjezi();
+  return () => promatrac.disconnect();
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w02
+//| fig-cap: "Ista opažanja prikazana zbirno i prema trećoj varijabli u konstruiranom primjeru."
+//| fig-alt: "Pri početnom pomaku zbirna veza izloženosti i ishoda raste, dok se unutar obje razine treće varijable ishod s izloženošću smanjuje."
+{
+  w02_tema;
+  const css = getComputedStyle(document.documentElement);
+  const tinta = css.getPropertyValue("--tok-data-1").trim();
+  const tamna = css.getPropertyValue("--tok-data-2").trim();
+  const svijetla = css.getPropertyValue("--tok-data-4").trim();
+  const prigusena = css.getPropertyValue("--tok-ink-mute").trim();
+  const povrsina = css.getPropertyValue("--tok-surface").trim();
+  const sans = css.getPropertyValue("--tok-font-sans").trim();
+  const razine = ["Niža vrijednost", "Viša vrijednost"];
+
+  const podaci = Array.from({length: 32}, (_, i) => {
+    const visoka = i >= 16;
+    const red = i % 16;
+    const u = (red - 7.5) / 7.5;
+    const izlozenost = (visoka ? 6.6 : 2.8) + 1.6 * u;
+    const odstupanje =
+      0.28 * Math.sin((red + 1) * 2.3) +
+      0.10 * Math.cos((red + 1) * 1.1);
+    const ishod =
+      7.2 - 0.55 * izlozenost + (visoka ? w02_par.pomak : 0) + odstupanje;
+    return {
+      izlozenost,
+      ishod,
+      treca: visoka ? razine[1] : razine[0]
+    };
+  });
+
+  function pravac(redovi, serija) {
+    const mx = d3.mean(redovi, d => d.izlozenost);
+    const my = d3.mean(redovi, d => d.ishod);
+    const brojnik = d3.sum(
+      redovi,
+      d => (d.izlozenost - mx) * (d.ishod - my)
+    );
+    const nazivnik = d3.sum(
+      redovi,
+      d => (d.izlozenost - mx) ** 2
+    );
+    const nagib = brojnik / nazivnik;
+    const odsjecak = my - nagib * mx;
+    const xmin = d3.min(redovi, d => d.izlozenost);
+    const xmax = d3.max(redovi, d => d.izlozenost);
+    return [
+      {x: xmin, y: odsjecak + nagib * xmin, serija},
+      {x: xmax, y: odsjecak + nagib * xmax, serija}
+    ];
+  }
+
+  const razdvojeno = w02_par.pogled === "Prema trećoj varijabli";
+  const niza = podaci.filter(d => d.treca === razine[0]);
+  const visa = podaci.filter(d => d.treca === razine[1]);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(200, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+  const pomakOznake = usko
+    ? {dx: -10, dy: -12, textAnchor: "end"}
+    : {dx: 10, dy: -8, textAnchor: "start"};
+  let marks;
+
+  if (razdvojeno) {
+    const linijaNiza = pravac(niza, razine[0]);
+    const linijaVisa = pravac(visa, razine[1]);
+    marks = [
+      Plot.dot(podaci, {
+        x: "izlozenost",
+        y: "ishod",
+        fill: "treca",
+        r: 4.2,
+        fillOpacity: 0.78
+      }),
+      Plot.line(linijaNiza, {
+        x: "x",
+        y: "y",
+        stroke: tamna,
+        strokeWidth: 2
+      }),
+      Plot.line(linijaVisa, {
+        x: "x",
+        y: "y",
+        stroke: svijetla,
+        strokeWidth: 2,
+        strokeDasharray: "6,4"
+      }),
+      Plot.text(
+        [
+          {...linijaNiza[1], oznaka: "niža vrijednost"},
+          {...linijaVisa[1], oznaka: "viša vrijednost"}
+        ],
+        {
+          x: "x",
+          y: "y",
+          text: "oznaka",
+          ...pomakOznake,
+          fontSize: usko ? 11 : 12,
+          fill: prigusena,
+          stroke: povrsina,
+          strokeWidth: 3,
+          paintOrder: "stroke"
+        }
+      )
+    ];
+  } else {
+    const linija = pravac(podaci, "Zbirno");
+    marks = [
+      Plot.dot(podaci, {
+        x: "izlozenost",
+        y: "ishod",
+        fill: tinta,
+        r: 4.2,
+        fillOpacity: 0.72
+      }),
+      Plot.line(linija, {
+        x: "x",
+        y: "y",
+        stroke: tamna,
+        strokeWidth: 2.2
+      }),
+      Plot.text(
+        [{...linija[1], oznaka: "zbirna veza"}],
+        {
+          x: "x",
+          y: "y",
+          text: "oznaka",
+          ...pomakOznake,
+          fontSize: usko ? 11 : 12,
+          fill: prigusena,
+          stroke: povrsina,
+          strokeWidth: 3,
+          paintOrder: "stroke"
+        }
+      )
+    ];
+  }
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 420 : 330,
+    marginLeft: usko ? 50 : 55,
+    marginRight: usko ? 18 : 112,
+    marginBottom: 48,
+    style: {
+      background: "transparent",
+      fontFamily: sans,
+      fontSize: usko ? "12px" : "13px"
+    },
+    color: {
+      domain: razine,
+      range: [tamna, svijetla],
+      legend: false
+    },
+    x: {label: "Izloženost", grid: true},
+    y: {label: "Ishod", grid: true},
+    marks
+  });
+}
 ```
 :::
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w02
-#| fig-cap: "Planirani prikaz veze prije i nakon uključivanja treće varijable."
-#| fig-alt: "Mjesto za dva prikaza iste veze, bez konfundera i s njime."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w02 još nije izrađen") +
-  theme_void()
+#| label: fig-w02-print
+#| fig-cap: "Ista opažanja prikazana zbirno i odvojeno prema trećoj varijabli."
+#| fig-alt: "Lijevi panel pokazuje rastuću zbirnu vezu. Desni panel razdvaja opažanja u dvije razine treće varijable i u objema pokazuje padajuću vezu."
+w02_sim <- expand_grid(
+  Treća = c("Niža vrijednost", "Viša vrijednost"),
+  Red = seq_len(16)
+) |>
+  mutate(
+    u = (Red - 8.5) / 7.5,
+    Izloženost = if_else(Treća == "Viša vrijednost", 6.6, 2.8) + 1.6 * u,
+    Odstupanje = 0.28 * sin(Red * 2.3) + 0.10 * cos(Red * 1.1),
+    Ishod = 7.2 - 0.55 * Izloženost +
+      if_else(Treća == "Viša vrijednost", 4, 0) +
+      Odstupanje
+  ) |>
+  select(-u, -Odstupanje)
+
+w02_prikaz <- bind_rows(
+  w02_sim |>
+    mutate(Pogled = "Zbirno", Serija = "Sva opažanja"),
+  w02_sim |>
+    mutate(Pogled = "Prema trećoj varijabli", Serija = Treća)
+) |>
+  mutate(
+    Pogled = factor(
+      Pogled,
+      levels = c("Zbirno", "Prema trećoj varijabli")
+    ),
+    Serija = factor(
+      Serija,
+      levels = c("Sva opažanja", "Niža vrijednost", "Viša vrijednost")
+    )
+  )
+
+ggplot(
+  w02_prikaz,
+  aes(x = Izloženost, y = Ishod, colour = Serija, shape = Serija)
+) +
+  geom_point(size = 2.1, alpha = 0.78) +
+  geom_smooth(
+    aes(group = Serija, linetype = Serija),
+    method = "lm",
+    formula = y ~ x,
+    se = FALSE,
+    linewidth = 0.7
+  ) +
+  facet_wrap(vars(Pogled), nrow = 1) +
+  scale_color_sivo() +
+  scale_shape_manual(values = c(16, 1, 17)) +
+  scale_linetype_manual(values = c("solid", "solid", "dashed")) +
+  labs(x = "Izloženost", y = "Ishod") +
+  theme(legend.position = "bottom")
 ```
 :::
 
@@ -163,6 +414,7 @@ Sljedeći kod stvara mali simulirani primjer. Tablica nije nalaz o stvarnoj
 populaciji. Ona pokazuje postupak kojim se odgovori pretvaraju u mjeru i čuva
 pojedinačne stavke uz izvedeni rezultat.
 
+:::: {.table-keep-words}
 ```{r}
 #| label: tbl-mjerenje-primjer
 #| tbl-cap: "Simulirani odgovori i izvedena mjera povjerenja. Izrada autora."
@@ -176,8 +428,19 @@ sim_mjerenje <- tibble(
   mutate(povjerenje = rowMeans(pick(starts_with("tvrdnja"))))
 
 sim_mjerenje |>
-  knitr::kable(align = c("l", "r", "r", "r", "r"))
+  transmute(
+    Ispitanik = ispitanik,
+    `Odgovori na tvrdnje 1, 2 i 3` = paste(
+      tvrdnja_1,
+      tvrdnja_2,
+      tvrdnja_3,
+      sep = " · "
+    ),
+    Prosjek = hr_broj(povjerenje, 1)
+  ) |>
+  knitr::kable(align = c("l", "l", "r"))
 ```
+::::
 
 Prosjek stavki sažima odgovore, ali ne dokazuje valjanost instrumenta.
 Istraživač još mora obrazložiti sadržaj tvrdnji, provjeriti kako ih ispitanici

@@ -79,6 +79,7 @@ jobs:
             any::rmarkdown
             any::downlit
             any::xml2
+            any::svglite
             any::showtext
             any::sysfonts
 
@@ -88,46 +89,19 @@ jobs:
         continue-on-error: true
         run: Rscript scripts/check-tokens.R
 
+      - name: Check widget source contracts
+        run: python scripts/check-widgets.py .
+
       - name: Render HTML book
         run: quarto render
 
-      - name: Render PDF (separate profile, print appendix set)
+      - name: Check rendered HTML freshness and completeness
+        run: python scripts/check-rendered-html.py docs
+
+      - name: Render PDF (separate profile)
         id: pdf
         continue-on-error: true
-        run: |
-          set -e
-          # The PDF carries only the bibliography and appendices A-F, while the
-          # HTML site keeps the full set. Quarto profiles MERGE appendix arrays,
-          # so _quarto-pdf.yml cannot shrink the list — we temporarily rewrite the
-          # book-level `  appendices:` block in _quarto.yml for the render, then
-          # always restore it. Mirrors scripts/render-book-pdf.ps1 (Windows-only).
-          cp _quarto.yml _quarto.yml.cibak
-          trap 'mv -f _quarto.yml.cibak _quarto.yml' EXIT
-          awk '
-            /^  appendices:[[:space:]]*$/ {
-              print "  appendices:";
-              print "    - references.qmd";
-              print "    - dodaci/a-praktikum.qmd";
-              print "    - dodaci/b-jamovi.qmd";
-              print "    - dodaci/c-katalog-podataka.qmd";
-              print "    - dodaci/d-koji-test.qmd";
-              print "    - dodaci/e-rjecnik.qmd";
-              print "    - dodaci/f-ai-protokol.qmd";
-              print "";
-              skip=1; next
-            }
-            skip==1 {
-              # consume the old block body: deeper-indented items, "  #" comments,
-              # and blank lines; stop at the next line that begins a new key.
-              if ($0 ~ /^    / || $0 ~ /^  #/ || $0 ~ /^[[:space:]]*$/) next;
-              skip=0
-            }
-            { print }
-          ' _quarto.yml.cibak > _quarto.yml
-          # Sanity: the swap must have kept the rest of the config intact.
-          grep -q "^  appendices:" _quarto.yml
-          grep -q "^bibliography:" _quarto.yml
-          quarto render --profile pdf
+        run: quarto render --profile pdf
 
       - name: Copy freshly-built PDF into docs for Pages download
         if: steps.pdf.outcome == 'success'

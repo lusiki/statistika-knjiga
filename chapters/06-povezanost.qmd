@@ -1,9 +1,10 @@
 ---
 title: "Povezanost"
+subtitle: "Koeficijent sažima odnos, ali ne čuva cijelu sliku"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i dovršen widget
   IZVOR:   izdvojeno iz tjedna 5, prošireno
   OPSEG:   ~4000 riječi
   WIDGET:  w06 · Pogodi korelaciju
@@ -18,8 +19,15 @@ title: "Povezanost"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Pogodi korelaciju | Anscombeov kvartet | pogl. 4, 5 |
+:::
 
 ::: {.callout-vinjeta}
 Anscombeova četiri skupa imaju gotovo jednaku Pearsonovu korelaciju, iako
@@ -68,38 +76,187 @@ sadržajno obrazloženje.
 
 ## Interakcija — Pogodi korelaciju
 
-Planirana igra prikazuje raspršene oblake bez koeficijenta i traži procjenu
-smjera i jačine. Nakon odgovora otkriva broj i pokazuje primjere u kojima
-ljudsko oko ili Pearsonov sažetak propuštaju nelinearnost i podskupine.
+Igra prikazuje četiri raspršena oblaka bez koeficijenta i traži procjenu
+smjera i jačine. Rezultat se mijenja sa svakom procjenom, pa se vidljivi oblik
+može izravno usporediti s veličinom Pearsonove korelacije.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Pogodi korelaciju" data-oznaka="Widget 06.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w06_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w06 — Pogodi korelaciju. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w06_par = Inputs.form({
+  a: Inputs.range([-1, 1], {value: -0.70, step: 0.05, label: "Procjena za oblak A"}),
+  b: Inputs.range([-1, 1], {value: -0.20, step: 0.05, label: "Procjena za oblak B"}),
+  c: Inputs.range([-1, 1], {value: 0.20, step: 0.05, label: "Procjena za oblak C"}),
+  d: Inputs.range([-1, 1], {value: 0.50, step: 0.05, label: "Procjena za oblak D"})
+})
 ```
+
+```{ojs}
+//| echo: false
+w06_scenariji = {
+  const ciljevi = [
+    {oblak: "Oblak A", rho: -0.80},
+    {oblak: "Oblak B", rho: -0.35},
+    {oblak: "Oblak C", rho: 0.40},
+    {oblak: "Oblak D", rho: 0.75}
+  ];
+
+  function korelacija(podaci) {
+    const mx = d3.mean(podaci, d => d.x);
+    const my = d3.mean(podaci, d => d.y);
+    const brojnik = d3.sum(podaci, d => (d.x - mx) * (d.y - my));
+    const nazivnik = Math.sqrt(
+      d3.sum(podaci, d => (d.x - mx) ** 2) *
+      d3.sum(podaci, d => (d.y - my) ** 2)
+    );
+    return brojnik / nazivnik;
+  }
+
+  return ciljevi.map((scenarij, j) => {
+    const rng = d3.randomLcg(606 + j);
+    const normalna = d3.randomNormal.source(rng)(0, 1);
+    const podaci = Array.from({length: 54}, () => {
+      const x = normalna();
+      const z = normalna();
+      const y = scenarij.rho * x + Math.sqrt(1 - scenarij.rho ** 2) * z;
+      return {oblak: scenarij.oblak, x, y};
+    });
+    return {...scenarij, r: korelacija(podaci), podaci};
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+w06_tocke = w06_scenariji.flatMap(d => d.podaci)
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w06
+//| fig-cap: "Četiri deterministički simulirana oblaka bez prikazanih koeficijenata. Zajedničke osi omogućuju usporedbu smjera i zbijenosti."
+//| fig-alt: "Četiri okomito poredana raspršena dijagrama prelaze od snažne negativne preko slabije negativne i umjerene pozitivne do snažne pozitivne povezanosti."
+{
+  const tinta = "var(--tok-ink)";
+  const prigusena = "var(--tok-rule)";
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 860 : 760,
+    marginLeft: usko ? 52 : 60,
+    marginRight: 64,
+    marginBottom: usko ? 48 : 52,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: usko ? "12px" : "13px"
+    },
+    x: {label: "x", grid: true},
+    y: {label: "y", grid: true},
+    fy: {
+      label: null,
+      domain: ["Oblak A", "Oblak B", "Oblak C", "Oblak D"]
+    },
+    marks: [
+      Plot.ruleX([0], {stroke: prigusena}),
+      Plot.ruleY([0], {stroke: prigusena}),
+      Plot.dot(w06_tocke, {
+        x: "x",
+        y: "y",
+        fy: "oblak",
+        fill: tinta,
+        r: 3,
+        opacity: 0.72
+      })
+    ]
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const procjene = [w06_par.a, w06_par.b, w06_par.c, w06_par.d];
+  const rezultat = d3.sum(
+    w06_scenariji,
+    (d, i) => Math.abs(procjene[i] - d.r) <= 0.10 ? 1 : 0
+  );
+  const zapis = procjene
+    .map(v => v.toLocaleString("hr-HR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }))
+    .join(" · ");
+
+  return html`<p class="widget-foot" role="status" aria-live="polite">Trenutačni rezultat ${rezultat} od 4. Procjene redom iznose ${zapis}. Pogodak odstupa najviše 0,10 od izračunate korelacije.</p>`;
+}
+```
+
 :::
 
+::::
+
 ::: {.content-visible when-format="pdf"}
+
 ```{r}
 #| echo: false
-#| label: fig-w06
-#| fig-cap: "Planirani niz raspršenih dijagrama za procjenu korelacije."
-#| fig-alt: "Mjesto za oblake točaka različitog smjera, jačine i oblika."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w06 još nije izrađen") +
-  theme_void()
+#| label: fig-w06-print
+#| fig-cap: "Četiri simulirana oblaka i njihove Pearsonove korelacije. Statični prikaz otkriva vrijednosti koje digitalna igra skriva."
+#| fig-alt: "Četiri raspršena dijagrama imaju korelacije od snažno negativne do snažno pozitivne."
+#| fig-width: 6.6
+#| fig-height: 6.8
+set.seed(606)
+
+w06_ciljevi_r <- c(-0.80, -0.35, 0.40, 0.75)
+w06_tocke_r <- bind_rows(lapply(seq_along(w06_ciljevi_r), function(i) {
+  x <- rnorm(54)
+  z <- rnorm(54)
+  y <- w06_ciljevi_r[[i]] * x +
+    sqrt(1 - w06_ciljevi_r[[i]]^2) * z
+  tibble(slovo = LETTERS[[i]], x, y)
+}))
+
+w06_oznake_r <- w06_tocke_r |>
+  group_by(slovo) |>
+  summarise(korelacija = cor(x, y), .groups = "drop") |>
+  mutate(
+    oblak = paste0(
+      "Oblak ", slovo, " · korelacija ", hr_broj(korelacija, 2)
+    )
+  )
+
+w06_tocke_r <- left_join(w06_tocke_r, w06_oznake_r, by = "slovo")
+
+ggplot(w06_tocke_r, aes(x, y)) +
+  geom_hline(yintercept = 0, colour = tok_boja("rule"), linewidth = 0.3) +
+  geom_vline(xintercept = 0, colour = tok_boja("rule"), linewidth = 0.3) +
+  geom_point(colour = tok_boja("ink"), alpha = 0.72) +
+  facet_wrap(~ oblak, ncol = 2) +
+  labs(x = "x", y = "y") +
+  theme_knjiga(base_size = 13, mreza = "oboje")
 ```
+
 :::
 
 **Što isprobati.**
 
-1. Procijenite znak jasnog linearnog odnosa.
-2. Usporedite zbijeni i raspršeni oblak istog nagiba.
-3. Pronađite nelinearni odnos kojem je Pearsonova korelacija blizu nule.
+1. Procijenite samo znak svake povezanosti i provjerite jesu li klizači na pravoj strani nule.
+2. Usporedite oblake A i D te procijenite koji je odnos bliže savršenoj povezanosti.
+3. Fino namjestite procjene za slabije oblake B i C bez mijenjanja prvih dviju.
+4. Pokušajte ostvariti četiri pogotka, zatim opišite koji je oblak bilo najteže procijeniti.
 
 ::: {.callout-divljina}
 **Ista korelacija, različita struktura.** Anscombeov kvartet pokazuje četiri
@@ -143,7 +300,7 @@ mehanizmi odnosa različiti [@anscombe1973].
 
 ```{r}
 #| label: tbl-anscombe-korelacije
-#| tbl-cap: "Pearsonove korelacije Anscombeova kvarteta. Izrada autora prema @anscombe1973."
+#| tbl-cap: "Pearsonove korelacije Anscombeova kvarteta. Izrada autora."
 
 anscombe_korelacije <- tibble(
   skup = c("I", "II", "III", "IV"),

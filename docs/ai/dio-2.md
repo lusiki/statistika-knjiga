@@ -3,7 +3,7 @@
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 
 ---
@@ -14,9 +14,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Oblikovanje distribucije | simulacija | pogl. 1 do 3 |
 
 **Vinjeta.**
 Tukey je istraživačku analizu podataka postavio kao postupak u kojem sažetak
@@ -69,15 +73,19 @@ govoriti o razmjernim, a ne apsolutnim razlikama.
 
 ## Interakcija — Oblikovanje distribucije
 
-Planirani oblikovatelj raspodjele dopušta pomicanje pojedinačnih točaka i
-odmah pokazuje reakciju sredine, medijana i mjera raspršenosti. Tako postaje
-vidljivo koje mjere slušaju svako opažanje, a koje prvenstveno čuvaju redoslijed.
+Oblikovatelj raspodjele pomiče jedno krajnje opažanje i širi preostalih devet
+oko njihova zajedničkog središta. Sredina, medijan i dvije mjere raspršenosti
+mijenjaju se pred čitateljem. Tako postaje vidljivo koje mjere slušaju svaku
+vrijednost, a koje prvenstveno čuvaju redoslijed.
+
+*Slika. Reakcija mjera središta i raspršenosti na oblik konstruirane raspodjele.*
 
 **Što isprobati.**
 
-1. Pomaknite jednu središnju točku i usporedite sredinu s medijanom.
-2. Udaljite jednu krajnju točku bez mijenjanja redoslijeda.
-3. Oblikujte dvije raspodjele iste sredine, ali različite raspršenosti.
+1. Spustite krajnje opažanje sa 70 na 14 i usporedite sredinu s medijanom.
+2. Vratite ga na 70 i provjerite koja se mjera središta više pomaknula.
+3. Postavite krajnje opažanje na 11 pa povećajte faktor raspršenosti i
+   usporedite dvije raspodjele iste sredine.
 
 **Statistika u divljini.**
 **Prosjek kao početak pregleda.** Tukey je zagovarao istraživački pristup u
@@ -167,9 +175,13 @@ neopravdanu odluku i postupak kojim biste je provjerili.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Isti podaci, četiri grafa | Anscombeov kvartet | pogl. 4 |
 
 **Vinjeta.**
 Anscombe je sastavio četiri skupa podataka s gotovo jednakim uobičajenim
@@ -216,15 +228,18 @@ tekst mora opisati uzorak, a graf treba preživjeti crno-bijeli tisak.
 
 ## Interakcija — Isti podaci, četiri grafa
 
-Planirana interakcija prikazuje iste podatke četirima geometrijama. Promjena
+Interakcija prikazuje iste simulirane podatke četirima geometrijama. Promjena
 grafa ne mijenja opažanja, ali mijenja usporedbu koja postaje laka ili teška.
 Čitatelj tako bira prikaz prema tvrdnji, a ne prema dojmu atraktivnosti.
 
+*Slika. Isti simulirani podaci prikazani odabranom geometrijom. Izbor prikaza mijenja vidljivu usporedbu, ne opažanja.*
+
 **Što isprobati.**
 
-1. Odaberite prikaz za usporedbu veličine kategorija.
-2. Promijenite raspon osi bez promjene podataka.
-3. Isključite boju i provjerite ostaje li značenje čitljivo.
+1. Odaberite raspršeni dijagram i opišite odnos varijabli bez sažimanja po skupinama.
+2. Prijeđite na histogram i utvrdite koja je prethodna informacija nestala.
+3. Usporedite raspodjelu po skupinama s prikazom njihovih sredina.
+4. Odaberite graf za tvrdnju o razlikama među tipičnim ishodima i obrazložite izbor.
 
 **Statistika u divljini.**
 **Četiri jednaka sažetka.** Anscombeov kvartet pokazuje da jednake sredine,
@@ -260,7 +275,8 @@ Podaci `anscombe` ugrađeni su u R i reproduciraju objavljeni kvartet
 (Anscombe, 1973). Sažeci četiriju parova gotovo su jednaki. Raspršeni prikazi
 zato nose dio analize koji tablica ne može sačuvati.
 
-*Slika. Anscombeov kvartet — jednaki sažeci, različiti oblici. Izrada autora prema @anscombe1973.*
+Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora
+prema anscombe1973.
 
 Prvi skup približno odgovara linearnoj priči. Drugi traži zakrivljeni opis.
 Treći i četvrti pokazuju koliko jedno opažanje može određivati pravac.
@@ -312,9 +328,13 @@ obmanjujuću odluku i način njezina popravka.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Pogodi korelaciju | Anscombeov kvartet | pogl. 4, 5 |
 
 **Vinjeta.**
 Anscombeova četiri skupa imaju gotovo jednaku Pearsonovu korelaciju, iako
@@ -362,15 +382,18 @@ sadržajno obrazloženje.
 
 ## Interakcija — Pogodi korelaciju
 
-Planirana igra prikazuje raspršene oblake bez koeficijenta i traži procjenu
-smjera i jačine. Nakon odgovora otkriva broj i pokazuje primjere u kojima
-ljudsko oko ili Pearsonov sažetak propuštaju nelinearnost i podskupine.
+Igra prikazuje četiri raspršena oblaka bez koeficijenta i traži procjenu
+smjera i jačine. Rezultat se mijenja sa svakom procjenom, pa se vidljivi oblik
+može izravno usporediti s veličinom Pearsonove korelacije.
+
+*Slika. Četiri deterministički simulirana oblaka bez prikazanih koeficijenata. Zajedničke osi omogućuju usporedbu smjera i zbijenosti.*
 
 **Što isprobati.**
 
-1. Procijenite znak jasnog linearnog odnosa.
-2. Usporedite zbijeni i raspršeni oblak istog nagiba.
-3. Pronađite nelinearni odnos kojem je Pearsonova korelacija blizu nule.
+1. Procijenite samo znak svake povezanosti i provjerite jesu li klizači na pravoj strani nule.
+2. Usporedite oblake A i D te procijenite koji je odnos bliže savršenoj povezanosti.
+3. Fino namjestite procjene za slabije oblake B i C bez mijenjanja prvih dviju.
+4. Pokušajte ostvariti četiri pogotka, zatim opišite koji je oblak bilo najteže procijeniti.
 
 **Statistika u divljini.**
 **Ista korelacija, različita struktura.** Anscombeov kvartet pokazuje četiri
@@ -407,7 +430,7 @@ Računamo Pearsonovu korelaciju za svaki skup i stavljamo je uz opis obrasca.
 Rezultati su gotovo jednaki, dok graf iz prethodnog poglavlja pokazuje da su
 mehanizmi odnosa različiti (Anscombe, 1973).
 
-*Slika. Pearsonove korelacije Anscombeova kvarteta. Izrada autora prema @anscombe1973.*
+*Slika. Pearsonove korelacije Anscombeova kvarteta. Izrada autora.*
 
 Tablica potvrđuje da je Pearsonova korelacija vjerna linearnom sažetku koji je
 izračunala. Ne potvrđuje da je linearni sažetak prikladan za svaki skup.

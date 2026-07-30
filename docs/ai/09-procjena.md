@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Hvatač intervala | simulacija | pogl. 8 |
 
 **Vinjeta.**
 Cumming je zagovarao izvještavanje procjena i intervala kao središte
@@ -53,13 +57,18 @@ premalen da zabilježi važan dio raspodjele, resampling ponavlja tu prazninu.
 
 Hvatač intervala prikazuje niz ponovljenih uzoraka i njihove intervale oko iste
 populacijske vrijednosti. Većina je hvata, a neki je promašuju. Tek niz
-intervala čini značenje razine pouzdanosti vidljivim.
+intervala čini značenje razine pouzdanosti vidljivim. Simulacija koristi
+normalnu populaciju poznate standardne devijacije kako bi odvojila logiku
+obuhvata od procjene same standardne devijacije.
+
+*Slika. Intervali iz ponovljenih simuliranih uzoraka oko fiksne populacijske sredine. Istaknuti intervali promašuju okomitu ciljnu crtu.*
 
 **Što isprobati.**
 
-1. Generirajte jedan interval i zabilježite obuhvaća li cilj.
-2. Povećajte broj ponavljanja bez promjene postupka.
-3. Usporedite preciznost pri različitim veličinama uzorka.
+1. Zadržite pedeset intervala i prebrojite one koji ne sijeku okomitu ciljnu crtu.
+2. Povećajte broj intervala na sto bez promjene veličine uzorka ili razine pouzdanosti.
+3. Usporedite širinu intervala pri uzorcima veličine dvadeset i sto.
+4. Promijenite razinu pouzdanosti s devedeset na devedeset i devet posto te opišite odnos širine i obuhvata.
 
 **Statistika u divljini.**
 **Procjena prije odluke.** Pristup „novih statistika" stavlja veličinu učinka,

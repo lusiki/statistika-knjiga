@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Očekivano i opaženo | UCBAdmissions | pogl. 4, 7, 10 |
 
 **Vinjeta.**
 Berkeleyjski podaci mogu se zapisati kao tablica frekvencija. Redovi označuju
@@ -55,15 +59,23 @@ tablica može miješati odnose i različitu zastupljenost slojeva
 
 ## Interakcija — Očekivano i opaženo
 
-Planirani prikaz dopušta mijenjanje opaženih ćelija uz jednake rubne zbrojeve.
+Prikaz dopušta mijenjanje opaženih ćelija uz jednake rubne zbrojeve.
 Očekivane frekvencije ostaju referentna mreža, a doprinos svake ćelije ukupnoj
-statistici postaje vidljiv.
+statistici postaje vidljiv. Puni krug označuje opaženu frekvenciju, prazni romb
+očekivanu, a broj uz njih doprinos ćelije.
+
+*Slika. Opažene i očekivane frekvencije u tablici dva puta dva s jednakim rubnim zbrojevima.*
 
 **Što isprobati.**
 
 1. Postavite opažene frekvencije jednake očekivanima.
-2. Premjestite opažanja između dviju ćelija uz iste rubne zbrojeve.
-3. Smanjite očekivane frekvencije i promatrajte granicu aproksimacije.
+2. Pomaknite opažanja u oba smjera i provjerite ostaju li rubni zbrojevi jednaki.
+3. Povećajte pomak i pratite doprinose ćelija te Cramérovo V.
+4. Smanjite rubni zbroj na deset i provjerite očekivane frekvencije.
+
+Udaljenost opaženoga od očekivanoga nosi testnu statistiku, ali položaj ćelije
+nosi tumačenje. Jedan zbirni rezultat zato nije dovoljan bez reziduala i mjere
+jačine veze.
 
 **Statistika u divljini.**
 **Zbirna tablica upisa.** U Berkeleyjskim podacima zbirni ishod prijave i spol
@@ -96,7 +108,7 @@ Ugrađeni podaci `UCBAdmissions` omogućuju reprodukciju zbirne tablice
 Berkeleyjskog slučaja (Bickel, 1975). Analiza najprije zbraja odjele i stvara
 tablicu ishoda prema spolu. Zatim uspoređuje opažene i očekivane frekvencije.
 
-*Slika. Opažene frekvencije i test nezavisnosti za zbirne podatke. Izrada autora prema @bickel1975.*
+*Slika. Opažene frekvencije u zbirnim podacima o prijavama. Izrada autora prema @bickel1975.*
 
 Test sažima neusklađenost zbirne tablice s nezavisnošću. Povratak odjelima
 pokazuje da taj rezultat miješa više slojeva. Statistički korektan izvještaj

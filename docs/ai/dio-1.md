@@ -3,7 +3,7 @@
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 
 ---
@@ -14,9 +14,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 8 min | Simpsonov paradoks | UCBAdmissions | bez preduvjeta |
 
 **Vinjeta.**
 Podaci o upisima na Sveučilište Kalifornije u Berkeleyju 1973. godine otvorili
@@ -129,10 +133,13 @@ napravili.
 
 ## Interakcija — Simpsonov paradoks
 
-Interaktivni prikaz rastavlja jednu zbirnu stopu na dvije podskupine. Brojevi
-opažanja ostaju isti, ali prebacivanje između združenog i razdvojenog pogleda
-mijenja usporedbu koju vidimo. Time postaje vidljivo kako sastav skupina može
-proizvesti zbirni rezultat suprotan obrascu unutar svake od njih.
+Interaktivni prikaz gradi transparentan primjer s dvjema skupinama i dvjema
+podskupinama. Stope unutar podskupina ostaju jednake, dok klizači mijenjaju
+njihovu zastupljenost u svakoj skupini. Prebacivanje pogleda pokazuje kako
+različiti utezi mogu proizvesti zbirni rezultat suprotan obrascu unutar obje
+podskupine.
+
+*Slika. Zbirne stope i stope po podskupinama u konstruiranom primjeru Simpsonova paradoksa.*
 
 **Što isprobati.**
 
@@ -199,7 +206,7 @@ uspoređujemo. Stope sada računamo zasebno u svakom odjelu, čime kandidati iz
 selektivnog odjela više ne utječu izravno na usporedbu kandidata u odjelu s
 višom prolaznošću.
 
-*Slika. Stope prijma prema odjelu i spolu. Izrada autora prema @bickel1975.*
+Stope prijma prema odjelu i spolu. Izrada autora prema bickel1975.
 
 Stope po odjelima više ne podržavaju jednostavnu priču prema kojoj se isti jaz
 ponavlja posvuda. U četiri od šest odjela stopa za žene barem je jednaka stopi
@@ -268,9 +275,13 @@ neopravdanu tvrdnju i napišite njezinu oprezniju zamjenu.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Prikaz konfundera | simulacija | pogl. 1 |
 
 **Vinjeta.**
 Berkeleyjski podaci iz prethodnog poglavlja bilježili su prijave, ishode upisa,
@@ -331,10 +342,12 @@ skupine ostaje precizno mjerenje pogrešne skupine.
 
 ## Interakcija — Prikaz konfundera
 
-Planirani prikaz pokazuje odnos dviju varijabli prije i nakon uključivanja
-treće. Opažanja ostaju ista, ali se mijenja usporedba. Čitatelj tako vidi da
-statistička prilagodba ne briše podatke, nego pita kako bi izgledala veza među
-jedinicama koje su slične prema relevantnom obilježju.
+Prikaz pokazuje odnos dviju varijabli prije i nakon razlikovanja jedinica prema
+trećoj varijabli. Opažanja ostaju ista, ali se mijenja usporedba. Pomak ishoda
+povezan s trećom varijablom može zbirnu vezu preokrenuti iako je odnos unutar
+obiju podskupina stabilan.
+
+*Slika. Ista opažanja prikazana zbirno i prema trećoj varijabli u konstruiranom primjeru.*
 
 **Što isprobati.**
 
@@ -437,9 +450,13 @@ neopravdanu tvrdnju i napišite inačicu koja poštuje ograničenja dizajna.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Istraživač margine pogreške | simulacija | pogl. 1 i 2 |
 
 **Vinjeta.**
 Američko statističko udruženje objavilo je izjavu o p-vrijednostima nakon
@@ -493,9 +510,12 @@ ostaviti trag do podataka ili postupka iz kojeg je nastala.
 
 ## Interakcija — Istraživač margine pogreške
 
-Planirani istraživač prikazuje kako se margina pogreške mijenja s veličinom
-uzorka i blizinom rezultata sredini ljestvice. Njegova je svrha pokazati zašto
-veći uzorak povećava preciznost, ali ne liječi sustavnu pristranost ankete.
+Istraživač prikazuje približnu marginu pogreške uzorka pri različitim
+veličinama i procijenjenim udjelima. Zaseban klizač uvodi poznatu sustavnu
+pristranost. Interval se tada može sužavati oko precizno procijenjene pogrešne
+vrijednosti.
+
+*Slika. Približna margina pogreške i položaj pretpostavljene istinite vrijednosti u konstruiranoj anketi.*
 
 **Što isprobati.**
 

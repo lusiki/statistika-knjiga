@@ -1,9 +1,10 @@
 ---
 title: "Uspoređivanje dviju grupa"
+subtitle: "Ista razlika, različiti dizajni i zaključci"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i widget dovršeni
   IZVOR:   tjedan 11, umjerena prerada
   OPSEG:   ~4500 riječi
   WIDGET:  w14 · Uzorkivač dviju grupa
@@ -19,8 +20,15 @@ title: "Uspoređivanje dviju grupa"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Uzorkivač dviju grupa | simulacija | pogl. 4, 9–11 |
+:::
 
 ::: {.callout-vinjeta}
 Cumming je usporedbu skupina smjestio u okvir procjene razlike i njezina
@@ -69,28 +77,299 @@ interval, zatim test i standardiziranu veličinu učinka.
 
 Uzorkivač dviju grupa prikazuje preklapanje pojedinačnih rezultata i
 raspodjelu procijenjene razlike kroz ponavljanja. Čitatelj odvojeno mijenja
-stvarnu razliku, varijabilnost i veličinu uzorka.
+stvarnu razliku, varijabilnost i veličinu uzorka. Uparena simulacija zadržava
+fiksnu pozitivnu povezanost dvaju mjerenja iste jedinice.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Uzorkivač dviju grupa" data-oznaka="Widget 14.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w14_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w14 — Uzorkivač dviju grupa. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w14_par = Inputs.form({
+  dizajn: Inputs.select(
+    ["Neovisne skupine", "Uparena mjerenja"],
+    {value: "Neovisne skupine", label: "Dizajn"}
+  ),
+  n: Inputs.range(
+    [15, 150],
+    {value: 50, step: 5, label: "Jedinice po skupini ili broj parova"}
+  ),
+  razlika: Inputs.range(
+    [0, 12],
+    {value: 5, step: 1, label: "Stvarna razlika"}
+  ),
+  sd: Inputs.range(
+    [4, 20],
+    {value: 10, step: 1, label: "Standardna devijacija ishoda"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+//| label: fig-w14
+//| fig-cap: "Jedan simulirani uzorak dviju skupina i raspodjela procijenjene razlike kroz ponovljene uzorke."
+//| fig-alt: "Pri početnoj postavci raspodjele skupina A i B znatno se preklapaju, dok se ponovljene procjene razlike nakupljaju oko stvarne razlike pet."
+{
+  const tinta = "var(--tok-ink)";
+  const skupinaA = "var(--tok-data-2)";
+  const skupinaB = "var(--tok-data-4)";
+  const procjene = "var(--tok-data-5)";
+  const naglasak = "var(--tok-accent-deep)";
+  const povrsina = "var(--tok-surface)";
+  const linija = "var(--tok-rule)";
+  const sans = "var(--tok-font-sans)";
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+  const postotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    maximumFractionDigits: 0
+  });
+  const rng = d3.randomLcg(1414);
+  const standardna = d3.randomNormal.source(rng)(0, 1);
+  const korelacija = 0.65;
+
+  let skupina1;
+  let skupina2;
+  let standardnaPogreska;
+
+  if (w14_par.dizajn === "Uparena mjerenja") {
+    const parovi = Array.from({length: w14_par.n}, () => {
+      const z1 = standardna();
+      const z2 = standardna();
+      return {
+        a: w14_par.sd * z1,
+        b: w14_par.razlika + w14_par.sd *
+          (korelacija * z1 + Math.sqrt(1 - korelacija ** 2) * z2)
+      };
+    });
+    skupina1 = parovi.map(d => d.a);
+    skupina2 = parovi.map(d => d.b);
+    standardnaPogreska =
+      w14_par.sd * Math.sqrt(2 * (1 - korelacija) / w14_par.n);
+  } else {
+    skupina1 = Array.from(
+      {length: w14_par.n},
+      () => w14_par.sd * standardna()
+    );
+    skupina2 = Array.from(
+      {length: w14_par.n},
+      () => w14_par.razlika + w14_par.sd * standardna()
+    );
+    standardnaPogreska = w14_par.sd * Math.sqrt(2 / w14_par.n);
+  }
+
+  const procijenjeneRazlike = Array.from(
+    {length: 1500},
+    () => w14_par.razlika + standardnaPogreska * standardna()
+  );
+  const serije = [
+    {panel: "Skupina A u jednom uzorku", vrijednosti: skupina1},
+    {panel: "Skupina B u jednom uzorku", vrijednosti: skupina2},
+    {panel: "Razlike kroz ponavljanja", vrijednosti: procijenjeneRazlike}
+  ];
+  const sveVrijednosti = serije.flatMap(d => d.vrijednosti);
+  const donja = d3.min(sveVrijednosti);
+  const gornja = d3.max(sveVrijednosti);
+  const raspon = Math.max(1, gornja - donja);
+  const domena = [donja - 0.04 * raspon, gornja + 0.04 * raspon];
+  const binoviUzorak = d3.bin().domain(domena).thresholds(28);
+  const binoviProcjene = d3.bin().domain(domena).thresholds(120);
+  const histogrami = serije.flatMap(serija => {
+    const binovi = serija.panel === "Razlike kroz ponavljanja"
+      ? binoviProcjene
+      : binoviUzorak;
+    return binovi(serija.vrijednosti).map(bin => ({
+      panel: serija.panel,
+      x1: bin.x0,
+      x2: bin.x1,
+      udio: bin.length / serija.vrijednosti.length
+    }));
+  });
+  const najvisiUdio = d3.max(histogrami, d => d.udio);
+  const gornjaGranicaY = Math.max(0.01, najvisiUdio * 1.3);
+  const sredine = [
+    {panel: "Skupina A u jednom uzorku", vrijednost: 0},
+    {panel: "Skupina B u jednom uzorku", vrijednost: w14_par.razlika}
+  ];
+  const opisDizajna = w14_par.dizajn === "Uparena mjerenja"
+    ? "u uparenom dizajnu uz korelaciju 0,65"
+    : "u dizajnu neovisnih skupina";
+  const statusTekst =
+    `Standardna pogreška iznosi ${broj.format(standardnaPogreska)} ` +
+    `${opisDizajna}.`;
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirina = Math.max(200, Math.min(width, lokalnaSirina));
+  const vrloUsko = sirina < 240;
+
+  const graf = Plot.plot({
+    width: sirina,
+    height: sirina < 480 ? 560 : 500,
+    marginLeft: 62,
+    marginBottom: 52,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: sans,
+      fontSize: "13px"
+    },
+    color: {
+      domain: [
+        "Skupina A u jednom uzorku",
+        "Skupina B u jednom uzorku",
+        "Razlike kroz ponavljanja"
+      ],
+      range: [skupinaA, skupinaB, procjene],
+      legend: false
+    },
+    x: {
+      label: vrloUsko
+        ? "Ishod ili procijenjena razlika"
+        : "Vrijednost ishoda ili procijenjene razlike",
+      domain: domena,
+      tickFormat: d => broj.format(d)
+    },
+    y: {
+      label: "Udio opažanja",
+      domain: [0, gornjaGranicaY],
+      grid: true,
+      ticks: sirina < 480 ? 4 : 5,
+      tickFormat: d => postotak.format(d)
+    },
+    fy: {label: null, axis: null},
+    marks: [
+      Plot.rectY(histogrami, {
+        x1: "x1",
+        x2: "x2",
+        y: "udio",
+        fy: "panel",
+        fill: "panel",
+        inset: 0.5
+      }),
+      Plot.ruleX(sredine, {
+        x: "vrijednost",
+        fy: "panel",
+        stroke: tinta,
+        strokeDasharray: "3,3"
+      }),
+      Plot.ruleX(
+        [{panel: "Razlike kroz ponavljanja", vrijednost: w14_par.razlika}],
+        {
+          x: "vrijednost",
+          fy: "panel",
+          stroke: naglasak,
+          strokeWidth: 1.5
+        }
+      ),
+      Plot.text(
+        [
+          {
+            panel: "Skupina A u jednom uzorku",
+            x: domena[1] - 0.025 * raspon,
+            y: gornjaGranicaY * 0.93,
+            oznaka: "Skupina A · uzorak"
+          },
+          {
+            panel: "Skupina B u jednom uzorku",
+            x: domena[1] - 0.025 * raspon,
+            y: gornjaGranicaY * 0.93,
+            oznaka: "Skupina B · uzorak"
+          },
+          {
+            panel: "Razlike kroz ponavljanja",
+            x: domena[1] - 0.025 * raspon,
+            y: gornjaGranicaY * 0.93,
+            oznaka: "Razlike · ponavljanja"
+          }
+        ],
+        {
+          x: "x",
+          y: "y",
+          fy: "panel",
+          text: "oznaka",
+          textAnchor: "end",
+          dx: -2,
+          dy: 4,
+          fill: tinta,
+          stroke: povrsina,
+          strokeWidth: 3,
+          paintOrder: "stroke",
+          fontSize: sirina < 480 ? "11px" : "12px",
+          fontWeight: 600
+        }
+      ),
+      Plot.ruleY([0], {stroke: linija})
+    ]
+  });
+
+  const okvir = document.createElement("div");
+  const status = document.createElement("p");
+  status.className = "small";
+  status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  status.textContent = statusTekst;
+  okvir.append(status, graf);
+  return okvir;
+}
+```
+
 :::
+
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w14
-#| fig-cap: "Planirani prikaz dviju skupina i distribucije njihove razlike."
-#| fig-alt: "Mjesto za dvije skupine opažanja i histogram razlika sredina."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w14 još nije izrađen") +
-  theme_void()
+#| cache: false
+#| label: fig-w14-print
+#| fig-cap: "Raspodjele procijenjene razlike u neovisnom i uparenom dizajnu uz jednake rubne varijabilnosti."
+#| fig-alt: "Obje raspodjele procjena centrirane su oko razlike pet, ali je raspodjela u uparenom dizajnu uža."
+#| fig-width: 6.6
+#| fig-height: 4.8
+set.seed(1414)
+
+w14_n <- 50
+w14_razlika <- 5
+w14_sd <- 10
+w14_korelacija <- 0.65
+w14_procjene <- tibble(
+  dizajn = rep(c("Neovisne skupine", "Uparena mjerenja"), each = 4000),
+  procjena = c(
+    rnorm(4000, w14_razlika, w14_sd * sqrt(2 / w14_n)),
+    rnorm(
+      4000,
+      w14_razlika,
+      w14_sd * sqrt(2 * (1 - w14_korelacija) / w14_n)
+    )
+  )
+)
+
+ggplot(w14_procjene, aes(procjena)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 32,
+    fill = sivo[[4]],
+    colour = NA
+  ) +
+  geom_vline(
+    xintercept = w14_razlika,
+    colour = sivo[[1]],
+    linewidth = 0.7
+  ) +
+  facet_wrap(~ dizajn, ncol = 1) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 1)) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 2)) +
+  labs(x = "Procijenjena razlika", y = "Gustoća") +
+  theme_knjiga(base_size = 13)
 ```
 :::
 
@@ -98,7 +377,12 @@ ggplot() +
 
 1. Povećajte razliku uz jednaku varijabilnost.
 2. Povećajte varijabilnost uz jednaku razliku.
-3. Pretvorite neovisni dizajn u upareni i promatrajte što se računa.
+3. Povećajte uzorak bez promjene razlike i varijabilnosti.
+4. Pretvorite neovisni dizajn u upareni i usporedite raspodjelu procjena.
+
+Preklapanje pojedinačnih ishoda i preciznost procijenjene razlike nisu ista
+stvar. Uparivanje povećava preciznost samo kada analiza sačuva vezu između
+dvaju mjerenja iste jedinice.
 
 ::: {.callout-divljina}
 **Interval umjesto etikete.** Pristup usmjeren na procjenu traži razliku i
@@ -140,8 +424,10 @@ predstavlja stvarnu studiju, nego pokazuje redoslijed izvještavanja.
 
 ```{r}
 #| label: tbl-dvije-grupe
+#| cache: false
 #| tbl-cap: "Procjena razlike u simuliranim skupinama. Izrada autora."
 
+set.seed(1414)
 sim_dvije <- tibble(
   skupina = rep(c("A", "B"), each = 50),
   ishod = c(rnorm(50, 50, 10), rnorm(50, 55, 12))
@@ -150,11 +436,13 @@ sim_dvije <- tibble(
 test_dvije <- t.test(ishod ~ skupina, data = sim_dvije)
 
 tibble(
-  razlika = diff(rev(test_dvije$estimate)),
-  donja = test_dvije$conf.int[1],
-  gornja = test_dvije$conf.int[2]
+  `Razlika B − A` = unname(test_dvije$estimate[[2]] -
+                                      test_dvije$estimate[[1]]),
+  `Donja granica` = -test_dvije$conf.int[2],
+  `Gornja granica` = -test_dvije$conf.int[1]
 ) |>
-  knitr::kable(digits = 2)
+  mutate(across(everything(), ~ hr_broj(.x, 2))) |>
+  knitr::kable(align = c("r", "r", "r"))
 ```
 
 Interval pokazuje koje su razlike usklađene s ovim uzorkom. Izvještaj još

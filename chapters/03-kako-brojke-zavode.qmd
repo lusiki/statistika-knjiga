@@ -1,9 +1,10 @@
 ---
 title: "Kako brojke zavode"
+subtitle: "Četiri provjere prije nego povjerujemo brojci"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  cjelovit nacrt — argument, widget i statični blizanac
   IZVOR:   novo poglavlje, dijelom sastavljeno iz fragmenata tjedna 1
   OPSEG:   ~5000 riječi
   WIDGET:  w03 · Istraživač margine pogreške
@@ -19,8 +20,15 @@ title: "Kako brojke zavode"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Istraživač margine pogreške | simulacija | pogl. 1 i 2 |
+:::
 
 ::: {.callout-vinjeta}
 Američko statističko udruženje objavilo je izjavu o p-vrijednostima nakon
@@ -75,30 +83,246 @@ ostaviti trag do podataka ili postupka iz kojeg je nastala.
 
 ## Interakcija — Istraživač margine pogreške
 
-Planirani istraživač prikazuje kako se margina pogreške mijenja s veličinom
-uzorka i blizinom rezultata sredini ljestvice. Njegova je svrha pokazati zašto
-veći uzorak povećava preciznost, ali ne liječi sustavnu pristranost ankete.
+Istraživač prikazuje približnu marginu pogreške uzorka pri različitim
+veličinama i procijenjenim udjelima. Zaseban klizač uvodi poznatu sustavnu
+pristranost. Interval se tada može sužavati oko precizno procijenjene pogrešne
+vrijednosti.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Istraživač margine pogreške" data-oznaka="Widget 03.1 · interaktivno"}
 ```{ojs}
 //| echo: false
-// viewof w03_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w03 — Istraživač margine pogreške. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w03_par = Inputs.form({
+  n: Inputs.range(
+    [100, 3000],
+    {value: 1000, step: 100, label: "Veličina uzorka"}
+  ),
+  udio: Inputs.range(
+    [10, 90],
+    {value: 52, step: 1, label: "Procijenjeni udio u postocima"}
+  ),
+  pristranost: Inputs.range(
+    [-10, 10],
+    {
+      value: 0,
+      step: 1,
+      label: "Pristranost procjene u postotnim bodovima"
+    }
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+w03_tema = Generators.observe(obavijesti => {
+  let revizija = 0;
+  const osvjezi = () => obavijesti(++revizija);
+  const promatrac = new MutationObserver(osvjezi);
+  const postavke = {
+    attributes: true,
+    attributeFilter: ["class", "data-bs-theme"]
+  };
+  promatrac.observe(document.documentElement, postavke);
+  promatrac.observe(document.body, postavke);
+  osvjezi();
+  return () => promatrac.disconnect();
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w03
+//| fig-cap: "Približna margina pogreške i položaj pretpostavljene istinite vrijednosti u konstruiranoj anketi."
+//| fig-alt: "Pri početnom uzorku od 1000 i procjeni od 52 posto margina iznosi približno 3,1 postotni bod, a procjena se poklapa s pretpostavljenom istinitom vrijednošću."
+{
+  w03_tema;
+  const css = getComputedStyle(document.documentElement);
+  const tinta = css.getPropertyValue("--tok-data-1").trim();
+  const istinaBoja = css.getPropertyValue("--tok-data-2").trim();
+  const intervalBoja = css.getPropertyValue("--tok-data-4").trim();
+  const prigusena = css.getPropertyValue("--tok-ink-mute").trim();
+  const sans = css.getPropertyValue("--tok-font-sans").trim();
+  const postotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 1
+  });
+  const decimalni = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+
+  const procjena = w03_par.udio / 100;
+  const pristranost = w03_par.pristranost / 100;
+  const istina = procjena - pristranost;
+  const margina = 1.96 * Math.sqrt(
+    procjena * (1 - procjena) / w03_par.n
+  );
+  const donja = Math.max(0, procjena - margina);
+  const gornja = Math.min(1, procjena + margina);
+  const poklapanje = Math.abs(pristranost) < 1e-9;
+
+  const marks = [
+    Plot.ruleY(
+      [{y: 0, donja, gornja}],
+      {
+        y: "y",
+        x1: "donja",
+        x2: "gornja",
+        stroke: intervalBoja,
+        strokeWidth: 8,
+        strokeLinecap: "round"
+      }
+    ),
+    Plot.dot(
+      [
+        {x: donja, y: 0},
+        {x: gornja, y: 0}
+      ],
+      {x: "x", y: "y", r: 3.6, fill: intervalBoja}
+    ),
+    Plot.dot(
+      [{x: procjena, y: 0}],
+      {x: "x", y: "y", r: 7, fill: tinta}
+    ),
+    Plot.text(
+      [{
+        x: (donja + gornja) / 2,
+        y: 0.26,
+        oznaka: `približna margina ± ${decimalni.format(100 * margina)} boda`
+      }],
+      {x: "x", y: "y", text: "oznaka", fill: prigusena}
+    )
+  ];
+
+  if (poklapanje) {
+    marks.push(
+      Plot.text(
+        [{
+          x: procjena,
+          y: -0.25,
+          oznaka: `procjena i pretpostavljena istina ${postotak.format(procjena)}`
+        }],
+        {x: "x", y: "y", text: "oznaka", fill: prigusena}
+      )
+    );
+  } else {
+    marks.push(
+      Plot.dot(
+        [{x: istina, y: 0}],
+        {
+          x: "x",
+          y: "y",
+          r: 6.5,
+          symbol: "diamond",
+          fill: istinaBoja
+        }
+      ),
+      Plot.text(
+        [
+          {
+            x: procjena,
+            y: -0.25,
+            oznaka: `procjena ${postotak.format(procjena)}`
+          },
+          {
+            x: istina,
+            y: 0.42,
+            oznaka: `pretpostavljena istina ${postotak.format(istina)}`
+          }
+        ],
+        {x: "x", y: "y", text: "oznaka", fill: prigusena}
+      )
+    );
+  }
+
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 310 : 260,
+    marginLeft: usko ? 38 : 42,
+    marginRight: usko ? 16 : 28,
+    marginTop: usko ? 48 : 30,
+    marginBottom: 48,
+    style: {
+      background: "transparent",
+      fontFamily: sans,
+      fontSize: usko ? "12px" : "13px"
+    },
+    x: {
+      label: "Udio",
+      domain: [0, 1],
+      tickFormat: d => postotak.format(d),
+      grid: true
+    },
+    y: {axis: null, domain: [-0.45, 0.55]},
+    marks
+  });
+}
 ```
 :::
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w03
-#| fig-cap: "Planirani prikaz preciznosti ankete pri različitim uzorcima."
-#| fig-alt: "Mjesto za prikaz sve uže margine pogreške s rastom uzorka."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w03 još nije izrađen") +
-  theme_void()
+#| label: fig-w03-print
+#| fig-cap: "Tri stanja pokazuju učinak veličine uzorka i sustavne pristranosti."
+#| fig-alt: "Uzorak od 250 daje širi interval od uzorka od 1000. U trećem stanju uzorak ostaje 1000, ali pristranost od šest postotnih bodova pomiče pretpostavljenu istinitu vrijednost izvan uskog intervala."
+w03_stanja <- tibble(
+  Stanje = c(
+    "n = 250, bez pristranosti",
+    "n = 1 000, bez pristranosti",
+    "n = 1 000, pristranost 6 bodova"
+  ),
+  n = c(250, 1000, 1000),
+  Procjena = c(0.52, 0.52, 0.52),
+  Pristranost = c(0, 0, 0.06)
+) |>
+  mutate(
+    Istina = Procjena - Pristranost,
+    Margina = 1.96 * sqrt(Procjena * (1 - Procjena) / n),
+    Donja = Procjena - Margina,
+    Gornja = Procjena + Margina,
+    Stanje = factor(Stanje, levels = rev(Stanje))
+  )
+
+w03_tocke <- w03_stanja |>
+  select(Stanje, Procjena, `Pretpostavljena istina` = Istina) |>
+  pivot_longer(
+    cols = -Stanje,
+    names_to = "Mjera",
+    values_to = "Vrijednost"
+  )
+
+ggplot(w03_stanja, aes(y = Stanje)) +
+  geom_segment(
+    aes(x = Donja, xend = Gornja, yend = Stanje),
+    colour = sivo[[4]],
+    linewidth = 3.2,
+    lineend = "round"
+  ) +
+  geom_point(
+    data = w03_tocke,
+    aes(x = Vrijednost, colour = Mjera, shape = Mjera),
+    size = 2.7
+  ) +
+  scale_color_manual(values = c(sivo[[1]], sivo[[2]])) +
+  scale_shape_manual(values = c(16, 4)) +
+  scale_x_continuous(
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %"),
+    limits = c(0.42, 0.60)
+  ) +
+  labs(x = "Udio", y = NULL) +
+  theme(legend.position = "bottom")
 ```
 :::
 

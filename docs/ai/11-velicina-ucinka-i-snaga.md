@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Istraživač snage | simulacija | pogl. 9, 10 |
 
 **Vinjeta.**
 Cohen je kritizirao praksu u kojoj je statistička značajnost zamjenjivala
@@ -57,11 +61,18 @@ Istraživač snage povezuje veličinu učinka, uzorak i prag. Čitatelj mijenja
 jedan element dok ostale drži jednakima i vidi da ista odluka ima različite
 posljedice za male i velike učinke.
 
+*Slika. Simulirana snaga kroz veličine uzorka u idealiziranom postupku s poznatom varijabilnošću.*
+
 **Što isprobati.**
 
 1. Zadržite učinak jednakim i povećavajte uzorak.
 2. Zadržite uzorak jednakim i smanjujte učinak.
-3. Usporedite snagu s očekivanom širinom intervala.
+3. Spustite prag odluke i provjerite koliko je jedinica potrebno za istu snagu.
+4. Povećajte broj ponavljanja i promatrajte koliko se krivulja zaglađuje.
+
+Krivulja pokazuje zašto snaga nije trajno svojstvo testa. Ona pripada
+određenoj kombinaciji učinka, uzorka, varijabilnosti i praga, pa se mora
+planirati za rezultat koji bi bio sadržajno važan.
 
 **Statistika u divljini.**
 **Zemlja je okrugla.** Cohenov naslov sažima kritiku rituala u kojem poznata ili
@@ -95,9 +106,9 @@ jedinicama.
 Planiramo simuliranu usporedbu dviju neovisnih skupina. Ne polazimo od
 očekivanja da ćemo „dobiti značajnost", nego od standardizirane razlike koju bi
 imalo smisla pouzdano uočiti. Funkcija zatim pokazuje potreban broj jedinica po
-skupini.
+skupini (Cohen, 1988).
 
-*Slika. Planiranje uzorka za nekoliko simuliranih scenarija. Izrada autora prema @cohen1988.*
+*Slika. Planiranje uzorka za nekoliko simuliranih scenarija. Izrada autora.*
 
 Tablica pokazuje cijenu traženja manjih učinaka pod istim kriterijima. Konačan
 plan ipak treba provjeru odustajanja, kvalitete mjerenja i izvedivosti. Račun

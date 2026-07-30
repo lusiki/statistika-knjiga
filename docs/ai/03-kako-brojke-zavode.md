@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Istraživač margine pogreške | simulacija | pogl. 1 i 2 |
 
 **Vinjeta.**
 Američko statističko udruženje objavilo je izjavu o p-vrijednostima nakon
@@ -60,9 +64,12 @@ ostaviti trag do podataka ili postupka iz kojeg je nastala.
 
 ## Interakcija — Istraživač margine pogreške
 
-Planirani istraživač prikazuje kako se margina pogreške mijenja s veličinom
-uzorka i blizinom rezultata sredini ljestvice. Njegova je svrha pokazati zašto
-veći uzorak povećava preciznost, ali ne liječi sustavnu pristranost ankete.
+Istraživač prikazuje približnu marginu pogreške uzorka pri različitim
+veličinama i procijenjenim udjelima. Zaseban klizač uvodi poznatu sustavnu
+pristranost. Interval se tada može sužavati oko precizno procijenjene pogrešne
+vrijednosti.
+
+*Slika. Približna margina pogreške i položaj pretpostavljene istinite vrijednosti u konstruiranoj anketi.*
 
 **Što isprobati.**
 

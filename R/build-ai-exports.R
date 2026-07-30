@@ -121,6 +121,23 @@ main <- function() {
                file.path(AI_DIR, paste0("dio-", d, ".md")))
   }
 
+  # Ukloni samo zastarjele izvoze koje je ova skripta ranije generirala.
+  # Time promjena strukture knjige ne ostavlja prividna poglavlja u docs/ai,
+  # ali se nijedna ručno dodana .md datoteka bez knjižnog zaglavlja ne dira.
+  expected_ai <- c(
+    paste0(vapply(chapters, function(c) c$base, character(1)), ".md"),
+    paste0("dio-", seq_len(dio_counter), ".md")
+  )
+  existing_ai <- list.files(AI_DIR, pattern = "\\.md$", full.names = TRUE)
+  stale_ai <- existing_ai[!basename(existing_ai) %in% expected_ai]
+  generated_by_book <- vapply(stale_ai, function(path) {
+    head_lines <- readLines(path, n = 8L, warn = FALSE, encoding = "UTF-8")
+    any(grepl(paste0("> Iz knjige: ", BOOK_TITLE), head_lines, fixed = TRUE))
+  }, logical(1))
+  if (any(generated_by_book)) {
+    unlink(stale_ai[generated_by_book])
+  }
+
   # --- 6. cijela knjiga: docs/llms-full.txt -------------------------------
   full_head <- paste0(
     "# ", BOOK_TITLE, "\n\n",
