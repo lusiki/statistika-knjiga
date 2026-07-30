@@ -1,9 +1,10 @@
 ---
 title: "Vaše prvo istraživanje"
+subtitle: "Od pitanja do provjerljivog zaključka"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — vođeni projekt i protokol rada s asistentom
+  STATUS:  djelomični nacrt — strukturiran vođeni projekt i protokol rada s asistentom
   IZVOR:   novo, izgrađeno iz praktičnog projekta kolegija
   OPSEG:   ~5000 riječi
   WIDGET:  bez widgeta
@@ -19,8 +20,15 @@ title: "Vaše prvo istraživanje"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | bez widgeta | simulacija | pogl. 2, 5 i 16 |
+:::
 
 ::: {.callout-vinjeta}
 Na kraju kolegija istraživački tim ima rok, zanimljivo pitanje i datoteku koja
@@ -85,6 +93,7 @@ obrade.
 :::
 :::
 
+:::: {.primjer}
 ## Razrađeni primjer
 
 Vodimo jedno potpuno simulirano istraživanje o odnosu vremena izloženosti
@@ -92,10 +101,14 @@ informativnom sadržaju i rezultata na kratkom testu znanja. Simulacija nam
 omogućuje prikaz cijelog postupka bez izmišljanja empirijskog nalaza o stvarnim
 studentima.
 
+### Pitanje i jedinica analize
+
 Najprije zapisujemo pitanje. Zanima nas opisna povezanost dviju varijabli u
 simuliranom uzorku, ne uzročni učinak. Jedinica analize je osoba, a ishod
 rezultat testa. Dodatno bilježimo prethodni interes jer može biti povezan i s
 izloženošću i sa znanjem.
+
+### Simulacija i provjera podataka
 
 ```{r}
 #| include: false
@@ -112,41 +125,146 @@ Prije modela pregledavamo nedostajuće vrijednosti, raspodjele i moguće
 nemoguće vrijednosti. Simulacija nema nedostajuće podatke, ali kod za provjeru
 ostaje dio analize jer stvarna datoteka gotovo nikada nije tako uredna.
 
+::: {.table-keep-words}
 ```{r}
 #| label: tbl-projekt-opis
 #| tbl-cap: "Opis simuliranih varijabli prvog istraživanja. Izrada autora."
 
-sim_projekt |>
+opis_projekta <- sim_projekt |>
   summarise(
     opažanja = n(),
     prosjek_izlozenosti = mean(izlozenost),
     sd_izlozenosti = sd(izlozenost),
     prosjek_znanja = mean(znanje),
     sd_znanja = sd(znanje)
-  ) |>
-  knitr::kable(digits = 1)
+  )
+
+tibble(
+  Mjera = c(
+    "Broj opažanja",
+    "Prosjek izloženosti",
+    "Standardna devijacija izloženosti",
+    "Prosjek znanja",
+    "Standardna devijacija znanja"
+  ),
+  Vrijednost = c(
+    format(opis_projekta$opažanja, big.mark = " ", trim = TRUE),
+    formatC(
+      opis_projekta$prosjek_izlozenosti,
+      format = "f",
+      digits = 1,
+      decimal.mark = ","
+    ),
+    formatC(
+      opis_projekta$sd_izlozenosti,
+      format = "f",
+      digits = 1,
+      decimal.mark = ","
+    ),
+    formatC(
+      opis_projekta$prosjek_znanja,
+      format = "f",
+      digits = 1,
+      decimal.mark = ","
+    ),
+    formatC(
+      opis_projekta$sd_znanja,
+      format = "f",
+      digits = 1,
+      decimal.mark = ","
+    )
+  )
+) |>
+  knitr::kable(align = c("l", "r"))
 ```
+:::
+
+### Graf prije modela
 
 Graf prethodi modelu jer moramo vidjeti linearnost, krajnja opažanja i
 raspršenost. Ne tumačimo nagib prije nego što provjerimo odgovara li pravac
 obliku podataka.
 
 ```{r}
-#| label: fig-projekt-odnos
 #| echo: true
-#| fig-cap: "Izloženost i znanje u simuliranom istraživanju. Izrada autora."
-#| fig-alt: "Raspršeni dijagram pokazuje pozitivan odnos simulirane izloženosti i rezultata znanja."
-
-ggplot(sim_projekt, aes(izlozenost, znanje)) +
+p_projekt <- ggplot(sim_projekt, aes(izlozenost, znanje)) +
   geom_point(alpha = 0.55) +
-  geom_smooth(method = "lm") +
-  labs(x = "Simulirana izloženost", y = "Simulirani rezultat znanja")
+  geom_smooth(
+    method = "lm",
+    se = TRUE
+  ) +
+  labs(
+    x = "Simulirana izloženost",
+    y = "Simulirani rezultat znanja"
+  ) +
+  theme(
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 15),
+    plot.margin = margin(10, 12, 10, 12)
+  )
 ```
+
+Sljedeća slika prikazuje rezultat te provjere za simulirani uzorak.
+
+::: {#fig-projekt-odnos .responsive-static-figure}
+::: {.figure-theme-light .figure-viewport-wide}
+```{r}
+#| echo: false
+#| fig-alt: "Raspršeni dijagram pokazuje pozitivan odnos simulirane izloženosti i rezultata znanja."
+#| fig-width: 5.8
+#| fig-height: 4.8
+#| fig-bg: transparent
+p_projekt
+```
+:::
+
+::: {.content-visible when-format="html"}
+::: {.figure-theme-dark .figure-viewport-wide}
+```{r}
+#| echo: false
+#| fig-alt: "Raspršeni dijagram pokazuje pozitivan odnos simulirane izloženosti i rezultata znanja."
+#| fig-width: 5.8
+#| fig-height: 4.8
+#| fig-bg: transparent
+iscrtaj_figuru(p_projekt, "tamna")
+```
+:::
+:::
+
+::: {.content-visible when-format="html"}
+::: {.figure-theme-light .figure-viewport-mobile}
+```{r}
+#| echo: false
+#| fig-alt: "Raspršeni dijagram pokazuje pozitivan odnos simulirane izloženosti i rezultata znanja."
+#| fig-width: 4.2
+#| fig-height: 4.2
+#| fig-bg: transparent
+p_projekt
+```
+:::
+
+::: {.figure-theme-dark .figure-viewport-mobile}
+```{r}
+#| echo: false
+#| fig-alt: "Raspršeni dijagram pokazuje pozitivan odnos simulirane izloženosti i rezultata znanja."
+#| fig-width: 4.2
+#| fig-height: 4.2
+#| fig-bg: transparent
+iscrtaj_figuru(p_projekt, "tamna")
+```
+:::
+:::
+
+Izloženost i znanje u simuliranom istraživanju. Izrada autora.
+:::
+
+### Zbirni i prilagođeni model
 
 Jednostavni model opisuje zbirni odnos. Prilagođeni model dodaje prethodni
 interes i pokazuje kako se koeficijent mijenja kada uspoređujemo osobe s
 jednakim simuliranim interesom.
 
+::: {.table-keep-words}
 ```{r}
 #| label: tbl-projekt-model
 #| tbl-cap: "Koeficijent izloženosti u dvama simuliranim modelima. Izrada autora."
@@ -164,11 +282,34 @@ koeficijent <- function(model, naziv) {
 }
 
 bind_rows(
-  koeficijent(projekt_jedan, "zbirni"),
-  koeficijent(projekt_dva, "prilagođeni")
+  koeficijent(projekt_jedan, "Zbirni"),
+  koeficijent(projekt_dva, "Prilagođeni")
 ) |>
-  knitr::kable(digits = 2)
+  pivot_longer(
+    c(procjena, standardna_pogreska),
+    names_to = "mjera",
+    values_to = "vrijednost"
+  ) |>
+  mutate(
+    Mjera = recode(
+      mjera,
+      procjena = "Procjena",
+      standardna_pogreska = "Standardna pogreška"
+    ),
+    Vrijednost = formatC(
+      vrijednost,
+      format = "f",
+      digits = 2,
+      decimal.mark = ","
+    )
+  ) |>
+  select(Mjera, model, Vrijednost) |>
+  pivot_wider(names_from = model, values_from = Vrijednost) |>
+  knitr::kable(align = c("l", "r", "r"))
 ```
+:::
+
+### Ograničeni zaključak i trag odluka
 
 Zaključak pišemo skromno. U simuliranom uzorku veća izloženost povezana je s
 višim rezultatom, a dio zbirne povezanosti dijeli se s prethodnim interesom.
@@ -179,6 +320,8 @@ Na kraju spremamo skriptu, verziju podataka, izlaz i bilješku o korištenju
 asistenta. Čitatelj mora moći ponoviti tablicu i graf bez pristupa našem
 razgovoru s modelom. Objavljujemo samo ono za što imamo pravo i uklanjamo
 izravne identifikatore prema unaprijed odobrenom protokolu.
+
+::::
 
 ## Sažetak {.sazetak}
 

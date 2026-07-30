@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Istraživač pravednosti | simulacija | pogl. 7 i 16 |
 
 **Vinjeta.**
 Chouldechova je analizirala instrumente za predviđanje povratka u kriminal i
@@ -83,15 +87,21 @@ podrijetla samo je predikcija koja zvuči kao znanje.
 ## Interakcija — Istraživač pravednosti
 
 Istraživač pravednosti mijenja klasifikacijski prag za dvije skupine s
-različitim temeljnim stopama. Uz isti model čitatelj promatra kako se točnost,
-lažno pozitivne i lažno negativne odluke te prediktivna vrijednost ne kreću
-zajedno.
+različitim temeljnim stopama, ali jednakom kvalitetom rezultata uvjetno na
+stvarni ishod. Tako se vidi kako zajednički prag može izjednačiti neke stope
+pogreške, a ipak proizvesti različitu prediktivnu vrijednost i točnost.
+
+Rezultat se učitava.
+
+*Slika. Istraživač pravednosti — četiri mjerila po skupini pri zajedničkom klasifikacijskom pragu.*
 
 **Što isprobati.**
 
-1. Primijenite isti prag na skupine s jednakim temeljnim stopama.
-2. Promijenite temeljnu stopu jedne skupine.
-3. Pokušajte istodobno izjednačiti više mjerila pravednosti.
+1. Postavite obje temeljne stope na 20 % i usporedite sva četiri mjerila.
+2. Vratite skupinu B na 45 % te pronađite mjerila koja se razilaze iako je
+   prag zajednički.
+3. Pomaknite prag prema 0,30 pa prema 0,70 i provjerite može li jedno
+   podešenje istodobno smanjiti obje vrste pogreške.
 
 **Statistika u divljini.**
 **Jednaka ocjena, različite pogreške.** Analiza instrumenata za procjenu rizika

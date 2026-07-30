@@ -7,6 +7,11 @@ project:
   # Skripta je obavijena tryCatch-om pa nikad ne ruši build.
   pre-render:
     - R/build-ai-exports.R
+  # GitHub Pages mora moći prikazati 404 s bilo koje dubine URL-a, a ista se
+  # datoteka mora moći pregledati i iz lokalnog korijena. Ugradnja lokalnih
+  # resursa nakon rendera uklanja ovisnost o produkcijskom podputu.
+  post-render:
+    - python scripts/embed-404-assets.py
   resources:
     - robots.txt
     # Predavanja (reveal.js) renderiraju se zasebno u predavanja/ i ovdje se
@@ -20,7 +25,6 @@ book:
     - name: "Luka Šikić"
   date: last-modified
   date-format: "D MMMM YYYY"
-  language: hr-HR
 
   description: "Udžbenik statistike za društvene znanosti — statističko mišljenje, opisivanje podataka, uzorkovanje i procjena, zaključivanje, linearni modeli i statistika u doba algoritama."
 
@@ -79,6 +83,27 @@ book:
 
   page-footer:
     center: "© 2026 · Osnove statistike za društvene znanosti"
+    # Quarto book zanemaruje `project.render` za datoteke izvan knjige, ali
+    # legitimne interne poveznice podnožja dodaje u render-set. Desni je stupac
+    # sistemski (CSS ga skriva) i drži hubove izvan numeracije, sidebara i
+    # prethodno/sljedeće slijeda.
+    right:
+      - text: "Interakcije"
+        href: interakcije.qmd
+      - text: "Pojmovnik"
+        href: pojmovnik.qmd
+      - text: "Podaci"
+        href: podaci.qmd
+      - text: "Uči uz AI"
+        href: uci-s-ai.qmd
+      - text: "Predavanja"
+        href: predavanja.qmd
+      - text: "Silabus"
+        href: silabus.qmd
+      - text: "Tjedni raspored"
+        href: raspored.qmd
+      - text: "Resursi"
+        href: resursi.qmd
 
   chapters:
     - index.qmd
@@ -114,27 +139,54 @@ book:
       chapters:
         - chapters/18-vase-prvo-istrazivanje.qmd
 
+  # Namjensko polje drži Literaturu nenumeriranom, poslije svih poglavlja i
+  # neposredno prije dodataka.
+  references: references.qmd
+
   appendices:
-    - references.qmd
     - dodaci/a-praktikum.qmd
     - dodaci/b-jamovi.qmd
     - dodaci/c-katalog-podataka.qmd
     - dodaci/d-koji-test.qmd
     - dodaci/e-rjecnik.qmd
     - dodaci/f-ai-protokol.qmd
-    # Samostalne stranice — u appendices su da se renderiraju; iz sidebara
-    # ih sklanja pruneSidebar u styles/book-include.html, a dohvaćaju se
-    # iz navbara.
-    - pojmovnik.qmd
-    - interakcije.qmd
-    - podaci.qmd
-    - resursi.qmd
-    - uci-s-ai.qmd
-    - predavanja.qmd
-    - silabus.qmd
-    - raspored.qmd
 
 bibliography: references.bib
+
+# Quarto 1.9 nema ugrađeni hrvatski prijevod sučelja. `lang` određuje jezik
+# dokumenta, a `language` prevodi tekst koji sam Quarto umeće u HTML.
+lang: hr-HR
+language:
+  toc-title-document: "Sadržaj"
+  toc-title-website: "Na ovoj stranici"
+  section-title-appendices: "Dodaci"
+  code-summary: "Prikaži kod"
+  code-tools-menu-caption: "Kod"
+  code-tools-show-all-code: "Prikaži sav kod"
+  code-tools-hide-all-code: "Sakrij sav kod"
+  code-tools-view-source: "Prikaži izvor"
+  code-tools-source-code: "Izvorni kod"
+  copy-button-tooltip: "Kopiraj"
+  copy-button-tooltip-success: "Kopirano"
+  repo-action-links-source: "Prikaži izvor"
+  back-to-top: "Povratak na vrh"
+  search-no-results-text: "Nema rezultata"
+  search-matching-documents-text: "Rezultati pretraživanja"
+  search-copy-link-title: "Kopiraj poveznicu na pretraživanje"
+  search-hide-matches-text: "Sakrij dodatne rezultate"
+  search-more-match-text: "još jedan rezultat u ovom dokumentu"
+  search-more-matches-text: "još rezultata u ovom dokumentu"
+  search-clear-button-title: "Očisti pretraživanje"
+  search-text-placeholder: "Pretraži knjigu"
+  search-detached-cancel-button-title: "Odustani"
+  search-submit-button-title: "Pretraži"
+  search-label: "Pretraži"
+  toggle-section: "Prikaži ili sakrij odjeljak"
+  toggle-sidebar: "Prikaži ili sakrij sadržaj"
+  toggle-dark-mode: "Promijeni temu"
+  toggle-reader-mode: "Promijeni način čitanja"
+  toggle-navigation: "Prikaži ili sakrij navigaciju"
+  crossref-apx-prefix: "Dodatak"
 
 # PRIVREMENO. Dok nijedno poglavlje ne nosi [@kljuc] citat, bibliografija je
 # prazna, a prazno LaTeX okruženje CSLReferences ruši PDF render ("perhaps a
@@ -171,6 +223,7 @@ crossref:
   exm-prefix: "Primjer"
   exr-title: "Zadatak"
   exr-prefix: "Zadatak"
+  appendix-title: "Dodatak"
 
 format:
   html:
@@ -182,12 +235,18 @@ format:
         - cosmo
         - styles/custom.scss
         - styles/_dark.scss
+    # Quarto inače postavlja korijenski rem na 17 px; knjižni token tijela već
+    # nosi povećanje 1,0625. Normalizirani korijen zato daje namjeravanih 17 px
+    # jednom, bez prethodnog dvostrukog skaliranja na 18,06 px.
+    fontsize: 16px
     css: styles/styles.css
     lightbox: auto
     code-copy: true
     code-fold: true            # kod je presavijen (načelo 4); praktikum ga otvara
     code-summary: "Prikaži kod"
-    code-tools: true
+    # Globalni izbornik izvornog koda nije čitateljski alat. Nastavni profil
+    # ga ponovno uključuje, dok presavijeni blokovi ostaju dostupni svima.
+    code-tools: false
     code-link: true
     code-overflow: scroll
     code-line-numbers: false
@@ -196,6 +255,7 @@ format:
     # sivu inačicu (_quarto-pdf.yml).
     highlight-style: styles/statistika.theme
     toc: true
+    toc-title: "Sadržaj"
     toc-depth: 3
     toc-expand: 2
     toc-location: right
@@ -205,6 +265,9 @@ format:
     link-external-icon: true
     link-external-newwindow: true
     fig-responsive: true
+    # SVG čuva oštrinu i prozirnu podlogu u HTML-u. PDF/DOCX profili imaju
+    # vlastite uređaje i ovim nisu pogođeni.
+    fig-format: svg
     fig-align: center
     fig-cap-location: bottom
     # Format grafa prati stupac teksta (680 px), ne širinu prozora.
@@ -219,12 +282,20 @@ format:
     definition-appearance: default
     proposition-appearance: simple
     proof-appearance: simple
-    fontsize: 1.0625rem
     linestretch: 1.62
     lang: hr-HR
     citations-hover: true
     footnotes-hover: true
     crossrefs-hover: true
+    filters:
+      # Sažeti autorski zapis hrvatsko-engleskih parova postaje semantički
+      # definicijski popis prije nego što Quarto izgradi HTML odjeljke.
+      - path: html-filters/terminology-list.lua
+        at: pre-quarto
+      # Margin citations and their `.page-full` grid classes are generated by
+      # Quarto's final layout pass, so this repair runs after finalisation.
+      - path: html-filters/systemic-layout.lua
+        at: post-finalize
     # Mreža: stupac teksta 680 px, margina 260 px. Mjera od 66 znakova
     # drži se u SCSS-u (--tok-measure); ovo je okvir oko nje.
     grid:
@@ -240,8 +311,11 @@ format:
     prefer-html: true
 
 execute:
-  freeze: auto
-  cache: true
+  # Skriveni setup chunk postavlja temu, paletu, RNG i hrvatski decimalni
+  # zapis. Freeze/cache ne prate promjene u tim izvorima i vraćaju nepotpune
+  # nuspojave, pa je tijekom izrade sigurnije uvijek izvršiti aktualni izvor.
+  freeze: false
+  cache: false
   echo: true
   warning: false
   message: false

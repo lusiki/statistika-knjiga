@@ -50,6 +50,15 @@
   &::before { @extend %oznaka-kutije; }
 }
 
+// Quarto promotes cited ancestors to its full-page grid before the DOM repair
+// runs. Keep that generated state in the reading column even during first paint.
+.page-columns .callout-vinjeta.page-full,
+.page-columns .callout-divljina.page-full,
+.page-columns .callout-model.page-full,
+.page-columns .callout-greska.page-full {
+  grid-column: body-content-start / body-content-end !important;
+}
+
 // ---------------------------------------------------------------------
 //  Vinjeta — otvarajući slučaj
 //  2 px gornja crta, vlas donja, tekst u displejnom kurzivu.
@@ -86,7 +95,8 @@
   border: 0;
   padding: 2.25rem 2.5rem;
   margin: 3.5rem 0;
-  max-width: none;
+  width: 100%;
+  max-width: $tok-measure;
 
   &::before { content: "Statistika u divljini"; color: $tok-accent; }
 
@@ -164,8 +174,7 @@
 }
 
 // Rješenje vidljivo samo u nastavnom izdanju (profil `kolegij`).
-.callout-greska .quarto-profile-kolegij,
-.callout-greska > div:last-child:not(:first-child) {
+.callout-greska .quarto-profile-kolegij {
   border-top: 1px solid $tok-rule;
   margin-top: 1.25rem;
   padding-top: 1rem;
@@ -185,7 +194,8 @@
     color: $tok-accent-deep;
   }
 
-  > h3 {
+  > h3,
+  > .level3 > h3 {
     counter-increment: korak;
     display: grid;
     grid-template-columns: 3rem 1fr;
@@ -208,7 +218,9 @@
   }
 
   > h3 + p,
-  > h3 + p + p { margin-left: 4rem; }
+  > h3 + p + p,
+  > .level3 > h3 + p,
+  > .level3 > h3 + p + p { margin-left: 4rem; }
 }
 
 // =====================================================================
@@ -255,35 +267,80 @@ h2.pojmovi {
 
 // =====================================================================
 //  Pojmovi — hrvatski i engleski u paru
-//  Dvostupčana tablica u odjeljku ## Pojmovi {.pojmovi}.
+//  Semantički definicijski popis u odjeljku ## Pojmovi {.pojmovi}.
 // =====================================================================
 section.pojmovi {
   margin: 3rem 0;
   border-top: 1px solid $tok-rule;
   padding-top: 1.75rem;
+}
 
-  table {
-    border: 0;
-    font-size: 0.9375rem;
-    max-width: 46rem;
+.terminology-list {
+  max-width: 46rem;
+  margin: 0;
+}
+
+.terminology-list--glossary {
+  margin-top: 1.5rem;
+}
+
+.terminology-list > dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.72fr);
+  column-gap: 2rem;
+  margin: 0;
+}
+
+.terminology-list dt,
+.terminology-list dd {
+  border-bottom: 1px solid $tok-rule-soft;
+  padding: 0.75rem 0;
+  margin: 0;
+}
+
+.terminology-list dt {
+  font-family: $tok-font-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: $tok-ink;
+  text-align: left;
+}
+
+.terminology-list dd {
+  font-family: $tok-font-sans;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: $tok-ink-mute;
+  text-align: right;
+}
+
+.terminology-list dd > p {
+  max-width: none;
+  margin: 0;
+}
+
+.terminology-list__chapter {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.6875rem;
+  font-style: normal;
+  color: $tok-ink-faint;
+}
+
+@media (max-width: 600px) {
+  .terminology-list > dl {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
   }
-  thead { display: none; }
-  td {
-    border-bottom: 1px solid $tok-rule-soft;
-    padding: 0.75rem 0;
-    vertical-align: baseline;
+
+  .terminology-list dt {
+    border-bottom: 0;
+    padding: 0.8rem 0 0.15rem;
   }
-  td:first-child {
-    font-family: $tok-font-serif;
-    color: $tok-ink;
+
+  .terminology-list dd {
+    padding: 0.15rem 0 0.8rem;
     text-align: left;
-  }
-  td:last-child {
-    font-family: $tok-font-sans;
-    font-size: 0.8125rem;
-    font-style: italic;
-    color: $tok-ink-faint;
-    text-align: right;
   }
 }
 
@@ -292,8 +349,8 @@ section.pojmovi {
 //  ### Konceptualni {.zadaci-razina} …
 // =====================================================================
 section.zadaci-razina {
-  border-top: 1px solid $tok-rule;
-  padding: 1.5rem 0;
+  border-top: 0;
+  padding: 0 0 1.5rem;
   margin: 0;
 
   ol {
@@ -324,7 +381,36 @@ h3.zadaci-razina {
   @extend %oznaka-kutije;
   font-size: 0.6875rem;
   color: $tok-accent-deep;
+  border-top: 1px solid $tok-rule;
+  padding-top: 1.5rem;
   margin: 0 0 0.75rem;
+}
+
+// Na telefonu oznaka uvijek dobiva vlastiti redak, a kutije čuvaju mjeru
+// smanjivanjem uvlake umjesto smanjivanjem čitateljskog teksta.
+@media (max-width: 600px) {
+  .callout-vinjeta {
+    padding-top: 1.25rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .callout-vinjeta::before,
+  .callout-divljina::before,
+  .callout-model::before,
+  .callout-greska::before {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.875rem;
+  }
+
+  .callout-divljina,
+  .callout-model {
+    padding: 1.5rem 1.25rem;
+  }
+
+  section.sazetak {
+    padding: 1.75rem 1.25rem;
+  }
 }
 
 // =====================================================================

@@ -135,14 +135,16 @@ neobavezni i učitavaju se ako postoje).
 
 ## 5. Repertoar elemenata
 
-Svaki tip kutije razlikuje se **crtom i oznakom**, ne bojom pozadine. Oznaku
+Svaki tip kutije razlikuje se **crtom i oznakom**, ne dekorativnom bojom
+pozadine. „Statistika u divljini” jedina koristi obrnutu tamnu plohu, uvijek
+ograničenu na stupac teksta i nikada razvučenu preko cijelog zaslona. Oznaku
 kategorije ispisuje CSS; u `.qmd`-u se ne upisuje.
 
 | Element | Klasa | Oblik na zaslonu | U tisku |
 |---------|-------|------------------|---------|
 | **Vinjeta** | `.callout-vinjeta` | 2 px gornja crta + vlas donja, displejni kurziv 22 px | isto |
 | **Definicija** | `::: {#def-…}` | 2 px lijeva oker crta + ispuna `accent-wash` | crna crta + 4 % siva |
-| **Statistika u divljini** | `.callout-divljina` | puna tamna traka `ink`, navod u bijelom kurzivu | bijela ploha s 1,6 pt crnim okvirom |
+| **Statistika u divljini** | `.callout-divljina` | tamna ploha `ink` unutar stupca teksta, navod u bijelom kurzivu | bijela ploha s 1,6 pt crnim okvirom |
 | **Pitajte model** | `.callout-model` | 1 px točkasti okvir; upit u monou na `paper-soft` | isto |
 | **Nađite grešku** | `.callout-greska` | 3 px gornja crta, bez ispune, oznaka podcrtana okerom | podcrta crna |
 | **Razrađeni primjer** | `##` odjeljak · `.primjer` | u pravilu obični `##` odjeljak; klasa `.primjer` daje viseće mono brojeve koraka i vlas liniju po koraku | isto |

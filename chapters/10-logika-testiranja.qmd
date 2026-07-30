@@ -1,9 +1,10 @@
 ---
 title: "Logika testiranja"
+subtitle: "Što p-vrijednost govori — i što ne govori"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i widget dovršeni
   IZVOR:   tjedan 9, prva polovica, restrukturirano
   OPSEG:   ~4500 riječi
   WIDGET:  w10 · Simulator p-vrijednosti
@@ -19,8 +20,15 @@ title: "Logika testiranja"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Simulator p-vrijednosti | simulacija | pogl. 7–9 |
+:::
 
 ::: {.callout-vinjeta}
 Američko statističko udruženje moralo je javno razjasniti p-vrijednost jer je
@@ -74,36 +82,243 @@ početne pretpostavke.
 
 Simulator p-vrijednosti stvara rezultate kada je nulta hipoteza istinita i
 kada nije. Čitatelj promatra koliko se p-vrijednosti mijenjaju od uzorka do
-uzorka i zašto jedan rezultat ne može biti potvrda postupka u cjelini.
+uzorka i zašto jedan rezultat ne može biti potvrda postupka u cjelini. Radi
+preglednosti koristi normalne ishode s poznatom varijabilnošću i obostrani test.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Simulator p-vrijednosti" data-oznaka="Widget 10.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w10_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w10 — Simulator p-vrijednosti. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w10_par = Inputs.form({
+  n: Inputs.range(
+    [20, 300],
+    {value: 60, step: 10, label: "Veličina svake skupine"}
+  ),
+  ucinak: Inputs.range(
+    [0, 0.8],
+    {value: 0.35, step: 0.05, label: "Stvarna standardizirana razlika"}
+  ),
+  prag: Inputs.range(
+    [0.01, 0.10],
+    {value: 0.05, step: 0.01, label: "Prag odluke"}
+  ),
+  ponavljanja: Inputs.range(
+    [500, 4000],
+    {value: 2000, step: 500, label: "Broj simuliranih uzoraka"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+//| label: fig-w10
+//| fig-cap: "Raspodjele p-vrijednosti pod nultim modelom i pod odabranim stvarnim učinkom."
+//| fig-alt: "Pri početnoj postavci p-vrijednosti pod nultim modelom ispunjavaju interval od nule do jedan, dok su uz standardiziranu razliku 0,35 češće blizu nule."
+{
+  const tinta = "var(--tok-ink)";
+  const prigusena = "var(--tok-data-4)";
+  const svijetla = "var(--tok-data-5)";
+  const naglasak = "var(--tok-accent-deep)";
+  const linija = "var(--tok-rule)";
+  const sans = "var(--tok-font-sans)";
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  });
+  const postotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    maximumFractionDigits: 1
+  });
+
+  function erf(x) {
+    const predznak = x < 0 ? -1 : 1;
+    const z = Math.abs(x);
+    const t = 1 / (1 + 0.3275911 * z);
+    const y = 1 - (((((1.061405429 * t - 1.453152027) * t) +
+      1.421413741) * t - 0.284496736) * t + 0.254829592) *
+      t * Math.exp(-z * z);
+    return predznak * y;
+  }
+
+  const normalnaF = x => 0.5 * (1 + erf(x / Math.SQRT2));
+  const rng = d3.randomLcg(1010);
+  const standardna = d3.randomNormal.source(rng)(0, 1);
+  const pomak = w10_par.ucinak * Math.sqrt(w10_par.n / 2);
+
+  function simuliraj(model, sredinaZ) {
+    return Array.from({length: w10_par.ponavljanja}, () => {
+      const z = sredinaZ + standardna();
+      return {
+        model,
+        p: 2 * (1 - normalnaF(Math.abs(z)))
+      };
+    });
+  }
+
+  const bezUcinka = simuliraj("Nulta hipoteza vrijedi", 0);
+  const sUcinkom = simuliraj("Učinak postoji", pomak);
+  const stopaBez = d3.mean(bezUcinka, d => d.p <= w10_par.prag);
+  const stopaS = d3.mean(sUcinkom, d => d.p <= w10_par.prag);
+  const binoviZaOznake = d3.bin().domain([0, 1]).thresholds(20);
+  const najvisiStupac = d3.max(
+    [
+      ...binoviZaOznake(bezUcinka.map(d => d.p)),
+      ...binoviZaOznake(sUcinkom.map(d => d.p))
+    ],
+    d => d.length
+  );
+  const prag = broj.format(w10_par.prag);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirina = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirina < 480;
+
+  const graf = Plot.plot({
+    width: sirina,
+    height: usko ? 500 : 430,
+    marginLeft: usko ? 66 : 62,
+    marginRight: usko ? 16 : 24,
+    marginBottom: usko ? 54 : 48,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: sans,
+      fontSize: usko ? "14px" : "12px"
+    },
+    x: {
+      label: "p-vrijednost",
+      domain: [0, 1],
+      ticks: usko ? 5 : undefined,
+      tickFormat: d => broj.format(d)
+    },
+    y: {label: "Broj simuliranih uzoraka", grid: true},
+    fy: {label: null, axis: null},
+    marks: [
+      Plot.rectY(
+        bezUcinka,
+        Plot.binX(
+          {y: "count"},
+          {x: "p", fy: "model", thresholds: 20, fill: svijetla, inset: 0.5}
+        )
+      ),
+      Plot.rectY(
+        sUcinkom,
+        Plot.binX(
+          {y: "count"},
+          {x: "p", fy: "model", thresholds: 20, fill: prigusena, inset: 0.5}
+        )
+      ),
+      Plot.ruleX([w10_par.prag], {
+        stroke: naglasak,
+        strokeWidth: 1.5,
+        strokeDasharray: "4,3"
+      }),
+      Plot.text(
+        [
+          {
+            model: "Nulta hipoteza vrijedi",
+            x: 0.025,
+            y: najvisiStupac * 1.08,
+            oznaka: "Nulta hipoteza vrijedi"
+          },
+          {
+            model: "Učinak postoji",
+            x: 0.025,
+            y: najvisiStupac * 1.08,
+            oznaka: "Učinak postoji"
+          }
+        ],
+        {
+          x: "x",
+          y: "y",
+          fy: "model",
+          text: "oznaka",
+          textAnchor: "start",
+          dy: 10,
+          fill: tinta,
+          fontWeight: 600
+        }
+      ),
+      Plot.ruleY([0], {stroke: linija})
+    ]
+  });
+
+  return html`<div>
+    ${graf}
+    <p class="widget-foot" role="status" aria-live="polite">Prag ${prag} obuhvaća ${postotak.format(stopaBez)} uz nultu hipotezu i ${postotak.format(stopaS)} uz odabrani učinak.</p>
+  </div>`;
+}
+```
+
 :::
+
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w10
-#| fig-cap: "Planirana raspodjela p-vrijednosti pod dvama modelima."
-#| fig-alt: "Mjesto za dva histograma p-vrijednosti kada učinka nema i kada postoji."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w10 još nije izrađen") +
-  theme_void()
+#| cache: false
+#| label: fig-w10-print
+#| fig-cap: "Raspodjele p-vrijednosti pod nultim modelom i uz standardiziranu razliku 0,35."
+#| fig-alt: "Gornji histogram ravnomjerno ispunjava raspon p-vrijednosti, a donji se uz stvarnu razliku nakuplja blizu nule."
+#| fig-width: 6.6
+#| fig-height: 5.2
+set.seed(1010)
+
+w10_n <- 60
+w10_ponavljanja <- 4000
+w10_modeli <- tibble(
+  model = rep(c("Nulta hipoteza vrijedi", "Učinak postoji"),
+              each = w10_ponavljanja),
+  z = c(
+    rnorm(w10_ponavljanja),
+    rnorm(w10_ponavljanja, 0.35 * sqrt(w10_n / 2))
+  )
+) |>
+  mutate(p = 2 * pnorm(-abs(z)))
+
+ggplot(w10_modeli, aes(p)) +
+  geom_histogram(
+    bins = 20,
+    boundary = 0,
+    fill = sivo[[4]],
+    colour = NA
+  ) +
+  geom_vline(
+    xintercept = 0.05,
+    colour = sivo[[1]],
+    linetype = "dashed",
+    linewidth = 0.6
+  ) +
+  facet_wrap(~ model, ncol = 1) +
+  scale_x_continuous(
+    limits = c(0, 1),
+    breaks = seq(0, 1, 0.2),
+    labels = function(x) hr_broj(x, 1)
+  ) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
+  labs(x = "p-vrijednost", y = "Broj simuliranih uzoraka") +
+  theme_knjiga(base_size = 13)
 ```
 :::
 
 **Što isprobati.**
 
 1. Generirajte više uzoraka pod istinitom nultom hipotezom.
-2. Uključite mali učinak i zadržite uzorak jednakim.
-3. Povećajte uzorak bez promjene učinka i promatrajte odluke te procjene.
+2. Postavite standardiziranu razliku na 0,35 i zadržite uzorak jednakim.
+3. Povećajte uzorak bez promjene učinka i usporedite udio rezultata ispod praga.
+4. Spustite prag s 0,05 na 0,01 i usporedite obje raspodjele.
+
+Simulacija razdvaja dvije činjenice. Kada je nulta hipoteza istinita, prag
+unaprijed određuje dugoročnu stopu pogreške. Kada učinak postoji, veličina
+uzorka mijenja koliko ga često postupak otkriva.
 
 ::: {.callout-divljina}
 **Značajnost bez veličine.** Izjava Američkog statističkog udruženja navodi da
@@ -138,16 +353,11 @@ nultim modelom, a ne vjerojatnost nultog modela nakon opaženih podataka.
 
 ## Razrađeni primjer
 
-Simuliramo dvije skupine bez stvarne razlike i promatramo jednu opaženu razliku
-sredina. Permutacijski postupak miješa oznake skupina, čuva sve ishode i gradi
-raspodjelu razlika usklađenu s nultom hipotezom.
-
 ```{r}
-#| label: fig-permutacijski-test
 #| echo: true
-#| fig-cap: "Nulta raspodjela razlike sredina u simuliranom primjeru. Izrada autora."
-#| fig-alt: "Histogram permutiranih razlika sredina sa zabilježenom opaženom razlikom."
+#| cache: false
 
+set.seed(1010)
 sim_test <- tibble(
   skupina = rep(c("A", "B"), each = 40),
   ishod = c(rnorm(40, 50, 10), rnorm(40, 54, 10))
@@ -161,11 +371,49 @@ nulte_razlike <- replicate(3000, {
   mean(sim_test$ishod[perm == "B"]) - mean(sim_test$ishod[perm == "A"])
 })
 
-ggplot(tibble(razlika = nulte_razlike), aes(razlika)) +
+p_permutacijski_test <- ggplot(
+  tibble(razlika = nulte_razlike),
+  aes(razlika)
+) +
   geom_histogram(bins = 35) +
-  geom_vline(xintercept = opazena) +
+  geom_vline(
+    xintercept = opazena,
+    linewidth = 0.8
+  ) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 1)) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
   labs(x = "Razlika pod nultim modelom", y = "Broj permutacija")
 ```
+
+Simuliramo dvije skupine bez stvarne razlike i promatramo jednu opaženu razliku
+sredina. Permutacijski postupak miješa oznake skupina, čuva sve ishode i gradi
+raspodjelu razlika usklađenu s nultom hipotezom.
+
+::: {#fig-permutacijski-test}
+::: {.figure-theme-light}
+```{r}
+#| echo: false
+#| fig-alt: "Histogram permutiranih razlika sredina sa zabilježenom opaženom razlikom."
+#| fig-width: 6.6
+#| fig-height: 4.8
+p_permutacijski_test
+```
+:::
+
+::: {.content-visible when-format="html"}
+::: {.figure-theme-dark}
+```{r}
+#| echo: false
+#| fig-alt: "Histogram permutiranih razlika sredina sa zabilježenom opaženom razlikom."
+#| fig-width: 6.6
+#| fig-height: 4.8
+iscrtaj_figuru(p_permutacijski_test, "tamna")
+```
+:::
+:::
+
+Nulta raspodjela razlike sredina u simuliranom primjeru. Izrada autora.
+:::
 
 Graf pokazuje koliko je opažena razlika udaljena od onoga što stvara postupak
 bez grupnog učinka. Zaključak ne završava odbacivanjem ili neodbacivanjem.

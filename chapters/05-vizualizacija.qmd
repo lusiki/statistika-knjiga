@@ -1,9 +1,10 @@
 ---
 title: "Vizualizacija kao argument"
+subtitle: "Graf pokazuje ono što brojčani sažetak ne može"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i dovršen widget
   IZVOR:   tjedan 6, umjerena prerada, kod se seli u praktikum
   OPSEG:   ~4500 riječi
   WIDGET:  w05 · Isti podaci, četiri grafa
@@ -19,8 +20,15 @@ title: "Vizualizacija kao argument"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Isti podaci, četiri grafa | Anscombeov kvartet | pogl. 4 |
+:::
 
 ::: {.callout-vinjeta}
 Anscombe je sastavio četiri skupa podataka s gotovo jednakim uobičajenim
@@ -68,38 +76,209 @@ tekst mora opisati uzorak, a graf treba preživjeti crno-bijeli tisak.
 
 ## Interakcija — Isti podaci, četiri grafa
 
-Planirana interakcija prikazuje iste podatke četirima geometrijama. Promjena
+Interakcija prikazuje iste simulirane podatke četirima geometrijama. Promjena
 grafa ne mijenja opažanja, ali mijenja usporedbu koja postaje laka ili teška.
 Čitatelj tako bira prikaz prema tvrdnji, a ne prema dojmu atraktivnosti.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Isti podaci, četiri grafa" data-oznaka="Widget 05.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w05_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w05 — Isti podaci, četiri grafa. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w05_par = Inputs.form({
+  prikaz: Inputs.select(
+    ["Raspršeni dijagram", "Histogram ishoda", "Raspodjela po skupinama", "Sredine skupina"],
+    {value: "Raspršeni dijagram", label: "Prikaz"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+w05_podaci = {
+  const rng = d3.randomLcg(505);
+  const normalna = d3.randomNormal.source(rng)(0, 0.85);
+
+  return Array.from({length: 72}, (_, i) => {
+    const skupina = i < 36 ? "Skupina A" : "Skupina B";
+    const x = 1 + (i % 36) * 9 / 35;
+    const pomak = skupina === "Skupina B" ? 0.8 : 0;
+    return {red: i + 1, skupina, x, y: 1.5 + 0.55 * x + pomak + normalna()};
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w05
+//| fig-cap: "Isti simulirani podaci prikazani odabranom geometrijom. Izbor prikaza mijenja vidljivu usporedbu, ne opažanja."
+//| fig-alt: "Početni raspršeni dijagram prikazuje sedamdeset i dva opažanja iz dviju skupina te pozitivan odnos dviju brojčanih varijabli."
+{
+  const tinta = "var(--tok-ink)";
+  const prigusena = "var(--tok-ink-mute)";
+  const svijetla = "var(--tok-data-5)";
+  const izbor = w05_par.prikaz;
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+  const sredine = d3.rollups(
+    w05_podaci,
+    v => d3.mean(v, d => d.y),
+    d => d.skupina
+  ).map(([skupina, y]) => ({skupina, y}));
+
+  let marks;
+  let x;
+  let y;
+  let symbol;
+
+  if (izbor === "Raspršeni dijagram") {
+    marks = [
+      Plot.dot(w05_podaci, {
+        x: "x",
+        y: "y",
+        symbol: "skupina",
+        fill: tinta,
+        r: 3.5,
+        opacity: 0.72
+      }),
+      Plot.ruleY([0], {stroke: prigusena})
+    ];
+    x = {label: "Vrijednost x", grid: true};
+    y = {label: "Ishod", grid: true};
+    symbol = {legend: true, label: null};
+  } else if (izbor === "Histogram ishoda") {
+    marks = [
+      Plot.rectY(
+        w05_podaci,
+        Plot.binX(
+          {y: "count"},
+          {x: "y", fill: prigusena, thresholds: 14, inset: 0.6}
+        )
+      ),
+      Plot.ruleY([0], {stroke: tinta})
+    ];
+    x = {label: "Ishod"};
+    y = {label: "Broj opažanja", grid: true};
+  } else if (izbor === "Raspodjela po skupinama") {
+    marks = [
+      Plot.boxY(w05_podaci, {
+        x: "skupina",
+        y: "y",
+        fill: svijetla,
+        stroke: tinta
+      }),
+      Plot.ruleY([0], {stroke: prigusena})
+    ];
+    x = {label: null};
+    y = {label: "Ishod", grid: true};
+  } else {
+    marks = [
+      Plot.barY(sredine, {
+        x: "skupina",
+        y: "y",
+        fill: prigusena,
+        insetLeft: 22,
+        insetRight: 22
+      }),
+      Plot.text(sredine, {
+        x: "skupina",
+        y: "y",
+        text: d => d.y.toLocaleString("hr-HR", {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1
+        }),
+        dy: -10,
+        fill: tinta
+      }),
+      Plot.ruleY([0], {stroke: tinta})
+    ];
+    x = {label: null};
+    y = {label: "Aritmetička sredina ishoda", grid: true, zero: true};
+  }
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 420 : 360,
+    marginLeft: usko ? 54 : 62,
+    marginBottom: usko ? 52 : 56,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: usko ? "12px" : "13px"
+    },
+    x,
+    y,
+    symbol,
+    marks
+  });
+}
+```
+
 :::
 
+::::
+
 ::: {.content-visible when-format="pdf"}
+
 ```{r}
 #| echo: false
-#| label: fig-w05
-#| fig-cap: "Planirana usporedba četiriju prikaza istih podataka."
-#| fig-alt: "Mjesto za četiri grafa koji istim podacima daju različitu vidljivost."
+#| label: fig-w05-print
+#| fig-cap: "Sva simulirana opažanja i samo dvije skupinske sredine. Drugi prikaz skriva raspršenost koju prvi čuva."
+#| fig-alt: "Lijevo su pojedinačne vrijednosti dviju skupina, a desno samo po jedna sredina za svaku skupinu."
+#| fig-width: 6.6
+#| fig-height: 4.8
+set.seed(505)
+
+w05_podaci_r <- tibble(
+  skupina = rep(c("Skupina A", "Skupina B"), each = 36),
+  x = rep(seq(1, 10, length.out = 36), 2),
+  y = 1.5 + 0.55 * x + if_else(skupina == "Skupina B", 0.8, 0) +
+    rnorm(72, 0, 0.85)
+) |>
+  mutate(prikaz = "Sva opažanja")
+
+w05_sredine_r <- w05_podaci_r |>
+  group_by(skupina) |>
+  summarise(y = mean(y), .groups = "drop") |>
+  mutate(prikaz = "Samo sredine")
+
 ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w05 još nije izrađen") +
-  theme_void()
+  geom_point(
+    data = w05_podaci_r,
+    aes(skupina, y),
+    position = position_jitter(width = 0.12, height = 0),
+    colour = tok_boja("data-2"),
+    alpha = 0.65
+  ) +
+  geom_point(
+    data = w05_sredine_r,
+    aes(skupina, y),
+    colour = tok_boja("ink"),
+    shape = 18,
+    size = 3
+  ) +
+  facet_wrap(~ prikaz, ncol = 2) +
+  labs(x = NULL, y = "Ishod") +
+  theme_knjiga(base_size = 13)
 ```
+
 :::
 
 **Što isprobati.**
 
-1. Odaberite prikaz za usporedbu veličine kategorija.
-2. Promijenite raspon osi bez promjene podataka.
-3. Isključite boju i provjerite ostaje li značenje čitljivo.
+1. Odaberite raspršeni dijagram i opišite odnos varijabli bez sažimanja po skupinama.
+2. Prijeđite na histogram i utvrdite koja je prethodna informacija nestala.
+3. Usporedite raspodjelu po skupinama s prikazom njihovih sredina.
+4. Odaberite graf za tvrdnju o razlikama među tipičnim ishodima i obrazložite izbor.
 
 ::: {.callout-divljina}
 **Četiri jednaka sažetka.** Anscombeov kvartet pokazuje da jednake sredine,
@@ -136,15 +315,8 @@ i pojačava razliku koja bi trebala biti kodirana samo duljinom.
 
 ## Razrađeni primjer
 
-Podaci `anscombe` ugrađeni su u R i reproduciraju objavljeni kvartet
-[@anscombe1973]. Sažeci četiriju parova gotovo su jednaki. Raspršeni prikazi
-zato nose dio analize koji tablica ne može sačuvati.
-
 ```{r}
-#| label: fig-anscombe
 #| echo: true
-#| fig-cap: "Anscombeov kvartet — jednaki sažeci, različiti oblici. Izrada autora prema @anscombe1973."
-#| fig-alt: "Četiri raspršena dijagrama pokazuju linearnu vezu, zakrivljenost i dvije vrste utjecajnih opažanja."
 
 anscombe_dugo <- bind_rows(
   tibble(skup = "I", x = anscombe$x1, y = anscombe$y1),
@@ -153,12 +325,72 @@ anscombe_dugo <- bind_rows(
   tibble(skup = "IV", x = anscombe$x4, y = anscombe$y4)
 )
 
-ggplot(anscombe_dugo, aes(x, y)) +
+p_anscombe <- ggplot(anscombe_dugo, aes(x, y)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  facet_wrap(~ skup, ncol = 2) +
-  labs(x = "x", y = "y")
+  geom_smooth(
+    method = "lm",
+    se = FALSE
+  ) +
+  facet_wrap(
+    ~ skup,
+    ncol = 1,
+    axes = "all_x",
+    axis.labels = "all_x",
+    labeller = as_labeller(c(
+      "I" = "Skup I",
+      "II" = "Skup II",
+      "III" = "Skup III",
+      "IV" = "Skup IV"
+    ))
+  ) +
+  labs(x = "x", y = "y") +
+  theme_knjiga(base_size = 16, mreza = "oboje") +
+  theme(
+    axis.text = element_text(size = 13),
+    strip.text = element_text(size = rel(1))
+  )
 ```
+
+Podaci `anscombe` ugrađeni su u R i reproduciraju objavljeni kvartet
+[@anscombe1973]. Sažeci četiriju parova gotovo su jednaki. Raspršeni prikazi
+zato nose dio analize koji tablica ne može sačuvati.
+
+::::: {#fig-anscombe}
+
+::: {.figure-theme-light}
+
+```{r}
+#| echo: false
+#| fig-alt: "Četiri raspršena dijagrama pokazuju linearnu vezu, zakrivljenost i dvije vrste utjecajnih opažanja."
+#| fig-width: 4.3
+#| fig-height: 8.2
+#| out-width: "4.3in"
+p_anscombe
+```
+
+:::
+
+:::: {.content-visible when-format="html"}
+
+::: {.figure-theme-dark}
+
+```{r}
+#| echo: false
+#| fig-alt: "Četiri raspršena dijagrama pokazuju linearnu vezu, zakrivljenost i dvije vrste utjecajnih opažanja."
+#| fig-width: 4.3
+#| fig-height: 8.2
+#| out-width: "4.3in"
+iscrtaj_figuru(p_anscombe, "tamna")
+```
+
+:::
+
+::::
+
+Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora
+prema @anscombe1973.
+
+:::::
 
 Prvi skup približno odgovara linearnoj priči. Drugi traži zakrivljeni opis.
 Treći i četvrti pokazuju koliko jedno opažanje može određivati pravac.

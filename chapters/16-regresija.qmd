@@ -1,9 +1,10 @@
 ---
 title: "Regresija, opći okvir"
+subtitle: "Od pravca do općeg linearnog modela"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — prošireni sintezni argument, bez widgeta
+  STATUS:  djelomični nacrt — prošireni argument i dovršen widget
   IZVOR:   tjedan 13, prošireno u sintezno poglavlje
   OPSEG:   ~6000 riječi
   WIDGET:  w16 · Regresijski pravac
@@ -19,8 +20,15 @@ title: "Regresija, opći okvir"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Regresijski pravac | simulacija | pogl. 6, 14 i 15 |
+:::
 
 ::: {.callout-vinjeta}
 Breiman je suprotstavio dvije kulture statističkog modeliranja. Jedna je
@@ -92,38 +100,300 @@ uzrok ili zajednički ishod.
 
 ## Interakcija — Regresijski pravac
 
-Regresijski pravac u planiranoj interakciji može se pomicati preko oblaka
-točaka. Svaki pomak mijenja reziduale i njihov kvadrat, dok drugi prediktor
-pokazuje kako se prilagođeni nagib razlikuje od zbirnog odnosa.
+Pomični pravac pretvara metodu najmanjih kvadrata u vidljiv kriterij. Svaka
+promjena nagiba ili odsječka mijenja duljine reziduala i njihov zbroj kvadrata,
+a uključivanje prethodnog interesa otkriva razliku između zbirnog i
+prilagođenog odnosa.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Regresijski pravac" data-oznaka="Widget 16.1 · interaktivno"}
 ```{ojs}
 //| echo: false
-// viewof w16_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w16 — Regresijski pravac. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w16_par = Inputs.form({
+  odsječak: Inputs.range([-10, 35], {
+    value: 10, step: 1, label: "Odsječak pravca:"
+  }),
+  nagib: Inputs.range([0, 7], {
+    value: 4.5, step: 0.1, label: "Nagib pravca:"
+  }),
+  drugi: Inputs.toggle({
+    value: false, label: "Prikaži model s prethodnim interesom"
+  })
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w16
+//| fig-cap: "Regresijski pravac — pomični pravac, reziduali i usporedba zbirnog s prilagođenim nagibom."
+//| fig-alt: "Oblak od 52 točke pokazuje pozitivan odnos vremena i angažmana. Početni pomični pravac gotovo se podudara s pravcem najmanjih kvadrata, a okomite crte prikazuju reziduale."
+{
+  const tinta = "var(--widget-ink)";
+  const priguseno = "var(--tok-ink-mute)";
+  const pravilo = "var(--widget-grid)";
+  const povrsina = "var(--tok-surface)";
+  const podatak = "var(--widget-fill)";
+  const prilagodeno = "var(--widget-ink-secondary)";
+  const naglasak = "var(--widget-emphasis)";
+  const formatBroj = new Intl.NumberFormat("hr-HR", {
+    maximumFractionDigits: 1
+  });
+  const rng = d3.randomLcg(1616);
+  const normalna = d3.randomNormal.source(rng)(0, 1);
+
+  const podaci = Array.from({length: 52}, () => {
+    const interes = normalna();
+    const vrijeme = Math.max(0, 5 + 1.8 * interes + 1.5 * normalna());
+    const angazman = 20 + 2.3 * vrijeme + 7 * interes + 4.5 * normalna();
+    return {interes, vrijeme, angazman};
+  });
+
+  const regresija = (x, y) => {
+    const mx = d3.mean(x);
+    const my = d3.mean(y);
+    const brojnik = d3.sum(x, (v, i) => (v - mx) * (y[i] - my));
+    const nazivnik = d3.sum(x, v => (v - mx) ** 2);
+    const b = brojnik / nazivnik;
+    return {a: my - b * mx, b};
+  };
+  const x = podaci.map(d => d.vrijeme);
+  const y = podaci.map(d => d.angazman);
+  const z = podaci.map(d => d.interes);
+  const zbirni = regresija(x, y);
+  const xPremaZ = regresija(z, x);
+  const yPremaZ = regresija(z, y);
+  const xOstatak = x.map((v, i) => v - xPremaZ.a - xPremaZ.b * z[i]);
+  const yOstatak = y.map((v, i) => v - yPremaZ.a - yPremaZ.b * z[i]);
+  const prilagodeniNagib =
+    d3.sum(xOstatak, (v, i) => v * yOstatak[i]) /
+    d3.sum(xOstatak, v => v ** 2);
+  const prilagodeni = {
+    a: d3.mean(y) - prilagodeniNagib * d3.mean(x),
+    b: prilagodeniNagib
+  };
+
+  const reziduali = podaci.map(d => ({
+    ...d,
+    procjena: w16_par.odsječak + w16_par.nagib * d.vrijeme
+  }));
+  const sse = d3.sum(reziduali, d =>
+    (d.angazman - d.procjena) ** 2);
+  const sseNajmanji = d3.sum(podaci, d =>
+    (d.angazman - zbirni.a - zbirni.b * d.vrijeme) ** 2);
+  const xRaspon = d3.extent(x);
+  const xOdmak = (xRaspon[1] - xRaspon[0]) * 0.05;
+  const xMin = Math.max(0, xRaspon[0] - xOdmak);
+  const xMax = xRaspon[1] + xOdmak;
+  const linija = model => [
+    {x: xMin, y: model.a + model.b * xMin},
+    {x: xMax, y: model.a + model.b * xMax}
+  ];
+  const korisnikov = {a: w16_par.odsječak, b: w16_par.nagib};
+  const sveY = [
+    ...y,
+    ...linija(korisnikov).map(d => d.y),
+    ...linija(zbirni).map(d => d.y),
+    ...(w16_par.drugi ? linija(prilagodeni).map(d => d.y) : [])
+  ];
+  const yRaspon = d3.extent(sveY);
+  const yOdmak = Math.max(3, (yRaspon[1] - yRaspon[0]) * 0.07);
+  const celija =
+    document.getElementById("fig-w16")?.closest(".cell") ??
+    document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      (parseFloat(stilCelije.paddingLeft) || 0) -
+      (parseFloat(stilCelije.paddingRight) || 0)
+    : width;
+  const sirinaGrafa = Math.max(
+    1,
+    Math.floor(Math.min(width, lokalnaSirina))
+  );
+  const mobilno = sirinaGrafa < 480;
+  const sazetakTekst =
+    `Zbroj kvadrata ${formatBroj.format(sse)} · minimum ${formatBroj.format(sseNajmanji)}`;
+  const graf = Plot.plot({
+    width: sirinaGrafa,
+    height: mobilno ? 410 : 365,
+    marginTop: 20,
+    marginRight: 20,
+    marginBottom: mobilno ? 56 : 48,
+    marginLeft: mobilno ? 62 : 58,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: mobilno ? "15px" : "13px"
+    },
+    x: {
+      label: "Simulirano vrijeme",
+      domain: [xMin, xMax],
+      grid: true
+    },
+    y: {
+      label: "Simulirani angažman",
+      domain: [yRaspon[0] - yOdmak, yRaspon[1] + yOdmak],
+      grid: true
+    },
+    marks: [
+      Plot.ruleX(reziduali, {
+        x: "vrijeme",
+        y1: "angazman",
+        y2: "procjena",
+        stroke: naglasak,
+        strokeOpacity: 0.35
+      }),
+      Plot.dot(podaci, {
+        x: "vrijeme",
+        y: "angazman",
+        r: 4,
+        fill: podatak,
+        stroke: povrsina,
+        strokeWidth: 0.8
+      }),
+      Plot.line(linija(korisnikov), {
+        x: "x",
+        y: "y",
+        stroke: naglasak,
+        strokeWidth: 2.8
+      }),
+      Plot.line(linija(zbirni), {
+        x: "x",
+        y: "y",
+        stroke: tinta,
+        strokeWidth: 1.8,
+        strokeDasharray: "6,4"
+      }),
+      ...(w16_par.drugi ? [
+        Plot.line(linija(prilagodeni), {
+          x: "x",
+          y: "y",
+          stroke: prilagodeno,
+          strokeWidth: 2,
+          strokeDasharray: "2,3"
+        })
+      ] : []),
+      Plot.text([{
+        x: xMax,
+        y: korisnikov.a + korisnikov.b * xMax,
+        tekst: mobilno ? "pomični" : "pomični pravac"
+      }], {
+        x: "x",
+        y: "y",
+        text: "tekst",
+        fill: naglasak,
+        dy: -10,
+        dx: -5,
+        textAnchor: "end",
+        fontWeight: 600
+      }),
+      Plot.text([{
+        x: xMax,
+        y: zbirni.a + zbirni.b * xMax,
+        tekst: mobilno ? "najmanji" : "najmanji kvadrati"
+      }], {
+        x: "x",
+        y: "y",
+        text: "tekst",
+        fill: tinta,
+        dy: 11,
+        dx: -5,
+        textAnchor: "end",
+        fontWeight: 600
+      }),
+      ...(w16_par.drugi ? [
+        Plot.text([{
+          x: xMax,
+          y: prilagodeni.a + prilagodeni.b * xMax,
+          tekst: mobilno ? "uz interes" : "uz jednak interes"
+        }], {
+          x: "x",
+          y: "y",
+          text: "tekst",
+          fill: prilagodeno,
+          dy: 22,
+          dx: -5,
+          textAnchor: "end",
+          fontWeight: 600
+        })
+      ] : []),
+      Plot.ruleY([yRaspon[0] - yOdmak], {stroke: pravilo})
+    ]
+  });
+  return html`<div>
+    ${graf}
+    <p class="widget-foot" role="status" aria-live="polite">${sazetakTekst}</p>
+  </div>`;
+}
 ```
 :::
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w16
-#| fig-cap: "Planirani pravac s prikazom reziduala i drugog prediktora."
-#| fig-alt: "Mjesto za oblak točaka, pomični pravac i okomite reziduale."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w16 još nije izrađen") +
-  theme_void()
+#| label: fig-w16-print
+#| fig-cap: "Regresijski pravac — reziduali zbirnog modela i blaži prilagođeni nagib pri jednakom prethodnom interesu."
+#| fig-alt: "Raspršeni dijagram prikazuje pozitivan odnos simuliranog vremena i angažmana. Okomiti odsječci vode do zbirnog pravca, dok isprekidani prilagođeni pravac ima blaži nagib."
+#| fig-height: 4.8
+#| fig-bg: transparent
+set.seed(1616)
+
+sim_w16_print <- tibble(
+  interes = rnorm(52),
+  vrijeme = pmax(0, 5 + 1.8 * interes + rnorm(52, 0, 1.5)),
+  angazman = 20 + 2.3 * vrijeme + 7 * interes + rnorm(52, 0, 4.5)
+)
+
+model_w16_zbirni <- lm(angazman ~ vrijeme, data = sim_w16_print)
+model_w16_prilagodeni <- lm(angazman ~ vrijeme + interes, data = sim_w16_print)
+sim_w16_print <- sim_w16_print |>
+  mutate(procjena_zbirna = fitted(model_w16_zbirni))
+
+linije_w16 <- tibble(
+  model = factor(
+    c("Zbirni model", "Uz jednak interes"),
+    levels = c("Zbirni model", "Uz jednak interes")
+  ),
+  odsječak = c(
+    coef(model_w16_zbirni)[["(Intercept)"]],
+    coef(model_w16_prilagodeni)[["(Intercept)"]] +
+      coef(model_w16_prilagodeni)[["interes"]] * mean(sim_w16_print$interes)
+  ),
+  nagib = c(
+    coef(model_w16_zbirni)[["vrijeme"]],
+    coef(model_w16_prilagodeni)[["vrijeme"]]
+  )
+)
+
+ggplot(sim_w16_print, aes(vrijeme, angazman)) +
+  geom_segment(
+    aes(xend = vrijeme, yend = procjena_zbirna),
+    colour = tok_boja("ink-faint"),
+    linewidth = 0.45
+  ) +
+  geom_point(colour = tok_boja("data-4"), size = 2, alpha = 0.85) +
+  geom_abline(
+    data = linije_w16,
+    aes(intercept = odsječak, slope = nagib, linetype = model),
+    colour = tok_boja("ink"),
+    linewidth = 0.9
+  ) +
+  scale_linetype_manual(values = c("solid", "22")) +
+  labs(x = "Simulirano vrijeme", y = "Simulirani angažman") +
+  theme_knjiga(mreza = "y")
 ```
 :::
 
 **Što isprobati.**
 
-1. Pomaknite pravac i pronađite položaj s najmanjim kvadratima reziduala.
-2. Dodajte jedno utjecajno opažanje.
-3. Uključite drugi prediktor i usporedite zbirni s prilagođenim nagibom.
+1. Mijenjajte odsječak i nagib dok se zbroj kvadrata ne približi prikazanom
+   minimumu.
+2. Povećajte samo nagib za jednu jedinicu i pratite koji se reziduali najviše
+   produljuju.
+3. Uključite model s prethodnim interesom i usporedite njegov nagib sa zbirnim
+   pravcem.
 
 ::: {.callout-divljina}
 **Dvije kulture modeliranja.** Breiman je opisao napetost između modela
@@ -164,6 +434,7 @@ angažmana. Budući da interes utječe i na vrijeme i na ishod, jednostavni nagi
 miješa dvije priče. Višestruki model procjenjuje odnos vremena s angažmanom uz
 jednaku razinu simuliranog interesa.
 
+::: {.table-keep-words}
 ```{r}
 #| label: tbl-regresija-primjer
 #| tbl-cap: "Koeficijenti jednostavnog i prilagođenog simuliranog modela. Izrada autora."
@@ -187,11 +458,22 @@ izdvoji_nagib <- function(model, naziv) {
 }
 
 bind_rows(
-  izdvoji_nagib(model_jedan, "jednostavni"),
-  izdvoji_nagib(model_dva, "prilagođeni")
+  izdvoji_nagib(model_jedan, "Jednostavni"),
+  izdvoji_nagib(model_dva, "Prilagođeni")
 ) |>
-  knitr::kable(digits = 2)
+  transmute(
+    Model = model,
+    Procjena = formatC(estimate, format = "f", digits = 2, decimal.mark = ","),
+    `Standardna pogreška` = formatC(
+      std.error,
+      format = "f",
+      digits = 2,
+      decimal.mark = ","
+    )
+  ) |>
+  knitr::kable(align = c("l", "r", "r"))
 ```
+:::
 
 Razlika koeficijenata pokazuje što račun znači pod ovom poznatom simulacijom.
 U stvarnoj opažačkoj studiji ne bismo znali jesmo li izmjerili sve potrebne

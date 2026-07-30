@@ -1,9 +1,10 @@
 ---
 title: "Sažimanje podataka"
+subtitle: "Što sredina otkriva, a što raspodjela skriva"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  cjelovit nacrt — argument, widget i statični blizanac
   IZVOR:   tjedan 5, opsežan prijenos
   OPSEG:   ~5000 riječi
   WIDGET:  w04 · Oblikovanje distribucije
@@ -18,8 +19,15 @@ title: "Sažimanje podataka"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Oblikovanje distribucije | simulacija | pogl. 1 do 3 |
+:::
 
 ::: {.callout-vinjeta}
 Tukey je istraživačku analizu podataka postavio kao postupak u kojem sažetak
@@ -73,38 +81,265 @@ govoriti o razmjernim, a ne apsolutnim razlikama.
 
 ## Interakcija — Oblikovanje distribucije
 
-Planirani oblikovatelj raspodjele dopušta pomicanje pojedinačnih točaka i
-odmah pokazuje reakciju sredine, medijana i mjera raspršenosti. Tako postaje
-vidljivo koje mjere slušaju svako opažanje, a koje prvenstveno čuvaju redoslijed.
+Oblikovatelj raspodjele pomiče jedno krajnje opažanje i širi preostalih devet
+oko njihova zajedničkog središta. Sredina, medijan i dvije mjere raspršenosti
+mijenjaju se pred čitateljem. Tako postaje vidljivo koje mjere slušaju svaku
+vrijednost, a koje prvenstveno čuvaju redoslijed.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Oblikovanje distribucije" data-oznaka="Widget 04.1 · interaktivno"}
 ```{ojs}
 //| echo: false
-// viewof w04_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w04 — Oblikovanje distribucije. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w04_par = Inputs.form({
+  krajnja: Inputs.range(
+    [11, 70],
+    {value: 70, step: 1, label: "Vrijednost krajnjeg opažanja"}
+  ),
+  faktor: Inputs.range(
+    [1, 3],
+    {
+      value: 1,
+      step: 0.25,
+      label: "Faktor raspršenosti preostalih opažanja"
+    }
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+w04_tema = Generators.observe(obavijesti => {
+  let revizija = 0;
+  const osvjezi = () => obavijesti(++revizija);
+  const promatrac = new MutationObserver(osvjezi);
+  const postavke = {
+    attributes: true,
+    attributeFilter: ["class", "data-bs-theme"]
+  };
+  promatrac.observe(document.documentElement, postavke);
+  promatrac.observe(document.body, postavke);
+  osvjezi();
+  return () => promatrac.disconnect();
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w04
+//| fig-cap: "Reakcija mjera središta i raspršenosti na oblik konstruirane raspodjele."
+//| fig-alt: "Pri početnim vrijednostima devet opažanja leži između 8 i 14, a jedno na 70. Aritmetička sredina iznosi 16,9, dok medijan iznosi 11,5."
+{
+  w04_tema;
+  const css = getComputedStyle(document.documentElement);
+  const tocke = css.getPropertyValue("--tok-data-1").trim();
+  const sredinaBoja = css.getPropertyValue("--tok-data-2").trim();
+  const medijanBoja = css.getPropertyValue("--tok-data-4").trim();
+  const prigusena = css.getPropertyValue("--tok-ink-mute").trim();
+  const linija = css.getPropertyValue("--tok-rule").trim();
+  const sans = css.getPropertyValue("--tok-font-sans").trim();
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+
+  const odstupanja = [-3, -2, -1, -1, 0, 1, 1, 2, 3];
+  const vrijednosti = [
+    ...odstupanja.map(d => 11 + d * w04_par.faktor),
+    w04_par.krajnja
+  ].sort((a, b) => a - b);
+
+  const sredina = d3.mean(vrijednosti);
+  const medijan = d3.median(vrijednosti);
+  const sd = Math.sqrt(
+    d3.sum(vrijednosti, d => (d - sredina) ** 2) /
+      (vrijednosti.length - 1)
+  );
+  const iqr =
+    d3.quantileSorted(vrijednosti, 0.75) -
+    d3.quantileSorted(vrijednosti, 0.25);
+
+  const brojPonavljanja = new Map();
+  const slozene = vrijednosti.map(vrijednost => {
+    const kljuc = vrijednost.toFixed(4);
+    const red = (brojPonavljanja.get(kljuc) || 0) + 1;
+    brojPonavljanja.set(kljuc, red);
+    return {vrijednost, red};
+  });
+  const najvisiRed = d3.max(slozene, d => d.red);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+  const sazetakRasprsenosti = usko
+    ? [
+        {
+          x: 0,
+          y: najvisiRed + 2.4,
+          oznaka: `standardna devijacija ${broj.format(sd)}`
+        },
+        {
+          x: 0,
+          y: najvisiRed + 1.8,
+          oznaka: `interkvartilni raspon ${broj.format(iqr)}`
+        }
+      ]
+    : [{
+        x: 0,
+        y: najvisiRed + 1.7,
+        oznaka:
+          `standardna devijacija ${broj.format(sd)} · ` +
+          `interkvartilni raspon ${broj.format(iqr)}`
+      }];
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: usko ? 370 : 310,
+    marginLeft: usko ? 40 : 34,
+    marginRight: usko ? 16 : 28,
+    marginTop: usko ? 82 : 62,
+    marginBottom: 48,
+    style: {
+      background: "transparent",
+      fontFamily: sans,
+      fontSize: usko ? "12px" : "13px"
+    },
+    color: {
+      domain: ["Sredina", "Medijan"],
+      range: [sredinaBoja, medijanBoja],
+      legend: false
+    },
+    x: {label: "Vrijednost", domain: [0, 75], grid: true},
+    y: {axis: null, domain: [0, najvisiRed + (usko ? 2.8 : 2.1)]},
+    marks: [
+      Plot.ruleY([0], {stroke: linija}),
+      Plot.dot(slozene, {
+        x: "vrijednost",
+        y: "red",
+        r: 6,
+        fill: tocke
+      }),
+      Plot.ruleX([sredina], {
+        stroke: sredinaBoja,
+        strokeWidth: 2
+      }),
+      Plot.ruleX([medijan], {
+        stroke: medijanBoja,
+        strokeWidth: 2,
+        strokeDasharray: "6,4"
+      }),
+      Plot.text(
+        [
+          {
+            x: sredina,
+            y: najvisiRed + 0.8,
+            oznaka: `sredina ${broj.format(sredina)}`,
+            vrsta: "Sredina"
+          },
+          {
+            x: medijan,
+            y: najvisiRed + 0.3,
+            oznaka: `medijan ${broj.format(medijan)}`,
+            vrsta: "Medijan"
+          }
+        ],
+        {
+          x: "x",
+          y: "y",
+          text: "oznaka",
+          fill: "vrsta"
+        }
+      ),
+      Plot.text(
+        sazetakRasprsenosti,
+        {
+          x: "x",
+          y: "y",
+          text: "oznaka",
+          textAnchor: "start",
+          fill: prigusena
+        }
+      )
+    ]
+  });
+}
 ```
 :::
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w04
-#| fig-cap: "Planirani prikaz reakcije sažetaka na promjenu raspodjele."
-#| fig-alt: "Mjesto za raspodjelu s označenom sredinom i medijanom."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w04 još nije izrađen") +
-  theme_void()
+#| label: fig-w04-print
+#| fig-cap: "Tri raspodjele pokazuju odvojene učinke krajnjeg opažanja i raspršenosti."
+#| fig-alt: "Zbijena raspodjela ima sredinu i medijan blizu 11. Krajnje opažanje na 70 povlači sredinu udesno, dok medijan ostaje blizu 11. Raširena simetrična raspodjela čuva sredinu i medijan na 11 uz veću raspršenost."
+w04_odstupanja <- c(-3, -2, -1, -1, 0, 1, 1, 2, 3)
+w04_stanja <- bind_rows(
+  tibble(
+    Stanje = "Zbijena",
+    Vrijednost = c(11 + w04_odstupanja, 11)
+  ),
+  tibble(
+    Stanje = "Krajnje opažanje",
+    Vrijednost = c(11 + w04_odstupanja, 70)
+  ),
+  tibble(
+    Stanje = "Raširena",
+    Vrijednost = c(11 + 3 * w04_odstupanja, 11)
+  )
+) |>
+  mutate(
+    Stanje = factor(
+      Stanje,
+      levels = c("Zbijena", "Krajnje opažanje", "Raširena")
+    )
+  ) |>
+  group_by(Stanje, Vrijednost) |>
+  mutate(Red = row_number()) |>
+  ungroup()
+
+w04_sazeci <- w04_stanja |>
+  group_by(Stanje) |>
+  summarise(
+    Sredina = mean(Vrijednost),
+    Medijan = median(Vrijednost),
+    .groups = "drop"
+  ) |>
+  pivot_longer(
+    cols = c(Sredina, Medijan),
+    names_to = "Mjera",
+    values_to = "Vrijednost"
+  )
+
+ggplot(w04_stanja, aes(x = Vrijednost, y = Red)) +
+  geom_point(size = 2.5, colour = sivo[[1]]) +
+  geom_vline(
+    data = w04_sazeci,
+    aes(xintercept = Vrijednost, colour = Mjera, linetype = Mjera),
+    linewidth = 0.8
+  ) +
+  facet_wrap(vars(Stanje), nrow = 1) +
+  scale_color_manual(values = c(sivo[[2]], sivo[[4]])) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  labs(x = "Vrijednost") +
+  theme(
+    legend.position = "top",
+    panel.grid.major.y = element_blank()
+  )
 ```
 :::
 
 **Što isprobati.**
 
-1. Pomaknite jednu središnju točku i usporedite sredinu s medijanom.
-2. Udaljite jednu krajnju točku bez mijenjanja redoslijeda.
-3. Oblikujte dvije raspodjele iste sredine, ali različite raspršenosti.
+1. Spustite krajnje opažanje sa 70 na 14 i usporedite sredinu s medijanom.
+2. Vratite ga na 70 i provjerite koja se mjera središta više pomaknula.
+3. Postavite krajnje opažanje na 11 pa povećajte faktor raspršenosti i
+   usporedite dvije raspodjele iste sredine.
 
 ::: {.callout-divljina}
 **Prosjek kao početak pregleda.** Tukey je zagovarao istraživački pristup u
@@ -156,15 +391,38 @@ sim_angazman <- tibble(
   angazman = c(8, 9, 10, 10, 11, 12, 12, 13, 14, 70)
 )
 
-sim_angazman |>
+sim_sazeci <- sim_angazman |>
   summarise(
     opažanja = n(),
     sredina = mean(angazman),
     medijan = median(angazman),
     standardna_devijacija = sd(angazman),
     interkvartilni_raspon = IQR(angazman)
+  )
+
+sim_sazeci |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "mjera",
+    values_to = "vrijednost"
   ) |>
-  knitr::kable(digits = 1)
+  mutate(
+    Mjera = recode(
+      mjera,
+      opažanja = "Broj opažanja",
+      sredina = "Aritmetička sredina",
+      medijan = "Medijan",
+      standardna_devijacija = "Standardna devijacija",
+      interkvartilni_raspon = "Interkvartilni raspon"
+    ),
+    Vrijednost = if_else(
+      mjera == "opažanja",
+      hr_broj(vrijednost, 0),
+      hr_broj(vrijednost, 1)
+    )
+  ) |>
+  select(Mjera, Vrijednost) |>
+  knitr::kable(align = c("l", "r"))
 ```
 
 Nijedan sažetak nije pogrešan. Sredina odgovara na pitanje o ravnomjernoj

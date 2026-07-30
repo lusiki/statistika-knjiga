@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | CLT stroj | simulacija | pogl. 4, 7 |
 
 **Vinjeta.**
 Efron je bootstrap predstavio kao način procjene nesigurnosti kada imamo jedan
@@ -55,11 +59,14 @@ CLT stroj gradi distribuciju uzorkovanja pred čitateljem. Izvorna populacija,
 veličina uzorka i broj ponavljanja mogu se mijenjati odvojeno, pa je vidljivo
 što utječe na oblik, a što na raspršenost uzoračkih sredina.
 
+*Slika. Izvorna populacija i raspodjela sredina mnogih uzoraka na zajedničkoj osi. Okomita crta označuje populacijsku sredinu simulacije.*
+
 **Što isprobati.**
 
-1. Uzimajte male uzorke iz simetrične populacije.
-2. Promijenite populaciju u snažno asimetričnu.
-3. Povećajte uzorak i odvojeno promatrajte oblik i širinu distribucije sredina.
+1. Odaberite simetričnu populaciju i uzorak veličine dva pa usporedite širine dvaju histograma.
+2. Promijenite populaciju u desno asimetričnu bez povećanja uzorka.
+3. Povećajte uzorak na četrdeset i odvojeno opišite promjenu oblika i širine raspodjele sredina.
+4. Odaberite dvovršnu populaciju i pronađite veličinu uzorka pri kojoj se dvije populacijske skupine više ne vide u sredinama.
 
 **Statistika u divljini.**
 **Jedan uzorak kao privremena populacija.** Bootstrap iznova uzorkuje opažanja
@@ -94,7 +101,7 @@ Stvaramo desno asimetričnu simuliranu populaciju i iz nje ponavljano uzimamo
 uzorke dviju veličina. Za svaki uzorak računamo sredinu. Usporedba dviju
 distribucija pokazuje da veći uzorci daju zbijenije procjene.
 
-*Slika. Distribucije sredina pri dvjema veličinama uzorka. Izrada autora.*
+Distribucije sredina pri dvjema veličinama uzorka. Izrada autora.
 
 Izvorna populacija ostaje asimetrična u oba slučaja. Mijenja se ponašanje
 sredine kroz ponavljanja. Ta razlika između raspodjele opažanja i raspodjele

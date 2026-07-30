@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Prikaz konfundera | simulacija | pogl. 1 |
 
 **Vinjeta.**
 Berkeleyjski podaci iz prethodnog poglavlja bilježili su prijave, ishode upisa,
@@ -67,10 +71,12 @@ skupine ostaje precizno mjerenje pogrešne skupine.
 
 ## Interakcija — Prikaz konfundera
 
-Planirani prikaz pokazuje odnos dviju varijabli prije i nakon uključivanja
-treće. Opažanja ostaju ista, ali se mijenja usporedba. Čitatelj tako vidi da
-statistička prilagodba ne briše podatke, nego pita kako bi izgledala veza među
-jedinicama koje su slične prema relevantnom obilježju.
+Prikaz pokazuje odnos dviju varijabli prije i nakon razlikovanja jedinica prema
+trećoj varijabli. Opažanja ostaju ista, ali se mijenja usporedba. Pomak ishoda
+povezan s trećom varijablom može zbirnu vezu preokrenuti iako je odnos unutar
+obiju podskupina stabilan.
+
+*Slika. Ista opažanja prikazana zbirno i prema trećoj varijabli u konstruiranom primjeru.*
 
 **Što isprobati.**
 

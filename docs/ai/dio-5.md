@@ -3,7 +3,7 @@
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 
 ---
@@ -14,9 +14,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Očekivano i opaženo | UCBAdmissions | pogl. 4, 7, 10 |
 
 **Vinjeta.**
 Berkeleyjski podaci mogu se zapisati kao tablica frekvencija. Redovi označuju
@@ -65,15 +69,23 @@ tablica može miješati odnose i različitu zastupljenost slojeva
 
 ## Interakcija — Očekivano i opaženo
 
-Planirani prikaz dopušta mijenjanje opaženih ćelija uz jednake rubne zbrojeve.
+Prikaz dopušta mijenjanje opaženih ćelija uz jednake rubne zbrojeve.
 Očekivane frekvencije ostaju referentna mreža, a doprinos svake ćelije ukupnoj
-statistici postaje vidljiv.
+statistici postaje vidljiv. Puni krug označuje opaženu frekvenciju, prazni romb
+očekivanu, a broj uz njih doprinos ćelije.
+
+*Slika. Opažene i očekivane frekvencije u tablici dva puta dva s jednakim rubnim zbrojevima.*
 
 **Što isprobati.**
 
 1. Postavite opažene frekvencije jednake očekivanima.
-2. Premjestite opažanja između dviju ćelija uz iste rubne zbrojeve.
-3. Smanjite očekivane frekvencije i promatrajte granicu aproksimacije.
+2. Pomaknite opažanja u oba smjera i provjerite ostaju li rubni zbrojevi jednaki.
+3. Povećajte pomak i pratite doprinose ćelija te Cramérovo V.
+4. Smanjite rubni zbroj na deset i provjerite očekivane frekvencije.
+
+Udaljenost opaženoga od očekivanoga nosi testnu statistiku, ali položaj ćelije
+nosi tumačenje. Jedan zbirni rezultat zato nije dovoljan bez reziduala i mjere
+jačine veze.
 
 **Statistika u divljini.**
 **Zbirna tablica upisa.** U Berkeleyjskim podacima zbirni ishod prijave i spol
@@ -106,7 +118,7 @@ Ugrađeni podaci `UCBAdmissions` omogućuju reprodukciju zbirne tablice
 Berkeleyjskog slučaja (Bickel, 1975). Analiza najprije zbraja odjele i stvara
 tablicu ishoda prema spolu. Zatim uspoređuje opažene i očekivane frekvencije.
 
-*Slika. Opažene frekvencije i test nezavisnosti za zbirne podatke. Izrada autora prema @bickel1975.*
+*Slika. Opažene frekvencije u zbirnim podacima o prijavama. Izrada autora prema @bickel1975.*
 
 Test sažima neusklađenost zbirne tablice s nezavisnošću. Povratak odjelima
 pokazuje da taj rezultat miješa više slojeva. Statistički korektan izvještaj
@@ -157,9 +169,13 @@ jedan pogrešan zaključak i prikladnu mjeru koja nedostaje.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Uzorkivač dviju grupa | simulacija | pogl. 4, 9–11 |
 
 **Vinjeta.**
 Cumming je usporedbu skupina smjestio u okvir procjene razlike i njezina
@@ -207,13 +223,21 @@ interval, zatim test i standardiziranu veličinu učinka.
 
 Uzorkivač dviju grupa prikazuje preklapanje pojedinačnih rezultata i
 raspodjelu procijenjene razlike kroz ponavljanja. Čitatelj odvojeno mijenja
-stvarnu razliku, varijabilnost i veličinu uzorka.
+stvarnu razliku, varijabilnost i veličinu uzorka. Uparena simulacija zadržava
+fiksnu pozitivnu povezanost dvaju mjerenja iste jedinice.
+
+*Slika. Jedan simulirani uzorak dviju skupina i raspodjela procijenjene razlike kroz ponovljene uzorke.*
 
 **Što isprobati.**
 
 1. Povećajte razliku uz jednaku varijabilnost.
 2. Povećajte varijabilnost uz jednaku razliku.
-3. Pretvorite neovisni dizajn u upareni i promatrajte što se računa.
+3. Povećajte uzorak bez promjene razlike i varijabilnosti.
+4. Pretvorite neovisni dizajn u upareni i usporedite raspodjelu procjena.
+
+Preklapanje pojedinačnih ishoda i preciznost procijenjene razlike nisu ista
+stvar. Uparivanje povećava preciznost samo kada analiza sačuva vezu između
+dvaju mjerenja iste jedinice.
 
 **Statistika u divljini.**
 **Interval umjesto etikete.** Pristup usmjeren na procjenu traži razliku i
@@ -298,9 +322,13 @@ testu i rezultat koji bi trebalo računati.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Dekompozicija varijance | simulacija | pogl. 14 |
 
 **Vinjeta.**
 Analitička fleksibilnost postaje posebno vidljiva kada istraživanje sadrži više
@@ -347,15 +375,19 @@ pitanje prikladnije, ali ni on ne popravlja ovisna opažanja ili loš dizajn.
 
 ## Interakcija — Dekompozicija varijance
 
-Planirana dekompozicija prikazuje ukupno odstupanje kao dio između skupina i
-dio unutar njih. Pomicanjem sredina ili raspršivanjem opažanja čitatelj vidi
-zašto isti razmak sredina ne daje uvijek isti F-omjer.
+Prikaz razdvaja odstupanje skupnih sredina od raspršenosti pojedinaca oko tih
+sredina. Promjena bilo koje od četiri veličine odmah mijenja F-omjer, pa se
+vidi zašto razmak među skupinama nije dovoljan bez usporedbe s varijacijom
+unutar njih.
+
+*Slika. Dekompozicija varijance — skupne sredine, zajednička sredina i raspršenost pojedinačnih opažanja.*
 
 **Što isprobati.**
 
-1. Izjednačite sredine uz nepromijenjena opažanja.
-2. Razmaknite sredine uz jednaku varijabilnost.
-3. Povećajte raspršenost unutar skupina bez promjene sredina.
+1. Postavite sve tri sredine na 52 i zadržite standardnu devijaciju 6.
+2. Postavite sredine na 46, 52 i 58 te usporedite novi F-omjer s prvim.
+3. Zadržite razdvojene sredine, povećajte standardnu devijaciju na 12 i
+   pratite koliko se F-omjer smanjuje.
 
 **Statistika u divljini.**
 **Mnogo usporedbi, jedna priča.** Fleksibilan izbor ishoda i podskupina može
@@ -442,9 +474,13 @@ modelu, jednu neopravdanu tvrdnju o parovima i potreban nastavak analize.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Regresijski pravac | simulacija | pogl. 6, 14 i 15 |
 
 **Vinjeta.**
 Breiman je suprotstavio dvije kulture statističkog modeliranja. Jedna je
@@ -515,15 +551,21 @@ uzrok ili zajednički ishod.
 
 ## Interakcija — Regresijski pravac
 
-Regresijski pravac u planiranoj interakciji može se pomicati preko oblaka
-točaka. Svaki pomak mijenja reziduale i njihov kvadrat, dok drugi prediktor
-pokazuje kako se prilagođeni nagib razlikuje od zbirnog odnosa.
+Pomični pravac pretvara metodu najmanjih kvadrata u vidljiv kriterij. Svaka
+promjena nagiba ili odsječka mijenja duljine reziduala i njihov zbroj kvadrata,
+a uključivanje prethodnog interesa otkriva razliku između zbirnog i
+prilagođenog odnosa.
+
+*Slika. Regresijski pravac — pomični pravac, reziduali i usporedba zbirnog s prilagođenim nagibom.*
 
 **Što isprobati.**
 
-1. Pomaknite pravac i pronađite položaj s najmanjim kvadratima reziduala.
-2. Dodajte jedno utjecajno opažanje.
-3. Uključite drugi prediktor i usporedite zbirni s prilagođenim nagibom.
+1. Mijenjajte odsječak i nagib dok se zbroj kvadrata ne približi prikazanom
+   minimumu.
+2. Povećajte samo nagib za jednu jedinicu i pratite koji se reziduali najviše
+   produljuju.
+3. Uključite model s prethodnim interesom i usporedite njegov nagib sa zbirnim
+   pravcem.
 
 **Statistika u divljini.**
 **Dvije kulture modeliranja.** Breiman je opisao napetost između modela
@@ -617,9 +659,13 @@ jedan uzročni skok i dodatni dizajnerski dokaz koji bi bio potreban.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Istraživač pravednosti | simulacija | pogl. 7 i 16 |
 
 **Vinjeta.**
 Chouldechova je analizirala instrumente za predviđanje povratka u kriminal i
@@ -696,15 +742,21 @@ podrijetla samo je predikcija koja zvuči kao znanje.
 ## Interakcija — Istraživač pravednosti
 
 Istraživač pravednosti mijenja klasifikacijski prag za dvije skupine s
-različitim temeljnim stopama. Uz isti model čitatelj promatra kako se točnost,
-lažno pozitivne i lažno negativne odluke te prediktivna vrijednost ne kreću
-zajedno.
+različitim temeljnim stopama, ali jednakom kvalitetom rezultata uvjetno na
+stvarni ishod. Tako se vidi kako zajednički prag može izjednačiti neke stope
+pogreške, a ipak proizvesti različitu prediktivnu vrijednost i točnost.
+
+Rezultat se učitava.
+
+*Slika. Istraživač pravednosti — četiri mjerila po skupini pri zajedničkom klasifikacijskom pragu.*
 
 **Što isprobati.**
 
-1. Primijenite isti prag na skupine s jednakim temeljnim stopama.
-2. Promijenite temeljnu stopu jedne skupine.
-3. Pokušajte istodobno izjednačiti više mjerila pravednosti.
+1. Postavite obje temeljne stope na 20 % i usporedite sva četiri mjerila.
+2. Vratite skupinu B na 45 % te pronađite mjerila koja se razilaze iako je
+   prag zajednički.
+3. Pomaknite prag prema 0,30 pa prema 0,70 i provjerite može li jedno
+   podešenje istodobno smanjiti obje vrste pogreške.
 
 **Statistika u divljini.**
 **Jednaka ocjena, različite pogreške.** Analiza instrumenata za procjenu rizika

@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Simulator novčića i A/B kampanje | simulacija | pogl. 4 |
 
 **Vinjeta.**
 Simmons i suradnici pokazali su kako velik broj razumno zvučećih analitičkih
@@ -55,15 +59,18 @@ li analiza dopuštena. On pokazuje gdje pretpostavka pristaje, a gdje se lomi.
 
 ## Interakcija — Simulator novčića i A/B kampanje
 
-Planirani simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
+Simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
 Čitatelj mijenja stvarnu stopu uspjeha i broj pokušaja te promatra kako se
 kratki nizovi kolebaju, dok se raspodjela mnogih ponavljanja stabilizira.
 
+*Slika. Raspodjela stopa uspjeha kroz mnoge deterministički simulirane nizove. Okomita crta označuje zadanu stvarnu vjerojatnost.*
+
 **Što isprobati.**
 
-1. Pokrenite nekoliko kratkih nizova pri jednakim stopama.
-2. Povećajte broj pokušaja i promatrajte relativnu učestalost.
-3. Usporedite jednu ekstremnu kampanju s raspodjelom svih kampanja.
+1. Postavite pošten novčić i dvadeset pokušaja pa opišite raspon simuliranih udjela glava.
+2. Povećajte niz na dvjesto pokušaja bez promjene vjerojatnosti.
+3. Prebacite scenarij na A/B kampanju i postavite stvarnu stopu uspjeha na trideset posto.
+4. Usporedite jednu krajnju simuliranu stopu s cijelom raspodjelom ponovljenih kampanja.
 
 **Statistika u divljini.**
 **Mnogo prilika za slučajnost.** Analitička fleksibilnost omogućuje da se među
@@ -99,7 +106,7 @@ Simuliramo mnogo kampanja s jednakom stvarnom stopom odgovora. Svaka kampanja
 daje nešto drukčiji udio, iako se temeljni proces ne mijenja. Histogram
 prikazuje koliko je raspršena ta slučajna varijacija.
 
-*Slika. Raspodjela simuliranih stopa uspjeha. Izrada autora.*
+Raspodjela simuliranih stopa uspjeha. Izrada autora.
 
 Jedna kampanja može završiti daleko od središta bez promjene stvarne stope.
 Zaključak se zato ne temelji na tome izgleda li jedan rezultat neobično, nego

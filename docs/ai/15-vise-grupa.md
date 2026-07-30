@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Dekompozicija varijance | simulacija | pogl. 14 |
 
 **Vinjeta.**
 Analitička fleksibilnost postaje posebno vidljiva kada istraživanje sadrži više
@@ -53,15 +57,19 @@ pitanje prikladnije, ali ni on ne popravlja ovisna opažanja ili loš dizajn.
 
 ## Interakcija — Dekompozicija varijance
 
-Planirana dekompozicija prikazuje ukupno odstupanje kao dio između skupina i
-dio unutar njih. Pomicanjem sredina ili raspršivanjem opažanja čitatelj vidi
-zašto isti razmak sredina ne daje uvijek isti F-omjer.
+Prikaz razdvaja odstupanje skupnih sredina od raspršenosti pojedinaca oko tih
+sredina. Promjena bilo koje od četiri veličine odmah mijenja F-omjer, pa se
+vidi zašto razmak među skupinama nije dovoljan bez usporedbe s varijacijom
+unutar njih.
+
+*Slika. Dekompozicija varijance — skupne sredine, zajednička sredina i raspršenost pojedinačnih opažanja.*
 
 **Što isprobati.**
 
-1. Izjednačite sredine uz nepromijenjena opažanja.
-2. Razmaknite sredine uz jednaku varijabilnost.
-3. Povećajte raspršenost unutar skupina bez promjene sredina.
+1. Postavite sve tri sredine na 52 i zadržite standardnu devijaciju 6.
+2. Postavite sredine na 46, 52 i 58 te usporedite novi F-omjer s prvim.
+3. Zadržite razdvojene sredine, povećajte standardnu devijaciju na 12 i
+   pratite koliko se F-omjer smanjuje.
 
 **Statistika u divljini.**
 **Mnogo usporedbi, jedna priča.** Fleksibilan izbor ishoda i podskupina može

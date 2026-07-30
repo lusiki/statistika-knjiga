@@ -6,12 +6,8 @@
 # Ova datoteka nadjačava _quarto.yml. Sve što ovdje nije navedeno nasljeđuje
 # se iz zadane konfiguracije, pa HTML build ostaje netaknut.
 #
-# DODACI: PDF nosi samo literaturu (references.qmd) i dodatke A–F, dok web
-# zadržava i samostalne stranice (pojmovnik, interakcije, podaci, resursi,
-# uči-uz-AI, predavanja, silabus, raspored). To se NE može riješiti odavde —
-# Quarto spaja `book.appendices` polja aditivno, pa kraći popis ovdje samo
-# produljuje onaj iz _quarto.yml. Umjesto toga scripts/render-book-pdf.ps1
-# privremeno prepiše blok dodataka u _quarto.yml i vrati ga nakon rendera.
+# Literatura je u kanonskom `book.references`, a `book.appendices` već sadržava
+# samo dodatke A–F. Profil zato ne prepisuje strukturu knjige.
 
 project:
   output-dir: pdf

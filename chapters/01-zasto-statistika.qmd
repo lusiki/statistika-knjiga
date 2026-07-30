@@ -1,9 +1,10 @@
 ---
 title: "Zašto statistika"
+subtitle: "Zašto kontekst odlučuje što brojke znače"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  cjelovit nacrt — argument, widget i statični blizanac
   IZVOR:   tjedan 1, opsežan prijenos
   OPSEG:   ~4500 riječi
   WIDGET:  w01 · Simpsonov paradoks
@@ -18,6 +19,7 @@ title: "Zašto statistika"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 
 ucb <- as.data.frame(UCBAdmissions) |>
@@ -52,6 +54,12 @@ odjeli_prednost_zene <- ucb_odjeli |>
   summarise(n = sum(Žene >= Muškarci)) |>
   pull(n)
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 8 min | Simpsonov paradoks | UCBAdmissions | bez preduvjeta |
+:::
 
 ::: {.callout-vinjeta}
 Podaci o upisima na Sveučilište Kalifornije u Berkeleyju 1973. godine otvorili
@@ -165,33 +173,193 @@ napravili.
 
 ## Interakcija — Simpsonov paradoks
 
-Interaktivni prikaz rastavlja jednu zbirnu stopu na dvije podskupine. Brojevi
-opažanja ostaju isti, ali prebacivanje između združenog i razdvojenog pogleda
-mijenja usporedbu koju vidimo. Time postaje vidljivo kako sastav skupina može
-proizvesti zbirni rezultat suprotan obrascu unutar svake od njih.
+Interaktivni prikaz gradi transparentan primjer s dvjema skupinama i dvjema
+podskupinama. Stope unutar podskupina ostaju jednake, dok klizači mijenjaju
+njihovu zastupljenost u svakoj skupini. Prebacivanje pogleda pokazuje kako
+različiti utezi mogu proizvesti zbirni rezultat suprotan obrascu unutar obje
+podskupine.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Simpsonov paradoks" data-oznaka="Widget 01.1 · interaktivno"}
 ```{ojs}
 //| echo: false
-// Planirana upravljačka ploča. book-include.html je automatski sklapa i dodaje
-// gumb za povratak na početne vrijednosti, pa ovdje ide samo Inputs.form.
-// viewof w01_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w01 — Simpsonov paradoks. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w01_par = Inputs.form({
+  pogled: Inputs.select(
+    ["Združeno", "Po podskupinama"],
+    {value: "Združeno", label: "Pogled"}
+  ),
+  udio_a: Inputs.range(
+    [0, 100],
+    {value: 80, step: 5, label: "Udio A u pristupačnijoj podskupini"}
+  ),
+  udio_b: Inputs.range(
+    [0, 100],
+    {value: 20, step: 5, label: "Udio B u pristupačnijoj podskupini"}
+  )
+})
+```
+
+```{ojs}
+//| echo: false
+w01_tema = Generators.observe(obavijesti => {
+  let revizija = 0;
+  const osvjezi = () => obavijesti(++revizija);
+  const promatrac = new MutationObserver(osvjezi);
+  const postavke = {
+    attributes: true,
+    attributeFilter: ["class", "data-bs-theme"]
+  };
+  promatrac.observe(document.documentElement, postavke);
+  promatrac.observe(document.body, postavke);
+  osvjezi();
+  return () => promatrac.disconnect();
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w01
+//| fig-cap: "Zbirne stope i stope po podskupinama u konstruiranom primjeru Simpsonova paradoksa."
+//| fig-alt: "Pri početnim udjelima zbirna stopa skupine A iznosi 68 posto, a skupine B 42 posto, premda je stopa skupine B u obje podskupine viša za 10 postotnih bodova."
+{
+  w01_tema;
+  const css = getComputedStyle(document.documentElement);
+  const bojaA = css.getPropertyValue("--tok-data-1").trim();
+  const bojaB = css.getPropertyValue("--tok-data-4").trim();
+  const tinta = css.getPropertyValue("--tok-ink").trim();
+  const linija = css.getPropertyValue("--tok-rule").trim();
+  const sans = css.getPropertyValue("--tok-font-sans").trim();
+  const postotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    maximumFractionDigits: 0
+  });
+
+  const stope = [
+    {podskupina: "Pristupačnija", skupina: "Skupina A", stopa: 0.80},
+    {podskupina: "Pristupačnija", skupina: "Skupina B", stopa: 0.90},
+    {podskupina: "Zahtjevnija", skupina: "Skupina A", stopa: 0.20},
+    {podskupina: "Zahtjevnija", skupina: "Skupina B", stopa: 0.30}
+  ];
+
+  const udioA = w01_par.udio_a / 100;
+  const udioB = w01_par.udio_b / 100;
+  const ukupno = [
+    {
+      podskupina: "Združeno",
+      skupina: "Skupina A",
+      stopa: udioA * 0.80 + (1 - udioA) * 0.20
+    },
+    {
+      podskupina: "Združeno",
+      skupina: "Skupina B",
+      stopa: udioB * 0.90 + (1 - udioB) * 0.30
+    }
+  ];
+
+  const razdvojeno = w01_par.pogled === "Po podskupinama";
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirinaGrafa < 480;
+  const podaci = razdvojeno ? stope : ukupno;
+  const raspored = razdvojeno
+    ? (usko ? {fy: "podskupina"} : {fx: "podskupina"})
+    : {};
+  const marks = [
+    Plot.barY(podaci, {
+      x: "skupina",
+      y: "stopa",
+      fill: "skupina",
+      inset: 18,
+      ...raspored
+    }),
+    Plot.text(podaci, {
+      x: "skupina",
+      y: "stopa",
+      text: d => postotak.format(d.stopa),
+      dy: -9,
+      fill: tinta,
+      ...raspored
+    }),
+    Plot.ruleY([0], {stroke: linija})
+  ];
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: razdvojeno ? (usko ? 500 : 330) : (usko ? 340 : 300),
+    marginLeft: usko ? 52 : 58,
+    marginRight: usko ? 14 : 24,
+    marginBottom: 48,
+    marginTop: razdvojeno ? (usko ? 24 : 34) : (usko ? 28 : 20),
+    style: {
+      background: "transparent",
+      fontFamily: sans,
+      fontSize: usko ? "12px" : "13px"
+    },
+    color: {
+      domain: ["Skupina A", "Skupina B"],
+      range: [bojaA, bojaB],
+      legend: false
+    },
+    x: {label: null},
+    fx: razdvojeno && !usko ? {label: null} : undefined,
+    fy: razdvojeno && usko ? {label: null} : undefined,
+    y: {
+      label: "Stopa uspjeha",
+      domain: [0, 1],
+      tickFormat: d => postotak.format(d)
+    },
+    marks
+  });
+}
 ```
 :::
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w01
-#| fig-cap: "Planirani statički prikaz zbirnih i grupiranih stopa."
-#| fig-alt: "Mjesto za statički prikaz Simpsonova paradoksa."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w01 još nije izrađen") +
-  theme_void()
+#| label: fig-w01-print
+#| fig-cap: "Isti obrazac prikazan združeno i unutar dviju podskupina."
+#| fig-alt: "Tri para stupaca. Združeno skupina A ima stopu 68 posto, a skupina B 42 posto. U pristupačnijoj i zahtjevnijoj podskupini skupina B ima stopu višu za 10 postotnih bodova."
+w01_stope <- tribble(
+  ~Prikaz,           ~Skupina,    ~Stopa,
+  "Združeno",        "Skupina A", 0.68,
+  "Združeno",        "Skupina B", 0.42,
+  "Pristupačnija",   "Skupina A", 0.80,
+  "Pristupačnija",   "Skupina B", 0.90,
+  "Zahtjevnija",     "Skupina A", 0.20,
+  "Zahtjevnija",     "Skupina B", 0.30
+) |>
+  mutate(
+    Prikaz = factor(
+      Prikaz,
+      levels = c("Združeno", "Pristupačnija", "Zahtjevnija")
+    )
+  )
+
+ggplot(w01_stope, aes(x = Skupina, y = Stopa, fill = Skupina)) +
+  geom_col(width = 0.64) +
+  geom_text(
+    aes(label = paste0(hr_broj(100 * Stopa, 0), " %")),
+    vjust = -0.45,
+    colour = tok_boja("ink"),
+    show.legend = FALSE
+  ) +
+  facet_wrap(vars(Prikaz), nrow = 1) +
+  scale_fill_sivo() +
+  scale_y_continuous(
+    limits = c(0, 1),
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %"),
+    expand = expansion(mult = c(0, 0.12))
+  ) +
+  labs(x = NULL, y = "Stopa uspjeha") +
+  theme(legend.position = "none")
 ```
 :::
 
@@ -251,6 +419,7 @@ Svaki redak izvorne tablice govori o ishodu prijave, spolu kandidata i odjelu.
 Prvi korak združuje odjele te za svaku skupinu dijeli broj primljenih s ukupnim
 brojem prijava.
 
+:::: {.table-keep-words}
 ```{r}
 #| label: tbl-ucb-zbirno
 #| tbl-cap: "Zbirne stope prijma u šest najvećih odjela. Izrada autora prema @bickel1975."
@@ -258,12 +427,28 @@ brojem prijava.
 ucb_ukupno |>
   transmute(
     Spol,
-    Prijave,
-    Primljeni,
-    `Stopa prijma` = paste0(hr_broj(100 * Stopa, 1), " %")
+    Prijave = hr_broj(Prijave, 0),
+    Primljeni = hr_broj(Primljeni, 0),
+    `Stopa prijma` = paste0(
+      hr_broj(100 * Stopa, 1),
+      "\u202f%"
+    )
   ) |>
-  knitr::kable(align = c("l", "r", "r", "r"))
+  pivot_longer(
+    -Spol,
+    names_to = "Mjera",
+    values_to = "Vrijednost"
+  ) |>
+  pivot_wider(
+    names_from = Spol,
+    values_from = Vrijednost
+  ) |>
+  select(Mjera, Muškarci, Žene) |>
+  knitr::kable(
+    align = c("l", "r", "r")
+  )
 ```
+::::
 
 Zbirna tablica pokazuje velik jaz. Primljeno je
 `r paste0(hr_broj(100 * stopa_muskarci, 1), " %")` muškaraca i
@@ -272,31 +457,87 @@ ovim podacima [@bickel1975]. Kada bismo ovdje stali, bilo bi razumljivo
 posumnjati da je ista razlika prisutna u odlukama svakog odjela. Ta pretpostavka
 ipak nije sadržana u zbirnoj stopi.
 
+```{r}
+#| echo: true
+p_ucb_odjeli <- ucb_odjeli |>
+  ggplot(
+    aes(
+      x = Dept,
+      y = Stopa,
+      colour = Spol,
+      linetype = Spol,
+      shape = Spol,
+      group = Spol
+    )
+  ) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2.8, stroke = 0.9) +
+  scale_y_continuous(
+    labels = function(x) {
+      paste0(hr_broj(100 * x, 0), " %")
+    }
+  ) +
+  scale_linetype_manual(
+    values = c("Muškarci" = "solid", "Žene" = "22")
+  ) +
+  scale_shape_manual(
+    values = c("Muškarci" = 16, "Žene" = 1)
+  ) +
+  labs(
+    x = NULL,
+    y = "Stopa prijma",
+    colour = NULL,
+    linetype = NULL,
+    shape = NULL
+  ) +
+  theme_knjiga(base_size = 15.5) +
+  theme(
+    legend.position = "top",
+    legend.justification = "left",
+    plot.margin = margin(8, 8, 8, 8)
+  ) +
+  guides(
+    colour = guide_legend(nrow = 1),
+    linetype = guide_legend(nrow = 1),
+    shape = guide_legend(nrow = 1)
+  )
+```
+
 Sljedeći korak ne mijenja nijednu prijavu. Mijenja samo razinu na kojoj ih
 uspoređujemo. Stope sada računamo zasebno u svakom odjelu, čime kandidati iz
 selektivnog odjela više ne utječu izravno na usporedbu kandidata u odjelu s
 višom prolaznošću.
 
+::::: {#fig-ucb-odjeli .column-body}
+::: {.figure-theme-light}
 ```{r}
-#| label: fig-ucb-odjeli
-#| echo: true
-#| fig-cap: "Stope prijma prema odjelu i spolu. Izrada autora prema @bickel1975."
+#| echo: false
+#| column: body
+#| fig-width: 6
+#| fig-height: 4.8
 #| fig-alt: "Šest odjela s po dvije stope prijma. U četiri odjela stopa za žene jednaka je ili viša, iako je zbirna stopa za žene niža."
-
-ucb_odjeli |>
-  ggplot(aes(x = Dept, y = Stopa, colour = Spol, group = Spol)) +
-  geom_line() +
-  geom_point(size = 2.4) +
-  scale_color_knjiga() +
-  scale_y_continuous(
-    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
-  ) +
-  labs(
-    title = "Zbirni jaz ne ponavlja se jednako u odjelima",
-    x = "Odjel",
-    y = "Stopa prijma"
-  )
+p_ucb_odjeli + scale_color_knjiga()
 ```
+:::
+
+:::: {.content-visible when-format="html"}
+::: {.figure-theme-dark}
+```{r}
+#| echo: false
+#| column: body
+#| fig-width: 6
+#| fig-height: 4.8
+#| fig-alt: "Šest odjela s po dvije stope prijma. U četiri odjela stopa za žene jednaka je ili viša, iako je zbirna stopa za žene niža."
+iscrtaj_figuru(
+  p_ucb_odjeli + scale_color_knjiga(varijanta = "tamna"),
+  "tamna"
+)
+```
+:::
+::::
+
+Stope prijma prema odjelu i spolu. Izrada autora prema @bickel1975.
+:::::
 
 Stope po odjelima više ne podržavaju jednostavnu priču prema kojoj se isti jaz
 ponavlja posvuda. U četiri od šest odjela stopa za žene barem je jednaka stopi

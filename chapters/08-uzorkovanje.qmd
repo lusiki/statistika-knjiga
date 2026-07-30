@@ -1,9 +1,10 @@
 ---
 title: "Uzorkovanje"
+subtitle: "Jedan uzorak skriva raspodjelu mogućih rezultata"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i dovršen widget
   IZVOR:   tjedan 8, prva polovica, izgrađeno oko simulacije
   OPSEG:   ~4500 riječi
   WIDGET:  w08 · CLT stroj
@@ -19,8 +20,15 @@ title: "Uzorkovanje"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | CLT stroj | simulacija | pogl. 4, 7 |
+:::
 
 ::: {.callout-vinjeta}
 Efron je bootstrap predstavio kao način procjene nesigurnosti kada imamo jedan
@@ -70,34 +78,279 @@ CLT stroj gradi distribuciju uzorkovanja pred čitateljem. Izvorna populacija,
 veličina uzorka i broj ponavljanja mogu se mijenjati odvojeno, pa je vidljivo
 što utječe na oblik, a što na raspršenost uzoračkih sredina.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="CLT stroj" data-oznaka="Widget 08.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w08_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w08 — CLT stroj. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w08_par = Inputs.form({
+  oblik: Inputs.select(
+    ["Simetrična", "Desno asimetrična", "Dvovršna"],
+    {value: "Desno asimetrična", label: "Oblik populacije"}
+  ),
+  n: Inputs.range(
+    [2, 100],
+    {value: 25, step: 1, label: "Veličina uzorka"}
+  ),
+  k: Inputs.range(
+    [200, 3000],
+    {value: 1000, step: 200, label: "Broj uzoraka"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+w08_simulacija = {
+  const rng = d3.randomLcg(808);
+  const normalna = d3.randomNormal.source(rng)(0, 1);
+
+  function izvuci() {
+    if (w08_par.oblik === "Simetrična") return normalna();
+    if (w08_par.oblik === "Desno asimetrična") {
+      return -Math.log(1 - rng()) - 1;
+    }
+    return (rng() < 0.5 ? -2 : 2) + 0.60 * normalna();
+  }
+
+  const populacija = Array.from({length: 3000}, izvuci);
+  const sredine = Array.from({length: w08_par.k}, () => {
+    let zbroj = 0;
+    for (let i = 0; i < w08_par.n; i += 1) zbroj += izvuci();
+    return zbroj / w08_par.n;
+  });
+
+  return {populacija, sredine};
+}
+```
+
+```{ojs}
+//| echo: false
+w08_binovi = {
+  const [minimum, maksimum] = d3.extent(w08_simulacija.populacija);
+  const brojBinova = 80;
+  const korak = (maksimum - minimum) / brojBinova;
+
+  function razvrstaj(vrijednosti, panel) {
+    const brojevi = Array(brojBinova).fill(0);
+    for (const vrijednost of vrijednosti) {
+      const sirovi = Math.floor((vrijednost - minimum) / korak);
+      const indeks = Math.max(0, Math.min(brojBinova - 1, sirovi));
+      brojevi[indeks] += 1;
+    }
+    return brojevi.map((broj, i) => ({
+      panel,
+      x1: minimum + i * korak,
+      x2: minimum + (i + 1) * korak,
+      udio: broj / vrijednosti.length
+    }));
+  }
+
+  return [
+    ...razvrstaj(w08_simulacija.populacija, "Populacija"),
+    ...razvrstaj(
+      w08_simulacija.sredine,
+      `Sredine · n = ${w08_par.n}`
+    )
+  ];
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w08
+//| fig-cap: "Izvorna populacija i raspodjela sredina mnogih uzoraka na zajedničkoj osi. Okomita crta označuje populacijsku sredinu simulacije."
+//| fig-alt: "Početna desno asimetrična populacija proteže se udesno, dok je raspodjela sredina uzoraka veličine dvadeset i pet mnogo uža i približno simetrična oko iste vrijednosti."
+{
+  const tinta = "var(--tok-ink)";
+  const ispunaPopulacije = "var(--tok-data-4)";
+  const ispunaSredina = "var(--tok-data-2)";
+  const naglasak = "var(--tok-accent)";
+  const panelSredina = `Sredine · n = ${w08_par.n}`;
+  const binoviPopulacije = w08_binovi.filter(
+    d => d.panel === "Populacija"
+  );
+  const binoviSredina = w08_binovi.filter(
+    d => d.panel === panelSredina
+  );
+  const reference = [
+    {panel: "Populacija", x: 0},
+    {panel: panelSredina, x: 0}
+  ];
+  const oznake = [
+    {
+      panel: "Populacija",
+      x: d3.min(binoviPopulacije, d => d.x1),
+      y: 1.08 * d3.max(binoviPopulacije, d => d.udio),
+      tekst: "Populacija"
+    },
+    {
+      panel: panelSredina,
+      x: d3.min(binoviSredina, d => d.x1),
+      y: 1.08 * d3.max(binoviSredina, d => d.udio),
+      tekst: `Sredine uzoraka · n = ${w08_par.n}`
+    }
+  ];
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirinaGrafa = Math.max(280, Math.min(width, lokalnaSirina));
+  const mobilno = sirinaGrafa < 480;
+
+  return Plot.plot({
+    width: sirinaGrafa,
+    height: mobilno ? 620 : 540,
+    marginLeft: mobilno ? 66 : 64,
+    marginBottom: mobilno ? 54 : 48,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: mobilno ? "15px" : "12px"
+    },
+    x: {label: "Vrijednost", grid: true},
+    y: {
+      label: "Udio u razredu",
+      grid: true,
+      tickFormat: d => `${(100 * d).toLocaleString("hr-HR", {
+        maximumFractionDigits: 0
+      })} %`
+    },
+    fy: {
+      label: null,
+      axis: null,
+      domain: ["Populacija", panelSredina]
+    },
+    marks: [
+      Plot.rectY(binoviPopulacije, {
+        x1: "x1",
+        x2: "x2",
+        y: "udio",
+        fy: "panel",
+        fill: ispunaPopulacije,
+        inset: 0.35
+      }),
+      Plot.rectY(binoviSredina, {
+        x1: "x1",
+        x2: "x2",
+        y: "udio",
+        fy: "panel",
+        fill: ispunaSredina,
+        inset: 0.35
+      }),
+      Plot.ruleX(reference, {
+        x: "x",
+        fy: "panel",
+        stroke: naglasak,
+        strokeWidth: 2,
+        strokeDasharray: "5,3"
+      }),
+      Plot.text(oznake, {
+        x: "x",
+        y: "y",
+        fy: "panel",
+        text: "tekst",
+        textAnchor: "start",
+        dx: 4,
+        dy: -4,
+        fill: tinta,
+        fontSize: mobilno ? 15 : 13
+      }),
+      Plot.ruleY([0], {stroke: tinta})
+    ]
+  });
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const sdPopulacije = d3.deviation(w08_simulacija.populacija);
+  const sdSredina = d3.deviation(w08_simulacija.sredine);
+  const zapis = v => v.toLocaleString("hr-HR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+  return html`<p class="widget-foot" role="status" aria-live="polite">Standardna devijacija populacijskih opažanja iznosi ${zapis(sdPopulacije)}, a standardna devijacija uzoračkih sredina ${zapis(sdSredina)}.</p>`;
+}
+```
+
 :::
 
+::::
+
 ::: {.content-visible when-format="pdf"}
+
 ```{r}
 #| echo: false
-#| label: fig-w08
-#| fig-cap: "Planirani stroj za nastanak distribucije uzorkovanja."
-#| fig-alt: "Mjesto za izvornu populaciju i histogram mnogih uzoračkih sredina."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w08 još nije izrađen") +
-  theme_void()
+#| label: fig-w08-print
+#| fig-cap: "Desno asimetrična simulirana populacija i raspodjele sredina pri dvjema veličinama uzorka. Veći uzorak daje pravilniju i užu raspodjelu sredina."
+#| fig-alt: "Tri okomito poredana histograma prikazuju asimetričnu populaciju, širu raspodjelu sredina uzoraka veličine pet i užu raspodjelu sredina uzoraka veličine četrdeset."
+#| fig-width: 6.6
+#| fig-height: 7.4
+set.seed(808)
+
+w08_populacija_r <- rbeta(5000, shape1 = 1, shape2 = 5)
+w08_tisak <- bind_rows(
+  tibble(
+    panel = "Populacijska opažanja",
+    vrijednost = w08_populacija_r
+  ),
+  tibble(
+    panel = "Uzoračke sredine · n = 5",
+    vrijednost = replicate(
+      2000,
+      mean(sample(w08_populacija_r, 5, replace = TRUE))
+    )
+  ),
+  tibble(
+    panel = "Uzoračke sredine · n = 40",
+    vrijednost = replicate(
+      2000,
+      mean(sample(w08_populacija_r, 40, replace = TRUE))
+    )
+  )
+) |>
+  mutate(
+    panel = factor(
+      panel,
+      levels = c(
+        "Populacijska opažanja",
+        "Uzoračke sredine · n = 5",
+        "Uzoračke sredine · n = 40"
+      )
+    )
+  )
+
+ggplot(w08_tisak, aes(vrijednost)) +
+  geom_histogram(
+    bins = 45,
+    fill = tok_boja("data-4")
+  ) +
+  geom_vline(
+    xintercept = mean(w08_populacija_r),
+    linetype = "dashed",
+    colour = tok_boja("ink-mute")
+  ) +
+  facet_wrap(~ panel, ncol = 1, scales = "free_y") +
+  scale_x_continuous(labels = hr_broj) +
+  labs(x = "Vrijednost", y = "Broj") +
+  theme_knjiga(base_size = 13)
 ```
+
 :::
 
 **Što isprobati.**
 
-1. Uzimajte male uzorke iz simetrične populacije.
-2. Promijenite populaciju u snažno asimetričnu.
-3. Povećajte uzorak i odvojeno promatrajte oblik i širinu distribucije sredina.
+1. Odaberite simetričnu populaciju i uzorak veličine dva pa usporedite širine dvaju histograma.
+2. Promijenite populaciju u desno asimetričnu bez povećanja uzorka.
+3. Povećajte uzorak na četrdeset i odvojeno opišite promjenu oblika i širine raspodjele sredina.
+4. Odaberite dvovršnu populaciju i pronađite veličinu uzorka pri kojoj se dvije populacijske skupine više ne vide u sredinama.
 
 ::: {.callout-divljina}
 **Jedan uzorak kao privremena populacija.** Bootstrap iznova uzorkuje opažanja
@@ -133,15 +386,8 @@ procjene, ali ne mora smanjiti razlike među pojedincima u svakom uzorku.
 
 ## Razrađeni primjer
 
-Stvaramo desno asimetričnu simuliranu populaciju i iz nje ponavljano uzimamo
-uzorke dviju veličina. Za svaki uzorak računamo sredinu. Usporedba dviju
-distribucija pokazuje da veći uzorci daju zbijenije procjene.
-
 ```{r}
-#| label: fig-clt-primjer
 #| echo: true
-#| fig-cap: "Distribucije sredina pri dvjema veličinama uzorka. Izrada autora."
-#| fig-alt: "Dvije distribucije uzoračkih sredina, pri čemu je ona za veći uzorak uža."
 
 populacija <- rexp(100000, rate = 1)
 
@@ -150,13 +396,74 @@ sim_sredine <- bind_rows(
          sredina = replicate(1500, mean(sample(populacija, 10)))),
   tibble(n = "veći uzorak",
          sredina = replicate(1500, mean(sample(populacija, 80))))
-)
+) |>
+  mutate(n = factor(n, levels = c("manji uzorak", "veći uzorak")))
 
-ggplot(sim_sredine, aes(sredina, fill = n)) +
-  geom_histogram(position = "identity", alpha = 0.55, bins = 35) +
-  scale_fill_knjiga() +
-  labs(x = "Uzoračka sredina", y = "Broj uzoraka", fill = "Veličina")
+p_clt_primjer <- ggplot(sim_sredine, aes(sredina)) +
+  geom_histogram(
+    bins = 35
+  ) +
+  geom_vline(
+    xintercept = mean(populacija),
+    linetype = "dashed"
+  ) +
+  facet_wrap(~ n, ncol = 1) +
+  scale_x_continuous(labels = hr_broj) +
+  labs(x = "Uzoračka sredina", y = "Broj uzoraka") +
+  theme_knjiga(base_size = 13)
 ```
+
+Stvaramo desno asimetričnu simuliranu populaciju i iz nje ponavljano uzimamo
+uzorke dviju veličina. Za svaki uzorak računamo sredinu. Usporedba dviju
+distribucija pokazuje da veći uzorci daju zbijenije procjene.
+
+::::: {#fig-clt-primjer}
+
+:::: {.content-visible when-format="html"}
+
+::: {.figure-theme-light}
+
+```{r}
+#| echo: false
+#| fig-alt: "Dvije distribucije uzoračkih sredina, pri čemu je ona za veći uzorak uža."
+#| fig-width: 4.3
+#| fig-height: 6.4
+#| out-width: "4.3in"
+p_clt_primjer
+```
+
+:::
+
+::: {.figure-theme-dark}
+
+```{r}
+#| echo: false
+#| fig-alt: "Dvije distribucije uzoračkih sredina, pri čemu je ona za veći uzorak uža."
+#| fig-width: 4.3
+#| fig-height: 6.4
+#| out-width: "4.3in"
+iscrtaj_figuru(p_clt_primjer, "tamna")
+```
+
+:::
+
+::::
+
+::: {.content-visible when-format="pdf"}
+
+```{r}
+#| echo: false
+#| fig-alt: "Dvije distribucije uzoračkih sredina, pri čemu je ona za veći uzorak uža."
+#| fig-width: 6.6
+#| fig-height: 6.4
+p_clt_primjer
+```
+
+:::
+
+Distribucije sredina pri dvjema veličinama uzorka. Izrada autora.
+
+:::::
 
 Izvorna populacija ostaje asimetrična u oba slučaja. Mijenja se ponašanje
 sredine kroz ponavljanja. Ta razlika između raspodjele opažanja i raspodjele

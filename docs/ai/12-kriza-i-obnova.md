@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Pješčanik p-hakiranja | simulacija | pogl. 10, 11 |
 
 **Vinjeta.**
 Velika suradnja istraživača pokušala je ponoviti niz objavljenih psiholoških
@@ -75,12 +79,21 @@ skup podataka ili reproducibilan postupak koji se može otvoriti bez modela.
 Pješčanik omogućuje biranje ishoda, podskupina i trenutka zaustavljanja na
 podacima bez stvarnog učinka. Čitatelj promatra kako rast broja odluka povećava
 priliku za privlačan rezultat i kako korekcija za cijeli postupak mijenja sliku.
+Radi preglednosti svaki je analitički put u simulaciji neovisan. Stvarni putovi
+često dijele podatke, ali idealizacija izdvaja cijenu njihova broja.
+
+*Slika. Udio simuliranih istraživanja s barem jednim rezultatom ispod odabranog praga nakon pretraživanja više neovisnih analitičkih putova.*
 
 **Što isprobati.**
 
 1. Provedite jednu unaprijed određenu analizu.
-2. Dodajte više ishoda i podskupina bez promjene podataka.
-3. Prikažite sve rezultate umjesto samo najmanje p-vrijednosti.
+2. Dodajte ishode, a podskupine i trenutke provjere ostavite jednakima.
+3. Dodajte podskupinske inačice i trenutke provjere bez promjene broja ishoda.
+4. Usporedite nominalni prag 0,05 s pragom korigiranim za sve putove.
+
+Najmanja p-vrijednost nije sažetak jedne unaprijed određene analize kada je
+nastala pretraživanjem. Zaključak tada mora opisati cijeli skup mogućnosti ili
+koristiti postupak koji njihov broj uzima u obzir.
 
 **Statistika u divljini.**
 **Replikacija kao zajedničko mjerenje.** Open Science Collaboration koristio je

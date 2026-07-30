@@ -4,17 +4,11 @@
 # manuscript artifact: it is NOT served from the website (nothing is copied into
 # docs/) and word/ is gitignored except the canonical .docx.
 #
-# This script makes TWO temporary, always-restored edits to the source tree, then
-# renders the book to a single Word file, then restores everything (try/finally,
-# even on error or interruption). After it runs the tree is byte-identical.
+# This script makes temporary, always-restored edits to the source tree, renders
+# the book to one Word file, then restores everything (try/finally, even on
+# error or interruption). After it runs the tree is byte-identical.
 #
-#   1) APPENDICES. The manuscript carries the bibliography and appendices A-F,
-#      while the website keeps the full set (pojmovnik, interakcije, podaci,
-#      resursi, uci-s-ai, predavanja, silabus, raspored). Quarto profiles merge
-#      book.appendices arrays ADDITIVELY, so _quarto-docx.yml cannot shrink the
-#      list; this script rewrites the block for the duration of the render.
-#
-#   2) FIGURE TWINS. Every widget is a twin pair: an OJS interactive chart gated
+#   1) FIGURE TWINS. Every widget is a twin pair: an OJS interactive chart gated
 #      `.content-visible when-format="html"` and a static R "print" chart gated
 #      `.content-visible when-format="pdf"`. For DOCX neither gate matches, so
 #      both twins are stripped and the Word file would have almost no figures.
@@ -23,8 +17,12 @@
 #      say "docx": this script rewrites `when-format="pdf"` -> `when-format="docx"`
 #      in the chapters and appendices for the render.
 #
-# Because the source changes for the render, Quarto re-executes the R code (no
-# docx freeze is reused); a full build runs every chapter once.
+#   2) PRE-RENDER HOOK. The AI export hook is disabled while gates are swapped,
+#      so transient DOCX source never rewrites tracked website exports.
+#
+# The canonical config already declares references.qmd separately and includes
+# only appendices A-F. This script validates that structure but does not rewrite
+# the appendix block.
 #
 # NOTE: keep this file ASCII-only. Windows PowerShell 5.1 reads .ps1 as the ANSI
 # codepage, so non-ASCII in the source corrupts string terminators and breaks
@@ -43,16 +41,6 @@ $srcDirs   = @((Join-Path $root "chapters"), (Join-Path $root "dodaci"))
 $utf8      = New-Object System.Text.UTF8Encoding($false)
 $gateFrom  = 'when-format="pdf"'
 $gateTo    = 'when-format="docx"'
-
-$printAppendices = @(
-  '    - references.qmd',
-  '    - dodaci/a-praktikum.qmd',
-  '    - dodaci/b-jamovi.qmd',
-  '    - dodaci/c-katalog-podataka.qmd',
-  '    - dodaci/d-koji-test.qmd',
-  '    - dodaci/e-rjecnik.qmd',
-  '    - dodaci/f-ai-protokol.qmd'
-)
 
 if (-not (Test-Path $cfg)) { throw "_quarto.yml not found at $cfg" }
 
@@ -77,6 +65,36 @@ function Restore-DocxBaks {
 # BEFORE we snapshot anything (otherwise we would back up already-patched files).
 Restore-DocxBaks
 
+# Validate the canonical print structure before making temporary source edits.
+$configText = [System.IO.File]::ReadAllText($cfg, $utf8)
+if ($configText -notmatch '(?m)^  references:\s+references\.qmd\s*$') {
+  throw "_quarto.yml must declare book.references: references.qmd"
+}
+
+$expectedAppendices = @(
+  'dodaci/a-praktikum.qmd',
+  'dodaci/b-jamovi.qmd',
+  'dodaci/c-katalog-podataka.qmd',
+  'dodaci/d-koji-test.qmd',
+  'dodaci/e-rjecnik.qmd',
+  'dodaci/f-ai-protokol.qmd'
+)
+$appendixMatch = [regex]::Match(
+  $configText,
+  '(?m)^  appendices:\s*\r?\n(?<body>(?:    - [^\r\n]+\r?\n)+)'
+)
+if (-not $appendixMatch.Success) {
+  throw "_quarto.yml must contain a non-empty book.appendices block"
+}
+$actualAppendices = @(
+  [regex]::Matches($appendixMatch.Groups['body'].Value, '(?m)^    - ([^\r\n]+)\s*$') |
+    ForEach-Object { $_.Groups[1].Value.Trim() }
+)
+if (($actualAppendices.Count -ne $expectedAppendices.Count) -or
+    (($actualAppendices -join "`n") -ne ($expectedAppendices -join "`n"))) {
+  throw "_quarto.yml book.appendices must contain exactly appendices A-F in canonical order"
+}
+
 $quarto = (Get-Command quarto -ErrorAction SilentlyContinue).Source
 if (-not $quarto) { $quarto = "C:\Program Files\RStudio\resources\app\bin\quarto\bin\quarto.exe" }
 if (-not (Test-Path $quarto)) { throw "Quarto not found (not on PATH, not at $quarto)" }
@@ -84,49 +102,52 @@ if (-not (Test-Path $quarto)) { throw "Quarto not found (not on PATH, not at $qu
 Copy-Item $cfg $bak -Force
 
 try {
-  # --- (1) Rewrite the appendices block, and drop the pre-render hook ----------
+  # --- (1) Drop the pre-render hook -------------------------------------------
   # The hook (R/build-ai-exports.R) regenerates the website AI exports from the
   # chapters, but here the chapters are temporarily gate-swapped, so letting it
   # run would dirty the tracked docs/ai/*, docs/llms*.txt and data/ai-exports.json
   # with content derived from the transient build state.
   $lines = Get-Content $cfg -Encoding UTF8
   $out = New-Object System.Collections.Generic.List[string]
-  $i = 0; $found = $false
+  $i = 0; $foundPreRender = $false
   while ($i -lt $lines.Count) {
     if ($lines[$i] -match '^  pre-render:\s*$') {
+      $foundPreRender = $true
       $i++
       while ($i -lt $lines.Count) {
         $l = $lines[$i]
         if ($l -match '^    ' -or $l -match '^  #' -or $l -match '^\s*$') { $i++; continue }
         break
       }
-      continue
-    }
-    if ($lines[$i] -match '^  appendices:\s*$') {
-      $found = $true
-      $out.Add('  appendices:')
-      foreach ($a in $printAppendices) { $out.Add($a) }
-      $i++
-      while ($i -lt $lines.Count) {
-        $l = $lines[$i]
-        if ($l -match '^    ' -or $l -match '^  #' -or $l -match '^\s*$') { $i++; continue }
-        break
-      }
-      $out.Add('')
       continue
     }
     $out.Add($lines[$i]); $i++
   }
 
-  if (-not $found) {
-    throw "appendices block not found in _quarto.yml; aborting (config untouched)"
+  if (-not $foundPreRender) {
+    throw "project.pre-render block not found in _quarto.yml; aborting (config untouched)"
   }
   $patchedText = ($out -join "`r`n") + "`r`n"
-  if ($patchedText -notmatch '(?m)^  appendices:\r?\n    - references\.qmd\r?\n') {
-    throw "patched _quarto.yml does not look right; aborting (will restore)"
+  if ($patchedText -match '(?m)^  pre-render:\s*$') {
+    throw "temporary _quarto.yml still contains project.pre-render"
   }
-  if (($patchedText -notmatch '(?m)^bibliography:') -or ($patchedText -notmatch '(?m)^crossref:')) {
-    throw "patch removed bibliography or crossref; aborting (will restore)"
+  if ($patchedText -notmatch '(?m)^  references:\s+references\.qmd\s*$') {
+    throw "temporary config lost book.references; aborting (will restore)"
+  }
+  $patchedAppendices = [regex]::Match(
+    $patchedText,
+    '(?m)^  appendices:\s*\r?\n(?<body>(?:    - [^\r\n]+\r?\n)+)'
+  )
+  if (-not $patchedAppendices.Success) {
+    throw "temporary config lost book.appendices; aborting (will restore)"
+  }
+  $patchedAppendixList = @(
+    [regex]::Matches($patchedAppendices.Groups['body'].Value, '(?m)^    - ([^\r\n]+)\s*$') |
+      ForEach-Object { $_.Groups[1].Value.Trim() }
+  )
+  if (($patchedAppendixList.Count -ne $expectedAppendices.Count) -or
+      (($patchedAppendixList -join "`n") -ne ($expectedAppendices -join "`n"))) {
+    throw "temporary config changed book.appendices; aborting (will restore)"
   }
 
   [System.IO.File]::WriteAllText($cfg, $patchedText, $utf8)
@@ -146,7 +167,7 @@ try {
   }
   Write-Host "Swapped print-twin gate to docx in $swapped source files."
 
-  Write-Host "Rendering book DOCX (print appendices, print figures shown)..."
+  Write-Host "Rendering book DOCX (print figures shown)..."
   & $quarto render --to docx --profile docx
   if ($LASTEXITCODE -ne 0) { throw "quarto render failed (exit $LASTEXITCODE)" }
 

@@ -11,16 +11,40 @@
      3. dinkus (*** u prozi -> stilizirani razdjelnik)
      4. sidra uz naslove
      5. samostalne stranice bez knjižnog okvira
+     5a. aktivno stanje roditelja izbornika Nastava
      6. čišćenje sidebara
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
      8. sklopivi prozni blokovi („Što isprobati")
      9. AI izbornik u podnožju poglavlja
-    10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
-    11. traka metapodataka na otvaranju poglavlja
-    12. pamćenje stanja widgeta po stranici
+     10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
+     11. traka metapodataka na otvaranju poglavlja
+     12. pamćenje stanja widgeta po stranici
+     13. organizacija mobilne navigacije
+     14. lokalni oporavak resursa stranice 404
+     15. uklanjanje oznake vanjske poveznice s istog izvorišta
+     16. pristupačno vodoravno pomicanje širokih tablica
+     17. hrvatski pristupačni nazivi pretraživanja
    ===================================================================== */
 (function () {
   "use strict";
+
+  // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
+  // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
+  // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
+  function seedPojmovnikSearch() {
+    if (!document.body.classList.contains("pojmovnik-page")) return;
+    if (document.getElementById("quarto-search")) return;
+    var navbar = document.querySelector("#quarto-header .navbar");
+    if (!navbar) return;
+    var host = document.createElement("div");
+    host.id = "quarto-search";
+    host.title = "Pretraži knjigu";
+    var tools = navbar.querySelector(".quarto-navbar-tools");
+    if (tools) tools.appendChild(host);
+    else navbar.querySelector(".navbar-container").appendChild(host);
+  }
+
+  seedPojmovnikSearch();
 
   // -------------------------------------------------------------------
   // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
@@ -34,7 +58,8 @@
     "/uci-s-ai.html",
     "/predavanja.html",
     "/silabus.html",
-    "/raspored.html"
+    "/raspored.html",
+    "/404.html"
   ];
 
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
@@ -178,7 +203,11 @@
   // -------------------------------------------------------------------
   function setupStandalonePages() {
     var path = location.pathname;
-    var isStandalone = SAMOSTALNE.some(function (p) { return path.endsWith(p); });
+    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var isStandalone =
+      document.body.classList.contains("standalone-page") ||
+      document.body.classList.contains("not-found-page") ||
+      SAMOSTALNE.some(function (p) { return normalized.endsWith(p); });
     if (!isStandalone) return;
 
     document.body.classList.add("standalone-page");
@@ -196,6 +225,22 @@
     var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
     if (titleEl) titleEl.textContent = strip(titleEl.textContent);
     document.title = strip(document.title);
+  }
+
+  // -------------------------------------------------------------------
+  // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
+  // -------------------------------------------------------------------
+  function setupNastavaActiveState() {
+    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
+    var isNastava = pages.some(function (page) {
+      return location.pathname.endsWith(page);
+    });
+    if (!isNastava) return;
+
+    var parent = document.getElementById("nav-menu-nastava");
+    if (!parent) return;
+    parent.classList.add("active", "section-active");
+    parent.setAttribute("aria-current", "true");
   }
 
   // -------------------------------------------------------------------
@@ -254,11 +299,24 @@
       });
     }
 
+    function panelMeta(panel) {
+      var host = panel.closest && panel.closest("[data-ojs-label]");
+      var widget = panel.closest && panel.closest(".widget-frame[data-naslov]");
+      var widgetTitle = widget && widget.getAttribute("data-naslov");
+      return {
+        label: host && host.getAttribute("data-ojs-label") ||
+          (widgetTitle ? "Postavke: " + widgetTitle : "Parametri simulacije"),
+        hint: host && host.getAttribute("data-ojs-hint") ||
+          "otvori za promjenu vrijednosti"
+      };
+    }
+
     function collapsePanel(panel) {
       if (panel.dataset.ojsCollapsed) return;
       var parent = panel.parentElement;
       if (!parent) return;
       panel.dataset.ojsCollapsed = "1";
+      var meta = panelMeta(panel);
 
       var details = document.createElement("details");
       details.className = "ojs-collapsible";
@@ -266,8 +324,10 @@
       summary.className = "ojs-collapsible-summary";
       summary.innerHTML =
         '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-        '<span class="ojs-collapsible-label">Parametri simulacije</span>' +
-        '<span class="ojs-collapsible-hint">otvori za promjenu vrijednosti</span>';
+        '<span class="ojs-collapsible-label"></span>' +
+        '<span class="ojs-collapsible-hint"></span>';
+      summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
+      summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
 
       parent.insertBefore(details, panel);
       details.appendChild(summary);
@@ -277,8 +337,11 @@
     function enhancePanel(panel) {
       if (panel.dataset.ojsPanel) return;
       panel.dataset.ojsPanel = "1";
-      panel.querySelectorAll("select").forEach(function (s) {
-        if (s.dataset.ojsInitial === undefined) s.dataset.ojsInitial = s.value;
+      panel.querySelectorAll("input, select, textarea").forEach(function (el) {
+        if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
+        if (el.type === "checkbox" || el.type === "radio") {
+          el.dataset.ojsInitialChecked = el.checked ? "1" : "0";
+        }
       });
       var btn = document.createElement("button");
       btn.type = "button";
@@ -291,11 +354,17 @@
           r.value = r.dataset.ojsInitial;
           r.dispatchEvent(new Event("input", { bubbles: true }));
         });
-        panel.querySelectorAll("select").forEach(function (s) {
-          if (s.dataset.ojsInitial === undefined) return;
-          s.value = s.dataset.ojsInitial;
-          s.dispatchEvent(new Event("input", { bubbles: true }));
-          s.dispatchEvent(new Event("change", { bubbles: true }));
+        panel.querySelectorAll(
+          'input:not([type="range"]), select, textarea'
+        ).forEach(function (el) {
+          if (el.dataset.ojsInitial === undefined) return;
+          if (el.type === "checkbox" || el.type === "radio") {
+            el.checked = el.dataset.ojsInitialChecked === "1";
+          } else {
+            el.value = el.dataset.ojsInitial;
+          }
+          el.dispatchEvent(new Event("input", { bubbles: true }));
+          el.dispatchEvent(new Event("change", { bubbles: true }));
         });
       });
       panel.appendChild(btn);
@@ -310,6 +379,10 @@
         if (f.classList.contains("quarto-ojs-table-fixup")) return;
         var p = f.parentElement;
         if (p && p.tagName === "DIV") enhancePanel(p);
+      });
+      document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
+        if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
+        if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
       });
     }
     function queueScan() {
@@ -326,9 +399,9 @@
   // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
   // -------------------------------------------------------------------
   function wrapCollapsible(node, label, hint) {
-    if (node.dataset.ojsCollapsibleWrapped) return;
+    if (node.dataset.ojsCollapsibleWrapped) return null;
     var parent = node.parentElement;
-    if (!parent) return;
+    if (!parent) return null;
     node.dataset.ojsCollapsibleWrapped = "1";
 
     var details = document.createElement("details");
@@ -349,6 +422,7 @@
     details.appendChild(summary);
     details.appendChild(body);
     body.appendChild(node);
+    return body;
   }
 
   function setupProseCollapsibles() {
@@ -360,11 +434,15 @@
       var strong = p.querySelector(":scope > strong:first-child");
       if (!strong) return;
       if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
+      var next = p.nextElementSibling;
       strong.remove();
       if (p.firstChild && p.firstChild.nodeType === 3) {
         p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
       }
-      wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
+      var body = wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
+      if (body && next && (next.matches("ol") || next.matches("ul"))) {
+        body.appendChild(next);
+      }
     });
   }
 
@@ -557,12 +635,378 @@
   }
 
   // -------------------------------------------------------------------
+  // 13. Mobilna navigacija
+  //     Zatvoreno zaglavlje ostaje jedan redak. Pretraga, bočni izbornik
+  //     i hamburger čine jednu skupinu, a sekundarni alati sele u otvoreni
+  //     glavni izbornik. Na širokom zaslonu sve se vraća na Quartova mjesta.
+  // -------------------------------------------------------------------
+  function setupMobileNavbar() {
+    var navbar = document.querySelector("#quarto-header .navbar");
+    if (!navbar) return;
+    var container = navbar.querySelector(".navbar-container");
+    var collapse = navbar.querySelector(".navbar-collapse");
+    var toggler = navbar.querySelector(".navbar-toggler");
+    if (!container || !collapse || !toggler) return;
+
+    var tools = navbar.querySelector(".quarto-navbar-tools");
+    var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
+    var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
+    var searchButton = secondary && secondary.querySelector(".quarto-search-button");
+    if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
+      var searchHost = navbar.querySelector("#quarto-search");
+      if (searchHost) searchHost.hidden = true;
+      searchButton = document.createElement("button");
+      searchButton.type = "button";
+      searchButton.className = "btn quarto-search-button";
+      searchButton.setAttribute("aria-label", "Pretraži knjigu");
+      searchButton.setAttribute("title", "Pretraži knjigu");
+      searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
+      searchButton.addEventListener("click", function () {
+        if (window.quartoOpenSearch) window.quartoOpenSearch();
+      });
+      if (tools) tools.appendChild(searchButton);
+      else container.insertBefore(searchButton, toggler);
+    }
+    var brandTitle = navbar.querySelector(".navbar-title");
+    var fullBrand = brandTitle ? brandTitle.textContent.trim() : "";
+    var actions = null;
+
+    function markerFor(el, name) {
+      if (!el) return null;
+      var marker = document.createComment("navbar-" + name);
+      el.parentNode.insertBefore(marker, el);
+      return marker;
+    }
+
+    var positions = [
+      { node: toggler, marker: markerFor(toggler, "toggler") },
+      { node: tools, marker: markerFor(tools, "tools") },
+      { node: sidebarButton, marker: markerFor(sidebarButton, "sidebar") },
+      { node: searchButton, marker: markerFor(searchButton, "search") }
+    ];
+
+    function restore(item) {
+      if (item.node && item.marker && item.marker.parentNode) {
+        item.marker.parentNode.insertBefore(item.node, item.marker);
+      }
+    }
+
+    function localize() {
+      toggler.setAttribute("aria-label", "Otvori navigaciju");
+      if (sidebarButton) {
+        sidebarButton.setAttribute("aria-label", "Otvori sadržaj knjige");
+      }
+      if (searchButton) {
+        var searchControl = searchButton.matches("button")
+          ? searchButton
+          : searchButton.querySelector("button");
+        if (searchControl) {
+          searchControl.setAttribute("aria-label", "Pretraži knjigu");
+          searchControl.setAttribute("title", "Pretraži knjigu");
+        }
+      }
+
+      var labels = {
+        "Source Code": "Izvorni kod",
+        "Share": "Podijeli",
+        "Toggle dark mode": "Promijeni temu",
+        "Toggle light mode": "Promijeni temu",
+        "Toggle reader mode": "Način čitanja"
+      };
+      navbar.querySelectorAll(".quarto-navigation-tool").forEach(function (a) {
+        var source = a.getAttribute("title") || a.getAttribute("aria-label") || "";
+        if (!labels[source]) return;
+        a.setAttribute("title", labels[source]);
+        a.setAttribute("aria-label", labels[source]);
+      });
+    }
+
+    function organize(mobile) {
+      document.body.classList.toggle("navbar-mobile-organized", mobile);
+      if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
+      if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
+
+      if (mobile) {
+        if (!actions) {
+          actions = document.createElement("div");
+          actions.className = "mobile-navbar-actions";
+          container.insertBefore(actions, collapse);
+        }
+        if (sidebarButton) actions.appendChild(sidebarButton);
+        if (searchButton) actions.appendChild(searchButton);
+        actions.appendChild(toggler);
+        if (tools) collapse.appendChild(tools);
+      } else {
+        positions.forEach(restore);
+        if (actions) {
+          actions.remove();
+          actions = null;
+        }
+      }
+    }
+
+    localize();
+    var mq = window.matchMedia("(max-width: 991.98px)");
+    organize(mq.matches);
+    var onChange = function (e) { organize(e.matches); };
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else mq.addListener(onChange);
+  }
+
+  // -------------------------------------------------------------------
+  // 14. Stranica 404 pri lokalnom posluživanju iz korijena
+  //     Lokalni resursi ugrađuju se nakon rendera, ali navigacijske poveznice
+  //     i dalje nose produkcijski podput. Izvan tog podputa vraćamo ih na
+  //     lokalni korijen; na GitHub Pagesu ostaju netaknute.
+  // -------------------------------------------------------------------
+  function setupNotFoundFallback() {
+    if (!document.body.classList.contains("not-found-page")) return;
+    var offset = document.querySelector('meta[name="quarto:offset"]');
+    var prefix = offset ? (offset.getAttribute("content") || "") : "";
+    prefix = prefix.replace(/\/+$/, "");
+    if (!prefix || prefix === "/" ||
+        location.pathname === prefix ||
+        location.pathname.indexOf(prefix + "/") === 0) return;
+
+    document.querySelectorAll("[href], [src]").forEach(function (el) {
+      ["href", "src"].forEach(function (attr) {
+        var value = el.getAttribute(attr);
+        if (!value || value.indexOf(prefix + "/") !== 0) return;
+        el.setAttribute(attr, value.slice(prefix.length));
+      });
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 15. Poveznice s istog izvorišta
+  //     Quarto ih u lokalnom pregledu katkad označi kao vanjske prije nego
+  //     što razriješi adresu. `no-external` sprečava naknadno ukrašavanje,
+  //     a već dodani znak i otvaranje u novoj kartici uklanjaju se.
+  // -------------------------------------------------------------------
+  function setupSameOriginLinks() {
+    var queued = false;
+
+    function clean() {
+      queued = false;
+      document.querySelectorAll("a[href]").forEach(function (a) {
+        var url;
+        try { url = new URL(a.getAttribute("href"), location.href); }
+        catch (e) { return; }
+        if (url.origin !== location.origin) return;
+
+        a.classList.add("no-external");
+        a.classList.remove("external", "external-link");
+        a.removeAttribute("data-external");
+        if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
+
+        var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean)
+          .filter(function (token) {
+            return token !== "external" && token !== "noopener" &&
+              token !== "noreferrer";
+          });
+        if (rel.length) a.setAttribute("rel", rel.join(" "));
+        else a.removeAttribute("rel");
+      });
+    }
+
+    function queue() {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(clean);
+    }
+
+    clean();
+    window.setTimeout(clean, 250);
+    new MutationObserver(queue).observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 16. Široke tablice
+  //     Vodoravno pomicanje dobiva tipkovni fokus, jasan naziv i vidljivu
+  //     uputu samo kada je tablica doista šira od raspoloživog prostora.
+  // -------------------------------------------------------------------
+  function setupAccessibleTables() {
+    var nextId = 0;
+    var queued = false;
+    var resizeObserver = typeof ResizeObserver === "function"
+      ? new ResizeObserver(queueScan)
+      : null;
+
+    function tableLabel(table) {
+      var caption = table.querySelector("caption");
+      var figure = table.closest("figure");
+      if (!caption && figure) caption = figure.querySelector("figcaption");
+      var text = caption && caption.textContent
+        ? caption.textContent.trim().replace(/\s+/g, " ")
+        : "";
+      return text ? "Tablica: " + text : "Tablica s vodoravnim pomicanjem";
+    }
+
+    function wrapperFor(table) {
+      var parent = table.parentElement;
+      if (parent && (
+        parent.classList.contains("table-responsive") ||
+        parent.classList.contains("cell-output-display")
+      )) {
+        return parent;
+      }
+
+      var wrapper = document.createElement("div");
+      wrapper.className = "table-responsive";
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+      return wrapper;
+    }
+
+    function update(table, scroller, hint) {
+      if (!table.isConnected || !scroller.isConnected) return;
+      var overflows = table.scrollWidth > scroller.clientWidth + 1;
+      scroller.classList.toggle("table-scrollable", overflows);
+      hint.hidden = !overflows;
+
+      if (overflows) {
+        if (!scroller.hasAttribute("tabindex")) {
+          scroller.tabIndex = 0;
+          scroller.dataset.tableManagedTabindex = "1";
+        }
+        if (!scroller.hasAttribute("role")) {
+          scroller.setAttribute("role", "region");
+          scroller.dataset.tableManagedRole = "1";
+        }
+        if (!scroller.hasAttribute("aria-label")) {
+          scroller.setAttribute("aria-label", tableLabel(table));
+          scroller.dataset.tableManagedLabel = "1";
+        }
+        var describedBy = (scroller.getAttribute("aria-describedby") || "")
+          .split(/\s+/).filter(Boolean);
+        if (describedBy.indexOf(hint.id) === -1) describedBy.push(hint.id);
+        scroller.setAttribute("aria-describedby", describedBy.join(" "));
+      } else {
+        if (scroller.dataset.tableManagedTabindex) {
+          scroller.removeAttribute("tabindex");
+          delete scroller.dataset.tableManagedTabindex;
+        }
+        if (scroller.dataset.tableManagedRole) {
+          scroller.removeAttribute("role");
+          delete scroller.dataset.tableManagedRole;
+        }
+        if (scroller.dataset.tableManagedLabel) {
+          scroller.removeAttribute("aria-label");
+          delete scroller.dataset.tableManagedLabel;
+        }
+        var remaining = (scroller.getAttribute("aria-describedby") || "")
+          .split(/\s+/).filter(Boolean)
+          .filter(function (id) { return id !== hint.id; });
+        if (remaining.length) {
+          scroller.setAttribute("aria-describedby", remaining.join(" "));
+        } else {
+          scroller.removeAttribute("aria-describedby");
+        }
+      }
+    }
+
+    function prepare(table) {
+      if (table.dataset.tableScrollerReady || table.closest(".chapter-meta")) {
+        return;
+      }
+      table.dataset.tableScrollerReady = "1";
+      var scroller = wrapperFor(table);
+      var hint = document.createElement("p");
+      hint.className = "table-scroll-hint";
+      hint.id = "table-scroll-hint-" + (++nextId);
+      hint.textContent = "↔ Pomaknite tablicu za preostale stupce";
+      hint.hidden = true;
+      scroller.insertAdjacentElement("afterend", hint);
+
+      var refresh = function () {
+        window.requestAnimationFrame(function () {
+          update(table, scroller, hint);
+        });
+      };
+      refresh();
+      table.addEventListener("load", refresh, true);
+      if (resizeObserver) resizeObserver.observe(scroller);
+    }
+
+    function scan() {
+      queued = false;
+      document.querySelectorAll("main table, #quarto-content table")
+        .forEach(prepare);
+    }
+
+    function queueScan() {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(scan);
+    }
+
+    scan();
+    window.addEventListener("load", queueScan);
+    window.addEventListener("resize", queueScan);
+    new MutationObserver(queueScan).observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // -------------------------------------------------------------------
+  // 17. Pretraživanje
+  //     Quarto prevodi vidljivi tekst iz `language`, ali Algolijina ovojnica
+  //     zadržava nekoliko engleskih pristupačnih naziva. Prevodimo i početne
+  //     elemente i kontrole koje se umeću tek kada se pretraživanje otvori.
+  // -------------------------------------------------------------------
+  function setupSearchLocalization() {
+    var translations = {
+      "Search": "Pretraži",
+      "Clear": "Očisti pretraživanje",
+      "Cancel": "Odustani",
+      "Submit": "Pretraži",
+      "Close": "Zatvori",
+      "Reset": "Vrati početno"
+    };
+    var queued = false;
+
+    function localize() {
+      queued = false;
+      document.querySelectorAll(
+        ".aa-Autocomplete, .aa-DetachedSearchButton, " +
+        ".aa-DetachedOverlay [aria-label], " +
+        ".aa-DetachedOverlay [title], " +
+        ".aa-DetachedOverlay [placeholder]"
+      ).forEach(function (element) {
+        ["aria-label", "title", "placeholder"].forEach(function (attribute) {
+          var value = element.getAttribute(attribute);
+          if (value && translations[value]) {
+            element.setAttribute(attribute, translations[value]);
+          }
+        });
+      });
+    }
+
+    function queue() {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(localize);
+    }
+
+    localize();
+    new MutationObserver(queue).observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // -------------------------------------------------------------------
   function init() {
     try { setupProgressBar(); } catch (e) {}
     try { setupInternalHover(); } catch (e) {}
     try { setupDinkus(); } catch (e) {}
     try { setupAnchorLinks(); } catch (e) {}
     try { setupStandalonePages(); } catch (e) {}
+    try { setupNastavaActiveState(); } catch (e) {}
     try { pruneSidebar(); } catch (e) {}
     try { setupOjsPanels(); } catch (e) {}
     try { setupProseCollapsibles(); } catch (e) {}
@@ -570,6 +1014,11 @@
     try { setupPojmovi(); } catch (e) {}
     try { setupChapterMeta(); } catch (e) {}
     try { setupWidgetMemory(); } catch (e) {}
+    try { setupMobileNavbar(); } catch (e) {}
+    try { setupNotFoundFallback(); } catch (e) {}
+    try { setupSameOriginLinks(); } catch (e) {}
+    try { setupAccessibleTables(); } catch (e) {}
+    try { setupSearchLocalization(); } catch (e) {}
   }
 
   if (document.readyState === "loading") {

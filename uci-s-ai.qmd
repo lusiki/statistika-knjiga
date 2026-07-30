@@ -3,9 +3,11 @@ title: "Uči uz AI"
 toc: false
 number-sections: false
 lang: hr-HR
+body-classes: "standalone-page support-page uci-ai-page"
 format:
   html:
     page-layout: full
+    code-tools: false
 ---
 
 <!-- =====================================================================
@@ -37,12 +39,14 @@ Poglavlje je dovoljno malo da stane u svaki standardni razgovor i daje točne
 odgovore jer je tekst usko vezan uz vaše pitanje. Odaberite poglavlje pa
 preuzmite tekst ili ga otvorite u asistentu.
 
+::: {.ojs-task-control data-ojs-label="Odaberi izvoz poglavlja" data-ojs-hint="otvori izbornik"}
 ```{ojs}
 //| echo: false
 viewof poglavlje = manifest.chapters.length
   ? Inputs.select(manifest.chapters, { label: "Poglavlje", format: c => c.title })
   : Inputs.select([{title: "(izvoz još nije generiran)"}], { label: "Poglavlje" })
 ```
+:::
 
 ```{ojs}
 //| echo: false
@@ -110,16 +114,14 @@ priložite tekst.
   return htl.html`<div>
     <div class="hero-cta"><button class="btn-knjiga primarni"
       onclick=${(e) => kopiraj(manifest.prompt, e.currentTarget)}>⧉ kopiraj uputu</button></div>
-    <pre style="white-space:pre-wrap;font-family:var(--tok-font-mono);font-size:.76rem;
-                background:var(--tok-paper-soft);border:1px solid var(--tok-rule-faint);
-                border-radius:var(--tok-radius);padding:1rem;margin-top:.8rem;">${manifest.prompt}</pre>
+    <p class="prompt-preview">${manifest.promptShort}</p>
+    <details class="prompt-disclosure">
+      <summary>Prikaži cijelu uputu</summary>
+      <pre>${manifest.prompt}</pre>
+    </details>
   </div>`;
 }
 ```
-
-::: {.razdjelnik}
-§
-:::
 
 ## Što asistent ne može
 

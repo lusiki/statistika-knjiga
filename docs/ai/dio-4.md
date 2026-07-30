@@ -3,7 +3,7 @@
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 
 ---
@@ -14,9 +14,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Simulator p-vrijednosti | simulacija | pogl. 7–9 |
 
 **Vinjeta.**
 Američko statističko udruženje moralo je javno razjasniti p-vrijednost jer je
@@ -69,13 +73,21 @@ početne pretpostavke.
 
 Simulator p-vrijednosti stvara rezultate kada je nulta hipoteza istinita i
 kada nije. Čitatelj promatra koliko se p-vrijednosti mijenjaju od uzorka do
-uzorka i zašto jedan rezultat ne može biti potvrda postupka u cjelini.
+uzorka i zašto jedan rezultat ne može biti potvrda postupka u cjelini. Radi
+preglednosti koristi normalne ishode s poznatom varijabilnošću i obostrani test.
+
+*Slika. Raspodjele p-vrijednosti pod nultim modelom i pod odabranim stvarnim učinkom.*
 
 **Što isprobati.**
 
 1. Generirajte više uzoraka pod istinitom nultom hipotezom.
-2. Uključite mali učinak i zadržite uzorak jednakim.
-3. Povećajte uzorak bez promjene učinka i promatrajte odluke te procjene.
+2. Postavite standardiziranu razliku na 0,35 i zadržite uzorak jednakim.
+3. Povećajte uzorak bez promjene učinka i usporedite udio rezultata ispod praga.
+4. Spustite prag s 0,05 na 0,01 i usporedite obje raspodjele.
+
+Simulacija razdvaja dvije činjenice. Kada je nulta hipoteza istinita, prag
+unaprijed određuje dugoročnu stopu pogreške. Kada učinak postoji, veličina
+uzorka mijenja koliko ga često postupak otkriva.
 
 **Statistika u divljini.**
 **Značajnost bez veličine.** Izjava Američkog statističkog udruženja navodi da
@@ -109,7 +121,7 @@ Simuliramo dvije skupine bez stvarne razlike i promatramo jednu opaženu razliku
 sredina. Permutacijski postupak miješa oznake skupina, čuva sve ishode i gradi
 raspodjelu razlika usklađenu s nultom hipotezom.
 
-*Slika. Nulta raspodjela razlike sredina u simuliranom primjeru. Izrada autora.*
+Nulta raspodjela razlike sredina u simuliranom primjeru. Izrada autora.
 
 Graf pokazuje koliko je opažena razlika udaljena od onoga što stvara postupak
 bez grupnog učinka. Zaključak ne završava odbacivanjem ili neodbacivanjem.
@@ -160,9 +172,13 @@ zamjenu vjerojatnosti i ispravnu rečenicu o rezultatu.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Istraživač snage | simulacija | pogl. 9, 10 |
 
 **Vinjeta.**
 Cohen je kritizirao praksu u kojoj je statistička značajnost zamjenjivala
@@ -213,11 +229,18 @@ Istraživač snage povezuje veličinu učinka, uzorak i prag. Čitatelj mijenja
 jedan element dok ostale drži jednakima i vidi da ista odluka ima različite
 posljedice za male i velike učinke.
 
+*Slika. Simulirana snaga kroz veličine uzorka u idealiziranom postupku s poznatom varijabilnošću.*
+
 **Što isprobati.**
 
 1. Zadržite učinak jednakim i povećavajte uzorak.
 2. Zadržite uzorak jednakim i smanjujte učinak.
-3. Usporedite snagu s očekivanom širinom intervala.
+3. Spustite prag odluke i provjerite koliko je jedinica potrebno za istu snagu.
+4. Povećajte broj ponavljanja i promatrajte koliko se krivulja zaglađuje.
+
+Krivulja pokazuje zašto snaga nije trajno svojstvo testa. Ona pripada
+određenoj kombinaciji učinka, uzorka, varijabilnosti i praga, pa se mora
+planirati za rezultat koji bi bio sadržajno važan.
 
 **Statistika u divljini.**
 **Zemlja je okrugla.** Cohenov naslov sažima kritiku rituala u kojem poznata ili
@@ -251,9 +274,9 @@ jedinicama.
 Planiramo simuliranu usporedbu dviju neovisnih skupina. Ne polazimo od
 očekivanja da ćemo „dobiti značajnost", nego od standardizirane razlike koju bi
 imalo smisla pouzdano uočiti. Funkcija zatim pokazuje potreban broj jedinica po
-skupini.
+skupini (Cohen, 1988).
 
-*Slika. Planiranje uzorka za nekoliko simuliranih scenarija. Izrada autora prema @cohen1988.*
+*Slika. Planiranje uzorka za nekoliko simuliranih scenarija. Izrada autora.*
 
 Tablica pokazuje cijenu traženja manjih učinaka pod istim kriterijima. Konačan
 plan ipak treba provjeru odustajanja, kvalitete mjerenja i izvedivosti. Račun
@@ -305,9 +328,13 @@ pogrešnu prosudbu važnosti i podatak koji bi za tu prosudbu bio potreban.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Pješčanik p-hakiranja | simulacija | pogl. 10, 11 |
 
 **Vinjeta.**
 Velika suradnja istraživača pokušala je ponoviti niz objavljenih psiholoških
@@ -376,12 +403,21 @@ skup podataka ili reproducibilan postupak koji se može otvoriti bez modela.
 Pješčanik omogućuje biranje ishoda, podskupina i trenutka zaustavljanja na
 podacima bez stvarnog učinka. Čitatelj promatra kako rast broja odluka povećava
 priliku za privlačan rezultat i kako korekcija za cijeli postupak mijenja sliku.
+Radi preglednosti svaki je analitički put u simulaciji neovisan. Stvarni putovi
+često dijele podatke, ali idealizacija izdvaja cijenu njihova broja.
+
+*Slika. Udio simuliranih istraživanja s barem jednim rezultatom ispod odabranog praga nakon pretraživanja više neovisnih analitičkih putova.*
 
 **Što isprobati.**
 
 1. Provedite jednu unaprijed određenu analizu.
-2. Dodajte više ishoda i podskupina bez promjene podataka.
-3. Prikažite sve rezultate umjesto samo najmanje p-vrijednosti.
+2. Dodajte ishode, a podskupine i trenutke provjere ostavite jednakima.
+3. Dodajte podskupinske inačice i trenutke provjere bez promjene broja ishoda.
+4. Usporedite nominalni prag 0,05 s pragom korigiranim za sve putove.
+
+Najmanja p-vrijednost nije sažetak jedne unaprijed određene analize kada je
+nastala pretraživanjem. Zaključak tada mora opisati cijeli skup mogućnosti ili
+koristiti postupak koji njihov broj uzima u obzir.
 
 **Statistika u divljini.**
 **Replikacija kao zajedničko mjerenje.** Open Science Collaboration koristio je

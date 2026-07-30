@@ -3,7 +3,7 @@
 > Iz knjige: Osnove statistike za društvene znanosti
 > Autori: Luka Šikić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 
 ---
@@ -14,9 +14,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Simulator novčića i A/B kampanje | simulacija | pogl. 4 |
 
 **Vinjeta.**
 Simmons i suradnici pokazali su kako velik broj razumno zvučećih analitičkih
@@ -65,15 +69,18 @@ li analiza dopuštena. On pokazuje gdje pretpostavka pristaje, a gdje se lomi.
 
 ## Interakcija — Simulator novčića i A/B kampanje
 
-Planirani simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
+Simulator povezuje jednostavno bacanje novčića s A/B kampanjom.
 Čitatelj mijenja stvarnu stopu uspjeha i broj pokušaja te promatra kako se
 kratki nizovi kolebaju, dok se raspodjela mnogih ponavljanja stabilizira.
 
+*Slika. Raspodjela stopa uspjeha kroz mnoge deterministički simulirane nizove. Okomita crta označuje zadanu stvarnu vjerojatnost.*
+
 **Što isprobati.**
 
-1. Pokrenite nekoliko kratkih nizova pri jednakim stopama.
-2. Povećajte broj pokušaja i promatrajte relativnu učestalost.
-3. Usporedite jednu ekstremnu kampanju s raspodjelom svih kampanja.
+1. Postavite pošten novčić i dvadeset pokušaja pa opišite raspon simuliranih udjela glava.
+2. Povećajte niz na dvjesto pokušaja bez promjene vjerojatnosti.
+3. Prebacite scenarij na A/B kampanju i postavite stvarnu stopu uspjeha na trideset posto.
+4. Usporedite jednu krajnju simuliranu stopu s cijelom raspodjelom ponovljenih kampanja.
 
 **Statistika u divljini.**
 **Mnogo prilika za slučajnost.** Analitička fleksibilnost omogućuje da se među
@@ -109,7 +116,7 @@ Simuliramo mnogo kampanja s jednakom stvarnom stopom odgovora. Svaka kampanja
 daje nešto drukčiji udio, iako se temeljni proces ne mijenja. Histogram
 prikazuje koliko je raspršena ta slučajna varijacija.
 
-*Slika. Raspodjela simuliranih stopa uspjeha. Izrada autora.*
+Raspodjela simuliranih stopa uspjeha. Izrada autora.
 
 Jedna kampanja može završiti daleko od središta bez promjene stvarne stope.
 Zaključak se zato ne temelji na tome izgleda li jedan rezultat neobično, nego
@@ -159,9 +166,13 @@ pogrešku i ispravnu vjerojatnostnu interpretaciju.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | CLT stroj | simulacija | pogl. 4, 7 |
 
 **Vinjeta.**
 Efron je bootstrap predstavio kao način procjene nesigurnosti kada imamo jedan
@@ -210,11 +221,14 @@ CLT stroj gradi distribuciju uzorkovanja pred čitateljem. Izvorna populacija,
 veličina uzorka i broj ponavljanja mogu se mijenjati odvojeno, pa je vidljivo
 što utječe na oblik, a što na raspršenost uzoračkih sredina.
 
+*Slika. Izvorna populacija i raspodjela sredina mnogih uzoraka na zajedničkoj osi. Okomita crta označuje populacijsku sredinu simulacije.*
+
 **Što isprobati.**
 
-1. Uzimajte male uzorke iz simetrične populacije.
-2. Promijenite populaciju u snažno asimetričnu.
-3. Povećajte uzorak i odvojeno promatrajte oblik i širinu distribucije sredina.
+1. Odaberite simetričnu populaciju i uzorak veličine dva pa usporedite širine dvaju histograma.
+2. Promijenite populaciju u desno asimetričnu bez povećanja uzorka.
+3. Povećajte uzorak na četrdeset i odvojeno opišite promjenu oblika i širine raspodjele sredina.
+4. Odaberite dvovršnu populaciju i pronađite veličinu uzorka pri kojoj se dvije populacijske skupine više ne vide u sredinama.
 
 **Statistika u divljini.**
 **Jedan uzorak kao privremena populacija.** Bootstrap iznova uzorkuje opažanja
@@ -249,7 +263,7 @@ Stvaramo desno asimetričnu simuliranu populaciju i iz nje ponavljano uzimamo
 uzorke dviju veličina. Za svaki uzorak računamo sredinu. Usporedba dviju
 distribucija pokazuje da veći uzorci daju zbijenije procjene.
 
-*Slika. Distribucije sredina pri dvjema veličinama uzorka. Izrada autora.*
+Distribucije sredina pri dvjema veličinama uzorka. Izrada autora.
 
 Izvorna populacija ostaje asimetrična u oba slučaja. Mijenja se ponašanje
 sredine kroz ponavljanja. Ta razlika između raspodjele opažanja i raspodjele
@@ -300,9 +314,13 @@ jednu zamjenu razina varijabilnosti i njezin popravak.
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 4 min | Hvatač intervala | simulacija | pogl. 8 |
 
 **Vinjeta.**
 Cumming je zagovarao izvještavanje procjena i intervala kao središte
@@ -349,13 +367,18 @@ premalen da zabilježi važan dio raspodjele, resampling ponavlja tu prazninu.
 
 Hvatač intervala prikazuje niz ponovljenih uzoraka i njihove intervale oko iste
 populacijske vrijednosti. Većina je hvata, a neki je promašuju. Tek niz
-intervala čini značenje razine pouzdanosti vidljivim.
+intervala čini značenje razine pouzdanosti vidljivim. Simulacija koristi
+normalnu populaciju poznate standardne devijacije kako bi odvojila logiku
+obuhvata od procjene same standardne devijacije.
+
+*Slika. Intervali iz ponovljenih simuliranih uzoraka oko fiksne populacijske sredine. Istaknuti intervali promašuju okomitu ciljnu crtu.*
 
 **Što isprobati.**
 
-1. Generirajte jedan interval i zabilježite obuhvaća li cilj.
-2. Povećajte broj ponavljanja bez promjene postupka.
-3. Usporedite preciznost pri različitim veličinama uzorka.
+1. Zadržite pedeset intervala i prebrojite one koji ne sijeku okomitu ciljnu crtu.
+2. Povećajte broj intervala na sto bez promjene veličine uzorka ili razine pouzdanosti.
+3. Usporedite širinu intervala pri uzorcima veličine dvadeset i sto.
+4. Promijenite razinu pouzdanosti s devedeset na devedeset i devet posto te opišite odnos širine i obuhvata.
 
 **Statistika u divljini.**
 **Procjena prije odluke.** Pristup „novih statistika" stavlja veličinu učinka,

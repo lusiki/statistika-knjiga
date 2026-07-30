@@ -4,7 +4,8 @@
 # JEDINI IZVOR ISTINE ZA BOJE JE design-tokens.yml. Ova datoteka ga ČITA, ne
 # prepisuje — pa promjena dizajna u design-tokens.yml automatski mijenja i grafove.
 # Ako yaml paket nije dostupan (npr. minimalan CI), koristi se ugrađeni
-# rezervni skup identičan trenutnom design-tokens.yml.
+# rezervni skup identičan trenutnom design-tokens.yml. Tamna inačica čita
+# uloge iz styles/_dark.scss kako se vrijednosti ne bi prepisivale u R-u.
 #
 # DVA PRAVILA KOJA OVA DATOTEKA NOSI
 #   1. Paleta podataka poredana je po SVJETLINI, ne po tonu. Tiskani blok je
@@ -53,9 +54,39 @@ suppressPackageStartupMessages(library(grid))
 
 tok <- .ucitaj_tokene()
 
-# Kratki pristupnik: tok_boja("accent")
-tok_boja <- function(ime) {
-  v <- tok[[ime]]
+# Tamni tokeni legitimno žive u styles/_dark.scss (DESIGN.md §2). Čitamo samo
+# jednostavne $tok-ime: #RRGGBB deklaracije; izvedene rgba vrijednosti temi
+# grafova nisu potrebne.
+.ucitaj_tamne_tokene <- function(svijetli = tok) {
+  put <- file.path(getwd(), "styles", "_dark.scss")
+  if (!file.exists(put)) return(svijetli)
+
+  redci <- readLines(put, warn = FALSE, encoding = "UTF-8")
+  uzorak <- "^\\s*\\$tok-([[:alnum:]-]+):\\s*(#[[:xdigit:]]{6})\\s*;"
+  pogodak <- regexec(uzorak, redci)
+  dijelovi <- regmatches(redci, pogodak)
+  dijelovi <- dijelovi[lengths(dijelovi) == 3L]
+  if (length(dijelovi) == 0L) return(svijetli)
+
+  tamni <- stats::setNames(
+    vapply(dijelovi, `[[`, character(1), 3L),
+    vapply(dijelovi, `[[`, character(1), 2L)
+  )
+  potrebni <- names(svijetli)
+  nedostaju <- setdiff(potrebni, names(tamni))
+  if (length(nedostaju) > 0L) {
+    tamni[nedostaju] <- svijetli[nedostaju]
+  }
+  tamni[potrebni]
+}
+
+tok_tamno <- .ucitaj_tamne_tokene()
+
+# Kratki pristupnik: tok_boja("accent") ili tok_boja("ink", "tamna").
+tok_boja <- function(ime, varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  skup <- if (varijanta == "tamna") tok_tamno else tok
+  v <- skup[[ime]]
   if (is.null(v)) stop("Nepoznat token boje: ", ime)
   unname(v)
 }
@@ -98,21 +129,49 @@ ucitaj_fontove <- function(google = TRUE) {
 }
 
 # --- paleta za grafove ------------------------------------------------------
-# Poredana po svjetlini (8 % → 78 %) da preživi pretvorbu u sivo. Nikad ne
-# upisujte hex u poglavlje — koristite boje_knjige ili scale_*_knjiga().
-boje_knjige <- c(
-  tinta      = tok_boja("data-1"),
-  skriljevac = tok_boja("data-2"),
-  oker       = tok_boja("data-3"),
-  siva       = tok_boja("data-4"),
-  blijeda    = tok_boja("data-5")
-)
+# Poredana po svjetlini da preživi pretvorbu u sivo. Automatska paleta je
+# namjerno neutralna: data-3 je oker i zato ostaje izvan običnog kodiranja
+# kategorija. Oker ulazi samo kroz skala_naglasak().
+.paleta_diskretna <- function(varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  c(
+    tinta      = tok_boja("data-1", varijanta),
+    skriljevac = tok_boja("data-2", varijanta),
+    prigusena  = tok_boja("ink-mute", varijanta),
+    siva       = tok_boja("data-4", varijanta),
+    blijeda    = tok_boja("data-5", varijanta)
+  )
+}
 
-# Sekvencijalna i divergentna, obje sigurne u sivim tonovima.
-paleta_seq <- c(tok_boja("accent-wash"), "#E4C97E", tok_boja("accent"),
-                tok_boja("accent-deep"), tok_boja("accent-dark"))
-paleta_div <- c(tok_boja("data-2"), "#8FA0AE", tok_boja("rule-soft"),
-                "#D9AE55", tok_boja("accent-deep"))
+boje_knjige <- .paleta_diskretna("svijetla")
+boje_knjige_tamne <- .paleta_diskretna("tamna")
+
+# Sekvencijalna i divergentna skala također su neutralne. Naglasak nije
+# završna točka ljestvice, nego zasebna semantička odluka.
+.paleta_sekvencijalna <- function(varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  c(
+    tok_boja("rule-soft", varijanta),
+    tok_boja("data-5", varijanta),
+    tok_boja("data-4", varijanta),
+    tok_boja("data-2", varijanta),
+    tok_boja("data-1", varijanta)
+  )
+}
+
+.paleta_divergentna <- function(varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  c(
+    tok_boja("data-2", varijanta),
+    tok_boja("data-4", varijanta),
+    tok_boja("rule-soft", varijanta),
+    tok_boja("ink-mute", varijanta),
+    tok_boja("data-1", varijanta)
+  )
+}
+
+paleta_seq <- .paleta_sekvencijalna("svijetla")
+paleta_div <- .paleta_divergentna("svijetla")
 
 # Sivi niz za tiskane blizance grafova (v. notes/pdf-charts-spec.md).
 sivo <- c("#1A1A1A", "#4D4D4D", "#7A7A7A", "#A6A6A6", "#CCCCCC")
@@ -124,16 +183,20 @@ sivo <- c("#1A1A1A", "#4D4D4D", "#7A7A7A", "#A6A6A6", "#CCCCCC")
 #
 # @param base_size osnovna veličina teksta u točkama
 # @param mreza     "y" (zadano), "x", "oboje" ili "bez"
-theme_knjiga <- function(base_size = 11, mreza = "y") {
-  tinta  <- tok_boja("ink")
-  prigus <- tok_boja("ink-mute")
-  slaba  <- tok_boja("ink-faint")
-  linija <- tok_boja("rule")
+# @param varijanta paleta za svijetlu ili tamnu HTML inačicu
+theme_knjiga <- function(base_size = 12.5, mreza = "y",
+                         varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  tinta  <- tok_boja("ink", varijanta)
+  tekst  <- tok_boja("ink-soft", varijanta)
+  prigus <- tok_boja("ink-mute", varijanta)
+  slaba  <- tok_boja("ink-faint", varijanta)
+  linija <- tok_boja("rule", varijanta)
 
   t <- theme_minimal(base_size = base_size, base_family = .pismo("sucelje")) +
     theme(
       # ploha — prozirna u oba formata
-      text             = element_text(colour = tok_boja("ink-soft")),
+      text             = element_text(colour = tekst),
       plot.background  = element_rect(fill = NA, colour = NA),
       panel.background = element_rect(fill = NA, colour = NA),
       panel.border     = element_blank(),
@@ -148,18 +211,18 @@ theme_knjiga <- function(base_size = 11, mreza = "y") {
       axis.ticks  = element_blank(),
       # brojke su uvijek mono
       axis.text   = element_text(family = .pismo("mono"),
-                                 size = rel(0.82), colour = prigus),
-      axis.title  = element_text(size = rel(0.86), colour = prigus, hjust = 0),
+                                 size = rel(0.92), colour = prigus),
+      axis.title  = element_text(size = rel(0.92), colour = prigus, hjust = 0),
       axis.title.x = element_text(margin = margin(t = 9)),
       axis.title.y = element_text(margin = margin(r = 9), angle = 90),
 
       # naslovi: displejni serif, svijetli rez, nikad bold
       plot.title    = element_text(family = .pismo("displej"), face = "plain",
-                                   size = rel(1.45), colour = tinta,
+                                   size = rel(1.35), colour = tinta,
                                    hjust = 0, margin = margin(b = 5)),
-      plot.subtitle = element_text(size = rel(0.95), colour = prigus, hjust = 0,
+      plot.subtitle = element_text(size = rel(0.92), colour = prigus, hjust = 0,
                                    margin = margin(b = 14), lineheight = 1.35),
-      plot.caption  = element_text(family = .pismo("mono"), size = rel(0.72),
+      plot.caption  = element_text(family = .pismo("mono"), size = rel(0.78),
                                    colour = slaba, hjust = 0,
                                    margin = margin(t = 14)),
       plot.title.position   = "plot",
@@ -171,14 +234,14 @@ theme_knjiga <- function(base_size = 11, mreza = "y") {
       legend.justification = "left",
       legend.direction     = "horizontal",
       legend.title         = element_blank(),
-      legend.text          = element_text(size = rel(0.82), colour = prigus),
+      legend.text          = element_text(size = rel(0.9), colour = prigus),
       legend.key           = element_blank(),
       legend.margin        = margin(0, 0, 8, 0),
       legend.box.spacing   = unit(0, "pt"),
 
       # faceti: oznaka kao mono verzal, bez sive trake
       strip.background = element_blank(),
-      strip.text       = element_text(family = .pismo("mono"), size = rel(0.74),
+      strip.text       = element_text(family = .pismo("mono"), size = rel(0.82),
                                       colour = tinta, hjust = 0,
                                       margin = margin(b = 6)),
       panel.spacing    = unit(18, "pt")
@@ -191,16 +254,34 @@ theme_knjiga <- function(base_size = 11, mreza = "y") {
 }
 
 # --- skale ------------------------------------------------------------------
-scale_fill_knjiga   <- function(...) scale_fill_manual(values = unname(boje_knjige), ...)
-scale_color_knjiga  <- function(...) scale_color_manual(values = unname(boje_knjige), ...)
+scale_fill_knjiga <- function(..., varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  scale_fill_manual(values = unname(.paleta_diskretna(varijanta)), ...)
+}
+scale_color_knjiga <- function(..., varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  scale_color_manual(values = unname(.paleta_diskretna(varijanta)), ...)
+}
 scale_colour_knjiga <- scale_color_knjiga
 
-scale_fill_knjiga_c   <- function(...) scale_fill_gradientn(colours = paleta_seq, ...)
-scale_color_knjiga_c  <- function(...) scale_color_gradientn(colours = paleta_seq, ...)
+scale_fill_knjiga_c <- function(..., varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  scale_fill_gradientn(colours = .paleta_sekvencijalna(varijanta), ...)
+}
+scale_color_knjiga_c <- function(..., varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  scale_color_gradientn(colours = .paleta_sekvencijalna(varijanta), ...)
+}
 scale_colour_knjiga_c <- scale_color_knjiga_c
 
-scale_fill_div  <- function(...) scale_fill_gradientn(colours = paleta_div, ...)
-scale_color_div <- function(...) scale_color_gradientn(colours = paleta_div, ...)
+scale_fill_div <- function(..., varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  scale_fill_gradientn(colours = .paleta_divergentna(varijanta), ...)
+}
+scale_color_div <- function(..., varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  scale_color_gradientn(colours = .paleta_divergentna(varijanta), ...)
+}
 
 scale_fill_sivo  <- function(...) scale_fill_manual(values = sivo, ...)
 scale_color_sivo <- function(...) scale_color_manual(values = sivo, ...)
@@ -213,10 +294,13 @@ scale_colour_sivo <- scale_color_sivo
 #'
 #'   skala_naglasak("Hrvatska", razine = levels(d$zemlja))
 skala_naglasak <- function(istaknuto, razine,
-                           boja   = tok_boja("accent"),
-                           ostalo = tok_boja("data-5"),
-                           tip    = c("colour", "fill")) {
+                           boja = NULL, ostalo = NULL,
+                           tip = c("colour", "fill"),
+                           varijanta = c("svijetla", "tamna")) {
   tip <- match.arg(tip)
+  varijanta <- match.arg(varijanta)
+  if (is.null(boja)) boja <- tok_boja("accent", varijanta)
+  if (is.null(ostalo)) ostalo <- tok_boja("data-5", varijanta)
   v <- stats::setNames(rep(ostalo, length(razine)), razine)
   v[istaknuto] <- boja
   if (tip == "fill") scale_fill_manual(values = v) else scale_color_manual(values = v)
@@ -225,35 +309,150 @@ skala_naglasak <- function(istaknuto, razine,
 #' Hrvatski zapis broja na osima: decimalni zarez, razmak za tisućice.
 #' scale_y_continuous(labels = hr_broj)
 hr_broj <- function(x, decimala = 1) {
-  format(round(x, decimala), big.mark = " ", decimal.mark = ",",
-         trim = TRUE, nsmall = decimala)
+  if (!is.numeric(decimala) || length(decimala) != 1L ||
+      !is.finite(decimala) || decimala < 0 || decimala %% 1 != 0) {
+    stop("`decimala` mora biti jedan nenegativan cijeli broj.")
+  }
+  format(
+    round(x, decimala),
+    scientific = FALSE,
+    big.mark = "\u202f",
+    decimal.mark = ",",
+    trim = TRUE,
+    nsmall = as.integer(decimala)
+  )
 }
 
 # --- zadano za cijelu knjigu ------------------------------------------------
 # Geom zadane vrijednosti: podaci su u tinti, ne u okeru. Ispune stupaca idu
 # u najsvjetliji ton palete da tekst iznad njih ostane čitljiv.
-postavi_temu <- function() {
-  theme_set(theme_knjiga())
-  try({
-    update_geom_defaults("point",  list(colour = tok_boja("ink"), size = 1.7, alpha = 0.85))
-    update_geom_defaults("line",   list(colour = tok_boja("ink"), linewidth = 0.6))
-    update_geom_defaults("bar",    list(fill = tok_boja("data-4")))
-    update_geom_defaults("col",    list(fill = tok_boja("data-4")))
-    update_geom_defaults("smooth", list(colour = tok_boja("accent"), linewidth = 0.7))
-    update_geom_defaults("text",   list(family = .pismo("mono"), size = 3,
-                                        colour = tok_boja("ink-mute")))
-  }, silent = TRUE)
+.st_tema <- new.env(parent = emptyenv())
+.st_tema$varijanta <- "svijetla"
+.st_tema$base_size <- 12.5
+
+.azuriraj_geom <- function(geom, vrijednosti) {
+  try(update_geom_defaults(geom, vrijednosti), silent = TRUE)
+}
+
+postavi_temu <- function(varijanta = c("svijetla", "tamna"),
+                         base_size = 12.5) {
+  varijanta <- match.arg(varijanta)
+  tinta <- tok_boja("ink", varijanta)
+  prigus <- tok_boja("ink-mute", varijanta)
+  blijeda <- tok_boja("data-5", varijanta)
+
+  theme_set(theme_knjiga(base_size = base_size, varijanta = varijanta))
+
+  .azuriraj_geom("point", list(
+    colour = tinta, fill = NA, size = 2, alpha = 0.82
+  ))
+  .azuriraj_geom("line", list(
+    colour = tinta, linewidth = 0.65
+  ))
+  .azuriraj_geom("path", list(
+    colour = tinta, linewidth = 0.65
+  ))
+  for (geom in c("segment", "abline", "hline", "vline",
+                 "errorbar", "linerange", "pointrange")) {
+    .azuriraj_geom(geom, list(colour = prigus, linewidth = 0.55))
+  }
+  for (geom in c("bar", "col", "boxplot", "violin")) {
+    .azuriraj_geom(geom, list(fill = tok_boja("data-4", varijanta)))
+  }
+  .azuriraj_geom("density", list(
+    colour = tok_boja("data-2", varijanta),
+    fill = blijeda,
+    linewidth = 0.65,
+    alpha = 0.35
+  ))
+  .azuriraj_geom("ribbon", list(fill = blijeda, alpha = 0.35))
+  .azuriraj_geom("area", list(fill = blijeda, alpha = 0.55))
+  .azuriraj_geom("smooth", list(
+    colour = tok_boja("data-2", varijanta),
+    fill = blijeda,
+    linewidth = 0.75,
+    alpha = 0.3
+  ))
+  .azuriraj_geom("text", list(
+    family = .pismo("mono"), size = 3.3, colour = prigus
+  ))
+  .azuriraj_geom("label", list(
+    family = .pismo("mono"), size = 3.3, colour = prigus,
+    fill = tok_boja("surface", varijanta)
+  ))
+
+  .st_tema$varijanta <- varijanta
+  .st_tema$base_size <- base_size
   invisible(TRUE)
+}
+
+#' Iscrtaj postojeći ggplot u odabranoj varijanti i zatim vrati prethodnu temu.
+#'
+#' Služi za drugi, tamni HTML asset. Ako graf ima ručnu skalu, tamnom mu
+#' pozivu treba dodati istu skalu s `varijanta = "tamna"`.
+.prevedi_boju_teme <- function(vrijednost,
+                               iz = tok,
+                               u = tok_tamno) {
+  if (!is.character(vrijednost)) return(vrijednost)
+  indeks <- match(toupper(vrijednost), toupper(unname(iz)))
+  zamijeni <- !is.na(indeks)
+  vrijednost[zamijeni] <- unname(u[indeks[zamijeni]])
+  vrijednost
+}
+
+.plot_za_varijantu <- function(plot,
+                               varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  if (varijanta == "svijetla" || length(plot$theme) == 0L) return(plot)
+
+  # Mijenjaju se samo semantičke boje u postojećim elementima teme. Tako tamni
+  # asset zadržava autorove odluke o mreži, legendi, veličini i marginama.
+  polja_boje <- c("colour", "color", "fill", "ink", "paper", "accent")
+  for (ime in names(plot$theme)) {
+    element <- plot$theme[[ime]]
+    if (is.null(element) || !inherits(element, "element")) next
+    for (polje in polja_boje) {
+      vrijednost <- tryCatch(
+        element[[polje]],
+        error = function(cnd) NULL
+      )
+      if (is.null(vrijednost)) next
+      element[[polje]] <- .prevedi_boju_teme(vrijednost)
+    }
+    plot$theme[[ime]] <- element
+  }
+  plot
+}
+
+iscrtaj_figuru <- function(plot, varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  prijasnja <- .st_tema$varijanta
+  prijasnja_velicina <- .st_tema$base_size
+  on.exit(postavi_temu(prijasnja, prijasnja_velicina), add = TRUE)
+
+  postavi_temu(varijanta, prijasnja_velicina)
+  print(.plot_za_varijantu(plot, varijanta))
+  invisible(plot)
 }
 
 #' Spremi statičnog blizanca widgeta: SVG za web, PDF za tisak.
 #' spremi_figuru(p, "08-clt", visina = 4)
 spremi_figuru <- function(plot, naziv, sirina = 6.6, visina = 4.0,
-                          mapa = "images") {
+                          mapa = "images",
+                          varijanta = c("svijetla", "tamna")) {
+  varijanta <- match.arg(varijanta)
+  prijasnja <- .st_tema$varijanta
+  prijasnja_velicina <- .st_tema$base_size
+  on.exit(postavi_temu(prijasnja, prijasnja_velicina), add = TRUE)
+  postavi_temu(varijanta, prijasnja_velicina)
+
+  sufiks <- if (varijanta == "tamna") "-dark" else ""
+  putanja <- file.path(mapa, paste0(naziv, sufiks))
+  plot <- .plot_za_varijantu(plot, varijanta)
   dir.create(mapa, showWarnings = FALSE, recursive = TRUE)
-  ggsave(file.path(mapa, paste0(naziv, ".svg")), plot,
+  ggsave(paste0(putanja, ".svg"), plot,
          width = sirina, height = visina, device = "svg", bg = "transparent")
-  ggsave(file.path(mapa, paste0(naziv, ".pdf")), plot,
+  ggsave(paste0(putanja, ".pdf"), plot,
          width = sirina, height = visina, device = grDevices::cairo_pdf, bg = "transparent")
-  invisible(file.path(mapa, naziv))
+  invisible(putanja)
 }

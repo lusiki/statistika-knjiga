@@ -87,6 +87,63 @@ $code-bg:          $tok-paper-soft;
   color: $tok-ink;
 }
 
+// Pandocova tema bojanja sintakse nosi fiksne vrijednosti svijetle teme.
+// Vraćamo zadani tekst, izlaze i svaku sintaktičku ulogu na tamne tokene.
+pre,
+pre code,
+.cell-output,
+.cell-output pre,
+.cell-output pre code {
+  color: $tok-ink-soft;
+}
+
+.sourceCode .al,
+.sourceCode .er {
+  color: $tok-alert;
+}
+
+.sourceCode .an,
+.sourceCode .co,
+.sourceCode .cv,
+.sourceCode .do,
+.sourceCode .in,
+.sourceCode .op,
+.sourceCode .pp {
+  color: $tok-ink-mute;
+}
+
+.sourceCode .at,
+.sourceCode .bn,
+.sourceCode .cn,
+.sourceCode .dt,
+.sourceCode .dv,
+.sourceCode .fl,
+.sourceCode .im {
+  color: $tok-data-2;
+}
+
+.sourceCode .bu,
+.sourceCode .cf,
+.sourceCode .fu,
+.sourceCode .kw {
+  color: $tok-ink;
+}
+
+.sourceCode .ch,
+.sourceCode .sc,
+.sourceCode .ss,
+.sourceCode .st,
+.sourceCode .vs,
+.sourceCode .wa {
+  color: $tok-data-3;
+}
+
+.sourceCode .ex,
+.sourceCode .ot,
+.sourceCode .va {
+  color: $tok-ink-soft;
+}
+
 // „Statistika u divljini" je u svijetlom načinu obrnuta tamna traka. Na
 // tamnom papiru bi nestala, pa se obrće natrag: svijetla ploha, tamna slova.
 .callout-divljina {
@@ -94,7 +151,12 @@ $code-bg:          $tok-paper-soft;
   color: $tok-paper;
 
   p, li { color: $tok-paper-soft; }
-  &::before { color: $tok-accent-dark; }
+  a {
+    color: $tok-paper;
+    text-decoration-color: $tok-accent;
+  }
+  a:hover { color: $tok-accent-wash; }
+  &::before { color: $tok-paper; }
 }
 .callout-divljina > p:first-of-type > strong:first-child { color: $tok-paper; }
 

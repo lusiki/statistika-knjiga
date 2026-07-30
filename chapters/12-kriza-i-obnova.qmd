@@ -1,9 +1,10 @@
 ---
 title: "Kriza i obnova"
+subtitle: "Kako se znanstveni zaključci mogu popraviti"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — prošireni argument, bez widgeta
+  STATUS:  djelomični nacrt — prošireni argument i widget dovršeni
   IZVOR:   novo poglavlje
   OPSEG:   ~5000 riječi
   WIDGET:  w12 · Pješčanik p-hakiranja
@@ -19,8 +20,15 @@ title: "Kriza i obnova"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 6 min | Pješčanik p-hakiranja | simulacija | pogl. 10, 11 |
+:::
 
 ::: {.callout-vinjeta}
 Velika suradnja istraživača pokušala je ponoviti niz objavljenih psiholoških
@@ -90,35 +98,210 @@ skup podataka ili reproducibilan postupak koji se može otvoriti bez modela.
 Pješčanik omogućuje biranje ishoda, podskupina i trenutka zaustavljanja na
 podacima bez stvarnog učinka. Čitatelj promatra kako rast broja odluka povećava
 priliku za privlačan rezultat i kako korekcija za cijeli postupak mijenja sliku.
+Radi preglednosti svaki je analitički put u simulaciji neovisan. Stvarni putovi
+često dijele podatke, ali idealizacija izdvaja cijenu njihova broja.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+
+::: {.widget-frame data-naslov="Pješčanik p-hakiranja" data-oznaka="Widget 12.1 · interaktivno"}
+
 ```{ojs}
 //| echo: false
-// viewof w12_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w12 — Pješčanik p-hakiranja. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w12_par = Inputs.form({
+  ishodi: Inputs.range(
+    [1, 12],
+    {value: 3, step: 1, label: "Broj mogućih ishoda"}
+  ),
+  podskupine: Inputs.range(
+    [1, 5],
+    {value: 2, step: 1, label: "Podskupinske inačice po ishodu"}
+  ),
+  provjere: Inputs.range(
+    [1, 4],
+    {value: 2, step: 1, label: "Trenuci provjere podataka"}
+  ),
+  ponavljanja: Inputs.range(
+    [500, 3000],
+    {value: 2000, step: 500, label: "Simulirana istraživanja"}
+  )
+})
 ```
+
+```{ojs}
+//| echo: false
+//| label: fig-w12
+//| fig-cap: "Udio simuliranih istraživanja s barem jednim rezultatom ispod odabranog praga nakon pretraživanja više neovisnih analitičkih putova."
+//| fig-alt: "Pri početnih dvanaest analitičkih putova kumulativna krivulja brzo raste, pa nominalni prag 0,05 zahvaća mnogo više istraživanja od praga korigiranog za broj putova."
+{
+  const tinta = "var(--tok-ink)";
+  const krivulja = "var(--tok-data-2)";
+  const korekcija = "var(--tok-data-4)";
+  const naglasak = "var(--tok-accent-deep)";
+  const linija = "var(--tok-rule)";
+  const sans = "var(--tok-font-sans)";
+  const broj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 4
+  });
+  const postotak = new Intl.NumberFormat("hr-HR", {
+    style: "percent",
+    maximumFractionDigits: 1
+  });
+
+  const brojPutova =
+    w12_par.ishodi * w12_par.podskupine * w12_par.provjere;
+  const rng = d3.randomLcg(1212);
+  const najmanje = Array.from({length: w12_par.ponavljanja}, () => {
+    let najmanja = 1;
+    for (let i = 0; i < brojPutova; i += 1) {
+      najmanja = Math.min(najmanja, rng());
+    }
+    return najmanja;
+  });
+  const pragovi = d3.range(0, 0.1001, 0.002);
+  const cdf = pragovi.map(prag => ({
+    prag,
+    udio: d3.mean(najmanje, p => p <= prag)
+  }));
+  const nominalniPrag = 0.05;
+  const korigiraniPrag = nominalniPrag / brojPutova;
+  const nominalniUdio = d3.mean(najmanje, p => p <= nominalniPrag);
+  const korigiraniUdio = d3.mean(najmanje, p => p <= korigiraniPrag);
+  const celija = document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      parseFloat(stilCelije.paddingLeft) -
+      parseFloat(stilCelije.paddingRight)
+    : width;
+  const sirina = Math.max(240, Math.min(width, lokalnaSirina));
+  const usko = sirina < 480;
+  const vrloUsko = sirina < 260;
+
+  const graf = Plot.plot({
+    width: sirina,
+    height: usko ? 430 : 350,
+    marginLeft: usko ? 66 : 62,
+    marginRight: usko ? 16 : 24,
+    marginBottom: usko ? 54 : 48,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: sans,
+      fontSize: usko ? "14px" : "12px"
+    },
+    x: {
+      label: "Prag za najmanju p-vrijednost",
+      domain: [0, 0.1],
+      ticks: vrloUsko ? 3 : usko ? 5 : undefined,
+      tickFormat: d => broj.format(d)
+    },
+    y: {
+      label: "Udio istraživanja",
+      domain: [0, 1],
+      grid: true,
+      tickFormat: d => postotak.format(d)
+    },
+    marks: [
+      Plot.lineY(cdf, {
+        x: "prag",
+        y: "udio",
+        stroke: krivulja,
+        strokeWidth: 2
+      }),
+      Plot.ruleX([nominalniPrag], {
+        stroke: naglasak,
+        strokeWidth: 1.5
+      }),
+      Plot.ruleX([korigiraniPrag], {
+        stroke: korekcija,
+        strokeWidth: 1.5,
+        strokeDasharray: "4,3"
+      }),
+      Plot.dot(
+        [{prag: nominalniPrag, udio: nominalniUdio}],
+        {x: "prag", y: "udio", fill: naglasak, stroke: tinta, r: 4.5}
+      ),
+      Plot.dot(
+        [{prag: korigiraniPrag, udio: korigiraniUdio}],
+        {x: "prag", y: "udio", fill: korekcija, stroke: tinta, r: 4.5}
+      ),
+      Plot.ruleY([0], {stroke: linija})
+    ]
+  });
+
+  return html`<div>
+    ${graf}
+    <p class="widget-foot" role="status" aria-live="polite">${brojPutova} putova daje ${postotak.format(nominalniUdio)} ispod 0,05 i ${postotak.format(korigiraniUdio)} ispod korigiranog praga ${broj.format(korigiraniPrag)}.</p>
+  </div>`;
+}
+```
+
 :::
+
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w12
-#| fig-cap: "Planirani prikaz najprivlačnijeg rezultata među mnogim analizama."
-#| fig-alt: "Mjesto za skup p-vrijednosti iz više analitičkih putova i označenu najmanju."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w12 još nije izrađen") +
-  theme_void()
+#| cache: false
+#| label: fig-w12-print
+#| fig-cap: "Vjerojatnost barem jednog rezultata ispod praga raste s brojem neovisnih analitičkih putova."
+#| fig-alt: "Tri kumulativne krivulje za jedan, dvanaest i četrdeset osam putova pokazuju sve brži rast udjela istraživanja s malom najmanjom p-vrijednošću."
+#| fig-width: 6.6
+#| fig-height: 4.8
+set.seed(1212)
+
+w12_pragovi <- seq(0, 0.1, by = 0.002)
+w12_cdf <- bind_rows(lapply(c(1, 12, 48), function(broj_putova) {
+  najmanje <- replicate(5000, min(runif(broj_putova)))
+  tibble(
+    prag = w12_pragovi,
+    udio = vapply(
+      w12_pragovi,
+      function(prag) mean(najmanje <= prag),
+      numeric(1)
+    ),
+    putovi = factor(
+      broj_putova,
+      levels = c(1, 12, 48),
+      labels = c("1 put", "12 putova", "48 putova")
+    )
+  )
+}))
+
+ggplot(w12_cdf, aes(prag, udio, colour = putovi, linetype = putovi)) +
+  geom_vline(xintercept = 0.05, colour = sivo[[4]], linetype = "dashed") +
+  geom_line(linewidth = 0.75) +
+  scale_color_sivo(name = "Analitički putovi") +
+  scale_linetype_manual(
+    name = "Analitički putovi",
+    values = c("solid", "22", "42")
+  ) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 2)) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    labels = function(x) paste0(hr_broj(100 * x, 0), " %")
+  ) +
+  labs(
+    x = "Prag za najmanju p-vrijednost",
+    y = "Udio istraživanja"
+  ) +
+  theme_knjiga(base_size = 13) +
+  theme(legend.position = "bottom")
 ```
 :::
 
 **Što isprobati.**
 
 1. Provedite jednu unaprijed određenu analizu.
-2. Dodajte više ishoda i podskupina bez promjene podataka.
-3. Prikažite sve rezultate umjesto samo najmanje p-vrijednosti.
+2. Dodajte ishode, a podskupine i trenutke provjere ostavite jednakima.
+3. Dodajte podskupinske inačice i trenutke provjere bez promjene broja ishoda.
+4. Usporedite nominalni prag 0,05 s pragom korigiranim za sve putove.
+
+Najmanja p-vrijednost nije sažetak jedne unaprijed određene analize kada je
+nastala pretraživanjem. Zaključak tada mora opisati cijeli skup mogućnosti ili
+koristiti postupak koji njihov broj uzima u obzir.
 
 ::: {.callout-divljina}
 **Replikacija kao zajedničko mjerenje.** Open Science Collaboration koristio je
@@ -163,8 +346,10 @@ odabrane analize, dok je stvarni postupak uključivao mnogo prilika
 
 ```{r}
 #| label: tbl-vise-analiza
+#| cache: false
 #| tbl-cap: "Najmanja p-vrijednost među simuliranim ishodima bez učinka. Izrada autora prema @simmons2011."
 
+set.seed(1212)
 sim_putovi <- bind_rows(lapply(1:20, function(ishod_id) {
   a <- rnorm(30)
   b <- rnorm(30)

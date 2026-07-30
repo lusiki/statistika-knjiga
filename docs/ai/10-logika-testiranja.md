@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Simulator p-vrijednosti | simulacija | pogl. 7–9 |
 
 **Vinjeta.**
 Američko statističko udruženje moralo je javno razjasniti p-vrijednost jer je
@@ -59,13 +63,21 @@ početne pretpostavke.
 
 Simulator p-vrijednosti stvara rezultate kada je nulta hipoteza istinita i
 kada nije. Čitatelj promatra koliko se p-vrijednosti mijenjaju od uzorka do
-uzorka i zašto jedan rezultat ne može biti potvrda postupka u cjelini.
+uzorka i zašto jedan rezultat ne može biti potvrda postupka u cjelini. Radi
+preglednosti koristi normalne ishode s poznatom varijabilnošću i obostrani test.
+
+*Slika. Raspodjele p-vrijednosti pod nultim modelom i pod odabranim stvarnim učinkom.*
 
 **Što isprobati.**
 
 1. Generirajte više uzoraka pod istinitom nultom hipotezom.
-2. Uključite mali učinak i zadržite uzorak jednakim.
-3. Povećajte uzorak bez promjene učinka i promatrajte odluke te procjene.
+2. Postavite standardiziranu razliku na 0,35 i zadržite uzorak jednakim.
+3. Povećajte uzorak bez promjene učinka i usporedite udio rezultata ispod praga.
+4. Spustite prag s 0,05 na 0,01 i usporedite obje raspodjele.
+
+Simulacija razdvaja dvije činjenice. Kada je nulta hipoteza istinita, prag
+unaprijed određuje dugoročnu stopu pogreške. Kada učinak postoji, veličina
+uzorka mijenja koliko ga često postupak otkriva.
 
 **Statistika u divljini.**
 **Značajnost bez veličine.** Izjava Američkog statističkog udruženja navodi da
@@ -99,7 +111,7 @@ Simuliramo dvije skupine bez stvarne razlike i promatramo jednu opaženu razliku
 sredina. Permutacijski postupak miješa oznake skupina, čuva sve ishode i gradi
 raspodjelu razlika usklađenu s nultom hipotezom.
 
-*Slika. Nulta raspodjela razlike sredina u simuliranom primjeru. Izrada autora.*
+Nulta raspodjela razlike sredina u simuliranom primjeru. Izrada autora.
 
 Graf pokazuje koliko je opažena razlika udaljena od onoga što stvara postupak
 bez grupnog učinka. Zaključak ne završava odbacivanjem ili neodbacivanjem.

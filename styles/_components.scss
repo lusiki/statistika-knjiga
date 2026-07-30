@@ -26,7 +26,214 @@
   color: $tok-ink-soft;
 }
 .navbar .nav-link:hover,
-.navbar .nav-link.active { color: $tok-accent-deep; }
+.navbar .nav-link.active,
+.navbar .nav-link.section-active { color: $tok-accent-deep; }
+.navbar .quarto-navigation-tool,
+.navbar .navbar-toggler {
+  color: $tok-ink-soft;
+  opacity: 1;
+}
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool,
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool .bi,
+#quarto-header .navbar .quarto-navbar-tools .quarto-reader-toggle-btn {
+  color: $tok-ink-soft !important;
+  opacity: 1;
+}
+.navbar .quarto-navigation-tool:hover,
+.navbar .quarto-navigation-tool:focus-visible,
+.navbar .navbar-toggler:hover,
+.navbar .navbar-toggler:focus-visible {
+  color: $tok-accent-deep;
+}
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool:hover,
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool:focus-visible,
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool:hover .bi,
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool:focus-visible .bi,
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool:hover .quarto-reader-toggle-btn,
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool:focus-visible .quarto-reader-toggle-btn {
+  color: $tok-accent-deep !important;
+}
+#quarto-header .navbar .quarto-navbar-tools .quarto-navigation-tool:focus-visible {
+  outline: 2px solid $tok-accent-deep;
+  outline-offset: 2px;
+}
+
+// Quarto ugrađuje boju prekidača u `fill` podatkovnog SVG-a. Vanjska `color`
+// deklaracija zato ne može promijeniti ikonu. Isti oblici postaju maske, a
+// token ulazi kroz `currentColor`, pa normalno, tamno i fokusno stanje ostaju
+// sinkronizirani s navigacijom.
+#quarto-header .navbar .quarto-navbar-tools .quarto-color-scheme-toggle .bi::before,
+#quarto-header .navbar .quarto-navbar-tools .quarto-reader-toggle .bi::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  background-image: none !important;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 1rem 1rem;
+  mask-size: 1rem 1rem;
+}
+#quarto-header .navbar .quarto-navbar-tools
+  .quarto-color-scheme-toggle:not(.alternate) .bi::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z'/></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z'/></svg>");
+}
+#quarto-header .navbar .quarto-navbar-tools
+  .quarto-color-scheme-toggle.alternate .bi::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z'/></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z'/></svg>");
+}
+#quarto-header .navbar .quarto-navbar-tools .quarto-reader-toggle .bi::before {
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0A.5.5 0 0 1 7.5 8h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2A.5.5 0 0 1 .5 10h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2A.5.5 0 0 1 .5 12h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2A.5.5 0 0 1 .5 14h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z'/></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5Zm0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Zm-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm7 0A.5.5 0 0 1 7.5 8h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm-7 2A.5.5 0 0 1 .5 10h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm0 2A.5.5 0 0 1 .5 12h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5Zm0 2A.5.5 0 0 1 .5 14h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z'/></svg>");
+}
+.navbar .navbar-toggler {
+  border-color: $tok-rule;
+  box-shadow: none;
+}
+.navbar .navbar-toggler:focus-visible {
+  border-color: $tok-accent;
+  outline: 2px solid $tok-accent;
+  outline-offset: 2px;
+}
+
+// Bootstrapov tamni SVG ne nasljeđuje boju teksta. Tri crte crtamo iz
+// currentColor kako bi preklopnik ostao čitljiv u oba načina prikaza.
+.navbar .navbar-toggler-icon {
+  position: relative;
+  width: 1.25rem;
+  height: 0.9rem;
+  background-image: none;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+.navbar .navbar-toggler-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 2px solid currentColor;
+  transform: translateY(-1px);
+}
+.navbar .dropdown-toggle::after { border-top-color: currentColor; }
+.navbar .dropdown-item {
+  font-family: $tok-font-sans;
+  color: $tok-ink-soft;
+}
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus { color: $tok-accent-deep; }
+
+// Bootstrap još drži desktopni red na 1 000 px. Kratki međuraspon prije
+// mobilnog prijeloma zato dobiva kompaktnu marku i nerastavljive oznake, bez
+// promjene reda na 1 100 px i bez zadiranja u mobilno zaglavlje.
+@media (min-width: 992px) and (max-width: 1068.98px) {
+  #quarto-header .navbar-container {
+    flex-wrap: nowrap;
+  }
+  #quarto-header .navbar-brand-container {
+    flex: 0 0 8.5rem;
+    width: 8.5rem;
+    min-width: 8.5rem;
+    max-width: 8.5rem;
+    margin-left: 0 !important;
+    margin-right: 0.25rem !important;
+  }
+  #quarto-header .navbar-brand {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+  #quarto-header .navbar-collapse {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  #quarto-header .navbar-collapse .navbar-nav {
+    flex-wrap: nowrap;
+  }
+  #quarto-header .navbar .nav-link {
+    padding-inline: 0.55rem;
+    white-space: nowrap;
+  }
+  #quarto-header .quarto-navbar-tools {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
+// Na telefonu JS premješta pretragu, bočni izbornik i hamburger u jednu
+// skupinu, a sekundarne alate na dno otvorenog izbornika.
+.mobile-navbar-actions {
+  display: flex;
+  align-items: center;
+  order: 2;
+  gap: 0.2rem;
+  margin-left: auto;
+}
+.mobile-navbar-actions .btn,
+.mobile-navbar-actions .navbar-toggler {
+  color: $tok-ink-soft;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0.35rem;
+}
+
+html { scroll-padding-top: 5rem; }
+h1[id], h2[id], h3[id], h4[id] { scroll-margin-top: 5rem; }
+
+@media (max-width: 991.98px) {
+  body.navbar-mobile-organized #quarto-header .quarto-secondary-nav {
+    display: none;
+  }
+  body.navbar-mobile-organized .navbar-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  body.navbar-mobile-organized .navbar-brand-container {
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+  body.navbar-mobile-organized .navbar-brand {
+    max-width: calc(100vw - 9.5rem);
+    margin-right: 0.25rem !important;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  body.navbar-mobile-organized .mobile-navbar-actions .navbar-toggler {
+    margin-right: 0 !important;
+  }
+  body.navbar-mobile-organized .navbar-collapse {
+    order: 3;
+    flex-basis: 100%;
+    width: 100%;
+    border-top: 1px solid $tok-rule;
+    margin-top: 0.35rem;
+    padding: 0.5rem 0 0.75rem;
+  }
+  body.navbar-mobile-organized .navbar-collapse .navbar-nav {
+    max-height: min(62vh, 30rem);
+  }
+  body.navbar-mobile-organized .navbar-collapse .quarto-navbar-tools {
+    display: flex;
+    gap: 0.45rem;
+    justify-content: flex-start;
+    border-top: 1px solid $tok-rule-soft;
+    margin-top: 0.5rem;
+    padding-top: 0.65rem;
+  }
+  html { scroll-padding-top: 4.25rem; }
+  h1[id], h2[id], h3[id], h4[id] { scroll-margin-top: 4.25rem; }
+}
 
 // --- sidebar ---------------------------------------------------------
 #quarto-sidebar {
@@ -76,16 +283,11 @@
 // --- naslovnica: hero ------------------------------------------------
 .hero {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
   margin: 3rem 0 4rem;
 }
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; gap: 2rem; }
-}
 
-.hero-title {
+h1.hero-title {
   font-family: $tok-font-display;
   font-size: clamp(2.5rem, 5.5vw, 4.25rem);
   font-weight: 300;
@@ -105,6 +307,7 @@
   color: $tok-ink-soft;
   max-width: 54ch;
 }
+.hero-lede > p { margin: 0; }
 
 .hero-cta {
   display: flex;
@@ -112,6 +315,8 @@
   gap: 0.6rem;
   margin-top: 2rem;
 }
+.hero-cta > p,
+.hub-card > p { display: contents; }
 
 .btn-knjiga {
   font-family: $tok-font-mono;
@@ -218,6 +423,7 @@
   }
   &:hover .hub-name { color: $tok-accent-deep; }
 }
+.hub-card > div > p { margin: 0; }
 .hub-card .hub-num {
   font-family: $tok-font-mono;
   font-size: 0.6875rem;
@@ -252,6 +458,152 @@
   font-family: $tok-font-display;
 }
 
+// --- namjerno prazno stanje -----------------------------------------
+// Potporne stranice bez objavljenog sadržaja pokazuju jednu jasnu poruku,
+// bez praznih tablica, lažnih kartica i nizova golih podnaslova.
+.empty-state {
+  max-width: $tok-measure;
+  border-top: 1px solid $tok-rule;
+  border-bottom: 1px solid $tok-rule-soft;
+  padding: 1.6rem 0 1.75rem;
+  margin: 2rem 0 3rem;
+  color: $tok-ink-mute;
+}
+.empty-state > p:last-child { margin-bottom: 0; }
+.empty-state-title {
+  font-family: $tok-font-display;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  color: $tok-ink;
+  margin-bottom: 0.55rem;
+}
+.empty-state-title > p { margin: 0; }
+.filter-empty {
+  font-family: $tok-font-sans;
+  font-size: 0.85rem;
+  color: $tok-ink-mute;
+  border-top: 1px solid $tok-rule-soft;
+  padding-top: 0.8rem;
+}
+
+// --- pojmovnik -------------------------------------------------------
+.concept-map {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: $tok-font-sans;
+  font-size: 0.625rem;
+}
+.pojam-red {
+  border-top: 1px solid $tok-rule-soft;
+  padding: 0.7rem 0;
+}
+.pojam-red__naslov {
+  font-family: $tok-font-serif;
+  font-weight: 600;
+}
+.pojam-red__poglavlje {
+  font-family: $tok-font-sans;
+  font-size: 0.72rem;
+  color: $tok-ink-mute;
+}
+.pojam-red__opis {
+  font-family: $tok-font-sans;
+  font-size: 0.84rem;
+  color: $tok-ink-soft;
+  margin-top: 0.2rem;
+}
+
+// --- mentorska uputa ------------------------------------------------
+.prompt-preview {
+  max-width: $tok-measure;
+  font-family: $tok-font-sans;
+  font-size: 0.9rem;
+  color: $tok-ink-mute;
+  background: $tok-paper-soft;
+  border-left: 2px solid $tok-rule;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
+}
+.prompt-disclosure {
+  max-width: $tok-measure;
+  border-top: 1px solid $tok-rule;
+  border-bottom: 1px solid $tok-rule-soft;
+  margin: 1rem 0 3rem;
+}
+.prompt-disclosure > summary {
+  cursor: pointer;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $tok-accent-deep;
+  padding: 0.75rem 0;
+}
+.prompt-disclosure > pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: $tok-font-mono;
+  font-size: 0.76rem;
+  background: $tok-paper-soft;
+  border: 0;
+  border-radius: 0;
+  padding: 1rem;
+  margin: 0 0 1rem;
+}
+
+// Naslovnica zadržava metapodatke u <head>, ali ne ponavlja naslov iznad
+// autorske hero-kompozicije.
+body.landing-page #title-block-header { display: none; }
+body.landing-page .page-navigation { display: none; }
+
+@media (max-width: 600px) {
+  .hero { margin-top: 1.5rem; }
+  .hero-cta {
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .hero-cta .btn-knjiga {
+    flex: 1 1 100%;
+    width: 100%;
+    text-align: center;
+  }
+  .brojke {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+  .hub-grid { grid-template-columns: minmax(0, 1fr); }
+  .hub-card { padding-right: 0; }
+  .empty-state { margin-top: 1.5rem; }
+  .nav-footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .nav-footer-left,
+  .nav-footer-center,
+  .nav-footer-right {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+  .nav-footer-right .footer-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 0.65rem;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .nav-footer-right .nav-item,
+  .nav-footer-right .nav-link { width: auto; }
+  .nav-footer-right .nav-link p { margin: 0; }
+}
+
 // --- podnožje knjige -------------------------------------------------
 .book-meta-footer,
 .nav-footer {
@@ -261,7 +613,7 @@
   font-family: $tok-font-mono;
   font-size: 0.6875rem;
   letter-spacing: 0.06em;
-  color: $tok-ink-faint;
+  color: $tok-ink-mute;
   background: $tok-paper;
 }
 
@@ -288,3 +640,41 @@
   color: $tok-ink;
 }
 .nav-page a { text-decoration: none; }
+
+@media (max-width: 600px) {
+  .page-navigation {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+  .nav-page {
+    width: 100%;
+    min-width: 0;
+  }
+  .nav-page-next {
+    justify-self: end;
+    text-align: right;
+  }
+}
+
+// Statički SVG čuva knjižnu tipografiju unutar datoteke. Za vrlo uzak zaslon
+// zato dobiva vlastiti, gotovo kvadratni crtež; CSS samo bira odgovarajući
+// asset, dok i svijetla i tamna inačica ostaju prozirne.
+body .responsive-static-figure .figure-viewport-mobile {
+  display: none;
+}
+
+@media (max-width: 420px) {
+  body .responsive-static-figure .figure-viewport-wide {
+    display: none;
+  }
+
+  body.quarto-light
+    .responsive-static-figure
+    .figure-viewport-mobile.figure-theme-light,
+  body.quarto-dark
+    .responsive-static-figure
+    .figure-viewport-mobile.figure-theme-dark {
+    display: block;
+  }
+}

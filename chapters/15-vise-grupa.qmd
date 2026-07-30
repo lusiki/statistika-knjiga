@@ -1,9 +1,10 @@
 ---
 title: "Uspoređivanje više grupa"
+subtitle: "Jedan model za razlike među skupinama"
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — argument i strukturni elementi, bez widgeta
+  STATUS:  djelomični nacrt — argument, strukturni elementi i dovršen widget
   IZVOR:   tjedan 12, umjerena prerada
   OPSEG:   ~4000 riječi
   WIDGET:  w15 · Dekompozicija varijance
@@ -18,8 +19,15 @@ title: "Uspoređivanje više grupa"
 
 ```{r}
 #| include: false
+#| cache: false
 source("R/setup.R")
 ```
+
+::: {.chapter-meta}
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Dekompozicija varijance | simulacija | pogl. 14 |
+:::
 
 ::: {.callout-vinjeta}
 Analitička fleksibilnost postaje posebno vidljiva kada istraživanje sadrži više
@@ -67,38 +75,255 @@ pitanje prikladnije, ali ni on ne popravlja ovisna opažanja ili loš dizajn.
 
 ## Interakcija — Dekompozicija varijance
 
-Planirana dekompozicija prikazuje ukupno odstupanje kao dio između skupina i
-dio unutar njih. Pomicanjem sredina ili raspršivanjem opažanja čitatelj vidi
-zašto isti razmak sredina ne daje uvijek isti F-omjer.
+Prikaz razdvaja odstupanje skupnih sredina od raspršenosti pojedinaca oko tih
+sredina. Promjena bilo koje od četiri veličine odmah mijenja F-omjer, pa se
+vidi zašto razmak među skupinama nije dovoljan bez usporedbe s varijacijom
+unutar njih.
 
-::: {.content-visible when-format="html"}
+:::: {.content-visible when-format="html"}
+::: {.widget-frame data-naslov="Dekompozicija varijance" data-oznaka="Widget 15.1 · interaktivno"}
 ```{ojs}
 //| echo: false
-// viewof w15_par = Inputs.form({
-//   n: Inputs.range([10, 500], {value: 50, step: 10, label: "Veličina uzorka:"})
-// })
-md`Widget w15 — Dekompozicija varijance. Interaktivni graf još nije izrađen. Specifikacija je u \`data/widgets.json\`.`
+viewof w15_par = Inputs.form({
+  sredina_a: Inputs.range([35, 65], {
+    value: 46, step: 1, label: "Sredina skupine A:"
+  }),
+  sredina_b: Inputs.range([35, 65], {
+    value: 52, step: 1, label: "Sredina skupine B:"
+  }),
+  sredina_c: Inputs.range([35, 65], {
+    value: 58, step: 1, label: "Sredina skupine C:"
+  }),
+  rasprsenost: Inputs.range([2, 14], {
+    value: 6, step: 1, label: "Standardna devijacija unutar skupina:"
+  })
+})
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-w15
+//| fig-cap: "Dekompozicija varijance — skupne sredine, zajednička sredina i raspršenost pojedinačnih opažanja."
+//| fig-alt: "Tri skupine imaju sredine 46, 52 i 58 te standardnu devijaciju 6. Opažanja su prikazana oko skupnih sredina, a okomite crte povezuju skupne sredine sa zajedničkom sredinom."
+{
+  const tinta = "var(--widget-ink)";
+  const priguseno = "var(--tok-ink-mute)";
+  const pravilo = "var(--widget-grid)";
+  const povrsina = "var(--tok-surface)";
+  const podatak = "var(--widget-fill)";
+  const naglasak = "var(--widget-emphasis)";
+  const formatBroj = new Intl.NumberFormat("hr-HR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+
+  const n = 24;
+  const sredine = [
+    {skupina: "A", x: 1, sredina: w15_par.sredina_a},
+    {skupina: "B", x: 2, sredina: w15_par.sredina_b},
+    {skupina: "C", x: 3, sredina: w15_par.sredina_c}
+  ];
+  const rng = d3.randomLcg(1515);
+  const normalna = d3.randomNormal.source(rng)(0, 1);
+
+  const opazanja = sredine.flatMap(s => {
+    const sirovo = Array.from({length: n}, normalna);
+    const m = d3.mean(sirovo);
+    const sd = d3.deviation(sirovo);
+    return sirovo.map(v => ({
+      skupina: s.skupina,
+      x: s.x,
+      xPomak: s.x + (rng() - 0.5) * 0.34,
+      ishod: s.sredina + w15_par.rasprsenost * (v - m) / sd
+    }));
+  });
+
+  const zajednicka = d3.mean(opazanja, d => d.ishod);
+  const sazeci = sredine.map(s => ({
+    ...s,
+    zajednicka
+  }));
+  const ssIzmedu = n * d3.sum(sredine, s =>
+    (s.sredina - zajednicka) ** 2);
+  const ssUnutar = d3.sum(opazanja, d => {
+    const m = sredine[d.x - 1].sredina;
+    return (d.ishod - m) ** 2;
+  });
+  const msIzmedu = ssIzmedu / (sredine.length - 1);
+  const msUnutar = ssUnutar / (sredine.length * (n - 1));
+  const fOmjer = msIzmedu / msUnutar;
+  const raspon = d3.extent(opazanja, d => d.ishod);
+  const odmak = Math.max(3, (raspon[1] - raspon[0]) * 0.08);
+  const celija =
+    document.getElementById("fig-w15")?.closest(".cell") ??
+    document.querySelector(".widget-frame .cell");
+  const stilCelije = celija ? getComputedStyle(celija) : null;
+  const lokalnaSirina = celija
+    ? celija.clientWidth -
+      (parseFloat(stilCelije.paddingLeft) || 0) -
+      (parseFloat(stilCelije.paddingRight) || 0)
+    : width;
+  const sirinaGrafa = Math.max(
+    1,
+    Math.floor(Math.min(width, lokalnaSirina))
+  );
+  const mobilno = sirinaGrafa < 480;
+  const sazetakTekst =
+    `F ${formatBroj.format(fOmjer)} · između ${formatBroj.format(msIzmedu)} · unutar ${formatBroj.format(msUnutar)}`;
+
+  const graf = Plot.plot({
+    width: sirinaGrafa,
+    height: mobilno ? 400 : 360,
+    marginTop: mobilno ? 28 : 20,
+    marginRight: 18,
+    marginBottom: mobilno ? 50 : 44,
+    marginLeft: mobilno ? 58 : 56,
+    style: {
+      background: "transparent",
+      color: tinta,
+      fontFamily: "var(--tok-font-mono)",
+      fontSize: mobilno ? "15px" : "13px"
+    },
+    x: {
+      label: null,
+      domain: [0.55, 3.45],
+      ticks: [1, 2, 3],
+      tickFormat: d => mobilno
+        ? ["A", "B", "C"][d - 1]
+        : `Skupina ${["A", "B", "C"][d - 1]}`
+    },
+    y: {
+      label: "Simulirani ishod",
+      domain: [raspon[0] - odmak, raspon[1] + odmak],
+      grid: true
+    },
+    marks: [
+      Plot.ruleY([zajednicka], {
+        stroke: priguseno,
+        strokeDasharray: "5,4"
+      }),
+      Plot.ruleX(sazeci, {
+        x: "x",
+        y1: "zajednicka",
+        y2: "sredina",
+        stroke: naglasak,
+        strokeWidth: 5,
+        strokeOpacity: 0.5
+      }),
+      Plot.dot(opazanja, {
+        x: "xPomak",
+        y: "ishod",
+        r: 3.2,
+        fill: podatak,
+        stroke: povrsina,
+        strokeWidth: 0.7
+      }),
+      Plot.dot(sazeci, {
+        x: "x",
+        y: "sredina",
+        r: 6,
+        fill: tinta,
+        stroke: povrsina,
+        strokeWidth: 1.2
+      }),
+      Plot.text(sazeci, {
+        x: "x",
+        y: "sredina",
+        text: d => formatBroj.format(d.sredina),
+        dy: -13,
+        fill: tinta,
+        fontWeight: 600
+      }),
+      Plot.ruleY([raspon[0] - odmak], {stroke: pravilo})
+    ]
+  });
+  return html`<div>
+    ${graf}
+    <p class="widget-foot" role="status" aria-live="polite">${sazetakTekst}.</p>
+  </div>`;
+}
 ```
 :::
+::::
 
 ::: {.content-visible when-format="pdf"}
 ```{r}
 #| echo: false
-#| label: fig-w15
-#| fig-cap: "Planirana dekompozicija varijance između i unutar skupina."
-#| fig-alt: "Mjesto za tri skupine s označenim skupnim sredinama i odstupanjima opažanja."
-ggplot() +
-  annotate("text", x = 0, y = 0, size = 3.5,
-           label = "Statički blizanac widgeta w15 još nije izrađen") +
-  theme_void()
+#| label: fig-w15-print
+#| fig-cap: "Dekompozicija varijance — razmak sredina povećava F-omjer, a raspršenost unutar skupina smanjuje ga."
+#| fig-alt: "Tri okomito složena prikaza uspoređuju jednake sredine, razdvojene sredine i razdvojene sredine uz veću raspršenost. Točke prikazuju opažanja, a rombovi skupne sredine."
+#| fig-height: 7.2
+#| fig-bg: transparent
+set.seed(1515)
+
+stanja_w15 <- tibble::tribble(
+  ~stanje, ~sredina_a, ~sredina_b, ~sredina_c, ~rasprsenost,
+  "Jednake sredine",          52, 52, 52,  6,
+  "Razdvojene sredine",       46, 52, 58,  6,
+  "Veća raspršenost unutar",  46, 52, 58, 11
+)
+
+sim_w15_print <- stanja_w15 |>
+  tidyr::crossing(
+    skupina = factor(c("A", "B", "C"), levels = c("A", "B", "C")),
+    red = seq_len(24)
+  ) |>
+  mutate(
+    sredina = case_when(
+      skupina == "A" ~ sredina_a,
+      skupina == "B" ~ sredina_b,
+      TRUE ~ sredina_c
+    ),
+    ishod = rnorm(n(), sredina, rasprsenost)
+  ) |>
+  group_by(stanje, skupina) |>
+  mutate(ishod = sredina + (ishod - mean(ishod)) / sd(ishod) * rasprsenost) |>
+  ungroup()
+
+sazeci_w15 <- sim_w15_print |>
+  group_by(stanje) |>
+  mutate(zajednicka = mean(ishod)) |>
+  group_by(stanje, skupina) |>
+  summarise(
+    sredina = mean(ishod),
+    zajednicka = first(zajednicka),
+    .groups = "drop"
+  )
+
+ggplot(sim_w15_print, aes(skupina, ishod)) +
+  geom_segment(
+    data = sazeci_w15,
+    aes(x = skupina, xend = skupina, y = zajednicka, yend = sredina),
+    inherit.aes = FALSE,
+    linewidth = 2.2,
+    colour = tok_boja("ink-mute")
+  ) +
+  geom_point(
+    position = position_jitter(width = 0.08, height = 0, seed = 1515),
+    colour = tok_boja("data-4"),
+    size = 1.7,
+    alpha = 0.8
+  ) +
+  geom_point(
+    data = sazeci_w15,
+    aes(x = skupina, y = sredina),
+    inherit.aes = FALSE,
+    shape = 18,
+    size = 3.4,
+    colour = tok_boja("ink")
+  ) +
+  facet_wrap(~stanje, ncol = 1, scales = "free_y") +
+  labs(x = NULL, y = "Simulirani ishod") +
+  theme_knjiga(mreza = "y")
 ```
 :::
 
 **Što isprobati.**
 
-1. Izjednačite sredine uz nepromijenjena opažanja.
-2. Razmaknite sredine uz jednaku varijabilnost.
-3. Povećajte raspršenost unutar skupina bez promjene sredina.
+1. Postavite sve tri sredine na 52 i zadržite standardnu devijaciju 6.
+2. Postavite sredine na 46, 52 i 58 te usporedite novi F-omjer s prvim.
+3. Zadržite razdvojene sredine, povećajte standardnu devijaciju na 12 i
+   pratite koliko se F-omjer smanjuje.
 
 ::: {.callout-divljina}
 **Mnogo usporedbi, jedna priča.** Fleksibilan izbor ishoda i podskupina može
@@ -138,6 +363,7 @@ Simuliramo tri skupine i brojčani ishod. Graf bi trebao prethoditi modelu, a
 kod zatim procjenjuje zajedničku ANOVA-u. Tukeyjev postupak dolazi nakon
 ukupnog pitanja i pokazuje koji su parovi dovoljno precizno razdvojeni.
 
+::: {.table-keep-words .table-comparison-wide}
 ```{r}
 #| label: tbl-anova-primjer
 #| tbl-cap: "Tukeyjeve usporedbe simuliranih skupina. Izrada autora."
@@ -149,11 +375,29 @@ sim_vise <- tibble(
 
 model_vise <- aov(ishod ~ skupina, data = sim_vise)
 
-TukeyHSD(model_vise)$skupina |>
+tukey_vise <- TukeyHSD(model_vise)$skupina |>
   as.data.frame() |>
-  tibble::rownames_to_column("usporedba") |>
-  knitr::kable(digits = 2)
+  tibble::rownames_to_column("usporedba")
+
+hr_p_vrijednost <- function(x) {
+  ifelse(
+    x < 0.001,
+    "< 0,001",
+    formatC(x, format = "f", digits = 3, decimal.mark = ",")
+  )
+}
+
+tukey_vise |>
+  transmute(
+    Usporedba = usporedba,
+    Razlika = formatC(diff, format = "f", digits = 2, decimal.mark = ","),
+    `Donja 95 %` = formatC(lwr, format = "f", digits = 2, decimal.mark = ","),
+    `Gornja 95 %` = formatC(upr, format = "f", digits = 2, decimal.mark = ","),
+    `Korigirani p` = hr_p_vrijednost(`p adj`)
+  ) |>
+  knitr::kable(align = c("l", "r", "r", "r", "r"))
 ```
+:::
 
 Parne procjene imaju vlastite intervale i ne moraju sve voditi prema istoj
 odluci. Sadržajni zaključak vraća se veličinama razlika, a ne samo oznakama

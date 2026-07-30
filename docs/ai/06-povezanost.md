@@ -4,9 +4,13 @@
 > Autori: Luka Šikić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-29 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-07-30 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
 
 ---
+
+| Vrijeme čitanja | Widget | Podaci | Preduvjet |
+|---|---|---|---|
+| 5 min | Pogodi korelaciju | Anscombeov kvartet | pogl. 4, 5 |
 
 **Vinjeta.**
 Anscombeova četiri skupa imaju gotovo jednaku Pearsonovu korelaciju, iako
@@ -54,15 +58,18 @@ sadržajno obrazloženje.
 
 ## Interakcija — Pogodi korelaciju
 
-Planirana igra prikazuje raspršene oblake bez koeficijenta i traži procjenu
-smjera i jačine. Nakon odgovora otkriva broj i pokazuje primjere u kojima
-ljudsko oko ili Pearsonov sažetak propuštaju nelinearnost i podskupine.
+Igra prikazuje četiri raspršena oblaka bez koeficijenta i traži procjenu
+smjera i jačine. Rezultat se mijenja sa svakom procjenom, pa se vidljivi oblik
+može izravno usporediti s veličinom Pearsonove korelacije.
+
+*Slika. Četiri deterministički simulirana oblaka bez prikazanih koeficijenata. Zajedničke osi omogućuju usporedbu smjera i zbijenosti.*
 
 **Što isprobati.**
 
-1. Procijenite znak jasnog linearnog odnosa.
-2. Usporedite zbijeni i raspršeni oblak istog nagiba.
-3. Pronađite nelinearni odnos kojem je Pearsonova korelacija blizu nule.
+1. Procijenite samo znak svake povezanosti i provjerite jesu li klizači na pravoj strani nule.
+2. Usporedite oblake A i D te procijenite koji je odnos bliže savršenoj povezanosti.
+3. Fino namjestite procjene za slabije oblake B i C bez mijenjanja prvih dviju.
+4. Pokušajte ostvariti četiri pogotka, zatim opišite koji je oblak bilo najteže procijeniti.
 
 **Statistika u divljini.**
 **Ista korelacija, različita struktura.** Anscombeov kvartet pokazuje četiri
@@ -99,7 +106,7 @@ Računamo Pearsonovu korelaciju za svaki skup i stavljamo je uz opis obrasca.
 Rezultati su gotovo jednaki, dok graf iz prethodnog poglavlja pokazuje da su
 mehanizmi odnosa različiti (Anscombe, 1973).
 
-*Slika. Pearsonove korelacije Anscombeova kvarteta. Izrada autora prema @anscombe1973.*
+*Slika. Pearsonove korelacije Anscombeova kvarteta. Izrada autora.*
 
 Tablica potvrđuje da je Pearsonova korelacija vjerna linearnom sažetku koji je
 izračunala. Ne potvrđuje da je linearni sažetak prikladan za svaki skup.
