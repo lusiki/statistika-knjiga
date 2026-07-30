@@ -1,0 +1,321 @@
+# Plan prijenosa — from the kolegij lectures into the book spine
+
+Working document, 30 July 2026. Companion to [struktura-knjige.md](struktura-knjige.md),
+which owns scope and chapter order, and to `STYLE.md` H10, which owns what
+happens to code. This file owns **sequence** — what gets ported, in what order,
+and what each round is actually buying.
+
+Source: `https://lusiki.github.io/Osnove-statistike/` (13 lectures + practical
+project). This plan covers **only material that exists**. Chapters with no
+source are listed at the bottom and scheduled later.
+
+## Evidence base
+
+Inspected in detail: weeks **1, 2, 5, 8, 10** and the practical project.
+Weeks 3, 4, 6, 7, 9, 11, 12, 13 are sized by extrapolation from the syllabus
+plus the very consistent pattern in the five inspected lectures. **Confirm the
+numbers at port time** — every estimate below marked *(procj.)* is an
+extrapolation, not a measurement.
+
+Measured pattern across the five inspected lectures:
+
+| Lecture | Prose | Code share | Figures | Sections |
+|---|---|---|---|---|
+| W1 Zašto statistika | ~8 250 | **0 %** | none | 12 |
+| W2 Uvod u R | ~6 000 *(procj.)* | 35 % | few | 21 |
+| W5 Deskriptivna | ~8 500 | 30 % | **none** | 13 |
+| W8 Uzorkovanje | ~8 750 | 35–40 % | many | 21 |
+| W10 Hi-kvadrat | ~8 500 | 35 % | some | 21 |
+
+Three facts fall out of this table and they drive the whole plan.
+
+**A lecture is roughly 8 000–8 500 prose words.** That is larger than one
+chapter target and smaller than two. So every port is either a cut or an
+expansion, never a translation.
+
+**Week 1 contains no code at all.** The decision that Dio I is code-absent is
+not a constraint being imposed on the source — the source is already there.
+
+**Week 5 produces no figures**, deferring them to week 6. Chapter 4's figures
+were therefore all made fresh, and the same will be true elsewhere. **Figures do
+not come across in a port.**
+
+## The two shapes of a port
+
+| Shape | Weeks | Arithmetic | The work is |
+|---|---|---|---|
+| **One week → two chapters** | 1, 5, 8, 9 | source **short of** target | expansion |
+| **One week → one chapter** | 6, 7, 10, 11, 12, 13 | source **exceeds** target | selection and cutting |
+
+Chapter 16 is the exception that belongs to neither. Week 13 feeds one chapter,
+but that chapter is the summit at 6 000 words and needs the reveal that chapters
+14 and 15 were regression all along — which no lecture contains.
+
+Knowing which shape you are in before you start is most of the discipline. A
+cutting port that drifts into expansion produces a bloated chapter; an expansion
+port treated as a cut produces a stub.
+
+## The fixed overhead nobody budgets for
+
+The course supplies **two of the seven skeleton parts** — *Izgradnja pojma* and
+*Razrađeni primjer*. The vignette, the widget, the divljina box, both AI boxes,
+the summary, the terms and the four exercise tiers are new work in **every**
+chapter, sourced or not. Reckon roughly 800–1 200 words per chapter, so about
+14 000 words of fresh writing hidden inside the word "porting".
+
+The hardest single item is the **divljina box**, which needs a genuine published
+claim with a verifiable source. The lectures supply exactly one — the Berkeley
+admissions case in week 1, and `@bickel1975` is already in the bibliography.
+The other twelve sourced chapters need their divljina case found independently.
+Treat it as a parallel sourcing project, not a by-product of the port.
+
+## Rounds
+
+Each round is a coherent unit of risk. Do not start the next one until the
+current one renders and passes both linters.
+
+### Round 1 — the two ends of the spectrum
+
+**W1 → ch1 + ch2.  W2, W3, W4 → Dodatak A.**
+
+These two jobs are first because **neither requires the concept/code
+separation** that makes every other port hard. Week 1 is pure prose with no code
+to strip. Weeks 2–4 are pure code with no concept to extract. Everything in
+between demands the separation discipline, and it is better learned on jobs
+where it is not also being invented.
+
+Two further reasons to front-load the praktikum. It is the destination for
+everything H10 evicts from later chapters, so if it does not exist, evicted
+material silently stays put. And it already carries **two outstanding IOUs** —
+the *Računski* tiers of chapters 4 and 5 both promise a procedure "u
+praktikumu" against a 110-line stub.
+
+| Job | Source | Target | Shape |
+|---|---|---|---|
+| ch1 Zašto statistika | W1 §1–3 | 4 500 | expansion |
+| ch2 Mjerenje i dizajn | W1 §4–12 | 5 500 | expansion |
+| Dodatak A | W2+W3+W4 | 12 000 | heavy cut |
+
+W1's split point is clean. Sections 1–3 (izbor, zašto komunikolog treba
+statistiku, kad nas intuicija iznevjeri) are chapter 1. Sections 4–12
+(mjerenje, razine, pouzdanost, valjanost, varijable, eksperimentalni i
+neeksperimentalni dizajn, eksterna valjanost) are chapter 2.
+
+Watch for: the lecture is written for komunikolozi, and the book serves all of
+the social sciences, so the portal/TikTok framing needs widening at least once
+per chapter. Stevens 1946 is cited for measurement levels and is **not in
+references.bib** — add it or attribute it to a literature. Week 4's loops,
+`purrr::map` and the DRY principle have no place in the book and should be cut
+rather than condensed.
+
+Round 1 output: three chapters and the appendix, plus a validated code-absent
+register.
+
+#### Round 1 — done, 30 July 2026
+
+| Job | Target | Delivered | Shape held |
+|---|---|---|---|
+| ch1 Zašto statistika | 4 500 | ~4 080 | expansion |
+| ch2 Mjerenje i dizajn | 5 500 | ~4 800 | expansion |
+| Dodatak A | 12 000 | ~5 100 | heavy cut |
+
+Both linters clean on all three; all three render; every executed block in the
+appendix runs end to end. Provenance is recorded in each file's header comment.
+
+**The code-absent register was not clean and is now.** `01-zasto-statistika`
+carried an `echo: true` block in its worked example, which the ladder forbids in
+Dio I. It is back in the plumbing register. Nothing else in Dio I had visible
+code, and the rendered HTML now shows zero visible code cells in chapters 1 and
+2 against 137 in the appendix.
+
+**Dodatak A needed a document-level `execute: echo: true`.** The project default
+flipped to `echo: false` when H10 landed, which silently applied to the one file
+in the book whose entire purpose is showing code. Before the fix the appendix
+rendered with every block hidden.
+
+Three bibliography debts were paid rather than the one the plan anticipated.
+`stevens1946` and `wickham2023` were on the list; `tversky1973` was not, and was
+needed once the availability heuristic came across from W1 §3. All three were
+verified against Crossref or the publisher record, none from memory. The
+Cronbach alpha threshold in W1 §6 was **not** ported, because no source for it
+exists in the bib; the prose names the convention without the number.
+
+Two items are short and both are known.
+
+The appendix is at roughly 5 100 of 12 000 words. Part of that gap is not round
+1 work at all, since round 3 sends W6's ggplot2 mechanics here, and the plotting
+section is currently only as deep as the chapter 5 IOU requires. The rest is
+real, and the honest description is that W2–W4 were cut harder than the plan
+budgeted. Loops, purrr, DRY and multi-file reading were cut outright per the
+plan and are not coming back. What would genuinely thicken it is more worked
+cleaning cases and more explanation per concept.
+
+The chapters land under target because the fixed overhead absorbed less than
+expected once the argument sections carried their own weight. Neither reads
+thin, and padding to hit a number would be the wrong repair.
+
+**`conventions.json` is now due for ratification.** The structure linter flags
+both chapters for section count against an `essay` band of 6 to 9, while their
+body evenness (0,19 and 0,23) is the best in the book, ahead of chapter 4 at
+0,27. STYLE.md S7 says the bands are placeholders until four or five chapters
+exist and are then measured. Four now do. The band appears to have been set
+before the seven-part skeleton was populated, since the skeleton alone spends
+five sections and leaves only four for argument, which no 5 500-word chapter can
+respect. Measure and ratify before round 2, or the same flag fires on every
+chapter from here on.
+
+**Two new IOUs point at the praktikum.** Chapters 1 and 2 now end their
+*Računski* tier the way chapters 4 and 5 already did. All four are discharged in
+the appendix's closing section, each as a runnable recipe. Chapter 1's *Računski*
+tier also stopped assuming an R installation, which H10 forbids; it now works
+from the constructed portal example and the chapter's own rendered table.
+
+### Round 2 — the demonstration register
+
+**W8 → ch8 + ch9.**
+
+The highest-value round in the plan, taken early because it is also the highest
+risk. Chapter 8 is the pedagogical hinge, and the claim that the whole
+inferential apparatus is a readable loop has not been tested anywhere yet.
+
+Week 8 is the richest lecture in the course and it gives more than prose. It
+already contains, as working R, the specifications for the book's **two
+flagship widgets**:
+
+- the CLT demonstration at n = 5, 15, 30, 100 over a skewed variable → **w08
+  Stroj za CLT**
+- the 100 repeated confidence intervals with a coverage tally → **w09 Hvatač
+  intervala**
+
+So porting week 8 converts a widget *design* problem into a widget
+*translation* problem, R simulation into OJS. That is the single biggest
+unblocking effect available anywhere in the plan, and the widget build order in
+struktura-knjige.md already puts these two first.
+
+The lecture also names its own split point. Sections 1–10 are chapter 8;
+sections 11–18 are chapter 9.
+
+`media_population.csv` — 50 000 simulated adults with **known** parameters
+(mean trust 4,87, SD 1,98, mean daily minutes 174, portal share 0,304) — should
+become a book dataset beside `anketa_mreze`, registered in Dodatak C and
+labelled simulated under the same rule as `R/podaci-nastavni.R`. A population
+whose truth is known is exactly what Dio III needs, and the book does not have
+one yet.
+
+Watch for: `t.test()` appears here in week 8, eight chapters before the book
+introduces it. Under the ladder Dio III is the demonstration register, so the
+t-test call belongs in chapter 14, not chapter 9. Bootstrap stays — the plan
+already makes it "the reader's own invention" in chapter 9.
+
+### Round 3 — closing Dio II
+
+**W6 → finish ch5.  W5 §9 → ch6.**
+
+Chapter 5 is a partial draft at ~1 050 of 4 500 words with one stub section, so
+this round finishes what is already started rather than opening something new.
+Week 6's ggplot2 mechanics go to Dodatak A, which by now exists.
+
+Chapter 6 is the plan's most under-resourced sourced chapter and the numbers say
+so plainly. Week 5 §9 is about **1 500 words** of correlation against a **4 000
+word** target. Budget for enrichment from the outset rather than discovering the
+deficit mid-draft. Week 10 §13 (Simpson's paradox, stratified analysis) is a
+natural donor — the plan already has Simpson returning quantitatively in
+chapter 6.
+
+### Round 4 — the instrument batch
+
+**W10 → ch13.  W11 → ch14.  W12 → ch15.**
+
+Three chapters of near-identical shape, all cutting ports, all in the
+one-call instrument register. Establish the pattern on chapter 13 and the other
+two follow it mechanically. This is the round where the port feels fastest.
+
+Week 10 is ~8 500 words against a 4 500 word chapter, so **roughly half is
+cut**. Out of scope per the plan: McNemar, Benjamini-Hochberg, odds ratios,
+Yates correction. §13 Simpson goes to chapter 6 (see round 3), not here.
+
+Watch for: chapter 14 must teach the three t-test variants as one linear model
+with a binary predictor, and chapter 15 ANOVA as the linear model with a
+categorical predictor. The lectures teach them as separate procedures. **This is
+a restructuring, not a port**, and it is the one place in round 4 where the
+source's organisation actively fights the book's.
+
+### Round 5 — completing Dio III and Dio IV
+
+**W7 → ch7.  W9 → ch10 + ch11.**
+
+Week 7 is a trimmed port and the plan is explicit that everything not used later
+is cut. Week 9 splits, so it is an expansion port. The Cohen's d and power
+material becomes chapter 11.
+
+By the end of this round the demonstration and evidence registers are both
+exercised and Dio III and Dio IV are complete except for chapter 12.
+
+### Round 6 — the summit and the capstone
+
+**W13 → ch16.  Practical project → ch18.**
+
+Chapter 16 is 6 000 words, the largest in the book, and week 13 supplies perhaps
+two thirds of it. The missing third is structural — the reveal that chapters 14
+and 15 were regression all along, prediction against explanation, the bridge to
+chapter 17, and the causal seed from chapter 2 harvested. None of that exists in
+a lecture on linear regression. Cook's distance and multicollinearity are
+probably cuts.
+
+Chapter 18 is a **transformation, not a port**. The practical project assumes
+students write `.qmd` files with reproducible R and ggplot2; H10 says the reader
+never writes code. What survives is the project's spine — its three scenarios,
+its five assessment criteria (question, analysis, visualisation,
+interpretation, reproducibility) and its stage sequence. Those become the
+chapter's narrative. The rubric itself is better placed in Dodatak F and in the
+`kolegij` profile, where it is still an assessment instrument.
+
+## Per-round procedure
+
+Unchanged for every job above.
+
+1. **Name the shape and the register before writing.** Cut or expansion; which
+   part of the ladder in struktura-knjige.md.
+2. **Three-way split of the lecture.** Concept prose → *Izgradnja pojma*. The
+   live demo → the widget, or a figure. One representative analysis → the
+   *Razrađeni primjer* receipt at twelve lines with cosmetics evicted. R
+   mechanics → Dodatak A. Everything else is cut.
+3. **Write the five missing skeleton parts.** Vignette, divljina, both AI boxes,
+   four exercise tiers. The *Računski* tier assumes no R installation.
+4. **Record provenance in the chapter header** the way chapter 4 does. Navarro
+   is the course's primary reference and open decision 5 tracks ShareAlike
+   exposure. **Per-chapter at port time is far cheaper than an audit of
+   eighteen chapters later.**
+5. **Relabel every dataset as simulated**, following `R/podaci-nastavni.R`, and
+   register it in Dodatak C. No course dataset is empirical.
+6. **Widen the komunikologija framing** at least once per chapter.
+7. Render, run both linters, read it aloud.
+
+## Bibliography debts
+
+Not in `references.bib` and needed by the rounds above. Never add from memory.
+
+| Needed for | Work |
+|---|---|
+| ch2, round 1 | Stevens 1946, measurement levels |
+| Dio III approach, round 2 | Ismay & Kim, *ModernDive* — simulation-first inference, i.e. design principle 1 |
+| Dodatak A, round 1 | Wickham & Grolemund, *R for Data Science* |
+| ch5, already outstanding | Cleveland & McGill, graphical perception |
+| ch5, already outstanding | Wilkinson, *The Grammar of Graphics* |
+
+## Not available, scheduled later
+
+No lecture source exists for any of these, and none is a port.
+
+- **ch3 Kako brojke zavode** — the book's public face
+- **ch12 Kriza i obnova** — the replication crisis
+- **ch17 Doba algoritama**
+- **Predgovor** — drafted, not ported
+- **Dodatak B** jamovi, **C** katalog, **D** koji test, **E** rječnik, **F**
+  protokol
+- **17 divljina boxes** minus the one Berkeley case week 1 supplies
+
+Note that all three chapters carrying the book's contemporary identity are in
+this list. The port delivers the spine and none of the identity, so the port
+wave will feel like progress while leaving the hardest writing untouched. Plan
+the calendar accordingly.
