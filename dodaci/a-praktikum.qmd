@@ -2,22 +2,41 @@
 title: "R praktikum"
 # Praktikum je jedini dio knjige u kojem se kod čita, pa nije presavijen.
 code-fold: false
+# Projekt globalno postavlja `echo: false` (vidi _quarto.yml i STYLE.md H10),
+# što bi ovdje sakrilo upravo ono zbog čega dodatak postoji. Praktikum je
+# sankcionirana iznimka jer je jedino mjesto u knjizi koje uči sintaksu.
+execute:
+  echo: true
 ---
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — početni tijek rada i jezgra tidyversea
-  IZVOR:   tjedni 2 do 4, sažeto
+  STATUS:  cjelovit nacrt — tjedni 2 do 4 preneseni, kod vidljiv
+  IZVOR:   tjedni 2, 3 i 4, sažeto
   OPSEG:   ~12000 riječi
-  NAPOMENA: Jedini dio knjige u kojem kod NIJE presavijen (code-fold: false gore).
+  NAPOMENA: Jedini dio knjige u kojem kod NIJE presavijen (code-fold: false
+  gore) i jedini u kojem se uči sintaksa (STYLE.md H10).
 
   SADRŽAJ (iz plana):
   Instalacija, glagoli paketa tidyverse, uvoz i čišćenje podataka, pisanje funkcija, reproducibilne skripte. Pisano tako da se može čitati samostalno.
-===================================================================== -->
 
-Praktikum je radni pratitelj knjige. Poglavlja se mogu čitati bez otvaranja
-koda, dok ovaj dodatak pokazuje kako se analiza reproducira u R-u. Primjeri
-polaze od malih objekata, zatim prelaze na tablice, čišćenje, grupiranje,
-vizualizaciju i funkcije.
+  PODRIJETLO (runda 1, notes/plan-prijenosa.md):
+  1. Preneseni su tjedni 2, 3 i 4. Redoslijed izlaganja slijedi izvor, proza je
+     izvorna, a svi su primjeri preračunati na knjižni skup `anketa_mreze`
+     umjesto na nastavni `social_media_survey.csv`, koji knjiga nema.
+  2. IZOSTAVLJENO prema uputi plana: for-petlje, purrr (map, walk, map2, imap,
+     possibly), načelo DRY i učitavanje više datoteka odjednom. Ti sadržaji
+     pripadaju programiranju, a ne čitanju koda, pa su izrezani, a ne sažeti.
+  3. Wickham, Çetinkaya-Rundel i Grolemund dobili su unos wickham2023,
+     provjeren preko OpenLibraryja i stranice knjige. Plan ga je vodio kao dug
+     rundi 1.
+  4. Odjeljak „Postupci iz poglavlja" namiruje uputnice iz poglavlja 1, 2, 4
+     i 5. Poglavlja 4 i 5 nosila su ih od prije, a poglavlja 1 i 2 dobila su ih
+     u ovoj rundi.
+  5. Sustavna mehanika paketa ggplot2 dolazi iz tjedna 6 i pripada rundi 3.
+     Ovdje je samo onoliko crtanja koliko traži uputnica iz poglavlja 5.
+  6. Dodan je `execute: echo: true` u zaglavlju. Bez toga bi projektni
+     `echo: false` sakrio sav kod u dodatku koji postoji da bi se kod vidio.
+===================================================================== -->
 
 ```{r}
 #| include: false
@@ -25,11 +44,54 @@ vizualizaciju i funkcije.
 source("R/setup.R")
 ```
 
-## Radni prostor koji se može ponoviti
+Praktikum je radni pratitelj knjige. Poglavlja se mogu čitati bez otvaranja
+koda, a ovaj dodatak pokazuje kako se iste analize izvode u R-u. Napisan je
+tako da se može čitati samostalno, od prve naredbe do gotove skripte, i ne
+pretpostavlja nikakvo prethodno iskustvo s programiranjem.
 
-Analizu pišemo u skripti, a ne kao niz naredbi koje ostaju samo u konzoli.
-Projektna mapa čuva podatke, kod i rezultate na predvidljivim mjestima.
-Relativne putanje omogućuju da isti projekt radi na drugom računalu.
+## Kako čitati ovaj dodatak
+
+Knjiga i praktikum imaju različite zadaće i vrijedi ih držati odvojenima.
+Poglavlja uče čitanje koda, jer je čitanje način na koji tvrdnja postaje
+provjerljiva. Praktikum uči pisanje, za čitatelja koji želi analizu ponoviti
+sam. Nijedan zadatak u knjizi ne pretpostavlja da ste prošli kroz ovaj
+dodatak, pa je on ponuda, a ne uvjet.
+
+Primjeri idu od malih objekata prema tablicama, zatim prema čišćenju,
+grupiranju, preoblikovanju i grafovima, i završavaju skriptom koju možete
+predati zajedno s rezultatima. Gotovo svi rade na simuliranoj anketi
+`anketa_mreze`, koju knjiga koristi u poglavljima o opisivanju podataka. Skup
+ima 300 ispitanika i pet varijabli, a proizveden je kodom uz fiksno sjeme, pa
+nije nalaz o stvarnoj populaciji.
+
+Preporučeni način čitanja je uz otvoren R. Kod nemojte samo gledati nego ga
+prepišite i pokrenite, a zatim promijenite neki broj ili ime stupca i
+pogledajte što se dogodi. Razlika između čitanja i pisanja koda upravo je u
+tome što se pisanje uči jedino kroz pogreške koje sami napravite i popravite.
+
+Za dublji rad s podacima izvan opsega ovog dodatka najkorisniji je slobodno
+dostupan priručnik *R for Data Science*, koji cijeli pristup tidyversea
+razrađuje sustavnije nego što je ovdje moguće [@wickham2023]. Čitatelju koji
+uopće ne želi pisati kod Dodatak B nudi put kroz softver s izbornicima.
+
+## Alat i radni prostor
+
+Za rad su potrebna dva programa koja se instaliraju odvojeno. R je sam jezik i
+sustav za statističko računanje, dakle motor koji izvršava naredbe. Njegovo je
+vlastito sučelje vrlo štedljivo, pa se u praksi ne koristi izravno. Uređivačko
+okruženje daje uređivač teksta s bojanjem sintakse, konzolu u kojoj se kod
+izvršava, prozor za grafove i pregled objekata koje ste stvorili. Uobičajeni
+izbori su Positron i RStudio, oba iz istog razvojnog tima i oba besplatna.
+
+Radni tok je u svakom od njih isti. Kod se piše u uređivaču, označi se redak
+ili više njih, a kombinacija tipki `Ctrl` i `Enter` šalje označeno u konzolu.
+Rezultat se ispisuje odmah ispod. Taj se postupak tijekom jedne analize ponovi
+stotinama puta i vrlo brzo postane automatski.
+
+Prije prvog koda vrijedi urediti mjesto na kojem će analiza živjeti. Analiza
+se piše u skripti, a ne kao niz naredbi koje ostaju samo u konzoli, jer se
+skripta može ponovno pokrenuti, poslati kolegi i priložiti uz rad. Projektna
+mapa drži podatke, kod i rezultate na predvidljivim mjestima.
 
 ```{r}
 #| eval: false
@@ -38,73 +100,1468 @@ dir.create("data", showWarnings = FALSE)
 dir.create("outputs", showWarnings = FALSE)
 ```
 
-Objekt nastaje operatorom pridruživanja. Ime treba opisivati sadržaj, dok
-komentar objašnjava razlog odluke koji se ne vidi iz samog koda.
+Funkcija `dir.create()` stvara mapu, a argument `showWarnings = FALSE` sprečava
+upozorenje ako mapa već postoji.
+
+Mapa u kojoj R traži datoteke naziva se radnim direktorijem i može se
+provjeriti funkcijom `getwd()`. Uređivačka okruženja ga postavljaju na mapu
+projekta kada projekt otvorite kao projekt, a ne kao pojedinačnu datoteku.
+Odatle slijedi pravilo koje štedi mnogo živaca. Putanje pišite relativno prema
+mapi projekta, dakle `"data/anketa.csv"`, a nikada apsolutno, dakle nikada
+`"C:/Users/ime/Dokumenti/faks/data/anketa.csv"`. Apsolutna putanja radi samo na
+vašem računalu, jer na tuđem ne postoji mapa s vašim imenom. Relativna radi
+svugdje gdje se prenese cijela mapa projekta.
+
+Preostaje učitati alate. Sav kod u ovom dodatku pretpostavlja da je na početku
+sesije izvršen sljedeći redak, koji učitava zbirku paketa opisanu niže u
+odjeljku o paketima. Ovo je jedini redak koji morate pokrenuti prije svih
+ostalih primjera.
 
 ```{r}
-stope_odgovora <- c(0.42, 0.47, 0.45, 0.51)
-mean(stope_odgovora)
+#| eval: false
+library(tidyverse)
 ```
+
+```{r}
+#| include: false
+# Pogonsko učitavanje. Redak iznad prikazan je čitatelju jer je to ono što on
+# doista upisuje, a ne izvršava se jer okruženje u kojem se knjiga gradi
+# namjerno drži uzak skup paketa. Ovdje se učitava točno ono što primjeri u
+# ovom dodatku izvršavaju, a što R/setup.R već nije učinio.
+library(stringr)
+library(forcats)
+```
+
+## Prve naredbe i objekti
+
+Najjednostavniji način da počnete jest da R tretirate kao kalkulator.
+
+```{r}
+10 + 25
+144 / 12
+2^10
+```
+
+Redak koji počinje znakom `#` komentar je i R ga potpuno zanemaruje. Komentari
+služe vama i vašim čitateljima da objasnite zašto nešto radite, a ne što
+radite, jer se ovo drugo ionako vidi iz koda.
+
+R poštuje uobičajeni redoslijed računskih operacija, pa se množenje i dijeljenje
+izvode prije zbrajanja i oduzimanja. Zagrade taj redoslijed mijenjaju i vrijedi
+ih pisati uvijek kada izraz nije očit na prvi pogled.
+
+```{r}
+5 + 3 * 2
+(5 + 3) * 2
+```
+
+Nekoliko računskih funkcija pojavljuje se stalno.
+
+```{r}
+sqrt(144)
+abs(-42)
+round(3.14159, 2)
+log(100)
+```
+
+Funkcija `sqrt()` računa drugi korijen, `abs()` apsolutnu vrijednost, `round()`
+zaokružuje na zadani broj decimala, a `log()` bez drugog argumenta računa
+prirodni logaritam. Logaritam se u knjizi pojavljuje u poglavlju o sažimanju
+podataka, gdje raspodjelu s dugim desnim repom pretvara u simetričniju.
+
+Prava snaga počinje kada rezultat pohranimo i upotrijebimo poslije. Pohranjena
+vrijednost naziva se objektom, a stvara se operatorom pridruživanja `<-`, koji
+se čita kao „spremi desnu stranu pod imenom s lijeve strane".
+
+```{r}
+n_ispitanika <- 300
+prosjek_minuta <- 87.3
+
+ukupno_minuta <- n_ispitanika * prosjek_minuta
+ukupno_minuta
+```
+
+Stvaranje objekta ne ispisuje ništa. Da biste vidjeli sadržaj, upišite njegovo
+ime samo za sebe.
+
+Imena imaju stroga pravila i mekše navike. Ime mora počinjati slovom, ne smije
+sadržavati razmake ni posebne znakove osim točke i podvlake, a velika i mala
+slova razlikuju se, pa su `prosjek` i `Prosjek` dva različita objekta. Navika
+koju knjiga slijedi jest da su riječi odvojene podvlakom i sve je malim slovima,
+kao u `prosjek_minuta`. Ta je konvencija standard u zajednici oko tidyversea i
+čini kod čitljivijim od zgusnutih ili miješanih oblika.
+
+Imena birajte opisno. Objekt nazvan `x` radi jednako dobro kao objekt nazvan
+`prosjek_minuta`, ali za dva tjedna nećete znati što je bio. Izbjegavajte i
+imena koja se poklapaju s postojećim funkcijama, poput `mean`, `sum` ili `data`,
+jer objekt tada zaklanja funkciju i proizvodi poruke o greškama koje je teško
+razumjeti. Rezervirane riječi jezika, među kojima su `TRUE`, `FALSE`, `NULL`,
+`NA`, `if`, `else` i `function`, uopće se ne mogu upotrijebiti kao imena.
+
+Jedna osobina zaslužuje oprez. Nova dodjela postojećem imenu briše staru
+vrijednost bez ikakva upozorenja.
+
+```{r}
+temperatura <- 22
+temperatura <- 35
+temperatura
+```
+
+R vas neće pitati jeste li sigurni. Zbog toga isti objekt ne treba
+upotrebljavati za različite svrhe unutar iste analize. Ako trebate temperaturu
+zraka i temperaturu vode, napravite `temp_zraka` i `temp_vode`.
+
+## Vektori
+
+U statistici gotovo nikada ne radimo s jednim brojem. Najjednostavnija
+struktura za više vrijednosti jest vektor, uređeni niz vrijednosti istog tipa,
+koji se stvara funkcijom `c()`.
+
+```{r}
+minute <- c(95, 22, 112, 45, 78, 8, 135, 55)
+minute
+
+skupine <- c("mlađi", "stariji", "mlađi", "srednji",
+             "mlađi", "stariji", "mlađi", "srednji")
+skupine
+```
+
+Tekstualne vrijednosti pišu se u navodnicima, brojčane ne.
+
+Najvažnije svojstvo vektora jest to što se operacija automatski primjenjuje na
+svaki element. To se naziva vektorizacijom.
+
+```{r}
+minute / 60
+minute * 7
+minute - mean(minute)
+```
+
+Kada napišete `minute / 60`, R ne dijeli vektor kao cjelinu nego svaki njegov
+element, i vraća novi vektor iste duljine. Zahvaljujući tome jedna naredba
+preoblikuje tisuće vrijednosti jednako lako kao osam.
+
+Druga skupina funkcija radi obrnuto i cijeli vektor sažima u jedan broj.
+
+```{r}
+length(minute)
+mean(minute)
+median(minute)
+sd(minute)
+range(minute)
+sum(minute)
+```
+
+Funkcija `length()` vraća broj elemenata, `mean()` aritmetičku sredinu,
+`median()` medijan, `sd()` standardnu devijaciju, `range()` najmanju i najveću
+vrijednost, a `sum()` zbroj. Značenje svake od tih mjera razrađuje poglavlje o
+sažimanju podataka.
+
+Pojedinim elementima pristupa se uglatim zagradama.
+
+```{r}
+minute[3]
+minute[2:5]
+minute[minute > 100]
+sum(minute > 100)
+```
+
+Posljednja dva retka zaslužuju objašnjenje jer se obrazac ponavlja kroz cijeli
+R. Izraz `minute > 100` proizvodi logički vektor, dakle niz vrijednosti `TRUE` i
+`FALSE`. Stavljen u uglate zagrade, taj vektor bira samo elemente za koje vrijedi
+`TRUE`. Predan funkciji `sum()`, on se prebrojava, jer R vrijednost `TRUE` računa
+kao jedinicu, a `FALSE` kao nulu. Zbrajanje logičkog vektora zato je najkraći
+način da odgovorite na pitanje koliko ih zadovoljava uvjet.
+
+Brojanje počinje od jedinice. Prvi element je `minute[1]`, ne `minute[0]`. Ako
+ste ranije radili u jezicima koji broje od nule, ovo je najčešći izvor zabune.
+
+Za stvaranje nizova i ponavljanja korisne su dvije funkcije.
+
+```{r}
+seq(from = 0, to = 100, by = 25)
+rep(c("A", "B"), times = 3)
+rep(c("A", "B"), each = 3)
+```
+
+Argument `times` ponavlja cijeli vektor, a `each` svaki element zasebno.
+
+## Tipovi podataka
+
+Svaka vrijednost ima tip koji određuje što se s njom smije raditi. Četiri su
+tipa u praksi važna.
+
+Brojčani tip obuhvaća sve brojeve. Tekstualni tip označava se navodnicima i s
+njim se ne može računati, pa se tekstovi spajaju funkcijom `paste()` umjesto
+zbrajanja. Logički tip ima samo vrijednosti `TRUE` i `FALSE` i nastaje
+usporedbama. Faktorski tip služi za kategorijalne varijable i pamti popis
+dopuštenih razina.
+
+```{r}
+class(42)
+class("TikTok")
+class(TRUE)
+paste0("n = ", 300)
+```
+
+Usporedbe proizvode logičke vrijednosti i koriste vlastite operatore.
+
+```{r}
+10 > 5
+10 == 10
+10 != 5
+```
+
+Razlika između jednog i dva znaka jednakosti izvor je vrlo čestih pogrešaka.
+Jedan znak `=` pridružuje vrijednost, dva znaka `==` provjeravaju jednakost i
+vraćaju `TRUE` ili `FALSE`.
+
+Faktor je način na koji R prikazuje kategorijalne varijable, dakle nominalne i
+ordinalne mjere iz poglavlja o mjerenju. Uz vrijednosti pamti i popis razina, pa
+kategorije mogu imati zadani redoslijed koji nije abecedni.
+
+```{r}
+obrazovanje <- factor(
+  c("srednja", "prvostupnik", "magistar", "srednja", "magistar"),
+  levels = c("srednja", "prvostupnik", "magistar", "doktor"),
+  ordered = TRUE
+)
+obrazovanje
+levels(obrazovanje)
+```
+
+Razina `doktor` postoji u popisu iako je nitko nema. To nije greška nego
+korisno svojstvo, jer tablica frekvencija tada pokazuje i praznu kategoriju,
+umjesto da se pravi da ne postoji.
+
+Tipove je moguće provjeriti i pretvarati.
+
+```{r}
+tekst_broj <- "42"
+class(tekst_broj)
+
+pravi_broj <- as.numeric(tekst_broj)
+pravi_broj + 10
+```
+
+Pretvorba je važna pri uvozu podataka. Stupac s brojevima u kojem se negdje
+pojavljuje riječ umjesto prazne ćelije bit će učitan kao tekst, pa se s njim
+neće moći računati dok ga ne pretvorite.
+
+## Nedostajuće vrijednosti
+
+Stvarni podaci gotovo nikada nisu potpuni. Ispitanik preskoči pitanje, uređaj ne
+zabilježi mjerenje, datoteka dođe s praznom ćelijom. R za to ima posebnu oznaku
+`NA`, koja se ponaša drukčije od svega ostaloga i zaslužuje pažnju od prvog dana.
+
+Pravilo je jednostavno i nemilosrdno, jer svaka operacija koja uključuje `NA`
+vraća `NA`.
+
+```{r}
+ocjene <- c(4, 5, NA, 3, 4)
+mean(ocjene)
+```
+
+Rezultat nije broj. R ne pretpostavlja da nedostajuću vrijednost smijete
+zanemariti, jer ne zna kolika bi bila, a prosjek s njom i bez nje nije isti.
+Prisiljava vas da odluku donesete svjesno. Najčešća odluka izriče se argumentom
+`na.rm = TRUE`, koji nedostajuće vrijednosti izbacuje iz izračuna.
+
+```{r}
+mean(ocjene, na.rm = TRUE)
+sd(ocjene, na.rm = TRUE)
+```
+
+Postojanje nedostajućih vrijednosti provjerava se funkcijom `is.na()`, nikada
+usporedbom.
+
+```{r}
+is.na(ocjene)
+sum(is.na(ocjene))
+ocjene == NA
+```
+
+Posljednji redak vraća sam `NA`, a ne `TRUE` ili `FALSE`. Razlog je logičan kada
+se izrekne riječima. Ako ne znate koliko je netko visok i ne znate koliko je
+netko drugi visok, ne možete reći jesu li jednako visoki, pa je odgovor
+„ne znam", a ne „ne".
+
+U tablici se nedostajuće vrijednosti prebrojavaju po svim stupcima odjednom,
+što je prvi korak pri svakom novom skupu podataka.
+
+```{r}
+anketa_mreze |>
+  summarise(across(everything(), \(x) sum(is.na(x))))
+```
+
+Simulirani skup nema nedostajućih vrijednosti, a stvarni podaci gotovo uvijek
+imaju. Nikada nemojte pretpostaviti da ih nema, jer i uredna datoteka nakon
+uvoza zna proizvesti `NA` na neočekivanim mjestima, primjerice ondje gdje je
+netko upisao razmak umjesto broja.
+
+Za uklanjanje redaka s nedostajućim vrijednostima služi `drop_na()`, koja bez
+argumenata briše svaki redak s bilo kojim `NA`, a s imenom stupca samo one
+kojima nedostaje ta vrijednost.
+
+```{r}
+primjer_na <- tibble(
+  id = 1:5,
+  minute = c(60, NA, 120, 45, NA),
+  povjerenje = c(7, 6, NA, 5, 8)
+)
+
+drop_na(primjer_na, minute)
+drop_na(primjer_na)
+```
+
+Razlika među ta dva poziva veća je nego što izgleda. Prvi zadržava tri retka,
+drugi samo dva, jer briše i onaj kojemu nedostaje druga varijabla. Brisanje po
+cijeloj tablici zato lako odbaci mnogo više podataka nego što ste namjeravali,
+osobito kada tablica ima mnogo stupaca.
+
+Obrnut postupak pretvara posebne oznake u `NA`, što treba svaki put kada je
+nedostatak podatka zapisan kao vrijednost.
+
+```{r}
+sirovo <- c(60, 120, -99, 45, -99)
+na_if(sirovo, -99)
+```
+
+Odluka o postupanju s nedostajućim vrijednostima nije tehnička. Izbacivanje
+ispitanika koji nisu odgovorili mijenja sastav uzorka, a razlozi zbog kojih
+netko nije odgovorio obično su povezani s onim što se ispituje, kako pokazuje
+poglavlje o mjerenju i istraživačkom dizajnu. Argument `na.rm = TRUE` rješava
+računski problem i ostavlja sadržajni otvorenim, pa uz svaki rezultat vrijedi
+zabilježiti koliko je opažanja u njega ušlo.
 
 ## Tablica i cjevovod
 
-Tibble je tablica u kojoj stupci predstavljaju varijable, a redci opažanja.
-Cjevovod šalje rezultat jednog koraka u sljedeći i time kod približava
-redoslijedu analitičkog objašnjenja.
+Vektor sadrži vrijednosti istog tipa, a stvarni podaci imaju i brojeve i tekst i
+kategorije za istog ispitanika. Za njih služi tablica, koju u tidyverseu
+predstavlja tibble. Svaki redak je jedno opažanje, svaki stupac jedna varijabla,
+a stupci mogu biti različitih tipova.
 
 ```{r}
 anketa <- tibble(
-  skupina = c("A", "A", "B", "B"),
-  rezultat = c(4, 5, 6, 7)
+  id = 1:6,
+  dob = c(19, 52, 21, 35, 23, 61),
+  skupina = c("mlađi", "stariji", "mlađi", "srednji", "mlađi", "stariji"),
+  minute = c(95, 22, 112, 45, 78, 8)
 )
 
+anketa
+```
+
+Ispis tibblea odmah pokazuje tip svakog stupca ispod njegova imena, gdje `<int>`
+označava cijele brojeve, `<dbl>` decimalne, a `<chr>` tekst. Uz to ispisuje samo
+prvih deset redaka, pa vam velika tablica ne poplavi konzolu.
+
+Pojedinom stupcu pristupa se znakom `$`.
+
+```{r}
+anketa$minute
+mean(anketa$minute)
+```
+
+Time dolazimo do jednog od najvažnijih obrazaca u cijelom pristupu. Operator
+`|>`, koji se naziva cjevovodom, uzima rezultat lijeve strane i predaje ga kao
+prvi argument funkciji s desne strane. Čita se kao „pa onda".
+
+Zamislite da trebate uzeti tablicu, zadržati ispitanike mlađe od 30 godina i
+izračunati njihovo prosječno vrijeme. Bez cjevovoda to se piše na dva načina i
+oba su nezgrapna.
+
+```{r}
+# Ugniježđeno, čita se iznutra prema van
+mean(filter(anketa, dob < 30)$minute)
+
+# S međuobjektom koji zapravo ne treba
+mladi <- filter(anketa, dob < 30)
+mean(mladi$minute)
+```
+
+Cjevovod rješava oboje.
+
+```{r}
 anketa |>
-  group_by(skupina) |>
+  filter(dob < 30) |>
+  pull(minute) |>
+  mean()
+```
+
+Ovaj se kod čita odozgo prema dolje kao rečenica. Uzmi anketu, pa onda zadrži
+retke u kojima je dob manja od 30, pa onda izvuci stupac s minutama, pa onda
+izračunaj prosjek. Redoslijed pisanja odgovara redoslijedu razmišljanja, što je
+razlog zbog kojeg knjiga taj oblik koristi svugdje.
+
+Funkcija `pull()` izvlači jedan stupac kao vektor, čime radi isto što i `$`, ali
+se uklapa u cjevovod.
+
+## Paketi
+
+R sam po sebi dolazi s temeljnim funkcijama, a najveći dio korisnog rada obavlja
+se pomoću paketa koje je razvila zajednica. Paket je zbirka funkcija, podataka i
+dokumentacije koju je netko napisao i objavio.
+
+Ovaj se dodatak oslanja na tidyverse, koji nije jedan paket nego skup paketa
+sa zajedničkom filozofijom. Među njima su ggplot2 za grafove, dplyr za obradu
+podataka, tidyr za preoblikovanje, readr za uvoz, tibble za tablice, stringr za
+tekst i forcats za faktore.
+
+Paket se instalira jednom, a učitava pri svakom pokretanju R-a. Instalacija je
+poput kupnje knjige, a učitavanje poput njezina otvaranja.
+
+```{r}
+#| eval: false
+# Jednom, u konzoli
+install.packages("tidyverse")
+
+# Na početku svake skripte
+library(tidyverse)
+```
+
+Naredbu `install.packages()` pokrećite u konzoli, a ne u skripti, jer ne želite
+da se paket iznova instalira pri svakom pokretanju analize. Naredba `library()`
+pripada vrhu skripte, jer R mora znati koje pakete koristite prije nego što
+naiđe na njihove funkcije.
+
+Prva instalacija tidyversea traje nekoliko minuta jer povlači mnogo paketa
+odjednom. To je uobičajeno i ponavlja se samo pri nadogradnji.
+
+## Uvoz i prvi pogled
+
+Najčešći format za podatke je CSV, obična tekstualna datoteka u kojoj su
+vrijednosti odvojene zarezima. Za uvoz služi funkcija `read_csv()` iz paketa
+readr.
+
+```{r}
+#| eval: false
+anketa <- read_csv("data/anketa.csv")
+```
+
+Obratite pozornost na podvlaku. Funkcija `read_csv()` s podvlakom brža je od
+starije `read.csv()` s točkom, vraća tibble i informativnije javlja kako je
+protumačila stupce. Spremanje ide obrnutim putem funkcijom `write_csv()`, pri
+čemu ciljna mapa mora postojati unaprijed.
+
+```{r}
+#| eval: false
+write_csv(sazetak, "outputs/sazetak.csv")
+```
+
+Skup na kojem radi ostatak ovog dodatka ne dolazi iz datoteke nego iz skripte
+`R/podaci-nastavni.R`, koja ga proizvodi uz fiksno sjeme. Takav postupak ima
+prednost da se podaci nikada ne mogu razići s kodom, i knjiga ga koristi upravo
+zato što svi njezini nastavni skupovi moraju biti simulirani i označeni kao
+takvi.
+
+Kada dobijete nove podatke, prvo ih pogledajte. Nikada ne počinjite analizu prije
+nego što znate koliko redaka i stupaca imate, kojeg su tipa i kako izgledaju
+prve vrijednosti.
+
+```{r}
+glimpse(anketa_mreze)
+```
+
+Funkcija `glimpse()` na jednom zaslonu pokazuje broj redaka i stupaca, ime i tip
+svakog stupca te prve vrijednosti. Za druge poglede služe još tri funkcije.
+
+```{r}
+nrow(anketa_mreze)
+names(anketa_mreze)
+head(anketa_mreze, 3)
+```
+
+Za brzi pregled raspodjele brojčane varijable korisna je `summary()`, a za
+kategorijalnu `count()`.
+
+```{r}
+summary(anketa_mreze$minute_dnevno)
+
+anketa_mreze |>
+  count(dobna_skupina)
+```
+
+Funkcija `count()` prebrojava retke po kategorijama i vraća tibble. Argument
+`sort = TRUE` poreda rezultat od najčešće kategorije prema najrjeđoj.
+
+Već iz ovog ispisa vidi se oblik koji poglavlje o sažimanju podataka razrađuje.
+Prosjek dnevnih minuta veći je od medijana, što je znak raspodjele s dugim
+desnim repom, u kojoj manjina vrlo intenzivnih korisnika povlači sredinu prema
+gore.
+
+Za vektore izvan tablice korisne su još tri funkcije. Funkcija `sort()` vraća
+poredane vrijednosti, `unique()` različite vrijednosti, a `table()` tablicu
+učestalosti.
+
+```{r}
+platforme_sirovo <- c("TikTok", "Instagram", "TikTok",
+                      "YouTube", "Instagram", "TikTok")
+
+unique(platforme_sirovo)
+length(unique(platforme_sirovo))
+table(platforme_sirovo)
+```
+
+Funkcija `count()` radi isto što i `table()`, samo vraća tibble koji se uklapa u
+cjevovod, pa je u ovom pristupu češći izbor. Funkcija `unique()` ipak ostaje
+nezamjenjiva pri provjeri podataka, jer najbrže otkriva neočekivane vrijednosti
+u kategorijalnom stupcu, poput iste kategorije napisane na tri načina.
+
+## Glagoli obrade podataka
+
+Obrada podataka u dpljru svodi se na nekoliko glagola koji se slažu cjevovodom.
+Svaki uzima tablicu i vraća tablicu, zbog čega se mogu nizati bez ograničenja.
+
+Glagol `filter()` bira retke koji zadovoljavaju uvjet.
+
+```{r}
+anketa_mreze |>
+  filter(dob < 25) |>
+  head(3)
+```
+
+Uvjeti se kombiniraju logičkim operatorima. Znak `&` znači „i", znak `|` znači
+„ili", a znak `!` preokreće uvjet. Zarez među uvjetima unutar `filter()` radi
+isto što i `&`.
+
+```{r}
+anketa_mreze |>
+  filter(dob < 25, minute_dnevno > 100) |>
+  nrow()
+
+anketa_mreze |>
+  filter(povjerenje <= 3 | povjerenje >= 9) |>
+  nrow()
+```
+
+Kada provjeravate pripada li vrijednost jednoj od više kategorija, umjesto niza
+uvjeta spojenih znakom `|` upotrijebite operator `%in%`.
+
+```{r}
+anketa_mreze |>
+  filter(dobna_skupina %in% c("18 do 24", "25 do 34")) |>
+  nrow()
+```
+
+Čest početnički promašaj jest pisanje `dobna_skupina == "18 do 24" | "25 do 34"`.
+Takav izraz ne javlja grešku, a ne radi ono što se očekuje, jer R drugi dio
+tumači kao samostalnu vrijednost koja je uvijek istinita. Operator `%in%`
+uklanja tu zamku i uz to je čitljiviji.
+
+Za raspone postoji `between()`.
+
+```{r}
+anketa_mreze |>
+  filter(between(minute_dnevno, 60, 180)) |>
+  nrow()
+```
+
+Glagol `select()` bira stupce, a znak minus ih uklanja.
+
+```{r}
+anketa_mreze |>
+  select(ispitanik, dob, minute_dnevno) |>
+  head(3)
+
+anketa_mreze |>
+  select(-ispitanik) |>
+  head(3)
+```
+
+Uz imena, stupce je moguće birati pomoćnim funkcijama poput `starts_with()`,
+`ends_with()`, `contains()` i `where()`.
+
+```{r}
+anketa_mreze |>
+  select(where(is.numeric)) |>
+  head(3)
+```
+
+Glagol `rename()` mijenja imena bez odbacivanja stupaca, a `relocate()` mijenja
+njihov redoslijed.
+
+```{r}
+anketa_mreze |>
+  rename(minute = minute_dnevno) |>
+  names()
+```
+
+Glagol `mutate()` stvara nove stupce ili mijenja postojeće.
+
+```{r}
+anketa_mreze |>
+  mutate(sati_dnevno = minute_dnevno / 60) |>
+  select(ispitanik, minute_dnevno, sati_dnevno) |>
+  head(3)
+```
+
+Za rekodiranje u kategorije služe dvije funkcije. Kada su ishodi dva, dovoljan je
+`if_else()`. Kada ih je više, koristi se `case_when()`, koji uvjete provjerava
+redom i prvi istiniti određuje rezultat.
+
+```{r}
+anketa_mreze |>
+  mutate(
+    intenzitet = case_when(
+      minute_dnevno < 30 ~ "rijetko",
+      minute_dnevno < 90 ~ "umjereno",
+      .default = "često"
+    ),
+    visoko_povjerenje = if_else(povjerenje >= 7, "da", "ne")
+  ) |>
+  count(intenzitet, visoko_povjerenje)
+```
+
+Redoslijed uvjeta u `case_when()` je bitan. Drugi uvjet hvata samo one koji nisu
+uhvaćeni prvim, pa se granice ne moraju pisati dvostruko. Grana `.default`
+pokriva sve preostale slučajeve, uključujući nedostajuće vrijednosti, pa je
+vrijedi napisati čak i kada mislite da je nemoguća.
+
+Glagol `arrange()` sortira retke, a `desc()` obrće smjer.
+
+```{r}
+anketa_mreze |>
+  arrange(desc(minute_dnevno)) |>
+  select(ispitanik, dobna_skupina, minute_dnevno) |>
+  head(3)
+```
+
+Nedostajuće vrijednosti pri sortiranju uvijek završavaju na kraju tablice, bez
+obzira na smjer. To je namjerno, jer se za njih ne zna kamo pripadaju.
+
+## Grupiranje i sažimanje
+
+Najvažniji obrazac u cijeloj obradi podataka spaja dva glagola. Funkcija
+`group_by()` dijeli tablicu u skupine, a `summarise()` za svaku skupinu računa
+sažetak.
+
+```{r}
+anketa_mreze |>
+  group_by(dobna_skupina) |>
   summarise(
     n = n(),
-    sredina = mean(rezultat),
+    prosjek = mean(minute_dnevno),
+    medijan = median(minute_dnevno),
+    sd = sd(minute_dnevno),
     .groups = "drop"
   )
 ```
 
-Glagol `filter()` bira redke, `select()` stupce, `mutate()` stvara varijable,
-`arrange()` uređuje redoslijed, a `summarise()` sažima. `group_by()` mijenja
-jedinicu sažimanja i zato se nakon uporabe mora jasno vidjeti ostaje li tablica
-grupirana.
+Funkcija `n()` unutar `summarise()` vraća broj opažanja u skupini. Vrijedi je
+uključiti u svaki sažetak, jer prosjek izračunat na pet ispitanika i prosjek
+izračunat na petsto izgledaju jednako, a nisu jednako pouzdani. Argument
+`.groups = "drop"` uklanja grupiranje nakon sažimanja, čime sprečava da se ono
+tiho prenese u sljedeći korak.
 
-## Uvoz i provjera
-
-Uvezenu datoteku najprije pregledavamo. Provjeravamo imena i tipove stupaca,
-broj redaka, nedostajuće vrijednosti i nemoguće kategorije prije svake
-transformacije.
+Grupirati se može po više varijabli odjednom, čime nastaje redak za svaku
+kombinaciju.
 
 ```{r}
-# primjer <- readr::read_csv("data/primjer.csv")
-# dplyr::glimpse(primjer)
-# colSums(is.na(primjer))
+anketa_mreze |>
+  mutate(visoko = if_else(povjerenje >= 7, "visoko", "nisko")) |>
+  group_by(dobna_skupina, visoko) |>
+  summarise(n = n(), prosjek = mean(minute_dnevno), .groups = "drop") |>
+  head(4)
 ```
 
-Čišćenje ne prepisuje izvornu datoteku. Stvara novi objekt ili novu datoteku,
-a svaka promjena ostaje zapisana u skripti. Ručna promjena ćelije bez zapisa
-prekida reproducibilnost.
+Kada trebate samo prebrojavanje, `count()` je kratica za `group_by()` i
+`summarise(n = n())` zajedno.
 
-## Funkcije i završna provjera
+Grupiranje se može spojiti i s `mutate()`, čime se dobiva stupac izračunat
+unutar skupine, a broj redaka ostaje nepromijenjen. Time se, primjerice, svaka
+vrijednost može usporediti s prosjekom vlastite skupine umjesto s ukupnim
+prosjekom.
 
-Funkcija izdvaja ponovljeni postupak i daje mu ime. Korisna je kada ista
-provjera ili tablica mora vrijediti za više varijabli.
+```{r}
+anketa_mreze |>
+  group_by(dobna_skupina) |>
+  mutate(odstupanje = minute_dnevno - mean(minute_dnevno)) |>
+  ungroup() |>
+  select(ispitanik, dobna_skupina, minute_dnevno, odstupanje) |>
+  head(4)
+```
+
+Funkcija `ungroup()` uklanja grupiranje. Zaboravljeno grupiranje jedan je od
+najčešćih uzroka rezultata koji izgledaju neobjašnjivo, jer se svaki sljedeći
+korak tiho izvodi po skupinama.
+
+Kada istu operaciju treba primijeniti na više stupaca, umjesto ponavljanja služi
+`across()`.
+
+```{r}
+anketa_mreze |>
+  group_by(dobna_skupina) |>
+  summarise(
+    across(c(minute_dnevno, povjerenje), mean),
+    .groups = "drop"
+  )
+```
+
+Prvi argument bira stupce, a drugi zadaje funkciju. Za više funkcija odjednom
+predaje se imenovani popis, a imena novih stupaca nastaju spajanjem imena stupca
+i imena funkcije.
+
+```{r}
+anketa_mreze |>
+  summarise(
+    across(c(minute_dnevno, povjerenje), list(prosjek = mean, sd = sd))
+  )
+```
+
+## Preoblikovanje tablica
+
+Ista se tablica može zapisati u širem ili užem obliku, a analize i grafovi
+najčešće traže uži. Načelo urednih podataka traži da svaka varijabla bude
+stupac, svako opažanje redak, a svaka vrijednost jedna ćelija.
+
+Funkcija `pivot_longer()` pretvara više stupaca u dva, jedan s imenom nekadašnjeg
+stupca i jedan s vrijednošću.
+
+```{r}
+sazetak_sirok <- anketa_mreze |>
+  group_by(dobna_skupina) |>
+  summarise(
+    minute = mean(minute_dnevno),
+    povjerenje = mean(povjerenje),
+    .groups = "drop"
+  )
+
+sazetak_sirok
+
+sazetak_dug <- sazetak_sirok |>
+  pivot_longer(
+    cols = c(minute, povjerenje),
+    names_to = "mjera",
+    values_to = "vrijednost"
+  )
+
+sazetak_dug
+```
+
+Argument `cols` bira stupce koji se preoblikuju, `names_to` imenuje novi stupac
+s njihovim imenima, a `values_to` novi stupac s vrijednostima. Ovaj oblik traže
+gotovo svi grafovi u kojima se više mjera prikazuje jedna do druge.
+
+Funkcija `pivot_wider()` radi obrnuto.
+
+```{r}
+sazetak_dug |>
+  pivot_wider(names_from = mjera, values_from = vrijednost)
+```
+
+Široki oblik lakše se čita u ispisu, uski se lakše obrađuje. Uobičajen tijek
+rada podatke drži uskima tijekom analize i širi ih tek za konačnu tablicu.
+
+## Spajanje tablica
+
+Podaci često dolaze u više tablica koje treba povezati. Funkcija `left_join()`
+zadržava sve retke lijeve tablice i dodaje im stupce iz desne, ondje gdje se
+ključ podudara.
+
+```{r}
+opisi <- tibble(
+  dobna_skupina = factor(
+    c("18 do 24", "25 do 34", "35 do 44", "45 i više"),
+    levels = levels(anketa_mreze$dobna_skupina)
+  ),
+  naraštaj = c("najmlađi", "mlađi", "srednji", "stariji")
+)
+
+anketa_mreze |>
+  left_join(opisi, by = "dobna_skupina") |>
+  select(ispitanik, dobna_skupina, naraštaj) |>
+  head(3)
+```
+
+Argument `by` imenuje stupac po kojem se tablice povezuju. Postoje i druge
+vrste spajanja, među kojima `inner_join()` zadržava samo retke koji postoje u
+objema tablicama, a `full_join()` sve retke iz obiju.
+
+Nakon svakog spajanja provjerite broj redaka. Ako se povećao, ključ u desnoj
+tablici nije jedinstven, pa se svaki lijevi redak umnožio. To je najčešća i
+najtiša pogreška pri spajanju, jer tablica i dalje izgleda ispravno.
+
+```{r}
+nrow(anketa_mreze)
+nrow(left_join(anketa_mreze, opisi, by = "dobna_skupina"))
+```
+
+## Rad s tekstom
+
+Anketni podaci često sadrže slobodan tekst koji treba očistiti prije analize.
+Paket stringr nudi funkcije s dosljednim imenima, koje sve počinju s `str_`.
+
+```{r}
+platforme <- c("Instagram, TikTok", "TikTok", "YouTube, Instagram",
+               "Facebook", "TikTok, YouTube, Instagram")
+
+str_detect(platforme, "TikTok")
+sum(str_detect(platforme, "TikTok"))
+str_count(platforme, ",") + 1
+```
+
+Funkcija `str_detect()` provjerava sadrži li tekst zadani niz i vraća logički
+vektor, `str_count()` broji pojavljivanja. Broj navedenih platformi ovdje se
+dobiva brojanjem zareza uvećanim za jedan, što je jednostavan i pouzdan postupak
+za uredno unesene odgovore.
+
+Za čišćenje služe `str_to_lower()`, koja sve pretvara u mala slova, i
+`str_replace_all()`, koja zamjenjuje dijelove teksta.
+
+```{r}
+spol_sirovo <- c("Ženski", "muški", "ŽENSKI", "M", "ž")
+
+spol_malim <- str_to_lower(spol_sirovo)
+spol_malim
+
+spol_cisto <- if_else(spol_malim %in% c("ženski", "ž"), "ženski", "muški")
+spol_cisto
+```
+
+Ujednačavanje velikih i malih slova prvi je korak pri svakom čišćenju
+kategorijalnog stupca, jer se `Ženski` i `ženski` inače broje kao dvije
+kategorije. Nakon toga preostale se inačice svode na zajedničke oznake
+funkcijama `if_else()` ili `case_when()`.
+
+## Faktori i redoslijed kategorija
+
+Kategorijalne varijable po zadanom se poredaju abecedno, što gotovo nikada nije
+redoslijed koji želite. Dobne skupine, razine obrazovanja i ljestvice slaganja
+imaju vlastiti poredak koji abeceda ne poznaje. Paket forcats nudi funkcije s
+prefiksom `fct_` koje taj poredak namještaju.
+
+```{r}
+ocjene <- factor(
+  c("srednja", "niska", "visoka", "visoka", "srednja", "niska", "visoka")
+)
+levels(ocjene)
+
+ocjene_uredene <- fct_relevel(ocjene, "niska", "srednja", "visoka")
+levels(ocjene_uredene)
+```
+
+Funkcija `fct_relevel()` postavlja razine u zadani redoslijed. Kada kategorije
+treba poredati prema nekoj brojčanoj veličini, a ne prema unaprijed poznatom
+poretku, posao obavlja `fct_reorder()`.
+
+```{r}
+anketa_mreze |>
+  mutate(skupina_po_minutama = fct_reorder(dobna_skupina, minute_dnevno)) |>
+  pull(skupina_po_minutama) |>
+  levels()
+```
+
+Ovaj poredak nastaje iz podataka, prema medijanu minuta u svakoj skupini, i
+najčešće se koristi neposredno prije crtanja, jer graf s poredanim kategorijama
+gotovo uvijek čita se lakše od grafa s abecednim.
+
+Kada kategorija ima previše, rijetke se mogu spojiti u zajedničku.
+
+```{r}
+platforme <- factor(c("TikTok", "Instagram", "TikTok", "YouTube",
+                      "Instagram", "TikTok", "Reddit", "Snapchat"))
+
+fct_lump_n(platforme, n = 2) |>
+  table()
+```
+
+Funkcija `fct_lump_n()` zadržava najčešće kategorije i sve ostale spaja u
+kategoriju `Other`. Spajanje je odluka o prikazu, a ne o podacima, pa je vrijedi
+zabilježiti u tekstu uz tablicu ili graf, jer čitatelj inače ne zna što je u toj
+zajedničkoj kategoriji završilo.
+
+## Čišćenje neurednih podataka
+
+Podaci iz stvarnih anketa rijetko dolaze spremni za analizu. Imena stupaca
+sadrže razmake i zagrade, kategorije su upisane na nekoliko načina, a brojčani
+stupci sadrže riječi. Ovaj odjeljak prolazi kroz tipične probleme redom kojim se
+obično pojavljuju.
+
+Prvi je problem imena stupaca. Ime s razmakom ili zagradom mora se u kodu pisati
+unutar obrnutih navodnika, što je nezgodno, pa se imena obično odmah srede.
+
+```{r}
+sirova <- tibble(
+  `ID ispitanika` = 1:4,
+  `TV (min/dan)` = c("90", "ne gledam", "45", ""),
+  `Grad stanovanja` = c("Zagreb", "zagreb", "Split", "ZAGREB"),
+  `Spol` = c("Ženski", "M", "muški", "ž")
+)
+
+names(sirova)
+
+cista <- sirova |>
+  rename(
+    id = `ID ispitanika`,
+    tv_min = `TV (min/dan)`,
+    grad = `Grad stanovanja`,
+    spol = `Spol`
+  )
+
+names(cista)
+```
+
+Drugi je problem brojčani stupac koji je pri uvozu postao tekstualni, jer sadrži
+riječ ili praznu vrijednost. Takav stupac treba pretvoriti svjesno, tako da se
+odluči što znači svaka nebrojčana vrijednost.
+
+```{r}
+cista <- cista |>
+  mutate(
+    tv_min = case_when(
+      tv_min == "ne gledam" ~ "0",
+      tv_min == "" ~ NA_character_,
+      .default = tv_min
+    ),
+    tv_min = as.numeric(tv_min)
+  )
+
+cista$tv_min
+```
+
+Odluka da „ne gledam" znači nulu, a prazna vrijednost nedostajući podatak
+sadržajna je, a ne tehnička. Netko tko ne gleda televiziju doista je gledao nula
+minuta, dok netko tko nije odgovorio možda gleda mnogo. Pretvorba bez te odluke,
+dakle izravan poziv `as.numeric()`, obje bi vrijednosti pretvorila u `NA` i uz
+put ispisala upozorenje.
+
+Treći je problem ista kategorija napisana na više načina. Ujednačavanje počinje
+svođenjem na mala slova, a zatim se preostale inačice svode na zajedničku
+oznaku.
+
+```{r}
+cista <- cista |>
+  mutate(
+    grad = str_to_title(str_to_lower(grad)),
+    spol = str_to_lower(spol),
+    spol = case_when(
+      spol %in% c("ženski", "ž", "z") ~ "ženski",
+      spol %in% c("muški", "m") ~ "muški",
+      .default = NA_character_
+    )
+  )
+
+cista
+```
+
+Funkcija `str_to_title()` postavlja prvo slovo svake riječi na veliko, čime se
+`ZAGREB` i `zagreb` svode na isti `Zagreb`. Grana `.default` ovdje namjerno
+vraća `NA`, jer je bolje da neprepoznata vrijednost postane vidljivo nedostajuća
+nego da se tiho svrsta u jednu od kategorija.
+
+Provjera nakon čišćenja obavezna je i sastoji se od dva koraka.
+
+```{r}
+count(cista, grad)
+count(cista, spol)
+```
+
+Ako se u ispisu pojavi kategorija koju niste očekivali ili `NA` ondje gdje ne
+biste smjeli imati nedostajuću vrijednost, čišćenje nije gotovo. Ovaj kratki
+ispis otkriva više problema od svakog drugog pojedinačnog postupka.
+
+Cijelo čišćenje na kraju pripada jednom cjevovodu, koji od sirove tablice do
+uporabljive vodi bez međuobjekata i može se pročitati kao popis odluka.
+
+```{r}
+cista_odjednom <- sirova |>
+  rename(
+    id = `ID ispitanika`,
+    tv_min = `TV (min/dan)`,
+    grad = `Grad stanovanja`,
+    spol = `Spol`
+  ) |>
+  mutate(
+    tv_min = case_when(
+      tv_min == "ne gledam" ~ "0",
+      tv_min == "" ~ NA_character_,
+      .default = tv_min
+    ),
+    tv_min = as.numeric(tv_min),
+    grad = str_to_title(str_to_lower(grad)),
+    spol = str_to_lower(spol),
+    spol = case_when(
+      spol %in% c("ženski", "ž", "z") ~ "ženski",
+      spol %in% c("muški", "m") ~ "muški",
+      .default = NA_character_
+    )
+  )
+
+identical(cista, cista_odjednom)
+```
+
+Funkcija `identical()` potvrđuje da postupak po koracima i postupak u jednom
+cjevovodu daju isti rezultat. Takva provjera vrijedi kad god analizu
+preoblikujete, jer je najlakše pogriješiti upravo pri sređivanju koda koji je
+dotad radio.
+
+Ovaj cjevovod nikada ne prepisuje `sirova`. Izvorna tablica ostaje netaknuta,
+pa se svaki korak može ponoviti i preispitati. Čišćenje koje prepisuje izvor
+briše dokaz o tome što je zapravo bilo u podacima.
+
+## Grafovi
+
+Sustavnu gramatiku paketa ggplot2 razrađuje poglavlje o vizualizaciji. Ovdje je
+dovoljno znati da se graf gradi slaganjem slojeva, pri čemu `ggplot()` prima
+podatke, `aes()` pridružuje varijable svojstvima grafa, a `geom_` sloj određuje
+oblik prikaza. Slojevi se spajaju znakom `+`, a ne cjevovodom.
+
+```{r}
+#| fig-alt: "Histogram dnevnih minuta s dugim desnim repom."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = minute_dnevno)) +
+  geom_histogram(bins = 30) +
+  labs(x = "Minute dnevno", y = "Broj ispitanika")
+```
+
+Zamjena jednog sloja mijenja prikaz, a podaci ostaju isti. Time se dobiva
+usporedba koju traži zadatak u poglavlju o vizualizaciji.
+
+```{r}
+#| fig-alt: "Kutijasti dijagram dnevnih minuta po dobnim skupinama."
+#| fig-width: 6
+#| fig-height: 3.4
+ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
+  geom_boxplot() +
+  labs(x = NULL, y = "Minute dnevno")
+```
+
+Razlika među tim dvama prikazima nije kozmetička. Histogram čuva oblik cijele
+raspodjele i ne računa ništa prije crtanja. Kutijasti dijagram prije crtanja
+izračunava medijan i kvartile, pa oblik unutar kutije više nije vidljiv, ali se
+skupine lako uspoređuju. Svaki prikaz nešto čuva i nešto odbacuje, što je
+argument koji poglavlje o vizualizaciji razrađuje.
+
+## Pisanje funkcija
+
+Kada se isti postupak ponavlja nad različitim varijablama, vrijedi mu dati ime.
+Funkcija se sastoji od imena, popisa argumenata i tijela, a vraća vrijednost
+posljednjeg izraza.
 
 ```{r}
 opis <- function(x) {
   tibble(
     n = sum(!is.na(x)),
     sredina = mean(x, na.rm = TRUE),
+    medijan = median(x, na.rm = TRUE),
     sd = sd(x, na.rm = TRUE)
   )
 }
 
-opis(anketa$rezultat)
+opis(anketa_mreze$minute_dnevno)
+opis(anketa_mreze$povjerenje)
 ```
 
-Prije predaje projekt pokrećemo iz čiste sesije. Rezultati moraju nastati iz
-skripte bez oslanjanja na objekte koji su slučajno ostali u memoriji. Verzije
-paketa, izvor podataka i nasumično sjeme pripadaju istom reprodukcijskom zapisu.
+Argumenti mogu imati zadane vrijednosti, koje se koriste kada ih pozivatelj ne
+navede.
+
+```{r}
+opis_zaokruzeno <- function(x, decimala = 1) {
+  opis(x) |>
+    mutate(across(c(sredina, medijan, sd), \(v) round(v, decimala)))
+}
+
+opis_zaokruzeno(anketa_mreze$minute_dnevno)
+opis_zaokruzeno(anketa_mreze$minute_dnevno, decimala = 3)
+```
+
+Zapis `\(v)` skraćeni je oblik za `function(v)` i koristan je za kratke funkcije
+koje se predaju drugim funkcijama.
+
+U funkciju je korisno ugraditi provjeru ulaza, kako bi pogreška bila prijavljena
+na mjestu gdje je nastala, a ne nekoliko koraka poslije.
+
+```{r}
+udio_iznad <- function(x, granica) {
+  if (!is.numeric(x)) {
+    stop("Varijabla mora biti brojčana.")
+  }
+  100 * mean(x > granica, na.rm = TRUE)
+}
+
+udio_iznad(anketa_mreze$minute_dnevno, 120)
+```
+
+Funkcija `stop()` prekida izvršavanje i ispisuje poruku. Poruka treba reći što
+je pošlo po zlu i što se očekivalo, jer ćete je čitati vi sami za nekoliko
+mjeseci.
+
+## Skripta, Quarto i ponovljivost
+
+Analiza se piše u datoteci, a ne u konzoli. Uredna skripta ima zaglavlje s
+opisom, zatim učitavanje paketa, zatim učitavanje podataka, pa pregled, obradu
+i tek onda rezultate.
+
+```{r}
+#| eval: false
+# ============================================
+# Analiza korištenja društvenih mreža
+# Autor: Ime Prezime
+# Datum: 2026-07-30
+# ============================================
+
+# 1. Paketi ----
+library(tidyverse)
+
+# 2. Podaci ----
+anketa <- read_csv("data/anketa.csv")
+
+# 3. Pregled ----
+glimpse(anketa)
+colSums(is.na(anketa))
+
+# 4. Obrada ----
+anketa_cista <- anketa |>
+  filter(!is.na(minute_dnevno)) |>
+  mutate(sati_dnevno = minute_dnevno / 60)
+
+# 5. Rezultati ----
+sazetak <- anketa_cista |>
+  group_by(dobna_skupina) |>
+  summarise(n = n(), prosjek = mean(minute_dnevno), .groups = "drop")
+
+# 6. Izvoz ----
+write_csv(sazetak, "outputs/sazetak.csv")
+```
+
+Komentar koji završava s četiri crtice R-ova okruženja prepoznaju kao naslov
+odjeljka i prikazuju ga u navigaciji, što u dugoj skripti znatno olakšava
+snalaženje.
+
+Čišćenje nikada ne prepisuje izvornu datoteku. Stvara novi objekt ili novu
+datoteku, a svaka promjena ostaje zapisana u skripti. Ručna izmjena ćelije u
+tablici prekida ponovljivost, jer nakon nje nitko, uključujući vas, ne može
+rekonstruirati put od sirovih podataka do rezultata.
+
+Kada uz kod treba i tekst, umjesto skripte koristi se Quarto dokument, isti
+alat kojim je izrađena ova knjiga. Takav dokument ima tri dijela, i to zaglavlje
+u kojem se zadaju naslov i format, tekst pisan u Markdownu i blokove koda čiji
+se rezultati ugrađuju u dokument pri izradi. Ponašanje svakog bloka podešava se
+opcijama, među kojima `echo` odlučuje hoće li se kod vidjeti, `eval` hoće li se
+izvršiti, a `warning` i `message` hoće li se poruke prikazati. Izvještaj za
+naručitelja tako može sakriti kod, a isti izvor za kolegicu analitičarku može
+ga pokazati.
+
+Quarto uz to omogućuje da broj u rečenici dođe izravno iz izračuna, umjesto da
+se prepisuje rukom. Takav se umetnuti kod piše unutar obrnutih navodnika s
+oznakom jezika, u obliku prikazanom niže.
+
+````{.markdown}
+U uzorku je `r nrow(anketa_mreze)` ispitanika, a prosječno dnevno
+vrijeme iznosi `r round(mean(anketa_mreze$minute_dnevno), 1)` minuta.
+````
+
+Pri izradi dokumenta na mjestu svakog takvog izraza pojavljuje se njegov
+rezultat, dakle brojevi koje daju sljedeći pozivi.
+
+```{r}
+nrow(anketa_mreze)
+round(mean(anketa_mreze$minute_dnevno), 1)
+```
+
+Ovo je više od udobnosti. Broj prepisan rukom razilazi se s podacima čim se
+podaci promijene, a nitko to ne primijeti jer rečenica i dalje izgleda uredno.
+Broj koji dolazi iz koda ne može se raziću s tablicom iz koje je izračunat.
+Poglavlja ove knjige pisana su tako da svaka brojka u prozi dolazi iz izračuna,
+upravo zbog toga.
+
+Prije predaje analizu pokrenite iz čiste sesije, dakle nakon što ste obrisali
+sve objekte i ponovno pokrenuli R. Rezultati moraju nastati iz skripte, a ne iz
+objekata koji su slučajno ostali u memoriji. Ako analiza uključuje slučajne
+brojeve, sjeme generatora postavite funkcijom `set.seed()` na početku, jer bez
+toga isti kod pri svakom pokretanju daje malo drukčije brojeve.
+
+```{r}
+set.seed(2026)
+mean(sample(anketa_mreze$minute_dnevno, 30))
+
+set.seed(2026)
+mean(sample(anketa_mreze$minute_dnevno, 30))
+```
+
+Ista vrijednost pri oba pokretanja pokazuje da je izvlačenje ponovljivo. Uz
+sjeme, u reprodukcijski zapis pripadaju i verzije paketa te izvor podataka.
+
+## Greške i dijagnostika
+
+Greške su uobičajen dio rada s kodom. Razlika između početnika i iskusnog
+korisnika nije u tome koliko ih rade nego u tome koliko brzo ih prepoznaju.
+Prvi i najvažniji korak jest pročitati poruku, jer je gotovo uvijek
+informativna.
+
+Poruka `object 'x' not found` znači da objekt s tim imenom ne postoji. Uzrok je
+najčešće tipfeler u imenu, nepokrenut raniji redak ili pokretanje koda izvan
+redoslijeda. Poruka `unexpected symbol` označava sintaktičku pogrešku, obično
+zaboravljeni zarez, operator ili zatvorenu zagradu. Poruka
+`does not exist in current working directory` znači da R ne nalazi datoteku, pa
+provjerite ime, veliko i malo slovo te putanju, a `getwd()` će vam reći gdje R
+uopće traži. Poruka `could not find function` znači da paket nije učitan, pa
+provjerite je li `library()` na vrhu skripte pokrenut.
+
+Upozorenja se razlikuju od grešaka. Greška zaustavlja izvršavanje, a upozorenje
+ga ne zaustavlja nego javlja da se dogodilo nešto neobično.
+
+```{r}
+#| warning: true
+as.numeric(c("10", "20", "trideset"))
+```
+
+R je prva dva teksta pretvorio u brojeve, treći nije mogao i na njegovo je
+mjesto stavio `NA`. Kod se izvršio do kraja, a rezultat je tiho izgubio jednu
+vrijednost. Upozorenja zato treba čitati jednako pažljivo kao greške, jer
+najčešće govore o problemu s podacima, a ne s kodom.
+
+Kada dugačak cjevovod ne radi, ne tražite grešku u cjelini. Pokrenite ga korak
+po korak i nakon svakog koraka pogledajte rezultat.
+
+```{r}
+anketa_mreze |>
+  filter(dob < 30) |>
+  nrow()
+
+anketa_mreze |>
+  filter(dob < 30) |>
+  group_by(dobna_skupina) |>
+  summarise(n = n(), .groups = "drop")
+```
+
+Prvi korak potvrđuje da filtriranje uopće nešto zadržava, drugi da grupiranje
+daje očekivane skupine. Postupno građenje cjevovoda uz provjeru nakon svakog
+koraka najbrži je način da se pronađe mjesto na kojem se nešto raspalo.
+
+Za pomoć oko pojedine funkcije služi upitnik ispred njezina imena. Stranica
+pomoći opisuje argumente i završava primjerima, koji su gotovo uvijek
+korisniji od opisa.
+
+```{r}
+#| eval: false
+?mean
+vignette("dplyr")
+```
+
+Kada pomoć ne pomogne, potraga na internetu gotovo uvijek uspije, uz jedan
+savjet. Pretrazi dodajte riječ `tidyverse` ili ime paketa, jer ćete inače
+dobiti odgovore u drukčijoj sintaksi od one koju ovdje koristimo.
+
+## Postupci iz poglavlja
+
+Ovaj odjeljak okuplja postupke na koje poglavlja upućuju kada zadatak traži
+izračun nad cijelim skupom podataka. Svaki je zaokružen i može se pokrenuti
+samostalno.
+
+### Zbirne i skupne stope iz poglavlja 1
+
+Poglavlje o statističkom mišljenju uspoređuje zbirnu stopu sa stopama po
+podskupinama. Postupak ima tri koraka. Najprije se izračunaju stope unutar
+skupina, zatim zbirna stopa, i naposljetku se usporede.
+
+```{r}
+upisi <- as.data.frame(UCBAdmissions)
+
+# Stope po odjelu i spolu
+po_odjelu <- upisi |>
+  group_by(Dept, Gender) |>
+  summarise(
+    prijave = sum(Freq),
+    primljeni = sum(Freq[Admit == "Admitted"]),
+    stopa = primljeni / prijave,
+    .groups = "drop"
+  )
+
+# Zbirna stopa, bez odjela
+zbirno <- upisi |>
+  group_by(Gender) |>
+  summarise(
+    prijave = sum(Freq),
+    primljeni = sum(Freq[Admit == "Admitted"]),
+    stopa = primljeni / prijave,
+    .groups = "drop"
+  )
+
+zbirno
+```
+
+Zbirna tablica pokazuje razliku u korist muškaraca. Usporedba po odjelima
+pokazuje drukčiju sliku, a broj odjela u kojima žene prolaze barem jednako dobro
+dobiva se preoblikovanjem u široki oblik.
+
+```{r}
+po_odjelu |>
+  select(Dept, Gender, stopa) |>
+  pivot_wider(names_from = Gender, values_from = stopa) |>
+  mutate(zene_bolje = Female >= Male)
+```
+
+Ključ mehanizma leži u raspodjeli prijava, jer zbirna stopa svakom odjelu daje
+težinu prema broju prijava iz te skupine.
+
+```{r}
+po_odjelu |>
+  group_by(Gender) |>
+  mutate(udio_prijava = 100 * prijave / sum(prijave)) |>
+  ungroup() |>
+  select(Dept, Gender, stopa, udio_prijava) |>
+  pivot_wider(names_from = Gender, values_from = c(stopa, udio_prijava))
+```
+
+### Provjera instrumenta iz poglavlja 2
+
+Poglavlje o mjerenju okreće ljestvicu niječno formulirane tvrdnje i provjerava
+slaže li se svaka tvrdnja s ostatkom instrumenta. Postupak se lako primjenjuje na
+bilo koji upitnik.
+
+```{r}
+odgovori <- tribble(
+  ~ispitanik, ~t1, ~t2, ~t3, ~t4,
+  "I01", 4, 5, 4, 2,
+  "I02", 5, 4, 5, 1,
+  "I03", 3, 3, 3, 3,
+  "I04", 2, 1, 2, 5,
+  "I05", 1, 2, 1, 4,
+  "I06", 3, 4, 3, 3
+)
+
+stavke <- c("t1", "t2", "t3", "t4")
+
+# Korelacija svake tvrdnje sa zbrojem preostalih
+stavka_ukupno <- function(podaci, stavke) {
+  sapply(stavke, function(s) {
+    ostatak <- rowSums(podaci[setdiff(stavke, s)])
+    cor(podaci[[s]], ostatak)
+  })
+}
+
+round(stavka_ukupno(odgovori, stavke), 2)
+```
+
+Negativna vrijednost kod četvrte tvrdnje znak je niječne formulacije. Ljestvica
+se okreće tako da se odgovor oduzme od najveće moguće vrijednosti uvećane za
+jedan, dakle od šest za ljestvicu od 1 do 5.
+
+```{r}
+okrenuto <- odgovori |>
+  mutate(t4 = 6 - t4)
+
+round(stavka_ukupno(okrenuto, stavke), 2)
+
+okrenuto |>
+  mutate(povjerenje = rowMeans(pick(all_of(stavke)))) |>
+  select(ispitanik, povjerenje)
+```
+
+Nakon okretanja sve četiri tvrdnje idu u istu stranu i zbrajanje ima smisla.
+
+### Mjere središta i raspršenosti iz poglavlja 4
+
+Poglavlje o sažimanju podataka traži usporedbu mjera središta i raspršenosti te
+njihovu osjetljivost na ekstremnu vrijednost. Sve se dobiva jednim sažetkom.
+
+```{r}
+minute <- anketa_mreze$minute_dnevno
+
+tibble(
+  n = length(minute),
+  sredina = mean(minute),
+  medijan = median(minute),
+  skracena10 = mean(minute, trim = 0.10),
+  sd = sd(minute),
+  iqr = IQR(minute),
+  raspon = diff(range(minute))
+) |>
+  mutate(across(everything(), \(v) round(v, 1)))
+```
+
+Osjetljivost se pokazuje tako da se najveća vrijednost zamijeni znatno većom, a
+zatim se isti sažetak ponovi. Medijan i međukvartilni raspon jedva se pomaknu,
+dok sredina i standardna devijacija reagiraju snažno.
+
+```{r}
+minute_izmijenjeno <- minute
+minute_izmijenjeno[which.max(minute)] <- 10 * max(minute)
+
+tibble(
+  verzija = c("izvorno", "s ekstremom"),
+  sredina = c(mean(minute), mean(minute_izmijenjeno)),
+  medijan = c(median(minute), median(minute_izmijenjeno)),
+  sd = c(sd(minute), sd(minute_izmijenjeno)),
+  iqr = c(IQR(minute), IQR(minute_izmijenjeno))
+) |>
+  mutate(across(where(is.numeric), \(v) round(v, 1)))
+```
+
+Poglavlje uspoređuje i položaj sredine i medijana na izvornoj te na
+logaritamskoj ljestvici.
+
+```{r}
+tibble(
+  ljestvica = c("izvorna", "logaritamska"),
+  sredina = c(mean(minute), mean(log(minute))),
+  medijan = c(median(minute), median(log(minute)))
+) |>
+  mutate(razlika = round(sredina - medijan, 2))
+```
+
+Na izvornoj ljestvici sredina znatno nadmašuje medijan, a nakon logaritamske
+pretvorbe razlika se gotovo gubi, jer pretvorba stišće dugi desni rep.
+
+### Izračuni iza četiriju prikaza iz poglavlja 5
+
+Poglavlje o vizualizaciji pita što svaki prikaz čuva i što izračunava prije
+crtanja. Odgovor se najlakše vidi tako da se isti izračuni naprave izravno.
+
+```{r}
+# Što računa kutijasti dijagram
+anketa_mreze |>
+  group_by(dobna_skupina) |>
+  summarise(
+    q1 = quantile(minute_dnevno, 0.25),
+    medijan = median(minute_dnevno),
+    q3 = quantile(minute_dnevno, 0.75),
+    .groups = "drop"
+  )
+
+# Što računa stupičasti prikaz prosjeka
+anketa_mreze |>
+  group_by(dobna_skupina) |>
+  summarise(prosjek = round(mean(minute_dnevno), 1), .groups = "drop")
+```
+
+Histogram i raspršeni prikaz ne računaju ništa od toga, jer crtaju pojedinačna
+opažanja ili njihove razrede. Usporedba pokazuje koliko se informacije gubi na
+putu od svih opažanja do jednog stupca po skupini.
+
+Isti se postupak primjenjuje i na Anscombeov kvartet, koji je ugrađen u R.
+
+```{r}
+anscombe |>
+  pivot_longer(
+    everything(),
+    names_to = c(".value", "skup"),
+    names_pattern = "(.)(.)"
+  ) |>
+  group_by(skup) |>
+  summarise(
+    sredina_x = mean(x),
+    sredina_y = round(mean(y), 2),
+    sd_y = round(sd(y), 2),
+    korelacija = round(cor(x, y), 2),
+    .groups = "drop"
+  )
+```
+
+Sva četiri skupa imaju gotovo jednake sažetke i posve različite oblike, što je
+argument koji poglavlje razrađuje.
+
+## Kamo dalje
+
+Ovdje prikazano dovoljno je za opisnu analizu, čišćenje podataka i pripremu
+tablica koje knjiga koristi. Za sve dalje najkorisniji je *R for Data Science*,
+koji je slobodno dostupan i pisan u istom pristupu [@wickham2023].
+
+Tri navike vrijede više od svakog dodatnog paketa. Podatke pogledajte prije nego
+što ih obradite. Cjevovod gradite korak po korak i provjeravajte rezultat nakon
+svakog koraka. Analizu na kraju pokrenite iz čiste sesije. Time se uklanja
+većina problema s kojima se početnici susreću, a rad ostaje ponovljiv, što je
+jedini oblik u kojem tuđa analiza uopće može biti provjerena.
