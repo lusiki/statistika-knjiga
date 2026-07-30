@@ -194,6 +194,35 @@ div.csl-indent {
 <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -993,7 +1022,7 @@ Tablica&nbsp;1: Prikaz prema vrsti podataka i prema onome što svaki izbor žrtv
 <div class="no-row-height column-margin column-container"></div><p>Ono što je odbačeno vidi se tek kada se vrati na graf. Simulirana anketa <code>anketa_mreze</code> sadrži 300 ispitanika s dnevnim vremenom korištenja društvenih mreža, i nije mjerenje nego nastavni skup proizveden kodom. Kada se uz okvire nacrtaju i opažanja iz kojih su izračunati, razlika između sažetka i podatka prestaje biti apstraktna.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-okvir-gubi" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Četiri okvira s brkovima po dobnim skupinama, sa svim pojedinačnim opažanjima razasutim preko njih; gornji rep je u svakoj skupini gušći nego što kutija sugerira.">
+<div id="fig-okvir-gubi" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Četiri okvira s brkovima po dobnim skupinama, sa svim pojedinačnim opažanjima razasutim preko njih; gornji rep je u svakoj skupini gušći nego što kutija sugerira." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-okvir-gubi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="05-vizualizacija_files/figure-html/fig-okvir-gubi-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Okvir s brkovima i opažanja iz kojih je nastao. Kutija stoji na kvartilima, a točke pokazuju raspored koji kvartili ne mogu prenijeti."><img src="05-vizualizacija_files/figure-html/fig-okvir-gubi-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Četiri okvira s brkovima po dobnim skupinama, sa svim pojedinačnim opažanjima razasutim preko njih; gornji rep je u svakoj skupini gušći nego što kutija sugerira."></a>
@@ -1013,7 +1042,7 @@ Slika&nbsp;1: Okvir s brkovima i opažanja iz kojih je nastao. Kutija stoji na k
 <p>Njegova slabost je vlastiti uspjeh. Kada opažanja ima mnogo, točke se preklapaju, a gustoća prestaje biti vidljiva, jer sto opažanja na istom mjestu izgleda kao jedno. Uobičajeni popravak je djelomična prozirnost oznake, čime preklopljena područja postaju tamnija, pa gustoća opet nosi značenje. Drugi je popravak lagano razmicanje oznaka, koje se koristi kada je jedna varijabla zapravo diskretna, a treći prelazak na prikaz koji gustoću računa izravno.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-rasprseni" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Dva raspršena dijagrama istih podataka o dobi i dnevnim minutama; oba pokazuju pad vremena s dobi, ali desni prozirnim oznakama otkriva zbijenost u donjem desnom dijelu.">
+<div id="fig-rasprseni" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dva raspršena dijagrama istih podataka o dobi i dnevnim minutama; oba pokazuju pad vremena s dobi, ali desni prozirnim oznakama otkriva zbijenost u donjem desnom dijelu." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rasprseni-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="05-vizualizacija_files/figure-html/fig-rasprseni-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;2: Dob i dnevno vrijeme korištenja u simuliranoj anketi. Lijevo su neprozirne oznake, desno prozirne, a razlika je u tome što se vidi gdje je opažanja mnogo."><img src="05-vizualizacija_files/figure-html/fig-rasprseni-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Dva raspršena dijagrama istih podataka o dobi i dnevnim minutama; oba pokazuju pad vremena s dobi, ali desni prozirnim oznakama otkriva zbijenost u donjem desnom dijelu."></a>
@@ -1033,7 +1062,7 @@ Slika&nbsp;2: Dob i dnevno vrijeme korištenja u simuliranoj anketi. Lijevo su n
 <p>Ljestvica je mjesto na kojem se najlakše pogriješi i najlakše prevari, jer je mijenja jedan broj, a mijenja se cijeli dojam. Prosjeci dnevnih minuta po dobnim skupinama razlikuju se za 65 minuta, što je 80 % najvećeg među njima. Koliko će ta razlika zauzeti prostora ne ovisi o podacima nego o rasponu osi.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-skraceni-raspon" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Dva stupčasta prikaza istih četiriju prosjeka, lijevo s osi od nule i umjerenim razlikama, desno s odsječenom osi na kojoj razlike izgledaju dramatično.">
+<div id="fig-skraceni-raspon" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Dva stupčasta prikaza istih četiriju prosjeka, lijevo s osi od nule i umjerenim razlikama, desno s odsječenom osi na kojoj razlike izgledaju dramatično." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-skraceni-raspon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="05-vizualizacija_files/figure-html/fig-skraceni-raspon-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Slika&nbsp;3: Isti prosjeci na dvjema osima. Lijevi prikaz počinje od nule, desni od najmanje vrijednosti, a razlika među skupinama nije se promijenila."><img src="05-vizualizacija_files/figure-html/fig-skraceni-raspon-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Dva stupčasta prikaza istih četiriju prosjeka, lijevo s osi od nule i umjerenim razlikama, desno s odsječenom osi na kojoj razlike izgledaju dramatično."></a>
@@ -1058,7 +1087,7 @@ Slika&nbsp;3: Isti prosjeci na dvjema osima. Lijevi prikaz počinje od nule, des
 <p>Zajednička ljestvica je uvjet bez kojega postupak gubi smisao. Kada svako polje dobije vlastiti raspon, panel s malim razlikama izgleda jednako dramatično kao panel s velikima, pa se usporedba koja je bila svrha prikaza više ne može provesti. Slobodne osi imaju svoje mjesto tamo gdje se uspoređuje oblik, a ne razina, ali to je iznimka koja se izriče, a ne zadana postavka.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-mala-polja" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Pet histograma u nizu na istoj osi; prvi prikazuje sve ispitanike, a preostala četiri dobne skupine s vrhom koji se pomiče prema manjim vrijednostima kako dob raste.">
+<div id="fig-mala-polja" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Pet histograma u nizu na istoj osi; prvi prikazuje sve ispitanike, a preostala četiri dobne skupine s vrhom koji se pomiče prema manjim vrijednostima kako dob raste." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mala-polja-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="05-vizualizacija_files/figure-html/fig-mala-polja-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Slika&nbsp;4: Ista raspodjela u zbirnom polju i u četirima skupinskim poljima uz zajedničku os. Zbirni oblik nastaje preklapanjem raspodjela različitih položaja."><img src="05-vizualizacija_files/figure-html/fig-mala-polja-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Pet histograma u nizu na istoj osi; prvi prikazuje sve ispitanike, a preostala četiri dobne skupine s vrhom koji se pomiče prema manjim vrijednostima kako dob raste."></a>

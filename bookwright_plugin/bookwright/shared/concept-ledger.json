@@ -143,6 +143,85 @@
       "canonical_definition": "Raspon oko procjene, izračunat postupkom koji kroz ponovljena uzorkovanja obuhvaća nepoznati parametar u unaprijed određenom udjelu slučajeva.",
       "introduced_in": "09-procjena",
       "notes": "Obećanje pripada postupku, ne pojedinačnom rasponu. Točkasta procjena, preciznost, pouzdanost i bootstrap uvedeni su u istom poglavlju bez definicijskog diva."
+    },
+    {
+      "term": "kontingencijska tablica",
+      "english_term": "contingency table",
+      "canonical_definition": "Tablica frekvencija u kojoj svaka ćelija sadrži broj jedinica koje istovremeno pripadaju jednoj kategoriji retka i jednoj kategoriji stupca.",
+      "introduced_in": "13-kategoricki-podaci"
+    },
+    {
+      "term": "očekivana frekvencija",
+      "english_term": "expected frequency",
+      "canonical_definition": "Umnožak zbroja retka i zbroja stupca podijeljen ukupnim brojem jedinica, dakle broj koji bi se u ćeliji nalazio kad bi dvije varijable bile nezavisne uz nepromijenjene rubne zbrojeve.",
+      "introduced_in": "13-kategoricki-podaci",
+      "symbols": ["E_{ij}"]
+    },
+    {
+      "term": "hi-kvadrat statistika",
+      "english_term": "chi-squared statistic",
+      "canonical_definition": "Zbroj kvadriranih odstupanja opaženih od očekivanih frekvencija, pri čemu je svako odstupanje podijeljeno očekivanom frekvencijom svoje ćelije.",
+      "introduced_in": "13-kategoricki-podaci",
+      "symbols": ["\\chi^2"]
+    },
+    {
+      "term": "standardizirani rezidual",
+      "english_term": "standardized residual",
+      "canonical_definition": "Razlika opažene i očekivane frekvencije ćelije podijeljena korijenom očekivane frekvencije.",
+      "introduced_in": "13-kategoricki-podaci",
+      "symbols": ["e_{ij}"],
+      "notes": "PAZITI. Simbol je namjerno e, a ne r, jer r u ovoj knjizi od poglavlja o povezanosti znači Pearsonovu korelaciju i to se ne smije preklopiti. Poglavlje 13 tu razliku izriče u samom definicijskom divu."
+    },
+    {
+      "term": "Cramérovo V",
+      "english_term": "Cramér's V",
+      "canonical_definition": "Korijen hi-kvadrat statistike podijeljene umnoškom veličine uzorka i manje dimenzije tablice umanjene za jedan, dakle mjera jačine veze na ljestvici od nule do jedan.",
+      "introduced_in": "13-kategoricki-podaci",
+      "symbols": ["V"]
+    },
+    {
+      "term": "jedinica neovisnosti",
+      "english_term": "unit of independence",
+      "canonical_definition": "Entitet koji se u istraživanju mogao pojaviti ili izostati neovisno o ostalima, pa njegove vrijednosti nisu unaprijed vezane uz vrijednosti bilo koje druge jedinice u istom skupu.",
+      "introduced_in": "14-dvije-grupe",
+      "notes": "Nosivi pojam poglavlja. Iz njega slijedi izbor između uparenog i neovisnog postupka, a poglavlje 15 ga koristi bez ponovnog uvođenja."
+    },
+    {
+      "term": "referentna skupina",
+      "english_term": "reference category",
+      "canonical_definition": "Kategorija prema kojoj se izražavaju sve ostale kategorije istog prediktora, pa njezina sredina postaje polazna vrijednost modela, a koeficijenti ostalih kategorija odstupanja od nje.",
+      "introduced_in": "14-dvije-grupe",
+      "notes": "Uveden s binarnim prediktorom, proširen na više kategorija u poglavlju 15 i ponovno korišten u poglavlju o regresiji."
+    },
+    {
+      "term": "standardizirana razlika",
+      "english_term": "Cohen's d",
+      "canonical_definition": "Razlika dviju sredina podijeljena združenom standardnom devijacijom skupina, pa izražena u standardnim devijacijama umjesto u izvornim jedinicama.",
+      "introduced_in": "14-dvije-grupe",
+      "symbols": ["d"],
+      "notes": "PAZITI. Kod uparenog dizajna nazivnik je standardna devijacija razlika, pa dvije veličine s istim imenom nisu izravno usporedive. Poglavlje 14 to izriče."
+    },
+    {
+      "term": "stopa obiteljske pogreške",
+      "english_term": "familywise error rate",
+      "canonical_definition": "Vjerojatnost da će barem jedan test u unaprijed određenom skupu testova dati lažno pozitivan rezultat, uz uvjet da u tom skupu nijedan učinak zaista ne postoji.",
+      "introduced_in": "15-vise-grupa",
+      "notes": "Poglavlje je mjeri simulacijom i pokazuje da formula 1 - (1 - alfa)^m vrijedi za neovisne testove, a parne usporedbe daju nižu stopu jer dijele skupine."
+    },
+    {
+      "term": "F-statistika",
+      "english_term": "F-statistic",
+      "canonical_definition": "Omjer prosječne raspršenosti među skupnim sredinama i prosječne raspršenosti opažanja oko njihovih skupnih sredina.",
+      "introduced_in": "15-vise-grupa",
+      "symbols": ["F", "MS"]
+    },
+    {
+      "term": "eta-kvadrat",
+      "english_term": "eta squared",
+      "canonical_definition": "Udio ukupne varijabilnosti ishoda koji otpada na razlike među skupnim sredinama.",
+      "introduced_in": "15-vise-grupa",
+      "symbols": ["\\eta^2"],
+      "notes": "Omega-kvadrat uveden je u istom poglavlju kao podebljana prva pojava bez definicijskog diva, kao manje pristrana procjena iste veličine."
     }
   ],
   "notation": [
@@ -264,6 +343,73 @@
       "concept": "interval pouzdanosti",
       "introduced_in": "09-procjena",
       "notes": "Zvjezdica razlikuje kritičnu vrijednost od standardizirane vrijednosti opažanja z_i iz poglavlja 4."
+    },
+    {
+      "symbol": "O_{ij}",
+      "meaning": "Opažena frekvencija ćelije u i-tom retku i j-tom stupcu.",
+      "concept": "kontingencijska tablica",
+      "introduced_in": "13-kategoricki-podaci"
+    },
+    {
+      "symbol": "E_{ij}",
+      "meaning": "Očekivana frekvencija iste ćelije pod modelom nezavisnosti.",
+      "concept": "očekivana frekvencija",
+      "introduced_in": "13-kategoricki-podaci"
+    },
+    {
+      "symbol": "\\chi^2",
+      "meaning": "Hi-kvadrat statistika, zbroj doprinosa svih ćelija.",
+      "concept": "hi-kvadrat statistika",
+      "introduced_in": "13-kategoricki-podaci"
+    },
+    {
+      "symbol": "e_{ij}",
+      "meaning": "Standardizirani rezidual ćelije.",
+      "concept": "standardizirani rezidual",
+      "introduced_in": "13-kategoricki-podaci",
+      "notes": "PAZITI. Ne r. Slovo r rezervirano je za Pearsonovu korelaciju od poglavlja 6."
+    },
+    {
+      "symbol": "V",
+      "meaning": "Cramérovo V, mjera jačine veze u kontingencijskoj tablici.",
+      "concept": "Cramérovo V",
+      "introduced_in": "13-kategoricki-podaci"
+    },
+    {
+      "symbol": "\\beta_0",
+      "meaning": "Očekivani ishod u referentnoj skupini, dakle polazna vrijednost modela.",
+      "concept": "referentna skupina",
+      "introduced_in": "14-dvije-grupe",
+      "notes": "Uveden s binarnim prediktorom i zadržan kroz poglavlja 15 i 16."
+    },
+    {
+      "symbol": "\\beta_1",
+      "meaning": "Razlika između druge i referentne skupine, odnosno općenito koeficijent uz prediktor.",
+      "introduced_in": "14-dvije-grupe",
+      "notes": "U poglavlju 15 dobiva parnjake beta_2 do beta_4, po jedan za svaku nereferentnu kategoriju."
+    },
+    {
+      "symbol": "\\varepsilon",
+      "meaning": "Ono što model o pojedinoj jedinici nije objasnio.",
+      "introduced_in": "14-dvije-grupe"
+    },
+    {
+      "symbol": "d",
+      "meaning": "Standardizirana razlika dviju sredina.",
+      "concept": "standardizirana razlika",
+      "introduced_in": "14-dvije-grupe"
+    },
+    {
+      "symbol": "F",
+      "meaning": "Omjer prosječne raspršenosti između i unutar skupina.",
+      "concept": "F-statistika",
+      "introduced_in": "15-vise-grupa"
+    },
+    {
+      "symbol": "\\eta^2",
+      "meaning": "Udio varijabilnosti ishoda objašnjen skupnom pripadnošću.",
+      "concept": "eta-kvadrat",
+      "introduced_in": "15-vise-grupa"
     }
   ]
 }

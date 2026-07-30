@@ -192,6 +192,35 @@ div.csl-indent {
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 </head>
@@ -721,15 +750,22 @@ div.csl-indent {
   <li><a href="#rad-s-tekstom" id="toc-rad-s-tekstom" class="nav-link" data-scroll-target="#rad-s-tekstom">Rad s tekstom</a></li>
   <li><a href="#faktori-i-redoslijed-kategorija" id="toc-faktori-i-redoslijed-kategorija" class="nav-link" data-scroll-target="#faktori-i-redoslijed-kategorija">Faktori i redoslijed kategorija</a></li>
   <li><a href="#čišćenje-neurednih-podataka" id="toc-čišćenje-neurednih-podataka" class="nav-link" data-scroll-target="#čišćenje-neurednih-podataka">Čišćenje neurednih podataka</a></li>
-  <li><a href="#grafovi" id="toc-grafovi" class="nav-link" data-scroll-target="#grafovi">Grafovi</a>
+  <li><a href="#grafovi" id="toc-grafovi" class="nav-link" data-scroll-target="#grafovi">Grafovi</a></li>
+  <li><a href="#geometrija-prema-vrsti-podataka" id="toc-geometrija-prema-vrsti-podataka" class="nav-link" data-scroll-target="#geometrija-prema-vrsti-podataka">Geometrija prema vrsti podataka</a>
   <ul class="collapse">
   <li><a href="#jedna-brojčana-varijabla" id="toc-jedna-brojčana-varijabla" class="nav-link" data-scroll-target="#jedna-brojčana-varijabla">Jedna brojčana varijabla</a></li>
   <li><a href="#jedna-kategorijalna-varijabla" id="toc-jedna-kategorijalna-varijabla" class="nav-link" data-scroll-target="#jedna-kategorijalna-varijabla">Jedna kategorijalna varijabla</a></li>
   <li><a href="#brojčana-varijabla-po-skupinama" id="toc-brojčana-varijabla-po-skupinama" class="nav-link" data-scroll-target="#brojčana-varijabla-po-skupinama">Brojčana varijabla po skupinama</a></li>
   <li><a href="#dvije-brojčane-varijable" id="toc-dvije-brojčane-varijable" class="nav-link" data-scroll-target="#dvije-brojčane-varijable">Dvije brojčane varijable</a></li>
+  </ul></li>
+  <li><a href="#pridruživanje-polja-i-oznake" id="toc-pridruživanje-polja-i-oznake" class="nav-link" data-scroll-target="#pridruživanje-polja-i-oznake">Pridruživanje, polja i oznake</a>
+  <ul class="collapse">
   <li><a href="#pridruživanje-unutar-i-izvan-aes" id="toc-pridruživanje-unutar-i-izvan-aes" class="nav-link" data-scroll-target="#pridruživanje-unutar-i-izvan-aes">Pridruživanje unutar i izvan aes()</a></li>
   <li><a href="#polja" id="toc-polja" class="nav-link" data-scroll-target="#polja">Polja</a></li>
   <li><a href="#oznake" id="toc-oznake" class="nav-link" data-scroll-target="#oznake">Oznake</a></li>
+  </ul></li>
+  <li><a href="#izgled-ljestvice-i-spremanje" id="toc-izgled-ljestvice-i-spremanje" class="nav-link" data-scroll-target="#izgled-ljestvice-i-spremanje">Izgled, ljestvice i spremanje</a>
+  <ul class="collapse">
   <li><a href="#teme-i-ljestvice" id="toc-teme-i-ljestvice" class="nav-link" data-scroll-target="#teme-i-ljestvice">Teme i ljestvice</a></li>
   <li><a href="#spremanje" id="toc-spremanje" class="nav-link" data-scroll-target="#spremanje">Spremanje</a></li>
   <li><a href="#četiri-česte-pogreške" id="toc-četiri-česte-pogreške" class="nav-link" data-scroll-target="#četiri-česte-pogreške">Četiri česte pogreške</a></li>
@@ -1975,6 +2011,10 @@ Instagram    TikTok     Other
 </div>
 </div>
 <p>Poziv bez geometrije nacrta osi i ništa više. To nije greška nego točan prikaz onoga što je zatraženo, jer podaci i pridruživanje postoje, a odluka o obliku oznake nije donesena.</p>
+</section>
+<section id="geometrija-prema-vrsti-podataka" class="level2">
+<h2 class="anchored" data-anchor-id="geometrija-prema-vrsti-podataka">Geometrija prema vrsti podataka</h2>
+<p>Sljedeća četiri izbora pokrivaju gotovo sve što opisna analiza treba. Redoslijed prati tablicu iz poglavlja o vizualizaciji, dakle jednu brojčanu varijablu, jednu kategorijalnu, brojčanu po skupinama i dvije brojčane.</p>
 <section id="jedna-brojčana-varijabla" class="level3">
 <h3 class="anchored" data-anchor-id="jedna-brojčana-varijabla">Jedna brojčana varijabla</h3>
 <p>Histogram dijeli raspon varijable na jednako široke razrede i broji opažanja u svakom.</p>
@@ -2132,6 +2172,9 @@ Instagram    TikTok     Other
 </div>
 <p>Argument <code>method = "lm"</code> traži pravac najmanjih kvadrata, a bez njega se crta prilagodljiva krivulja koja slijedi oblik podataka. Siva vrpca oko linije je interval pouzdanosti, i uklanja se argumentom <code>se = FALSE</code>. Ta linija je model, a ne podatak, pa se čita zajedno s oblakom iz kojega je izvučena. Poglavlje o regresiji pokazuje kako nastaje.</p>
 </section>
+</section>
+<section id="pridruživanje-polja-i-oznake" class="level2">
+<h2 class="anchored" data-anchor-id="pridruživanje-polja-i-oznake">Pridruživanje, polja i oznake</h2>
 <section id="pridruživanje-unutar-i-izvan-aes" class="level3">
 <h3 class="anchored" data-anchor-id="pridruživanje-unutar-i-izvan-aes">Pridruživanje unutar i izvan aes()</h3>
 <p>Ovo je mjesto na kojem se griješi najčešće i na kojem poruka o grešci najmanje pomaže. Pravilo ima jednu rečenicu. Unutar <code>aes()</code> ide ime varijable, izvan <code>aes()</code> ide zadana vrijednost.</p>
@@ -2206,6 +2249,9 @@ Instagram    TikTok     Other
 </div>
 <p>Naslov koji izriče nalaz čitatelju kaže više od naslova koji opisuje sadržaj, pa je „Vrijeme korištenja opada s dobi” korisnije od „Odnos dobi i vremena korištenja”. Potpis nosi izvor podataka i napomenu o postupku, i u ovoj knjizi nikada ne izostaje.</p>
 </section>
+</section>
+<section id="izgled-ljestvice-i-spremanje" class="level2">
+<h2 class="anchored" data-anchor-id="izgled-ljestvice-i-spremanje">Izgled, ljestvice i spremanje</h2>
 <section id="teme-i-ljestvice" class="level3">
 <h3 class="anchored" data-anchor-id="teme-i-ljestvice">Teme i ljestvice</h3>
 <p>Tema određuje sve što nije podatak, dakle pozadinu, mrežu, pisma i položaj legende. Ugrađene teme uključuju <code>theme_minimal()</code>, <code>theme_bw()</code>, <code>theme_classic()</code> i <code>theme_void()</code>, a postavljaju se po grafu ili jednom za cijelu sesiju pozivom <code>theme_set()</code>.</p>

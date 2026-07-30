@@ -412,6 +412,109 @@ categorical predictor. The lectures teach them as separate procedures. **This is
 a restructuring, not a port**, and it is the one place in round 4 where the
 source's organisation actively fights the book's.
 
+#### Round 4 — done, 30 July 2026
+
+| Job | Target | Delivered | Shape held |
+|---|---|---|---|
+| ch13 Kategorički podaci | 4 500 | ~3 690 | heavy cut |
+| ch14 Uspoređivanje dviju grupa | 4 500 | ~3 520 | cut plus restructuring |
+| ch15 Uspoređivanje više grupa | 4 000 | ~3 220 | cut |
+
+Both linters clean on all three, the figure-introduction check passes, all three
+render, the widget registry check passes on all seventeen widgets, and every
+number in all three chapters is computed inline from the code that is in the
+file. Section rhythm holds at eleven sections each with body evenness 0,32, 0,21
+and 0,24.
+
+**The batch worked because one dataset carried all three chapters.** None of the
+three course datasets exists in this repository, so all three cases were
+recomputed on `populacija_medija`. That turned out to be worth more than a
+substitution. Chapter 13 tests whether age group and news source are associated,
+chapter 14 compares two of those sources on trust, and chapter 15 compares all
+five. One population, three questions, escalating — which the three separate
+lecture datasets could never have given. The plan predicted round 4 would feel
+fastest; the reason it did is that the register was settled in chapter 13 and
+the data question was answered once.
+
+**A known population turns three procedures into demonstrations.** Chapter 13's
+goodness-of-fit section tests the sample's education distribution against a flat
+reference and against the true population shares, and the same data give
+χ² = 209 against the first and 1,77 against the second. Ordinary teaching has to
+assert that the choice of reference distribution matters; here the book can say
+which one is true. Chapter 14 does the same for confounding, where the raw gap
+of 1,30 boda falls to 0,90 inside a narrow age band, so roughly a third of it is
+age and that fraction is measured rather than argued.
+
+**One lecture claim did not survive contact with the data, and it is the central
+one in week 12.** The lecture computes the inflated error rate as 1 − 0,95¹⁰ and
+reports about 40 %. That formula assumes independent tests, and ten pairwise
+comparisons among five groups share groups. Simulation puts the real rate at
+27,4 %, while ten genuinely independent tests land at 40,3 %, matching the
+formula exactly. Chapter 15 reports the measured value, keeps the formula as the
+independent-case upper bound, and holds the ANOVA at 4,2 %. Recorded in the
+chapter header. This is the round-3 lesson repeating: compute before writing.
+
+**The chi-square small-cell distortion also runs the other way from the usual
+telling.** With expected counts near two the empirical 95th percentile of the
+statistic falls *below* the theoretical cut-off and the test rejects 3,4 % of
+the time rather than 5 %. Chapter 13 states what it measured in that table shape
+and does not generalise. That measurement is what earns the divljina box, which
+dissects the threshold of five as a recommendation traceable to one 1954 paper
+rather than a mathematical condition [@cochran1954].
+
+**Three bibliography debts paid, none of them on the list.** The plan budgeted no
+sources for round 4 and all three chapters needed one, because in each the
+lecture's own material supplied no genuine published claim. `cochran1954` gives
+chapter 13 the threshold-of-five box, `belia2005` gives chapter 14 the error-bar
+overlap box with its 473 respondents, and `nieuwenhuis2011` gives chapter 15 the
+significant-here-not-there box with its 513 reviewed articles. All three were
+verified against Crossref and Nieuwenhuis additionally against OpenAlex and
+Europe PMC. Cochran's entry deliberately carries no end page, since neither
+index records one, following the `squire1988` precedent.
+
+**Chapter 14 was the restructuring the plan warned about, and it cost a
+reordering rather than a rewrite.** The lecture teaches three t-tests in
+sequence and reaches the formula interface at the very end. The chapter reverses
+that. Design and unit of independence come first, the estimate with its interval
+before any test, and the linear model arrives as the thing all three designs
+already were. The reveal that the two-group test is the smallest case of one
+framework now lands here rather than in chapter 16, which frees chapter 16 to
+spend its reveal on prediction against explanation.
+
+**The paired demonstration is the strongest single passage in the round.** One
+constructed set of sixty paired measurements, analysed correctly, gives an
+interval of 0,25 to 0,71 and p = 0,0001. The same numbers analysed as
+independent groups give −0,14 to 1,10 and p = 0,126. Same data, same mean
+change, opposite conclusions, and nothing between them but the design.
+
+**Eight new definition divs and eleven notation entries entered
+`concept-ledger.json`**, taking it to thirty-one concepts against thirty-one
+definition divs. Entering them surfaced one collision. The standardized residual
+is conventionally written *r*, and *r* has meant Pearson's correlation since
+chapter 6. Chapter 13 writes it $e_{ij}$ and says so in the definition div
+itself; the ledger carries the warning on both entries. This is the second such
+catch after *pouzdanost* in round 2, and it suggests the collision check belongs
+in the per-chapter procedure rather than in a later audit.
+
+**Berkeley moved out of the vignette-and-divljina double duty.** In the previous
+draft `bickel1975` carried the vignette, the divljina, the worked example and
+two exercises of chapter 13. It now carries the vignette and one exercise, the
+divljina went to Cochran, and the worked example went to the book's own data.
+The chapter still closes the Berkeley loop, in a paragraph that names the
+missing variable and hands the stratified version to chapter 6, where round 3
+put it.
+
+Three cuts are worth naming because they are permanent. McNemar, Benjamini-
+Hochberg, odds ratios and Yates went out of chapter 13 per the plan. APA
+reporting templates, forest plots, trimmed means and the power calculation went
+out of chapter 14, the last of these because it belongs to chapter 11. Levene's
+manual implementation, compact letter display, Games-Howell and two-way ANOVA
+went out of chapter 15. None is coming back.
+
+All three land under target, as every ported chapter so far has. Chapter 15 is
+the shortest and the likeliest candidate for a later enrichment pass, with the
+planned-contrasts material the natural place to thicken.
+
 ### Round 5 — completing Dio III and Dio IV
 
 **W7 → ch7.  W9 → ch10 + ch11.**
@@ -477,6 +580,9 @@ Not in `references.bib` and needed by the rounds above. Never add from memory.
 | ch5, already outstanding | Cleveland & McGill, graphical perception | paid, `cleveland1984` |
 | ch5, already outstanding | Wilkinson, *The Grammar of Graphics* | paid, `wilkinson2005` |
 | ch6 divljina, round 3 | Matejka & Fitzmaurice 2017, identical statistics from very different data | paid, `matejka2017` |
+| ch13 divljina, round 4 | Cochran 1954, where the expected-count-of-five convention comes from | paid, `cochran1954` |
+| ch14 divljina, round 4 | Belia et al. 2005, researchers misreading error bars and CI overlap | paid, `belia2005` |
+| ch15 divljina, round 4 | Nieuwenhuis et al. 2011, comparing effects by their significance | paid, `nieuwenhuis2011` |
 
 ## Not available, scheduled later
 
@@ -488,9 +594,12 @@ No lecture source exists for any of these, and none is a port.
 - **Predgovor** — drafted, not ported
 - **Dodatak B** jamovi, **C** katalog, **D** koji test, **E** rječnik, **F**
   protokol
-- **17 divljina boxes** minus the one Berkeley case week 1 supplies, minus the
-  two round 2 sourced independently (`squire1988`, `hoekstra2014`), and minus the
-  two round 3 sourced independently (`cleveland1984`, `matejka2017`)
+- **17 divljina boxes** minus the two round 2 sourced independently
+  (`squire1988`, `hoekstra2014`), minus the two round 3 sourced independently
+  (`cleveland1984`, `matejka2017`), and minus the three round 4 sourced
+  independently (`cochran1954`, `belia2005`, `nieuwenhuis2011`). The Berkeley
+  case week 1 supplies now carries chapter 13's vignette rather than its
+  divljina, so it no longer counts against this list.
 
 Note that all three chapters carrying the book's contemporary identity are in
 this list. The port delivers the spine and none of the identity, so the port
