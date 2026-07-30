@@ -60,6 +60,10 @@ jobs:
       # Sans, JetBrains Mono). Bez njih se sve i dalje renderira, ali figure
       # izgube tipografiju knjige — R/setup.R tada tiho gasi fig.showtext.
       #
+      # forcats nosi faktore i redoslijed kategorija (fct_*) koje uči Dodatak A.
+      # Sam meta-paket tidyverse namjerno se NE instalira jer bi povukao
+      # stotinjak paketa u svaku gradnju; popis drži samo ono što se izvršava.
+      #
       # NE STAVLJAJ KOMENTAR UNUTAR `packages: |`. To je YAML literal blok, pa
       # svaki redak ide pak-u kao ime paketa; redak koji počinje s `#` ruši
       # korak s "Cannot parse packages".
@@ -76,9 +80,6 @@ jobs:
             any::jsonlite
             any::stringr
             any::stringi
-            # Dodatak A uči faktore i redoslijed kategorija (fct_*). Meta-paket
-            # tidyverse namjerno se NE instalira jer bi povukao stotinjak
-            # paketa u svaku gradnju; ovdje stoji samo ono što se izvršava.
             any::forcats
             any::knitr
             any::rmarkdown
