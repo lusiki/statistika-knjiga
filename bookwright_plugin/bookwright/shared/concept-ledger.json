@@ -2,6 +2,34 @@
   "note": "Registar kanonskih pojmova i notacije. Jedno hrvatsko ime i jedno značenje simbola vrijede kroz cijelu knjigu (STYLE.md S2 i H9). Pojam ulazi u concepts kad dobije ::: {#def-…} div; notacija ulazi u notation kad se simbol prvi put uvede u prozi. data/concept-graph.json gradi se iz istih definicijskih divova, pa se popisi pojmova moraju slagati.",
   "concepts": [
     {
+      "term": "operacionalizacija",
+      "english_term": "operationalization",
+      "canonical_definition": "Postupak kojim se teorijski pojam pretvara u određeni način mjerenja, tako da se navede što će se opažati i po kojem pravilu će se opažanju pridružiti vrijednost.",
+      "introduced_in": "02-mjerenje-i-dizajn",
+      "notes": "Varijabla i razina mjerenja uvedene su u istom poglavlju kao podebljane prve pojave bez definicijskog diva."
+    },
+    {
+      "term": "pouzdanost",
+      "english_term": "reliability",
+      "canonical_definition": "Stupanj u kojem instrument daje dosljedne rezultate pri ponovljenom mjerenju istog stanja u istim uvjetima.",
+      "introduced_in": "02-mjerenje-i-dizajn",
+      "notes": "PAZITI. Razina pouzdanosti iz poglavlja o procjeni nema veze s ovim pojmom. Ista hrvatska riječ nosi dva značenja, jedno o instrumentu i jedno o postupku, i knjiga ih nigdje ne smije spojiti."
+    },
+    {
+      "term": "valjanost",
+      "english_term": "validity",
+      "canonical_definition": "Stupanj u kojem instrument mjeri upravo onaj pojam o kojem se namjerava zaključivati, a ne neki drugi s kojim je povezan.",
+      "introduced_in": "02-mjerenje-i-dizajn",
+      "notes": "Interna i eksterna valjanost izvedene su u istom poglavlju bez vlastitih definicijskih divova."
+    },
+    {
+      "term": "konfundirajuća varijabla",
+      "english_term": "confounder",
+      "canonical_definition": "Varijabla koja je povezana i s pretpostavljenim uzrokom i s ishodom, pa dio opažene veze među njima potječe od nje, a ne od djelovanja uzroka na ishod.",
+      "introduced_in": "02-mjerenje-i-dizajn",
+      "notes": "Zasijani pojam. Uzročnost je najavljena ovdje jednom i požnjevena u poglavlju o regresiji (STYLE.md S6)."
+    },
+    {
       "term": "aritmetička sredina",
       "english_term": "mean",
       "canonical_definition": "Zbroj svih izmjerenih vrijednosti podijeljen njihovim brojem.",
@@ -21,7 +49,7 @@
       "canonical_definition": "Prosjek kvadriranih odstupanja opažanja od aritmetičke sredine, uz djelitelj umanjen za jedan.",
       "introduced_in": "04-sazimanje-podataka",
       "symbols": ["s^2", "\\sigma^2"],
-      "notes": "Besselov djelitelj uveden je ovdje kao tvrdnja. Poglavlje o uzorkovanju duguje njegovo pokazivanje simulacijom."
+      "notes": "Besselov djelitelj uveden je ovdje kao tvrdnja. Dug je podmiren 30. srpnja 2026. u poglavlju o uzorkovanju, u odjeljku o standardnoj pogrešci, gdje simulacija pokazuje da djelitelj n podcjenjuje populacijsku varijancu, a djelitelj n-1 ne podcjenjuje je."
     },
     {
       "term": "standardna devijacija",
@@ -43,6 +71,34 @@
       "canonical_definition": "Mjera nesimetričnosti raspodjele, pozitivna kada je rep raspodjele okrenut prema većim vrijednostima.",
       "introduced_in": "04-sazimanje-podataka",
       "notes": "Zaobljenost (kurtosis) opisana je u istom odjeljku bez definicijskog diva jer se knjiga na nju dalje ne oslanja."
+    },
+    {
+      "term": "pogreška uzorkovanja",
+      "english_term": "sampling error",
+      "canonical_definition": "Razlika između vrijednosti izračunate na uzorku i vrijednosti koju ima cijela populacija, a nastaje zato što je izmjeren dio umjesto cjeline.",
+      "introduced_in": "08-uzorkovanje",
+      "notes": "Riječ pogreška ovdje ne označava propust. Poglavlje to izričito kaže jer je zamjena s pristranošću najčešći nesporazum u Dijelu III."
+    },
+    {
+      "term": "distribucija uzorkovanja",
+      "english_term": "sampling distribution",
+      "canonical_definition": "Raspodjela vrijednosti koje bi neka statistika poprimila kroz mnogo ponovljenih uzoraka iste veličine iz iste populacije.",
+      "introduced_in": "08-uzorkovanje",
+      "notes": "Nosivi pojam Dijela III. Parametar, statistika i nepristranost uvedeni su u istom poglavlju kao podebljane prve pojave bez definicijskog diva."
+    },
+    {
+      "term": "standardna pogreška",
+      "english_term": "standard error",
+      "canonical_definition": "Standardna devijacija distribucije uzorkovanja, pa opisuje koliko bi tipično varirala procjena kroz ponovljene uzorke.",
+      "introduced_in": "08-uzorkovanje",
+      "symbols": ["SE_{\\bar{x}}", "SE_{\\hat{p}}"]
+    },
+    {
+      "term": "interval pouzdanosti",
+      "english_term": "confidence interval",
+      "canonical_definition": "Raspon oko procjene, izračunat postupkom koji kroz ponovljena uzorkovanja obuhvaća nepoznati parametar u unaprijed određenom udjelu slučajeva.",
+      "introduced_in": "09-procjena",
+      "notes": "Obećanje pripada postupku, ne pojedinačnom rasponu. Točkasta procjena, preciznost, pouzdanost i bootstrap uvedeni su u istom poglavlju bez definicijskog diva."
     }
   ],
   "notation": [
@@ -100,6 +156,38 @@
       "meaning": "Standardizirana vrijednost pojedinog opažanja.",
       "concept": "standardizirana vrijednost",
       "introduced_in": "04-sazimanje-podataka"
+    },
+    {
+      "symbol": "\\sigma",
+      "meaning": "Standardna devijacija populacije.",
+      "concept": "standardna devijacija",
+      "introduced_in": "08-uzorkovanje",
+      "notes": "U poglavlju 4 navedena je uz s kao par, a prvu argumentativnu ulogu dobiva u formuli za standardnu pogrešku."
+    },
+    {
+      "symbol": "SE_{\\bar{x}}",
+      "meaning": "Standardna pogreška uzoračke sredine.",
+      "concept": "standardna pogreška",
+      "introduced_in": "08-uzorkovanje"
+    },
+    {
+      "symbol": "\\hat{p}",
+      "meaning": "Uzorački udio, procjena populacijskog udjela.",
+      "introduced_in": "08-uzorkovanje",
+      "notes": "Kapica označava procjenu. Prvi je slučaj tog zapisa u knjizi i vrijedi za sve kasnije procjenitelje."
+    },
+    {
+      "symbol": "SE_{\\hat{p}}",
+      "meaning": "Standardna pogreška uzoračkog udjela.",
+      "concept": "standardna pogreška",
+      "introduced_in": "08-uzorkovanje"
+    },
+    {
+      "symbol": "z^{*}",
+      "meaning": "Broj standardnih pogrešaka koji se širi na svaku stranu procjene, određen razinom pouzdanosti.",
+      "concept": "interval pouzdanosti",
+      "introduced_in": "09-procjena",
+      "notes": "Zvjezdica razlikuje kritičnu vrijednost od standardizirane vrijednosti opažanja z_i iz poglavlja 4."
     }
   ]
 }

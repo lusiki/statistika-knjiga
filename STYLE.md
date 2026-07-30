@@ -5,8 +5,8 @@ add a rule whenever a new editorial decision surfaces, following the lifecycle
 at the bottom.
 
 **Provenance.** Rules H1–H8 and S1–S7 are inherited, tested over a full
-Croatian-language textbook. H9, S8 and S9 are new and specific to a statistics
-textbook. IDs are stable and never renumbered.
+Croatian-language textbook. H9, H10, S8 and S9 are new and specific to a
+statistics textbook. IDs are stable and never renumbered.
 
 **Scope.** Binding for every `.qmd` in `chapters/` and `dodaci/`. The standalone
 pages (`pojmovnik`, `interakcije`, `podaci`, `resursi`, `uci-s-ai`, `silabus`,
@@ -39,6 +39,7 @@ lecturer would not say it to a room, it does not belong on the page.
 | H7 | Every number, study, or named finding carries a `[@key]` in the same sentence |
 | H8 | Bold only for first-mention concept anchors and definition terms |
 | H9 | Notation discipline: no symbol without a prose gloss, no formula without an intuition before it |
+| H10 | Code discipline: the reader reads code and never writes it; visible code carries the idea only |
 | S8 | Simulation before formalism |
 | S9 | Honesty about uncertainty, and about the assistant |
 
@@ -183,6 +184,55 @@ New in this book.
 - **Derivations are not proofs of seriousness.** If a step can be replaced by a
   simulation the reader can run, it is (see S8).
 - Inline math for a single symbol, display math for anything the eye must scan.
+
+### H10 — Code discipline
+
+New in this book, and the operating form of design principle 4.
+
+**The reader never writes R. The reader learns to read it, because reading code
+is how a claim becomes checkable.** That makes code a subject of the book without
+making it a skill the book demands, and it is the honest form of promise 4 — an
+assistant writes the call in seconds, and what survives that is the judgment of
+whether the call answers the question.
+
+Code appears in three registers, and the reader must always be able to tell which
+one is on screen.
+
+| Register | Mechanics | Where | Function |
+|---|---|---|---|
+| Plumbing | no chunk option, inheriting the project's `echo: false` | anywhere | draws figures and tables; hidden in the book, revealed by the `kolegij` profile |
+| Receipt | explicit `echo: true` | *Razrađeni primjer* only | the analysis, inspectable, never to be typed |
+| Suspect | quoted inside a callout, not executed | `callout-greska`, *revizija modela* | assistant-produced, one planted defect |
+
+The receipt and the suspect are one skill in two moods, and that skill is the only
+one in the book that automation makes more valuable rather than less.
+
+- **Code is never the object of instruction.** No chapter explains syntax;
+  Dodatak A does. One sanctioned exception exists, the plot-call anatomy in the
+  visualisation chapter, which teaches the reader to read a plotting call once so
+  that every later chapter can show one without teaching it.
+- **A visible block carries the idea and nothing else.** Theming, `hr_broj`,
+  `knitr::kable`, a `transmute` that only renames columns for display,
+  `iscrtaj_figuru` and every other book-internal helper are plumbing. A reader can
+  neither reuse nor learn from a helper that exists only in this repository, and
+  its presence multiplies the apparent difficulty of the idea.
+- **Twelve lines is the ceiling for a visible block.** Past that, the idea and its
+  packaging have not been separated.
+- **Code never comes first.** A visible block appears only after the concept it
+  implements has been experienced in prose, in a figure, or in the widget (S8).
+- **A function new to the book earns one narrating clause** in the paragraph after
+  the block. An introduction, not a lesson.
+- **The reader is never asked to produce code.** The *Računski* tier assumes no R
+  installation. It uses hand-computable numbers or the chapter's widget, and
+  points to Dodatak A or Dodatak B for the reader who wants the full dataset.
+- **The acceptance test.** Every visible block must be readable by someone who has
+  read the chapter and has never written R. If it is not, plumbing has leaked into
+  the receipt.
+
+The escalation ladder, which fixes what code is *for* in each part of the book, is
+recorded in `notes/struktura-knjige.md`. It is a spine decision and not a style
+one, so a chapter that departs from it is corrected against the note rather than
+against this file.
 
 ---
 
@@ -372,6 +422,10 @@ conclusion, with the code folded beneath the prose. The prose stands alone: a
 reader who never opens a single code block still follows the whole analysis.
 Every number in the narration comes from the code that is actually there.
 
+This is the **only** section that carries visible code, and it carries it in the
+receipt register of H10. Everything cosmetic belongs in an adjacent plumbing
+block.
+
 ### Sažetak i pojmovi
 
 `## Sažetak {.sazetak}` — one paragraph, three to six sentences, in chapter
@@ -389,10 +443,16 @@ Four tiers, in this order, each a `###` with class `{.zadaci-razina}`:
 
 1. **Konceptualni** — no computation; the reader explains, distinguishes or
    predicts.
-2. **Računski** — a calculation or a small analysis, with the data named.
+2. **Računski** — a calculation or a small analysis, with the data named. It
+   never assumes an R installation (H10), so it works from hand-computable
+   numbers, from a table the chapter already renders, or from the chapter's
+   widget, and points to Dodatak A or B for the reader who wants more.
 3. **Kritički** — a published claim, chart or abstract to be judged.
 4. **Revizija modela** — an AI-generated solution the reader must grade,
-   naming what is right, what is wrong, and how they know.
+   naming what is right, what is wrong, and how they know. From the
+   visualisation chapter onward the graded artifact **includes its code**, since
+   this tier is the only place where reading code becomes mandatory and
+   therefore the only thing that keeps promise 4 from being decorative.
 
 Imperative voice. Each exercise names its deliverable. Solutions, where they
 exist, are gated `::: {.content-visible when-profile="kolegij"}`.
@@ -534,3 +594,26 @@ written, the chapter is not done.
   uncertainty and about the assistant), and extended S2 to acknowledge that
   statistical terminology justifies more English parentheticals than an ordinary
   textbook, and S4 to fix the reporting order for estimates.
+- **2026-07-30** — Added H10 (code discipline), triggered by the visualisation
+  chapter. The chapter forced the question of how R enters a book written for
+  readers with no programming, and the answer generalised to all eighteen. Three
+  consequences beyond the rule itself. The project default flipped to
+  `execute: echo: false` in `_quarto.yml`, so a visible block is now an editorial
+  act rather than an inherited accident, and the `kolegij` profile's existing
+  `echo: true` turns the same sources into the unfolded teaching edition. The
+  *Razrađeni primjer* and *Zadaci* entries under Structural elements were amended
+  to name the receipt register and to stop the *Računski* tier assuming an R
+  installation. The escalation ladder that fixes the rhetorical function of code
+  part by part went into `notes/struktura-knjige.md`, since it governs the spine.
+- **2026-07-30** — **S7 section band ratified, no longer a placeholder.** S7 said
+  the bands were guesses until four or five chapters carried real prose. Five now
+  do, and the measured distribution of top-level sections is 7, 7, 9, 10, 11. The
+  `essay` band in `conventions.json` moves from 6–9 to **7–12**. The old band was
+  set before the seven-part skeleton was populated. The skeleton alone spends five
+  top-level sections (Interakcija, Razrađeni primjer, Sažetak, Pojmovi, Zadaci),
+  so a ceiling of nine left a 4 500-word chapter at most four sections of
+  argument, which no written chapter could respect and which fired on chapters 1
+  and 2 while their body evenness was the best in the book. The floor of seven
+  keeps the rule that a chapter needs at least two argument sections. Evenness,
+  coda and paragraph bands were measured too and were already right, so they are
+  unchanged. Triggered by round 2 of the lecture port (chapters 8 and 9).

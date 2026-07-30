@@ -50,9 +50,17 @@ algoritama. Granica nije tvrdnja da te teme nisu važne, nego odluka da se
 obećani put može završiti.
 
 Digitalno izdanje nosi interaktivne prikaze, a tiskano njihove statične
-blizance. Kod je presavijen jer glavna priča mora biti razumljiva bez
-programiranja. Dodatci nude R praktikum, put bez koda, katalog podataka,
-odabir postupka, rječnik i protokol za rad s asistentom.
+blizance. Dodatci nude R praktikum, put bez koda, katalog podataka, odabir
+postupka, rječnik i protokol za rad s asistentom.
+
+Kod se u poglavljima pojavljuje kao dokaz, a ne kao zadatak. Nijedna vježba ne
+traži da čitatelj napiše program. Razrađeni primjer svakog poglavlja pokazuje
+postupak kojim su dobivene brojke iz proze, jer tvrdnja koju nije moguće
+provjeriti nije tvrdnja. Za čitanje tih blokova dovoljna su tri znaka. Znak `|>`
+znači „pa onda" i vodi podatke iz jednog koraka u sljedeći, znak `+` dodaje još
+jedan sloj grafu, a `aes` imenuje pridruživanje varijabli vizualnim kanalima.
+Sve ostalo su imena glagola koja kažu što rade. Tko poželi i sam pisati, kroz R
+ga od instalacije vodi praktikum, a tko to ne želi, put bez koda ostaje potpun.
 
 Poglavlja se mogu čitati redom, ali i koristiti kao referenca. Pojmovi se
 namjerno vraćaju. Simpsonov paradoks najprije gradi statističku sumnju, zatim
@@ -121,8 +129,9 @@ analize. Predajte jedan odlomak.
 
 ### Računski
 
-Otvorite jedan presavijeni blok koda u prvom poglavlju i povežite svaki
-računski korak s rečenicom u prozi. Predajte kratku mapu postupka.
+Otvorite presavijeni blok koda u razrađenom primjeru poglavlja o sažimanju
+podataka i povežite svaki njegov korak s rečenicom iz proze. Predajte kratku
+mapu postupka, bez pisanja vlastitoga koda.
 
 ### Kritički
 

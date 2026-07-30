@@ -5,8 +5,8 @@
 # rade na istim ispitanicima, pa čitatelj prepoznaje isti uzorak u sažecima,
 # grafovima i koeficijentima.
 #
-# Skripta se poziva iz R/setup.R, pa je `anketa_mreze` dostupna svakom
-# poglavlju bez dodatnog učitavanja.
+# Skripta se poziva iz R/setup.R, pa su `anketa_mreze` i `populacija_medija`
+# dostupni svakom poglavlju bez dodatnog učitavanja.
 # ---------------------------------------------------------------------------
 
 #' Simulirana anketa o korištenju društvenih mreža
@@ -91,3 +91,104 @@ simuliraj_anketu <- function(n = 300, sjeme = 4001) {
 
 # Kanonski nastavni uzorak. Poglavlja ga koriste pod ovim imenom.
 anketa_mreze <- simuliraj_anketu()
+
+#' Simulirana populacija poznatih parametara
+#'
+#' Vraća 50 000 odraslih osoba izmišljenoga grada s poznatim populacijskim
+#' vrijednostima. Dio III treba populaciju čija je istina unaprijed poznata,
+#' jer se samo tako može pokazati koliko dobro uzorak pogađa ono što u
+#' stvarnom istraživanju nikada ne vidimo. Primarni izvor vijesti ovisi o
+#' dobi, povjerenje o izvoru i dobi, a spremnost na plaćanje ima mnogo nula i
+#' dugačak desni rep, pa služi kao izrazito asimetrična varijabla u
+#' demonstraciji središnjega graničnog teorema.
+#'
+#' @param N Veličina populacije.
+#' @param sjeme Sjeme generatora. Zadana vrijednost drži populaciju
+#'   nepromijenjenom kroz sve rendere i sva poglavlja.
+simuliraj_populaciju <- function(N = 50000, sjeme = 8001) {
+  # Isti razlog kao kod ankete. Generator vraća zatečeno stanje RNG-a, pa
+  # učitavanje populacije ne pomiče nijednu kasniju simulaciju u poglavlju.
+  staro <- if (exists(".Random.seed", envir = globalenv())) {
+    get(".Random.seed", envir = globalenv())
+  } else {
+    NULL
+  }
+  on.exit(
+    {
+      if (is.null(staro)) {
+        if (exists(".Random.seed", envir = globalenv())) {
+          rm(".Random.seed", envir = globalenv())
+        }
+      } else {
+        assign(".Random.seed", staro, envir = globalenv())
+      }
+    },
+    add = TRUE
+  )
+  set.seed(sjeme)
+
+  razine_izvora <- c("portal", "društvene mreže", "TV", "radio", "tisak")
+  razine_obrazovanja <- c("osnovna", "srednja", "viša", "diplomska")
+
+  dob <- pmin(80, 18 + stats::rgamma(N, shape = 2.00, scale = 12.70))
+
+  # Koeficijenti su birani tako da se rubni udjeli izvora poklope sa
+  # zadanom strukturom populacije, a da izbor izvora i dalje ovisi o dobi.
+  tezine <- cbind(
+    exp(0.535 - 0.012 * dob),
+    exp(2.005 - 0.055 * dob),
+    exp(-1.710 + 0.030 * dob),
+    exp(-1.932 + 0.022 * dob),
+    exp(-2.406 + 0.028 * dob)
+  )
+  tezine <- tezine / rowSums(tezine)
+  for (j in 2:ncol(tezine)) {
+    tezine[, j] <- tezine[, j - 1] + tezine[, j]
+  }
+  izvor <- razine_izvora[
+    max.col(stats::runif(N) < tezine, ties.method = "first")
+  ]
+
+  obrazovanje <- sample(
+    razine_obrazovanja,
+    N,
+    replace = TRUE,
+    prob = c(0.18, 0.47, 0.24, 0.11)
+  )
+
+  ucinak_izvora <- c(
+    portal = 0, `društvene mreže` = -0.55, TV = 0.35,
+    radio = 0.60, tisak = 0.50
+  )[izvor]
+
+  povjerenje <- 4.81 + 0.028 * (dob - 42.7) + ucinak_izvora +
+    stats::rnorm(N, 0, 1.88)
+  povjerenje <- pmin(10, pmax(1, round(povjerenje)))
+
+  minute <- stats::rgamma(
+    N,
+    shape = 7.2,
+    scale = 174 * exp(0.006 * (dob - 42.7)) / 7.2
+  )
+
+  placa <- stats::runif(N) < stats::plogis(
+    -1.35 + 0.16 * (povjerenje - 4.87) +
+      0.45 * (obrazovanje %in% c("viša", "diplomska"))
+  )
+  iznos <- ifelse(placa, stats::rlnorm(N, meanlog = 3.05, sdlog = 0.62), 0)
+
+  tibble::tibble(
+    osoba = seq_len(N),
+    dob = floor(dob),
+    spol = ifelse(stats::runif(N) < 0.51, "ženski", "muški"),
+    obrazovanje = factor(obrazovanje, levels = razine_obrazovanja),
+    izvor_vijesti = factor(izvor, levels = razine_izvora),
+    povjerenje_medijima = povjerenje,
+    minute_medija = round(minute),
+    spremnost_platiti = round(iznos)
+  )
+}
+
+# Kanonska nastavna populacija. Poglavlja Dijela III koriste je pod ovim
+# imenom, a njezini parametri smiju se izračunati jer je cijela poznata.
+populacija_medija <- simuliraj_populaciju()

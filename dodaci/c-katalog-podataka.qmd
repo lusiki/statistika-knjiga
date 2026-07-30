@@ -38,12 +38,12 @@ algoritmima stvaraju podatke kodom uz fiksirano sjeme iz `R/setup.R`.
 Simulacije služe učenju mehanizma i nikada se ne opisuju kao nalaz o stvarnoj
 populaciji. Svaki rezultat može se ponovno proizvesti iz koda u poglavlju.
 
-Jedan simulirani skup nije lokalan za pojedino poglavlje nego prolazi kroz više
-njih, pa ima vlastiti unos. Njegov generator živi u `R/podaci-nastavni.R` i
-poziva se iz `R/setup.R`, tako da je skup dostupan svakom poglavlju pod imenom
-`anketa_mreze` bez dodatnog učitavanja. Generator nosi vlastito sjeme i vraća
-zatečeno stanje generatora slučajnih brojeva, pa učitavanje skupa ne pomiče
-nijednu kasniju simulaciju u poglavlju.
+Dva simulirana skupa nisu lokalna za pojedino poglavlje nego prolaze kroz više
+njih, pa imaju vlastite unose. Njihovi generatori žive u `R/podaci-nastavni.R`
+i pozivaju se iz `R/setup.R`, tako da su skupovi dostupni svakom poglavlju pod
+imenima `anketa_mreze` i `populacija_medija` bez dodatnog učitavanja. Svaki
+generator nosi vlastito sjeme i vraća zatečeno stanje generatora slučajnih
+brojeva, pa učitavanje skupa ne pomiče nijednu kasniju simulaciju u poglavlju.
 
 | Svojstvo | Opis |
 |---|---|
@@ -64,6 +64,33 @@ igdje drugdje, a poglavlja koja ga koriste to kažu na prvom mjestu na kojem se
 pojavi. Postoji zato da poglavlja o opisivanju podataka rade na istim
 ispitanicima, pa čitatelj isti uzorak prepoznaje u sažecima, grafovima i
 koeficijentima.
+
+Drugi skup rješava suprotan problem. Poglavlja o uzorkovanju i procjeni moraju
+pokazati koliko dobro procjena pogađa cilj, a to je moguće samo ako je cilj
+poznat. Nijedno stvarno istraživanje ne raspolaže takvom populacijom, jer kad
+bi je imalo, ne bi mu trebala statistika. Zato knjiga populaciju stvara kodom i
+zatim iz nje uzorkuje pred čitateljem.
+
+| Svojstvo | Opis |
+|---|---|
+| Ime | `populacija_medija` |
+| Podrijetlo | simulacija, `R/podaci-nastavni.R`, sjeme 8001 |
+| Jedinica analize | odrasla osoba izmišljenoga grada |
+| Veličina | 50 000 opažanja |
+| Varijable | `osoba`, `dob`, `spol`, `obrazovanje`, `izvor_vijesti`, `povjerenje_medijima`, `minute_medija`, `spremnost_platiti` |
+| Poznati parametri | prosječno povjerenje 4,88 uz standardnu devijaciju 1,98, prosječnih 174,5 minuta dnevno, udio korisnika portala 0,302 |
+| Oblik | spremnost na plaćanje ima oko 76 % nula i dugačak desni rep, pa služi kao izrazito asimetrična varijabla u demonstraciji središnjega graničnog teorema |
+| Uporaba | poglavlja o uzorkovanju i procjeni |
+| Licenca | nije primjenjiva, skup nastaje kodom u ovom repozitoriju |
+
+: Simulirana populacija poznatih parametara. Izrada autora.
+
+Ni ovaj skup nije mjerenje. Grad iz kojeg dolazi ne postoji, a povjerenje u
+medije, dnevne minute i spremnost na plaćanje vrijednosti su koje je proizveo
+generator slučajnih brojeva. Njegova nastavna vrijednost leži upravo u tome što
+je izmišljen, jer se samo za izmišljenu populaciju smije reći koliki joj je
+prosjek prije nego što se uzme ijedan uzorak. Poglavlja koja ga koriste tu
+razliku navode prije prve brojke.
 
 ## Sljedeći podatkovni val
 

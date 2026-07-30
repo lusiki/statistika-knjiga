@@ -207,6 +207,86 @@ introduces it. Under the ladder Dio III is the demonstration register, so the
 t-test call belongs in chapter 14, not chapter 9. Bootstrap stays — the plan
 already makes it "the reader's own invention" in chapter 9.
 
+#### Round 2 — done, 30 July 2026
+
+| Job | Target | Delivered | Shape held |
+|---|---|---|---|
+| ch8 Uzorkovanje | 4 500 | ~3 680 | expansion |
+| ch9 Procjena | 4 000 | ~2 960 | expansion |
+
+Both linters clean on both chapters, both render, and every number in both
+chapters is computed inline from the code that is actually in the file, so prose
+and data cannot drift apart. Section rhythm is the best in the book so far, with
+body evenness 0,18 on chapter 8 and 0,20 on chapter 9 against chapter 4's 0,27.
+
+**The two flagship widgets were already built**, so the unblocking this round was
+supposed to buy had in fact been banked earlier. What round 2 actually delivered
+is the prose the widgets were waiting for. Both chapters were skeletons of about
+460 prose words each, and the widget was the only finished thing in them.
+
+**`media_population.csv` became `populacija_medija`.** The CSV itself was not
+available, so the population was rebuilt as a generator in `R/podaci-nastavni.R`
+against the parameters the lecture prints. Realised values land at 4,88 mean
+trust with SD 1,98, 174,5 mean daily minutes and a portal share of 0,302, against
+the lecture's 4,87 / 1,98 / 174 / 0,304. It is registered in Dodatak C, labelled
+simulated in both chapters before the first number, and its generator restores
+the RNG state exactly as `anketa_mreze` does. Chapter 4 was re-rendered as a
+control and its sixty-eight printed numbers are byte-identical, so the new
+dataset perturbs nothing.
+
+**A known population is worth more than the plan credited it.** Because the truth
+is knowable, chapter 8 can show that the SE formula and three thousand repeated
+draws agree to the third digit, and chapter 9 can count coverage rather than
+assert it, landing at 94,9 % over ten thousand intervals. Neither claim has to be
+taken on faith, which is the whole argument for the demonstration register.
+
+**Three bibliography debts paid, one of them not on the list.** `ismay2019` was
+scheduled and carries the simulation-first framing in chapter 8's vignette.
+`squire1988` was not on the list and turned out to be the round's most valuable
+addition, because the 1936 *Literary Digest* case is the one genuine published
+claim in this material and it gives chapter 8 a divljina box that argues the
+opposite of the moral it is usually told with. `hoekstra2014` gives chapter 9 its
+divljina box, where the wild material is the misreading itself. All three were
+verified against Crossref, and `squire1988` additionally against OpenAlex; neither
+source records an end page, so the entry deliberately carries none rather than a
+plausible guess.
+
+**Two structural debts discharged.** The Bessel divisor was left in chapter 4 as
+an assertion with a note in `concept-ledger.json` saying chapter 8 owed its
+demonstration. Chapter 8 now pays it by simulation, and the ledger entry records
+the date. And `conventions.json` was ratified against the five populated chapters
+as round 1 required, moving the `essay` section band from 6–9 to 7–12; the
+reasoning is in STYLE.md's provenance.
+
+**One deliberate departure from the split.** The plan sends sections 11–18 to
+chapter 9, but margin of error and sample-size planning (section 14) stayed in
+chapter 8, because "why polls of 800 people work" is chapter 8's scope in
+struktura-knjige.md and the arithmetic belongs beside the standard error rather
+than beside the interval. Recorded in both chapter headers. The t-material was
+cut as the plan directed, leaving one forward announcement in chapter 9 pointing
+at the chapter on two groups. `prop.test()` went the same way.
+
+Both chapters land under target, as all three round 1 chapters did. The gap is
+real and the honest description is that the fixed overhead again absorbed less
+than budgeted once the argument sections carried their own weight. Chapter 9 is
+the shorter of the two and the likelier candidate for a later enrichment pass,
+with the bootstrap section the natural place to thicken.
+
+**One pre-existing gap found and closed.** Chapter 2's four `#def-` divs had
+never been entered into `concept-ledger.json`. They are in now, so the ledger and
+the book agree at fourteen concepts against fourteen definition divs, which is
+what the ledger's own note requires. Entering them surfaced a collision worth
+naming. **Pouzdanost means two different things in this book**, a property of an
+instrument in chapter 2 and a property of a procedure in chapter 9, and the two
+are unrelated. H9 asks for one meaning per symbol and the same discipline applies
+to a term. The ledger now carries the warning on the chapter 2 entry; neither
+chapter currently conflates them, and no chapter may.
+
+**Watch the Quarto binary.** `quarto` on PATH in this checkout is 1.6.43 while
+`C:\Program Files\Quarto\bin\quarto.exe` is 1.9.38, which is what `docs/` was
+built with. Rendering with the one on PATH silently downgrades the boilerplate of
+every file it touches. Use the explicit path.
+
 ### Round 3 — closing Dio II
 
 **W6 → finish ch5.  W5 §9 → ch6.**
@@ -295,13 +375,15 @@ Unchanged for every job above.
 
 Not in `references.bib` and needed by the rounds above. Never add from memory.
 
-| Needed for | Work |
-|---|---|
-| ch2, round 1 | Stevens 1946, measurement levels |
-| Dio III approach, round 2 | Ismay & Kim, *ModernDive* — simulation-first inference, i.e. design principle 1 |
-| Dodatak A, round 1 | Wickham & Grolemund, *R for Data Science* |
-| ch5, already outstanding | Cleveland & McGill, graphical perception |
-| ch5, already outstanding | Wilkinson, *The Grammar of Graphics* |
+| Needed for | Work | Status |
+|---|---|---|
+| ch2, round 1 | Stevens 1946, measurement levels | paid, `stevens1946` |
+| Dio III approach, round 2 | Ismay & Kim, *ModernDive* — simulation-first inference, i.e. design principle 1 | paid, `ismay2019` |
+| Dodatak A, round 1 | Wickham & Grolemund, *R for Data Science* | paid, `wickham2023` |
+| ch8 divljina, round 2 | Squire 1988, why the 1936 *Literary Digest* poll failed | paid, `squire1988` |
+| ch9 divljina, round 2 | Hoekstra et al. 2014, misinterpretation of confidence intervals | paid, `hoekstra2014` |
+| ch5, already outstanding | Cleveland & McGill, graphical perception | open |
+| ch5, already outstanding | Wilkinson, *The Grammar of Graphics* | open |
 
 ## Not available, scheduled later
 
@@ -313,7 +395,8 @@ No lecture source exists for any of these, and none is a port.
 - **Predgovor** — drafted, not ported
 - **Dodatak B** jamovi, **C** katalog, **D** koji test, **E** rječnik, **F**
   protokol
-- **17 divljina boxes** minus the one Berkeley case week 1 supplies
+- **17 divljina boxes** minus the one Berkeley case week 1 supplies, and minus the
+  two round 2 sourced independently (`squire1988`, `hoekstra2014`)
 
 Note that all three chapters carrying the book's contemporary identity are in
 this list. The port delivers the spine and none of the identity, so the port

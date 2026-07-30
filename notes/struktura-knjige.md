@@ -404,3 +404,98 @@ prenosi se zasebno.
 Plan nema uvodno poglavlje prije Dijela I. Repozitorij ima
 `chapters/00-predgovor.qmd` jer knjiga treba mjesto na kojem se izriče obećanje
 i opseg. Ako to preuzme naslovnica, poglavlje se briše iz `_quarto.yml`.
+
+Napomena od 2026-07-30. Predgovor od sada nosi kratak odlomak o čitanju koda
+(vidi niže). Ako se poglavlje ipak obriše, taj odlomak seli na početak Dodatka A
+uz poveznicu s naslovnice, jer se kod pojavljuje već u poglavlju o sažimanju
+podataka i orijentacija mu mora prethoditi.
+
+---
+
+# Kod u knjizi (2026-07-30)
+
+Načelo 4 kaže da je kod presavijen, ali ne kaže čemu služi kada ga čitatelj
+otvori. Odluka je zapisana ovdje, a ne u `STYLE.md`, jer određuje kralježnicu i
+provlači se kroz svih osamnaest poglavlja. `STYLE.md` H10 nosi njezin urednički
+oblik.
+
+## Načelo
+
+Čitatelj ne piše R. Čitatelj uči čitati R, jer je čitanje koda način na koji
+tvrdnja postaje provjerljiva. To čini kod predmetom knjige, a ne vještinom koju
+knjiga zahtijeva, i pošten je oblik četvrtog obećanja. Asistent napiše poziv u
+nekoliko sekundi, pa ono što preživljava tu automatizaciju jest sud o tome
+odgovara li poziv na postavljeno pitanje.
+
+## Tri registra
+
+Pogonski kod crta figure i tablice. U knjižnom je profilu skriven jer projekt
+sada ima `execute: echo: false`, a nastavni ga profil otkriva svojim
+`echo: true`, pa seminar iz istih izvora dobiva otvoreno izdanje.
+
+Račun stoji otvoren, i to samo u razrađenom primjeru. On pokazuje kako su
+dobivene brojke koje proza navodi. Nije zadatak i ne prepisuje se.
+
+Osumnjičeni kod napisao je asistent i nosi jednu stvarnu pogrešku. Živi u okviru
+o pogrešci i u četvrtoj razini zadataka. Račun i osumnjičenik ista su vještina u
+dva raspoloženja.
+
+## Ljestvica izlaganja
+
+Mijenja se ono čemu kod služi, a ne njegova težina. Težina ostaje ravna
+namjerno.
+
+Dio I nema vidljivog koda. Prva tri poglavlja odlučuju kakvu knjigu čitatelj
+misli da drži u rukama, a blok koda na dvanaestoj stranici na to pitanje
+odgovara pogrešno i trajno. Njihovo je gradivo ionako tvrdnje i grafovi.
+
+Dio II uvodi kod kao račun. Poglavlje o sažimanju uvodi niz glagola, poglavlje o
+vizualizaciji specifikaciju grafa i jedinu dopuštenu anatomiju poziva u knjizi, a
+poglavlje o povezanosti ne uvodi ništa novo. To treće poglavlje je dokaz da
+sustav radi, jer čitatelj u njemu čita kod koji ga nitko nije učio.
+
+Dio III kod pretvara u samu demonstraciju, jer se svaka inferencijalna ideja
+prvo doživi kroz ponovno uzorkovanje. Distribucija uzorkovanja je jedna linija
+koja povuče uzorak, izračuna mjeru i to ponovi mnogo puta. Poglavlje o
+uzorkovanju izriče da je cijeli aparat zaključivanja petlja, i to je najjači
+argument za prisutnost koda u knjizi. Bez njega čitatelj mehaniku mora primiti
+na vjeru, što je obrnuto od svrhe knjige.
+
+Dio IV kod izlaže kao dokaz o zloupotrebi. Vrtlarenje po stazama koje se
+razdvajaju niz je odluka u skripti (gelman2013), pa poglavlje o krizi i obnovi
+pokazuje isti skup analiziran na četiri obranjiva načina s četiri različite
+p-vrijednosti. Taj se argument ne može iznijeti u prozi, a čitatelj i dalje ne
+piše ništa nego čita razdvajanje.
+
+Dio V kod svodi na jedan poziv i jedan ispis. Težina nakon simulacijskih
+poglavlja pada, i to je pedagoški ispravno jer je test kratica za simulaciju
+koju čitatelj već razumije. Poglavlje o regresiji ponovno koristi gramatiku iz
+poglavlja o vizualizaciji za dijagnostiku. Poglavlje o algoritmima registar
+mijenja posljednji put, jer je tamo kod predmet proučavanja, a ne alat.
+
+Završnica ne uvodi nijedan novi obrazac. Poglavlje 18 sastavlja postojeće u
+jedan pripovjedni niz i jedino je mjesto na kojem bi motiviran čitatelj mogao
+reproducirati cjelinu, s Dodatkom A u drugoj ruci.
+
+## Pet obrazaca, ukupno
+
+Niz glagola, specifikacija grafa, simulacijska petlja, poziv modela s ispisom i
+njihovo sastavljanje. Svaki se uvodi jednom, u poglavlju koje ga traži, i nijedan
+se ne predaje kao programiranje. To je cijela površina R-a u knjizi.
+
+## Sintaksa
+
+Nigdje u poglavljima. Predgovor nosi pola stranice o tome kako se blok koda čita
+i obećanje da ga čitatelj nikada ne mora napisati, jer su tri znaka dovoljna.
+Znak `|>` znači „pa onda", znak `+` dodaje sloj grafu, a `aes` imenuje
+pridruživanje. Sve ostalo su imena glagola. Dodatak A uči pisanje, Dodatak B nudi
+put bez koda.
+
+## Posljedica za zadatke
+
+Računska razina nikada ne pretpostavlja instaliran R. Radi s brojevima koji se
+mogu izračunati ručno, s tablicom koju poglavlje već ispisuje ili s widgetom
+poglavlja, a čitatelja koji želi cijeli skup upućuje na Dodatak A ili B. Četvrta
+razina od poglavlja o vizualizaciji nadalje ocjenjuje artefakt zajedno s njegovim
+kodom, jer je to jedino mjesto na kojem čitanje koda postaje obvezno. Bez toga
+četvrto obećanje ostaje ukras.

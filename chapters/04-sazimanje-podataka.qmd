@@ -749,10 +749,9 @@ raspodjele tu odluku već je donio. Zbirna raspodjela nagnuta je prema većim
 vrijednostima, pa uz sredinu treba stajati medijan, a uz standardnu devijaciju
 interkvartilni raspon.
 
-::: {.table-keep-words}
 ```{r}
-#| label: tbl-sazeci-po-skupini
-#| tbl-cap: "Dnevno vrijeme korištenja prema dobnoj skupini u simuliranoj anketi. Izrada autora."
+#| echo: true
+#| label: s4-sazeci-racun
 
 s4_po_skupini <- anketa_mreze |>
   group_by(dobna_skupina) |>
@@ -764,6 +763,17 @@ s4_po_skupini <- anketa_mreze |>
     iqr = IQR(minute_dnevno),
     .groups = "drop"
   )
+```
+
+Blok dijeli uzorak po dobnoj skupini i za svaku ponavlja isti niz mjera. Znak
+`|>` vodi podatke iz jednog koraka u sljedeći, `group_by` određuje po čemu se
+uzorak dijeli, a `summarise` svakoj skupini vraća jedan red. Taj se obrazac
+vraća u svakom kasnijem poglavlju koje sažima podatke po skupinama.
+
+::: {.table-keep-words}
+```{r}
+#| label: tbl-sazeci-po-skupini
+#| tbl-cap: "Dnevno vrijeme korištenja prema dobnoj skupini u simuliranoj anketi. Izrada autora."
 
 s4_po_skupini |>
   transmute(
@@ -837,11 +847,16 @@ veličinu odstupanja od onih koje reagiraju samo na njegovo postojanje.
 
 ### Računski {.zadaci-razina}
 
-Upotrijebite `anketa_mreze`. Izračunajte sredinu, medijan, standardnu
-devijaciju i interkvartilni raspon varijable `minute_dnevno` za cijeli uzorak i
-za svaku dobnu skupinu, a zatim ponovite izračun nad logaritmiranim
-vrijednostima. Predajte jednu tablicu i dvije rečenice o tome koji se sažetak
-promjenom ljestvice najviše promijenio.
+Upotrijebite interakciju poglavlja. Pri početnim postavkama pročitajte s prikaza
+svih deset vrijednosti, ručno izračunajte sredinu i medijan i usporedite ih s
+brojkama koje prikaz ispisuje. Zatim krajnje opažanje spustite na najmanju
+dopuštenu vrijednost i oba izračuna ponovite. Predajte četiri broja i dvije
+rečenice o tome koja se mjera promijenila više i zašto joj je promjena veća.
+
+S prikaza oblika raspodjele potom pročitajte položaj sredine i medijana u
+izvornim jedinicama i na logaritamskoj ljestvici te u jednoj rečenici objasnite
+zašto se razlika među njima mijenja. Postupak za isti izračun nad cijelim skupom
+podataka nalazi se u praktikumu.
 
 ### Kritički {.zadaci-razina}
 

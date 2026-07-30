@@ -26,21 +26,65 @@ sačuvati položaj svakog opažanja.
 Kada graf razjašnjava podatke, a kada ih pretvara u argument koji prikriva
 vlastite odluke?
 
-## Graf kao usporedba
+## Gramatika grafike
 
 Graf nije slika dodana nakon analize. On bira što će se uspoređivati položajem,
-duljinom, površinom ili bojom. Položaj na zajedničkoj osi obično dopušta
-precizniju usporedbu od površine kruga ili nagiba trodimenzionalnog stupca.
-Izbor geometrije zato je izbor načina na koji će čitatelj vidjeti razliku.
+duljinom, površinom ili bojom, pa je izbor prikaza ujedno izbor načina na koji
+će čitatelj vidjeti razliku. Dobra vizualizacija zato počinje tvrdnjom.
+Raspodjela jedne brojčane varijable traži prikaz koji čuva oblik, usporedba
+kategorija zajedničku početnu točku, a odnos dviju brojčanih varijabli sačuvana
+pojedinačna opažanja. Graf koji ne odgovara pitanju može biti uredan i potpuno
+neinformativan.
 
-Dobra vizualizacija počinje tvrdnjom. Za raspodjelu jedne brojčane varijable
-treba prikaz koji čuva oblik. Za usporedbu kategorija treba zajednička početna
-točka. Za odnos dviju brojčanih varijabli treba sačuvati pojedinačna opažanja.
-Graf koji ne odgovara pitanju može biti uredan i potpuno neinformativan.
+Uobičajeni popis vrsta grafova, u kojem stupčani dijagram stoji uz kružni i
+raspršeni, pritom skriva jednu važnu činjenicu. Vrsta grafa nije osnovna jedinica.
+Svaki je prikaz skup odvojenih odluka koje se u praksi tako često pojavljuju
+zajedno da je njihova kombinacija dobila ime. **Gramatika grafike** razdvaja te
+odluke i time svaku izlaže zasebnoj provjeri (Wickham, 2016). Sama ideja ne
+pripada nijednom programu i primjenjuje se bez pisanja koda.
 
-Gramatika grafike odvaja podatke, estetska svojstva, geometriju i koordinatni
-sustav (Wickham, 2016). Ta ideja vrijedi i bez pisanja koda. Omogućuje da
-svaku odluku pregledamo zasebno i pitamo prenosi li značenje ili samo dekorira.
+Najprije treba znati što predstavlja jedna oznaka na grafu. Točka može stajati
+za ispitanika, državu, godinu ili stranku, a prikazi tu jedinicu mijenjaju bez
+najave. Kada agregat zamijeni pojedinca, mijenja se i pitanje na koje graf
+odgovara, što je ista opasnost koju opisuje poglavlje o mjerenju i dizajnu.
+
+Sljedeći korak pridružuje varijable vizualnim kanalima, položaju na dvjema
+osima, boji, veličini i obliku. **Pridruživanje** je tvrdnja o tome što
+zaslužuje usporedbu. Kada skupinu nosi boja, graf poziva na neposrednu usporedbu
+skupina. Kada je skupina razdvojena u zasebna polja, graf traži da se obrazac
+čita unutar svake od njih. Podaci ostaju isti, argument se mijenja, a obmane
+nije bilo.
+
+Najtiša odluka dolazi prije crtanja. Graf redovito nešto izračuna prije nego što
+postavi prvu oznaku. Stupac visine prosjeka odbacio je raspodjelu, okvir s
+brkovima izgubio je informaciju o broju vrhova, a izglađena linija dodala je
+model koji nitko nije zatražio. Poglavlje o sažimanju pokazalo je koji sažetak
+što gubi, a gramatika tome dodaje da je i sam graf redovito sažetak, samo
+neoznačen. Anscombeov kvartet poseban je slučaj upravo tog pravila
+(Anscombe, 1973).
+
+Izbor oznake koja nosi usporedbu određuje preciznost koju čitateljevo oko može
+postići. Trodimenzionalni kružni dijagram nije neuredan, nego nudi usporedbu
+koju istraživanja grafičke percepcije nalaze manje pouzdanom od usporedbe
+položaja na zajedničkoj osi, pa pripada istoj obitelji postupaka kao skraćena os
+iz poglavlja o zavaravanju brojkama.
+
+Ljestvica je pravilo kojim vrijednost postaje vizualna veličina. Raspon osi,
+njezin prekid, logaritamska transformacija i položaj sredine u ljestvici boja
+mijenjaju koliko promjena zauzima prostora, a podatke pritom ne mijenjaju.
+
+Ostaje odluka o tome hoće li se skupine preslagati jedna preko druge ili
+razdvojiti u ponovljena polja. Mala višestruka polja čuvaju zajedničku ljestvicu
+i pokazuju raznolikost koju jedna prosječna linija skriva, pa su vizualni oblik
+iste pojave koju je Simpson opisao brojčano (Simpson, 1951). Koordinatni sustav
+zatvara popis i najčešće služi kao opomena, jer polarne koordinate duljinu
+pretvaraju u kut i time istu usporedbu čine težom.
+
+Iz tih odluka slijedi postupak za čitanje tuđega grafa. Što predstavlja jedna
+oznaka, što je pridruženo kojem kanalu, što je izračunato prije crtanja i što
+dopušta ljestvica jesu pitanja koja se pred novinskom grafikom postavljaju bez
+ikakva programa. Knjiga taj postupak dalje koristi pri svakom rastavljanju
+objavljene tvrdnje.
 
 ## Poštena vidljivost
 
@@ -91,18 +135,29 @@ tisku. Modeli često dodaju ukrase koji povećavaju gustoću, a ne razumijevanje
 > podaci ne podupiru.
 
 **Nađite grešku.**
-Graf prikazuje udjele triju kategorija stupcima na zajedničkoj osi koja počinje
-od nule. Kategorije su jasno označene i vrijednosti su ispisane. Za veći dojam
-razlike treću kategoriju treba prikazati širom od ostalih.
+Za usporedbu udjela triju kategorija asistent je predložio ovaj poziv.
 
-Greška je različita širina stupca. Površina tada dodaje drugo vizualno značenje
-i pojačava razliku koja bi trebala biti kodirana samo duljinom.
+Os počinje od nule, kategorije su označene, a vrijednosti stoje uz stupce. Šira
+treća kategorija, prema obrazloženju, samo popravlja optičku ravnotežu prikaza.
+
+Greška je različita širina stupca. Površina tada nosi drugo vizualno značenje i
+pojačava razliku koja bi trebala biti kodirana samo duljinom.
 
 ## Razrađeni primjer
 
-Podaci `anscombe` ugrađeni su u R i reproduciraju objavljeni kvartet
-(Anscombe, 1973). Sažeci četiriju parova gotovo su jednaki. Raspršeni prikazi
-zato nose dio analize koji tablica ne može sačuvati.
+Zadatak je provjeriti koliko brojčani sažetak sam po sebi jamči o strukturi
+podataka. Anscombeovi su skupovi za to izabrani zato što su im sažeci gotovo
+jednaki po konstrukciji (Anscombe, 1973), pa ostaje samo pitanje što prikaz
+dodaje. Podaci `anscombe` ugrađeni su u R i reproduciraju objavljeni kvartet.
+
+Prvi blok slaže četiri skupa u jednu tablicu s jednim opažanjem u svakom redu.
+Drugi ispisuje odluke gramatike u redoslijedu u kojem smo ih izgradili. Poziv
+`aes` pridružuje varijable osima, `geom_point` bira oznaku, `geom_smooth` dodaje
+izračun koji nastaje prije crtanja, a `facet_wrap` razdvaja skupove u ponovljena
+polja. Dodani pravac je onaj najmanjih kvadrata, u izvornom radu jednak u sva
+četiri skupa (Anscombe, 1973), a poglavlje o regresiji pokazuje kako se dobiva.
+Nakon ovog imenovanja svaki se graf u knjizi može pročitati bez novoga
+objašnjenja, jer se iste četiri odluke vraćaju u svakom pozivu.
 
 Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora
 prema anscombe1973.
@@ -135,8 +190,11 @@ dviju brojčanih varijabli. Predajte tri izbora s obrazloženjem.
 
 ### Računski
 
-Upotrijebite ugrađene podatke `anscombe`. Izračunajte iste sažetke za sva
-četiri skupa i predajte ih uz jednu zajedničku sliku (Anscombe, 1973).
+Upotrijebite interakciju poglavlja. Za svaki od četiriju prikaza zapišite što
+čuva, što izračunava prije crtanja i koju usporedbu olakšava, a zatim iste
+odluke pročitajte s Anscombeovih prikaza iz razrađenog primjera (Anscombe, 1973).
+Predajte tablicu s četirima redovima i jednom rečenicom obrazloženja u svakom.
+Postupak za ponavljanje izračuna nad cijelim skupom nalazi se u praktikumu.
 
 ### Kritički
 
@@ -146,5 +204,6 @@ tvrdnjom.
 
 ### Revizija modela
 
-Ocijenite prijedlog modela iz okvira. Imenujte točne elemente grafa, jednu
-obmanjujuću odluku i način njezina popravka.
+Ocijenite prijedlog modela iz okvira. Imenujte odluke gramatike koje su
+ispravno odgovorene, jednu koja obmanjuje, redak koda u kojem ta odluka stoji i
+način njezina popravka.
