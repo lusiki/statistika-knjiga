@@ -681,6 +681,125 @@ interpretation, reproducibility) and its stage sequence. Those become the
 chapter's narrative. The rubric itself is better placed in Dodatak F and in the
 `kolegij` profile, where it is still an assessment instrument.
 
+#### Round 6 — done, 30 July 2026
+
+| Job | Target | Delivered | Shape held |
+|---|---|---|---|
+| ch16 Regresija, opći okvir | 6 000 | ~3 570 | cut, then heavy expansion |
+| ch18 Vaše prvo istraživanje | 5 000 | ~2 600 | transformation |
+
+Counts come from the same uniform counter round 5 introduced, which measures
+chapter 2 at 4 184 and chapter 1 at 3 623. Chapter 16 is therefore the third
+longest chapter in the book and the longest of the ported ones. Both linters are
+clean on both chapters and on Dodatak F, the figure-introduction check passes,
+the widget registry check passes on all seventeen, both chapters render, and
+every number in both is computed inline from the code that is in the file.
+Section rhythm is twelve sections each with body evenness 0,21 and 0,31.
+
+**The plan's own reveal had already been spent, and that turned out to be the
+best thing about this round.** Round 4 moved the discovery that the two-group
+and many-group chapters were regression into chapter 14, where the linear model
+first appears. Chapter 16 therefore does not re-stage it. It confirms it on the
+exact numbers those chapters printed, in four paragraphs, and spends the freed
+weight on the two things no lecture contains, which are the split between
+explanation and prediction and the boundary toward cause.
+
+**One population carried the whole chapter, and the known generator did work
+that no dataset could.** The pooled slope of trust on age is 0,0367 per year
+against the 0,028 the generator actually uses, and the gap is not sampling error
+because the model is fitted to all fifty thousand people. Estimated separately
+inside each of the five news sources the slope lands between 0,0255 and 0,0281,
+so every within-source slope is below the pooled one. Adding source to the model
+returns 0,0269 and recovers the four source effects to within about four
+hundredths. Ordinary teaching has to assert that adjustment removes confounding;
+here the chapter shows the recovered parameter beside the one that was built in.
+
+**The recovery is deliberately reported as imperfect.** Every adjusted estimate
+falls slightly short of the value in the generator, because trust is rounded to
+whole points and clipped at the ends of the scale. The chapter names that as
+attenuation from a coarse instrument rather than rounding the numbers into
+agreement, and the worked example says the true slope sits at the upper edge of
+the adjusted interval rather than in its middle.
+
+**The strongest single passage is the out-of-sample table.** On a hundred and
+fifty people a model with twenty-five columns of pure noise added to age and
+source explains 25,4 % of the variance against 13,1 % for the honest model, and
+its error on the training data is smaller. On two thousand people it never saw
+it errs by 2,06 against 1,88 for the honest model and 1,99 for the procedure that
+assigns everyone the training mean. A model that beats its rival in sample loses
+to the arithmetic mean out of sample, which is the whole argument of the next
+chapter delivered as a measurement.
+
+**The coefficient of determination is shown failing in both directions.** Five
+random columns raise it from 8,1 % to 9,1 % while the penalised version falls
+from 5,8 % to 4,3 %. Restricting the population to ages thirty to fifty leaves
+the slope essentially unchanged at 0,0385 and drops the explained share from
+8,8 % to 1,4 %. That is the range-restriction result from the correlation
+chapter reappearing in a model, and it is why the chapter tells the reader to
+compare coefficients and intervals across studies and never this number.
+
+**Two bibliography debts paid, neither on the list.** The plan budgeted no
+sources for round 6. `westreich2013` carries chapter 16's divljina on the
+regression table that invites every row to be read as an effect, which is the
+one genuine published claim this material supplies and is distinct from Breiman,
+who carries the vignette. `shmueli2010` anchors the section on explanation
+against prediction. Both were verified against Crossref, and Shmueli
+additionally against OpenAlex; neither index records a page range for it, so the
+entry carries none, following the `squire1988`, `cochran1954` and `matejka2017`
+precedents.
+
+**Chapter 18 is a transformation and the practical project survives only as its
+skeleton.** The project assumes the student writes a `.qmd` file with
+reproducible R and ggplot2, which H10 forbids. What came across is the three
+scenarios, now a table of what each design licenses, the stage sequence, now the
+chapter's sections, and the assessment criteria, now the order in which the work
+is narrated. **The rubric itself moved to Dodatak F**, where it is a table of
+what satisfies each criterion and what does not, with the code and presentation
+rows gated to the `kolegij` profile. The chapter carries no grading scale.
+
+**The capstone runs on `anketa_mreze`, which closes the book's arc.** Chapters 4
+to 6 described those three hundred simulated respondents; chapter 18 now takes
+them through a whole study. The finding is the one the book has been building
+toward. Thirty minutes more daily time is associated with 0,25 of a point more
+trust, interval 0,09 to 0,40, and among people of the same age the same
+difference is −0,01 with an interval of −0,19 to 0,17. Because the generator is
+known, the chapter can close by saying that there is in fact no direct link, so
+the hedged conclusion was right and the first one would have been wrong. It also
+says plainly that no analysis could have established that, and that the
+knowledge came from outside the data.
+
+**A structural decision was forced and is worth recording.** The earlier draft
+of chapter 18 held its whole body inside a `.primjer` div. Both linters skip the
+contents of divs, so the capstone measured 251 prose words and neither its
+style nor its section rhythm was ever checked. The study phases are now ordinary
+`##` sections and the chapter measures 2 604 words. **`.primjer` is now a
+designed element with no user**, and the choice is either to retire it in
+DESIGN.md or to teach the structure linter to look inside it. Left for a
+deliberate decision rather than settled mid-port, following the round 3
+precedent with the praktikum template.
+
+**Four concepts and three notation entries entered `concept-ledger.json`**,
+taking it to forty-six concepts against forty-six definition divs, and the
+concept graph rebuilds to the same forty-six. Checking for collisions before
+writing caught two, which is the first time the round 5 procedure change paid
+off in advance rather than after the fact. The regression residual is written
+$e_i$ against the standardized cell residual $e_{ij}$ from the chapter on
+categorical data, and the ledger carries the warning on both. And the
+coefficient of determination is numerically identical to the eta squared of the
+chapter on many groups whenever the only predictor is a category, so the book
+states that as an identity instead of presenting two measures.
+
+**The round 5 drift is now fully repaired.** Chapters 13, 14 and 15 owed a code
+block inside `callout-greska`, since H10 requires the graded artifact to include
+its code from the visualisation chapter onward. Chapters 16 and 18 carry theirs;
+the three older chapters are still outstanding and remain a cleanup item.
+
+Both chapters land under target, as every ported chapter has. Chapter 16 falls
+furthest short in absolute terms, at roughly three fifths of a 6 000-word
+target, and the honest description is that the lecture's second half is almost
+entirely technique the ladder evicts. What would genuinely thicken it is more
+worked reading of published regression tables rather than more method.
+
 ## Per-round procedure
 
 Unchanged for every job above.
@@ -730,6 +849,8 @@ Not in `references.bib` and needed by the rounds above. Never add from memory.
 | ch7 divljina, round 5 | Miller & Sanjurjo 2018, the streak selection bias that reverses the canonical finding | paid, `miller2018` |
 | ch10 divljina, round 5 | Greenland et al. 2016, twenty-five misinterpretations of p-values, intervals and power | paid, `greenland2016` |
 | ch11 divljina, round 5 | Button et al. 2013, low average power and what it does to published effects | paid, `button2013`, cited only for what its abstract states |
+| ch16 divljina, round 6 | Westreich & Greenland 2013, why every row of a regression table cannot be read as an effect | paid, `westreich2013` |
+| ch16 prediction, round 6 | Shmueli 2010, explanation and prediction as different goals | paid, `shmueli2010`, no page range in any index |
 
 ## Not available, scheduled later
 
@@ -746,9 +867,11 @@ No lecture source exists for any of these, and none is a port.
   (`cleveland1984`, `matejka2017`), minus the three round 4 sourced
   independently (`cochran1954`, `belia2005`, `nieuwenhuis2011`), and minus the
   three round 5 sourced independently (`miller2018`, `greenland2016`,
-  `button2013`). The Berkeley case week 1 supplies now carries chapter 13's
-  vignette rather than its divljina, so it no longer counts against this list.
-  Ten remain, and all of them belong to chapters with no lecture source.
+  `button2013`), and minus round 6, which sourced `westreich2013` for chapter 16
+  and gave chapter 18 a box built on `cumming2014`, already in the bib. The
+  Berkeley case week 1 supplies now carries chapter 13's vignette rather than its
+  divljina, so it no longer counts against this list. Eight remain, and all of
+  them belong to chapters with no lecture source.
 
 Note that all three chapters carrying the book's contemporary identity are in
 this list. The port delivers the spine and none of the identity, so the port

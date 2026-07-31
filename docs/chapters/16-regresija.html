@@ -103,6 +103,9 @@ div.csl-indent {
 <link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -733,10 +736,14 @@ window.Quarto = {
     <h2 id="toc-title">Sadržaj</h2>
    
   <ul>
-  <li><a href="#pravac-i-pogreške" id="toc-pravac-i-pogreške" class="nav-link active" data-scroll-target="#pravac-i-pogreške">Pravac i pogreške</a></li>
-  <li><a href="#više-prediktora-i-kontrola" id="toc-više-prediktora-i-kontrola" class="nav-link" data-scroll-target="#više-prediktora-i-kontrola">Više prediktora i kontrola</a></li>
-  <li><a href="#dijagnostika-prije-priče" id="toc-dijagnostika-prije-priče" class="nav-link" data-scroll-target="#dijagnostika-prije-priče">Dijagnostika prije priče</a></li>
+  <li><a href="#pravac-kao-tvrdnja-o-prosjeku" id="toc-pravac-kao-tvrdnja-o-prosjeku" class="nav-link active" data-scroll-target="#pravac-kao-tvrdnja-o-prosjeku">Pravac kao tvrdnja o prosjeku</a></li>
+  <li><a href="#nagib-koji-nosi-tuđu-priču" id="toc-nagib-koji-nosi-tuđu-priču" class="nav-link" data-scroll-target="#nagib-koji-nosi-tuđu-priču">Nagib koji nosi tuđu priču</a></li>
+  <li><a href="#prilagodba-i-ono-što-je-čini-mogućom" id="toc-prilagodba-i-ono-što-je-čini-mogućom" class="nav-link" data-scroll-target="#prilagodba-i-ono-što-je-čini-mogućom">Prilagodba i ono što je čini mogućom</a></li>
   <li><a href="#interakcija-regresijski-pravac" id="toc-interakcija-regresijski-pravac" class="nav-link" data-scroll-target="#interakcija-regresijski-pravac">Interakcija — Regresijski pravac</a></li>
+  <li><a href="#isti-model-iza-ranijih-poglavlja" id="toc-isti-model-iza-ranijih-poglavlja" class="nav-link" data-scroll-target="#isti-model-iza-ranijih-poglavlja">Isti model iza ranijih poglavlja</a></li>
+  <li><a href="#pristajanje-i-njegove-granice" id="toc-pristajanje-i-njegove-granice" class="nav-link" data-scroll-target="#pristajanje-i-njegove-granice">Pristajanje i njegove granice</a></li>
+  <li><a href="#objašnjenje-i-predviđanje" id="toc-objašnjenje-i-predviđanje" class="nav-link" data-scroll-target="#objašnjenje-i-predviđanje">Objašnjenje i predviđanje</a></li>
+  <li><a href="#granica-prema-uzroku" id="toc-granica-prema-uzroku" class="nav-link" data-scroll-target="#granica-prema-uzroku">Granica prema uzroku</a></li>
   <li><a href="#razrađeni-primjer" id="toc-razrađeni-primjer" class="nav-link" data-scroll-target="#razrađeni-primjer">Razrađeni primjer</a></li>
   <li><a href="#sažetak" id="toc-sažetak" class="nav-link" data-scroll-target="#sažetak">Sažetak</a></li>
   <li><a href="#pojmovi" id="toc-pojmovi" class="nav-link" data-scroll-target="#pojmovi">Pojmovi</a></li>
@@ -855,21 +862,52 @@ window.Quarto = {
 </script>
 
 <!-- =====================================================================
-  STATUS:  djelomični nacrt — prošireni argument i dovršen widget
+  STATUS:  cjelovit nacrt — prijenos tjedna 13, runda 6
   IZVOR:   tjedan 13, prošireno u sintezno poglavlje
   OPSEG:   ~6000 riječi
   WIDGET:  w16 · Regresijski pravac
   FAZA:    3 (plan proizvodnje, notes/struktura-knjige.md)
-  NAPOMENA: Vrhunac knjige. Ovdje ide i izgled na bayesovski pristup (jedan odlomak, ne odjeljak).
+  NAPOMENA: Vrhunac knjige. Sankcionirana deep-dive iznimka u conventions.json.
 
   SADRŽAJ (iz plana):
   Jednostavna regresija, najmanji kvadrati viđeni geometrijski, R kvadrat, višestruka regresija i kontrola, dijagnostika kroz prikaze reziduala, otkriće da su poglavlja o dvjema i više grupa cijelo vrijeme bila regresija, predviđanje nasuprot objašnjenju, mostni odjeljak o tome gdje predviđanje postaje strojno učenje, te požnjeveno sjeme uzročnosti iz poglavlja o mjerenju.
+
+  PODRIJETLO (runda 6, notes/plan-prijenosa.md):
+  1. Nastavni skup tjedna 13 (social_engagement.csv) knjizi nije dostupan.
+     Cijelo poglavlje računa na `populacija_medija` iz R/podaci-nastavni.R,
+     gdje su i nagib po godini dobi i učinci izvora ugrađeni u generator.
+     Zbog toga se procjena može usporediti s vrijednošću koju procjenjuje,
+     što nijedan stvarni skup podataka ne dopušta.
+  2. OTKRIĆE JE PREMJEŠTENO. Plan je poglavlju namijenio otkriće da su
+     poglavlja o dvjema i o više skupina bila regresija. Runda 4 to je
+     otkriće već isporučila u poglavlju o dvjema grupama, koje dolazi
+     ranije, pa ovdje ostaje kao kratka potvrda na brojkama koje su ta
+     poglavlja ispisala. Težina poglavlja premještena je na objašnjenje
+     nasuprot predviđanju i na granicu prema uzroku, kako runda 4 i
+     predviđa.
+  3. IZOSTAVLJENI prema planu i ljestvici izlaganja: AIC i postupna
+     izgradnja modela, VIF i multikolinearnost kao računski postupak,
+     polinomijalna regresija, standardizirani koeficijenti, Cookova
+     udaljenost, APA predložak izvještaja i ručna dijagnostika kroz
+     `plot(model)`. Multikolinearnost je zadržana kao jedna rečenica o
+     tome što uzorak ne može razdvojiti, bez mjere i bez pragova.
+  4. Okvir divljine nosi [@westreich2013], a ne Breimana, jer Breiman nosi
+     vinjetu. Odjeljak o objašnjenju i predviđanju nosi [@shmueli2010].
+  5. Zasijani pojam uzročnosti iz poglavlja o mjerenju požnjeven je u
+     odjeljku o granici prema uzroku, kako concept-ledger.json bilježi uz
+     unos o konfundirajućoj varijabli.
 
   Kostur poglavlja i pravila pisanja: CLAUDE.md i STYLE.md.
   Kostur se ne mijenja bez zapisa u STYLE.md.
 ===================================================================== -->
 <div class="chapter-meta">
 <table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Vrijeme čitanja</th>
@@ -880,55 +918,198 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>6 min</td>
+<td>32 min</td>
 <td>Regresijski pravac</td>
-<td>simulacija</td>
+<td>simulirana populacija</td>
 <td>pogl. 6, 14 i 15</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="callout-vinjeta page-columns page-full">
-<p>Breiman je suprotstavio dvije kulture statističkog modeliranja. Jedna je naglašavala objašnjenje odnosa kroz podatkovni model, a druga prediktivnu uspješnost algoritma na novim podacima <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001.</a>)</span>. Razlika nije bila samo tehnička. Određivala je što se smatra dobrim odgovorom.</p>
-<div class="no-row-height column-margin column-container"></div><p>Model može precizno opisati prosječnu povezanost, slabo predviđati pojedince i ne govoriti ništa sigurno o uzroku. Drugi model može dobro predviđati, a ostati težak za sadržajno objašnjenje. Isti podatak ne rješava automatski sva tri zadatka.</p>
-<p>Kako linearni model povezati s ranijim usporedbama, a pritom odvojiti opis, predviđanje i uzročni zaključak?</p>
+<p>Breiman je 2001. napisao da se statističko modeliranje razdvojilo na dvije kulture koje jedna drugu jedva primjećuju <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001.</a>)</span>. Jedna pretpostavlja da podatke stvara model koji treba pogoditi i protumačiti, a druga postupak ocjenjuje po tome koliko dobro pogađa ishode koje još nije vidjela.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-breiman2001" class="csl-entry" role="listitem">
+Breiman, Leo. 2001. <span>„Statistical Modeling: The Two Cultures“</span>. <em>Statistical Science</em> 16 (3): 199–231.
+</div></div><p>Prigovor nije bio matematički. Breiman je tvrdio da prva kultura svoje modele ocjenjuje mjerama pristajanja koje ne provjeravaju ono što obećavaju, pa istraživač lako ostane uvjeren da je opisao mehanizam, a zapravo je opisao samo uzorak koji ima pred sobom.</p>
+<p>Ista jednadžba pritom služi za sve. Opisati prosječan odnos, predvidjeti ishod za novu osobu i tvrditi da bi promjena jedne varijable promijenila drugu tri su različita zadatka. Kako znati na koji od njih model zapravo odgovara?</p>
 </div>
-<section id="pravac-i-pogreške" class="level2">
-<h2 class="anchored" data-anchor-id="pravac-i-pogreške">Pravac i pogreške</h2>
-<p>Jednostavna regresija traži pravac koji sažima očekivani ishod duž vrijednosti prediktora. Svako opažanje ostavlja <strong>rezidual</strong>, okomitu razliku između opažene i modelirane vrijednosti. Metoda najmanjih kvadrata bira koeficijente koji čine zbroj kvadrata tih razlika najmanjim.</p>
-<p>Nagib opisuje prosječnu promjenu ishoda povezanu s jediničnom promjenom prediktora. Odsječak je očekivani ishod kada prediktor ima referentnu vrijednost. Ako ta vrijednost nema smisla u podacima, odsječak je računski potreban, ali sadržajno slab. Centriranje prediktora može mu dati korisniju referencu bez promjene pristajanja modela.</p>
-<p>R-kvadrat opisuje udio varijabilnosti ishoda koji model sažima u promatranom uzorku. Nije ocjena istinitosti, ne jamči dobru predikciju na novim podacima i ne određuje važnost pojedinog koeficijenta. Visoka vrijednost može pripadati modelu koji promašuje uzročni mehanizam.</p>
+<section id="pravac-kao-tvrdnja-o-prosjeku" class="level2">
+<h2 class="anchored" data-anchor-id="pravac-kao-tvrdnja-o-prosjeku">Pravac kao tvrdnja o prosjeku</h2>
+<p>Vraćamo se simuliranoj populaciji od pedeset tisuća odraslih koju su koristila poglavlja o zaključivanju. Povjerenje u medije mjereno je na ljestvici od jedan do deset, a zanima nas kako se ono mijenja s dobi. Poglavlje o povezanosti dalo bi na to pitanje jedan broj o jačini veze. Model daje nešto drugo, jer imenuje očekivano povjerenje za svaku pojedinu dob.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-pravac" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Točke pokazuju prosječno povjerenje za svaku godinu dobi i blago rastu slijeva nadesno. Kroz njih prolazi ravan pravac koji taj rast sažima jednim nagibom." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pravac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="16-regresija_files/figure-html/fig-pravac-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Slika&nbsp;1: Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata procijenjenim na svih pedeset tisuća pojedinačnih odgovora."><img src="16-regresija_files/figure-html/fig-pravac-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Točke pokazuju prosječno povjerenje za svaku godinu dobi i blago rastu slijeva nadesno. Kroz njih prolazi ravan pravac koji taj rast sažima jednim nagibom."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pravac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;1: Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata procijenjenim na svih pedeset tisuća pojedinačnih odgovora.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Pravac na slici nije nacrtan kroz sredinu oblaka po oku. Bira ga pravilo koje za svaku moguću kombinaciju odsječka i nagiba gleda koliko svako pojedino opažanje promašuje, i uzima onu kombinaciju kojoj ti promašaji zajedno najmanje teže.</p>
+<div id="def-rezidual" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 1</strong></span> <strong>Rezidual</strong> je razlika između opažene vrijednosti ishoda kod pojedine jedinice i vrijednosti koju za nju predviđa model, dakle onaj dio ishoda koji model nije objasnio.</p>
+<p><span class="math display">\[e_i = y_i - \hat{y}_i\]</span></p>
+<p>Oznaka <span class="math inline">\(y_i\)</span> stoji za opaženu vrijednost kod <span class="math inline">\(i\)</span>-te jedinice, a <span class="math inline">\(\hat{y}_i\)</span> za vrijednost koju model za nju predviđa, pri čemu kapica i ovdje označava procjenu.</p>
+</div>
+<p>Zbroj samih reziduala nije upotrebljiv kao mjera promašaja, jer se pozitivna i negativna odstupanja poništavaju, pa bi loš pravac mogao izgledati savršeno. Kvadriranje uklanja predznak i istodobno velika odstupanja košta više nego mala, što je razlog zbog kojeg jedno jako promašeno opažanje pomiče pravac osjetnije od deset blago promašenih.</p>
+<div id="def-metoda-najmanjih-kvadrata" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 2</strong></span> <strong>Metoda najmanjih kvadrata</strong> bira koeficijente modela tako da zbroj kvadriranih reziduala bude najmanji mogući za zadane podatke.</p>
+</div>
+<p>Model koji taj postupak daje ima oblik koji su poglavlja o dvjema i o više skupina već koristila. Očekivano povjerenje raste od polazne vrijednosti za onoliko koliko nalaže nagib pomnožen s dobi, a ostatak pripada onome što model o pojedinoj osobi ne zna.</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\]</span></p>
+<p>Oznaka <span class="math inline">\(\beta_0\)</span> ostaje očekivani ishod kada prediktor ima vrijednost nula, <span class="math inline">\(\beta_1\)</span> je promjena očekivanog ishoda po jednoj jedinici prediktora, a <span class="math inline">\(\varepsilon_i\)</span> je odstupanje pojedine jedinice od tog očekivanja. Ta se oznaka odnosi na model, a rezidual <span class="math inline">\(e_i\)</span> na ono što od nje vidimo nakon što su koeficijenti procijenjeni, pa je jedno pretpostavka o svijetu, a drugo mjerljiva posljedica procjene. Razlika prema poglavlju o dvjema grupama je jedino u tome što <span class="math inline">\(x_i\)</span> sada nije oznaka skupine nego izmjeren broj.</p>
+<p>Procijenjeni nagib iznosi 0,0367, što znači da je deset godina dobi u ovoj populaciji povezano s razlikom od 0,37 boda povjerenja. Odsječak od 3,33 boda odnosio bi se na osobu od nula godina, koje u podacima nema, pa je računski potreban i sadržajno prazan. Kad se prediktor prije procjene umanji za svoju sredinu, odsječak postane očekivani ishod kod osobe prosječne dobi, a nagib se ne promijeni. Isti model tada ima jedan broj manje bez značenja.</p>
+<p>Pravac je pritom tvrdnja o prosjecima, a ne o pojedincima. Točke na slici su prosjeci nekoliko stotina ljudi po godini dobi i leže blizu pravca, dok pojedinačni odgovori odstupaju od njega za nekoliko bodova u oba smjera. Rečenica da osobe od pedeset godina imaju u prosjeku više povjerenja od osoba od trideset opisuje te prosjeke točno i ne dopušta nikakav zaključak o konkretnoj osobi bilo koje dobi.</p>
 </section>
-<section id="više-prediktora-i-kontrola" class="level2">
-<h2 class="anchored" data-anchor-id="više-prediktora-i-kontrola">Više prediktora i kontrola</h2>
-<p>Višestruka regresija procjenjuje povezanost jednog prediktora s ishodom uz jednake vrijednosti ostalih uključenih prediktora. Izraz „uz kontrolu” opisuje računsku usporedbu, a ne eksperimentalnu kontrolu. Ako važan konfundirajući čimbenik nije izmjeren ili je loše izmjeren, koeficijent ga ne može ukloniti.</p>
-<p>Prediktori koji nose vrlo sličnu informaciju međusobno dijele objašnjenje. Koeficijenti tada mogu postati nestabilni i osjetljivi na male promjene uzorka. Multikolinearnost nije dokaz da su podaci pogrešni. Pokazuje da uzorak teško razdvaja doprinose prediktora koji se zajedno kreću.</p>
-<p>Poglavlja o dvjema i više skupina već su koristila isti okvir. Binarni prediktor modelira razliku dviju sredina, a kategorički prediktor skup sredina. T-test i ANOVA nisu otoci izvan regresije, nego posebni oblici istog modela.</p>
+<section id="nagib-koji-nosi-tuđu-priču" class="level2">
+<h2 class="anchored" data-anchor-id="nagib-koji-nosi-tuđu-priču">Nagib koji nosi tuđu priču</h2>
+<p>Populacija je simulirana, pa se zna po kojem je pravilu nastala. Povjerenje u njoj raste s dobi za točno 0,028 boda po godini, a procijenjeni nagib iznosi 0,0367. Procjena je za trećinu veća od vrijednosti koju procjenjuje, i to nije pogreška uzorkovanja jer je model procijenjen na cijeloj populaciji.</p>
+<p>Razlog je u drugoj varijabli koja se mijenja zajedno s dobi. Izvor vijesti nije jednako raspoređen po dobi, pa prosječna dob ide od 33,4 godine među onima koji se informiraju preko društvenih mreža do 47,9 među slušateljima radija. Kako povjerenje ovisi i o izvoru, a stariji ljudi biraju izvore uz koje ide više povjerenja, nagib uz dob pokupi i tu razliku i pripiše je godinama.</p>
+<p>Tvrdnja se može provjeriti bez ijednog novog pojma. Ako nagib doista nosi tuđu priču, onda bi unutar skupine ljudi koji se informiraju iz istoga izvora morao biti manji, jer se ondje izvor više ne mijenja zajedno s dobi.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-unutar" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-unutar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Nagib uz dob procijenjen zasebno među korisnicima svakog izvora vijesti, uz zbirni nagib i vrijednost ugrađenu u generator populacije. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-unutar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Izvor vijesti</th>
+<th style="text-align: right;">Broj ljudi</th>
+<th style="text-align: right;">Nagib uz dob</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">portal</td>
+<td style="text-align: right;">15 101</td>
+<td style="text-align: right;">0,0269</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">društvene mreže</td>
+<td style="text-align: right;">13 378</td>
+<td style="text-align: right;">0,0258</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TV</td>
+<td style="text-align: right;">10 827</td>
+<td style="text-align: right;">0,0281</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">radio</td>
+<td style="text-align: right;">5 839</td>
+<td style="text-align: right;">0,0268</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tisak</td>
+<td style="text-align: right;">4 855</td>
+<td style="text-align: right;">0,0255</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Svi zajedno</td>
+<td style="text-align: right;">50 000</td>
+<td style="text-align: right;">0,0367</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ugrađeno u populaciju</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">0,028</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Nijedna od pet skupina nema nagib blizu zbirnoga. Svi se kreću između 0,0255 i 0,0281, oko vrijednosti koja je u populaciju ugrađena, dok je zbirni nagib veći od svakoga od njih. Ista pojava kojoj je poglavlje o povezanosti dalo ime pri usporedbi koeficijenata unutar i između skupina ovdje se pojavljuje u modelu, i pokazuje da razlika ne dolazi iz podataka nego iz toga što se pita.</p>
+<p>To je konfundiranje iz poglavlja o mjerenju, sada u obliku broja umjesto dijagrama. Koeficijent uz dob odgovara na pitanje koliko se povjerenje razlikuje među ljudima različite dobi, a ne koliko bi se promijenilo kod jedne osobe koja stari. Prvo je pitanje o usporedbi skupina i model na njega odgovara točno. Drugo je pitanje o promjeni i na njega nije ni odgovarao.</p>
+<p>Vrijedi zadržati da razlika nema veze s količinom podataka. Model je procijenjen na svih pedeset tisuća ljudi, pa nikakvo povećanje uzorka zbirni nagib ne bi pomaknulo prema vrijednosti koju je generator ugradio. Veći uzorak sužava interval oko krive vrijednosti, i to je razlog zbog kojeg se preciznost i točnost u izvještaju nikada ne miješaju.</p>
 </section>
-<section id="dijagnostika-prije-priče" class="level2">
-<h2 class="anchored" data-anchor-id="dijagnostika-prije-priče">Dijagnostika prije priče</h2>
-<p>Rezidualni prikaz provjerava ostaje li nakon pravca sustavan obrazac. Zakrivljenost upućuje na pogrešan funkcijski oblik, lijevak na promjenjivu varijancu, a izdvojene točke na mogući utjecaj pojedinih opažanja. Dijagnostika ne daje automatsku odluku o brisanju, nego pokazuje gdje model treba obrazloženje ili promjenu.</p>
-<p>Predviđanje se provjerava na podacima koji nisu sudjelovali u prilagodbi modela. Dobro pristajanje u uzorku može biti rezultat učenja njegove slučajne buke. Ta se granica između pristajanja i generalizacije u sljedećem poglavlju pretvara u središnji problem algoritamskih modela.</p>
-<p>Uzročna tvrdnja zahtijeva više od popisa kontrolnih varijabli. Potrebni su vremenski redoslijed, uvjerljiva struktura konfundiranja i dizajn koji opravdava usporedbu. Regresija može izvesti prilagođenu povezanost. Ne može iz samih podataka odlučiti koje je varijable trebalo mjeriti niti jesu li posljedica, uzrok ili zajednički ishod.</p>
+<section id="prilagodba-i-ono-što-je-čini-mogućom" class="level2">
+<h2 class="anchored" data-anchor-id="prilagodba-i-ono-što-je-čini-mogućom">Prilagodba i ono što je čini mogućom</h2>
+<p>Ako opažena povezanost miješa dvije priče, izlaz je usporediti ljude koji se u drugoj od njih ne razlikuju. Umjesto da se uzorak reže na skupine iste dobi i istog izvora, model to radi računski, procjenjujući sve koeficijente odjednom.</p>
+<div id="def-visestruka-regresija" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 3</strong></span> <strong>Višestruka regresija</strong> procjenjuje povezanost svakog prediktora s ishodom pri jednakim vrijednostima svih ostalih prediktora u modelu, pa je svaki koeficijent usporedba jedinica koje se razlikuju po tom prediktoru, a po ostalima ne.</p>
+</div>
+<p>Model s dobi i izvorom vijesti daje uz dob nagib od 0,0269, praktički onu vrijednost koja je u populaciju i ugrađena. Uspoređujući ljude koji se informiraju iz istog izvora, model je oporavio pravilo po kojem su podaci nastali.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-oporavak" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-oporavak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Procijenjeni učinci izvora vijesti uz jednaku dob, uz vrijednosti ugrađene u generator populacije. Portal je referentna skupina. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-oporavak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Izvor vijesti</th>
+<th style="text-align: right;">Ugrađeno u populaciju</th>
+<th style="text-align: right;">Procjena modela</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">društvene mreže</td>
+<td style="text-align: right;">-0,55</td>
+<td style="text-align: right;">-0,53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TV</td>
+<td style="text-align: right;">0,35</td>
+<td style="text-align: right;">0,31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">radio</td>
+<td style="text-align: right;">0,60</td>
+<td style="text-align: right;">0,60</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tisak</td>
+<td style="text-align: right;">0,50</td>
+<td style="text-align: right;">0,49</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Procjene su blago manje od ugrađenih vrijednosti, i to nije slučajnost. Povjerenje je u populaciji zaokruženo na cijeli broj i odrezano na krajevima ljestvice, pa mjerenje gubi dio razlika koje generator proizvodi. Isti se učinak javlja u svakom istraživanju s ljestvicom od nekoliko stupnjeva, gdje grubo mjerilo procjene sustavno vuče prema nuli.</p>
+<p>Slaganje u tablici izgleda kao potvrda da postupak radi, i jest, ali samo pod uvjetom koji se u stvarnom istraživanju nikada ne može provjeriti. Model je pogodio jer su obje varijable koje su sudjelovale u nastanku povjerenja i izmjerene. Da izvor vijesti nije zabilježen, koeficijent uz dob ostao bi na 0,0367 i ništa u ispisu ne bi upozorilo da je pogrešan.</p>
+<p>Izraz „uz kontrolu” zato opisuje račun, a ne postupak. Kontrola u pokusu znači da je istraživač sam dodijelio uvjete, pa se skupine ne razlikuju ni po čemu drugome, uključujući ono što nikome nije palo na pamet izmjeriti. Kontrola u modelu znači da su uspoređene jedinice s jednakim vrijednostima onih varijabli koje su ušle u model.</p>
+<p>Iz toga slijedi oblik rečenice koji svaki koeficijent zaslužuje. Uz jednak izvor vijesti, ljudi stariji za deset godina imaju u prosjeku 0,27 boda više povjerenja. Rečenica navodi jedinicu prediktora, jedinicu ishoda i uvjet pod kojim usporedba vrijedi, i bez ijednog od ta tri dijela koeficijent se ne može provjeriti. Ista se disciplina traži i od kategorijskih koeficijenata, gdje uvjet uključuje i referentnu skupinu prema kojoj se svaki od njih mjeri.</p>
+<p>Odsječak u takvom modelu ostaje formalno potreban i sadržajno još slabiji nego prije, jer sada opisuje osobu od nula godina koja se informira putem portala. Model se time ne kvari. Kvari se samo pokušaj da se svaki broj iz ispisa protumači kao da nešto opisuje.</p>
+<p>Postoji i slučaj u kojem prilagodba ne uspijeva iako su sve varijable izmjerene. Kad dva prediktora nose gotovo istu informaciju, podaci ne sadrže usporedbe u kojima se jedan mijenja a drugi ne, pa se njihovi pojedinačni doprinosi ne mogu razdvojiti i koeficijenti postaju osjetljivi na male promjene uzorka. Zbroj tih prediktora model i dalje koristi jednako dobro, a pitanje o svakome od njih zasebno u tim podacima nema odgovor.</p>
 </section>
-<section id="interakcija-regresijski-pravac" class="level2 page-columns page-full">
+<section id="interakcija-regresijski-pravac" class="level2">
 <h2 class="anchored" data-anchor-id="interakcija-regresijski-pravac">Interakcija — Regresijski pravac</h2>
-<p>Pomični pravac pretvara metodu najmanjih kvadrata u vidljiv kriterij. Svaka promjena nagiba ili odsječka mijenja duljine reziduala i njihov zbroj kvadrata, a uključivanje prethodnog interesa otkriva razliku između zbirnog i prilagođenog odnosa.</p>
+<p>Sljedeći prikaz razdvaja dvije stvari koje su u prethodna tri odjeljka ispisane kao gotov rezultat. Čitatelj sam pomiče pravac i vidi kako zbroj kvadrata reagira na svaki pomak, a zatim uključuje treću varijablu i uspoređuje zbirni nagib s onim koji vrijedi pri njezinoj jednakoj vrijednosti. Podaci su manji i posebno konstruirani za ovaj prikaz, kako bi se pojedini reziduali mogli vidjeti.</p>
 <div class="widget-frame" data-naslov="Regresijski pravac" data-oznaka="Widget 16.1 · interaktivno">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="111" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 110;"><span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>viewof w16_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>  <span class="dt">odsječak</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">10</span><span class="op">,</span> <span class="dv">35</span>]<span class="op">,</span> {</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Odsječak pravca:"</span></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>  <span class="dt">nagib</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="fl">4.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Nagib pravca:"</span></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>  <span class="dt">drugi</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prikaži model s prethodnim interesom"</span></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="480" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 479;"><span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>viewof w16_par <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a>  <span class="dt">odsječak</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="dv">10</span><span class="op">,</span> <span class="dv">35</span>]<span class="op">,</span> {</span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Odsječak pravca:"</span></span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a>  <span class="dt">nagib</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> {</span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="fl">4.5</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Nagib pravca:"</span></span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>  <span class="dt">drugi</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Prikaži model s prethodnim interesom"</span></span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -939,205 +1120,205 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="129" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 128;"><span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--widget-ink)"</span><span class="op">;</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> priguseno <span class="op">=</span> <span class="st">"var(--tok-ink-mute)"</span><span class="op">;</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pravilo <span class="op">=</span> <span class="st">"var(--widget-grid)"</span><span class="op">;</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> povrsina <span class="op">=</span> <span class="st">"var(--tok-surface)"</span><span class="op">;</span></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> podatak <span class="op">=</span> <span class="st">"var(--widget-fill)"</span><span class="op">;</span></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prilagodeno <span class="op">=</span> <span class="st">"var(--widget-ink-secondary)"</span><span class="op">;</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--widget-emphasis)"</span><span class="op">;</span></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> formatBroj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1616</span>)<span class="op">;</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> podaci <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">52</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> interes <span class="op">=</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> vrijeme <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">5</span> <span class="op">+</span> <span class="fl">1.8</span> <span class="op">*</span> interes <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> <span class="fu">normalna</span>())<span class="op">;</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> angazman <span class="op">=</span> <span class="dv">20</span> <span class="op">+</span> <span class="fl">2.3</span> <span class="op">*</span> vrijeme <span class="op">+</span> <span class="dv">7</span> <span class="op">*</span> interes <span class="op">+</span> <span class="fl">4.5</span> <span class="op">*</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {interes<span class="op">,</span> vrijeme<span class="op">,</span> angazman}<span class="op">;</span></span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> regresija <span class="op">=</span> (x<span class="op">,</span> y) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> mx <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(x)<span class="op">;</span></span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> my <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(y)<span class="op">;</span></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> brojnik <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(x<span class="op">,</span> (v<span class="op">,</span> i) <span class="kw">=&gt;</span> (v <span class="op">-</span> mx) <span class="op">*</span> (y[i] <span class="op">-</span> my))<span class="op">;</span></span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nazivnik <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(x<span class="op">,</span> v <span class="kw">=&gt;</span> (v <span class="op">-</span> mx) <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> b <span class="op">=</span> brojnik <span class="op">/</span> nazivnik<span class="op">;</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">a</span><span class="op">:</span> my <span class="op">-</span> b <span class="op">*</span> mx<span class="op">,</span> b}<span class="op">;</span></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> x <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">vrijeme</span>)<span class="op">;</span></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> y <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">angazman</span>)<span class="op">;</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">interes</span>)<span class="op">;</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zbirni <span class="op">=</span> <span class="fu">regresija</span>(x<span class="op">,</span> y)<span class="op">;</span></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xPremaZ <span class="op">=</span> <span class="fu">regresija</span>(z<span class="op">,</span> x)<span class="op">;</span></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yPremaZ <span class="op">=</span> <span class="fu">regresija</span>(z<span class="op">,</span> y)<span class="op">;</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xOstatak <span class="op">=</span> x<span class="op">.</span><span class="fu">map</span>((v<span class="op">,</span> i) <span class="kw">=&gt;</span> v <span class="op">-</span> xPremaZ<span class="op">.</span><span class="at">a</span> <span class="op">-</span> xPremaZ<span class="op">.</span><span class="at">b</span> <span class="op">*</span> z[i])<span class="op">;</span></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yOstatak <span class="op">=</span> y<span class="op">.</span><span class="fu">map</span>((v<span class="op">,</span> i) <span class="kw">=&gt;</span> v <span class="op">-</span> yPremaZ<span class="op">.</span><span class="at">a</span> <span class="op">-</span> yPremaZ<span class="op">.</span><span class="at">b</span> <span class="op">*</span> z[i])<span class="op">;</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prilagodeniNagib <span class="op">=</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">sum</span>(xOstatak<span class="op">,</span> (v<span class="op">,</span> i) <span class="kw">=&gt;</span> v <span class="op">*</span> yOstatak[i]) <span class="op">/</span></span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">sum</span>(xOstatak<span class="op">,</span> v <span class="kw">=&gt;</span> v <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prilagodeni <span class="op">=</span> {</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>    <span class="dt">a</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">mean</span>(y) <span class="op">-</span> prilagodeniNagib <span class="op">*</span> d3<span class="op">.</span><span class="fu">mean</span>(x)<span class="op">,</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>    <span class="dt">b</span><span class="op">:</span> prilagodeniNagib</span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> reziduali <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({</span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>d<span class="op">,</span></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>    <span class="dt">procjena</span><span class="op">:</span> w16_par<span class="op">.</span><span class="at">odsječak</span> <span class="op">+</span> w16_par<span class="op">.</span><span class="at">nagib</span> <span class="op">*</span> d<span class="op">.</span><span class="at">vrijeme</span></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sse <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(reziduali<span class="op">,</span> d <span class="kw">=&gt;</span></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>    (d<span class="op">.</span><span class="at">angazman</span> <span class="op">-</span> d<span class="op">.</span><span class="at">procjena</span>) <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sseNajmanji <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>    (d<span class="op">.</span><span class="at">angazman</span> <span class="op">-</span> zbirni<span class="op">.</span><span class="at">a</span> <span class="op">-</span> zbirni<span class="op">.</span><span class="at">b</span> <span class="op">*</span> d<span class="op">.</span><span class="at">vrijeme</span>) <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xRaspon <span class="op">=</span> d3<span class="op">.</span><span class="fu">extent</span>(x)<span class="op">;</span></span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xOdmak <span class="op">=</span> (xRaspon[<span class="dv">1</span>] <span class="op">-</span> xRaspon[<span class="dv">0</span>]) <span class="op">*</span> <span class="fl">0.05</span><span class="op">;</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xMin <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> xRaspon[<span class="dv">0</span>] <span class="op">-</span> xOdmak)<span class="op">;</span></span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xMax <span class="op">=</span> xRaspon[<span class="dv">1</span>] <span class="op">+</span> xOdmak<span class="op">;</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> model <span class="kw">=&gt;</span> [</span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">x</span><span class="op">:</span> xMin<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> model<span class="op">.</span><span class="at">a</span> <span class="op">+</span> model<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMin}<span class="op">,</span></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> model<span class="op">.</span><span class="at">a</span> <span class="op">+</span> model<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax}</span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korisnikov <span class="op">=</span> {<span class="dt">a</span><span class="op">:</span> w16_par<span class="op">.</span><span class="at">odsječak</span><span class="op">,</span> <span class="dt">b</span><span class="op">:</span> w16_par<span class="op">.</span><span class="at">nagib</span>}<span class="op">;</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sveY <span class="op">=</span> [</span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>y<span class="op">,</span></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span><span class="fu">linija</span>(korisnikov)<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">,</span></span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span><span class="fu">linija</span>(zbirni)<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">,</span></span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>(w16_par<span class="op">.</span><span class="at">drugi</span> <span class="op">?</span> <span class="fu">linija</span>(prilagodeni)<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>) <span class="op">:</span> [])</span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yRaspon <span class="op">=</span> d3<span class="op">.</span><span class="fu">extent</span>(sveY)<span class="op">;</span></span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yOdmak <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">3</span><span class="op">,</span> (yRaspon[<span class="dv">1</span>] <span class="op">-</span> yRaspon[<span class="dv">0</span>]) <span class="op">*</span> <span class="fl">0.07</span>)<span class="op">;</span></span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span></span>
-<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"fig-w16"</span>)<span class="op">?.</span><span class="fu">closest</span>(<span class="st">".cell"</span>) <span class="op">??</span></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
-<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>      (<span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">||</span> <span class="dv">0</span>) <span class="op">-</span></span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>      (<span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>) <span class="op">||</span> <span class="dv">0</span>)</span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(</span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))</span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> mobilno <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sazetakTekst <span class="op">=</span></span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>    <span class="vs">`Zbroj kvadrata </span><span class="sc">${</span>formatBroj<span class="op">.</span><span class="fu">format</span>(sse)<span class="sc">}</span><span class="vs"> · minimum </span><span class="sc">${</span>formatBroj<span class="op">.</span><span class="fu">format</span>(sseNajmanji)<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
-<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
-<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="dv">410</span> <span class="op">:</span> <span class="dv">365</span><span class="op">,</span></span>
-<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
-<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
-<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="dv">56</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
-<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="dv">62</span> <span class="op">:</span> <span class="dv">58</span><span class="op">,</span></span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"var(--tok-font-mono)"</span><span class="op">,</span></span>
-<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"15px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
-<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
-<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Simulirano vrijeme"</span><span class="op">,</span></span>
-<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [xMin<span class="op">,</span> xMax]<span class="op">,</span></span>
-<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
-<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Simulirani angažman"</span><span class="op">,</span></span>
-<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [yRaspon[<span class="dv">0</span>] <span class="op">-</span> yOdmak<span class="op">,</span> yRaspon[<span class="dv">1</span>] <span class="op">+</span> yOdmak]<span class="op">,</span></span>
-<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>(reziduali<span class="op">,</span> {</span>
-<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijeme"</span><span class="op">,</span></span>
-<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y1</span><span class="op">:</span> <span class="st">"angazman"</span><span class="op">,</span></span>
-<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y2</span><span class="op">:</span> <span class="st">"procjena"</span><span class="op">,</span></span>
-<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
-<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.35</span></span>
-<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(podaci<span class="op">,</span> {</span>
-<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijeme"</span><span class="op">,</span></span>
-<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"angazman"</span><span class="op">,</span></span>
-<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
-<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> podatak<span class="op">,</span></span>
-<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> povrsina<span class="op">,</span></span>
-<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">0.8</span></span>
-<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(<span class="fu">linija</span>(korisnikov)<span class="op">,</span> {</span>
-<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
-<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.8</span></span>
-<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(<span class="fu">linija</span>(zbirni)<span class="op">,</span> {</span>
-<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.8</span><span class="op">,</span></span>
-<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,4"</span></span>
-<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>(w16_par<span class="op">.</span><span class="at">drugi</span> <span class="op">?</span> [</span>
-<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">line</span>(<span class="fu">linija</span>(prilagodeni)<span class="op">,</span> {</span>
-<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a>          <span class="dt">stroke</span><span class="op">:</span> prilagodeno<span class="op">,</span></span>
-<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"2,3"</span></span>
-<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>      ] <span class="op">:</span> [])<span class="op">,</span></span>
-<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>([{</span>
-<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span></span>
-<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> korisnikov<span class="op">.</span><span class="at">a</span> <span class="op">+</span> korisnikov<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax<span class="op">,</span></span>
-<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>        <span class="dt">tekst</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"pomični"</span> <span class="op">:</span> <span class="st">"pomični pravac"</span></span>
-<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a>      }]<span class="op">,</span> {</span>
-<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> <span class="st">"tekst"</span><span class="op">,</span></span>
-<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> naglasak<span class="op">,</span></span>
-<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dy</span><span class="op">:</span> <span class="op">-</span><span class="dv">10</span><span class="op">,</span></span>
-<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span><span class="op">,</span></span>
-<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>        <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
-<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
-<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>([{</span>
-<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span></span>
-<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> zbirni<span class="op">.</span><span class="at">a</span> <span class="op">+</span> zbirni<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax<span class="op">,</span></span>
-<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>        <span class="dt">tekst</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"najmanji"</span> <span class="op">:</span> <span class="st">"najmanji kvadrati"</span></span>
-<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>      }]<span class="op">,</span> {</span>
-<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> <span class="st">"tekst"</span><span class="op">,</span></span>
-<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
-<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dy</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
-<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span><span class="op">,</span></span>
-<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>        <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
-<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
-<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
-<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>(w16_par<span class="op">.</span><span class="at">drugi</span> <span class="op">?</span> [</span>
-<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>([{</span>
-<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span></span>
-<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> prilagodeni<span class="op">.</span><span class="at">a</span> <span class="op">+</span> prilagodeni<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax<span class="op">,</span></span>
-<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>          <span class="dt">tekst</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"uz interes"</span> <span class="op">:</span> <span class="st">"uz jednak interes"</span></span>
-<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>        }]<span class="op">,</span> {</span>
-<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
-<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"tekst"</span><span class="op">,</span></span>
-<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> prilagodeno<span class="op">,</span></span>
-<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dy</span><span class="op">:</span> <span class="dv">22</span><span class="op">,</span></span>
-<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span><span class="op">,</span></span>
-<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
-<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
-<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>      ] <span class="op">:</span> [])<span class="op">,</span></span>
-<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([yRaspon[<span class="dv">0</span>] <span class="op">-</span> yOdmak]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> pravilo})</span>
-<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
-<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
-<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;</span><span class="sc">${</span>sazetakTekst<span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
-<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="498" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 497;"><span id="cb2-498"><a href="#cb2-498" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-499"><a href="#cb2-499" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tinta <span class="op">=</span> <span class="st">"var(--widget-ink)"</span><span class="op">;</span></span>
+<span id="cb2-500"><a href="#cb2-500" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> priguseno <span class="op">=</span> <span class="st">"var(--tok-ink-mute)"</span><span class="op">;</span></span>
+<span id="cb2-501"><a href="#cb2-501" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pravilo <span class="op">=</span> <span class="st">"var(--widget-grid)"</span><span class="op">;</span></span>
+<span id="cb2-502"><a href="#cb2-502" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> povrsina <span class="op">=</span> <span class="st">"var(--tok-surface)"</span><span class="op">;</span></span>
+<span id="cb2-503"><a href="#cb2-503" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> podatak <span class="op">=</span> <span class="st">"var(--widget-fill)"</span><span class="op">;</span></span>
+<span id="cb2-504"><a href="#cb2-504" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prilagodeno <span class="op">=</span> <span class="st">"var(--widget-ink-secondary)"</span><span class="op">;</span></span>
+<span id="cb2-505"><a href="#cb2-505" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> naglasak <span class="op">=</span> <span class="st">"var(--widget-emphasis)"</span><span class="op">;</span></span>
+<span id="cb2-506"><a href="#cb2-506" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> formatBroj <span class="op">=</span> <span class="kw">new</span> <span class="bu">Intl</span><span class="op">.</span><span class="fu">NumberFormat</span>(<span class="st">"hr-HR"</span><span class="op">,</span> {</span>
+<span id="cb2-507"><a href="#cb2-507" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb2-508"><a href="#cb2-508" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-509"><a href="#cb2-509" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> rng <span class="op">=</span> d3<span class="op">.</span><span class="fu">randomLcg</span>(<span class="dv">1616</span>)<span class="op">;</span></span>
+<span id="cb2-510"><a href="#cb2-510" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalna <span class="op">=</span> d3<span class="op">.</span><span class="at">randomNormal</span><span class="op">.</span><span class="fu">source</span>(rng)(<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-511"><a href="#cb2-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-512"><a href="#cb2-512" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> podaci <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">52</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-513"><a href="#cb2-513" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> interes <span class="op">=</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
+<span id="cb2-514"><a href="#cb2-514" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> vrijeme <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">5</span> <span class="op">+</span> <span class="fl">1.8</span> <span class="op">*</span> interes <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> <span class="fu">normalna</span>())<span class="op">;</span></span>
+<span id="cb2-515"><a href="#cb2-515" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> angazman <span class="op">=</span> <span class="dv">20</span> <span class="op">+</span> <span class="fl">2.3</span> <span class="op">*</span> vrijeme <span class="op">+</span> <span class="dv">7</span> <span class="op">*</span> interes <span class="op">+</span> <span class="fl">4.5</span> <span class="op">*</span> <span class="fu">normalna</span>()<span class="op">;</span></span>
+<span id="cb2-516"><a href="#cb2-516" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {interes<span class="op">,</span> vrijeme<span class="op">,</span> angazman}<span class="op">;</span></span>
+<span id="cb2-517"><a href="#cb2-517" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-518"><a href="#cb2-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-519"><a href="#cb2-519" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> regresija <span class="op">=</span> (x<span class="op">,</span> y) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-520"><a href="#cb2-520" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> mx <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(x)<span class="op">;</span></span>
+<span id="cb2-521"><a href="#cb2-521" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> my <span class="op">=</span> d3<span class="op">.</span><span class="fu">mean</span>(y)<span class="op">;</span></span>
+<span id="cb2-522"><a href="#cb2-522" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> brojnik <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(x<span class="op">,</span> (v<span class="op">,</span> i) <span class="kw">=&gt;</span> (v <span class="op">-</span> mx) <span class="op">*</span> (y[i] <span class="op">-</span> my))<span class="op">;</span></span>
+<span id="cb2-523"><a href="#cb2-523" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> nazivnik <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(x<span class="op">,</span> v <span class="kw">=&gt;</span> (v <span class="op">-</span> mx) <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-524"><a href="#cb2-524" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> b <span class="op">=</span> brojnik <span class="op">/</span> nazivnik<span class="op">;</span></span>
+<span id="cb2-525"><a href="#cb2-525" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="dt">a</span><span class="op">:</span> my <span class="op">-</span> b <span class="op">*</span> mx<span class="op">,</span> b}<span class="op">;</span></span>
+<span id="cb2-526"><a href="#cb2-526" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-527"><a href="#cb2-527" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> x <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">vrijeme</span>)<span class="op">;</span></span>
+<span id="cb2-528"><a href="#cb2-528" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> y <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">angazman</span>)<span class="op">;</span></span>
+<span id="cb2-529"><a href="#cb2-529" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">interes</span>)<span class="op">;</span></span>
+<span id="cb2-530"><a href="#cb2-530" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> zbirni <span class="op">=</span> <span class="fu">regresija</span>(x<span class="op">,</span> y)<span class="op">;</span></span>
+<span id="cb2-531"><a href="#cb2-531" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xPremaZ <span class="op">=</span> <span class="fu">regresija</span>(z<span class="op">,</span> x)<span class="op">;</span></span>
+<span id="cb2-532"><a href="#cb2-532" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yPremaZ <span class="op">=</span> <span class="fu">regresija</span>(z<span class="op">,</span> y)<span class="op">;</span></span>
+<span id="cb2-533"><a href="#cb2-533" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xOstatak <span class="op">=</span> x<span class="op">.</span><span class="fu">map</span>((v<span class="op">,</span> i) <span class="kw">=&gt;</span> v <span class="op">-</span> xPremaZ<span class="op">.</span><span class="at">a</span> <span class="op">-</span> xPremaZ<span class="op">.</span><span class="at">b</span> <span class="op">*</span> z[i])<span class="op">;</span></span>
+<span id="cb2-534"><a href="#cb2-534" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yOstatak <span class="op">=</span> y<span class="op">.</span><span class="fu">map</span>((v<span class="op">,</span> i) <span class="kw">=&gt;</span> v <span class="op">-</span> yPremaZ<span class="op">.</span><span class="at">a</span> <span class="op">-</span> yPremaZ<span class="op">.</span><span class="at">b</span> <span class="op">*</span> z[i])<span class="op">;</span></span>
+<span id="cb2-535"><a href="#cb2-535" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prilagodeniNagib <span class="op">=</span></span>
+<span id="cb2-536"><a href="#cb2-536" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">sum</span>(xOstatak<span class="op">,</span> (v<span class="op">,</span> i) <span class="kw">=&gt;</span> v <span class="op">*</span> yOstatak[i]) <span class="op">/</span></span>
+<span id="cb2-537"><a href="#cb2-537" aria-hidden="true" tabindex="-1"></a>    d3<span class="op">.</span><span class="fu">sum</span>(xOstatak<span class="op">,</span> v <span class="kw">=&gt;</span> v <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-538"><a href="#cb2-538" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> prilagodeni <span class="op">=</span> {</span>
+<span id="cb2-539"><a href="#cb2-539" aria-hidden="true" tabindex="-1"></a>    <span class="dt">a</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">mean</span>(y) <span class="op">-</span> prilagodeniNagib <span class="op">*</span> d3<span class="op">.</span><span class="fu">mean</span>(x)<span class="op">,</span></span>
+<span id="cb2-540"><a href="#cb2-540" aria-hidden="true" tabindex="-1"></a>    <span class="dt">b</span><span class="op">:</span> prilagodeniNagib</span>
+<span id="cb2-541"><a href="#cb2-541" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb2-542"><a href="#cb2-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-543"><a href="#cb2-543" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> reziduali <span class="op">=</span> podaci<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({</span>
+<span id="cb2-544"><a href="#cb2-544" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>d<span class="op">,</span></span>
+<span id="cb2-545"><a href="#cb2-545" aria-hidden="true" tabindex="-1"></a>    <span class="dt">procjena</span><span class="op">:</span> w16_par<span class="op">.</span><span class="at">odsječak</span> <span class="op">+</span> w16_par<span class="op">.</span><span class="at">nagib</span> <span class="op">*</span> d<span class="op">.</span><span class="at">vrijeme</span></span>
+<span id="cb2-546"><a href="#cb2-546" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span></span>
+<span id="cb2-547"><a href="#cb2-547" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sse <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(reziduali<span class="op">,</span> d <span class="kw">=&gt;</span></span>
+<span id="cb2-548"><a href="#cb2-548" aria-hidden="true" tabindex="-1"></a>    (d<span class="op">.</span><span class="at">angazman</span> <span class="op">-</span> d<span class="op">.</span><span class="at">procjena</span>) <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-549"><a href="#cb2-549" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sseNajmanji <span class="op">=</span> d3<span class="op">.</span><span class="fu">sum</span>(podaci<span class="op">,</span> d <span class="kw">=&gt;</span></span>
+<span id="cb2-550"><a href="#cb2-550" aria-hidden="true" tabindex="-1"></a>    (d<span class="op">.</span><span class="at">angazman</span> <span class="op">-</span> zbirni<span class="op">.</span><span class="at">a</span> <span class="op">-</span> zbirni<span class="op">.</span><span class="at">b</span> <span class="op">*</span> d<span class="op">.</span><span class="at">vrijeme</span>) <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-551"><a href="#cb2-551" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xRaspon <span class="op">=</span> d3<span class="op">.</span><span class="fu">extent</span>(x)<span class="op">;</span></span>
+<span id="cb2-552"><a href="#cb2-552" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xOdmak <span class="op">=</span> (xRaspon[<span class="dv">1</span>] <span class="op">-</span> xRaspon[<span class="dv">0</span>]) <span class="op">*</span> <span class="fl">0.05</span><span class="op">;</span></span>
+<span id="cb2-553"><a href="#cb2-553" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xMin <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> xRaspon[<span class="dv">0</span>] <span class="op">-</span> xOdmak)<span class="op">;</span></span>
+<span id="cb2-554"><a href="#cb2-554" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> xMax <span class="op">=</span> xRaspon[<span class="dv">1</span>] <span class="op">+</span> xOdmak<span class="op">;</span></span>
+<span id="cb2-555"><a href="#cb2-555" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linija <span class="op">=</span> model <span class="kw">=&gt;</span> [</span>
+<span id="cb2-556"><a href="#cb2-556" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">x</span><span class="op">:</span> xMin<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> model<span class="op">.</span><span class="at">a</span> <span class="op">+</span> model<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMin}<span class="op">,</span></span>
+<span id="cb2-557"><a href="#cb2-557" aria-hidden="true" tabindex="-1"></a>    {<span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> model<span class="op">.</span><span class="at">a</span> <span class="op">+</span> model<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax}</span>
+<span id="cb2-558"><a href="#cb2-558" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb2-559"><a href="#cb2-559" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> korisnikov <span class="op">=</span> {<span class="dt">a</span><span class="op">:</span> w16_par<span class="op">.</span><span class="at">odsječak</span><span class="op">,</span> <span class="dt">b</span><span class="op">:</span> w16_par<span class="op">.</span><span class="at">nagib</span>}<span class="op">;</span></span>
+<span id="cb2-560"><a href="#cb2-560" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sveY <span class="op">=</span> [</span>
+<span id="cb2-561"><a href="#cb2-561" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>y<span class="op">,</span></span>
+<span id="cb2-562"><a href="#cb2-562" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span><span class="fu">linija</span>(korisnikov)<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">,</span></span>
+<span id="cb2-563"><a href="#cb2-563" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span><span class="fu">linija</span>(zbirni)<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>)<span class="op">,</span></span>
+<span id="cb2-564"><a href="#cb2-564" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>(w16_par<span class="op">.</span><span class="at">drugi</span> <span class="op">?</span> <span class="fu">linija</span>(prilagodeni)<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">y</span>) <span class="op">:</span> [])</span>
+<span id="cb2-565"><a href="#cb2-565" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb2-566"><a href="#cb2-566" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yRaspon <span class="op">=</span> d3<span class="op">.</span><span class="fu">extent</span>(sveY)<span class="op">;</span></span>
+<span id="cb2-567"><a href="#cb2-567" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yOdmak <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">3</span><span class="op">,</span> (yRaspon[<span class="dv">1</span>] <span class="op">-</span> yRaspon[<span class="dv">0</span>]) <span class="op">*</span> <span class="fl">0.07</span>)<span class="op">;</span></span>
+<span id="cb2-568"><a href="#cb2-568" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> celija <span class="op">=</span></span>
+<span id="cb2-569"><a href="#cb2-569" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">"fig-w16"</span>)<span class="op">?.</span><span class="fu">closest</span>(<span class="st">".cell"</span>) <span class="op">??</span></span>
+<span id="cb2-570"><a href="#cb2-570" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">".widget-frame .cell"</span>)<span class="op">;</span></span>
+<span id="cb2-571"><a href="#cb2-571" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stilCelije <span class="op">=</span> celija <span class="op">?</span> <span class="fu">getComputedStyle</span>(celija) <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb2-572"><a href="#cb2-572" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lokalnaSirina <span class="op">=</span> celija</span>
+<span id="cb2-573"><a href="#cb2-573" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> celija<span class="op">.</span><span class="at">clientWidth</span> <span class="op">-</span></span>
+<span id="cb2-574"><a href="#cb2-574" aria-hidden="true" tabindex="-1"></a>      (<span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingLeft</span>) <span class="op">||</span> <span class="dv">0</span>) <span class="op">-</span></span>
+<span id="cb2-575"><a href="#cb2-575" aria-hidden="true" tabindex="-1"></a>      (<span class="pp">parseFloat</span>(stilCelije<span class="op">.</span><span class="at">paddingRight</span>) <span class="op">||</span> <span class="dv">0</span>)</span>
+<span id="cb2-576"><a href="#cb2-576" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> width<span class="op">;</span></span>
+<span id="cb2-577"><a href="#cb2-577" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sirinaGrafa <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(</span>
+<span id="cb2-578"><a href="#cb2-578" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb2-579"><a href="#cb2-579" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(width<span class="op">,</span> lokalnaSirina))</span>
+<span id="cb2-580"><a href="#cb2-580" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb2-581"><a href="#cb2-581" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> mobilno <span class="op">=</span> sirinaGrafa <span class="op">&lt;</span> <span class="dv">480</span><span class="op">;</span></span>
+<span id="cb2-582"><a href="#cb2-582" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sazetakTekst <span class="op">=</span></span>
+<span id="cb2-583"><a href="#cb2-583" aria-hidden="true" tabindex="-1"></a>    <span class="vs">`Zbroj kvadrata </span><span class="sc">${</span>formatBroj<span class="op">.</span><span class="fu">format</span>(sse)<span class="sc">}</span><span class="vs"> · minimum </span><span class="sc">${</span>formatBroj<span class="op">.</span><span class="fu">format</span>(sseNajmanji)<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb2-584"><a href="#cb2-584" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> graf <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-585"><a href="#cb2-585" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> sirinaGrafa<span class="op">,</span></span>
+<span id="cb2-586"><a href="#cb2-586" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="dv">410</span> <span class="op">:</span> <span class="dv">365</span><span class="op">,</span></span>
+<span id="cb2-587"><a href="#cb2-587" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb2-588"><a href="#cb2-588" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb2-589"><a href="#cb2-589" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="dv">56</span> <span class="op">:</span> <span class="dv">48</span><span class="op">,</span></span>
+<span id="cb2-590"><a href="#cb2-590" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="dv">62</span> <span class="op">:</span> <span class="dv">58</span><span class="op">,</span></span>
+<span id="cb2-591"><a href="#cb2-591" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb2-592"><a href="#cb2-592" aria-hidden="true" tabindex="-1"></a>      <span class="dt">background</span><span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb2-593"><a href="#cb2-593" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-594"><a href="#cb2-594" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontFamily</span><span class="op">:</span> <span class="st">"var(--tok-font-mono)"</span><span class="op">,</span></span>
+<span id="cb2-595"><a href="#cb2-595" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"15px"</span> <span class="op">:</span> <span class="st">"13px"</span></span>
+<span id="cb2-596"><a href="#cb2-596" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-597"><a href="#cb2-597" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb2-598"><a href="#cb2-598" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Simulirano vrijeme"</span><span class="op">,</span></span>
+<span id="cb2-599"><a href="#cb2-599" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [xMin<span class="op">,</span> xMax]<span class="op">,</span></span>
+<span id="cb2-600"><a href="#cb2-600" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb2-601"><a href="#cb2-601" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-602"><a href="#cb2-602" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb2-603"><a href="#cb2-603" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Simulirani angažman"</span><span class="op">,</span></span>
+<span id="cb2-604"><a href="#cb2-604" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [yRaspon[<span class="dv">0</span>] <span class="op">-</span> yOdmak<span class="op">,</span> yRaspon[<span class="dv">1</span>] <span class="op">+</span> yOdmak]<span class="op">,</span></span>
+<span id="cb2-605"><a href="#cb2-605" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb2-606"><a href="#cb2-606" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb2-607"><a href="#cb2-607" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-608"><a href="#cb2-608" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleX</span>(reziduali<span class="op">,</span> {</span>
+<span id="cb2-609"><a href="#cb2-609" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijeme"</span><span class="op">,</span></span>
+<span id="cb2-610"><a href="#cb2-610" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y1</span><span class="op">:</span> <span class="st">"angazman"</span><span class="op">,</span></span>
+<span id="cb2-611"><a href="#cb2-611" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y2</span><span class="op">:</span> <span class="st">"procjena"</span><span class="op">,</span></span>
+<span id="cb2-612"><a href="#cb2-612" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
+<span id="cb2-613"><a href="#cb2-613" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.35</span></span>
+<span id="cb2-614"><a href="#cb2-614" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-615"><a href="#cb2-615" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(podaci<span class="op">,</span> {</span>
+<span id="cb2-616"><a href="#cb2-616" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"vrijeme"</span><span class="op">,</span></span>
+<span id="cb2-617"><a href="#cb2-617" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"angazman"</span><span class="op">,</span></span>
+<span id="cb2-618"><a href="#cb2-618" aria-hidden="true" tabindex="-1"></a>        <span class="dt">r</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span></span>
+<span id="cb2-619"><a href="#cb2-619" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> podatak<span class="op">,</span></span>
+<span id="cb2-620"><a href="#cb2-620" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> povrsina<span class="op">,</span></span>
+<span id="cb2-621"><a href="#cb2-621" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">0.8</span></span>
+<span id="cb2-622"><a href="#cb2-622" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-623"><a href="#cb2-623" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(<span class="fu">linija</span>(korisnikov)<span class="op">,</span> {</span>
+<span id="cb2-624"><a href="#cb2-624" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-625"><a href="#cb2-625" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-626"><a href="#cb2-626" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> naglasak<span class="op">,</span></span>
+<span id="cb2-627"><a href="#cb2-627" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.8</span></span>
+<span id="cb2-628"><a href="#cb2-628" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-629"><a href="#cb2-629" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">line</span>(<span class="fu">linija</span>(zbirni)<span class="op">,</span> {</span>
+<span id="cb2-630"><a href="#cb2-630" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-631"><a href="#cb2-631" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-632"><a href="#cb2-632" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-633"><a href="#cb2-633" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.8</span><span class="op">,</span></span>
+<span id="cb2-634"><a href="#cb2-634" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,4"</span></span>
+<span id="cb2-635"><a href="#cb2-635" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-636"><a href="#cb2-636" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>(w16_par<span class="op">.</span><span class="at">drugi</span> <span class="op">?</span> [</span>
+<span id="cb2-637"><a href="#cb2-637" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">line</span>(<span class="fu">linija</span>(prilagodeni)<span class="op">,</span> {</span>
+<span id="cb2-638"><a href="#cb2-638" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-639"><a href="#cb2-639" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-640"><a href="#cb2-640" aria-hidden="true" tabindex="-1"></a>          <span class="dt">stroke</span><span class="op">:</span> prilagodeno<span class="op">,</span></span>
+<span id="cb2-641"><a href="#cb2-641" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb2-642"><a href="#cb2-642" aria-hidden="true" tabindex="-1"></a>          <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"2,3"</span></span>
+<span id="cb2-643"><a href="#cb2-643" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb2-644"><a href="#cb2-644" aria-hidden="true" tabindex="-1"></a>      ] <span class="op">:</span> [])<span class="op">,</span></span>
+<span id="cb2-645"><a href="#cb2-645" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>([{</span>
+<span id="cb2-646"><a href="#cb2-646" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span></span>
+<span id="cb2-647"><a href="#cb2-647" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> korisnikov<span class="op">.</span><span class="at">a</span> <span class="op">+</span> korisnikov<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax<span class="op">,</span></span>
+<span id="cb2-648"><a href="#cb2-648" aria-hidden="true" tabindex="-1"></a>        <span class="dt">tekst</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"pomični"</span> <span class="op">:</span> <span class="st">"pomični pravac"</span></span>
+<span id="cb2-649"><a href="#cb2-649" aria-hidden="true" tabindex="-1"></a>      }]<span class="op">,</span> {</span>
+<span id="cb2-650"><a href="#cb2-650" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-651"><a href="#cb2-651" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-652"><a href="#cb2-652" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> <span class="st">"tekst"</span><span class="op">,</span></span>
+<span id="cb2-653"><a href="#cb2-653" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> naglasak<span class="op">,</span></span>
+<span id="cb2-654"><a href="#cb2-654" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dy</span><span class="op">:</span> <span class="op">-</span><span class="dv">10</span><span class="op">,</span></span>
+<span id="cb2-655"><a href="#cb2-655" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span><span class="op">,</span></span>
+<span id="cb2-656"><a href="#cb2-656" aria-hidden="true" tabindex="-1"></a>        <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
+<span id="cb2-657"><a href="#cb2-657" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
+<span id="cb2-658"><a href="#cb2-658" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-659"><a href="#cb2-659" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">text</span>([{</span>
+<span id="cb2-660"><a href="#cb2-660" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span></span>
+<span id="cb2-661"><a href="#cb2-661" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> zbirni<span class="op">.</span><span class="at">a</span> <span class="op">+</span> zbirni<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax<span class="op">,</span></span>
+<span id="cb2-662"><a href="#cb2-662" aria-hidden="true" tabindex="-1"></a>        <span class="dt">tekst</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"najmanji"</span> <span class="op">:</span> <span class="st">"najmanji kvadrati"</span></span>
+<span id="cb2-663"><a href="#cb2-663" aria-hidden="true" tabindex="-1"></a>      }]<span class="op">,</span> {</span>
+<span id="cb2-664"><a href="#cb2-664" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-665"><a href="#cb2-665" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-666"><a href="#cb2-666" aria-hidden="true" tabindex="-1"></a>        <span class="dt">text</span><span class="op">:</span> <span class="st">"tekst"</span><span class="op">,</span></span>
+<span id="cb2-667"><a href="#cb2-667" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> tinta<span class="op">,</span></span>
+<span id="cb2-668"><a href="#cb2-668" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dy</span><span class="op">:</span> <span class="dv">11</span><span class="op">,</span></span>
+<span id="cb2-669"><a href="#cb2-669" aria-hidden="true" tabindex="-1"></a>        <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span><span class="op">,</span></span>
+<span id="cb2-670"><a href="#cb2-670" aria-hidden="true" tabindex="-1"></a>        <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
+<span id="cb2-671"><a href="#cb2-671" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
+<span id="cb2-672"><a href="#cb2-672" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb2-673"><a href="#cb2-673" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>(w16_par<span class="op">.</span><span class="at">drugi</span> <span class="op">?</span> [</span>
+<span id="cb2-674"><a href="#cb2-674" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>([{</span>
+<span id="cb2-675"><a href="#cb2-675" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> xMax<span class="op">,</span></span>
+<span id="cb2-676"><a href="#cb2-676" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> prilagodeni<span class="op">.</span><span class="at">a</span> <span class="op">+</span> prilagodeni<span class="op">.</span><span class="at">b</span> <span class="op">*</span> xMax<span class="op">,</span></span>
+<span id="cb2-677"><a href="#cb2-677" aria-hidden="true" tabindex="-1"></a>          <span class="dt">tekst</span><span class="op">:</span> mobilno <span class="op">?</span> <span class="st">"uz interes"</span> <span class="op">:</span> <span class="st">"uz jednak interes"</span></span>
+<span id="cb2-678"><a href="#cb2-678" aria-hidden="true" tabindex="-1"></a>        }]<span class="op">,</span> {</span>
+<span id="cb2-679"><a href="#cb2-679" aria-hidden="true" tabindex="-1"></a>          <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-680"><a href="#cb2-680" aria-hidden="true" tabindex="-1"></a>          <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-681"><a href="#cb2-681" aria-hidden="true" tabindex="-1"></a>          <span class="dt">text</span><span class="op">:</span> <span class="st">"tekst"</span><span class="op">,</span></span>
+<span id="cb2-682"><a href="#cb2-682" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fill</span><span class="op">:</span> prilagodeno<span class="op">,</span></span>
+<span id="cb2-683"><a href="#cb2-683" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dy</span><span class="op">:</span> <span class="dv">22</span><span class="op">,</span></span>
+<span id="cb2-684"><a href="#cb2-684" aria-hidden="true" tabindex="-1"></a>          <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span><span class="op">,</span></span>
+<span id="cb2-685"><a href="#cb2-685" aria-hidden="true" tabindex="-1"></a>          <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span></span>
+<span id="cb2-686"><a href="#cb2-686" aria-hidden="true" tabindex="-1"></a>          <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span></span>
+<span id="cb2-687"><a href="#cb2-687" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb2-688"><a href="#cb2-688" aria-hidden="true" tabindex="-1"></a>      ] <span class="op">:</span> [])<span class="op">,</span></span>
+<span id="cb2-689"><a href="#cb2-689" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([yRaspon[<span class="dv">0</span>] <span class="op">-</span> yOdmak]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> pravilo})</span>
+<span id="cb2-690"><a href="#cb2-690" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-691"><a href="#cb2-691" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-692"><a href="#cb2-692" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
+<span id="cb2-693"><a href="#cb2-693" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>graf<span class="sc">}</span></span>
+<span id="cb2-694"><a href="#cb2-694" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p class="widget-foot" role="status" aria-live="polite"&gt;</span><span class="sc">${</span>sazetakTekst<span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb2-695"><a href="#cb2-695" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb2-696"><a href="#cb2-696" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="fig-w16" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1147,7 +1328,7 @@ window.Quarto = {
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-w16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Slika&nbsp;1: Regresijski pravac — pomični pravac, reziduali i usporedba zbirnog s prilagođenim nagibom.
+Slika&nbsp;2: Regresijski pravac — pomični pravac, reziduali i usporedba zbirnog s prilagođenim nagibom.
 </figcaption>
 </figure>
 </div>
@@ -1159,50 +1340,88 @@ Slika&nbsp;1: Regresijski pravac — pomični pravac, reziduali i usporedba zbir
 <li>Povećajte samo nagib za jednu jedinicu i pratite koji se reziduali najviše produljuju.</li>
 <li>Uključite model s prethodnim interesom i usporedite njegov nagib sa zbirnim pravcem.</li>
 </ol>
-<div class="callout-divljina page-columns page-full">
-<p><strong>Dvije kulture modeliranja.</strong> Breiman je opisao napetost između modela usmjerenih na podatkovni mehanizam i algoritamskih postupaka usmjerenih na predikciju <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001.</a>)</span>.</p>
-<div class="no-row-height column-margin column-container"></div><p>Članak koji model naziva „boljim” mora zato navesti kriterij. Bolje pristajanje, stabilniji koeficijent, manja pogreška na novim podacima i uvjerljiviji uzročni dizajn nisu ista postignuća.</p>
-</div>
-<div class="callout-model">
-<p>Asistent može prilagoditi model, izraditi dijagnostičke grafove i prevesti koeficijente u prozu. Treba mu zadati ulogu svake varijable, referentne kategorije i cilj analize. Provjeravamo kod, jedinice, reziduale, podatke za provjeru predikcije i svaki prijelaz iz povezanosti prema uzroku.</p>
-<blockquote class="blockquote">
-<p>Prilagodi linearni model i protumači koeficijente u izvornim jedinicama. Prikaži intervale, dijagnostiku reziduala i odvojenu provjeru predikcije. Uzročni jezik koristi samo ako ga dizajn izričito opravdava.</p>
-</blockquote>
-</div>
-<div class="callout-greska">
-<p>Model uključuje dob, obrazovanje i početni rezultat, a rezidualni prikazi ne pokazuju velik problem. Koeficijent korištenja platforme zato predstavlja čisti uzročni učinak korištenja na ishod.</p>
-</div>
+<p>Zbroj kvadrata oko svojeg minimuma reagira sporo, pa se pravac može osjetno pomaknuti prije nego što se brojka vidljivo pokvari. To je ista činjenica koju poglavlje o procjeni izražava intervalom, jer sve te bliske vrijednosti nagiba podaci podnose gotovo jednako dobro.</p>
 </section>
-<section id="razrađeni-primjer" class="level2">
-<h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
-<p>Simuliramo odnos vremena provedenog uz sadržaj, prethodnog interesa i angažmana. Budući da interes utječe i na vrijeme i na ishod, jednostavni nagib miješa dvije priče. Višestruki model procjenjuje odnos vremena s angažmanom uz jednaku razinu simuliranog interesa.</p>
-<div class="table-keep-words">
+<section id="isti-model-iza-ranijih-poglavlja" class="level2">
+<h2 class="anchored" data-anchor-id="isti-model-iza-ranijih-poglavlja">Isti model iza ranijih poglavlja</h2>
+<p>Poglavlje o dvjema grupama zapisalo je usporedbu dviju sredina kao model s binarnim prediktorom, a poglavlje o više skupina proširilo ga je na četiri koeficijenta. Ovdje je isti model dobio prediktor koji je broj, čime je popis slučajeva zatvoren. Vrijedi provjeriti da to nije bila samo tvrdnja o zapisu.</p>
+<p>Uzorak od sto dvadeset ljudi iz poglavlja o dvjema grupama daje razliku sredina od 1,19 boda. Koeficijent uz izvor u modelu iznosi 1,19, a omjer tog koeficijenta i njegove standardne pogreške iznosi 3,21, jednako kao vrijednost koju daje t-test na istim podacima. Riječ je o jednom računu s dva imena.</p>
+<p>Uzorak od tristo ljudi iz poglavlja o više skupina daje ukupni test s F-vrijednošću 8,38 uz 4 i 295 stupnja slobode, što je vrijednost koju je to poglavlje ispisalo. Udio objašnjene varijabilnosti u tom modelu iznosi 10,2 %, a to je ista brojka koju je poglavlje o više skupina nazvalo eta-kvadratom.</p>
+<p>Iz toga slijedi praktična posljedica za čitanje tuđih radova. Rad koji izvještava o t-testu, rad koji izvještava o analizi varijance i rad koji izvještava o regresiji ne koriste tri različita aparata, pa se mogu čitati istim pitanjima o jedinici analize, o tome što je uspoređeno i uz što je usporedba provedena.</p>
+<p>Ista posljedica vrijedi i za odabir postupka. Tablica koja vodi od vrste podataka i pitanja do metode, kakva stoji u dodatku o odabiru testa, pomaže dok se uči, a njezini redovi nisu odvojeni postupci nego različiti oblici jednog istog modela. Pitanje koje ostaje jest što je ishod, što su prediktori i jesu li jedinice neovisne, a ime testa iz tih odgovora slijedi.</p>
+<p>Okvir se pritom širi dalje nego što ova knjiga ide. Ishod koji nije broj nego kategorija, mjerenja ponovljena na istim ljudima i podaci grupirani po razredima ili gradovima traže preinake koje pripadaju literaturi izvan opsega ovog udžbenika. Zajedničko im je da se i dalje piše model, imenuje ishod i imenuju prediktori, pa čitatelj koji je razumio ovo poglavlje takav rad može čitati i kad njegovu procjenu ne bi znao ponoviti.</p>
+</section>
+<section id="pristajanje-i-njegove-granice" class="level2">
+<h2 class="anchored" data-anchor-id="pristajanje-i-njegove-granice">Pristajanje i njegove granice</h2>
+<p>Koliko dobro model opisuje podatke mjeri se udjelom varijabilnosti ishoda koji je model uspio objasniti. Ta mjera nosi ime koje obećava više nego što daje, pa je vrijedi definirati oprezno.</p>
+<div id="def-koeficijent-determinacije" class="theorem definition">
+<p><span class="theorem-title"><strong>Definicija 4</strong></span> <strong>Koeficijent determinacije</strong> je udio ukupne varijabilnosti ishoda u promatranom uzorku koji je model objasnio, izračunat kao jedan minus omjer zbroja kvadrata reziduala i zbroja kvadrata odstupanja od zajedničke sredine.</p>
+<p><span class="math display">\[R^2 = 1 - \frac{\sum e_i^2}{\sum (y_i - \bar{y})^2}\]</span></p>
+</div>
+<p>Model samo s dobi objašnjava 8,8 % varijabilnosti povjerenja, a model s dobi i izvorom 12,2 %. Obje su brojke male, a model s izvorom je istodobno onaj koji je oporavio pravilo po kojem su podaci nastali. Ljudi se međusobno razlikuju iz mnoštva razloga koje nijedno istraživanje ne bilježi, pa niska vrijednost ovdje ne znači loš model nego da su ljudi raznoliki.</p>
+<p>Vrijednost ima i mehaničko svojstvo koje je čini neupotrebljivom za usporedbu modela. Nikada ne pada kad se doda prediktor, pa i onaj koji s ishodom nema nikakve veze podigne ju za nešto. U uzorku od dvjesto osoba dodavanje pet potpuno slučajnih brojeva podiže udio objašnjene varijabilnosti s 8,1 % na 9,1 %, dok prilagođeni koeficijent determinacije, koji kažnjava svaki dodani prediktor, pada s 5,8 % na 4,3 %. Prvi broj tvrdi da je model bolji, drugi da je gori, i drugi je u pravu.</p>
+<p>Postoji i druga strana iste mehanike, po kojoj vrijednost pada iako se odnos ne mijenja. Ograničimo li populaciju na ljude između trideset i pedeset godina, nagib uz dob ostaje 0,0385, praktički kao prije, a udio objašnjene varijabilnosti pada s 8,8 % na 1,4 % na 24 282 ljudi. Ograničenje raspona iz poglavlja o povezanosti radi i ovdje, jer je udio objašnjenoga svojstvo uzorka koji je ušao u analizu, a ne odnosa među varijablama.</p>
+<p>Zbog toga usporedba te mjere među radovima gotovo nikada ništa ne znači. Istraživanje na cijeloj populaciji i istraživanje na uskoj dobnoj skupini mogu naći potpuno isti odnos i izvijestiti o vrijednostima koje se razlikuju šest puta. Broj koji se uspoređuje jest procijenjeni koeficijent sa svojim intervalom, jer je jedini izražen u jedinicama koje su u oba rada iste.</p>
+<p>Pristajanje pritom ništa ne govori o tome gdje model griješi, a to se vidi tek kad se reziduali pogledaju nasuprot vrijednostima koje model predviđa. Vrijeme provedeno uz medije u ovoj populaciji raste s dobi za 1,05 minute po godini, i taj je pravac sasvim razuman, ali njegovi reziduali nisu jednako raspršeni po cijelom rasponu.</p>
 <div class="cell" data-layout-align="center">
-<div id="tbl-regresija-primjer" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-regresija-primjer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tablica&nbsp;1: Koeficijenti jednostavnog i prilagođenog simuliranog modela. Izrada autora.
+<div class="cell-output-display">
+<div id="fig-dijagnostika" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Oblak točaka širi se slijeva nadesno u obliku lijevka. Oko vodoravne crte na nuli raspršenost je uska pri niskim predviđenim vrijednostima i osjetno šira pri visokima." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dijagnostika-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="16-regresija_files/figure-html/fig-dijagnostika-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Slika&nbsp;3: Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostima koje model predviđa, na slučajnom podskupu od dvije tisuće osoba."><img src="16-regresija_files/figure-html/fig-dijagnostika-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="Oblak točaka širi se slijeva nadesno u obliku lijevka. Oko vodoravne crte na nuli raspršenost je uska pri niskim predviđenim vrijednostima i osjetno šira pri visokima."></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dijagnostika-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Slika&nbsp;3: Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostima koje model predviđa, na slučajnom podskupu od dvije tisuće osoba.
 </figcaption>
-<div aria-describedby="tbl-regresija-primjer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+</figure>
+</div>
+</div>
+</div>
+<p>Raspršenost reziduala raste sa 57 minuta u šestini s najnižim predviđanjima na 77 u šestini s najvišima. Model je time u jednom dijelu raspona precizniji nego u drugome, pa jedna zajednička mjera nesigurnosti za sve vrijedi u prosjeku i ni za koga posebno. Prikaz reziduala kaže gdje model ne pristaje, a ne što s tim učiniti, i ta razlika između nalaza i odluke ostaje na istraživaču.</p>
+</section>
+<section id="objašnjenje-i-predviđanje" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="objašnjenje-i-predviđanje">Objašnjenje i predviđanje</h2>
+<p>Dva zadatka koje ista jednadžba obavlja razlikuju se po tome što od modela traže. Objašnjenje traži koeficijent koji odgovara nekom stvarnom odnosu, a predviđanje traži malu pogrešku na jedinicama koje model nije vidio. Shmueli je pokazala da se ta dva cilja razilaze već u izboru varijabli i mjera, pa model koji je bolji za jedno može biti lošiji za drugo <span class="citation" data-cites="shmueli2010">(<a href="../references.html#ref-shmueli2010" role="doc-biblioref">Shmueli 2010.</a>)</span>.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-shmueli2010" class="csl-entry" role="listitem">
+Shmueli, Galit. 2010. <span>„To Explain or to Predict?“</span> <em>Statistical Science</em> 25 (3). <a href="https://doi.org/10.1214/10-STS330">https://doi.org/10.1214/10-STS330</a>.
+</div></div><p>Razilaženje počinje već kod izbora varijabli. Spremnost na plaćanje vijesti u ovoj populaciji nastaje pod utjecajem povjerenja, dakle nakon ishoda koji se modelira. Kao prediktor povjerenja ipak radi, jer podiže udio objašnjene varijabilnosti s 12,2 % na 13,2 % i smanjuje preostalu raspršenost. Za predviđanje je to dobitak, a za objašnjenje besmislica, budući da nitko ne može znati koliko će netko platiti prije nego što ta osoba to i odluči.</p>
+<p>Razlika se dalje ne vidi dok se model ocjenjuje na podacima na kojima je procijenjen. Vidi se čim se podaci razdvoje na skup na kojem model uči i skup koji je odvojen prije nego što je model postavljen.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-predikcija" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-predikcija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Prosječna pogreška predviđanja dvaju modela na podacima na kojima su procijenjeni i na odvojenom skupu, u bodovima povjerenja. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-predikcija-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Model</th>
-<th style="text-align: right;">Procjena</th>
-<th style="text-align: right;">Standardna pogreška</th>
+<th style="text-align: right;">Na skupu za učenje</th>
+<th style="text-align: right;">Na odvojenom skupu</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Jednostavni</td>
-<td style="text-align: right;">1,20</td>
-<td style="text-align: right;">0,07</td>
+<td style="text-align: left;">Dob i izvor vijesti</td>
+<td style="text-align: right;">1,78</td>
+<td style="text-align: right;">1,88</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Prilagođeni</td>
-<td style="text-align: right;">0,46</td>
-<td style="text-align: right;">0,08</td>
+<td style="text-align: left;">Dob, izvor i 25 slučajnih brojeva</td>
+<td style="text-align: right;">1,65</td>
+<td style="text-align: right;">2,06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sama sredina učenja</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">1,99</td>
 </tr>
 </tbody>
 </table>
@@ -1211,13 +1430,108 @@ Tablica&nbsp;1: Koeficijenti jednostavnog i prilagođenog simuliranog modela. Iz
 </figure>
 </div>
 </div>
+<p>Bogatiji model objašnjava 25,4 % varijabilnosti u 150 osoba na kojima je procijenjen, prema 13,1 % kod skromnijeg, i na tim podacima griješi manje. Na 2000 osoba koje nije vidio griješi više od skromnijeg modela i više nego postupak koji svakome pripiše prosjek skupa za učenje. Model je naučio raspored slučajnih brojeva u svojem uzorku i taj raspored u novim podacima ne postoji.</p>
+<p>Skromniji model pritom nije samo bolji od bogatijeg nego je blizu najboljega što je na ovim podacima uopće moguće. Povjerenje se u populaciji raspršuje sa standardnom devijacijom 1,98 boda, a nakon što model uzme u obzir dob i izvor ostaje raspršenost od 1,86. Ta je preostala raspršenost u populaciju ugrađena kao slučajni dio ishoda i nijedan je model ne može ukloniti, pa je pogreška predviđanja odozdo ograničena bez obzira na to koliko se varijabli doda.</p>
+<p>Za istraživanje iz toga slijedi jedno pravilo. Tvrdnja o predviđanju provjerava se na podacima koji u procjeni nisu sudjelovali, jer se pristajanje uvijek može podići dodavanjem varijabli. Poglavlje o algoritmima na toj razlici gradi cijeli argument, budući da postupci koji odlučuju o kreditima, sadržaju i rangiranju svoju vrijednost mjere isključivo uspješnošću na jedinicama koje još nisu viđene.</p>
+</section>
+<section id="granica-prema-uzroku" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="granica-prema-uzroku">Granica prema uzroku</h2>
+<p>Poglavlje o mjerenju uvelo je konfundirajuću varijablu kao razlog zbog kojeg opažena veza ne dokazuje uzrok, i obećalo da će se pitanje vratiti kad za njega bude postojao račun. Račun sada postoji i vrijedi biti precizan o tome što je njime dobiveno.</p>
+<p>Uz izvor vijesti u modelu, koeficijent uz dob poklopio se s pravilom po kojem je populacija nastala. Uspjeh nije proizašao iz postupka nego iz toga što je generator poznat, pa se znalo koje dvije varijable treba uključiti. Stvarno istraživanje tu informaciju nema, i nijedan ispis modela ne razlikuje slučaj u kojem su svi važni čimbenici izmjereni od slučaja u kojem nisu.</p>
+<p>Prilagođena povezanost zato nije uzročni učinak nego usporedba pod uvjetom uključenih varijabli. Da bi postala uzročna tvrdnja, potrebno je znati da je uzrok prethodio ishodu, da su svi čimbenici koji djeluju na oboje izmjereni i da nijedna uključena varijabla nije posljedica pretpostavljenog uzroka. Posljednji uvjet je najmanje poznat, jer prilagodba za posljedicu uzroka može uvesti pristranost ondje gdje je prije nije bilo.</p>
+<p>Ta tri uvjeta nisu statistička nego sadržajna, pa se o njima raspravlja prije podataka. Za pitanje o dobi i povjerenju prvi je uvjet trivijalno zadovoljen, drugi ovisi o tome je li išta osim izvora vijesti povezano i s dobi i s povjerenjem, a treći traži provjeru da izvor vijesti nije nešto što ljudi biraju zbog razine povjerenja koju već imaju. Ovdje je i taj posljednji odgovor poznat, jer generator izvor određuje prije povjerenja. U stvarnom istraživanju o tom bi se redoslijedu raspravljalo, a ne računalo.</p>
+<p>Odatle slijedi i skromnost u jeziku. Model daje razliku između usporedivih skupina, i tu rečenicu treba napisati doslovno tako. Rečenica o tome što bi se dogodilo da se nešto promijeni pripada dizajnu koji tu promjenu doista provodi ili opravdava, a to je pitanje poglavlja o mjerenju i dizajnu, ne poglavlja o modelima.</p>
+<p>Postoji koristan test koji ne traži nikakav račun. Prije nego što se koeficijent opiše kao učinak, napiše se rečenica o tome što bi se moralo dogoditi da tvrdnja bude pogrešna, i provjeri se može li ijedan podatak iz istraživanja tu rečenicu opovrgnuti. Ako odgovor ovisi isključivo o pretpostavci koju podaci ne dodiruju, tvrdnja je pretpostavka napisana kao nalaz.</p>
+<div class="callout-divljina page-columns page-full">
+<p><strong>Druga tablica.</strong> Westreich i Greenland opisali su uobičajen postupak u kojem autor u jednoj tablici prikaže sve koeficijente višestrukog modela, s koeficijentom glavne varijable i koeficijentima kontrola jedan ispod drugoga <span class="citation" data-cites="westreich2013">(<a href="../references.html#ref-westreich2013" role="doc-biblioref">Westreich i Greenland 2013.</a>)</span>. Tvrde da takva tablica potiče čitatelja da svaki redak protumači kao učinak varijable iz tog retka, iako uvjeti pod kojima to vrijedi ne mogu biti ispunjeni za sve retke istodobno.</p>
+<div class="no-row-height column-margin column-container"></div><p>Razlog je u tome što je model postavljen s obzirom na jednu varijablu. Skup kontrola izabran je tako da usporedba po njoj bude poštena, a za neku od tih kontrola isti skup u pravilu nije prikladan, jer među preostalim varijablama može biti i posljedica te kontrole. Tablica pritom izgleda jednako uredno u oba slučaja. Rad koji uz nju napiše da su svi navedeni čimbenici povezani s ishodom ostaje točan, a rad koji svaki redak pretvori u učinak izrekao je nekoliko tvrdnji za koje njegov dizajn jamči samo jednu.</p>
 </div>
-<p>Razlika koeficijenata pokazuje što račun znači pod ovom poznatom simulacijom. U stvarnoj opažačkoj studiji ne bismo znali jesmo li izmjerili sve potrebne čimbenike. Prilagodba je transparentna usporedba pod uvjetom uključenih varijabli, a ne automatska identifikacija uzroka.</p>
-<p>Model se zatim provjerava na rezidualima i, za predikcijski cilj, na odvojenim podacima. Koeficijenti služe objašnjenju prosječnih odnosa, a pogreška predikcije procjenjuje uporabljivost za nove jedinice. Oba rezultata pripadaju istom modelu, ali odgovaraju na različita pitanja.</p>
+<div class="callout-model">
+<p>Asistent pouzdano prilagodi model, izradi dijagnostičke prikaze i prevede koeficijente u prozu. Prije poziva treba mu zadati ulogu svake varijable, referentne kategorije i cilj analize, jer isti podaci uz isti kod daju različit model ovisno o tome je li pitanje opisno, prediktivno ili uzročno. Provjeravamo tri stvari. Prva je tumači li koeficijent u izvornim jedinicama i uz uvjet ostalih varijabli, umjesto da ga opiše kao učinak. Druga je predlaže li skup kontrola prema tome koje su varijable dostupne, umjesto prema tome koje bi pitanje tražilo. Treća je ocjenjuje li predikciju na podacima koji su sudjelovali u procjeni, što je najčešća pogreška u ovom zadatku.</p>
+<blockquote class="blockquote">
+<p>Prilagodi model i protumači koeficijent glavne varijable u izvornim jedinicama, s intervalom. Za svaku kontrolu napiši zašto je u modelu i može li biti posljedica glavne varijable. Predikciju ocijeni na odvojenom skupu.</p>
+</blockquote>
+</div>
+<div class="callout-greska">
+<p>Na traženje da procijeni koliko dobro model predviđa povjerenje kod novih korisnika asistent je priložio ovaj račun.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(povjerenje_medijima <span class="sc">~</span> dob <span class="sc">+</span> izvor_vijesti <span class="sc">+</span> obrazovanje <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              minute_medija <span class="sc">+</span> spol, <span class="at">data =</span> uzorak)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pogreska <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((uzorak<span class="sc">$</span>povjerenje_medijima <span class="sc">-</span> <span class="fu">fitted</span>(model))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">r2 =</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared, <span class="at">pogreska =</span> pogreska)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Uz ispis je napisao obrazloženje. Model objašnjava osjetno veći udio varijabilnosti nego prethodni, a prosječna pogreška iznosi manje od dva boda na ljestvici od jedan do deset. Iz toga zaključuje da model dovoljno pouzdano predviđa povjerenje kod korisnika koje nije vidio i preporučuje ga za primjenu na novim podacima.</p>
+</div>
+</section>
+<section id="razrađeni-primjer" class="level2">
+<h2 class="anchored" data-anchor-id="razrađeni-primjer">Razrađeni primjer</h2>
+<p>Ponavljamo cijeli argument na jednom mjestu i u obliku u kojem bi se pojavio u izvještaju. Pitanje je kako se povjerenje u medije mijenja s dobi, a analiza daje dva odgovora ovisno o tome uspoređuju li se svi ljudi ili samo oni koji se informiraju iz istog izvora.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Prikaži kod</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>zbirni <span class="ot">&lt;-</span> <span class="fu">lm</span>(povjerenje_medijima <span class="sc">~</span> dob, <span class="at">data =</span> populacija_medija)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>prilagodeni <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  povjerenje_medijima <span class="sc">~</span> dob <span class="sc">+</span> izvor_vijesti,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> populacija_medija</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>usporedba <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">confint</span>(zbirni)[<span class="st">"dob"</span>, ],</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">confint</span>(prilagodeni)[<span class="st">"dob"</span>, ]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">nagib =</span> <span class="fu">c</span>(<span class="fu">coef</span>(zbirni)[[<span class="st">"dob"</span>]], <span class="fu">coef</span>(prilagodeni)[[<span class="st">"dob"</span>]]), usporedba)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          nagib      2,5 %     97,5 %
+[1,] 0,03672382 0,03568752 0,03776012
+[2,] 0,02688517 0,02576553 0,02800481</code></pre>
+</div>
+</div>
+<p>Funkcija <code>confint</code> uz procjenu vraća i granice intervala pouzdanosti iz poglavlja o procjeni, pa svaki nagib dolazi s rasponom vrijednosti koje su s podacima uskladive. Funkcija <code>rbind</code> slaže dva takva raspona jedan ispod drugoga.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-primjer-nagibi" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-primjer-nagibi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;4: Nagib uz dob u dvama modelima, s intervalom pouzdanosti, uz vrijednost ugrađenu u generator populacije. Izrada autora.
+</figcaption>
+<div aria-describedby="tbl-primjer-nagibi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: right;">Nagib</th>
+<th style="text-align: right;">Interval</th>
+<th style="text-align: right;">Ugrađeno</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Samo dob</td>
+<td style="text-align: right;">0,0367</td>
+<td style="text-align: right;">0,0357 do 0,0378</td>
+<td style="text-align: right;">0,028</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dob i izvor vijesti</td>
+<td style="text-align: right;">0,0269</td>
+<td style="text-align: right;">0,0258 do 0,0280</td>
+<td style="text-align: right;">0,028</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Intervali dvaju modela se ne preklapaju, pa razlika među njima nije stvar nepreciznosti. Zbirni nagib je za trećinu veći od vrijednosti koju procjenjuje, dok prilagođeni tu vrijednost dohvaća na gornjem rubu svojeg intervala, uz malo zaostajanje koje dolazi od zaokruživanja ljestvice. Izvještaj koji bi naveo samo prvi broj ne bi sadržavao nijednu netočnu rečenicu o podacima, i svejedno bi ostavio dojam da dob s povjerenjem ima jaču vezu nego što je ima.</p>
+<p>Zaključak se zato piše u dva dijela. Ljudi različite dobi razlikuju se u povjerenju za 0,37 boda po desetljeću, a među ljudima koji se informiraju iz istog izvora ta razlika iznosi 0,27 boda. Prva rečenica opisuje populaciju kakva jest, druga izdvaja dob od izbora izvora, i tek zajedno kažu ono što je model doista našao.</p>
+<p>Izvještaj uz to mora reći što je izostavljeno. Model sadrži dvije varijable, a povjerenje u medije ovisi i o obrazovanju, iskustvu s pojedinim redakcijama i političkim sklonostima, koje ovdje nisu ni izmjerene. Nijedna od njih ne bi promijenila to da je opisana usporedba točna, i svaka od njih mogla bi promijeniti veličinu razlike koja ostaje kad se izjednače.</p>
+<p>Ostaje i pitanje na koje ova analiza uopće nije odgovarala. Nijedna od dviju rečenica ne kaže da bi se povjerenje neke osobe promijenilo time što ona ostari, ni da bi se promijenilo time što promijeni izvor vijesti. Analiza opisuje kako izgleda populacija u jednom trenutku, a promjena kod iste osobe kroz vrijeme zahtijeva podatke koji istu osobu prate, kojih ovdje nema.</p>
 </section>
 <section id="sažetak" class="level2 sazetak">
 <h2 class="sazetak anchored" data-anchor-id="sažetak">Sažetak</h2>
-<p>Regresija ujedinjuje usporedbu skupina i odnose brojčanih varijabli u jednom jeziku očekivanih vrijednosti i reziduala. Više prediktora daje prilagođene povezanosti, ali riječ „kontrola” ne stvara eksperiment. Dijagnostika pokazuje gdje model ne pristaje, dok provjera na novim podacima odvaja pristajanje od predikcije. Sljedeće poglavlje širi predikcijski cilj na klasifikaciju, algoritamsko rangiranje i društvene posljedice pogrešaka.</p>
+<p>Linearni model povezuje ishod s prediktorima kroz očekivane vrijednosti i reziduale, a metoda najmanjih kvadrata bira koeficijente po jasnom kriteriju koji se u widgetu može vidjeti kako radi. Više prediktora daje povezanosti pri jednakim vrijednostima ostalih varijabli, i na poznatoj populaciji to je dovoljno da se pravilo po kojem su podaci nastali oporavi, ali samo zato što se znalo što treba izmjeriti. Udio objašnjene varijabilnosti raste i kad se doda čista buka, pa pristajanje nije ocjena, dok reziduali pokazuju gdje model ne odgovara podacima. Objašnjenje i predviđanje odatle se razdvajaju, jer se drugo provjerava isključivo na jedinicama koje model nije vidio. Sljedeće poglavlje uzima taj kriterij ozbiljno i pita što se događa kad postupci koji ga zadovoljavaju počnu odlučivati o ljudima.</p>
 </section>
 <section id="pojmovi" class="level2 pojmovi">
 <h2 class="pojmovi anchored" data-anchor-id="pojmovi">Pojmovi</h2>
@@ -1243,13 +1557,13 @@ Tablica&nbsp;1: Koeficijenti jednostavnog i prilagođenog simuliranog modela. Iz
 <dd>
 <span class="terminology-list__en" lang="en">multiple regression</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">multikolinearnost</span></dt>
+<dt><span class="terminology-list__hr" lang="hr">prilagođena povezanost</span></dt>
 <dd>
-<span class="terminology-list__en" lang="en">multicollinearity</span>
+<span class="terminology-list__en" lang="en">adjusted association</span>
 </dd>
-<dt><span class="terminology-list__hr" lang="hr">predikcija</span></dt>
+<dt><span class="terminology-list__hr" lang="hr">predviđanje izvan uzorka</span></dt>
 <dd>
-<span class="terminology-list__en" lang="en">prediction</span>
+<span class="terminology-list__en" lang="en">out-of-sample prediction</span>
 </dd>
 </dl>
 </div>
@@ -1258,21 +1572,21 @@ Tablica&nbsp;1: Koeficijenti jednostavnog i prilagođenog simuliranog modela. Iz
 <h2 class="anchored" data-anchor-id="zadaci">Zadaci</h2>
 <section id="konceptualni" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="konceptualni">Konceptualni</h3>
-<p>Objasnite kako su t-test i ANOVA posebni slučajevi linearnog modela. Predajte jednu skicu s binarnim i jednom s višerazinskim prediktorom.</p>
+<p>Objasnite u jednom odlomku zašto se nagib uz dob mijenja kada u model uđe izvor vijesti, a nijedan podatak o dobi pritom nije promijenjen. Imenujte pitanje na koje odgovara svaki od dvaju nagiba.</p>
 </section>
 <section id="računski" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="računski">Računski</h3>
-<p>Upotrijebite <code>sim_reg</code>. Usporedite jednostavni i prilagođeni model, nacrtajte reziduale i predajte tablicu koeficijenata.</p>
+<p>Poglavlje navodi da je zbirni nagib 0,0367 boda po godini. Izračunajte očekivanu razliku u povjerenju između osobe od 25 i osobe od 55 godina prema tom modelu, a zatim isti račun ponovite s prilagođenim nagibom 0,0269. Predajte obje brojke i jednu rečenicu o tome koja od njih odgovara na pitanje o dvjema stvarnim osobama iz ove populacije.</p>
 </section>
 <section id="kritički" class="level3 zadaci-razina page-columns page-full">
 <h3 class="zadaci-razina anchored" data-anchor-id="kritički">Kritički</h3>
-<p>Prosudite tvrdnju da model s boljim pristajanjem nužno daje bolje objašnjenje i predikciju <span class="citation" data-cites="breiman2001">(<a href="../references.html#ref-breiman2001" role="doc-biblioref">Breiman 2001.</a>)</span>. Predajte dva odvojena kriterija provjere.</p>
-<div class="no-row-height column-margin column-container"><div id="ref-breiman2001" class="csl-entry" role="listitem">
-Breiman, Leo. 2001. <span>„Statistical Modeling: The Two Cultures“</span>. <em>Statistical Science</em> 16 (3): 199–231.
+<p>Pronađite objavljeni rad ili novinski članak koji uz koeficijent iz višestrukog modela navodi da je nešto „utjecalo” na ishod. Prosudite ga prema pitanju koje tablica koeficijenata potiče, a dizajn ne pokriva <span class="citation" data-cites="westreich2013">(<a href="../references.html#ref-westreich2013" role="doc-biblioref">Westreich i Greenland 2013.</a>)</span>. Predajte kratku bilješku s popisom varijabli za koje bi taj koeficijent bio ispravno protumačen i onih za koje ne bi.</p>
+<div class="no-row-height column-margin column-container"><div id="ref-westreich2013" class="csl-entry" role="listitem">
+Westreich, Daniel, i Sander Greenland. 2013. <span>„The Table 2 Fallacy: Presenting and Interpreting Confounder and Modifier Coefficients“</span>. <em>American Journal of Epidemiology</em> 177 (4): 292–98. <a href="https://doi.org/10.1093/aje/kws412">https://doi.org/10.1093/aje/kws412</a>.
 </div></div></section>
 <section id="revizija-modela" class="level3 zadaci-razina">
 <h3 class="zadaci-razina anchored" data-anchor-id="revizija-modela">Revizija modela</h3>
-<p>Ocijenite modelsku analizu iz okvira. Izdvojite ispravne dijagnostičke tvrdnje, jedan uzročni skok i dodatni dizajnerski dokaz koji bi bio potreban.</p>
+<p>Ocijenite račun i zaključak iz okvira o pogrešci. Imenujte što je u kodu ispravno, redak u kojem se pogreška događa, razlog zbog kojeg obje priložene brojke izgledaju uvjerljivo, i napišite zaključak koji bi isti ispis podnio.</p>
 
 
 
@@ -3838,6 +4152,38 @@ window._ojs.runtime.interpretFromScriptTags();
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
