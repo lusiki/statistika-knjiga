@@ -368,6 +368,63 @@ h1.hero-title {
   color: $tok-ink-faint;
 }
 
+// --- naslovnica: autori ---------------------------------------------
+// Portreti su informacija o autorstvu, ne dekorativne kartice. Razdvaja ih
+// zrak i vlas crta, pa blok ostaje čitljiv i u crno-bijelom tisku.
+.autori-naslov {
+  margin: 0;
+  padding: 2.5rem 0 0.8rem;
+  border-top: 1px solid $tok-rule;
+}
+.autori {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.2rem;
+  max-width: 46rem;
+}
+.autor {
+  display: grid;
+  grid-template-columns: 5.1rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+.autor > p,
+.autor-podaci > p { display: contents; }
+.autor-portret {
+  display: block;
+  width: 5.1rem;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid $tok-rule;
+}
+.autor-titula {
+  display: block;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $tok-ink-faint;
+  margin: 0.1rem 0 0.35rem;
+}
+h3.autor-ime {
+  font-family: $tok-font-display;
+  font-size: 1.35rem;
+  font-weight: 300;
+  line-height: 1.05;
+  margin: 0 0 0.45rem;
+  padding: 0;
+  border: 0;
+}
+.autor-podaci > p:last-child {
+  display: block;
+  margin: 0;
+  font-family: $tok-font-sans;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: $tok-ink-mute;
+}
+
 // --- brojčana traka --------------------------------------------------
 .brojke {
   display: flex;
@@ -576,6 +633,7 @@ body.landing-page .page-navigation { display: none; }
   }
   .hub-grid { grid-template-columns: minmax(0, 1fr); }
   .hub-card { padding-right: 0; }
+  .autori { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
   .empty-state { margin-top: 1.5rem; }
   .nav-footer {
     display: grid;
