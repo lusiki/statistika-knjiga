@@ -291,6 +291,18 @@
 %  NASLOVNICA (nadjačava \maketitle; ide prije sadržaja)
 % =====================================================================
 \makeatletter
+\newcommand{\bkcoverauthor}[3]{%
+  \begin{minipage}[t]{0.44\textwidth}%
+    \centering
+    \IfFileExists{#1}{%
+      \includegraphics[width=0.72\linewidth,height=34mm,keepaspectratio]{#1}\par
+      \vskip 0.65em
+    }{}
+    {\sffamily\large\color{bkink}#2\par}%
+    \vskip 0.35em
+    {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}#3\par}%
+  \end{minipage}%
+}
 \renewcommand{\maketitle}{%
   \begin{titlepage}%
   \newgeometry{inner=26mm, outer=26mm, top=30mm, bottom=26mm}%
@@ -307,9 +319,13 @@
   \fi
   \vfill
   {\color{bkrule}\rule{\linewidth}{0.4pt}}\par
-  \vskip 1em
-  {\sffamily\large\color{bkink}%
-    \renewcommand{\and}{\ \textperiodcentered\ }\@author\par}%
+  \vskip 1.4em
+  \noindent
+  \bkcoverauthor{images/luka-sikic.jpg}{Luka Šikić}{Doc. dr. sc. · Sveučilišni odjel za komunikologiju}\hfill
+  \bkcoverauthor{images/petra-palic.jpg}{Petra Palić}{Izv. prof. dr. sc. · Sveučilišni odjel za sociologiju}\par
+  \vskip 1.4em
+  {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}%
+    Hrvatsko katoličko sveučilište\par}%
   \vskip 0.6em
   {\ttfamily\fontsize{8pt}{10pt}\selectfont\color{bkfaint}\@date\par}%
   \restoregeometry
