@@ -72,8 +72,16 @@ handoffs:
           - AGENTS.md#comprehensive-review-packet-workflow
       - target_packet: P0-REGISTER
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          The complete register preserves D01-D16, the dedicated branch, the
+          local-only authority boundary, and every later evidence or external
+          action gate; no publication authority was inferred.
+        evidence:
+          - commit:b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac
+          - notes/reports/comprehensive-review-implementation-register.yml#authority
       - target_packet: P0-STATE
         gate: before_close
         state: pending
@@ -108,8 +116,18 @@ handoffs:
     deliveries:
       - target_packet: P0-REGISTER
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          All 36 parents were decomposed into 371 stable atomic children with
+          exact source manifests, typed ownership and evidence contracts, and
+          188 exact dependency-ordered packets; the validator proves zero
+          unmapped actionable findings and rejects generic completion evidence.
+        evidence:
+          - commit:835778dc365c4029ddda8ce253eb3f174b98bb65
+          - commit:b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac
+          - check:scripts/check-review-workflow.R
 
   H-P0-CONTROL-002:
     source_packet: P0-CONTROL
@@ -414,3 +432,25 @@ packet_reviews:
     implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
     checks:
       - scripts/check-review-workflow.R passed
+  P0-REGISTER:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P0-REGISTER-001
+      - H-P0-REGISTER-002
+      - H-P0-REGISTER-003
+      - H-P0-REGISTER-004
+      - H-P0-REGISTER-005
+      - H-P0-REGISTER-006
+      - H-P0-REGISTER-007
+      - H-P0-REGISTER-008
+    implementation_commits:
+      - b835cf8a9cba8ff0af82eb6b9d6ea4b3dfc7c909
+      - d4eab203a044c7e31d67fcf8be4956d83ea024b7
+      - 835778dc365c4029ddda8ce253eb3f174b98bb65
+      - b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac
+    checks:
+      - scripts/check-review-workflow.R passed at b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac
+      - generic_packet_evidence negative fixture failed as required
+      - register_closeout_audit returned CLEAR
+      - review_inventory evidence-receipt reaudit returned CLEAR

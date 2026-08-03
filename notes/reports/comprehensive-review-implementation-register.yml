@@ -10,17 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P0-REGISTER"
-    claimed_at: "2026-08-03"
-    base_commit: "da400853d248d784948558f4d77ea02b0535ee99"
-    owned_paths:
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-      - "scripts/check-review-workflow.R"
-  last_completed_packet: "P0-CONTROL"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P0-REGISTER"
+  next_permitted_packet: "P0-STATE"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1350,7 +1342,7 @@ packets:
     sequence: 10
     phase: "0"
     kind: "shared_subsystem"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "G-A0"
       - "P0-BASE"
@@ -1363,13 +1355,54 @@ packets:
       - "The subsystem's declared state and deterministic validator agree."
       - "No chapter prose or unrelated subsystem is changed."
       - "All 18 source manifests reconcile by stable fingerprint, all R01-R36 children are atomised, and the exact dependency graph has zero unmapped findings."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+      required_evidence:
+        - requirement: "scoped implementation diff"
+          artifacts:
+            - "commit:b835cf8a9cba8ff0af82eb6b9d6ea4b3dfc7c909"
+            - "commit:d4eab203a044c7e31d67fcf8be4956d83ea024b7"
+            - "commit:835778dc365c4029ddda8ce253eb3f174b98bb65"
+            - "commit:b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+        - requirement: "deterministic subsystem check"
+          artifacts:
+            - "check:scripts/check-review-workflow.R-positive-at-b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+            - "check:generic-packet-evidence-negative-fixture-rejected-at-b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+        - requirement: "handoff closeout record"
+          artifacts:
+            - "handoff:H-G-A0-001-to-P0-REGISTER-consumed"
+            - "handoff:H-P0-CONTROL-001-to-P0-REGISTER-consumed"
+            - "handoff:packet-review-P0-REGISTER"
+      outputs:
+        - output: "P0-REGISTER durable artifact and evidence record for: Atomic review inventory and exact packet catalogue."
+          artifacts:
+            - "register:371-children-188-packets-18-manifests"
+            - "commit:835778dc365c4029ddda8ce253eb3f174b98bb65"
+        - output: "Completion evidence is tied to the declared P0-REGISTER source state and bounded scope."
+          artifacts:
+            - "commit:b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+            - "audit:register-closeout-audit-clear-at-835778dc365c4029ddda8ce253eb3f174b98bb65"
+            - "audit:review-inventory-clear-at-b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+      exit_tests:
+        - test: "The subsystem's declared state and deterministic validator agree."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-review-workflow.R-positive-at-b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+        - test: "No chapter prose or unrelated subsystem is changed."
+          result: "passed"
+          evidence:
+            - "commit:b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
+        - test: "All 18 source manifests reconcile by stable fingerprint, all R01-R36 children are atomised, and the exact dependency graph has zero unmapped findings."
+          result: "passed"
+          evidence:
+            - "audit:register-closeout-audit-clear-at-835778dc365c4029ddda8ce253eb3f174b98bb65"
+            - "audit:review-inventory-clear-at-b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
     contract: "shared_subsystem"
     required_evidence:
       - "scoped implementation diff"
       - "deterministic subsystem check"
       - "handoff closeout record"
-    change_reference: null
+    change_reference: "commit:b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac"
   P0-STATE:
     sequence: 11
     phase: "0"
