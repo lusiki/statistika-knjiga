@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C14"
-  next_permitted_packet: "P1A-C15"
+  last_completed_packet: "P1A-C15"
+  next_permitted_packet: "P1A-C16"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1964,7 +1964,7 @@ packets:
     sequence: 18
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1A-C14"
     scope: "Revalidate Chapter 15."
@@ -1975,13 +1975,51 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C15 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "decision:G-A1b"
+            - "dependency:P1A-C14-accepted-D02-correction"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c15-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:classical-f8.381813-df4-and-295-welch-f7.320808-df4-and-112.425285"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c15-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:pass-source-0eadfd02627a95aed614a005f93f81878249ea10"
+      outputs:
+        - output: "P1A-C15 durable artifact and evidence record for: Revalidate Chapter 15."
+          artifacts:
+            - "chapter:chapters/15-vise-grupa.qmd"
+            - "report:notes/reports/p1a-c15-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C15 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10"
+            - "scope:R02-C15-dependent-revalidation-only-no-separate-Chapter-15-repairs"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c15-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:pass-source-0eadfd02627a95aed614a005f93f81878249ea10"
+        - test: "The P1A-C15 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C15"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10"
   P1A-C16:
     sequence: 19
     phase: "1A"
@@ -7249,7 +7287,7 @@ items:
       location: "§16 sequence"
     description: "Revalidate Chapter 15 after the Chapter 14 correction."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -7265,11 +7303,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C15"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10"
+      - "report:notes/reports/p1a-c15-methods-review-2026-08-03.md"
+      - "critic_methods:pass-shared-mean-model-distinct-classical-and-welch-inference-and-bounded-scope"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10"
   R02-C16-dependent-revalidation:
     parents:
       - "R02"

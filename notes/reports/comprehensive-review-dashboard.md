@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C14
-next_permitted_packet: P1A-C15
+last_completed_packet: P1A-C15
+next_permitted_packet: P1A-C16
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C14` |
-| Next permitted packet | `P1A-C15` |
+| Last completed packet | `P1A-C15` |
+| Next permitted packet | `P1A-C16` |
 | Review parents | 35 ratified; 1 accepted |
-| Atomic child inventory | Complete: 371 stable children; 10 accepted, 5 deferred with reason, 356 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 11 accepted and 177 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 11 accepted, 5 deferred with reason, 355 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 12 accepted and 176 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C14` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-C15` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -217,6 +217,32 @@ The accepted chapter source state is
 `chapter:sha1-449c88f25e032fd8d4a9066deb45c8648497e8e5`; the durable evidence is
 `notes/reports/p1a-c14-methods-review-2026-08-03.md`.
 
+## P1A-C15 closeout
+
+- No incoming handoff targeted `P1A-C15`; the accepted D02 correction and the
+  completed `P1A-C14` packet defined its dependent-revalidation boundary.
+- Chapter 15 retains the common group-mean model and its point estimates as the
+  bridge from Chapters 14 to 16, while its classical mean-square F ratio and
+  `aov` receipt are now explicitly separated from Welch inference with
+  group-specific variances and adjusted degrees of freedom.
+- Clean-session reproduction confirmed classical `F = 8.381813` with df 4 and
+  295, versus Welch `F = 7.320808` with denominator df 112.425285, as well as
+  the complete existing Chapter 15 result set.
+- An independent methods reread passed the exact final source state. The
+  checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, targeted HTML render, rendered-claim assertions,
+  widget/twin preservation, and scoped source-diff checks also passed.
+- `R09-C15-variance-ratio` and the separately registered suspect-code,
+  narrative-payoff, dependence, reachback, and later Wave D repairs remain
+  unmodified. Chapters 14 and 16 are unchanged.
+- No new forward-relevant effect was found. Chapter 16 follow-through is
+  already represented by `R02-C16-dependent-revalidation` and the dependency
+  of `P1A-C16` on this packet, so no duplicate outgoing handoff was created.
+
+The accepted chapter source state is
+`chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10`; the durable evidence is
+`notes/reports/p1a-c15-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -258,25 +284,28 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next_permitted_packet, P1A-C15. Fully read
+Execute only the dashboard's next_permitted_packet, P1A-C16. Fully read
 chapters/14-dvije-grupe.qmd, chapters/15-vise-grupa.qmd,
 chapters/16-regresija.qmd, STYLE.md, ENRICHMENT.md,
 notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
 checkout-local book-style instructions. Do not rely on the installed plugin
 cache for mutable state.
 
-Revalidate Chapter 15 only against the accepted D02 correction. Preserve the
-common mean-model bridge from Chapters 14 to 16 while ensuring that no prose,
-formula, code, result, or exercise generalises the exact point-estimate identity
-into an identity between Welch inference and ordinary homoskedastic OLS. Do not
-start the separately registered variance-ratio, suspect-code, narrative-payoff,
-or later Wave D repairs, and do not edit Chapter 14 or Chapter 16.
+Execute the exact P1A-C16 scope: `R02-C16-dependent-revalidation`,
+`R09-C16-estimand`, `R09-C16-uncertainty`, and
+`R09-C16-leakage-time`. Preserve the mean-model bridge from Chapters 14 and 15
+without generalising point-estimate identities into an identity between Welch
+inference and ordinary homoskedastic OLS. Choose and maintain one estimand,
+distinguish latent generator coefficients from observed finite-sample estimates
+and their uncertainty, and make prediction-time information and leakage
+boundaries auditable. Do not start any later packet or separately registered
+repair, and do not edit Chapter 14 or Chapter 15.
 
 Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the exact Chapter 15 source state,
+independent statistical-methods reading on the exact Chapter 16 source state,
 run the checkout-local deterministic and manual book-style pass, structure and
-figure-introduction checks, targeted Chapter 15 render, source-diff and packet
+figure-introduction checks, targeted Chapter 16 render, source-diff and packet
 exit checks. Update the register, handoff ledger, and dashboard together,
 create one scoped local commit only if every gate passes, and stop before
-P1A-C16 or any later packet.
+P1A-C02 or any later packet.
 ```

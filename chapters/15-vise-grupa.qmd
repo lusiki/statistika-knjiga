@@ -507,14 +507,20 @@ koeficijent. Oznaka $\beta_0$ i dalje je sredina referentne skupine, a
 $\varepsilon$ ono što model o pojedincu nije objasnio. Pet sredina zapisano je s
 pet brojeva, kao što je i moralo biti.
 
-Ukupni test iz prošlog odjeljka postavlja pitanje o svim tim koeficijentima
-odjednom. Pita jesu li oni zajedno dovoljno veliki da bi model sa skupinama
-opisivao podatke bolje nego model koji ima samo zajedničku sredinu. Zato je
-jedan test, a ne deset.
+Klasični ukupni test iz prošlog odjeljka postavlja pitanje o svim tim
+koeficijentima odjednom. Pita jesu li oni zajedno dovoljno veliki da bi model
+sa skupinama opisivao podatke bolje nego model koji ima samo zajedničku sredinu.
+Zato je jedan test, a ne deset.
+
+Zajednički su oblik modela sredina i njegove točkaste procjene, ne svaki način
+računanja njihove nesigurnosti. Klasična analiza varijance procjenjuje jednu
+zajedničku rezidualnu varijancu, kao obični homoskedastični linearni model.
+Welchov ukupni test zadržava zasebne skupne varijance i prilagođava stupnjeve
+slobode, pa istu hipotezu o sredinama ispituje drugim inferencijskim postupkom.
 
 Naš uzorak od `r s15$n` osoba raspoređen je u pet skupina prema izvoru vijesti.
-Ukupni test daje F od `r hr_broj(s15$f, 2)` uz `r s15$df1` i `r s15$df2`
-stupnjeva slobode. Prosječna raspršenost među skupinama iznosi
+Klasični ukupni test daje F od `r hr_broj(s15$f, 2)` uz `r s15$df1` i
+`r s15$df2` stupnjeva slobode. Prosječna raspršenost među skupinama iznosi
 `r hr_broj(s15$ms_izmedu, 1)`, a unutar skupina `r hr_broj(s15$ms_unutar, 1)`,
 i njihov je omjer upravo ta F-vrijednost.
 
@@ -682,9 +688,12 @@ summary(model)
 TukeyHSD(model)$izvor_vijesti
 ```
 
-Funkcija `aov` procjenjuje isti model kao `lm` iz prethodnog poglavlja, ali ga
-ispisuje u obliku razlaganja varijance. Funkcija `TukeyHSD` prima takav model i
-vraća sve parne razlike s intervalima i korigiranim p-vrijednostima.
+Funkcija `aov` procjenjuje isti oblik modela sredina kao `lm` iz prethodnog
+poglavlja, ali ga ispisuje u obliku razlaganja varijance. Njezina uobičajena
+F-inferencija pripada homoskedastičnom linearnom modelu s jednom zajedničkom
+rezidualnom varijancom, a ne Welchovu postupku sa zasebnim skupnim varijancama i
+prilagođenim stupnjevima slobode. Funkcija `TukeyHSD` prima takav model i vraća
+sve parne razlike s intervalima i korigiranim p-vrijednostima.
 
 Ispis potvrđuje ono što je poglavlje izgradilo. Redak modela nosi razlaganje
 `r hr_broj(s15$ss_izmedu, 1)` prema `r hr_broj(s15$ss_unutar, 1)`, iz čega
