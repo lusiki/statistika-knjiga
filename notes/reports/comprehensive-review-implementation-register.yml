@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C07"
-  next_permitted_packet: "P1A-C08"
+  last_completed_packet: "P1A-C08"
+  next_permitted_packet: "P1A-C09"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2269,7 +2269,7 @@ packets:
     sequence: 23
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Correct Chapter 8 sampling-scope claims."
@@ -2280,13 +2280,54 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C08 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R12-C08-srs-boundary"
+            - "register:ratified-R12-C08-complex-design"
+            - "register:ratified-R12-C08-thousand-claim"
+            - "authority:user-exact-P1A-C08-prompt"
+            - "dependency:P0-STATE-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c08-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-all-affected-chapter-8-results-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c08-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
+      outputs:
+        - output: "P1A-C08 durable artifact and evidence record for: Correct Chapter 8 sampling-scope claims."
+          artifacts:
+            - "chapter:chapters/08-uzorkovanje.qmd"
+            - "report:notes/reports/p1a-c08-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C08 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
+            - "scope:R12-C08-srs-boundary-R12-C08-complex-design-R12-C08-thousand-claim-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c08-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
+        - test: "The P1A-C08 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C08"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
   P1A-C09:
     sequence: 24
     phase: "1A"
@@ -12402,7 +12443,7 @@ items:
       location: "§8 Ch8"
     description: "Name which formulas rely on simple random sampling."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -12418,11 +12459,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C08"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
+      - "report:notes/reports/p1a-c08-methods-review-2026-08-03.md"
+      - "critic_methods:pass-srs-formula-and-transfer-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
   R12-C08-complex-design:
     parents:
       - "R12"
@@ -12436,7 +12480,7 @@ items:
       location: "§8 Ch8"
     description: "Bound claims for broader probability designs and explain weights, clustering, design effects, effective n, and FPC at literacy level."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -12452,11 +12496,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C08"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
+      - "report:notes/reports/p1a-c08-methods-review-2026-08-03.md"
+      - "critic_methods:pass-complex-design-literacy-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
   R12-C08-thousand-claim:
     parents:
       - "R12"
@@ -12470,7 +12517,7 @@ items:
       location: "§8 Ch8"
     description: "Qualify the thousand-person survey heuristic by estimand, design, selection, subgroup, and precision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -12486,11 +12533,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C08"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
+      - "report:notes/reports/p1a-c08-methods-review-2026-08-03.md"
+      - "critic_methods:pass-thousand-person-five-qualification-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f"
   R12-SAMPLING-vs-test:
     parents:
       - "R12"

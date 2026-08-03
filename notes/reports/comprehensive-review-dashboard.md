@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C07
-next_permitted_packet: P1A-C08
+last_completed_packet: P1A-C08
+next_permitted_packet: P1A-C09
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C07` |
-| Next permitted packet | `P1A-C08` |
+| Last completed packet | `P1A-C08` |
+| Next permitted packet | `P1A-C09` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 24 accepted, 5 deferred with reason, 342 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 16 accepted and 172 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 27 accepted, 5 deferred with reason, 339 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 17 accepted and 171 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C07` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-C08` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -354,6 +354,33 @@ The accepted chapter source state is
 `chapter:sha1-8deb7a2b686754bdb3bc6d0ddfca2c7ade472f76`; the durable evidence is
 `notes/reports/p1a-c07-methods-review-2026-08-03.md`.
 
+## P1A-C08 closeout
+
+- No incoming handoff targeted `P1A-C08`; the three ratified Chapter 8 items
+  and the exact packet instruction defined its surgical boundary.
+- Chapter 8 now names the simple-random-sampling assumptions behind its
+  standard-error, margin, and sample-size formulas and explains when the
+  finite-population correction matters.
+- Unequal selection probabilities, sampling weights, clustering, design
+  effects, effective sample size, and design-aware uncertainty are explained
+  at literacy level without importing a complex-survey variance course.
+- The roughly-thousand-person heuristic is bounded by estimand, design,
+  selection and response, subgroup size, and desired precision; it no longer
+  implies that sample size repairs coverage or nonresponse.
+- Clean-session reproduction confirmed every affected result. After four
+  first-pass precision points were corrected, an independent methods reread
+  passed exact source `b9a435a2ebb1e1371f4069cc8f9a4250459e419f` with no
+  remaining finding and scores of 4/4 throughout.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  rendered-claim assertions, scoped executable-block comparison, source diff,
+  and closeout checks all passed. No separately registered later Chapter 8
+  work changed, and no new future-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f`; the durable evidence is
+`notes/reports/p1a-c08-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -395,26 +422,25 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1A-C08. Fully read
-chapters/08-uzorkovanje.qmd, STYLE.md, ENRICHMENT.md,
+Execute only the dashboard's next permitted packet, P1A-C09. Fully read
+chapters/09-procjena.qmd, STYLE.md, ENRICHMENT.md,
 notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
 checkout-local book-style instructions. Do not rely on the installed plugin
 cache for mutable state.
 
-Execute the exact P1A-C08 scope: `R12-C08-srs-boundary`,
-`R12-C08-complex-design`, and `R12-C08-thousand-claim`. Name which formulas
-depend on simple random sampling; bound their transfer to unequal-probability
-and clustered designs; explain weights, clustering, design effects, effective
-sample size, and the finite-population correction at the intended literacy
-level; and qualify the thousand-person heuristic by estimand, design,
-selection, subgroup, and precision. Do not start any later packet or separately
-registered Chapter 8 repair.
+Execute the exact P1A-C09 scope: `R09-C09-normal-not-prediction`,
+`R09-C09-bootstrap-validation`, and `R09-C09-bootstrap-failures`. Remove or
+correctly bound the generic prediction-interval language; give the bootstrap
+median its own appropriate demonstration or narrow the claim; and state the
+independence and representativeness assumptions together with the relevant
+small-sample, discreteness, and tail limits. Do not start any later packet or
+separately registered Chapter 9 repair.
 
 Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the exact Chapter 8 source state,
+independent statistical-methods reading on the exact Chapter 9 source state,
 run the checkout-local deterministic and manual book-style pass, structure and
-figure-introduction checks, targeted Chapter 8 render, source-diff and packet
+figure-introduction checks, targeted Chapter 9 render, source-diff and packet
 exit checks. Update the register, handoff ledger, and dashboard together,
 create one scoped local commit only if every gate passes, and stop before
-P1A-C09 or any later packet.
+P1A-C13 or any later packet.
 ```
