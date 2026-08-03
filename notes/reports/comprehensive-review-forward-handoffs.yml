@@ -881,7 +881,20 @@ handoffs:
           - outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done
       - target_packet: P1B-BIB
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-BIB accepts the verified zero-Navarro result before its first
+          substantive bibliography or configuration edit. The packet will not
+          restore navarro2019 as a general reference; any future reader-facing
+          Navarro use remains conditional on a new independently scoped need,
+          authoritative version metadata, and renewed rights analysis.
+        evidence:
+          - report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md
+          - state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c
+          - check:zero-navarro-citation-keys-and-bibliography-records-before-P1B-BIB
+          - commit:81869631d0faf8a99af809ea2a5c01ee26dd5a9b
 
   H-P1B-DATA-LIC-001:
     source_packet: P1B-DATA-LIC
@@ -1420,3 +1433,27 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1B-BIB
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - P1B-BIB and all later packets were not started
+  P1B-BIB:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      The sole source-fit defect found by the exhaustive live-citation read was
+      corrected inside the packet. P6-EVIDENCE already owns the later
+      whole-book evidence audit, and P1B-META already depends on P1B-BIB. No
+      new unresolved constraint remains, so a duplicate handoff would add no
+      information.
+    implementation_state: state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0
+    checks:
+      - H-P1B-NAVARRO-001 was consumed before the first substantive edit and zero Navarro citation keys and bibliography records were preserved
+      - all 121 live citation uses in 21 manuscript files were read in context and grouped into 35 claim-source fit records
+      - all 35 live keys resolve to exactly 35 maintained bibliography records with zero unused records
+      - pandoc citeproc rendered exactly 35 references after blanket nocite removal
+      - all 29 live DOI records resolved through Crossref with matching titles and all six no-DOI works received verified identities locators and dispositions
+      - the sole Chouldechova source-fit mismatch was corrected to the source's calibration and two error-rate criteria
+      - checkout-local style lint and the complete manual H1-H10 pass succeeded for Chapter 17
+      - the targeted Chapter 17 HTML render passed and generated pre-render artifacts were restored outside the packet diff
+      - the durable report records citation usage authoritative metadata claim-source fit affected-file reconciliation source-state blobs and zero new future constraints
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-META
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1B-META and all later packets were not started

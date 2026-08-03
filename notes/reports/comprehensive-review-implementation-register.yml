@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1B-DATA-LIC"
-  next_permitted_packet: "P1B-BIB"
+  last_completed_packet: "P1B-BIB"
+  next_permitted_packet: "P1B-META"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2831,7 +2831,7 @@ packets:
     sequence: 31
     phase: "1B"
     kind: "evidence_metadata"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Citation usage and bibliography metadata."
@@ -2842,13 +2842,59 @@ packets:
       - "Every citation resolves and metadata are verified from authoritative sources."
       - "No blanket inclusion, invented key, DOI, locator, or finding remains."
       - "The P1B-BIB packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      required_evidence:
+        - requirement: "citation usage report"
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#citation-usage-report"
+            - "check:121-live-citation-uses-35-unique-keys-35-maintained-records-zero-unresolved-zero-unused"
+            - "check:pandoc-citeproc-rendered-exactly-35-reference-entries"
+        - requirement: "authoritative metadata verification"
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#authoritative-metadata-verification"
+            - "check:29-of-29-live-DOIs-resolve-through-Crossref-with-matching-titles"
+            - "check:six-live-no-DOI-records-have-publisher-author-library-or-institutional-locators-and-explicit-dispositions"
+        - requirement: "claim-source fit record"
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#claim-source-fit"
+            - "check:all-121-live-uses-read-in-context-and-grouped-across-35-source-fit-records"
+            - "source:chapters/17-doba-algoritama.qmd-Chouldechova-criteria-reconciled-to-primary-source"
+      outputs:
+        - output: "P1B-BIB durable artifact and evidence record for: Citation usage and bibliography metadata."
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md"
+            - "item:R06-BIB-remove-nocite"
+            - "item:R06-BIB-status-language"
+            - "item:R06-BIB-doi-audit"
+            - "item:R06-BIB-local-locator"
+        - output: "Completion evidence is tied to the declared P1B-BIB source state and bounded scope."
+          artifacts:
+            - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+            - "scope:_quarto-references-bibliography-page-and-one-source-fit-sentence"
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#affected-file-reconciliation"
+      exit_tests:
+        - test: "Every citation resolves and metadata are verified from authoritative sources."
+          result: "passed"
+          evidence:
+            - "check:35-live-keys-equal-35-BibTeX-records-and-citeproc-entries"
+            - "check:29-Crossref-DOI-matches-six-verified-no-DOI-identities-and-three-authoritative-page-ranges"
+        - test: "No blanket inclusion, invented key, DOI, locator, or finding remains."
+          result: "passed"
+          evidence:
+            - "check:zero-nocite-zero-unused-records-zero-unresolved-keys-zero-Navarro-keys-or-records"
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#claim-source-fit"
+        - test: "The P1B-BIB packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:citation-metadata-source-fit-style-manual-targeted-render-source-diff-and-control-validation-passed"
+            - "handoff-ledger:packet_reviews.P1B-BIB"
     contract: "evidence_metadata"
     required_evidence:
       - "citation usage report"
       - "authoritative metadata verification"
       - "claim-source fit record"
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   P1B-META:
     sequence: 32
     phase: "1B"
@@ -9555,7 +9601,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Remove blanket nocite and reconcile displayed references with actual citations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9572,11 +9618,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#citation-usage-report"
+      - "source:_quarto.yml-with-zero-nocite-directives"
+      - "check:121-live-uses-35-keys-35-records-zero-unresolved-zero-unused-and-35-citeproc-entries"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-BIB-status-language:
     parents:
       - "R06"
@@ -9590,7 +9640,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Replace provisional bibliography language with accurate maintained-edition metadata."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9607,11 +9657,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "source:references.bib-maintained-list-header"
+      - "source:references.qmd-used-and-verified-only-comment"
+      - "check:no-source-or-public-text-falsely-describes-the-bibliography-as-an-untouched-seed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-BIB-doi-audit:
     parents:
       - "R06"
@@ -9625,7 +9679,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Verify DOI metadata or a checked no-DOI disposition for affected journal articles."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9641,11 +9695,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#authoritative-metadata-verification"
+      - "check:29-of-29-live-DOIs-resolve-through-Crossref-with-matching-titles"
+      - "check:all-live-journal-and-proceedings-records-carry-authoritatively-verified-DOIs"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-BIB-local-locator:
     parents:
       - "R06"
@@ -9659,7 +9717,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Add verified stable locator/version metadata or document why unavailable."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9675,11 +9733,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#no-doi-locators"
+      - "source:references.bib-gelman2013-version-14-November-2013-and-Columbia-URL"
+      - "check:all-six-live-no-DOI-works-have-verified-identities-locators-and-explicit-no-DOI-dispositions"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-GOV-contract:
     parents:
       - "R06"

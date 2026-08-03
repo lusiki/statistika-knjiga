@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1B-DATA-LIC
-next_permitted_packet: P1B-BIB
+last_completed_packet: P1B-BIB
+next_permitted_packet: P1B-META
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,16 +32,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1B-DATA-LIC` |
-| Next permitted packet | `P1B-BIB` |
+| Last completed packet | `P1B-BIB` |
+| Next permitted packet | `P1B-META` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 38 accepted, 5 deferred with reason, 328 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 24 accepted and 164 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 42 accepted, 5 deferred with reason, 324 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 25 accepted and 163 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 77 canonical asks remain `drafted_unsent`; the two methods asks and three G-A1c licence/access asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1B-NAVARRO` passed its provenance, licence, owner-disposition, reconciliation, style, render, negative-fixture, and closeout checks |
+| Failed gates | None; `P1B-BIB` passed citation-usage, authoritative-metadata, claim-source-fit, style, render, negative-fixture, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -594,6 +594,40 @@ The accepted implementation source state is
 the durable evidence is
 `notes/reports/p1b-data-licence-access-inventory-2026-08-03.md`.
 
+## P1B-BIB closeout
+
+- `H-P1B-NAVARRO-001` was consumed before the first substantive edit. The
+  verified zero-Navarro result remains intact, and neither `@navarro2019` nor
+  a Navarro bibliography record was restored.
+- All 121 live citation uses in 21 manuscript files were read in context. The
+  resulting 35 unique keys resolve one-to-one to 35 maintained bibliography
+  records; the sole unused seed record was removed.
+- Blanket `nocite: @*` and its obsolete temporary commentary were removed.
+  Pandoc citeproc rendered exactly the 35 actually used references.
+- All 29 DOI-bearing records resolve through Crossref with matching titles.
+  Every journal and proceedings record now carries a verified DOI. The six
+  works without DOI have verified publisher, author, library, or institutional
+  records and explicit no-DOI dispositions.
+- Gelman and Loken's working paper now has its verified 14 November 2013
+  version and stable Columbia locator. Three page ranges formerly omitted
+  because Crossref exposed only a starting page were added from authoritative
+  publisher, source-document, or government bibliographic records.
+- The exhaustive claim-source fit pass found one defect. Chapter 17 had
+  substituted equal overall accuracy for one of Chouldechova's error-rate
+  criteria. The sentence now states the supported calibration, false-positive,
+  and false-negative incompatibility without introducing a new source.
+- Checkout-local style lint and the complete manual H1-H10 pass succeeded for
+  Chapter 17. A targeted HTML render contained the corrected sentence;
+  generated pre-render artifacts were restored outside the packet diff.
+- No new future-relevant constraint remains. The whole-book evidence audit is
+  already assigned to P6-EVIDENCE, and P1B-META already depends on this packet,
+  so no duplicate outgoing handoff was created. No later packet was started.
+
+The accepted implementation source state is
+`state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0`;
+the durable evidence is
+`notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -635,26 +669,21 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1B-BIB. Fully read its
-evidence_metadata contract and the complete records for R06-BIB-remove-nocite,
-R06-BIB-status-language, R06-BIB-doi-audit, and R06-BIB-local-locator. Fully
-read references.bib, references.qmd, the bibliography settings in _quarto.yml,
-every live citation use in the manuscript, and every relevant authoritative
-metadata source.
+Execute only the dashboard's next permitted packet, P1B-META. Fully read its
+documentation contract and the complete record for R06-META-readme. Fully read
+README.md, every public project-status or pathway promise it makes, the live
+repository state needed to verify those promises, and the governing project
+documents to which it points.
 
-Before the first substantive edit, acknowledge and consume
-H-P1B-NAVARRO-001 as its required before_start handoff. Preserve the verified
-zero-Navarro result and do not restore navarro2019 without a new independently
-scoped need, authoritative version metadata, and renewed rights analysis.
-Remove blanket nocite only after reconciling displayed references with actual
-uses. Verify every affected DOI from an authoritative record or document a
-checked no-DOI disposition, and give every important local source a stable
-verified locator or an explicit unavailable result. Never invent a key, DOI,
-locator, page, version, or finding.
+Update public project status and navigation/build language only where the live
+repository and governing contracts prove the replacement. Do not infer a
+release, archive, citation, errata, or publication mechanism that belongs to
+G-A1d or P1B-GOV. Never introduce an unsupported empirical claim, number,
+citation, path, version, or availability promise.
 
-Do not start P1B-META or any later packet. At closeout, record the citation
-usage report, authoritative metadata verification, claim-source fit record,
-affected-file reconciliation, and every future-relevant discovery; update the
-register, handoff ledger, and dashboard together; run the workflow validator
-and both required negative fixtures; and stop after P1B-BIB.
+Do not start G-A1d, P1B-GOV, or any later packet. At closeout, record the
+source-state comparison, public metadata diff, affected-file reconciliation,
+and every future-relevant discovery; update the register, handoff ledger, and
+dashboard together; run the workflow validator and both required negative
+fixtures; and stop after P1B-META.
 ```
