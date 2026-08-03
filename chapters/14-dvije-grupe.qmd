@@ -70,14 +70,21 @@ s14_sazetak <- dvije_skupine |>
     .groups = "drop"
   )
 
-s14_welch <- t.test(povjerenje_medijima ~ izvor, data = dvije_skupine)
-s14_student <- t.test(
-  povjerenje_medijima ~ izvor,
-  data = dvije_skupine,
-  var.equal = TRUE
-)
+s14_tv <- dvije_skupine |>
+  filter(izvor == "TV") |>
+  pull(povjerenje_medijima)
+s14_mreze <- dvije_skupine |>
+  filter(izvor == "društvene mreže") |>
+  pull(povjerenje_medijima)
+
+s14_welch <- t.test(s14_tv, s14_mreze)
+s14_student <- t.test(s14_tv, s14_mreze, var.equal = TRUE)
 s14_model <- lm(povjerenje_medijima ~ izvor, data = dvije_skupine)
-s14_granice <- confint(s14_model)["izvorTV", ]
+s14_ols_tablica <- summary(s14_model)$coefficients["izvorTV", ]
+s14_ols_granice <- confint(s14_model)["izvorTV", ]
+s14_welch_se <- sqrt(
+  var(s14_tv) / length(s14_tv) + var(s14_mreze) / length(s14_mreze)
+)
 
 s14_po_skupini <- split(dvije_skupine$povjerenje_medijima, dvije_skupine$izvor)
 s14_n1 <- length(s14_po_skupini[[1]])
@@ -123,13 +130,23 @@ s14 <- list(
   n = nrow(dvije_skupine),
   np = s14_np,
   razlika = unname(diff(s14_sazetak$sredina)),
-  donja = unname(s14_granice[[1]]),
-  gornja = unname(s14_granice[[2]]),
+  donja = unname(s14_welch$conf.int[[1]]),
+  gornja = unname(s14_welch$conf.int[[2]]),
   d = s14_d,
+  n_mreze = length(s14_mreze),
+  n_tv = length(s14_tv),
+  var_mreze = var(s14_mreze),
+  var_tv = var(s14_tv),
+  se_welch = s14_welch_se,
+  se_ols = unname(s14_ols_tablica[["Std. Error"]]),
   df_welch = unname(s14_welch$parameter),
-  df_student = unname(s14_student$parameter),
-  var1 = var(s14_po_skupini[[1]]),
-  var2 = var(s14_po_skupini[[2]]),
+  df_ols = df.residual(s14_model),
+  t_welch = unname(s14_welch$statistic),
+  t_ols = unname(s14_ols_tablica[["t value"]]),
+  p_welch = s14_welch$p.value,
+  p_ols = unname(s14_ols_tablica[["Pr(>|t|)"]]),
+  ols_donja = unname(s14_ols_granice[[1]]),
+  ols_gornja = unname(s14_ols_granice[[2]]),
   presjek = unname(coef(s14_model)[["(Intercept)"]]),
   nagib = unname(coef(s14_model)[["izvorTV"]]),
   pop_razlika = unname(diff(s14_pop$sredina)),
@@ -224,6 +241,12 @@ gledaju televiziju i
 onima koji se informiraju preko društvenih mreža. Razlika iznosi
 `r hr_broj(s14$razlika, 2)` boda uz interval pouzdanosti od
 `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)`.
+
+To je Welchov interval, koji zadržava zasebnu procjenu varijance za svaku
+skupinu. Pripadni dvostrani test postavlja nultu hipotezu da je populacijska
+sredina TV skupine minus populacijska sredina skupine društvenih mreža jednaka
+nuli, nasuprot mogućnosti da razlika nije nula. Riječ je o razlici
+populacijskih sredina, ne o jednakosti cijelih raspodjela.
 
 Interval je ovdje važniji od svega ostaloga. On kaže da su s ovim uzorkom
 uskladive i razlike ispod pola boda i razlike blizu dva boda, dakle raspon
@@ -665,21 +688,34 @@ poglavlje o veličini učinka i snazi.
 
 ## Pretpostavke i njihove granice
 
-Postupci iz ovog poglavlja počivaju na trima pretpostavkama, i njihova se
-ozbiljnost razlikuje. Neovisnost opažanja dolazi iz dizajna i ne može se
-popraviti nikakvim izborom postupka. Približna normalnost odnosi se na raspodjelu
-ostataka, a kod uparenog dizajna na raspodjelu razlika, ne na raspodjelu
-pojedinačnih mjerenja. Jednakost varijanci potrebna je samo klasičnoj inačici
-testa.
+Najvažnija pretpostavka dolazi iz dizajna. Opažanja moraju pripadati neovisnim
+jedinicama, a svaka osoba samo jednoj od dviju skupina. Ishod mora biti ispravno
+kodirana brojčana varijabla, pripadnost skupini mora imati točnu referentnu
+kategoriju, a način uzorkovanja mora podupirati ciljnu populaciju o kojoj se
+piše. Nijedan izbor testa ne može popraviti povredu tih uvjeta.
 
-Ta se treća pretpostavka rješava izborom postupka. Welchova inačica ne zahtijeva
-jednake varijance i plaća to prilagođenim stupnjevima slobode, koji zato nisu
-cijeli broj. U našem uzorku varijance iznose `r hr_broj(s14$var1, 2)` i
-`r hr_broj(s14$var2, 2)`, dakle vrlo su bliske, pa Welchova inačica troši
-`r hr_broj(s14$df_welch, 1)` stupnjeva slobode prema `r s14$df_student` koliko ih
-troši klasična. Kad su varijance slične, razlika je zanemariva, a kad nisu, Welch
-je točniji. Postupak koji ništa ne gubi kad pretpostavka vrijedi i nešto dobiva
-kad ne vrijedi razuman je početni izbor.
+Za točnu t-inferenciju u malim uzorcima ishodi unutar skupina moraju slijediti
+normalnu raspodjelu, a u velikima su potrebne konačne varijance i odsutnost
+opažanja koje samo određuje rezultat. Kod uparenog dizajna ti se uvjeti odnose
+na raspodjelu razlika, ne na raspodjelu pojedinačnih mjerenja.
+
+Welchova standardna pogreška zadržava varijancu i veličinu svake skupine
+zasebno, pa ne zahtijeva jednake varijance. Obični linearni model procjenjuje
+jednu zajedničku rezidualnu varijancu i raspoređuje je na obje skupine, zbog
+čega njegova uobičajena homoskedastična inferencija pretpostavlja jednake
+uvjetne rezidualne varijance.
+
+U našem uzorku društvene mreže imaju `r s14$n_mreze` opažanja i varijancu
+`r hr_broj(s14$var_mreze, 3)`, a televizija `r s14$n_tv` opažanja i varijancu
+`r hr_broj(s14$var_tv, 3)`. Oba postupka procjenjuju razliku od
+`r hr_broj(s14$razlika, 3)` boda, ali Welchova standardna pogreška iznosi
+`r hr_broj(s14$se_welch, 3)` uz `r hr_broj(s14$df_welch, 3)` stupnja slobode,
+dok obični linearni model daje `r hr_broj(s14$se_ols, 3)` uz
+`r s14$df_ols` stupnjeva slobode. Njihovi se intervali na dvije decimale oba
+ispisuju kao 0,45 do 1,92, ali ta podudarnost nakon zaokruživanja ne čini ih
+istim inferencijskim postupkom. Welch zato ostaje početni izbor, a obični
+linearni model služi kao izričito označena usporedba pod pretpostavkom jednake
+rezidualne varijance.
 
 Normalnost se procjenjuje pogledom na raspodjelu, a tek onda testom.
 Shapiro-Wilkov test ima istu osjetljivost na veličinu uzorka kao svaki drugi
@@ -748,28 +784,42 @@ raspona iznosi 0,90 boda.
 
 Cijela usporedba dviju skupina može se ispisati u nekoliko redaka, i vrijedi je
 jednom vidjeti u obliku u kojem će se od ovog poglavlja nadalje pojavljivati.
-Analiza procjenjuje model s binarnim prediktorom, ispisuje njegova dva broja s
-intervalima i tek zatim provodi test.
+Analiza najprije daje Welchovu procjenu i interval, a zatim istu razliku zapisuje
+kao koeficijent modela s binarnim prediktorom. Drugi ispis služi usporedbi
+postupaka, ne zamjenjuje prvi.
 
 ```{r}
 #| echo: true
 
+tv <- filter(dvije_skupine, izvor == "TV") |> pull(povjerenje_medijima)
+mreze <- filter(dvije_skupine, izvor == "društvene mreže") |> pull(povjerenje_medijima)
+welch <- t.test(tv, mreze)
 model <- lm(povjerenje_medijima ~ izvor, data = dvije_skupine)
 
+welch
 coef(model)
-confint(model)
-
-t.test(povjerenje_medijima ~ izvor, data = dvije_skupine)
+summary(model)$coefficients["izvorTV", ]
+df.residual(model)
+confint(model)["izvorTV", ]
 ```
 
-Zapis `povjerenje_medijima ~ izvor` čita se kao tvrdnja da ishod ovisi o skupini.
-Funkcija `lm` procjenjuje takav model, `coef` vraća njegova dva broja, a
-`confint` intervale koji uz njih idu.
+Funkcija `t.test` bez dodatne postavke provodi Welchov postupak. Zapis
+`povjerenje_medijima ~ izvor` čita se kao tvrdnja da ishod ovisi o skupini, a
+funkcija `lm` procjenjuje takav model uz običnu homoskedastičnu nesigurnost.
+Funkcija `df.residual` vraća broj stupnjeva slobode uz taj ispis.
 
-Ispis modela i ispis testa nose istu razliku od `r hr_broj(s14$razlika, 2)` boda,
-s istim intervalom, samo drugačije poredanu. To nije podudarnost nego identitet,
-jer je neovisni t-test upravo test o koeficijentu ovog modela. Kad u sljedećem
-poglavlju skupina bude pet umjesto dvije, mijenja se samo broj koeficijenata.
+Welchov ispis daje razliku od `r hr_broj(s14$razlika, 3)` boda, standardnu
+pogrešku od `r hr_broj(s14$se_welch, 3)` i
+`r hr_broj(s14$df_welch, 3)` stupnja slobode. Koeficijent modela nosi točno istu
+razliku, jer je koeficijent uz TV razlika sredine televizijske i referentne
+skupine društvenih mreža. Njegova obična standardna pogreška ipak iznosi
+`r hr_broj(s14$se_ols, 3)` uz `r s14$df_ols` stupnjeva slobode. Interval modela
+proteže se od `r hr_broj(s14$ols_donja, 3)` do
+`r hr_broj(s14$ols_gornja, 3)`, prema Welchovu intervalu od
+`r hr_broj(s14$donja, 3)` do `r hr_broj(s14$gornja, 3)`. Jednakost procjene
+razlike zato je egzaktna, a jednakost inferencije nije. Kad u sljedećem
+poglavlju skupina bude pet umjesto dvije, zajednički oblik modela ostaje, ali
+izbor postupka za nesigurnost ostaje zasebna odluka.
 
 Izvještaj koji bi na tome stao još ne bi bio potpun. Treba mu opis kako su skupine
 nastale, jer ljudi svoj izvor vijesti biraju sami, i napomena da skupine nisu

@@ -627,7 +627,26 @@ handoffs:
     deliveries:
       - target_packet: P1A-C14
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1A-C14 accepts the jointly approved D02 specification as its exact
+          and exclusive correction scope. The packet will retain Welch
+          inference as the default for the two-sided population mean-difference
+          claim, preserve the exact point-estimate identity with a binary-
+          predictor coefficient, distinguish Welch group-specific uncertainty
+          and Welch-Satterthwaite degrees of freedom from ordinary pooled
+          homoskedastic OLS uncertainty, expose the reproduced SE and df
+          difference, and retain the stated assumptions and observational
+          boundary. The widget, print twin, paired comparison, Wilcoxon
+          discussion, standardized effect, confounding example, Chapters 15
+          and 16, and all unrelated material remain outside this packet.
+        evidence:
+          - decision:conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic
+          - register:G-A1b-accepted-specification
+          - scope:chapters/14-dvije-grupe.qmd-and-R02-C14-welch-ols-only
+          - authority:P1A-C14-only-no-P1A-C15-or-later-packet
 
 packet_reviews:
   G-A0:
@@ -755,3 +774,24 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C14
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - no chapter prose or code changed and P1A-C14 not started
+  P1A-C14:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      The required Chapter 15 and 16 follow-through is already represented by
+      R02-C15-dependent-revalidation, R02-C16-dependent-revalidation, and the
+      dependencies of P1A-C15 and P1A-C16 on this packet. The correction found
+      no new downstream constraint, so a duplicate handoff would add no
+      information.
+    implementation_state: chapter:sha1-449c88f25e032fd8d4a9066deb45c8648497e8e5
+    checks:
+      - H-G-A1B-001 acknowledged and consumed before packet claim
+      - clean-session numerical reproduction passed
+      - independent critic_methods reread passed on exact source state
+      - checkout-local style, manual, structure, and figure-introduction passes completed
+      - targeted Chapter 14 HTML render and seven rendered-claim assertions passed
+      - normalized Chapter 14 widget and print-twin block remained unchanged
+      - Chapters 15 and 16 remained unchanged and only the accepted D02 surface changed
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C15
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
