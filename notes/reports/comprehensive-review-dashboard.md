@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C14
-next_permitted_packet: P1A-C15
+last_completed_packet: P1A-C08
+next_permitted_packet: P1A-C09
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C14` |
-| Next permitted packet | `P1A-C15` |
-| Review parents | 35 ratified; 1 accepted |
-| Atomic child inventory | Complete: 371 stable children; 10 accepted, 5 deferred with reason, 356 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 11 accepted and 177 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Last completed packet | `P1A-C08` |
+| Next permitted packet | `P1A-C09` |
+| Review parents | 34 ratified; 2 accepted |
+| Atomic child inventory | Complete: 371 stable children; 27 accepted, 5 deferred with reason, 339 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 17 accepted and 171 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C14` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-C08` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -217,6 +217,170 @@ The accepted chapter source state is
 `chapter:sha1-449c88f25e032fd8d4a9066deb45c8648497e8e5`; the durable evidence is
 `notes/reports/p1a-c14-methods-review-2026-08-03.md`.
 
+## P1A-C15 closeout
+
+- No incoming handoff targeted `P1A-C15`; the accepted D02 correction and the
+  completed `P1A-C14` packet defined its dependent-revalidation boundary.
+- Chapter 15 retains the common group-mean model and its point estimates as the
+  bridge from Chapters 14 to 16, while its classical mean-square F ratio and
+  `aov` receipt are now explicitly separated from Welch inference with
+  group-specific variances and adjusted degrees of freedom.
+- Clean-session reproduction confirmed classical `F = 8.381813` with df 4 and
+  295, versus Welch `F = 7.320808` with denominator df 112.425285, as well as
+  the complete existing Chapter 15 result set.
+- An independent methods reread passed the exact final source state. The
+  checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, targeted HTML render, rendered-claim assertions,
+  widget/twin preservation, and scoped source-diff checks also passed.
+- `R09-C15-variance-ratio` and the separately registered suspect-code,
+  narrative-payoff, dependence, reachback, and later Wave D repairs remain
+  unmodified. Chapters 14 and 16 are unchanged.
+- No new forward-relevant effect was found. Chapter 16 follow-through is
+  already represented by `R02-C16-dependent-revalidation` and the dependency
+  of `P1A-C16` on this packet, so no duplicate outgoing handoff was created.
+
+The accepted chapter source state is
+`chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10`; the durable evidence is
+`notes/reports/p1a-c15-methods-review-2026-08-03.md`.
+
+## P1A-C16 closeout
+
+- No incoming handoff targeted `P1A-C16`; accepted D02 and the completed
+  `P1A-C14` and `P1A-C15` packets defined its dependent-revalidation boundary.
+- Chapter 16 now preserves the common group-mean point estimates while naming
+  pooled Student and classical ANOVA as ordinary homoskedastic special cases
+  whose inference is distinct from Welch.
+- The main analysis consistently targets finite-population least-squares
+  coefficients for the recorded outcome among all 50,000 units. Latent
+  pre-measurement generator parameters are diagnostic comparators, and the
+  census target carries no sampling interval.
+- Prediction is evaluated immediately before the trust response. Willingness
+  to pay is excluded as post-outcome target leakage, and the valid examples use
+  disjoint learning and held-out units with eligible predictors available by
+  the same time boundary.
+- Clean-session reproduction confirmed the complete Chapter 16 result receipt.
+  An independent methods reread passed exact source
+  `ba93f9a62965dc1a9ae1c67a3c54d536976773cb` with no finding or requested
+  change. Style, structure, figure, widget, render, rendered-claim, source-diff,
+  and closeout checks also passed.
+- Chapters 14 and 15, the widget and print-twin sources, and every separately
+  registered later Chapter 16 repair remain unchanged. No new forward-relevant
+  effect was found, so no duplicate outgoing handoff was created.
+
+The accepted chapter source state is
+`chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb`; the durable evidence is
+`notes/reports/p1a-c16-methods-review-2026-08-03.md`.
+
+## P1A-C02 closeout
+
+- No incoming handoff targeted `P1A-C02`; the four ratified Chapter 2 items
+  and the exact packet instruction defined its surgical boundary.
+- Chapter 2 now states randomisation as balance in expectation rather than
+  guaranteed realised equality. It distinguishes assignment or offer from
+  treatment received and qualifies adherence, spillover, attrition, and
+  differential measurement.
+- The negative item-rest association is now a diagnostic rather than proof of
+  reverse coding, with multidimensionality, translation, wording, and
+  inattentive response retained as alternatives. Stevens's levels are
+  historicised and bounded as a practical description rather than a complete
+  rule for permissible analysis.
+- A confounder is now a common prior cause, distinct from a mediator and
+  collider. The prose rejects controlling everything and accurately describes
+  the zero-shift widget as the same negative conclusion with nonidentical fitted
+  slopes.
+- Clean-session reproduction confirmed the full item-rest, score-range, and
+  widget-slope receipt. An independent methods reread passed exact source
+  `ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00` with no remaining finding after
+  one minor widget-guidance precision sentence was corrected.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  23 rendered presence/absence assertions, code-block preservation, scoped
+  source diff, and closeout checks all passed. No separately registered later
+  Chapter 2 work changed, and no new forward-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00`; the durable evidence is
+`notes/reports/p1a-c02-methods-review-2026-08-03.md`.
+
+## P1A-C06 closeout
+
+- No incoming handoff targeted `P1A-C06`; the four ratified Chapter 6 items
+  and the exact packet instruction defined its surgical boundary.
+- The scatterplot is now primary. Pearson--Spearman agreement is only a clue,
+  not proof of linearity, robustness, or the absence of influential
+  observations. Disagreement prompts graphical and data investigation rather
+  than an automatic diagnosis or method choice.
+- Range-restriction attenuation is conditional on relationship form,
+  dispersion, and selection. The narrow-age example now distinguishes a
+  changed target population from an attenuated version of one unchanged
+  relation and allows weakening, strengthening, or sign reversal under other
+  conditions.
+- Clean-session reproduction confirmed every Chapter 6 value affected by the
+  argument. An independent methods reread passed exact source
+  `c3177eb7cc5abe87cca6e1781262925b50e0f6b2` with no remaining finding after
+  four local precision defects from its first pass were corrected.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  24 rendered presence/absence assertions, executable-block preservation,
+  scoped source diff, and closeout checks all passed. No separately registered
+  later Chapter 6 work changed, and no new forward-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2`; the durable evidence is
+`notes/reports/p1a-c06-methods-review-2026-08-03.md`.
+
+## P1A-C07 closeout
+
+- No incoming handoff targeted `P1A-C07`; the single ratified Chapter 7 item
+  and the exact packet instruction defined its surgical boundary.
+- Chapter 7 now states the introductory central-limit-theorem conditions as a
+  stable common distribution, independent observations, and finite variance.
+  It notes that broader variants permit appropriately weak but not arbitrary
+  dependence.
+- The Bernoulli widget is explicitly a bounded demonstration rather than a
+  universal guarantee for arbitrary data, sample sizes, dependence, or
+  infinite-variance populations.
+- Clean-session reproduction confirmed every Chapter 7 value and source
+  relationship. An independent methods reread passed exact source
+  `8deb7a2b686754bdb3bc6d0ddfca2c7ade472f76` with no finding or requested
+  change.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  rendered-claim assertions, executable-block preservation, scoped source
+  diff, and closeout checks all passed. No separately registered later Chapter
+  7 work changed, and no new future-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-8deb7a2b686754bdb3bc6d0ddfca2c7ade472f76`; the durable evidence is
+`notes/reports/p1a-c07-methods-review-2026-08-03.md`.
+
+## P1A-C08 closeout
+
+- No incoming handoff targeted `P1A-C08`; the three ratified Chapter 8 items
+  and the exact packet instruction defined its surgical boundary.
+- Chapter 8 now names the simple-random-sampling assumptions behind its
+  standard-error, margin, and sample-size formulas and explains when the
+  finite-population correction matters.
+- Unequal selection probabilities, sampling weights, clustering, design
+  effects, effective sample size, and design-aware uncertainty are explained
+  at literacy level without importing a complex-survey variance course.
+- The roughly-thousand-person heuristic is bounded by estimand, design,
+  selection and response, subgroup size, and desired precision; it no longer
+  implies that sample size repairs coverage or nonresponse.
+- Clean-session reproduction confirmed every affected result. After four
+  first-pass precision points were corrected, an independent methods reread
+  passed exact source `b9a435a2ebb1e1371f4069cc8f9a4250459e419f` with no
+  remaining finding and scores of 4/4 throughout.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  rendered-claim assertions, scoped executable-block comparison, source diff,
+  and closeout checks all passed. No separately registered later Chapter 8
+  work changed, and no new future-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-b9a435a2ebb1e1371f4069cc8f9a4250459e419f`; the durable evidence is
+`notes/reports/p1a-c08-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -258,25 +422,25 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next_permitted_packet, P1A-C15. Fully read
-chapters/14-dvije-grupe.qmd, chapters/15-vise-grupa.qmd,
-chapters/16-regresija.qmd, STYLE.md, ENRICHMENT.md,
+Execute only the dashboard's next permitted packet, P1A-C09. Fully read
+chapters/09-procjena.qmd, STYLE.md, ENRICHMENT.md,
 notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
 checkout-local book-style instructions. Do not rely on the installed plugin
 cache for mutable state.
 
-Revalidate Chapter 15 only against the accepted D02 correction. Preserve the
-common mean-model bridge from Chapters 14 to 16 while ensuring that no prose,
-formula, code, result, or exercise generalises the exact point-estimate identity
-into an identity between Welch inference and ordinary homoskedastic OLS. Do not
-start the separately registered variance-ratio, suspect-code, narrative-payoff,
-or later Wave D repairs, and do not edit Chapter 14 or Chapter 16.
+Execute the exact P1A-C09 scope: `R09-C09-normal-not-prediction`,
+`R09-C09-bootstrap-validation`, and `R09-C09-bootstrap-failures`. Remove or
+correctly bound the generic prediction-interval language; give the bootstrap
+median its own appropriate demonstration or narrow the claim; and state the
+independence and representativeness assumptions together with the relevant
+small-sample, discreteness, and tail limits. Do not start any later packet or
+separately registered Chapter 9 repair.
 
 Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the exact Chapter 15 source state,
+independent statistical-methods reading on the exact Chapter 9 source state,
 run the checkout-local deterministic and manual book-style pass, structure and
-figure-introduction checks, targeted Chapter 15 render, source-diff and packet
+figure-introduction checks, targeted Chapter 9 render, source-diff and packet
 exit checks. Update the register, handoff ledger, and dashboard together,
 create one scoped local commit only if every gate passes, and stop before
-P1A-C16 or any later packet.
+P1A-C13 or any later packet.
 ```
