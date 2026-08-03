@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C10
-next_permitted_packet: P1A-C11
+last_completed_packet: P1A-C11
+next_permitted_packet: G-A1b
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -30,16 +30,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C10` |
-| Next permitted packet | `P1A-C11` |
-| Review parents | 36 ratified; 0 accepted |
-| Atomic child inventory | Complete: 371 stable children; 7 accepted, 5 deferred with reason, 359 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 8 accepted and 180 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Last completed packet | `P1A-C11` |
+| Next permitted packet | `G-A1b` |
+| Review parents | 35 ratified; 1 accepted |
+| Atomic child inventory | Complete: 371 stable children; 9 accepted, 5 deferred with reason, 357 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 9 accepted and 179 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 81 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` is `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C10` passed all packet gates and `P1A-C11` is next |
+| Failed gates | None; `P1A-C11` passed all packet gates and `G-A1b` is next |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -146,6 +146,29 @@ The accepted chapter source state is
 `chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662`; the durable evidence is
 `notes/reports/p1a-c10-methods-review-2026-08-03.md`.
 
+## P1A-C11 closeout
+
+- No incoming handoff targeted `P1A-C11`; the packet claimed only its registered
+  Chapter 11 source and control paths.
+- Chapter 11 now uses `(b + 1) / (B + 1)` for its finite random-permutation
+  p-value and states the empirical power curve's full-distribution null,
+  statistic, independent-unit boundary, finite-population mechanism, sampling,
+  and simulation assumptions.
+- The analytic widget/twin and worked example now name their distinct
+  independent-normal, common-known-SD, two-sided-z assumptions. Their
+  algorithms remain unchanged, and the chapter stays estimation-first.
+- Clean-session reproduction, an independent methods read on the exact source
+  state, checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the targeted HTML render, and source-diff checks
+  all passed.
+- No new forward-relevant effect was found. The known later Chapter 11 work
+  remains represented by its stable `WC-C11` items and dependencies, so no
+  duplicate outgoing handoff was created.
+
+The accepted chapter source state is
+`chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6`; the durable evidence is
+`notes/reports/p1a-c11-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -187,22 +210,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next_permitted_packet, P1A-C11. Fully read
-chapters/10-logika-testiranja.qmd, chapters/11-velicina-ucinka-i-snaga.qmd,
-STYLE.md, ENRICHMENT.md, notes/struktura-knjige.md, the relevant comprehensive
-review evidence, the P1A-C10 evidence report, and the checkout-local book-style
-instructions. Do not rely on the installed plugin cache for mutable state.
+Prepare only the dashboard's next_permitted_packet, G-A1b. Fully read
+chapters/14-dvije-grupe.qmd, chapters/15-vise-grupa.qmd,
+chapters/16-regresija.qmd, decision D02, the relevant comprehensive-review
+evidence, and outside ask OA-G-A1B-C14-SPEC. Do not edit chapter prose, code,
+the control files, or mutable Bookwright state, and do not send an external
+message.
 
-Revalidate only R01-C11-inherited-permutation: remove or explicitly qualify
-the Chapter 10 permutation assumptions inherited by Chapter 11. Ensure the
-power demonstration names its null, statistic, independence, distribution,
-and simulation assumptions. Preserve the estimation-first chapter role and
-change no unrelated chapter material.
+Present one bounded Chapter 14 correction specification for joint author and
+named statistical-reviewer approval. Lead with the recommended D02 default,
+which keeps Welch inference as the Chapter 14 default, states that the binary-
+predictor coefficient equals the raw difference in means, and distinguishes
+Welch uncertainty from ordinary homoskedastic OLS uncertainty outside special
+cases. Name the exact null, estimate, standard-error and degrees-of-freedom
+distinctions, assumptions, numerical reproductions, downstream Chapter 15/16
+revalidation boundary, rejected alternatives, and authority boundary.
 
-Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the corrected source state, run the
-book-style deterministic and manual pass, targeted render, and packet exit
-checks. Update the register, handoff ledger, and dashboard together, create one
-scoped local commit only if every gate passes, and stop before G-A1b or any
-later packet.
+Show the evidence, recommended default, alternatives, what the decision blocks,
+and the exact dated reply needed from both owners. Stop for their reply without
+claiming G-A1b, starting P1A-C14, or performing any later packet.
 ```

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C10"
-  next_permitted_packet: "P1A-C11"
+  last_completed_packet: "P1A-C11"
+  next_permitted_packet: "G-A1b"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1710,7 +1710,7 @@ packets:
     sequence: 15
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1A-C10"
     scope: "Revalidate Chapter 11 inherited assumptions."
@@ -1721,13 +1721,52 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C11 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "instruction:user-P1A-C11-execution-2026-08-03"
+            - "decision:D01"
+            - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:all-finite-permutation-values-on-corrected-1-over-201-grid"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:pass-source-2aaede845c2a93fcad5d473d6466f938285cd7b6"
+      outputs:
+        - output: "P1A-C11 durable artifact and evidence record for: Revalidate Chapter 11 inherited assumptions."
+          artifacts:
+            - "chapter:chapters/11-velicina-ucinka-i-snaga.qmd"
+            - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C11 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6"
+            - "scope:R01-C11-and-packet-linked-R09-C11-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:pass-source-2aaede845c2a93fcad5d473d6466f938285cd7b6"
+        - test: "The P1A-C11 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C11"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6"
   G-A1b:
     sequence: 16
     phase: "1A"
@@ -5755,7 +5794,7 @@ parents:
   R01:
     title: "Chapter 10 null and assumptions"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -5769,7 +5808,12 @@ parents:
       - "R01-C10-monte-carlo-correction"
       - "R01-C10-bayesian-balance"
       - "R01-C11-inherited-permutation"
-    completion_evidence: []
+    completion_evidence:
+      - "packet:P1A-C10"
+      - "packet:P1A-C11"
+      - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+      - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md"
+      - "critic_methods:corrected-chapter-10-and-11-source-states-passed"
   R02:
     title: "Chapter 14 Welch and OLS"
     disposition: "accepted_first_edition"
@@ -6982,7 +7026,7 @@ items:
       location: "§8 Ch11"
     description: "Remove or explicitly qualify inherited Chapter 10 permutation assumptions in Chapter 11."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -6998,11 +7042,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C11"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6"
+      - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md"
+      - "critic_methods:pass-inherited-permutation-null-statistic-assumptions-and-scope"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6"
   R02-C14-welch-ols:
     parents:
       - "R02"
@@ -10968,7 +11015,7 @@ items:
       location: "§8 Ch11"
     description: "State independent-normal, common-known-SD, two-sided-z and other actual assumptions."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -10984,11 +11031,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C11"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6"
+      - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md"
+      - "critic_methods:pass-power-null-statistic-independence-distribution-and-simulation-assumptions"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6"
   R09-C13-residual-name:
     parents:
       - "R09"

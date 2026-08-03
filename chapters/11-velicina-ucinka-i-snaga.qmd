@@ -28,8 +28,8 @@ subtitle: "Koliki je učinak i koliko ga pouzdano vidimo"
   4. IZOSTAVLJENO višestruko testiranje i APA predlošci izvještavanja iz istog
      predavanja. Prvo pripada poglavlju o više grupa i poglavlju o krizi.
   5. Krivulja snage izmjerena je permutacijskim postupkom iz prethodnog
-     poglavlja, pa se vrijednost pri tristo jedinica poklapa s ondje izmjerenom
-     stopom. To je namjerno, jer je riječ o istoj brojci pod dva imena.
+     poglavlja. Neovisna simulacija ne mora dati posve isti udio pri tristo
+     jedinica, iako procjenjuje istu snagu pod istim mehanizmom podataka.
   6. A/B primjer s golemim uzorkom prenesen je iz predavanja, ali s
      konstruiranim podacima označenima kao takvi, budući da izvorni skup knjizi
      nije dostupan.
@@ -69,8 +69,8 @@ s11_oznake <- as.character(s11_pod$izvor)
 s11_ishodi <- s11_pod$povjerenje_medijima
 s11_N <- nrow(s11_pod)
 
-# Jedna studija zadane veličine. Vraća procjenu razlike i permutacijsku
-# p-vrijednost, dakle točno ono što bi istraživač izvijestio.
+# Jedna studija zadane veličine. Vraća procjenu razlike i korigiranu
+# permutacijsku p-vrijednost za konačan nasumični skup premještanja.
 s11_studija <- function(velicina, permutacija = 200) {
   odabir <- sample(s11_N, velicina)
   oznaka <- s11_oznake[odabir]
@@ -81,7 +81,8 @@ s11_studija <- function(velicina, permutacija = 200) {
     promijesano <- sample(oznaka)
     mean(ishod[promijesano == "tisak"]) - mean(ishod[promijesano == "portal"])
   })
-  c(razlika, mean(abs(nulte) >= abs(razlika)))
+  b <- sum(abs(nulte) >= abs(razlika))
+  c(razlika, (b + 1) / (permutacija + 1))
 }
 
 set.seed(1111)
@@ -273,6 +274,18 @@ Prethodno je poglavlje na ovoj populaciji izmjerilo da postupak stvarnu razliku
 pronalazi u otprilike četiri od pet uzoraka od tristo osoba. Ta brojka upravo je
 snaga, i sada je vrijedi izmjeriti na više veličina uzorka.
 
+Mjerenje zadržava permutacijski postupak iz prethodnog poglavlja i njegove
+granice. Nulti model tvrdi da je cijela raspodjela povjerenja jednaka u objema
+skupinama, tako da su oznake izvora zamjenjive u odnosu na ishod. Obostrana
+testna statistika jest apsolutna sirova razlika sredina. Osobe se tretiraju kao
+zasebne jedinice bez zajedničke ovisnosti, dok simulacija bez ponavljanja izvlači
+uzorke iz jedne konačne simulirane populacije u kojoj razlika po izvoru postoji.
+Svaka točka krivulje obuhvaća tristo zamišljenih studija. U svakoj se
+p-vrijednost procjenjuje iz dvjesto nasumičnih premještanja uz korekciju
+$(b + 1)/(B + 1)$. Pritom $B$ predstavlja broj premještanja, a $b$ broj rezultata
+barem toliko ekstremnih kao opaženi. Krivulja zato procjenjuje snagu samo za taj
+mehanizam podataka i taj postupak, a ne opće svojstvo uzorka određene veličine.
+
 ```{r}
 #| label: tbl-krivulja-snage
 #| tbl-cap: "Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,05 pri stvarnoj razlici od 0,74 boda. Tristo simuliranih studija po retku. Izrada autora."
@@ -307,6 +320,13 @@ može biti previše.
 Sljedeći prikaz odvaja tri odluke koje se u praksi donose zajedno. Čitatelj
 mijenja stvarnu veličinu učinka, broj jedinica i prag, svaki put samo jedno, i
 prati kako se pomiče udio uzoraka u kojima bi postupak nešto našao.
+
+Prikaz koristi idealizirani model u kojem nulta hipoteza postavlja
+standardiziranu razliku na nulu. Testna statistika je apsolutna z-vrijednost, a
+postupak je obostran. Model pretpostavlja dvije neovisne skupine jednake
+veličine, neovisne normalne ishode i zajedničku poznatu standardnu devijaciju.
+Za svaku točku izravno simulira z-vrijednosti iz pripadne normalne raspodjele,
+pa broj ponavljanja određuje samo Monte Carlo nesigurnost prikazane snage.
 
 :::: {.content-visible when-format="html"}
 
@@ -625,6 +645,13 @@ raspršenost sličnu onoj u ovoj populaciji. Analiza ispod za nekoliko veličina
 uzorka broji u kolikom udjelu simuliranih studija bi takva razlika bila
 otkrivena.
 
+Nulta hipoteza u ovom računu tvrdi da je razlika sredina nula, a testna
+statistika dijeli opaženu razliku poznatom standardnom pogreškom. Simulacija
+pretpostavlja dvije neovisne skupine, neovisne normalne ishode, jednaku i poznatu
+standardnu devijaciju od 1,9 boda te obostrani z-postupak s pragom 0,05. Za svaku
+veličinu uzorka proizvodi dvije tisuće novih parova skupina. Izračunana snaga
+vrijedi samo pod tim pretpostavkama i za unaprijed zadanu razliku od pola boda.
+
 ```{r}
 #| echo: true
 
@@ -646,8 +673,8 @@ plan
 
 Funkcija `replicate` ponavlja cijelu zamišljenu studiju dvije tisuće puta, a
 `sapply` isti račun provodi za svaku ponuđenu veličinu uzorka. Granica 1,96
-dolazi iz pravila područja koje uvodi poglavlje o vjerojatnosti, pa se ovdje
-ništa novo ne pretpostavlja.
+dolazi iz standardne normalne raspodjele i pripada upravo opisanom obostranom
+z-postupku, a ne permutacijskom postupku iz prvog prikaza snage.
 
 ```{r}
 #| label: tbl-plan-uzorka
