@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A1a"
-  next_permitted_packet: "P1A-C10"
+  last_completed_packet: "P1A-C10"
+  next_permitted_packet: "P1A-C11"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1650,7 +1650,7 @@ packets:
     sequence: 14
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A1a"
     scope: "Correct Chapter 10 null, statistic, and Monte Carlo result."
@@ -1661,13 +1661,51 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C10 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "decision:G-A1a"
+            - "handoff:H-G-A1A-001-consumed-before-claim"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:main-b64-B4000-p0.016245938515-known-null-b2784-B4000-p0.696075981005"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:pass-source-a90549950c4f410f757bdec9b6ac680380ab7662"
+      outputs:
+        - output: "P1A-C10 durable artifact and evidence record for: Correct Chapter 10 null, statistic, and Monte Carlo result."
+          artifacts:
+            - "chapter:chapters/10-logika-testiranja.qmd"
+            - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C10 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
+            - "scope:D01-only-no-unrelated-chapter-material"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:pass-source-a90549950c4f410f757bdec9b6ac680380ab7662"
+        - test: "The P1A-C10 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C10"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
   P1A-C11:
     sequence: 15
     phase: "1A"
@@ -6833,7 +6871,7 @@ items:
       location: "§8 Ch10 + §15 R01"
     description: "State a defensible exchangeability/full-distribution null or use a studentized statistic for a mean null."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -6849,11 +6887,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C10"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
+      - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+      - "critic_methods:pass-null-exchangeability-assumptions-and-scope"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
   R01-C10-monte-carlo-correction:
     parents:
       - "R01"
@@ -6867,7 +6908,7 @@ items:
       location: "§8 Ch10"
     description: "Use the finite-simulation Monte Carlo correction and reproduce every displayed result."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -6883,11 +6924,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C10"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
+      - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+      - "check:clean-session-all-finite-random-permutation-paths-use-b-plus-1-over-B-plus-1"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
   R01-C10-bayesian-balance:
     parents:
       - "R01"
@@ -6901,7 +6945,7 @@ items:
       location: "§8 Ch10"
     description: "Present the bounded Bayesian outlook without caricaturing frequentist or Bayesian inference."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -6917,11 +6961,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C10"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
+      - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+      - "critic_methods:pass-bounded-balanced-Bayesian-contrast"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662"
   R01-C11-inherited-permutation:
     parents:
       - "R01"

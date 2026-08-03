@@ -563,7 +563,29 @@ handoffs:
     deliveries:
       - target_packet: P1A-C10
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1A-C10 accepts the jointly approved D01 specification as its exact
+          and exclusive correction scope. The packet will retain the two-sided
+          raw difference in means only for an exchangeability/full-distribution
+          null, name the independent-unit, exchangeability, observational, and
+          noncausal boundaries, use (b + 1) / (B + 1) for every finite random-
+          permutation p-value, replace the invalid nearly-equal-means type-I
+          demonstration with a true full-distribution null, leave the analytic
+          normal-p-value widget and print twin outside the permutation
+          correction, and balance the bounded Bayesian contrast. No P1A-C11 or
+          unrelated Chapter 10 work is admitted.
+        evidence:
+          - decision:conversation:joint-G-A1a-approval-2026-08-03-Luka-Sikic
+          - register:G-A1a-accepted-specification
+          - check:scripts/check-review-workflow.R-preclaim-at-eb4b58b
+          - scope:chapters/10-logika-testiranja.qmd-and-three-P1A-C10-items-only
+          - chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662
+          - report:notes/reports/p1a-c10-methods-review-2026-08-03.md
+          - critic_methods:pass-source-a90549950c4f410f757bdec9b6ac680380ab7662
+          - check:clean-session-style-structure-figure-and-targeted-render-passed
 
 packet_reviews:
   G-A0:
@@ -643,3 +665,22 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C10
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - no chapter prose changed and P1A-C10 not started
+  P1A-C10:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      The only later consequence is the already-ratified
+      R01-C11-inherited-permutation item, and P1A-C11 already requires
+      P1A-C10. No new downstream discovery arose, so a duplicate handoff would
+      add no information.
+    implementation_state: chapter:sha1-a90549950c4f410f757bdec9b6ac680380ab7662
+    checks:
+      - H-G-A1A-001 acknowledged and consumed before packet claim
+      - clean-session numerical reproduction passed
+      - independent critic_methods reread passed on exact source state
+      - checkout-local style, manual, structure, and figure-introduction passes completed
+      - targeted Chapter 10 HTML render passed
+      - analytic widget and print-twin block remained unchanged
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C11
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
