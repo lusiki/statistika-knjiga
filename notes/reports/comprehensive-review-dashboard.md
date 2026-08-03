@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C09
-next_permitted_packet: P1A-C13
+last_completed_packet: P1A-C13
+next_permitted_packet: P1A-C18
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C09` |
-| Next permitted packet | `P1A-C13` |
+| Last completed packet | `P1A-C13` |
+| Next permitted packet | `P1A-C18` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 30 accepted, 5 deferred with reason, 336 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 18 accepted and 170 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 32 accepted, 5 deferred with reason, 334 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 19 accepted and 169 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C09` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-C13` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -411,6 +411,32 @@ The accepted chapter source state is
 `chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d`; the durable evidence is
 `notes/reports/p1a-c09-methods-review-2026-08-03.md`.
 
+## P1A-C13 closeout
+
+- No incoming handoff targeted `P1A-C13`; the two ratified Chapter 13 items
+  and the exact packet instruction defined its surgical boundary.
+- The source now computes, defines, names, prompts, summarizes, and interprets
+  adjusted standardized residuals. The absolute-value-near-two orientation is
+  conditioned on a suitable hi-kvadrat approximation and is not presented as
+  separate cell-level evidence.
+- Null runs now estimate type-I-error calibration under independence, while
+  distinct alternative runs estimate power for a predeclared population
+  Cramer's V of 0.20. Threshold, repetition count, no-Yates rule, exceptional
+  tables, displayed values, widget, and print twin are aligned.
+- Clean-session reproduction confirmed every affected result. An independent
+  methods reader passed exact source
+  `9242e057c6602b273368164de6193b08eba5eeb8` with no fatal, major, or minor
+  concern and scores of 5/5 throughout.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  rendered-claim assertions, scoped executable-block comparison, source diff,
+  and closeout checks all passed. No separately registered later Chapter 13
+  work changed, and no new future-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8`; the durable evidence is
+`notes/reports/p1a-c13-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -452,24 +478,24 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1A-C13. Fully read
-chapters/13-kategoricki-podaci.qmd, STYLE.md, ENRICHMENT.md,
+Execute only the dashboard's next permitted packet, P1A-C18. Fully read
+chapters/18-vase-prvo-istrazivanje.qmd, STYLE.md, ENRICHMENT.md,
 notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
 checkout-local book-style instructions. Do not rely on the installed plugin
 cache for mutable state.
 
-Execute the exact P1A-C13 scope: `R09-C13-residual-name` and
-`R09-C13-calibration-power`. Use adjusted standardized residuals or correctly
-rename Pearson residuals and remove z-like calibration; and separate null
-calibration from power under alternatives. Keep names, thresholds, widget,
-print twin, simulation, and interpretation aligned. Do not start any later
-packet or separately registered Chapter 13 repair.
+Execute the exact P1A-C18 scope: `R09-C18-interval-conclusion`. Replace binary
+disappearance language with an estimate-and-interval-compatible
+interpretation. State compatible effects and uncertainty without threshold-
+disappearance rhetoric, and keep the underlying analysis, displayed results,
+and conclusion aligned. Do not start any later packet or separately registered
+Chapter 18 repair.
 
 Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the exact Chapter 13 source state,
+independent statistical-methods reading on the exact Chapter 18 source state,
 run the checkout-local deterministic and manual book-style pass, structure and
-figure-introduction checks, targeted Chapter 13 render, source-diff and packet
+figure-introduction checks, targeted Chapter 18 render, source-diff and packet
 exit checks. Update the register, handoff ledger, and dashboard together,
 create one scoped local commit only if every gate passes, and stop before
-P1A-C18 or any later packet.
+P1A-METHODS or any later packet.
 ```

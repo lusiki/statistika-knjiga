@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C09"
-  next_permitted_packet: "P1A-C13"
+  last_completed_packet: "P1A-C13"
+  next_permitted_packet: "P1A-C18"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2395,7 +2395,7 @@ packets:
     sequence: 25
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Correct Chapter 13 residual and calibration claims."
@@ -2406,13 +2406,53 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C13 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R09-C13-residual-name"
+            - "register:ratified-R09-C13-calibration-power"
+            - "authority:user-exact-P1A-C13-prompt"
+            - "dependency:P0-STATE-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-all-affected-chapter-13-results-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-9242e057c6602b273368164de6193b08eba5eeb8"
+      outputs:
+        - output: "P1A-C13 durable artifact and evidence record for: Correct Chapter 13 residual and calibration claims."
+          artifacts:
+            - "chapter:chapters/13-kategoricki-podaci.qmd"
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C13 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+            - "scope:R09-C13-residual-name-R09-C13-calibration-power-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-9242e057c6602b273368164de6193b08eba5eeb8"
+        - test: "The P1A-C13 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C13"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
   P1A-C18:
     sequence: 26
     phase: "1A"
@@ -11525,7 +11565,7 @@ items:
       location: "§8 Ch13"
     description: "Use adjusted standardized residuals or correctly rename Pearson residuals and remove z-like calibration."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11541,11 +11581,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C13"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+      - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+      - "critic_methods:pass-adjusted-standardized-residual-computation-name-threshold-and-interpretation"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
   R09-C13-calibration-power:
     parents:
       - "R09"
@@ -11559,7 +11602,7 @@ items:
       location: "§8 Ch13"
     description: "Separate null calibration from power under alternatives."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11575,11 +11618,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C13"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+      - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+      - "critic_methods:pass-null-calibration-fixed-alternative-power-and-simulation-alignment"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
   R09-C15-variance-ratio:
     parents:
       - "R09"
