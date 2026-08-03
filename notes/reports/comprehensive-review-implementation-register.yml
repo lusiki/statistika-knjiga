@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1B-BIB"
-  next_permitted_packet: "P1B-META"
+  last_completed_packet: "P1B-META"
+  next_permitted_packet: "G-A1d"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2899,7 +2899,7 @@ packets:
     sequence: 32
     phase: "1B"
     kind: "documentation"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1B-BIB"
     scope: "README and public-status metadata."
@@ -2910,12 +2910,51 @@ packets:
       - "Public documentation agrees with the live repository and governing contracts."
       - "No obsolete project-status or pathway promise remains."
       - "The P1B-META packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
+      required_evidence:
+        - requirement: "source-state comparison"
+          artifacts:
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison"
+            - "source:README.md-before-git-blob-8295c15d103d50d64b8f924d9627327e208025a0"
+            - "source:README.md-after-git-blob-e3801fd5b05eafeedae1a82e7d802e5ce49dfd1b"
+            - "check:19-ledger-units-all-draft-17-widget-records-zero-kolegij-solution-gates-and-no-renv-lock"
+        - requirement: "public metadata diff"
+          artifacts:
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#public-metadata-diff"
+            - "source:README.md-status-setup-commands-navigation-publication-and-provenance-reconciled"
+            - "check:ten-relative-README-links-resolve-and-seven-obsolete-promises-absent"
+      outputs:
+        - output: "P1B-META durable artifact and evidence record for: README and public-status metadata."
+          artifacts:
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md"
+            - "item:R06-META-readme"
+        - output: "Completion evidence is tied to the declared P1B-META source state and bounded scope."
+          artifacts:
+            - "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
+            - "scope:README-public-status-navigation-and-development-build-language-only"
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#affected-file-reconciliation"
+      exit_tests:
+        - test: "Public documentation agrees with the live repository and governing contracts."
+          result: "passed"
+          evidence:
+            - "check:README-claims-reconciled-to-ledger-config-profiles-wrappers-workflow-style-design-and-data-contracts"
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison"
+        - test: "No obsolete project-status or pathway promise remains."
+          result: "passed"
+          evidence:
+            - "check:empty-skeleton-live-edition-complete-renv-visible-solutions-H1-H9-and-both-wrappers-rewrite-promises-absent"
+            - "handoff:H-P1B-META-001-through-H-P1B-META-004-record-all-later-reconciliation-effects"
+        - test: "The P1B-META packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:README-link-inventory-widget-ledger-wrapper-workflow-source-diff-and-control-validation-passed"
+            - "handoff-ledger:packet_reviews.P1B-META"
     contract: "documentation"
     required_evidence:
       - "source-state comparison"
       - "public metadata diff"
-    change_reference: null
+    change_reference: "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
   G-A1d:
     sequence: 33
     phase: "1B"
@@ -9567,7 +9606,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Update public project status and navigation/build language."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9583,11 +9622,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-META"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
+      - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison"
+      - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#public-metadata-diff"
+      - "source:README.md-substantive-draft-development-artifacts-and-verified-pathways"
+      - "check:README-relative-links-obsolete-promises-source-diff-and-workflow-validation-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
   R06-BIB-remove-nocite:
     parents:
       - "R06"

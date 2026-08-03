@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1B-BIB
-next_permitted_packet: P1B-META
+last_completed_packet: P1B-META
+next_permitted_packet: G-A1d
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 23
+forward_handoffs: 27
 last_updated: "2026-08-03"
 ---
 
@@ -32,16 +32,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1B-BIB` |
-| Next permitted packet | `P1B-META` |
+| Last completed packet | `P1B-META` |
+| Next permitted packet | `G-A1d` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 42 accepted, 5 deferred with reason, 324 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 25 accepted and 163 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 43 accepted, 5 deferred with reason, 323 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 26 accepted and 162 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 77 canonical asks remain `drafted_unsent`; the two methods asks and three G-A1c licence/access asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1B-BIB` passed citation-usage, authoritative-metadata, claim-source-fit, style, render, negative-fixture, and closeout checks |
+| Failed gates | None; `P1B-META` passed source-state, public-diff, link, live-pathway, source-diff, negative-fixture, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -628,6 +628,40 @@ The accepted implementation source state is
 the durable evidence is
 `notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md`.
 
+## P1B-META closeout
+
+- No incoming handoff targeted P1B-META. The full documentation contract,
+  R06-META-readme, README, every public status or pathway promise it makes,
+  its governing documents, and the corresponding live repository paths were
+  read before the public edit.
+- README no longer describes an empty skeleton. It now identifies a
+  substantive draft under comprehensive review, keeps all 19 ledger units at
+  `draft`, and labels the website, PDF, and DOCX as development artifacts
+  rather than evidence of a published edition.
+- The unsupported complete-installation claim was removed because no
+  `renv.lock` exists. The `kolegij` row now promises only its implemented open
+  code behavior; no solution gate exists in the current source.
+- The PDF and DOCX instructions now match their actual wrappers. The current
+  nonblocking CI PDF risk is stated without pre-empting P1C-PDF, and no
+  version, citation, archive, errata, tag, deployment, or release mechanism was
+  inferred before G-A1d and P1B-GOV.
+- Navigation now distinguishes editing existing chapter drafts, consulting
+  fail-closed data rules, and checking the fixed canonical order. STYLE's
+  public rule count is corrected from H1-H9 to H1-H10, and the design
+  provenance sentence agrees with DESIGN.md.
+- All ten relative README links resolve. The ledger check found 19 present
+  source units, all `draft` and with `last_render: ok`; the widget checker
+  passed all 17 records; obsolete-promise, wrapper, workflow, source-diff, and
+  whitespace checks passed.
+- `H-P1B-META-001` through `H-P1B-META-004` carry the exact later
+  reconciliation work to P1C-LOCK, P1C-PDF, P5-ROUTES, and P2-DOCS. No later
+  packet was started.
+
+The accepted implementation source state is
+`state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206`;
+the durable evidence is
+`notes/reports/p1b-public-metadata-audit-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -641,6 +675,14 @@ the durable evidence is
   worked example.
 - Any material chapter edit invalidates an older six-critic panel for final
   acceptance purposes.
+- P1C-LOCK must keep README's dependency warning until a committed lock and a
+  clean restore prove the exact public setup command.
+- P1C-PDF must replace README's nonblocking/stale-PDF warning only after its
+  wrapper-only blocking path passes locked positive and negative tests.
+- P5-ROUTES must re-audit every public route promise; absent solution gates and
+  unfinished no-code or other pathways may not be advertised as complete.
+- P2-DOCS must reconcile stale internal comments about profile solutions,
+  visual-identity selection, and provisional structural conventions.
 
 ## Simple implementation order
 
@@ -669,21 +711,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1B-META. Fully read its
-documentation contract and the complete record for R06-META-readme. Fully read
-README.md, every public project-status or pathway promise it makes, the live
-repository state needed to verify those promises, and the governing project
-documents to which it points.
+Execute only the dashboard's next permitted packet, G-A1d. Fully read its
+decision-gate contract, D14, the complete R06 governance and release records,
+and the canonical outside asks OA-G-A1D-EDITION-MECHANISM,
+OA-G-A1D-ARCHIVE-OWNER, OA-G-A1D-ERRATA-OWNER, and
+OA-G-A1D-RELEASE-OWNER.
 
-Update public project status and navigation/build language only where the live
-repository and governing contracts prove the replacement. Do not infer a
-release, archive, citation, errata, or publication mechanism that belongs to
-G-A1d or P1B-GOV. Never introduce an unsupported empirical claim, number,
-citation, path, version, or availability promise.
+This is a decision-only gate. Using the checkout-local bounded outside-ask
+contract, present each needed owner decision separately with the recommended
+default, alternatives, exact evidence, blocked dependencies, exact reply form,
+and the boundary that no push, merge, tag, archive, deployment, or publication
+is authorised. Do not infer or appoint a human owner from repository metadata.
+If an explicit owner response is not available, stop after the bounded ask and
+do not edit files.
 
-Do not start G-A1d, P1B-GOV, or any later packet. At closeout, record the
-source-state comparison, public metadata diff, affected-file reconciliation,
-and every future-relevant discovery; update the register, handoff ledger, and
-dashboard together; run the workflow validator and both required negative
-fixtures; and stop after P1B-META.
+If the named owner explicitly accepts dispositions, record the dated decision,
+named owners, alternatives, authority boundary, and blocked dependencies;
+update the register, handoff ledger, and dashboard together; run the workflow
+validator and both required negative fixtures; and stop after G-A1d. Do not
+start P1B-GOV or any later packet.
 ```

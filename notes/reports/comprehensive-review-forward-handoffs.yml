@@ -1012,6 +1012,123 @@ handoffs:
         gate: before_start
         state: pending
 
+  H-P1B-META-001:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R06-META-readme
+      - packet:P1C-LOCK
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      The public README now states that renv.lock and a verified clean restore
+      contract do not yet exist. scripts/init-renv.R is only a preparatory
+      installation script and must not be advertised as a complete or
+      reproducible environment definition.
+    required_action: >-
+      P1C-LOCK must replace the temporary warning only after a committed lock,
+      clean-environment restore, positive test, and deliberate failing fixture
+      prove the exact public setup command. It must reconcile README.md in the
+      same packet and must not infer completeness from the current script.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison
+      - source:renv.lock-absent-at-P1B-META
+      - source:scripts/init-renv.R-preparatory-scaffold
+    required: true
+    deliveries:
+      - target_packet: P1C-LOCK
+        gate: before_close
+        state: pending
+
+  H-P1B-META-002:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R06-META-readme
+      - packet:P1C-PDF
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      The public README accurately records the present nonblocking CI PDF step,
+      its stale-artifact risk, and the different live behavior of the PDF and
+      DOCX wrappers. These words describe current development state, not the
+      future production contract.
+    required_action: >-
+      P1C-PDF must update README.md when and only when its wrapper-only,
+      blocking, stale-safe path passes the locked positive and negative tests.
+      The replacement must describe the exact implemented wrapper and CI
+      behavior rather than preserving the P1B-META warning or promising a
+      release.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#public-metadata-diff
+      - source:scripts/render-book-pdf.ps1
+      - source:scripts/render-book-docx.ps1
+      - source:.github/workflows/publish.yml-continue-on-error-true
+    required: true
+    deliveries:
+      - target_packet: P1C-PDF
+        gate: before_close
+        state: pending
+
+  H-P1B-META-003:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: risk
+    refs:
+      - item:R06-META-readme
+      - packet:P5-ROUTES
+      - decision:D09
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      P1B-META removed the unsupported claim that the kolegij profile exposes
+      solutions: no matching profile gates exist. Broader no-code, solution,
+      print, self-study, and AI-output pathways remain later work and cannot be
+      advertised as complete from configuration comments or planned appendices.
+    required_action: >-
+      P5-ROUTES must re-audit README.md and every other public route promise
+      against clean tested pathways. It may broaden the README only for routes
+      proved complete; every undelivered promise must remain absent or be
+      explicitly narrowed before publication.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison
+      - check:zero-content-visible-when-profile-kolegij-gates
+      - source:_quarto-kolegij.yml-stale-solution-comment
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
+  H-P1B-META-004:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: evidence
+    refs:
+      - item:R06-META-readme
+      - packet:P2-DOCS
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      The README now agrees with the live status, but its linked governing
+      documents still contain three internal stale markers: the kolegij
+      profile comment promises absent solution gates, _quarto.yml says the
+      selected visual identity is not selected, and bookwright_plugin/README.md
+      calls already-ratified structural conventions provisional.
+    required_action: >-
+      P2-DOCS must reconcile those comments with the ratified style, design,
+      assessment, and structure contracts after its prerequisites. It must not
+      revive a rejected pathway or alter prose merely to make the comments
+      true.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#buduci-ucinci
+      - source:_quarto-kolegij.yml-lines-7-11
+      - source:_quarto.yml-line-32
+      - source:bookwright_plugin/README.md-lines-42-48
+    required: true
+    deliveries:
+      - target_packet: P2-DOCS
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -1457,3 +1574,25 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1B-META
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - P1B-META and all later packets were not started
+  P1B-META:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-META-001
+      - H-P1B-META-002
+      - H-P1B-META-003
+      - H-P1B-META-004
+    implementation_state: state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206
+    checks:
+      - no applicable incoming handoff targeted P1B-META
+      - the full README and every public status navigation and build promise were compared with live repository paths and governing contracts
+      - README now records a substantive draft with all 19 ledger units still draft and labels HTML PDF and DOCX as development artifacts
+      - the unsupported complete renv installation and visible-solution promises were removed
+      - PDF DOCX profile CI navigation style and design language now matches the live scripts configurations and contracts
+      - all ten relative README links resolve and scripts/check-widgets.py passed all 17 registered widget records
+      - no empirical claim citation version release archive errata or availability guarantee was introduced
+      - source-diff and whitespace checks passed with chapters data configurations scripts docs and freeze artifacts unchanged
+      - H-P1B-META-001 through H-P1B-META-004 carry every future dependency build route and governing-document reconciliation effect
+      - scripts/check-review-workflow.R passed with next_permitted_packet G-A1d
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - G-A1d P1B-GOV and all later packets were not started
