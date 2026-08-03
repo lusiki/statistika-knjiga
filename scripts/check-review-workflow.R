@@ -31,6 +31,13 @@ register <- yaml::read_yaml(register_path)
 handoff_ledger <- yaml::read_yaml(handoff_path)
 dashboard_lines <- readLines(dashboard_path, warn = FALSE, encoding = "UTF-8")
 
+# In-memory negative fixture: proves that an arbitrary completion token cannot
+# close a packet. It never mutates the canonical register.
+negative_fixture <- Sys.getenv("REVIEW_WORKFLOW_NEGATIVE_FIXTURE", "")
+if (identical(negative_fixture, "generic_packet_evidence")) {
+  register$packets$`G-A0`$completion_evidence <- list("done")
+}
+
 errors <- character()
 add_error <- function(...) {
   errors <<- c(errors, paste0(...))
@@ -128,6 +135,81 @@ packet_sequence <- vapply(register$packets, function(packet) {
 if (anyNA(packet_sequence) || anyDuplicated(packet_sequence)) {
   add_error("Every packet must have one unique numeric sequence value.")
 }
+
+generic_evidence_tokens <- c(
+  "done", "pass", "passed", "complete", "completed", "ok", "yes", "true"
+)
+is_evidence_reference <- function(value) {
+  is_scalar_text(value) &&
+    !tolower(trimws(value)) %in% generic_evidence_tokens &&
+    grepl("^[A-Za-z][A-Za-z0-9_.-]*:.+", value)
+}
+validate_receipt_set <- function(packet_id, receipts, declared, label_field,
+                                 artifacts_field) {
+  check(is.list(receipts) && length(receipts) > 0L,
+        "Terminal packet lacks structured ", label_field,
+        " receipts: ", packet_id)
+  if (!is.list(receipts) || !length(receipts)) return(invisible(NULL))
+
+  labels <- vapply(receipts, function(receipt) {
+    value <- receipt[[label_field]]
+    if (is_scalar_text(value)) value else NA_character_
+  }, character(1))
+  if (anyNA(labels)) {
+    add_error("Terminal packet has a malformed ", label_field,
+              " receipt: ", packet_id)
+  }
+  check(!anyDuplicated(labels[!is.na(labels)]),
+        "Terminal packet repeats a ", label_field, " receipt: ", packet_id)
+  if (!anyNA(labels) && !setequal(labels, declared)) {
+    add_error("Terminal packet ", label_field,
+              " receipts do not exactly cover declarations: ", packet_id)
+  }
+  for (receipt in receipts) {
+    artifacts <- or_empty(receipt[[artifacts_field]])
+    check(length(artifacts) > 0L && all(vapply(
+      as.list(artifacts), is_evidence_reference, logical(1)
+    )), "Terminal packet has unresolvable or generic evidence in a ",
+    label_field, " receipt: ", packet_id)
+  }
+  invisible(NULL)
+}
+validate_terminal_packet_evidence <- function(packet_id, packet) {
+  proof <- packet$completion_evidence
+  check(is.list(proof) && length(proof) > 0L && !is.null(names(proof)),
+        "Terminal packet completion_evidence must be a structured mapping: ",
+        packet_id)
+  if (!is.list(proof) || !length(proof) || is.null(names(proof))) {
+    return(invisible(NULL))
+  }
+
+  check(is_evidence_reference(proof$source_state),
+        "Terminal packet lacks a resolvable source_state: ", packet_id)
+  check(identical(proof$source_state, packet$change_reference),
+        "Terminal packet source_state and change_reference disagree: ", packet_id)
+  validate_receipt_set(
+    packet_id, proof$required_evidence, or_empty(packet$required_evidence),
+    "requirement", "artifacts"
+  )
+  validate_receipt_set(
+    packet_id, proof$outputs, or_empty(packet$outputs),
+    "output", "artifacts"
+  )
+  validate_receipt_set(
+    packet_id, proof$exit_tests, or_empty(packet$exit_tests),
+    "test", "evidence"
+  )
+  exit_receipts <- proof$exit_tests
+  if (is.list(exit_receipts) && length(exit_receipts)) {
+    for (receipt in exit_receipts) {
+      check(identical(receipt$result, "passed"),
+            "Terminal packet has an exit-test receipt not marked passed: ",
+            packet_id)
+    }
+  }
+  invisible(NULL)
+}
+
 for (packet_id in packet_ids) {
   packet <- register$packets[[packet_id]]
   check(is_scalar_text(packet$phase),
@@ -175,6 +257,8 @@ for (packet_id in packet_ids) {
         "Packet lacks bounded scope: ", packet_id)
   check(length(or_empty(packet$outputs)) > 0L,
         "Packet lacks outputs: ", packet_id)
+  check(any(grepl(packet_id, or_empty(packet$outputs), fixed = TRUE)),
+        "Packet outputs do not identify their exact packet: ", packet_id)
   check(length(or_empty(packet$exit_tests)) > 0L,
         "Packet lacks exit tests: ", packet_id)
   check(!is.null(packet$completion_evidence),
@@ -182,10 +266,12 @@ for (packet_id in packet_ids) {
   check("change_reference" %in% names(packet),
         "Packet lacks change_reference field: ", packet_id)
   if (packet$status %in% c("accepted", "deferred_v2_with_reason")) {
-    check(length(or_empty(packet$completion_evidence)) > 0L,
-          "Terminal packet lacks completion evidence: ", packet_id)
     check(is_scalar_text(packet$change_reference),
           "Terminal packet lacks change_reference: ", packet_id)
+    validate_terminal_packet_evidence(packet_id, packet)
+  } else {
+    check(length(or_empty(packet$completion_evidence)) == 0L,
+          "Nonterminal packet must not claim completion evidence: ", packet_id)
   }
   requirements <- or_empty(register$packets[[packet_id]]$requires)
   unknown_requirements <- setdiff(requirements, packet_ids)

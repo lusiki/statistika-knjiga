@@ -1198,9 +1198,40 @@ packets:
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A0 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence:
-      - "author approval: 2026-08-03"
-      - "decision:D01-D16"
-      - "operation:O01-O03"
+      source_state: "conversation:2026-08-03"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "conversation:author-approval-2026-08-03"
+        - requirement: "named decision owner"
+          artifacts:
+            - "decision:G-A0-owner-author"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "file:notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#2-ratified-defaults"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:packets.G-A0-requires"
+      outputs:
+        - output: "Dated G-A0 decision and authority record for: Ratify D01-D16 and local authority."
+          artifacts:
+            - "register:decisions.G-A0"
+        - output: "Completion evidence is tied to the declared G-A0 source state and bounded scope."
+          artifacts:
+            - "conversation:2026-08-03"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:author-approval-2026-08-03"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "file:notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#2-ratified-defaults"
+        - test: "The G-A0 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A0"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
@@ -1224,8 +1255,37 @@ packets:
       - "No chapter prose or unrelated subsystem is changed."
       - "The P0-BASE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence:
-      - "commit:c163bda524b7081ec6a41d5ab75370f1700b1748"
-      - "branch:revision/comprehensive-review"
+      source_state: "commit:c163bda524b7081ec6a41d5ab75370f1700b1748"
+      required_evidence:
+        - requirement: "scoped implementation diff"
+          artifacts:
+            - "commit:c163bda524b7081ec6a41d5ab75370f1700b1748"
+        - requirement: "deterministic subsystem check"
+          artifacts:
+            - "branch:revision/comprehensive-review"
+        - requirement: "handoff closeout record"
+          artifacts:
+            - "handoff:H-G-A0-001-to-P0-BASE"
+      outputs:
+        - output: "P0-BASE durable artifact and evidence record for: Baseline checkpoint and revision branch."
+          artifacts:
+            - "commit:c163bda524b7081ec6a41d5ab75370f1700b1748"
+        - output: "Completion evidence is tied to the declared P0-BASE source state and bounded scope."
+          artifacts:
+            - "commit:c163bda524b7081ec6a41d5ab75370f1700b1748"
+      exit_tests:
+        - test: "The subsystem's declared state and deterministic validator agree."
+          result: "passed"
+          evidence:
+            - "branch:revision/comprehensive-review"
+        - test: "No chapter prose or unrelated subsystem is changed."
+          result: "passed"
+          evidence:
+            - "commit:c163bda524b7081ec6a41d5ab75370f1700b1748"
+        - test: "The P0-BASE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-G-A0-001-to-P0-BASE"
     contract: "shared_subsystem"
     required_evidence:
       - "scoped implementation diff"
@@ -1249,9 +1309,37 @@ packets:
       - "No chapter prose or unrelated subsystem is changed."
       - "The P0-CONTROL packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence:
-      - "commit:b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e"
-      - "commit:da400853d248d784948558f4d77ea02b0535ee99"
-      - "check:scripts/check-review-workflow.R"
+      source_state: "commit:da400853d248d784948558f4d77ea02b0535ee99"
+      required_evidence:
+        - requirement: "scoped implementation diff"
+          artifacts:
+            - "commit:b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e"
+        - requirement: "deterministic subsystem check"
+          artifacts:
+            - "check:scripts/check-review-workflow.R-at-da400853d248d784948558f4d77ea02b0535ee99"
+        - requirement: "handoff closeout record"
+          artifacts:
+            - "handoff:packet-review-P0-CONTROL"
+      outputs:
+        - output: "P0-CONTROL durable artifact and evidence record for: Control plane bootstrap."
+          artifacts:
+            - "commit:b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e"
+        - output: "Completion evidence is tied to the declared P0-CONTROL source state and bounded scope."
+          artifacts:
+            - "commit:da400853d248d784948558f4d77ea02b0535ee99"
+      exit_tests:
+        - test: "The subsystem's declared state and deterministic validator agree."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-review-workflow.R-at-da400853d248d784948558f4d77ea02b0535ee99"
+        - test: "No chapter prose or unrelated subsystem is changed."
+          result: "passed"
+          evidence:
+            - "commit:b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e"
+        - test: "The P0-CONTROL packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:packet-review-P0-CONTROL"
     contract: "shared_subsystem"
     required_evidence:
       - "scoped implementation diff"
@@ -1275,16 +1363,13 @@ packets:
       - "The subsystem's declared state and deterministic validator agree."
       - "No chapter prose or unrelated subsystem is changed."
       - "All 18 source manifests reconcile by stable fingerprint, all R01-R36 children are atomised, and the exact dependency graph has zero unmapped findings."
-    completion_evidence:
-      - "implementation_commit:b835cf8"
-      - "ownership_refinement_commit:d4eab20"
-      - "validator:371-items-zero-unmapped-before-closeout"
+    completion_evidence: []
     contract: "shared_subsystem"
     required_evidence:
       - "scoped implementation diff"
       - "deterministic subsystem check"
       - "handoff closeout record"
-    change_reference: "commit:d4eab20"
+    change_reference: null
   P0-STATE:
     sequence: 11
     phase: "0"
