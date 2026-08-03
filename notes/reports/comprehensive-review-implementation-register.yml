@@ -11,19 +11,9 @@ control:
   write_wip_limit: 1
 
 execution:
-  active_write_packet:
-    id: P0-CONTROL
-    claimed_at: "2026-08-03"
-    base_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
-    owned_paths:
-      - AGENTS.md
-      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md
-      - notes/reports/comprehensive-review-implementation-register.yml
-      - notes/reports/comprehensive-review-forward-handoffs.yml
-      - notes/reports/comprehensive-review-dashboard.md
-      - scripts/check-review-workflow.R
-  last_completed_packet: P0-BASE
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: P0-CONTROL
+  next_permitted_packet: P0-REGISTER
 
 authority:
   bounded_verified_local_commits: true
@@ -113,7 +103,7 @@ packets:
   P0-CONTROL:
     sequence: 3
     kind: shared_subsystem
-    status: in_progress
+    status: accepted
     requires: [G-A0, P0-BASE]
     outputs:
       - Seed implementation register
@@ -124,7 +114,10 @@ packets:
       - Workflow validator passes
       - Register, handoffs, and dashboard agree
       - Next permitted packet is explicit
-    completion_evidence: []
+    completion_evidence:
+      - commit:b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
+      - check:scripts/check-review-workflow.R
+      - result:workflow-validator-passed
   P0-REGISTER:
     sequence: 4
     kind: shared_subsystem
