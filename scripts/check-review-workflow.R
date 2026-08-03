@@ -52,6 +52,10 @@ allowed_work_statuses <- c(
   "proposed", "ratified", "in_progress", "implemented", "verified",
   "accepted", "deferred_v2_with_reason"
 )
+allowed_dispositions <- c(
+  "accepted_first_edition", "already_satisfied", "rejected_with_reason",
+  "deferred_v2_with_reason"
+)
 allowed_handoff_kinds <- c(
   "constraint", "prerequisite", "evidence", "risk", "decision",
   "invalidation"
@@ -62,8 +66,8 @@ allowed_delivery_states <- c(
 )
 terminal_delivery_states <- c("consumed", "waived", "superseded")
 
-check(identical(register$schema_version, 1L),
-      "Register schema_version must be 1.")
+check(identical(register$schema_version, 2L),
+      "Register schema_version must be 2.")
 check(identical(handoff_ledger$schema_version, 1L),
       "Handoff schema_version must be 1.")
 check(identical(register$control$write_wip_limit, 1L),
@@ -79,6 +83,23 @@ check(all(!unlist(register$authority[c("push", "merge", "tag", "archive", "deplo
 packet_ids <- named_entries(register$packets)
 check(length(packet_ids) > 0L, "Register must contain packet records.")
 check(!anyDuplicated(packet_ids), "Packet IDs must be unique.")
+check(!any(grepl("\\.\\.|…|–", packet_ids)),
+      "Packet IDs must be exact; ranges and ellipses are forbidden.")
+
+required_exact_packets <- c(
+  "P1C-INTEGRITY",
+  sprintf("C%02d", 0:18),
+  sprintf("P5-CLOSURE-%02d", 0:18),
+  paste0("G-A2b-", c("PREFACE", "I", "II", "III", "IV", "V", "FINALE")),
+  paste0("P2-SPINE-", c("PREFACE", "I", "II", "III", "IV", "V", "FINALE")),
+  c("G-A5a", "G-A5b", "G-A5c", "G-A5d"),
+  c("G-A6-PUSH", "G-A6-TAG", "G-A6-ARCHIVE", "G-A6-DEPLOY")
+)
+missing_exact_packets <- setdiff(required_exact_packets, packet_ids)
+if (length(missing_exact_packets)) {
+  add_error("Missing exact packet catalogue entries: ",
+            paste(missing_exact_packets, collapse = ", "))
+}
 
 packet_status <- vapply(register$packets, function(packet) {
   if (is.null(packet$status)) NA_character_ else as.character(packet$status)
@@ -97,11 +118,34 @@ if (anyNA(packet_sequence) || anyDuplicated(packet_sequence)) {
   add_error("Every packet must have one unique numeric sequence value.")
 }
 for (packet_id in packet_ids) {
+  packet <- register$packets[[packet_id]]
+  check(is_scalar_text(packet$phase),
+        "Packet lacks an exact phase: ", packet_id)
+  check(is_scalar_text(packet$kind),
+        "Packet lacks a kind: ", packet_id)
+  check(is_scalar_text(packet$scope),
+        "Packet lacks bounded scope: ", packet_id)
+  check(length(or_empty(packet$outputs)) > 0L,
+        "Packet lacks outputs: ", packet_id)
+  check(length(or_empty(packet$exit_tests)) > 0L,
+        "Packet lacks exit tests: ", packet_id)
+  check(!is.null(packet$completion_evidence),
+        "Packet lacks completion_evidence: ", packet_id)
   requirements <- or_empty(register$packets[[packet_id]]$requires)
   unknown_requirements <- setdiff(requirements, packet_ids)
   if (length(unknown_requirements)) {
     add_error("Unknown prerequisites for ", packet_id, ": ",
               paste(unknown_requirements, collapse = ", "))
+  }
+  known_requirements <- intersect(requirements, packet_ids)
+  if (length(known_requirements)) {
+    nonprior <- known_requirements[
+      packet_sequence[known_requirements] >= packet_sequence[[packet_id]]
+    ]
+    if (length(nonprior)) {
+      add_error("Packet prerequisites must have earlier sequence values for ",
+                packet_id, ": ", paste(nonprior, collapse = ", "))
+    }
   }
 }
 
@@ -172,15 +216,38 @@ for (parent_id in intersect(expected_parents, parent_ids)) {
   parent <- register$parents[[parent_id]]
   check(identical(parent$closure_rule, "all_required_children_accepted"),
         parent_id, " must use all_required_children_accepted.")
+  check(isTRUE(parent$children_inventory_complete),
+        parent_id, " has an incomplete child inventory.")
+  tracked <- or_empty(parent$tracked_children)
   children <- or_empty(parent$required_children)
+  check(length(tracked) > 0L,
+        parent_id, " has no tracked children.")
+  unknown_tracked <- setdiff(tracked, item_ids)
+  if (length(unknown_tracked)) {
+    add_error(parent_id, " names unknown tracked children: ",
+              paste(unknown_tracked, collapse = ", "))
+  }
   unknown_children <- setdiff(children, item_ids)
   if (length(unknown_children)) {
     add_error(parent_id, " names unknown child items: ",
               paste(unknown_children, collapse = ", "))
   }
+  expected_tracked <- item_ids[vapply(register$items, function(item) {
+    parent_id %in% or_empty(item$parents)
+  }, logical(1))]
+  if (!setequal(tracked, expected_tracked)) {
+    add_error(parent_id, " tracked_children disagree with item parent links.")
+  }
+  expected_required <- expected_tracked[vapply(
+    register$items[expected_tracked],
+    function(item) !identical(item$disposition, "deferred_v2_with_reason"),
+    logical(1)
+  )]
+  if (!setequal(children, expected_required)) {
+    add_error(parent_id,
+              " required_children must contain every non-deferred tracked child.")
+  }
   if (identical(parent$status, "accepted")) {
-    check(isTRUE(parent$children_inventory_complete),
-          parent_id, " is accepted with an incomplete child inventory.")
     check(length(children) > 0L,
           parent_id, " is accepted without required children.")
     if (length(children) && all(children %in% item_ids)) {
@@ -198,6 +265,21 @@ for (item_id in item_ids) {
   status <- as.character(item$status)
   check(status %in% allowed_work_statuses,
         "Invalid item status for ", item_id, ": ", status)
+  disposition <- as.character(item$disposition)
+  check(disposition %in% allowed_dispositions,
+        "Invalid item disposition for ", item_id, ": ", disposition)
+  if (disposition %in% c("rejected_with_reason", "deferred_v2_with_reason")) {
+    check(is_scalar_text(item$disposition_reason),
+          "Reason-required disposition lacks a reason: ", item_id)
+  }
+  if (identical(disposition, "deferred_v2_with_reason")) {
+    check(identical(status, "deferred_v2_with_reason"),
+          "Deferred item must use deferred_v2_with_reason status: ", item_id)
+  }
+  if (disposition %in% c("rejected_with_reason", "already_satisfied")) {
+    check(identical(status, "accepted"),
+          "Resolved disposition must use accepted status: ", item_id)
+  }
   linked_parents <- or_empty(item$parents)
   check(length(linked_parents) > 0L,
         "Item has no parent: ", item_id)
@@ -209,20 +291,73 @@ for (item_id in item_ids) {
   packet <- item$packet
   check(is_scalar_text(packet) && packet %in% packet_ids,
         "Item has an unknown packet: ", item_id)
+  check(is.list(item$source), "Item source must be a mapping: ", item_id)
+  check(is_scalar_text(item$source$review_section),
+        "Item lacks review section anchor: ", item_id)
+  check(is_scalar_text(item$source$fingerprint),
+        "Item lacks source fingerprint: ", item_id)
+  check(is_scalar_text(item$source$fingerprint_id),
+        "Item lacks stable fingerprint_id: ", item_id)
+  check(is_scalar_text(item$description),
+        "Item lacks an atomic description: ", item_id)
+  check(is_scalar_text(item$owner), "Item lacks owner: ", item_id)
+  check(is_scalar_text(item$approval_owner),
+        "Item lacks approval owner: ", item_id)
+  check(length(or_empty(item$scope)) > 0L,
+        "Item lacks affected scope: ", item_id)
+  check(!is.null(item$prerequisites),
+        "Item lacks prerequisites field: ", item_id)
+  check(length(or_empty(item$evidence_requirements)) > 0L,
+        "Item lacks evidence requirements: ", item_id)
+  check(length(or_empty(item$acceptance_tests)) > 0L,
+        "Item lacks acceptance tests: ", item_id)
+  check(!is.null(item$completion_evidence),
+        "Item lacks completion_evidence: ", item_id)
+  check(is.list(item$blocker) && is.logical(item$blocker$active) &&
+          length(item$blocker$active) == 1L,
+        "Item lacks explicit blocker state: ", item_id)
+
+  prerequisites <- or_empty(item$prerequisites)
+  unknown_prerequisites <- setdiff(prerequisites, c(packet_ids, item_ids))
+  if (length(unknown_prerequisites)) {
+    add_error("Item ", item_id, " has unknown prerequisites: ",
+              paste(unknown_prerequisites, collapse = ", "))
+  }
   if (identical(status, "in_progress")) {
     check(!is.null(active_id) && identical(packet, active_id),
           "In-progress item belongs to a non-active packet: ", item_id)
   }
 }
 
+fingerprint_ids <- vapply(register$items, function(item) {
+  as.character(item$source$fingerprint_id)
+}, character(1))
+if (anyDuplicated(fingerprint_ids)) {
+  add_error("Item fingerprint_id values must be unique and stable.")
+}
+
+generic_descriptions <- c(
+  "Address the review finding.", "Implement the recommendation.",
+  "Complete this parent item."
+)
+generic_items <- item_ids[vapply(register$items, function(item) {
+  item$description %in% generic_descriptions
+}, logical(1))]
+if (length(generic_items)) {
+  add_error("Generic placeholder item descriptions are forbidden: ",
+            paste(generic_items, collapse = ", "))
+}
+
 inventory <- register$atomic_inventory
 check(inventory$status %in% c("incomplete", "complete"),
       "atomic_inventory.status must be incomplete or complete.")
 if (identical(inventory$status, "complete")) {
-  check(identical(as.numeric(inventory$unmapped_actionable_findings), 0),
+  check(as.numeric(inventory$unmapped_actionable_findings) == 0,
         "A complete atomic inventory must report zero unmapped findings.")
-  check(identical(as.numeric(inventory$mapped_children), length(item_ids)),
+  check(as.numeric(inventory$mapped_children) == length(item_ids),
         "mapped_children must equal the number of item records.")
+  check(as.numeric(inventory$total_actionable_findings) == length(item_ids),
+        "total_actionable_findings must equal the number of item records.")
   check(length(item_ids) > 0L,
         "A complete atomic inventory cannot be empty.")
   incomplete_parents <- parent_ids[!vapply(register$parents, function(parent) {
@@ -232,6 +367,30 @@ if (identical(inventory$status, "complete")) {
     add_error("Complete inventory has incomplete parents: ",
               paste(incomplete_parents, collapse = ", "))
   }
+}
+
+expected_sections <- sprintf("S%02d", 1:18)
+coverage_ids <- named_entries(register$source_coverage)
+missing_sections <- setdiff(expected_sections, coverage_ids)
+extra_sections <- setdiff(coverage_ids, expected_sections)
+if (length(missing_sections)) {
+  add_error("Missing source-coverage records: ",
+            paste(missing_sections, collapse = ", "))
+}
+if (length(extra_sections)) {
+  add_error("Unexpected source-coverage records: ",
+            paste(extra_sections, collapse = ", "))
+}
+for (section_id in intersect(expected_sections, coverage_ids)) {
+  coverage <- register$source_coverage[[section_id]]
+  check(identical(coverage$status, "complete"),
+        "Incomplete source coverage: ", section_id)
+  check(is_scalar_text(coverage$section),
+        "Source coverage lacks section name: ", section_id)
+  check(is_scalar_text(coverage$reconciliation),
+        "Source coverage lacks reconciliation note: ", section_id)
+  check(length(or_empty(coverage$unmapped_actionable)) == 0L,
+        "Source coverage retains unmapped findings: ", section_id)
 }
 
 handoff_ids <- named_entries(handoff_ledger$handoffs)

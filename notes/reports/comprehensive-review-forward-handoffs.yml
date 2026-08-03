@@ -71,7 +71,8 @@ handoffs:
           - AGENTS.md#comprehensive-review-packet-workflow
       - target_packet: P0-REGISTER
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-03"
       - target_packet: P0-STATE
         gate: before_close
         state: pending
@@ -106,7 +107,8 @@ handoffs:
     deliveries:
       - target_packet: P0-REGISTER
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-03"
 
   H-P0-CONTROL-002:
     source_packet: P0-CONTROL
@@ -153,6 +155,242 @@ handoffs:
     required: true
     deliveries:
       - target_packet: P0-OUTSIDE
+        gate: before_close
+        state: pending
+
+  H-P0-REGISTER-001:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - schema:implementation-register-v2
+      - packet:P1C-INTEGRITY
+      - review:R04
+      - review:R05
+      - review:R23
+    statement: >-
+      The completed inventory uses schema version 2, 374 stable child IDs, 182
+      exact packet IDs, explicit source-coverage proof, and a newly required
+      P1C-INTEGRITY packet. Part I's D05 no-visible-code boundary is encoded as
+      a resolved constraint rather than a visible-receipt task.
+    required_action: >-
+      P0-STATE must preserve every stable packet and item identity while it
+      repairs Bookwright enums, schemas, H10 language, and cache resolution.
+      Update checkout-local Bookwright checks to understand the live H1-H10 and
+      workflow contracts; do not collapse P1C-INTEGRITY into the PDF packet or
+      reintroduce visible Part I code.
+    basis:
+      - notes/reports/comprehensive-review-implementation-register.yml
+      - scripts/check-review-workflow.R
+      - decision:D05
+    required: true
+    deliveries:
+      - target_packet: P0-STATE
+        gate: before_start
+        state: pending
+
+  H-P0-REGISTER-002:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: prerequisite
+    refs:
+      - packet:P0-OUTSIDE
+      - gates:G-A1a-through-G-A6
+      - review:R03
+      - review:R26
+      - review:R36
+    statement: >-
+      The atomic inventory identifies separate external owners and evidence for
+      methods specifications, licences and redistribution, data-package
+      selection, five-reader recruitment, Croatian terminology, course
+      privacy/assessment policy, published-artifact rights, accessibility and
+      proof, archive/errata ownership, and final release actions.
+    required_action: >-
+      Create one bounded outside ask per independently closable decision or
+      recruitment/sign-off need. Each ask must link the exact blocked item and
+      decision gate, name the recommended default and available evidence, and
+      state the exact reply and resume condition. Do not use an omnibus ask.
+    basis:
+      - notes/reports/comprehensive-review-implementation-register.yml#items
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#8-approval-and-outside-ask-protocol
+    required: true
+    deliveries:
+      - target_packet: P0-OUTSIDE
+        gate: before_start
+        state: pending
+
+  H-P0-REGISTER-003:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: evidence
+    refs:
+      - item:R26-PILOT-five-reader
+      - item:R26-META-reading-time
+      - item:R26-P7-reader-validation
+    statement: >-
+      The manuscript displays 18 chapter reading times. The first pilot covers
+      only Chapters 1, 8, and 16, and the release pilot targets 3, 12, 17, and
+      18; a substantive rewrite invalidates timing evidence for the changed
+      version.
+    required_action: >-
+      P3-PILOT and P7-READER must leave every displayed time with one explicit
+      final-enough disposition: measured for the relevant source state,
+      visibly labelled as an estimate, or removed. Never extrapolate the
+      pilot's measured values silently to untested chapters.
+    basis:
+      - notes/reports/comprehensive-review-implementation-register.yml#R26-META-reading-time
+      - notes/reports/comprehensive-book-review-2026-07-31.md#novice-reader-testing
+    required: true
+    deliveries:
+      - target_packet: P3-PILOT
+        gate: before_close
+        state: pending
+      - target_packet: P7-READER
+        gate: before_close
+        state: pending
+
+  H-P0-REGISTER-004:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: risk
+    refs:
+      - item:R04-C17-prerequisites
+      - item:R04-ROUTES-two-track-map
+      - packet:P2-SPINE-V
+      - packet:P5-ROUTES
+    statement: >-
+      The review's sample critical-literacy route skips Chapter 13 even though
+      the same review requires Chapter 13's conditional-denominator and
+      confusion-table foundations before Chapter 17.
+    required_action: >-
+      Ratify Chapter 17's exact prerequisites before publishing either route.
+      Amend the route sequence when needed; never copy the illustrative route
+      mechanically or send a novice into Chapter 17 without its live spine.
+    basis:
+      - notes/reports/comprehensive-review-implementation-register.yml#R04-C17-prerequisites
+      - notes/reports/comprehensive-review-implementation-register.yml#R04-ROUTES-two-track-map
+    required: true
+    deliveries:
+      - target_packet: P2-SPINE-V
+        gate: before_close
+        state: pending
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
+  H-P0-REGISTER-005:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - packet:P1C-INTEGRITY
+      - review:R05
+    statement: >-
+      Blocking token, style, structure, figure-introduction, citation,
+      concept, and data-integrity checks form an independent production packet;
+      they are not PDF-wrapper work.
+    required_action: >-
+      Implement and failure-test every integrity check in P1C-INTEGRITY after
+      the dependency lock and PDF path. Keep each command independently
+      callable and use checkout-local Bookwright code.
+    basis:
+      - notes/reports/comprehensive-review-implementation-register.yml#P1C-INTEGRITY
+      - notes/reports/comprehensive-book-review-2026-07-31.md#deterministic-audit-and-build-risk
+    required: true
+    deliveries:
+      - target_packet: P1C-INTEGRITY
+        gate: before_close
+        state: pending
+
+  H-P0-REGISTER-006:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: invalidation
+    refs:
+      - item:R30-BOOK-fresh-panels
+      - packet:P6-PANELS
+    statement: >-
+      A six-critic report is valid only for the material source state it read;
+      a later substantive chapter edit invalidates that panel even if an older
+      report still exists.
+    required_action: >-
+      At P6-PANELS, prove that every substantively changed chapter has all six
+      critic perspectives after its last material change. Rerun the full panel
+      after later material edits; rerun only invalidated deterministic checks
+      after purely mechanical changes.
+    basis:
+      - notes/reports/comprehensive-review-implementation-register.yml#R30-BOOK-fresh-panels
+      - bookwright_plugin/bookwright/skills/book-review/SKILL.md
+    required: true
+    deliveries:
+      - target_packet: P6-PANELS
+        gate: before_close
+        state: pending
+
+  H-P0-REGISTER-007:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: prerequisite
+    refs:
+      - packet:WA-C03
+      - packet:WC-C12
+      - packet:WD-C17
+      - review:R07
+      - review:R08
+      - review:R13
+    statement: >-
+      Each identity pillar depends on a governed, verified evidence package:
+      Chapter 3 on its public-claim data; Chapter 12 on its lifecycle and
+      synthesis artifact; Chapter 17 on the linked text package.
+    required_action: >-
+      Do not draft data-dependent pillar prose before its source/package and
+      author brief gates pass. Keep the fairness widget in Chapter 17 and use
+      text analysis as the worked example under D07.
+    basis:
+      - decision:D07
+      - notes/reports/comprehensive-review-implementation-register.yml#R07-C03-full-argument
+      - notes/reports/comprehensive-review-implementation-register.yml#R07-C12-full-argument
+      - notes/reports/comprehensive-review-implementation-register.yml#R07-C17-full-argument
+    required: true
+    deliveries:
+      - target_packet: WA-C03
+        gate: before_start
+        state: pending
+      - target_packet: WC-C12
+        gate: before_start
+        state: pending
+      - target_packet: WD-C17
+        gate: before_start
+        state: pending
+
+  H-P0-REGISTER-008:
+    source_packet: P0-REGISTER
+    created_at: "2026-08-03"
+    kind: prerequisite
+    refs:
+      - item:R10-C03-base-rate
+      - item:R12-C03-poll-literacy
+      - item:R12-C03-margin-debt
+    statement: >-
+      Chapter 3 deliberately plants base-rate and poll/margin-of-error debts;
+      later chapters must retrieve and resolve them rather than repeat or
+      silently assume the concepts.
+    required_action: >-
+      Chapters 8 and 9 must close the sampling and interval debts, and Chapter
+      17 must retrieve base-rate consequences for classification. Verify the
+      plant/develop/harvest links during continuity review.
+    basis:
+      - notes/reports/comprehensive-review-implementation-register.yml#R10-C03-base-rate
+      - notes/reports/comprehensive-review-implementation-register.yml#R12-C03-poll-literacy
+    required: true
+    deliveries:
+      - target_packet: WC-C08
+        gate: before_close
+        state: pending
+      - target_packet: WC-C09
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
         gate: before_close
         state: pending
 

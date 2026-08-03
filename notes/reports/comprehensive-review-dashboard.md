@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: P0-REGISTER
 last_completed_packet: P0-CONTROL
-next_permitted_packet: P0-REGISTER
+next_permitted_packet: null
 last_updated: "2026-08-03"
 ---
 
@@ -23,17 +23,19 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `P0-REGISTER` |
 | Last completed packet | `P0-CONTROL` |
-| Next permitted packet | `P0-REGISTER` |
+| Next permitted packet | None while `P0-REGISTER` is active |
 | Review parents | 36 ratified; 0 accepted |
-| Atomic child inventory | Incomplete; total and unmapped count not yet established |
+| Atomic child inventory | Complete: 371 stable children; zero unmapped |
+| Exact packet catalogue | 182 packets with unique sequence and dependencies |
+| Review source coverage | Sections 1-18 reconciled; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | None registered; `P0-OUTSIDE` is pending |
+| Open outside asks | None registered; `P0-OUTSIDE` will create one bounded ask per owner/decision |
 | Invalidated or reopened work | None |
 | Failed gates | None; P0 remains open and has not yet been evaluated |
 
-No chapter prose was changed by `P0-CONTROL`.
+No chapter prose has been changed by `P0-REGISTER`.
 
 ## Required incoming handoffs for P0-REGISTER
 
@@ -45,9 +47,8 @@ No chapter prose was changed by `P0-CONTROL`.
   exact source anchor and acceptance test. Close only with zero unmapped
   findings and no generic placeholder children.
 
-Both deliveries are `before_close`: acknowledge them before the first
-substantive register edit and consume them with evidence before closing
-`P0-REGISTER`.
+Both deliveries are `before_close` and were acknowledged when `P0-REGISTER`
+was claimed. They must be consumed with evidence before closeout.
 
 ## P0-REGISTER exit
 
@@ -60,6 +61,24 @@ substantive register edit and consume them with evidence before closing
 - Prove that the unmapped actionable count is zero.
 - Update the register, handoff ledger, and dashboard together; run the
   validator; commit only the scoped control files; stop.
+
+The inventory and packet graph now satisfy the first three conditions. The
+packet remains active only until its implementation commit and coordinated
+closeout record are written.
+
+## Findings that constrain later packets
+
+- `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
+  citation, concept, figure, and data checks; it is not part of PDF repair.
+- All 18 displayed chapter reading times must ultimately be measured against a
+  relevant source state, visibly labelled as estimates, or removed.
+- Chapter 17's live spine must settle whether Chapter 13 is a prerequisite
+  before either advertised route is published.
+- Identity-pillar prose waits for its governed evidence package and approved
+  brief; Chapter 17 retains the fairness widget and uses text analysis as its
+  worked example.
+- Any material chapter edit invalidates an older six-critic panel for final
+  acceptance purposes.
 
 ## Simple implementation order
 
@@ -75,7 +94,7 @@ substantive register edit and consume them with evidence before closing
 
 ## Exact next-thread prompt
 
-Paste this into a new thread:
+If this packet is interrupted before closeout, paste this into a new thread:
 
 ```text
 Continue the ratified comprehensive-review implementation from the repository's
@@ -87,9 +106,10 @@ canonical state. Read AGENTS.md and fully read:
 Also read the applicable checkout-local Bookwright skill instructions. Do not
 rely on prior chat.
 
-Take P0-REGISTER only; do not choose or prepare a later packet. Before the
-first substantive edit, acknowledge H-G-A0-001 and H-P0-CONTROL-001 and state
-briefly how each changes the work. Build the complete atomic child inventory
+Resume the active P0-REGISTER packet only; do not clear or replace its lock and
+do not choose or prepare a later packet. H-G-A0-001 and H-P0-CONTROL-001 are
+acknowledged and must be consumed with evidence before closeout. Build the
+complete atomic child inventory
 for every actionable finding in the comprehensive review, especially sections
 4-14 and 16, and the complete packet/dependency catalogue. Do not use generic
 placeholder children and do not edit chapter prose. Close only after a
