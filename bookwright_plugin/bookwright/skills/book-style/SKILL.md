@@ -32,13 +32,16 @@ Infer the mode when omitted and state it.
 
 3. Treat output as candidates, not instructions. The linter excludes YAML,
    code, headings, div fences, and HTML comments, but context still decides.
-4. Enforce all hard rules H1–H9. Restructure colons and mid-sentence em-dash
+4. Enforce all hard rules H1–H10. Restructure colons and mid-sentence em-dash
    appositions without deleting meaning; avoid list scaffolding in running
    prose; remove mechanical openers and restatement padding including
    `Štoviše`; keep bold for first concept anchors rather than emphasis; anchor
    citations to the claims they support; and put intuition before notation.
    H6 requires a nominal, unnumbered heading without a colon. Use an em dash only
-   when a separator is actually needed.
+   when a separator is actually needed. Under H10 and D05, the preface and Part
+   I contain no visible code in the book edition, hidden plumbing is exempt from
+   the twelve-line visible-block ceiling, later receipts contain only the
+   inspectable idea, and no assessed task requires code production.
 5. Read top to bottom for slide-like fragments, decorative callouts, headings
    restated by their first sentence, unexplained jargon, and abrupt transitions.
 6. Preserve Croatian (`hr-HR`), pedagogical callouts, Quarto syntax, citations,

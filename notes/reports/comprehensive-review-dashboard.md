@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P0-REGISTER
-next_permitted_packet: P0-STATE
+last_completed_packet: P0-STATE
+next_permitted_packet: P0-OUTSIDE
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 12
+forward_handoffs: 13
 last_updated: "2026-08-03"
 ---
 
@@ -29,18 +29,18 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P0-REGISTER` |
-| Next permitted packet | `P0-STATE` only |
+| Last completed packet | `P0-STATE` |
+| Next permitted packet | `P0-OUTSIDE` only |
 | Review parents | 36 ratified; 0 accepted |
-| Atomic child inventory | Complete: 371 stable children; zero unmapped |
-| Exact packet catalogue | 188 packets with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 4 accepted, 5 deferred with reason, 362 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 5 accepted and 183 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | None registered; `P0-OUTSIDE` will create one bounded ask per owner/decision |
 | Invalidated or reopened work | None |
-| Failed gates | None; P0-REGISTER passed deterministic, negative-fixture, and two independent closeout audits |
+| Failed gates | None; P0-STATE passed deterministic, schema, install/discovery, scope, and independent closeout audits |
 
-No chapter prose was changed by `P0-REGISTER`.
+No chapter prose was changed by `P0-STATE`.
 
 ## P0-REGISTER closeout
 
@@ -57,19 +57,27 @@ No chapter prose was changed by `P0-REGISTER`.
 The accepted implementation source state is
 `b0a28b681fa7b4dcda6ee1b67ff80bcd303c3eac`.
 
-## Conditions before P0-STATE
+## P0-STATE closeout
 
-- In the same coordinated claim transaction, consume the required
-  `before_start` delivery `H-P0-REGISTER-001`, acknowledge the `before_close`
-  deliveries `H-G-A0-001` and `H-P0-CONTROL-002`, and claim only `P0-STATE`.
-- Preserve schema version 2, every stable item and packet ID, H1-H10, D05's
-  Part I no-visible-code boundary, and the local-only authority boundary.
-- Repair checkout-local Bookwright state, invalid ledger enums, cache path
-  resolution, plugin packaging/install, and fresh-thread discovery.
-- Do not edit chapter prose and do not start or prepare `P0-OUTSIDE`.
+- `H-P0-REGISTER-001`, `H-G-A0-001`, and `H-P0-CONTROL-002` were consumed
+  with preservation, authority, and implementation evidence.
+- STYLE and checkout-local Bookwright contracts now agree on H1-H10 and D05:
+  the preface and Part I have no visible code, hidden plumbing is exempt from
+  the visible 12-line ceiling, and assessed code production is forbidden.
+- Exactly 20 invalid ledger enums were migrated; all 19 chapter stages remain
+  `draft`, and all four mutable shared JSON files validate against their Draft
+  2020-12 schemas.
+- Installed-cache structure lint now resolves the live checkout rules from the
+  repository root and a nested working directory. Bookwright cachebuster
+  `0.2.0+codex.20260803091452` is installed, enabled, and discoverable in a
+  fresh Codex process.
+- All 371 child IDs, 188 packet IDs, aliases, expansions, 18 manifests, D05,
+  and the independent `P1C-INTEGRITY` boundary were preserved.
+- `H-P0-STATE-001` records the only consequential downstream discovery: the
+  `WA-C00` preface packet must reconcile its visible-code promise with D05.
 
-`P0-STATE` remains subject to its own exact scope, receipts, validator pass,
-handoff review, and scoped local commit.
+The accepted implementation source state is
+`sha256:9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab`.
 
 ## Findings that constrain later packets
 
@@ -102,33 +110,34 @@ handoff review, and scoped local commit.
 Paste this into a new thread:
 
 ```text
-Start P0-STATE only in the ratified comprehensive-review implementation. Read
-AGENTS.md and fully read:
+Continue the ratified comprehensive-review implementation from the repository's
+canonical state. Read AGENTS.md and fully read:
 - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md
 - notes/reports/comprehensive-review-implementation-register.yml
 - notes/reports/comprehensive-review-dashboard.md
 - notes/reports/comprehensive-review-forward-handoffs.yml
-Also fully read the checkout-local book-conductor instructions. Do not rely on
-prior chat or the installed plugin cache for mutable state.
+Also fully read the checkout-local book-conductor instructions and its bounded
+outside-ask reference. Do not rely on prior chat or the installed plugin cache
+for mutable state.
 
-P0-REGISTER is accepted. In one coordinated control-state transaction, consume
-H-P0-REGISTER-001 before_start, acknowledge H-G-A0-001 and H-P0-CONTROL-002
-before_close, and claim P0-STATE only. Preserve schema version 2, all 371 item
-IDs, all 188 packet IDs and aliases/expansions, the 18 manifests, H1-H10, D05,
-and the local-only authority boundary.
+Execute only the dashboard's next_permitted_packet, P0-OUTSIDE. In one
+coordinated claim transaction, consume H-P0-REGISTER-002 before_start and
+acknowledge H-G-A0-001 and H-P0-CONTROL-003 before the first substantive edit.
+Do not start G-A1a or any later packet.
 
-Execute only P0-STATE: repair checkout-local Bookwright H1-H10/checklist drift,
-migrate only invalid ledger enum values, validate every mutable shared JSON
-file, repair installed-cache path resolution, bump and reinstall the plugin,
-and verify discovery and checks in a fresh thread. Do not edit chapter prose.
-Do not choose, start, or prepare P0-OUTSIDE.
+Create one independently closable bounded outside ask per genuine external
+decision, rights inquiry, recruitment task, specialist sign-off, proof owner,
+or release owner. Link every ask to the exact blocked register items and gates;
+name its owner, evidence, recommended default, exact reply requested, and resume
+condition. Do not create an omnibus ask, duplicate canonical ask status in the
+handoff ledger, send any external message, or infer permission.
 
 Use the implementation register as authoritative, preserve unrelated changes,
-and run all P0-STATE exit checks including scripts/check-review-workflow.R.
+and run all P0-OUTSIDE exit checks including scripts/check-review-workflow.R.
 Make only the authorised scoped local commit. At closeout, update the register,
-dashboard, and handoff ledger together, record exact structured completion
-receipts and every downstream handoff, clear the lock, set the next permitted
-packet, then stop.
+dashboard, and handoff ledger together; consume incoming handoffs with evidence;
+record every downstream handoff or explicitly declare none; clear the lock; set
+the next permitted packet; and stop without beginning it.
 
 Report the IDs addressed, files changed, decisions implemented, checks and
 results, unresolved asks or risks, handoffs consumed or created, and the next

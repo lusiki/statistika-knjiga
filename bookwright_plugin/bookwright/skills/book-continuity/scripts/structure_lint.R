@@ -32,9 +32,45 @@ script_path <- function() {
   normalizePath(sub("^--file=", "", arg[[1]]), winslash = "/", mustWork = TRUE)
 }
 
+find_checkout_root <- function(start = getwd()) {
+  current <- normalizePath(start, winslash = "/", mustWork = TRUE)
+  repeat {
+    marker <- file.path(current, ".git")
+    live_state <- file.path(
+      current,
+      "bookwright_plugin",
+      "bookwright",
+      "shared",
+      "conventions.json"
+    )
+    if (file.exists(marker) && file.exists(live_state)) return(current)
+    parent <- dirname(current)
+    if (identical(parent, current)) break
+    current <- parent
+  }
+  NA_character_
+}
+
 find_conventions <- function() {
   script <- script_path()
   candidates <- character()
+
+  # The active checkout owns mutable Bookwright state. An installed plugin runs
+  # from a versioned cache, so its bundled conventions are only a fallback.
+  checkout_root <- find_checkout_root()
+  if (!is.na(checkout_root)) {
+    candidates <- c(
+      candidates,
+      file.path(
+        checkout_root,
+        "bookwright_plugin",
+        "bookwright",
+        "shared",
+        "conventions.json"
+      )
+    )
+  }
+
   if (!is.na(script)) {
     plugin_root <- normalizePath(
       file.path(dirname(script), "..", "..", ".."),
@@ -43,7 +79,7 @@ find_conventions <- function() {
     )
     candidates <- c(candidates, file.path(plugin_root, "shared", "conventions.json"))
   }
-  # Development fallback when the file is sourced rather than executed.
+  # Development fallbacks when the file is sourced outside a Git checkout.
   candidates <- c(
     candidates,
     file.path("bookwright_plugin", "bookwright", "shared", "conventions.json"),
@@ -52,7 +88,7 @@ find_conventions <- function() {
   candidates <- unique(candidates)
   hit <- candidates[file.exists(candidates)]
   if (length(hit) == 0) {
-    stop("Cannot locate shared/conventions.json from the script path or working directory.")
+    stop("Cannot locate checkout-local or installed shared/conventions.json.")
   }
   normalizePath(hit[[1]], winslash = "/", mustWork = TRUE)
 }

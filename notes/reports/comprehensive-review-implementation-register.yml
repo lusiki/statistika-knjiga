@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P0-REGISTER"
-  next_permitted_packet: "P0-STATE"
+  last_completed_packet: "P0-STATE"
+  next_permitted_packet: "P0-OUTSIDE"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1407,7 +1407,7 @@ packets:
     sequence: 11
     phase: "0"
     kind: "shared_subsystem"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-REGISTER"
     scope: "Checkout-local Bookwright state, schemas, H10, and plugin installation."
@@ -1418,13 +1418,65 @@ packets:
       - "The subsystem's declared state and deterministic validator agree."
       - "No chapter prose or unrelated subsystem is changed."
       - "Checkout-local H1-H10, ledger enums, schemas, plugin cachebuster/install, and fresh-thread discovery all pass without changing stable register IDs."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab"
+      required_evidence:
+        - requirement: "scoped implementation diff"
+          artifacts:
+            - "state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab"
+            - "diff:base-17a445aa1809b8efa3b505b24dc19c500db0eb6a-ten-owned-paths"
+        - requirement: "deterministic subsystem check"
+          artifacts:
+            - "check:shared-json-draft202012-four-of-four-zero-errors"
+            - "check:bookwright-skill-and-plugin-validation-passed"
+            - "check:installed-structure-lint-checkout-rules-zero-candidates"
+            - "check:fresh-thread-bookwright-0.2.0+codex.20260803091452"
+            - "check:part-i-visible-code-zero-across-four-files"
+            - "check:register-identities-unchanged-371-188-18"
+            - "check:scripts/check-review-workflow.R"
+        - requirement: "handoff closeout record"
+          artifacts:
+            - "handoff:H-G-A0-001-to-P0-STATE-consumed"
+            - "handoff:H-P0-CONTROL-002-to-P0-STATE-consumed"
+            - "handoff:H-P0-REGISTER-001-to-P0-STATE-consumed"
+            - "handoff:H-P0-STATE-001-to-WA-C00-recorded"
+            - "handoff:packet-review-P0-STATE"
+      outputs:
+        - output: "P0-STATE durable artifact and evidence record for: Checkout-local Bookwright state, schemas, H10, and plugin installation."
+          artifacts:
+            - "state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab"
+            - "plugin:bookwright-0.2.0+codex.20260803091452-installed-enabled"
+            - "schema:shared-json-draft202012-four-of-four-valid"
+            - "ledger:twenty-enum-only-migrations-nineteen-stages-draft"
+        - output: "Completion evidence is tied to the declared P0-STATE source state and bounded scope."
+          artifacts:
+            - "state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab"
+            - "scope:ten-owned-paths-no-chapter-prose"
+            - "audit:p0-state-independent-plugin-and-scope-clear"
+      exit_tests:
+        - test: "The subsystem's declared state and deterministic validator agree."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-review-workflow.R"
+            - "check:shared-json-draft202012-four-of-four-zero-errors"
+            - "check:installed-structure-lint-checkout-rules-zero-candidates"
+        - test: "No chapter prose or unrelated subsystem is changed."
+          result: "passed"
+          evidence:
+            - "scope:ten-owned-paths-no-chapter-prose"
+            - "audit:p0-state-owned-paths-exact"
+        - test: "Checkout-local H1-H10, ledger enums, schemas, plugin cachebuster/install, and fresh-thread discovery all pass without changing stable register IDs."
+          result: "passed"
+          evidence:
+            - "check:bookwright-skill-and-plugin-validation-passed"
+            - "check:fresh-thread-bookwright-0.2.0+codex.20260803091452"
+            - "check:register-identities-unchanged-371-188-18"
     contract: "shared_subsystem"
     required_evidence:
       - "scoped implementation diff"
       - "deterministic subsystem check"
       - "handoff closeout record"
-    change_reference: null
+    change_reference: "state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab"
   P0-OUTSIDE:
     sequence: 12
     phase: "0"
@@ -15435,7 +15487,7 @@ items:
       location: "§12 H10 conflict"
     description: "Record D05: Part I has no visible code; hidden implementation is plumbing, and assessed production is forbidden."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -15454,11 +15506,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P0-STATE"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:D05-no-visible-code-in-preface-and-part-i"
+      - "source:STYLE.md-H10-and-2026-08-03-provenance"
+      - "check:part-i-visible-code-zero-across-four-files"
+      - "disposition:author-ratified-first-edition-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab"
   R23-C03-no-R-production:
     parents:
       - "R23"

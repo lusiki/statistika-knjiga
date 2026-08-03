@@ -84,7 +84,19 @@ handoffs:
           - notes/reports/comprehensive-review-implementation-register.yml#authority
       - target_packet: P0-STATE
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P0-STATE used only the authorised bounded local scope, changed no
+          chapter prose, inferred no external permission, and retained every
+          later evidence, specialist, and publication gate. The packet is
+          closed by one scoped local commit; push, merge, tag, archive, and
+          deployment remain unauthorised.
+        evidence:
+          - state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab
+          - scope:ten-owned-paths-no-chapter-prose
+          - authority:bounded-verified-local-commit-only
       - target_packet: P0-OUTSIDE
         gate: before_close
         state: pending
@@ -152,7 +164,23 @@ handoffs:
     deliveries:
       - target_packet: P0-STATE
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          Checkout-local style and conductor contracts now name H1-H10 and
+          encode D05; exactly 20 invalid ledger enum values were migrated while
+          all 19 chapter stages stayed draft; all four mutable shared JSON files
+          validate; structure lint resolves live checkout rules from both root
+          and nested working directories; and cachebuster
+          0.2.0+codex.20260803091452 was installed and discovered by a fresh
+          Codex process.
+        evidence:
+          - state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab
+          - check:shared-json-draft202012-four-of-four-zero-errors
+          - check:ledger-twenty-enum-only-migrations-nineteen-stages-draft
+          - check:installed-structure-lint-checkout-rules-zero-candidates
+          - check:fresh-thread-bookwright-0.2.0+codex.20260803091452
 
   H-P0-CONTROL-003:
     source_packet: P0-CONTROL
@@ -206,7 +234,21 @@ handoffs:
     deliveries:
       - target_packet: P0-STATE
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P0-STATE was claimed without changing the schema-v2 inventory,
+          stable item or packet identities, aliases, expansions, source
+          manifests, P1C-INTEGRITY boundary, or D05 Part I no-visible-code
+          decision. Preservation remains an explicit packet exit test.
+        evidence:
+          - check:scripts/check-review-workflow.R-at-17a445aa1809b8efa3b505b24dc19c500db0eb6a
+          - register:schema-v2-371-children-188-packets-18-manifests
+          - packet:P1C-INTEGRITY
+          - decision:D05
+          - check:register-identities-unchanged-371-188-18-at-P0-STATE-closeout
+          - check:scripts/check-review-workflow.R-at-P0-STATE-closeout
 
   H-P0-REGISTER-002:
     source_packet: P0-REGISTER
@@ -413,6 +455,37 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P0-STATE-001:
+    source_packet: P0-STATE
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - packet:WA-C00
+      - item:R24-C00-code-trace
+      - decision:D05
+      - rule:STYLE-H10
+    statement: >-
+      The preface currently describes every worked example as leaving visible
+      code blocks, while ratified D05 and H10 prohibit visible code in the
+      preface and Part I. The general promise must distinguish a checkable
+      calculation trace from visible code and orient the first visible code
+      receipts after Part I.
+    required_action: >-
+      In WA-C00, revise the paragraph at chapters/00-predgovor.qmd:72-79 so it
+      promises a checkable calculation trace without promising visible code in
+      the preface or Part I. Preserve the no-assessed-code-production boundary
+      and verify that the Part I visible-code guard remains zero.
+    basis:
+      - chapters/00-predgovor.qmd:72-79
+      - STYLE.md#H10
+      - decision:D05
+      - notes/reports/comprehensive-review-implementation-register.yml#R24-C00-code-trace
+    required: true
+    deliveries:
+      - target_packet: WA-C00
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -454,3 +527,14 @@ packet_reviews:
       - generic_packet_evidence negative fixture failed as required
       - register_closeout_audit returned CLEAR
       - review_inventory evidence-receipt reaudit returned CLEAR
+  P0-STATE:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: [H-P0-STATE-001]
+    implementation_state: state:sha256-9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab
+    checks:
+      - scripts/check-review-workflow.R passed
+      - all four mutable shared JSON files passed Draft 2020-12 validation
+      - installed-cache and nested-working-directory structure checks used checkout-local rules
+      - fresh Codex process discovered Bookwright 0.2.0+codex.20260803091452
+      - exact owned-path and stable-register-identity audits returned clear

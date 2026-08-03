@@ -198,6 +198,14 @@ whether the call answers the question.
 Code appears in three registers, and the reader must always be able to tell which
 one is on screen.
 
+**D05 fixes the opening boundary.** The preface and Part I (Chapters 1–3) have
+no visible code in the book edition. Hidden engine chunks remain permitted as
+plumbing, and the instructor-facing `kolegij` profile may reveal them without
+turning them into reader-facing receipts. The twelve-line ceiling governs an
+authored visible block; it never governs hidden plumbing merely because an
+instructor profile unfolds it. No assessed task in Part I asks for code
+production.
+
 | Register | Mechanics | Where | Function |
 |---|---|---|---|
 | Plumbing | no chunk option, inheriting the project's `echo: false` | anywhere | draws figures and tables; hidden in the book, revealed by the `kolegij` profile |
@@ -539,9 +547,9 @@ Prose zones table. Potential false-positive classes:
 3. Em dash as separator in headings and caption lead-ins.
 4. Colons inside R and OJS code, and inside `$...$` math.
 
-H4, H7, H8, H9 and the soft conventions are reader-checked; no detector sees
-them. The structure linter reads its bands from `conventions.json`; those bands
-are placeholders until the first four or five chapters exist and are measured.
+H4, H7, H8, H9, H10 and the soft conventions are reader-checked; no detector
+sees them. The structure linter reads its ratified section band and remaining
+calibrated values from `conventions.json`.
 
 ---
 
@@ -557,10 +565,13 @@ are placeholders until the first four or five chapters exist and are measured.
 5. Sweep for H7 and H9: every number and named finding has its `[@key]`
    in-sentence; every symbol has a prose gloss; every formula has an intuition
    before it.
-6. Re-read top to bottom for what no detector catches: slide cadence, glossary
+6. Check H10 manually: Part I contains no visible code, hidden plumbing is not
+   judged by the visible-block ceiling, later receipts contain only the
+   inspectable idea, and no assessed task requires code production.
+7. Re-read top to bottom for what no detector catches: slide cadence, glossary
    stacking (S3), register drift, bold abuse (H8), and whether the simulation
    really does precede the formalism (S8).
-7. Verify the render and commit.
+8. Verify the render and commit.
 
 ## Verification
 
@@ -617,3 +628,8 @@ written, the chapter is not done.
   keeps the rule that a chapter needs at least two argument sections. Evenness,
   coda and paragraph bands were measured too and were already right, so they are
   unchanged. Triggered by round 2 of the lecture port (chapters 8 and 9).
+- **2026-08-03** — Clarified H10 under ratified decision D05. The preface and
+  Part I carry no visible code in the book edition; hidden plumbing remains
+  permitted and is exempt from the twelve-line ceiling even when the
+  instructor-facing profile unfolds it. Added the same boundary to the manual
+  style workflow and Bookwright blocking checks.
