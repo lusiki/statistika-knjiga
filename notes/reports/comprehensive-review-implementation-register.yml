@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1B-META"
-  next_permitted_packet: "G-A1d"
+  last_completed_packet: "G-A1d"
+  next_permitted_packet: "P1B-GOV"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -225,6 +225,68 @@ decisions:
       tag, archive, or deployment. Any contrary audit evidence must stop the
       affected packet; residual Navarro-dependent content must be removed or
       omitted rather than used without attribution.
+  G-A1d:
+    status: "accepted"
+    accepted_at: "2026-08-03"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    release_owner: "Luka Sikic"
+    archive_owner: "Luka Sikic"
+    errata_owner: "Luka Sikic"
+    evidence: "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+    accepted_dispositions:
+      edition_and_governance_mechanism: >-
+        Create the edition/version, Croatian changelog, citation, provenance,
+        archive-plan, term-freeze, and errata mechanisms locally in Phase 1.
+        Keep Osnove statistike za društvene znanosti as the working release
+        title under D14 unless the author changes it before citation metadata
+        is frozen. Defer every immutable or public release action to its exact
+        later A6 gate.
+      archive_ownership: >-
+        Luka Sikic, author, accepts responsibility for the eventual archival
+        deposit and persistent identifier. The deposit remains prohibited
+        until G-A6-ARCHIVE supplies immediate exact authority.
+      errata_ownership: >-
+        Luka Sikic, author, accepts continuing responsibility for the eventual
+        public errata route and dated status log. Public activation remains
+        prohibited until G-A6-DEPLOY supplies immediate exact authority.
+      release_ownership: >-
+        Luka Sikic, author, accepts release-gate coordination and exact
+        source-state control, including the rule that authority is never
+        inferred across push, merge, tag, archive, deployment, or publication.
+    rejected_alternatives:
+      - "Approve the governance mechanism only after one or more exact edition, version, changelog, citation, provenance, or ownership amendments."
+      - "Change the working title now rather than retain D14 until citation metadata freeze."
+      - "Defer the governance-mechanism decision and keep P1B-GOV blocked."
+      - "Assign a separate archive specialist instead of the named release owner."
+      - "Assign a separate continuing editorial errata owner instead of the named release owner."
+      - "Separate release coordination from archive and errata responsibility among multiple owners."
+      - "Defer any owner appointment and keep the corresponding release gates blocked."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P1B-GOV"
+      governed_items:
+        - "R06-GOV-contract"
+        - "R06-RELEASE-changelog"
+        - "R06-RELEASE-citation"
+        - "R06-RELEASE-tag"
+        - "R06-RELEASE-archive"
+        - "R06-RELEASE-term-freeze"
+        - "R06-RELEASE-errata"
+      later_gates_still_mandatory:
+        - "G-A5c"
+        - "G-A5d"
+        - "G-A6"
+        - "G-A6-ARCHIVE"
+        - "G-A6-DEPLOY"
+    authority_boundary: >-
+      This decision authorises only P1B-GOV to implement and demonstrate the
+      approved pre-release governance mechanisms locally. It does not freeze
+      final title, authorship, version, date, citation, or release artifacts;
+      accept P1B-GOV or any later packet; or authorise any push, merge, tag,
+      archival deposit, deployment, publication, or other external action.
+      Every such action retains its exact later gate and requires immediate
+      source-state-specific authority.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -2959,7 +3021,7 @@ packets:
     sequence: 33
     phase: "1B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
     scope: "Edition, changelog, citation, archive, and errata mechanism."
@@ -2970,14 +3032,52 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A1d packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+        - requirement: "named decision owner"
+          artifacts:
+            - "decision:G-A1d-author-release-archive-errata-owner-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "decision:G-A1d-D14-mechanism-ownership-dispositions-and-alternatives"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:outside_asks.OA-G-A1D-EDITION-MECHANISM"
+            - "register:outside_asks.OA-G-A1D-ARCHIVE-OWNER"
+            - "register:outside_asks.OA-G-A1D-ERRATA-OWNER"
+            - "register:outside_asks.OA-G-A1D-RELEASE-OWNER"
+      outputs:
+        - output: "Dated G-A1d decision and authority record for: Edition, changelog, citation, archive, and errata mechanism."
+          artifacts:
+            - "decision:G-A1d"
+        - output: "Completion evidence is tied to the declared G-A1d source state and bounded scope."
+          artifacts:
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "decision:G-A1d-D14-mechanism-ownership-dispositions-and-alternatives"
+            - "register:outside_asks.OA-G-A1D-EDITION-MECHANISM-through-OA-G-A1D-RELEASE-OWNER"
+        - test: "The G-A1d packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A1d"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
   P1B-GOV:
     sequence: 34
     phase: "1B"
@@ -21398,10 +21498,10 @@ outside_asks:
       - "decision:G-A1c"
 
   OA-G-A1D-EDITION-MECHANISM:
-    status: "drafted_unsent"
-    readiness: "waiting_for_G-A1d_packet"
+    status: "done"
+    readiness: "resolved_owner_decision"
     kind: "release_decision"
-    owner: "author and release owner"
+    owner: "Luka Sikic (author and release owner)"
     due_phase: "1B"
     needed: "Approve the edition/version, changelog, citation, provenance, and non-release governance mechanism."
     expected_form: "One dated mechanism decision that creates no tag, archive, push, or deployment authority."
@@ -21420,12 +21520,20 @@ outside_asks:
     resume_condition: "P1B-GOV resumes when the dated mechanism is approved without broader external authority."
     why_external: "Edition policy and release ownership are author/release-owner decisions."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Approved as recommended: create the pre-release governance mechanisms
+      locally in Phase 1, retain the D14 working-title boundary, and defer all
+      immutable and public release actions to their exact later A6 gates.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A1D-ARCHIVE-OWNER:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_assignment"
+    status: "done"
+    readiness: "resolved_owner_assignment"
     kind: "release_owner"
-    owner: "author"
+    owner: "Luka Sikic (author and archive owner)"
     due_phase: "1B"
     needed: "Name the person or role responsible for the final archival deposit and persistent identifier."
     expected_form: "One named archive owner with an accepted responsibility statement."
@@ -21443,12 +21551,20 @@ outside_asks:
     resume_condition: "Ownership gates resume when one accountable owner accepts; archival deposit still awaits exact A6 authority."
     why_external: "The repository cannot appoint an accountable human owner."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Luka Sikic, author, accepts responsibility for the eventual archival
+      deposit and persistent identifier; execution remains gated by
+      G-A6-ARCHIVE.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A1D-ERRATA-OWNER:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_assignment"
+    status: "done"
+    readiness: "resolved_owner_assignment"
     kind: "release_owner"
-    owner: "author"
+    owner: "Luka Sikic (author and errata owner)"
     due_phase: "1B"
     needed: "Name the person or role responsible for the public errata route and dated status log."
     expected_form: "One named errata owner with an accepted maintenance responsibility."
@@ -21466,12 +21582,20 @@ outside_asks:
     resume_condition: "Ownership gates resume when one accountable owner accepts; publication remains separately gated."
     why_external: "Long-term maintenance ownership cannot be inferred from repository metadata."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Luka Sikic, author, accepts continuing responsibility for the eventual
+      public errata route and dated status log; public activation remains gated
+      by G-A6-DEPLOY.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A1D-RELEASE-OWNER:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_assignment"
+    status: "done"
+    readiness: "resolved_owner_assignment"
     kind: "release_owner"
-    owner: "author"
+    owner: "Luka Sikic (author and release owner)"
     due_phase: "1B"
     needed: "Name the final release owner responsible for gate coordination and source-state control."
     expected_form: "One named release owner accepting the no-inferred-authority boundary."
@@ -21494,6 +21618,13 @@ outside_asks:
     resume_condition: "Release-owner gates resume after acceptance; no external action is thereby authorised."
     why_external: "The repository cannot appoint or bind a release owner."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Luka Sikic, author, accepts release-gate coordination, exact source-state
+      control, and the boundary that no external-action authority is inferred.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A2A-CLAIM-SYSTEM:
     status: "drafted_unsent"

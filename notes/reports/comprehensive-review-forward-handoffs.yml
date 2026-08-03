@@ -1129,6 +1129,49 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-G-A1D-001:
+    source_packet: G-A1d
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1d
+      - decision:D14
+      - item:R06-GOV-contract
+      - item:R06-RELEASE-changelog
+      - item:R06-RELEASE-citation
+      - item:R06-RELEASE-tag
+      - item:R06-RELEASE-archive
+      - item:R06-RELEASE-term-freeze
+      - item:R06-RELEASE-errata
+    statement: >-
+      Author, release owner, archive owner, and errata owner Luka Sikic
+      approved the recommended G-A1d mechanism and accepted all three owner
+      responsibilities on 2026-08-03. Phase 1 may create and demonstrate the
+      edition/version, Croatian changelog, citation, provenance, archive-plan,
+      term-freeze, and errata mechanisms locally. D14 retains Osnove
+      statistike za društvene znanosti as the working title unless the author
+      changes it before citation metadata freeze. No push, merge, tag,
+      archival deposit, deployment, publication, or other external action is
+      authorised.
+    required_action: >-
+      In P1B-GOV, implement only the approved pre-release governance
+      mechanisms, record Luka Sikic as the accountable release, archive, and
+      errata owner, demonstrate their fields and state transitions without
+      publication, and preserve the D14 working-title boundary. Do not freeze
+      final release metadata, perform any external action, accept a later
+      release gate, or infer authority across actions.
+    basis:
+      - conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#2-ratified-defaults
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A1d
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1D-EDITION-MECHANISM
+      - authority:push-merge-tag-archive-deploy-publication-false
+    required: true
+    deliveries:
+      - target_packet: P1B-GOV
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -1596,3 +1639,19 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet G-A1d
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - G-A1d P1B-GOV and all later packets were not started
+  G-A1d:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A1D-001
+    implementation_state: conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic
+    checks:
+      - Luka Sikic was recorded as author release owner archive owner and errata owner for all four independently closable dispositions
+      - D14 pre-release edition version changelog citation provenance archive-plan term-freeze and errata mechanism was accepted as recommended
+      - rejected alternatives blocked dependencies and the no-inferred-authority boundary were recorded
+      - all four G-A1d outside asks are done with dated owner evidence and zero external messages sent
+      - H-G-A1D-001 carries the accepted mechanism ownership and authority boundary to P1B-GOV before_start
+      - later G-A5c G-A5d G-A6 and exact action gates remain mandatory under their existing canonical asks
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-GOV
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose or code changed and P1B-GOV was not started

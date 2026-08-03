@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1B-META
-next_permitted_packet: G-A1d
+last_completed_packet: G-A1d
+next_permitted_packet: P1B-GOV
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 27
+forward_handoffs: 28
 last_updated: "2026-08-03"
 ---
 
@@ -28,20 +28,21 @@ stop and repair the control state before editing book content.
 | Gate A1a | Accepted: D01 Chapter 10 correction specification; reviewer Luka Sikic; 2026-08-03 |
 | Gate A1b | Accepted: D02 Chapter 14 correction specification; reviewer Luka Sikic; 2026-08-03 |
 | Gate A1c | Accepted as amended: minimise Navarro reliance; D08 and D12 unchanged; owner Luka Sikic; 2026-08-03 |
+| Gate A1d | Accepted as recommended: pre-release governance mechanism; release, archive, and errata owner Luka Sikic; 2026-08-03; no external-action authority |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1B-META` |
-| Next permitted packet | `G-A1d` |
+| Last completed packet | `G-A1d` |
+| Next permitted packet | `P1B-GOV` |
 | Review parents | 34 ratified; 2 accepted |
 | Atomic child inventory | Complete: 371 stable children; 43 accepted, 5 deferred with reason, 323 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 26 accepted and 162 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 27 accepted and 161 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 77 canonical asks remain `drafted_unsent`; the two methods asks and three G-A1c licence/access asks are `done`; 0 external messages sent |
+| Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1B-META` passed source-state, public-diff, link, live-pathway, source-diff, negative-fixture, and closeout checks |
+| Failed gates | None; `G-A1d` passed named-owner, disposition, alternatives, blocked-dependency, authority-boundary, negative-fixture, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -662,6 +663,31 @@ The accepted implementation source state is
 the durable evidence is
 `notes/reports/p1b-public-metadata-audit-2026-08-03.md`.
 
+## G-A1d closeout
+
+- Luka Sikic explicitly accepted the recommended edition/version, Croatian
+  changelog, citation, provenance, archive-plan, term-freeze, and errata
+  mechanism on 2026-08-03 and accepted the release, archive, and errata owner
+  responsibilities.
+- D14 remains in force: *Osnove statistike za društvene znanosti* is the
+  working release title unless the author changes it before citation metadata
+  is frozen. G-A1d does not freeze final title, authorship, version, date,
+  citation, or release artifacts.
+- The register records the considered alternatives, the complete blocked
+  dependency set, and the boundary that no push, merge, tag, archival deposit,
+  deployment, publication, or other external action is authorised.
+- `OA-G-A1D-EDITION-MECHANISM`, `OA-G-A1D-ARCHIVE-OWNER`,
+  `OA-G-A1D-ERRATA-OWNER`, and `OA-G-A1D-RELEASE-OWNER` are `done`; no
+  external message was sent.
+- `H-G-A1D-001` carries the accepted decision, ownership, D14, and authority
+  boundary to `P1B-GOV` at its `before_start` gate. Later G-A5c, G-A5d, G-A6,
+  and exact external-action gates remain mandatory.
+- No chapter prose, code, public release mechanism, or later packet was
+  started.
+
+The accepted decision source state is
+`conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -711,23 +737,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, G-A1d. Fully read its
-decision-gate contract, D14, the complete R06 governance and release records,
-and the canonical outside asks OA-G-A1D-EDITION-MECHANISM,
-OA-G-A1D-ARCHIVE-OWNER, OA-G-A1D-ERRATA-OWNER, and
-OA-G-A1D-RELEASE-OWNER.
+Execute only the dashboard's next permitted packet, P1B-GOV. Fully read its
+release-governance contract, D14, the complete R06 governance and release
+records, the accepted G-A1d decision, the four resolved G-A1d outside asks,
+and H-G-A1D-001.
 
-This is a decision-only gate. Using the checkout-local bounded outside-ask
-contract, present each needed owner decision separately with the recommended
-default, alternatives, exact evidence, blocked dependencies, exact reply form,
-and the boundary that no push, merge, tag, archive, deployment, or publication
-is authorised. Do not infer or appoint a human owner from repository metadata.
-If an explicit owner response is not available, stop after the bounded ask and
-do not edit files.
+Before the first substantive edit, acknowledge H-G-A1D-001 and consume it with
+an exact recorded disposition and evidence. Implement only the approved local
+pre-release governance mechanism: edition/version fields, Croatian changelog,
+citation, provenance, archive plan, term-freeze policy, and an owned dated
+errata route. Record Luka Sikic as release, archive, and errata owner and retain
+*Osnove statistike za društvene znanosti* as the D14 working title unless a new
+explicit author decision changes it before citation metadata freeze.
 
-If the named owner explicitly accepts dispositions, record the dated decision,
-named owners, alternatives, authority boundary, and blocked dependencies;
-update the register, handoff ledger, and dashboard together; run the workflow
-validator and both required negative fixtures; and stop after G-A1d. Do not
-start P1B-GOV or any later packet.
+Demonstrate the mechanism without freezing final release metadata or creating
+public or immutable release state. No push, merge, tag, archival deposit,
+deployment, publication, or later-packet acceptance is authorised. Complete
+only P1B-GOV, update the register, handoff ledger, and dashboard together, run
+the workflow validator and both required negative fixtures, and stop. Do not
+start P1C-LOCK or any later packet.
 ```
