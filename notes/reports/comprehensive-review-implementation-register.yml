@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C15"
-  next_permitted_packet: "P1A-C16"
+  last_completed_packet: "P1A-C16"
+  next_permitted_packet: "P1A-C02"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2024,7 +2024,7 @@ packets:
     sequence: 19
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1A-C14"
       - "P1A-C15"
@@ -2036,13 +2036,52 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C16 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "decision:G-A1b"
+            - "register:ratified-R09-C16-estimand-uncertainty-and-leakage-time"
+            - "dependency:P1A-C14-and-P1A-C15-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:complete-final-source-s16-receipt-and-bounded-assertions-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:pass-source-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+      outputs:
+        - output: "P1A-C16 durable artifact and evidence record for: Revalidate Chapter 16 estimand and dependent claims."
+          artifacts:
+            - "chapter:chapters/16-regresija.qmd"
+            - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C16 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+            - "scope:R02-C16-and-R09-C16-estimand-uncertainty-leakage-time-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:pass-source-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+        - test: "The P1A-C16 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C16"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
   P1A-C02:
     sequence: 20
     phase: "1A"
@@ -6003,7 +6042,7 @@ parents:
   R02:
     title: "Chapter 14 Welch and OLS"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -6015,7 +6054,14 @@ parents:
       - "R02-C14-welch-ols"
       - "R02-C15-dependent-revalidation"
       - "R02-C16-dependent-revalidation"
-    completion_evidence: []
+    completion_evidence:
+      - "packet:P1A-C14"
+      - "packet:P1A-C15"
+      - "packet:P1A-C16"
+      - "report:notes/reports/p1a-c14-methods-review-2026-08-03.md"
+      - "report:notes/reports/p1a-c15-methods-review-2026-08-03.md"
+      - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
+      - "critic_methods:corrected-chapter-14-15-and-16-source-states-passed"
   R03:
     title: "Licences and access lanes"
     disposition: "accepted_first_edition"
@@ -7324,7 +7370,7 @@ items:
       location: "§16 sequence"
     description: "Revalidate Chapter 16 after the Chapter 14 correction."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -7341,11 +7387,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+      - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
+      - "critic_methods:pass-shared-mean-model-distinct-point-estimate-and-inference"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
   R03-NAVARRO-provenance:
     parents:
       - "R03"
@@ -11346,7 +11395,7 @@ items:
       location: "§8 Ch16"
     description: "Choose and maintain one estimand and distinguish latent generator coefficients from observed finite-population estimates."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11363,11 +11412,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+      - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
+      - "critic_methods:pass-finite-population-recorded-outcome-estimand"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
   R09-C16-uncertainty:
     parents:
       - "R09"
@@ -11381,7 +11433,7 @@ items:
       location: "§8 Ch16"
     description: "Lead with the observed estimate and uncertainty rather than generator truth."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11398,11 +11450,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+      - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
+      - "critic_methods:pass-census-target-no-sampling-uncertainty-no-latent-truth"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
   R09-C16-leakage-time:
     parents:
       - "R09"
@@ -11416,7 +11471,7 @@ items:
       location: "§8 Ch16"
     description: "Name what information exists at prediction time and exclude post-outcome leakage."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11433,11 +11488,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+      - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
+      - "critic_methods:pass-auditable-time-boundary-target-leakage-and-held-out-logic"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
   R09-C18-interval-conclusion:
     parents:
       - "R09"
