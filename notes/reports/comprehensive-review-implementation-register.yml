@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C02"
-  next_permitted_packet: "P1A-C06"
+  last_completed_packet: "P1A-C06"
+  next_permitted_packet: "P1A-C07"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2147,7 +2147,7 @@ packets:
     sequence: 21
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Correct Chapter 6 correlation and range claims."
@@ -2158,13 +2158,52 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C06 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R09-C06-pearson-spearman-agree-disagree-range-restriction-and-scatterplot-primary"
+            - "authority:user-exact-P1A-C06-prompt"
+            - "dependency:P0-STATE-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-correlation-range-and-simpson-assertions-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+      outputs:
+        - output: "P1A-C06 durable artifact and evidence record for: Correct Chapter 6 correlation and range claims."
+          artifacts:
+            - "chapter:chapters/06-povezanost.qmd"
+            - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C06 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+            - "scope:R09-C06-pearson-spearman-agree-disagree-range-restriction-and-scatterplot-primary-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+        - test: "The P1A-C06 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C06"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
   P1A-C07:
     sequence: 22
     phase: "1A"
@@ -11032,7 +11071,7 @@ items:
       location: "§8 Ch6"
     description: "Explain what Pearson/Spearman agreement can and cannot show."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11048,11 +11087,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+      - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md"
+      - "critic_methods:pass-agreement-only-clue-not-proof"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
   R09-C06-pearson-spearman-disagree:
     parents:
       - "R09"
@@ -11066,7 +11108,7 @@ items:
       location: "§8 Ch6"
     description: "Explain plausible sources and the need to inspect the scatterplot."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11082,11 +11124,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+      - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md"
+      - "critic_methods:pass-disagreement-investigation-not-diagnosis"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
   R09-C06-range-restriction:
     parents:
       - "R09"
@@ -11100,7 +11145,7 @@ items:
       location: "§8 Ch6"
     description: "Qualify when and why range restriction can attenuate correlation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11116,11 +11161,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+      - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md"
+      - "critic_methods:pass-conditional-range-restriction-and-generator-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
   R09-C06-scatterplot-primary:
     parents:
       - "R09"
@@ -11134,7 +11182,7 @@ items:
       location: "§8 Ch6"
     description: "Make the scatterplot the first diagnostic and coefficients secondary summaries."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11150,11 +11198,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
+      - "report:notes/reports/p1a-c06-methods-review-2026-08-03.md"
+      - "critic_methods:pass-scatterplot-primary-before-coefficients"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2"
   R09-C07-clt-conditions:
     parents:
       - "R09"
