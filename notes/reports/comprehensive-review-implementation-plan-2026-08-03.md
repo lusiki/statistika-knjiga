@@ -4,7 +4,7 @@
 
 **Plan date:** 3 August 2026
 
-**Status:** proposed for author ratification
+**Status:** ratified at Gate A0 on 3 August 2026
 
 **Primary requirements source:** `comprehensive-book-review-2026-07-31.md`
 
@@ -73,12 +73,13 @@ The following scope boundaries remain binding.
 
 ---
 
-## 2. Recommended defaults requiring ratification
+## 2. Ratified defaults
 
 These defaults resolve the review's open branches in the way that best protects
-accuracy, coherence, self-study value, and maintenance cost. Gate A0 is the
-author's approval or amendment of this table. Until then, dependent work may be
-prepared but not committed as a substantive decision.
+accuracy, coherence, self-study value, and maintenance cost. On 3 August 2026,
+the author approved D01–D16 without amendment. The author also approved the
+planning checkpoint, the dedicated revision branch, and bounded verified local
+packet commits. Push, merge, tag, archive, and deployment were not authorised.
 
 | ID | Recommended default | Reason and consequence | Blocks |
 |---|---|---|---|
@@ -132,9 +133,10 @@ The implementation begins from a deliberately conservative status.
   installed cached copy can read stale conventions and produce false findings,
   so all gates must use checkout-local Bookwright paths until cache resolution
   is corrected and the plugin is reinstalled.
-- The current `main` worktree contains the modified comprehensive review and
-  two untracked files, `notes/agenda-knjige.md` and this plan. All three must be
-  preserved until the author decides how to checkpoint them.
+- At Gate A0, the `main` worktree contained the modified comprehensive review
+  and two untracked files, `notes/agenda-knjige.md` and this plan. All three
+  were preserved in checkpoint commit `c163bda` before the dedicated revision
+  branch was created.
 
 ### Implementation register
 
@@ -166,6 +168,23 @@ view. At every packet closeout it records the current packet, branch/commit,
 accepted/total child items, chapter stages, open outside asks, failed gates, and
 next permitted packet. The register is authoritative; the dashboard is a view,
 not a second task list.
+
+Maintain
+`notes/reports/comprehensive-review-forward-handoffs.yml` as the register's
+append-only companion for consequential discoveries. Every handoff names a
+source packet, one or more existing target packets, the constraint or finding,
+its basis, the action required later, and one delivery state per target. A
+source packet cannot close until it records all outgoing handoffs or explicitly
+declares that it found no future-relevant effect. A target packet acknowledges
+applicable handoffs before its first substantive edit and consumes them with a
+disposition and evidence before closeout. Handoffs are never deleted: they are
+consumed, waived with author approval, or superseded by another stable handoff
+ID. If a discovery invalidates accepted work, reopen that work explicitly.
+
+The register, handoff ledger, and dashboard form one control transaction. Run
+`scripts/check-review-workflow.R` before every packet claim and closeout. The
+dashboard must end with the exact copy-paste prompt for the next permitted
+packet.
 
 Use these implementation statuses:
 
@@ -228,6 +247,11 @@ Before implementation:
    undo an accepted committed packet with an explicit `git revert`. Return
    experiment work through selective cherry-picks and repeat all invalidated
    gates.
+
+**Gate A0 result:** the author approved the checkpoint, branch, and bounded
+local-commit defaults. The three planning files were committed as `c163bda`,
+and work continues on `revision/comprehensive-review`. No external action was
+authorised.
 
 ---
 
@@ -295,22 +319,24 @@ The hard curricular chain is:
 an untracked review.
 
 1. Approve or amend D01–D16.
-2. Reconcile every review finding against the current source and mark it
+2. Establish the register, forward-handoff ledger, dashboard, active-packet
+   lock, exact next-thread prompt, and deterministic control-state validator.
+3. Reconcile every review finding against the current source and mark it
    `accepted`, `already_satisfied`, `partial`, `rejected_with_reason`, or
    `deferred_v2_with_reason`.
-3. Create the implementation register and copy only chapter-scoped accepted
-   tasks into the live chapter ledger as bounded self items or outside asks.
-   Keep appendices, release engineering, exports, and whole-book decisions in
-   the implementation register.
-4. Repair the H10 contract drift, stale project-status text, all 20
+4. Populate the register's atomic child inventory. Copy a chapter packet into
+   the live chapter ledger only when its dependencies are satisfied; do not
+   preload blocked downstream work. Keep appendices, release engineering,
+   exports, and whole-book decisions in the implementation register.
+5. Repair the H10 contract drift, stale project-status text, all 20
    ledger/schema violations, and installed-cache convention resolution. Patch
    the checkout-local Bookwright source, validate its schemas/tests, bump the
    plugin cachebuster/version, reinstall it through the project workflow, and
    start a fresh thread if skill discovery requires it. Until that succeeds,
    all commands and registry reads use checkout-local paths. Validate all
    shared JSON against its schema.
-5. Capture the baseline checkpoint without changing chapter stages.
-6. Start long-lead outside work immediately: recruit five novice readers,
+6. Capture the baseline checkpoint without changing chapter stages.
+7. Start long-lead outside work immediately: recruit five novice readers,
    request or confirm dataset rights, identify a domestic terminology reviewer,
    and identify owners for the archive, errata, accessibility proof, and final
    release.
@@ -1174,7 +1200,7 @@ explicitly permits a harmless parallel read-only audit.
 | Order | Packet IDs | Codex action and durable output | Author action / exit |
 |---|---|---|---|
 | 1 | `G-A0` | Present D01–D16, checkpoint/branch choice, and commit authority. | Ratify A0; no edit before reply. |
-| 2 | `P0-BASE`, `P0-REGISTER`, `P0-STATE`, `P0-OUTSIDE` | Baseline report; atomic YAML register; dashboard; valid Bookwright state/plugin; bounded outside asks. | Confirm zero unmapped findings and P0. |
+| 2 | `P0-BASE`, `P0-CONTROL`, `P0-REGISTER`, `P0-STATE`, `P0-OUTSIDE` | Baseline report; register/handoff/dashboard control layer; atomic review inventory; valid Bookwright state/plugin; bounded outside asks. | Confirm zero unmapped findings and P0. |
 | 3 | `G-A1a`, `P1A-C10`, `P1A-C11`; `G-A1b`, `P1A-C14`, `P1A-C15`, `P1A-C16` | Approved method specifications, surgical corrections, reproduced values, independent methods findings. | Approve A1a/A1b before edits; accept correction evidence. |
 | 4 | `P1A-C02`, `P1A-C06`, `P1A-C07`, `P1A-C08`, `P1A-C09`, `P1A-C13`, `P1A-C18` | One connected assumption/estimand correction packet per chapter. | Accept each packet; no enrichment yet. |
 | 5 | `G-A1c`, `P1B-NAVARRO`, `P1B-DATA-LIC`; `P1B-BIB`, `P1B-META`; `G-A1d`, `P1B-GOV` | Provenance/licence decisions, verified bibliography/metadata, release-governance skeleton. | Ratify rights and governance separately. |
@@ -1214,8 +1240,14 @@ At the end of every packet, Codex returns exactly six things:
 2. files changed;
 3. substantive decisions implemented;
 4. checks run and their results;
-5. unresolved outside asks or risks;
-6. the next permitted batch and why it is now unblocked.
+5. incoming handoffs consumed, outgoing handoffs created, and unresolved
+   outside asks or risks;
+6. the next permitted packet, why it is unblocked, and its exact copy-paste
+   prompt.
+
+The universal fresh-thread prompt lives in the dashboard. A new thread always
+reads the four control files, resumes an existing active packet if present, or
+takes `next_permitted_packet`; it never selects a later packet from memory.
 
 If a packet fails its exit gate, fix it before starting downstream prose. If a
 new recommendation appears, admit it only after identifying the thread it

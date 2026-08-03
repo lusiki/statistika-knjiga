@@ -1,0 +1,491 @@
+schema_version: 1
+programme: comprehensive-review-first-edition
+
+control:
+  requirements_source: notes/reports/comprehensive-book-review-2026-07-31.md
+  ratified_plan: notes/reports/comprehensive-review-implementation-plan-2026-08-03.md
+  branch: revision/comprehensive-review
+  baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
+  ratified_at: "2026-08-03"
+  last_updated: "2026-08-03"
+  write_wip_limit: 1
+
+execution:
+  active_write_packet:
+    id: P0-CONTROL
+    claimed_at: "2026-08-03"
+    base_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
+    owned_paths:
+      - AGENTS.md
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md
+      - notes/reports/comprehensive-review-implementation-register.yml
+      - notes/reports/comprehensive-review-forward-handoffs.yml
+      - notes/reports/comprehensive-review-dashboard.md
+      - scripts/check-review-workflow.R
+  last_completed_packet: P0-BASE
+  next_permitted_packet: null
+
+authority:
+  bounded_verified_local_commits: true
+  push: false
+  merge: false
+  tag: false
+  archive: false
+  deploy: false
+  note: >-
+    Gate A0 authorises scoped local packet commits only. Every external or
+    public action requires a later explicit author decision.
+
+decisions:
+  G-A0:
+    status: accepted
+    accepted_at: "2026-08-03"
+    evidence: 'Author: "I approve everything."'
+    accepted_defaults:
+      - D01
+      - D02
+      - D03
+      - D04
+      - D05
+      - D06
+      - D07
+      - D08
+      - D09
+      - D10
+      - D11
+      - D12
+      - D13
+      - D14
+      - D15
+      - D16
+    accepted_operations:
+      O01:
+        decision: Checkpoint the three approved planning documents.
+        status: completed
+        evidence: c163bda524b7081ec6a41d5ab75370f1700b1748
+      O02:
+        decision: Work on the dedicated revision branch.
+        status: completed
+        evidence: revision/comprehensive-review
+      O03:
+        decision: Permit bounded verified local packet commits.
+        status: accepted
+        exclusions: [push, merge, tag, archive, deploy]
+    note: >-
+      A0 does not silently approve later G-A1 through G-A6 evidence packets or
+      specialist sign-offs. Those gates remain in sequence.
+
+atomic_inventory:
+  status: incomplete
+  completion_packet: P0-REGISTER
+  source_scope: Complete review, especially sections 4-14 and 16
+  total_actionable_findings: null
+  mapped_children: 0
+  unmapped_actionable_findings: null
+  zero_unmapped_required: true
+  rule: >-
+    P0-REGISTER cannot close until every actionable finding has a stable child
+    item or an approved reason why it is not independently actionable.
+
+packets:
+  G-A0:
+    sequence: 1
+    kind: decision_gate
+    status: accepted
+    requires: []
+    outputs:
+      - Ratified D01-D16
+      - Ratified O01-O03
+    completion_evidence:
+      - author approval on 2026-08-03
+  P0-BASE:
+    sequence: 2
+    kind: shared_subsystem
+    status: accepted
+    requires: [G-A0]
+    outputs:
+      - Intentional planning checkpoint
+      - Dedicated revision branch
+      - Baseline state recorded in plan section 3
+    completion_evidence:
+      - c163bda524b7081ec6a41d5ab75370f1700b1748
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#3-current-baseline-and-control-plane
+  P0-CONTROL:
+    sequence: 3
+    kind: shared_subsystem
+    status: in_progress
+    requires: [G-A0, P0-BASE]
+    outputs:
+      - Seed implementation register
+      - Forward-handoff ledger and protocol
+      - Current-state dashboard and exact continuation prompt
+      - Deterministic workflow validator
+    exit_tests:
+      - Workflow validator passes
+      - Register, handoffs, and dashboard agree
+      - Next permitted packet is explicit
+    completion_evidence: []
+  P0-REGISTER:
+    sequence: 4
+    kind: shared_subsystem
+    status: ratified
+    requires: [G-A0, P0-BASE, P0-CONTROL]
+    outputs:
+      - Complete atomic child inventory for R01-R36
+      - Exact stable source anchors and fingerprints
+      - Full packet catalogue and dependencies
+      - Zero-unmapped proof
+    exit_tests:
+      - Every actionable finding is mapped or has an approved non-actionable reason
+      - Every required child has owner, scope, prerequisites, and acceptance tests
+      - Atomic inventory reports zero unmapped findings
+    completion_evidence: []
+  P0-STATE:
+    sequence: 5
+    kind: shared_subsystem
+    status: ratified
+    requires: [P0-REGISTER]
+    outputs:
+      - Valid Bookwright ledger enums and schemas
+      - H10-aligned checkout-local skills and checks
+      - Correct plugin cache path and fresh-thread verification
+    completion_evidence: []
+  P0-OUTSIDE:
+    sequence: 6
+    kind: outside_ask_setup
+    status: ratified
+    requires: [P0-REGISTER]
+    outputs:
+      - One bounded ask per external decision or recruitment need
+      - Owners, resume conditions, and blocking dependencies
+    completion_evidence: []
+
+parents:
+  R01:
+    title: Chapter 10 null and assumptions
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [1A, Wave C]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R02:
+    title: Chapter 14 Welch and OLS
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [1A, Wave D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R03:
+    title: Licences and access lanes
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [1B, 3]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R04:
+    title: Ratified chapter spines
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R05:
+    title: Safe PDF release
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [1C, 7]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R06:
+    title: Citable edition
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [1B, 8]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R07:
+    title: Identity pillars
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave A, Wave C, Wave D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R08:
+    title: Empirical layer
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [3, Waves A-D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R09:
+    title: Assumptions and estimands
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [1A, Waves B-E]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R10:
+    title: Claim map, lifecycle, and threads
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 4, 6]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R11:
+    title: Analysis table and missingness
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave A, Wave B, Wave C, Wave E]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R12:
+    title: Survey realism
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave A, Wave C, Wave D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R13:
+    title: Text as data
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 3, Wave D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R14:
+    title: Binary outcomes, causal language, and heterogeneity
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave A, Wave B, Wave D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R15:
+    title: Assessment closure
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 4, 5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R16:
+    title: Published results genre
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R17:
+    title: Communication thread
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Waves B-E]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R18:
+    title: Widget parity
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [1C, 7]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R19:
+    title: Sensitivity and forest-plot literacy
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Waves C-E]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R20:
+    title: Appendix A
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R21:
+    title: Appendix B
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R22:
+    title: Appendix D and dependence routing
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave D, 5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R23:
+    title: H10 and no assessed code production
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 4, 6]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R24:
+    title: AI, ethics, and evidence distinctions
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 4, 5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R25:
+    title: Single data catalogue
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [3, 5, 6]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R26:
+    title: Novice pilot and reading times
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [3, 7]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R27:
+    title: Three part transitions
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave A, Wave C, Wave D, 6]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R28:
+    title: Chapter 5 figure introduction
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave B]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R29:
+    title: Retrieval pauses
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave C, Wave D]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R30:
+    title: Repetitive formulas and voice
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [6]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R31:
+    title: ASA and public cases
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave A, Wave C]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R32:
+    title: Print-completable presets
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [4, 5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R33:
+    title: Preface miniature inquiry
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [Wave A]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R34:
+    title: Numeracy refresher
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R35:
+    title: Reach-back exercises and part self-checks
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [4, 5]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+  R36:
+    title: Croatian terminology
+    disposition: accepted_first_edition
+    status: ratified
+    source: plan section 9
+    primary_phases: [2, 6]
+    closure_rule: all_required_children_accepted
+    children_inventory_complete: false
+    required_children: []
+
+items: {}
+outside_asks: {}
+invalidations: []

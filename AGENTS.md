@@ -46,6 +46,41 @@ python bookwright_plugin/bookwright/scripts/run_rscript.py <script.R> [args...]
 Pass concrete paths to shell commands; do not rely on Bash-style environment
 variable expansion in PowerShell.
 
+## Comprehensive-review packet workflow
+
+The ratified comprehensive-review programme is controlled by four checkout-
+local files:
+
+- `notes/reports/comprehensive-review-implementation-plan-2026-08-03.md`
+  defines scope, decisions, dependencies, packets, and gates;
+- `notes/reports/comprehensive-review-implementation-register.yml` is the
+  authoritative work and status register;
+- `notes/reports/comprehensive-review-forward-handoffs.yml` is the durable
+  queue for discoveries that constrain later packets;
+- `notes/reports/comprehensive-review-dashboard.md` is the human-readable
+  current-state view and contains the exact next-thread prompt.
+
+Read all four completely before comprehensive-review implementation work. Do
+not rely on prior chat. Execute only `next_permitted_packet`, keep at most one
+write packet active, and stop after closing that packet. Before its first
+substantive edit, acknowledge every applicable incoming handoff; before
+closeout, consume it with a recorded disposition and evidence. A packet cannot
+close until it records either all outgoing handoffs or an explicit declaration
+that it found no future-relevant effect. Never leave a discovery needed by a
+later packet only in chat.
+
+Update the register, handoff ledger, and dashboard together at packet closeout,
+then run:
+
+```text
+python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-review-workflow.R
+```
+
+Only the root/conductor agent writes these control files or Bookwright shared
+registries. Parallel critics and workers remain read-only on them. Local,
+scoped packet commits are authorised; push, merge, tag, archive, and deployment
+still require separate explicit authorisation.
+
 ## Project overview
 
 A Quarto book teaching statistics to undergraduate social-science students —
@@ -61,9 +96,11 @@ one is the blueprint.
 **All prose must be written in Croatian (hr-HR).** Do not draft chapter content
 in English.
 
-**Status: skeleton.** Every chapter file exists with its scope block and its
-seven-part skeleton; none has content yet. The engine (build, exports, PDF,
-CI, editorial tooling) is complete and working.
+**Status: substantive draft under comprehensive-review revision.** Every
+chapter file has content and the shared structural components, but all 19
+ledger units remain at `draft` until the ratified revision gates are passed.
+The engine is operational, with known governance and release safeguards still
+scheduled in the implementation register.
 
 ## The four promises
 
@@ -218,7 +255,7 @@ references.qmd/.bib   bibliography
 ## Content conventions
 
 ### Editorial style
-Every chapter follows [STYLE.md](STYLE.md) — hard rules H1–H9 and soft
+Every chapter follows [STYLE.md](STYLE.md) — hard rules H1–H10 and soft
 conventions S1–S9. Run the linter and a full sweep before committing any
 chapter prose edit.
 

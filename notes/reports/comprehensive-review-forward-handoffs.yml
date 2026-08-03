@@ -1,0 +1,167 @@
+schema_version: 1
+ledger: comprehensive-review-forward-handoffs
+register: notes/reports/comprehensive-review-implementation-register.yml
+last_updated: "2026-08-03"
+
+protocol:
+  immutable_identity_fields:
+    - id
+    - source_packet
+    - created_at
+    - kind
+    - statement
+    - basis
+  kinds: [constraint, prerequisite, evidence, risk, decision, invalidation]
+  gates: [before_start, before_close]
+  delivery_states: [pending, acknowledged, consumed, waived, superseded]
+  terminal_delivery_states: [consumed, waived, superseded]
+  rules:
+    - A required before_start delivery must be terminal before its target packet is claimed.
+    - A required before_close delivery must be acknowledged before the first substantive edit and terminal before closeout.
+    - Consumed requires a concrete disposition and evidence; acknowledgement alone is not consumption.
+    - Waived requires author approval and a reason.
+    - Superseded requires the stable replacement handoff ID.
+    - Unknown or TBD target packets are forbidden.
+    - Accepted packets require a packet review declaring all future effects recorded.
+    - Consequential discoveries are recorded here and never left only in chat.
+
+handoffs:
+  H-G-A0-001:
+    source_packet: G-A0
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A0
+      - decision:D01-D16
+      - operation:O01-O03
+    statement: >-
+      The author approved D01-D16, the planning checkpoint, the dedicated
+      revision branch, and bounded verified local commits. Push, merge, tag,
+      archive, and deployment remain unauthorised; later evidence gates and
+      specialist sign-offs remain required.
+    required_action: >-
+      Treat the ratified defaults and authority boundary as binding while
+      building and executing every Phase 0 control packet.
+    basis:
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#2-ratified-defaults
+      - commit:c163bda524b7081ec6a41d5ab75370f1700b1748
+    required: true
+    deliveries:
+      - target_packet: P0-BASE
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          The three planning documents were checkpointed and the dedicated
+          revision branch was created without any external action.
+        evidence:
+          - commit:c163bda524b7081ec6a41d5ab75370f1700b1748
+          - branch:revision/comprehensive-review
+      - target_packet: P0-CONTROL
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          The control files encode all accepted defaults and the restricted
+          local-commit authority; the workflow does not authorise publication.
+        evidence:
+          - notes/reports/comprehensive-review-implementation-register.yml
+          - AGENTS.md#comprehensive-review-packet-workflow
+      - target_packet: P0-REGISTER
+        gate: before_close
+        state: pending
+      - target_packet: P0-STATE
+        gate: before_close
+        state: pending
+      - target_packet: P0-OUTSIDE
+        gate: before_close
+        state: pending
+
+  H-P0-CONTROL-001:
+    source_packet: P0-CONTROL
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - packet:P0-REGISTER
+      - review:R01-R36
+    statement: >-
+      The 36 parent review items are ratified, but their actionable child
+      inventory is deliberately incomplete. A parent row is not proof that all
+      recommendations were mapped.
+    required_action: >-
+      Read the complete review, especially sections 4-14 and 16. Give every
+      actionable finding a stable child ID, section plus fingerprint source
+      anchor, disposition, owner, approval owner, affected scope,
+      prerequisites, evidence requirements, acceptance tests, and packet. Add
+      the complete packet catalogue before targeting it with later handoffs.
+      Close only with a reproducible zero-unmapped check and no generic
+      placeholder children.
+    basis:
+      - notes/reports/comprehensive-book-review-2026-07-31.md
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#implementation-register
+      - notes/reports/comprehensive-review-implementation-register.yml#atomic_inventory
+    required: true
+    deliveries:
+      - target_packet: P0-REGISTER
+        gate: before_close
+        state: pending
+
+  H-P0-CONTROL-002:
+    source_packet: P0-CONTROL
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - packet:P0-STATE
+      - review:R23
+    statement: >-
+      Governance drift remains after the control bootstrap: the checkout-local
+      style skill still names H1-H9, the Bookwright ledger contains invalid
+      enum values, and installed-cache structure checks can read stale rules.
+    required_action: >-
+      In P0-STATE, repair checkout-local skill/checklist language to H1-H10,
+      migrate only the invalid ledger enums, validate every shared JSON file,
+      repair cache path resolution, bump/reinstall the plugin, and verify it in
+      a fresh thread. Keep using checkout-local Bookwright paths until then.
+    basis:
+      - AGENTS.md#comprehensive-review-packet-workflow
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#3-current-baseline-and-control-plane
+    required: true
+    deliveries:
+      - target_packet: P0-STATE
+        gate: before_close
+        state: pending
+
+  H-P0-CONTROL-003:
+    source_packet: P0-CONTROL
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - packet:P0-OUTSIDE
+    statement: >-
+      External work has distinct owners, evidence, timing, and resume
+      conditions; one omnibus author or specialist request would be ambiguous
+      and difficult to close safely.
+    required_action: >-
+      Create one bounded outside ask per genuine decision, rights inquiry,
+      specialist sign-off, recruitment task, or release owner. Link each ask to
+      the exact blocked register children and do not duplicate its canonical
+      status in the handoff ledger.
+    basis:
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#8-approval-and-outside-ask-protocol
+    required: true
+    deliveries:
+      - target_packet: P0-OUTSIDE
+        gate: before_close
+        state: pending
+
+packet_reviews:
+  G-A0:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: [H-G-A0-001]
+  P0-BASE:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
