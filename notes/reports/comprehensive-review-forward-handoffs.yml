@@ -587,6 +587,48 @@ handoffs:
           - critic_methods:pass-source-a90549950c4f410f757bdec9b6ac680380ab7662
           - check:clean-session-style-structure-figure-and-targeted-render-passed
 
+  H-G-A1B-001:
+    source_packet: G-A1b
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1b
+      - decision:D02
+      - item:R02-C14-welch-ols
+      - item:R02-C15-dependent-revalidation
+      - item:R02-C16-dependent-revalidation
+    statement: >-
+      The author and named statistical reviewer Luka Sikic jointly approved
+      D02 on 2026-08-03. Chapter 14 retains Welch inference as its default and
+      tests the two-sided population mean-difference null. The binary-predictor
+      OLS coefficient equals the raw difference in sample means, but ordinary
+      homoskedastic OLS uses pooled uncertainty and n1 + n2 - 2 residual
+      degrees of freedom, whereas Welch uses group-specific variances and
+      Welch-Satterthwaite degrees of freedom. The seeded sample reproduces the
+      same estimate, 1.185714, but Welch gives SE 0.372609 and df 102.471 while
+      ordinary OLS gives SE 0.369537 and df 118. The two-decimal intervals
+      happen to match after rounding and cannot support an identity claim.
+    required_action: >-
+      In P1A-C14, source the default interval and test from Welch, use lm only
+      to establish the point-estimate/model connection or as an explicitly
+      labelled homoskedastic contrast, state the exact null, standard-error,
+      degrees-of-freedom, assumption, and observational boundaries, and remove
+      the false same-interval/inferential-identity claim. Reproduce every
+      affected value from a clean session, obtain independent methods evidence
+      on the corrected source state, run required style and targeted render
+      checks, leave the widget and unrelated Chapter 14 material unchanged,
+      and do not start P1A-C15.
+    basis:
+      - conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#2-ratified-defaults
+      - notes/reports/comprehensive-book-review-2026-07-31.md#14-dvije-grupe
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A1b
+    required: true
+    deliveries:
+      - target_packet: P1A-C14
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -702,3 +744,14 @@ packet_reviews:
       - Chapter 10 remained unchanged and only the P1A-C11 correction surface changed
       - scripts/check-review-workflow.R passed with next_permitted_packet G-A1b
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+  G-A1b:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: [H-G-A1B-001]
+    implementation_state: conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic
+    checks:
+      - joint author and named statistical-reviewer disposition recorded
+      - D02 null, shared estimate, Welch and ordinary OLS uncertainty, assumptions, numerical reproduction, and downstream boundary recorded
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C14
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose or code changed and P1A-C14 not started

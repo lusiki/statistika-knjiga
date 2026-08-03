@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C11"
-  next_permitted_packet: "G-A1b"
+  last_completed_packet: "G-A1b"
+  next_permitted_packet: "P1A-C14"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -104,6 +104,81 @@ decisions:
       This decision authorises P1A-C10 only. It does not accept the future
       chapter edit, waive clean-session reproduction or independent methods
       evidence, or authorise P1A-C11 or any later packet.
+  G-A1b:
+    status: "accepted"
+    accepted_at: "2026-08-03"
+    author_disposition: "accepted_as_recommended"
+    statistical_reviewer: "Luka Sikic"
+    reviewer_date: "2026-08-03"
+    evidence: "conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic"
+    accepted_specification:
+      target_and_null: >-
+        Let Delta be the population mean for the TV group minus the population
+        mean for the social-media group. Use the two-sided null Delta = 0
+        against Delta != 0; this is a mean-difference claim, not a causal
+        effect or a full-distribution equality claim.
+      point_estimate: >-
+        Retain the raw difference in sample means, TV minus social media. With
+        social media as the reference category, the binary-predictor OLS
+        coefficient equals that raw difference exactly; this identity concerns
+        the point estimate and does not by itself identify the uncertainty
+        procedure.
+      welch_uncertainty: >-
+        Keep Welch inference as the Chapter 14 default. Its standard error is
+        sqrt(s_TV^2/n_TV + s_social^2/n_social), and its reference t
+        distribution uses Welch-Satterthwaite degrees of freedom, which are
+        generally non-integer. Equal group variances are not required.
+      ordinary_ols_uncertainty: >-
+        Ordinary lm uses a pooled homoskedastic residual variance and
+        n_TV + n_social - 2 residual degrees of freedom. It is inferentially
+        identical to the pooled two-sample Student test with var.equal = TRUE,
+        not generally to default Welch inference. Numerical proximity or equal
+        rounded intervals is not procedural identity.
+      assumptions_and_scope: >-
+        Name independent observational units, independent groups, a correctly
+        coded quantitative outcome and reference group, and a sampling design
+        that supports the stated target population. Exact small-sample t
+        inference additionally relies on normal within-group outcomes or
+        errors; large-sample use requires finite variances and no dominating
+        observations. Ordinary homoskedastic OLS uncertainty also requires a
+        common conditional residual variance. The observational group labels
+        were not randomized and support no causal claim.
+      numerical_reproduction: >-
+        On the seeded Chapter 14 sample, n_social = 70, n_TV = 50, the group
+        variances are 3.818634 and 4.214286, and both procedures estimate
+        TV minus social media as 1.185714. Welch gives SE 0.372609, df 102.471,
+        t 3.182193, p 0.001935, and a 95 percent interval from 0.446686 to
+        1.924742. Pooled Student and ordinary OLS give SE 0.369537, df 118,
+        t 3.208648, p 0.001717, and an interval from 0.453930 to 1.917498.
+        Both intervals round to 0.45 to 1.92 at two decimals, so the correction
+        must expose the standard-error and degrees-of-freedom distinction.
+      implementation_surface: >-
+        Source the chapter's default interval from Welch, retain ordinary OLS
+        values only as an explicitly labelled contrast, use lm to demonstrate
+        the coefficient/mean-difference identity, and remove the claim that lm
+        and default t.test carry the same interval and are one inferential
+        calculation. Leave the widget, print twin, paired comparison,
+        Wilcoxon discussion, standardized effect, and confounding example
+        outside this surgical correction.
+      downstream_revalidation: >-
+        Chapter 15 must keep common mean-model structure distinct from pooled
+        versus Welch uncertainty. Chapter 16 may retain its exact equality
+        demonstration only by naming its current var.equal = TRUE test as the
+        pooled Student or ordinary homoskedastic special case; it must not
+        generalize that identity to Chapter 14's Welch default. Separate
+        Chapter 15 variance-ratio and Chapter 16 estimand, uncertainty, and
+        leakage repairs remain governed by their registered items.
+    rejected_alternatives:
+      - "Make pooled Student or ordinary homoskedastic OLS the Chapter 14 default."
+      - "Preserve the equivalence claim because the two-decimal intervals happen to match."
+      - "Remove the binary-predictor bridge to the unified linear-model sequence."
+      - "Replace Welch with generic robust OLS without naming its covariance estimator and degrees-of-freedom convention."
+    authority_boundary: >-
+      This decision authorises P1A-C14 only. It does not accept the future
+      chapter edit, waive clean-session reproduction, independent methods
+      evidence, targeted render, or scoped source-diff checks, settle the
+      separate Chapter 15 or 16 repairs, or authorise P1A-C15 or any later
+      packet.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -1771,7 +1846,7 @@ packets:
     sequence: 16
     phase: "1A"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
     scope: "Chapter 14 correction specification."
@@ -1782,14 +1857,49 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A1b packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic"
+        - requirement: "named decision owner"
+          artifacts:
+            - "decision:G-A1b-author-and-statistical-reviewer-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "decision:G-A1b-D02-specification-and-alternatives"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:outside_asks.OA-G-A1B-C14-SPEC"
+      outputs:
+        - output: "Dated G-A1b decision and authority record for: Chapter 14 correction specification."
+          artifacts:
+            - "decision:G-A1b"
+        - output: "Completion evidence is tied to the declared G-A1b source state and bounded scope."
+          artifacts:
+            - "conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "decision:G-A1b-D02-specification-and-alternatives"
+            - "register:outside_asks.OA-G-A1B-C14-SPEC"
+        - test: "The G-A1b packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A1b"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic"
   P1A-C14:
     sequence: 17
     phase: "1A"
@@ -20356,8 +20466,8 @@ outside_asks:
       - "decision:G-A1a"
 
   OA-G-A1B-C14-SPEC:
-    status: "drafted_unsent"
-    readiness: "waiting_for_G-A1a_chain"
+    status: "done"
+    readiness: "resolved_joint_decision"
     kind: "specialist_decision"
     owner: "author and named statistical reviewer"
     due_phase: "1A"
@@ -20377,6 +20487,11 @@ outside_asks:
     resume_condition: "G-A1b may close only after the author and named reviewer accept the same dated specification."
     why_external: "The correction requires authorial scope approval and independent statistical sign-off."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: "Accepted as recommended by the author and named statistical reviewer Luka Sikic."
+    resolution_evidence:
+      - "conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic"
+      - "decision:G-A1b"
 
   OA-G-A1C-NAVARRO-BOOK-LICENCE:
     status: "drafted_unsent"

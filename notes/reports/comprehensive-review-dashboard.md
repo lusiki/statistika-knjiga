@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C11
-next_permitted_packet: G-A1b
+last_completed_packet: G-A1b
+next_permitted_packet: P1A-C14
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 14
+forward_handoffs: 15
 last_updated: "2026-08-03"
 ---
 
@@ -26,20 +26,21 @@ stop and repair the control state before editing book content.
 |---|---|
 | Gate A0 | Accepted: D01-D16 and O01-O03 |
 | Gate A1a | Accepted: D01 Chapter 10 correction specification; reviewer Luka Sikic; 2026-08-03 |
+| Gate A1b | Accepted: D02 Chapter 14 correction specification; reviewer Luka Sikic; 2026-08-03 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C11` |
-| Next permitted packet | `G-A1b` |
+| Last completed packet | `G-A1b` |
+| Next permitted packet | `P1A-C14` |
 | Review parents | 35 ratified; 1 accepted |
 | Atomic child inventory | Complete: 371 stable children; 9 accepted, 5 deferred with reason, 357 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 9 accepted and 179 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 10 accepted and 178 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 81 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` is `done`; 0 external messages sent |
+| Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C11` passed all packet gates and `G-A1b` is next |
+| Failed gates | None; `G-A1b` passed joint-owner, specification, dependency, authority-boundary, and scope checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -169,6 +170,28 @@ The accepted chapter source state is
 `chapter:sha1-2aaede845c2a93fcad5d473d6466f938285cd7b6`; the durable evidence is
 `notes/reports/p1a-c11-methods-review-2026-08-03.md`.
 
+## G-A1b closeout
+
+- The author and named statistical reviewer Luka Sikic jointly accepted the
+  recommended D02 specification on 2026-08-03.
+- Chapter 14 retains Welch inference as its default. The binary-predictor OLS
+  coefficient remains exactly the raw difference in means, while ordinary
+  homoskedastic OLS uncertainty is explicitly separated from Welch standard
+  errors and Welch-Satterthwaite degrees of freedom.
+- The seeded numerical reproduction records the shared estimate of `1.185714`,
+  Welch `SE = 0.372609` and `df = 102.471`, and ordinary OLS
+  `SE = 0.369537` and `df = 118`. The coincident two-decimal interval display
+  is not treated as inferential identity.
+- `OA-G-A1B-C14-SPEC` is `done`; no external message was sent and no broader
+  authority was inferred.
+- `H-G-A1B-001` carries the exact approved specification to `P1A-C14` at its
+  `before_start` gate. It also preserves the downstream Chapter 15/16
+  revalidation boundary without starting either packet.
+- No chapter prose or code was changed, and `P1A-C14` was not started.
+
+The accepted decision source state is
+`conversation:joint-G-A1b-approval-2026-08-03-Luka-Sikic`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -210,23 +233,30 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Prepare only the dashboard's next_permitted_packet, G-A1b. Fully read
-chapters/14-dvije-grupe.qmd, chapters/15-vise-grupa.qmd,
-chapters/16-regresija.qmd, decision D02, the relevant comprehensive-review
-evidence, and outside ask OA-G-A1B-C14-SPEC. Do not edit chapter prose, code,
-the control files, or mutable Bookwright state, and do not send an external
-message.
+Execute only the dashboard's next_permitted_packet, P1A-C14, under accepted
+G-A1b. Before claiming the packet, acknowledge and consume H-G-A1B-001 with a
+recorded disposition and evidence. Fully read chapters/14-dvije-grupe.qmd,
+chapters/15-vise-grupa.qmd, chapters/16-regresija.qmd, STYLE.md, ENRICHMENT.md,
+notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
+checkout-local book-style instructions. Do not rely on the installed plugin
+cache for mutable state.
 
-Present one bounded Chapter 14 correction specification for joint author and
-named statistical-reviewer approval. Lead with the recommended D02 default,
-which keeps Welch inference as the Chapter 14 default, states that the binary-
-predictor coefficient equals the raw difference in means, and distinguishes
-Welch uncertainty from ordinary homoskedastic OLS uncertainty outside special
-cases. Name the exact null, estimate, standard-error and degrees-of-freedom
-distinctions, assumptions, numerical reproductions, downstream Chapter 15/16
-revalidation boundary, rejected alternatives, and authority boundary.
+Apply the accepted D02 correction only. Keep Welch inference as Chapter 14's
+default, state the two-sided population mean-difference null, retain the exact
+identity between the raw difference in means and the binary-predictor
+coefficient, and distinguish Welch's group-specific standard error and
+Welch-Satterthwaite degrees of freedom from ordinary homoskedastic OLS pooled
+uncertainty. Source the default interval from Welch, label any ordinary OLS
+comparison explicitly, expose the reproduced SE/df difference that the current
+two-decimal interval hides, and preserve the approved assumptions,
+observational claim boundary, Chapter 15/16 revalidation boundary, widget,
+print twin, and unrelated Chapter 14 material.
 
-Show the evidence, recommended default, alternatives, what the decision blocks,
-and the exact dated reply needed from both owners. Stop for their reply without
-claiming G-A1b, starting P1A-C14, or performing any later packet.
+Reproduce every affected result from a clean session, obtain the required
+independent statistical-methods reading on the corrected source state, run the
+checkout-local deterministic and manual book-style pass, structure and figure-
+introduction checks, targeted Chapter 14 render, source-diff and packet exit
+checks. Update the register, handoff ledger, and dashboard together, create one
+scoped local commit only if every gate passes, and stop before P1A-C15 or any
+later packet.
 ```
