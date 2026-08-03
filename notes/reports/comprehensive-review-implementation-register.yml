@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C16"
-  next_permitted_packet: "P1A-C02"
+  last_completed_packet: "P1A-C02"
+  next_permitted_packet: "P1A-C06"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2086,7 +2086,7 @@ packets:
     sequence: 20
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Correct Chapter 2 design and measurement claims."
@@ -2097,13 +2097,52 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C02 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R09-C02-randomisation-item-total-stevens-and-R14-C02-confounder"
+            - "authority:user-exact-P1A-C02-prompt"
+            - "dependency:P0-STATE-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-item-rest-range-and-widget-slope-assertions-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      outputs:
+        - output: "P1A-C02 durable artifact and evidence record for: Correct Chapter 2 design and measurement claims."
+          artifacts:
+            - "chapter:chapters/02-mjerenje-i-dizajn.qmd"
+            - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C02 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+            - "scope:R09-C02-randomisation-item-total-stevens-and-R14-C02-confounder-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+        - test: "The P1A-C02 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C02"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
   P1A-C06:
     sequence: 21
     phase: "1A"
@@ -10882,7 +10921,7 @@ items:
       location: "§8 Ch2"
     description: "State balance in expectation and qualify adherence, spillover, attrition, and measurement."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -10898,11 +10937,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "critic_methods:pass-balance-in-expectation-and-post-assignment-boundaries"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
   R09-C02-item-total:
     parents:
       - "R09"
@@ -10916,7 +10958,7 @@ items:
       location: "§8 Ch2"
     description: "Name reverse coding, multidimensionality, translation, wording, and inattentive response as alternatives."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -10932,11 +10974,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "critic_methods:pass-diagnostic-with-five-required-alternatives"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
   R09-C02-stevens:
     parents:
       - "R09"
@@ -10950,7 +10995,7 @@ items:
       location: "§8 Ch2"
     description: "Historicise Stevens levels and state practical uses and limitations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -10966,11 +11011,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "critic_methods:pass-historicised-practical-and-limited-levels"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
   R09-C06-pearson-spearman-agree:
     parents:
       - "R09"
@@ -13184,7 +13232,7 @@ items:
       location: "§8 Ch2"
     description: "Distinguish common causes, mediators, and colliders at literacy level."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -13200,11 +13248,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "critic_methods:pass-common-cause-mediator-collider-and-no-control-everything"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
   R14-C16-binary-reading:
     parents:
       - "R14"

@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C16
-next_permitted_packet: P1A-C02
+last_completed_packet: P1A-C02
+next_permitted_packet: P1A-C06
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C16` |
-| Next permitted packet | `P1A-C02` |
+| Last completed packet | `P1A-C02` |
+| Next permitted packet | `P1A-C06` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 15 accepted, 5 deferred with reason, 351 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 13 accepted and 175 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 19 accepted, 5 deferred with reason, 347 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 14 accepted and 174 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C16` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-C02` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -271,6 +271,37 @@ The accepted chapter source state is
 `chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb`; the durable evidence is
 `notes/reports/p1a-c16-methods-review-2026-08-03.md`.
 
+## P1A-C02 closeout
+
+- No incoming handoff targeted `P1A-C02`; the four ratified Chapter 2 items
+  and the exact packet instruction defined its surgical boundary.
+- Chapter 2 now states randomisation as balance in expectation rather than
+  guaranteed realised equality. It distinguishes assignment or offer from
+  treatment received and qualifies adherence, spillover, attrition, and
+  differential measurement.
+- The negative item-rest association is now a diagnostic rather than proof of
+  reverse coding, with multidimensionality, translation, wording, and
+  inattentive response retained as alternatives. Stevens's levels are
+  historicised and bounded as a practical description rather than a complete
+  rule for permissible analysis.
+- A confounder is now a common prior cause, distinct from a mediator and
+  collider. The prose rejects controlling everything and accurately describes
+  the zero-shift widget as the same negative conclusion with nonidentical fitted
+  slopes.
+- Clean-session reproduction confirmed the full item-rest, score-range, and
+  widget-slope receipt. An independent methods reread passed exact source
+  `ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00` with no remaining finding after
+  one minor widget-guidance precision sentence was corrected.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  23 rendered presence/absence assertions, code-block preservation, scoped
+  source diff, and closeout checks all passed. No separately registered later
+  Chapter 2 work changed, and no new forward-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00`; the durable evidence is
+`notes/reports/p1a-c02-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -312,28 +343,26 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next_permitted_packet, P1A-C02. Fully read
-chapters/02-mjerenje-i-dizajn.qmd, STYLE.md, ENRICHMENT.md,
+Execute only the dashboard's next_permitted_packet, P1A-C06. Fully read
+chapters/06-povezanost.qmd, STYLE.md, ENRICHMENT.md,
 notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
 checkout-local book-style instructions. Do not rely on the installed plugin
 cache for mutable state.
 
-Execute the exact P1A-C02 scope: `R09-C02-randomisation`,
-`R09-C02-item-total`, `R09-C02-stevens`, and `R14-C02-confounder`. State
-balance in expectation rather than guaranteed realised equality and qualify
-adherence, spillover, attrition, and measurement. Treat a negative item-total
-association as a diagnostic with reverse coding, multidimensionality,
-translation, wording, and inattentive response as alternatives. Historicise
-Stevens's levels and state their practical uses and limitations. Distinguish a
-common cause from a mediator and collider at literacy level, and do not
-recommend controlling everything. Do not start any later packet or separately
-registered Chapter 2 repair.
+Execute the exact P1A-C06 scope: `R09-C06-pearson-spearman-agree`,
+`R09-C06-pearson-spearman-disagree`, `R09-C06-range-restriction`, and
+`R09-C06-scatterplot-primary`. Treat Pearson/Spearman agreement as a clue, not
+proof of linearity, robustness, or the absence of influential observations.
+Explain what disagreement can reveal without turning it into an automatic
+diagnosis, inspect the scatterplot before either coefficient, and qualify when
+range restriction can attenuate an association rather than stating a universal
+rule. Do not start any later packet or separately registered Chapter 6 repair.
 
 Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the exact Chapter 2 source state,
+independent statistical-methods reading on the exact Chapter 6 source state,
 run the checkout-local deterministic and manual book-style pass, structure and
-figure-introduction checks, targeted Chapter 2 render, source-diff and packet
+figure-introduction checks, targeted Chapter 6 render, source-diff and packet
 exit checks. Update the register, handoff ledger, and dashboard together,
 create one scoped local commit only if every gate passes, and stop before
-P1A-C06 or any later packet.
+P1A-C07 or any later packet.
 ```
