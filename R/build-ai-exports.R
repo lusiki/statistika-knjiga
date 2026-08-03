@@ -32,11 +32,10 @@ BOOK_DESC  <- paste(
   "modeli i statistika u doba algoritama."
 )
 AUTHORS    <- "Luka Šikić"
-# Licenca izvoza je autorska odluka (vidi notes/ai-export-spec.md, Open decisions).
-# Zadano je konzervativno: tekst se smije koristiti za osobno učenje uz navođenje.
+# Licenca izvornog autorskog teksta prati LICENSE i notes/ai-export-spec.md.
 LICENSE_LINE <- paste0(
   "© 2026 ", AUTHORS,
-  ". Tekst za osobno i obrazovno korištenje uz navođenje izvora."
+  ". MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE"
 )
 
 PROJECT_ROOT <- normalizePath(".", winslash = "/")

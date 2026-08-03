@@ -19,15 +19,18 @@ odvojeno.
 
 ## Ugrađeni skupovi
 
-Trenutačni djelomični rukopis koristi dva ugrađena skupa iz distribucije R-a.
-Prije konačnog izdanja provjerit će se uvjeti zasebne redistribucije svakog
-skupa. Knjiga ih sada poziva iz lokalne instalacije i ne pohranjuje njihove
-kopije u `data/`.
+Trenutačni djelomični rukopis koristi dva ugrađena skupa iz paketa `datasets`
+u lokalnoj distribuciji R-a 4.6.0. Službena dokumentacija opisuje
+[`UCBAdmissions`](https://search.r-project.org/R/refmans/datasets/html/UCBAdmissions.html)
+i [`anscombe`](https://search.r-project.org/R/refmans/datasets/html/anscombe.html),
+ali dostupnost u paketu ne daje zasebnu potvrdu da knjiga smije preraspodijeliti
+njihove kopije. Oba su zato u traci `external-only`. Knjiga ih poziva iz
+lokalne instalacije i ne pohranjuje u `data/`.
 
-| Skup | Podrijetlo, jedinica i uporaba |
-|---|---|
-| `UCBAdmissions` | Berkeleyjski podaci o prijavama [@bickel1975]. Jedinica je ćelija tablice frekvencija, a skup se koristi u poglavljima o statističkom mišljenju i kategoričkim podacima. |
-| `anscombe` | Anscombeov kvartet [@anscombe1973]. Jedinica je par brojčanih opažanja, a skup se koristi u poglavljima o vizualizaciji i povezanosti. |
+| Skup | Podrijetlo, jedinica i uporaba | Zakonita zamjena |
+|---|---|---|
+| `UCBAdmissions` | Berkeleyjski podaci o prijavama [@bickel1975]. Jedinica je ćelija tablice frekvencija, a skup se koristi u poglavljima o statističkom mišljenju i kategoričkim podacima. | Za obvezni put bez lokalne instalacije koristi se kategorička tablica iz licenčno čistoga generiranog skupa `populacija_medija`. |
+| `anscombe` | Anscombeov kvartet [@anscombe1973]. Jedinica je par brojčanih opažanja, a skup se koristi u poglavljima o vizualizaciji i povezanosti. | Za obvezni put bez lokalne instalacije koristi se licenčno čisti generirani skup `anketa_mreze`. |
 
 : Ugrađeni skupovi u djelomičnom rukopisu. Izrada autora.
 
@@ -44,6 +47,11 @@ i pozivaju se iz `R/setup.R`, tako da su skupovi dostupni svakom poglavlju pod
 imenima `anketa_mreze` i `populacija_medija` bez dodatnog učitavanja. Svaki
 generator nosi vlastito sjeme i vraća zatečeno stanje generatora slučajnih
 brojeva, pa učitavanje skupa ne pomiče nijednu kasniju simulaciju u poglavlju.
+Oba skupa i svaka njihova buduća datotečna snimka dostupni su pod licencom
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode). Nositelj
+prava je Luka Sikic, a puna atribucijska obavijest nalazi se u
+`data/LICENCA-generirani-podaci.md`. Kod generatora ostaje pod MIT licencom
+repozitorija.
 
 | Svojstvo | Opis |
 |---|---|
@@ -54,7 +62,8 @@ brojeva, pa učitavanje skupa ne pomiče nijednu kasniju simulaciju u poglavlju.
 | Varijable | `ispitanik`, `dob`, `dobna_skupina`, `minute_dnevno`, `povjerenje` |
 | Oblik | dnevno vrijeme korištenja je lognormalno po dobnoj skupini, pa je zbirna raspodjela nagnuta prema većim vrijednostima |
 | Uporaba | poglavlja o sažimanju podataka, vizualizaciji i povezanosti |
-| Licenca | nije primjenjiva, skup nastaje kodom u ovom repozitoriju |
+| Licenca | CC BY 4.0, Luka Sikic, 3. kolovoza 2026. |
+| Traka | `bundled`; buduća datotečna snimka zadržava punu licenčnu obavijest |
 
 : Simulirana anketa o korištenju društvenih mreža. Izrada autora.
 
@@ -81,7 +90,8 @@ zatim iz nje uzorkuje pred čitateljem.
 | Poznati parametri | prosječno povjerenje 4,88 uz standardnu devijaciju 1,98, prosječnih 174,5 minuta dnevno, udio korisnika portala 0,302 |
 | Oblik | spremnost na plaćanje ima oko 76 % nula i dugačak desni rep, pa služi kao izrazito asimetrična varijabla u demonstraciji središnjega graničnog teorema |
 | Uporaba | poglavlja o uzorkovanju, procjeni, kategoričkim podacima, dvjema grupama i više grupa |
-| Licenca | nije primjenjiva, skup nastaje kodom u ovom repozitoriju |
+| Licenca | CC BY 4.0, Luka Sikic, 3. kolovoza 2026. |
+| Traka | `bundled`; buduća datotečna snimka zadržava punu licenčnu obavijest |
 
 : Simulirana populacija poznatih parametara. Izrada autora.
 
@@ -96,5 +106,14 @@ razliku navode prije prve brojke.
 
 Plan knjige predviđa provjerene društvenoznanstvene skupove iz Europskoga
 društvenog istraživanja, DZS-a i Eurostata. Za svaki budući unos katalog mora
-navesti izdanje ili val, trajnu poveznicu, licencu, datum preuzimanja, jedinicu
-analize, varijable korištene u knjizi i sve korake obrade.
+navesti izdanje ili val, trajnu poveznicu, licencu, atribuciju, datum
+preuzimanja, jedinicu analize, varijable korištene u knjizi, pravo
+redistribucije i sve korake obrade.
+
+| Traka | Pravilo |
+|---|---|
+| `bundled` | Točna datoteka smije se uključiti tek nakon provjere prava, atribucije, inačice i integriteta. |
+| `portal-mediated` | Čitatelj preuzima datoteku izravno od službenoga izvora, a knjiga daje uputu, inačicu i kontrolni trag bez lokalne kopije. |
+| `external-only` | Izvor ostaje izvan repozitorija i nije temelj obveznoga zadatka bez licenčno čiste datoteke ili agregatne zamjene. |
+
+: Pristupne trake za buduće podatkovne pakete. Izrada autora.

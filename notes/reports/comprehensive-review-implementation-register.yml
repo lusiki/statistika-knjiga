@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C08"
-  next_permitted_packet: "P1A-C09"
+  last_completed_packet: "G-A1d"
+  next_permitted_packet: "P1B-GOV"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -179,6 +179,114 @@ decisions:
       evidence, targeted render, or scoped source-diff checks, settle the
       separate Chapter 15 or 16 repairs, or authorise P1A-C15 or any later
       packet.
+  G-A1c:
+    status: "accepted"
+    accepted_at: "2026-08-03"
+    amended_at: "2026-08-03"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    licence_and_data_lane_owner: "Luka Sikic"
+    evidence: "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
+    original_evidence: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+    amendment_evidence: "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
+    accepted_dispositions:
+      navarro_and_book_licence: >-
+        Do not use Navarro as a source, drafting model, or reader-facing
+        reference in the public book. Audit the current candidates, then remove
+        every Navarro citation, name, analogy, example, distinctive
+        argumentative sequence, and materially derived expression through
+        omission or genuinely independent rewriting supported by primary or
+        otherwise independently verified sources where evidence is needed.
+        The internal provenance record remains and must prove that dependency
+        was removed rather than concealed. P1B-NAVARRO cannot close while any
+        material dependency survives.
+      generated_teaching_data: >-
+        Licence every generated teaching dataset under CC BY 4.0, subject to
+        reconciliation with the final book licence.
+      data_access_and_redistribution_lanes: >-
+        Bundle only licence-cleared files, use portal mediation wherever
+        redistribution authority is uncertain, keep restricted sources
+        external, and provide a licence-cleared bundled file or aggregate
+        alternative for every required student pathway. No package-specific
+        exception is approved.
+    rejected_alternatives:
+      - "Retain materially derived Navarro prose without the required attribution or compatible ShareAlike terms."
+      - "Keep avoidable Navarro-specific framing merely because it is already cited."
+      - "Remove attribution while retaining materially derived expression or structure."
+      - "Use Navarro as an unacknowledged drafting resource while deleting reader-facing references."
+      - "Leave generated teaching data unlicensed or describe their licence as not applicable."
+      - "Treat technical access as redistribution authority or bundle an uncleared package."
+    authority_boundary: >-
+      This decision authorises P1B-NAVARRO and P1B-DATA-LIC to audit and
+      implement the accepted policy in sequence. It does not establish that
+      any Navarro obligation has or has not survived, grant third-party
+      redistribution permission, authorise ESS or any other package-specific
+      bundling, accept either future evidence packet, or authorise push, merge,
+      tag, archive, or deployment. Any contrary audit evidence must stop the
+      affected packet; residual Navarro-dependent content must be removed or
+      omitted rather than used without attribution.
+  G-A1d:
+    status: "accepted"
+    accepted_at: "2026-08-03"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    release_owner: "Luka Sikic"
+    archive_owner: "Luka Sikic"
+    errata_owner: "Luka Sikic"
+    evidence: "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+    accepted_dispositions:
+      edition_and_governance_mechanism: >-
+        Create the edition/version, Croatian changelog, citation, provenance,
+        archive-plan, term-freeze, and errata mechanisms locally in Phase 1.
+        Keep Osnove statistike za društvene znanosti as the working release
+        title under D14 unless the author changes it before citation metadata
+        is frozen. Defer every immutable or public release action to its exact
+        later A6 gate.
+      archive_ownership: >-
+        Luka Sikic, author, accepts responsibility for the eventual archival
+        deposit and persistent identifier. The deposit remains prohibited
+        until G-A6-ARCHIVE supplies immediate exact authority.
+      errata_ownership: >-
+        Luka Sikic, author, accepts continuing responsibility for the eventual
+        public errata route and dated status log. Public activation remains
+        prohibited until G-A6-DEPLOY supplies immediate exact authority.
+      release_ownership: >-
+        Luka Sikic, author, accepts release-gate coordination and exact
+        source-state control, including the rule that authority is never
+        inferred across push, merge, tag, archive, deployment, or publication.
+    rejected_alternatives:
+      - "Approve the governance mechanism only after one or more exact edition, version, changelog, citation, provenance, or ownership amendments."
+      - "Change the working title now rather than retain D14 until citation metadata freeze."
+      - "Defer the governance-mechanism decision and keep P1B-GOV blocked."
+      - "Assign a separate archive specialist instead of the named release owner."
+      - "Assign a separate continuing editorial errata owner instead of the named release owner."
+      - "Separate release coordination from archive and errata responsibility among multiple owners."
+      - "Defer any owner appointment and keep the corresponding release gates blocked."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P1B-GOV"
+      governed_items:
+        - "R06-GOV-contract"
+        - "R06-RELEASE-changelog"
+        - "R06-RELEASE-citation"
+        - "R06-RELEASE-tag"
+        - "R06-RELEASE-archive"
+        - "R06-RELEASE-term-freeze"
+        - "R06-RELEASE-errata"
+      later_gates_still_mandatory:
+        - "G-A5c"
+        - "G-A5d"
+        - "G-A6"
+        - "G-A6-ARCHIVE"
+        - "G-A6-DEPLOY"
+    authority_boundary: >-
+      This decision authorises only P1B-GOV to implement and demonstrate the
+      approved pre-release governance mechanisms locally. It does not freeze
+      final title, authorship, version, date, citation, or release artifacts;
+      accept P1B-GOV or any later packet; or authorise any push, merge, tag,
+      archival deposit, deployment, publication, or other external action.
+      Every such action retains its exact later gate and requires immediate
+      source-state-specific authority.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -2332,7 +2440,7 @@ packets:
     sequence: 24
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Correct Chapter 9 interval and bootstrap claims."
@@ -2343,18 +2451,59 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C09 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R09-C09-normal-not-prediction"
+            - "register:ratified-R09-C09-bootstrap-validation"
+            - "register:ratified-R09-C09-bootstrap-failures"
+            - "authority:user-exact-P1A-C09-prompt"
+            - "dependency:P0-STATE-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-all-affected-chapter-9-results-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      outputs:
+        - output: "P1A-C09 durable artifact and evidence record for: Correct Chapter 9 interval and bootstrap claims."
+          artifacts:
+            - "chapter:chapters/09-procjena.qmd"
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C09 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+            - "scope:R09-C09-normal-not-prediction-R09-C09-bootstrap-validation-R09-C09-bootstrap-failures-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+        - test: "The P1A-C09 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C09"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   P1A-C13:
     sequence: 25
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Correct Chapter 13 residual and calibration claims."
@@ -2365,18 +2514,58 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C13 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R09-C13-residual-name"
+            - "register:ratified-R09-C13-calibration-power"
+            - "authority:user-exact-P1A-C13-prompt"
+            - "dependency:P0-STATE-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-all-affected-chapter-13-results-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-9242e057c6602b273368164de6193b08eba5eeb8"
+      outputs:
+        - output: "P1A-C13 durable artifact and evidence record for: Correct Chapter 13 residual and calibration claims."
+          artifacts:
+            - "chapter:chapters/13-kategoricki-podaci.qmd"
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C13 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+            - "scope:R09-C13-residual-name-R09-C13-calibration-power-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-9242e057c6602b273368164de6193b08eba5eeb8"
+        - test: "The P1A-C13 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C13"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
   P1A-C18:
     sequence: 26
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
       - "P1A-C16"
@@ -2388,18 +2577,58 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C18 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R09-C18-interval-conclusion"
+            - "authority:user-continuation-dashboard-exact-P1A-C18-prompt"
+            - "dependency:P0-STATE-accepted"
+            - "dependency:P1A-C16-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c18-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-all-affected-chapter-18-results-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c18-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-f291e63173892eca483ed9c9e89df70be5bb1bd1"
+      outputs:
+        - output: "P1A-C18 durable artifact and evidence record for: Correct Chapter 18 interval-compatible conclusion."
+          artifacts:
+            - "chapter:chapters/18-vase-prvo-istrazivanje.qmd"
+            - "report:notes/reports/p1a-c18-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C18 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1"
+            - "scope:R09-C18-interval-conclusion-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c18-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-f291e63173892eca483ed9c9e89df70be5bb1bd1"
+        - test: "The P1A-C18 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-executable-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C18"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1"
   P1A-METHODS:
     sequence: 27
     phase: "1A"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1A-C02"
       - "P1A-C06"
@@ -2421,18 +2650,58 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The P1A-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md#gate-specific-verification-matrix"
+            - "check:12-prerequisites-36-required-receipts-24-output-receipts-36-passed-exit-receipts"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+            - "tree:7168b933c16b92ccb3d5c3de13e1dd4a7f30a538"
+            - "check:all-12-live-chapter-blobs-match-declared-source-states"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md#blocker-disposition"
+            - "blocker:none-within-bounded-P1A-METHODS-gate"
+      outputs:
+        - output: "P1A-METHODS durable artifact and evidence record for: Independent methods readings and clean-session reproduction."
+          artifacts:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md"
+            - "check:independent-structured-evidence-audit-12-of-12-passed"
+        - output: "Completion evidence is tied to the declared P1A-METHODS source state and bounded scope."
+          artifacts:
+            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+            - "scope:P1A-METHODS-only-no-chapter-prose-no-G-A1c-or-later-packet"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md#gate-specific-verification-matrix"
+            - "check:structured-receipts-source-hashes-reports-and-packet-reviews-all-pass"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+            - "tree:7168b933c16b92ccb3d5c3de13e1dd4a7f30a538"
+        - test: "The P1A-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md"
+            - "check:workflow-validator-and-both-required-negative-fixtures"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: null
+    change_reference: "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
   G-A1c:
     sequence: 28
     phase: "1B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
     scope: "Navarro, book, generated-data, and access-lane licence decisions."
@@ -2443,19 +2712,59 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A1c packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+            - "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
+        - requirement: "named decision owner"
+          artifacts:
+            - "decision:G-A1c-author-and-licence-data-owner-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "decision:G-A1c-D08-D11-D12-dispositions-and-alternatives"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:outside_asks.OA-G-A1C-NAVARRO-BOOK-LICENCE"
+            - "register:outside_asks.OA-G-A1C-GENERATED-DATA-LICENCE"
+            - "register:outside_asks.OA-G-A1C-DATA-LANES"
+      outputs:
+        - output: "Dated G-A1c decision and authority record for: Navarro, book, generated-data, and access-lane licence decisions."
+          artifacts:
+            - "decision:G-A1c"
+        - output: "Completion evidence is tied to the declared G-A1c source state and bounded scope."
+          artifacts:
+            - "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "decision:G-A1c-D08-D11-D12-dispositions-and-alternatives"
+            - "register:outside_asks.OA-G-A1C-NAVARRO-BOOK-LICENCE"
+            - "register:outside_asks.OA-G-A1C-GENERATED-DATA-LICENCE"
+            - "register:outside_asks.OA-G-A1C-DATA-LANES"
+        - test: "The G-A1c packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A1c"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
   P1B-NAVARRO:
     sequence: 29
     phase: "1B"
     kind: "evidence_licence"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A1c"
     scope: "Navarro provenance and licence resolution."
@@ -2466,18 +2775,60 @@ packets:
       - "Rights, attribution, and redistribution are verified rather than inferred from access."
       - "Every affected source or package has one explicit lawful lane."
       - "The P1B-NAVARRO packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      required_evidence:
+        - requirement: "source and licence record"
+          artifacts:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#provjereni-izvor-i-licenca"
+            - "source:Learning-Statistics-with-R-v0.6-pdf-sha256-CEB73307B5B0D310120E3E1470917B80189AFA11BEC3487F3910C8B1FA5BFE16"
+            - "licence:CC-BY-SA-4.0-legal-code-and-official-compatible-licence-list"
+        - requirement: "owner disposition"
+          artifacts:
+            - "outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done"
+            - "handoff:H-G-A1C-001-acknowledged-as-superseded-baseline-and-H-G-A1C-004-consumed-before-edit"
+            - "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
+        - requirement: "affected-file reconciliation"
+          artifacts:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#uskladenje-datoteka"
+            - "check:visible-source-citation-bibliography-and-source-diff-passed"
+      outputs:
+        - output: "P1B-NAVARRO durable artifact and evidence record for: Navarro provenance and licence resolution."
+          artifacts:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md"
+            - "item:R03-NAVARRO-provenance"
+            - "item:R03-NAVARRO-resolution"
+        - output: "Completion evidence is tied to the declared P1B-NAVARRO source state and bounded scope."
+          artifacts:
+            - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+            - "scope:Navarro-candidates-chapters-01-02-04-and-licence-metadata-reconciliation-only"
+      exit_tests:
+        - test: "Rights, attribution, and redistribution are verified rather than inferred from access."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#provjereni-izvor-i-licenca"
+            - "check:authoritative-source-version-licence-attribution-and-compatibility-audit-passed"
+        - test: "Every affected source or package has one explicit lawful lane."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#uskladenje-datoteka"
+            - "decision:zero-surviving-Navarro-material-MIT-original-work-third-party-terms-separate"
+        - test: "The P1B-NAVARRO packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:three-chapter-style-manual-render-visible-source-and-diff-passed"
+            - "handoff-ledger:packet_reviews.P1B-NAVARRO"
     contract: "evidence_licence"
     required_evidence:
       - "source and licence record"
       - "owner disposition"
       - "affected-file reconciliation"
-    change_reference: null
+    change_reference: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
   P1B-DATA-LIC:
     sequence: 30
     phase: "1B"
     kind: "evidence_licence"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A1c"
     scope: "Current and proposed data licence/access inventory."
@@ -2488,18 +2839,61 @@ packets:
       - "Rights, attribution, and redistribution are verified rather than inferred from access."
       - "Every affected source or package has one explicit lawful lane."
       - "The P1B-DATA-LIC packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      required_evidence:
+        - requirement: "source and licence record"
+          artifacts:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava"
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori"
+            - "check:four-current-and-thirteen-proposed-packages-have-separate-source-version-licence-attribution-access-and-redistribution-records"
+        - requirement: "owner disposition"
+          artifacts:
+            - "outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE-done"
+            - "outside-ask:OA-G-A1C-DATA-LANES-done"
+            - "handoff:H-G-A1C-002-H-G-A1C-003-and-H-P1B-NAVARRO-001-consumed-before-edit"
+        - requirement: "affected-file reconciliation"
+          artifacts:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#uskladenje-pogodenih-datoteka"
+            - "check:generated-data-notice-lane-contract-fetch-guard-public-page-appendix-and-MIT-boundary-reconciled"
+      outputs:
+        - output: "P1B-DATA-LIC durable artifact and evidence record for: Current and proposed data licence/access inventory."
+          artifacts:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md"
+            - "item:R03-DATA-lane-inventory"
+            - "item:R03-DATA-generated-licence"
+            - "item:R03-DATA-bundled-portal-contract"
+        - output: "Completion evidence is tied to the declared P1B-DATA-LIC source state and bounded scope."
+          artifacts:
+            - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+            - "scope:four-current-and-thirteen-proposed-data-records-licence-lanes-not-package-promotion"
+      exit_tests:
+        - test: "Rights, attribution, and redistribution are verified rather than inferred from access."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava"
+            - "decision:cautious-portal-or-external-lanes-for-every-uncleared-or-unselected-package"
+        - test: "Every affected source or package has one explicit lawful lane."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#traka-i-zakonita-zamjena"
+            - "check:17-of-17-package-records-have-exactly-one-lane-and-a-lawful-required-path-fallback"
+        - test: "The P1B-DATA-LIC packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:generator-fetch-style-manual-render-inventory-notice-source-diff-and-control-validation-passed"
+            - "handoff-ledger:packet_reviews.P1B-DATA-LIC"
     contract: "evidence_licence"
     required_evidence:
       - "source and licence record"
       - "owner disposition"
       - "affected-file reconciliation"
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   P1B-BIB:
     sequence: 31
     phase: "1B"
     kind: "evidence_metadata"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Citation usage and bibliography metadata."
@@ -2510,18 +2904,64 @@ packets:
       - "Every citation resolves and metadata are verified from authoritative sources."
       - "No blanket inclusion, invented key, DOI, locator, or finding remains."
       - "The P1B-BIB packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      required_evidence:
+        - requirement: "citation usage report"
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#citation-usage-report"
+            - "check:121-live-citation-uses-35-unique-keys-35-maintained-records-zero-unresolved-zero-unused"
+            - "check:pandoc-citeproc-rendered-exactly-35-reference-entries"
+        - requirement: "authoritative metadata verification"
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#authoritative-metadata-verification"
+            - "check:29-of-29-live-DOIs-resolve-through-Crossref-with-matching-titles"
+            - "check:six-live-no-DOI-records-have-publisher-author-library-or-institutional-locators-and-explicit-dispositions"
+        - requirement: "claim-source fit record"
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#claim-source-fit"
+            - "check:all-121-live-uses-read-in-context-and-grouped-across-35-source-fit-records"
+            - "source:chapters/17-doba-algoritama.qmd-Chouldechova-criteria-reconciled-to-primary-source"
+      outputs:
+        - output: "P1B-BIB durable artifact and evidence record for: Citation usage and bibliography metadata."
+          artifacts:
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md"
+            - "item:R06-BIB-remove-nocite"
+            - "item:R06-BIB-status-language"
+            - "item:R06-BIB-doi-audit"
+            - "item:R06-BIB-local-locator"
+        - output: "Completion evidence is tied to the declared P1B-BIB source state and bounded scope."
+          artifacts:
+            - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+            - "scope:_quarto-references-bibliography-page-and-one-source-fit-sentence"
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#affected-file-reconciliation"
+      exit_tests:
+        - test: "Every citation resolves and metadata are verified from authoritative sources."
+          result: "passed"
+          evidence:
+            - "check:35-live-keys-equal-35-BibTeX-records-and-citeproc-entries"
+            - "check:29-Crossref-DOI-matches-six-verified-no-DOI-identities-and-three-authoritative-page-ranges"
+        - test: "No blanket inclusion, invented key, DOI, locator, or finding remains."
+          result: "passed"
+          evidence:
+            - "check:zero-nocite-zero-unused-records-zero-unresolved-keys-zero-Navarro-keys-or-records"
+            - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#claim-source-fit"
+        - test: "The P1B-BIB packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:citation-metadata-source-fit-style-manual-targeted-render-source-diff-and-control-validation-passed"
+            - "handoff-ledger:packet_reviews.P1B-BIB"
     contract: "evidence_metadata"
     required_evidence:
       - "citation usage report"
       - "authoritative metadata verification"
       - "claim-source fit record"
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   P1B-META:
     sequence: 32
     phase: "1B"
     kind: "documentation"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1B-BIB"
     scope: "README and public-status metadata."
@@ -2532,17 +2972,56 @@ packets:
       - "Public documentation agrees with the live repository and governing contracts."
       - "No obsolete project-status or pathway promise remains."
       - "The P1B-META packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
+      required_evidence:
+        - requirement: "source-state comparison"
+          artifacts:
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison"
+            - "source:README.md-before-git-blob-8295c15d103d50d64b8f924d9627327e208025a0"
+            - "source:README.md-after-git-blob-e3801fd5b05eafeedae1a82e7d802e5ce49dfd1b"
+            - "check:19-ledger-units-all-draft-17-widget-records-zero-kolegij-solution-gates-and-no-renv-lock"
+        - requirement: "public metadata diff"
+          artifacts:
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#public-metadata-diff"
+            - "source:README.md-status-setup-commands-navigation-publication-and-provenance-reconciled"
+            - "check:ten-relative-README-links-resolve-and-seven-obsolete-promises-absent"
+      outputs:
+        - output: "P1B-META durable artifact and evidence record for: README and public-status metadata."
+          artifacts:
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md"
+            - "item:R06-META-readme"
+        - output: "Completion evidence is tied to the declared P1B-META source state and bounded scope."
+          artifacts:
+            - "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
+            - "scope:README-public-status-navigation-and-development-build-language-only"
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#affected-file-reconciliation"
+      exit_tests:
+        - test: "Public documentation agrees with the live repository and governing contracts."
+          result: "passed"
+          evidence:
+            - "check:README-claims-reconciled-to-ledger-config-profiles-wrappers-workflow-style-design-and-data-contracts"
+            - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison"
+        - test: "No obsolete project-status or pathway promise remains."
+          result: "passed"
+          evidence:
+            - "check:empty-skeleton-live-edition-complete-renv-visible-solutions-H1-H9-and-both-wrappers-rewrite-promises-absent"
+            - "handoff:H-P1B-META-001-through-H-P1B-META-004-record-all-later-reconciliation-effects"
+        - test: "The P1B-META packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:README-link-inventory-widget-ledger-wrapper-workflow-source-diff-and-control-validation-passed"
+            - "handoff-ledger:packet_reviews.P1B-META"
     contract: "documentation"
     required_evidence:
       - "source-state comparison"
       - "public metadata diff"
-    change_reference: null
+    change_reference: "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
   G-A1d:
     sequence: 33
     phase: "1B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
     scope: "Edition, changelog, citation, archive, and errata mechanism."
@@ -2553,14 +3032,52 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A1d packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+        - requirement: "named decision owner"
+          artifacts:
+            - "decision:G-A1d-author-release-archive-errata-owner-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "decision:G-A1d-D14-mechanism-ownership-dispositions-and-alternatives"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:outside_asks.OA-G-A1D-EDITION-MECHANISM"
+            - "register:outside_asks.OA-G-A1D-ARCHIVE-OWNER"
+            - "register:outside_asks.OA-G-A1D-ERRATA-OWNER"
+            - "register:outside_asks.OA-G-A1D-RELEASE-OWNER"
+      outputs:
+        - output: "Dated G-A1d decision and authority record for: Edition, changelog, citation, archive, and errata mechanism."
+          artifacts:
+            - "decision:G-A1d"
+        - output: "Completion evidence is tied to the declared G-A1d source state and bounded scope."
+          artifacts:
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "decision:G-A1d-D14-mechanism-ownership-dispositions-and-alternatives"
+            - "register:outside_asks.OA-G-A1D-EDITION-MECHANISM-through-OA-G-A1D-RELEASE-OWNER"
+        - test: "The G-A1d packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A1d"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
   P1B-GOV:
     sequence: 34
     phase: "1B"
@@ -7566,7 +8083,7 @@ items:
       location: "§4 metadata hygiene + §15 R03"
     description: "Locate every materially Navarro-derived passage and record passage-level provenance and possible obligations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7585,11 +8102,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-NAVARRO"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#revizija-korespondencije-na-razini-odlomka"
+      - "check:all-four-candidates-have-verified-correspondence-and-explicit-disposition"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
   R03-NAVARRO-resolution:
     parents:
       - "R03"
@@ -7603,7 +8123,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Implement D11 through sufficient rewriting plus attribution or compatible licensing if an obligation remains."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7623,11 +8143,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-NAVARRO"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#zavrsni-licencni-zakljucak"
+      - "outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done"
+      - "check:LICENSE-README-bibliography-provenance-and-source-reconciliation-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
   R03-DATA-lane-inventory:
     parents:
       - "R03"
@@ -7643,7 +8167,7 @@ items:
       location: "§9/§12/§13 data provenance"
     description: "Inventory source, version, licence, attribution, access, and redistribution lane for every current and proposed dataset."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7660,11 +8184,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-DATA-LIC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava"
+      - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#traka-i-zakonita-zamjena"
+      - "check:17-of-17-package-records-have-exactly-one-cautious-lawful-lane"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   R03-DATA-generated-licence:
     parents:
       - "R03"
@@ -7678,7 +8206,7 @@ items:
       location: "§13 lines 2172–2179"
     description: "Assign an explicit compatible licence to every generated teaching dataset."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7697,11 +8225,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-DATA-LIC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      - "outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE-done"
+      - "source:data/LICENCA-generirani-podaci.md"
+      - "check:CC-BY-4.0-present-in-generator-repository-data-readme-notice-public-page-and-appendix-with-zero-not-applicable-labels"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   R03-DATA-bundled-portal-contract:
     parents:
       - "R03"
@@ -7716,7 +8248,7 @@ items:
       location: "§9/§12"
     description: "Define bundled, portal-mediated, and external-only lanes and required cleared alternatives."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7732,11 +8264,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-DATA-LIC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      - "outside-ask:OA-G-A1C-DATA-LANES-done"
+      - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#ugovor-traka"
+      - "check:all-required-student-pathways-have-cleared-bundled-or-aggregate-fallbacks"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   R03-DZS-rights:
     parents:
       - "R03"
@@ -9170,7 +9706,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Update public project status and navigation/build language."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9186,11 +9722,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-META"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
+      - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison"
+      - "report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#public-metadata-diff"
+      - "source:README.md-substantive-draft-development-artifacts-and-verified-pathways"
+      - "check:README-relative-links-obsolete-promises-source-diff-and-workflow-validation-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206"
   R06-BIB-remove-nocite:
     parents:
       - "R06"
@@ -9204,7 +9745,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Remove blanket nocite and reconcile displayed references with actual citations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9221,11 +9762,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#citation-usage-report"
+      - "source:_quarto.yml-with-zero-nocite-directives"
+      - "check:121-live-uses-35-keys-35-records-zero-unresolved-zero-unused-and-35-citeproc-entries"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-BIB-status-language:
     parents:
       - "R06"
@@ -9239,7 +9784,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Replace provisional bibliography language with accurate maintained-edition metadata."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9256,11 +9801,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "source:references.bib-maintained-list-header"
+      - "source:references.qmd-used-and-verified-only-comment"
+      - "check:no-source-or-public-text-falsely-describes-the-bibliography-as-an-untouched-seed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-BIB-doi-audit:
     parents:
       - "R06"
@@ -9274,7 +9823,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Verify DOI metadata or a checked no-DOI disposition for affected journal articles."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9290,11 +9839,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#authoritative-metadata-verification"
+      - "check:29-of-29-live-DOIs-resolve-through-Crossref-with-matching-titles"
+      - "check:all-live-journal-and-proceedings-records-carry-authoritatively-verified-DOIs"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-BIB-local-locator:
     parents:
       - "R06"
@@ -9308,7 +9861,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Add verified stable locator/version metadata or document why unavailable."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9324,11 +9877,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-BIB"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
+      - "report:notes/reports/p1b-bibliography-metadata-audit-2026-08-03.md#no-doi-locators"
+      - "source:references.bib-gelman2013-version-14-November-2013-and-Columbia-URL"
+      - "check:all-six-live-no-DOI-works-have-verified-identities-locators-and-explicit-no-DOI-dispositions"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0"
   R06-GOV-contract:
     parents:
       - "R06"
@@ -11336,7 +11893,7 @@ items:
       location: "§8 Ch9"
     description: "Remove or correctly bound the prediction-interval language."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11352,11 +11909,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+      - "critic_methods:pass-normal-rule-descriptive-not-prediction"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   R09-C09-bootstrap-validation:
     parents:
       - "R09"
@@ -11370,7 +11930,7 @@ items:
       location: "§8 Ch9"
     description: "Give the bootstrap median its own appropriate demonstration or narrow the claim."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11386,11 +11946,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+      - "critic_methods:pass-bootstrap-validation-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   R09-C09-bootstrap-failures:
     parents:
       - "R09"
@@ -11404,7 +11967,7 @@ items:
       location: "§8 Ch9"
     description: "State independence/representativeness and relevant small-sample/discreteness/tail limits."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11420,11 +11983,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+      - "critic_methods:pass-bootstrap-assumptions-and-failures"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   R09-C11-power-assumptions:
     parents:
       - "R09"
@@ -11475,7 +12041,7 @@ items:
       location: "§8 Ch13"
     description: "Use adjusted standardized residuals or correctly rename Pearson residuals and remove z-like calibration."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11491,11 +12057,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C13"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+      - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+      - "critic_methods:pass-adjusted-standardized-residual-computation-name-threshold-and-interpretation"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
   R09-C13-calibration-power:
     parents:
       - "R09"
@@ -11509,7 +12078,7 @@ items:
       location: "§8 Ch13"
     description: "Separate null calibration from power under alternatives."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11525,11 +12094,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C13"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
+      - "report:notes/reports/p1a-c13-methods-review-2026-08-03.md"
+      - "critic_methods:pass-null-calibration-fixed-alternative-power-and-simulation-alignment"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8"
   R09-C15-variance-ratio:
     parents:
       - "R09"
@@ -11691,7 +12263,7 @@ items:
       location: "§8 Ch18"
     description: "Replace binary disappearance language with estimate-and-interval-compatible interpretation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11708,11 +12280,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1"
+      - "report:notes/reports/p1a-c18-methods-review-2026-08-03.md"
+      - "critic_methods:pass-interval-compatible-conclusion-and-known-generator-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1"
   R10-C03-base-rate:
     parents:
       - "R10"
@@ -20828,10 +21403,10 @@ outside_asks:
       - "decision:G-A1b"
 
   OA-G-A1C-NAVARRO-BOOK-LICENCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_provenance_packet"
+    status: "done"
+    readiness: "owner_policy_and_zero_use_audit_complete"
     kind: "rights_decision"
-    owner: "author and licence owner"
+    owner: "Luka Sikic (author and licence owner)"
     due_phase: "1B"
     needed: "Decide the lawful Navarro-derived-prose and final book-licence lane after the passage audit."
     expected_form: "One dated licence disposition tied to the passage-level provenance evidence."
@@ -20843,17 +21418,31 @@ outside_asks:
     available_evidence:
       - "decision:D11"
       - "packet:P1B-NAVARRO"
-    recommended_default: "Rewrite materially derived prose originally with attribution; adopt ShareAlike only if the audit shows the obligation remains."
-    exact_reply_requested: "Reply with one lane: original rewriting plus attribution, or compatible ShareAlike; identify the licence owner and date."
-    resume_condition: "The Navarro and book-licence children resume only when the audit and dated owner disposition agree."
+    recommended_default: "Use no Navarro material or reader-facing reference; remove every dependency through omission or genuinely independent rewriting while preserving the internal audit trail."
+    exact_reply_requested: "Reply: zero Navarro use or public reference approved; internal provenance audit retained; owner [name], date [YYYY-MM-DD]."
+    resume_condition: "The Navarro and book-licence children close only when the audit verifies zero public use and zero material dependency."
     why_external: "Licence obligations and the final licence choice require the rights owner's decision."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Zero Navarro use or reader-facing reference is approved. Audit every
+      candidate, then remove all Navarro citations, names, analogies, examples,
+      distinctive sequences, and materially derived expression through
+      omission or genuinely independent rewriting. Preserve the internal
+      provenance record so the audit demonstrates removal rather than hidden
+      use. The packet cannot close while any material dependency survives.
+    resolution_evidence:
+      - "conversation:G-A1c-navarro-book-licence-disposition-2026-08-03-Luka-Sikic"
+      - "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
+      - "decision:G-A1c"
+      - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md"
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
 
   OA-G-A1C-GENERATED-DATA-LICENCE:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_decision"
+    status: "done"
+    readiness: "resolved_owner_decision"
     kind: "rights_decision"
-    owner: "author and licence owner"
+    owner: "Luka Sikic (author and licence owner)"
     due_phase: "1B"
     needed: "Assign an explicit compatible licence to generated teaching data."
     expected_form: "One dated licence declaration covering every generated teaching dataset."
@@ -20869,12 +21458,19 @@ outside_asks:
     resume_condition: "The licence child resumes when the compatible licence and owner are recorded."
     why_external: "Repository files cannot grant the legal licence."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      CC BY 4.0 is approved for every generated teaching dataset, subject to
+      reconciliation with the final book licence.
+    resolution_evidence:
+      - "conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic"
+      - "decision:G-A1c"
 
   OA-G-A1C-DATA-LANES:
-    status: "drafted_unsent"
-    readiness: "waiting_for_lane_inventory"
+    status: "done"
+    readiness: "owner_policy_accepted_pending_lane_inventory"
     kind: "rights_decision"
-    owner: "author and relevant licence/data owner"
+    owner: "Luka Sikic (author and data-lane policy owner)"
     due_phase: "1B"
     needed: "Approve the bundled, portal-mediated, and external-only redistribution policy."
     expected_form: "One dated lane policy with a lawful fallback for every required student pathway."
@@ -20891,12 +21487,21 @@ outside_asks:
     resume_condition: "The lane-policy children resume after an owner disposition names every exception and fallback."
     why_external: "Technical access does not establish redistribution authority."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Bundle only licence-cleared files, use portal mediation where
+      redistribution is uncertain, keep restricted sources external, and give
+      every required student pathway a licence-cleared bundled file or
+      aggregate alternative. No package-specific exception is approved.
+    resolution_evidence:
+      - "conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic"
+      - "decision:G-A1c"
 
   OA-G-A1D-EDITION-MECHANISM:
-    status: "drafted_unsent"
-    readiness: "waiting_for_G-A1d_packet"
+    status: "done"
+    readiness: "resolved_owner_decision"
     kind: "release_decision"
-    owner: "author and release owner"
+    owner: "Luka Sikic (author and release owner)"
     due_phase: "1B"
     needed: "Approve the edition/version, changelog, citation, provenance, and non-release governance mechanism."
     expected_form: "One dated mechanism decision that creates no tag, archive, push, or deployment authority."
@@ -20915,12 +21520,20 @@ outside_asks:
     resume_condition: "P1B-GOV resumes when the dated mechanism is approved without broader external authority."
     why_external: "Edition policy and release ownership are author/release-owner decisions."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Approved as recommended: create the pre-release governance mechanisms
+      locally in Phase 1, retain the D14 working-title boundary, and defer all
+      immutable and public release actions to their exact later A6 gates.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A1D-ARCHIVE-OWNER:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_assignment"
+    status: "done"
+    readiness: "resolved_owner_assignment"
     kind: "release_owner"
-    owner: "author"
+    owner: "Luka Sikic (author and archive owner)"
     due_phase: "1B"
     needed: "Name the person or role responsible for the final archival deposit and persistent identifier."
     expected_form: "One named archive owner with an accepted responsibility statement."
@@ -20938,12 +21551,20 @@ outside_asks:
     resume_condition: "Ownership gates resume when one accountable owner accepts; archival deposit still awaits exact A6 authority."
     why_external: "The repository cannot appoint an accountable human owner."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Luka Sikic, author, accepts responsibility for the eventual archival
+      deposit and persistent identifier; execution remains gated by
+      G-A6-ARCHIVE.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A1D-ERRATA-OWNER:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_assignment"
+    status: "done"
+    readiness: "resolved_owner_assignment"
     kind: "release_owner"
-    owner: "author"
+    owner: "Luka Sikic (author and errata owner)"
     due_phase: "1B"
     needed: "Name the person or role responsible for the public errata route and dated status log."
     expected_form: "One named errata owner with an accepted maintenance responsibility."
@@ -20961,12 +21582,20 @@ outside_asks:
     resume_condition: "Ownership gates resume when one accountable owner accepts; publication remains separately gated."
     why_external: "Long-term maintenance ownership cannot be inferred from repository metadata."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Luka Sikic, author, accepts continuing responsibility for the eventual
+      public errata route and dated status log; public activation remains gated
+      by G-A6-DEPLOY.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A1D-RELEASE-OWNER:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_assignment"
+    status: "done"
+    readiness: "resolved_owner_assignment"
     kind: "release_owner"
-    owner: "author"
+    owner: "Luka Sikic (author and release owner)"
     due_phase: "1B"
     needed: "Name the final release owner responsible for gate coordination and source-state control."
     expected_form: "One named release owner accepting the no-inferred-authority boundary."
@@ -20989,6 +21618,13 @@ outside_asks:
     resume_condition: "Release-owner gates resume after acceptance; no external action is thereby authorised."
     why_external: "The repository cannot appoint or bind a release owner."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Luka Sikic, author, accepts release-gate coordination, exact source-state
+      control, and the boundary that no external-action authority is inferred.
+    resolution_evidence:
+      - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+      - "decision:G-A1d"
 
   OA-G-A2A-CLAIM-SYSTEM:
     status: "drafted_unsent"

@@ -812,10 +812,12 @@ Unchanged for every job above.
    mechanics → Dodatak A. Everything else is cut.
 3. **Write the five missing skeleton parts.** Vignette, divljina, both AI boxes,
    four exercise tiers. The *Računski* tier assumes no R installation.
-4. **Record provenance in the chapter header** the way chapter 4 does. Navarro
-   is the course's primary reference and open decision 5 tracks ShareAlike
-   exposure. **Per-chapter at port time is far cheaper than an audit of
-   eighteen chapters later.**
+4. **Record provenance in the chapter header** the way chapter 4 does. At port
+   time Navarro was the course's primary reference and decision 5 tracked
+   ShareAlike exposure. P1B-NAVARRO later audited every surviving candidate,
+   removed the dependency and retained the internal record in
+   `notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md`.
+   **Per-chapter provenance remains mandatory even after that resolution.**
 5. **Relabel every dataset as simulated**, following `R/podaci-nastavni.R`, and
    register it in Dodatak C. No course dataset is empirical.
 6. **Widen the komunikologija framing** at least once per chapter.

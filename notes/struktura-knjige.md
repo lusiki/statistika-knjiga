@@ -356,10 +356,12 @@ profile.
    documents exact menus or stays conceptual.
 4. Jezik primjera. Whether flagship examples stay Croatian only or each chapter
    carries one international case for portability.
-5. Licenca. Track which passages still derive from Navarro through the port
-   waves. If any survive to the final draft, the book carries ShareAlike terms
-   and attribution, which is compatible with print and subsidy but must be
-   declared from day one.
+5. Licenca. Resolved in P1B-NAVARRO on 2026-08-03. Every candidate tied to
+   Navarro was removed or independently rebuilt, and the passage-level audit
+   found no surviving material dependency or ShareAlike obligation. The book
+   retains MIT for its original text, code and associated documentation;
+   third-party materials keep separately stated terms. The internal record is
+   `notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md`.
 6. Ugrađeni tutor. Whether the digital edition embeds a chat tutor grounded in
    the book through an API, a genuine differentiator with real costs, hosting,
    privacy review and maintenance duty. Decide after the exports ship, since the

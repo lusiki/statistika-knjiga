@@ -3,57 +3,69 @@
 Quarto knjiga — udžbenik statistike za studente društvenih znanosti koji moraju
 razumjeti istraživanje, a ne postati analitičari.
 
-### 📖 &nbsp;Knjiga uživo → **<https://lusiki.github.io/statistika-knjiga/>**
+### 📖 &nbsp;Radna mrežna inačica → **<https://lusiki.github.io/statistika-knjiga/>**
 
 [![Render and deploy](https://github.com/lusiki/statistika-knjiga/actions/workflows/publish.yml/badge.svg)](https://github.com/lusiki/statistika-knjiga/actions/workflows/publish.yml)
 
-Stranica se ponovno gradi sama pri svakom pushu na `main`; PDF radne verzije
-stoji na [`/pdf/Statistika.pdf`](https://lusiki.github.io/statistika-knjiga/pdf/Statistika.pdf).
+Workflow je podešen da pri svakom pushu na `main` ponovno izgradi radnu
+stranicu; poveznica na razvojni PDF je
+[`/pdf/Statistika.pdf`](https://lusiki.github.io/statistika-knjiga/pdf/Statistika.pdf).
 
-**Stanje: kostur.** Cijeli pogon radi (build, izvozi, PDF, CI, uređivački
-alati) i knjiga ima vizualni identitet. Nijedno poglavlje još nema sadržaj —
-ono što je na stranici je struktura, ne tekst. Plan knjige je
+**Stanje: sadržajni nacrt u sveobuhvatnoj reviziji.** Predgovor i svih 18
+numeriranih poglavlja imaju tekst i zajedničke strukturne sastavnice, ali svih
+19 jedinica još ima status `draft`. Mrežna inačica, PDF i DOCX razvojni su
+artefakti, a ne objavljeno izdanje. Opseg i plan knjige opisani su u
 [notes/struktura-knjige.md](notes/struktura-knjige.md).
 
-## Prvo pokretanje
+## Licenca
+
+Izvorni autorski tekst, programski kod i pridružena dokumentacija u ovom
+repozitoriju dostupni su pod MIT licencom iz datoteke [LICENSE](LICENSE).
+Skupovi podataka i drugi materijali trećih strana zadržavaju zasebno označene
+uvjete; tehnički pristup ne znači dopuštenje za preraspodjelu.
+Generirani nastavni skupovi `anketa_mreze` i `populacija_medija` te njihove
+buduće datotečne snimke dostupni su pod [CC BY 4.0](data/LICENCA-generirani-podaci.md).
+Ta licenca podataka ne mijenja MIT licencu koda koji ih stvara.
+
+## Lokalni pregled
+
+Repozitorij još nema `renv.lock`, pa ponovljiva čista instalacija R ovisnosti
+nije zaključana. `scripts/init-renv.R` pripremni je instalacijski skript, a ne
+potpun ugovor o obnovi okruženja. Ako su Quarto i potrebne R ovisnosti već
+dostupni, pregled se pokreće ovako:
 
 ```bash
-# 1. R okruženje (jednom)
-python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/init-renv.R
-
-# 2. pregled u pregledniku
 quarto preview
 ```
-
-Ako Quarto javi da nedostaje R paket, pokrenite korak 1. Sve što knjiga koristi
-je u `scripts/init-renv.R`.
 
 ## Naredbe
 
 | Naredba | Što radi |
 |---------|----------|
-| `quarto preview` | živi pregled |
-| `quarto render` | cijela knjiga u `docs/` |
-| `quarto render --profile kolegij` | nastavno izdanje u `docs-kolegij/`, kod otvoren, rješenja vidljiva |
-| `powershell -File scripts/render-book-pdf.ps1` | `pdf/Statistika.pdf` |
-| `powershell -File scripts/render-book-docx.ps1` | `word/Statistika.docx`, rukopis za lekturu |
+| `quarto preview` | lokalni pregled knjige |
+| `quarto render` | razvojni HTML build u `docs/` |
+| `quarto render --profile kolegij` | nastavni profil u `docs-kolegij/`, sa svim kodom otvorenim |
+| `powershell -File scripts/render-book-pdf.ps1` | razvojni PDF u `pdf/Statistika.pdf` i njegova kopija u `docs/pdf/` |
+| `powershell -File scripts/render-book-docx.ps1` | razvojni rukopis u `word/Statistika.docx` |
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R` | jesu li slojevi dizajna usklađeni |
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-ai-exports.R` | tekstualni izvoz knjige za AI asistente |
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-concept-graph.R` | mreža pojmova za pojmovnik |
 
-PDF i DOCX **ne** pokreću se golim `quarto render --profile …`. Quarto spaja
-popise dodataka aditivno, pa profil ne može skratiti popis; PowerShell skripte
-privremeno prepišu `_quarto.yml` i uvijek ga vrate.
+PDF i DOCX **ne** pokreću se golim `quarto render --profile …`. PDF omotač
+provjerava kanonski popis literature i dodataka A–F, pokreće PDF profil te
+kopira rezultat u `docs/pdf/`. DOCX omotač tijekom rendera privremeno isključuje
+pre-render hook i zamjenjuje vrata statičkih slika; `finally` blok vraća
+konfiguraciju i izvore i ako render ne uspije.
 
 ## Gdje što stoji
 
 | Želim… | Idem u… |
 |--------|---------|
-| pisati poglavlje | `chapters/` — kostur je već tu, pravila su u `STYLE.md` |
+| uređivati nacrt poglavlja | `chapters/` — pravila su u `STYLE.md` |
 | promijeniti izgled | `DESIGN.md`, pa `design-tokens.yml` |
 | dodati interaktivni graf | `widgets/README.md` i `data/widgets.json` |
-| dodati podatke | `R/fetch-podaci.R` i `dodaci/c-katalog-podataka.qmd` |
-| promijeniti redoslijed poglavlja | `_quarto.yml` |
+| provjeriti pravila za podatke | `data/README.md`, `R/fetch-podaci.R` i `dodaci/c-katalog-podataka.qmd` |
+| provjeriti kanonski redoslijed | `_quarto.yml` i `notes/struktura-knjige.md` |
 | napraviti prezentaciju | `predavanja/README.md` |
 | razumjeti cjelinu | `AGENTS.md` |
 
@@ -76,7 +88,7 @@ Sinkronizaciju slojeva provjerava
 
 - [AGENTS.md](AGENTS.md) — zajednički operativni priručnik za Codex i Claude Code
 - [CLAUDE.md](CLAUDE.md) — Claude Code ulaz koji učitava `AGENTS.md`
-- [STYLE.md](STYLE.md) — uređivački stil, tvrda pravila H1–H9, meka S1–S9
+- [STYLE.md](STYLE.md) — uređivački stil, tvrda pravila H1–H10, meka S1–S9
 - [ENRICHMENT.md](ENRICHMENT.md) — kako se poglavlje produbljuje
 - [notes/struktura-knjige.md](notes/struktura-knjige.md) — plan knjige
 
@@ -102,14 +114,18 @@ vještine. Claude Code koristi lokalni marketplace u `bookwright_plugin/`;
 točne naredbe za oba domaćina i razvojni postupak nadogradnje nalaze se u
 `bookwright_plugin/README.md`.
 
-## Objava
+## Razvojna objava
 
-Knjiga je na <https://lusiki.github.io/statistika-knjiga/>.
+Radna mrežna inačica podešena je za
+<https://lusiki.github.io/statistika-knjiga/>. Ta adresa i razvojni artefakti
+nisu dokaz objavljenog izdanja.
 
 Push na `main` pokreće [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
-koji renderira knjigu, pokuša PDF (neblokirajuće, stari ostaje ako padne) i
-objavi `docs/` na GitHub Pages. Izvor za Pages je **GitHub Actions**, ne grana —
-`docs/` u repozitoriju je samo urezani zadnji build, ne ono što se poslužuje.
+koji renderira knjigu, pokuša PDF i objavi `docs/` na GitHub Pages. PDF korak
+trenutačno je neblokirajući, pa pri njegovu neuspjehu može ostati prethodno
+urezani PDF. Izvor za Pages je **GitHub Actions**, ne grana; `docs/` u
+repozitoriju jest urezani razvojni build, ali nije sam po sebi dokaz onoga što
+se poslužuje.
 
 Ručno pokretanje bez pusha ide preko kartice Actions („Run workflow") ili:
 
@@ -125,4 +141,5 @@ Adresa je upisana na tri mjesta i mijenja se zajedno: `site-url` i `repo-url` u
 
 Pogon je prenesen iz knjige *Javne politike u Hrvatskoj* i prilagođen ovoj
 temi. Preneseni su build, izvozi za AI, mreža pojmova, PDF i DOCX lanac, CI i
-uređivački alati; izgled nije prenesen, namjerno.
+uređivački alati; sadašnji prozračni uredništveni identitet zasebno je preslikan
+i dokumentiran u `DESIGN.md`.

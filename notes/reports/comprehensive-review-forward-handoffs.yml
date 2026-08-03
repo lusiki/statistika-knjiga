@@ -648,6 +648,530 @@ handoffs:
           - scope:chapters/14-dvije-grupe.qmd-and-R02-C14-welch-ols-only
           - authority:P1A-C14-only-no-P1A-C15-or-later-packet
 
+  H-G-A1C-001:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D11
+      - item:R03-NAVARRO-provenance
+      - item:R03-NAVARRO-resolution
+    statement: >-
+      Author and licence owner Luka Sikic approved original rewriting of
+      materially Navarro-derived prose with scholarly attribution on
+      2026-08-03. Compatible ShareAlike terms are required only if the
+      passage-level provenance audit proves that an obligation survives.
+    required_action: >-
+      In P1B-NAVARRO, complete the passage-level source and licence audit,
+      rewrite materially derived prose originally while retaining scholarly
+      attribution, and reconcile LICENSE, README.md, references.bib, and every
+      affected source. Do not infer that the current warning is cleared. If
+      verified evidence establishes a surviving or incompatible obligation,
+      stop and return for the exact owner disposition before closeout.
+    basis:
+      - conversation:G-A1c-navarro-book-licence-disposition-2026-08-03-Luka-Sikic
+      - decision:D11
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-NAVARRO-BOOK-LICENCE
+    required: true
+    deliveries:
+      - target_packet: P1B-NAVARRO
+        gate: before_start
+        state: superseded
+        resolved_at: "2026-08-03"
+        disposition: >-
+          Superseded before P1B-NAVARRO was claimed by the author's stricter
+          direction to minimise and wherever practicable eliminate Navarro
+          reliance rather than merely rewrite every candidate passage.
+        replacement_handoff: H-G-A1C-004
+        evidence:
+          - conversation:G-A1c-minimise-Navarro-reliance-2026-08-03-Luka-Sikic
+
+  H-G-A1C-002:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D12
+      - item:R03-DATA-generated-licence
+    statement: >-
+      Author and licence owner Luka Sikic approved CC BY 4.0 for every
+      generated teaching dataset on 2026-08-03, subject to reconciliation with
+      the final book licence.
+    required_action: >-
+      In P1B-DATA-LIC, identify every generated teaching dataset, apply an
+      explicit CC BY 4.0 notice consistently across the generator, catalogue,
+      public data page, Appendix C, and downloads, and verify compatibility
+      with the book-licence result. Do not leave any generated dataset blank or
+      labelled not applicable.
+    basis:
+      - conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic
+      - decision:D12
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-GENERATED-DATA-LICENCE
+    required: true
+    deliveries:
+      - target_packet: P1B-DATA-LIC
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-DATA-LIC accepts the owner's CC BY 4.0 disposition before its
+          first substantive edit. The packet will identify every generated
+          teaching dataset, place one consistent notice in generator,
+          catalogue, public page, Appendix C, and download-adjacent records,
+          and preserve MIT for the generator code and authored book material.
+        evidence:
+          - conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic
+          - outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE-done
+          - decision:D12
+          - source:R/podaci-nastavni.R-pre-edit-inventory
+          - source:dodaci/c-katalog-podataka.qmd-pre-edit-inventory
+          - source:CC-BY-4.0-legal-code-pre-edit-review
+
+  H-G-A1C-003:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D08
+      - item:R03-DATA-lane-inventory
+      - item:R03-DATA-bundled-portal-contract
+    statement: >-
+      Author and data-lane policy owner Luka Sikic approved the recommended
+      lane policy on 2026-08-03 with no package-specific exception: bundle only
+      licence-cleared files, use portal mediation where redistribution is
+      uncertain, keep restricted sources external, and preserve a cleared
+      bundled or aggregate alternative for every required student pathway.
+    required_action: >-
+      In P1B-DATA-LIC, inventory source, version, licence, attribution, access,
+      and redistribution separately for every current and proposed package.
+      Assign one verified bundled, portal-mediated, or external-only lane and a
+      lawful fallback for required work. Technical access is never
+      redistribution authority; later package-specific permission and
+      selection gates remain mandatory.
+    basis:
+      - conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic
+      - decision:D08
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-DATA-LANES
+    required: true
+    deliveries:
+      - target_packet: P1B-DATA-LIC
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-DATA-LIC accepts the no-exception lane policy before its first
+          substantive edit. Every current and proposed package will receive a
+          separate source, version, licence, attribution, access, and
+          redistribution record, one cautious lawful lane, and a cleared
+          fallback wherever a student pathway is required. Later
+          package-selection and permission gates remain mandatory.
+        evidence:
+          - conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic
+          - outside-ask:OA-G-A1C-DATA-LANES-done
+          - decision:D08
+          - source:current-and-proposed-data-records-pre-edit-inventory
+          - check:authoritative-source-and-licence-evidence-pre-edit-review
+
+  H-G-A1C-004:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D11
+      - item:R03-NAVARRO-provenance
+      - item:R03-NAVARRO-resolution
+      - handoff:H-G-A1C-001
+    statement: >-
+      Author and licence owner Luka Sikic amended the Navarro disposition on
+      2026-08-03. The first-edition objective is to minimise and wherever
+      practicable eliminate reliance on Navarro by removing nonessential
+      Navarro-specific analogies, sequences, and citations and rebuilding
+      necessary explanations independently. This is removal of dependency,
+      not concealment: materially derived content that survives retains
+      scholarly attribution and any verified ShareAlike obligation.
+    required_action: >-
+      In P1B-NAVARRO, audit every candidate passage before changing it. Remove
+      avoidable Navarro-specific framing and citations; independently rebuild
+      explanations the book genuinely needs and use primary or otherwise
+      independently verified sources where evidence is required. Preserve a
+      passage-level record of what was removed, independently rewritten, or
+      retained. Never erase attribution while retaining materially derived
+      expression or structure. Reconcile LICENSE, README.md, references.bib,
+      provenance notes, and every affected chapter, and stop for an explicit
+      owner disposition if any material dependency or ShareAlike obligation
+      survives.
+    basis:
+      - conversation:G-A1c-minimise-Navarro-reliance-2026-08-03-Luka-Sikic
+      - decision:D11
+      - handoff:H-G-A1C-001-superseded-before-P1B-NAVARRO-claim
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-NAVARRO-BOOK-LICENCE
+    required: true
+    deliveries:
+      - target_packet: P1B-NAVARRO
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-NAVARRO explicitly acknowledges H-G-A1C-001 as the required
+          superseded baseline and consumes H-G-A1C-004 as its operative,
+          stricter replacement before any chapter, licence, bibliography, or
+          audit-artifact edit. Every candidate will receive a passage-level
+          removed, independently rewritten, or retained disposition; the
+          packet will stop for a new owner disposition if any material
+          Navarro dependency or ShareAlike obligation survives.
+        evidence:
+          - handoff:H-G-A1C-001-superseded-by-H-G-A1C-004-before-claim
+          - conversation:P1B-NAVARRO-execution-instruction-2026-08-03
+          - conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic
+          - check:scripts/check-review-workflow.R-before-P1B-NAVARRO-claim
+          - source:Learning-Statistics-with-R-version-0.6-CC-BY-SA-4.0-pre-edit-audit
+
+  H-P1B-NAVARRO-001:
+    source_packet: P1B-NAVARRO
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R03-NAVARRO-provenance
+      - item:R03-NAVARRO-resolution
+      - outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE
+      - report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md
+    statement: >-
+      The passage-level audit verified zero surviving Navarro material or
+      reader-facing reference. The repository's original authored text, code,
+      and associated documentation therefore remain under MIT, while datasets
+      and other third-party materials retain separately verified terms. The
+      removed navarro2019 record was also version-unreliable for the audited
+      version 0.6 source.
+    required_action: >-
+      P1B-DATA-LIC must preserve the boundary between the MIT book and
+      separately licensed data and must not infer redistribution permission
+      from technical access. P1B-BIB must not restore navarro2019 merely as a
+      general textbook reference; any future reader-facing Navarro use would
+      require a new independently scoped need, authoritative version metadata,
+      and a renewed rights analysis.
+    basis:
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      - "decision:D11"
+      - "outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done"
+      - "source:Learning-Statistics-with-R-v0.6-pdf-sha256-CEB73307B5B0D310120E3E1470917B80189AFA11BEC3487F3910C8B1FA5BFE16"
+    required: true
+    deliveries:
+      - target_packet: P1B-DATA-LIC
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-DATA-LIC accepts the verified zero-Navarro boundary before its
+          first substantive edit. MIT remains the regime for original book
+          prose, code, and associated documentation; generated datasets and
+          third-party data remain separately licensed, and technical access
+          will not be treated as redistribution permission.
+        evidence:
+          - report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md
+          - state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c
+          - source:LICENSE-and-README-boundary-pre-edit-review
+          - outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done
+      - target_packet: P1B-BIB
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-BIB accepts the verified zero-Navarro result before its first
+          substantive bibliography or configuration edit. The packet will not
+          restore navarro2019 as a general reference; any future reader-facing
+          Navarro use remains conditional on a new independently scoped need,
+          authoritative version metadata, and renewed rights analysis.
+        evidence:
+          - report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md
+          - state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c
+          - check:zero-navarro-citation-keys-and-bibliography-records-before-P1B-BIB
+          - commit:81869631d0faf8a99af809ea2a5c01ee26dd5a9b
+
+  H-P1B-DATA-LIC-001:
+    source_packet: P1B-DATA-LIC
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R03-DATA-generated-licence
+      - decision:D12
+      - outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE
+      - report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md
+    statement: >-
+      Generated teaching datasets anketa_mreze and populacija_medija, including
+      every future materialised snapshot, are CC BY 4.0 data owned by Luka
+      Sikic. Their generator code and the original book remain MIT, and the
+      generated-data notice does not cover third-party data.
+    required_action: >-
+      P3-EXISTING and P3-CATALOG must preserve the exact licence boundary,
+      attribution, change-marking requirement, and download-adjacent notice.
+      Neither package may label a generated dataset licence blank or not
+      applicable, and every future CSV or other snapshot must carry the notice
+      or a direct link to it.
+    basis:
+      - conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic
+      - data/LICENCA-generirani-podaci.md
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#licenca-generiranih-skupova-i-granica-mit-a
+    required: true
+    deliveries:
+      - target_packet: P3-EXISTING
+        gate: before_start
+        state: pending
+      - target_packet: P3-CATALOG
+        gate: before_start
+        state: pending
+
+  H-P1B-DATA-LIC-002:
+    source_packet: P1B-DATA-LIC
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R03-DATA-lane-inventory
+      - item:R03-DATA-bundled-portal-contract
+      - decision:D08
+      - report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md
+    statement: >-
+      The complete P1B inventory assigns exactly one current lane and a lawful
+      fallback to four existing and thirteen proposed packages. Technical
+      access is not redistribution authority, and data/katalog.yml was
+      intentionally not created before P3-CATALOG.
+    required_action: >-
+      P3-CATALOG must create the sole machine-readable record with required
+      source, version, licence, attribution, access, redistribution, lane,
+      fallback, and integrity fields. It must fail closed and must not promote
+      a portal-mediated or external-only package from availability alone.
+      P3-EXISTING must keep UCBAdmissions and anscombe external-only unless it
+      obtains authoritative dataset-specific redistribution evidence.
+    basis:
+      - conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#traka-i-zakonita-zamjena
+    required: true
+    deliveries:
+      - target_packet: P3-CATALOG
+        gate: before_start
+        state: pending
+      - target_packet: P3-EXISTING
+        gate: before_start
+        state: pending
+
+  H-P1B-DATA-LIC-003:
+    source_packet: P1B-DATA-LIC
+    created_at: "2026-08-03"
+    kind: evidence
+    refs:
+      - item:R03-DZS-rights
+      - item:R03-DIP-rights
+      - item:R03-DIGIKAT-rights
+      - item:R03-EUROSTAT-rights
+      - item:R03-ESS-permission-gate
+      - item:R03-TEXT-licences
+      - report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md
+    statement: >-
+      DZS tourism, ParlaMint-HR, and ParlaSent have a verified general bundled
+      basis but still require exact package records. DIP and the unselected
+      Eurostat package are portal-mediated; ESS R11 is portal-mediated under
+      D08; DigiKat and Determ are external-only. No later gate may infer a
+      broader right from those access routes.
+    required_action: >-
+      Each G-A3 package decision must acknowledge its incoming lane, inspect
+      the exact selected files and exceptions, and either ratify a lawful
+      package with attribution, version, checksum, and fallback or preserve
+      the cautious lane. The owner must receive an exact bounded disposition
+      request if authoritative evidence still does not support promotion.
+    basis:
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori
+      - decision:D08
+      - outside-ask:OA-G-A1C-DATA-LANES-done
+    required: true
+    deliveries:
+      - target_packet: G-A3-DZS
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-DIP
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-DIGIKAT
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-EUROSTAT
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-ESS
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-TEXT
+        gate: before_start
+        state: pending
+
+  H-P1B-META-001:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R06-META-readme
+      - packet:P1C-LOCK
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      The public README now states that renv.lock and a verified clean restore
+      contract do not yet exist. scripts/init-renv.R is only a preparatory
+      installation script and must not be advertised as a complete or
+      reproducible environment definition.
+    required_action: >-
+      P1C-LOCK must replace the temporary warning only after a committed lock,
+      clean-environment restore, positive test, and deliberate failing fixture
+      prove the exact public setup command. It must reconcile README.md in the
+      same packet and must not infer completeness from the current script.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison
+      - source:renv.lock-absent-at-P1B-META
+      - source:scripts/init-renv.R-preparatory-scaffold
+    required: true
+    deliveries:
+      - target_packet: P1C-LOCK
+        gate: before_close
+        state: pending
+
+  H-P1B-META-002:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R06-META-readme
+      - packet:P1C-PDF
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      The public README accurately records the present nonblocking CI PDF step,
+      its stale-artifact risk, and the different live behavior of the PDF and
+      DOCX wrappers. These words describe current development state, not the
+      future production contract.
+    required_action: >-
+      P1C-PDF must update README.md when and only when its wrapper-only,
+      blocking, stale-safe path passes the locked positive and negative tests.
+      The replacement must describe the exact implemented wrapper and CI
+      behavior rather than preserving the P1B-META warning or promising a
+      release.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#public-metadata-diff
+      - source:scripts/render-book-pdf.ps1
+      - source:scripts/render-book-docx.ps1
+      - source:.github/workflows/publish.yml-continue-on-error-true
+    required: true
+    deliveries:
+      - target_packet: P1C-PDF
+        gate: before_close
+        state: pending
+
+  H-P1B-META-003:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: risk
+    refs:
+      - item:R06-META-readme
+      - packet:P5-ROUTES
+      - decision:D09
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      P1B-META removed the unsupported claim that the kolegij profile exposes
+      solutions: no matching profile gates exist. Broader no-code, solution,
+      print, self-study, and AI-output pathways remain later work and cannot be
+      advertised as complete from configuration comments or planned appendices.
+    required_action: >-
+      P5-ROUTES must re-audit README.md and every other public route promise
+      against clean tested pathways. It may broaden the README only for routes
+      proved complete; every undelivered promise must remain absent or be
+      explicitly narrowed before publication.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#source-state-comparison
+      - check:zero-content-visible-when-profile-kolegij-gates
+      - source:_quarto-kolegij.yml-stale-solution-comment
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
+  H-P1B-META-004:
+    source_packet: P1B-META
+    created_at: "2026-08-03"
+    kind: evidence
+    refs:
+      - item:R06-META-readme
+      - packet:P2-DOCS
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md
+    statement: >-
+      The README now agrees with the live status, but its linked governing
+      documents still contain three internal stale markers: the kolegij
+      profile comment promises absent solution gates, _quarto.yml says the
+      selected visual identity is not selected, and bookwright_plugin/README.md
+      calls already-ratified structural conventions provisional.
+    required_action: >-
+      P2-DOCS must reconcile those comments with the ratified style, design,
+      assessment, and structure contracts after its prerequisites. It must not
+      revive a rejected pathway or alter prose merely to make the comments
+      true.
+    basis:
+      - report:notes/reports/p1b-public-metadata-audit-2026-08-03.md#buduci-ucinci
+      - source:_quarto-kolegij.yml-lines-7-11
+      - source:_quarto.yml-line-32
+      - source:bookwright_plugin/README.md-lines-42-48
+    required: true
+    deliveries:
+      - target_packet: P2-DOCS
+        gate: before_close
+        state: pending
+
+  H-G-A1D-001:
+    source_packet: G-A1d
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1d
+      - decision:D14
+      - item:R06-GOV-contract
+      - item:R06-RELEASE-changelog
+      - item:R06-RELEASE-citation
+      - item:R06-RELEASE-tag
+      - item:R06-RELEASE-archive
+      - item:R06-RELEASE-term-freeze
+      - item:R06-RELEASE-errata
+    statement: >-
+      Author, release owner, archive owner, and errata owner Luka Sikic
+      approved the recommended G-A1d mechanism and accepted all three owner
+      responsibilities on 2026-08-03. Phase 1 may create and demonstrate the
+      edition/version, Croatian changelog, citation, provenance, archive-plan,
+      term-freeze, and errata mechanisms locally. D14 retains Osnove
+      statistike za društvene znanosti as the working title unless the author
+      changes it before citation metadata freeze. No push, merge, tag,
+      archival deposit, deployment, publication, or other external action is
+      authorised.
+    required_action: >-
+      In P1B-GOV, implement only the approved pre-release governance
+      mechanisms, record Luka Sikic as the accountable release, archive, and
+      errata owner, demonstrate their fields and state transitions without
+      publication, and preserve the D14 working-title boundary. Do not freeze
+      final release metadata, perform any external action, accept a later
+      release gate, or infer authority across actions.
+    basis:
+      - conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#2-ratified-defaults
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A1d
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1D-EDITION-MECHANISM
+      - authority:push-merge-tag-archive-deploy-publication-false
+    required: true
+    deliveries:
+      - target_packet: P1B-GOV
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -920,3 +1444,214 @@ packet_reviews:
       - separately registered later Chapter 8 repairs remained unmodified
       - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C09
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+  P1A-C09:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      Existing timing and fresh-panel invalidation handoffs already cover
+      later effects of substantive chapter changes, and H-P0-REGISTER-008
+      already targets WC-C09. All separately registered Chapter 9 work retains
+      stable items and packet dependencies. The correction discovered no new
+      downstream constraint, so a duplicate handoff would add no information.
+    implementation_state: chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d
+    checks:
+      - no applicable incoming handoff targeted P1A-C09
+      - clean-session affected Chapter 9 numerical reproduction passed
+      - independent critic_methods final reread passed on exact source state
+      - checkout-local style, manual, structure, and figure-introduction passes completed
+      - targeted Chapter 9 HTML render and rendered-claim assertions passed
+      - all 10 Chapter 9 executable blocks remain and 8 are unchanged
+      - only R09-C09-normal-not-prediction, R09-C09-bootstrap-validation, and R09-C09-bootstrap-failures changed
+      - separately registered later Chapter 9 repairs remained unmodified
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C13
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+  P1A-C13:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      Existing timing and fresh-panel invalidation handoffs cover later effects
+      of substantive chapter changes. All separately registered Chapter 13 and
+      terminology work retains stable items and packet dependencies. The
+      correction discovered no new downstream constraint, so a duplicate
+      handoff would add no information.
+    implementation_state: chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8
+    checks:
+      - no applicable incoming handoff targeted P1A-C13
+      - clean-session affected Chapter 13 numerical reproduction passed
+      - independent critic_methods reading passed on exact source state
+      - checkout-local style, manual, structure, and figure-introduction passes completed
+      - targeted Chapter 13 HTML render and rendered-claim assertions passed
+      - all 7 Chapter 13 executable blocks remain and 6 are unchanged
+      - only R09-C13-residual-name and R09-C13-calibration-power changed
+      - separately registered later Chapter 13 repairs remained unmodified
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C18
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+  P1A-C18:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      Existing timing and fresh-panel invalidation handoffs cover later effects
+      of substantive chapter changes. All separately registered Chapter 18
+      work retains stable items and packet dependencies. The correction
+      discovered no new downstream constraint, so a duplicate handoff would
+      add no information.
+    implementation_state: chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1
+    checks:
+      - no applicable incoming handoff targeted P1A-C18
+      - clean-session affected Chapter 18 numerical reproduction passed
+      - independent critic_methods reading passed on exact source state
+      - checkout-local style, manual, structure, and figure-introduction passes completed
+      - targeted Chapter 18 HTML render and rendered-claim assertions passed
+      - all 6 Chapter 18 executable R/OJS blocks remained unchanged
+      - only R09-C18-interval-conclusion changed
+      - separately registered later Chapter 18 repairs remained unmodified
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1A-METHODS
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+  P1A-METHODS:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      No new downstream constraint arose from the aggregate methods gate. Its
+      later uses are already represented by stable packet dependencies,
+      including the parity packets, and all separately registered chapter work
+      remains open under existing items. A duplicate handoff would add no new
+      information.
+    implementation_state: commit:7832b07ee92e98a962fc79b291389118e95f29b6
+    checks:
+      - no incoming handoff targeted P1A-METHODS
+      - all 12 prerequisite packets are accepted with exact structured completion evidence
+      - 36 required-evidence receipts, 24 output receipts, and 36 passed exit-test receipts were independently verified
+      - all 12 live chapter blobs match the source states declared by their packets, reports, items, and packet reviews
+      - every exact-source independent methods reading and clean-session reproduction receipt is present
+      - P1A-C10 and P1A-C14 consumed H-G-A1A-001 and H-G-A1B-001 before their claims
+      - R09-C15-variance-ratio remains an explicit later obligation outside the accepted P1A-C15 revalidation scope
+      - source-diff and packet exit checks passed on commit 7832b07ee92e98a962fc79b291389118e95f29b6
+      - scripts/check-review-workflow.R passed with next_permitted_packet G-A1c
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose changed and G-A1c was not started
+  G-A1c:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A1C-001
+      - H-G-A1C-002
+      - H-G-A1C-003
+      - H-G-A1C-004
+    implementation_state: conversation:G-A1c-owner-dispositions-as-amended-2026-08-03-Luka-Sikic
+    checks:
+      - Luka Sikic was recorded as author and licence or data-lane policy owner for all three independently closable dispositions
+      - D11 original rewriting with attribution and conditional ShareAlike boundary was recorded
+      - D12 CC BY 4.0 generated-teaching-data licence was recorded subject to final book-licence reconciliation
+      - D08 bundled, portal-mediated, and external-only policy was recorded with no package-specific exception
+      - H-G-A1C-001 was superseded before P1B-NAVARRO claim by H-G-A1C-004, which requires minimising Navarro reliance without concealing provenance
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-NAVARRO
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose or code changed and P1B-NAVARRO was not started
+  P1B-NAVARRO:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-NAVARRO-001
+    implementation_state: state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c
+    checks:
+      - H-G-A1C-001 was explicitly acknowledged as the superseded required baseline and H-G-A1C-004 was consumed before the first substantive edit
+      - all four candidate passages received verified source correspondence and explicit removed or independently rewritten dispositions
+      - authoritative version 0.6 source, CC BY-SA 4.0 terms, attribution requirements, and compatible-licence list were verified
+      - zero materially derived Navarro expression or distinctive structure survives in the rendered public manuscript
+      - LICENSE, README.md, references.bib, provenance notes, AI-export licence metadata, and every affected chapter were reconciled
+      - checkout-local deterministic style lint and the full manual H1-H10 pass completed for Chapters 1, 2, and 4
+      - targeted HTML renders for Chapters 1, 2, and 4 passed; generated pre-render artifacts were restored and remain outside the packet diff
+      - visible-source, citation-key, bibliography-record, and source-diff checks passed
+      - H-P1B-NAVARRO-001 records the licence-boundary and bibliography constraints for P1B-DATA-LIC and P1B-BIB
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-DATA-LIC
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1B-DATA-LIC and all later packets were not started
+  P1B-DATA-LIC:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-DATA-LIC-001
+      - H-P1B-DATA-LIC-002
+      - H-P1B-DATA-LIC-003
+    implementation_state: state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32
+    checks:
+      - H-G-A1C-002, H-G-A1C-003, and H-P1B-NAVARRO-001 were acknowledged and consumed before the first substantive edit
+      - all four current and thirteen proposed packages have separate source, version, licence, attribution, access, and redistribution records
+      - every package has exactly one bundled, portal-mediated, or external-only lane and every required student pathway has a cleared fallback
+      - every package without authoritative exact-package rights evidence retained the approved cautious lane and no access route was treated as redistribution authority
+      - anketa_mreze and populacija_medija and every future snapshot are consistently marked CC BY 4.0 while their generator code and original book remain MIT
+      - R/fetch-podaci.R rejects every package that is not bundled with verified redistribution and data/katalog.yml remains reserved for P3-CATALOG
+      - the durable report records authoritative evidence, owner dispositions, affected-file reconciliation, declared source-state blobs, and all future constraints
+      - checkout-local style lint and the complete manual H1-H10 pass succeeded for podaci.qmd and dodaci/c-katalog-podataka.qmd
+      - targeted HTML renders for the public data page and Appendix C passed; generated pre-render artifacts were restored and remain outside the packet diff
+      - R generator and fetch skeleton execution, 17-of-17 lane inventory, six-location notice consistency, source-diff, and workflow checks passed
+      - H-P1B-DATA-LIC-001 through H-P1B-DATA-LIC-003 carry every future-relevant effect to P3 data packets and G-A3 package gates
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-BIB
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1B-BIB and all later packets were not started
+  P1B-BIB:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      The sole source-fit defect found by the exhaustive live-citation read was
+      corrected inside the packet. P6-EVIDENCE already owns the later
+      whole-book evidence audit, and P1B-META already depends on P1B-BIB. No
+      new unresolved constraint remains, so a duplicate handoff would add no
+      information.
+    implementation_state: state:sha256-8e9a96cf20573f7f96f95155189f20dfdb6e4e26de773545b415683ce102abd0
+    checks:
+      - H-P1B-NAVARRO-001 was consumed before the first substantive edit and zero Navarro citation keys and bibliography records were preserved
+      - all 121 live citation uses in 21 manuscript files were read in context and grouped into 35 claim-source fit records
+      - all 35 live keys resolve to exactly 35 maintained bibliography records with zero unused records
+      - pandoc citeproc rendered exactly 35 references after blanket nocite removal
+      - all 29 live DOI records resolved through Crossref with matching titles and all six no-DOI works received verified identities locators and dispositions
+      - the sole Chouldechova source-fit mismatch was corrected to the source's calibration and two error-rate criteria
+      - checkout-local style lint and the complete manual H1-H10 pass succeeded for Chapter 17
+      - the targeted Chapter 17 HTML render passed and generated pre-render artifacts were restored outside the packet diff
+      - the durable report records citation usage authoritative metadata claim-source fit affected-file reconciliation source-state blobs and zero new future constraints
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-META
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1B-META and all later packets were not started
+  P1B-META:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-META-001
+      - H-P1B-META-002
+      - H-P1B-META-003
+      - H-P1B-META-004
+    implementation_state: state:sha256-11be9838488aaa37c614ff0980b66883146a1caae57eaa6230e751420b1ef206
+    checks:
+      - no applicable incoming handoff targeted P1B-META
+      - the full README and every public status navigation and build promise were compared with live repository paths and governing contracts
+      - README now records a substantive draft with all 19 ledger units still draft and labels HTML PDF and DOCX as development artifacts
+      - the unsupported complete renv installation and visible-solution promises were removed
+      - PDF DOCX profile CI navigation style and design language now matches the live scripts configurations and contracts
+      - all ten relative README links resolve and scripts/check-widgets.py passed all 17 registered widget records
+      - no empirical claim citation version release archive errata or availability guarantee was introduced
+      - source-diff and whitespace checks passed with chapters data configurations scripts docs and freeze artifacts unchanged
+      - H-P1B-META-001 through H-P1B-META-004 carry every future dependency build route and governing-document reconciliation effect
+      - scripts/check-review-workflow.R passed with next_permitted_packet G-A1d
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - G-A1d P1B-GOV and all later packets were not started
+  G-A1d:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A1D-001
+    implementation_state: conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic
+    checks:
+      - Luka Sikic was recorded as author release owner archive owner and errata owner for all four independently closable dispositions
+      - D14 pre-release edition version changelog citation provenance archive-plan term-freeze and errata mechanism was accepted as recommended
+      - rejected alternatives blocked dependencies and the no-inferred-authority boundary were recorded
+      - all four G-A1d outside asks are done with dated owner evidence and zero external messages sent
+      - H-G-A1D-001 carries the accepted mechanism ownership and authority boundary to P1B-GOV before_start
+      - later G-A5c G-A5d G-A6 and exact action gates remain mandatory under their existing canonical asks
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-GOV
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose or code changed and P1B-GOV was not started
