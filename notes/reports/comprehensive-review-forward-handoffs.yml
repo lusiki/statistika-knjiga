@@ -528,6 +528,43 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-G-A1A-001:
+    source_packet: G-A1a
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1a
+      - decision:D01
+      - item:R01-C10-null-exchangeability
+      - item:R01-C10-monte-carlo-correction
+      - item:R01-C10-bayesian-balance
+    statement: >-
+      The author and named statistical reviewer Luka Sikic jointly approved
+      D01 on 2026-08-03. Chapter 10 retains a two-sided raw difference-in-means
+      permutation statistic only for an exchangeability/full-distribution
+      null, names its assumptions and observational claim boundary, uses
+      (b + 1) / (B + 1) for finite random-permutation p-values, requires a true
+      full-distribution null for the type-I-error demonstration, and balances
+      the bounded frequentist/Bayesian comparison. The analytic normal-p-value
+      widget and print twin are revalidated but do not receive a permutation
+      correction unless deliberately converted to permutation algorithms.
+    required_action: >-
+      In P1A-C10, implement the accepted specification without changing the
+      chapter's simulation-first role. Reproduce every affected result from a
+      clean session, obtain independent methods evidence on the corrected
+      source state, run the required style and targeted render checks, and do
+      not start P1A-C11.
+    basis:
+      - conversation:joint-G-A1a-approval-2026-08-03-Luka-Sikic
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#2-ratified-defaults
+      - notes/reports/comprehensive-book-review-2026-07-31.md#10-logika-testiranja
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A1a
+    required: true
+    deliveries:
+      - target_packet: P1A-C10
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -595,3 +632,14 @@ packet_reviews:
       - invalid_outside_ask_link negative fixture failed as required
       - 82 unique asks covered all unresolved decision, chapter-acceptance, and exact external-action gates
       - zero external messages were sent and all external authorities remain false
+  G-A1a:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: [H-G-A1A-001]
+    implementation_state: conversation:joint-G-A1a-approval-2026-08-03-Luka-Sikic
+    checks:
+      - joint author and named statistical-reviewer disposition recorded
+      - D01 null, statistic, assumptions, Monte Carlo rule, widget boundary, and Bayesian balance recorded
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C10
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose changed and P1A-C10 not started

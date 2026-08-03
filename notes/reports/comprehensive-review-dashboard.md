@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P0-OUTSIDE
-next_permitted_packet: G-A1a
+last_completed_packet: G-A1a
+next_permitted_packet: P1A-C10
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 13
+forward_handoffs: 14
 last_updated: "2026-08-03"
 ---
 
@@ -25,20 +25,21 @@ stop and repair the control state before editing book content.
 | Field | Value |
 |---|---|
 | Gate A0 | Accepted: D01-D16 and O01-O03 |
+| Gate A1a | Accepted: D01 Chapter 10 correction specification; reviewer Luka Sikic; 2026-08-03 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P0-OUTSIDE` |
-| Next permitted packet | `G-A1a` only |
+| Last completed packet | `G-A1a` |
+| Next permitted packet | `P1A-C10` only |
 | Review parents | 36 ratified; 0 accepted |
 | Atomic child inventory | Complete: 371 stable children; 4 accepted, 5 deferred with reason, 362 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 6 accepted and 182 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 7 accepted and 181 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 82 canonical asks, all `drafted_unsent`; 0 external messages sent |
+| Open outside asks | 81 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` is `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; P0-OUTSIDE passed ask-schema, exact-link, coverage, negative-fixture, authority, and scope checks |
+| Failed gates | None; G-A1a passed joint-owner, specification, dependency, authority-boundary, and scope checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -104,6 +105,24 @@ The accepted implementation source state is
 The accepted implementation source state is
 `state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1`.
 
+## G-A1a closeout
+
+- The author and named statistical reviewer Luka Sikic jointly accepted the
+  recommended D01 specification on 2026-08-03.
+- Chapter 10 retains raw-label permutation only for an
+  exchangeability/full-distribution null and uses `(b + 1) / (B + 1)` for
+  finite random-permutation p-values. The approved specification also fixes
+  the known-null demonstration, observational claim boundary, analytic
+  widget/twin scope, and Bayesian balance.
+- `OA-G-A1A-C10-SPEC` is `done`; no external message was sent and no broader
+  authority was inferred.
+- `H-G-A1A-001` carries the exact approved specification to `P1A-C10` at its
+  `before_start` gate.
+- No chapter prose or code was changed, and `P1A-C10` was not started.
+
+The accepted decision source state is
+`conversation:joint-G-A1a-approval-2026-08-03-Luka-Sikic`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -145,13 +164,24 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next_permitted_packet, G-A1a. Prepare G-A1a only.
-Show the Chapter 10 correction evidence, recommended D01 specification,
-credible alternatives, exact blocked items and dependencies, and the exact
-joint author/statistical-reviewer reply needed. Use
-OA-G-A1A-C10-SPEC as the canonical drafted-unsent ask.
+Execute only the dashboard's next_permitted_packet, P1A-C10, under accepted
+G-A1a. Before claiming the packet, acknowledge and consume H-G-A1A-001 with a
+recorded disposition and evidence. Fully read chapters/10-logika-testiranja.qmd,
+STYLE.md, ENRICHMENT.md, notes/struktura-knjige.md, the relevant comprehensive
+review evidence, and the checkout-local book-style instructions. Do not rely
+on the installed plugin cache for mutable state.
 
-Do not edit chapter prose or control state, do not send an external message,
-do not infer approval, and do not start P1A-C10 or any later packet. Return the
-bounded decision packet and wait for the explicit reply.
+Apply the accepted D01 correction only: state the exchangeability/full-
+distribution null and assumptions, retain the two-sided raw difference in
+means, apply (b + 1) / (B + 1) to finite random-permutation p-values, repair
+the known-null demonstration and AI-error key, preserve the analytic
+widget/print-twin boundary, and balance the bounded Bayesian contrast. Change
+no unrelated chapter material.
+
+Reproduce every affected result from a clean session, obtain the required
+independent statistical-methods reading on the corrected source state, run the
+book-style deterministic and manual pass, targeted render, and packet exit
+checks. Update the register, handoff ledger, and dashboard together, create one
+scoped local commit only if every gate passes, and stop before P1A-C11 or any
+later packet.
 ```
