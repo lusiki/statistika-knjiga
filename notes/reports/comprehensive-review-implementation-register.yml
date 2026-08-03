@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P0-STATE"
-  next_permitted_packet: "P0-OUTSIDE"
+  last_completed_packet: "P0-OUTSIDE"
+  next_permitted_packet: "G-A1a"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1481,7 +1481,7 @@ packets:
     sequence: 12
     phase: "0"
     kind: "outside_ask_setup"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-REGISTER"
       - "P0-STATE"
@@ -1493,13 +1493,54 @@ packets:
       - "Every genuine external dependency has one independently closable ask."
       - "No omnibus request or inferred permission remains."
       - "Every external decision, right, recruitment, specialist review, proof, and release action has one bounded ask and resume condition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
+      required_evidence:
+        - requirement: "one ask per external owner or decision"
+          artifacts:
+            - "register:82-independent-bounded-outside-asks"
+            - "audit:16-ask-kinds-and-zero-duplicate-ids"
+        - requirement: "blocked item links"
+          artifacts:
+            - "check:all-82-asks-link-known-register-items-and-packet-gates"
+            - "check:all-22-direct-P0-OUTSIDE-dependent-gates-covered"
+            - "check:all-unresolved-decision-chapter-acceptance-and-external-action-gates-covered"
+        - requirement: "resume condition per ask"
+          artifacts:
+            - "check:all-82-asks-have-owner-evidence-default-reply-and-resume-condition"
+            - "authority:82-drafted-unsent-zero-external-messages"
+      outputs:
+        - output: "P0-OUTSIDE durable artifact and evidence record for: Bounded outside asks and resume conditions."
+          artifacts:
+            - "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
+            - "register:outside-ask-inventory-complete-82"
+        - output: "Completion evidence is tied to the declared P0-OUTSIDE source state and bounded scope."
+          artifacts:
+            - "scope:four-owned-paths-no-chapter-prose"
+            - "validator:sha256-eeb58e7165cdeb9856dbbc3ba7858de5c1f3959281bc5ffc74233af9d8c12f3b"
+      exit_tests:
+        - test: "Every genuine external dependency has one independently closable ask."
+          result: "passed"
+          evidence:
+            - "check:82-asks-cover-all-unresolved-approval-gates-and-later-specialist-proof-release-actions"
+            - "check:invalid-outside-ask-link-negative-fixture-failed-as-required"
+        - test: "No omnibus request or inferred permission remains."
+          result: "passed"
+          evidence:
+            - "audit:asks-split-by-decision-rights-recruitment-signoff-proof-owner-release-owner-and-action"
+            - "authority:external-messages-sent-zero"
+            - "authority:push-merge-tag-archive-deploy-remain-false"
+        - test: "Every external decision, right, recruitment, specialist review, proof, and release action has one bounded ask and resume condition."
+          result: "passed"
+          evidence:
+            - "register:outside-ask-coverage-manifest"
+            - "check:all-ask-required-fields-and-references-valid"
     contract: "outside_ask_setup"
     required_evidence:
       - "one ask per external owner or decision"
       - "blocked item links"
       - "resume condition per ask"
-    change_reference: null
+    change_reference: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   G-A1a:
     sequence: 13
     phase: "1A"
@@ -20020,7 +20061,2116 @@ items:
       active: false
       ask_id: null
     change_reference: null
-outside_asks: {}
+outside_ask_inventory:
+  status: "complete"
+  completion_packet: "P0-OUTSIDE"
+  total_asks: 82
+  external_messages_sent: 0
+  implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
+  canonical_status_store: "outside_asks"
+  routing_rule: >-
+    Create an ask only where repository evidence cannot supply the required
+    decision, permission, human participation, specialist judgment, proof, or
+    external-action authority. Later chapter-acceptance gates remain internal
+    prerequisites until their bounded revision packets exist.
+  coverage:
+    decision_and_policy:
+      - "G-A1a"
+      - "G-A1b"
+      - "G-A1c"
+      - "G-A1d"
+      - "G-A2a"
+      - "G-A2b-PREFACE"
+      - "G-A2b-I"
+      - "G-A2b-II"
+      - "G-A2b-III"
+      - "G-A2b-IV"
+      - "G-A2b-V"
+      - "G-A2b-FINALE"
+      - "G-A2c"
+      - "G-A2d"
+      - "G-A4-03"
+      - "G-A4-12"
+      - "G-A4-16"
+      - "G-A4-17"
+      - "G-A5a"
+      - "G-A5b"
+      - "G-A5c"
+      - "G-A5d"
+      - "G-A6"
+    chapter_acceptance:
+      - "C00"
+      - "C01"
+      - "C02"
+      - "C03"
+      - "C04"
+      - "C05"
+      - "C06"
+      - "C07"
+      - "C08"
+      - "C09"
+      - "C10"
+      - "C11"
+      - "C12"
+      - "C13"
+      - "C14"
+      - "C15"
+      - "C16"
+      - "C17"
+      - "C18"
+    data_selection_and_rights:
+      - "G-A3-DZS"
+      - "G-A3-DIP"
+      - "G-A3-DIGIKAT"
+      - "G-A3-EUROSTAT"
+      - "G-A3-ESS"
+      - "G-A3-TEXT"
+    recruitment_and_specialist_work:
+      - "P3-PILOT"
+      - "P2-TERMS"
+      - "P6-METHODS"
+      - "P7-PILOT"
+      - "P7-A11Y"
+      - "P7-PDF"
+      - "P7-DOCX"
+    exact_external_actions:
+      - "G-A6-PUSH"
+      - "G-A6-TAG"
+      - "G-A6-ARCHIVE"
+      - "G-A6-DEPLOY"
+  exclusions:
+    - scope: "G-A0"
+      reason: >-
+        Gate A0 is already accepted and therefore has no unresolved outside
+        ask. Every other decision gate, all C00-C18 acceptance gates, and every
+        exact external-action gate have independently bounded ask records;
+        asks whose evidence packet is not ready are marked accordingly.
+
+outside_asks:
+  OA-G-A1A-C10-SPEC:
+    status: "drafted_unsent"
+    readiness: "ready_for_decision_packet"
+    kind: "specialist_decision"
+    owner: "author and named statistical reviewer"
+    due_phase: "1A"
+    needed: "Approve one Chapter 10 correction specification under D01."
+    expected_form: "One dated joint disposition naming the null, statistic, assumptions, and Monte Carlo rule."
+    blocked_items:
+      - "R01-C10-null-exchangeability"
+      - "R01-C10-monte-carlo-correction"
+      - "R01-C10-bayesian-balance"
+    blocked_gates:
+      - "G-A1a"
+    available_evidence:
+      - "decision:D01"
+      - "packet:G-A1a"
+      - "plan:comprehensive-review-phase-1"
+    recommended_default: "Retain the raw-label permutation only for an exchangeability/full-distribution null and use (b + 1) / (B + 1)."
+    exact_reply_requested: "Reply: A1a approved as recommended; reviewer [name]; date [YYYY-MM-DD]. Or list one exact amendment."
+    resume_condition: "G-A1a may close only after the author and named reviewer accept the same dated specification."
+    why_external: "The repository can assemble evidence but cannot supply authorial and independent methods authority."
+    external_message_sent: false
+
+  OA-G-A1B-C14-SPEC:
+    status: "drafted_unsent"
+    readiness: "waiting_for_G-A1a_chain"
+    kind: "specialist_decision"
+    owner: "author and named statistical reviewer"
+    due_phase: "1A"
+    needed: "Approve one Chapter 14 Welch-versus-OLS correction specification under D02."
+    expected_form: "One dated joint disposition distinguishing the shared estimate from the different uncertainty procedures."
+    blocked_items:
+      - "R02-C14-welch-ols"
+      - "R02-C15-dependent-revalidation"
+      - "R02-C16-dependent-revalidation"
+    blocked_gates:
+      - "G-A1b"
+    available_evidence:
+      - "decision:D02"
+      - "packet:G-A1b"
+    recommended_default: "Keep Welch inference as the Chapter 14 default and state that ordinary homoskedastic OLS uncertainty is not generally Welch uncertainty."
+    exact_reply_requested: "Reply: A1b approved as recommended; reviewer [name]; date [YYYY-MM-DD]. Or list one exact amendment."
+    resume_condition: "G-A1b may close only after the author and named reviewer accept the same dated specification."
+    why_external: "The correction requires authorial scope approval and independent statistical sign-off."
+    external_message_sent: false
+
+  OA-G-A1C-NAVARRO-BOOK-LICENCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_provenance_packet"
+    kind: "rights_decision"
+    owner: "author and licence owner"
+    due_phase: "1B"
+    needed: "Decide the lawful Navarro-derived-prose and final book-licence lane after the passage audit."
+    expected_form: "One dated licence disposition tied to the passage-level provenance evidence."
+    blocked_items:
+      - "R03-NAVARRO-provenance"
+      - "R03-NAVARRO-resolution"
+    blocked_gates:
+      - "G-A1c"
+    available_evidence:
+      - "decision:D11"
+      - "packet:P1B-NAVARRO"
+    recommended_default: "Rewrite materially derived prose originally with attribution; adopt ShareAlike only if the audit shows the obligation remains."
+    exact_reply_requested: "Reply with one lane: original rewriting plus attribution, or compatible ShareAlike; identify the licence owner and date."
+    resume_condition: "The Navarro and book-licence children resume only when the audit and dated owner disposition agree."
+    why_external: "Licence obligations and the final licence choice require the rights owner's decision."
+    external_message_sent: false
+
+  OA-G-A1C-GENERATED-DATA-LICENCE:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_decision"
+    kind: "rights_decision"
+    owner: "author and licence owner"
+    due_phase: "1B"
+    needed: "Assign an explicit compatible licence to generated teaching data."
+    expected_form: "One dated licence declaration covering every generated teaching dataset."
+    blocked_items:
+      - "R03-DATA-generated-licence"
+    blocked_gates:
+      - "G-A1c"
+    available_evidence:
+      - "decision:D12"
+      - "item:R03-DATA-generated-licence"
+    recommended_default: "Use CC BY 4.0 provisionally, subject to the full book-licence audit."
+    exact_reply_requested: "Reply: generated teaching data licence approved as [licence], owner [name], date [YYYY-MM-DD]."
+    resume_condition: "The licence child resumes when the compatible licence and owner are recorded."
+    why_external: "Repository files cannot grant the legal licence."
+    external_message_sent: false
+
+  OA-G-A1C-DATA-LANES:
+    status: "drafted_unsent"
+    readiness: "waiting_for_lane_inventory"
+    kind: "rights_decision"
+    owner: "author and relevant licence/data owner"
+    due_phase: "1B"
+    needed: "Approve the bundled, portal-mediated, and external-only redistribution policy."
+    expected_form: "One dated lane policy with a lawful fallback for every required student pathway."
+    blocked_items:
+      - "R03-DATA-lane-inventory"
+      - "R03-DATA-bundled-portal-contract"
+    blocked_gates:
+      - "G-A1c"
+    available_evidence:
+      - "decision:D08"
+      - "packet:P1B-DATA-LIC"
+    recommended_default: "Bundle only cleared files, use portal mediation where redistribution is uncertain, and retain licence-cleared alternatives for required work."
+    exact_reply_requested: "Reply: data lanes approved as recommended, owner [name], date [YYYY-MM-DD]; or identify one package-specific exception."
+    resume_condition: "The lane-policy children resume after an owner disposition names every exception and fallback."
+    why_external: "Technical access does not establish redistribution authority."
+    external_message_sent: false
+
+  OA-G-A1D-EDITION-MECHANISM:
+    status: "drafted_unsent"
+    readiness: "waiting_for_G-A1d_packet"
+    kind: "release_decision"
+    owner: "author and release owner"
+    due_phase: "1B"
+    needed: "Approve the edition/version, changelog, citation, provenance, and non-release governance mechanism."
+    expected_form: "One dated mechanism decision that creates no tag, archive, push, or deployment authority."
+    blocked_items:
+      - "R06-GOV-contract"
+      - "R06-RELEASE-changelog"
+      - "R06-RELEASE-citation"
+    blocked_gates:
+      - "G-A1d"
+    available_evidence:
+      - "decision:D14"
+      - "packet:P1B-GOV"
+      - "authority:local-commit-only"
+    recommended_default: "Create the mechanisms in Phase 1 and defer immutable release actions to their exact A6 gates."
+    exact_reply_requested: "Reply: A1d mechanism approved as recommended; release owner [name]; date [YYYY-MM-DD]."
+    resume_condition: "P1B-GOV resumes when the dated mechanism is approved without broader external authority."
+    why_external: "Edition policy and release ownership are author/release-owner decisions."
+    external_message_sent: false
+
+  OA-G-A1D-ARCHIVE-OWNER:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_assignment"
+    kind: "release_owner"
+    owner: "author"
+    due_phase: "1B"
+    needed: "Name the person or role responsible for the final archival deposit and persistent identifier."
+    expected_form: "One named archive owner with an accepted responsibility statement."
+    blocked_items:
+      - "R06-RELEASE-archive"
+    blocked_gates:
+      - "G-A1d"
+      - "G-A5c"
+      - "G-A6-ARCHIVE"
+    available_evidence:
+      - "item:R06-RELEASE-archive"
+      - "authority:archive-false"
+    recommended_default: "Assign one release-team archive owner before the release candidate; keep deposit execution gated by G-A6-ARCHIVE."
+    exact_reply_requested: "Reply: archive owner is [name/role]; responsibility accepted on [YYYY-MM-DD]."
+    resume_condition: "Ownership gates resume when one accountable owner accepts; archival deposit still awaits exact A6 authority."
+    why_external: "The repository cannot appoint an accountable human owner."
+    external_message_sent: false
+
+  OA-G-A1D-ERRATA-OWNER:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_assignment"
+    kind: "release_owner"
+    owner: "author"
+    due_phase: "1B"
+    needed: "Name the person or role responsible for the public errata route and dated status log."
+    expected_form: "One named errata owner with an accepted maintenance responsibility."
+    blocked_items:
+      - "R06-RELEASE-errata"
+    blocked_gates:
+      - "G-A1d"
+      - "G-A5c"
+      - "G-A6-DEPLOY"
+    available_evidence:
+      - "item:R06-RELEASE-errata"
+      - "authority:deploy-false"
+    recommended_default: "Assign one continuing editorial owner and keep public activation gated by G-A6-DEPLOY."
+    exact_reply_requested: "Reply: errata owner is [name/role]; responsibility accepted on [YYYY-MM-DD]."
+    resume_condition: "Ownership gates resume when one accountable owner accepts; publication remains separately gated."
+    why_external: "Long-term maintenance ownership cannot be inferred from repository metadata."
+    external_message_sent: false
+
+  OA-G-A1D-RELEASE-OWNER:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_assignment"
+    kind: "release_owner"
+    owner: "author"
+    due_phase: "1B"
+    needed: "Name the final release owner responsible for gate coordination and source-state control."
+    expected_form: "One named release owner accepting the no-inferred-authority boundary."
+    blocked_items:
+      - "R06-GOV-contract"
+      - "R06-RELEASE-tag"
+      - "R06-RELEASE-archive"
+      - "R06-RELEASE-term-freeze"
+      - "R06-RELEASE-errata"
+    blocked_gates:
+      - "G-A1d"
+      - "G-A5c"
+      - "G-A5d"
+      - "G-A6"
+    available_evidence:
+      - "authority:push-merge-tag-archive-deploy-false"
+      - "packet:G-A6"
+    recommended_default: "Appoint one release owner who records exact source states and obtains separate action authorisations."
+    exact_reply_requested: "Reply: release owner is [name/role]; responsibility and authority boundary accepted on [YYYY-MM-DD]."
+    resume_condition: "Release-owner gates resume after acceptance; no external action is thereby authorised."
+    why_external: "The repository cannot appoint or bind a release owner."
+    external_message_sent: false
+
+  OA-G-A2A-CLAIM-SYSTEM:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P1-VERIFY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the claim map, lifecycle, audit questions, cross-book threads, and data-design principles as one governing system."
+    expected_form: "One dated architectural disposition tied to the complete P2-CLAIMS decision packet."
+    blocked_items:
+      - "R08-DESIGN-policy"
+      - "R08-DESIGN-simulation-empirical"
+      - "R08-DESIGN-simulation"
+      - "R08-DESIGN-survey"
+      - "R08-DESIGN-administrative"
+      - "R08-DESIGN-official"
+      - "R08-DESIGN-expert"
+      - "R08-DESIGN-digital"
+      - "R08-DESIGN-volunteer"
+      - "R08-DESIGN-restricted"
+      - "R08-PORTFOLIO-text-priority"
+      - "R10-DS-workflow-scope"
+      - "R10-LIFECYCLE-stable"
+      - "R10-CLAIMS-six-dimensions"
+      - "R10-AUDIT-six-questions"
+      - "R10-THREAD-seven-map"
+      - "R12-POLL-card"
+      - "R17-REPORT-honest-standard"
+      - "R19-SENSITIVITY-standard"
+      - "R24-BOOK-four-activities"
+      - "R24-BOOK-ordinary-ethics"
+      - "R24-EVIDENCE-four-objects"
+    blocked_gates:
+      - "G-A2a"
+    available_evidence:
+      - "packet:P2-CLAIMS"
+      - "plan:ratified-phase-2-architecture"
+    recommended_default: "Adopt the six claim dimensions, six audit questions, nine-stage lifecycle, seven recurring threads, and design-based data matrix ratified in the plan."
+    exact_reply_requested: "Reply: G-A2a governing system approved at [state] on [YYYY-MM-DD]; or list exact component amendments."
+    resume_condition: "P2-CLAIMS resumes only after the complete governing system receives one bounded author/editor disposition."
+    why_external: "The governing intellectual architecture requires author/editor authority."
+    external_message_sent: false
+
+  OA-G-A2B-PREFACE-SPINE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the preface spine: load-bearing aspects, terms, prerequisites, and exclusions."
+    expected_form: "One dated preface-spine disposition tied to the complete registry proposal."
+    blocked_items:
+      - "R04-SPINE-PREFACE"
+    blocked_gates:
+      - "G-A2b-PREFACE"
+    available_evidence:
+      - "packet:P2-SPINE-PREFACE"
+      - "packet:P2-IDENTITY"
+    recommended_default: "Keep the preface as a reader contract that points to Chapter 1 without duplicating its lifecycle argument."
+    exact_reply_requested: "Reply: preface spine approved at [state] on [YYYY-MM-DD]; or list exact aspect, term, prerequisite, or exclusion changes."
+    resume_condition: "P2-SPINE-PREFACE resumes only after the bounded spine is approved."
+    why_external: "The preface's load-bearing role is an author/editor decision."
+    external_message_sent: false
+
+  OA-G-A2B-I-SPINE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the Part I spine and its Chapter 1/3 definition hierarchy."
+    expected_form: "One dated Part I disposition tied to the complete registry proposal."
+    blocked_items:
+      - "R04-SPINE-I"
+      - "R04-C01-definitions"
+      - "R04-C03-definitions"
+    blocked_gates:
+      - "G-A2b-I"
+    available_evidence:
+      - "packet:P2-SPINE-I"
+      - "decision:D05"
+    recommended_default: "Preserve the Part I no-visible-code boundary while ratifying only load-bearing claim, lifecycle, measurement, and literacy definitions."
+    exact_reply_requested: "Reply: Part I spine approved at [state] on [YYYY-MM-DD]; or list exact changes."
+    resume_condition: "P2-SPINE-I resumes only after the complete Part I spine is approved."
+    why_external: "Part-level hierarchy and definition load require author/editor judgment."
+    external_message_sent: false
+
+  OA-G-A2B-II-SPINE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the Part II spine and Chapter 4 definition-load disposition."
+    expected_form: "One dated Part II disposition tied to the complete registry proposal."
+    blocked_items:
+      - "R04-SPINE-II"
+      - "R04-C04-definition-load"
+    blocked_gates:
+      - "G-A2b-II"
+    available_evidence:
+      - "packet:P2-SPINE-II"
+      - "packet:P2-CLAIMS"
+    recommended_default: "Make constructed analysis tables, honest visual claims, and association limits the load-bearing progression."
+    exact_reply_requested: "Reply: Part II spine approved at [state] on [YYYY-MM-DD]; or list exact changes."
+    resume_condition: "P2-SPINE-II resumes only after the complete Part II spine is approved."
+    why_external: "Part-level hierarchy and definition load require author/editor judgment."
+    external_message_sent: false
+
+  OA-G-A2B-III-SPINE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the Part III probability, sampling, and estimation spine."
+    expected_form: "One dated Part III disposition tied to the complete registry proposal."
+    blocked_items:
+      - "R04-SPINE-III"
+    blocked_gates:
+      - "G-A2b-III"
+    available_evidence:
+      - "packet:P2-SPINE-III"
+      - "packet:P2-CLAIMS"
+    recommended_default: "Preserve Chapter 8 as the hinge and order probability, sampling, then estimation around generalisation limits."
+    exact_reply_requested: "Reply: Part III spine approved at [state] on [YYYY-MM-DD]; or list exact changes."
+    resume_condition: "P2-SPINE-III resumes only after the complete Part III spine is approved."
+    why_external: "The inferential curricular spine requires author/editor authority."
+    external_message_sent: false
+
+  OA-G-A2B-IV-SPINE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the Part IV testing, magnitude, power, and reform spine."
+    expected_form: "One dated Part IV disposition tied to the complete registry proposal."
+    blocked_items:
+      - "R04-SPINE-IV"
+      - "R04-C12-definitions"
+    blocked_gates:
+      - "G-A2b-IV"
+    available_evidence:
+      - "packet:P2-SPINE-IV"
+      - "packet:P2-IDENTITY"
+    recommended_default: "Lead with estimation and error consequences, keep Chapter 12 as one evidence-led research-system argument, and avoid ritual testing."
+    exact_reply_requested: "Reply: Part IV spine approved at [state] on [YYYY-MM-DD]; or list exact changes."
+    resume_condition: "P2-SPINE-IV resumes only after the complete Part IV spine is approved."
+    why_external: "The testing/reform argument and definition hierarchy require author/editor judgment."
+    external_message_sent: false
+
+  OA-G-A2B-V-SPINE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the Part V model spine, Chapter 17 definitions, and exact prerequisites."
+    expected_form: "One dated Part V disposition tied to the complete registry and route proposal."
+    blocked_items:
+      - "R04-SPINE-V"
+      - "R04-C17-definitions"
+      - "R04-C17-prerequisites"
+    blocked_gates:
+      - "G-A2b-V"
+    available_evidence:
+      - "packet:P2-SPINE-V"
+      - "handoff:H-P0-REGISTER-004"
+    recommended_default: "Preserve Chapter 16's synthesis payoff and require the conditional-denominator/testing foundations needed before Chapter 17."
+    exact_reply_requested: "Reply: Part V spine and Chapter 17 prerequisites approved at [state] on [YYYY-MM-DD]; or list exact changes."
+    resume_condition: "P2-SPINE-V resumes only after the complete spine and route prerequisites are approved."
+    why_external: "The summit, identity-pillar prerequisites, and route design require author/editor authority."
+    external_message_sent: false
+
+  OA-G-A2B-FINALE-SPINE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the finale spine, capstone definitions, and whole-book prerequisites."
+    expected_form: "One dated finale disposition tied to the complete registry proposal."
+    blocked_items:
+      - "R04-SPINE-FINALE"
+      - "R04-C18-definitions"
+      - "R04-C18-whole-prerequisites"
+    blocked_gates:
+      - "G-A2b-FINALE"
+    available_evidence:
+      - "packet:P2-SPINE-FINALE"
+      - "decision:D13"
+    recommended_default: "Make Chapter 18 whole-book cumulative, introduce no new method, and use the empirical transfer task for the full audit."
+    exact_reply_requested: "Reply: finale spine approved at [state] on [YYYY-MM-DD]; or list exact changes."
+    resume_condition: "P2-SPINE-FINALE resumes only after the complete finale spine is approved."
+    why_external: "The capstone harvest and prerequisite contract require author/editor authority."
+    external_message_sent: false
+
+  OA-G-A2C-TERMS-EDITOR:
+    status: "drafted_unsent"
+    readiness: "waiting_for_spine_evidence"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the canonical Croatian/English term map and documented alternatives after spine ratification."
+    expected_form: "One dated term-map disposition tied to the registry diff."
+    blocked_items:
+      - "R04-TERMS-concept-regeneration"
+      - "R36-BOOK-new-cluster"
+      - "R36-BOOK-alternatives"
+    blocked_gates:
+      - "G-A2c"
+    available_evidence:
+      - "packet:P2-TERMS"
+      - "item:R36-BOOK-new-cluster"
+    recommended_default: "Use one canonical Croatian form, retain English in the glossary, and record accepted variants and deliberate departures."
+    exact_reply_requested: "Reply: term map approved at [state/commit] on [YYYY-MM-DD], with only these exact amendments: [...]."
+    resume_condition: "P2-TERMS resumes when the author/editor approves the complete bounded map."
+    why_external: "Canonical editorial terminology requires author/editor authority."
+    external_message_sent: false
+
+  OA-P6-TERMS-REVIEWER-RECRUIT:
+    status: "drafted_unsent"
+    readiness: "ready_for_recruitment"
+    kind: "recruitment"
+    owner: "author/editor or recruitment coordinator"
+    due_phase: "2"
+    needed: "Recruit one domestic Croatian methods-terminology reviewer for the final term map."
+    expected_form: "One named qualified reviewer, availability window, conflict disclosure, and accepted bounded remit."
+    blocked_items:
+      - "R36-BOOK-domestic-review"
+    blocked_gates:
+      - "G-A2c"
+      - "P2-TERMS"
+    available_evidence:
+      - "item:R36-BOOK-domestic-review"
+      - "packet:P6-EVIDENCE"
+    recommended_default: "Use a Croatia-based social-science methods reviewer who did not author the term registry."
+    exact_reply_requested: "Reply with reviewer [name], qualification [short], availability [dates], conflict [none/list], and acceptance of the term-by-term remit."
+    resume_condition: "The recruitment task closes when one qualified reviewer accepts; substantive review remains a separate ask."
+    why_external: "A real domestic specialist cannot be generated or appointed by repository evidence."
+    external_message_sent: false
+
+  OA-P6-TERMS-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_final_term_map"
+    kind: "specialist_signoff"
+    owner: "named domestic terminology reviewer"
+    due_phase: "6"
+    needed: "Review the final canonical term map term by term and sign off or list exact corrections."
+    expected_form: "A dated review matrix covering every registered new term and recorded alternative."
+    blocked_items:
+      - "R36-BOOK-domestic-review"
+      - "R36-BOOK-new-cluster"
+      - "R36-BOOK-alternatives"
+    blocked_gates:
+      - "P2-TERMS"
+      - "P6-METHODS"
+      - "P6-VERIFY"
+    available_evidence:
+      - "packet:P2-TERMS"
+      - "packet:P6-EVIDENCE"
+    recommended_default: "Approve established Croatian methods usage and record contested variants rather than silently normalising them."
+    exact_reply_requested: "Reply with the completed matrix and: terminology sign-off granted for [commit], date [YYYY-MM-DD]; or list exact blocking terms."
+    resume_condition: "R36 and P6 may close only when every blocking term has a reviewer disposition tied to one source state."
+    why_external: "Domestic convention where usage is divided requires specialist human judgment."
+    external_message_sent: false
+
+  OA-G-A2D-SOLUTIONS-POLICY:
+    status: "drafted_unsent"
+    readiness: "waiting_for_policy_packet"
+    kind: "course_policy"
+    owner: "author and course owner"
+    due_phase: "2"
+    needed: "Approve the D06 two-layer solution, rubric, visibility, and export-exclusion policy."
+    expected_form: "One dated course-policy disposition covering student, instructor, and public-AI-export lanes."
+    blocked_items:
+      - "R15-SCHEMA-closure"
+      - "R15-POLICY-delivery"
+      - "R15-BOOK-closure-audit"
+    blocked_gates:
+      - "G-A2d"
+    available_evidence:
+      - "decision:D06"
+      - "packet:P2-ASSESS"
+    recommended_default: "One canonical solution record rendered as separated student checks and protected instructor rubrics, excluded from public AI exports."
+    exact_reply_requested: "Reply: D06 solutions policy approved as recommended, course owner [name], date [YYYY-MM-DD]; or list one exact lane change."
+    resume_condition: "P2-ASSESS resumes when author and course owner approve the same visibility/export contract."
+    why_external: "Assessment disclosure and instructor-material policy belong to the course owner."
+    external_message_sent: false
+
+  OA-G-A2D-APPENDIX-B:
+    status: "drafted_unsent"
+    readiness: "waiting_for_policy_packet"
+    kind: "course_policy"
+    owner: "author and course owner"
+    due_phase: "2"
+    needed: "Approve the bounded, versioned jamovi companion promised by D09."
+    expected_form: "One dated scope decision naming supported analyses and the clean-install verification owner."
+    blocked_items:
+      - "R21-AB-versioned-core"
+      - "R21-JAMOVI-product-dating"
+      - "R21-TEXT-prepared-route"
+      - "R21-AB-public-promise"
+    blocked_gates:
+      - "G-A2d"
+    available_evidence:
+      - "decision:D09"
+      - "packet:P5-B"
+    recommended_default: "Support only the book's core analyses using the same files, variables, and expected values as Appendix A."
+    exact_reply_requested: "Reply: Appendix B scope approved as recommended; clean-install owner [name]; date [YYYY-MM-DD]."
+    resume_condition: "Appendix B work resumes after scope and verification ownership are explicit."
+    why_external: "The supported teaching pathway and maintenance promise require course-owner approval."
+    external_message_sent: false
+
+  OA-G-A2D-APPENDIX-G:
+    status: "drafted_unsent"
+    readiness: "waiting_for_policy_packet"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "2"
+    needed: "Approve the compact Appendix G numeracy refresher and sanctioned first-use links under D10."
+    expected_form: "One dated bounded-scope decision with no new methods chapter or improvised inline styling."
+    blocked_items:
+      - "R34-AG-numeracy-refresher"
+      - "R34-AG-first-use-links"
+    blocked_gates:
+      - "G-A2d"
+    available_evidence:
+      - "decision:D10"
+      - "packet:P5-G"
+    recommended_default: "Add only percentages/percentage points, proportions/rates, slope, and logarithmic scale."
+    exact_reply_requested: "Reply: Appendix G scope approved as recommended on [YYYY-MM-DD]; or name one exact addition/removal."
+    resume_condition: "Inventory and appendix work resume after the bounded scope is approved."
+    why_external: "Adding Appendix G changes the ratified book architecture and requires author authority."
+    external_message_sent: false
+
+  OA-G-A2D-AI-H10:
+    status: "drafted_unsent"
+    readiness: "waiting_for_policy_packet"
+    kind: "course_policy"
+    owner: "author and course owner"
+    due_phase: "2"
+    needed: "Approve the cumulative AI competence ladder and H10 assessment boundary."
+    expected_form: "One dated policy decision preserving no assessed code production and the part-by-part verification ladder."
+    blocked_items:
+      - "R24-BOOK-human-AI-competence"
+      - "R24-BOOK-three-roles"
+      - "R23-BOOK-suspect-code-ladder"
+    blocked_gates:
+      - "G-A2d"
+    available_evidence:
+      - "decision:D05"
+      - "rule:STYLE-H10"
+      - "packet:P2-ASSESS"
+    recommended_default: "Keep computation delegable, require readable verification receipts after Part I, and assess judgment rather than code production."
+    exact_reply_requested: "Reply: AI/H10 ladder approved as recommended, course owner [name], date [YYYY-MM-DD]; or list one exact amendment."
+    resume_condition: "Assessment and AI-ladder work resume when author and course owner approve one consistent boundary."
+    why_external: "Assessment policy and course expectations cannot be inferred from prose alone."
+    external_message_sent: false
+
+  OA-G-A2D-PRIVACY-TOOLS:
+    status: "drafted_unsent"
+    readiness: "waiting_for_policy_packet"
+    kind: "institutional_policy"
+    owner: "course or institutional owner"
+    due_phase: "2"
+    needed: "Approve the dated privacy, disclosure, and public/protected/local AI-tool lanes under D15."
+    expected_form: "One dated local policy naming applicable institution, source, as-of date, and approved tool lanes."
+    blocked_items:
+      - "R24-BOOK-dated-legal-claims"
+      - "R24-AF-privacy-sources"
+      - "R24-BOOK-no-sensitive-upload"
+      - "R24-C18-privacy-sources"
+      - "R24-C18-dated-policy"
+    blocked_gates:
+      - "G-A2d"
+    available_evidence:
+      - "decision:D15"
+      - "packet:P5-F"
+      - "packet:WE-C18"
+    recommended_default: "Use a conservative dated course policy and distinguish public, contractually protected, and institutionally approved local tools."
+    exact_reply_requested: "Reply with institution/policy source, as-of date, approved tool lanes, disclosure rule, and responsible owner."
+    resume_condition: "Privacy-dependent prose and assessment resume only after the dated local policy is recorded."
+    why_external: "Institutional privacy and disclosure rules are locally owned and temporally unstable."
+    external_message_sent: false
+
+  OA-G-A3-DZS-SELECTION:
+    status: "drafted_unsent"
+    readiness: "waiting_for_catalogue_contract"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve the exact DZS tables, snapshot date, chapter role, and claim boundary."
+    expected_form: "One dated selection disposition for BS_TU11, BS_TU12, and T01-T03."
+    blocked_items:
+      - "R08-DZS-package"
+    blocked_gates:
+      - "G-A3-DZS"
+    available_evidence:
+      - "decision:D16"
+      - "packet:P3-DZS"
+    recommended_default: "Use complete-year national monthly arrivals/nights, one county cross-section, and the bounded long extract with totals and suppression semantics."
+    exact_reply_requested: "Reply: DZS selection approved as specified for snapshot [date]; or list one exact table/consumer change."
+    resume_condition: "Candidate promotion resumes after the author approves the exact bounded selection."
+    why_external: "The chapter role and first-edition selection are authorial decisions."
+    external_message_sent: false
+
+  OA-G-A3-DZS-RIGHTS:
+    status: "drafted_unsent"
+    readiness: "waiting_for_exact_source_terms"
+    kind: "rights_inquiry"
+    owner: "DZS rights/data owner"
+    due_phase: "3B"
+    needed: "Confirm reuse, attribution, version, and redistribution terms for the selected DZS teaching extracts."
+    expected_form: "Published terms or a written owner confirmation tied to the exact selected tables and files."
+    blocked_items:
+      - "R03-DZS-rights"
+    blocked_gates:
+      - "G-A3-DZS"
+    available_evidence:
+      - "item:R03-DZS-rights"
+      - "packet:P3-DZS"
+    recommended_default: "Bundle only if authoritative terms clearly permit it; otherwise use a source-linked or aggregate route."
+    exact_reply_requested: "Reply with the governing terms/permission, required attribution, permitted files, restrictions, and effective date."
+    resume_condition: "Promotion resumes when authoritative terms or written permission support one explicit lane."
+    why_external: "Technical availability does not by itself establish redistribution authority."
+    external_message_sent: false
+
+  OA-G-A3-DIP-SELECTION:
+    status: "drafted_unsent"
+    readiness: "waiting_for_catalogue_contract"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve the exact 2024 DIP election extract and its Chapter 3 role."
+    expected_form: "One dated selection disposition naming election, date, rows, variables, and permissible claim."
+    blocked_items:
+      - "R08-DIP-package"
+    blocked_gates:
+      - "G-A3-DIP"
+    available_evidence:
+      - "packet:P3-DIP"
+      - "item:R08-DIP-package"
+    recommended_default: "Retain turnout numerators and denominators and reconcile all teaching totals to the official source."
+    exact_reply_requested: "Reply: DIP selection approved for [election/date/variables]; or list one exact change."
+    resume_condition: "Candidate promotion resumes after the bounded selection and role are approved."
+    why_external: "The empirical case and chapter role require authorial approval."
+    external_message_sent: false
+
+  OA-G-A3-DIP-RIGHTS:
+    status: "drafted_unsent"
+    readiness: "waiting_for_exact_source_terms"
+    kind: "rights_inquiry"
+    owner: "DIP rights/data owner"
+    due_phase: "3B"
+    needed: "Confirm the reuse and redistribution basis for the selected DIP source files and teaching extract."
+    expected_form: "Published terms or written confirmation tied to the exact election files."
+    blocked_items:
+      - "R03-DIP-rights"
+    blocked_gates:
+      - "G-A3-DIP"
+    available_evidence:
+      - "item:R03-DIP-rights"
+      - "packet:P3-DIP"
+    recommended_default: "Bundle only under a verified reuse basis; otherwise provide an official-source recipe and cleared aggregate."
+    exact_reply_requested: "Reply with governing terms/permission, attribution, permitted files, restrictions, and effective date."
+    resume_condition: "Promotion resumes when one lawful lane is supported by authoritative evidence."
+    why_external: "The repository currently contains no rights-owner disposition for redistribution."
+    external_message_sent: false
+
+  OA-G-A3-DIGIKAT-SELECTION:
+    status: "drafted_unsent"
+    readiness: "waiting_for_catalogue_contract"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve the dated DigiKat actor-by-platform aggregate and its Chapters 4-6 role."
+    expected_form: "One dated selection disposition naming actors, platforms, snapshot, exclusions, and claim boundary."
+    blocked_items:
+      - "R08-DIGIKAT-package"
+    blocked_gates:
+      - "G-A3-DIGIKAT"
+    available_evidence:
+      - "decision:D16"
+      - "packet:P3-DIGIKAT"
+    recommended_default: "Use a portable aggregate with public labels and method-break/coverage caveats; keep the full Determ corpus external."
+    exact_reply_requested: "Reply: DigiKat selection approved for [snapshot and bounded scope]; or list one exact change."
+    resume_condition: "Candidate promotion resumes after the author approves the exact snapshot and role."
+    why_external: "The bounded case selection and curricular role require authorial approval."
+    external_message_sent: false
+
+  OA-G-A3-DIGIKAT-RIGHTS:
+    status: "drafted_unsent"
+    readiness: "waiting_for_component_terms"
+    kind: "rights_inquiry"
+    owner: "DigiKat and component rights owners"
+    due_phase: "3B"
+    needed: "Confirm component-level rights for the proposed aggregate and the external-only Determ boundary."
+    expected_form: "One component-by-component rights matrix with source terms or written owner confirmation."
+    blocked_items:
+      - "R03-DIGIKAT-rights"
+    blocked_gates:
+      - "G-A3-DIGIKAT"
+    available_evidence:
+      - "item:R03-DIGIKAT-rights"
+      - "decision:D16"
+    recommended_default: "Redistribute only the cleared aggregate and labels; keep restricted source material external."
+    exact_reply_requested: "Reply with each component, governing terms, permitted derived output, attribution, restrictions, and effective date."
+    resume_condition: "Promotion resumes after every component has a documented lawful lane."
+    why_external: "Component access and derived-output rights cannot be inferred from one aggregate file."
+    external_message_sent: false
+
+  OA-G-A3-EUROSTAT-SELECTION:
+    status: "drafted_unsent"
+    readiness: "waiting_for_catalogue_contract"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve five to seven question-led Eurostat indicators in one common year."
+    expected_form: "One dated selection disposition naming indicators, common year, geography, flags, and consumers."
+    blocked_items:
+      - "R08-EUROSTAT-package"
+    blocked_gates:
+      - "G-A3-EUROSTAT"
+    available_evidence:
+      - "packet:P3-EUROSTAT"
+      - "item:R08-EUROSTAT-package"
+    recommended_default: "Use the smallest common-year indicator set that serves explicit chapter questions and retains flags/missingness."
+    exact_reply_requested: "Reply: Eurostat selection approved for [indicators/year/geography]; or list one exact change."
+    resume_condition: "Candidate promotion resumes after the exact question-led selection is approved."
+    why_external: "First-edition selection and consumers are authorial decisions."
+    external_message_sent: false
+
+  OA-G-A3-EUROSTAT-RIGHTS:
+    status: "drafted_unsent"
+    readiness: "waiting_for_exact_source_terms"
+    kind: "rights_inquiry"
+    owner: "Eurostat rights/data owner"
+    due_phase: "3B"
+    needed: "Confirm attribution and redistribution terms for the dated Eurostat teaching snapshot."
+    expected_form: "Authoritative published terms or written confirmation tied to the exact snapshot and query metadata."
+    blocked_items:
+      - "R03-EUROSTAT-rights"
+    blocked_gates:
+      - "G-A3-EUROSTAT"
+    available_evidence:
+      - "item:R03-EUROSTAT-rights"
+      - "packet:P3-EUROSTAT"
+    recommended_default: "Use the authoritative reuse notice and required attribution; do not infer more permissive terms from API access."
+    exact_reply_requested: "Reply with governing reuse terms, attribution text, restrictions, effective date, and confirmation that the snapshot may be redistributed."
+    resume_condition: "Promotion resumes when authoritative terms support the committed snapshot lane."
+    why_external: "The exact redistribution and attribution basis must be established by the rights source."
+    external_message_sent: false
+
+  OA-G-A3-ESS-SELECTION:
+    status: "drafted_unsent"
+    readiness: "waiting_for_catalogue_contract"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve the exact ESS Round 11 Croatia variables, weights, recipe, and chapter role."
+    expected_form: "One dated selection disposition naming edition, variables, population, weights, and required alternatives."
+    blocked_items:
+      - "R08-ESS-route"
+    blocked_gates:
+      - "G-A3-ESS"
+    available_evidence:
+      - "decision:D08"
+      - "packet:P3-ESS"
+    recommended_default: "Use a portal-mediated optional replication route with a pinned recipe and licence-cleared required alternatives."
+    exact_reply_requested: "Reply: ESS selection approved for [edition/variables/weights/consumers]; or list one exact change."
+    resume_condition: "P3-ESS resumes after the author approves the exact portal route and curricular role."
+    why_external: "The survey selection and required-versus-optional role are authorial decisions."
+    external_message_sent: false
+
+  OA-G-A3-ESS-RIGHTS:
+    status: "drafted_unsent"
+    readiness: "ready_for_rights_inquiry"
+    kind: "rights_inquiry"
+    owner: "ESS data/rights owner"
+    due_phase: "3B"
+    needed: "Confirm whether the selected ESS microdata extract may be redistributed with the book."
+    expected_form: "Written permission or refusal tied to the exact edition, variables, transformations, and proposed files."
+    blocked_items:
+      - "R03-ESS-permission-gate"
+      - "R08-ESS-route"
+    blocked_gates:
+      - "G-A3-ESS"
+    available_evidence:
+      - "decision:D08"
+      - "item:R03-ESS-permission-gate"
+    recommended_default: "Keep ESS portal-mediated unless written permission explicitly authorises bundling."
+    exact_reply_requested: "Reply: bundling [permitted/not permitted] for [exact edition/files], with governing terms, attribution, restrictions, and date."
+    resume_condition: "The portal route can proceed under D08; bundling resumes only after written permission."
+    why_external: "Only the ESS rights owner can authorise redistribution beyond the published access lane."
+    external_message_sent: false
+
+  OA-G-A3-TEXT-SELECTION:
+    status: "drafted_unsent"
+    readiness: "waiting_for_Chapter17_brief"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve the ParlaMint-HR/ParlaSent question, sampling rule, linked layers, labels, and split."
+    expected_form: "One dated selection disposition naming pinned editions, corpus boundaries, unit, labels, split, and Chapter 17 role."
+    blocked_items:
+      - "R13-TEXT-package"
+      - "R13-TEXT-label-split"
+      - "R13-TEXT-three-layers"
+    blocked_gates:
+      - "G-A3-TEXT"
+    available_evidence:
+      - "decision:D07"
+      - "packet:P3-TEXT"
+    recommended_default: "Use linked inspectable speech, prepared-count, and labelled-sentence layers with recorded-reference labels and the original split."
+    exact_reply_requested: "Reply: text selection approved for [editions/question/sampling/split]; or list one exact change."
+    resume_condition: "P3-TEXT resumes after the exact question-led package is approved."
+    why_external: "The empirical question, sample boundary, and chapter role require authorial approval."
+    external_message_sent: false
+
+  OA-G-A3-TEXT-RIGHTS:
+    status: "drafted_unsent"
+    readiness: "waiting_for_pinned_editions"
+    kind: "rights_inquiry"
+    owner: "ParlaMint/ParlaSent rights owners or licence specialist"
+    due_phase: "3B"
+    needed: "Confirm compatible derivation, redistribution, attribution, and ShareAlike obligations for the linked text package."
+    expected_form: "One source-by-source licence matrix tied to pinned editions and every proposed derived file."
+    blocked_items:
+      - "R03-TEXT-licences"
+      - "R13-TEXT-package"
+    blocked_gates:
+      - "G-A3-TEXT"
+    available_evidence:
+      - "decision:D07"
+      - "item:R03-TEXT-licences"
+    recommended_default: "Use only licence-compatible linked layers, preserve required attribution/ShareAlike terms, and omit any uncleared file."
+    exact_reply_requested: "Reply with each source licence, compatible derived outputs, attribution, ShareAlike duties, restrictions, and effective date."
+    resume_condition: "Package promotion resumes when every proposed output has a compatible documented lane."
+    why_external: "Licence compatibility and redistribution obligations require authoritative rights evidence."
+    external_message_sent: false
+
+  OA-P3-PILOT-RECRUITMENT:
+    status: "drafted_unsent"
+    readiness: "ready_for_recruitment"
+    kind: "recruitment"
+    owner: "author/editor or reader-recruitment coordinator"
+    due_phase: "3C"
+    needed: "Recruit five intended-audience novice readers for think-aloud sessions on Chapters 1, 8, and 16."
+    expected_form: "Five consent-eligible participants, one protocol, session availability, and a minimal-data handling owner."
+    blocked_items:
+      - "R26-PILOT-five-reader"
+      - "R26-META-reading-time"
+    blocked_gates:
+      - "P3-PILOT"
+    available_evidence:
+      - "packet:P3-PILOT"
+      - "handoff:H-P0-REGISTER-003"
+    recommended_default: "Recruit five true novices from the intended social-science audience and test the surgically corrected, not wave-rewritten, source state."
+    exact_reply_requested: "Reply with five participant codes, eligibility, consent route, session dates, facilitator, and data-retention plan; include no unnecessary personal data."
+    resume_condition: "P3-PILOT sessions resume when five eligible readers and compliant logistics are confirmed."
+    why_external: "Real novice-reader evidence requires human participants and consent-compliant logistics."
+    external_message_sent: false
+
+  OA-G-A4-03-BRIEF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_PartI_evidence_and_pilot"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "3C"
+    needed: "Approve the Chapter 3 public claim, evidence package, Tier F brief, outline, and exclusions."
+    expected_form: "One dated Tier F disposition tied to the governed DZS/DIP or equivalent public-claim evidence."
+    blocked_items:
+      - "R07-C03-full-argument"
+      - "R10-C03-base-rate"
+      - "R12-C03-poll-literacy"
+      - "R12-C03-margin-debt"
+      - "R23-C03-no-R-production"
+      - "R24-C03-synthetic-media"
+      - "R24-C03-AI-provenance"
+      - "R30-C03-slide-enumeration"
+      - "R31-C03-public-case"
+    blocked_gates:
+      - "G-A4-03"
+    available_evidence:
+      - "packet:P3-DZS"
+      - "packet:P3-DIP"
+      - "packet:P3-PILOT"
+      - "packet:P2-IDENTITY"
+    recommended_default: "Build one evidence-led public-claim audit that plants base rates and poll literacy, distinguishes synthetic from fabricated evidence, and moves the main ASA episode to Chapter 10."
+    exact_reply_requested: "Reply: Chapter 3 Tier F brief approved at [state] on [YYYY-MM-DD]; or list exact case, evidence, outline, or scope amendments."
+    resume_condition: "WA-C03 drafting resumes only after the governed case evidence, pilot disposition, and complete brief are approved."
+    why_external: "The first identity-pillar case and argumentative brief require author/editor approval."
+    external_message_sent: false
+
+  OA-G-A4-12-BRIEF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_inference_and_evidence_packet"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve the Chapter 12 lifecycle brief, evidence artifact, sources, outline, and exclusions."
+    expected_form: "One dated Tier F brief disposition tied to the governed evidence package."
+    blocked_items:
+      - "R07-C12-full-argument"
+      - "R08-SPINE-12"
+      - "R11-C12-pipeline-flexibility"
+      - "R19-C12-forest-plot"
+      - "R19-C12-replication-cumulative"
+      - "R23-C12-no-R-production"
+      - "R23-C12-visible-receipt"
+      - "R23-C12-code-ladder"
+      - "R24-C12-primary-sources"
+      - "R35-REACHBACK-12"
+    blocked_gates:
+      - "G-A4-12"
+    available_evidence:
+      - "packet:P3-EVIDENCE12"
+      - "packet:P2-IDENTITY"
+    recommended_default: "Follow one research-to-reform lifecycle with primary evidence, a sensitivity comparison, a forest plot, and no assessed code production."
+    exact_reply_requested: "Reply: Chapter 12 Tier F brief approved at [state] on [YYYY-MM-DD]; or list exact evidence, outline, or scope amendments."
+    resume_condition: "WC-C12 drafting resumes only after the evidence package and complete Tier F brief are approved together."
+    why_external: "The identity-pillar argument and evidence choice require author/editor approval."
+    external_message_sent: false
+
+  OA-G-A4-16-ARTIFACT:
+    status: "drafted_unsent"
+    readiness: "waiting_for_candidate_artifacts"
+    kind: "source_selection_decision"
+    owner: "author/editor"
+    due_phase: "3C"
+    needed: "Select one published results table and short paragraph for Chapter 16 reading literacy."
+    expected_form: "One dated artifact choice with source fit, bounded excerpt/representation plan, and no-refit role."
+    blocked_items:
+      - "R16-ARTIFACT-selection"
+      - "R16-C16-table"
+      - "R16-C16-paragraph"
+      - "R16-C16-no-refit"
+    blocked_gates:
+      - "G-A4-16"
+    available_evidence:
+      - "packet:G-A4-16"
+      - "decision:D02"
+    recommended_default: "Choose a substantively relevant, lawfully reproducible artifact that supports annotation without refitting."
+    exact_reply_requested: "Reply: select [full citation/table/paragraph] for the bounded reading task; date [YYYY-MM-DD]. Or select one listed alternative."
+    resume_condition: "The artifact route resumes when the author selects one exact source and use."
+    why_external: "The exemplar and editorial relevance are authorial choices."
+    external_message_sent: false
+
+  OA-G-A4-16-RIGHTS:
+    status: "drafted_unsent"
+    readiness: "waiting_for_artifact_selection"
+    kind: "rights_inquiry"
+    owner: "published-artifact rights owner"
+    due_phase: "3C"
+    needed: "Confirm reproduction or quotation conditions for the exact selected Chapter 16 table/paragraph."
+    expected_form: "Written permission or documented lawful-use basis tied to the exact artifact and proposed representation."
+    blocked_items:
+      - "R16-ARTIFACT-selection"
+      - "R16-C16-table"
+      - "R16-C16-paragraph"
+    blocked_gates:
+      - "G-A4-16"
+    available_evidence:
+      - "packet:G-A4-16"
+      - "item:R16-ARTIFACT-selection"
+    recommended_default: "Use a licence-cleared artifact or original schematic representation with citation; request permission if the exact reproduction is not clearly covered."
+    exact_reply_requested: "Reply with permission/lawful-use basis, exact permitted material, formats, attribution, restrictions, fee if any, and effective date."
+    resume_condition: "The artifact may enter source only when one documented lawful route covers every target format."
+    why_external: "Access to a publication does not grant reproduction rights."
+    external_message_sent: false
+
+  OA-G-A4-17-BRIEF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_model_sequence_and_text_candidates"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve the Chapter 17 question, sampling rule, text-package role, outline, and exclusions."
+    expected_form: "One dated Tier F brief disposition aligned with D07 and the Part V spine."
+    blocked_items:
+      - "R07-C17-full-argument"
+      - "R07-C17-widget-prose-balance"
+      - "R08-SPINE-17"
+      - "R13-C17-module-contract"
+      - "R13-C17-boundary-sensitivity"
+      - "R13-C17-performance-validity"
+      - "R13-C17-placement"
+      - "R14-C17-classification-bridge"
+      - "R23-C17-no-R-production"
+      - "R23-C17-visible-receipt"
+      - "R23-C17-no-tokenizer"
+      - "R24-C17-primary-sources"
+      - "R24-C17-LLM-prediction"
+      - "R24-C17-system-feedback"
+      - "R24-C17-recorded-reference"
+      - "R24-C17-label-process"
+      - "R24-C17-selective-observation"
+      - "R24-C17-procedural-fairness"
+      - "R24-LADDER-C17"
+      - "R35-REACHBACK-17"
+    blocked_gates:
+      - "G-A4-17"
+    available_evidence:
+      - "decision:D07"
+      - "packet:P2-IDENTITY"
+      - "packet:P3-TEXT"
+    recommended_default: "Retain the fairness widget and follow one consequential text-classification decision from corpus construction through appeal and monitoring."
+    exact_reply_requested: "Reply: Chapter 17 Tier F brief approved at [state] on [YYYY-MM-DD]; or list exact question, sampling, outline, or scope amendments."
+    resume_condition: "G-A3-TEXT and WD-C17 resume only after the bounded brief is approved."
+    why_external: "The identity-pillar argument, sampling choice, and exclusions require author/editor approval."
+    external_message_sent: false
+
+  OA-C00-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WA-C00_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C00 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WA-C00 source state and six-critic synthesis."
+    blocked_items:
+      - "R15-C00-self-contained"
+      - "R24-C00-code-trace"
+      - "R24-C00-stable-thesis"
+      - "R30-C00-register"
+      - "R31-C00-ASA-deemphasis"
+      - "R33-C00-miniature-inquiry"
+    blocked_gates:
+      - "C00"
+    available_evidence:
+      - "packet:WA-C00"
+      - "packet:C00"
+    recommended_default: "Accept only after the preface contract, miniature inquiry, D05 code-trace wording, sources, style, and panel findings all pass."
+    exact_reply_requested: "Reply: C00 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C00 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C01-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WA-C01_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C01 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WA-C01 source state and six-critic synthesis."
+    blocked_items:
+      - "R24-C01-modern-AI-history"
+      - "R31-C01-Berkeley"
+    blocked_gates:
+      - "C01"
+    available_evidence:
+      - "packet:WA-C01"
+      - "packet:C01"
+    recommended_default: "Accept only after the lifecycle/claim foundations, nonrepetitive Berkeley use, AI history, sources, and panel findings pass."
+    exact_reply_requested: "Reply: C01 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C01 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C02-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WA-C02_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C02 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WA-C02 source state and six-critic synthesis."
+    blocked_items:
+      - "R11-C02-units-eligibility"
+      - "R13-C02-coding-measurement"
+      - "R09-C02-randomisation"
+      - "R09-C02-item-total"
+      - "R09-C02-stevens"
+      - "R14-C02-confounder"
+    blocked_gates:
+      - "C02"
+    available_evidence:
+      - "packet:WA-C02"
+      - "packet:C02"
+    recommended_default: "Accept only after design/measurement corrections, causal vocabulary, empirical boundaries, style, and panel findings pass."
+    exact_reply_requested: "Reply: C02 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C02 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C03-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WA-C03_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C03 identity-pillar revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WA-C03 source state, evidence package, and six-critic synthesis."
+    blocked_items:
+      - "R07-C03-full-argument"
+      - "R10-C03-base-rate"
+      - "R12-C03-poll-literacy"
+      - "R12-C03-margin-debt"
+      - "R23-C03-no-R-production"
+      - "R24-C03-synthetic-media"
+      - "R24-C03-AI-provenance"
+      - "R30-C03-slide-enumeration"
+      - "R31-C03-public-case"
+    blocked_gates:
+      - "C03"
+    available_evidence:
+      - "packet:WA-C03"
+      - "packet:C03"
+    recommended_default: "Accept only after Chapter 3 is one verified public-claim argument, its planted debts are explicit, and all panel blockers pass."
+    exact_reply_requested: "Reply: C03 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C03 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the identity-pillar revision."
+    external_message_sent: false
+
+  OA-C04-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WB-C04_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C04 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WB-C04 source state and six-critic synthesis."
+    blocked_items:
+      - "R08-C04-engagement-source"
+      - "R11-C04-raw-to-table"
+      - "R11-C04-wrong-join-AI"
+      - "R11-C04-missingness"
+      - "R13-C04-denominators"
+      - "R32-C04-static"
+    blocked_gates:
+      - "C04"
+    available_evidence:
+      - "packet:WB-C04"
+      - "packet:C04"
+    recommended_default: "Accept only after the visible analysis-table pipeline, joins, missingness sensitivity, print path, sources, and panel findings pass."
+    exact_reply_requested: "Reply: C04 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C04 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C05-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WB-C05_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C05 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WB-C05 source state and six-critic synthesis."
+    blocked_items:
+      - "R13-C05-frequency-visual"
+      - "R28-C05-introduction"
+      - "R28-C05-density"
+      - "R31-C05-Anscombe"
+    blocked_gates:
+      - "C05"
+    available_evidence:
+      - "packet:WB-C05"
+      - "packet:C05"
+    recommended_default: "Accept only after the Anscombe introduction, graph-as-argument role, accessibility, density, sources, and panel findings pass."
+    exact_reply_requested: "Reply: C05 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C05 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C06-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WB-C06_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C06 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WB-C06 source state and six-critic synthesis."
+    blocked_items:
+      - "R13-C06-coded-association"
+      - "R35-REACHBACK-06"
+      - "R09-C06-pearson-spearman-agree"
+      - "R09-C06-pearson-spearman-disagree"
+      - "R09-C06-range-restriction"
+      - "R09-C06-scatterplot-primary"
+    blocked_gates:
+      - "C06"
+    available_evidence:
+      - "packet:WB-C06"
+      - "packet:C06"
+    recommended_default: "Accept only after association/range claims, scatterplot priority, coded-text measurement, retrieval, and panel findings pass."
+    exact_reply_requested: "Reply: C06 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C06 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C07-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WC-C07_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C07 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WC-C07 source state and six-critic synthesis."
+    blocked_items:
+      - "R10-C07-degree-belief"
+      - "R29-C07-retrieval-load"
+      - "R35-REACHBACK-07"
+      - "R09-C07-clt-conditions"
+    blocked_gates:
+      - "C07"
+    available_evidence:
+      - "packet:WC-C07"
+      - "packet:C07"
+    recommended_default: "Accept only after probability, CLT conditions, cognitive-load retrieval, reach-back, and panel findings pass."
+    exact_reply_requested: "Reply: C07 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C07 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C08-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WC-C08_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C08 hinge-chapter revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WC-C08 source state and six-critic synthesis."
+    blocked_items:
+      - "R12-C08-survey-realism"
+      - "R12-C08-weighted-table"
+      - "R13-C08-corpus-selection"
+      - "R35-REACHBACK-08"
+      - "R12-C08-srs-boundary"
+      - "R12-C08-complex-design"
+      - "R12-C08-thousand-claim"
+    blocked_gates:
+      - "C08"
+    available_evidence:
+      - "packet:WC-C08"
+      - "packet:C08"
+    recommended_default: "Accept only after survey realism, weights, design boundaries, corpus selection retrieval, hinge function, and panel findings pass."
+    exact_reply_requested: "Reply: C08 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C08 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the hinge-chapter revision."
+    external_message_sent: false
+
+  OA-C09-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WC-C09_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C09 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WC-C09 source state and six-critic synthesis."
+    blocked_items:
+      - "R13-C09-coded-uncertainty"
+      - "R23-C09-code-reading"
+      - "R32-C09-static"
+      - "R35-REACHBACK-09"
+      - "R09-C09-normal-not-prediction"
+      - "R09-C09-bootstrap-validation"
+      - "R09-C09-bootstrap-failures"
+    blocked_gates:
+      - "C09"
+    available_evidence:
+      - "packet:WC-C09"
+      - "packet:C09"
+    recommended_default: "Accept only after interval/bootstrap corrections, code-reading and static paths, coded uncertainty, reach-back, and panel findings pass."
+    exact_reply_requested: "Reply: C09 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C09 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C10-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WC-C10_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C10 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WC-C10 source state and six-critic synthesis."
+    blocked_items:
+      - "R01-C10-null-exchangeability"
+      - "R01-C10-monte-carlo-correction"
+      - "R01-C10-bayesian-balance"
+      - "R13-C10-label-fallibility"
+      - "R31-C10-ASA-home"
+      - "R35-REACHBACK-10"
+    blocked_gates:
+      - "C10"
+    available_evidence:
+      - "packet:WC-C10"
+      - "packet:C10"
+    recommended_default: "Accept only after D01, reproduced results, balanced framing, ASA placement, label fallibility, reach-back, and panel findings pass."
+    exact_reply_requested: "Reply: C10 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C10 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C11-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WC-C11_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C11 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WC-C11 source state and six-critic synthesis."
+    blocked_items:
+      - "R04-C11-fixed-order"
+      - "R17-C11-exaggeration"
+      - "R17-C11-low-power"
+      - "R32-C11-static"
+      - "R35-REACHBACK-11"
+      - "R01-C11-inherited-permutation"
+      - "R09-C11-power-assumptions"
+    blocked_gates:
+      - "C11"
+    available_evidence:
+      - "packet:WC-C11"
+      - "packet:C11"
+    recommended_default: "Accept only after power/error assumptions, reporting limits, fixed order, static and retrieval paths, and panel findings pass."
+    exact_reply_requested: "Reply: C11 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C11 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C12-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WC-C12_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C12 identity-pillar revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WC-C12 source state, evidence package, and six-critic synthesis."
+    blocked_items:
+      - "R07-C12-full-argument"
+      - "R08-SPINE-12"
+      - "R11-C12-pipeline-flexibility"
+      - "R19-C12-forest-plot"
+      - "R19-C12-replication-cumulative"
+      - "R23-C12-no-R-production"
+      - "R23-C12-visible-receipt"
+      - "R23-C12-code-ladder"
+      - "R24-C12-primary-sources"
+      - "R35-REACHBACK-12"
+    blocked_gates:
+      - "C12"
+    available_evidence:
+      - "packet:WC-C12"
+      - "packet:C12"
+    recommended_default: "Accept only after the full lifecycle argument, governed evidence, sensitivity, forest plot, code-reading boundary, and all panel blockers pass."
+    exact_reply_requested: "Reply: C12 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C12 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the identity-pillar revision."
+    external_message_sent: false
+
+  OA-C13-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WD-C13_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C13 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WD-C13 source state and six-critic synthesis."
+    blocked_items:
+      - "R13-C13-contingency"
+      - "R27-C13-partV-contract"
+      - "R35-REACHBACK-13"
+      - "R09-C13-residual-name"
+      - "R09-C13-calibration-power"
+    blocked_gates:
+      - "C13"
+    available_evidence:
+      - "packet:WD-C13"
+      - "packet:C13"
+    recommended_default: "Accept only after residual/calibration corrections, survey denominators, Part V contract, retrieval, and panel findings pass."
+    exact_reply_requested: "Reply: C13 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C13 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C14-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WD-C14_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C14 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WD-C14 source state and six-critic synthesis."
+    blocked_items:
+      - "R02-C14-welch-ols"
+      - "R35-REACHBACK-14"
+      - "R22-C14-C16-dependence"
+    blocked_gates:
+      - "C14"
+    available_evidence:
+      - "packet:WD-C14"
+      - "packet:C14"
+    recommended_default: "Accept only after D02, empirical/code-reading receipts, dependence stop rule, reach-back, and panel findings pass."
+    exact_reply_requested: "Reply: C14 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C14 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C15-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WD-C15_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C15 revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WD-C15 source state and six-critic synthesis."
+    blocked_items:
+      - "R23-C15-suspect-code"
+      - "R35-REACHBACK-15"
+      - "R02-C15-dependent-revalidation"
+      - "R09-C15-variance-ratio"
+      - "R22-C14-C16-dependence"
+    blocked_gates:
+      - "C15"
+    available_evidence:
+      - "packet:WD-C15"
+      - "packet:C15"
+    recommended_default: "Accept only after variance-screening and inherited D02 repairs, suspect-code restoration, dependence stop rule, retrieval, and panel findings pass."
+    exact_reply_requested: "Reply: C15 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C15 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+
+  OA-C16-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WD-C16_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C16 summit revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WD-C16 source state, artifact evidence, and six-critic synthesis."
+    blocked_items:
+      - "R08-C16-cross-design"
+      - "R14-C16-binary-reading"
+      - "R14-C16-interaction"
+      - "R14-C16-adjustment-contract"
+      - "R16-C16-table"
+      - "R16-C16-paragraph"
+      - "R16-C16-no-refit"
+      - "R29-C16-retrieval"
+      - "R35-REACHBACK-16"
+      - "R02-C16-dependent-revalidation"
+      - "R09-C16-estimand"
+      - "R09-C16-uncertainty"
+      - "R09-C16-leakage-time"
+    blocked_gates:
+      - "C16"
+    available_evidence:
+      - "packet:WD-C16"
+      - "packet:C16"
+    recommended_default: "Accept only after the synthesis reveal, stable estimand, adjustment/interaction/binary bridges, lawful artifact, retrieval, and all panel blockers pass."
+    exact_reply_requested: "Reply: C16 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C16 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the summit revision."
+    external_message_sent: false
+
+  OA-C17-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WD-C17_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C17 identity-pillar revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WD-C17 source state, text package, and six-critic synthesis."
+    blocked_items:
+      - "R07-C17-full-argument"
+      - "R07-C17-widget-prose-balance"
+      - "R08-SPINE-17"
+      - "R13-C17-module-contract"
+      - "R13-C17-boundary-sensitivity"
+      - "R13-C17-performance-validity"
+      - "R13-C17-placement"
+      - "R14-C17-classification-bridge"
+      - "R23-C17-no-R-production"
+      - "R23-C17-visible-receipt"
+      - "R23-C17-no-tokenizer"
+      - "R24-C17-primary-sources"
+      - "R24-C17-LLM-prediction"
+      - "R24-C17-system-feedback"
+      - "R24-C17-recorded-reference"
+      - "R24-C17-label-process"
+      - "R24-C17-selective-observation"
+      - "R24-C17-procedural-fairness"
+      - "R24-LADDER-C17"
+      - "R35-REACHBACK-17"
+    blocked_gates:
+      - "C17"
+    available_evidence:
+      - "packet:WD-C17"
+      - "packet:C17"
+    recommended_default: "Accept only after one coherent text-classification argument, governed text evidence, preserved fairness widget, recorded-reference language, and all panel blockers pass."
+    exact_reply_requested: "Reply: C17 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C17 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the identity-pillar revision."
+    external_message_sent: false
+
+  OA-C18-ACCEPTANCE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WE-C18_revision_and_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Accept or return the bounded C18 capstone revision/panel disposition."
+    expected_form: "One dated accept-or-revise decision tied to the final WE-C18 source state, evidence package, and six-critic synthesis."
+    blocked_items:
+      - "R08-SPINE-18"
+      - "R10-C18-whole-book-harvest"
+      - "R11-C18-table-audit"
+      - "R13-C18-corpus-package"
+      - "R17-C18-two-pass"
+      - "R19-C18-substantive-sensitivity"
+      - "R24-C18-algorithm-harvest"
+      - "R24-C18-explanatory-scope"
+      - "R24-C18-workflow"
+      - "R32-C18-transfer-path"
+      - "R35-REACHBACK-18"
+      - "R09-C18-interval-conclusion"
+    blocked_gates:
+      - "C18"
+    available_evidence:
+      - "packet:WE-C18"
+      - "packet:C18"
+    recommended_default: "Accept only after the whole-book harvest, evidence package, sensitivity, report/AI audit, privacy policy, cross-format routes, and all panel blockers pass."
+    exact_reply_requested: "Reply: C18 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    resume_condition: "C18 closes only when every blocking revision is resolved on the cited source state."
+    why_external: "Only the author/editor can accept the capstone revision."
+    external_message_sent: false
+
+  OA-G-A5B-FINAL-METADATA:
+    status: "drafted_unsent"
+    readiness: "waiting_for_release_candidate"
+    kind: "release_decision"
+    owner: "author"
+    due_phase: "7"
+    needed: "Freeze the final title, authorship, version, date, and citation metadata."
+    expected_form: "One dated metadata record tied to the frozen release-candidate commit."
+    blocked_items:
+      - "R06-RELEASE-changelog"
+      - "R06-RELEASE-citation"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "G-A5b"
+    available_evidence:
+      - "decision:D14"
+      - "packet:P7-FREEZE"
+    recommended_default: "Retain the working title unless changed before freeze and synchronise one canonical metadata record across all surfaces."
+    exact_reply_requested: "Reply with final title, author names/order, edition/version, release date, citation form, and approval date."
+    resume_condition: "Release metadata and tagging resume only when the complete record is frozen to one commit."
+    why_external: "Title, authorship, and publication identity are authorial decisions."
+    external_message_sent: false
+
+  OA-P7-PILOT-RECRUITMENT:
+    status: "drafted_unsent"
+    readiness: "ready_for_recruitment_planning"
+    kind: "recruitment"
+    owner: "author/editor or reader-recruitment coordinator"
+    due_phase: "7"
+    needed: "Recruit fresh intended-audience readers for focused validation of Chapters 3, 12, 17, and 18."
+    expected_form: "A named fresh-reader cohort, consent route, session plan, and minimal-data owner."
+    blocked_items:
+      - "R26-P7-reader-validation"
+      - "R26-META-reading-time"
+    blocked_gates:
+      - "P7-PILOT"
+    available_evidence:
+      - "packet:P7-PILOT"
+      - "handoff:H-P0-REGISTER-003"
+    recommended_default: "Prefer fresh intended-audience readers and admit only repeated or blocking findings as release tasks."
+    exact_reply_requested: "Reply with participant codes, eligibility, consent route, session dates, facilitator, and data-retention plan; include no unnecessary personal data."
+    resume_condition: "P7-PILOT sessions resume when an eligible cohort and compliant logistics are confirmed."
+    why_external: "Release-reader evidence requires real participants."
+    external_message_sent: false
+
+  OA-G-A5A-ACCESSIBILITY-TARGET:
+    status: "drafted_unsent"
+    readiness: "waiting_for_reader_validation"
+    kind: "accessibility_decision"
+    owner: "author and accessibility reviewer"
+    due_phase: "7"
+    needed: "Approve the release accessibility target and artifact-proof disposition."
+    expected_form: "One dated target decision naming HTML as primary or approving a stronger target, plus required proof scope."
+    blocked_items:
+      - "R18-BROWSER-runtime"
+      - "R18-BOOK-cross-edition-claims"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "G-A5a"
+    available_evidence:
+      - "packet:P7-PILOT"
+      - "packet:P7-A11Y"
+    recommended_default: "Declare HTML the primary accessible edition unless evidence supports a stronger PDF target; still proof every release artifact."
+    exact_reply_requested: "Reply with primary accessible edition, required standards/checks, accepted limitations, reviewer [name], and date."
+    resume_condition: "P7-A11Y resumes when author and reviewer approve the same explicit target."
+    why_external: "Accessibility target and accepted limitations require human specialist and author authority."
+    external_message_sent: false
+
+  OA-P7-A11Y-OWNER:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_assignment"
+    kind: "proof_owner"
+    owner: "author"
+    due_phase: "0"
+    needed: "Name the independent accessibility-proof owner for semantic, keyboard, zoom, contrast, motion, alt-text, and screen-reader checks."
+    expected_form: "One named qualified reviewer accepting the bounded proof remit and availability window."
+    blocked_items:
+      - "R18-BROWSER-runtime"
+      - "R18-BOOK-cross-edition-claims"
+    blocked_gates:
+      - "G-A5a"
+      - "P7-A11Y"
+    available_evidence:
+      - "packet:P7-A11Y"
+      - "packet:P7-HTML"
+    recommended_default: "Use an independent reviewer with assistive-technology and keyboard/reflow testing experience."
+    exact_reply_requested: "Reply: accessibility-proof owner is [name/role], qualification [short], availability [dates], responsibility accepted [date]."
+    resume_condition: "Owner assignment closes when one qualified reviewer accepts; proof remains separately gated."
+    why_external: "The repository cannot appoint a human assistive-technology proof owner."
+    external_message_sent: false
+
+  OA-P7-A11Y-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_release_candidate_artifacts"
+    kind: "specialist_signoff"
+    owner: "named accessibility reviewer"
+    due_phase: "7"
+    needed: "Execute the approved accessibility proof and sign off or list exact blockers."
+    expected_form: "A dated checklist and findings matrix tied to one release-candidate commit and artifact set."
+    blocked_items:
+      - "R18-BROWSER-runtime"
+      - "R18-BOOK-cross-edition-claims"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "P7-A11Y"
+      - "G-A5d"
+    available_evidence:
+      - "packet:P7-A11Y"
+      - "packet:P7-HTML"
+      - "packet:P7-FREEZE"
+    recommended_default: "Require all blocking semantic, keyboard, reflow, contrast, motion, alternative-text, and sampled screen-reader checks to pass."
+    exact_reply_requested: "Reply with the completed matrix and: accessibility sign-off granted for [commit/artifact hashes], date [YYYY-MM-DD]; or list exact blockers."
+    resume_condition: "P7 and G-A5d may close only after every blocking finding is resolved and rechecked."
+    why_external: "Assistive-technology proof and acceptance require human specialist evidence."
+    external_message_sent: false
+
+  OA-P7-PDF-OWNER:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_assignment"
+    kind: "proof_owner"
+    owner: "author"
+    due_phase: "0"
+    needed: "Name the independent PDF proof owner for fonts, grayscale, figures, references, pagination, and extracted text."
+    expected_form: "One named qualified proofreader accepting the bounded PDF remit and availability window."
+    blocked_items:
+      - "R05-PDF-wrapper"
+      - "R05-PDF-fail-blocking"
+      - "R05-PDF-stale-protection"
+      - "R18-BOOK-cross-edition-claims"
+    blocked_gates:
+      - "P7-PDF"
+    available_evidence:
+      - "packet:P7-PDF"
+      - "packet:P7-FREEZE"
+    recommended_default: "Assign a proofreader able to inspect the actual PDF visually and test extracted Croatian text."
+    exact_reply_requested: "Reply: PDF proof owner is [name/role], qualification [short], availability [dates], responsibility accepted [date]."
+    resume_condition: "Owner assignment closes when one qualified proofreader accepts."
+    why_external: "Artifact proof requires human visual and print judgment."
+    external_message_sent: false
+
+  OA-P7-PDF-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_release_candidate_pdf"
+    kind: "specialist_signoff"
+    owner: "named PDF proof owner"
+    due_phase: "7"
+    needed: "Proof the release-candidate PDF and sign off or list exact blockers."
+    expected_form: "A dated page/artifact checklist tied to the PDF hash and source commit."
+    blocked_items:
+      - "R05-PDF-wrapper"
+      - "R05-PDF-fail-blocking"
+      - "R05-PDF-stale-protection"
+      - "R18-BOOK-cross-edition-claims"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "P7-PDF"
+      - "G-A5d"
+    available_evidence:
+      - "packet:P7-PDF"
+      - "packet:P7-CLEAN-BUILD"
+    recommended_default: "Require intended fonts, grayscale meaning, references, pagination, figure integrity, and extracted text to pass on the exact artifact."
+    exact_reply_requested: "Reply with the checklist and: PDF proof passed for [commit/hash], date [YYYY-MM-DD]; or list exact blocking pages/issues."
+    resume_condition: "P7 and release sign-off resume only after all PDF blockers are repaired and re-proved."
+    why_external: "A render exit code cannot replace human artifact proof."
+    external_message_sent: false
+
+  OA-P7-DOCX-OWNER:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_assignment"
+    kind: "proof_owner"
+    owner: "author"
+    due_phase: "0"
+    needed: "Name the independent DOCX proof owner with Word or LibreOffice access."
+    expected_form: "One named qualified proofreader accepting the bounded DOCX remit and availability window."
+    blocked_items:
+      - "R18-BOOK-cross-edition-claims"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "P7-DOCX"
+    available_evidence:
+      - "packet:P7-DOCX"
+      - "packet:P7-FREEZE"
+    recommended_default: "Assign an owner who can inspect callouts, equations, captions, figures, styles, Croatian characters, and contents in a supported application."
+    exact_reply_requested: "Reply: DOCX proof owner is [name/role], application/version [value], availability [dates], responsibility accepted [date]."
+    resume_condition: "Owner assignment closes when one qualified application proofreader accepts."
+    why_external: "Application-level DOCX behavior requires human proof in Word or LibreOffice."
+    external_message_sent: false
+
+  OA-P7-DOCX-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_release_candidate_docx"
+    kind: "specialist_signoff"
+    owner: "named DOCX proof owner"
+    due_phase: "7"
+    needed: "Proof the release-candidate DOCX and sign off or list exact blockers."
+    expected_form: "A dated application checklist tied to the DOCX hash, source commit, and application version."
+    blocked_items:
+      - "R18-BOOK-cross-edition-claims"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "P7-DOCX"
+      - "G-A5d"
+    available_evidence:
+      - "packet:P7-DOCX"
+      - "packet:P7-CLEAN-BUILD"
+    recommended_default: "Require callouts, equations, captions, figures, styles, Croatian characters, and contents to pass in the named application."
+    exact_reply_requested: "Reply with the checklist and: DOCX proof passed for [commit/hash/application], date [YYYY-MM-DD]; or list exact blockers."
+    resume_condition: "P7 and release sign-off resume only after all DOCX blockers are repaired and re-proved."
+    why_external: "Application proof cannot be inferred from source or conversion success."
+    external_message_sent: false
+
+  OA-G-A5C-TERM-FREEZE-OWNER:
+    status: "drafted_unsent"
+    readiness: "ready_for_owner_assignment"
+    kind: "release_owner"
+    owner: "author"
+    due_phase: "0"
+    needed: "Name the owner of the term-frozen teaching edition and post-freeze change policy."
+    expected_form: "One named owner accepting the freeze/versioning responsibility."
+    blocked_items:
+      - "R06-RELEASE-term-freeze"
+    blocked_gates:
+      - "G-A5c"
+      - "G-A6-DEPLOY"
+    available_evidence:
+      - "item:R06-RELEASE-term-freeze"
+      - "decision:D14"
+    recommended_default: "Give the teaching edition an explicit frozen version and route later corrections through dated errata or a new edition."
+    exact_reply_requested: "Reply: term-freeze owner is [name/role]; responsibility accepted on [YYYY-MM-DD]."
+    resume_condition: "G-A5c resumes when one accountable owner accepts; deployment still requires G-A6-DEPLOY."
+    why_external: "A durable teaching-edition freeze requires an accountable human owner."
+    external_message_sent: false
+
+  OA-G-A5D-LEGAL-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_release_candidate_licence_matrix"
+    kind: "specialist_signoff"
+    owner: "named licence/evidence reviewer"
+    due_phase: "7"
+    needed: "Sign off the final book, data, source, and artifact rights matrix or list exact blockers."
+    expected_form: "A dated matrix tied to the release-candidate commit and all redistributed artifacts."
+    blocked_items:
+      - "R03-NAVARRO-resolution"
+      - "R03-DATA-lane-inventory"
+      - "R03-DATA-generated-licence"
+      - "R03-DATA-bundled-portal-contract"
+      - "R03-DZS-rights"
+      - "R03-DIP-rights"
+      - "R03-DIGIKAT-rights"
+      - "R03-EUROSTAT-rights"
+      - "R03-ESS-permission-gate"
+      - "R03-TEXT-licences"
+      - "R16-ARTIFACT-selection"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "G-A5d"
+    available_evidence:
+      - "packet:P7-CLEAN-BUILD"
+      - "packet:P1B-DATA-LIC"
+    recommended_default: "Release only cleared artifacts and retain portal/external lanes wherever permission is absent."
+    exact_reply_requested: "Reply with the completed matrix and: legal/licence sign-off granted for [commit], date [YYYY-MM-DD]; or list exact blockers."
+    resume_condition: "G-A5d remains blocked until every redistributed artifact has a signed lawful lane."
+    why_external: "Final rights acceptance requires a named licence/evidence reviewer."
+    external_message_sent: false
+
+  OA-G-A5D-METHODS-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_final_methods_spine"
+    kind: "specialist_signoff"
+    owner: "named independent statistical reviewer"
+    due_phase: "7"
+    needed: "Sign off the final methods spine, including all Chapter 10/14 and connected assumption/estimand repairs."
+    expected_form: "A dated item-level methods matrix tied to the final chapter source state."
+    blocked_items:
+      - "R01-C10-null-exchangeability"
+      - "R01-C10-monte-carlo-correction"
+      - "R02-C14-welch-ols"
+      - "R09-C07-clt-conditions"
+      - "R09-C09-bootstrap-validation"
+      - "R09-C16-estimand"
+      - "R09-C16-leakage-time"
+      - "R09-C18-interval-conclusion"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "P6-METHODS"
+      - "P6-VERIFY"
+      - "G-A5d"
+    available_evidence:
+      - "packet:P6-EVIDENCE"
+      - "packet:P7-CLEAN-BUILD"
+    recommended_default: "Require zero unresolved statistical blocker or major finding on the final source state."
+    exact_reply_requested: "Reply with the methods matrix and: statistical sign-off granted for [commit], date [YYYY-MM-DD]; or list exact blockers."
+    resume_condition: "P6/G-A5d remain blocked until all statistical blockers are resolved and re-reviewed."
+    why_external: "Independent statistical acceptance cannot be supplied by the implementing agent."
+    external_message_sent: false
+
+  OA-G-A5D-PEDAGOGY-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_reader_and_pathway_evidence"
+    kind: "specialist_signoff"
+    owner: "named pedagogy reviewer"
+    due_phase: "7"
+    needed: "Sign off novice usability, assessment feedback, print completion, and supported pathways."
+    expected_form: "A dated pedagogy matrix tied to reader findings and the final student pathways."
+    blocked_items:
+      - "R15-SCHEMA-closure"
+      - "R15-POLICY-delivery"
+      - "R21-AB-versioned-core"
+      - "R26-PILOT-five-reader"
+      - "R26-P7-reader-validation"
+      - "R32-C18-transfer-path"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "G-A5d"
+    available_evidence:
+      - "packet:P7-PILOT"
+      - "packet:P7-CONDUCTOR"
+    recommended_default: "Require resolved repeated/blocking reader findings and complete feedback/print routes without assessed R production."
+    exact_reply_requested: "Reply with the pedagogy matrix and: pedagogical sign-off granted for [commit], date [YYYY-MM-DD]; or list exact blockers."
+    resume_condition: "G-A5d remains blocked until all major pedagogy and reader findings are resolved."
+    why_external: "Intended-audience usability and pedagogical acceptance require independent human review."
+    external_message_sent: false
+
+  OA-G-A5D-EDITORIAL-SIGNOFF:
+    status: "drafted_unsent"
+    readiness: "waiting_for_continuity_and_proofs"
+    kind: "specialist_signoff"
+    owner: "author/editor"
+    due_phase: "7"
+    needed: "Sign off the final Croatian voice, structure, terminology, evidence boundaries, and artifact coherence."
+    expected_form: "A dated editorial disposition tied to the final continuity, panel, terminology, and proof evidence."
+    blocked_items:
+      - "R30-BOOK-fresh-panels"
+      - "R30-BOOK-manual-style"
+      - "R36-BOOK-domestic-review"
+      - "R18-BOOK-cross-edition-claims"
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "G-A5d"
+    available_evidence:
+      - "packet:P6-ARC"
+      - "packet:P7-CLEAN-BUILD"
+    recommended_default: "Approve only the source state with current panels, reconciled terminology, passed proofs, and no unresolved major editorial finding."
+    exact_reply_requested: "Reply: editorial sign-off granted for [commit], date [YYYY-MM-DD]; or list exact blocking findings."
+    resume_condition: "G-A5d remains blocked until every major editorial finding is resolved on the signed source state."
+    why_external: "Final author/editor acceptance is an external authority boundary."
+    external_message_sent: false
+
+  OA-G-A5D-GO-NO-GO:
+    status: "drafted_unsent"
+    readiness: "waiting_for_all_named_signoffs"
+    kind: "release_decision"
+    owner: "author and release owner"
+    due_phase: "7"
+    needed: "Issue the release-candidate go/no-go after all named sign-offs and proofs pass."
+    expected_form: "One dated go/no-go record tied to an immutable source commit and artifact hashes."
+    blocked_items:
+      - "R06-RELEASE-tag"
+      - "R06-RELEASE-archive"
+      - "R06-RELEASE-term-freeze"
+      - "R06-RELEASE-errata"
+    blocked_gates:
+      - "G-A5d"
+    available_evidence:
+      - "packet:P7-CONDUCTOR"
+      - "packet:P7-CLEAN-BUILD"
+    recommended_default: "No-go unless legal, statistical, pedagogical, accessibility, editorial, reader, and artifact gates all pass on one source state."
+    exact_reply_requested: "Reply: A5d GO for commit [hash] and artifact hashes [list], approved by [author/release owner] on [date]; or NO-GO with exact blockers."
+    resume_condition: "Phase 8 preparation resumes only after a GO tied to the accepted release candidate."
+    why_external: "Only the author and release owner can accept the release candidate."
+    external_message_sent: false
+
+  OA-G-A6-PROTOCOL:
+    status: "drafted_unsent"
+    readiness: "waiting_for_A5d_GO"
+    kind: "external_action_policy"
+    owner: "author and release owner"
+    due_phase: "8"
+    needed: "Approve the umbrella protocol requiring separate immediate authority for push, tag, archive, and deploy."
+    expected_form: "One dated protocol record that does not itself authorise any external action."
+    blocked_items:
+      - "R06-RELEASE-tag"
+      - "R06-RELEASE-archive"
+      - "R06-RELEASE-term-freeze"
+      - "R06-RELEASE-errata"
+    blocked_gates:
+      - "G-A6"
+    available_evidence:
+      - "authority:push-merge-tag-archive-deploy-false"
+      - "packet:G-A6"
+    recommended_default: "Require exact target and immutable source state in each child authorisation; infer no authority across actions."
+    exact_reply_requested: "Reply: G-A6 protocol approved for [release-candidate commit] on [date]; this reply authorises no push, tag, archive, or deploy."
+    resume_condition: "Child action gates may be prepared only after the protocol is approved; every action still needs its own ask."
+    why_external: "External-action authority belongs solely to the author/release owner."
+    external_message_sent: false
+
+  OA-G-A6-PUSH:
+    status: "drafted_unsent"
+    readiness: "waiting_for_P8-META"
+    kind: "external_action_authorisation"
+    owner: "author"
+    due_phase: "8"
+    needed: "Authorise one exact release push to one named remote and branch."
+    expected_form: "Immediate dated authority naming source commit, remote, branch, and allowed push."
+    blocked_items:
+      - "R06-RELEASE-tag"
+      - "R06-RELEASE-archive"
+      - "R06-RELEASE-term-freeze"
+      - "R06-RELEASE-errata"
+    blocked_gates:
+      - "G-A6-PUSH"
+    available_evidence:
+      - "packet:P8-META"
+      - "authority:push-false"
+    recommended_default: "Authorise only the accepted release-candidate commit to the exact release branch after metadata checks pass."
+    exact_reply_requested: "Reply: authorise push of commit [hash] to remote [name/url], branch [name], once, on [date]."
+    resume_condition: "P8-PUSH may execute only on that immediate exact authority; no tag/archive/deploy authority follows."
+    why_external: "Pushing changes external repository state and requires explicit authority."
+    external_message_sent: false
+
+  OA-G-A6-TAG:
+    status: "drafted_unsent"
+    readiness: "waiting_for_verified_release_push"
+    kind: "external_action_authorisation"
+    owner: "author"
+    due_phase: "8"
+    needed: "Authorise creation of one exact final tag from the accepted release commit."
+    expected_form: "Immediate dated authority naming tag and target commit."
+    blocked_items:
+      - "R06-RELEASE-tag"
+    blocked_gates:
+      - "G-A6-TAG"
+    available_evidence:
+      - "packet:P8-PUSH"
+      - "authority:tag-false"
+    recommended_default: "Create only the frozen version tag after the pushed commit is verified."
+    exact_reply_requested: "Reply: authorise tag [exact tag] at commit [hash], once, on [date]."
+    resume_condition: "P8-TAG may execute only on that immediate exact authority; no archive/deploy authority follows."
+    why_external: "A final tag is an immutable external release action."
+    external_message_sent: false
+
+  OA-G-A6-ARCHIVE:
+    status: "drafted_unsent"
+    readiness: "waiting_for_verified_final_tag"
+    kind: "external_action_authorisation"
+    owner: "author and archive owner"
+    due_phase: "8"
+    needed: "Authorise one exact archival deposit of the verified final tag."
+    expected_form: "Immediate dated authority naming tag, archive service, deposit owner, and metadata record."
+    blocked_items:
+      - "R06-RELEASE-archive"
+    blocked_gates:
+      - "G-A6-ARCHIVE"
+    available_evidence:
+      - "packet:P8-TAG"
+      - "authority:archive-false"
+    recommended_default: "Deposit only the verified final tag and record the returned persistent identifier."
+    exact_reply_requested: "Reply: authorise deposit of tag [tag] to [archive] by [owner], once, on [date]."
+    resume_condition: "P8-ARCHIVE may execute only on that immediate exact authority; no deploy authority follows."
+    why_external: "Archival deposit creates external durable state and may assign a persistent identifier."
+    external_message_sent: false
+
+  OA-G-A6-DEPLOY:
+    status: "drafted_unsent"
+    readiness: "waiting_for_verified_archive"
+    kind: "external_action_authorisation"
+    owner: "author and release owner"
+    due_phase: "8"
+    needed: "Authorise one exact deployment of the archived release to the canonical public target."
+    expected_form: "Immediate dated authority naming source tag/commit, deployment target, and release owner."
+    blocked_items:
+      - "R06-RELEASE-term-freeze"
+      - "R06-RELEASE-errata"
+    blocked_gates:
+      - "G-A6-DEPLOY"
+    available_evidence:
+      - "packet:P8-ARCHIVE"
+      - "authority:deploy-false"
+    recommended_default: "Deploy only the archived accepted tag, then verify canonical pages, downloads, citation, changelog, and errata."
+    exact_reply_requested: "Reply: authorise deployment of [tag/commit] to [exact target] by [owner], once, on [date]."
+    resume_condition: "P8-DEPLOY may execute only on that immediate exact authority; further deployments require new authority."
+    why_external: "Deployment changes public state and cannot be inferred from plan approval."
+    external_message_sent: false
 invalidations: []
 packet_contracts:
   decision_gate:

@@ -99,7 +99,19 @@ handoffs:
           - authority:bounded-verified-local-commit-only
       - target_packet: P0-OUTSIDE
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P0-OUTSIDE stayed inside the authorised bounded local scope. It
+          created canonical drafted-but-unsent asks, inferred no permission,
+          sent no external message, changed no chapter prose, and preserved
+          the separate authority required for every later external action.
+        evidence:
+          - state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1
+          - scope:four-owned-paths-no-chapter-prose
+          - authority:82-drafted-unsent-zero-external-messages
+          - authority:push-merge-tag-archive-deploy-remain-false
 
   H-P0-CONTROL-001:
     source_packet: P0-CONTROL
@@ -203,7 +215,22 @@ handoffs:
     deliveries:
       - target_packet: P0-OUTSIDE
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          The register now holds 82 independently closable asks split by
+          decision, rights inquiry, recruitment, specialist sign-off, proof
+          ownership, release ownership, and exact external action. Every ask
+          names its owner, evidence, default, exact reply, blocked items and
+          gates, and resume condition; canonical ask status appears only in the
+          implementation register.
+        evidence:
+          - register:82-independent-bounded-outside-asks
+          - check:all-82-asks-link-known-register-items-and-packet-gates
+          - check:all-22-direct-P0-OUTSIDE-dependent-gates-covered
+          - check:all-unresolved-decision-chapter-acceptance-and-external-action-gates-covered
+          - authority:external-messages-sent-zero
 
   H-P0-REGISTER-001:
     source_packet: P0-REGISTER
@@ -278,7 +305,22 @@ handoffs:
     deliveries:
       - target_packet: P0-OUTSIDE
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P0-OUTSIDE was claimed only after the complete schema-v2 inventory
+          and exact packet catalogue were inspected. The packet will create
+          separate canonical asks for each independently closable external
+          dependency, link them to exact blocked items and gates, and retain
+          every later evidence and authority boundary.
+        evidence:
+          - commit:c4c6d1d472a9e5487fc997159d25d8c81c7947c7
+          - register:schema-v2-371-children-188-packets-18-manifests
+          - check:scripts/check-review-workflow.R-before-P0-OUTSIDE-claim
+          - routing:checkout-local-book-conductor-outside-ask-protocol
+          - state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1
+          - check:scripts/check-review-workflow.R-at-P0-OUTSIDE-closeout
 
   H-P0-REGISTER-003:
     source_packet: P0-REGISTER
@@ -538,3 +580,18 @@ packet_reviews:
       - installed-cache and nested-working-directory structure checks used checkout-local rules
       - fresh Codex process discovered Bookwright 0.2.0+codex.20260803091452
       - exact owned-path and stable-register-identity audits returned clear
+  P0-OUTSIDE:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      All future-relevant effects are the canonical outside asks already linked
+      to exact target gates in the implementation register. Repeating their
+      status as handoff deliveries would create the duplicate state forbidden
+      by this packet; no separate downstream discovery arose.
+    implementation_state: state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1
+    checks:
+      - scripts/check-review-workflow.R passed
+      - invalid_outside_ask_link negative fixture failed as required
+      - 82 unique asks covered all unresolved decision, chapter-acceptance, and exact external-action gates
+      - zero external messages were sent and all external authorities remain false

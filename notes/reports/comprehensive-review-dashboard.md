@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P0-STATE
-next_permitted_packet: P0-OUTSIDE
+last_completed_packet: P0-OUTSIDE
+next_permitted_packet: G-A1a
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -29,18 +29,18 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P0-STATE` |
-| Next permitted packet | `P0-OUTSIDE` only |
+| Last completed packet | `P0-OUTSIDE` |
+| Next permitted packet | `G-A1a` only |
 | Review parents | 36 ratified; 0 accepted |
 | Atomic child inventory | Complete: 371 stable children; 4 accepted, 5 deferred with reason, 362 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 5 accepted and 183 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 6 accepted and 182 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | None registered; `P0-OUTSIDE` will create one bounded ask per owner/decision |
+| Open outside asks | 82 canonical asks, all `drafted_unsent`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; P0-STATE passed deterministic, schema, install/discovery, scope, and independent closeout audits |
+| Failed gates | None; P0-OUTSIDE passed ask-schema, exact-link, coverage, negative-fixture, authority, and scope checks |
 
-No chapter prose was changed by `P0-STATE`.
+No chapter prose was changed by `P0-OUTSIDE`.
 
 ## P0-REGISTER closeout
 
@@ -78,6 +78,31 @@ The accepted implementation source state is
 
 The accepted implementation source state is
 `sha256:9eaca86d36b3b7593b831d820cfd881bbdb9c114837b9431e4cc9536562fc4ab`.
+
+## P0-OUTSIDE closeout
+
+- `H-P0-REGISTER-002`, `H-G-A0-001`, and `H-P0-CONTROL-003` were consumed
+  with inventory, authority, routing, and exact-link evidence.
+- The register now contains 82 independently closable canonical asks across
+  16 kinds: decisions and policy, package selection and rights, recruitment,
+  specialist sign-off, proof and release ownership, and exact external-action
+  authorisation.
+- Every ask names its owner, available evidence, recommended default, exact
+  reply, blocked register items and gates, and resume condition. All 22 packet
+  gates that directly depend on `P0-OUTSIDE`, every unresolved decision gate,
+  all C00-C18 acceptance gates, and all exact external-action gates are covered.
+- Every ask remains `drafted_unsent`; no external message was sent and no
+  permission was inferred. Push, merge, tag, archive, and deployment remain
+  unauthorised.
+- The workflow validator now checks the ask schema, item/gate references,
+  direct-dependent coverage, message state, and inventory totals. Its
+  `invalid_outside_ask_link` negative fixture fails as required.
+- P0-OUTSIDE found no future-relevant effect outside the canonical ask records,
+  so it created no outgoing handoff; duplicating ask state in the handoff
+  ledger would violate the packet contract.
+
+The accepted implementation source state is
+`state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1`.
 
 ## Findings that constrain later packets
 
@@ -120,26 +145,13 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next_permitted_packet, P0-OUTSIDE. In one
-coordinated claim transaction, consume H-P0-REGISTER-002 before_start and
-acknowledge H-G-A0-001 and H-P0-CONTROL-003 before the first substantive edit.
-Do not start G-A1a or any later packet.
+Execute only the dashboard's next_permitted_packet, G-A1a. Prepare G-A1a only.
+Show the Chapter 10 correction evidence, recommended D01 specification,
+credible alternatives, exact blocked items and dependencies, and the exact
+joint author/statistical-reviewer reply needed. Use
+OA-G-A1A-C10-SPEC as the canonical drafted-unsent ask.
 
-Create one independently closable bounded outside ask per genuine external
-decision, rights inquiry, recruitment task, specialist sign-off, proof owner,
-or release owner. Link every ask to the exact blocked register items and gates;
-name its owner, evidence, recommended default, exact reply requested, and resume
-condition. Do not create an omnibus ask, duplicate canonical ask status in the
-handoff ledger, send any external message, or infer permission.
-
-Use the implementation register as authoritative, preserve unrelated changes,
-and run all P0-OUTSIDE exit checks including scripts/check-review-workflow.R.
-Make only the authorised scoped local commit. At closeout, update the register,
-dashboard, and handoff ledger together; consume incoming handoffs with evidence;
-record every downstream handoff or explicitly declare none; clear the lock; set
-the next permitted packet; and stop without beginning it.
-
-Report the IDs addressed, files changed, decisions implemented, checks and
-results, unresolved asks or risks, handoffs consumed or created, and the next
-permitted packet with its exact prompt.
+Do not edit chapter prose or control state, do not send an external message,
+do not infer approval, and do not start P1A-C10 or any later packet. Return the
+bounded decision packet and wait for the explicit reply.
 ```

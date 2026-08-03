@@ -37,6 +37,9 @@ negative_fixture <- Sys.getenv("REVIEW_WORKFLOW_NEGATIVE_FIXTURE", "")
 if (identical(negative_fixture, "generic_packet_evidence")) {
   register$packets$`G-A0`$completion_evidence <- list("done")
 }
+if (identical(negative_fixture, "invalid_outside_ask_link")) {
+  register$outside_asks[[1]]$blocked_items <- "R99-NOT-A-REGISTER-ITEM"
+}
 
 errors <- character()
 add_error <- function(...) {
@@ -72,6 +75,17 @@ allowed_delivery_states <- c(
   "pending", "acknowledged", "consumed", "waived", "superseded"
 )
 terminal_delivery_states <- c("consumed", "waived", "superseded")
+allowed_outside_ask_statuses <- c(
+  "drafted_unsent", "sent", "received", "done", "withdrawn_with_reason"
+)
+allowed_outside_ask_kinds <- c(
+  "specialist_decision", "rights_decision", "rights_inquiry",
+  "release_decision", "release_owner", "editorial_decision", "recruitment",
+  "course_policy", "institutional_policy", "data_selection_decision",
+  "source_selection_decision", "accessibility_decision", "proof_owner",
+  "specialist_signoff", "external_action_policy",
+  "external_action_authorisation"
+)
 
 check(identical(register$schema_version, 2L),
       "Register schema_version must be 2.")
@@ -563,6 +577,126 @@ for (item_id in item_ids) {
           "In-progress item belongs to a non-active packet: ", item_id)
   }
 }
+
+outside_asks <- register$outside_asks
+outside_ask_ids <- named_entries(outside_asks)
+outside_inventory <- register$outside_ask_inventory
+check(is.list(outside_inventory),
+      "Register must define outside_ask_inventory as a mapping.")
+check(identical(outside_inventory$status, "complete"),
+      "outside_ask_inventory must be complete after P0-OUTSIDE.")
+check(identical(outside_inventory$completion_packet, "P0-OUTSIDE"),
+      "outside_ask_inventory has the wrong completion packet.")
+check(length(outside_ask_ids) > 0L,
+      "P0-OUTSIDE must create at least one bounded outside ask.")
+check(!anyDuplicated(outside_ask_ids), "Outside ask IDs must be unique.")
+declared_ask_total <- suppressWarnings(as.numeric(outside_inventory$total_asks))
+check(length(declared_ask_total) == 1L && !is.na(declared_ask_total) &&
+        declared_ask_total == length(outside_ask_ids),
+      "outside_ask_inventory.total_asks disagrees with outside_asks.")
+
+ask_required_fields <- c(
+  "status", "readiness", "kind", "owner", "due_phase", "needed",
+  "expected_form", "blocked_items", "blocked_gates", "available_evidence",
+  "recommended_default", "exact_reply_requested", "resume_condition",
+  "why_external", "external_message_sent"
+)
+sent_ask_count <- 0L
+covered_ask_gates <- character()
+for (ask_id in outside_ask_ids) {
+  ask <- outside_asks[[ask_id]]
+  check(grepl("^OA-[A-Z0-9-]+$", ask_id),
+        "Outside ask has an invalid stable ID: ", ask_id)
+  missing_fields <- setdiff(ask_required_fields, names(ask))
+  if (length(missing_fields)) {
+    add_error("Outside ask ", ask_id, " lacks fields: ",
+              paste(missing_fields, collapse = ", "))
+  }
+  check(ask$status %in% allowed_outside_ask_statuses,
+        "Outside ask has invalid status: ", ask_id)
+  check(ask$kind %in% allowed_outside_ask_kinds,
+        "Outside ask has invalid kind: ", ask_id)
+  for (field in c(
+    "readiness", "owner", "due_phase", "needed", "expected_form",
+    "recommended_default", "exact_reply_requested", "resume_condition",
+    "why_external"
+  )) {
+    check(is_scalar_text(ask[[field]]),
+          "Outside ask lacks bounded text field ", field, ": ", ask_id)
+  }
+
+  blocked_items <- or_empty(ask$blocked_items)
+  blocked_gates <- or_empty(ask$blocked_gates)
+  available_evidence <- or_empty(ask$available_evidence)
+  check(length(blocked_items) > 0L && !anyDuplicated(blocked_items),
+        "Outside ask must link unique blocked items: ", ask_id)
+  check(length(blocked_gates) > 0L && !anyDuplicated(blocked_gates),
+        "Outside ask must link unique blocked gates: ", ask_id)
+  unknown_items <- setdiff(blocked_items, item_ids)
+  unknown_gates <- setdiff(blocked_gates, packet_ids)
+  if (length(unknown_items)) {
+    add_error("Outside ask ", ask_id, " links unknown items: ",
+              paste(unknown_items, collapse = ", "))
+  }
+  if (length(unknown_gates)) {
+    add_error("Outside ask ", ask_id, " links unknown gates: ",
+              paste(unknown_gates, collapse = ", "))
+  }
+  check(length(available_evidence) > 0L && all(vapply(
+    as.list(available_evidence), is_evidence_reference, logical(1)
+  )), "Outside ask lacks resolvable available evidence: ", ask_id)
+  check(is.logical(ask$external_message_sent) &&
+          length(ask$external_message_sent) == 1L,
+        "Outside ask external_message_sent must be one logical value: ", ask_id)
+  if (isTRUE(ask$external_message_sent)) sent_ask_count <- sent_ask_count + 1L
+  if (identical(ask$status, "drafted_unsent")) {
+    check(identical(ask$external_message_sent, FALSE),
+          "A drafted_unsent ask cannot claim an external message: ", ask_id)
+  }
+  covered_ask_gates <- c(covered_ask_gates, blocked_gates)
+}
+
+declared_sent_count <- suppressWarnings(
+  as.numeric(outside_inventory$external_messages_sent)
+)
+check(length(declared_sent_count) == 1L && !is.na(declared_sent_count) &&
+        declared_sent_count == sent_ask_count,
+      "outside_ask_inventory.external_messages_sent disagrees with asks.")
+direct_outside_dependents <- packet_ids[vapply(register$packets, function(packet) {
+  "P0-OUTSIDE" %in% or_empty(packet$requires)
+}, logical(1))]
+missing_ask_gates <- setdiff(direct_outside_dependents, covered_ask_gates)
+if (length(missing_ask_gates)) {
+  add_error("P0-OUTSIDE leaves direct dependent gates without a bounded ask: ",
+            paste(missing_ask_gates, collapse = ", "))
+}
+unresolved_external_gate_kinds <- c(
+  "decision_gate", "chapter_acceptance_gate", "external_action_gate"
+)
+unresolved_external_gates <- packet_ids[
+  packet_status != "accepted" &
+    vapply(register$packets, function(packet) {
+      packet$kind %in% unresolved_external_gate_kinds
+    }, logical(1))
+]
+missing_external_gate_asks <- setdiff(
+  unresolved_external_gates, covered_ask_gates
+)
+if (length(missing_external_gate_asks)) {
+  add_error("P0-OUTSIDE leaves unresolved external approval gates without a bounded ask: ",
+            paste(missing_external_gate_asks, collapse = ", "))
+}
+
+declared_coverage <- unique(unlist(outside_inventory$coverage,
+                                   recursive = TRUE,
+                                   use.names = FALSE))
+unknown_declared_coverage <- setdiff(declared_coverage, packet_ids)
+if (length(unknown_declared_coverage)) {
+  add_error("outside_ask_inventory.coverage names unknown packets: ",
+            paste(unknown_declared_coverage, collapse = ", "))
+}
+check(all(direct_outside_dependents %in% declared_coverage),
+      "outside_ask_inventory.coverage omits a direct P0-OUTSIDE dependent.")
 
 fingerprint_ids <- vapply(register$items, function(item) {
   as.character(item$source$fingerprint_id)
