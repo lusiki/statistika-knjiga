@@ -65,7 +65,7 @@ izvoz se preskoči, a posluže već urezane datoteke.
 
 ## Licenca izvoza
 
-Autorska odluka. Zadano je konzervativno, tekst se smije koristiti za osobno i
-obrazovno korištenje uz navođenje izvora, i ta rečenica stoji u zaglavlju svake
-izvezene datoteke. Ako se razriješi otvorena odluka 5 (ShareAlike zbog
-naslijeđenog materijala), ovdje se mijenja i `LICENSE_LINE` u skripti.
+P1B-NAVARRO razriješio je odluku 5 uklanjanjem svih materijalnih ovisnosti o
+Navarrovu tekstu. `LICENSE_LINE` zato u zaglavlju svake izvezene datoteke
+navodi MIT i povezuje puni tekst licence. Skupovi podataka i drugi materijali
+trećih strana ne prelaze u taj režim.

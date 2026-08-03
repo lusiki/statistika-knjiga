@@ -677,7 +677,15 @@ handoffs:
     deliveries:
       - target_packet: P1B-NAVARRO
         gate: before_start
-        state: pending
+        state: superseded
+        resolved_at: "2026-08-03"
+        disposition: >-
+          Superseded before P1B-NAVARRO was claimed by the author's stricter
+          direction to minimise and wherever practicable eliminate Navarro
+          reliance rather than merely rewrite every candidate passage.
+        replacement_handoff: H-G-A1C-004
+        evidence:
+          - conversation:G-A1c-minimise-Navarro-reliance-2026-08-03-Luka-Sikic
 
   H-G-A1C-002:
     source_packet: G-A1c
@@ -736,6 +744,99 @@ handoffs:
     required: true
     deliveries:
       - target_packet: P1B-DATA-LIC
+        gate: before_start
+        state: pending
+
+  H-G-A1C-004:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D11
+      - item:R03-NAVARRO-provenance
+      - item:R03-NAVARRO-resolution
+      - handoff:H-G-A1C-001
+    statement: >-
+      Author and licence owner Luka Sikic amended the Navarro disposition on
+      2026-08-03. The first-edition objective is to minimise and wherever
+      practicable eliminate reliance on Navarro by removing nonessential
+      Navarro-specific analogies, sequences, and citations and rebuilding
+      necessary explanations independently. This is removal of dependency,
+      not concealment: materially derived content that survives retains
+      scholarly attribution and any verified ShareAlike obligation.
+    required_action: >-
+      In P1B-NAVARRO, audit every candidate passage before changing it. Remove
+      avoidable Navarro-specific framing and citations; independently rebuild
+      explanations the book genuinely needs and use primary or otherwise
+      independently verified sources where evidence is required. Preserve a
+      passage-level record of what was removed, independently rewritten, or
+      retained. Never erase attribution while retaining materially derived
+      expression or structure. Reconcile LICENSE, README.md, references.bib,
+      provenance notes, and every affected chapter, and stop for an explicit
+      owner disposition if any material dependency or ShareAlike obligation
+      survives.
+    basis:
+      - conversation:G-A1c-minimise-Navarro-reliance-2026-08-03-Luka-Sikic
+      - decision:D11
+      - handoff:H-G-A1C-001-superseded-before-P1B-NAVARRO-claim
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-NAVARRO-BOOK-LICENCE
+    required: true
+    deliveries:
+      - target_packet: P1B-NAVARRO
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-NAVARRO explicitly acknowledges H-G-A1C-001 as the required
+          superseded baseline and consumes H-G-A1C-004 as its operative,
+          stricter replacement before any chapter, licence, bibliography, or
+          audit-artifact edit. Every candidate will receive a passage-level
+          removed, independently rewritten, or retained disposition; the
+          packet will stop for a new owner disposition if any material
+          Navarro dependency or ShareAlike obligation survives.
+        evidence:
+          - handoff:H-G-A1C-001-superseded-by-H-G-A1C-004-before-claim
+          - conversation:P1B-NAVARRO-execution-instruction-2026-08-03
+          - conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic
+          - check:scripts/check-review-workflow.R-before-P1B-NAVARRO-claim
+          - source:Learning-Statistics-with-R-version-0.6-CC-BY-SA-4.0-pre-edit-audit
+
+  H-P1B-NAVARRO-001:
+    source_packet: P1B-NAVARRO
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R03-NAVARRO-provenance
+      - item:R03-NAVARRO-resolution
+      - outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE
+      - report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md
+    statement: >-
+      The passage-level audit verified zero surviving Navarro material or
+      reader-facing reference. The repository's original authored text, code,
+      and associated documentation therefore remain under MIT, while datasets
+      and other third-party materials retain separately verified terms. The
+      removed navarro2019 record was also version-unreliable for the audited
+      version 0.6 source.
+    required_action: >-
+      P1B-DATA-LIC must preserve the boundary between the MIT book and
+      separately licensed data and must not infer redistribution permission
+      from technical access. P1B-BIB must not restore navarro2019 merely as a
+      general textbook reference; any future reader-facing Navarro use would
+      require a new independently scoped need, authoritative version metadata,
+      and a renewed rights analysis.
+    basis:
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      - "decision:D11"
+      - "outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done"
+      - "source:Learning-Statistics-with-R-v0.6-pdf-sha256-CEB73307B5B0D310120E3E1470917B80189AFA11BEC3487F3910C8B1FA5BFE16"
+    required: true
+    deliveries:
+      - target_packet: P1B-DATA-LIC
+        gate: before_start
+        state: pending
+      - target_packet: P1B-BIB
         gate: before_start
         state: pending
 
@@ -1107,12 +1208,33 @@ packet_reviews:
       - H-G-A1C-001
       - H-G-A1C-002
       - H-G-A1C-003
-    implementation_state: conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic
+      - H-G-A1C-004
+    implementation_state: conversation:G-A1c-owner-dispositions-as-amended-2026-08-03-Luka-Sikic
     checks:
       - Luka Sikic was recorded as author and licence or data-lane policy owner for all three independently closable dispositions
       - D11 original rewriting with attribution and conditional ShareAlike boundary was recorded
       - D12 CC BY 4.0 generated-teaching-data licence was recorded subject to final book-licence reconciliation
       - D08 bundled, portal-mediated, and external-only policy was recorded with no package-specific exception
+      - H-G-A1C-001 was superseded before P1B-NAVARRO claim by H-G-A1C-004, which requires minimising Navarro reliance without concealing provenance
       - scripts/check-review-workflow.R passed with next_permitted_packet P1B-NAVARRO
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - no chapter prose or code changed and P1B-NAVARRO was not started
+  P1B-NAVARRO:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-NAVARRO-001
+    implementation_state: state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c
+    checks:
+      - H-G-A1C-001 was explicitly acknowledged as the superseded required baseline and H-G-A1C-004 was consumed before the first substantive edit
+      - all four candidate passages received verified source correspondence and explicit removed or independently rewritten dispositions
+      - authoritative version 0.6 source, CC BY-SA 4.0 terms, attribution requirements, and compatible-licence list were verified
+      - zero materially derived Navarro expression or distinctive structure survives in the rendered public manuscript
+      - LICENSE, README.md, references.bib, provenance notes, AI-export licence metadata, and every affected chapter were reconciled
+      - checkout-local deterministic style lint and the full manual H1-H10 pass completed for Chapters 1, 2, and 4
+      - targeted HTML renders for Chapters 1, 2, and 4 passed; generated pre-render artifacts were restored and remain outside the packet diff
+      - visible-source, citation-key, bibliography-record, and source-diff checks passed
+      - H-P1B-NAVARRO-001 records the licence-boundary and bibliography constraints for P1B-DATA-LIC and P1B-BIB
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-DATA-LIC
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1B-DATA-LIC and all later packets were not started

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A1c"
-  next_permitted_packet: "P1B-NAVARRO"
+  last_completed_packet: "P1B-NAVARRO"
+  next_permitted_packet: "P1B-DATA-LIC"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -182,15 +182,24 @@ decisions:
   G-A1c:
     status: "accepted"
     accepted_at: "2026-08-03"
+    amended_at: "2026-08-03"
     author_disposition: "accepted_as_recommended"
     author: "Luka Sikic"
     licence_and_data_lane_owner: "Luka Sikic"
-    evidence: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+    evidence: "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
+    original_evidence: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+    amendment_evidence: "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
     accepted_dispositions:
       navarro_and_book_licence: >-
-        Rewrite materially Navarro-derived prose originally while retaining
-        scholarly attribution. Require compatible ShareAlike terms only if
-        the passage-level provenance audit proves that an obligation survives.
+        Do not use Navarro as a source, drafting model, or reader-facing
+        reference in the public book. Audit the current candidates, then remove
+        every Navarro citation, name, analogy, example, distinctive
+        argumentative sequence, and materially derived expression through
+        omission or genuinely independent rewriting supported by primary or
+        otherwise independently verified sources where evidence is needed.
+        The internal provenance record remains and must prove that dependency
+        was removed rather than concealed. P1B-NAVARRO cannot close while any
+        material dependency survives.
       generated_teaching_data: >-
         Licence every generated teaching dataset under CC BY 4.0, subject to
         reconciliation with the final book licence.
@@ -202,6 +211,9 @@ decisions:
         exception is approved.
     rejected_alternatives:
       - "Retain materially derived Navarro prose without the required attribution or compatible ShareAlike terms."
+      - "Keep avoidable Navarro-specific framing merely because it is already cited."
+      - "Remove attribution while retaining materially derived expression or structure."
+      - "Use Navarro as an unacknowledged drafting resource while deleting reader-facing references."
       - "Leave generated teaching data unlicensed or describe their licence as not applicable."
       - "Treat technical access as redistribution authority or bundle an uncleared package."
     authority_boundary: >-
@@ -211,7 +223,8 @@ decisions:
       redistribution permission, authorise ESS or any other package-specific
       bundling, accept either future evidence packet, or authorise push, merge,
       tag, archive, or deployment. Any contrary audit evidence must stop the
-      affected packet and return for an explicit owner disposition.
+      affected packet; residual Navarro-dependent content must be removed or
+      omitted rather than used without attribution.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -2638,11 +2651,12 @@ packets:
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A1c packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence:
-      source_state: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+      source_state: "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
       required_evidence:
         - requirement: "dated decision record"
           artifacts:
             - "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+            - "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
         - requirement: "named decision owner"
           artifacts:
             - "decision:G-A1c-author-and-licence-data-owner-Luka-Sikic"
@@ -2660,12 +2674,12 @@ packets:
             - "decision:G-A1c"
         - output: "Completion evidence is tied to the declared G-A1c source state and bounded scope."
           artifacts:
-            - "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+            - "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
       exit_tests:
         - test: "The named decision owner has explicitly accepted one disposition."
           result: "passed"
           evidence:
-            - "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+            - "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
         - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
           result: "passed"
           evidence:
@@ -2683,12 +2697,12 @@ packets:
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+    change_reference: "conversation:G-A1c-owner-dispositions-zero-Navarro-use-2026-08-03-Luka-Sikic"
   P1B-NAVARRO:
     sequence: 29
     phase: "1B"
     kind: "evidence_licence"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A1c"
     scope: "Navarro provenance and licence resolution."
@@ -2699,13 +2713,55 @@ packets:
       - "Rights, attribution, and redistribution are verified rather than inferred from access."
       - "Every affected source or package has one explicit lawful lane."
       - "The P1B-NAVARRO packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      required_evidence:
+        - requirement: "source and licence record"
+          artifacts:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#provjereni-izvor-i-licenca"
+            - "source:Learning-Statistics-with-R-v0.6-pdf-sha256-CEB73307B5B0D310120E3E1470917B80189AFA11BEC3487F3910C8B1FA5BFE16"
+            - "licence:CC-BY-SA-4.0-legal-code-and-official-compatible-licence-list"
+        - requirement: "owner disposition"
+          artifacts:
+            - "outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done"
+            - "handoff:H-G-A1C-001-acknowledged-as-superseded-baseline-and-H-G-A1C-004-consumed-before-edit"
+            - "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
+        - requirement: "affected-file reconciliation"
+          artifacts:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#uskladenje-datoteka"
+            - "check:visible-source-citation-bibliography-and-source-diff-passed"
+      outputs:
+        - output: "P1B-NAVARRO durable artifact and evidence record for: Navarro provenance and licence resolution."
+          artifacts:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md"
+            - "item:R03-NAVARRO-provenance"
+            - "item:R03-NAVARRO-resolution"
+        - output: "Completion evidence is tied to the declared P1B-NAVARRO source state and bounded scope."
+          artifacts:
+            - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+            - "scope:Navarro-candidates-chapters-01-02-04-and-licence-metadata-reconciliation-only"
+      exit_tests:
+        - test: "Rights, attribution, and redistribution are verified rather than inferred from access."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#provjereni-izvor-i-licenca"
+            - "check:authoritative-source-version-licence-attribution-and-compatibility-audit-passed"
+        - test: "Every affected source or package has one explicit lawful lane."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#uskladenje-datoteka"
+            - "decision:zero-surviving-Navarro-material-MIT-original-work-third-party-terms-separate"
+        - test: "The P1B-NAVARRO packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:three-chapter-style-manual-render-visible-source-and-diff-passed"
+            - "handoff-ledger:packet_reviews.P1B-NAVARRO"
     contract: "evidence_licence"
     required_evidence:
       - "source and licence record"
       - "owner disposition"
       - "affected-file reconciliation"
-    change_reference: null
+    change_reference: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
   P1B-DATA-LIC:
     sequence: 30
     phase: "1B"
@@ -7799,7 +7855,7 @@ items:
       location: "§4 metadata hygiene + §15 R03"
     description: "Locate every materially Navarro-derived passage and record passage-level provenance and possible obligations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7818,11 +7874,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-NAVARRO"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#revizija-korespondencije-na-razini-odlomka"
+      - "check:all-four-candidates-have-verified-correspondence-and-explicit-disposition"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
   R03-NAVARRO-resolution:
     parents:
       - "R03"
@@ -7836,7 +7895,7 @@ items:
       location: "§4 metadata hygiene"
     description: "Implement D11 through sufficient rewriting plus attribution or compatible licensing if an obligation remains."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7856,11 +7915,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-NAVARRO"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
+      - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md#zavrsni-licencni-zakljucak"
+      - "outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done"
+      - "check:LICENSE-README-bibliography-provenance-and-source-reconciliation-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
   R03-DATA-lane-inventory:
     parents:
       - "R03"
@@ -21080,7 +21143,7 @@ outside_asks:
 
   OA-G-A1C-NAVARRO-BOOK-LICENCE:
     status: "done"
-    readiness: "owner_policy_accepted_pending_provenance_audit"
+    readiness: "owner_policy_and_zero_use_audit_complete"
     kind: "rights_decision"
     owner: "Luka Sikic (author and licence owner)"
     due_phase: "1B"
@@ -21094,19 +21157,25 @@ outside_asks:
     available_evidence:
       - "decision:D11"
       - "packet:P1B-NAVARRO"
-    recommended_default: "Rewrite materially derived prose originally with attribution; adopt ShareAlike only if the audit shows the obligation remains."
-    exact_reply_requested: "Reply with one lane: original rewriting plus attribution, or compatible ShareAlike; identify the licence owner and date."
-    resume_condition: "The Navarro and book-licence children resume only when the audit and dated owner disposition agree."
+    recommended_default: "Use no Navarro material or reader-facing reference; remove every dependency through omission or genuinely independent rewriting while preserving the internal audit trail."
+    exact_reply_requested: "Reply: zero Navarro use or public reference approved; internal provenance audit retained; owner [name], date [YYYY-MM-DD]."
+    resume_condition: "The Navarro and book-licence children close only when the audit verifies zero public use and zero material dependency."
     why_external: "Licence obligations and the final licence choice require the rights owner's decision."
     external_message_sent: false
     resolved_at: "2026-08-03"
     disposition: >-
-      Original rewriting with scholarly attribution is approved. Compatible
-      ShareAlike terms are required only if the passage-level audit proves a
-      surviving obligation.
+      Zero Navarro use or reader-facing reference is approved. Audit every
+      candidate, then remove all Navarro citations, names, analogies, examples,
+      distinctive sequences, and materially derived expression through
+      omission or genuinely independent rewriting. Preserve the internal
+      provenance record so the audit demonstrates removal rather than hidden
+      use. The packet cannot close while any material dependency survives.
     resolution_evidence:
       - "conversation:G-A1c-navarro-book-licence-disposition-2026-08-03-Luka-Sikic"
+      - "conversation:G-A1c-zero-Navarro-use-2026-08-03-Luka-Sikic"
       - "decision:G-A1c"
+      - "report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md"
+      - "state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c"
 
   OA-G-A1C-GENERATED-DATA-LICENCE:
     status: "done"

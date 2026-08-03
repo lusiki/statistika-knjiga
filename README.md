@@ -15,6 +15,13 @@ alati) i knjiga ima vizualni identitet. Nijedno poglavlje još nema sadržaj —
 ono što je na stranici je struktura, ne tekst. Plan knjige je
 [notes/struktura-knjige.md](notes/struktura-knjige.md).
 
+## Licenca
+
+Izvorni autorski tekst, programski kod i pridružena dokumentacija u ovom
+repozitoriju dostupni su pod MIT licencom iz datoteke [LICENSE](LICENSE).
+Skupovi podataka i drugi materijali trećih strana zadržavaju zasebno označene
+uvjete; tehnički pristup ne znači dopuštenje za preraspodjelu.
+
 ## Prvo pokretanje
 
 ```bash

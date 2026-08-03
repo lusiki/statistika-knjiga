@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A1c
-next_permitted_packet: P1B-NAVARRO
+last_completed_packet: P1B-NAVARRO
+next_permitted_packet: P1B-DATA-LIC
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 18
+forward_handoffs: 20
 last_updated: "2026-08-03"
 ---
 
@@ -27,21 +27,21 @@ stop and repair the control state before editing book content.
 | Gate A0 | Accepted: D01-D16 and O01-O03 |
 | Gate A1a | Accepted: D01 Chapter 10 correction specification; reviewer Luka Sikic; 2026-08-03 |
 | Gate A1b | Accepted: D02 Chapter 14 correction specification; reviewer Luka Sikic; 2026-08-03 |
-| Gate A1c | Accepted: D08, D11, and D12 licence/access policy dispositions; owner Luka Sikic; 2026-08-03 |
+| Gate A1c | Accepted as amended: minimise Navarro reliance; D08 and D12 unchanged; owner Luka Sikic; 2026-08-03 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A1c` |
-| Next permitted packet | `P1B-NAVARRO` |
+| Last completed packet | `P1B-NAVARRO` |
+| Next permitted packet | `P1B-DATA-LIC` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 33 accepted, 5 deferred with reason, 333 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 22 accepted and 166 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 35 accepted, 5 deferred with reason, 331 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 23 accepted and 165 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 77 canonical asks remain `drafted_unsent`; the two methods asks and three G-A1c licence/access asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `G-A1c` passed the named-owner, independent-disposition, authority-boundary, blocked-dependency, negative-fixture, and closeout checks |
+| Failed gates | None; `P1B-NAVARRO` passed its provenance, licence, owner-disposition, reconciliation, style, render, negative-fixture, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -495,9 +495,13 @@ The accepted gate source state is
 
 - Author and licence or data-lane policy owner Luka Sikic accepted three
   independently closable dispositions on 2026-08-03.
-- Under D11, materially Navarro-derived prose is rewritten originally while
-  retaining scholarly attribution. Compatible ShareAlike terms are required
-  only if the passage-level audit proves that an obligation survives.
+- Under amended D11, the first-edition objective is to minimise and wherever
+  practicable eliminate Navarro reliance. Nonessential Navarro-specific
+  analogies, argumentative sequences, and citations are removed; necessary
+  explanations are rebuilt independently and supported with primary or other
+  independently verified sources where evidence is needed. Provenance is not
+  concealed: materially derived content that survives retains scholarly
+  attribution and any verified ShareAlike obligation.
 - Under D12, every generated teaching dataset receives CC BY 4.0, subject to
   reconciliation with the final book licence.
 - Under D08, only licence-cleared files may be bundled; uncertain
@@ -506,14 +510,52 @@ The accepted gate source state is
   package-specific exception was approved, and access was not treated as
   redistribution authority.
 - The three canonical G-A1c asks are `done`; no external message was sent and
-  no third-party permission was inferred. `H-G-A1C-001` carries the Navarro
-  decision to `P1B-NAVARRO`, while `H-G-A1C-002` and `H-G-A1C-003` carry the
-  generated-data and lane decisions to `P1B-DATA-LIC`.
+  no third-party permission was inferred. The original Navarro handoff
+  `H-G-A1C-001` was superseded before packet claim by `H-G-A1C-004`, which
+  carries the stricter reduced-reliance decision to `P1B-NAVARRO`.
+  `H-G-A1C-002` and `H-G-A1C-003` carry the generated-data and lane decisions
+  to `P1B-DATA-LIC`.
 - No chapter prose or code was changed, and neither evidence/licence packet was
   started.
 
 The accepted decision source state is
-`conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic`.
+`conversation:G-A1c-owner-dispositions-as-amended-2026-08-03-Luka-Sikic`.
+
+## P1B-NAVARRO closeout
+
+- `H-G-A1C-001` was explicitly acknowledged as the superseded required
+  baseline, and its stricter replacement `H-G-A1C-004` was consumed before the
+  first substantive edit. The zero-use owner disposition in
+  `OA-G-A1C-NAVARRO-BOOK-LICENCE` is now fully reconciled with the completed
+  audit.
+- The authoritative version 0.6 PDF, its CC BY-SA 4.0 notice, attribution and
+  ShareAlike terms, official compatible-licence list, and the expression-versus-
+  idea boundary were verified. The audited PDF has SHA-256
+  `CEB73307B5B0D310120E3E1470917B80189AFA11BEC3487F3910C8B1FA5BFE16`.
+- All four candidates in Chapters 1, 2, and 4 received a passage-level source
+  correspondence and disposition. One unsupported candidate was removed;
+  three necessary explanations were rebuilt independently. No materially
+  derived Navarro expression, distinctive structure, name, citation, or
+  reader-facing reference survives.
+- `LICENSE`, `README.md`, `references.bib`, the three chapter provenance
+  records, both project plans, and AI-export licence metadata now agree: the
+  repository's original text, code, and associated documentation use MIT,
+  while datasets and other third-party materials retain separately verified
+  terms.
+- Checkout-local deterministic style lint and the complete manual H1–H10 pass
+  succeeded for all three changed chapters. Targeted HTML renders succeeded;
+  visible-source, citation-key, bibliography-record, and source-diff checks
+  also passed. Generated pre-render artifacts were restored and are absent
+  from the packet diff.
+- `H-P1B-NAVARRO-001` carries the verified book-licence boundary to
+  `P1B-DATA-LIC` and prevents `P1B-BIB` from restoring the unreliable Navarro
+  record without a new scoped need, authoritative metadata, and rights review.
+  No later packet was started.
+
+The accepted implementation source state is
+`state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c`;
+the durable evidence is
+`notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md`.
 
 ## Findings that constrain later packets
 
@@ -556,28 +598,29 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1B-NAVARRO. Fully read
-its packet contract, R03-NAVARRO-provenance and R03-NAVARRO-resolution, the
-accepted D11 and G-A1c dispositions, OA-G-A1C-NAVARRO-BOOK-LICENCE, LICENSE,
-the Navarro record in references.bib, the provenance notes and every candidate
-passage in Chapters 1, 2, and 4. Also fully read the checkout-local
-book-conductor and book-style instructions, STYLE.md, and the relevant source
-and licence evidence. Do not rely on prior chat or the installed plugin cache
-for mutable state.
+Execute only the dashboard's next permitted packet, P1B-DATA-LIC. Fully read
+its evidence_licence contract, R03-DATA-lane-inventory,
+R03-DATA-generated-licence, R03-DATA-bundled-portal-contract, the accepted D08,
+D12, and G-A1c dispositions, OA-G-A1C-GENERATED-DATA-LICENCE,
+OA-G-A1C-DATA-LANES, every current and proposed dataset record,
+and the relevant authoritative source and licence evidence. Also fully read the
+checkout-local book-conductor instructions and do not rely on prior chat or the
+installed plugin cache for mutable state.
 
-Before the first substantive edit, acknowledge and consume H-G-A1C-001 as a
-required before_start handoff. Complete a passage-level source correspondence
-and licence audit, then implement D11 by rewriting materially derived prose
-originally while retaining scholarly attribution. Reconcile LICENSE,
-README.md, references.bib, and every affected source. Verify source version,
-licence, attribution, and compatibility from authoritative evidence; do not
-infer that the current warning is cleared merely because a passage is cited.
+Before the first substantive edit, acknowledge and consume H-G-A1C-002,
+H-G-A1C-003, and H-P1B-NAVARRO-001 as required before_start handoffs. Inventory
+source, version, licence, attribution, access, and redistribution separately
+for every package. Assign one verified bundled, portal-mediated, or
+external-only lane and a lawful fallback for every required student pathway;
+technical access is never redistribution authority. Apply the approved CC BY
+4.0 notice consistently to every generated teaching dataset while preserving
+the verified MIT-book versus separately licensed data boundary.
 
-If verified evidence proves a surviving or incompatible ShareAlike obligation,
-stop and return for the exact owner disposition required by H-G-A1C-001. Do not
-start P1B-DATA-LIC or any later packet. If chapter prose changes, run the full
-checkout-local deterministic and manual H1-H10 style process. At closeout,
-record affected-file reconciliation and owner-disposition evidence, update the
-register, handoff ledger, and dashboard together, run the workflow validator
-and both required negative fixtures, and stop after P1B-NAVARRO.
+If a package lacks authoritative rights evidence, use the approved cautious
+lane or stop for the exact owner disposition rather than inferring permission.
+Do not start P1B-BIB or any later packet. At closeout, record the source and
+licence inventory, owner dispositions, affected-file reconciliation, and every
+future-relevant discovery; update the register, handoff ledger, and dashboard
+together; run the workflow validator and both required negative fixtures; and
+stop after P1B-DATA-LIC.
 ```
