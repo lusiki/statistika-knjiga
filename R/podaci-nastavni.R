@@ -7,6 +7,13 @@
 #
 # Skripta se poziva iz R/setup.R, pa su `anketa_mreze` i `populacija_medija`
 # dostupni svakom poglavlju bez dodatnog učitavanja.
+#
+# LICENCA IZLAZA: skupovi `anketa_mreze` i `populacija_medija`, kao i njihove
+# neizmijenjene datotečne snimke, dostupni su pod licencom Creative Commons
+# Imenovanje 4.0 međunarodna (CC BY 4.0). Nositelj prava je Luka Sikic, 2026.
+# Pri dijeljenju navedite autora, knjigu, ime skupa, ovu skriptu i licencu te
+# označite izmjene. Puna obavijest je u data/LICENCA-generirani-podaci.md.
+# Licenca izlaznih podataka ne mijenja MIT licencu ovoga koda.
 # ---------------------------------------------------------------------------
 
 #' Simulirana anketa o korištenju društvenih mreža

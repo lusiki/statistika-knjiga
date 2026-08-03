@@ -21,6 +21,9 @@ Izvorni autorski tekst, programski kod i pridružena dokumentacija u ovom
 repozitoriju dostupni su pod MIT licencom iz datoteke [LICENSE](LICENSE).
 Skupovi podataka i drugi materijali trećih strana zadržavaju zasebno označene
 uvjete; tehnički pristup ne znači dopuštenje za preraspodjelu.
+Generirani nastavni skupovi `anketa_mreze` i `populacija_medija` te njihove
+buduće datotečne snimke dostupni su pod [CC BY 4.0](data/LICENCA-generirani-podaci.md).
+Ta licenca podataka ne mijenja MIT licencu koda koji ih stvara.
 
 ## Prvo pokretanje
 

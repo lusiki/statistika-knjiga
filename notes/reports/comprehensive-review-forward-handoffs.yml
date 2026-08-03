@@ -713,7 +713,22 @@ handoffs:
     deliveries:
       - target_packet: P1B-DATA-LIC
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-DATA-LIC accepts the owner's CC BY 4.0 disposition before its
+          first substantive edit. The packet will identify every generated
+          teaching dataset, place one consistent notice in generator,
+          catalogue, public page, Appendix C, and download-adjacent records,
+          and preserve MIT for the generator code and authored book material.
+        evidence:
+          - conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic
+          - outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE-done
+          - decision:D12
+          - source:R/podaci-nastavni.R-pre-edit-inventory
+          - source:dodaci/c-katalog-podataka.qmd-pre-edit-inventory
+          - source:CC-BY-4.0-legal-code-pre-edit-review
 
   H-G-A1C-003:
     source_packet: G-A1c
@@ -745,7 +760,22 @@ handoffs:
     deliveries:
       - target_packet: P1B-DATA-LIC
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-DATA-LIC accepts the no-exception lane policy before its first
+          substantive edit. Every current and proposed package will receive a
+          separate source, version, licence, attribution, access, and
+          redistribution record, one cautious lawful lane, and a cleared
+          fallback wherever a student pathway is required. Later
+          package-selection and permission gates remain mandatory.
+        evidence:
+          - conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic
+          - outside-ask:OA-G-A1C-DATA-LANES-done
+          - decision:D08
+          - source:current-and-proposed-data-records-pre-edit-inventory
+          - check:authoritative-source-and-licence-evidence-pre-edit-review
 
   H-G-A1C-004:
     source_packet: G-A1c
@@ -835,8 +865,137 @@ handoffs:
     deliveries:
       - target_packet: P1B-DATA-LIC
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-03"
+        resolved_at: "2026-08-03"
+        disposition: >-
+          P1B-DATA-LIC accepts the verified zero-Navarro boundary before its
+          first substantive edit. MIT remains the regime for original book
+          prose, code, and associated documentation; generated datasets and
+          third-party data remain separately licensed, and technical access
+          will not be treated as redistribution permission.
+        evidence:
+          - report:notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md
+          - state:sha256-fc7f6536b53df8080f209bcba8505cd8d09d96047a5e3e88cc58a7db2664402c
+          - source:LICENSE-and-README-boundary-pre-edit-review
+          - outside-ask:OA-G-A1C-NAVARRO-BOOK-LICENCE-done
       - target_packet: P1B-BIB
+        gate: before_start
+        state: pending
+
+  H-P1B-DATA-LIC-001:
+    source_packet: P1B-DATA-LIC
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R03-DATA-generated-licence
+      - decision:D12
+      - outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE
+      - report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md
+    statement: >-
+      Generated teaching datasets anketa_mreze and populacija_medija, including
+      every future materialised snapshot, are CC BY 4.0 data owned by Luka
+      Sikic. Their generator code and the original book remain MIT, and the
+      generated-data notice does not cover third-party data.
+    required_action: >-
+      P3-EXISTING and P3-CATALOG must preserve the exact licence boundary,
+      attribution, change-marking requirement, and download-adjacent notice.
+      Neither package may label a generated dataset licence blank or not
+      applicable, and every future CSV or other snapshot must carry the notice
+      or a direct link to it.
+    basis:
+      - conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic
+      - data/LICENCA-generirani-podaci.md
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#licenca-generiranih-skupova-i-granica-mit-a
+    required: true
+    deliveries:
+      - target_packet: P3-EXISTING
+        gate: before_start
+        state: pending
+      - target_packet: P3-CATALOG
+        gate: before_start
+        state: pending
+
+  H-P1B-DATA-LIC-002:
+    source_packet: P1B-DATA-LIC
+    created_at: "2026-08-03"
+    kind: constraint
+    refs:
+      - item:R03-DATA-lane-inventory
+      - item:R03-DATA-bundled-portal-contract
+      - decision:D08
+      - report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md
+    statement: >-
+      The complete P1B inventory assigns exactly one current lane and a lawful
+      fallback to four existing and thirteen proposed packages. Technical
+      access is not redistribution authority, and data/katalog.yml was
+      intentionally not created before P3-CATALOG.
+    required_action: >-
+      P3-CATALOG must create the sole machine-readable record with required
+      source, version, licence, attribution, access, redistribution, lane,
+      fallback, and integrity fields. It must fail closed and must not promote
+      a portal-mediated or external-only package from availability alone.
+      P3-EXISTING must keep UCBAdmissions and anscombe external-only unless it
+      obtains authoritative dataset-specific redistribution evidence.
+    basis:
+      - conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#traka-i-zakonita-zamjena
+    required: true
+    deliveries:
+      - target_packet: P3-CATALOG
+        gate: before_start
+        state: pending
+      - target_packet: P3-EXISTING
+        gate: before_start
+        state: pending
+
+  H-P1B-DATA-LIC-003:
+    source_packet: P1B-DATA-LIC
+    created_at: "2026-08-03"
+    kind: evidence
+    refs:
+      - item:R03-DZS-rights
+      - item:R03-DIP-rights
+      - item:R03-DIGIKAT-rights
+      - item:R03-EUROSTAT-rights
+      - item:R03-ESS-permission-gate
+      - item:R03-TEXT-licences
+      - report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md
+    statement: >-
+      DZS tourism, ParlaMint-HR, and ParlaSent have a verified general bundled
+      basis but still require exact package records. DIP and the unselected
+      Eurostat package are portal-mediated; ESS R11 is portal-mediated under
+      D08; DigiKat and Determ are external-only. No later gate may infer a
+      broader right from those access routes.
+    required_action: >-
+      Each G-A3 package decision must acknowledge its incoming lane, inspect
+      the exact selected files and exceptions, and either ratify a lawful
+      package with attribution, version, checksum, and fallback or preserve
+      the cautious lane. The owner must receive an exact bounded disposition
+      request if authoritative evidence still does not support promotion.
+    basis:
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori
+      - decision:D08
+      - outside-ask:OA-G-A1C-DATA-LANES-done
+    required: true
+    deliveries:
+      - target_packet: G-A3-DZS
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-DIP
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-DIGIKAT
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-EUROSTAT
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-ESS
+        gate: before_start
+        state: pending
+      - target_packet: G-A3-TEXT
         gate: before_start
         state: pending
 
@@ -1238,3 +1397,26 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1B-DATA-LIC
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - P1B-DATA-LIC and all later packets were not started
+  P1B-DATA-LIC:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-DATA-LIC-001
+      - H-P1B-DATA-LIC-002
+      - H-P1B-DATA-LIC-003
+    implementation_state: state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32
+    checks:
+      - H-G-A1C-002, H-G-A1C-003, and H-P1B-NAVARRO-001 were acknowledged and consumed before the first substantive edit
+      - all four current and thirteen proposed packages have separate source, version, licence, attribution, access, and redistribution records
+      - every package has exactly one bundled, portal-mediated, or external-only lane and every required student pathway has a cleared fallback
+      - every package without authoritative exact-package rights evidence retained the approved cautious lane and no access route was treated as redistribution authority
+      - anketa_mreze and populacija_medija and every future snapshot are consistently marked CC BY 4.0 while their generator code and original book remain MIT
+      - R/fetch-podaci.R rejects every package that is not bundled with verified redistribution and data/katalog.yml remains reserved for P3-CATALOG
+      - the durable report records authoritative evidence, owner dispositions, affected-file reconciliation, declared source-state blobs, and all future constraints
+      - checkout-local style lint and the complete manual H1-H10 pass succeeded for podaci.qmd and dodaci/c-katalog-podataka.qmd
+      - targeted HTML renders for the public data page and Appendix C passed; generated pre-render artifacts were restored and remain outside the packet diff
+      - R generator and fetch skeleton execution, 17-of-17 lane inventory, six-location notice consistency, source-diff, and workflow checks passed
+      - H-P1B-DATA-LIC-001 through H-P1B-DATA-LIC-003 carry every future-relevant effect to P3 data packets and G-A3 package gates
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-BIB
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1B-BIB and all later packets were not started

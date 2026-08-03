@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1B-NAVARRO
-next_permitted_packet: P1B-DATA-LIC
+last_completed_packet: P1B-DATA-LIC
+next_permitted_packet: P1B-BIB
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 20
+forward_handoffs: 23
 last_updated: "2026-08-03"
 ---
 
@@ -32,11 +32,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1B-NAVARRO` |
-| Next permitted packet | `P1B-DATA-LIC` |
+| Last completed packet | `P1B-DATA-LIC` |
+| Next permitted packet | `P1B-BIB` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 35 accepted, 5 deferred with reason, 331 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 23 accepted and 165 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 38 accepted, 5 deferred with reason, 328 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 24 accepted and 164 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 77 canonical asks remain `drafted_unsent`; the two methods asks and three G-A1c licence/access asks are `done`; 0 external messages sent |
@@ -557,6 +557,43 @@ The accepted implementation source state is
 the durable evidence is
 `notes/reports/p1b-navarro-provenance-and-licence-audit-2026-08-03.md`.
 
+## P1B-DATA-LIC closeout
+
+- `H-G-A1C-002`, `H-G-A1C-003`, and `H-P1B-NAVARRO-001` were acknowledged
+  and consumed before the first substantive edit. The accepted owner
+  dispositions are now implemented without a package-specific exception.
+- The durable inventory records source, version, licence, attribution,
+  access, and redistribution separately for all four current and thirteen
+  proposed packages. Every package has exactly one `bundled`,
+  `portal-mediated`, or `external-only` lane and a lawful fallback for every
+  required student pathway.
+- Technical availability was never promoted into redistribution authority.
+  DIP, unselected Eurostat, and ESS remain portal-mediated under the recorded
+  conditions; R built-ins and every other source without authoritative
+  exact-package rights evidence remain external-only. DZS tourism,
+  ParlaMint-HR, and ParlaSent retain later exact-package gates despite their
+  verified general bundled basis.
+- `anketa_mreze`, `populacija_medija`, and every future materialised snapshot
+  now carry one consistent CC BY 4.0 notice. The generator code and original
+  book remain MIT, while all third-party data terms stay separate.
+- `R/fetch-podaci.R` now fails closed unless a package is `bundled` with
+  verified redistribution. The public data page, Appendix C, repository and
+  data README files, generator, and download-adjacent notice agree.
+  `data/katalog.yml` was not created before P3-CATALOG.
+- Checkout-local style lint and the full manual H1–H10 pass succeeded for the
+  two reader-facing files. Both targeted HTML renders passed, both R sources
+  executed, the 17-of-17 lane check and six-location licence check passed,
+  and generated pre-render artifacts were restored outside the packet diff.
+- `H-P1B-DATA-LIC-001`, `H-P1B-DATA-LIC-002`, and
+  `H-P1B-DATA-LIC-003` carry the generated-snapshot, canonical-catalogue, and
+  package-gate constraints to their exact later consumers. `P1B-BIB` was not
+  started.
+
+The accepted implementation source state is
+`state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32`;
+the durable evidence is
+`notes/reports/p1b-data-licence-access-inventory-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -598,29 +635,26 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1B-DATA-LIC. Fully read
-its evidence_licence contract, R03-DATA-lane-inventory,
-R03-DATA-generated-licence, R03-DATA-bundled-portal-contract, the accepted D08,
-D12, and G-A1c dispositions, OA-G-A1C-GENERATED-DATA-LICENCE,
-OA-G-A1C-DATA-LANES, every current and proposed dataset record,
-and the relevant authoritative source and licence evidence. Also fully read the
-checkout-local book-conductor instructions and do not rely on prior chat or the
-installed plugin cache for mutable state.
+Execute only the dashboard's next permitted packet, P1B-BIB. Fully read its
+evidence_metadata contract and the complete records for R06-BIB-remove-nocite,
+R06-BIB-status-language, R06-BIB-doi-audit, and R06-BIB-local-locator. Fully
+read references.bib, references.qmd, the bibliography settings in _quarto.yml,
+every live citation use in the manuscript, and every relevant authoritative
+metadata source.
 
-Before the first substantive edit, acknowledge and consume H-G-A1C-002,
-H-G-A1C-003, and H-P1B-NAVARRO-001 as required before_start handoffs. Inventory
-source, version, licence, attribution, access, and redistribution separately
-for every package. Assign one verified bundled, portal-mediated, or
-external-only lane and a lawful fallback for every required student pathway;
-technical access is never redistribution authority. Apply the approved CC BY
-4.0 notice consistently to every generated teaching dataset while preserving
-the verified MIT-book versus separately licensed data boundary.
+Before the first substantive edit, acknowledge and consume
+H-P1B-NAVARRO-001 as its required before_start handoff. Preserve the verified
+zero-Navarro result and do not restore navarro2019 without a new independently
+scoped need, authoritative version metadata, and renewed rights analysis.
+Remove blanket nocite only after reconciling displayed references with actual
+uses. Verify every affected DOI from an authoritative record or document a
+checked no-DOI disposition, and give every important local source a stable
+verified locator or an explicit unavailable result. Never invent a key, DOI,
+locator, page, version, or finding.
 
-If a package lacks authoritative rights evidence, use the approved cautious
-lane or stop for the exact owner disposition rather than inferring permission.
-Do not start P1B-BIB or any later packet. At closeout, record the source and
-licence inventory, owner dispositions, affected-file reconciliation, and every
-future-relevant discovery; update the register, handoff ledger, and dashboard
-together; run the workflow validator and both required negative fixtures; and
-stop after P1B-DATA-LIC.
+Do not start P1B-META or any later packet. At closeout, record the citation
+usage report, authoritative metadata verification, claim-source fit record,
+affected-file reconciliation, and every future-relevant discovery; update the
+register, handoff ledger, and dashboard together; run the workflow validator
+and both required negative fixtures; and stop after P1B-BIB.
 ```

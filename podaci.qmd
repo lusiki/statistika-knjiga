@@ -19,12 +19,22 @@ format:
   skup ne provjeri; ne vraćati prijašnji prazan obrazac.
 ===================================================================== -->
 
-Svaki skup podataka koji se pojavljuje u knjizi javno je dostupan, imenovan i
-citiran. Nijedna vježba ne počiva na podacima koje čitatelj ne može sam
-preuzeti i provjeriti. Puni katalog s licencama i opisom varijabli je Dodatak C.
+Svaki skup podataka koji se pojavljuje u knjizi mora imati provjeren izvor,
+inačicu, licencu, atribuciju, način pristupa i zasebnu odluku o redistribuciji.
+Poveznica za preuzimanje sama po sebi nije dopuštenje za uključivanje datoteke
+u repozitorij. Puni čitateljski katalog s opisom varijabli je Dodatak C.
 
-Jezgru čine Europsko društveno istraživanje u hrvatskim valovima, Državni
-zavod za statistiku i Eurostat.
+Knjiga razlikuje tri pristupne trake. Paket `bundled` smije se podijeliti uz
+zabilježene uvjete. Paket `portal-mediated` preuzima se izravno od službenoga
+izvora i ne prikazuje se kao lokalna kopija. Paket `external-only` ostaje izvan
+repozitorija. Svaki obvezni zadatak uz drugu ili treću traku mora imati
+licenčno čistu lokalnu datoteku ili agregatnu zamjenu.
+
+Generirani nastavni skupovi `anketa_mreze` i `populacija_medija` dostupni su
+pod licencom [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode).
+Obavijest navodi Luku Sikica kao nositelja prava i nalazi se u
+`data/LICENCA-generirani-podaci.md`. Kod generatora i autorski sadržaj knjige
+ostaju pod MIT licencom, a uvjeti podataka trećih strana vode se zasebno.
 
 ## Popis
 
@@ -33,16 +43,18 @@ zavod za statistiku i Eurostat.
 Katalog je u pripremi
 :::
 
-Popis će biti objavljen kada svaki skup dobije provjeren izvor, licencu i
-poveznicu za preuzimanje. Do tada se ovdje ne prikazuje prazan obrazac koji bi
-mogao izgledati kao gotov katalog.
+Popis će biti objavljen kada svaki skup dobije provjeren izvor, inačicu,
+licencu, atribuciju, pristup, odluku o redistribuciji i pripadajuću traku. Do
+tada se ovdje ne prikazuje prazan obrazac koji bi mogao izgledati kao gotov
+katalog.
 :::
 
 ## Kako se podaci dohvaćaju
 
-Skripta `R/fetch-podaci.R` dohvaća sve skupove iz javnih izvora i sprema ih u
-`data/`. Pokreće se ručno, ne pri svakom renderu, jer izvori mijenjaju adrese
-sporije nego što se knjiga gradi.
+Skripta `R/fetch-podaci.R` dohvaća samo pakete s provjerenim pravom
+redistribucije i trakom `bundled`. Pokreće se ručno, ne pri svakom renderu, jer
+izvori mijenjaju adrese sporije nego što se knjiga gradi. Portalno posredovani
+i vanjski paketi ne ulaze u `data/`.
 
 ```bash
 Rscript R/fetch-podaci.R

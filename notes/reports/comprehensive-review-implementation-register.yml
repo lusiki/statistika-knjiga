@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1B-NAVARRO"
-  next_permitted_packet: "P1B-DATA-LIC"
+  last_completed_packet: "P1B-DATA-LIC"
+  next_permitted_packet: "P1B-BIB"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2766,7 +2766,7 @@ packets:
     sequence: 30
     phase: "1B"
     kind: "evidence_licence"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A1c"
     scope: "Current and proposed data licence/access inventory."
@@ -2777,13 +2777,56 @@ packets:
       - "Rights, attribution, and redistribution are verified rather than inferred from access."
       - "Every affected source or package has one explicit lawful lane."
       - "The P1B-DATA-LIC packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      required_evidence:
+        - requirement: "source and licence record"
+          artifacts:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava"
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori"
+            - "check:four-current-and-thirteen-proposed-packages-have-separate-source-version-licence-attribution-access-and-redistribution-records"
+        - requirement: "owner disposition"
+          artifacts:
+            - "outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE-done"
+            - "outside-ask:OA-G-A1C-DATA-LANES-done"
+            - "handoff:H-G-A1C-002-H-G-A1C-003-and-H-P1B-NAVARRO-001-consumed-before-edit"
+        - requirement: "affected-file reconciliation"
+          artifacts:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#uskladenje-pogodenih-datoteka"
+            - "check:generated-data-notice-lane-contract-fetch-guard-public-page-appendix-and-MIT-boundary-reconciled"
+      outputs:
+        - output: "P1B-DATA-LIC durable artifact and evidence record for: Current and proposed data licence/access inventory."
+          artifacts:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md"
+            - "item:R03-DATA-lane-inventory"
+            - "item:R03-DATA-generated-licence"
+            - "item:R03-DATA-bundled-portal-contract"
+        - output: "Completion evidence is tied to the declared P1B-DATA-LIC source state and bounded scope."
+          artifacts:
+            - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+            - "scope:four-current-and-thirteen-proposed-data-records-licence-lanes-not-package-promotion"
+      exit_tests:
+        - test: "Rights, attribution, and redistribution are verified rather than inferred from access."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava"
+            - "decision:cautious-portal-or-external-lanes-for-every-uncleared-or-unselected-package"
+        - test: "Every affected source or package has one explicit lawful lane."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#traka-i-zakonita-zamjena"
+            - "check:17-of-17-package-records-have-exactly-one-lane-and-a-lawful-required-path-fallback"
+        - test: "The P1B-DATA-LIC packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:generator-fetch-style-manual-render-inventory-notice-source-diff-and-control-validation-passed"
+            - "handoff-ledger:packet_reviews.P1B-DATA-LIC"
     contract: "evidence_licence"
     required_evidence:
       - "source and licence record"
       - "owner disposition"
       - "affected-file reconciliation"
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   P1B-BIB:
     sequence: 31
     phase: "1B"
@@ -7939,7 +7982,7 @@ items:
       location: "§9/§12/§13 data provenance"
     description: "Inventory source, version, licence, attribution, access, and redistribution lane for every current and proposed dataset."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7956,11 +7999,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-DATA-LIC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava"
+      - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#traka-i-zakonita-zamjena"
+      - "check:17-of-17-package-records-have-exactly-one-cautious-lawful-lane"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   R03-DATA-generated-licence:
     parents:
       - "R03"
@@ -7974,7 +8021,7 @@ items:
       location: "§13 lines 2172–2179"
     description: "Assign an explicit compatible licence to every generated teaching dataset."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -7993,11 +8040,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-DATA-LIC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      - "outside-ask:OA-G-A1C-GENERATED-DATA-LICENCE-done"
+      - "source:data/LICENCA-generirani-podaci.md"
+      - "check:CC-BY-4.0-present-in-generator-repository-data-readme-notice-public-page-and-appendix-with-zero-not-applicable-labels"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   R03-DATA-bundled-portal-contract:
     parents:
       - "R03"
@@ -8012,7 +8063,7 @@ items:
       location: "§9/§12"
     description: "Define bundled, portal-mediated, and external-only lanes and required cleared alternatives."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -8028,11 +8079,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-DATA-LIC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
+      - "outside-ask:OA-G-A1C-DATA-LANES-done"
+      - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#ugovor-traka"
+      - "check:all-required-student-pathways-have-cleared-bundled-or-aggregate-fallbacks"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "state:sha256-2e0f065b18182f1ccce781a48458cebf49d0e3e9c59790e64fb97f776a110c32"
   R03-DZS-rights:
     parents:
       - "R03"
