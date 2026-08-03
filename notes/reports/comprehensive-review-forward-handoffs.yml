@@ -2,6 +2,7 @@ schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
 last_updated: "2026-08-03"
+inventory_child_count: 371
 
 protocol:
   immutable_identity_fields:
@@ -169,8 +170,8 @@ handoffs:
       - review:R05
       - review:R23
     statement: >-
-      The completed inventory uses schema version 2, 374 stable child IDs, 182
-      exact packet IDs, explicit source-coverage proof, and a newly required
+      The completed inventory uses schema version 2, 371 stable child IDs, 188
+      exact packet IDs, explicit source-coverage manifests, and a newly required
       P1C-INTEGRITY packet. Part I's D05 no-visible-code boundary is encoded as
       a resolved constraint rather than a visible-receipt task.
     required_action: >-
@@ -233,7 +234,7 @@ handoffs:
       18; a substantive rewrite invalidates timing evidence for the changed
       version.
     required_action: >-
-      P3-PILOT and P7-READER must leave every displayed time with one explicit
+      P3-PILOT and P7-PILOT must leave every displayed time with one explicit
       final-enough disposition: measured for the relevant source state,
       visibly labelled as an estimate, or removed. Never extrapolate the
       pilot's measured values silently to untested chapters.
@@ -245,7 +246,7 @@ handoffs:
       - target_packet: P3-PILOT
         gate: before_close
         state: pending
-      - target_packet: P7-READER
+      - target_packet: P7-PILOT
         gate: before_close
         state: pending
 

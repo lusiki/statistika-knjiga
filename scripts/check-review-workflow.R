@@ -87,7 +87,14 @@ check(!any(grepl("\\.\\.|…|–", packet_ids)),
       "Packet IDs must be exact; ranges and ellipses are forbidden.")
 
 required_exact_packets <- c(
+  "P1C-INVENTORY",
   "P1C-INTEGRITY",
+  "P7-PILOT",
+  "P7-HTML",
+  "P7-CLEAN-BUILD",
+  "P8-SMOKE",
+  "G-A6",
+  paste0("P3-VERIFY-", LETTERS[1:4]),
   sprintf("C%02d", 0:18),
   sprintf("P5-CLOSURE-%02d", 0:18),
   paste0("G-A2b-", c("PREFACE", "I", "II", "III", "IV", "V", "FINALE")),
@@ -100,6 +107,10 @@ if (length(missing_exact_packets)) {
   add_error("Missing exact packet catalogue entries: ",
             paste(missing_exact_packets, collapse = ", "))
 }
+
+contract_ids <- named_entries(register$packet_contracts)
+check(length(contract_ids) > 0L,
+      "Register must define reusable packet contracts.")
 
 packet_status <- vapply(register$packets, function(packet) {
   if (is.null(packet$status)) NA_character_ else as.character(packet$status)
@@ -123,6 +134,43 @@ for (packet_id in packet_ids) {
         "Packet lacks an exact phase: ", packet_id)
   check(is_scalar_text(packet$kind),
         "Packet lacks a kind: ", packet_id)
+  contract_id <- packet$contract
+  check(is_scalar_text(contract_id) && contract_id %in% contract_ids,
+        "Packet lacks a known contract: ", packet_id)
+  if (is_scalar_text(contract_id) && contract_id %in% contract_ids) {
+    contract <- register$packet_contracts[[contract_id]]
+    check(identical(packet$kind, contract_id),
+          "Packet kind and contract disagree: ", packet_id)
+    contract_evidence <- or_empty(contract$required_evidence)
+    contract_tests <- or_empty(contract$required_exit_tests)
+    minimum_outputs <- suppressWarnings(as.numeric(contract$minimum_outputs))
+    check(length(contract_evidence) > 0L,
+          "Packet contract lacks required evidence: ", contract_id)
+    check(length(contract_tests) > 0L,
+          "Packet contract lacks exit tests: ", contract_id)
+    check(length(minimum_outputs) == 1L && !is.na(minimum_outputs) &&
+            minimum_outputs >= 1,
+          "Packet contract lacks a valid minimum_outputs: ", contract_id)
+    missing_contract_evidence <- setdiff(
+      contract_evidence, or_empty(packet$required_evidence)
+    )
+    if (length(missing_contract_evidence)) {
+      add_error("Packet omits contract evidence for ", packet_id, ": ",
+                paste(missing_contract_evidence, collapse = ", "))
+    }
+    missing_contract_tests <- setdiff(contract_tests, or_empty(packet$exit_tests))
+    if (length(missing_contract_tests)) {
+      add_error("Packet omits contract exit tests for ", packet_id, ": ",
+                paste(missing_contract_tests, collapse = ", "))
+    }
+    if (length(minimum_outputs) == 1L && !is.na(minimum_outputs)) {
+      check(length(or_empty(packet$outputs)) >= minimum_outputs,
+            "Packet has fewer outputs than its contract requires: ", packet_id)
+    }
+    check(length(or_empty(packet$exit_tests)) > length(contract_tests),
+          "Packet lacks a packet-specific exit test beyond its reusable contract: ",
+          packet_id)
+  }
   check(is_scalar_text(packet$scope),
         "Packet lacks bounded scope: ", packet_id)
   check(length(or_empty(packet$outputs)) > 0L,
@@ -131,6 +179,14 @@ for (packet_id in packet_ids) {
         "Packet lacks exit tests: ", packet_id)
   check(!is.null(packet$completion_evidence),
         "Packet lacks completion_evidence: ", packet_id)
+  check("change_reference" %in% names(packet),
+        "Packet lacks change_reference field: ", packet_id)
+  if (packet$status %in% c("accepted", "deferred_v2_with_reason")) {
+    check(length(or_empty(packet$completion_evidence)) > 0L,
+          "Terminal packet lacks completion evidence: ", packet_id)
+    check(is_scalar_text(packet$change_reference),
+          "Terminal packet lacks change_reference: ", packet_id)
+  }
   requirements <- or_empty(register$packets[[packet_id]]$requires)
   unknown_requirements <- setdiff(requirements, packet_ids)
   if (length(unknown_requirements)) {
@@ -147,6 +203,73 @@ for (packet_id in packet_ids) {
                 packet_id, ": ", paste(nonprior, collapse = ", "))
     }
   }
+}
+
+alias_ids <- named_entries(register$packet_aliases)
+for (alias_id in alias_ids) {
+  target <- register$packet_aliases[[alias_id]]
+  check(!alias_id %in% packet_ids,
+        "Deprecated packet alias remains canonical: ", alias_id)
+  check(is_scalar_text(target) && target %in% packet_ids,
+        "Packet alias has an unknown canonical target: ", alias_id)
+}
+
+expected_aliases <- c(
+  "P1C-CONFIG" = "P1C-INVENTORY",
+  "P7-READER" = "P7-PILOT",
+  "P7-MATRIX" = "P7-CLEAN-BUILD",
+  "P8-SNAPSHOT" = "P8-SMOKE"
+)
+for (alias_id in names(expected_aliases)) {
+  check(alias_id %in% alias_ids &&
+          identical(register$packet_aliases[[alias_id]],
+                    unname(expected_aliases[[alias_id]])),
+        "Missing or incorrect stable packet alias: ", alias_id)
+}
+
+expansion_ids <- named_entries(register$packet_expansions)
+for (expansion_id in expansion_ids) {
+  targets <- or_empty(register$packet_expansions[[expansion_id]])
+  check(length(targets) > 0L,
+        "Packet expansion has no exact targets: ", expansion_id)
+  unknown_targets <- setdiff(targets, packet_ids)
+  if (length(unknown_targets)) {
+    add_error("Packet expansion has unknown targets for ", expansion_id, ": ",
+              paste(unknown_targets, collapse = ", "))
+  }
+}
+
+check(setequal(or_empty(register$packet_expansions$`G-A6`),
+               c("G-A6-PUSH", "G-A6-TAG", "G-A6-ARCHIVE", "G-A6-DEPLOY")),
+      "G-A6 must expand to the four exact external-action gates.")
+
+packet_requires <- function(packet_id) {
+  or_empty(register$packets[[packet_id]]$requires)
+}
+required_wave_edges <- c(
+  "WA-C00" = "P3-VERIFY-A",
+  "WB-C04" = "P3-VERIFY-B",
+  "WC-C12" = "P3-VERIFY-C",
+  "WD-C13" = "P3-VERIFY-D",
+  "WD-C17" = "P3-VERIFY"
+)
+for (target in names(required_wave_edges)) {
+  if (target %in% packet_ids) {
+    check(required_wave_edges[[target]] %in% packet_requires(target),
+          "Missing just-in-time evidence edge: ", target, " <- ",
+          required_wave_edges[[target]])
+  }
+}
+for (target in c("WA-C00", "WB-C04", "WC-C12", "WD-C13")) {
+  if (target %in% packet_ids) {
+    check(!"P3-VERIFY" %in% packet_requires(target),
+          "Early wave is incorrectly blocked by omnibus P3-VERIFY: ", target)
+  }
+}
+if ("P3-VERIFY" %in% packet_ids) {
+  check(setequal(packet_requires("P3-VERIFY"),
+                 c(paste0("P3-VERIFY-", LETTERS[1:4]), "P3-TEXT")),
+        "P3-VERIFY must aggregate only P3-VERIFY-A through D and P3-TEXT.")
 }
 
 in_progress <- packet_ids[packet_status == "in_progress"]
@@ -260,6 +383,8 @@ for (parent_id in intersect(expected_parents, parent_ids)) {
   }
 }
 
+expected_sections <- sprintf("S%02d", 1:18)
+
 for (item_id in item_ids) {
   item <- register$items[[item_id]]
   status <- as.character(item$status)
@@ -276,9 +401,13 @@ for (item_id in item_ids) {
     check(identical(status, "deferred_v2_with_reason"),
           "Deferred item must use deferred_v2_with_reason status: ", item_id)
   }
-  if (disposition %in% c("rejected_with_reason", "already_satisfied")) {
+  if (identical(disposition, "already_satisfied")) {
     check(identical(status, "accepted"),
-          "Resolved disposition must use accepted status: ", item_id)
+          "Already-satisfied disposition must use accepted status: ", item_id)
+  }
+  if (identical(disposition, "rejected_with_reason")) {
+    check(status %in% c("ratified", "accepted"),
+          "Rejected-scope item must be ratified or accepted: ", item_id)
   }
   linked_parents <- or_empty(item$parents)
   check(length(linked_parents) > 0L,
@@ -298,6 +427,18 @@ for (item_id in item_ids) {
         "Item lacks source fingerprint: ", item_id)
   check(is_scalar_text(item$source$fingerprint_id),
         "Item lacks stable fingerprint_id: ", item_id)
+  source_sections <- or_empty(item$source$sections)
+  check(length(source_sections) > 0L,
+        "Item lacks exact source section IDs: ", item_id)
+  check(!anyDuplicated(source_sections),
+        "Item repeats an exact source section ID: ", item_id)
+  unknown_source_sections <- setdiff(source_sections, expected_sections)
+  if (length(unknown_source_sections)) {
+    add_error("Item ", item_id, " has unknown source section IDs: ",
+              paste(unknown_source_sections, collapse = ", "))
+  }
+  check(is_scalar_text(item$source$location),
+        "Item lacks exact source location: ", item_id)
   check(is_scalar_text(item$description),
         "Item lacks an atomic description: ", item_id)
   check(is_scalar_text(item$owner), "Item lacks owner: ", item_id)
@@ -313,6 +454,14 @@ for (item_id in item_ids) {
         "Item lacks acceptance tests: ", item_id)
   check(!is.null(item$completion_evidence),
         "Item lacks completion_evidence: ", item_id)
+  check("change_reference" %in% names(item),
+        "Item lacks change_reference field: ", item_id)
+  if (status %in% c("accepted", "deferred_v2_with_reason")) {
+    check(length(or_empty(item$completion_evidence)) > 0L,
+          "Terminal item lacks completion evidence: ", item_id)
+    check(is_scalar_text(item$change_reference),
+          "Terminal item lacks change_reference: ", item_id)
+  }
   check(is.list(item$blocker) && is.logical(item$blocker$active) &&
           length(item$blocker$active) == 1L,
         "Item lacks explicit blocker state: ", item_id)
@@ -369,7 +518,6 @@ if (identical(inventory$status, "complete")) {
   }
 }
 
-expected_sections <- sprintf("S%02d", 1:18)
 coverage_ids <- named_entries(register$source_coverage)
 missing_sections <- setdiff(expected_sections, coverage_ids)
 extra_sections <- setdiff(coverage_ids, expected_sections)
@@ -381,20 +529,77 @@ if (length(extra_sections)) {
   add_error("Unexpected source-coverage records: ",
             paste(extra_sections, collapse = ", "))
 }
+expected_section_headings <- setNames(c(
+  "§1 How to read this report",
+  "§2 Source and edition verification",
+  "§3 Executive overview",
+  "§4 Technical state of the book",
+  "§5 Complete content and progress map",
+  "§6 Structural architecture and dependency graph",
+  "§7 Chapter connection matrix",
+  "§8 Chapter-by-chapter content review",
+  "§9 Appendices and alternative learning pathways",
+  "§10 Writing style, voice, rhythm, and transitions",
+  "§11 Figures, graphs, widgets, and accessibility",
+  "§12 Data, notation, and internal consistency",
+  "§13 Evidence and factual integrity",
+  "§14 Panel synthesis: agreement, disagreement, and scores",
+  "§15 Ranked master issue list",
+  "§16 Recommended revision sequence",
+  "§17 Alternative structures",
+  "§18 Final synthesis"
+), expected_sections)
+
+manifest_union <- character()
 for (section_id in intersect(expected_sections, coverage_ids)) {
   coverage <- register$source_coverage[[section_id]]
   check(identical(coverage$status, "complete"),
         "Incomplete source coverage: ", section_id)
   check(is_scalar_text(coverage$section),
         "Source coverage lacks section name: ", section_id)
+  check(identical(coverage$section, expected_section_headings[[section_id]]),
+        "Source coverage uses the wrong exact heading: ", section_id)
   check(is_scalar_text(coverage$reconciliation),
         "Source coverage lacks reconciliation note: ", section_id)
   check(length(or_empty(coverage$unmapped_actionable)) == 0L,
         "Source coverage retains unmapped findings: ", section_id)
+  mapped <- or_empty(coverage$mapped_fingerprint_ids)
+  manifest_union <- c(manifest_union, mapped)
+  mapped_count <- suppressWarnings(as.numeric(coverage$mapped_count))
+  check(length(mapped_count) == 1L && !is.na(mapped_count) &&
+          mapped_count == length(mapped),
+        "Source coverage mapped_count disagrees with its manifest: ", section_id)
+  check(!anyDuplicated(mapped),
+        "Source coverage manifest repeats a fingerprint: ", section_id)
+  unknown_fingerprints <- setdiff(mapped, fingerprint_ids)
+  if (length(unknown_fingerprints)) {
+    add_error("Source coverage manifest has unknown fingerprints for ",
+              section_id, ": ", paste(unknown_fingerprints, collapse = ", "))
+  }
+  section_items <- item_ids[vapply(register$items, function(item) {
+    section_id %in% or_empty(item$source$sections)
+  }, logical(1))]
+  expected_fingerprints <- fingerprint_ids[section_items]
+  if (!setequal(mapped, expected_fingerprints)) {
+    add_error("Source coverage manifest disagrees with item section links: ",
+              section_id)
+  }
+  if (length(mapped) == 0L) {
+    check(is_scalar_text(coverage$zero_unique_reason),
+          "Zero-item source section lacks a reconciliation reason: ", section_id)
+  }
 }
+check(setequal(manifest_union, fingerprint_ids),
+      "The union of source-section manifests must equal the complete fingerprint set.")
 
 handoff_ids <- named_entries(handoff_ledger$handoffs)
 check(!anyDuplicated(handoff_ids), "Handoff IDs must be unique.")
+handoff_child_count <- suppressWarnings(
+  as.numeric(handoff_ledger$inventory_child_count)
+)
+check(length(handoff_child_count) == 1L && !is.na(handoff_child_count) &&
+        handoff_child_count == length(item_ids),
+      "Handoff ledger inventory_child_count disagrees with the register.")
 
 incoming <- setNames(vector("list", length(packet_ids)), packet_ids)
 for (handoff_id in handoff_ids) {
@@ -546,6 +751,16 @@ dashboard_branch <- dashboard_value("branch")
 dashboard_active <- dashboard_value("active_write_packet")
 dashboard_next <- dashboard_value("next_permitted_packet")
 dashboard_last <- dashboard_value("last_completed_packet")
+dashboard_number <- function(field) {
+  value <- dashboard_value(field)
+  if (is.null(value)) return(NULL)
+  suppressWarnings(as.numeric(value))
+}
+dashboard_atomic <- dashboard_number("atomic_children")
+dashboard_packets <- dashboard_number("packet_count")
+dashboard_sections <- dashboard_number("source_coverage_sections")
+dashboard_unmapped <- dashboard_number("unmapped_actionable")
+dashboard_handoffs <- dashboard_number("forward_handoffs")
 
 check(identical(dashboard_branch, register$control$branch),
       "Dashboard branch disagrees with register.")
@@ -555,6 +770,21 @@ check(identical(dashboard_next, next_id),
       "Dashboard next_permitted_packet disagrees with register.")
 check(identical(dashboard_last, register$execution$last_completed_packet),
       "Dashboard last_completed_packet disagrees with register.")
+check(length(dashboard_atomic) == 1L && !is.na(dashboard_atomic) &&
+        dashboard_atomic == length(item_ids),
+      "Dashboard atomic_children disagrees with register.")
+check(length(dashboard_packets) == 1L && !is.na(dashboard_packets) &&
+        dashboard_packets == length(packet_ids),
+      "Dashboard packet_count disagrees with register.")
+check(length(dashboard_sections) == 1L && !is.na(dashboard_sections) &&
+        dashboard_sections == length(coverage_ids),
+      "Dashboard source_coverage_sections disagrees with register.")
+check(length(dashboard_unmapped) == 1L && !is.na(dashboard_unmapped) &&
+        dashboard_unmapped == as.numeric(inventory$unmapped_actionable_findings),
+      "Dashboard unmapped_actionable disagrees with register.")
+check(length(dashboard_handoffs) == 1L && !is.na(dashboard_handoffs) &&
+        dashboard_handoffs == length(handoff_ids),
+      "Dashboard forward_handoffs disagrees with handoff ledger.")
 
 git_branch <- tryCatch(
   system2("git", c("rev-parse", "--abbrev-ref", "HEAD"), stdout = TRUE),
@@ -592,4 +822,6 @@ cat("- active packet: ", current_label, "\n", sep = "")
 cat("- next permitted packet: ", next_label, "\n", sep = "")
 cat("- review parents: ", length(parent_ids), "\n", sep = "")
 cat("- atomic inventory: ", inventory_label, "\n", sep = "")
+cat("- exact packets: ", length(packet_ids), "\n", sep = "")
+cat("- source manifests: ", length(coverage_ids), "\n", sep = "")
 cat("- forward handoffs: ", length(handoff_ids), "\n", sep = "")

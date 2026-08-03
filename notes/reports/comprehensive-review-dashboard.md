@@ -6,6 +6,11 @@ control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: P0-REGISTER
 last_completed_packet: P0-CONTROL
 next_permitted_packet: null
+atomic_children: 371
+packet_count: 188
+source_coverage_sections: 18
+unmapped_actionable: 0
+forward_handoffs: 12
 last_updated: "2026-08-03"
 ---
 
@@ -28,8 +33,8 @@ stop and repair the control state before editing book content.
 | Next permitted packet | None while `P0-REGISTER` is active |
 | Review parents | 36 ratified; 0 accepted |
 | Atomic child inventory | Complete: 371 stable children; zero unmapped |
-| Exact packet catalogue | 182 packets with unique sequence and dependencies |
-| Review source coverage | Sections 1-18 reconciled; zero uncovered actionable findings |
+| Exact packet catalogue | 188 packets with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | None registered; `P0-OUTSIDE` will create one bounded ask per owner/decision |
 | Invalidated or reopened work | None |
@@ -63,8 +68,8 @@ was claimed. They must be consumed with evidence before closeout.
   validator; commit only the scoped control files; stop.
 
 The inventory and packet graph now satisfy the first three conditions. The
-packet remains active only until its implementation commit and coordinated
-closeout record are written.
+packet remains active until its hardened validator, independent closeout audit,
+implementation commit, and coordinated closeout record all pass.
 
 ## Findings that constrain later packets
 
