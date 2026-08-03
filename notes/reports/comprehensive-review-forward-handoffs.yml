@@ -648,6 +648,97 @@ handoffs:
           - scope:chapters/14-dvije-grupe.qmd-and-R02-C14-welch-ols-only
           - authority:P1A-C14-only-no-P1A-C15-or-later-packet
 
+  H-G-A1C-001:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D11
+      - item:R03-NAVARRO-provenance
+      - item:R03-NAVARRO-resolution
+    statement: >-
+      Author and licence owner Luka Sikic approved original rewriting of
+      materially Navarro-derived prose with scholarly attribution on
+      2026-08-03. Compatible ShareAlike terms are required only if the
+      passage-level provenance audit proves that an obligation survives.
+    required_action: >-
+      In P1B-NAVARRO, complete the passage-level source and licence audit,
+      rewrite materially derived prose originally while retaining scholarly
+      attribution, and reconcile LICENSE, README.md, references.bib, and every
+      affected source. Do not infer that the current warning is cleared. If
+      verified evidence establishes a surviving or incompatible obligation,
+      stop and return for the exact owner disposition before closeout.
+    basis:
+      - conversation:G-A1c-navarro-book-licence-disposition-2026-08-03-Luka-Sikic
+      - decision:D11
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-NAVARRO-BOOK-LICENCE
+    required: true
+    deliveries:
+      - target_packet: P1B-NAVARRO
+        gate: before_start
+        state: pending
+
+  H-G-A1C-002:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D12
+      - item:R03-DATA-generated-licence
+    statement: >-
+      Author and licence owner Luka Sikic approved CC BY 4.0 for every
+      generated teaching dataset on 2026-08-03, subject to reconciliation with
+      the final book licence.
+    required_action: >-
+      In P1B-DATA-LIC, identify every generated teaching dataset, apply an
+      explicit CC BY 4.0 notice consistently across the generator, catalogue,
+      public data page, Appendix C, and downloads, and verify compatibility
+      with the book-licence result. Do not leave any generated dataset blank or
+      labelled not applicable.
+    basis:
+      - conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic
+      - decision:D12
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-GENERATED-DATA-LICENCE
+    required: true
+    deliveries:
+      - target_packet: P1B-DATA-LIC
+        gate: before_start
+        state: pending
+
+  H-G-A1C-003:
+    source_packet: G-A1c
+    created_at: "2026-08-03"
+    kind: decision
+    refs:
+      - decision:G-A1c
+      - decision:D08
+      - item:R03-DATA-lane-inventory
+      - item:R03-DATA-bundled-portal-contract
+    statement: >-
+      Author and data-lane policy owner Luka Sikic approved the recommended
+      lane policy on 2026-08-03 with no package-specific exception: bundle only
+      licence-cleared files, use portal mediation where redistribution is
+      uncertain, keep restricted sources external, and preserve a cleared
+      bundled or aggregate alternative for every required student pathway.
+    required_action: >-
+      In P1B-DATA-LIC, inventory source, version, licence, attribution, access,
+      and redistribution separately for every current and proposed package.
+      Assign one verified bundled, portal-mediated, or external-only lane and a
+      lawful fallback for required work. Technical access is never
+      redistribution authority; later package-specific permission and
+      selection gates remain mandatory.
+    basis:
+      - conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic
+      - decision:D08
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-G-A1C-DATA-LANES
+    required: true
+    deliveries:
+      - target_packet: P1B-DATA-LIC
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -1009,3 +1100,19 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet G-A1c
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - no chapter prose changed and G-A1c was not started
+  G-A1c:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A1C-001
+      - H-G-A1C-002
+      - H-G-A1C-003
+    implementation_state: conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic
+    checks:
+      - Luka Sikic was recorded as author and licence or data-lane policy owner for all three independently closable dispositions
+      - D11 original rewriting with attribution and conditional ShareAlike boundary was recorded
+      - D12 CC BY 4.0 generated-teaching-data licence was recorded subject to final book-licence reconciliation
+      - D08 bundled, portal-mediated, and external-only policy was recorded with no package-specific exception
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1B-NAVARRO
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose or code changed and P1B-NAVARRO was not started

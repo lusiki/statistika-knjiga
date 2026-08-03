@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-METHODS"
-  next_permitted_packet: "G-A1c"
+  last_completed_packet: "G-A1c"
+  next_permitted_packet: "P1B-NAVARRO"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -179,6 +179,39 @@ decisions:
       evidence, targeted render, or scoped source-diff checks, settle the
       separate Chapter 15 or 16 repairs, or authorise P1A-C15 or any later
       packet.
+  G-A1c:
+    status: "accepted"
+    accepted_at: "2026-08-03"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    licence_and_data_lane_owner: "Luka Sikic"
+    evidence: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+    accepted_dispositions:
+      navarro_and_book_licence: >-
+        Rewrite materially Navarro-derived prose originally while retaining
+        scholarly attribution. Require compatible ShareAlike terms only if
+        the passage-level provenance audit proves that an obligation survives.
+      generated_teaching_data: >-
+        Licence every generated teaching dataset under CC BY 4.0, subject to
+        reconciliation with the final book licence.
+      data_access_and_redistribution_lanes: >-
+        Bundle only licence-cleared files, use portal mediation wherever
+        redistribution authority is uncertain, keep restricted sources
+        external, and provide a licence-cleared bundled file or aggregate
+        alternative for every required student pathway. No package-specific
+        exception is approved.
+    rejected_alternatives:
+      - "Retain materially derived Navarro prose without the required attribution or compatible ShareAlike terms."
+      - "Leave generated teaching data unlicensed or describe their licence as not applicable."
+      - "Treat technical access as redistribution authority or bundle an uncleared package."
+    authority_boundary: >-
+      This decision authorises P1B-NAVARRO and P1B-DATA-LIC to audit and
+      implement the accepted policy in sequence. It does not establish that
+      any Navarro obligation has or has not survived, grant third-party
+      redistribution permission, authorise ESS or any other package-specific
+      bundling, accept either future evidence packet, or authorise push, merge,
+      tag, archive, or deployment. Any contrary audit evidence must stop the
+      affected packet and return for an explicit owner disposition.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -2593,7 +2626,7 @@ packets:
     sequence: 28
     phase: "1B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
     scope: "Navarro, book, generated-data, and access-lane licence decisions."
@@ -2604,14 +2637,53 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A1c packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+        - requirement: "named decision owner"
+          artifacts:
+            - "decision:G-A1c-author-and-licence-data-owner-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "decision:G-A1c-D08-D11-D12-dispositions-and-alternatives"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:outside_asks.OA-G-A1C-NAVARRO-BOOK-LICENCE"
+            - "register:outside_asks.OA-G-A1C-GENERATED-DATA-LICENCE"
+            - "register:outside_asks.OA-G-A1C-DATA-LANES"
+      outputs:
+        - output: "Dated G-A1c decision and authority record for: Navarro, book, generated-data, and access-lane licence decisions."
+          artifacts:
+            - "decision:G-A1c"
+        - output: "Completion evidence is tied to the declared G-A1c source state and bounded scope."
+          artifacts:
+            - "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "decision:G-A1c-D08-D11-D12-dispositions-and-alternatives"
+            - "register:outside_asks.OA-G-A1C-NAVARRO-BOOK-LICENCE"
+            - "register:outside_asks.OA-G-A1C-GENERATED-DATA-LICENCE"
+            - "register:outside_asks.OA-G-A1C-DATA-LANES"
+        - test: "The G-A1c packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A1c"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A1c-three-owner-dispositions-2026-08-03-Luka-Sikic"
   P1B-NAVARRO:
     sequence: 29
     phase: "1B"
@@ -21007,10 +21079,10 @@ outside_asks:
       - "decision:G-A1b"
 
   OA-G-A1C-NAVARRO-BOOK-LICENCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_provenance_packet"
+    status: "done"
+    readiness: "owner_policy_accepted_pending_provenance_audit"
     kind: "rights_decision"
-    owner: "author and licence owner"
+    owner: "Luka Sikic (author and licence owner)"
     due_phase: "1B"
     needed: "Decide the lawful Navarro-derived-prose and final book-licence lane after the passage audit."
     expected_form: "One dated licence disposition tied to the passage-level provenance evidence."
@@ -21027,12 +21099,20 @@ outside_asks:
     resume_condition: "The Navarro and book-licence children resume only when the audit and dated owner disposition agree."
     why_external: "Licence obligations and the final licence choice require the rights owner's decision."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Original rewriting with scholarly attribution is approved. Compatible
+      ShareAlike terms are required only if the passage-level audit proves a
+      surviving obligation.
+    resolution_evidence:
+      - "conversation:G-A1c-navarro-book-licence-disposition-2026-08-03-Luka-Sikic"
+      - "decision:G-A1c"
 
   OA-G-A1C-GENERATED-DATA-LICENCE:
-    status: "drafted_unsent"
-    readiness: "ready_for_owner_decision"
+    status: "done"
+    readiness: "resolved_owner_decision"
     kind: "rights_decision"
-    owner: "author and licence owner"
+    owner: "Luka Sikic (author and licence owner)"
     due_phase: "1B"
     needed: "Assign an explicit compatible licence to generated teaching data."
     expected_form: "One dated licence declaration covering every generated teaching dataset."
@@ -21048,12 +21128,19 @@ outside_asks:
     resume_condition: "The licence child resumes when the compatible licence and owner are recorded."
     why_external: "Repository files cannot grant the legal licence."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      CC BY 4.0 is approved for every generated teaching dataset, subject to
+      reconciliation with the final book licence.
+    resolution_evidence:
+      - "conversation:G-A1c-generated-data-licence-disposition-2026-08-03-Luka-Sikic"
+      - "decision:G-A1c"
 
   OA-G-A1C-DATA-LANES:
-    status: "drafted_unsent"
-    readiness: "waiting_for_lane_inventory"
+    status: "done"
+    readiness: "owner_policy_accepted_pending_lane_inventory"
     kind: "rights_decision"
-    owner: "author and relevant licence/data owner"
+    owner: "Luka Sikic (author and data-lane policy owner)"
     due_phase: "1B"
     needed: "Approve the bundled, portal-mediated, and external-only redistribution policy."
     expected_form: "One dated lane policy with a lawful fallback for every required student pathway."
@@ -21070,6 +21157,15 @@ outside_asks:
     resume_condition: "The lane-policy children resume after an owner disposition names every exception and fallback."
     why_external: "Technical access does not establish redistribution authority."
     external_message_sent: false
+    resolved_at: "2026-08-03"
+    disposition: >-
+      Bundle only licence-cleared files, use portal mediation where
+      redistribution is uncertain, keep restricted sources external, and give
+      every required student pathway a licence-cleared bundled file or
+      aggregate alternative. No package-specific exception is approved.
+    resolution_evidence:
+      - "conversation:G-A1c-data-lanes-disposition-2026-08-03-Luka-Sikic"
+      - "decision:G-A1c"
 
   OA-G-A1D-EDITION-MECHANISM:
     status: "drafted_unsent"
