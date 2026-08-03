@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C08"
-  next_permitted_packet: "P1A-C09"
+  last_completed_packet: "P1A-C09"
+  next_permitted_packet: "P1A-C13"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2332,7 +2332,7 @@ packets:
     sequence: 24
     phase: "1A"
     kind: "chapter_correction"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Correct Chapter 9 interval and bootstrap claims."
@@ -2343,13 +2343,54 @@ packets:
       - "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C09 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      required_evidence:
+        - requirement: "approved correction specification where required"
+          artifacts:
+            - "register:ratified-R09-C09-normal-not-prediction"
+            - "register:ratified-R09-C09-bootstrap-validation"
+            - "register:ratified-R09-C09-bootstrap-failures"
+            - "authority:user-exact-P1A-C09-prompt"
+            - "dependency:P0-STATE-accepted"
+        - requirement: "clean-session numerical reproduction"
+          artifacts:
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
+            - "check:final-source-all-affected-chapter-9-results-passed"
+        - requirement: "independent methods reading"
+          artifacts:
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md#independent-statistical-methods-reading"
+            - "critic_methods:final-pass-source-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      outputs:
+        - output: "P1A-C09 durable artifact and evidence record for: Correct Chapter 9 interval and bootstrap claims."
+          artifacts:
+            - "chapter:chapters/09-procjena.qmd"
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+        - output: "Completion evidence is tied to the declared P1A-C09 source state and bounded scope."
+          artifacts:
+            - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+            - "scope:R09-C09-normal-not-prediction-R09-C09-bootstrap-validation-R09-C09-bootstrap-failures-only"
+      exit_tests:
+        - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
+          result: "passed"
+          evidence:
+            - "check:clean-session-reproduction-and-targeted-html-render-passed"
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+        - test: "Independent methods evidence is tied to the corrected source state."
+          result: "passed"
+          evidence:
+            - "critic_methods:final-pass-source-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+        - test: "The P1A-C09 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "handoff-ledger:packet_reviews.P1A-C09"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   P1A-C13:
     sequence: 25
     phase: "1A"
@@ -11336,7 +11377,7 @@ items:
       location: "§8 Ch9"
     description: "Remove or correctly bound the prediction-interval language."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11352,11 +11393,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+      - "critic_methods:pass-normal-rule-descriptive-not-prediction"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   R09-C09-bootstrap-validation:
     parents:
       - "R09"
@@ -11370,7 +11414,7 @@ items:
       location: "§8 Ch9"
     description: "Give the bootstrap median its own appropriate demonstration or narrow the claim."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11386,11 +11430,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+      - "critic_methods:pass-bootstrap-validation-boundary"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   R09-C09-bootstrap-failures:
     parents:
       - "R09"
@@ -11404,7 +11451,7 @@ items:
       location: "§8 Ch9"
     description: "State independence/representativeness and relevant small-sample/discreteness/tail limits."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_owner"
     approval_owner: "author_editor_and_statistical_reviewer"
     scope:
@@ -11420,11 +11467,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
+      - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+      - "critic_methods:pass-bootstrap-assumptions-and-failures"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "chapter:sha1-67380c04d31d3370b1ff63e2533d70a12338ba0d"
   R09-C11-power-assumptions:
     parents:
       - "R09"
