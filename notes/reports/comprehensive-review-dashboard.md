@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C06
-next_permitted_packet: P1A-C07
+last_completed_packet: P1A-C07
+next_permitted_packet: P1A-C08
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C06` |
-| Next permitted packet | `P1A-C07` |
+| Last completed packet | `P1A-C07` |
+| Next permitted packet | `P1A-C08` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 23 accepted, 5 deferred with reason, 343 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 15 accepted and 173 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 24 accepted, 5 deferred with reason, 342 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 16 accepted and 172 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C06` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-C07` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -329,6 +329,31 @@ The accepted chapter source state is
 `chapter:sha1-c3177eb7cc5abe87cca6e1781262925b50e0f6b2`; the durable evidence is
 `notes/reports/p1a-c06-methods-review-2026-08-03.md`.
 
+## P1A-C07 closeout
+
+- No incoming handoff targeted `P1A-C07`; the single ratified Chapter 7 item
+  and the exact packet instruction defined its surgical boundary.
+- Chapter 7 now states the introductory central-limit-theorem conditions as a
+  stable common distribution, independent observations, and finite variance.
+  It notes that broader variants permit appropriately weak but not arbitrary
+  dependence.
+- The Bernoulli widget is explicitly a bounded demonstration rather than a
+  universal guarantee for arbitrary data, sample sizes, dependence, or
+  infinite-variance populations.
+- Clean-session reproduction confirmed every Chapter 7 value and source
+  relationship. An independent methods reread passed exact source
+  `8deb7a2b686754bdb3bc6d0ddfca2c7ade472f76` with no finding or requested
+  change.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  rendered-claim assertions, executable-block preservation, scoped source
+  diff, and closeout checks all passed. No separately registered later Chapter
+  7 work changed, and no new future-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-8deb7a2b686754bdb3bc6d0ddfca2c7ade472f76`; the durable evidence is
+`notes/reports/p1a-c07-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -370,24 +395,26 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1A-C07. Fully read
-chapters/07-vjerojatnost.qmd, STYLE.md, ENRICHMENT.md,
+Execute only the dashboard's next permitted packet, P1A-C08. Fully read
+chapters/08-uzorkovanje.qmd, STYLE.md, ENRICHMENT.md,
 notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
 checkout-local book-style instructions. Do not rely on the installed plugin
 cache for mutable state.
 
-Execute the exact P1A-C07 scope: `R09-C07-clt-conditions`. State the central
-limit theorem's conditions at the intended statistical-literacy level,
-including independent or appropriately weakly dependent observations and
-finite variance. Distinguish what the chapter's simulation demonstrates from a
-universal guarantee. Do not start any later packet or separately registered
-Chapter 7 repair.
+Execute the exact P1A-C08 scope: `R12-C08-srs-boundary`,
+`R12-C08-complex-design`, and `R12-C08-thousand-claim`. Name which formulas
+depend on simple random sampling; bound their transfer to unequal-probability
+and clustered designs; explain weights, clustering, design effects, effective
+sample size, and the finite-population correction at the intended literacy
+level; and qualify the thousand-person heuristic by estimand, design,
+selection, subgroup, and precision. Do not start any later packet or separately
+registered Chapter 8 repair.
 
 Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the exact Chapter 7 source state,
+independent statistical-methods reading on the exact Chapter 8 source state,
 run the checkout-local deterministic and manual book-style pass, structure and
-figure-introduction checks, targeted Chapter 7 render, source-diff and packet
+figure-introduction checks, targeted Chapter 8 render, source-diff and packet
 exit checks. Update the register, handoff ledger, and dashboard together,
 create one scoped local commit only if every gate passes, and stop before
-P1A-C08 or any later packet.
+P1A-C09 or any later packet.
 ```
