@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C18
-next_permitted_packet: P1A-METHODS
+last_completed_packet: P1A-METHODS
+next_permitted_packet: G-A1c
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C18` |
-| Next permitted packet | `P1A-METHODS` |
+| Last completed packet | `P1A-METHODS` |
+| Next permitted packet | `G-A1c` |
 | Review parents | 34 ratified; 2 accepted |
 | Atomic child inventory | Complete: 371 stable children; 33 accepted, 5 deferred with reason, 333 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 20 accepted and 168 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 21 accepted and 167 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C18` passed reproduction, methods, style, structure, figure, render, executable-source-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-METHODS` passed the 12-prerequisite structured-evidence, source-state, blocker, source-diff, negative-fixture, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -461,6 +461,35 @@ The accepted chapter source state is
 `chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1`; the durable evidence is
 `notes/reports/p1a-c18-methods-review-2026-08-03.md`.
 
+## P1A-METHODS closeout
+
+- All 12 named prerequisite packets are `accepted`. Each has exactly three
+  structured required-evidence receipts, two structured output receipts, and
+  three passed exit-test receipts; no generic completion token stands in for
+  packet evidence.
+- All 12 live chapter blobs match the source state declared by the packet,
+  item records, durable report, independent methods reading, and handoff packet
+  review. The gate is tied to commit
+  `7832b07ee92e98a962fc79b291389118e95f29b6` and tree
+  `7168b933c16b92ccb3d5c3de13e1dd4a7f30a538`.
+- Every approved or ratified correction specification, clean-session numerical
+  reproduction, exact-source independent methods reading, required output, and
+  packet exit test passed the gate-specific matrix. `H-G-A1A-001` and
+  `H-G-A1B-001` were already consumed correctly by Chapters 10 and 14; no
+  handoff targets P1A-METHODS.
+- No bounded gate blocker remains. `R09-C15-variance-ratio` is explicitly still
+  `ratified` and outside the accepted P1A-C15 dependent-revalidation scope; it
+  and all other later-wave obligations remain open rather than being hidden by
+  this aggregate gate.
+- The checkout-local workflow validator passed. Both required negative
+  fixtures failed as required, and the source-diff and packet exit checks
+  passed. No chapter prose changed, no future-relevant effect beyond existing
+  dependencies was found, and `G-A1c` was not started.
+
+The accepted gate source state is
+`commit:7832b07ee92e98a962fc79b291389118e95f29b6`; the durable evidence is
+`notes/reports/p1a-methods-verification-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -502,23 +531,20 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1A-METHODS. Fully read the
-durable correction reports and declared chapter source states for P1A-C02,
-P1A-C06, P1A-C07, P1A-C08, P1A-C09, P1A-C10, P1A-C11, P1A-C13, P1A-C14,
-P1A-C15, P1A-C16, and P1A-C18, together with their packet contracts,
-completion evidence, and relevant handoff dispositions. Do not edit chapter
-prose or start G-A1c or any later packet.
+Prepare only the dashboard's next permitted packet, G-A1c. Fully read its
+decision-gate contract, canonical outside ask, blocked items and gates, the
+ratified D08, D11, and D12 defaults, and the relevant provenance, book-licence,
+generated-data-licence, redistribution, and access-lane evidence already in the
+repository. Do not edit any file, send an external message, infer a permission,
+or start P1B-NAVARRO, P1B-DATA-LIC, or any later packet.
 
-Execute the exact P1A-METHODS scope: independently verify that every named
-prerequisite has terminal structured evidence for its approved specification,
-clean-session numerical reproduction, exact-source independent methods
-reading, required outputs, and exit tests. Build a gate-specific verification
-matrix, tie it to one declared repository state, and record every unresolved
-blocker explicitly; do not let aggregation hide a missing receipt or hash
-mismatch.
+Show the evidence already available, the recommended default, the bounded
+alternatives, what each decision blocks, the authority boundary, and the exact
+reply needed from the named decision owners. Keep each independently closable
+licence or access decision distinct; do not bundle permissions or treat access
+as redistribution authority.
 
-Run the checkout-local workflow validator, both required negative fixtures,
-source-diff and packet exit checks. Update the register, handoff ledger, and
-dashboard together, create one scoped local commit only if every gate passes,
-and stop before G-A1c or any later packet.
+Run the checkout-local workflow validator and both required negative fixtures
+before presenting the gate. Stop after the G-A1c decision packet and wait for
+the explicit owner dispositions; do not mark G-A1c accepted without them.
 ```

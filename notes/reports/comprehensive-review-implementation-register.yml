@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1A-C18"
-  next_permitted_packet: "P1A-METHODS"
+  last_completed_packet: "P1A-METHODS"
+  next_permitted_packet: "G-A1c"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2520,7 +2520,7 @@ packets:
     sequence: 27
     phase: "1A"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1A-C02"
       - "P1A-C06"
@@ -2542,13 +2542,53 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The P1A-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md#gate-specific-verification-matrix"
+            - "check:12-prerequisites-36-required-receipts-24-output-receipts-36-passed-exit-receipts"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+            - "tree:7168b933c16b92ccb3d5c3de13e1dd4a7f30a538"
+            - "check:all-12-live-chapter-blobs-match-declared-source-states"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md#blocker-disposition"
+            - "blocker:none-within-bounded-P1A-METHODS-gate"
+      outputs:
+        - output: "P1A-METHODS durable artifact and evidence record for: Independent methods readings and clean-session reproduction."
+          artifacts:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md"
+            - "check:independent-structured-evidence-audit-12-of-12-passed"
+        - output: "Completion evidence is tied to the declared P1A-METHODS source state and bounded scope."
+          artifacts:
+            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+            - "scope:P1A-METHODS-only-no-chapter-prose-no-G-A1c-or-later-packet"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md#gate-specific-verification-matrix"
+            - "check:structured-receipts-source-hashes-reports-and-packet-reviews-all-pass"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+            - "tree:7168b933c16b92ccb3d5c3de13e1dd4a7f30a538"
+        - test: "The P1A-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1a-methods-verification-2026-08-03.md"
+            - "check:workflow-validator-and-both-required-negative-fixtures"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: null
+    change_reference: "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
   G-A1c:
     sequence: 28
     phase: "1B"

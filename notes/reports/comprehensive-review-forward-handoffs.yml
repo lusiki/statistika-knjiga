@@ -986,3 +986,26 @@ packet_reviews:
       - separately registered later Chapter 18 repairs remained unmodified
       - scripts/check-review-workflow.R passed with next_permitted_packet P1A-METHODS
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+  P1A-METHODS:
+    reviewed_at: "2026-08-03"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      No new downstream constraint arose from the aggregate methods gate. Its
+      later uses are already represented by stable packet dependencies,
+      including the parity packets, and all separately registered chapter work
+      remains open under existing items. A duplicate handoff would add no new
+      information.
+    implementation_state: commit:7832b07ee92e98a962fc79b291389118e95f29b6
+    checks:
+      - no incoming handoff targeted P1A-METHODS
+      - all 12 prerequisite packets are accepted with exact structured completion evidence
+      - 36 required-evidence receipts, 24 output receipts, and 36 passed exit-test receipts were independently verified
+      - all 12 live chapter blobs match the source states declared by their packets, reports, items, and packet reviews
+      - every exact-source independent methods reading and clean-session reproduction receipt is present
+      - P1A-C10 and P1A-C14 consumed H-G-A1A-001 and H-G-A1B-001 before their claims
+      - R09-C15-variance-ratio remains an explicit later obligation outside the accepted P1A-C15 revalidation scope
+      - source-diff and packet exit checks passed on commit 7832b07ee92e98a962fc79b291389118e95f29b6
+      - scripts/check-review-workflow.R passed with next_permitted_packet G-A1c
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no chapter prose changed and G-A1c was not started
