@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1A-C13
-next_permitted_packet: P1A-C18
+last_completed_packet: P1A-C18
+next_permitted_packet: P1A-METHODS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -31,16 +31,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1A-C13` |
-| Next permitted packet | `P1A-C18` |
+| Last completed packet | `P1A-C18` |
+| Next permitted packet | `P1A-METHODS` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 32 accepted, 5 deferred with reason, 334 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 19 accepted and 169 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 33 accepted, 5 deferred with reason, 333 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 20 accepted and 168 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 80 canonical asks remain `drafted_unsent`; `OA-G-A1A-C10-SPEC` and `OA-G-A1B-C14-SPEC` are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1A-C13` passed reproduction, methods, style, structure, figure, render, widget-preservation, source-diff, and closeout checks |
+| Failed gates | None; `P1A-C18` passed reproduction, methods, style, structure, figure, render, executable-source-preservation, source-diff, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -437,6 +437,30 @@ The accepted chapter source state is
 `chapter:sha1-9242e057c6602b273368164de6193b08eba5eeb8`; the durable evidence is
 `notes/reports/p1a-c13-methods-review-2026-08-03.md`.
 
+## P1A-C18 closeout
+
+- No incoming handoff targeted `P1A-C18`; the single ratified Chapter 18 item
+  and the exact packet instruction defined its surgical boundary.
+- The aggregate and age-adjusted estimates now appear with their intervals.
+  The interpretation retains the small effects of either sign compatible with
+  the adjusted interval and does not infer absence from a threshold crossing.
+- The known simulation generator remains distinct from what the fitted model
+  and interval can establish. Data, models, displayed tables, figures,
+  exercises, citations, AI callouts, and privacy passages did not change.
+- Clean-session reproduction confirmed every affected result. An independent
+  methods reader passed exact source
+  `f291e63173892eca483ed9c9e89df70be5bb1bd1` with no fatal, major, or minor
+  concern and scores of 5/5 throughout.
+- Checkout-local deterministic and manual style passes, structure and
+  figure-introduction checks, the all-widget contract, targeted HTML render,
+  rendered-claim assertions, scoped executable-block comparison, source diff,
+  and closeout checks all passed. No separately registered later Chapter 18
+  work changed, and no new future-relevant effect was found.
+
+The accepted chapter source state is
+`chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1`; the durable evidence is
+`notes/reports/p1a-c18-methods-review-2026-08-03.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -478,24 +502,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1A-C18. Fully read
-chapters/18-vase-prvo-istrazivanje.qmd, STYLE.md, ENRICHMENT.md,
-notes/struktura-knjige.md, the relevant comprehensive-review evidence, and the
-checkout-local book-style instructions. Do not rely on the installed plugin
-cache for mutable state.
+Execute only the dashboard's next permitted packet, P1A-METHODS. Fully read the
+durable correction reports and declared chapter source states for P1A-C02,
+P1A-C06, P1A-C07, P1A-C08, P1A-C09, P1A-C10, P1A-C11, P1A-C13, P1A-C14,
+P1A-C15, P1A-C16, and P1A-C18, together with their packet contracts,
+completion evidence, and relevant handoff dispositions. Do not edit chapter
+prose or start G-A1c or any later packet.
 
-Execute the exact P1A-C18 scope: `R09-C18-interval-conclusion`. Replace binary
-disappearance language with an estimate-and-interval-compatible
-interpretation. State compatible effects and uncertainty without threshold-
-disappearance rhetoric, and keep the underlying analysis, displayed results,
-and conclusion aligned. Do not start any later packet or separately registered
-Chapter 18 repair.
+Execute the exact P1A-METHODS scope: independently verify that every named
+prerequisite has terminal structured evidence for its approved specification,
+clean-session numerical reproduction, exact-source independent methods
+reading, required outputs, and exit tests. Build a gate-specific verification
+matrix, tie it to one declared repository state, and record every unresolved
+blocker explicitly; do not let aggregation hide a missing receipt or hash
+mismatch.
 
-Reproduce every affected result from a clean session, obtain the required
-independent statistical-methods reading on the exact Chapter 18 source state,
-run the checkout-local deterministic and manual book-style pass, structure and
-figure-introduction checks, targeted Chapter 18 render, source-diff and packet
-exit checks. Update the register, handoff ledger, and dashboard together,
-create one scoped local commit only if every gate passes, and stop before
-P1A-METHODS or any later packet.
+Run the checkout-local workflow validator, both required negative fixtures,
+source-diff and packet exit checks. Update the register, handoff ledger, and
+dashboard together, create one scoped local commit only if every gate passes,
+and stop before G-A1c or any later packet.
 ```
