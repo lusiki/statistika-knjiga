@@ -10,9 +10,16 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P1-VERIFY"
+    started_at: "2026-08-04"
+    owned_paths:
+      - "notes/reports/p1-phase1-verification-2026-08-04.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "P1C-INVENTORY"
-  next_permitted_packet: "P1-VERIFY"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3616,7 +3623,7 @@ packets:
     sequence: 42
     phase: "1"
     kind: "review_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "P1A-METHODS"
       - "P1B-NAVARRO"
