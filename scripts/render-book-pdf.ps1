@@ -22,6 +22,7 @@ $ErrorActionPreference = "Stop"
 
 $root = Split-Path $PSScriptRoot -Parent
 $cfg = Join-Path $root "_quarto.yml"
+$inventoryCheck = Join-Path $root "scripts\check-book-inventory.py"
 $pdf = Join-Path $root "pdf\Statistika.pdf"
 $servedPdf = Join-Path $root "docs\pdf\Statistika.pdf"
 $sourceCommit = "working-tree"
@@ -94,35 +95,16 @@ try {
     throw "_quarto.yml not found at $cfg"
   }
 
-  # Fail early if the canonical print structure drifts. This is validation only;
-  # the wrapper never modifies _quarto.yml.
-  $configText = [System.IO.File]::ReadAllText($cfg)
-  if ($configText -notmatch '(?m)^  references:\s+references\.qmd\s*$') {
-    throw "_quarto.yml must declare book.references: references.qmd"
+  # Fail early if any sanctioned page, appendix, route, navigation target, or
+  # generated Quarto projection drifts. The checker never modifies the source.
+  $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+  if (-not $pythonCommand) { throw "python is required for the book inventory gate" }
+  if (-not (Test-Path -LiteralPath $inventoryCheck -PathType Leaf)) {
+    throw "book inventory checker not found at $inventoryCheck"
   }
-
-  $expectedAppendices = @(
-    'dodaci/a-praktikum.qmd',
-    'dodaci/b-jamovi.qmd',
-    'dodaci/c-katalog-podataka.qmd',
-    'dodaci/d-koji-test.qmd',
-    'dodaci/e-rjecnik.qmd',
-    'dodaci/f-ai-protokol.qmd'
-  )
-  $appendixMatch = [regex]::Match(
-    $configText,
-    '(?m)^  appendices:\s*\r?\n(?<body>(?:    - [^\r\n]+\r?\n)+)'
-  )
-  if (-not $appendixMatch.Success) {
-    throw "_quarto.yml must contain a non-empty book.appendices block"
-  }
-  $actualAppendices = @(
-    [regex]::Matches($appendixMatch.Groups['body'].Value, '(?m)^    - ([^\r\n]+)\s*$') |
-      ForEach-Object { $_.Groups[1].Value.Trim() }
-  )
-  if (($actualAppendices.Count -ne $expectedAppendices.Count) -or
-      (($actualAppendices -join "`n") -ne ($expectedAppendices -join "`n"))) {
-    throw "_quarto.yml book.appendices must contain exactly appendices A-F in canonical order"
+  & $pythonCommand.Source $inventoryCheck --root $root
+  if ($LASTEXITCODE -ne 0) {
+    throw "canonical book inventory check failed (exit $LASTEXITCODE)"
   }
 
   if ($QuartoPath) {

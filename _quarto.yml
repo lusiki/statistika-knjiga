@@ -6,6 +6,7 @@ project:
   # docs/llms.txt, docs/llms-full.txt i data/ai-exports.json prije rendera.
   # Skripta je obavijena tryCatch-om pa nikad ne ruši build.
   pre-render:
+    - python scripts/check-book-inventory.py
     - R/build-ai-exports.R
   # GitHub Pages mora moći prikazati 404 s bilo koje dubine URL-a, a ista se
   # datoteka mora moći pregledati i iz lokalnog korijena. Ugradnja lokalnih
@@ -38,6 +39,7 @@ book:
   repo-url: "https://github.com/lusiki/statistika-knjiga"
   repo-branch: main
 
+  # BEGIN GENERATED: book-inventory navbar
   navbar:
     pinned: true
     left:
@@ -64,6 +66,7 @@ book:
       - text: "Resursi"
         href: resursi.html
     right: []
+  # END GENERATED: book-inventory navbar
 
   search:
     location: sidebar
@@ -77,10 +80,12 @@ book:
     # Bez `background:` — Bootstrapov bg-light je hladno sivi i pregazio bi
     # topli papir. Boju sidebara postavlja styles/_components.scss iz tokena.
     collapse-level: 4
+    # BEGIN GENERATED: book-inventory sidebar-tools
     tools:
       - icon: file-earmark-pdf
         href: pdf/Statistika.pdf
         text: "Preuzmi PDF (radna verzija)"
+    # END GENERATED: book-inventory sidebar-tools
 
   page-footer:
     center: "© 2026 · Osnove statistike za društvene znanosti"
@@ -88,6 +93,9 @@ book:
     # legitimne interne poveznice podnožja dodaje u render-set. Desni je stupac
     # sistemski (CSS ga skriva) i drži hubove izvan numeracije, sidebara i
     # prethodno/sljedeće slijeda.
+    # Izvor predobjavnoga errata-puta postoji lokalno; javna aktivacija i
+    # odredište za prijave ostaju zaključani do G-A6-DEPLOY.
+    # BEGIN GENERATED: book-inventory footer
     right:
       - text: "Interakcije"
         href: interakcije.qmd
@@ -105,11 +113,13 @@ book:
         href: raspored.qmd
       - text: "Resursi"
         href: resursi.qmd
-      # Izvor predobjavnoga errata-puta postoji lokalno; javna aktivacija i
-      # odredište za prijave ostaju zaključani do G-A6-DEPLOY.
       - text: "Ispravci"
         href: errata.qmd
+    # END GENERATED: book-inventory footer
 
+  # Namjensko polje drži Literaturu nenumeriranom, poslije svih poglavlja i
+  # neposredno prije dodataka.
+  # BEGIN GENERATED: book-inventory structure
   chapters:
     - index.qmd
     - chapters/00-predgovor.qmd
@@ -144,8 +154,6 @@ book:
       chapters:
         - chapters/18-vase-prvo-istrazivanje.qmd
 
-  # Namjensko polje drži Literaturu nenumeriranom, poslije svih poglavlja i
-  # neposredno prije dodataka.
   references: references.qmd
 
   appendices:
@@ -155,6 +163,7 @@ book:
     - dodaci/d-koji-test.qmd
     - dodaci/e-rjecnik.qmd
     - dodaci/f-ai-protokol.qmd
+  # END GENERATED: book-inventory structure
 
 bibliography: references.bib
 

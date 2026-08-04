@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: P1C-INVENTORY
 last_completed_packet: P1C-PARITY
-next_permitted_packet: P1C-INVENTORY
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,12 +32,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `P1C-INVENTORY` |
 | Last completed packet | `P1C-PARITY` |
-| Next permitted packet | `P1C-INVENTORY` |
+| Next permitted packet | None while `P1C-INVENTORY` is active |
 | Review parents | 33 ratified; 3 accepted |
-| Atomic child inventory | Complete: 371 stable children; 76 accepted, 5 deferred with reason, 290 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 34 accepted and 154 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 76 accepted, 5 deferred with reason, 1 in progress, 289 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 34 accepted, 1 in progress, and 153 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
@@ -45,6 +45,19 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1C-PARITY`; all 17 golden pairs passed from the clean locked environment and the deliberate expected-value regression failed as required. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest remains recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P1C-INVENTORY active packet
+
+- No applicable incoming handoff targets `P1C-INVENTORY`; the complete handoff
+  ledger was read before this claim.
+- The packet owns only the canonical page, appendix, navigation, render, public,
+  and empty solution-route inventory; its generated Quarto projection; blocking
+  drift checks and fixtures; the existing inventory consumers; one workflow
+  hook; the durable evidence report; and the three control files.
+- The ratified A–F appendix architecture remains unchanged. Appendix G, new or
+  removed routes, prose, catalogue, assessment, export, browser, parity,
+  render-artifact, release-candidate, and publication work remain outside the
+  active packet.
 
 ## P1C-PARITY closeout
 

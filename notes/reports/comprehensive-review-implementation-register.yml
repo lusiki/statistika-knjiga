@@ -10,9 +10,29 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P1C-INVENTORY"
+    started_at: "2026-08-04"
+    owned_paths:
+      - "config/book-inventory.json"
+      - "_quarto.yml"
+      - "scripts/book_inventory.py"
+      - "scripts/check-book-inventory.py"
+      - "scripts/check-book-inventory-fixtures.py"
+      - "scripts/check-rendered-html.py"
+      - "scripts/audit-rendered-html.js"
+      - "scripts/embed-404-assets.py"
+      - "scripts/render-book-pdf.ps1"
+      - "scripts/render-book-docx.ps1"
+      - "scripts/check-pdf-release-path.ps1"
+      - "styles/book-include.html"
+      - ".github/workflows/publish.yml"
+      - "notes/reports/p1c-book-inventory-2026-08-04.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "P1C-PARITY"
-  next_permitted_packet: "P1C-INVENTORY"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3547,7 +3567,7 @@ packets:
     sequence: 41
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "P1C-INTEGRITY"
     scope: "Configuration-driven page, appendix, and route inventories."
@@ -10035,7 +10055,7 @@ items:
       location: "§4/Phase 1C"
     description: "Make appendix, page, and solution-route inventories configuration-driven."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "in_progress"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:

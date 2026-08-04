@@ -46,21 +46,150 @@
 
   seedPojmovnikSearch();
 
-  // -------------------------------------------------------------------
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
-  // -------------------------------------------------------------------
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
+  // BEGIN GENERATED: book-inventory runtime-routes
   var SAMOSTALNE = [
     "/index.html",
-    "/pojmovnik.html",
     "/interakcije.html",
+    "/pojmovnik.html",
     "/podaci.html",
-    "/resursi.html",
     "/uci-s-ai.html",
     "/predavanja.html",
     "/silabus.html",
     "/raspored.html",
+    "/resursi.html",
+    "/errata.html",
     "/404.html"
   ];
+  var NAVBAR_SKUPINE = [
+    {
+      "id": "nav-menu-nastava",
+      "routes": [
+        "/predavanja.html",
+        "/silabus.html",
+        "/raspored.html"
+      ]
+    }
+  ];
+  var PUTOVI_STRANICA = {
+    "landing": "/index.html",
+    "ch00": "/chapters/00-predgovor.html",
+    "ch01": "/chapters/01-zasto-statistika.html",
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+    "ch05": "/chapters/05-vizualizacija.html",
+    "ch06": "/chapters/06-povezanost.html",
+    "ch07": "/chapters/07-vjerojatnost.html",
+    "ch08": "/chapters/08-uzorkovanje.html",
+    "ch09": "/chapters/09-procjena.html",
+    "ch10": "/chapters/10-logika-testiranja.html",
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+    "ch14": "/chapters/14-dvije-grupe.html",
+    "ch15": "/chapters/15-vise-grupa.html",
+    "ch16": "/chapters/16-regresija.html",
+    "ch17": "/chapters/17-doba-algoritama.html",
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+    "references": "/references.html",
+    "app-a": "/dodaci/a-praktikum.html",
+    "app-b": "/dodaci/b-jamovi.html",
+    "app-c": "/dodaci/c-katalog-podataka.html",
+    "app-d": "/dodaci/d-koji-test.html",
+    "app-e": "/dodaci/e-rjecnik.html",
+    "app-f": "/dodaci/f-ai-protokol.html",
+    "interactions": "/interakcije.html",
+    "glossary": "/pojmovnik.html",
+    "data": "/podaci.html",
+    "ai": "/uci-s-ai.html",
+    "lectures": "/predavanja.html",
+    "syllabus": "/silabus.html",
+    "schedule": "/raspored.html",
+    "resources": "/resursi.html",
+    "errata": "/errata.html",
+    "not-found": "/404.html"
+  };
+  var AI_PUTOVI_POGLAVLJA = [
+    {
+      "route": "/chapters/00-predgovor.html",
+      "ai": "/ai/00-predgovor.md"
+    },
+    {
+      "route": "/chapters/01-zasto-statistika.html",
+      "ai": "/ai/01-zasto-statistika.md"
+    },
+    {
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+    },
+    {
+      "route": "/chapters/03-kako-brojke-zavode.html",
+      "ai": "/ai/03-kako-brojke-zavode.md"
+    },
+    {
+      "route": "/chapters/04-sazimanje-podataka.html",
+      "ai": "/ai/04-sazimanje-podataka.md"
+    },
+    {
+      "route": "/chapters/05-vizualizacija.html",
+      "ai": "/ai/05-vizualizacija.md"
+    },
+    {
+      "route": "/chapters/06-povezanost.html",
+      "ai": "/ai/06-povezanost.md"
+    },
+    {
+      "route": "/chapters/07-vjerojatnost.html",
+      "ai": "/ai/07-vjerojatnost.md"
+    },
+    {
+      "route": "/chapters/08-uzorkovanje.html",
+      "ai": "/ai/08-uzorkovanje.md"
+    },
+    {
+      "route": "/chapters/09-procjena.html",
+      "ai": "/ai/09-procjena.md"
+    },
+    {
+      "route": "/chapters/10-logika-testiranja.html",
+      "ai": "/ai/10-logika-testiranja.md"
+    },
+    {
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+    },
+    {
+      "route": "/chapters/12-kriza-i-obnova.html",
+      "ai": "/ai/12-kriza-i-obnova.md"
+    },
+    {
+      "route": "/chapters/13-kategoricki-podaci.html",
+      "ai": "/ai/13-kategoricki-podaci.md"
+    },
+    {
+      "route": "/chapters/14-dvije-grupe.html",
+      "ai": "/ai/14-dvije-grupe.md"
+    },
+    {
+      "route": "/chapters/15-vise-grupa.html",
+      "ai": "/ai/15-vise-grupa.md"
+    },
+    {
+      "route": "/chapters/16-regresija.html",
+      "ai": "/ai/16-regresija.md"
+    },
+    {
+      "route": "/chapters/17-doba-algoritama.html",
+      "ai": "/ai/17-doba-algoritama.md"
+    },
+    {
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+    }
+  ];
+  // END GENERATED: book-inventory runtime-routes
 
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
@@ -203,7 +332,8 @@
   // -------------------------------------------------------------------
   function setupStandalonePages() {
     var path = location.pathname;
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
     var isStandalone =
       document.body.classList.contains("standalone-page") ||
       document.body.classList.contains("not-found-page") ||
@@ -231,16 +361,16 @@
   // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
   // -------------------------------------------------------------------
   function setupNastavaActiveState() {
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
-    var isNastava = pages.some(function (page) {
-      return location.pathname.endsWith(page);
+    NAVBAR_SKUPINE.forEach(function (skupina) {
+      var aktivna = skupina.routes.some(function (put) {
+        return location.pathname.endsWith(put);
+      });
+      if (!aktivna) return;
+      var parent = document.getElementById(skupina.id);
+      if (!parent) return;
+      parent.classList.add("active", "section-active");
+      parent.setAttribute("aria-current", "true");
     });
-    if (!isNastava) return;
-
-    var parent = document.getElementById("nav-menu-nastava");
-    if (!parent) return;
-    parent.classList.add("active", "section-active");
-    parent.setAttribute("aria-current", "true");
   }
 
   // -------------------------------------------------------------------
@@ -448,19 +578,20 @@
 
   // -------------------------------------------------------------------
   // 9. AI izbornik u podnožju poglavlja
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
-  //    koji generira R/build-ai-exports.R.
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
+  //    generira R/build-ai-exports.R.
   // -------------------------------------------------------------------
   function setupChapterAI() {
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
-    if (!m) return;
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
+      return location.pathname.endsWith(kandidat.route);
+    });
+    if (!zapis) return;
     if (document.querySelector(".ai-cta")) return;
-    var slug = m[1];
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-                  "?poglavlje=" + encodeURIComponent(slug);
+    var mdHref  = zapis.ai;
+    var uciHref = PUTOVI_STRANICA.ai;
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
     var absMd   = location.origin + mdHref;
     var q = encodeURIComponent(
       UPUTA +

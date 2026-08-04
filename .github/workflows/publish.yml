@@ -56,6 +56,12 @@ jobs:
       - name: Install pinned Playwright Chromium
         run: node node_modules/playwright/cli.js install --with-deps chromium
 
+      - name: Check canonical page, appendix, navigation, and solution routes
+        run: python scripts/check-book-inventory.py
+
+      - name: Prove book inventory drift fails closed
+        run: python scripts/check-book-inventory-fixtures.py
+
       - name: Check design token sync (design-tokens.yml vs SCSS vs LaTeX)
         run: python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R
 
