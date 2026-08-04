@@ -1495,7 +1495,25 @@ handoffs:
     deliveries:
       - target_packet: P2-ASSESS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P2-ASSESS incorporated the accepted structural export boundary into
+          assessment_architecture.visibility_contract. All future solution
+          routes are excluded from declared public AI-export inputs; protected
+          in-source content requires content-visible with when-profile; labels
+          are explicitly not access control; and the live exporter remains
+          fail-closed on protected-content leakage and unexpected public
+          artifacts. No route or solution record was created early, and final
+          route-level revalidation remains in P5-ROUTES.
+        evidence:
+          - assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a
+          - registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.visibility_contract
+          - source:R/build-ai-exports.R-structural-when-profile-exclusion-unchanged
+          - check:scripts/check-assessment-architecture.py-public-AI-solution-fields-0
+          - fixture:ASSESSMENT_ARCHITECTURE_NEGATIVE_FIXTURE-protected_export_field-exit-1
+          - report:notes/reports/p2-assessment-architecture-2026-08-04.md
       - target_packet: P5-ROUTES
         gate: before_close
         state: pending
@@ -1660,7 +1678,28 @@ handoffs:
     deliveries:
       - target_packet: P2-ASSESS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P2-ASSESS implemented D06 as its exact assessment-schema boundary.
+          One machine-identifiable canonical solution record now governs each
+          future exercise and projects separated self-study and print checks,
+          protected kolegij rubrics, and zero solution content in public AI
+          exports. The contract prohibits a second answer source and treats
+          export protection as structural rather than label-based. No record or
+          route was authored early; implementation and the 19-unit closure audit
+          remain in P5-ROUTES and later assessment packets.
+        evidence:
+          - decision:conversation:G-A2d-policy-decisions-approved-2026-08-04-Luka-Sikic
+          - decision:D06
+          - register:item-R15-SCHEMA-closure-read-in-full
+          - report:notes/reports/g-a2d-policy-decisions-2026-08-04.md
+          - scope:P2-ASSESS-assessment-architecture-only-no-chapter-prose
+          - assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a
+          - schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json
+          - report:notes/reports/p2-assessment-architecture-2026-08-04.md
+          - check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK
       - target_packet: P5-ROUTES
         gate: before_start
         state: pending
@@ -1778,7 +1817,32 @@ handoffs:
     deliveries:
       - target_packet: P2-ASSESS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P2-ASSESS implemented D05 and the H10 ladder as its exact
+          AI-competence boundary. The canonical registry now encodes cumulative
+          competence in task specification, validation, alternatives,
+          provenance, and responsibility rather than syntax; requires a
+          readable verification receipt after Part I; preserves the three
+          explicit AI roles and human responsibility; retains no visible code
+          in Part I; and forbids assessed code-production tasks in every stage.
+          The whole-book suspect-code audit remains in P6-CONTINUITY.
+        evidence:
+          - decision:conversation:G-A2d-policy-decisions-approved-2026-08-04-Luka-Sikic
+          - decision:D05
+          - rule:STYLE-H10
+          - register:item-R24-BOOK-human-AI-competence-read-in-full
+          - register:item-R24-BOOK-three-roles-read-in-full
+          - report:notes/reports/g-a2d-policy-decisions-2026-08-04.md
+          - scope:P2-ASSESS-ai-assessment-architecture-only-no-chapter-prose
+          - assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a
+          - registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.ai_competence_registry
+          - source:STYLE.md#H10
+          - report:notes/reports/p2-assessment-architecture-2026-08-04.md
+          - check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK
+          - fixture:ASSESSMENT_ARCHITECTURE_NEGATIVE_FIXTURE-assessed_code_production-exit-1
       - target_packet: P6-CONTINUITY
         gate: before_start
         state: pending
@@ -2597,3 +2661,28 @@ packet_reviews:
       - five outgoing handoffs carry the accepted dispositions to P2-ASSESS P5-B P5-F P5-G P5-ROUTES P6-CONTINUITY P6-EVIDENCE and WE-C18
       - no chapter or appendix prose registry spine terminology data package render or generated artifact changed
       - P2-ASSESS and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-ASSESS:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P2-ASSESS found no new future-relevant effect beyond the accepted G-A2d
+      policy and the existing H-G-A2D-001, H-G-A2D-004, and
+      H-P1C-EXPORT-001 dependencies. P5-ROUTES already owns solution-route
+      assembly and final export proof, while P6-CONTINUITY already owns the
+      whole-book suspect-code audit. A new handoff would duplicate those exact
+      deliveries.
+    implementation_state: assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a
+    checks:
+      - H-G-A2D-001 and H-G-A2D-004 were acknowledged and consumed with exact dispositions and evidence before packet claim
+      - H-P1C-EXPORT-001 was acknowledged before the first substantive edit and consumed before closeout with structural export evidence
+      - the solution-record schema exposes planted error diagnostic non-answer model components numerical check and severity-ranked rubric as six required machine-identifiable fields
+      - one canonical record projects separate self-study print and protected kolegij layers and public AI exports receive zero solution fields
+      - the severity scale is ordered fatal major minor and useful improvement
+      - the AI registry preserves three roles five competence dimensions seven cumulative stages and a readable verification receipt after Part I
+      - STYLE.md and the registry preserve no visible code in Part I hidden plumbing and no assessed code-production task anywhere
+      - scripts/check-assessment-architecture.py passed and both deliberate assessment defects returned exit 1
+      - scripts/check-book-architecture.py passed with the earlier 22-item architecture unchanged and zero of 19 spines ratified
+      - scripts/check-book-inventory.py passed with 37 pages 19 units six appendices and zero solution routes
+      - no chapter or appendix prose spine terminology data package export implementation route render generated artifact or external action changed
+      - no new future-relevant effect was found and no outgoing handoff was created

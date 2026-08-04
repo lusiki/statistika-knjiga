@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A2d
-next_permitted_packet: P2-ASSESS
+last_completed_packet: P2-ASSESS
+next_permitted_packet: P2-IDENTITY
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -35,11 +35,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A2d` |
-| Next permitted packet | `P2-ASSESS` |
+| Last completed packet | `P2-ASSESS` |
+| Next permitted packet | `P2-IDENTITY` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 99 accepted, 5 deferred with reason, 267 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 38 accepted and 150 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 67 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, and the five G-A2d policy asks are `done`; 0 external messages sent |
@@ -47,6 +47,60 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-ASSESS closeout
+
+- `H-G-A2D-001` and `H-G-A2D-004` were acknowledged and consumed with exact
+  D06 and D05/H10 dispositions before packet claim. `H-P1C-EXPORT-001` was
+  acknowledged before the first substantive edit and consumed before closeout
+  with structural export evidence.
+- `conventions.json` now carries one schema-valid `assessment_architecture`
+  object tied to `G-A2d` and the three governed items
+  `R15-SCHEMA-closure`, `R24-BOOK-human-AI-competence`, and
+  `R24-BOOK-three-roles`. Its deterministic state is
+  `assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a`.
+- `solution-record.schema.json` defines one record per exercise with stable
+  source binding and six machine-identifiable components: planted error,
+  revealing diagnostic, plausible non-answers, model-response components,
+  numerical check, and severity-ranked rubric. No second answer source is
+  permitted.
+- The severity order is `fatal`, `major`, `minor`, and `useful_improvement`, so
+  a defect that invalidates the central claim cannot be averaged with an
+  optional improvement.
+- Five projections derive from the same record. The main task remains
+  answer-free; a separated self-study route and its print twin receive concise
+  checks; the protected `kolegij` layer receives full rubrics, alternatives,
+  and instructor notes; public AI exports receive zero solution fields.
+- Export protection is structural. Solution routes stay outside public export
+  inputs, protected in-source content requires `content-visible` with
+  `when-profile`, labels are not access control, and `P5-ROUTES` retains the
+  final route and leak proof.
+- The AI registry preserves the roles instrument, fallible analyst, and object
+  of research. Its five competence dimensions are task specification,
+  validation, alternatives, provenance, and responsibility, each with explicit
+  plant/develop/harvest roles and exclusions.
+- The seven-stage ladder progresses from provenance and fabricated-number
+  checks in Part I through reproducible descriptive work, sampling and
+  generalisation, inferential flexibility, model and prediction audits,
+  deployed-system scrutiny, and a fully documented final evidence package.
+  From the end of Part I onward, assistant-using tasks require a readable
+  verification receipt.
+- STYLE H10 now states the ratified boundary consistently: Part I has no
+  visible code, hidden plumbing remains permitted, later code may be read and
+  diagnosed, and no assessed task anywhere requires code production.
+- `scripts/check-assessment-architecture.py`, the prior book-architecture
+  checker, the configuration-driven inventory, JSON parsing, source-scope, and
+  whitespace checks pass. Both assessment-policy negative fixtures fail with
+  exit 1 for their injected protected-export and assessed-code defects.
+- No chapter or appendix prose, spine, terminology, data package, exporter,
+  route, render, generated artifact, or external authority changed. All 19
+  spines remain unratified and the solution-route inventory remains empty.
+- No new future-relevant effect was found. Existing dependencies already route
+  final solution visibility and leak proof to `P5-ROUTES` and the suspect-code
+  continuity audit to `P6-CONTINUITY`, so no duplicate handoff was created.
+
+The durable evidence is
+`notes/reports/p2-assessment-architecture-2026-08-04.md`.
 
 ## G-A2d closeout
 
@@ -1091,9 +1145,9 @@ the durable evidence is
   acceptance purposes.
 - P7-FREEZE must record the accepted Node, npm, Playwright, Chromium, R, and
   renv locks and hashes in the release-candidate provenance record.
-- P2-ASSESS and P5-ROUTES must preserve the structural public-export boundary
-  for every future solution or instructor route and rerun the release leak
-  proof against the final route set.
+- P2-ASSESS has ratified the structural public-export boundary for every future
+  solution or instructor route. P5-ROUTES must implement it from the one-record
+  contract and rerun the release leak proof against the final route set.
 - P7-FREEZE and P8-META must repair and clean-check the pre-existing
   `_quarto.yml` provenance checksum mismatch; final metadata may not introduce
   a competing source or worktree-specific line-ending hash.
@@ -1159,29 +1213,22 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, P2-ASSESS, only. Claim the write
-lock, do the work, close the packet, and stop. Do not start P5-A, P5-B, any
-later packet, or any chapter prose work.
+Execute the dashboard's next permitted packet, P2-IDENTITY, only. Claim the
+write lock, do the work, close the packet, and stop. Do not start any G-A2b
+chapter-spine packet or any later packet, and do not edit chapter prose.
 
 Before the first substantive edit, acknowledge every applicable incoming
-handoff and say so explicitly. H-G-A2D-001 and H-G-A2D-004 both deliver to
-P2-ASSESS at their before_start gate and carry the accepted G-A2d solutions
-policy and AI/H10 ladder. Consume both with a concrete disposition and evidence
-before closeout. Read the accepted decision G-A2d, the durable record
-notes/reports/g-a2d-policy-decisions-2026-08-04.md, decisions D05 and D06, and
-the governed items R15-SCHEMA-closure, R24-BOOK-human-AI-competence, and
-R24-BOOK-three-roles in full.
+handoff and say so explicitly; consume each with a concrete disposition and
+evidence before closeout. Read the P2-IDENTITY packet contract, the accepted
+P2-CLAIMS and P2-ASSESS artifacts and registries, and governed item
+R13-ARCH-measurement-first in full.
 
-Write the assessment schema, answer visibility contract, AI competence ladder,
-and H10 boundary as ratified: one canonical solution record whose planted
-error, diagnostic, non-answer, model components, numerical check, and
-severity-ranked rubric are machine-identifiable; separated self-study checks and
-protected kolegij rubrics from that single record; protected content excluded
-from public AI exports; a competence ladder built on task specification,
-validation, alternatives, provenance and responsibility rather than syntax; and
-no assessed code-production task. Edit no chapter prose, ratify no chapter
-spine or terminology, select no data package, and authorise no push, merge,
-tag, archive, deployment, or publication.
+Write only the joint bounded identity briefs for Chapters 3, 12, and 17, with
+explicit plant/develop/harvest roles and exclusions. Preserve Chapter 17's
+fairness widget and measurement-first text role. Do not select data packages or
+evidence sources, ratify chapter spines or terminology, edit chapters or
+appendices, or authorise any push, merge, tag, archive, deployment, or
+publication.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both

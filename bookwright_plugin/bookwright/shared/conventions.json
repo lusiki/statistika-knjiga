@@ -862,5 +862,477 @@
         }
       }
     }
+  },
+  "assessment_architecture": {
+    "schema_version": 1,
+    "status": "ratified",
+    "decision": "G-A2d",
+    "ratified_at": "2026-08-04",
+    "decision_evidence": "conversation:G-A2d-policy-decisions-approved-2026-08-04-Luka-Sikic",
+    "durable_decision_record": "notes/reports/g-a2d-policy-decisions-2026-08-04.md",
+    "register_items": [
+      "R15-SCHEMA-closure",
+      "R24-BOOK-human-AI-competence",
+      "R24-BOOK-three-roles"
+    ],
+    "solution_record_contract": {
+      "schema": "bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json",
+      "schema_identity": "https://bookwright/shared/solution-record.schema.json",
+      "schema_version": 1,
+      "one_record_per_exercise": true,
+      "no_second_answer_source": true,
+      "records_authored_in_this_packet": false,
+      "record_creation_packet": "P5-CLOSURE-00-through-P5-CLOSURE-18",
+      "route_assembly_packet": "P5-ROUTES",
+      "canonical_components": [
+        "planted_error",
+        "revealing_diagnostic",
+        "plausible_non_answers",
+        "model_response_components",
+        "numerical_check",
+        "severity_ranked_rubric"
+      ],
+      "protected_components": [
+        "full_severity_ranked_rubric",
+        "alternatives",
+        "instructor_notes"
+      ],
+      "applicability_rule": "Every canonical component is present as a machine-identifiable field. A component that does not apply is marked not applicable with a reason rather than omitted.",
+      "source_binding": [
+        "stable_record_id",
+        "stable_exercise_id",
+        "unit_id",
+        "source_path_and_anchor",
+        "prompt_sha256_fingerprint"
+      ]
+    },
+    "rubric_severity_scale": [
+      {
+        "id": "fatal",
+        "rank": 1,
+        "meaning": "The answer does not support its central claim or violates a governing evidence, estimand, design, or responsibility boundary.",
+        "assessment_consequence": "Substantive credit for the affected claim is withheld until the defect is repaired."
+      },
+      {
+        "id": "major",
+        "rank": 2,
+        "meaning": "A central reasoning step, interpretation, validation, or required evidential component is missing or materially wrong.",
+        "assessment_consequence": "The answer is incomplete or unreliable even if some calculations are correct."
+      },
+      {
+        "id": "minor",
+        "rank": 3,
+        "meaning": "A local precision, terminology, reporting, or documentation defect does not overturn the central judgment.",
+        "assessment_consequence": "The core answer can stand after a bounded correction."
+      },
+      {
+        "id": "useful_improvement",
+        "rank": 4,
+        "meaning": "The suggestion would strengthen clarity, efficiency, or depth but its absence is not an error.",
+        "assessment_consequence": "It may inform feedback but is not deducted as a defect."
+      }
+    ],
+    "visibility_contract": {
+      "contract_id": "D06-two-layer-v1",
+      "derivation_rule": "Every presentation is a projection of one canonical solution record.",
+      "layers": [
+        {
+          "id": "main_student_text",
+          "route": "chapter_or_appendix_task",
+          "access": "public",
+          "included_components": [],
+          "excluded_components": [
+            "planted_error",
+            "revealing_diagnostic",
+            "plausible_non_answers",
+            "model_response_components",
+            "numerical_check",
+            "severity_ranked_rubric",
+            "alternatives",
+            "instructor_notes"
+          ],
+          "rule": "The task and its deliverable remain answer-free in the main reading sequence."
+        },
+        {
+          "id": "self_study_check",
+          "route": "deliberately_separated_solution_route",
+          "access": "public_separate",
+          "included_components": [
+            "concise_check",
+            "planted_error",
+            "revealing_diagnostic",
+            "plausible_non_answers",
+            "model_response_components",
+            "numerical_check"
+          ],
+          "excluded_components": [
+            "full_severity_ranked_rubric",
+            "alternatives",
+            "instructor_notes"
+          ],
+          "rule": "The route provides enough feedback for self-correction without exposing the protected instructor layer or duplicating the answer source."
+        },
+        {
+          "id": "kolegij_rubric",
+          "route": "kolegij_profile_or_other_structurally_protected_instructor_route",
+          "access": "protected",
+          "included_components": [
+            "all_self_study_components",
+            "full_severity_ranked_rubric",
+            "alternatives",
+            "instructor_notes"
+          ],
+          "excluded_components": [],
+          "rule": "Full assessment detail is visible only through an enforced profile or excluded instructor route."
+        },
+        {
+          "id": "print_check",
+          "route": "separated_print_solution_route",
+          "access": "public_separate",
+          "included_components": [
+            "concise_check",
+            "planted_error",
+            "revealing_diagnostic",
+            "plausible_non_answers",
+            "model_response_components",
+            "numerical_check"
+          ],
+          "excluded_components": [
+            "full_severity_ranked_rubric",
+            "alternatives",
+            "instructor_notes"
+          ],
+          "rule": "Print feedback derives from the same record and remains completable without a widget or software installation."
+        },
+        {
+          "id": "public_ai_export",
+          "route": "declared_public_ai_export_inputs",
+          "access": "public_machine",
+          "included_components": [],
+          "excluded_components": [
+            "all_solution_record_content"
+          ],
+          "rule": "Solution routes are excluded from export inputs and any protected in-source region uses content-visible with a when-profile attribute."
+        }
+      ],
+      "export_enforcement": {
+        "implementation": "R/build-ai-exports.R",
+        "solution_routes_excluded_from_public_inputs": true,
+        "protected_in_source_content_requires_content_visible_when_profile": true,
+        "labels_are_not_an_access_control": true,
+        "unexpected_stale_exports_fail": true,
+        "protected_content_leak_fails": true,
+        "final_route_reverification_packet": "P5-ROUTES"
+      },
+      "implementation_pending": true
+    },
+    "ai_competence_registry": {
+      "assessment_target": "human_judgment_not_code_syntax",
+      "computation_is_delegable": true,
+      "human_judgment_is_not_delegated": true,
+      "roles": [
+        {
+          "id": "instrument",
+          "label_hr": "instrument",
+          "definition": "The assistant performs a bounded delegated operation whose inputs, target, and output can be checked by the reader.",
+          "human_responsibility": "The reader specifies the task, verifies the result, and owns the resulting claim."
+        },
+        {
+          "id": "fallible_analyst",
+          "label_hr": "pogrešiv analitičar",
+          "definition": "The assistant produces a plausible analysis that can fail in data handling, method choice, computation, interpretation, sourcing, or scope.",
+          "human_responsibility": "The reader diagnoses the failure with evidence rather than accepting or rejecting the output by reputation."
+        },
+        {
+          "id": "object_of_research",
+          "label_hr": "predmet istraživanja",
+          "definition": "The assistant or deployed AI system is itself studied through its data, labels, predictions, decisions, monitoring, and consequences.",
+          "human_responsibility": "The reader evaluates the system, affected populations, error burdens, feedback, and routes for challenge or appeal."
+        }
+      ],
+      "substantive_appearance_contract": {
+        "explicit_role_required": true,
+        "human_responsibility_statement_required": true,
+        "assistant_reliability_may_not_be_generalised_from_one_output": true,
+        "verification_must_name_evidence": true
+      },
+      "verification_receipt": {
+        "required_from": "end_of_part_i_forward",
+        "fields": [
+          "what_was_asked",
+          "what_was_returned",
+          "what_was_checked",
+          "how_it_was_checked",
+          "ai_role",
+          "what_remained_unverified",
+          "responsible_human"
+        ],
+        "readable_without_code": true,
+        "syntax_receipt_is_insufficient": true
+      },
+      "competence_dimensions": [
+        {
+          "id": "task_specification",
+          "label_hr": "specifikacija zadatka",
+          "plant": {
+            "locations": [
+              "part_i"
+            ],
+            "role": "Name the question, target, unit, data boundary, deliverable, and unavailable claim before delegation."
+          },
+          "develop": {
+            "locations": [
+              "part_ii",
+              "part_iii",
+              "part_iv",
+              "part_v"
+            ],
+            "role": "Specify transformations, estimands, nulls, reference groups, prediction timing, labels, and decision thresholds as the methods become richer."
+          },
+          "harvest": {
+            "locations": [
+              "finale"
+            ],
+            "role": "Write one complete task specification for the evidence package before any operation is delegated."
+          },
+          "exclusions": [
+            "a_prompt_is_not_a_substitute_for_a_research_question",
+            "syntax_detail_is_not_task_specification"
+          ]
+        },
+        {
+          "id": "validation",
+          "label_hr": "provjera",
+          "plant": {
+            "locations": [
+              "part_i"
+            ],
+            "role": "Check provenance, units, denominators, citations, and suspicious precision against an inspectable source."
+          },
+          "develop": {
+            "locations": [
+              "part_ii",
+              "part_iii",
+              "part_iv"
+            ],
+            "role": "Reproduce summaries and plots, audit transformations, and distinguish sampling uncertainty, null claims, flexibility, and reproducibility."
+          },
+          "harvest": {
+            "locations": [
+              "part_v",
+              "finale"
+            ],
+            "role": "Validate reference groups, assumptions, leakage, labels, held-out performance, subgroup errors, shift, and the final reported claim."
+          },
+          "exclusions": [
+            "fluent_output_is_not_validation",
+            "matching_syntax_is_not_independent_verification"
+          ]
+        },
+        {
+          "id": "alternatives",
+          "label_hr": "alternative",
+          "plant": {
+            "locations": [
+              "part_i"
+            ],
+            "role": "Ask which alternative denominator, comparison, source, or decision could change the initial judgment."
+          },
+          "develop": {
+            "locations": [
+              "part_ii",
+              "part_iii",
+              "part_iv"
+            ],
+            "role": "Compare defensible choices in preparation, display, sampling, estimation, testing, and analytical flexibility without reducing the comparison to significance."
+          },
+          "harvest": {
+            "locations": [
+              "part_v",
+              "finale"
+            ],
+            "role": "Challenge the assistant with a defensible alternative model, threshold, subgroup, coding decision, or sensitivity analysis and compare substantive conclusions."
+          },
+          "exclusions": [
+            "arbitrary_many_analyses_are_not_sensitivity_analysis",
+            "an_alternative_is_not_selected_only_for_a_preferred_answer"
+          ]
+        },
+        {
+          "id": "provenance",
+          "label_hr": "podrijetlo",
+          "plant": {
+            "locations": [
+              "part_i"
+            ],
+            "role": "Trace every number, citation, dataset, and generated object to a checkable origin and label simulation, synthesis, hypothesis, and fabrication distinctly."
+          },
+          "develop": {
+            "locations": [
+              "part_ii",
+              "part_iii",
+              "part_iv",
+              "part_v"
+            ],
+            "role": "Record transformations, versions, analytical branches, training sources, labels, and evaluation data as evidence rather than metadata decoration."
+          },
+          "harvest": {
+            "locations": [
+              "finale"
+            ],
+            "role": "Deliver a source and version record, transformation log, verification evidence, AI-use record, and disclosure with the final claim."
+          },
+          "exclusions": [
+            "technical_access_is_not_provenance",
+            "a_model_generated_reference_is_not_a_verified_source"
+          ]
+        },
+        {
+          "id": "responsibility",
+          "label_hr": "odgovornost",
+          "plant": {
+            "locations": [
+              "part_i"
+            ],
+            "role": "Keep the human author responsible for the question, data-sharing decision, verification, claim, and consequences of error."
+          },
+          "develop": {
+            "locations": [
+              "part_ii",
+              "part_iii",
+              "part_iv",
+              "part_v"
+            ],
+            "role": "Connect omissions, uncertainty, analytical flexibility, causal language, error burdens, monitoring, and appeal to named human decisions."
+          },
+          "harvest": {
+            "locations": [
+              "finale"
+            ],
+            "role": "Document what was delegated, checked, challenged, disclosed, and left unresolved, with the submitting author retaining responsibility."
+          },
+          "exclusions": [
+            "assistant_use_does_not_transfer_authorship_or_accountability",
+            "disclosure_does_not_replace_verification"
+          ]
+        }
+      ],
+      "stage_ladder": [
+        {
+          "id": "part_i",
+          "primary_roles": [
+            "instrument",
+            "fallible_analyst"
+          ],
+          "competence": "Specify a bounded fact-check and verify provenance, units, denominators, citations, fabricated numbers, and suspicious precision without visible code.",
+          "required_receipt": false,
+          "assessed_code_production": false
+        },
+        {
+          "id": "part_ii",
+          "primary_roles": [
+            "instrument",
+            "fallible_analyst"
+          ],
+          "competence": "Reproduce summaries and plots, read a calculation trace, and detect exclusions, poor scales, joins, and transformations.",
+          "required_receipt": true,
+          "assessed_code_production": false
+        },
+        {
+          "id": "part_iii",
+          "primary_roles": [
+            "instrument",
+            "fallible_analyst"
+          ],
+          "competence": "Distinguish generated certainty from sampling uncertainty and challenge unsupported population reach.",
+          "required_receipt": true,
+          "assessed_code_production": false
+        },
+        {
+          "id": "part_iv",
+          "primary_roles": [
+            "instrument",
+            "fallible_analyst"
+          ],
+          "competence": "Audit the null, multiplicity, analytical flexibility, evidential asymmetry, reproducibility, and one defensible alternative.",
+          "required_receipt": true,
+          "assessed_code_production": false
+        },
+        {
+          "id": "part_v_models",
+          "primary_roles": [
+            "instrument",
+            "fallible_analyst"
+          ],
+          "competence": "Audit reference groups, assumptions, omitted variables, causal language, diagnostics, sensitivity, and prediction timing.",
+          "required_receipt": true,
+          "assessed_code_production": false
+        },
+        {
+          "id": "chapter_17",
+          "primary_roles": [
+            "instrument",
+            "fallible_analyst",
+            "object_of_research"
+          ],
+          "competence": "Audit splits, labels, leakage, thresholds, subgroup errors, distribution shift, coding validity, monitoring, and appeal.",
+          "required_receipt": true,
+          "assessed_code_production": false
+        },
+        {
+          "id": "finale",
+          "primary_roles": [
+            "instrument",
+            "fallible_analyst",
+            "object_of_research"
+          ],
+          "competence": "Specify, delegate, reproduce, challenge, document, disclose, and accept responsibility for one complete evidence package.",
+          "required_receipt": true,
+          "assessed_code_production": false
+        }
+      ],
+      "implementation_pending_chapter_and_appendix_packets": true
+    },
+    "h10_boundary": {
+      "preface_and_part_i_visible_code": false,
+      "hidden_plumbing_permitted": true,
+      "kolegij_may_reveal_plumbing_without_creating_a_student_obligation": true,
+      "visible_receipts_after_part_i_are_read_not_written": true,
+      "suspect_code_may_be_read_and_diagnosed": true,
+      "assessed_code_production": false,
+      "prohibited_assessed_deliverables": [
+        "write_code",
+        "complete_code",
+        "rewrite_code",
+        "repair_code",
+        "translate_an_answer_into_code"
+      ],
+      "permitted_assessed_judgments": [
+        "explain_what_a_trace_did",
+        "connect_output_to_the_question",
+        "identify_a_statistical_or_data_workflow_defect",
+        "name_evidence_that_reveals_the_defect",
+        "verify_a_result_independently",
+        "state_the_claim_boundary"
+      ],
+      "optional_appendix_reproduction_is_not_an_assessed_requirement": true,
+      "suspect_code_continuity_audit_packet": "P6-CONTINUITY"
+    },
+    "authority_boundary": {
+      "chapter_prose_edit_authorised": false,
+      "appendix_prose_edit_authorised": false,
+      "chapter_spine_ratification_authorised": false,
+      "terminology_ratification_authorised": false,
+      "solution_record_authoring_authorised": false,
+      "solution_route_implementation_authorised": false,
+      "data_package_selection_or_promotion_authorised": false,
+      "export_implementation_change_authorised": false,
+      "push_authorised": false,
+      "merge_authorised": false,
+      "tag_authorised": false,
+      "archive_authorised": false,
+      "deployment_authorised": false,
+      "publication_authorised": false
+    }
   }
 }

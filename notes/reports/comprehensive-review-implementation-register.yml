@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2d"
-  next_permitted_packet: "P2-ASSESS"
+  last_completed_packet: "P2-ASSESS"
+  next_permitted_packet: "P2-IDENTITY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -4211,7 +4211,7 @@ packets:
     sequence: 46
     phase: "2"
     kind: "shared_architecture"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2d"
     scope: "Assessment schema, answer visibility, AI ladder, and H10."
@@ -4222,13 +4222,70 @@ packets:
       - "The architecture has explicit plant/develop/harvest roles and exclusions."
       - "No chapter prose is edited before the governing system is ratified."
       - "The P2-ASSESS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a"
+      required_evidence:
+        - requirement: "ratified architecture decision"
+          artifacts:
+            - "decision:G-A2d"
+            - "decision:D05"
+            - "decision:D06"
+            - "conversation:G-A2d-policy-decisions-approved-2026-08-04-Luka-Sikic"
+            - "handoff:H-G-A2D-001-consumed"
+            - "handoff:H-G-A2D-004-consumed"
+        - requirement: "registry or contract diff"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture"
+            - "source:bookwright_plugin/bookwright/shared/schemas/conventions.schema.json#assessmentArchitecture"
+            - "source:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json"
+            - "source:STYLE.md#H10"
+            - "source:scripts/check-assessment-architecture.py"
+        - requirement: "cross-book placement matrix"
+          artifacts:
+            - "report:notes/reports/p2-assessment-architecture-2026-08-04.md#ljestvica-ai-kompetencija"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.ai_competence_registry.competence_dimensions"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.ai_competence_registry.stage_ladder"
+      outputs:
+        - output: "P2-ASSESS durable artifact and evidence record for: Assessment schema, answer visibility, AI ladder, and H10."
+          artifacts:
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture"
+            - "schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json"
+            - "report:notes/reports/p2-assessment-architecture-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P2-ASSESS source state and bounded scope."
+          artifacts:
+            - "assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a"
+            - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK"
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
+      exit_tests:
+        - test: "The architecture has explicit plant/develop/harvest roles and exclusions."
+          result: "passed"
+          evidence:
+            - "registry:assessment_architecture.ai_competence_registry.competence_dimensions-5-complete"
+            - "registry:assessment_architecture.ai_competence_registry.stage_ladder-7-stages"
+            - "report:p2-assessment-architecture-2026-08-04.md-cross-book-placement-matrix"
+            - "check:ASSESSMENT_ARCHITECTURE_OK-competence-dimensions-5-ladder-stages-7"
+        - test: "No chapter prose is edited before the governing system is ratified."
+          result: "passed"
+          evidence:
+            - "decision:G-A2d-accepted-before-P2-ASSESS"
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:chapter-spines-ratified-0-of-19"
+            - "check:book-inventory-solution-routes-0"
+        - test: "The P2-ASSESS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a"
+            - "report:notes/reports/p2-assessment-architecture-2026-08-04.md"
+            - "handoff:H-G-A2D-001-consumed-with-disposition"
+            - "handoff:H-G-A2D-004-consumed-with-disposition"
+            - "handoff:H-P1C-EXPORT-001-consumed-with-export-boundary-evidence"
+            - "check:scripts/check-assessment-architecture.py-positive-and-two-negative-fixtures"
     contract: "shared_architecture"
     required_evidence:
       - "ratified architecture decision"
       - "registry or contract diff"
       - "cross-book placement matrix"
-    change_reference: null
+    change_reference: "assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a"
   P2-IDENTITY:
     sequence: 47
     phase: "2"
@@ -15238,7 +15295,7 @@ items:
       location: "§4/§12 assessment closure"
     description: "Implement canonical records for planted error/diagnostic/non-answer, model components, numerical check, and severity-ranked rubric."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -15256,11 +15313,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-ASSESS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2d-D06"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.solution_record_contract"
+      - "schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json"
+      - "report:notes/reports/p2-assessment-architecture-2026-08-04.md"
+      - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a"
   R15-POLICY-delivery:
     parents:
       - "R15"
@@ -18772,7 +18834,7 @@ items:
       location: "§12 data science"
     description: "Shift competence toward task specification, validation, alternatives, provenance, and responsibility."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -18790,11 +18852,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-ASSESS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2d-D05"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.ai_competence_registry"
+      - "source:STYLE.md#H10"
+      - "report:notes/reports/p2-assessment-architecture-2026-08-04.md"
+      - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a"
   R24-BOOK-ordinary-ethics:
     parents:
       - "R24"
@@ -19384,7 +19451,7 @@ items:
       location: "§12 AI strand"
     description: "Ratify and preserve the three roles of AI."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -19402,11 +19469,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-ASSESS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2d-D05"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.ai_competence_registry.roles"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.ai_competence_registry.substantive_appearance_contract"
+      - "report:notes/reports/p2-assessment-architecture-2026-08-04.md"
+      - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a"
   R24-LADDER-PartI:
     parents:
       - "R24"
