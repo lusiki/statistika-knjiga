@@ -25,6 +25,16 @@ if (!requireNamespace("yaml", quietly = TRUE)) {
 root <- normalizePath(".", winslash = "/")
 put <- function(...) file.path(root, ...)
 
+args <- commandArgs(trailingOnly = TRUE)
+fixture <- ""
+if (length(args)) {
+  if (length(args) == 2L && identical(args[[1]], "--fixture")) {
+    fixture <- args[[2]]
+  } else {
+    stop("Usage: check-tokens.R [--fixture token-drift]")
+  }
+}
+
 BRAND  <- put("design-tokens.yml")
 TOKENS <- put("styles", "_tokens.scss")
 THEME  <- put("tex", "theme.tex")
@@ -56,6 +66,14 @@ slojevi <- list(
   "styles/_tokens.scss" = pokupi(TOKENS),
   "tex/theme.tex"       = pokupi(THEME)
 )
+
+if (nzchar(fixture)) {
+  if (!identical(fixture, "token-drift")) stop("Unknown fixture: ", fixture)
+  first_name <- names(izvor)[[1]]
+  replacement <- if (identical(izvor[[first_name]], "000000")) "FFFFFF" else "000000"
+  slojevi[["styles/_tokens.scss"]]$hex[[first_name]] <- replacement
+  message("Applied in-memory negative fixture: token-drift")
+}
 
 # --- 3. usporedba -----------------------------------------------------------
 greske <- 0L

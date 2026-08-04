@@ -54,9 +54,25 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --fund=false
 
       - name: Check design token sync (design-tokens.yml vs SCSS vs LaTeX)
-        # P1C-INTEGRITY owns the later fail-closed conversion of this check.
-        continue-on-error: true
-        run: Rscript scripts/check-tokens.R
+        run: python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R
+
+      - name: Check hard style and fixed manuscript structure
+        run: python scripts/check-manuscript-integrity.py
+
+      - name: Check figure introductions
+        run: python scripts/check-figure-introductions.py
+
+      - name: Check citation keys and required bibliography metadata
+        run: python scripts/check-citations.py
+
+      - name: Check definitions, concept ledger, glossary, and graph
+        run: python scripts/check-concepts.py
+
+      - name: Check current data integrity and fail-closed catalogue boundary
+        run: python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-data-integrity.R
+
+      - name: Prove integrity checks fail closed
+        run: python scripts/check-integrity-fixtures.py
 
       - name: Check widget source contracts
         run: python scripts/check-widgets.py .
