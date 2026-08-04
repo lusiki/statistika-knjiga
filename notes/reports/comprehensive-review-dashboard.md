@@ -998,6 +998,15 @@ the durable evidence is
 - P7-FREEZE and P8-META must repair and clean-check the pre-existing
   `_quarto.yml` provenance checksum mismatch; final metadata may not introduce
   a competing source or worktree-specific line-ending hash.
+- `.github/workflows/publish.yml` moved from blob `1665d320…` to `8483793c…`
+  in out-of-packet CI commit `1bc1963`, which installs `librsvg2-dev` for the
+  pinned `rsvg` source build and raises the checkout action to v5. The
+  `P1C-INVENTORY` manifest and its accepted `inventory:sha256-1cc773c5…` state
+  remain true of commit `8731a9d` but no longer describe the live file, and the
+  `P1C-PARITY` record already carried an older blob. P7-FREEZE must record the
+  then-current blob rather than any of these historical values, and P1C's
+  workflow-behaviour claims should be reconfirmed against the amended file
+  before the release-candidate provenance record is populated.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
