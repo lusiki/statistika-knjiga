@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-SPINE-II
-next_permitted_packet: G-A2b-III
+last_completed_packet: G-A2b-III
+next_permitted_packet: P2-SPINE-III
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 46
+forward_handoffs: 47
 last_updated: "2026-08-04"
 ---
 
@@ -34,23 +34,74 @@ stop and repair the control state before editing book content.
 | Gate A2b-PREFACE | Accepted as drafted: preface spine with nine aspects, five terms, no prerequisite, twelve exclusions; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-I | Accepted as drafted: Part I contract, three chapter spines, and a bounded three-block definition increase; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-II | Accepted as drafted: Part II contract, three chapter spines, and a per-definition Chapter 4 disposition from six blocks to four; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-III | Accepted as drafted: Part III contract preserving Chapter 8 as the hinge, three chapter spines, and an unchanged definition load; owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-SPINE-II` |
-| Next permitted packet | `G-A2b-III` |
+| Last completed packet | `G-A2b-III` |
+| Next permitted packet | `P2-SPINE-III` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | 7 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II` |
-| Open outside asks | 64 of the 82 canonical asks remain `drafted_unsent`; 18 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I and Part II spine asks; 0 external messages sent |
+| Open outside asks | 63 of the 82 canonical asks remain `drafted_unsent`; 19 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II and Part III spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2b-III closeout
+
+- No handoff targets `G-A2b-III`; the complete ledger was read before the
+  decision. `H-P0-REGISTER-008` remains `pending` for `WC-C08`, `WC-C09` and
+  `WD-C17`: the Chapter 8 and Chapter 9 spines state its debt and name its
+  owners, but the gate does not consume it. `H-P1C-INTEGRITY-002` remains
+  `pending` for `P2-TERMS`.
+- The complete Part III contract, the three chapter spines and the definition
+  disposition were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it as drafted on 2026-08-04.
+- Part III keeps probability, then sampling, then estimation, and carries three
+  steps and no more: what chance produces, how far a sample reaches, and what an
+  estimate says together with its uncertainty. The whole part is organised around
+  one question -- what generalisation can and cannot reach -- and each chapter
+  answers one part of it.
+- Chapter 8 is preserved explicitly as the book's pedagogical hinge. It is the
+  crossing from describing the data in hand to claiming something about a
+  population that was never observed, it carries the largest share of the part's
+  conceptual load, and it alone formally introduces population, sample and
+  sampling error, which Part I deferred to exactly this point.
+- Chapter 3's planted poll-reading and margin-of-error debts are settled in
+  Chapters 8 and 9. Aspects 8.8 and 9.10 name `H-P0-REGISTER-008` and its owning
+  packets, so the debt is stated in the spine while the handoff stays pending.
+- The ratified separation between probability sampling for population
+  generalisation and training, validation and test separation binds the whole
+  part. Simulation stays ahead of formalism and no assessed task requires code
+  production.
+- Chapter 7 carries ten aspects and eight terms and requires Chapters 3 and 4.
+  Chapter 8 carries ten aspects and twelve terms and requires Chapters 2, 3, 4
+  and 7. Chapter 9 carries eleven aspects including the Part III boundary and
+  nine terms and requires Chapters 3, 4, 7 and 8. No prerequisite points at a
+  later unit.
+- Part III's definition load is unchanged: Chapter 7 keeps its five blocks,
+  Chapter 8 its three and Chapter 9 its one, all inside the ratified one-to-five
+  band. The margin of error stays deliberately in prose, where Chapter 8 already
+  names it; a formal block would duplicate the confidence interval with no later
+  chapter depending on it.
+- Six alternatives were rejected, including putting sampling before probability,
+  folding estimation into Chapter 8, defining the margin of error as a block,
+  settling the Chapter 3 debt inside the spine, introducing complex-survey
+  variance estimation, and introducing Bayesian credible intervals.
+- `OA-G-A2B-III-SPINE` is `done`; no external message was sent.
+  `H-G-A2B-III-001` carries the accepted spine to `P2-SPINE-III` at its
+  `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, data package, render, generated artifact or external authority
+  changed. All 19 units remain `draft` and 7 of 19 spines remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-iii-spine-decision-2026-08-04.md`.
 
 ## P2-SPINE-II closeout
 
@@ -1527,28 +1578,31 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, G-A2b-III, only. Claim the write
-lock, do the work, close the packet, and stop. Do not start P2-SPINE-III or any
+Execute the dashboard's next permitted packet, P2-SPINE-III, only. Claim the
+write lock, do the work, close the packet, and stop. Do not start G-A2b-IV or any
 later packet, and do not edit chapter prose.
 
 Before the first substantive edit, acknowledge every applicable incoming handoff
 and say so explicitly; consume each with a concrete disposition and evidence
-before closeout. Read the G-A2b-III packet contract, outside ask
-OA-G-A2B-III-SPINE, governed item R04-SPINE-III, the accepted P2-CLAIMS,
-P2-ASSESS and P2-IDENTITY registries, the ratified preface and Part I and II
-spines, and the recorded author intent in
-notes/reports/author-pre-dispositions-2026-08-04.md in full.
+before closeout. H-G-A2B-III-001 is a required before_start delivery and must be
+terminal before the packet is claimed. Read the P2-SPINE-III packet contract,
+governed item R04-SPINE-III, and the accepted decision record
+notes/reports/g-a2b-iii-spine-decision-2026-08-04.md in full.
 
-Draft the complete Part III spine for Chapters 7 to 9 to the recorded author
-intent, then close the gate against that drafted source state with a dated
-disposition, named owner, alternatives, authority boundary, and blocked
-dependencies. Keep probability, then sampling, then estimation; preserve Chapter
-8 as the book's pedagogical hinge; and organise the part around what
-generalisation can and cannot reach. This is where Chapter 3's planted poll and
-margin-of-error debts are paid off: H-P0-REGISTER-008 targets WC-C08, WC-C09 and
-WD-C17, so state the debt in the spine and do not consume the handoff. If the
-draft departs from the recorded intent in any respect, stop and present the exact
-difference for an explicit decision.
+Write exactly the accepted Part III spine into
+bookwright_plugin/bookwright/shared/chapter-spine.json for units 07-vjerojatnost,
+08-uzorkovanje and 09-procjena using the schema-valid ratified_at / decision /
+decision_record / prerequisites / exclusions form established by
+P2-SPINE-PREFACE, and extend scripts/check-chapter-spines.py with Part III's
+exact exclusion markers, required load-bearing terms and ratification-order
+checks, each proved by the two existing negative fixtures. No prerequisite may
+point at a later unit. Do not reintroduce a snapshot assertion in the three
+architecture consumers; they count ratified spines.
+
+Add, remove or merge no #def- block and regenerate no concept graph: the concept
+gate stays frozen under H-P1C-INTEGRITY-002 until P2-TERMS retires that debt.
+H-P0-REGISTER-008 remains an obligation of WC-C08, WC-C09 and WD-C17 and must not
+be consumed here.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both
