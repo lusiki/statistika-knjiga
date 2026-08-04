@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: P1C-PARITY
-last_completed_packet: P1C-BROWSER
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: P1C-PARITY
+next_permitted_packet: P1C-INVENTORY
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,30 +32,40 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P1C-PARITY` |
-| Last completed packet | `P1C-BROWSER` |
-| Next permitted packet | None while `P1C-PARITY` is active |
-| Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 57 accepted, 5 deferred with reason, 19 in progress, 290 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 33 accepted, 1 in progress, and 154 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Active write packet | None |
+| Last completed packet | `P1C-PARITY` |
+| Next permitted packet | `P1C-INVENTORY` |
+| Review parents | 33 ratified; 3 accepted |
+| Atomic child inventory | Complete: 371 stable children; 76 accepted, 5 deferred with reason, 290 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 34 accepted and 154 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None in `P1C-BROWSER`; the pinned smoke audit passed its clean locked positive path and deliberate missing-route failure. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest remains recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
+| Failed gates | None in `P1C-PARITY`; all 17 golden pairs passed from the clean locked environment and the deliberate expected-value regression failed as required. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest remains recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
-## P1C-PARITY active packet
+## P1C-PARITY closeout
 
-- No applicable incoming handoff targets `P1C-PARITY`; the handoff ledger was
-  read completely before this claim.
-- The packet owns only the 17 parity records, the OJS/R adapters, the blocking
-  comparator and deliberate regression fixture, one publish-workflow hook,
-  the durable evidence report, and the three control files.
+- No applicable incoming handoff targeted `P1C-PARITY`; the complete handoff
+  ledger was read before packet claim.
+- Commit `79824e0524ec542b0ec1a8ae0610f1d4140d4053` records six exact and eleven
+  distributional OJS/R pairs with parameters, seed policy, tolerances,
+  adapter-specific golden values, adapters, source hashes, and bounded claims.
+- A fresh detached worktree restored the accepted R, Node, npm, Playwright, and
+  Chromium locks into empty paths. All 17 pairs passed, the deliberate
+  in-memory expected-value regression returned exit 1, and the worktree stayed
+  clean without rendering or publishing.
+- The parity state is
+  `parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803`;
+  durable evidence is in
+  `notes/reports/p1c-widget-parity-2026-08-04.md`.
+- `R18` is accepted because all required browser and parity children are now
+  accepted. No new outgoing handoff is needed: `P1-VERIFY` already depends on
+  this packet, and later source drift is blocked by the workflow and hashes.
 - Inventory, catalogue, assessment, chapter, export, general browser,
-  release-candidate, upload, deployment, and publication work remain outside
-  the active packet.
+  release-candidate, upload, deployment, and publication work did not occur.
 
 ## P0-REGISTER closeout
 
@@ -938,22 +948,24 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-PARITY. Fully read its
-release-engineering contract, all register items assigned to P1C-PARITY, the
-accepted P1A methods evidence, data/widgets.json, scripts/check-widgets.py,
-every current OJS widget and R print twin, their shared data/seed sources, and
-the current publish workflow and locked dependency contract.
+Execute only the dashboard's next permitted packet, P1C-INVENTORY. Fully read
+its release-engineering contract, every register item assigned to
+P1C-INVENTORY, the accepted P1C-INTEGRITY evidence, `_quarto.yml` and every
+profile or script that currently owns or consumes page, appendix, navigation,
+solution-route, render, and public-route inventories. Trace all hard-coded
+copies before editing and preserve the ratified A–F appendix architecture.
 
-Implement only a blocking golden-value parity framework and all 17 exact or
-distributional pair records. For each pair record parameters, seed policy,
-tolerance, expected values, adapters, and the claim boundary; do not change
-chapter prose or widget behavior merely to force equality. Keep commands
-independently callable and do not absorb inventory, catalogue, assessment,
-chapter, export, general browser, or release-candidate work.
+Implement only configuration-driven page, appendix, and solution-route
+inventories with one canonical sanctioned source and blocking drift checks.
+Adding or removing a sanctioned route must update every dependent inventory
+through that source. Keep commands independently callable. Do not add Appendix
+G, create or remove routes, change chapter or appendix prose, absorb catalogue,
+assessment, export, browser, parity, render-artifact, release-candidate, or
+publication work, or resolve later D10 decisions early.
 
-Prove the positive 17-pair path and a deliberate seeded or expected-value
-regression from a clean locked environment without publishing. Record every
-future effect or an explicit none, run the workflow validator and both required
-negative fixtures, then stop. Do not start P1C-INVENTORY, P1-VERIFY, or any
-later packet.
+Prove the positive canonical inventory path and a deliberate missing, extra,
+or reordered route regression from a clean locked environment without
+publishing. Record every future effect or an explicit none, run the workflow
+validator and both required negative fixtures, then stop. Do not start
+P1-VERIFY or any later packet.
 ```

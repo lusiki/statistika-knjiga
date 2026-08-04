@@ -10,22 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P1C-PARITY"
-    started_at: "2026-08-04"
-    owned_paths:
-      - ".github/workflows/publish.yml"
-      - "data/widgets.json"
-      - "scripts/widget-parity-ojs.mjs"
-      - "scripts/widget-parity-r.R"
-      - "scripts/check-widget-parity.py"
-      - "scripts/check-widget-parity-fixtures.py"
-      - "notes/reports/p1c-widget-parity-2026-08-04.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P1C-BROWSER"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P1C-PARITY"
+  next_permitted_packet: "P1C-INVENTORY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3494,7 +3481,7 @@ packets:
     sequence: 40
     phase: "1C"
     kind: "release_engineering"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P1C-BROWSER"
       - "P1A-METHODS"
@@ -3506,13 +3493,56 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-PARITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:79824e0524ec542b0ec1a8ae0610f1d4140d4053"
+            - "check:DEPENDENCY_RESTORE_OK-R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1"
+            - "check:CLEAN_LOCKED_WORKTREE_OK-publish-false"
+        - requirement: "positive test"
+          artifacts:
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "check:workflow-positive-and-negative-parity-steps-block-before-Pages"
+            - "report:notes/reports/p1c-widget-parity-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:expected-value-regression-w01-ojs-aggregate-a-exit-1"
+            - "check:WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-1"
+      outputs:
+        - output: "P1C-PARITY durable artifact and evidence record for: Golden-value parity framework and 17 pair records."
+          artifacts:
+            - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+            - "report:notes/reports/p1c-widget-parity-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-PARITY source state and bounded scope."
+          artifacts:
+            - "commit:79824e0524ec542b0ec1a8ae0610f1d4140d4053"
+            - "scope:golden-parity-registry-adapters-comparator-fixture-and-workflow-hook-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-parity-and-fixture-steps-have-no-continue-on-error"
+            - "fixture:expected-value-regression-returns-exit-1"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:79824e0524ec542b0ec1a8ae0610f1d4140d4053"
+            - "check:fresh-locked-restore-empty-R-npm-and-browser-paths"
+            - "check:detached-worktree-clean-after-positive-and-negative-proof"
+        - test: "The P1C-PARITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:17-pair-records-6-exact-11-distributional-with-parameters-seeds-tolerances-goldens-adapters-source-hashes-and-claim-boundaries"
+            - "report:notes/reports/p1c-widget-parity-2026-08-04.md"
+            - "handoff:P1C-PARITY-no-new-future-effect"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   P1C-INVENTORY:
     sequence: 41
     phase: "1C"
@@ -7571,7 +7601,7 @@ parents:
   R18:
     title: "Widget parity and browser assurance"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -7617,7 +7647,13 @@ parents:
       - "R18-W17-parity"
       - "R18-BROWSER-runtime"
       - "R18-BOOK-cross-edition-claims"
-    completion_evidence: []
+    completion_evidence:
+      - "packet:P1C-BROWSER"
+      - "packet:P1C-PARITY"
+      - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md"
+      - "check:BROWSER_SMOKE_OK"
+      - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
   R19:
     title: "Sensitivity and forest-plot literacy"
     disposition: "accepted_first_edition"
@@ -15717,7 +15753,7 @@ items:
       location: "§4/§11 + §15 R18"
     description: "Create schema, fixtures, OJS/R adapters, and exact/distributional comparator."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15736,11 +15772,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "commit:79824e0524ec542b0ec1a8ae0610f1d4140d4053"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md"
+      - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+      - "fixture:expected-value-regression-exit-1"
+      - "check:workflow-parity-gate-blocking-before-Pages"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W01-parity:
     parents:
       - "R18"
@@ -15755,7 +15797,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w01 Simpsonov paradoks as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15773,11 +15815,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w01-exact"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w01"
+      - "check:w01-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W02-parity:
     parents:
       - "R18"
@@ -15792,7 +15838,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w02 Prikaz konfundera as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15810,11 +15856,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w02-exact"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w02"
+      - "check:w02-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W03-parity:
     parents:
       - "R18"
@@ -15829,7 +15879,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w03 Istraživač margine pogreške as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15847,11 +15897,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w03-exact"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w03"
+      - "check:w03-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W04-parity:
     parents:
       - "R18"
@@ -15866,7 +15920,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w04 Oblikovanje distribucije as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15884,11 +15938,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w04-exact"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w04"
+      - "check:w04-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W05-parity:
     parents:
       - "R18"
@@ -15903,7 +15961,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w05 Isti podaci, četiri grafa as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15921,11 +15979,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w05-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w05"
+      - "check:w05-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W06-parity:
     parents:
       - "R18"
@@ -15940,7 +16002,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w06 Pogodi korelaciju as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15958,11 +16020,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w06-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w06"
+      - "check:w06-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W07-parity:
     parents:
       - "R18"
@@ -15977,7 +16043,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w07 Simulator novčića i A/B kampanje as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -15995,11 +16061,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w07-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w07"
+      - "check:w07-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W08-parity:
     parents:
       - "R18"
@@ -16014,7 +16084,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w08 CLT stroj as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16032,11 +16102,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w08-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w08"
+      - "check:w08-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W09-parity:
     parents:
       - "R18"
@@ -16051,7 +16125,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w09 Hvatač intervala as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16069,11 +16143,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w09-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w09"
+      - "check:w09-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W10-parity:
     parents:
       - "R18"
@@ -16088,7 +16166,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w10 Simulator p-vrijednosti as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16106,11 +16184,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w10-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w10"
+      - "check:w10-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W11-parity:
     parents:
       - "R18"
@@ -16125,7 +16207,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w11 Istraživač snage as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16143,11 +16225,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w11-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w11"
+      - "check:w11-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W12-parity:
     parents:
       - "R18"
@@ -16162,7 +16248,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w12 Pješčanik p-hakiranja as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16180,11 +16266,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w12-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w12"
+      - "check:w12-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W13-parity:
     parents:
       - "R18"
@@ -16199,7 +16289,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w13 Očekivano i opaženo as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16217,11 +16307,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w13-exact"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w13"
+      - "check:w13-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W14-parity:
     parents:
       - "R18"
@@ -16236,7 +16330,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w14 Uzorkivač dviju grupa as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16254,11 +16348,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w14-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w14"
+      - "check:w14-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W15-parity:
     parents:
       - "R18"
@@ -16273,7 +16371,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w15 Dekompozicija varijance as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16291,11 +16389,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w15-exact"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w15"
+      - "check:w15-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W16-parity:
     parents:
       - "R18"
@@ -16310,7 +16412,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w16 Regresijski pravac as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16328,11 +16430,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w16-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w16"
+      - "check:w16-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-W17-parity:
     parents:
       - "R18"
@@ -16347,7 +16453,7 @@ items:
       location: "§4/§11 widget parity"
     description: "Classify and verify w17 Istraživač pravednosti as exact or distributional."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16365,11 +16471,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "pair:w17-distributional"
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md#w17"
+      - "check:w17-golden-and-pair-tolerance-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R18-BROWSER-runtime:
     parents:
       - "R05"
@@ -16428,7 +16538,7 @@ items:
       location: "§11 widget issues"
     description: "Prohibit cross-edition numeric claims until their pair passes."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16446,11 +16556,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PARITY"
-    completion_evidence: []
+    completion_evidence:
+      - "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
+      - "report:notes/reports/p1c-widget-parity-2026-08-04.md"
+      - "check:all-17-registered-cross-edition-claim-boundaries-passed"
+      - "check:source-hash-drift-and-unregistered-metrics-fail-closed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803"
   R19-SENSITIVITY-standard:
     parents:
       - "R19"
