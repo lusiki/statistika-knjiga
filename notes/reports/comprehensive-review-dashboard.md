@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: P1C-LOCK
 last_completed_packet: P1B-GOV
-next_permitted_packet: P1C-LOCK
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,9 +32,9 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `P1C-LOCK` |
 | Last completed packet | `P1B-GOV` |
-| Next permitted packet | `P1C-LOCK` |
+| Next permitted packet | None while `P1C-LOCK` is active |
 | Review parents | 34 ratified; 2 accepted |
 | Atomic child inventory | Complete: 371 stable children; 44 accepted, 5 deferred with reason, 322 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 28 accepted and 160 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |

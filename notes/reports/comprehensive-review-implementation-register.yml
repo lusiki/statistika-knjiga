@@ -10,9 +10,29 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P1C-LOCK"
+    started_at: "2026-08-04"
+    owned_paths:
+      - ".gitattributes"
+      - ".Rprofile"
+      - ".gitignore"
+      - ".github/workflows/publish.yml"
+      - ".node-version"
+      - "package.json"
+      - "package-lock.json"
+      - "renv.lock"
+      - "renv/activate.R"
+      - "renv/settings.json"
+      - "scripts/init-renv.R"
+      - "scripts/restore-dependencies.py"
+      - "README.md"
+      - "notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "P1B-GOV"
-  next_permitted_packet: "P1C-LOCK"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3150,7 +3170,7 @@ packets:
     sequence: 35
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "P0-STATE"
     scope: "Pinned R and browser dependencies."
