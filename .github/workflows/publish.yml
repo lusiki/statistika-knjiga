@@ -25,7 +25,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      # rsvg links against the system librsvg2 on Linux; the CRAN binaries that
+      # bundle it exist only for Windows/macOS. Without this the renv restore
+      # dies with "error testing if 'rsvg' can be loaded".
+      - name: Install system libraries required by pinned R packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends librsvg2-dev
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
