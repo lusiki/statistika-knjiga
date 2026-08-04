@@ -3,14 +3,14 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: P1C-LOCK
-last_completed_packet: P1B-GOV
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: P1C-LOCK
+next_permitted_packet: P1C-PDF
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 29
+forward_handoffs: 30
 last_updated: "2026-08-04"
 ---
 
@@ -32,17 +32,17 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P1C-LOCK` |
-| Last completed packet | `P1B-GOV` |
-| Next permitted packet | None while `P1C-LOCK` is active |
+| Active write packet | None |
+| Last completed packet | `P1C-LOCK` |
+| Next permitted packet | `P1C-PDF` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 44 accepted, 5 deferred with reason, 322 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 28 accepted and 160 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 45 accepted, 5 deferred with reason, 321 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 29 accepted and 159 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1B-GOV` passed governance-schema, owner, state-transition, manifest, style, token, targeted-render, authority-boundary, negative-fixture, and closeout checks |
+| Failed gates | None; `P1C-LOCK` passed committed-lock, cold-restore, source-dependency, browser-install, fail-closed-fixture, clean-worktree, README-reconciliation, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -717,6 +717,28 @@ The accepted implementation source state is
 the durable evidence is
 `notes/reports/p1b-release-governance-2026-08-04.md`.
 
+## P1C-LOCK closeout
+
+- `H-P1B-META-001` was acknowledged before the first substantive edit and
+  consumed with an exact disposition and evidence before closeout.
+- Commit `945e7cc` pins R 4.6.0, renv 1.2.4, Node 24.15.0, npm 11.12.1,
+  Playwright 1.62.1, and Playwright Chromium revision 1234 through committed
+  R and browser lock inputs. CI no longer has an ad hoc no-lock R fallback.
+- The single public command `python scripts/restore-dependencies.py` rebuilt
+  the R library and Playwright browser from a detached clean worktree with new
+  cache, library, npm, and browser paths. The proof worktree remained clean.
+- The deliberate `missing-browser-lock` fixture exited 2 before installation;
+  no unlocked fallback ran. README's temporary warning was replaced only after
+  that cold positive and negative evidence existed.
+- PDF behavior, integrity checks, and the live browser audit were not changed.
+  `H-P1C-LOCK-001` carries the exact locked-browser boundary to
+  `P1C-BROWSER` and the lock/provenance boundary to `P7-FREEZE`.
+
+The accepted dependency source state is
+`dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8`;
+the durable evidence is
+`notes/reports/p1c-lock-dependency-restore-2026-08-04.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -730,8 +752,8 @@ the durable evidence is
   worked example.
 - Any material chapter edit invalidates an older six-critic panel for final
   acceptance purposes.
-- P1C-LOCK must keep README's dependency warning until a committed lock and a
-  clean restore prove the exact public setup command.
+- P1C-BROWSER must use the committed Playwright lock and installed Chromium,
+  replacing the live audit's undeclared `NODE_PATH` and hard-coded Chrome path.
 - P1C-PDF must replace README's nonblocking/stale-PDF warning only after its
   wrapper-only blocking path passes locked positive and negative tests.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -772,20 +794,20 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-LOCK. Fully read its
-release-engineering contract, every register item assigned to P1C-LOCK, the
-current README dependency warning, the live R and browser dependency/setup
-sources, and H-P1B-META-001.
+Execute only the dashboard's next permitted packet, P1C-PDF. Fully read its
+release-engineering contract, every register item assigned to P1C-PDF, the
+accepted P1C-LOCK evidence, the current README PDF warning, both live print
+wrappers, the PDF profile, the publish workflow, and H-P1B-META-002.
 
-Before the first substantive edit, acknowledge H-P1B-META-001. Implement only
-the pinned R and browser dependency mechanism. Commit the exact lock inputs,
-document one public restore command only after a clean restore proves it, and
-demonstrate both the positive path and a deliberate failing fixture without
-depending on warm caches, untracked packages, or developer-local state.
+Before the first substantive edit, acknowledge H-P1B-META-002. Implement only
+the wrapper-only, blocking, stale-safe PDF path from the committed dependency
+contract. Prove a fresh positive build path and deliberate failures for the
+wrapper, build failure, and stale or missing artifact without publishing or
+depending on a previously committed PDF.
 
-Consume H-P1B-META-001 with exact disposition and evidence before closeout.
-Update the register, handoff ledger, dashboard, and README warning together
-only when the implemented restore contract justifies it. Run the workflow
-validator and both required negative fixtures, then stop. Do not start
-P1C-PDF, P1C-INTEGRITY, or any later packet.
+Consume H-P1B-META-002 with exact disposition and evidence before closeout.
+Update the register, handoff ledger, dashboard, and README PDF warning together
+only when the implemented path justifies it. Run the workflow validator and
+both required negative fixtures, then stop. Do not start P1C-INTEGRITY,
+P1C-EXPORT, or any later packet.
 ```

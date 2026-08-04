@@ -10,29 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P1C-LOCK"
-    started_at: "2026-08-04"
-    owned_paths:
-      - ".gitattributes"
-      - ".Rprofile"
-      - ".gitignore"
-      - ".github/workflows/publish.yml"
-      - ".node-version"
-      - "package.json"
-      - "package-lock.json"
-      - "renv.lock"
-      - "renv/activate.R"
-      - "renv/settings.json"
-      - "scripts/init-renv.R"
-      - "scripts/restore-dependencies.py"
-      - "README.md"
-      - "notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P1B-GOV"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P1C-LOCK"
+  next_permitted_packet: "P1C-PDF"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3170,7 +3150,7 @@ packets:
     sequence: 35
     phase: "1C"
     kind: "release_engineering"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Pinned R and browser dependencies."
@@ -3181,13 +3161,56 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-LOCK packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md#pozitivna-hladna-obnova"
+            - "check:cold-restore-fresh-r-npm-playwright-caches-zero-git-status"
+        - requirement: "positive test"
+          artifacts:
+            - "check:R_RESTORE_OK-R-4.6.0-19-direct-22-detected"
+            - "check:BROWSER_RESTORE_OK-playwright-1.62.1-chromium-1234"
+            - "check:DEPENDENCY_RESTORE_OK-no-unlocked-fallback"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:missing-browser-lock-exit-2"
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md#namjerno-neuspjesna-provjera"
+      outputs:
+        - output: "P1C-LOCK durable artifact and evidence record for: Pinned R and browser dependencies."
+          artifacts:
+            - "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-LOCK source state and bounded scope."
+          artifacts:
+            - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+            - "scope:pinned-r-and-browser-dependencies-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "fixture:missing-browser-lock-exit-2-before-installation"
+            - "check:ci-renv-lock-has-no-ad-hoc-fallback"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+            - "check:cold-restore-cache-disabled-fresh-libraries-and-browser-path"
+            - "check:clean-proof-worktree-zero-tracked-changes"
+        - test: "The P1C-LOCK packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
+            - "handoff:H-P1B-META-001-consumed-with-exact-disposition"
+            - "handoff:H-P1C-LOCK-001-records-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
   P1C-PDF:
     sequence: 36
     phase: "1C"
@@ -9301,7 +9324,7 @@ items:
       location: "§4 build risk 1"
     description: "Create and require an R lockfile for release builds."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9319,11 +9342,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-LOCK"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+      - "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+      - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
+      - "check:cold-restore-positive-and-clean"
+      - "fixture:missing-browser-lock-exit-2"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
   R05-PDF-wrapper:
     parents:
       - "R05"

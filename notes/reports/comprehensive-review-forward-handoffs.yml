@@ -1038,8 +1038,24 @@ handoffs:
     deliveries:
       - target_packet: P1C-LOCK
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1C-LOCK replaced the temporary README warning only after the exact
+          lock inputs were committed at 945e7cc, the single public restore
+          command rebuilt R and Playwright/Chromium from fresh cache and
+          library paths with no tracked changes, and the missing-browser-lock
+          fixture failed closed with exit 2. scripts/init-renv.R is now the
+          locked R stage behind that combined restore command rather than an
+          advertised preparatory installer.
+        evidence:
+          - commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb
+          - dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+          - report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md
+          - check:cold-restore-fresh-r-npm-playwright-caches-zero-git-status
+          - fixture:missing-browser-lock-exit-2
+          - source:README.md-single-public-restore-command
 
   H-P1B-META-002:
     source_packet: P1B-META
@@ -1256,6 +1272,44 @@ handoffs:
         state: pending
       - target_packet: P8-DEPLOY
         gate: before_start
+        state: pending
+
+  H-P1C-LOCK-001:
+    source_packet: P1C-LOCK
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R05-LOCK-renv
+      - packet:P1C-BROWSER
+      - packet:P7-FREEZE
+      - report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md
+    statement: >-
+      Commit 945e7cc is the proved dependency source: R 4.6.0 and renv 1.2.4
+      are locked in renv.lock; Node 24.15.0, npm 11.12.1, Playwright 1.62.1,
+      and its Chromium revision 1234 are locked by .node-version, package.json,
+      and package-lock.json. The single public restore command installs and
+      verifies both lanes. The live browser audit intentionally remains
+      unchanged in P1C-LOCK and still names NODE_PATH and a developer-local
+      Chrome path.
+    required_action: >-
+      P1C-BROWSER must consume the committed manifest and Playwright browser,
+      remove the undeclared NODE_PATH and hard-coded Chrome dependency, and
+      prove the portable blocking interaction smoke test without changing the
+      lock inputs silently. P7-FREEZE must record these canonical lockfiles,
+      exact runtime versions, and accepted hashes in the release-candidate
+      provenance record.
+    basis:
+      - commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb
+      - dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+      - check:cold-restore-cache-disabled-fresh-libraries-and-browser-path
+      - source:scripts/audit-rendered-html.js-live-P1C-BROWSER-boundary
+    required: true
+    deliveries:
+      - target_packet: P1C-BROWSER
+        gate: before_start
+        state: pending
+      - target_packet: P7-FREEZE
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -1761,3 +1815,21 @@ packet_reviews:
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - H-P1B-GOV-001 records every future-relevant canonical-path and gate effect
       - no push merge tag archival deposit deployment publication or later-packet acceptance occurred
+  P1C-LOCK:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1C-LOCK-001
+    implementation_state: dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+    checks:
+      - H-P1B-META-001 was acknowledged before the first substantive edit and consumed with exact disposition and evidence before closeout
+      - exact R Node npm Playwright and Chromium inputs were committed at 945e7cc before the public command was documented
+      - the combined restore rebuilt 63 locked R packages and the pinned Chromium revision from fresh cache library and browser paths
+      - the cold proof worktree remained clean and required no _freeze warm cache untracked package or developer-local package installation
+      - the missing-browser-lock fixture failed closed with exit 2 before installation and no unlocked fallback exists
+      - CI now requires renv.lock and package-lock.json while the PDF integrity and browser-audit behavior remain in their separate packets
+      - README exposes exactly one combined public restore command after the positive proof
+      - H-P1C-LOCK-001 records the exact later browser-portability and release-freeze effects
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-PDF
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1C-PDF P1C-INTEGRITY P1C-BROWSER and all later packets were not started

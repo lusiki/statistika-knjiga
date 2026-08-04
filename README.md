@@ -29,10 +29,17 @@ Ta licenca podataka ne mijenja MIT licencu koda koji ih stvara.
 
 ## Lokalni pregled
 
-Repozitorij još nema `renv.lock`, pa ponovljiva čista instalacija R ovisnosti
-nije zaključana. `scripts/init-renv.R` pripremni je instalacijski skript, a ne
-potpun ugovor o obnovi okruženja. Ako su Quarto i potrebne R ovisnosti već
-dostupni, pregled se pokreće ovako:
+R i pregledničke ovisnosti zaključane su u `renv.lock` i `package-lock.json`.
+Uz instalirane inačice R-a, Nodea i npm-a koje navode te datoteke, jedina javna
+naredba za obnovu obaju okruženja jest:
+
+```bash
+python scripts/restore-dependencies.py
+```
+
+Skript nema nezaključanu pričuvnu instalaciju: prekida rad ako nedostaje lockfile,
+inačica alata ne odgovara ili obnovljeni paket odnosno preglednik nije točan.
+Nakon uspješne obnove i uz instaliran Quarto pregled se pokreće ovako:
 
 ```bash
 quarto preview
