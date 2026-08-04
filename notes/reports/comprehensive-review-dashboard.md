@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1C-PDF
-next_permitted_packet: P1C-INTEGRITY
+last_completed_packet: P1C-INTEGRITY
+next_permitted_packet: P1C-EXPORT
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 31
+forward_handoffs: 33
 last_updated: "2026-08-04"
 ---
 
@@ -33,16 +33,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1C-PDF` |
-| Next permitted packet | `P1C-INTEGRITY` |
+| Last completed packet | `P1C-INTEGRITY` |
+| Next permitted packet | `P1C-EXPORT` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 48 accepted, 5 deferred with reason, 318 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 30 accepted and 158 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 55 accepted, 5 deferred with reason, 311 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 31 accepted and 157 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1C-PDF` passed wrapper-only, blocking, stale/missing-artifact, locked clean-worktree, real fresh-build, README-reconciliation, and closeout checks |
+| Failed gates | None; `P1C-INTEGRITY` passed all seven blocking positive lanes, seven deliberate failing fixtures, the exact registered-debt guards, locked clean-worktree proof, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -768,10 +768,44 @@ The accepted PDF-path source state is
 the durable evidence is
 `notes/reports/p1c-pdf-release-path-2026-08-04.md`.
 
+## P1C-INTEGRITY closeout
+
+- `H-P0-REGISTER-005` was acknowledged before the first substantive edit and
+  consumed with an exact disposition and evidence before closeout.
+- Commit `919b0b1` makes token, deterministic hard-style, fixed-core
+  manuscript structure, figure-introduction, citation, concept, and current
+  data-integrity checks blocking. Every command remains independently
+  callable and every Bookwright diagnostic runs from checkout-local paths.
+- A detached worktree restored R 4.6.0, Node 24.15.0, npm 11.12.1,
+  Playwright 1.62.1, and Chromium revision 1234 into fresh paths. All seven
+  positive lanes passed on the exact commit and the worktree stayed clean.
+- Seven deliberate defects independently returned exit 1: token drift, a hard
+  style violation, a missing vignette, an unregistered figure without an
+  introduction, an unknown citation key, a duplicate definition ID, and a
+  duplicate data key. The aggregate fixture harness passed only because all
+  seven failed as required.
+- The gate admits only two exact pre-existing registered debts under
+  cryptographic fingerprints: `fig-anscombe` for `R28-C05-introduction`, and
+  the pre-ratification concept-ledger/graph gap for
+  `R04-TERMS-concept-regeneration`. Any new, changed, or stale exception fails.
+- `H-P1C-INTEGRITY-001` and `H-P1C-INTEGRITY-002` route retirement of those
+  exact debt entries to `WB-C05` and `P2-TERMS`. No other future-relevant
+  effect was found.
+- PDF, export, browser, parity, and configuration-driven inventory work did
+  not enter the packet. No render, upload, deployment, or publication action
+  occurred.
+
+The accepted integrity source state is
+`integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147`;
+the durable evidence is
+`notes/reports/p1c-integrity-gates-2026-08-04.md`.
+
 ## Findings that constrain later packets
 
-- `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
-  citation, concept, figure, and data checks; it is not part of PDF repair.
+- `WB-C05` must retire the exact `fig-anscombe` integrity-debt entry after the
+  approved introduction is added; a fixed figure with a stale exception fails.
+- `P2-TERMS` must reconcile the live definitions, concept ledger, and generated
+  graph and retire both exact concept-debt fingerprints; changed debt fails.
 - All 18 displayed chapter reading times must ultimately be measured against a
   relevant source state, visibly labelled as estimates, or removed.
 - Chapter 17's live spine must settle whether Chapter 13 is a prerequisite
@@ -823,21 +857,21 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-INTEGRITY. Fully read
-its release-engineering contract, every register item assigned to
-P1C-INTEGRITY, the accepted P1C-LOCK and P1C-PDF evidence, the current publish
-workflow, every live deterministic checker it must make blocking, and
-H-P0-REGISTER-005.
+Execute only the dashboard's next permitted packet, P1C-EXPORT. Fully read its
+release-engineering contract, every register item assigned to P1C-EXPORT, the
+accepted P1C-LOCK and P1C-INTEGRITY evidence, the current publish workflow,
+R/build-ai-exports.R, the generated export contract, canonical release
+metadata, and every current or planned protected solution/instructor route.
 
-Before the first substantive edit, acknowledge H-P0-REGISTER-005. Implement
-only the blocking token, manuscript-structure/style, figure-introduction,
-citation, concept, and data-integrity checks assigned to P1C-INTEGRITY. Keep
-each command independently callable, use checkout-local Bookwright paths, and
-do not absorb PDF, export, browser, parity, or inventory work.
+Implement only a release mode in which AI-export failure is blocking, public
+exports exclude protected solution and instructor content, and export book
+metadata agrees with the canonical pre-release governance source. Keep the
+export command independently callable and do not absorb parity, browser,
+inventory, catalogue, assessment-policy, or chapter work.
 
-Prove the positive pipeline and one deliberate failure per admitted integrity
-lane without publishing. Consume H-P0-REGISTER-005 with exact disposition and
-evidence before closeout, record every future effect or an explicit none, run
-the workflow validator and both required negative fixtures, then stop. Do not
-start P1C-EXPORT, P1C-PARITY, P1C-BROWSER, P1C-INVENTORY, or any later packet.
+Prove the positive release-export path and deliberate failures for a build
+error, protected-content leak, and metadata drift without publishing. Record
+every future effect or an explicit none, run the workflow validator and both
+required negative fixtures, then stop. Do not start P1C-PARITY, P1C-BROWSER,
+P1C-INVENTORY, or any later packet.
 ```

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1C-PDF"
-  next_permitted_packet: "P1C-INTEGRITY"
+  last_completed_packet: "P1C-INTEGRITY"
+  next_permitted_packet: "P1C-EXPORT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3282,7 +3282,7 @@ packets:
     sequence: 37
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1C-LOCK"
       - "P1C-PDF"
@@ -3294,13 +3294,55 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-INTEGRITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+            - "check:P1C_INTEGRITY_CLEAN_PROOF_OK-worktree-clean-lanes-7"
+            - "check:R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1"
+        - requirement: "positive test"
+          artifacts:
+            - "check:token-style-structure-figure-citation-concept-data-positive-markers"
+            - "check:workflow-seven-blocking-integrity-steps"
+            - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:seven-lane-expected-failures-exit-1"
+            - "check:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+      outputs:
+        - output: "P1C-INTEGRITY durable artifact and evidence record for: Blocking token, structure, style, figure, citation, concept, and data checks."
+          artifacts:
+            - "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
+            - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-INTEGRITY source state and bounded scope."
+          artifacts:
+            - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+            - "scope:workflow-and-seven-integrity-lanes-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-has-no-continue-on-error-for-integrity-steps"
+            - "fixture:token-style-structure-figure-citation-concept-data-exit-1"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+            - "check:fresh-locked-restore-empty-cache-paths-and-clean-worktree"
+        - test: "The P1C-INTEGRITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
+            - "handoff:H-P0-REGISTER-005-consumed-with-exact-disposition"
+            - "handoff:H-P1C-INTEGRITY-001-and-H-P1C-INTEGRITY-002-record-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   P1C-EXPORT:
     sequence: 38
     phase: "1C"
@@ -9528,7 +9570,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Make token synchronization blocking."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9547,11 +9589,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:design-token-positive-sync"
+      - "fixture:token-drift-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-style:
     parents:
       - "R05"
@@ -9565,7 +9611,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run the checkout-local deterministic style linter in CI."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9584,11 +9630,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:MANUSCRIPT_STYLE_OK-files-25"
+      - "fixture:hard-style-colon-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-structure:
     parents:
       - "R05"
@@ -9602,7 +9652,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run checkout-local structure checks in CI."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9621,11 +9671,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:MANUSCRIPT_STRUCTURE_OK-chapters-19"
+      - "fixture:missing-vignette-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-figure:
     parents:
       - "R05"
@@ -9639,7 +9693,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run the figure-introduction detector in CI."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9658,11 +9712,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:FIGURE_INTRO_OK-exact-registered-debt-1"
+      - "fixture:unregistered-figure-intro-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-citation:
     parents:
       - "R05"
@@ -9676,7 +9734,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run citation-key, blanket-nocite, and required-metadata checks."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9695,11 +9753,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:CITATION_INTEGRITY_OK-35-live-keys-35-records"
+      - "fixture:unknown-citation-key-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-concepts:
     parents:
       - "R05"
@@ -9713,7 +9775,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Check definitions, concept ledger, glossary, and generated graph."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9732,11 +9794,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-exact-debt-fingerprints"
+      - "fixture:duplicate-definition-id-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-data:
     parents:
       - "R05"
@@ -9750,7 +9816,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run catalogue/schema/checksum/reconciliation checks at the proper gate."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9769,11 +9835,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:DATA_INTEGRITY_OK-generated-sets-2-rows-50300"
+      - "fixture:duplicate-data-key-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-EXPORT-failclosed:
     parents:
       - "R05"
