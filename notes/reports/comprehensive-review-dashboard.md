@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-ASSESS
-next_permitted_packet: P2-IDENTITY
+last_completed_packet: P2-SPINE-IV
+next_permitted_packet: G-A2b-V
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 41
+forward_handoffs: 49
 last_updated: "2026-08-04"
 ---
 
@@ -31,22 +31,531 @@ stop and repair the control state before editing book content.
 | Gate A1d | Accepted as recommended: pre-release governance mechanism; release, archive, and errata owner Luka Sikic; 2026-08-03; no external-action authority |
 | Gate A2a | Accepted as recommended: claim map, audit questions, lifecycle, seven threads, four activities, and data-design principles; 70/20/10 diagnostic only; owner Luka Sikic; 2026-08-04 |
 | Gate A2d | Accepted: D06 solutions policy, D09 Appendix B scope, D10 Appendix G scope, and the D05/H10 AI ladder as recommended; D15 privacy/tool lanes as the course's own dated policy v1.0; author, course owner and clean-install owner Luka Sikic; 2026-08-04 |
+| Gate A2b-PREFACE | Accepted as drafted: preface spine with nine aspects, five terms, no prerequisite, twelve exclusions; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-I | Accepted as drafted: Part I contract, three chapter spines, and a bounded three-block definition increase; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-II | Accepted as drafted: Part II contract, three chapter spines, and a per-definition Chapter 4 disposition from six blocks to four; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-III | Accepted as drafted: Part III contract preserving Chapter 8 as the hinge, three chapter spines, and an unchanged definition load; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-IV | Accepted as drafted: Part IV contract leading with magnitude and error consequences, three chapter spines, and a bounded two-block Chapter 12 definition increase; owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-ASSESS` |
-| Next permitted packet | `P2-IDENTITY` |
+| Last completed packet | `P2-SPINE-IV` |
+| Next permitted packet | `G-A2b-V` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 67 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, and the five G-A2d policy asks are `done`; 0 external messages sent |
+| Chapter spines | 13 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV` |
+| Open outside asks | 62 of the 82 canonical asks remain `drafted_unsent`; 20 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-SPINE-IV closeout
+
+- `H-G-A2B-IV-001` was acknowledged and consumed with an exact disposition and
+  evidence before the packet claim and before the first substantive edit. It was
+  the only handoff targeting this packet. `H-P1C-INTEGRITY-002` remains `pending`
+  for `P2-TERMS`, and `H-P0-REGISTER-004` remains `pending` for `P2-SPINE-V` and
+  `P5-ROUTES`; neither was consumed here.
+- `chapter-spine.json` now carries three ratified Part IV units:
+  `10-logika-testiranja` with 9 aspects, 8 terms, 3 prerequisites and 8
+  exclusions; `11-velicina-ucinka-i-snaga` with 8, 7, 2 and 7; and
+  `12-kriza-i-obnova` with 10, 10, 5 and 9. Each is faithful to the accepted
+  draft and names its gate, date and decision record. Its deterministic state is
+  `spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897`.
+- No prerequisite points at a later unit, and the testing → magnitude → research
+  system chain is written both as prerequisites and as a ratification-order
+  condition, so Chapter 11 could not be ratified before Chapters 9 and 10, nor
+  Chapter 12 before Chapters 4, 5, 9, 10 and 11.
+- The mechanics never lead. Chapter 10's first exclusion states that magnitude
+  and the consequences of error govern the reading of every test and that the
+  testing-mechanics-first order is explicitly rejected. The decision record
+  enumerates that clause second in prose but twice locates it in Chapter 10's
+  *first* exclusion, so the written order follows the two explicit statements;
+  the exclusion set itself is unchanged at eight clauses.
+- Chapter 11 carries the `R04-C11-fixed-order` obligation as a binding exclusion:
+  the worked example may not precede the wild-statistics and assistant sections.
+  Chapter 12's spine is written as subordinate to the ratified identity brief
+  `c12` and that subordination is its second exclusion; the brief was neither
+  changed nor superseded, and the evidence-artifact selection stays with
+  `G-A4-12` and `P3-EVIDENCE12`.
+- `scripts/check-chapter-spines.py` now enforces the exact Part IV exclusion
+  markers, required load-bearing terms and ratification order, and reports
+  thirteen ratified and six unratified units. Both deliberate fixtures kept their
+  identifiers and returned exit 1; together they prove the exclusion-marker and
+  term checks for all three Part IV units and the ratification-order check for
+  Chapters 10 and 12. Chapter 11's order rule is not exercised by either fixture,
+  because its prerequisites stay ratified there — the same partial per-unit
+  coverage already recorded for Part III. No fixture was added or renamed.
+- The approved Chapter 12 definition increase was deliberately **not**
+  implemented: adding a `#def-` block edits chapter prose, and
+  `H-P1C-INTEGRITY-002` freezes the 46 live definitions, the concept ledger and
+  the generated graph until `P2-TERMS` retires that debt. Chapter 12 still
+  carries zero live blocks. `H-P2-SPINE-IV-001` carries the approved two-block
+  map to `P2-TERMS` and `WC-C12` exactly as `H-P2-SPINE-I-001` did, so the frozen
+  concept gate can accept it rather than treat it as drift.
+- The three architecture consumers count ratified spines and agree on 13 of 19
+  with their accepted states unchanged; no snapshot assertion was reintroduced.
+  The blocking structure lane passes with 19 chapters.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter stage,
+  terminology, identity brief, data package, route, render, generated artifact or
+  external authority changed. All 19 units remain `draft` and the live definition
+  count remains 46.
+
+The durable evidence is `notes/reports/p2-spine-iv-2026-08-04.md`.
+
+## G-A2b-IV closeout
+
+- No handoff targets `G-A2b-IV`; the complete ledger was read before the
+  decision. `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS` and freezes
+  the live definitions, so this gate decides the definition map and writes no
+  block.
+- The complete Part IV contract, the three chapter spines and the definition
+  hierarchy were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it as drafted on 2026-08-04.
+- Part IV carries three steps and no more: what a test can and cannot answer,
+  then how large the effect is and what an error costs, then what the research
+  system does to evidence. The chapter order is unchanged under D03, but the
+  mechanics never lead — magnitude and the consequences of error govern the
+  reading of every test, and the testing-mechanics-first order is explicitly
+  rejected in the part contract and in Chapter 10's first exclusion.
+- Significance testing is taught with its history and its abuses rather than as
+  procedure: Chapter 10 builds a world without an effect by simulation before it
+  names the null, introduces the asymmetry of the decision before any threshold,
+  treats the threshold as a convention rather than a measure, and carries the ASA
+  episode as its principal instructional case.
+- Chapter 12 remains one evidence-led argument about the research system rather
+  than a list of reforms. Its spine is explicitly subordinate to the ratified
+  identity brief `c12` and does not repeat it: the brief owns the argument, its
+  six required components and its evidence artifact, while the spine fixes what
+  the chapter must carry as term, prerequisite and boundary.
+- Chapter 10 carries nine aspects and eight terms and requires Chapters 7, 8 and
+  9. Chapter 11 carries eight aspects and seven terms and requires Chapters 9 and
+  10. Chapter 12 carries ten aspects, including the Part IV boundary and the
+  reformed-practice contract that Chapter 13 begins to enact, and ten terms, and
+  requires Chapters 4, 5, 9, 10 and 11. No prerequisite points at a later unit.
+- `R04-C12-definitions` is settled through that identity spine. Chapters 10 and
+  11 keep their existing four and three blocks unchanged. Chapter 12, which
+  currently has none and so falls below the ratified one-to-five band, rises to
+  exactly two: `analitička fleksibilnost`, on which Chapter 16's routine
+  sensitivity obligation and Chapter 18's transformation log depend, and
+  `reproducibilnost`, which Chapter 18 harvests as a complete trail from source
+  to claim. Every other Chapter 12 term stays in prose under `.pojam`.
+- The draft matches the recorded author intent in every respect. Eight
+  alternatives were rejected, including opening with the mechanics, moving
+  Chapter 11 ahead of Chapter 10, turning Chapter 12 into a reform survey,
+  repeating the `c12` argument in the spine, giving every reform term a block,
+  adding no block at all, defining p-hacking instead of analytic flexibility, and
+  moving the ASA episode out of Chapter 10.
+- `OA-G-A2B-IV-SPINE` is `done`; no external message was sent. `H-G-A2B-IV-001`
+  carries the accepted spine and the two-block definition increase to
+  `P2-SPINE-IV` at its `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, identity brief, data package, render, generated artifact or
+  external authority changed. All 19 units remain `draft` and 10 of 19 spines
+  remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-iv-spine-decision-2026-08-04.md`.
+
+## P2-SPINE-III closeout
+
+- `H-G-A2B-III-001` was acknowledged and consumed with an exact disposition and
+  evidence before the packet claim and before the first substantive edit.
+  `H-P0-REGISTER-008` remains `pending` for `WC-C08`, `WC-C09` and `WD-C17`; the
+  Chapter 8 and Chapter 9 spines name it and its owning packets without settling
+  it. `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS`.
+- `chapter-spine.json` now carries three ratified Part III units:
+  `07-vjerojatnost` with 10 aspects, 8 terms, 2 prerequisites and 7 exclusions;
+  `08-uzorkovanje` with 10, 12, 4 and 8; and `09-procjena` with 11, 9, 4 and 7.
+  Each is faithful to the accepted draft and names its gate, date and decision
+  record. Its deterministic state is
+  `spine:sha256-465c3fe2a7a460853a1028439e39ce6420dd8d0b8cf248dfaf5017a6538f44b2`.
+- No prerequisite points at a later unit, and the probability → sampling →
+  estimation chain is written both as prerequisites and as a ratification-order
+  condition, so Chapter 8 could not be ratified before Chapter 7, nor Chapter 9
+  before Chapters 7 and 8.
+- Chapter 8 carries the largest conceptual load of the part with twelve terms,
+  and it alone introduces population, sample and sampling error, which Part I
+  deferred to exactly this point. The ratified separation of probability sampling
+  from training, validation and test splitting is written as a binding Chapter 8
+  exclusion, beside the rule that a larger sample does not repair coverage,
+  nonresponse or selection.
+- All three chapters forbid assessed code production and invented or unsourced
+  empirical material, and record sampling distributions, intervals, tests,
+  models, full Bayesian inference and natural-language-processing methods as
+  explicit deferrals.
+- Part III's definition load is unchanged at five, three and one block, and the
+  margin of error stays in prose, so no new forward constraint to `P2-TERMS` was
+  needed and the live definition count remains 46.
+- `scripts/check-chapter-spines.py` now enforces the exact Part III exclusions,
+  required load-bearing terms and ratification order, and reports ten ratified
+  and nine unratified units. Both deliberate fixtures kept their identifiers,
+  returned exit 1, and together prove all three check kinds for Part III. The
+  three architecture consumers agree on 10 of 19 with their accepted states
+  unchanged, and the blocking structure lane passes with 19 chapters.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter stage,
+  terminology, data package, route, render, generated artifact or external
+  authority changed. All 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-spine-iii-2026-08-04.md`.
+
+## G-A2b-III closeout
+
+- No handoff targets `G-A2b-III`; the complete ledger was read before the
+  decision. `H-P0-REGISTER-008` remains `pending` for `WC-C08`, `WC-C09` and
+  `WD-C17`: the Chapter 8 and Chapter 9 spines state its debt and name its
+  owners, but the gate does not consume it. `H-P1C-INTEGRITY-002` remains
+  `pending` for `P2-TERMS`.
+- The complete Part III contract, the three chapter spines and the definition
+  disposition were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it as drafted on 2026-08-04.
+- Part III keeps probability, then sampling, then estimation, and carries three
+  steps and no more: what chance produces, how far a sample reaches, and what an
+  estimate says together with its uncertainty. The whole part is organised around
+  one question -- what generalisation can and cannot reach -- and each chapter
+  answers one part of it.
+- Chapter 8 is preserved explicitly as the book's pedagogical hinge. It is the
+  crossing from describing the data in hand to claiming something about a
+  population that was never observed, it carries the largest share of the part's
+  conceptual load, and it alone formally introduces population, sample and
+  sampling error, which Part I deferred to exactly this point.
+- Chapter 3's planted poll-reading and margin-of-error debts are settled in
+  Chapters 8 and 9. Aspects 8.8 and 9.10 name `H-P0-REGISTER-008` and its owning
+  packets, so the debt is stated in the spine while the handoff stays pending.
+- The ratified separation between probability sampling for population
+  generalisation and training, validation and test separation binds the whole
+  part. Simulation stays ahead of formalism and no assessed task requires code
+  production.
+- Chapter 7 carries ten aspects and eight terms and requires Chapters 3 and 4.
+  Chapter 8 carries ten aspects and twelve terms and requires Chapters 2, 3, 4
+  and 7. Chapter 9 carries eleven aspects including the Part III boundary and
+  nine terms and requires Chapters 3, 4, 7 and 8. No prerequisite points at a
+  later unit.
+- Part III's definition load is unchanged: Chapter 7 keeps its five blocks,
+  Chapter 8 its three and Chapter 9 its one, all inside the ratified one-to-five
+  band. The margin of error stays deliberately in prose, where Chapter 8 already
+  names it; a formal block would duplicate the confidence interval with no later
+  chapter depending on it.
+- Six alternatives were rejected, including putting sampling before probability,
+  folding estimation into Chapter 8, defining the margin of error as a block,
+  settling the Chapter 3 debt inside the spine, introducing complex-survey
+  variance estimation, and introducing Bayesian credible intervals.
+- `OA-G-A2B-III-SPINE` is `done`; no external message was sent.
+  `H-G-A2B-III-001` carries the accepted spine to `P2-SPINE-III` at its
+  `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, data package, render, generated artifact or external authority
+  changed. All 19 units remain `draft` and 7 of 19 spines remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-iii-spine-decision-2026-08-04.md`.
+
+## P2-SPINE-II closeout
+
+- `H-G-A2B-II-001` was acknowledged and consumed with an exact disposition and
+  evidence before the packet claim and before the first substantive edit.
+  `H-P1C-INTEGRITY-001` remains `pending` for `WB-C05`; the Chapter 5 spine
+  names the `fig-anscombe` debt as that packet's obligation without settling it.
+  `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS`.
+- `chapter-spine.json` now carries three ratified Part II units:
+  `04-sazimanje-podataka` with 9 aspects, 10 terms, 3 prerequisites and 8
+  exclusions; `05-vizualizacija` with 10, 8, 2 and 8; and `06-povezanost` with
+  10, 8, 3 and 8. Each is faithful to the accepted draft and names its gate,
+  date and decision record. Its deterministic state is
+  `spine:sha256-f2e08e172cbbc60a12c981ff92b7d72f64fe8344e3fe46e8cc0e55ac0084abad`.
+- No prerequisite points at a later unit; Chapter 5 could not have been ratified
+  before Chapter 4, nor Chapter 6 before Chapters 4 and 5.
+- The rejected orders are written as binding exclusions rather than left as
+  prose: measures of centre do not open Chapter 4, and visualisation does not
+  lead in Chapter 5. All three chapters forbid assessed code production and
+  invented or unsourced empirical material, and record sampling theory,
+  intervals, tests, regression, least squares, causal identification, multiple
+  imputation and natural-language-processing methods as explicit deferrals.
+- The approved Chapter 4 definition-load map was deliberately **not**
+  implemented here: merging, removing or adding a `#def-` block edits chapter
+  prose, and `H-P1C-INTEGRITY-002` freezes the 46 live definitions, the concept
+  ledger and the generated graph until `P2-TERMS` retires that debt. Chapter 4
+  still carries six live blocks. `H-P2-SPINE-II-001` carries the approved map to
+  `P2-TERMS` and `WB-C04` so the frozen concept gate can accept it rather than
+  treat it as drift.
+- `scripts/check-chapter-spines.py` now enforces the exact Part II exclusions,
+  required load-bearing terms and a general ratification-order rule, and reports
+  seven ratified and twelve unratified units. Both deliberate fixtures kept their
+  identifiers, returned exit 1, and together prove all three new check kinds for
+  Part II. The three architecture consumers count ratified spines and agree on 7
+  of 19 with their accepted states unchanged, and the blocking structure lane
+  passes with 19 chapters.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter
+  stage, terminology, data package, route, render, generated artifact or
+  external authority changed. All 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-spine-ii-2026-08-04.md`.
+
+## G-A2b-II closeout
+
+- No handoff targets `G-A2b-II`; the complete ledger was read before the
+  decision. `H-P1C-INTEGRITY-001` remains `pending` for `WB-C05` and owns the
+  `fig-anscombe` introduction debt, which this gate names but does not take
+  over. `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS` and freezes the
+  46 live definitions, so this gate decides the definition map and writes no
+  block.
+- The complete Part II contract, the three chapter spines and the definition
+  hierarchy were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it as drafted on 2026-08-04.
+- Part II carries three steps and no more: the analysis table is constructed
+  rather than found, then a visual claim must be honest, then association has
+  limits. The order is load-bearing — the conventional summary-statistics-first
+  order is explicitly rejected and visualisation does not lead — and the part
+  carries the constructed-data thread that Chapters 8 and 16 later harvest.
+- The part emphasises the validate, prepare and explore lifecycle stages, plants
+  the reproducibility/provenance and communication threads, develops the unit,
+  denominator and selection threads, and carries the full claim map and six
+  audit questions at its boundary with an answerable self-check. It is the first
+  part whose AI ladder requires a readable verification receipt; visible code is
+  read rather than written and no assessed task requires code production.
+- Chapter 4 carries nine aspects and ten terms and requires Chapters 1, 2 and 3.
+  Chapter 5 carries ten aspects and eight terms and requires Chapters 3 and 4.
+  Chapter 6 carries ten aspects including the Part II boundary and eight terms
+  and requires Chapters 2, 4 and 5. No prerequisite points at a later unit.
+- `R04-C04-definition-load` is settled with one explicit disposition per
+  definition. Arithmetic mean, median and standardised value are retained, each
+  with a named later dependant; variance is merged into the standard deviation
+  as one block naming both terms in its defining sentence; skewness is demoted
+  to prose under `.pojam`; nothing is moved to another chapter. Chapter 4 falls
+  from six blocks to four and re-enters the ratified one-to-five band, while
+  Chapters 5 and 6 keep their existing three blocks each unchanged. The net
+  effect on the frozen set is 46 down to 44 definitions.
+- The draft matches the recorded author intent in every respect. Seven
+  alternatives were rejected, including keeping the summary-first order, putting
+  visualisation before summarisation, leaving all six Chapter 4 definitions
+  unchanged, demoting the standardised value, moving variance to Chapter 8,
+  adding a block for the analysis table, and taking the `fig-anscombe` debt into
+  this gate.
+- `OA-G-A2B-II-SPINE` is `done`; no external message was sent.
+  `H-G-A2B-II-001` carries the accepted spine to `P2-SPINE-II` at its
+  `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, data package, render, generated artifact or external authority
+  changed. All 19 units remain `draft` and 4 of 19 spines remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-ii-spine-decision-2026-08-04.md`.
+
+## P2-SPINE-I closeout
+
+- `H-G-A2B-I-001` was acknowledged and consumed with an exact disposition and
+  evidence before the first substantive edit. `H-P0-REGISTER-008` remains
+  `pending` for `WC-C08`, `WC-C09` and `WD-C17`; the Chapter 3 spine states its
+  debt but does not settle it.
+- `chapter-spine.json` now carries three ratified Part I units:
+  `01-zasto-statistika` with 7 aspects, 8 terms, no prerequisite and 6
+  exclusions; `02-mjerenje-i-dizajn` with 9, 10, 1 and 7; and
+  `03-kako-brojke-zavode` with 10, 6, 2 and 8. Each is faithful to the accepted
+  draft and names its gate, date and decision record. Its deterministic state is
+  `spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb`.
+- No prerequisite points at a later unit, and Chapter 3 could not have been
+  ratified before Chapters 1 and 2.
+- All three Part I chapters carry the D05 no-visible-code exclusion, forbid
+  assessed code production, and forbid invented or unsourced empirical material.
+  Population, sample, sampling, causal identification, psychometrics, factor
+  analysis and the margin of error are recorded as explicit deferrals to
+  Chapters 8, 9 and 16 or to outside the book.
+- The Chapter 3 spine is explicitly subordinate to its ratified identity brief
+  `c03` and carries the Part I claim-map boundary as its tenth aspect.
+- The approved three-block definition increase was deliberately **not**
+  implemented here: adding a `#def-` block edits chapter prose, and
+  `H-P1C-INTEGRITY-002` freezes the 46 live definitions, the concept ledger and
+  the generated graph until `P2-TERMS` retires that debt. `H-P2-SPINE-I-001`
+  carries the approved map to `P2-TERMS`, `WA-C01` and `WA-C03` so the frozen
+  concept gate can accept it rather than treat it as drift.
+- `scripts/check-chapter-spines.py` now enforces the exact Part I exclusions,
+  required load-bearing terms and ratification order, and reports four ratified
+  and fifteen unratified units. Both deliberate defects return exit 1, the three
+  architecture consumers agree on 4 of 19 with their accepted states unchanged,
+  and the blocking structure lane passes with 19 chapters.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter
+  stage, terminology, data package, route, render, generated artifact or
+  external authority changed. All 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-spine-i-2026-08-04.md`.
+
+## G-A2b-I closeout
+
+- No handoff targets `G-A2b-I`; the complete ledger was read before the
+  decision. `H-P0-REGISTER-008` targets `WC-C08`, `WC-C09` and `WD-C17`,
+  remains `pending`, and was not consumed here.
+- The complete Part I spine, part contract and definition hierarchy were drafted
+  first, and the gate then closed against that drafted state. Author and editor
+  Luka Sikic accepted it as drafted on 2026-08-04.
+- Part I carries three steps and no more: a number is not a conclusion, then how
+  a number is made, then how a correct number still misleads. The part
+  emphasises the question, acquire and validate lifecycle stages, plants five
+  threads, carries the full claim map and six audit questions at its boundary
+  with an answerable self-check, and shows no visible code anywhere.
+- Chapter 1 carries seven aspects and eight terms with no prerequisite. Chapter 2
+  carries nine aspects and ten terms and requires Chapter 1. Chapter 3, explicitly
+  subordinate to its ratified identity brief `c03`, carries ten aspects including
+  the Part I boundary and six terms, and requires Chapters 1 and 2.
+- The definition hierarchy is bounded and increases Part I by exactly three
+  blocks: `jedinica analize` and `Simpsonov paradoks` in Chapter 1 and
+  `temeljna stopa` in Chapter 3. Chapter 2 keeps its existing four unchanged. The
+  four activities are stated from the accepted architecture rather than
+  redefined; mediator and collider stay in prose under `.pojam`; and population,
+  sample, sampling, margin of error and causal identification are explicitly
+  deferred to Chapters 8, 9 and 16.
+- The draft matches the recorded author intent in every respect: only
+  definitions with a named later dependant are ratified, the D05 no-visible-code
+  boundary is the first exclusion of all three chapters, and the ramp stays
+  gentle. The remaining aspects each implement an already ratified register item
+  or accepted architecture, so no new requirement was introduced.
+- Six alternatives were rejected, including four definition blocks for the
+  activities, defining population and sample in Chapter 1, formal blocks for
+  mediator and collider, adding no block at all, defining the margin of error in
+  Chapter 3, and allowing visible Chapter 3 code.
+- `OA-G-A2B-I-SPINE` is `done`; no external message was sent. `H-G-A2B-I-001`
+  carries the accepted spine to `P2-SPINE-I` at its `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, data package, render, generated artifact or external authority
+  changed.
+
+The durable evidence is `notes/reports/g-a2b-i-spine-decision-2026-08-04.md`.
+
+## P2-SPINE-PREFACE closeout
+
+- `H-G-A2B-PREFACE-001` was acknowledged and consumed with an exact disposition
+  and evidence before the first substantive edit. `H-P0-STATE-001` remains
+  `pending` for `WA-C00`; its obligation is now recorded as exclusion 2 of the
+  ratified spine so that packet can carry it out against real prose.
+- `chapter-spine.json` unit `00-predgovor` now carries nine load-bearing
+  aspects, five load-bearing terms, an explicit empty prerequisite list, and
+  twelve exclusions, with its gate, ratification date, and decision record. The
+  written spine is faithful to the accepted draft with nothing added or omitted.
+  Its deterministic state is
+  `spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c`.
+- The empty prerequisite list is a decision, not an omission: the preface is the
+  book's entry point and may presuppose no chapter, appendix, or widget.
+- `chapter-spine.schema.json` now admits `ratified_at`, `decision`,
+  `decision_record`, `prerequisites`, and `exclusions`. No existing field was
+  removed or altered, so every earlier entry stays valid.
+  `scripts/check-chapter-spines.py` enforces the obligations for a ratified
+  entry that the local schema validator cannot express conditionally.
+- Three checkers previously asserted that zero of 19 spines were ratified. That
+  was an accurate snapshot at their own closeout but never an invariant, since
+  this packet exists to change the count. All three now assert the real
+  invariant: no registry may itself ratify a spine, and every ratified spine
+  names its own `G-A2b` gate. The accepted `architecture:sha256-30e10508…`,
+  `assessment:sha256-c1206f08…`, and `identity:sha256-f09124e5…` states are
+  unchanged.
+- `scripts/check-chapter-spines.py` reports one ratified and eighteen
+  unratified units. Both deliberate defects, a ratified spine without its gate
+  and an admitted Part I visible-code exclusion removal, return exit 1. The
+  blocking structure lane passes with 19 chapters.
+- No chapter or appendix prose, chapter stage, terminology, data package, route,
+  render, generated artifact or external authority changed. All 19 units remain
+  `draft`.
+
+The durable evidence is `notes/reports/p2-spine-preface-2026-08-04.md`.
+
+## G-A2b-PREFACE closeout
+
+- No handoff targets `G-A2b-PREFACE`; the complete ledger was read before the
+  decision. `H-P0-STATE-001` targets `WA-C00`, remains `pending`, and was
+  deliberately not consumed here.
+- The complete preface spine was drafted first, and the gate then closed against
+  that drafted state rather than against the earlier pre-disposition note.
+  Author and editor Luka Sikic accepted it as drafted on 2026-08-04.
+- The preface is a reader contract with nine load-bearing aspects: the four
+  promised abilities stated as what the reader can afterwards do; the explicit
+  out-of-scope boundary; what is expected of the reader; one genuine
+  self-contained miniature inquiry instead of meta-scaffolding; the book's short
+  stable thesis that computation is delegable while question choice, source
+  verification and the signature under a conclusion stay human; a checkable
+  calculation trace with its stated limit; the two reading routes as navigation
+  without manifesto register; pathway language bounded to verified coverage; and
+  a handoff to Chapter 1 that states the promise without arguing the lifecycle.
+- Five terms are load-bearing and introduced without formal definition:
+  statistical literacy, simulation, estimation, checkable calculation trace, and
+  the division of responsibility with an assistant. Their canonical Croatian
+  forms remain a `G-A2c` decision. The preface has no prerequisite.
+- Twelve exclusions bind it, including no visible code block, no promise of
+  visible code in the preface or Part I, no lifecycle exposition duplicating
+  Chapter 1, no manifesto register, ASA removed or sharply subordinated, no
+  Appendix B claim beyond the verified clean installation, no full claim map or
+  audit-question list, no widget, no `#def-` block, no invented or unsourced
+  example, no citable or released edition promise, and no assessed code
+  production.
+- The draft matches the recorded author intent in every respect. Pending handoff
+  `H-P0-STATE-001` is satisfied by aspect 6 and exclusions 1 and 2; the accepted
+  D09 Appendix B bound is satisfied by aspect 8 and exclusion 6. The three
+  aspects beyond the literal intent text each implement an already ratified
+  register item, so no new requirement was introduced and no further ask was
+  needed.
+- Six alternatives were rejected, including the manifesto preface, carrying the
+  lifecycle argument, deleting the preface, promising visible code receipts,
+  promising a complete no-code route, and carrying the full claim map.
+- `OA-G-A2B-PREFACE-SPINE` is `done`; no external message was sent.
+  `H-G-A2B-PREFACE-001` carries the accepted spine to `P2-SPINE-PREFACE` at its
+  `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, data package,
+  render, generated artifact or external authority changed. All 19 spines remain
+  unratified and all 19 units remain `draft`.
+
+The durable evidence is
+`notes/reports/g-a2b-preface-spine-decision-2026-08-04.md`.
+
+## P2-IDENTITY closeout
+
+- No handoff targets `P2-IDENTITY`; the complete ledger was read before packet
+  claim. `H-P0-REGISTER-007` targets `WA-C03`, `WC-C12` and `WD-C17`, remains
+  `pending`, and was not consumed here. Its substance is encoded as the joint
+  contract's `evidence_precondition`.
+- `conventions.json` now carries one schema-valid `identity_briefs` object with a
+  joint contract and three bound briefs. Its deterministic state is
+  `identity:sha256-f09124e52089f2127b5064ed1b8f912a74628fd0b9ba3fb807bd0922cca6e3a3`.
+- The joint contract binds all three pillars to one Tier F argument, one
+  traceable case, named supported and unavailable claim dimensions, a stated
+  conclusion-changing factor, one full six-critic panel, and argumentative
+  rather than quota-driven length. It forbids assessed code production, a new
+  numbered chapter, a new central widget, a new callout type, invented material,
+  and any pillar prose before its evidence package and author gate.
+- Chapter 3 is one audit of a single traceable public claim: axis and
+  denominator, base rate, early poll reading, cherry-picking, an AI-produced
+  number, synthetic media, and the simulation/synthetic/hypothetical/fabricated
+  distinction, ending in a skeptic's protocol. The ASA episode is excluded, the
+  margin-of-error justification is an explicit debt to Chapters 8 and 9, and the
+  Part I no-visible-code boundary holds.
+- Chapter 12 is one path from an attractive finding through pipeline
+  flexibility, incentives and selection, replication as cumulative evidence, one
+  sensitivity comparison, one forest plot, reform and its limits, to a
+  reformed-practice contract. Invented study results, undated open-science
+  claims, and significance-only comparison are excluded.
+- Chapter 17 is one consequential text-classification decision from corpus and
+  unit through coding frame, three kinds of label, held-out evaluation,
+  threshold and confusion table, subgroup errors, a disputed recorded label,
+  procedural fairness and appeal, to monitoring, feedback and language models as
+  prediction systems.
+- `R13-ARCH-measurement-first` is accepted. Chapter 17 is the ratified home of a
+  measurement-first text module covering seven topics and excluding tokenizer or
+  preprocessing implementation, an NLP programming course, machine-learning
+  mathematics, and any model-training task. Student inputs are supplied text and
+  prepared tables.
+- D07 is preserved structurally: the existing fairness widget is retained and
+  subordinated to prose, text analysis remains the worked example, and no second
+  central widget is admitted.
+- Eleven open selections are deferred to their exact gates, including
+  `G-A4-03`, `G-A4-12`, `P3-EVIDENCE12`, `G-A4-17`, `G-A3-DZS`, `G-A3-DIP`,
+  `G-A3-TEXT`, `P2-SPINE-I`, `P2-SPINE-IV`, `P2-SPINE-V` and `P5-ROUTES`.
+  Chapter 17's prerequisite metadata explicitly remains a `P2-SPINE-V` decision.
+- `scripts/check-identity-briefs.py` passes; both deliberate defects, a dropped
+  fairness widget and an admitted NLP implementation, return exit 1. The book
+  and assessment architecture checkers pass with their accepted states unchanged.
+- No chapter or appendix prose, spine, terminology, data package, case, source,
+  evidence artifact, route, render, generated artifact or external authority
+  changed. All 19 spines remain unratified and all 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-identity-briefs-2026-08-04.md`.
 
 ## P2-ASSESS closeout
 
@@ -1173,6 +1682,19 @@ the durable evidence is
   then-current blob rather than any of these historical values, and P1C's
   workflow-behaviour claims should be reconfirmed against the amended file
   before the release-candidate provenance record is populated.
+- The ratified Part I spine approves exactly three new `#def-` blocks —
+  `jedinica analize` and `Simpsonov paradoks` in Chapter 1 and `temeljna stopa`
+  in Chapter 3 — but none was written, because the concept gate is frozen until
+  `P2-TERMS`. `P2-TERMS` must expect them, `WA-C01` and `WA-C03` must add exactly
+  those and no others, and neither may define a term the spine placed in prose
+  or deferred.
+- The ratified Part IV spine settles `R04-C12-definitions`: Chapters 10 and 11
+  keep their four and three blocks, and Chapter 12 rises from zero to exactly two
+  — `analitička fleksibilnost` and `reproducibilnost`, each with a named later
+  dependant in Chapters 16 and 18 — but neither was written, because the concept
+  gate is frozen until `P2-TERMS`. `P2-TERMS` must expect them, `WC-C12` must add
+  exactly those two and no others and may define no term the spine left in prose
+  under `.pojam`, and `WC-C10` and `WC-C11` must leave their blocks unchanged.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -1213,22 +1735,33 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, P2-IDENTITY, only. Claim the
-write lock, do the work, close the packet, and stop. Do not start any G-A2b
-chapter-spine packet or any later packet, and do not edit chapter prose.
+Also fully read notes/reports/author-pre-dispositions-2026-08-04.md.
 
-Before the first substantive edit, acknowledge every applicable incoming
-handoff and say so explicitly; consume each with a concrete disposition and
-evidence before closeout. Read the P2-IDENTITY packet contract, the accepted
-P2-CLAIMS and P2-ASSESS artifacts and registries, and governed item
-R13-ARCH-measurement-first in full.
+Prepare and close the dashboard's next permitted packet, G-A2b-V, only. Do not
+start P2-SPINE-V or any later packet, and do not edit chapter prose.
 
-Write only the joint bounded identity briefs for Chapters 3, 12, and 17, with
-explicit plant/develop/harvest roles and exclusions. Preserve Chapter 17's
-fairness widget and measurement-first text role. Do not select data packages or
-evidence sources, ratify chapter spines or terminology, edit chapters or
-appendices, or authorise any push, merge, tag, archive, deployment, or
-publication.
+Before the first substantive edit, acknowledge every applicable incoming handoff
+and say so explicitly; consume each with a concrete disposition and evidence
+before closeout. Read the G-A2b-V packet contract, outside ask
+OA-G-A2B-V-SPINE, governed items R04-SPINE-V, R04-C17-definitions and
+R04-C17-prerequisites, the ratified identity brief c17, the P2-IDENTITY
+deferrals that name P2-SPINE-V, and the recorded author intent in full.
+
+Draft the complete Part V contract, the five chapter spines for Chapters 13 to
+17 and the definition hierarchy first, then close the gate against that drafted
+state with a dated disposition, a named owner, alternatives, an authority
+boundary and a blocked-dependency list. Preserve Chapter 16 as the synthesis
+payoff. Chapter 13 IS a prerequisite for Chapter 17: its conditional
+denominators and confusion tables must precede Chapter 17's fairness and
+classification material. That settles the contradiction in H-P0-REGISTER-004,
+where the review's sample critical-literacy route skipped Chapter 13 while the
+same review required it before Chapter 17; the consequence is binding on
+P2-SPINE-V and P5-ROUTES. The Chapter 17 spine is subordinate to its ratified
+identity brief c17 and must not repeat it; settle R04-C17-definitions and
+R04-C17-prerequisites through that identity spine.
+
+Ratify no spine beyond Part V, write no #def- block, and if the draft departs
+from the recorded intent in any respect, stop and present the exact difference.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both

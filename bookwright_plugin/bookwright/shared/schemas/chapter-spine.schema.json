@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://bookwright/shared/chapter-spine.schema.json",
   "title": "Chapter spine",
-  "description": "One provisional or ratified set of load-bearing aspects and #def- terms per chapter.",
+  "description": "One provisional or ratified set of load-bearing aspects and #def- terms per chapter. A ratified entry also records its decision gate, prerequisites, and exclusions.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -43,6 +43,34 @@
           },
           "ratified": {
             "type": "boolean"
+          },
+          "ratified_at": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+          },
+          "decision": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision_record": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prerequisites": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "exclusions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       }
