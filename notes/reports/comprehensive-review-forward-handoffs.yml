@@ -2289,6 +2289,64 @@ handoffs:
           - "contract:packet_contracts.shared_registry"
           - "check:scripts/check-review-workflow.R-before-P2-SPINE-III-claim"
 
+  H-G-A2B-IV-001:
+    source_packet: G-A2b-IV
+    created_at: "2026-08-04"
+    kind: decision
+    refs:
+      - decision:G-A2b-IV
+      - decision:D01
+      - decision:D03
+      - decision:D05
+      - item:R04-SPINE-IV
+      - item:R04-C12-definitions
+      - registry:identity_briefs.briefs.c12
+      - handoff:H-P1C-INTEGRITY-002
+      - rule:STYLE-H10
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted Part IV spine as drafted
+      on 2026-08-04. Part IV carries three steps and no more: what a test can and
+      cannot answer, then how large the effect is and what an error costs, then
+      what the research system does to evidence. The chapter order is unchanged,
+      but the mechanics never lead: magnitude and the consequences of error govern
+      the reading of every test, and the testing-mechanics-first order is
+      explicitly rejected. Significance testing is taught with its history and its
+      abuses, with the ASA episode as Chapter 10's principal instructional case.
+      Chapter 12 remains one evidence-led argument about the research system
+      rather than a list of reforms; its spine is subordinate to the ratified
+      identity brief c12 and does not repeat it. Chapter 10 carries nine aspects
+      and eight terms and requires Chapters 7, 8 and 9; Chapter 11 carries eight
+      aspects and seven terms and requires Chapters 9 and 10; Chapter 12 carries
+      ten aspects including the Part IV claim-map boundary and the
+      reformed-practice contract and ten terms, and requires Chapters 4, 5, 9, 10
+      and 11. The definition hierarchy settles R04-C12-definitions: Chapters 10
+      and 11 keep their existing four and three blocks unchanged, and Chapter 12
+      rises from zero to exactly two blocks, analiticka fleksibilnost and
+      reproducibilnost, each with a named later dependant in Chapters 16 and 18,
+      while every other Chapter 12 term stays in prose under .pojam.
+    required_action: >-
+      In P2-SPINE-IV, write exactly this accepted spine into
+      bookwright_plugin/bookwright/shared/chapter-spine.json for units
+      10-logika-testiranja, 11-velicina-ucinka-i-snaga and 12-kriza-i-obnova and
+      set their ratified flags, recording prerequisites and exclusions in the
+      schema-valid form established by P2-SPINE-PREFACE. Change no chapter prose,
+      no chapter stage, and no terminology, add, remove or merge no #def- block,
+      and ratify no other spine. Record the approved two-block Chapter 12
+      definition increase as a forward constraint to P2-TERMS and WC-C12 rather
+      than implementing it, because H-P1C-INTEGRITY-002 freezes the live
+      definitions until P2-TERMS retires that debt. Do not change or supersede
+      the ratified identity brief c12.
+    basis:
+      - conversation:G-A2b-IV-spine-approved-2026-08-04-Luka-Sikic
+      - notes/reports/g-a2b-iv-spine-decision-2026-08-04.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2b-IV
+      - notes/reports/author-pre-dispositions-2026-08-04.md
+    required: true
+    deliveries:
+      - target_packet: P2-SPINE-IV
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -3293,3 +3351,29 @@ packet_reviews:
       - no new future-relevant effect was found because Part III changes no definition and every downstream consumer is already routed by H-P0-REGISTER-008 and the WC packet dependencies so no duplicate handoff was created
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-IV
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+  G-A2b-IV:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2B-IV-001
+    checks:
+      - the complete handoff ledger was read before the decision and no handoff targets G-A2b-IV
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS and freezes the live definitions so this gate decides only the definition map and writes no block
+      - the complete Part IV contract three chapter spines and definition hierarchy were drafted first and the gate closed against that drafted state
+      - author and editor Luka Sikic accepted the draft as drafted on 2026-08-04 and the draft matches the recorded intent in every respect
+      - magnitude and the consequences of error lead and govern the reading of every test in the part
+      - the testing-mechanics-first order is explicitly rejected in the part contract and in Chapter 10's first exclusion
+      - significance testing is taught with its history and its abuses and the ASA episode is Chapter 10's principal instructional case
+      - Chapter 12 remains one evidence-led argument about the research system and a list of reforms is its first exclusion
+      - the Chapter 12 spine is explicitly subordinate to the ratified identity brief c12 and does not repeat its argument
+      - Chapter 10 carries 9 aspects 8 terms and 3 prerequisites Chapter 11 carries 8 aspects 7 terms and 2 prerequisites and Chapter 12 carries 10 aspects 10 terms and 5 prerequisites
+      - no prerequisite points at a later unit
+      - R04-C12-definitions is settled through the identity spine with Chapter 12 rising from zero to exactly two blocks each with a named later dependant in Chapters 16 and 18
+      - Chapters 10 and 11 keep their existing four and three blocks unchanged and every other Chapter 12 term stays in prose under .pojam
+      - the recommended default eight rejected alternatives authority boundary and blocked dependency list are recorded in the register
+      - OA-G-A2B-IV-SPINE is done with a dated resolution and no external message was sent
+      - H-G-A2B-IV-001 carries the accepted spine and the two-block definition increase to P2-SPINE-IV at its before_start gate
+      - no chapter or appendix prose spine registry terminology definition block concept graph identity brief data package render generated artifact or external action changed
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-IV
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-SPINE-IV and every later packet were not started and push merge tag archive and deployment remain unauthorised
