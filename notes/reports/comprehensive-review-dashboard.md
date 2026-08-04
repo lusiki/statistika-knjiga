@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: P1C-PARITY
 last_completed_packet: P1C-BROWSER
-next_permitted_packet: P1C-PARITY
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,12 +32,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `P1C-PARITY` |
 | Last completed packet | `P1C-BROWSER` |
-| Next permitted packet | `P1C-PARITY` |
+| Next permitted packet | None while `P1C-PARITY` is active |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 57 accepted, 5 deferred with reason, 309 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 33 accepted and 155 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 57 accepted, 5 deferred with reason, 19 in progress, 290 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 33 accepted, 1 in progress, and 154 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
@@ -45,6 +45,17 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1C-BROWSER`; the pinned smoke audit passed its clean locked positive path and deliberate missing-route failure. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest remains recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P1C-PARITY active packet
+
+- No applicable incoming handoff targets `P1C-PARITY`; the handoff ledger was
+  read completely before this claim.
+- The packet owns only the 17 parity records, the OJS/R adapters, the blocking
+  comparator and deliberate regression fixture, one publish-workflow hook,
+  the durable evidence report, and the three control files.
+- Inventory, catalogue, assessment, chapter, export, general browser,
+  release-candidate, upload, deployment, and publication work remain outside
+  the active packet.
 
 ## P0-REGISTER closeout
 

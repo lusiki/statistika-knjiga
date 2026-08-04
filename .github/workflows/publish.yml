@@ -80,6 +80,12 @@ jobs:
       - name: Check widget source contracts
         run: python scripts/check-widgets.py .
 
+      - name: Check all OJS and print-twin golden pairs
+        run: python scripts/check-widget-parity.py .
+
+      - name: Prove widget parity fails closed
+        run: python scripts/check-widget-parity-fixtures.py
+
       - name: Check PDF wrapper failure paths
         run: pwsh -NoProfile -File scripts/check-pdf-release-path.ps1
 
