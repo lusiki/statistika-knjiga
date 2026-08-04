@@ -10,25 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P1C-EXPORT"
-    started_at: "2026-08-04"
-    owned_paths:
-      - ".github/workflows/publish.yml"
-      - "_quarto.yml"
-      - "R/build-ai-exports.R"
-      - "notes/ai-export-spec.md"
-      - "scripts/check-ai-export-fixtures.py"
-      - "data/ai-exports.json"
-      - "docs/ai"
-      - "docs/llms.txt"
-      - "docs/llms-full.txt"
-      - "notes/reports/p1c-export-release-path-2026-08-04.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P1C-INTEGRITY"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P1C-EXPORT"
+  next_permitted_packet: "P1C-BROWSER"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3363,7 +3347,7 @@ packets:
     sequence: 38
     phase: "1C"
     kind: "release_engineering"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P1C-INTEGRITY"
     scope: "Fail-closed release AI exports without protected content."
@@ -3374,13 +3358,57 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-EXPORT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+            - "check:P1C_EXPORT_CLEAN_PROOF_OK-worktree-clean-chapters-19-protected-regions-20"
+            - "check:R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1"
+        - requirement: "positive test"
+          artifacts:
+            - "check:AI_EXPORT_RELEASE_OK-chapters-19-protected-regions-20-governance-pre-release"
+            - "check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-20"
+            - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:build-error-exit-1"
+            - "fixture:protected-content-leak-exit-1"
+            - "fixture:metadata-drift-exit-1"
+            - "check:AI_EXPORT_NEGATIVE_FIXTURES_OK-fixtures-3-publish-false"
+      outputs:
+        - output: "P1C-EXPORT durable artifact and evidence record for: Fail-closed release AI exports without protected content."
+          artifacts:
+            - "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
+            - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-EXPORT source state and bounded scope."
+          artifacts:
+            - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+            - "scope:release-export-workflow-fixtures-and-generated-public-artifacts-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-release-build-and-post-render-validation-have-no-continue-on-error"
+            - "fixture:build-leak-and-metadata-failures-return-nonzero"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+            - "check:fresh-locked-restore-empty-R-npm-and-browser-paths"
+            - "check:detached-worktree-clean-after-external-output-proof"
+        - test: "The P1C-EXPORT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
+            - "handoff:H-P1C-EXPORT-001-and-H-P1C-EXPORT-002-record-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
   P1C-BROWSER:
     sequence: 39
     phase: "1C"
@@ -9873,7 +9901,7 @@ items:
       location: "§4/Phase 1C"
     description: "Make release AI exports fatal, canonical-metadata aligned, and free of protected solutions."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9890,11 +9918,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-EXPORT"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+      - "check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-20"
+      - "fixture:build-protected-leak-and-metadata-drift-exit-1"
+      - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
   R05-CONFIG-inventories:
     parents:
       - "R05"

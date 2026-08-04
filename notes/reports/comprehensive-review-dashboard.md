@@ -3,14 +3,14 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: P1C-EXPORT
-last_completed_packet: P1C-INTEGRITY
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: P1C-EXPORT
+next_permitted_packet: P1C-BROWSER
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 33
+forward_handoffs: 35
 last_updated: "2026-08-04"
 ---
 
@@ -32,17 +32,17 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P1C-EXPORT` |
-| Last completed packet | `P1C-INTEGRITY` |
-| Next permitted packet | None while `P1C-EXPORT` is active |
+| Active write packet | None |
+| Last completed packet | `P1C-EXPORT` |
+| Next permitted packet | `P1C-BROWSER` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 55 accepted, 5 deferred with reason, 311 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 31 accepted and 157 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 56 accepted, 5 deferred with reason, 310 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 32 accepted and 156 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1C-INTEGRITY` passed all seven blocking positive lanes, seven deliberate failing fixtures, the exact registered-debt guards, locked clean-worktree proof, and closeout checks |
+| Failed gates | None in `P1C-EXPORT`; the release export passed the locked clean-worktree proof and the three deliberate failure fixtures. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest is recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -800,6 +800,39 @@ The accepted integrity source state is
 the durable evidence is
 `notes/reports/p1c-integrity-gates-2026-08-04.md`.
 
+## P1C-EXPORT closeout
+
+- No incoming handoff targeted `P1C-EXPORT`; that absence was recorded before
+  the first substantive edit.
+- Commit `ac7c34f` adds an independently callable `--release` mode that makes
+  build errors, protected-content leaks, metadata drift, missing outputs, and
+  unexpected stale AI Markdown artifacts fatal. Local pre-render use remains
+  best-effort outside the release path.
+- The publish workflow now builds and validates AI exports before HTML render,
+  runs all three deliberate failure fixtures, and validates final artifacts
+  after render. Those steps are blocking and contain no fallback or
+  `continue-on-error`.
+- Every `content-visible when-profile` body is excluded. The release audit
+  covers all 19 chapter inputs and all appendix sources, found 20 protected
+  regions, and confirmed that none occurs in the public artifacts.
+- Export metadata comes from `release/governance.yml` and its declared
+  authorship source. The generated manifest and Markdown headers agree on the
+  working title, `pre_release` state, site URL, and both authors.
+- A detached copy of the exact implementation commit restored the locked R,
+  Node, npm, Playwright, and Chromium inputs into fresh paths. Its positive
+  release build, post-build validation, and all three negative fixtures passed
+  without publishing; the worktree remained clean.
+- `H-P1C-EXPORT-001` carries the protected-route constraint to `P2-ASSESS` and
+  `P5-ROUTES`. `H-P1C-EXPORT-002` records the pre-existing clean-checkout
+  `_quarto.yml` provenance checksum mismatch for `P7-FREEZE` and `P8-META`.
+- Browser, parity, inventory, catalogue, assessment-policy, chapter, upload,
+  deployment, and publication work did not enter the packet.
+
+The accepted export source state is
+`export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de`;
+the durable evidence is
+`notes/reports/p1c-export-release-path-2026-08-04.md`.
+
 ## Findings that constrain later packets
 
 - `WB-C05` must retire the exact `fig-anscombe` integrity-debt entry after the
@@ -817,6 +850,12 @@ the durable evidence is
   acceptance purposes.
 - P1C-BROWSER must use the committed Playwright lock and installed Chromium,
   replacing the live audit's undeclared `NODE_PATH` and hard-coded Chrome path.
+- P2-ASSESS and P5-ROUTES must preserve the structural public-export boundary
+  for every future solution or instructor route and rerun the release leak
+  proof against the final route set.
+- P7-FREEZE and P8-META must repair and clean-check the pre-existing
+  `_quarto.yml` provenance checksum mismatch; final metadata may not introduce
+  a competing source or worktree-specific line-ending hash.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -857,21 +896,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-EXPORT. Fully read its
-release-engineering contract, every register item assigned to P1C-EXPORT, the
-accepted P1C-LOCK and P1C-INTEGRITY evidence, the current publish workflow,
-R/build-ai-exports.R, the generated export contract, canonical release
-metadata, and every current or planned protected solution/instructor route.
+Execute only the dashboard's next permitted packet, P1C-BROWSER. Fully read
+its release-engineering contract, every register item assigned to
+P1C-BROWSER, the accepted P1C-LOCK evidence and `H-P1C-LOCK-001`, the current
+publish workflow, package.json, package-lock.json, .node-version,
+scripts/restore-dependencies.py, and the complete current rendered-HTML browser
+audit and its callers.
 
-Implement only a release mode in which AI-export failure is blocking, public
-exports exclude protected solution and instructor content, and export book
-metadata agrees with the canonical pre-release governance source. Keep the
-export command independently callable and do not absorb parity, browser,
-inventory, catalogue, assessment-policy, or chapter work.
+Implement only a pinned portable blocking browser smoke audit. Replace the
+undeclared NODE_PATH and developer-local Chrome dependency with the committed
+Playwright package and its installed Chromium from the accepted lock contract.
+Keep the audit independently callable and do not absorb parity, export,
+inventory, catalogue, assessment-policy, chapter, or general browser-coverage
+work.
 
-Prove the positive release-export path and deliberate failures for a build
-error, protected-content leak, and metadata drift without publishing. Record
-every future effect or an explicit none, run the workflow validator and both
-required negative fixtures, then stop. Do not start P1C-PARITY, P1C-BROWSER,
-P1C-INVENTORY, or any later packet.
+Prove the positive smoke path and a deliberate interaction or browser-path
+failure from a clean locked environment without publishing. Consume
+`H-P1C-LOCK-001` with exact evidence, record every future effect or an explicit
+none, run the workflow validator and both required negative fixtures, then
+stop. Do not start P1C-PARITY, P1C-INVENTORY, P1-VERIFY, or any later packet.
 ```

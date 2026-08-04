@@ -1438,6 +1438,86 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P1C-EXPORT-001:
+    source_packet: P1C-EXPORT
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R05-EXPORT-failclosed
+      - packet:P2-ASSESS
+      - packet:P5-ROUTES
+      - source:R/build-ai-exports.R
+      - report:notes/reports/p1c-export-release-path-2026-08-04.md
+    statement: >-
+      The public release export now excludes every content-visible block with
+      a when-profile attribute, audits the normalized bodies of all protected
+      regions in Chapters 00-18 and the appendices, rejects unexpected stale
+      docs/ai Markdown artifacts, and fails nonzero on a protected-content
+      leak. Current public inputs are the 19 declared chapters; appendices are
+      audited as possible future inputs but are not exported.
+    required_action: >-
+      P2-ASSESS must make the export boundary part of the ratified answer and
+      instructor-visibility architecture: future D06 and other protected
+      content must live either on a route excluded from the public AI-export
+      inputs or inside a content-visible when-profile block. P5-ROUTES must
+      verify the final route inventory with the independent release command,
+      post-build validation, and protected-leak fixture; it may not infer
+      safety from a label such as solution or instructor.
+    basis:
+      - commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00
+      - export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de
+      - check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-20
+      - fixture:protected-content-leak-exit-1
+    required: true
+    deliveries:
+      - target_packet: P2-ASSESS
+        gate: before_close
+        state: pending
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
+  H-P1C-EXPORT-002:
+    source_packet: P1C-EXPORT
+    created_at: "2026-08-04"
+    kind: risk
+    refs:
+      - packet:P7-FREEZE
+      - packet:P8-META
+      - source:release/provenance.yml
+      - source:_quarto.yml
+      - source:scripts/check-release-governance.R
+      - report:notes/reports/p1c-export-release-path-2026-08-04.md
+    statement: >-
+      The accepted pre-release provenance manifest records SHA-256 080dc1c5...
+      for _quarto.yml, while the clean tracked blob at the P1C-EXPORT source
+      state has SHA-256 a43fabaf.... Consequently check-release-governance.R
+      reports that one manifest mismatch in a clean checkout. This checksum
+      drift predates P1C-EXPORT; the exporter itself reads the canonical
+      governance values and independently blocks title or export-metadata
+      drift.
+    required_action: >-
+      P7-FREEZE must derive the candidate provenance from canonical Git bytes
+      and demonstrate every recorded hash in a clean checkout. P8-META must
+      consume that candidate evidence when freezing final metadata, keep
+      release/governance.yml as the sole release-metadata authority, rerun
+      check-release-governance.R, and rerun the AI-export metadata-drift
+      fixture. Do not paper over the mismatch with worktree-specific line
+      endings or a competing metadata record.
+    basis:
+      - commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00
+      - expected-sha256:080dc1c524139aef32813d9db26bff49f01b0697ef8911fba516399a23ed1ac6
+      - tracked-sha256:a43fabafc8a56005ee1601a7d84bed5777da392e1e33406673c301db63ab5718
+      - check:check-release-governance-R-exit-1-single-quarto-manifest-mismatch
+    required: true
+    deliveries:
+      - target_packet: P7-FREEZE
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -1998,3 +2078,23 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1C-EXPORT
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - P1C-EXPORT P1C-PARITY P1C-BROWSER P1C-INVENTORY and all later packets were not started
+  P1C-EXPORT:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1C-EXPORT-001
+      - H-P1C-EXPORT-002
+    implementation_state: export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de
+    checks:
+      - no applicable incoming handoff targeted P1C-EXPORT
+      - commit ac7c34f makes the independent release export and its post-render validation blocking without a stale fallback
+      - all content-visible when-profile bodies are removed and 20 current protected regions across chapters and appendices are audited
+      - release metadata comes from release/governance.yml and its declared authorship source and records both current authors
+      - a detached worktree restored the exact R Node npm Playwright and Chromium locks into fresh paths and remained clean after proof
+      - the positive release path exported 19 chapters and six part bundles with governance state pre_release without publishing
+      - deliberate missing-chapter protected-leak and metadata-drift fixtures each returned exit 1
+      - H-P1C-EXPORT-001 carries the future assessment and route boundary to P2-ASSESS and P5-ROUTES
+      - H-P1C-EXPORT-002 records the pre-existing clean-checkout provenance checksum risk for P7-FREEZE and P8-META
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-BROWSER
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1C-BROWSER P1C-PARITY P1C-INVENTORY and all later packets were not started
