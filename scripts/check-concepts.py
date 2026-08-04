@@ -18,6 +18,9 @@ CHECKOUT_ROOT = Path(__file__).resolve().parents[1]
 LAUNCHER = CHECKOUT_ROOT / "bookwright_plugin/bookwright/scripts/run_rscript.py"
 GRAPH_BUILDER = CHECKOUT_ROOT / "R/build-concept-graph.R"
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from r_env import r_subprocess_env  # noqa: E402
+
 
 def normalized_term(value: str) -> str:
     return " ".join(value.casefold().split())
@@ -168,6 +171,7 @@ def build_fresh_graph(root: Path) -> dict[str, object]:
         result = subprocess.run(
             [sys.executable, str(LAUNCHER), str(GRAPH_BUILDER)],
             cwd=work,
+            env=r_subprocess_env(root),
             text=True,
             encoding="utf-8",
             errors="replace",
