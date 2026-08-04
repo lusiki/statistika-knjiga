@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2b-I"
-  next_permitted_packet: "P2-SPINE-I"
+  last_completed_packet: "P2-SPINE-I"
+  next_permitted_packet: "G-A2b-II"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -4782,7 +4782,7 @@ packets:
     sequence: 51
     phase: "2"
     kind: "shared_registry"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2b-I"
     scope: "Ratified i spine; no chapter prose."
@@ -4793,13 +4793,70 @@ packets:
       - "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
       - "Registry work does not silently edit chapter prose or advance chapter stage."
       - "The P2-SPINE-I packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
+      required_evidence:
+        - requirement: "author-ratified registry diff"
+          artifacts:
+            - "decision:G-A2b-I"
+            - "handoff:H-G-A2B-I-001-consumed"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#01-zasto-statistika"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#02-mjerenje-i-dizajn"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+            - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+        - requirement: "schema validation"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/schemas/chapter-spine.schema.json"
+            - "source:scripts/check-chapter-spines.py"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-4-of-19"
+        - requirement: "consumer reconciliation"
+          artifacts:
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK-spines-4-of-19"
+            - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK-spines-4-of-19"
+            - "check:scripts/check-identity-briefs.py-IDENTITY_BRIEFS_OK-spines-4-of-19"
+            - "handoff:H-P2-SPINE-I-001-created-for-P2-TERMS-WA-C01-WA-C03"
+      outputs:
+        - output: "P2-SPINE-I durable artifact and evidence record for: Ratified i spine; no chapter prose."
+          artifacts:
+            - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#part-i-three-units"
+            - "report:notes/reports/p2-spine-i-2026-08-04.md"
+            - "check:scripts/check-chapter-spines.py"
+        - output: "Completion evidence is tied to the declared P2-SPINE-I source state and bounded scope."
+          artifacts:
+            - "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
+            - "check:scripts/check-manuscript-integrity.py-lane-structure-chapters-19"
+      exit_tests:
+        - test: "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
+          result: "passed"
+          evidence:
+            - "registry:01-zasto-statistika-aspects-7-terms-8-prerequisites-0-exclusions-6"
+            - "registry:02-mjerenje-i-dizajn-aspects-9-terms-10-prerequisites-1-exclusions-7"
+            - "registry:03-kako-brojke-zavode-aspects-10-terms-6-prerequisites-2-exclusions-8"
+            - "check:CHAPTER_SPINES_OK-schema-valid-part-i-obligations-enforced"
+            - "check:three-architecture-consumers-agree-spines-4-of-19"
+        - test: "Registry work does not silently edit chapter prose or advance chapter stage."
+          result: "passed"
+          evidence:
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:chapter-ledger-units-at-draft-19"
+            - "check:zero-def-blocks-added-or-removed"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_STRUCTURE_OK-chapters-19"
+        - test: "The P2-SPINE-I packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
+            - "report:notes/reports/p2-spine-i-2026-08-04.md"
+            - "handoff:H-G-A2B-I-001-consumed-with-disposition"
+            - "handoff:H-P2-SPINE-I-001-carries-the-approved-three-block-definition-increase"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-ratified_without_decision-exit-1"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-part_i_visible_code_admitted-exit-1"
     contract: "shared_registry"
     required_evidence:
       - "author-ratified registry diff"
       - "schema validation"
       - "consumer reconciliation"
-    change_reference: null
+    change_reference: "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
   G-A2b-II:
     sequence: 52
     phase: "2"
@@ -9941,7 +9998,7 @@ items:
       location: "§4/§9/§12 + §15 R04"
     description: "Ratify load-bearing aspects, terms, prerequisites, and exclusions for Part I."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -9957,11 +10014,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-I"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-I"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#part-i-three-units"
+      - "report:notes/reports/p2-spine-i-2026-08-04.md"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-4-of-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
   R04-SPINE-II:
     parents:
       - "R04"
@@ -10238,7 +10299,7 @@ items:
       location: "§8/§12"
     description: "Decide Chapter 1 load-bearing definitions and first-use hierarchy."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -10254,11 +10315,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-I"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-I"
+      - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md#hijerarhija-definicija-za-dio-i"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#01-zasto-statistika"
+      - "handoff:H-P2-SPINE-I-001-two-approved-chapter-1-blocks"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
   R04-C03-definitions:
     parents:
       - "R04"
@@ -10272,7 +10338,7 @@ items:
       location: "§12"
     description: "Decide Chapter 3 load-bearing definitions through the identity spine."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -10288,11 +10354,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-I"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-I"
+      - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md#hijerarhija-definicija-za-dio-i"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#identity_briefs.briefs.c03"
+      - "handoff:H-P2-SPINE-I-001-one-approved-chapter-3-block"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
   R04-C04-definition-load:
     parents:
       - "R04"

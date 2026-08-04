@@ -2015,6 +2015,77 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-I
         gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P2-SPINE-I accepts the ratified Part I spine as its exact and
+          exclusive registry boundary before the first substantive edit. The
+          packet will write the accepted aspects, terms, prerequisites, and
+          exclusions for units 01-zasto-statistika, 02-mjerenje-i-dizajn, and
+          03-kako-brojke-zavode into chapter-spine.json, set their ratified
+          flags, and extend the deterministic spine check to the exact Part I
+          obligations. It will change no chapter or appendix prose, no chapter
+          stage, and no terminology, will add or remove no #def- block or
+          concept-graph edge, and will ratify no other spine. The approved
+          three-block definition increase is recorded as a forward constraint
+          for P2-TERMS, WA-C01, and WA-C03 rather than implemented here.
+        evidence:
+          - "decision:G-A2b-I"
+          - "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
+          - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+          - "register:item-R04-SPINE-I-read-in-full"
+          - "register:item-R04-C01-definitions-read-in-full"
+          - "register:item-R04-C03-definitions-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-I-claim"
+
+  H-P2-SPINE-I-001:
+    source_packet: P2-SPINE-I
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - decision:G-A2b-I
+      - item:R04-C01-definitions
+      - item:R04-C03-definitions
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - report:notes/reports/p2-spine-i-2026-08-04.md
+    statement: >-
+      The ratified Part I spine approves exactly three new #def- blocks:
+      jedinica analize and Simpsonov paradoks in Chapter 1, and temeljna stopa
+      in Chapter 3. Chapter 2 keeps its existing four blocks unchanged. P2-SPINE-I
+      deliberately wrote none of them, because adding a #def- block edits chapter
+      prose and because H-P1C-INTEGRITY-002 freezes the exact set of 46 live
+      definitions, the concept ledger, and the generated graph under
+      cryptographic fingerprints until P2-TERMS retires that debt. The spine also
+      records that the four activities, mediator, and collider are stated in
+      prose rather than defined, and that population, sample, sampling, margin of
+      error, and causal identification are deferred to Chapters 8, 9, and 16.
+    required_action: >-
+      P2-TERMS must reconcile the live definitions and canonical ledger against
+      this approved map before it regenerates data/concept-graph.json and
+      retires the concept debt, so the three approved Part I blocks are expected
+      rather than treated as drift. WA-C01 must add exactly jedinica analize and
+      Simpsonov paradoks and no further block; WA-C03 must add exactly temeljna
+      stopa and no further block. Neither may define a term the spine placed in
+      prose or deferred to a later chapter, and neither may add a block before
+      the concept gate can accept it.
+    basis:
+      - "spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb"
+      - "decision:G-A2b-I"
+      - "notes/reports/g-a2b-i-spine-decision-2026-08-04.md#hijerarhija-definicija-za-dio-i"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false"
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: pending
+      - target_packet: WA-C01
+        gate: before_close
+        state: pending
+      - target_packet: WA-C03
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -2901,3 +2972,25 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-I
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-SPINE-I and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-I:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-SPINE-I-001
+    implementation_state: spine:sha256-b660ac8ecfd6386aa39247b2e602f5324549264703b04d9851303a87b82d88cb
+    checks:
+      - H-G-A2B-I-001 was acknowledged and consumed with an exact disposition and evidence before the first substantive edit
+      - H-P0-REGISTER-008 remains pending for WC-C08 WC-C09 and WD-C17 and its debt is stated but not settled by the Chapter 3 spine
+      - chapter-spine.json now carries three ratified Part I units with 7 9 and 10 aspects 8 10 and 6 terms 0 1 and 2 prerequisites and 6 7 and 8 exclusions
+      - each written spine is faithful to the accepted draft with nothing added or omitted and each names its gate date and decision record
+      - no prerequisite points at a later unit and Chapter 3 could not be ratified before Chapters 1 and 2
+      - all three Part I chapters carry the D05 no-visible-code exclusion and forbid assessed code production and invented empirical material
+      - population sample sampling causal identification psychometrics factor analysis and the margin of error are recorded as explicit deferrals
+      - the Chapter 3 spine is subordinate to the ratified identity brief c03 and carries the Part I claim-map boundary
+      - scripts/check-chapter-spines.py now enforces the exact Part I exclusions required terms and ratification order and reported CHAPTER_SPINES_OK with four ratified and fifteen unratified units
+      - both deliberate spine defects returned exit 1 and the three architecture consumers agree on four of nineteen with their accepted states unchanged
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters
+      - no #def- block concept-graph edge chapter or appendix prose chapter stage terminology data package route render generated artifact or external action changed
+      - H-P2-SPINE-I-001 carries the approved three-block definition increase to P2-TERMS WA-C01 and WA-C03 so the frozen concept gate can accept it rather than treat it as drift
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-II
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects

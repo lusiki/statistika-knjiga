@@ -73,9 +73,30 @@ REQUIRED_EXCLUSION_MARKERS = {
         "Dodatku B",
         "#def-",
     ],
-    "01-zasto-statistika": ["vidljivi blok koda"],
-    "02-mjerenje-i-dizajn": ["vidljivi blok koda"],
-    "03-kako-brojke-zavode": ["vidljivi blok koda"],
+    "01-zasto-statistika": [
+        "vidljivi blok koda",
+        "populacije, uzorka i uzorkovanja",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "02-mjerenje-i-dizajn": [
+        "vidljivi blok koda",
+        "uzročni račun",
+        "psihometrija",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "03-kako-brojke-zavode": [
+        "vidljivi blok koda",
+        "margine pogreške prije poglavlja 8 i 9",
+        "Američkoga statističkog udruženja",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+}
+
+# Terms a ratified spine must carry because a later part genuinely depends on them.
+REQUIRED_TERMS = {
+    "01-zasto-statistika": ["jedinica analize", "nazivnik", "Simpsonov paradoks"],
+    "02-mjerenje-i-dizajn": ["operacionalizacija", "pouzdanost", "valjanost", "konfundirajuća varijabla"],
+    "03-kako-brojke-zavode": ["temeljna stopa"],
 }
 
 NO_VISIBLE_CODE_UNITS = [
@@ -176,6 +197,18 @@ def main() -> int:
                 marker in rendered,
                 f"Ratified spine {unit} does not state its required exclusion about {marker!r}.",
             )
+        for term in REQUIRED_TERMS.get(unit, []):
+            check(
+                term in chapter.get("key_terms", []),
+                f"Ratified spine {unit} drops load-bearing term {term!r} that a later part depends on.",
+            )
+
+    ratified_ids = {chapter.get("id") for chapter in ratified}
+    if "03-kako-brojke-zavode" in ratified_ids:
+        check(
+            "01-zasto-statistika" in ratified_ids and "02-mjerenje-i-dizajn" in ratified_ids,
+            "Chapter 3's spine may not be ratified before the Chapter 1 and Chapter 2 spines it depends on.",
+        )
 
     for chapter in unratified:
         unit = chapter.get("id", "<missing>")
