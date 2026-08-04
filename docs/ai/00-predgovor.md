@@ -1,10 +1,10 @@
 # Predgovor
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/00-predgovor.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -90,9 +90,6 @@ empirijsku tvrdnju.
 Asistent je dao jasan postupak, reproducibilan kod i ograničio zaključak na
 opažajni dizajn. Budući da tekst zvuči uvjerljivo, navedeni izvor nije potrebno
 otvoriti i provjeriti.
-
-Greška je preskakanje izvora. Uvjerljivost i reproducibilan kod ne potvrđuju da
-publikacija postoji ni da podupire navedenu tvrdnju.
 
 ## Razrađeni primjer
 

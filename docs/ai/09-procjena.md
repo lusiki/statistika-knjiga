@@ -1,10 +1,10 @@
 # Procjena
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -87,7 +87,7 @@ ga uvodi u poglavlju o usporedbi dviju grupa, gdje ga postupak prvi put stvarno
 treba.
 
 Ono što se u brojci od `r paste0(hr_broj(s9$pokrivenost, 1), " %")` ne vidi jest
-sudbina pojedinačnog intervala. Svaki od tih dvije tisuće raspona ili sadrži
+sudbina pojedinačnog intervala. Svaki od tih deset tisuća raspona ili sadrži
 pravu vrijednost ili je ne sadrži, i nakon što je izračunat, u njemu nema
 ničega slučajnog. Slučajan je bio uzorak koji ga je proizveo. Populacijska
 sredina fiksan je broj i ne kreće se, pa rečenica o vjerojatnosti da se ona
@@ -175,12 +175,18 @@ uvodi u poglavlju o usporedbi dviju grupa.
 Postoji i druga zamjena koja se često javlja u istom odlomku. Interval
 pouzdanosti govori gdje je prosjek, a ne gdje su ljudi. Za naš uzorak od
 dvjesto osoba raspon oko sredine dug je
-`r hr_broj(s9$gornja - s9$donja, 2)` boda, dok bi raspon unutar kojega leži
-otprilike 95 % pojedinačnih ocjena bio širok približno
-`r hr_broj(2 * s9$predikcijski, 1)` boda. Prvi se odnosi na parametar i sužava
-se s uzorkom, drugi na buduće opažanje i ne sužava se gotovo nimalo.
+`r hr_broj(s9$gornja - s9$donja, 2)` boda. Ako su pojedinačne ocjene približno
+normalno raspoređene, sredina plus ili minus 1,96 uzoračkih standardnih
+devijacija daje opisni raspon po normalnom pravilu širok približno
+`r hr_broj(2 * s9$normalni_poluraspon, 1)` boda, u kojem bi pod tim modelom
+ležalo oko 95 % ocjena. Za izrazito asimetrične, ograničene ili diskretne
+raspodjele takav opisni obuhvat ne slijedi. Taj prikaz nije interval predviđanja
+za novu osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti
+niti određuje iz koje bi populacije buduća osoba došla. Interval za sredinu
+odnosi se na parametar i sužava se s većim uzorkom, dok opisni raspon prikazuje
+raspršenost pojedinačnih ocjena.
 
-*Slika. Interval pouzdanosti za sredinu i raspon unutar kojega leži otprilike 95 % pojedinačnih ocjena, na istom uzorku i istoj osi.*
+*Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi.*
 
 ## Bootstrap kao vlastiti izum
 
@@ -193,11 +199,14 @@ ijedne nove ideje, uz uvjet da se prethodno poglavlje shvatilo ozbiljno.
 Standardna pogreška bila je definirana kroz ponovljene uzorke iz populacije.
 Kad bismo populaciji imali pristup, izvukli bismo tisuću uzoraka, izračunali
 tisuću medijana i pogledali koliko se razilaze. Populaciji pristupa nemamo,
-imamo samo uzorak. Uzorak je pritom najbolja slika populacije kojom
-raspolažemo, jer je iz nje izvučen slučajno i njezine razmjere nosi u sebi. Ako
-mu dopustimo da privremeno glumi populaciju i iz njega izvlačimo nove uzorke
-jednake veličine, dobit ćemo raspodjelu koja oponaša onu koju bismo dobili iz
-prave populacije.
+imamo samo uzorak. Njegova empirijska raspodjela može privremeno glumiti
+populaciju samo ako opažene jedinice razumno predstavljaju ciljnu populaciju.
+U jednostavnom bootstrapu redaka pretpostavljamo i da su jedinice neovisne i
+međusobno zamjenjive na razini na kojoj su bile uzorkovane. Uparena,
+grupirana ili ponovljena opažanja zato se ne rastavljaju na proizvoljne retke,
+nego se ponovno uzorkuju cijeli parovi, skupine ili osobe. Pod tim uvjetima
+uzorci jednake veličine iz opaženih podataka oponašaju promjene sastava koje
+bismo vidjeli pri novom uzorkovanju iz populacije.
 
 Izvlačenje mora biti s vraćanjem, i to nije tehnički detalj. Izvlačenjem bez
 vraćanja iz uzorka od šezdeset osoba dobili bismo šezdeset istih osoba u drugom
@@ -211,24 +220,31 @@ uveden je kao način procjene nesigurnosti kada teorijski račun nije pri ruci
 Uzmimo uzorak od `r hr_broj(s9$mali_n, 0)` osoba i pitajmo se koliko iznosi
 medijan dnevnih minuta praćenja medija. U uzorku on iznosi
 `r hr_broj(s9$medijan_uzorak, 1)` minuta. Četiri tisuće bootstrap uzoraka daju
-raspon od `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta,
-unutar kojega leži prava populacijska vrijednost od
-`r hr_broj(s9$medijan_pop, 1)` minuta.
+središnji percentilni raspon od `r hr_broj(s9$boot_donja, 1)` do
+`r hr_broj(s9$boot_gornja, 1)` minuta. Poznata populacijska vrijednost od
+`r hr_broj(s9$medijan_pop, 1)` minuta u ovom se jednom slučaju nalazi unutar
+granica. Slika zato pokazuje konstrukciju raspona iz jednoga uzorka, a ne
+njegovu dugoročnu pokrivenost.
 
 *Slika. Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću.*
 
-Histogram ima vidljiv stubast oblik jer medijan uzorka od šezdeset brojeva može
-poprimiti samo ograničen skup vrijednosti, što je svojstvo mjere, a ne mana
-postupka. Snaga bootstrapa upravo je u tome što ga takve neugodnosti ne
-zaustavljaju. Isti se postupak bez izmjene primjenjuje na sredinu, medijan,
-korelaciju ili razliku dviju skupina, jer nigdje ne pretpostavlja oblik
-raspodjele.
+Histogram ima vidljiv stubast oblik jer medijan maloga, zaokruženog uzorka može
+poprimiti samo ograničen skup vrijednosti. Ta diskretnost nije računalna
+pogreška, ali granice percentilnog raspona čini grubima. Veći broj bootstrap
+ponavljanja smanjuje slučajno kolebanje izračunanih percentila, no ne dodaje
+nove vrijednosti u siromašan početni uzorak i ne uklanja grube granice ni
+nestabilnost koje je mali uzorak već zadao.
 
-Njegova granica ostaje početni uzorak, i granica je stroga. Bootstrap ponovno
-koristi opažanja koja već imamo, pa ne može otkriti dio populacije koji u
-uzorak nikada nije mogao ući. Ako je uzorak prigodan, postupak će pouzdano
-opisati promjenjivost pogrešne procjene. Ako je premalen da zabilježi rijetke
-ali važne slučajeve, ta praznina ostaje u svakom od četiri tisuće ponavljanja.
+Bootstrap ne pretpostavlja imenovani oblik populacijske raspodjele, ali nije
+bez pretpostavki. Shema se mora prilagoditi statistici i dizajnu. Kod
+korelacije ponovno uzorkujemo cijele parove vrijednosti, kod razlike između
+neovisnih skupina svaku skupinu zasebno, a kod ovisnih podataka cijele neovisne
+jedinice. Postupak također ne može obnoviti rijetke ili krajnje vrijednosti koje
+početni uzorak nije zabilježio. Procjene repova, poput vrlo visokog percentila,
+zato su osobito osjetljive na mali uzorak i raspodjele s teškim repovima, dok
+je medijan manje ovisan o repovima, ali pri mnogo vezanih vrijednosti i dalje
+daje grube granice. Ako uzorak ne predstavlja ciljnu populaciju, bootstrap
+precizno ponavlja isti problem umjesto da ga ukloni.
 
 **Statistika u divljini.**
 **Šest tvrdnji o jednom intervalu.** Istraživači su studentima i aktivnim
@@ -246,14 +262,13 @@ su intervali loš alat nego da je rečenica kojom ih opisujemo teža od računa
 koji ih proizvodi.
 
 **Pitajte model.**
-Asistent može bootstrapirati gotovo svaku statistiku i obično to učini
-ispravno. Provjeravamo tri stvari koje redovito promakne. Uzorkuje li s
-vraćanjem i na punoj veličini uzorka, jer bez toga raspodjela nema smisla. Čuva
-li strukturu podataka, jer se kod uparenih ili grupiranih opažanja izvlače
-jedinice, a ne redovi. Ponavlja li dovoljno puta, jer nekoliko stotina
-ponavljanja daje granice koje se mijenjaju od pokretanja do pokretanja.
-Najčešća pogreška ipak nije u kodu nego u zaključnoj rečenici, gdje se već
-izračunatom intervalu pripiše vjerojatnost.
+Asistent može bootstrapirati mnoge statistike, ali ispravan kod ne jamči
+ispravan plan ponovnog uzorkovanja. Provjeravamo predstavlja li početni uzorak
+ciljnu populaciju i koja je stvarno neovisna jedinica. Zatim gledamo uzorkuje li
+s vraćanjem na punoj veličini uzorka i čuva li parove, skupine ili ponovljena
+opažanja. Broj ponavljanja također mora biti dovoljan da računalno kolebanje
+granica bude malo. Najčešća pogreška ipak nije u kodu nego u zaključnoj
+rečenici, gdje se već izračunatom intervalu pripiše vjerojatnost.
 
 > Izračunaj točkastu procjenu i bootstrap interval. Uzorkuj s vraćanjem na
 > punoj veličini uzorka, sačuvaj strukturu podataka i interpretiraj razinu
@@ -263,11 +278,6 @@ izračunatom intervalu pripiše vjerojatnost.
 Bootstrap raspodjela je približno simetrična i interval je uredno izračunat iz
 njezinih krajeva. Postoji devedesetpetpostotna vjerojatnost da se fiksna
 populacijska vrijednost nalazi unutar upravo ovog opaženog intervala.
-
-Greška je pripisivanje vjerojatnosti fiksnom parametru nakon izračuna
-frekventističkog intervala. Prva rečenica je točna i postupak je proveden
-ispravno. Razina pouzdanosti opisuje udio intervala koji obuhvaćaju parametar
-kroz ponovljeno uzorkovanje, a ne položaj parametra u odnosu na ovaj raspon.
 
 ## Razrađeni primjer
 
@@ -295,18 +305,22 @@ o bootstrapu već naveo, jer je riječ o istoj analizi ispisanoj u cijelosti.
 Odgovor naručitelju glasi da tipičan stanovnik prati medije oko
 `r hr_broj(s9$medijan_uzorak, 1)` minuta dnevno, uz raspon od
 `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta koji
-opisuje koliko bi se ta procjena mijenjala kroz ponovljena istraživanja iste
-veličine. Raspon je širok gotovo `r hr_broj(s9$boot_gornja - s9$boot_donja, 0)`
-minuta, što je pošten opis onoga što šezdeset ljudi može reći, i ujedno
-najkorisnija brojka u cijelom izvještaju. Naručitelj koji je htio razlučiti
-promjenu od deset minuta iz ovih podataka odgovor neće dobiti bez većeg uzorka.
+procjenjuje uzoračku promjenjivost medijana pod navedenim uvjetima. Raspon je
+širok gotovo `r hr_broj(s9$boot_gornja - s9$boot_donja, 0)` minuta, što u ovoj
+simuliranoj analizi pokazuje granicu onoga što šezdeset ljudi može reći.
+Naručitelj koji je htio razlučiti promjenu od deset minuta iz ovih podataka
+odgovor neće dobiti bez većeg uzorka.
 
 Budući da populaciju poznajemo, možemo napraviti i ono što stvarno istraživanje
 ne može. Prava vrijednost iznosi `r hr_broj(s9$medijan_pop, 1)` minuta i nalazi
-se unutar granica. Iz toga ne slijedi da postupak radi, jer bi i loš postupak
-pogodio pokoji put. Ono što o postupku govori jest prebrojavanje deset tisuća
-ponavljanja iz ranijeg odjeljka, a ovaj pojedinačni pogodak samo je jedan od
-njih, viđen iznutra kako ga vidi istraživač.
+se unutar granica. Taj jedan pogodak ne potvrđuje niti opovrgava percentilni
+bootstrap. Deset tisuća ponavljanja iz ranijeg odjeljka provjerava drugi
+postupak, normalni interval za sredinu. Pokrivenost raspona za medijan trebalo bi
+provjeriti ponavljanjem cijeloga lanca, od novog uzorka od šezdeset osoba do
+novoga bootstrap raspona u svakom ponavljanju, pa zatim prebrojiti koliko takvih
+raspona obuhvaća populacijski medijan. Takva provjera ovdje nije provedena, pa
+primjer pokazuje konstrukciju i ograničenja raspona, a ne dokazuje njegovu
+nominalnu pokrivenost.
 
 Redoslijed kojim su tri brojke ispisane isti je onaj kojim se rezultat i
 izvještava. Najprije dolazi procjena, jer je ona odgovor na postavljeno pitanje.
@@ -325,10 +339,12 @@ procjene gradi raspon čije obećanje pripada postupku, a ne pojedinačnom raspo
 koji imamo pred sobom. Preciznost se kupuje podacima, a pouzdanost se bira i
 plaća širinom, pa uz svaki raspon mora stajati razina na kojoj je izračunat.
 Bootstrap istu ideju oslobađa formule tako što uzorku dopušta da privremeno
-glumi populaciju, i time otvara mjere za koje račun ne postoji, ne popravljajući
-pritom nijednu slabost samoga uzorka. Sljedeće poglavlje uzima isti aparat i
-mijenja mu pitanje, jer umjesto raspona usklađenog s podacima traži koliko su
-podaci neobični pod jednom određenom pretpostavkom.
+glumi populaciju kada uzorak i jedinica ponovnog uzorkovanja odgovaraju ciljnom
+načinu uzorkovanja. Time otvara mjere za koje jednostavan račun ne postoji, ali
+ne popravlja premalen ili nereprezentativan uzorak niti pogrešno odabranu
+jedinicu ponovnog uzorkovanja. Sljedeće poglavlje uzima isti aparat i mijenja mu
+pitanje, jer umjesto raspona usklađenog s podacima traži koliko su podaci
+neobični pod jednom određenom pretpostavkom.
 
 ## Pojmovi
 

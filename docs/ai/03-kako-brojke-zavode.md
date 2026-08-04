@@ -1,10 +1,10 @@
 # Kako brojke zavode
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -101,10 +101,6 @@ navedeni izvor i provjerava postoji li broj u njemu.
 Anketa pokazuje vodstvo jedne opcije, ali se intervali procjena dviju opcija
 preklapaju. Zbog preklapanja možemo zaključiti da među njima sigurno nema
 razlike. Uzorak je opisan, a postoci se zbrajaju do cjeline.
-
-Greška je zaključak da preklapanje intervala dokazuje nepostojanje razlike.
-Odnos dviju procjena mora se procijeniti izravno, uz dizajn ankete i ovisnost
-procjena, a ne samo pogledom na dva odvojena intervala.
 
 ## Razrađeni primjer
 

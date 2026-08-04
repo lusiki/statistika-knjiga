@@ -1,9 +1,9 @@
 # DIO I: STATISTIČKO MIŠLJENJE
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -11,10 +11,10 @@
 # Zašto statistika
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -117,12 +117,11 @@ takvi podaci nastaju i što njihovi rezultati ne pokazuju, ne može ravnopravno
 sudjelovati u raspravi koju oni oblikuju. Statistička pismenost time postaje
 uvjet sudjelovanja, a ne dodatna vještina.
 
-Navarro učenje statistike uspoređuje s kuharskim receptom, gdje niz mehaničkih
-uputa najprije izgleda proizvoljno, a razumijevanje počinje kada postane jasno
-zašto svaki korak postoji (Navarro, 2019). Recept se tada prestaje slijediti i
-počinje se kuhati. Ista razlika dijeli izračun od statističkog mišljenja.
-Formula se može primijeniti bez razumijevanja, ali odluka o tome koju usporedbu
-uopće treba napraviti ne može.
+Statističko mišljenje ne počinje formulom, nego procjenom smije li se njome
+odgovoriti na postavljeno pitanje. Račun može biti besprijekoran, a zaključak
+ipak pogrešan ako su uspoređene pogrešne skupine, zanemarena neizvjesnost ili
+podaci ne mjere ono što tvrdnja imenuje. Zato svaku tehniku valja vezati uz
+odluku koju omogućuje i granicu preko koje zaključak ne smije prijeći.
 
 Vrijedi odmah reći i što statistika ne obećava. Ona ne pretvara nepotpune
 podatke u potpune i ne nadoknađuje ono što nije izmjereno. Ne odlučuje umjesto
@@ -389,11 +388,6 @@ stopa za žene bila barem jednaka stopi za muškarce (Bickel, 1975). Žene su se
 češće prijavljivale na selektivnije odjele (Bickel, 1975). Stoga je izbor
 odjela uzrokovao cijeli zbirni jaz.
 
-Greška je kauzalni zaključak u posljednjoj rečenici. Tablica pokazuje da
-raspodjela prijava po odjelima objašnjava statističku strukturu zbirnog jaza,
-ali sama ne dokazuje zašto su kandidati birali određene odjele niti da je time
-objašnjen svaki mogući oblik pristranosti.
-
 ## Razrađeni primjer
 
 Berkeleyjski podaci omogućuju da cijeli problem pratimo bez složenog modela.
@@ -525,10 +519,10 @@ navedite koji bi podatak trebalo imati da bi izvorna tvrdnja postala opravdana.
 # Mjerenje i istraživački dizajn
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -623,10 +617,11 @@ Razlog je za to da se rezultat čita zajedno s upitnikom, a ne umjesto njega.
 ## Razine mjerenja
 
 Brojevi u podacima ne znače uvijek isto. Stevens je 1946. godine predložio
-podjelu na četiri razine mjerenja, koja se u društvenim znanostima koristi i
-danas jer određuje koje računske operacije na nekoj varijabli imaju sadržajno
-značenje (Stevens, 1946). Podjela ne govori o važnosti teme nego o tome što se
-smije izvesti iz zapisanih vrijednosti.
+podjelu na četiri razine mjerenja koja je snažno utjecala na kasniju
+metodološku nastavu (Stevens, 1946). Podjela i danas služi kao praktičan opis
+informacije koju zapisane vrijednosti nose. Razlikuje jesu li vrijednosti samo
+oznake, nose li poredak, jesu li razmaci usporedivi i ima li nula sadržajno
+značenje. Ne čini, međutim, potpunu ni bezvremensku tablicu dopuštenih analiza.
 
 Na **nominalnoj razini** brojevi ili oznake samo imenuju kategorije i među njima
 nema poretka. Vrsta medija, država prebivališta, stranačka bliskost i status
@@ -668,13 +663,14 @@ na česte i rijetke korisnike, dok iz te podjele ne možemo izvesti minute.
 Anketa koja odmah nudi razrede umjesto broja štedi ispitaniku nekoliko sekundi
 i trajno oduzima analizi mogućnosti.
 
-Iz toga slijedi savjet koji vrijedi za svako prikupljanje podataka. Razina se
-planira unaprijed, prema analizama koje namjeravamo provesti, a ne bira
-naknadno. Ako je cilj prosjek ili korelacija, potrebna je barem intervalna
-mjera. Ako je cilj samo raspodjela po kategorijama, nominalna je dovoljna.
-Odgovor na to pitanje pripada nacrtu istraživanja, a ne obradi podataka, i
-najjeftinije je pravilo u ovom poglavlju, jer se poštuje bez ikakva troška i
-krši uz trošak koji se ne može nadoknaditi.
+Iz toga slijedi savjet koji vrijedi za svako prikupljanje podataka. Mjeru valja
+planirati unaprijed i sačuvati onoliko pojedinosti koliko istraživačko pitanje
+traži, jer se izgubljene minute, godine ili izvorni odgovori ne mogu vratiti iz
+naknadno stvorenih kategorija. Analitički se postupak ipak ne bira mehanički iz
+naziva razine. Ovisi i o pitanju, dizajnu, raspodjeli podataka, načinu izgradnje
+ljestvice te pretpostavkama postupka. Stevensove razine zato su koristan prvi
+opis varijable i upozorenje za tumačenje, a ne konačna dozvola ili zabrana za
+pojedini račun.
 
 ## Pouzdanost i valjanost
 
@@ -761,15 +757,13 @@ Opasnost koja iz toga slijedi glavna je tema ovog poglavlja. Varijabla povezana
 i s pretpostavljenim uzrokom i s ishodom može proizvesti privid veze između njih
 ili prikriti vezu koja postoji.
 
-**Konfundirajuća varijabla** je varijabla koja je povezana i s
-pretpostavljenim uzrokom i s ishodom, pa dio opažene veze među njima potječe
-od nje, a ne od djelovanja uzroka na ishod.
+**Konfundirajuća varijabla** je zajednički uzrok koji prethodi i
+pretpostavljenom uzroku i ishodu te djeluje na oboje, pa njihova opažena veza
+bez njegova uzimanja u obzir ne opisuje samo odnos koji nas zanima.
 
 Ako podaci pokažu da adolescenti koji više koriste Instagram imaju niže
 samopoštovanje, moguće je da korištenje snižava samopoštovanje, da niže
 samopoštovanje potiče korištenje ili da društvena izoliranost povećava oboje.
-Navarro tu pojavu naziva problemom treće varijable i drži je razlogom zbog kojeg
-povezanost ne dokazuje uzročnost (Navarro, 2019).
 
 Konfundiranje je pritom samo jedno od nekoliko objašnjenja koja opažena veza
 dopušta, i vrijedi ih držati odvojenima jer se različito rješavaju. Obrnuti
@@ -783,25 +777,31 @@ protiv njega može nešto učiniti prilagodbom u analizi, i to samo ako je taj
 uzrok izmjeren.
 
 Prepoznavanje konfundera počinje sadržajnim znanjem, a ne naredbom u programu.
-Nijedan postupak ne može iz same tablice pročitati koje varijable pripadaju
-objašnjenju, jer se odnosi među stupcima ne razlikuju po tome je li stupac uzrok
-ili posljedica. Program može prilagoditi model za dob, obrazovanje ili
-prethodno ponašanje tek nakon što netko obrazloži zašto su baš te varijable
-važne i kako su izmjerene. Poglavlje o regresiji tu prilagodbu razrađuje
+Vremenski redoslijed i pretpostavka o uzrocima razlikuju ga od varijabli koje
+ne treba automatski uključiti u model. Posrednik nastaje djelovanjem
+pretpostavljenog uzroka i prenosi dio njegova djelovanja prema ishodu, pa
+prilagodba za njega mijenja pitanje koje postavljamo. Kolajder je zajednička
+posljedica pretpostavljenog uzroka i ishoda, a odabir ili prilagodba prema njemu
+može stvoriti vezu koje prije nije bilo. Program zato ne može iz same tablice
+odlučiti što treba kontrolirati. Poglavlje o regresiji prilagodbu razrađuje
 računski, ali odluku o njezinu sadržaju ostavlja ondje gdje je i sada.
 
-Eksperiment je dizajn koji taj problem rješava u korijenu. Istraživač sam
-određuje vrijednost nezavisne varijable, jedinice raspoređuje nasumično i sve
-ostalo drži jednakim. Nasumična dodjela najvažniji je od ta tri elementa, jer
-ne izjednačava skupine samo po obilježjima kojih se istraživač sjetio nego i po
-onima koje nije izmjerio ni zamislio. Ako se skupine razlikuju samo po uvjetu
-koji smo mi postavili, razlika u ishodu ima samo jedno raspoloživo objašnjenje.
-To je jedini dizajn koji kauzalni zaključak nosi po svojoj konstrukciji.
+Eksperiment je dizajn koji nasumičnom dodjelom prekida sustavnu vezu između
+obilježja jedinica prije tretmana i uvjeta koji će primiti. Istraživač određuje
+vrijednost nezavisne varijable, jedinice raspoređuje nasumično i nastoji sve
+ostale postupke održati jednakima. Kad bismo dodjelu mnogo puta ponovili,
+poznata i nepoznata početna obilježja bila bi u prosjeku uravnotežena među
+skupinama. U jednom stvarnom pokusu slučajna neravnoteža ipak može ostati,
+osobito kada je skupina mala. Nasumična dodjela zato daje ravnotežu u
+očekivanju, a ne jamči ostvarenu jednakost svake skupine. Ona podupire
+usporedbu dodijeljenih uvjeta. Da bismo razliku tumačili i kao učinak primljenog
+tretmana, moramo provjeriti pridržavanje dodjele, jer učinak ponude ili dodjele
+nije isto što i učinak primanja tretmana.
 
 Kako to izgleda u praksi, najlakše je vidjeti na pokusu s dvjema inačicama
 poruke. Isti se tekst opremi dvama naslovima, jednim suzdržanim i jednim
-zaoštrenim, a čitatelji se nasumično razdijele tako da svaka polovica vidi samo
-jedan. Nakon nekog vremena uspoređuje se udio onih koji su tekst otvorili.
+zaoštrenim, a čitatelji se nasumično rasporede tako da svatko vidi samo jedan.
+Nakon nekog vremena uspoređuje se udio onih koji su tekst otvorili.
 Manipulacija je ovdje u tome što naslov dodjeljuje istraživač, a ne čitatelj.
 Nasumičnost je u tome što nitko ne bira koju će inačicu vidjeti. Kontrola je u
 tome što su tekst, vrijeme objave i položaj na stranici jednaki u obje skupine.
@@ -822,13 +822,13 @@ nejednakosti time su sustavno ona na koja najjači dizajn ne može odgovoriti,
 zbog čega su opažačke studije u ovim disciplinama pravilo, a ne ustupak.
 
 Stupanj u kojem u to možemo biti sigurni naziva se internom valjanošću, a
-prijetnje njoj su sve situacije u kojima se među skupine uvuče neplanirana
-sustavna razlika. Vanjski događaj između prvog i drugog mjerenja može
-promijeniti ishod neovisno o intervenciji. Nejednako osipanje sudionika po
-skupinama iskrivljuje usporedbu, jer preostali sudionici više nisu ono što je
-nasumična dodjela stvorila. Sudionici koji naslute svrhu istraživanja mogu se
-ponašati u skladu s pretpostavljenim očekivanjem, pa u ispitivanju medijske
-pismenosti odgovaraju kritičnije nego što doista jesu.
+prijetnje njoj su situacije u kojima se nakon dodjele pojavi neplanirana
+sustavna razlika. Tretman se može preliti na drugu skupinu, vanjski događaj može
+promijeniti ishod neovisno o intervenciji, a nejednako osipanje može ostaviti
+skupine koje više nisu usporedive. Razlika može nastati i ako se ishod mjeri
+drukčije ili s drukčijom pogreškom među uvjetima. Sudionici koji naslute svrhu
+istraživanja mogu se ponašati u skladu s pretpostavljenim očekivanjem, pa u
+ispitivanju medijske pismenosti odgovaraju kritičnije nego što doista jesu.
 
 ## Opažačke studije i doseg zaključka
 
@@ -925,13 +925,14 @@ obiju podskupina stabilan.
 4. Postavite tu povezanost na nulu i provjerite razlikuju li se tada dva
    prikaza uopće.
 
-Posljednji korak imenuje uvjet. Dok treća varijabla ne pomiče ishod, oba
-prikaza govore isto i njezino uključivanje ništa ne mijenja. Konfundiranje traži
-da varijabla bude povezana s objema promatranim veličinama istodobno, a ne samo
-da postoji u podacima. Odatle slijedi i praktična posljedica. Popis mogućih
-konfundera nije popis svega što je izmjereno, nego kratak popis onoga za što
-imamo razlog vjerovati da djeluje na obje strane, i taj razlog dolazi iz teorije,
-a ne iz tablice.
+Posljednji korak imenuje uvjet. Dok treća varijabla ne dodaje pomak ishodu, oba
+prikaza pokazuju isti negativni obrazac. Zbog malih odstupanja procijenjeni
+nagibi nisu potpuno jednaki, ali uključivanje treće varijable ne mijenja
+zaključak. Konfundiranje traži da varijabla bude povezana s objema promatranim
+veličinama istodobno, a ne samo da postoji u podacima. Odatle slijedi i
+praktična posljedica. Popis mogućih konfundera nije popis svega što je
+izmjereno, nego kratak popis onoga za što imamo razlog vjerovati da djeluje na
+obje strane, i taj razlog dolazi iz teorije, a ne iz tablice.
 
 **Statistika u divljini.**
 **Što mjeri stopa prijma.** Zbirna stopa u Berkeleyju opisivala je ishod
@@ -957,12 +958,12 @@ odgovara li svaka predložena varijabla stvarnom instrumentu, tko nedostaje iz
 okvira uzorkovanja i dopušta li dizajn kauzalni zaključak.
 
 Dva su promašaja ovdje osobito česta. Modeli redovito predlažu popis
-konfundera koji je dug i uvjerljiv, a pritom ne razlikuju varijable koje
-prethode pretpostavljenom uzroku od onih koje su njegova posljedica, iako se
-prilagodba za posljedicu ne smije provesti. Uz to skloni su kauzalnom jeziku i
-za nacrte koji ga ne podnose, pa opažačku studiju opisuju glagolima poput
-utječe ili smanjuje. Provjerite svaku predloženu varijablu prema tome kada
-nastaje i preformulirajte svaku rečenicu koja tvrdi djelovanje.
+konfundera koji je dug i uvjerljiv, a pritom ne razlikuju zajedničke uzroke od
+posrednika i kolajdera. Slijepa prilagodba zato može ukloniti dio odnosa koji
+nas zanima ili stvoriti novu pristranost. Modeli su uz to skloni kauzalnom
+jeziku i za nacrte koji ga ne podnose, pa opažačku studiju opisuju glagolima
+poput utječe ili smanjuje. Provjerite svaku predloženu varijablu prema tome
+kada nastaje i preformulirajte svaku rečenicu koja tvrdi djelovanje.
 
 > Za ovo istraživačko pitanje predloži jedinicu analize, način mjerenja ishoda,
 > mogući konfundirajući čimbenik i dizajn. Za svaku predloženu varijablu navedi
@@ -974,10 +975,6 @@ U opažačkoj anketi studenti koji dulje koriste društvene mreže prijavili su
 niže povjerenje u institucije. Obje su varijable izmjerene istim upitnikom i
 analiza je uključila dob. Rezultat zato dokazuje da dulje korištenje društvenih
 mreža smanjuje povjerenje.
-
-Greška je tvrdnja o dokazanom uzroku. Istodobno mjerenje dviju varijabli i
-prilagodba za dob ne uklanjaju obrnuti smjer veze ni druge neizmjerene
-konfundirajuće čimbenike.
 
 ## Razrađeni primjer
 
@@ -997,10 +994,11 @@ u istom smjeru kao ostatak instrumenta.
 
 Tablica odmah pokazuje nepravilnost. Prve tri tvrdnje snažno se slažu s
 ostatkom instrumenta, dok četvrta ide u suprotnom smjeru i s ostatkom je
-povezana negativno, na razini od `r hr_broj(s2$t4_prije, 2)`. To nije znak da je
-tvrdnja loša. To je posljedica njezine niječne formulacije, zbog koje visok
-odgovor na njoj znači nisko povjerenje. Ista brojka koja u prve tri tvrdnje
-znači povjerenje u četvrtoj znači njegovu odsutnost.
+povezana negativno, na razini od `r hr_broj(s2$t4_prije, 2)`. U ovom
+konstruiranom primjeru uzrok znamo unaprijed jer smo četvrtu tvrdnju namjerno
+napisali niječno i zadržali izvorno kodiranje. Visok odgovor na njoj znači
+nisko povjerenje, dok ista brojka u prve tri tvrdnje znači više povjerenja.
+Sama negativna povezanost u stvarnom instrumentu ne bi dokazala taj uzrok.
 
 Popravak je jednostavan i sastoji se u okretanju ljestvice te jedne tvrdnje,
 tako da od najveće moguće vrijednosti uvećane za jedan oduzmemo dani odgovor.
@@ -1018,13 +1016,14 @@ ostale mjere, pa bi instrument izgledao kao da su svi ispitanici slični.
 Zaključak takve analize bio bi da se povjerenje među ljudima jedva razlikuje, i
 to bez ijedne pogreške u samom računu.
 
-Nalaz iz ove dijagnostike vrijedi zapamtiti kao obrazac, jer se sreće i u tuđim
-podacima. Stavka koja je s ostatkom instrumenta povezana negativno gotovo je
-uvijek niječno formulirana stavka koju je netko zaboravio okrenuti. Prije nego
-što se takva tvrdnja proglasi lošom i izbaci, treba pogledati njezin puni tekst.
-Ako je tvrdnja niječna, popravak je okretanje, a ne izbacivanje, i instrument
-ostaje potpun. Ako tvrdnja nije niječna, a ipak ide protiv ostatka, tada doista
-mjeri nešto drugo i pitanje postaje sadržajno.
+Nalaz iz ove dijagnostike vrijedi zapamtiti kao upozorenje, a ne kao dokaz o
+jednom uzroku. Zaboravljeno obrnuto kodiranje prva je mogućnost koju treba
+provjeriti. Negativna se povezanost može pojaviti i kada tvrdnja zahvaća drugu
+dimenziju pojma, kada je prijevod promijenio njezino značenje, kada je
+formulacija dvosmislena ili kada dio ispitanika odgovara nepažljivo. Dijagnoza
+zato traži puni tekst tvrdnje, ključ kodiranja, obrasce odgovora i provjeru što
+se događa nakon sadržajno opravdanog okretanja. Automatsko okretanje ili
+izbacivanje bez tih provjera može samo prikriti drukčiji mjerni problem.
 
 Ono što je ovim postupkom postignuto ipak treba precizno imenovati. Pokazali smo
 da se četiri tvrdnje kreću zajedno, što je dokaz o unutarnjoj dosljednosti
@@ -1047,11 +1046,12 @@ Mjerenje prevodi teorijske pojave u opažanja, a istraživački dizajn određuje
 dokle zaključak smije dosegnuti. Pouzdanost, valjanost i razina mjerenja nisu
 tehnički dodatci nakon prikupljanja podataka, nego svojstva odluka donesenih
 prije njega, a razrađeni primjer pokazao je da jedna previđena formulacija može
-prepoloviti razlike među ispitanicima bez ijedne pogreške u računu. Konfundirajuća
-varijabla objašnjava zašto povezanost sama ne nosi uzrok, a nasumična dodjela
-zašto pokus taj problem rješava ondje gdje je uopće izvediva. Kako se ta
-prilagodba za treće čimbenike provodi računski, pokazuje poglavlje o regresiji.
-Sljedeće poglavlje okreće pogled prema tvrdnjama koje sve te odluke skrivaju.
+prepoloviti razlike među ispitanicima bez ijedne pogreške u računu. Zajednički
+uzrok objašnjava zašto povezanost sama ne nosi uzrok, dok nasumična dodjela
+stvara ravnotežu u očekivanju i traži provjeru provedbe, pridržavanja,
+prelijevanja, osipanja i mjerenja. Kako se promišljena prilagodba za zajedničke
+uzroke provodi računski, pokazuje poglavlje o regresiji. Sljedeće poglavlje
+okreće pogled prema tvrdnjama koje sve te odluke skrivaju.
 
 ## Pojmovi
 
@@ -1107,10 +1107,10 @@ opravdana i zašto taj dizajn ovdje vjerojatno nije izvediv.
 # Kako brojke zavode
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1207,10 +1207,6 @@ navedeni izvor i provjerava postoji li broj u njemu.
 Anketa pokazuje vodstvo jedne opcije, ali se intervali procjena dviju opcija
 preklapaju. Zbog preklapanja možemo zaključiti da među njima sigurno nema
 razlike. Uzorak je opisan, a postoci se zbrajaju do cjeline.
-
-Greška je zaključak da preklapanje intervala dokazuje nepostojanje razlike.
-Odnos dviju procjena mora se procijeniti izravno, uz dizajn ankete i ovisnost
-procjena, a ne samo pogledom na dva odvojena intervala.
 
 ## Razrađeni primjer
 

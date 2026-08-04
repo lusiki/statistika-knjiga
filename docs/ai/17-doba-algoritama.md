@@ -1,10 +1,10 @@
 # Statistika u doba algoritama
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/17-doba-algoritama.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -16,8 +16,8 @@
 Chouldechova je analizirala instrumente za predviđanje povratka u kriminal i
 pokazala da se poželjna mjerila pravednosti mogu sukobiti kada se temeljne
 stope razlikuju među skupinama (Chouldechova, 2017). Jednako tumačenje
-predviđenog rizika, jednake stope lažno pozitivnih odluka i jednaka ukupna
-točnost ne mogu se uvijek postići istodobno.
+predviđenog rizika te jednake stope lažno pozitivnih i lažno negativnih odluka
+ne mogu se uvijek postići istodobno.
 
 To nije samo matematička neugodnost. Prag modela odlučuje tko će biti
 zaustavljen, provjeren, preporučen ili uskraćen. Pogreške imaju različite
@@ -125,10 +125,6 @@ neobrazloženom tvrdnjom da je jedno „najpoštenije".
 **Nađite grešku.**
 Model ima jednaku ukupnu točnost u dvjema skupinama, a prag je za obje jednak.
 Zato je algoritam pravedan i nije potrebno pregledavati zasebne stope pogreške.
-
-Greška je zaključak da jednaka ukupna točnost dokazuje pravednost. Lažno
-pozitivne i lažno negativne odluke mogu se različito rasporediti unatoč istoj
-točnosti.
 
 ## Razrađeni primjer
 

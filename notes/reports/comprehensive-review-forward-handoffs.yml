@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-03"
+last_updated: "2026-08-04"
 inventory_child_count: 371
 
 protocol:
@@ -403,7 +403,24 @@ handoffs:
     deliveries:
       - target_packet: P1C-INTEGRITY
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1C-INTEGRITY kept the token, hard-style, fixed-core structure,
+          figure-introduction, citation, concept, and current-data gates
+          independent of the accepted PDF path. Every production command is
+          independently callable, every Bookwright diagnostic resolves from
+          the checkout-local source, the workflow makes all seven lanes
+          blocking, and one deliberate defect per lane returned nonzero from
+          the exact locked implementation commit. PDF, exports, browser,
+          parity, and configuration-driven inventories were not changed.
+        evidence:
+          - commit:919b0b1ed430e64e653284e7962511ae50335409
+          - integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147
+          - check:P1C_INTEGRITY_CLEAN_PROOF_OK-worktree-clean-lanes-7
+          - fixture:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7
+          - report:notes/reports/p1c-integrity-gates-2026-08-04.md
 
   H-P0-REGISTER-006:
     source_packet: P0-REGISTER
@@ -1038,7 +1055,24 @@ handoffs:
     deliveries:
       - target_packet: P1C-LOCK
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1C-LOCK replaced the temporary README warning only after the exact
+          lock inputs were committed at 945e7cc, the single public restore
+          command rebuilt R and Playwright/Chromium from fresh cache and
+          library paths with no tracked changes, and the missing-browser-lock
+          fixture failed closed with exit 2. scripts/init-renv.R is now the
+          locked R stage behind that combined restore command rather than an
+          advertised preparatory installer.
+        evidence:
+          - commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb
+          - dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+          - report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md
+          - check:cold-restore-fresh-r-npm-playwright-caches-zero-git-status
+          - fixture:missing-browser-lock-exit-2
+          - source:README.md-single-public-restore-command
 
   H-P1B-META-002:
     source_packet: P1B-META
@@ -1068,7 +1102,24 @@ handoffs:
     deliveries:
       - target_packet: P1C-PDF
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1C-PDF retained the accurate warning until commit f2c4f82 had
+          established the wrapper-only blocking path and the detached locked
+          proof had replaced the old PDF hash with a fresh matching source and
+          served artifact. README now describes exactly that implemented
+          behavior without promising an edition or publication. The packet
+          performed no external action and used no previously committed PDF as
+          positive build evidence.
+        evidence:
+          - commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6
+          - pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866
+          - report:notes/reports/p1c-pdf-release-path-2026-08-04.md
+          - check:locked-clean-positive-PDF_BUILD_OK-cb57918e-2570017-bytes
+          - fixture:wrapper-build-and-stale-missing-failures-return-nonzero-zero-PDFs
+          - source:README.md-wrapper-only-blocking-stale-safe-description
 
   H-P1B-META-003:
     source_packet: P1B-META
@@ -1170,6 +1221,324 @@ handoffs:
     deliveries:
       - target_packet: P1B-GOV
         gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1B-GOV accepts H-G-A1D-001 as its exact implementation boundary
+          before the first substantive edit. The packet will create only a
+          local pre-release governance schema and Croatian reader-facing
+          sources, retain Osnove statistike za društvene znanosti as the D14
+          working title, leave final authorship, edition, version, date,
+          citation identifier, tag, archive identifier, term edition, and
+          public errata submission target unfrozen or unset, and demonstrate
+          state transitions without persisting a release state. Luka Sikic is
+          recorded only in the approved release, archive, and errata owner
+          roles. Push, merge, tag, archival deposit, deployment, publication,
+          later-packet acceptance, and inferred cross-action authority remain
+          prohibited.
+        evidence:
+          - conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic
+          - decision:G-A1d
+          - decision:D14
+          - outside-ask:OA-G-A1D-EDITION-MECHANISM-done
+          - outside-ask:OA-G-A1D-ARCHIVE-OWNER-done
+          - outside-ask:OA-G-A1D-ERRATA-OWNER-done
+          - outside-ask:OA-G-A1D-RELEASE-OWNER-done
+          - contract:packet_contracts.release_governance
+          - source:notes/reports/comprehensive-book-review-2026-07-31.md-edition-citation-and-errata
+          - authority:push-merge-tag-archive-deploy-publication-false
+          - check:scripts/check-review-workflow.R-after-consumption-before-substantive-edit
+
+  H-P1B-GOV-001:
+    source_packet: P1B-GOV
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R06-GOV-contract
+      - item:R06-RELEASE-changelog
+      - item:R06-RELEASE-citation
+      - item:R06-RELEASE-archive
+      - item:R06-RELEASE-term-freeze
+      - item:R06-RELEASE-errata
+      - report:notes/reports/p1b-release-governance-2026-08-04.md
+    statement: >-
+      P1B-GOV established release/governance.yml as the canonical pre-release
+      state, with Croatian changelog and citation surfaces, a SHA-256
+      provenance manifest, an archive plan, a term-freeze policy, and an owned
+      dated errata source and log. The current state is pre_release; D14 remains
+      the working-title boundary; all final metadata, immutable identifiers,
+      release artifacts, persisted transitions, and public submission targets
+      remain unset. Luka Sikic is the accepted release, archive, and errata
+      owner; term-freeze ownership still requires G-A5c.
+    required_action: >-
+      Later release packets must update these canonical sources rather than
+      create competing metadata. P7-FREEZE records the exact candidate source,
+      locks, and data; P7-CLEAN-BUILD adds the cross-format artifact matrix;
+      G-A5c confirms term-freeze ownership; P8-META freezes approved metadata
+      and reconciles changelog, citation, colophon, and errata; P8-ARCHIVE and
+      P8-DEPLOY may execute the plan and activate the routes only after their
+      exact G-A6 gates. Re-run scripts/check-release-governance.R after every
+      such change and never infer authority across actions.
+    basis:
+      - governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002
+      - source:release/governance.yml
+      - source:release/provenance.yml
+      - check:scripts/check-release-governance.R-passed
+      - decision:G-A1d
+      - decision:D14
+    required: true
+    deliveries:
+      - target_packet: P7-FREEZE
+        gate: before_close
+        state: pending
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+      - target_packet: G-A5c
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_start
+        state: pending
+      - target_packet: P8-ARCHIVE
+        gate: before_start
+        state: pending
+      - target_packet: P8-DEPLOY
+        gate: before_start
+        state: pending
+
+  H-P1C-LOCK-001:
+    source_packet: P1C-LOCK
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R05-LOCK-renv
+      - packet:P1C-BROWSER
+      - packet:P7-FREEZE
+      - report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md
+    statement: >-
+      Commit 945e7cc is the proved dependency source: R 4.6.0 and renv 1.2.4
+      are locked in renv.lock; Node 24.15.0, npm 11.12.1, Playwright 1.62.1,
+      and its Chromium revision 1234 are locked by .node-version, package.json,
+      and package-lock.json. The single public restore command installs and
+      verifies both lanes. The live browser audit intentionally remains
+      unchanged in P1C-LOCK and still names NODE_PATH and a developer-local
+      Chrome path.
+    required_action: >-
+      P1C-BROWSER must consume the committed manifest and Playwright browser,
+      remove the undeclared NODE_PATH and hard-coded Chrome dependency, and
+      prove the portable blocking interaction smoke test without changing the
+      lock inputs silently. P7-FREEZE must record these canonical lockfiles,
+      exact runtime versions, and accepted hashes in the release-candidate
+      provenance record.
+    basis:
+      - commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb
+      - dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+      - check:cold-restore-cache-disabled-fresh-libraries-and-browser-path
+      - source:scripts/audit-rendered-html.js-live-P1C-BROWSER-boundary
+    required: true
+    deliveries:
+      - target_packet: P1C-BROWSER
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1C-BROWSER consumes the accepted dependency manifest as its exact
+          implementation boundary before packet claim. The browser smoke audit
+          will resolve Playwright only from the committed local package, launch
+          the Chromium revision installed by that package without NODE_PATH or
+          a developer-local executable path, and leave package.json,
+          package-lock.json, .node-version, renv.lock, and the dependency
+          restore contract unchanged. The packet is limited to the existing
+          rendered-HTML audit, one blocking workflow caller, one deliberate
+          browser-path fixture, and durable evidence; parity, inventories,
+          exports, catalogue, assessment, chapters, and general browser
+          coverage remain outside scope.
+        evidence:
+          - commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb
+          - dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+          - report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md
+          - source:package.json-playwright-1.62.1
+          - source:package-lock.json-playwright-and-playwright-core-1.62.1
+          - source:.node-version-24.15.0
+          - check:local-locked-runtime-node-24.15.0-npm-11.12.1-playwright-1.62.1-chromium-1234
+          - source:scripts/audit-rendered-html.js-pre-edit-NODE_PATH-and-developer-Chrome-boundary
+      - target_packet: P7-FREEZE
+        gate: before_close
+        state: pending
+
+  H-P1C-PDF-001:
+    source_packet: P1C-PDF
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - packet:P2-DOCS
+      - item:R06-META-readme
+      - source:AGENTS.md
+      - report:notes/reports/p1c-pdf-release-path-2026-08-04.md
+    statement: >-
+      The live PDF wrapper and publish workflow are now blocking and stale-safe,
+      and README states the new behavior. AGENTS.md still describes the old
+      continue-on-error PDF attempt and therefore no longer matches the live
+      production path. That governing-document reconciliation was deliberately
+      kept outside the narrow P1C-PDF implementation surface.
+    required_action: >-
+      In P2-DOCS, update only the stale AGENTS.md deployment description to the
+      accepted wrapper-only blocking behavior while reconciling the other
+      already-recorded governing-document markers. Do not broaden the text into
+      a release or publication promise and do not change the implemented path.
+    basis:
+      - commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6
+      - pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866
+      - source:AGENTS.md-deployment-continue-on-error-description
+      - source:.github/workflows/publish.yml-wrapper-only-blocking-path
+    required: true
+    deliveries:
+      - target_packet: P2-DOCS
+        gate: before_close
+        state: pending
+
+  H-P1C-INTEGRITY-001:
+    source_packet: P1C-INTEGRITY
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R05-CI-figure
+      - item:R28-C05-introduction
+      - packet:WB-C05
+      - source:scripts/integrity-debt.json
+    statement: >-
+      The blocking figure-introduction gate admits exactly one pre-existing,
+      registered debt: chapters/05-vizualizacija.qmd figure fig-anscombe,
+      owned by R28-C05-introduction in WB-C05. Any additional or changed
+      finding fails immediately, and a repaired figure with the debt entry
+      still present also fails as a stale exception.
+    required_action: >-
+      WB-C05 must add the approved Croatian introduction immediately before
+      fig-anscombe, remove only its exact figure_introductions entry from
+      scripts/integrity-debt.json, and rerun the blocking figure command and
+      its deliberate unregistered-figure fixture before closeout.
+    basis:
+      - commit:919b0b1ed430e64e653284e7962511ae50335409
+      - check:FIGURE_INTRO_OK-registered-debt-1-unexpected-0-stale-0
+      - fixture:unregistered-figure-introduction-exit-1
+    required: true
+    deliveries:
+      - target_packet: WB-C05
+        gate: before_close
+        state: pending
+
+  H-P1C-INTEGRITY-002:
+    source_packet: P1C-INTEGRITY
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R05-CI-concepts
+      - item:R04-TERMS-concept-regeneration
+      - packet:P2-TERMS
+      - source:scripts/integrity-debt.json
+    statement: >-
+      The blocking concept gate freezes the exact pre-ratification mismatch
+      among 46 live definitions, the concept ledger, and the generated graph
+      under cryptographic fingerprints. Any definition, ledger, graph, edge,
+      or consumer change outside those fingerprints fails. The exception is
+      temporary and owned by R04-TERMS-concept-regeneration in P2-TERMS.
+    required_action: >-
+      P2-TERMS must ratify and reconcile the live definitions and canonical
+      ledger, regenerate data/concept-graph.json from the accepted source,
+      remove the concept_ledger and concept_graph debt entries, and rerun the
+      blocking concept command plus its duplicate-definition fixture before
+      closeout.
+    basis:
+      - commit:919b0b1ed430e64e653284e7962511ae50335409
+      - check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false
+      - fixture:duplicate-definition-id-exit-1
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: pending
+
+  H-P1C-EXPORT-001:
+    source_packet: P1C-EXPORT
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R05-EXPORT-failclosed
+      - packet:P2-ASSESS
+      - packet:P5-ROUTES
+      - source:R/build-ai-exports.R
+      - report:notes/reports/p1c-export-release-path-2026-08-04.md
+    statement: >-
+      The public release export now excludes every content-visible block with
+      a when-profile attribute, audits the normalized bodies of all protected
+      regions in Chapters 00-18 and the appendices, rejects unexpected stale
+      docs/ai Markdown artifacts, and fails nonzero on a protected-content
+      leak. Current public inputs are the 19 declared chapters; appendices are
+      audited as possible future inputs but are not exported.
+    required_action: >-
+      P2-ASSESS must make the export boundary part of the ratified answer and
+      instructor-visibility architecture: future D06 and other protected
+      content must live either on a route excluded from the public AI-export
+      inputs or inside a content-visible when-profile block. P5-ROUTES must
+      verify the final route inventory with the independent release command,
+      post-build validation, and protected-leak fixture; it may not infer
+      safety from a label such as solution or instructor.
+    basis:
+      - commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00
+      - export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de
+      - check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-20
+      - fixture:protected-content-leak-exit-1
+    required: true
+    deliveries:
+      - target_packet: P2-ASSESS
+        gate: before_close
+        state: pending
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
+  H-P1C-EXPORT-002:
+    source_packet: P1C-EXPORT
+    created_at: "2026-08-04"
+    kind: risk
+    refs:
+      - packet:P7-FREEZE
+      - packet:P8-META
+      - source:release/provenance.yml
+      - source:_quarto.yml
+      - source:scripts/check-release-governance.R
+      - report:notes/reports/p1c-export-release-path-2026-08-04.md
+    statement: >-
+      The accepted pre-release provenance manifest records SHA-256 080dc1c5...
+      for _quarto.yml, while the clean tracked blob at the P1C-EXPORT source
+      state has SHA-256 a43fabaf.... Consequently check-release-governance.R
+      reports that one manifest mismatch in a clean checkout. This checksum
+      drift predates P1C-EXPORT; the exporter itself reads the canonical
+      governance values and independently blocks title or export-metadata
+      drift.
+    required_action: >-
+      P7-FREEZE must derive the candidate provenance from canonical Git bytes
+      and demonstrate every recorded hash in a clean checkout. P8-META must
+      consume that candidate evidence when freezing final metadata, keep
+      release/governance.yml as the sole release-metadata authority, rerun
+      check-release-governance.R, and rerun the AI-export metadata-drift
+      fixture. Do not paper over the mismatch with worktree-specific line
+      endings or a competing metadata record.
+    basis:
+      - commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00
+      - expected-sha256:080dc1c524139aef32813d9db26bff49f01b0697ef8911fba516399a23ed1ac6
+      - tracked-sha256:a43fabafc8a56005ee1601a7d84bed5777da392e1e33406673c301db63ab5718
+      - check:check-release-governance-R-exit-1-single-quarto-manifest-mismatch
+    required: true
+    deliveries:
+      - target_packet: P7-FREEZE
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -1655,3 +2024,123 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1B-GOV
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - no chapter prose or code changed and P1B-GOV was not started
+  P1B-GOV:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-GOV-001
+    implementation_state: governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002
+    checks:
+      - H-G-A1D-001 was acknowledged and consumed with exact disposition and evidence before the first substantive edit
+      - D14 working title and the accepted release archive and errata owners are recorded in the canonical governance schema
+      - edition version release date final citation persistent identifier tag archive identifier term edition and public errata target remain unset
+      - the non-persisting state-transition demonstration was blocked by missing G-A5b as designed
+      - Croatian changelog draft citation artifact provenance archive plan term-freeze policy and owned dated errata source and log are implemented
+      - scripts/check-release-governance.R passed with every external-authority flag false and every manifest hash matching
+      - checkout-local style lint returned zero candidates for index.qmd and errata.qmd and the manual Croatian pass completed
+      - token validation and targeted HTML renders for index.qmd and errata.qmd passed
+      - generated pre-render artifacts were restored outside the packet diff and no docs or freeze artifact is changed
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-LOCK
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - H-P1B-GOV-001 records every future-relevant canonical-path and gate effect
+      - no push merge tag archival deposit deployment publication or later-packet acceptance occurred
+  P1C-LOCK:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1C-LOCK-001
+    implementation_state: dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+    checks:
+      - H-P1B-META-001 was acknowledged before the first substantive edit and consumed with exact disposition and evidence before closeout
+      - exact R Node npm Playwright and Chromium inputs were committed at 945e7cc before the public command was documented
+      - the combined restore rebuilt 63 locked R packages and the pinned Chromium revision from fresh cache library and browser paths
+      - the cold proof worktree remained clean and required no _freeze warm cache untracked package or developer-local package installation
+      - the missing-browser-lock fixture failed closed with exit 2 before installation and no unlocked fallback exists
+      - CI now requires renv.lock and package-lock.json while the PDF integrity and browser-audit behavior remain in their separate packets
+      - README exposes exactly one combined public restore command after the positive proof
+      - H-P1C-LOCK-001 records the exact later browser-portability and release-freeze effects
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-PDF
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1C-PDF P1C-INTEGRITY P1C-BROWSER and all later packets were not started
+  P1C-PDF:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1C-PDF-001
+    implementation_state: pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866
+    checks:
+      - H-P1B-META-002 was acknowledged before the first substantive edit and consumed with exact disposition and evidence before closeout
+      - commit f2c4f8242d14722876549d0cc8fbc25989cdc5c6 contains the only PDF wrapper call in the workflow and no bare profile fallback
+      - the PDF workflow step is blocking runs before generated HTML changes and has no separate copy or stale-warning branch
+      - the wrapper removes both old PDFs validates canonical configuration and accepts only a signed fresh artifact with matching source and served SHA-256
+      - a detached clean worktree restored locked R and browser dependencies into fresh paths and remained free of tracked changes before the build
+      - the real wrapper build replaced old hash b5b18b with fresh hash cb5791 at 2570017 bytes and verified byte-identical source and served copies
+      - wrapper-preflight build-command and stale-missing-artifact fixtures each failed nonzero left configuration unchanged and removed both PDF outputs
+      - README was updated only after all positive and negative evidence passed and still labels artifacts as development outputs
+      - H-P1C-PDF-001 records the remaining AGENTS.md governing-text reconciliation for P2-DOCS
+      - no built PDF was committed or published and no push merge tag archive deployment or Pages action occurred
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-INTEGRITY
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1C-INTEGRITY P1C-EXPORT and all later packets were not started
+  P1C-INTEGRITY:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1C-INTEGRITY-001
+      - H-P1C-INTEGRITY-002
+    implementation_state: integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147
+    checks:
+      - H-P0-REGISTER-005 was acknowledged before the first substantive edit and consumed with exact disposition and evidence before closeout
+      - commit 919b0b1 makes token hard-style fixed-core structure figure citation concept and current-data checks blocking in the publish workflow
+      - every command remains independently callable and every Bookwright R diagnostic uses the checkout-local launcher and source path
+      - a detached worktree restored R 4.6.0 Node 24.15.0 npm 11.12.1 Playwright 1.62.1 and Chromium revision 1234 into fresh cache library package and browser paths
+      - the exact implementation commit passed all seven positive lanes and left the detached worktree clean
+      - one deliberate token style structure figure citation concept and data defect returned exit 1 and the fixture harness returned INTEGRITY_NEGATIVE_FIXTURES_OK lanes 7
+      - the exact registered fig-anscombe and pre-ratification concept debts are fingerprinted and any new changed or stale exception fails closed
+      - H-P1C-INTEGRITY-001 and H-P1C-INTEGRITY-002 route retirement of those exact debts to WB-C05 and P2-TERMS
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-EXPORT
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1C-EXPORT P1C-PARITY P1C-BROWSER P1C-INVENTORY and all later packets were not started
+  P1C-EXPORT:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1C-EXPORT-001
+      - H-P1C-EXPORT-002
+    implementation_state: export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de
+    checks:
+      - no applicable incoming handoff targeted P1C-EXPORT
+      - commit ac7c34f makes the independent release export and its post-render validation blocking without a stale fallback
+      - all content-visible when-profile bodies are removed and 20 current protected regions across chapters and appendices are audited
+      - release metadata comes from release/governance.yml and its declared authorship source and records both current authors
+      - a detached worktree restored the exact R Node npm Playwright and Chromium locks into fresh paths and remained clean after proof
+      - the positive release path exported 19 chapters and six part bundles with governance state pre_release without publishing
+      - deliberate missing-chapter protected-leak and metadata-drift fixtures each returned exit 1
+      - H-P1C-EXPORT-001 carries the future assessment and route boundary to P2-ASSESS and P5-ROUTES
+      - H-P1C-EXPORT-002 records the pre-existing clean-checkout provenance checksum risk for P7-FREEZE and P8-META
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-BROWSER
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1C-BROWSER P1C-PARITY P1C-INVENTORY and all later packets were not started
+  P1C-BROWSER:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P1C-BROWSER found no new future-relevant effect. Full semantic
+      accessibility and broader browser proof already belong to P7-A11Y and
+      P7-HTML, while parity and configuration-driven inventories remain in
+      P1C-PARITY and P1C-INVENTORY. H-P1C-LOCK-001 already carries the
+      canonical lock provenance to P7-FREEZE, so another handoff would add no
+      information.
+    implementation_state: browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7
+    checks:
+      - H-P1C-LOCK-001 was consumed with exact lock and scope evidence before packet claim
+      - commit 8b04c6cec15972d85416f4d9b2cd5f49a8776d3e resolves only the checkout-local Playwright package and its installed Chromium
+      - package.json package-lock.json .node-version renv.lock and scripts/restore-dependencies.py are unchanged from the accepted P1C-LOCK source
+      - the independently callable smoke audit passed keyboard reset live-region dark-mode and 1280/390 responsive checks
+      - a detached worktree restored fresh R npm node_modules and browser paths and remained clean after the positive and negative proof
+      - an invalid NODE_PATH was ignored and no developer-local Chrome path or executable override remains
+      - the deliberate missing-route fixture returned HTTP 404 and exit 1 and the harness reported BROWSER_SMOKE_NEGATIVE_FIXTURES_OK
+      - workflow Chromium installation positive smoke and negative fixture are blocking before Pages setup and artifact upload
+      - node syntax static rendered-HTML source-diff whitespace workflow and both required control negative fixtures passed
+      - no render upload deployment publication parity export inventory catalogue assessment or chapter work occurred

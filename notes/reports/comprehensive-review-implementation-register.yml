@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-03"
+  last_updated: "2026-08-04"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A1d"
-  next_permitted_packet: "P1B-GOV"
+  last_completed_packet: "P1C-BROWSER"
+  next_permitted_packet: "P1C-PARITY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3082,7 +3082,7 @@ packets:
     sequence: 34
     phase: "1B"
     kind: "release_governance"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A1d"
       - "P1B-META"
@@ -3094,18 +3094,63 @@ packets:
       - "Version, citation, changelog, archive, term-freeze, errata, and provenance mechanisms are defined."
       - "No push, tag, archive, or deployment occurs under the governance setup packet."
       - "The P1B-GOV packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+      required_evidence:
+        - requirement: "approved governance schema"
+          artifacts:
+            - "source:release/governance.yml"
+            - "report:notes/reports/p1b-release-governance-2026-08-04.md"
+            - "decision:G-A1d"
+        - requirement: "named owners"
+          artifacts:
+            - "source:release/governance.yml#owners"
+            - "source:release/errata.yml#owner"
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+        - requirement: "pre-release mechanism demonstration"
+          artifacts:
+            - "source:release/provenance.yml"
+            - "check:scripts/check-release-governance.R-passed"
+            - "render:tmp/p1b-gov-render-index-and-errata-passed"
+      outputs:
+        - output: "P1B-GOV durable artifact and evidence record for: Pre-release governance mechanism without external publication."
+          artifacts:
+            - "report:notes/reports/p1b-release-governance-2026-08-04.md"
+            - "source:release/governance.yml"
+            - "source:CHANGELOG.md-index.qmd-tex/colophon.tex-errata.qmd"
+        - output: "Completion evidence is tied to the declared P1B-GOV source state and bounded scope."
+          artifacts:
+            - "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+            - "source:release/provenance.yml#manifest"
+      exit_tests:
+        - test: "Version, citation, changelog, archive, term-freeze, errata, and provenance mechanisms are defined."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-release-governance.R-passed"
+            - "report:notes/reports/p1b-release-governance-2026-08-04.md#uspostavljeni-mehanizmi"
+        - test: "No push, tag, archive, or deployment occurs under the governance setup packet."
+          result: "passed"
+          evidence:
+            - "check:all-seven-release-authority-flags-false"
+            - "check:zero-persisted-state-transitions-zero-release-artifacts"
+            - "authority:no-push-merge-tag-archive-deploy-publication"
+        - test: "The P1B-GOV packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+            - "handoff:H-G-A1D-001-consumed-before-first-substantive-edit"
+            - "handoff:H-P1B-GOV-001-records-all-future-effects"
     contract: "release_governance"
     required_evidence:
       - "approved governance schema"
       - "named owners"
       - "pre-release mechanism demonstration"
-    change_reference: null
+    change_reference: "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
   P1C-LOCK:
     sequence: 35
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-STATE"
     scope: "Pinned R and browser dependencies."
@@ -3116,18 +3161,61 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-LOCK packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md#pozitivna-hladna-obnova"
+            - "check:cold-restore-fresh-r-npm-playwright-caches-zero-git-status"
+        - requirement: "positive test"
+          artifacts:
+            - "check:R_RESTORE_OK-R-4.6.0-19-direct-22-detected"
+            - "check:BROWSER_RESTORE_OK-playwright-1.62.1-chromium-1234"
+            - "check:DEPENDENCY_RESTORE_OK-no-unlocked-fallback"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:missing-browser-lock-exit-2"
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md#namjerno-neuspjesna-provjera"
+      outputs:
+        - output: "P1C-LOCK durable artifact and evidence record for: Pinned R and browser dependencies."
+          artifacts:
+            - "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-LOCK source state and bounded scope."
+          artifacts:
+            - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+            - "scope:pinned-r-and-browser-dependencies-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "fixture:missing-browser-lock-exit-2-before-installation"
+            - "check:ci-renv-lock-has-no-ad-hoc-fallback"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+            - "check:cold-restore-cache-disabled-fresh-libraries-and-browser-path"
+            - "check:clean-proof-worktree-zero-tracked-changes"
+        - test: "The P1C-LOCK packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
+            - "handoff:H-P1B-META-001-consumed-with-exact-disposition"
+            - "handoff:H-P1C-LOCK-001-records-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
   P1C-PDF:
     sequence: 36
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1C-LOCK"
     scope: "Wrapper-only, blocking, stale-safe PDF path."
@@ -3138,18 +3226,63 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-PDF packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+            - "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+            - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md#pozitivna-zakljucana-izgradnja"
+            - "check:cold-restore-fresh-paths-prebuild-zero-tracked-changes"
+        - requirement: "positive test"
+          artifacts:
+            - "check:PDF_BUILD_OK-commit-f2c4f82-sha256-cb57918e-bytes-2570017"
+            - "check:source-and-served-PDF-signature-and-sha256-match"
+            - "check:old-b5b18b-PDF-invalidated-before-fresh-cb5791-build"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:wrapper-preflight-failure-exit-1-zero-PDFs"
+            - "fixture:build-command-failure-exit-1-zero-PDFs"
+            - "fixture:stale-missing-artifact-exit-1-zero-PDFs"
+      outputs:
+        - output: "P1C-PDF durable artifact and evidence record for: Wrapper-only, blocking, stale-safe PDF path."
+          artifacts:
+            - "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
+            - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-PDF source state and bounded scope."
+          artifacts:
+            - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+            - "scope:wrapper-workflow-fixture-and-README-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-wrapper-step-has-no-continue-on-error-or-fallback-copy"
+            - "fixture:three-independent-failure-paths-return-nonzero-and-remove-both-PDFs"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+            - "check:cold-restore-new-R-npm-and-browser-paths"
+            - "check:real-wrapper-build-required-clean-commit-and-replaced-old-hash"
+        - test: "The P1C-PDF packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
+            - "handoff:H-P1B-META-002-consumed-with-exact-disposition"
+            - "handoff:H-P1C-PDF-001-records-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
   P1C-INTEGRITY:
     sequence: 37
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1C-LOCK"
       - "P1C-PDF"
@@ -3161,18 +3294,60 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-INTEGRITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+            - "check:P1C_INTEGRITY_CLEAN_PROOF_OK-worktree-clean-lanes-7"
+            - "check:R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1"
+        - requirement: "positive test"
+          artifacts:
+            - "check:token-style-structure-figure-citation-concept-data-positive-markers"
+            - "check:workflow-seven-blocking-integrity-steps"
+            - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:seven-lane-expected-failures-exit-1"
+            - "check:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+      outputs:
+        - output: "P1C-INTEGRITY durable artifact and evidence record for: Blocking token, structure, style, figure, citation, concept, and data checks."
+          artifacts:
+            - "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
+            - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-INTEGRITY source state and bounded scope."
+          artifacts:
+            - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+            - "scope:workflow-and-seven-integrity-lanes-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-has-no-continue-on-error-for-integrity-steps"
+            - "fixture:token-style-structure-figure-citation-concept-data-exit-1"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+            - "check:fresh-locked-restore-empty-cache-paths-and-clean-worktree"
+        - test: "The P1C-INTEGRITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
+            - "handoff:H-P0-REGISTER-005-consumed-with-exact-disposition"
+            - "handoff:H-P1C-INTEGRITY-001-and-H-P1C-INTEGRITY-002-record-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   P1C-EXPORT:
     sequence: 38
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1C-INTEGRITY"
     scope: "Fail-closed release AI exports without protected content."
@@ -3183,18 +3358,62 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-EXPORT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+            - "check:P1C_EXPORT_CLEAN_PROOF_OK-worktree-clean-chapters-19-protected-regions-20"
+            - "check:R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1"
+        - requirement: "positive test"
+          artifacts:
+            - "check:AI_EXPORT_RELEASE_OK-chapters-19-protected-regions-20-governance-pre-release"
+            - "check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-20"
+            - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:build-error-exit-1"
+            - "fixture:protected-content-leak-exit-1"
+            - "fixture:metadata-drift-exit-1"
+            - "check:AI_EXPORT_NEGATIVE_FIXTURES_OK-fixtures-3-publish-false"
+      outputs:
+        - output: "P1C-EXPORT durable artifact and evidence record for: Fail-closed release AI exports without protected content."
+          artifacts:
+            - "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
+            - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-EXPORT source state and bounded scope."
+          artifacts:
+            - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+            - "scope:release-export-workflow-fixtures-and-generated-public-artifacts-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-release-build-and-post-render-validation-have-no-continue-on-error"
+            - "fixture:build-leak-and-metadata-failures-return-nonzero"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+            - "check:fresh-locked-restore-empty-R-npm-and-browser-paths"
+            - "check:detached-worktree-clean-after-external-output-proof"
+        - test: "The P1C-EXPORT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
+            - "handoff:H-P1C-EXPORT-001-and-H-P1C-EXPORT-002-record-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
   P1C-BROWSER:
     sequence: 39
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1C-LOCK"
     scope: "Pinned portable browser smoke audit."
@@ -3205,13 +3424,59 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-BROWSER packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+            - "check:P1C_BROWSER_CLEAN_PROOF_OK-worktree-clean-publish-false"
+            - "check:R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1-Chromium-1234"
+        - requirement: "positive test"
+          artifacts:
+            - "check:BROWSER_RUNTIME_OK-playwright-1.62.1-chromium-revision-1234"
+            - "check:BROWSER_SMOKE_OK-widths-1280-390-themes-light-dark-keyboard-reset-live-region"
+            - "check:rendered-html-36-canonical-pages"
+            - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:missing-route-HTTP-404-exit-1"
+            - "check:BROWSER_SMOKE_NEGATIVE_FIXTURES_OK-fixtures-1-publish-false"
+      outputs:
+        - output: "P1C-BROWSER durable artifact and evidence record for: Pinned portable browser smoke audit."
+          artifacts:
+            - "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
+            - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-BROWSER source state and bounded scope."
+          artifacts:
+            - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+            - "scope:rendered-html-browser-smoke-workflow-and-one-browser-path-fixture-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-smoke-and-fixture-steps-precede-Pages-artifact-setup"
+            - "fixture:missing-route-HTTP-404-exit-1"
+            - "check:no-continue-on-error-or-browser-fallback"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+            - "check:fresh-locked-restore-empty-R-npm-node-modules-and-browser-paths"
+            - "check:invalid-NODE_PATH-ignored-and-developer-Chrome-path-absent"
+            - "check:accepted-lock-and-restore-inputs-unchanged-from-945e7cc"
+        - test: "The P1C-BROWSER packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+            - "handoff:H-P1C-LOCK-001-consumed-before-packet-claim"
+            - "handoff:P1C-BROWSER-no-new-future-effect"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
   P1C-PARITY:
     sequence: 40
     phase: "1C"
@@ -9236,7 +9501,7 @@ items:
       location: "§4 build risk 1"
     description: "Create and require an R lockfile for release builds."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9254,11 +9519,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-LOCK"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
+      - "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+      - "report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md"
+      - "check:cold-restore-positive-and-clean"
+      - "fixture:missing-browser-lock-exit-2"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb"
   R05-PDF-wrapper:
     parents:
       - "R05"
@@ -9272,7 +9542,7 @@ items:
       location: "§4 build risk 2"
     description: "Make CI use only the approved PDF wrapper."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9289,11 +9559,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PDF"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+      - "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
+      - "check:workflow-contains-only-approved-PDF-wrapper-command"
+      - "fixture:wrapper-preflight-failure-exit-1-config-unchanged-zero-PDFs"
+      - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
   R05-PDF-fail-blocking:
     parents:
       - "R05"
@@ -9307,7 +9582,7 @@ items:
       location: "§4 build risk 3"
     description: "Make PDF failure block publication."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9323,11 +9598,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PDF"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+      - "check:PDF-step-has-no-continue-on-error-and-precedes-Pages-upload"
+      - "fixture:build-command-failure-exit-1-zero-PDFs"
+      - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
   R05-PDF-stale-protection:
     parents:
       - "R05"
@@ -9341,7 +9620,7 @@ items:
       location: "§4 build risk 3"
     description: "Prevent stale PDF publication after a failed or absent fresh build."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9358,11 +9637,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PDF"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+      - "check:old-b5b18b-PDFs-replaced-by-fresh-cb5791-identical-copies"
+      - "check:PDF-signature-and-SHA256-validation-before-copy"
+      - "fixture:stale-missing-artifact-exit-1-zero-PDFs"
+      - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
   R05-CI-token:
     parents:
       - "R05"
@@ -9376,7 +9660,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Make token synchronization blocking."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9395,11 +9679,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:design-token-positive-sync"
+      - "fixture:token-drift-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-style:
     parents:
       - "R05"
@@ -9413,7 +9701,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run the checkout-local deterministic style linter in CI."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9432,11 +9720,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:MANUSCRIPT_STYLE_OK-files-25"
+      - "fixture:hard-style-colon-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-structure:
     parents:
       - "R05"
@@ -9450,7 +9742,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run checkout-local structure checks in CI."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9469,11 +9761,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:MANUSCRIPT_STRUCTURE_OK-chapters-19"
+      - "fixture:missing-vignette-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-figure:
     parents:
       - "R05"
@@ -9487,7 +9783,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run the figure-introduction detector in CI."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9506,11 +9802,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:FIGURE_INTRO_OK-exact-registered-debt-1"
+      - "fixture:unregistered-figure-intro-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-citation:
     parents:
       - "R05"
@@ -9524,7 +9824,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run citation-key, blanket-nocite, and required-metadata checks."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9543,11 +9843,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:CITATION_INTEGRITY_OK-35-live-keys-35-records"
+      - "fixture:unknown-citation-key-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-concepts:
     parents:
       - "R05"
@@ -9561,7 +9865,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Check definitions, concept ledger, glossary, and generated graph."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9580,11 +9884,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-exact-debt-fingerprints"
+      - "fixture:duplicate-definition-id-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-CI-data:
     parents:
       - "R05"
@@ -9598,7 +9906,7 @@ items:
       location: "§4 Phase 1C integrity gap"
     description: "Run catalogue/schema/checksum/reconciliation checks at the proper gate."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9617,11 +9925,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INTEGRITY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:919b0b1ed430e64e653284e7962511ae50335409"
+      - "check:DATA_INTEGRITY_OK-generated-sets-2-rows-50300"
+      - "fixture:duplicate-data-key-exit-1"
+      - "report:notes/reports/p1c-integrity-gates-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "integrity:sha256-8699a3b2dbd07be1b39a75bd800fafc00e4162c0188ce027aa6139e7b00f4147"
   R05-EXPORT-failclosed:
     parents:
       - "R05"
@@ -9635,7 +9947,7 @@ items:
       location: "§4/Phase 1C"
     description: "Make release AI exports fatal, canonical-metadata aligned, and free of protected solutions."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9652,11 +9964,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-EXPORT"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ac7c34fb6723b1e232674cec3b9ce4bddf7e2f00"
+      - "check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-20"
+      - "fixture:build-protected-leak-and-metadata-drift-exit-1"
+      - "report:notes/reports/p1c-export-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "export-path:sha256-3453f828e47b5d3895295b7dd092de730cbe7e0eda7c0fc8cdc1ddd7fde9b4de"
   R05-CONFIG-inventories:
     parents:
       - "R05"
@@ -9899,7 +10215,7 @@ items:
       location: "§4 edition/citation/errata"
     description: "Establish version, changelog, citation, archive, term-freeze, errata, and provenance mechanisms without release."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9920,11 +10236,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-GOV"
-    completion_evidence: []
+    completion_evidence:
+      - "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+      - "source:release/governance.yml"
+      - "source:release/provenance.yml"
+      - "source:release/archive-plan.md"
+      - "source:release/term-freeze-policy.md"
+      - "source:release/errata.yml"
+      - "source:CHANGELOG.md-index.qmd-tex/colophon.tex-errata.qmd"
+      - "report:notes/reports/p1b-release-governance-2026-08-04.md"
+      - "check:scripts/check-release-governance.R-style-tokens-targeted-renders-and-workflow-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
   R06-RELEASE-changelog:
     parents:
       - "R06"
@@ -16046,7 +16371,7 @@ items:
       location: "§11 widget issues"
     description: "Make responsive, keyboard, live-region, reset, and dark-mode smoke checks reproducible."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16065,11 +16390,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-BROWSER"
-    completion_evidence: []
+    completion_evidence:
+      - "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
+      - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+      - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+      - "check:P1C_BROWSER_CLEAN_PROOF_OK-worktree-clean-publish-false"
+      - "check:BROWSER_SMOKE_OK-widths-1280-390-themes-light-dark-keyboard-reset-live-region"
+      - "fixture:missing-route-HTTP-404-exit-1"
+      - "check:workflow-blocking-before-Pages-artifact"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
   R18-BOOK-cross-edition-claims:
     parents:
       - "R18"

@@ -1,10 +1,10 @@
 # Zašto statistika
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -107,12 +107,11 @@ takvi podaci nastaju i što njihovi rezultati ne pokazuju, ne može ravnopravno
 sudjelovati u raspravi koju oni oblikuju. Statistička pismenost time postaje
 uvjet sudjelovanja, a ne dodatna vještina.
 
-Navarro učenje statistike uspoređuje s kuharskim receptom, gdje niz mehaničkih
-uputa najprije izgleda proizvoljno, a razumijevanje počinje kada postane jasno
-zašto svaki korak postoji (Navarro, 2019). Recept se tada prestaje slijediti i
-počinje se kuhati. Ista razlika dijeli izračun od statističkog mišljenja.
-Formula se može primijeniti bez razumijevanja, ali odluka o tome koju usporedbu
-uopće treba napraviti ne može.
+Statističko mišljenje ne počinje formulom, nego procjenom smije li se njome
+odgovoriti na postavljeno pitanje. Račun može biti besprijekoran, a zaključak
+ipak pogrešan ako su uspoređene pogrešne skupine, zanemarena neizvjesnost ili
+podaci ne mjere ono što tvrdnja imenuje. Zato svaku tehniku valja vezati uz
+odluku koju omogućuje i granicu preko koje zaključak ne smije prijeći.
 
 Vrijedi odmah reći i što statistika ne obećava. Ona ne pretvara nepotpune
 podatke u potpune i ne nadoknađuje ono što nije izmjereno. Ne odlučuje umjesto
@@ -378,11 +377,6 @@ Zbirna stopa prijma bila je viša za muškarce, dok je u četiri od šest odjela
 stopa za žene bila barem jednaka stopi za muškarce (Bickel, 1975). Žene su se
 češće prijavljivale na selektivnije odjele (Bickel, 1975). Stoga je izbor
 odjela uzrokovao cijeli zbirni jaz.
-
-Greška je kauzalni zaključak u posljednjoj rečenici. Tablica pokazuje da
-raspodjela prijava po odjelima objašnjava statističku strukturu zbirnog jaza,
-ali sama ne dokazuje zašto su kandidati birali određene odjele niti da je time
-objašnjen svaki mogući oblik pristranosti.
 
 ## Razrađeni primjer
 

@@ -1,10 +1,10 @@
 # Kriza i obnova
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -119,10 +119,6 @@ koda, tablice ili dokumenta.
 Studija je predregistrirala ishod, pravilo isključivanja i model prije
 prikupljanja podataka. Kod i anonimizirani materijali dostupni su za provjeru.
 Zbog predregistracije rezultat mora biti istinit.
-
-Greška je pretvaranje predregistracije u jamstvo istine. Ona povećava
-vidljivost analitičkih odluka, ali ne uklanja pogrešku mjerenja, uzoračku
-varijaciju, slabu teoriju ni neprikladan model.
 
 ## Razrađeni primjer
 

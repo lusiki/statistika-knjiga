@@ -29,10 +29,17 @@ Ta licenca podataka ne mijenja MIT licencu koda koji ih stvara.
 
 ## Lokalni pregled
 
-Repozitorij još nema `renv.lock`, pa ponovljiva čista instalacija R ovisnosti
-nije zaključana. `scripts/init-renv.R` pripremni je instalacijski skript, a ne
-potpun ugovor o obnovi okruženja. Ako su Quarto i potrebne R ovisnosti već
-dostupni, pregled se pokreće ovako:
+R i pregledničke ovisnosti zaključane su u `renv.lock` i `package-lock.json`.
+Uz instalirane inačice R-a, Nodea i npm-a koje navode te datoteke, jedina javna
+naredba za obnovu obaju okruženja jest:
+
+```bash
+python scripts/restore-dependencies.py
+```
+
+Skript nema nezaključanu pričuvnu instalaciju: prekida rad ako nedostaje lockfile,
+inačica alata ne odgovara ili obnovljeni paket odnosno preglednik nije točan.
+Nakon uspješne obnove i uz instaliran Quarto pregled se pokreće ovako:
 
 ```bash
 quarto preview
@@ -52,10 +59,12 @@ quarto preview
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-concept-graph.R` | mreža pojmova za pojmovnik |
 
 PDF i DOCX **ne** pokreću se golim `quarto render --profile …`. PDF omotač
-provjerava kanonski popis literature i dodataka A–F, pokreće PDF profil te
-kopira rezultat u `docs/pdf/`. DOCX omotač tijekom rendera privremeno isključuje
-pre-render hook i zamjenjuje vrata statičkih slika; `finally` blok vraća
-konfiguraciju i izvore i ako render ne uspije.
+prije pokušaja uklanja obje stare kopije, provjerava kanonski popis literature
+i dodataka A–F, pokreće PDF profil te tek nakon provjere potpisa i jednakog
+SHA-256 sažetka kopira novi rezultat u `docs/pdf/`. Svaki neuspjeh ostavlja obje
+kopije uklonjenima. DOCX omotač tijekom rendera privremeno isključuje pre-render
+hook i zamjenjuje vrata statičkih slika; `finally` blok vraća konfiguraciju i
+izvore i ako render ne uspije.
 
 ## Gdje što stoji
 
@@ -121,9 +130,11 @@ Radna mrežna inačica podešena je za
 nisu dokaz objavljenog izdanja.
 
 Push na `main` pokreće [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
-koji renderira knjigu, pokuša PDF i objavi `docs/` na GitHub Pages. PDF korak
-trenutačno je neblokirajući, pa pri njegovu neuspjehu može ostati prethodno
-urezani PDF. Izvor za Pages je **GitHub Actions**, ne grana; `docs/` u
+koji prije HTML-a gradi PDF isključivo preko odobrenog omotača. Omotač zahtijeva
+čisto stanje trenutačnog commita, uklanja obje prethodne kopije i prihvaća samo
+novi PDF s provjerenim potpisom i jednakim izvornim i poslužnim sažetkom. Svaki
+neuspjeh PDF-a zaustavlja posao prije predaje Pages artefakta, pa urezani stari
+PDF nije pričuvni put. Izvor za Pages je **GitHub Actions**, ne grana; `docs/` u
 repozitoriju jest urezani razvojni build, ali nije sam po sebi dokaz onoga što
 se poslužuje.
 

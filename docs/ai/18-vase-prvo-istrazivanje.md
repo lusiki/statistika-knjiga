@@ -1,10 +1,10 @@
 # Vaše prvo istraživanje
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/18-vase-prvo-istrazivanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -198,7 +198,7 @@ poglavlje o regresiji na nagibu. Ovdje smo ga vidjeli prije nego što je bilo
 koji od tih brojeva izračunat, i to je razlog zbog kojeg graf ide ispred modela
 a ne iza njega.
 
-## Model i ono što se dogodilo s nalazom
+## Model i promjena procjene
 
 Model postavljamo prema pitanju, ne prema onome što je dostupno. Ishod je
 povjerenje, prediktor je dnevno vrijeme, a dob ulazi kao varijabla za koju
@@ -217,41 +217,46 @@ ljudi jednake dobi, ista razlika iznosi `r hr_broj(s18$uz_dob_30, 2)` boda uz
 interval od `r hr_broj(s18$uz_dob_30_donja, 2)` do
 `r hr_broj(s18$uz_dob_30_gornja, 2)`, koji je oko nule.
 
-Nalaz se time promijenio iz jasne povezanosti u odsutnost povezanosti, i taj se
-prijelaz mora naći u izvještaju. Rad koji bi objavio samo prvi red tablice ne bi
-sadržavao nijednu netočnu brojku, a čitatelj bi iz njega izašao s uvjerenjem
-koje podaci ne podupiru.
+U modelu s dobi procjena se približila nuli, a njezin interval obuhvaća male
+razlike u oba smjera. To nije dokaz odsutnosti povezanosti. Rad koji bi objavio
+samo prvi red tablice ne bi sadržavao nijednu netočnu brojku, a čitatelj bi iz
+njega izašao s uvjerenjem koje prilagođena procjena i njezin interval ne
+podupiru.
 
 ## Zaključak koji uzorak podnosi
 
 Zaključak pišemo tako da svaka rečenica ima pokriće u broju koji smo ispisali.
-Među simuliranim ispitanicima veće dnevno vrijeme na mrežama povezano je s
-višim povjerenjem, a ta povezanost nestaje kad se uspoređuju ispitanici jednake
-dobi. Obje su rečenice točne i tek zajedno opisuju ono što smo našli.
+Među simuliranim ispitanicima zbirni model povezuje trideset minuta više
+dnevnog vremena s `r hr_broj(s18$zbirni_30, 2)` boda višim povjerenjem, uz
+interval od `r hr_broj(s18$zbirni_30_donja, 2)` do
+`r hr_broj(s18$zbirni_30_gornja, 2)`. Kad uspoređujemo ispitanike jednake dobi,
+procijenjena razlika iznosi `r hr_broj(s18$uz_dob_30, 2)` boda, uz interval od
+`r hr_broj(s18$uz_dob_30_donja, 2)` do
+`r hr_broj(s18$uz_dob_30_gornja, 2)`.
 
 Nesigurnost navodimo uz procjenu, a ne u zasebnom odlomku o ograničenjima.
-Razlika uz jednaku dob leži između `r hr_broj(s18$uz_dob_30_donja, 2)` i
-`r hr_broj(s18$uz_dob_30_gornja, 2)` boda, što znači da smo isključili velike
-učinke u oba smjera, a mali učinak bilo kojeg predznaka i dalje je s podacima
-uskladiv. Rečenica da veze nema jača je od onoga što uzorak od `r s18$n` ljudi
-može ponuditi.
+Interval prilagođene procjene isključuje razlike veličine zbirne procjene u oba
+smjera, ali mali učinak bilo kojeg predznaka ostaje uskladiv s podacima.
+Zaključak o odsutnosti povezanosti zato je jači od onoga što uzorak od
+`r s18$n` ljudi može ponuditi.
 
 Izbjegavamo i suprotnu pogrešku, koja se lako pomiješa s opreznošću. Nizanje
 uvjetnih izraza o tome kako bi možda moglo postojati nešto što bi eventualno
 upućivalo na nekakvu vezu ne čini izvještaj poštenijim nego neodređenijim. Jasna
 tvrdnja sa svojim rasponom nosi više informacije od svakog omekšavanja.
 
-Rezultat koji ne pokazuje razliku pritom nije neuspjeh projekta. Studija koja je
-isključila velike učinke odgovorila je na svoje pitanje, a studija koja nije
-isključila ništa jer je uzorak bio premalen odgovorila je o svojoj preciznosti i
-to treba napisati. Poglavlje o logici testiranja i poglavlje o veličini učinka
+Procjena blizu nule pritom nije neuspjeh projekta. Studija koja je intervalom
+isključila velike učinke odgovorila je na svoje pitanje, a studija čiji je
+interval preširok da bi ih isključio odgovorila je o svojoj preciznosti i to
+treba napisati. Poglavlje o logici testiranja i poglavlje o veličini učinka
 razdvajaju ta dva slučaja, i razlika među njima vidi se u širini intervala, ne u
 p-vrijednosti.
 
 Poglavlje k tome ima prednost koju stvarno istraživanje nema. Anketa je
 simulirana, pa se zna po kojem je pravilu nastala, a u tom pravilu izravne veze
-između vremena i povjerenja doista nema. Oboje ovisi o dobi, i oprezni je
-zaključak zato bio točan, dok bi onaj iz prvog reda tablice bio pogrešan.
+između vremena i povjerenja doista nema. Oboje ovisi o dobi, pa je zaključak
+koji zadržava male učinke oba predznaka uskladiv s poznatim generatorom, dok bi
+zaključak samo iz prvog reda tablice bio pogrešan.
 
 Ta prednost istodobno pokazuje što u stvarnom radu nedostaje. Nikakva analiza
 nije mogla utvrditi da veze nema, jer je i najbolji model dao samo raspon
@@ -350,12 +355,6 @@ Uz to je napisao da datoteku šalje asistentu u cijelosti kako bi opis uzorka bi
 što precizniji, uz obrazloženje da će rezultate ionako provjeriti sam i da
 podatke nakon predaje rada briše.
 
-Greška je slanje osobnih podataka javnom modelu. Kod je ispravan i namjera je
-dobra, ali ispis cijele datoteke iznosi imena i kontakte izvan odobrenog
-postupka obrade, a kasnije brisanje na to nema utjecaja jer se podaci ne mogu
-povući nakon što su poslani. Isti opis uzorka dobiva se slanjem strukture
-tablice i sažetih vrijednosti, bez ijednog pojedinačnog odgovora.
-
 ## Sažetak
 
 Prvo istraživanje završava tragom odluka koji vodi od pitanja do zaključka i
@@ -363,11 +362,12 @@ koji netko drugi može proći bez našeg razgovora s asistentom. Vrsta pitanja i
 dizajn određuju granicu koju kasnija analiza ne može pomaknuti, pa se biraju
 prije podataka i zapisuju. Opis i graf dolaze prije modela, jer u ovom primjeru
 graf pokazuje odakle povezanost dolazi prije nego što ju je model izmjerio, a
-model onda potvrđuje da nestaje kad se uspoređuju ljudi jednake dobi. Zaključak
-nosi procjenu s intervalom i imenuje ono što uzorak ne može odlučiti, dok
-asistent ubrzava svaki korak bez ijednog osobnog podatka i bez preuzimanja
-odgovornosti. Time je knjiga na kraju, i ono što ostaje nije popis postupaka
-nego navika da se svaka brojka veže uz način na koji je nastala.
+model onda pokazuje koliko se prilagođena procjena približila nuli i koje su
+male razlike ostale uskladive s podacima. Zaključak nosi procjenu s intervalom i
+imenuje ono što uzorak ne može odlučiti, dok asistent ubrzava svaki korak bez
+ijednog osobnog podatka i bez preuzimanja odgovornosti. Time je knjiga na kraju,
+i ono što ostaje nije popis postupaka nego navika da se svaka brojka veže uz
+način na koji je nastala.
 
 ## Pojmovi
 

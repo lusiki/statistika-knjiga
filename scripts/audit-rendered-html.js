@@ -1,25 +1,73 @@
-/* Manual browser audit for the complete rendered HTML book.
+/* Browser audit for the rendered HTML book.
  *
- * Usage (PowerShell):
- *   $env:NODE_PATH = "<directory containing playwright>"
+ * Blocking smoke audit (starts its own local server):
+ *   node scripts/audit-rendered-html.js --smoke --root docs
+ *
+ * Complete manual audit (expects an existing local server):
  *   $env:AUDIT_BASE = "http://127.0.0.1:8899"
  *   node scripts/audit-rendered-html.js
  *
- * The script checks every canonical route at seven widths in both themes.
- * Every audited case is retained as a full-page screenshot. Very tall pages
- * are split into numbered tiles to avoid Chromium's 16,384 px raster limit.
+ * Both modes resolve the committed Playwright package from this checkout and
+ * launch the Chromium revision installed for that package. The complete mode
+ * checks every canonical route at seven widths in both themes and retains
+ * screenshots; it remains a manual diagnostic rather than the release smoke
+ * gate.
  */
 
 "use strict";
 
-const { chromium } = require("playwright");
 const fs = require("fs");
+const http = require("http");
 const os = require("os");
 const path = require("path");
 
+const root = path.resolve(__dirname, "..");
+const localPlaywrightPath = path.join(root, "node_modules", "playwright");
+const localPlaywrightManifest = path.join(localPlaywrightPath, "package.json");
+if (!fs.existsSync(localPlaywrightManifest)) {
+  throw new Error(
+    "missing committed Playwright installation; run python scripts/restore-dependencies.py"
+  );
+}
+const { chromium } = require(localPlaywrightPath);
+
+function parseCommandLine(argv) {
+  const options = {
+    mode: "complete",
+    root: "docs",
+    fixture: null,
+  };
+  for (let index = 0; index < argv.length; index += 1) {
+    const argument = argv[index];
+    if (argument === "--smoke") {
+      options.mode = "smoke";
+    } else if (argument === "--root") {
+      index += 1;
+      if (!argv[index]) throw new Error("--root requires a directory");
+      options.root = argv[index];
+    } else if (argument === "--fixture") {
+      index += 1;
+      if (argv[index] !== "missing-route") {
+        throw new Error("--fixture supports only missing-route");
+      }
+      options.fixture = argv[index];
+    } else {
+      throw new Error(`unknown argument: ${argument}`);
+    }
+  }
+  if (options.mode !== "smoke" && options.fixture) {
+    throw new Error("--fixture is available only with --smoke");
+  }
+  return options;
+}
+
+const commandLine = parseCommandLine(process.argv.slice(2));
+
 const base = process.env.AUDIT_BASE || "http://127.0.0.1:8899";
-const outDir = process.env.AUDIT_DIR || fs.mkdtempSync(
-  path.join(os.tmpdir(), "statistika-postfix-audit-")
+const outDir = process.env.AUDIT_DIR || (
+  commandLine.mode === "complete"
+    ? fs.mkdtempSync(path.join(os.tmpdir(), "statistika-postfix-audit-"))
+    : null
 );
 
 const routes = [
@@ -506,13 +554,271 @@ function evaluateFailures(result, failures) {
   }
 }
 
-async function main() {
-  fs.mkdirSync(outDir, { recursive: true });
-  const browser = await chromium.launch({
-    headless: true,
-    executablePath:
-      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+function verifyLockedBrowserRuntime() {
+  const packageManifest = JSON.parse(
+    fs.readFileSync(path.join(root, "package.json"), "utf8")
+  );
+  const packageLock = JSON.parse(
+    fs.readFileSync(path.join(root, "package-lock.json"), "utf8")
+  );
+  const nodePin = fs.readFileSync(path.join(root, ".node-version"), "utf8").trim();
+  const installedManifest = JSON.parse(
+    fs.readFileSync(localPlaywrightManifest, "utf8")
+  );
+  const expectedPlaywright = packageManifest.devDependencies?.playwright;
+  const lockedRoot = packageLock.packages?.[""];
+  const lockedPlaywright = packageLock.packages?.["node_modules/playwright"];
+  const playwrightCoreBrowsers = JSON.parse(
+    fs.readFileSync(
+      path.join(root, "node_modules", "playwright-core", "browsers.json"),
+      "utf8"
+    )
+  );
+  const chromiumRecord = playwrightCoreBrowsers.browsers.find(
+    (browser) => browser.name === "chromium"
+  );
+
+  if (!/^\d+\.\d+\.\d+$/.test(expectedPlaywright || "")) {
+    throw new Error("package.json must pin one exact Playwright version");
+  }
+  if (packageLock.lockfileVersion !== 3) {
+    throw new Error("package-lock.json must use lockfileVersion 3");
+  }
+  if (
+    lockedRoot?.devDependencies?.playwright !== expectedPlaywright ||
+    lockedPlaywright?.version !== expectedPlaywright ||
+    !lockedPlaywright?.integrity ||
+    installedManifest.version !== expectedPlaywright
+  ) {
+    throw new Error("committed and installed Playwright versions do not agree");
+  }
+  if (process.version.replace(/^v/, "") !== nodePin) {
+    throw new Error(
+      `Node version mismatch: expected ${nodePin}, found ${process.version}`
+    );
+  }
+  if (!chromiumRecord?.revision) {
+    throw new Error("installed Playwright package does not declare Chromium");
+  }
+  const executable = chromium.executablePath();
+  if (!fs.existsSync(executable)) {
+    throw new Error(
+      `missing Playwright Chromium; run python scripts/restore-dependencies.py: ${executable}`
+    );
+  }
+  return {
+    executable,
+    node: nodePin,
+    playwright: expectedPlaywright,
+    chromiumRevision: chromiumRecord.revision,
+  };
+}
+
+function mimeType(filePath) {
+  return {
+    ".css": "text/css; charset=utf-8",
+    ".html": "text/html; charset=utf-8",
+    ".ico": "image/x-icon",
+    ".jpeg": "image/jpeg",
+    ".jpg": "image/jpeg",
+    ".js": "text/javascript; charset=utf-8",
+    ".json": "application/json; charset=utf-8",
+    ".png": "image/png",
+    ".svg": "image/svg+xml",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2",
+  }[path.extname(filePath).toLowerCase()] || "application/octet-stream";
+}
+
+async function startStaticServer(renderRoot) {
+  const resolvedRoot = path.resolve(renderRoot);
+  if (!fs.statSync(resolvedRoot, { throwIfNoEntry: false })?.isDirectory()) {
+    throw new Error(`rendered HTML root does not exist: ${resolvedRoot}`);
+  }
+  const server = http.createServer((request, response) => {
+    let pathname;
+    try {
+      pathname = decodeURIComponent(
+        new URL(request.url || "/", "http://127.0.0.1").pathname
+      );
+    } catch {
+      response.writeHead(400).end("Bad request");
+      return;
+    }
+    if (pathname === "/") pathname = "/index.html";
+    const requestedPath = path.resolve(resolvedRoot, `.${pathname}`);
+    if (
+      requestedPath !== resolvedRoot &&
+      !requestedPath.startsWith(`${resolvedRoot}${path.sep}`)
+    ) {
+      response.writeHead(403).end("Forbidden");
+      return;
+    }
+    const stat = fs.statSync(requestedPath, { throwIfNoEntry: false });
+    if (!stat?.isFile()) {
+      response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+      response.end("Not found");
+      return;
+    }
+    response.writeHead(200, { "Content-Type": mimeType(requestedPath) });
+    const stream = fs.createReadStream(requestedPath);
+    stream.on("error", () => response.destroy());
+    stream.pipe(response);
   });
+  await new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(0, "127.0.0.1", resolve);
+  });
+  const address = server.address();
+  if (!address || typeof address === "string") {
+    server.close();
+    throw new Error("could not determine browser smoke server address");
+  }
+  return {
+    baseUrl: `http://127.0.0.1:${address.port}`,
+    server,
+  };
+}
+
+async function runSmokeAudit() {
+  const runtime = verifyLockedBrowserRuntime();
+  const renderedRoot = path.resolve(root, commandLine.root);
+  const { baseUrl, server } = await startStaticServer(renderedRoot);
+  const smokeRoute = commandLine.fixture === "missing-route"
+    ? "/__p1c_browser_missing_route__.html"
+    : "/chapters/07-vjerojatnost.html";
+  let browser;
+  try {
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({
+      viewport: { width: 1280, height: 900 },
+      deviceScaleFactor: 1,
+      reducedMotion: "reduce",
+      colorScheme: "light",
+    });
+    const page = await context.newPage();
+    const pageErrors = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
+
+    const response = await page.goto(`${baseUrl}${smokeRoute}`, {
+      waitUntil: "domcontentloaded",
+      timeout: 20000,
+    });
+    const status = response?.status() || 0;
+    if (status !== 200) {
+      throw new Error(`browser path returned HTTP ${status}: ${smokeRoute}`);
+    }
+
+    const widget = page.locator(".widget-frame").first();
+    const details = widget.locator("details.ojs-collapsible").first();
+    const summary = details.locator("summary").first();
+    const slider = details.locator('input[type="range"]').first();
+    const reset = details.locator("button.ojs-reset").first();
+    const liveRegion = widget.locator(
+      '.widget-foot[role="status"][aria-live="polite"]'
+    ).first();
+    const figure = widget.locator("svg:not(.observablehq--caret)").first();
+
+    await figure.waitFor({ state: "visible", timeout: 20000 });
+    await summary.waitFor({ state: "visible", timeout: 10000 });
+    if (await details.evaluate((element) => element.open)) {
+      throw new Error("widget control panel must start collapsed");
+    }
+    await summary.focus();
+    await page.keyboard.press("Enter");
+    await details.evaluate((element) => {
+      if (!element.open) throw new Error("keyboard did not open control panel");
+    });
+    await slider.waitFor({ state: "visible", timeout: 10000 });
+    await reset.waitFor({ state: "visible", timeout: 10000 });
+    await liveRegion.waitFor({ state: "visible", timeout: 10000 });
+
+    const initialValue = await slider.inputValue();
+    const range = await slider.evaluate((element) => ({
+      maximum: Number(element.max),
+      minimum: Number(element.min),
+      step: Number(element.step || 1),
+      value: Number(element.value),
+    }));
+    const key = range.value + range.step <= range.maximum
+      ? "ArrowRight"
+      : "ArrowLeft";
+    await slider.focus();
+    await page.keyboard.press(key);
+    await page.waitForTimeout(300);
+    const changedValue = await slider.inputValue();
+    if (changedValue === initialValue) {
+      throw new Error(`keyboard ${key} did not change the widget control`);
+    }
+    if (!(await liveRegion.getAttribute("aria-live"))?.includes("polite")) {
+      throw new Error("widget result is not exposed as a polite live region");
+    }
+    if (!(await liveRegion.textContent())?.trim()) {
+      throw new Error("widget live region is empty after interaction");
+    }
+
+    await reset.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForTimeout(300);
+    if (await slider.inputValue() !== initialValue) {
+      throw new Error("keyboard reset did not restore the initial value");
+    }
+
+    const themeToggle = page.locator(".quarto-color-scheme-toggle").first();
+    await themeToggle.waitFor({ state: "visible", timeout: 10000 });
+    await themeToggle.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForFunction(
+      () => document.body.classList.contains("quarto-dark"),
+      null,
+      { timeout: 5000 }
+    );
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.waitForTimeout(250);
+    const responsive = await widget.evaluate((element) => {
+      const box = element.getBoundingClientRect();
+      return {
+        documentWidth: document.documentElement.scrollWidth,
+        right: box.right,
+        viewportWidth: window.innerWidth,
+        width: box.width,
+      };
+    });
+    if (
+      responsive.documentWidth > responsive.viewportWidth + 1 ||
+      responsive.right > responsive.viewportWidth + 1 ||
+      responsive.width <= 0
+    ) {
+      throw new Error(
+        `responsive overflow at 390px: document=${responsive.documentWidth} widgetRight=${responsive.right}`
+      );
+    }
+    if (pageErrors.length) {
+      throw new Error(`browser page error: ${[...new Set(pageErrors)].join(" | ")}`);
+    }
+
+    console.log(
+      "BROWSER_RUNTIME_OK " +
+      `node=${runtime.node} playwright=${runtime.playwright} ` +
+      `chromium_revision=${runtime.chromiumRevision} executable=${runtime.executable}`
+    );
+    console.log(
+      "BROWSER_SMOKE_OK " +
+      `route=${smokeRoute} widths=1280,390 themes=light,dark ` +
+      "keyboard=pass reset=pass live_region=pass publish=false"
+    );
+    await context.close();
+  } finally {
+    if (browser) await browser.close();
+    await new Promise((resolve) => server.close(resolve));
+  }
+}
+
+async function runCompleteAudit() {
+  verifyLockedBrowserRuntime();
+  fs.mkdirSync(outDir, { recursive: true });
+  const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     viewport: { width: 1440, height: 900 },
     deviceScaleFactor: 1,
@@ -635,7 +941,14 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error);
+const selectedAudit = commandLine.mode === "smoke"
+  ? runSmokeAudit
+  : runCompleteAudit;
+
+selectedAudit().catch((error) => {
+  console.error(
+    `BROWSER_AUDIT_FAILED mode=${commandLine.mode} ` +
+    `fixture=${commandLine.fixture || "none"}: ${error.message}`
+  );
   process.exit(1);
 });

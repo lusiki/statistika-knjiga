@@ -1,9 +1,9 @@
 # DIO IV: ZAKLJUČIVANJE
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -11,10 +11,10 @@
 # Logika testiranja
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -81,26 +81,36 @@ iznosi `r hr_broj(s10$razlika, 2)` boda u korist tiska, uz interval pouzdanosti
 od `r hr_broj(s10$donja, 2)` do `r hr_broj(s10$gornja, 2)`. Test dolazi tek
 poslije, jer odgovara na uže pitanje, na to je li s podacima uskladiva i nula.
 
-Nulti model za ovo pitanje ne treba izvoditi računom. Ako izvor vijesti nema
-nikakve veze s povjerenjem, onda su oznake skupina samo naljepnice koje su
-jednako mogle biti razdijeljene bilo kako. Promiješamo ih dakle nasumično,
-izračunamo razliku sredina, i to ponovimo mnogo puta. Dobiveni raspon razlika
-točno je ono što nulti model dopušta.
+Nulti model za ovo pitanje tvrdi da je cijela raspodjela povjerenja jednaka
+među čitateljima tiska i portala. Kad bi to vrijedilo, oznake izvora bile bi
+zamjenjive u odnosu na ishod i mogle bi se rasporediti drukčije bez promjene
+zajedničke raspodjele. Promiješamo ih stoga nasumično, izračunamo razliku
+sredina i postupak ponovimo mnogo puta. Dobiveni raspon razlika pokazuje što
+takav nulti model dopušta.
+
+Ta zamjenjivost nije dana samim podatkom da su sredine jednake. Skupine s
+jednakim sredinama, ali različitim rasponima ili oblicima raspodjele ne
+zadovoljavaju ovaj nulti model. Postupak uz to pretpostavlja da su osobe
+zasebne, međusobno neovisne jedinice opažanja. Budući da izvor vijesti nije
+nasumično dodijeljen, zamjenjivost je ovdje pretpostavka modela, a ne posljedica
+istraživačkog dizajna, i test ne može poduprijeti uzročnu tvrdnju.
 
 **Testna statistika** je jedan broj izračunat iz podataka koji sažima odstupanje
 od nultog modela u obliku usporedivom s odstupanjima koja taj model proizvodi.
 
-Ovdje je ta statistika sama razlika sredina, jer je upravo ona ono o čemu se
-odlučuje. Sljedeći graf prikazuje što nulti model s njome radi kroz četiri
-tisuće premještanja, a uz njega stoji razlika koju je dao stvarni raspored
-oznaka.
+Ovdje je testna statistika sirova razlika sredina. Obostrani postupak uspoređuje
+apsolutnu opaženu razliku s apsolutnim razlikama nakon premještanja, pa jednako
+broji odstupanja u oba smjera. Takva statistika u sirovoj permutaciji ispituje
+upravo opisani nulti model cijele raspodjele, a ne samo jednakost sredina.
+Sljedeći graf prikazuje što nulti model s njome radi kroz četiri tisuće
+premještanja, a uz njega stoji razlika koju je dao stvarni raspored oznaka.
 
 *Slika. Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku.*
 
 Nulta raspodjela ima sredinu u nuli i standardnu devijaciju od
 `r hr_broj(s10$sd_nulte, 2)` boda. Devedeset pet posto premještanja daje razliku
-manju od `r hr_broj(s10$granica, 2)` boda po apsolutnoj vrijednosti, dakle sve
-unutar tog raspona nulti model proizvodi bez ikakve pomoći. Opažena razlika od
+koja po apsolutnoj vrijednosti nije veća od `r hr_broj(s10$granica, 2)` boda,
+pa nulti model cijeli taj raspon proizvodi bez ikakve pomoći. Opažena razlika od
 `r hr_broj(s10$razlika, 2)` boda leži izvan njega.
 
 Preostaje prebrojati koliko je premještanja dalo odstupanje barem toliko veliko
@@ -115,12 +125,22 @@ s povjerenjem, razliku ovoliku ili veću vidjeli bismo u otprilike
 `r hr_broj(s10$p * 100, 1)` % uzoraka. Sve što p-vrijednost kaže stoji u toj
 rečenici, i svaka tvrdnja koja iz nje izlazi mora biti opravdana posebno.
 
+Kad bismo pobrojili sva moguća premještanja, p-vrijednost bi bila njihov točan
+udio, uključujući opaženi raspored. Ovdje nasumično izvlačimo konačan broj
+premještanja. Označimo li njihov broj s $B$, a broj apsolutnih razlika barem
+toliko velikih kao opažena s $b$, procijenjena p-vrijednost iznosi
+$(b + 1)/(B + 1)$. Dodani
+opaženi raspored sprečava da konačna simulacija vrati nulu i daje valjanu
+procjenu pri nasumičnom uzorkovanju premještanja.
+
 ## Interakcija — Simulator p-vrijednosti
 
 Sljedeći prikaz radi ono što jedan uzorak ne može. Postupak ponavlja mnogo puta,
 odvojeno u svijetu u kojem učinka nema i u svijetu u kojem ga ima, i prikazuje
 kako se p-vrijednosti raspoređuju u jednom i u drugom. Radi preglednosti koristi
-normalne ishode s poznatom varijabilnošću i obostrani test.
+normalne ishode s poznatom varijabilnošću i obostrani test. P-vrijednosti računa
+iz poznate normalne raspodjele, pa korekcija za konačan broj nasumičnih
+premještanja ne pripada ni interaktivnom prikazu ni njegovoj statičnoj inačici.
 
 *Slika. Raspodjele p-vrijednosti pod nultim modelom i pod odabranim stvarnim učinkom.*
 
@@ -143,18 +163,21 @@ Postupak može pogriješiti na dva načina i nijedan se ne može ukloniti. Kad s
 odbaci nulta hipoteza koja je istinita, radi se o pogrešci prve vrste. Kad se ne
 odbaci nulta hipoteza koja je lažna, radi se o pogrešci druge vrste.
 
-**Pogreška prve vrste** je odbacivanje nulte hipoteze koja je istinita, a udio
-takvih odbacivanja u dugom nizu ponavljanja postupka jednak je odabranom pragu.
+**Pogreška prve vrste** je odbacivanje nulte hipoteze koja je istinita. Pod
+pretpostavkama modela postupak ograničava dugoročni udio takvih odbacivanja
+odabranim pragom.
 
-Ta se tvrdnja obično iznosi kao definicija, a u ovoj se knjizi može izmjeriti,
-jer je populacija poznata. Postavimo pitanje na koje unaprijed znamo odgovor.
-Razlikuju li se žene i muškarci po povjerenju u medije? U populaciji ta razlika
-iznosi `r hr_broj(s10$istina_spol, 3)` boda, dakle nule nema samo zato što je
-populacija konačna. Nulta hipoteza je za to pitanje praktički istinita.
+Ta se tvrdnja može izmjeriti u uvjetima u kojima znamo da vrijedi cijeli nulti
+model. Iz poznate populacije svaki put izvučemo `r s10$n` ishoda, a zatim im
+nasumično dodijelimo jednako mnogo oznaka A i B. Oznaka nastaje neovisno o
+ishodu, pa je puna raspodjela povjerenja pod nultom hipotezom ista u objema
+skupinama po konstrukciji, a ne samo približno jednaka po sredini.
 
-Provedemo li isti permutacijski postupak na osamsto novih uzoraka od
-`r s10$n` osoba, prag od 0,05 prijeđe ih `r hr_broj(s10$stopa_spol, 1)` %. Prag
-je dakle održao obećanje, i to je jedino obećanje koje daje.
+Provedemo li permutacijski postupak na osamsto tako nastalih uzoraka, prag od
+0,05 prijeđe ih `r hr_broj(s10$stopa_nulta, 1)` %. Konačan broj premještanja i
+slučajnost među osamsto ponavljanja znače da izmjereni udio ne mora biti točno
+pet posto. Bitno je da se provjerava postupak pod nultim modelom koji doista
+zadovoljava njegovu pretpostavku zamjenjivosti.
 
 *Slika. Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,05, za dva pitanja s poznatim odgovorom. Osamsto uzoraka po pitanju, u svakome tristo premještanja. Izrada autora.*
 
@@ -164,18 +187,23 @@ postupak je pronalazi u `r hr_broj(s10$stopa_izvor, 1)` % uzoraka. U preostalih
 `r hr_broj(s10$promasaj, 1)` % istraživač bi zaključio da nema dovoljno dokaza,
 i pritom bi se pridržavao svih pravila.
 
-*Slika. Raspodjela procijenjene razlike kad učinka nema i kad postoji, uz isprekidane crte na graničnim vrijednostima postupka.*
+*Slika. Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice.*
 
-Slika pokazuje zašto se dvije pogreške ne mogu istovremeno smanjivati. Granične
-crte određene su gornjom raspodjelom, a odsijecaju i donju. Pomaknemo li ih
+Slika pokazuje zašto se pomicanjem istih graničnih crta jedna pogreška ne može
+smanjiti bez povećanja druge. Crte su određene gornjom raspodjelom, a odsijecaju
+i donju. Pomaknemo li ih
 prema van kako bismo rjeđe pogriješili na prvi način, veći dio donje raspodjele
-ostaje između njih i postupak češće promašuje stvarnu razliku. Jedini način da
-oba udjela padnu jest razmaknuti dvije raspodjele, a to se postiže većim uzorkom
-ili preciznijim mjerenjem, dakle odlukama iz dizajna, a ne izborom praga.
+ostaje između njih i postupak češće promašuje stvarnu razliku. Veći uzorak ili
+preciznije mjerenje pri istom pragu smanjuju pogrešku druge vrste, dok pogreška
+prve vrste ostaje ograničena odabranim pragom. Više informacija može omogućiti
+i stroži prag uz zadržanu ili veću snagu, ali samo nakon nove odluke o odnosu
+dviju pogrešaka.
 
-Koliki je uzorak za to potreban i kako se planira unaprijed, tema je sljedećeg
-poglavlja. Ovdje je dovoljno vidjeti da udio promašaja nije svojstvo testa nego
-posljedica dizajna, i da se o njemu odlučuje prije prikupljanja podataka.
+Plohe na slici objašnjavaju geometriju tog odnosa, a ne predstavljaju izmjerene
+stope iz tablice, jer gornja raspodjela uvjetuje na glavni uzorak, dok donja
+dolazi iz ponovljenih uzoraka. Stvarna snaga ovisi zajedno o veličini učinka,
+varijabilnosti, veličini i dizajnu uzorka, testnoj statistici i pragu odluke.
+Kako se te sastavnice planiraju unaprijed, tema je sljedećeg poglavlja.
 
 ## Prag je konvencija, a ne mjera
 
@@ -211,17 +239,16 @@ razloga zbog kojih u izvještaju stoje prvi.
 
 ## Što p-vrijednost nije
 
-Vratimo se pitanju o spolu, gdje odgovor unaprijed znamo. U našem uzorku razlika
-iznosi `r hr_broj(s10$razlika_spol, 2)` boda uz interval od
-`r hr_broj(s10$donja_spol, 2)` do `r hr_broj(s10$gornja_spol, 2)`, a p-vrijednost
-je `r hr_broj(s10$p_spol, 2)`. Postupak je ovdje postupio ispravno, jer razlike
-doista nema.
+Vratimo se kalibracijskom uzorku s nasumično dodijeljenim oznakama. Razlika
+iznosi `r hr_broj(s10$razlika_nulta, 2)` boda uz interval od
+`r hr_broj(s10$donja_nulta, 2)` do `r hr_broj(s10$gornja_nulta, 2)`, a
+p-vrijednost je `r hr_broj(s10$p_nulta, 2)`. Oznaka je nastala neovisno o
+ishodu, pa ovdje znamo da nulti model vrijedi.
 
 Izvještaj koji bi iz toga zaključio da razlike nema rekao bi ipak previše.
-Interval dopušta razlike do gotovo pola boda u oba smjera, a to je raspon unutar
-kojeg bi se uredničke odluke razlikovale. Da je razlika u populaciji iznosila
-trećinu boda, ovaj bi uzorak jednako izgledao. Velika p-vrijednost znači da
-podaci nisu neusklađeni s nultim modelom, a ne da su s njime posebno usklađeni.
+Interval i dalje dopušta razlike u oba smjera koje bi mogle biti sadržajno
+važne u drugom istraživačkom pitanju. Velika p-vrijednost znači da podaci nisu
+neusklađeni s nultim modelom, a ne da su s njime posebno usklađeni.
 
 Najčešća pogreška ide u suprotnom smjeru i tiče se malih p-vrijednosti. Za naše
 pitanje o izvoru vjerojatnost od `r hr_broj(s10$p, 3)` odnosi se na podatke pod
@@ -237,28 +264,31 @@ razlike koje nikoga ne zanimaju.
 
 ## Drugo pitanje i drugi račun
 
-Pitanje koje istraživači zapravo imaju obično glasi koliko je vjerojatno da
-učinak postoji. Postupak iz ovog poglavlja na njega ne odgovara i nije za njega
-ni napravljen. Odgovor na to pitanje traži nešto što test nigdje ne traži, a to
-je izjava o tome što se držalo vjerojatnim prije podataka.
+Istraživače često zanima koliko je nakon podataka vjerojatna određena veličina
+učinka. Postupak iz ovog poglavlja na to pitanje ne odgovara i nije za njega ni
+napravljen. Njegovo je legitimno pitanje kako bi se unaprijed određen postupak
+ponašao kroz ponavljanja kad vrijedi precizan nulti model. Takav model može biti
+sadržajno važan kad upravo odsutnost razlike ili određena referentna vrijednost
+ima značenje za odluku.
 
-Bayesovski pristup upravo tu izjavu zahtijeva. Istraživač unaprijed navodi koliko
-su mu koje vrijednosti učinka vjerojatne, podaci tu raspodjelu mijenjaju, i
-rezultat je nova raspodjela vjerojatnosti nad mogućim učincima. Iz nje se može
-očitati vjerojatnost da je učinak veći od nule ili veći od neke granice koja je
-sadržajno važna, dakle upravo ono što se od p-vrijednosti pogrešno očekuje.
+Bayesovski pristup raspodjelu uvjerenja prije podataka povezuje s modelom koji
+opisuje koliko su podaci vjerojatni pri različitim vrijednostima učinka. Rezultat
+je nova raspodjela vjerojatnosti nad mogućim učincima. Iz nje se može očitati
+vjerojatnost da je učinak veći od nule ili od sadržajno važne granice, što je
+drukčije pitanje od dugoročnog ponašanja testa.
 
-Cijena je vidljiva i nije skrivena. Početnu raspodjelu netko mora postaviti i
-obrazložiti, a različiti izbori daju različite zaključke iz istih podataka. Za
-pristup koji se često predstavlja kao izlaz iz proizvoljnosti to je neugodna
-osobina, no ona je barem eksplicitna. U testiranju su pretpostavke jednako
-prisutne, samo se ne moraju izgovoriti.
+Oba pristupa ovise o pretpostavkama koje treba izgovoriti. Bayesovski zaključak
+može se promijeniti s početnom raspodjelom i s modelom podataka, pa osjetljivost
+na oba izbora pripada izvještaju. Frekvencijski zaključak ovisi o modelu
+uzorkovanja ili dodjele, testnoj statistici i unaprijed zadanom postupku. Razlika
+među pristupima nije u tome ima li pretpostavki, nego koja pitanja postavljaju i
+kako provjeravaju posljedice svojih izbora.
 
 Knjiga ostaje na frekvencijskom putu jer je to jezik kojim je napisana golema
 većina istraživanja koja čitatelj mora znati pročitati. Bayesovski račun ovdje
-ostaje pogled kroz prozor, s napomenom da odgovara na drugo pitanje i da mu za
-to treba dodatan ulaz. Poglavlje o regresiji na tu razliku se vraća u
-zaključnom pogledu unaprijed.
+ostaje pogled kroz prozor, a procjena veličine učinka i njezina neizvjesnost i
+dalje vode izvještaj u oba jezika. Poglavlje o regresiji na tu razliku vraća se
+u zaključnom pogledu unaprijed.
 
 **Statistika u divljini.**
 **Popis od dvadeset pet.** Sedmorica statističara objavila su u recenziranom
@@ -296,18 +326,13 @@ nema.
 Na pitanje razlikuju li se čitatelji tiska i portala po povjerenju u medije
 asistent je napisao ovu analizu.
 
-Uz ispis je dodao obrazloženje. Oznake skupina premještene su četiri tisuće puta,
-a razlika ovoliku ili veću daje `r hr_broj(s10$p * 100, 1)` % premještanja.
-Budući da je taj udio ispod praga, zaključuje da vjerojatnost da između dviju
-skupina nema razlike iznosi `r hr_broj(s10$p * 100, 1)` %.
-
-Greška je posljednja rečenica, u kojoj udio premještanja postaje vjerojatnost
-hipoteze. Kod i sve prije te rečenice su ispravni. Izračunati udio odnosi se na
-rezultate koje nulti model proizvodi, dakle uvjetovan je time da razlike nema, a
-tvrdnja ga okreće u vjerojatnost samog modela nakon podataka. Popravak je
-napisati što je izračunato, dakle da bi razliku ovoliku ili veću nulti model
-proizveo u `r hr_broj(s10$p * 100, 1)` % uzoraka, i uz to navesti procjenu
-razlike s intervalom.
+Uz ispis je dodao obrazloženje. Osobe su zasebne jedinice opažanja, a nulti
+model pretpostavlja jednaku punu raspodjelu povjerenja u objema skupinama, zbog
+čega se oznake smatraju zamjenjivima. Oznake su promatračke, pa rezultat ne
+podupire uzročnu tvrdnju. Premještene su četiri tisuće puta, a korigirana
+p-vrijednost iznosi `r hr_broj(s10$p, 3)`. Budući da je ispod praga, zaključuje
+da vjerojatnost da između dviju skupina nema razlike iznosi
+`r hr_broj(s10$p * 100, 1)` %.
 
 ## Razrađeni primjer
 
@@ -318,8 +343,11 @@ toliko veliko odstupanje.
 
 Funkcija `sample` bez dodatnih argumenata vraća isti niz oznaka u nasumičnom
 poretku, a `replicate` ponavlja izraz zadani broj puta i skuplja rezultate. Cijeli
-nulti model stane u te dvije funkcije, bez ijedne pretpostavke o obliku
-raspodjele.
+nulti model stane u te dvije funkcije i ne zadaje parametarski oblik raspodjele.
+Njegova valjanost ipak počiva na neovisnim jedinicama i zamjenjivosti oznaka pod
+nultim modelom pune raspodjele. Brojanje u oba repa čini postupak obostranim, a
+dodavanje jedinice u brojnik i nazivnik ispravlja procjenu za konačan nasumični
+skup premještanja.
 
 Izvještaj koji iz ovoga slijedi ima tri rečenice i njihov je redoslijed obvezan.
 Čitatelji tiska imaju u prosjeku `r hr_broj(s10$razlika, 2)` boda više povjerenja
@@ -340,11 +368,13 @@ svijet bez učinka, a nulta raspodjela za tu usporedbu gradi se premještanjem
 oznaka umjesto formulom. P-vrijednost je udio takvih rezultata barem toliko
 neusklađenih s nultim modelom kao opaženi, i ne kaže ni kolika je vjerojatnost
 hipoteze ni koliko je učinak važan. Dvije vrste pogreške povezane su tako da
-pomicanje praga jednu smanjuje, a drugu povećava, pa se obje snižavaju samo
-boljim dizajnom. Na poznatoj populaciji obje su stope izmjerene, i postupak je
-uz istinitu nultu hipotezu održao prag od pet posto, ali je stvarnu razliku od
-`r hr_broj(s10$istina_izvor, 2)` boda propustio u svakom petom uzorku. Sljedeće
-poglavlje stavlja veličinu učinka i snagu ispred rituala značajnosti.
+pomicanje praga jednu smanjuje, a drugu povećava, dok više informacija pri istom
+pragu smanjuje pogrešku druge vrste. Kalibracijska simulacija s nasumično
+dodijeljenim oznakama provjerila je prag pod istinitim nultim modelom pune
+raspodjele, dok je postupak stvarnu razliku od
+`r hr_broj(s10$istina_izvor, 2)` boda propustio u
+`r hr_broj(s10$promasaj, 1)` % uzoraka. Sljedeće poglavlje stavlja veličinu
+učinka i snagu ispred rituala značajnosti.
 
 ## Pojmovi
 
@@ -390,10 +420,10 @@ slijedi i njezinu ispravljenu inačicu.
 # Veličina učinka i snaga
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -509,6 +539,18 @@ Prethodno je poglavlje na ovoj populaciji izmjerilo da postupak stvarnu razliku
 pronalazi u otprilike četiri od pet uzoraka od tristo osoba. Ta brojka upravo je
 snaga, i sada je vrijedi izmjeriti na više veličina uzorka.
 
+Mjerenje zadržava permutacijski postupak iz prethodnog poglavlja i njegove
+granice. Nulti model tvrdi da je cijela raspodjela povjerenja jednaka u objema
+skupinama, tako da su oznake izvora zamjenjive u odnosu na ishod. Obostrana
+testna statistika jest apsolutna sirova razlika sredina. Osobe se tretiraju kao
+zasebne jedinice bez zajedničke ovisnosti, dok simulacija bez ponavljanja izvlači
+uzorke iz jedne konačne simulirane populacije u kojoj razlika po izvoru postoji.
+Svaka točka krivulje obuhvaća tristo zamišljenih studija. U svakoj se
+p-vrijednost procjenjuje iz dvjesto nasumičnih premještanja uz korekciju
+$(b + 1)/(B + 1)$. Pritom $B$ predstavlja broj premještanja, a $b$ broj rezultata
+barem toliko ekstremnih kao opaženi. Krivulja zato procjenjuje snagu samo za taj
+mehanizam podataka i taj postupak, a ne opće svojstvo uzorka određene veličine.
+
 *Slika. Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,05 pri stvarnoj razlici od 0,74 boda. Tristo simuliranih studija po retku. Izrada autora.*
 
 Rast nije ravnomjeran i to je najvažnije u tablici. Podizanje uzorka sa
@@ -533,6 +575,13 @@ može biti previše.
 Sljedeći prikaz odvaja tri odluke koje se u praksi donose zajedno. Čitatelj
 mijenja stvarnu veličinu učinka, broj jedinica i prag, svaki put samo jedno, i
 prati kako se pomiče udio uzoraka u kojima bi postupak nešto našao.
+
+Prikaz koristi idealizirani model u kojem nulta hipoteza postavlja
+standardiziranu razliku na nulu. Testna statistika je apsolutna z-vrijednost, a
+postupak je obostran. Model pretpostavlja dvije neovisne skupine jednake
+veličine, neovisne normalne ishode i zajedničku poznatu standardnu devijaciju.
+Za svaku točku izravno simulira z-vrijednosti iz pripadne normalne raspodjele,
+pa broj ponavljanja određuje samo Monte Carlo nesigurnost prikazane snage.
 
 *Slika. Simulirana snaga kroz veličine uzorka u idealiziranom postupku s poznatom varijabilnošću.*
 
@@ -630,10 +679,17 @@ raspršenost sličnu onoj u ovoj populaciji. Analiza ispod za nekoliko veličina
 uzorka broji u kolikom udjelu simuliranih studija bi takva razlika bila
 otkrivena.
 
+Nulta hipoteza u ovom računu tvrdi da je razlika sredina nula, a testna
+statistika dijeli opaženu razliku poznatom standardnom pogreškom. Simulacija
+pretpostavlja dvije neovisne skupine, neovisne normalne ishode, jednaku i poznatu
+standardnu devijaciju od 1,9 boda te obostrani z-postupak s pragom 0,05. Za svaku
+veličinu uzorka proizvodi dvije tisuće novih parova skupina. Izračunana snaga
+vrijedi samo pod tim pretpostavkama i za unaprijed zadanu razliku od pola boda.
+
 Funkcija `replicate` ponavlja cijelu zamišljenu studiju dvije tisuće puta, a
 `sapply` isti račun provodi za svaku ponuđenu veličinu uzorka. Granica 1,96
-dolazi iz pravila područja koje uvodi poglavlje o vjerojatnosti, pa se ovdje
-ništa novo ne pretpostavlja.
+dolazi iz standardne normalne raspodjele i pripada upravo opisanom obostranom
+z-postupku, a ne permutacijskom postupku iz prvog prikaza snage.
 
 *Slika. Udio simuliranih studija u kojima bi razlika od pola boda bila otkrivena, pri četirima veličinama uzorka po skupini. Izrada autora.*
 
@@ -686,14 +742,6 @@ Uz ispis je dodao obrazloženje. Opažena razlika daje standardiziranu razliku
 oko 0,78, a snaga izračunata za tu vrijednost i trideset ljudi po skupini iznosi
 0,84. Budući da je snaga iznad uobičajene granice, zaključuje da je studija
 bila dovoljno velika i da se procijenjenoj razlici može vjerovati.
-
-Greška je računanje snage iz učinka koji je već opažen. Poziv je sintaktički
-ispravan, ali je `delta` popunjena procjenom iz istih podataka, pa rezultat ne
-donosi nikakvu novu informaciju i uvijek ispada visok kad je nalaz značajan.
-Simulacija u ovom poglavlju pokazuje i zašto je zaključak obrnut od istine, jer
-prag pri maloj studiji prelaze upravo pretjerane procjene. Snaga se računa iz
-najmanjeg važnog učinka, postavljenog prije podataka, i tada bi za razliku ove
-veličine tražila znatno više od trideset ljudi po skupini.
 
 ## Sažetak
 
@@ -750,10 +798,10 @@ napišite čime bi taj argument trebalo zamijeniti.
 # Kriza i obnova
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/12-kriza-i-obnova.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -868,10 +916,6 @@ koda, tablice ili dokumenta.
 Studija je predregistrirala ishod, pravilo isključivanja i model prije
 prikupljanja podataka. Kod i anonimizirani materijali dostupni su za provjeru.
 Zbog predregistracije rezultat mora biti istinit.
-
-Greška je pretvaranje predregistracije u jamstvo istine. Ona povećava
-vidljivost analitičkih odluka, ali ne uklanja pogrešku mjerenja, uzoračku
-varijaciju, slabu teoriju ni neprikladan model.
 
 ## Razrađeni primjer
 
