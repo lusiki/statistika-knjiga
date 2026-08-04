@@ -1,0 +1,145 @@
+schema_version: 1
+mechanism: "pre-release-governance"
+last_updated: "2026-08-04"
+current_state: "pre_release"
+
+decision_basis:
+  gate: "G-A1d"
+  decision: "D14"
+  accepted_at: "2026-08-03"
+  evidence: "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+
+book:
+  working_title: "Osnove statistike za društvene znanosti"
+  title_state: "working_not_frozen"
+  title_freeze_gate: "G-A5b"
+  authorship_source: "_quarto.yml"
+  authorship_state: "working_not_frozen"
+  authorship_freeze_gate: "G-A5b"
+
+edition:
+  label: null
+  number: null
+  state: "unset_pre_release"
+  freeze_packet: "P8-META"
+
+version:
+  value: null
+  state: "unset_pre_release"
+  freeze_packet: "P8-META"
+
+release_date:
+  value: null
+  state: "unset_pre_release"
+  freeze_packet: "P8-META"
+
+citation:
+  state: "draft_instructions_only"
+  final_citation: null
+  persistent_identifier: null
+  landing_page: "index.qmd#kako-citirati"
+  colophon: "tex/colophon.tex"
+  finalisation_packet: "P8-META"
+  required_final_fields:
+    - "frozen title"
+    - "frozen authorship and order"
+    - "edition"
+    - "version"
+    - "release date"
+    - "persistent identifier"
+
+owners:
+  release:
+    name: "Luka Sikic"
+    accepted_at: "2026-08-03"
+    authority: "coordination_and_exact_source_state_control"
+  archive:
+    name: "Luka Sikic"
+    accepted_at: "2026-08-03"
+    authority: "plan_ownership_only_until_G-A6-ARCHIVE"
+  errata:
+    name: "Luka Sikic"
+    accepted_at: "2026-08-03"
+    authority: "route_and_log_ownership_only_until_G-A6-DEPLOY"
+  term_freeze:
+    name: null
+    state: "awaiting_G-A5c_owner_confirmation"
+
+mechanisms:
+  changelog:
+    path: "CHANGELOG.md"
+    state: "reader_facing_pre_release_log_ready"
+    finalisation_packet: "P8-META"
+  provenance:
+    path: "release/provenance.yml"
+    state: "pre_release_demonstration_recorded"
+    release_candidate_packet: "P7-FREEZE"
+    artifact_matrix_packet: "P7-CLEAN-BUILD"
+  archive_plan:
+    path: "release/archive-plan.md"
+    state: "plan_ready_no_deposit"
+    execution_gate: "G-A6-ARCHIVE"
+  term_freeze_policy:
+    path: "release/term-freeze-policy.md"
+    state: "policy_ready_not_active"
+    owner_gate: "G-A5c"
+    execution_gate: "G-A6-DEPLOY"
+  errata:
+    page: "errata.qmd"
+    log: "release/errata.yml"
+    state: "route_source_ready_not_public"
+    execution_gate: "G-A6-DEPLOY"
+
+state_machine:
+  persisted_transitions: []
+  transitions:
+    - from: "pre_release"
+      to: "metadata_approved"
+      packet: "G-A5b"
+      external_action: false
+    - from: "metadata_approved"
+      to: "release_candidate"
+      packet: "P7-FREEZE"
+      external_action: false
+    - from: "release_candidate"
+      to: "accepted_release_candidate"
+      packet: "P7-VERIFY"
+      external_action: false
+    - from: "accepted_release_candidate"
+      to: "release_metadata_finalised"
+      packet: "P8-META"
+      external_action: false
+    - from: "release_metadata_finalised"
+      to: "tagged"
+      packet: "P8-TAG"
+      authority_gate: "G-A6-TAG"
+      external_action: true
+    - from: "tagged"
+      to: "archived"
+      packet: "P8-ARCHIVE"
+      authority_gate: "G-A6-ARCHIVE"
+      external_action: true
+    - from: "archived"
+      to: "term_frozen_deployed"
+      packet: "P8-DEPLOY"
+      authority_gate: "G-A6-DEPLOY"
+      external_action: true
+
+demonstration:
+  performed_at: "2026-08-04"
+  mode: "in_memory_non_persisting"
+  requested_transition:
+    from: "pre_release"
+    to: "metadata_approved"
+  missing_gate: "G-A5b"
+  expected_result: "blocked_without_required_gate"
+  persisted: false
+
+authority:
+  push: false
+  merge: false
+  tag: false
+  archive_deposit: false
+  deploy: false
+  publish: false
+  inference_across_actions: false

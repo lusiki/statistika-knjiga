@@ -1,0 +1,46 @@
+schema_version: 1
+record_type: "pre_release_governance_demonstration"
+recorded_at: "2026-08-04"
+packet: "P1B-GOV"
+
+source:
+  branch: "revision/comprehensive-review"
+  baseline_commit: "0e2f5eaacab94482619f12445a4045aff86f1f8f"
+  state: "local_worktree_demonstration"
+  immutable_release_state: false
+
+release_candidate:
+  commit: null
+  tag: null
+  persistent_identifier: null
+
+release_artifacts: []
+
+manifest:
+  - path: "release/governance.yml"
+    sha256: "576a7b48240bce38acc5ee23202d83d6e0593d15ea49359a836f942d148fd2e4"
+  - path: "release/errata.yml"
+    sha256: "0455e3523e84867677116c9ae4a0735f73b896667f0831e239416b701dbeca8f"
+  - path: "release/archive-plan.md"
+    sha256: "830c19ee48ed58e312f3c02d025d79f6a4385873d3993920c66390b9ae9ce81e"
+  - path: "release/term-freeze-policy.md"
+    sha256: "db20888a4a6419ea0195259ad117169a425a6ec942a448c5fc2990b3fb23a4ab"
+  - path: "CHANGELOG.md"
+    sha256: "f92b85db2faae7311c75d79a542c13931ec93f76d36041691214b52853877667"
+  - path: "errata.qmd"
+    sha256: "fb36b37b2e1fc63860c0758143482fbdbd8ba595522b778080b2d8fa3676e3ec"
+  - path: "index.qmd"
+    sha256: "04c2a68f51bae007179cab1af46c08df7132513c8f29989d1099a02c1911fff6"
+  - path: "tex/colophon.tex"
+    sha256: "db2c4cdbcf134cca80dbd3fb71fcf60ea3364870930f36cf5eba5878ce84c14c"
+  - path: "_quarto.yml"
+    sha256: "080dc1c524139aef32813d9db26bff49f01b0697ef8911fba516399a23ed1ac6"
+  - path: "scripts/check-release-governance.R"
+    sha256: "9d7813642d28aceb57d3990e8ba75e042a0a4f4eccea27a080fd7086c49154c6"
+
+demonstration:
+  validator: "scripts/check-release-governance.R"
+  mode: "non_mutating"
+  expected_state: "pre_release"
+  expected_block: "G-A5b"
+  status: "passed"

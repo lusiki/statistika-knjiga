@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-03"
+last_updated: "2026-08-04"
 inventory_child_count: 371
 
 protocol:
@@ -1170,6 +1170,91 @@ handoffs:
     deliveries:
       - target_packet: P1B-GOV
         gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1B-GOV accepts H-G-A1D-001 as its exact implementation boundary
+          before the first substantive edit. The packet will create only a
+          local pre-release governance schema and Croatian reader-facing
+          sources, retain Osnove statistike za društvene znanosti as the D14
+          working title, leave final authorship, edition, version, date,
+          citation identifier, tag, archive identifier, term edition, and
+          public errata submission target unfrozen or unset, and demonstrate
+          state transitions without persisting a release state. Luka Sikic is
+          recorded only in the approved release, archive, and errata owner
+          roles. Push, merge, tag, archival deposit, deployment, publication,
+          later-packet acceptance, and inferred cross-action authority remain
+          prohibited.
+        evidence:
+          - conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic
+          - decision:G-A1d
+          - decision:D14
+          - outside-ask:OA-G-A1D-EDITION-MECHANISM-done
+          - outside-ask:OA-G-A1D-ARCHIVE-OWNER-done
+          - outside-ask:OA-G-A1D-ERRATA-OWNER-done
+          - outside-ask:OA-G-A1D-RELEASE-OWNER-done
+          - contract:packet_contracts.release_governance
+          - source:notes/reports/comprehensive-book-review-2026-07-31.md-edition-citation-and-errata
+          - authority:push-merge-tag-archive-deploy-publication-false
+          - check:scripts/check-review-workflow.R-after-consumption-before-substantive-edit
+
+  H-P1B-GOV-001:
+    source_packet: P1B-GOV
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - item:R06-GOV-contract
+      - item:R06-RELEASE-changelog
+      - item:R06-RELEASE-citation
+      - item:R06-RELEASE-archive
+      - item:R06-RELEASE-term-freeze
+      - item:R06-RELEASE-errata
+      - report:notes/reports/p1b-release-governance-2026-08-04.md
+    statement: >-
+      P1B-GOV established release/governance.yml as the canonical pre-release
+      state, with Croatian changelog and citation surfaces, a SHA-256
+      provenance manifest, an archive plan, a term-freeze policy, and an owned
+      dated errata source and log. The current state is pre_release; D14 remains
+      the working-title boundary; all final metadata, immutable identifiers,
+      release artifacts, persisted transitions, and public submission targets
+      remain unset. Luka Sikic is the accepted release, archive, and errata
+      owner; term-freeze ownership still requires G-A5c.
+    required_action: >-
+      Later release packets must update these canonical sources rather than
+      create competing metadata. P7-FREEZE records the exact candidate source,
+      locks, and data; P7-CLEAN-BUILD adds the cross-format artifact matrix;
+      G-A5c confirms term-freeze ownership; P8-META freezes approved metadata
+      and reconciles changelog, citation, colophon, and errata; P8-ARCHIVE and
+      P8-DEPLOY may execute the plan and activate the routes only after their
+      exact G-A6 gates. Re-run scripts/check-release-governance.R after every
+      such change and never infer authority across actions.
+    basis:
+      - governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002
+      - source:release/governance.yml
+      - source:release/provenance.yml
+      - check:scripts/check-release-governance.R-passed
+      - decision:G-A1d
+      - decision:D14
+    required: true
+    deliveries:
+      - target_packet: P7-FREEZE
+        gate: before_close
+        state: pending
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+      - target_packet: G-A5c
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_start
+        state: pending
+      - target_packet: P8-ARCHIVE
+        gate: before_start
+        state: pending
+      - target_packet: P8-DEPLOY
+        gate: before_start
         state: pending
 
 packet_reviews:
@@ -1655,3 +1740,23 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1B-GOV
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - no chapter prose or code changed and P1B-GOV was not started
+  P1B-GOV:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1B-GOV-001
+    implementation_state: governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002
+    checks:
+      - H-G-A1D-001 was acknowledged and consumed with exact disposition and evidence before the first substantive edit
+      - D14 working title and the accepted release archive and errata owners are recorded in the canonical governance schema
+      - edition version release date final citation persistent identifier tag archive identifier term edition and public errata target remain unset
+      - the non-persisting state-transition demonstration was blocked by missing G-A5b as designed
+      - Croatian changelog draft citation artifact provenance archive plan term-freeze policy and owned dated errata source and log are implemented
+      - scripts/check-release-governance.R passed with every external-authority flag false and every manifest hash matching
+      - checkout-local style lint returned zero candidates for index.qmd and errata.qmd and the manual Croatian pass completed
+      - token validation and targeted HTML renders for index.qmd and errata.qmd passed
+      - generated pre-render artifacts were restored outside the packet diff and no docs or freeze artifact is changed
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-LOCK
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - H-P1B-GOV-001 records every future-relevant canonical-path and gate effect
+      - no push merge tag archival deposit deployment publication or later-packet acceptance occurred

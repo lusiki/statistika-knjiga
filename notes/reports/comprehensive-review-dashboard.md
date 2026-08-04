@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A1d
-next_permitted_packet: P1B-GOV
+last_completed_packet: P1B-GOV
+next_permitted_packet: P1C-LOCK
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 28
-last_updated: "2026-08-03"
+forward_handoffs: 29
+last_updated: "2026-08-04"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -33,16 +33,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A1d` |
-| Next permitted packet | `P1B-GOV` |
+| Last completed packet | `P1B-GOV` |
+| Next permitted packet | `P1C-LOCK` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 43 accepted, 5 deferred with reason, 323 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 27 accepted and 161 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 44 accepted, 5 deferred with reason, 322 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 28 accepted and 160 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `G-A1d` passed named-owner, disposition, alternatives, blocked-dependency, authority-boundary, negative-fixture, and closeout checks |
+| Failed gates | None; `P1B-GOV` passed governance-schema, owner, state-transition, manifest, style, token, targeted-render, authority-boundary, negative-fixture, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -688,6 +688,35 @@ the durable evidence is
 The accepted decision source state is
 `conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic`.
 
+## P1B-GOV closeout
+
+- `H-G-A1D-001` was acknowledged and consumed with an exact disposition and
+  evidence before the first substantive edit.
+- `release/governance.yml` is the canonical pre-release state. It retains the
+  D14 working title, keeps final authorship, edition, version, date, citation,
+  persistent identifier, tag, archive identifier, term edition, and public
+  errata target unset, and records zero persisted release transitions.
+- Luka Sikic is recorded as release, archive, and errata owner. Term-freeze
+  ownership remains explicitly gated by `G-A5c`.
+- `CHANGELOG.md`, the landing-page and colophon citation boundaries, the
+  SHA-256 provenance manifest, archive plan, term-freeze policy, and the dated
+  Croatian errata page and log are implemented locally.
+- The non-persisting demonstration attempts the first metadata transition and
+  is blocked by missing `G-A5b` as designed. All seven external or inferred
+  authority flags remain `false`; no final or immutable release state exists.
+- The release-governance validator, checkout-local style lint, manual Croatian
+  pass, token check, targeted landing/errata renders, workflow validator, and
+  both required negative fixtures passed. Generated pre-render artifacts were
+  restored outside the packet diff.
+- `H-P1B-GOV-001` carries the canonical paths and exact later gate boundaries
+  to the release-candidate, metadata, archive, term-freeze, and deployment
+  packets. No later packet was started or accepted.
+
+The accepted implementation source state is
+`governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002`;
+the durable evidence is
+`notes/reports/p1b-release-governance-2026-08-04.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -709,6 +738,12 @@ The accepted decision source state is
   unfinished no-code or other pathways may not be advertised as complete.
 - P2-DOCS must reconcile stale internal comments about profile solutions,
   visual-identity selection, and provisional structural conventions.
+- P7-FREEZE and P7-CLEAN-BUILD must populate the canonical provenance record
+  with the accepted source, locks, data, tools, and cross-format artifact
+  hashes rather than create a competing record.
+- G-A5c must confirm the term-freeze owner. P8-META must replace the null
+  release fields only from the accepted metadata decision, while P8-ARCHIVE
+  and P8-DEPLOY retain their exact immediate G-A6 authority gates.
 
 ## Simple implementation order
 
@@ -737,23 +772,20 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1B-GOV. Fully read its
-release-governance contract, D14, the complete R06 governance and release
-records, the accepted G-A1d decision, the four resolved G-A1d outside asks,
-and H-G-A1D-001.
+Execute only the dashboard's next permitted packet, P1C-LOCK. Fully read its
+release-engineering contract, every register item assigned to P1C-LOCK, the
+current README dependency warning, the live R and browser dependency/setup
+sources, and H-P1B-META-001.
 
-Before the first substantive edit, acknowledge H-G-A1D-001 and consume it with
-an exact recorded disposition and evidence. Implement only the approved local
-pre-release governance mechanism: edition/version fields, Croatian changelog,
-citation, provenance, archive plan, term-freeze policy, and an owned dated
-errata route. Record Luka Sikic as release, archive, and errata owner and retain
-*Osnove statistike za društvene znanosti* as the D14 working title unless a new
-explicit author decision changes it before citation metadata freeze.
+Before the first substantive edit, acknowledge H-P1B-META-001. Implement only
+the pinned R and browser dependency mechanism. Commit the exact lock inputs,
+document one public restore command only after a clean restore proves it, and
+demonstrate both the positive path and a deliberate failing fixture without
+depending on warm caches, untracked packages, or developer-local state.
 
-Demonstrate the mechanism without freezing final release metadata or creating
-public or immutable release state. No push, merge, tag, archival deposit,
-deployment, publication, or later-packet acceptance is authorised. Complete
-only P1B-GOV, update the register, handoff ledger, and dashboard together, run
-the workflow validator and both required negative fixtures, and stop. Do not
-start P1C-LOCK or any later packet.
+Consume H-P1B-META-001 with exact disposition and evidence before closeout.
+Update the register, handoff ledger, dashboard, and README warning together
+only when the implemented restore contract justifies it. Run the workflow
+validator and both required negative fixtures, then stop. Do not start
+P1C-PDF, P1C-INTEGRITY, or any later packet.
 ```

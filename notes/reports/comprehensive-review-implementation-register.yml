@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-03"
+  last_updated: "2026-08-04"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A1d"
-  next_permitted_packet: "P1B-GOV"
+  last_completed_packet: "P1B-GOV"
+  next_permitted_packet: "P1C-LOCK"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3082,7 +3082,7 @@ packets:
     sequence: 34
     phase: "1B"
     kind: "release_governance"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A1d"
       - "P1B-META"
@@ -3094,13 +3094,58 @@ packets:
       - "Version, citation, changelog, archive, term-freeze, errata, and provenance mechanisms are defined."
       - "No push, tag, archive, or deployment occurs under the governance setup packet."
       - "The P1B-GOV packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+      required_evidence:
+        - requirement: "approved governance schema"
+          artifacts:
+            - "source:release/governance.yml"
+            - "report:notes/reports/p1b-release-governance-2026-08-04.md"
+            - "decision:G-A1d"
+        - requirement: "named owners"
+          artifacts:
+            - "source:release/governance.yml#owners"
+            - "source:release/errata.yml#owner"
+            - "conversation:G-A1d-four-owner-dispositions-2026-08-03-Luka-Sikic"
+        - requirement: "pre-release mechanism demonstration"
+          artifacts:
+            - "source:release/provenance.yml"
+            - "check:scripts/check-release-governance.R-passed"
+            - "render:tmp/p1b-gov-render-index-and-errata-passed"
+      outputs:
+        - output: "P1B-GOV durable artifact and evidence record for: Pre-release governance mechanism without external publication."
+          artifacts:
+            - "report:notes/reports/p1b-release-governance-2026-08-04.md"
+            - "source:release/governance.yml"
+            - "source:CHANGELOG.md-index.qmd-tex/colophon.tex-errata.qmd"
+        - output: "Completion evidence is tied to the declared P1B-GOV source state and bounded scope."
+          artifacts:
+            - "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+            - "source:release/provenance.yml#manifest"
+      exit_tests:
+        - test: "Version, citation, changelog, archive, term-freeze, errata, and provenance mechanisms are defined."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-release-governance.R-passed"
+            - "report:notes/reports/p1b-release-governance-2026-08-04.md#uspostavljeni-mehanizmi"
+        - test: "No push, tag, archive, or deployment occurs under the governance setup packet."
+          result: "passed"
+          evidence:
+            - "check:all-seven-release-authority-flags-false"
+            - "check:zero-persisted-state-transitions-zero-release-artifacts"
+            - "authority:no-push-merge-tag-archive-deploy-publication"
+        - test: "The P1B-GOV packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+            - "handoff:H-G-A1D-001-consumed-before-first-substantive-edit"
+            - "handoff:H-P1B-GOV-001-records-all-future-effects"
     contract: "release_governance"
     required_evidence:
       - "approved governance schema"
       - "named owners"
       - "pre-release mechanism demonstration"
-    change_reference: null
+    change_reference: "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
   P1C-LOCK:
     sequence: 35
     phase: "1C"
@@ -9899,7 +9944,7 @@ items:
       location: "§4 edition/citation/errata"
     description: "Establish version, changelog, citation, archive, term-freeze, errata, and provenance mechanisms without release."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_evidence_licence_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -9920,11 +9965,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1B-GOV"
-    completion_evidence: []
+    completion_evidence:
+      - "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
+      - "source:release/governance.yml"
+      - "source:release/provenance.yml"
+      - "source:release/archive-plan.md"
+      - "source:release/term-freeze-policy.md"
+      - "source:release/errata.yml"
+      - "source:CHANGELOG.md-index.qmd-tex/colophon.tex-errata.qmd"
+      - "report:notes/reports/p1b-release-governance-2026-08-04.md"
+      - "check:scripts/check-release-governance.R-style-tokens-targeted-renders-and-workflow-passed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "governance:sha256-dcfcc7d7d8ac052546711f45d38a79b97a52a4d9d3c8a71f06c4d7f92c1ea002"
   R06-RELEASE-changelog:
     parents:
       - "R06"
