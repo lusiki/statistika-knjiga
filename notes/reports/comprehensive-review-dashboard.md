@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A2a
-next_permitted_packet: P2-CLAIMS
+last_completed_packet: P2-CLAIMS
+next_permitted_packet: G-A2d
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -34,11 +34,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A2a` |
-| Next permitted packet | `P2-CLAIMS` |
+| Last completed packet | `P2-CLAIMS` |
+| Next permitted packet | `G-A2d` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 77 accepted, 5 deferred with reason, 289 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 37 accepted and 151 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 99 accepted, 5 deferred with reason, 267 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 38 accepted and 150 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 72 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, and the G-A2a claim-system ask are `done`; 0 external messages sent |
@@ -46,6 +46,47 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-CLAIMS closeout
+
+- `H-G-A2A-001` was acknowledged at its `before_start` gate before the first
+  substantive edit and consumed before closeout with the accepted `G-A2a`
+  system, all 22 governed items, exact exclusions, and packet evidence.
+- The existing checkout-local `conventions.json` now carries one strict
+  `intellectual_architecture` object with canonical claim, lifecycle, thread,
+  ethics, and data-science registries. Its deterministic state is
+  `architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8`.
+- The claim registry records six dimensions, independent population reach, six
+  audit questions, the poll-reading card, the honest-sentence standard, and
+  sensitivity as a primary analysis plus one defensible alternative.
+- The lifecycle registry records nine stable stages and cumulative,
+  nonexclusive part/finale roles. It preserves the separation between
+  probability sampling and training/validation/test separation.
+- All seven threads have explicit `plant`, `develop`, and `harvest` locations
+  and roles plus exclusions. The global rule is a short seed, one substantial
+  harvest, and later retrieval rather than repeated mini-lectures.
+- Data science remains a delivery mechanism for the four promises, not a fifth
+  promise. Every representation of the approximate `70/20/10` attention split
+  marks it non-binding: it is not a page formula, quota, or admission rule.
+- The architecture distinguishes four activities, four evidence objects,
+  ordinary-practice ethics, and eight data-generating designs. It preserves
+  text-package priority while leaving every exact package selection,
+  promotion, and rights decision to its later gate.
+- `scripts/check-book-architecture.py` validates the full conventions schema
+  and exact semantic invariants without undeclared dependencies. The durable
+  placement and evidence record is
+  `notes/reports/p2-claims-architecture-2026-08-04.md`.
+- No chapter or appendix prose changed; all 19 chapter spines remain
+  unratified. Terminology, assessment, Chapter 17 prerequisites, renders,
+  generated artifacts, and external actions remained outside scope.
+- No new future-relevant effect was found. Existing dependencies already route
+  every later consumer, so no duplicate outgoing handoff was created.
+- The workflow validator passes with no active packet and `G-A2d` next. Both
+  required negative fixtures fail with exit 1 for their exact injected defects:
+  generic terminal evidence and an unknown outside-ask item.
+
+`P2-CLAIMS` is accepted. `G-A2d` is the next permitted packet but was not
+started.
 
 ## G-A2a closeout
 
@@ -1060,23 +1101,24 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P2-CLAIMS. Acknowledge the
-required incoming handoff H-G-A2A-001 at its before_start gate before the first
-substantive edit and consume it with an exact disposition and evidence before
-closeout. Fully read the accepted G-A2a decision record, its 22 governed items,
-the shared_architecture packet contract, and the review sections those items
-anchor to.
+Prepare the dashboard's next permitted decision gate, G-A2d, only. Show the
+evidence, recommended defaults, alternatives, what each decision blocks, and
+the exact reply needed. Do not edit any file, claim a write packet, send an
+outside message, or infer course or institutional policy before the owner
+replies.
 
-Write the canonical claim, lifecycle, thread, ethics, and data-science
-architecture registries to exactly the accepted system. Record explicit
-plant/develop/harvest roles and exclusions for all seven threads, keep the
-70/20/10 attention budget marked non-binding wherever it is represented, and
-preserve the scope-control rule that a thread receives a seed, one substantial
-harvest, and later retrieval rather than repeated mini-lectures.
+Fully read the G-A2d decision-gate contract; decisions D05, D06, D09, D10, and
+D15; the five canonical asks OA-G-A2D-SOLUTIONS-POLICY,
+OA-G-A2D-APPENDIX-B, OA-G-A2D-APPENDIX-G, OA-G-A2D-AI-H10, and
+OA-G-A2D-PRIVACY-TOOLS; every item those asks block; and the exact review
+sections that anchor them. Verify whether any incoming handoff targets G-A2d
+and report the result.
 
-Do not edit chapter prose, ratify a chapter spine, select or promote a data
-package, settle the assessment contract, or resolve Chapter 17 prerequisites;
-each retains its own later gate. Close only P2-CLAIMS with structured evidence,
-record all future effects or an explicit none, run the workflow validator and
-both required negative fixtures, then stop.
+Present one bounded decision packet covering the two-layer solution and export
+policy, the versioned Appendix B route and verification owner, the compact
+Appendix G scope, the cumulative AI/H10 competence ladder, and the dated
+privacy/disclosure/tool lanes. Keep separately owned dispositions independently
+closable. Preserve all later implementation, chapter, appendix, assessment,
+route, and institutional gates. Stop for the named owner or owners' explicit
+dated disposition; do not start P2-ASSESS or any later packet.
 ```

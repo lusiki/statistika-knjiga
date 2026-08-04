@@ -9,7 +9,8 @@
     "opener_exempt",
     "widget_policy",
     "bands",
-    "structure"
+    "structure",
+    "intellectual_architecture"
   ],
   "properties": {
     "note": {
@@ -321,9 +322,264 @@
           }
         }
       }
+    },
+    "intellectual_architecture": {
+      "$ref": "#/$defs/intellectualArchitecture"
     }
   },
   "$defs": {
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "placementRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "locations",
+        "role"
+      ],
+      "properties": {
+        "locations": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "intellectualArchitecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "status",
+        "decision",
+        "ratified_at",
+        "decision_evidence",
+        "register_items",
+        "authority_boundary",
+        "claim_registry",
+        "lifecycle_registry",
+        "thread_registry",
+        "ethics_registry",
+        "data_science_registry"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "status": {
+          "const": "ratified"
+        },
+        "decision": {
+          "const": "G-A2a"
+        },
+        "ratified_at": {
+          "type": "string",
+          "pattern": "^2026-08-04$"
+        },
+        "decision_evidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "register_items": {
+          "type": "array",
+          "minItems": 22,
+          "maxItems": 22,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "authority_boundary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "chapter_prose_edit_authorised",
+            "chapter_spine_ratification_authorised",
+            "terminology_ratification_authorised",
+            "assessment_contract_authorised",
+            "data_package_selection_or_promotion_authorised",
+            "chapter_17_prerequisite_resolution_authorised",
+            "new_numbered_chapter_authorised",
+            "new_central_widget_authorised",
+            "new_callout_type_authorised"
+          ],
+          "properties": {
+            "chapter_prose_edit_authorised": {"const": false},
+            "chapter_spine_ratification_authorised": {"const": false},
+            "terminology_ratification_authorised": {"const": false},
+            "assessment_contract_authorised": {"const": false},
+            "data_package_selection_or_promotion_authorised": {"const": false},
+            "chapter_17_prerequisite_resolution_authorised": {"const": false},
+            "new_numbered_chapter_authorised": {"const": false},
+            "new_central_widget_authorised": {"const": false},
+            "new_callout_type_authorised": {"const": false}
+          }
+        },
+        "claim_registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "population_reach_is_independent_of_claim_type",
+            "dimensions",
+            "placement_rule",
+            "audit_questions",
+            "audit_question_placements",
+            "honest_sentence_standard",
+            "sensitivity_standard",
+            "poll_reading_card"
+          ],
+          "properties": {
+            "population_reach_is_independent_of_claim_type": {"const": true},
+            "dimensions": {
+              "type": "array",
+              "minItems": 6,
+              "maxItems": 6,
+              "items": {"type": "object"}
+            },
+            "placement_rule": {"type": "object"},
+            "audit_questions": {
+              "type": "array",
+              "minItems": 6,
+              "maxItems": 6,
+              "items": {"type": "object"}
+            },
+            "audit_question_placements": {"type": "object"},
+            "honest_sentence_standard": {"type": "object"},
+            "sensitivity_standard": {"type": "object"},
+            "poll_reading_card": {"type": "object"}
+          }
+        },
+        "lifecycle_registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "stages",
+            "introduced_in",
+            "preface_role",
+            "stage_emphasis_is_cumulative_and_nonexclusive",
+            "part_roles",
+            "exclusions"
+          ],
+          "properties": {
+            "stages": {
+              "type": "array",
+              "minItems": 9,
+              "maxItems": 9,
+              "uniqueItems": true,
+              "items": {"type": "string"}
+            },
+            "introduced_in": {"type": "string"},
+            "preface_role": {"type": "string"},
+            "stage_emphasis_is_cumulative_and_nonexclusive": {"const": true},
+            "part_roles": {
+              "type": "array",
+              "minItems": 6,
+              "maxItems": 6,
+              "items": {"type": "object"}
+            },
+            "exclusions": {"$ref": "#/$defs/nonEmptyStringArray"}
+          }
+        },
+        "thread_registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope_control",
+            "threads"
+          ],
+          "properties": {
+            "scope_control": {"type": "object"},
+            "threads": {
+              "type": "array",
+              "minItems": 7,
+              "maxItems": 7,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "label_hr",
+                  "plant",
+                  "develop",
+                  "harvest",
+                  "exclusions"
+                ],
+                "properties": {
+                  "id": {"type": "string"},
+                  "label_hr": {"type": "string"},
+                  "plant": {"$ref": "#/$defs/placementRole"},
+                  "develop": {"$ref": "#/$defs/placementRole"},
+                  "harvest": {"$ref": "#/$defs/placementRole"},
+                  "exclusions": {"$ref": "#/$defs/nonEmptyStringArray"}
+                }
+              }
+            }
+          }
+        },
+        "ethics_registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ordinary_practice_scope",
+            "dataset_passport_questions",
+            "not_confined_to",
+            "evidence_objects"
+          ],
+          "properties": {
+            "ordinary_practice_scope": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "dataset_passport_questions": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "not_confined_to": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "evidence_objects": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {"type": "object"}
+            }
+          }
+        },
+        "data_science_registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "role",
+            "fifth_promise",
+            "integration",
+            "attention_budget",
+            "activities",
+            "boundary_rules",
+            "technical_topics_out_of_scope",
+            "simulation_and_empirical_roles",
+            "data_design_policy"
+          ],
+          "properties": {
+            "role": {"const": "delivery_mechanism_for_the_four_promises"},
+            "fifth_promise": {"const": false},
+            "integration": {"type": "object"},
+            "attention_budget": {"type": "object"},
+            "activities": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {"type": "object"}
+            },
+            "boundary_rules": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "technical_topics_out_of_scope": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "simulation_and_empirical_roles": {"type": "object"},
+            "data_design_policy": {"type": "object"}
+          }
+        }
+      }
+    },
     "integerBand": {
       "type": "array",
       "minItems": 2,

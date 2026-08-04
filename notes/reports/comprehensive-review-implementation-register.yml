@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2a"
-  next_permitted_packet: "P2-CLAIMS"
+  last_completed_packet: "P2-CLAIMS"
+  next_permitted_packet: "G-A2d"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3920,7 +3920,7 @@ packets:
     sequence: 44
     phase: "2"
     kind: "shared_architecture"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2a"
     scope: "Canonical claim, lifecycle, thread, ethics, and data-science architecture."
@@ -3931,13 +3931,59 @@ packets:
       - "The architecture has explicit plant/develop/harvest roles and exclusions."
       - "No chapter prose is edited before the governing system is ratified."
       - "The P2-CLAIMS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
+      required_evidence:
+        - requirement: "ratified architecture decision"
+          artifacts:
+            - "decision:G-A2a"
+            - "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
+            - "handoff:H-G-A2A-001-consumed"
+        - requirement: "registry or contract diff"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+            - "source:bookwright_plugin/bookwright/shared/schemas/conventions.schema.json#intellectualArchitecture"
+            - "source:scripts/check-book-architecture.py"
+        - requirement: "cross-book placement matrix"
+          artifacts:
+            - "report:notes/reports/p2-claims-architecture-2026-08-04.md#niti-i-kontrola-opsega"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture.lifecycle_registry.part_roles"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture.thread_registry.threads"
+      outputs:
+        - output: "P2-CLAIMS durable artifact and evidence record for: Canonical claim, lifecycle, thread, ethics, and data-science architecture."
+          artifacts:
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+            - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P2-CLAIMS source state and bounded scope."
+          artifacts:
+            - "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
+      exit_tests:
+        - test: "The architecture has explicit plant/develop/harvest roles and exclusions."
+          result: "passed"
+          evidence:
+            - "registry:intellectual_architecture.thread_registry-7-complete-threads"
+            - "report:p2-claims-architecture-2026-08-04.md-cross-book-placement-matrix"
+            - "check:BOOK_ARCHITECTURE_OK-threads-7"
+        - test: "No chapter prose is edited before the governing system is ratified."
+          result: "passed"
+          evidence:
+            - "decision:G-A2a-accepted-before-P2-CLAIMS"
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:chapter-spines-ratified-0-of-19"
+        - test: "The P2-CLAIMS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
+            - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+            - "handoff:H-G-A2A-001-consumed-with-disposition"
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     contract: "shared_architecture"
     required_evidence:
       - "ratified architecture decision"
       - "registry or contract diff"
       - "cross-book placement matrix"
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   G-A2d:
     sequence: 45
     phase: "2"
@@ -11093,7 +11139,7 @@ items:
       location: "§12 data-layer diagnosis"
     description: "Organise the portfolio by data-generating design, not disciplinary labels or dataset count."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11110,11 +11156,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-simulation-empirical:
     parents:
       - "R08"
@@ -11128,7 +11178,7 @@ items:
       location: "§12 data-layer diagnosis"
     description: "Record distinct rhetorical roles for simulation and empirical data."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11145,11 +11195,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-simulation:
     parents:
       - "R08"
@@ -11163,7 +11217,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give seeded simulation / known population an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11179,11 +11233,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-survey:
     parents:
       - "R08"
@@ -11197,7 +11255,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give probability survey with weights an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11213,11 +11271,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-administrative:
     parents:
       - "R08"
@@ -11231,7 +11293,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give administrative/electoral count an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11247,11 +11309,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-official:
     parents:
       - "R08"
@@ -11265,7 +11331,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give official aggregate statistics an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11281,11 +11347,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-expert:
     parents:
       - "R08"
@@ -11299,7 +11369,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give expert-coded latent measure an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11315,11 +11385,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-digital:
     parents:
       - "R08"
@@ -11333,7 +11407,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give digital trace/selected corpus an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11349,11 +11423,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-volunteer:
     parents:
       - "R08"
@@ -11367,7 +11445,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give volunteer/open survey an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11383,11 +11461,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-DESIGN-restricted:
     parents:
       - "R08"
@@ -11401,7 +11483,7 @@ items:
       location: "§12 portfolio design list"
     description: "Give restricted commercial/administrative source an explicit governed dataset, verified case, or justified omission disposition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11417,11 +11499,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-CATALOG-admission:
     parents:
       - "R08"
@@ -11849,7 +11935,7 @@ items:
       location: "§12 text/AI strand"
     description: "Preserve the text package’s priority over WDI and, if needed, COVIDiSTRESS."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11866,11 +11952,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R08-SPINE-01-03:
     parents:
       - "R08"
@@ -13095,7 +13185,7 @@ items:
       location: "§12 data science"
     description: "Ratify data science as evidence workflow with statistics as epistemic centre; use 70/20/10 only diagnostically."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -13113,11 +13203,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R10-LIFECYCLE-stable:
     parents:
       - "R10"
@@ -13131,7 +13225,7 @@ items:
       location: "§12 lifecycle"
     description: "Ratify the nine-stage lifecycle and part-level roles."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -13148,11 +13242,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R10-LIFECYCLE-distribution:
     parents:
       - "R10"
@@ -13201,7 +13299,7 @@ items:
       location: "§12 visible claim map"
     description: "Ratify six claim dimensions and the independence of population reach from claim type."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -13217,11 +13315,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R10-CLAIMS-application:
     parents:
       - "R10"
@@ -13269,7 +13371,7 @@ items:
       location: "§12 visible claim map"
     description: "Ratify questions on unit, absence, target/claim, uncertainty, alternative decision, and error burdens."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -13288,11 +13390,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R10-THREAD-seven-map:
     parents:
       - "R10"
@@ -13306,7 +13412,7 @@ items:
       location: "§12 cross-chapter threads"
     description: "Ratify seven plant/develop/harvest threads."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -13322,11 +13428,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R10-BOOK-judgment-pruning:
     parents:
       - "R10"
@@ -13887,7 +13997,7 @@ items:
       location: "§12 survey realism"
     description: "Ratify one card covering frame/recruitment, response, weighting, wording, fieldwork, coverage, measurement, nonresponse, and sampling error."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -13904,11 +14014,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R12-POLL-recurrence:
     parents:
       - "R12"
@@ -15926,7 +16040,7 @@ items:
       location: "§12 honest sentence"
     description: "Ratify population-first, estimate+interval+units, honest claim grammar, and specific conclusion-changing limitation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -15943,11 +16057,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R17-REPORT-thread:
     parents:
       - "R17"
@@ -16891,7 +17009,7 @@ items:
       location: "§12 sensitivity"
     description: "Ratify ordinary-language sensitivity as comparison of a primary choice with a defensible alternative."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -16908,11 +17026,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R19-SENSITIVITY-bookwide:
     parents:
       - "R19"
@@ -18305,7 +18427,7 @@ items:
       location: "§12 data science"
     description: "Canonicalise the four activities by their governing questions."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -18321,11 +18443,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R24-C01-modern-AI-history:
     parents:
       - "R24"
@@ -18483,7 +18609,7 @@ items:
       location: "§12 ethics"
     description: "Ratify routine questions on categories, omissions, small cells, proxies, choices, burdens, beneficiaries, and appeal."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -18501,11 +18627,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R24-EVIDENCE-four-objects:
     parents:
       - "R24"
@@ -18519,7 +18649,7 @@ items:
       location: "§12 evidence distinctions"
     description: "Define each object's permissible use and prohibited claim."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -18536,11 +18666,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-CLAIMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a-governing-system"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture"
+      - "report:notes/reports/p2-claims-architecture-2026-08-04.md"
+      - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8"
   R24-EVIDENCE-boundaries:
     parents:
       - "R24"
