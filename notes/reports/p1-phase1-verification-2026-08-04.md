@@ -4,21 +4,26 @@
 
 **Datum provjere:** 4. kolovoza 2026.
 
-**Ishod:** otvoren; `P1A-METHODS` nije vezan uz trenutačni Git blob
-Poglavlja 2.
+**Ishod:** prihvaćen nakon evidence-only revalidacije `P1A-C02` i
+`P1A-METHODS`; svih dvanaest preduvjeta prolazi.
 
 ## Granica i stanje izvora
 
 Provjera je vezana uz urezani izvor:
 
 - grana `revision/comprehensive-review`;
-- commit `b7898ef03b41609e25dfc4fbc4a91c6f71532e41`;
-- stablo `05ab7d9a4c20cdb3559709e25650569e72620e49`.
+- commit `89229759ed61ce3a3bced127496b731dfdd7cf73`;
+- stablo `59bbab72e2a10ea8bbd9fc5d9e95cd724a423568`.
 
 Svih dvanaest dokazanih implementacijskih commita predaka su toga commita.
 Matrica uspoređuje njihove ugovore, strukturirane primitke, trajne izvještaje i
 deklarirana stanja s navedenim stablom. Nije prihvaćen sažetak paketa bez
 provjere njegova izvora.
+
+Prvi prolaz na commitu `b7898ef…` otkrio je jedan izvorni nesklad. Autor Luka
+Sikic potom je 4. kolovoza 2026. izričito odobrio evidence-only ponovno
+otvaranje `P1A-C02` i `P1A-METHODS`, bez izmjene proze. Završna matrica u ovom
+izvještaju uključuje taj novi exact-source primitak.
 
 Radno stablo prije ove provjere sadržavalo je jednu tuđu, neumetnutu izmjenu
 `.github/workflows/publish.yml`: prelazak `actions/checkout` s v4 na v5 i
@@ -32,11 +37,11 @@ Paket nije mijenjao rukopis, implementaciju, inventare, lockove, generirane
 artefakte, release metapodatke ni vanjsko stanje. Nije pokrenut render,
 objava, upload ili deployment.
 
-## Fail-closed matrica
+## Fail-closed matrica {#fail-closed-matrix}
 
 | Preduvjet | Ugovor i izvor | Pozitivni dokaz prema provjeravanom stanju | Obvezna negativna proba | Nerazriješeni blokator i granica ovlasti | Nalaz |
 |---|---|---|---|---|---|
-| `P1A-METHODS` | `methods_verification`; source commit `7832b07`, tree `7168b933…`; izvještaj `p1a-methods-verification-2026-08-03.md` | Izvorni panel ima svih 12 izvještaja i agregatnu matricu, ali je dokaz za `P1A-C02` vezan uz blob `ccae632a…`, a trenutačni blob je `908780ee…`. | Izvorne kontrolne probe `generic_packet_evidence` i `invalid_outside_ask_link` pale su kako je propisano; one dokazuju kontrolu primitka, ne aktualnost metodološkoga čitanja. | Commit `9995f3b…` nakon zatvaranja uklanja metodološki sadržaj o trećoj varijabli. Nema neovisnoga metodološkog čitanja bloba `908780ee…`, nove agregatne matrice ni zabilježene invalidacije. `P1-VERIFY` nema ovlast proizvesti taj dokaz ili uređivati poglavlje. | **BLOKIRA** |
+| `P1A-METHODS` | `methods_verification`; završno stanje commit `8922975…`, tree `59bbab72…`; izvještaji `p1a-methods-verification-2026-08-03.md` i `p1a-methods-revalidation-2026-08-04.md` | Svih 12 redaka ima strukturirane primitke. Novi read-only `critic_methods` pročitao je cijeli Chapter 2 blob `908780ee…`, dao 5/5 za korektnost, pretpostavke, tumačenje i preciznost te nula nalaza. Ostalih 11 chapter blobova nije se promijenilo. | Izvorne i završne kontrolne probe `generic_packet_evidence` i `invalid_outside_ask_link` padaju kako je propisano. Byte-identičnih osam R/OJS blokova čuva izvorni numerički primitak. | Prethodni source mismatch razriješen je exact-source izvještajima `p1a-c02-methods-revalidation-2026-08-04.md` i `p1a-methods-revalidation-2026-08-04.md`. Nema izmjene proze ni nerazriješenog blokatora. | **PROLAZI** |
 | `P1B-NAVARRO` | `evidence_licence`; `state:sha256-fc7f6536…`; izvještaj `p1b-navarro-provenance-and-licence-audit-2026-08-03.md` | Trenutačni citatni pregled prolazi s 35 živih i 35 bibliografskih ključeva; kasniji diffovi ne vraćaju javnu uporabu Navarra, a licencni izvor i vlasnička odluka ostaju nepromijenjeni. | Ugovor ne propisuje paketnu negativnu fixturu; obje kontrolne fixture provjere bile su obvezne i prošle su pri zatvaranju. | Nema blokatora. Vlasnička odluka ostaje nulta javna uporaba; nova uporaba zahtijevala bi novu odluku i licencnu provjeru. | **PROLAZI** |
 | `P1B-DATA-LIC` | `evidence_licence`; `state:sha256-2e0f065b…`; izvještaj `p1b-data-licence-access-inventory-2026-08-03.md` | Sedmoputni manifest reproduciran je na prihvaćenom stanju; trenutačna provjera javlja `DATA_INTEGRITY_OK`, 50.300 redaka, katalog `pre-P3`, nula snimki i `CC-BY-4.0`. | Nije propisana paketna negativna fixture proba; trenutna namjerno duplicirana podatkovna oznaka pada, a cijeli integrity harness javlja sedam očekivanih padova. | Nema blokatora za sadašnje generirane skupove. Svih 13 predloženih paketa ostaje samo uvjetna kasnija prava/pristup granica. | **PROLAZI** |
 | `P1B-BIB` | `evidence_licence`; `state:sha256-8e9a96cf…`; izvještaj `p1b-bibliography-metadata-audit-2026-08-03.md` | Četveroputni manifest reproduciran je na prihvaćenom stanju. Trenutačni pregled javlja `CITATION_INTEGRITY_OK files=37 live_keys=35 records=35 blanket_nocite=0`. | Ugovor ne propisuje paketnu fixturu; namjerno nepoznat ključ pada u integrity harnessu. | Nema blokatora. Svaki budući empirijski navod i dalje zahtijeva provjeren zapis, bez izmišljanja ključa ili nalaza. | **PROLAZI** |
@@ -49,25 +54,21 @@ objava, upload ili deployment.
 | `P1C-PARITY` | `release_engineering`; commit `79824e0…`, `parity:sha256-f22f3df4…`; izvještaj `p1c-widget-parity-2026-08-04.md` | Trenutačno prolazi svih 17 parova: šest egzaktnih i jedanaest distribucijskih. | Trenutačna regresija očekivane vrijednosti namjerno pada; harness javlja `WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=1`. | Nema blokatora. Granice `w10` i različitih `w08` populacija ostaju one koje je dokazao prihvaćeni metodološki ugovor. | **PROLAZI** |
 | `P1C-INVENTORY` | `release_engineering`; commit `8731a9d…`, `inventory:sha256-1cc773c5…`; izvještaj `p1c-book-inventory-2026-08-04.md` | Trenutačni manifest i dalje je identičan prihvaćenom: 37 stranica, 19 jedinica poglavlja, dodaci A–F, nula ruta rješenja. Logička provjera daje vlastiti, zaseban digest `b2f20bd4…`. | Trenutačno prolaze tri očekivana pada: missing, extra/unsynced i reordered; pozitivna privremena sinkronizacija prolazi s 38 stranica. | Nema blokatora. D10 i rute rješenja ostaju kasniji ugovori; paket nije stvarao ni renderirao novu stranicu. | **PROLAZI** |
 
-## Točan popis blokatora
+## Točan popis blokatora {#exact-blocker-list}
 
-### Nerazriješen blokator
+### Nerazriješeni blokatori
 
-1. `P1A-METHODS`, preko `P1A-C02`: izvještaj
-   `p1a-c02-methods-review-2026-08-03.md` i agregatni gate dokazuju blob
-   `ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00`. Commit
-   `9995f3b7bf93afd95b4cb7fd4b6be713e78cbff3` potom je promijenio
-   `chapters/02-mjerenje-i-dizajn.qmd`; u provjeravanom stanju blob je
-   `908780ee6fdb2916afb1b1226bb3c9f567a81ce2`. Nedostaju neovisno
-   metodološko čitanje toga bloba, novi strukturirani primitak `P1A-C02` i
-   agregatna matrica `P1A-METHODS` vezana uz isti izvor.
+Nema ih. Svih dvanaest preduvjeta prolazi unutar svojega ratificiranog opsega
+prve faze.
 
 ### Razriješeni blokatori u ovom gateu
 
-Nijedan. Gate nema ovlast popravljati preduvjete, a prividno popravljanje
-kontrolnom ili stilskom provjerom sakrilo bi nedostajući metodološki dokaz.
-Preostalih jedanaest preduvjeta nema nerazriješen blokator unutar svojega
-ratificiranog opsega prve faze.
+1. `P1A-METHODS`, preko `P1A-C02`: prvi prolaz ispravno je zaustavio gate jer
+   je stari izvještaj dokazivao blob `ccae632a…`, a živi blob bio je
+   `908780ee…`. Autor je odobrio zasebnu evidence-only revalidaciju. Neovisni
+   `critic_methods` zatim je na blobu `908780ee…` dao četiri ocjene 5/5 i nula
+   nalaza, a nova agregatna matrica potvrdila je da se drugih jedanaest blobova
+   nije promijenilo. Novi strukturirani primitci sada su vezani uz isti izvor.
 
 ### Vidljive, ali neblokirajuće kasnije granice
 
@@ -81,19 +82,14 @@ ratificiranog opsega prve faze.
 
 ## Budući učinak i odluka gatea
 
-Jedini novi budući učinak jest blokada samoga `P1-VERIFY`: prije nastavka treba
-u zasebno omeđenom korekcijskom ili revalidacijskom radu pribaviti aktualan
-neovisan metodološki primitak za `P1A-C02` i ponovno vezati `P1A-METHODS` uz
-isti izvor. To nije poslano kasnijem paketu jer nijedan kasniji paket ne smije
-početi dok je gate otvoren. `next_permitted_packet` zato je `null`, a `G-A2a`
-ostaje netaknut i blokiran svojom postojećom ovisnošću.
+Evidence-only revalidacija ne stvara novi downstream učinak. Postojeće
+ovisnosti već vode prihvaćeni `P1-VERIFY` u `G-A2a`, pa bi novi handoff
+duplicirao mjerodavnu ovisnost. Poznati kasniji dugovi ostaju na svojim
+postojećim isporukama i nisu riješeni unaprijed.
 
-Nije potreban bounded outside ask: poznata je dokazna praznina i postojeća
-uloga recenzenta. Potrebno je novo, zasebno odobrenje opsega za revalidaciju,
-ne vanjska poruka ili javna radnja.
-
-`P1-VERIFY` ostaje `in_progress`; `completion_evidence` ostaje prazan i
-`change_reference` ostaje `null`.
+`P1-VERIFY` je `accepted`; strukturirani `completion_evidence` i
+`change_reference` vezani su uz commit `8922975…` i tree `59bbab72…`.
+`next_permitted_packet` postaje `G-A2a`, ali taj paket nije pokrenut.
 
 ## Izvršene provjere
 
@@ -110,8 +106,8 @@ Nakon usklađenja registra, handoff ledgera i nadzorne ploče izvršeno je:
 
 ```text
 Comprehensive-review workflow: OK
-active packet: P1-VERIFY
-next permitted packet: none while a packet is active
+active packet: none
+next permitted packet: G-A2a
 ```
 
 Obje obvezne in-memory negativne probe završile su kodom 1 iz točnoga razloga:
@@ -124,5 +120,5 @@ EXPECTED_FAILURE fixture=invalid_outside_ask_link exit=1
 Outside ask OA-G-A1A-C10-SPEC links unknown items: R99-NOT-A-REGISTER-ITEM
 ```
 
-Time su dokazani i otvoreno stanje gatea i fail-closed kontrolni ugovor. Nije
-pokrenut `G-A2a` ni ijedan kasniji paket.
+Time su dokazani zatvaranje gatea i fail-closed kontrolni ugovor. `G-A2a` je
+samo sljedeći dopušteni paket; nije pokrenut ni on ni ijedan kasniji paket.

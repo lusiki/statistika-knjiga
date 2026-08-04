@@ -1739,7 +1739,7 @@ packet_reviews:
       All later Chapter 2 work retains stable registered items, packet
       dependencies, and OA-C02-ACCEPTANCE. The correction discovered no new
       downstream constraint, so a duplicate handoff would add no information.
-    implementation_state: chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00
+    implementation_state: chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2
     checks:
       - no applicable incoming handoff targeted P1A-C02
       - clean-session item-rest, score-range, and widget-slope reproduction passed
@@ -1751,6 +1751,10 @@ packet_reviews:
       - separately registered later Chapter 2 repairs remained unmodified
       - scripts/check-review-workflow.R passed with next_permitted_packet P1A-C06
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - author Luka Sikic approved an evidence-only current-blob revalidation on 2026-08-04 with no prose changes
+      - independent critic_methods re-read the complete blob 908780ee6fdb2916afb1b1226bb3c9f567a81ce2 before and after and returned four scores of 5 with no findings
+      - the later Navarro attribution deletion creates no methodological gap and all eight R OJS blocks remain outside the source diff
+      - notes/reports/p1a-c02-methods-revalidation-2026-08-04.md records the exact revalidation receipt
   P1A-C06:
     reviewed_at: "2026-08-03"
     declaration: all_future_effects_recorded
@@ -1889,7 +1893,7 @@ packet_reviews:
       including the parity packets, and all separately registered chapter work
       remains open under existing items. A duplicate handoff would add no new
       information.
-    implementation_state: commit:7832b07ee92e98a962fc79b291389118e95f29b6
+    implementation_state: commit:89229759ed61ce3a3bced127496b731dfdd7cf73
     checks:
       - no incoming handoff targeted P1A-METHODS
       - all 12 prerequisite packets are accepted with exact structured completion evidence
@@ -1902,6 +1906,10 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet G-A1c
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - no chapter prose changed and G-A1c was not started
+      - author Luka Sikic approved evidence-only revalidation of P1A-C02 and P1A-METHODS on 2026-08-04
+      - P1A-C02 now carries exact-source methods evidence for blob 908780ee6fdb2916afb1b1226bb3c9f567a81ce2 and the other eleven chapter blobs remain unchanged
+      - the revalidation matrix at commit 89229759ed61ce3a3bced127496b731dfdd7cf73 and tree 59bbab72e2a10ea8bbd9fc5d9e95cd724a423568 passes all twelve rows
+      - notes/reports/p1a-methods-revalidation-2026-08-04.md records the resolved blocker and finds no new future-relevant effect
   G-A1c:
     reviewed_at: "2026-08-03"
     declaration: all_future_effects_recorded
@@ -2202,14 +2210,11 @@ packet_reviews:
     declaration: all_future_effects_recorded
     outgoing: []
     no_outgoing_handoff_reason: >-
-      P1-VERIFY remains open because the accepted P1A-METHODS evidence is not
-      tied to the current Chapter 2 blob. This is a blocker of the active gate,
-      not a constraint to deliver to a later packet: next_permitted_packet is
-      null and G-A2a already requires P1-VERIFY. The exact evidence gap and the
-      separately scoped revalidation needed before this gate may resume are
-      recorded in the P1-VERIFY report and dashboard. Creating a downstream
-      handoff would allow the failed prerequisite to be hidden by sequencing.
-    implementation_state: verification-subject:commit-b7898ef03b41609e25dfc4fbc4a91c6f71532e41-tree-05ab7d9a4c20cdb3559709e25650569e72620e49
+      P1-VERIFY found no new future-relevant effect after resolving its exact
+      P1A-C02 source-state blocker. G-A2a already depends directly on the
+      accepted gate, while all known Phase 1 later debts retain their exact
+      existing handoffs. A new delivery would duplicate those dependencies.
+    implementation_state: verification-subject:commit-89229759ed61ce3a3bced127496b731dfdd7cf73-tree-59bbab72e2a10ea8bbd9fc5d9e95cd724a423568
     checks:
       - no incoming handoff targets P1-VERIFY and every active Phase 1 constraint was read before verification
       - all twelve prerequisites were checked independently against their contract source state positive evidence negative fixture unresolved blocker and authority boundary
@@ -2219,4 +2224,11 @@ packet_reviews:
       - no manuscript implementation inventory lock generated artifact release metadata render publication or later-packet work occurred
       - scripts/check-review-workflow.R passed with active packet P1-VERIFY and no next permitted packet
       - generic_packet_evidence failed because terminal evidence was not structured and invalid_outside_ask_link failed because the injected item was unknown
-      - P1-VERIFY remains in_progress with empty completion evidence and G-A2a was not started
+      - author Luka Sikic approved evidence-only reopening of P1A-C02 and P1A-METHODS without prose changes
+      - independent critic_methods passed Chapter 2 blob 908780ee6fdb2916afb1b1226bb3c9f567a81ce2 with four scores of 5 and no findings
+      - P1A-METHODS was revalidated at commit 89229759ed61ce3a3bced127496b731dfdd7cf73 with all twelve rows passing
+      - the exact P1A-C02 source-state blocker is resolved and all twelve Phase 1 prerequisites pass independently
+      - P1-VERIFY is accepted with structured completion evidence and G-A2a is next permitted but was not started
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2a
+      - generic_packet_evidence and invalid_outside_ask_link failed for their exact injected defects after closeout
+      - no chapter prose implementation inventory lock generated artifact release metadata render publication or G-A2a work occurred during revalidation and closeout

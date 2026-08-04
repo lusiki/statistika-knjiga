@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: P1-VERIFY
-last_completed_packet: P1C-INVENTORY
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: P1-VERIFY
+next_permitted_packet: G-A2a
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,44 +32,44 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P1-VERIFY` — open on an exact stale-source blocker |
-| Last completed packet | `P1C-INVENTORY` |
-| Next permitted packet | None while `P1-VERIFY` is active |
+| Active write packet | None |
+| Last completed packet | `P1-VERIFY` |
+| Next permitted packet | `G-A2a` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 77 accepted, 5 deferred with reason, 289 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 35 accepted, 152 ratified and 1 in progress, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 36 accepted and 152 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
-| Invalidated or reopened work | `P1-VERIFY` is open; it has not reopened or repaired `P1A-METHODS` |
-| Failed gates | `P1-VERIFY` is blocked by stale `P1A-METHODS` evidence: `P1A-C02` certifies blob `ccae632a…`, while the current Chapter 2 blob is `908780ee…`. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
+| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
+| Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
-## P1-VERIFY open gate
+## P1-VERIFY closeout
 
-- The gate is tied to commit
-  `b7898ef03b41609e25dfc4fbc4a91c6f71532e41` and tree
-  `05ab7d9a4c20cdb3559709e25650569e72620e49`. Its full twelve-row matrix is
+- The accepted gate is tied to commit
+  `89229759ed61ce3a3bced127496b731dfdd7cf73` and tree
+  `59bbab72e2a10ea8bbd9fc5d9e95cd724a423568`. Its full twelve-row matrix is
   `notes/reports/p1-phase1-verification-2026-08-04.md`.
-- Eleven prerequisites remain current and complete within their ratified Phase
-  1 contracts. Their positive evidence, required negative fixtures, known
-  later debt and external-authority boundaries are recorded separately rather
-  than aggregated.
-- `P1A-METHODS` does not pass. Its Chapter 2 review is tied to blob
-  `ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00`; accepted commit `9995f3b…`
-  later changed the chapter to blob
-  `908780ee6fdb2916afb1b1226bb3c9f567a81ce2` without a new independent
-  methods receipt or aggregate source-state matrix.
-- The gate did not treat style, citation or control-fixture success as a
-  substitute for the missing methods review. It did not edit or render
-  anything, and it did not repair the known release-provenance debt.
-- The canonical workflow validator passes with `P1-VERIFY` active and no next
-  packet. Both required in-memory negative fixtures fail for their exact
-  injected defects.
-- No new downstream handoff is appropriate: this finding blocks the active
-  gate itself. `next_permitted_packet` is `null`, so `G-A2a` and all later work
-  remain unavailable.
+- The first pass exposed one exact source mismatch instead of hiding it:
+  `P1A-C02` certified `ccae632a…`, while the current Chapter 2 blob was
+  `908780ee…`.
+- Luka Sikic authorised an evidence-only reopening of `P1A-C02` and
+  `P1A-METHODS`, with no prose changes. A read-only `critic_methods` reread the
+  complete current blob before and after, scored correctness, assumptions,
+  interpretation and precision 5/5, and reported no fatal, major or minor
+  finding. Removing the Navarro attribution created no methodological gap.
+- `notes/reports/p1a-c02-methods-revalidation-2026-08-04.md` and
+  `notes/reports/p1a-methods-revalidation-2026-08-04.md` bind the refreshed
+  receipt and twelve-row aggregate to the current state. All other P1A chapter
+  blobs still equal their original evidence.
+- All twelve Phase 1 prerequisites now pass independently. Known later debts
+  and all external-authority boundaries remain visible and unchanged.
+- The canonical workflow validator passes with no active packet and `G-A2a`
+  next. Both required in-memory negative fixtures fail for their exact injected
+  defects. No new downstream handoff is needed because `G-A2a` already depends
+  on the accepted gate.
 
 ## P1C-INVENTORY closeout
 
@@ -1002,18 +1002,20 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Resume only the active P1-VERIFY gate. Fully read
-notes/reports/p1-phase1-verification-2026-08-04.md, its review-gate contract,
-the complete P1A-METHODS and P1A-C02 evidence, and the current Chapter 2 source
-state. The gate is open because P1A-C02 certifies blob ccae632a... while the
-current blob is 908780ee...; no current independent methods receipt or
-aggregate P1A-METHODS matrix exists.
+Execute only the dashboard's next permitted packet, G-A2a. Fully read its
+decision-gate contract, OA-G-A2A-CLAIM-SYSTEM, every blocked item, and the
+ratified Phase 2 architecture in the implementation plan. Assemble one bounded
+decision packet covering the six claim dimensions, six audit questions,
+nine-stage lifecycle, seven recurring threads, and design-based data matrix.
+Record the recommended default, exact alternatives, blocked dependencies and
+the boundary that no chapter prose or P2-CLAIMS registry is changed before the
+author/editor decision.
 
-Do not perform the missing methods review, edit a chapter, render, update a
-generated artifact, or start G-A2a inside P1-VERIFY. Resume the gate only after
-separately scoped and authorised work has supplied a current-blob P1A-C02
-methods receipt and a correspondingly source-tied P1A-METHODS aggregate. If
-that evidence is still absent, verify that P1-VERIFY remains in_progress,
-next_permitted_packet remains null and the exact blocker remains durable, then
-stop. Do not start G-A2a or any later packet.
+Use the checkout-local book-conductor ask mode. Present one author/editor
+decision in the exact requested form: approve the complete governing system at
+the declared state and date, or list exact component amendments. Do not infer
+approval, do not start P2-CLAIMS, and do not edit manuscript prose. If the
+author approves, close only G-A2a with structured evidence, record all future
+effects or an explicit none, run the workflow validator and both required
+negative fixtures, then stop with P2-CLAIMS as the next permitted packet.
 ```

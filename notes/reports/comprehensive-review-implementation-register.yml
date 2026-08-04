@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P1-VERIFY"
-    started_at: "2026-08-04"
-    owned_paths:
-      - "notes/reports/p1-phase1-verification-2026-08-04.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P1C-INVENTORY"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P1-VERIFY"
+  next_permitted_packet: "G-A2a"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2213,29 +2206,33 @@ packets:
       - "Independent methods evidence is tied to the corrected source state."
       - "The P1A-C02 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence:
-      source_state: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      source_state: "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
       required_evidence:
         - requirement: "approved correction specification where required"
           artifacts:
             - "register:ratified-R09-C02-randomisation-item-total-stevens-and-R14-C02-confounder"
             - "authority:user-exact-P1A-C02-prompt"
+            - "authority:conversation-P1A-C02-and-P1A-METHODS-current-blob-revalidation-approved-2026-08-04"
             - "dependency:P0-STATE-accepted"
         - requirement: "clean-session numerical reproduction"
           artifacts:
             - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md#clean-session-numerical-reproduction"
             - "check:final-source-item-rest-range-and-widget-slope-assertions-passed"
+            - "check:eight-R-OJS-blocks-outside-later-source-diff"
         - requirement: "independent methods reading"
           artifacts:
             - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md#independent-statistical-methods-reading"
-            - "critic_methods:final-pass-source-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+            - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md#neovisno-metodolosko-citanje"
+            - "critic_methods:final-pass-source-908780ee6fdb2916afb1b1226bb3c9f567a81ce2-scores-5-5-5-5-no-findings"
       outputs:
         - output: "P1A-C02 durable artifact and evidence record for: Correct Chapter 2 design and measurement claims."
           artifacts:
             - "chapter:chapters/02-mjerenje-i-dizajn.qmd"
             - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+            - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md"
         - output: "Completion evidence is tied to the declared P1A-C02 source state and bounded scope."
           artifacts:
-            - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+            - "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
             - "scope:R09-C02-randomisation-item-total-stevens-and-R14-C02-confounder-only"
       exit_tests:
         - test: "The false or overbroad claim is removed from the chapter and all dependent results reproduce."
@@ -2243,21 +2240,23 @@ packets:
           evidence:
             - "check:clean-session-reproduction-and-targeted-html-render-passed"
             - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+            - "check:revalidation-source-diff-preserves-all-eight-computational-blocks"
         - test: "Independent methods evidence is tied to the corrected source state."
           result: "passed"
           evidence:
-            - "critic_methods:final-pass-source-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+            - "critic_methods:final-pass-source-908780ee6fdb2916afb1b1226bb3c9f567a81ce2-scores-5-5-5-5-no-findings"
         - test: "The P1A-C02 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
           result: "passed"
           evidence:
             - "check:style-structure-figure-render-widget-source-diff-passed"
+            - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md"
             - "handoff-ledger:packet_reviews.P1A-C02"
     contract: "chapter_correction"
     required_evidence:
       - "approved correction specification where required"
       - "clean-session numerical reproduction"
       - "independent methods reading"
-    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+    change_reference: "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
   P1A-C06:
     sequence: 21
     phase: "1A"
@@ -2658,52 +2657,57 @@ packets:
       - "The gate report is tied to one declared source state."
       - "The P1A-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence:
-      source_state: "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+      source_state: "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
       required_evidence:
         - requirement: "gate-specific verification matrix"
           artifacts:
             - "report:notes/reports/p1a-methods-verification-2026-08-03.md#gate-specific-verification-matrix"
+            - "report:notes/reports/p1a-methods-revalidation-2026-08-04.md#revalidation-matrix"
             - "check:12-prerequisites-36-required-receipts-24-output-receipts-36-passed-exit-receipts"
         - requirement: "source commit or state hash"
           artifacts:
-            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
-            - "tree:7168b933c16b92ccb3d5c3de13e1dd4a7f30a538"
+            - "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
+            - "tree:59bbab72e2a10ea8bbd9fc5d9e95cd724a423568"
             - "check:all-12-live-chapter-blobs-match-declared-source-states"
         - requirement: "resolved blocker list"
           artifacts:
             - "report:notes/reports/p1a-methods-verification-2026-08-03.md#blocker-disposition"
+            - "report:notes/reports/p1a-methods-revalidation-2026-08-04.md#exact-blocker-list"
             - "blocker:none-within-bounded-P1A-METHODS-gate"
       outputs:
         - output: "P1A-METHODS durable artifact and evidence record for: Independent methods readings and clean-session reproduction."
           artifacts:
             - "report:notes/reports/p1a-methods-verification-2026-08-03.md"
+            - "report:notes/reports/p1a-methods-revalidation-2026-08-04.md"
             - "check:independent-structured-evidence-audit-12-of-12-passed"
         - output: "Completion evidence is tied to the declared P1A-METHODS source state and bounded scope."
           artifacts:
-            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
-            - "scope:P1A-METHODS-only-no-chapter-prose-no-G-A1c-or-later-packet"
+            - "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
+            - "scope:P1A-METHODS-evidence-only-revalidation-no-chapter-prose-no-G-A2a-or-later-packet"
       exit_tests:
         - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
           result: "passed"
           evidence:
             - "report:notes/reports/p1a-methods-verification-2026-08-03.md#gate-specific-verification-matrix"
+            - "report:notes/reports/p1a-methods-revalidation-2026-08-04.md#revalidation-matrix"
             - "check:structured-receipts-source-hashes-reports-and-packet-reviews-all-pass"
         - test: "The gate report is tied to one declared source state."
           result: "passed"
           evidence:
-            - "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
-            - "tree:7168b933c16b92ccb3d5c3de13e1dd4a7f30a538"
+            - "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
+            - "tree:59bbab72e2a10ea8bbd9fc5d9e95cd724a423568"
         - test: "The P1A-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
           result: "passed"
           evidence:
             - "report:notes/reports/p1a-methods-verification-2026-08-03.md"
+            - "report:notes/reports/p1a-methods-revalidation-2026-08-04.md"
             - "check:workflow-validator-and-both-required-negative-fixtures"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: "commit:7832b07ee92e98a962fc79b291389118e95f29b6"
+    change_reference: "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
   G-A1c:
     sequence: 28
     phase: "1B"
@@ -3623,7 +3627,7 @@ packets:
     sequence: 42
     phase: "1"
     kind: "review_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P1A-METHODS"
       - "P1B-NAVARRO"
@@ -3645,13 +3649,56 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The P1-VERIFY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p1-phase1-verification-2026-08-04.md#fail-closed-matrix"
+            - "check:12-prerequisites-independently-verified-12-passed"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
+            - "tree:59bbab72e2a10ea8bbd9fc5d9e95cd724a423568"
+            - "check:all-prerequisite-implementation-commits-are-ancestors"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "report:notes/reports/p1-phase1-verification-2026-08-04.md#exact-blocker-list"
+            - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md"
+            - "report:notes/reports/p1a-methods-revalidation-2026-08-04.md"
+            - "blocker:P1A-C02-current-blob-methods-evidence-resolved"
+      outputs:
+        - output: "P1-VERIFY durable artifact and evidence record for: Phase 1 fail-closed verification."
+          artifacts:
+            - "report:notes/reports/p1-phase1-verification-2026-08-04.md"
+            - "check:phase-1-verification-matrix-12-of-12-pass"
+        - output: "Completion evidence is tied to the declared P1-VERIFY source state and bounded scope."
+          artifacts:
+            - "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
+            - "tree:59bbab72e2a10ea8bbd9fc5d9e95cd724a423568"
+            - "scope:P1-VERIFY-only-no-G-A2a-or-later-packet"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1-phase1-verification-2026-08-04.md#fail-closed-matrix"
+            - "check:P1A-C02-revalidated-at-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
+            - "tree:59bbab72e2a10ea8bbd9fc5d9e95cd724a423568"
+        - test: "The P1-VERIFY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1-phase1-verification-2026-08-04.md"
+            - "check:workflow-validator-and-both-required-negative-fixtures"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: null
+    change_reference: "commit:89229759ed61ce3a3bced127496b731dfdd7cf73"
   G-A2a:
     sequence: 43
     phase: "2"
@@ -12056,13 +12103,14 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
     completion_evidence:
-      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
       - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md"
       - "critic_methods:pass-balance-in-expectation-and-post-assignment-boundaries"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+    change_reference: "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
   R09-C02-item-total:
     parents:
       - "R09"
@@ -12093,13 +12141,14 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
     completion_evidence:
-      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
       - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md"
       - "critic_methods:pass-diagnostic-with-five-required-alternatives"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+    change_reference: "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
   R09-C02-stevens:
     parents:
       - "R09"
@@ -12130,13 +12179,14 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
     completion_evidence:
-      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
       - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md"
       - "critic_methods:pass-historicised-practical-and-limited-levels"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+    change_reference: "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
   R09-C06-pearson-spearman-agree:
     parents:
       - "R09"
@@ -14409,13 +14459,14 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C02"
     completion_evidence:
-      - "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+      - "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
       - "report:notes/reports/p1a-c02-methods-review-2026-08-03.md"
+      - "report:notes/reports/p1a-c02-methods-revalidation-2026-08-04.md"
       - "critic_methods:pass-common-cause-mediator-collider-and-no-control-everything"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ccae632a5d5adcb0e30d69ed3705b6e9f5a74a00"
+    change_reference: "chapter:sha1-908780ee6fdb2916afb1b1226bb3c9f567a81ce2"
   R14-C16-binary-reading:
     parents:
       - "R14"
@@ -22155,7 +22206,7 @@ outside_asks:
 
   OA-G-A2A-CLAIM-SYSTEM:
     status: "drafted_unsent"
-    readiness: "waiting_for_P1-VERIFY"
+    readiness: "ready_for_G-A2a"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "2"
