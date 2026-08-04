@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-ASSESS
-next_permitted_packet: P2-IDENTITY
+last_completed_packet: P2-IDENTITY
+next_permitted_packet: G-A2b-PREFACE
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -35,8 +35,8 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-ASSESS` |
-| Next permitted packet | `P2-IDENTITY` |
+| Last completed packet | `P2-IDENTITY` |
+| Next permitted packet | `G-A2b-PREFACE` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -47,6 +47,58 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-IDENTITY closeout
+
+- No handoff targets `P2-IDENTITY`; the complete ledger was read before packet
+  claim. `H-P0-REGISTER-007` targets `WA-C03`, `WC-C12` and `WD-C17`, remains
+  `pending`, and was not consumed here. Its substance is encoded as the joint
+  contract's `evidence_precondition`.
+- `conventions.json` now carries one schema-valid `identity_briefs` object with a
+  joint contract and three bound briefs. Its deterministic state is
+  `identity:sha256-f09124e52089f2127b5064ed1b8f912a74628fd0b9ba3fb807bd0922cca6e3a3`.
+- The joint contract binds all three pillars to one Tier F argument, one
+  traceable case, named supported and unavailable claim dimensions, a stated
+  conclusion-changing factor, one full six-critic panel, and argumentative
+  rather than quota-driven length. It forbids assessed code production, a new
+  numbered chapter, a new central widget, a new callout type, invented material,
+  and any pillar prose before its evidence package and author gate.
+- Chapter 3 is one audit of a single traceable public claim: axis and
+  denominator, base rate, early poll reading, cherry-picking, an AI-produced
+  number, synthetic media, and the simulation/synthetic/hypothetical/fabricated
+  distinction, ending in a skeptic's protocol. The ASA episode is excluded, the
+  margin-of-error justification is an explicit debt to Chapters 8 and 9, and the
+  Part I no-visible-code boundary holds.
+- Chapter 12 is one path from an attractive finding through pipeline
+  flexibility, incentives and selection, replication as cumulative evidence, one
+  sensitivity comparison, one forest plot, reform and its limits, to a
+  reformed-practice contract. Invented study results, undated open-science
+  claims, and significance-only comparison are excluded.
+- Chapter 17 is one consequential text-classification decision from corpus and
+  unit through coding frame, three kinds of label, held-out evaluation,
+  threshold and confusion table, subgroup errors, a disputed recorded label,
+  procedural fairness and appeal, to monitoring, feedback and language models as
+  prediction systems.
+- `R13-ARCH-measurement-first` is accepted. Chapter 17 is the ratified home of a
+  measurement-first text module covering seven topics and excluding tokenizer or
+  preprocessing implementation, an NLP programming course, machine-learning
+  mathematics, and any model-training task. Student inputs are supplied text and
+  prepared tables.
+- D07 is preserved structurally: the existing fairness widget is retained and
+  subordinated to prose, text analysis remains the worked example, and no second
+  central widget is admitted.
+- Eleven open selections are deferred to their exact gates, including
+  `G-A4-03`, `G-A4-12`, `P3-EVIDENCE12`, `G-A4-17`, `G-A3-DZS`, `G-A3-DIP`,
+  `G-A3-TEXT`, `P2-SPINE-I`, `P2-SPINE-IV`, `P2-SPINE-V` and `P5-ROUTES`.
+  Chapter 17's prerequisite metadata explicitly remains a `P2-SPINE-V` decision.
+- `scripts/check-identity-briefs.py` passes; both deliberate defects, a dropped
+  fairness widget and an admitted NLP implementation, return exit 1. The book
+  and assessment architecture checkers pass with their accepted states unchanged.
+- No chapter or appendix prose, spine, terminology, data package, case, source,
+  evidence artifact, route, render, generated artifact or external authority
+  changed. All 19 spines remain unratified and all 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-identity-briefs-2026-08-04.md`.
 
 ## P2-ASSESS closeout
 
@@ -1213,22 +1265,25 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, P2-IDENTITY, only. Claim the
-write lock, do the work, close the packet, and stop. Do not start any G-A2b
-chapter-spine packet or any later packet, and do not edit chapter prose.
+Execute the dashboard's next permitted packet, G-A2b-PREFACE, only. Claim the
+write lock, do the work, close the packet, and stop. Do not start
+P2-SPINE-PREFACE or any later packet, and do not edit chapter prose.
 
 Before the first substantive edit, acknowledge every applicable incoming
 handoff and say so explicitly; consume each with a concrete disposition and
-evidence before closeout. Read the P2-IDENTITY packet contract, the accepted
-P2-CLAIMS and P2-ASSESS artifacts and registries, and governed item
-R13-ARCH-measurement-first in full.
+evidence before closeout. Read the G-A2b-PREFACE packet contract, outside ask
+OA-G-A2B-PREFACE-SPINE, governed item R04-SPINE-PREFACE, the accepted
+P2-CLAIMS, P2-ASSESS and P2-IDENTITY registries, the recorded author intent in
+notes/reports/author-pre-dispositions-2026-08-04.md, pending handoff
+H-P0-STATE-001, and the accepted G-A2d Appendix B record in full.
 
-Write only the joint bounded identity briefs for Chapters 3, 12, and 17, with
-explicit plant/develop/harvest roles and exclusions. Preserve Chapter 17's
-fairness widget and measurement-first text role. Do not select data packages or
-evidence sources, ratify chapter spines or terminology, edit chapters or
-appendices, or authorise any push, merge, tag, archive, deployment, or
-publication.
+Draft the complete preface spine to the recorded author intent, then close the
+gate against that drafted source state with a dated disposition, named owner,
+alternatives, authority boundary, and blocked dependencies. The spine must
+promise a checkable calculation trace rather than visible code and may not
+promise more of Appendix B than the accepted G-A2d record supports. If the
+draft departs from the recorded intent in any respect, stop and present the
+exact difference for an explicit decision.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both

@@ -11,7 +11,8 @@
     "bands",
     "structure",
     "intellectual_architecture",
-    "assessment_architecture"
+    "assessment_architecture",
+    "identity_briefs"
   ],
   "properties": {
     "note": {
@@ -329,6 +330,9 @@
     },
     "assessment_architecture": {
       "$ref": "#/$defs/assessmentArchitecture"
+    },
+    "identity_briefs": {
+      "$ref": "#/$defs/identityBriefs"
     }
   },
   "$defs": {
@@ -810,6 +814,285 @@
           "additionalProperties": {
             "const": false
           }
+        }
+      }
+    },
+    "identityBriefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "status",
+        "packet",
+        "ratified_at",
+        "governing_decisions",
+        "decision_evidence",
+        "durable_decision_record",
+        "register_items",
+        "joint_contract",
+        "briefs",
+        "deferred_to_later_gates",
+        "authority_boundary"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {"const": "ratified"},
+        "packet": {"const": "P2-IDENTITY"},
+        "ratified_at": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "governing_decisions": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "decision_evidence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "durable_decision_record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "register_items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "joint_contract": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "contract_id",
+            "pillars",
+            "approval_tier",
+            "one_argument_per_pillar",
+            "pillar_is_not_a_list_of_topics",
+            "assembled_from_isolated_insertions",
+            "shared_obligations",
+            "shared_prohibitions",
+            "evidence_precondition",
+            "widget_policy"
+          ],
+          "properties": {
+            "contract_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pillars": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "approval_tier": {"const": "tier_F_full_identity_rewrite"},
+            "one_argument_per_pillar": {"const": true},
+            "pillar_is_not_a_list_of_topics": {"const": true},
+            "assembled_from_isolated_insertions": {"const": false},
+            "shared_obligations": {
+              "$ref": "#/$defs/nonEmptyStringArray"
+            },
+            "shared_prohibitions": {
+              "$ref": "#/$defs/nonEmptyStringArray"
+            },
+            "evidence_precondition": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "handoff",
+                "rule",
+                "gates"
+              ],
+              "properties": {
+                "handoff": {"const": "H-P0-REGISTER-007"},
+                "rule": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "gates": {
+                  "$ref": "#/$defs/nonEmptyStringArray"
+                }
+              }
+            },
+            "widget_policy": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "new_central_widget",
+                "chapter_17_fairness_widget_retained",
+                "chapter_17_worked_example",
+                "widget_may_not_carry_the_explanatory_burden_alone"
+              ],
+              "properties": {
+                "new_central_widget": {"const": false},
+                "chapter_17_fairness_widget_retained": {"const": true},
+                "chapter_17_worked_example": {"const": "text_analysis_under_D07"},
+                "widget_may_not_carry_the_explanatory_burden_alone": {"const": true}
+              }
+            }
+          }
+        },
+        "briefs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identityBrief"
+          }
+        },
+        "deferred_to_later_gates": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "subject",
+              "gate"
+            ],
+            "properties": {
+              "subject": {
+                "type": "string",
+                "minLength": 1
+              },
+              "gate": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "authority_boundary": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "const": false
+          }
+        }
+      }
+    },
+    "identityBrief": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "chapter",
+        "brief_gate",
+        "prose_packet",
+        "central_question_hr",
+        "argument_spine",
+        "claim_dimensions_supported",
+        "claim_dimensions_unavailable",
+        "lifecycle_stage_emphasis",
+        "plant",
+        "develop",
+        "harvest",
+        "required_components",
+        "exclusions"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chapter": {
+          "type": "string",
+          "minLength": 1
+        },
+        "brief_gate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prose_packet": {
+          "type": "string",
+          "minLength": 1
+        },
+        "central_question_hr": {
+          "type": "string",
+          "minLength": 1
+        },
+        "argument_spine": {
+          "type": "array",
+          "minItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "claim_dimensions_supported": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "claim_dimensions_unavailable": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "lifecycle_stage_emphasis": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "plant": {
+          "$ref": "#/$defs/placementRole"
+        },
+        "develop": {
+          "$ref": "#/$defs/placementRole"
+        },
+        "harvest": {
+          "$ref": "#/$defs/placementRole"
+        },
+        "required_components": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "measurement_first_text_module": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "register_item",
+            "home",
+            "depth",
+            "covers",
+            "excludes",
+            "student_inputs"
+          ],
+          "properties": {
+            "register_item": {"const": "R13-ARCH-measurement-first"},
+            "home": {"const": "17-doba-algoritama"},
+            "depth": {
+              "type": "string",
+              "minLength": 1
+            },
+            "covers": {
+              "type": "array",
+              "minItems": 7,
+              "maxItems": 7,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "excludes": {
+              "$ref": "#/$defs/nonEmptyStringArray"
+            },
+            "student_inputs": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "exclusions": {
+          "$ref": "#/$defs/nonEmptyStringArray"
         }
       }
     },
