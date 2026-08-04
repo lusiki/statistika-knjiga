@@ -1,10 +1,10 @@
 # Vjerojatnost koliko treba
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -194,13 +194,21 @@ u statistici ima posebno mjesto, i ne zato što ga priroda posebno voli.
 **Normalna raspodjela** je simetrična zvonasta raspodjela koju u cijelosti
 određuju njezino središte i njezina standardna devijacija.
 
-Razlog njezine povlaštenosti nije u tome što je česta u prirodi, nego u tome što
-nastaje kad se mnogo malih i međusobno neovisnih doprinosa zbroji. Visina, mjerna
-pogreška i rezultat na testu takvi su zbrojevi, a to je i svaki prosjek. Zbog
-toga se ista krivulja pojavljuje i tamo gdje pojedinačna opažanja nisu ni blizu
-zvonastog oblika, pod uvjetom da ih se dovoljno zbroji. Widget je tu tvrdnju već
-pokazao, jer je raspodjela stopa uspjeha zvonasta iako pojedini pokušaj ima samo
-dva ishoda. Poglavlje o uzorkovanju od te činjenice gradi cijeli svoj argument.
+Normalna raspodjela povlaštena je zbog središnjega graničnog teorema. U njegovu
+osnovnom obliku opažanja dolaze iz iste raspodjele koja se ne mijenja od
+opažanja do opažanja, međusobno su neovisna, a ta raspodjela ima konačnu
+varijancu. Kako njihov broj raste, raspodjela prosjeka približava se normalnoj
+raspodjeli iako sama opažanja ne moraju biti normalna. Druge inačice teorema
+dopuštaju primjereno slabu ovisnost, ali ne proizvoljnu povezanost, a teorem ne
+pokriva ni raspodjele s beskonačnom varijancom.
+
+Widget pokazuje samo uži slučaj u kojem je svaki pokušaj neovisan binarni ishod
+s istom vjerojatnošću i konačnom varijancom. Povećanjem broja pokušaja
+simulirane se stope zbijaju i njihov oblik postaje bliži zvonastome. Taj prikaz
+ne jamči isti oblik u svakom skupu podataka ni pri svakoj veličini uzorka. Jaka
+ovisnost među opažanjima, promjenjiva vjerojatnost ishoda ili beskonačna
+varijanca traže drukčiji model ili dodatne uvjete. Poglavlje o uzorkovanju od
+ovoga ograničenog slučaja gradi svoj argument.
 
 Dva parametra znače da je oblik uvijek isti, a mijenja se samo gdje leži i
 koliko je širok. Iz toga slijedi svojstvo korisno za brzu orijentaciju. Unutar
@@ -330,13 +338,6 @@ Uz ispis je dodao obrazloženje. Vjerojatnost da pojedina objava ne postane
 viralna iznosi 0,98, vjerojatnost da nijedna od pet ne postane viralna je
 0,98 na petu potenciju, a komplement toga daje 9,6 %. Budući da su objave
 zasebne jedinice iste kampanje, zaključuje da je račun potpun.
-
-Greška je posljednja rečenica, u kojoj zasebne jedinice postaju neovisne
-jedinice. Potenciranje vrijedi samo uz neovisnost, a objave iste kampanje dijele
-publiku i algoritamski doseg, pa jedna viralna objava povećava izglede sljedeće.
-Račun i komplement su ispravni, ali vrijede za model koji ovdje ne pristaje.
-Popravak je ili opravdati neovisnost podacima, ili simulirati proces u kojem
-uspjeh jedne objave mijenja vjerojatnost ostalih.
 
 ## Razrađeni primjer
 

@@ -1,10 +1,10 @@
 # Veličina učinka i snaga
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -120,6 +120,18 @@ Prethodno je poglavlje na ovoj populaciji izmjerilo da postupak stvarnu razliku
 pronalazi u otprilike četiri od pet uzoraka od tristo osoba. Ta brojka upravo je
 snaga, i sada je vrijedi izmjeriti na više veličina uzorka.
 
+Mjerenje zadržava permutacijski postupak iz prethodnog poglavlja i njegove
+granice. Nulti model tvrdi da je cijela raspodjela povjerenja jednaka u objema
+skupinama, tako da su oznake izvora zamjenjive u odnosu na ishod. Obostrana
+testna statistika jest apsolutna sirova razlika sredina. Osobe se tretiraju kao
+zasebne jedinice bez zajedničke ovisnosti, dok simulacija bez ponavljanja izvlači
+uzorke iz jedne konačne simulirane populacije u kojoj razlika po izvoru postoji.
+Svaka točka krivulje obuhvaća tristo zamišljenih studija. U svakoj se
+p-vrijednost procjenjuje iz dvjesto nasumičnih premještanja uz korekciju
+$(b + 1)/(B + 1)$. Pritom $B$ predstavlja broj premještanja, a $b$ broj rezultata
+barem toliko ekstremnih kao opaženi. Krivulja zato procjenjuje snagu samo za taj
+mehanizam podataka i taj postupak, a ne opće svojstvo uzorka određene veličine.
+
 *Slika. Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,05 pri stvarnoj razlici od 0,74 boda. Tristo simuliranih studija po retku. Izrada autora.*
 
 Rast nije ravnomjeran i to je najvažnije u tablici. Podizanje uzorka sa
@@ -144,6 +156,13 @@ može biti previše.
 Sljedeći prikaz odvaja tri odluke koje se u praksi donose zajedno. Čitatelj
 mijenja stvarnu veličinu učinka, broj jedinica i prag, svaki put samo jedno, i
 prati kako se pomiče udio uzoraka u kojima bi postupak nešto našao.
+
+Prikaz koristi idealizirani model u kojem nulta hipoteza postavlja
+standardiziranu razliku na nulu. Testna statistika je apsolutna z-vrijednost, a
+postupak je obostran. Model pretpostavlja dvije neovisne skupine jednake
+veličine, neovisne normalne ishode i zajedničku poznatu standardnu devijaciju.
+Za svaku točku izravno simulira z-vrijednosti iz pripadne normalne raspodjele,
+pa broj ponavljanja određuje samo Monte Carlo nesigurnost prikazane snage.
 
 *Slika. Simulirana snaga kroz veličine uzorka u idealiziranom postupku s poznatom varijabilnošću.*
 
@@ -241,10 +260,17 @@ raspršenost sličnu onoj u ovoj populaciji. Analiza ispod za nekoliko veličina
 uzorka broji u kolikom udjelu simuliranih studija bi takva razlika bila
 otkrivena.
 
+Nulta hipoteza u ovom računu tvrdi da je razlika sredina nula, a testna
+statistika dijeli opaženu razliku poznatom standardnom pogreškom. Simulacija
+pretpostavlja dvije neovisne skupine, neovisne normalne ishode, jednaku i poznatu
+standardnu devijaciju od 1,9 boda te obostrani z-postupak s pragom 0,05. Za svaku
+veličinu uzorka proizvodi dvije tisuće novih parova skupina. Izračunana snaga
+vrijedi samo pod tim pretpostavkama i za unaprijed zadanu razliku od pola boda.
+
 Funkcija `replicate` ponavlja cijelu zamišljenu studiju dvije tisuće puta, a
 `sapply` isti račun provodi za svaku ponuđenu veličinu uzorka. Granica 1,96
-dolazi iz pravila područja koje uvodi poglavlje o vjerojatnosti, pa se ovdje
-ništa novo ne pretpostavlja.
+dolazi iz standardne normalne raspodjele i pripada upravo opisanom obostranom
+z-postupku, a ne permutacijskom postupku iz prvog prikaza snage.
 
 *Slika. Udio simuliranih studija u kojima bi razlika od pola boda bila otkrivena, pri četirima veličinama uzorka po skupini. Izrada autora.*
 
@@ -297,14 +323,6 @@ Uz ispis je dodao obrazloženje. Opažena razlika daje standardiziranu razliku
 oko 0,78, a snaga izračunata za tu vrijednost i trideset ljudi po skupini iznosi
 0,84. Budući da je snaga iznad uobičajene granice, zaključuje da je studija
 bila dovoljno velika i da se procijenjenoj razlici može vjerovati.
-
-Greška je računanje snage iz učinka koji je već opažen. Poziv je sintaktički
-ispravan, ali je `delta` popunjena procjenom iz istih podataka, pa rezultat ne
-donosi nikakvu novu informaciju i uvijek ispada visok kad je nalaz značajan.
-Simulacija u ovom poglavlju pokazuje i zašto je zaključak obrnut od istine, jer
-prag pri maloj studiji prelaze upravo pretjerane procjene. Snaga se računa iz
-najmanjeg važnog učinka, postavljenog prije podataka, i tada bi za razliku ove
-veličine tražila znatno više od trideset ljudi po skupini.
 
 ## Sažetak
 

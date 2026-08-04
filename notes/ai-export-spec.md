@@ -19,7 +19,9 @@ koliko od te vrijednosti isporučuje sam izvoz.
 ## Što nastaje
 
 Generira `R/build-ai-exports.R`, koji se izvršava kao Quarto `pre-render` hook
-pri svakom renderu i može se pokrenuti ručno.
+pri svakom renderu i može se pokrenuti ručno. Lokalni hook ostaje best-effort,
+a objavni put uvijek poziva `--release` i zato završava nenultim statusom pri
+svakoj pogrešci.
 
 | Datoteka | Sadržaj |
 |----------|---------|
@@ -32,7 +34,17 @@ pri svakom renderu i može se pokrenuti ručno.
 ## Što se izbacuje, a što ostaje
 
 Izbacuje se YAML, blokovi koda `{r}` i `{ojs}`, upravljačke ploče i statički
-blizanci grafova (sve unutar `when-format="pdf"`).
+blizanci grafova (sve unutar `when-format="pdf"`). Izbacuje se i sav sadržaj
+unutar `content-visible when-profile="…"`. To je strukturno pravilo javnoga
+izvoza, pa se ne oslanja na popis riječi poput „rješenje” ili „rubrika”.
+
+Trenutačni obuhvat izvoza čine poglavlja 00–18 iz `book.chapters` u
+`_quarto.yml`; dodaci i druge stranice nisu ulaz. Release audit ipak pregledava
+i profilne blokove u `dodaci/`, kako sadržaj nastavničke rute ne bi neopaženo
+ušao u izlaz ako se obuhvat poslije proširi. Budući D06 sustav rješenja ostaje
+u svojem kasnijem paketu, ali mora zadržati jednu od dviju sigurnih granica:
+odvojenu rutu izvan ulaza javnoga AI izvoza ili profilni `content-visible` blok
+koji ovaj izvoz obvezno odbacuje.
 
 Ostaje proza, naslovi, tablice, formule, definicijski divovi i sadržaj
 pedagoških kutija. Kutije zadržavaju svoju oznaku kao podebljani uvod
@@ -56,12 +68,25 @@ mijenja jedna, mijenja se i druga.
 ## Održavanje
 
 Skripta čita redoslijed poglavlja iz `_quarto.yml`, pa dodavanje poglavlja ne
-traži nikakvu izmjenu. Mijenjaju se samo konstante na vrhu skripte (adresa,
-naslov, opis, autori, licenca) i oznake kutija ako se kostur poglavlja
-promijeni.
+traži nikakvu izmjenu. Naslov i predobjavno stanje dolaze iz
+`release/governance.yml`; autorstvo, opis i mrežna adresa dolaze iz datoteke
+koju njegov `book.authorship_source` navodi. Release način prekida izvoz ako
+se kanonski radni naslov i naslov u tom izvoru raziđu. Oznake kutija mijenjaju
+se samo ako se kostur poglavlja promijeni.
 
-Cijeli posao je u `tryCatch`-u i nikad ne ruši render. Ako paketi nedostaju,
-izvoz se preskoči, a posluže već urezane datoteke.
+Za lokalni render cijeli je posao u `tryCatch`-u. Ako paketi nedostaju, izvoz
+se preskoči, a posluže već urezane datoteke. Objavni workflow zasebno poziva
+
+```text
+python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-ai-exports.R --release
+```
+
+zatim renderira knjigu i nakon rendera poziva `--release --validate-only`.
+Lokalni pre-render između tih dviju blokirajućih provjera ne može pretvoriti
+release pogrešku u uspjeh. Pogreška izgradnje, profilni sadržaj u javnom izlazu
+ili metapodatkovni nesklad blokiraju objavu. Skripta
+`scripts/check-ai-export-fixtures.py` bez objavljivanja dokazuje pozitivan put
+i namjerne kvarove za sve tri granice.
 
 ## Licenca izvoza
 

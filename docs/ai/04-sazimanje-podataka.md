@@ -1,10 +1,10 @@
 # Sažimanje podataka
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/04-sazimanje-podataka.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -55,13 +55,12 @@ svaku vrijednost i zato je najinformativnija mjera središta, ali ta joj
 osjetljivost istodobno dopušta da je nekoliko krajnjih slučajeva odvuče iznad
 gotovo svih opažanja.
 
-Kompromis između pune sredine i mjere koja krajnosti ignorira nudi **skraćena
-sredina** (*trimmed mean*), koja odbacuje zadani postotak najmanjih i najvećih
-vrijednosti pa prosjek računa iz ostatka. Uz odbacivanje po 5 % sa svake
-strane naš prosjek pada na `r hr_broj(s4$skracena5, 1)` minuta, a uz 10 %
-na `r hr_broj(s4$skracena10, 1)`. Navarro upozorava da se ta mjera u
-objavljenim istraživanjima pojavljuje iznenađujuće rijetko iako je u mnogim
-situacijama primjerenija od obične sredine (Navarro, 2019).
+Krajnjim opažanjima može se smanjiti utjecaj i bez potpunog prelaska na
+medijan. **Skraćena sredina** (*trimmed mean*) najprije poreda vrijednosti,
+zatim s oba kraja uklanja jednak unaprijed zadani udio i računa sredinu
+preostalih opažanja. Uz uklanjanje po 5 % s obje strane naš prosjek pada na
+`r hr_broj(s4$skracena5, 1)` minuta, a uz 10 % na
+`r hr_broj(s4$skracena10, 1)`.
 
 Skraćivanje dovedeno do kraja daje medijan. Ono što medijan čini drukčijim nije
 samo otpornost, nego pitanje na koje odgovara. Sredina je vrijednost koja
@@ -118,13 +117,12 @@ $$
 s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
 $$
 
-Umanjeni djelitelj u tom izrazu nije sitnica i naziva se Besselovom
-korekcijom. Slijedi iz toga što odstupanja mjerimo od sredine izračunane iz
-istih tih podataka. Sredina uzorka po definiciji leži najbliže vlastitim
-opažanjima, bliže nego što bi im ležala prava sredina populacije, pa su
-odstupanja od nje sustavno premala. Dijeljenje s $n$ zato bi dalo procjenu koja
-u prosjeku podcjenjuje raspršenost u populaciji, a umanjeni djelitelj tu
-pristranost uklanja.
+Umanjeni djelitelj naziva se Besselovom korekcijom i pokazuje da je jedan dio
+informacije već potrošen na procjenu sredine. Zbroj odstupanja od uzoračke
+sredine mora biti nula, pa nakon što znamo prvih $n-1$ odstupanja posljednje
+više nije slobodno. Za neovisni nasumični uzorak iz populacije s konačnom
+varijancom dijeljenje s $n$ zato bi u prosjeku dalo premalu procjenu
+populacijske varijance, dok djelitelj $n-1$ uklanja tu pristranost.
 
 Razlika između uzorka i populacije od ovog mjesta ulazi i u zapis. Statistike
 izračunane iz uzorka nose latinična slova, pa je sredina uzorka $\bar{x}$ a
@@ -133,11 +131,10 @@ grčka slova, pa je populacijska sredina $\mu$ a populacijska varijanca
 $\sigma^2$. Broj opažanja u uzorku ostaje $n$, a slovo $N$ knjiga zadržava za
 veličinu populacije.
 
-Navarro otvoreno kaže da je upravo ovaj korak jedno od najtežih mjesta uvodnog
-kolegija (Navarro, 2019). Puni se argument ne može izvesti prije nego što
-postoji pojam raspodjele uzorkovanja, pa procjena koja u prosjeku pogađa pravu
-vrijednost ovdje ostaje tvrdnja, a ne pokazana činjenica. Poglavlje o
-uzorkovanju vraća se na nju i pokazuje je simulacijom.
+Tvrdnju o uklanjanju pristranosti zasad odgađamo jer za njezinu provjeru treba
+raspodjela uzorkovanja. U poglavlju o uzorkovanju mnogo ćemo puta izvući
+uzorak iz iste poznate populacije i usporediti što se dugoročno događa s
+djeliteljima $n$ i $n-1$.
 
 Varijanca našeg uzorka iznosi `r hr_broj(s4$varijanca, 1)`. Broj je velik i
 gotovo neupotrebljiv u izvještaju, jer kvadriranje nosi i mjernu jedinicu, pa
@@ -314,12 +311,6 @@ uz standardnu devijaciju od `r hr_broj(s4$sd, 1)` minuta. Tipičan ispitanik
 dakle provodi oko 50 minuta dnevno na društvenim mrežama, a polovina uzorka
 nalazi se iznad te vrijednosti. Raspršenost je znatna, pa razlike među dobnim
 skupinama treba dodatno ispitati.
-
-Greška je tvrdnja da se polovina uzorka nalazi iznad sredine. To vrijedi za
-simetričnu raspodjelu, a ovdje iznad sredine leži
-`r paste0(hr_broj(s4$iznad, 0), " %")` ispitanika, jer sredinu prema gore
-povlači rep krajnjih slučajeva. Podjelu na polovine opisuje medijan, koji
-iznosi `r hr_broj(s4$medijan, 0)` minuta.
 
 ## Razrađeni primjer
 

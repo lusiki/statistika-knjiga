@@ -83,8 +83,17 @@ jobs:
       - name: Render fresh PDF through approved wrapper
         run: pwsh -NoProfile -File scripts/render-book-pdf.ps1 -RequireCleanCommit
 
+      - name: Build and validate public AI exports in release mode
+        run: python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-ai-exports.R --release
+
+      - name: Prove AI export release checks fail closed
+        run: python scripts/check-ai-export-fixtures.py
+
       - name: Render HTML book
         run: quarto render
+
+      - name: Validate final public AI export artifacts
+        run: python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-ai-exports.R --release --validate-only
 
       - name: Check rendered HTML freshness and completeness
         run: python scripts/check-rendered-html.py docs

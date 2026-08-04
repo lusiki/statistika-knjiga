@@ -1,10 +1,10 @@
 # Uspoređivanje više grupa
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/15-vise-grupa.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -134,14 +134,20 @@ koeficijent. Oznaka $\beta_0$ i dalje je sredina referentne skupine, a
 $\varepsilon$ ono što model o pojedincu nije objasnio. Pet sredina zapisano je s
 pet brojeva, kao što je i moralo biti.
 
-Ukupni test iz prošlog odjeljka postavlja pitanje o svim tim koeficijentima
-odjednom. Pita jesu li oni zajedno dovoljno veliki da bi model sa skupinama
-opisivao podatke bolje nego model koji ima samo zajedničku sredinu. Zato je
-jedan test, a ne deset.
+Klasični ukupni test iz prošlog odjeljka postavlja pitanje o svim tim
+koeficijentima odjednom. Pita jesu li oni zajedno dovoljno veliki da bi model
+sa skupinama opisivao podatke bolje nego model koji ima samo zajedničku sredinu.
+Zato je jedan test, a ne deset.
+
+Zajednički su oblik modela sredina i njegove točkaste procjene, ne svaki način
+računanja njihove nesigurnosti. Klasična analiza varijance procjenjuje jednu
+zajedničku rezidualnu varijancu, kao obični homoskedastični linearni model.
+Welchov ukupni test zadržava zasebne skupne varijance i prilagođava stupnjeve
+slobode, pa istu hipotezu o sredinama ispituje drugim inferencijskim postupkom.
 
 Naš uzorak od `r s15$n` osoba raspoređen je u pet skupina prema izvoru vijesti.
-Ukupni test daje F od `r hr_broj(s15$f, 2)` uz `r s15$df1` i `r s15$df2`
-stupnjeva slobode. Prosječna raspršenost među skupinama iznosi
+Klasični ukupni test daje F od `r hr_broj(s15$f, 2)` uz `r s15$df1` i
+`r s15$df2` stupnjeva slobode. Prosječna raspršenost među skupinama iznosi
 `r hr_broj(s15$ms_izmedu, 1)`, a unutar skupina `r hr_broj(s15$ms_unutar, 1)`,
 i njihov je omjer upravo ta F-vrijednost.
 
@@ -222,11 +228,6 @@ izračunata je i iznosi otprilike deset posto objašnjene varijabilnosti.
 Zaključak izvještaja glasi da se svih pet izvora međusobno razlikuje po
 percipiranoj vjerodostojnosti.
 
-Greška je zaključak o svakom paru izveden iz ukupnog testa. Ukupni test tvrdi
-samo da negdje među skupinama postoji razlika. U ovim podacima od deset parova
-značajno se razlikuju samo četiri, svi s društvenim mrežama, dok portal,
-televizija, radio i tisak ostaju međusobno nerazlučivi.
-
 ## Koliki je udio objašnjen
 
 Ukupni test opet ovisi o veličini uzorka, pa uz njega ide mjera koja o njoj ne
@@ -293,9 +294,12 @@ Cijela analiza pet skupina staje u nekoliko redaka, i vrijedi je vidjeti u
 redoslijedu kojim je poglavlje izgrađeno. Zajednički model dolazi prvi, parne
 usporedbe tek nakon njega.
 
-Funkcija `aov` procjenjuje isti model kao `lm` iz prethodnog poglavlja, ali ga
-ispisuje u obliku razlaganja varijance. Funkcija `TukeyHSD` prima takav model i
-vraća sve parne razlike s intervalima i korigiranim p-vrijednostima.
+Funkcija `aov` procjenjuje isti oblik modela sredina kao `lm` iz prethodnog
+poglavlja, ali ga ispisuje u obliku razlaganja varijance. Njezina uobičajena
+F-inferencija pripada homoskedastičnom linearnom modelu s jednom zajedničkom
+rezidualnom varijancom, a ne Welchovu postupku sa zasebnim skupnim varijancama i
+prilagođenim stupnjevima slobode. Funkcija `TukeyHSD` prima takav model i vraća
+sve parne razlike s intervalima i korigiranim p-vrijednostima.
 
 Ispis potvrđuje ono što je poglavlje izgradilo. Redak modela nosi razlaganje
 `r hr_broj(s15$ss_izmedu, 1)` prema `r hr_broj(s15$ss_unutar, 1)`, iz čega

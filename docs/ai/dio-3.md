@@ -1,9 +1,9 @@
 # DIO III: OD UZORKA DO POPULACIJE
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -11,10 +11,10 @@
 # Vjerojatnost koliko treba
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/07-vjerojatnost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -204,13 +204,21 @@ u statistici ima posebno mjesto, i ne zato što ga priroda posebno voli.
 **Normalna raspodjela** je simetrična zvonasta raspodjela koju u cijelosti
 određuju njezino središte i njezina standardna devijacija.
 
-Razlog njezine povlaštenosti nije u tome što je česta u prirodi, nego u tome što
-nastaje kad se mnogo malih i međusobno neovisnih doprinosa zbroji. Visina, mjerna
-pogreška i rezultat na testu takvi su zbrojevi, a to je i svaki prosjek. Zbog
-toga se ista krivulja pojavljuje i tamo gdje pojedinačna opažanja nisu ni blizu
-zvonastog oblika, pod uvjetom da ih se dovoljno zbroji. Widget je tu tvrdnju već
-pokazao, jer je raspodjela stopa uspjeha zvonasta iako pojedini pokušaj ima samo
-dva ishoda. Poglavlje o uzorkovanju od te činjenice gradi cijeli svoj argument.
+Normalna raspodjela povlaštena je zbog središnjega graničnog teorema. U njegovu
+osnovnom obliku opažanja dolaze iz iste raspodjele koja se ne mijenja od
+opažanja do opažanja, međusobno su neovisna, a ta raspodjela ima konačnu
+varijancu. Kako njihov broj raste, raspodjela prosjeka približava se normalnoj
+raspodjeli iako sama opažanja ne moraju biti normalna. Druge inačice teorema
+dopuštaju primjereno slabu ovisnost, ali ne proizvoljnu povezanost, a teorem ne
+pokriva ni raspodjele s beskonačnom varijancom.
+
+Widget pokazuje samo uži slučaj u kojem je svaki pokušaj neovisan binarni ishod
+s istom vjerojatnošću i konačnom varijancom. Povećanjem broja pokušaja
+simulirane se stope zbijaju i njihov oblik postaje bliži zvonastome. Taj prikaz
+ne jamči isti oblik u svakom skupu podataka ni pri svakoj veličini uzorka. Jaka
+ovisnost među opažanjima, promjenjiva vjerojatnost ishoda ili beskonačna
+varijanca traže drukčiji model ili dodatne uvjete. Poglavlje o uzorkovanju od
+ovoga ograničenog slučaja gradi svoj argument.
 
 Dva parametra znače da je oblik uvijek isti, a mijenja se samo gdje leži i
 koliko je širok. Iz toga slijedi svojstvo korisno za brzu orijentaciju. Unutar
@@ -341,13 +349,6 @@ viralna iznosi 0,98, vjerojatnost da nijedna od pet ne postane viralna je
 0,98 na petu potenciju, a komplement toga daje 9,6 %. Budući da su objave
 zasebne jedinice iste kampanje, zaključuje da je račun potpun.
 
-Greška je posljednja rečenica, u kojoj zasebne jedinice postaju neovisne
-jedinice. Potenciranje vrijedi samo uz neovisnost, a objave iste kampanje dijele
-publiku i algoritamski doseg, pa jedna viralna objava povećava izglede sljedeće.
-Račun i komplement su ispravni, ali vrijede za model koji ovdje ne pristaje.
-Popravak je ili opravdati neovisnost podacima, ili simulirati proces u kojem
-uspjeh jedne objave mijenja vjerojatnost ostalih.
-
 ## Razrađeni primjer
 
 Novi naslov newslettera poslan je na pedeset adresa i otvoren je četrnaest puta.
@@ -432,10 +433,10 @@ bi izvještaj morao ograničiti svoj zaključak.
 # Uzorkovanje
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -562,6 +563,13 @@ odstupanja imaju sve manju priliku pomaknuti zbroj, i to ne zato što bi
 odstupanja nestajala, nego zato što se u većem uzorku sve češće međusobno
 poništavaju. Dobitak zato ne raste s brojem ljudi nego sa svojim korijenom.
 
+Simulacija dosad koristi **jednostavni slučajni uzorak** (*simple random
+sample*). Svaki mogući skup od $n$ jedinica ima jednaku vjerojatnost izbora, a
+iz konačne se populacije izvlači bez vraćanja. Izraz u nastavku točan je za
+neovisna izvlačenja s vraćanjem i služi kao aproksimacija za jednostavni
+slučajni uzorak bez vraćanja kada je $n$ malen prema $N$. Nije opća formula za
+svaki uzorak u kojem je odabir uključivao neki slučajni korak.
+
 $$
 SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
 $$
@@ -573,13 +581,34 @@ formula daje `r hr_broj(s8$se_teorijska, 4)`, dok je simulacija dala
 smjera, jedna iz algebre i druga iz tri tisuće ponovljenih izvlačenja, a
 poklapaju se na tri decimale.
 
-U stvarnom istraživanju $\sigma$ nije poznata, pa se na njezino mjesto stavlja
-uzoračka standardna devijacija $s$. Time formula postaje procjena, a ne
-identitet. Tu zamjenu poglavlje o sažimanju podataka je pripremilo kada je
-varijancu uvelo s djeliteljem umanjenim za jedan i tu odluku ostavilo kao
-tvrdnju bez dokaza. Simulacija je sada može provjeriti. Izvučemo li četiri
-tisuće uzoraka od po deset osoba i u svakome izračunamo prosjek kvadriranih
-odstupanja s djeliteljem deset, prosječan rezultat iznosi
+Izvlačenje bez vraćanja donosi još malo preciznosti. Svaka odabrana jedinica
+uklanja dio preostale neizvjesnosti, a nakon popisa cijele populacije pogreška
+uzorkovanja mora nestati. To smanjenje sažima **korekcija za konačnu
+populaciju** (*finite-population correction*), koja jednostavni izraz množi
+korijenom omjera preostaloga i početnoga broja dostupnih jedinica.
+
+$$
+SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
+  \sqrt{\frac{N-n}{N-1}}
+$$
+
+Drugi korijen blizu je jedinici kada je uzorak malen dio populacije, pa ga tada
+prvi izraz dobro aproksimira. Kako se $n$ približava vrijednosti $N$, faktor se
+smanjuje i pri popisu cijele populacije postaje nula. Simulacija bez vraćanja
+tu korekciju proizvodi sama, dok je stupac s formulom u tablici u nastavku
+namjerno zanemaruje kao aproksimaciju za veliku populaciju.
+
+U stvarnom istraživanju $\sigma$ nije poznata, pa je u aproksimaciji za veliku
+populaciju zamjenjuje uzoračka standardna devijacija $s$. Kada korekcija za
+konačnu populaciju nije zanemariva, procjena standardne pogreške usklađuje i
+tu korekciju s djeliteljem koji koristi $s$. Program to obavlja bez novoga
+pojma, a ovdje je važno zadržati granicu prema kojoj se populacijski izraz ne
+pretvara u procjenu samo zamjenom jednoga slova. Tu zamjenu poglavlje o
+sažimanju podataka je pripremilo kada je varijancu uvelo s djeliteljem umanjenim
+za jedan i tu odluku ostavilo kao tvrdnju bez dokaza. Simulacija je sada može
+provjeriti. Izvučemo li četiri tisuće uzoraka od po deset osoba i u svakome
+izračunamo prosjek kvadriranih odstupanja s djeliteljem deset, prosječan
+rezultat iznosi
 `r hr_broj(s8$var_n, 2)`, dok prava populacijska varijanca iznosi
 `r hr_broj(s8$var_prava, 2)`. Isti račun s djeliteljem devet daje
 `r hr_broj(s8$var_n1, 2)`. Djelitelj $n$ podcjenjuje sustavno, i to zato što
@@ -619,21 +648,21 @@ od sebe, iako se izvorna raspodjela nije ni za što promijenila.
 *Slika. Izrazito asimetrična populacijska varijabla i raspodjele njezinih uzoračkih sredina pri četiri veličine uzorka. Svaki panel ima vlastitu os.*
 
 Ono što smo upravo vidjeli ima ime i status teorema. **Središnji granični
-teorem** (*central limit theorem*) tvrdi da se distribucija uzorkovanja sredine
-približava normalnoj raspodjeli kako uzorak raste, bez obzira na oblik
-raspodjele iz koje se uzorkuje. Uobičajeno pravilo palca stavlja granicu oko
-trideset opažanja, ali naša simulacija pokazuje i zašto je to pravilo grubo.
+teorem** (*central limit theorem*) u ovom modelu tvrdi da se distribucija
+uzorkovanja sredine približava normalnoj raspodjeli kako jednostavni slučajni
+uzorak raste, pod uvjetom da populacija ima konačnu varijancu i da nekolicina
+jedinica ne nosi gotovo cijeli zbroj. Uobičajeno pravilo palca stavlja granicu
+oko trideset opažanja, ali naša simulacija pokazuje i zašto je to pravilo grubo.
 Kod izrazito asimetrične varijable trideset osoba nije bilo dovoljno da
 asimetrija nestane, dok bi kod raspodjele koja je već gotovo simetrična i deset
-osoba bilo dovoljno. Granica ovisi o tome koliko je izvorna raspodjela
-iskrivljena, a ne o okruglom broju.
+osoba bilo dovoljno. Granica ovisi o obliku i repovima izvorne raspodjele, a ne
+o okruglom broju.
 
-Praktična vrijednost teorema je u tome što oslobađa gotovo cijelo zaključivanje
-od pretpostavke o obliku podataka. Postupci koji slijede ne traže da su
-pojedinačna opažanja normalno raspodijeljena, nego da je normalna raspodjela
-procjene, a to je nešto što uzorak proizvodi sam. Ta razlika objašnjava zašto se
-isti alati primjenjuju na dohotke, brojanja i ocjene na ljestvici od jedan do
-deset, iako nijedna od tih raspodjela nije zvonasta.
+Praktična vrijednost teorema je u tome što mnoge postupke oslobađa pretpostavke
+da su pojedinačna opažanja normalno raspodijeljena. Ne uklanja pretpostavke o
+načinu odabira ni o ovisnosti među jedinicama. U složenijem nacrtu uzorka oblik
+i širinu raspodjele procjene određuju i težine te skupine iz kojih jedinice
+zajedno ulaze u uzorak, pa se zaključivanje mora prilagoditi tim obilježjima.
 
 ## Interakcija — CLT stroj
 
@@ -641,7 +670,8 @@ Simulacija koja je upravo prošla kroz četiri veličine uzorka fiksirala je obl
 populacije. Widget odvaja te dvije stvari, pa se oblik populacije, veličina
 uzorka i broj ponavljanja mijenjaju neovisno. Time postaje vidljivo koje je
 svojstvo posljedica čega, jer oblik raspodjele sredina ovisi o obojemu, a
-njezina širina samo o veličini uzorka.
+njezina širina o veličini uzorka i raspršenosti populacije. Pri fiksnoj
+populaciji širina se smanjuje s korijenom veličine uzorka.
 
 *Slika. Izvorna populacija i raspodjela sredina mnogih uzoraka na zajedničkoj osi. Okomita crta označuje populacijsku sredinu simulacije.*
 
@@ -663,9 +693,19 @@ poprima samo dvije vrijednosti raspršenost je određena samim udjelom, najveća
 kada je populacija podijeljena napola i pada kako se udio primiče nuli ili
 jedinici.
 
+Sljedeći izraz procjenjuje standardnu pogrešku jednoga ukupnog udjela u istom
+modelu jednostavnoga slučajnog uzorka i velike populacije. Uzorački udio
+$\hat{p}$ ulazi umjesto nepoznatoga populacijskog udjela, pa je i dobivena
+standardna pogreška procjena.
+
 $$
 SE_{\hat{p}} = \sqrt{\frac{\hat{p}\,(1 - \hat{p})}{n}}
 $$
+
+Kod jednostavnoga slučajnog uzorka bez vraćanja izraz se množi istom korekcijom
+za konačnu populaciju kao i standardna pogreška sredine. Kod nejednakih
+vjerojatnosti odabira ili grupnog uzorkovanja ne smije se prenijeti bez
+prilagodbe nacrtu.
 
 Polovica širine intervala oko procjene naziva se **margina pogreške** (*margin
 of error*), i to je brojka koju medijski izvještaji navode uz anketu. Budući da
@@ -674,34 +714,54 @@ najgori slučaj, koji vrijedi bez obzira na to kakav će rezultat ispasti. Za
 uobičajenu razinu od 95 % margina se tada svodi na približno jedan podijeljen
 korijenom veličine uzorka.
 
+Margina u nastavku jednaka je 1,96 puta procijenjena standardna pogreška, a
+potreban uzorak dobiven je obrnutim računom iz zadane margine. Formula za
+standardnu pogrešku nasljeđuje jednostavni slučajni nacrt i aproksimaciju
+velikom populacijom. Množenje s 1,96 i obrnuti račun dodatno traže da normalna
+aproksimacija bude razumna, što nije slučaj kada je očekivani broj jedinica u
+jednoj od dviju kategorija malen.
+
 *Slika. Najveća margina pogreške za udio pri razini od 95 % i uzorak potreban za zadanu marginu. Izrada autora.*
 
-Tablica objašnjava zašto se veličine anketnih uzoraka tako uporno grupiraju
-između pet stotina i dvije tisuće ispitanika. Ispod te granice margina postaje
-prevelika da bi se o razlikama uopće govorilo, a iznad nje trošak raste brže od
-koristi. Anketa na osamsto ljudi daje marginu od približno
+Tablica opisuje samo odnos veličine i preciznosti za jedan ukupni udio u
+jednostavnom slučajnom uzorku, pri razini od 95 % i uz zanemarenu korekciju za
+konačnu populaciju. U tom modelu uzorak od osamsto ljudi daje najveću marginu
+od približno
 `r paste0("±", hr_broj(100 * s8$moe(800), 1), " %")`, i ta je preciznost dovoljna
 da se razaznaju razlike od desetak postotnih bodova, a nedovoljna za razlike od
-dva ili tri.
+dva ili tri. Druga procjenjivana veličina, drukčiji nacrt ili uži zahtjev za
+preciznošću mijenjaju taj račun.
 
 Odatle slijedi pravilo čitanja koje vrijedi više od svega ostaloga u ovom
-poglavlju. Kada izvještaj navodi da prva opcija ima 32 %, a druga 29 %, razlika
-od tri postotna boda manja je od margine pogreške tipične ankete, pa podaci ne
-podupiru tvrdnju da je prva opcija ispred druge. Uz to, margina se odnosi na
-svaku procjenu zasebno, a razlika dvaju udjela ima vlastitu, još veću
-nesigurnost.
+odjeljku. Kada izvještaj navodi da prva opcija ima 32 %, a druga 29 %, razlika
+od tri postotna boda manja je od margine iz prikazanoga modela, pa sama ta
+usporedba ne podupire tvrdnju da je prva opcija ispred druge. Margina se odnosi
+na svaku procjenu zasebno, a razlika dvaju udjela ima vlastitu nesigurnost koju
+treba izračunati iz zajedničkoga nacrta.
 
-U formuli za marginu pogreške nedostaje jedna veličina koju bi svatko očekivao
-da je ondje, a to je veličina populacije. Preciznost ovisi o tome koliko smo
-ljudi pitali i koliko su njihovi odgovori raspršeni, ne o tome koliko ih ima.
-Provjeriti se to može izravno. Uzorak od osamsto osoba izvučen iz cijele naše
-populacije daje standardnu pogrešku `r hr_broj(s8$se_velika, 4)`, a isti takav
-uzorak izvučen iz njezina deset puta manjeg dijela daje
-`r hr_broj(s8$se_mala, 4)`. Populacija veća za red veličine donijela je razliku
-u preciznosti manju od desetine. Zbog toga anketa na tisuću ljudi jednako dobro
-opisuje grad od pedeset tisuća stanovnika i državu od četiri milijuna, što je
-vjerojatno najmanje intuitivan rezultat u cijelom poglavlju i redovito zvuči
-kao pogreška onima koji ga prvi put čuju.
+U pojednostavljenoj formuli za marginu pogreške nema veličine populacije zato
+što je korekcija za konačnu populaciju zanemarena. Kada je udio uzorkovanih
+jedinica malen, taj je faktor blizu jedinici i veličina populacije malo mijenja
+preciznost. Provjeriti se to može izravno. Uzorak od osamsto osoba izvučen iz
+cijele naše populacije daje standardnu pogrešku
+`r hr_broj(s8$se_velika, 4)`, a isti takav uzorak izvučen iz njezina deset puta
+manjeg dijela daje `r hr_broj(s8$se_mala, 4)`. Manja populacija ovdje daje nešto
+precizniju procjenu ponajprije zato što isti uzorak obuhvaća veći dio nje.
+Raspršenosti dviju populacija iznose `r hr_broj(s8$sigma, 3)` i
+`r hr_broj(s8$sigma_mala, 3)`, pa nisu posve jednake. Formula s korekcijom
+predviđa standardne pogreške `r hr_broj(s8$se_velika_fpc, 4)` i
+`r hr_broj(s8$se_mala_fpc, 4)`, koje su blizu simuliranim vrijednostima i
+odvajaju učinak veličine populacije od te male razlike u raspršenosti.
+
+Tvrdnja da je uzorak od približno tisuću ljudi dovoljan nema smisla bez pet
+odluka. Najprije se imenuje procjenjivana veličina, jer ukupni udio, sredina,
+rijedak udio i razlika dviju skupina nemaju istu standardnu pogrešku. Zatim se
+navodi nacrt, jer težine i grupiranje mijenjaju preciznost, te postupak odabira
+i odaziva, jer veličina ne popravlja sustavno izostavljene ljude. Procjena za
+podskupinu oslanja se na broj osoba u toj podskupini, a ne na ukupan uzorak.
+Tek željena preciznost određuje je li preostali broj dovoljan. Tisuću je zato
+korisna orijentacija za jedan ukupni udio u pojednostavljenom nacrtu, a ne
+jamstvo za svaki cilj, nacrt, populaciju ili usporedbu.
 
 Preostaje reći što margina pogreške ne pokriva, jer se upravo o tome najčešće
 šuti. Ona mjeri isključivo promjenjivost koja dolazi od slučajnog izvlačenja
@@ -712,16 +772,41 @@ piše da je margina ±3 % nudi tri postotna boda opreza za jedan izvor pogreške
 nijedan za ostale tri. Rečenica da je nešto „unutar margine pogreške" zato je
 tvrdnja o slučaju, a ne potvrda da je istraživanje dobro provedeno.
 
-## Kad slučajnost nije bila slučajna
+## Nacrt uzorka i pristranost odabira
 
-Sve dosad rečeno počiva na jednoj pretpostavci koju je lako previdjeti jer se
-rijetko izgovara. Formula za standardnu pogrešku i središnji granični teorem
-vrijede za **slučajni uzorak**, u kojem svaka jedinica populacije ima poznatu i
-različitu od nule vjerojatnost da bude odabrana. Kada ta pretpostavka padne,
-brojke se i dalje uredno izračunaju, ali više ne mjere ono što tvrde.
+Jednostavni slučajni uzorak nije jedini valjani način slučajnog odabira. U
+širem **vjerojatnosnom uzorkovanju** svaka jedinica ima poznatu i pozitivnu
+vjerojatnost ulaska, ali te vjerojatnosti ne moraju biti jednake. Jedinica koja
+je imala upola manju priliku ulaska tada u procjeni zastupa približno dvostruko
+više populacijskih jedinica. Taj doprinos zapisuje **težina uzorka**, koja se
+temelji na obrnutoj vjerojatnosti odabira. Neponderirana sredina u takvu nacrtu
+previše predstavlja često birane jedinice, ali ni ispravno ponderiranje samo ne
+može vratiti skupinu koju okvir uopće nije pokrivao.
 
-Prigodni uzorak najčešći je oblik takvog pada. Istraživač anketira one koji su
-mu dostupni, obično studente vlastitog kolegija. U našoj populaciji skupina
+Drugi nacrti najprije biraju skupine poput kućanstava, škola ili naselja, a
+zatim jedinice unutar njih. Takvo **grupno uzorkovanje** štedi terenski rad, ali
+osobe iz iste skupine često su sličnije nego nasumično izabrane osobe iz cijele
+populacije. Stotinu ljudi iz nekoliko skupina zato obično nosi manje neovisne
+informacije od stotinu ljudi raspršenih po populaciji. Obična formula s
+korijenom iz $n$ tu bi preciznost prikazala prevelikom.
+
+**Učinak nacrta** uspoređuje varijancu procjene pod stvarnim nacrtom s
+varijancom koju bi dao jednostavni slučajni uzorak iste nominalne veličine.
+Njegov prijevod u broj čitatelju daje **efektivna veličina uzorka**, odnosno
+veličina jednostavnoga slučajnog uzorka koja bi nosila približno jednaku
+preciznost. Grupiranje i vrlo nejednake težine često smanjuju efektivnu
+veličinu, dok je pažljivo raslojavanje može povećati. Učinak nacrta pripada
+određenoj procjeni i ne mora biti isti za svaki udio ili sredinu u istoj anketi.
+
+Za takve nacrte procjena, standardna pogreška i margina moraju se računati
+postupkom koji poznaje težine, skupine i eventualne slojeve. Čitatelj ne mora
+izvoditi te formule, ali mora u izvještaju tražiti kako je nacrt uključen u
+račun. Nijedna od dviju jednostavnih formula iz ovoga poglavlja ne prenosi se
+nepromijenjena na nejednake vjerojatnosti ili grupiranje.
+
+Drukčiji problem nastaje kada vjerojatnosti odabira nisu poznate. Prigodni
+uzorak najčešći je oblik takvog pada. Istraživač anketira one koji su mu
+dostupni, obično studente vlastitog kolegija. U našoj populaciji skupina
 mlađih od dvadeset pet godina s višim obrazovanjem broji
 `r hr_broj(s8$prigodni_n, 0)` osoba i njihovo prosječno povjerenje u medije
 iznosi `r hr_broj(s8$prigodni_sredina, 2)`, naspram
@@ -774,10 +859,12 @@ uzorci trebaju biti veliki, iako pokazuje upravo suprotno.
 **Pitajte model.**
 Asistent može napisati simulaciju distribucije uzorkovanja u nekoliko sekundi,
 ali treba mu odvojeno zadati populaciju, postupak odabira, veličinu uzorka i
-statistiku koja se računa. Provjeravamo uzorkuje li s vraćanjem samo kada je to
-namjera, jer je zadana postavka mnogih funkcija suprotna od potrebne. Najčešća
-pogreška u odgovoru nije u kodu nego u rečenici koja ga prati, gdje se
-raspršenost pojedinaca predstavi kao standardna pogreška procjene.
+statistiku koja se računa. Kod jednostavnoga slučajnog uzorka provjeravamo
+uzorkuje li s vraćanjem samo kada je to namjera. Kod složenoga nacrta tražimo da
+u račun unese težine, skupine i slojeve umjesto da primijeni običnu formulu s
+korijenom iz $n$. Najčešća pogreška u odgovoru ipak nije u kodu nego u rečenici
+koja ga prati, gdje se raspršenost pojedinaca predstavi kao standardna pogreška
+procjene.
 
 > Simuliraj mnogo neovisnih uzoraka iz zadane populacije. Prikaži raspodjelu
 > uzoračkih sredina i odvojeno navedi standardnu devijaciju opažanja te
@@ -787,10 +874,6 @@ raspršenost pojedinaca predstavi kao standardna pogreška procjene.
 Veći nasumični uzorak daje užu distribuciju uzoračkih sredina. Budući da je
 standardna pogreška manja, vrijednosti pojedinaca u većem uzorku također su
 međusobno sličnije.
-
-Greška je zamjena dviju razina varijabilnosti. Veći uzorak sužava raspodjelu
-procjene, ali očekivana raspršenost pojedinaca ostaje jednaka populacijskoj, jer
-je svojstvo ljudi, a ne postupka.
 
 ## Razrađeni primjer
 
@@ -835,13 +918,15 @@ istu petlju vrati u ruke nekome tko ima samo osamsto ispitanika.
 Uzorak je jedan ishod postupka odabira, a distribucija uzorkovanja opisuje kako
 bi se procjena mijenjala kroz ponovljene izvlačenja. Njezinu širinu mjeri
 standardna pogreška, koja pripada procjeni, a ne pojedincima, i pada s korijenom
-veličine uzorka, pa preciznost postaje sve skuplja. Njezin oblik se s porastom
-uzorka približava normalnoj raspodjeli bez obzira na to iz čega se uzorkuje, i
-upravo to čini ostatak knjige mogućim. Ništa od toga ne popravlja pristran
-odabir, jer standardna pogreška mjeri samo ono što bi se mijenjalo kroz
-ponavljanja istoga postupka, a ne ono što je taj postupak sustavno izostavio.
-Poglavlje o procjeni uzet će tu raspodjelu i iz nje izgraditi raspon oko
-vrijednosti koju ne možemo izravno vidjeti.
+veličine jednostavnoga slučajnog uzorka, uz korekciju kada uzorak obuhvaća
+znatan dio konačne populacije. Složeniji nacrti mogu zahtijevati ponderirane
+procjene, a nesigurnost se računa postupkom koji uvažava težine, skupine i
+slojeve. Učinak nacrta i efektivna veličina uzorka sažimaju posljedice toga
+nacrta. Nijedan od tih računa ne popravlja pristran odabir, jer standardna
+pogreška mjeri samo ono što bi se mijenjalo kroz ponavljanja istoga postupka, a
+ne ono što je taj postupak sustavno izostavio. Poglavlje o procjeni uzet će tu
+raspodjelu i iz nje izgraditi raspon oko vrijednosti koju ne možemo izravno
+vidjeti.
 
 ## Pojmovi
 
@@ -850,8 +935,11 @@ statistika (*statistic*), pogreška uzorkovanja (*sampling error*), distribucija
 uzorkovanja (*sampling distribution*), nepristranost (*unbiasedness*),
 standardna pogreška (*standard error*), središnji granični teorem (*central
 limit theorem*), uzorački udio (*sample proportion*), margina pogreške (*margin
-of error*), slučajni uzorak (*random sample*), prigodni uzorak (*convenience
-sample*), samoodabir (*self-selection*)
+of error*), jednostavni slučajni uzorak (*simple random sample*), korekcija za
+konačnu populaciju (*finite-population correction*), težina uzorka (*sampling
+weight*), grupno uzorkovanje (*cluster sampling*), učinak nacrta (*design
+effect*), efektivna veličina uzorka (*effective sample size*), prigodni uzorak
+(*convenience sample*), samoodabir (*self-selection*)
 
 ## Zadaci
 
@@ -890,10 +978,10 @@ druge rečenice koja zadržava sve što je u njoj bilo točno.
 # Procjena
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/09-procjena.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -976,7 +1064,7 @@ ga uvodi u poglavlju o usporedbi dviju grupa, gdje ga postupak prvi put stvarno
 treba.
 
 Ono što se u brojci od `r paste0(hr_broj(s9$pokrivenost, 1), " %")` ne vidi jest
-sudbina pojedinačnog intervala. Svaki od tih dvije tisuće raspona ili sadrži
+sudbina pojedinačnog intervala. Svaki od tih deset tisuća raspona ili sadrži
 pravu vrijednost ili je ne sadrži, i nakon što je izračunat, u njemu nema
 ničega slučajnog. Slučajan je bio uzorak koji ga je proizveo. Populacijska
 sredina fiksan je broj i ne kreće se, pa rečenica o vjerojatnosti da se ona
@@ -1064,12 +1152,18 @@ uvodi u poglavlju o usporedbi dviju grupa.
 Postoji i druga zamjena koja se često javlja u istom odlomku. Interval
 pouzdanosti govori gdje je prosjek, a ne gdje su ljudi. Za naš uzorak od
 dvjesto osoba raspon oko sredine dug je
-`r hr_broj(s9$gornja - s9$donja, 2)` boda, dok bi raspon unutar kojega leži
-otprilike 95 % pojedinačnih ocjena bio širok približno
-`r hr_broj(2 * s9$predikcijski, 1)` boda. Prvi se odnosi na parametar i sužava
-se s uzorkom, drugi na buduće opažanje i ne sužava se gotovo nimalo.
+`r hr_broj(s9$gornja - s9$donja, 2)` boda. Ako su pojedinačne ocjene približno
+normalno raspoređene, sredina plus ili minus 1,96 uzoračkih standardnih
+devijacija daje opisni raspon po normalnom pravilu širok približno
+`r hr_broj(2 * s9$normalni_poluraspon, 1)` boda, u kojem bi pod tim modelom
+ležalo oko 95 % ocjena. Za izrazito asimetrične, ograničene ili diskretne
+raspodjele takav opisni obuhvat ne slijedi. Taj prikaz nije interval predviđanja
+za novu osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti
+niti određuje iz koje bi populacije buduća osoba došla. Interval za sredinu
+odnosi se na parametar i sužava se s većim uzorkom, dok opisni raspon prikazuje
+raspršenost pojedinačnih ocjena.
 
-*Slika. Interval pouzdanosti za sredinu i raspon unutar kojega leži otprilike 95 % pojedinačnih ocjena, na istom uzorku i istoj osi.*
+*Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi.*
 
 ## Bootstrap kao vlastiti izum
 
@@ -1082,11 +1176,14 @@ ijedne nove ideje, uz uvjet da se prethodno poglavlje shvatilo ozbiljno.
 Standardna pogreška bila je definirana kroz ponovljene uzorke iz populacije.
 Kad bismo populaciji imali pristup, izvukli bismo tisuću uzoraka, izračunali
 tisuću medijana i pogledali koliko se razilaze. Populaciji pristupa nemamo,
-imamo samo uzorak. Uzorak je pritom najbolja slika populacije kojom
-raspolažemo, jer je iz nje izvučen slučajno i njezine razmjere nosi u sebi. Ako
-mu dopustimo da privremeno glumi populaciju i iz njega izvlačimo nove uzorke
-jednake veličine, dobit ćemo raspodjelu koja oponaša onu koju bismo dobili iz
-prave populacije.
+imamo samo uzorak. Njegova empirijska raspodjela može privremeno glumiti
+populaciju samo ako opažene jedinice razumno predstavljaju ciljnu populaciju.
+U jednostavnom bootstrapu redaka pretpostavljamo i da su jedinice neovisne i
+međusobno zamjenjive na razini na kojoj su bile uzorkovane. Uparena,
+grupirana ili ponovljena opažanja zato se ne rastavljaju na proizvoljne retke,
+nego se ponovno uzorkuju cijeli parovi, skupine ili osobe. Pod tim uvjetima
+uzorci jednake veličine iz opaženih podataka oponašaju promjene sastava koje
+bismo vidjeli pri novom uzorkovanju iz populacije.
 
 Izvlačenje mora biti s vraćanjem, i to nije tehnički detalj. Izvlačenjem bez
 vraćanja iz uzorka od šezdeset osoba dobili bismo šezdeset istih osoba u drugom
@@ -1100,24 +1197,31 @@ uveden je kao način procjene nesigurnosti kada teorijski račun nije pri ruci
 Uzmimo uzorak od `r hr_broj(s9$mali_n, 0)` osoba i pitajmo se koliko iznosi
 medijan dnevnih minuta praćenja medija. U uzorku on iznosi
 `r hr_broj(s9$medijan_uzorak, 1)` minuta. Četiri tisuće bootstrap uzoraka daju
-raspon od `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta,
-unutar kojega leži prava populacijska vrijednost od
-`r hr_broj(s9$medijan_pop, 1)` minuta.
+središnji percentilni raspon od `r hr_broj(s9$boot_donja, 1)` do
+`r hr_broj(s9$boot_gornja, 1)` minuta. Poznata populacijska vrijednost od
+`r hr_broj(s9$medijan_pop, 1)` minuta u ovom se jednom slučaju nalazi unutar
+granica. Slika zato pokazuje konstrukciju raspona iz jednoga uzorka, a ne
+njegovu dugoročnu pokrivenost.
 
 *Slika. Raspodjela četiri tisuće bootstrap medijana iz jednog uzorka, s granicama središnjih 95 % vrijednosti i pravom populacijskom vrijednošću.*
 
-Histogram ima vidljiv stubast oblik jer medijan uzorka od šezdeset brojeva može
-poprimiti samo ograničen skup vrijednosti, što je svojstvo mjere, a ne mana
-postupka. Snaga bootstrapa upravo je u tome što ga takve neugodnosti ne
-zaustavljaju. Isti se postupak bez izmjene primjenjuje na sredinu, medijan,
-korelaciju ili razliku dviju skupina, jer nigdje ne pretpostavlja oblik
-raspodjele.
+Histogram ima vidljiv stubast oblik jer medijan maloga, zaokruženog uzorka može
+poprimiti samo ograničen skup vrijednosti. Ta diskretnost nije računalna
+pogreška, ali granice percentilnog raspona čini grubima. Veći broj bootstrap
+ponavljanja smanjuje slučajno kolebanje izračunanih percentila, no ne dodaje
+nove vrijednosti u siromašan početni uzorak i ne uklanja grube granice ni
+nestabilnost koje je mali uzorak već zadao.
 
-Njegova granica ostaje početni uzorak, i granica je stroga. Bootstrap ponovno
-koristi opažanja koja već imamo, pa ne može otkriti dio populacije koji u
-uzorak nikada nije mogao ući. Ako je uzorak prigodan, postupak će pouzdano
-opisati promjenjivost pogrešne procjene. Ako je premalen da zabilježi rijetke
-ali važne slučajeve, ta praznina ostaje u svakom od četiri tisuće ponavljanja.
+Bootstrap ne pretpostavlja imenovani oblik populacijske raspodjele, ali nije
+bez pretpostavki. Shema se mora prilagoditi statistici i dizajnu. Kod
+korelacije ponovno uzorkujemo cijele parove vrijednosti, kod razlike između
+neovisnih skupina svaku skupinu zasebno, a kod ovisnih podataka cijele neovisne
+jedinice. Postupak također ne može obnoviti rijetke ili krajnje vrijednosti koje
+početni uzorak nije zabilježio. Procjene repova, poput vrlo visokog percentila,
+zato su osobito osjetljive na mali uzorak i raspodjele s teškim repovima, dok
+je medijan manje ovisan o repovima, ali pri mnogo vezanih vrijednosti i dalje
+daje grube granice. Ako uzorak ne predstavlja ciljnu populaciju, bootstrap
+precizno ponavlja isti problem umjesto da ga ukloni.
 
 **Statistika u divljini.**
 **Šest tvrdnji o jednom intervalu.** Istraživači su studentima i aktivnim
@@ -1135,14 +1239,13 @@ su intervali loš alat nego da je rečenica kojom ih opisujemo teža od računa
 koji ih proizvodi.
 
 **Pitajte model.**
-Asistent može bootstrapirati gotovo svaku statistiku i obično to učini
-ispravno. Provjeravamo tri stvari koje redovito promakne. Uzorkuje li s
-vraćanjem i na punoj veličini uzorka, jer bez toga raspodjela nema smisla. Čuva
-li strukturu podataka, jer se kod uparenih ili grupiranih opažanja izvlače
-jedinice, a ne redovi. Ponavlja li dovoljno puta, jer nekoliko stotina
-ponavljanja daje granice koje se mijenjaju od pokretanja do pokretanja.
-Najčešća pogreška ipak nije u kodu nego u zaključnoj rečenici, gdje se već
-izračunatom intervalu pripiše vjerojatnost.
+Asistent može bootstrapirati mnoge statistike, ali ispravan kod ne jamči
+ispravan plan ponovnog uzorkovanja. Provjeravamo predstavlja li početni uzorak
+ciljnu populaciju i koja je stvarno neovisna jedinica. Zatim gledamo uzorkuje li
+s vraćanjem na punoj veličini uzorka i čuva li parove, skupine ili ponovljena
+opažanja. Broj ponavljanja također mora biti dovoljan da računalno kolebanje
+granica bude malo. Najčešća pogreška ipak nije u kodu nego u zaključnoj
+rečenici, gdje se već izračunatom intervalu pripiše vjerojatnost.
 
 > Izračunaj točkastu procjenu i bootstrap interval. Uzorkuj s vraćanjem na
 > punoj veličini uzorka, sačuvaj strukturu podataka i interpretiraj razinu
@@ -1152,11 +1255,6 @@ izračunatom intervalu pripiše vjerojatnost.
 Bootstrap raspodjela je približno simetrična i interval je uredno izračunat iz
 njezinih krajeva. Postoji devedesetpetpostotna vjerojatnost da se fiksna
 populacijska vrijednost nalazi unutar upravo ovog opaženog intervala.
-
-Greška je pripisivanje vjerojatnosti fiksnom parametru nakon izračuna
-frekventističkog intervala. Prva rečenica je točna i postupak je proveden
-ispravno. Razina pouzdanosti opisuje udio intervala koji obuhvaćaju parametar
-kroz ponovljeno uzorkovanje, a ne položaj parametra u odnosu na ovaj raspon.
 
 ## Razrađeni primjer
 
@@ -1184,18 +1282,22 @@ o bootstrapu već naveo, jer je riječ o istoj analizi ispisanoj u cijelosti.
 Odgovor naručitelju glasi da tipičan stanovnik prati medije oko
 `r hr_broj(s9$medijan_uzorak, 1)` minuta dnevno, uz raspon od
 `r hr_broj(s9$boot_donja, 1)` do `r hr_broj(s9$boot_gornja, 1)` minuta koji
-opisuje koliko bi se ta procjena mijenjala kroz ponovljena istraživanja iste
-veličine. Raspon je širok gotovo `r hr_broj(s9$boot_gornja - s9$boot_donja, 0)`
-minuta, što je pošten opis onoga što šezdeset ljudi može reći, i ujedno
-najkorisnija brojka u cijelom izvještaju. Naručitelj koji je htio razlučiti
-promjenu od deset minuta iz ovih podataka odgovor neće dobiti bez većeg uzorka.
+procjenjuje uzoračku promjenjivost medijana pod navedenim uvjetima. Raspon je
+širok gotovo `r hr_broj(s9$boot_gornja - s9$boot_donja, 0)` minuta, što u ovoj
+simuliranoj analizi pokazuje granicu onoga što šezdeset ljudi može reći.
+Naručitelj koji je htio razlučiti promjenu od deset minuta iz ovih podataka
+odgovor neće dobiti bez većeg uzorka.
 
 Budući da populaciju poznajemo, možemo napraviti i ono što stvarno istraživanje
 ne može. Prava vrijednost iznosi `r hr_broj(s9$medijan_pop, 1)` minuta i nalazi
-se unutar granica. Iz toga ne slijedi da postupak radi, jer bi i loš postupak
-pogodio pokoji put. Ono što o postupku govori jest prebrojavanje deset tisuća
-ponavljanja iz ranijeg odjeljka, a ovaj pojedinačni pogodak samo je jedan od
-njih, viđen iznutra kako ga vidi istraživač.
+se unutar granica. Taj jedan pogodak ne potvrđuje niti opovrgava percentilni
+bootstrap. Deset tisuća ponavljanja iz ranijeg odjeljka provjerava drugi
+postupak, normalni interval za sredinu. Pokrivenost raspona za medijan trebalo bi
+provjeriti ponavljanjem cijeloga lanca, od novog uzorka od šezdeset osoba do
+novoga bootstrap raspona u svakom ponavljanju, pa zatim prebrojiti koliko takvih
+raspona obuhvaća populacijski medijan. Takva provjera ovdje nije provedena, pa
+primjer pokazuje konstrukciju i ograničenja raspona, a ne dokazuje njegovu
+nominalnu pokrivenost.
 
 Redoslijed kojim su tri brojke ispisane isti je onaj kojim se rezultat i
 izvještava. Najprije dolazi procjena, jer je ona odgovor na postavljeno pitanje.
@@ -1214,10 +1316,12 @@ procjene gradi raspon čije obećanje pripada postupku, a ne pojedinačnom raspo
 koji imamo pred sobom. Preciznost se kupuje podacima, a pouzdanost se bira i
 plaća širinom, pa uz svaki raspon mora stajati razina na kojoj je izračunat.
 Bootstrap istu ideju oslobađa formule tako što uzorku dopušta da privremeno
-glumi populaciju, i time otvara mjere za koje račun ne postoji, ne popravljajući
-pritom nijednu slabost samoga uzorka. Sljedeće poglavlje uzima isti aparat i
-mijenja mu pitanje, jer umjesto raspona usklađenog s podacima traži koliko su
-podaci neobični pod jednom određenom pretpostavkom.
+glumi populaciju kada uzorak i jedinica ponovnog uzorkovanja odgovaraju ciljnom
+načinu uzorkovanja. Time otvara mjere za koje jednostavan račun ne postoji, ali
+ne popravlja premalen ili nereprezentativan uzorak niti pogrešno odabranu
+jedinicu ponovnog uzorkovanja. Sljedeće poglavlje uzima isti aparat i mijenja mu
+pitanje, jer umjesto raspona usklađenog s podacima traži koliko su podaci
+neobični pod jednom određenom pretpostavkom.
 
 ## Pojmovi
 

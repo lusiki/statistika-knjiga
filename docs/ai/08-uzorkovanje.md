@@ -1,10 +1,10 @@
 # Uzorkovanje
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/08-uzorkovanje.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -131,6 +131,13 @@ odstupanja imaju sve manju priliku pomaknuti zbroj, i to ne zato što bi
 odstupanja nestajala, nego zato što se u većem uzorku sve češće međusobno
 poništavaju. Dobitak zato ne raste s brojem ljudi nego sa svojim korijenom.
 
+Simulacija dosad koristi **jednostavni slučajni uzorak** (*simple random
+sample*). Svaki mogući skup od $n$ jedinica ima jednaku vjerojatnost izbora, a
+iz konačne se populacije izvlači bez vraćanja. Izraz u nastavku točan je za
+neovisna izvlačenja s vraćanjem i služi kao aproksimacija za jednostavni
+slučajni uzorak bez vraćanja kada je $n$ malen prema $N$. Nije opća formula za
+svaki uzorak u kojem je odabir uključivao neki slučajni korak.
+
 $$
 SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
 $$
@@ -142,13 +149,34 @@ formula daje `r hr_broj(s8$se_teorijska, 4)`, dok je simulacija dala
 smjera, jedna iz algebre i druga iz tri tisuće ponovljenih izvlačenja, a
 poklapaju se na tri decimale.
 
-U stvarnom istraživanju $\sigma$ nije poznata, pa se na njezino mjesto stavlja
-uzoračka standardna devijacija $s$. Time formula postaje procjena, a ne
-identitet. Tu zamjenu poglavlje o sažimanju podataka je pripremilo kada je
-varijancu uvelo s djeliteljem umanjenim za jedan i tu odluku ostavilo kao
-tvrdnju bez dokaza. Simulacija je sada može provjeriti. Izvučemo li četiri
-tisuće uzoraka od po deset osoba i u svakome izračunamo prosjek kvadriranih
-odstupanja s djeliteljem deset, prosječan rezultat iznosi
+Izvlačenje bez vraćanja donosi još malo preciznosti. Svaka odabrana jedinica
+uklanja dio preostale neizvjesnosti, a nakon popisa cijele populacije pogreška
+uzorkovanja mora nestati. To smanjenje sažima **korekcija za konačnu
+populaciju** (*finite-population correction*), koja jednostavni izraz množi
+korijenom omjera preostaloga i početnoga broja dostupnih jedinica.
+
+$$
+SE_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
+  \sqrt{\frac{N-n}{N-1}}
+$$
+
+Drugi korijen blizu je jedinici kada je uzorak malen dio populacije, pa ga tada
+prvi izraz dobro aproksimira. Kako se $n$ približava vrijednosti $N$, faktor se
+smanjuje i pri popisu cijele populacije postaje nula. Simulacija bez vraćanja
+tu korekciju proizvodi sama, dok je stupac s formulom u tablici u nastavku
+namjerno zanemaruje kao aproksimaciju za veliku populaciju.
+
+U stvarnom istraživanju $\sigma$ nije poznata, pa je u aproksimaciji za veliku
+populaciju zamjenjuje uzoračka standardna devijacija $s$. Kada korekcija za
+konačnu populaciju nije zanemariva, procjena standardne pogreške usklađuje i
+tu korekciju s djeliteljem koji koristi $s$. Program to obavlja bez novoga
+pojma, a ovdje je važno zadržati granicu prema kojoj se populacijski izraz ne
+pretvara u procjenu samo zamjenom jednoga slova. Tu zamjenu poglavlje o
+sažimanju podataka je pripremilo kada je varijancu uvelo s djeliteljem umanjenim
+za jedan i tu odluku ostavilo kao tvrdnju bez dokaza. Simulacija je sada može
+provjeriti. Izvučemo li četiri tisuće uzoraka od po deset osoba i u svakome
+izračunamo prosjek kvadriranih odstupanja s djeliteljem deset, prosječan
+rezultat iznosi
 `r hr_broj(s8$var_n, 2)`, dok prava populacijska varijanca iznosi
 `r hr_broj(s8$var_prava, 2)`. Isti račun s djeliteljem devet daje
 `r hr_broj(s8$var_n1, 2)`. Djelitelj $n$ podcjenjuje sustavno, i to zato što
@@ -188,21 +216,21 @@ od sebe, iako se izvorna raspodjela nije ni za što promijenila.
 *Slika. Izrazito asimetrična populacijska varijabla i raspodjele njezinih uzoračkih sredina pri četiri veličine uzorka. Svaki panel ima vlastitu os.*
 
 Ono što smo upravo vidjeli ima ime i status teorema. **Središnji granični
-teorem** (*central limit theorem*) tvrdi da se distribucija uzorkovanja sredine
-približava normalnoj raspodjeli kako uzorak raste, bez obzira na oblik
-raspodjele iz koje se uzorkuje. Uobičajeno pravilo palca stavlja granicu oko
-trideset opažanja, ali naša simulacija pokazuje i zašto je to pravilo grubo.
+teorem** (*central limit theorem*) u ovom modelu tvrdi da se distribucija
+uzorkovanja sredine približava normalnoj raspodjeli kako jednostavni slučajni
+uzorak raste, pod uvjetom da populacija ima konačnu varijancu i da nekolicina
+jedinica ne nosi gotovo cijeli zbroj. Uobičajeno pravilo palca stavlja granicu
+oko trideset opažanja, ali naša simulacija pokazuje i zašto je to pravilo grubo.
 Kod izrazito asimetrične varijable trideset osoba nije bilo dovoljno da
 asimetrija nestane, dok bi kod raspodjele koja je već gotovo simetrična i deset
-osoba bilo dovoljno. Granica ovisi o tome koliko je izvorna raspodjela
-iskrivljena, a ne o okruglom broju.
+osoba bilo dovoljno. Granica ovisi o obliku i repovima izvorne raspodjele, a ne
+o okruglom broju.
 
-Praktična vrijednost teorema je u tome što oslobađa gotovo cijelo zaključivanje
-od pretpostavke o obliku podataka. Postupci koji slijede ne traže da su
-pojedinačna opažanja normalno raspodijeljena, nego da je normalna raspodjela
-procjene, a to je nešto što uzorak proizvodi sam. Ta razlika objašnjava zašto se
-isti alati primjenjuju na dohotke, brojanja i ocjene na ljestvici od jedan do
-deset, iako nijedna od tih raspodjela nije zvonasta.
+Praktična vrijednost teorema je u tome što mnoge postupke oslobađa pretpostavke
+da su pojedinačna opažanja normalno raspodijeljena. Ne uklanja pretpostavke o
+načinu odabira ni o ovisnosti među jedinicama. U složenijem nacrtu uzorka oblik
+i širinu raspodjele procjene određuju i težine te skupine iz kojih jedinice
+zajedno ulaze u uzorak, pa se zaključivanje mora prilagoditi tim obilježjima.
 
 ## Interakcija — CLT stroj
 
@@ -210,7 +238,8 @@ Simulacija koja je upravo prošla kroz četiri veličine uzorka fiksirala je obl
 populacije. Widget odvaja te dvije stvari, pa se oblik populacije, veličina
 uzorka i broj ponavljanja mijenjaju neovisno. Time postaje vidljivo koje je
 svojstvo posljedica čega, jer oblik raspodjele sredina ovisi o obojemu, a
-njezina širina samo o veličini uzorka.
+njezina širina o veličini uzorka i raspršenosti populacije. Pri fiksnoj
+populaciji širina se smanjuje s korijenom veličine uzorka.
 
 *Slika. Izvorna populacija i raspodjela sredina mnogih uzoraka na zajedničkoj osi. Okomita crta označuje populacijsku sredinu simulacije.*
 
@@ -232,9 +261,19 @@ poprima samo dvije vrijednosti raspršenost je određena samim udjelom, najveća
 kada je populacija podijeljena napola i pada kako se udio primiče nuli ili
 jedinici.
 
+Sljedeći izraz procjenjuje standardnu pogrešku jednoga ukupnog udjela u istom
+modelu jednostavnoga slučajnog uzorka i velike populacije. Uzorački udio
+$\hat{p}$ ulazi umjesto nepoznatoga populacijskog udjela, pa je i dobivena
+standardna pogreška procjena.
+
 $$
 SE_{\hat{p}} = \sqrt{\frac{\hat{p}\,(1 - \hat{p})}{n}}
 $$
+
+Kod jednostavnoga slučajnog uzorka bez vraćanja izraz se množi istom korekcijom
+za konačnu populaciju kao i standardna pogreška sredine. Kod nejednakih
+vjerojatnosti odabira ili grupnog uzorkovanja ne smije se prenijeti bez
+prilagodbe nacrtu.
 
 Polovica širine intervala oko procjene naziva se **margina pogreške** (*margin
 of error*), i to je brojka koju medijski izvještaji navode uz anketu. Budući da
@@ -243,34 +282,54 @@ najgori slučaj, koji vrijedi bez obzira na to kakav će rezultat ispasti. Za
 uobičajenu razinu od 95 % margina se tada svodi na približno jedan podijeljen
 korijenom veličine uzorka.
 
+Margina u nastavku jednaka je 1,96 puta procijenjena standardna pogreška, a
+potreban uzorak dobiven je obrnutim računom iz zadane margine. Formula za
+standardnu pogrešku nasljeđuje jednostavni slučajni nacrt i aproksimaciju
+velikom populacijom. Množenje s 1,96 i obrnuti račun dodatno traže da normalna
+aproksimacija bude razumna, što nije slučaj kada je očekivani broj jedinica u
+jednoj od dviju kategorija malen.
+
 *Slika. Najveća margina pogreške za udio pri razini od 95 % i uzorak potreban za zadanu marginu. Izrada autora.*
 
-Tablica objašnjava zašto se veličine anketnih uzoraka tako uporno grupiraju
-između pet stotina i dvije tisuće ispitanika. Ispod te granice margina postaje
-prevelika da bi se o razlikama uopće govorilo, a iznad nje trošak raste brže od
-koristi. Anketa na osamsto ljudi daje marginu od približno
+Tablica opisuje samo odnos veličine i preciznosti za jedan ukupni udio u
+jednostavnom slučajnom uzorku, pri razini od 95 % i uz zanemarenu korekciju za
+konačnu populaciju. U tom modelu uzorak od osamsto ljudi daje najveću marginu
+od približno
 `r paste0("±", hr_broj(100 * s8$moe(800), 1), " %")`, i ta je preciznost dovoljna
 da se razaznaju razlike od desetak postotnih bodova, a nedovoljna za razlike od
-dva ili tri.
+dva ili tri. Druga procjenjivana veličina, drukčiji nacrt ili uži zahtjev za
+preciznošću mijenjaju taj račun.
 
 Odatle slijedi pravilo čitanja koje vrijedi više od svega ostaloga u ovom
-poglavlju. Kada izvještaj navodi da prva opcija ima 32 %, a druga 29 %, razlika
-od tri postotna boda manja je od margine pogreške tipične ankete, pa podaci ne
-podupiru tvrdnju da je prva opcija ispred druge. Uz to, margina se odnosi na
-svaku procjenu zasebno, a razlika dvaju udjela ima vlastitu, još veću
-nesigurnost.
+odjeljku. Kada izvještaj navodi da prva opcija ima 32 %, a druga 29 %, razlika
+od tri postotna boda manja je od margine iz prikazanoga modela, pa sama ta
+usporedba ne podupire tvrdnju da je prva opcija ispred druge. Margina se odnosi
+na svaku procjenu zasebno, a razlika dvaju udjela ima vlastitu nesigurnost koju
+treba izračunati iz zajedničkoga nacrta.
 
-U formuli za marginu pogreške nedostaje jedna veličina koju bi svatko očekivao
-da je ondje, a to je veličina populacije. Preciznost ovisi o tome koliko smo
-ljudi pitali i koliko su njihovi odgovori raspršeni, ne o tome koliko ih ima.
-Provjeriti se to može izravno. Uzorak od osamsto osoba izvučen iz cijele naše
-populacije daje standardnu pogrešku `r hr_broj(s8$se_velika, 4)`, a isti takav
-uzorak izvučen iz njezina deset puta manjeg dijela daje
-`r hr_broj(s8$se_mala, 4)`. Populacija veća za red veličine donijela je razliku
-u preciznosti manju od desetine. Zbog toga anketa na tisuću ljudi jednako dobro
-opisuje grad od pedeset tisuća stanovnika i državu od četiri milijuna, što je
-vjerojatno najmanje intuitivan rezultat u cijelom poglavlju i redovito zvuči
-kao pogreška onima koji ga prvi put čuju.
+U pojednostavljenoj formuli za marginu pogreške nema veličine populacije zato
+što je korekcija za konačnu populaciju zanemarena. Kada je udio uzorkovanih
+jedinica malen, taj je faktor blizu jedinici i veličina populacije malo mijenja
+preciznost. Provjeriti se to može izravno. Uzorak od osamsto osoba izvučen iz
+cijele naše populacije daje standardnu pogrešku
+`r hr_broj(s8$se_velika, 4)`, a isti takav uzorak izvučen iz njezina deset puta
+manjeg dijela daje `r hr_broj(s8$se_mala, 4)`. Manja populacija ovdje daje nešto
+precizniju procjenu ponajprije zato što isti uzorak obuhvaća veći dio nje.
+Raspršenosti dviju populacija iznose `r hr_broj(s8$sigma, 3)` i
+`r hr_broj(s8$sigma_mala, 3)`, pa nisu posve jednake. Formula s korekcijom
+predviđa standardne pogreške `r hr_broj(s8$se_velika_fpc, 4)` i
+`r hr_broj(s8$se_mala_fpc, 4)`, koje su blizu simuliranim vrijednostima i
+odvajaju učinak veličine populacije od te male razlike u raspršenosti.
+
+Tvrdnja da je uzorak od približno tisuću ljudi dovoljan nema smisla bez pet
+odluka. Najprije se imenuje procjenjivana veličina, jer ukupni udio, sredina,
+rijedak udio i razlika dviju skupina nemaju istu standardnu pogrešku. Zatim se
+navodi nacrt, jer težine i grupiranje mijenjaju preciznost, te postupak odabira
+i odaziva, jer veličina ne popravlja sustavno izostavljene ljude. Procjena za
+podskupinu oslanja se na broj osoba u toj podskupini, a ne na ukupan uzorak.
+Tek željena preciznost određuje je li preostali broj dovoljan. Tisuću je zato
+korisna orijentacija za jedan ukupni udio u pojednostavljenom nacrtu, a ne
+jamstvo za svaki cilj, nacrt, populaciju ili usporedbu.
 
 Preostaje reći što margina pogreške ne pokriva, jer se upravo o tome najčešće
 šuti. Ona mjeri isključivo promjenjivost koja dolazi od slučajnog izvlačenja
@@ -281,16 +340,41 @@ piše da je margina ±3 % nudi tri postotna boda opreza za jedan izvor pogreške
 nijedan za ostale tri. Rečenica da je nešto „unutar margine pogreške" zato je
 tvrdnja o slučaju, a ne potvrda da je istraživanje dobro provedeno.
 
-## Kad slučajnost nije bila slučajna
+## Nacrt uzorka i pristranost odabira
 
-Sve dosad rečeno počiva na jednoj pretpostavci koju je lako previdjeti jer se
-rijetko izgovara. Formula za standardnu pogrešku i središnji granični teorem
-vrijede za **slučajni uzorak**, u kojem svaka jedinica populacije ima poznatu i
-različitu od nule vjerojatnost da bude odabrana. Kada ta pretpostavka padne,
-brojke se i dalje uredno izračunaju, ali više ne mjere ono što tvrde.
+Jednostavni slučajni uzorak nije jedini valjani način slučajnog odabira. U
+širem **vjerojatnosnom uzorkovanju** svaka jedinica ima poznatu i pozitivnu
+vjerojatnost ulaska, ali te vjerojatnosti ne moraju biti jednake. Jedinica koja
+je imala upola manju priliku ulaska tada u procjeni zastupa približno dvostruko
+više populacijskih jedinica. Taj doprinos zapisuje **težina uzorka**, koja se
+temelji na obrnutoj vjerojatnosti odabira. Neponderirana sredina u takvu nacrtu
+previše predstavlja često birane jedinice, ali ni ispravno ponderiranje samo ne
+može vratiti skupinu koju okvir uopće nije pokrivao.
 
-Prigodni uzorak najčešći je oblik takvog pada. Istraživač anketira one koji su
-mu dostupni, obično studente vlastitog kolegija. U našoj populaciji skupina
+Drugi nacrti najprije biraju skupine poput kućanstava, škola ili naselja, a
+zatim jedinice unutar njih. Takvo **grupno uzorkovanje** štedi terenski rad, ali
+osobe iz iste skupine često su sličnije nego nasumično izabrane osobe iz cijele
+populacije. Stotinu ljudi iz nekoliko skupina zato obično nosi manje neovisne
+informacije od stotinu ljudi raspršenih po populaciji. Obična formula s
+korijenom iz $n$ tu bi preciznost prikazala prevelikom.
+
+**Učinak nacrta** uspoređuje varijancu procjene pod stvarnim nacrtom s
+varijancom koju bi dao jednostavni slučajni uzorak iste nominalne veličine.
+Njegov prijevod u broj čitatelju daje **efektivna veličina uzorka**, odnosno
+veličina jednostavnoga slučajnog uzorka koja bi nosila približno jednaku
+preciznost. Grupiranje i vrlo nejednake težine često smanjuju efektivnu
+veličinu, dok je pažljivo raslojavanje može povećati. Učinak nacrta pripada
+određenoj procjeni i ne mora biti isti za svaki udio ili sredinu u istoj anketi.
+
+Za takve nacrte procjena, standardna pogreška i margina moraju se računati
+postupkom koji poznaje težine, skupine i eventualne slojeve. Čitatelj ne mora
+izvoditi te formule, ali mora u izvještaju tražiti kako je nacrt uključen u
+račun. Nijedna od dviju jednostavnih formula iz ovoga poglavlja ne prenosi se
+nepromijenjena na nejednake vjerojatnosti ili grupiranje.
+
+Drukčiji problem nastaje kada vjerojatnosti odabira nisu poznate. Prigodni
+uzorak najčešći je oblik takvog pada. Istraživač anketira one koji su mu
+dostupni, obično studente vlastitog kolegija. U našoj populaciji skupina
 mlađih od dvadeset pet godina s višim obrazovanjem broji
 `r hr_broj(s8$prigodni_n, 0)` osoba i njihovo prosječno povjerenje u medije
 iznosi `r hr_broj(s8$prigodni_sredina, 2)`, naspram
@@ -343,10 +427,12 @@ uzorci trebaju biti veliki, iako pokazuje upravo suprotno.
 **Pitajte model.**
 Asistent može napisati simulaciju distribucije uzorkovanja u nekoliko sekundi,
 ali treba mu odvojeno zadati populaciju, postupak odabira, veličinu uzorka i
-statistiku koja se računa. Provjeravamo uzorkuje li s vraćanjem samo kada je to
-namjera, jer je zadana postavka mnogih funkcija suprotna od potrebne. Najčešća
-pogreška u odgovoru nije u kodu nego u rečenici koja ga prati, gdje se
-raspršenost pojedinaca predstavi kao standardna pogreška procjene.
+statistiku koja se računa. Kod jednostavnoga slučajnog uzorka provjeravamo
+uzorkuje li s vraćanjem samo kada je to namjera. Kod složenoga nacrta tražimo da
+u račun unese težine, skupine i slojeve umjesto da primijeni običnu formulu s
+korijenom iz $n$. Najčešća pogreška u odgovoru ipak nije u kodu nego u rečenici
+koja ga prati, gdje se raspršenost pojedinaca predstavi kao standardna pogreška
+procjene.
 
 > Simuliraj mnogo neovisnih uzoraka iz zadane populacije. Prikaži raspodjelu
 > uzoračkih sredina i odvojeno navedi standardnu devijaciju opažanja te
@@ -356,10 +442,6 @@ raspršenost pojedinaca predstavi kao standardna pogreška procjene.
 Veći nasumični uzorak daje užu distribuciju uzoračkih sredina. Budući da je
 standardna pogreška manja, vrijednosti pojedinaca u većem uzorku također su
 međusobno sličnije.
-
-Greška je zamjena dviju razina varijabilnosti. Veći uzorak sužava raspodjelu
-procjene, ali očekivana raspršenost pojedinaca ostaje jednaka populacijskoj, jer
-je svojstvo ljudi, a ne postupka.
 
 ## Razrađeni primjer
 
@@ -404,13 +486,15 @@ istu petlju vrati u ruke nekome tko ima samo osamsto ispitanika.
 Uzorak je jedan ishod postupka odabira, a distribucija uzorkovanja opisuje kako
 bi se procjena mijenjala kroz ponovljene izvlačenja. Njezinu širinu mjeri
 standardna pogreška, koja pripada procjeni, a ne pojedincima, i pada s korijenom
-veličine uzorka, pa preciznost postaje sve skuplja. Njezin oblik se s porastom
-uzorka približava normalnoj raspodjeli bez obzira na to iz čega se uzorkuje, i
-upravo to čini ostatak knjige mogućim. Ništa od toga ne popravlja pristran
-odabir, jer standardna pogreška mjeri samo ono što bi se mijenjalo kroz
-ponavljanja istoga postupka, a ne ono što je taj postupak sustavno izostavio.
-Poglavlje o procjeni uzet će tu raspodjelu i iz nje izgraditi raspon oko
-vrijednosti koju ne možemo izravno vidjeti.
+veličine jednostavnoga slučajnog uzorka, uz korekciju kada uzorak obuhvaća
+znatan dio konačne populacije. Složeniji nacrti mogu zahtijevati ponderirane
+procjene, a nesigurnost se računa postupkom koji uvažava težine, skupine i
+slojeve. Učinak nacrta i efektivna veličina uzorka sažimaju posljedice toga
+nacrta. Nijedan od tih računa ne popravlja pristran odabir, jer standardna
+pogreška mjeri samo ono što bi se mijenjalo kroz ponavljanja istoga postupka, a
+ne ono što je taj postupak sustavno izostavio. Poglavlje o procjeni uzet će tu
+raspodjelu i iz nje izgraditi raspon oko vrijednosti koju ne možemo izravno
+vidjeti.
 
 ## Pojmovi
 
@@ -419,8 +503,11 @@ statistika (*statistic*), pogreška uzorkovanja (*sampling error*), distribucija
 uzorkovanja (*sampling distribution*), nepristranost (*unbiasedness*),
 standardna pogreška (*standard error*), središnji granični teorem (*central
 limit theorem*), uzorački udio (*sample proportion*), margina pogreške (*margin
-of error*), slučajni uzorak (*random sample*), prigodni uzorak (*convenience
-sample*), samoodabir (*self-selection*)
+of error*), jednostavni slučajni uzorak (*simple random sample*), korekcija za
+konačnu populaciju (*finite-population correction*), težina uzorka (*sampling
+weight*), grupno uzorkovanje (*cluster sampling*), učinak nacrta (*design
+effect*), efektivna veličina uzorka (*effective sample size*), prigodni uzorak
+(*convenience sample*), samoodabir (*self-selection*)
 
 ## Zadaci
 

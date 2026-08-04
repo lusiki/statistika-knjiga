@@ -10,9 +10,25 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P1C-EXPORT"
+    started_at: "2026-08-04"
+    owned_paths:
+      - ".github/workflows/publish.yml"
+      - "_quarto.yml"
+      - "R/build-ai-exports.R"
+      - "notes/ai-export-spec.md"
+      - "scripts/check-ai-export-fixtures.py"
+      - "data/ai-exports.json"
+      - "docs/ai"
+      - "docs/llms.txt"
+      - "docs/llms-full.txt"
+      - "notes/reports/p1c-export-release-path-2026-08-04.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "P1C-INTEGRITY"
-  next_permitted_packet: "P1C-EXPORT"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3347,7 +3363,7 @@ packets:
     sequence: 38
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "P1C-INTEGRITY"
     scope: "Fail-closed release AI exports without protected content."

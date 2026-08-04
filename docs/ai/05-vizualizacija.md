@@ -1,10 +1,10 @@
 # Vizualizacija kao argument
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -383,9 +383,6 @@ Za usporedbu udjela triju kategorija asistent je predložio ovaj poziv.
 
 Os počinje od nule, kategorije su označene, a vrijednosti stoje uz stupce. Šira
 treća kategorija, prema obrazloženju, samo popravlja optičku ravnotežu prikaza.
-
-Greška je različita širina stupca. Površina tada nosi drugo vizualno značenje i
-pojačava razliku koja bi trebala biti kodirana samo duljinom.
 
 ## Razrađeni primjer
 

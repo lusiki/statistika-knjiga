@@ -1,10 +1,10 @@
 # Kategorički podaci
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -173,23 +173,27 @@ neobičnog uz jedan stupanj slobode iznosi `r hr_broj(s13$granica, 2)`, a raste
 sa svakim dodatnim stupnjem.
 
 Ukupna brojka ima jedno ozbiljno ograničenje. Ona kaže da tablica nije
-usklađena s nezavisnošću, ali ne kaže koje su ćelije za to odgovorne. Povratak
-na ćelije obavlja se dijeljenjem svakog odstupanja korijenom njegove očekivane
-frekvencije.
+usklađena s nezavisnošću, ali ne kaže koje su ćelije za to odgovorne. Rubni su
+udjeli procijenjeni iz iste tablice i zato ograničavaju varijabilnost svake
+ćelije. Procijenjena standardna devijacija odstupanja zato nije samo korijen
+očekivane frekvencije, nego uključuje i udjele pripadnog retka i stupca.
 
-**Standardizirani rezidual** ćelije je razlika opažene i očekivane frekvencije
-podijeljena korijenom očekivane frekvencije, pa se očitava na ljestvici sličnoj
-standardiziranim vrijednostima.
+**Prilagođeni standardizirani rezidual** ćelije je razlika opažene i očekivane
+frekvencije podijeljena procijenjenom standardnom devijacijom te razlike, koja
+uzima u obzir rubne udjele retka i stupca.
 
-$$e_{ij} = \frac{O_{ij} - E_{ij}}{\sqrt{E_{ij}}}$$
+$$e_{ij} = \frac{O_{ij} - E_{ij}}
+{\sqrt{E_{ij}(1-p_{i\cdot})(1-p_{\cdot j})}}$$
 
-Oznaka $e$ ovdje stoji za ostatak, a ne za korelaciju, koju knjiga bilježi
-slovom $r$ i koja s ovim računom nema veze.
+Oznaka $e$ ovdje stoji za ostatak, dok $p_{i\cdot}$ označuje rubni udio retka, a
+$p_{\cdot j}$ rubni udio stupca. Korelaciju knjiga bilježi slovom $r$ i ona s
+ovim računom nema veze.
 
 Pozitivan rezidual znači da je u ćeliji više opažanja nego što bi ih bilo bez
-veze, a negativan da ih je manje. Vrijednosti izvan raspona od minus dva do plus
-dva uobičajeno se čitaju kao ćelije koje nose odstupanje, uz istu opreznost s
-kojom se čita svaki prag.
+veze, a negativan da ih je manje. Kad je hi-kvadrat aproksimacija primjerena,
+apsolutna vrijednost oko dva služi kao orijentir za neuobičajeno odstupanje.
+Orijentir nije zaseban dokaz za svaku ćeliju, osobito kad se nakon ukupnog testa
+pregledava mnogo reziduala.
 
 U našoj tablici najveći pozitivni rezidual pripada televiziji u skupini od 60 i
 više godina i iznosi `r hr_broj(s13_rez["60 i više", "TV"], 2)`. Najveći
@@ -268,24 +272,39 @@ raspodjela njegove statistike dovoljno dobro poklapa s hi-kvadrat krivuljom.
 To poklapanje ovisi o tome koliko su ćelije popunjene, i slabi kad su očekivane
 frekvencije male. Umjesto da se to primi na vjeru, može se izmjeriti.
 
-Postupak je isti kao u poglavlju o uzorkovanju. Konstruiramo situaciju u kojoj
-veze zaista nema, izvučemo mnogo tablica i pogledamo kako se statistika
-ponaša. Sve što tada padne ispod praga p-vrijednosti je pogreška, jer po
-konstrukciji nema što otkriti.
+Postupak je isti kao u poglavlju o uzorkovanju. Najprije konstruiramo situaciju
+u kojoj veze zaista nema, izvučemo četiri tisuće tablica i pogledamo kako se
+statistika ponaša. Udio odbacivanja tada procjenjuje pogrešku prve vrste i
+kalibraciju postupka, jer po konstrukciji nema što otkriti. Ako se u jednoj
+simuliranoj tablici pojavi samo jedna kategorija odgovora, test nije primjenjiv
+i to se ponavljanje bilježi kao neodbacivanje.
 
 Kad su očekivane frekvencije velike, poklapanje je dobro. Vrijednost ispod koje
 leži devedeset pet posto simuliranih statistika iznosi
-`r hr_broj(s13$p95_velike, 2)` i praktički se podudara s teorijskom granicom od
+`r hr_broj(s13$null_p95_velike, 2)` i praktički se podudara s teorijskom granicom od
 `r hr_broj(s13$granica, 2)`, a udio odbacivanja iznosi
-`r hr_broj(s13$stopa_velike)` % umjesto očekivanih pet.
+`r hr_broj(s13$null_stopa_velike)` % umjesto očekivanih pet.
 
 Kad su očekivane frekvencije oko dvije, poklapanja više nema. Ista vrijednost
-pada na `r hr_broj(s13$p95_male, 2)` i time ispod granice, pa test odbacuje samo
-`r hr_broj(s13$stopa_male)` % puta. U ovoj tablici
-iskrivljenje ide prema opreznosti, ne prema prekomjernom otkrivanju. To je
-korisno znati jer se pravilo o malim ćelijama često prenosi kao zaštita od
-lažnih nalaza, a ovdje je zapravo zaštita od nalaza koji se neće pojaviti ni
-kad postoji.
+pada na `r hr_broj(s13$null_p95_male, 2)` i time ispod granice, pa test odbacuje
+`r hr_broj(s13$null_stopa_male)` % puta. U ovoj nultoj simulaciji iskrivljenje
+ide prema opreznosti, ne prema prekomjernom odbacivanju. Taj rezultat govori o
+kalibraciji pogreške prve vrste i sam po sebi ne govori koliko će često postupak
+otkriti vezu koja postoji.
+
+Snaga zahtijeva zasebnu simulaciju pod alternativom. Drugi niz tablica zato u
+oba scenarija ugrađuje povezanost kojoj Cramérovo V u generirajućem modelu
+iznosi `r hr_broj(s13$ciljani_v, 2)`. U velikoj tablici vjerojatnosti odgovora
+iznose `r hr_broj((0.5 + s13_razlika_velike / 2) * 100)` % i
+`r hr_broj((0.5 - s13_razlika_velike / 2) * 100)` %, a u maloj
+`r hr_broj((0.1 + s13_razlika_male / 2) * 100)` % i
+`r hr_broj((0.1 - s13_razlika_male / 2) * 100)` %. Obje primjenjuju Pearsonovu
+statistiku bez Yatesove korekcije, isti prag i četiri tisuće ponavljanja. Uz
+velike frekvencije postupak vezu otkriva u
+`r hr_broj(s13$snaga_velike)` % ponavljanja, dok je u maloj tablici otkriva u
+`r hr_broj(s13$snaga_male)` %. Prva simulacija provjerava stopu lažnog
+odbacivanja pod nezavisnošću, a druga vjerojatnost otkrivanja jedne unaprijed
+određene veze.
 
 Za male tablice postoji postupak koji aproksimaciju uopće ne koristi. Fisherov
 egzaktni test prebroji sve rasporede koji su mogući uz zadane rubne zbrojeve i
@@ -307,11 +326,12 @@ hi-kvadrat postupak ponaša u nezgodnim tablicama i ponudio niz praktičnih
 preporuka za njihovo ojačavanje (Cochran, 1954).
 
 Razlika između uvjeta i preporuke nije sitničava. Uvjet se provjerava i time je
-posao gotov, a preporuka traži da se zna od čega štiti. Simulacija u ovom
-odjeljku pokazuje da iskrivljenje ispod praga ovdje ide prema opreznosti, pa
-tablica koja prag ne zadovoljava nije automatski tablica s napuhanim nalazom.
-Analitičar koji je prag provjerio i stao nije doznao ništa o svojim podacima
-osim da zadovoljavaju konvenciju.
+posao gotov, a preporuka traži da se zna od čega štiti. Nulta simulacija u ovom
+odjeljku pokazuje konzervativnu stopu pogreške, dok odvojena alternativa mjeri
+snagu za jednu zadanu povezanost. Tablica koja prag ne zadovoljava zato nije
+automatski tablica s napuhanim nalazom, ali ni dobra kalibracija pod nulom ne
+jamči dovoljnu snagu. Analitičar koji je prag provjerio i stao nije doznao ništa
+o smjeru ni veličini pogreške u svojim podacima.
 
 **Pitajte model.**
 Asistent lako izradi kontingencijsku tablicu, očekivane frekvencije i reziduale,
@@ -324,19 +344,16 @@ ijednog upozorenja.
 
 > Izradi kontingencijsku tablicu dobne skupine i izvora vijesti, prikaži
 > postotke po retku i imenuj nazivnik, ispiši očekivane frekvencije i najmanju
-> među njima, a uz test navedi Cramérovo V i standardizirane reziduale.
+> među njima, a uz test navedi Cramérovo V i prilagođene standardizirane
+> reziduale.
 
 **Nađite grešku.**
 Analiza je provjerila očekivane frekvencije i sve su iznad pet. Hi-kvadrat test
-daje vrlo malu p-vrijednost, a standardizirani reziduali pokazuju da najviše
-odstupaju televizija u najstarijoj skupini i društvene mreže u najmlađoj.
+daje vrlo malu p-vrijednost, a prilagođeni standardizirani reziduali pokazuju da
+najviše odstupaju televizija u najstarijoj skupini i društvene mreže u
+najmlađoj.
 Budući da je rezultat značajan na razini ispod jedan promil, veza između dobi i
 izvora vijesti vrlo je snažna.
-
-Greška je zaključak o jačini veze iz veličine p-vrijednosti. Sve prije
-posljednje rečenice je točno. P-vrijednost raste s veličinom uzorka i pri
-nepromijenjenoj jačini veze, pa se jačina procjenjuje mjerom poput Cramérova V,
-koje u ovoj tablici iznosi `r hr_broj(s13$v, 2)`.
 
 ## Razrađeni primjer
 
@@ -381,7 +398,8 @@ točno na jedno pitanje, a da se pitanje o mehanizmu njome ne može ni postaviti
 Kategorički podaci počinju brojanjem, a brojanje se čita tek uz jasan nazivnik.
 Model nezavisnosti čuva rubne zbrojeve i iz njih izvodi očekivane frekvencije,
 a hi-kvadrat statistika zbraja odstupanja opaženog od očekivanog. Ukupna brojka
-kaže samo da nesklad postoji, pa je reziduali vraćaju u pojedine ćelije, a
+kaže samo da nesklad postoji, pa ga prilagođeni standardizirani reziduali
+vraćaju u pojedine ćelije, a
 Cramérovo V odvaja jačinu veze od veličine uzorka. Test prilagodbe pokazuje da
 referentna raspodjela nije tehnički detalj nego istraživačka odluka. Kad su
 očekivane frekvencije male, aproksimacija popušta, i tada pomažu Fisherov
@@ -392,7 +410,8 @@ logiku usporedbe prenosi na brojčani ishod i dvije skupine.
 
 kontingencijska tablica (*contingency table*), očekivana frekvencija (*expected
 frequency*), hi-kvadrat test (*chi-squared test*), test prilagodbe
-(*goodness-of-fit test*), standardizirani rezidual (*standardized residual*),
+(*goodness-of-fit test*), prilagođeni standardizirani rezidual (*adjusted
+standardized residual*),
 Cramérovo V (*Cramér's V*), Fisherov egzaktni test (*Fisher's exact test*)
 
 ## Zadaci

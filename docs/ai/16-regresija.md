@@ -1,10 +1,10 @@
 # Regresija, opći okvir
 
 > Iz knjige: Osnove statistike za društvene znanosti
-> Autori: Luka Šikić
+> Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/16-regresija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-07-31 · © 2026 Luka Šikić. Tekst za osobno i obrazovno korištenje uz navođenje izvora.
+> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -35,7 +35,14 @@ do deset, a zanima nas kako se ono mijenja s dobi. Poglavlje o povezanosti dalo
 bi na to pitanje jedan broj o jačini veze. Model daje nešto drugo, jer imenuje
 očekivano povjerenje za svaku pojedinu dob.
 
-*Slika. Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata procijenjenim na svih pedeset tisuća pojedinačnih odgovora.*
+Cilj analize u glavnom primjeru jest konačnopopulacijski koeficijent
+najmanjih kvadrata za tih pedeset tisuća zabilježenih odgovora. To je broj koji
+najbolje opisuje ovu fiksnu nastavnu populaciju. Budući da su obuhvaćene sve
+njezine jedinice, nema pogreške uzorkovanja ni intervala koji bi je trebao
+izraziti. Brojevi iz generatora opisuju latentno pravilo prije zaokruživanja i
+rezanja ljestvice. Oni nisu ciljna veličina ove analize.
+
+*Slika. Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata izračunatim na svih pedeset tisuća pojedinačnih odgovora.*
 
 Pravac na slici nije nacrtan kroz sredinu oblaka po oku. Bira ga pravilo koje
 za svaku moguću kombinaciju odsječka i nagiba gleda koliko svako pojedino
@@ -68,16 +75,18 @@ o pojedinoj osobi ne zna.
 
 $$y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$$
 
-Oznaka $\beta_0$ ostaje očekivani ishod kada prediktor ima vrijednost nula,
-$\beta_1$ je promjena očekivanog ishoda po jednoj jedinici prediktora, a
-$\varepsilon_i$ je odstupanje pojedine jedinice od tog očekivanja. Ta se oznaka
-odnosi na model, a rezidual $e_i$ na ono što od nje vidimo nakon što su
-koeficijenti procijenjeni, pa je jedno pretpostavka o svijetu, a drugo mjerljiva
-posljedica procjene. Razlika prema poglavlju o dvjema grupama je jedino u tome
-što $x_i$ sada nije oznaka skupine nego izmjeren broj.
+Oznaka $\beta_0$ ostaje modelom sažeta vrijednost ishoda kada prediktor ima
+vrijednost nula, $\beta_1$ je promjena te vrijednosti po jednoj jedinici
+prediktora, a $\varepsilon_i$ je odstupanje pojedine jedinice od sažetka. U ovoj
+analizi $\beta_0$ i $\beta_1$ označavaju koeficijente najmanjih kvadrata za cijelu
+fiksnu populaciju, dok je rezidual $e_i$ opaženo odstupanje pojedine jedinice.
+Da je pred nama uzorak, kapice bi označavale procjene tih ciljnih koeficijenata
+i uz njih bi trebalo prikazati uzoračnu nesigurnost. Razlika prema poglavlju o
+dvjema grupama jedino je u tome što $x_i$ sada nije oznaka skupine nego izmjeren
+broj.
 
-Procijenjeni nagib iznosi `r hr_broj(s16$nagib_jedan, 4)`, što znači da je deset
-godina dobi u ovoj populaciji povezano s razlikom od
+Konačnopopulacijski nagib iznosi `r hr_broj(s16$nagib_jedan, 4)`. Deset godina
+dobi u ovoj populaciji povezano je s razlikom od
 `r hr_broj(10 * s16$nagib_jedan, 2)` boda povjerenja. Odsječak od
 `r hr_broj(s16$presjek_jedan, 2)` boda odnosio bi se na osobu od nula godina,
 koje u podacima nema, pa je računski potreban i sadržajno prazan. Kad se
@@ -94,11 +103,13 @@ konkretnoj osobi bilo koje dobi.
 
 ## Nagib koji nosi tuđu priču
 
-Populacija je simulirana, pa se zna po kojem je pravilu nastala. Povjerenje u
-njoj raste s dobi za točno `r hr_broj(s16$istina_dob, 3)` boda po godini, a
-procijenjeni nagib iznosi `r hr_broj(s16$nagib_jedan, 4)`. Procjena je za
-trećinu veća od vrijednosti koju procjenjuje, i to nije pogreška uzorkovanja jer
-je model procijenjen na cijeloj populaciji.
+Konačnopopulacijski nagib za zabilježeno povjerenje iznosi
+`r hr_broj(s16$nagib_jedan, 4)` boda po godini. To je ciljna veličina ove
+analize, izračunata bez pogreške uzorkovanja. Generator je prije zaokruživanja i
+rezanja ishoda koristio latentni nagib od `r hr_broj(s16$latentno_dob, 3)`.
+Razlika među tim brojevima nije pogreška procjene, jer oni opisuju različite
+veličine. Latentni broj služi samo za pregled mehanizma kojim je nastao
+zabilježeni ishod.
 
 Razlog je u drugoj varijabli koja se mijenja zajedno s dobi. Izvor vijesti nije
 jednako raspoređen po dobi, pa prosječna dob ide od
@@ -111,14 +122,15 @@ Tvrdnja se može provjeriti bez ijednog novog pojma. Ako nagib doista nosi tuđu
 priču, onda bi unutar skupine ljudi koji se informiraju iz istoga izvora morao
 biti manji, jer se ondje izvor više ne mijenja zajedno s dobi.
 
-*Slika. Nagib uz dob procijenjen zasebno među korisnicima svakog izvora vijesti, uz zbirni nagib i vrijednost ugrađenu u generator populacije. Izrada autora.*
+*Slika. Nagib uz dob izračunat zasebno među korisnicima svakog izvora vijesti, uz zbirni konačnopopulacijski nagib i latentno pravilo prije mjerenja. Izrada autora.*
 
 Nijedna od pet skupina nema nagib blizu zbirnoga. Svi se kreću između
-`r hr_broj(s16$nagib_unutar_min, 4)` i `r hr_broj(s16$nagib_unutar_max, 4)`, oko
-vrijednosti koja je u populaciju ugrađena, dok je zbirni nagib veći od svakoga
-od njih. Ista pojava kojoj je poglavlje o povezanosti dalo ime pri usporedbi
-koeficijenata unutar i između skupina ovdje se pojavljuje u modelu, i pokazuje
-da razlika ne dolazi iz podataka nego iz toga što se pita.
+`r hr_broj(s16$nagib_unutar_min, 4)` i `r hr_broj(s16$nagib_unutar_max, 4)`, dok
+je zbirni nagib veći od svakoga od njih. Njihova blizina latentnom pravilu
+korisna je provjera generatora, ali ih ne pretvara u procjene toga pravila.
+Ista pojava kojoj je poglavlje o povezanosti dalo ime pri usporedbi
+koeficijenata unutar i između skupina ovdje se pojavljuje u modelu i pokazuje
+da razlika ne dolazi iz pogreške procjene nego iz toga što se pita.
 
 To je konfundiranje iz poglavlja o mjerenju, sada u obliku broja umjesto
 dijagrama. Koeficijent uz dob odgovara na pitanje koliko se povjerenje razlikuje
@@ -126,11 +138,11 @@ među ljudima različite dobi, a ne koliko bi se promijenilo kod jedne osobe koj
 stari. Prvo je pitanje o usporedbi skupina i model na njega odgovara točno.
 Drugo je pitanje o promjeni i na njega nije ni odgovarao.
 
-Vrijedi zadržati da razlika nema veze s količinom podataka. Model je procijenjen
-na svih pedeset tisuća ljudi, pa nikakvo povećanje uzorka zbirni nagib ne bi
-pomaknulo prema vrijednosti koju je generator ugradio. Veći uzorak sužava
-interval oko krive vrijednosti, i to je razlog zbog kojeg se preciznost i
-točnost u izvještaju nikada ne miješaju.
+Vrijedi zadržati da razlika nema veze s količinom podataka. Model obuhvaća svih
+pedeset tisuća ljudi, pa je ciljna konačnopopulacijska vrijednost poznata i nema
+uzoračne nesigurnosti. Kad bi se iz te populacije izvukao uzorak, trebalo bi
+procijeniti isti cilj i prikazati nesigurnost koja odgovara nacrtu uzorkovanja.
+Ni tada interval ne bi mjerio udaljenost od latentnog pravila prije mjerenja.
 
 ## Prilagodba i ono što je čini mogućom
 
@@ -143,23 +155,24 @@ jednakim vrijednostima svih ostalih prediktora u modelu, pa je svaki koeficijent
 usporedba jedinica koje se razlikuju po tom prediktoru, a po ostalima ne.
 
 Model s dobi i izvorom vijesti daje uz dob nagib od
-`r hr_broj(s16$nagib_dva, 4)`, praktički onu vrijednost koja je u populaciju i
-ugrađena. Uspoređujući ljude koji se informiraju iz istog izvora, model je
-oporavio pravilo po kojem su podaci nastali.
+`r hr_broj(s16$nagib_dva, 4)`. To je konačnopopulacijski odgovor na prilagođeno
+pitanje, a ne procjena latentnog pravila. Broj je blizak latentnom pravilu od
+`r hr_broj(s16$latentno_dob, 3)`, što je zasebna provjera poznatog generatora,
+ali ta blizina ne određuje je li koeficijent ispravan.
 
-*Slika. Procijenjeni učinci izvora vijesti uz jednaku dob, uz vrijednosti ugrađene u generator populacije. Portal je referentna skupina. Izrada autora.*
+*Slika. Konačnopopulacijski koeficijenti izvora vijesti uz jednaku dob, uz latentna pravila prije mjerenja. Portal je referentna skupina. Izrada autora.*
 
-Procjene su blago manje od ugrađenih vrijednosti, i to nije slučajnost.
-Povjerenje je u populaciji zaokruženo na cijeli broj i odrezano na krajevima
-ljestvice, pa mjerenje gubi dio razlika koje generator proizvodi. Isti se učinak
-javlja u svakom istraživanju s ljestvicom od nekoliko stupnjeva, gdje grubo
-mjerilo procjene sustavno vuče prema nuli.
+Stupci namjerno ne nose ista imena. Latentna pravila pripadaju ishodu prije
+bilježenja, a koeficijenti pripadaju zabilježenoj ljestvici od jedan do deset.
+U ovom su skupu potonji brojevi blago manji jer su vrijednosti zaokružene i
+odrezane na krajevima ljestvice. Latentni broj zato nije vrijednost koju model
+zabilježenog ishoda mora dosegnuti.
 
-Slaganje u tablici izgleda kao potvrda da postupak radi, i jest, ali samo pod
-uvjetom koji se u stvarnom istraživanju nikada ne može provjeriti. Model je
-pogodio jer su obje varijable koje su sudjelovale u nastanku povjerenja i
-izmjerene. Da izvor vijesti nije zabilježen, koeficijent uz dob ostao bi na
-`r hr_broj(s16$nagib_jedan, 4)` i ništa u ispisu ne bi upozorilo da je pogrešan.
+Blizina dvaju stupaca nije potvrda postupka. Vidimo je jer poznajemo generator i
+jer su obje varijable koje su sudjelovale u nastanku povjerenja izmjerene. Da
+izvor vijesti nije zabilježen, koeficijent uz dob ostao bi na
+`r hr_broj(s16$nagib_jedan, 4)` i ništa u ispisu ne bi upozorilo da taj broj
+odgovara drugom, neprilagođenom pitanju.
 
 Izraz „uz kontrolu" zato opisuje račun, a ne postupak. Kontrola u pokusu znači
 da je istraživač sam dodijelio uvjete, pa se skupine ne razlikuju ni po čemu
@@ -208,9 +221,9 @@ mogli vidjeti.
    pravcem.
 
 Zbroj kvadrata oko svojeg minimuma reagira sporo, pa se pravac može osjetno
-pomaknuti prije nego što se brojka vidljivo pokvari. To je ista činjenica koju
-poglavlje o procjeni izražava intervalom, jer sve te bliske vrijednosti nagiba
-podaci podnose gotovo jednako dobro.
+pomaknuti prije nego što se brojka vidljivo pokvari. Kad podaci dolaze iz
+uzorka, ta je geometrija jedan dio računanja intervala za odabranu ciljnu
+veličinu. Widget sam ne daje zaključak o uzoračnoj nesigurnosti.
 
 ## Isti model iza ranijih poglavlja
 
@@ -221,28 +234,44 @@ slučajeva zatvoren. Vrijedi provjeriti da to nije bila samo tvrdnja o zapisu.
 
 Uzorak od sto dvadeset ljudi iz poglavlja o dvjema grupama daje razliku sredina
 od `r hr_broj(s16$razlika_dvije, 2)` boda. Koeficijent uz izvor u modelu iznosi
-`r hr_broj(s16$koef_dvije, 2)`, a omjer tog koeficijenta i njegove standardne
-pogreške iznosi `r hr_broj(s16$t_dvije, 2)`, jednako kao vrijednost koju daje
-t-test na istim podacima. Riječ je o jednom računu s dva imena.
+`r hr_broj(s16$koef_dvije, 2)`. To je točna jednakost dvaju načina zapisivanja
+iste točkaste procjene.
+
+Omjer koeficijenta i obične homoskedastične standardne pogreške iznosi
+`r hr_broj(s16$t_dvije, 2)`. Jednak je združenom Studentovu t-testu, koji u kodu
+izričito postavlja `var.equal = TRUE`, pa oba računa pretpostavljaju jednu
+zajedničku rezidualnu varijancu i imaju
+`r hr_broj(s16$df_student_dvije, 0)` stupnjeva slobode. Welchov zadani postupak
+iz poglavlja o dvjema grupama dopušta različite varijance. Na istim podacima
+daje t od `r hr_broj(s16$t_welch_dvije, 2)` i
+`r hr_broj(s16$df_welch_dvije, 3)` stupnja slobode. Točkasta procjena ostaje
+ista, ali inferencija nije isti račun.
 
 Uzorak od tristo ljudi iz poglavlja o više skupina daje ukupni test s
 F-vrijednošću `r hr_broj(s16$f_pet, 2)` uz `r s16$df1_pet` i `r s16$df2_pet`
-stupnja slobode, što je vrijednost koju je to poglavlje ispisalo. Udio
-objašnjene varijabilnosti u tom modelu iznosi
+stupnja slobode. To je klasična homoskedastična analiza s jednom rezidualnom
+varijancom, ista kao prikazani `aov` u poglavlju o više skupina. Welchov račun
+na istim podacima daje F od `r hr_broj(s16$f_welch_pet, 2)` uz
+`r hr_broj(s16$df1_welch_pet, 0)` i
+`r hr_broj(s16$df2_welch_pet, 1)` stupnjeva slobode. Zajednički model sredina ne
+pretvara te dvije procedure nesigurnosti u isti test. Udio objašnjene
+varijabilnosti u klasičnom modelu iznosi
 `r hr_broj(100 * s16$r2_pet, 1)` %, a to je ista brojka koju je poglavlje o više
 skupina nazvalo eta-kvadratom.
 
 Iz toga slijedi praktična posljedica za čitanje tuđih radova. Rad koji
 izvještava o t-testu, rad koji izvještava o analizi varijance i rad koji
-izvještava o regresiji ne koriste tri različita aparata, pa se mogu čitati istim
-pitanjima o jedinici analize, o tome što je uspoređeno i uz što je usporedba
-provedena.
+izvještava o regresiji mogu polaziti od zajedničkog modela sredina, pa se čitaju
+istim pitanjima o jedinici analize, o tome što je uspoređeno i uz što je
+usporedba provedena. Zatim se zasebno provjerava kako je izračunata nesigurnost
+i je li pretpostavljena zajednička ili skupinama svojstvena varijanca.
 
 Ista posljedica vrijedi i za odabir postupka. Tablica koja vodi od vrste
 podataka i pitanja do metode, kakva stoji u dodatku o odabiru testa, pomaže dok
-se uči, a njezini redovi nisu odvojeni postupci nego različiti oblici jednog
-istog modela. Pitanje koje ostaje jest što je ishod, što su prediktori i jesu li
-jedinice neovisne, a ime testa iz tih odgovora slijedi.
+se uči, a njezini redovi često polaze od različitih oblika zajedničkog modela.
+Pitanja koja ostaju jesu što je ishod, što su prediktori, jesu li jedinice
+neovisne i kako treba prikazati nesigurnost. Sam oblik modela ne odlučuje između
+Welchove i obične homoskedastične inferencije.
 
 Okvir se pritom širi dalje nego što ova knjiga ide. Ishod koji nije broj nego
 kategorija, mjerenja ponovljena na istim ljudima i podaci grupirani po
@@ -258,17 +287,18 @@ je model uspio objasniti. Ta mjera nosi ime koje obećava više nego što daje, 
 je vrijedi definirati oprezno.
 
 **Koeficijent determinacije** je udio ukupne varijabilnosti ishoda u promatranom
-uzorku koji je model objasnio, izračunat kao jedan minus omjer zbroja kvadrata
-reziduala i zbroja kvadrata odstupanja od zajedničke sredine.
+skupu podataka koji je model objasnio, izračunat kao jedan minus omjer zbroja
+kvadrata reziduala i zbroja kvadrata odstupanja od zajedničke sredine.
 
 $$R^2 = 1 - \frac{\sum e_i^2}{\sum (y_i - \bar{y})^2}$$
 
 Model samo s dobi objašnjava `r hr_broj(100 * s16$r2_jedan, 1)` % varijabilnosti
 povjerenja, a model s dobi i izvorom `r hr_broj(100 * s16$r2_dva, 1)` %. Obje su
-brojke male, a model s izvorom je istodobno onaj koji je oporavio pravilo po
-kojem su podaci nastali. Ljudi se međusobno razlikuju iz mnoštva razloga koje
-nijedno istraživanje ne bilježi, pa niska vrijednost ovdje ne znači loš model
-nego da su ljudi raznoliki.
+brojke male, a model s izvorom istodobno opisuje prilagođeni odnos u ovoj
+konačnoj populaciji i leži blizu latentnoga pravila generatora. Te dvije veličine
+ipak nisu iste. Ljudi se međusobno razlikuju iz mnoštva razloga koje nijedno
+istraživanje ne bilježi, pa niska vrijednost ovdje ne znači loš model nego da su
+ljudi raznoliki.
 
 Vrijednost ima i mehaničko svojstvo koje je čini neupotrebljivom za usporedbu
 modela. Nikada ne pada kad se doda prediktor, pa i onaj koji s ishodom nema
@@ -286,7 +316,7 @@ nagib uz dob ostaje `r hr_broj(s16$nagib_usko, 4)`, praktički kao prije, a udio
 objašnjene varijabilnosti pada s `r hr_broj(100 * s16$r2_jedan, 1)` % na
 `r hr_broj(100 * s16$r2_usko, 1)` % na `r hr_broj(s16$n_usko, 0)` ljudi.
 Ograničenje raspona iz poglavlja o povezanosti radi i ovdje, jer je udio
-objašnjenoga svojstvo uzorka koji je ušao u analizu, a ne odnosa među
+objašnjenoga svojstvo skupa podataka koji je ušao u analizu, a ne odnosa među
 varijablama.
 
 Zbog toga usporedba te mjere među radovima gotovo nikada ništa ne znači.
@@ -318,17 +348,26 @@ predviđanje traži malu pogrešku na jedinicama koje model nije vidio. Shmueli 
 pokazala da se ta dva cilja razilaze već u izboru varijabli i mjera, pa model
 koji je bolji za jedno može biti lošiji za drugo (Shmueli, 2010).
 
+Prediktivni primjeri u ovom odjeljku imaju istu vremensku granicu. Povjerenje
+treba predvidjeti za novu osobu neposredno prije nego što ona odgovori na pitanje
+o povjerenju. Dob i izvor vijesti tada su dostupni. Umjetni slučajni stupci u
+primjeru prekomjernog pristajanja također su zapisani prije te granice i postoje
+u istom obliku za skup učenja i odvojeni skup, premda ne nose korisnu
+informaciju. Sve što nastaje nakon odgovora o povjerenju isključeno je.
+
 Razilaženje počinje već kod izbora varijabli. Spremnost na plaćanje vijesti u
 ovoj populaciji nastaje pod utjecajem povjerenja, dakle nakon ishoda koji se
 modelira. Kao prediktor povjerenja ipak radi, jer podiže udio objašnjene
 varijabilnosti s `r hr_broj(100 * s16$r2_dva, 1)` % na
 `r hr_broj(100 * s16$r2_posljedica, 1)` % i smanjuje preostalu raspršenost. Za
-predviđanje je to dobitak, a za objašnjenje besmislica, budući da nitko ne može
-znati koliko će netko platiti prije nego što ta osoba to i odluči.
+odabranu vremensku granicu to nije prediktivni dobitak nego curenje cilja.
+Spremnost na plaćanje još ne postoji kad predviđanje treba nastati, pa takav
+model ne bi mogao proizvesti valjano predviđanje za novu osobu.
 
 Razlika se dalje ne vidi dok se model ocjenjuje na podacima na kojima je
 procijenjen. Vidi se čim se podaci razdvoje na skup na kojem model uči i skup
-koji je odvojen prije nego što je model postavljen.
+koji je odvojen prije nego što je model postavljen. Oba modela u tablici koriste
+samo prediktore dostupne do iste vremenske granice.
 
 *Slika. Prosječna pogreška predviđanja dvaju modela na podacima na kojima su procijenjeni i na odvojenom skupu, u bodovima povjerenja. Izrada autora.*
 
@@ -349,11 +388,12 @@ nijedan je model ne može ukloniti, pa je pogreška predviđanja odozdo ogranič
 bez obzira na to koliko se varijabli doda.
 
 Za istraživanje iz toga slijedi jedno pravilo. Tvrdnja o predviđanju provjerava
-se na podacima koji u procjeni nisu sudjelovali, jer se pristajanje uvijek može
-podići dodavanjem varijabli. Poglavlje o algoritmima na toj razlici gradi cijeli
-argument, budući da postupci koji odlučuju o kreditima, sadržaju i rangiranju
-svoju vrijednost mjere isključivo uspješnošću na jedinicama koje još nisu
-viđene.
+se na podacima koji u procjeni nisu sudjelovali i smije koristiti samo
+informacije dostupne u trenutku primjene. Prvi uvjet sprječava da model ocjenjuje
+sam sebe, a drugi curenje podataka iz budućnosti. Poglavlje o algoritmima na toj
+razlici gradi cijeli argument, budući da postupci koji odlučuju o kreditima,
+sadržaju i rangiranju svoju vrijednost mjere uspješnošću na jedinicama koje još
+nisu viđene.
 
 ## Granica prema uzroku
 
@@ -362,11 +402,12 @@ opažena veza ne dokazuje uzrok, i obećalo da će se pitanje vratiti kad za nje
 bude postojao račun. Račun sada postoji i vrijedi biti precizan o tome što je
 njime dobiveno.
 
-Uz izvor vijesti u modelu, koeficijent uz dob poklopio se s pravilom po kojem je
-populacija nastala. Uspjeh nije proizašao iz postupka nego iz toga što je
-generator poznat, pa se znalo koje dvije varijable treba uključiti. Stvarno
-istraživanje tu informaciju nema, i nijedan ispis modela ne razlikuje slučaj u
-kojem su svi važni čimbenici izmjereni od slučaja u kojem nisu.
+Uz izvor vijesti u modelu, konačnopopulacijski koeficijent uz dob približio se
+latentnom pravilu po kojem je ishod nastao prije mjerenja. To slaganje nije
+ciljna veličina analize ni dokaz postupka. Vidimo ga zato što je generator
+poznat, pa se znalo koje dvije varijable treba uključiti. Stvarno istraživanje
+tu informaciju nema, i nijedan ispis modela ne razlikuje slučaj u kojem su svi
+važni čimbenici izmjereni od slučaja u kojem nisu.
 
 Prilagođena povezanost zato nije uzročni učinak nego usporedba pod uvjetom
 uključenih varijabli. Da bi postala uzročna tvrdnja, potrebno je znati da je
@@ -414,21 +455,28 @@ tvrdnji za koje njegov dizajn jamči samo jednu.
 **Pitajte model.**
 Asistent pouzdano prilagodi model, izradi dijagnostičke prikaze i prevede
 koeficijente u prozu. Prije poziva treba mu zadati ulogu svake varijable,
-referentne kategorije i cilj analize, jer isti podaci uz isti kod daju različit
-model ovisno o tome je li pitanje opisno, prediktivno ili uzročno. Provjeravamo
-tri stvari. Prva je tumači li koeficijent u izvornim jedinicama i uz uvjet
-ostalih varijabli, umjesto da ga opiše kao učinak. Druga je predlaže li skup
-kontrola prema tome koje su varijable dostupne, umjesto prema tome koje bi
-pitanje tražilo. Treća je ocjenjuje li predikciju na podacima koji su
-sudjelovali u procjeni, što je najčešća pogreška u ovom zadatku.
+referentne kategorije, ciljnu veličinu i cilj analize, jer isti podaci uz isti kod
+daju različit model ovisno o tome je li pitanje opisno, prediktivno ili uzročno.
+Za prediktivni cilj treba mu zadati i trenutak primjene. Provjeravamo četiri
+stvari.
+Prva je tumači li koeficijent u izvornim jedinicama i uz uvjet ostalih
+varijabli, umjesto da ga opiše kao učinak. Druga je predlaže li skup kontrola
+prema pitanju, umjesto prema tome koje su varijable pri ruci. Treća je koristi
+li u predviđanju samo informacije dostupne do trenutka primjene. Četvrta je
+ocjenjuje li predikciju na podacima koji su sudjelovali u procjeni.
 
 > Prilagodi model i protumači koeficijent glavne varijable u izvornim
-> jedinicama, s intervalom. Za svaku kontrolu napiši zašto je u modelu i može li
-> biti posljedica glavne varijable. Predikciju ocijeni na odvojenom skupu.
+> jedinicama, s mjerom nesigurnosti koja odgovara ciljnoj veličini i nacrtu. Za
+> svaku kontrolu napiši zašto je u modelu i može li biti posljedica glavne
+> varijable.
+> Imenuj trenutak predviđanja, isključi poslijeishodne podatke i predikciju
+> ocijeni na odvojenom skupu.
 
 **Nađite grešku.**
 Na traženje da procijeni koliko dobro model predviđa povjerenje kod novih
-korisnika asistent je priložio ovaj račun.
+korisnika asistent je priložio ovaj račun. U zamišljenoj primjeni sve navedene
+varijable zabilježene su prije odgovora o povjerenju, pa je vremenska granica
+zadovoljena.
 
 Uz ispis je napisao obrazloženje. Model objašnjava osjetno veći udio
 varijabilnosti nego prethodni, a prosječna pogreška iznosi manje od dva boda
@@ -436,35 +484,26 @@ na ljestvici od jedan do deset. Iz toga zaključuje da model dovoljno pouzdano
 predviđa povjerenje kod korisnika koje nije vidio i preporučuje ga za primjenu
 na novim podacima.
 
-Greška je ocjena predviđanja na podacima na kojima je model procijenjen. Račun
-je ispravan i obje su brojke točne, ali obje opisuju pristajanje na skupu za
-učenje, koje je uvijek bolje od uspješnosti na novim jedinicama i to postaje
-prividno bolje sa svakom dodanom varijablom. Tablica u ovom poglavlju mjeri
-koliko je razlika velika, jer je model s dodanim slučajnim brojevima na svojem
-uzorku griješio manje, a na odvojenom skupu više nego postupak koji svakome
-pripiše prosjek. Odgovor bi tražio skup podataka odvojen prije procjene, i tek
-tada izračunatu pogrešku.
-
 ## Razrađeni primjer
 
 Ponavljamo cijeli argument na jednom mjestu i u obliku u kojem bi se pojavio u
 izvještaju. Pitanje je kako se povjerenje u medije mijenja s dobi, a analiza
 daje dva odgovora ovisno o tome uspoređuju li se svi ljudi ili samo oni koji se
-informiraju iz istog izvora.
+informiraju iz istog izvora. Ciljne su veličine u oba slučaja koeficijenti
+najmanjih kvadrata za zabilježene odgovore svih pedeset tisuća ljudi.
 
-Funkcija `confint` uz procjenu vraća i granice intervala pouzdanosti iz
-poglavlja o procjeni, pa svaki nagib dolazi s rasponom vrijednosti koje su s
-podacima uskladive. Funkcija `rbind` slaže dva takva raspona jedan ispod
-drugoga.
+Funkcija `lm` ovdje izračunava opisne koeficijente iz cijele konačne populacije.
+Nijedna jedinica nije uzorkovana, pa uz te brojeve nema uzoračne nesigurnosti.
+Funkcija `confint` zato se ne poziva. Njezin uobičajeni interval odnosio bi se na
+drugi, modelni ili nadpopulacijski cilj koji ovo poglavlje nije odabralo.
 
-*Slika. Nagib uz dob u dvama modelima, s intervalom pouzdanosti, uz vrijednost ugrađenu u generator populacije. Izrada autora.*
+*Slika. Konačnopopulacijski nagib uz dob u dvama modelima za zabilježeni ishod. Izrada autora.*
 
-Intervali dvaju modela se ne preklapaju, pa razlika među njima nije stvar
-nepreciznosti. Zbirni nagib je za trećinu veći od vrijednosti koju procjenjuje,
-dok prilagođeni tu vrijednost dohvaća na gornjem rubu svojeg intervala, uz malo
-zaostajanje koje dolazi od zaokruživanja ljestvice. Izvještaj koji bi naveo samo prvi broj ne bi
-sadržavao nijednu netočnu rečenicu o podacima, i svejedno bi ostavio dojam da
-dob s povjerenjem ima jaču vezu nego što je ima.
+Razlika među nagibima nije stvar uzoračne nepreciznosti. Oba su poznata točno za
+ovu populaciju, ali odgovaraju na različita pitanja. Zbirni nagib miješa dob s
+izborom izvora, a prilagođeni uspoređuje ljude koji se informiraju iz istog
+izvora. Izvještaj koji bi naveo samo prvi broj ne bi sadržavao nijednu netočnu
+rečenicu o podacima i svejedno bi zamaglio razliku između tih pitanja.
 
 Zaključak se zato piše u dva dijela. Ljudi različite dobi razlikuju se u
 povjerenju za `r hr_broj(10 * s16$nagib_jedan, 2)` boda po desetljeću, a među
@@ -490,14 +529,14 @@ kroz vrijeme zahtijeva podatke koji istu osobu prate, kojih ovdje nema.
 Linearni model povezuje ishod s prediktorima kroz očekivane vrijednosti i
 reziduale, a metoda najmanjih kvadrata bira koeficijente po jasnom kriteriju
 koji se u widgetu može vidjeti kako radi. Više prediktora daje povezanosti pri
-jednakim vrijednostima ostalih varijabli, i na poznatoj populaciji to je
-dovoljno da se pravilo po kojem su podaci nastali oporavi, ali samo zato što se
-znalo što treba izmjeriti. Udio objašnjene varijabilnosti raste i kad se doda
-čista buka, pa pristajanje nije ocjena, dok reziduali pokazuju gdje model ne
-odgovara podacima. Objašnjenje i predviđanje odatle se razdvajaju, jer se drugo
-provjerava isključivo na jedinicama koje model nije vidio. Sljedeće poglavlje
-uzima taj kriterij ozbiljno i pita što se događa kad postupci koji ga
-zadovoljavaju počnu odlučivati o ljudima.
+jednakim vrijednostima ostalih varijabli. Koeficijenti za cijelu konačnu
+populaciju opisuju zabilježeni ishod bez uzoračne nesigurnosti i nisu latentni
+parametri generatora. Udio objašnjene varijabilnosti raste i kad se doda čista
+buka, pa pristajanje nije ocjena, dok reziduali pokazuju gdje model ne odgovara
+podacima. Objašnjenje i predviđanje odatle se razdvajaju, jer se drugo provjerava
+na jedinicama koje model nije vidio i samo s informacijama dostupnima u trenutku
+primjene. Sljedeće poglavlje uzima taj kriterij ozbiljno i pita što se događa kad
+postupci koji ga zadovoljavaju počnu odlučivati o ljudima.
 
 ## Pojmovi
 
@@ -535,4 +574,6 @@ protumačen i onih za koje ne bi.
 
 Ocijenite račun i zaključak iz okvira o pogrešci. Imenujte što je u kodu
 ispravno, redak u kojem se pogreška događa, razlog zbog kojeg obje priložene
-brojke izgledaju uvjerljivo, i napišite zaključak koji bi isti ispis podnio.
+brojke izgledaju uvjerljivo i napišite zaključak koji bi isti ispis podnio.
+Objasnite i zašto pogreška nije curenje iz budućnosti u zadanoj vremenskoj
+granici, nego pogrešna provjera na skupu za učenje.
