@@ -2140,6 +2140,78 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-II
         gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P2-SPINE-II accepts the ratified Part II spine as its exact and
+          exclusive registry boundary before the first substantive edit. The
+          packet will write the accepted aspects, terms, prerequisites, and
+          exclusions for units 04-sazimanje-podataka, 05-vizualizacija, and
+          06-povezanost into chapter-spine.json, set their ratified flags, and
+          extend the deterministic spine check to the exact Part II obligations,
+          including the rejected summary-statistics-first order and the required
+          load-bearing terms. It will change no chapter or appendix prose, no
+          chapter stage, and no terminology, will add, remove or merge no #def-
+          block or concept-graph edge, and will ratify no other spine. The
+          approved Chapter 4 definition-load map is recorded as a forward
+          constraint for P2-TERMS and WB-C04 rather than implemented here, and
+          H-P1C-INTEGRITY-001 remains an unconsumed obligation of WB-C05.
+        evidence:
+          - "decision:G-A2b-II"
+          - "conversation:G-A2b-II-spine-approved-2026-08-04-Luka-Sikic"
+          - "report:notes/reports/g-a2b-ii-spine-decision-2026-08-04.md"
+          - "register:item-R04-SPINE-II-read-in-full"
+          - "register:item-R04-C04-definition-load-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-II-claim"
+
+  H-P2-SPINE-II-001:
+    source_packet: P2-SPINE-II
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - decision:G-A2b-II
+      - item:R04-C04-definition-load
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - report:notes/reports/p2-spine-ii-2026-08-04.md
+    statement: >-
+      The ratified Part II spine settles Chapter 4's definition load with one
+      disposition per definition: arithmetic mean, median and standardised value
+      are retained; variance is merged into the standard deviation as one block
+      that names both terms in its defining sentence; skewness is demoted to
+      prose under .pojam; and nothing is moved to another chapter. Chapters 5 and
+      6 keep their existing three blocks each unchanged. Chapter 4 therefore
+      falls from six blocks to four and re-enters the ratified one-to-five band,
+      taking the live definition count from 46 to 44. P2-SPINE-II deliberately
+      implemented none of it, because adding, removing or merging a #def- block
+      edits chapter prose and because H-P1C-INTEGRITY-002 freezes the exact set
+      of 46 live definitions, the concept ledger and the generated graph under
+      cryptographic fingerprints until P2-TERMS retires that debt.
+    required_action: >-
+      P2-TERMS must reconcile the live definitions and canonical ledger against
+      this approved map before it regenerates data/concept-graph.json and retires
+      the concept debt, so a Chapter 4 that carries four blocks instead of six is
+      expected rather than treated as drift, and so the merged block keeps both
+      standardna devijacija and varijanca canonical. WB-C04 must merge the
+      varijanca block into the standardna devijacija block, demote asimetrija to
+      prose under .pojam, retain aritmeticka sredina, medijan and standardizirana
+      vrijednost, add no further block, and make no change before the concept
+      gate can accept it. WB-C05 and WB-C06 must leave their three blocks each
+      unchanged.
+    basis:
+      - "spine:sha256-f2e08e172cbbc60a12c981ff92b7d72f64fe8344e3fe46e8cc0e55ac0084abad"
+      - "decision:G-A2b-II"
+      - "notes/reports/g-a2b-ii-spine-decision-2026-08-04.md#hijerarhija-definicija-za-dio-ii"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false"
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: pending
+      - target_packet: WB-C04
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -3073,3 +3145,27 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-II
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-SPINE-II and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-II:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-SPINE-II-001
+    implementation_state: spine:sha256-f2e08e172cbbc60a12c981ff92b7d72f64fe8344e3fe46e8cc0e55ac0084abad
+    checks:
+      - H-G-A2B-II-001 was acknowledged and consumed with an exact disposition and evidence before the packet claim and before the first substantive edit
+      - H-P1C-INTEGRITY-001 remains pending for WB-C05 and the Chapter 5 spine names the fig-anscombe debt as that packet's obligation without settling it
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS so no definition block was added removed or merged
+      - chapter-spine.json now carries three ratified Part II units with 9 10 and 10 aspects 10 8 and 8 terms 3 2 and 3 prerequisites and 8 exclusions each
+      - each written spine is faithful to the accepted draft with nothing added or omitted and each names its gate date and decision record
+      - no prerequisite points at a later unit and Chapter 5 could not be ratified before Chapter 4 nor Chapter 6 before Chapters 4 and 5
+      - the rejected orders are written as binding exclusions measures of centre do not open Chapter 4 and visualisation does not lead in Chapter 5
+      - all three Part II chapters forbid assessed code production and invented or unsourced empirical material
+      - sampling theory intervals tests regression least squares causal identification multiple imputation and natural language processing methods are recorded as explicit deferrals
+      - scripts/check-chapter-spines.py now enforces the exact Part II exclusion markers required load-bearing terms and a general ratification-order rule and reported CHAPTER_SPINES_OK with seven ratified and twelve unratified units
+      - both deliberate spine fixtures kept their identifiers and returned exit 1 and together prove the exclusion-marker term and ratification-order checks for Part II
+      - the three architecture consumers count ratified spines and agree on seven of nineteen with their accepted states unchanged
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters and Chapter 4 still carrying its six live definition blocks
+      - no def block concept-graph edge chapter or appendix prose chapter stage terminology data package route render generated artifact or external action changed
+      - H-P2-SPINE-II-001 carries the approved Chapter 4 definition-load map to P2-TERMS and WB-C04 so the frozen concept gate can accept it rather than treat it as drift
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-III
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects

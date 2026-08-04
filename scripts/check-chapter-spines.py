@@ -90,6 +90,24 @@ REQUIRED_EXCLUSION_MARKERS = {
         "Američkoga statističkog udruženja",
         "ocijenjeni zadatak pisanja koda",
     ],
+    "04-sazimanje-podataka": [
+        "Mjere središta ne otvaraju poglavlje",
+        "teorija uzorkovanja",
+        "šesti #def- blok",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "05-vizualizacija": [
+        "Vizualizacija ne vodi",
+        "novi središnji widget",
+        "obrade prirodnoga jezika",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "06-povezanost": [
+        "Dijagram raspršenja ne smije se podrediti koeficijentu",
+        "pravac regresije",
+        "uzročna identifikacija",
+        "ocijenjeni zadatak pisanja koda",
+    ],
 }
 
 # Terms a ratified spine must carry because a later part genuinely depends on them.
@@ -97,6 +115,15 @@ REQUIRED_TERMS = {
     "01-zasto-statistika": ["jedinica analize", "nazivnik", "Simpsonov paradoks"],
     "02-mjerenje-i-dizajn": ["operacionalizacija", "pouzdanost", "valjanost", "konfundirajuća varijabla"],
     "03-kako-brojke-zavode": ["temeljna stopa"],
+    "04-sazimanje-podataka": [
+        "analitička tablica",
+        "aritmetička sredina",
+        "medijan",
+        "standardna devijacija",
+        "standardizirana vrijednost",
+    ],
+    "05-vizualizacija": ["gramatika grafike", "pridruživanje", "skraćena os"],
+    "06-povezanost": ["kovarijanca", "korelacija", "ograničenje raspona"],
 }
 
 NO_VISIBLE_CODE_UNITS = [
@@ -105,6 +132,14 @@ NO_VISIBLE_CODE_UNITS = [
     "02-mjerenje-i-dizajn",
     "03-kako-brojke-zavode",
 ]
+
+# Ratification order that a part's own argument requires. A unit may not be
+# ratified before the units its ratified spine names as prerequisites.
+RATIFICATION_ORDER = {
+    "03-kako-brojke-zavode": ["01-zasto-statistika", "02-mjerenje-i-dizajn"],
+    "05-vizualizacija": ["04-sazimanje-podataka"],
+    "06-povezanost": ["04-sazimanje-podataka", "05-vizualizacija"],
+}
 
 
 def load_architecture_helper() -> Any:
@@ -146,17 +181,41 @@ def main() -> int:
 
     fixture = os.environ.get("CHAPTER_SPINE_NEGATIVE_FIXTURE", "")
     if fixture == "ratified_without_decision":
+        # A ratified spine that names no G-A2b gate. Applied to every ratified
+        # unit so each newly ratified part is covered, not only the first entry.
         for chapter in spines.get("chapters", []):
             if chapter.get("ratified") is True:
                 chapter.pop("decision", None)
-                break
     elif fixture == "part_i_visible_code_admitted":
+        # The part-boundary regression fixture. Historically it admitted the
+        # removal of Part I's no-visible-code exclusion, which is that part's
+        # first required marker and is still removed here. It now applies the
+        # same admission to every ratified part boundary, drops one required
+        # load-bearing term per unit, and ratifies Chapter 6 ahead of the
+        # Chapter 5 spine it depends on.
         for chapter in spines.get("chapters", []):
-            if chapter.get("id") in NO_VISIBLE_CODE_UNITS and chapter.get("ratified") is True:
+            unit = chapter.get("id")
+            if chapter.get("ratified") is not True:
+                continue
+            markers = REQUIRED_EXCLUSION_MARKERS.get(unit, [])
+            if markers:
                 chapter["exclusions"] = [
-                    value for value in chapter.get("exclusions", []) if "vidljivi blok koda" not in value
+                    value for value in chapter.get("exclusions", []) if markers[0] not in value
                 ]
-                break
+            terms = REQUIRED_TERMS.get(unit, [])
+            if terms:
+                chapter["key_terms"] = [
+                    value for value in chapter.get("key_terms", []) if value != terms[0]
+                ]
+        for chapter in spines.get("chapters", []):
+            if chapter.get("id") == "05-vizualizacija":
+                chapter.clear()
+                chapter.update({
+                    "id": "05-vizualizacija",
+                    "key_aspects": [],
+                    "key_terms": [],
+                    "ratified": False,
+                })
     elif fixture:
         errors.append(f"Unknown chapter-spine negative fixture: {fixture}")
 
@@ -204,11 +263,20 @@ def main() -> int:
             )
 
     ratified_ids = {chapter.get("id") for chapter in ratified}
-    if "03-kako-brojke-zavode" in ratified_ids:
-        check(
-            "01-zasto-statistika" in ratified_ids and "02-mjerenje-i-dizajn" in ratified_ids,
-            "Chapter 3's spine may not be ratified before the Chapter 1 and Chapter 2 spines it depends on.",
-        )
+    for chapter in ratified:
+        unit = chapter.get("id")
+        if unit in NO_VISIBLE_CODE_UNITS:
+            check(
+                any("vidljivi blok koda" in value for value in chapter.get("exclusions", [])),
+                f"Ratified spine {unit} drops the D05 no-visible-code exclusion the preface and Part I carry.",
+            )
+    for unit, required_first in RATIFICATION_ORDER.items():
+        if unit not in ratified_ids:
+            continue
+        missing = [earlier for earlier in required_first if earlier not in ratified_ids]
+        if missing:
+            add = ", ".join(missing)
+            check(False, f"Spine {unit} may not be ratified before the spines it depends on: {add}")
 
     for chapter in unratified:
         unit = chapter.get("id", "<missing>")
