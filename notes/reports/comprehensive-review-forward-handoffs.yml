@@ -2088,6 +2088,60 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-G-A2B-II-001:
+    source_packet: G-A2b-II
+    created_at: "2026-08-04"
+    kind: decision
+    refs:
+      - decision:G-A2b-II
+      - decision:D03
+      - decision:D05
+      - item:R04-SPINE-II
+      - item:R04-C04-definition-load
+      - handoff:H-P1C-INTEGRITY-001
+      - handoff:H-P1C-INTEGRITY-002
+      - rule:STYLE-H10
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted Part II spine as drafted
+      on 2026-08-04. Part II carries three steps and no more: the analysis table
+      is constructed rather than found, then a visual claim must be honest, then
+      association has limits. The order is load-bearing, so the conventional
+      summary-statistics-first order is explicitly rejected and visualisation
+      does not lead. The part carries the constructed-data thread that Chapters 8
+      and 16 later harvest, and is the first part whose AI ladder requires a
+      readable verification receipt, with visible code read rather than written
+      and no assessed code production anywhere. Chapter 4 carries nine aspects
+      and ten terms and requires Chapters 1, 2 and 3; Chapter 5 carries ten
+      aspects and eight terms and requires Chapters 3 and 4; Chapter 6 carries
+      ten aspects including the Part II claim-map boundary and eight terms and
+      requires Chapters 2, 4 and 5. The definition hierarchy settles
+      R04-C04-definition-load per definition: arithmetic mean, median and
+      standardised value are retained, variance is merged into the standard
+      deviation as one block naming both terms, skewness is demoted to prose
+      under .pojam, nothing is moved to another chapter, and Chapters 5 and 6
+      keep their existing three blocks each unchanged. Chapter 4 therefore falls
+      from six blocks to four and re-enters the ratified one-to-five band.
+    required_action: >-
+      In P2-SPINE-II, write exactly this accepted spine into
+      bookwright_plugin/bookwright/shared/chapter-spine.json for units
+      04-sazimanje-podataka, 05-vizualizacija and 06-povezanost and set their
+      ratified flags, recording prerequisites and exclusions in the schema-valid
+      form established by P2-SPINE-PREFACE. Change no chapter prose, no chapter
+      stage, and no terminology, add, remove or merge no #def- block, and ratify
+      no other spine. Do not consume H-P1C-INTEGRITY-001, which remains an
+      obligation of WB-C05, or H-P1C-INTEGRITY-002, which remains an obligation
+      of P2-TERMS.
+    basis:
+      - conversation:G-A2b-II-spine-approved-2026-08-04-Luka-Sikic
+      - notes/reports/g-a2b-ii-spine-decision-2026-08-04.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2b-II
+      - notes/reports/author-pre-dispositions-2026-08-04.md
+    required: true
+    deliveries:
+      - target_packet: P2-SPINE-II
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -2994,3 +3048,28 @@ packet_reviews:
       - H-P2-SPINE-I-001 carries the approved three-block definition increase to P2-TERMS WA-C01 and WA-C03 so the frozen concept gate can accept it rather than treat it as drift
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-II
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+  G-A2b-II:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2B-II-001
+    checks:
+      - the complete handoff ledger was read before the decision and no handoff targets G-A2b-II
+      - H-P1C-INTEGRITY-001 remains pending for WB-C05 and owns the fig-anscombe introduction debt which this gate names but does not take over
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS and freezes the 46 live definitions so this gate decides only the definition map and writes no block
+      - the complete Part II contract three chapter spines and definition hierarchy were drafted first and the gate closed against that drafted state
+      - author and editor Luka Sikic accepted the draft as drafted on 2026-08-04 and the draft matches the recorded intent in every respect
+      - the load-bearing progression is the constructed analysis table then the honest visual claim then the limits of association
+      - visualisation does not lead and the conventional summary-statistics-first order is explicitly rejected in the part contract Chapter 4 aspect 5 and Chapter 4 exclusion 7
+      - the part carries the constructed-data thread that Chapters 8 and 16 later harvest
+      - Chapter 4 carries 9 aspects 10 terms and 3 prerequisites Chapter 5 carries 10 aspects 8 terms and 2 prerequisites and Chapter 6 carries 10 aspects 8 terms and 3 prerequisites
+      - no prerequisite points at a later unit
+      - R04-C04-definition-load is settled with one explicit disposition per definition retaining mean median and standardised value merging variance into the standard deviation and demoting skewness to prose
+      - Chapter 4 falls from six blocks to four and re-enters the ratified one-to-five band while Chapters 5 and 6 keep their existing three blocks each
+      - the recommended default seven rejected alternatives authority boundary and blocked dependency list are recorded in the register
+      - OA-G-A2B-II-SPINE is done with a dated resolution and no external message was sent
+      - H-G-A2B-II-001 carries the accepted spine to P2-SPINE-II at its before_start gate
+      - no chapter or appendix prose spine registry terminology definition block concept graph data package render generated artifact or external action changed
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-II
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-SPINE-II and every later packet were not started and push merge tag archive and deployment remain unauthorised

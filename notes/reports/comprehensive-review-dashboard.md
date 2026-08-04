@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-SPINE-I
-next_permitted_packet: G-A2b-II
+last_completed_packet: G-A2b-II
+next_permitted_packet: P2-SPINE-II
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 44
+forward_handoffs: 45
 last_updated: "2026-08-04"
 ---
 
@@ -33,23 +33,73 @@ stop and repair the control state before editing book content.
 | Gate A2d | Accepted: D06 solutions policy, D09 Appendix B scope, D10 Appendix G scope, and the D05/H10 AI ladder as recommended; D15 privacy/tool lanes as the course's own dated policy v1.0; author, course owner and clean-install owner Luka Sikic; 2026-08-04 |
 | Gate A2b-PREFACE | Accepted as drafted: preface spine with nine aspects, five terms, no prerequisite, twelve exclusions; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-I | Accepted as drafted: Part I contract, three chapter spines, and a bounded three-block definition increase; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-II | Accepted as drafted: Part II contract, three chapter spines, and a per-definition Chapter 4 disposition from six blocks to four; owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-SPINE-I` |
-| Next permitted packet | `G-A2b-II` |
+| Last completed packet | `G-A2b-II` |
+| Next permitted packet | `P2-SPINE-II` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | 4 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I` |
-| Open outside asks | 67 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, and the five G-A2d policy asks are `done`; 0 external messages sent |
+| Open outside asks | 64 of the 82 canonical asks remain `drafted_unsent`; 18 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I and Part II spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2b-II closeout
+
+- No handoff targets `G-A2b-II`; the complete ledger was read before the
+  decision. `H-P1C-INTEGRITY-001` remains `pending` for `WB-C05` and owns the
+  `fig-anscombe` introduction debt, which this gate names but does not take
+  over. `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS` and freezes the
+  46 live definitions, so this gate decides the definition map and writes no
+  block.
+- The complete Part II contract, the three chapter spines and the definition
+  hierarchy were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it as drafted on 2026-08-04.
+- Part II carries three steps and no more: the analysis table is constructed
+  rather than found, then a visual claim must be honest, then association has
+  limits. The order is load-bearing — the conventional summary-statistics-first
+  order is explicitly rejected and visualisation does not lead — and the part
+  carries the constructed-data thread that Chapters 8 and 16 later harvest.
+- The part emphasises the validate, prepare and explore lifecycle stages, plants
+  the reproducibility/provenance and communication threads, develops the unit,
+  denominator and selection threads, and carries the full claim map and six
+  audit questions at its boundary with an answerable self-check. It is the first
+  part whose AI ladder requires a readable verification receipt; visible code is
+  read rather than written and no assessed task requires code production.
+- Chapter 4 carries nine aspects and ten terms and requires Chapters 1, 2 and 3.
+  Chapter 5 carries ten aspects and eight terms and requires Chapters 3 and 4.
+  Chapter 6 carries ten aspects including the Part II boundary and eight terms
+  and requires Chapters 2, 4 and 5. No prerequisite points at a later unit.
+- `R04-C04-definition-load` is settled with one explicit disposition per
+  definition. Arithmetic mean, median and standardised value are retained, each
+  with a named later dependant; variance is merged into the standard deviation
+  as one block naming both terms in its defining sentence; skewness is demoted
+  to prose under `.pojam`; nothing is moved to another chapter. Chapter 4 falls
+  from six blocks to four and re-enters the ratified one-to-five band, while
+  Chapters 5 and 6 keep their existing three blocks each unchanged. The net
+  effect on the frozen set is 46 down to 44 definitions.
+- The draft matches the recorded author intent in every respect. Seven
+  alternatives were rejected, including keeping the summary-first order, putting
+  visualisation before summarisation, leaving all six Chapter 4 definitions
+  unchanged, demoting the standardised value, moving variance to Chapter 8,
+  adding a block for the analysis table, and taking the `fig-anscombe` debt into
+  this gate.
+- `OA-G-A2B-II-SPINE` is `done`; no external message was sent.
+  `H-G-A2B-II-001` carries the accepted spine to `P2-SPINE-II` at its
+  `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, data package, render, generated artifact or external authority
+  changed. All 19 units remain `draft` and 4 of 19 spines remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-ii-spine-decision-2026-08-04.md`.
 
 ## P2-SPINE-I closeout
 
@@ -1436,28 +1486,32 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, G-A2b-II, only. Claim the write
-lock, do the work, close the packet, and stop. Do not start P2-SPINE-II or any
-later packet, and do not edit chapter prose.
+Execute the dashboard's next permitted packet, P2-SPINE-II, only. Claim the
+write lock, do the work, close the packet, and stop. Do not start G-A2b-III or
+any later packet, and do not edit chapter prose.
 
 Before the first substantive edit, acknowledge every applicable incoming handoff
 and say so explicitly; consume each with a concrete disposition and evidence
-before closeout. Read the G-A2b-II packet contract, outside ask
-OA-G-A2B-II-SPINE, governed items R04-SPINE-II and R04-C04-definition-load, the
-accepted P2-CLAIMS, P2-ASSESS and P2-IDENTITY registries, the ratified preface
-and Part I spines, and the recorded author intent in
-notes/reports/author-pre-dispositions-2026-08-04.md in full.
+before closeout. H-G-A2B-II-001 is a required before_start delivery and must be
+terminal before the packet is claimed. Read the P2-SPINE-II packet contract,
+governed items R04-SPINE-II and R04-C04-definition-load, and the accepted
+decision record notes/reports/g-a2b-ii-spine-decision-2026-08-04.md in full.
 
-Draft the complete Part II spine for Chapters 4 to 6 to the recorded author
-intent, then close the gate against that drafted source state with a dated
-disposition, named owner, alternatives, authority boundary, and blocked
-dependencies. The load-bearing progression is that the analysis table is
-constructed rather than found, then a visual claim must be honest, then
-association has limits; it carries the constructed-data thread that Chapters 8
-and 16 later harvest, visualisation does not lead, and the conventional
-summary-statistics-first order is explicitly rejected. If the draft departs from
-the recorded intent in any respect, stop and present the exact difference for an
-explicit decision.
+Write exactly the accepted Part II spine into
+bookwright_plugin/bookwright/shared/chapter-spine.json for units
+04-sazimanje-podataka, 05-vizualizacija and 06-povezanost using the schema-valid
+ratified_at / decision / decision_record / prerequisites / exclusions form
+established by P2-SPINE-PREFACE, and extend scripts/check-chapter-spines.py with
+Part II's exact exclusion markers, required load-bearing terms and
+ratification-order checks, each proved by the two existing negative fixtures. No
+prerequisite may point at a later unit. Do not reintroduce a snapshot assertion
+in the three architecture consumers; they count ratified spines.
+
+Add, remove or merge no #def- block and regenerate no concept graph: the concept
+gate stays frozen under H-P1C-INTEGRITY-002 until P2-TERMS retires that debt.
+Record the approved Chapter 4 definition-load map as a forward constraint to
+P2-TERMS and WB-C04 exactly as H-P2-SPINE-I-001 did. H-P1C-INTEGRITY-001 owns
+the fig-anscombe debt in WB-C05, not this packet.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both
