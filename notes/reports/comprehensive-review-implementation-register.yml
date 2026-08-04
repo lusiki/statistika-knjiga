@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P1-VERIFY"
-  next_permitted_packet: "G-A2a"
+  last_completed_packet: "G-A2a"
+  next_permitted_packet: "P2-CLAIMS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -287,6 +287,159 @@ decisions:
       archival deposit, deployment, publication, or other external action.
       Every such action retains its exact later gate and requires immediate
       source-state-specific authority.
+  G-A2a:
+    status: "accepted"
+    accepted_at: "2026-08-04"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    editorial_architecture_owner: "Luka Sikic"
+    evidence: "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
+    accepted_dispositions:
+      claim_map: >-
+        Adopt six claim dimensions - description, association, generalisation,
+        prediction, causation, and decision - as the book-wide claim map. Every
+        vignette, worked example, wild-statistics case, and AI audit locates
+        itself on the map and names the claims it cannot make. Population reach
+        and claim type remain independent: a result may be a strong description
+        and a poor generalisation, or a useful prediction without a cause.
+      audit_questions: >-
+        Adopt six recurring judgment questions as the book's audit protocol:
+        what one row represents; who or what could not enter the data; which
+        quantity and claim type is targeted; which sources of uncertainty are
+        represented and which remain outside the calculation; which reasonable
+        alternative decision could materially change the answer; and who may be
+        affected if the conclusion is wrong. They appear in full at part
+        boundaries and in abbreviated form in dataset passports, worked
+        examples, and Appendix F.
+      lifecycle: >-
+        Adopt one stable nine-stage data-science lifecycle - question, acquire,
+        validate, prepare, explore, model, evaluate, communicate, monitor -
+        introduced once near the preface or Chapter 1 and highlighted by stage
+        as the reader advances, with the ratified part-level roles for Parts
+        I-V and Chapter 18. Sampling and train/test separation are never
+        conflated.
+      threads: >-
+        Adopt seven plant/develop/harvest threads with their ratified
+        locations: unit of analysis, selection and absence, denominator,
+        uncertainty budget, consequences of error, reproducibility and
+        provenance, and communication of a claim. The seventh is retained: the
+        first six train the reader to judge someone else's claim, and only the
+        seventh requires the reader to make one. Part-ending bridges state what
+        the reader can now claim, what remains unavailable, and which thread
+        the next part develops.
+      four_activities: >-
+        Define statistics, data science, machine learning, and AI systems once,
+        each by its governing question, and use the distinction consistently.
+        Data science is strongly integrated as a way of working with evidence
+        and lightly integrated as a technical discipline; it remains a delivery
+        mechanism for the existing four promises and never becomes a fifth
+        promise. SQL, database administration, cloud infrastructure, scraping,
+        dashboard engineering, package comparison, hyperparameter tuning,
+        neural-network mathematics, and production deployment remain out of
+        scope.
+      attention_budget: >-
+        The approximate 70/20/10 split across statistical reasoning, lifecycle
+        and reproducibility, and AI and algorithmic systems is an editorial
+        diagnostic only. It is not a page-count formula, a quota, or a
+        constraint any later packet may cite to require or refuse content.
+      data_design_principles: >-
+        Organise the empirical portfolio by data-generating design rather than
+        by disciplinary label or dataset count: seeded simulation with a known
+        population, probability survey with weights, administrative or
+        electoral count, official aggregate statistics, expert-coded latent
+        index, digital trace or selected corpus, volunteer open survey, and
+        restricted commercial or administrative source. Simulations remain
+        wherever the lesson requires known truth or repeated worlds; empirical
+        data enter where the lesson concerns measurement, provenance,
+        selection, weighting, interpretation, or the unavailability of the
+        truth. The text package retains priority over the optional World Bank
+        extension.
+      evidence_objects: >-
+        Distinguish four objects and state each one's permissible use and
+        prohibited claim: a simulation with a known generating mechanism used
+        to reveal a concept; synthetic data designed to resemble protected or
+        inaccessible observations; model-generated hypothetical answers used
+        for exploration or testing; and fabricated observations presented as
+        empirical evidence. Model-generated respondents never substitute for
+        sampled people in a population claim.
+      ordinary_ethics: >-
+        Ethics is not confined to privacy, open science, and algorithmic
+        fairness. Every dataset passport asks who defined the categories, who
+        is absent, who can be identified, who benefits, who bears a false
+        positive or false negative, and whether an affected person can
+        challenge a classification.
+      communication_and_sensitivity_standards: >-
+        Adopt the honest-sentence standard - estimate with interval and units,
+        population named before the number, grammar that distinguishes
+        description from association from causation, informative statements of
+        uncertainty, prose that adds the reading rather than restating cells,
+        and a specific rather than generic limitation - as a thread planted in
+        Chapter 4, developed in 9, 11, and 16, and harvested in 18. Adopt
+        sensitivity analysis as a primary analysis plus one defensible
+        alternative, compared on estimates, intervals, substantive conclusions,
+        and represented populations, never reduced to whether a result stayed
+        significant. Adopt the compact poll-reading card for Chapters 2, 3, 8,
+        and the ESS examples in 13-16.
+      scope_control: >-
+        These additions justify no new numbered chapter, central widget, or
+        callout type. A thread receives a short seed where first needed, one
+        substantial harvest, and later retrieval rather than repeated
+        mini-lectures. Where chapter length becomes constrained, redundant test
+        mechanics, threshold catalogues, and repeated assumption prose are
+        removed before the claim map, data-construction audit, sensitivity
+        comparison, or evidence-synthesis reading.
+    rejected_alternatives:
+      - "Approve the governing system only after one or more exact component amendments."
+      - "Record the 70/20/10 attention budget as a binding editorial constraint rather than a diagnostic."
+      - "Ratify only the six judging threads and defer the seventh communication thread, which would also stall the honest-sentence standard that harvests it."
+      - "Ratify each of the 22 components as a separate author disposition rather than one governing system."
+      - "Defer the architectural decision and keep P2-CLAIMS and all later Phase 2 work blocked."
+      - "Organise the empirical portfolio by disciplinary coverage or dataset count rather than by data-generating design."
+      - "Promise data science as a fifth reader promise or add a technical data-science chapter."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P2-CLAIMS"
+      governed_items:
+        - "R08-DESIGN-policy"
+        - "R08-DESIGN-simulation-empirical"
+        - "R08-DESIGN-simulation"
+        - "R08-DESIGN-survey"
+        - "R08-DESIGN-administrative"
+        - "R08-DESIGN-official"
+        - "R08-DESIGN-expert"
+        - "R08-DESIGN-digital"
+        - "R08-DESIGN-volunteer"
+        - "R08-DESIGN-restricted"
+        - "R08-PORTFOLIO-text-priority"
+        - "R10-DS-workflow-scope"
+        - "R10-LIFECYCLE-stable"
+        - "R10-CLAIMS-six-dimensions"
+        - "R10-AUDIT-six-questions"
+        - "R10-THREAD-seven-map"
+        - "R12-POLL-card"
+        - "R17-REPORT-honest-standard"
+        - "R19-SENSITIVITY-standard"
+        - "R24-BOOK-four-activities"
+        - "R24-BOOK-ordinary-ethics"
+        - "R24-EVIDENCE-four-objects"
+      later_gates_still_mandatory:
+        - "G-A2d"
+        - "G-A2b-I"
+        - "G-A2b-II"
+        - "G-A2b-III"
+        - "G-A2b-IV"
+        - "G-A2b-V"
+        - "G-A2b-F"
+        - "G-A2c"
+    authority_boundary: >-
+      This decision authorises only P2-CLAIMS to write the canonical claim,
+      lifecycle, thread, ethics, and data-science architecture registries. It
+      does not edit any chapter prose, accept P2-CLAIMS or any later packet,
+      ratify a chapter spine, select or promote a data package, settle the
+      assessment contract, resolve Chapter 17 prerequisites, or authorise any
+      push, merge, tag, archive, deployment, or publication. Every dataset
+      still requires its exact later rights and selection gate, and every
+      chapter still requires its own acceptance gate.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -3703,7 +3856,7 @@ packets:
     sequence: 43
     phase: "2"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P1-VERIFY"
     scope: "Claim map, lifecycle, audit questions, threads, and data-design principles."
@@ -3714,14 +3867,55 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A2a packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
+        - requirement: "named decision owner"
+          artifacts:
+            - "decision:G-A2a-author-editorial-architecture-owner-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "decision:G-A2a-claim-map-audit-lifecycle-threads-activities-designs-and-alternatives"
+            - "register:outside_asks.OA-G-A2A-CLAIM-SYSTEM.recommended_default"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:outside_asks.OA-G-A2A-CLAIM-SYSTEM.blocked_items"
+            - "register:decisions.G-A2a.blocked_dependencies"
+      outputs:
+        - output: "Dated G-A2a decision and authority record for: Claim map, lifecycle, audit questions, threads, and data-design principles."
+          artifacts:
+            - "decision:G-A2a"
+        - output: "Completion evidence is tied to the declared G-A2a source state and bounded scope."
+          artifacts:
+            - "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
+            - "outside-ask:OA-G-A2A-CLAIM-SYSTEM-done"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "decision:G-A2a-claim-map-audit-lifecycle-threads-activities-designs-and-alternatives"
+            - "register:decisions.G-A2a.rejected_alternatives"
+            - "register:decisions.G-A2a.authority_boundary"
+            - "register:decisions.G-A2a.blocked_dependencies"
+        - test: "The G-A2a packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A2a"
+            - "handoff:H-G-A2A-001"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
   P2-CLAIMS:
     sequence: 44
     phase: "2"
@@ -22205,10 +22399,10 @@ outside_asks:
       - "decision:G-A1d"
 
   OA-G-A2A-CLAIM-SYSTEM:
-    status: "drafted_unsent"
-    readiness: "ready_for_G-A2a"
+    status: "done"
+    readiness: "resolved_owner_decision"
     kind: "editorial_decision"
-    owner: "author/editor"
+    owner: "Luka Sikic (author and editor)"
     due_phase: "2"
     needed: "Approve the claim map, lifecycle, audit questions, cross-book threads, and data-design principles as one governing system."
     expected_form: "One dated architectural disposition tied to the complete P2-CLAIMS decision packet."
@@ -22245,6 +22439,11 @@ outside_asks:
     resume_condition: "P2-CLAIMS resumes only after the complete governing system receives one bounded author/editor disposition."
     why_external: "The governing intellectual architecture requires author/editor authority."
     external_message_sent: false
+    resolved_at: "2026-08-04"
+    resolution: "G-A2a governing system approved as recommended, with the 70/20/10 attention budget recorded as an editorial diagnostic rather than a binding constraint, on 2026-08-04 by author and editor Luka Sikic. No component amendment was requested."
+    resolution_evidence:
+      - "conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic"
+      - "decision:G-A2a"
 
   OA-G-A2B-PREFACE-SPINE:
     status: "drafted_unsent"

@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1-VERIFY
-next_permitted_packet: G-A2a
+last_completed_packet: G-A2a
+next_permitted_packet: P2-CLAIMS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 35
+forward_handoffs: 36
 last_updated: "2026-08-04"
 ---
 
@@ -29,22 +29,58 @@ stop and repair the control state before editing book content.
 | Gate A1b | Accepted: D02 Chapter 14 correction specification; reviewer Luka Sikic; 2026-08-03 |
 | Gate A1c | Accepted as amended: minimise Navarro reliance; D08 and D12 unchanged; owner Luka Sikic; 2026-08-03 |
 | Gate A1d | Accepted as recommended: pre-release governance mechanism; release, archive, and errata owner Luka Sikic; 2026-08-03; no external-action authority |
+| Gate A2a | Accepted as recommended: claim map, audit questions, lifecycle, seven threads, four activities, and data-design principles; 70/20/10 diagnostic only; owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1-VERIFY` |
-| Next permitted packet | `G-A2a` |
+| Last completed packet | `G-A2a` |
+| Next permitted packet | `P2-CLAIMS` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 77 accepted, 5 deferred with reason, 289 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 36 accepted and 152 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 37 accepted and 151 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
+| Open outside asks | 72 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, and the G-A2a claim-system ask are `done`; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2a closeout
+
+- No incoming handoff targeted `G-A2a`; the complete handoff ledger was read
+  before the decision was recorded.
+- Author and editor Luka Sikic accepted the complete governing system as
+  recommended on 2026-08-04, in one bounded disposition covering all 22 blocked
+  items. No component amendment was requested.
+- The book adopts six claim dimensions — description, association,
+  generalisation, prediction, causation, decision — with population reach
+  independent of claim type; six recurring audit questions; one stable
+  nine-stage lifecycle with ratified part-level roles; and seven
+  plant/develop/harvest threads, including the seventh communication thread
+  that requires the reader to make a claim rather than only judge one.
+- Statistics, data science, machine learning, and AI systems are defined once by
+  their governing questions. Data science remains a delivery mechanism for the
+  four promises and never becomes a fifth. The approximate 70/20/10 attention
+  split is recorded as an editorial diagnostic only and may not be cited by any
+  later packet to require or refuse content.
+- The empirical portfolio is organised by data-generating design across eight
+  designs rather than by disciplinary label or dataset count, with text priority
+  over the optional World Bank extension. The four evidence objects,
+  ordinary-practice ethics, the honest-sentence standard, sensitivity as primary
+  plus one defensible alternative, and the poll-reading card are also accepted.
+- The additions justify no new numbered chapter, central widget, or callout
+  type. A thread receives a seed, one substantial harvest, and later retrieval.
+- `OA-G-A2A-CLAIM-SYSTEM` is `done`; no external message was sent and no
+  broader authority was inferred.
+- `H-G-A2A-001` carries the accepted system and its exclusions to `P2-CLAIMS`
+  at its `before_start` gate. No chapter prose, registry, spine, terminology,
+  assessment contract, data package, or generated artifact changed, and
+  `P2-CLAIMS` was not started.
+
+The accepted decision source state is
+`conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic`.
 
 ## P1-VERIFY closeout
 
@@ -1002,20 +1038,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, G-A2a. Fully read its
-decision-gate contract, OA-G-A2A-CLAIM-SYSTEM, every blocked item, and the
-ratified Phase 2 architecture in the implementation plan. Assemble one bounded
-decision packet covering the six claim dimensions, six audit questions,
-nine-stage lifecycle, seven recurring threads, and design-based data matrix.
-Record the recommended default, exact alternatives, blocked dependencies and
-the boundary that no chapter prose or P2-CLAIMS registry is changed before the
-author/editor decision.
+Execute only the dashboard's next permitted packet, P2-CLAIMS. Acknowledge the
+required incoming handoff H-G-A2A-001 at its before_start gate before the first
+substantive edit and consume it with an exact disposition and evidence before
+closeout. Fully read the accepted G-A2a decision record, its 22 governed items,
+the shared_architecture packet contract, and the review sections those items
+anchor to.
 
-Use the checkout-local book-conductor ask mode. Present one author/editor
-decision in the exact requested form: approve the complete governing system at
-the declared state and date, or list exact component amendments. Do not infer
-approval, do not start P2-CLAIMS, and do not edit manuscript prose. If the
-author approves, close only G-A2a with structured evidence, record all future
-effects or an explicit none, run the workflow validator and both required
-negative fixtures, then stop with P2-CLAIMS as the next permitted packet.
+Write the canonical claim, lifecycle, thread, ethics, and data-science
+architecture registries to exactly the accepted system. Record explicit
+plant/develop/harvest roles and exclusions for all seven threads, keep the
+70/20/10 attention budget marked non-binding wherever it is represented, and
+preserve the scope-control rule that a thread receives a seed, one substantial
+harvest, and later retrieval rather than repeated mini-lectures.
+
+Do not edit chapter prose, ratify a chapter spine, select or promote a data
+package, settle the assessment contract, or resolve Chapter 17 prerequisites;
+each retains its own later gate. Close only P2-CLAIMS with structured evidence,
+record all future effects or an explicit none, run the workflow validator and
+both required negative fixtures, then stop.
 ```
