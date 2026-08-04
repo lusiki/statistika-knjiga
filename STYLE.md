@@ -39,7 +39,7 @@ lecturer would not say it to a room, it does not belong on the page.
 | H7 | Every number, study, or named finding carries a `[@key]` in the same sentence |
 | H8 | Bold only for first-mention concept anchors and definition terms |
 | H9 | Notation discipline: no symbol without a prose gloss, no formula without an intuition before it |
-| H10 | Code discipline: the reader reads code and never writes it; visible code carries the idea only |
+| H10 | Code discipline: the reader may read code but assessed work never requires code production |
 | S8 | Simulation before formalism |
 | S9 | Honesty about uncertainty, and about the assistant |
 
@@ -201,10 +201,10 @@ one is on screen.
 **D05 fixes the opening boundary.** The preface and Part I (Chapters 1–3) have
 no visible code in the book edition. Hidden engine chunks remain permitted as
 plumbing, and the instructor-facing `kolegij` profile may reveal them without
-turning them into reader-facing receipts. The twelve-line ceiling governs an
-authored visible block; it never governs hidden plumbing merely because an
-instructor profile unfolds it. No assessed task in Part I asks for code
-production.
+turning them into reader-facing receipts or student obligations. The
+twelve-line ceiling governs an authored visible block; it never governs hidden
+plumbing merely because an instructor profile unfolds it. No assessed task
+anywhere in the book asks for code production.
 
 | Register | Mechanics | Where | Function |
 |---|---|---|---|
@@ -230,17 +230,22 @@ one in the book that automation makes more valuable rather than less.
   implements has been experienced in prose, in a figure, or in the widget (S8).
 - **A function new to the book earns one narrating clause** in the paragraph after
   the block. An introduction, not a lesson.
-- **The reader is never asked to produce code.** The *Računski* tier assumes no R
-  installation. It uses hand-computable numbers or the chapter's widget, and
-  points to Dodatak A or Dodatak B for the reader who wants the full dataset.
+- **The reader is never assessed on producing code.** No graded deliverable asks
+  the reader to write, complete, rewrite, repair, or translate an answer into
+  code. The *Računski* tier assumes no R installation. It uses hand-computable
+  numbers or the chapter's widget, and points to Dodatak A or Dodatak B for the
+  reader who voluntarily wants the reproducible or no-code route.
 - **The acceptance test.** Every visible block must be readable by someone who has
   read the chapter and has never written R. If it is not, plumbing has leaked into
   the receipt.
 
-The escalation ladder, which fixes what code is *for* in each part of the book, is
-recorded in `notes/struktura-knjige.md`. It is a spine decision and not a style
-one, so a chapter that departs from it is corrected against the note rather than
-against this file.
+The escalation ladder, which fixes what code is *for* in each part of the book,
+is recorded in `notes/struktura-knjige.md`. It is a spine decision and not a
+style one, so a chapter that departs from it is corrected against the note
+rather than against this file. The separate human–AI competence ladder and the
+assessment boundary live in `conventions.json` under
+`assessment_architecture`. They assess task specification, validation,
+alternatives, provenance, and responsibility rather than syntax.
 
 ---
 
@@ -370,7 +375,9 @@ New in this book.
   a real assistant actually makes — a plausible wrong number, a mis-specified
   test, a causal conclusion from correlational data, a confidently wrong
   interpretation of a p-value. Never a typo, never something absurd. The
-  solution lives in the `kolegij` profile gate, never on the page.
+  canonical key lives in one solution record. A deliberately separated
+  self-study route receives the concise check, while the full rubric,
+  alternatives, and instructor notes remain protected in the `kolegij` layer.
 - The book never claims that an assistant is unreliable in general or reliable
   in general. It shows a specific failure and a specific check.
 
@@ -458,12 +465,19 @@ Four tiers, in this order, each a `###` with class `{.zadaci-razina}`:
 3. **Kritički** — a published claim, chart or abstract to be judged.
 4. **Revizija modela** — an AI-generated solution the reader must grade,
    naming what is right, what is wrong, and how they know. From the
-   visualisation chapter onward the graded artifact **includes its code**, since
-   this tier is the only place where reading code becomes mandatory and
-   therefore the only thing that keeps promise 4 from being decorative.
+   visualisation chapter onward the artifact may include suspect code when the
+   ratified stage of the ladder requires a calculation trace. The deliverable
+   diagnoses the statistical or data-workflow defect and cites the revealing
+   evidence. It never asks the reader to write or repair code.
 
-Imperative voice. Each exercise names its deliverable. Solutions, where they
-exist, are gated `::: {.content-visible when-profile="kolegij"}`.
+Imperative voice. Each exercise names its deliverable. Every answer projection
+comes from one canonical record governed by
+`bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json`.
+Concise self-study and print checks live on deliberately separated routes. Full
+rubrics, alternatives, and instructor notes are protected by
+`::: {.content-visible when-profile="kolegij"}` or by a route excluded from
+public inputs. No protected solution content enters public AI exports, and a
+label such as “solution” is never treated as access control.
 
 ### Definitions
 
@@ -567,7 +581,8 @@ calibrated values from `conventions.json`.
    before it.
 6. Check H10 manually: Part I contains no visible code, hidden plumbing is not
    judged by the visible-block ceiling, later receipts contain only the
-   inspectable idea, and no assessed task requires code production.
+   inspectable idea, suspect code is read rather than repaired, and no assessed
+   task anywhere requires code production.
 7. Re-read top to bottom for what no detector catches: slide cadence, glossary
    stacking (S3), register drift, bold abuse (H8), and whether the simulation
    really does precede the formalism (S8).
@@ -633,3 +648,10 @@ written, the chapter is not done.
   permitted and is exempt from the twelve-line ceiling even when the
   instructor-facing profile unfolds it. Added the same boundary to the manual
   style workflow and Bookwright blocking checks.
+- **2026-08-04** — Reconciled H10, S9, and the exercise contract with ratified
+  decision G-A2d. D05 now forbids assessed code production throughout the book
+  while retaining code reading after Part I. D06 establishes one canonical
+  solution record, separated self-study and print checks, protected `kolegij`
+  rubrics, and structural exclusion of protected content from public AI
+  exports. The cumulative human–AI ladder assesses task specification,
+  validation, alternatives, provenance, and responsibility rather than syntax.

@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A2a
-next_permitted_packet: P2-CLAIMS
+last_completed_packet: P2-ASSESS
+next_permitted_packet: P2-IDENTITY
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 36
+forward_handoffs: 41
 last_updated: "2026-08-04"
 ---
 
@@ -30,22 +30,175 @@ stop and repair the control state before editing book content.
 | Gate A1c | Accepted as amended: minimise Navarro reliance; D08 and D12 unchanged; owner Luka Sikic; 2026-08-03 |
 | Gate A1d | Accepted as recommended: pre-release governance mechanism; release, archive, and errata owner Luka Sikic; 2026-08-03; no external-action authority |
 | Gate A2a | Accepted as recommended: claim map, audit questions, lifecycle, seven threads, four activities, and data-design principles; 70/20/10 diagnostic only; owner Luka Sikic; 2026-08-04 |
+| Gate A2d | Accepted: D06 solutions policy, D09 Appendix B scope, D10 Appendix G scope, and the D05/H10 AI ladder as recommended; D15 privacy/tool lanes as the course's own dated policy v1.0; author, course owner and clean-install owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A2a` |
-| Next permitted packet | `P2-CLAIMS` |
+| Last completed packet | `P2-ASSESS` |
+| Next permitted packet | `P2-IDENTITY` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 77 accepted, 5 deferred with reason, 289 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 37 accepted and 151 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 72 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, and the G-A2a claim-system ask are `done`; 0 external messages sent |
+| Open outside asks | 67 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, and the five G-A2d policy asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-ASSESS closeout
+
+- `H-G-A2D-001` and `H-G-A2D-004` were acknowledged and consumed with exact
+  D06 and D05/H10 dispositions before packet claim. `H-P1C-EXPORT-001` was
+  acknowledged before the first substantive edit and consumed before closeout
+  with structural export evidence.
+- `conventions.json` now carries one schema-valid `assessment_architecture`
+  object tied to `G-A2d` and the three governed items
+  `R15-SCHEMA-closure`, `R24-BOOK-human-AI-competence`, and
+  `R24-BOOK-three-roles`. Its deterministic state is
+  `assessment:sha256-c1206f08e75502c748c2517a5020b4cd84074f5c2e5a03c5292c67dce928937a`.
+- `solution-record.schema.json` defines one record per exercise with stable
+  source binding and six machine-identifiable components: planted error,
+  revealing diagnostic, plausible non-answers, model-response components,
+  numerical check, and severity-ranked rubric. No second answer source is
+  permitted.
+- The severity order is `fatal`, `major`, `minor`, and `useful_improvement`, so
+  a defect that invalidates the central claim cannot be averaged with an
+  optional improvement.
+- Five projections derive from the same record. The main task remains
+  answer-free; a separated self-study route and its print twin receive concise
+  checks; the protected `kolegij` layer receives full rubrics, alternatives,
+  and instructor notes; public AI exports receive zero solution fields.
+- Export protection is structural. Solution routes stay outside public export
+  inputs, protected in-source content requires `content-visible` with
+  `when-profile`, labels are not access control, and `P5-ROUTES` retains the
+  final route and leak proof.
+- The AI registry preserves the roles instrument, fallible analyst, and object
+  of research. Its five competence dimensions are task specification,
+  validation, alternatives, provenance, and responsibility, each with explicit
+  plant/develop/harvest roles and exclusions.
+- The seven-stage ladder progresses from provenance and fabricated-number
+  checks in Part I through reproducible descriptive work, sampling and
+  generalisation, inferential flexibility, model and prediction audits,
+  deployed-system scrutiny, and a fully documented final evidence package.
+  From the end of Part I onward, assistant-using tasks require a readable
+  verification receipt.
+- STYLE H10 now states the ratified boundary consistently: Part I has no
+  visible code, hidden plumbing remains permitted, later code may be read and
+  diagnosed, and no assessed task anywhere requires code production.
+- `scripts/check-assessment-architecture.py`, the prior book-architecture
+  checker, the configuration-driven inventory, JSON parsing, source-scope, and
+  whitespace checks pass. Both assessment-policy negative fixtures fail with
+  exit 1 for their injected protected-export and assessed-code defects.
+- No chapter or appendix prose, spine, terminology, data package, exporter,
+  route, render, generated artifact, or external authority changed. All 19
+  spines remain unratified and the solution-route inventory remains empty.
+- No new future-relevant effect was found. Existing dependencies already route
+  final solution visibility and leak proof to `P5-ROUTES` and the suspect-code
+  continuity audit to `P6-CONTINUITY`, so no duplicate handoff was created.
+
+The durable evidence is
+`notes/reports/p2-assessment-architecture-2026-08-04.md`.
+
+## G-A2d closeout
+
+- No incoming handoff targeted `G-A2d`; the complete handoff ledger was read
+  before the decision was recorded.
+- All five canonical asks received a dated disposition from their named owner
+  and are `done`. No external message was sent.
+- **D06 solutions policy** — approved as recommended. One canonical solution
+  record per exercise renders in two layers: separated self-study checks with
+  the intended planted errors, and protected `kolegij` rubrics with
+  alternatives and instructor notes. Protected solutions are excluded from
+  public AI exports and no second answer source may exist.
+- **D09 Appendix B** — approved as recommended, with Luka Sikic as the named
+  clean-install verification owner. Appendix B supports only the book's core
+  analyses on the same files, variables, and expected values as Appendix A,
+  with pinned product version, module, route, settings, golden values and test
+  date. No public no-code promise may exceed the verified coverage.
+- **D10 Appendix G** — approved as recommended: exactly percentages and
+  percentage points, proportions and rates, slope, and logarithmic scale.
+  Nothing added, nothing removed, sanctioned `podsjetnik` first-use links, and
+  every configuration-driven inventory updated before the file is added.
+- **D05 / H10 AI ladder** — approved as recommended. Computation stays
+  delegable, readable verification receipts are required after Part I,
+  assessment targets judgment rather than code production, Part I keeps its
+  no-visible-code rule with hidden plumbing permitted, the three roles of AI
+  are retained, and the suspect-code strand escalates with stage-appropriate
+  approved exceptions.
+- **D15 privacy and tools** — recorded as the course's own dated conservative
+  policy, version 1.0, as of 2026-08-04, published in full in Appendix F and
+  referenced by Chapter 18. The applicable institution is Hrvatsko katoličko
+  sveučilište as the course's home institution. The policy is **not** a
+  university regulation and may not be cited as one; no external legal or
+  institutional document is named, and no later packet may supply one.
+- Three lanes carry exact conditions: public tools for published,
+  licence-cleared, simulated, synthetic and teaching-aggregate data only;
+  contractually protected tools for pseudonymised working data under a written
+  agreement excluding training on input and fixing retention; institutionally
+  approved local tools with no data egress for restricted data within its own
+  access conditions. Across all lanes, no task may require sending personal,
+  identifiable, restricted or non-shareable data, and every such task ships a
+  safe supplied-data alternative.
+- The disclosure rule requires a short use statement — tool and version, what
+  was delegated, which data lane, what the author verified and how, what
+  remained unverified. Undisclosed use is an integrity breach; disclosed use is
+  not by itself penalised. Every legal, institutional or product claim carries
+  an as-of date and a source.
+- The durable policy record is
+  `notes/reports/g-a2d-policy-decisions-2026-08-04.md`. Nine rejected
+  alternatives, the authority boundary, and all seventeen governed items are in
+  the register.
+- `H-G-A2D-001` through `H-G-A2D-005` carry the five dispositions to
+  `P2-ASSESS`, `P5-B`, `P5-F`, `P5-G`, `P5-ROUTES`, `P6-CONTINUITY`,
+  `P6-EVIDENCE` and `WE-C18`. No prose, registry, spine, terminology, data
+  package or generated artifact changed, and `P2-ASSESS` was not started.
+
+The accepted decision source state is
+`conversation:G-A2d-policy-decisions-approved-2026-08-04-Luka-Sikic`.
+
+## P2-CLAIMS closeout
+
+- `H-G-A2A-001` was acknowledged at its `before_start` gate before the first
+  substantive edit and consumed before closeout with the accepted `G-A2a`
+  system, all 22 governed items, exact exclusions, and packet evidence.
+- The existing checkout-local `conventions.json` now carries one strict
+  `intellectual_architecture` object with canonical claim, lifecycle, thread,
+  ethics, and data-science registries. Its deterministic state is
+  `architecture:sha256-30e105082ac37f09b40667f6a9a3f4a70345cca4ed16004a09fd483d79816ef8`.
+- The claim registry records six dimensions, independent population reach, six
+  audit questions, the poll-reading card, the honest-sentence standard, and
+  sensitivity as a primary analysis plus one defensible alternative.
+- The lifecycle registry records nine stable stages and cumulative,
+  nonexclusive part/finale roles. It preserves the separation between
+  probability sampling and training/validation/test separation.
+- All seven threads have explicit `plant`, `develop`, and `harvest` locations
+  and roles plus exclusions. The global rule is a short seed, one substantial
+  harvest, and later retrieval rather than repeated mini-lectures.
+- Data science remains a delivery mechanism for the four promises, not a fifth
+  promise. Every representation of the approximate `70/20/10` attention split
+  marks it non-binding: it is not a page formula, quota, or admission rule.
+- The architecture distinguishes four activities, four evidence objects,
+  ordinary-practice ethics, and eight data-generating designs. It preserves
+  text-package priority while leaving every exact package selection,
+  promotion, and rights decision to its later gate.
+- `scripts/check-book-architecture.py` validates the full conventions schema
+  and exact semantic invariants without undeclared dependencies. The durable
+  placement and evidence record is
+  `notes/reports/p2-claims-architecture-2026-08-04.md`.
+- No chapter or appendix prose changed; all 19 chapter spines remain
+  unratified. Terminology, assessment, Chapter 17 prerequisites, renders,
+  generated artifacts, and external actions remained outside scope.
+- No new future-relevant effect was found. Existing dependencies already route
+  every later consumer, so no duplicate outgoing handoff was created.
+- The workflow validator passes with no active packet and `G-A2d` next. Both
+  required negative fixtures fail with exit 1 for their exact injected defects:
+  generic terminal evidence and an unknown outside-ask item.
+
+`P2-CLAIMS` is accepted. `G-A2d` is the next permitted packet but was not
+started.
 
 ## G-A2a closeout
 
@@ -992,9 +1145,9 @@ the durable evidence is
   acceptance purposes.
 - P7-FREEZE must record the accepted Node, npm, Playwright, Chromium, R, and
   renv locks and hashes in the release-candidate provenance record.
-- P2-ASSESS and P5-ROUTES must preserve the structural public-export boundary
-  for every future solution or instructor route and rerun the release leak
-  proof against the final route set.
+- P2-ASSESS has ratified the structural public-export boundary for every future
+  solution or instructor route. P5-ROUTES must implement it from the one-record
+  contract and rerun the release leak proof against the final route set.
 - P7-FREEZE and P8-META must repair and clean-check the pre-existing
   `_quarto.yml` provenance checksum mismatch; final metadata may not introduce
   a competing source or worktree-specific line-ending hash.
@@ -1060,23 +1213,24 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P2-CLAIMS. Acknowledge the
-required incoming handoff H-G-A2A-001 at its before_start gate before the first
-substantive edit and consume it with an exact disposition and evidence before
-closeout. Fully read the accepted G-A2a decision record, its 22 governed items,
-the shared_architecture packet contract, and the review sections those items
-anchor to.
+Execute the dashboard's next permitted packet, P2-IDENTITY, only. Claim the
+write lock, do the work, close the packet, and stop. Do not start any G-A2b
+chapter-spine packet or any later packet, and do not edit chapter prose.
 
-Write the canonical claim, lifecycle, thread, ethics, and data-science
-architecture registries to exactly the accepted system. Record explicit
-plant/develop/harvest roles and exclusions for all seven threads, keep the
-70/20/10 attention budget marked non-binding wherever it is represented, and
-preserve the scope-control rule that a thread receives a seed, one substantial
-harvest, and later retrieval rather than repeated mini-lectures.
+Before the first substantive edit, acknowledge every applicable incoming
+handoff and say so explicitly; consume each with a concrete disposition and
+evidence before closeout. Read the P2-IDENTITY packet contract, the accepted
+P2-CLAIMS and P2-ASSESS artifacts and registries, and governed item
+R13-ARCH-measurement-first in full.
 
-Do not edit chapter prose, ratify a chapter spine, select or promote a data
-package, settle the assessment contract, or resolve Chapter 17 prerequisites;
-each retains its own later gate. Close only P2-CLAIMS with structured evidence,
-record all future effects or an explicit none, run the workflow validator and
-both required negative fixtures, then stop.
+Write only the joint bounded identity briefs for Chapters 3, 12, and 17, with
+explicit plant/develop/harvest roles and exclusions. Preserve Chapter 17's
+fairness widget and measurement-first text role. Do not select data packages or
+evidence sources, ratify chapter spines or terminology, edit chapters or
+appendices, or authorise any push, merge, tag, archive, deployment, or
+publication.
+
+Update the register, handoff ledger, and dashboard together at closeout, then
+run scripts/check-review-workflow.R through the project launcher and prove both
+required negative fixtures still fail.
 ```
