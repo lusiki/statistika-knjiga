@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2b-PREFACE"
-  next_permitted_packet: "P2-SPINE-PREFACE"
+  last_completed_packet: "P2-SPINE-PREFACE"
+  next_permitted_packet: "G-A2b-I"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -4530,7 +4530,7 @@ packets:
     sequence: 49
     phase: "2"
     kind: "shared_registry"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2b-PREFACE"
     scope: "Ratified preface spine; no chapter prose."
@@ -4541,13 +4541,68 @@ packets:
       - "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
       - "Registry work does not silently edit chapter prose or advance chapter stage."
       - "The P2-SPINE-PREFACE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c"
+      required_evidence:
+        - requirement: "author-ratified registry diff"
+          artifacts:
+            - "decision:G-A2b-PREFACE"
+            - "handoff:H-G-A2B-PREFACE-001-consumed"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#00-predgovor"
+            - "report:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
+        - requirement: "schema validation"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/schemas/chapter-spine.schema.json"
+            - "source:scripts/check-chapter-spines.py"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
+        - requirement: "consumer reconciliation"
+          artifacts:
+            - "source:scripts/check-book-architecture.py"
+            - "source:scripts/check-assessment-architecture.py"
+            - "source:scripts/check-identity-briefs.py"
+            - "report:notes/reports/p2-spine-preface-2026-08-04.md#uskladivanje-potrosaca"
+      outputs:
+        - output: "P2-SPINE-PREFACE durable artifact and evidence record for: Ratified preface spine; no chapter prose."
+          artifacts:
+            - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#00-predgovor"
+            - "report:notes/reports/p2-spine-preface-2026-08-04.md"
+            - "check:scripts/check-chapter-spines.py"
+        - output: "Completion evidence is tied to the declared P2-SPINE-PREFACE source state and bounded scope."
+          artifacts:
+            - "spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-1-of-19"
+            - "check:scripts/check-manuscript-integrity.py-lane-structure-chapters-19"
+      exit_tests:
+        - test: "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
+          result: "passed"
+          evidence:
+            - "registry:00-predgovor-aspects-9-terms-5-prerequisites-0-exclusions-12"
+            - "check:CHAPTER_SPINES_OK-schema-valid-19-units-canonical-order"
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK-spines-1-of-19"
+            - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK-spines-1-of-19"
+            - "check:scripts/check-identity-briefs.py-IDENTITY_BRIEFS_OK-spines-1-of-19"
+        - test: "Registry work does not silently edit chapter prose or advance chapter stage."
+          result: "passed"
+          evidence:
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:chapter-ledger-units-at-draft-19"
+            - "check:book-inventory-solution-routes-0"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_STRUCTURE_OK-chapters-19"
+        - test: "The P2-SPINE-PREFACE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c"
+            - "report:notes/reports/p2-spine-preface-2026-08-04.md"
+            - "handoff:H-G-A2B-PREFACE-001-consumed-with-disposition"
+            - "handoff:H-P0-STATE-001-encoded-as-exclusion-2-and-left-pending-for-WA-C00"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-ratified_without_decision-exit-1"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-part_i_visible_code_admitted-exit-1"
     contract: "shared_registry"
     required_evidence:
       - "author-ratified registry diff"
       - "schema validation"
       - "consumer reconciliation"
-    change_reference: null
+    change_reference: "spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c"
   G-A2b-I:
     sequence: 50
     phase: "2"
@@ -9694,7 +9749,7 @@ items:
       location: "§4/§9/§12 + §15 R04"
     description: "Ratify load-bearing aspects, terms, prerequisites, and exclusions for preface."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -9710,11 +9765,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-PREFACE"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-PREFACE"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#00-predgovor"
+      - "schema:bookwright_plugin/bookwright/shared/schemas/chapter-spine.schema.json"
+      - "report:notes/reports/p2-spine-preface-2026-08-04.md"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c"
   R04-SPINE-I:
     parents:
       - "R04"

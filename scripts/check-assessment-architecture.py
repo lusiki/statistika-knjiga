@@ -292,9 +292,12 @@ def main() -> int:
     authority = assessment.get("authority_boundary", {})
     check(authority and all(value is False for value in authority.values()), "Every P2-ASSESS excluded authority must remain false.")
     chapter_spines = spines.get("chapters", [])
+    ratified_spines = [chapter for chapter in chapter_spines if chapter.get("ratified") is True]
+    check(len(chapter_spines) == 19, "The chapter-spine registry must contain exactly 19 units.")
     check(
-        len(chapter_spines) == 19 and not any(chapter.get("ratified") is True for chapter in chapter_spines),
-        "P2-ASSESS must leave all 19 chapter spines unratified.",
+        authority.get("chapter_spine_ratification_authorised") is False
+        and all(chapter.get("decision", "").startswith("G-A2b-") for chapter in ratified_spines),
+        "The assessment architecture may not ratify a chapter spine; every ratified spine names its own G-A2b gate.",
     )
 
     if errors:
@@ -314,7 +317,7 @@ def main() -> int:
     print("- AI roles: 3; competence dimensions: 5; ladder stages: 7")
     print("- assessed code production: false in every stage")
     print("- solution records authored: 0; solution routes implemented: 0")
-    print("- chapter spines ratified: 0 of 19")
+    print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
 
 

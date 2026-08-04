@@ -323,9 +323,15 @@ def main() -> int:
         "P2-CLAIMS authority boundary must keep all nine excluded actions false.",
     )
     chapter_spines = spines.get("chapters", [])
+    ratified_spines = [chapter for chapter in chapter_spines if chapter.get("ratified") is True]
+    check(len(chapter_spines) == 19, "The chapter-spine registry must contain exactly 19 units.")
     check(
-        len(chapter_spines) == 19 and not any(chapter.get("ratified") is True for chapter in chapter_spines),
-        "P2-CLAIMS must leave all 19 chapter spines unratified.",
+        architecture.get("authority_boundary", {}).get("chapter_spine_ratification_authorised") is False,
+        "The G-A2a architecture may not authorise chapter-spine ratification; each spine has its own G-A2b gate.",
+    )
+    check(
+        all(chapter.get("decision", "").startswith("G-A2b-") for chapter in ratified_spines),
+        "Every ratified chapter spine must name its own G-A2b decision gate.",
     )
 
     if errors:
@@ -343,7 +349,7 @@ def main() -> int:
     print("- activities: 4; evidence objects: 4")
     print("- data-generating designs: 8; package selection deferred")
     print("- attention budget: 70/20/10 diagnostic and non-binding")
-    print("- chapter spines ratified: 0 of 19")
+    print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
 
 

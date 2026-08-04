@@ -1946,7 +1946,28 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-PREFACE
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P2-SPINE-PREFACE accepts the ratified preface spine as its exact and
+          exclusive registry boundary before the first substantive edit. The
+          packet will write the nine load-bearing aspects, five load-bearing
+          terms, empty prerequisite list, and twelve exclusions into
+          chapter-spine.json for unit 00-predgovor, set its ratified flag,
+          extend the spine schema so prerequisites and exclusions are
+          schema-valid rather than improvised, and reconcile every consumer
+          that asserts how many spines are ratified. Chapter and appendix
+          prose, chapter stage, terminology, and every other spine remain
+          outside scope, and H-P0-STATE-001 remains an unconsumed obligation
+          of WA-C00.
+        evidence:
+          - "decision:G-A2b-PREFACE"
+          - "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
+          - "report:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
+          - "register:item-R04-SPINE-PREFACE-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-PREFACE-claim"
 
 packet_reviews:
   G-A0:
@@ -2781,3 +2802,31 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-PREFACE
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-SPINE-PREFACE and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-PREFACE:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P2-SPINE-PREFACE found no new future-relevant effect. The consumer
+      reconciliation was completed inside the packet, and every later obligation
+      the preface spine implies already has an exact owner: H-P0-STATE-001 still
+      targets WA-C00 with the checkable-calculation-trace promise,
+      H-G-A2D-002 still routes the Appendix B public promise to P5-B and
+      P5-ROUTES, and G-A2c with P2-TERMS already owns the canonical Croatian
+      forms of the five load-bearing terms. A new handoff would duplicate those
+      exact deliveries.
+    implementation_state: spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c
+    checks:
+      - H-G-A2B-PREFACE-001 was acknowledged and consumed with an exact disposition and evidence before the first substantive edit
+      - H-P0-STATE-001 remains pending for WA-C00 and its obligation is now recorded as exclusion 2 of the ratified spine
+      - chapter-spine.json unit 00-predgovor carries nine aspects five terms an explicit empty prerequisite list and twelve exclusions with its gate date and decision record
+      - the written spine is faithful to the accepted draft with nothing added or omitted
+      - chapter-spine.schema.json now admits ratified_at decision decision_record prerequisites and exclusions without removing or altering any existing field
+      - scripts/check-chapter-spines.py enforces the ratified-entry obligations that the local schema validator cannot express conditionally
+      - the three checkers that previously asserted zero ratified spines now assert the real invariant that no registry may ratify a spine and that every ratified spine names its own G-A2b gate
+      - the accepted architecture assessment and identity states are unchanged and all three checkers still pass with their negative fixtures failing
+      - scripts/check-chapter-spines.py reported CHAPTER_SPINES_OK with one ratified and eighteen unratified units and both deliberate defects returned exit 1
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters
+      - no chapter or appendix prose chapter stage terminology data package route render generated artifact or external action changed
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-I
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects

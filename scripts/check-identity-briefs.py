@@ -270,9 +270,21 @@ def main() -> int:
         "The accepted G-A2a architecture must remain the governing claim and thread system.",
     )
     chapter_spines = spines.get("chapters", [])
+    ratified_spines = [chapter for chapter in chapter_spines if chapter.get("ratified") is True]
+    check(len(chapter_spines) == 19, "The chapter-spine registry must contain exactly 19 units.")
     check(
-        len(chapter_spines) == 19 and not any(chapter.get("ratified") is True for chapter in chapter_spines),
-        "P2-IDENTITY must leave all 19 chapter spines unratified.",
+        authority.get("chapter_spine_ratification_authorised") is False
+        and all(chapter.get("decision", "").startswith("G-A2b-") for chapter in ratified_spines),
+        "The identity briefs may not ratify a chapter spine; every ratified spine names its own G-A2b gate.",
+    )
+    check(
+        not any(chapter.get("id") in PILLARS and chapter.get("ratified") is True for chapter in chapter_spines)
+        or all(
+            chapter.get("decision") in ("G-A2b-I", "G-A2b-IV", "G-A2b-V")
+            for chapter in chapter_spines
+            if chapter.get("id") in PILLARS and chapter.get("ratified") is True
+        ),
+        "A ratified pillar spine must come from its own part gate, not from the identity briefs.",
     )
     stages_recorded = {unit.get("stage") for unit in ledger.get("chapters", [])}
     check(stages_recorded == {"draft"}, "P2-IDENTITY must leave every chapter unit at draft.")
@@ -303,7 +315,8 @@ def main() -> int:
     print("- Chapter 17 central widgets registered: 1 (fairness, retained)")
     print("- measurement-first text module: 7 covered topics, implementation excluded")
     print("- assessed code production: excluded in every pillar")
-    print("- chapter spines ratified: 0 of 19; chapter units at draft: 19")
+    print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}; chapter units at draft: "
+          f"{len(ledger.get('chapters', []))}")
     return 0
 
 

@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A2b-PREFACE
-next_permitted_packet: P2-SPINE-PREFACE
+last_completed_packet: P2-SPINE-PREFACE
+next_permitted_packet: G-A2b-I
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -36,18 +36,55 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A2b-PREFACE` |
-| Next permitted packet | `P2-SPINE-PREFACE` |
+| Last completed packet | `P2-SPINE-PREFACE` |
+| Next permitted packet | `G-A2b-I` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
+| Chapter spines | 1 of 19 ratified (`00-predgovor` at `G-A2b-PREFACE`) |
 | Open outside asks | 67 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, and the five G-A2d policy asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-SPINE-PREFACE closeout
+
+- `H-G-A2B-PREFACE-001` was acknowledged and consumed with an exact disposition
+  and evidence before the first substantive edit. `H-P0-STATE-001` remains
+  `pending` for `WA-C00`; its obligation is now recorded as exclusion 2 of the
+  ratified spine so that packet can carry it out against real prose.
+- `chapter-spine.json` unit `00-predgovor` now carries nine load-bearing
+  aspects, five load-bearing terms, an explicit empty prerequisite list, and
+  twelve exclusions, with its gate, ratification date, and decision record. The
+  written spine is faithful to the accepted draft with nothing added or omitted.
+  Its deterministic state is
+  `spine:sha256-53ee28d57cfb7fb1b533e77977abae152717a0afc1b3a7ec24ad35b03145149c`.
+- The empty prerequisite list is a decision, not an omission: the preface is the
+  book's entry point and may presuppose no chapter, appendix, or widget.
+- `chapter-spine.schema.json` now admits `ratified_at`, `decision`,
+  `decision_record`, `prerequisites`, and `exclusions`. No existing field was
+  removed or altered, so every earlier entry stays valid.
+  `scripts/check-chapter-spines.py` enforces the obligations for a ratified
+  entry that the local schema validator cannot express conditionally.
+- Three checkers previously asserted that zero of 19 spines were ratified. That
+  was an accurate snapshot at their own closeout but never an invariant, since
+  this packet exists to change the count. All three now assert the real
+  invariant: no registry may itself ratify a spine, and every ratified spine
+  names its own `G-A2b` gate. The accepted `architecture:sha256-30e10508…`,
+  `assessment:sha256-c1206f08…`, and `identity:sha256-f09124e5…` states are
+  unchanged.
+- `scripts/check-chapter-spines.py` reports one ratified and eighteen
+  unratified units. Both deliberate defects, a ratified spine without its gate
+  and an admitted Part I visible-code exclusion removal, return exit 1. The
+  blocking structure lane passes with 19 chapters.
+- No chapter or appendix prose, chapter stage, terminology, data package, route,
+  render, generated artifact or external authority changed. All 19 units remain
+  `draft`.
+
+The durable evidence is `notes/reports/p2-spine-preface-2026-08-04.md`.
 
 ## G-A2b-PREFACE closeout
 
@@ -1313,23 +1350,26 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, P2-SPINE-PREFACE, only. Claim the
-write lock, do the work, close the packet, and stop. Do not start G-A2b-I or any
+Execute the dashboard's next permitted packet, G-A2b-I, only. Claim the write
+lock, do the work, close the packet, and stop. Do not start P2-SPINE-I or any
 later packet, and do not edit chapter prose.
 
-Before the first substantive edit, acknowledge H-G-A2B-PREFACE-001 and say so
-explicitly; consume it with a concrete disposition and evidence before closeout.
-Read the P2-SPINE-PREFACE packet contract, governed item R04-SPINE-PREFACE, and
-the accepted spine in notes/reports/g-a2b-preface-spine-decision-2026-08-04.md
-in full.
+Before the first substantive edit, acknowledge every applicable incoming handoff
+and say so explicitly; consume each with a concrete disposition and evidence
+before closeout. Read the G-A2b-I packet contract, outside ask
+OA-G-A2B-I-SPINE, governed items R04-SPINE-I, R04-C01-definitions and
+R04-C03-definitions, the accepted P2-CLAIMS, P2-ASSESS and P2-IDENTITY
+registries, the ratified preface spine, and the recorded author intent in
+notes/reports/author-pre-dispositions-2026-08-04.md in full.
 
-Write exactly the accepted preface spine into
-bookwright_plugin/bookwright/shared/chapter-spine.json for unit 00-predgovor and
-set its ratified flag. Record prerequisites and exclusions in a schema-valid
-form, and reconcile every consumer that asserts how many spines are ratified. Do
-not change chapter prose, chapter stage, or terminology, do not consume
-H-P0-STATE-001, which remains an obligation of WA-C00, and do not ratify any
-other spine.
+Draft the complete Part I spine for Chapters 1 to 3 to the recorded author
+intent, then close the gate against that drafted source state with a dated
+disposition, named owner, alternatives, authority boundary, and blocked
+dependencies. Ratify only the claim, lifecycle, measurement and literacy
+definitions that later parts genuinely depend on, hold the D05 no-visible-code
+boundary, and keep the opening ramp gentle. If the draft departs from the
+recorded intent in any respect, stop and present the exact difference for an
+explicit decision.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both
