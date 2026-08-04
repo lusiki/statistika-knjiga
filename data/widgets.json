@@ -4,6 +4,19 @@
   "widgets": [
     {
       "id": "w01",
+      "parity": {
+        "classification": "exact",
+        "parameters": {"scenarios": [{"id": "default", "share_a_easy": 0.8, "share_b_easy": 0.2}]},
+        "seed_policy": {"ojs": "none", "r": "none", "shared": "Deterministicke ugradene stope; sjeme iz R/setup.R ne sudjeluje."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
+        "expected": {
+          "ojs": {"default.aggregate_a": 0.6800000000000002, "default.aggregate_b": 0.42000000000000004, "default.easy_a": 0.8, "default.easy_b": 0.9, "default.hard_a": 0.2, "default.hard_b": 0.3},
+          "r": {"default.aggregate_a": 0.68, "default.aggregate_b": 0.42, "default.easy_a": 0.8, "default.easy_b": 0.9, "default.hard_a": 0.2, "default.hard_b": 0.3}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w01", "r": "scripts/widget-parity-r.R#w01"},
+        "source": {"ojs_label": "fig-w01", "r_label": "fig-w01-print", "ojs_sha256": "d5cef1e0af60445328475c3b0f2005d8e95a6624bb83e334fbe9a9775089df42", "r_sha256": "2db1adef8a92d13ec8048c7cd379d3e64c20efc46dcc1b3e0953bfe42c34ef99"},
+        "claim_boundary": "Zbirne i podskupinske stope pri istim udjelima; ne usporeduje raspored, boju ni geometriju stupaca."
+      },
       "naziv": "Simpsonov paradoks",
       "poglavlje": "chapters/01-zasto-statistika.qmd",
       "naslovPoglavlja": "Zašto statistika",
@@ -19,6 +32,19 @@
     },
     {
       "id": "w02",
+      "parity": {
+        "classification": "exact",
+        "parameters": {"scenarios": [{"id": "default", "shift": 4}]},
+        "seed_policy": {"ojs": "none", "r": "none", "shared": "Sinusno-kosinusna odstupanja su deterministicka; sjeme iz R/setup.R ne sudjeluje."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
+        "expected": {
+          "ojs": {"default.pooled_slope": 0.27493889450414105, "default.low_slope": -0.5749847403258749, "default.high_slope": -0.574984740325875},
+          "r": {"default.pooled_slope": 0.27493889450414094, "default.low_slope": -0.574984740325875, "default.high_slope": -0.574984740325875}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w02", "r": "scripts/widget-parity-r.R#w02"},
+        "source": {"ojs_label": "fig-w02", "r_label": "fig-w02-print", "ojs_sha256": "b96f500b8ea867eb1b37952f761ac49d1e7b58355ed7dddd704f39f8bc8386fc", "r_sha256": "c9d9c511aea25903e7ead8c697bad6b35890afdce758e49439352b6f537baa80"},
+        "claim_boundary": "Zbirni i unutar-skupinski nagibi istih 32 konstruiranih opazanja pri pomaku 4; ne usporeduje graficke oznake."
+      },
       "naziv": "Prikaz konfundera",
       "poglavlje": "chapters/02-mjerenje-i-dizajn.qmd",
       "naslovPoglavlja": "Mjerenje i istraživački dizajn",
@@ -34,6 +60,19 @@
     },
     {
       "id": "w03",
+      "parity": {
+        "classification": "exact",
+        "parameters": {"scenarios": [{"id": "n250_unbiased", "n": 250, "share": 0.52, "bias": 0}, {"id": "n1000_unbiased", "n": 1000, "share": 0.52, "bias": 0}, {"id": "n1000_bias6", "n": 1000, "share": 0.52, "bias": 0.06}]},
+        "seed_policy": {"ojs": "none", "r": "none", "shared": "Analiticka normalna margina; sjeme iz R/setup.R ne sudjeluje."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
+        "expected": {
+          "ojs": {"n250_unbiased.estimate": 0.52, "n250_unbiased.truth": 0.52, "n250_unbiased.margin": 0.06193103777590039, "n250_unbiased.lower": 0.45806896222409965, "n250_unbiased.upper": 0.5819310377759004, "n1000_unbiased.estimate": 0.52, "n1000_unbiased.truth": 0.52, "n1000_unbiased.margin": 0.030965518887950193, "n1000_unbiased.lower": 0.48903448111204983, "n1000_unbiased.upper": 0.5509655188879502, "n1000_bias6.estimate": 0.52, "n1000_bias6.truth": 0.46, "n1000_bias6.margin": 0.030965518887950193, "n1000_bias6.lower": 0.48903448111204983, "n1000_bias6.upper": 0.5509655188879502},
+          "r": {"n250_unbiased.estimate": 0.52, "n250_unbiased.truth": 0.52, "n250_unbiased.margin": 0.06193103777590039, "n250_unbiased.lower": 0.45806896222409965, "n250_unbiased.upper": 0.5819310377759004, "n1000_unbiased.estimate": 0.52, "n1000_unbiased.truth": 0.52, "n1000_unbiased.margin": 0.030965518887950193, "n1000_unbiased.lower": 0.48903448111204983, "n1000_unbiased.upper": 0.5509655188879502, "n1000_bias6.estimate": 0.52, "n1000_bias6.truth": 0.46, "n1000_bias6.margin": 0.030965518887950193, "n1000_bias6.lower": 0.48903448111204983, "n1000_bias6.upper": 0.5509655188879502}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w03", "r": "scripts/widget-parity-r.R#w03"},
+        "source": {"ojs_label": "fig-w03", "r_label": "fig-w03-print", "ojs_sha256": "608c167ff25d46666da6831368914864990f6817d081f618f000266ada781165", "r_sha256": "da436e8d9ea718c5d368178c272634305cc021a099a579319f51b3cf95a9153e"},
+        "claim_boundary": "Procjena, pretpostavljena istina i priblizna margina za tri tiskana stanja; ne tvrdi da margina obuhvaca sustavnu pristranost."
+      },
       "naziv": "Istraživač margine pogreške",
       "poglavlje": "chapters/03-kako-brojke-zavode.qmd",
       "naslovPoglavlja": "Kako brojke zavode",
@@ -48,6 +87,19 @@
     },
     {
       "id": "w04",
+      "parity": {
+        "classification": "exact",
+        "parameters": {"scenarios": [{"id": "compact", "extreme": 11, "spread": 1}, {"id": "extreme", "extreme": 70, "spread": 1}, {"id": "spread", "extreme": 11, "spread": 3}]},
+        "seed_policy": {"ojs": "none", "r": "none", "shared": "Deset vrijednosti i kvantili tipa 7 su deterministicki."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
+        "expected": {
+          "ojs": {"compact.mean": 11, "compact.median": 11, "compact.sd": 1.8257418583505538, "compact.iqr": 2, "extreme.mean": 16.9, "extreme.median": 11.5, "extreme.sd": 18.746555239118823, "extreme.iqr": 2.75, "spread.mean": 11, "spread.median": 11, "spread.sd": 5.477225575051661, "spread.iqr": 6},
+          "r": {"compact.mean": 11, "compact.median": 11, "compact.sd": 1.8257418583505538, "compact.iqr": 2, "extreme.mean": 16.9, "extreme.median": 11.5, "extreme.sd": 18.746555239118823, "extreme.iqr": 2.75, "spread.mean": 11, "spread.median": 11, "spread.sd": 5.477225575051661, "spread.iqr": 6}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w04", "r": "scripts/widget-parity-r.R#w04"},
+        "source": {"ojs_label": "fig-w04", "r_label": "fig-w04-print", "ojs_sha256": "96786e1d8ec6a86a6b7ba969b814e8eae5a0ec28e2979452c33cc8920514a7ba", "r_sha256": "32b3492289bb0e0e8d0aa3b0026e8cb225678f36d22359edef94162721399787"},
+        "claim_boundary": "Vrijednosti, sredina, medijan, uzoracka standardna devijacija i IQR za tri tiskana stanja; ne usporeduje slaganje tocaka."
+      },
       "naziv": "Oblikovanje distribucije",
       "poglavlje": "chapters/04-sazimanje-podataka.qmd",
       "naslovPoglavlja": "Sažimanje podataka",
@@ -62,6 +114,19 @@
     },
     {
       "id": "w05",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "default", "n": 72, "seed": 505, "noise_sd": 0.85, "group_shift": 0.8}]},
+        "seed_policy": {"ojs": "d3.randomLcg(505) i d3.randomNormal", "r": "set.seed(505) i rnorm", "shared": "Razliciti RNG-ovi daju razlicite tocke, ali isti model i fiksne zlatne sazetke po adapteru."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.overall_mean": 0.35, "default.overall_sd": 0.35, "default.group_a_mean": 0.4, "default.group_b_mean": 0.4, "default.group_difference": 0.45, "default.slope": 0.2}},
+        "expected": {
+          "ojs": {"default.overall_mean": 4.848658241294558, "default.overall_sd": 1.729298778863879, "default.group_a_mean": 4.396669556331336, "default.group_b_mean": 5.300646926257778, "default.group_difference": 0.9039773699264417, "default.slope": 0.5299682799158235},
+          "r": {"default.overall_mean": 4.857675415894299, "default.overall_sd": 2.03700005261924, "default.group_a_mean": 4.405291774263405, "default.group_b_mean": 5.3100590575251925, "default.group_difference": 0.9047672832617879, "default.slope": 0.6705542669005967}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w05", "r": "scripts/widget-parity-r.R#w05"},
+        "source": {"ojs_label": "fig-w05", "r_label": "fig-w05-print", "ojs_sha256": "3e1c7c2e2ff9da4c19b83130e782acccdcbb55b185417fed689538f196032aac", "r_sha256": "24ec2a586998042926d8f19f020ddb73fea25704e5f7ee6036c1d484bba9077c"},
+        "claim_boundary": "Isti simulacijski model, skupinske sredine, rasprsenost i pozitivan nagib; ne zahtijeva jednake retke, histogram ili jitter."
+      },
       "naziv": "Isti podaci, četiri grafa",
       "poglavlje": "chapters/05-vizualizacija.qmd",
       "naslovPoglavlja": "Vizualizacija kao argument",
@@ -77,6 +142,19 @@
     },
     {
       "id": "w06",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "a", "rho": -0.8, "n": 54, "seed": 606, "r_seed": 606}, {"id": "b", "rho": -0.35, "n": 54, "seed": 607, "r_seed": 606}, {"id": "c", "rho": 0.4, "n": 54, "seed": 608, "r_seed": 606}, {"id": "d", "rho": 0.75, "n": 54, "seed": 609, "r_seed": 606}]},
+        "seed_policy": {"ojs": "odvojeni d3.randomLcg(606+j) po oblaku", "r": "jedan set.seed(606) kroz cetiri oblaka", "shared": "Svaki adapter ima vlastite fiksne zlatne korelacije; usporeduju se smjer i priblizna jakost."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 0.2}},
+        "expected": {
+          "ojs": {"cloud_1.correlation": -0.8267702150883574, "cloud_2.correlation": -0.4172254838372746, "cloud_3.correlation": 0.5577954416189845, "cloud_4.correlation": 0.717768243009472},
+          "r": {"cloud_1.correlation": -0.8481563468979553, "cloud_2.correlation": -0.533683839737063, "cloud_3.correlation": 0.40057528730241643, "cloud_4.correlation": 0.7678317664817833}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w06", "r": "scripts/widget-parity-r.R#w06"},
+        "source": {"ojs_label": "fig-w06", "r_label": "fig-w06-print", "ojs_sha256": "7822ef12be8f1669140c12b95e752947b70518ca0b41a235b0e1de661da3757d", "r_sha256": "66daf690f07bbef4a5d21e94250b3fb836917b7c2c08d696d320b4f3ebf93ccf"},
+        "claim_boundary": "Pearsonove korelacije, njihovi predznaci i poredak cetiriju oblaka; ne zahtijeva jednake simulirane tocke."
+      },
       "naziv": "Pogodi korelaciju",
       "poglavlje": "chapters/06-povezanost.qmd",
       "naslovPoglavlja": "Povezanost",
@@ -92,6 +170,19 @@
     },
     {
       "id": "w07",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "n20", "probability": 0.3, "n": 20, "repetitions": 2000, "seed": 707, "r_seed": 707}, {"id": "n200", "probability": 0.3, "n": 200, "repetitions": 2000, "seed": 707, "r_seed": 707}]},
+        "seed_policy": {"ojs": "d3.randomLcg(707) se ponavlja za svaku postavku", "r": "jedan set.seed(707) za oba tiskana panela", "shared": "Fiksni zlatni sazeci po adapteru i distribucijska usporedba stopa."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"n20.mean": 0.02, "n20.sd": 0.02, "n20.q05": 0.05, "n20.q95": 0.05, "n200.mean": 0.02, "n200.sd": 0.02, "n200.q05": 0.05, "n200.q95": 0.05, "width_ratio": 0.5}},
+        "expected": {
+          "ojs": {"n20.mean": 0.3023750000000001, "n20.sd": 0.10195983169189458, "n20.q05": 0.15, "n20.q95": 0.45, "n200.mean": 0.3007699999999992, "n200.sd": 0.03243505999005216, "n200.q05": 0.245, "n200.q95": 0.355, "width_ratio": 3.143506801688225},
+          "r": {"n20.mean": 0.300825, "n20.sd": 0.10293622932988331, "n20.q05": 0.15, "n20.q95": 0.5, "n200.mean": 0.2995225, "n200.sd": 0.03233739858776076, "n200.q05": 0.245, "n200.q95": 0.355, "width_ratio": 3.183194500031403}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w07", "r": "scripts/widget-parity-r.R#w07"},
+        "source": {"ojs_label": "fig-w07", "r_label": "fig-w07-print", "ojs_sha256": "b3c8c9535631de2a033ed7c38dbf8ae6e35ac6c07af5006d4a37a386259f344a", "r_sha256": "c8affa17510183ec25fa17e78629afdd93045f09035114bc7d90e56524a90957"},
+        "claim_boundary": "Sredina, standardna devijacija i repovi ponovljenih stopa pri p=0,30 za n=20 i n=200; ne zahtijeva jednake binove ni nizove."
+      },
       "naziv": "Simulator novčića i A/B kampanje",
       "poglavlje": "chapters/07-vjerojatnost.qmd",
       "naslovPoglavlja": "Vjerojatnost koliko treba",
@@ -107,6 +198,19 @@
     },
     {
       "id": "w08",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "n5", "n": 5, "repetitions": 2000, "population_n": 3000, "r_population_n": 5000, "seed": 808, "r_seed": 808}, {"id": "n40", "n": 40, "repetitions": 2000, "population_n": 3000, "r_population_n": 5000, "seed": 808, "r_seed": 808}]},
+        "seed_policy": {"ojs": "d3.randomLcg(808), pomaknuta eksponencijalna populacija po postavci", "r": "set.seed(808), jedna beta(1,5) populacija i uzorkovanje sa zamjenom", "shared": "Razlicite skale i porodice su namjerne; usporeduju se samo standardizirano suzavanje i simetrizacija sredina."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"n5.se_ratio": 0.035, "n40.se_ratio": 0.02, "n5.center_offset_sd": 0.05, "n40.center_offset_sd": 0.05}, "invariants": [{"adapter": "both", "left": "n40.se_ratio", "operator": "<", "right": "n5.se_ratio"}, {"adapter": "both", "left": "skew_reduction", "operator": ">", "value": 0}]},
+        "expected": {
+          "ojs": {"n5.se_ratio": 0.4477199826351957, "n5.mean_skewness": 0.8804320862269747, "n5.center_offset_sd": 0.0088516507351962, "n40.se_ratio": 0.15904362265829916, "n40.mean_skewness": 0.26491835885459136, "n40.center_offset_sd": 0.0014767637495577248, "skew_reduction": 0.6155137273723833},
+          "r": {"n5.se_ratio": 0.4460265525515957, "n5.mean_skewness": 0.6898411595510223, "n5.center_offset_sd": -0.006219796905518747, "n40.se_ratio": 0.159953679839836, "n40.mean_skewness": 0.1950943857636262, "n40.center_offset_sd": 0.00432953291327263, "skew_reduction": 0.4947467737873961}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w08", "r": "scripts/widget-parity-r.R#w08"},
+        "source": {"ojs_label": "fig-w08", "r_label": "fig-w08-print", "ojs_sha256": "7a32bfa1ba8e36b9666b4467c09250197b6eee5a5ba7f82f659fd4986ba9aff5", "r_sha256": "f71b3ff33d4d950fa6d33bc37cc55b0b06b10b396c3fdb9c237439a01f3d878e"},
+        "claim_boundary": "Veci n daje uzu i simetricniju raspodjelu sredina na vlastitoj skali; ne tvrdi jednakost populacijskih distribucija, sredina, binova ili tocaka."
+      },
       "naziv": "CLT stroj",
       "poglavlje": "chapters/08-uzorkovanje.qmd",
       "naslovPoglavlja": "Uzorkovanje",
@@ -122,6 +226,19 @@
     },
     {
       "id": "w09",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "default", "n": 40, "critical": 1.96, "intervals": 50, "seed": 908, "r_seed": 909}]},
+        "seed_policy": {"ojs": "d3.randomLcg(908) i d3.randomNormal", "r": "set.seed(909) i rnorm", "shared": "Razlicita su sjemena dio izvora; zlatni broj pogodaka ostaje zaseban, a obuhvat se usporeduje distribucijski."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.coverage_rate": 0.15, "default.mean_width": 1e-10, "default.mean_estimate": 0.2}},
+        "expected": {
+          "ojs": {"default.coverage_rate": 0.96, "default.mean_width": 0.6198064213930023, "default.mean_estimate": -0.01783690823480316},
+          "r": {"default.coverage_rate": 0.92, "default.mean_width": 0.6198064213930023, "default.mean_estimate": -0.009883802777233178}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w09", "r": "scripts/widget-parity-r.R#w09"},
+        "source": {"ojs_label": "fig-w09", "r_label": "fig-w09-print", "ojs_sha256": "4fe8715a14b8cc5d0a6c35a132be1d6beb5d5e4ee65d10e80a6cd82b136b9bcd", "r_sha256": "84e40a86f0c333e602acfddb34d838f867d35a28e0d3f611b3beb8bbf0e93838"},
+        "claim_boundary": "Sirina i dugorocni obuhvat postupka za normalnu sredinu; ne zahtijeva isti broj promasenih intervala ni iste procjene."
+      },
       "naziv": "Hvatač intervala",
       "poglavlje": "chapters/09-procjena.qmd",
       "naslovPoglavlja": "Procjena",
@@ -137,6 +254,19 @@
     },
     {
       "id": "w10",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "default", "n": 60, "effect": 0.35, "threshold": 0.05, "repetitions": 4000, "seed": 1010}]},
+        "seed_policy": {"ojs": "d3.randomLcg(1010), d3.randomNormal i aproksimacija normalnog CDF-a", "r": "set.seed(1010), rnorm i pnorm", "shared": "Analiticke normalne p-vrijednosti imaju zasebne zlatne stope po adapteru."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.null_rejection_rate": 0.04, "default.effect_rejection_rate": 0.04, "default.null_p_mean": 0.04, "default.effect_p_mean": 0.04}},
+        "expected": {
+          "ojs": {"default.null_rejection_rate": 0.05325, "default.effect_rejection_rate": 0.48425, "default.null_p_mean": 0.4956705464020087, "default.effect_p_mean": 0.15944903402757546},
+          "r": {"default.null_rejection_rate": 0.051, "default.effect_rejection_rate": 0.47725, "default.null_p_mean": 0.5021236782281805, "default.effect_p_mean": 0.1577691778496513}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w10", "r": "scripts/widget-parity-r.R#w10"},
+        "source": {"ojs_label": "fig-w10", "r_label": "fig-w10-print", "ojs_sha256": "1be9f05ed29b917df73d1fdc2b9aa1d1ef322117a4d770258de404a413c25823", "r_sha256": "9ed0d121d86e08e8ede94bd6cc88016859043090ded3bd5800284d6534e66dba"},
+        "claim_boundary": "Raspodjela analitickih obostranih normalnih p-vrijednosti pod nulom i ucinkom; izricito ne obuhvaca permutacijski Monte Carlo postupak."
+      },
       "naziv": "Simulator p-vrijednosti",
       "poglavlje": "chapters/10-logika-testiranja.qmd",
       "naslovPoglavlja": "Logika testiranja",
@@ -152,6 +282,19 @@
     },
     {
       "id": "w11",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"effects": [0.2, 0.4, 0.6], "report_n": [40, 80, 160, 300], "threshold": 0.05, "repetitions": 2000, "seed": 1111, "r_seed": 1111},
+        "seed_policy": {"ojs": "d3.randomLcg(1111) se ponavlja za svaku krivulju i ukljucuje n=10", "r": "jedan set.seed(1111) kroz d=0,2/0,4/0,6 i n=20..300", "shared": "Svaka krivulja ima zasebne zlatne Monte Carlo tocke; usporeduje se snaga na unaprijed zadanim n."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*.power": 0.06, "d0.2.first_n_80": 0, "d0.4.first_n_80": 30, "d0.6.first_n_80": 30}, "invariants": [{"adapter": "both", "left": "d0.6.n80.power", "operator": ">", "right": "d0.4.n80.power"}, {"adapter": "both", "left": "d0.4.n80.power", "operator": ">", "right": "d0.2.n80.power"}]},
+        "expected": {
+          "ojs": {"d0.2.n40.power": 0.1475, "d0.2.n80.power": 0.248, "d0.2.n160.power": 0.4385, "d0.2.n300.power": 0.691, "d0.2.first_n_80": null, "d0.4.n40.power": 0.4375, "d0.4.n80.power": 0.7315, "d0.4.n160.power": 0.9455, "d0.4.n300.power": 0.9985, "d0.4.first_n_80": 100, "d0.6.n40.power": 0.7605, "d0.6.n80.power": 0.9635, "d0.6.n160.power": 1, "d0.6.n300.power": 1, "d0.6.first_n_80": 50},
+          "r": {"d0.2.n40.power": 0.1545, "d0.2.n80.power": 0.252, "d0.2.n160.power": 0.429, "d0.2.n300.power": 0.685, "d0.2.first_n_80": null, "d0.4.n40.power": 0.425, "d0.4.n80.power": 0.724, "d0.4.n160.power": 0.9455, "d0.4.n300.power": 0.9985, "d0.4.first_n_80": 100, "d0.6.n40.power": 0.7655, "d0.6.n80.power": 0.9705, "d0.6.n160.power": 1, "d0.6.n300.power": 1, "d0.6.first_n_80": 50}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w11", "r": "scripts/widget-parity-r.R#w11"},
+        "source": {"ojs_label": "fig-w11", "r_label": "fig-w11-print", "ojs_sha256": "2d8ecb942b4ed41b34aa009dad2a2ef2b7aff75ab53c684a6f9d02c7c7c1a816", "r_sha256": "a9f157e66b4ef467064964a4bc3938ad4c89842216eecee7b8ec820c0e7a8dd5"},
+        "claim_boundary": "Idealizirana obostrana z-snaga raste s n i ucinkom pri poznatoj varijabilnosti; ne zahtijeva iste Monte Carlo putanje niti generalizira na druge testove."
+      },
       "naziv": "Istraživač snage",
       "poglavlje": "chapters/11-velicina-ucinka-i-snaga.qmd",
       "naslovPoglavlja": "Veličina učinka i snaga",
@@ -167,6 +310,19 @@
     },
     {
       "id": "w12",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"paths": [1, 12, 48], "repetitions": 5000, "seed": 1212, "r_seed": 1212},
+        "seed_policy": {"ojs": "d3.randomLcg(1212) se ponavlja za svaki broj putova", "r": "jedan set.seed(1212) kroz 1, 12 i 48 putova", "shared": "Zasebne zlatne stope po adapteru; usporedba se odnosi na najmanji od neovisnih uniformnih p-putova."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 0.04}, "invariants": [{"adapter": "both", "left": "paths48.nominal_rate", "operator": ">", "right": "paths12.nominal_rate"}, {"adapter": "both", "left": "paths12.nominal_rate", "operator": ">", "right": "paths1.nominal_rate"}]},
+        "expected": {
+          "ojs": {"paths1.nominal_rate": 0.0462, "paths1.corrected_rate": 0.0462, "paths1.cdf_001": 0.0096, "paths12.nominal_rate": 0.4524, "paths12.corrected_rate": 0.0514, "paths12.cdf_001": 0.1114, "paths48.nominal_rate": 0.9202, "paths48.corrected_rate": 0.0486, "paths48.cdf_001": 0.3792},
+          "r": {"paths1.nominal_rate": 0.0498, "paths1.corrected_rate": 0.0498, "paths1.cdf_001": 0.0102, "paths12.nominal_rate": 0.4656, "paths12.corrected_rate": 0.0476, "paths12.cdf_001": 0.1098, "paths48.nominal_rate": 0.9146, "paths48.corrected_rate": 0.047, "paths48.cdf_001": 0.3818}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w12", "r": "scripts/widget-parity-r.R#w12"},
+        "source": {"ojs_label": "fig-w12", "r_label": "fig-w12-print", "ojs_sha256": "95efce839997b171a757ea066e81aec1d5a6d8c8daa9a79e298996a2f8c0ae6f", "r_sha256": "a8f1a60963d27ffcf82fccdfa82f31421db46eae39ed7c8f4052057e92536690"},
+        "claim_boundary": "Vjerojatnost barem jednog malog rezultata raste s brojem neovisnih analitickih putova i Bonferronijev prag je 0,05/m; ne opisuje ovisne stvarne putove."
+      },
       "naziv": "Pješčanik p-hakiranja",
       "poglavlje": "chapters/12-kriza-i-obnova.qmd",
       "naslovPoglavlja": "Kriza i obnova",
@@ -182,6 +338,19 @@
     },
     {
       "id": "w13",
+      "parity": {
+        "classification": "exact",
+        "parameters": {"scenarios": [{"id": "none", "n": 80, "shift_percent": 0}, {"id": "moderate", "n": 80, "shift_percent": 45}, {"id": "large", "n": 80, "shift_percent": 80}]},
+        "seed_policy": {"ojs": "none", "r": "none", "shared": "Ocekivane i opazene frekvencije te doprinosi su deterministicki."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
+        "expected": {
+          "ojs": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "moderate.expected": 40, "moderate.shift": 18, "moderate.cell_contribution": 8.1, "moderate.chi_square": 32.4, "moderate.cramers_v": 0.45, "large.expected": 40, "large.shift": 32, "large.cell_contribution": 25.6, "large.chi_square": 102.4, "large.cramers_v": 0.8},
+          "r": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "moderate.expected": 40, "moderate.shift": 18, "moderate.cell_contribution": 8.1, "moderate.chi_square": 32.4, "moderate.cramers_v": 0.45, "large.expected": 40, "large.shift": 32, "large.cell_contribution": 25.6, "large.chi_square": 102.4, "large.cramers_v": 0.8}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w13", "r": "scripts/widget-parity-r.R#w13"},
+        "source": {"ojs_label": "fig-w13", "r_label": "fig-w13-print", "ojs_sha256": "f9e17cc755eeae33d308aa935c55aa5eb0583fdf6a62ab8b50c89f718dba8e07", "r_sha256": "754d61937199aa8432015b8e856ed52fd505cbc725c0b31a8438d6dda26ec4dc"},
+        "claim_boundary": "Frekvencije, doprinosi celija, hi-kvadrat i Cramerovo V za tri tiskana pomaka uz jednake rubove; ne usporeduje polozaj oznaka."
+      },
       "naziv": "Očekivano i opaženo",
       "poglavlje": "chapters/13-kategoricki-podaci.qmd",
       "naslovPoglavlja": "Kategorički podaci",
@@ -197,6 +366,19 @@
     },
     {
       "id": "w14",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "independent", "design": "independent", "n": 50, "difference": 5, "sd": 10}, {"id": "paired", "design": "paired", "n": 50, "difference": 5, "sd": 10}], "correlation": 0.65, "seed": 1414, "r_seed": 1414, "ojs_repetitions": 1500, "r_repetitions": 4000},
+        "seed_policy": {"ojs": "d3.randomLcg(1414) se ponavlja po dizajnu nakon jednog prikazanog uzorka", "r": "jedan set.seed(1414) za 4000 neovisnih pa 4000 uparenih procjena", "shared": "Teorijske standardne pogreske su tocne; simulirane sredine i SD imaju zasebne zlatne vrijednosti."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"independent.theoretical_se": 1e-10, "paired.theoretical_se": 1e-10, "independent.estimate_mean": 0.15, "paired.estimate_mean": 0.15, "independent.estimate_sd": 0.15, "paired.estimate_sd": 0.15, "se_ratio": 1e-10}, "invariants": [{"adapter": "both", "left": "paired.theoretical_se", "operator": "<", "right": "independent.theoretical_se"}]},
+        "expected": {
+          "ojs": {"independent.theoretical_se": 2, "independent.estimate_mean": 4.972878241219766, "independent.estimate_sd": 2.031018899064352, "paired.theoretical_se": 1.1832159566199232, "paired.estimate_mean": 4.983954551119823, "paired.estimate_sd": 1.2015669847847852, "se_ratio": 0.5916079783099616},
+          "r": {"independent.theoretical_se": 2, "independent.estimate_mean": 5.020459160869459, "independent.estimate_sd": 2.0485143311696268, "paired.theoretical_se": 1.1832159566199232, "paired.estimate_mean": 5.002823165202756, "paired.estimate_sd": 1.1691824636539214, "se_ratio": 0.5916079783099616}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w14", "r": "scripts/widget-parity-r.R#w14"},
+        "source": {"ojs_label": "fig-w14", "r_label": "fig-w14-print", "ojs_sha256": "53538739b69065e7c489278090ec2284ebabc12e2f05797d49c937c995a7289d", "r_sha256": "4326e315a8409b1d0ea2f3577ce57773aba1ea89076853aa1b60c79b691f6db8"},
+        "claim_boundary": "Oba dizajna ciljaju razliku 5, a uparivanje pri korelaciji 0,65 suzava raspodjelu procjene; ne zahtijeva iste uzorke, binove ili broj ponavljanja."
+      },
       "naziv": "Uzorkivač dviju grupa",
       "poglavlje": "chapters/14-dvije-grupe.qmd",
       "naslovPoglavlja": "Uspoređivanje dviju grupa",
@@ -212,6 +394,19 @@
     },
     {
       "id": "w15",
+      "parity": {
+        "classification": "exact",
+        "parameters": {"n_per_group": 24, "scenarios": [{"id": "equal", "means": [52, 52, 52], "sd": 6}, {"id": "separated", "means": [46, 52, 58], "sd": 6}, {"id": "more_within", "means": [46, 52, 58], "sd": 11}]},
+        "seed_policy": {"ojs": "d3.randomLcg(1515), ali se svaka skupina standardizira na tocnu sredinu i uzoracki SD", "r": "set.seed(1515), ali se svaka skupina standardizira na tocnu sredinu i uzoracki SD", "shared": "Koordinate tocaka se razlikuju; MS i F su deterministicki nakon standardizacije."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
+        "expected": {
+          "ojs": {"equal.grand_mean": 52, "equal.ms_between": 0, "equal.ms_within": 36, "equal.f_ratio": 0, "separated.grand_mean": 52, "separated.ms_between": 864, "separated.ms_within": 36, "separated.f_ratio": 24, "more_within.grand_mean": 52, "more_within.ms_between": 864, "more_within.ms_within": 121, "more_within.f_ratio": 7.140495867768595},
+          "r": {"equal.grand_mean": 52, "equal.ms_between": 0, "equal.ms_within": 36, "equal.f_ratio": 0, "separated.grand_mean": 52, "separated.ms_between": 864, "separated.ms_within": 36, "separated.f_ratio": 24, "more_within.grand_mean": 52, "more_within.ms_between": 864, "more_within.ms_within": 121, "more_within.f_ratio": 7.140495867768595}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w15", "r": "scripts/widget-parity-r.R#w15"},
+        "source": {"ojs_label": "fig-w15", "r_label": "fig-w15-print", "ojs_sha256": "07eac0de4d01fdd78928a2446bf872df6095af5f7ba4695f3d5270010a473801", "r_sha256": "f5e112f2031ad31d60a6a1ccef0f49ffcac8d4a13bd2f1a2d65041266d2032ec"},
+        "claim_boundary": "Skupne sredine, zajednicka sredina, MS izmedu, MS unutar i F za tri tiskana stanja; ne zahtijeva jednake standardizirane tocke ni jitter."
+      },
       "naziv": "Dekompozicija varijance",
       "poglavlje": "chapters/15-vise-grupa.qmd",
       "naslovPoglavlja": "Uspoređivanje više grupa",
@@ -226,6 +421,19 @@
     },
     {
       "id": "w16",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "default", "n": 52, "seed": 1616, "user_intercept": 10, "user_slope": 4.5}]},
+        "seed_policy": {"ojs": "d3.randomLcg(1616) i isprepleteni normalni izvlaci po jedinici", "r": "set.seed(1616) i tri uzastopna vektora rnorm", "shared": "Razliciti redoslijed i RNG daju razlicite podatke; svaki adapter ima zlatne koeficijente i SSE."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.aggregate_intercept": 3.0, "default.aggregate_slope": 0.6, "default.adjusted_slope": 0.6, "default.user_to_minimum_ratio": 0.5}, "invariants": [{"adapter": "both", "left": "default.user_sse", "operator": ">=", "right": "default.sse_minimum"}, {"adapter": "both", "left": "default.aggregate_slope", "operator": ">", "right": "default.adjusted_slope"}]},
+        "expected": {
+          "ojs": {"default.aggregate_intercept": 8.6871215720568, "default.aggregate_slope": 4.797800043204114, "default.adjusted_slope": 2.0417289469737767, "default.sse_minimum": 1540.0663961918815, "default.user_sse": 1562.0323507483897, "default.user_to_minimum_ratio": 1.0142629919143897},
+          "r": {"default.aggregate_intercept": 9.0983634210344, "default.aggregate_slope": 4.587964445158936, "default.adjusted_slope": 2.0200791450317213, "default.sse_minimum": 2561.139633487693, "default.user_sse": 2575.9064684624595, "default.user_to_minimum_ratio": 1.005765728186658}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w16", "r": "scripts/widget-parity-r.R#w16"},
+        "source": {"ojs_label": "fig-w16", "r_label": "fig-w16-print", "ojs_sha256": "70ecc3c90ff987b984079e2e62d03a140d758211c8b320df4fee7205f4af8c98", "r_sha256": "be5d7b9ab11db9d1b1e872365ae7f92d95043cc88b53a0d5785453fd9a883af2"},
+        "claim_boundary": "Zbirni nagib je pozitivniji od prilagodenog, a pravac najmanjih kvadrata minimizira SSE u svakom simuliranom skupu; ne zahtijeva jednake tocke ili sirove SSE-ove medu izdanjima."
+      },
       "naziv": "Regresijski pravac",
       "poglavlje": "chapters/16-regresija.qmd",
       "naslovPoglavlja": "Regresija, opći okvir",
@@ -240,6 +448,19 @@
     },
     {
       "id": "w17",
+      "parity": {
+        "classification": "distributional",
+        "parameters": {"scenarios": [{"id": "default", "threshold": 0.6, "base_rate_a": 0.2, "base_rate_b": 0.45, "n_per_class": 6000, "seed": 1717}]},
+        "seed_policy": {"ojs": "d3.randomLcg(1717), d3.randomNormal i ogranicenje na [0,1]", "r": "set.seed(1717), rnorm i ogranicenje na [0,1]", "shared": "Uvjetne stope imaju zasebne zlatne simulacije; izvedena mjerila usporeduju se distribucijski."},
+        "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 0.03}, "invariants": [{"adapter": "both", "left": "default.group_b.ppv", "operator": ">", "right": "default.group_a.ppv"}]},
+        "expected": {
+          "ojs": {"default.fpr": 0.051333333333333335, "default.fnr": 0.2966666666666667, "default.group_a.ppv": 0.7740278796771827, "default.group_a.accuracy": 0.8996000000000001, "default.group_b.ppv": 0.918100947592342, "default.group_b.accuracy": 0.8382666666666667},
+          "r": {"default.fpr": 0.0495, "default.fnr": 0.28883333333333333, "default.group_a.ppv": 0.782218148487626, "default.group_a.accuracy": 0.9026333333333334, "default.group_b.ppv": 0.921598272138229, "default.group_b.accuracy": 0.8428000000000002}
+        },
+        "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w17", "r": "scripts/widget-parity-r.R#w17"},
+        "source": {"ojs_label": "fig-w17", "r_label": "fig-w17-print", "ojs_sha256": "027dd2572a262882cbd4f5da59d9ce49ecfa40306df1e2931d1baafe450f3b6f", "r_sha256": "8de0402c61d750a8e0ae05dbc9ff128875c0e759e59588a72188ba9fd6d8e235"},
+        "claim_boundary": "Jednake uvjetne FPR/FNR stope po skupini uz zajednicki prag te razliciti PPV i tocnost zbog temeljnih stopa; recorded reference outcome nije nepogresiva istina."
+      },
       "naziv": "Istraživač pravednosti",
       "poglavlje": "chapters/17-doba-algoritama.qmd",
       "naslovPoglavlja": "Statistika u doba algoritama",

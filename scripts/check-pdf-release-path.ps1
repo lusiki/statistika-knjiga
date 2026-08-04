@@ -81,20 +81,7 @@ function New-Config([bool]$Valid) {
   if (-not $Valid) {
     return "project:`n  type: book`n"
   }
-  $validConfig = @'
-project:
-  type: book
-book:
-  references: references.qmd
-  appendices:
-    - dodaci/a-praktikum.qmd
-    - dodaci/b-jamovi.qmd
-    - dodaci/c-katalog-podataka.qmd
-    - dodaci/d-koji-test.qmd
-    - dodaci/e-rjecnik.qmd
-    - dodaci/f-ai-protokol.qmd
-'@
-  return $validConfig + "`n"
+  return [System.IO.File]::ReadAllText((Join-Path $root "_quarto.yml"), $utf8)
 }
 
 function Invoke-Fixture(
@@ -106,7 +93,26 @@ function Invoke-Fixture(
   $caseRoot = Join-Path $fixtureRoot $Name
   $caseScripts = Join-Path $caseRoot "scripts"
   New-Item -ItemType Directory -Force -Path $caseScripts | Out-Null
+  New-Item -ItemType Directory -Force -Path (Join-Path $caseRoot "styles") | Out-Null
+  New-Item -ItemType Directory -Force -Path (Join-Path $caseRoot ".github\workflows") | Out-Null
   Copy-Item -LiteralPath $wrapper -Destination (Join-Path $caseScripts "render-book-pdf.ps1")
+  Copy-Item -LiteralPath (Join-Path $root "scripts\check-book-inventory.py") -Destination (Join-Path $caseScripts "check-book-inventory.py")
+  Copy-Item -LiteralPath (Join-Path $root "scripts\book_inventory.py") -Destination (Join-Path $caseScripts "book_inventory.py")
+  foreach ($consumer in @('audit-rendered-html.js', 'check-pdf-release-path.ps1', 'check-rendered-html.py', 'embed-404-assets.py', 'render-book-docx.ps1')) {
+    Copy-Item -LiteralPath (Join-Path $root "scripts\$consumer") -Destination (Join-Path $caseScripts $consumer)
+  }
+  Copy-Item -LiteralPath $workflow -Destination (Join-Path $caseRoot ".github\workflows\publish.yml")
+  Get-ChildItem -LiteralPath $root -Filter "_quarto-*.yml" -File | ForEach-Object {
+    Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $caseRoot $_.Name)
+  }
+  $caseConfig = Join-Path $caseRoot "config"
+  New-Item -ItemType Directory -Force -Path $caseConfig | Out-Null
+  Copy-Item -LiteralPath (Join-Path $root "config\book-inventory.json") -Destination (Join-Path $caseConfig "book-inventory.json")
+  Copy-Item -LiteralPath (Join-Path $root "styles\book-include.html") -Destination (Join-Path $caseRoot "styles\book-include.html")
+  $inventory = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $caseConfig "book-inventory.json") | ConvertFrom-Json
+  foreach ($page in $inventory.pages) {
+    Write-Text (Join-Path $caseRoot $page.source) "---`ntitle: Fixture`n---`n"
+  }
   Write-Text (Join-Path $caseRoot "_quarto.yml") (New-Config $ValidConfig)
   Write-Text (Join-Path $caseRoot "pdf\Statistika.pdf") "STALE_SOURCE"
   Write-Text (Join-Path $caseRoot "docs\pdf\Statistika.pdf") "STALE_SERVED"

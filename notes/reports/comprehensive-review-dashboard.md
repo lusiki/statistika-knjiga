@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P1C-BROWSER
-next_permitted_packet: P1C-PARITY
+last_completed_packet: G-A2a
+next_permitted_packet: P2-CLAIMS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 35
+forward_handoffs: 36
 last_updated: "2026-08-04"
 ---
 
@@ -29,22 +29,133 @@ stop and repair the control state before editing book content.
 | Gate A1b | Accepted: D02 Chapter 14 correction specification; reviewer Luka Sikic; 2026-08-03 |
 | Gate A1c | Accepted as amended: minimise Navarro reliance; D08 and D12 unchanged; owner Luka Sikic; 2026-08-03 |
 | Gate A1d | Accepted as recommended: pre-release governance mechanism; release, archive, and errata owner Luka Sikic; 2026-08-03; no external-action authority |
+| Gate A2a | Accepted as recommended: claim map, audit questions, lifecycle, seven threads, four activities, and data-design principles; 70/20/10 diagnostic only; owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P1C-BROWSER` |
-| Next permitted packet | `P1C-PARITY` |
-| Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 57 accepted, 5 deferred with reason, 309 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 33 accepted and 155 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Last completed packet | `G-A2a` |
+| Next permitted packet | `P2-CLAIMS` |
+| Review parents | 32 ratified; 4 accepted |
+| Atomic child inventory | Complete: 371 stable children; 77 accepted, 5 deferred with reason, 289 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 37 accepted and 151 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
-| Invalidated or reopened work | None |
-| Failed gates | None in `P1C-BROWSER`; the pinned smoke audit passed its clean locked positive path and deliberate missing-route failure. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest remains recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
+| Open outside asks | 72 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, and the G-A2a claim-system ask are `done`; 0 external messages sent |
+| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
+| Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2a closeout
+
+- No incoming handoff targeted `G-A2a`; the complete handoff ledger was read
+  before the decision was recorded.
+- Author and editor Luka Sikic accepted the complete governing system as
+  recommended on 2026-08-04, in one bounded disposition covering all 22 blocked
+  items. No component amendment was requested.
+- The book adopts six claim dimensions — description, association,
+  generalisation, prediction, causation, decision — with population reach
+  independent of claim type; six recurring audit questions; one stable
+  nine-stage lifecycle with ratified part-level roles; and seven
+  plant/develop/harvest threads, including the seventh communication thread
+  that requires the reader to make a claim rather than only judge one.
+- Statistics, data science, machine learning, and AI systems are defined once by
+  their governing questions. Data science remains a delivery mechanism for the
+  four promises and never becomes a fifth. The approximate 70/20/10 attention
+  split is recorded as an editorial diagnostic only and may not be cited by any
+  later packet to require or refuse content.
+- The empirical portfolio is organised by data-generating design across eight
+  designs rather than by disciplinary label or dataset count, with text priority
+  over the optional World Bank extension. The four evidence objects,
+  ordinary-practice ethics, the honest-sentence standard, sensitivity as primary
+  plus one defensible alternative, and the poll-reading card are also accepted.
+- The additions justify no new numbered chapter, central widget, or callout
+  type. A thread receives a seed, one substantial harvest, and later retrieval.
+- `OA-G-A2A-CLAIM-SYSTEM` is `done`; no external message was sent and no
+  broader authority was inferred.
+- `H-G-A2A-001` carries the accepted system and its exclusions to `P2-CLAIMS`
+  at its `before_start` gate. No chapter prose, registry, spine, terminology,
+  assessment contract, data package, or generated artifact changed, and
+  `P2-CLAIMS` was not started.
+
+The accepted decision source state is
+`conversation:G-A2a-governing-system-approved-2026-08-04-Luka-Sikic`.
+
+## P1-VERIFY closeout
+
+- The accepted gate is tied to commit
+  `89229759ed61ce3a3bced127496b731dfdd7cf73` and tree
+  `59bbab72e2a10ea8bbd9fc5d9e95cd724a423568`. Its full twelve-row matrix is
+  `notes/reports/p1-phase1-verification-2026-08-04.md`.
+- The first pass exposed one exact source mismatch instead of hiding it:
+  `P1A-C02` certified `ccae632a…`, while the current Chapter 2 blob was
+  `908780ee…`.
+- Luka Sikic authorised an evidence-only reopening of `P1A-C02` and
+  `P1A-METHODS`, with no prose changes. A read-only `critic_methods` reread the
+  complete current blob before and after, scored correctness, assumptions,
+  interpretation and precision 5/5, and reported no fatal, major or minor
+  finding. Removing the Navarro attribution created no methodological gap.
+- `notes/reports/p1a-c02-methods-revalidation-2026-08-04.md` and
+  `notes/reports/p1a-methods-revalidation-2026-08-04.md` bind the refreshed
+  receipt and twelve-row aggregate to the current state. All other P1A chapter
+  blobs still equal their original evidence.
+- All twelve Phase 1 prerequisites now pass independently. Known later debts
+  and all external-authority boundaries remain visible and unchanged.
+- The canonical workflow validator passes with no active packet and `G-A2a`
+  next. Both required in-memory negative fixtures fail for their exact injected
+  defects. No new downstream handoff is needed because `G-A2a` already depends
+  on the accepted gate.
+
+## P1C-INVENTORY closeout
+
+- Commit `8731a9d` introduces `config/book-inventory.json` as the sole
+  sanctioned source for 37 pages, 19 chapter units, appendices A–F, navigation,
+  the root alias and the empty solution-route inventory. No route was created
+  or removed.
+- `_quarto.yml` and `styles/book-include.html` carry marked generated
+  projections. Profiles inherit them; rendered-HTML checks, the browser audit,
+  portable-page handling and PDF/DOCX wrappers consume the same source or its
+  checked projection.
+- The default command fails on any missing, extra, reordered or stale path.
+  The explicit `--write` command alone refreshes projections. Quarto pre-render,
+  both wrappers and the publish workflow run the blocking positive gate; the
+  workflow also runs all negative fixtures before render and Pages setup.
+- A detached worktree at `8731a9d` restored the exact R, Node, npm, Playwright
+  and Chromium locks into fresh empty paths. The 37-page positive path, a
+  source-driven temporary addition, missing/extra/reordered regressions, PDF
+  integration and JavaScript syntax checks all behaved as declared, and the
+  worktree remained clean without render or publication.
+- No new future-relevant effect was found. Existing `P1-VERIFY`, `P5-G`,
+  `H-P1C-EXPORT-001` and `H-P1C-EXPORT-002` already own every downstream
+  consequence, so no duplicate handoff was created and no later D10 decision
+  was resolved.
+
+The accepted inventory source state is
+`inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499`;
+the durable evidence is
+`notes/reports/p1c-book-inventory-2026-08-04.md`.
+
+## P1C-PARITY closeout
+
+- No applicable incoming handoff targeted `P1C-PARITY`; the complete handoff
+  ledger was read before packet claim.
+- Commit `79824e0524ec542b0ec1a8ae0610f1d4140d4053` records six exact and eleven
+  distributional OJS/R pairs with parameters, seed policy, tolerances,
+  adapter-specific golden values, adapters, source hashes, and bounded claims.
+- A fresh detached worktree restored the accepted R, Node, npm, Playwright, and
+  Chromium locks into empty paths. All 17 pairs passed, the deliberate
+  in-memory expected-value regression returned exit 1, and the worktree stayed
+  clean without rendering or publishing.
+- The parity state is
+  `parity:sha256-f22f3df467e42c14d2954820e1a7de39df67c374565123c418c366a0eb51a803`;
+  durable evidence is in
+  `notes/reports/p1c-widget-parity-2026-08-04.md`.
+- `R18` is accepted because all required browser and parity children are now
+  accepted. No new outgoing handoff is needed: `P1-VERIFY` already depends on
+  this packet, and later source drift is blocked by the workflow and hashes.
+- Inventory, catalogue, assessment, chapter, export, general browser,
+  release-candidate, upload, deployment, and publication work did not occur.
 
 ## P0-REGISTER closeout
 
@@ -887,6 +998,28 @@ the durable evidence is
 - P7-FREEZE and P8-META must repair and clean-check the pre-existing
   `_quarto.yml` provenance checksum mismatch; final metadata may not introduce
   a competing source or worktree-specific line-ending hash.
+- `scripts/check-concepts.py` moved to blob `a1f78624…` and new
+  `scripts/r_env.py` was added in out-of-packet fix commit `13dee63`. The
+  concept check ran `build-concept-graph.R` in a temporary working directory,
+  where the checkout `.Rprofile` never loads and renv therefore never
+  activates, so the subprocess lost the locked library and failed on missing
+  `yaml` despite a correct `renv.lock`. The same defect silently satisfied the
+  concept negative fixture, which asserts only a nonzero exit, so the injected
+  duplicate definition went untested from `P1C-INTEGRITY` closeout until this
+  fix. The accepted `integrity:sha256-8699a3b2…` state and the seven-lane
+  evidence in `notes/reports/p1c-integrity-gates-2026-08-04.md` predate the
+  repair. P7-FREEZE must record the then-current blobs, and any later packet
+  re-proving the integrity lanes must treat the pre-fix concept-fixture result
+  as unproven rather than passed.
+- `.github/workflows/publish.yml` moved from blob `1665d320…` to `8483793c…`
+  in out-of-packet CI commit `1bc1963`, which installs `librsvg2-dev` for the
+  pinned `rsvg` source build and raises the checkout action to v5. The
+  `P1C-INVENTORY` manifest and its accepted `inventory:sha256-1cc773c5…` state
+  remain true of commit `8731a9d` but no longer describe the live file, and the
+  `P1C-PARITY` record already carried an older blob. P7-FREEZE must record the
+  then-current blob rather than any of these historical values, and P1C's
+  workflow-behaviour claims should be reconfirmed against the amended file
+  before the release-candidate provenance record is populated.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -927,22 +1060,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-PARITY. Fully read its
-release-engineering contract, all register items assigned to P1C-PARITY, the
-accepted P1A methods evidence, data/widgets.json, scripts/check-widgets.py,
-every current OJS widget and R print twin, their shared data/seed sources, and
-the current publish workflow and locked dependency contract.
+Execute only the dashboard's next permitted packet, P2-CLAIMS. Acknowledge the
+required incoming handoff H-G-A2A-001 at its before_start gate before the first
+substantive edit and consume it with an exact disposition and evidence before
+closeout. Fully read the accepted G-A2a decision record, its 22 governed items,
+the shared_architecture packet contract, and the review sections those items
+anchor to.
 
-Implement only a blocking golden-value parity framework and all 17 exact or
-distributional pair records. For each pair record parameters, seed policy,
-tolerance, expected values, adapters, and the claim boundary; do not change
-chapter prose or widget behavior merely to force equality. Keep commands
-independently callable and do not absorb inventory, catalogue, assessment,
-chapter, export, general browser, or release-candidate work.
+Write the canonical claim, lifecycle, thread, ethics, and data-science
+architecture registries to exactly the accepted system. Record explicit
+plant/develop/harvest roles and exclusions for all seven threads, keep the
+70/20/10 attention budget marked non-binding wherever it is represented, and
+preserve the scope-control rule that a thread receives a seed, one substantial
+harvest, and later retrieval rather than repeated mini-lectures.
 
-Prove the positive 17-pair path and a deliberate seeded or expected-value
-regression from a clean locked environment without publishing. Record every
-future effect or an explicit none, run the workflow validator and both required
-negative fixtures, then stop. Do not start P1C-INVENTORY, P1-VERIFY, or any
-later packet.
+Do not edit chapter prose, ratify a chapter spine, select or promote a data
+package, settle the assessment contract, or resolve Chapter 17 prerequisites;
+each retains its own later gate. Close only P2-CLAIMS with structured evidence,
+record all future effects or an explicit none, run the workflow validator and
+both required negative fixtures, then stop.
 ```

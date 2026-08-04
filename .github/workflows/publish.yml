@@ -25,7 +25,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      # rsvg links against the system librsvg2 on Linux; the CRAN binaries that
+      # bundle it exist only for Windows/macOS. Without this the renv restore
+      # dies with "error testing if 'rsvg' can be loaded".
+      - name: Install system libraries required by pinned R packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends librsvg2-dev
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -56,6 +64,12 @@ jobs:
       - name: Install pinned Playwright Chromium
         run: node node_modules/playwright/cli.js install --with-deps chromium
 
+      - name: Check canonical page, appendix, navigation, and solution routes
+        run: python scripts/check-book-inventory.py
+
+      - name: Prove book inventory drift fails closed
+        run: python scripts/check-book-inventory-fixtures.py
+
       - name: Check design token sync (design-tokens.yml vs SCSS vs LaTeX)
         run: python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R
 
@@ -79,6 +93,12 @@ jobs:
 
       - name: Check widget source contracts
         run: python scripts/check-widgets.py .
+
+      - name: Check all OJS and print-twin golden pairs
+        run: python scripts/check-widget-parity.py .
+
+      - name: Prove widget parity fails closed
+        run: python scripts/check-widget-parity-fixtures.py
 
       - name: Check PDF wrapper failure paths
         run: pwsh -NoProfile -File scripts/check-pdf-release-path.ps1

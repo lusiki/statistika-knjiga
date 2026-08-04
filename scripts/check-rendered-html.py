@@ -6,51 +6,11 @@ import re
 import sys
 from pathlib import Path
 
+sys.dont_write_bytecode = True
 
-ROOT_PAGES = [
-    "404.html",
-    "index.html",
-    "interakcije.html",
-    "podaci.html",
-    "pojmovnik.html",
-    "predavanja.html",
-    "raspored.html",
-    "references.html",
-    "resursi.html",
-    "silabus.html",
-    "uci-s-ai.html",
-]
+from book_inventory import appendix_pages, chapter_pages, load_inventory
 
-CHAPTERS = [
-    "00-predgovor",
-    "01-zasto-statistika",
-    "02-mjerenje-i-dizajn",
-    "03-kako-brojke-zavode",
-    "04-sazimanje-podataka",
-    "05-vizualizacija",
-    "06-povezanost",
-    "07-vjerojatnost",
-    "08-uzorkovanje",
-    "09-procjena",
-    "10-logika-testiranja",
-    "11-velicina-ucinka-i-snaga",
-    "12-kriza-i-obnova",
-    "13-kategoricki-podaci",
-    "14-dvije-grupe",
-    "15-vise-grupa",
-    "16-regresija",
-    "17-doba-algoritama",
-    "18-vase-prvo-istrazivanje",
-]
-
-APPENDICES = [
-    "a-praktikum",
-    "b-jamovi",
-    "c-katalog-podataka",
-    "d-koji-test",
-    "e-rjecnik",
-    "f-ai-protokol",
-]
+CHECKOUT_ROOT = Path(__file__).resolve().parents[1]
 
 STALE_MARKERS = [
     "STATUS: kostur",
@@ -61,12 +21,9 @@ STALE_MARKERS = [
 
 
 def main() -> int:
+    inventory = load_inventory(CHECKOUT_ROOT)
     output = Path(sys.argv[1] if len(sys.argv) > 1 else "docs").resolve()
-    expected = (
-        [output / page for page in ROOT_PAGES]
-        + [output / "chapters" / f"{name}.html" for name in CHAPTERS]
-        + [output / "dodaci" / f"{name}.html" for name in APPENDICES]
-    )
+    expected = [output / Path(page["output"]) for page in inventory["pages"]]
 
     errors: list[str] = []
     for path in expected:
@@ -81,16 +38,20 @@ def main() -> int:
             if marker in html:
                 errors.append(f"{path}: pronađen zastarjeli marker {marker!r}")
 
-    for number, name in enumerate(CHAPTERS[1:18], start=1):
-        path = output / "chapters" / f"{name}.html"
+    for page in chapter_pages(inventory, include_landing=False):
+        if not page.get("widget"):
+            continue
+        number = page["chapter_number"]
+        path = output / Path(page["output"])
         if path.is_file():
             label = f"fig-w{number:02d}"
             html = path.read_text(encoding="utf-8")
             if label not in html:
                 errors.append(f"{path}: nedostaje interakcija {label}")
 
-    appendix_pattern = re.compile(r"Appendix\s+[B-G]\s*[—–-]\s*Dodatak", re.I)
-    for path in expected:
+    appendix_pattern = re.compile(r"Appendix\s+[A-Z]\s*[—–-]\s*Dodatak", re.I)
+    for page in appendix_pages(inventory):
+        path = output / Path(page["output"])
         if path.is_file() and appendix_pattern.search(
             path.read_text(encoding="utf-8")
         ):

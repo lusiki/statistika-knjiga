@@ -22,6 +22,30 @@ const os = require("os");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
+const inventoryPath = path.join(root, "config", "book-inventory.json");
+if (!fs.existsSync(inventoryPath)) {
+  throw new Error("missing canonical inventory: config/book-inventory.json");
+}
+const bookInventory = JSON.parse(fs.readFileSync(inventoryPath, "utf8"));
+if (
+  bookInventory.schema_version !== 1 ||
+  bookInventory.inventory !== "sanctioned-book-pages-and-routes" ||
+  !Array.isArray(bookInventory.pages)
+) {
+  throw new Error("invalid canonical book inventory");
+}
+if (!Array.isArray(bookInventory.public_aliases)) {
+  throw new Error("canonical book inventory has no public alias inventory");
+}
+const pageById = new Map(bookInventory.pages.map((page) => [page.id, page]));
+const rootAlias = bookInventory.public_aliases.find((alias) => alias.path === "/");
+if (!rootAlias || !pageById.has(rootAlias.page)) {
+  throw new Error("canonical book inventory has no valid root alias");
+}
+const pageByRoute = new Map([
+  ...bookInventory.pages.map((page) => [`/${page.output}`, page]),
+  ...bookInventory.public_aliases.map((alias) => [alias.path, pageById.get(alias.page)]),
+]);
 const localPlaywrightPath = path.join(root, "node_modules", "playwright");
 const localPlaywrightManifest = path.join(localPlaywrightPath, "package.json");
 if (!fs.existsSync(localPlaywrightManifest)) {
@@ -71,48 +95,8 @@ const outDir = process.env.AUDIT_DIR || (
 );
 
 const routes = [
-  ["/", "root"],
-  ["/index.html", "index"],
-  ["/chapters/00-predgovor.html", "ch00"],
-  ...[
-    "01-zasto-statistika",
-    "02-mjerenje-i-dizajn",
-    "03-kako-brojke-zavode",
-    "04-sazimanje-podataka",
-    "05-vizualizacija",
-    "06-povezanost",
-    "07-vjerojatnost",
-    "08-uzorkovanje",
-    "09-procjena",
-    "10-logika-testiranja",
-    "11-velicina-ucinka-i-snaga",
-    "12-kriza-i-obnova",
-    "13-kategoricki-podaci",
-    "14-dvije-grupe",
-    "15-vise-grupa",
-    "16-regresija",
-    "17-doba-algoritama",
-    "18-vase-prvo-istrazivanje",
-  ].map((slug, index) => [
-    `/chapters/${slug}.html`,
-    `ch${String(index + 1).padStart(2, "0")}`,
-  ]),
-  ["/references.html", "references"],
-  ["/dodaci/a-praktikum.html", "app-a"],
-  ["/dodaci/b-jamovi.html", "app-b"],
-  ["/dodaci/c-katalog-podataka.html", "app-c"],
-  ["/dodaci/d-koji-test.html", "app-d"],
-  ["/dodaci/e-rjecnik.html", "app-e"],
-  ["/dodaci/f-ai-protokol.html", "app-f"],
-  ["/interakcije.html", "interakcije"],
-  ["/pojmovnik.html", "pojmovnik"],
-  ["/podaci.html", "podaci"],
-  ["/uci-s-ai.html", "uci-s-ai"],
-  ["/predavanja.html", "predavanja"],
-  ["/silabus.html", "silabus"],
-  ["/raspored.html", "raspored"],
-  ["/resursi.html", "resursi"],
-  ["/404.html", "404"],
+  ...bookInventory.public_aliases.map((alias) => [alias.path, alias.audit_label]),
+  ...bookInventory.pages.map((page) => [`/${page.output}`, page.audit_label]),
 ];
 
 const widths = [1440, 1100, 1000, 768, 600, 390, 320];
@@ -202,27 +186,16 @@ async function captureAuditScreenshot(page, filePath) {
 }
 
 function isNumberedChapter(route) {
-  return /^\/chapters\/(0[1-9]|1[0-8])-/.test(route);
+  return pageByRoute.get(route)?.kind === "chapter";
 }
 
 function needsWidget(route) {
-  return /^\/chapters\/(0[1-9]|1[0-7])-/.test(route);
+  return pageByRoute.get(route)?.widget === true;
 }
 
 function isStandalone(route) {
-  return [
-    "/",
-    "/index.html",
-    "/interakcije.html",
-    "/pojmovnik.html",
-    "/podaci.html",
-    "/uci-s-ai.html",
-    "/predavanja.html",
-    "/silabus.html",
-    "/raspored.html",
-    "/resursi.html",
-    "/404.html",
-  ].includes(route);
+  if (route === "/") return true;
+  return pageByRoute.get(route)?.standalone === true;
 }
 
 async function collectMetrics(page, route, width, theme) {
@@ -529,26 +502,22 @@ function evaluateFailures(result, failures) {
     if (result.pagerVisible) add("pager visible on standalone page");
   }
   if (
-    (result.route === "/" || result.route === "/index.html") &&
+    pageByRoute.get(result.route)?.kind === "landing" &&
     result.h1Count !== 1
   ) {
     add(`landing H1 count ${result.h1Count}`);
   }
   if (
-    result.route === "/references.html" &&
+    pageByRoute.get(result.route)?.kind === "references" &&
     /Appendix|Dodatak\s+[A-G]/i.test(result.h1)
   ) {
     add("Literature mislabeled as appendix");
   }
 
-  const appendixExpected = {
-    "/dodaci/a-praktikum.html": "Dodatak A",
-    "/dodaci/b-jamovi.html": "Dodatak B",
-    "/dodaci/c-katalog-podataka.html": "Dodatak C",
-    "/dodaci/d-koji-test.html": "Dodatak D",
-    "/dodaci/e-rjecnik.html": "Dodatak E",
-    "/dodaci/f-ai-protokol.html": "Dodatak F",
-  }[result.route];
+  const appendix = pageByRoute.get(result.route);
+  const appendixExpected = appendix?.kind === "appendix"
+    ? `Dodatak ${appendix.appendix_letter}`
+    : null;
   if (appendixExpected && !result.h1.startsWith(appendixExpected)) {
     add(`appendix title mismatch: ${result.h1}`);
   }
@@ -645,7 +614,7 @@ async function startStaticServer(renderRoot) {
       response.writeHead(400).end("Bad request");
       return;
     }
-    if (pathname === "/") pathname = "/index.html";
+    if (pathname === "/") pathname = `/${pageById.get(rootAlias.page).output}`;
     const requestedPath = path.resolve(resolvedRoot, `.${pathname}`);
     if (
       requestedPath !== resolvedRoot &&
@@ -684,9 +653,11 @@ async function runSmokeAudit() {
   const runtime = verifyLockedBrowserRuntime();
   const renderedRoot = path.resolve(root, commandLine.root);
   const { baseUrl, server } = await startStaticServer(renderedRoot);
+  const smokePage = bookInventory.pages.find((page) => page.browser_smoke === true);
+  if (!smokePage) throw new Error("canonical inventory has no browser smoke page");
   const smokeRoute = commandLine.fixture === "missing-route"
     ? "/__p1c_browser_missing_route__.html"
-    : "/chapters/07-vjerojatnost.html";
+    : `/${smokePage.output}`;
   let browser;
   try {
     browser = await chromium.launch({ headless: true });

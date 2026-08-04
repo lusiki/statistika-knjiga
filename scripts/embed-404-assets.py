@@ -13,8 +13,12 @@ import mimetypes
 import os
 from pathlib import Path
 import re
+import sys
 from urllib.parse import unquote, urlsplit
 
+sys.dont_write_bytecode = True
+
+from book_inventory import load_inventory
 
 MARKER = "<!-- local assets embedded for portable 404 -->"
 URL_IN_CSS = re.compile(r"url\(\s*([\"']?)([^\"')]+)\1\s*\)")
@@ -144,26 +148,32 @@ def embed_html_assets(html: str, output_dir: Path) -> str:
 
 def main() -> None:
     project_dir = Path(os.environ.get("QUARTO_PROJECT_DIR", Path.cwd())).resolve()
+    inventory = load_inventory(project_dir)
     output_env = os.environ.get("QUARTO_PROJECT_OUTPUT_DIR")
     output_dir = (
         Path(output_env).resolve()
         if output_env
         else (project_dir / "docs").resolve()
     )
-    page = output_dir / "404.html"
-    if not page.is_file():
-        print(f"Portable 404: preskočeno ({page} ne postoji)")
+    portable_pages = [item for item in inventory["pages"] if item.get("portable_assets")]
+    if not portable_pages:
+        print("Portable pages: nema konfiguriranih putova")
         return
+    for item in portable_pages:
+        page = output_dir / Path(item["output"])
+        if not page.is_file():
+            print(f"Portable page: preskočeno ({page} ne postoji)")
+            continue
 
-    html = page.read_text(encoding="utf-8")
-    if MARKER in html:
-        print("Portable 404: lokalni resursi već su ugrađeni")
-        return
+        html = page.read_text(encoding="utf-8")
+        if MARKER in html:
+            print(f"Portable page: lokalni resursi već su ugrađeni ({page})")
+            continue
 
-    embedded = embed_html_assets(html, output_dir)
-    embedded = embedded.replace("<head>", f"<head>\n{MARKER}", 1)
-    page.write_text(embedded, encoding="utf-8", newline="\n")
-    print(f"Portable 404: ugrađeni lokalni resursi u {page}")
+        embedded = embed_html_assets(html, output_dir)
+        embedded = embedded.replace("<head>", f"<head>\n{MARKER}", 1)
+        page.write_text(embedded, encoding="utf-8", newline="\n")
+        print(f"Portable page: ugrađeni lokalni resursi u {page}")
 
 
 if __name__ == "__main__":

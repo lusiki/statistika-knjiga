@@ -36,6 +36,8 @@ $ErrorActionPreference = "Stop"
 
 $root      = Split-Path $PSScriptRoot -Parent
 $cfg       = Join-Path $root "_quarto.yml"
+$inventoryPath = Join-Path $root "config\book-inventory.json"
+$inventoryCheck = Join-Path $root "scripts\check-book-inventory.py"
 $bak       = Join-Path $root "_quarto.yml.docxbuild.bak"
 $srcDirs   = @((Join-Path $root "chapters"), (Join-Path $root "dodaci"))
 $utf8      = New-Object System.Text.UTF8Encoding($false)
@@ -43,6 +45,23 @@ $gateFrom  = 'when-format="pdf"'
 $gateTo    = 'when-format="docx"'
 
 if (-not (Test-Path $cfg)) { throw "_quarto.yml not found at $cfg" }
+
+$pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+if (-not $pythonCommand) { throw "python is required for the book inventory gate" }
+if (-not (Test-Path -LiteralPath $inventoryCheck -PathType Leaf)) {
+  throw "book inventory checker not found at $inventoryCheck"
+}
+& $pythonCommand.Source $inventoryCheck --root $root
+if ($LASTEXITCODE -ne 0) {
+  throw "canonical book inventory check failed (exit $LASTEXITCODE)"
+}
+
+$inventory = Get-Content -Raw -Encoding UTF8 -LiteralPath $inventoryPath | ConvertFrom-Json
+$pagesById = @{}
+foreach ($page in $inventory.pages) { $pagesById[$page.id] = $page }
+$expectedAppendices = @(
+  $inventory.book.appendices | ForEach-Object { $pagesById[$_].source }
+)
 
 # Restore any file from a sibling .docxbuild.bak, then delete the .bak. Used both
 # as a pre-flight (recover from a crashed prior run) and in the finally block.
@@ -71,14 +90,6 @@ if ($configText -notmatch '(?m)^  references:\s+references\.qmd\s*$') {
   throw "_quarto.yml must declare book.references: references.qmd"
 }
 
-$expectedAppendices = @(
-  'dodaci/a-praktikum.qmd',
-  'dodaci/b-jamovi.qmd',
-  'dodaci/c-katalog-podataka.qmd',
-  'dodaci/d-koji-test.qmd',
-  'dodaci/e-rjecnik.qmd',
-  'dodaci/f-ai-protokol.qmd'
-)
 $appendixMatch = [regex]::Match(
   $configText,
   '(?m)^  appendices:\s*\r?\n(?<body>(?:    - [^\r\n]+\r?\n)+)'
@@ -92,7 +103,7 @@ $actualAppendices = @(
 )
 if (($actualAppendices.Count -ne $expectedAppendices.Count) -or
     (($actualAppendices -join "`n") -ne ($expectedAppendices -join "`n"))) {
-  throw "_quarto.yml book.appendices must contain exactly appendices A-F in canonical order"
+  throw "_quarto.yml book.appendices differs from config/book-inventory.json"
 }
 
 $quarto = (Get-Command quarto -ErrorAction SilentlyContinue).Source
@@ -147,7 +158,7 @@ try {
   )
   if (($patchedAppendixList.Count -ne $expectedAppendices.Count) -or
       (($patchedAppendixList -join "`n") -ne ($expectedAppendices -join "`n"))) {
-    throw "temporary config changed book.appendices; aborting (will restore)"
+    throw "temporary config changed the canonical appendix inventory; aborting (will restore)"
   }
 
   [System.IO.File]::WriteAllText($cfg, $patchedText, $utf8)
