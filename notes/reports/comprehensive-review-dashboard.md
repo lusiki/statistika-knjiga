@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-IDENTITY
-next_permitted_packet: G-A2b-PREFACE
+last_completed_packet: G-A2b-PREFACE
+next_permitted_packet: P2-SPINE-PREFACE
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 41
+forward_handoffs: 42
 last_updated: "2026-08-04"
 ---
 
@@ -31,12 +31,13 @@ stop and repair the control state before editing book content.
 | Gate A1d | Accepted as recommended: pre-release governance mechanism; release, archive, and errata owner Luka Sikic; 2026-08-03; no external-action authority |
 | Gate A2a | Accepted as recommended: claim map, audit questions, lifecycle, seven threads, four activities, and data-design principles; 70/20/10 diagnostic only; owner Luka Sikic; 2026-08-04 |
 | Gate A2d | Accepted: D06 solutions policy, D09 Appendix B scope, D10 Appendix G scope, and the D05/H10 AI ladder as recommended; D15 privacy/tool lanes as the course's own dated policy v1.0; author, course owner and clean-install owner Luka Sikic; 2026-08-04 |
+| Gate A2b-PREFACE | Accepted as drafted: preface spine with nine aspects, five terms, no prerequisite, twelve exclusions; owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-IDENTITY` |
-| Next permitted packet | `G-A2b-PREFACE` |
+| Last completed packet | `G-A2b-PREFACE` |
+| Next permitted packet | `P2-SPINE-PREFACE` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -47,6 +48,53 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2b-PREFACE closeout
+
+- No handoff targets `G-A2b-PREFACE`; the complete ledger was read before the
+  decision. `H-P0-STATE-001` targets `WA-C00`, remains `pending`, and was
+  deliberately not consumed here.
+- The complete preface spine was drafted first, and the gate then closed against
+  that drafted state rather than against the earlier pre-disposition note.
+  Author and editor Luka Sikic accepted it as drafted on 2026-08-04.
+- The preface is a reader contract with nine load-bearing aspects: the four
+  promised abilities stated as what the reader can afterwards do; the explicit
+  out-of-scope boundary; what is expected of the reader; one genuine
+  self-contained miniature inquiry instead of meta-scaffolding; the book's short
+  stable thesis that computation is delegable while question choice, source
+  verification and the signature under a conclusion stay human; a checkable
+  calculation trace with its stated limit; the two reading routes as navigation
+  without manifesto register; pathway language bounded to verified coverage; and
+  a handoff to Chapter 1 that states the promise without arguing the lifecycle.
+- Five terms are load-bearing and introduced without formal definition:
+  statistical literacy, simulation, estimation, checkable calculation trace, and
+  the division of responsibility with an assistant. Their canonical Croatian
+  forms remain a `G-A2c` decision. The preface has no prerequisite.
+- Twelve exclusions bind it, including no visible code block, no promise of
+  visible code in the preface or Part I, no lifecycle exposition duplicating
+  Chapter 1, no manifesto register, ASA removed or sharply subordinated, no
+  Appendix B claim beyond the verified clean installation, no full claim map or
+  audit-question list, no widget, no `#def-` block, no invented or unsourced
+  example, no citable or released edition promise, and no assessed code
+  production.
+- The draft matches the recorded author intent in every respect. Pending handoff
+  `H-P0-STATE-001` is satisfied by aspect 6 and exclusions 1 and 2; the accepted
+  D09 Appendix B bound is satisfied by aspect 8 and exclusion 6. The three
+  aspects beyond the literal intent text each implement an already ratified
+  register item, so no new requirement was introduced and no further ask was
+  needed.
+- Six alternatives were rejected, including the manifesto preface, carrying the
+  lifecycle argument, deleting the preface, promising visible code receipts,
+  promising a complete no-code route, and carrying the full claim map.
+- `OA-G-A2B-PREFACE-SPINE` is `done`; no external message was sent.
+  `H-G-A2B-PREFACE-001` carries the accepted spine to `P2-SPINE-PREFACE` at its
+  `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, data package,
+  render, generated artifact or external authority changed. All 19 spines remain
+  unratified and all 19 units remain `draft`.
+
+The durable evidence is
+`notes/reports/g-a2b-preface-spine-decision-2026-08-04.md`.
 
 ## P2-IDENTITY closeout
 
@@ -1265,25 +1313,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, G-A2b-PREFACE, only. Claim the
-write lock, do the work, close the packet, and stop. Do not start
-P2-SPINE-PREFACE or any later packet, and do not edit chapter prose.
+Execute the dashboard's next permitted packet, P2-SPINE-PREFACE, only. Claim the
+write lock, do the work, close the packet, and stop. Do not start G-A2b-I or any
+later packet, and do not edit chapter prose.
 
-Before the first substantive edit, acknowledge every applicable incoming
-handoff and say so explicitly; consume each with a concrete disposition and
-evidence before closeout. Read the G-A2b-PREFACE packet contract, outside ask
-OA-G-A2B-PREFACE-SPINE, governed item R04-SPINE-PREFACE, the accepted
-P2-CLAIMS, P2-ASSESS and P2-IDENTITY registries, the recorded author intent in
-notes/reports/author-pre-dispositions-2026-08-04.md, pending handoff
-H-P0-STATE-001, and the accepted G-A2d Appendix B record in full.
+Before the first substantive edit, acknowledge H-G-A2B-PREFACE-001 and say so
+explicitly; consume it with a concrete disposition and evidence before closeout.
+Read the P2-SPINE-PREFACE packet contract, governed item R04-SPINE-PREFACE, and
+the accepted spine in notes/reports/g-a2b-preface-spine-decision-2026-08-04.md
+in full.
 
-Draft the complete preface spine to the recorded author intent, then close the
-gate against that drafted source state with a dated disposition, named owner,
-alternatives, authority boundary, and blocked dependencies. The spine must
-promise a checkable calculation trace rather than visible code and may not
-promise more of Appendix B than the accepted G-A2d record supports. If the
-draft departs from the recorded intent in any respect, stop and present the
-exact difference for an explicit decision.
+Write exactly the accepted preface spine into
+bookwright_plugin/bookwright/shared/chapter-spine.json for unit 00-predgovor and
+set its ratified flag. Record prerequisites and exclusions in a schema-valid
+form, and reconcile every consumer that asserts how many spines are ratified. Do
+not change chapter prose, chapter stage, or terminology, do not consume
+H-P0-STATE-001, which remains an obligation of WA-C00, and do not ratify any
+other spine.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P2-IDENTITY"
-  next_permitted_packet: "G-A2b-PREFACE"
+  last_completed_packet: "G-A2b-PREFACE"
+  next_permitted_packet: "P2-SPINE-PREFACE"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -586,6 +586,89 @@ decisions:
       independently closable and independently amendable on the owner's
       instruction. The privacy disposition names no external legal or
       institutional source; no later packet may supply one from memory.
+  G-A2b-PREFACE:
+    status: "accepted"
+    accepted_at: "2026-08-04"
+    author_disposition: "accepted_as_drafted"
+    author: "Luka Sikic"
+    approval_owner: "author_editor"
+    evidence: "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
+    recorded_intent: "notes/reports/author-pre-dispositions-2026-08-04.md#g-a2b-preface--preface"
+    standing_authorisation: "conversation:G-A2b-preface-and-part-i-standing-authorisation-2026-08-04-Luka-Sikic"
+    record: "notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
+    drafted_source_state: "spine-draft:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
+    accepted_disposition: >-
+      Accepted as drafted. The preface is a reader contract carrying nine
+      load-bearing aspects: the four promised abilities stated as what the
+      reader can afterwards do; the explicit out-of-scope boundary; what is
+      expected of the reader; one genuine self-contained miniature inquiry
+      instead of meta-scaffolding; the book's short stable thesis that
+      computation is delegable while question choice, source verification, and
+      the signature under a conclusion remain human; a checkable calculation
+      trace with its stated limit rather than any promise of visible code;
+      the two reading routes as navigation without manifesto register; pathway
+      language bounded to what is actually verified; and a handoff to Chapter 1
+      that states the promise and points to the lifecycle without arguing it.
+      Five load-bearing terms are introduced without formal definition
+      (statistical literacy, simulation, estimation, checkable calculation
+      trace, and the division of responsibility with an assistant); their
+      canonical Croatian forms remain a G-A2c decision. The preface has no
+      prerequisite. Twelve exclusions bind it, including no visible code block,
+      no promise of visible code in the preface or Part I, no lifecycle
+      exposition duplicating Chapter 1, no manifesto register, ASA removed or
+      sharply subordinated, no Appendix B claim beyond the verified clean
+      installation, no full claim map or audit-question list, no widget, no
+      #def- block, no invented or unsourced example, no citable or released
+      edition promise, and no assessed code production.
+    intent_conformance: >-
+      The draft matches the recorded author intent in every respect. Aspects 1
+      to 3 and 9 implement the reader contract and the Chapter 1 handoff;
+      aspect 8 and exclusion 6 implement the accepted D09 Appendix B bound;
+      aspect 6 and exclusions 1 and 2 implement pending handoff H-P0-STATE-001
+      under D05 and H10. Aspects 4, 5 and 7 and exclusions 4 and 5 are not new
+      requirements: each implements an already ratified register item, namely
+      R33-C00-miniature-inquiry, R15-C00-self-contained, R24-C00-stable-thesis,
+      R24-C00-code-trace, R30-C00-register, R31-C00-ASA-deemphasis, and
+      decision D03 with R04-ARCH-macro-order. No departure was found and no
+      further ask was required.
+    rejected_alternatives:
+      - "Write the preface as a manifesto about the book's philosophy."
+      - "Carry the full data lifecycle argument in the preface instead of Chapter 1."
+      - "Delete the preface and let the landing page carry the promise and scope."
+      - "Promise a visible code block in every chapter's worked example."
+      - "Promise a complete no-code route through the whole book."
+      - "Carry the full claim map and the six audit questions in the preface."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P2-SPINE-PREFACE"
+      governed_items:
+        - "R04-SPINE-PREFACE"
+      still_blocked_elsewhere:
+        - "R15-C00-self-contained"
+        - "R24-C00-stable-thesis"
+        - "R24-C00-code-trace"
+        - "R30-C00-register"
+        - "R31-C00-ASA-deemphasis"
+        - "R33-C00-miniature-inquiry"
+        - "R15-CLOSURE-00"
+      later_gates_still_mandatory:
+        - "G-A2b-I"
+        - "G-A2b-II"
+        - "G-A2b-III"
+        - "G-A2b-IV"
+        - "G-A2b-V"
+        - "G-A2b-FINALE"
+        - "G-A2c"
+        - "C00"
+    authority_boundary: >-
+      This decision approves exactly one drafted preface spine and unblocks
+      P2-SPINE-PREFACE as the packet that writes it into chapter-spine.json. It
+      approves no preface prose and authorises no edit to
+      chapters/00-predgovor.qmd. It ratifies no other spine, fixes no canonical
+      terminology, does not consume H-P0-STATE-001, which remains an obligation
+      of WA-C00, changes no public promise in source, which remains WA-C00 and
+      P5-ROUTES work, does not advance the unit's draft stage, and authorises
+      no push, merge, tag, archive, deployment, or publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -4370,7 +4453,7 @@ packets:
     sequence: 48
     phase: "2"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P2-CLAIMS"
       - "P2-IDENTITY"
@@ -4382,14 +4465,67 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A2b-PREFACE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
+            - "register:decisions.G-A2b-PREFACE.accepted_at-2026-08-04"
+            - "spine-draft:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md#nacrtana-kraljeznica-predgovora"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
+            - "conversation:G-A2b-preface-and-part-i-standing-authorisation-2026-08-04-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:outside_asks.OA-G-A2B-PREFACE-SPINE.recommended_default"
+            - "register:decisions.G-A2b-PREFACE.rejected_alternatives-6"
+            - "record:notes/reports/author-pre-dispositions-2026-08-04.md#g-a2b-preface--preface"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A2b-PREFACE.blocked_dependencies"
+            - "item:R04-SPINE-PREFACE"
+            - "packet:P2-SPINE-PREFACE"
+      outputs:
+        - output: "Dated G-A2b-PREFACE decision and authority record for: Author ratification for preface spine."
+          artifacts:
+            - "report:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
+            - "register:decisions.G-A2b-PREFACE"
+            - "outside-ask:OA-G-A2B-PREFACE-SPINE-done"
+        - output: "Completion evidence is tied to the declared G-A2b-PREFACE source state and bounded scope."
+          artifacts:
+            - "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
+            - "register:decisions.G-A2b-PREFACE.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A2b-PREFACE-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_drafted"
+            - "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
+            - "register:decisions.G-A2b-PREFACE.accepted_disposition-single-bounded"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A2b-PREFACE.rejected_alternatives-6"
+            - "register:decisions.G-A2b-PREFACE.authority_boundary"
+            - "register:decisions.G-A2b-PREFACE.blocked_dependencies"
+        - test: "The G-A2b-PREFACE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine-draft:nine-aspects-five-terms-zero-prerequisites-twelve-exclusions"
+            - "register:decisions.G-A2b-PREFACE.intent_conformance"
+            - "handoff:H-G-A2B-PREFACE-001-created-for-P2-SPINE-PREFACE"
+            - "scope-diff:no-chapters-or-dodaci-paths"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
   P2-SPINE-PREFACE:
     sequence: 49
     phase: "2"
@@ -22913,8 +23049,8 @@ outside_asks:
       - "decision:G-A2a"
 
   OA-G-A2B-PREFACE-SPINE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    status: "done"
+    readiness: "resolved_at_G-A2b-PREFACE"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "2"
@@ -22932,6 +23068,12 @@ outside_asks:
     resume_condition: "P2-SPINE-PREFACE resumes only after the bounded spine is approved."
     why_external: "The preface's load-bearing role is an author/editor decision."
     external_message_sent: false
+    resolved_at: "2026-08-04"
+    resolution: "Preface spine approved as drafted on 2026-08-04 by author and editor Luka Sikic, against the drafted source state in notes/reports/g-a2b-preface-spine-decision-2026-08-04.md. Nine load-bearing aspects, five load-bearing terms, no prerequisite, and twelve exclusions were accepted without amendment. No external message was sent."
+    resolution_evidence:
+      - "conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic"
+      - "decision:G-A2b-PREFACE"
+      - "report:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
 
   OA-G-A2B-I-SPINE:
     status: "drafted_unsent"

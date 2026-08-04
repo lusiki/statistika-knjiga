@@ -1904,6 +1904,50 @@ handoffs:
         gate: before_start
         state: pending
 
+  H-G-A2B-PREFACE-001:
+    source_packet: G-A2b-PREFACE
+    created_at: "2026-08-04"
+    kind: decision
+    refs:
+      - decision:G-A2b-PREFACE
+      - decision:D03
+      - decision:D04
+      - decision:D05
+      - decision:D09
+      - item:R04-SPINE-PREFACE
+      - handoff:H-P0-STATE-001
+      - rule:STYLE-H10
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted preface spine as
+      drafted on 2026-08-04. The preface is a reader contract with nine
+      load-bearing aspects, five load-bearing terms introduced without formal
+      definition, no prerequisite, and twelve exclusions. It promises a
+      checkable calculation trace with a stated limit rather than visible code,
+      keeps the preface and Part I free of visible code under D05 and H10,
+      bounds every pathway promise to what the accepted D09 clean-installation
+      record actually supports, presents the two reading routes as navigation
+      without manifesto register, and hands off to Chapter 1 by stating the
+      promise and pointing to the lifecycle rather than arguing it. Canonical
+      Croatian forms for the five terms remain a G-A2c decision.
+    required_action: >-
+      In P2-SPINE-PREFACE, write exactly this accepted spine into
+      bookwright_plugin/bookwright/shared/chapter-spine.json for unit
+      00-predgovor and set its ratified flag. Record the prerequisites and
+      exclusions in a schema-valid form, reconcile every consumer that asserts
+      how many spines are ratified, and change no chapter prose, no chapter
+      stage, and no terminology. Do not consume H-P0-STATE-001, which remains
+      an obligation of WA-C00, and do not ratify any other spine.
+    basis:
+      - conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic
+      - notes/reports/g-a2b-preface-spine-decision-2026-08-04.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2b-PREFACE
+      - notes/reports/author-pre-dispositions-2026-08-04.md
+    required: true
+    deliveries:
+      - target_packet: P2-SPINE-PREFACE
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -2715,3 +2759,25 @@ packet_reviews:
       - no chapter or appendix prose spine terminology data package case source evidence artifact route render generated artifact or external action changed
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-PREFACE
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+  G-A2b-PREFACE:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2B-PREFACE-001
+    implementation_state: conversation:G-A2b-PREFACE-spine-approved-2026-08-04-Luka-Sikic
+    checks:
+      - the complete handoff ledger was read before the decision and no handoff targets G-A2b-PREFACE
+      - H-P0-STATE-001 targets WA-C00 remains pending and was deliberately not consumed by this gate
+      - the complete preface spine was drafted before the disposition was recorded and the gate closed against that drafted state
+      - author and editor Luka Sikic accepted one bounded disposition covering all nine aspects five terms zero prerequisites and twelve exclusions
+      - the drafted spine matches the recorded author intent in every respect and every additional aspect traces to an already ratified register item or accepted decision
+      - the spine promises a checkable calculation trace with a stated limit and forbids visible code in the preface and Part I under D05 and H10
+      - the spine bounds every Appendix B and pathway promise to what the accepted D09 clean-installation record supports
+      - the spine hands off to Chapter 1 without duplicating its lifecycle argument under D04
+      - the recommended default six rejected alternatives authority boundary and blocked dependency list are recorded in the register
+      - OA-G-A2B-PREFACE-SPINE is done with a dated resolution and no external message was sent
+      - H-G-A2B-PREFACE-001 carries the accepted spine to P2-SPINE-PREFACE at its before_start gate
+      - no chapter or appendix prose spine registry terminology data package render generated artifact or external action changed
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-PREFACE
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-SPINE-PREFACE and every later packet were not started and push merge tag archive and deployment remain unauthorised
