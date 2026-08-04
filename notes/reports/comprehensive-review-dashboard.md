@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-CLAIMS
-next_permitted_packet: G-A2d
+last_completed_packet: G-A2d
+next_permitted_packet: P2-ASSESS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 36
+forward_handoffs: 41
 last_updated: "2026-08-04"
 ---
 
@@ -30,22 +30,80 @@ stop and repair the control state before editing book content.
 | Gate A1c | Accepted as amended: minimise Navarro reliance; D08 and D12 unchanged; owner Luka Sikic; 2026-08-03 |
 | Gate A1d | Accepted as recommended: pre-release governance mechanism; release, archive, and errata owner Luka Sikic; 2026-08-03; no external-action authority |
 | Gate A2a | Accepted as recommended: claim map, audit questions, lifecycle, seven threads, four activities, and data-design principles; 70/20/10 diagnostic only; owner Luka Sikic; 2026-08-04 |
+| Gate A2d | Accepted: D06 solutions policy, D09 Appendix B scope, D10 Appendix G scope, and the D05/H10 AI ladder as recommended; D15 privacy/tool lanes as the course's own dated policy v1.0; author, course owner and clean-install owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-CLAIMS` |
-| Next permitted packet | `G-A2d` |
+| Last completed packet | `G-A2d` |
+| Next permitted packet | `P2-ASSESS` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 99 accepted, 5 deferred with reason, 267 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 38 accepted and 150 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Open outside asks | 72 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, and the G-A2a claim-system ask are `done`; 0 external messages sent |
+| Open outside asks | 67 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, and the five G-A2d policy asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2d closeout
+
+- No incoming handoff targeted `G-A2d`; the complete handoff ledger was read
+  before the decision was recorded.
+- All five canonical asks received a dated disposition from their named owner
+  and are `done`. No external message was sent.
+- **D06 solutions policy** — approved as recommended. One canonical solution
+  record per exercise renders in two layers: separated self-study checks with
+  the intended planted errors, and protected `kolegij` rubrics with
+  alternatives and instructor notes. Protected solutions are excluded from
+  public AI exports and no second answer source may exist.
+- **D09 Appendix B** — approved as recommended, with Luka Sikic as the named
+  clean-install verification owner. Appendix B supports only the book's core
+  analyses on the same files, variables, and expected values as Appendix A,
+  with pinned product version, module, route, settings, golden values and test
+  date. No public no-code promise may exceed the verified coverage.
+- **D10 Appendix G** — approved as recommended: exactly percentages and
+  percentage points, proportions and rates, slope, and logarithmic scale.
+  Nothing added, nothing removed, sanctioned `podsjetnik` first-use links, and
+  every configuration-driven inventory updated before the file is added.
+- **D05 / H10 AI ladder** — approved as recommended. Computation stays
+  delegable, readable verification receipts are required after Part I,
+  assessment targets judgment rather than code production, Part I keeps its
+  no-visible-code rule with hidden plumbing permitted, the three roles of AI
+  are retained, and the suspect-code strand escalates with stage-appropriate
+  approved exceptions.
+- **D15 privacy and tools** — recorded as the course's own dated conservative
+  policy, version 1.0, as of 2026-08-04, published in full in Appendix F and
+  referenced by Chapter 18. The applicable institution is Hrvatsko katoličko
+  sveučilište as the course's home institution. The policy is **not** a
+  university regulation and may not be cited as one; no external legal or
+  institutional document is named, and no later packet may supply one.
+- Three lanes carry exact conditions: public tools for published,
+  licence-cleared, simulated, synthetic and teaching-aggregate data only;
+  contractually protected tools for pseudonymised working data under a written
+  agreement excluding training on input and fixing retention; institutionally
+  approved local tools with no data egress for restricted data within its own
+  access conditions. Across all lanes, no task may require sending personal,
+  identifiable, restricted or non-shareable data, and every such task ships a
+  safe supplied-data alternative.
+- The disclosure rule requires a short use statement — tool and version, what
+  was delegated, which data lane, what the author verified and how, what
+  remained unverified. Undisclosed use is an integrity breach; disclosed use is
+  not by itself penalised. Every legal, institutional or product claim carries
+  an as-of date and a source.
+- The durable policy record is
+  `notes/reports/g-a2d-policy-decisions-2026-08-04.md`. Nine rejected
+  alternatives, the authority boundary, and all seventeen governed items are in
+  the register.
+- `H-G-A2D-001` through `H-G-A2D-005` carry the five dispositions to
+  `P2-ASSESS`, `P5-B`, `P5-F`, `P5-G`, `P5-ROUTES`, `P6-CONTINUITY`,
+  `P6-EVIDENCE` and `WE-C18`. No prose, registry, spine, terminology, data
+  package or generated artifact changed, and `P2-ASSESS` was not started.
+
+The accepted decision source state is
+`conversation:G-A2d-policy-decisions-approved-2026-08-04-Luka-Sikic`.
 
 ## P2-CLAIMS closeout
 
@@ -1101,24 +1159,31 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Prepare the dashboard's next permitted decision gate, G-A2d, only. Show the
-evidence, recommended defaults, alternatives, what each decision blocks, and
-the exact reply needed. Do not edit any file, claim a write packet, send an
-outside message, or infer course or institutional policy before the owner
-replies.
+Execute the dashboard's next permitted packet, P2-ASSESS, only. Claim the write
+lock, do the work, close the packet, and stop. Do not start P5-A, P5-B, any
+later packet, or any chapter prose work.
 
-Fully read the G-A2d decision-gate contract; decisions D05, D06, D09, D10, and
-D15; the five canonical asks OA-G-A2D-SOLUTIONS-POLICY,
-OA-G-A2D-APPENDIX-B, OA-G-A2D-APPENDIX-G, OA-G-A2D-AI-H10, and
-OA-G-A2D-PRIVACY-TOOLS; every item those asks block; and the exact review
-sections that anchor them. Verify whether any incoming handoff targets G-A2d
-and report the result.
+Before the first substantive edit, acknowledge every applicable incoming
+handoff and say so explicitly. H-G-A2D-001 and H-G-A2D-004 both deliver to
+P2-ASSESS at their before_start gate and carry the accepted G-A2d solutions
+policy and AI/H10 ladder. Consume both with a concrete disposition and evidence
+before closeout. Read the accepted decision G-A2d, the durable record
+notes/reports/g-a2d-policy-decisions-2026-08-04.md, decisions D05 and D06, and
+the governed items R15-SCHEMA-closure, R24-BOOK-human-AI-competence, and
+R24-BOOK-three-roles in full.
 
-Present one bounded decision packet covering the two-layer solution and export
-policy, the versioned Appendix B route and verification owner, the compact
-Appendix G scope, the cumulative AI/H10 competence ladder, and the dated
-privacy/disclosure/tool lanes. Keep separately owned dispositions independently
-closable. Preserve all later implementation, chapter, appendix, assessment,
-route, and institutional gates. Stop for the named owner or owners' explicit
-dated disposition; do not start P2-ASSESS or any later packet.
+Write the assessment schema, answer visibility contract, AI competence ladder,
+and H10 boundary as ratified: one canonical solution record whose planted
+error, diagnostic, non-answer, model components, numerical check, and
+severity-ranked rubric are machine-identifiable; separated self-study checks and
+protected kolegij rubrics from that single record; protected content excluded
+from public AI exports; a competence ladder built on task specification,
+validation, alternatives, provenance and responsibility rather than syntax; and
+no assessed code-production task. Edit no chapter prose, ratify no chapter
+spine or terminology, select no data package, and authorise no push, merge,
+tag, archive, deployment, or publication.
+
+Update the register, handoff ledger, and dashboard together at closeout, then
+run scripts/check-review-workflow.R through the project launcher and prove both
+required negative fixtures still fail.
 ```
