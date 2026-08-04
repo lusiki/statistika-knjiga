@@ -2170,3 +2170,30 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1C-INVENTORY
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - P1C-INVENTORY P1-VERIFY and all later packets were not started
+  P1C-INVENTORY:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P1C-INVENTORY found no new future-relevant effect. P1-VERIFY already
+      depends directly on this packet; P5-G already depends on it before any
+      later D10 Appendix G; H-P1C-EXPORT-001 already carries protected solution
+      route requirements to P2-ASSESS and P5-ROUTES; and H-P1C-EXPORT-002
+      already carries the pre-existing _quarto.yml checksum debt to P7-FREEZE
+      and P8-META. A new handoff would duplicate those exact dependencies.
+    implementation_state: inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499
+    checks:
+      - no applicable incoming handoff targeted P1C-INVENTORY and the complete ledger was read before packet claim
+      - commit 8731a9d62c72264b435b829924e3259b730311b1 contains the canonical source projections consumers fixtures and blocking hooks
+      - config/book-inventory.json sanctions 37 pages 19 chapter units appendices A-F eight navbar entries nine footer-rendered routes one root alias and zero solution routes
+      - _quarto.yml and styles/book-include.html are marked projections refreshed only by the explicit write command while the default command fails on drift
+      - profiles R exports rendered-HTML checks browser audit portable-page handling PDF and DOCX wrappers and the PDF fixture consume or inherit the canonical projection
+      - a source-driven temporary route addition refreshed every dependent projection and passed with 38 pages and ten footer routes
+      - deliberate missing extra-unsynced and reordered appendix route regressions each returned exit 1 and the harness reported BOOK_INVENTORY_NEGATIVE_FIXTURES_OK fixtures 3 publish false
+      - a detached worktree restored R 4.6.0 Node 24.15.0 npm 11.12.1 Playwright 1.62.1 and Chromium revision 1234 into fresh empty paths
+      - the exact implementation commit passed positive negative PDF-integration and JavaScript syntax checks and remained clean
+      - the known release provenance mismatch remains covered by H-P1C-EXPORT-002 and was not resolved early
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1-VERIFY
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - no route chapter appendix prose catalogue assessment export browser parity render artifact release candidate deployment or publication work occurred
+      - P1-VERIFY and all later packets were not started

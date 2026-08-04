@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: P1C-INVENTORY
-last_completed_packet: P1C-PARITY
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: P1C-INVENTORY
+next_permitted_packet: P1-VERIFY
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,12 +32,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P1C-INVENTORY` |
-| Last completed packet | `P1C-PARITY` |
-| Next permitted packet | None while `P1C-INVENTORY` is active |
-| Review parents | 33 ratified; 3 accepted |
-| Atomic child inventory | Complete: 371 stable children; 76 accepted, 5 deferred with reason, 1 in progress, 289 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 34 accepted, 1 in progress, and 153 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Active write packet | None |
+| Last completed packet | `P1C-INVENTORY` |
+| Next permitted packet | `P1-VERIFY` |
+| Review parents | 32 ratified; 4 accepted |
+| Atomic child inventory | Complete: 371 stable children; 77 accepted, 5 deferred with reason, 289 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 35 accepted and 153 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
@@ -46,18 +46,34 @@ stop and repair the control state before editing book content.
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
-## P1C-INVENTORY active packet
+## P1C-INVENTORY closeout
 
-- No applicable incoming handoff targets `P1C-INVENTORY`; the complete handoff
-  ledger was read before this claim.
-- The packet owns only the canonical page, appendix, navigation, render, public,
-  and empty solution-route inventory; its generated Quarto projection; blocking
-  drift checks and fixtures; the existing inventory consumers; one workflow
-  hook; the durable evidence report; and the three control files.
-- The ratified A–F appendix architecture remains unchanged. Appendix G, new or
-  removed routes, prose, catalogue, assessment, export, browser, parity,
-  render-artifact, release-candidate, and publication work remain outside the
-  active packet.
+- Commit `8731a9d` introduces `config/book-inventory.json` as the sole
+  sanctioned source for 37 pages, 19 chapter units, appendices A–F, navigation,
+  the root alias and the empty solution-route inventory. No route was created
+  or removed.
+- `_quarto.yml` and `styles/book-include.html` carry marked generated
+  projections. Profiles inherit them; rendered-HTML checks, the browser audit,
+  portable-page handling and PDF/DOCX wrappers consume the same source or its
+  checked projection.
+- The default command fails on any missing, extra, reordered or stale path.
+  The explicit `--write` command alone refreshes projections. Quarto pre-render,
+  both wrappers and the publish workflow run the blocking positive gate; the
+  workflow also runs all negative fixtures before render and Pages setup.
+- A detached worktree at `8731a9d` restored the exact R, Node, npm, Playwright
+  and Chromium locks into fresh empty paths. The 37-page positive path, a
+  source-driven temporary addition, missing/extra/reordered regressions, PDF
+  integration and JavaScript syntax checks all behaved as declared, and the
+  worktree remained clean without render or publication.
+- No new future-relevant effect was found. Existing `P1-VERIFY`, `P5-G`,
+  `H-P1C-EXPORT-001` and `H-P1C-EXPORT-002` already own every downstream
+  consequence, so no duplicate handoff was created and no later D10 decision
+  was resolved.
+
+The accepted inventory source state is
+`inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499`;
+the durable evidence is
+`notes/reports/p1c-book-inventory-2026-08-04.md`.
 
 ## P1C-PARITY closeout
 
@@ -961,24 +977,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-INVENTORY. Fully read
-its release-engineering contract, every register item assigned to
-P1C-INVENTORY, the accepted P1C-INTEGRITY evidence, `_quarto.yml` and every
-profile or script that currently owns or consumes page, appendix, navigation,
-solution-route, render, and public-route inventories. Trace all hard-coded
-copies before editing and preserve the ratified A–F appendix architecture.
+Execute only the dashboard's next permitted packet, P1-VERIFY. Fully read its
+review-gate contract and required evidence, every named prerequisite packet's
+completion evidence and durable report, all active forward handoffs that
+constrain Phase 1 verification, and the current workflow/check commands. Do not
+rely on packet summaries without checking their declared source states.
 
-Implement only configuration-driven page, appendix, and solution-route
-inventories with one canonical sanctioned source and blocking drift checks.
-Adding or removing a sanctioned route must update every dependent inventory
-through that source. Keep commands independently callable. Do not add Appendix
-G, create or remove routes, change chapter or appendix prose, absorb catalogue,
-assessment, export, browser, parity, render-artifact, release-candidate, or
-publication work, or resolve later D10 decisions early.
+Build only the Phase 1 fail-closed verification matrix. Verify each named
+prerequisite independently against its contract, source commit or state hash,
+positive evidence, required negative fixture, unresolved blocker and authority
+boundary. Do not hide a failed or stale prerequisite through aggregation. Do
+not edit manuscript prose, implementation code, inventories, locks, generated
+artifacts or release metadata, rerun publication, or repair later-packet debt
+inside this gate.
 
-Prove the positive canonical inventory path and a deliberate missing, extra,
-or reordered route regression from a clean locked environment without
-publishing. Record every future effect or an explicit none, run the workflow
-validator and both required negative fixtures, then stop. Do not start
-P1-VERIFY or any later packet.
+Record a source-tied verification report and an exact resolved-blocker list.
+If every prerequisite is current and complete, close only P1-VERIFY; otherwise
+leave it open with the exact blocking packet and evidence gap. Record every
+future effect or an explicit none, run the workflow validator and both required
+negative fixtures, then stop. Do not start G-A2a or any later packet.
 ```

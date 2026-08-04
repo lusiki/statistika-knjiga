@@ -10,29 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P1C-INVENTORY"
-    started_at: "2026-08-04"
-    owned_paths:
-      - "config/book-inventory.json"
-      - "_quarto.yml"
-      - "scripts/book_inventory.py"
-      - "scripts/check-book-inventory.py"
-      - "scripts/check-book-inventory-fixtures.py"
-      - "scripts/check-rendered-html.py"
-      - "scripts/audit-rendered-html.js"
-      - "scripts/embed-404-assets.py"
-      - "scripts/render-book-pdf.ps1"
-      - "scripts/render-book-docx.ps1"
-      - "scripts/check-pdf-release-path.ps1"
-      - "styles/book-include.html"
-      - ".github/workflows/publish.yml"
-      - "notes/reports/p1c-book-inventory-2026-08-04.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P1C-PARITY"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P1C-INVENTORY"
+  next_permitted_packet: "P1-VERIFY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3567,7 +3547,7 @@ packets:
     sequence: 41
     phase: "1C"
     kind: "release_engineering"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P1C-INTEGRITY"
     scope: "Configuration-driven page, appendix, and route inventories."
@@ -3578,13 +3558,60 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-INVENTORY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:8731a9d62c72264b435b829924e3259b730311b1"
+            - "check:DEPENDENCY_RESTORE_OK-R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1"
+            - "check:P1C_INVENTORY_CLEAN_PROOF_OK-worktree-clean-publish-false"
+        - requirement: "positive test"
+          artifacts:
+            - "check:BOOK_INVENTORY_OK-pages-37-chapters-19-appendices-6-solutions-0-navbar-8-footer-9"
+            - "fixture:source-driven-fixture-route-sync-pages-38-footer-10"
+            - "check:workflow-and-Quarto-pre-render-gates-block-before-render-and-Pages"
+            - "report:notes/reports/p1c-book-inventory-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:missing-route-exit-1"
+            - "fixture:extra-route-without-sync-exit-1"
+            - "fixture:reordered-appendix-route-exit-1"
+            - "check:BOOK_INVENTORY_NEGATIVE_FIXTURES_OK-fixtures-3-publish-false"
+      outputs:
+        - output: "P1C-INVENTORY durable artifact and evidence record for: Configuration-driven page, appendix, and route inventories."
+          artifacts:
+            - "inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499"
+            - "report:notes/reports/p1c-book-inventory-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-INVENTORY source state and bounded scope."
+          artifacts:
+            - "commit:8731a9d62c72264b435b829924e3259b730311b1"
+            - "scope:canonical-inventory-generated-projections-consumer-reconciliation-fixtures-and-blocking-hooks-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:default-command-rejects-generated-projection-drift"
+            - "check:pre-render-workflow-PDF-and-DOCX-gates-have-no-continue-on-error"
+            - "fixture:missing-extra-and-reordered-routes-return-exit-1"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:8731a9d62c72264b435b829924e3259b730311b1"
+            - "check:fresh-locked-restore-empty-R-npm-and-browser-paths"
+            - "check:detached-worktree-clean-after-positive-and-negative-proof"
+        - test: "The P1C-INVENTORY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:one-sanctioned-source-37-pages-6-A-F-appendices-zero-solution-routes-and-all-traced-consumers"
+            - "report:notes/reports/p1c-book-inventory-2026-08-04.md"
+            - "handoff:P1C-INVENTORY-no-new-future-effect"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499"
   P1-VERIFY:
     sequence: 42
     phase: "1"
@@ -7154,7 +7181,7 @@ parents:
   R05:
     title: "Safe, reproducible, fail-closed production"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -7188,7 +7215,15 @@ parents:
       - "R05-EXPORT-failclosed"
       - "R05-CONFIG-inventories"
       - "R18-BROWSER-runtime"
-    completion_evidence: []
+    completion_evidence:
+      - "packet:P1C-LOCK"
+      - "packet:P1C-PDF"
+      - "packet:P1C-INTEGRITY"
+      - "packet:P1C-EXPORT"
+      - "packet:P1C-BROWSER"
+      - "packet:P1C-INVENTORY"
+      - "report:notes/reports/p1c-book-inventory-2026-08-04.md"
+      - "check:all-14-required-children-accepted"
   R06:
     title: "Citable and correctable edition"
     disposition: "accepted_first_edition"
@@ -10055,7 +10090,7 @@ items:
       location: "§4/Phase 1C"
     description: "Make appendix, page, and solution-route inventories configuration-driven."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -10073,11 +10108,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-INVENTORY"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:8731a9d62c72264b435b829924e3259b730311b1"
+      - "inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499"
+      - "check:BOOK_INVENTORY_OK-pages-37-chapters-19-appendices-6-solutions-0-navbar-8-footer-9"
+      - "fixture:source-driven-route-sync-and-three-deliberate-drift-failures"
+      - "check:P1C_INVENTORY_CLEAN_PROOF_OK-worktree-clean-publish-false"
+      - "report:notes/reports/p1c-book-inventory-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "inventory:sha256-1cc773c5b0a9546c2c111b994d6c9eda3797139419cb91e4396fa1d92c49e499"
   R06-META-readme:
     parents:
       - "R06"
