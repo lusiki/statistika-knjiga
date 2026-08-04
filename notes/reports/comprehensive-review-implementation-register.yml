@@ -10,9 +10,19 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P1C-BROWSER"
+    started_at: "2026-08-04"
+    owned_paths:
+      - ".github/workflows/publish.yml"
+      - "scripts/audit-rendered-html.js"
+      - "scripts/check-browser-smoke-fixtures.py"
+      - "notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "P1C-EXPORT"
-  next_permitted_packet: "P1C-BROWSER"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3413,7 +3423,7 @@ packets:
     sequence: 39
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "P1C-LOCK"
     scope: "Pinned portable browser smoke audit."
@@ -16325,7 +16335,7 @@ items:
       location: "§11 widget issues"
     description: "Make responsive, keyboard, live-region, reset, and dark-mode smoke checks reproducible."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "in_progress"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:

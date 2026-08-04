@@ -1341,7 +1341,30 @@ handoffs:
     deliveries:
       - target_packet: P1C-BROWSER
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1C-BROWSER consumes the accepted dependency manifest as its exact
+          implementation boundary before packet claim. The browser smoke audit
+          will resolve Playwright only from the committed local package, launch
+          the Chromium revision installed by that package without NODE_PATH or
+          a developer-local executable path, and leave package.json,
+          package-lock.json, .node-version, renv.lock, and the dependency
+          restore contract unchanged. The packet is limited to the existing
+          rendered-HTML audit, one blocking workflow caller, one deliberate
+          browser-path fixture, and durable evidence; parity, inventories,
+          exports, catalogue, assessment, chapters, and general browser
+          coverage remain outside scope.
+        evidence:
+          - commit:945e7ccd1ba32985c0429cc166b5233d93b58cdb
+          - dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8
+          - report:notes/reports/p1c-lock-dependency-restore-2026-08-04.md
+          - source:package.json-playwright-1.62.1
+          - source:package-lock.json-playwright-and-playwright-core-1.62.1
+          - source:.node-version-24.15.0
+          - check:local-locked-runtime-node-24.15.0-npm-11.12.1-playwright-1.62.1-chromium-1234
+          - source:scripts/audit-rendered-html.js-pre-edit-NODE_PATH-and-developer-Chrome-boundary
       - target_packet: P7-FREEZE
         gate: before_close
         state: pending
