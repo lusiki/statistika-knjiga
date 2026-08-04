@@ -2121,3 +2121,26 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1C-BROWSER
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - P1C-BROWSER P1C-PARITY P1C-INVENTORY and all later packets were not started
+  P1C-BROWSER:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P1C-BROWSER found no new future-relevant effect. Full semantic
+      accessibility and broader browser proof already belong to P7-A11Y and
+      P7-HTML, while parity and configuration-driven inventories remain in
+      P1C-PARITY and P1C-INVENTORY. H-P1C-LOCK-001 already carries the
+      canonical lock provenance to P7-FREEZE, so another handoff would add no
+      information.
+    implementation_state: browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7
+    checks:
+      - H-P1C-LOCK-001 was consumed with exact lock and scope evidence before packet claim
+      - commit 8b04c6cec15972d85416f4d9b2cd5f49a8776d3e resolves only the checkout-local Playwright package and its installed Chromium
+      - package.json package-lock.json .node-version renv.lock and scripts/restore-dependencies.py are unchanged from the accepted P1C-LOCK source
+      - the independently callable smoke audit passed keyboard reset live-region dark-mode and 1280/390 responsive checks
+      - a detached worktree restored fresh R npm node_modules and browser paths and remained clean after the positive and negative proof
+      - an invalid NODE_PATH was ignored and no developer-local Chrome path or executable override remains
+      - the deliberate missing-route fixture returned HTTP 404 and exit 1 and the harness reported BROWSER_SMOKE_NEGATIVE_FIXTURES_OK
+      - workflow Chromium installation positive smoke and negative fixture are blocking before Pages setup and artifact upload
+      - node syntax static rendered-HTML source-diff whitespace workflow and both required control negative fixtures passed
+      - no render upload deployment publication parity export inventory catalogue assessment or chapter work occurred

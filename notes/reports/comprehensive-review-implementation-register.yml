@@ -10,19 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P1C-BROWSER"
-    started_at: "2026-08-04"
-    owned_paths:
-      - ".github/workflows/publish.yml"
-      - "scripts/audit-rendered-html.js"
-      - "scripts/check-browser-smoke-fixtures.py"
-      - "notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P1C-EXPORT"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P1C-BROWSER"
+  next_permitted_packet: "P1C-PARITY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3423,7 +3413,7 @@ packets:
     sequence: 39
     phase: "1C"
     kind: "release_engineering"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P1C-LOCK"
     scope: "Pinned portable browser smoke audit."
@@ -3434,13 +3424,59 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-BROWSER packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+            - "check:P1C_BROWSER_CLEAN_PROOF_OK-worktree-clean-publish-false"
+            - "check:R-4.6.0-Node-24.15.0-npm-11.12.1-Playwright-1.62.1-Chromium-1234"
+        - requirement: "positive test"
+          artifacts:
+            - "check:BROWSER_RUNTIME_OK-playwright-1.62.1-chromium-revision-1234"
+            - "check:BROWSER_SMOKE_OK-widths-1280-390-themes-light-dark-keyboard-reset-live-region"
+            - "check:rendered-html-36-canonical-pages"
+            - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:missing-route-HTTP-404-exit-1"
+            - "check:BROWSER_SMOKE_NEGATIVE_FIXTURES_OK-fixtures-1-publish-false"
+      outputs:
+        - output: "P1C-BROWSER durable artifact and evidence record for: Pinned portable browser smoke audit."
+          artifacts:
+            - "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
+            - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-BROWSER source state and bounded scope."
+          artifacts:
+            - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+            - "scope:rendered-html-browser-smoke-workflow-and-one-browser-path-fixture-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-smoke-and-fixture-steps-precede-Pages-artifact-setup"
+            - "fixture:missing-route-HTTP-404-exit-1"
+            - "check:no-continue-on-error-or-browser-fallback"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+            - "check:fresh-locked-restore-empty-R-npm-node-modules-and-browser-paths"
+            - "check:invalid-NODE_PATH-ignored-and-developer-Chrome-path-absent"
+            - "check:accepted-lock-and-restore-inputs-unchanged-from-945e7cc"
+        - test: "The P1C-BROWSER packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+            - "handoff:H-P1C-LOCK-001-consumed-before-packet-claim"
+            - "handoff:P1C-BROWSER-no-new-future-effect"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
   P1C-PARITY:
     sequence: 40
     phase: "1C"
@@ -16335,7 +16371,7 @@ items:
       location: "§11 widget issues"
     description: "Make responsive, keyboard, live-region, reset, and dark-mode smoke checks reproducible."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -16354,11 +16390,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-BROWSER"
-    completion_evidence: []
+    completion_evidence:
+      - "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
+      - "commit:8b04c6cec15972d85416f4d9b2cd5f49a8776d3e"
+      - "report:notes/reports/p1c-browser-smoke-audit-2026-08-04.md"
+      - "check:P1C_BROWSER_CLEAN_PROOF_OK-worktree-clean-publish-false"
+      - "check:BROWSER_SMOKE_OK-widths-1280-390-themes-light-dark-keyboard-reset-live-region"
+      - "fixture:missing-route-HTTP-404-exit-1"
+      - "check:workflow-blocking-before-Pages-artifact"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7"
   R18-BOOK-cross-edition-claims:
     parents:
       - "R18"

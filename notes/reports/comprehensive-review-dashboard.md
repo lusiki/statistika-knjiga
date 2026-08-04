@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: P1C-BROWSER
-last_completed_packet: P1C-EXPORT
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: P1C-BROWSER
+next_permitted_packet: P1C-PARITY
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -32,17 +32,17 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P1C-BROWSER` |
-| Last completed packet | `P1C-EXPORT` |
-| Next permitted packet | None while `P1C-BROWSER` is active |
+| Active write packet | None |
+| Last completed packet | `P1C-BROWSER` |
+| Next permitted packet | `P1C-PARITY` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 56 accepted, 5 deferred with reason, 310 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 32 accepted and 156 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 57 accepted, 5 deferred with reason, 309 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 33 accepted and 155 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None in `P1C-EXPORT`; the release export passed the locked clean-worktree proof and the three deliberate failure fixtures. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest is recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
+| Failed gates | None in `P1C-BROWSER`; the pinned smoke audit passed its clean locked positive path and deliberate missing-route failure. A pre-existing `_quarto.yml` checksum mismatch in the P1B provenance manifest remains recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -833,6 +833,37 @@ The accepted export source state is
 the durable evidence is
 `notes/reports/p1c-export-release-path-2026-08-04.md`.
 
+## P1C-BROWSER closeout
+
+- `H-P1C-LOCK-001` was consumed with the exact accepted manifest, versions,
+  hashes, and implementation boundary before packet claim.
+- Commit `8b04c6c` makes the rendered-HTML browser smoke audit resolve only the
+  checkout-local Playwright 1.62.1 package and launch its installed Chromium
+  revision 1234. `NODE_PATH`, the developer-local Chrome path, and any
+  executable override are absent.
+- The independent command starts its own loopback server and verifies one
+  representative widget at widths 1280 and 390 in light and dark modes. It
+  operates the panel, slider, reset, and theme toggle by keyboard and verifies
+  a nonempty polite live region and the absence of horizontal overflow.
+- A detached worktree restored fresh R, npm, `node_modules`, and browser paths
+  from the accepted locks. The smoke passed even with an invalid `NODE_PATH`,
+  the missing-route fixture returned HTTP 404 and exit 1 as required, and the
+  proof worktree remained clean.
+- The workflow installs Chromium from the locked local Playwright CLI and runs
+  both browser checks after HTML render and before Pages setup or upload. Both
+  steps are blocking, have no fallback, and do not publish.
+- The accepted P1C-LOCK inputs are unchanged. Browser parity, exports,
+  inventories, catalogue, assessment policy, chapters, and general browser or
+  assistive-technology coverage were not changed.
+- No new future-relevant effect was found. Existing P7-A11Y, P7-HTML,
+  P1C-PARITY, P1C-INVENTORY, and H-P1C-LOCK-001 already own every later
+  consequence, so no duplicate outgoing handoff was created.
+
+The accepted browser-smoke source state is
+`browser-smoke:sha256-c76a872c9bbf374c3ed9e28b8f952636bbad2448bdfbb0a265494bc941c03ba7`;
+the durable evidence is
+`notes/reports/p1c-browser-smoke-audit-2026-08-04.md`.
+
 ## Findings that constrain later packets
 
 - `WB-C05` must retire the exact `fig-anscombe` integrity-debt entry after the
@@ -848,8 +879,8 @@ the durable evidence is
   worked example.
 - Any material chapter edit invalidates an older six-critic panel for final
   acceptance purposes.
-- P1C-BROWSER must use the committed Playwright lock and installed Chromium,
-  replacing the live audit's undeclared `NODE_PATH` and hard-coded Chrome path.
+- P7-FREEZE must record the accepted Node, npm, Playwright, Chromium, R, and
+  renv locks and hashes in the release-candidate provenance record.
 - P2-ASSESS and P5-ROUTES must preserve the structural public-export boundary
   for every future solution or instructor route and rerun the release leak
   proof against the final route set.
@@ -896,23 +927,22 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-BROWSER. Fully read
-its release-engineering contract, every register item assigned to
-P1C-BROWSER, the accepted P1C-LOCK evidence and `H-P1C-LOCK-001`, the current
-publish workflow, package.json, package-lock.json, .node-version,
-scripts/restore-dependencies.py, and the complete current rendered-HTML browser
-audit and its callers.
+Execute only the dashboard's next permitted packet, P1C-PARITY. Fully read its
+release-engineering contract, all register items assigned to P1C-PARITY, the
+accepted P1A methods evidence, data/widgets.json, scripts/check-widgets.py,
+every current OJS widget and R print twin, their shared data/seed sources, and
+the current publish workflow and locked dependency contract.
 
-Implement only a pinned portable blocking browser smoke audit. Replace the
-undeclared NODE_PATH and developer-local Chrome dependency with the committed
-Playwright package and its installed Chromium from the accepted lock contract.
-Keep the audit independently callable and do not absorb parity, export,
-inventory, catalogue, assessment-policy, chapter, or general browser-coverage
-work.
+Implement only a blocking golden-value parity framework and all 17 exact or
+distributional pair records. For each pair record parameters, seed policy,
+tolerance, expected values, adapters, and the claim boundary; do not change
+chapter prose or widget behavior merely to force equality. Keep commands
+independently callable and do not absorb inventory, catalogue, assessment,
+chapter, export, general browser, or release-candidate work.
 
-Prove the positive smoke path and a deliberate interaction or browser-path
-failure from a clean locked environment without publishing. Consume
-`H-P1C-LOCK-001` with exact evidence, record every future effect or an explicit
-none, run the workflow validator and both required negative fixtures, then
-stop. Do not start P1C-PARITY, P1C-INVENTORY, P1-VERIFY, or any later packet.
+Prove the positive 17-pair path and a deliberate seeded or expected-value
+regression from a clean locked environment without publishing. Record every
+future effect or an explicit none, run the workflow validator and both required
+negative fixtures, then stop. Do not start P1C-INVENTORY, P1-VERIFY, or any
+later packet.
 ```
