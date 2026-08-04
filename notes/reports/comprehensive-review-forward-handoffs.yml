@@ -1969,6 +1969,54 @@ handoffs:
           - "contract:packet_contracts.shared_registry"
           - "check:scripts/check-review-workflow.R-before-P2-SPINE-PREFACE-claim"
 
+  H-G-A2B-I-001:
+    source_packet: G-A2b-I
+    created_at: "2026-08-04"
+    kind: decision
+    refs:
+      - decision:G-A2b-I
+      - decision:D04
+      - decision:D05
+      - item:R04-SPINE-I
+      - item:R04-C01-definitions
+      - item:R04-C03-definitions
+      - registry:identity_briefs.briefs.c03
+      - rule:STYLE-H10
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted Part I spine as drafted
+      on 2026-08-04. Part I carries three steps and no more: a number is not a
+      conclusion, then how a number is made, then how a correct number still
+      misleads. Chapter 1 carries seven aspects and eight terms with no
+      prerequisite; Chapter 2 carries nine aspects and ten terms and requires
+      Chapter 1; Chapter 3, subordinate to its ratified identity brief c03,
+      carries ten aspects including the Part I claim-map boundary and six terms
+      and requires Chapters 1 and 2. No visible code appears anywhere in Part I,
+      hidden plumbing stays permitted, and no assessed task requires code
+      production. The definition hierarchy is bounded: Chapter 1 gains exactly
+      unit of analysis and Simpson's paradox, Chapter 2 retains its existing
+      four unchanged, Chapter 3 gains exactly base rate, the four activities are
+      stated from the accepted architecture rather than redefined, mediator and
+      collider stay in prose, and population, sample, sampling, margin of error,
+      and causal identification are deferred to Chapters 8, 9 and 16.
+    required_action: >-
+      In P2-SPINE-I, write exactly this accepted spine into
+      bookwright_plugin/bookwright/shared/chapter-spine.json for units
+      01-zasto-statistika, 02-mjerenje-i-dizajn and 03-kako-brojke-zavode and
+      set their ratified flags, recording prerequisites and exclusions in the
+      schema-valid form established by P2-SPINE-PREFACE. Change no chapter
+      prose, no chapter stage, and no terminology, add or remove no #def- block,
+      and ratify no other spine.
+    basis:
+      - conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic
+      - notes/reports/g-a2b-i-spine-decision-2026-08-04.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2b-I
+      - notes/reports/author-pre-dispositions-2026-08-04.md
+    required: true
+    deliveries:
+      - target_packet: P2-SPINE-I
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -2830,3 +2878,26 @@ packet_reviews:
       - no chapter or appendix prose chapter stage terminology data package route render generated artifact or external action changed
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-I
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+  G-A2b-I:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2B-I-001
+    implementation_state: conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic
+    checks:
+      - the complete handoff ledger was read before the decision and no handoff targets G-A2b-I
+      - H-P0-REGISTER-008 targets WC-C08 WC-C09 and WD-C17 remains pending and was not consumed by this gate
+      - the complete Part I spine part contract and definition hierarchy were drafted before the disposition was recorded
+      - author and editor Luka Sikic accepted one bounded disposition covering the part contract three chapter spines and the definition hierarchy
+      - the drafted spine matches the recorded author intent in every respect and every additional aspect traces to an already ratified register item or accepted architecture
+      - all three chapters carry the D05 no-visible-code exclusion first and exclude assessed code production and invented empirical material
+      - the definition increase is bounded to three new blocks each with a named later dependant while Chapter 2 keeps its existing four unchanged
+      - population sample sampling margin of error and causal identification are explicitly deferred to Chapters 8 9 and 16
+      - Chapter 3's spine is subordinate to its ratified identity brief c03 and does not repeat it
+      - the recommended default six rejected alternatives authority boundary and blocked dependency list are recorded in the register
+      - OA-G-A2B-I-SPINE is done with a dated resolution and no external message was sent
+      - H-G-A2B-I-001 carries the accepted spine to P2-SPINE-I at its before_start gate
+      - no chapter or appendix prose spine registry terminology definition block concept graph data package render generated artifact or external action changed
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-I
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-SPINE-I and every later packet were not started and push merge tag archive and deployment remain unauthorised

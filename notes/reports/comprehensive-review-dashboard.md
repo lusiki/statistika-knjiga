@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-SPINE-PREFACE
-next_permitted_packet: G-A2b-I
+last_completed_packet: G-A2b-I
+next_permitted_packet: P2-SPINE-I
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 42
+forward_handoffs: 43
 last_updated: "2026-08-04"
 ---
 
@@ -32,12 +32,13 @@ stop and repair the control state before editing book content.
 | Gate A2a | Accepted as recommended: claim map, audit questions, lifecycle, seven threads, four activities, and data-design principles; 70/20/10 diagnostic only; owner Luka Sikic; 2026-08-04 |
 | Gate A2d | Accepted: D06 solutions policy, D09 Appendix B scope, D10 Appendix G scope, and the D05/H10 AI ladder as recommended; D15 privacy/tool lanes as the course's own dated policy v1.0; author, course owner and clean-install owner Luka Sikic; 2026-08-04 |
 | Gate A2b-PREFACE | Accepted as drafted: preface spine with nine aspects, five terms, no prerequisite, twelve exclusions; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-I | Accepted as drafted: Part I contract, three chapter spines, and a bounded three-block definition increase; owner Luka Sikic; 2026-08-04 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-SPINE-PREFACE` |
-| Next permitted packet | `G-A2b-I` |
+| Last completed packet | `G-A2b-I` |
+| Next permitted packet | `P2-SPINE-I` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -49,6 +50,47 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2b-I closeout
+
+- No handoff targets `G-A2b-I`; the complete ledger was read before the
+  decision. `H-P0-REGISTER-008` targets `WC-C08`, `WC-C09` and `WD-C17`,
+  remains `pending`, and was not consumed here.
+- The complete Part I spine, part contract and definition hierarchy were drafted
+  first, and the gate then closed against that drafted state. Author and editor
+  Luka Sikic accepted it as drafted on 2026-08-04.
+- Part I carries three steps and no more: a number is not a conclusion, then how
+  a number is made, then how a correct number still misleads. The part
+  emphasises the question, acquire and validate lifecycle stages, plants five
+  threads, carries the full claim map and six audit questions at its boundary
+  with an answerable self-check, and shows no visible code anywhere.
+- Chapter 1 carries seven aspects and eight terms with no prerequisite. Chapter 2
+  carries nine aspects and ten terms and requires Chapter 1. Chapter 3, explicitly
+  subordinate to its ratified identity brief `c03`, carries ten aspects including
+  the Part I boundary and six terms, and requires Chapters 1 and 2.
+- The definition hierarchy is bounded and increases Part I by exactly three
+  blocks: `jedinica analize` and `Simpsonov paradoks` in Chapter 1 and
+  `temeljna stopa` in Chapter 3. Chapter 2 keeps its existing four unchanged. The
+  four activities are stated from the accepted architecture rather than
+  redefined; mediator and collider stay in prose under `.pojam`; and population,
+  sample, sampling, margin of error and causal identification are explicitly
+  deferred to Chapters 8, 9 and 16.
+- The draft matches the recorded author intent in every respect: only
+  definitions with a named later dependant are ratified, the D05 no-visible-code
+  boundary is the first exclusion of all three chapters, and the ramp stays
+  gentle. The remaining aspects each implement an already ratified register item
+  or accepted architecture, so no new requirement was introduced.
+- Six alternatives were rejected, including four definition blocks for the
+  activities, defining population and sample in Chapter 1, formal blocks for
+  mediator and collider, adding no block at all, defining the margin of error in
+  Chapter 3, and allowing visible Chapter 3 code.
+- `OA-G-A2B-I-SPINE` is `done`; no external message was sent. `H-G-A2B-I-001`
+  carries the accepted spine to `P2-SPINE-I` at its `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, data package, render, generated artifact or external authority
+  changed.
+
+The durable evidence is `notes/reports/g-a2b-i-spine-decision-2026-08-04.md`.
 
 ## P2-SPINE-PREFACE closeout
 
@@ -1350,26 +1392,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, G-A2b-I, only. Claim the write
-lock, do the work, close the packet, and stop. Do not start P2-SPINE-I or any
+Execute the dashboard's next permitted packet, P2-SPINE-I, only. Claim the write
+lock, do the work, close the packet, and stop. Do not start G-A2b-II or any
 later packet, and do not edit chapter prose.
 
-Before the first substantive edit, acknowledge every applicable incoming handoff
-and say so explicitly; consume each with a concrete disposition and evidence
-before closeout. Read the G-A2b-I packet contract, outside ask
-OA-G-A2B-I-SPINE, governed items R04-SPINE-I, R04-C01-definitions and
-R04-C03-definitions, the accepted P2-CLAIMS, P2-ASSESS and P2-IDENTITY
-registries, the ratified preface spine, and the recorded author intent in
-notes/reports/author-pre-dispositions-2026-08-04.md in full.
+Before the first substantive edit, acknowledge H-G-A2B-I-001 and say so
+explicitly; consume it with a concrete disposition and evidence before closeout.
+Read the P2-SPINE-I packet contract, governed items R04-SPINE-I,
+R04-C01-definitions and R04-C03-definitions, and the accepted spine in
+notes/reports/g-a2b-i-spine-decision-2026-08-04.md in full.
 
-Draft the complete Part I spine for Chapters 1 to 3 to the recorded author
-intent, then close the gate against that drafted source state with a dated
-disposition, named owner, alternatives, authority boundary, and blocked
-dependencies. Ratify only the claim, lifecycle, measurement and literacy
-definitions that later parts genuinely depend on, hold the D05 no-visible-code
-boundary, and keep the opening ramp gentle. If the draft departs from the
-recorded intent in any respect, stop and present the exact difference for an
-explicit decision.
+Write exactly the accepted Part I spine into
+bookwright_plugin/bookwright/shared/chapter-spine.json for units
+01-zasto-statistika, 02-mjerenje-i-dizajn and 03-kako-brojke-zavode and set their
+ratified flags, using the schema-valid prerequisite and exclusion form
+established by P2-SPINE-PREFACE. Do not change chapter prose, chapter stage or
+terminology, do not add or remove any #def- block, and do not ratify any other
+spine.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both

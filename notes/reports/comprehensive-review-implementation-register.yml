@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P2-SPINE-PREFACE"
-  next_permitted_packet: "G-A2b-I"
+  last_completed_packet: "G-A2b-I"
+  next_permitted_packet: "P2-SPINE-I"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -669,6 +669,102 @@ decisions:
       of WA-C00, changes no public promise in source, which remains WA-C00 and
       P5-ROUTES work, does not advance the unit's draft stage, and authorises
       no push, merge, tag, archive, deployment, or publication.
+  G-A2b-I:
+    status: "accepted"
+    accepted_at: "2026-08-04"
+    author_disposition: "accepted_as_drafted"
+    author: "Luka Sikic"
+    approval_owner: "author_editor"
+    evidence: "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
+    recorded_intent: "notes/reports/author-pre-dispositions-2026-08-04.md#g-a2b-i--part-i-chapters-1-3"
+    standing_authorisation: "conversation:G-A2b-preface-and-part-i-standing-authorisation-2026-08-04-Luka-Sikic"
+    record: "notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+    drafted_source_state: "spine-draft:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+    accepted_disposition: >-
+      Accepted as drafted. Part I carries three steps and no more: a number is
+      not a conclusion, then how a number is made, then how a correct number
+      still misleads. The part emphasises the question, acquire, and validate
+      lifecycle stages, plants the unit, selection and absence, denominator,
+      uncertainty budget, and consequences of error threads, carries the full
+      claim map and the six audit questions at its boundary with an answerable
+      self-check, and shows no visible code anywhere while hidden plumbing
+      remains permitted and no assessed task requires code production. Chapter 1
+      carries seven load-bearing aspects and eight terms with no prerequisite;
+      Chapter 2 carries nine aspects and ten terms and requires Chapter 1;
+      Chapter 3, subordinate to its ratified identity brief c03, carries ten
+      aspects including the Part I boundary and six terms and requires Chapters
+      1 and 2. Each chapter excludes visible code, assessed code production, and
+      invented or unsourced empirical material, and each names the material it
+      defers to a later chapter. The definition hierarchy is bounded: Chapter 1
+      gains exactly two definition blocks, unit of analysis and Simpson's
+      paradox; Chapter 2 retains its existing four unchanged; Chapter 3 gains
+      exactly one, base rate. The four activities are stated from the accepted
+      architecture rather than redefined, mediator and collider stay in prose,
+      and population, sample, sampling, margin of error, and causal
+      identification are explicitly deferred to Chapters 8, 9 and 16.
+    intent_conformance: >-
+      The draft matches the recorded author intent in every respect. Only
+      definitions that a later part genuinely depends on are ratified, each with
+      a named later dependant. The D05 no-visible-code boundary is the first
+      exclusion of all three chapters and of the part contract. The opening ramp
+      stays gentle: the four activities gain no definition blocks, mediator and
+      collider stay in prose, and population and sample wait for Chapter 8. The
+      remaining aspects are not new requirements; each implements an already
+      ratified register item or the accepted G-A2a, G-A2d, or P2-IDENTITY
+      architecture, so omitting them would create a contradiction. No departure
+      was found and no further ask was required.
+    rejected_alternatives:
+      - "Give each of the four activities its own definition block in Chapter 1."
+      - "Formally define population and sample in Chapter 1 instead of Chapter 8."
+      - "Add definition blocks for mediator and collider in Chapter 2."
+      - "Add no new definition block to Part I at all."
+      - "Define the margin of error in Chapter 3."
+      - "Allow visible code in Chapter 3 as a verification receipt."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P2-SPINE-I"
+      governed_items:
+        - "R04-SPINE-I"
+        - "R04-C01-definitions"
+        - "R04-C03-definitions"
+      still_blocked_elsewhere:
+        - "R07-C03-full-argument"
+        - "R10-C03-base-rate"
+        - "R11-C02-units-eligibility"
+        - "R12-C03-poll-literacy"
+        - "R12-C03-margin-debt"
+        - "R13-C02-coding-measurement"
+        - "R23-C03-no-R-production"
+        - "R24-C01-modern-AI-history"
+        - "R24-C03-AI-provenance"
+        - "R24-C03-synthetic-media"
+        - "R27-C03-04-transition"
+        - "R30-C03-slide-enumeration"
+        - "R31-C01-Berkeley"
+        - "R31-C03-public-case"
+      later_gates_still_mandatory:
+        - "G-A2b-II"
+        - "G-A2b-III"
+        - "G-A2b-IV"
+        - "G-A2b-V"
+        - "G-A2b-FINALE"
+        - "G-A2c"
+        - "G-A4-03"
+        - "C01"
+        - "C02"
+        - "C03"
+    authority_boundary: >-
+      This decision approves exactly one drafted Part I spine and its bounded
+      definition hierarchy, and unblocks P2-SPINE-I as the packet that writes
+      them into chapter-spine.json. It approves no chapter prose and authorises
+      no edit to chapters/01-zasto-statistika.qmd,
+      chapters/02-mjerenje-i-dizajn.qmd, or chapters/03-kako-brojke-zavode.qmd.
+      It adds and removes no #def- block and regenerates no concept graph; those
+      remain WA-C01, WA-C02, WA-C03 and P2-TERMS work. It fixes no canonical
+      terminology, which remains G-A2c. It ratifies no later spine, selects no
+      Chapter 3 case, source, or data package, does not advance any unit's draft
+      stage, and authorises no push, merge, tag, archive, deployment, or
+      publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -4607,7 +4703,7 @@ packets:
     sequence: 50
     phase: "2"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P2-CLAIMS"
       - "P2-IDENTITY"
@@ -4619,14 +4715,69 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A2b-I packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+            - "register:decisions.G-A2b-I.accepted_at-2026-08-04"
+            - "spine-draft:notes/reports/g-a2b-i-spine-decision-2026-08-04.md#nacrtana-kraljeznica-po-poglavljima"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
+            - "conversation:G-A2b-preface-and-part-i-standing-authorisation-2026-08-04-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:outside_asks.OA-G-A2B-I-SPINE.recommended_default"
+            - "register:decisions.G-A2b-I.rejected_alternatives-6"
+            - "record:notes/reports/author-pre-dispositions-2026-08-04.md#g-a2b-i--part-i-chapters-1-3"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A2b-I.blocked_dependencies"
+            - "item:R04-SPINE-I"
+            - "item:R04-C01-definitions"
+            - "item:R04-C03-definitions"
+            - "packet:P2-SPINE-I"
+      outputs:
+        - output: "Dated G-A2b-I decision and authority record for: Author ratification for i spine."
+          artifacts:
+            - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+            - "register:decisions.G-A2b-I"
+            - "outside-ask:OA-G-A2B-I-SPINE-done"
+        - output: "Completion evidence is tied to the declared G-A2b-I source state and bounded scope."
+          artifacts:
+            - "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
+            - "register:decisions.G-A2b-I.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A2b-I-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_drafted"
+            - "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
+            - "register:decisions.G-A2b-I.accepted_disposition-single-bounded"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A2b-I.rejected_alternatives-6"
+            - "register:decisions.G-A2b-I.authority_boundary"
+            - "register:decisions.G-A2b-I.blocked_dependencies"
+        - test: "The G-A2b-I packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine-draft:three-chapter-spines-one-part-contract-one-definition-hierarchy"
+            - "register:decisions.G-A2b-I.intent_conformance"
+            - "handoff:H-G-A2B-I-001-created-for-P2-SPINE-I"
+            - "scope-diff:no-chapters-or-dodaci-paths"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
   P2-SPINE-I:
     sequence: 51
     phase: "2"
@@ -23136,8 +23287,8 @@ outside_asks:
       - "report:notes/reports/g-a2b-preface-spine-decision-2026-08-04.md"
 
   OA-G-A2B-I-SPINE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_P2-CLAIMS_and_P2-IDENTITY"
+    status: "done"
+    readiness: "resolved_at_G-A2b-I"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "2"
@@ -23157,6 +23308,12 @@ outside_asks:
     resume_condition: "P2-SPINE-I resumes only after the complete Part I spine is approved."
     why_external: "Part-level hierarchy and definition load require author/editor judgment."
     external_message_sent: false
+    resolved_at: "2026-08-04"
+    resolution: "Part I spine and its Chapter 1 and Chapter 3 definition hierarchy approved as drafted on 2026-08-04 by author and editor Luka Sikic, against the drafted source state in notes/reports/g-a2b-i-spine-decision-2026-08-04.md. The part contract, three chapter spines, and a bounded three-block definition increase were accepted without amendment. No external message was sent."
+    resolution_evidence:
+      - "conversation:G-A2b-I-spine-approved-2026-08-04-Luka-Sikic"
+      - "decision:G-A2b-I"
+      - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
 
   OA-G-A2B-II-SPINE:
     status: "drafted_unsent"
