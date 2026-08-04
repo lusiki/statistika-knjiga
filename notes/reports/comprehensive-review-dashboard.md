@@ -998,6 +998,19 @@ the durable evidence is
 - P7-FREEZE and P8-META must repair and clean-check the pre-existing
   `_quarto.yml` provenance checksum mismatch; final metadata may not introduce
   a competing source or worktree-specific line-ending hash.
+- `scripts/check-concepts.py` moved to blob `a1f78624…` and new
+  `scripts/r_env.py` was added in out-of-packet fix commit `13dee63`. The
+  concept check ran `build-concept-graph.R` in a temporary working directory,
+  where the checkout `.Rprofile` never loads and renv therefore never
+  activates, so the subprocess lost the locked library and failed on missing
+  `yaml` despite a correct `renv.lock`. The same defect silently satisfied the
+  concept negative fixture, which asserts only a nonzero exit, so the injected
+  duplicate definition went untested from `P1C-INTEGRITY` closeout until this
+  fix. The accepted `integrity:sha256-8699a3b2…` state and the seven-lane
+  evidence in `notes/reports/p1c-integrity-gates-2026-08-04.md` predate the
+  repair. P7-FREEZE must record the then-current blobs, and any later packet
+  re-proving the integrity lanes must treat the pre-fix concept-fixture result
+  as unproven rather than passed.
 - `.github/workflows/publish.yml` moved from blob `1665d320…` to `8483793c…`
   in out-of-packet CI commit `1bc1963`, which installs `librsvg2-dev` for the
   pinned `rsvg` source build and raises the checkout action to v5. The
