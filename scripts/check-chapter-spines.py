@@ -108,6 +108,24 @@ REQUIRED_EXCLUSION_MARKERS = {
         "uzročna identifikacija",
         "ocijenjeni zadatak pisanja koda",
     ],
+    "07-vjerojatnost": [
+        "distribucija uzorkovanja",
+        "puna Bayesovska inferencija",
+        "središnjega graničnog teorema",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "08-uzorkovanje": [
+        "veći uzorak popravlja pokrivenost",
+        "razdvajanjem na skup za učenje, provjeru i ispitivanje",
+        "varijance u složenim anketnim nacrtima",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "09-procjena": [
+        "opći interval predviđanja",
+        "percentilnoga bootstrap intervala",
+        "test hipoteze ni p-vrijednost",
+        "ocijenjeni zadatak pisanja koda",
+    ],
 }
 
 # Terms a ratified spine must carry because a later part genuinely depends on them.
@@ -124,6 +142,25 @@ REQUIRED_TERMS = {
     ],
     "05-vizualizacija": ["gramatika grafike", "pridruživanje", "skraćena os"],
     "06-povezanost": ["kovarijanca", "korelacija", "ograničenje raspona"],
+    "07-vjerojatnost": [
+        "vjerojatnost",
+        "neovisnost",
+        "uvjetna vjerojatnost",
+        "normalna raspodjela",
+    ],
+    "08-uzorkovanje": [
+        "populacija",
+        "uzorak",
+        "pogreška uzorkovanja",
+        "distribucija uzorkovanja",
+        "standardna pogreška",
+    ],
+    "09-procjena": [
+        "procjena",
+        "interval pouzdanosti",
+        "margina pogreške",
+        "bootstrap",
+    ],
 }
 
 NO_VISIBLE_CODE_UNITS = [
@@ -139,6 +176,8 @@ RATIFICATION_ORDER = {
     "03-kako-brojke-zavode": ["01-zasto-statistika", "02-mjerenje-i-dizajn"],
     "05-vizualizacija": ["04-sazimanje-podataka"],
     "06-povezanost": ["04-sazimanje-podataka", "05-vizualizacija"],
+    "08-uzorkovanje": ["07-vjerojatnost"],
+    "09-procjena": ["07-vjerojatnost", "08-uzorkovanje"],
 }
 
 
@@ -191,8 +230,9 @@ def main() -> int:
         # removal of Part I's no-visible-code exclusion, which is that part's
         # first required marker and is still removed here. It now applies the
         # same admission to every ratified part boundary, drops one required
-        # load-bearing term per unit, and ratifies Chapter 6 ahead of the
-        # Chapter 5 spine it depends on.
+        # load-bearing term per unit, and ratifies units ahead of the spines
+        # they depend on: Chapter 6 without Chapter 5, and Chapters 8 and 9
+        # without Chapter 7.
         for chapter in spines.get("chapters", []):
             unit = chapter.get("id")
             if chapter.get("ratified") is not True:
@@ -208,10 +248,11 @@ def main() -> int:
                     value for value in chapter.get("key_terms", []) if value != terms[0]
                 ]
         for chapter in spines.get("chapters", []):
-            if chapter.get("id") == "05-vizualizacija":
+            unit = chapter.get("id")
+            if unit in ("05-vizualizacija", "07-vjerojatnost"):
                 chapter.clear()
                 chapter.update({
-                    "id": "05-vizualizacija",
+                    "id": unit,
                     "key_aspects": [],
                     "key_terms": [],
                     "ratified": False,

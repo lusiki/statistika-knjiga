@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A2b-III
-next_permitted_packet: P2-SPINE-III
+last_completed_packet: P2-SPINE-III
+next_permitted_packet: G-A2b-IV
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -39,19 +39,61 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A2b-III` |
-| Next permitted packet | `P2-SPINE-III` |
+| Last completed packet | `P2-SPINE-III` |
+| Next permitted packet | `G-A2b-IV` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Chapter spines | 7 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II` |
+| Chapter spines | 10 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III` |
 | Open outside asks | 63 of the 82 canonical asks remain `drafted_unsent`; 19 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II and Part III spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-SPINE-III closeout
+
+- `H-G-A2B-III-001` was acknowledged and consumed with an exact disposition and
+  evidence before the packet claim and before the first substantive edit.
+  `H-P0-REGISTER-008` remains `pending` for `WC-C08`, `WC-C09` and `WD-C17`; the
+  Chapter 8 and Chapter 9 spines name it and its owning packets without settling
+  it. `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS`.
+- `chapter-spine.json` now carries three ratified Part III units:
+  `07-vjerojatnost` with 10 aspects, 8 terms, 2 prerequisites and 7 exclusions;
+  `08-uzorkovanje` with 10, 12, 4 and 8; and `09-procjena` with 11, 9, 4 and 7.
+  Each is faithful to the accepted draft and names its gate, date and decision
+  record. Its deterministic state is
+  `spine:sha256-465c3fe2a7a460853a1028439e39ce6420dd8d0b8cf248dfaf5017a6538f44b2`.
+- No prerequisite points at a later unit, and the probability → sampling →
+  estimation chain is written both as prerequisites and as a ratification-order
+  condition, so Chapter 8 could not be ratified before Chapter 7, nor Chapter 9
+  before Chapters 7 and 8.
+- Chapter 8 carries the largest conceptual load of the part with twelve terms,
+  and it alone introduces population, sample and sampling error, which Part I
+  deferred to exactly this point. The ratified separation of probability sampling
+  from training, validation and test splitting is written as a binding Chapter 8
+  exclusion, beside the rule that a larger sample does not repair coverage,
+  nonresponse or selection.
+- All three chapters forbid assessed code production and invented or unsourced
+  empirical material, and record sampling distributions, intervals, tests,
+  models, full Bayesian inference and natural-language-processing methods as
+  explicit deferrals.
+- Part III's definition load is unchanged at five, three and one block, and the
+  margin of error stays in prose, so no new forward constraint to `P2-TERMS` was
+  needed and the live definition count remains 46.
+- `scripts/check-chapter-spines.py` now enforces the exact Part III exclusions,
+  required load-bearing terms and ratification order, and reports ten ratified
+  and nine unratified units. Both deliberate fixtures kept their identifiers,
+  returned exit 1, and together prove all three check kinds for Part III. The
+  three architecture consumers agree on 10 of 19 with their accepted states
+  unchanged, and the blocking structure lane passes with 19 chapters.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter stage,
+  terminology, data package, route, render, generated artifact or external
+  authority changed. All 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-spine-iii-2026-08-04.md`.
 
 ## G-A2b-III closeout
 
@@ -1578,31 +1620,30 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, P2-SPINE-III, only. Claim the
-write lock, do the work, close the packet, and stop. Do not start G-A2b-IV or any
+Execute the dashboard's next permitted packet, G-A2b-IV, only. Claim the write
+lock, do the work, close the packet, and stop. Do not start P2-SPINE-IV or any
 later packet, and do not edit chapter prose.
 
 Before the first substantive edit, acknowledge every applicable incoming handoff
 and say so explicitly; consume each with a concrete disposition and evidence
-before closeout. H-G-A2B-III-001 is a required before_start delivery and must be
-terminal before the packet is claimed. Read the P2-SPINE-III packet contract,
-governed item R04-SPINE-III, and the accepted decision record
-notes/reports/g-a2b-iii-spine-decision-2026-08-04.md in full.
+before closeout. Read the G-A2b-IV packet contract, outside ask
+OA-G-A2B-IV-SPINE, governed items R04-SPINE-IV and R04-C12-definitions, the
+ratified identity brief c12 in conventions.json#identity_briefs, the accepted
+P2-CLAIMS, P2-ASSESS and P2-IDENTITY registries, the ratified preface and Part I
+to III spines, and the recorded author intent in
+notes/reports/author-pre-dispositions-2026-08-04.md in full.
 
-Write exactly the accepted Part III spine into
-bookwright_plugin/bookwright/shared/chapter-spine.json for units 07-vjerojatnost,
-08-uzorkovanje and 09-procjena using the schema-valid ratified_at / decision /
-decision_record / prerequisites / exclusions form established by
-P2-SPINE-PREFACE, and extend scripts/check-chapter-spines.py with Part III's
-exact exclusion markers, required load-bearing terms and ratification-order
-checks, each proved by the two existing negative fixtures. No prerequisite may
-point at a later unit. Do not reintroduce a snapshot assertion in the three
-architecture consumers; they count ratified spines.
-
-Add, remove or merge no #def- block and regenerate no concept graph: the concept
-gate stays frozen under H-P1C-INTEGRITY-002 until P2-TERMS retires that debt.
-H-P0-REGISTER-008 remains an obligation of WC-C08, WC-C09 and WD-C17 and must not
-be consumed here.
+Draft the complete Part IV spine for Chapters 10 to 12 to the recorded author
+intent, then close the gate against that drafted source state with a dated
+disposition, named owner, alternatives, authority boundary, and blocked
+dependencies. Magnitude and the consequences of error lead; significance testing
+is taught with its history and its abuses rather than as procedure; Chapter 12
+remains one evidence-led argument about the research system rather than a list of
+reforms; and testing-mechanics-first order is explicitly rejected. The Chapter 12
+spine is subordinate to its already ratified identity brief c12 and must not
+repeat it; settle R04-C12-definitions through that identity spine. If the draft
+departs from the recorded intent in any respect, stop and present the exact
+difference for an explicit decision.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both
