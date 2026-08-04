@@ -1085,8 +1085,24 @@ handoffs:
     deliveries:
       - target_packet: P1C-PDF
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P1C-PDF retained the accurate warning until commit f2c4f82 had
+          established the wrapper-only blocking path and the detached locked
+          proof had replaced the old PDF hash with a fresh matching source and
+          served artifact. README now describes exactly that implemented
+          behavior without promising an edition or publication. The packet
+          performed no external action and used no previously committed PDF as
+          positive build evidence.
+        evidence:
+          - commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6
+          - pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866
+          - report:notes/reports/p1c-pdf-release-path-2026-08-04.md
+          - check:locked-clean-positive-PDF_BUILD_OK-cb57918e-2570017-bytes
+          - fixture:wrapper-build-and-stale-missing-failures-return-nonzero-zero-PDFs
+          - source:README.md-wrapper-only-blocking-stale-safe-description
 
   H-P1B-META-003:
     source_packet: P1B-META
@@ -1310,6 +1326,37 @@ handoffs:
         gate: before_start
         state: pending
       - target_packet: P7-FREEZE
+        gate: before_close
+        state: pending
+
+  H-P1C-PDF-001:
+    source_packet: P1C-PDF
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - packet:P2-DOCS
+      - item:R06-META-readme
+      - source:AGENTS.md
+      - report:notes/reports/p1c-pdf-release-path-2026-08-04.md
+    statement: >-
+      The live PDF wrapper and publish workflow are now blocking and stale-safe,
+      and README states the new behavior. AGENTS.md still describes the old
+      continue-on-error PDF attempt and therefore no longer matches the live
+      production path. That governing-document reconciliation was deliberately
+      kept outside the narrow P1C-PDF implementation surface.
+    required_action: >-
+      In P2-DOCS, update only the stale AGENTS.md deployment description to the
+      accepted wrapper-only blocking behavior while reconciling the other
+      already-recorded governing-document markers. Do not broaden the text into
+      a release or publication promise and do not change the implemented path.
+    basis:
+      - commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6
+      - pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866
+      - source:AGENTS.md-deployment-continue-on-error-description
+      - source:.github/workflows/publish.yml-wrapper-only-blocking-path
+    required: true
+    deliveries:
+      - target_packet: P2-DOCS
         gate: before_close
         state: pending
 
@@ -1834,3 +1881,23 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with next_permitted_packet P1C-PDF
       - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
       - P1C-PDF P1C-INTEGRITY P1C-BROWSER and all later packets were not started
+  P1C-PDF:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P1C-PDF-001
+    implementation_state: pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866
+    checks:
+      - H-P1B-META-002 was acknowledged before the first substantive edit and consumed with exact disposition and evidence before closeout
+      - commit f2c4f8242d14722876549d0cc8fbc25989cdc5c6 contains the only PDF wrapper call in the workflow and no bare profile fallback
+      - the PDF workflow step is blocking runs before generated HTML changes and has no separate copy or stale-warning branch
+      - the wrapper removes both old PDFs validates canonical configuration and accepts only a signed fresh artifact with matching source and served SHA-256
+      - a detached clean worktree restored locked R and browser dependencies into fresh paths and remained free of tracked changes before the build
+      - the real wrapper build replaced old hash b5b18b with fresh hash cb5791 at 2570017 bytes and verified byte-identical source and served copies
+      - wrapper-preflight build-command and stale-missing-artifact fixtures each failed nonzero left configuration unchanged and removed both PDF outputs
+      - README was updated only after all positive and negative evidence passed and still labels artifacts as development outputs
+      - H-P1C-PDF-001 records the remaining AGENTS.md governing-text reconciliation for P2-DOCS
+      - no built PDF was committed or published and no push merge tag archive deployment or Pages action occurred
+      - scripts/check-review-workflow.R passed with next_permitted_packet P1C-INTEGRITY
+      - generic_packet_evidence and invalid_outside_ask_link negative fixtures failed as required
+      - P1C-INTEGRITY P1C-EXPORT and all later packets were not started

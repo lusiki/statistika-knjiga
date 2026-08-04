@@ -10,20 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P1C-PDF"
-    started_at: "2026-08-04"
-    owned_paths:
-      - ".github/workflows/publish.yml"
-      - "scripts/render-book-pdf.ps1"
-      - "scripts/check-pdf-release-path.ps1"
-      - "README.md"
-      - "notes/reports/p1c-pdf-release-path-2026-08-04.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P1C-LOCK"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P1C-PDF"
+  next_permitted_packet: "P1C-INTEGRITY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3226,7 +3215,7 @@ packets:
     sequence: 36
     phase: "1C"
     kind: "release_engineering"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P1C-LOCK"
     scope: "Wrapper-only, blocking, stale-safe PDF path."
@@ -3237,13 +3226,58 @@ packets:
       - "The declared production failure is blocking and fails closed."
       - "The command runs from committed dependencies without hidden local state."
       - "The P1C-PDF packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
+      required_evidence:
+        - requirement: "locked clean-environment run"
+          artifacts:
+            - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+            - "dependencies:sha256-aaf12f9d337efd342cf13a6db37d30b437cf351e19b6c68a78ae528fbabf49e8"
+            - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md#pozitivna-zakljucana-izgradnja"
+            - "check:cold-restore-fresh-paths-prebuild-zero-tracked-changes"
+        - requirement: "positive test"
+          artifacts:
+            - "check:PDF_BUILD_OK-commit-f2c4f82-sha256-cb57918e-bytes-2570017"
+            - "check:source-and-served-PDF-signature-and-sha256-match"
+            - "check:old-b5b18b-PDF-invalidated-before-fresh-cb5791-build"
+        - requirement: "deliberate failing fixture"
+          artifacts:
+            - "fixture:wrapper-preflight-failure-exit-1-zero-PDFs"
+            - "fixture:build-command-failure-exit-1-zero-PDFs"
+            - "fixture:stale-missing-artifact-exit-1-zero-PDFs"
+      outputs:
+        - output: "P1C-PDF durable artifact and evidence record for: Wrapper-only, blocking, stale-safe PDF path."
+          artifacts:
+            - "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
+            - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
+        - output: "Completion evidence is tied to the declared P1C-PDF source state and bounded scope."
+          artifacts:
+            - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+            - "scope:wrapper-workflow-fixture-and-README-only"
+      exit_tests:
+        - test: "The declared production failure is blocking and fails closed."
+          result: "passed"
+          evidence:
+            - "check:workflow-wrapper-step-has-no-continue-on-error-or-fallback-copy"
+            - "fixture:three-independent-failure-paths-return-nonzero-and-remove-both-PDFs"
+        - test: "The command runs from committed dependencies without hidden local state."
+          result: "passed"
+          evidence:
+            - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+            - "check:cold-restore-new-R-npm-and-browser-paths"
+            - "check:real-wrapper-build-required-clean-commit-and-replaced-old-hash"
+        - test: "The P1C-PDF packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
+            - "handoff:H-P1B-META-002-consumed-with-exact-disposition"
+            - "handoff:H-P1C-PDF-001-records-all-future-effects"
     contract: "release_engineering"
     required_evidence:
       - "locked clean-environment run"
       - "positive test"
       - "deliberate failing fixture"
-    change_reference: null
+    change_reference: "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
   P1C-INTEGRITY:
     sequence: 37
     phase: "1C"
@@ -9376,7 +9410,7 @@ items:
       location: "§4 build risk 2"
     description: "Make CI use only the approved PDF wrapper."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9393,11 +9427,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PDF"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+      - "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
+      - "check:workflow-contains-only-approved-PDF-wrapper-command"
+      - "fixture:wrapper-preflight-failure-exit-1-config-unchanged-zero-PDFs"
+      - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
   R05-PDF-fail-blocking:
     parents:
       - "R05"
@@ -9411,7 +9450,7 @@ items:
       location: "§4 build risk 3"
     description: "Make PDF failure block publication."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9427,11 +9466,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PDF"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+      - "check:PDF-step-has-no-continue-on-error-and-precedes-Pages-upload"
+      - "fixture:build-command-failure-exit-1-zero-PDFs"
+      - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
   R05-PDF-stale-protection:
     parents:
       - "R05"
@@ -9445,7 +9488,7 @@ items:
       location: "§4 build risk 3"
     description: "Prevent stale PDF publication after a failed or absent fresh build."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_release_engineering"
     approval_owner: "author_and_release_or_specialist_owner"
     scope:
@@ -9462,11 +9505,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1C-PDF"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:f2c4f8242d14722876549d0cc8fbc25989cdc5c6"
+      - "check:old-b5b18b-PDFs-replaced-by-fresh-cb5791-identical-copies"
+      - "check:PDF-signature-and-SHA256-validation-before-copy"
+      - "fixture:stale-missing-artifact-exit-1-zero-PDFs"
+      - "report:notes/reports/p1c-pdf-release-path-2026-08-04.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866"
   R05-CI-token:
     parents:
       - "R05"

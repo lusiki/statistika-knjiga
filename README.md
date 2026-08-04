@@ -59,10 +59,12 @@ quarto preview
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-concept-graph.R` | mreža pojmova za pojmovnik |
 
 PDF i DOCX **ne** pokreću se golim `quarto render --profile …`. PDF omotač
-provjerava kanonski popis literature i dodataka A–F, pokreće PDF profil te
-kopira rezultat u `docs/pdf/`. DOCX omotač tijekom rendera privremeno isključuje
-pre-render hook i zamjenjuje vrata statičkih slika; `finally` blok vraća
-konfiguraciju i izvore i ako render ne uspije.
+prije pokušaja uklanja obje stare kopije, provjerava kanonski popis literature
+i dodataka A–F, pokreće PDF profil te tek nakon provjere potpisa i jednakog
+SHA-256 sažetka kopira novi rezultat u `docs/pdf/`. Svaki neuspjeh ostavlja obje
+kopije uklonjenima. DOCX omotač tijekom rendera privremeno isključuje pre-render
+hook i zamjenjuje vrata statičkih slika; `finally` blok vraća konfiguraciju i
+izvore i ako render ne uspije.
 
 ## Gdje što stoji
 
@@ -128,9 +130,11 @@ Radna mrežna inačica podešena je za
 nisu dokaz objavljenog izdanja.
 
 Push na `main` pokreće [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
-koji renderira knjigu, pokuša PDF i objavi `docs/` na GitHub Pages. PDF korak
-trenutačno je neblokirajući, pa pri njegovu neuspjehu može ostati prethodno
-urezani PDF. Izvor za Pages je **GitHub Actions**, ne grana; `docs/` u
+koji prije HTML-a gradi PDF isključivo preko odobrenog omotača. Omotač zahtijeva
+čisto stanje trenutačnog commita, uklanja obje prethodne kopije i prihvaća samo
+novi PDF s provjerenim potpisom i jednakim izvornim i poslužnim sažetkom. Svaki
+neuspjeh PDF-a zaustavlja posao prije predaje Pages artefakta, pa urezani stari
+PDF nije pričuvni put. Izvor za Pages je **GitHub Actions**, ne grana; `docs/` u
 repozitoriju jest urezani razvojni build, ali nije sam po sebi dokaz onoga što
 se poslužuje.
 

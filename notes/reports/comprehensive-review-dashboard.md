@@ -3,14 +3,14 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: P1C-PDF
-last_completed_packet: P1C-LOCK
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: P1C-PDF
+next_permitted_packet: P1C-INTEGRITY
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 30
+forward_handoffs: 31
 last_updated: "2026-08-04"
 ---
 
@@ -32,17 +32,17 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P1C-PDF` |
-| Last completed packet | `P1C-LOCK` |
-| Next permitted packet | None while `P1C-PDF` is active |
+| Active write packet | None |
+| Last completed packet | `P1C-PDF` |
+| Next permitted packet | `P1C-INTEGRITY` |
 | Review parents | 34 ratified; 2 accepted |
-| Atomic child inventory | Complete: 371 stable children; 45 accepted, 5 deferred with reason, 321 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 29 accepted and 159 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 48 accepted, 5 deferred with reason, 318 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 30 accepted and 158 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Open outside asks | 73 canonical asks remain `drafted_unsent`; the two methods asks, three G-A1c licence/access asks, and four G-A1d governance/owner asks are `done`; 0 external messages sent |
 | Invalidated or reopened work | None |
-| Failed gates | None; `P1C-LOCK` passed committed-lock, cold-restore, source-dependency, browser-install, fail-closed-fixture, clean-worktree, README-reconciliation, and closeout checks |
+| Failed gates | None; `P1C-PDF` passed wrapper-only, blocking, stale/missing-artifact, locked clean-worktree, real fresh-build, README-reconciliation, and closeout checks |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -739,6 +739,35 @@ The accepted dependency source state is
 the durable evidence is
 `notes/reports/p1c-lock-dependency-restore-2026-08-04.md`.
 
+## P1C-PDF closeout
+
+- `H-P1B-META-002` was acknowledged before the first substantive edit and
+  consumed with an exact disposition and evidence before closeout.
+- Commit `f2c4f82` makes the approved wrapper the workflow's only PDF entry
+  point. The step is blocking, precedes generated HTML changes, and has no bare
+  profile, conditional copy, warning branch, or stale fallback.
+- The wrapper invalidates both old PDFs, leaves `_quarto.yml` unchanged,
+  validates the fresh `%PDF-` artifact, copies it only after success, and
+  requires identical source and served SHA-256 hashes. Every failure removes
+  both eligible outputs.
+- A detached clean worktree restored the committed R and browser locks into
+  fresh paths. Its real build replaced old hash `b5b18b…` with a new
+  2,570,017-byte artifact at `cb5791…`; no prior PDF supplied the result.
+- Isolated fixtures proved positive replacement plus deliberate wrapper,
+  render-command, and stale/missing-artifact failures. All three negative cases
+  returned nonzero, preserved configuration bytes, and left zero PDFs.
+- README's warning was replaced only after those proofs. No PDF was committed
+  or published, and `P1C-INTEGRITY`, `P1C-EXPORT`, and later packets were not
+  started.
+- `H-P1C-PDF-001` carries the stale AGENTS.md deployment description to
+  `P2-DOCS`; no other future-relevant effect was found outside existing
+  release-proof gates.
+
+The accepted PDF-path source state is
+`pdf-path:sha256-28360c3532803d3f8b32198335f783747bce84223ba2fbe94a6b3a89ae1d4866`;
+the durable evidence is
+`notes/reports/p1c-pdf-release-path-2026-08-04.md`.
+
 ## Findings that constrain later packets
 
 - `P1C-INTEGRITY` is an independent packet for blocking token, manuscript,
@@ -754,8 +783,8 @@ the durable evidence is
   acceptance purposes.
 - P1C-BROWSER must use the committed Playwright lock and installed Chromium,
   replacing the live audit's undeclared `NODE_PATH` and hard-coded Chrome path.
-- P1C-PDF must replace README's nonblocking/stale-PDF warning only after its
-  wrapper-only blocking path passes locked positive and negative tests.
+- P2-DOCS must reconcile AGENTS.md's stale description of the former
+  nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
   unfinished no-code or other pathways may not be advertised as complete.
 - P2-DOCS must reconcile stale internal comments about profile solutions,
@@ -794,20 +823,21 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute only the dashboard's next permitted packet, P1C-PDF. Fully read its
-release-engineering contract, every register item assigned to P1C-PDF, the
-accepted P1C-LOCK evidence, the current README PDF warning, both live print
-wrappers, the PDF profile, the publish workflow, and H-P1B-META-002.
+Execute only the dashboard's next permitted packet, P1C-INTEGRITY. Fully read
+its release-engineering contract, every register item assigned to
+P1C-INTEGRITY, the accepted P1C-LOCK and P1C-PDF evidence, the current publish
+workflow, every live deterministic checker it must make blocking, and
+H-P0-REGISTER-005.
 
-Before the first substantive edit, acknowledge H-P1B-META-002. Implement only
-the wrapper-only, blocking, stale-safe PDF path from the committed dependency
-contract. Prove a fresh positive build path and deliberate failures for the
-wrapper, build failure, and stale or missing artifact without publishing or
-depending on a previously committed PDF.
+Before the first substantive edit, acknowledge H-P0-REGISTER-005. Implement
+only the blocking token, manuscript-structure/style, figure-introduction,
+citation, concept, and data-integrity checks assigned to P1C-INTEGRITY. Keep
+each command independently callable, use checkout-local Bookwright paths, and
+do not absorb PDF, export, browser, parity, or inventory work.
 
-Consume H-P1B-META-002 with exact disposition and evidence before closeout.
-Update the register, handoff ledger, dashboard, and README PDF warning together
-only when the implemented path justifies it. Run the workflow validator and
-both required negative fixtures, then stop. Do not start P1C-INTEGRITY,
-P1C-EXPORT, or any later packet.
+Prove the positive pipeline and one deliberate failure per admitted integrity
+lane without publishing. Consume H-P0-REGISTER-005 with exact disposition and
+evidence before closeout, record every future effect or an explicit none, run
+the workflow validator and both required negative fixtures, then stop. Do not
+start P1C-EXPORT, P1C-PARITY, P1C-BROWSER, P1C-INVENTORY, or any later packet.
 ```
