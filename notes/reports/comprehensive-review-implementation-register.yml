@@ -10,9 +10,20 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P1C-PDF"
+    started_at: "2026-08-04"
+    owned_paths:
+      - ".github/workflows/publish.yml"
+      - "scripts/render-book-pdf.ps1"
+      - "scripts/check-pdf-release-path.ps1"
+      - "README.md"
+      - "notes/reports/p1c-pdf-release-path-2026-08-04.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "P1C-LOCK"
-  next_permitted_packet: "P1C-PDF"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3215,7 +3226,7 @@ packets:
     sequence: 36
     phase: "1C"
     kind: "release_engineering"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "P1C-LOCK"
     scope: "Wrapper-only, blocking, stale-safe PDF path."

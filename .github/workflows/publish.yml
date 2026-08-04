@@ -61,28 +61,17 @@ jobs:
       - name: Check widget source contracts
         run: python scripts/check-widgets.py .
 
+      - name: Check PDF wrapper failure paths
+        run: pwsh -NoProfile -File scripts/check-pdf-release-path.ps1
+
+      - name: Render fresh PDF through approved wrapper
+        run: pwsh -NoProfile -File scripts/render-book-pdf.ps1 -RequireCleanCommit
+
       - name: Render HTML book
         run: quarto render
 
       - name: Check rendered HTML freshness and completeness
         run: python scripts/check-rendered-html.py docs
-
-      - name: Render PDF (separate profile)
-        # P1C-PDF owns the later wrapper-only blocking PDF repair.
-        id: pdf
-        continue-on-error: true
-        run: quarto render --profile pdf
-
-      - name: Copy freshly-built PDF into docs for Pages download
-        if: steps.pdf.outcome == 'success'
-        run: |
-          mkdir -p docs/pdf
-          cp pdf/Statistika.pdf docs/pdf/Statistika.pdf
-
-      - name: Warn if PDF render failed (deploying HTML only, old PDF stays)
-        if: steps.pdf.outcome != 'success'
-        run: |
-          echo "::warning::PDF render failed -- docs/pdf/Statistika.pdf will be the previously-committed version, not a fresh build. Check the 'Render PDF' step logs above."
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
