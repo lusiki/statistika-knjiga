@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2b-IV"
-  next_permitted_packet: "P2-SPINE-IV"
+  last_completed_packet: "P2-SPINE-IV"
+  next_permitted_packet: "G-A2b-V"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -5569,7 +5569,7 @@ packets:
     sequence: 57
     phase: "2"
     kind: "shared_registry"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2b-IV"
     scope: "Ratified iv spine; no chapter prose."
@@ -5580,13 +5580,72 @@ packets:
       - "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
       - "Registry work does not silently edit chapter prose or advance chapter stage."
       - "The P2-SPINE-IV packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897"
+      required_evidence:
+        - requirement: "author-ratified registry diff"
+          artifacts:
+            - "decision:G-A2b-IV"
+            - "handoff:H-G-A2B-IV-001-consumed"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#10-logika-testiranja"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#11-velicina-ucinka-i-snaga"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#12-kriza-i-obnova"
+            - "report:notes/reports/g-a2b-iv-spine-decision-2026-08-04.md"
+        - requirement: "schema validation"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/schemas/chapter-spine.schema.json"
+            - "source:scripts/check-chapter-spines.py"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-13-of-19"
+        - requirement: "consumer reconciliation"
+          artifacts:
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK-spines-13-of-19"
+            - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK-spines-13-of-19"
+            - "check:scripts/check-identity-briefs.py-IDENTITY_BRIEFS_OK-spines-13-of-19"
+            - "handoff:H-P2-SPINE-IV-001-created-for-P2-TERMS-WC-C12"
+            - "handoff:H-P1C-INTEGRITY-002-left-pending-for-P2-TERMS"
+      outputs:
+        - output: "P2-SPINE-IV durable artifact and evidence record for: Ratified iv spine; no chapter prose."
+          artifacts:
+            - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#part-iv-three-units"
+            - "report:notes/reports/p2-spine-iv-2026-08-04.md"
+            - "check:scripts/check-chapter-spines.py"
+        - output: "Completion evidence is tied to the declared P2-SPINE-IV source state and bounded scope."
+          artifacts:
+            - "spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
+            - "check:scripts/check-manuscript-integrity.py-lane-structure-chapters-19"
+      exit_tests:
+        - test: "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
+          result: "passed"
+          evidence:
+            - "registry:10-logika-testiranja-aspects-9-terms-8-prerequisites-3-exclusions-8"
+            - "registry:11-velicina-ucinka-i-snaga-aspects-8-terms-7-prerequisites-2-exclusions-7"
+            - "registry:12-kriza-i-obnova-aspects-10-terms-10-prerequisites-5-exclusions-9"
+            - "check:CHAPTER_SPINES_OK-schema-valid-part-iv-obligations-enforced"
+            - "check:three-architecture-consumers-agree-spines-13-of-19-no-snapshot-assertion"
+        - test: "Registry work does not silently edit chapter prose or advance chapter stage."
+          result: "passed"
+          evidence:
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:chapter-ledger-units-at-draft-19"
+            - "check:live-def-blocks-unchanged-46-chapter-12-still-zero"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_STRUCTURE_OK-chapters-19"
+        - test: "The P2-SPINE-IV packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897"
+            - "report:notes/reports/p2-spine-iv-2026-08-04.md"
+            - "handoff:H-G-A2B-IV-001-consumed-with-disposition"
+            - "registry:12-kriza-i-obnova-spine-subordinate-to-identity-brief-c12-unchanged"
+            - "handoff:H-P2-SPINE-IV-001-carries-the-approved-chapter-12-two-block-increase"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-ratified_without_decision-exit-1"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-part_i_visible_code_admitted-exit-1"
     contract: "shared_registry"
     required_evidence:
       - "author-ratified registry diff"
       - "schema validation"
       - "consumer reconciliation"
-    change_reference: null
+    change_reference: "spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897"
   G-A2b-V:
     sequence: 58
     phase: "2"
@@ -10710,7 +10769,7 @@ items:
       location: "§4/§9/§12 + §15 R04"
     description: "Ratify load-bearing aspects, terms, prerequisites, and exclusions for Part IV."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -10726,11 +10785,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-IV"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-IV"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#part-iv-three-units"
+      - "report:notes/reports/p2-spine-iv-2026-08-04.md"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-13-of-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897"
   R04-SPINE-V:
     parents:
       - "R04"
@@ -11052,7 +11115,7 @@ items:
       location: "§12"
     description: "Decide Chapter 12 load-bearing definitions through its identity spine."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11068,11 +11131,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-IV"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-IV"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#12-kriza-i-obnova"
+      - "report:notes/reports/p2-spine-iv-2026-08-04.md#definicijsko-opterecenje-i-zamrznuti-pojmovni-gate"
+      - "handoff:H-P2-SPINE-IV-001-two-approved-chapter-12-blocks"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897"
   R04-C17-definitions:
     parents:
       - "R04"

@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A2b-IV
-next_permitted_packet: P2-SPINE-IV
+last_completed_packet: P2-SPINE-IV
+next_permitted_packet: G-A2b-V
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 48
+forward_handoffs: 49
 last_updated: "2026-08-04"
 ---
 
@@ -40,19 +40,73 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A2b-IV` |
-| Next permitted packet | `P2-SPINE-IV` |
+| Last completed packet | `P2-SPINE-IV` |
+| Next permitted packet | `G-A2b-V` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Chapter spines | 10 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III` |
+| Chapter spines | 13 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV` |
 | Open outside asks | 62 of the 82 canonical asks remain `drafted_unsent`; 20 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-SPINE-IV closeout
+
+- `H-G-A2B-IV-001` was acknowledged and consumed with an exact disposition and
+  evidence before the packet claim and before the first substantive edit. It was
+  the only handoff targeting this packet. `H-P1C-INTEGRITY-002` remains `pending`
+  for `P2-TERMS`, and `H-P0-REGISTER-004` remains `pending` for `P2-SPINE-V` and
+  `P5-ROUTES`; neither was consumed here.
+- `chapter-spine.json` now carries three ratified Part IV units:
+  `10-logika-testiranja` with 9 aspects, 8 terms, 3 prerequisites and 8
+  exclusions; `11-velicina-ucinka-i-snaga` with 8, 7, 2 and 7; and
+  `12-kriza-i-obnova` with 10, 10, 5 and 9. Each is faithful to the accepted
+  draft and names its gate, date and decision record. Its deterministic state is
+  `spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897`.
+- No prerequisite points at a later unit, and the testing → magnitude → research
+  system chain is written both as prerequisites and as a ratification-order
+  condition, so Chapter 11 could not be ratified before Chapters 9 and 10, nor
+  Chapter 12 before Chapters 4, 5, 9, 10 and 11.
+- The mechanics never lead. Chapter 10's first exclusion states that magnitude
+  and the consequences of error govern the reading of every test and that the
+  testing-mechanics-first order is explicitly rejected. The decision record
+  enumerates that clause second in prose but twice locates it in Chapter 10's
+  *first* exclusion, so the written order follows the two explicit statements;
+  the exclusion set itself is unchanged at eight clauses.
+- Chapter 11 carries the `R04-C11-fixed-order` obligation as a binding exclusion:
+  the worked example may not precede the wild-statistics and assistant sections.
+  Chapter 12's spine is written as subordinate to the ratified identity brief
+  `c12` and that subordination is its second exclusion; the brief was neither
+  changed nor superseded, and the evidence-artifact selection stays with
+  `G-A4-12` and `P3-EVIDENCE12`.
+- `scripts/check-chapter-spines.py` now enforces the exact Part IV exclusion
+  markers, required load-bearing terms and ratification order, and reports
+  thirteen ratified and six unratified units. Both deliberate fixtures kept their
+  identifiers and returned exit 1; together they prove the exclusion-marker and
+  term checks for all three Part IV units and the ratification-order check for
+  Chapters 10 and 12. Chapter 11's order rule is not exercised by either fixture,
+  because its prerequisites stay ratified there — the same partial per-unit
+  coverage already recorded for Part III. No fixture was added or renamed.
+- The approved Chapter 12 definition increase was deliberately **not**
+  implemented: adding a `#def-` block edits chapter prose, and
+  `H-P1C-INTEGRITY-002` freezes the 46 live definitions, the concept ledger and
+  the generated graph until `P2-TERMS` retires that debt. Chapter 12 still
+  carries zero live blocks. `H-P2-SPINE-IV-001` carries the approved two-block
+  map to `P2-TERMS` and `WC-C12` exactly as `H-P2-SPINE-I-001` did, so the frozen
+  concept gate can accept it rather than treat it as drift.
+- The three architecture consumers count ratified spines and agree on 13 of 19
+  with their accepted states unchanged; no snapshot assertion was reintroduced.
+  The blocking structure lane passes with 19 chapters.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter stage,
+  terminology, identity brief, data package, route, render, generated artifact or
+  external authority changed. All 19 units remain `draft` and the live definition
+  count remains 46.
+
+The durable evidence is `notes/reports/p2-spine-iv-2026-08-04.md`.
 
 ## G-A2b-IV closeout
 
@@ -1634,6 +1688,13 @@ the durable evidence is
   `P2-TERMS`. `P2-TERMS` must expect them, `WA-C01` and `WA-C03` must add exactly
   those and no others, and neither may define a term the spine placed in prose
   or deferred.
+- The ratified Part IV spine settles `R04-C12-definitions`: Chapters 10 and 11
+  keep their four and three blocks, and Chapter 12 rises from zero to exactly two
+  — `analitička fleksibilnost` and `reproducibilnost`, each with a named later
+  dependant in Chapters 16 and 18 — but neither was written, because the concept
+  gate is frozen until `P2-TERMS`. `P2-TERMS` must expect them, `WC-C12` must add
+  exactly those two and no others and may define no term the spine left in prose
+  under `.pojam`, and `WC-C10` and `WC-C11` must leave their blocks unchanged.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -1674,34 +1735,33 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, P2-SPINE-IV, only. Claim the
-write lock, do the work, close the packet, and stop. Do not start G-A2b-V or any
-later packet, and do not edit chapter prose.
+Also fully read notes/reports/author-pre-dispositions-2026-08-04.md.
+
+Prepare and close the dashboard's next permitted packet, G-A2b-V, only. Do not
+start P2-SPINE-V or any later packet, and do not edit chapter prose.
 
 Before the first substantive edit, acknowledge every applicable incoming handoff
 and say so explicitly; consume each with a concrete disposition and evidence
-before closeout. H-G-A2B-IV-001 is a required before_start delivery and must be
-terminal before the packet is claimed. Read the P2-SPINE-IV packet contract,
-governed items R04-SPINE-IV and R04-C12-definitions, the ratified identity brief
-c12, and the accepted decision record
-notes/reports/g-a2b-iv-spine-decision-2026-08-04.md in full.
+before closeout. Read the G-A2b-V packet contract, outside ask
+OA-G-A2B-V-SPINE, governed items R04-SPINE-V, R04-C17-definitions and
+R04-C17-prerequisites, the ratified identity brief c17, the P2-IDENTITY
+deferrals that name P2-SPINE-V, and the recorded author intent in full.
 
-Write exactly the accepted Part IV spine into
-bookwright_plugin/bookwright/shared/chapter-spine.json for units
-10-logika-testiranja, 11-velicina-ucinka-i-snaga and 12-kriza-i-obnova using the
-schema-valid ratified_at / decision / decision_record / prerequisites /
-exclusions form established by P2-SPINE-PREFACE, and extend
-scripts/check-chapter-spines.py with Part IV's exact exclusion markers, required
-load-bearing terms and ratification-order checks, each proved by the two existing
-negative fixtures. No prerequisite may point at a later unit. Do not reintroduce
-a snapshot assertion in the three architecture consumers; they count ratified
-spines.
+Draft the complete Part V contract, the five chapter spines for Chapters 13 to
+17 and the definition hierarchy first, then close the gate against that drafted
+state with a dated disposition, a named owner, alternatives, an authority
+boundary and a blocked-dependency list. Preserve Chapter 16 as the synthesis
+payoff. Chapter 13 IS a prerequisite for Chapter 17: its conditional
+denominators and confusion tables must precede Chapter 17's fairness and
+classification material. That settles the contradiction in H-P0-REGISTER-004,
+where the review's sample critical-literacy route skipped Chapter 13 while the
+same review required it before Chapter 17; the consequence is binding on
+P2-SPINE-V and P5-ROUTES. The Chapter 17 spine is subordinate to its ratified
+identity brief c17 and must not repeat it; settle R04-C17-definitions and
+R04-C17-prerequisites through that identity spine.
 
-Add, remove or merge no #def- block and regenerate no concept graph: the concept
-gate stays frozen under H-P1C-INTEGRITY-002 until P2-TERMS retires that debt.
-Record the approved two-block Chapter 12 definition increase as a forward
-constraint to P2-TERMS and WC-C12 exactly as H-P2-SPINE-I-001 did. Do not change
-or supersede the ratified identity brief c12.
+Ratify no spine beyond Part V, write no #def- block, and if the draft departs
+from the recorded intent in any respect, stop and present the exact difference.
 
 Update the register, handoff ledger, and dashboard together at closeout, then
 run scripts/check-review-workflow.R through the project launcher and prove both

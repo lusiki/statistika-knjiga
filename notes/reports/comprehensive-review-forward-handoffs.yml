@@ -2345,6 +2345,91 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-IV
         gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-04"
+        resolved_at: "2026-08-04"
+        disposition: >-
+          P2-SPINE-IV accepts the ratified Part IV spine as its exact and
+          exclusive registry boundary before the packet claim and before the
+          first substantive edit. The packet will write the accepted aspects,
+          terms, prerequisites and exclusions for units 10-logika-testiranja,
+          11-velicina-ucinka-i-snaga and 12-kriza-i-obnova into
+          chapter-spine.json, set their ratified flags, and extend the
+          deterministic spine check to the exact Part IV obligations, including
+          the rejection of the testing-mechanics-first order in Chapter 10, the
+          fixed seven-part chapter order in Chapter 11, and the subordination of
+          the Chapter 12 spine to the ratified identity brief c12. It will
+          change no chapter or appendix prose, no chapter stage and no
+          terminology, will add, remove or merge no #def- block or concept-graph
+          edge, will not change or supersede the ratified identity brief c12,
+          and will ratify no other spine. The approved two-block Chapter 12
+          definition increase is carried forward as a new constraint to P2-TERMS
+          and WC-C12 rather than implemented, because H-P1C-INTEGRITY-002 keeps
+          the 46 live definitions, the concept ledger and the generated graph
+          frozen until P2-TERMS retires that debt.
+        evidence:
+          - "decision:G-A2b-IV"
+          - "conversation:G-A2b-IV-spine-approved-2026-08-04-Luka-Sikic"
+          - "report:notes/reports/g-a2b-iv-spine-decision-2026-08-04.md"
+          - "register:item-R04-SPINE-IV-read-in-full"
+          - "register:item-R04-C12-definitions-read-in-full"
+          - "registry:identity_briefs.briefs.c12-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-IV-claim"
+
+  H-P2-SPINE-IV-001:
+    source_packet: P2-SPINE-IV
+    created_at: "2026-08-04"
+    kind: constraint
+    refs:
+      - decision:G-A2b-IV
+      - item:R04-C12-definitions
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - registry:identity_briefs.briefs.c12
+      - report:notes/reports/p2-spine-iv-2026-08-04.md
+    statement: >-
+      The ratified Part IV spine settles R04-C12-definitions through the
+      Chapter 12 identity spine. Chapters 10 and 11 keep their existing four and
+      three blocks unchanged, both inside the ratified one-to-five band. Chapter
+      12, which currently carries none and so falls below that band, rises to
+      exactly two blocks, analiticka fleksibilnost and reproducibilnost, each
+      with a named later dependant: Chapter 16 requires analytic flexibility for
+      its routine sensitivity obligation and Chapter 18 for its transformation
+      log, and Chapter 18 harvests reproducibility as a complete trail from
+      source to claim. Every other Chapter 12 term stays in prose under .pojam,
+      including p-hakiranje, vrt racvajucih putova, publikacijska pristranost,
+      predregistracija, registrirani izvjestaj, replikacija, forest plot and
+      osjetljivost, because no later chapter depends on their formal definition
+      and a block for each would turn the argument into a catalogue of reforms
+      and break the band. The net effect on the frozen set is 46 up to 48, beside
+      the two-block reduction G-A2b-II already approved for Chapter 4.
+      P2-SPINE-IV deliberately implemented none of it, because adding a #def-
+      block edits chapter prose and because H-P1C-INTEGRITY-002 freezes the exact
+      set of 46 live definitions, the concept ledger and the generated graph
+      under cryptographic fingerprints until P2-TERMS retires that debt.
+    required_action: >-
+      P2-TERMS must reconcile the live definitions and canonical ledger against
+      this approved map before it regenerates data/concept-graph.json and retires
+      the concept debt, so a Chapter 12 that carries two blocks instead of none
+      is expected rather than treated as drift, and so both analiticka
+      fleksibilnost and reproducibilnost become canonical only once G-A2c has
+      fixed their Croatian forms. WC-C12 must add exactly those two blocks and no
+      further block, must define no term the spine left in prose under .pojam,
+      and must make no change before the concept gate can accept it. WC-C10 and
+      WC-C11 must leave their four and three blocks unchanged.
+    basis:
+      - "spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897"
+      - "decision:G-A2b-IV"
+      - "notes/reports/g-a2b-iv-spine-decision-2026-08-04.md#hijerarhija-definicija-za-dio-iv"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false"
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: pending
+      - target_packet: WC-C12
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -3377,3 +3462,33 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-IV
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-SPINE-IV and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-IV:
+    reviewed_at: "2026-08-04"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-SPINE-IV-001
+    implementation_state: spine:sha256-d8fdbd4553d5cbf0b4d68b35a8b14d7eb8a3826cc84729125d50900add22a897
+    checks:
+      - H-G-A2B-IV-001 was acknowledged and consumed with an exact disposition and evidence before the packet claim and before the first substantive edit
+      - the complete handoff ledger was read before the claim and no other handoff targets P2-SPINE-IV
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS and H-P0-REGISTER-004 remains pending for P2-SPINE-V and P5-ROUTES and neither was consumed here
+      - chapter-spine.json now carries three ratified Part IV units with 9 8 and 10 aspects 8 7 and 10 terms 3 2 and 5 prerequisites and 8 7 and 9 exclusions
+      - each written spine is faithful to the accepted draft with nothing added or omitted and each names its gate date and decision record
+      - no prerequisite points at a later unit and the testing magnitude research-system chain is written as both prerequisite and ratification order
+      - Chapter 10's first exclusion states that magnitude and the consequences of error govern every test and that the testing-mechanics-first order is explicitly rejected
+      - the decision record enumerates that clause second in prose but twice locates it in Chapter 10's first exclusion so the written order follows the two explicit statements and the exclusion set is unchanged at eight clauses
+      - Chapter 11 carries the R04-C11-fixed-order obligation as a binding exclusion so the worked example may not precede the wild-statistics and assistant sections
+      - the Chapter 12 spine is written as subordinate to the ratified identity brief c12 as its second exclusion and the brief was neither changed nor superseded
+      - the Chapter 12 evidence-artifact and outline selection is written as an obligation of G-A4-12 and P3-EVIDENCE12 and is not settled here
+      - all three Part IV chapters forbid assessed code production and invented or unsourced empirical material and Chapter 12 also forbids invented study results effect sizes and forest-plot inputs and undated or unsourced open-science claims
+      - scripts/check-chapter-spines.py now enforces the exact Part IV exclusion markers required load-bearing terms and ratification order and reported CHAPTER_SPINES_OK with thirteen ratified and six unratified units
+      - both deliberate spine fixtures kept their identifiers and returned exit 1 and prove the exclusion-marker and term checks for all three Part IV units and the ratification-order check for Chapters 10 and 12
+      - Chapter 11's ratification-order rule is not exercised by either fixture because its prerequisites stay ratified there which is the same partial per-unit coverage already recorded for Part III and no fixture was added removed or renamed
+      - the approved two-block Chapter 12 definition increase was deliberately not implemented because adding a def block edits chapter prose and H-P1C-INTEGRITY-002 freezes the 46 live definitions the concept ledger and the generated graph
+      - H-P2-SPINE-IV-001 carries that approved map to P2-TERMS and WC-C12 at their before_close gates exactly as H-P2-SPINE-I-001 did so the frozen concept gate can accept it rather than treat it as drift
+      - the three architecture consumers count ratified spines and agree on thirteen of nineteen with their accepted states unchanged and no snapshot assertion was reintroduced
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters and the live definition count unchanged at 46 with Chapter 12 still at zero blocks
+      - no def block concept-graph edge chapter or appendix prose chapter stage terminology identity brief data package route render generated artifact or external action changed
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-V
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - G-A2b-V and every later packet were not started and push merge tag archive and deployment remain unauthorised

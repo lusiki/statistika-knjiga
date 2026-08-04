@@ -126,6 +126,24 @@ REQUIRED_EXCLUSION_MARKERS = {
         "test hipoteze ni p-vrijednost",
         "ocijenjeni zadatak pisanja koda",
     ],
+    "10-logika-testiranja": [
+        "Mehanika nikada ne vodi",
+        "neodbacivanje utvrđuje nultu hipotezu",
+        "puna Bayesovska inferencija",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "11-velicina-ucinka-i-snaga": [
+        "novi testni postupak",
+        "sedmodijelnog poretka",
+        "Metaanaliza i sinteza dokaza",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "12-kriza-i-obnova": [
+        "popis reformi umjesto jednoga argumenta",
+        "podređena ratificiranom identitetskom brifu c12",
+        "reproducibilnost popravlja nevaljanu inferenciju",
+        "ocijenjeni zadatak pisanja koda",
+    ],
 }
 
 # Terms a ratified spine must carry because a later part genuinely depends on them.
@@ -161,6 +179,26 @@ REQUIRED_TERMS = {
         "margina pogreške",
         "bootstrap",
     ],
+    "10-logika-testiranja": [
+        "nulta hipoteza",
+        "testna statistika",
+        "p-vrijednost",
+        "pogreška prve vrste",
+        "pogreška druge vrste",
+        "permutacijski test",
+    ],
+    "11-velicina-ucinka-i-snaga": [
+        "veličina učinka",
+        "standardizirana razlika",
+        "najmanji važan učinak",
+        "statistička snaga",
+    ],
+    "12-kriza-i-obnova": [
+        "analitička fleksibilnost",
+        "reproducibilnost",
+        "publikacijska pristranost",
+        "replikacija",
+    ],
 }
 
 NO_VISIBLE_CODE_UNITS = [
@@ -178,6 +216,15 @@ RATIFICATION_ORDER = {
     "06-povezanost": ["04-sazimanje-podataka", "05-vizualizacija"],
     "08-uzorkovanje": ["07-vjerojatnost"],
     "09-procjena": ["07-vjerojatnost", "08-uzorkovanje"],
+    "10-logika-testiranja": ["07-vjerojatnost", "08-uzorkovanje", "09-procjena"],
+    "11-velicina-ucinka-i-snaga": ["09-procjena", "10-logika-testiranja"],
+    "12-kriza-i-obnova": [
+        "04-sazimanje-podataka",
+        "05-vizualizacija",
+        "09-procjena",
+        "10-logika-testiranja",
+        "11-velicina-ucinka-i-snaga",
+    ],
 }
 
 
