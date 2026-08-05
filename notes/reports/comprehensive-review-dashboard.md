@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-SPINE-V
-next_permitted_packet: G-A2b-FINALE
+last_completed_packet: G-A2b-FINALE
+next_permitted_packet: P2-SPINE-FINALE
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 52
+forward_handoffs: 53
 last_updated: "2026-08-05"
 ---
 
@@ -37,19 +37,20 @@ stop and repair the control state before editing book content.
 | Gate A2b-III | Accepted as drafted: Part III contract preserving Chapter 8 as the hinge, three chapter spines, and an unchanged definition load; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-IV | Accepted as drafted: Part IV contract leading with magnitude and error consequences, three chapter spines, and a bounded two-block Chapter 12 definition increase; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-V | Accepted as drafted: Part V contract preserving Chapter 16 as the synthesis payoff, five chapter spines, Chapter 13 ratified as a prerequisite of Chapter 17, and a bounded two-block Chapter 17 definition increase; owner Luka Sikic; 2026-08-05 |
+| Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-SPINE-V` |
-| Next permitted packet | `G-A2b-FINALE` |
+| Last completed packet | `G-A2b-FINALE` |
+| Next permitted packet | `P2-SPINE-FINALE` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Chapter spines | 18 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`. Only `18-vase-prvo-istrazivanje` remains, at `G-A2b-FINALE` |
-| Open outside asks | 57 of the 82 canonical asks remain `drafted_unsent`; 21 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III, Part IV and Part V spine asks; 0 external messages sent |
+| Chapter spines | 18 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`. Only `18-vase-prvo-istrazivanje` remains unratified; its spine is now decided at `G-A2b-FINALE` and is written by `P2-SPINE-FINALE` |
+| Open outside asks | 56 of the 82 canonical asks remain `drafted_unsent`; 22 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
@@ -95,6 +96,117 @@ terms. That binds `G-A3-DZS`, `P3-DZS`, `G-A3-DIP`, `P3-DIP`, `P3-CATALOG` and
 
 The durable record is
 `notes/reports/g-a3-data-rights-determination-2026-08-05.md`.
+
+## G-A2b-FINALE closeout
+
+- No handoff targets `G-A2b-FINALE`; the complete ledger was read before the
+  first substantive edit, so there was no incoming delivery to acknowledge or
+  consume. `H-G-A2D-005` remains `pending` for `WE-C18` and carries the dated
+  privacy policy this spine writes in as an obligation, `H-P1C-INTEGRITY-002`
+  remains `pending` for `P2-TERMS`, and `H-P2-SPINE-V-001` and
+  `H-P2-SPINE-V-002` remain `pending` for `P2-TERMS`, `WD-C17` and `P5-ROUTES`.
+  This gate consumes none of them.
+- The complete finale contract, the Chapter 18 spine and the definition
+  hierarchy were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it on 2026-08-05.
+- The finale carries one arc and no more: from the whole book to one evidence
+  package another person can check without talking to its author. Chapter 18
+  assembles rather than introduces, and the book's estimation-first standard
+  holds to the last page — estimate, interval and substantive magnitude lead the
+  conclusion, and no threshold decides either the main finding or its comparison
+  with the alternative.
+- **This is the one gate where the recorded intent amends the register's
+  recommended default, and the disposition is recorded as `accepted_as_amended`
+  rather than `accepted_as_recommended`.** The default forbids any new method in
+  the capstone. The author amended it: Chapter 18 **may** introduce a technique
+  the worked case genuinely requires, under three exact limits — (1) never a
+  method on the preface's out-of-scope list, meaning time series, factor
+  analysis and psychometrics, multilevel models, the mathematics of machine
+  learning, or full Bayesian inference; (2) fully explained where it appears and
+  self-contained; (3) no forward dependency on anything no earlier ratified
+  spine was asked to supply. The author's recorded reason for the limits is that
+  an unbounded new method would reopen the scope promise the preface makes; the
+  amendment itself exists so the capstone stays real research rather than a case
+  truncated to fit a method list.
+- The three limits are written as spine exclusions 2 and 3 with literal
+  deterministic markers, not left as contract prose. **`P2-SPINE-FINALE` and
+  `P6-CONTINUITY` are both named as enforcing them**: `P2-SPINE-FINALE` makes
+  the boundary machine-checkable before any finale prose exists, and
+  `P6-CONTINUITY` audits the finished book against it. `WE-C18` is bound through
+  the ratified spine exclusion rather than a duplicate handoff delivery.
+- The amendment and the ratified register are reconciled explicitly. The
+  acceptance test of `R17-C18-two-pass` requires the empirical transfer to
+  introduce no method, and Chapter 18's worked case is its main guided study,
+  because the whole chapter body is one extended worked example. The permission
+  therefore lands in the main study and the transfer stays method-free, written
+  as exclusion 4, while D13 keeps the main study explanatory as exclusion 5.
+  Extending the permission to the transfer would require amending that item's
+  acceptance test; **this gate deliberately did not, and did not touch the
+  item.**
+- `R04-C18-whole-prerequisites` is settled: Chapter 18 requires all seventeen
+  numbered chapters, written both as a prerequisite list and as a
+  ratification-order condition, so the finale cannot be ratified before any
+  earlier unit. Each prerequisite carries one named obligation. The preface is
+  deliberately excluded with a recorded reason — it is the reader contract
+  rather than content a later unit depends on, and no ratified spine in the book
+  names it as a prerequisite. Chapter 18's existing `.chapter-meta` row still
+  names a narrower prerequisite and is recorded as a `WE-C18` obligation; this
+  gate changed no prose.
+- `R04-C18-definitions` is settled with one explicit disposition. Chapter 18
+  currently carries zero blocks and so falls below the ratified one-to-five
+  band, and rises to exactly one: `paket dokaza`, the only object the finale
+  creates rather than retrieves, whose contents are already fixed by the
+  accepted lifecycle finale role and which five ratified register items name.
+  Because no later chapter exists, the later-dependant rule was applied to the
+  only downstream consumers that do — the generated glossary and concept graph,
+  the Appendix F protocol, `P5-CLOSURE-18` and `P5-ROUTES` — and exactly one
+  term passes it.
+- Eleven further terms stay in prose under `.pojam` with a recorded reason each:
+  the decision trail and reproducible workflow are already carried by Chapter
+  12's approved `reproducibilnost` block, the confirmatory/exploratory
+  distinction by its approved `analitička fleksibilnost` block, the dataset
+  passport and transformation log are components inside the evidence package's
+  own defining sentence, the sensitivity check, claim boundary and honest report
+  are ratified mechanisms of the accepted architecture, and data minimisation
+  and AI-use disclosure are rules of the dated D15 course policy owned by
+  Appendix F, which `R24-C18-dated-policy` forbids presenting as timeless
+  concepts.
+- The net effect on the frozen set of 46 live definitions, with every earlier
+  approved map, is 52: 46 + 3 (`G-A2b-I`) − 2 (`G-A2b-II`) + 0 (`G-A2b-III`)
+  + 2 (`G-A2b-IV`) + 2 (`G-A2b-V`) + 1 here. This gate writes no block; the live
+  count remains 46 and Chapter 18 still carries zero.
+- Chapter 18 carries twelve aspects, twelve terms, seventeen prerequisites and
+  twelve exclusions. The seventh communication thread lands here and nowhere
+  else: the reader writes their own honest report to the ratified standard and
+  then audits an assistant's report on the same analysis by the same measure.
+- The exact exclusion markers, required load-bearing terms and
+  ratification-order condition that `P2-SPINE-FINALE` must encode in
+  `scripts/check-chapter-spines.py` are tabulated in the decision record.
+- The draft matches the recorded author intent in every respect. Twelve
+  alternatives were rejected, including keeping the unamended prohibition,
+  admitting an unlimited technique, leaving the limits as prose, extending the
+  permission to the transfer, stating the prerequisite without listing the
+  chapters, including the preface as a prerequisite, adding no block under a
+  band exception, four separate definition-block proposals, turning the main
+  study predictive, and adding a central widget.
+- Both 2026-08-05 author amendments were read before the decision and both hold.
+  This spine makes no independent-review claim of any kind, and every finale
+  term's canonical Croatian form remains a `G-A2c` decision and the author's own
+  editorial responsibility. It claims no rights-holder permission for any source
+  and selects no data package. Neither constraint was duplicated into a spine
+  exclusion, because both durable records already name the exact packets they
+  bind.
+- `OA-G-A2B-FINALE-SPINE` is `done`, with a dated resolution that states the
+  amendment; no external message was sent. `H-G-A2B-FINALE-001` carries the
+  accepted spine, the amended method limits, the seventeen-unit prerequisite
+  list and the one-block definition increase to `P2-SPINE-FINALE` at its
+  `before_start` gate and to `P6-CONTINUITY` at its `before_close` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, identity brief, data package, route, render, generated artifact
+  or external authority changed. All 19 units remain `draft` and 18 of 19 spines
+  remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-finale-spine-decision-2026-08-05.md`.
 
 ## G-A2b-V closeout
 
@@ -1937,6 +2049,28 @@ the durable evidence is
   that reaches Chapter 17 without Chapter 13. `H-P0-REGISTER-004` is consumed on
   the registry side by `P2-SPINE-V` and remains `pending` on the route side for
   `P5-ROUTES`, which `H-P2-SPINE-V-002` also carries.
+- The ratified finale spine settles `R04-C18-definitions`: Chapter 18 rises from
+  zero to exactly one block, `paket dokaza`, but it was not written, because the
+  concept gate is frozen until `P2-TERMS`. `P2-SPINE-FINALE` must carry that map
+  forward rather than implement it; `WE-C18` must add exactly that one block and
+  no others, may define no term the spine left in prose under `.pojam`, and may
+  not reopen the eleven rejected blocks. `P2-TERMS` must expect a Chapter 18
+  that carries one block instead of none, and fixes its canonical Croatian form
+  only after `G-A2c`.
+- The ratified finale spine settles `R04-C18-whole-prerequisites`: Chapter 18
+  requires all seventeen numbered chapters, as both a prerequisite list and a
+  ratification-order condition. `WE-C18` must reconcile the chapter's existing
+  `.chapter-meta` row, which still names only chapters 2, 6 and 16, and
+  `P5-ROUTES` may publish no route, map or syllabus projection that enters
+  Chapter 18 without the whole book.
+- The amended new-method boundary binds two named packets. `P2-SPINE-FINALE`
+  must make the three limits machine-checkable through the exact exclusion
+  markers before any finale prose exists, and `P6-CONTINUITY` must audit the
+  finished book against them and report any technique that entered the capstone
+  without a self-contained explanation at its point of appearance or with a
+  dependency no earlier ratified spine supplies. Neither may weaken the limits,
+  and neither may extend the permission to the empirical transfer, which
+  `R17-C18-two-pass` keeps method-free.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -1977,38 +2111,51 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p2-spine-v-2026-08-05.md,
+Also fully read notes/reports/g-a2b-finale-spine-decision-2026-08-05.md,
+notes/reports/p2-spine-v-2026-08-05.md,
 notes/reports/g-a2c-reviewer-amendment-2026-08-05.md and
 notes/reports/g-a3-data-rights-determination-2026-08-05.md.
 
-Prepare and close the dashboard's next permitted packet, G-A2b-FINALE, only, and
-stop. Do not start P2-SPINE-FINALE or any later packet, and do not edit chapter
-prose. Read the G-A2b-FINALE contract, outside ask OA-G-A2B-FINALE-SPINE and its
-governed items R04-SPINE-FINALE, R04-C18-definitions and
-R04-C18-whole-prerequisites in full.
+Execute and close the dashboard's next permitted packet, P2-SPINE-FINALE, only,
+and stop. Do not start G-A2c or any later packet, and do not edit chapter prose.
+Read the P2-SPINE-FINALE contract, the governed items R04-SPINE-FINALE,
+R04-C18-definitions and R04-C18-whole-prerequisites, and handoff
+H-G-A2B-FINALE-001 in full.
 
-Draft the complete finale spine and definition hierarchy first, then close the
-gate against that drafted state. Chapter 18 is whole-book cumulative and harvests
-every thread through one empirical transfer task the student audits end to end,
-including auditing an assistant's report on the same analysis; the seventh
-communication thread lands here.
+H-G-A2B-FINALE-001 is a before_start delivery: acknowledge and consume it with an
+exact disposition and evidence BEFORE claiming the packet. Its P6-CONTINUITY
+delivery is before_close and must stay pending. H-P1C-INTEGRITY-002 remains
+pending for P2-TERMS, H-G-A2D-005 remains pending for WE-C18, and
+H-P2-SPINE-V-001 and H-P2-SPINE-V-002 remain pending for P2-TERMS, WD-C17 and
+P5-ROUTES; consume none of them.
 
-NOTE: this is the one gate where the recorded intent AMENDS the register's
-recommended default. The default forbids any new method in the capstone. The
-author amended it: Chapter 18 MAY introduce a technique the worked case genuinely
-requires, under three exact limits — (1) never a method on the preface's
-out-of-scope list (time series, factor analysis and psychometrics, multilevel
-models, the mathematics of machine learning, full Bayesian inference); (2) fully
-explained where it appears, self-contained; (3) no forward dependency on anything
-no earlier spine was asked to supply. Record the disposition as accepted as
-amended, not as recommended, and state the amendment and its reason explicitly.
-P2-SPINE-FINALE and P6-CONTINUITY must both be named as enforcing these limits.
+Write the accepted Chapter 18 spine into
+bookwright_plugin/bookwright/shared/chapter-spine.json for unit
+18-vase-prvo-istrazivanje exactly as the decision record drafts it — 12 aspects,
+12 terms, 17 prerequisites, 12 exclusions — set its ratified flag, and name its
+gate, date and decision record. All nineteen spines then become ratified.
 
-Chapter 18 currently carries zero #def- blocks and so falls below the ratified
-one-to-five band; settle R04-C18-definitions with one explicit disposition and
-the same rule the earlier gates used — a block only for a term a later unit
-genuinely depends on, and none where the capstone only retrieves an established
-concept. Write no #def- block and ratify no spine yourself.
+Extend scripts/check-chapter-spines.py with the exact exclusion markers, required
+load-bearing terms and ratification-order condition tabulated in the decision
+record. The prerequisite list and the ratification-order condition must both name
+all seventeen numbered chapters, so the finale's whole-book cumulativeness is
+machine-checked. The two amended new-method limits must carry the literal markers
+"popisa izvan opsega iz predgovora" and "u cijelosti objašnjena ondje gdje se
+pojavljuje", so removing either fails the check. Keep both negative fixtures'
+identifiers and report their real per-unit coverage exactly, including any check
+kind a fixture does not exercise for unit 18.
+
+Do NOT implement the approved one-block Chapter 18 definition increase: adding a
+#def- block edits chapter prose and H-P1C-INTEGRITY-002 freezes the 46 live
+definitions until P2-TERMS retires that debt. Carry the map forward to P2-TERMS
+and WE-C18 exactly as H-P2-SPINE-V-001 did for Chapter 17, together with the
+eleven rejected blocks. Also carry forward the .chapter-meta reconciliation to
+WE-C18 and the no-route-without-the-whole-book obligation to P5-ROUTES.
+
+Whether R04-SPINE-FINALE, R04-C18-definitions and R04-C18-whole-prerequisites may
+close here is a decision to make against each item's own acceptance test, exactly
+as P2-SPINE-V decided differently for R04-SPINE-V and R04-C17-definitions. Do not
+assert a review or a state that did not happen.
 
 The two 2026-08-05 author amendments remain binding: no independent-review claim
 anywhere, and no rights-holder permission claim for any source.
