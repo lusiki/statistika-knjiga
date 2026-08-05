@@ -48,7 +48,7 @@ stop and repair the control state before editing book content.
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | 13 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV` |
-| Open outside asks | 60 of the 82 canonical asks remain `drafted_unsent`; 20 are `done`; 2 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
+| Open outside asks | 58 of the 82 canonical asks remain `drafted_unsent`; 20 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
@@ -71,6 +71,29 @@ The chain `G-A2c` → `P2-TERMS` → `P2-DOCS` → `P2-VERIFY` → `P3-CATALOG` 
 no external dependency. The DZS and DIP rights asks are untouched and remain open.
 
 The durable record is `notes/reports/g-a2c-reviewer-amendment-2026-08-05.md`.
+
+## Author determination 2026-08-05 — DZS and DIP rights inquiries withdrawn
+
+The author determined that the selected DZS and DIP extracts are publicly
+available and require no permission, and directed that no rights inquiry be sent.
+`OA-G-A3-DZS-RIGHTS` and `OA-G-A3-DIP-RIGHTS` are `withdrawn_with_reason`. This is
+the author's own recorded determination as the accountable party, not an owner
+reply; no external message was sent.
+
+`H-P1B-DATA-LIC-003` is **not** superseded. It already permitted a gate to ratify
+a lawful package rather than preserve the cautious lane, and it already recorded a
+verified general bundled basis for DZS tourism; this determination selects that
+branch. `G-A3-DZS` and `G-A3-DIP` must still consume the handoff and record exact
+package evidence, and `P3-CATALOG` still requires published terms, attribution,
+edition, checksum and fallback per entry.
+
+Binding consequence: the book may **not** claim it obtained rights-holder
+permission, because none was sought. It may cite the source and its published
+terms. That binds `G-A3-DZS`, `P3-DZS`, `G-A3-DIP`, `P3-DIP`, `P3-CATALOG` and
+`P8-META`.
+
+The durable record is
+`notes/reports/g-a3-data-rights-determination-2026-08-05.md`.
 
 ## P2-SPINE-IV closeout
 
