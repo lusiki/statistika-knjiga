@@ -4852,6 +4852,54 @@ handoffs:
     deliveries:
       - target_packet: P3-VERIFY-A
         gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-VERIFY-A acknowledges and consumes the final Wave A data-package
+          state before its claim and before its first substantive edit. The gate
+          will verify only P3-EXISTING, P3-DZS, and P3-DIP. It will record the
+          author's 2026-08-05 amendment that removes stale novice-pilot wording,
+          verify P3-PILOT is status descoped with no output or exit test claimed,
+          and treat DIP's local checksum only as explicitly non-applicable by
+          author amendment, never as a local checksum pass. Nothing targeting a
+          different packet is consumed.
+        evidence:
+          - "report:notes/reports/p3-dip-2026-08-05.md"
+          - "amendment:notes/reports/author-amendment-reader-route-2026-08-05.md"
+          - "registry:packets.P3-PILOT-status-descoped-exit-tests-not-run"
+          - "registry:packets.P3-VERIFY-A-requires-P3-EXISTING-P3-DZS-P3-DIP-only"
+
+  H-P3-VERIFY-A-001:
+    source_packet: P3-VERIFY-A
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - packet:P3-VERIFY-A
+      - report:notes/reports/p3-verify-a-2026-08-05.md
+      - source:renv.lock
+      - check:project-R-startup-reports-out-of-sync
+    statement: >-
+      Every R-backed Wave A verification on 2026-08-05 reported that the
+      project is out of sync and directed the user to renv::status(). The checks
+      themselves pass, so this is not retroactively made a P3-VERIFY-A failure,
+      but WA-C00 requires real targeted renders and a stale library can fail
+      those late. The drift has not yet been diagnosed and no package update is
+      inferred from the warning alone.
+    required_action: >-
+      Before WA-C00 is claimed and before any preface edit, run renv::status()
+      through the project launcher. Either resolve the drift within WA-C00's
+      authorised dependency scope or record the exact package/library mismatch,
+      why it is safe for the targeted renders, and the command evidence. Do not
+      postpone the first diagnosis until after prose and review work.
+    basis:
+      - check:run_rscript.py-repeated-project-out-of-sync-warning-2026-08-05
+      - user-directive:WA-C00-renv-status-before-chapter-edit
+      - notes/reports/p3-verify-a-2026-08-05.md#blokatori-i-granice-tvrdnje
+    required: true
+    deliveries:
+      - target_packet: WA-C00
+        gate: before_start
         state: pending
 
 packet_reviews:
@@ -6392,4 +6440,25 @@ packet_reviews:
       - no chapter or appendix prose render generated artefact definition terminology or unit stage changed and all 19 units remain draft
       - scripts/check-review-workflow.R passed with P3-DIP active and again at closeout with next_permitted_packet P3-VERIFY-A
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - push merge tag archive and deployment remain unauthorised
+
+  P3-VERIFY-A:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-VERIFY-A-001
+    implementation_state: commit:47577dca217f0425513e7898ac65dcd6e616363b
+    checks:
+      - exactly one delivery targets this packet and it was handled at its own gate
+      - H-P3-DIP-003 was consumed BEFORE the packet claim and nothing targeting another packet was consumed
+      - the stale novice-pilot wording in scope and the third exit test is explicitly amended under the existing 2026-08-05 author record
+      - P3-PILOT is descoped and no output or exit-test evidence is claimed for it
+      - P3-EXISTING P3-DZS and P3-DIP were each verified independently against commit 47577dca217f0425513e7898ac65dcd6e616363b
+      - scripts/build-data-snapshots.R reproduced four snapshots without writing
+      - scripts/build-dzs-extracts.py reproduced four extracts from the author mirror without writing and retained retrieval date 2026-07-27
+      - scripts/check-dip-portal.py proved the portal-mediated route with zero local files and checksum null
+      - catalogue data-integrity data-fixture integrity-fixture DIP-fixture and workflow checks pass at closeout
+      - generic_packet_evidence invalid_outside_ask_link and descoped_without_amendment each fail with exit 1 for their exact injected defect
+      - the only new future effect is the repeated renv out-of-sync warning carried to WA-C00 in H-P3-VERIFY-A-001 at before_start
+      - no data chapter appendix render generated artefact definition terminology or unit stage changed and all 19 units remain draft
       - push merge tag archive and deployment remain unauthorised

@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-DIP
-next_permitted_packet: P3-VERIFY-A
+last_completed_packet: P3-VERIFY-A
+next_permitted_packet: WA-C00
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 80
+forward_handoffs: 81
 last_updated: "2026-08-05"
 ---
 
@@ -43,11 +43,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-DIP` |
-| Next permitted packet | `P3-VERIFY-A` |
+| Last completed packet | `P3-VERIFY-A` |
+| Next permitted packet | `WA-C00` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 104 accepted, 5 deferred with reason, 262 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 41 accepted, 146 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 42 accepted, 145 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -659,6 +659,31 @@ The durable evidence is
 The durable evidence is `notes/reports/p3-dip-2026-08-05.md`, whose declared
 state is
 `portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6`.
+
+## P3-VERIFY-A closeout
+
+- `H-P3-DIP-003` was consumed before the gate claim. Nothing targeting another
+  packet was consumed.
+- `P3-EXISTING`, `P3-DZS` and `P3-DIP` were verified independently against
+  source state `47577dca217f0425513e7898ac65dcd6e616363b`. Four generated
+  snapshots and four DZS extracts reproduce without writing, and the DIP
+  checker proves the portal route with zero local files and `checksum: null`.
+- The stale novice-pilot wording in the gate's scope and third exit test is
+  explicitly amended under the author's 2026-08-05 record. `P3-PILOT` is
+  `descoped`; no output or exit test is claimed for it.
+- No blocker is hidden by aggregation. The live DZS API was not contacted under
+  the author's no-fetch directive, and the DIP archive was not downloaded under
+  its portal-mediated lane. Both limitations and their verified replacement
+  routes are explicit.
+- Every R-backed verification reports that `renv` is out of sync. The checks
+  pass, but `H-P3-VERIFY-A-001` requires `WA-C00` to run `renv::status()` before
+  its claim and before any preface edit, then resolve the drift or record the
+  exact mismatch and why the targeted renders are safe.
+- No data, chapter, appendix, render, generated artefact, definition,
+  terminology or unit stage changed. All 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p3-verify-a-2026-08-05.md`, tied to
+`commit:47577dca217f0425513e7898ac65dcd6e616363b`.
 
 ## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
 
@@ -2849,28 +2874,31 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p3-existing-2026-08-05.md,
-notes/reports/p3-dzs-2026-08-05.md and
-notes/reports/p3-dip-2026-08-05.md.
+Also fully read notes/reports/p3-verify-a-2026-08-05.md,
+notes/reports/p2-spine-preface-2026-08-04.md, notes/struktura-knjige.md,
+STYLE.md and ENRICHMENT.md. Fully read the checkout-local book-style and
+book-review instructions before using them.
 
-Execute the dashboard's next permitted packet, P3-VERIFY-A, only, and stop. It
-verifies the current-data, DZS and DIP evidence for Wave A. Consume
-H-P3-DIP-003 at before_start and consume nothing targeting another packet.
+Execute the dashboard's next permitted packet, WA-C00, only, and stop. It is
+the preface vertical slice: nine ratified aspects, five terms, no prerequisite,
+twelve exclusions, Croatian prose, no widget, and no visible code.
 
-Before closeout, record the explicit 2026-08-05 author amendment that removes
-the stale novice-pilot wording from this packet's scope and third exit test.
-P3-PILOT is status descoped under the existing author amendment; its outputs and
-tests are not accepted and no verification may depend on them.
+Before claiming the packet or touching the chapter, consume
+H-P3-VERIFY-A-001 by running renv::status() through the launcher. Resolve the
+drift or record its exact contents and why the targeted renders are safe.
+Acknowledge every applicable before-close handoff before the claim, consume it
+with evidence at closeout, and consume nothing targeting another packet.
 
-Verify P3-EXISTING, P3-DZS and P3-DIP independently against current files and
-checks. The DIP package is a verified portal route, not a local snapshot: its
-generic checksum test is explicitly non-applicable by author amendment, files
-and checksum remain absent, and no local-only pass or permission claim is
-allowed. Re-run the catalogue, data-integrity, data-fixture, portal and workflow
-checks and record exact evidence.
+Reconcile the preface against its ratified spine, verified numerical evidence,
+STYLE.md and ENRICHMENT.md. Run the deterministic style and terminology checks,
+targeted HTML/PDF/DOCX renders, and a fresh six-critic read-only panel in
+parallel. Every fatal and major finding must be resolved or carry an explicit
+author disposition; the final critic evidence must address the final material
+chapter state.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
-negative fixtures still fail, rerun every deterministic check the packet
-touches, and make one scoped local commit.
+negative fixtures still fail, rerun every deterministic check touched by the
+packet, and make one scoped local commit. Push, merge, tag, archive and deploy
+remain unauthorised.
 ```

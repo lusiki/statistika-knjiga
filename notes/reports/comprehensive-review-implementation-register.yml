@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-DIP"
-  next_permitted_packet: "P3-VERIFY-A"
+  last_completed_packet: "P3-VERIFY-A"
+  next_permitted_packet: "WA-C00"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2752,21 +2752,81 @@ packets:
     sequence: 73
     phase: "3A"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-EXISTING"
       - "P3-DZS"
       - "P3-DIP"
-    scope: "Wave A evidence foundation: current data, DZS/DIP, and accepted novice-pilot memo."
+    scope: "Wave A evidence foundation: current generated data plus verified DZS and portal-mediated DIP evidence; P3-PILOT is descoped."
+    amendments:
+      - amended_at: "2026-08-05"
+        amended_by: "Luka Sikic"
+        authority: "A-READERS-2026-08-05"
+        amendment_record: "notes/reports/author-amendment-reader-route-2026-08-05.md"
+        reason: >-
+          The author removed the novice reader pilot from the first edition and
+          removed P3-PILOT from this gate's requires list. The scope and third
+          exit test still named an accepted pilot memo, creating a stale prose
+          dependency that no longer existed. This amendment removes that wording
+          explicitly; it does not claim P3-PILOT ran or passed.
+        previous_scope: "Wave A evidence foundation: current data, DZS/DIP, and accepted novice-pilot memo."
+        previous_exit_test: "Only DZS/DIP, existing data, and novice-pilot evidence are required; later-wave packages do not block Wave A."
+        amended_exit_test: "Only existing data and DZS/DIP evidence are required; P3-PILOT is descoped with no evidence accepted, and later-wave packages do not block Wave A."
     outputs:
-      - "P3-VERIFY-A durable artifact and evidence record for: Wave A evidence foundation: current data, DZS/DIP, and accepted novice-pilot memo."
+      - "P3-VERIFY-A durable artifact and evidence record for: Wave A current generated data plus verified DZS and portal-mediated DIP evidence, with P3-PILOT descoped."
       - "Completion evidence is tied to the declared P3-VERIFY-A source state and bounded scope."
     exit_tests:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
-      - "Only DZS/DIP, existing data, and novice-pilot evidence are required; later-wave packages do not block Wave A."
-    completion_evidence: []
-    change_reference: null
+      - "Only existing data and DZS/DIP evidence are required; P3-PILOT is descoped with no evidence accepted, and later-wave packages do not block Wave A."
+    completion_evidence:
+      source_state: "commit:47577dca217f0425513e7898ac65dcd6e616363b"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p3-verify-a-2026-08-05.md#verifikacijska-matrica"
+            - "check:scripts/build-data-snapshots.R-DATA_SNAPSHOTS_OK-snapshots-4-mode-verify"
+            - "check:scripts/build-dzs-extracts.py-DZS_EXTRACTS_OK-extracts-4-mode-verify-retrieved-2026-07-27"
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:47577dca217f0425513e7898ac65dcd6e616363b"
+            - "report:notes/reports/p3-verify-a-2026-08-05.md#deklarirano-izvorno-stanje"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "report:notes/reports/p3-verify-a-2026-08-05.md#blokatori-i-granice-tvrdnje"
+            - "amendment:packets.P3-VERIFY-A.amendments-2026-08-05"
+            - "registry:packets.P3-PILOT-status-descoped-no-output-or-test-claimed"
+            - "handoff:H-P3-VERIFY-A-001-renv-diagnosis-before-WA-C00"
+      outputs:
+        - output: "P3-VERIFY-A durable artifact and evidence record for: Wave A current generated data plus verified DZS and portal-mediated DIP evidence, with P3-PILOT descoped."
+          artifacts:
+            - "report:notes/reports/p3-verify-a-2026-08-05.md"
+            - "matrix:P3-EXISTING-P3-DZS-P3-DIP"
+        - output: "Completion evidence is tied to the declared P3-VERIFY-A source state and bounded scope."
+          artifacts:
+            - "commit:47577dca217f0425513e7898ac65dcd6e616363b"
+            - "report:notes/reports/p3-verify-a-2026-08-05.md#buduci-ucinak-i-granica-dosega"
+            - "check:scripts/check-review-workflow.R-at-P3-VERIFY-A-closeout"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:P3-EXISTING-P3-DZS-P3-DIP-each-independently-verified"
+            - "report:notes/reports/p3-verify-a-2026-08-05.md#blokatori-i-granice-tvrdnje"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:47577dca217f0425513e7898ac65dcd6e616363b"
+            - "report:notes/reports/p3-verify-a-2026-08-05.md"
+        - test: "Only existing data and DZS/DIP evidence are required; P3-PILOT is descoped with no evidence accepted, and later-wave packages do not block Wave A."
+          result: "passed"
+          evidence:
+            - "amendment:packets.P3-VERIFY-A.amendments-2026-08-05"
+            - "registry:packets.P3-PILOT-status-descoped"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
+            - "boundary:no-later-wave-candidate-package-cited-or-promoted"
+    change_reference: "commit:47577dca217f0425513e7898ac65dcd6e616363b"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
