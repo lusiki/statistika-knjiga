@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-CATALOG"
-  next_permitted_packet: "P3-EXISTING"
+  last_completed_packet: "P3-EXISTING"
+  next_permitted_packet: "G-A3-DZS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -6975,7 +6975,7 @@ packets:
     sequence: 67
     phase: "3A"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-CATALOG"
     scope: "Register and validate existing seeded and landmark datasets."
@@ -6986,14 +6986,90 @@ packets:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-EXISTING packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "source:data/katalog.yml#anketa_mreze-version-300-observations-seed-4001-licence-CC-BY-4.0"
+            - "source:data/katalog.yml#populacija_medija-version-50000-observations-seed-8001-licence-CC-BY-4.0"
+            - "source:data/LICENCA-generirani-podaci.md-rights-holder-Luka-Sikic-and-the-rule-for-future-snapshots"
+            - "source:data/anketa-mreze.LICENCA.md-and-data/populacija-medija.LICENCA.md-sidecar-notices"
+            - "probe:R-4.6.0-datasets-DESCRIPTION-License-Part-of-R-4.6.0-no-dataset-specific-redistribution-notice"
+            - "source:data/katalog.yml#ucbadmissions-and-anscombe-remain-external-only-with-the-probe-recorded-in-integrity.note"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "source:data/katalog.yml#file_records-carry-a-typed-codebook-with-unit-domain-and-missing-code-per-column"
+            - "source:data/katalog.schema.json#column-requires-name-type-unit-missing_code-and-description"
+            - "check:scripts/check-data-integrity.R-asserts-the-CSV-header-equals-the-declared-codebook-in-order"
+            - "source:data/katalog.yml#unit-absence-production-claims-and-the-six-question-ethics-note-per-entry"
+            - "scope-note:the-reader-facing-pre-use-passport-remains-R25-CATALOG-passport-and-P5-C"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "source:data/katalog.yml#anketa_mreze-md5-b988c25a8017e2d4dcd26be160890e89-algorithm-md5"
+            - "source:data/katalog.yml#populacija_medija-md5-07e158ca6385fe406dd6741e680fd756-algorithm-md5"
+            - "check:scripts/check-katalog.py-recomputes-the-md5-of-every-declared-file-and-compares-it"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-checksum_mismatch-exit-1"
+            - "check:scripts/build-data-snapshots.R-DATA_SNAPSHOTS_OK-mode-verify-byte-identical-to-the-generator"
+            - "check:scripts/check-data-integrity.R-recomputes-every-aggregate-from-its-analysis-file-without-tolerance"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "source:data/anketa-mreze-agregat.csv-90-84-66-60-of-300-with-totals-7339-4567-2139-974"
+            - "source:data/populacija-medija-agregat.csv-15101-13378-10827-5839-4855-of-50000"
+            - "audit:portal-share-15101-of-50000-equals-0.30202-agreeing-with-the-known-parameter-Dodatak-C-already-states"
+            - "source:data/katalog.yml#aggregate_reconciliation-declares-every-share-total-and-mean-the-routes-must-reproduce"
+            - "scope-note:the-jamovi-clean-install-verification-of-these-values-remains-D09-and-P5-B"
+      outputs:
+        - output: "P3-EXISTING validated package, passport, checksum, and route evidence for: Register and validate existing seeded and landmark datasets."
+          artifacts:
+            - "report:notes/reports/p3-existing-2026-08-05.md"
+            - "source:data/anketa-mreze.csv-and-data/anketa-mreze-agregat.csv"
+            - "source:data/populacija-medija.csv-and-data/populacija-medija-agregat.csv"
+            - "source:R/snimke-nastavnih-podataka.R-and-scripts/build-data-snapshots.R"
+        - output: "Completion evidence is tied to the declared P3-EXISTING source state and bounded scope."
+          artifacts:
+            - "podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43"
+            - "scope-diff:catalogue-schema-two-validators-one-fixture-harness-one-serialiser-one-writer-four-snapshots-two-notices-data-README-.gitattributes-and-the-control-files-only"
+            - "source:.gitattributes-pins-data-csv-and-snapshot-notices-to-text-eol-lf-so-core.autocrlf-cannot-break-a-recorded-checksum"
+            - "check:scripts/check-review-workflow.R-at-P3-EXISTING-closeout"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-2-snapshots-4-validated-4-undeclared-0"
+            - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-2-snapshots-4"
+            - "check:scripts/build-data-snapshots.R-DATA_SNAPSHOTS_OK-snapshots-4-mode-verify"
+            - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32"
+            - "fixture:podaci-duplicate_key-row_band-domain_violation-empty_cell-code_label_mismatch-each-exit-1"
+            - "fixture:podaci-total_mismatch-rounded_mean-share_mismatch-snapshot_drift-each-exit-1"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "source:R/setup.R-sources-R/podaci-nastavni.R-so-the-R-lane-needs-no-file"
+            - "source:data/anketa-mreze.csv-and-data/populacija-medija.csv-are-plain-UTF-8-comma-separated-files-with-no-quoted-field"
+            - "source:data/katalog.yml#aggregate_view-per-generated-package-serves-the-print-and-hand-verification-lane"
+            - "source:data/katalog.yml#ucbadmissions-and-anscombe-keep-external-only-with-their-recorded-lawful-fallbacks"
+            - "source:data/LICENCA-generirani-podaci.md-and-the-two-sidecar-notices-make-every-shipped-file-lawful-to-redistribute"
+            - "scope-note:no-portal-lane-was-touched-and-the-jamovi-clean-install-test-remains-D09-and-P5-B"
+        - test: "The P3-EXISTING packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-P1B-DATA-LIC-001-and-H-P1B-DATA-LIC-002-consumed-before-the-packet-claim"
+            - "handoff:H-P3-CATALOG-001-and-H-P3-CATALOG-002-acknowledged-before-the-first-substantive-edit-and-consumed-at-closeout"
+            - "handoff:nothing-targeting-another-packet-was-consumed-and-H-P1B-DATA-LIC-003-is-untouched"
+            - "item:two-of-four-R25-EXISTING-items-closed-and-two-left-open-with-a-recorded-rights-reason"
+            - "item:R25-CATALOG-storage-and-R25-CATALOG-validation-closed-against-their-own-tests-and-R32-CATALOG-paired-views-left-open-on-its-task-half"
+            - "handoff:H-P3-EXISTING-001-002-and-003-created"
+            - "amendment:no-rights-holder-permission-is-claimed-and-the-catalogue-fixture-still-proves-the-ban"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43"
   G-A3-DZS:
     sequence: 68
     phase: "3B"
@@ -22423,14 +22499,20 @@ items:
         - "S15"
       location: "§12 storage"
     description: "Enforce storage fidelity conventions."
-    open_reason: >-
-      Deliberately left open by P3-CATALOG. The six storage conventions are
-      recorded in the catalogue, but the test requires every applicable
-      package to pass and there are zero materialised snapshots.
+    closed_note: >-
+      Closed by P3-EXISTING with its scope stated exactly. Applicable means a
+      package with materialised files, and there are now two; the other fifteen
+      have no file to store and are not applicable. Both applicable packages
+      pass all six conventions, and each convention is machine-enforced rather
+      than asserted. The sampling-weight convention has no applicable case,
+      because neither generated design has weights; the catalogue therefore
+      requires an explicit recorded reason instead of silence, and the
+      weights_column_absent fixture proves the named-column branch fails closed
+      for the first package that does have weights.
     closure_packet: "P3-EXISTING"
     closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22448,11 +22530,25 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.yml#storage-block-required-on-every-package-that-declares-files"
+      - "check:scripts/check-data-integrity.R-asserts-UTF-8-no-BOM-LF-endings-and-lowercase-ASCII-file-names"
+      - "check:scripts/check-data-integrity.R-asserts-every-factor-code-stands-beside-its-Croatian-label-and-agrees-with-it"
+      - "fixture:podaci-code_label_mismatch-exit-1"
+      - "check:scripts/check-data-integrity.R-recomputes-every-mean-as-total-over-count-so-a-rounded-value-cannot-pass"
+      - "fixture:podaci-rounded_mean-exit-1-with-a-rounded-mean-cannot-pass"
+      - "source:data/katalog.yml#every-share-declares-its-numerator-and-denominator-and-both-stand-in-the-aggregate"
+      - "fixture:podaci-share_mismatch-exit-1"
+      - "source:data/katalog.yml#storage.weights-null-with-a-recorded-reason-for-both-generated-designs"
+      - "fixture:podaci-weights_column_absent-exit-1"
+      - "source:data/katalog.yml#spremnost_platiti-zero_is_meaningful-true-and-missing_code-null-on-every-column"
+      - "fixture:podaci-empty_cell-exit-1"
+      - "scope-note:applicable-packages-are-the-two-with-materialised-files-and-both-pass"
+      - "report:notes/reports/p3-existing-2026-08-05.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43"
   R25-CATALOG-refresh-classes:
     parents:
       - "R25"
@@ -22550,16 +22646,20 @@ items:
         - "S15"
       location: "§12 validation"
     description: "Build fail-closed validation and reconciliation tests."
-    open_reason: >-
-      Deliberately left open by P3-CATALOG. The catalogue half is proved: ten
-      deliberate fixtures each return exit 1 and an unknown fixture name does
-      too. The second half, that accepted packages record a checksum and an
-      official reconciliation, has no accepted package, and the data-level
-      defect classes need a real file to exercise.
+    closed_note: >-
+      Closed by P3-EXISTING on both halves, not on the first alone. The
+      catalogue half already stood. The accepted-package half now has two
+      accepted packages, each recording a checksum with its algorithm and an
+      official reconciliation, and promotion without either fails closed. Every
+      defect class the review lists is exercised against bytes on disk: keys,
+      row bands, domains, code and label agreement, totals, means, shares,
+      units as declared bounds, the weights disposition, and the aggregate
+      against its official source. Each fixture must also print its own rule's
+      message, so no fixture is credited for failing on an unrelated defect.
     closure_packet: "P3-EXISTING"
     closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22578,11 +22678,22 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32"
+      - "fixture:seventeen-catalogue-defects-plus-an-unknown-fixture-name-each-exit-1"
+      - "fixture:podaci-duplicate_key-row_band-domain_violation-code_label_mismatch-empty_cell-each-exit-1"
+      - "fixture:podaci-total_mismatch-rounded_mean-share_mismatch-each-exit-1"
+      - "fixture:podaci-snapshot_drift-missing_declared_snapshot-undeclared_snapshot_on_disk-each-exit-1"
+      - "fixture:podaci-weights_column_absent-and-notice_without_licence-each-exit-1"
+      - "source:scripts/check-data-fixtures.py-requires-each-fixture-to-print-its-own-rule-message-not-merely-a-nonzero-exit"
+      - "source:data/katalog.yml#both-accepted-packages-record-checksum-checksum_algorithm-and-official_reconciliation"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_without_checksum-and-checksum_mismatch-each-exit-1"
+      - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-validated-4"
+      - "report:notes/reports/p3-existing-2026-08-05.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43"
   R25-CATALOG-passport:
     parents:
       - "R25"
@@ -22680,7 +22791,7 @@ items:
       location: "§9 Appendix C"
     description: "Register, licence, snapshot, and reconcile the seeded survey simulation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22697,11 +22808,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EXISTING"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/anketa-mreze.csv-300-rows-and-data/anketa-mreze-agregat.csv-4-rows"
+      - "check:scripts/build-data-snapshots.R-verify-mode-DATA_SNAPSHOTS_OK-byte-identical-to-simuliraj_anketu-n-300-sjeme-4001"
+      - "check:scripts/check-data-integrity.R-re-serialises-the-generator-and-compares-the-snapshot-byte-for-byte"
+      - "fixture:podaci-snapshot_drift-exit-1-with-no-longer-reproduces-from-its-declared-generator-and-seed"
+      - "source:data/katalog.yml#anketa_mreze-consumer_sources-seven-manuscript-files"
+      - "check:scripts/check-katalog.py-reconciles-consumer_sources-with-the-live-manuscript-in-both-directions"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-undeclared_consumer-exit-1"
+      - "source:data/katalog.yml#anketa_mreze-integrity-checksum-b988c25a8017e2d4dcd26be160890e89-md5-and-official_reconciliation"
+      - "source:data/anketa-mreze.LICENCA.md-CC-BY-4.0-notice-travelling-with-the-snapshot"
+      - "report:notes/reports/p3-existing-2026-08-05.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43"
   R25-EXISTING-populacija:
     parents:
       - "R25"
@@ -22715,7 +22836,7 @@ items:
       location: "§9 Appendix C"
     description: "Register, licence, snapshot, and reconcile the known population simulation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22732,11 +22853,22 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EXISTING"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/populacija-medija.csv-50000-rows-and-data/populacija-medija-agregat.csv-5-rows"
+      - "check:scripts/build-data-snapshots.R-verify-mode-DATA_SNAPSHOTS_OK-byte-identical-to-simuliraj_populaciju-N-50000-sjeme-8001"
+      - "check:scripts/check-data-integrity.R-re-serialises-the-generator-and-compares-the-snapshot-byte-for-byte"
+      - "fixture:podaci-snapshot_drift-exit-1-with-no-longer-reproduces-from-its-declared-generator-and-seed"
+      - "source:data/katalog.yml#populacija_medija-consumer_sources-eleven-manuscript-files"
+      - "check:scripts/check-katalog.py-reconciles-consumer_sources-with-the-live-manuscript-in-both-directions"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-undeclared_consumer-exit-1"
+      - "source:data/katalog.yml#populacija_medija-integrity-checksum-07e158ca6385fe406dd6741e680fd756-md5-and-official_reconciliation"
+      - "audit:portal-share-15101-of-50000-equals-0.30202-which-agrees-with-the-known-parameter-Dodatak-C-already-states"
+      - "source:data/populacija-medija.LICENCA.md-CC-BY-4.0-notice-travelling-with-the-snapshot"
+      - "report:notes/reports/p3-existing-2026-08-05.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43"
   R25-EXISTING-UCB:
     parents:
       - "R25"
@@ -22749,6 +22881,26 @@ items:
         - "S15"
       location: "§9 Appendix C"
     description: "Register the frozen landmark dataset with source, unit, caveats, and consumers."
+    open_reason: >-
+      Deliberately left open by P3-EXISTING. The registration half is done: the
+      entry carries source, unit, caveats, planned consumers and the exact
+      manuscript files that use it. The acceptance test additionally requires a
+      deterministic student snapshot that reconciles to the canonical table, and
+      no snapshot may exist. P3-EXISTING searched for authoritative
+      dataset-specific redistribution evidence and found none: the datasets
+      package at R 4.6.0 records only "License: Part of R 4.6.0", a
+      package-level marker, and UCBAdmissions.Rd carries no source field at all,
+      citing Bickel, Hammel and O'Connell (1975) in Science. Technical access
+      through a local R installation is not redistribution authority, so the
+      lane stays external-only and the item cannot close on availability.
+      No packet can close this item on evidence that exists today. Closure needs
+      either a dated author rights determination for these exact datasets, of
+      the kind the author made for DZS and DIP on 2026-08-05, or an explicit
+      deferred_v2_with_reason. Both are author decisions and neither may be
+      taken by a packet alone, so P6-DATA is recorded as the last packet able to
+      reconcile the outcome rather than as an authority to promote.
+    closure_packet: "P6-DATA"
+    closure_handoff: "H-P3-EXISTING-001"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"
@@ -22784,6 +22936,21 @@ items:
         - "S15"
       location: "§9 Appendix C"
     description: "Register the frozen landmark dataset with source, unit, caveats, and consumers."
+    open_reason: >-
+      Deliberately left open by P3-EXISTING, and for one half only. The metadata
+      half of the test is now complete: the entry carries source, version,
+      unit, caveats, planned consumers, the exact manuscript files that use it,
+      its lawful fallback and its six-question ethics note. The other half
+      requires a deterministic student snapshot that reconciles, and no snapshot
+      may exist. The datasets package at R 4.6.0 records only
+      "License: Part of R 4.6.0", and anscombe.Rd names Tufte (1990), Graphics
+      Press, as its source, so the only documented origin is a third-party
+      copyrighted work. Closing on complete metadata alone would assert a
+      snapshot that does not and may not exist. Like R25-EXISTING-UCB, closure
+      needs an author rights determination or an explicit
+      deferred_v2_with_reason.
+    closure_packet: "P6-DATA"
+    closure_handoff: "H-P3-EXISTING-001"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"
@@ -23975,12 +24142,22 @@ items:
       location: "§12 outstanding integration"
     description: "Provide analysis files for R/jamovi and aggregate files for hand/print verification."
     open_reason: >-
-      Deliberately left open by P3-CATALOG. The schema carries an
-      aggregate_view field on every entry, but the test requires an analysis
-      file and an aggregate that reconcile at full precision and at least one
-      task that reproduces the aggregate. Neither file nor task exists.
-    closure_packet: "P3-EXISTING"
-    closure_handoff: "H-P3-CATALOG-002"
+      P3-CATALOG left this open because neither file nor task existed.
+      P3-EXISTING discharged the first half and deliberately did not claim the
+      second. Both pairs now exist and reconcile exactly: the validator
+      recomputes every group count, total, mean and share from the analysis file
+      and compares without tolerance, and the rounded_mean, total_mismatch and
+      share_mismatch fixtures each fail closed. The test also requires at least
+      one task that reproduces an aggregate, and no such task exists: a task is
+      a reader exercise, which lives in chapter or appendix prose that a
+      data_package packet may not write. The aggregate is deliberately built so
+      that such a task is possible by hand -- every share carries its numerator
+      and denominator and every mean its integer total -- but building the
+      possibility is not the same as writing the task, and this packet does not
+      claim it did. WB-C04, WC-C09 and WC-C11 own the print presets that would
+      use it and P5-C owns the appendix route.
+    closure_packet: "P5-C"
+    closure_handoff: "H-P3-EXISTING-002"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"

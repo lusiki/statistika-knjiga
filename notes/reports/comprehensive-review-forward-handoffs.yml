@@ -976,7 +976,44 @@ handoffs:
     deliveries:
       - target_packet: P3-EXISTING
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING accepts the CC BY 4.0 generated-data boundary as the exact
+          condition of materialising any snapshot, and consumed it before the
+          packet claim and before the first substantive edit. The packet
+          materialises deterministic snapshots of anketa_mreze and
+          populacija_medija only, because only those two carry a verified
+          rights-holder disposition, and it keeps the licence boundary intact in
+          every direction: the snapshots are CC BY 4.0 with Luka Sikic as rights
+          holder, the generator R/podaci-nastavni.R and the book's own text stay
+          MIT, and the generated-data notice is not extended over any
+          third-party data. Neither generated entry carries a blank or
+          not-applicable licence and the validator still fails closed on one.
+          The "carry the notice or a direct link to it" obligation is discharged
+          literally rather than by assertion: every materialised snapshot ships
+          a sidecar notice file in the same directory that names the rights
+          holder, the book, the dataset, the generator, the change-marking
+          requirement and a direct link to the CC BY 4.0 legal code and to
+          data/LICENCA-generirani-podaci.md, the catalogue records that file in
+          a required snapshot_notice field, and scripts/check-katalog.py fails
+          closed when a promoted generated package lacks it, when the file is
+          absent, or when it omits the licence link. A CSV cannot carry a
+          comment header without breaking the plain-CSV and jamovi routes the
+          same notice exists to serve, so the sidecar is the recorded
+          interpretation of "carry", made machine-checkable rather than left to
+          editorial care.
+        evidence:
+          - "source:data/LICENCA-generirani-podaci.md#nositelj-prava-Luka-Sikic-CC-BY-4.0-i-pravilo-za-buduce-snimke"
+          - "source:R/podaci-nastavni.R#LICENCA-IZLAZA-CC-BY-4.0-uz-MIT-kod-generatora"
+          - "source:data/katalog.yml#anketa_mreze-and-populacija_medija-licence-CC-BY-4.0-rights-holder-Luka-Sikic"
+          - "source:data/anketa-mreze.LICENCA.md-and-data/populacija-medija.LICENCA.md-sidecar-notices-with-a-direct-CC-BY-4.0-link"
+          - "source:data/katalog.schema.json#snapshot_notice-required-whenever-a-package-declares-files"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-snapshot_notice_missing-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-licence_not_applicable-exit-1"
+          - "check:scripts/check-data-integrity.R-asserts-each-sidecar-notice-carries-CC-BY-4.0-and-its-dataset-name"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
       - target_packet: P3-CATALOG
         gate: before_start
         state: consumed
@@ -1075,7 +1112,43 @@ handoffs:
           - "report:notes/reports/p3-catalog-2026-08-05.md"
       - target_packet: P3-EXISTING
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING consumed this delivery before the packet claim and before
+          the first substantive edit, and it settles the clause this handoff
+          addresses to it by name. **UCBAdmissions and anscombe stay
+          external-only.** The packet looked for authoritative dataset-specific
+          redistribution evidence rather than assuming its absence: the locally
+          installed datasets package at R 4.6.0 states only
+          "License: Part of R 4.6.0", which is a package-level marker and not a
+          dataset-specific redistribution notice, and neither entry in
+          tools::Rd_db("datasets") carries licence or redistribution terms.
+          UCBAdmissions has no \source field at all and cites Bickel, Hammel and
+          O'Connell (1975) in Science; anscombe's \source is Tufte (1990),
+          Graphics Press. Both documented sources are third-party copyrighted
+          works, so nothing there supports a repository copy either. Technical
+          access through a local R installation was therefore not converted into
+          redistribution authority: both keep lane external-only, promoted
+          false, an empty file list and their recorded lawful fallbacks, and
+          R25-EXISTING-UCB and R25-EXISTING-Anscombe stay open with that reason
+          rather than being closed on availability. All 17 lanes are otherwise
+          unchanged by this packet: the only two lanes it acts on are the two
+          already-bundled generated packages whose redistribution the P1B
+          inventory records as verified, and it promotes them by editing their
+          own entries after recording source, version, licence, attribution,
+          checksum and official reconciliation, exactly as the promotion
+          contract requires.
+        evidence:
+          - "probe:R-4.6.0-datasets-DESCRIPTION-License-Part-of-R-4.6.0-no-dataset-specific-redistribution-notice"
+          - "probe:tools-Rd_db-datasets-UCBAdmissions.Rd-has-no-source-field-and-cites-Science-1975"
+          - "probe:tools-Rd_db-datasets-anscombe.Rd-source-is-Tufte-1990-Graphics-Press"
+          - "source:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi-redistribucija-nije-dokazana"
+          - "source:data/katalog.yml#ucbadmissions-and-anscombe-lane-external-only-promoted-false-files-empty"
+          - "register:items.R25-EXISTING-UCB-and-R25-EXISTING-Anscombe-remain-ratified-with-a-recorded-open_reason"
+          - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-bundled-5-portal-3-external-9-lanes-unchanged"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
 
   H-P1B-DATA-LIC-003:
     source_packet: P1B-DATA-LIC
@@ -3891,7 +3964,47 @@ handoffs:
     deliveries:
       - target_packet: P3-EXISTING
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING acknowledged this delivery before its first substantive
+          edit and consumed it at closeout, having promoted exactly two packages
+          the way this handoff requires and no package any other way. Both
+          promotions were made by editing the package's own catalogue entry, and
+          each records its exact source, version, licence, attribution, checksum
+          with its algorithm, and official reconciliation before promoted became
+          true. **No lane was changed by this packet.** The two promoted
+          packages were already bundled with verified redistribution in the P1B
+          inventory, and the other fifteen lanes are byte-for-byte as
+          P3-CATALOG left them; UCBAdmissions and anscombe stay external-only
+          because the packet looked for dataset-specific redistribution evidence
+          and found none, so technical access was not treated as authority.
+          The path-before-file rule was obeyed literally: the file paths were
+          written into data/katalog.yml first, and only then did
+          scripts/build-data-snapshots.R --write materialise anything, so no
+          undeclared snapshot ever existed in the tree. Both required checks
+          were rerun in this packet and both pass, together with a new harness
+          that proves 32 deliberate defects fail closed. The packet also
+          strengthened the promotion contract rather than spending it: a package
+          may now be promoted only under the gate it names itself, every
+          promotion must appear in a per-packet promotion log, and every
+          declared file must exist with a matching checksum.
+          **H-P1B-DATA-LIC-003 is untouched and not superseded**, and no G-A3
+          gate was pre-empted: DZS tourism, ParlaMint and ParlaSent remain
+          bundled-but-unpromoted with their exact package records still owed to
+          their own gates.
+        evidence:
+          - "source:data/katalog.yml#promotion_contract-promoted_total-2-and-a-per-packet-promotion_log"
+          - "source:data/katalog.yml#anketa_mreze-and-populacija_medija-promoted-true-promoted_by-P3-EXISTING"
+          - "source:data/katalog.yml#checksum-checksum_algorithm-and-official_reconciliation-recorded-before-promotion"
+          - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-2-bundled-5-portal-3-external-9-lanes-unchanged"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-2-snapshots-4-validated-4-undeclared-0"
+          - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-promoted_without_its_gate-and-promotion_log_disagrees-each-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-checksum_mismatch-and-missing_declared_file-each-exit-1"
+          - "audit:H-P1B-DATA-LIC-003-deliveries-unchanged-and-all-six-G-A3-gates-still-pending"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
       - target_packet: G-A3-DZS
         gate: before_close
         state: pending
@@ -3959,8 +4072,206 @@ handoffs:
     deliveries:
       - target_packet: P3-EXISTING
         gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING acknowledged this delivery before its first substantive
+          edit and consumed it at closeout with a separate decision on each of
+          the three items it names for this packet, taken one at a time against
+          that item's own acceptance test and never by aggregation.
+          **R25-CATALOG-storage is closed.** Two packages now have materialised
+          files, both pass all six storage conventions, and each convention is
+          machine-enforced rather than asserted; the applicable scope is
+          recorded in the item rather than implied.
+          **R25-CATALOG-validation is closed on both halves, not on the first.**
+          The catalogue half already stood on ten fixtures; the accepted-package
+          half now has two accepted packages recording a checksum with its
+          algorithm and an official reconciliation, and every data-level defect
+          class the review lists is exercised against bytes on disk. Each
+          fixture must print its own rule's message, so a fixture that failed
+          for an unrelated reason could not be credited.
+          **R32-CATALOG-paired-views is deliberately NOT closed.** Its first
+          half is discharged -- both pairs exist and reconcile without tolerance
+          -- but its test also requires at least one task that reproduces an
+          aggregate, and a task is reader prose that a data_package packet may
+          not write. The aggregates were built so that such a task is possible
+          by hand, with a numerator and denominator beside every share and an
+          integer total beside every mean, but building the possibility is not
+          writing the task. H-P3-EXISTING-002 carries that half to WB-C04,
+          WC-C09, WC-C11 and P5-C. The three items this handoff assigns to P5-C
+          and P7-CLEAN-BUILD were not touched: R25-CATALOG-single-source and
+          R25-CATALOG-passport still need the generated views and a chapter's
+          first use, and R08-CATALOG-local-independence still needs a
+          fresh-clone render this packet did not run and does not claim.
+        evidence:
+          - "item:R25-CATALOG-storage-accepted-with-a-recorded-applicable-scope-of-two-packages"
+          - "item:R25-CATALOG-validation-accepted-with-both-halves-evidenced-separately"
+          - "item:R32-CATALOG-paired-views-remains-ratified-with-its-task-half-recorded-as-open"
+          - "check:scripts/check-data-integrity.R-recomputes-every-group-count-total-mean-and-share-without-tolerance"
+          - "fixture:podaci-rounded_mean-total_mismatch-share_mismatch-each-exit-1"
+          - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32"
+          - "source:data/katalog.yml#aggregate_reconciliation-blocks-declare-what-each-pair-must-reproduce"
+          - "audit:R25-CATALOG-single-source-R25-CATALOG-passport-and-R08-CATALOG-local-independence-untouched"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
+      - target_packet: P5-C
+        gate: before_close
+        state: pending
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+
+  H-P3-EXISTING-001:
+    source_packet: P3-EXISTING
+    created_at: "2026-08-05"
+    kind: evidence
+    refs:
+      - item:R25-EXISTING-UCB
+      - item:R25-EXISTING-Anscombe
+      - handoff:H-P1B-DATA-LIC-002
+      - report:notes/reports/p3-existing-2026-08-05.md
+    statement: >-
+      UCBAdmissions and anscombe stay external-only after a search for
+      authoritative dataset-specific redistribution evidence, not after an
+      assumption that none exists. The datasets package at R 4.6.0 records only
+      "License: Part of R 4.6.0", which is a package-level marker; UCBAdmissions.Rd
+      has no source field and cites Bickel, Hammel and O'Connell (1975) in
+      Science, and anscombe.Rd names Tufte (1990), Graphics Press. Both
+      documented origins are third-party copyrighted works. R25-EXISTING-UCB and
+      R25-EXISTING-Anscombe therefore remain open, each with one half of its
+      test met: the registration and metadata half is complete, and the
+      deterministic student snapshot may not exist. Their lawful fallbacks are
+      recorded and unchanged: the mandatory categorical exercise uses
+      populacija_medija and the mandatory visualisation or association exercise
+      uses anketa_mreze, both now materialised, licence-clean and checksummed.
+    required_action: >-
+      No packet may create, commit or promote a copy of either dataset on
+      current evidence, and none may read technical access through a local R
+      installation as redistribution authority. WA-C01, WB-C05, WB-C06 and P5-A
+      must keep using these two sets through the local R installation as an
+      optional route only, and must route every mandatory task to the recorded
+      licence-clean fallback. P6-DATA is the last packet able to reconcile the
+      outcome, but it cannot close either item by itself: closure needs either a
+      dated author rights determination for these exact datasets, of the kind
+      the author made for DZS and DIP on 2026-08-05, or an explicit
+      deferred_v2_with_reason. Both are author decisions. P8-META may not claim
+      any permission for either dataset.
+    basis:
+      - probe:R-4.6.0-datasets-DESCRIPTION-License-Part-of-R-4.6.0
+      - probe:tools-Rd_db-datasets-UCBAdmissions.Rd-no-source-field-cites-Science-1975
+      - probe:tools-Rd_db-datasets-anscombe.Rd-source-Tufte-1990-Graphics-Press
+      - source:data/katalog.yml#ucbadmissions-and-anscombe-lane-external-only-promoted-false-files-empty
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi
+    required: true
+    deliveries:
+      - target_packet: WA-C01
+        gate: before_close
+        state: pending
+      - target_packet: WB-C05
+        gate: before_close
+        state: pending
+      - target_packet: WB-C06
+        gate: before_close
+        state: pending
+      - target_packet: P5-A
+        gate: before_close
+        state: pending
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
+        state: pending
+
+  H-P3-EXISTING-002:
+    source_packet: P3-EXISTING
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R32-CATALOG-paired-views
+      - item:R25-CATALOG-public-views
+      - handoff:H-P3-CATALOG-002
+      - report:notes/reports/p3-existing-2026-08-05.md
+    statement: >-
+      The paired analysis and aggregate views exist and reconcile exactly, and
+      only the task half of R32-CATALOG-paired-views is still open. Each
+      generated package now ships one analysis file and one aggregate whose
+      every group count, integer total, mean and share the validator recomputes
+      from the analysis file and compares without tolerance. The aggregates are
+      deliberately shaped for hand and print verification: every share carries
+      its own numerator and denominator, and every mean carries its integer
+      total, so a reader can check a row with arithmetic rather than trust a
+      rounded number. The expected values are fixed and public:
+      anketa_mreze splits 90, 84, 66 and 60 of 300, and populacija_medija splits
+      15101, 13378, 10827, 5839 and 4855 of 50000.
+    required_action: >-
+      WB-C04, WC-C09 and WC-C11 must build their print presets from the
+      aggregate file rather than from a fresh calculation, and at least one of
+      them must carry a task in which the reader reproduces an aggregate row
+      from the analysis file. P5-C must generate both public views from
+      data/katalog.yml and may then close R32-CATALOG-paired-views together with
+      that task. No packet may change an aggregate value without rerunning
+      scripts/build-data-snapshots.R and updating the recorded checksums, and no
+      packet may round a value in the file to make a print table look tidier;
+      the rounded_mean fixture exists precisely to catch that.
+    basis:
+      - source:data/anketa-mreze-agregat.csv
+      - source:data/populacija-medija-agregat.csv
+      - source:data/katalog.yml#aggregate_reconciliation
+      - check:scripts/check-data-integrity.R-recomputes-every-aggregate-without-tolerance
+      - fixture:podaci-rounded_mean-exit-1
+    required: true
+    deliveries:
+      - target_packet: WB-C04
+        gate: before_close
+        state: pending
+      - target_packet: WC-C09
+        gate: before_close
+        state: pending
+      - target_packet: WC-C11
+        gate: before_close
         state: pending
       - target_packet: P5-C
+        gate: before_close
+        state: pending
+
+  H-P3-EXISTING-003:
+    source_packet: P3-EXISTING
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - source:scripts/check-katalog.py
+      - source:scripts/check-data-fixtures.py
+      - source:.github/workflows/publish.yml
+      - report:notes/reports/p3-existing-2026-08-05.md
+    statement: >-
+      Two data validators are not blocking CI steps, and the gap is recorded
+      rather than quietly accepted. scripts/check-data-integrity.R is already a
+      blocking step, so the data-level rules this packet added run in CI for
+      free. scripts/check-katalog.py has never been wired into
+      .github/workflows/publish.yml, not by P3-CATALOG that created it and not
+      by this packet, and the new scripts/check-data-fixtures.py is not wired
+      either. A catalogue defect, a checksum mismatch or an undeclared consumer
+      would therefore pass CI today and be caught only by a local run. This
+      packet deliberately did not edit the workflow: the release path is owned
+      by the P1C packets that proved its failure modes, and .github is outside
+      this packet's declared owned paths.
+    required_action: >-
+      P7-CLEAN-BUILD must add scripts/check-katalog.py and
+      scripts/check-data-fixtures.py to the blocking check ladder in
+      .github/workflows/publish.yml, before the PDF and HTML render steps and
+      with no continue-on-error, and must prove the negative fixtures still fail
+      from a clean environment. P6-DATA must not treat a local pass as CI
+      coverage while this remains open. This is the same shape as
+      H-P2-DOCS-003, which carries the terminology checker's wiring to the same
+      packet, and the two should be wired together.
+    basis:
+      - audit:.github/workflows/publish.yml-runs-check-data-integrity.R-and-check-integrity-fixtures.py-but-not-check-katalog.py
+      - source:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32
+      - handoff:H-P2-DOCS-003
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
         gate: before_close
         state: pending
       - target_packet: P7-CLEAN-BUILD
@@ -5339,6 +5650,14 @@ packet_reviews:
       - H-P3-CATALOG-001
       - H-P3-CATALOG-002
     implementation_state: katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac
+  P3-EXISTING:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-EXISTING-001
+      - H-P3-EXISTING-002
+      - H-P3-EXISTING-003
+    implementation_state: podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43
     checks:
       - exactly two deliveries target this packet and both are before_start and both were consumed BEFORE the packet claim and before the first substantive edit
       - H-P1B-DATA-LIC-001 and H-P1B-DATA-LIC-002 each also deliver to P3-EXISTING and those deliveries deliberately remain pending

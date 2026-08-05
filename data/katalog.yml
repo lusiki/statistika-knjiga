@@ -66,7 +66,7 @@ portfolio_caps:
     - design: "seeded_simulation_known_population"
       cap: 3
       registered: 3
-      promoted: 0
+      promoted: 2
       exempt_frozen_landmarks: true
     - design: "probability_survey_with_weights"
       cap: 1
@@ -117,11 +117,24 @@ promotion_contract:
     - "naveden je barem jedan datotecni put"
     - "zabiljezena je zakonita zamjena za svaki obvezni studentski put"
     - "paketni gate imenovan u promoting_gate je prihvacen"
-  promoted_by_this_packet: 0
+  promoted_total: 2
+  promotion_log:
+    - packet: "P3-CATALOG"
+      promoted: 0
+      recorded_at: "2026-08-05"
+      record: "notes/reports/p3-catalog-2026-08-05.md"
+    - packet: "P3-EXISTING"
+      promoted: 2
+      recorded_at: "2026-08-05"
+      record: "notes/reports/p3-existing-2026-08-05.md"
   note: >-
-    P3-CATALOG stvara ugovor i registrira inventar. Ne promovira nijedan paket.
-    Promociju izvodi imenovani kasniji gate, uz vlastiti dokaz o izvoru,
-    inacici, licenci, obavijesti i kontrolnom zbroju.
+    P3-CATALOG je stvorio ugovor i registrirao inventar bez ijedne promocije.
+    P3-EXISTING promovira tocno dva generirana paketa, i to jedina dva za koja
+    postoji vlasnicka dispozicija o redistribuciji. Svaka promocija mora stajati
+    u promotion_log, zbroj upisa mora biti jednak polju promoted_total, a ono
+    stvarnom broju zapisa s promoted true; paket smije biti promoviran samo pod
+    gateom koji sam imenuje u promoting_gate i koji je upisan u promoted_by.
+    Dostupnost i dalje ne promice nista.
 
 storage_conventions:
   - "UTF-8 kodiranje i stabilna ASCII imena datoteka."
@@ -135,16 +148,29 @@ packages:
   # --- trenutacni paketi ---------------------------------------------------
   - id: "anketa_mreze"
     name: "Anketa o drustvenim mrezama, generirani nastavni skup"
-    status: "registered_not_promoted"
+    status: "registered_and_promoted"
     design: "seeded_simulation_known_population"
     domain: "mediji i drustvene mreze"
     unit: "jedan ispitanik"
     question: "Koliko vremena ljudi provode na mrezama i kako to ide uz povjerenje?"
     role: "Poznata populacija za ponovljeno uzorkovanje i za citanje procjene s intervalom."
     consumers:
+      - "WB-C04"
       - "WB-C05"
       - "WB-C06"
       - "WC-C09"
+      - "WE-C18"
+      - "P5-A"
+      - "P5-C"
+    source_symbol: "anketa_mreze"
+    consumer_sources:
+      - "chapters/04-sazimanje-podataka.qmd"
+      - "chapters/05-vizualizacija.qmd"
+      - "chapters/06-povezanost.qmd"
+      - "chapters/18-vase-prvo-istrazivanje.qmd"
+      - "dodaci/a-praktikum.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "podaci.qmd"
     source: "R/podaci-nastavni.R, funkcija simuliraj_anketu"
     version: "300 opazanja, sjeme 4001; inacica je deklarirano stanje izvora P1B-DATA-LIC"
     licence: "CC BY 4.0"
@@ -161,15 +187,189 @@ packages:
     generated_data_notice: "data/LICENCA-generirani-podaci.md"
     build_script: "R/podaci-nastavni.R"
     integrity:
-      checksum: null
-      official_reconciliation: null
+      checksum: "b988c25a8017e2d4dcd26be160890e89"
+      checksum_algorithm: "md5"
+      official_reconciliation: >-
+        Sluzbeni izvor ovoga skupa je njegov generator, pa je usklađenje
+        usporedba s njim, a ne s vanjskom tablicom. Snimka
+        data/anketa-mreze.csv jednaka je bajt po bajt serijalizaciji izlaza
+        funkcije simuliraj_anketu(n = 300, sjeme = 4001) iz R/podaci-nastavni.R
+        pod R 4.6.0, sto provjerava scripts/build-data-snapshots.R bez
+        argumenta --write. Agregat data/anketa-mreze-agregat.csv ponovno se
+        izracunava iz analiticke snimke i poklapa se tocno u sve cetiri skupine
+        i u svakom stupcu: 90 + 84 + 66 + 60 = 300 ispitanika, zbroj minuta
+        7339 + 4567 + 2139 + 974 = 15019 i zbroj povjerenja
+        574 + 467 + 323 + 270 = 1634.
       note: >-
-        Nema materijalizirane snimke, pa nema ni kontrolnog zbroja. Reproducira
-        se iz deklariranoga sjemena i to provjerava scripts/check-data-integrity.R.
-    promoted: false
+        Snimka postoji i nosi kontrolni zbroj. Reproducira se iz deklariranoga
+        sjemena, a to provjeravaju scripts/build-data-snapshots.R i
+        scripts/check-data-integrity.R.
+    promoted: true
+    promoted_by: "P3-EXISTING"
     promoting_gate: "P3-EXISTING"
-    files: []
-    aggregate_view: null
+    files:
+      - "data/anketa-mreze.csv"
+      - "data/anketa-mreze-agregat.csv"
+    aggregate_view: "data/anketa-mreze-agregat.csv"
+    snapshot_notice: "data/anketa-mreze.LICENCA.md"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Nacrt je jednostavan slucajan izvlak iz generirane populacije bez
+        nejednakih vjerojatnosti odabira, pa tezine uzorkovanja ne postoje i
+        prazan stupac tezina ne smije se izmisliti. Poglavlje 8 tezine uci na
+        skupu koji ih ima kao pojam, ne na ovoj snimci.
+      precision_note: >-
+        Analiticka snimka drzi cjelobrojne vrijednosti onako kako ih generator
+        proizvodi. Agregat drzi puni zbroj uz svaki prosjek i puni brojnik i
+        nazivnik uz svaki udio, a prosjeci su zapisani najkracim povratnim
+        zapisom. U datoteci nema zaokruzivanja; ono postoji samo u prikazu.
+      missing_note: >-
+        Nedostajucih vrijednosti nema i nijedna celija nije prazna, pa nijedan
+        stupac ne nosi sifru nedostajuce vrijednosti. Da se pojavi, dobila bi
+        vlastitu sifru i ostala razlicita od nule, od potisnute i od
+        neobjavljene vrijednosti.
+    file_records:
+      - path: "data/anketa-mreze.csv"
+        role: "analysis"
+        md5: "b988c25a8017e2d4dcd26be160890e89"
+        rows: 300
+        row_band: [300, 300]
+        key: "ispitanik"
+        columns:
+          - name: "ispitanik"
+            type: "text"
+            unit: "identifikator"
+            missing_code: null
+            pattern: "^I[0-9]{3}$"
+            description: "Kljuc ispitanika, stabilan kroz sve rendere."
+          - name: "dob"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 18
+            max: 70
+            description: "Navrsene godine ispitanika."
+          - name: "dobna_skupina_sifra"
+            type: "code"
+            unit: "sifra razine"
+            missing_code: null
+            pairs_with: "dobna_skupina"
+            levels:
+              - "18 do 24"
+              - "25 do 34"
+              - "35 do 44"
+              - "45 i više"
+            description: "Izvorna sifra dobne skupine; stoji uz oznaku, nikada umjesto nje."
+          - name: "dobna_skupina"
+            type: "label"
+            unit: "oznaka razine"
+            missing_code: null
+            pairs_with: "dobna_skupina_sifra"
+            description: "Hrvatska oznaka dobne skupine."
+          - name: "minute_dnevno"
+            type: "integer"
+            unit: "minuta na dan"
+            missing_code: null
+            min: 1
+            max: 1440
+            description: "Dnevno vrijeme na mrezama; raspodjela je desno asimetricna."
+          - name: "povjerenje"
+            type: "integer"
+            unit: "bod na ljestvici 1 do 10"
+            missing_code: null
+            min: 1
+            max: 10
+            description: "Povjerenje u sadrzaj na ljestvici od 1 do 10."
+      - path: "data/anketa-mreze-agregat.csv"
+        role: "aggregate"
+        md5: "a9339a786508c666c70c271b1ded2cf2"
+        rows: 4
+        row_band: [4, 4]
+        key: "dobna_skupina_sifra"
+        columns:
+          - name: "dobna_skupina_sifra"
+            type: "code"
+            unit: "sifra razine"
+            missing_code: null
+            pairs_with: "dobna_skupina"
+            levels:
+              - "18 do 24"
+              - "25 do 34"
+              - "35 do 44"
+              - "45 i više"
+            description: "Izvorna sifra dobne skupine."
+          - name: "dobna_skupina"
+            type: "label"
+            unit: "oznaka razine"
+            missing_code: null
+            pairs_with: "dobna_skupina_sifra"
+            description: "Hrvatska oznaka dobne skupine."
+          - name: "broj"
+            type: "integer"
+            unit: "ispitanik"
+            missing_code: null
+            min: 0
+            description: "Brojnik: koliko je ispitanika u skupini."
+          - name: "ukupno"
+            type: "integer"
+            unit: "ispitanik"
+            missing_code: null
+            min: 1
+            description: "Nazivnik: koliko je ispitanika ukupno."
+          - name: "udio"
+            type: "number"
+            unit: "udio od 0 do 1"
+            missing_code: null
+            min: 0
+            max: 1
+            description: "Udio skupine; brojnik i nazivnik stoje uz njega."
+          - name: "zbroj_minuta"
+            type: "integer"
+            unit: "minuta na dan"
+            missing_code: null
+            min: 0
+            description: "Zbroj dnevnih minuta u skupini; omogucuje rucnu provjeru prosjeka."
+          - name: "prosjek_minuta"
+            type: "number"
+            unit: "minuta na dan"
+            missing_code: null
+            min: 0
+            description: "Prosjek dnevnih minuta, jednak zbroju podijeljenom brojem."
+          - name: "zbroj_povjerenja"
+            type: "integer"
+            unit: "bod na ljestvici 1 do 10"
+            missing_code: null
+            min: 0
+            description: "Zbroj bodova povjerenja u skupini."
+          - name: "prosjek_povjerenja"
+            type: "number"
+            unit: "bod na ljestvici 1 do 10"
+            missing_code: null
+            min: 1
+            max: 10
+            description: "Prosjek povjerenja, jednak zbroju podijeljenom brojem."
+    aggregate_reconciliation:
+      analysis_file: "data/anketa-mreze.csv"
+      aggregate_file: "data/anketa-mreze-agregat.csv"
+      group_code: "dobna_skupina_sifra"
+      group_label: "dobna_skupina"
+      count_column: "broj"
+      denominator_column: "ukupno"
+      shares:
+        - share: "udio"
+          numerator: "broj"
+          denominator: "ukupno"
+      sums:
+        - source: "minute_dnevno"
+          total: "zbroj_minuta"
+          mean: "prosjek_minuta"
+        - source: "povjerenje"
+          total: "zbroj_povjerenja"
+          mean: "prosjek_povjerenja"
     permissible_claims:
       - "opis"
       - "povezanost"
@@ -189,16 +389,36 @@ packages:
 
   - id: "populacija_medija"
     name: "Populacija medijskih navika, generirani nastavni skup"
-    status: "registered_not_promoted"
+    status: "registered_and_promoted"
     design: "seeded_simulation_known_population"
     domain: "mediji i povjerenje"
     unit: "jedna osoba u generiranoj populaciji"
     question: "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?"
     role: "Poznata populacija iz koje se uzorkuje, i poznati model za regresiju."
     consumers:
+      - "WC-C07"
       - "WC-C08"
+      - "WC-C09"
+      - "WC-C10"
+      - "WC-C11"
       - "WD-C13"
+      - "WD-C14"
+      - "WD-C15"
       - "WD-C16"
+      - "P5-C"
+    source_symbol: "populacija_medija"
+    consumer_sources:
+      - "chapters/07-vjerojatnost.qmd"
+      - "chapters/08-uzorkovanje.qmd"
+      - "chapters/09-procjena.qmd"
+      - "chapters/10-logika-testiranja.qmd"
+      - "chapters/11-velicina-ucinka-i-snaga.qmd"
+      - "chapters/13-kategoricki-podaci.qmd"
+      - "chapters/14-dvije-grupe.qmd"
+      - "chapters/15-vise-grupa.qmd"
+      - "chapters/16-regresija.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "podaci.qmd"
     source: "R/podaci-nastavni.R, funkcija simuliraj_populaciju"
     version: "50000 opazanja, sjeme 8001; inacica je deklarirano stanje izvora P1B-DATA-LIC"
     licence: "CC BY 4.0"
@@ -215,15 +435,264 @@ packages:
     generated_data_notice: "data/LICENCA-generirani-podaci.md"
     build_script: "R/podaci-nastavni.R"
     integrity:
-      checksum: null
-      official_reconciliation: null
+      checksum: "07e158ca6385fe406dd6741e680fd756"
+      checksum_algorithm: "md5"
+      official_reconciliation: >-
+        Sluzbeni izvor ovoga skupa je njegov generator, pa je usklađenje
+        usporedba s njim. Snimka data/populacija-medija.csv jednaka je bajt po
+        bajt serijalizaciji izlaza funkcije
+        simuliraj_populaciju(N = 50000, sjeme = 8001) iz R/podaci-nastavni.R pod
+        R 4.6.0, sto provjerava scripts/build-data-snapshots.R bez argumenta
+        --write. Agregat data/populacija-medija-agregat.csv ponovno se
+        izracunava iz analiticke snimke i poklapa se tocno u svih pet izvora:
+        15101 + 13378 + 10827 + 5839 + 4855 = 50000 osoba, a udio korisnika
+        portala 15101 / 50000 = 0,30202 slaze se s vrijednoscu koju Dodatak C
+        vec navodi kao poznati parametar populacije.
       note: >-
-        Nema materijalizirane snimke. Reproducira se iz deklariranoga sjemena i
-        to provjerava scripts/check-data-integrity.R.
-    promoted: false
+        Snimka postoji i nosi kontrolni zbroj. Reproducira se iz deklariranoga
+        sjemena, a to provjeravaju scripts/build-data-snapshots.R i
+        scripts/check-data-integrity.R.
+    promoted: true
+    promoted_by: "P3-EXISTING"
     promoting_gate: "P3-EXISTING"
-    files: []
-    aggregate_view: null
+    files:
+      - "data/populacija-medija.csv"
+      - "data/populacija-medija-agregat.csv"
+    aggregate_view: "data/populacija-medija-agregat.csv"
+    snapshot_notice: "data/populacija-medija.LICENCA.md"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Ovo je cijela generirana populacija, a ne uzorak iz nje, pa tezine
+        uzorkovanja po definiciji ne postoje. Uzorci koje poglavlja izvlace iz
+        ove populacije jednostavni su slucajni izvlaci i takodjer ih nemaju.
+        Prazan stupac tezina ne smije se izmisliti.
+      precision_note: >-
+        Analiticka snimka drzi cjelobrojne vrijednosti onako kako ih generator
+        proizvodi. Agregat drzi puni zbroj uz svaki prosjek i puni brojnik i
+        nazivnik uz svaki udio, a prosjeci su zapisani najkracim povratnim
+        zapisom. U datoteci nema zaokruzivanja; ono postoji samo u prikazu.
+      missing_note: >-
+        Nedostajucih vrijednosti nema i nijedna celija nije prazna. Nula u
+        stupcu spremnost_platiti je stvarna vrijednost i znaci da osoba ne bi
+        platila nista; ona nije oznaka nedostajuce vrijednosti i nikada se ne
+        smije s njom pomijesati.
+    file_records:
+      - path: "data/populacija-medija.csv"
+        role: "analysis"
+        md5: "07e158ca6385fe406dd6741e680fd756"
+        rows: 50000
+        row_band: [50000, 50000]
+        key: "osoba"
+        columns:
+          - name: "osoba"
+            type: "integer"
+            unit: "identifikator"
+            missing_code: null
+            min: 1
+            max: 50000
+            description: "Kljuc osobe u generiranoj populaciji."
+          - name: "dob"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 18
+            max: 80
+            description: "Navrsene godine osobe."
+          - name: "spol"
+            type: "text"
+            unit: "oznaka"
+            missing_code: null
+            pattern: "^(ženski|muški)$"
+            description: >-
+              Oznaka spola. Generator za nju ne stvara zasebnu sifru, pa se
+              sifra ne izmislja; stupac je oznaka bez izvornoga koda.
+          - name: "obrazovanje_sifra"
+            type: "code"
+            unit: "sifra razine"
+            missing_code: null
+            pairs_with: "obrazovanje"
+            levels:
+              - "osnovna"
+              - "srednja"
+              - "viša"
+              - "diplomska"
+            description: "Izvorna sifra stupnja obrazovanja; stoji uz oznaku."
+          - name: "obrazovanje"
+            type: "label"
+            unit: "oznaka razine"
+            missing_code: null
+            pairs_with: "obrazovanje_sifra"
+            description: "Hrvatska oznaka stupnja obrazovanja."
+          - name: "izvor_vijesti_sifra"
+            type: "code"
+            unit: "sifra razine"
+            missing_code: null
+            pairs_with: "izvor_vijesti"
+            levels:
+              - "portal"
+              - "društvene mreže"
+              - "TV"
+              - "radio"
+              - "tisak"
+            description: "Izvorna sifra primarnoga izvora vijesti; stoji uz oznaku."
+          - name: "izvor_vijesti"
+            type: "label"
+            unit: "oznaka razine"
+            missing_code: null
+            pairs_with: "izvor_vijesti_sifra"
+            description: "Hrvatska oznaka primarnoga izvora vijesti."
+          - name: "povjerenje_medijima"
+            type: "integer"
+            unit: "bod na ljestvici 1 do 10"
+            missing_code: null
+            min: 1
+            max: 10
+            description: "Povjerenje u medije na ljestvici od 1 do 10."
+          - name: "minute_medija"
+            type: "integer"
+            unit: "minuta na dan"
+            missing_code: null
+            min: 0
+            max: 1440
+            description: "Dnevno vrijeme uz medije."
+          - name: "spremnost_platiti"
+            type: "integer"
+            unit: "novcana jedinica na mjesec"
+            missing_code: null
+            min: 0
+            zero_is_meaningful: true
+            description: >-
+              Spremnost platiti za vijesti. Nula je stvarna vrijednost i ima je
+              mnogo; rep je dugacak nadesno.
+      - path: "data/populacija-medija-agregat.csv"
+        role: "aggregate"
+        md5: "826194c9ea7d2f1332a90b547d2dbb74"
+        rows: 5
+        row_band: [5, 5]
+        key: "izvor_vijesti_sifra"
+        columns:
+          - name: "izvor_vijesti_sifra"
+            type: "code"
+            unit: "sifra razine"
+            missing_code: null
+            pairs_with: "izvor_vijesti"
+            levels:
+              - "portal"
+              - "društvene mreže"
+              - "TV"
+              - "radio"
+              - "tisak"
+            description: "Izvorna sifra primarnoga izvora vijesti."
+          - name: "izvor_vijesti"
+            type: "label"
+            unit: "oznaka razine"
+            missing_code: null
+            pairs_with: "izvor_vijesti_sifra"
+            description: "Hrvatska oznaka primarnoga izvora vijesti."
+          - name: "broj"
+            type: "integer"
+            unit: "osoba"
+            missing_code: null
+            min: 0
+            description: "Brojnik: koliko je osoba u skupini."
+          - name: "ukupno"
+            type: "integer"
+            unit: "osoba"
+            missing_code: null
+            min: 1
+            description: "Nazivnik: koliko je osoba u populaciji."
+          - name: "udio"
+            type: "number"
+            unit: "udio od 0 do 1"
+            missing_code: null
+            min: 0
+            max: 1
+            description: "Udio skupine u populaciji; brojnik i nazivnik stoje uz njega."
+          - name: "zbroj_povjerenja"
+            type: "integer"
+            unit: "bod na ljestvici 1 do 10"
+            missing_code: null
+            min: 0
+            description: "Zbroj bodova povjerenja u skupini."
+          - name: "prosjek_povjerenja"
+            type: "number"
+            unit: "bod na ljestvici 1 do 10"
+            missing_code: null
+            min: 1
+            max: 10
+            description: "Prosjek povjerenja, jednak zbroju podijeljenom brojem."
+          - name: "zbroj_minuta"
+            type: "integer"
+            unit: "minuta na dan"
+            missing_code: null
+            min: 0
+            description: "Zbroj dnevnih minuta u skupini."
+          - name: "prosjek_minuta"
+            type: "number"
+            unit: "minuta na dan"
+            missing_code: null
+            min: 0
+            description: "Prosjek dnevnih minuta, jednak zbroju podijeljenom brojem."
+          - name: "broj_platio"
+            type: "integer"
+            unit: "osoba"
+            missing_code: null
+            min: 0
+            description: >-
+              Brojnik: koliko bi osoba u skupini platilo vise od nule. Nazivnik
+              je stupac broj, pa se udio moze provjeriti rucno.
+          - name: "udio_platio"
+            type: "number"
+            unit: "udio od 0 do 1"
+            missing_code: null
+            min: 0
+            max: 1
+            description: "Udio onih koji bi platili, unutar skupine."
+          - name: "zbroj_spremnosti"
+            type: "integer"
+            unit: "novcana jedinica na mjesec"
+            missing_code: null
+            min: 0
+            description: "Zbroj spremnosti platiti u skupini, ukljucujuci nule."
+          - name: "prosjek_spremnosti"
+            type: "number"
+            unit: "novcana jedinica na mjesec"
+            missing_code: null
+            min: 0
+            description: >-
+              Prosjek spremnosti platiti po osobi u skupini, racunat na svima
+              a ne samo na onima koji bi platili.
+    aggregate_reconciliation:
+      analysis_file: "data/populacija-medija.csv"
+      aggregate_file: "data/populacija-medija-agregat.csv"
+      group_code: "izvor_vijesti_sifra"
+      group_label: "izvor_vijesti"
+      count_column: "broj"
+      denominator_column: "ukupno"
+      shares:
+        - share: "udio"
+          numerator: "broj"
+          denominator: "ukupno"
+        - share: "udio_platio"
+          numerator: "broj_platio"
+          denominator: "broj"
+      sums:
+        - source: "povjerenje_medijima"
+          total: "zbroj_povjerenja"
+          mean: "prosjek_povjerenja"
+        - source: "minute_medija"
+          total: "zbroj_minuta"
+          mean: "prosjek_minuta"
+        - source: "spremnost_platiti"
+          total: "zbroj_spremnosti"
+          mean: "prosjek_spremnosti"
+      positive_counts:
+        - source: "spremnost_platiti"
+          count: "broj_platio"
     permissible_claims:
       - "opis"
       - "povezanost"
@@ -252,12 +721,19 @@ packages:
     consumers:
       - "WA-C01"
       - "WD-C13"
+      - "P5-A"
+      - "P5-C"
+    source_symbol: "UCBAdmissions"
+    consumer_sources:
+      - "chapters/01-zasto-statistika.qmd"
+      - "dodaci/a-praktikum.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
     source: "Paket datasets u R-u 4.6.0; dokumentirani izvor su podaci o prijavama na Berkeley uz @bickel1975."
     version: "R 4.6.0"
     licence: "neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0"
     attribution: "Izvorna studija @bickel1975 i sluzbena R dokumentacija; tocan dodatni licencni navod ostaje nerijesen."
     access: "Iz lokalne instalacije R-a."
-    redistribution: "nije dokazana"
+    redistribution: "nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao"
     lane: "external-only"
     refresh_class: "frozen"
     fallback: >-
@@ -268,8 +744,15 @@ packages:
       official_reconciliation: null
       note: >-
         Kopija u data/ nije dopustena bez nove mjerodavne provjere, pa se
-        kontrolni zbroj ne biljezi.
+        kontrolni zbroj ne biljezi. P3-EXISTING je 5. kolovoza 2026. provjerio
+        lokalnu instalaciju: datasets/DESCRIPTION pod R 4.6.0 navodi samo
+        "License: Part of R 4.6.0", sto je oznaka na razini paketa a ne
+        obavijest o redistribuciji ovoga skupa, a zapis UCBAdmissions.Rd u
+        tools::Rd_db("datasets") nema polje source i upucuje na Bickel, Hammel
+        i O'Connell (1975) u casopisu Science, dakle na djelo trece strane.
+        Tehnicki pristup kroz R zato nije pretvoren u ovlast za redistribuciju.
     promoted: false
+    promoted_by: null
     promoting_gate: "P3-EXISTING"
     files: []
     aggregate_view: null
@@ -300,12 +783,20 @@ packages:
     consumers:
       - "WB-C05"
       - "WB-C06"
+      - "P5-A"
+      - "P5-C"
+    source_symbol: "anscombe"
+    consumer_sources:
+      - "chapters/05-vizualizacija.qmd"
+      - "chapters/06-povezanost.qmd"
+      - "dodaci/a-praktikum.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
     source: "Paket datasets u R-u 4.6.0; dokumentirani izvor je Anscombeov kvartet uz @anscombe1973."
     version: "R 4.6.0"
     licence: "neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0"
     attribution: "F. J. Anscombe, izvorni clanak @anscombe1973 i sluzbena R dokumentacija."
     access: "Iz lokalne instalacije R-a."
-    redistribution: "nije dokazana"
+    redistribution: "nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao"
     lane: "external-only"
     refresh_class: "frozen"
     fallback: >-
@@ -314,8 +805,16 @@ packages:
     integrity:
       checksum: null
       official_reconciliation: null
-      note: "Kopija u data/ nije dopustena bez nove mjerodavne provjere."
+      note: >-
+        Kopija u data/ nije dopustena bez nove mjerodavne provjere.
+        P3-EXISTING je 5. kolovoza 2026. provjerio lokalnu instalaciju:
+        datasets/DESCRIPTION pod R 4.6.0 navodi samo "License: Part of R 4.6.0",
+        a zapis anscombe.Rd u tools::Rd_db("datasets") u polju source navodi
+        Tuftea (1990), Graphics Press, dakle djelo trece strane. Nijedna
+        obavijest o redistribuciji samoga skupa ne postoji, pa dostupnost kroz
+        R ostaje samo dostupnost.
     promoted: false
+    promoted_by: null
     promoting_gate: "P3-EXISTING"
     files: []
     aggregate_view: null

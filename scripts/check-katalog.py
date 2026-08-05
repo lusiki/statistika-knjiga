@@ -22,12 +22,23 @@ Deliberate defects, each of which must exit 1:
     KATALOG_NEGATIVE_FIXTURE=undeclared_snapshot
     KATALOG_NEGATIVE_FIXTURE=rights_permission_claimed
     KATALOG_NEGATIVE_FIXTURE=duplicate_consumer_role
+
+P3-EXISTING added the file-integrity half, because a catalogue that promotes a
+package must be answerable for the bytes it promotes:
+    KATALOG_NEGATIVE_FIXTURE=checksum_mismatch
+    KATALOG_NEGATIVE_FIXTURE=missing_declared_file
+    KATALOG_NEGATIVE_FIXTURE=snapshot_notice_missing
+    KATALOG_NEGATIVE_FIXTURE=promoted_without_its_gate
+    KATALOG_NEGATIVE_FIXTURE=promotion_log_disagrees
+    KATALOG_NEGATIVE_FIXTURE=storage_disposition_missing
+    KATALOG_NEGATIVE_FIXTURE=undeclared_consumer
 """
 
 from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import importlib.util
 import json
 import os
@@ -65,7 +76,16 @@ FIXTURES = (
     "undeclared_snapshot",
     "rights_permission_claimed",
     "duplicate_consumer_role",
+    "checksum_mismatch",
+    "missing_declared_file",
+    "snapshot_notice_missing",
+    "promoted_without_its_gate",
+    "promotion_log_disagrees",
+    "storage_disposition_missing",
+    "undeclared_consumer",
 )
+
+MANUSCRIPT_GLOBS = ("chapters/*.qmd", "dodaci/*.qmd", "*.qmd")
 
 
 def load_helper() -> Any:
@@ -153,12 +173,16 @@ def apply_fixture(catalogue: dict[str, Any], fixture: str) -> list[str]:
                 package["promoted"] = True
                 break
     elif fixture == "promote_without_checksum":
+        # Must target a package that is not already promoted, or the fixture
+        # would prove a different rule than the one it is named for.
         for package in packages:
-            if package["lane"] == "bundled":
+            if package["lane"] == "bundled" and package.get("promoted") is not True:
                 package["promoted"] = True
-                package["files"] = ["data/fixture.csv"]
+                package["promoted_by"] = package["promoting_gate"]
                 package["redistribution"] = "provjerena"
                 break
+        else:
+            raise AssertionError("no unpromoted bundled package exists")
     elif fixture == "unknown_lane":
         packages[0]["lane"] = "self-hosted"
     elif fixture == "missing_fallback":
@@ -182,6 +206,45 @@ def apply_fixture(catalogue: dict[str, Any], fixture: str) -> list[str]:
             if package["design"] == packages[0]["design"]:
                 package["role"] = role
                 break
+    elif fixture == "checksum_mismatch":
+        for package in packages:
+            for record in package.get("file_records") or []:
+                record["md5"] = "0" * 32
+                return []
+        raise AssertionError("no file record exists to mismatch")
+    elif fixture == "missing_declared_file":
+        for package in packages:
+            if package.get("files"):
+                package["files"].append("data/fixture-nepostojeca.csv")
+                return []
+        raise AssertionError("no package declares a file")
+    elif fixture == "snapshot_notice_missing":
+        for package in packages:
+            if package.get("snapshot_notice"):
+                package["snapshot_notice"] = "data/fixture-nema-obavijesti.md"
+                return []
+        raise AssertionError("no package declares a snapshot notice")
+    elif fixture == "promoted_without_its_gate":
+        for package in packages:
+            if package.get("promoted") is True:
+                package["promoted_by"] = None
+                return []
+        raise AssertionError("no promoted package exists")
+    elif fixture == "promotion_log_disagrees":
+        entries = catalogue["promotion_contract"]["promotion_log"]
+        entries[-1]["promoted"] = int(entries[-1]["promoted"]) + 1
+    elif fixture == "storage_disposition_missing":
+        for package in packages:
+            if package.get("promoted") is True:
+                package.pop("storage", None)
+                return []
+        raise AssertionError("no promoted package exists")
+    elif fixture == "undeclared_consumer":
+        for package in packages:
+            if package.get("consumer_sources"):
+                package["consumer_sources"] = package["consumer_sources"][1:]
+                return []
+        raise AssertionError("no package declares consumer sources")
     else:
         raise AssertionError(f"Unknown katalog negative fixture: {fixture}")
     return []
@@ -260,7 +323,7 @@ def main() -> int:
         if package.get("promoted") is True:
             check(package.get("lane") == "bundled",
                   f"{pid}: only a bundled package may be promoted; lane is {package.get('lane')}.")
-            check(str(package.get("redistribution", "")).strip().casefold() == "provjerena",
+            check(str(package.get("redistribution", "")).strip().casefold().startswith("provjerena"),
                   f"{pid}: promotion requires verified redistribution.")
             check(bool(integrity.get("checksum")),
                   f"{pid}: promotion requires a recorded checksum.")
@@ -268,6 +331,69 @@ def main() -> int:
                   f"{pid}: promotion requires a recorded official reconciliation.")
             check(bool(package.get("files")),
                   f"{pid}: promotion requires at least one recorded file path.")
+            # A package may only be promoted under the gate it names itself, so
+            # no later packet can promote a package on someone else's authority.
+            check(bool(package.get("promoted_by")) and
+                  package.get("promoted_by") == package.get("promoting_gate"),
+                  f"{pid}: a promoted package must record promoted_by equal to its "
+                  f"promoting_gate; found {package.get('promoted_by')!r}.")
+            check(bool(package.get("file_records")),
+                  f"{pid}: promotion requires a file record with a checksum per file.")
+            check(bool(package.get("storage")),
+                  f"{pid}: promotion requires a storage-fidelity disposition.")
+            check(bool(package.get("snapshot_notice")),
+                  f"{pid}: promotion requires a snapshot licence notice.")
+        else:
+            check(not package.get("promoted_by"),
+                  f"{pid}: an unpromoted package may not record a promoting packet.")
+
+        # --- checksum algorithm must be named whenever a checksum exists -----
+        if integrity.get("checksum"):
+            check(bool(integrity.get("checksum_algorithm")),
+                  f"{pid}: a recorded checksum needs its algorithm named.")
+
+        # --- declared files must exist and match their recorded checksum -----
+        records = {r.get("path"): r for r in (package.get("file_records") or [])}
+        declared_paths = list(package.get("files") or [])
+        for declared in declared_paths:
+            target = ROOT / declared
+            if not target.is_file():
+                errors.append(f"{pid}: declared file is absent from disk: {declared}")
+                continue
+            record = records.get(declared)
+            if record is None:
+                errors.append(f"{pid}: declared file has no file record: {declared}")
+                continue
+            digest = hashlib.md5(target.read_bytes()).hexdigest()
+            check(digest == record.get("md5"),
+                  f"{pid}: {declared} has md5 {digest}, but the catalogue records "
+                  f"{record.get('md5')}.")
+        extra_records = sorted(set(records) - set(declared_paths))
+        check(not extra_records,
+              f"{pid}: a file record names a path the package does not declare: {extra_records}")
+
+        if package.get("aggregate_view"):
+            check(package["aggregate_view"] in declared_paths,
+                  f"{pid}: the aggregate view is not among the declared files.")
+            roles = {r.get("path"): r.get("role") for r in records.values()}
+            check(roles.get(package["aggregate_view"]) == "aggregate",
+                  f"{pid}: the aggregate view is not recorded with role aggregate.")
+            check(sum(1 for role in roles.values() if role == "analysis") == 1,
+                  f"{pid}: a package with an aggregate view needs exactly one "
+                  f"analysis file beside it.")
+
+        # --- the snapshot notice must exist and carry the licence ------------
+        notice = package.get("snapshot_notice")
+        if notice:
+            notice_path = ROOT / notice
+            if not notice_path.is_file():
+                errors.append(f"{pid}: the declared snapshot licence notice is absent: {notice}")
+            else:
+                text = notice_path.read_text(encoding="utf-8")
+                check("creativecommons.org/licenses/by/4.0" in text,
+                      f"{pid}: the snapshot licence notice carries no direct CC BY 4.0 link.")
+                check(pid in text,
+                      f"{pid}: the snapshot licence notice does not name its own package.")
 
     # --- consumer roles must be distinct within a design --------------------
     for design, roles in roles_by_design.items():
@@ -299,10 +425,56 @@ def main() -> int:
     check(not missing, f"portfolio caps omit a design that has registered packages: {missing}")
 
     # --- promotion contract counter ----------------------------------------
+    #
+    # Two independent counts must agree with reality: the declared total, and
+    # the sum of the per-packet promotion log. A packet that promotes a package
+    # without writing itself into the log therefore fails.
+    contract = catalogue.get("promotion_contract", {})
     promoted_total = sum(1 for p in packages if p.get("promoted") is True)
-    declared = catalogue.get("promotion_contract", {}).get("promoted_by_this_packet")
+    declared = contract.get("promoted_total")
     check(promoted_total == declared,
           f"promotion_contract declares {declared} promoted packages but the catalogue carries {promoted_total}.")
+    log = contract.get("promotion_log") or []
+    logged = sum(int(entry.get("promoted", 0)) for entry in log)
+    check(logged == promoted_total,
+          f"the promotion log accounts for {logged} promotions but the catalogue carries {promoted_total}.")
+    logged_packets = [entry.get("packet") for entry in log]
+    check(len(logged_packets) == len(set(logged_packets)),
+          "the promotion log records a packet twice.")
+    promoting_packets = {p.get("promoted_by") for p in packages if p.get("promoted") is True}
+    unlogged = sorted(promoting_packets - set(logged_packets))
+    check(not unlogged,
+          f"a package was promoted by a packet that is absent from the promotion log: {unlogged}")
+
+    # --- declared consumers must match actual manuscript use ----------------
+    #
+    # consumer_sources is the exact, machine-checked half: every manuscript file
+    # that names the package must be listed, and every listed file must name it.
+    # The consumers field stays the planned list of consuming packets, which
+    # P6-DATA reconciles once the chapters are written.
+    manuscript: dict[str, str] = {}
+    for pattern in MANUSCRIPT_GLOBS:
+        for path in sorted(ROOT.glob(pattern)):
+            key = str(path.relative_to(ROOT)).replace("\\", "/")
+            manuscript[key] = path.read_text(encoding="utf-8")
+    for package in packages:
+        symbol = package.get("source_symbol")
+        if not symbol:
+            continue
+        pid = package.get("id", "<missing>")
+        declared_sources = list(package.get("consumer_sources") or [])
+        check(bool(declared_sources),
+              f"{pid}: a package that names a source symbol must declare its consumer sources.")
+        # A hyphen before or after the symbol means a different token, so
+        # `fig-anscombe` is not a use of the `anscombe` dataset.
+        needle = re.compile(rf"(?<![\w-]){re.escape(symbol)}(?![\w-])")
+        actual = sorted(name for name, text in manuscript.items() if needle.search(text))
+        missing_sources = sorted(set(actual) - set(declared_sources))
+        stale_sources = sorted(set(declared_sources) - set(actual))
+        check(not missing_sources,
+              f"{pid}: a manuscript source uses the package without being declared: {missing_sources}")
+        check(not stale_sources,
+              f"{pid}: a declared consumer source does not use the package: {stale_sources}")
 
     # --- rights boundary ----------------------------------------------------
     rights = catalogue.get("rights_boundary", {})

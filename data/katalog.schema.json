@@ -93,7 +93,8 @@
         "technical_access_is_not_redistribution_authority",
         "promotable_lanes",
         "required_before_promotion",
-        "promoted_by_this_packet",
+        "promoted_total",
+        "promotion_log",
         "note"
       ],
       "properties": {
@@ -111,7 +112,21 @@
           "uniqueItems": true,
           "items": {"type": "string", "minLength": 1}
         },
-        "promoted_by_this_packet": {"const": 0},
+        "promoted_total": {"type": "integer", "minimum": 0},
+        "promotion_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["packet", "promoted", "recorded_at", "record"],
+            "properties": {
+              "packet": {"type": "string", "minLength": 1},
+              "promoted": {"type": "integer", "minimum": 0},
+              "recorded_at": {"type": "string", "minLength": 10},
+              "record": {"type": "string", "minLength": 1}
+            }
+          }
+        },
         "note": {"type": "string", "minLength": 1}
       }
     },
@@ -142,6 +157,129 @@
       "minItems": 1,
       "uniqueItems": true,
       "items": {"type": "string", "minLength": 1}
+    },
+    "storage": {
+      "description": "Storage-fidelity disposition for a package that has materialised files. Every clause is machine-checked; none of it is prose alone.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "encoding",
+        "line_ending",
+        "filenames_ascii",
+        "weights",
+        "weights_note",
+        "precision_note",
+        "missing_note"
+      ],
+      "properties": {
+        "encoding": {"const": "UTF-8"},
+        "line_ending": {"const": "LF"},
+        "filenames_ascii": {"const": true},
+        "weights": {"description": "Name of the sampling-weight column, or null when the design has none."},
+        "weights_note": {"type": "string", "minLength": 1},
+        "precision_note": {"type": "string", "minLength": 1},
+        "missing_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "column": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "unit", "missing_code", "description"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "type": {"enum": ["integer", "number", "code", "label", "text"]},
+        "unit": {"type": "string", "minLength": 1},
+        "missing_code": {"description": "The literal that marks a missing value, or null when no missing value may occur."},
+        "description": {"type": "string", "minLength": 1},
+        "min": {"type": "number"},
+        "max": {"type": "number"},
+        "levels": {"$ref": "#/$defs/nonEmptyStrings"},
+        "pairs_with": {"type": "string", "minLength": 1},
+        "pattern": {"type": "string", "minLength": 1},
+        "zero_is_meaningful": {"type": "boolean"}
+      }
+    },
+    "fileRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "role", "md5", "rows", "row_band", "key", "columns"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "role": {"enum": ["analysis", "aggregate"]},
+        "md5": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+        "rows": {"type": "integer", "minimum": 1},
+        "row_band": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"type": "integer", "minimum": 0}
+        },
+        "key": {"type": "string", "minLength": 1},
+        "columns": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/column"}}
+      }
+    },
+    "aggregateReconciliation": {
+      "description": "How the aggregate view is recomputed from the analysis file. The validator recomputes and compares exactly, which is what proves that the file rounds nothing.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "analysis_file",
+        "aggregate_file",
+        "group_code",
+        "group_label",
+        "count_column",
+        "denominator_column",
+        "shares",
+        "sums"
+      ],
+      "properties": {
+        "analysis_file": {"type": "string", "minLength": 1},
+        "aggregate_file": {"type": "string", "minLength": 1},
+        "group_code": {"type": "string", "minLength": 1},
+        "group_label": {"type": "string", "minLength": 1},
+        "count_column": {"type": "string", "minLength": 1},
+        "denominator_column": {"type": "string", "minLength": 1},
+        "shares": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["share", "numerator", "denominator"],
+            "properties": {
+              "share": {"type": "string", "minLength": 1},
+              "numerator": {"type": "string", "minLength": 1},
+              "denominator": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "sums": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source", "total", "mean"],
+            "properties": {
+              "source": {"type": "string", "minLength": 1},
+              "total": {"type": "string", "minLength": 1},
+              "mean": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "positive_counts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source", "count"],
+            "properties": {
+              "source": {"type": "string", "minLength": 1},
+              "count": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
     },
     "package": {
       "type": "object",
@@ -200,14 +338,22 @@
           "required": ["checksum", "official_reconciliation", "note"],
           "properties": {
             "checksum": {"description": "String once recorded, null until a package is promoted."},
+            "checksum_algorithm": {"type": "string", "minLength": 1},
             "official_reconciliation": {"description": "String once recorded, null until a package is promoted."},
             "note": {"type": "string", "minLength": 1}
           }
         },
         "promoted": {"type": "boolean"},
+        "promoted_by": {"description": "Packet that performed the promotion, or null while the package is unpromoted."},
         "promoting_gate": {"type": "string", "minLength": 1},
         "files": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "aggregate_view": {"description": "Path to the paired aggregate view, or null until one exists."},
+        "snapshot_notice": {"type": "string", "minLength": 1},
+        "source_symbol": {"type": "string", "minLength": 1},
+        "consumer_sources": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "storage": {"$ref": "#/$defs/storage"},
+        "file_records": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fileRecord"}},
+        "aggregate_reconciliation": {"$ref": "#/$defs/aggregateReconciliation"},
         "permissible_claims": {"$ref": "#/$defs/nonEmptyStrings"},
         "unavailable_claims": {"$ref": "#/$defs/nonEmptyStrings"},
         "ethics": {
