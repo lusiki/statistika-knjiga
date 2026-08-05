@@ -1,9 +1,13 @@
 #!/usr/bin/env Rscript
 
-# Fail-closed integrity checks for data that exists before P3-CATALOG.
-# The catalogue contract itself remains owned by P3-CATALOG. Until that packet
-# adds its schema validator, an undeclared catalogue or snapshot fails rather
-# than being silently admitted to the book or release path.
+# Fail-closed integrity checks for the book's data.
+#
+# P3-CATALOG created data/katalog.yml as the sole machine-readable record and
+# scripts/check-katalog.py as its schema and promotion validator. This script
+# keeps the generated teaching sets honest and enforces the boundary the
+# catalogue draws: the catalogue must exist, and a materialised snapshot may
+# exist only when a catalogue entry declares it. An undeclared snapshot still
+# fails rather than being silently admitted to the book or the release path.
 
 args <- commandArgs(trailingOnly = TRUE)
 root <- normalizePath(".", winslash = "/", mustWork = TRUE)
@@ -96,34 +100,63 @@ for (needle in c("anketa_mreze", "populacija_medija", "CC BY 4.0", "Luka Sikic")
 }
 
 catalogue <- put("data", "katalog.yml")
+catalogue_schema <- put("data", "katalog.schema.json")
+catalogue_check <- put("scripts", "check-katalog.py")
 snapshots <- list.files(put("data"), pattern = "\\.(csv|tsv|parquet|rds)$",
                         full.names = TRUE, ignore.case = TRUE)
-if (file.exists(catalogue)) {
+
+declared_files <- character()
+promoted_count <- 0L
+if (!file.exists(catalogue)) {
   failures <- c(
     failures,
-    paste(
-      "data/katalog.yml exists but P3-CATALOG has not yet supplied its",
-      "ratified schema/checksum validator; promotion fails closed"
-    )
+    "data/katalog.yml is missing; the canonical catalogue is the sole data record"
   )
+} else {
+  for (required in c(catalogue_schema, catalogue_check)) {
+    if (!file.exists(required)) {
+      failures <- c(
+        failures,
+        paste("the catalogue exists without its validator:", basename(required))
+      )
+    }
+  }
+  if (!requireNamespace("yaml", quietly = TRUE)) {
+    failures <- c(failures, "missing R package 'yaml'; the catalogue cannot be read")
+  } else {
+    parsed <- yaml::read_yaml(catalogue)
+    for (entry in parsed$packages) {
+      if (isTRUE(entry$promoted)) promoted_count <- promoted_count + 1L
+      if (length(entry$files)) {
+        declared_files <- c(declared_files, unlist(entry$files, use.names = FALSE))
+      }
+    }
+  }
 }
-if (length(snapshots)) {
+
+relative_snapshots <- sub(paste0("^", root, "/"), "", snapshots)
+undeclared <- setdiff(relative_snapshots, declared_files)
+if (length(undeclared)) {
   failures <- c(
     failures,
     paste(
-      "materialised data snapshots exist before the canonical catalogue",
-      paste(basename(snapshots), collapse = ", ")
+      "materialised data snapshots are not declared by any catalogue entry:",
+      paste(undeclared, collapse = ", ")
     )
   )
 }
 
 fetch_text <- paste(readLines(fetch_path, warn = FALSE, encoding = "UTF-8"),
                     collapse = "\n")
-for (needle in c('identical(unos$traka, "bundled")',
-                 'identical(unos$redistribucija, "provjerena")')) {
+for (needle in c('identical(unos$lane, "bundled")',
+                 'identical(unos$redistribution, "provjerena")',
+                 'KANDIDAT_DIR',
+                 'promocija odbijena: katalog ne biljezi kontrolni zbroj')) {
   check(grepl(needle, fetch_text, fixed = TRUE),
-        paste("fetch dispatcher lost its fail-closed lane guard:", needle))
+        paste("fetch dispatcher lost its fail-closed candidate-first guard:", needle))
 }
+check(grepl("KATALOG <- \"data/katalog.yml\"", fetch_text, fixed = TRUE),
+      "fetch dispatcher no longer reads the canonical catalogue as its only registry")
 
 if (length(failures)) {
   cat("DATA_INTEGRITY_FAILED\n")
@@ -132,7 +165,8 @@ if (length(failures)) {
 }
 
 cat(
-  "DATA_INTEGRITY_OK generated_sets=2 rows=50300 catalogue=pre-P3 ",
-  "snapshots=0 licence=CC-BY-4.0\n",
+  "DATA_INTEGRITY_OK generated_sets=2 rows=50300 catalogue=present ",
+  "promoted=", promoted_count, " snapshots=", length(snapshots),
+  " undeclared=0 licence=CC-BY-4.0\n",
   sep = ""
 )

@@ -1,0 +1,898 @@
+# Kanonski katalog podataka --------------------------------------------------
+# Jedini strojno citljiv zapis o podacima knjige. Nastao u paketu P3-CATALOG iz
+# inventara P1B-DATA-LIC. Provjerava ga scripts/check-katalog.py protiv
+# data/katalog.schema.json i on pada zatvoreno.
+#
+# Traka je sadasnji pravni i uredjivacki status, a ne obecanje promocije.
+# Dostupnost nije promocija. Tehnicki pristup nije ovlast za redistribuciju.
+# ---------------------------------------------------------------------------
+schema_version: 1
+catalogue: "data-katalog"
+decision: "P3-CATALOG"
+ratified_at: "2026-08-05"
+source_inventory: "notes/reports/p1b-data-licence-access-inventory-2026-08-03.md"
+implementation_record: "notes/reports/p3-catalog-2026-08-05.md"
+sole_machine_readable_record: true
+
+rights_boundary:
+  rights_holder_permission_obtained: false
+  rights_holder_permission_claim_permitted: false
+  determination_record: "notes/reports/g-a3-data-rights-determination-2026-08-05.md"
+  note: >-
+    Knjiga ne smije nigdje tvrditi da je pribavila dopustenje nositelja prava,
+    jer ono nije trazeno. Smije navesti svaki izvor i njegove objavljene uvjete.
+    Autorova odredba od 5. kolovoza 2026. veze G-A3-DZS, P3-DZS, G-A3-DIP,
+    P3-DIP, P3-CATALOG i P8-META. H-P1B-DATA-LIC-003 nije nadomjesten i ostaje
+    obveza G-A3 paketnih gateova.
+
+lanes:
+  bundled:
+    permitted: >-
+      Tocna datoteka ili reproducibilni izlaz smije se spremiti i dijeliti uz
+      zabiljezenu inacicu, atribuciju, licencu, obradu i kontrolu integriteta.
+    forbidden_assumption: >-
+      Sama javna adresa ili mogucnost preuzimanja nije dovoljna.
+  portal-mediated:
+    permitted: >-
+      Knjiga daje sluzbenu poveznicu, tocnu uputu, inacicu i kontrolni trag, a
+      citatelj preuzima od pruzatelja.
+    forbidden_assumption: >-
+      Portalni pristup ne prikazuje se kao lokalna datoteka niti kao paritet
+      svih izdanja.
+  external-only:
+    permitted: >-
+      Izvor se moze navesti kao vanjski slucaj ili neobvezna mogucnost ako su i
+      takva uporaba i citiranje zakoniti.
+    forbidden_assumption: >-
+      Datoteka, redci ili izvedeni skup ne ulaze u repozitorij bez nove
+      mjerodavne provjere.
+
+refresh_classes:
+  - "generated"
+  - "frozen"
+  - "pinned"
+  - "scheduled-manual"
+  - "manual-derived"
+  - "external-only"
+
+portfolio_caps:
+  note: >-
+    Zadana gornja granica po nacrtu podataka za prvo izdanje. Sitni zamrznuti
+    orijentiri iz R-ove distribucije izuzeti su iz granice jer ne nose teret
+    portfelja. Prekoracenje granice trazi izricito autorsko odobrenje na
+    pripadnom G-A3 gateu i ne moze nastati u ovom paketu.
+  author_approval_required_to_exceed: true
+  caps:
+    - design: "seeded_simulation_known_population"
+      cap: 3
+      registered: 3
+      promoted: 0
+      exempt_frozen_landmarks: true
+    - design: "probability_survey_with_weights"
+      cap: 1
+      registered: 1
+      promoted: 0
+      exempt_frozen_landmarks: false
+    - design: "administrative_or_electoral_count"
+      cap: 2
+      registered: 2
+      promoted: 0
+      exempt_frozen_landmarks: true
+    - design: "official_aggregate_statistics"
+      cap: 4
+      registered: 4
+      promoted: 0
+      exempt_frozen_landmarks: false
+    - design: "expert_coded_latent_index"
+      cap: 1
+      registered: 1
+      promoted: 0
+      exempt_frozen_landmarks: false
+    - design: "digital_trace_or_selected_corpus"
+      cap: 3
+      registered: 3
+      promoted: 0
+      exempt_frozen_landmarks: false
+    - design: "volunteer_open_survey"
+      cap: 1
+      registered: 1
+      promoted: 0
+      exempt_frozen_landmarks: false
+    - design: "restricted_commercial_or_administrative_source"
+      cap: 2
+      registered: 2
+      promoted: 0
+      exempt_frozen_landmarks: false
+
+promotion_contract:
+  availability_is_not_promotion: true
+  technical_access_is_not_redistribution_authority: true
+  promotable_lanes:
+    - "bundled"
+  required_before_promotion:
+    - "traka je bundled"
+    - "redistribucija je provjerena"
+    - "zabiljezen je kontrolni zbroj"
+    - "zabiljezeno je usklađenje sa sluzbenim izvorom"
+    - "naveden je barem jedan datotecni put"
+    - "zabiljezena je zakonita zamjena za svaki obvezni studentski put"
+    - "paketni gate imenovan u promoting_gate je prihvacen"
+  promoted_by_this_packet: 0
+  note: >-
+    P3-CATALOG stvara ugovor i registrira inventar. Ne promovira nijedan paket.
+    Promociju izvodi imenovani kasniji gate, uz vlastiti dokaz o izvoru,
+    inacici, licenci, obavijesti i kontrolnom zbroju.
+
+storage_conventions:
+  - "UTF-8 kodiranje i stabilna ASCII imena datoteka."
+  - "Izvorne sifre zadrzavaju se uz hrvatske oznake, nikada umjesto njih."
+  - "Puna brojcana preciznost cuva se u datoteci; zaokruzivanje postoji samo u prikazu."
+  - "Postotak zadrzava brojnik i nazivnik."
+  - "Anketna datoteka zadrzava tezine uzorkovanja."
+  - "Nula, nedostajuca, potisnuta i neobjavljena vrijednost ostaju razlicite."
+
+packages:
+  # --- trenutacni paketi ---------------------------------------------------
+  - id: "anketa_mreze"
+    name: "Anketa o drustvenim mrezama, generirani nastavni skup"
+    status: "registered_not_promoted"
+    design: "seeded_simulation_known_population"
+    domain: "mediji i drustvene mreze"
+    unit: "jedan ispitanik"
+    question: "Koliko vremena ljudi provode na mrezama i kako to ide uz povjerenje?"
+    role: "Poznata populacija za ponovljeno uzorkovanje i za citanje procjene s intervalom."
+    consumers:
+      - "WB-C05"
+      - "WB-C06"
+      - "WC-C09"
+    source: "R/podaci-nastavni.R, funkcija simuliraj_anketu"
+    version: "300 opazanja, sjeme 4001; inacica je deklarirano stanje izvora P1B-DATA-LIC"
+    licence: "CC BY 4.0"
+    attribution: >-
+      Luka Sikic; Osnove statistike za drustvene znanosti; ime skupa; generator;
+      poveznica na licencu; oznaka izmjena.
+    access: "Lokalno generiranje bez mreze."
+    redistribution: "provjerena"
+    lane: "bundled"
+    refresh_class: "generated"
+    fallback: >-
+      Generator vec pokriva R i renderirane zadatke; buduca CC BY 4.0 snimka
+      pokriva jamovi put i preuzimanje.
+    generated_data_notice: "data/LICENCA-generirani-podaci.md"
+    build_script: "R/podaci-nastavni.R"
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        Nema materijalizirane snimke, pa nema ni kontrolnog zbroja. Reproducira
+        se iz deklariranoga sjemena i to provjerava scripts/check-data-integrity.R.
+    promoted: false
+    promoting_gate: "P3-EXISTING"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis"
+      - "povezanost"
+      - "generalizacija na poznatu generiranu populaciju"
+    unavailable_claims:
+      - "bilo kakva tvrdnja o stvarnoj hrvatskoj populaciji"
+      - "uzrocnost"
+    ethics:
+      category_ownership: "Kategorije je odredio autor knjige radi poucavanja."
+      absence: "Nitko nije izostavljen jer nitko nije opazan; skup je generiran."
+      identifiability: "Nijedna osoba nije prikazana; zapisi su izmisljeni po pravilu."
+      beneficiaries: "Citatelj koji uci sto uzorkovanje moze i sto ne moze."
+      error_burden: "Nijedna stvarna osoba ne snosi posljedicu pogreske."
+      appeal: "Nije primjenjivo jer nema klasificirane osobe."
+    caveats:
+      - "Generirani ispitanici nikada ne potkrepljuju empirijsku populacijsku tvrdnju."
+
+  - id: "populacija_medija"
+    name: "Populacija medijskih navika, generirani nastavni skup"
+    status: "registered_not_promoted"
+    design: "seeded_simulation_known_population"
+    domain: "mediji i povjerenje"
+    unit: "jedna osoba u generiranoj populaciji"
+    question: "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?"
+    role: "Poznata populacija iz koje se uzorkuje, i poznati model za regresiju."
+    consumers:
+      - "WC-C08"
+      - "WD-C13"
+      - "WD-C16"
+    source: "R/podaci-nastavni.R, funkcija simuliraj_populaciju"
+    version: "50000 opazanja, sjeme 8001; inacica je deklarirano stanje izvora P1B-DATA-LIC"
+    licence: "CC BY 4.0"
+    attribution: >-
+      Luka Sikic; Osnove statistike za drustvene znanosti; ime skupa; generator;
+      poveznica na licencu; oznaka izmjena.
+    access: "Lokalno generiranje bez mreze."
+    redistribution: "provjerena"
+    lane: "bundled"
+    refresh_class: "generated"
+    fallback: >-
+      Generator vec pokriva R i renderirane zadatke; buduca CC BY 4.0 snimka
+      pokriva jamovi put i preuzimanje.
+    generated_data_notice: "data/LICENCA-generirani-podaci.md"
+    build_script: "R/podaci-nastavni.R"
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        Nema materijalizirane snimke. Reproducira se iz deklariranoga sjemena i
+        to provjerava scripts/check-data-integrity.R.
+    promoted: false
+    promoting_gate: "P3-EXISTING"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis"
+      - "povezanost"
+      - "predviđanje unutar generirane populacije"
+    unavailable_claims:
+      - "bilo kakva tvrdnja o stvarnoj hrvatskoj populaciji"
+      - "uzrocnost izvan ugradjenoga generativnog pravila"
+    ethics:
+      category_ownership: "Kategorije je odredio autor knjige radi poucavanja."
+      absence: "Nitko nije izostavljen jer nitko nije opazan."
+      identifiability: "Nijedna osoba nije prikazana."
+      beneficiaries: "Citatelj koji uci razliku izmedju uzorka i populacije."
+      error_burden: "Nijedna stvarna osoba ne snosi posljedicu pogreske."
+      appeal: "Nije primjenjivo."
+    caveats:
+      - "Generirani ispitanici nikada ne potkrepljuju empirijsku populacijsku tvrdnju."
+
+  - id: "ucbadmissions"
+    name: "UCBAdmissions, zamrznuti orijentir iz R-ove distribucije"
+    status: "registered_not_promoted"
+    design: "administrative_or_electoral_count"
+    domain: "upisi na sveuciliste"
+    unit: "jedna prijava, agregirana po odjelu, spolu i ishodu"
+    question: "Kako zbirna stopa upisa moze obrnuti predznak razlike po odjelima?"
+    role: "Orijentir za Simpsonov paradoks i za uvjetne nazivnike."
+    consumers:
+      - "WA-C01"
+      - "WD-C13"
+    source: "Paket datasets u R-u 4.6.0; dokumentirani izvor su podaci o prijavama na Berkeley uz @bickel1975."
+    version: "R 4.6.0"
+    licence: "neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0"
+    attribution: "Izvorna studija @bickel1975 i sluzbena R dokumentacija; tocan dodatni licencni navod ostaje nerijesen."
+    access: "Iz lokalne instalacije R-a."
+    redistribution: "nije dokazana"
+    lane: "external-only"
+    refresh_class: "frozen"
+    fallback: >-
+      Lokalna instalacija R-a ostaje neobvezni put; obvezna kategoricka vjezba
+      koristi populacija_medija ili njegov licencno cist agregat.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        Kopija u data/ nije dopustena bez nove mjerodavne provjere, pa se
+        kontrolni zbroj ne biljezi.
+    promoted: false
+    promoting_gate: "P3-EXISTING"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis zabiljezenih prijava"
+      - "povezanost uz eksplicitan nazivnik"
+    unavailable_claims:
+      - "uzrocnost"
+      - "generalizacija na danasnje upise"
+    ethics:
+      category_ownership: "Kategorije spola i odjela odredila je institucija 1973."
+      absence: "Prijave izvan sest najvecih odjela nisu u skupu."
+      identifiability: "Podaci su agregirani i nijedna osoba nije prepoznatljiva."
+      beneficiaries: "Citatelj koji uci citati zbirnu i uvjetnu stopu."
+      error_burden: "Povijesni zapis; pogresno citanje pada na tumaca, ne na prijavitelje."
+      appeal: "Nije primjenjivo za povijesni agregat."
+    caveats:
+      - "Dostupnost kroz R nije dopustenje za repozitorijsku kopiju."
+
+  - id: "anscombe"
+    name: "Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije"
+    status: "registered_not_promoted"
+    design: "seeded_simulation_known_population"
+    domain: "vizualizacija i povezanost"
+    unit: "jedan konstruirani par vrijednosti"
+    question: "Zasto cetiri skupa s istim sazetcima izgledaju posve razlicito?"
+    role: "Orijentir koji pokazuje da sazetak ne zamjenjuje prikaz."
+    consumers:
+      - "WB-C05"
+      - "WB-C06"
+    source: "Paket datasets u R-u 4.6.0; dokumentirani izvor je Anscombeov kvartet uz @anscombe1973."
+    version: "R 4.6.0"
+    licence: "neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0"
+    attribution: "F. J. Anscombe, izvorni clanak @anscombe1973 i sluzbena R dokumentacija."
+    access: "Iz lokalne instalacije R-a."
+    redistribution: "nije dokazana"
+    lane: "external-only"
+    refresh_class: "frozen"
+    fallback: >-
+      Lokalna instalacija R-a ostaje neobvezni put; obvezna vjezba vizualizacije
+      ili povezanosti koristi anketa_mreze ili njegov licencno cist agregat.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: "Kopija u data/ nije dopustena bez nove mjerodavne provjere."
+    promoted: false
+    promoting_gate: "P3-EXISTING"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis konstruiranih vrijednosti"
+    unavailable_claims:
+      - "bilo kakva empirijska tvrdnja o stvarnom svijetu"
+    ethics:
+      category_ownership: "Vrijednosti je konstruirao autor clanka radi dokaza."
+      absence: "Nitko nije izostavljen jer nitko nije opazan."
+      identifiability: "Nema osoba u skupu."
+      beneficiaries: "Citatelj koji uci gledati prije nego sazima."
+      error_burden: "Nitko."
+      appeal: "Nije primjenjivo."
+    caveats:
+      - "Skup je konstruiran, a ne simuliran iz sjemena; nosi ulogu poznate istine bez generatora."
+
+  # --- predlozeni paketi ---------------------------------------------------
+  - id: "dzs_turizam"
+    name: "DZS turizam"
+    status: "proposed_not_promoted"
+    design: "official_aggregate_statistics"
+    domain: "turizam"
+    unit: "jedan mjesec po razini objave"
+    question: "Kako se dolasci i nocenja mijenjaju kroz godinu i po zupanijama?"
+    role: "Sluzbeni agregat s potiskivanjem, revizijama i opasnoscu dvostrukoga brojanja."
+    consumers:
+      - "WA-C03"
+    source: "Drzavni zavod za statistiku; planirane tablice BS_TU11, BS_TU12 i T01-T03."
+    version: "tocno izdanje, datum i kontrolni zbroj odredjuje P3-DZS"
+    licence: "Hrvatska otvorena dozvola"
+    attribution: "DZS kao izvor, datum posljednje izmjene, URI izvora i jasna oznaka svake promjene."
+    access: "Sluzbene DZS tablice ili sucelje."
+    redistribution: "opci temelj utvrdjen; tocna snimka mora proci P3-DZS"
+    lane: "bundled"
+    refresh_class: "scheduled-manual"
+    fallback: >-
+      Nakon P3-DZS ista provjerena snimka i agregat moraju opsluziti R, jamovi,
+      preglednik i tisak.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        Kontrolni zbroj i usklađenje sa sluzbenim ukupnim vrijednostima biljezi
+        P3-DZS; bez njih promocija pada zatvoreno.
+    promoted: false
+    promoting_gate: "G-A3-DZS"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis zabiljezenih dolazaka i nocenja"
+      - "usporedba razdoblja uz istu definiciju"
+    unavailable_claims:
+      - "uzrocnost"
+      - "zakljucak o pojedinacnom gostu iz agregata"
+    ethics:
+      category_ownership: "Kategorije odredjuje sluzbena statisticka metodologija."
+      absence: "Potisnute celije i neobjavljene razine ostaju izvan skupa."
+      identifiability: "Agregat; pojedinacni gost nije prepoznatljiv."
+      beneficiaries: "Citatelj koji uci citati sluzbenu tablicu s njezinim granicama."
+      error_burden: "Pogresno citanje pada na tumaca; zapis je javan."
+      appeal: "Nije primjenjivo za agregat."
+    caveats:
+      - "Godisnji i mjesecni redci ne smiju se zbrajati zajedno."
+
+  - id: "dzs_drugi_domen"
+    name: "Drugi DZS domen"
+    status: "deferred_second_edition"
+    design: "official_aggregate_statistics"
+    domain: "neodabrana"
+    unit: "neodabrana"
+    question: "Nije odredjeno jer domena i tablice nisu odabrane."
+    role: "Nije potreban za prvo izdanje."
+    consumers: []
+    source: "Drzavni zavod za statistiku; domena, tablice i inacica nisu odabrani."
+    version: "neodabrana"
+    licence: "opca DZS obavijest postoji, ali ne postoji odredjen paket za provjeru"
+    attribution: "Nije moguce dovrsiti prije odabira tablica."
+    access: "Sluzbeni DZS izvor."
+    redistribution: "nije odobrena za neodredjeni buduci paket"
+    lane: "external-only"
+    refresh_class: "external-only"
+    fallback: >-
+      Nije potreban za prvo izdanje; DZS turizam, Eurostat nakon provjere ili
+      generirani skup nose obvezni put.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: "Nema odabranoga paketa nad kojim bi se biljezio integritet."
+    promoted: false
+    promoting_gate: "G-A3-DZS"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "nijedna dok paket nije odabran"
+    unavailable_claims:
+      - "svaka tvrdnja, jer paket ne postoji"
+    ethics:
+      category_ownership: "Nije odredivo prije odabira tablica."
+      absence: "Nije odredivo prije odabira tablica."
+      identifiability: "Nije odredivo prije odabira tablica."
+      beneficiaries: "Nije odredivo prije odabira tablica."
+      error_burden: "Nije odredivo prije odabira tablica."
+      appeal: "Nije odredivo prije odabira tablica."
+
+  - id: "dip_2024"
+    name: "DIP, izbori za Hrvatski sabor 2024."
+    status: "proposed_not_promoted"
+    design: "administrative_or_electoral_count"
+    domain: "izbori"
+    unit: "jedno birackо mjesto ili izborna jedinica, prema odabiru P3-DIP"
+    question: "Kako se izlaznost mijenja po izbornim jedinicama i sto joj je nazivnik?"
+    role: "Potpuni zabiljezeni dogadjaji, brojnik i nazivnik, razlika zapisa i ljudi."
+    consumers:
+      - "WA-C03"
+    source: "Drzavno izborno povjerenstvo; sluzbena stranica nudi CSV/XLSX rezultate."
+    version: "tocna datoteka i kontrolni zbroj pripadaju P3-DIP"
+    licence: "na pregledanoj sluzbenoj stranici nije pronadjena izricita licenca za redistribuciju"
+    attribution: "DIP, tocni izbori, datum, sluzbeni URL i opis obrade."
+    access: "Sluzbena stranica otvorenih podataka."
+    redistribution: "nije dokazana za lokalnu kopiju"
+    lane: "portal-mediated"
+    refresh_class: "frozen"
+    fallback: >-
+      Portal je neobvezna replikacija; obvezni administrativni ili izborni
+      zadatak koristi provjereni DZS agregat ili generirani kategoricki skup.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        Usklađenje s objavljenim ukupnim brojevima biljezi P3-DIP; portalna
+        traka sama po sebi ne dopusta lokalnu kopiju.
+    promoted: false
+    promoting_gate: "G-A3-DIP"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis zabiljezenih glasova i izlaznosti uz imenovan nazivnik"
+    unavailable_claims:
+      - "tvrdnja o pojedinacnom biracu"
+      - "uzrocnost"
+    ethics:
+      category_ownership: "Izborne jedinice i kategorije odredjuje zakon."
+      absence: "Osobe koje nisu u registru biraca ne ulaze u nazivnik."
+      identifiability: "Agregat po mjestu; pojedinacni glas je tajan i nije prikazan."
+      beneficiaries: "Citatelj koji uci razliku brojnika i nazivnika u sluzbenom zapisu."
+      error_burden: "Pogresno citanje izlaznosti pada na javnu raspravu."
+      appeal: "Izborni prigovor je zakonski postupak izvan opsega knjige."
+
+  - id: "digikat_akteri"
+    name: "DigiKat agregat aktera"
+    status: "proposed_not_promoted"
+    design: "digital_trace_or_selected_corpus"
+    domain: "digitalni mediji"
+    unit: "jedan akter po platformi na odredjeni datum"
+    question: "Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?"
+    role: "Digitalni trag sa selekcijom u opazanje i metodoloskim rezom."
+    consumers:
+      - "WB-C04"
+    source: "Predlozeni lokalni agregat iz komponenti DigiKata."
+    version: "komponentne inacice i prava nisu evidentirani"
+    licence: "nema mjerodavne komponentne licencne matrice"
+    attribution: "Nije moguce dovrsiti prije G-A3-DIGIKAT i P3-DIGIKAT."
+    access: "Vanjsko projektno okruzenje."
+    redistribution: "nije dokazana"
+    lane: "external-only"
+    refresh_class: "manual-derived"
+    fallback: >-
+      Dok prava komponenti nisu rijesena, obvezna vjezba koristi anketa_mreze,
+      DZS agregat ili dokumentirani izostanak toga slucaja.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: "Bez licencne matrice nema temelja za biljezenje integriteta snimke."
+    promoted: false
+    promoting_gate: "G-A3-DIGIKAT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "nijedna dok prava komponenti nisu rijesena"
+    unavailable_claims:
+      - "svaka tvrdnja iz lokalne kopije"
+    ethics:
+      category_ownership: "Kategorije aktera odredjuje vanjski projekt."
+      absence: "Akteri izvan pracenih platformi ne ulaze u presjek."
+      identifiability: "Javni akteri su imenovani; privatne osobe ne ulaze."
+      beneficiaries: "Citatelj koji uci sto digitalni trag mjeri, a sto ne."
+      error_burden: "Krivo pripisana vidljivost pada na imenovanoga aktera."
+      appeal: "Nije uspostavljen; to je dio pouke o granicama traga."
+    caveats:
+      - "Metodoloski rez zabranjuje usporedbu preko datuma promjene prikupljanja."
+
+  - id: "determ_korpus"
+    name: "Determ, puni korpus"
+    status: "external_case_only"
+    design: "restricted_commercial_or_administrative_source"
+    domain: "medijsko pracenje"
+    unit: "jedna objava"
+    question: "Sto se moze i sto se ne moze reproducirati iz ogranicenoga komercijalnog izvora?"
+    role: "Granica izmedju zanimljivoga rezultata i onoga koji citatelj moze provjeriti."
+    consumers: []
+    source: "Puni korpus u vanjskom projektnom okruzenju Determ."
+    version: "nije kandidat za javni repozitorij knjige"
+    licence: "ograniceni projektni materijal; nije dostavljena ovlast za javnu redistribuciju"
+    attribution: "Vanjski projekt i vlasnici pojedinih komponenti prema buducoj provjeri."
+    access: "Samo izvan repozitorija knjige."
+    redistribution: "nije dopustena"
+    lane: "external-only"
+    refresh_class: "external-only"
+    fallback: >-
+      Nije temelj obveznoga puta; koristi se samo vanjski opis provenijencije
+      bez podataka.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: "Nema datoteke u repozitoriju, pa nema kontrolnoga zbroja."
+    promoted: false
+    promoting_gate: "G-A3-DIGIKAT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis provenijencije bez podataka"
+    unavailable_claims:
+      - "svaka empirijska tvrdnja iz korpusa u knjizi"
+    ethics:
+      category_ownership: "Kategorije odredjuje komercijalni pruzatelj."
+      absence: "Izvori izvan pretplate ne ulaze u korpus."
+      identifiability: "Objave su javne, ali autori su imenovani."
+      beneficiaries: "Citatelj koji uci prepoznati nereproducibilan dokaz."
+      error_burden: "Krivo pripisan sadrzaj pada na imenovanoga autora."
+      appeal: "Nije uspostavljen."
+
+  - id: "eurostat_drustvo"
+    name: "Eurostat, drustveni pokazatelji"
+    status: "proposed_not_promoted"
+    design: "official_aggregate_statistics"
+    domain: "usporedna drustvena statistika"
+    unit: "jedna zemlja u jednoj godini"
+    question: "Kako se isti pokazatelj razlikuje medju zemljama u istoj godini?"
+    role: "Usporedivost, oznake kvalitete i granica ekoloske interpretacije."
+    consumers:
+      - "WB-C06"
+    source: "Eurostat; predlozeni skup drustvenih pokazatelja."
+    version: "tocni kodovi, rezovi i datum nisu odabrani"
+    licence: "Eurostat dopusta ponovnu uporabu uz priznanje izvora, oznaku izmjena i propisani disclaimer, uz iznimke za sadrzaj trecih strana"
+    attribution: "Eurostat kao izvor, naslov skupa, oznaka izmjena i propisani disclaimer."
+    access: "Sluzbena baza ili API."
+    redistribution: "ne potvrdjuje se za neodabrane pokazatelje"
+    lane: "portal-mediated"
+    refresh_class: "scheduled-manual"
+    fallback: >-
+      Dok P3-EUROSTAT ne promice tocan skup, obvezni put koristi DZS paket ili
+      generirani skup.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        P3-EUROSTAT mora iskljuciti iznimke za sadrzaj trecih strana prije nego
+        sto se traka uopce moze mijenjati.
+    promoted: false
+    promoting_gate: "G-A3-EUROSTAT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis objavljenoga pokazatelja po zemlji i godini"
+    unavailable_claims:
+      - "zakljucak o pojedincu iz drzavnoga agregata"
+      - "uzrocnost"
+    ethics:
+      category_ownership: "Definicije odredjuje europska statisticka metodologija."
+      absence: "Zemlje bez objave i oznacene niske pouzdanosti ostaju vidljive kao takve."
+      identifiability: "Agregat; nijedna osoba nije prepoznatljiva."
+      beneficiaries: "Citatelj koji uci usporedjivati uz istu definiciju."
+      error_burden: "Pogresna usporedba pada na javnu raspravu o zemlji."
+      appeal: "Nije primjenjivo za agregat."
+    caveats:
+      - "Zastavice kvalitete i nedostajuce vrijednosti moraju ostati vidljive."
+
+  - id: "ess_r11_hr"
+    name: "European Social Survey, Round 11, Hrvatska"
+    status: "proposed_not_promoted"
+    design: "probability_survey_with_weights"
+    domain: "drustveni stavovi"
+    unit: "jedan ispitanik s tezinom uzorkovanja"
+    question: "Kako se stavovi razlikuju po skupinama kad se uzme u obzir nacrt uzorka?"
+    role: "Reprezentativnost, neodgovor, tezine i mjerenje na razini osobe."
+    consumers:
+      - "WD-C13"
+      - "WD-C14"
+      - "WD-C15"
+      - "WD-C16"
+    source: "European Social Survey, Round 11, edition 3.0, ukljucuje Hrvatsku; izdanje objavljeno 2. lipnja 2025."
+    version: "Round 11, edition 3.0"
+    licence: "Podaci CC BY-NC-SA 4.0; dokumentacija CC BY-SA 4.0"
+    attribution: "Propisani ESS navod, runda, izdanje, datum, licenca i oznaka izmjena."
+    access: "ESS Data Portal, uz pravila portala."
+    redistribution: "vlasnicka odluka D08 ne odobrava bundling bez posebne pisane potvrde"
+    lane: "portal-mediated"
+    refresh_class: "pinned"
+    fallback: >-
+      Empirijska replikacija ostaje neobvezna; obvezni putevi u poglavljima
+      13-16 koriste populacija_medija ili drugi licencno cist paket i njegov
+      agregat.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        Knjiga daje recept odabira, sifrarnik, tezine, sifre nedostajucih
+        vrijednosti i uputu za kontrolni zbroj; datoteku preuzima citatelj.
+    promoted: false
+    promoting_gate: "G-A3-ESS"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis uz tezine"
+      - "povezanost uz imenovanu populaciju"
+      - "generalizacija unutar granica nacrta"
+    unavailable_claims:
+      - "uzrocnost"
+      - "tvrdnja o skupini koju nacrt ne pokriva"
+    ethics:
+      category_ownership: "Kategorije odredjuje medjunarodni upitnik."
+      absence: "Neodgovor i nepokrivenost okvira ostaju izvan podataka."
+      identifiability: "Mikropodaci su deidentificirani prema pravilima portala."
+      beneficiaries: "Citatelj koji uci citati anketu s nacrtom."
+      error_burden: "Pogresna generalizacija pada na skupinu o kojoj se govori."
+      appeal: "Nije primjenjivo; ispitanik nije klasificiran odlukom."
+
+  - id: "vdem_v16"
+    name: "V-Dem Dataset v16"
+    status: "deferred_disposition_required"
+    design: "expert_coded_latent_index"
+    domain: "politicka mjerenja"
+    unit: "jedna zemlja u jednoj godini"
+    question: "Kako se latentni pojam poput demokracije pretvara u broj s nesigurnoscu?"
+    role: "Operacionalizacija, neslaganje kodera i nesigurnost oko ocjene."
+    consumers: []
+    source: "Sluzbena stranica navodi V-Dem Dataset v16; tocne varijable nisu odabrane."
+    version: "v16"
+    licence: "na pregledanoj stranici nije utvrdjena mjerodavna licenca za planiranu datoteku"
+    attribution: "Buduci tocni navod skupa v16 i njegovih autora; nije dovrsen."
+    access: "Sluzbeni V-Dem izvor."
+    redistribution: "nije dokazana"
+    lane: "external-only"
+    refresh_class: "external-only"
+    fallback: >-
+      Nije temelj obveznoga puta; dopusten je samo kasnije provjeren slucaj ili
+      izostavljanje.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: "Nema odabrane datoteke, pa nema kontrolnoga zbroja."
+    promoted: false
+    promoting_gate: "G-A3-EUROSTAT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "nijedna dok skup nije odabran i licenca utvrdjena"
+    unavailable_claims:
+      - "svaka tvrdnja iz lokalne kopije"
+    ethics:
+      category_ownership: "Kategorije odredjuje istrazivacki konzorcij i njegovi koderi."
+      absence: "Zemlje i godine bez kodiranja nisu u skupu."
+      identifiability: "Agregat na razini zemlje."
+      beneficiaries: "Citatelj koji uci da je i ocjena mjerenje s pogreskom."
+      error_burden: "Niska ocjena pada na zemlju i njezine gradjane u javnoj raspravi."
+      appeal: "Metodoloska rasprava, ne postupak."
+
+  - id: "covidistress_ii"
+    name: "COVIDiSTRESS II"
+    status: "deferred_disposition_required"
+    design: "volunteer_open_survey"
+    domain: "stres i zdravlje"
+    unit: "jedan dobrovoljni sudionik"
+    question: "Zasto vrlo velik dobrovoljni uzorak ne popravlja samoodabir?"
+    role: "Otvorenost nije reprezentativnost."
+    consumers: []
+    source: "Podatkovni clanak upucuje na zapis na OSF-u; tocna datoteka i inacica nisu odabrane."
+    version: "neodabrana"
+    licence: "otvoreni pristup clanku i tehnicka dostupnost zapisa ne dokazuju licencu datoteke"
+    attribution: "Autori podatkovnoga skupa, tocna OSF inacica i njezina licenca; nije dovrseno."
+    access: "Vanjski OSF zapis."
+    redistribution: "nije dokazana"
+    lane: "external-only"
+    refresh_class: "external-only"
+    fallback: >-
+      Nije temelj obveznoga puta; dopusten je samo kasnije provjeren slucaj ili
+      izostavljanje.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: "Nema odabrane datoteke, pa nema kontrolnoga zbroja."
+    promoted: false
+    promoting_gate: "G-A3-ESS"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "nijedna dok datoteka i licenca nisu utvrdjene"
+    unavailable_claims:
+      - "generalizacija na opcu populaciju"
+    ethics:
+      category_ownership: "Kategorije odredjuje istrazivacki konzorcij."
+      absence: "Tko nije vidio poziv ili nije htio sudjelovati, nije u podacima."
+      identifiability: "Ovisi o tocnoj OSF datoteci; nije utvrdjeno."
+      beneficiaries: "Citatelj koji uci da velicina ne popravlja odabir."
+      error_burden: "Pogresna generalizacija pada na skupine koje su slabo zastupljene."
+      appeal: "Nije primjenjivo."
+
+  - id: "wdi"
+    name: "World Development Indicators"
+    status: "deferred_second_edition"
+    design: "official_aggregate_statistics"
+    domain: "razvojni pokazatelji"
+    unit: "jedna zemlja u jednoj godini"
+    question: "Nije odredjeno jer pokazatelj nije odabran."
+    role: "Neobvezno prosirenje; tekstni paket ima prednost."
+    consumers: []
+    source: "Svjetska banka; pokazatelj, izdanje i datum nisu odabrani."
+    version: "neodabrana"
+    licence: "CC BY 4.0 kao zadani rezim za podatke koje Svjetska banka sama proizvodi, uz iznimke po skupu"
+    attribution: "Svjetska banka, tocan pokazatelj, izvorna agencija, inacica, licenca i oznaka izmjena."
+    access: "DataBank ili sluzbeni API."
+    redistribution: "nije dokazana za neodabrani pokazatelj"
+    lane: "external-only"
+    refresh_class: "external-only"
+    fallback: >-
+      Nije temelj obveznoga puta; DZS ili provjereni Eurostat paket nose
+      usporedni zadatak.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: "Nema odabranoga pokazatelja, pa nema kontrolnoga zbroja."
+    promoted: false
+    promoting_gate: "G-A3-EUROSTAT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "nijedna dok pokazatelj nije odabran"
+    unavailable_claims:
+      - "svaka tvrdnja iz lokalne kopije"
+    ethics:
+      category_ownership: "Definicije odredjuje Svjetska banka i izvorne agencije."
+      absence: "Zemlje bez objave ostaju prazne, a praznina nije nula."
+      identifiability: "Agregat na razini zemlje."
+      beneficiaries: "Citatelj koji uci usporedjivati razvojne pokazatelje."
+      error_burden: "Pogresna usporedba pada na zemlju u javnoj raspravi."
+      appeal: "Nije primjenjivo."
+
+  - id: "parlamint_hr"
+    name: "ParlaMint-HR 5.0"
+    status: "proposed_not_promoted"
+    design: "digital_trace_or_selected_corpus"
+    domain: "parlamentarni govor"
+    unit: "jedan govor s metapodacima govornika"
+    question: "Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?"
+    role: "Granica korpusa, tekstna jedinica i selekcija u opazanje."
+    consumers:
+      - "WD-C17"
+    source: "CLARIN.SI zapis 11356/2004, ParlaMint 5.0; hrvatska arhiva ima zasebno objavljeni MD5; izdanje 8. srpnja 2025."
+    version: "5.0"
+    licence: "CC BY 4.0"
+    attribution: "Cjeloviti navod korpusa iz repozitorijskoga zapisa, inacica 5.0, CLARIN trajni zapis, licenca i oznaka izmjena."
+    access: "Izravno iz sluzbenoga CLARIN.SI repozitorija."
+    redistribution: "opci temelj utvrdjen uz CC BY 4.0; tocan podskup mora proci P3-TEXT"
+    lane: "bundled"
+    refresh_class: "pinned"
+    fallback: >-
+      Nakon P3-TEXT tocan CC BY 4.0 podskup i njegovi agregati pokrivaju
+      analiticki i tiskani put.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        P3-TEXT mora prenijeti puni objavljeni MD5, tocan podskup i obavijest
+        bez prepisivanja iz sjecanja.
+    promoted: false
+    promoting_gate: "G-A3-TEXT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis zabiljezenih govora unutar granice korpusa"
+      - "povezanost uz imenovanu tekstnu jedinicu"
+    unavailable_claims:
+      - "generalizacija na javno mnijenje"
+      - "uzrocnost"
+    ethics:
+      category_ownership: "Kategorije govornika odredjuje parlamentarni zapis."
+      absence: "Govori izvan zabiljezenih sjednica i jezika nisu u korpusu."
+      identifiability: "Govornici su javne osobe i imenovani su."
+      beneficiaries: "Citatelj koji uci da je korpus odabir, ne cjelina."
+      error_burden: "Krivo pripisan stav pada na imenovanoga zastupnika."
+      appeal: "Ispravak zapisa je parlamentarni postupak izvan opsega knjige."
+
+  - id: "parlasent"
+    name: "ParlaSent 1.0"
+    status: "proposed_not_promoted"
+    design: "digital_trace_or_selected_corpus"
+    domain: "oznaceni parlamentarni govor"
+    unit: "jedna oznacena recenica"
+    question: "Kako se ljudska oznaka pretvara u referentni ishod, i koliko je pogresiva?"
+    role: "Okvir kodiranja i zabiljezeni referentni ishod za poglavlje 17."
+    consumers:
+      - "WD-C17"
+    source: "CLARIN.SI zapis 11356/1868, ParlaSent 1.0; 18200 oznacenih recenica prema sluzbenom zapisu."
+    version: "1.0"
+    licence: "CC BY-SA 4.0"
+    attribution: "Cjeloviti navod skupa iz repozitorijskoga zapisa, inacica 1.0, trajni zapis, licenca i oznaka izmjena."
+    access: "Izravno iz sluzbenoga CLARIN.SI repozitorija."
+    redistribution: "opci temelj utvrdjen uz CC BY-SA 4.0; izvedeni skup zadrzava ShareAlike rezim"
+    lane: "bundled"
+    refresh_class: "pinned"
+    fallback: >-
+      Nakon P3-TEXT zasebno oznaceni CC BY-SA 4.0 podskup pokriva sentimentni
+      put; ako kompozicija ne prodje provjeru, koristi se ParlaMint-only opisna
+      vjezba bez prenesenih oznaka sentimenta.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        ShareAlike rezim ostaje odvojen od MIT koda knjige i aktivira se na
+        prilagodbama ovoga skupa.
+    promoted: false
+    promoting_gate: "G-A3-TEXT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "opis oznacenih recenica"
+      - "vrednovanje klasifikatora prema zabiljezenom referentnom ishodu"
+    unavailable_claims:
+      - "tvrdnja da je oznaka istina"
+      - "generalizacija na neoznacene recenice"
+    ethics:
+      category_ownership: "Okvir kodiranja odredili su autori skupa."
+      absence: "Recenice izvan uzorka za oznacavanje nemaju oznaku."
+      identifiability: "Govornici su javne osobe i imenovani su."
+      beneficiaries: "Citatelj koji uci da je referentna oznaka pogresiva."
+      error_burden: "Kriva oznaka pada na imenovanoga zastupnika."
+      appeal: "Nije uspostavljen; upravo je to pouka poglavlja 17."
+
+  - id: "gfi_fina"
+    name: "GFI/FINA"
+    status: "external_case_only"
+    design: "restricted_commercial_or_administrative_source"
+    domain: "financijski i administrativni zapisi"
+    unit: "jedan poslovni subjekt"
+    question: "Sto se smije tvrditi iz izvora koji citatelj ne moze otvoriti?"
+    role: "Granica reproducibilnosti; samo citirani objavljeni agregat ili izostavljanje."
+    consumers: []
+    source: "Predlozeni vanjski komercijalni ili administrativni izvor; nije odabran tocan skup ni inacica."
+    version: "neodabrana"
+    licence: "nema dokaza o javnoj licenci ili ovlasti za redistribuciju"
+    attribution: "Moguce je samo tocno citiranje objavljenoga agregata nakon zasebne provjere."
+    access: "Vanjski izvor prema njegovim uvjetima."
+    redistribution: "nije dopustena"
+    lane: "external-only"
+    refresh_class: "external-only"
+    fallback: >-
+      Nije temelj obveznoga puta; dopusten je samo provjeren citirani agregat
+      ili izostavljanje.
+    integrity:
+      checksum: null
+      official_reconciliation: null
+      note: >-
+        Nijedan pristupni podatak, token ni lozinka ne postoji i ne smije
+        postojati u repozitoriju; render ne dohvaca ovaj izvor.
+    promoted: false
+    promoting_gate: "G-A3-DIGIKAT"
+    files: []
+    aggregate_view: null
+    permissible_claims:
+      - "citiranje objavljenoga agregata nakon zasebne provjere"
+    unavailable_claims:
+      - "svaka tvrdnja iz nedostupnoga zapisa"
+    ethics:
+      category_ownership: "Kategorije odredjuje pruzatelj i regulator."
+      absence: "Subjekti bez obveze objave nisu u zapisu."
+      identifiability: "Poslovni subjekti su imenovani."
+      beneficiaries: "Citatelj koji uci prepoznati nereproducibilan dokaz."
+      error_burden: "Kriv financijski zapis pada na imenovani subjekt."
+      appeal: "Regulatorni postupak izvan opsega knjige."

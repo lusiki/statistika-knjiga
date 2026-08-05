@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P2-VERIFY"
-  next_permitted_packet: "P3-CATALOG"
+  last_completed_packet: "P3-CATALOG"
+  next_permitted_packet: "P3-EXISTING"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -6879,7 +6879,7 @@ packets:
     sequence: 66
     phase: "3A"
     kind: "data_governance"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P2-VERIFY"
       - "P1B-DATA-LIC"
@@ -6892,13 +6892,85 @@ packets:
       - "Catalogue, passports, validation, refresh, and promotion fail closed."
       - "Rendering performs no network refresh and no competing metadata source exists."
       - "The P3-CATALOG packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
+      required_evidence:
+        - requirement: "catalogue schema"
+          artifacts:
+            - "source:data/katalog.schema.json"
+            - "source:data/katalog.yml#17-packages-each-with-source-version-licence-attribution-access-redistribution-lane-fallback-and-integrity"
+            - "source:data/katalog.yml#per-entry-permissible-and-unavailable-claims-and-six-question-ethics-note"
+            - "check:scripts/check-katalog.py-schema-validated-against-data/katalog.schema.json"
+        - requirement: "negative validation fixtures"
+          artifacts:
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_portal_mediated-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_without_checksum-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-unknown_lane-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-missing_fallback-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-licence_not_applicable-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-duplicate_package_id-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-cap_exceeded-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-undeclared_snapshot-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-rights_permission_claimed-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-duplicate_consumer_role-exit-1"
+            - "fixture:KATALOG_NEGATIVE_FIXTURE-unknown-name-exit-1"
+            - "fixture:scripts/check-data-integrity.R--fixture-duplicate-key-exit-1"
+        - requirement: "candidate-promotion demonstration"
+          artifacts:
+            - "source:R/fetch-podaci.R-reads-data/katalog.yml-as-its-only-registry"
+            - "source:R/fetch-podaci.R-writes-only-into-the-gitignored-data/_kandidat"
+            - "source:.gitignore#/data/_kandidat/"
+            - "source:R/fetch-podaci.R---promote-requires-a-candidate-a-recorded-checksum-a-file-path-and-an-md5-match"
+            - "check:scripts/check-data-integrity.R-asserts-the-lane-and-candidate-first-guards-by-literal-marker"
+      outputs:
+        - output: "P3-CATALOG durable artifact and evidence record for: Single catalogue, validation, passport, refresh, and promotion contract."
+          artifacts:
+            - "report:notes/reports/p3-catalog-2026-08-05.md"
+            - "source:data/katalog.yml"
+            - "source:scripts/check-katalog.py"
+        - output: "Completion evidence is tied to the declared P3-CATALOG source state and bounded scope."
+          artifacts:
+            - "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
+            - "scope-diff:catalogue-schema-validator-integrity-check-dispatcher-gitignore-and-the-control-files-only"
+            - "check:scripts/check-review-workflow.R-at-P3-CATALOG-closeout"
+      exit_tests:
+        - test: "Catalogue, passports, validation, refresh, and promotion fail closed."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-0"
+            - "contract:promotion-requires-seven-conditions-together-and-availability-promotes-nothing"
+            - "fixture:ten-deliberate-katalog-defects-each-exit-1-and-an-unknown-fixture-name-too"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-catalogue-present-undeclared-0"
+            - "check:scripts/check-integrity-fixtures.py-INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+            - "source:scripts/check-data-integrity.R-pre-P3-guard-replaced-by-catalogue-required-and-snapshot-must-be-declared"
+        - test: "Rendering performs no network refresh and no competing metadata source exists."
+          result: "passed"
+          evidence:
+            - "source:_quarto.yml-pre-render-and-post-render-do-not-call-R/fetch-podaci.R"
+            - "audit:no-chapter-or-appendix-calls-fetch-podaci-download.file-or-a-remote-read"
+            - "source:data/katalog.yml#sole_machine_readable_record-true"
+            - "audit:podaci.qmd-and-dodaci/c-katalog-podataka.qmd-are-hand-maintained-views-that-contradict-no-catalogue-entry-and-remain-P5-C-work"
+        - test: "The P3-CATALOG packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-P1B-DATA-LIC-001-and-H-P1B-DATA-LIC-002-both-consumed-before-the-packet-claim"
+            - "handoff:their-P3-EXISTING-deliveries-deliberately-remain-pending"
+            - "registry:all-17-P1B-inventory-packages-registered-with-their-assigned-lane-unchanged"
+            - "decision:zero-packages-promoted-and-each-entry-names-its-own-promoting-gate"
+            - "item:seven-items-closed-against-their-own-tests-and-six-left-open-with-recorded-reasons"
+            - "handoff:H-P3-CATALOG-001-and-H-P3-CATALOG-002-created"
+            - "amendment:rights_holder_permission_obtained-false-and-claim-permitted-false-recorded-and-fixture-proved"
+            - "amendment:H-P1B-DATA-LIC-003-not-superseded-and-recorded-per-package-in-integrity.note"
+            - "scope-note:no-package-was-selected-promoted-fetched-or-committed-and-no-G-A3-gate-was-pre-empted"
+            - "scope-note:.gitignore-was-added-to-owned_paths-mid-packet-so-data/_kandidat-is-ignored-and-the-extension-is-recorded"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "data_governance"
     required_evidence:
       - "catalogue schema"
       - "negative validation fixtures"
       - "candidate-promotion demonstration"
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   P3-EXISTING:
     sequence: 67
     phase: "3A"
@@ -11571,7 +11643,7 @@ items:
       location: "§12 existing data"
     description: "Keep GFI/FINA external; permit only a vetted provenance case or cited aggregate."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -11589,11 +11661,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.yml#gfi_fina-lane-external-only-and-redistribution-not-permitted"
+      - "check:scripts/check-katalog.py-rejects-any-credential-material-or-embedded-URL-credentials"
+      - "audit:no-credential-token-or-password-exists-in-the-catalogue-or-the-dispatcher"
+      - "source:_quarto.yml-render-has-no-remote-data-dependency"
+      - "scope-note:only-a-verified-cited-published-aggregate-may-later-be-used-and-none-is-used-now"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   R04-ARCH-macro-order:
     parents:
       - "R04"
@@ -14032,7 +14109,7 @@ items:
       location: "§12 dataset admission rule"
     description: "Implement admission rules for design, unit, consumers, provenance, size/access, refresh, and teachable complication."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -14051,11 +14128,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.yml#promotion_contract.required_before_promotion-seven-conditions"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_portal_mediated-exit-1"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_without_checksum-exit-1"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-missing_fallback-exit-1"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-unknown_lane-exit-1"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-duplicate_package_id-exit-1"
+      - "check:scripts/check-katalog.py-KATALOG_OK-promoted-0"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   R08-CATALOG-portfolio-cap:
     parents:
       - "R08"
@@ -14069,7 +14153,7 @@ items:
       location: "§12 admission rule"
     description: "Record default portfolio caps while exempting tiny frozen landmarks."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -14088,11 +14172,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.yml#portfolio_caps-eight-designs-with-cap-registered-and-promoted-counts"
+      - "source:data/katalog.yml#author_approval_required_to_exceed-true"
+      - "check:scripts/check-katalog.py-compares-recorded-counts-with-the-catalogue-and-rejects-an-exceeded-cap"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-cap_exceeded-exit-1"
+      - "scope-note:tiny-frozen-R-landmarks-are-recorded-as-exempt-from-the-cap"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   R08-DZS-package:
     parents:
       - "R08"
@@ -14731,7 +14820,7 @@ items:
       location: "§12 outstanding integration"
     description: "Give every governed dataset one memorable substantive question and progressive role."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -14751,11 +14840,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.yml#every-package-carries-one-question-and-one-distinct-role"
+      - "check:scripts/check-katalog.py-rejects-two-packages-sharing-a-role-within-one-design"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-duplicate_consumer_role-exit-1"
+      - "scope-note:no-package-is-admitted-for-topic-variety-and-zero-packages-are-promoted"
+      - "report:notes/reports/p3-catalog-2026-08-05.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   R08-C16-cross-design:
     parents:
       - "R08"
@@ -14804,6 +14898,14 @@ items:
         - "S15"
       location: "§12 existing data"
     description: "Own selections/validation locally while crediting any reused query logic."
+    open_reason: >-
+      Deliberately left open by P3-CATALOG. The catalogue, the validator and
+      the dispatcher introduce no dependency on CroAIcon or any sibling
+      repository, and that was verified. The test requires a fresh clone to
+      validate AND render, and this packet ran no render from a clean
+      worktree, so it does not claim one.
+    closure_packet: "P7-CLEAN-BUILD"
+    closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"
@@ -22231,6 +22333,14 @@ items:
         - "S15"
       location: "§9/§12 + §15 R25"
     description: "Make data/katalog.yml the sole metadata source and generate both public views."
+    open_reason: >-
+      Deliberately left open by P3-CATALOG. data/katalog.yml is the sole
+      machine-readable record and was verified to contradict neither public
+      view, but the test requires that both views regenerate. podaci.qmd and
+      dodaci/c-katalog-podataka.qmd are still hand-maintained and generating
+      them is R25-CATALOG-public-views in P5-C.
+    closure_packet: "P5-C"
+    closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"
@@ -22271,7 +22381,7 @@ items:
       location: "§9/§12 catalogue"
     description: "Implement the complete catalogue/passport schema."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22290,11 +22400,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.schema.json-required-fields-and-additionalProperties-false"
+      - "source:data/katalog.yml#per-entry-permissible-and-unavailable-claims-and-six-question-ethics-note"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-missing_fallback-exit-1"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-licence_not_applicable-exit-1"
+      - "check:scripts/check-katalog.py-KATALOG_OK-packages-17"
+      - "report:notes/reports/p3-catalog-2026-08-05.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   R25-CATALOG-storage:
     parents:
       - "R25"
@@ -22307,6 +22423,12 @@ items:
         - "S15"
       location: "§12 storage"
     description: "Enforce storage fidelity conventions."
+    open_reason: >-
+      Deliberately left open by P3-CATALOG. The six storage conventions are
+      recorded in the catalogue, but the test requires every applicable
+      package to pass and there are zero materialised snapshots.
+    closure_packet: "P3-EXISTING"
+    closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"
@@ -22344,7 +22466,7 @@ items:
       location: "§12 refresh"
     description: "Assign a refresh class and dated version policy to every package."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22362,11 +22484,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.yml#refresh_classes-six-declared-classes"
+      - "source:data/katalog.yml#every-one-of-17-packages-carries-a-refresh-class-and-its-P1B-assigned-lane"
+      - "check:scripts/check-katalog.py-rejects-a-refresh-class-not-declared-in-the-catalogue"
+      - "fixture:KATALOG_NEGATIVE_FIXTURE-unknown_lane-exit-1"
+      - "report:notes/reports/p3-catalog-2026-08-05.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   R25-CATALOG-candidate-first:
     parents:
       - "R25"
@@ -22380,7 +22507,7 @@ items:
       location: "§12 refresh"
     description: "Implement temporary fetch → candidate → validate → diff → approval → promote."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22400,11 +22527,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:R/fetch-podaci.R-fetch-writes-only-into-data/_kandidat-and-never-into-teaching-data"
+      - "source:.gitignore#/data/_kandidat/"
+      - "source:R/fetch-podaci.R---promote-is-a-separate-call-requiring-a-recorded-checksum-and-an-md5-match"
+      - "source:_quarto.yml-pre-render-and-post-render-do-not-call-the-dispatcher"
+      - "audit:no-chapter-or-appendix-performs-a-network-read-at-render"
+      - "check:scripts/check-data-integrity.R-asserts-the-candidate-first-guards-by-literal-marker"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac"
   R25-CATALOG-validation:
     parents:
       - "R25"
@@ -22417,6 +22550,14 @@ items:
         - "S15"
       location: "§12 validation"
     description: "Build fail-closed validation and reconciliation tests."
+    open_reason: >-
+      Deliberately left open by P3-CATALOG. The catalogue half is proved: ten
+      deliberate fixtures each return exit 1 and an unknown fixture name does
+      too. The second half, that accepted packages record a checksum and an
+      official reconciliation, has no accepted package, and the data-level
+      defect classes need a real file to exercise.
+    closure_packet: "P3-EXISTING"
+    closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"
@@ -22454,6 +22595,13 @@ items:
         - "S15"
       location: "§12 outstanding integration"
     description: "Generate unit, absence, production, codes, weights, date, claims, and ethics passport."
+    open_reason: >-
+      Deliberately left open by P3-CATALOG. Unit, absence, production, codes,
+      claims and the six-question ethics note are mandatory fields on every
+      entry, but the test requires a complete passport shown before a
+      chapter's first analytical use, and no chapter uses a package yet.
+    closure_packet: "P5-C"
+    closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"
@@ -23826,6 +23974,13 @@ items:
         - "S15"
       location: "§12 outstanding integration"
     description: "Provide analysis files for R/jamovi and aggregate files for hand/print verification."
+    open_reason: >-
+      Deliberately left open by P3-CATALOG. The schema carries an
+      aggregate_view field on every entry, but the test requires an analysis
+      file and an aggregate that reconcile at full precision and at least one
+      task that reproduces the aggregate. Neither file nor task exists.
+    closure_packet: "P3-EXISTING"
+    closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "codex_data_package_owner"

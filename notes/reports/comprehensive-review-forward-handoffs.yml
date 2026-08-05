@@ -979,7 +979,35 @@ handoffs:
         state: pending
       - target_packet: P3-CATALOG
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-CATALOG accepts the CC BY 4.0 generated-data boundary as an exact
+          catalogue obligation before the packet claim and before the first
+          substantive edit. data/katalog.yml registers anketa_mreze and
+          populacija_medija with licence CC BY 4.0, rights holder Luka Sikic, the
+          full attribution string including the change-marking requirement, the
+          generator R/podaci-nastavni.R as their source, and the
+          download-adjacent notice data/LICENCA-generirani-podaci.md carried as a
+          required field on every generated entry. The schema forbids a blank or
+          not-applicable licence on any entry, and the validator fails closed on
+          one. The catalogue records that the generator code stays MIT while its
+          output is CC BY 4.0, and that the generated-data notice covers no
+          third-party data. Neither generated set is promoted here: both are
+          registered with promoted false and zero materialised files, because
+          materialising a snapshot is P3-EXISTING work and every future snapshot
+          must carry the notice or a direct link to it, which the catalogue
+          records as their standing obligation. The P3-EXISTING delivery is
+          before_start for that packet and correctly remains pending.
+        evidence:
+          - "source:data/katalog.yml#packages.anketa_mreze-and-populacija_medija-licence-CC-BY-4.0"
+          - "source:data/katalog.yml#generated_data_notice-required-on-every-generated-entry"
+          - "source:data/katalog.schema.json#licence-required-and-not-applicable-forbidden"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-licence_not_applicable-exit-1"
+          - "check:scripts/check-katalog.py-KATALOG_OK"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-licence-CC-BY-4.0"
+          - "report:notes/reports/p3-catalog-2026-08-05.md"
 
   H-P1B-DATA-LIC-002:
     source_packet: P1B-DATA-LIC
@@ -1010,7 +1038,41 @@ handoffs:
     deliveries:
       - target_packet: P3-CATALOG
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          data/katalog.yml is created as the sole machine-readable data record
+          and carries every field this handoff requires on every entry: source,
+          version, licence, attribution, access, redistribution, lane, fallback
+          and integrity. All four current and all thirteen proposed packages from
+          the P1B inventory are registered with exactly the lane that inventory
+          assigned, and the catalogue restates the three-lane contract verbatim,
+          including that technical access is never redistribution authority. The
+          catalogue fails closed by construction: the schema makes every required
+          field mandatory, the validator rejects an unknown lane, a blank or
+          not-applicable licence, a missing fallback and a missing integrity
+          record, and it forbids promotion outright unless the lane is bundled,
+          redistribution is verified, a checksum and an official reconciliation
+          are recorded and files are listed. **Zero packages are promoted by this
+          packet**: every entry carries promoted false and names the exact later
+          gate that may promote it, so availability alone can promote nothing and
+          no portal-mediated or external-only package can be promoted at all
+          while its lane stands. UCBAdmissions and anscombe stay external-only
+          with their lawful fallbacks recorded, as this handoff requires of
+          P3-EXISTING. The P3-EXISTING delivery is before_start for that packet
+          and correctly remains pending.
+        evidence:
+          - "source:data/katalog.yml#17-packages-4-current-and-13-proposed-each-with-exactly-one-lane"
+          - "source:data/katalog.yml#lanes-contract-bundled-portal-mediated-external-only"
+          - "source:data/katalog.yml#promotion_contract-zero-promoted-and-a-named-promoting-gate-per-entry"
+          - "source:data/katalog.schema.json#required-source-version-licence-attribution-access-redistribution-lane-fallback-integrity"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_portal_mediated-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_without_checksum-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-unknown_lane-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-missing_fallback-exit-1"
+          - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-0"
+          - "report:notes/reports/p3-catalog-2026-08-05.md"
       - target_packet: P3-EXISTING
         gate: before_start
         state: pending
@@ -3778,6 +3840,133 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P3-CATALOG-001:
+    source_packet: P3-CATALOG
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - source:data/katalog.yml
+      - source:data/katalog.schema.json
+      - source:scripts/check-katalog.py
+      - source:R/fetch-podaci.R
+      - handoff:H-P1B-DATA-LIC-002
+      - handoff:H-P1B-DATA-LIC-003
+      - report:notes/reports/p3-catalog-2026-08-05.md
+    statement: >-
+      data/katalog.yml is now the sole machine-readable data record and
+      registers all 17 packages from the P1B inventory with exactly the lane that
+      inventory assigned: five bundled, three portal-mediated and nine
+      external-only. ZERO packages are promoted. Every entry carries promoted
+      false and names the exact later gate that may promote it, and the validator
+      enforces seven conditions together before any promotion: lane bundled,
+      verified redistribution, a recorded checksum, a recorded official
+      reconciliation, at least one file path, a lawful fallback, and an accepted
+      promoting gate. Availability promotes nothing and a portal-mediated or
+      external-only package cannot be promoted at all while its lane stands.
+      R/fetch-podaci.R now reads the catalogue as its only registry, writes only
+      into the gitignored data/_kandidat/, and promotes only through an explicit
+      --promote call that verifies the recorded MD5.
+      scripts/check-data-integrity.R no longer fails because the catalogue
+      exists; it now requires the catalogue, its schema and its validator, and
+      fails on any materialised snapshot no catalogue entry declares.
+    required_action: >-
+      P3-EXISTING and every G-A3 package gate must promote a package only by
+      editing its own catalogue entry, and only after recording the exact source,
+      version, licence, attribution, checksum and official reconciliation for the
+      file it registers. None of them may change a lane without the authoritative
+      package-specific evidence its own contract requires, may treat technical
+      access as redistribution authority, or may commit a materialised snapshot
+      without first declaring its path in data/katalog.yml. Each must rerun
+      scripts/check-katalog.py and scripts/check-data-integrity.R in the same
+      packet. H-P1B-DATA-LIC-003 is not superseded: DZS tourism, ParlaMint and
+      ParlaSent carry only a general bundled basis and each still needs its own
+      exact package record.
+    basis:
+      - check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-0-bundled-5-portal-3-external-9
+      - check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-catalogue-present-promoted-0-undeclared-0
+      - source:data/katalog.yml#promotion_contract.required_before_promotion
+      - fixture:ten-deliberate-katalog-defects-each-exit-1
+      - katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac
+    required: true
+    deliveries:
+      - target_packet: P3-EXISTING
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-DZS
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-DIP
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-DIGIKAT
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-EUROSTAT
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-ESS
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-TEXT
+        gate: before_close
+        state: pending
+
+  H-P3-CATALOG-002:
+    source_packet: P3-CATALOG
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R25-CATALOG-single-source
+      - item:R25-CATALOG-passport
+      - item:R25-CATALOG-public-views
+      - item:R32-CATALOG-paired-views
+      - item:R25-CATALOG-storage
+      - item:R25-CATALOG-validation
+      - item:R08-CATALOG-local-independence
+      - report:notes/reports/p3-catalog-2026-08-05.md
+    statement: >-
+      Six of the thirteen items P3-CATALOG owns were deliberately NOT closed,
+      each because its test names something that does not yet exist.
+      R25-CATALOG-single-source needs both public views regenerated, and
+      podaci.qmd and dodaci/c-katalog-podataka.qmd are still hand-maintained; the
+      catalogue is nevertheless the sole machine-readable record and was verified
+      not to contradict them. R25-CATALOG-passport needs a passport shown before
+      a chapter's first use of a package. R32-CATALOG-paired-views needs an
+      analysis file and an aggregate that reconcile at full precision.
+      R25-CATALOG-storage needs at least one applicable package, and there are
+      zero snapshots. R25-CATALOG-validation has its catalogue half proved by ten
+      deliberate fixtures but its accepted-package half has no accepted package.
+      R08-CATALOG-local-independence needs a fresh-clone validate and render,
+      which this packet did not run and therefore does not claim; the catalogue
+      introduces no dependency on CroAIcon or any sibling repository.
+    required_action: >-
+      P3-EXISTING must close R25-CATALOG-storage and the accepted-package half of
+      R25-CATALOG-validation once it registers real files with their checksums
+      and source reconciliation. P5-C must close R25-CATALOG-single-source and
+      R25-CATALOG-passport by generating both public views and the pre-use
+      passport from data/katalog.yml as the single source, and together with
+      P3-EXISTING must close R32-CATALOG-paired-views. P7-CLEAN-BUILD must close
+      R08-CATALOG-local-independence from a fresh clone or clean worktree. No
+      packet may close any of the six by aggregation or by treating the
+      catalogue's own internal consistency as evidence about files, views or
+      renders that do not exist.
+    basis:
+      - notes/reports/p3-catalog-2026-08-05.md#odluke-po-stavkama
+      - source:podaci.qmd-and-dodaci/c-katalog-podataka.qmd-still-hand-maintained
+      - check:scripts/check-katalog.py-snapshots-0
+      - register:items.R25-CATALOG-public-views.packet-P5-C
+    required: true
+    deliveries:
+      - target_packet: P3-EXISTING
+        gate: before_close
+        state: pending
+      - target_packet: P5-C
+        gate: before_close
+        state: pending
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -5142,3 +5331,44 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with P2-VERIFY active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-CATALOG
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P3-CATALOG and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P3-CATALOG:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-CATALOG-001
+      - H-P3-CATALOG-002
+    implementation_state: katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac
+    checks:
+      - exactly two deliveries target this packet and both are before_start and both were consumed BEFORE the packet claim and before the first substantive edit
+      - H-P1B-DATA-LIC-001 and H-P1B-DATA-LIC-002 each also deliver to P3-EXISTING and those deliveries deliberately remain pending
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - H-P1B-DATA-LIC-003 targets six G-A3 gates is not superseded and was not touched
+      - data/katalog.yml is created as the sole machine-readable data record and registers all 17 P1B inventory packages five bundled three portal-mediated and nine external-only
+      - every package carries source version licence attribution access redistribution lane fallback and integrity plus design domain unit question role consumers refresh class permissible and unavailable claims and a six-question ethics note
+      - not one lane was changed from the ratified P1B inventory
+      - ZERO packages are promoted every entry carries promoted false and names the exact later gate that may promote it
+      - promotion requires seven conditions together lane bundled verified redistribution a recorded checksum a recorded official reconciliation at least one file path a lawful fallback and an accepted promoting gate
+      - availability promotes nothing and a portal-mediated or external-only package cannot be promoted at all while its lane stands
+      - UCBAdmissions and anscombe stay external-only with their lawful fallbacks recorded exactly as H-P1B-DATA-LIC-002 requires
+      - data/katalog.schema.json makes every required field mandatory and forbids an unknown field
+      - scripts/check-katalog.py enforces the ratified eight data designs the three lanes the declared refresh classes a never-blank licence distinct consumer roles the portfolio caps the declared promoted count the rights boundary and the absence of any undeclared snapshot or credential
+      - ten deliberate katalog fixtures each returned exit 1 and an unknown fixture name also returned exit 1 and none touches the file on disk
+      - R/fetch-podaci.R now reads the catalogue as its only registry writes only into the gitignored data/_kandidat and promotes only through an explicit --promote call that verifies the recorded md5
+      - .gitignore was added to owned_paths mid-packet so data/_kandidat is ignored and the extension is recorded rather than concealed
+      - scripts/check-data-integrity.R no longer fails because the catalogue exists it now requires the catalogue its schema and its validator and fails on any snapshot no entry declares
+      - it reported DATA_INTEGRITY_OK generated_sets 2 rows 50300 catalogue present promoted 0 snapshots 0 undeclared 0 licence CC-BY-4.0 and its duplicate-key fixture returned exit 1
+      - _quarto.yml pre-render and post-render do not call the dispatcher and no chapter or appendix performs a network read so a clean render fetches nothing
+      - seven items closed against their own tests R25-CATALOG-schema R25-CATALOG-refresh-classes R25-CATALOG-candidate-first R08-CATALOG-admission R08-CATALOG-portfolio-cap R08-CATALOG-question-led and R03-GFI-FINA-external
+      - six items deliberately NOT closed each with its reason recorded in the register R25-CATALOG-single-source R25-CATALOG-validation R25-CATALOG-storage R25-CATALOG-passport R32-CATALOG-paired-views and R08-CATALOG-local-independence
+      - the rule applied was that an item closes only when its test is fully verifiable against artefacts this packet creates or the live source and a test naming a registered package a generated view or a fresh-clone render cannot close here
+      - H-P3-CATALOG-001 carries the promotion contract to P3-EXISTING and all six G-A3 gates
+      - H-P3-CATALOG-002 carries the six open closures to P3-EXISTING P5-C and P7-CLEAN-BUILD
+      - the catalogue records rights_holder_permission_obtained false and rights_holder_permission_claim_permitted false and a deliberate fixture proves the opposite claim fails
+      - no package was selected promoted fetched or committed no data file exists and no G-A3 gate was pre-empted
+      - podaci.qmd and dodaci/c-katalog-podataka.qmd were deliberately not touched because generating them is R25-CATALOG-public-views in P5-C
+      - no chapter or appendix prose no shared registry no spine no def block no route no render and no chapter stage changed and all 19 units remain draft
+      - no fresh-clone render was run so local independence is claimed only as the absence of an introduced dependency and not as a proved render
+      - scripts/check-review-workflow.R passed with P3-CATALOG active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-EXISTING
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-EXISTING and every later packet were not started and push merge tag archive and deployment remain unauthorised

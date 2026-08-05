@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-VERIFY
-next_permitted_packet: P3-CATALOG
+last_completed_packet: P3-CATALOG
+next_permitted_packet: P3-EXISTING
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 66
+forward_handoffs: 68
 last_updated: "2026-08-05"
 ---
 
@@ -43,8 +43,8 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-VERIFY` |
-| Next permitted packet | `P3-CATALOG` |
+| Last completed packet | `P3-CATALOG` |
+| Next permitted packet | `P3-EXISTING` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -57,6 +57,64 @@ stop and repair the control state before editing book content.
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P3-CATALOG closeout
+
+- **Both incoming deliveries are `before_start` and both were consumed before
+  the packet claim**: `H-P1B-DATA-LIC-001` (the CC BY 4.0 generated-data
+  boundary) and `H-P1B-DATA-LIC-002` (one lane and one lawful fallback per
+  package). Their `P3-EXISTING` deliveries deliberately remain `pending`, and
+  `H-P1B-DATA-LIC-003` — which targets six `G-A3` gates — is untouched and not
+  superseded.
+- **`data/katalog.yml` is the sole machine-readable data record** and registers
+  all 17 P1B inventory packages: 5 `bundled`, 3 `portal-mediated`, 9
+  `external-only`. **Not one lane was changed.** Every entry carries source,
+  version, licence, attribution, access, redistribution, lane, fallback and
+  integrity, plus design, unit, question, role, consumers, refresh class,
+  permissible and unavailable claims, and a six-question ethics note.
+- **Zero packages are promoted, by decision.** Every entry is `promoted: false`
+  and names the exact later gate that may promote it. Promotion requires seven
+  conditions at once, so **availability promotes nothing** and a
+  portal-mediated or external-only package cannot be promoted at all while its
+  lane stands. `UCBAdmissions` and `anscombe` stay `external-only` with their
+  lawful fallbacks recorded.
+- `data/katalog.schema.json` and `scripts/check-katalog.py` fail closed. **Ten
+  deliberate defects each return exit 1** — promoting a portal package,
+  promoting without a checksum, an unknown lane, a missing fallback, a
+  not-applicable licence, a duplicate id, an exceeded cap, an undeclared
+  snapshot, a claimed rights permission, and a duplicated consumer role — as does
+  an unknown fixture name.
+- `R/fetch-podaci.R` is now candidate-first: it reads the catalogue as its only
+  registry, writes **only** into the gitignored `data/_kandidat/`, and promotes
+  solely through an explicit `--promote` call that verifies the recorded MD5.
+  `_quarto.yml` calls it in neither hook, so a clean render fetches nothing.
+- `scripts/check-data-integrity.R` no longer fails *because* the catalogue
+  exists; it now **requires** the catalogue, its schema and its validator, and
+  fails on any snapshot no entry declares.
+- **Seven items closed and six did not, on one stated rule**: an item closes only
+  when its test is fully verifiable against artefacts this packet creates or the
+  live source. Closed: `R25-CATALOG-schema`, `R25-CATALOG-refresh-classes`,
+  `R25-CATALOG-candidate-first`, `R08-CATALOG-admission`,
+  `R08-CATALOG-portfolio-cap`, `R08-CATALOG-question-led`,
+  `R03-GFI-FINA-external`. Left open with reasons in the register:
+  `R25-CATALOG-single-source` and `R25-CATALOG-passport` (need the generated
+  views and a chapter's first use — `P5-C`), `R25-CATALOG-validation`,
+  `R25-CATALOG-storage` and `R32-CATALOG-paired-views` (need a real registered
+  package — `P3-EXISTING`), and `R08-CATALOG-local-independence` (needs a
+  fresh-clone render — `P7-CLEAN-BUILD`).
+- The **2026-08-05 rights determination is machine-enforced**: the catalogue
+  records `rights_holder_permission_obtained: false` and
+  `rights_holder_permission_claim_permitted: false`, and a fixture proves the
+  opposite claim fails. Each source is cited with its published terms instead.
+- `.gitignore` was added to `owned_paths` mid-packet so `data/_kandidat/` is
+  ignored; the extension is recorded, not concealed. `podaci.qmd` and
+  `dodaci/c-katalog-podataka.qmd` were deliberately not touched.
+- No package was selected, promoted, fetched or committed; no data file exists;
+  no `G-A3` gate was pre-empted. No chapter or appendix prose, shared registry,
+  spine, `#def-` block, route, render or chapter stage changed. All 19 units
+  remain `draft`.
+
+The durable evidence is `notes/reports/p3-catalog-2026-08-05.md`.
 
 ## P2-VERIFY closeout
 
@@ -2473,41 +2531,44 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p2-verification-2026-08-05.md,
+Also fully read notes/reports/p3-catalog-2026-08-05.md,
 notes/reports/p1b-data-licence-access-inventory-2026-08-03.md,
 notes/reports/g-a3-data-rights-determination-2026-08-05.md and
-notes/reports/p2-docs-2026-08-05.md.
+notes/reports/p2-verification-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, P3-CATALOG, only, and stop.
-This packet leaves Phase 2 and enters governed data. It is a data_governance
-packet. Read its contract and every governed item it owns in full, including the
-R25-CATALOG-* family.
+Execute the dashboard's next permitted packet, P3-EXISTING, only, and stop.
+It is a data_package packet. Read its contract and every governed item it owns
+in full, including the R25-EXISTING-* family.
 
-Two before_start deliveries target it and BOTH must be consumed with an exact
-disposition and evidence BEFORE the packet is claimed: H-P1B-DATA-LIC-001 (the
-CC BY 4.0 generated-data boundary and its notice obligations) and
-H-P1B-DATA-LIC-002 (one lane and one lawful fallback per package; technical
-access is never redistribution authority). Consume nothing that targets another
-packet; both also deliver to P3-EXISTING and those deliveries stay pending.
+Four before_close or before_start deliveries target it and each must be handled
+at its own gate: H-P1B-DATA-LIC-001 and H-P1B-DATA-LIC-002 are before_start and
+must be terminal before the claim; H-P3-CATALOG-001 and H-P3-CATALOG-002 are
+before_close. Consume nothing that targets another packet.
 
-Create data/katalog.yml as the sole machine-readable record with the required
-source, version, licence, attribution, access, redistribution, lane, fallback and
-integrity fields per entry. It must fail closed and must not promote a
-portal-mediated or external-only package from availability alone. Do not register
-or promote any package this packet is not authorised to register, and do not
-pre-empt G-A3-DZS, G-A3-DIP or any other package gate.
+The canonical catalogue now exists. data/katalog.yml registers all 17 packages
+with their P1B lanes and promotes NONE of them, and scripts/check-katalog.py
+fails closed on ten deliberate defects. Register and validate the existing
+seeded and landmark datasets by editing their own catalogue entries, and
+promote a package only after recording its exact source, version, licence,
+attribution, checksum and official reconciliation. Materialise a snapshot only
+after declaring its path in the catalogue, or scripts/check-data-integrity.R
+will fail on an undeclared snapshot.
 
-The 2026-08-05 rights determination binds here: the book may NOT claim it
-obtained rights-holder permission, because none was sought. It may cite each
-source and its published terms. H-P1B-DATA-LIC-003 is not superseded and remains
-the obligation of the G-A3 package gates.
+UCBAdmissions and anscombe must stay external-only unless this packet obtains
+authoritative dataset-specific redistribution evidence; technical access through
+R is not that evidence. Every materialised snapshot of a generated set must
+carry the CC BY 4.0 notice or a direct link to it.
 
-R04 remains open by design and P2-VERIFY recorded why in H-P2-VERIFY-001. Do not
-attempt to close it here.
+The 2026-08-05 rights determination binds: the book may NOT claim it obtained
+rights-holder permission, because none was sought. It may cite each source and
+its published terms. H-P1B-DATA-LIC-003 is not superseded and remains the
+obligation of the G-A3 package gates; do not pre-empt any of them.
+
+R04 remains open by design and P2-VERIFY recorded why in H-P2-VERIFY-001.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
-negative fixtures still fail, rerun every deterministic check this packet
-touches including its own negative validation fixtures, and make one scoped local
-commit.
+negative fixtures still fail, rerun every deterministic check this packet touches
+including scripts/check-katalog.py with its fixtures and
+scripts/check-data-integrity.R, and make one scoped local commit.
 ```

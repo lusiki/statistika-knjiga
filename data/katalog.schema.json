@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://statistika-knjiga/data/katalog.schema.json",
+  "title": "Kanonski katalog podataka",
+  "description": "Jedini strojno citljiv zapis o podacima knjige. Svaki paket nosi tocno jednu traku, jednu zakonitu zamjenu i jedan zapis integriteta. Promocija nije posljedica dostupnosti.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "catalogue",
+    "decision",
+    "ratified_at",
+    "source_inventory",
+    "sole_machine_readable_record",
+    "rights_boundary",
+    "lanes",
+    "refresh_classes",
+    "portfolio_caps",
+    "promotion_contract",
+    "storage_conventions",
+    "packages"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "catalogue": {"const": "data-katalog"},
+    "decision": {"const": "P3-CATALOG"},
+    "ratified_at": {"type": "string", "minLength": 10},
+    "source_inventory": {"type": "string", "minLength": 1},
+    "implementation_record": {"type": "string", "minLength": 1},
+    "sole_machine_readable_record": {"const": true},
+    "rights_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rights_holder_permission_obtained",
+        "rights_holder_permission_claim_permitted",
+        "determination_record",
+        "note"
+      ],
+      "properties": {
+        "rights_holder_permission_obtained": {"const": false},
+        "rights_holder_permission_claim_permitted": {"const": false},
+        "determination_record": {"type": "string", "minLength": 1},
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "lanes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bundled", "portal-mediated", "external-only"],
+      "properties": {
+        "bundled": {"$ref": "#/$defs/lane"},
+        "portal-mediated": {"$ref": "#/$defs/lane"},
+        "external-only": {"$ref": "#/$defs/lane"}
+      }
+    },
+    "refresh_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "portfolio_caps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["note", "author_approval_required_to_exceed", "caps"],
+      "properties": {
+        "note": {"type": "string", "minLength": 1},
+        "author_approval_required_to_exceed": {"const": true},
+        "caps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["design", "cap", "registered", "promoted", "exempt_frozen_landmarks"],
+            "properties": {
+              "design": {"type": "string", "minLength": 1},
+              "cap": {"type": "integer", "minimum": 0},
+              "registered": {"type": "integer", "minimum": 0},
+              "promoted": {"type": "integer", "minimum": 0},
+              "exempt_frozen_landmarks": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "promotion_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "availability_is_not_promotion",
+        "technical_access_is_not_redistribution_authority",
+        "promotable_lanes",
+        "required_before_promotion",
+        "promoted_by_this_packet",
+        "note"
+      ],
+      "properties": {
+        "availability_is_not_promotion": {"const": true},
+        "technical_access_is_not_redistribution_authority": {"const": true},
+        "promotable_lanes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"const": "bundled"}
+        },
+        "required_before_promotion": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "promoted_by_this_packet": {"const": 0},
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "storage_conventions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "packages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/package"}
+    }
+  },
+  "$defs": {
+    "lane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["permitted", "forbidden_assumption"],
+      "properties": {
+        "permitted": {"type": "string", "minLength": 1},
+        "forbidden_assumption": {"type": "string", "minLength": 1}
+      }
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "status",
+        "design",
+        "domain",
+        "unit",
+        "question",
+        "role",
+        "consumers",
+        "source",
+        "version",
+        "licence",
+        "attribution",
+        "access",
+        "redistribution",
+        "lane",
+        "refresh_class",
+        "fallback",
+        "integrity",
+        "promoted",
+        "promoting_gate",
+        "files",
+        "permissible_claims",
+        "unavailable_claims",
+        "ethics"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "name": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1},
+        "design": {"type": "string", "minLength": 1},
+        "domain": {"type": "string", "minLength": 1},
+        "unit": {"type": "string", "minLength": 1},
+        "question": {"type": "string", "minLength": 1},
+        "role": {"type": "string", "minLength": 1},
+        "consumers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "licence": {"type": "string", "minLength": 1},
+        "attribution": {"type": "string", "minLength": 1},
+        "access": {"type": "string", "minLength": 1},
+        "redistribution": {"type": "string", "minLength": 1},
+        "lane": {"enum": ["bundled", "portal-mediated", "external-only"]},
+        "refresh_class": {"type": "string", "minLength": 1},
+        "fallback": {"type": "string", "minLength": 1},
+        "generated_data_notice": {"type": "string", "minLength": 1},
+        "build_script": {"type": "string", "minLength": 1},
+        "integrity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["checksum", "official_reconciliation", "note"],
+          "properties": {
+            "checksum": {"description": "String once recorded, null until a package is promoted."},
+            "official_reconciliation": {"description": "String once recorded, null until a package is promoted."},
+            "note": {"type": "string", "minLength": 1}
+          }
+        },
+        "promoted": {"type": "boolean"},
+        "promoting_gate": {"type": "string", "minLength": 1},
+        "files": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "aggregate_view": {"description": "Path to the paired aggregate view, or null until one exists."},
+        "permissible_claims": {"$ref": "#/$defs/nonEmptyStrings"},
+        "unavailable_claims": {"$ref": "#/$defs/nonEmptyStrings"},
+        "ethics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "category_ownership",
+            "absence",
+            "identifiability",
+            "beneficiaries",
+            "error_burden",
+            "appeal"
+          ],
+          "properties": {
+            "category_ownership": {"type": "string", "minLength": 1},
+            "absence": {"type": "string", "minLength": 1},
+            "identifiability": {"type": "string", "minLength": 1},
+            "beneficiaries": {"type": "string", "minLength": 1},
+            "error_burden": {"type": "string", "minLength": 1},
+            "appeal": {"type": "string", "minLength": 1}
+          }
+        },
+        "caveats": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}
