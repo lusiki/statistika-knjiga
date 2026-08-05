@@ -4590,7 +4590,32 @@ handoffs:
     deliveries:
       - target_packet: P3-DIP
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-DIP applied all six rules without pretending that an unpromoted
+          portal route is a promoted package. dip_2024 remains portal-mediated,
+          promoted false, promoted_by null, files empty, checksum null, and
+          absent from the promotion log. Its decision-gate promoting_gate was
+          removed rather than moved, so promoting_gate_ratified_by is neither
+          needed nor invented. No snapshot notice exists because no snapshot
+          exists; the published-terms status is recorded in the catalogue and
+          passport instead of forcing CC BY 4.0 or another licence. The
+          source-exposed key is the electoral-unit label; XII's six published
+          minority rows are recorded as a structural asymmetry. No missing code
+          appears in the inspected official table and no claim is made about the
+          uninspected archive. The general composite-key, own-licence notice,
+          declared-missing-code, ratification-record, and bidirectional
+          promotion-log checks remain unchanged for packages to which they
+          apply.
+        evidence:
+          - "report:notes/reports/p3-dip-2026-08-05.md#sest-pravila-iz-h-p3-dzs-003"
+          - "registry:data/katalog.yml#dip_2024-portal-mediated-promoted-false-files-empty-checksum-null"
+          - "passport:data/dip_2024/PUTOVNICA.md"
+          - "check:scripts/check-katalog.py-KATALOG_OK-promoted-3"
+          - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK-local_files-0-checksum-null"
+          - "fixture:DIP_PORTAL_NEGATIVE_FIXTURE-six-cases-each-exit-1"
       - target_packet: P3-DIGIKAT
         gate: before_close
         state: pending
@@ -4696,6 +4721,136 @@ handoffs:
     required: true
     deliveries:
       - target_packet: P3-DIP
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-DIP acknowledges and consumes the complete author-approved route
+          before the packet claim and before its first substantive edit. It will
+          inspect only the official DIP portal, date and document the retrieval
+          route, map the source-exposed electoral-unit turnout fields, and
+          reconcile against published totals. It will retain no election file,
+          keep files empty and checksum null, keep promoted false, create no
+          promotion-log entry, and remove rather than move the non-operative
+          promoting_gate. The original local-file assumptions remain visible
+          with their G-A3-DIP route-specific amendment; no local-only check will
+          be claimed as passed. The verified DZS/generated fallback remains.
+        evidence:
+          - "decision:G-A3-DIP"
+          - "report:notes/reports/g-a3-dip-selection-decision-2026-08-05.md"
+          - "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+          - "registry:data/katalog.yml#dip_2024-portal-mediated-promoted-false-files-empty-checksum-null"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
+
+  H-P3-DIP-001:
+    source_packet: P3-DIP
+    created_at: "2026-08-05"
+    kind: evidence
+    refs:
+      - item:R08-DIP-package
+      - decision:G-A3-DIP
+      - source:data/katalog.yml#dip_2024
+      - passport:data/dip_2024/PUTOVNICA.md
+      - report:notes/reports/p3-dip-2026-08-05.md
+    statement: >-
+      The verified Chapter 3 role is one portal-mediated audit of turnout by
+      electoral unit in the 2024 Croatian parliamentary election. The official
+      report distinguishes eligible voters at processed polling places,
+      approached voters, voters according to ballots, valid ballots, and invalid
+      ballots. Twelve published turnout rows sum exactly to 3558089 in the
+      denominator and 2216763 approached, matching 62.30 per cent. Valid 2154733
+      plus invalid 60476 gives 2215209 according to ballots, which is 1554 less
+      than approached; those labels are not interchangeable. No local DIP file
+      exists, no checksum or redistribution right is claimed, and the source is
+      optional while the verified DZS/generated fallback remains mandatory.
+    required_action: >-
+      WA-C03 may use only the approved numerator-denominator and aggregation
+      lesson, must name which official count it means, and must not imply that
+      the book bundles DIP data or that every edition has portal parity. It must
+      cite the exact official source and date, keep list-support individual
+      causal and ecological claims unavailable, and retain the offline fallback.
+    basis:
+      - notes/reports/p3-dip-2026-08-05.md
+      - data/dip_2024/PUTOVNICA.md
+      - data/katalog.yml#dip_2024
+    required: true
+    deliveries:
+      - target_packet: WA-C03
+        gate: before_start
+        state: pending
+
+  H-P3-DIP-002:
+    source_packet: P3-DIP
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A3-DIP
+      - source:data/katalog.schema.json#package-promoting_gate-optional
+      - source:scripts/check-katalog.py
+      - source:scripts/check-dip-portal.py
+      - report:notes/reports/p3-dip-2026-08-05.md
+    statement: >-
+      data/katalog.schema.json now permits promoting_gate to be absent only as a
+      representable catalogue state; dip_2024 uses that state because the author
+      deliberately approved a nonpromotable portal route. This does not weaken
+      any promoted package: check-katalog.py still requires every promoted
+      package to name a non-decision promoting_gate equal to promoted_by, with a
+      different decision record when the reservation moved, and promotion_log
+      agreement in both directions. A public view must distinguish a verified
+      portal route from a local package, show checksum not applicable rather than
+      missing, and show the lawful fallback.
+    required_action: >-
+      P6-DATA and P8-META must preserve the three-way distinction among
+      promotion, technical access, and redistribution authority. When generating
+      public data or metadata views, they must render dip_2024 as unpromoted and
+      portal-mediated with files empty, checksum null, no promoting gate, exact
+      inspection date and fallback; they may not invent parity or permission.
+    basis:
+      - data/katalog.yml#dip_2024
+      - data/katalog.schema.json
+      - notes/reports/g-a3-dip-selection-decision-2026-08-05.md
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
+        state: pending
+
+  H-P3-DIP-003:
+    source_packet: P3-DIP
+    created_at: "2026-08-05"
+    kind: evidence
+    refs:
+      - packet:P3-DIP
+      - item:R03-DIP-rights
+      - item:R08-DIP-package
+      - packet:P3-PILOT
+      - report:notes/reports/p3-dip-2026-08-05.md
+    statement: >-
+      P3-DIP closes as an accepted portal evidence package, not a local snapshot.
+      Both governed items close against the explicit G-A3-DIP route amendment;
+      the generic local checksum test is recorded as non-applicable by author
+      amendment rather than passed. The source route, terms status, field map,
+      published-total reconciliation, no-local-copy check, six negative portal
+      fixtures, catalogue and data-integrity checks all pass. P3-PILOT is now
+      status descoped under the existing author amendment, with no output or exit
+      test claimed.
+    required_action: >-
+      P3-VERIFY-A must verify the current-data, DZS and DIP evidence only. It must
+      consume the author-amended scope that removes novice-pilot evidence, verify
+      that P3-PILOT is truly descoped rather than live in the sequence, and must
+      not treat the DIP route's explicit checksum non-applicability as a local
+      checksum pass.
+    basis:
+      - notes/reports/p3-dip-2026-08-05.md
+      - amendment:notes/reports/author-amendment-reader-route-2026-08-05.md
+      - check:scripts/check-review-workflow.R
+    required: true
+    deliveries:
+      - target_packet: P3-VERIFY-A
         gate: before_start
         state: pending
 
@@ -6205,3 +6360,36 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with G-A3-DIP active before the substantive decision edit and again at closeout with no active packet and next_permitted_packet P3-DIP
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P3-DIP and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P3-DIP:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-DIP-001
+      - H-P3-DIP-002
+      - H-P3-DIP-003
+    implementation_state: portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6
+    checks:
+      - exactly two deliveries target this packet and each was handled at its own gate
+      - H-G-A3-DIP-001 was consumed BEFORE the packet claim and H-P3-DZS-003 was acknowledged before the first substantive edit and consumed at closeout
+      - nothing targeting another packet was consumed
+      - the official 2024 parliamentary-election archive route and official report were inspected read-only on 2026-08-05 and no archive byte was downloaded or retained
+      - server metadata identify the archive and report but their ETags are explicitly not represented as local checksums
+      - the official turnout table supplies twelve electoral-unit rows with a unique I through XII label and no missing code in the inspected fields
+      - the XII valid and invalid totals are transparently composed from six official minority rows rather than presented as one inspected archive row
+      - twelve official rows sum exactly to denominator 3558089 and approached 2216763 and reproduce 62.30 percent
+      - valid 2154733 plus invalid 60476 equals 2215209 according to ballots and is 1554 below approached so the two counts are not conflated
+      - dip_2024 remains portal-mediated promoted false promoted_by null files empty checksum null and absent from promotion_log
+      - the non-operative promoting_gate was removed rather than moved and the schema now permits that explicit nonpromotable state
+      - the original generic local checksum test is not claimed passed and is recorded not_applicable_by_author_amendment with decision evidence
+      - scripts/check-dip-portal.py passes and six named in-memory defects each exit 1 for their own rule
+      - scripts/check-katalog.py check-data-integrity.R check-data-fixtures.py and check-integrity-fixtures.py pass at closeout
+      - all six P3-DZS promotion constraints remain intact for promoted packages and are applied without pretending DIP is promoted
+      - R03-DIP-rights and R08-DIP-package are accepted against the explicit portal amendments
+      - P3-PILOT is status descoped under the existing author amendment with outputs and exit tests expressly unclaimed and descoped_without_amendment exits 1
+      - the book claims no rights-holder permission because none was sought and the existing lawful fallback remains
+      - three outgoing handoffs record every future-relevant effect for WA-C03 P6-DATA P8-META and P3-VERIFY-A
+      - no chapter or appendix prose render generated artefact definition terminology or unit stage changed and all 19 units remain draft
+      - scripts/check-review-workflow.R passed with P3-DIP active and again at closeout with next_permitted_packet P3-VERIFY-A
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - push merge tag archive and deployment remain unauthorised

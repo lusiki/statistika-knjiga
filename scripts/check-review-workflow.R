@@ -40,6 +40,9 @@ if (identical(negative_fixture, "generic_packet_evidence")) {
 if (identical(negative_fixture, "invalid_outside_ask_link")) {
   register$outside_asks[[1]]$blocked_items <- "R99-NOT-A-REGISTER-ITEM"
 }
+if (identical(negative_fixture, "descoped_without_amendment")) {
+  register$packets$`P3-PILOT`$amendment_record <- NULL
+}
 
 errors <- character()
 add_error <- function(...) {
@@ -60,7 +63,7 @@ named_entries <- function(value) {
 
 allowed_work_statuses <- c(
   "proposed", "ratified", "in_progress", "implemented", "verified",
-  "accepted", "deferred_v2_with_reason"
+  "accepted", "deferred_v2_with_reason", "descoped"
 )
 allowed_dispositions <- c(
   "accepted_first_edition", "already_satisfied", "rejected_with_reason",
@@ -216,11 +219,50 @@ validate_terminal_packet_evidence <- function(packet_id, packet) {
   exit_receipts <- proof$exit_tests
   if (is.list(exit_receipts) && length(exit_receipts)) {
     for (receipt in exit_receipts) {
-      check(identical(receipt$result, "passed"),
-            "Terminal packet has an exit-test receipt not marked passed: ",
-            packet_id)
+      if (identical(receipt$result, "not_applicable_by_author_amendment")) {
+        amendment_evidence <- or_empty(receipt$evidence)
+        check(length(or_empty(packet$amendments)) > 0L &&
+                any(grepl("^(amendment|decision|conversation):",
+                          amendment_evidence)),
+              "Amended non-applicable exit test lacks packet amendment evidence: ",
+              packet_id)
+      } else {
+        check(identical(receipt$result, "passed"),
+              "Terminal packet has an exit-test receipt neither passed nor ",
+              "explicitly non-applicable by author amendment: ", packet_id)
+      }
     }
   }
+  invisible(NULL)
+}
+
+validate_descoped_packet_evidence <- function(packet_id, packet) {
+  proof <- packet$completion_evidence
+  check(is.list(proof) && length(proof) > 0L && !is.null(names(proof)),
+        "Descoped packet completion_evidence must be a structured mapping: ",
+        packet_id)
+  if (!is.list(proof) || !length(proof) || is.null(names(proof))) {
+    return(invisible(NULL))
+  }
+  check(isTRUE(packet$descoped_from_first_edition),
+        "Descoped packet lacks descoped_from_first_edition true: ", packet_id)
+  check(is_scalar_text(packet$descoped_at),
+        "Descoped packet lacks descoped_at: ", packet_id)
+  check(is_scalar_text(packet$descoped_by),
+        "Descoped packet lacks descoped_by: ", packet_id)
+  check(is_scalar_text(packet$descoped_reason),
+        "Descoped packet lacks descoped_reason: ", packet_id)
+  check(is_scalar_text(packet$amendment_record) &&
+          file.exists(file.path(root, packet$amendment_record)),
+        "Descoped packet lacks an existing amendment_record: ", packet_id)
+  check(is_evidence_reference(proof$source_state),
+        "Descoped packet lacks a resolvable source_state: ", packet_id)
+  check(identical(proof$source_state, packet$change_reference),
+        "Descoped packet source_state and change_reference disagree: ", packet_id)
+  check(isTRUE(proof$exit_tests_not_run),
+        "Descoped packet must state that its exit tests were not run: ", packet_id)
+  check(isTRUE(proof$outputs_not_claimed),
+        "Descoped packet must state that its outputs are not claimed: ", packet_id)
   invisible(NULL)
 }
 
@@ -283,6 +325,10 @@ for (packet_id in packet_ids) {
     check(is_scalar_text(packet$change_reference),
           "Terminal packet lacks change_reference: ", packet_id)
     validate_terminal_packet_evidence(packet_id, packet)
+  } else if (identical(packet$status, "descoped")) {
+    check(is_scalar_text(packet$change_reference),
+          "Descoped packet lacks change_reference: ", packet_id)
+    validate_descoped_packet_evidence(packet_id, packet)
   } else {
     check(length(or_empty(packet$completion_evidence)) == 0L,
           "Nonterminal packet must not claim completion evidence: ", packet_id)
@@ -402,7 +448,8 @@ if (is.null(active_id)) {
     check(next_id %in% packet_ids,
           "next_permitted_packet is unknown: ", next_id)
     if (next_id %in% packet_ids) {
-      check(!packet_status[[next_id]] %in% c("accepted", "deferred_v2_with_reason"),
+      check(!packet_status[[next_id]] %in%
+              c("accepted", "deferred_v2_with_reason", "descoped"),
             "next_permitted_packet is already terminal: ", next_id)
       requirements <- or_empty(register$packets[[next_id]]$requires)
       unknown_requirements <- setdiff(requirements, packet_ids)

@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A3-DIP
-next_permitted_packet: P3-DIP
+last_completed_packet: P3-DIP
+next_permitted_packet: P3-VERIFY-A
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 77
+forward_handoffs: 80
 last_updated: "2026-08-05"
 ---
 
@@ -43,11 +43,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A3-DIP` |
-| Next permitted packet | `P3-DIP` |
+| Last completed packet | `P3-DIP` |
+| Next permitted packet | `P3-VERIFY-A` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 40 accepted and 148 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 104 accepted, 5 deferred with reason, 262 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 41 accepted, 146 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -621,6 +621,44 @@ state is
 
 The durable evidence is
 `notes/reports/g-a3-dip-selection-decision-2026-08-05.md`.
+
+## P3-DIP closeout
+
+- The package closes as a **verified portal route, not a local snapshot**.
+  `dip_2024` remains `portal-mediated`, `promoted: false`, `files: []`,
+  `checksum: null`, `promoted_by: null`, and outside `promotion_log`. The
+  non-operative `promoting_gate` was removed rather than moved.
+- The official 2024 archive route and report were inspected read-only on
+  2026-08-05. The archive was not downloaded. Server ETags and last-modified
+  dates identify the inspected publications but are not represented as local
+  checksums.
+- The official turnout table has twelve electoral-unit rows. They sum exactly
+  to a denominator of 3.558.089 and 2.216.763 approached voters, reproducing
+  62,30%. Valid 2.154.733 plus invalid 60.476 gives 2.215.209 according to
+  ballots, which is 1.554 below approached; those official labels remain
+  distinct.
+- The original generic local-file test remains visible and is recorded
+  `not_applicable_by_author_amendment`, not passed. Its route-specific
+  replacement proves local bytes and checksum absent, records source identity,
+  route, displayed schema/key/missing evidence and published-total
+  reconciliation, and retains the lawful DZS/generated fallback.
+- `scripts/check-dip-portal.py` passes and six deliberate defects each return
+  exit 1. The catalogue and data-integrity checks still report 20 packages,
+  three promoted, three portal-mediated, 20 snapshots, nine reconciliations and
+  zero undeclared snapshots.
+- `R03-DIP-rights` and `R08-DIP-package` are accepted against the explicit
+  portal amendments. No rights-holder permission is claimed because none was
+  sought.
+- `P3-PILOT` is now truly `descoped` under the 2026-08-05 author amendment. It
+  is terminal for sequence routing but neither its outputs nor its exit tests
+  are claimed; a new workflow fixture fails if its amendment record disappears.
+- Three handoffs carry every future effect: `H-P3-DIP-001` to `WA-C03`,
+  `H-P3-DIP-002` to `P6-DATA` and `P8-META`, and `H-P3-DIP-003` to
+  `P3-VERIFY-A`. No chapter prose changed and all 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p3-dip-2026-08-05.md`, whose declared
+state is
+`portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6`.
 
 ## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
 
@@ -2811,31 +2849,28 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/g-a3-dip-selection-decision-2026-08-05.md,
+Also fully read notes/reports/p3-existing-2026-08-05.md,
 notes/reports/p3-dzs-2026-08-05.md and
-notes/reports/p1b-data-licence-access-inventory-2026-08-03.md.
+notes/reports/p3-dip-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, P3-DIP, only, and stop. It is a
-portal-mediated evidence package, not a local data snapshot. Before the claim,
-consume H-G-A3-DIP-001. Before closeout, acknowledge and consume
-H-P3-DZS-003; consume nothing targeting another packet.
+Execute the dashboard's next permitted packet, P3-VERIFY-A, only, and stop. It
+verifies the current-data, DZS and DIP evidence for Wave A. Consume
+H-P3-DIP-003 at before_start and consume nothing targeting another packet.
 
-The author approved a dated read-only inspection of the official DIP portal.
-Record the exact 2024 parliamentary-election publication identity, inspection
-date, retrieval instructions, published terms, source-exposed unit/schema/key/
-missing evidence and reconciliation against published totals. Retain no source
-file, invent no checksum, claim no local-only check passed, keep promoted false,
-create no promotion-log entry, and remove rather than move the non-operative
-promoting_gate. Preserve the verified DZS/generated fallback.
+Before closeout, record the explicit 2026-08-05 author amendment that removes
+the stale novice-pilot wording from this packet's scope and third exit test.
+P3-PILOT is status descoped under the existing author amendment; its outputs and
+tests are not accepted and no verification may depend on them.
 
-The explicit G-A3-DIP amendments to P3-DIP, R03-DIP-rights and R08-DIP-package
-govern the route-specific evidence. The original local-file assumptions are not
-quietly waived: record their non-applicability and prove the absence of local
-bytes and checksum. The book may not claim rights-holder permission because
-none was sought.
+Verify P3-EXISTING, P3-DZS and P3-DIP independently against current files and
+checks. The DIP package is a verified portal route, not a local snapshot: its
+generic checksum test is explicitly non-applicable by author amendment, files
+and checksum remain absent, and no local-only pass or permission claim is
+allowed. Re-run the catalogue, data-integrity, data-fixture, portal and workflow
+checks and record exact evidence.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
-negative fixtures still fail, rerun every deterministic data/catalogue check the
-packet touches, and make one scoped local commit. Do not start P3-PILOT.
+negative fixtures still fail, rerun every deterministic check the packet
+touches, and make one scoped local commit.
 ```

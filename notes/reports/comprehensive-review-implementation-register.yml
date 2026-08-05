@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A3-DIP"
-  next_permitted_packet: "P3-DIP"
+  last_completed_packet: "P3-DIP"
+  next_permitted_packet: "P3-VERIFY-A"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -7534,7 +7534,7 @@ packets:
     sequence: 71
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-DIP"
     scope: "Portal-mediated DIP 2024 evidence package; no local source copy and no promotion."
@@ -7560,7 +7560,83 @@ packets:
       - "The portal package proves local data and checksum absent; records dated official source identity, exact route, and source-exposed unit, schema, key, and missing-code evidence; and reconciles against published totals without claiming a local-only check passed."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-DIP packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "source:https://www.izbori.hr/site/UserDocsImages/479"
+            - "version:rezultati_sabor.zip-Last-Modified-2024-10-07T14:53:07Z-ETag-c4d2139fc818db1:0"
+            - "terms:no-explicit-local-redistribution-licence-found-on-inspected-official-page"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "passport:data/dip_2024/PUTOVNICA.md"
+            - "field-map:official-report-page-124-electoral-unit-denominator-approached-valid-invalid"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "amendment:G-A3-DIP-local-checksum-not-applicable-and-must-remain-null"
+            - "reconciliation:official-report-3558089-2216763-2215209-residual-0"
+        - requirement: "verified official source version and published licence or terms status"
+          artifacts:
+            - "source:https://www.izbori.hr/site/UserDocsImages/2024/rezultati_sabor.zip"
+            - "source:https://www.izbori.hr/site/UserDocsImages/2024/Izbori_za_zastupnike_u_Hrvatski_sabor/Rezultati/Izvje%C5%A1%C4%87e%20o%20provedenim%20izborima%20za%20zastupnike%20u%20Hrvatski%20sabor%202024.pdf"
+            - "record:data/katalog.yml#dip_2024-source-version-licence-access"
+        - requirement: "portal codebook and passport"
+          artifacts:
+            - "passport:data/dip_2024/PUTOVNICA.md#jedinica-kljuc-i-polja"
+            - "report:notes/reports/p3-dip-2026-08-05.md#odabir-jedinica-i-kodna-mapa"
+        - requirement: "recorded non-applicability of local checksum and reconciliation to published totals"
+          artifacts:
+            - "decision:decisions.G-A3-DIP.route_specific_evidence"
+            - "registry:data/katalog.yml#dip_2024-files-empty-checksum-null-promoted-false"
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "expected:denominator-3558089-approached-2216763-turnout-62.30-percent"
+            - "expected:valid-2154733-invalid-60476-ballots-2215209-difference-1554"
+            - "fixture:six-DIP-portal-defects-each-exit-1"
+      outputs:
+        - output: "P3-DIP validated portal record, passport, reconciliation, and route evidence for: DIP 2024."
+          artifacts:
+            - "passport:data/dip_2024/PUTOVNICA.md"
+            - "report:notes/reports/p3-dip-2026-08-05.md"
+            - "registry:data/katalog.yml#dip_2024"
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+        - output: "Completion evidence is tied to the declared P3-DIP source state and bounded scope."
+          artifacts:
+            - "portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6"
+            - "report:notes/reports/p3-dip-2026-08-05.md#manifest-deklariranoga-stanja"
+            - "check:scripts/check-review-workflow.R-at-P3-DIP-closeout"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "not_applicable_by_author_amendment"
+          evidence:
+            - "amendment:packets.P3-DIP.amendments-2026-08-05"
+            - "decision:G-A3-DIP-route-specific-evidence"
+            - "report:notes/reports/p3-dip-2026-08-05.md#izricita-dispozicija-izvornoga-lokalnog-testa"
+        - test: "The portal package proves local data and checksum absent; records dated official source identity, exact route, and source-exposed unit, schema, key, and missing-code evidence; and reconciles against published totals without claiming a local-only check passed."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK-local_files-0-checksum-null"
+            - "passport:data/dip_2024/PUTOVNICA.md"
+            - "reconciliation:3558089-2216763-2215209-residual-0"
+            - "fixture:six-DIP-portal-defects-each-exit-1"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "route:official-DIP-portal-optional-read-only"
+            - "fallback:verified-DZS-aggregate-or-generated-categorical-package-for-required-offline-task"
+            - "boundary:no-local-copy-no-redistribution-right-no-edition-parity-claim"
+        - test: "The P3-DIP packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-G-A3-DIP-001-consumed-before-claim"
+            - "handoff:H-P3-DZS-003-acknowledged-before-first-edit-and-consumed-at-closeout"
+            - "items:R03-DIP-rights-and-R08-DIP-package-accepted"
+            - "report:notes/reports/p3-dip-2026-08-05.md"
+            - "handoffs:H-P3-DIP-001-through-003"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
@@ -7570,12 +7646,12 @@ packets:
       - "portal codebook and passport"
       - "recorded non-applicability of local checksum and reconciliation to published totals"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6"
   P3-PILOT:
     sequence: 72
     phase: "3C"
     kind: "reader_evidence"
-    status: "ratified"
+    status: "descoped"
     requires:
       - "P0-OUTSIDE"
       - "P1A-C02"
@@ -7590,9 +7666,10 @@ packets:
       The author removed the five-reader pilot from the first edition on
       2026-08-05. No reader is recruited, invited or named, so this packet has
       no participants and will not run. It is removed from the requires of
-      P3-VERIFY-A and G-A4-03 so nothing waits on it, and it is left at ratified
-      rather than marked terminal because its exit tests were never satisfied
-      and claiming they passed would be false.
+      P3-VERIFY-A and G-A4-03 so nothing waits on it. Status descoped is a
+      sequence-terminal scheduling disposition, not acceptance: none of the
+      packet outputs or exit tests is claimed, and the checker requires that
+      distinction plus the existing author-amendment record.
     outputs:
       - "P3-PILOT durable artifact and evidence record for: Five-reader think-aloud pilot and reading-time evidence."
       - "Completion evidence is tied to the declared P3-PILOT source state and bounded scope."
@@ -7600,13 +7677,17 @@ packets:
       - "Reader evidence is tied to the tested source version and separates preference from repeated or blocking friction."
       - "Every repeated or blocking finding has a bounded disposition."
       - "The P3-PILOT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "amendment:notes/reports/author-amendment-reader-route-2026-08-05.md"
+      disposition: "descoped_from_first_edition_by_author_amendment"
+      exit_tests_not_run: true
+      outputs_not_claimed: true
     contract: "reader_evidence"
     required_evidence:
       - "dated protocol and source state"
       - "deidentified session records"
       - "repeated/blocking finding memo"
-    change_reference: null
+    change_reference: "amendment:notes/reports/author-amendment-reader-route-2026-08-05.md"
   WA-C00:
     sequence: 74
     phase: "4"
@@ -11964,7 +12045,7 @@ items:
       location: "§12 DIP"
     description: "Verify DIP source files, election/date, licence or reuse basis, attribution, and lane."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -11988,11 +12069,17 @@ items:
         evidence: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
         disposition: "route_specific_portal_evidence_replaces_inapplicable_local_hash_and_bundling_assumptions"
     packet: "P3-DIP"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-DIP-portal-mediated-no-local-copy"
+      - "report:notes/reports/p3-dip-2026-08-05.md#sluzbeni-put-bez-dohvata-arhiva"
+      - "passport:data/dip_2024/PUTOVNICA.md#prava-i-granica-pristupa"
+      - "registry:data/katalog.yml#dip_2024-licence-redistribution-and-access"
+      - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+      - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6"
   R03-DIGIKAT-rights:
     parents:
       - "R03"
@@ -14780,7 +14867,7 @@ items:
       location: "§12 DIP"
     description: "Build an immutable 2024 election extract retaining turnout numerators/denominators and official totals."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -14803,11 +14890,17 @@ items:
         evidence: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
         disposition: "immutable_dated_portal_record_not_a_local_historical_snapshot"
     packet: "P3-DIP"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-DIP-electoral-unit-turnout-selection"
+      - "report:notes/reports/p3-dip-2026-08-05.md#uskladjenje-na-portalu"
+      - "passport:data/dip_2024/PUTOVNICA.md#jedinica-kljuc-i-polja"
+      - "registry:data/katalog.yml#dip_2024-portal-mediated-promoted-false"
+      - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK-six-negative-fixtures"
+      - "reconciliation:3558089-denominator-2216763-approached-2215209-ballots-difference-1554"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "portal:sha256-a96a01dc14ff3c7a7d6acf17a0ed577934d9b087bfecdf9c6106d6a8c5f9dca6"
   R08-DIGIKAT-package:
     parents:
       - "R08"

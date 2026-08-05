@@ -1598,19 +1598,41 @@ packages:
 
   - id: "dip_2024"
     name: "DIP, izbori za Hrvatski sabor 2024."
-    status: "proposed_not_promoted"
+    status: "verified_portal_route_not_promoted"
     design: "administrative_or_electoral_count"
     domain: "izbori"
-    unit: "jedno birackо mjesto ili izborna jedinica, prema odabiru P3-DIP"
+    unit: >-
+      jedna izborna jedinica I.-XII. u sluzbenoj tablici odaziva; XII. jedinica
+      za vazeci i nevazeci listic koristi zbroj sest objavljenih manjinskih redaka
     question: "Kako se izlaznost mijenja po izbornim jedinicama i sto joj je nazivnik?"
     role: "Potpuni zabiljezeni dogadjaji, brojnik i nazivnik, razlika zapisa i ljudi."
     consumers:
       - "WA-C03"
-    source: "Drzavno izborno povjerenstvo; sluzbena stranica nudi CSV/XLSX rezultate."
-    version: "tocna datoteka i kontrolni zbroj pripadaju P3-DIP"
-    licence: "na pregledanoj sluzbenoj stranici nije pronadjena izricita licenca za redistribuciju"
-    attribution: "DIP, tocni izbori, datum, sluzbeni URL i opis obrade."
-    access: "Sluzbena stranica otvorenih podataka."
+    source: >-
+      Drzavno izborno povjerenstvo Republike Hrvatske, Izbori za zastupnike u
+      Hrvatski sabor 2024.; sluzbeni arhiv rezultati_sabor.zip i Izvjesce o
+      provedenim izborima, osobito tablica Odaziv biraca na str. 124.
+    version: >-
+      portal pregledan 2026-08-05; rezultati_sabor.zip Last-Modified
+      2024-10-07T14:53:07Z, ETag c4d2139fc818db1:0, 11173400 bajtova; sluzbeno
+      Izvjesce Last-Modified 2024-04-25T10:40:55Z, ETag a5d26adfd96da1:0,
+      2883428 bajtova. ETag je posluziteljski identifikator, ne kontrolni zbroj
+      lokalne kopije.
+    licence: >-
+      Sluzbena stranica izvor naziva otvorenim podacima i navodi CSV/XLSX
+      dostupnost, ali na pregledanoj stranici nije pronadjena izricita licenca
+      ili drugi temelj za redistribuciju lokalne kopije.
+    attribution: >-
+      Izvor: Drzavno izborno povjerenstvo Republike Hrvatske, Izbori za
+      zastupnike u Hrvatski sabor 2024., sluzbeni portal i Izvjesce o provedenim
+      izborima; portal pregledan 5. kolovoza 2026.; opis obrade: prijepis
+      objavljenih ukupnih vrijednosti samo radi uskladjenja, bez lokalne kopije.
+    access: >-
+      Otvorite https://www.izbori.hr/site/UserDocsImages/479, odaberite 2024.;
+      poveznica vodi na
+      https://www.izbori.hr/site/UserDocsImages/2024/rezultati_sabor.zip.
+      Provjeru ukupnih vrijednosti napravite u sluzbenom Izvjescu o provedenim
+      izborima, tablica Odaziv biraca na str. 124.
     redistribution: "nije dokazana za lokalnu kopiju"
     lane: "portal-mediated"
     refresh_class: "frozen"
@@ -1619,12 +1641,20 @@ packages:
       zadatak koristi provjereni DZS agregat ili generirani kategoricki skup.
     integrity:
       checksum: null
-      official_reconciliation: null
+      official_reconciliation: >-
+        Sluzbena tablica na str. 124 daje zbroj I.-XII. od 3558089 biraca u
+        nazivniku i 2216763 pristupila glasovanju, odnosno 62,30 posto; zbroj
+        dvanaest objavljenih redaka reproducira oba iznosa bez ostatka. Vazeci
+        (2154733) i nevazeci (60476) listici zbrojeni iz redaka I.-XI. i sest
+        manjinskih redaka XII. daju 2215209 glasovalo prema listicima, bez
+        ostatka; to je 1554 manje od broja pristupilih i zato se dvije varijable
+        ne smiju zamijeniti.
       note: >-
-        Usklađenje s objavljenim ukupnim brojevima biljezi P3-DIP; portalna
-        traka sama po sebi ne dopusta lokalnu kopiju.
+        Nema lokalne izborne datoteke pa nema lokalnoga kontrolnog zbroja.
+        Posluziteljski ETagovi sluze samo identifikaciji pregledane objave i ne
+        prikazuju se kao hash bajtova koje knjiga posjeduje.
     promoted: false
-    promoting_gate: "G-A3-DIP"
+    promoted_by: null
     files: []
     aggregate_view: null
     permissible_claims:
