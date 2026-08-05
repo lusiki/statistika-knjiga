@@ -62,6 +62,29 @@ portfolio_caps:
     portfelja. Prekoracenje granice trazi izricito autorsko odobrenje na
     pripadnom G-A3 gateu i ne moze nastati u ovom paketu.
   author_approval_required_to_exceed: true
+  author_approvals:
+    - decided_at: "2026-08-05"
+      approver: "Luka Sikic"
+      record: "notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md"
+      raised:
+        - design: "digital_trace_or_selected_corpus"
+          from: 3
+          to: 4
+          package: "digikat_mediji"
+        - design: "administrative_or_electoral_count"
+          from: 2
+          to: 3
+          package: "rdp_potpore"
+        - design: "official_aggregate_statistics"
+          from: 4
+          to: 5
+          package: "bdp_dugi_niz"
+      note: >-
+        Odobrenje se odnosi ISKLJUCIVO na registraciju triju imenovanih paketa i
+        ne promice nijedan od njih. Sva tri ostaju promoted false i nijedno
+        poglavlje ne smije iz njih tvrditi nista dok njihova vlastita vrata ne
+        prodju. Odobrenje je dano nakon izvidnice koja je za svaki paket
+        zabiljezila nositelja prava, preostale zapreke i lanac provenijencije.
   caps:
     - design: "seeded_simulation_known_population"
       cap: 3
@@ -74,13 +97,13 @@ portfolio_caps:
       promoted: 0
       exempt_frozen_landmarks: false
     - design: "administrative_or_electoral_count"
-      cap: 2
-      registered: 2
+      cap: 3
+      registered: 3
       promoted: 0
       exempt_frozen_landmarks: true
     - design: "official_aggregate_statistics"
-      cap: 4
-      registered: 4
+      cap: 5
+      registered: 5
       promoted: 1
       exempt_frozen_landmarks: false
     - design: "expert_coded_latent_index"
@@ -89,8 +112,8 @@ portfolio_caps:
       promoted: 0
       exempt_frozen_landmarks: false
     - design: "digital_trace_or_selected_corpus"
-      cap: 3
-      registered: 3
+      cap: 4
+      registered: 4
       promoted: 0
       exempt_frozen_landmarks: false
     - design: "volunteer_open_survey"
@@ -2049,3 +2072,1003 @@ packages:
       error_burden: "Kriv financijski zapis pada na imenovani subjekt."
       appeal: "Regulatorni postupak izvan opsega knjige."
 
+  - id: "digikat_mediji"
+    name: "DigiKat, agregat digitalnoga medijskog prostora"
+    status: "registered_not_promoted"
+    design: "digital_trace_or_selected_corpus"
+    domain: "digitalni mediji i komunikologija"
+    unit: >-
+      Jedna celija agregata, ne jedna objava. U platformskim datotekama to je
+      platforma u godini ili u mjesecu; u datoteci izvora jedan izvor kroz cijeli
+      raspon korpusa. Pojedinacna objava nije u ovim datotekama i ne moze se iz
+      njih obnoviti.
+    question: "Kako se objavljivanje i vidljivost razlikuju medju platformama i medju izvorima?"
+    role: "Zakosena raspodjela izvora i mjerni instrument koji ne pokriva sve platforme jednako."
+    consumers: []
+    source: >-
+      DigiKat, Prikaz i analiza katolicke tematike u digitalnom medijskom
+      prostoru, Hrvatsko katolicko sveuciliste, voditelj Luka Sikic. Izvadak je
+      izveden iz triju pracenih agregatnih tablica projekta:
+      data/processed/platform_summary.rds, platform_monthly.rds i
+      source_summary.rds. Puni korpus od priblizno 710.000 objava NIJE citan i
+      stoji zasebno u ovom katalogu kao determ_korpus.
+    version: >-
+      Agregati projekta na dan 22. srpnja 2026. Raspon korpusa je sijecanj 2021.
+      do lipnja 2026.; 2026. ima sest od dvanaest mjeseci i oznacena je stupcem
+      godina_potpuna.
+    licence: "CC BY 4.0"
+    licence_uri: "https://creativecommons.org/licenses/by/4.0/legalcode"
+    attribution: >-
+      Sikic, L. i sur. (2025.-2027.). Prikaz i analiza katolicke tematike u
+      digitalnom medijskom prostoru. Hrvatsko katolicko sveuciliste, agregati
+      data/processed/; CC BY 4.0; izmjene su oznacene u
+      data/digikat-mediji.LICENCA.md.
+    access: "Repozitorij projekta; https://github.com/lusiki/DigiKat"
+    redistribution: >-
+      provjerena za agregatne tablice: DATA_AVAILABILITY.md projekta objavljuje
+      data/processed/*.rds pod CC BY 4.0 uz izricitu tvrdnju da su agregat bez
+      osobnih podataka i da se smiju redistribuirati. Autor knjige i voditelj
+      projekta ista su osoba i ta je dispozicija potvrdjena 5. kolovoza 2026.
+      Puni korpus ostaje izvan te dozvole.
+    lane: "bundled"
+    refresh_class: "manual-derived"
+    fallback: >-
+      Do promocije obvezni studentski put koristi generirani paket anketa_mreze
+      ili njegov agregat; ovaj paket sluzi za pripremu i za prikaz, a ne kao
+      temelj obvezne vjezbe.
+    provenance:
+      retrieved_at: "2026-08-05"
+      route: >-
+        Autorov lokalni checkout projekta DigiKat. Citane su iskljucivo tri
+        pracene agregatne tablice; master korpus nije otvoren. Ovaj paket nije
+        obavio nijedno mrezno preuzimanje.
+      chain:
+        - "https://github.com/lusiki/DigiKat"
+        - "projekt:R/03_aggregate.R (skripta koja je agregate proizvela iz mastera)"
+        - "projekt:data/processed/platform_summary.rds, platform_monthly.rds, source_summary.rds"
+        - "repozitorij:scripts/build-digikat-extracts.R (izvadak u data/)"
+      source_last_modified: "2026-07-22"
+      source_last_modified_note: >-
+        Datum je vrijeme izmjene pracenih agregatnih datoteka u checkoutu
+        projekta, a ne datum objave nekoga sluzbenog izdanja.
+      transformations:
+        - "Odabir: tri od cetrnaest agregatnih tablica; jedanaest tablica s imenovanim akterima nije preuzeto."
+        - "Imena stupaca prevedena na hrvatski; izvorne oznake platformi prepisane doslovno."
+        - "Zbrajanje: u datoteci izvora godisnji redci zbrojeni su u jedan redak po izvoru."
+        - "Filtar imenovanja: zadrzani su samo izvori cije je ime gola internetska domena; stranice, kanali i osobni racuni izostavljeni su."
+        - "Mala slova: imena domena svedena na mala slova."
+        - "Dodan stupac metrika_dostupna; dodan stupac objave_godina_ukupno kao nazivnik."
+        - "Izostavljen avg_engagement_rate, jer je prosjek omjera i ne smije se zbrajati kroz godine."
+        - "Izostavljeni uzvodni udjeli u pomicnom zarezu; umjesto njih stoji nazivnik."
+        - "Kodiranje UTF-8 bez BOM-a, zavrsetak retka LF."
+    integrity:
+      checksum: "fc90ae84bbb0b03d599a7b9cf3fcb08e"
+      checksum_algorithm: "md5"
+      official_reconciliation: null
+      note: >-
+        Zabiljezeni kontrolni zbroj pripada datoteci data/digikat-izvori.csv;
+        svaka od triju datoteka nosi vlastiti MD5 u file_records i sve se
+        provjeravaju nad bajtovima na disku. Usklađenja sa sluzbenim izvorom
+        nema i ne moze ga biti: rijec je o vlasnickom korpusu, a ne o sluzbenoj
+        statistici. To je jedan od razloga zasto paket nije promoviran.
+    promoted: false
+    promoting_gate: "G-A3-DIGIKAT"
+    files:
+      - "data/digikat-platforme-godisnje.csv"
+      - "data/digikat-platforme-mjesecno.csv"
+      - "data/digikat-izvori.csv"
+    aggregate_view: null
+    snapshot_notice: "data/digikat-mediji.LICENCA.md"
+    build_script: "scripts/build-digikat-extracts.R"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Ovo su agregati prebrojanoga korpusa, ne uzorak, pa stupca tezine
+        uzorkovanja nema i ne smije se izmisliti. Korpus nije uzorak nikakve
+        populacije: objava ulazi u njega ako sadrzi najmanje dva razlicita
+        katolicka pojma.
+      precision_note: >-
+        Sve su vrijednosti cjelobrojne i prepisane doslovno. Nijedan udio,
+        prosjek ni stopa nije izracunat u ovim datotekama; gdje udio treba,
+        stoji nazivnik.
+      missing_note: >-
+        Nijedna celija nije prazna i nijedna ne nosi kod nedostajuce
+        vrijednosti. Nula je zapisana kao nula, ali na platformama reddit, forum
+        i comment ona nije izmjerena nula nego posljedica toga sto pruzatelj za
+        te vrste izvora ne isporucuje mjere angazmana. Tu razliku nosi stupac
+        metrika_dostupna, koji je jedini nacin da nula i nedostatak ostanu
+        razliciti bez prekodiranja tudje brojke.
+    file_records:
+      - path: "data/digikat-platforme-godisnje.csv"
+        role: "analysis"
+        md5: "fa7ed7c65b0940df9f96a0b3e7fdcff4"
+        rows: 49
+        row_band: [49, 49]
+        key: "godina+platforma"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 2021
+            max: 2026
+            description: "Kalendarska godina objave."
+          - name: "platforma"
+            type: "label"
+            unit: "oznaka vrste izvora"
+            missing_code: null
+            description: "Izvorna oznaka vrste izvora iz projekta DigiKat; nije prevedena."
+          - name: "objave"
+            type: "integer"
+            unit: "broj objava"
+            missing_code: null
+            min: 1
+            description: "Broj objava u korpusu koje pripadaju toj celiji."
+          - name: "objave_godina_ukupno"
+            type: "integer"
+            unit: "broj objava"
+            missing_code: null
+            min: 1
+            description: "Nazivnik godisnjega udjela: sve objave te godine, kroz sve platforme."
+          - name: "interakcije"
+            type: "integer"
+            unit: "broj interakcija"
+            missing_code: null
+            min: 0
+            description: "Zbroj interakcija. Nula na platformi bez mjerenja NIJE izmjerena nula; vidi metrika_dostupna."
+          - name: "doseg"
+            type: "integer"
+            unit: "procijenjeni doseg"
+            missing_code: null
+            min: 0
+            description: "Zbroj procijenjenoga dosega. Procjena pruzatelja usluge, ne broj razlicitih osoba."
+          - name: "metrika_dostupna"
+            type: "label"
+            unit: "oznaka"
+            missing_code: null
+            levels:
+              - "da"
+              - "ne"
+            description: "Isporucuje li pruzatelj mjere angazmana za tu platformu. Kad je ne, interakcije i doseg stoje na 0 iz izvora."
+          - name: "godina_potpuna"
+            type: "label"
+            unit: "oznaka"
+            missing_code: null
+            levels:
+              - "da"
+              - "ne"
+            description: "Ima li godina svih dvanaest mjeseci. Korpus zavrsava u lipnju 2026."
+      - path: "data/digikat-platforme-mjesecno.csv"
+        role: "analysis"
+        md5: "3f36b9015a7c4634732998f5bf51ed3f"
+        rows: 438
+        row_band: [438, 438]
+        key: "mjesec+platforma"
+        columns:
+          - name: "mjesec"
+            type: "text"
+            unit: "godina i mjesec"
+            missing_code: null
+            description: "Mjesec objave u obliku YYYY-MM."
+          - name: "godina"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 2021
+            max: 2026
+            description: "Kalendarska godina objave."
+          - name: "mjesec_redni"
+            type: "integer"
+            unit: "redni broj mjeseca"
+            missing_code: null
+            min: 1
+            max: 12
+            description: "Redni broj mjeseca u godini."
+          - name: "platforma"
+            type: "label"
+            unit: "oznaka vrste izvora"
+            missing_code: null
+            description: "Izvorna oznaka vrste izvora iz projekta DigiKat; nije prevedena."
+          - name: "objave"
+            type: "integer"
+            unit: "broj objava"
+            missing_code: null
+            min: 1
+            description: "Broj objava u korpusu koje pripadaju toj celiji."
+          - name: "interakcije"
+            type: "integer"
+            unit: "broj interakcija"
+            missing_code: null
+            min: 0
+            description: "Zbroj interakcija. Nula na platformi bez mjerenja NIJE izmjerena nula; vidi metrika_dostupna."
+          - name: "doseg"
+            type: "integer"
+            unit: "procijenjeni doseg"
+            missing_code: null
+            min: 0
+            description: "Zbroj procijenjenoga dosega. Procjena pruzatelja usluge, ne broj razlicitih osoba."
+          - name: "metrika_dostupna"
+            type: "label"
+            unit: "oznaka"
+            missing_code: null
+            levels:
+              - "da"
+              - "ne"
+            description: "Isporucuje li pruzatelj mjere angazmana za tu platformu. Kad je ne, interakcije i doseg stoje na 0 iz izvora."
+      - path: "data/digikat-izvori.csv"
+        role: "analysis"
+        md5: "fc90ae84bbb0b03d599a7b9cf3fcb08e"
+        rows: 3604
+        row_band: [3604, 3604]
+        key: "izvor"
+        columns:
+          - name: "izvor"
+            type: "text"
+            unit: "naziv domene"
+            missing_code: null
+            description: "Internetska domena izvora, svedena na mala slova. Samo organizacije; nijedna imenovana osoba."
+          - name: "objave"
+            type: "integer"
+            unit: "broj objava"
+            missing_code: null
+            min: 1
+            description: "Broj objava u korpusu koje pripadaju toj celiji."
+          - name: "interakcije"
+            type: "integer"
+            unit: "broj interakcija"
+            missing_code: null
+            min: 0
+            description: "Zbroj interakcija. Nula na platformi bez mjerenja NIJE izmjerena nula; vidi metrika_dostupna."
+          - name: "doseg"
+            type: "integer"
+            unit: "procijenjeni doseg"
+            missing_code: null
+            min: 0
+            description: "Zbroj procijenjenoga dosega. Procjena pruzatelja usluge, ne broj razlicitih osoba."
+          - name: "godine_prisutnosti"
+            type: "integer"
+            unit: "broj godina"
+            missing_code: null
+            min: 1
+            max: 6
+            description: "U koliko je razlicitih godina izvor uopce bio prisutan u korpusu."
+    permissible_claims:
+      - "opis broja objava po platformi i po izvoru unutar ovoga korpusa"
+      - "opis oblika raspodjele izvora po produktivnosti i dosegu"
+      - "usporedba platformi po objavama, uz uvazavanje stupca metrika_dostupna"
+    unavailable_claims:
+      - "tvrdnja o hrvatskom medijskom prostoru u cjelini"
+      - "tvrdnja o javnom mnijenju ili o stavovima ljudi"
+      - "tvrdnja o broju razlicitih osoba koje su sadrzaj vidjele"
+      - "usporedba interakcija izmedju platforme s mjerenjem i platforme bez njega"
+      - "svaka tvrdnja o pojedinacnoj objavi ili o imenovanom akteru"
+    ethics:
+      category_ownership: >-
+        Vrste izvora odredjuje komercijalni pruzatelj usluge pracenja medija, a
+        pravilo ulaska u korpus odredjuje istrazivacki tim.
+      absence: >-
+        Izvori koje pruzatelj ne prati ne postoje u ovim brojkama, i njihova se
+        odsutnost iz datoteke ne vidi.
+      identifiability: >-
+        Nijedna imenovana osoba nije u izvatku. Zadrzane su samo organizacije
+        prepoznate po goloj internetskoj domeni; jedanaest uzvodnih tablica s
+        imenovanim akterima namjerno je izostavljeno.
+      beneficiaries: "Citatelj koji uci sto digitalni trag mjeri, a sto ne."
+      error_burden: >-
+        Kriva brojka pada na imenovanu medijsku kucu, pa se izvor nikada ne
+        prikazuje bez raspona i bez granica korpusa.
+      appeal: "Nije uspostavljen; to je dio pouke o granicama traga."
+    caveats:
+      - "Korpus nije uzorak: objava ulazi ako sadrzi najmanje dva razlicita katolicka pojma."
+      - "Godina 2026. ima sest mjeseci i ne usporedjuje se s punim godinama."
+      - "Doseg je procjena pruzatelja, nije broj razlicitih osoba i ista se osoba moze brojiti vise puta."
+      - "Nula u interakcijama i dosegu na reddit, forum i comment nije izmjerena nula."
+      - "515 izvora u datoteci izvora ima doseg 0 i za njih vrijedi ista sumnja."
+
+  - id: "rdp_potpore"
+    name: "Registar drzavnih potpora, agregati koncentracije"
+    status: "registered_not_promoted"
+    design: "administrative_or_electoral_count"
+    domain: "javne politike i politicka ekonomija"
+    unit: >-
+      Jedna agregatna celija. Ovisno o datoteci to je skupina primatelja,
+      godina, razred velicine, vrsta potpore ili jedan naslovni pokazatelj.
+      Pojedinacna dodjela i pojedinacni primatelj nisu u ovim datotekama i
+      nijedan OIB se ne pojavljuje.
+    question: "Koliko je koncentrirana dodjela drzavnih potpora i koliko ju je snimka registra uopce zabiljezila?"
+    role: "Registar koji nije popis: obuhvat snimke naspram sluzbenoga iznosa."
+    consumers: []
+    source: >-
+      Registar drzavnih potpora i potpora male vrijednosti, Ministarstvo
+      financija Republike Hrvatske, https://rdp.gov.hr/javno; snimka dovrsena
+      19. srpnja 2026. Sluzbeni godisnji iznosi za usporedbu obuhvata preuzeti
+      su iz Godisnjega izvjesca o drzavnim potporama za 2023., str. 14. Agregate
+      je izracunao projekt AI.econ / CroAIcon.
+    version: >-
+      Snimka registra od 19. srpnja 2026., dodjele 2017.-2025. sa statusom
+      Ispravan i pozitivnim iznosom. Redci sa statusom Upozorenje iskljuceni su.
+    licence: "CC BY 4.0 za izvedene agregate; uvjeti ponovne uporabe izvornoga registra nisu objavljeni"
+    licence_uri: "https://creativecommons.org/licenses/by/4.0/legalcode"
+    attribution: >-
+      Registar drzavnih potpora i potpora male vrijednosti, Ministarstvo
+      financija Republike Hrvatske, https://rdp.gov.hr/javno, snimka od
+      19. srpnja 2026.; agregati izracunati u projektu AI.econ; izmjene su
+      oznacene u data/rdp-potpore.LICENCA.md.
+    access: "Javno pretrazivo sucelje registra; https://rdp.gov.hr/javno"
+    redistribution: >-
+      nije dovrsena. Suglasnost suautora projekta AI.econ za redistribuciju
+      izvedenih agregata autor je potvrdio 5. kolovoza 2026. Uvjeti ponovne
+      uporabe samoga registra i dalje nisu utvrdjeni i to je jedina preostala
+      zapreka promociji.
+    lane: "bundled"
+    refresh_class: "manual-derived"
+    fallback: >-
+      Do promocije obvezni studentski put koristi paket dzs_turizam ili
+      generirani paket; ovaj paket sluzi za pripremu i za prikaz.
+    provenance:
+      retrieved_at: "2026-08-05"
+      route: >-
+        Autorov lokalni checkout projekta CroAIcon. Citane su iskljucivo vec
+        izracunate agregatne tablice pod outputs/; nijedan redak pojedinacne
+        dodjele nije otvoren. Ovaj paket nije obavio nijedno mrezno preuzimanje.
+      chain:
+        - "https://rdp.gov.hr/javno"
+        - "projekt:python/state_aid_concentration_build.py (izracun agregata iz snimke registra)"
+        - "projekt:outputs/tables/state_aid_*.csv i outputs/facts/state_aid_concentration.json"
+        - "projekt:data/reference/mfin_state_aid_official_totals_2021_2023.csv (sluzbeni referentni niz)"
+        - "repozitorij:scripts/build-croaicon-extracts.py (izvadak u data/)"
+      source_last_modified: "2026-07-19"
+      source_last_modified_note: >-
+        Datum je vrijeme dovrsetka snimke registra, zabiljezen u uzvodnoj
+        datoteci cinjenica. Registar nema objavljeno polje o posljednjoj izmjeni.
+      transformations:
+        - "Razina: preuzeti su iskljucivo agregati; nijedan redak ne opisuje pojedinacnu dodjelu ni imenovanoga primatelja."
+        - "Odabir: sest od osam objavljenih agregatnih tablica; razrada po djelatnostima i razrada unutar vrste nisu preuzete."
+        - "Imena stupaca prevedena na hrvatski."
+        - "Razmaci u oznakama skupine, velicine i vrste zamijenjeni podvlakom; tekst nije skracen."
+        - "Dodani nazivnici primatelji_ukupno i iznos_ukupno_eur uz svaki udio."
+        - "Izostavljen stupac scope, koji je bio isti u sva tri retka; njegov je sadrzaj u obavijesti o licenci."
+        - "Izracunat jedan izvedeni redak: iznos_prosjek_po_primatelju, kao iznos podijeljen brojem primatelja."
+        - "Kodiranje UTF-8 bez BOM-a, zavrsetak retka LF."
+    integrity:
+      checksum: "72360d93345ce45c90dcf96c273f1fc8"
+      checksum_algorithm: "md5"
+      official_reconciliation: null
+      note: >-
+        Zabiljezeni kontrolni zbroj pripada datoteci data/rdp-potpore-obuhvat.csv,
+        koja je i sama zapis o neuskladjenosti: ista snimka registra reproducira
+        0,93 posto sluzbenoga iznosa za 2021. i 95,18 posto za 2023. Usklađenje
+        sa sluzbenim izvorom zato NE postoji i ne smije se tvrditi da postoji;
+        odstupanje je zabiljezeno umjesto da bude izgladjeno. To je i razlog
+        zasto rdp-potpore-godisnje.csv nije vremenska serija.
+    promoted: false
+    promoting_gate: "G-A3-RDP"
+    files:
+      - "data/rdp-potpore-skupine.csv"
+      - "data/rdp-potpore-godisnje.csv"
+      - "data/rdp-potpore-velicina.csv"
+      - "data/rdp-potpore-vrsta.csv"
+      - "data/rdp-potpore-obuhvat.csv"
+      - "data/rdp-potpore-sazetak.csv"
+    aggregate_view: null
+    snapshot_notice: "data/rdp-potpore.LICENCA.md"
+    build_script: "scripts/build-croaicon-extracts.py"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Ovo je administrativno prebrojavanje, a ne uzorak, pa tezine uzorkovanja
+        po definiciji ne pripadaju ovom paketu i ne smiju se izmisliti.
+      precision_note: >-
+        Iznosi i udjeli prepisani su punom preciznoscu, bez zaokruzivanja.
+        Zaokruzivanje postoji samo u prikazu u knjizi. Uz svaki udio stoje
+        brojnik i nazivnik, pa se svaki postotak moze provjeriti rucno.
+      missing_note: >-
+        Nijedna celija nije prazna i nijedna ne nosi kod nedostajuce
+        vrijednosti. Nepoznato u stupcu velicina objavljena je kategorija, a NE
+        nedostajuca vrijednost: nosi oko 16 posto iznosa i mora ostati vidljivo.
+    file_records:
+      - path: "data/rdp-potpore-skupine.csv"
+        role: "analysis"
+        md5: "4e1e1e01f82ac9dcbd719345dd076069"
+        rows: 3
+        row_band: [3, 3]
+        key: "skupina"
+        columns:
+          - name: "skupina"
+            type: "label"
+            unit: "oznaka skupine"
+            missing_code: null
+            levels:
+              - "Gornjih_1%"
+              - "Sljedećih_9%"
+              - "Donjih_90%"
+            description: "Skupina primatelja po velicini dodijeljenoga iznosa."
+          - name: "redoslijed"
+            type: "integer"
+            unit: "redni broj"
+            missing_code: null
+            min: 1
+            description: "Objavljeni redoslijed prikaza skupine."
+          - name: "primatelji"
+            type: "integer"
+            unit: "broj primatelja"
+            missing_code: null
+            min: 1
+            description: "Broj razlicitih primatelja u toj celiji."
+          - name: "primatelji_ukupno"
+            type: "integer"
+            unit: "broj primatelja"
+            missing_code: null
+            min: 1
+            description: "Nazivnik udjela primatelja: svi primatelji u snimci."
+          - name: "udio_primatelja_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            min: 0
+            max: 100
+            description: "Udio primatelja; brojnik i nazivnik stoje u istom retku."
+          - name: "iznos_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Zbroj elementa potpore. Nije proracunska isplata ni mjera ucinka."
+          - name: "iznos_ukupno_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Nazivnik udjela iznosa: cijeli iznos u snimci."
+          - name: "udio_iznosa_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            min: 0
+            max: 100
+            description: "Udio iznosa; brojnik i nazivnik stoje u istom retku."
+      - path: "data/rdp-potpore-godisnje.csv"
+        role: "analysis"
+        md5: "07de4f9a255867c8d7fa5037f7c70446"
+        rows: 9
+        row_band: [9, 9]
+        key: "godina"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 2017
+            max: 2026
+            description: "Kalendarska godina objave."
+          - name: "dodjele"
+            type: "integer"
+            unit: "broj dodjela"
+            missing_code: null
+            min: 1
+            description: "Broj pojedinacnih dodjela u toj celiji."
+          - name: "primatelji"
+            type: "integer"
+            unit: "broj primatelja"
+            missing_code: null
+            min: 1
+            description: "Broj razlicitih primatelja u toj celiji."
+          - name: "iznos_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Zbroj elementa potpore. Nije proracunska isplata ni mjera ucinka."
+      - path: "data/rdp-potpore-velicina.csv"
+        role: "analysis"
+        md5: "d897df1defcfeb34bcf944530a3ed7e0"
+        rows: 5
+        row_band: [5, 5]
+        key: "velicina"
+        columns:
+          - name: "velicina"
+            type: "label"
+            unit: "oznaka razreda"
+            missing_code: null
+            levels:
+              - "Veliki"
+              - "Srednje_veliki"
+              - "Mali"
+              - "Mikro"
+              - "Nepoznato"
+            description: "Objavljeni razred velicine primatelja. Nepoznato je objavljena kategorija, ne nedostajuca vrijednost."
+          - name: "redoslijed"
+            type: "integer"
+            unit: "redni broj"
+            missing_code: null
+            min: 1
+            description: "Objavljeni redoslijed prikaza skupine."
+          - name: "dodjele"
+            type: "integer"
+            unit: "broj dodjela"
+            missing_code: null
+            min: 1
+            description: "Broj pojedinacnih dodjela u toj celiji."
+          - name: "primatelji"
+            type: "integer"
+            unit: "broj primatelja"
+            missing_code: null
+            min: 1
+            description: "Broj razlicitih primatelja u toj celiji."
+          - name: "iznos_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Zbroj elementa potpore. Nije proracunska isplata ni mjera ucinka."
+          - name: "udio_iznosa_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            min: 0
+            max: 100
+            description: "Udio iznosa; brojnik i nazivnik stoje u istom retku."
+          - name: "prosjecna_dodjela_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Iznos podijeljen brojem dodjela u razredu."
+      - path: "data/rdp-potpore-vrsta.csv"
+        role: "analysis"
+        md5: "d27279aa779577ce82ad75fc03a0143a"
+        rows: 7
+        row_band: [7, 7]
+        key: "vrsta"
+        columns:
+          - name: "vrsta"
+            type: "label"
+            unit: "oznaka vrste potpore"
+            missing_code: null
+            description: "Objavljena vrsta potpore; razmaci su zamijenjeni podvlakom, tekst nije skracen."
+          - name: "dodjele"
+            type: "integer"
+            unit: "broj dodjela"
+            missing_code: null
+            min: 1
+            description: "Broj pojedinacnih dodjela u toj celiji."
+          - name: "primatelji"
+            type: "integer"
+            unit: "broj primatelja"
+            missing_code: null
+            min: 1
+            description: "Broj razlicitih primatelja u toj celiji."
+          - name: "iznos_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Zbroj elementa potpore. Nije proracunska isplata ni mjera ucinka."
+          - name: "udio_iznosa_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            min: 0
+            max: 100
+            description: "Udio iznosa; brojnik i nazivnik stoje u istom retku."
+      - path: "data/rdp-potpore-obuhvat.csv"
+        role: "analysis"
+        md5: "72360d93345ce45c90dcf96c273f1fc8"
+        rows: 3
+        row_band: [3, 3]
+        key: "godina"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 2021
+            max: 2026
+            description: "Kalendarska godina objave."
+          - name: "sluzbeni_iznos_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Sluzbeni godisnji iznos iz izvjesca Ministarstva financija za 2023., str. 14."
+          - name: "sluzbeni_udio_bdp_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            min: 0
+            max: 100
+            description: "Sluzbeni udio potpora u BDP-u te godine."
+          - name: "registar_dodjele"
+            type: "integer"
+            unit: "broj dodjela"
+            missing_code: null
+            min: 1
+            description: "Sve dodjele te godine u snimci registra."
+          - name: "registar_iznos_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Iznos svih dodjela te godine u snimci registra."
+          - name: "analiticke_dodjele"
+            type: "integer"
+            unit: "broj dodjela"
+            missing_code: null
+            min: 1
+            description: "Dodjele s valjanim OIB-om, koje ulaze u analizu primatelja."
+          - name: "analiticki_iznos_eur"
+            type: "number"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Iznos dodjela s valjanim OIB-om."
+          - name: "registar_prema_sluzbenom_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            min: 0
+            description: "Koliki dio sluzbenoga iznosa snimka registra uopce reproducira. Raspon od 0,93 do 95,18."
+          - name: "analiticki_prema_sluzbenom_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            min: 0
+            description: "Isto, za dodjele s valjanim OIB-om."
+      - path: "data/rdp-potpore-sazetak.csv"
+        role: "analysis"
+        md5: "dec148517924041650657bc2a206506f"
+        rows: 15
+        row_band: [15, 15]
+        key: "pokazatelj"
+        columns:
+          - name: "pokazatelj"
+            type: "text"
+            unit: "naziv pokazatelja"
+            missing_code: null
+            description: "Ime naslovne brojke."
+          - name: "vrijednost"
+            type: "number"
+            unit: "ovisi o retku"
+            missing_code: null
+            description: "Vrijednost pokazatelja. Jedinica se razlikuje po retku i stoji u stupcu jedinica."
+          - name: "jedinica"
+            type: "label"
+            unit: "oznaka jedinice"
+            missing_code: null
+            levels:
+              - "godina"
+              - "broj"
+              - "euro"
+              - "koeficijent"
+              - "posto"
+            description: "Mjerna jedinica retka. Stupac se zato NE smije prosjeciti."
+    permissible_claims:
+      - "opis koncentracije dodijeljenoga iznosa unutar ove snimke registra"
+      - "usporedba medijana i aritmeticke sredine dodijeljenoga iznosa po primatelju"
+      - "opis razlike izmedju zabiljezenoga i sluzbeno objavljenoga godisnjeg iznosa"
+    unavailable_claims:
+      - "tvrdnja da je godisnji niz nacionalna vremenska serija drzavnih potpora"
+      - "tvrdnja da je rast iznosa kroz godine rast stvarnih potpora"
+      - "tvrdnja o pojedinacnom primatelju ili o pojedinacnoj dodjeli"
+      - "tvrdnja o ucinku potpore"
+      - "uzrocnost"
+    ethics:
+      category_ownership: >-
+        Razrede velicine i vrste potpore odredjuje regulator i europski okvir
+        drzavnih potpora, a ne istrazivac.
+      absence: >-
+        Dodjele koje u registar nisu upisane ne postoje u ovim brojkama.
+        Tablica obuhvata je jedini nacin da se ta odsutnost uopce vidi.
+      identifiability: >-
+        Agregat; nijedan primatelj nije imenovan i nijedan OIB se ne pojavljuje.
+        Uzvodni registar JEST imenovan i javan, sto je razlog vise da izvadak
+        ostane na razini skupine.
+      beneficiaries: "Citatelj koji uci razlikovati okvir zapisa od pojave koju zapis mjeri."
+      error_burden: >-
+        Kriva tvrdnja o koncentraciji pada na javnu raspravu o trosenju
+        proracuna i na imenovane primatelje u uzvodnom registru.
+      appeal: "Ispravak upisa vodi se kod nadleznoga tijela, izvan opsega knjige."
+    caveats:
+      - "Snimka za 2021. reproducira 0,93 posto sluzbenoga iznosa, a za 2023. 95,18 posto."
+      - "Iznos je element potpore, ne proracunska isplata i ne mjera ucinka."
+      - "Redci sa statusom Upozorenje iskljuceni su; najveci medju njima iznosi oko 18,7 milijardi eura."
+      - "Naslovni iznos izvjesca za 2024. nije izravno usporediv s ranijim izvjescima."
+      - "Velicina se odnosi na pojedinu dodjelu i moze se mijenjati kroz vrijeme."
+      - >-
+        Upravljanje: vrata G-A3-RDP imenovana su u polju promoting_gate, ali JOS
+        NISU upisana u notes/reports/comprehensive-review-implementation-register.yml.
+        Ratificirani program nikada nije predvidio CroAIcon kao izvor; predvidio
+        je samo gfi_fina, i to je zabranio. Uvodjenje tih vrata mijenja registar
+        i trazi autorsko odobrenje na zatvaranju paketa. Dok ih nema, paket se
+        ne moze promovirati ni pod kojim postojecim gateom.
+
+  - id: "bdp_dugi_niz"
+    name: "BDP po stanovniku, dugi niz i pet procjena"
+    status: "registered_not_promoted"
+    design: "official_aggregate_statistics"
+    domain: "ekonomska povijest i usporedivost mjerenja"
+    unit: >-
+      Jedna godina. U datoteci izvora to je godina s pet odvojenih procjena, u
+      spojenoj datoteci godina jednoga ulancanog niza, a u datoteci razdoblja
+      jedno imenovano razdoblje.
+    question: "Koliko se razlikuju objavljene procjene iste velicine i sto se dobiva kad ih se spoji u jedan niz?"
+    role: "Pet objavljenih procjena iste velicine, s razlicitim jedinicama i sa spojenim nizom."
+    consumers: []
+    source: >-
+      Pet objavljenih procjena BDP-a po stanovniku za Hrvatsku: Eurostat
+      nacionalni racuni nama_10_pc; Maddison Project Database 2023 (Bolt i van
+      Zanden, 2024.); Penn World Table 10.01; Svjetska banka WDI
+      NY.GDP.PCAP.KD; Tica, J. (2004.), Zagreb International Review of Economics
+      and Business 7(1):103-133. Spajanje i ulancavanje izveo je projekt
+      AI.econ / CroAIcon; registar izvora je data/reference/gdp_sources.json u
+      tom projektu.
+    version: >-
+      Sastav projekta AI.econ od 22. lipnja 2026. Raspon 1870.-2025.; cetiri
+      tocke prije 1910. su pojedinacne referentne procjene, ne godisnji niz.
+    licence: "CC BY 4.0 za sastav i spojeni niz; pet komponenti nosi vlastite uvjete"
+    licence_uri: "https://creativecommons.org/licenses/by/4.0/legalcode"
+    attribution: >-
+      Svaki stupac nosi vlastiti izvor i vlastiti citat; puna matrica pet izvora,
+      pet jedinica i pet licenci stoji u data/bdp-hrvatska.LICENCA.md. Maddison
+      se citira kao Bolt i van Zanden (2024.), Tica kao Tica (2004.).
+    access: "Sluzbena sucelja pet pruzatelja; Ticina rekonstrukcija samo kao PDF na Hrcaku"
+    redistribution: >-
+      nije dovrsena. Suglasnost suautora projekta AI.econ autor je potvrdio
+      5. kolovoza 2026. Preostaju dvije zapreke: Eurostatov stupac po ovom
+      katalogu pripada traci portal-mediated, u kojoj se datoteka ne pohranjuje
+      nego se daje uputa za preuzimanje, i uvjeti MPD-a za prikaz jedne zemlje
+      nisu potvrdjeni.
+    lane: "bundled"
+    refresh_class: "manual-derived"
+    fallback: >-
+      Do promocije obvezni studentski put koristi paket dzs_turizam ili
+      generirani paket; ovaj paket sluzi za pripremu i za prikaz.
+    provenance:
+      retrieved_at: "2026-08-05"
+      route: >-
+        Autorov lokalni checkout projekta CroAIcon. Citane su vec izracunate
+        tablice pod outputs/tables/; nijedan uzvodni pruzatelj nije kontaktiran
+        iz ovoga repozitorija. Ovaj paket nije obavio nijedno mrezno preuzimanje.
+      chain:
+        - "projekt:data/reference/gdp_sources.json (registar pet izvora, uloga i licenci)"
+        - "projekt:R i python skripte koje su niz sastavile i ulancale"
+        - "projekt:outputs/tables/gdp_raw.csv, gdp_long.csv, gdp_growth_eras.csv"
+        - "projekt:outputs/facts/gdp_provenance.json (baza indeksa, odsjecci, oznaceni prekid)"
+        - "repozitorij:scripts/build-croaicon-extracts.py (izvadak u data/)"
+      source_last_modified: "2026-06-22"
+      source_last_modified_note: >-
+        Datum je vrijeme kad je uzvodni projekt sastavio niz, zabiljezeno u
+        njegovoj datoteci provenijencije. Pet uzvodnih pruzatelja ima pet
+        vlastitih datuma objave i oni ovdje nisu spojeni u jedan.
+      transformations:
+        - "Imena stupaca prevedena na hrvatski; jedinica je upisana u ime stupca, jer se stupci razlikuju upravo po jedinici."
+        - "Uzvodni NA zapisan je kao '..' i znaci da imenovana procjena ne pokriva tu godinu."
+        - "Razmaci u oznakama razdoblja zamijenjeni podvlakom."
+        - "Logicke vrijednosti TRUE i FALSE zapisane su kao da i ne."
+        - "Izostavljena Chow-Lin mjesecna razdioba za 1991.-1992., jer je modelirana velicina, a ne opazanje."
+        - "Kodiranje UTF-8 bez BOM-a, zavrsetak retka LF."
+    missing_value_codes:
+      - code: ".."
+        meaning: "imenovana procjena ne pokriva tu godinu"
+        occurs_in_extract: true
+        note: >-
+          Pojavljuje se u svih pet stupaca datoteke bdp-hrvatska-izvori.csv i
+          nikada ne znaci nulu. Razlozi su razliciti po stupcu: Maddison za
+          Hrvatsku ne daje vrijednost prije 1952., PWT zavrsava 2019., Eurostat
+          pocinje 1995., a Ticina rekonstrukcija ne popunjava ratne godine
+          1914.-1919. i 1940.-1946.
+    integrity:
+      checksum: "0f24ccc32f0b8a8f58cd4cc84e9271c4"
+      checksum_algorithm: "md5"
+      official_reconciliation: null
+      note: >-
+        Zabiljezeni kontrolni zbroj pripada datoteci data/bdp-hrvatska-izvori.csv.
+        Usklađenje sa sluzbenim izvorom NE postoji i nije ga moguce napraviti:
+        pet stupaca nose pet razlicitih jedinica, pa se ne mogu ni usporediti
+        medjusobno ni zbrojiti u sluzbeni ukupni iznos. Upravo je to sadrzaj
+        paketa, a ne njegov nedostatak.
+    promoted: false
+    promoting_gate: "G-A3-BDP"
+    files:
+      - "data/bdp-hrvatska-izvori.csv"
+      - "data/bdp-hrvatska-spojeni.csv"
+      - "data/bdp-hrvatska-razdoblja.csv"
+    aggregate_view: null
+    snapshot_notice: "data/bdp-hrvatska.LICENCA.md"
+    build_script: "scripts/build-croaicon-extracts.py"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Ovo su objavljeni makroagregati, ne mikropodaci, pa stupca tezine
+        uzorkovanja nema i ne smije se izmisliti.
+      precision_note: >-
+        Vrijednosti su prepisane punom preciznoscu iz uzvodnoga sastava, bez
+        zaokruzivanja. Indeks je usidren na 2015. = 100, gdje je razina 11.760
+        eura.
+      missing_note: >-
+        Jedini kod nedostajuce vrijednosti je '..' i znaci da imenovana procjena
+        ne pokriva tu godinu. Nikada ne znaci nulu i nikada se ne smije citati
+        kao pad. Pojavljuje se samo u datoteci izvora.
+    file_records:
+      - path: "data/bdp-hrvatska-izvori.csv"
+        role: "analysis"
+        md5: "0f24ccc32f0b8a8f58cd4cc84e9271c4"
+        rows: 103
+        row_band: [103, 103]
+        key: "godina"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 1910
+            max: 2026
+            description: "Kalendarska godina objave."
+          - name: "eurostat_eur_clv"
+            type: "number"
+            unit: "euro po stanovniku, ulancani obujam"
+            missing_code: ".."
+            min: 0
+            description: "Eurostat, nama_10_pc, od 1995. Jedini odsjecak s izravno opazenim razinama."
+          - name: "maddison_int2011"
+            type: "number"
+            unit: "2011. medjunarodni dolar"
+            missing_code: ".."
+            min: 0
+            description: "Maddison Project Database 2023, HRV 1952.-2022."
+          - name: "pwt_usd2017"
+            type: "number"
+            unit: "2017. americki dolar"
+            missing_code: ".."
+            min: 0
+            description: "Penn World Table 10.01, HRV 1950.-2019."
+          - name: "svjetska_banka_usd2015"
+            type: "number"
+            unit: "stalni 2015. americki dolar"
+            missing_code: ".."
+            min: 0
+            description: "Svjetska banka, WDI NY.GDP.PCAP.KD, HRV od 1990."
+          - name: "tica_gk1990"
+            type: "number"
+            unit: "Geary-Khamis 1990."
+            missing_code: ".."
+            min: 0
+            description: "Tica (2004.), rekonstrukcija 1910.-1989. Autor sam upozorava na oprez."
+      - path: "data/bdp-hrvatska-spojeni.csv"
+        role: "analysis"
+        md5: "934e850d5ab213c266fc833f8981230c"
+        rows: 107
+        row_band: [107, 107]
+        key: "godina"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 1870
+            max: 2026
+            description: "Kalendarska godina objave."
+          - name: "bdp_pc_eur"
+            type: "number"
+            unit: "euro po stanovniku"
+            missing_code: null
+            min: 0
+            description: "Spojeni niz, ulancan po stopama rasta i usidren na 2015. = 11.760 eura."
+          - name: "segment"
+            type: "label"
+            unit: "oznaka odsjecka"
+            missing_code: null
+            levels:
+              - "tica"
+              - "maddison"
+              - "modern"
+            description: "Koja je procjena isporucila taj dio niza."
+          - name: "granulacija"
+            type: "label"
+            unit: "oznaka gustoce"
+            missing_code: null
+            levels:
+              - "annual"
+              - "benchmark"
+            description: "Godisnje opazanje ili pojedinacna referentna tocka prije 1910."
+          - name: "indeks_2015_100"
+            type: "number"
+            unit: "indeks, 2015. = 100"
+            missing_code: null
+            min: 0
+            description: "Isti niz kao indeks."
+          - name: "prekid"
+            type: "label"
+            unit: "oznaka"
+            missing_code: null
+            levels:
+              - "da"
+              - "ne"
+            description: "Jesu li godine rekonstruirane, a ne opazene. Oznacene su 1991.-1995."
+      - path: "data/bdp-hrvatska-razdoblja.csv"
+        role: "analysis"
+        md5: "10ed2e5f9da4f5a045e39ebbeafbc9f4"
+        rows: 8
+        row_band: [8, 8]
+        key: "razdoblje"
+        columns:
+          - name: "razdoblje"
+            type: "label"
+            unit: "naziv razdoblja"
+            missing_code: null
+            description: "Ime razdoblja. Granice je odabrao analiticar i nisu svojstvo podataka."
+          - name: "godina_od"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 1870
+            max: 2025
+            description: "Pocetna godina razdoblja."
+          - name: "godina_do"
+            type: "integer"
+            unit: "godina"
+            missing_code: null
+            min: 1870
+            max: 2025
+            description: "Zavrsna godina razdoblja."
+          - name: "prosjecni_godisnji_rast_pct"
+            type: "number"
+            unit: "posto na godinu"
+            missing_code: null
+            description: "Prosjecna godisnja stopa rasta u razdoblju."
+          - name: "ukupna_promjena_pct"
+            type: "number"
+            unit: "posto"
+            missing_code: null
+            description: "Ukupna promjena kroz cijelo razdoblje."
+          - name: "rast"
+            type: "label"
+            unit: "oznaka"
+            missing_code: null
+            levels:
+              - "da"
+              - "ne"
+            description: "Je li ukupna promjena pozitivna."
+    permissible_claims:
+      - "opis razlika medju pet objavljenih procjena iste velicine za istu godinu"
+      - "opis oblika spojenoga niza uz navodjenje odsjecka i oznacenoga prekida"
+      - "opis stopa rasta po imenovanim razdobljima, uz napomenu da je granice odabrao analiticar"
+    unavailable_claims:
+      - "prosjek ili usporedba razina medju stupcima s razlicitim jedinicama"
+      - "tvrdnja da je jedna od pet procjena tocna, a ostale pogresne"
+      - "tvrdnja o opazenim razinama za godine 1991.-1995."
+      - "uzrocnost"
+    ethics:
+      category_ownership: >-
+        Definicije i baze odredjuju europska i medjunarodna statisticka
+        metodologija te pojedini akademski autori, a ne istrazivac.
+      absence: >-
+        Godine koje pojedina procjena ne pokriva ostaju vidljive kao '..', a ne
+        popunjene interpolacijom.
+      identifiability: "Agregat; nijedna osoba nije prepoznatljiva."
+      beneficiaries: "Citatelj koji uci da jedinica i baza mjerenja nisu detalj."
+      error_burden: >-
+        Kriva usporedba razina pada na javnu raspravu o gospodarskoj povijesti
+        zemlje i osobito na tumacenje devedesetih.
+      appeal: "Nije primjenjivo za agregat; ispravci idu kroz reviziju uzvodnih baza."
+    caveats:
+      - "Pet stupaca nisu usporedive razine i redak se ne smije prosjeciti."
+      - "Godine 1991.-1995. su rekonstruirane, a ne opazene, i oznacene su stupcem prekid."
+      - "Ticina rekonstrukcija je backcast; autor sam upozorava na oprez."
+      - "Cetiri tocke prije 1910. su pojedinacne referentne procjene, ne godisnji niz."
+      - "Granice razdoblja odabrao je analiticar i nisu svojstvo podataka."
+      - >-
+        Upravljanje: vrata G-A3-BDP imenovana su u polju promoting_gate, ali JOS
+        NISU upisana u notes/reports/comprehensive-review-implementation-register.yml.
+        Vrijedi ista napomena kao za rdp_potpore: ratificirani program ne poznaje
+        CroAIcon kao izvor, pa uvodjenje tih vrata trazi autorsko odobrenje na
+        zatvaranju paketa.

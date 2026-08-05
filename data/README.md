@@ -12,6 +12,9 @@ njezino spremanje ili redistribuciju.
 | `concept-graph.json` | generira `R/build-concept-graph.R`, ručno | da |
 | `widgets.json` | održava se ručno; jedini popis widgeta | da |
 | `*-mreze*.csv`, `*-medija*.csv` | snimke generiranih nastavnih skupova; piše ih `scripts/build-data-snapshots.R` | da, uz kontrolni zbroj u katalogu |
+| `dzs-*.csv` | omeđeni izvadak DZS-ove baze turizma; piše ga `scripts/build-dzs-extracts.py` | da, uz kontrolni zbroj u katalogu |
+| `digikat-*.csv` | izvadak agregata projekta DigiKat; piše ga `scripts/build-digikat-extracts.R` | da, uz kontrolni zbroj u katalogu |
+| `rdp-potpore-*.csv`, `bdp-hrvatska-*.csv` | izvadak agregata projekta CroAIcon; piše ih `scripts/build-croaicon-extracts.py` | da, uz kontrolni zbroj u katalogu |
 | `*.LICENCA.md` | obavijest o licenci koja putuje uz svaku snimku | da |
 | ostalo | dohvaća `R/fetch-podaci.R` samo iz provjerenih izvora | da, samo uz izričito provjerenu redistribuciju i traku `bundled` |
 
@@ -32,7 +35,23 @@ zbog jamovija, tiska i preuzimanja, a ne zato da bi zamijenile generator:
 | `anketa_mreze` | `anketa-mreze.csv` | `anketa-mreze-agregat.csv` | `anketa-mreze.LICENCA.md` |
 | `populacija_medija` | `populacija-medija.csv` | `populacija-medija-agregat.csv` | `populacija-medija.LICENCA.md` |
 
-Snimke piše isključivo `scripts/build-data-snapshots.R` s argumentom
+Uz njih od 5. kolovoza 2026. stoje i tri paketa izvedena iz autorovih vanjskih
+projekata. **Sva tri su prijavljena, nijedan nije promoviran**, pa nijedno
+poglavlje iz njih još ne smije tvrditi ništa; postoje radi pripreme i prikaza.
+Pregled izvora, prava i planirane integracije je u
+[`notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md`](../notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md).
+
+| Paket | Datoteke | Vanjski izvor | Obavijest |
+|---|---|---|---|
+| `digikat_mediji` | `digikat-platforme-godisnje.csv`, `digikat-platforme-mjesecno.csv`, `digikat-izvori.csv` | DigiKat, HKS | `digikat-mediji.LICENCA.md` |
+| `rdp_potpore` | `rdp-potpore-{skupine,godisnje,velicina,vrsta,obuhvat,sazetak}.csv` | Registar državnih potpora, preko projekta AI.econ | `rdp-potpore.LICENCA.md` |
+| `bdp_dugi_niz` | `bdp-hrvatska-{izvori,spojeni,razdoblja}.csv` | pet objavljenih procjena BDP-a, preko projekta AI.econ | `bdp-hrvatska.LICENCA.md` |
+
+Njihove izvorne baze ostaju izvan repozitorija i njihovi graditelji nikada ne
+diraju mrežu: čitaju autorov lokalni checkout i bez `--write` samo provjeravaju
+reproducira li se svaka datoteka bajt po bajt.
+
+Snimke generiranih skupova piše isključivo `scripts/build-data-snapshots.R` s argumentom
 `--write`; bez njega ista skripta samo provjerava poklapaju li se bajtovi s
 onim što generator proizvede iz deklariranoga sjemena. Render nikada ne piše u
 ovu mapu. Agregatna datoteka uz svaki udio drži brojnik i nazivnik, a uz svaki
