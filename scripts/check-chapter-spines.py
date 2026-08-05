@@ -174,6 +174,16 @@ REQUIRED_EXCLUSION_MARKERS = {
         "tokenizatora ni predobrade",
         "ocijenjeni zadatak pisanja koda",
     ],
+    # The finale's two amended new-method limits are the second and third
+    # markers. G-A2b-FINALE amended the register's no-new-method default and
+    # named this check as the enforcer that makes the boundary machine-checkable
+    # before any finale prose exists, so removing either marker must fail here.
+    "18-vase-prvo-istrazivanje": [
+        "bez cijele knjige",
+        "popisa izvan opsega iz predgovora",
+        "u cijelosti objašnjena ondje gdje se pojavljuje",
+        "ocijenjeni zadatak pisanja koda",
+    ],
 }
 
 # Terms a ratified spine must carry because a later part genuinely depends on them.
@@ -261,6 +271,13 @@ REQUIRED_TERMS = {
         "tablica zabune",
         "algoritamska pravednost",
     ],
+    "18-vase-prvo-istrazivanje": [
+        "paket dokaza",
+        "putovnica skupa podataka",
+        "trag odluka",
+        "granica tvrdnje",
+        "provjera osjetljivosti",
+    ],
 }
 
 NO_VISIBLE_CODE_UNITS = [
@@ -325,6 +342,28 @@ RATIFICATION_ORDER = {
         "11-velicina-ucinka-i-snaga",
         "13-kategoricki-podaci",
         "16-regresija",
+    ],
+    # The finale is cumulative at whole-book level: its ratified prerequisite
+    # list and this order condition both name all seventeen numbered chapters,
+    # so Chapter 18 cannot be ratified before any earlier unit.
+    "18-vase-prvo-istrazivanje": [
+        "01-zasto-statistika",
+        "02-mjerenje-i-dizajn",
+        "03-kako-brojke-zavode",
+        "04-sazimanje-podataka",
+        "05-vizualizacija",
+        "06-povezanost",
+        "07-vjerojatnost",
+        "08-uzorkovanje",
+        "09-procjena",
+        "10-logika-testiranja",
+        "11-velicina-ucinka-i-snaga",
+        "12-kriza-i-obnova",
+        "13-kategoricki-podaci",
+        "14-dvije-grupe",
+        "15-vise-grupa",
+        "16-regresija",
+        "17-doba-algoritama",
     ],
 }
 

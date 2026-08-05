@@ -2797,8 +2797,197 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-FINALE
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        consumed_at: "2026-08-05"
+        disposition: >-
+          P2-SPINE-FINALE accepts the ratified finale spine as its exact and
+          exclusive registry boundary before the packet claim and before the
+          first substantive edit. The packet will write the accepted twelve
+          aspects, twelve terms, seventeen prerequisites and twelve exclusions
+          for unit 18-vase-prvo-istrazivanje into chapter-spine.json, set its
+          ratified flag, and name its gate G-A2b-FINALE, its ratification date
+          and its decision record, so all nineteen spines become ratified. It
+          will extend scripts/check-chapter-spines.py with the exact exclusion
+          markers, required load-bearing terms and ratification-order condition
+          tabulated in the decision record, and both the prerequisite list and
+          the ratification-order condition will name all seventeen numbered
+          chapters, so the finale's whole-book cumulativeness is machine-checked
+          rather than asserted. The two amended new-method limits will be
+          written as exclusions 2 and 3 and given the literal markers "popisa
+          izvan opsega iz predgovora" and "u cijelosti objasnjena ondje gdje se
+          pojavljuje", so removing either fails the deterministic check; this
+          packet is the first of the two named enforcers and P6-CONTINUITY
+          remains the second, its before_close delivery staying pending. It will
+          change no chapter or appendix prose, no chapter stage and no
+          terminology, will add or remove no #def- block or concept-graph edge,
+          will not amend the acceptance test of R17-C18-two-pass, and will
+          ratify no other spine. The approved one-block Chapter 18 definition
+          increase is carried forward as a new constraint to P2-TERMS and WE-C18
+          rather than implemented, because H-P1C-INTEGRITY-002 keeps the 46 live
+          definitions, the concept ledger and the generated graph frozen until
+          P2-TERMS retires that debt, exactly as H-P2-SPINE-V-001 did for
+          Chapter 17. The .chapter-meta reconciliation is carried forward to
+          WE-C18 and the no-route-without-the-whole-book obligation to
+          P5-ROUTES. H-P1C-INTEGRITY-002, H-G-A2D-005, H-P2-SPINE-V-001 and
+          H-P2-SPINE-V-002 remain pending for P2-TERMS, WE-C18, WD-C17 and
+          P5-ROUTES and none is consumed here. No rights-holder permission is
+          claimed for any source and no independent-review claim is made.
+        evidence:
+          - "decision:G-A2b-FINALE"
+          - "conversation:G-A2b-FINALE-spine-approved-2026-08-05-Luka-Sikic"
+          - "report:notes/reports/g-a2b-finale-spine-decision-2026-08-05.md"
+          - "register:item-R04-SPINE-FINALE-read-in-full"
+          - "register:item-R04-C18-definitions-read-in-full"
+          - "register:item-R04-C18-whole-prerequisites-read-in-full"
+          - "register:decisions.G-A2b-FINALE.amended_from_recommended_default-read-in-full"
+          - "register:decisions.G-A2b-FINALE.method_boundary_reconciliation-R17-C18-two-pass-untouched"
+          - "record:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md-read-in-full"
+          - "record:notes/reports/g-a3-data-rights-determination-2026-08-05.md-read-in-full"
+          - "report:notes/reports/p2-spine-v-2026-08-05.md-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-FINALE-claim"
       - target_packet: P6-CONTINUITY
+        gate: before_close
+        state: pending
+
+  H-P2-SPINE-FINALE-001:
+    source_packet: P2-SPINE-FINALE
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-FINALE
+      - item:R04-C18-definitions
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - handoff:H-P2-SPINE-V-001
+      - report:notes/reports/p2-spine-finale-2026-08-05.md
+    statement: >-
+      The ratified finale spine settles R04-C18-definitions with one explicit
+      disposition. Chapter 18 currently carries zero #def- blocks and so falls
+      below the ratified one-to-five band, and rises to exactly one block, paket
+      dokaza, because it is the only object the finale creates rather than
+      retrieves; its contents are already fixed by the accepted lifecycle finale
+      role, and five ratified register items name it by name: R08-SPINE-18,
+      R11-C18-table-audit, R13-C18-corpus-package, R24-C18-workflow and
+      R32-C18-transfer-path. Because no later chapter exists, the
+      later-dependant test was applied to the only downstream consumers that do
+      exist: the glossary and concept graph generated from #def- divs, the
+      Appendix F protocol, the unit 18 assessment closure in P5-CLOSURE-18 and
+      the published student routes in P5-ROUTES. Eleven further terms stay in
+      prose under .pojam with a recorded reason each, and they are the eleven
+      rejected blocks: trag odluka and reproducibilan tijek rada, because
+      Chapter 12's approved reproducibilnost block already carries them and a
+      second record would create two sources of truth about one obligation;
+      potvrdujuca analiza and istrazivacka analiza, because their distinction is
+      Chapter 12's argument and its approved analiticka fleksibilnost block
+      already carries it; putovnica skupa podataka and dnevnik transformacija,
+      because they are components inside the evidence package's own defining
+      sentence; provjera osjetljivosti and granica tvrdnje, because they are
+      ratified mechanisms of the accepted architecture, the sensitivity standard
+      and the six-dimension claim registry; posten izvjestaj, because the honest
+      sentence standard is already ratified in conventions.json with its six
+      requirements and three prohibitions and the chapter enforces it rather
+      than defines it; and minimizacija podataka and objava uporabe asistenta,
+      because both are rules of the dated D15 course policy owned by Appendix F,
+      which R24-C18-dated-policy forbids presenting as timeless concepts. The
+      net effect on the frozen set is 46 up to 52 across all six approved maps.
+      P2-SPINE-FINALE deliberately implemented none of it, because adding a
+      #def- block edits chapter prose and because H-P1C-INTEGRITY-002 freezes
+      the exact set of 46 live definitions, the concept ledger and the generated
+      graph under cryptographic fingerprints until P2-TERMS retires that debt.
+      Chapter 18 therefore still carries zero live blocks and the live count
+      remains 46.
+    required_action: >-
+      P2-TERMS must reconcile the live definitions and canonical ledger against
+      this approved map before it regenerates data/concept-graph.json and
+      retires the concept debt, so a Chapter 18 that carries one block instead
+      of none is expected rather than treated as drift, and so paket dokaza
+      becomes canonical only once G-A2c has fixed its Croatian form. G-A2c also
+      owns the canonical Croatian forms of putovnica skupa podataka and objava
+      uporabe asistenta, which the spine names as load-bearing without
+      canonising. WE-C18 must add exactly the paket dokaza block and no further
+      block, must define no term the spine left in prose under .pojam, must not
+      reopen any of the eleven rejected blocks, and must make no change before
+      the concept gate can accept it. P2-TERMS must record the author's own
+      editorial terminology review as such and make no independent-review claim
+      anywhere.
+    basis:
+      - "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+      - "decision:G-A2b-FINALE"
+      - "notes/reports/g-a2b-finale-spine-decision-2026-08-05.md#hijerarhija-definicija-za-zavrsnicu"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false"
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: pending
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+
+  H-P2-SPINE-FINALE-002:
+    source_packet: P2-SPINE-FINALE
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-FINALE
+      - item:R04-C18-whole-prerequisites
+      - item:R04-ROUTES-two-track-map
+      - registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje
+      - report:notes/reports/p2-spine-finale-2026-08-05.md
+    statement: >-
+      Chapter 18 is now a live, machine-checked whole-book-cumulative unit. Its
+      ratified prerequisites are all seventeen numbered chapters, each carrying
+      one named obligation, and the same seventeen units are written into
+      scripts/check-chapter-spines.py as its ratification-order condition, so
+      the finale cannot be ratified before any earlier unit. Its first ratified
+      exclusion states that the chapter may not be read without the whole book
+      and that no metadata, prose, exercise or advertised route may present the
+      capstone as a standalone unit. The preface is deliberately excluded from
+      the prerequisite list with a recorded reason: it is the reader contract
+      rather than content a later unit depends on, and no ratified spine in the
+      book names it as a prerequisite. Two halves of that obligation are
+      therefore live here and two are not, and P2-SPINE-FINALE deliberately did
+      not claim them. The existing .chapter-meta row at
+      chapters/18-vase-prvo-istrazivanje.qmd:110 still reads "pogl. 2, 6 i 16",
+      which is narrower than the ratified prerequisite list and contradicts the
+      first exclusion; this packet changed no chapter prose and so left it
+      standing. No route was published or amended. Register item
+      R04-C18-whole-prerequisites was consequently left at status ratified
+      rather than closed: its acceptance test requires that metadata, prose,
+      routes and exercises do not suggest the capstone is standalone, and the
+      live metadata in the item's own declared scope still does. Closing it here
+      would have asserted a state that did not happen. Its registry half is
+      complete and machine-checked; only its metadata, prose, exercise and route
+      halves remain. This does not change when parent R04 can close, because
+      R04-ROUTES-two-track-map is already a required child owned by P5-ROUTES in
+      Phase 5.
+    required_action: >-
+      WE-C18 must reconcile the Chapter 18 .chapter-meta prerequisite row with
+      the ratified seventeen-unit prerequisite list, must present no metadata,
+      prose or exercise that suggests the capstone is standalone, and owns the
+      closure of register item R04-C18-whole-prerequisites together with
+      P5-ROUTES. P5-ROUTES may publish no route, map, syllabus projection or
+      navigation affordance that enters Chapter 18 without the whole book, and
+      must reconcile every advertised route against the live ratified
+      prerequisites of all nineteen spines. Neither may weaken the ratified
+      prerequisite list or the ratification-order condition to preserve a
+      shorter route, and neither may close R04-C18-whole-prerequisites until
+      both the metadata and the route halves are actually true of the live
+      source.
+    basis:
+      - "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+      - "decision:G-A2b-FINALE"
+      - "notes/reports/g-a2b-finale-spine-decision-2026-08-05.md#preduvjeti-zavrsnice-cijela-knjiga"
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd:110-chapter-meta-pogl-2-6-i-16-unchanged"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-19-of-19"
+    required: true
+    deliveries:
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+      - target_packet: P5-ROUTES
         gate: before_close
         state: pending
 
@@ -3961,3 +4150,39 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-FINALE
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-SPINE-FINALE and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-FINALE:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-SPINE-FINALE-001
+      - H-P2-SPINE-FINALE-002
+    implementation_state: spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb
+    checks:
+      - H-G-A2B-FINALE-001 was acknowledged and consumed with an exact disposition and evidence before the packet claim and before the first substantive edit
+      - the complete handoff ledger was read before the claim and exactly one delivery targets P2-SPINE-FINALE
+      - the P6-CONTINUITY delivery of H-G-A2B-FINALE-001 is before_close and correctly remains pending
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS H-G-A2D-005 remains pending for WE-C18 and H-P2-SPINE-V-001 and H-P2-SPINE-V-002 remain pending for P2-TERMS WD-C17 and P5-ROUTES and none was consumed here
+      - chapter-spine.json now carries the ratified finale unit 18-vase-prvo-istrazivanje with 12 aspects 12 terms 17 prerequisites and 12 exclusions
+      - the written spine is faithful to the accepted draft with nothing added or omitted and names its gate G-A2b-FINALE its ratification date 2026-08-05 and its decision record
+      - all nineteen chapter spines are now ratified and zero remain unratified
+      - the prerequisite list names all seventeen numbered chapters each carrying one named obligation and the preface is deliberately excluded with the recorded reason that it is the reader contract rather than content a later unit depends on
+      - no prerequisite points at a later unit because no later unit exists
+      - scripts/check-chapter-spines.py now enforces the exact finale exclusion markers required load-bearing terms and a seventeen-unit ratification-order condition and reported CHAPTER_SPINES_OK with nineteen ratified and zero unratified units
+      - the two amended new-method limits carry the literal markers popisa izvan opsega iz predgovora and u cijelosti objasnjena ondje gdje se pojavljuje and removing either returned exit 1 in an ephemeral proof that left the registry byte-identical
+      - one drafted word order in exclusion 3 was adjusted from u cijelosti je objasnjena to mora biti u cijelosti objasnjena so the exclusion literally carries the marker the same decision record tabulates and the two conditions are unchanged
+      - both deliberate spine fixtures kept their identifiers returned exit 1 and together exercise all three check kinds for unit 18 the gate binding the exclusion marker and term checks and the ratification-order rule
+      - the ratification-order rule is exercised for unit 18 because part_i_visible_code_admitted un-ratifies Chapters 5 and 7 which the finale names as prerequisites unlike Chapters 13 14 15 and 17 whose order rules that fixture does not reach
+      - no fixture was added removed or renamed
+      - the approved one-block Chapter 18 definition increase was deliberately not implemented because adding a def block edits chapter prose and H-P1C-INTEGRITY-002 freezes the 46 live definitions the concept ledger and the generated graph
+      - H-P2-SPINE-FINALE-001 carries that approved map and the eleven rejected blocks to P2-TERMS and WE-C18 at their before_close gates exactly as H-P2-SPINE-V-001 did for Chapter 17
+      - H-P2-SPINE-FINALE-002 carries the .chapter-meta reconciliation to WE-C18 and the no-route-without-the-whole-book obligation to P5-ROUTES
+      - R04-SPINE-FINALE and R04-C18-definitions are closed against their own acceptance tests and R04-C18-whole-prerequisites was deliberately left at ratified because its acceptance test names metadata prose routes and exercises and the live chapter-meta row still reads pogl 2 6 i 16
+      - leaving that item open does not change when parent R04 can close because R04-ROUTES-two-track-map is already a required child owned by P5-ROUTES in Phase 5
+      - the three architecture consumers count ratified spines and agree on nineteen of nineteen with their accepted architecture assessment and identity states unchanged and no snapshot assertion was reintroduced
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters and the live definition count unchanged at 46 with Chapter 18 still at zero blocks
+      - this packet makes no independent-review claim and claims no rights-holder permission for any source and selects no data package under the two binding author amendments of 2026-08-05
+      - the acceptance test of R17-C18-two-pass was not amended and that item was not touched
+      - no def block concept-graph edge chapter or appendix prose chapter stage terminology identity brief data package route render generated artifact or external action changed and all 19 units remain draft
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2c
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - G-A2c and every later packet were not started and push merge tag archive and deployment remain unauthorised

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2b-FINALE"
-  next_permitted_packet: "P2-SPINE-FINALE"
+  last_completed_packet: "P2-SPINE-FINALE"
+  next_permitted_packet: "G-A2c"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -6253,7 +6253,7 @@ packets:
     sequence: 61
     phase: "2"
     kind: "shared_registry"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2b-FINALE"
     scope: "Ratified finale spine; no chapter prose."
@@ -6264,13 +6264,79 @@ packets:
       - "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
       - "Registry work does not silently edit chapter prose or advance chapter stage."
       - "The P2-SPINE-FINALE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+      required_evidence:
+        - requirement: "author-ratified registry diff"
+          artifacts:
+            - "decision:G-A2b-FINALE"
+            - "handoff:H-G-A2B-FINALE-001-consumed-before-packet-claim"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje"
+            - "report:notes/reports/g-a2b-finale-spine-decision-2026-08-05.md"
+        - requirement: "schema validation"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/schemas/chapter-spine.schema.json"
+            - "source:scripts/check-chapter-spines.py"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-19-of-19"
+        - requirement: "consumer reconciliation"
+          artifacts:
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK-spines-19-of-19"
+            - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK-spines-19-of-19"
+            - "check:scripts/check-identity-briefs.py-IDENTITY_BRIEFS_OK-spines-19-of-19"
+            - "handoff:H-P2-SPINE-FINALE-001-created-for-P2-TERMS-WE-C18"
+            - "handoff:H-P2-SPINE-FINALE-002-created-for-WE-C18-P5-ROUTES"
+            - "handoff:H-P1C-INTEGRITY-002-left-pending-for-P2-TERMS"
+            - "handoff:H-G-A2D-005-left-pending-for-WE-C18"
+            - "handoff:H-P2-SPINE-V-001-and-H-P2-SPINE-V-002-left-pending"
+      outputs:
+        - output: "P2-SPINE-FINALE durable artifact and evidence record for: Ratified finale spine; no chapter prose."
+          artifacts:
+            - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje"
+            - "report:notes/reports/p2-spine-finale-2026-08-05.md"
+            - "check:scripts/check-chapter-spines.py"
+        - output: "Completion evidence is tied to the declared P2-SPINE-FINALE source state and bounded scope."
+          artifacts:
+            - "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
+            - "check:scripts/check-manuscript-integrity.py-lane-structure-chapters-19"
+      exit_tests:
+        - test: "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
+          result: "passed"
+          evidence:
+            - "registry:18-vase-prvo-istrazivanje-aspects-12-terms-12-prerequisites-17-exclusions-12"
+            - "registry:18-vase-prvo-istrazivanje-gate-G-A2b-FINALE-ratified-at-2026-08-05"
+            - "check:CHAPTER_SPINES_OK-schema-valid-finale-obligations-enforced"
+            - "check:all-nineteen-spines-ratified-zero-unratified"
+            - "check:three-architecture-consumers-agree-spines-19-of-19-no-snapshot-assertion"
+        - test: "Registry work does not silently edit chapter prose or advance chapter stage."
+          result: "passed"
+          evidence:
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:chapter-ledger-units-at-draft-19"
+            - "check:live-def-blocks-unchanged-46-chapter-18-still-zero"
+            - "check:chapters/18-vase-prvo-istrazivanje.qmd-chapter-meta-row-unchanged-pogl-2-6-i-16"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_STRUCTURE_OK-chapters-19"
+        - test: "The P2-SPINE-FINALE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+            - "report:notes/reports/p2-spine-finale-2026-08-05.md"
+            - "handoff:H-G-A2B-FINALE-001-consumed-with-disposition-before-claim"
+            - "handoff:H-G-A2B-FINALE-001-P6-CONTINUITY-delivery-remains-pending"
+            - "registry:18-vase-prvo-istrazivanje-prerequisites-name-all-seventeen-numbered-chapters"
+            - "source:scripts/check-chapter-spines.py#RATIFICATION_ORDER.18-vase-prvo-istrazivanje-seventeen-units"
+            - "check:marker-removal-popisa-izvan-opsega-iz-predgovora-exit-1"
+            - "check:marker-removal-u-cijelosti-objasnjena-ondje-gdje-se-pojavljuje-exit-1"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-ratified_without_decision-exit-1"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-part_i_visible_code_admitted-exit-1"
+            - "coverage:both-fixtures-exercise-all-three-check-kinds-for-unit-18-gate-marker-term-and-ratification-order"
+            - "item:R04-SPINE-FINALE-and-R04-C18-definitions-closed-R04-C18-whole-prerequisites-left-open-with-recorded-reason"
     contract: "shared_registry"
     required_evidence:
       - "author-ratified registry diff"
       - "schema validation"
       - "consumer reconciliation"
-    change_reference: null
+    change_reference: "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
   G-A2c:
     sequence: 62
     phase: "2"
@@ -11382,7 +11448,7 @@ items:
       location: "§4/§9/§12 + §15 R04"
     description: "Ratify load-bearing aspects, terms, prerequisites, and exclusions for finale."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11398,11 +11464,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-FINALE"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-FINALE"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje"
+      - "registry:18-vase-prvo-istrazivanje-aspects-12-terms-12-prerequisites-17-exclusions-12"
+      - "report:notes/reports/p2-spine-finale-2026-08-05.md"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-19-of-19"
+      - "check:no-chapter-or-appendix-prose-changed-19-units-remain-draft"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
   R04-TERMS-concept-regeneration:
     parents:
       - "R04"
@@ -11724,7 +11796,7 @@ items:
       location: "§12"
     description: "Decide whether the capstone only retrieves established concepts or needs a bounded new definition."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11740,11 +11812,23 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-FINALE"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-FINALE"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje.key_terms-12"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje.exclusions-2-3-amended-new-method-limits"
+      - "source:scripts/check-chapter-spines.py#REQUIRED_EXCLUSION_MARKERS.18-vase-prvo-istrazivanje"
+      - "source:scripts/check-chapter-spines.py#REQUIRED_TERMS.18-vase-prvo-istrazivanje"
+      - "check:marker-removal-popisa-izvan-opsega-iz-predgovora-exit-1"
+      - "check:marker-removal-u-cijelosti-objasnjena-ondje-gdje-se-pojavljuje-exit-1"
+      - "report:notes/reports/p2-spine-finale-2026-08-05.md#hijerarhija-definicija-i-zamrznuti-pojmovni-gate"
+      - "scope-note:the-decided-map-is-live-and-the-no-accidental-new-method-boundary-is-machine-checked-before-any-finale-prose-exists"
+      - "scope-note:the-one-approved-paket-dokaza-block-is-unwritten-because-H-P1C-INTEGRITY-002-freezes-the-46-live-definitions"
+      - "scope-note:the-finished-book-audit-against-the-amended-limits-remains-P6-CONTINUITY-and-was-not-performed-here"
+      - "handoff:H-P2-SPINE-FINALE-001-carries-the-one-block-map-and-the-eleven-rejected-blocks-to-P2-TERMS-and-WE-C18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
   R04-ROUTES-two-track-map:
     parents:
       - "R04"
