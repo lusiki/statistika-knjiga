@@ -3674,6 +3674,110 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P2-VERIFY-001:
+    source_packet: P2-VERIFY
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - parent:R04
+      - item:R04-ARCH-macro-order
+      - item:R04-C11-fixed-order
+      - item:R04-ROUTES-two-track-map
+      - item:R04-C18-whole-prerequisites
+      - plan:notes/reports/comprehensive-review-implementation-plan-2026-08-03.md
+      - report:notes/reports/p2-verification-2026-08-05.md
+    statement: >-
+      The ratified plan's Phase 2 exit condition states that R04 is closed, and
+      R04 cannot close in Phase 2 by the register's own design. Four of its 21
+      required children are open at the declared source state
+      fd4564c3d2890c80f5f865f6b386f34b29f8feea and none can be closed by a
+      Phase 2 packet. R04-ARCH-macro-order needs the two reading routes, which
+      the preface does not advertise, and is owned by P5-ROUTES in Phase 5.
+      R04-C11-fixed-order needs the seven-part order restored in Chapter 11's
+      prose and is owned by WC-C11 in Phase 4. R04-ROUTES-two-track-map is owned
+      by P5-ROUTES in Phase 5. R04-C18-whole-prerequisites needs the Chapter 18
+      .chapter-meta row reconciled and the routes published, and is owned by
+      WE-C18 and P5-ROUTES. Two of the four require chapter prose and two require
+      published routes, and Phase 2 edits neither. The other four clauses of the
+      Phase 2 exit condition are met and verified: R10, R15, R24 and R36 are
+      ratified with their items deliberately open exactly as the clause intends,
+      all 19 spines are ratified, the definition and prerequisite changes have an
+      approved map, and no unresolved conflict remains between the review and the
+      live governing documents. This is a conflict between two ratified
+      documents about WHEN R04 may close, not a packet's omission, and P2-VERIFY
+      has no authority to amend the plan and did not amend it.
+    required_action: >-
+      WC-C11 must close R04-C11-fixed-order, WE-C18 must discharge its half of
+      R04-C18-whole-prerequisites, and P5-ROUTES must close
+      R04-ROUTES-two-track-map, R04-ARCH-macro-order and the route half of
+      R04-C18-whole-prerequisites. Only when all four are accepted may R04 close,
+      and P6-VERIFY must confirm that closure rather than infer it. No packet may
+      close R04 by aggregation, may treat the four verified Phase 2 clauses as
+      proof of the fifth, or may amend the plan's exit wording on its own; if the
+      author wishes the plan text to match the register, that is a separate
+      author decision.
+    basis:
+      - register:parents.R04.required_children-21-with-4-open
+      - register:items.R04-ARCH-macro-order.open_reason
+      - register:items.R04-C11-fixed-order.packet-WC-C11
+      - register:items.R04-ROUTES-two-track-map.packet-P5-ROUTES
+      - register:items.R04-C18-whole-prerequisites.packet-owners-WE-C18-and-P5-ROUTES
+      - plan:comprehensive-review-implementation-plan-2026-08-03.md#exit-gate-p2
+      - commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea
+    required: true
+    deliveries:
+      - target_packet: WC-C11
+        gate: before_close
+        state: pending
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+      - target_packet: P6-VERIFY
+        gate: before_close
+        state: pending
+
+  H-P2-VERIFY-002:
+    source_packet: P2-VERIFY
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - packet:P2-CLAIMS
+      - source:scripts/check-book-architecture.py
+      - report:notes/reports/p2-verification-2026-08-05.md
+    statement: >-
+      Independently re-deriving the evidence of all 22 accepted Phase 2 packets
+      surfaced one real coverage gap. scripts/check-book-architecture.py, which
+      P2-CLAIMS names as its deterministic evidence and which
+      check-assessment-architecture.py, check-identity-briefs.py and
+      check-chapter-spines.py all reuse as their schema-validation helper, has NO
+      negative-fixture hook at all. Its three sibling checkers each carry two
+      deliberate fixtures and all six were rerun at this source state and
+      returned exit 1. Five Phase 2 packets also record no deliberate fixture in
+      their completion evidence, which breaches no contract because no Phase 2
+      contract requires one, but which means the architecture registry itself has
+      never been proved to fail closed.
+    required_action: >-
+      P6-VERIFY must either add a deliberate negative fixture to
+      scripts/check-book-architecture.py and prove it returns a nonzero exit, or
+      record an explicit author-approved reason why the architecture registry
+      needs no fail-closed proof while its three consumers each have one. It may
+      not treat the passing positive run as evidence that the checker fails
+      closed.
+    basis:
+      - source:scripts/check-book-architecture.py-no-NEGATIVE_FIXTURE-hook
+      - source:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_NEGATIVE_FIXTURE
+      - source:scripts/check-identity-briefs.py-IDENTITY_BRIEFS_NEGATIVE_FIXTURE
+      - source:scripts/check-chapter-spines.py-CHAPTER_SPINE_NEGATIVE_FIXTURE
+      - check:six-existing-architecture-and-spine-fixtures-each-exit-1-at-this-source-state
+    required: true
+    deliveries:
+      - target_packet: P6-VERIFY
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -4998,3 +5102,43 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with P2-DOCS active before the redone work and again at closeout with no active packet and next_permitted_packet P2-VERIFY
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-VERIFY and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P2-VERIFY:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-VERIFY-001
+      - H-P2-VERIFY-002
+    implementation_state: commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea
+    checks:
+      - no handoff targets P2-VERIFY the complete ledger was read before the first edit and the absence is recorded explicitly
+      - the whole report is tied to one declared source state commit fd4564c3d2890c80f5f865f6b386f34b29f8feea on branch revision/comprehensive-review
+      - all 22 accepted phase 2 packets were verified individually against their own contracts and none by aggregation
+      - each was re-derived against thirteen conditions covering terminal status source_state equal to change_reference receipt coverage of required_evidence outputs and exit_tests every test marked passed contract evidence and tests a packet-specific test beyond the contract a packet review declaring all_future_effects_recorded outgoing handoffs matching its source handoffs and no nonterminal incoming delivery
+      - all 22 satisfy all thirteen conditions
+      - the gate PASSES its own three exit tests and CANNOT certify the ratified plan's phase 2 clause that R04 is closed
+      - R04 has 21 required children of which 17 are accepted and 4 are open and none can be closed by a phase 2 packet
+      - R04-ARCH-macro-order is owned by P5-ROUTES in phase 5 because the two reading routes do not exist and the preface advertises none
+      - R04-C11-fixed-order is owned by WC-C11 in phase 4 wave C because it needs the seven-part order restored in Chapter 11 prose
+      - R04-ROUTES-two-track-map is owned by P5-ROUTES in phase 5
+      - R04-C18-whole-prerequisites is owned by WE-C18 and P5-ROUTES in phases 4 and 5
+      - two of the four require chapter prose and two require published routes and phase 2 edits neither
+      - the other four clauses of the phase 2 exit condition are met and verified R10 R15 R24 and R36 ratified with their items deliberately open all 19 spines ratified an approved definition and prerequisite map and no unresolved governing-document conflict
+      - the discrepancy is a conflict between the ratified plan and the ratified register about WHEN R04 may close and not a packet omission
+      - P2-VERIFY has no authority to amend the ratified plan did not amend it did not force R04 closed and did not redefine the exit gate
+      - reconciling the plan text with the register is a separate author decision that no packet may take alone and no outside ask was invented for it because the register already encodes the correct dependency
+      - H-P2-VERIFY-001 carries the R04 closure obligation to WC-C11 WE-C18 P5-ROUTES and P6-VERIFY
+      - a real coverage gap was found scripts/check-book-architecture.py has no negative-fixture hook although its three consumers each have two
+      - five phase 2 packets record no deliberate fixture which breaches no contract because no phase 2 contract requires one and is reported as coverage not as a blocker
+      - P2-ASSESS and P2-IDENTITY do record two fixtures each under a check token rather than a fixture token which is why the raw count of seven is really five
+      - H-P2-VERIFY-002 carries the architecture-checker gap to P6-VERIFY
+      - P2-CLAIMS P2-ASSESS and P2-IDENTITY carry the historical chapter-spines-ratified-0-of-19 evidence token which was true at their closure and the live checkers now report 19 of 19 so the snapshot was replaced by an invariant as P2-SPINE-PREFACE recorded
+      - six existing deliberate fixtures were rerun at this source state and all six returned exit 1 protected_export_field assessed_code_production fairness_widget_dropped nlp_implementation_admitted ratified_without_decision and part_i_visible_code_admitted
+      - thirteen deterministic commands were rerun at this source state and all pass including the spine terminology concept manuscript inventory citation widget figure and token checks
+      - the only remaining registered integrity debt is the fig-anscombe figure introduction owned by WB-C05 and the concept debt is retired
+      - push merge tag archive and deploy are verified false zero external messages were sent across 82 canonical asks and no phase 2 packet claimed any external authority
+      - both 2026-08-05 author amendments were verified in this state no independent-review claim exists anywhere and no rights-holder permission is claimed and H-P1B-DATA-LIC-003 is not superseded
+      - this gate closed no register item but its own packet and changed no prose registry spine definition generated artifact or chapter stage
+      - scripts/check-review-workflow.R passed with P2-VERIFY active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-CATALOG
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-CATALOG and every later packet were not started and push merge tag archive and deployment remain unauthorised

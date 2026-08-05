@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P2-DOCS"
-  next_permitted_packet: "P2-VERIFY"
+  last_completed_packet: "P2-VERIFY"
+  next_permitted_packet: "P3-CATALOG"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -6781,7 +6781,7 @@ packets:
     sequence: 65
     phase: "2"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P2-DOCS"
     scope: "Phase 2 architecture consistency gate."
@@ -6792,13 +6792,89 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The P2-VERIFY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p2-verification-2026-08-05.md#neovisna-provjera-22-preduvjetna-paketa"
+            - "matrix:22-phase-2-packets-each-re-derived-against-13-conditions-all-22-pass"
+            - "matrix:source_state-equals-change_reference-receipts-cover-required_evidence-outputs-and-exit_tests-exactly"
+            - "matrix:every-exit-test-receipt-marked-passed-and-every-packet-carries-a-test-beyond-its-reusable-contract"
+            - "matrix:every-packet-review-declares-all_future_effects_recorded-with-outgoing-handoffs-matching-its-source-handoffs"
+            - "matrix:no-accepted-phase-2-packet-has-a-nonterminal-incoming-delivery"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea"
+            - "branch:revision/comprehensive-review"
+            - "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
+            - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
+            - "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "blocker:R04-not-closed-4-of-21-required-children-open-enumerated-with-owners-and-phases-NOT-resolved-here"
+            - "blocker:scripts/check-book-architecture.py-has-no-negative-fixture-hook-NOT-resolved-here"
+            - "resolved:concept-integrity-debt-retired-in-P2-TERMS-ledger_debt-0-graph_fresh-true"
+            - "resolved:three-architecture-consumers-no-longer-assert-the-0-of-19-snapshot-and-report-19-of-19"
+            - "resolved:the-three-P1B-META-004-markers-and-the-P1C-PDF-001-deployment-description"
+            - "open:figure-introduction-debt-for-fig-anscombe-remains-registered-and-owned-by-WB-C05"
+      outputs:
+        - output: "P2-VERIFY durable artifact and evidence record for: Phase 2 architecture consistency gate."
+          artifacts:
+            - "report:notes/reports/p2-verification-2026-08-05.md"
+            - "handoff:H-P2-VERIFY-001-R04-cannot-close-in-phase-2"
+            - "handoff:H-P2-VERIFY-002-architecture-checker-has-no-fail-closed-proof"
+        - output: "Completion evidence is tied to the declared P2-VERIFY source state and bounded scope."
+          artifacts:
+            - "commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea"
+            - "scope-diff:three-control-files-and-one-report-only"
+            - "check:scripts/check-review-workflow.R-at-P2-VERIFY-closeout"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:all-22-accepted-phase-2-packets-verified-individually-against-their-own-contracts-not-in-aggregate"
+            - "enumeration:R04-open-required-children-listed-one-by-one-with-owning-packet-and-phase-rather-than-summarised"
+            - "finding:R04-ARCH-macro-order-P5-ROUTES-phase-5"
+            - "finding:R04-C11-fixed-order-WC-C11-phase-4-wave-C"
+            - "finding:R04-ROUTES-two-track-map-P5-ROUTES-phase-5"
+            - "finding:R04-C18-whole-prerequisites-WE-C18-and-P5-ROUTES-phases-4-and-5"
+            - "finding:five-phase-2-packets-record-no-deliberate-fixture-and-check-book-architecture.py-has-no-fixture-hook"
+            - "finding:P2-CLAIMS-P2-ASSESS-and-P2-IDENTITY-carry-the-historical-0-of-19-snapshot-token-while-the-live-checkers-report-19-of-19"
+            - "fixture:assessment-protected_export_field-and-assessed_code_production-exit-1"
+            - "fixture:identity-fairness_widget_dropped-and-nlp_implementation_admitted-exit-1"
+            - "fixture:spine-ratified_without_decision-and-part_i_visible_code_admitted-exit-1"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea"
+            - "report:notes/reports/p2-verification-2026-08-05.md#deklarirano-izvorno-stanje"
+            - "check:every-deterministic-command-in-the-matrix-rerun-at-this-commit"
+        - test: "The P2-VERIFY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "ledger:no-handoff-targets-P2-VERIFY-complete-ledger-read-and-the-absence-recorded"
+            - "verdict:the-gate-passes-its-own-three-exit-tests-and-cannot-certify-the-plan-clause-R04-is-closed"
+            - "verdict:four-of-the-five-phase-2-exit-clauses-are-met-and-the-fifth-is-structurally-deferred-to-phases-4-and-5"
+            - "verdict:the-conflict-is-between-the-ratified-plan-and-the-ratified-register-not-a-packet-omission"
+            - "authority:P2-VERIFY-did-not-amend-the-plan-did-not-force-R04-closed-and-closed-no-register-item-but-its-own-packet"
+            - "check:scripts/check-chapter-spines.py-19-ratified-19-draft"
+            - "check:scripts/check-terminology.py-TERMINOLOGY_OK-independent_review_claim-false"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true"
+            - "check:scripts/check-book-inventory.py-BOOK_INVENTORY_OK-solutions-0"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-files-37"
+            - "check:scripts/check-figure-introductions.py-FIGURE_INTRO_OK-registered_debt-1"
+            - "authority:push-merge-tag-archive-and-deploy-verified-false-and-zero-external-messages-across-82-asks"
+            - "amendment:no-independent-review-claim-and-no-rights-holder-permission-claim-anywhere-in-phase-2"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: null
+    change_reference: "commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea"
   P3-CATALOG:
     sequence: 66
     phase: "3A"

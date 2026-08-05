@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-DOCS
-next_permitted_packet: P2-VERIFY
+last_completed_packet: P2-VERIFY
+next_permitted_packet: P3-CATALOG
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 64
+forward_handoffs: 66
 last_updated: "2026-08-05"
 ---
 
@@ -43,8 +43,8 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-DOCS` |
-| Next permitted packet | `P2-VERIFY` |
+| Last completed packet | `P2-VERIFY` |
+| Next permitted packet | `P3-CATALOG` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -54,8 +54,67 @@ stop and repair the control state before editing book content.
 | Open outside asks | 55 of the 82 canonical asks remain `drafted_unsent`; 23 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
+| Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-VERIFY closeout
+
+- No handoff targets `P2-VERIFY`; the complete ledger was read before the first
+  edit and the absence is recorded explicitly. The whole report is tied to one
+  declared source state, `commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea`.
+- **The gate passes its own three exit tests and cannot certify the ratified
+  plan's Phase 2 clause that `R04` is closed.** Those are two different things
+  and the report does not blur them.
+- **`R04` has four open required children, not two.** All 21 were enumerated one
+  by one rather than summarised: `R04-ARCH-macro-order` (`P5-ROUTES`, Phase 5 —
+  the two reading routes do not exist), `R04-C11-fixed-order` (`WC-C11`, Phase 4
+  Wave C — needs the seven-part order restored in Chapter 11 prose),
+  `R04-ROUTES-two-track-map` (`P5-ROUTES`, Phase 5) and
+  `R04-C18-whole-prerequisites` (`WE-C18` and `P5-ROUTES`, Phases 4 and 5). Two
+  need chapter prose and two need published routes; Phase 2 edits neither.
+- The other four Phase 2 exit clauses are met and verified: `R10`, `R15`, `R24`
+  and `R36` are ratified with their items deliberately open exactly as the clause
+  intends; all 19 spines are ratified; the definition and prerequisite changes
+  have an approved map; and no unresolved conflict remains between the review and
+  the live governing documents.
+- **The discrepancy is a conflict between two ratified documents** — the plan and
+  the register — about *when* `R04` may close, not a packet's omission. `R04` was
+  not forced closed, the exit gate was not redefined, and nothing was hidden by
+  aggregation. `H-P2-VERIFY-001` carries the closure to `WC-C11`, `WE-C18`,
+  `P5-ROUTES` and `P6-VERIFY`. Reconciling the plan's wording with the register
+  is a separate author decision that no packet may take alone.
+- **All 22 accepted Phase 2 packets were verified individually**, each against
+  its own contract and none by aggregation, on thirteen re-derived conditions
+  covering terminal status, `source_state` equal to `change_reference`, exact
+  receipt coverage of `required_evidence`/`outputs`/`exit_tests`, every test
+  marked `passed`, contract evidence and tests plus a packet-specific test, a
+  packet review declaring `all_future_effects_recorded` with outgoing handoffs
+  matching its source handoffs, and no non-terminal incoming delivery. **All 22
+  satisfy all thirteen.**
+- **One real coverage gap was found.** `scripts/check-book-architecture.py` has
+  **no negative-fixture hook at all**, although its three consumers each carry
+  two. Five Phase 2 packets record no deliberate fixture, which breaches no
+  contract because no Phase 2 contract requires one — reported as coverage, not
+  as a blocker. (`P2-ASSESS` and `P2-IDENTITY` do record two fixtures each, under
+  a `check:` token, so the raw count of seven is really five.)
+  `H-P2-VERIFY-002` carries the gap to `P6-VERIFY`.
+- `P2-CLAIMS`, `P2-ASSESS` and `P2-IDENTITY` still carry the historical
+  `chapter-spines-ratified-0-of-19` evidence token. It was true at their closure,
+  and the live checkers now report 19 of 19 — the snapshot was replaced by an
+  invariant, as `P2-SPINE-PREFACE` recorded.
+- Six existing deliberate fixtures were rerun at this source state and all six
+  returned exit 1. Thirteen deterministic commands were rerun and all pass. The
+  only remaining registered integrity debt is the `fig-anscombe` figure
+  introduction owned by `WB-C05`.
+- `push`, `merge`, `tag`, `archive` and `deploy` are verified `false`, with zero
+  external messages across 82 canonical asks. Both 2026-08-05 amendments were
+  verified in this state: no independent-review claim exists anywhere, and no
+  rights-holder permission is claimed.
+- This gate closed no register item but its own packet, and changed no prose,
+  registry, spine, definition, generated artifact or chapter stage.
+
+The durable evidence is `notes/reports/p2-verification-2026-08-05.md`.
 
 ## P2-DOCS closeout
 
@@ -2414,42 +2473,41 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p2-docs-2026-08-05.md,
-notes/reports/p2-terms-2026-08-05.md,
-notes/reports/g-a2c-terminology-decision-2026-08-05.md and
-notes/reports/g-a3-data-rights-determination-2026-08-05.md.
+Also fully read notes/reports/p2-verification-2026-08-05.md,
+notes/reports/p1b-data-licence-access-inventory-2026-08-03.md,
+notes/reports/g-a3-data-rights-determination-2026-08-05.md and
+notes/reports/p2-docs-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, P2-VERIFY, only, and stop.
-P2-VERIFY is a review_gate. No handoff targets it; read the complete ledger and
-record that absence explicitly. Verify every named prerequisite independently
-against its contract, source state, positive evidence, negative fixture,
-unresolved blockers and authority boundary, and tie the gate to one declared
-source state.
+Execute the dashboard's next permitted packet, P3-CATALOG, only, and stop.
+This packet leaves Phase 2 and enters governed data. It is a data_governance
+packet. Read its contract and every governed item it owns in full, including the
+R25-CATALOG-* family.
 
-Expect and handle one known collision honestly. The ratified plan's Phase 2 exit
-gate says "R04 is closed", but R04 cannot close in Phase 2 by the register's own
-design: its required children include R04-ROUTES-two-track-map, owned by
-P5-ROUTES in Phase 5, R04-C18-whole-prerequisites, owned by WE-C18 and
-P5-ROUTES, and R04-ARCH-macro-order, which P2-DOCS left open because the two
-reading routes do not exist. Do not force R04 closed, do not quietly redefine
-the exit gate, and do not hide the gap by aggregation, which this packet's own
-exit test forbids. Enumerate R04's open required children with their owning
-packets and phases, state plainly which part of the Phase 2 exit condition is
-met and which is structurally deferred, and record the discrepancy as a forward
-handoff to the packets that can actually close it. If you judge that this makes
-the gate unpassable as written, stop and report rather than inventing a passing
-reading.
+Two before_start deliveries target it and BOTH must be consumed with an exact
+disposition and evidence BEFORE the packet is claimed: H-P1B-DATA-LIC-001 (the
+CC BY 4.0 generated-data boundary and its notice obligations) and
+H-P1B-DATA-LIC-002 (one lane and one lawful fallback per package; technical
+access is never redistribution authority). Consume nothing that targets another
+packet; both also deliver to P3-EXISTING and those deliveries stay pending.
 
-The other Phase 2 exit clauses are checkable now: all 19 spines are ratified,
-the definition and prerequisite changes have an approved map, and R10, R15, R24
-and R36 are explicitly allowed to remain open. R36-BOOK-new-cluster is one of
-those and is deliberately open with its reason in the register.
+Create data/katalog.yml as the sole machine-readable record with the required
+source, version, licence, attribution, access, redistribution, lane, fallback and
+integrity fields per entry. It must fail closed and must not promote a
+portal-mediated or external-only package from availability alone. Do not register
+or promote any package this packet is not authorised to register, and do not
+pre-empt G-A3-DZS, G-A3-DIP or any other package gate.
 
-Both 2026-08-05 author amendments remain binding: no independent-review claim
-anywhere, and no rights-holder permission claim for any source.
+The 2026-08-05 rights determination binds here: the book may NOT claim it
+obtained rights-holder permission, because none was sought. It may cite each
+source and its published terms. H-P1B-DATA-LIC-003 is not superseded and remains
+the obligation of the G-A3 package gates.
+
+R04 remains open by design and P2-VERIFY recorded why in H-P2-VERIFY-001. Do not
+attempt to close it here.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
 negative fixtures still fail, rerun every deterministic check this packet
-verifies, and make one scoped local commit.
+touches including its own negative validation fixtures, and make one scoped local
+commit.
 ```
