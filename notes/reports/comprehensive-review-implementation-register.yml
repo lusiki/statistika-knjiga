@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-VERIFY-A"
-  next_permitted_packet: "WA-C00"
+  last_completed_packet: "WA-C00"
+  next_permitted_packet: "C00"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -7752,7 +7752,7 @@ packets:
     sequence: 74
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-VERIFY-A"
       - "P2-SPINE-PREFACE"
@@ -7764,14 +7764,74 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WA-C00 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#00-predgovor"
+            - "report:notes/reports/p2-spine-preface-2026-08-04.md"
+            - "check:scripts/check-chapter-spines.py-00-predgovor-aspects-9-terms-5-prerequisites-0-exclusions-12"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:data/populacija-medija-agregat.csv"
+            - "catalogue:data/katalog.yml#populacija_medija-consumer-WA-C00"
+            - "result:rows-5-total-50000-portal-15101-share-0.30202-is-max-true-is-majority-false-social-13378-share-0.26756"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-sha256-947fe3d17cb0ee634978f552b6b06dac55e51b84702810666d5ca92eaec8760e"
+            - "render:PDF-exit-0-sha256-8527a4fde6afe4e2c3f4954d822a938507e48eaaa63e5f487300a3e6f39cddd5"
+            - "render:DOCX-exit-0-sha256-c930e058d42731efaf84ce8ec80d5713b67d052abc4be93892b53643fb3f0d15"
+            - "report:notes/reports/wa-c00-2026-08-05.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wa-c00-critic-methods-2026-08-05.md"
+            - "report:notes/reports/wa-c00-critic-skeptic-2026-08-05.md"
+            - "report:notes/reports/wa-c00-critic-pedagogy-2026-08-05.md"
+            - "report:notes/reports/wa-c00-critic-evidence-2026-08-05.md"
+            - "report:notes/reports/wa-c00-critic-style-2026-08-05.md"
+            - "report:notes/reports/wa-c00-critic-structure-2026-08-05.md"
+            - "synthesis:notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md"
+      outputs:
+        - output: "WA-C00 verified vertical-slice source and evidence bundle for: Preface vertical slice."
+          artifacts:
+            - "source:chapters/00-predgovor.qmd@sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
+            - "report:notes/reports/wa-c00-2026-08-05.md"
+            - "synthesis:notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md"
+        - output: "Completion evidence is tied to the declared WA-C00 source state and bounded scope."
+          artifacts:
+            - "source:sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
+            - "handoffs:H-P0-STATE-001-H-G-A2C-002-H-P2-TERMS-003-consumed"
+            - "check:scripts/check-review-workflow.R-at-WA-C00-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wa-c00-2026-08-05.md#vertikalni-rez"
+            - "check:style-structure-figure-terminology-citation-catalogue-data-spine-manuscript-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md"
+            - "panel:six-final-confirmations-zero-fatal-zero-major"
+        - test: "The WA-C00 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:P2-SPINE-PREFACE"
+            - "items:R15-C00-self-contained-R24-C00-code-trace-R24-C00-stable-thesis-R30-C00-register-R31-C00-ASA-deemphasis-R33-C00-miniature-inquiry"
+            - "report:notes/reports/wa-c00-2026-08-05.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
   C00:
     sequence: 75
     phase: "4"
@@ -27097,7 +27157,7 @@ outside_asks:
 
   OA-C00-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WA-C00_revision_and_panel"
+    readiness: "ready_for_author_acceptance"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -27115,6 +27175,9 @@ outside_asks:
     available_evidence:
       - "packet:WA-C00"
       - "packet:C00"
+      - "source:sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
+      - "report:notes/reports/wa-c00-2026-08-05.md"
+      - "synthesis:notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md"
     recommended_default: "Accept only after the preface contract, miniature inquiry, D05 code-trace wording, sources, style, and panel findings all pass."
     exact_reply_requested: "Reply: C00 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C00 closes only when every blocking revision is resolved on the cited source state."

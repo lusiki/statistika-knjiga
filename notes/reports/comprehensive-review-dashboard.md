@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-VERIFY-A
-next_permitted_packet: WA-C00
+last_completed_packet: WA-C00
+next_permitted_packet: C00
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -43,11 +43,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-VERIFY-A` |
-| Next permitted packet | `WA-C00` |
+| Last completed packet | `WA-C00` |
+| Next permitted packet | `C00` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 104 accepted, 5 deferred with reason, 262 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 42 accepted, 145 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 43 accepted, 144 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -684,6 +684,50 @@ state is
 
 The durable evidence is `notes/reports/p3-verify-a-2026-08-05.md`, tied to
 `commit:47577dca217f0425513e7898ac65dcd6e616363b`.
+
+## WA-C00 closeout
+
+- `H-P3-VERIFY-A-001` was consumed before the packet claim and before the first
+  prose edit. `renv::status()` found five packages installed and recorded but
+  unused — `brio`, `desc`, `downlit`, `fansi` and `xml2` — with no missing
+  package and no installed-versus-recorded version mismatch. The unchanged
+  informational warning was then tested by real renders.
+- `H-P0-STATE-001`, `H-G-A2C-002` and `H-P2-TERMS-003` were acknowledged before
+  the first edit and consumed at closeout. The preface now promises a
+  checkable calculation trace without visible code, uses canonical
+  `predviđanje`, and removes only the matching preface divergence from the
+  terminology registry; seven later divergences remain.
+- The final preface implements all nine aspects, five terms, zero prerequisites
+  and twelve exclusions of its ratified spine. A sourced known-population
+  inquiry replaces manifesto-like meta-scaffolding. It has no widget, figure,
+  definition block or visible code and retains all four task levels.
+- The numerical audit reconstructs five rows and 50.000 records: portal 15.101
+  or 30,202%, largest but not a majority; social networks 13.378 or 26,756%.
+  Citation, catalogue and data-integrity checks pass, and no unpromoted
+  candidate is cited.
+- HTML, PDF and DOCX each rendered with exit 0 under R 4.6.0 and Quarto 1.9.38.
+  Their exact hashes and sizes are in `notes/reports/wa-c00-2026-08-05.md`.
+  Render-generated `docs/`, `_freeze/` and AI exports were restored to their
+  prior Git content and are outside the packet.
+- Six independent read-only critics reviewed the pre-revision state. The
+  exercise-coverage, measured-construct and unsupported clean-install claims
+  were corrected. All six then reviewed the same final hash and passed it with
+  zero remaining fatal or major finding. The synthesis recommends acceptance
+  but explicitly does not record it.
+- All six owned child items remain `ratified`, and all 19 chapter units remain
+  `draft`, because only `C00` and the author can make the acceptance and ledger
+  disposition. The author's current explicit instruction for `C00` forbids
+  use of the earlier standing-delegation shortcut for this gate.
+- No new future handoff is required. The renv observation is fully consumed,
+  later jamovi, continuity and release-render work already has exact owners,
+  and the sole final style note is optional local rhythm rather than a
+  downstream constraint.
+
+The final preface source state is
+`source:sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf`.
+The durable evidence is `notes/reports/wa-c00-2026-08-05.md`, the six
+`notes/reports/wa-c00-critic-*-2026-08-05.md` reports and
+`notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md`.
 
 ## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
 
@@ -2874,31 +2918,21 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p3-verify-a-2026-08-05.md,
-notes/reports/p2-spine-preface-2026-08-04.md, notes/struktura-knjige.md,
-STYLE.md and ENRICHMENT.md. Fully read the checkout-local book-style and
-book-review instructions before using them.
+Also fully read notes/reports/wa-c00-2026-08-05.md, all six
+notes/reports/wa-c00-critic-*-2026-08-05.md reports and
+notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, WA-C00, only, and stop. It is
-the preface vertical slice: nine ratified aspects, five terms, no prerequisite,
-twelve exclusions, Croatian prose, no widget, and no visible code.
+Execute the dashboard's next permitted packet, C00, only. It is an author
+acceptance gate, not a prose packet. Verify that all six reports address the
+final material preface state, that the WA-C00 commit is the final chapter
+source commit, and that no fatal or major finding remains.
 
-Before claiming the packet or touching the chapter, consume
-H-P3-VERIFY-A-001 by running renv::status() through the launcher. Resolve the
-drift or record its exact contents and why the targeted renders are safe.
-Acknowledge every applicable before-close handoff before the claim, consume it
-with evidence at closeout, and consume nothing targeting another packet.
+Prepare the bounded acceptance record with the final chapter source commit,
+all six report paths, the synthesis, the exact author-reply slot and the
+pending chapter-ledger disposition. Put the acceptance question to the author
+and stop. Do not accept on the author's behalf, do not record a reply that has
+not occurred, and do not change the chapter stage before the reply.
 
-Reconcile the preface against its ratified spine, verified numerical evidence,
-STYLE.md and ENRICHMENT.md. Run the deterministic style and terminology checks,
-targeted HTML/PDF/DOCX renders, and a fresh six-critic read-only panel in
-parallel. Every fatal and major finding must be resolved or carry an explicit
-author disposition; the final critic evidence must address the final material
-chapter state.
-
-Update the register, handoff ledger, and dashboard together at closeout, then run
-scripts/check-review-workflow.R through the project launcher, prove both required
-negative fixtures still fail, rerun every deterministic check touched by the
-packet, and make one scoped local commit. Push, merge, tag, archive and deploy
-remain unauthorised.
+No later packet may start. Push, merge, tag, archive and deploy remain
+unauthorised.
 ```

@@ -578,7 +578,20 @@ handoffs:
     deliveries:
       - target_packet: WA-C00
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          WA-C00 replaced the visible-code promise with a checkable calculation
+          trace, states that the trace cannot establish data, design or
+          interpretation validity, retains zero visible code in the preface and
+          Part I, and requires no student code production.
+        evidence:
+          - "source:chapters/00-predgovor.qmd@sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
+          - "report:notes/reports/wa-c00-2026-08-05.md"
+          - "check:structure-scan-preface-def-0-fig-0-ai-2-zadaci-4-of-4"
+          - "rule:STYLE-H10"
+          - "decision:D05"
 
   H-G-A1A-001:
     source_packet: G-A1a
@@ -3514,7 +3527,17 @@ handoffs:
     deliveries:
       - target_packet: WA-C00
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          WA-C00 replaced both live preface divergences with canonical
+          predvidjanje and changed no divergence owned by another packet.
+        evidence:
+          - "source:chapters/00-predgovor.qmd@sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
+          - "decision:G-A2c"
+          - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-7"
       - target_packet: WC-C08
         gate: before_close
         state: pending
@@ -3666,7 +3689,18 @@ handoffs:
     deliveries:
       - target_packet: WA-C00
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          After repairing both preface forms, WA-C00 removed only their matching
+          live-divergence record and reran the bidirectional terminology check.
+          Seven entries owned by later packets remain and the deliberate
+          Chapter 2 exclusion is unchanged.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.live_divergences-7"
+          - "source:chapters/00-predgovor.qmd@sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-7"
       - target_packet: WC-C08
         gate: before_close
         state: pending
@@ -4900,7 +4934,25 @@ handoffs:
     deliveries:
       - target_packet: WA-C00
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          Before the WA-C00 claim and before any preface edit, renv::status()
+          was run through the checkout-local R launcher. It reports exactly
+          brio, desc, downlit, fansi and xml2 as installed and recorded but not
+          used; it reports no missing package and no installed-versus-recorded
+          version mismatch. This is the same five-package informational state
+          recorded at P1C-EXPORT. No dependency or lockfile is changed merely
+          to erase the warning: downlit and xml2 are intentional direct
+          packages in scripts/init-renv.R, while all five locked packages are
+          present. Targeted renders remain the decisive runtime verification.
+        evidence:
+          - "command:python-bookwright_plugin/bookwright/scripts/run_rscript.py-scripts/.wa-c00-renv-status.R"
+          - "check:renv-status-brio-desc-downlit-fansi-xml2-installed-y-recorded-y-used-n"
+          - "boundary:no-missing-package-no-version-mismatch"
+          - "source:scripts/init-renv.R-direct-packages-downlit-xml2"
+          - "report:notes/reports/p1c-export-release-path-2026-08-04.md#renv-status-same-five-packages"
 
 packet_reviews:
   G-A0:
@@ -6462,3 +6514,39 @@ packet_reviews:
       - the only new future effect is the repeated renv out-of-sync warning carried to WA-C00 in H-P3-VERIFY-A-001 at before_start
       - no data chapter appendix render generated artefact definition terminology or unit stage changed and all 19 units remain draft
       - push merge tag archive and deployment remain unauthorised
+
+  WA-C00:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WA-C00 found no new future-relevant effect. The informational renv state
+      arrived through H-P3-VERIFY-A-001 and is fully diagnosed and consumed;
+      later jamovi, continuity and release-render obligations already have
+      exact packet owners. The only final critic note is an optional local
+      rhythm observation that creates no downstream dependency.
+    implementation_state: source:sha256-60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf
+    checks:
+      - exactly four deliveries target this packet and each was handled at its own gate
+      - H-P3-VERIFY-A-001 was consumed BEFORE the packet claim and before the first substantive edit after renv status found no missing package or installed-versus-recorded version mismatch
+      - H-P0-STATE-001 H-G-A2C-002 and H-P2-TERMS-003 were acknowledged before the first edit and consumed before closeout
+      - nothing targeting another packet was consumed and all later deliveries remain pending
+      - the ratified preface spine supplies nine aspects five terms zero prerequisites and twelve exclusions
+      - the final preface hash is 60ec5feb1d8e71dc680472a403a2033ca500f6cdb4f80dc5d4f7c954bac14dbf
+      - the opening is a self-contained known-population inquiry using the already promoted generated package populacija_medija and cites no unpromoted candidate
+      - the exact numerical audit returns five rows total 50000 portal 15101 share 0.30202 largest true majority false and social 13378 share 0.26756
+      - the preface promises a checkable calculation trace without visible code and states that the trace is insufficient for data design or interpretation validity
+      - canonical predvidjanje replaces both preface divergences and conventions.json retains exactly seven later live divergences
+      - the stable AI thesis permits assistance throughout but leaves independent source comparison and responsibility with the human
+      - the no-code path states clean-installation verification as a pre-publication condition and does not claim the future P5-B evidence already exists
+      - ASA is one sharply subordinate real-source callout and the preface contains no widget figure or definition block
+      - all four task levels are present require no code and cover paths calculation a published claim and a new single-error model artefact
+      - targeted HTML PDF and DOCX renders each exited 0 and their hashes sizes and commands are recorded in notes/reports/wa-c00-2026-08-05.md
+      - six independent read-only critics reviewed the pre-revision state and then all six confirmed the same final hash
+      - methods skepticism pedagogy evidence style and structure each pass with zero remaining fatal or major finding
+      - style structure figure terminology citation catalogue data-integrity spine and full-manuscript checks pass on the final state
+      - all 41 data negative fixtures and all seven shared integrity lanes fail closed on their injected defect
+      - the packet creates no rights-holder-permission claim and uses neither digikat_mediji rdp_potpore nor bdp_dugi_niz
+      - chapter-ledger.json is unchanged and all 19 units remain draft pending the author-only C00 decision
+      - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
+      - C00 is prepared next but is not accepted and push merge tag archive and deployment remain unauthorised
