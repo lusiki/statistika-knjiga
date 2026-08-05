@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A2c
-next_permitted_packet: P2-TERMS
+last_completed_packet: P2-TERMS
+next_permitted_packet: P2-DOCS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 57
+forward_handoffs: 61
 last_updated: "2026-08-05"
 ---
 
@@ -43,8 +43,8 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A2c` |
-| Next permitted packet | `P2-TERMS` |
+| Last completed packet | `P2-TERMS` |
+| Next permitted packet | `P2-DOCS` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -56,6 +56,82 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-TERMS closeout
+
+- **Seven deliveries target this packet and all seven were consumed with an
+  exact disposition and evidence.** `H-G-A2C-001` is a `before_start` delivery
+  and was consumed **before the packet claim**. The six `before_close`
+  deliveries — `H-P1C-INTEGRITY-002`, `H-P2-SPINE-I-001`, `H-P2-SPINE-II-001`,
+  `H-P2-SPINE-IV-001`, `H-P2-SPINE-V-001`, `H-P2-SPINE-FINALE-001` — were
+  acknowledged before the first substantive edit and consumed at closeout.
+  `H-P2-SPINE-V-002` remains `pending` for `P5-ROUTES`,
+  `H-P2-SPINE-FINALE-002` for `WE-C18` and `P5-ROUTES`, and
+  `H-P1C-INTEGRITY-001` for `WB-C05`; none was consumed here.
+- **The central tension was resolved explicitly, not left to the checker.** The
+  live source carries 46 `#def-` blocks while six ratified maps approve 52, and
+  the maps are implemented by chapter packets that have not run. The canonical
+  ledger is therefore reconciled to the **live 46**, and the approved 52 is
+  recorded as expected future state in the new terminology registry with its six
+  implementing packets named. The reason is that writing 52 into the ledger
+  before the blocks exist would make the ledger disagree with the live source and
+  break the very gate this packet was sent to retire.
+- **The frozen concept gate is retired.** The one stale ledger entry —
+  `standardizirani rezidual` with its Pearson-form definition, which the Chapter
+  13 correction had already removed from the prose — is now the canonical
+  `prilagođeni standardizirani rezidual` with its marginal-share definition. The
+  `e_{ij}` notation entry had to follow that rename, because the checker requires
+  every notation entry to point at an existing concept; the first run failed on
+  exactly that and it is recorded rather than silently fixed.
+  `data/concept-graph.json` was regenerated and moved from 449 to 503 edges at an
+  unchanged 46 nodes. Both debt entries are gone from
+  `scripts/integrity-debt.json`; only the `WB-C05` figure debt remains.
+  `check-concepts.py` now reports `ledger_debt=0 graph_fresh=true`.
+- **Three `#def-` identifiers were deliberately not renamed** —
+  `#def-standardizirani-rezidual`, `#def-korelacija` and `#def-mala-polja` — and
+  are registered as exceptions instead, because each anchors a concept-graph node
+  and a `pojmovnik.qmd` link.
+- **A ratified terminology registry is now live and machine-checked.**
+  `conventions.schema.json` admits `terminology_registry` with no existing field
+  removed or altered, and the new key is deliberately not `required`, so every
+  earlier state stays valid. The registry carries the review route, five
+  principles, the spine confirmation, 13 gate-fixed forms, 12 superseded forms, 3
+  deliberate departures, 4 meaning rules, 3 stable identifiers, the 46→52
+  definition map, 8 live divergences, one deliberately excluded place, and the
+  packet authority boundary. It **deliberately does not restate** the 166 forms
+  the ratified spines carry, and the checker asserts that it never does.
+- `scripts/check-terminology.py` is new and reports `TERMINOLOGY_OK`. Its three
+  deliberate fixtures — `duplicate_canonical_form`,
+  `superseded_form_made_canonical`, `independent_review_claimed` — each return
+  exit 1, and an unknown fixture name does too. Its live-divergence assertion is
+  strict in both directions, so the registry cannot go stale when a chapter
+  packet repairs prose; that obligation is carried by `H-P2-TERMS-003`.
+- **Two items closed and one did not, on purpose.**
+  `R04-TERMS-concept-regeneration` is `accepted`, with a recorded scope note that
+  the reader-visible rendering of variants and departures in Dodatak E belongs to
+  `R36-BOOK-alternatives` in `P5-E`. `R04-C17-definitions` is `accepted`: `G-A2c`
+  fixed the canonical forms and the terminology review is recorded as **the
+  author's own**, with no independent-review claim anywhere and a fixture proving
+  the ban. `R36-BOOK-new-cluster` was **not** closed and stays `ratified`: its
+  acceptance test also names prose, figures and exercises, and eight divergences
+  still live in Chapters 0, 8, 16 and 17, which a registry packet may not edit.
+  `H-P2-TERMS-001` carries that closure to `P6-CONTINUITY`. Leaving it open does
+  not stall Phase 2, because the ratified plan's own Phase 2 exit condition keeps
+  R10, R15, R24 and R36 open until their book-wide implementation is verified.
+- An audit of all sixteen Dodatak E entries and of `pojmovnik.qmd` found **zero
+  contradictions** with the canonical register and no superseded form in either
+  view. Dodatak E's stale status marker and its missing variant/departure
+  rendering are carried to `P5-E` by `H-P2-TERMS-004` rather than repaired here,
+  because both are appendix prose.
+- Both 2026-08-05 author amendments hold. The packet makes **no
+  independent-review claim** anywhere, the registry forbids one and a fixture
+  proves the ban; it claims **no rights-holder permission**, selects no data
+  package and does not supersede `H-P1B-DATA-LIC-003`.
+- No chapter or appendix prose, `#def-` block, `#def-` identifier, chapter spine,
+  identity brief, data package, route, render or chapter stage changed. All 19
+  units remain `draft` and the live definition count remains 46.
+
+The durable evidence is `notes/reports/p2-terms-2026-08-05.md`.
 
 ## G-A2c closeout
 
@@ -2277,48 +2353,38 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/g-a2c-terminology-decision-2026-08-05.md,
-notes/reports/g-a2c-reviewer-amendment-2026-08-05.md,
-notes/reports/p2-spine-finale-2026-08-05.md and
+Also fully read notes/reports/p2-terms-2026-08-05.md,
+notes/reports/g-a2c-terminology-decision-2026-08-05.md,
+notes/reports/g-a2c-reviewer-amendment-2026-08-05.md and
 notes/reports/g-a3-data-rights-determination-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, P2-TERMS, only, and stop.
-P2-TERMS is a shared-registry packet under the ratified G-A2c gate. Read the
-shared_registry contract, the accepted G-A2c decision, and every governed item it
-owns in full: R04-TERMS-concept-regeneration, R36-BOOK-new-cluster and
-R04-C17-definitions.
+Execute the dashboard's next permitted packet, P2-DOCS, only, and stop.
+P2-DOCS is a governing_documents packet. Read its contract and every governed
+item it owns in full, including R04-BOOK-content-weight.
 
-Seven before_close deliveries target it and every one must be acknowledged before
-the first substantive edit and consumed with an exact disposition and evidence at
-closeout: H-G-A2C-001, H-P1C-INTEGRITY-002, H-P2-SPINE-I-001, H-P2-SPINE-II-001,
-H-P2-SPINE-IV-001, H-P2-SPINE-V-001 and H-P2-SPINE-FINALE-001. H-G-A2C-001 is a
-before_start delivery and must be terminal before the packet is claimed. Consume
-nothing that targets another packet.
+Two before_close deliveries target it and both must be acknowledged before the
+first substantive edit and consumed with an exact disposition and evidence at
+closeout. H-P1B-META-004 names three stale internal markers: the kolegij profile
+comment promising absent solution gates, the _quarto.yml line saying the visual
+identity is not selected, and bookwright_plugin/README.md calling ratified
+structural conventions provisional. H-P1C-PDF-001 records that AGENTS.md still
+describes the former continue-on-error PDF attempt instead of the accepted
+wrapper-only blocking path. Consume nothing that targets another packet.
 
-This packet retires the frozen concept gate: reconcile the live definitions and
-the canonical ledger, regenerate data/concept-graph.json from the accepted
-source, remove the concept_ledger and concept_graph debt entries from
-scripts/integrity-debt.json, and rerun the blocking concept command and its
-duplicate-definition fixture.
+Update governing documents only where an approved decision changed their declared
+contract. Do not revive a rejected pathway, do not broaden any text into a
+release or publication promise, and do not alter prose merely to make a stale
+comment true. Both 2026-08-05 author amendments bind edition copy written here:
+the first edition may make no independent-review claim about its terminology, and
+the book may claim no rights-holder permission for any source.
 
-Resolve, do not assume, the central tension: the live source carries 46 #def-
-blocks while six ratified maps approve a future 52, and those maps are
-implemented by chapter packets that have not run. P2-TERMS is a registry packet
-and may not edit chapter prose or rename any #def- identifier. Decide explicitly
-whether the ledger is reconciled to the live 46 with the approved deltas recorded
-as expected future state, or otherwise, and record the decision and its reason in
-the register and the report rather than letting the checker settle it silently.
-
-P2-TERMS owns the closure of R04-C17-definitions, which P2-SPINE-V left open on
-purpose. G-A2c has now fixed the canonical forms, so the item may close, and the
-author's own editorial review must be recorded as such with no independent-review
-claim anywhere. It does NOT own R04-C18-whole-prerequisites, which belongs to
-WE-C18 and P5-ROUTES.
-
-Both 2026-08-05 author amendments remain binding: no independent-review claim
-anywhere, and no rights-holder permission claim for any source.
+The ratified terminology registry is now live in
+bookwright_plugin/bookwright/shared/conventions.json and is enforced by
+scripts/check-terminology.py, and the frozen concept gate is retired, so
+scripts/check-concepts.py now fails closed immediately. Do not reopen either.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
-negative fixtures still fail, and make one scoped local commit.
+negative fixtures still fail, rerun every deterministic check this packet
+touches, and make one scoped local commit.
 ```

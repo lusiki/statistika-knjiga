@@ -1494,7 +1494,36 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P2-TERMS retired the frozen concept gate exactly as required. The
+          canonical ledger was reconciled to the live source by replacing the one
+          stale entry, standardizirani rezidual with its Pearson-form definition,
+          with the canonical prilagodjeni standardizirani rezidual and its
+          marginal-share definition, and by following that rename through the
+          e_{ij} notation entry that references the concept; the identifier
+          def-standardizirani-rezidual was deliberately left untouched.
+          data/concept-graph.json was regenerated from the accepted source and
+          moved from 449 to 503 edges at an unchanged 46 nodes. Both the
+          concept_ledger and concept_graph entries were removed from
+          scripts/integrity-debt.json, leaving only the figure_introductions
+          entry that belongs to WB-C05. The blocking concept command now reports
+          ledger_debt=0 and graph_fresh=true, and the duplicate-definition
+          fixture still returns exit 1 as lane concept of
+          scripts/check-integrity-fixtures.py. The temporary exception is
+          therefore spent and the gate now fails closed immediately, which is
+          carried forward to the six chapter packets as H-P2-TERMS-002.
+        evidence:
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true-graph_nodes-46"
+          - "fixture:scripts/check-integrity-fixtures.py-lane-concept-exit-1"
+          - "check:scripts/check-integrity-fixtures.py-INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+          - "source:scripts/integrity-debt.json-concept_ledger-and-concept_graph-entries-removed"
+          - "source:data/concept-graph.json-regenerated-46-nodes-503-edges"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#prilagodjeni-standardizirani-rezidual"
+          - "report:notes/reports/p2-terms-2026-08-05.md"
+          - "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
 
   H-P1C-EXPORT-001:
     source_packet: P1C-EXPORT
@@ -2115,7 +2144,24 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved three-block Part I increase is recorded in the terminology
+          registry's definition_map as an expected future state owned by WA-C01
+          and WA-C03, so jedinica analize, Simpsonov paradoks and temeljna stopa
+          will be accepted rather than treated as drift. P2-TERMS wrote none of
+          them, because adding a #def- block edits chapter prose. The canonical
+          ledger was therefore reconciled to the live 46, not to the approved 52,
+          and the reason is recorded in the register and the report rather than
+          left to the checker. Chapter 2's four existing blocks are unchanged.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-I-plus-3"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.implementing_packets"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-46-approved_total-52"
+          - "report:notes/reports/p2-terms-2026-08-05.md#sredisnja-napetost-i-njezino-rjesenje"
+          - "handoff:H-P2-TERMS-002-created-for-the-six-implementing-chapter-packets"
       - target_packet: WA-C01
         gate: before_close
         state: pending
@@ -2244,7 +2290,25 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved Chapter 4 map is recorded in the terminology registry's
+          definition_map as the minus-two delta owned by WB-C04, so a Chapter 4
+          that carries four blocks instead of six will be accepted rather than
+          treated as drift. Both standardna devijacija and varijanca are kept
+          canonical: varijanca is registered as a canonical form whose block the
+          map merges into the standard-deviation block rather than deletes, and
+          asimetrija is registered as a canonical form that the map moves into
+          prose. P2-TERMS implemented none of it, because merging or demoting a
+          #def- block edits chapter prose, so the live Chapter 4 still carries
+          six blocks and the live total remains 46.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-II-minus-2"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.canonical_forms.varijanca-and-asimetrija"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-gate_forms-13"
+          - "report:notes/reports/p2-terms-2026-08-05.md#registar-nazivlja-u-conventionsjson"
       - target_packet: WB-C04
         gate: before_close
         state: pending
@@ -2462,7 +2526,22 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved two-block Chapter 12 increase is recorded in the
+          terminology registry's definition_map as the plus-two delta owned by
+          WC-C12. Both analiticka fleksibilnost and reproducibilnost are
+          canonical, because G-A2c fixed their Croatian forms and both are
+          ratified Chapter 12 key terms, so the registry deliberately does not
+          restate them. P2-TERMS wrote neither block, so Chapter 12 still carries
+          none and Chapters 10 and 11 keep their four and three unchanged.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-IV-plus-2"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#12-kriza-i-obnova.key_terms"
+          - "decision:G-A2c-forms_fixed_here-analiticka-fleksibilnost-and-reproducibilnost"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-spine_forms-166"
       - target_packet: WC-C12
         gate: before_close
         state: pending
@@ -2654,7 +2733,37 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved two-block Chapter 17 increase is recorded in the
+          terminology registry's definition_map as the plus-two delta owned by
+          WD-C17, and both zabiljezeni referentni ishod and klasifikacijski prag
+          are canonical because G-A2c fixed their Croatian forms. The split
+          vocabulary this handoff assigned to G-A2c is settled and now live in
+          the registry: razdvajanje na skup za ucenje, provjeru i ispitivanje is
+          the ratified whole and skup za ucenje, skup za provjeru and skup za
+          ispitivanje are its registered component forms, while skup za
+          treniranje and skup za testiranje are registered as superseded and are
+          recorded as WD-C17 divergences at the exact live lines. Procjenjivana
+          velicina and curenje informacija are ratified Chapter 16 key terms and
+          therefore canonical without restatement, and curenje podataka and
+          curenje cilja are registered as superseded. P2-TERMS also closed
+          register item R04-C17-definitions, which P2-SPINE-V left open on
+          purpose: G-A2c has fixed the canonical forms and the terminology review
+          is recorded as the author's own, with no independent-review claim made
+          anywhere and the registry forbidding one. P2-TERMS wrote neither block,
+          so Chapter 17 still carries none.
+        evidence:
+          - "item:R04-C17-definitions-accepted"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-V-plus-2"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.canonical_forms.skup-za-ucenje-provjeru-ispitivanje"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.superseded_forms.skup-za-treniranje-and-skup-za-testiranje"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.review_route.independent_review_claim_permitted-false"
+          - "decision:G-A2c"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-independent_review_claim-false"
+          - "fixture:TERMINOLOGY_NEGATIVE_FIXTURE-independent_review_claimed-exit-1"
       - target_packet: WD-C17
         gate: before_close
         state: pending
@@ -2921,7 +3030,29 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved one-block finale increase is recorded in the terminology
+          registry's definition_map as the plus-one delta owned by WE-C18, and
+          paket dokaza is canonical because G-A2c fixed its Croatian form and it
+          is a ratified Chapter 18 key term. Putovnica skupa podataka and objava
+          uporabe asistenta, which this handoff assigned to G-A2c, are likewise
+          ratified Chapter 18 key terms and are therefore canonical without
+          restatement, so the registry deliberately does not duplicate them. The
+          eleven rejected blocks are not reopened and none of them enters the
+          canonical ledger. P2-TERMS recorded the author's own editorial
+          terminology review as such and makes no independent-review claim
+          anywhere. It wrote no block, so Chapter 18 still carries zero and the
+          live total remains 46 against an approved 52.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-FINALE-plus-1"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje.key_terms-12"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.review_route.reviewer-author_editor"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-approved_total-52-live_definitions-46"
+          - "check:scripts/check-concepts.py-46-live-blocks-Chapter-18-still-zero"
+          - "report:notes/reports/p2-terms-2026-08-05.md"
       - target_packet: WE-C18
         gate: before_close
         state: pending
@@ -3061,7 +3192,36 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P2-TERMS accepts the accepted G-A2c terminology register as its exact
+          and exclusive terminology boundary before the packet claim and before
+          the first substantive edit. The packet will reconcile the live
+          definitions and the canonical concept ledger, replace the stale ledger
+          entry standardizirani rezidual and its Pearson-form definition with the
+          canonical prilagodjeni standardizirani rezidual while leaving the
+          def-standardizirani-rezidual identifier untouched, write the accepted
+          canonical forms, accepted variants, deliberate departures, meaning
+          rules and the approved 46-to-52 definition map into conventions.json as
+          a schema-admitted terminology registry, regenerate
+          data/concept-graph.json from the accepted source, and retire the
+          concept_ledger and concept_graph debt entries. It will edit no chapter
+          or appendix prose, rename no #def- identifier, add and remove no #def-
+          block, ratify and change no chapter spine, and advance no chapter
+          stage. It records the author's own editorial terminology review as such
+          and makes no independent-review claim anywhere. The P5-E delivery is
+          before_close and correctly remains pending.
+        evidence:
+          - "decision:G-A2c"
+          - "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+          - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md"
+          - "register:item-R04-TERMS-concept-regeneration-read-in-full"
+          - "register:item-R36-BOOK-new-cluster-read-in-full"
+          - "register:item-R04-C17-definitions-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-TERMS-claim"
       - target_packet: P5-E
         gate: before_close
         state: pending
@@ -3122,6 +3282,200 @@ handoffs:
         gate: before_close
         state: pending
       - target_packet: WD-C17
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-001:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R36-BOOK-new-cluster
+      - decision:G-A2c
+      - handoff:H-G-A2C-002
+      - registry:terminology_registry
+      - report:notes/reports/p2-terms-2026-08-05.md
+    statement: >-
+      Register item R36-BOOK-new-cluster was deliberately NOT closed by P2-TERMS
+      and stays at status ratified. Its acceptance test requires that prose,
+      figures, exercises, definitions and the glossary use the approved forms
+      consistently. The registry, the definitions and both glossary views now do:
+      the terminology registry is live and machine-checked, the canonical ledger
+      carries no superseded form, and an audit of all sixteen Appendix E entries
+      and of pojmovnik.qmd found zero contradictions with the canonical register.
+      The prose does not: eight recorded divergences remain live in Chapters 0,
+      8, 16 and 17, and P2-TERMS is a registry packet that may not edit prose.
+      Closing the item here would have asserted a consistency that does not
+      exist. This does not delay Phase 2, because the ratified plan's own Phase 2
+      exit condition states that the architectural gates for R10, R15, R24 and
+      R36 are ratified while those items remain open until their book-wide
+      implementation is verified.
+    required_action: >-
+      P6-CONTINUITY owns the closure of R36-BOOK-new-cluster. It must audit the
+      whole book against the live terminology registry in
+      bookwright_plugin/bookwright/shared/conventions.json, confirm that no
+      superseded form and no forbidden use survives in prose, figures, exercises,
+      definitions or either glossary view, confirm that the live_divergences list
+      is empty because every owning packet repaired its prose, and only then
+      close the item. It may not close it by aggregation or by treating the
+      registry's own consistency as evidence about the prose. The four meaning
+      rules for osjetljivost, kalibrirana nesigurnost, predvidjanje and
+      zabiljezeni referentni ishod are the audit's minimum targets, and no packet
+      may write istina or ground truth for a reference outcome.
+    basis:
+      - notes/reports/p2-terms-2026-08-05.md#zatvorene-i-nezatvorene-stavke
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#exit-gate-p2
+      - check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-8
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry
+    required: true
+    deliveries:
+      - target_packet: P6-CONTINUITY
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-002:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - source:scripts/integrity-debt.json
+      - source:scripts/check-concepts.py
+      - report:notes/reports/p2-terms-2026-08-05.md
+    statement: >-
+      The temporary concept-gate exception is spent. P2-TERMS reconciled the
+      canonical ledger to the live source of 46 #def- blocks, regenerated
+      data/concept-graph.json, and removed both the concept_ledger and
+      concept_graph entries from scripts/integrity-debt.json. The blocking
+      concept command now reports ledger_debt=0 and graph_fresh=true, so it fails
+      closed immediately on any further change. The approved map to 52 is
+      recorded in the terminology registry's definition_map as expected future
+      state with these six packets named as its implementers, not written into
+      the ledger, because writing it early would have made the ledger disagree
+      with the live source and broken the very gate this packet retired.
+    required_action: >-
+      Each of these packets must, IN THE SAME PACKET as its #def- block change,
+      add or amend the matching entry in
+      bookwright_plugin/bookwright/shared/concept-ledger.json, follow the rename
+      through any notation entry that references the concept, regenerate
+      data/concept-graph.json through
+      python bookwright_plugin/bookwright/scripts/run_rscript.py
+      R/build-concept-graph.R, and rerun scripts/check-concepts.py and
+      scripts/check-terminology.py. None of them may rename a #def- identifier,
+      may add a block the ratified map does not approve, or may reintroduce an
+      integrity-debt entry to defer the reconciliation.
+    basis:
+      - check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true
+      - source:scripts/integrity-debt.json-only-figure_introductions-remains
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map
+      - terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65
+    required: true
+    deliveries:
+      - target_packet: WA-C01
+        gate: before_close
+        state: pending
+      - target_packet: WA-C03
+        gate: before_close
+        state: pending
+      - target_packet: WB-C04
+        gate: before_close
+        state: pending
+      - target_packet: WC-C12
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-003:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2c
+      - handoff:H-G-A2C-002
+      - source:scripts/check-terminology.py
+      - registry:terminology_registry
+    statement: >-
+      The terminology registry records eight live-source divergences with their
+      file, live form, canonical form and owning packet, and
+      scripts/check-terminology.py asserts that each recorded live form STILL
+      occurs in its named file. The check therefore fails as soon as a packet
+      repairs the prose without removing the matching entry, so the divergence
+      list cannot silently go stale in either direction.
+    required_action: >-
+      When WA-C00, WC-C08, WD-C16 or WD-C17 repairs one of its recorded
+      divergences, it must in the same packet remove that entry from
+      terminology_registry.live_divergences in
+      bookwright_plugin/bookwright/shared/conventions.json and rerun
+      scripts/check-terminology.py. No packet may remove an entry whose prose it
+      has not actually repaired, and no packet may change
+      chapters/02-mjerenje-i-dizajn.qmd:380, which is recorded under
+      excluded_from_divergences because the words there describe an actual data
+      breach rather than statistical leakage.
+    basis:
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.live_divergences
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.excluded_from_divergences
+      - check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-8
+      - source:scripts/check-terminology.py-live-divergence-occurrence-assertion
+    required: true
+    deliveries:
+      - target_packet: WA-C00
+        gate: before_close
+        state: pending
+      - target_packet: WC-C08
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-004:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: evidence
+    refs:
+      - item:R36-BOOK-alternatives
+      - item:R04-TERMS-concept-regeneration
+      - source:dodaci/e-rjecnik.qmd
+      - report:notes/reports/p2-terms-2026-08-05.md
+    statement: >-
+      P2-TERMS audited both glossary views against the canonical register and
+      found zero contradictions: none of the sixteen Appendix E entries is a
+      superseded form, and no superseded form occurs in pojmovnik.qmd, which
+      still consumes data/concept-graph.json and still links every node to its
+      #def- anchor. Two things nevertheless remain undone and were deliberately
+      not claimed, because both are appendix prose. Appendix E still carries the
+      status marker that canonical definitions will arise after the concept
+      spine is ratified and that the register only serves orientation, which is
+      now stale: all nineteen spines are ratified and the canonical forms are
+      fixed. And Appendix E renders no accepted variant and no deliberate
+      departure, although the registry now records twelve superseded forms and
+      three departures with their reasons.
+    required_action: >-
+      P5-E must render the recorded accepted variants and deliberate departures
+      with their reasons in both glossary views from
+      terminology_registry in bookwright_plugin/bookwright/shared/conventions.json
+      as the single source, replace the stale Appendix E status marker with the
+      state that actually holds, and may not silently normalise a contested form
+      or create a second source of truth beside the registry. It must not present
+      a superseded form as an acceptable synonym.
+    basis:
+      - source:dodaci/e-rjecnik.qmd-16-entries-zero-contradictions
+      - source:dodaci/e-rjecnik.qmd-status-djelomicni-nacrt-and-nakon-ratifikacije-marker
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.superseded_forms-12
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.deliberate_departures-3
+      - check:scripts/check-concepts.py-pojmovnik-consumes-the-canonical-graph
+    required: true
+    deliveries:
+      - target_packet: P5-E
         gate: before_close
         state: pending
 
@@ -4360,3 +4714,51 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with G-A2c active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P2-TERMS
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-TERMS and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P2-TERMS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-TERMS-001
+      - H-P2-TERMS-002
+      - H-P2-TERMS-003
+      - H-P2-TERMS-004
+    implementation_state: terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65
+    checks:
+      - seven deliveries target this packet and all seven were consumed with an exact disposition and evidence
+      - H-G-A2C-001 is before_start and was consumed before the packet claim and before the first substantive edit
+      - the six before_close deliveries were acknowledged before the first substantive edit and consumed at closeout
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - H-P2-SPINE-V-002 remains pending for P5-ROUTES H-P2-SPINE-FINALE-002 for WE-C18 and P5-ROUTES and H-P1C-INTEGRITY-001 for WB-C05 and none was consumed here
+      - the central tension was resolved explicitly and not left to the checker the canonical ledger is reconciled to the live 46 and the approved 52 is recorded as expected future state in the terminology registry
+      - the reason is that writing 52 into the ledger before the chapter packets add the blocks would make the ledger disagree with the live source and break the very gate this packet retired
+      - the stale concept-ledger entry standardizirani rezidual and its Pearson-form definition were replaced by the canonical prilagodjeni standardizirani rezidual with its marginal-share definition
+      - the e_{ij} notation entry had to follow that rename because the checker requires every notation entry to reference an existing concept and the first run failed on exactly that which is recorded rather than silently fixed
+      - the #def-standardizirani-rezidual identifier was deliberately left unchanged together with #def-korelacija and #def-mala-polja because all three anchor the concept-graph node and the pojmovnik link
+      - data/concept-graph.json was regenerated from the accepted source and moved from 449 to 503 edges at an unchanged 46 nodes because the edge count follows co-occurrence in prose that the corrections since 30 July added
+      - the concept_ledger and concept_graph entries were removed from scripts/integrity-debt.json and only the WB-C05 figure_introductions entry remains
+      - conventions.schema.json now admits terminology_registry with no existing field removed or altered and the new key is deliberately not required so every earlier state stays valid
+      - conventions.json now carries the ratified terminology registry with the review route five principles the spine confirmation 13 gate-fixed forms 12 superseded forms 3 deliberate departures 4 meaning rules 3 stable identifiers the 46-to-52 definition map 8 live divergences one excluded place and the packet authority boundary
+      - the registry deliberately does not restate the 166 forms the ratified spines already carry because two records of one form would create two sources of truth and the checker asserts that no canonical form restates a spine key term
+      - scripts/check-terminology.py is new and reported TERMINOLOGY_OK with spine_forms 166 slots 168 gate_forms 13 superseded 12 departures 3 rules 4 stable_ids 3 live_definitions 46 approved_total 52 divergences 8 and independent_review_claim false
+      - its three deliberate fixtures duplicate_canonical_form superseded_form_made_canonical and independent_review_claimed each returned exit 1 and an unknown fixture name also returned exit 1
+      - the live-divergence assertion is strict in both directions so the registry cannot go stale when a chapter packet repairs its prose which is carried forward as H-P2-TERMS-003
+      - scripts/check-concepts.py reported CONCEPT_INTEGRITY_OK definitions 46 ledger_debt 0 graph_fresh true graph_nodes 46
+      - scripts/check-integrity-fixtures.py reported INTEGRITY_NEGATIVE_FIXTURES_OK lanes 7 and the concept lane which is the duplicate-definition fixture still returned exit 1
+      - scripts/check-figure-introductions.py reported FIGURE_INTRO_OK registered_debt 1 unexpected 0 stale_debt 0 so the WB-C05 debt is intact
+      - the three architecture consumers and the spine checker pass unchanged at 19 of 19 ratified spines and 19 units at draft
+      - scripts/check-manuscript-integrity.py and scripts/check-citations.py pass unchanged
+      - R04-TERMS-concept-regeneration is closed against its own acceptance test with a recorded scope note that the reader-visible rendering in Dodatak E belongs to R36-BOOK-alternatives in P5-E
+      - R04-C17-definitions is closed because G-A2c fixed the canonical forms and the terminology review is recorded as the author's own with no independent-review claim anywhere
+      - R36-BOOK-new-cluster was deliberately NOT closed and stays ratified because its acceptance test names prose figures and exercises and eight divergences still live in Chapters 0 8 16 and 17 which this registry packet may not edit
+      - leaving R36-BOOK-new-cluster open does not stall Phase 2 because the ratified plan's Phase 2 exit condition explicitly keeps R10 R15 R24 and R36 open until their book-wide implementation is verified
+      - H-P2-TERMS-001 carries that closure obligation to P6-CONTINUITY
+      - R04-C18-whole-prerequisites was not touched and remains an obligation of WE-C18 and P5-ROUTES
+      - an audit of all sixteen Dodatak E entries and of pojmovnik.qmd found zero contradictions with the canonical register and no superseded form in either view
+      - Dodatak E still carries a stale status marker and renders no variant or departure which is carried forward as H-P2-TERMS-004 rather than repaired here because it is appendix prose
+      - no chapter or appendix prose no #def- block no #def- identifier no chapter spine no identity brief no data package no route no render and no chapter stage changed and all 19 units remain draft with 46 live definitions
+      - this packet makes no independent-review claim anywhere and the registry forbids one and enforces the ban with a fixture
+      - it claims no rights-holder permission for any source selects no data package and does not supersede H-P1B-DATA-LIC-003
+      - scripts/check-review-workflow.R passed with P2-TERMS active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P2-DOCS
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-DOCS and every later packet were not started and push merge tag archive and deployment remain unauthorised

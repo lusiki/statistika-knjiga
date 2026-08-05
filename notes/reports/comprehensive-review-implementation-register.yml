@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2c"
-  next_permitted_packet: "P2-TERMS"
+  last_completed_packet: "P2-TERMS"
+  next_permitted_packet: "P2-DOCS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -6595,7 +6595,7 @@ packets:
     sequence: 63
     phase: "2"
     kind: "shared_registry"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2c"
       - "P2-SPINE-PREFACE"
@@ -6613,13 +6613,78 @@ packets:
       - "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
       - "Registry work does not silently edit chapter prose or advance chapter stage."
       - "The P2-TERMS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
+      required_evidence:
+        - requirement: "author-ratified registry diff"
+          artifacts:
+            - "decision:G-A2c"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#prilagodjeni-standardizirani-rezidual"
+            - "report:notes/reports/p2-terms-2026-08-05.md"
+        - requirement: "schema validation"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/schemas/conventions.schema.json#terminologyRegistry-admitted-no-field-removed"
+            - "check:scripts/check-book-architecture.py-conventions-valid-against-schema"
+            - "check:scripts/check-terminology.py-TERMINOLOGY_OK"
+        - requirement: "consumer reconciliation"
+          artifacts:
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true"
+            - "source:data/concept-graph.json-regenerated-46-nodes-503-edges"
+            - "audit:dodaci/e-rjecnik.qmd-16-entries-and-pojmovnik.qmd-zero-contradictions"
+            - "check:scripts/check-identity-briefs.py-and-check-assessment-architecture.py-accepted-states-unchanged"
+      outputs:
+        - output: "P2-TERMS durable artifact and evidence record for: Terminology, definitions, concept graph, and glossary map."
+          artifacts:
+            - "report:notes/reports/p2-terms-2026-08-05.md"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry"
+            - "source:scripts/check-terminology.py"
+        - output: "Completion evidence is tied to the declared P2-TERMS source state and bounded scope."
+          artifacts:
+            - "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-P2-TERMS-closeout"
+      exit_tests:
+        - test: "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
+          result: "passed"
+          evidence:
+            - "registry:terminology_registry.status-ratified-decision-G-A2c"
+            - "check:scripts/check-book-architecture.py-conventions-valid-against-extended-schema"
+            - "check:scripts/check-terminology.py-TERMINOLOGY_OK-spine_forms-166-slots-168-gate_forms-13"
+            - "check:scripts/check-concepts.py-ledger-and-live-blocks-carry-the-same-46-terms"
+            - "check:scripts/check-concepts.py-pojmovnik-consumes-data/concept-graph.json-and-links-def-anchors"
+        - test: "Registry work does not silently edit chapter prose or advance chapter stage."
+          result: "passed"
+          evidence:
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:scripts/check-concepts.py-definitions-46-unchanged"
+            - "check:scripts/check-chapter-spines.py-19-ratified-19-draft-unchanged"
+            - "registry:terminology_registry.authority_boundary.chapter_prose_edit_authorised-false"
+        - test: "The P2-TERMS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-G-A2C-001-consumed-before-the-packet-claim"
+            - "handoff:six-before_close-deliveries-acknowledged-before-the-first-edit-and-consumed-at-closeout"
+            - "decision:ledger-reconciled-to-the-live-46-with-the-approved-52-recorded-as-expected-future-state"
+            - "decision:reason-recorded-in-register-and-report-not-settled-silently-by-the-checker"
+            - "source:scripts/integrity-debt.json-concept_ledger-and-concept_graph-retired-figure-debt-intact"
+            - "fixture:scripts/check-integrity-fixtures.py-lane-concept-duplicate-definition-exit-1"
+            - "fixture:TERMINOLOGY_NEGATIVE_FIXTURE-duplicate_canonical_form-exit-1"
+            - "fixture:TERMINOLOGY_NEGATIVE_FIXTURE-superseded_form_made_canonical-exit-1"
+            - "fixture:TERMINOLOGY_NEGATIVE_FIXTURE-independent_review_claimed-exit-1"
+            - "fixture:TERMINOLOGY_NEGATIVE_FIXTURE-unknown-name-exit-1"
+            - "item:R04-TERMS-concept-regeneration-and-R04-C17-definitions-closed-R36-BOOK-new-cluster-left-open-with-recorded-reason"
+            - "handoff:H-P2-TERMS-001-through-004-created"
+            - "amendment:no-independent-review-claim-recorded-machine-checked-and-fixture-proved"
+            - "amendment:no-rights-holder-permission-claim-and-no-data-package-selected"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "shared_registry"
     required_evidence:
       - "author-ratified registry diff"
       - "schema validation"
       - "consumer reconciliation"
-    change_reference: null
+    change_reference: "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
   P2-DOCS:
     sequence: 64
     phase: "2"
@@ -11719,7 +11784,7 @@ items:
       location: "§4/§12"
     description: "Ratify definition/term mapping after all spines, then regenerate and reconcile the glossary and concept graph."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11745,11 +11810,25 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-TERMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2c"
+      - "report:notes/reports/p2-terms-2026-08-05.md"
+      - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#46-concepts-40-notation-entries-reconciled-to-the-live-source"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry"
+      - "source:data/concept-graph.json-regenerated-46-nodes-503-edges"
+      - "source:scripts/integrity-debt.json-concept_ledger-and-concept_graph-entries-removed"
+      - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true-graph_nodes-46"
+      - "check:scripts/check-terminology.py-TERMINOLOGY_OK-stable_ids-3-live_definitions-46"
+      - "fixture:scripts/check-integrity-fixtures.py-lane-concept-duplicate-definition-exit-1"
+      - "audit:dodaci/e-rjecnik.qmd-16-entries-and-pojmovnik.qmd-carry-no-superseded-form"
+      - "scope-note:the-46-def-identifiers-are-unique-and-unchanged-and-three-deliberate-identifier-exceptions-are-registered-rather-than-renamed"
+      - "scope-note:the-reader-visible-rendering-of-variants-and-departures-in-Dodatak-E-is-R36-BOOK-alternatives-in-P5-E-and-was-not-claimed-here"
+      - "handoff:H-P2-TERMS-002-carries-the-same-packet-ledger-and-graph-obligation-to-the-six-implementing-chapter-packets"
+      - "handoff:H-P2-TERMS-004-carries-the-Dodatak-E-rendering-and-stale-marker-to-P5-E"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
   R04-BOOK-content-weight:
     parents:
       - "R04"
@@ -11992,7 +12071,7 @@ items:
       location: "§12"
     description: "Decide Chapter 17 text, label, prediction, and fairness definitions."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -12008,11 +12087,24 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-V"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-V"
+      - "decision:G-A2c"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama.key_terms-12"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-V-plus-2"
+      - "review:author-editor-Luka-Sikic-own-editorial-terminology-review-at-G-A2c-2026-08-05"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.review_route.independent_review_obtained-false"
+      - "check:scripts/check-terminology.py-TERMINOLOGY_OK-independent_review_claim-false"
+      - "fixture:TERMINOLOGY_NEGATIVE_FIXTURE-independent_review_claimed-exit-1"
+      - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md#pojmovi-koje-ovaj-gate-fiksira"
+      - "report:notes/reports/p2-terms-2026-08-05.md#zatvorene-i-nezatvorene-stavke"
+      - "scope-note:the-two-approved-blocks-zabiljezeni-referentni-ishod-and-klasifikacijski-prag-remain-unwritten-and-are-a-WD-C17-obligation"
+      - "scope-note:no-independent-review-claim-is-made-here-or-anywhere-the-review-is-the-authors-own"
+      - "closed-by-packet:P2-TERMS-because-P2-SPINE-V-deliberately-left-it-open-until-G-A2c-fixed-the-canonical-forms"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
   R04-C18-definitions:
     parents:
       - "R04"
@@ -24432,6 +24524,19 @@ items:
     description: "Canonicalise Croatian/English forms and variants for the new term cluster."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      Deliberately left open by P2-TERMS. G-A2c settled every canonical form in
+      the cluster and P2-TERMS made the register live, schema-valid and
+      machine-checked, and an audit found zero contradictions in the concept
+      ledger, pojmovnik.qmd or the sixteen Dodatak E entries. The acceptance test
+      also names prose, figures and exercises, and eight recorded divergences
+      still live in Chapters 0, 8, 16 and 17. P2-TERMS is a shared_registry
+      packet that may not edit prose, so closing the item would have asserted a
+      book-wide consistency that does not yet exist. This does not stall Phase 2:
+      the ratified plan's Phase 2 exit condition keeps R10, R15, R24 and R36 open
+      until their book-wide implementation is verified.
+    closure_packet: "P6-CONTINUITY"
+    closure_handoff: "H-P2-TERMS-001"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:

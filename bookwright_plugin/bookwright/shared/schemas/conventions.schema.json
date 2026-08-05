@@ -333,9 +333,268 @@
     },
     "identity_briefs": {
       "$ref": "#/$defs/identityBriefs"
+    },
+    "terminology_registry": {
+      "$ref": "#/$defs/terminologyRegistry"
     }
   },
   "$defs": {
+    "terminologyRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "status",
+        "decision",
+        "ratified_at",
+        "decision_evidence",
+        "durable_decision_record",
+        "implementation_packet",
+        "register_items",
+        "review_route",
+        "principles",
+        "spine_confirmation",
+        "canonical_forms",
+        "superseded_forms",
+        "deliberate_departures",
+        "meaning_rules",
+        "stable_identifiers",
+        "definition_map",
+        "live_divergences",
+        "authority_boundary"
+      ],
+      "properties": {
+        "schema_version": {"const": 1},
+        "status": {"const": "ratified"},
+        "decision": {"const": "G-A2c"},
+        "ratified_at": {"type": "string", "minLength": 10},
+        "decision_evidence": {"type": "string", "minLength": 1},
+        "durable_decision_record": {"type": "string", "minLength": 1},
+        "implementation_packet": {"const": "P2-TERMS"},
+        "implementation_record": {"type": "string", "minLength": 1},
+        "register_items": {"$ref": "#/$defs/nonEmptyStringArray"},
+        "review_route": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reviewer",
+            "owner",
+            "independent_review_obtained",
+            "independent_review_claim_permitted",
+            "amendment_record",
+            "binds"
+          ],
+          "properties": {
+            "reviewer": {"const": "author_editor"},
+            "owner": {"type": "string", "minLength": 1},
+            "independent_review_obtained": {"type": "boolean"},
+            "independent_review_claim_permitted": {"type": "boolean"},
+            "amendment_record": {"type": "string", "minLength": 1},
+            "binds": {"$ref": "#/$defs/nonEmptyStringArray"}
+          }
+        },
+        "principles": {"$ref": "#/$defs/nonEmptyStringArray"},
+        "spine_confirmation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "spine_registry",
+            "spine_forms_are_canonical",
+            "ratified_units",
+            "key_term_slots",
+            "distinct_forms",
+            "reopened_forms",
+            "forms_carried_by_two_units",
+            "note"
+          ],
+          "properties": {
+            "spine_registry": {"type": "string", "minLength": 1},
+            "spine_forms_are_canonical": {"const": true},
+            "ratified_units": {"type": "integer", "minimum": 0},
+            "key_term_slots": {"type": "integer", "minimum": 0},
+            "distinct_forms": {"type": "integer", "minimum": 0},
+            "reopened_forms": {"const": 0},
+            "forms_carried_by_two_units": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "note": {"type": "string", "minLength": 1}
+          }
+        },
+        "canonical_forms": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["hr", "en", "source", "reason"],
+            "properties": {
+              "hr": {"type": "string", "minLength": 1},
+              "en": {"type": "string", "minLength": 1},
+              "source": {"type": "string", "minLength": 1},
+              "unit": {"type": "string", "minLength": 1},
+              "reason": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "superseded_forms": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["form", "canonical", "reason"],
+            "properties": {
+              "form": {"type": "string", "minLength": 1},
+              "canonical": {"type": "string", "minLength": 1},
+              "permitted_only_in": {"type": "string", "minLength": 1},
+              "reason": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "deliberate_departures": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["form", "en", "reason"],
+            "properties": {
+              "form": {"type": "string", "minLength": 1},
+              "en": {"type": "string", "minLength": 1},
+              "reason": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "meaning_rules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["term", "reserved_for", "forbidden_use", "reason"],
+            "properties": {
+              "term": {"type": "string", "minLength": 1},
+              "reserved_for": {"type": "string", "minLength": 1},
+              "forbidden_use": {"type": "string", "minLength": 1},
+              "reason": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "stable_identifiers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "canonical_term", "reason"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "canonical_term": {"type": "string", "minLength": 1},
+              "reason": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "definition_map": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "frozen_baseline",
+            "live_count",
+            "approved_total",
+            "deltas",
+            "implemented",
+            "implementing_packets",
+            "ledger_reconciled_to",
+            "note"
+          ],
+          "properties": {
+            "frozen_baseline": {"type": "integer", "minimum": 0},
+            "live_count": {"type": "integer", "minimum": 0},
+            "approved_total": {"type": "integer", "minimum": 0},
+            "deltas": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["gate", "delta", "blocks"],
+                "properties": {
+                  "gate": {"type": "string", "minLength": 1},
+                  "delta": {"type": "integer"},
+                  "blocks": {"type": "array", "items": {"type": "string", "minLength": 1}}
+                }
+              }
+            },
+            "implemented": {"type": "boolean"},
+            "implementing_packets": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "ledger_reconciled_to": {"const": "live_source"},
+            "note": {"type": "string", "minLength": 1}
+          }
+        },
+        "live_divergences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["file", "live_form", "canonical", "owner"],
+            "properties": {
+              "file": {"type": "string", "minLength": 1},
+              "live_form": {"type": "string", "minLength": 1},
+              "canonical": {"type": "string", "minLength": 1},
+              "owner": {"type": "string", "minLength": 1},
+              "note": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "excluded_from_divergences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["file", "form", "reason"],
+            "properties": {
+              "file": {"type": "string", "minLength": 1},
+              "form": {"type": "string", "minLength": 1},
+              "reason": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "authority_boundary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "chapter_prose_edit_authorised",
+            "appendix_prose_edit_authorised",
+            "definition_block_authoring_authorised",
+            "definition_identifier_rename_authorised",
+            "chapter_spine_ratification_authorised",
+            "route_implementation_authorised",
+            "independent_review_claim_authorised",
+            "data_package_selection_or_promotion_authorised",
+            "push_authorised",
+            "merge_authorised",
+            "tag_authorised",
+            "archive_authorised",
+            "deployment_authorised",
+            "publication_authorised"
+          ],
+          "properties": {
+            "chapter_prose_edit_authorised": {"type": "boolean"},
+            "appendix_prose_edit_authorised": {"type": "boolean"},
+            "definition_block_authoring_authorised": {"type": "boolean"},
+            "definition_identifier_rename_authorised": {"type": "boolean"},
+            "chapter_spine_ratification_authorised": {"type": "boolean"},
+            "route_implementation_authorised": {"type": "boolean"},
+            "independent_review_claim_authorised": {"type": "boolean"},
+            "data_package_selection_or_promotion_authorised": {"type": "boolean"},
+            "push_authorised": {"type": "boolean"},
+            "merge_authorised": {"type": "boolean"},
+            "tag_authorised": {"type": "boolean"},
+            "archive_authorised": {"type": "boolean"},
+            "deployment_authorised": {"type": "boolean"},
+            "publication_authorised": {"type": "boolean"}
+          }
+        }
+      }
+    },
     "nonEmptyStringArray": {
       "type": "array",
       "minItems": 1,
