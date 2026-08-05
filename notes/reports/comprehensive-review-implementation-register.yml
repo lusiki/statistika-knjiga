@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P2-TERMS"
-  next_permitted_packet: "P2-DOCS"
+  last_completed_packet: "P2-DOCS"
+  next_permitted_packet: "P2-VERIFY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -6689,7 +6689,7 @@ packets:
     sequence: 64
     phase: "2"
     kind: "governing_documents"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P2-TERMS"
       - "P2-ASSESS"
@@ -6701,13 +6701,82 @@ packets:
       - "Blueprint, style, design, conventions, and registries state one consistent contract."
       - "No rejected scope branch or stale rule remains active."
       - "The P2-DOCS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
+      required_evidence:
+        - requirement: "approved contract changes"
+          artifacts:
+            - "handoff:H-P1B-META-004-consumed-three-markers"
+            - "handoff:H-P1C-PDF-001-consumed-deployment-description"
+            - "decision:D06-and-G-A2d-recorded-as-ratified-but-unimplemented-in-_quarto-kolegij.yml"
+            - "item:R04-BOOK-content-weight-rule-written-into-STYLE.md-ENRICHMENT.md-and-notes/struktura-knjige.md"
+            - "report:notes/reports/p2-docs-2026-08-05.md"
+        - requirement: "cross-document consistency diff"
+          artifacts:
+            - "source:AGENTS.md-deployment-matches-.github/workflows/publish.yml-line-by-line"
+            - "source:_quarto.yml-visual-identity-matches-DESIGN.md-and-the-absent-cover-and-favicon-files"
+            - "source:bookwright_plugin/README.md-shared-state-matches-the-live-registries"
+            - "source:STYLE.md-band-instruction-matches-its-own-2026-07-30-changelog-entry"
+            - "source:notes/struktura-knjige.md-precedence-and-word-target-reconciled-with-the-ratified-programme"
+        - requirement: "deterministic policy check"
+          artifacts:
+            - "check:scripts/check-book-inventory.py-BOOK_INVENTORY_OK-pages-37-chapters-19-appendices-6-solutions-0"
+            - "check:scripts/check-book-inventory-fixtures.py-BOOK_INVENTORY_NEGATIVE_FIXTURES_OK-fixtures-3-publish-false"
+            - "check:scripts/check-tokens.R-all-design-layers-in-sync"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:scripts/check-terminology.py-TERMINOLOGY_OK-unchanged"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true"
+      outputs:
+        - output: "P2-DOCS durable artifact and evidence record for: Reconcile blueprint, style, design, conventions, and scope."
+          artifacts:
+            - "report:notes/reports/p2-docs-2026-08-05.md"
+            - "source:AGENTS.md"
+            - "source:STYLE.md"
+            - "source:ENRICHMENT.md"
+            - "source:notes/struktura-knjige.md"
+        - output: "Completion evidence is tied to the declared P2-DOCS source state and bounded scope."
+          artifacts:
+            - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
+            - "scope-diff:seven-governing-documents-and-the-control-files-only"
+            - "check:scripts/check-review-workflow.R-at-P2-DOCS-closeout"
+      exit_tests:
+        - test: "Blueprint, style, design, conventions, and registries state one consistent contract."
+          result: "passed"
+          evidence:
+            - "source:STYLE.md-ENRICHMENT.md-and-notes/struktura-knjige.md-state-the-same-band-is-a-floor-and-word-target-is-diagnostic-rule"
+            - "source:bookwright_plugin/README.md-agrees-with-chapter-spine.json-concept-ledger.json-and-conventions.json"
+            - "source:AGENTS.md-agrees-with-.github/workflows/publish.yml"
+            - "source:_quarto.yml-agrees-with-DESIGN.md-and-with-the-absent-cover-and-favicon-files"
+            - "source:_quarto-kolegij.yml-agrees-with-the-ratified-D06-contract-and-with-solution-records-0"
+        - test: "No rejected scope branch or stale rule remains active."
+          result: "passed"
+          evidence:
+            - "source:_quarto-kolegij.yml-revealed-solutions-claim-removed-without-reviving-the-pathway"
+            - "source:STYLE.md-stale-run-the-detector-and-ratify-instruction-removed"
+            - "source:AGENTS.md-continue-on-error-description-and-SITE_URL-instruction-removed"
+            - "source:notes/struktura-knjige.md-Otvorene-odluke-marked-no-longer-authoritative"
+            - "check:scripts/check-book-inventory.py-solutions-0-and-unchanged-checksum-prove-no-promise-was-broadened"
+        - test: "The P2-DOCS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "ordering:a-first-edit-pass-preceded-the-claim-was-reverted-to-HEAD-and-the-work-was-redone-under-a-valid-lock-recorded-not-concealed"
+            - "handoff:H-P1B-META-004-and-H-P1C-PDF-001-acknowledged-before-the-redone-work-and-consumed-at-closeout"
+            - "item:R04-BOOK-content-weight-and-R23-SCOPE-no-technical-ds-closed-against-their-own-tests"
+            - "item:R04-ARCH-macro-order-R12-SCOPE-no-variance-course-R14-SCOPE-reading-not-fitting-R23-SCOPE-reading-not-production-and-R23-SCOPE-no-new-chapters-widgets-left-open-with-recorded-reasons"
+            - "audit:zero-occurrences-of-SQL-databases-cloud-scraping-dashboards-hyperparameters-or-neural-networks-in-chapters-and-dodaci"
+            - "audit:dodaci/d-koji-test.qmd-47-lines-partial-draft-with-no-dependence-route"
+            - "audit:chapters/00-predgovor.qmd-advertises-no-two-route-map"
+            - "handoff:H-P2-DOCS-001-through-003-created"
+            - "risk:scripts/check-terminology.py-not-yet-a-blocking-CI-step-recorded-for-P7-CLEAN-BUILD"
+            - "amendment:no-independent-review-claim-and-no-rights-holder-permission-claim-in-any-edition-copy-written-here"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "governing_documents"
     required_evidence:
       - "approved contract changes"
       - "cross-document consistency diff"
       - "deterministic policy check"
-    change_reference: null
+    change_reference: "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
   P2-VERIFY:
     sequence: 65
     phase: "2"
@@ -11464,6 +11533,18 @@ items:
     description: "Preserve canonical chapter order and implement D03 as navigation, not reordering."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      Deliberately left open by P2-DOCS. The first half of the acceptance test is
+      satisfied and verified: the _quarto.yml order is unchanged and
+      check-book-inventory.py reports the canonical 19 chapters and 6 appendices
+      with an unchanged checksum. The second half cannot be satisfied, because
+      the two reading routes do not exist. chapters/00-predgovor.qmd carries a
+      Granice i putovi citanja section that states the scope boundary and the
+      appendices and advertises no critical-literacy and no analysis route.
+      Asserting that both routes are accurate would assert a state that did not
+      happen.
+    closure_packet: "P5-ROUTES"
+    closure_handoff: "H-P2-DOCS-002"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11842,7 +11923,7 @@ items:
       location: "§14"
     description: "Separate structural compliance from argumentative completeness and keep word counts diagnostic."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11861,11 +11942,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-DOCS"
-    completion_evidence: []
+    completion_evidence:
+      - "source:STYLE.md#a-band-is-a-floor-never-a-finish-line-and-no-word-target-advances-anything"
+      - "source:ENRICHMENT.md#never-a-word-count-and-never-a-substitute-for-the-spine"
+      - "source:notes/struktura-knjige.md#dopuna-2026-08-05-ukupni-opseg-je-dijagnostika-a-ne-kvota"
+      - "source:STYLE.md-stale-run-the-detector-and-ratify-the-band-instruction-removed"
+      - "report:notes/reports/p2-docs-2026-08-05.md"
+      - "decision:ratified-plan-section-1-word-target-is-a-diagnostic-not-a-quota"
+      - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
+      - "scope-note:all-three-documents-in-the-item-scope-now-state-the-same-rule-and-no-chapter-prose-was-changed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
   R04-C01-definitions:
     parents:
       - "R04"
@@ -16451,6 +16540,17 @@ items:
         - "S15"
       location: "§12 survey realism"
     description: "Keep complex-survey variance formulas outside production scope while retaining recognition and routing."
+    open_reason: >-
+      Deliberately left open by P2-DOCS. The no-derivation half is satisfied and
+      verified: Chapter 8's four exercise tiers work from the margin-of-error
+      table and derive no formula, and the prose carries cluster sampling, design
+      effects and effective sample size explicitly. The limits half is not
+      delivered in the item's own declared scope: dodaci/d-koji-test.qmd is 47
+      lines, marks itself a partial draft against a planned 1500 words, and states
+      no rule about dependent, clustered, repeated or network-linked observations
+      and no route out of the book.
+    closure_packet: "P5-D"
+    closure_handoff: "H-P2-DOCS-001"
     disposition: "rejected_with_reason"
     disposition_reason: "The book teaches recognition and limitations, not a complex-survey variance course."
     status: "ratified"
@@ -17316,6 +17416,15 @@ items:
         - "S15"
       location: "§12 scope"
     description: "Keep logistic fitting/derivation and causal estimators outside production work."
+    open_reason: >-
+      Deliberately left open by P2-DOCS. The recognition, interpretation and
+      limitation halves are satisfied and verified: Chapter 16 fits no logistic
+      model, introduces no causal estimator, and its exercises assess judgment
+      rather than production. The routing half is not delivered, because routing
+      lives in dodaci/d-koji-test.qmd, which is a partial draft carrying one
+      starting-procedure table and no route out of the book.
+    closure_packet: "P5-D"
+    closure_handoff: "H-P2-DOCS-001"
     disposition: "rejected_with_reason"
     disposition_reason: "These methods exceed the ratified first-edition production scope."
     status: "ratified"
@@ -20381,7 +20490,7 @@ items:
     description: "Enforce the boundary excluding production data-science infrastructure/tool surveys."
     disposition: "rejected_with_reason"
     disposition_reason: "They do not serve the four promises at introductory depth."
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -20401,11 +20510,22 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-DOCS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2a"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#intellectual_architecture.data_science_registry.technical_topics_out_of_scope-9"
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.h10_boundary.prohibited_assessed_deliverables"
+      - "audit:zero-occurrences-of-SQL-baza-podataka-cloud-scraping-struganje-dashboard-nadzorna-ploca-hiperparametar-or-neuronska-mreza-across-chapters-and-dodaci"
+      - "check:scripts/check-book-architecture.py-activities-4-and-data-science-registry-valid"
+      - "check:scripts/check-widgets.py-17-widgets-no-new-widget-and-no-new-callout-type"
+      - "check:scripts/check-book-inventory.py-BOOK_INVENTORY_OK-chapters-19-appendices-6"
+      - "source:AGENTS.md-out-of-scope-statement-and-notes/struktura-knjige.md-scope-note"
+      - "report:notes/reports/p2-docs-2026-08-05.md#odluke-po-stavkama"
+      - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
+      - "scope-note:the-boundary-is-ratified-and-binding-and-the-audit-is-tied-to-this-exact-source-state-a-later-substantive-change-reopens-it"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
   R23-SCOPE-reading-not-production:
     parents:
       - "R23"
@@ -20418,6 +20538,14 @@ items:
         - "S15"
       location: "§12 scope"
     description: "Keep logistic fitting, causal estimators, meta-analysis computation, and excluded dependent-data models outside production work."
+    open_reason: >-
+      Deliberately left open by P2-DOCS for the same reason as
+      R14-SCOPE-reading-not-fitting. Recognition, interpretation and limitation
+      are verified in Chapter 16, and no meta-analysis is computed anywhere; the
+      single occurrence in Chapter 12 names meta-analysis as a concept being read.
+      The routing half is not delivered in dodaci/d-koji-test.qmd.
+    closure_packet: "P5-D"
+    closure_handoff: "H-P2-DOCS-001"
     disposition: "rejected_with_reason"
     disposition_reason: "The first edition prioritises statistical literacy over additional method production."
     status: "ratified"
@@ -20457,6 +20585,16 @@ items:
     description: "Integrate additions as seeds, harvests, and retrieval without new chapter/widget/callout type."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      Deliberately left open by P2-DOCS. The counts half is satisfied and
+      verified: 19 chapters, 6 appendices, 37 canonical pages, 17 widgets each
+      with a static twin and a complete registry, and four callout types with no
+      new type added. The second half, that retrieval replaces lower-value work,
+      is not a state that exists: reach-back tasks are R35 work in Phases 4 and 5
+      and no chapter carries one yet. Closing on the verified half alone would be
+      closure by aggregation.
+    closure_packet: "P5-CLOSURE-18"
+    closure_handoff: "H-P2-DOCS-002"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:

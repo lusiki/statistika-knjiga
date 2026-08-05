@@ -7,6 +7,21 @@ Radni dokument strukture knjige. Verzija 1, srpanj 2026.
 > priručnik i preslikava ga; ako se njih dvoje raziđu, ovaj dokument ima
 > prednost, a `AGENTS.md` se ispravlja. Dopune zabilježene pri postavljanju
 > repozitorija su na dnu, jasno odvojene.
+>
+> **Dopuna od 5. kolovoza 2026.** Ta prednost vrijedi i dalje, ali samo ondje
+> gdje ratificirana odluka nije rekla drukčije. Program sveobuhvatne revizije ima
+> vlastiti upravljački sloj — plan iz
+> `notes/reports/comprehensive-review-implementation-plan-2026-08-03.md`, registar
+> `comprehensive-review-implementation-register.yml`, ledger prosljeđivanja i
+> nadzornu ploču. Ondje gdje je ratificirana odluka toga programa izmijenila
+> nešto iz ovoga dokumenta, vrijedi ta odluka i zabilježena je u registru s
+> vlastitom stavkom. Ovaj dokument ostaje nacrt knjige, a ne paralelni popis
+> zadataka.
+>
+> Odjeljak „Otvorene odluke" na dnu popisuje pitanja otvorena u srpnju 2026.
+> Dio ih je otada zatvoren odlukama `D01`–`D16` i gateovima `G-A0` do `G-A2c`,
+> pa taj popis više nije mjerodavan za to što je otvoreno. Mjerodavan je
+> registar.
 
 Purpose. This document elaborates the five part structure into a chapter level
 blueprint, with source mapping to the existing course, per chapter scope, the
@@ -345,6 +360,14 @@ publishing norms.
 Ukupni opseg. Roughly 84000 words of main text plus 17000 in appendices, on the
 order of 350 to 380 printed pages, comparable to the policy book's production
 profile.
+
+> **Dopuna od 5. kolovoza 2026.** Ta je brojka **dijagnostika za cijelu knjigu,
+> a ne kvota**. Nije udio po poglavlju, nije uvjet dovršenosti i nijedan je
+> paket ne smije navesti kao razlog da sadržaj traži ili odbije. Poglavlje je
+> dovršeno kad nosi svoju ratificiranu kralježnicu i kad mu argument drži od
+> početka do kraja; prolaz kroz strukturne pojaseve i pogođen broj riječi to ne
+> dokazuju. Ista granica stoji u `STYLE.md` uz strukturne pojaseve i u
+> `ENRICHMENT.md` uz test asimetrije.
 
 ## Otvorene odluke
 

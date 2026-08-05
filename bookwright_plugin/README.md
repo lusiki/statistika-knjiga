@@ -34,18 +34,28 @@ appropriate.
 
 ## Shared state
 
-The four files under `bookwright/shared/` are seeded, but they are not all
-empty:
+The four files under `bookwright/shared/` are live, and none of them is a
+placeholder:
 
 - `chapter-ledger.json` contains all 19 chapter records and is the live
   lifecycle dashboard.
-- `chapter-spine.json` contains one provisional record per chapter. Key aspects
-  and key terms remain empty until proposed and ratified.
-- `concept-ledger.json` starts without concepts or notation and grows with
-  `#def-` definitions and book-wide notation decisions.
-- `conventions.json` contains the current callout names, four exercise tiers,
-  widget policy, and provisional structural bands. Recalibrate the numeric
-  bands only after four or five chapters contain real prose.
+- `chapter-spine.json` contains all 19 records and every one is ratified, each
+  naming its own `G-A2b` gate, its ratification date, its decision record, its
+  prerequisites and its exclusions. No registry may ratify a spine itself.
+- `concept-ledger.json` carries the canonical Croatian terms and the book-wide
+  notation, and its term list must agree exactly with the live `#def-` divs.
+  `scripts/check-concepts.py` enforces that agreement and the freshness of the
+  generated `data/concept-graph.json`, and it fails closed.
+- `conventions.json` carries the callout names, four exercise tiers, widget
+  policy, the ratified structural bands, the ratified intellectual, assessment
+  and identity architectures, and the ratified terminology registry. The
+  structural bands were measured and ratified on 30 July 2026 and are no longer
+  provisional; the terminology registry was ratified at `G-A2c` and is enforced
+  by `scripts/check-terminology.py`.
+
+Changing any of these is conductor work. A packet that adds, merges or demotes
+a `#def-` block must update `concept-ledger.json` and regenerate
+`data/concept-graph.json` in the same packet.
 
 JSON schemas live in `bookwright/shared/schemas/`.
 

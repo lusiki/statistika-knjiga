@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-TERMS
-next_permitted_packet: P2-DOCS
+last_completed_packet: P2-DOCS
+next_permitted_packet: P2-VERIFY
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 61
+forward_handoffs: 64
 last_updated: "2026-08-05"
 ---
 
@@ -43,8 +43,8 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-TERMS` |
-| Next permitted packet | `P2-DOCS` |
+| Last completed packet | `P2-DOCS` |
+| Next permitted packet | `P2-VERIFY` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -56,6 +56,67 @@ stop and repair the control state before editing book content.
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P2-DOCS closeout
+
+- **A process error is recorded rather than concealed.** A first pass of
+  governing-document edits was made *before* the packet was claimed and before
+  the two deliveries were acknowledged. The working tree was reverted to `HEAD`
+  for all seven documents, the packet was then claimed, both deliveries were
+  acknowledged, `check-review-workflow.R` passed with `P2-DOCS` active, and the
+  work was redone. The closing source state was produced under a valid write
+  lock.
+- Exactly two deliveries target this packet and both were consumed with an exact
+  disposition and evidence: `H-P1B-META-004` (three stale internal markers) and
+  `H-P1C-PDF-001` (the stale deployment description). Nothing targeting another
+  packet was consumed.
+- **AGENTS.md now describes the implemented production path**, verified line by
+  line against the live `.github/workflows/publish.yml`: the blocking check
+  ladder and its fail-closed fixtures, `check-pdf-release-path.ps1`, then the PDF
+  built only through `render-book-pdf.ps1 -RequireCleanCommit` with no
+  `continue-on-error`. The implemented path itself was not changed, and the
+  section closes with an explicit sentence that it promises no edition and
+  authorises no release. The same paragraph's second stale instruction — that
+  `SITE_URL` is edited in `R/build-ai-exports.R` — was replaced, because that
+  script now reads the address from `_quarto.yml` metadata.
+- The `kolegij` profile comment no longer claims revealed solutions. It records
+  the ratified but **unimplemented** D06 two-layer contract, states that the
+  profile currently reveals nothing, and names the packets that will implement
+  it. No rejected pathway was revived, which `check-book-inventory.py` confirms
+  by still reporting `solutions=0` with an unchanged checksum. `_quarto.yml` now
+  says the visual identity *is* selected in DESIGN.md while the cover and favicon
+  files are genuinely absent, so both lines stay commented out.
+  `bookwright_plugin/README.md` no longer calls the shared state seeded or
+  provisional.
+- `STYLE.md`'s instruction to "run the detector and ratify the real
+  distribution" was stale against its own 30 July 2026 changelog entry and was
+  replaced. `STYLE.md`, `ENRICHMENT.md` and `notes/struktura-knjige.md` now state
+  one rule: **a band is a floor, not a finish line, and no word target advances
+  anything.**
+- **Two items closed and five did not, on purpose.** `R04-BOOK-content-weight`
+  and `R23-SCOPE-no-technical-ds` are `accepted`; the latter was verified by a
+  whole-source search finding zero occurrences of SQL, databases, cloud,
+  scraping, dashboards, hyperparameters or neural networks. The five left open
+  each have exactly one half of their test unmet, recorded in the register:
+  `R04-ARCH-macro-order` (the two reading routes do not exist anywhere — the
+  preface advertises none); `R12-SCOPE-no-variance-course`,
+  `R14-SCOPE-reading-not-fitting` and `R23-SCOPE-reading-not-production` (all
+  three need routing, and `dodaci/d-koji-test.qmd` is a 47-line partial draft
+  with no dependence route and no route out of the book); and
+  `R23-SCOPE-no-new-chapters-widgets` (counts verified, but retrieval tasks are
+  R35 work in Phases 4 and 5). `R11-SCOPE-no-multiple-imputation` was already
+  terminal and untouched.
+- `H-P2-DOCS-001` carries the three routing-dependent closures to `WC-C08`,
+  `WD-C16` and `P5-D`; `H-P2-DOCS-002` carries the two half-satisfied closures to
+  `P5-ROUTES` and `P5-CLOSURE-18`; `H-P2-DOCS-003` records that
+  `scripts/check-terminology.py` is **not yet a blocking CI step** and carries
+  the wiring to `P7-CLEAN-BUILD`.
+- No chapter or appendix prose, shared registry, `#def-` block, spine, identity
+  brief, data package, route, render or chapter stage changed. The `_quarto.yml`
+  chapter order is untouched, all 19 units remain `draft`, the live definition
+  count remains 46, and the book-inventory checksum is unchanged.
+
+The durable evidence is `notes/reports/p2-docs-2026-08-05.md`.
 
 ## P2-TERMS closeout
 
@@ -2353,38 +2414,42 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p2-terms-2026-08-05.md,
-notes/reports/g-a2c-terminology-decision-2026-08-05.md,
-notes/reports/g-a2c-reviewer-amendment-2026-08-05.md and
+Also fully read notes/reports/p2-docs-2026-08-05.md,
+notes/reports/p2-terms-2026-08-05.md,
+notes/reports/g-a2c-terminology-decision-2026-08-05.md and
 notes/reports/g-a3-data-rights-determination-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, P2-DOCS, only, and stop.
-P2-DOCS is a governing_documents packet. Read its contract and every governed
-item it owns in full, including R04-BOOK-content-weight.
+Execute the dashboard's next permitted packet, P2-VERIFY, only, and stop.
+P2-VERIFY is a review_gate. No handoff targets it; read the complete ledger and
+record that absence explicitly. Verify every named prerequisite independently
+against its contract, source state, positive evidence, negative fixture,
+unresolved blockers and authority boundary, and tie the gate to one declared
+source state.
 
-Two before_close deliveries target it and both must be acknowledged before the
-first substantive edit and consumed with an exact disposition and evidence at
-closeout. H-P1B-META-004 names three stale internal markers: the kolegij profile
-comment promising absent solution gates, the _quarto.yml line saying the visual
-identity is not selected, and bookwright_plugin/README.md calling ratified
-structural conventions provisional. H-P1C-PDF-001 records that AGENTS.md still
-describes the former continue-on-error PDF attempt instead of the accepted
-wrapper-only blocking path. Consume nothing that targets another packet.
+Expect and handle one known collision honestly. The ratified plan's Phase 2 exit
+gate says "R04 is closed", but R04 cannot close in Phase 2 by the register's own
+design: its required children include R04-ROUTES-two-track-map, owned by
+P5-ROUTES in Phase 5, R04-C18-whole-prerequisites, owned by WE-C18 and
+P5-ROUTES, and R04-ARCH-macro-order, which P2-DOCS left open because the two
+reading routes do not exist. Do not force R04 closed, do not quietly redefine
+the exit gate, and do not hide the gap by aggregation, which this packet's own
+exit test forbids. Enumerate R04's open required children with their owning
+packets and phases, state plainly which part of the Phase 2 exit condition is
+met and which is structurally deferred, and record the discrepancy as a forward
+handoff to the packets that can actually close it. If you judge that this makes
+the gate unpassable as written, stop and report rather than inventing a passing
+reading.
 
-Update governing documents only where an approved decision changed their declared
-contract. Do not revive a rejected pathway, do not broaden any text into a
-release or publication promise, and do not alter prose merely to make a stale
-comment true. Both 2026-08-05 author amendments bind edition copy written here:
-the first edition may make no independent-review claim about its terminology, and
-the book may claim no rights-holder permission for any source.
+The other Phase 2 exit clauses are checkable now: all 19 spines are ratified,
+the definition and prerequisite changes have an approved map, and R10, R15, R24
+and R36 are explicitly allowed to remain open. R36-BOOK-new-cluster is one of
+those and is deliberately open with its reason in the register.
 
-The ratified terminology registry is now live in
-bookwright_plugin/bookwright/shared/conventions.json and is enforced by
-scripts/check-terminology.py, and the frozen concept gate is retired, so
-scripts/check-concepts.py now fails closed immediately. Do not reopen either.
+Both 2026-08-05 author amendments remain binding: no independent-review claim
+anywhere, and no rights-holder permission claim for any source.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
 negative fixtures still fail, rerun every deterministic check this packet
-touches, and make one scoped local commit.
+verifies, and make one scoped local commit.
 ```

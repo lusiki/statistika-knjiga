@@ -422,11 +422,24 @@ every character they see.
 
 ## Deployment
 
-Pushing to `main` triggers `.github/workflows/publish.yml`, which renders the
-book with `quarto render`, attempts the PDF (`continue-on-error`), and uploads
-`docs/` to GitHub Pages. Update `site-url` in `_quarto.yml`, `SITE_URL` in
-`R/build-ai-exports.R` and the link in `design-tokens.yml` once the repository has its
-real address.
+Pushing to `main` triggers `.github/workflows/publish.yml`. The workflow runs
+the blocking check ladder — inventory, tokens, manuscript integrity, figure
+introductions, citations, concepts, data integrity, widget contracts and
+parity — together with the fixtures that prove each one fails closed. It then
+builds the PDF **only** through `scripts/render-book-pdf.ps1`, never through a
+bare profile render, after `scripts/check-pdf-release-path.ps1` has proved the
+wrapper's failure paths. That step is blocking: a failed PDF fails the run, and
+a stale artifact cannot survive it. HTML renders after that, and `docs/` is
+uploaded to GitHub Pages only from `main`.
+
+The canonical site address is set once in `_quarto.yml` as `site-url`;
+`R/build-ai-exports.R` reads it from that metadata rather than carrying its own
+copy, and `design-tokens.yml` mirrors it. Change it in `_quarto.yml` first and
+reconcile the mirror.
+
+This section describes the implemented production path. It promises no edition
+and authorises no release: push, merge, tag, archive and deployment each keep
+their own explicit gate.
 
 ## Commit conventions
 

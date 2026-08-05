@@ -1213,7 +1213,36 @@ handoffs:
     deliveries:
       - target_packet: P2-DOCS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          All three recorded internal markers are reconciled with the ratified
+          contracts and none was made true by altering prose. The kolegij profile
+          comment no longer lists revealed solutions as a difference; it now
+          records the ratified but UNIMPLEMENTED D06 two-layer contract, states
+          explicitly that the profile currently reveals no solution, and names
+          the packets that will author the records and assemble the routes. No
+          rejected pathway was revived and no promise was broadened, which
+          check-book-inventory.py confirms by still reporting solutions=0 with an
+          unchanged inventory checksum. The _quarto.yml comment no longer says the
+          visual identity is unselected, because DESIGN.md selected and specified
+          it; what is genuinely missing is the cover and favicon files, so both
+          lines stay commented out and the comment now gives the true reason.
+          bookwright_plugin/README.md no longer calls the shared state seeded or
+          provisional: it records nineteen ratified spines, a concept ledger of 46
+          concepts and 40 notation entries, the structural bands ratified on 30
+          July 2026, the three ratified architectures and the terminology registry
+          ratified at G-A2c, and names the checker that keeps each closed.
+        evidence:
+          - "source:_quarto-kolegij.yml-D06-contract-recorded-as-ratified-but-unimplemented"
+          - "source:_quarto.yml-visual-identity-selected-cover-and-favicon-files-absent"
+          - "source:bookwright_plugin/README.md-shared-state-section-rewritten-to-the-live-state"
+          - "check:scripts/check-book-inventory.py-BOOK_INVENTORY_OK-solutions-0-checksum-unchanged"
+          - "check:scripts/check-assessment-architecture.py-solution-records-0-routes-0"
+          - "check:scripts/check-book-architecture.py-19-of-19-ratified-spines"
+          - "report:notes/reports/p2-docs-2026-08-05.md"
+          - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
 
   H-G-A1D-001:
     source_packet: G-A1d
@@ -1433,7 +1462,35 @@ handoffs:
     deliveries:
       - target_packet: P2-DOCS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The AGENTS.md deployment description now states the implemented
+          wrapper-only blocking path, verified against the live
+          .github/workflows/publish.yml: the blocking check ladder and its
+          fail-closed fixtures run first, scripts/check-pdf-release-path.ps1
+          proves the wrapper's failure paths, the PDF is built only through
+          scripts/render-book-pdf.ps1 -RequireCleanCommit with no
+          continue-on-error, HTML renders after that, and docs/ uploads only from
+          main. The implemented path itself was not changed. The text was not
+          broadened into a release or publication promise; it closes with an
+          explicit sentence that push, merge, tag, archive and deployment each
+          keep their own gate. The same paragraph carried a second stale
+          instruction, that the site address must be changed in three places
+          including a SITE_URL constant in R/build-ai-exports.R; the address is
+          set and that script now reads it from _quarto.yml metadata, so the
+          instruction was replaced by what actually holds. That is the other
+          already-recorded governing-document marker this handoff asked to
+          reconcile in the same packet.
+        evidence:
+          - "source:AGENTS.md-deployment-wrapper-only-blocking-description"
+          - "source:.github/workflows/publish.yml-render-book-pdf.ps1-RequireCleanCommit-no-continue-on-error"
+          - "source:.github/workflows/publish.yml-check-pdf-release-path.ps1-step"
+          - "source:R/build-ai-exports.R-SITE_URL-read-from-_quarto.yml-metadata"
+          - "source:AGENTS.md-explicit-no-release-promise-sentence"
+          - "report:notes/reports/p2-docs-2026-08-05.md"
+          - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
 
   H-P1C-INTEGRITY-001:
     source_packet: P1C-INTEGRITY
@@ -3479,6 +3536,144 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P2-DOCS-001:
+    source_packet: P2-DOCS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R12-SCOPE-no-variance-course
+      - item:R14-SCOPE-reading-not-fitting
+      - item:R23-SCOPE-reading-not-production
+      - item:R22-AD-no-method-route
+      - item:R22-AD-decision-order
+      - item:R22-C14-C16-dependence
+      - source:dodaci/d-koji-test.qmd
+      - report:notes/reports/p2-docs-2026-08-05.md
+    statement: >-
+      Three rejected-scope items were deliberately NOT closed by P2-DOCS and all
+      three stay at status ratified for the same reason. Their acceptance tests
+      each require that the book keep limits explicit and that it ROUTE the
+      reader when no method in the book fits, and routing lives in
+      dodaci/d-koji-test.qmd. That appendix is 47 lines, marks itself a partial
+      draft against a planned 1500 words, carries one starting-procedure table
+      and a short post-selection paragraph, and states no rule at all about
+      dependent, clustered, repeated or network-linked observations and no route
+      out of the book. The other halves are already satisfied and were verified
+      at this source state: Chapter 8's tasks derive no formula and its prose
+      carries design effects and effective sample size, and Chapter 16 fits no
+      logistic model and introduces no causal estimator. Closing the items here
+      would have asserted a routing capability the book does not have.
+    required_action: >-
+      P5-D must complete Appendix D as the decision and recovery aid, including
+      the explicit route for repeated, clustered, longitudinal and network-linked
+      observations and the statement that no method in this book is adequate for
+      them, and must keep the limits of every listed procedure explicit. Only
+      then may R12-SCOPE-no-variance-course, R14-SCOPE-reading-not-fitting and
+      R23-SCOPE-reading-not-production close, and each must be closed against its
+      own test rather than by aggregation. WC-C08 must keep the design-effect and
+      effective-sample-size limits explicit in Chapter 8 and must add no task
+      that derives a variance formula. WD-C16 must keep Chapter 16 to
+      recognition, interpretation, limitation and routing, so its ratified
+      bounded bridge to binary outcomes, odds ratios and predicted probabilities
+      is read rather than fitted.
+    basis:
+      - source:dodaci/d-koji-test.qmd-47-lines-partial-draft-no-dependence-route
+      - source:chapters/08-uzorkovanje.qmd-tasks-use-the-margin-table-and-derive-no-formula
+      - source:chapters/16-regresija.qmd-no-logistic-fitting-and-no-causal-estimator
+      - notes/reports/p2-docs-2026-08-05.md#odluke-po-stavkama
+    required: true
+    deliveries:
+      - target_packet: WC-C08
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: P5-D
+        gate: before_close
+        state: pending
+
+  H-P2-DOCS-002:
+    source_packet: P2-DOCS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R04-ARCH-macro-order
+      - item:R04-ROUTES-two-track-map
+      - item:R23-SCOPE-no-new-chapters-widgets
+      - item:R35-REACHBACK-18
+      - report:notes/reports/p2-docs-2026-08-05.md
+    statement: >-
+      Two further items owned by P2-DOCS were deliberately NOT closed, each
+      because exactly one half of its test is a state that does not yet exist.
+      R04-ARCH-macro-order requires the _quarto.yml order to be unchanged AND
+      both reading routes to be accurate. The order is unchanged and verified,
+      but the two routes are not published anywhere: chapters/00-predgovor.qmd
+      has a Granice i putovi citanja section that states the scope boundary and
+      the appendices, and advertises no critical-literacy and no analysis route.
+      R23-SCOPE-no-new-chapters-widgets requires the counts to stay inside the
+      ratified architecture AND retrieval to replace lower-value work. The counts
+      are verified at 19 chapters, 6 appendices, 17 widgets with static twins and
+      four callout types with no new type, but retrieval tasks are R35 work in
+      Phases 4 and 5 and do not exist yet.
+    required_action: >-
+      P5-ROUTES owns the closure of R04-ARCH-macro-order together with
+      R04-ROUTES-two-track-map: it must publish both routes, keep the _quarto.yml
+      order unchanged, and satisfy every ratified prerequisite including Chapter
+      13 before Chapter 17 and the whole book before Chapter 18. The chapter and
+      closure packets that author reach-back tasks own the second half of
+      R23-SCOPE-no-new-chapters-widgets; neither item may be closed by
+      aggregation or by treating the verified half as proof of the other. No
+      packet may add a numbered chapter, a central widget or a callout type.
+    basis:
+      - source:chapters/00-predgovor.qmd-Granice-i-putovi-citanja-advertises-no-two-route-map
+      - check:scripts/check-book-inventory.py-BOOK_INVENTORY_OK-pages-37-chapters-19-appendices-6
+      - check:scripts/check-widgets.py-17-widgets-with-static-twins
+      - notes/reports/p2-docs-2026-08-05.md#odluke-po-stavkama
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+      - target_packet: P5-CLOSURE-18
+        gate: before_close
+        state: pending
+
+  H-P2-DOCS-003:
+    source_packet: P2-DOCS
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - source:.github/workflows/publish.yml
+      - source:scripts/check-terminology.py
+      - handoff:H-P2-TERMS-002
+      - report:notes/reports/p2-docs-2026-08-05.md
+    statement: >-
+      While reconciling the AGENTS.md deployment description against the live
+      workflow, P2-DOCS read .github/workflows/publish.yml in full and found that
+      scripts/check-terminology.py, which P2-TERMS created as the enforcing check
+      for the ratified terminology registry, is NOT among the workflow's blocking
+      steps. scripts/check-concepts.py is wired in and now fails closed, so the
+      definition and graph half is covered by CI, but the registry half is
+      currently enforced only when a packet runs the command locally. P2-DOCS
+      owns governing documents and did not change CI, which is release
+      engineering.
+    required_action: >-
+      P7-CLEAN-BUILD must add scripts/check-terminology.py to the blocking check
+      ladder in .github/workflows/publish.yml, place it beside the existing
+      concept check, and prove it fails closed from the locked clean environment
+      using one of the check's own deliberate fixtures. Until it is wired in, no
+      packet may cite CI as evidence that the terminology registry is enforced.
+    basis:
+      - source:.github/workflows/publish.yml-blocking-steps-list-without-check-terminology.py
+      - source:scripts/check-terminology.py-three-deliberate-fixtures-each-exit-1
+      - check:scripts/check-terminology.py-TERMINOLOGY_OK-run-locally-only
+    required: true
+    deliveries:
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -4762,3 +4957,44 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with P2-TERMS active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P2-DOCS
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-DOCS and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P2-DOCS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-DOCS-001
+      - H-P2-DOCS-002
+      - H-P2-DOCS-003
+    implementation_state: docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2
+    checks:
+      - a first pass of governing-document edits was made BEFORE the packet was claimed and before the two deliveries were acknowledged which is recorded here rather than concealed
+      - the working tree was reverted to HEAD for all seven documents the packet was then claimed both deliveries were acknowledged and scripts/check-review-workflow.R passed with P2-DOCS active before the work was redone
+      - the closing source state was therefore produced under a valid write lock with both incoming deliveries acknowledged first
+      - exactly two deliveries target this packet and both were consumed with an exact disposition and evidence
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - AGENTS.md now describes the implemented wrapper-only blocking PDF path verified line by line against the live .github/workflows/publish.yml and the implemented path itself was not changed
+      - the same paragraph's second stale instruction that SITE_URL is edited in R/build-ai-exports.R was replaced because that script reads the address from _quarto.yml metadata
+      - AGENTS.md closes the section with an explicit sentence that it promises no edition and that push merge tag archive and deployment keep their own gates so the expanded description cannot be read as a release promise
+      - the _quarto-kolegij.yml comment no longer claims revealed solutions and now records the ratified but unimplemented D06 contract and names the packets that will implement it
+      - no rejected pathway was revived which check-book-inventory.py confirms by still reporting solutions=0 with an unchanged inventory checksum
+      - the _quarto.yml comment now says the visual identity is selected in DESIGN.md while the cover and favicon files are genuinely absent so both lines stay commented out
+      - bookwright_plugin/README.md now records nineteen ratified spines a live concept ledger of 46 concepts and 40 notation entries the bands ratified on 30 July 2026 the three ratified architectures and the G-A2c terminology registry with the checker that keeps each closed
+      - STYLE.md's stale instruction to run the detector and ratify the band was replaced because the same document's own changelog records that the band was ratified on 30 July 2026
+      - STYLE.md ENRICHMENT.md and notes/struktura-knjige.md now carry the R04-BOOK-content-weight rule that a band is a floor and that no word target advances a chapter
+      - notes/struktura-knjige.md carries two dated additions clearly separated from the original text as that document itself requires and its Otvorene odluke list is marked no longer authoritative
+      - R04-BOOK-content-weight and R23-SCOPE-no-technical-ds are closed against their own acceptance tests
+      - R23-SCOPE-no-technical-ds was verified by searching the whole source for SQL databases cloud scraping dashboards hyperparameters and neural networks with zero occurrences beside the ratified nine out-of-scope topics in conventions.json
+      - R04-ARCH-macro-order R12-SCOPE-no-variance-course R14-SCOPE-reading-not-fitting R23-SCOPE-reading-not-production and R23-SCOPE-no-new-chapters-widgets were deliberately NOT closed and each keeps its own recorded reason
+      - the three rejected-scope items share one cause dodaci/d-koji-test.qmd is a 47-line partial draft with no dependence route and no route out of the book so the routing half of each test is not delivered
+      - R04-ARCH-macro-order stays open because the two reading routes do not exist anywhere the preface advertises none and they are P5-ROUTES work
+      - R23-SCOPE-no-new-chapters-widgets stays open because retrieval tasks are R35 work in Phases 4 and 5 although the counts are verified at 19 chapters 6 appendices 17 widgets and four callout types
+      - R11-SCOPE-no-multiple-imputation was already terminal and was not touched
+      - H-P2-DOCS-001 carries the three routing-dependent closures to WC-C08 WD-C16 and P5-D
+      - H-P2-DOCS-002 carries the two half-satisfied closures to P5-ROUTES and P5-CLOSURE-18
+      - H-P2-DOCS-003 records that scripts/check-terminology.py is not yet a blocking step in .github/workflows/publish.yml and carries the wiring to P7-CLEAN-BUILD
+      - no chapter or appendix prose no shared registry no def block no spine no identity brief no data package no route no render and no chapter stage changed and the _quarto.yml chapter order is untouched
+      - all 19 units remain draft the live definition count remains 46 and the book inventory checksum is unchanged
+      - this packet makes no independent-review claim and no rights-holder permission claim and promises no edition publication or undelivered pathway
+      - scripts/check-review-workflow.R passed with P2-DOCS active before the redone work and again at closeout with no active packet and next_permitted_packet P2-VERIFY
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-VERIFY and every later packet were not started and push merge tag archive and deployment remain unauthorised
