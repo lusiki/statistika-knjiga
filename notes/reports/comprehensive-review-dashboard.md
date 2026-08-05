@@ -2564,6 +2564,23 @@ rights-holder permission, because none was sought. It may cite each source and
 its published terms. H-P1B-DATA-LIC-003 is not superseded and remains the
 obligation of the G-A3 package gates; do not pre-empt any of them.
 
+Three further items, carried to this packet by H-P3-CATALOG-002, may close here
+if their tests actually hold: R25-CATALOG-storage, R25-CATALOG-validation and
+R32-CATALOG-paired-views. Decide each against ITS OWN acceptance test, one at a
+time, and close only what the test supports. R25-CATALOG-validation in
+particular has a catalogue half already proved by ten deliberate fixtures and an
+accepted-package half that needs a real registered package; do not close it on
+the first half alone, and do not close any of the three by aggregation.
+
+Expect the likely honest outcome and do not push past it. UCBAdmissions and
+anscombe carry only the note that they are part of R 4.6.0 and no
+dataset-specific redistribution notice, so the probable result is that both stay
+external-only, that R25-EXISTING-anketa and R25-EXISTING-populacija close, and
+that R25-EXISTING-UCB and R25-EXISTING-Anscombe stay open with a recorded reason
+and a forward handoff. That is a correct outcome, not a failure. Do not promote a
+landmark to make a count look complete, and do not record a licence its source
+does not state.
+
 R04 remains open by design and P2-VERIFY recorded why in H-P2-VERIFY-001.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
