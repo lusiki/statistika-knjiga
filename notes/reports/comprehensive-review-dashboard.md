@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-SPINE-IV
-next_permitted_packet: G-A2b-V
+last_completed_packet: G-A2b-V
+next_permitted_packet: P2-SPINE-V
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 49
-last_updated: "2026-08-04"
+forward_handoffs: 50
+last_updated: "2026-08-05"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -36,19 +36,20 @@ stop and repair the control state before editing book content.
 | Gate A2b-II | Accepted as drafted: Part II contract, three chapter spines, and a per-definition Chapter 4 disposition from six blocks to four; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-III | Accepted as drafted: Part III contract preserving Chapter 8 as the hinge, three chapter spines, and an unchanged definition load; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-IV | Accepted as drafted: Part IV contract leading with magnitude and error consequences, three chapter spines, and a bounded two-block Chapter 12 definition increase; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-V | Accepted as drafted: Part V contract preserving Chapter 16 as the synthesis payoff, five chapter spines, Chapter 13 ratified as a prerequisite of Chapter 17, and a bounded two-block Chapter 17 definition increase; owner Luka Sikic; 2026-08-05 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-SPINE-IV` |
-| Next permitted packet | `G-A2b-V` |
+| Last completed packet | `G-A2b-V` |
+| Next permitted packet | `P2-SPINE-V` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | 13 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV` |
-| Open outside asks | 58 of the 82 canonical asks remain `drafted_unsent`; 20 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
+| Open outside asks | 57 of the 82 canonical asks remain `drafted_unsent`; 21 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III, Part IV and Part V spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
@@ -94,6 +95,101 @@ terms. That binds `G-A3-DZS`, `P3-DZS`, `G-A3-DIP`, `P3-DIP`, `P3-CATALOG` and
 
 The durable record is
 `notes/reports/g-a3-data-rights-determination-2026-08-05.md`.
+
+## G-A2b-V closeout
+
+- No handoff targets `G-A2b-V`; the complete ledger was read before the first
+  substantive edit, so there was no incoming delivery to acknowledge or consume.
+  `H-P0-REGISTER-004` remains `pending` for `P2-SPINE-V` and `P5-ROUTES`,
+  `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS`, and
+  `H-P0-REGISTER-007` and `H-P0-REGISTER-008` remain `pending` for `WD-C17`.
+  This gate decides what those packets must carry; it consumes none of them.
+- The complete Part V contract, the five chapter spines and the definition
+  hierarchy were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it as drafted on 2026-08-05.
+- Part V carries one arc and no more: from one table to one model to one deployed
+  system. Chapter 13 shows how counting is done and what makes a denominator
+  conditional, Chapters 14 and 15 read one and then several comparisons, Chapter
+  16 reveals that all of it was already one model, and Chapter 17 puts that model
+  into a decision about real people. The chapter order is unchanged under D03.
+- **Chapter 16 is preserved as the summit and the synthesis payoff.** Chapters 14
+  and 15 may prepare the general-model language but may not spend it, which is
+  written into the part contract and as a binding exclusion in each of those two
+  chapters. The book also stays estimation-first inside the model part: estimate,
+  interval and substantive magnitude lead, and the name of a procedure comes
+  after the difference rather than before it.
+- **Chapter 13 is a ratified prerequisite of Chapter 17.** The conditional
+  denominators and the contingency table read in Chapter 13 are what becomes the
+  confusion table in Chapter 17, so fairness and classification may not be
+  introduced before them. That settles the contradiction in `H-P0-REGISTER-004`
+  in favour of the prerequisite: **the route changes, not the prerequisite.**
+  `P5-ROUTES` must amend the advertised short critical-literacy route and may
+  publish no route that sends a reader into Chapter 17 without Chapter 13, which
+  is also Chapter 17's first spine exclusion.
+- `R04-C17-prerequisites` is settled with seven named obligations: Chapter 2 for
+  coding as measurement, Chapter 3 for base rates, Chapter 8 for corpus selection
+  and the sampling-versus-splitting distinction, Chapter 10 for error kinds and
+  the fallible reference label, Chapter 11 for error consequences and magnitude,
+  Chapter 13 for conditional denominators and the contingency table, and Chapter
+  16 for the model, prediction and prediction timing.
+- Chapter 13 carries eleven aspects, eight terms, six prerequisites and seven
+  exclusions; Chapter 14 nine, eight, five and seven; Chapter 15 nine, eight,
+  four and seven; Chapter 16 twelve, eleven, seven and nine; Chapter 17 eleven,
+  twelve, seven and ten. No prerequisite points at a later unit.
+- Chapter 17's spine is explicitly subordinate to the ratified identity brief
+  `c17` and does not repeat it: the brief owns the argument, its nine steps and
+  the measurement-first text module, while the spine fixes what the chapter must
+  carry as term, prerequisite and boundary. The brief was neither changed nor
+  superseded, and its exclusion that the prerequisite metadata remains unresolved
+  until `P2-SPINE-V` stays accurate — this gate decides them, `P2-SPINE-V` writes
+  them.
+- `R04-C17-definitions` is settled through that identity spine. Chapters 13, 14,
+  15 and 16 keep their existing five, two, three and four blocks unchanged, all
+  inside the ratified one-to-five band. Chapter 17, which currently has none and
+  so falls below the band, rises to exactly two: `zabilježeni referentni ishod`,
+  which `R24-C17-recorded-reference` requires as one consistent expression across
+  prose, visual, caption and alt text and which Chapter 18's evidence package
+  depends on, and `klasifikacijski prag`, which `R27-C17-18-transition` and the
+  `c17` plant role hand to Chapter 18 together with the unequal error burden.
+  Every other Chapter 17 term stays in prose under `.pojam`.
+- Three blocks were considered and rejected with a recorded reason: the confusion
+  table, because it is Chapter 13's contingency table with conditional
+  denominators and a second record would create two sources of truth about one
+  object and weaken the very prerequisite this gate ratifies; algorithmic
+  fairness, because a defining sentence pushes toward the single-metric reduction
+  the `c17` brief forbids; and overfitting with the training, validation and test
+  split, because no later chapter depends on their formal definition and D13
+  keeps the capstone's main study explanatory.
+- The net effect on the frozen set of 46 live definitions, together with the maps
+  already approved by earlier gates, is 51: 46 + 3 (`G-A2b-I`) − 2 (`G-A2b-II`)
+  + 0 (`G-A2b-III`) + 2 (`G-A2b-IV`) + 2 here. This gate writes no block; the
+  live count remains 46 and Chapter 17 still carries zero.
+- The exact exclusion markers, required load-bearing terms and ratification-order
+  conditions that `P2-SPINE-V` must encode in
+  `scripts/check-chapter-spines.py` are tabulated in the decision record.
+- The draft matches the recorded author intent in every respect. Ten alternatives
+  were rejected, including opening Part V with regression, revealing the general
+  model in Chapter 14 or 15, leaving Chapter 13 outside Chapter 17's
+  prerequisites, amending the prerequisite instead of the route, three separate
+  definition-block proposals for Chapter 17, a Chapter 16 estimand block,
+  repeating the `c17` argument inside the spine, and introducing logistic
+  regression as a fitted procedure.
+- Both 2026-08-05 author amendments were read before the decision and both hold.
+  This spine makes no independent-review claim of any kind, and every Part V
+  canonical Croatian form remains a `G-A2c` decision and the author's own
+  editorial responsibility. It claims no rights-holder permission for any source
+  and selects no data package. Neither constraint was duplicated into a chapter
+  spine exclusion, because both durable records already name the exact packets
+  they bind and the spine registry does not own those obligations.
+- `OA-G-A2B-V-SPINE` is `done`; no external message was sent. `H-G-A2B-V-001`
+  carries the accepted spine, the two-block Chapter 17 definition increase and
+  the route consequence to `P2-SPINE-V` at its `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, identity brief, data package, route, render, generated artifact
+  or external authority changed. All 19 units remain `draft` and 13 of 19 spines
+  remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-v-spine-decision-2026-08-05.md`.
 
 ## P2-SPINE-IV closeout
 
@@ -1736,6 +1832,21 @@ the durable evidence is
   gate is frozen until `P2-TERMS`. `P2-TERMS` must expect them, `WC-C12` must add
   exactly those two and no others and may define no term the spine left in prose
   under `.pojam`, and `WC-C10` and `WC-C11` must leave their blocks unchanged.
+- The ratified Part V spine settles `R04-C17-definitions`: Chapters 13 to 16 keep
+  their five, two, three and four blocks, and Chapter 17 rises from zero to
+  exactly two — `zabilježeni referentni ishod` and `klasifikacijski prag`, each
+  with a named later dependant in Chapter 18 — but neither was written, because
+  the concept gate is frozen until `P2-TERMS`. `P2-SPINE-V` must carry that map
+  forward to `P2-TERMS` and `WD-C17` rather than implement it, `WD-C17` must add
+  exactly those two and no others and may define no term the spine left in prose
+  under `.pojam`, and `WD-C13` to `WD-C16` must leave their blocks unchanged.
+- The ratified Part V spine settles `R04-C17-prerequisites`: Chapter 17 requires
+  Chapters 2, 3, 8, 10, 11, 13 and 16. Because Chapter 13 supplies the
+  conditional denominators and the contingency table that become Chapter 17's
+  confusion table, `P5-ROUTES` must amend the advertised short critical-literacy
+  route and may publish no route that reaches Chapter 17 without Chapter 13.
+  `H-P0-REGISTER-004` is consumed on the registry side by `P2-SPINE-V` and on the
+  route side by `P5-ROUTES`.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -1776,35 +1887,39 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/author-pre-dispositions-2026-08-04.md.
+Also fully read notes/reports/g-a2b-v-spine-decision-2026-08-05.md,
+notes/reports/g-a2c-reviewer-amendment-2026-08-05.md and
+notes/reports/g-a3-data-rights-determination-2026-08-05.md.
 
-Prepare and close the dashboard's next permitted packet, G-A2b-V, only. Do not
-start P2-SPINE-V or any later packet, and do not edit chapter prose.
+Execute the dashboard's next permitted packet, P2-SPINE-V, only. Claim the write
+lock, do the work, close the packet, and stop. Do not start G-A2b-FINALE or any
+later packet, and do not edit chapter prose.
 
-Before the first substantive edit, acknowledge every applicable incoming handoff
-and say so explicitly; consume each with a concrete disposition and evidence
-before closeout. Read the G-A2b-V packet contract, outside ask
-OA-G-A2B-V-SPINE, governed items R04-SPINE-V, R04-C17-definitions and
-R04-C17-prerequisites, the ratified identity brief c17, the P2-IDENTITY
-deferrals that name P2-SPINE-V, and the recorded author intent in full.
+H-G-A2B-V-001 is a required before_start delivery and must be terminal before the
+claim. H-P0-REGISTER-004 is a required before_close delivery: acknowledge it
+before the first substantive edit and consume it with an exact disposition and
+evidence, because this packet settles the Chapter 13 / Chapter 17 route
+contradiction on the registry side.
 
-Draft the complete Part V contract, the five chapter spines for Chapters 13 to
-17 and the definition hierarchy first, then close the gate against that drafted
-state with a dated disposition, a named owner, alternatives, an authority
-boundary and a blocked-dependency list. Preserve Chapter 16 as the synthesis
-payoff. Chapter 13 IS a prerequisite for Chapter 17: its conditional
-denominators and confusion tables must precede Chapter 17's fairness and
-classification material. That settles the contradiction in H-P0-REGISTER-004,
-where the review's sample critical-literacy route skipped Chapter 13 while the
-same review required it before Chapter 17; the consequence is binding on
-P2-SPINE-V and P5-ROUTES. The Chapter 17 spine is subordinate to its ratified
-identity brief c17 and must not repeat it; settle R04-C17-definitions and
-R04-C17-prerequisites through that identity spine.
+Write exactly the accepted Part V spine into
+bookwright_plugin/bookwright/shared/chapter-spine.json for 13-kategoricki-podaci,
+14-dvije-grupe, 15-vise-grupa, 16-regresija and 17-doba-algoritama, and extend
+scripts/check-chapter-spines.py with Part V's exact exclusion markers, required
+terms and ratification-order checks as tabulated in the decision record, each
+proved by the two existing negative fixtures. Chapter 17's prerequisites must
+include Chapter 13, and no prerequisite may point at a later unit.
 
-Ratify no spine beyond Part V, write no #def- block, and if the draft departs
-from the recorded intent in any respect, stop and present the exact difference.
+Record the route consequence as an outgoing forward constraint to P5-ROUTES: the
+advertised short critical-literacy route must be amended and no route may send a
+reader into Chapter 17 without Chapter 13. Add, remove or merge no #def- block;
+carry the approved two-block Chapter 17 definition increase to P2-TERMS and
+WD-C17 as a forward constraint instead, exactly as H-P2-SPINE-IV-001 did for
+Chapter 12. Do not change or supersede the ratified identity brief c17.
 
-Update the register, handoff ledger, and dashboard together at closeout, then
-run scripts/check-review-workflow.R through the project launcher and prove both
-required negative fixtures still fail.
+The two 2026-08-05 author amendments remain binding: no independent-review claim
+anywhere, and no rights-holder permission claim for any source.
+
+Update the register, handoff ledger, and dashboard together at closeout, then run
+scripts/check-review-workflow.R through the project launcher, prove both required
+negative fixtures still fail, and make one scoped local commit.
 ```
