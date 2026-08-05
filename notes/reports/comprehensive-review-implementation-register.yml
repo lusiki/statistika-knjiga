@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A3-DZS"
-  next_permitted_packet: "P3-DZS"
+  last_completed_packet: "P3-DZS"
+  next_permitted_packet: "G-A3-DIP"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -7286,7 +7286,7 @@ packets:
     sequence: 69
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-DZS"
     scope: "Bounded DZS tourism package."
@@ -7297,14 +7297,88 @@ packets:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-DZS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "source:data/katalog.yml#dzs_turizam-version-BS_TU11-and-BS_TU12-through-2026-05-T03-through-2024-retrieved-2026-07-27"
+            - "source:data/katalog.yml#dzs_turizam-licence-Hrvatska-otvorena-dozvola-licence_uri-data.gov.hr-open-license"
+            - "source:data/dzs-turizam.LICENCA.md-sidecar-notice-carrying-source-URI-retrieval-date-and-the-change-marker"
+            - "source:data/katalog.yml#dzs_turizam-provenance-chain-mirror-refresh-script-catalogue-and-tables-index"
+            - "source:data/katalog.yml#dzs_turizam-provenance-source_last_modified-null-recorded-openly-with-two-checkable-substitutes"
+            - "amendment:G-A3-DZS-selection-amended-2026-08-05-for-the-household-survey-T03-at-2024-after-T01-T03-proved-unviable"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "source:data/katalog.yml#dzs_turizam-file_records-carry-a-typed-codebook-with-unit-domain-and-missing-code-per-column"
+            - "source:data/katalog.yml#dzs_turizam-missing_value_codes-four-published-codes-with-meaning-and-occurs_in_extract"
+            - "check:scripts/check-data-integrity.R-asserts-the-CSV-header-equals-the-declared-codebook-in-order"
+            - "source:data/katalog.schema.json#fileRecord-key-pattern-admits-a-composite-key-joined-by-plus"
+            - "source:data/katalog.yml#dzs_turizam-storage-declares-encoding-line-ending-weights-precision-and-missing-disposition"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "source:data/katalog.yml#dzs_turizam-integrity-checksum-6a21f94d5e9b8a3f04d0619961a45ce1-algorithm-md5"
+            - "check:scripts/check-katalog.py-recomputes-the-md5-of-every-declared-file-and-compares-it"
+            - "check:scripts/build-dzs-extracts.py-DZS_EXTRACTS_OK-mode-verify-byte-identical-to-the-authors-local-mirror"
+            - "check:closeout-recomputation-BS_TU12-2025-twenty-one-county-rows-sum-to-20698963-and-94820989-residual-0-across-all-six-combinations"
+            - "check:closeout-recomputation-126-monthly-to-annual-comparisons-zero-mismatches"
+            - "check:closeout-recomputation-18-survey-comparisons-largest-residual-exactly-1-never-larger"
+            - "limit:the-agreement-with-the-LIVE-PxWeb-API-was-NOT-re-verified-at-closeout-because-the-authors-directive-forbids-network-retrieval-and-the-limit-is-recorded"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "source:data/dzs-turizam-godisnje.csv-2025-ukupno-20698963-dolazaka-94820989-nocenja-2024-20246060-dolazaka"
+            - "source:data/dzs-turizam-zupanije-2025.csv-21-zupanijskih-redaka-plus-drzava-with-razina-marking-total-from-part"
+            - "source:data/dzs-putovanja-stanovnistva-2024.csv-survey-estimates-that-do-not-sum-exactly-with-residual-1-recorded-not-rounded-away"
+            - "source:data/katalog.yml#dzs_turizam-source_reconciliation-declares-tolerance-0-for-the-counts-and-1-for-the-survey"
+            - "scope-note:the-jamovi-and-portal-route-verification-of-these-values-remains-D09-and-P5-B"
+      outputs:
+        - output: "P3-DZS validated package, passport, checksum, and route evidence for: Bounded DZS tourism package."
+          artifacts:
+            - "report:notes/reports/p3-dzs-2026-08-05.md"
+            - "source:data/dzs-turizam-mjesecno.csv-and-data/dzs-turizam-godisnje.csv-kept-apart-so-they-cannot-be-double-counted"
+            - "source:data/dzs-turizam-zupanije-2025.csv-and-data/dzs-putovanja-stanovnistva-2024.csv"
+            - "source:scripts/build-dzs-extracts.py-and-data/dzs-turizam.LICENCA.md"
+        - output: "Completion evidence is tied to the declared P3-DZS source state and bounded scope."
+          artifacts:
+            - "podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796"
+            - "scope-diff:catalogue-schema-three-validators-one-builder-four-extracts-one-notice-and-the-control-files-only"
+            - "source:data/README.md-and-.gitattributes-were-NOT-changed-because-the-P3-EXISTING-rules-already-cover-these-files"
+            - "check:scripts/check-review-workflow.R-at-P3-DZS-closeout"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-3-bundled-5-snapshots-8"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-snapshots-8-validated-8-reconciliations-9-undeclared-0"
+            - "check:scripts/build-dzs-extracts.py-DZS_EXTRACTS_OK-extracts-4-mode-verify-retrieved-2026-07-27"
+            - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-41"
+            - "fixture:podaci-level_outside_declared-and-the-source-reconciliation-residual-fixtures-each-exit-1"
+            - "check:closeout-independent-recomputation-of-every-headline-figure-directly-from-the-local-mirror"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "source:the-four-extracts-are-plain-UTF-8-comma-separated-files-with-no-quoted-field-so-every-tool-reads-them-without-quoting-rules"
+            - "source:data/dzs-turizam.LICENCA.md-makes-every-shipped-file-lawful-to-redistribute-under-the-Croatian-Open-Licence"
+            - "source:data/katalog.yml#dzs_turizam-access-records-the-official-PxWeb-route-for-a-reader-who-wants-the-full-base"
+            - "source:R/fetch-podaci.R-reports-that-this-package-has-no-source_url-and-points-to-the-recorded-access-path-instead-of-fetching"
+            - "scope-note:no-portal-lane-was-touched-and-the-jamovi-clean-install-test-remains-D09-and-P5-B"
+        - test: "The P3-DZS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-G-A3-DZS-001-consumed-before-the-packet-claim-and-before-the-first-substantive-edit"
+            - "handoff:nothing-targeting-another-packet-was-consumed-and-H-P1B-DATA-LIC-003-is-untouched"
+            - "handoff:H-P3-DZS-001-002-003-and-004-created"
+            - "item:R08-DZS-package-closed-against-its-own-tests"
+            - "amendment:the-ratified-T01-T03-selection-was-returned-to-the-author-not-substituted-and-the-amendment-is-recorded-explicitly"
+            - "amendment:no-rights-holder-permission-is-claimed-and-the-catalogue-fixture-still-proves-the-ban"
+            - "review:packet_reviews.P3-DZS-declares-all-future-effects-recorded"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796"
   G-A3-DIP:
     sequence: 70
     phase: "3B"

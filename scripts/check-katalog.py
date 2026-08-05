@@ -32,6 +32,15 @@ package must be answerable for the bytes it promotes:
     KATALOG_NEGATIVE_FIXTURE=promotion_log_disagrees
     KATALOG_NEGATIVE_FIXTURE=storage_disposition_missing
     KATALOG_NEGATIVE_FIXTURE=undeclared_consumer
+
+P3-DZS added the external-source half, because the first package that does not
+come from this repository's own generator exposed three gaps at once: a decision
+gate could be left standing as the promoter, a promotion could hide inside a
+count, and the snapshot-notice check assumed every package is CC BY 4.0:
+    KATALOG_NEGATIVE_FIXTURE=promoted_under_decision_gate
+    KATALOG_NEGATIVE_FIXTURE=ratifying_record_missing
+    KATALOG_NEGATIVE_FIXTURE=promotion_log_omits_package
+    KATALOG_NEGATIVE_FIXTURE=notice_without_own_licence
 """
 
 from __future__ import annotations
@@ -83,7 +92,15 @@ FIXTURES = (
     "promotion_log_disagrees",
     "storage_disposition_missing",
     "undeclared_consumer",
+    "promoted_under_decision_gate",
+    "ratifying_record_missing",
+    "promotion_log_omits_package",
+    "notice_without_own_licence",
 )
+
+# A gate that retrieves nothing cannot verify what it would be promoting, so a
+# decision gate may ratify WHO promotes but may never itself be the promoter.
+DECISION_GATE = re.compile(r"^G-A[0-9]")
 
 MANUSCRIPT_GLOBS = ("chapters/*.qmd", "dodaci/*.qmd", "*.qmd")
 
@@ -245,6 +262,36 @@ def apply_fixture(catalogue: dict[str, Any], fixture: str) -> list[str]:
                 package["consumer_sources"] = package["consumer_sources"][1:]
                 return []
         raise AssertionError("no package declares consumer sources")
+    elif fixture == "promoted_under_decision_gate":
+        # Target a promoted package that records no ratification, so exactly the
+        # decision-gate rule fires and not the ratification rule beside it.
+        for package in packages:
+            if package.get("promoted") is True and not package.get("promoting_gate_ratified_by"):
+                package["promoting_gate"] = "G-A3-DZS"
+                package["promoted_by"] = "G-A3-DZS"
+                return []
+        raise AssertionError("no promoted package without a ratification record exists")
+    elif fixture == "ratifying_record_missing":
+        for package in packages:
+            if package.get("promoting_gate_ratified_by"):
+                package["promoting_gate_ratified_record"] = "notes/reports/fixture-nema-odluke.md"
+                return []
+        raise AssertionError("no package records a ratified promoting gate")
+    elif fixture == "promotion_log_omits_package":
+        # The counts stay correct on purpose: only the id-level rule may fire, or
+        # the fixture would prove the counter rule it is not named for.
+        entries = catalogue["promotion_contract"]["promotion_log"]
+        for entry in reversed(entries):
+            if entry.get("packages"):
+                entry["packages"] = entry["packages"][1:]
+                return []
+        raise AssertionError("no promotion log entry names a package")
+    elif fixture == "notice_without_own_licence":
+        for package in packages:
+            if package.get("snapshot_notice") and package.get("licence_uri"):
+                package["licence_uri"] = "https://example.invalid/not-this-licence"
+                return []
+        raise AssertionError("no package declares both a notice and a licence uri")
     else:
         raise AssertionError(f"Unknown katalog negative fixture: {fixture}")
     return []
@@ -343,9 +390,32 @@ def main() -> int:
                   f"{pid}: promotion requires a storage-fidelity disposition.")
             check(bool(package.get("snapshot_notice")),
                   f"{pid}: promotion requires a snapshot licence notice.")
+            # A decision gate ratifies WHO may promote; it can never be the
+            # promoter itself, because a gate that retrieves nothing cannot
+            # check the bytes it would be standing behind.
+            check(not DECISION_GATE.match(str(package.get("promoting_gate", ""))),
+                  f"{pid}: a decision gate may not be the promoting gate of a "
+                  f"promoted package; found {package.get('promoting_gate')!r}.")
         else:
             check(not package.get("promoted_by"),
                   f"{pid}: an unpromoted package may not record a promoting packet.")
+
+        # --- moving the promoting gate needs a named, existing decision ------
+        #
+        # The gate reserved in the catalogue is the one that may promote. When a
+        # later decision moves that right to a packet, the move must name the
+        # decision that made it, so no packet can quietly appoint itself.
+        ratified_by = package.get("promoting_gate_ratified_by")
+        if ratified_by:
+            check(bool(DECISION_GATE.match(str(ratified_by))),
+                  f"{pid}: promoting_gate_ratified_by must name a decision gate; "
+                  f"found {ratified_by!r}.")
+            check(ratified_by != package.get("promoting_gate"),
+                  f"{pid}: a gate cannot ratify itself as the promoter.")
+            record = package.get("promoting_gate_ratified_record")
+            check(bool(record) and (ROOT / str(record)).is_file(),
+                  f"{pid}: the decision that moved the promoting gate names no "
+                  f"existing record: {record!r}.")
 
         # --- checksum algorithm must be named whenever a checksum exists -----
         if integrity.get("checksum"):
@@ -382,16 +452,28 @@ def main() -> int:
                   f"{pid}: a package with an aggregate view needs exactly one "
                   f"analysis file beside it.")
 
-        # --- the snapshot notice must exist and carry the licence ------------
+        # --- the snapshot notice must exist and carry ITS OWN licence --------
+        #
+        # Until P3-DZS every package here was CC BY 4.0, and this check asked
+        # for that one link by name. The first external package is under the
+        # Croatian Open Licence, and demanding a CC BY 4.0 link of it would have
+        # forced a false statement into a licence notice. The rule now follows
+        # the package's own declared terms.
         notice = package.get("snapshot_notice")
         if notice:
+            licence_uri = str(package.get("licence_uri", "")).strip()
+            check(bool(licence_uri),
+                  f"{pid}: a package that ships a snapshot notice must declare "
+                  f"the direct link to its own licence.")
             notice_path = ROOT / notice
             if not notice_path.is_file():
                 errors.append(f"{pid}: the declared snapshot licence notice is absent: {notice}")
             else:
                 text = notice_path.read_text(encoding="utf-8")
-                check("creativecommons.org/licenses/by/4.0" in text,
-                      f"{pid}: the snapshot licence notice carries no direct CC BY 4.0 link.")
+                if licence_uri:
+                    check(licence_uri in text,
+                          f"{pid}: the snapshot licence notice carries no direct "
+                          f"link to the package's own licence {licence_uri}.")
                 check(pid in text,
                       f"{pid}: the snapshot licence notice does not name its own package.")
 
@@ -445,6 +527,32 @@ def main() -> int:
     unlogged = sorted(promoting_packets - set(logged_packets))
     check(not unlogged,
           f"a package was promoted by a packet that is absent from the promotion log: {unlogged}")
+
+    # The log must be answerable at the level of the package, not only of the
+    # count. A promotion can hide inside a number; it cannot hide inside a name.
+    logged_ids: list[str] = []
+    for entry in log:
+        named = list(entry.get("packages") or [])
+        check(len(named) == int(entry.get("promoted", 0)),
+              f"promotion log entry {entry.get('packet')!r} declares "
+              f"{entry.get('promoted')} promotions but names {len(named)} packages.")
+        logged_ids.extend(named)
+    check(len(logged_ids) == len(set(logged_ids)),
+          "the promotion log names one package under two packets.")
+    promoted_ids = {p.get("id") for p in packages if p.get("promoted") is True}
+    missing_from_log = sorted(promoted_ids - set(logged_ids))
+    stale_in_log = sorted(set(logged_ids) - promoted_ids)
+    check(not missing_from_log,
+          f"a promoted package is named by no promotion log entry: {missing_from_log}")
+    check(not stale_in_log,
+          f"the promotion log names a package that is not promoted: {stale_in_log}")
+    for entry in log:
+        for named in entry.get("packages") or []:
+            owner = next((p for p in packages if p.get("id") == named), None)
+            if owner is not None:
+                check(owner.get("promoted_by") == entry.get("packet"),
+                      f"{named}: the promotion log credits {entry.get('packet')!r} "
+                      f"but the package records {owner.get('promoted_by')!r}.")
 
     # --- declared consumers must match actual manuscript use ----------------
     #

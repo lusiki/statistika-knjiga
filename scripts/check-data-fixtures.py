@@ -57,7 +57,15 @@ CATALOGUE_CASES: tuple[tuple[str, str], ...] = (
     ("promotion_log_disagrees", "the promotion log accounts for"),
     ("storage_disposition_missing", "promotion requires a storage-fidelity disposition"),
     ("undeclared_consumer", "uses the package without being declared"),
+    ("promoted_under_decision_gate", "a decision gate may not be the promoting gate"),
+    ("ratifying_record_missing", "moved the promoting gate names no existing record"),
+    ("promotion_log_omits_package", "promotions but names"),
+    ("notice_without_own_licence", "no direct link to the package's own licence"),
 )
+
+DZS_MONTHLY = "data/dzs-turizam-mjesecno.csv"
+DZS_COUNTY = "data/dzs-turizam-zupanije-2025.csv"
+DZS_SURVEY = "data/dzs-putovanja-stanovnistva-2024.csv"
 
 
 def run(command: list[str], cwd: Path, env: dict[str, str] | None = None) -> tuple[int, str]:
@@ -193,8 +201,58 @@ def mutate_weights_column(root: Path) -> None:
     )
 
 
+# --- the external-source half, which only a published package can exercise ---
+
+def mutate_source_total(root: Path) -> None:
+    """Move one county figure. The published national total no longer matches."""
+    def change(lines: list[str]) -> list[str]:
+        lines[4] = replace_field(lines[4], 4, "999999")
+        return lines
+    edit_lines(root / DZS_COUNTY, change)
+
+
+def mutate_recorded_residual(root: Path) -> None:
+    """Claim the survey reconciles exactly. It does not, and by exactly one."""
+    target = root / "data/katalog.yml"
+    text = target.read_text(encoding="utf-8")
+    marker = """        tolerance: 1
+        max_abs_residual: 1
+        comparisons: 72"""
+    if marker not in text:
+        raise RuntimeError("no recorded survey residual to mutate")
+    target.write_text(text.replace(marker, marker.replace(
+        "max_abs_residual: 1", "max_abs_residual: 0"), 1), encoding="utf-8")
+
+
+def mutate_composite_key(root: Path) -> None:
+    """Drop one column from a composite key. The remaining pair repeats."""
+    target = root / "data/katalog.yml"
+    text = target.read_text(encoding="utf-8")
+    marker = 'key: "godina+mjesec_redni+turist"'
+    if marker not in text:
+        raise RuntimeError("no composite key to mutate")
+    target.write_text(text.replace(marker, 'key: "godina+mjesec_redni"', 1),
+                      encoding="utf-8")
+
+
+def mutate_undeclared_missing_token(root: Path) -> None:
+    """Swap one published absence code for another the column does not declare."""
+    def change(lines: list[str]) -> list[str]:
+        lines[1] = replace_field(lines[1], 8, "..")
+        return lines
+    edit_lines(root / DZS_SURVEY, change)
+
+
+def mutate_level_outside(root: Path) -> None:
+    """Rename a published category. A quietly renamed level is a real defect."""
+    def change(lines: list[str]) -> list[str]:
+        lines[1] = replace_field(lines[1], 3, "Siječanj ")
+        return lines
+    edit_lines(root / DZS_MONTHLY, change)
+
+
 DATA_CASES: tuple[tuple[str, object, str], ...] = (
-    ("duplicate_key", mutate_duplicate_key, "key column ispitanik is not unique"),
+    ("duplicate_key", mutate_duplicate_key, "key ispitanik is not unique"),
     ("row_band", mutate_row_band, "row count 299 differs from the declared 300"),
     ("domain_violation", mutate_domain, "rises above the declared maximum 10"),
     ("code_label_mismatch", mutate_code_label, "code and label disagree"),
@@ -203,7 +261,7 @@ DATA_CASES: tuple[tuple[str, object, str], ...] = (
     ("total_mismatch", mutate_total, "does not equal the sum of"),
     ("share_mismatch", mutate_share, "share udio does not equal broj / ukupno"),
     ("notice_without_licence", mutate_notice,
-     "snapshot licence notice is missing creativecommons.org/licenses/by/4.0"),
+     "is missing https://creativecommons.org/licenses/by/4.0/legalcode"),
     ("snapshot_drift", mutate_snapshot_drift,
      "no longer reproduces from its declared generator and seed"),
     ("undeclared_snapshot_on_disk", mutate_undeclared,
@@ -212,6 +270,16 @@ DATA_CASES: tuple[tuple[str, object, str], ...] = (
      "declared snapshot is missing from disk"),
     ("weights_column_absent", mutate_weights_column,
      "the declared weights column is absent from the analysis file"),
+    ("source_total_mismatch", mutate_source_total,
+     "above the declared tolerance 0"),
+    ("recorded_residual_rounded_away", mutate_recorded_residual,
+     "a residual is recorded exactly, never rounded away"),
+    ("composite_key_not_unique", mutate_composite_key,
+     "key godina+mjesec_redni is not unique"),
+    ("undeclared_missing_token", mutate_undeclared_missing_token,
+     "carries a missing token it does not declare"),
+    ("level_outside_declared", mutate_level_outside,
+     "carries a value outside its declared levels"),
 )
 
 

@@ -185,7 +185,7 @@ field_at <- function(rows, index) {
 
 as_exact_numeric <- function(values) suppressWarnings(as.numeric(values))
 
-validate_file_record <- function(record, entry_id, storage) {
+validate_file_record <- function(record, entry_id, storage, source_codes = character()) {
   problems <- character()
   note <- function(...) problems <<- c(problems, paste0(entry_id, "/",
                                                         record$path, ": ", ...))
@@ -244,34 +244,63 @@ validate_file_record <- function(record, entry_id, storage) {
     lapply(seq_along(header), function(i) field_at(rows, i)), header
   )
 
-  key <- record$key
-  if (!key %in% header) {
-    note("declared key column is absent: ", key)
-  } else if (anyDuplicated(columns[[key]])) {
-    note("key column ", key, " is not unique")
+  # A published cross-tabulation is identified by its dimensions together, so
+  # the key may name several columns joined by '+'. Inventing one surrogate
+  # column instead would add data the source does not have.
+  key_columns <- strsplit(record$key, "+", fixed = TRUE)[[1]]
+  missing_key <- setdiff(key_columns, header)
+  if (length(missing_key)) {
+    note("declared key column is absent: ", paste(missing_key, collapse = ", "))
+  } else {
+    tuples <- do.call(paste, c(columns[key_columns], sep = "\r"))
+    if (anyDuplicated(tuples)) {
+      note("key ", record$key, " is not unique")
+    }
   }
 
   for (column in record$columns) {
     values <- columns[[column$name]]
     label <- paste0("column ", column$name, ": ")
+
+    # A declared missing code is a value, not a hole. It is checked for its own
+    # presence and then set aside, because a code can never satisfy the type,
+    # domain or level rules of the quantity it stands in for.
+    # A stray is any conventional missing token, or any absence code the SOURCE
+    # publishes, turning up in a column that does not declare it. Without the
+    # source's own codes the test would miss exactly the codes that matter:
+    # '..' and '....' are absence codes in official statistics and in no
+    # general-purpose list of missing tokens.
+    absence_tokens <- union(MISSING_TOKENS, source_codes)
     if (is.null(column$missing_code)) {
-      if (any(values %in% MISSING_TOKENS)) {
+      if (any(values %in% absence_tokens)) {
         note(label, "declares no missing code, yet a cell is empty or ",
              "carries a conventional missing token")
       }
-    } else if (!any(values == column$missing_code)) {
-      note(label, "declares missing code '", column$missing_code,
-           "' that never occurs")
+      present <- values
+      keep <- rep(TRUE, length(values))
+    } else {
+      if (!any(values == column$missing_code)) {
+        note(label, "declares missing code '", column$missing_code,
+             "' that never occurs")
+      }
+      stray <- setdiff(intersect(values, absence_tokens), column$missing_code)
+      if (length(stray)) {
+        note(label, "carries a missing token it does not declare: ",
+             paste(stray, collapse = ", "),
+             ". Every published absence code keeps its own meaning.")
+      }
+      keep <- values != column$missing_code
+      present <- values[keep]
     }
 
     if (column$type %in% c("integer", "code")) {
-      if (!all(grepl("^-?[0-9]+$", values))) {
+      if (!all(grepl("^-?[0-9]+$", present))) {
         note(label, "is declared integral but carries a non-integer literal")
         next
       }
     }
     if (column$type %in% c("integer", "number", "code")) {
-      numbers <- as_exact_numeric(values)
+      numbers <- as_exact_numeric(present)
       if (anyNA(numbers)) {
         note(label, "carries a value that does not parse as a number")
         next
@@ -287,13 +316,29 @@ validate_file_record <- function(record, entry_id, storage) {
       }
     }
     if (identical(column$type, "text") && !is.null(column$pattern)) {
-      if (!all(grepl(column$pattern, values))) {
+      if (!all(grepl(column$pattern, present))) {
         note(label, "has a value outside its declared pattern")
+      }
+    }
+    # A label column may declare its level set. Checking membership beats a
+    # regular expression over Croatian text and catches a stray or renamed
+    # level, which is exactly how a published category quietly changes.
+    if (column$type %in% c("text", "label") && !is.null(column$levels)) {
+      levels_declared <- unlist(column$levels, use.names = FALSE)
+      outside <- setdiff(present, levels_declared)
+      if (length(outside)) {
+        note(label, "carries a value outside its declared levels: ",
+             paste(outside, collapse = ", "))
+      }
+      unused <- setdiff(levels_declared, present)
+      if (length(unused)) {
+        note(label, "declares a level that never occurs: ",
+             paste(unused, collapse = ", "))
       }
     }
     if (identical(column$type, "code")) {
       levels_declared <- unlist(column$levels, use.names = FALSE)
-      codes <- as.integer(values)
+      codes <- as.integer(present)
       if (any(codes < 1L) || any(codes > length(levels_declared))) {
         note(label, "carries a code outside the declared levels")
         next
@@ -301,7 +346,7 @@ validate_file_record <- function(record, entry_id, storage) {
       partner <- column$pairs_with
       if (is.null(partner) || !partner %in% header) {
         note(label, "declares no label column beside the code")
-      } else if (!identical(levels_declared[codes], columns[[partner]])) {
+      } else if (!identical(levels_declared[codes], columns[[partner]][keep])) {
         note(label, "code and label disagree; the original code must stand ",
              "beside its Croatian label, never instead of it")
       }
@@ -396,6 +441,10 @@ validate_reconciliation <- function(rule, entry_id, tables) {
   problems
 }
 
+# The notice must carry the terms of THIS package, not the terms the first two
+# packages happened to share. Before P3-DZS this function demanded a CC BY 4.0
+# link of every package; the first package under the Croatian Open Licence would
+# have had to print a false one to pass.
 validate_notice <- function(entry) {
   problems <- character()
   path <- put(entry$snapshot_notice)
@@ -405,8 +454,17 @@ validate_notice <- function(entry) {
   }
   text <- paste(readLines(path, warn = FALSE, encoding = "UTF-8"),
                 collapse = "\n")
-  for (needle in c("creativecommons.org/licenses/by/4.0", "CC BY 4.0",
-                   entry$id, "LICENCA-generirani-podaci.md")) {
+  needles <- c(entry$id, entry$licence, entry$licence_uri)
+  if (!is.null(entry$generated_data_notice)) {
+    needles <- c(needles, basename(entry$generated_data_notice))
+  }
+  if (is.null(entry$licence_uri) || !nzchar(entry$licence_uri)) {
+    problems <- c(problems, paste0(
+      entry$id, ": a package that ships a snapshot notice must declare the ",
+      "direct link to its own licence"
+    ))
+  }
+  for (needle in needles) {
     if (!grepl(needle, text, fixed = TRUE)) {
       problems <- c(problems, paste0(entry$id, ": the snapshot licence notice ",
                                      "is missing ", needle))
@@ -415,8 +473,118 @@ validate_notice <- function(entry) {
   problems
 }
 
+# --- a published total against its published parts -------------------------
+#
+# Declarative on purpose: nothing here knows a column name. The rule states
+# which rows are the total, which are the parts, what must agree between them,
+# and how large a residual is admissible. A count reconciles at zero. A survey
+# estimate rounds every published cell independently, so its parts need not sum
+# to its total; that residual is recorded exactly and compared for equality, so
+# it can neither grow unnoticed nor be quietly rounded away.
+or_list <- function(x) if (is.null(x)) list() else x
+
+select_rows <- function(table, filters) {
+  keep <- rep(TRUE, length(table[[1]]))
+  for (filter in or_list(filters)) {
+    if (!filter$column %in% names(table)) {
+      return(list(rows = NULL, missing = filter$column))
+    }
+    values <- unlist(filter$values, use.names = FALSE)
+    keep <- keep & table[[filter$column]] %in% values
+  }
+  list(rows = which(keep), missing = NULL)
+}
+
+validate_source_reconciliation <- function(rule, entry_id, tables) {
+  messages <- character()
+  note <- function(...) {
+    messages <<- c(messages, paste0(entry_id, "/", rule$id, ": ", ...))
+  }
+
+  total_table <- tables[[rule$total$file]]
+  parts_table <- tables[[rule$parts$file]]
+  if (is.null(total_table) || is.null(parts_table)) {
+    note("names a file that did not parse")
+    return(messages)
+  }
+
+  total_side <- select_rows(total_table, rule$total$filters)
+  parts_side <- select_rows(parts_table, rule$parts$filters)
+  for (side in list(list("total", total_side), list("parts", parts_side))) {
+    if (!is.null(side[[2]]$missing)) {
+      note("the ", side[[1]], " side filters on a column the file does not ",
+           "have: ", side[[2]]$missing)
+    }
+  }
+  if (length(messages)) return(messages)
+  total_rows <- total_side$rows
+  parts_rows <- parts_side$rows
+  if (!length(total_rows)) {
+    note("selects no total row at all")
+    return(messages)
+  }
+  if (!length(parts_rows)) {
+    note("selects no part row at all")
+    return(messages)
+  }
+
+  match_on <- unlist(or_list(rule$match_on), use.names = FALSE)
+  values <- unlist(rule$values, use.names = FALSE)
+  tolerance <- as.numeric(rule$tolerance)
+
+  total_key <- if (length(match_on)) {
+    do.call(paste, c(lapply(match_on, function(c) total_table[[c]][total_rows]),
+                     sep = "\r"))
+  } else {
+    rep("", length(total_rows))
+  }
+  parts_key <- if (length(match_on)) {
+    do.call(paste, c(lapply(match_on, function(c) parts_table[[c]][parts_rows]),
+                     sep = "\r"))
+  } else {
+    rep("", length(parts_rows))
+  }
+
+  comparisons <- 0L
+  observed <- 0
+  for (i in seq_along(total_rows)) {
+    selected <- parts_rows[parts_key == total_key[[i]]]
+    if (!length(selected)) {
+      note("a total row has no matching part row")
+      next
+    }
+    for (value in values) {
+      total <- as_exact_numeric(total_table[[value]][total_rows[[i]]])
+      part_sum <- sum(as_exact_numeric(parts_table[[value]][selected]))
+      if (is.na(total) || is.na(part_sum)) {
+        note("column ", value, " does not parse as a number on both sides")
+        next
+      }
+      residual <- total - part_sum
+      comparisons <- comparisons + 1L
+      observed <- max(observed, abs(residual))
+      if (abs(residual) > tolerance) {
+        note("column ", value, " leaves a residual of ", format(residual,
+             scientific = FALSE), ", above the declared tolerance ", tolerance)
+      }
+    }
+  }
+
+  if (comparisons != as.integer(rule$comparisons)) {
+    note("made ", comparisons, " comparisons, not the declared ",
+         rule$comparisons)
+  }
+  if (observed != as.numeric(rule$max_abs_residual)) {
+    note("the largest residual is ", format(observed, scientific = FALSE),
+         ", not the recorded ", rule$max_abs_residual,
+         "; a residual is recorded exactly, never rounded away")
+  }
+  messages
+}
+
 snapshot_failures <- character()
 validated_files <- 0L
+reconciliations <- 0L
 if (exists("parsed") && is.list(parsed)) {
   for (entry in parsed$packages) {
     if (!length(entry$file_records)) next
@@ -460,9 +628,11 @@ if (exists("parsed") && is.list(parsed)) {
       }
     }
 
+    source_codes <- vapply(or_list(entry$missing_value_codes),
+                           function(code) as.character(code$code), character(1))
     tables <- list()
     for (record in entry$file_records) {
-      outcome <- validate_file_record(record, entry$id, entry$storage)
+      outcome <- validate_file_record(record, entry$id, entry$storage, source_codes)
       snapshot_failures <- c(snapshot_failures, outcome$problems)
       if (!is.null(outcome$columns)) {
         tables[[record$path]] <- outcome$columns
@@ -478,6 +648,14 @@ if (exists("parsed") && is.list(parsed)) {
       snapshot_failures <- c(snapshot_failures, paste0(
         entry$id, ": an aggregate view exists without a reconciliation contract"
       ))
+    }
+
+    # A package built from a published source must reconcile against that
+    # source's own totals, not only against itself.
+    for (rule in or_list(entry$source_reconciliation)) {
+      snapshot_failures <- c(snapshot_failures,
+                             validate_source_reconciliation(rule, entry$id, tables))
+      reconciliations <- reconciliations + 1L
     }
   }
 }
@@ -528,6 +706,7 @@ if (length(failures)) {
 cat(
   "DATA_INTEGRITY_OK generated_sets=2 rows=50300 catalogue=present ",
   "promoted=", promoted_count, " snapshots=", length(snapshots),
-  " validated=", validated_files, " undeclared=0 licence=CC-BY-4.0\n",
+  " validated=", validated_files, " reconciliations=", reconciliations,
+  " undeclared=0\n",
   sep = ""
 )

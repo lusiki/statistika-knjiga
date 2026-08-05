@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A3-DZS
-next_permitted_packet: P3-DZS
+last_completed_packet: P3-DZS
+next_permitted_packet: G-A3-DIP
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 72
+forward_handoffs: 76
 last_updated: "2026-08-05"
 ---
 
@@ -43,8 +43,8 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-EXISTING` |
-| Next permitted packet | `G-A3-DZS` |
+| Last completed packet | `P3-DZS` |
+| Next permitted packet | `G-A3-DIP` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -533,6 +533,63 @@ The durable evidence is `notes/reports/g-a2c-terminology-decision-2026-08-05.md`
 
 The durable evidence is
 `notes/reports/g-a3-dzs-selection-decision-2026-08-05.md`.
+
+## P3-DZS closeout
+
+- **The first package in the book to promote data that its own generator did not
+  make.** `dzs_turizam` is now `promoted: true` under `P3-DZS`, with
+  `promoting_gate_ratified_by: G-A3-DZS` and that gate's decision record on disk,
+  so no packet appointed itself. `promoted_total` is 3.
+- **No network retrieval.** The source is the author's local mirror, downloaded
+  2026-07-27 from the DZS PxWeb API. The retrieval date of record is 2026-07-27
+  and not the packet date, and the mirror with its refresh script is the recorded
+  provenance chain.
+- **The ratified selection was not viable as written and was not silently
+  substituted.** `T01`–`T03` is not a unique identifier in the DZS tourism base,
+  and no viable set exists under it: T01 ends at 2019, T02 reaches 2024 with 44%
+  of its 2024 cells empty, and the coastal `BS_T01`–`BS_T03` tables carry roughly
+  55% empty rows. The packet returned the narrowing to the author, who confirmed
+  the household survey `T03` at 2024 on 2026-08-05. The accepted `G-A3-DZS`
+  selection is **amended explicitly**, not overwritten.
+- **Four extracts materialised**, each reproducing byte for byte from the mirror.
+  Annual and monthly rows live in separate files so the published annual row can
+  never be double counted against its own twelve months. Three published
+  missing-value codes stay distinct from one another and from zero.
+- **The promotion contract was tightened, not spent.** A decision gate may no
+  longer be the `promoting_gate` of a promoted package; moving that gate requires
+  naming a different existing decision record; the promotion log now carries the
+  **names** of promoted packages and is compared in both directions. The
+  snapshot-notice check now reads the package's own `licence_uri` instead of
+  demanding a CC BY 4.0 link, which would have forced a false licence onto a
+  Croatian Open Licence source. Composite keys and declared missing-value codes
+  are now first-class. All six rules bind every later external package through
+  `H-P3-DZS-003`.
+- **Closeout re-verified the evidence independently**, recomputing every headline
+  figure directly from the mirror rather than from the extracts: 2025 gives
+  20.698.963 arrivals and 94.820.989 overnights, 2024 gives 20.246.060 arrivals,
+  the 21 county rows sum to the national totals with residual 0 across all six
+  combinations, 126 monthly-to-annual comparisons show zero mismatches, and the
+  survey's largest residual is exactly 1 across 18 comparisons — a property of
+  separately rounded estimates, not an error.
+- **One claim was not re-verified**: the agreement with the *live* PxWeb API. The
+  author's directive forbids network retrieval, so it stands as recorded. Its
+  mirror half is independently confirmed, and the agreement of `BS_TU11` with
+  `BS_TU12` on six independent sums gives the same figure a second, internal
+  proof.
+- Four outgoing handoffs created: `H-P3-DZS-001` (the unit is an arrival, not a
+  person), `H-P3-DZS-002` (the source last-modified date is missing and the
+  attribution obligation is not complete on its face), `H-P3-DZS-003` (the six
+  tightened promotion rules), `H-P3-DZS-004` (survey and administrative figures
+  measure different things and must not be added).
+- The book claims **no rights-holder permission**, because none was sought. No
+  chapter prose changed and all 19 ledger units remain `draft`.
+- **The dashboard's own state table was stale** and is corrected here: it still
+  named `P3-EXISTING` as last completed and `G-A3-DZS` as next permitted, both
+  already superseded by its own front matter.
+
+The durable evidence is `notes/reports/p3-dzs-2026-08-05.md`, whose declared
+state is
+`podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796`.
 
 ## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
 
@@ -2723,89 +2780,46 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/g-a3-dzs-selection-decision-2026-08-05.md,
-notes/reports/p3-existing-2026-08-05.md,
-notes/reports/p1b-data-licence-access-inventory-2026-08-03.md and
-notes/reports/g-a3-data-rights-determination-2026-08-05.md.
+Also fully read notes/reports/p3-dzs-2026-08-05.md,
+notes/reports/p1b-data-licence-access-inventory-2026-08-03.md,
+notes/reports/g-a3-data-rights-determination-2026-08-05.md and
+notes/reports/author-pre-dispositions-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, P3-DZS, only, and stop.
-It is a data_package packet. Read its contract and the governed item it owns in
-full, R08-DZS-package. One before_start delivery targets it and must be terminal
-before the claim: H-G-A3-DZS-001. Consume nothing that targets another packet.
+Execute the dashboard's next permitted packet, G-A3-DIP, only, and stop.
+It is a DECISION GATE, not a data packet. It retrieves nothing, writes no data
+file, and may not promote anything. Its scope is the DIP selection, its rights,
+and its chapter role. Read the governed items it owns in full and consume only
+deliveries that target this gate.
 
-SOURCE: USE THE AUTHOR'S LOCAL MIRROR. DO NOT FETCH.
-The author has supplied a complete local mirror of the DZS tourism database at
-C:\Users\lsikic\Documents\DZS-Turizam, downloaded 27 July 2026 from the DZS
-PxWeb API, 98 tables in tidy long CSV and wide XLSX, transcoded from the API's
-windows-1250 to UTF-8 with BOM. It carries its own _README.txt, _tables-index.csv,
-_catalogue.json, _codebook-dimensions.csv and _refresh-download.ps1. The author
-has directed that this mirror is the source of record for this packet and that
-NO fresh network retrieval is to be performed. Record the retrieval date as
-2026-07-27, not the packet date, and record the mirror and its refresh script as
-the provenance chain.
+THE AUTHOR HAS ALREADY ANSWERED THE CORE QUESTION - DO NOT RE-ASK IT.
+The author's parallel election answer, recorded as a pre-disposition rather
+than consumed at G-A3-DZS because it belongs here, is: keep DIP
+portal-mediated, option A. Consume that pre-disposition at this gate and record
+it as the accepted disposition, with alternatives, authority boundary and
+blocked dependencies. H-P1B-DATA-LIC-003 delivers to this gate and must be
+terminal before the claim; it is not superseded and its remaining G-A3
+deliveries stay pending.
 
-ALREADY VERIFIED ON 2026-08-05 - DO NOT REDO THIS RESEARCH.
-- BS_TU11 (Tablica 1.1, national, monthly, 2005-2026) and BS_TU12 (Tablica 1.2,
-  counties, monthly, 2013-2026) both exist and match the ratified selection.
-- 2025 is the most recent COMPLETE calendar year in both: 12/12 months, no
-  missing cells. 2024 is also complete. 2026 carries only 5/12 months.
-- BS_TU11 total arrivals: 2025 = 20,698,963; 2024 = 20,246,060. These figures
-  were confirmed twice, once against the live PxWeb API and once against the
-  local mirror, and the two agree. Record that agreement as the external
-  verification; it is the one piece of live-source evidence this packet has.
-- Three distinct missing-value codes appear across these tables and MUST stay
-  distinct in the teaching files: "...." not yet published, ".." and "-" not
-  available. Do not collapse them to NA, blank or zero.
-
-THE T01-T03 PROBLEM - THE RATIFIED SELECTION IS NOT VIABLE AS WRITTEN.
-G-A3-DZS ratified "a bounded T01-T03 long extract". That identifier is not
-unique in the DZS tourism database and no viable T01-T03 set exists:
-- Household survey (Turisticka aktivnost stanovnistva) T01 by county ends at
-  2019; T02 by education reaches 2024 but 44 percent of its 2024 cells are
-  empty; T03 by age reaches 2024 and its 2023 is fully populated.
-- Coastal towns BS_T01-BS_T03 carry roughly 55 percent empty rows, because they
-  list every settlement including inland ones with no tourism.
-- Travel-agency and experimental-statistics T01-T03 are unrelated statistics.
-The author delegated the pick. The RECOMMENDED third table is the household
-survey T03 at 2023, the most recent fully populated year, giving trips, nights
-and expenditure by age group. It is a SURVEY of Croatian residents against
-BS_TU11's ADMINISTRATIVE count, which is the contrast Chapter 3 needs. The
-author has not yet confirmed this specific narrowing; confirm it before writing
-it into the catalogue, and if it is confirmed, amend the accepted G-A3-DZS
-selection explicitly and record the amendment. Do not silently substitute a
-different table for the ratified text.
-
-CHAPTER 3 MATERIAL FOUND, CARRY IT FORWARD.
-DZS records that since 2017 the source is the eVisitor system and that the
-statistics count ARRIVALS, not distinct persons: a tourist who changes
-accommodation is re-registered and counted again. The 2025 figure is therefore
-20,698,963 arrivals, not 20.7 million people, and any claim that "20.7 million
-tourists visited Croatia" misstates the unit. This is a verified, officially
-documented unit defect in a real public statistic and it is exactly what Chapter
-3 exists to teach. Record it in the catalogue entry's caveats and unavailable
-claims, and hand it to WA-C03 as a forward handoff.
-
-PACKET OBLIGATIONS.
-Copy only the selected extracts into the repository; the full mirror stays
-outside it. Write into the dzs_turizam entry in data/katalog.yml the edition,
-the 2026-07-27 retrieval date, the attribution string carrying the source, the
-last-modified date, the URI and a change marker, the md5 of every declared file,
-and the reconciliation. Reconcile by summing BS_TU12's county rows for 2025 and
-matching the BS_TU11 national total of 20,698,963; record any residual exactly
-rather than rounding it away. Add the per-packet entry to the catalogue
-promotion log. A declared file whose recorded md5 does not match the bytes on
-disk fails closed. Keep totals and suppression codes, keep annual and monthly
-rows separate, and do not widen the extract.
+P3-DZS CONSTRAINTS THAT NOW BIND EVERY EXTERNAL PACKAGE.
+H-P3-DZS-003 delivers to P3-DIP at before_close and carries six rules the first
+external package established: a decision gate may not be the promoting_gate of
+a promoted package; moving that gate needs promoting_gate_ratified_by naming a
+different existing decision record on disk; the promotion log carries the names
+of promoted packages and is compared in both directions against promoted_by;
+the snapshot-notice check reads the package's own licence_uri rather than
+demanding CC BY 4.0; a key may be several columns joined by '+'; a declared
+missing-value code is checked for its own presence then set aside, while an
+undeclared absence code in the same column fails. This gate must not weaken any
+of them to admit DIP.
 
 The book may NOT claim it obtained rights-holder permission, because none was
-sought; it may cite the source and its published terms. H-P1B-DATA-LIC-003 is
-not superseded. Leave the recorded lawful fallback in place until the package
-passes, and change no other package's lane. R25-EXISTING-UCB,
-R25-EXISTING-Anscombe and R04 remain open by design; do not pre-empt any of them.
+sought; it may cite the source and its published terms. Availability is not
+promotion and technical access is not redistribution authority. A
+portal-mediated package stores no file in data/ and must not be presented as a
+local file or as parity across editions.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
-negative fixtures still fail, rerun every deterministic check this packet touches
-including scripts/check-katalog.py, scripts/check-data-integrity.R and
-scripts/check-data-fixtures.py, and make one scoped local commit.
+negative fixtures still fail, rerun every deterministic check this gate touches,
+and make one scoped local commit.
 ```

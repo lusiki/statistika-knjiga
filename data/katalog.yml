@@ -81,7 +81,7 @@ portfolio_caps:
     - design: "official_aggregate_statistics"
       cap: 4
       registered: 4
-      promoted: 0
+      promoted: 1
       exempt_frozen_landmarks: false
     - design: "expert_coded_latent_index"
       cap: 1
@@ -117,23 +117,45 @@ promotion_contract:
     - "naveden je barem jedan datotecni put"
     - "zabiljezena je zakonita zamjena za svaki obvezni studentski put"
     - "paketni gate imenovan u promoting_gate je prihvacen"
-  promoted_total: 2
+    - "promoting_gate imenuje paket koji doista dohvaca, nikada odlucivacki gate"
+    - "promotion_log imenuje tocno koje je pakete taj paket promovirao"
+    - "snapshot_notice nosi izravnu poveznicu na licencu bas toga paketa"
+  promoted_total: 3
   promotion_log:
     - packet: "P3-CATALOG"
       promoted: 0
       recorded_at: "2026-08-05"
       record: "notes/reports/p3-catalog-2026-08-05.md"
+      packages: []
     - packet: "P3-EXISTING"
       promoted: 2
       recorded_at: "2026-08-05"
       record: "notes/reports/p3-existing-2026-08-05.md"
+      packages:
+        - "anketa_mreze"
+        - "populacija_medija"
+    - packet: "P3-DZS"
+      promoted: 1
+      recorded_at: "2026-08-05"
+      record: "notes/reports/p3-dzs-2026-08-05.md"
+      packages:
+        - "dzs_turizam"
   note: >-
     P3-CATALOG je stvorio ugovor i registrirao inventar bez ijedne promocije.
     P3-EXISTING promovira tocno dva generirana paketa, i to jedina dva za koja
-    postoji vlasnicka dispozicija o redistribuciji. Svaka promocija mora stajati
-    u promotion_log, zbroj upisa mora biti jednak polju promoted_total, a ono
-    stvarnom broju zapisa s promoted true; paket smije biti promoviran samo pod
-    gateom koji sam imenuje u promoting_gate i koji je upisan u promoted_by.
+    postoji vlasnicka dispozicija o redistribuciji. P3-DZS promovira tocno jedan
+    vanjski paket, prvi u knjizi koji ne dolazi iz vlastitoga generatora. Svaka
+    promocija mora stajati u promotion_log, zbroj upisa mora biti jednak polju
+    promoted_total, a ono stvarnom broju zapisa s promoted true; paket smije biti
+    promoviran samo pod gateom koji sam imenuje u promoting_gate i koji je upisan
+    u promoted_by. P3-DZS je ugovor pooostrio na tri mjesta koja je prvi vanjski
+    paket otkrio kao praznine. Odlucivacki gate vise ne smije stajati u
+    promoting_gate, jer gate koji nista ne dohvaca ne moze ni provjeriti sto
+    promice; kad se promoting_gate premjesti, mora se imenovati odluka koja je to
+    ratificirala, pa se paket ne moze sam sebi dodijeliti. Promotion_log vise ne
+    nosi samo broj nego i imena promoviranih paketa, jer se promocija u broju
+    moze sakriti, a u imenu ne. I obavijest uz snimku provjerava se prema licenci
+    bas toga paketa, a ne prema pretpostavci da je svaki paket CC BY 4.0.
     Dostupnost i dalje ne promice nista.
 
 storage_conventions:
@@ -174,6 +196,7 @@ packages:
     source: "R/podaci-nastavni.R, funkcija simuliraj_anketu"
     version: "300 opazanja, sjeme 4001; inacica je deklarirano stanje izvora P1B-DATA-LIC"
     licence: "CC BY 4.0"
+    licence_uri: "https://creativecommons.org/licenses/by/4.0/legalcode"
     attribution: >-
       Luka Sikic; Osnove statistike za drustvene znanosti; ime skupa; generator;
       poveznica na licencu; oznaka izmjena.
@@ -422,6 +445,7 @@ packages:
     source: "R/podaci-nastavni.R, funkcija simuliraj_populaciju"
     version: "50000 opazanja, sjeme 8001; inacica je deklarirano stanje izvora P1B-DATA-LIC"
     licence: "CC BY 4.0"
+    licence_uri: "https://creativecommons.org/licenses/by/4.0/legalcode"
     attribution: >-
       Luka Sikic; Osnove statistike za drustvene znanosti; ime skupa; generator;
       poveznica na licencu; oznaka izmjena.
@@ -834,51 +858,680 @@ packages:
 
   # --- predlozeni paketi ---------------------------------------------------
   - id: "dzs_turizam"
-    name: "DZS turizam"
-    status: "proposed_not_promoted"
+    name: "DZS turizam, omedjeni izvadak"
+    status: "registered_and_promoted"
     design: "official_aggregate_statistics"
     domain: "turizam"
-    unit: "jedan mjesec po razini objave"
+    unit: >-
+      Jedan objavljeni redak sluzbene tablice. U mjesecnoj i godisnjoj datoteci
+      to je zabiljezeni DOLAZAK, ne osoba; u anketnoj datoteci procijenjeno
+      PUTOVANJE stanovnika, ne osoba.
     question: "Kako se dolasci i nocenja mijenjaju kroz godinu i po zupanijama?"
     role: "Sluzbeni agregat s potiskivanjem, revizijama i opasnoscu dvostrukoga brojanja."
     consumers:
       - "WA-C03"
-    source: "Drzavni zavod za statistiku; planirane tablice BS_TU11, BS_TU12 i T01-T03."
-    version: "tocno izdanje, datum i kontrolni zbroj odredjuje P3-DZS"
+    source: >-
+      Drzavni zavod za statistiku, podrucje Turizam; tablice BS_TU11
+      (Tablica 1.1), BS_TU12 (Tablica 1.2) i T03 (Tablica 3., Turisticka
+      aktivnost stanovnistva Republike Hrvatske). Od 2017. izvor mjesecnih
+      dolazaka i nocenja jest sustav eVisitor.
+    version: >-
+      Izdanje je prikvaceno posljednjim objavljenim opazanjem u trenutku
+      preuzimanja: BS_TU11 i BS_TU12 zakljucno s 2026-05, T03 zakljucno s 2024.
+      Izvadak uzima samo cjelovite kalendarske godine, pa je posljednja godina u
+      mjesecnom nizu 2025., presjek zupanija je 2025., a anketna godina 2024.
+      Preuzeto 27. srpnja 2026.
     licence: "Hrvatska otvorena dozvola"
-    attribution: "DZS kao izvor, datum posljednje izmjene, URI izvora i jasna oznaka svake promjene."
-    access: "Sluzbene DZS tablice ili sucelje."
-    redistribution: "opci temelj utvrdjen; tocna snimka mora proci P3-DZS"
+    licence_uri: "https://www.data.gov.hr/hr/open-license"
+    attribution: >-
+      Izvor: Drzavni zavod za statistiku, podrucje Turizam, tablice BS_TU11,
+      BS_TU12 i T03; URI https://web.dzs.hr/PxWeb/pxweb/hr/Turizam/; stanje na
+      dan preuzimanja 27. srpnja 2026.; Hrvatska otvorena dozvola; izmjene su
+      oznacene u data/dzs-turizam.LICENCA.md.
+    access: "Sluzbene DZS tablice i PxWeb sucelje; https://web.dzs.hr/PxWeb/api/v1/hr/Turizam"
+    redistribution: "provjerena"
     lane: "bundled"
-    refresh_class: "scheduled-manual"
+    refresh_class: "pinned"
     fallback: >-
-      Nakon P3-DZS ista provjerena snimka i agregat moraju opsluziti R, jamovi,
-      preglednik i tisak.
+      Paket je prosao, pa ista provjerena snimka sada opsluzuje R, jamovi,
+      preglednik i tisak. Do prve uporabe u poglavlju 3 obvezni zadatak i dalje
+      smije koristiti licencno cist generirani paket ili njegov agregat.
+    provenance:
+      retrieved_at: "2026-07-27"
+      route: >-
+        Autorovo lokalno zrcalo cijele DZS baze turizma, preuzeto 27. srpnja
+        2026. s DZS PxWeb API-ja i prekodirano iz windows-1250 u UTF-8. Zrcalo
+        ostaje IZVAN repozitorija; u knjigu ulazi samo omedjeni izvadak. Ovaj
+        paket nije obavio nijedno mrezno preuzimanje.
+      chain:
+        - "https://web.dzs.hr/PxWeb/api/v1/hr/Turizam"
+        - "zrcalo:_refresh-download.ps1 (skripta koja je zrcalo preuzela i prekodirala)"
+        - "zrcalo:_catalogue.json i _codebook-dimensions.csv (dokumentacija dimenzija i sifri)"
+        - "zrcalo:_tables-index.csv (pokrivenost i udio nedostajucih celija po tablici)"
+        - "repozitorij:scripts/build-dzs-extracts.py (izvadak iz zrcala u data/)"
+      source_last_modified: null
+      source_last_modified_note: >-
+        Hrvatska otvorena dozvola trazi i datum posljednje izmjene izvora.
+        Zrcalo NIJE zabiljezilo PxWeb polje o posljednjoj izmjeni tablice, pa
+        ovaj paket taj datum nema i ne izmislja ga. Umjesto njega biljezi dvije
+        provjerljive zamjene: datum preuzimanja 27. srpnja 2026. i posljednje
+        objavljeno opazanje po tablici. Prazninu nosi H-P3-DZS-002.
+      transformations:
+        - "Odabir: samo cjelovite kalendarske godine 2005.-2025. iz BS_TU11, presjek 2025. iz BS_TU12, godina 2024. iz T03."
+        - "Razdvajanje: godisnji i mjesecni redci BS_TU11 stoje u dvjema datotekama i ne mogu se zbrojiti zajedno."
+        - "Okretanje: cetiri mjere T03 iz jednoga stupca vrijednosti u cetiri stupca, po jedna mjerna jedinica na stupac."
+        - "Jedan izvedeni stupac: razina oznacuje je li redak drzava ili zupanija."
+        - "Kodiranje: windows-1250 u UTF-8 bez BOM-a, zavrsetak retka LF."
+        - "Oznake razina, brojcane vrijednosti i sifre nedostajucih vrijednosti prepisane su doslovno."
+    missing_value_codes:
+      - code: "-"
+        meaning: "nema pojave; stvarna nula, a ne nedostatak podatka"
+        occurs_in_extract: true
+        note: >-
+          Pojavljuje se u stupcu izdaci_hrk, koji je za 2024. u cijelosti prazan
+          jer DZS iznos u kunama vise ne objavljuje. To je stvarna odsutnost
+          pojave, a ne nedostajuci podatak.
+      - code: ".."
+        meaning: "podatak nije dostupan"
+        occurs_in_extract: false
+        note: >-
+          U punoj tablici BS_TU12 pojavljuje se pet puta, sve u travnju 2020.
+          za strane turiste. Izvan je izvatka jer je izvadak presjek 2025.
+      - code: "...."
+        meaning: "podatak jos nije objavljen"
+        occurs_in_extract: false
+        note: >-
+          U punim tablicama oznacuje mjesece 2026. koji jos nisu objavljeni.
+          Izvan je izvatka jer izvadak uzima samo cjelovite godine.
+      - code: "z"
+        meaning: "podatak je povjerljiv i statisticki potisnut"
+        occurs_in_extract: false
+        note: >-
+          Potisnutu vrijednost procitati kao nulu znaci sustavno podcijeniti
+          male jedinice, pa z i - nikada nisu zamjenjivi.
     integrity:
-      checksum: null
-      official_reconciliation: null
+      checksum: "6a21f94d5e9b8a3f04d0619961a45ce1"
+      checksum_algorithm: "md5"
+      official_reconciliation: >-
+        Usklađenje je racunato nad bajtovima u repozitoriju i strojno se ponavlja
+        iz bloka source_reconciliation. Zupanijski redci BS_TU12 za 2025.
+        zbrajaju se u nacionalni ukupni iznos BS_TU11 za 2025. TOCNO: 21 redak
+        zupanijske razine daje 20698963 dolaska i 94820989 nocenja, sto je
+        jednako objavljenoj nacionalnoj godisnjoj vrijednosti, s ostatkom 0.
+        Isto vrijedi odvojeno za domace (3084947 i 9208885) i za strane turiste
+        (17614016 i 85612104), takodjer s ostatkom 0. Dvanaest mjesecnih redaka
+        zbraja se u objavljeni godisnji redak za svih 21 godinu i sve tri razine
+        rezidentnosti, 126 usporedbi s ostatkom 0. Nacionalna vrijednost za
+        2024. iznosi 20246060 dolazaka. Brojka za 2025. potvrdjena je dvaput,
+        jednom prema zivom PxWeb API-ju i jednom prema lokalnom zrcalu, i dva se
+        izvora slazu; to je jedini dokaz ovoga paketa iz zivoga izvora.
+        Anketna tablica se NE usklađuje tocno i to nije greska prijepisa: svaka
+        objavljena celija zasebno je zaokruzena procjena, pa dijelovi ne moraju
+        dati zbroj. Najveci ostatak iznosi tocno 1 u sve tri razgradnje
+        (destinacija, trajanje, dobna skupina), nijedan nije veci, i ostatak je
+        zabiljezen umjesto da bude zaokruzen. Razlika izmedju administrativnoga
+        prebrojavanja i anketne procjene upravo je ono zbog cega paket nosi obje.
       note: >-
-        Kontrolni zbroj i usklađenje sa sluzbenim ukupnim vrijednostima biljezi
-        P3-DZS; bez njih promocija pada zatvoreno.
-    promoted: false
-    promoting_gate: "G-A3-DZS"
-    files: []
+        Zabiljezeni kontrolni zbroj pripada primarnoj datoteci
+        data/dzs-turizam-mjesecno.csv; svaka od cetiriju datoteka nosi vlastiti
+        MD5 u file_records i sve se provjeravaju nad bajtovima na disku.
+    promoted: true
+    promoted_by: "P3-DZS"
+    promoting_gate: "P3-DZS"
+    promoting_gate_ratified_by: "G-A3-DZS"
+    promoting_gate_ratified_record: "notes/reports/g-a3-dzs-selection-decision-2026-08-05.md"
+    files:
+      - "data/dzs-turizam-mjesecno.csv"
+      - "data/dzs-turizam-godisnje.csv"
+      - "data/dzs-turizam-zupanije-2025.csv"
+      - "data/dzs-putovanja-stanovnistva-2024.csv"
     aggregate_view: null
+    snapshot_notice: "data/dzs-turizam.LICENCA.md"
+    build_script: "scripts/build-dzs-extracts.py"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Ovo su objavljeni agregati, ne mikropodaci, pa stupca tezine uzorkovanja
+        nema i ne smije se izmisliti. Mjesecne i zupanijske tablice su
+        administrativno prebrojavanje i tezine im po definiciji ne pripadaju.
+        Anketna tablica JEST procjena iz uzorka, ali DZS objavljuje vec
+        ponderirane procjene, pa tezine ostaju unutar njegova postupka
+        procjenjivanja i u objavljenoj tablici ih nema.
+      precision_note: >-
+        Vrijednosti su prepisane doslovno, bez zaokruzivanja i bez
+        preracunavanja. Nijedan prosjek, udio ni indeks nije izracunat u ovim
+        datotekama; ono sto stoji u njima jest ono sto je DZS objavio.
+      missing_note: >-
+        Objavljene sifre nedostajucih vrijednosti prepisane su doslovno i ostaju
+        razlicite jedna od druge i od nule; popis i znacenja stoje u
+        missing_value_codes. Jedina koja se pojavljuje u izvatku jest -, u
+        stupcu izdaci_hrk, i ona znaci da pojave nema, a ne da podatak nedostaje.
+        Nula u stupcu dolazaka ili nocenja stvarna je nula i s njome se ne mijesa.
+    file_records:
+      - path: "data/dzs-turizam-mjesecno.csv"
+        role: "analysis"
+        md5: "6a21f94d5e9b8a3f04d0619961a45ce1"
+        rows: 756
+        row_band: [756, 756]
+        key: "godina+mjesec_redni+turist"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "kalendarska godina"
+            missing_code: null
+            min: 2005
+            max: 2025
+            description: "Kalendarska godina; samo cjelovite godine ulaze u izvadak."
+          - name: "mjesec_redni"
+            type: "code"
+            unit: "sifra mjeseca"
+            missing_code: null
+            pairs_with: "mjesec"
+            levels:
+              - "Siječanj"
+              - "Veljača"
+              - "Ožujak"
+              - "Travanj"
+              - "Svibanj"
+              - "Lipanj"
+              - "Srpanj"
+              - "Kolovoz"
+              - "Rujan"
+              - "Listopad"
+              - "Studeni"
+              - "Prosinac"
+            description: "Redni broj mjeseca; stoji uz hrvatsku oznaku, nikada umjesto nje."
+          - name: "mjesec"
+            type: "label"
+            unit: "oznaka mjeseca"
+            missing_code: null
+            pairs_with: "mjesec_redni"
+            levels:
+              - "Siječanj"
+              - "Veljača"
+              - "Ožujak"
+              - "Travanj"
+              - "Svibanj"
+              - "Lipanj"
+              - "Srpanj"
+              - "Kolovoz"
+              - "Rujan"
+              - "Listopad"
+              - "Studeni"
+              - "Prosinac"
+            description: "Naziv mjeseca onako kako ga DZS objavljuje."
+          - name: "turist"
+            type: "label"
+            unit: "oznaka rezidentnosti"
+            missing_code: null
+            levels:
+              - "ukupno"
+              - "domaći"
+              - "strani"
+            description: >-
+              Rezidentnost turista. BS_TU11 je pise malim slovom; zupanijska
+              datoteka istu podjelu pise velikim pocetnim slovom, i obje su
+              prepisane doslovno.
+          - name: "dolasci"
+            type: "integer"
+            unit: "dolazak"
+            missing_code: null
+            min: 0
+            description: >-
+              Broj zabiljezenih dolazaka. Jedinica je dolazak, ne osoba: gost
+              koji promijeni smjestaj prijavljuje se ponovno i broji se opet.
+          - name: "nocenja"
+            type: "integer"
+            unit: "nocenje"
+            missing_code: null
+            min: 0
+            description: "Broj nocenja; stabilnija mjera obujma od dolazaka."
+      - path: "data/dzs-turizam-godisnje.csv"
+        role: "aggregate"
+        md5: "058d7ce9fbc7b6dc7330781fa4961771"
+        rows: 63
+        row_band: [63, 63]
+        key: "godina+turist"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "kalendarska godina"
+            missing_code: null
+            min: 2005
+            max: 2025
+            description: "Kalendarska godina."
+          - name: "turist"
+            type: "label"
+            unit: "oznaka rezidentnosti"
+            missing_code: null
+            levels:
+              - "ukupno"
+              - "domaći"
+              - "strani"
+            description: "Rezidentnost turista, doslovno kako je BS_TU11 pise."
+          - name: "dolasci"
+            type: "integer"
+            unit: "dolazak"
+            missing_code: null
+            min: 0
+            description: >-
+              Godisnji broj dolazaka onako kako ga DZS objavljuje na clanu
+              Ukupno dimenzije mjeseca. Nije zbroj koji je izracunala ova
+              knjiga.
+          - name: "nocenja"
+            type: "integer"
+            unit: "nocenje"
+            missing_code: null
+            min: 0
+            description: "Godisnji broj nocenja, objavljena vrijednost."
+      - path: "data/dzs-turizam-zupanije-2025.csv"
+        role: "analysis"
+        md5: "881b3ba9f230a568b31bc7a403c998e8"
+        rows: 66
+        row_band: [66, 66]
+        key: "zupanija+turist"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "kalendarska godina"
+            missing_code: null
+            min: 2025
+            max: 2025
+            description: "Presjek je jedna godina, pa stupac ima samo vrijednost 2025."
+          - name: "razina"
+            type: "label"
+            unit: "oznaka razine"
+            missing_code: null
+            levels:
+              - "država"
+              - "županija"
+            description: >-
+              Jedini izvedeni stupac u paketu. Oznacuje je li redak drzavni
+              ukupni iznos ili jedan njegov dio. Objavljena tablica drzi i jedno
+              i drugo u istom stupcu bez oznake, pa je ocit zbroj dvostruko
+              brojanje; ovaj stupac to sprjecava.
+          - name: "zupanija"
+            type: "label"
+            unit: "oznaka podrucja"
+            missing_code: null
+            levels:
+              - "REPUBLIKA HRVATSKA"
+              - "ZAGREBAČKA"
+              - "KRAPINSKO-ZAGORSKA"
+              - "SISAČKO-MOSLAVAČKA"
+              - "KARLOVAČKA"
+              - "VARAŽDINSKA"
+              - "KOPRIVNIČKO-KRIŽEVAČKA"
+              - "BJELOVARSKO-BILOGORSKA"
+              - "PRIMORSKO-GORANSKA"
+              - "LIČKO-SENJSKA"
+              - "VIROVITIČKO-PODRAVSKA"
+              - "POŽEŠKO-SLAVONSKA"
+              - "BRODSKO-POSAVSKA"
+              - "ZADARSKA"
+              - "OSJEČKO-BARANJSKA"
+              - "ŠIBENSKO-KNINSKA"
+              - "VUKOVARSKO-SRIJEMSKA"
+              - "SPLITSKO-DALMATINSKA"
+              - "ISTARSKA"
+              - "DUBROVAČKO-NERETVANSKA"
+              - "MEĐIMURSKA"
+              - "GRAD ZAGREB"
+            description: >-
+              Naziv podrucja doslovno kako ga BS_TU12 objavljuje, velikim
+              slovima. Dvadeset zupanija i Grad Zagreb su dijelovi, a REPUBLIKA
+              HRVATSKA je njihov ukupni iznos.
+          - name: "turist"
+            type: "label"
+            unit: "oznaka rezidentnosti"
+            missing_code: null
+            levels:
+              - "Ukupno"
+              - "Domaći"
+              - "Strani"
+            description: >-
+              Rezidentnost turista. BS_TU12 je pise velikim pocetnim slovom, a
+              BS_TU11 malim; obje su prepisane doslovno i spajanje dviju tablica
+              po ovome stupcu trazi da se to primijeti.
+          - name: "dolasci"
+            type: "integer"
+            unit: "dolazak"
+            missing_code: null
+            min: 0
+            description: "Godisnji broj dolazaka u 2025., po podrucju."
+          - name: "nocenja"
+            type: "integer"
+            unit: "nocenje"
+            missing_code: null
+            min: 0
+            description: "Godisnji broj nocenja u 2025., po podrucju."
+      - path: "data/dzs-putovanja-stanovnistva-2024.csv"
+        role: "analysis"
+        md5: "05ceef0ef1c3d21ceb695d051d42bc87"
+        rows: 72
+        row_band: [72, 72]
+        key: "dobna_skupina+tip_putovanja+destinacija+trajanje"
+        columns:
+          - name: "godina"
+            type: "integer"
+            unit: "kalendarska godina"
+            missing_code: null
+            min: 2024
+            max: 2024
+            description: "Anketna godina; 2024. je posljednja koju niz doseze."
+          - name: "dobna_skupina"
+            type: "label"
+            unit: "oznaka dobne skupine"
+            missing_code: null
+            levels:
+              - "Ukupno"
+              - "15 - 29"
+              - "30 - 49"
+              - "50 i više"
+            description: "Dobna skupina ispitanika; Ukupno je zbrojni clan, ne cetvrta skupina."
+          - name: "tip_putovanja"
+            type: "label"
+            unit: "oznaka vrste putovanja"
+            missing_code: null
+            levels:
+              - "Privatno"
+              - "Poslovno"
+            description: "Vrsta putovanja; ovdje nema zbrojnoga clana."
+          - name: "destinacija"
+            type: "label"
+            unit: "oznaka odredista"
+            missing_code: null
+            levels:
+              - "Ukupno"
+              - "Inozemstvo"
+              - "Hrvatska"
+            description: "Odrediste putovanja; Ukupno je zbrojni clan."
+          - name: "trajanje"
+            type: "label"
+            unit: "oznaka trajanja"
+            missing_code: null
+            levels:
+              - "1 i više noćenja"
+              - "1 - 3 noćenja"
+              - "4 i više noćenja"
+            description: "Trajanje putovanja; 1 i vise nocenja je zbrojni clan."
+          - name: "putovanja"
+            type: "integer"
+            unit: "putovanje"
+            missing_code: null
+            min: 0
+            description: >-
+              Procijenjeni broj visednevnih putovanja stanovnika Hrvatske.
+              Jedinica je putovanje, ne osoba, i procjena je iz ankete, ne
+              prebrojavanje.
+          - name: "nocenja"
+            type: "integer"
+            unit: "nocenje"
+            missing_code: null
+            min: 0
+            description: "Procijenjeni broj nocenja na tim putovanjima."
+          - name: "izdaci_eur"
+            type: "integer"
+            unit: "euro"
+            missing_code: null
+            min: 0
+            description: "Procijenjeni izdaci na tim putovanjima, u eurima."
+          - name: "izdaci_hrk"
+            type: "number"
+            unit: "kuna"
+            missing_code: "-"
+            description: >-
+              Isti izdaci u kunama. Za 2024. stupac je u cijelosti -, jer kuna
+              vise nije u optjecaju i DZS iznos u njoj ne objavljuje. To je
+              odsutnost pojave, a ne nedostajuci podatak, i stupac je zadrzan
+              upravo zato da se ta razlika vidi.
+    source_reconciliation:
+      - id: "mjeseci-u-objavljenu-godinu"
+        description: >-
+          Dvanaest mjesecnih redaka mora dati objavljeni godisnji redak, za svaku
+          godinu i svaku razinu rezidentnosti. Administrativno prebrojavanje, pa
+          se usklađuje tocno.
+        total:
+          file: "data/dzs-turizam-godisnje.csv"
+          filters: []
+        parts:
+          file: "data/dzs-turizam-mjesecno.csv"
+          filters: []
+        match_on:
+          - "godina"
+          - "turist"
+        values:
+          - "dolasci"
+          - "nocenja"
+        tolerance: 0
+        max_abs_residual: 0
+        comparisons: 126
+      - id: "domaci-i-strani-u-ukupno"
+        description: "Domaci i strani turisti moraju dati ukupno, u godisnjoj datoteci."
+        total:
+          file: "data/dzs-turizam-godisnje.csv"
+          filters:
+            - column: "turist"
+              values: ["ukupno"]
+        parts:
+          file: "data/dzs-turizam-godisnje.csv"
+          filters:
+            - column: "turist"
+              values: ["domaći", "strani"]
+        match_on:
+          - "godina"
+        values:
+          - "dolasci"
+          - "nocenja"
+        tolerance: 0
+        max_abs_residual: 0
+        comparisons: 42
+      - id: "zupanije-u-drzavni-redak"
+        description: >-
+          Zupanijski redci moraju dati drzavni redak unutar zupanijske datoteke.
+          Ovo je provjera koja pokazuje da razina nije ukras: bez nje bi se
+          drzavni redak zbrojio sa svojim dijelovima.
+        total:
+          file: "data/dzs-turizam-zupanije-2025.csv"
+          filters:
+            - column: "razina"
+              values: ["država"]
+        parts:
+          file: "data/dzs-turizam-zupanije-2025.csv"
+          filters:
+            - column: "razina"
+              values: ["županija"]
+        match_on:
+          - "godina"
+          - "turist"
+        values:
+          - "dolasci"
+          - "nocenja"
+        tolerance: 0
+        max_abs_residual: 0
+        comparisons: 6
+      - id: "zupanije-2025-u-nacionalni-ukupno"
+        description: >-
+          Zbroj zupanijskih redaka BS_TU12 za 2025. mora biti jednak nacionalnoj
+          godisnjoj vrijednosti BS_TU11 za 2025. Dvije tablice, dvije datoteke,
+          jedan broj: 20698963 dolaska i 94820989 nocenja.
+        total:
+          file: "data/dzs-turizam-godisnje.csv"
+          filters:
+            - column: "godina"
+              values: ["2025"]
+            - column: "turist"
+              values: ["ukupno"]
+        parts:
+          file: "data/dzs-turizam-zupanije-2025.csv"
+          filters:
+            - column: "razina"
+              values: ["županija"]
+            - column: "turist"
+              values: ["Ukupno"]
+        match_on: []
+        values:
+          - "dolasci"
+          - "nocenja"
+        tolerance: 0
+        max_abs_residual: 0
+        comparisons: 2
+      - id: "zupanije-2025-u-nacionalni-domaci"
+        description: "Ista provjera preko dviju tablica, za domace turiste."
+        total:
+          file: "data/dzs-turizam-godisnje.csv"
+          filters:
+            - column: "godina"
+              values: ["2025"]
+            - column: "turist"
+              values: ["domaći"]
+        parts:
+          file: "data/dzs-turizam-zupanije-2025.csv"
+          filters:
+            - column: "razina"
+              values: ["županija"]
+            - column: "turist"
+              values: ["Domaći"]
+        match_on: []
+        values:
+          - "dolasci"
+          - "nocenja"
+        tolerance: 0
+        max_abs_residual: 0
+        comparisons: 2
+      - id: "zupanije-2025-u-nacionalni-strani"
+        description: "Ista provjera preko dviju tablica, za strane turiste."
+        total:
+          file: "data/dzs-turizam-godisnje.csv"
+          filters:
+            - column: "godina"
+              values: ["2025"]
+            - column: "turist"
+              values: ["strani"]
+        parts:
+          file: "data/dzs-turizam-zupanije-2025.csv"
+          filters:
+            - column: "razina"
+              values: ["županija"]
+            - column: "turist"
+              values: ["Strani"]
+        match_on: []
+        values:
+          - "dolasci"
+          - "nocenja"
+        tolerance: 0
+        max_abs_residual: 0
+        comparisons: 2
+      - id: "anketa-odrediste"
+        description: >-
+          Inozemstvo i Hrvatska trebali bi dati Ukupno, ali ne daju tocno. Svaka
+          objavljena celija zasebno je zaokruzena procjena iz uzorka, pa
+          dijelovi ne moraju dati zbroj. Najveci ostatak je tocno 1 i tu je
+          zabiljezen umjesto da bude zaokruzen.
+        total:
+          file: "data/dzs-putovanja-stanovnistva-2024.csv"
+          filters:
+            - column: "destinacija"
+              values: ["Ukupno"]
+        parts:
+          file: "data/dzs-putovanja-stanovnistva-2024.csv"
+          filters:
+            - column: "destinacija"
+              values: ["Inozemstvo", "Hrvatska"]
+        match_on:
+          - "dobna_skupina"
+          - "tip_putovanja"
+          - "trajanje"
+        values:
+          - "putovanja"
+          - "nocenja"
+          - "izdaci_eur"
+        tolerance: 1
+        max_abs_residual: 1
+        comparisons: 72
+      - id: "anketa-trajanje"
+        description: >-
+          Kratka i duga putovanja trebala bi dati clan 1 i vise nocenja. Ista
+          zaokruzena procjena, isti najveci ostatak 1.
+        total:
+          file: "data/dzs-putovanja-stanovnistva-2024.csv"
+          filters:
+            - column: "trajanje"
+              values: ["1 i više noćenja"]
+        parts:
+          file: "data/dzs-putovanja-stanovnistva-2024.csv"
+          filters:
+            - column: "trajanje"
+              values: ["1 - 3 noćenja", "4 i više noćenja"]
+        match_on:
+          - "dobna_skupina"
+          - "tip_putovanja"
+          - "destinacija"
+        values:
+          - "putovanja"
+          - "nocenja"
+          - "izdaci_eur"
+        tolerance: 1
+        max_abs_residual: 1
+        comparisons: 72
+      - id: "anketa-dobne-skupine"
+        description: >-
+          Tri dobne skupine trebale bi dati clan Ukupno. Ista zaokruzena
+          procjena, isti najveci ostatak 1.
+        total:
+          file: "data/dzs-putovanja-stanovnistva-2024.csv"
+          filters:
+            - column: "dobna_skupina"
+              values: ["Ukupno"]
+        parts:
+          file: "data/dzs-putovanja-stanovnistva-2024.csv"
+          filters:
+            - column: "dobna_skupina"
+              values: ["15 - 29", "30 - 49", "50 i više"]
+        match_on:
+          - "tip_putovanja"
+          - "destinacija"
+          - "trajanje"
+        values:
+          - "putovanja"
+          - "nocenja"
+          - "izdaci_eur"
+        tolerance: 1
+        max_abs_residual: 1
+        comparisons: 54
     permissible_claims:
       - "opis zabiljezenih dolazaka i nocenja"
       - "usporedba razdoblja uz istu definiciju"
     unavailable_claims:
       - "uzrocnost"
       - "zakljucak o pojedinacnom gostu iz agregata"
+      - "usporedba koja mijesa godisnje i mjesecne retke ili dvije geografske razine bez imenovanja nazivnika"
+      - "bilo koja tvrdnja o broju OSOBA koje su posjetile Hrvatsku; tablica broji dolaske, ne razlicite osobe"
+      - "spajanje anketne procjene putovanja s administrativnim brojem dolazaka kao da mjere isto"
     ethics:
       category_ownership: "Kategorije odredjuje sluzbena statisticka metodologija."
-      absence: "Potisnute celije i neobjavljene razine ostaju izvan skupa."
+      absence: >-
+        Potisnute celije i neobjavljene razine ostaju izvan skupa. Izvan njega
+        ostaje i sav nekomercijalni smjestaj, pa tablica ne pokriva sav boravak,
+        nego onaj koji je prijavljen u eVisitor.
       identifiability: "Agregat; pojedinacni gost nije prepoznatljiv."
       beneficiaries: "Citatelj koji uci citati sluzbenu tablicu s njezinim granicama."
-      error_burden: "Pogresno citanje pada na tumaca; zapis je javan."
+      error_burden: >-
+        Pogresno citanje pada na tumaca, a zapis je javan. Posljedica nije
+        bezopasna: broj dolazaka javno se navodi kao broj ljudi i tako ulazi u
+        rasprave o opterecenju mjesta i o politikama.
       appeal: "Nije primjenjivo za agregat."
     caveats:
-      - "Godisnji i mjesecni redci ne smiju se zbrajati zajedno."
+      - "Godisnji i mjesecni redci ne smiju se zbrajati zajedno; zato stoje u dvjema datotekama."
+      - "Jedinica je DOLAZAK, ne osoba. Od 2017. izvor je eVisitor, a gost koji promijeni smjestaj prijavljuje se ponovno i broji se opet. Vrijednost za 2025. znaci 20698963 dolaska, ne 20,7 milijuna ljudi. Nocenja su stabilnija mjera obujma."
+      - "REPUBLIKA HRVATSKA i zupanije stoje u istom stupcu objavljene tablice bez oznake razine; zbrajanje toga stupca dvostruko broji cijelu drzavu."
+      - "Rezidentnost je u BS_TU11 pisana malim, a u BS_TU12 velikim pocetnim slovom; spajanje dviju tablica po tome stupcu trazi da se to primijeti."
+      - "Anketna tablica je procjena iz uzorka, a mjesecna i zupanijska su administrativno prebrojavanje; njihove se brojke ne smiju zbrajati ni usporedjivati kao da mjere istu velicinu."
+      - "U anketnoj tablici dijelovi ne daju tocno zbroj, s najvecim ostatkom 1, jer je svaka celija zasebno zaokruzena procjena."
+      - "Datum posljednje izmjene izvora nije zabiljezen jer ga zrcalo nije preuzelo; zabiljezeni su datum preuzimanja i posljednje objavljeno opazanje."
 
   - id: "dzs_drugi_domen"
     name: "Drugi DZS domen"
@@ -1395,3 +2048,4 @@ packages:
       beneficiaries: "Citatelj koji uci prepoznati nereproducibilan dokaz."
       error_burden: "Kriv financijski zapis pada na imenovani subjekt."
       appeal: "Regulatorni postupak izvan opsega knjige."
+

@@ -4382,6 +4382,227 @@ handoffs:
     deliveries:
       - target_packet: P3-DZS
         gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-DZS consumed this delivery BEFORE the packet claim and before its
+          first substantive edit, and it is the only delivery targeting this
+          packet. The bounded selection is built and nothing beyond it. BS_TU11
+          enters as a complete-year national monthly series, restricted to
+          2005-2025 because 2026 carries only five of twelve months; BS_TU12
+          enters as one county cross-section at 2025. The snapshot year is
+          pinned by retrieval rather than by the packet date: the retrieval date
+          of record is 2026-07-27, the date the author's local mirror was
+          downloaded from the DZS PxWeb API, and the most recent COMPLETE
+          calendar year published at that retrieval is 2025 in both tables,
+          12 of 12 months with no missing cell. The packet did NOT have to stop
+          and return the year question, because the latest complete year is
+          published in exactly the form the selection admits.
+          The third member could NOT be built as ratified and the packet did not
+          silently substitute. `T01`-`T03` is not a unique identifier in the DZS
+          tourism database and no viable set exists under it: the household
+          survey T01 ends at 2019, T02 reaches 2024 with 44 per cent of its 2024
+          cells empty, and the coastal-town BS_T01-BS_T03 tables carry roughly 55
+          per cent empty rows because they list every settlement including inland
+          ones. The packet returned the narrowing to the author, who confirmed on
+          2026-08-05 the household-survey T03 at 2024 - trips, nights and
+          expenditure by age group - and the accepted G-A3-DZS selection is
+          amended accordingly and explicitly in decisions.G-A3-DZS.amendments,
+          not overwritten. That table is a SURVEY of Croatian residents against
+          BS_TU11's ADMINISTRATIVE count, which is the contrast Chapter 3 needs.
+          The exact package record is written into the dzs_turizam entry before
+          promoted became true: edition, the 2026-07-27 retrieval date, the
+          Croatian Open Licence attribution string carrying source,
+          last-modified date, URI and change marker, an MD5 per declared file
+          with its algorithm named, and a machine-checked reconciliation.
+          Totals and every suppression code are retained, annual and monthly
+          rows live in separate files so they cannot be double counted, and the
+          extract was not widened. No rights-holder permission is claimed,
+          because none was sought; H-P1B-DATA-LIC-003 is not superseded and its
+          five other G-A3 deliveries remain pending. The recorded lawful
+          fallback stayed in place until the package actually passed. Nothing
+          targeting another packet was consumed.
+        evidence:
+          - "decision:G-A3-DZS-accepted-selection-plus-recorded-2026-08-05-amendment-for-the-third-table"
+          - "mirror:C:/Users/lsikic/Documents/DZS-Turizam-downloaded-2026-07-27-from-the-DZS-PxWeb-API"
+          - "provenance:_refresh-download.ps1-and-_catalogue.json-recorded-as-the-provenance-chain"
+          - "year:BS_TU11-and-BS_TU12-2025-complete-12-of-12-months-2026-only-5-of-12"
+          - "total:BS_TU11-2025-arrivals-20698963-overnights-94820989-agreeing-with-the-live-PxWeb-API-and-the-mirror"
+          - "reconciliation:BS_TU12-2025-twenty-one-county-rows-sum-to-20698963-and-94820989-residual-0"
+          - "amendment:T01-T03-not-viable-as-written-author-confirmed-household-survey-T03-at-2024"
+          - "registry:data/katalog.yml#dzs_turizam-promoted-true-under-P3-DZS"
+          - "report:notes/reports/p3-dzs-2026-08-05.md"
+          - "boundary:no-rights-holder-permission-claimed-and-H-P1B-DATA-LIC-003-not-superseded"
+
+  H-P3-DZS-001:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R08-DZS-package
+      - source:data/katalog.yml#dzs_turizam-unit
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The unit of the monthly and annual DZS tourism files is a recorded
+      ARRIVAL, not a person. One traveller who stays in three places in one trip
+      is counted three times, and the published national total is the sum of
+      those arrivals. This is not a defect of the extract and not a caveat the
+      book invents: it is a documented property of the official statistic, and
+      it is the reason the package is worth teaching. The county cross-section
+      inherits the same unit. The extract preserves it and never converts an
+      arrival into a visitor, a tourist or a person.
+    required_action: >-
+      WA-C03 may not describe any figure from data/dzs-turizam-mjesecno.csv,
+      data/dzs-turizam-godisnje.csv or data/dzs-turizam-zupanije-2025.csv as a
+      number of people, visitors or tourists, and may not divide it by
+      population to obtain a per-capita rate of persons. Where the chapter needs
+      the word "turist" it must be tied to the arrival, not to the human being.
+      Any later packet that reuses this package inherits the same bar.
+    basis:
+      - source:data/katalog.yml#dzs_turizam-unit-jedan-objavljeni-redak-sluzbene-tablice-zabiljezeni-DOLAZAK-ne-osoba
+      - source:DZS-BS_TU11-and-BS_TU12-publish-dolasci-and-nocenja-as-counts-of-events
+      - check:closeout-recomputation-21-county-rows-sum-to-the-national-arrival-total-with-residual-0
+    required: true
+    deliveries:
+      - target_packet: WA-C03
+        gate: before_close
+        state: pending
+
+  H-P3-DZS-002:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - item:R08-DZS-package
+      - source:data/katalog.yml#dzs_turizam-provenance-source_last_modified-null
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The Croatian Open Licence requires the source, the URI, a change marker
+      AND the date the source was last modified. The author's mirror did not
+      record the PxWeb last-modified field, so this package does not have that
+      date and did not invent one. provenance.source_last_modified is null and
+      provenance.source_last_modified_note states the gap in the open, together
+      with two checkable substitutes: the retrieval date of 2026-07-27 and the
+      most recent published observation per table. The attribution obligation is
+      therefore satisfied in substance but NOT complete on its face.
+    required_action: >-
+      P6-DATA must either obtain the PxWeb last-modified date for BS_TU11,
+      BS_TU12 and T03 and record it, or record a dated author decision that the
+      two substitutes stand in its place. P8-META may not publish an attribution
+      string that states or implies a last-modified date this repository does
+      not hold. Neither packet may close this by deleting the note.
+    basis:
+      - source:data/katalog.yml#dzs_turizam-provenance-source_last_modified-null-with-its-note
+      - source:https://www.data.gov.hr/hr/open-license-requires-source-URI-last-modified-date-and-change-marker
+      - source:data/dzs-turizam.LICENCA.md-carries-the-same-gap-openly
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
+        state: pending
+
+  H-P3-DZS-003:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R08-DZS-package
+      - source:scripts/check-katalog.py
+      - source:scripts/check-data-integrity.R
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The first external package tightened the promotion contract in six ways
+      that generated datasets could never have exposed, and every later external
+      package inherits all six. A decision gate may no longer be the
+      promoting_gate of a promoted package, because a gate that retrieves
+      nothing cannot check the bytes it would stand behind; moving the promoting
+      gate requires promoting_gate_ratified_by naming a different, existing
+      decision record on disk; the promotion log now carries the NAMES of
+      promoted packages and is compared in both directions against promoted_by.
+      The snapshot-notice check now reads the package's OWN licence_uri instead
+      of demanding a CC BY 4.0 link, because demanding one of a Croatian Open
+      Licence source would have forced a false licence into a licence notice. A
+      key may be several columns joined by "+", so a published cross-tabulation
+      is identified by its dimensions rather than by an invented surrogate. A
+      declared missing-value code is checked for its own presence and then set
+      aside, while an UNDECLARED absence code in the same column fails.
+    required_action: >-
+      P3-DIP, P3-DIGIKAT, P3-EUROSTAT and P3-TEXT must satisfy all six rules
+      before promoting anything; none may reintroduce a decision gate as its own
+      promoter, and none may pass the notice check by printing a licence it does
+      not hold. P6-DATA must treat these rules as the standing contract for the
+      whole data portfolio and may not relax one to admit a package.
+    basis:
+      - source:scripts/check-katalog.py-DECISION_GATE-may-not-be-the-promoting-gate-of-a-promoted-package
+      - source:scripts/check-katalog.py-promotion-log-names-packages-and-is-compared-in-both-directions
+      - source:scripts/check-katalog.py-and-scripts/check-data-integrity.R-read-the-package-licence_uri
+      - source:data/katalog.schema.json#fileRecord-key-pattern-allows-composite-keys
+      - fixture:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-41
+    required: true
+    deliveries:
+      - target_packet: P3-DIP
+        gate: before_close
+        state: pending
+      - target_packet: P3-DIGIKAT
+        gate: before_close
+        state: pending
+      - target_packet: P3-EUROSTAT
+        gate: before_close
+        state: pending
+      - target_packet: P3-TEXT
+        gate: before_close
+        state: pending
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+
+  H-P3-DZS-004:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R08-DZS-package
+      - source:data/dzs-putovanja-stanovnistva-2024.csv
+      - source:data/katalog.yml#dzs_turizam-source_reconciliation
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The package deliberately carries two numbers that measure different
+      things. BS_TU11 and BS_TU12 are an ADMINISTRATIVE count of arrivals in
+      commercial accommodation, sourced from eVisitor since 2017, and they
+      reconcile at exactly zero. T03 is a SAMPLE SURVEY of Croatian residents'
+      own travel, and it does NOT reconcile exactly: every published cell is a
+      separately rounded estimate, so the parts need not sum to the total. The
+      largest residual is exactly 1, in all three breakdowns - destination,
+      duration and age group - and never larger; the closeout recomputed all 18
+      comparisons and confirmed it. The residual is recorded rather than rounded
+      away because it is a property of survey estimation, not an error.
+    required_action: >-
+      WA-C03 may not add a survey figure to an administrative figure, may not
+      present the two as one series, and may not describe the +-1 residual as a
+      mistake in the data. P5-C must not build a student route that asks for the
+      two to be combined or that treats the residual as a failed check. P6-DATA
+      must keep the declared reconciliation tolerance at 0 for the two
+      administrative tables and must not widen it to make the survey pass under
+      the same rule.
+    basis:
+      - check:closeout-recomputation-126-monthly-to-annual-comparisons-residual-0
+      - check:closeout-recomputation-18-survey-comparisons-largest-residual-exactly-1
+      - source:data/katalog.yml#dzs_turizam-source_reconciliation-declares-tolerance-0-for-the-counts-and-1-for-the-survey
+      - source:data/dzs-turizam.LICENCA.md-states-the-two-units-and-the-rounding-property
+    required: true
+    deliveries:
+      - target_packet: WA-C03
+        gate: before_close
+        state: pending
+      - target_packet: P5-C
+        gate: before_close
+        state: pending
+      - target_packet: P6-DATA
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -5826,3 +6047,40 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with G-A3-DZS active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-DZS
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P3-DZS and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P3-DZS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-DZS-001
+      - H-P3-DZS-002
+      - H-P3-DZS-003
+      - H-P3-DZS-004
+    implementation_state: podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796
+    checks:
+      - exactly one delivery targets this packet H-G-A3-DZS-001 at before_start and it was consumed BEFORE the packet claim and before the first substantive edit
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - H-P1B-DATA-LIC-003 targets six G-A3 gates is not superseded and was not touched and its five remaining deliveries stay pending
+      - this is the first packet in the book to promote data that does not come from its own generator
+      - the source is the author's local mirror downloaded 2026-07-27 from the DZS PxWeb API and NO network retrieval was performed by this packet
+      - the retrieval date of record is 2026-07-27 and not the packet date and the mirror plus its refresh script are recorded as the provenance chain
+      - the ratified T01-T03 selection was NOT viable as written and the packet returned the narrowing to the author rather than substituting silently
+      - the author confirmed the household survey T03 at 2024 on 2026-08-05 and the G-A3-DZS selection is amended explicitly in decisions.G-A3-DZS.amendments and not overwritten
+      - four extracts are materialised and every one reproduces byte for byte from the mirror through scripts/build-dzs-extracts.py without --write
+      - annual and monthly rows live in separate files so the published annual row can never be double counted against its own twelve months
+      - three published missing-value codes stay distinct from one another and from zero and the codes that do not occur in the extract are still recorded with their meaning
+      - dzs_turizam is promoted under P3-DZS with promoting_gate_ratified_by G-A3-DZS and its decision record on disk so no packet appoints itself
+      - a decision gate may no longer be the promoting_gate of a promoted package and the promotion log now names the promoted packages in both directions
+      - the snapshot notice check now reads the package licence_uri instead of demanding a CC BY 4.0 link which would have forced a false licence onto a Croatian Open Licence source
+      - composite keys joined by + are admitted so a published cross-tabulation is identified by its own dimensions and no surrogate column is invented
+      - a declared missing-value code is checked for its own presence then set aside while an undeclared absence code in the same column fails
+      - closeout recomputed every headline figure directly from the mirror rather than from the extracts in the repository
+      - BS_TU11 2025 gives 20698963 arrivals and 94820989 overnights and 2024 gives 20246060 arrivals and both were reproduced at closeout
+      - BS_TU12 2025 twenty-one county rows sum to the national totals with residual 0 across all six combinations of residency and measure
+      - 126 monthly to annual comparisons were recomputed at closeout with zero mismatches
+      - the survey table does NOT reconcile exactly and its largest residual is exactly 1 across 18 comparisons in all three breakdowns which is a property of separately rounded survey estimates and not an error
+      - the one claim NOT re-verified at closeout is the agreement with the LIVE PxWeb API because the author's directive forbids network retrieval and that limit is recorded in the report rather than passed over
+      - scripts/check-katalog.py reported KATALOG_OK packages 17 promoted 3 snapshots 8 and scripts/check-data-integrity.R reported DATA_INTEGRITY_OK validated 8 reconciliations 9 undeclared 0
+      - scripts/check-data-fixtures.py reported DATA_NEGATIVE_FIXTURES_OK cases 41 so every gate still fails closed
+      - no rights-holder permission is claimed anywhere because none was sought and the catalogue fixture still proves the ban
+      - no chapter prose changed and all 19 ledger units remain draft
+      - push merge tag archive and deployment remain unauthorised
