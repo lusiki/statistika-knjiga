@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-DZS
-next_permitted_packet: G-A3-DIP
+last_completed_packet: G-A3-DIP
+next_permitted_packet: P3-DIP
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 76
+forward_handoffs: 77
 last_updated: "2026-08-05"
 ---
 
@@ -43,15 +43,15 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-DZS` |
-| Next permitted packet | `G-A3-DIP` |
+| Last completed packet | `G-A3-DIP` |
+| Next permitted packet | `P3-DIP` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 40 accepted and 148 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 52 of the 82 canonical asks remain `drafted_unsent`; 24 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
+| Open outside asks | 51 of the 82 canonical asks remain `drafted_unsent`; 25 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, and the DZS and DIP selection asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -590,6 +590,37 @@ The durable evidence is
 The durable evidence is `notes/reports/p3-dzs-2026-08-05.md`, whose declared
 state is
 `podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796`.
+
+## G-A3-DIP closeout
+
+- `H-P1B-DATA-LIC-003` was consumed before the packet claim and
+  `H-P3-CATALOG-001` was acknowledged before the first edit and consumed at
+  closeout. Nothing targeting another packet was consumed.
+- Author and data-policy owner Luka Sikić approved the recommended selection:
+  the 2024 Croatian parliamentary election, one row per officially published
+  electoral unit, with the national total used only for reconciliation. The
+  semantic fields are electoral-unit identity, eligible-voter denominator,
+  ballots-cast numerator, valid ballots and invalid ballots under the source's
+  actual names.
+- Chapter 3 uses the source only to audit turnout's numerator, denominator and
+  aggregation. List-level, individual, causal and ecological claims are
+  unavailable.
+- The route stays genuinely `portal-mediated`: `promoted: false`, no retained
+  local source, no local checksum and no promotion-log entry. The author
+  approved a dated read-only official-portal inspection, exact retrieval
+  instructions, source-exposed schema evidence and reconciliation against
+  published totals. The existing verified DZS/generated fallback remains.
+- The local-file assumptions in `P3-DIP`, `R03-DIP-rights` and
+  `R08-DIP-package` are explicitly amended for this route. No local-only test is
+  silently waived or falsely passed. The non-operative `promoting_gate` must be
+  removed rather than moved by `P3-DIP`, because the package is not promoted.
+- No rights-holder permission is claimed, because none was sought. No data file,
+  catalogue entry or chapter prose changed, and all 19 units remain `draft`.
+- `OA-G-A3-DIP-SELECTION` is `done`, no external message was sent, and
+  `H-G-A3-DIP-001` carries the full disposition to `P3-DIP` at `before_start`.
+
+The durable evidence is
+`notes/reports/g-a3-dip-selection-decision-2026-08-05.md`.
 
 ## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
 
@@ -2780,46 +2811,31 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p3-dzs-2026-08-05.md,
-notes/reports/p1b-data-licence-access-inventory-2026-08-03.md,
-notes/reports/g-a3-data-rights-determination-2026-08-05.md and
-notes/reports/author-pre-dispositions-2026-08-05.md.
+Also fully read notes/reports/g-a3-dip-selection-decision-2026-08-05.md,
+notes/reports/p3-dzs-2026-08-05.md and
+notes/reports/p1b-data-licence-access-inventory-2026-08-03.md.
 
-Execute the dashboard's next permitted packet, G-A3-DIP, only, and stop.
-It is a DECISION GATE, not a data packet. It retrieves nothing, writes no data
-file, and may not promote anything. Its scope is the DIP selection, its rights,
-and its chapter role. Read the governed items it owns in full and consume only
-deliveries that target this gate.
+Execute the dashboard's next permitted packet, P3-DIP, only, and stop. It is a
+portal-mediated evidence package, not a local data snapshot. Before the claim,
+consume H-G-A3-DIP-001. Before closeout, acknowledge and consume
+H-P3-DZS-003; consume nothing targeting another packet.
 
-THE AUTHOR HAS ALREADY ANSWERED THE CORE QUESTION - DO NOT RE-ASK IT.
-The author's parallel election answer, recorded as a pre-disposition rather
-than consumed at G-A3-DZS because it belongs here, is: keep DIP
-portal-mediated, option A. Consume that pre-disposition at this gate and record
-it as the accepted disposition, with alternatives, authority boundary and
-blocked dependencies. H-P1B-DATA-LIC-003 delivers to this gate and must be
-terminal before the claim; it is not superseded and its remaining G-A3
-deliveries stay pending.
+The author approved a dated read-only inspection of the official DIP portal.
+Record the exact 2024 parliamentary-election publication identity, inspection
+date, retrieval instructions, published terms, source-exposed unit/schema/key/
+missing evidence and reconciliation against published totals. Retain no source
+file, invent no checksum, claim no local-only check passed, keep promoted false,
+create no promotion-log entry, and remove rather than move the non-operative
+promoting_gate. Preserve the verified DZS/generated fallback.
 
-P3-DZS CONSTRAINTS THAT NOW BIND EVERY EXTERNAL PACKAGE.
-H-P3-DZS-003 delivers to P3-DIP at before_close and carries six rules the first
-external package established: a decision gate may not be the promoting_gate of
-a promoted package; moving that gate needs promoting_gate_ratified_by naming a
-different existing decision record on disk; the promotion log carries the names
-of promoted packages and is compared in both directions against promoted_by;
-the snapshot-notice check reads the package's own licence_uri rather than
-demanding CC BY 4.0; a key may be several columns joined by '+'; a declared
-missing-value code is checked for its own presence then set aside, while an
-undeclared absence code in the same column fails. This gate must not weaken any
-of them to admit DIP.
-
-The book may NOT claim it obtained rights-holder permission, because none was
-sought; it may cite the source and its published terms. Availability is not
-promotion and technical access is not redistribution authority. A
-portal-mediated package stores no file in data/ and must not be presented as a
-local file or as parity across editions.
+The explicit G-A3-DIP amendments to P3-DIP, R03-DIP-rights and R08-DIP-package
+govern the route-specific evidence. The original local-file assumptions are not
+quietly waived: record their non-applicability and prove the absence of local
+bytes and checksum. The book may not claim rights-holder permission because
+none was sought.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
-negative fixtures still fail, rerun every deterministic check this gate touches,
-and make one scoped local commit.
+negative fixtures still fail, rerun every deterministic data/catalogue check the
+packet touches, and make one scoped local commit. Do not start P3-PILOT.
 ```

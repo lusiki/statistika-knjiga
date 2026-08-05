@@ -1211,7 +1211,29 @@ handoffs:
           - "obligation:P3-DZS-must-record-edition-date-checksum-and-official-reconciliation"
       - target_packet: G-A3-DIP
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          G-A3-DIP acknowledges and consumes the cautious DIP lane before the
+          packet claim and before the first substantive edit. The authoritative
+          inventory found no explicit redistribution licence on the reviewed
+          official page, so the 2024 election source stays portal-mediated and
+          no local copy, checksum claim, promotion, or rights-holder-permission
+          claim is admitted. Author and data-policy owner Luka Sikic approved on
+          2026-08-05 the bounded electoral-unit turnout selection and a genuinely
+          portal-mediated P3-DIP route: a dated read-only official-portal
+          inspection, exact retrieval instructions, reconciliation against
+          published totals, and the existing lawful DZS/generated fallback.
+          This gate decides and records that route; it retrieves and writes no
+          data file and infers no broader right from technical availability.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi-redistribucija-nije-dokazana"
+          - "determination:notes/reports/g-a3-data-rights-determination-2026-08-05.md"
+          - "predisposition:notes/reports/author-pre-dispositions-2026-08-05.md#dip-2024-traka"
+          - "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+          - "registry:data/katalog.yml#dip_2024-lane-portal-mediated-promoted-false-files-empty"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
       - target_packet: G-A3-DIGIKAT
         gate: before_start
         state: pending
@@ -4058,7 +4080,29 @@ handoffs:
           - "handoff:H-G-A3-DZS-001-binds-P3-DZS-to-the-exact-package-record"
       - target_packet: G-A3-DIP
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          G-A3-DIP honoured the catalogue promotion contract by making the
+          nonpromotion decision explicit. dip_2024 remains portal-mediated,
+          promoted false, files empty, checksum null, and outside the promotion
+          log. Technical availability was not treated as redistribution
+          authority. The author-approved route admits only a dated read-only
+          official-portal inspection, exact retrieval instructions,
+          source-exposed schema evidence, reconciliation against published
+          totals, and the existing lawful fallback. No lane changed and no file
+          was retrieved or committed. The current promoting_gate is recorded as
+          non-operative and P3-DIP must remove rather than move it: H-P3-DZS-003
+          applies its decision-gate and promoting_gate_ratified_by rules only if
+          a package is promoted, while this package deliberately is not.
+        evidence:
+          - "decision:G-A3-DIP"
+          - "report:notes/reports/g-a3-dip-selection-decision-2026-08-05.md#prava-pristup-i-nepromocija"
+          - "registry:data/katalog.yml#dip_2024-portal-mediated-promoted-false-files-empty-checksum-null"
+          - "audit:data/katalog.yml-unchanged-by-G-A3-DIP"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
+          - "obligation:P3-DIP-removes-non-operative-promoting_gate-and-promotes-nothing"
       - target_packet: G-A3-DIGIKAT
         gate: before_close
         state: pending
@@ -4603,6 +4647,56 @@ handoffs:
         state: pending
       - target_packet: P6-DATA
         gate: before_close
+        state: pending
+
+  H-G-A3-DIP-001:
+    source_packet: G-A3-DIP
+    created_at: "2026-08-05"
+    kind: decision
+    refs:
+      - decision:G-A3-DIP
+      - item:R03-DIP-rights
+      - item:R08-DIP-package
+      - handoff:H-P1B-DATA-LIC-003
+      - handoff:H-P3-CATALOG-001
+      - registry:data/katalog.yml#dip_2024
+      - report:notes/reports/g-a3-dip-selection-decision-2026-08-05.md
+    statement: >-
+      Author and data-policy owner Luka Sikic accepted on 2026-08-05 the 2024
+      Croatian parliamentary election selection and the genuinely
+      portal-mediated route. The teaching record has one row per officially
+      published electoral unit, with the national published total used only for
+      reconciliation, and maps the source fields serving the electoral-unit
+      identifier and name, eligible-voter denominator, ballots-cast numerator,
+      valid ballots, and invalid ballots. Chapter 3 uses it only to audit
+      turnout's numerator, denominator, and aggregation; list-level, individual,
+      causal, and ecological claims are unavailable. P1B found no explicit
+      redistribution licence for a local copy. The package therefore remains
+      portal-mediated and unpromoted, with no local file and no local checksum,
+      and the book claims no rights-holder permission because none was sought.
+    required_action: >-
+      P3-DIP must perform only the approved dated read-only inspection of the
+      official portal. It must record the exact official publication identity,
+      inspection date, retrieval instructions, published terms, source-exposed
+      unit/schema/key/missing evidence, and reconciliation against published
+      totals. It must retain no election file, prove files empty and checksum
+      null, keep promoted false, create no promotion-log entry, and remove rather
+      than move the non-operative promoting_gate. The original local-file test is
+      not silently waived or falsely passed: decisions.G-A3-DIP and the explicit
+      P3-DIP, R03-DIP-rights, and R08-DIP-package amendments record its
+      route-specific disposition. Every required offline task retains the
+      recorded verified DZS aggregate or generated categorical fallback.
+    basis:
+      - conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic
+      - notes/reports/g-a3-dip-selection-decision-2026-08-05.md
+      - notes/reports/author-pre-dispositions-2026-08-05.md#dip-2024-traka
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md
+      - notes/reports/g-a3-data-rights-determination-2026-08-05.md
+      - registry:data/katalog.yml#dip_2024-portal-mediated-promoted-false
+    required: true
+    deliveries:
+      - target_packet: P3-DIP
+        gate: before_start
         state: pending
 
 packet_reviews:
@@ -6084,3 +6178,30 @@ packet_reviews:
       - no rights-holder permission is claimed anywhere because none was sought and the catalogue fixture still proves the ban
       - no chapter prose changed and all 19 ledger units remain draft
       - push merge tag archive and deployment remain unauthorised
+
+  G-A3-DIP:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A3-DIP-001
+    implementation_state: conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic
+    checks:
+      - exactly two deliveries target this packet and each was handled at its own gate
+      - H-P1B-DATA-LIC-003 was consumed BEFORE the packet claim and H-P3-CATALOG-001 was acknowledged before the first substantive edit and consumed at closeout
+      - nothing targeting another packet was consumed and the remaining G-A3 deliveries stay pending
+      - the author approved the 2024 Croatian parliamentary election with one row per officially published electoral unit and the national total used only for reconciliation
+      - the selected semantic fields are electoral-unit identity eligible-voter denominator ballots-cast numerator valid ballots and invalid ballots under the source's actual names
+      - chapter 3 uses the source only to audit turnout numerator denominator and aggregation and admits no list-level individual causal or ecological claim
+      - dip_2024 stays genuinely portal-mediated promoted false files empty checksum null and outside the promotion log
+      - no explicit redistribution licence for a local copy was found and technical availability was not treated as redistribution authority
+      - the book claims no rights-holder permission because none was sought
+      - the author approved one dated read-only portal inspection exact retrieval instructions source-exposed schema evidence published-total reconciliation and the existing lawful fallback
+      - the original local-file assumptions are explicitly amended rather than silently waived or falsely passed in P3-DIP R03-DIP-rights and R08-DIP-package
+      - the non-operative promoting_gate must be removed rather than moved by P3-DIP because the package remains unpromoted
+      - six alternatives were rejected including a missing local mirror a retained fetch promotion an invented checksum widened rows and deletion of the optional portal route
+      - OA-G-A3-DIP-SELECTION is done with a dated resolution and no external message was sent
+      - no data or chapter file was retrieved created or edited and all 19 units remain draft
+      - H-G-A3-DIP-001 carries the complete author disposition to P3-DIP at before_start
+      - scripts/check-review-workflow.R passed with G-A3-DIP active before the substantive decision edit and again at closeout with no active packet and next_permitted_packet P3-DIP
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-DIP and every later packet were not started and push merge tag archive and deployment remain unauthorised

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-DZS"
-  next_permitted_packet: "G-A3-DIP"
+  last_completed_packet: "G-A3-DIP"
+  next_permitted_packet: "P3-DIP"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1644,6 +1644,74 @@ decisions:
       other lane and opens no other G-A3 gate. It edits no chapter prose. It
       claims no rights-holder permission. It authorises no render, generated
       artifact, push, merge, tag, archive, deployment or publication.
+  G-A3-DIP:
+    status: "accepted"
+    accepted_at: "2026-08-05"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    data_policy_owner: "Luka Sikic"
+    evidence: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-dip-selection-decision-2026-08-05.md"
+    pre_disposition_record: "notes/reports/author-pre-dispositions-2026-08-05.md"
+    accepted_dispositions:
+      selection: >-
+        The 2024 election for representatives to the Croatian Parliament, with
+        one row per officially published electoral unit and the national
+        published total retained only for source reconciliation. Preserve the
+        source fields serving the semantic roles electoral-unit identifier and
+        name, eligible-voter denominator, ballots-cast numerator, valid ballots,
+        and invalid ballots. Exclude list results, polling-place rows, and any
+        person record.
+      chapter_role_and_claims: >-
+        Chapter 3 uses the source only to audit how turnout changes by electoral
+        unit and what its denominator is. Permissible claims describe recorded
+        aggregates and turnout with the denominator named. Individual, causal,
+        list-support, and ecological claims are unavailable; national totals are
+        reconciliation evidence rather than an additional analytic row.
+      lane_and_rights: >-
+        dip_2024 stays genuinely portal-mediated and unpromoted. The reviewed
+        official site supplied no explicit redistribution licence for a local
+        copy. Author availability and a no-inquiry determination do not create
+        redistribution authority, and no rights-holder permission may be
+        claimed because none was sought. P3-DIP may perform one dated read-only
+        official-portal inspection, record the exact retrieval route and
+        published terms, reconcile against published totals, and retain the
+        existing DZS/generated lawful fallback. It may retain no source file.
+      route_specific_evidence: >-
+        P3-DIP must explicitly prove the local file and local checksum absent,
+        leave checksum null, and must not claim any local-only schema, key,
+        missing-code, or byte check passed. It replaces no check silently: the
+        approved portal branch records the official publication identity,
+        inspection date, exact retrieval instructions, source-exposed schema,
+        key, and missing-value evidence, and reconciliation against published
+        totals. The current promoting_gate is non-operative and P3-DIP must
+        remove it rather than move it, because promoted remains false and no
+        promotion-log entry is admitted.
+    rejected_alternatives:
+      - "Use an author-supplied local mirror, because none was supplied and redistribution authority is not established."
+      - "Perform a bounded fetch and retain or package a local copy."
+      - "Promote under G-A3-DIP or move promoting_gate to P3-DIP."
+      - "Invent or copy a checksum without a retained source file."
+      - "Widen the extract to list results or polling-place rows."
+      - "Remove DIP entirely instead of retaining a lawful optional portal route and fallback."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-DIP"
+      governed_items:
+        - "R03-DIP-rights"
+        - "R08-DIP-package"
+      later_gates_still_mandatory:
+        - "P3-VERIFY-A"
+        - "G-A4-03"
+    authority_boundary: >-
+      This decision authorises P3-DIP only to create a dated portal route,
+      passport, and reconciliation record for the approved selection and to
+      remove the non-operative promoting_gate while keeping promoted false. It
+      authorises no retained or redistributed election file, no package
+      promotion, no change to another lane, no chapter edit, and no
+      rights-holder-permission claim. It authorises no generated book artefact,
+      push, merge, tag, archive, deployment, or publication.
+
   A-READERS-2026-08-05:
     kind: "author_amendment"
     status: "accepted"
@@ -7383,7 +7451,7 @@ packets:
     sequence: 70
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
       - "P3-CATALOG"
@@ -7395,14 +7463,73 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-DIP packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-dip-selection-decision-2026-08-05.md"
+            - "register:decisions.G-A3-DIP.accepted_at-2026-08-05"
+            - "record:notes/reports/author-pre-dispositions-2026-08-05.md#dip-2024-traka"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor-and-data-policy-owner"
+            - "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A3-DIP.data_policy_owner"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:outside_asks.OA-G-A3-DIP-SELECTION.recommended_default"
+            - "register:decisions.G-A3-DIP.rejected_alternatives-6"
+            - "report:notes/reports/g-a3-dip-selection-decision-2026-08-05.md#razmotrene-alternative"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-DIP.blocked_dependencies"
+            - "items:R03-DIP-rights-and-R08-DIP-package"
+            - "packet:P3-DIP"
+      outputs:
+        - output: "Dated G-A3-DIP decision and authority record for: DIP selection, rights, and chapter role."
+          artifacts:
+            - "report:notes/reports/g-a3-dip-selection-decision-2026-08-05.md"
+            - "register:decisions.G-A3-DIP"
+            - "outside-ask:OA-G-A3-DIP-SELECTION-done"
+        - output: "Completion evidence is tied to the declared G-A3-DIP source state and bounded scope."
+          artifacts:
+            - "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A3-DIP.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A3-DIP-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-accepted_as_recommended"
+            - "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A3-DIP.accepted_dispositions-four-components-one-route"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-DIP.rejected_alternatives-6"
+            - "register:decisions.G-A3-DIP.authority_boundary"
+            - "register:decisions.G-A3-DIP.blocked_dependencies"
+        - test: "The G-A3-DIP packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-P1B-DATA-LIC-003-consumed-before-packet-claim"
+            - "handoff:H-P3-CATALOG-001-acknowledged-before-first-edit-and-consumed-at-closeout"
+            - "decision:2024-parliamentary-election-electoral-unit-turnout-selection"
+            - "decision:portal-mediated-promoted-false-no-local-file-no-checksum"
+            - "amendment:P3-DIP-R03-DIP-rights-and-R08-DIP-package-route-specific-tests"
+            - "boundary:no-rights-holder-permission-claimed-and-none-was-sought"
+            - "audit:data/katalog.yml-unchanged-by-this-gate"
+            - "handoff:H-G-A3-DIP-001-created-for-P3-DIP"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
   P3-DIP:
     sequence: 71
     phase: "3B"
@@ -7410,12 +7537,27 @@ packets:
     status: "ratified"
     requires:
       - "G-A3-DIP"
-    scope: "Frozen DIP 2024 package."
+    scope: "Portal-mediated DIP 2024 evidence package; no local source copy and no promotion."
+    amendments:
+      - amended_at: "2026-08-05"
+        amended_by: "Luka Sikic"
+        authority: "G-A3-DIP"
+        evidence: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+        reason: >-
+          The ratified generic data-package wording assumed a lawfully retained
+          local source file, but P1B found no explicit redistribution licence and
+          the author approved a genuinely portal-mediated route. Local bytes and
+          their checksum therefore must be absent and cannot be claimed as passed.
+          The route-specific branch preserves the source-verification burden by
+          requiring a dated official publication identity, exact retrieval
+          instructions, source-exposed schema/key/missing evidence, reconciliation
+          against published totals, and the lawful fallback.
     outputs:
-      - "P3-DIP validated package, passport, checksum, and route evidence for: Frozen DIP 2024 package."
+      - "P3-DIP validated portal record, passport, reconciliation, and route evidence for: DIP 2024."
       - "Completion evidence is tied to the declared P3-DIP source state and bounded scope."
     exit_tests:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+      - "The portal package proves local data and checksum absent; records dated official source identity, exact route, and source-exposed unit, schema, key, and missing-code evidence; and reconciles against published totals without claiming a local-only check passed."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-DIP packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence: []
@@ -7424,6 +7566,9 @@ packets:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
+      - "verified official source version and published licence or terms status"
+      - "portal codebook and passport"
+      - "recorded non-applicability of local checksum and reconciliation to published totals"
       - "route-specific expected values"
     change_reference: null
   P3-PILOT:
@@ -11834,9 +11979,14 @@ items:
       - "scope-specific provenance or catalogue record"
       - "documented approval and reconciliation evidence"
     acceptance_tests:
-      - "Source hashes, retrieval date, notice, and approved bundling basis are complete."
+      - "Under the G-A3-DIP portal amendment, official publication identity, inspection date, published terms and the absence of an explicit local-redistribution licence are complete; no local source, hash, bundling basis, or permission claim is admitted."
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
+    amendments:
+      - amended_at: "2026-08-05"
+        authority: "G-A3-DIP"
+        evidence: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+        disposition: "route_specific_portal_evidence_replaces_inapplicable_local_hash_and_bundling_assumptions"
     packet: "P3-DIP"
     completion_evidence: []
     blocker:
@@ -14644,9 +14794,14 @@ items:
       - "scope-specific provenance or catalogue record"
       - "documented approval and reconciliation evidence"
     acceptance_tests:
-      - "Keys are unique, totals reconcile, ecological limits are explicit, and future elections cannot overwrite it."
+      - "The official portal route identifies the 2024 electoral-unit rows and source key, totals reconcile, ecological limits are explicit, no local file is retained, and a future election cannot overwrite the dated 2024 source identity."
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
+    amendments:
+      - amended_at: "2026-08-05"
+        authority: "G-A3-DIP"
+        evidence: "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+        disposition: "immutable_dated_portal_record_not_a_local_historical_snapshot"
     packet: "P3-DIP"
     completion_evidence: []
     blocker:
@@ -26365,8 +26520,8 @@ outside_asks:
     external_message_sent: false
 
   OA-G-A3-DIP-SELECTION:
-    status: "drafted_unsent"
-    readiness: "waiting_for_catalogue_contract"
+    status: "done"
+    readiness: "resolved_author_selection_and_route"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -26384,6 +26539,24 @@ outside_asks:
     resume_condition: "Candidate promotion resumes after the bounded selection and role are approved."
     why_external: "The empirical case and chapter role require authorial approval."
     external_message_sent: false
+    resolved_at: "2026-08-05"
+    resolution: >-
+      Author and data-policy owner Luka Sikic approved the recommended DIP
+      selection and genuinely portal-mediated route on 2026-08-05. The source is
+      the 2024 election for representatives to the Croatian Parliament, one row
+      per officially published electoral unit, with the national total used only
+      for reconciliation and semantic fields for the electoral-unit identity,
+      eligible-voter denominator, ballots-cast numerator, valid ballots, and
+      invalid ballots. Chapter 3 uses it only to audit turnout's numerator,
+      denominator, and aggregation. P3-DIP is authorised for a dated read-only
+      portal inspection and route record, retains no local copy, claims no local
+      checksum or redistribution right, promotes nothing, and preserves the
+      lawful fallback. No external message was sent.
+    resolution_evidence:
+      - "conversation:DIP-selection-and-portal-mediated-route-approved-2026-08-05-Luka-Sikic"
+      - "decision:G-A3-DIP"
+      - "report:notes/reports/g-a3-dip-selection-decision-2026-08-05.md"
+      - "record:notes/reports/author-pre-dispositions-2026-08-05.md"
 
   OA-G-A3-DIP-RIGHTS:
     status: "withdrawn_with_reason"
