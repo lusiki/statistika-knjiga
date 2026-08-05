@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A2b-V"
-  next_permitted_packet: "P2-SPINE-V"
+  last_completed_packet: "P2-SPINE-V"
+  next_permitted_packet: "G-A2b-FINALE"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -5895,7 +5895,7 @@ packets:
     sequence: 59
     phase: "2"
     kind: "shared_registry"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2b-V"
     scope: "Ratified v spine; no chapter prose."
@@ -5906,13 +5906,81 @@ packets:
       - "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
       - "Registry work does not silently edit chapter prose or advance chapter stage."
       - "The P2-SPINE-V packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+      required_evidence:
+        - requirement: "author-ratified registry diff"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "handoff:H-G-A2B-V-001-consumed"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#13-kategoricki-podaci"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#14-dvije-grupe"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#15-vise-grupa"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#16-regresija"
+            - "source:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama"
+            - "report:notes/reports/g-a2b-v-spine-decision-2026-08-05.md"
+        - requirement: "schema validation"
+          artifacts:
+            - "source:bookwright_plugin/bookwright/shared/schemas/chapter-spine.schema.json"
+            - "source:scripts/check-chapter-spines.py"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-18-of-19"
+        - requirement: "consumer reconciliation"
+          artifacts:
+            - "check:scripts/check-book-architecture.py-BOOK_ARCHITECTURE_OK-spines-18-of-19"
+            - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK-spines-18-of-19"
+            - "check:scripts/check-identity-briefs.py-IDENTITY_BRIEFS_OK-spines-18-of-19"
+            - "handoff:H-P2-SPINE-V-001-created-for-P2-TERMS-WD-C17"
+            - "handoff:H-P2-SPINE-V-002-created-for-P5-ROUTES"
+            - "handoff:H-P1C-INTEGRITY-002-left-pending-for-P2-TERMS"
+      outputs:
+        - output: "P2-SPINE-V durable artifact and evidence record for: Ratified v spine; no chapter prose."
+          artifacts:
+            - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#part-v-five-units"
+            - "report:notes/reports/p2-spine-v-2026-08-05.md"
+            - "check:scripts/check-chapter-spines.py"
+        - output: "Completion evidence is tied to the declared P2-SPINE-V source state and bounded scope."
+          artifacts:
+            - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
+            - "check:scripts/check-manuscript-integrity.py-lane-structure-chapters-19"
+      exit_tests:
+        - test: "Every scoped registry entry is ratified, schema-valid, and linked to its consumers."
+          result: "passed"
+          evidence:
+            - "registry:13-kategoricki-podaci-aspects-11-terms-8-prerequisites-6-exclusions-7"
+            - "registry:14-dvije-grupe-aspects-9-terms-8-prerequisites-5-exclusions-7"
+            - "registry:15-vise-grupa-aspects-9-terms-8-prerequisites-4-exclusions-7"
+            - "registry:16-regresija-aspects-12-terms-11-prerequisites-7-exclusions-9"
+            - "registry:17-doba-algoritama-aspects-11-terms-12-prerequisites-7-exclusions-10"
+            - "check:CHAPTER_SPINES_OK-schema-valid-part-v-obligations-enforced"
+            - "check:three-architecture-consumers-agree-spines-18-of-19-no-snapshot-assertion"
+        - test: "Registry work does not silently edit chapter prose or advance chapter stage."
+          result: "passed"
+          evidence:
+            - "scope-diff:no-chapters-or-dodaci-paths"
+            - "check:chapter-ledger-units-at-draft-19"
+            - "check:live-def-blocks-unchanged-46-chapter-17-still-zero"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_STRUCTURE_OK-chapters-19"
+        - test: "The P2-SPINE-V packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+            - "report:notes/reports/p2-spine-v-2026-08-05.md"
+            - "handoff:H-G-A2B-V-001-consumed-with-disposition"
+            - "handoff:H-P0-REGISTER-004-consumed-registry-side-pending-for-P5-ROUTES"
+            - "registry:17-doba-algoritama-prerequisites-include-13-kategoricki-podaci"
+            - "registry:17-doba-algoritama-spine-subordinate-to-identity-brief-c17-unchanged"
+            - "handoff:H-P2-SPINE-V-001-carries-the-approved-chapter-17-two-block-increase"
+            - "handoff:H-P2-SPINE-V-002-carries-the-route-amendment-to-P5-ROUTES"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-ratified_without_decision-exit-1"
+            - "fixture:CHAPTER_SPINE_NEGATIVE_FIXTURE-part_i_visible_code_admitted-exit-1"
+            - "coverage:ratification-order-fixture-exercises-chapter-16-only-recorded-not-hidden"
     contract: "shared_registry"
     required_evidence:
       - "author-ratified registry diff"
       - "schema validation"
       - "consumer reconciliation"
-    change_reference: null
+    change_reference: "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
   G-A2b-FINALE:
     sequence: 60
     phase: "2"
@@ -11030,7 +11098,7 @@ items:
       location: "§4/§9/§12 + §15 R04"
     description: "Ratify load-bearing aspects, terms, prerequisites, and exclusions for Part V."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -11046,11 +11114,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-V"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-V"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#part-v-five-units"
+      - "report:notes/reports/p2-spine-v-2026-08-05.md"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-18-of-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
   R04-SPINE-FINALE:
     parents:
       - "R04"
@@ -22067,7 +22139,7 @@ items:
       location: "§8/§17"
     description: "Correct Chapter 17 prerequisite metadata and route sequences."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -22083,11 +22155,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-V"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2b-V"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama.prerequisites-02-03-08-10-11-13-16"
+      - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama.exclusions-1-no-route-without-chapter-13"
+      - "source:scripts/check-chapter-spines.py#RATIFICATION_ORDER.17-doba-algoritama"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-18-of-19"
+      - "report:notes/reports/p2-spine-v-2026-08-05.md#preduvjet-poglavlja-17-i-potroseni-prijenos"
+      - "handoff:H-P0-REGISTER-004-consumed-registry-side-at-P2-SPINE-V"
+      - "scope-note:the-prerequisite-metadata-half-is-live-and-machine-checked-here-while-the-advertised-route-half-stays-with-P5-ROUTES"
+      - "handoff:H-P2-SPINE-V-002-carries-the-advertised-route-amendment-to-P5-ROUTES"
+      - "handoff:H-P0-REGISTER-004-remains-pending-for-P5-ROUTES"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
   R04-C18-whole-prerequisites:
     parents:
       - "R04"

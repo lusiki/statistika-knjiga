@@ -376,7 +376,42 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-V
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        consumed_at: "2026-08-05"
+        disposition: >-
+          Consumed on the registry side, which is the only side P2-SPINE-V owns.
+          The recorded risk was that the review's sample critical-literacy route
+          skips Chapter 13 while the same review requires Chapter 13's
+          conditional-denominator and confusion-table foundations before Chapter
+          17. G-A2b-V settled that contradiction in favour of the prerequisite,
+          and this packet made the settlement live: Chapter 17's ratified
+          prerequisites are written into chapter-spine.json as Chapters 2, 3, 8,
+          10, 11, 13 and 16, so Chapter 13 is now a machine-checkable
+          prerequisite of Chapter 17, and Chapter 17's first ratified exclusion
+          states both that the chapter may not be read without Chapter 13 and
+          that no advertised route may send a reader into Chapter 17 without
+          Chapter 13. The deterministic checker enforces the same order twice
+          over, as a prerequisite that may not point at a later unit and as a
+          ratification-order condition, so Chapter 17 could not be ratified
+          before Chapter 13. The required action to ratify Chapter 17's exact
+          prerequisites before publishing either route is therefore discharged
+          here. The route half of the required action is not discharged here and
+          was deliberately not claimed: this packet publishes and amends no
+          route. It remains this handoff's open delivery to P5-ROUTES, and
+          H-P2-SPINE-V-002 carries the exact route obligation forward so the
+          amendment cannot be lost. The illustrative route was never copied
+          mechanically anywhere in this packet.
+        evidence:
+          - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama.prerequisites-02-03-08-10-11-13-16"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama.exclusions-1-bez-poglavlja-13"
+          - "source:scripts/check-chapter-spines.py#RATIFICATION_ORDER.17-doba-algoritama"
+          - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-18-of-19"
+          - "decision:G-A2b-V"
+          - "report:notes/reports/g-a2b-v-spine-decision-2026-08-05.md#preduvjeti-poglavlja-17-i-posljedica-za-putove"
+          - "report:notes/reports/p2-spine-v-2026-08-05.md#preduvjet-poglavlja-17-i-potroseni-prijenos"
+          - "handoff:H-P2-SPINE-V-002-created-for-P5-ROUTES"
       - target_packet: P5-ROUTES
         gate: before_close
         state: pending
@@ -2500,6 +2535,173 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-V
         gate: before_start
+        state: consumed
+        consumed_at: "2026-08-05"
+        disposition: >-
+          P2-SPINE-V accepts the ratified Part V spine as its exact and exclusive
+          registry boundary before the packet claim and before the first
+          substantive edit. The packet will write the accepted aspects, terms,
+          prerequisites and exclusions for units 13-kategoricki-podaci,
+          14-dvije-grupe, 15-vise-grupa, 16-regresija and 17-doba-algoritama into
+          chapter-spine.json, set their ratified flags, and extend the
+          deterministic spine check to the exact Part V obligations tabulated in
+          the decision record, including the preservation of Chapter 16 as the
+          synthesis payoff through the binding no-spending exclusions in Chapters
+          14 and 15, the Welch-versus-OLS uncertainty boundary in Chapter 14, the
+          reading-not-fitting boundary in Chapter 16, and the subordination of the
+          Chapter 17 spine to the ratified identity brief c17. Chapter 17's
+          prerequisites will be written as Chapters 2, 3, 8, 10, 11, 13 and 16, so
+          Chapter 13 becomes a live registry prerequisite of Chapter 17 and no
+          prerequisite points at a later unit. It will change no chapter or
+          appendix prose, no chapter stage and no terminology, will add, remove or
+          merge no #def- block or concept-graph edge, will not change or supersede
+          the ratified identity brief c17, and will ratify no other spine. The
+          approved two-block Chapter 17 definition increase is carried forward as
+          a new constraint to P2-TERMS and WD-C17 rather than implemented, because
+          H-P1C-INTEGRITY-002 keeps the 46 live definitions, the concept ledger
+          and the generated graph frozen until P2-TERMS retires that debt, exactly
+          as H-P2-SPINE-IV-001 did for Chapter 12. The route consequence is
+          carried forward as a new constraint to P5-ROUTES, and H-P0-REGISTER-004
+          is consumed on the registry side only. No rights-holder permission is
+          claimed for any source and no independent-review claim is made.
+        evidence:
+          - "decision:G-A2b-V"
+          - "conversation:G-A2b-V-spine-approved-2026-08-05-Luka-Sikic"
+          - "report:notes/reports/g-a2b-v-spine-decision-2026-08-05.md"
+          - "register:item-R04-SPINE-V-read-in-full"
+          - "register:item-R04-C17-definitions-read-in-full"
+          - "register:item-R04-C17-prerequisites-read-in-full"
+          - "registry:identity_briefs.briefs.c17-read-in-full"
+          - "record:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md-read-in-full"
+          - "record:notes/reports/g-a3-data-rights-determination-2026-08-05.md-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-V-claim"
+
+  H-P2-SPINE-V-001:
+    source_packet: P2-SPINE-V
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-V
+      - item:R04-C17-definitions
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - registry:identity_briefs.briefs.c17
+      - report:notes/reports/p2-spine-v-2026-08-05.md
+    statement: >-
+      The ratified Part V spine settles R04-C17-definitions through the Chapter
+      17 identity spine. Chapters 13, 14, 15 and 16 keep their existing five,
+      two, three and four blocks unchanged, all inside the ratified one-to-five
+      band. Chapter 17, which currently carries none and so falls below that
+      band, rises to exactly two blocks, zabiljezeni referentni ishod and
+      klasifikacijski prag, each with a named later dependant: R24-C17-recorded-
+      reference requires one consistent expression of the recorded reference
+      outcome across prose, visual, caption and alt text and Chapter 18's
+      evidence package depends on it, while R27-C17-18-transition and the c17
+      plant role hand the classification threshold and the unequal error burden
+      to Chapter 18. Every other Chapter 17 term stays in prose under .pojam,
+      including tekstna jedinica, granica korpusa, okvir kodiranja, tablica
+      zabune, algoritamska pravednost, preprilagodba, razdvajanje na skupove and
+      pomak distribucije. Three blocks were considered and rejected with a
+      recorded reason: the confusion table, because it is Chapter 13's
+      contingency table with conditional denominators and a second record would
+      create two sources of truth about one object and weaken the very
+      prerequisite this gate ratifies; algorithmic fairness, because a defining
+      sentence pushes toward the single-metric reduction the c17 brief forbids;
+      and overfitting with the training, validation and test split, because no
+      later chapter depends on their formal definition and D13 keeps the
+      capstone's main study explanatory. The net effect on the frozen set is 46
+      up to 51, beside the maps G-A2b-I, G-A2b-II and G-A2b-IV already approved.
+      P2-SPINE-V deliberately implemented none of it, because adding a #def-
+      block edits chapter prose and because H-P1C-INTEGRITY-002 freezes the exact
+      set of 46 live definitions, the concept ledger and the generated graph
+      under cryptographic fingerprints until P2-TERMS retires that debt.
+      P2-SPINE-V therefore deliberately left register item R04-C17-definitions at
+      status ratified rather than closing it. Its acceptance test requires a
+      terminologically reviewed definition map, and under the author's 2026-08-05
+      amendment terminology review is wholly the author's own editorial
+      responsibility and is taken at G-A2c, which had not yet run. Closing the
+      item here would have asserted a review that had not happened. The map
+      itself is decided and complete; only its canonical Croatian forms and its
+      implementation remain.
+    required_action: >-
+      P2-TERMS must reconcile the live definitions and canonical ledger against
+      this approved map before it regenerates data/concept-graph.json and retires
+      the concept debt, so a Chapter 17 that carries two blocks instead of none
+      is expected rather than treated as drift, and so both zabiljezeni
+      referentni ishod and klasifikacijski prag become canonical only once G-A2c
+      has fixed their Croatian forms. G-A2c also owns the split vocabulary the
+      spine names as still varying, skup za treniranje and skup za testiranje
+      versus razdvajanje na skup za ucenje, provjeru i ispitivanje, together with
+      procjenjivana velicina and curenje informacija, which the spine names as
+      load-bearing without canonising. WD-C17 must add exactly those two blocks
+      and no further block, must define no term the spine left in prose under
+      .pojam, must not reopen the three rejected blocks, and must make no change
+      before the concept gate can accept it. WD-C13, WD-C14, WD-C15 and WD-C16
+      must leave their five, two, three and four blocks unchanged. P2-TERMS also
+      owns the closure of register item R04-C17-definitions, which P2-SPINE-V
+      left open on purpose: it may close that item only once G-A2c has fixed the
+      canonical Croatian forms, and it must record the author's own editorial
+      terminology review as such, making no independent-review claim anywhere.
+      P2-VERIFY depends on that closure, because exit gate P2 requires R04 to be
+      closed and P2-TERMS is the last Phase 2 packet able to close it.
+    basis:
+      - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+      - "decision:G-A2b-V"
+      - "notes/reports/g-a2b-v-spine-decision-2026-08-05.md#hijerarhija-definicija-za-dio-v"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false"
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+
+  H-P2-SPINE-V-002:
+    source_packet: P2-SPINE-V
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-V
+      - item:R04-C17-prerequisites
+      - item:R04-ROUTES-two-track-map
+      - handoff:H-P0-REGISTER-004
+      - registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama
+      - report:notes/reports/p2-spine-v-2026-08-05.md
+    statement: >-
+      Chapter 13 is now a live ratified prerequisite of Chapter 17 in the shared
+      chapter-spine registry, because the conditional denominators and the
+      contingency table read in Chapter 13 are what becomes the confusion table
+      in Chapter 17. Chapter 17's ratified prerequisites are Chapters 2, 3, 8,
+      10, 11, 13 and 16, and its first ratified exclusion states that the chapter
+      may not be read without Chapter 13 and that no advertised route through the
+      book may send a reader into Chapter 17 without Chapter 13. That settles the
+      H-P0-REGISTER-004 contradiction in favour of the prerequisite: the route
+      changes, not the prerequisite. The review's illustrative short critical-
+      literacy route, which skipped Chapter 13, is therefore superseded as an
+      advertised sequence. P2-SPINE-V consumed H-P0-REGISTER-004 on the registry
+      side only; the route side remains that handoff's open obligation to
+      P5-ROUTES and is not settled here.
+    required_action: >-
+      P5-ROUTES must amend the advertised short critical-literacy route so it
+      includes Chapter 13 before Chapter 17, and may publish no route, map,
+      syllabus projection or navigation affordance that reaches Chapter 17
+      without Chapter 13. It must reconcile every advertised route against the
+      live ratified prerequisites of all 19 spines rather than against the
+      review's illustrative sequence, and must not amend, weaken or work around
+      the ratified prerequisite to preserve a shorter route. It must also consume
+      its own remaining delivery of H-P0-REGISTER-004 with route evidence.
+    basis:
+      - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+      - "decision:G-A2b-V"
+      - "notes/reports/g-a2b-v-spine-decision-2026-08-05.md#preduvjeti-poglavlja-17-i-posljedica-za-putove"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-18-of-19"
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -3592,3 +3794,36 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-V
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P2-SPINE-V and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-V:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-SPINE-V-001
+      - H-P2-SPINE-V-002
+    implementation_state: spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52
+    checks:
+      - H-G-A2B-V-001 was acknowledged and consumed with an exact disposition and evidence before the packet claim and before the first substantive edit
+      - the complete handoff ledger was read before the claim and exactly two deliveries target P2-SPINE-V
+      - H-P0-REGISTER-004 was acknowledged before the first substantive edit and consumed at closeout on the registry side with exact evidence while its P5-ROUTES delivery correctly remains pending
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS and was not consumed here and H-P0-REGISTER-007 and H-P0-REGISTER-008 remain pending for WD-C17
+      - chapter-spine.json now carries five ratified Part V units with 11 9 9 12 and 11 aspects 8 8 8 11 and 12 terms 6 5 4 7 and 7 prerequisites and 7 7 7 9 and 10 exclusions
+      - each written spine is faithful to the accepted draft with nothing added or omitted and each names its gate G-A2b-V its ratification date and its decision record
+      - no prerequisite points at a later unit and the table to model to deployed system arc is written as both prerequisite and ratification order
+      - Chapter 13 is written as a live prerequisite of Chapter 17 and Chapter 17's first exclusion forbids reading the chapter without Chapter 13 and forbids any advertised route that reaches Chapter 17 without Chapter 13
+      - Chapter 16 is preserved as the synthesis payoff through the binding no-spending exclusions written into Chapters 14 and 15
+      - the Chapter 17 spine is written as subordinate to the ratified identity brief c17 as its second exclusion and the brief was neither changed nor superseded
+      - the Chapter 17 question sampling text-package and outline selection is written as an obligation of G-A4-17 and G-A3-TEXT and the Chapter 13 14 and 16 package and table selections as obligations of G-A3-DIP G-A3-ESS and G-A4-16 and none is settled here
+      - all five Part V chapters forbid assessed code production and invented or unsourced empirical material and Chapter 17 also forbids undated or unsourced technical claims
+      - scripts/check-chapter-spines.py now enforces the exact Part V exclusion markers required load-bearing terms and ratification order and reported CHAPTER_SPINES_OK with eighteen ratified and one unratified unit
+      - both deliberate spine fixtures kept their identifiers and returned exit 1 and prove the gate-binding exclusion-marker and term checks for all five Part V units
+      - the ratification-order check is exercised by the fixtures only for Chapter 16 whose prerequisites include the Chapter 5 spine that part_i_visible_code_admitted un-ratifies and the order rules for Chapters 13 14 15 and 17 are not exercised because none of their prerequisites is un-ratified there which is the same partial per-unit coverage already recorded for Parts III and IV and no fixture was added removed or renamed
+      - the approved two-block Chapter 17 definition increase was deliberately not implemented because adding a def block edits chapter prose and H-P1C-INTEGRITY-002 freezes the 46 live definitions the concept ledger and the generated graph
+      - H-P2-SPINE-V-001 carries that approved map to P2-TERMS and WD-C17 at their before_close gates exactly as H-P2-SPINE-IV-001 did for Chapter 12 so the frozen concept gate can accept it rather than treat it as drift
+      - H-P2-SPINE-V-002 carries the route consequence to P5-ROUTES so the advertised short critical-literacy route must be amended and no route may reach Chapter 17 without Chapter 13
+      - the three architecture consumers count ratified spines and agree on eighteen of nineteen with their accepted architecture assessment and identity states unchanged and no snapshot assertion was reintroduced
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters and the live definition count unchanged at 46 with Chapter 17 still at zero blocks
+      - this packet makes no independent-review claim and claims no rights-holder permission for any source and selects no data package under the two binding author amendments of 2026-08-05
+      - no def block concept-graph edge chapter or appendix prose chapter stage terminology identity brief data package route render generated artifact or external action changed and all 19 units remain draft
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-FINALE
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - G-A2b-FINALE and every later packet were not started and push merge tag archive and deployment remain unauthorised
