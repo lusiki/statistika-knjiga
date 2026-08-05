@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P2-SPINE-FINALE"
-  next_permitted_packet: "G-A2c"
+  last_completed_packet: "G-A2c"
+  next_permitted_packet: "P2-TERMS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1414,6 +1414,166 @@ decisions:
       independent-review claim. It does not advance any unit's draft stage, runs
       no render, updates no generated artifact, and authorises no push, merge,
       tag, archive, deployment, or publication.
+  G-A2c:
+    status: "accepted"
+    accepted_at: "2026-08-05"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    terminology_owner: "Luka Sikic"
+    evidence: "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+    decision_record: "notes/reports/g-a2c-terminology-decision-2026-08-05.md"
+    incoming_handoffs: "none; the complete forward-handoff ledger was read before the decision and no delivery targets G-A2c"
+    accepted_dispositions:
+      reviewer_route: >-
+        Terminology review is wholly the author's and editor's own editorial
+        responsibility. Luka Sikic is the book's sole named terminology owner.
+        The canonical Croatian/English term map itself is unchanged and
+        undiminished; only the independent reviewer is removed, under the
+        author's 2026-08-05 amendment. The first edition may therefore make no
+        independent-review claim about its terminology anywhere - book,
+        preface, colophon, release metadata or site copy. That binds P2-TERMS,
+        P2-DOCS, P6-METHODS, P6-VERIFY, P8-META and every packet writing
+        edition copy. This gate makes no such claim itself.
+      terminology_principles: >-
+        One canonical Croatian name per concept book-wide; English retained only
+        in the chapter {.pojmovi} block and Appendix E, and at most once at
+        first mention in prose; an accepted variant is a registry cross
+        reference and never a prose synonym; every deliberate departure from
+        common usage carries a recorded reason; and renaming a term never
+        renames its #def- identifier, because that identifier anchors the
+        concept-graph node and the pojmovnik link.
+      ratified_forms_confirmed: >-
+        The nineteen ratified spines carry 168 key-term slots and 166 distinct
+        Croatian forms, ratified at the seven G-A2b gates. This gate confirms
+        all 166 as canonical and changes none, because a terminology gate has no
+        authority to weaken a ratified spine. Two terms deliberately appear in
+        two units - procjena in the preface and Chapter 9, standardizirana
+        razlika in Chapters 11 and 14 - and are one concept carried twice rather
+        than a collision.
+      forms_fixed_here: >-
+        Fifteen load-bearing forms the spines named without canonising are fixed:
+        razdvajanje na skup za ucenje, provjeru i ispitivanje with its three
+        component sets skup za ucenje, skup za provjeru and skup za ispitivanje;
+        procjenjivana velicina; curenje informacija; zabiljezeni referentni
+        ishod; klasifikacijski prag; paket dokaza; putovnica skupa podataka;
+        objava uporabe asistenta; analiticka fleksibilnost; reproducibilnost;
+        jedinica analize; Simpsonov paradoks; temeljna stopa; and varijanca
+        beside standardna devijacija, both canonical and both named in the one
+        merged defining sentence.
+      new_term_cluster: >-
+        R36-BOOK-new-cluster is settled: the four activities statistika,
+        podatkovna znanost, strojno ucenje and sustav umjetne inteligencije; the
+        split vocabulary above; izgledi, omjer izgleda and predvidjena
+        vjerojatnost; konfundirajuca varijabla, medijator, kolider and
+        prilagodjena povezanost; osjetljivost and provjera osjetljivosti;
+        kalibrirana nesigurnost and kalibracija stope pogreske prve vrste; and
+        pomak distribucije. Only omjer izgleda and predvidjena vjerojatnost are
+        named by no spine; they are fixed because the ratified plan foresees a
+        bounded Chapter 16 bridge to binary outcomes, and fixing the form does
+        not decide whether the bridge appears, which remains WD-C16.
+      meaning_collisions: >-
+        Four words carry more than one meaning and each gets a rule.
+        Osjetljivost is reserved for the robustness of a conclusion to a
+        defensible alternative decision and is never the confusion-table
+        true-positive rate, which is named by its denominator, because a short
+        name for one rate is exactly the single-metric reduction the c17 brief
+        forbids. Kalibracija is never a standalone term and is always written
+        with its object as kalibrirana nesigurnost or kalibracija stope pogreske
+        prve vrste, which is what live Chapter 13 prose already does.
+        Predvidjanje is the canonical noun and predikcija survives only inside
+        the ratified compound sustav predikcije, so Chapter 17's ratified term
+        jezicni model kao sustav predikcije is untouched while predikcijski
+        model becomes model za predvidjanje. Referentna oznaka in Chapter 10 and
+        zabiljezeni referentni ishod in Chapter 17 are two steps of one arc and
+        both remain, and neither is ever written as istina or ground truth,
+        which is the direct obligation of R24-C17-recorded-reference.
+      deliberate_departures: >-
+        Three forms depart from common usage with a recorded reason. Tablica
+        zabune keeps the English pair confusion matrix but is a table in
+        Croatian, because the same object is ratified in Chapter 13 as the
+        contingency table with conditional denominators and two names would
+        create two sources of truth about one object. Kolider retains the
+        transferred English name because the ratified Chapter 2 spine carries it
+        beside medijator and konfundirajuca varijabla as one diagram vocabulary.
+        Izgledi is chosen over sanse so that omjer izgleda reads as the odds
+        ratio in both directions.
+      live_divergences_assigned: >-
+        Ten exact live-source divergences are named and assigned to the packet
+        that may edit them: the Chapter 17 two-way split and its prediction
+        wording to WD-C17, the Chapter 16 prediction and leakage wording to
+        WD-C16, the preface prediction wording to WA-C00, the Chapter 8 weight
+        vocabulary to WC-C08, and the stale concept-ledger residual entry to
+        P2-TERMS. Curenje podataka in Chapter 2 is deliberately excluded,
+        because there the words describe an actual data breach used as a
+        quasi-experimental comparison and not statistical leakage.
+      stable_identifiers: >-
+        Three #def- identifiers deliberately do not follow their bolded term and
+        must not be renamed: def-standardizirani-rezidual whose canonical term
+        is prilagodjeni standardizirani rezidual, def-korelacija whose canonical
+        term is Pearsonova korelacija, and def-mala-polja. Korelacija remains the
+        canonical general term and a ratified Chapter 6 key term, while
+        Pearsonova korelacija is the canonical name of the measure defined in the
+        block, because the same chapter also ratifies Spearmanov koeficijent
+        ranga and the two measures must stay distinguishable.
+      definition_map_confirmed: >-
+        The six ratified definition maps together take the frozen set of 46 live
+        #def- blocks to 52: 46 plus 3 at G-A2b-I, minus 2 at G-A2b-II, plus 0 at
+        G-A2b-III, plus 2 at G-A2b-IV, plus 2 at G-A2b-V and plus 1 at
+        G-A2b-FINALE. This gate confirms the total, changes none of the six maps
+        and writes no block; the live count remains 46. An independent check
+        against the live source agrees: exactly three of the 46 bolded terms are
+        not key terms of their own ratified spine, and they are precisely
+        varijanca and asimetrija in Chapter 4, which the G-A2b-II map removes as
+        separate blocks, and Pearsonova korelacija in Chapter 6, which sits one
+        level below the key term korelacija.
+    rejected_alternatives:
+      - "Keep the independent terminology review in the first edition after the author withdrew it and named no reviewer."
+      - "Withdraw the reviewer but keep a reviewed-terminology description in edition copy."
+      - "Reopen the ratified spines' key terms and rebuild the register from scratch."
+      - "Keep the live two-way skup za treniranje and skup za testiranje split because the prose already carries it."
+      - "Make predikcija the canonical noun because it is shorter."
+      - "Allow osjetljivost to name the confusion-table rate as well."
+      - "Align the #def- identifiers with the renamed terms."
+      - "Defer the canonical forms to P2-TERMS and let the implementing packet choose them in passing."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P2-TERMS"
+      governed_items:
+        - "R04-TERMS-concept-regeneration"
+        - "R36-BOOK-new-cluster"
+        - "R04-C17-definitions"
+      later_owned_items:
+        - "R36-BOOK-alternatives"
+      later_gates_still_mandatory:
+        - "P2-DOCS"
+        - "P2-VERIFY"
+        - "C00"
+        - "C08"
+        - "C16"
+        - "C17"
+    authority_boundary: >-
+      This decision approves exactly one drafted terminology register and one
+      reviewer route, and unblocks P2-TERMS as the packet that implements them.
+      It approves no chapter or appendix prose and authorises no edit to any
+      .qmd file; every named live divergence remains the obligation of its
+      chapter packet. It writes nothing into concept-ledger.json,
+      conventions.json, chapter-spine.json, pojmovnik.qmd or
+      dodaci/e-rjecnik.qmd, adds and removes no #def- block, regenerates no
+      concept graph and retires no integrity debt; those remain P2-TERMS work.
+      It ratifies, changes and supersedes no chapter spine and no identity
+      brief, and it does not close R04-C17-definitions, which P2-TERMS may close
+      only once these forms are fixed and only while recording the author's own
+      editorial review as such. It does not touch R04-C18-whole-prerequisites,
+      which belongs to WE-C18 and P5-ROUTES. It publishes and amends no reading
+      route, reconciles no governing document, which remains P2-DOCS, and closes
+      no assessment. It selects and promotes no data package and claims no
+      rights-holder permission for any source; H-P1B-DATA-LIC-003 is not
+      superseded and remains the obligation of the G-A3 package gates. It makes
+      no independent-review claim of any kind and forbids one to every packet it
+      names. It consumes no handoff, because none targets it. It does not
+      advance any unit's draft stage, runs no render, updates no generated
+      artifact, and authorises no push, merge, tag, archive, deployment, or
+      publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -6341,7 +6501,7 @@ packets:
     sequence: 62
     phase: "2"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
       - "P2-CLAIMS"
@@ -6353,14 +6513,84 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A2c packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md"
+            - "register:decisions.G-A2c.accepted_at-2026-08-05"
+            - "amendment:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor-and-sole-terminology-owner"
+            - "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A2c.terminology_owner"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:outside_asks.OA-G-A2C-TERMS-EDITOR.recommended_default"
+            - "register:decisions.G-A2c.rejected_alternatives-8"
+            - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md#razmotrene-alternative"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A2c.blocked_dependencies"
+            - "item:R04-TERMS-concept-regeneration"
+            - "item:R36-BOOK-new-cluster"
+            - "item:R36-BOOK-alternatives"
+            - "item:R36-BOOK-domestic-review"
+            - "packet:P2-TERMS"
+      outputs:
+        - output: "Dated G-A2c decision and authority record for: Canonical terminology and reviewer route."
+          artifacts:
+            - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md"
+            - "register:decisions.G-A2c"
+            - "outside-ask:OA-G-A2C-TERMS-EDITOR-done"
+        - output: "Completion evidence is tied to the declared G-A2c source state and bounded scope."
+          artifacts:
+            - "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A2c.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A2c-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_recommended"
+            - "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A2c.accepted_dispositions-nine-components-one-system"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A2c.rejected_alternatives-8"
+            - "register:decisions.G-A2c.authority_boundary"
+            - "register:decisions.G-A2c.blocked_dependencies"
+        - test: "The G-A2c packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "ledger:no-handoff-targets-G-A2c-complete-ledger-read-before-the-decision"
+            - "register:decisions.G-A2c.ratified_forms_confirmed-168-slots-166-distinct-forms-none-reopened"
+            - "register:decisions.G-A2c.forms_fixed_here-15-load-bearing-forms"
+            - "register:decisions.G-A2c.new_term_cluster-R36-BOOK-new-cluster-settled"
+            - "register:decisions.G-A2c.meaning_collisions-four-rules"
+            - "register:decisions.G-A2c.deliberate_departures-three-with-recorded-reasons"
+            - "register:decisions.G-A2c.live_divergences_assigned-ten-anchored-to-owning-packets"
+            - "register:decisions.G-A2c.stable_identifiers-three-def-ids-never-renamed"
+            - "register:decisions.G-A2c.definition_map_confirmed-46-to-52"
+            - "source:chapters-46-live-def-blocks-unchanged-by-this-gate"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-2-graph_fresh-false"
+            - "check:spine-key-term-inventory-168-slots-166-distinct-3-def-blocks-outside-own-spine-all-three-explained"
+            - "handoff:H-G-A2C-001-created-for-P2-TERMS-and-P5-E"
+            - "amendment:no-independent-review-claim-recorded-and-forbidden-to-every-named-packet"
+            - "amendment:no-rights-holder-permission-claim-and-no-data-package-selected"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "scope-diff:no-chapters-dodaci-or-shared-registry-paths"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
   P2-TERMS:
     sequence: 63
     phase: "2"
@@ -24843,8 +25073,8 @@ outside_asks:
       - "report:notes/reports/g-a2b-finale-spine-decision-2026-08-05.md"
 
   OA-G-A2C-TERMS-EDITOR:
-    status: "drafted_unsent"
-    readiness: "waiting_for_spine_evidence"
+    status: "done"
+    readiness: "resolved_author_editor_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "2"
@@ -24864,6 +25094,25 @@ outside_asks:
     resume_condition: "P2-TERMS resumes when the author/editor approves the complete bounded map."
     why_external: "Canonical editorial terminology requires author/editor authority."
     external_message_sent: false
+    resolved_at: "2026-08-05"
+    resolution: >-
+      Term map approved as recommended by author and editor Luka Sikic on
+      2026-08-05, with no amendment. One canonical Croatian form per concept,
+      English retained in the chapter {.pojmovi} block and Appendix E, and
+      accepted variants and deliberate departures recorded. The 166 distinct
+      Croatian forms already ratified by the seven G-A2b gates are confirmed and
+      none is reopened; fifteen load-bearing forms the spines named without
+      canonising are fixed, the R36-BOOK-new-cluster cluster is settled, four
+      meaning collisions and three deliberate departures carry recorded rules
+      and reasons, and ten live-source divergences are anchored to their owning
+      chapter packets. Terminology review is recorded as the author's own
+      editorial responsibility and the first edition may make no
+      independent-review claim anywhere. No external message was sent.
+    resolution_evidence:
+      - "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+      - "decision:G-A2c"
+      - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md"
+      - "amendment:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md"
 
   OA-P6-TERMS-REVIEWER-RECRUIT:
     status: "withdrawn_with_reason"

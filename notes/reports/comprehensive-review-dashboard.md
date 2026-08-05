@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-SPINE-FINALE
-next_permitted_packet: G-A2c
+last_completed_packet: G-A2c
+next_permitted_packet: P2-TERMS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 55
+forward_handoffs: 57
 last_updated: "2026-08-05"
 ---
 
@@ -38,23 +38,113 @@ stop and repair the control state before editing book content.
 | Gate A2b-IV | Accepted as drafted: Part IV contract leading with magnitude and error consequences, three chapter spines, and a bounded two-block Chapter 12 definition increase; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-V | Accepted as drafted: Part V contract preserving Chapter 16 as the synthesis payoff, five chapter spines, Chapter 13 ratified as a prerequisite of Chapter 17, and a bounded two-block Chapter 17 definition increase; owner Luka Sikic; 2026-08-05 |
 | Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
+| Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-SPINE-FINALE` |
-| Next permitted packet | `G-A2c` |
+| Last completed packet | `G-A2c` |
+| Next permitted packet | `P2-TERMS` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 56 of the 82 canonical asks remain `drafted_unsent`; 22 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks; 0 external messages sent |
+| Open outside asks | 55 of the 82 canonical asks remain `drafted_unsent`; 23 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A2c closeout
+
+- No handoff targets `G-A2c`; the complete ledger was read before the decision,
+  so there was no incoming delivery to acknowledge or consume. The six
+  deliveries that target `P2-TERMS` — `H-P1C-INTEGRITY-002`,
+  `H-P2-SPINE-I-001`, `H-P2-SPINE-II-001`, `H-P2-SPINE-IV-001`,
+  `H-P2-SPINE-V-001` and `H-P2-SPINE-FINALE-001` — were read because they name
+  exactly what this gate had to fix, and none was consumed here.
+- The complete terminology register and the reviewer route were drafted first,
+  and the gate then closed against that drafted state. Author and editor Luka
+  Sikic accepted it as recommended on 2026-08-05, with no amendment.
+- **Terminology review is the author's own editorial responsibility and nothing
+  else.** The 2026-08-05 amendment is closed out here: no reviewer is sought,
+  recruited or named, and the first edition may make **no independent-review
+  claim** about its terminology anywhere — book, preface, colophon, release
+  metadata or site copy. That binds `P2-TERMS`, `P2-DOCS`, `P6-METHODS`,
+  `P6-VERIFY`, `P8-META` and every packet writing edition copy. This gate makes
+  no such claim itself.
+- **The 166 forms the ratified spines already carry are confirmed, not
+  reopened.** The nineteen ratified spines hold 168 key-term slots and 166
+  distinct Croatian forms. A terminology gate has no authority to weaken a
+  ratified spine, so it confirms them and changes none. `procjena` in the
+  preface and Chapter 9, and `standardizirana razlika` in Chapters 11 and 14,
+  are one concept carried twice rather than a collision.
+- **Fifteen load-bearing forms the spines named without canonising are fixed**,
+  including the Chapter 17 split vocabulary named in `H-P2-SPINE-V-001` —
+  `razdvajanje na skup za učenje, provjeru i ispitivanje` with its three
+  component sets — and the finale terms named in `H-P2-SPINE-FINALE-001`:
+  `paket dokaza`, `putovnica skupa podataka` and `objava uporabe asistenta`.
+  `R36-BOOK-new-cluster` is settled across the four activities, the split
+  vocabulary, `izgledi`, the causal terms, `osjetljivost`, `kalibracija` and
+  `pomak distribucije`. Only `omjer izgleda` and `predviđena vjerojatnost` are
+  fixed without a spine naming them, because the ratified plan foresees a
+  bounded Chapter 16 binary-outcome bridge; whether it appears remains `WD-C16`.
+- **Four meaning collisions carry rules rather than being left to the
+  implementer.** `osjetljivost` never names the confusion-table rate, because a
+  short name for one rate is exactly the single-metric reduction the `c17` brief
+  forbids. `kalibracija` is never standalone and is always written with its
+  object, which is what live Chapter 13 prose already does. `predviđanje` is the
+  canonical noun and `predikcija` survives only inside the ratified compound
+  `sustav predikcije`, so Chapter 17's ratified term is untouched. `referentna
+  oznaka` and `zabilježeni referentni ishod` are two steps of one arc and both
+  remain, and neither is ever written as *istina* or *ground truth*.
+- Three deliberate departures carry recorded reasons: `tablica zabune` rather
+  than a matrix, because the same object is Chapter 13's contingency table and
+  two names would create two sources of truth; `kolider`; and `izgledi`.
+- **Three `#def-` identifiers deliberately do not follow their term and must
+  never be renamed**, because they anchor the concept-graph node and the
+  `pojmovnik.qmd` link: `#def-standardizirani-rezidual`, whose canonical term is
+  `prilagođeni standardizirani rezidual`; `#def-korelacija`, whose canonical term
+  is `Pearsonova korelacija` beside the general key term `korelacija`; and
+  `#def-mala-polja`.
+- The six ratified definition maps are confirmed to take the frozen set of 46
+  live blocks to 52, and none of the six is changed. This gate wrote no block;
+  the live count remains 46 and `scripts/check-concepts.py` still reports
+  `definitions=46 ledger_debt=2 graph_fresh=false`, unchanged.
+- An independent inventory against the live source agrees with the maps: exactly
+  three of the 46 bolded terms are not key terms of their own ratified spine, and
+  they are precisely `varijanca` and `asimetrija` in Chapter 4, which `G-A2b-II`
+  removes as separate blocks, and `Pearsonova korelacija` in Chapter 6, which
+  sits one level below the key term `korelacija`. No other divergence exists.
+- **Ten live-source divergences are anchored to exact files and lines and
+  assigned to the packet that may edit them**, not left as prose. The stale
+  concept-ledger entry `standardizirani rezidual`, still carrying the Pearson-form
+  definition that the Chapter 13 correction removed, is one of the two entries the
+  checker counts as `ledger_debt` and is a `P2-TERMS` obligation. `curenje
+  podataka` at `chapters/02-mjerenje-i-dizajn.qmd:380` is deliberately excluded
+  and must not be changed: there the words describe an actual data breach used as
+  a quasi-experimental comparison, not statistical leakage.
+- `R04-C17-definitions` was deliberately **not** closed here. It is a `P2-TERMS`
+  item, and this gate closes no register item outside its own decision record.
+  `R04-C18-whole-prerequisites` was not touched and remains an obligation of
+  `WE-C18` and `P5-ROUTES`.
+- `OA-G-A2C-TERMS-EDITOR` is `done`, with a dated resolution; no external message
+  was sent. `H-G-A2C-001` carries the accepted register to `P2-TERMS` at its
+  `before_start` gate and to `P5-E` at its `before_close` gate;
+  `H-G-A2C-002` carries the ten anchored divergences to `WA-C00`, `WC-C08`,
+  `WD-C16` and `WD-C17`.
+- Both 2026-08-05 author amendments hold. This gate makes **no
+  independent-review claim** anywhere and claims **no rights-holder permission**
+  for any source; it selects no data package and does not supersede
+  `H-P1B-DATA-LIC-003`.
+- No chapter or appendix prose, registry, spine, `#def-` block, concept graph,
+  identity brief, data package, route, render, generated artifact, chapter stage
+  or external authority changed. All 19 units remain `draft` and the live
+  definition count remains 46.
+
+The durable evidence is `notes/reports/g-a2c-terminology-decision-2026-08-05.md`.
 
 ## Author amendment 2026-08-05 — terminology reviewer withdrawn
 
@@ -2187,45 +2277,46 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p2-spine-finale-2026-08-05.md,
+Also fully read notes/reports/g-a2c-terminology-decision-2026-08-05.md,
 notes/reports/g-a2c-reviewer-amendment-2026-08-05.md,
-notes/reports/g-a2b-finale-spine-decision-2026-08-05.md and
+notes/reports/p2-spine-finale-2026-08-05.md and
 notes/reports/g-a3-data-rights-determination-2026-08-05.md.
 
-Prepare and close the dashboard's next permitted packet, G-A2c, only, and stop.
-G-A2c is a decision gate: show the evidence, the recommended default, the
-alternatives, what it blocks and the exact reply needed, and do not edit chapter
-prose, do not add or remove any #def- block, and do not start P2-TERMS or any
-later packet. Read the decision_gate contract, the outside ask
-OA-G-A2C-TERMS-EDITOR and every item it blocks in full:
-R04-TERMS-concept-regeneration, R36-BOOK-new-cluster and R36-BOOK-alternatives.
+Execute the dashboard's next permitted packet, P2-TERMS, only, and stop.
+P2-TERMS is a shared-registry packet under the ratified G-A2c gate. Read the
+shared_registry contract, the accepted G-A2c decision, and every governed item it
+owns in full: R04-TERMS-concept-regeneration, R36-BOOK-new-cluster and
+R04-C17-definitions.
 
-All nineteen chapter spines are now ratified, so every load-bearing term the
-seven spine gates named is on the table and no further spine gate remains. The
-canonical Croatian forms are what G-A2c decides. Six approved definition maps are
-pending implementation and take the frozen set of 46 live definitions to 52:
-+3 (G-A2b-I), -2 (G-A2b-II), +0 (G-A2b-III), +2 (G-A2b-IV), +2 (G-A2b-V) and
-+1 (G-A2b-FINALE). H-P2-SPINE-I-001, H-P2-SPINE-II-001, H-P2-SPINE-IV-001,
-H-P2-SPINE-V-001 and H-P2-SPINE-FINALE-001 carry those maps and their rejected
-blocks to P2-TERMS and the chapter packets; acknowledge them where they apply but
-consume none of them, because they target P2-TERMS and the W packets, not G-A2c.
-H-P1C-INTEGRITY-002 still freezes the 46 live definitions, the concept ledger and
-the generated graph until P2-TERMS retires that debt.
+Seven before_close deliveries target it and every one must be acknowledged before
+the first substantive edit and consumed with an exact disposition and evidence at
+closeout: H-G-A2C-001, H-P1C-INTEGRITY-002, H-P2-SPINE-I-001, H-P2-SPINE-II-001,
+H-P2-SPINE-IV-001, H-P2-SPINE-V-001 and H-P2-SPINE-FINALE-001. H-G-A2C-001 is a
+before_start delivery and must be terminal before the packet is claimed. Consume
+nothing that targets another packet.
 
-The author amendment of 2026-08-05 is binding and is precisely what this gate must
-respect: the independent terminology reviewer is withdrawn, terminology review is
-wholly the author's own editorial responsibility, and the first edition may make
-NO independent-review claim about its terminology anywhere. Record the review as
-the author's own. The second amendment also holds: claim no rights-holder
-permission for any source.
+This packet retires the frozen concept gate: reconcile the live definitions and
+the canonical ledger, regenerate data/concept-graph.json from the accepted
+source, remove the concept_ledger and concept_graph debt entries from
+scripts/integrity-debt.json, and rerun the blocking concept command and its
+duplicate-definition fixture.
 
-Two register items are deliberately open and depend on this gate.
-R04-C17-definitions was left at ratified by P2-SPINE-V because its acceptance test
-requires a terminologically reviewed definition map; P2-TERMS is the last Phase 2
-packet able to close it. R04-C18-whole-prerequisites was left at ratified by
-P2-SPINE-FINALE because the live .chapter-meta row still names a narrower
-prerequisite; WE-C18 and P5-ROUTES own it and it is not this gate's work. Do not
-close either here and do not assert a review or a state that did not happen.
+Resolve, do not assume, the central tension: the live source carries 46 #def-
+blocks while six ratified maps approve a future 52, and those maps are
+implemented by chapter packets that have not run. P2-TERMS is a registry packet
+and may not edit chapter prose or rename any #def- identifier. Decide explicitly
+whether the ledger is reconciled to the live 46 with the approved deltas recorded
+as expected future state, or otherwise, and record the decision and its reason in
+the register and the report rather than letting the checker settle it silently.
+
+P2-TERMS owns the closure of R04-C17-definitions, which P2-SPINE-V left open on
+purpose. G-A2c has now fixed the canonical forms, so the item may close, and the
+author's own editorial review must be recorded as such with no independent-review
+claim anywhere. It does NOT own R04-C18-whole-prerequisites, which belongs to
+WE-C18 and P5-ROUTES.
+
+Both 2026-08-05 author amendments remain binding: no independent-review claim
+anywhere, and no rights-holder permission claim for any source.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required

@@ -2991,6 +2991,140 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-G-A2C-001:
+    source_packet: G-A2c
+    created_at: "2026-08-05"
+    kind: decision
+    refs:
+      - decision:G-A2c
+      - item:R04-TERMS-concept-regeneration
+      - item:R36-BOOK-new-cluster
+      - item:R36-BOOK-alternatives
+      - item:R04-C17-definitions
+      - handoff:H-P1C-INTEGRITY-002
+      - report:notes/reports/g-a2c-terminology-decision-2026-08-05.md
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted terminology register and
+      the reviewer route as recommended on 2026-08-05. Terminology review is
+      wholly the author's own editorial responsibility and the first edition may
+      make no independent-review claim about its terminology anywhere. The 166
+      distinct Croatian forms carried by the nineteen ratified spines across 168
+      key-term slots are confirmed canonical and none is reopened. Fifteen
+      load-bearing forms the spines named without canonising are fixed:
+      razdvajanje na skup za ucenje, provjeru i ispitivanje with its three
+      component sets, procjenjivana velicina, curenje informacija, zabiljezeni
+      referentni ishod, klasifikacijski prag, paket dokaza, putovnica skupa
+      podataka, objava uporabe asistenta, analiticka fleksibilnost,
+      reproducibilnost, jedinica analize, Simpsonov paradoks, temeljna stopa,
+      and varijanca beside standardna devijacija as one merged block naming
+      both. R36-BOOK-new-cluster is settled across the four activities, the
+      split vocabulary, izgledi with omjer izgleda and predvidjena vjerojatnost,
+      the causal terms, osjetljivost with provjera osjetljivosti, kalibrirana
+      nesigurnost with kalibracija stope pogreske prve vrste, and pomak
+      distribucije. Four meaning collisions carry rules: osjetljivost never
+      names the confusion-table rate, kalibracija is never standalone,
+      predvidjanje is the canonical noun with predikcija surviving only inside
+      sustav predikcije, and neither referentna oznaka nor zabiljezeni
+      referentni ishod is ever written as istina or ground truth. Three
+      deliberate departures carry reasons: tablica zabune rather than matrix,
+      kolider, and izgledi. Three #def- identifiers deliberately do not follow
+      their bolded term and must never be renamed, because they anchor the
+      concept-graph node and the pojmovnik link:
+      def-standardizirani-rezidual whose canonical term is prilagodjeni
+      standardizirani rezidual, def-korelacija whose canonical term is
+      Pearsonova korelacija beside the general key term korelacija, and
+      def-mala-polja. The six ratified definition maps take the frozen set from
+      46 to 52; this gate wrote no block and the live count remains 46.
+    required_action: >-
+      P2-TERMS must implement exactly this register: reconcile the live
+      definitions and the canonical concept ledger against the six approved
+      maps and these canonical forms, replace the stale concept-ledger entry
+      standardizirani rezidual and its Pearson-form definition with the
+      canonical prilagodjeni standardizirani rezidual while leaving the
+      def-standardizirani-rezidual identifier untouched, regenerate
+      data/concept-graph.json from the accepted source, and retire the
+      concept_ledger and concept_graph debt entries. It may close
+      R04-C17-definitions only under these fixed forms and must record the
+      author's own editorial terminology review as such, making no
+      independent-review claim anywhere. It may not edit chapter or appendix
+      prose and may not rename any #def- identifier. P5-E must render the
+      recorded accepted variants and deliberate departures with their reasons in
+      both glossary views, and may not silently normalise a contested form.
+    basis:
+      - conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic
+      - notes/reports/g-a2c-terminology-decision-2026-08-05.md
+      - notes/reports/g-a2c-reviewer-amendment-2026-08-05.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2c
+      - registry:bookwright_plugin/bookwright/shared/chapter-spine.json-19-ratified-units-168-key-term-slots
+      - check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-2-graph_fresh-false
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_start
+        state: pending
+      - target_packet: P5-E
+        gate: before_close
+        state: pending
+
+  H-G-A2C-002:
+    source_packet: G-A2c
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2c
+      - item:R36-BOOK-new-cluster
+      - item:R24-C17-recorded-reference
+      - report:notes/reports/g-a2c-terminology-decision-2026-08-05.md
+    statement: >-
+      Ten exact places in the live source do not yet carry the canonical form
+      fixed at G-A2c, and the gate changed none of them because it edits no
+      prose. Chapter 17 uses a two-way split at lines 50-51 and in the pojmovi
+      block at line 463 where the ratified spine carries the three-way split,
+      and writes Predikcija and Predikcijski model at lines 48, 56, 57 and 104.
+      Chapter 16 writes predikciju at lines 1082 and 1088, curenje cilja at line
+      956, and curenje, curenje podataka iz buducnosti and curenje iz buducnosti
+      at lines 129, 1008 and 1239. The preface writes predikcije and Predikcija
+      at lines 34 and 84. Chapter 8 writes tezina uzorka at lines 875 and 1075
+      and the ponder family at lines 876, 877 and 1058 where the ratified spine
+      carries tezina uzorkovanja. Curenje podataka in
+      chapters/02-mjerenje-i-dizajn.qmd:380 is deliberately excluded from this
+      list and must not be changed, because there the words describe an actual
+      data breach used as a quasi-experimental comparison rather than
+      statistical leakage.
+    required_action: >-
+      WA-C00 must write predvidjanje in the preface. WC-C08 must write tezina
+      uzorkovanja and replace the ponder family with procjena s tezinama and
+      procjena bez tezina, including in the pojmovi block. WD-C16 must write
+      predvidjanje and curenje informacija, keeping the time boundary in the
+      sentence rather than in the term. WD-C17 must write the three component
+      sets skup za ucenje, skup za provjeru and skup za ispitivanje in both the
+      prose and the pojmovi block, and must write predvidjanje and model za
+      predvidjanje while leaving the ratified compound sustav predikcije intact.
+      No packet may write istina or ground truth for referentna oznaka or
+      zabiljezeni referentni ishod. No packet may change
+      chapters/02-mjerenje-i-dizajn.qmd:380.
+    basis:
+      - notes/reports/g-a2c-terminology-decision-2026-08-05.md#razilazenja-zive-proze-i-kanonskoga-oblika
+      - source:chapters/17-doba-algoritama.qmd:50-51,48,56,57,104,463
+      - source:chapters/16-regresija.qmd:129,956,1008,1082,1088,1239
+      - source:chapters/00-predgovor.qmd:34,84
+      - source:chapters/08-uzorkovanje.qmd:875,876,877,1058,1075
+      - source:chapters/02-mjerenje-i-dizajn.qmd:380-deliberately-excluded
+    required: true
+    deliveries:
+      - target_packet: WA-C00
+        gate: before_close
+        state: pending
+      - target_packet: WC-C08
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -4186,3 +4320,43 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2c
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - G-A2c and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  G-A2c:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2C-001
+      - H-G-A2C-002
+    implementation_state: conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic
+    checks:
+      - the complete forward-handoff ledger was read before the decision and no delivery targets G-A2c so there was no incoming obligation to acknowledge or consume
+      - the six deliveries targeting P2-TERMS were read because they name exactly what this gate must fix and none was consumed here
+      - author and editor Luka Sikic accepted the drafted terminology register and reviewer route as recommended on 2026-08-05 with no amendment
+      - terminology review is recorded as the author's own editorial responsibility and the first edition may make no independent-review claim anywhere which binds P2-TERMS P2-DOCS P6-METHODS P6-VERIFY and P8-META
+      - this gate makes no independent-review claim of any kind
+      - the nineteen ratified spines carry 168 key-term slots and 166 distinct Croatian forms and all 166 are confirmed canonical and none is reopened because a terminology gate may not weaken a ratified spine
+      - procjena in the preface and Chapter 9 and standardizirana razlika in Chapters 11 and 14 are one concept carried by two units rather than a collision
+      - fifteen load-bearing forms the spines named without canonising are fixed including the Chapter 17 split vocabulary named in H-P2-SPINE-V-001 and the finale terms named in H-P2-SPINE-FINALE-001
+      - R36-BOOK-new-cluster is settled across the four activities the split vocabulary izgledi the causal terms osjetljivost kalibracija and pomak distribucije
+      - omjer izgleda and predvidjena vjerojatnost are the only fixed forms no spine names and they are fixed because the ratified plan foresees a bounded Chapter 16 binary-outcome bridge while whether it appears remains WD-C16
+      - four meaning collisions carry explicit rules for osjetljivost kalibracija predvidjanje versus predikcija and referentna oznaka versus zabiljezeni referentni ishod
+      - neither referentna oznaka nor zabiljezeni referentni ishod may ever be written as istina or ground truth which is the direct obligation of R24-C17-recorded-reference
+      - three deliberate departures carry recorded reasons tablica zabune kolider and izgledi
+      - three def identifiers deliberately do not follow their bolded term and must never be renamed because they anchor the concept-graph node and the pojmovnik link
+      - korelacija remains the canonical general term and a ratified Chapter 6 key term while Pearsonova korelacija is the canonical name of the measure defined in the block because the same chapter also ratifies Spearmanov koeficijent ranga
+      - the six ratified definition maps are confirmed to take the frozen set from 46 to 52 and none of the six is changed
+      - this gate wrote no def block and the live count remains 46 with scripts/check-concepts.py reporting CONCEPT_INTEGRITY_OK definitions 46 ledger_debt 2 graph_fresh false unchanged
+      - an independent inventory against the live source found exactly three bolded terms that are not key terms of their own ratified spine and all three are explained by the approved maps rather than being drift
+      - the stale concept-ledger entry standardizirani rezidual with its Pearson-form definition is named as a P2-TERMS reconciliation obligation and is one of the two entries the checker counts as ledger_debt
+      - ten live-source divergences are anchored to exact files and lines and assigned to WA-C00 WC-C08 WD-C16 WD-C17 and P2-TERMS
+      - curenje podataka in chapters/02-mjerenje-i-dizajn.qmd:380 is deliberately excluded because it describes an actual data breach used as a quasi-experimental comparison rather than statistical leakage
+      - H-G-A2C-001 carries the accepted register to P2-TERMS at before_start and to P5-E at before_close
+      - H-G-A2C-002 carries the ten anchored divergences to WA-C00 WC-C08 WD-C16 and WD-C17 at before_close
+      - OA-G-A2C-TERMS-EDITOR is done with a dated resolution and no external message was sent
+      - R04-C17-definitions was deliberately not closed here because it is a P2-TERMS item and this gate closes no register item outside its own decision record
+      - R04-C18-whole-prerequisites was not touched and remains an obligation of WE-C18 and P5-ROUTES
+      - no chapter or appendix prose registry spine def block concept graph identity brief data package route render generated artifact chapter stage or external authority changed and all 19 units remain draft
+      - this gate claims no rights-holder permission for any source selects no data package and does not supersede H-P1B-DATA-LIC-003
+      - scripts/check-review-workflow.R passed with G-A2c active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P2-TERMS
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-TERMS and every later packet were not started and push merge tag archive and deployment remain unauthorised
