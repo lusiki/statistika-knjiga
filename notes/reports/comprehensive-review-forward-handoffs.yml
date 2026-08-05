@@ -1182,7 +1182,33 @@ handoffs:
     deliveries:
       - target_packet: G-A3-DZS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          G-A3-DZS acknowledges its incoming lane before the packet claim and
+          before the first substantive edit. The inventory records DZS tourism as
+          having a verified GENERAL bundled basis under the Croatian Open Licence,
+          which DZS states covers all of its online datasets, and this gate
+          ratifies the bundled lane on that basis and on the author's 2026-08-05
+          determination that the selected extracts are public and need no
+          permission. It does NOT infer a broader right: the general basis is not
+          an exact package record, so the gate ratifies the lane and the bounded
+          selection only, and binds P3-DZS to record the exact edition, retrieval
+          date, attribution string, checksum and reconciliation to the official
+          published totals before any promotion. The lawful fallback for every
+          required student task is recorded and unchanged. This gate promotes
+          nothing, retrieves nothing and writes no data file. The G-A3-DIP,
+          G-A3-DIGIKAT, G-A3-EUROSTAT, G-A3-ESS and G-A3-TEXT deliveries remain
+          pending and none is consumed here.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori"
+          - "determination:notes/reports/g-a3-data-rights-determination-2026-08-05.md"
+          - "decision:G-A3-DZS"
+          - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md"
+          - "registry:data/katalog.yml#dzs_turizam-lane-bundled-promoted-false-promoting_gate-G-A3-DZS"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
+          - "obligation:P3-DZS-must-record-edition-date-checksum-and-official-reconciliation"
       - target_packet: G-A3-DIP
         gate: before_start
         state: pending
@@ -4007,7 +4033,29 @@ handoffs:
           - "report:notes/reports/p3-existing-2026-08-05.md"
       - target_packet: G-A3-DZS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          G-A3-DZS honoured the promotion contract exactly and promoted nothing.
+          It ratified the selection, the snapshot-year rule and the bundled lane,
+          and explicitly withheld promotion because the established basis is
+          general rather than an exact package record. data/katalog.yml was not
+          edited: dzs_turizam still carries lane bundled, promoted false and
+          promoting_gate G-A3-DZS, and the catalogue check reports the same
+          counts as before this gate. The decision binds P3-DZS to record the
+          exact edition, retrieval date, attribution string, checksum and
+          reconciliation to the official published totals inside the catalogue
+          entry before any promotion, which is what this handoff requires of a
+          package gate. No lane was changed, no technical access was treated as
+          redistribution authority, and no snapshot was created or committed.
+        evidence:
+          - "decision:G-A3-DZS"
+          - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md#prava-i-traka"
+          - "audit:data/katalog.yml-unchanged-dzs_turizam-lane-bundled-promoted-false"
+          - "check:scripts/check-katalog.py-KATALOG_OK-counts-unchanged-by-this-gate"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-undeclared-0"
+          - "handoff:H-G-A3-DZS-001-binds-P3-DZS-to-the-exact-package-record"
       - target_packet: G-A3-DIP
         gate: before_close
         state: pending
@@ -4276,6 +4324,64 @@ handoffs:
         state: pending
       - target_packet: P7-CLEAN-BUILD
         gate: before_close
+        state: pending
+
+  H-G-A3-DZS-001:
+    source_packet: G-A3-DZS
+    created_at: "2026-08-05"
+    kind: decision
+    refs:
+      - decision:G-A3-DZS
+      - item:R08-DZS-package
+      - handoff:H-P1B-DATA-LIC-003
+      - handoff:H-P3-CATALOG-001
+      - registry:data/katalog.yml#dzs_turizam
+      - report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md
+    statement: >-
+      Author and editor Luka Sikic accepted the DZS selection as recommended on
+      2026-08-05. The bounded extract is BS_TU11 as a complete-year national
+      monthly arrivals and overnights series, one BS_TU12 county cross-section
+      and a bounded T01-T03 long extract, with totals and suppression codes
+      retained and annual and monthly rows kept separate so they cannot be double
+      counted. The full DZS stack stays external. The snapshot year is the latest
+      possible, read as the most recent COMPLETE calendar year DZS has published
+      at the moment of retrieval, pinned by exact edition and retrieval date; an
+      incomplete current year is excluded. The gate deliberately names no year,
+      because a gate that retrieves nothing cannot verify what has been published.
+      The lane stays bundled on the general basis that DZS publishes its online
+      datasets under the Croatian Open Licence and on the author's 2026-08-05
+      determination, but that basis is general and NOT an exact package record,
+      so the gate ratified the lane and the selection and explicitly withheld
+      promotion. The package serves Chapter 3 as one traceable public claim;
+      permissible claims are description of recorded arrivals and overnights and
+      comparison of periods under one definition, and causation, any conclusion
+      about an individual guest, and any comparison mixing annual with monthly
+      rows or two geographic levels without naming the denominator are
+      unavailable.
+    required_action: >-
+      P3-DZS must build exactly this bounded selection and no more. It must pin
+      the most recent complete calendar year at retrieval and record the exact
+      edition, retrieval date, attribution string including the source, the
+      last-modified date, the URI and a change marker, the checksum, and the
+      reconciliation to the official published totals, writing all of it into the
+      dzs_turizam entry in data/katalog.yml before it sets promoted true. It must
+      keep totals and suppression codes, must not merge annual and monthly rows,
+      and must not silently widen the extract. If the latest complete year is not
+      published in a form this selection admits, it must STOP and return the
+      question to G-A3-DZS rather than lower the criterion itself. It may claim no
+      rights-holder permission, because none was sought, and it must leave the
+      recorded lawful fallback in place until the package actually passes.
+    basis:
+      - conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic
+      - notes/reports/g-a3-dzs-selection-decision-2026-08-05.md
+      - notes/reports/author-pre-dispositions-2026-08-05.md#dzs-turizam-godina-snimke
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori
+      - notes/reports/g-a3-data-rights-determination-2026-08-05.md
+      - registry:data/katalog.yml#dzs_turizam-lane-bundled-promoted-false
+    required: true
+    deliveries:
+      - target_packet: P3-DZS
+        gate: before_start
         state: pending
 
 packet_reviews:
@@ -5691,3 +5797,32 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with P3-CATALOG active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-EXISTING
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P3-EXISTING and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  G-A3-DZS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A3-DZS-001
+    implementation_state: conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic
+    checks:
+      - exactly two deliveries target this packet and both were handled at their own gate
+      - H-P1B-DATA-LIC-003 is before_start and was consumed BEFORE the packet claim and before the first substantive edit
+      - H-P3-CATALOG-001 is before_close was acknowledged before the first edit and consumed at closeout
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - the G-A3-DIP G-A3-DIGIKAT G-A3-EUROSTAT G-A3-ESS and G-A3-TEXT deliveries of both handoffs remain pending
+      - the accepted selection is BS_TU11 as a complete-year national monthly series one BS_TU12 county cross-section and a bounded T01-T03 long extract
+      - totals and suppression codes are retained and annual and monthly rows stay separate so they cannot be double counted and the full DZS stack stays external
+      - the snapshot year is the latest possible read as the most recent COMPLETE calendar year published at retrieval and pinned by exact edition and date
+      - this gate deliberately NAMES NO YEAR because a gate that retrieves nothing cannot verify what has been published and naming one would assert an unchecked publication fact
+      - P3-DZS must stop and return the question to this gate if the latest complete year is not published in a form the selection admits rather than lower the criterion itself
+      - the lane stays bundled and data/katalog.yml was NOT edited dzs_turizam still carries lane bundled promoted false and promoting_gate G-A3-DZS
+      - promotion was explicitly withheld because the established basis is general and not an exact package record
+      - the book claims no rights-holder permission because none was sought and H-P1B-DATA-LIC-003 is not superseded
+      - the chapter 3 role carries two permissible claim classes and three unavailable ones and the recorded lawful fallback is unchanged
+      - six alternatives were rejected including naming a concrete year here taking the incomplete current year admitting the full stack promoting the package lowering the lane and adding a second DZS domain
+      - OA-G-A3-DZS-SELECTION is done with a dated resolution and no external message was sent
+      - the author's parallel DIP answer was recorded as a pre-disposition rather than consumed here because it belongs to G-A3-DIP
+      - no data file was retrieved created or committed no catalogue entry changed no chapter prose changed and all 19 units remain draft
+      - scripts/check-review-workflow.R passed with G-A3-DZS active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-DZS
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-DZS and every later packet were not started and push merge tag archive and deployment remain unauthorised

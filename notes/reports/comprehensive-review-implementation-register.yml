@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-EXISTING"
-  next_permitted_packet: "G-A3-DZS"
+  last_completed_packet: "G-A3-DZS"
+  next_permitted_packet: "P3-DZS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1574,6 +1574,76 @@ decisions:
       advance any unit's draft stage, runs no render, updates no generated
       artifact, and authorises no push, merge, tag, archive, deployment, or
       publication.
+  G-A3-DZS:
+    status: "accepted"
+    accepted_at: "2026-08-05"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    data_policy_owner: "Luka Sikic"
+    evidence: "conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-dzs-selection-decision-2026-08-05.md"
+    pre_disposition_record: "notes/reports/author-pre-dispositions-2026-08-05.md"
+    accepted_dispositions:
+      selection: >-
+        The bounded extract the ratified plan already names: BS_TU11 as a
+        complete-year national monthly arrivals and overnights series, one
+        BS_TU12 county cross-section, and a bounded T01-T03 long extract. Totals
+        and suppression codes are retained, and annual and monthly rows stay
+        separated so they cannot be double counted. The full DZS stack stays
+        external.
+      snapshot_year: >-
+        The author chose the latest possible year, read as the most recent
+        COMPLETE calendar year DZS has published at the moment of retrieval,
+        pinned by exact edition and retrieval date so it cannot drift. An
+        incomplete current year is excluded because it would truncate the monthly
+        series. This gate deliberately names no year: a gate that retrieves
+        nothing cannot verify what has been published, and naming one would
+        assert a publication fact this packet did not check. P3-DZS pins the
+        year, edition, date and checksum when it retrieves, and stops and returns
+        the question to this gate if the latest complete year is not published in
+        a form the selection admits.
+      lane_and_rights: >-
+        The lane stays bundled and is not changed by this decision;
+        data/katalog.yml already records it. The basis is twofold: the P1B
+        inventory verified that DZS states all of its online datasets are
+        available under the Croatian Open Licence, which requires the source, the
+        last-modified date, the URI and a change marker; and the author's
+        2026-08-05 determination found the selected extract public and requiring
+        no permission. What is established is a GENERAL basis, not an exact
+        package record, so this gate ratifies the lane and the selection and NOT
+        promotion. The book claims no rights-holder permission, because none was
+        sought, and H-P1B-DATA-LIC-003 is not superseded.
+      chapter_role_and_claims: >-
+        The package serves Chapter 3 as one traceable public claim the reader
+        takes apart. Permissible claims are description of the recorded arrivals
+        and overnights and comparison of periods under one definition.
+        Unavailable claims are causation, any conclusion about an individual
+        guest from an aggregate, and any comparison that mixes annual with
+        monthly rows or two geographic levels without naming the denominator. The
+        recorded lawful fallback for required student tasks is unchanged until
+        P3-DZS passes.
+    rejected_alternatives:
+      - "Name a concrete snapshot year in this gate, which retrieves nothing and cannot verify publication."
+      - "Take the current incomplete year because it is the newest."
+      - "Admit the full DZS stack rather than the bounded extract."
+      - "Promote the package here because the legal basis is established."
+      - "Lower the lane to portal-mediated out of caution, against an explicit licence and the author's determination."
+      - "Add a second DZS domain to the first edition."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-DZS"
+      governed_items:
+        - "R08-DZS-package"
+      later_gates_still_mandatory:
+        - "P3-VERIFY-A"
+        - "G-A4-03"
+    authority_boundary: >-
+      This decision authorises P3-DZS to build and validate the bounded package
+      under the accepted selection, and nothing else. It retrieves and creates no
+      file, changes data/katalog.yml not at all, promotes no package, changes no
+      other lane and opens no other G-A3 gate. It edits no chapter prose. It
+      claims no rights-holder permission. It authorises no render, generated
+      artifact, push, merge, tag, archive, deployment or publication.
   A-READERS-2026-08-05:
     kind: "author_amendment"
     status: "accepted"
@@ -7131,7 +7201,7 @@ packets:
     sequence: 68
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
       - "P3-CATALOG"
@@ -7143,14 +7213,75 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-DZS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md"
+            - "register:decisions.G-A3-DZS.accepted_at-2026-08-05"
+            - "record:notes/reports/author-pre-dispositions-2026-08-05.md#dzs-turizam-godina-snimke"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor-and-data-policy-owner"
+            - "conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A3-DZS.data_policy_owner"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:outside_asks.OA-G-A3-DZS-SELECTION.recommended_default"
+            - "register:decisions.G-A3-DZS.rejected_alternatives-6"
+            - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md#razmotrene-alternative"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-DZS.blocked_dependencies"
+            - "item:R08-DZS-package"
+            - "packet:P3-DZS"
+      outputs:
+        - output: "Dated G-A3-DZS decision and authority record for: DZS selection, rights, and chapter role."
+          artifacts:
+            - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md"
+            - "register:decisions.G-A3-DZS"
+            - "outside-ask:OA-G-A3-DZS-SELECTION-done"
+        - output: "Completion evidence is tied to the declared G-A3-DZS source state and bounded scope."
+          artifacts:
+            - "conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A3-DZS.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A3-DZS-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-accepted_as_recommended"
+            - "conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic"
+            - "register:decisions.G-A3-DZS.accepted_dispositions-four-components-one-selection"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-DZS.rejected_alternatives-6"
+            - "register:decisions.G-A3-DZS.authority_boundary"
+            - "register:decisions.G-A3-DZS.blocked_dependencies"
+        - test: "The G-A3-DZS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-P1B-DATA-LIC-003-consumed-before-the-packet-claim-lane-acknowledged-not-broadened"
+            - "handoff:H-P3-CATALOG-001-acknowledged-before-the-first-edit-and-consumed-at-closeout"
+            - "decision:selection-BS_TU11-complete-year-national-monthly-plus-one-BS_TU12-county-cross-section-plus-bounded-T01-T03"
+            - "decision:snapshot-year-rule-latest-COMPLETE-calendar-year-pinned-at-retrieval-no-year-named-here"
+            - "decision:lane-stays-bundled-on-a-general-basis-and-promotion-is-explicitly-withheld"
+            - "decision:chapter-3-role-with-two-permissible-and-three-unavailable-claim-classes"
+            - "audit:data/katalog.yml-dzs_turizam-unchanged-lane-bundled-promoted-false"
+            - "amendment:no-rights-holder-permission-claimed-and-H-P1B-DATA-LIC-003-not-superseded"
+            - "handoff:H-G-A3-DZS-001-created-for-P3-DZS"
+            - "scope-diff:control-files-and-two-reports-only-no-data-file-and-no-catalogue-change"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic"
   P3-DZS:
     sequence: 69
     phase: "3B"
@@ -26088,8 +26219,8 @@ outside_asks:
       - "report:notes/reports/g-a2d-policy-decisions-2026-08-04.md"
 
   OA-G-A3-DZS-SELECTION:
-    status: "drafted_unsent"
-    readiness: "waiting_for_catalogue_contract"
+    status: "done"
+    readiness: "resolved_author_selection"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -26107,6 +26238,23 @@ outside_asks:
     resume_condition: "Candidate promotion resumes after the author approves the exact bounded selection."
     why_external: "The chapter role and first-edition selection are authorial decisions."
     external_message_sent: false
+    resolved_at: "2026-08-05"
+    resolution: >-
+      DZS selection approved as recommended by author and editor Luka Sikic on
+      2026-08-05: BS_TU11 as a complete-year national monthly series, one BS_TU12
+      county cross-section, and a bounded T01-T03 long extract, with totals and
+      suppression codes retained and annual and monthly rows kept separate. The
+      snapshot year is the latest possible, read as the most recent COMPLETE
+      calendar year published at retrieval and pinned by edition and date; no
+      year is named in the gate because a gate that retrieves nothing cannot
+      verify publication. The lane stays bundled and promotion is explicitly
+      withheld until P3-DZS records the edition, date, attribution, checksum and
+      official reconciliation. No external message was sent.
+    resolution_evidence:
+      - "conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic"
+      - "decision:G-A3-DZS"
+      - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md"
+      - "record:notes/reports/author-pre-dispositions-2026-08-05.md"
 
   OA-G-A3-DZS-RIGHTS:
     status: "withdrawn_with_reason"

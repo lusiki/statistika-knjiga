@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-EXISTING
-next_permitted_packet: G-A3-DZS
+last_completed_packet: G-A3-DZS
+next_permitted_packet: P3-DZS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 71
+forward_handoffs: 72
 last_updated: "2026-08-05"
 ---
 
@@ -51,7 +51,7 @@ stop and repair the control state before editing book content.
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 53 of the 82 canonical asks remain `drafted_unsent`; 23 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
+| Open outside asks | 52 of the 82 canonical asks remain `drafted_unsent`; 24 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -490,6 +490,49 @@ The durable evidence is `notes/reports/p2-terms-2026-08-05.md`.
   definition count remains 46.
 
 The durable evidence is `notes/reports/g-a2c-terminology-decision-2026-08-05.md`.
+
+## G-A3-DZS closeout
+
+- Two deliveries target this gate and each was handled at its own gate.
+  `H-P1B-DATA-LIC-003` is `before_start` and was consumed **before the packet
+  claim**; `H-P3-CATALOG-001` is `before_close`, acknowledged before the first
+  edit and consumed at closeout. The five other `G-A3` deliveries of both
+  handoffs remain `pending`.
+- **The accepted selection** is `BS_TU11` as a complete-year national monthly
+  arrivals and overnights series, one `BS_TU12` county cross-section, and a
+  bounded `T01`–`T03` long extract. Totals and suppression codes are retained,
+  annual and monthly rows stay separate so they cannot be double counted, and the
+  full DZS stack stays external.
+- **The snapshot year is a rule, not a number.** The author chose the latest
+  possible year, read as the most recent **complete** calendar year published at
+  retrieval, pinned by exact edition and date. An incomplete current year is
+  excluded. **This gate deliberately names no year**: a gate that retrieves
+  nothing cannot verify what has been published, and naming one would assert an
+  unchecked publication fact. `P3-DZS` pins it, and must **stop and return the
+  question** if the latest complete year is not published in a form the selection
+  admits.
+- **The lane stays `bundled` and promotion was explicitly withheld.**
+  `data/katalog.yml` was not edited: `dzs_turizam` still carries
+  `promoted: false` and `promoting_gate: G-A3-DZS`. The established basis is
+  general — the Croatian Open Licence plus the author's determination — and a
+  general basis is not an exact package record. `P3-DZS` must record the edition,
+  retrieval date, attribution, checksum and reconciliation to the official totals
+  before any promotion.
+- The package serves Chapter 3 as one traceable public claim, with two
+  permissible claim classes and three unavailable ones recorded, and the lawful
+  fallback unchanged until the package passes.
+- The book claims **no rights-holder permission**, because none was sought;
+  `H-P1B-DATA-LIC-003` is not superseded.
+- The author's parallel election answer — keep DIP portal-mediated, option A —
+  was recorded as a pre-disposition in
+  `notes/reports/author-pre-dispositions-2026-08-05.md` rather than consumed
+  here, because it belongs to `G-A3-DIP`.
+- No data file was retrieved, created or committed; no catalogue entry changed;
+  no chapter prose changed. `OA-G-A3-DZS-SELECTION` is `done` with no external
+  message sent.
+
+The durable evidence is
+`notes/reports/g-a3-dzs-selection-decision-2026-08-05.md`.
 
 ## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
 
@@ -2680,51 +2723,49 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/p3-existing-2026-08-05.md,
-notes/reports/p3-catalog-2026-08-05.md,
+Also fully read notes/reports/g-a3-dzs-selection-decision-2026-08-05.md,
+notes/reports/p3-existing-2026-08-05.md,
 notes/reports/p1b-data-licence-access-inventory-2026-08-03.md and
 notes/reports/g-a3-data-rights-determination-2026-08-05.md.
 
-Execute the dashboard's next permitted packet, G-A3-DZS, only, and stop.
-It is a decision_gate packet, so it decides and records; it writes no data file,
-promotes no package and starts no later packet. Read its contract and every
-governed item it owns in full, including the R03-DZS-* and R08 admission items.
+Execute the dashboard's next permitted packet, P3-DZS, only, and stop.
+It is a data_package packet. Read its contract and the governed item it owns in
+full, R08-DZS-package.
 
-Two deliveries target it and both are before_start, so both must be terminal
-before the claim: H-P1B-DATA-LIC-003, which carries the verified general bundled
-basis for DZS tourism and the rule that a general basis is not an exact package
-record, and H-P3-CATALOG-001, which carries the promotion contract. Consume
-nothing that targets another packet.
+One before_start delivery targets it and must be terminal before the claim:
+H-G-A3-DZS-001, which carries the accepted selection, the snapshot-year rule and
+the explicit withholding of promotion. Consume nothing that targets another
+packet.
 
-The gate must produce one dated author disposition, its alternatives, its
-authority boundary and its blocked dependencies. It selects the exact DZS
-tables, edition, retrieval date, attribution, licence text as DZS publishes it,
-checksum expectation and lawful fallback that P3-DZS will then implement. It may
-not fetch or commit a file: fetching, validating and promoting is P3-DZS.
+Build exactly the accepted bounded selection and no more: BS_TU11 as a
+complete-year national monthly arrivals and overnights series, one BS_TU12
+county cross-section, and a bounded T01-T03 long extract. Retain totals and
+suppression codes, keep annual and monthly rows separate so they cannot be
+double counted, and do not silently widen the extract.
 
-Two determinations already bind and must not be re-litigated. The author
-determined on 2026-08-05 that the selected DZS extracts are publicly available
-and that no rights inquiry is to be sent, so OA-G-A3-DZS-RIGHTS is
-withdrawn_with_reason and no external message may be sent. The book may NOT
-claim it obtained rights-holder permission, because none was sought; it may cite
-the source and its published terms. H-P1B-DATA-LIC-003 is not superseded by
-either determination and must still be consumed with an exact package
-disposition.
+The snapshot year is a RULE, not a number. G-A3-DZS deliberately named no year.
+Pin the most recent COMPLETE calendar year DZS has published at the moment of
+retrieval, by exact edition and retrieval date. An incomplete current year is
+excluded. If the latest complete year is not published in a form the selection
+admits, STOP and return the question to G-A3-DZS rather than lower the criterion
+yourself.
 
-P3-EXISTING promoted exactly two generated packages and changed no lane. DZS
-tourism stays bundled-but-unpromoted with promoted false, an empty file list and
-a null checksum, and only this gate and P3-DZS may change that. Promotion now
-requires seven conditions at once plus a promoting gate the package names
-itself, a per-packet entry in the catalogue's promotion log, and a declared file
-whose recorded md5 matches the bytes on disk; scripts/check-katalog.py fails
-closed on seventeen deliberate defects and scripts/check-data-fixtures.py proves
-all 32 data and catalogue defects still fail.
+Fetch candidate-first through R/fetch-podaci.R into the gitignored
+data/_kandidat/, never straight into teaching data. Before setting promoted
+true, write into the dzs_turizam entry in data/katalog.yml the exact edition,
+retrieval date, the attribution string carrying the source, the last-modified
+date, the URI and a change marker, the checksum, and the reconciliation to the
+official published totals. Add the per-packet entry to the catalogue promotion
+log. A declared file whose recorded md5 does not match the bytes on disk fails
+closed.
 
-R25-EXISTING-UCB and R25-EXISTING-Anscombe remain open by design: UCBAdmissions
-and anscombe carry no dataset-specific redistribution notice, and H-P3-EXISTING-001
-records that closing either needs an author decision, not a packet. Do not
-pre-empt it. R04 also remains open by design and P2-VERIFY recorded why in
-H-P2-VERIFY-001.
+The book may NOT claim it obtained rights-holder permission, because none was
+sought; it may cite the source and its published terms. H-P1B-DATA-LIC-003 is
+not superseded. Leave the recorded lawful fallback in place until the package
+actually passes, and change no other package's lane.
+
+R25-EXISTING-UCB, R25-EXISTING-Anscombe and R04 all remain open by design; do
+not pre-empt any of them.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
