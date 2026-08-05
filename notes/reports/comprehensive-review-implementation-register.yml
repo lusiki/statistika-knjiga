@@ -1574,6 +1574,64 @@ decisions:
       advance any unit's draft stage, runs no render, updates no generated
       artifact, and authorises no push, merge, tag, archive, deployment, or
       publication.
+  A-READERS-2026-08-05:
+    kind: "author_amendment"
+    status: "accepted"
+    accepted_at: "2026-08-05"
+    author: "Luka Sikic"
+    evidence: "conversation:author-amendment-reader-route-2026-08-05-Luka-Sikic"
+    decision_record: "notes/reports/author-amendment-reader-route-2026-08-05.md"
+    amends: "notes/reports/comprehensive-review-implementation-plan-2026-08-03.md"
+    accepted_dispositions:
+      reader_route: >-
+        The five-reader think-aloud pilot is removed from the first edition and
+        the recruited release readers are replaced by the author's own read of
+        the finished book. No reader is recruited, invited or named. The order of
+        work is: draft everything, then the author reads the whole book, then
+        revisions follow.
+      dependency_edges_cut: >-
+        P3-PILOT is removed from the requires of P3-VERIFY-A and G-A4-03, so no
+        prose packet waits on a reader. P7-PILOT is not descoped, still required
+        by G-A5a, and runs with the author as its reader.
+      chapter_acceptance_delegation: >-
+        The register carries nineteen author acceptance gates, C00 through C18.
+        The author delegates per-chapter acceptance to the internal review - the
+        six-critic panel and every deterministic checker - and moves the author's
+        own signature to one whole-book read at the end. Three boundaries bind
+        that delegation. It covers author acceptance only and neither the panel
+        nor any deterministic check. No packet may record that the author read a
+        chapter; the evidence for the author-acceptance clause is this standing
+        delegation, named as such, and nothing else. The author may reopen any
+        chapter at the final read through the existing invalidation mechanism,
+        and the affected gates and checks are then repeated.
+      reading_times: >-
+        The author decided to keep the existing .chapter-meta reading times
+        unchanged and unlabelled. That is a fourth option R26-META-reading-time's
+        acceptance test does not admit, so that item is recorded as
+        rejected_with_reason rather than satisfied.
+      claim_boundaries: >-
+        The first edition may make no claim that its reading times are measured,
+        reader-tested or evidence-based, and no claim that the book was validated
+        by new readers, because neither happened. Both bind WA-C00, every chapter
+        packet, P5-ROUTES, P6-CONTINUITY, P7-PILOT and P8-META. This is the same
+        shape of boundary the author set for terminology on the same date.
+      unchanged: >-
+        The six-critic panel per chapter, every deterministic checker, every
+        chapter spine, every acceptance gate and the prohibition on inventing a
+        number, study, source or citation all stand unchanged. The absence of
+        readers relaxes no evidence rule.
+    rejected_alternatives:
+      - "Keep the five-reader pilot and let the writing wait on recruitment."
+      - "Record the nineteen chapter acceptance gates as author-accepted without the author having read anything."
+      - "Mark P3-PILOT terminal by claiming its exit tests passed."
+      - "Descope P7-PILOT as well and leave the finished book unread by its author."
+      - "Treat the unlabelled reading times as satisfying R26-META-reading-time."
+    authority_boundary: >-
+      This amendment removes the reader pilot, moves the author's read to the end
+      and delegates per-chapter acceptance. It changes no chapter spine, no
+      identity brief, no accepted architecture, no style rule, no #def- block, no
+      data package and no rights decision. It authorises no render, generated
+      artifact, push, merge, tag, archive, deployment or publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -2561,7 +2619,6 @@ packets:
       - "P3-EXISTING"
       - "P3-DZS"
       - "P3-DIP"
-      - "P3-PILOT"
     scope: "Wave A evidence foundation: current data, DZS/DIP, and accepted novice-pilot memo."
     outputs:
       - "P3-VERIFY-A durable artifact and evidence record for: Wave A evidence foundation: current data, DZS/DIP, and accepted novice-pilot memo."
@@ -7175,6 +7232,17 @@ packets:
       - "P1A-C08"
       - "P1A-C16"
     scope: "Five-reader think-aloud pilot and reading-time evidence."
+    descoped_from_first_edition: true
+    descoped_at: "2026-08-05"
+    descoped_by: "Luka Sikic"
+    amendment_record: "notes/reports/author-amendment-reader-route-2026-08-05.md"
+    descoped_reason: >-
+      The author removed the five-reader pilot from the first edition on
+      2026-08-05. No reader is recruited, invited or named, so this packet has
+      no participants and will not run. It is removed from the requires of
+      P3-VERIFY-A and G-A4-03 so nothing waits on it, and it is left at ratified
+      rather than marked terminal because its exit tests were never satisfied
+      and claiming they passed would be false.
     outputs:
       - "P3-PILOT durable artifact and evidence record for: Five-reader think-aloud pilot and reading-time evidence."
       - "Completion evidence is tied to the declared P3-PILOT source state and bounded scope."
@@ -7340,7 +7408,6 @@ packets:
       - "C02"
       - "P3-DZS"
       - "P3-DIP"
-      - "P3-PILOT"
       - "P2-IDENTITY"
     scope: "Chapter 3 case, evidence, brief, and outline."
     outputs:
@@ -9428,6 +9495,17 @@ packets:
       - "P7-FREEZE"
       - "P0-OUTSIDE"
     scope: "Focused reader validation of 3, 12, 17, and 18 plus time dispositions."
+    reader_changed_at: "2026-08-05"
+    reader_changed_by: "Luka Sikic"
+    amendment_record: "notes/reports/author-amendment-reader-route-2026-08-05.md"
+    reader_disposition: >-
+      The author replaced the recruited release readers with the author's own
+      whole-book read on 2026-08-05. The packet is not descoped and G-A5a still
+      requires it. When it runs, its reader is Luka Sikic reading the finished
+      book, and it must record an explicit disposition for the reader_evidence
+      contract clause naming deidentified session records, which an author
+      read-through cannot supply in that form. It may not describe the book as
+      validated by new readers.
     outputs:
       - "P7-PILOT durable artifact and evidence record for: Focused reader validation of 3, 12, 17, and 18 plus time dispositions."
       - "Completion evidence is tied to the declared P7-PILOT source state and bounded scope."
@@ -23022,8 +23100,13 @@ items:
         - "S15"
       location: "§14 + §15 R26"
     description: "Run one consent-compliant protocol on the opening, hinge, and summit."
-    disposition: "accepted_first_edition"
-    status: "ratified"
+    disposition: "rejected_with_reason"
+    disposition_reason: >-
+      The author removed the five-reader pilot from the first edition on
+      2026-08-05 and directed that no reader be recruited. The sessions will not
+      happen, so the item is declined rather than deferred. The first edition
+      therefore carries no novice-reader evidence and may claim none.
+    status: "accepted"
     owner: "novice_reader_coordinator_and_codex"
     approval_owner: "author_editor_and_pedagogy_reviewer"
     scope:
@@ -23045,11 +23128,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-PILOT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:author-amendment-reader-route-2026-08-05"
+      - "report:notes/reports/author-amendment-reader-route-2026-08-05.md"
+      - "ask:OA-P3-PILOT-RECRUITMENT-withdrawn_with_reason"
+      - "packet:P3-PILOT-descoped-from-the-first-edition"
+      - "boundary:the-book-may-not-claim-it-was-validated-by-new-readers"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "conversation:author-amendment-reader-route-2026-08-05-Luka-Sikic"
   R26-META-reading-time:
     parents:
       - "R26"
@@ -23062,8 +23150,16 @@ items:
         - "S15"
       location: "§14"
     description: "Give every visible time a measured, explicitly estimated, or removed disposition tied to current-enough text."
-    disposition: "accepted_first_edition"
-    status: "ratified"
+    disposition: "rejected_with_reason"
+    disposition_reason: >-
+      The item required every visible reading time to be measured, explicitly
+      marked as an estimate, or removed. The author chose on 2026-08-05 to keep
+      the existing times unchanged and unlabelled, which is a fourth option the
+      acceptance test does not admit, so the item is recorded as declined rather
+      than satisfied. Binding consequence: no packet may describe those times as
+      measured, reader-tested or evidence-based anywhere in the book, the preface,
+      the course description or the edition metadata.
+    status: "accepted"
     owner: "novice_reader_coordinator_and_codex"
     approval_owner: "author_editor_and_pedagogy_reviewer"
     scope:
@@ -23082,11 +23178,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-PILOT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:author-amendment-reader-route-2026-08-05"
+      - "report:notes/reports/author-amendment-reader-route-2026-08-05.md#vremena-citanja-autorova-odluka-i-njezina-granica"
+      - "author-decision:keep-the-existing-chapter-meta-times-unchanged-and-unlabelled"
+      - "boundary:no-measured-or-reader-tested-claim-about-reading-times-anywhere"
+      - "binds:WA-C00-every-chapter-packet-P5-ROUTES-P6-CONTINUITY-and-P8-META"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "conversation:author-amendment-reader-route-2026-08-05-Luka-Sikic"
   R26-P7-reader-validation:
     parents:
       - "R26"
@@ -23099,6 +23200,13 @@ items:
         - "S15"
       location: "§16/P7"
     description: "Run focused release-reader validation and resolve repeated/blocking findings."
+    reader_changed_at: "2026-08-05"
+    amendment_record: "notes/reports/author-amendment-reader-route-2026-08-05.md"
+    reader_disposition: >-
+      Still required and still open. The author replaced the recruited release
+      readers with the author's own whole-book read on 2026-08-05, so the reader
+      changes and the obligation does not. P7-PILOT must record that reader
+      explicitly and may make no claim of validation by new readers.
     disposition: "accepted_first_edition"
     status: "ratified"
     owner: "novice_reader_coordinator_and_codex"
@@ -26261,8 +26369,16 @@ outside_asks:
     external_message_sent: false
 
   OA-P3-PILOT-RECRUITMENT:
-    status: "drafted_unsent"
-    readiness: "ready_for_recruitment"
+    status: "withdrawn_with_reason"
+    withdrawn_at: "2026-08-05"
+    withdrawn_by: "Luka Sikic"
+    withdrawn_reason: >-
+      The author removed the five-reader pilot from the first edition on
+      2026-08-05. No reader will be recruited, so this recruitment task has no
+      addressee and is closed unsent. The listed blocked items and gates are kept
+      as the historical record of what the ask once governed; they no longer wait
+      on it. See notes/reports/author-amendment-reader-route-2026-08-05.md.
+    readiness: "withdrawn"
     kind: "recruitment"
     owner: "author/editor or reader-recruitment coordinator"
     due_phase: "3C"
@@ -26973,8 +27089,15 @@ outside_asks:
     external_message_sent: false
 
   OA-P7-PILOT-RECRUITMENT:
-    status: "drafted_unsent"
-    readiness: "ready_for_recruitment_planning"
+    status: "withdrawn_with_reason"
+    withdrawn_at: "2026-08-05"
+    withdrawn_by: "Luka Sikic"
+    withdrawn_reason: >-
+      The author replaced the recruited release readers with the author's own
+      whole-book read on 2026-08-05. No reader will be recruited, so this
+      recruitment task has no addressee and is closed unsent. P7-PILOT itself is
+      not descoped and still runs with the author as its reader. See notes/reports/author-amendment-reader-route-2026-08-05.md.
+    readiness: "withdrawn"
     kind: "recruitment"
     owner: "author/editor or reader-recruitment coordinator"
     due_phase: "7"

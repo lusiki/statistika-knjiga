@@ -51,7 +51,7 @@ stop and repair the control state before editing book content.
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 55 of the 82 canonical asks remain `drafted_unsent`; 23 are `done`; 4 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks and the DZS and DIP rights inquiries, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
+| Open outside asks | 53 of the 82 canonical asks remain `drafted_unsent`; 23 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -490,6 +490,45 @@ The durable evidence is `notes/reports/p2-terms-2026-08-05.md`.
   definition count remains 46.
 
 The durable evidence is `notes/reports/g-a2c-terminology-decision-2026-08-05.md`.
+
+## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
+
+The author removed the five-reader think-aloud pilot from the first edition and
+replaced the recruited release readers with **the author's own read of the
+finished book**. No reader is recruited, invited or named. The order of work is
+now: draft everything, then the author reads the whole book, then revisions.
+
+`P3-PILOT` is descoped and removed from the prerequisites of `P3-VERIFY-A` and
+`G-A4-03`, so **no prose packet waits on a reader**. `P7-PILOT` is **not**
+descoped, still required by `G-A5a`, and runs with the author as its reader; it
+must record that reader explicitly and dispose of the `reader_evidence` clause
+naming deidentified session records, which an author read cannot supply in that
+form. `OA-P3-PILOT-RECRUITMENT` and `OA-P7-PILOT-RECRUITMENT` are
+`withdrawn_with_reason`, and `R26-PILOT-five-reader` is `rejected_with_reason`.
+
+**Chapter acceptance moves under a standing delegation.** The nineteen gates
+`C00`–`C18` keep the six-critic panel and every deterministic check; only the
+author's signature moves to the final whole-book read. The delegation covers
+author acceptance alone, **no packet may record that the author read a
+chapter**, and the author may reopen any chapter at the final read through the
+existing invalidation mechanism.
+
+**Reading times stay as they are.** The author kept the existing `.chapter-meta`
+times unchanged and unlabelled. That is a fourth option
+`R26-META-reading-time`'s test does not admit, so that item is
+`rejected_with_reason` rather than satisfied.
+
+Binding consequence: the first edition may make **no claim that its reading
+times are measured, reader-tested or evidence-based**, and **no claim that the
+book was validated by new readers**. Both bind `WA-C00`, every chapter packet,
+`P5-ROUTES`, `P6-CONTINUITY`, `P7-PILOT` and `P8-META`.
+
+The six-critic panel, every deterministic checker, every spine and the
+prohibition on inventing a number, study, source or citation are unchanged. The
+absence of readers relaxes no evidence rule.
+
+The durable record is
+`notes/reports/author-amendment-reader-route-2026-08-05.md`.
 
 ## Author amendment 2026-08-05 — terminology reviewer withdrawn
 
