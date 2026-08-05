@@ -2730,42 +2730,78 @@ notes/reports/g-a3-data-rights-determination-2026-08-05.md.
 
 Execute the dashboard's next permitted packet, P3-DZS, only, and stop.
 It is a data_package packet. Read its contract and the governed item it owns in
-full, R08-DZS-package.
+full, R08-DZS-package. One before_start delivery targets it and must be terminal
+before the claim: H-G-A3-DZS-001. Consume nothing that targets another packet.
 
-One before_start delivery targets it and must be terminal before the claim:
-H-G-A3-DZS-001, which carries the accepted selection, the snapshot-year rule and
-the explicit withholding of promotion. Consume nothing that targets another
-packet.
+SOURCE: USE THE AUTHOR'S LOCAL MIRROR. DO NOT FETCH.
+The author has supplied a complete local mirror of the DZS tourism database at
+C:\Users\lsikic\Documents\DZS-Turizam, downloaded 27 July 2026 from the DZS
+PxWeb API, 98 tables in tidy long CSV and wide XLSX, transcoded from the API's
+windows-1250 to UTF-8 with BOM. It carries its own _README.txt, _tables-index.csv,
+_catalogue.json, _codebook-dimensions.csv and _refresh-download.ps1. The author
+has directed that this mirror is the source of record for this packet and that
+NO fresh network retrieval is to be performed. Record the retrieval date as
+2026-07-27, not the packet date, and record the mirror and its refresh script as
+the provenance chain.
 
-Build exactly the accepted bounded selection and no more: BS_TU11 as a
-complete-year national monthly arrivals and overnights series, one BS_TU12
-county cross-section, and a bounded T01-T03 long extract. Retain totals and
-suppression codes, keep annual and monthly rows separate so they cannot be
-double counted, and do not silently widen the extract.
+ALREADY VERIFIED ON 2026-08-05 - DO NOT REDO THIS RESEARCH.
+- BS_TU11 (Tablica 1.1, national, monthly, 2005-2026) and BS_TU12 (Tablica 1.2,
+  counties, monthly, 2013-2026) both exist and match the ratified selection.
+- 2025 is the most recent COMPLETE calendar year in both: 12/12 months, no
+  missing cells. 2024 is also complete. 2026 carries only 5/12 months.
+- BS_TU11 total arrivals: 2025 = 20,698,963; 2024 = 20,246,060. These figures
+  were confirmed twice, once against the live PxWeb API and once against the
+  local mirror, and the two agree. Record that agreement as the external
+  verification; it is the one piece of live-source evidence this packet has.
+- Three distinct missing-value codes appear across these tables and MUST stay
+  distinct in the teaching files: "...." not yet published, ".." and "-" not
+  available. Do not collapse them to NA, blank or zero.
 
-The snapshot year is a RULE, not a number. G-A3-DZS deliberately named no year.
-Pin the most recent COMPLETE calendar year DZS has published at the moment of
-retrieval, by exact edition and retrieval date. An incomplete current year is
-excluded. If the latest complete year is not published in a form the selection
-admits, STOP and return the question to G-A3-DZS rather than lower the criterion
-yourself.
+THE T01-T03 PROBLEM - THE RATIFIED SELECTION IS NOT VIABLE AS WRITTEN.
+G-A3-DZS ratified "a bounded T01-T03 long extract". That identifier is not
+unique in the DZS tourism database and no viable T01-T03 set exists:
+- Household survey (Turisticka aktivnost stanovnistva) T01 by county ends at
+  2019; T02 by education reaches 2024 but 44 percent of its 2024 cells are
+  empty; T03 by age reaches 2024 and its 2023 is fully populated.
+- Coastal towns BS_T01-BS_T03 carry roughly 55 percent empty rows, because they
+  list every settlement including inland ones with no tourism.
+- Travel-agency and experimental-statistics T01-T03 are unrelated statistics.
+The author delegated the pick. The RECOMMENDED third table is the household
+survey T03 at 2023, the most recent fully populated year, giving trips, nights
+and expenditure by age group. It is a SURVEY of Croatian residents against
+BS_TU11's ADMINISTRATIVE count, which is the contrast Chapter 3 needs. The
+author has not yet confirmed this specific narrowing; confirm it before writing
+it into the catalogue, and if it is confirmed, amend the accepted G-A3-DZS
+selection explicitly and record the amendment. Do not silently substitute a
+different table for the ratified text.
 
-Fetch candidate-first through R/fetch-podaci.R into the gitignored
-data/_kandidat/, never straight into teaching data. Before setting promoted
-true, write into the dzs_turizam entry in data/katalog.yml the exact edition,
-retrieval date, the attribution string carrying the source, the last-modified
-date, the URI and a change marker, the checksum, and the reconciliation to the
-official published totals. Add the per-packet entry to the catalogue promotion
-log. A declared file whose recorded md5 does not match the bytes on disk fails
-closed.
+CHAPTER 3 MATERIAL FOUND, CARRY IT FORWARD.
+DZS records that since 2017 the source is the eVisitor system and that the
+statistics count ARRIVALS, not distinct persons: a tourist who changes
+accommodation is re-registered and counted again. The 2025 figure is therefore
+20,698,963 arrivals, not 20.7 million people, and any claim that "20.7 million
+tourists visited Croatia" misstates the unit. This is a verified, officially
+documented unit defect in a real public statistic and it is exactly what Chapter
+3 exists to teach. Record it in the catalogue entry's caveats and unavailable
+claims, and hand it to WA-C03 as a forward handoff.
+
+PACKET OBLIGATIONS.
+Copy only the selected extracts into the repository; the full mirror stays
+outside it. Write into the dzs_turizam entry in data/katalog.yml the edition,
+the 2026-07-27 retrieval date, the attribution string carrying the source, the
+last-modified date, the URI and a change marker, the md5 of every declared file,
+and the reconciliation. Reconcile by summing BS_TU12's county rows for 2025 and
+matching the BS_TU11 national total of 20,698,963; record any residual exactly
+rather than rounding it away. Add the per-packet entry to the catalogue
+promotion log. A declared file whose recorded md5 does not match the bytes on
+disk fails closed. Keep totals and suppression codes, keep annual and monthly
+rows separate, and do not widen the extract.
 
 The book may NOT claim it obtained rights-holder permission, because none was
 sought; it may cite the source and its published terms. H-P1B-DATA-LIC-003 is
 not superseded. Leave the recorded lawful fallback in place until the package
-actually passes, and change no other package's lane.
-
-R25-EXISTING-UCB, R25-EXISTING-Anscombe and R04 all remain open by design; do
-not pre-empt any of them.
+passes, and change no other package's lane. R25-EXISTING-UCB,
+R25-EXISTING-Anscombe and R04 remain open by design; do not pre-empt any of them.
 
 Update the register, handoff ledger, and dashboard together at closeout, then run
 scripts/check-review-workflow.R through the project launcher, prove both required
