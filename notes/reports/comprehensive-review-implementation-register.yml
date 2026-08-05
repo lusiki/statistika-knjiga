@@ -23477,9 +23477,17 @@ items:
         - "S15"
       location: "§10 + §15 R36"
     description: "Obtain a term-by-term Croatian methods review."
-    disposition: "accepted_first_edition"
-    status: "ratified"
-    owner: "domestic_terminology_reviewer_and_codex"
+    disposition: "rejected_with_reason"
+    disposition_reason: >-
+      The author withdrew the independent domestic terminology review from the
+      first edition on 2026-08-05. The canonical Croatian/English term map,
+      accepted variants and every deliberate departure from Croatian convention
+      remain required and remain the author's own editorial responsibility as
+      the book's sole named terminology owner; only the external reviewer is
+      removed. The first edition therefore carries no independent-reviewer claim
+      and may make none.
+    status: "accepted"
+    owner: "author_editor"
     approval_owner: "author_editor"
     scope:
       - "concept registry"
@@ -23499,15 +23507,19 @@ items:
       - "cross-document reconciliation audit"
       - "schema-valid governing state"
     acceptance_tests:
-      - "Every canonical term has an attributable reviewer disposition."
+      - "Every canonical term has an attributable author disposition; no independent-reviewer claim is made anywhere in the book or its metadata."
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-TERMS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A2c-reviewer-amendment-2026-08-05"
+      - "report:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md"
+      - "ask:OA-P6-TERMS-REVIEWER-RECRUIT-withdrawn_with_reason"
+      - "ask:OA-P6-TERMS-SIGNOFF-withdrawn_with_reason"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "conversation:G-A2c-reviewer-amendment-2026-08-05-Luka-Sikic"
   R36-BOOK-alternatives:
     parents:
       - "R36"
@@ -24211,8 +24223,17 @@ outside_asks:
     external_message_sent: false
 
   OA-P6-TERMS-REVIEWER-RECRUIT:
-    status: "drafted_unsent"
-    readiness: "ready_for_recruitment"
+    status: "withdrawn_with_reason"
+    withdrawn_at: "2026-08-05"
+    withdrawn_by: "Luka Sikic"
+    withdrawn_reason: >-
+      The author withdrew the independent domestic terminology reviewer from the
+      first edition on 2026-08-05. No reviewer will be recruited, so this
+      recruitment task has no addressee and is closed unsent. The listed blocked
+      items and gates are retained as the historical record of what the ask once
+      governed; they no longer wait on it. See
+      notes/reports/g-a2c-reviewer-amendment-2026-08-05.md.
+    readiness: "withdrawn"
     kind: "recruitment"
     owner: "author/editor or recruitment coordinator"
     due_phase: "2"
@@ -24233,8 +24254,17 @@ outside_asks:
     external_message_sent: false
 
   OA-P6-TERMS-SIGNOFF:
-    status: "drafted_unsent"
-    readiness: "waiting_for_final_term_map"
+    status: "withdrawn_with_reason"
+    withdrawn_at: "2026-08-05"
+    withdrawn_by: "Luka Sikic"
+    withdrawn_reason: >-
+      The author withdrew the term-by-term specialist sign-off from the first
+      edition on 2026-08-05. No external reviewer will pass over the term map, so
+      P2-TERMS, P6-METHODS and P6-VERIFY no longer wait on this ask. The listed
+      blocked items and gates are retained as the historical record of what the
+      ask once governed. See
+      notes/reports/g-a2c-reviewer-amendment-2026-08-05.md.
+    readiness: "withdrawn"
     kind: "specialist_signoff"
     owner: "named domestic terminology reviewer"
     due_phase: "6"

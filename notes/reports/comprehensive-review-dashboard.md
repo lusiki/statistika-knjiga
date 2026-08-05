@@ -48,11 +48,29 @@ stop and repair the control state before editing book content.
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
 | Chapter spines | 13 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV` |
-| Open outside asks | 62 of the 82 canonical asks remain `drafted_unsent`; 20 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
+| Open outside asks | 60 of the 82 canonical asks remain `drafted_unsent`; 20 are `done`; 2 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## Author amendment 2026-08-05 — terminology reviewer withdrawn
+
+The author withdrew the independent domestic terminology reviewer from the first
+edition. `OA-P6-TERMS-REVIEWER-RECRUIT` and `OA-P6-TERMS-SIGNOFF` are
+`withdrawn_with_reason`, and `R36-BOOK-domestic-review` is
+`rejected_with_reason`. The canonical term map itself is unchanged and is now
+wholly the author's editorial responsibility.
+
+Binding consequence: the first edition may make **no independent-review claim**
+about its terminology anywhere — book, preface, colophon, release metadata or
+site copy. That binds `P2-TERMS`, `P2-DOCS`, `P6-METHODS`, `P6-VERIFY`, `P8-META`
+and any packet writing edition copy.
+
+The chain `G-A2c` → `P2-TERMS` → `P2-DOCS` → `P2-VERIFY` → `P3-CATALOG` now has
+no external dependency. The DZS and DIP rights asks are untouched and remain open.
+
+The durable record is `notes/reports/g-a2c-reviewer-amendment-2026-08-05.md`.
 
 ## P2-SPINE-IV closeout
 
