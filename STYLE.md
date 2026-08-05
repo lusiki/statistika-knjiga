@@ -324,9 +324,24 @@ around a cluster of stubs. Two failure modes, each with a fixed remedy.
 - **Stub section** — a `##` the TOC promises, paid off with one or two
   paragraphs. Remedy: **merge up** or **thicken** via the ENRICHMENT.md slots.
 
-The bands live in `conventions.json` under `structure` and are measured, not
-guessed — run the detector once four or five chapters exist and ratify the real
-distribution.
+The bands live in `conventions.json` under `structure`. They were measured
+against real prose and ratified on 30 July 2026 (see the changelog entry below);
+they are no longer provisional guesses awaiting calibration. Recalibrating them
+again is a recorded decision, not a routine adjustment.
+
+**A band is a floor, never a finish line.** Passing the section, paragraph and
+coda bands means the chapter is not malformed. It does not mean the chapter is
+done. A chapter is done when its ratified spine is carried — its load-bearing
+aspects, terms, prerequisites and exclusions — and its argument holds end to
+end. Structural compliance and argumentative completeness are two different
+tests, and only the second can advance a chapter's stage.
+
+**No word target advances anything.** The blueprint's approximate 84,000-word
+main text and 17,000-word appendix figures are a production diagnostic for the
+book as a whole. They are not a per-chapter quota, not a completion criterion,
+and no packet may cite them to require or to refuse content. A chapter that has
+reached its word share and not its argument is unfinished; a chapter that has
+finished its argument below its share is finished.
 
 **The coda must be a destination, not an appendix.** The last body section
 carries at least the chapter's median weight, or it does not exist as a separate

@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-04"
+last_updated: "2026-08-05"
 inventory_child_count: 371
 
 protocol:
@@ -376,7 +376,42 @@ handoffs:
     deliveries:
       - target_packet: P2-SPINE-V
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        consumed_at: "2026-08-05"
+        disposition: >-
+          Consumed on the registry side, which is the only side P2-SPINE-V owns.
+          The recorded risk was that the review's sample critical-literacy route
+          skips Chapter 13 while the same review requires Chapter 13's
+          conditional-denominator and confusion-table foundations before Chapter
+          17. G-A2b-V settled that contradiction in favour of the prerequisite,
+          and this packet made the settlement live: Chapter 17's ratified
+          prerequisites are written into chapter-spine.json as Chapters 2, 3, 8,
+          10, 11, 13 and 16, so Chapter 13 is now a machine-checkable
+          prerequisite of Chapter 17, and Chapter 17's first ratified exclusion
+          states both that the chapter may not be read without Chapter 13 and
+          that no advertised route may send a reader into Chapter 17 without
+          Chapter 13. The deterministic checker enforces the same order twice
+          over, as a prerequisite that may not point at a later unit and as a
+          ratification-order condition, so Chapter 17 could not be ratified
+          before Chapter 13. The required action to ratify Chapter 17's exact
+          prerequisites before publishing either route is therefore discharged
+          here. The route half of the required action is not discharged here and
+          was deliberately not claimed: this packet publishes and amends no
+          route. It remains this handoff's open delivery to P5-ROUTES, and
+          H-P2-SPINE-V-002 carries the exact route obligation forward so the
+          amendment cannot be lost. The illustrative route was never copied
+          mechanically anywhere in this packet.
+        evidence:
+          - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama.prerequisites-02-03-08-10-11-13-16"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama.exclusions-1-bez-poglavlja-13"
+          - "source:scripts/check-chapter-spines.py#RATIFICATION_ORDER.17-doba-algoritama"
+          - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-18-of-19"
+          - "decision:G-A2b-V"
+          - "report:notes/reports/g-a2b-v-spine-decision-2026-08-05.md#preduvjeti-poglavlja-17-i-posljedica-za-putove"
+          - "report:notes/reports/p2-spine-v-2026-08-05.md#preduvjet-poglavlja-17-i-potroseni-prijenos"
+          - "handoff:H-P2-SPINE-V-002-created-for-P5-ROUTES"
       - target_packet: P5-ROUTES
         gate: before_close
         state: pending
@@ -941,10 +976,75 @@ handoffs:
     deliveries:
       - target_packet: P3-EXISTING
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING accepts the CC BY 4.0 generated-data boundary as the exact
+          condition of materialising any snapshot, and consumed it before the
+          packet claim and before the first substantive edit. The packet
+          materialises deterministic snapshots of anketa_mreze and
+          populacija_medija only, because only those two carry a verified
+          rights-holder disposition, and it keeps the licence boundary intact in
+          every direction: the snapshots are CC BY 4.0 with Luka Sikic as rights
+          holder, the generator R/podaci-nastavni.R and the book's own text stay
+          MIT, and the generated-data notice is not extended over any
+          third-party data. Neither generated entry carries a blank or
+          not-applicable licence and the validator still fails closed on one.
+          The "carry the notice or a direct link to it" obligation is discharged
+          literally rather than by assertion: every materialised snapshot ships
+          a sidecar notice file in the same directory that names the rights
+          holder, the book, the dataset, the generator, the change-marking
+          requirement and a direct link to the CC BY 4.0 legal code and to
+          data/LICENCA-generirani-podaci.md, the catalogue records that file in
+          a required snapshot_notice field, and scripts/check-katalog.py fails
+          closed when a promoted generated package lacks it, when the file is
+          absent, or when it omits the licence link. A CSV cannot carry a
+          comment header without breaking the plain-CSV and jamovi routes the
+          same notice exists to serve, so the sidecar is the recorded
+          interpretation of "carry", made machine-checkable rather than left to
+          editorial care.
+        evidence:
+          - "source:data/LICENCA-generirani-podaci.md#nositelj-prava-Luka-Sikic-CC-BY-4.0-i-pravilo-za-buduce-snimke"
+          - "source:R/podaci-nastavni.R#LICENCA-IZLAZA-CC-BY-4.0-uz-MIT-kod-generatora"
+          - "source:data/katalog.yml#anketa_mreze-and-populacija_medija-licence-CC-BY-4.0-rights-holder-Luka-Sikic"
+          - "source:data/anketa-mreze.LICENCA.md-and-data/populacija-medija.LICENCA.md-sidecar-notices-with-a-direct-CC-BY-4.0-link"
+          - "source:data/katalog.schema.json#snapshot_notice-required-whenever-a-package-declares-files"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-snapshot_notice_missing-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-licence_not_applicable-exit-1"
+          - "check:scripts/check-data-integrity.R-asserts-each-sidecar-notice-carries-CC-BY-4.0-and-its-dataset-name"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
       - target_packet: P3-CATALOG
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-CATALOG accepts the CC BY 4.0 generated-data boundary as an exact
+          catalogue obligation before the packet claim and before the first
+          substantive edit. data/katalog.yml registers anketa_mreze and
+          populacija_medija with licence CC BY 4.0, rights holder Luka Sikic, the
+          full attribution string including the change-marking requirement, the
+          generator R/podaci-nastavni.R as their source, and the
+          download-adjacent notice data/LICENCA-generirani-podaci.md carried as a
+          required field on every generated entry. The schema forbids a blank or
+          not-applicable licence on any entry, and the validator fails closed on
+          one. The catalogue records that the generator code stays MIT while its
+          output is CC BY 4.0, and that the generated-data notice covers no
+          third-party data. Neither generated set is promoted here: both are
+          registered with promoted false and zero materialised files, because
+          materialising a snapshot is P3-EXISTING work and every future snapshot
+          must carry the notice or a direct link to it, which the catalogue
+          records as their standing obligation. The P3-EXISTING delivery is
+          before_start for that packet and correctly remains pending.
+        evidence:
+          - "source:data/katalog.yml#packages.anketa_mreze-and-populacija_medija-licence-CC-BY-4.0"
+          - "source:data/katalog.yml#generated_data_notice-required-on-every-generated-entry"
+          - "source:data/katalog.schema.json#licence-required-and-not-applicable-forbidden"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-licence_not_applicable-exit-1"
+          - "check:scripts/check-katalog.py-KATALOG_OK"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-licence-CC-BY-4.0"
+          - "report:notes/reports/p3-catalog-2026-08-05.md"
 
   H-P1B-DATA-LIC-002:
     source_packet: P1B-DATA-LIC
@@ -975,10 +1075,80 @@ handoffs:
     deliveries:
       - target_packet: P3-CATALOG
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          data/katalog.yml is created as the sole machine-readable data record
+          and carries every field this handoff requires on every entry: source,
+          version, licence, attribution, access, redistribution, lane, fallback
+          and integrity. All four current and all thirteen proposed packages from
+          the P1B inventory are registered with exactly the lane that inventory
+          assigned, and the catalogue restates the three-lane contract verbatim,
+          including that technical access is never redistribution authority. The
+          catalogue fails closed by construction: the schema makes every required
+          field mandatory, the validator rejects an unknown lane, a blank or
+          not-applicable licence, a missing fallback and a missing integrity
+          record, and it forbids promotion outright unless the lane is bundled,
+          redistribution is verified, a checksum and an official reconciliation
+          are recorded and files are listed. **Zero packages are promoted by this
+          packet**: every entry carries promoted false and names the exact later
+          gate that may promote it, so availability alone can promote nothing and
+          no portal-mediated or external-only package can be promoted at all
+          while its lane stands. UCBAdmissions and anscombe stay external-only
+          with their lawful fallbacks recorded, as this handoff requires of
+          P3-EXISTING. The P3-EXISTING delivery is before_start for that packet
+          and correctly remains pending.
+        evidence:
+          - "source:data/katalog.yml#17-packages-4-current-and-13-proposed-each-with-exactly-one-lane"
+          - "source:data/katalog.yml#lanes-contract-bundled-portal-mediated-external-only"
+          - "source:data/katalog.yml#promotion_contract-zero-promoted-and-a-named-promoting-gate-per-entry"
+          - "source:data/katalog.schema.json#required-source-version-licence-attribution-access-redistribution-lane-fallback-integrity"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_portal_mediated-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-promote_without_checksum-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-unknown_lane-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-missing_fallback-exit-1"
+          - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-0"
+          - "report:notes/reports/p3-catalog-2026-08-05.md"
       - target_packet: P3-EXISTING
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING consumed this delivery before the packet claim and before
+          the first substantive edit, and it settles the clause this handoff
+          addresses to it by name. **UCBAdmissions and anscombe stay
+          external-only.** The packet looked for authoritative dataset-specific
+          redistribution evidence rather than assuming its absence: the locally
+          installed datasets package at R 4.6.0 states only
+          "License: Part of R 4.6.0", which is a package-level marker and not a
+          dataset-specific redistribution notice, and neither entry in
+          tools::Rd_db("datasets") carries licence or redistribution terms.
+          UCBAdmissions has no \source field at all and cites Bickel, Hammel and
+          O'Connell (1975) in Science; anscombe's \source is Tufte (1990),
+          Graphics Press. Both documented sources are third-party copyrighted
+          works, so nothing there supports a repository copy either. Technical
+          access through a local R installation was therefore not converted into
+          redistribution authority: both keep lane external-only, promoted
+          false, an empty file list and their recorded lawful fallbacks, and
+          R25-EXISTING-UCB and R25-EXISTING-Anscombe stay open with that reason
+          rather than being closed on availability. All 17 lanes are otherwise
+          unchanged by this packet: the only two lanes it acts on are the two
+          already-bundled generated packages whose redistribution the P1B
+          inventory records as verified, and it promotes them by editing their
+          own entries after recording source, version, licence, attribution,
+          checksum and official reconciliation, exactly as the promotion
+          contract requires.
+        evidence:
+          - "probe:R-4.6.0-datasets-DESCRIPTION-License-Part-of-R-4.6.0-no-dataset-specific-redistribution-notice"
+          - "probe:tools-Rd_db-datasets-UCBAdmissions.Rd-has-no-source-field-and-cites-Science-1975"
+          - "probe:tools-Rd_db-datasets-anscombe.Rd-source-is-Tufte-1990-Graphics-Press"
+          - "source:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi-redistribucija-nije-dokazana"
+          - "source:data/katalog.yml#ucbadmissions-and-anscombe-lane-external-only-promoted-false-files-empty"
+          - "register:items.R25-EXISTING-UCB-and-R25-EXISTING-Anscombe-remain-ratified-with-a-recorded-open_reason"
+          - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-bundled-5-portal-3-external-9-lanes-unchanged"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
 
   H-P1B-DATA-LIC-003:
     source_packet: P1B-DATA-LIC
@@ -1012,7 +1182,33 @@ handoffs:
     deliveries:
       - target_packet: G-A3-DZS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          G-A3-DZS acknowledges its incoming lane before the packet claim and
+          before the first substantive edit. The inventory records DZS tourism as
+          having a verified GENERAL bundled basis under the Croatian Open Licence,
+          which DZS states covers all of its online datasets, and this gate
+          ratifies the bundled lane on that basis and on the author's 2026-08-05
+          determination that the selected extracts are public and need no
+          permission. It does NOT infer a broader right: the general basis is not
+          an exact package record, so the gate ratifies the lane and the bounded
+          selection only, and binds P3-DZS to record the exact edition, retrieval
+          date, attribution string, checksum and reconciliation to the official
+          published totals before any promotion. The lawful fallback for every
+          required student task is recorded and unchanged. This gate promotes
+          nothing, retrieves nothing and writes no data file. The G-A3-DIP,
+          G-A3-DIGIKAT, G-A3-EUROSTAT, G-A3-ESS and G-A3-TEXT deliveries remain
+          pending and none is consumed here.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori"
+          - "determination:notes/reports/g-a3-data-rights-determination-2026-08-05.md"
+          - "decision:G-A3-DZS"
+          - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md"
+          - "registry:data/katalog.yml#dzs_turizam-lane-bundled-promoted-false-promoting_gate-G-A3-DZS"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
+          - "obligation:P3-DZS-must-record-edition-date-checksum-and-official-reconciliation"
       - target_packet: G-A3-DIP
         gate: before_start
         state: pending
@@ -1178,7 +1374,36 @@ handoffs:
     deliveries:
       - target_packet: P2-DOCS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          All three recorded internal markers are reconciled with the ratified
+          contracts and none was made true by altering prose. The kolegij profile
+          comment no longer lists revealed solutions as a difference; it now
+          records the ratified but UNIMPLEMENTED D06 two-layer contract, states
+          explicitly that the profile currently reveals no solution, and names
+          the packets that will author the records and assemble the routes. No
+          rejected pathway was revived and no promise was broadened, which
+          check-book-inventory.py confirms by still reporting solutions=0 with an
+          unchanged inventory checksum. The _quarto.yml comment no longer says the
+          visual identity is unselected, because DESIGN.md selected and specified
+          it; what is genuinely missing is the cover and favicon files, so both
+          lines stay commented out and the comment now gives the true reason.
+          bookwright_plugin/README.md no longer calls the shared state seeded or
+          provisional: it records nineteen ratified spines, a concept ledger of 46
+          concepts and 40 notation entries, the structural bands ratified on 30
+          July 2026, the three ratified architectures and the terminology registry
+          ratified at G-A2c, and names the checker that keeps each closed.
+        evidence:
+          - "source:_quarto-kolegij.yml-D06-contract-recorded-as-ratified-but-unimplemented"
+          - "source:_quarto.yml-visual-identity-selected-cover-and-favicon-files-absent"
+          - "source:bookwright_plugin/README.md-shared-state-section-rewritten-to-the-live-state"
+          - "check:scripts/check-book-inventory.py-BOOK_INVENTORY_OK-solutions-0-checksum-unchanged"
+          - "check:scripts/check-assessment-architecture.py-solution-records-0-routes-0"
+          - "check:scripts/check-book-architecture.py-19-of-19-ratified-spines"
+          - "report:notes/reports/p2-docs-2026-08-05.md"
+          - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
 
   H-G-A1D-001:
     source_packet: G-A1d
@@ -1398,7 +1623,35 @@ handoffs:
     deliveries:
       - target_packet: P2-DOCS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The AGENTS.md deployment description now states the implemented
+          wrapper-only blocking path, verified against the live
+          .github/workflows/publish.yml: the blocking check ladder and its
+          fail-closed fixtures run first, scripts/check-pdf-release-path.ps1
+          proves the wrapper's failure paths, the PDF is built only through
+          scripts/render-book-pdf.ps1 -RequireCleanCommit with no
+          continue-on-error, HTML renders after that, and docs/ uploads only from
+          main. The implemented path itself was not changed. The text was not
+          broadened into a release or publication promise; it closes with an
+          explicit sentence that push, merge, tag, archive and deployment each
+          keep their own gate. The same paragraph carried a second stale
+          instruction, that the site address must be changed in three places
+          including a SITE_URL constant in R/build-ai-exports.R; the address is
+          set and that script now reads it from _quarto.yml metadata, so the
+          instruction was replaced by what actually holds. That is the other
+          already-recorded governing-document marker this handoff asked to
+          reconcile in the same packet.
+        evidence:
+          - "source:AGENTS.md-deployment-wrapper-only-blocking-description"
+          - "source:.github/workflows/publish.yml-render-book-pdf.ps1-RequireCleanCommit-no-continue-on-error"
+          - "source:.github/workflows/publish.yml-check-pdf-release-path.ps1-step"
+          - "source:R/build-ai-exports.R-SITE_URL-read-from-_quarto.yml-metadata"
+          - "source:AGENTS.md-explicit-no-release-promise-sentence"
+          - "report:notes/reports/p2-docs-2026-08-05.md"
+          - "docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2"
 
   H-P1C-INTEGRITY-001:
     source_packet: P1C-INTEGRITY
@@ -1459,7 +1712,36 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P2-TERMS retired the frozen concept gate exactly as required. The
+          canonical ledger was reconciled to the live source by replacing the one
+          stale entry, standardizirani rezidual with its Pearson-form definition,
+          with the canonical prilagodjeni standardizirani rezidual and its
+          marginal-share definition, and by following that rename through the
+          e_{ij} notation entry that references the concept; the identifier
+          def-standardizirani-rezidual was deliberately left untouched.
+          data/concept-graph.json was regenerated from the accepted source and
+          moved from 449 to 503 edges at an unchanged 46 nodes. Both the
+          concept_ledger and concept_graph entries were removed from
+          scripts/integrity-debt.json, leaving only the figure_introductions
+          entry that belongs to WB-C05. The blocking concept command now reports
+          ledger_debt=0 and graph_fresh=true, and the duplicate-definition
+          fixture still returns exit 1 as lane concept of
+          scripts/check-integrity-fixtures.py. The temporary exception is
+          therefore spent and the gate now fails closed immediately, which is
+          carried forward to the six chapter packets as H-P2-TERMS-002.
+        evidence:
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true-graph_nodes-46"
+          - "fixture:scripts/check-integrity-fixtures.py-lane-concept-exit-1"
+          - "check:scripts/check-integrity-fixtures.py-INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+          - "source:scripts/integrity-debt.json-concept_ledger-and-concept_graph-entries-removed"
+          - "source:data/concept-graph.json-regenerated-46-nodes-503-edges"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#prilagodjeni-standardizirani-rezidual"
+          - "report:notes/reports/p2-terms-2026-08-05.md"
+          - "terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65"
 
   H-P1C-EXPORT-001:
     source_packet: P1C-EXPORT
@@ -2080,7 +2362,24 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved three-block Part I increase is recorded in the terminology
+          registry's definition_map as an expected future state owned by WA-C01
+          and WA-C03, so jedinica analize, Simpsonov paradoks and temeljna stopa
+          will be accepted rather than treated as drift. P2-TERMS wrote none of
+          them, because adding a #def- block edits chapter prose. The canonical
+          ledger was therefore reconciled to the live 46, not to the approved 52,
+          and the reason is recorded in the register and the report rather than
+          left to the checker. Chapter 2's four existing blocks are unchanged.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-I-plus-3"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.implementing_packets"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-46-approved_total-52"
+          - "report:notes/reports/p2-terms-2026-08-05.md#sredisnja-napetost-i-njezino-rjesenje"
+          - "handoff:H-P2-TERMS-002-created-for-the-six-implementing-chapter-packets"
       - target_packet: WA-C01
         gate: before_close
         state: pending
@@ -2209,7 +2508,25 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved Chapter 4 map is recorded in the terminology registry's
+          definition_map as the minus-two delta owned by WB-C04, so a Chapter 4
+          that carries four blocks instead of six will be accepted rather than
+          treated as drift. Both standardna devijacija and varijanca are kept
+          canonical: varijanca is registered as a canonical form whose block the
+          map merges into the standard-deviation block rather than deletes, and
+          asimetrija is registered as a canonical form that the map moves into
+          prose. P2-TERMS implemented none of it, because merging or demoting a
+          #def- block edits chapter prose, so the live Chapter 4 still carries
+          six blocks and the live total remains 46.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-II-minus-2"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.canonical_forms.varijanca-and-asimetrija"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-gate_forms-13"
+          - "report:notes/reports/p2-terms-2026-08-05.md#registar-nazivlja-u-conventionsjson"
       - target_packet: WB-C04
         gate: before_close
         state: pending
@@ -2427,8 +2744,1864 @@ handoffs:
     deliveries:
       - target_packet: P2-TERMS
         gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved two-block Chapter 12 increase is recorded in the
+          terminology registry's definition_map as the plus-two delta owned by
+          WC-C12. Both analiticka fleksibilnost and reproducibilnost are
+          canonical, because G-A2c fixed their Croatian forms and both are
+          ratified Chapter 12 key terms, so the registry deliberately does not
+          restate them. P2-TERMS wrote neither block, so Chapter 12 still carries
+          none and Chapters 10 and 11 keep their four and three unchanged.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-IV-plus-2"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#12-kriza-i-obnova.key_terms"
+          - "decision:G-A2c-forms_fixed_here-analiticka-fleksibilnost-and-reproducibilnost"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-spine_forms-166"
+      - target_packet: WC-C12
+        gate: before_close
+        state: pending
+
+  H-G-A2B-V-001:
+    source_packet: G-A2b-V
+    created_at: "2026-08-05"
+    kind: decision
+    refs:
+      - decision:G-A2b-V
+      - decision:D02
+      - decision:D03
+      - decision:D07
+      - decision:D13
+      - item:R04-SPINE-V
+      - item:R04-C17-definitions
+      - item:R04-C17-prerequisites
+      - registry:identity_briefs.briefs.c17
+      - handoff:H-P0-REGISTER-004
+      - handoff:H-P1C-INTEGRITY-002
+      - rule:STYLE-H10
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted Part V spine as drafted
+      on 2026-08-05. Part V carries one arc and no more: from one table to one
+      model to one deployed system. The chapter order is unchanged, and Chapter
+      16 is preserved as the book's summit and synthesis payoff, so Chapters 14
+      and 15 may prepare the general-model language but may not spend it.
+      Chapter 13 is a ratified prerequisite of Chapter 17, because the
+      conditional denominators and the contingency table read in Chapter 13 are
+      what becomes the confusion table in Chapter 17; fairness and
+      classification may not be introduced before them. Chapter 17's spine is
+      subordinate to the ratified identity brief c17 and does not repeat it.
+      Chapter 13 carries eleven aspects, eight terms, six prerequisites and
+      seven exclusions; Chapter 14 nine, eight, five and seven; Chapter 15 nine,
+      eight, four and seven; Chapter 16 twelve, eleven, seven and nine; Chapter
+      17 eleven, twelve, seven and ten. No prerequisite points at a later unit.
+      R04-C17-prerequisites is settled with Chapters 2, 3, 8, 10, 11, 13 and 16.
+      R04-C17-definitions is settled through the identity spine: Chapters 13,
+      14, 15 and 16 keep their existing five, two, three and four blocks
+      unchanged, and Chapter 17 rises from zero to exactly two blocks,
+      zabiljezeni referentni ishod and klasifikacijski prag, each with a named
+      later dependant in Chapter 18, while every other Chapter 17 term stays in
+      prose under .pojam.
+    required_action: >-
+      In P2-SPINE-V, write exactly this accepted spine into
+      bookwright_plugin/bookwright/shared/chapter-spine.json for units
+      13-kategoricki-podaci, 14-dvije-grupe, 15-vise-grupa, 16-regresija and
+      17-doba-algoritama and set their ratified flags, recording prerequisites
+      and exclusions in the schema-valid form established by P2-SPINE-PREFACE,
+      and extend scripts/check-chapter-spines.py with the exact exclusion
+      markers, required terms and ratification-order conditions tabulated in the
+      decision record. Change no chapter prose, no chapter stage and no
+      terminology, add, remove or merge no #def- block, and ratify no other
+      spine. Record the approved two-block Chapter 17 definition increase as a
+      forward constraint to P2-TERMS and WD-C17 rather than implementing it,
+      because H-P1C-INTEGRITY-002 freezes the live definitions until P2-TERMS
+      retires that debt, exactly as H-P2-SPINE-IV-001 did for Chapter 12. Record
+      the route consequence as an outgoing forward constraint to P5-ROUTES: the
+      advertised short critical-literacy route must be amended and no route may
+      send a reader into Chapter 17 without Chapter 13. Consume
+      H-P0-REGISTER-004 on the registry side. Do not change or supersede the
+      ratified identity brief c17, claim no rights-holder permission for any
+      source, and make no independent-review claim.
+    basis:
+      - conversation:G-A2b-V-spine-approved-2026-08-05-Luka-Sikic
+      - notes/reports/g-a2b-v-spine-decision-2026-08-05.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2b-V
+      - notes/reports/author-pre-dispositions-2026-08-04.md
+    required: true
+    deliveries:
+      - target_packet: P2-SPINE-V
+        gate: before_start
+        state: consumed
+        consumed_at: "2026-08-05"
+        disposition: >-
+          P2-SPINE-V accepts the ratified Part V spine as its exact and exclusive
+          registry boundary before the packet claim and before the first
+          substantive edit. The packet will write the accepted aspects, terms,
+          prerequisites and exclusions for units 13-kategoricki-podaci,
+          14-dvije-grupe, 15-vise-grupa, 16-regresija and 17-doba-algoritama into
+          chapter-spine.json, set their ratified flags, and extend the
+          deterministic spine check to the exact Part V obligations tabulated in
+          the decision record, including the preservation of Chapter 16 as the
+          synthesis payoff through the binding no-spending exclusions in Chapters
+          14 and 15, the Welch-versus-OLS uncertainty boundary in Chapter 14, the
+          reading-not-fitting boundary in Chapter 16, and the subordination of the
+          Chapter 17 spine to the ratified identity brief c17. Chapter 17's
+          prerequisites will be written as Chapters 2, 3, 8, 10, 11, 13 and 16, so
+          Chapter 13 becomes a live registry prerequisite of Chapter 17 and no
+          prerequisite points at a later unit. It will change no chapter or
+          appendix prose, no chapter stage and no terminology, will add, remove or
+          merge no #def- block or concept-graph edge, will not change or supersede
+          the ratified identity brief c17, and will ratify no other spine. The
+          approved two-block Chapter 17 definition increase is carried forward as
+          a new constraint to P2-TERMS and WD-C17 rather than implemented, because
+          H-P1C-INTEGRITY-002 keeps the 46 live definitions, the concept ledger
+          and the generated graph frozen until P2-TERMS retires that debt, exactly
+          as H-P2-SPINE-IV-001 did for Chapter 12. The route consequence is
+          carried forward as a new constraint to P5-ROUTES, and H-P0-REGISTER-004
+          is consumed on the registry side only. No rights-holder permission is
+          claimed for any source and no independent-review claim is made.
+        evidence:
+          - "decision:G-A2b-V"
+          - "conversation:G-A2b-V-spine-approved-2026-08-05-Luka-Sikic"
+          - "report:notes/reports/g-a2b-v-spine-decision-2026-08-05.md"
+          - "register:item-R04-SPINE-V-read-in-full"
+          - "register:item-R04-C17-definitions-read-in-full"
+          - "register:item-R04-C17-prerequisites-read-in-full"
+          - "registry:identity_briefs.briefs.c17-read-in-full"
+          - "record:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md-read-in-full"
+          - "record:notes/reports/g-a3-data-rights-determination-2026-08-05.md-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-V-claim"
+
+  H-P2-SPINE-V-001:
+    source_packet: P2-SPINE-V
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-V
+      - item:R04-C17-definitions
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - registry:identity_briefs.briefs.c17
+      - report:notes/reports/p2-spine-v-2026-08-05.md
+    statement: >-
+      The ratified Part V spine settles R04-C17-definitions through the Chapter
+      17 identity spine. Chapters 13, 14, 15 and 16 keep their existing five,
+      two, three and four blocks unchanged, all inside the ratified one-to-five
+      band. Chapter 17, which currently carries none and so falls below that
+      band, rises to exactly two blocks, zabiljezeni referentni ishod and
+      klasifikacijski prag, each with a named later dependant: R24-C17-recorded-
+      reference requires one consistent expression of the recorded reference
+      outcome across prose, visual, caption and alt text and Chapter 18's
+      evidence package depends on it, while R27-C17-18-transition and the c17
+      plant role hand the classification threshold and the unequal error burden
+      to Chapter 18. Every other Chapter 17 term stays in prose under .pojam,
+      including tekstna jedinica, granica korpusa, okvir kodiranja, tablica
+      zabune, algoritamska pravednost, preprilagodba, razdvajanje na skupove and
+      pomak distribucije. Three blocks were considered and rejected with a
+      recorded reason: the confusion table, because it is Chapter 13's
+      contingency table with conditional denominators and a second record would
+      create two sources of truth about one object and weaken the very
+      prerequisite this gate ratifies; algorithmic fairness, because a defining
+      sentence pushes toward the single-metric reduction the c17 brief forbids;
+      and overfitting with the training, validation and test split, because no
+      later chapter depends on their formal definition and D13 keeps the
+      capstone's main study explanatory. The net effect on the frozen set is 46
+      up to 51, beside the maps G-A2b-I, G-A2b-II and G-A2b-IV already approved.
+      P2-SPINE-V deliberately implemented none of it, because adding a #def-
+      block edits chapter prose and because H-P1C-INTEGRITY-002 freezes the exact
+      set of 46 live definitions, the concept ledger and the generated graph
+      under cryptographic fingerprints until P2-TERMS retires that debt.
+      P2-SPINE-V therefore deliberately left register item R04-C17-definitions at
+      status ratified rather than closing it. Its acceptance test requires a
+      terminologically reviewed definition map, and under the author's 2026-08-05
+      amendment terminology review is wholly the author's own editorial
+      responsibility and is taken at G-A2c, which had not yet run. Closing the
+      item here would have asserted a review that had not happened. The map
+      itself is decided and complete; only its canonical Croatian forms and its
+      implementation remain.
+    required_action: >-
+      P2-TERMS must reconcile the live definitions and canonical ledger against
+      this approved map before it regenerates data/concept-graph.json and retires
+      the concept debt, so a Chapter 17 that carries two blocks instead of none
+      is expected rather than treated as drift, and so both zabiljezeni
+      referentni ishod and klasifikacijski prag become canonical only once G-A2c
+      has fixed their Croatian forms. G-A2c also owns the split vocabulary the
+      spine names as still varying, skup za treniranje and skup za testiranje
+      versus razdvajanje na skup za ucenje, provjeru i ispitivanje, together with
+      procjenjivana velicina and curenje informacija, which the spine names as
+      load-bearing without canonising. WD-C17 must add exactly those two blocks
+      and no further block, must define no term the spine left in prose under
+      .pojam, must not reopen the three rejected blocks, and must make no change
+      before the concept gate can accept it. WD-C13, WD-C14, WD-C15 and WD-C16
+      must leave their five, two, three and four blocks unchanged. P2-TERMS also
+      owns the closure of register item R04-C17-definitions, which P2-SPINE-V
+      left open on purpose: it may close that item only once G-A2c has fixed the
+      canonical Croatian forms, and it must record the author's own editorial
+      terminology review as such, making no independent-review claim anywhere.
+      P2-VERIFY depends on that closure, because exit gate P2 requires R04 to be
+      closed and P2-TERMS is the last Phase 2 packet able to close it.
+    basis:
+      - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+      - "decision:G-A2b-V"
+      - "notes/reports/g-a2b-v-spine-decision-2026-08-05.md#hijerarhija-definicija-za-dio-v"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false"
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved two-block Chapter 17 increase is recorded in the
+          terminology registry's definition_map as the plus-two delta owned by
+          WD-C17, and both zabiljezeni referentni ishod and klasifikacijski prag
+          are canonical because G-A2c fixed their Croatian forms. The split
+          vocabulary this handoff assigned to G-A2c is settled and now live in
+          the registry: razdvajanje na skup za ucenje, provjeru i ispitivanje is
+          the ratified whole and skup za ucenje, skup za provjeru and skup za
+          ispitivanje are its registered component forms, while skup za
+          treniranje and skup za testiranje are registered as superseded and are
+          recorded as WD-C17 divergences at the exact live lines. Procjenjivana
+          velicina and curenje informacija are ratified Chapter 16 key terms and
+          therefore canonical without restatement, and curenje podataka and
+          curenje cilja are registered as superseded. P2-TERMS also closed
+          register item R04-C17-definitions, which P2-SPINE-V left open on
+          purpose: G-A2c has fixed the canonical forms and the terminology review
+          is recorded as the author's own, with no independent-review claim made
+          anywhere and the registry forbidding one. P2-TERMS wrote neither block,
+          so Chapter 17 still carries none.
+        evidence:
+          - "item:R04-C17-definitions-accepted"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-V-plus-2"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.canonical_forms.skup-za-ucenje-provjeru-ispitivanje"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.superseded_forms.skup-za-treniranje-and-skup-za-testiranje"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.review_route.independent_review_claim_permitted-false"
+          - "decision:G-A2c"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-independent_review_claim-false"
+          - "fixture:TERMINOLOGY_NEGATIVE_FIXTURE-independent_review_claimed-exit-1"
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+
+  H-P2-SPINE-V-002:
+    source_packet: P2-SPINE-V
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-V
+      - item:R04-C17-prerequisites
+      - item:R04-ROUTES-two-track-map
+      - handoff:H-P0-REGISTER-004
+      - registry:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama
+      - report:notes/reports/p2-spine-v-2026-08-05.md
+    statement: >-
+      Chapter 13 is now a live ratified prerequisite of Chapter 17 in the shared
+      chapter-spine registry, because the conditional denominators and the
+      contingency table read in Chapter 13 are what becomes the confusion table
+      in Chapter 17. Chapter 17's ratified prerequisites are Chapters 2, 3, 8,
+      10, 11, 13 and 16, and its first ratified exclusion states that the chapter
+      may not be read without Chapter 13 and that no advertised route through the
+      book may send a reader into Chapter 17 without Chapter 13. That settles the
+      H-P0-REGISTER-004 contradiction in favour of the prerequisite: the route
+      changes, not the prerequisite. The review's illustrative short critical-
+      literacy route, which skipped Chapter 13, is therefore superseded as an
+      advertised sequence. P2-SPINE-V consumed H-P0-REGISTER-004 on the registry
+      side only; the route side remains that handoff's open obligation to
+      P5-ROUTES and is not settled here.
+    required_action: >-
+      P5-ROUTES must amend the advertised short critical-literacy route so it
+      includes Chapter 13 before Chapter 17, and may publish no route, map,
+      syllabus projection or navigation affordance that reaches Chapter 17
+      without Chapter 13. It must reconcile every advertised route against the
+      live ratified prerequisites of all 19 spines rather than against the
+      review's illustrative sequence, and must not amend, weaken or work around
+      the ratified prerequisite to preserve a shorter route. It must also consume
+      its own remaining delivery of H-P0-REGISTER-004 with route evidence.
+    basis:
+      - "spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52"
+      - "decision:G-A2b-V"
+      - "notes/reports/g-a2b-v-spine-decision-2026-08-05.md#preduvjeti-poglavlja-17-i-posljedica-za-putove"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-18-of-19"
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
+  H-G-A2B-FINALE-001:
+    source_packet: G-A2b-FINALE
+    created_at: "2026-08-05"
+    kind: decision
+    refs:
+      - decision:G-A2b-FINALE
+      - decision:D03
+      - decision:D06
+      - decision:D13
+      - decision:D15
+      - item:R04-SPINE-FINALE
+      - item:R04-C18-definitions
+      - item:R04-C18-whole-prerequisites
+      - item:R17-C18-two-pass
+      - handoff:H-P1C-INTEGRITY-002
+      - handoff:H-G-A2D-005
+      - rule:STYLE-H10
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted finale spine on
+      2026-08-05, as drafted and as amended. The finale carries one arc and no
+      more: from the whole book to one evidence package another person can check
+      without talking to its author. Chapter 18 assembles rather than
+      introduces, and is cumulative at whole-book level: its ratified
+      prerequisites are all seventeen numbered chapters, so no metadata, prose,
+      exercise or advertised route may present the capstone as standalone. That
+      settles R04-C18-whole-prerequisites. Under D13 the main guided study stays
+      explanatory and simulated, and one bounded empirical transfer repeats the
+      same question, design and claim-boundary order on real data and delivers a
+      complete evidence package. The seventh communication thread lands here and
+      nowhere else: the reader writes their own honest report to the ratified
+      standard and then audits an assistant's report on the same analysis by the
+      same measure. Chapter 18 carries twelve aspects, twelve terms, seventeen
+      prerequisites and twelve exclusions. THE RECOMMENDED DEFAULT WAS AMENDED,
+      NOT ACCEPTED AS RECOMMENDED. The default forbids any new method in the
+      capstone; the author amended it so Chapter 18 MAY introduce a technique
+      the worked case genuinely requires, under three exact limits: never a
+      method on the preface's out-of-scope list, meaning time series, factor
+      analysis and psychometrics, multilevel models, the mathematics of machine
+      learning, or full Bayesian inference; fully explained where it appears and
+      self-contained; and with no forward dependency on anything no earlier
+      ratified spine was asked to supply. The author's recorded reason for the
+      limits is that an unbounded new method would reopen the scope promise the
+      preface makes. Because the acceptance test of R17-C18-two-pass requires
+      the empirical transfer to introduce no method, and because Chapter 18's
+      worked case is its main guided study, the permission lands in the main
+      study and the transfer stays method-free; that boundary is spine exclusion
+      4 and D13 keeps the main study explanatory as spine exclusion 5. This gate
+      did not amend the R17-C18-two-pass acceptance test. R04-C18-definitions is
+      settled with one explicit disposition: Chapter 18 carries zero blocks and
+      so falls below the ratified one-to-five band, and rises to exactly one,
+      paket dokaza, because it is the only object the finale creates rather than
+      retrieves; every other Chapter 18 term stays in prose under .pojam.
+    required_action: >-
+      In P2-SPINE-FINALE, write exactly this accepted spine into
+      bookwright_plugin/bookwright/shared/chapter-spine.json for unit
+      18-vase-prvo-istrazivanje and set its ratified flag, recording
+      prerequisites and exclusions in the schema-valid form established by
+      P2-SPINE-PREFACE, and extend scripts/check-chapter-spines.py with the
+      exact exclusion markers, required load-bearing terms and
+      ratification-order condition tabulated in the decision record. The
+      ratification-order condition and the prerequisite list must both name all
+      seventeen numbered chapters, so the finale cannot be ratified before any
+      earlier unit and its whole-book cumulativeness is machine-checked. The two
+      amended new-method limits must be written as exclusions 2 and 3 and given
+      the literal markers "popisa izvan opsega iz predgovora" and "u cijelosti
+      objasnjena ondje gdje se pojavljuje", so removing either fails the
+      deterministic check; P2-SPINE-FINALE and P6-CONTINUITY are the two named
+      enforcers of the amended boundary, P2-SPINE-FINALE by making it
+      machine-checkable before any finale prose exists and P6-CONTINUITY by
+      auditing the finished book against it and reporting any technique that
+      entered the capstone without a self-contained explanation at its point of
+      appearance or with a dependency no earlier ratified spine supplies. Change
+      no chapter prose, no chapter stage and no terminology, add or remove no
+      #def- block, and ratify no other spine. Record the approved one-block
+      Chapter 18 definition increase as a forward constraint to P2-TERMS and
+      WE-C18 rather than implementing it, because H-P1C-INTEGRITY-002 freezes
+      the live definitions until P2-TERMS retires that debt, exactly as
+      H-P2-SPINE-V-001 did for Chapter 17. Record as a forward constraint that
+      the existing Chapter 18 .chapter-meta row names a narrower prerequisite
+      than the ratified spine and must be reconciled by WE-C18, and that
+      P5-ROUTES may publish no route that enters Chapter 18 without the whole
+      book. Do not amend the acceptance test of R17-C18-two-pass, claim no
+      rights-holder permission for any source, and make no independent-review
+      claim.
+    basis:
+      - conversation:G-A2b-FINALE-spine-approved-2026-08-05-Luka-Sikic
+      - notes/reports/g-a2b-finale-spine-decision-2026-08-05.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2b-FINALE
+      - notes/reports/author-pre-dispositions-2026-08-04.md
+    required: true
+    deliveries:
+      - target_packet: P2-SPINE-FINALE
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        consumed_at: "2026-08-05"
+        disposition: >-
+          P2-SPINE-FINALE accepts the ratified finale spine as its exact and
+          exclusive registry boundary before the packet claim and before the
+          first substantive edit. The packet will write the accepted twelve
+          aspects, twelve terms, seventeen prerequisites and twelve exclusions
+          for unit 18-vase-prvo-istrazivanje into chapter-spine.json, set its
+          ratified flag, and name its gate G-A2b-FINALE, its ratification date
+          and its decision record, so all nineteen spines become ratified. It
+          will extend scripts/check-chapter-spines.py with the exact exclusion
+          markers, required load-bearing terms and ratification-order condition
+          tabulated in the decision record, and both the prerequisite list and
+          the ratification-order condition will name all seventeen numbered
+          chapters, so the finale's whole-book cumulativeness is machine-checked
+          rather than asserted. The two amended new-method limits will be
+          written as exclusions 2 and 3 and given the literal markers "popisa
+          izvan opsega iz predgovora" and "u cijelosti objasnjena ondje gdje se
+          pojavljuje", so removing either fails the deterministic check; this
+          packet is the first of the two named enforcers and P6-CONTINUITY
+          remains the second, its before_close delivery staying pending. It will
+          change no chapter or appendix prose, no chapter stage and no
+          terminology, will add or remove no #def- block or concept-graph edge,
+          will not amend the acceptance test of R17-C18-two-pass, and will
+          ratify no other spine. The approved one-block Chapter 18 definition
+          increase is carried forward as a new constraint to P2-TERMS and WE-C18
+          rather than implemented, because H-P1C-INTEGRITY-002 keeps the 46 live
+          definitions, the concept ledger and the generated graph frozen until
+          P2-TERMS retires that debt, exactly as H-P2-SPINE-V-001 did for
+          Chapter 17. The .chapter-meta reconciliation is carried forward to
+          WE-C18 and the no-route-without-the-whole-book obligation to
+          P5-ROUTES. H-P1C-INTEGRITY-002, H-G-A2D-005, H-P2-SPINE-V-001 and
+          H-P2-SPINE-V-002 remain pending for P2-TERMS, WE-C18, WD-C17 and
+          P5-ROUTES and none is consumed here. No rights-holder permission is
+          claimed for any source and no independent-review claim is made.
+        evidence:
+          - "decision:G-A2b-FINALE"
+          - "conversation:G-A2b-FINALE-spine-approved-2026-08-05-Luka-Sikic"
+          - "report:notes/reports/g-a2b-finale-spine-decision-2026-08-05.md"
+          - "register:item-R04-SPINE-FINALE-read-in-full"
+          - "register:item-R04-C18-definitions-read-in-full"
+          - "register:item-R04-C18-whole-prerequisites-read-in-full"
+          - "register:decisions.G-A2b-FINALE.amended_from_recommended_default-read-in-full"
+          - "register:decisions.G-A2b-FINALE.method_boundary_reconciliation-R17-C18-two-pass-untouched"
+          - "record:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md-read-in-full"
+          - "record:notes/reports/g-a3-data-rights-determination-2026-08-05.md-read-in-full"
+          - "report:notes/reports/p2-spine-v-2026-08-05.md-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-SPINE-FINALE-claim"
+      - target_packet: P6-CONTINUITY
+        gate: before_close
+        state: pending
+
+  H-P2-SPINE-FINALE-001:
+    source_packet: P2-SPINE-FINALE
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-FINALE
+      - item:R04-C18-definitions
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - handoff:H-P2-SPINE-V-001
+      - report:notes/reports/p2-spine-finale-2026-08-05.md
+    statement: >-
+      The ratified finale spine settles R04-C18-definitions with one explicit
+      disposition. Chapter 18 currently carries zero #def- blocks and so falls
+      below the ratified one-to-five band, and rises to exactly one block, paket
+      dokaza, because it is the only object the finale creates rather than
+      retrieves; its contents are already fixed by the accepted lifecycle finale
+      role, and five ratified register items name it by name: R08-SPINE-18,
+      R11-C18-table-audit, R13-C18-corpus-package, R24-C18-workflow and
+      R32-C18-transfer-path. Because no later chapter exists, the
+      later-dependant test was applied to the only downstream consumers that do
+      exist: the glossary and concept graph generated from #def- divs, the
+      Appendix F protocol, the unit 18 assessment closure in P5-CLOSURE-18 and
+      the published student routes in P5-ROUTES. Eleven further terms stay in
+      prose under .pojam with a recorded reason each, and they are the eleven
+      rejected blocks: trag odluka and reproducibilan tijek rada, because
+      Chapter 12's approved reproducibilnost block already carries them and a
+      second record would create two sources of truth about one obligation;
+      potvrdujuca analiza and istrazivacka analiza, because their distinction is
+      Chapter 12's argument and its approved analiticka fleksibilnost block
+      already carries it; putovnica skupa podataka and dnevnik transformacija,
+      because they are components inside the evidence package's own defining
+      sentence; provjera osjetljivosti and granica tvrdnje, because they are
+      ratified mechanisms of the accepted architecture, the sensitivity standard
+      and the six-dimension claim registry; posten izvjestaj, because the honest
+      sentence standard is already ratified in conventions.json with its six
+      requirements and three prohibitions and the chapter enforces it rather
+      than defines it; and minimizacija podataka and objava uporabe asistenta,
+      because both are rules of the dated D15 course policy owned by Appendix F,
+      which R24-C18-dated-policy forbids presenting as timeless concepts. The
+      net effect on the frozen set is 46 up to 52 across all six approved maps.
+      P2-SPINE-FINALE deliberately implemented none of it, because adding a
+      #def- block edits chapter prose and because H-P1C-INTEGRITY-002 freezes
+      the exact set of 46 live definitions, the concept ledger and the generated
+      graph under cryptographic fingerprints until P2-TERMS retires that debt.
+      Chapter 18 therefore still carries zero live blocks and the live count
+      remains 46.
+    required_action: >-
+      P2-TERMS must reconcile the live definitions and canonical ledger against
+      this approved map before it regenerates data/concept-graph.json and
+      retires the concept debt, so a Chapter 18 that carries one block instead
+      of none is expected rather than treated as drift, and so paket dokaza
+      becomes canonical only once G-A2c has fixed its Croatian form. G-A2c also
+      owns the canonical Croatian forms of putovnica skupa podataka and objava
+      uporabe asistenta, which the spine names as load-bearing without
+      canonising. WE-C18 must add exactly the paket dokaza block and no further
+      block, must define no term the spine left in prose under .pojam, must not
+      reopen any of the eleven rejected blocks, and must make no change before
+      the concept gate can accept it. P2-TERMS must record the author's own
+      editorial terminology review as such and make no independent-review claim
+      anywhere.
+    basis:
+      - "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+      - "decision:G-A2b-FINALE"
+      - "notes/reports/g-a2b-finale-spine-decision-2026-08-05.md#hijerarhija-definicija-za-zavrsnicu"
+      - "check:CONCEPT_INTEGRITY_OK-definitions-46-ledger-debt-2-graph-fresh-false"
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          The approved one-block finale increase is recorded in the terminology
+          registry's definition_map as the plus-one delta owned by WE-C18, and
+          paket dokaza is canonical because G-A2c fixed its Croatian form and it
+          is a ratified Chapter 18 key term. Putovnica skupa podataka and objava
+          uporabe asistenta, which this handoff assigned to G-A2c, are likewise
+          ratified Chapter 18 key terms and are therefore canonical without
+          restatement, so the registry deliberately does not duplicate them. The
+          eleven rejected blocks are not reopened and none of them enters the
+          canonical ledger. P2-TERMS recorded the author's own editorial
+          terminology review as such and makes no independent-review claim
+          anywhere. It wrote no block, so Chapter 18 still carries zero and the
+          live total remains 46 against an approved 52.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map.deltas.G-A2b-FINALE-plus-1"
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje.key_terms-12"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.review_route.reviewer-author_editor"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-approved_total-52-live_definitions-46"
+          - "check:scripts/check-concepts.py-46-live-blocks-Chapter-18-still-zero"
+          - "report:notes/reports/p2-terms-2026-08-05.md"
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+
+  H-P2-SPINE-FINALE-002:
+    source_packet: P2-SPINE-FINALE
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2b-FINALE
+      - item:R04-C18-whole-prerequisites
+      - item:R04-ROUTES-two-track-map
+      - registry:bookwright_plugin/bookwright/shared/chapter-spine.json#18-vase-prvo-istrazivanje
+      - report:notes/reports/p2-spine-finale-2026-08-05.md
+    statement: >-
+      Chapter 18 is now a live, machine-checked whole-book-cumulative unit. Its
+      ratified prerequisites are all seventeen numbered chapters, each carrying
+      one named obligation, and the same seventeen units are written into
+      scripts/check-chapter-spines.py as its ratification-order condition, so
+      the finale cannot be ratified before any earlier unit. Its first ratified
+      exclusion states that the chapter may not be read without the whole book
+      and that no metadata, prose, exercise or advertised route may present the
+      capstone as a standalone unit. The preface is deliberately excluded from
+      the prerequisite list with a recorded reason: it is the reader contract
+      rather than content a later unit depends on, and no ratified spine in the
+      book names it as a prerequisite. Two halves of that obligation are
+      therefore live here and two are not, and P2-SPINE-FINALE deliberately did
+      not claim them. The existing .chapter-meta row at
+      chapters/18-vase-prvo-istrazivanje.qmd:110 still reads "pogl. 2, 6 i 16",
+      which is narrower than the ratified prerequisite list and contradicts the
+      first exclusion; this packet changed no chapter prose and so left it
+      standing. No route was published or amended. Register item
+      R04-C18-whole-prerequisites was consequently left at status ratified
+      rather than closed: its acceptance test requires that metadata, prose,
+      routes and exercises do not suggest the capstone is standalone, and the
+      live metadata in the item's own declared scope still does. Closing it here
+      would have asserted a state that did not happen. Its registry half is
+      complete and machine-checked; only its metadata, prose, exercise and route
+      halves remain. This does not change when parent R04 can close, because
+      R04-ROUTES-two-track-map is already a required child owned by P5-ROUTES in
+      Phase 5.
+    required_action: >-
+      WE-C18 must reconcile the Chapter 18 .chapter-meta prerequisite row with
+      the ratified seventeen-unit prerequisite list, must present no metadata,
+      prose or exercise that suggests the capstone is standalone, and owns the
+      closure of register item R04-C18-whole-prerequisites together with
+      P5-ROUTES. P5-ROUTES may publish no route, map, syllabus projection or
+      navigation affordance that enters Chapter 18 without the whole book, and
+      must reconcile every advertised route against the live ratified
+      prerequisites of all nineteen spines. Neither may weaken the ratified
+      prerequisite list or the ratification-order condition to preserve a
+      shorter route, and neither may close R04-C18-whole-prerequisites until
+      both the metadata and the route halves are actually true of the live
+      source.
+    basis:
+      - "spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb"
+      - "decision:G-A2b-FINALE"
+      - "notes/reports/g-a2b-finale-spine-decision-2026-08-05.md#preduvjeti-zavrsnice-cijela-knjiga"
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd:110-chapter-meta-pogl-2-6-i-16-unchanged"
+      - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-ratified-19-of-19"
+    required: true
+    deliveries:
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
+  H-G-A2C-001:
+    source_packet: G-A2c
+    created_at: "2026-08-05"
+    kind: decision
+    refs:
+      - decision:G-A2c
+      - item:R04-TERMS-concept-regeneration
+      - item:R36-BOOK-new-cluster
+      - item:R36-BOOK-alternatives
+      - item:R04-C17-definitions
+      - handoff:H-P1C-INTEGRITY-002
+      - report:notes/reports/g-a2c-terminology-decision-2026-08-05.md
+    statement: >-
+      Author and editor Luka Sikic accepted the drafted terminology register and
+      the reviewer route as recommended on 2026-08-05. Terminology review is
+      wholly the author's own editorial responsibility and the first edition may
+      make no independent-review claim about its terminology anywhere. The 166
+      distinct Croatian forms carried by the nineteen ratified spines across 168
+      key-term slots are confirmed canonical and none is reopened. Fifteen
+      load-bearing forms the spines named without canonising are fixed:
+      razdvajanje na skup za ucenje, provjeru i ispitivanje with its three
+      component sets, procjenjivana velicina, curenje informacija, zabiljezeni
+      referentni ishod, klasifikacijski prag, paket dokaza, putovnica skupa
+      podataka, objava uporabe asistenta, analiticka fleksibilnost,
+      reproducibilnost, jedinica analize, Simpsonov paradoks, temeljna stopa,
+      and varijanca beside standardna devijacija as one merged block naming
+      both. R36-BOOK-new-cluster is settled across the four activities, the
+      split vocabulary, izgledi with omjer izgleda and predvidjena vjerojatnost,
+      the causal terms, osjetljivost with provjera osjetljivosti, kalibrirana
+      nesigurnost with kalibracija stope pogreske prve vrste, and pomak
+      distribucije. Four meaning collisions carry rules: osjetljivost never
+      names the confusion-table rate, kalibracija is never standalone,
+      predvidjanje is the canonical noun with predikcija surviving only inside
+      sustav predikcije, and neither referentna oznaka nor zabiljezeni
+      referentni ishod is ever written as istina or ground truth. Three
+      deliberate departures carry reasons: tablica zabune rather than matrix,
+      kolider, and izgledi. Three #def- identifiers deliberately do not follow
+      their bolded term and must never be renamed, because they anchor the
+      concept-graph node and the pojmovnik link:
+      def-standardizirani-rezidual whose canonical term is prilagodjeni
+      standardizirani rezidual, def-korelacija whose canonical term is
+      Pearsonova korelacija beside the general key term korelacija, and
+      def-mala-polja. The six ratified definition maps take the frozen set from
+      46 to 52; this gate wrote no block and the live count remains 46.
+    required_action: >-
+      P2-TERMS must implement exactly this register: reconcile the live
+      definitions and the canonical concept ledger against the six approved
+      maps and these canonical forms, replace the stale concept-ledger entry
+      standardizirani rezidual and its Pearson-form definition with the
+      canonical prilagodjeni standardizirani rezidual while leaving the
+      def-standardizirani-rezidual identifier untouched, regenerate
+      data/concept-graph.json from the accepted source, and retire the
+      concept_ledger and concept_graph debt entries. It may close
+      R04-C17-definitions only under these fixed forms and must record the
+      author's own editorial terminology review as such, making no
+      independent-review claim anywhere. It may not edit chapter or appendix
+      prose and may not rename any #def- identifier. P5-E must render the
+      recorded accepted variants and deliberate departures with their reasons in
+      both glossary views, and may not silently normalise a contested form.
+    basis:
+      - conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic
+      - notes/reports/g-a2c-terminology-decision-2026-08-05.md
+      - notes/reports/g-a2c-reviewer-amendment-2026-08-05.md
+      - notes/reports/comprehensive-review-implementation-register.yml#G-A2c
+      - registry:bookwright_plugin/bookwright/shared/chapter-spine.json-19-ratified-units-168-key-term-slots
+      - check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-2-graph_fresh-false
+    required: true
+    deliveries:
+      - target_packet: P2-TERMS
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P2-TERMS accepts the accepted G-A2c terminology register as its exact
+          and exclusive terminology boundary before the packet claim and before
+          the first substantive edit. The packet will reconcile the live
+          definitions and the canonical concept ledger, replace the stale ledger
+          entry standardizirani rezidual and its Pearson-form definition with the
+          canonical prilagodjeni standardizirani rezidual while leaving the
+          def-standardizirani-rezidual identifier untouched, write the accepted
+          canonical forms, accepted variants, deliberate departures, meaning
+          rules and the approved 46-to-52 definition map into conventions.json as
+          a schema-admitted terminology registry, regenerate
+          data/concept-graph.json from the accepted source, and retire the
+          concept_ledger and concept_graph debt entries. It will edit no chapter
+          or appendix prose, rename no #def- identifier, add and remove no #def-
+          block, ratify and change no chapter spine, and advance no chapter
+          stage. It records the author's own editorial terminology review as such
+          and makes no independent-review claim anywhere. The P5-E delivery is
+          before_close and correctly remains pending.
+        evidence:
+          - "decision:G-A2c"
+          - "conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic"
+          - "report:notes/reports/g-a2c-terminology-decision-2026-08-05.md"
+          - "register:item-R04-TERMS-concept-regeneration-read-in-full"
+          - "register:item-R36-BOOK-new-cluster-read-in-full"
+          - "register:item-R04-C17-definitions-read-in-full"
+          - "contract:packet_contracts.shared_registry"
+          - "check:scripts/check-review-workflow.R-before-P2-TERMS-claim"
+      - target_packet: P5-E
+        gate: before_close
+        state: pending
+
+  H-G-A2C-002:
+    source_packet: G-A2c
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2c
+      - item:R36-BOOK-new-cluster
+      - item:R24-C17-recorded-reference
+      - report:notes/reports/g-a2c-terminology-decision-2026-08-05.md
+    statement: >-
+      Ten exact places in the live source do not yet carry the canonical form
+      fixed at G-A2c, and the gate changed none of them because it edits no
+      prose. Chapter 17 uses a two-way split at lines 50-51 and in the pojmovi
+      block at line 463 where the ratified spine carries the three-way split,
+      and writes Predikcija and Predikcijski model at lines 48, 56, 57 and 104.
+      Chapter 16 writes predikciju at lines 1082 and 1088, curenje cilja at line
+      956, and curenje, curenje podataka iz buducnosti and curenje iz buducnosti
+      at lines 129, 1008 and 1239. The preface writes predikcije and Predikcija
+      at lines 34 and 84. Chapter 8 writes tezina uzorka at lines 875 and 1075
+      and the ponder family at lines 876, 877 and 1058 where the ratified spine
+      carries tezina uzorkovanja. Curenje podataka in
+      chapters/02-mjerenje-i-dizajn.qmd:380 is deliberately excluded from this
+      list and must not be changed, because there the words describe an actual
+      data breach used as a quasi-experimental comparison rather than
+      statistical leakage.
+    required_action: >-
+      WA-C00 must write predvidjanje in the preface. WC-C08 must write tezina
+      uzorkovanja and replace the ponder family with procjena s tezinama and
+      procjena bez tezina, including in the pojmovi block. WD-C16 must write
+      predvidjanje and curenje informacija, keeping the time boundary in the
+      sentence rather than in the term. WD-C17 must write the three component
+      sets skup za ucenje, skup za provjeru and skup za ispitivanje in both the
+      prose and the pojmovi block, and must write predvidjanje and model za
+      predvidjanje while leaving the ratified compound sustav predikcije intact.
+      No packet may write istina or ground truth for referentna oznaka or
+      zabiljezeni referentni ishod. No packet may change
+      chapters/02-mjerenje-i-dizajn.qmd:380.
+    basis:
+      - notes/reports/g-a2c-terminology-decision-2026-08-05.md#razilazenja-zive-proze-i-kanonskoga-oblika
+      - source:chapters/17-doba-algoritama.qmd:50-51,48,56,57,104,463
+      - source:chapters/16-regresija.qmd:129,956,1008,1082,1088,1239
+      - source:chapters/00-predgovor.qmd:34,84
+      - source:chapters/08-uzorkovanje.qmd:875,876,877,1058,1075
+      - source:chapters/02-mjerenje-i-dizajn.qmd:380-deliberately-excluded
+    required: true
+    deliveries:
+      - target_packet: WA-C00
+        gate: before_close
+        state: pending
+      - target_packet: WC-C08
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-001:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R36-BOOK-new-cluster
+      - decision:G-A2c
+      - handoff:H-G-A2C-002
+      - registry:terminology_registry
+      - report:notes/reports/p2-terms-2026-08-05.md
+    statement: >-
+      Register item R36-BOOK-new-cluster was deliberately NOT closed by P2-TERMS
+      and stays at status ratified. Its acceptance test requires that prose,
+      figures, exercises, definitions and the glossary use the approved forms
+      consistently. The registry, the definitions and both glossary views now do:
+      the terminology registry is live and machine-checked, the canonical ledger
+      carries no superseded form, and an audit of all sixteen Appendix E entries
+      and of pojmovnik.qmd found zero contradictions with the canonical register.
+      The prose does not: eight recorded divergences remain live in Chapters 0,
+      8, 16 and 17, and P2-TERMS is a registry packet that may not edit prose.
+      Closing the item here would have asserted a consistency that does not
+      exist. This does not delay Phase 2, because the ratified plan's own Phase 2
+      exit condition states that the architectural gates for R10, R15, R24 and
+      R36 are ratified while those items remain open until their book-wide
+      implementation is verified.
+    required_action: >-
+      P6-CONTINUITY owns the closure of R36-BOOK-new-cluster. It must audit the
+      whole book against the live terminology registry in
+      bookwright_plugin/bookwright/shared/conventions.json, confirm that no
+      superseded form and no forbidden use survives in prose, figures, exercises,
+      definitions or either glossary view, confirm that the live_divergences list
+      is empty because every owning packet repaired its prose, and only then
+      close the item. It may not close it by aggregation or by treating the
+      registry's own consistency as evidence about the prose. The four meaning
+      rules for osjetljivost, kalibrirana nesigurnost, predvidjanje and
+      zabiljezeni referentni ishod are the audit's minimum targets, and no packet
+      may write istina or ground truth for a reference outcome.
+    basis:
+      - notes/reports/p2-terms-2026-08-05.md#zatvorene-i-nezatvorene-stavke
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#exit-gate-p2
+      - check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-8
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry
+    required: true
+    deliveries:
+      - target_packet: P6-CONTINUITY
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-002:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R04-TERMS-concept-regeneration
+      - handoff:H-P1C-INTEGRITY-002
+      - source:scripts/integrity-debt.json
+      - source:scripts/check-concepts.py
+      - report:notes/reports/p2-terms-2026-08-05.md
+    statement: >-
+      The temporary concept-gate exception is spent. P2-TERMS reconciled the
+      canonical ledger to the live source of 46 #def- blocks, regenerated
+      data/concept-graph.json, and removed both the concept_ledger and
+      concept_graph entries from scripts/integrity-debt.json. The blocking
+      concept command now reports ledger_debt=0 and graph_fresh=true, so it fails
+      closed immediately on any further change. The approved map to 52 is
+      recorded in the terminology registry's definition_map as expected future
+      state with these six packets named as its implementers, not written into
+      the ledger, because writing it early would have made the ledger disagree
+      with the live source and broken the very gate this packet retired.
+    required_action: >-
+      Each of these packets must, IN THE SAME PACKET as its #def- block change,
+      add or amend the matching entry in
+      bookwright_plugin/bookwright/shared/concept-ledger.json, follow the rename
+      through any notation entry that references the concept, regenerate
+      data/concept-graph.json through
+      python bookwright_plugin/bookwright/scripts/run_rscript.py
+      R/build-concept-graph.R, and rerun scripts/check-concepts.py and
+      scripts/check-terminology.py. None of them may rename a #def- identifier,
+      may add a block the ratified map does not approve, or may reintroduce an
+      integrity-debt entry to defer the reconciliation.
+    basis:
+      - check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-46-ledger_debt-0-graph_fresh-true
+      - source:scripts/integrity-debt.json-only-figure_introductions-remains
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map
+      - terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65
+    required: true
+    deliveries:
+      - target_packet: WA-C01
+        gate: before_close
+        state: pending
+      - target_packet: WA-C03
+        gate: before_close
+        state: pending
+      - target_packet: WB-C04
+        gate: before_close
         state: pending
       - target_packet: WC-C12
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-003:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - decision:G-A2c
+      - handoff:H-G-A2C-002
+      - source:scripts/check-terminology.py
+      - registry:terminology_registry
+    statement: >-
+      The terminology registry records eight live-source divergences with their
+      file, live form, canonical form and owning packet, and
+      scripts/check-terminology.py asserts that each recorded live form STILL
+      occurs in its named file. The check therefore fails as soon as a packet
+      repairs the prose without removing the matching entry, so the divergence
+      list cannot silently go stale in either direction.
+    required_action: >-
+      When WA-C00, WC-C08, WD-C16 or WD-C17 repairs one of its recorded
+      divergences, it must in the same packet remove that entry from
+      terminology_registry.live_divergences in
+      bookwright_plugin/bookwright/shared/conventions.json and rerun
+      scripts/check-terminology.py. No packet may remove an entry whose prose it
+      has not actually repaired, and no packet may change
+      chapters/02-mjerenje-i-dizajn.qmd:380, which is recorded under
+      excluded_from_divergences because the words there describe an actual data
+      breach rather than statistical leakage.
+    basis:
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.live_divergences
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.excluded_from_divergences
+      - check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-8
+      - source:scripts/check-terminology.py-live-divergence-occurrence-assertion
+    required: true
+    deliveries:
+      - target_packet: WA-C00
+        gate: before_close
+        state: pending
+      - target_packet: WC-C08
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+
+  H-P2-TERMS-004:
+    source_packet: P2-TERMS
+    created_at: "2026-08-05"
+    kind: evidence
+    refs:
+      - item:R36-BOOK-alternatives
+      - item:R04-TERMS-concept-regeneration
+      - source:dodaci/e-rjecnik.qmd
+      - report:notes/reports/p2-terms-2026-08-05.md
+    statement: >-
+      P2-TERMS audited both glossary views against the canonical register and
+      found zero contradictions: none of the sixteen Appendix E entries is a
+      superseded form, and no superseded form occurs in pojmovnik.qmd, which
+      still consumes data/concept-graph.json and still links every node to its
+      #def- anchor. Two things nevertheless remain undone and were deliberately
+      not claimed, because both are appendix prose. Appendix E still carries the
+      status marker that canonical definitions will arise after the concept
+      spine is ratified and that the register only serves orientation, which is
+      now stale: all nineteen spines are ratified and the canonical forms are
+      fixed. And Appendix E renders no accepted variant and no deliberate
+      departure, although the registry now records twelve superseded forms and
+      three departures with their reasons.
+    required_action: >-
+      P5-E must render the recorded accepted variants and deliberate departures
+      with their reasons in both glossary views from
+      terminology_registry in bookwright_plugin/bookwright/shared/conventions.json
+      as the single source, replace the stale Appendix E status marker with the
+      state that actually holds, and may not silently normalise a contested form
+      or create a second source of truth beside the registry. It must not present
+      a superseded form as an acceptable synonym.
+    basis:
+      - source:dodaci/e-rjecnik.qmd-16-entries-zero-contradictions
+      - source:dodaci/e-rjecnik.qmd-status-djelomicni-nacrt-and-nakon-ratifikacije-marker
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.superseded_forms-12
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.deliberate_departures-3
+      - check:scripts/check-concepts.py-pojmovnik-consumes-the-canonical-graph
+    required: true
+    deliveries:
+      - target_packet: P5-E
+        gate: before_close
+        state: pending
+
+  H-P2-DOCS-001:
+    source_packet: P2-DOCS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R12-SCOPE-no-variance-course
+      - item:R14-SCOPE-reading-not-fitting
+      - item:R23-SCOPE-reading-not-production
+      - item:R22-AD-no-method-route
+      - item:R22-AD-decision-order
+      - item:R22-C14-C16-dependence
+      - source:dodaci/d-koji-test.qmd
+      - report:notes/reports/p2-docs-2026-08-05.md
+    statement: >-
+      Three rejected-scope items were deliberately NOT closed by P2-DOCS and all
+      three stay at status ratified for the same reason. Their acceptance tests
+      each require that the book keep limits explicit and that it ROUTE the
+      reader when no method in the book fits, and routing lives in
+      dodaci/d-koji-test.qmd. That appendix is 47 lines, marks itself a partial
+      draft against a planned 1500 words, carries one starting-procedure table
+      and a short post-selection paragraph, and states no rule at all about
+      dependent, clustered, repeated or network-linked observations and no route
+      out of the book. The other halves are already satisfied and were verified
+      at this source state: Chapter 8's tasks derive no formula and its prose
+      carries design effects and effective sample size, and Chapter 16 fits no
+      logistic model and introduces no causal estimator. Closing the items here
+      would have asserted a routing capability the book does not have.
+    required_action: >-
+      P5-D must complete Appendix D as the decision and recovery aid, including
+      the explicit route for repeated, clustered, longitudinal and network-linked
+      observations and the statement that no method in this book is adequate for
+      them, and must keep the limits of every listed procedure explicit. Only
+      then may R12-SCOPE-no-variance-course, R14-SCOPE-reading-not-fitting and
+      R23-SCOPE-reading-not-production close, and each must be closed against its
+      own test rather than by aggregation. WC-C08 must keep the design-effect and
+      effective-sample-size limits explicit in Chapter 8 and must add no task
+      that derives a variance formula. WD-C16 must keep Chapter 16 to
+      recognition, interpretation, limitation and routing, so its ratified
+      bounded bridge to binary outcomes, odds ratios and predicted probabilities
+      is read rather than fitted.
+    basis:
+      - source:dodaci/d-koji-test.qmd-47-lines-partial-draft-no-dependence-route
+      - source:chapters/08-uzorkovanje.qmd-tasks-use-the-margin-table-and-derive-no-formula
+      - source:chapters/16-regresija.qmd-no-logistic-fitting-and-no-causal-estimator
+      - notes/reports/p2-docs-2026-08-05.md#odluke-po-stavkama
+    required: true
+    deliveries:
+      - target_packet: WC-C08
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: P5-D
+        gate: before_close
+        state: pending
+
+  H-P2-DOCS-002:
+    source_packet: P2-DOCS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R04-ARCH-macro-order
+      - item:R04-ROUTES-two-track-map
+      - item:R23-SCOPE-no-new-chapters-widgets
+      - item:R35-REACHBACK-18
+      - report:notes/reports/p2-docs-2026-08-05.md
+    statement: >-
+      Two further items owned by P2-DOCS were deliberately NOT closed, each
+      because exactly one half of its test is a state that does not yet exist.
+      R04-ARCH-macro-order requires the _quarto.yml order to be unchanged AND
+      both reading routes to be accurate. The order is unchanged and verified,
+      but the two routes are not published anywhere: chapters/00-predgovor.qmd
+      has a Granice i putovi citanja section that states the scope boundary and
+      the appendices, and advertises no critical-literacy and no analysis route.
+      R23-SCOPE-no-new-chapters-widgets requires the counts to stay inside the
+      ratified architecture AND retrieval to replace lower-value work. The counts
+      are verified at 19 chapters, 6 appendices, 17 widgets with static twins and
+      four callout types with no new type, but retrieval tasks are R35 work in
+      Phases 4 and 5 and do not exist yet.
+    required_action: >-
+      P5-ROUTES owns the closure of R04-ARCH-macro-order together with
+      R04-ROUTES-two-track-map: it must publish both routes, keep the _quarto.yml
+      order unchanged, and satisfy every ratified prerequisite including Chapter
+      13 before Chapter 17 and the whole book before Chapter 18. The chapter and
+      closure packets that author reach-back tasks own the second half of
+      R23-SCOPE-no-new-chapters-widgets; neither item may be closed by
+      aggregation or by treating the verified half as proof of the other. No
+      packet may add a numbered chapter, a central widget or a callout type.
+    basis:
+      - source:chapters/00-predgovor.qmd-Granice-i-putovi-citanja-advertises-no-two-route-map
+      - check:scripts/check-book-inventory.py-BOOK_INVENTORY_OK-pages-37-chapters-19-appendices-6
+      - check:scripts/check-widgets.py-17-widgets-with-static-twins
+      - notes/reports/p2-docs-2026-08-05.md#odluke-po-stavkama
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+      - target_packet: P5-CLOSURE-18
+        gate: before_close
+        state: pending
+
+  H-P2-DOCS-003:
+    source_packet: P2-DOCS
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - source:.github/workflows/publish.yml
+      - source:scripts/check-terminology.py
+      - handoff:H-P2-TERMS-002
+      - report:notes/reports/p2-docs-2026-08-05.md
+    statement: >-
+      While reconciling the AGENTS.md deployment description against the live
+      workflow, P2-DOCS read .github/workflows/publish.yml in full and found that
+      scripts/check-terminology.py, which P2-TERMS created as the enforcing check
+      for the ratified terminology registry, is NOT among the workflow's blocking
+      steps. scripts/check-concepts.py is wired in and now fails closed, so the
+      definition and graph half is covered by CI, but the registry half is
+      currently enforced only when a packet runs the command locally. P2-DOCS
+      owns governing documents and did not change CI, which is release
+      engineering.
+    required_action: >-
+      P7-CLEAN-BUILD must add scripts/check-terminology.py to the blocking check
+      ladder in .github/workflows/publish.yml, place it beside the existing
+      concept check, and prove it fails closed from the locked clean environment
+      using one of the check's own deliberate fixtures. Until it is wired in, no
+      packet may cite CI as evidence that the terminology registry is enforced.
+    basis:
+      - source:.github/workflows/publish.yml-blocking-steps-list-without-check-terminology.py
+      - source:scripts/check-terminology.py-three-deliberate-fixtures-each-exit-1
+      - check:scripts/check-terminology.py-TERMINOLOGY_OK-run-locally-only
+    required: true
+    deliveries:
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+
+  H-P2-VERIFY-001:
+    source_packet: P2-VERIFY
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - parent:R04
+      - item:R04-ARCH-macro-order
+      - item:R04-C11-fixed-order
+      - item:R04-ROUTES-two-track-map
+      - item:R04-C18-whole-prerequisites
+      - plan:notes/reports/comprehensive-review-implementation-plan-2026-08-03.md
+      - report:notes/reports/p2-verification-2026-08-05.md
+    statement: >-
+      The ratified plan's Phase 2 exit condition states that R04 is closed, and
+      R04 cannot close in Phase 2 by the register's own design. Four of its 21
+      required children are open at the declared source state
+      fd4564c3d2890c80f5f865f6b386f34b29f8feea and none can be closed by a
+      Phase 2 packet. R04-ARCH-macro-order needs the two reading routes, which
+      the preface does not advertise, and is owned by P5-ROUTES in Phase 5.
+      R04-C11-fixed-order needs the seven-part order restored in Chapter 11's
+      prose and is owned by WC-C11 in Phase 4. R04-ROUTES-two-track-map is owned
+      by P5-ROUTES in Phase 5. R04-C18-whole-prerequisites needs the Chapter 18
+      .chapter-meta row reconciled and the routes published, and is owned by
+      WE-C18 and P5-ROUTES. Two of the four require chapter prose and two require
+      published routes, and Phase 2 edits neither. The other four clauses of the
+      Phase 2 exit condition are met and verified: R10, R15, R24 and R36 are
+      ratified with their items deliberately open exactly as the clause intends,
+      all 19 spines are ratified, the definition and prerequisite changes have an
+      approved map, and no unresolved conflict remains between the review and the
+      live governing documents. This is a conflict between two ratified
+      documents about WHEN R04 may close, not a packet's omission, and P2-VERIFY
+      has no authority to amend the plan and did not amend it.
+    required_action: >-
+      WC-C11 must close R04-C11-fixed-order, WE-C18 must discharge its half of
+      R04-C18-whole-prerequisites, and P5-ROUTES must close
+      R04-ROUTES-two-track-map, R04-ARCH-macro-order and the route half of
+      R04-C18-whole-prerequisites. Only when all four are accepted may R04 close,
+      and P6-VERIFY must confirm that closure rather than infer it. No packet may
+      close R04 by aggregation, may treat the four verified Phase 2 clauses as
+      proof of the fifth, or may amend the plan's exit wording on its own; if the
+      author wishes the plan text to match the register, that is a separate
+      author decision.
+    basis:
+      - register:parents.R04.required_children-21-with-4-open
+      - register:items.R04-ARCH-macro-order.open_reason
+      - register:items.R04-C11-fixed-order.packet-WC-C11
+      - register:items.R04-ROUTES-two-track-map.packet-P5-ROUTES
+      - register:items.R04-C18-whole-prerequisites.packet-owners-WE-C18-and-P5-ROUTES
+      - plan:comprehensive-review-implementation-plan-2026-08-03.md#exit-gate-p2
+      - commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea
+    required: true
+    deliveries:
+      - target_packet: WC-C11
+        gate: before_close
+        state: pending
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+      - target_packet: P6-VERIFY
+        gate: before_close
+        state: pending
+
+  H-P2-VERIFY-002:
+    source_packet: P2-VERIFY
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - packet:P2-CLAIMS
+      - source:scripts/check-book-architecture.py
+      - report:notes/reports/p2-verification-2026-08-05.md
+    statement: >-
+      Independently re-deriving the evidence of all 22 accepted Phase 2 packets
+      surfaced one real coverage gap. scripts/check-book-architecture.py, which
+      P2-CLAIMS names as its deterministic evidence and which
+      check-assessment-architecture.py, check-identity-briefs.py and
+      check-chapter-spines.py all reuse as their schema-validation helper, has NO
+      negative-fixture hook at all. Its three sibling checkers each carry two
+      deliberate fixtures and all six were rerun at this source state and
+      returned exit 1. Five Phase 2 packets also record no deliberate fixture in
+      their completion evidence, which breaches no contract because no Phase 2
+      contract requires one, but which means the architecture registry itself has
+      never been proved to fail closed.
+    required_action: >-
+      P6-VERIFY must either add a deliberate negative fixture to
+      scripts/check-book-architecture.py and prove it returns a nonzero exit, or
+      record an explicit author-approved reason why the architecture registry
+      needs no fail-closed proof while its three consumers each have one. It may
+      not treat the passing positive run as evidence that the checker fails
+      closed.
+    basis:
+      - source:scripts/check-book-architecture.py-no-NEGATIVE_FIXTURE-hook
+      - source:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_NEGATIVE_FIXTURE
+      - source:scripts/check-identity-briefs.py-IDENTITY_BRIEFS_NEGATIVE_FIXTURE
+      - source:scripts/check-chapter-spines.py-CHAPTER_SPINE_NEGATIVE_FIXTURE
+      - check:six-existing-architecture-and-spine-fixtures-each-exit-1-at-this-source-state
+    required: true
+    deliveries:
+      - target_packet: P6-VERIFY
+        gate: before_close
+        state: pending
+
+  H-P3-CATALOG-001:
+    source_packet: P3-CATALOG
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - source:data/katalog.yml
+      - source:data/katalog.schema.json
+      - source:scripts/check-katalog.py
+      - source:R/fetch-podaci.R
+      - handoff:H-P1B-DATA-LIC-002
+      - handoff:H-P1B-DATA-LIC-003
+      - report:notes/reports/p3-catalog-2026-08-05.md
+    statement: >-
+      data/katalog.yml is now the sole machine-readable data record and
+      registers all 17 packages from the P1B inventory with exactly the lane that
+      inventory assigned: five bundled, three portal-mediated and nine
+      external-only. ZERO packages are promoted. Every entry carries promoted
+      false and names the exact later gate that may promote it, and the validator
+      enforces seven conditions together before any promotion: lane bundled,
+      verified redistribution, a recorded checksum, a recorded official
+      reconciliation, at least one file path, a lawful fallback, and an accepted
+      promoting gate. Availability promotes nothing and a portal-mediated or
+      external-only package cannot be promoted at all while its lane stands.
+      R/fetch-podaci.R now reads the catalogue as its only registry, writes only
+      into the gitignored data/_kandidat/, and promotes only through an explicit
+      --promote call that verifies the recorded MD5.
+      scripts/check-data-integrity.R no longer fails because the catalogue
+      exists; it now requires the catalogue, its schema and its validator, and
+      fails on any materialised snapshot no catalogue entry declares.
+    required_action: >-
+      P3-EXISTING and every G-A3 package gate must promote a package only by
+      editing its own catalogue entry, and only after recording the exact source,
+      version, licence, attribution, checksum and official reconciliation for the
+      file it registers. None of them may change a lane without the authoritative
+      package-specific evidence its own contract requires, may treat technical
+      access as redistribution authority, or may commit a materialised snapshot
+      without first declaring its path in data/katalog.yml. Each must rerun
+      scripts/check-katalog.py and scripts/check-data-integrity.R in the same
+      packet. H-P1B-DATA-LIC-003 is not superseded: DZS tourism, ParlaMint and
+      ParlaSent carry only a general bundled basis and each still needs its own
+      exact package record.
+    basis:
+      - check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-0-bundled-5-portal-3-external-9
+      - check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-catalogue-present-promoted-0-undeclared-0
+      - source:data/katalog.yml#promotion_contract.required_before_promotion
+      - fixture:ten-deliberate-katalog-defects-each-exit-1
+      - katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac
+    required: true
+    deliveries:
+      - target_packet: P3-EXISTING
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING acknowledged this delivery before its first substantive
+          edit and consumed it at closeout, having promoted exactly two packages
+          the way this handoff requires and no package any other way. Both
+          promotions were made by editing the package's own catalogue entry, and
+          each records its exact source, version, licence, attribution, checksum
+          with its algorithm, and official reconciliation before promoted became
+          true. **No lane was changed by this packet.** The two promoted
+          packages were already bundled with verified redistribution in the P1B
+          inventory, and the other fifteen lanes are byte-for-byte as
+          P3-CATALOG left them; UCBAdmissions and anscombe stay external-only
+          because the packet looked for dataset-specific redistribution evidence
+          and found none, so technical access was not treated as authority.
+          The path-before-file rule was obeyed literally: the file paths were
+          written into data/katalog.yml first, and only then did
+          scripts/build-data-snapshots.R --write materialise anything, so no
+          undeclared snapshot ever existed in the tree. Both required checks
+          were rerun in this packet and both pass, together with a new harness
+          that proves 32 deliberate defects fail closed. The packet also
+          strengthened the promotion contract rather than spending it: a package
+          may now be promoted only under the gate it names itself, every
+          promotion must appear in a per-packet promotion log, and every
+          declared file must exist with a matching checksum.
+          **H-P1B-DATA-LIC-003 is untouched and not superseded**, and no G-A3
+          gate was pre-empted: DZS tourism, ParlaMint and ParlaSent remain
+          bundled-but-unpromoted with their exact package records still owed to
+          their own gates.
+        evidence:
+          - "source:data/katalog.yml#promotion_contract-promoted_total-2-and-a-per-packet-promotion_log"
+          - "source:data/katalog.yml#anketa_mreze-and-populacija_medija-promoted-true-promoted_by-P3-EXISTING"
+          - "source:data/katalog.yml#checksum-checksum_algorithm-and-official_reconciliation-recorded-before-promotion"
+          - "check:scripts/check-katalog.py-KATALOG_OK-packages-17-promoted-2-bundled-5-portal-3-external-9-lanes-unchanged"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-2-snapshots-4-validated-4-undeclared-0"
+          - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-promoted_without_its_gate-and-promotion_log_disagrees-each-exit-1"
+          - "fixture:KATALOG_NEGATIVE_FIXTURE-checksum_mismatch-and-missing_declared_file-each-exit-1"
+          - "audit:H-P1B-DATA-LIC-003-deliveries-unchanged-and-all-six-G-A3-gates-still-pending"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
+      - target_packet: G-A3-DZS
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          G-A3-DZS honoured the promotion contract exactly and promoted nothing.
+          It ratified the selection, the snapshot-year rule and the bundled lane,
+          and explicitly withheld promotion because the established basis is
+          general rather than an exact package record. data/katalog.yml was not
+          edited: dzs_turizam still carries lane bundled, promoted false and
+          promoting_gate G-A3-DZS, and the catalogue check reports the same
+          counts as before this gate. The decision binds P3-DZS to record the
+          exact edition, retrieval date, attribution string, checksum and
+          reconciliation to the official published totals inside the catalogue
+          entry before any promotion, which is what this handoff requires of a
+          package gate. No lane was changed, no technical access was treated as
+          redistribution authority, and no snapshot was created or committed.
+        evidence:
+          - "decision:G-A3-DZS"
+          - "report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md#prava-i-traka"
+          - "audit:data/katalog.yml-unchanged-dzs_turizam-lane-bundled-promoted-false"
+          - "check:scripts/check-katalog.py-KATALOG_OK-counts-unchanged-by-this-gate"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-undeclared-0"
+          - "handoff:H-G-A3-DZS-001-binds-P3-DZS-to-the-exact-package-record"
+      - target_packet: G-A3-DIP
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-DIGIKAT
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-EUROSTAT
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-ESS
+        gate: before_close
+        state: pending
+      - target_packet: G-A3-TEXT
+        gate: before_close
+        state: pending
+
+  H-P3-CATALOG-002:
+    source_packet: P3-CATALOG
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R25-CATALOG-single-source
+      - item:R25-CATALOG-passport
+      - item:R25-CATALOG-public-views
+      - item:R32-CATALOG-paired-views
+      - item:R25-CATALOG-storage
+      - item:R25-CATALOG-validation
+      - item:R08-CATALOG-local-independence
+      - report:notes/reports/p3-catalog-2026-08-05.md
+    statement: >-
+      Six of the thirteen items P3-CATALOG owns were deliberately NOT closed,
+      each because its test names something that does not yet exist.
+      R25-CATALOG-single-source needs both public views regenerated, and
+      podaci.qmd and dodaci/c-katalog-podataka.qmd are still hand-maintained; the
+      catalogue is nevertheless the sole machine-readable record and was verified
+      not to contradict them. R25-CATALOG-passport needs a passport shown before
+      a chapter's first use of a package. R32-CATALOG-paired-views needs an
+      analysis file and an aggregate that reconcile at full precision.
+      R25-CATALOG-storage needs at least one applicable package, and there are
+      zero snapshots. R25-CATALOG-validation has its catalogue half proved by ten
+      deliberate fixtures but its accepted-package half has no accepted package.
+      R08-CATALOG-local-independence needs a fresh-clone validate and render,
+      which this packet did not run and therefore does not claim; the catalogue
+      introduces no dependency on CroAIcon or any sibling repository.
+    required_action: >-
+      P3-EXISTING must close R25-CATALOG-storage and the accepted-package half of
+      R25-CATALOG-validation once it registers real files with their checksums
+      and source reconciliation. P5-C must close R25-CATALOG-single-source and
+      R25-CATALOG-passport by generating both public views and the pre-use
+      passport from data/katalog.yml as the single source, and together with
+      P3-EXISTING must close R32-CATALOG-paired-views. P7-CLEAN-BUILD must close
+      R08-CATALOG-local-independence from a fresh clone or clean worktree. No
+      packet may close any of the six by aggregation or by treating the
+      catalogue's own internal consistency as evidence about files, views or
+      renders that do not exist.
+    basis:
+      - notes/reports/p3-catalog-2026-08-05.md#odluke-po-stavkama
+      - source:podaci.qmd-and-dodaci/c-katalog-podataka.qmd-still-hand-maintained
+      - check:scripts/check-katalog.py-snapshots-0
+      - register:items.R25-CATALOG-public-views.packet-P5-C
+    required: true
+    deliveries:
+      - target_packet: P3-EXISTING
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-EXISTING acknowledged this delivery before its first substantive
+          edit and consumed it at closeout with a separate decision on each of
+          the three items it names for this packet, taken one at a time against
+          that item's own acceptance test and never by aggregation.
+          **R25-CATALOG-storage is closed.** Two packages now have materialised
+          files, both pass all six storage conventions, and each convention is
+          machine-enforced rather than asserted; the applicable scope is
+          recorded in the item rather than implied.
+          **R25-CATALOG-validation is closed on both halves, not on the first.**
+          The catalogue half already stood on ten fixtures; the accepted-package
+          half now has two accepted packages recording a checksum with its
+          algorithm and an official reconciliation, and every data-level defect
+          class the review lists is exercised against bytes on disk. Each
+          fixture must print its own rule's message, so a fixture that failed
+          for an unrelated reason could not be credited.
+          **R32-CATALOG-paired-views is deliberately NOT closed.** Its first
+          half is discharged -- both pairs exist and reconcile without tolerance
+          -- but its test also requires at least one task that reproduces an
+          aggregate, and a task is reader prose that a data_package packet may
+          not write. The aggregates were built so that such a task is possible
+          by hand, with a numerator and denominator beside every share and an
+          integer total beside every mean, but building the possibility is not
+          writing the task. H-P3-EXISTING-002 carries that half to WB-C04,
+          WC-C09, WC-C11 and P5-C. The three items this handoff assigns to P5-C
+          and P7-CLEAN-BUILD were not touched: R25-CATALOG-single-source and
+          R25-CATALOG-passport still need the generated views and a chapter's
+          first use, and R08-CATALOG-local-independence still needs a
+          fresh-clone render this packet did not run and does not claim.
+        evidence:
+          - "item:R25-CATALOG-storage-accepted-with-a-recorded-applicable-scope-of-two-packages"
+          - "item:R25-CATALOG-validation-accepted-with-both-halves-evidenced-separately"
+          - "item:R32-CATALOG-paired-views-remains-ratified-with-its-task-half-recorded-as-open"
+          - "check:scripts/check-data-integrity.R-recomputes-every-group-count-total-mean-and-share-without-tolerance"
+          - "fixture:podaci-rounded_mean-total_mismatch-share_mismatch-each-exit-1"
+          - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32"
+          - "source:data/katalog.yml#aggregate_reconciliation-blocks-declare-what-each-pair-must-reproduce"
+          - "audit:R25-CATALOG-single-source-R25-CATALOG-passport-and-R08-CATALOG-local-independence-untouched"
+          - "report:notes/reports/p3-existing-2026-08-05.md"
+      - target_packet: P5-C
+        gate: before_close
+        state: pending
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+
+  H-P3-EXISTING-001:
+    source_packet: P3-EXISTING
+    created_at: "2026-08-05"
+    kind: evidence
+    refs:
+      - item:R25-EXISTING-UCB
+      - item:R25-EXISTING-Anscombe
+      - handoff:H-P1B-DATA-LIC-002
+      - report:notes/reports/p3-existing-2026-08-05.md
+    statement: >-
+      UCBAdmissions and anscombe stay external-only after a search for
+      authoritative dataset-specific redistribution evidence, not after an
+      assumption that none exists. The datasets package at R 4.6.0 records only
+      "License: Part of R 4.6.0", which is a package-level marker; UCBAdmissions.Rd
+      has no source field and cites Bickel, Hammel and O'Connell (1975) in
+      Science, and anscombe.Rd names Tufte (1990), Graphics Press. Both
+      documented origins are third-party copyrighted works. R25-EXISTING-UCB and
+      R25-EXISTING-Anscombe therefore remain open, each with one half of its
+      test met: the registration and metadata half is complete, and the
+      deterministic student snapshot may not exist. Their lawful fallbacks are
+      recorded and unchanged: the mandatory categorical exercise uses
+      populacija_medija and the mandatory visualisation or association exercise
+      uses anketa_mreze, both now materialised, licence-clean and checksummed.
+    required_action: >-
+      No packet may create, commit or promote a copy of either dataset on
+      current evidence, and none may read technical access through a local R
+      installation as redistribution authority. WA-C01, WB-C05, WB-C06 and P5-A
+      must keep using these two sets through the local R installation as an
+      optional route only, and must route every mandatory task to the recorded
+      licence-clean fallback. P6-DATA is the last packet able to reconcile the
+      outcome, but it cannot close either item by itself: closure needs either a
+      dated author rights determination for these exact datasets, of the kind
+      the author made for DZS and DIP on 2026-08-05, or an explicit
+      deferred_v2_with_reason. Both are author decisions. P8-META may not claim
+      any permission for either dataset.
+    basis:
+      - probe:R-4.6.0-datasets-DESCRIPTION-License-Part-of-R-4.6.0
+      - probe:tools-Rd_db-datasets-UCBAdmissions.Rd-no-source-field-cites-Science-1975
+      - probe:tools-Rd_db-datasets-anscombe.Rd-source-Tufte-1990-Graphics-Press
+      - source:data/katalog.yml#ucbadmissions-and-anscombe-lane-external-only-promoted-false-files-empty
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi
+    required: true
+    deliveries:
+      - target_packet: WA-C01
+        gate: before_close
+        state: pending
+      - target_packet: WB-C05
+        gate: before_close
+        state: pending
+      - target_packet: WB-C06
+        gate: before_close
+        state: pending
+      - target_packet: P5-A
+        gate: before_close
+        state: pending
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
+        state: pending
+
+  H-P3-EXISTING-002:
+    source_packet: P3-EXISTING
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R32-CATALOG-paired-views
+      - item:R25-CATALOG-public-views
+      - handoff:H-P3-CATALOG-002
+      - report:notes/reports/p3-existing-2026-08-05.md
+    statement: >-
+      The paired analysis and aggregate views exist and reconcile exactly, and
+      only the task half of R32-CATALOG-paired-views is still open. Each
+      generated package now ships one analysis file and one aggregate whose
+      every group count, integer total, mean and share the validator recomputes
+      from the analysis file and compares without tolerance. The aggregates are
+      deliberately shaped for hand and print verification: every share carries
+      its own numerator and denominator, and every mean carries its integer
+      total, so a reader can check a row with arithmetic rather than trust a
+      rounded number. The expected values are fixed and public:
+      anketa_mreze splits 90, 84, 66 and 60 of 300, and populacija_medija splits
+      15101, 13378, 10827, 5839 and 4855 of 50000.
+    required_action: >-
+      WB-C04, WC-C09 and WC-C11 must build their print presets from the
+      aggregate file rather than from a fresh calculation, and at least one of
+      them must carry a task in which the reader reproduces an aggregate row
+      from the analysis file. P5-C must generate both public views from
+      data/katalog.yml and may then close R32-CATALOG-paired-views together with
+      that task. No packet may change an aggregate value without rerunning
+      scripts/build-data-snapshots.R and updating the recorded checksums, and no
+      packet may round a value in the file to make a print table look tidier;
+      the rounded_mean fixture exists precisely to catch that.
+    basis:
+      - source:data/anketa-mreze-agregat.csv
+      - source:data/populacija-medija-agregat.csv
+      - source:data/katalog.yml#aggregate_reconciliation
+      - check:scripts/check-data-integrity.R-recomputes-every-aggregate-without-tolerance
+      - fixture:podaci-rounded_mean-exit-1
+    required: true
+    deliveries:
+      - target_packet: WB-C04
+        gate: before_close
+        state: pending
+      - target_packet: WC-C09
+        gate: before_close
+        state: pending
+      - target_packet: WC-C11
+        gate: before_close
+        state: pending
+      - target_packet: P5-C
+        gate: before_close
+        state: pending
+
+  H-P3-EXISTING-003:
+    source_packet: P3-EXISTING
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - source:scripts/check-katalog.py
+      - source:scripts/check-data-fixtures.py
+      - source:.github/workflows/publish.yml
+      - report:notes/reports/p3-existing-2026-08-05.md
+    statement: >-
+      Two data validators are not blocking CI steps, and the gap is recorded
+      rather than quietly accepted. scripts/check-data-integrity.R is already a
+      blocking step, so the data-level rules this packet added run in CI for
+      free. scripts/check-katalog.py has never been wired into
+      .github/workflows/publish.yml, not by P3-CATALOG that created it and not
+      by this packet, and the new scripts/check-data-fixtures.py is not wired
+      either. A catalogue defect, a checksum mismatch or an undeclared consumer
+      would therefore pass CI today and be caught only by a local run. This
+      packet deliberately did not edit the workflow: the release path is owned
+      by the P1C packets that proved its failure modes, and .github is outside
+      this packet's declared owned paths.
+    required_action: >-
+      P7-CLEAN-BUILD must add scripts/check-katalog.py and
+      scripts/check-data-fixtures.py to the blocking check ladder in
+      .github/workflows/publish.yml, before the PDF and HTML render steps and
+      with no continue-on-error, and must prove the negative fixtures still fail
+      from a clean environment. P6-DATA must not treat a local pass as CI
+      coverage while this remains open. This is the same shape as
+      H-P2-DOCS-003, which carries the terminology checker's wiring to the same
+      packet, and the two should be wired together.
+    basis:
+      - audit:.github/workflows/publish.yml-runs-check-data-integrity.R-and-check-integrity-fixtures.py-but-not-check-katalog.py
+      - source:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-32
+      - handoff:H-P2-DOCS-003
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_close
+        state: pending
+
+  H-G-A3-DZS-001:
+    source_packet: G-A3-DZS
+    created_at: "2026-08-05"
+    kind: decision
+    refs:
+      - decision:G-A3-DZS
+      - item:R08-DZS-package
+      - handoff:H-P1B-DATA-LIC-003
+      - handoff:H-P3-CATALOG-001
+      - registry:data/katalog.yml#dzs_turizam
+      - report:notes/reports/g-a3-dzs-selection-decision-2026-08-05.md
+    statement: >-
+      Author and editor Luka Sikic accepted the DZS selection as recommended on
+      2026-08-05. The bounded extract is BS_TU11 as a complete-year national
+      monthly arrivals and overnights series, one BS_TU12 county cross-section
+      and a bounded T01-T03 long extract, with totals and suppression codes
+      retained and annual and monthly rows kept separate so they cannot be double
+      counted. The full DZS stack stays external. The snapshot year is the latest
+      possible, read as the most recent COMPLETE calendar year DZS has published
+      at the moment of retrieval, pinned by exact edition and retrieval date; an
+      incomplete current year is excluded. The gate deliberately names no year,
+      because a gate that retrieves nothing cannot verify what has been published.
+      The lane stays bundled on the general basis that DZS publishes its online
+      datasets under the Croatian Open Licence and on the author's 2026-08-05
+      determination, but that basis is general and NOT an exact package record,
+      so the gate ratified the lane and the selection and explicitly withheld
+      promotion. The package serves Chapter 3 as one traceable public claim;
+      permissible claims are description of recorded arrivals and overnights and
+      comparison of periods under one definition, and causation, any conclusion
+      about an individual guest, and any comparison mixing annual with monthly
+      rows or two geographic levels without naming the denominator are
+      unavailable.
+    required_action: >-
+      P3-DZS must build exactly this bounded selection and no more. It must pin
+      the most recent complete calendar year at retrieval and record the exact
+      edition, retrieval date, attribution string including the source, the
+      last-modified date, the URI and a change marker, the checksum, and the
+      reconciliation to the official published totals, writing all of it into the
+      dzs_turizam entry in data/katalog.yml before it sets promoted true. It must
+      keep totals and suppression codes, must not merge annual and monthly rows,
+      and must not silently widen the extract. If the latest complete year is not
+      published in a form this selection admits, it must STOP and return the
+      question to G-A3-DZS rather than lower the criterion itself. It may claim no
+      rights-holder permission, because none was sought, and it must leave the
+      recorded lawful fallback in place until the package actually passes.
+    basis:
+      - conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic
+      - notes/reports/g-a3-dzs-selection-decision-2026-08-05.md
+      - notes/reports/author-pre-dispositions-2026-08-05.md#dzs-turizam-godina-snimke
+      - notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori
+      - notes/reports/g-a3-data-rights-determination-2026-08-05.md
+      - registry:data/katalog.yml#dzs_turizam-lane-bundled-promoted-false
+    required: true
+    deliveries:
+      - target_packet: P3-DZS
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-05"
+        resolved_at: "2026-08-05"
+        disposition: >-
+          P3-DZS consumed this delivery BEFORE the packet claim and before its
+          first substantive edit, and it is the only delivery targeting this
+          packet. The bounded selection is built and nothing beyond it. BS_TU11
+          enters as a complete-year national monthly series, restricted to
+          2005-2025 because 2026 carries only five of twelve months; BS_TU12
+          enters as one county cross-section at 2025. The snapshot year is
+          pinned by retrieval rather than by the packet date: the retrieval date
+          of record is 2026-07-27, the date the author's local mirror was
+          downloaded from the DZS PxWeb API, and the most recent COMPLETE
+          calendar year published at that retrieval is 2025 in both tables,
+          12 of 12 months with no missing cell. The packet did NOT have to stop
+          and return the year question, because the latest complete year is
+          published in exactly the form the selection admits.
+          The third member could NOT be built as ratified and the packet did not
+          silently substitute. `T01`-`T03` is not a unique identifier in the DZS
+          tourism database and no viable set exists under it: the household
+          survey T01 ends at 2019, T02 reaches 2024 with 44 per cent of its 2024
+          cells empty, and the coastal-town BS_T01-BS_T03 tables carry roughly 55
+          per cent empty rows because they list every settlement including inland
+          ones. The packet returned the narrowing to the author, who confirmed on
+          2026-08-05 the household-survey T03 at 2024 - trips, nights and
+          expenditure by age group - and the accepted G-A3-DZS selection is
+          amended accordingly and explicitly in decisions.G-A3-DZS.amendments,
+          not overwritten. That table is a SURVEY of Croatian residents against
+          BS_TU11's ADMINISTRATIVE count, which is the contrast Chapter 3 needs.
+          The exact package record is written into the dzs_turizam entry before
+          promoted became true: edition, the 2026-07-27 retrieval date, the
+          Croatian Open Licence attribution string carrying source,
+          last-modified date, URI and change marker, an MD5 per declared file
+          with its algorithm named, and a machine-checked reconciliation.
+          Totals and every suppression code are retained, annual and monthly
+          rows live in separate files so they cannot be double counted, and the
+          extract was not widened. No rights-holder permission is claimed,
+          because none was sought; H-P1B-DATA-LIC-003 is not superseded and its
+          five other G-A3 deliveries remain pending. The recorded lawful
+          fallback stayed in place until the package actually passed. Nothing
+          targeting another packet was consumed.
+        evidence:
+          - "decision:G-A3-DZS-accepted-selection-plus-recorded-2026-08-05-amendment-for-the-third-table"
+          - "mirror:C:/Users/lsikic/Documents/DZS-Turizam-downloaded-2026-07-27-from-the-DZS-PxWeb-API"
+          - "provenance:_refresh-download.ps1-and-_catalogue.json-recorded-as-the-provenance-chain"
+          - "year:BS_TU11-and-BS_TU12-2025-complete-12-of-12-months-2026-only-5-of-12"
+          - "total:BS_TU11-2025-arrivals-20698963-overnights-94820989-agreeing-with-the-live-PxWeb-API-and-the-mirror"
+          - "reconciliation:BS_TU12-2025-twenty-one-county-rows-sum-to-20698963-and-94820989-residual-0"
+          - "amendment:T01-T03-not-viable-as-written-author-confirmed-household-survey-T03-at-2024"
+          - "registry:data/katalog.yml#dzs_turizam-promoted-true-under-P3-DZS"
+          - "report:notes/reports/p3-dzs-2026-08-05.md"
+          - "boundary:no-rights-holder-permission-claimed-and-H-P1B-DATA-LIC-003-not-superseded"
+
+  H-P3-DZS-001:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R08-DZS-package
+      - source:data/katalog.yml#dzs_turizam-unit
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The unit of the monthly and annual DZS tourism files is a recorded
+      ARRIVAL, not a person. One traveller who stays in three places in one trip
+      is counted three times, and the published national total is the sum of
+      those arrivals. This is not a defect of the extract and not a caveat the
+      book invents: it is a documented property of the official statistic, and
+      it is the reason the package is worth teaching. The county cross-section
+      inherits the same unit. The extract preserves it and never converts an
+      arrival into a visitor, a tourist or a person.
+    required_action: >-
+      WA-C03 may not describe any figure from data/dzs-turizam-mjesecno.csv,
+      data/dzs-turizam-godisnje.csv or data/dzs-turizam-zupanije-2025.csv as a
+      number of people, visitors or tourists, and may not divide it by
+      population to obtain a per-capita rate of persons. Where the chapter needs
+      the word "turist" it must be tied to the arrival, not to the human being.
+      Any later packet that reuses this package inherits the same bar.
+    basis:
+      - source:data/katalog.yml#dzs_turizam-unit-jedan-objavljeni-redak-sluzbene-tablice-zabiljezeni-DOLAZAK-ne-osoba
+      - source:DZS-BS_TU11-and-BS_TU12-publish-dolasci-and-nocenja-as-counts-of-events
+      - check:closeout-recomputation-21-county-rows-sum-to-the-national-arrival-total-with-residual-0
+    required: true
+    deliveries:
+      - target_packet: WA-C03
+        gate: before_close
+        state: pending
+
+  H-P3-DZS-002:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: risk
+    refs:
+      - item:R08-DZS-package
+      - source:data/katalog.yml#dzs_turizam-provenance-source_last_modified-null
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The Croatian Open Licence requires the source, the URI, a change marker
+      AND the date the source was last modified. The author's mirror did not
+      record the PxWeb last-modified field, so this package does not have that
+      date and did not invent one. provenance.source_last_modified is null and
+      provenance.source_last_modified_note states the gap in the open, together
+      with two checkable substitutes: the retrieval date of 2026-07-27 and the
+      most recent published observation per table. The attribution obligation is
+      therefore satisfied in substance but NOT complete on its face.
+    required_action: >-
+      P6-DATA must either obtain the PxWeb last-modified date for BS_TU11,
+      BS_TU12 and T03 and record it, or record a dated author decision that the
+      two substitutes stand in its place. P8-META may not publish an attribution
+      string that states or implies a last-modified date this repository does
+      not hold. Neither packet may close this by deleting the note.
+    basis:
+      - source:data/katalog.yml#dzs_turizam-provenance-source_last_modified-null-with-its-note
+      - source:https://www.data.gov.hr/hr/open-license-requires-source-URI-last-modified-date-and-change-marker
+      - source:data/dzs-turizam.LICENCA.md-carries-the-same-gap-openly
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
+        state: pending
+
+  H-P3-DZS-003:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R08-DZS-package
+      - source:scripts/check-katalog.py
+      - source:scripts/check-data-integrity.R
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The first external package tightened the promotion contract in six ways
+      that generated datasets could never have exposed, and every later external
+      package inherits all six. A decision gate may no longer be the
+      promoting_gate of a promoted package, because a gate that retrieves
+      nothing cannot check the bytes it would stand behind; moving the promoting
+      gate requires promoting_gate_ratified_by naming a different, existing
+      decision record on disk; the promotion log now carries the NAMES of
+      promoted packages and is compared in both directions against promoted_by.
+      The snapshot-notice check now reads the package's OWN licence_uri instead
+      of demanding a CC BY 4.0 link, because demanding one of a Croatian Open
+      Licence source would have forced a false licence into a licence notice. A
+      key may be several columns joined by "+", so a published cross-tabulation
+      is identified by its dimensions rather than by an invented surrogate. A
+      declared missing-value code is checked for its own presence and then set
+      aside, while an UNDECLARED absence code in the same column fails.
+    required_action: >-
+      P3-DIP, P3-DIGIKAT, P3-EUROSTAT and P3-TEXT must satisfy all six rules
+      before promoting anything; none may reintroduce a decision gate as its own
+      promoter, and none may pass the notice check by printing a licence it does
+      not hold. P6-DATA must treat these rules as the standing contract for the
+      whole data portfolio and may not relax one to admit a package.
+    basis:
+      - source:scripts/check-katalog.py-DECISION_GATE-may-not-be-the-promoting-gate-of-a-promoted-package
+      - source:scripts/check-katalog.py-promotion-log-names-packages-and-is-compared-in-both-directions
+      - source:scripts/check-katalog.py-and-scripts/check-data-integrity.R-read-the-package-licence_uri
+      - source:data/katalog.schema.json#fileRecord-key-pattern-allows-composite-keys
+      - fixture:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-41
+    required: true
+    deliveries:
+      - target_packet: P3-DIP
+        gate: before_close
+        state: pending
+      - target_packet: P3-DIGIKAT
+        gate: before_close
+        state: pending
+      - target_packet: P3-EUROSTAT
+        gate: before_close
+        state: pending
+      - target_packet: P3-TEXT
+        gate: before_close
+        state: pending
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+
+  H-P3-DZS-004:
+    source_packet: P3-DZS
+    created_at: "2026-08-05"
+    kind: constraint
+    refs:
+      - item:R08-DZS-package
+      - source:data/dzs-putovanja-stanovnistva-2024.csv
+      - source:data/katalog.yml#dzs_turizam-source_reconciliation
+      - report:notes/reports/p3-dzs-2026-08-05.md
+    statement: >-
+      The package deliberately carries two numbers that measure different
+      things. BS_TU11 and BS_TU12 are an ADMINISTRATIVE count of arrivals in
+      commercial accommodation, sourced from eVisitor since 2017, and they
+      reconcile at exactly zero. T03 is a SAMPLE SURVEY of Croatian residents'
+      own travel, and it does NOT reconcile exactly: every published cell is a
+      separately rounded estimate, so the parts need not sum to the total. The
+      largest residual is exactly 1, in all three breakdowns - destination,
+      duration and age group - and never larger; the closeout recomputed all 18
+      comparisons and confirmed it. The residual is recorded rather than rounded
+      away because it is a property of survey estimation, not an error.
+    required_action: >-
+      WA-C03 may not add a survey figure to an administrative figure, may not
+      present the two as one series, and may not describe the +-1 residual as a
+      mistake in the data. P5-C must not build a student route that asks for the
+      two to be combined or that treats the residual as a failed check. P6-DATA
+      must keep the declared reconciliation tolerance at 0 for the two
+      administrative tables and must not widen it to make the survey pass under
+      the same rule.
+    basis:
+      - check:closeout-recomputation-126-monthly-to-annual-comparisons-residual-0
+      - check:closeout-recomputation-18-survey-comparisons-largest-residual-exactly-1
+      - source:data/katalog.yml#dzs_turizam-source_reconciliation-declares-tolerance-0-for-the-counts-and-1-for-the-survey
+      - source:data/dzs-turizam.LICENCA.md-states-the-two-units-and-the-rounding-property
+    required: true
+    deliveries:
+      - target_packet: WA-C03
+        gate: before_close
+        state: pending
+      - target_packet: P5-C
+        gate: before_close
+        state: pending
+      - target_packet: P6-DATA
         gate: before_close
         state: pending
 
@@ -3492,3 +5665,422 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-V
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - G-A2b-V and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  G-A2b-V:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2B-V-001
+    checks:
+      - the complete handoff ledger was read before the first substantive edit and no handoff targets G-A2b-V so there was no incoming delivery to acknowledge or consume
+      - H-P0-REGISTER-004 targets P2-SPINE-V and P5-ROUTES and remains pending and H-P1C-INTEGRITY-002 targets P2-TERMS and remains pending and H-P0-REGISTER-007 and H-P0-REGISTER-008 target WD-C17 and remain pending
+      - the complete Part V contract five chapter spines and the definition hierarchy were drafted first and the gate closed against that drafted state
+      - author and editor Luka Sikic accepted the draft as drafted on 2026-08-05 against notes/reports/g-a2b-v-spine-decision-2026-08-05.md
+      - Chapter 16 is preserved as the summit and synthesis payoff and Chapters 14 and 15 carry an explicit exclusion against spending it
+      - Chapter 13 is ratified as a prerequisite of Chapter 17 because its conditional denominators and contingency table become Chapter 17's confusion table
+      - that settles the H-P0-REGISTER-004 contradiction in favour of the prerequisite so the advertised short critical-literacy route must change and no route may reach Chapter 17 without Chapter 13
+      - the Chapter 17 spine is explicitly subordinate to the ratified identity brief c17 and does not repeat it and the brief was neither changed nor superseded
+      - Chapter 13 carries 11 aspects 8 terms 6 prerequisites and 7 exclusions Chapter 14 carries 9 8 5 and 7 Chapter 15 carries 9 8 4 and 7 Chapter 16 carries 12 11 7 and 9 and Chapter 17 carries 11 12 7 and 10
+      - no prerequisite points at a later unit
+      - R04-C17-prerequisites is settled with Chapters 2 3 8 10 11 13 and 16 each carrying one named obligation
+      - R04-C17-definitions is settled through the identity spine with Chapter 17 rising from zero to exactly two blocks each with a named later dependant in Chapter 18
+      - Chapters 13 14 15 and 16 keep their existing five two three and four blocks unchanged and every other Chapter 17 term stays in prose under .pojam
+      - the confusion table algorithmic fairness overfitting and the training validation and test split were each considered and rejected as blocks with a recorded reason
+      - the exact exclusion markers required terms and ratification-order conditions for P2-SPINE-V are tabulated in the decision record
+      - the recommended default ten rejected alternatives authority boundary and blocked dependency list are recorded in the register
+      - both 2026-08-05 author amendments were read and hold and this gate makes no independent-review claim and claims no rights-holder permission and selects no data package
+      - neither amendment was duplicated into a chapter spine exclusion because their durable records already name the exact packets they bind
+      - OA-G-A2B-V-SPINE is done with a dated resolution and no external message was sent
+      - H-G-A2B-V-001 carries the accepted spine the two-block definition increase and the route consequence to P2-SPINE-V at its before_start gate
+      - no chapter or appendix prose spine registry terminology definition block concept graph identity brief data package route render generated artifact or external action changed and all 19 units remain draft and 13 of 19 spines remain ratified
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-V
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-SPINE-V and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-V:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-SPINE-V-001
+      - H-P2-SPINE-V-002
+    implementation_state: spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52
+    checks:
+      - H-G-A2B-V-001 was acknowledged and consumed with an exact disposition and evidence before the packet claim and before the first substantive edit
+      - the complete handoff ledger was read before the claim and exactly two deliveries target P2-SPINE-V
+      - H-P0-REGISTER-004 was acknowledged before the first substantive edit and consumed at closeout on the registry side with exact evidence while its P5-ROUTES delivery correctly remains pending
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS and was not consumed here and H-P0-REGISTER-007 and H-P0-REGISTER-008 remain pending for WD-C17
+      - chapter-spine.json now carries five ratified Part V units with 11 9 9 12 and 11 aspects 8 8 8 11 and 12 terms 6 5 4 7 and 7 prerequisites and 7 7 7 9 and 10 exclusions
+      - each written spine is faithful to the accepted draft with nothing added or omitted and each names its gate G-A2b-V its ratification date and its decision record
+      - no prerequisite points at a later unit and the table to model to deployed system arc is written as both prerequisite and ratification order
+      - Chapter 13 is written as a live prerequisite of Chapter 17 and Chapter 17's first exclusion forbids reading the chapter without Chapter 13 and forbids any advertised route that reaches Chapter 17 without Chapter 13
+      - Chapter 16 is preserved as the synthesis payoff through the binding no-spending exclusions written into Chapters 14 and 15
+      - the Chapter 17 spine is written as subordinate to the ratified identity brief c17 as its second exclusion and the brief was neither changed nor superseded
+      - the Chapter 17 question sampling text-package and outline selection is written as an obligation of G-A4-17 and G-A3-TEXT and the Chapter 13 14 and 16 package and table selections as obligations of G-A3-DIP G-A3-ESS and G-A4-16 and none is settled here
+      - all five Part V chapters forbid assessed code production and invented or unsourced empirical material and Chapter 17 also forbids undated or unsourced technical claims
+      - scripts/check-chapter-spines.py now enforces the exact Part V exclusion markers required load-bearing terms and ratification order and reported CHAPTER_SPINES_OK with eighteen ratified and one unratified unit
+      - both deliberate spine fixtures kept their identifiers and returned exit 1 and prove the gate-binding exclusion-marker and term checks for all five Part V units
+      - the ratification-order check is exercised by the fixtures only for Chapter 16 whose prerequisites include the Chapter 5 spine that part_i_visible_code_admitted un-ratifies and the order rules for Chapters 13 14 15 and 17 are not exercised because none of their prerequisites is un-ratified there which is the same partial per-unit coverage already recorded for Parts III and IV and no fixture was added removed or renamed
+      - the approved two-block Chapter 17 definition increase was deliberately not implemented because adding a def block edits chapter prose and H-P1C-INTEGRITY-002 freezes the 46 live definitions the concept ledger and the generated graph
+      - H-P2-SPINE-V-001 carries that approved map to P2-TERMS and WD-C17 at their before_close gates exactly as H-P2-SPINE-IV-001 did for Chapter 12 so the frozen concept gate can accept it rather than treat it as drift
+      - H-P2-SPINE-V-002 carries the route consequence to P5-ROUTES so the advertised short critical-literacy route must be amended and no route may reach Chapter 17 without Chapter 13
+      - the three architecture consumers count ratified spines and agree on eighteen of nineteen with their accepted architecture assessment and identity states unchanged and no snapshot assertion was reintroduced
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters and the live definition count unchanged at 46 with Chapter 17 still at zero blocks
+      - this packet makes no independent-review claim and claims no rights-holder permission for any source and selects no data package under the two binding author amendments of 2026-08-05
+      - no def block concept-graph edge chapter or appendix prose chapter stage terminology identity brief data package route render generated artifact or external action changed and all 19 units remain draft
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2b-FINALE
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - G-A2b-FINALE and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  G-A2b-FINALE:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2B-FINALE-001
+    checks:
+      - the complete handoff ledger was read before the first substantive edit and no handoff targets G-A2b-FINALE so there was no incoming delivery to acknowledge or consume
+      - H-G-A2D-005 targets WE-C18 and remains pending and H-P1C-INTEGRITY-002 targets P2-TERMS and remains pending and H-P2-SPINE-V-001 and H-P2-SPINE-V-002 target P2-TERMS WD-C17 and P5-ROUTES and remain pending and none was consumed here
+      - the complete finale contract the chapter 18 spine and the definition hierarchy were drafted first and the gate closed against that drafted state
+      - author and editor Luka Sikic accepted the draft on 2026-08-05 against notes/reports/g-a2b-finale-spine-decision-2026-08-05.md
+      - the disposition is recorded as accepted_as_amended and not as accepted_as_recommended because this is the one spine gate where the recorded intent amends the register default
+      - the amended default is stated explicitly the default forbids any new method in the capstone and the author permits a technique the worked case genuinely requires under three exact limits
+      - limit one forbids every method on the preface out-of-scope list time series factor analysis and psychometrics multilevel models the mathematics of machine learning and full Bayesian inference
+      - limit two requires the technique to be fully explained where it appears and self-contained and limit three forbids any forward dependency on anything no earlier ratified spine was asked to supply
+      - the authors recorded reason is that an unbounded new method in the capstone would reopen the scope promise the preface makes
+      - the three limits are written as spine exclusions 2 and 3 with literal deterministic markers rather than left as contract prose
+      - P2-SPINE-FINALE and P6-CONTINUITY are both named as enforcing the limits and WE-C18 is bound through the ratified spine exclusion rather than a duplicate delivery
+      - the acceptance test of R17-C18-two-pass requires the empirical transfer to introduce no method so the permission lands in the main guided study and the transfer stays method-free as exclusion 4 and D13 keeps the main study explanatory as exclusion 5
+      - the acceptance test of R17-C18-two-pass was deliberately not amended and that item was not touched
+      - R04-C18-whole-prerequisites is settled with all seventeen numbered chapters as prerequisites written as both a prerequisite list and a ratification-order condition and the preface is deliberately excluded with a recorded reason
+      - the existing chapter 18 .chapter-meta row names a narrower prerequisite than the ratified spine and its reconciliation is recorded as a WE-C18 obligation and was not performed here
+      - R04-C18-definitions is settled with one explicit disposition chapter 18 rises from zero to exactly one block paket dokaza and every other term stays in prose under .pojam
+      - because no later chapter exists the later-dependant rule was applied to the only downstream consumers that exist the generated glossary and concept graph the Appendix F protocol P5-CLOSURE-18 and P5-ROUTES and exactly one term passes it
+      - eleven candidate blocks were considered and rejected with a recorded reason including the decision trail the reproducible workflow the confirmatory and exploratory distinction the dataset passport the transformation log the sensitivity check the claim boundary the honest report data minimisation and AI-use disclosure
+      - the net effect on the frozen set of 46 live definitions is 52 across all six approved maps and this gate writes no block so the live count remains 46 and chapter 18 still carries zero
+      - chapter 18 carries 12 aspects 12 terms 17 prerequisites and 12 exclusions and no prerequisite points at a later unit because no later unit exists
+      - the exact exclusion markers required terms and ratification-order condition for P2-SPINE-FINALE are tabulated in the decision record
+      - the recommended default twelve rejected alternatives authority boundary and blocked dependency list are recorded in the register
+      - both 2026-08-05 author amendments were read and hold and this gate makes no independent-review claim and claims no rights-holder permission and selects no data package
+      - neither amendment was duplicated into a spine exclusion because their durable records already name the exact packets they bind
+      - OA-G-A2B-FINALE-SPINE is done with a dated resolution that states the amendment and no external message was sent
+      - H-G-A2B-FINALE-001 carries the accepted spine the amended method limits the seventeen-unit prerequisite list and the one-block definition increase to P2-SPINE-FINALE at its before_start gate and to P6-CONTINUITY at its before_close gate
+      - no chapter or appendix prose spine registry terminology definition block concept graph identity brief data package route render generated artifact or external action changed and all 19 units remain draft and 18 of 19 spines remain ratified
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet P2-SPINE-FINALE
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-SPINE-FINALE and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P2-SPINE-FINALE:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-SPINE-FINALE-001
+      - H-P2-SPINE-FINALE-002
+    implementation_state: spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb
+    checks:
+      - H-G-A2B-FINALE-001 was acknowledged and consumed with an exact disposition and evidence before the packet claim and before the first substantive edit
+      - the complete handoff ledger was read before the claim and exactly one delivery targets P2-SPINE-FINALE
+      - the P6-CONTINUITY delivery of H-G-A2B-FINALE-001 is before_close and correctly remains pending
+      - H-P1C-INTEGRITY-002 remains pending for P2-TERMS H-G-A2D-005 remains pending for WE-C18 and H-P2-SPINE-V-001 and H-P2-SPINE-V-002 remain pending for P2-TERMS WD-C17 and P5-ROUTES and none was consumed here
+      - chapter-spine.json now carries the ratified finale unit 18-vase-prvo-istrazivanje with 12 aspects 12 terms 17 prerequisites and 12 exclusions
+      - the written spine is faithful to the accepted draft with nothing added or omitted and names its gate G-A2b-FINALE its ratification date 2026-08-05 and its decision record
+      - all nineteen chapter spines are now ratified and zero remain unratified
+      - the prerequisite list names all seventeen numbered chapters each carrying one named obligation and the preface is deliberately excluded with the recorded reason that it is the reader contract rather than content a later unit depends on
+      - no prerequisite points at a later unit because no later unit exists
+      - scripts/check-chapter-spines.py now enforces the exact finale exclusion markers required load-bearing terms and a seventeen-unit ratification-order condition and reported CHAPTER_SPINES_OK with nineteen ratified and zero unratified units
+      - the two amended new-method limits carry the literal markers popisa izvan opsega iz predgovora and u cijelosti objasnjena ondje gdje se pojavljuje and removing either returned exit 1 in an ephemeral proof that left the registry byte-identical
+      - one drafted word order in exclusion 3 was adjusted from u cijelosti je objasnjena to mora biti u cijelosti objasnjena so the exclusion literally carries the marker the same decision record tabulates and the two conditions are unchanged
+      - both deliberate spine fixtures kept their identifiers returned exit 1 and together exercise all three check kinds for unit 18 the gate binding the exclusion marker and term checks and the ratification-order rule
+      - the ratification-order rule is exercised for unit 18 because part_i_visible_code_admitted un-ratifies Chapters 5 and 7 which the finale names as prerequisites unlike Chapters 13 14 15 and 17 whose order rules that fixture does not reach
+      - no fixture was added removed or renamed
+      - the approved one-block Chapter 18 definition increase was deliberately not implemented because adding a def block edits chapter prose and H-P1C-INTEGRITY-002 freezes the 46 live definitions the concept ledger and the generated graph
+      - H-P2-SPINE-FINALE-001 carries that approved map and the eleven rejected blocks to P2-TERMS and WE-C18 at their before_close gates exactly as H-P2-SPINE-V-001 did for Chapter 17
+      - H-P2-SPINE-FINALE-002 carries the .chapter-meta reconciliation to WE-C18 and the no-route-without-the-whole-book obligation to P5-ROUTES
+      - R04-SPINE-FINALE and R04-C18-definitions are closed against their own acceptance tests and R04-C18-whole-prerequisites was deliberately left at ratified because its acceptance test names metadata prose routes and exercises and the live chapter-meta row still reads pogl 2 6 i 16
+      - leaving that item open does not change when parent R04 can close because R04-ROUTES-two-track-map is already a required child owned by P5-ROUTES in Phase 5
+      - the three architecture consumers count ratified spines and agree on nineteen of nineteen with their accepted architecture assessment and identity states unchanged and no snapshot assertion was reintroduced
+      - scripts/check-manuscript-integrity.py lane structure passed with nineteen chapters and the live definition count unchanged at 46 with Chapter 18 still at zero blocks
+      - this packet makes no independent-review claim and claims no rights-holder permission for any source and selects no data package under the two binding author amendments of 2026-08-05
+      - the acceptance test of R17-C18-two-pass was not amended and that item was not touched
+      - no def block concept-graph edge chapter or appendix prose chapter stage terminology identity brief data package route render generated artifact or external action changed and all 19 units remain draft
+      - scripts/check-review-workflow.R passed with no active packet and next_permitted_packet G-A2c
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - G-A2c and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  G-A2c:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A2C-001
+      - H-G-A2C-002
+    implementation_state: conversation:G-A2c-terminology-and-reviewer-route-approved-2026-08-05-Luka-Sikic
+    checks:
+      - the complete forward-handoff ledger was read before the decision and no delivery targets G-A2c so there was no incoming obligation to acknowledge or consume
+      - the six deliveries targeting P2-TERMS were read because they name exactly what this gate must fix and none was consumed here
+      - author and editor Luka Sikic accepted the drafted terminology register and reviewer route as recommended on 2026-08-05 with no amendment
+      - terminology review is recorded as the author's own editorial responsibility and the first edition may make no independent-review claim anywhere which binds P2-TERMS P2-DOCS P6-METHODS P6-VERIFY and P8-META
+      - this gate makes no independent-review claim of any kind
+      - the nineteen ratified spines carry 168 key-term slots and 166 distinct Croatian forms and all 166 are confirmed canonical and none is reopened because a terminology gate may not weaken a ratified spine
+      - procjena in the preface and Chapter 9 and standardizirana razlika in Chapters 11 and 14 are one concept carried by two units rather than a collision
+      - fifteen load-bearing forms the spines named without canonising are fixed including the Chapter 17 split vocabulary named in H-P2-SPINE-V-001 and the finale terms named in H-P2-SPINE-FINALE-001
+      - R36-BOOK-new-cluster is settled across the four activities the split vocabulary izgledi the causal terms osjetljivost kalibracija and pomak distribucije
+      - omjer izgleda and predvidjena vjerojatnost are the only fixed forms no spine names and they are fixed because the ratified plan foresees a bounded Chapter 16 binary-outcome bridge while whether it appears remains WD-C16
+      - four meaning collisions carry explicit rules for osjetljivost kalibracija predvidjanje versus predikcija and referentna oznaka versus zabiljezeni referentni ishod
+      - neither referentna oznaka nor zabiljezeni referentni ishod may ever be written as istina or ground truth which is the direct obligation of R24-C17-recorded-reference
+      - three deliberate departures carry recorded reasons tablica zabune kolider and izgledi
+      - three def identifiers deliberately do not follow their bolded term and must never be renamed because they anchor the concept-graph node and the pojmovnik link
+      - korelacija remains the canonical general term and a ratified Chapter 6 key term while Pearsonova korelacija is the canonical name of the measure defined in the block because the same chapter also ratifies Spearmanov koeficijent ranga
+      - the six ratified definition maps are confirmed to take the frozen set from 46 to 52 and none of the six is changed
+      - this gate wrote no def block and the live count remains 46 with scripts/check-concepts.py reporting CONCEPT_INTEGRITY_OK definitions 46 ledger_debt 2 graph_fresh false unchanged
+      - an independent inventory against the live source found exactly three bolded terms that are not key terms of their own ratified spine and all three are explained by the approved maps rather than being drift
+      - the stale concept-ledger entry standardizirani rezidual with its Pearson-form definition is named as a P2-TERMS reconciliation obligation and is one of the two entries the checker counts as ledger_debt
+      - ten live-source divergences are anchored to exact files and lines and assigned to WA-C00 WC-C08 WD-C16 WD-C17 and P2-TERMS
+      - curenje podataka in chapters/02-mjerenje-i-dizajn.qmd:380 is deliberately excluded because it describes an actual data breach used as a quasi-experimental comparison rather than statistical leakage
+      - H-G-A2C-001 carries the accepted register to P2-TERMS at before_start and to P5-E at before_close
+      - H-G-A2C-002 carries the ten anchored divergences to WA-C00 WC-C08 WD-C16 and WD-C17 at before_close
+      - OA-G-A2C-TERMS-EDITOR is done with a dated resolution and no external message was sent
+      - R04-C17-definitions was deliberately not closed here because it is a P2-TERMS item and this gate closes no register item outside its own decision record
+      - R04-C18-whole-prerequisites was not touched and remains an obligation of WE-C18 and P5-ROUTES
+      - no chapter or appendix prose registry spine def block concept graph identity brief data package route render generated artifact chapter stage or external authority changed and all 19 units remain draft
+      - this gate claims no rights-holder permission for any source selects no data package and does not supersede H-P1B-DATA-LIC-003
+      - scripts/check-review-workflow.R passed with G-A2c active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P2-TERMS
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-TERMS and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P2-TERMS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-TERMS-001
+      - H-P2-TERMS-002
+      - H-P2-TERMS-003
+      - H-P2-TERMS-004
+    implementation_state: terminology:sha256-eadf149dbe5609531cc6750128e1ab3bb0beccd967b3d988b2b045c43860cb65
+    checks:
+      - seven deliveries target this packet and all seven were consumed with an exact disposition and evidence
+      - H-G-A2C-001 is before_start and was consumed before the packet claim and before the first substantive edit
+      - the six before_close deliveries were acknowledged before the first substantive edit and consumed at closeout
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - H-P2-SPINE-V-002 remains pending for P5-ROUTES H-P2-SPINE-FINALE-002 for WE-C18 and P5-ROUTES and H-P1C-INTEGRITY-001 for WB-C05 and none was consumed here
+      - the central tension was resolved explicitly and not left to the checker the canonical ledger is reconciled to the live 46 and the approved 52 is recorded as expected future state in the terminology registry
+      - the reason is that writing 52 into the ledger before the chapter packets add the blocks would make the ledger disagree with the live source and break the very gate this packet retired
+      - the stale concept-ledger entry standardizirani rezidual and its Pearson-form definition were replaced by the canonical prilagodjeni standardizirani rezidual with its marginal-share definition
+      - the e_{ij} notation entry had to follow that rename because the checker requires every notation entry to reference an existing concept and the first run failed on exactly that which is recorded rather than silently fixed
+      - the #def-standardizirani-rezidual identifier was deliberately left unchanged together with #def-korelacija and #def-mala-polja because all three anchor the concept-graph node and the pojmovnik link
+      - data/concept-graph.json was regenerated from the accepted source and moved from 449 to 503 edges at an unchanged 46 nodes because the edge count follows co-occurrence in prose that the corrections since 30 July added
+      - the concept_ledger and concept_graph entries were removed from scripts/integrity-debt.json and only the WB-C05 figure_introductions entry remains
+      - conventions.schema.json now admits terminology_registry with no existing field removed or altered and the new key is deliberately not required so every earlier state stays valid
+      - conventions.json now carries the ratified terminology registry with the review route five principles the spine confirmation 13 gate-fixed forms 12 superseded forms 3 deliberate departures 4 meaning rules 3 stable identifiers the 46-to-52 definition map 8 live divergences one excluded place and the packet authority boundary
+      - the registry deliberately does not restate the 166 forms the ratified spines already carry because two records of one form would create two sources of truth and the checker asserts that no canonical form restates a spine key term
+      - scripts/check-terminology.py is new and reported TERMINOLOGY_OK with spine_forms 166 slots 168 gate_forms 13 superseded 12 departures 3 rules 4 stable_ids 3 live_definitions 46 approved_total 52 divergences 8 and independent_review_claim false
+      - its three deliberate fixtures duplicate_canonical_form superseded_form_made_canonical and independent_review_claimed each returned exit 1 and an unknown fixture name also returned exit 1
+      - the live-divergence assertion is strict in both directions so the registry cannot go stale when a chapter packet repairs its prose which is carried forward as H-P2-TERMS-003
+      - scripts/check-concepts.py reported CONCEPT_INTEGRITY_OK definitions 46 ledger_debt 0 graph_fresh true graph_nodes 46
+      - scripts/check-integrity-fixtures.py reported INTEGRITY_NEGATIVE_FIXTURES_OK lanes 7 and the concept lane which is the duplicate-definition fixture still returned exit 1
+      - scripts/check-figure-introductions.py reported FIGURE_INTRO_OK registered_debt 1 unexpected 0 stale_debt 0 so the WB-C05 debt is intact
+      - the three architecture consumers and the spine checker pass unchanged at 19 of 19 ratified spines and 19 units at draft
+      - scripts/check-manuscript-integrity.py and scripts/check-citations.py pass unchanged
+      - R04-TERMS-concept-regeneration is closed against its own acceptance test with a recorded scope note that the reader-visible rendering in Dodatak E belongs to R36-BOOK-alternatives in P5-E
+      - R04-C17-definitions is closed because G-A2c fixed the canonical forms and the terminology review is recorded as the author's own with no independent-review claim anywhere
+      - R36-BOOK-new-cluster was deliberately NOT closed and stays ratified because its acceptance test names prose figures and exercises and eight divergences still live in Chapters 0 8 16 and 17 which this registry packet may not edit
+      - leaving R36-BOOK-new-cluster open does not stall Phase 2 because the ratified plan's Phase 2 exit condition explicitly keeps R10 R15 R24 and R36 open until their book-wide implementation is verified
+      - H-P2-TERMS-001 carries that closure obligation to P6-CONTINUITY
+      - R04-C18-whole-prerequisites was not touched and remains an obligation of WE-C18 and P5-ROUTES
+      - an audit of all sixteen Dodatak E entries and of pojmovnik.qmd found zero contradictions with the canonical register and no superseded form in either view
+      - Dodatak E still carries a stale status marker and renders no variant or departure which is carried forward as H-P2-TERMS-004 rather than repaired here because it is appendix prose
+      - no chapter or appendix prose no #def- block no #def- identifier no chapter spine no identity brief no data package no route no render and no chapter stage changed and all 19 units remain draft with 46 live definitions
+      - this packet makes no independent-review claim anywhere and the registry forbids one and enforces the ban with a fixture
+      - it claims no rights-holder permission for any source selects no data package and does not supersede H-P1B-DATA-LIC-003
+      - scripts/check-review-workflow.R passed with P2-TERMS active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P2-DOCS
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-DOCS and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P2-DOCS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-DOCS-001
+      - H-P2-DOCS-002
+      - H-P2-DOCS-003
+    implementation_state: docs:sha256-3537577ce27a2f084bdcce06b2b77cbf04915f0aea56248eb18f9544e1ce99b2
+    checks:
+      - a first pass of governing-document edits was made BEFORE the packet was claimed and before the two deliveries were acknowledged which is recorded here rather than concealed
+      - the working tree was reverted to HEAD for all seven documents the packet was then claimed both deliveries were acknowledged and scripts/check-review-workflow.R passed with P2-DOCS active before the work was redone
+      - the closing source state was therefore produced under a valid write lock with both incoming deliveries acknowledged first
+      - exactly two deliveries target this packet and both were consumed with an exact disposition and evidence
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - AGENTS.md now describes the implemented wrapper-only blocking PDF path verified line by line against the live .github/workflows/publish.yml and the implemented path itself was not changed
+      - the same paragraph's second stale instruction that SITE_URL is edited in R/build-ai-exports.R was replaced because that script reads the address from _quarto.yml metadata
+      - AGENTS.md closes the section with an explicit sentence that it promises no edition and that push merge tag archive and deployment keep their own gates so the expanded description cannot be read as a release promise
+      - the _quarto-kolegij.yml comment no longer claims revealed solutions and now records the ratified but unimplemented D06 contract and names the packets that will implement it
+      - no rejected pathway was revived which check-book-inventory.py confirms by still reporting solutions=0 with an unchanged inventory checksum
+      - the _quarto.yml comment now says the visual identity is selected in DESIGN.md while the cover and favicon files are genuinely absent so both lines stay commented out
+      - bookwright_plugin/README.md now records nineteen ratified spines a live concept ledger of 46 concepts and 40 notation entries the bands ratified on 30 July 2026 the three ratified architectures and the G-A2c terminology registry with the checker that keeps each closed
+      - STYLE.md's stale instruction to run the detector and ratify the band was replaced because the same document's own changelog records that the band was ratified on 30 July 2026
+      - STYLE.md ENRICHMENT.md and notes/struktura-knjige.md now carry the R04-BOOK-content-weight rule that a band is a floor and that no word target advances a chapter
+      - notes/struktura-knjige.md carries two dated additions clearly separated from the original text as that document itself requires and its Otvorene odluke list is marked no longer authoritative
+      - R04-BOOK-content-weight and R23-SCOPE-no-technical-ds are closed against their own acceptance tests
+      - R23-SCOPE-no-technical-ds was verified by searching the whole source for SQL databases cloud scraping dashboards hyperparameters and neural networks with zero occurrences beside the ratified nine out-of-scope topics in conventions.json
+      - R04-ARCH-macro-order R12-SCOPE-no-variance-course R14-SCOPE-reading-not-fitting R23-SCOPE-reading-not-production and R23-SCOPE-no-new-chapters-widgets were deliberately NOT closed and each keeps its own recorded reason
+      - the three rejected-scope items share one cause dodaci/d-koji-test.qmd is a 47-line partial draft with no dependence route and no route out of the book so the routing half of each test is not delivered
+      - R04-ARCH-macro-order stays open because the two reading routes do not exist anywhere the preface advertises none and they are P5-ROUTES work
+      - R23-SCOPE-no-new-chapters-widgets stays open because retrieval tasks are R35 work in Phases 4 and 5 although the counts are verified at 19 chapters 6 appendices 17 widgets and four callout types
+      - R11-SCOPE-no-multiple-imputation was already terminal and was not touched
+      - H-P2-DOCS-001 carries the three routing-dependent closures to WC-C08 WD-C16 and P5-D
+      - H-P2-DOCS-002 carries the two half-satisfied closures to P5-ROUTES and P5-CLOSURE-18
+      - H-P2-DOCS-003 records that scripts/check-terminology.py is not yet a blocking step in .github/workflows/publish.yml and carries the wiring to P7-CLEAN-BUILD
+      - no chapter or appendix prose no shared registry no def block no spine no identity brief no data package no route no render and no chapter stage changed and the _quarto.yml chapter order is untouched
+      - all 19 units remain draft the live definition count remains 46 and the book inventory checksum is unchanged
+      - this packet makes no independent-review claim and no rights-holder permission claim and promises no edition publication or undelivered pathway
+      - scripts/check-review-workflow.R passed with P2-DOCS active before the redone work and again at closeout with no active packet and next_permitted_packet P2-VERIFY
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P2-VERIFY and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P2-VERIFY:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P2-VERIFY-001
+      - H-P2-VERIFY-002
+    implementation_state: commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea
+    checks:
+      - no handoff targets P2-VERIFY the complete ledger was read before the first edit and the absence is recorded explicitly
+      - the whole report is tied to one declared source state commit fd4564c3d2890c80f5f865f6b386f34b29f8feea on branch revision/comprehensive-review
+      - all 22 accepted phase 2 packets were verified individually against their own contracts and none by aggregation
+      - each was re-derived against thirteen conditions covering terminal status source_state equal to change_reference receipt coverage of required_evidence outputs and exit_tests every test marked passed contract evidence and tests a packet-specific test beyond the contract a packet review declaring all_future_effects_recorded outgoing handoffs matching its source handoffs and no nonterminal incoming delivery
+      - all 22 satisfy all thirteen conditions
+      - the gate PASSES its own three exit tests and CANNOT certify the ratified plan's phase 2 clause that R04 is closed
+      - R04 has 21 required children of which 17 are accepted and 4 are open and none can be closed by a phase 2 packet
+      - R04-ARCH-macro-order is owned by P5-ROUTES in phase 5 because the two reading routes do not exist and the preface advertises none
+      - R04-C11-fixed-order is owned by WC-C11 in phase 4 wave C because it needs the seven-part order restored in Chapter 11 prose
+      - R04-ROUTES-two-track-map is owned by P5-ROUTES in phase 5
+      - R04-C18-whole-prerequisites is owned by WE-C18 and P5-ROUTES in phases 4 and 5
+      - two of the four require chapter prose and two require published routes and phase 2 edits neither
+      - the other four clauses of the phase 2 exit condition are met and verified R10 R15 R24 and R36 ratified with their items deliberately open all 19 spines ratified an approved definition and prerequisite map and no unresolved governing-document conflict
+      - the discrepancy is a conflict between the ratified plan and the ratified register about WHEN R04 may close and not a packet omission
+      - P2-VERIFY has no authority to amend the ratified plan did not amend it did not force R04 closed and did not redefine the exit gate
+      - reconciling the plan text with the register is a separate author decision that no packet may take alone and no outside ask was invented for it because the register already encodes the correct dependency
+      - H-P2-VERIFY-001 carries the R04 closure obligation to WC-C11 WE-C18 P5-ROUTES and P6-VERIFY
+      - a real coverage gap was found scripts/check-book-architecture.py has no negative-fixture hook although its three consumers each have two
+      - five phase 2 packets record no deliberate fixture which breaches no contract because no phase 2 contract requires one and is reported as coverage not as a blocker
+      - P2-ASSESS and P2-IDENTITY do record two fixtures each under a check token rather than a fixture token which is why the raw count of seven is really five
+      - H-P2-VERIFY-002 carries the architecture-checker gap to P6-VERIFY
+      - P2-CLAIMS P2-ASSESS and P2-IDENTITY carry the historical chapter-spines-ratified-0-of-19 evidence token which was true at their closure and the live checkers now report 19 of 19 so the snapshot was replaced by an invariant as P2-SPINE-PREFACE recorded
+      - six existing deliberate fixtures were rerun at this source state and all six returned exit 1 protected_export_field assessed_code_production fairness_widget_dropped nlp_implementation_admitted ratified_without_decision and part_i_visible_code_admitted
+      - thirteen deterministic commands were rerun at this source state and all pass including the spine terminology concept manuscript inventory citation widget figure and token checks
+      - the only remaining registered integrity debt is the fig-anscombe figure introduction owned by WB-C05 and the concept debt is retired
+      - push merge tag archive and deploy are verified false zero external messages were sent across 82 canonical asks and no phase 2 packet claimed any external authority
+      - both 2026-08-05 author amendments were verified in this state no independent-review claim exists anywhere and no rights-holder permission is claimed and H-P1B-DATA-LIC-003 is not superseded
+      - this gate closed no register item but its own packet and changed no prose registry spine definition generated artifact or chapter stage
+      - scripts/check-review-workflow.R passed with P2-VERIFY active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-CATALOG
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-CATALOG and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P3-CATALOG:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-CATALOG-001
+      - H-P3-CATALOG-002
+    implementation_state: katalog:sha256-68d20411818c8a75bbb493146fe391012cb74e93693c769116b8ec842fcf57ac
+  P3-EXISTING:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-EXISTING-001
+      - H-P3-EXISTING-002
+      - H-P3-EXISTING-003
+    implementation_state: podaci:sha256-dd6238e384f81b58313c178a029ab73c5ff7686a86eae44288941b756a33bd43
+    checks:
+      - exactly two deliveries target this packet and both are before_start and both were consumed BEFORE the packet claim and before the first substantive edit
+      - H-P1B-DATA-LIC-001 and H-P1B-DATA-LIC-002 each also deliver to P3-EXISTING and those deliveries deliberately remain pending
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - H-P1B-DATA-LIC-003 targets six G-A3 gates is not superseded and was not touched
+      - data/katalog.yml is created as the sole machine-readable data record and registers all 17 P1B inventory packages five bundled three portal-mediated and nine external-only
+      - every package carries source version licence attribution access redistribution lane fallback and integrity plus design domain unit question role consumers refresh class permissible and unavailable claims and a six-question ethics note
+      - not one lane was changed from the ratified P1B inventory
+      - ZERO packages are promoted every entry carries promoted false and names the exact later gate that may promote it
+      - promotion requires seven conditions together lane bundled verified redistribution a recorded checksum a recorded official reconciliation at least one file path a lawful fallback and an accepted promoting gate
+      - availability promotes nothing and a portal-mediated or external-only package cannot be promoted at all while its lane stands
+      - UCBAdmissions and anscombe stay external-only with their lawful fallbacks recorded exactly as H-P1B-DATA-LIC-002 requires
+      - data/katalog.schema.json makes every required field mandatory and forbids an unknown field
+      - scripts/check-katalog.py enforces the ratified eight data designs the three lanes the declared refresh classes a never-blank licence distinct consumer roles the portfolio caps the declared promoted count the rights boundary and the absence of any undeclared snapshot or credential
+      - ten deliberate katalog fixtures each returned exit 1 and an unknown fixture name also returned exit 1 and none touches the file on disk
+      - R/fetch-podaci.R now reads the catalogue as its only registry writes only into the gitignored data/_kandidat and promotes only through an explicit --promote call that verifies the recorded md5
+      - .gitignore was added to owned_paths mid-packet so data/_kandidat is ignored and the extension is recorded rather than concealed
+      - scripts/check-data-integrity.R no longer fails because the catalogue exists it now requires the catalogue its schema and its validator and fails on any snapshot no entry declares
+      - it reported DATA_INTEGRITY_OK generated_sets 2 rows 50300 catalogue present promoted 0 snapshots 0 undeclared 0 licence CC-BY-4.0 and its duplicate-key fixture returned exit 1
+      - _quarto.yml pre-render and post-render do not call the dispatcher and no chapter or appendix performs a network read so a clean render fetches nothing
+      - seven items closed against their own tests R25-CATALOG-schema R25-CATALOG-refresh-classes R25-CATALOG-candidate-first R08-CATALOG-admission R08-CATALOG-portfolio-cap R08-CATALOG-question-led and R03-GFI-FINA-external
+      - six items deliberately NOT closed each with its reason recorded in the register R25-CATALOG-single-source R25-CATALOG-validation R25-CATALOG-storage R25-CATALOG-passport R32-CATALOG-paired-views and R08-CATALOG-local-independence
+      - the rule applied was that an item closes only when its test is fully verifiable against artefacts this packet creates or the live source and a test naming a registered package a generated view or a fresh-clone render cannot close here
+      - H-P3-CATALOG-001 carries the promotion contract to P3-EXISTING and all six G-A3 gates
+      - H-P3-CATALOG-002 carries the six open closures to P3-EXISTING P5-C and P7-CLEAN-BUILD
+      - the catalogue records rights_holder_permission_obtained false and rights_holder_permission_claim_permitted false and a deliberate fixture proves the opposite claim fails
+      - no package was selected promoted fetched or committed no data file exists and no G-A3 gate was pre-empted
+      - podaci.qmd and dodaci/c-katalog-podataka.qmd were deliberately not touched because generating them is R25-CATALOG-public-views in P5-C
+      - no chapter or appendix prose no shared registry no spine no def block no route no render and no chapter stage changed and all 19 units remain draft
+      - no fresh-clone render was run so local independence is claimed only as the absence of an introduced dependency and not as a proved render
+      - scripts/check-review-workflow.R passed with P3-CATALOG active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-EXISTING
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-EXISTING and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  G-A3-DZS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A3-DZS-001
+    implementation_state: conversation:G-A3-DZS-selection-approved-2026-08-05-Luka-Sikic
+    checks:
+      - exactly two deliveries target this packet and both were handled at their own gate
+      - H-P1B-DATA-LIC-003 is before_start and was consumed BEFORE the packet claim and before the first substantive edit
+      - H-P3-CATALOG-001 is before_close was acknowledged before the first edit and consumed at closeout
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - the G-A3-DIP G-A3-DIGIKAT G-A3-EUROSTAT G-A3-ESS and G-A3-TEXT deliveries of both handoffs remain pending
+      - the accepted selection is BS_TU11 as a complete-year national monthly series one BS_TU12 county cross-section and a bounded T01-T03 long extract
+      - totals and suppression codes are retained and annual and monthly rows stay separate so they cannot be double counted and the full DZS stack stays external
+      - the snapshot year is the latest possible read as the most recent COMPLETE calendar year published at retrieval and pinned by exact edition and date
+      - this gate deliberately NAMES NO YEAR because a gate that retrieves nothing cannot verify what has been published and naming one would assert an unchecked publication fact
+      - P3-DZS must stop and return the question to this gate if the latest complete year is not published in a form the selection admits rather than lower the criterion itself
+      - the lane stays bundled and data/katalog.yml was NOT edited dzs_turizam still carries lane bundled promoted false and promoting_gate G-A3-DZS
+      - promotion was explicitly withheld because the established basis is general and not an exact package record
+      - the book claims no rights-holder permission because none was sought and H-P1B-DATA-LIC-003 is not superseded
+      - the chapter 3 role carries two permissible claim classes and three unavailable ones and the recorded lawful fallback is unchanged
+      - six alternatives were rejected including naming a concrete year here taking the incomplete current year admitting the full stack promoting the package lowering the lane and adding a second DZS domain
+      - OA-G-A3-DZS-SELECTION is done with a dated resolution and no external message was sent
+      - the author's parallel DIP answer was recorded as a pre-disposition rather than consumed here because it belongs to G-A3-DIP
+      - no data file was retrieved created or committed no catalogue entry changed no chapter prose changed and all 19 units remain draft
+      - scripts/check-review-workflow.R passed with G-A3-DZS active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-DZS
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-DZS and every later packet were not started and push merge tag archive and deployment remain unauthorised
+  P3-DZS:
+    reviewed_at: "2026-08-05"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-DZS-001
+      - H-P3-DZS-002
+      - H-P3-DZS-003
+      - H-P3-DZS-004
+    implementation_state: podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796
+    checks:
+      - exactly one delivery targets this packet H-G-A3-DZS-001 at before_start and it was consumed BEFORE the packet claim and before the first substantive edit
+      - the complete handoff ledger was read before the claim and nothing targeting another packet was consumed
+      - H-P1B-DATA-LIC-003 targets six G-A3 gates is not superseded and was not touched and its five remaining deliveries stay pending
+      - this is the first packet in the book to promote data that does not come from its own generator
+      - the source is the author's local mirror downloaded 2026-07-27 from the DZS PxWeb API and NO network retrieval was performed by this packet
+      - the retrieval date of record is 2026-07-27 and not the packet date and the mirror plus its refresh script are recorded as the provenance chain
+      - the ratified T01-T03 selection was NOT viable as written and the packet returned the narrowing to the author rather than substituting silently
+      - the author confirmed the household survey T03 at 2024 on 2026-08-05 and the G-A3-DZS selection is amended explicitly in decisions.G-A3-DZS.amendments and not overwritten
+      - four extracts are materialised and every one reproduces byte for byte from the mirror through scripts/build-dzs-extracts.py without --write
+      - annual and monthly rows live in separate files so the published annual row can never be double counted against its own twelve months
+      - three published missing-value codes stay distinct from one another and from zero and the codes that do not occur in the extract are still recorded with their meaning
+      - dzs_turizam is promoted under P3-DZS with promoting_gate_ratified_by G-A3-DZS and its decision record on disk so no packet appoints itself
+      - a decision gate may no longer be the promoting_gate of a promoted package and the promotion log now names the promoted packages in both directions
+      - the snapshot notice check now reads the package licence_uri instead of demanding a CC BY 4.0 link which would have forced a false licence onto a Croatian Open Licence source
+      - composite keys joined by + are admitted so a published cross-tabulation is identified by its own dimensions and no surrogate column is invented
+      - a declared missing-value code is checked for its own presence then set aside while an undeclared absence code in the same column fails
+      - closeout recomputed every headline figure directly from the mirror rather than from the extracts in the repository
+      - BS_TU11 2025 gives 20698963 arrivals and 94820989 overnights and 2024 gives 20246060 arrivals and both were reproduced at closeout
+      - BS_TU12 2025 twenty-one county rows sum to the national totals with residual 0 across all six combinations of residency and measure
+      - 126 monthly to annual comparisons were recomputed at closeout with zero mismatches
+      - the survey table does NOT reconcile exactly and its largest residual is exactly 1 across 18 comparisons in all three breakdowns which is a property of separately rounded survey estimates and not an error
+      - the one claim NOT re-verified at closeout is the agreement with the LIVE PxWeb API because the author's directive forbids network retrieval and that limit is recorded in the report rather than passed over
+      - scripts/check-katalog.py reported KATALOG_OK packages 17 promoted 3 snapshots 8 and scripts/check-data-integrity.R reported DATA_INTEGRITY_OK validated 8 reconciliations 9 undeclared 0
+      - scripts/check-data-fixtures.py reported DATA_NEGATIVE_FIXTURES_OK cases 41 so every gate still fails closed
+      - no rights-holder permission is claimed anywhere because none was sought and the catalogue fixture still proves the ban
+      - no chapter prose changed and all 19 ledger units remain draft
+      - push merge tag archive and deployment remain unauthorised

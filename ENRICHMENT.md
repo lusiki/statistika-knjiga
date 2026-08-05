@@ -77,6 +77,15 @@ appropriate slot. **Not generic expansion.**
   comes before the formalism
 - **Substantive test:** would a reader who already understood the chapter learn
   something new from this paragraph? If not, cut it
+- **Never a word count.** A short chapter is not, by itself, an asymmetry. The
+  trigger for an insertion is always a named gap from the asymmetry test above,
+  never the fact that the chapter sits below a word target or below the length
+  of its neighbours. An insertion written to close a numeric gap is restatement
+  wearing a citation, and it gets cut on the substantive test anyway.
+- **Never a substitute for the spine.** Enrichment fills a gap inside a
+  ratified spine; it cannot supply a load-bearing aspect the spine names and the
+  chapter lacks. That is a chapter packet's work, not a one- or two-paragraph
+  insertion, and an identity pillar is never assembled from insertions.
 
 ## Anchoring in the literature
 

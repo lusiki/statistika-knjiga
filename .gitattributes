@@ -1,1 +1,11 @@
 renv/activate.R whitespace=-blank-at-eol
+
+# Podatkovne snimke nose zabiljezen kontrolni zbroj u data/katalog.yml, pa im
+# krajevi redaka moraju biti isti u svakoj kopiji repozitorija. Bez ovoga bi
+# core.autocrlf=true pri odjavi na Windowsu pretvorio LF u CRLF, promijenio
+# bajtove i time i MD5, i provjera bi pala u svjezoj kopiji iako u datoteci
+# nista nije pogrijeseno. Snimke pise scripts/build-data-snapshots.R uvijek s
+# LF-om, a ovo pravilo cuva to kroz git.
+data/*.csv text eol=lf
+data/*.LICENCA.md text eol=lf
+data/LICENCA-generirani-podaci.md text eol=lf

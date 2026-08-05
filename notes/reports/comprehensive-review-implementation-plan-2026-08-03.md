@@ -4,7 +4,35 @@
 
 **Plan date:** 3 August 2026
 
-**Status:** ratified at Gate A0 on 3 August 2026
+**Status:** ratified at Gate A0 on 3 August 2026, amended by the author on
+5 August 2026
+
+> **Author amendment, 5 August 2026 — the reader route.** The five-reader
+> think-aloud pilot in Batch 3C is **removed from the first edition**, and the
+> recruited release readers in Phase 7 step 2 are **replaced by the author's own
+> read of the finished book**. No reader is recruited, invited or named. The
+> order of work is: draft everything, then the author reads the whole book, then
+> revisions follow. `P3-PILOT` is removed from the prerequisites of
+> `P3-VERIFY-A` and `G-A4-03`, so no prose packet waits on a reader; `P7-PILOT`
+> is not descoped and still runs, with the author as its reader.
+>
+> The nineteen author acceptance gates `C00`–`C18` continue to require the
+> six-critic panel and every deterministic check. Only the author's own
+> signature moves, to the final whole-book read, under a standing delegation
+> recorded in the register. No packet may record that the author read a chapter.
+>
+> The author also decided to keep the existing `.chapter-meta` reading times
+> unchanged and unlabelled, so `R26-META-reading-time` is recorded as declined
+> rather than satisfied.
+>
+> **Binding consequence.** The first edition may make no claim that its reading
+> times are measured, reader-tested or evidence-based, and no claim that the book
+> was validated by new readers, because neither happened.
+>
+> The durable record is
+> `notes/reports/author-amendment-reader-route-2026-08-05.md`. Where this
+> amendment and the text below disagree, the amendment governs; the original
+> text is left standing as the historical plan.
 
 **Primary requirements source:** `comprehensive-book-review-2026-07-31.md`
 

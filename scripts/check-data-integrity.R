@@ -1,9 +1,27 @@
 #!/usr/bin/env Rscript
 
-# Fail-closed integrity checks for data that exists before P3-CATALOG.
-# The catalogue contract itself remains owned by P3-CATALOG. Until that packet
-# adds its schema validator, an undeclared catalogue or snapshot fails rather
-# than being silently admitted to the book or release path.
+# Fail-closed integrity checks for the book's data.
+#
+# P3-CATALOG created data/katalog.yml as the sole machine-readable record and
+# scripts/check-katalog.py as its schema and promotion validator. This script
+# keeps the generated teaching sets honest and enforces the boundary the
+# catalogue draws: the catalogue must exist, and a materialised snapshot may
+# exist only when a catalogue entry declares it. An undeclared snapshot still
+# fails rather than being silently admitted to the book or the release path.
+#
+# P3-EXISTING added the data-level half. Every materialised snapshot is now
+# validated against the codebook, storage disposition and reconciliation
+# contract that its own catalogue entry declares: encoding and line endings,
+# header against codebook, key uniqueness, row band, numeric and category
+# domains, code/label pairing, absent-versus-zero, the sidecar licence notice,
+# and an exact recomputation of every aggregate from its analysis file. The
+# recomputation is what proves the file rounds nothing: a rounded mean cannot
+# equal the sum divided by the count.
+#
+# Deliberate file-level defects are exercised by scripts/check-data-fixtures.py
+# in a temporary root; this script keeps one in-memory fixture of its own:
+#
+#     --fixture duplicate-key
 
 args <- commandArgs(trailingOnly = TRUE)
 root <- normalizePath(".", winslash = "/", mustWork = TRUE)
@@ -96,34 +114,588 @@ for (needle in c("anketa_mreze", "populacija_medija", "CC BY 4.0", "Luka Sikic")
 }
 
 catalogue <- put("data", "katalog.yml")
+catalogue_schema <- put("data", "katalog.schema.json")
+catalogue_check <- put("scripts", "check-katalog.py")
 snapshots <- list.files(put("data"), pattern = "\\.(csv|tsv|parquet|rds)$",
                         full.names = TRUE, ignore.case = TRUE)
-if (file.exists(catalogue)) {
+
+declared_files <- character()
+promoted_count <- 0L
+if (!file.exists(catalogue)) {
   failures <- c(
     failures,
-    paste(
-      "data/katalog.yml exists but P3-CATALOG has not yet supplied its",
-      "ratified schema/checksum validator; promotion fails closed"
-    )
+    "data/katalog.yml is missing; the canonical catalogue is the sole data record"
   )
+} else {
+  for (required in c(catalogue_schema, catalogue_check)) {
+    if (!file.exists(required)) {
+      failures <- c(
+        failures,
+        paste("the catalogue exists without its validator:", basename(required))
+      )
+    }
+  }
+  if (!requireNamespace("yaml", quietly = TRUE)) {
+    failures <- c(failures, "missing R package 'yaml'; the catalogue cannot be read")
+  } else {
+    parsed <- yaml::read_yaml(catalogue)
+    for (entry in parsed$packages) {
+      if (isTRUE(entry$promoted)) promoted_count <- promoted_count + 1L
+      if (length(entry$files)) {
+        declared_files <- c(declared_files, unlist(entry$files, use.names = FALSE))
+      }
+    }
+  }
 }
-if (length(snapshots)) {
+
+relative_snapshots <- sub(paste0("^", root, "/"), "", snapshots)
+undeclared <- setdiff(relative_snapshots, declared_files)
+if (length(undeclared)) {
   failures <- c(
     failures,
     paste(
-      "materialised data snapshots exist before the canonical catalogue",
-      paste(basename(snapshots), collapse = ", ")
+      "materialised data snapshots are not declared by any catalogue entry:",
+      paste(undeclared, collapse = ", ")
     )
   )
 }
 
+# --- data-level validation of every materialised snapshot ------------------
+#
+# The catalogue is the contract; this section only enforces it. Nothing here
+# knows the name of a column or a level: every rule is read from the entry's
+# own codebook, storage disposition and reconciliation block, so a later
+# package is validated by declaring itself rather than by editing this file.
+
+MISSING_TOKENS <- c("", "NA", "na", "N/A", "NULL", "null", ".", "-", "?")
+
+read_snapshot <- function(path) {
+  size <- file.info(path)$size
+  bytes <- readBin(path, "raw", n = size)
+  text <- rawToChar(bytes)
+  Encoding(text) <- "UTF-8"
+  list(bytes = bytes, text = text)
+}
+
+split_fields <- function(line) strsplit(line, ",", fixed = TRUE)[[1]]
+
+field_at <- function(rows, index) {
+  vapply(rows, function(row) row[[index]], character(1))
+}
+
+as_exact_numeric <- function(values) suppressWarnings(as.numeric(values))
+
+validate_file_record <- function(record, entry_id, storage, source_codes = character()) {
+  problems <- character()
+  note <- function(...) problems <<- c(problems, paste0(entry_id, "/",
+                                                        record$path, ": ", ...))
+  path <- put(record$path)
+  if (!file.exists(path)) {
+    note("declared snapshot is missing from disk")
+    return(list(problems = problems, columns = NULL))
+  }
+
+  raw <- read_snapshot(path)
+  if (length(raw$bytes) >= 3L &&
+      identical(as.integer(raw$bytes[1:3]), c(239L, 187L, 191L))) {
+    note("snapshot starts with a UTF-8 BOM")
+  }
+  if (any(raw$bytes == as.raw(13L))) {
+    note("snapshot uses CR line endings; the declared ending is LF")
+  }
+  if (!validUTF8(raw$text)) note("snapshot is not valid UTF-8")
+  if (!length(raw$bytes) || raw$bytes[[length(raw$bytes)]] != as.raw(10L)) {
+    note("snapshot does not end with a newline")
+  }
+  if (!grepl("^[a-z0-9][a-z0-9.-]*$", basename(record$path))) {
+    note("file name is not a stable lowercase ASCII name")
+  }
+
+  lines <- strsplit(raw$text, "\n", fixed = TRUE)[[1]]
+  if (length(lines) < 2L) {
+    note("snapshot has no data rows")
+    return(list(problems = problems, columns = NULL))
+  }
+  header <- split_fields(lines[[1]])
+  declared <- vapply(record$columns, function(column) column$name, character(1))
+  if (!identical(header, declared)) {
+    note("header does not match the declared codebook: file has ",
+         paste(header, collapse = ", "))
+    return(list(problems = problems, columns = NULL))
+  }
+
+  rows <- lapply(lines[-1], split_fields)
+  widths <- vapply(rows, length, integer(1))
+  if (any(widths != length(header))) {
+    note("a row has a different number of fields than the header")
+    return(list(problems = problems, columns = NULL))
+  }
+  if (length(rows) != as.integer(record$rows)) {
+    note("row count ", length(rows), " differs from the declared ",
+         record$rows)
+  }
+  band <- as.integer(unlist(record$row_band))
+  if (length(rows) < band[[1]] || length(rows) > band[[2]]) {
+    note("row count ", length(rows), " is outside the declared band [",
+         band[[1]], ", ", band[[2]], "]")
+  }
+
+  columns <- setNames(
+    lapply(seq_along(header), function(i) field_at(rows, i)), header
+  )
+
+  # A published cross-tabulation is identified by its dimensions together, so
+  # the key may name several columns joined by '+'. Inventing one surrogate
+  # column instead would add data the source does not have.
+  key_columns <- strsplit(record$key, "+", fixed = TRUE)[[1]]
+  missing_key <- setdiff(key_columns, header)
+  if (length(missing_key)) {
+    note("declared key column is absent: ", paste(missing_key, collapse = ", "))
+  } else {
+    tuples <- do.call(paste, c(columns[key_columns], sep = "\r"))
+    if (anyDuplicated(tuples)) {
+      note("key ", record$key, " is not unique")
+    }
+  }
+
+  for (column in record$columns) {
+    values <- columns[[column$name]]
+    label <- paste0("column ", column$name, ": ")
+
+    # A declared missing code is a value, not a hole. It is checked for its own
+    # presence and then set aside, because a code can never satisfy the type,
+    # domain or level rules of the quantity it stands in for.
+    # A stray is any conventional missing token, or any absence code the SOURCE
+    # publishes, turning up in a column that does not declare it. Without the
+    # source's own codes the test would miss exactly the codes that matter:
+    # '..' and '....' are absence codes in official statistics and in no
+    # general-purpose list of missing tokens.
+    absence_tokens <- union(MISSING_TOKENS, source_codes)
+    if (is.null(column$missing_code)) {
+      if (any(values %in% absence_tokens)) {
+        note(label, "declares no missing code, yet a cell is empty or ",
+             "carries a conventional missing token")
+      }
+      present <- values
+      keep <- rep(TRUE, length(values))
+    } else {
+      if (!any(values == column$missing_code)) {
+        note(label, "declares missing code '", column$missing_code,
+             "' that never occurs")
+      }
+      stray <- setdiff(intersect(values, absence_tokens), column$missing_code)
+      if (length(stray)) {
+        note(label, "carries a missing token it does not declare: ",
+             paste(stray, collapse = ", "),
+             ". Every published absence code keeps its own meaning.")
+      }
+      keep <- values != column$missing_code
+      present <- values[keep]
+    }
+
+    if (column$type %in% c("integer", "code")) {
+      if (!all(grepl("^-?[0-9]+$", present))) {
+        note(label, "is declared integral but carries a non-integer literal")
+        next
+      }
+    }
+    if (column$type %in% c("integer", "number", "code")) {
+      numbers <- as_exact_numeric(present)
+      if (anyNA(numbers)) {
+        note(label, "carries a value that does not parse as a number")
+        next
+      }
+      if (!is.null(column$min) && any(numbers < as.numeric(column$min))) {
+        note(label, "falls below the declared minimum ", column$min)
+      }
+      if (!is.null(column$max) && any(numbers > as.numeric(column$max))) {
+        note(label, "rises above the declared maximum ", column$max)
+      }
+      if (isTRUE(column$zero_is_meaningful) && !any(numbers == 0)) {
+        note(label, "declares zero as a meaningful value that never occurs")
+      }
+    }
+    if (identical(column$type, "text") && !is.null(column$pattern)) {
+      if (!all(grepl(column$pattern, present))) {
+        note(label, "has a value outside its declared pattern")
+      }
+    }
+    # A label column may declare its level set. Checking membership beats a
+    # regular expression over Croatian text and catches a stray or renamed
+    # level, which is exactly how a published category quietly changes.
+    if (column$type %in% c("text", "label") && !is.null(column$levels)) {
+      levels_declared <- unlist(column$levels, use.names = FALSE)
+      outside <- setdiff(present, levels_declared)
+      if (length(outside)) {
+        note(label, "carries a value outside its declared levels: ",
+             paste(outside, collapse = ", "))
+      }
+      unused <- setdiff(levels_declared, present)
+      if (length(unused)) {
+        note(label, "declares a level that never occurs: ",
+             paste(unused, collapse = ", "))
+      }
+    }
+    if (identical(column$type, "code")) {
+      levels_declared <- unlist(column$levels, use.names = FALSE)
+      codes <- as.integer(present)
+      if (any(codes < 1L) || any(codes > length(levels_declared))) {
+        note(label, "carries a code outside the declared levels")
+        next
+      }
+      partner <- column$pairs_with
+      if (is.null(partner) || !partner %in% header) {
+        note(label, "declares no label column beside the code")
+      } else if (!identical(levels_declared[codes], columns[[partner]][keep])) {
+        note(label, "code and label disagree; the original code must stand ",
+             "beside its Croatian label, never instead of it")
+      }
+    }
+  }
+
+  if (!identical(storage$encoding, "UTF-8") ||
+      !identical(storage$line_ending, "LF") ||
+      !isTRUE(storage$filenames_ascii)) {
+    note("the storage disposition does not declare UTF-8, LF and ASCII names")
+  }
+
+  list(problems = problems, columns = columns)
+}
+
+validate_reconciliation <- function(rule, entry_id, tables) {
+  problems <- character()
+  note <- function(...) problems <<- c(problems, paste0(entry_id, ": ", ...))
+
+  analysis <- tables[[rule$analysis_file]]
+  aggregate <- tables[[rule$aggregate_file]]
+  if (is.null(analysis) || is.null(aggregate)) {
+    note("reconciliation names a file that did not parse")
+    return(problems)
+  }
+
+  codes <- as.integer(aggregate[[rule$group_code]])
+  labels <- aggregate[[rule$group_label]]
+  unit_codes <- as.integer(analysis[[rule$group_code]])
+  unit_labels <- analysis[[rule$group_label]]
+
+  counts <- vapply(codes, function(code) sum(unit_codes == code), numeric(1))
+  declared_counts <- as_exact_numeric(aggregate[[rule$count_column]])
+  if (!identical(counts, declared_counts)) {
+    note("group counts in the aggregate do not equal the analysis file")
+  }
+  total <- nrow_of <- length(unit_codes)
+  declared_total <- as_exact_numeric(aggregate[[rule$denominator_column]])
+  if (!all(declared_total == total)) {
+    note("the declared denominator does not equal the number of analysis rows")
+  }
+  if (sum(counts) != total) {
+    note("group counts do not sum to the number of analysis rows")
+  }
+  for (i in seq_along(codes)) {
+    expected_label <- unique(unit_labels[unit_codes == codes[[i]]])
+    if (length(expected_label) != 1L || !identical(expected_label, labels[[i]])) {
+      note("aggregate group label disagrees with the analysis file for code ",
+           codes[[i]])
+    }
+  }
+
+  for (share in rule$shares) {
+    numerator <- as_exact_numeric(aggregate[[share$numerator]])
+    denominator <- as_exact_numeric(aggregate[[share$denominator]])
+    declared <- as_exact_numeric(aggregate[[share$share]])
+    if (!identical(numerator / denominator, declared)) {
+      note("share ", share$share, " does not equal ", share$numerator, " / ",
+           share$denominator, " at full precision")
+    }
+  }
+
+  for (sum_rule in rule$sums) {
+    source_values <- as_exact_numeric(analysis[[sum_rule$source]])
+    totals <- vapply(codes, function(code) {
+      sum(source_values[unit_codes == code])
+    }, numeric(1))
+    declared_totals <- as_exact_numeric(aggregate[[sum_rule$total]])
+    if (!identical(totals, declared_totals)) {
+      note("total ", sum_rule$total, " does not equal the sum of ",
+           sum_rule$source, " over its group")
+    }
+    declared_means <- as_exact_numeric(aggregate[[sum_rule$mean]])
+    if (!identical(totals / counts, declared_means)) {
+      note("mean ", sum_rule$mean, " does not equal ", sum_rule$total, " / ",
+           rule$count_column, " at full precision; a rounded mean cannot pass")
+    }
+  }
+
+  for (positive in rule$positive_counts) {
+    source_values <- as_exact_numeric(analysis[[positive$source]])
+    counted <- vapply(codes, function(code) {
+      sum(source_values[unit_codes == code] > 0)
+    }, numeric(1))
+    declared <- as_exact_numeric(aggregate[[positive$count]])
+    if (!identical(counted, declared)) {
+      note("count ", positive$count, " does not equal the number of rows with ",
+           positive$source, " above zero")
+    }
+  }
+
+  problems
+}
+
+# The notice must carry the terms of THIS package, not the terms the first two
+# packages happened to share. Before P3-DZS this function demanded a CC BY 4.0
+# link of every package; the first package under the Croatian Open Licence would
+# have had to print a false one to pass.
+validate_notice <- function(entry) {
+  problems <- character()
+  path <- put(entry$snapshot_notice)
+  if (!file.exists(path)) {
+    return(paste0(entry$id, ": the declared snapshot licence notice is ",
+                  "missing: ", entry$snapshot_notice))
+  }
+  text <- paste(readLines(path, warn = FALSE, encoding = "UTF-8"),
+                collapse = "\n")
+  needles <- c(entry$id, entry$licence, entry$licence_uri)
+  if (!is.null(entry$generated_data_notice)) {
+    needles <- c(needles, basename(entry$generated_data_notice))
+  }
+  if (is.null(entry$licence_uri) || !nzchar(entry$licence_uri)) {
+    problems <- c(problems, paste0(
+      entry$id, ": a package that ships a snapshot notice must declare the ",
+      "direct link to its own licence"
+    ))
+  }
+  for (needle in needles) {
+    if (!grepl(needle, text, fixed = TRUE)) {
+      problems <- c(problems, paste0(entry$id, ": the snapshot licence notice ",
+                                     "is missing ", needle))
+    }
+  }
+  problems
+}
+
+# --- a published total against its published parts -------------------------
+#
+# Declarative on purpose: nothing here knows a column name. The rule states
+# which rows are the total, which are the parts, what must agree between them,
+# and how large a residual is admissible. A count reconciles at zero. A survey
+# estimate rounds every published cell independently, so its parts need not sum
+# to its total; that residual is recorded exactly and compared for equality, so
+# it can neither grow unnoticed nor be quietly rounded away.
+or_list <- function(x) if (is.null(x)) list() else x
+
+select_rows <- function(table, filters) {
+  keep <- rep(TRUE, length(table[[1]]))
+  for (filter in or_list(filters)) {
+    if (!filter$column %in% names(table)) {
+      return(list(rows = NULL, missing = filter$column))
+    }
+    values <- unlist(filter$values, use.names = FALSE)
+    keep <- keep & table[[filter$column]] %in% values
+  }
+  list(rows = which(keep), missing = NULL)
+}
+
+validate_source_reconciliation <- function(rule, entry_id, tables) {
+  messages <- character()
+  note <- function(...) {
+    messages <<- c(messages, paste0(entry_id, "/", rule$id, ": ", ...))
+  }
+
+  total_table <- tables[[rule$total$file]]
+  parts_table <- tables[[rule$parts$file]]
+  if (is.null(total_table) || is.null(parts_table)) {
+    note("names a file that did not parse")
+    return(messages)
+  }
+
+  total_side <- select_rows(total_table, rule$total$filters)
+  parts_side <- select_rows(parts_table, rule$parts$filters)
+  for (side in list(list("total", total_side), list("parts", parts_side))) {
+    if (!is.null(side[[2]]$missing)) {
+      note("the ", side[[1]], " side filters on a column the file does not ",
+           "have: ", side[[2]]$missing)
+    }
+  }
+  if (length(messages)) return(messages)
+  total_rows <- total_side$rows
+  parts_rows <- parts_side$rows
+  if (!length(total_rows)) {
+    note("selects no total row at all")
+    return(messages)
+  }
+  if (!length(parts_rows)) {
+    note("selects no part row at all")
+    return(messages)
+  }
+
+  match_on <- unlist(or_list(rule$match_on), use.names = FALSE)
+  values <- unlist(rule$values, use.names = FALSE)
+  tolerance <- as.numeric(rule$tolerance)
+
+  total_key <- if (length(match_on)) {
+    do.call(paste, c(lapply(match_on, function(c) total_table[[c]][total_rows]),
+                     sep = "\r"))
+  } else {
+    rep("", length(total_rows))
+  }
+  parts_key <- if (length(match_on)) {
+    do.call(paste, c(lapply(match_on, function(c) parts_table[[c]][parts_rows]),
+                     sep = "\r"))
+  } else {
+    rep("", length(parts_rows))
+  }
+
+  comparisons <- 0L
+  observed <- 0
+  for (i in seq_along(total_rows)) {
+    selected <- parts_rows[parts_key == total_key[[i]]]
+    if (!length(selected)) {
+      note("a total row has no matching part row")
+      next
+    }
+    for (value in values) {
+      total <- as_exact_numeric(total_table[[value]][total_rows[[i]]])
+      part_sum <- sum(as_exact_numeric(parts_table[[value]][selected]))
+      if (is.na(total) || is.na(part_sum)) {
+        note("column ", value, " does not parse as a number on both sides")
+        next
+      }
+      residual <- total - part_sum
+      comparisons <- comparisons + 1L
+      observed <- max(observed, abs(residual))
+      if (abs(residual) > tolerance) {
+        note("column ", value, " leaves a residual of ", format(residual,
+             scientific = FALSE), ", above the declared tolerance ", tolerance)
+      }
+    }
+  }
+
+  if (comparisons != as.integer(rule$comparisons)) {
+    note("made ", comparisons, " comparisons, not the declared ",
+         rule$comparisons)
+  }
+  if (observed != as.numeric(rule$max_abs_residual)) {
+    note("the largest residual is ", format(observed, scientific = FALSE),
+         ", not the recorded ", rule$max_abs_residual,
+         "; a residual is recorded exactly, never rounded away")
+  }
+  messages
+}
+
+snapshot_failures <- character()
+validated_files <- 0L
+reconciliations <- 0L
+if (exists("parsed") && is.list(parsed)) {
+  for (entry in parsed$packages) {
+    if (!length(entry$file_records)) next
+
+    if (is.null(entry$storage)) {
+      snapshot_failures <- c(snapshot_failures, paste0(
+        entry$id, ": a package with materialised files must declare a storage ",
+        "disposition"
+      ))
+      next
+    }
+    if (is.null(entry$snapshot_notice)) {
+      snapshot_failures <- c(snapshot_failures, paste0(
+        entry$id, ": a package with materialised files must declare a ",
+        "snapshot licence notice"
+      ))
+    } else {
+      snapshot_failures <- c(snapshot_failures, validate_notice(entry))
+    }
+
+    # A sampling weight is either present as a real column or explicitly absent
+    # with a reason. Silence is the failure mode this clause exists to prevent.
+    analysis_record <- NULL
+    for (record in entry$file_records) {
+      if (identical(record$role, "analysis")) analysis_record <- record
+    }
+    if (is.null(entry$storage$weights)) {
+      if (!nzchar(paste0(entry$storage$weights_note, ""))) {
+        snapshot_failures <- c(snapshot_failures, paste0(
+          entry$id, ": a package without sampling weights must record why"
+        ))
+      }
+    } else if (!is.null(analysis_record)) {
+      analysis_columns <- vapply(analysis_record$columns,
+                                 function(column) column$name, character(1))
+      if (!entry$storage$weights %in% analysis_columns) {
+        snapshot_failures <- c(snapshot_failures, paste0(
+          entry$id, ": the declared weights column is absent from the analysis ",
+          "file: ", entry$storage$weights
+        ))
+      }
+    }
+
+    source_codes <- vapply(or_list(entry$missing_value_codes),
+                           function(code) as.character(code$code), character(1))
+    tables <- list()
+    for (record in entry$file_records) {
+      outcome <- validate_file_record(record, entry$id, entry$storage, source_codes)
+      snapshot_failures <- c(snapshot_failures, outcome$problems)
+      if (!is.null(outcome$columns)) {
+        tables[[record$path]] <- outcome$columns
+        validated_files <- validated_files + 1L
+      }
+    }
+
+    if (!is.null(entry$aggregate_reconciliation)) {
+      snapshot_failures <- c(snapshot_failures, validate_reconciliation(
+        entry$aggregate_reconciliation, entry$id, tables
+      ))
+    } else if (!is.null(entry$aggregate_view)) {
+      snapshot_failures <- c(snapshot_failures, paste0(
+        entry$id, ": an aggregate view exists without a reconciliation contract"
+      ))
+    }
+
+    # A package built from a published source must reconcile against that
+    # source's own totals, not only against itself.
+    for (rule in or_list(entry$source_reconciliation)) {
+      snapshot_failures <- c(snapshot_failures,
+                             validate_source_reconciliation(rule, entry$id, tables))
+      reconciliations <- reconciliations + 1L
+    }
+  }
+}
+failures <- c(failures, snapshot_failures)
+
+# --- every snapshot must still reproduce from its generator and seed --------
+serialiser <- put("R", "snimke-nastavnih-podataka.R")
+if (!file.exists(serialiser)) {
+  failures <- c(failures, "missing serialiser: R/snimke-nastavnih-podataka.R")
+} else {
+  source(serialiser, local = globalenv(), encoding = "UTF-8")
+  for (snapshot in snimke_nastavnih_podataka()) {
+    target <- put(snapshot$putanja)
+    if (!file.exists(target)) {
+      failures <- c(failures, paste0(snapshot$putanja,
+                                     ": declared snapshot does not exist"))
+      next
+    }
+    expected <- csv_redci(snapshot$redci())
+    found <- readLines(target, warn = FALSE, encoding = "UTF-8")
+    if (!identical(enc2utf8(found), enc2utf8(expected))) {
+      failures <- c(failures, paste0(
+        snapshot$putanja,
+        ": snapshot no longer reproduces from its declared generator and seed"
+      ))
+    }
+  }
+}
+
 fetch_text <- paste(readLines(fetch_path, warn = FALSE, encoding = "UTF-8"),
                     collapse = "\n")
-for (needle in c('identical(unos$traka, "bundled")',
-                 'identical(unos$redistribucija, "provjerena")')) {
+for (needle in c('identical(unos$lane, "bundled")',
+                 'identical(unos$redistribution, "provjerena")',
+                 'KANDIDAT_DIR',
+                 'promocija odbijena: katalog ne biljezi kontrolni zbroj')) {
   check(grepl(needle, fetch_text, fixed = TRUE),
-        paste("fetch dispatcher lost its fail-closed lane guard:", needle))
+        paste("fetch dispatcher lost its fail-closed candidate-first guard:", needle))
 }
+check(grepl("KATALOG <- \"data/katalog.yml\"", fetch_text, fixed = TRUE),
+      "fetch dispatcher no longer reads the canonical catalogue as its only registry")
 
 if (length(failures)) {
   cat("DATA_INTEGRITY_FAILED\n")
@@ -132,7 +704,9 @@ if (length(failures)) {
 }
 
 cat(
-  "DATA_INTEGRITY_OK generated_sets=2 rows=50300 catalogue=pre-P3 ",
-  "snapshots=0 licence=CC-BY-4.0\n",
+  "DATA_INTEGRITY_OK generated_sets=2 rows=50300 catalogue=present ",
+  "promoted=", promoted_count, " snapshots=", length(snapshots),
+  " validated=", validated_files, " reconciliations=", reconciliations,
+  " undeclared=0\n",
   sep = ""
 )

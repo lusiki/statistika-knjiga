@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P2-SPINE-IV
-next_permitted_packet: G-A2b-V
+last_completed_packet: P3-DZS
+next_permitted_packet: G-A3-DIP
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 49
-last_updated: "2026-08-04"
+forward_handoffs: 76
+last_updated: "2026-08-05"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -36,23 +36,1001 @@ stop and repair the control state before editing book content.
 | Gate A2b-II | Accepted as drafted: Part II contract, three chapter spines, and a per-definition Chapter 4 disposition from six blocks to four; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-III | Accepted as drafted: Part III contract preserving Chapter 8 as the hinge, three chapter spines, and an unchanged definition load; owner Luka Sikic; 2026-08-04 |
 | Gate A2b-IV | Accepted as drafted: Part IV contract leading with magnitude and error consequences, three chapter spines, and a bounded two-block Chapter 12 definition increase; owner Luka Sikic; 2026-08-04 |
+| Gate A2b-V | Accepted as drafted: Part V contract preserving Chapter 16 as the synthesis payoff, five chapter spines, Chapter 13 ratified as a prerequisite of Chapter 17, and a bounded two-block Chapter 17 definition increase; owner Luka Sikic; 2026-08-05 |
+| Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
+| Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P2-SPINE-IV` |
-| Next permitted packet | `G-A2b-V` |
+| Last completed packet | `P3-DZS` |
+| Next permitted packet | `G-A3-DIP` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 102 accepted, 5 deferred with reason, 264 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 39 accepted and 149 ratified, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 19 `draft` |
-| Chapter spines | 13 of 19 ratified: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV` |
-| Open outside asks | 62 of the 82 canonical asks remain `drafted_unsent`; 20 are `done` — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, and the preface, Part I, Part II, Part III and Part IV spine asks; 0 external messages sent |
+| Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
+| Open outside asks | 52 of the 82 canonical asks remain `drafted_unsent`; 24 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, and the G-A2c term-map ask; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
+| Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P3-EXISTING closeout
+
+- **Four deliveries target this packet and each was handled at its own gate.**
+  `H-P1B-DATA-LIC-001` and `H-P1B-DATA-LIC-002` are `before_start` and were
+  **consumed before the packet claim**; the workflow validator confirmed the
+  lock only after both were terminal. `H-P3-CATALOG-001` and `H-P3-CATALOG-002`
+  are `before_close`, were acknowledged before the first substantive edit — the
+  validator refused the claim until they were — and were consumed at closeout.
+  Nothing targeting another packet was consumed, and `H-P1B-DATA-LIC-003`
+  remains untouched with all six `G-A3` deliveries `pending`.
+- **Two packages are promoted and fifteen lanes are unchanged.** `anketa_mreze`
+  and `populacija_medija` now ship four deterministic snapshots — an analysis
+  file and a paired aggregate each — declared in the catalogue **before** a
+  single byte was written, so no undeclared snapshot ever existed in the tree.
+  Each promotion records source, version, licence, attribution, an MD5 with its
+  algorithm named, and an official reconciliation. The promotion contract was
+  strengthened rather than spent: a package may now be promoted only under the
+  gate it names itself, every promotion must appear in a per-packet promotion
+  log, and every declared file must exist with a matching checksum.
+- **`UCBAdmissions` and `anscombe` stay `external-only`, after a search rather
+  than an assumption.** The local `datasets` package at R 4.6.0 records only
+  `License: Part of R 4.6.0`, a package-level marker; `UCBAdmissions.Rd` has no
+  `\source` field at all and cites Bickel, Hammel and O'Connell (1975) in
+  *Science*, and `anscombe.Rd` names Tufte (1990), Graphics Press. Both
+  documented origins are third-party copyrighted works, so nothing supports a
+  repository copy. Technical access through a local R installation was not
+  converted into redistribution authority.
+- **Two of the four `R25-EXISTING-*` items closed and two did not.**
+  `R25-EXISTING-anketa` and `R25-EXISTING-populacija` are `accepted`: each
+  snapshot is byte-identical to its generator at its declared seed, and every
+  manuscript file that names the package is declared and machine-reconciled in
+  both directions. `R25-EXISTING-UCB` and `R25-EXISTING-Anscombe` stay
+  `ratified` with one half of each test met — the metadata half is complete and
+  the deterministic snapshot may not exist. No packet can close them on current
+  evidence; closure needs a dated author rights determination or an explicit
+  `deferred_v2_with_reason`, and `H-P3-EXISTING-001` carries that.
+- **Two of the three carried items closed and one did not, each judged alone.**
+  `R25-CATALOG-storage` is `accepted`, with its applicable scope written into
+  the item: two packages have files, both pass all six conventions, and each
+  convention is machine-enforced. `R25-CATALOG-validation` is `accepted` **on
+  both halves**, not on the catalogue half alone: two accepted packages record a
+  checksum and an official reconciliation, and every data-level defect class the
+  review lists is exercised against bytes on disk. `R32-CATALOG-paired-views`
+  was **not** closed: both pairs reconcile without tolerance, but its test also
+  requires a task that reproduces an aggregate, and a task is reader prose a
+  `data_package` packet may not write. `H-P3-EXISTING-002` carries that half.
+- **Validation is now data-level, and every fixture must fail for its own
+  reason.** `scripts/check-data-fixtures.py` proves 32 deliberate defects each
+  exit 1 — seventeen catalogue defects plus an unknown fixture name, and
+  fourteen data defects injected into a throwaway copy. Each case must also
+  print the message belonging to its own rule, because exit status alone would
+  credit a fixture that failed for something else. The `rounded_mean` fixture is
+  the anti-rounding proof: a mean that has been rounded cannot equal its integer
+  total divided by its count.
+- The catalogue carries the codebook, so a later package is validated by
+  declaring itself rather than by editing a checker: column type, unit, domain
+  and missing code per column, the storage disposition including an explicit
+  recorded reason for having no sampling weights, and the exact shares, totals
+  and means each aggregate must reproduce.
+- `data/README.md` was corrected because materialising the snapshots made its
+  statement that the simulated sets are not files here untrue. `podaci.qmd` and
+  `dodaci/c-katalog-podataka.qmd` were deliberately not touched: both already
+  speak of a *future* snapshot rather than denying one, and generating them is
+  `P5-C`. `.github/workflows/publish.yml` was deliberately not touched either —
+  `check-data-integrity.R` is already blocking, so the new rules run in CI, but
+  `check-katalog.py` has never been wired in and the new fixture harness is not
+  either. That gap is recorded in `H-P3-EXISTING-003` rather than quietly
+  accepted.
+- **One real defect was found before the commit and fixed at its source.** The
+  repository sets `core.autocrlf=true` and no `.gitattributes` rule covered
+  `data/`, so a fresh Windows clone would have turned every LF snapshot into
+  CRLF — different bytes, therefore a different MD5 — and every recorded
+  checksum would have failed on a file with nothing wrong in it. `data/*.csv`
+  and the snapshot notices are now pinned to `text eol=lf`. No existing file
+  changed, because all were already LF. `.gitattributes` was added to the
+  packet's owned paths mid-packet and the extension is recorded, not concealed,
+  exactly as `P3-CATALOG` recorded its `.gitignore` extension. This is **not** a
+  local-independence proof: `R08-CATALOG-local-independence` still needs the
+  fresh-clone render that `P7-CLEAN-BUILD` owns.
+- The 2026-08-05 rights determination holds. The catalogue still records
+  `rights_holder_permission_obtained: false` and
+  `rights_holder_permission_claim_permitted: false`, the fixture still proves
+  the opposite claim fails, and no `G-A3` gate was pre-empted: DZS tourism,
+  ParlaMint and ParlaSent remain bundled-but-unpromoted with their exact package
+  records still owed to their own gates.
+- No chapter or appendix prose, shared registry, spine, `#def-` block,
+  terminology, route, render, generated artifact or chapter stage changed. All
+  19 units remain `draft` and the live definition count remains 46.
+
+The durable evidence is `notes/reports/p3-existing-2026-08-05.md`.
+
+## P3-CATALOG closeout
+
+- **Both incoming deliveries are `before_start` and both were consumed before
+  the packet claim**: `H-P1B-DATA-LIC-001` (the CC BY 4.0 generated-data
+  boundary) and `H-P1B-DATA-LIC-002` (one lane and one lawful fallback per
+  package). Their `P3-EXISTING` deliveries deliberately remain `pending`, and
+  `H-P1B-DATA-LIC-003` — which targets six `G-A3` gates — is untouched and not
+  superseded.
+- **`data/katalog.yml` is the sole machine-readable data record** and registers
+  all 17 P1B inventory packages: 5 `bundled`, 3 `portal-mediated`, 9
+  `external-only`. **Not one lane was changed.** Every entry carries source,
+  version, licence, attribution, access, redistribution, lane, fallback and
+  integrity, plus design, unit, question, role, consumers, refresh class,
+  permissible and unavailable claims, and a six-question ethics note.
+- **Zero packages are promoted, by decision.** Every entry is `promoted: false`
+  and names the exact later gate that may promote it. Promotion requires seven
+  conditions at once, so **availability promotes nothing** and a
+  portal-mediated or external-only package cannot be promoted at all while its
+  lane stands. `UCBAdmissions` and `anscombe` stay `external-only` with their
+  lawful fallbacks recorded.
+- `data/katalog.schema.json` and `scripts/check-katalog.py` fail closed. **Ten
+  deliberate defects each return exit 1** — promoting a portal package,
+  promoting without a checksum, an unknown lane, a missing fallback, a
+  not-applicable licence, a duplicate id, an exceeded cap, an undeclared
+  snapshot, a claimed rights permission, and a duplicated consumer role — as does
+  an unknown fixture name.
+- `R/fetch-podaci.R` is now candidate-first: it reads the catalogue as its only
+  registry, writes **only** into the gitignored `data/_kandidat/`, and promotes
+  solely through an explicit `--promote` call that verifies the recorded MD5.
+  `_quarto.yml` calls it in neither hook, so a clean render fetches nothing.
+- `scripts/check-data-integrity.R` no longer fails *because* the catalogue
+  exists; it now **requires** the catalogue, its schema and its validator, and
+  fails on any snapshot no entry declares.
+- **Seven items closed and six did not, on one stated rule**: an item closes only
+  when its test is fully verifiable against artefacts this packet creates or the
+  live source. Closed: `R25-CATALOG-schema`, `R25-CATALOG-refresh-classes`,
+  `R25-CATALOG-candidate-first`, `R08-CATALOG-admission`,
+  `R08-CATALOG-portfolio-cap`, `R08-CATALOG-question-led`,
+  `R03-GFI-FINA-external`. Left open with reasons in the register:
+  `R25-CATALOG-single-source` and `R25-CATALOG-passport` (need the generated
+  views and a chapter's first use — `P5-C`), `R25-CATALOG-validation`,
+  `R25-CATALOG-storage` and `R32-CATALOG-paired-views` (need a real registered
+  package — `P3-EXISTING`), and `R08-CATALOG-local-independence` (needs a
+  fresh-clone render — `P7-CLEAN-BUILD`).
+- The **2026-08-05 rights determination is machine-enforced**: the catalogue
+  records `rights_holder_permission_obtained: false` and
+  `rights_holder_permission_claim_permitted: false`, and a fixture proves the
+  opposite claim fails. Each source is cited with its published terms instead.
+- `.gitignore` was added to `owned_paths` mid-packet so `data/_kandidat/` is
+  ignored; the extension is recorded, not concealed. `podaci.qmd` and
+  `dodaci/c-katalog-podataka.qmd` were deliberately not touched.
+- No package was selected, promoted, fetched or committed; no data file exists;
+  no `G-A3` gate was pre-empted. No chapter or appendix prose, shared registry,
+  spine, `#def-` block, route, render or chapter stage changed. All 19 units
+  remain `draft`.
+
+The durable evidence is `notes/reports/p3-catalog-2026-08-05.md`.
+
+## P2-VERIFY closeout
+
+- No handoff targets `P2-VERIFY`; the complete ledger was read before the first
+  edit and the absence is recorded explicitly. The whole report is tied to one
+  declared source state, `commit:fd4564c3d2890c80f5f865f6b386f34b29f8feea`.
+- **The gate passes its own three exit tests and cannot certify the ratified
+  plan's Phase 2 clause that `R04` is closed.** Those are two different things
+  and the report does not blur them.
+- **`R04` has four open required children, not two.** All 21 were enumerated one
+  by one rather than summarised: `R04-ARCH-macro-order` (`P5-ROUTES`, Phase 5 —
+  the two reading routes do not exist), `R04-C11-fixed-order` (`WC-C11`, Phase 4
+  Wave C — needs the seven-part order restored in Chapter 11 prose),
+  `R04-ROUTES-two-track-map` (`P5-ROUTES`, Phase 5) and
+  `R04-C18-whole-prerequisites` (`WE-C18` and `P5-ROUTES`, Phases 4 and 5). Two
+  need chapter prose and two need published routes; Phase 2 edits neither.
+- The other four Phase 2 exit clauses are met and verified: `R10`, `R15`, `R24`
+  and `R36` are ratified with their items deliberately open exactly as the clause
+  intends; all 19 spines are ratified; the definition and prerequisite changes
+  have an approved map; and no unresolved conflict remains between the review and
+  the live governing documents.
+- **The discrepancy is a conflict between two ratified documents** — the plan and
+  the register — about *when* `R04` may close, not a packet's omission. `R04` was
+  not forced closed, the exit gate was not redefined, and nothing was hidden by
+  aggregation. `H-P2-VERIFY-001` carries the closure to `WC-C11`, `WE-C18`,
+  `P5-ROUTES` and `P6-VERIFY`. Reconciling the plan's wording with the register
+  is a separate author decision that no packet may take alone.
+- **All 22 accepted Phase 2 packets were verified individually**, each against
+  its own contract and none by aggregation, on thirteen re-derived conditions
+  covering terminal status, `source_state` equal to `change_reference`, exact
+  receipt coverage of `required_evidence`/`outputs`/`exit_tests`, every test
+  marked `passed`, contract evidence and tests plus a packet-specific test, a
+  packet review declaring `all_future_effects_recorded` with outgoing handoffs
+  matching its source handoffs, and no non-terminal incoming delivery. **All 22
+  satisfy all thirteen.**
+- **One real coverage gap was found.** `scripts/check-book-architecture.py` has
+  **no negative-fixture hook at all**, although its three consumers each carry
+  two. Five Phase 2 packets record no deliberate fixture, which breaches no
+  contract because no Phase 2 contract requires one — reported as coverage, not
+  as a blocker. (`P2-ASSESS` and `P2-IDENTITY` do record two fixtures each, under
+  a `check:` token, so the raw count of seven is really five.)
+  `H-P2-VERIFY-002` carries the gap to `P6-VERIFY`.
+- `P2-CLAIMS`, `P2-ASSESS` and `P2-IDENTITY` still carry the historical
+  `chapter-spines-ratified-0-of-19` evidence token. It was true at their closure,
+  and the live checkers now report 19 of 19 — the snapshot was replaced by an
+  invariant, as `P2-SPINE-PREFACE` recorded.
+- Six existing deliberate fixtures were rerun at this source state and all six
+  returned exit 1. Thirteen deterministic commands were rerun and all pass. The
+  only remaining registered integrity debt is the `fig-anscombe` figure
+  introduction owned by `WB-C05`.
+- `push`, `merge`, `tag`, `archive` and `deploy` are verified `false`, with zero
+  external messages across 82 canonical asks. Both 2026-08-05 amendments were
+  verified in this state: no independent-review claim exists anywhere, and no
+  rights-holder permission is claimed.
+- This gate closed no register item but its own packet, and changed no prose,
+  registry, spine, definition, generated artifact or chapter stage.
+
+The durable evidence is `notes/reports/p2-verification-2026-08-05.md`.
+
+## P2-DOCS closeout
+
+- **A process error is recorded rather than concealed.** A first pass of
+  governing-document edits was made *before* the packet was claimed and before
+  the two deliveries were acknowledged. The working tree was reverted to `HEAD`
+  for all seven documents, the packet was then claimed, both deliveries were
+  acknowledged, `check-review-workflow.R` passed with `P2-DOCS` active, and the
+  work was redone. The closing source state was produced under a valid write
+  lock.
+- Exactly two deliveries target this packet and both were consumed with an exact
+  disposition and evidence: `H-P1B-META-004` (three stale internal markers) and
+  `H-P1C-PDF-001` (the stale deployment description). Nothing targeting another
+  packet was consumed.
+- **AGENTS.md now describes the implemented production path**, verified line by
+  line against the live `.github/workflows/publish.yml`: the blocking check
+  ladder and its fail-closed fixtures, `check-pdf-release-path.ps1`, then the PDF
+  built only through `render-book-pdf.ps1 -RequireCleanCommit` with no
+  `continue-on-error`. The implemented path itself was not changed, and the
+  section closes with an explicit sentence that it promises no edition and
+  authorises no release. The same paragraph's second stale instruction — that
+  `SITE_URL` is edited in `R/build-ai-exports.R` — was replaced, because that
+  script now reads the address from `_quarto.yml` metadata.
+- The `kolegij` profile comment no longer claims revealed solutions. It records
+  the ratified but **unimplemented** D06 two-layer contract, states that the
+  profile currently reveals nothing, and names the packets that will implement
+  it. No rejected pathway was revived, which `check-book-inventory.py` confirms
+  by still reporting `solutions=0` with an unchanged checksum. `_quarto.yml` now
+  says the visual identity *is* selected in DESIGN.md while the cover and favicon
+  files are genuinely absent, so both lines stay commented out.
+  `bookwright_plugin/README.md` no longer calls the shared state seeded or
+  provisional.
+- `STYLE.md`'s instruction to "run the detector and ratify the real
+  distribution" was stale against its own 30 July 2026 changelog entry and was
+  replaced. `STYLE.md`, `ENRICHMENT.md` and `notes/struktura-knjige.md` now state
+  one rule: **a band is a floor, not a finish line, and no word target advances
+  anything.**
+- **Two items closed and five did not, on purpose.** `R04-BOOK-content-weight`
+  and `R23-SCOPE-no-technical-ds` are `accepted`; the latter was verified by a
+  whole-source search finding zero occurrences of SQL, databases, cloud,
+  scraping, dashboards, hyperparameters or neural networks. The five left open
+  each have exactly one half of their test unmet, recorded in the register:
+  `R04-ARCH-macro-order` (the two reading routes do not exist anywhere — the
+  preface advertises none); `R12-SCOPE-no-variance-course`,
+  `R14-SCOPE-reading-not-fitting` and `R23-SCOPE-reading-not-production` (all
+  three need routing, and `dodaci/d-koji-test.qmd` is a 47-line partial draft
+  with no dependence route and no route out of the book); and
+  `R23-SCOPE-no-new-chapters-widgets` (counts verified, but retrieval tasks are
+  R35 work in Phases 4 and 5). `R11-SCOPE-no-multiple-imputation` was already
+  terminal and untouched.
+- `H-P2-DOCS-001` carries the three routing-dependent closures to `WC-C08`,
+  `WD-C16` and `P5-D`; `H-P2-DOCS-002` carries the two half-satisfied closures to
+  `P5-ROUTES` and `P5-CLOSURE-18`; `H-P2-DOCS-003` records that
+  `scripts/check-terminology.py` is **not yet a blocking CI step** and carries
+  the wiring to `P7-CLEAN-BUILD`.
+- No chapter or appendix prose, shared registry, `#def-` block, spine, identity
+  brief, data package, route, render or chapter stage changed. The `_quarto.yml`
+  chapter order is untouched, all 19 units remain `draft`, the live definition
+  count remains 46, and the book-inventory checksum is unchanged.
+
+The durable evidence is `notes/reports/p2-docs-2026-08-05.md`.
+
+## P2-TERMS closeout
+
+- **Seven deliveries target this packet and all seven were consumed with an
+  exact disposition and evidence.** `H-G-A2C-001` is a `before_start` delivery
+  and was consumed **before the packet claim**. The six `before_close`
+  deliveries — `H-P1C-INTEGRITY-002`, `H-P2-SPINE-I-001`, `H-P2-SPINE-II-001`,
+  `H-P2-SPINE-IV-001`, `H-P2-SPINE-V-001`, `H-P2-SPINE-FINALE-001` — were
+  acknowledged before the first substantive edit and consumed at closeout.
+  `H-P2-SPINE-V-002` remains `pending` for `P5-ROUTES`,
+  `H-P2-SPINE-FINALE-002` for `WE-C18` and `P5-ROUTES`, and
+  `H-P1C-INTEGRITY-001` for `WB-C05`; none was consumed here.
+- **The central tension was resolved explicitly, not left to the checker.** The
+  live source carries 46 `#def-` blocks while six ratified maps approve 52, and
+  the maps are implemented by chapter packets that have not run. The canonical
+  ledger is therefore reconciled to the **live 46**, and the approved 52 is
+  recorded as expected future state in the new terminology registry with its six
+  implementing packets named. The reason is that writing 52 into the ledger
+  before the blocks exist would make the ledger disagree with the live source and
+  break the very gate this packet was sent to retire.
+- **The frozen concept gate is retired.** The one stale ledger entry —
+  `standardizirani rezidual` with its Pearson-form definition, which the Chapter
+  13 correction had already removed from the prose — is now the canonical
+  `prilagođeni standardizirani rezidual` with its marginal-share definition. The
+  `e_{ij}` notation entry had to follow that rename, because the checker requires
+  every notation entry to point at an existing concept; the first run failed on
+  exactly that and it is recorded rather than silently fixed.
+  `data/concept-graph.json` was regenerated and moved from 449 to 503 edges at an
+  unchanged 46 nodes. Both debt entries are gone from
+  `scripts/integrity-debt.json`; only the `WB-C05` figure debt remains.
+  `check-concepts.py` now reports `ledger_debt=0 graph_fresh=true`.
+- **Three `#def-` identifiers were deliberately not renamed** —
+  `#def-standardizirani-rezidual`, `#def-korelacija` and `#def-mala-polja` — and
+  are registered as exceptions instead, because each anchors a concept-graph node
+  and a `pojmovnik.qmd` link.
+- **A ratified terminology registry is now live and machine-checked.**
+  `conventions.schema.json` admits `terminology_registry` with no existing field
+  removed or altered, and the new key is deliberately not `required`, so every
+  earlier state stays valid. The registry carries the review route, five
+  principles, the spine confirmation, 13 gate-fixed forms, 12 superseded forms, 3
+  deliberate departures, 4 meaning rules, 3 stable identifiers, the 46→52
+  definition map, 8 live divergences, one deliberately excluded place, and the
+  packet authority boundary. It **deliberately does not restate** the 166 forms
+  the ratified spines carry, and the checker asserts that it never does.
+- `scripts/check-terminology.py` is new and reports `TERMINOLOGY_OK`. Its three
+  deliberate fixtures — `duplicate_canonical_form`,
+  `superseded_form_made_canonical`, `independent_review_claimed` — each return
+  exit 1, and an unknown fixture name does too. Its live-divergence assertion is
+  strict in both directions, so the registry cannot go stale when a chapter
+  packet repairs prose; that obligation is carried by `H-P2-TERMS-003`.
+- **Two items closed and one did not, on purpose.**
+  `R04-TERMS-concept-regeneration` is `accepted`, with a recorded scope note that
+  the reader-visible rendering of variants and departures in Dodatak E belongs to
+  `R36-BOOK-alternatives` in `P5-E`. `R04-C17-definitions` is `accepted`: `G-A2c`
+  fixed the canonical forms and the terminology review is recorded as **the
+  author's own**, with no independent-review claim anywhere and a fixture proving
+  the ban. `R36-BOOK-new-cluster` was **not** closed and stays `ratified`: its
+  acceptance test also names prose, figures and exercises, and eight divergences
+  still live in Chapters 0, 8, 16 and 17, which a registry packet may not edit.
+  `H-P2-TERMS-001` carries that closure to `P6-CONTINUITY`. Leaving it open does
+  not stall Phase 2, because the ratified plan's own Phase 2 exit condition keeps
+  R10, R15, R24 and R36 open until their book-wide implementation is verified.
+- An audit of all sixteen Dodatak E entries and of `pojmovnik.qmd` found **zero
+  contradictions** with the canonical register and no superseded form in either
+  view. Dodatak E's stale status marker and its missing variant/departure
+  rendering are carried to `P5-E` by `H-P2-TERMS-004` rather than repaired here,
+  because both are appendix prose.
+- Both 2026-08-05 author amendments hold. The packet makes **no
+  independent-review claim** anywhere, the registry forbids one and a fixture
+  proves the ban; it claims **no rights-holder permission**, selects no data
+  package and does not supersede `H-P1B-DATA-LIC-003`.
+- No chapter or appendix prose, `#def-` block, `#def-` identifier, chapter spine,
+  identity brief, data package, route, render or chapter stage changed. All 19
+  units remain `draft` and the live definition count remains 46.
+
+The durable evidence is `notes/reports/p2-terms-2026-08-05.md`.
+
+## G-A2c closeout
+
+- No handoff targets `G-A2c`; the complete ledger was read before the decision,
+  so there was no incoming delivery to acknowledge or consume. The six
+  deliveries that target `P2-TERMS` — `H-P1C-INTEGRITY-002`,
+  `H-P2-SPINE-I-001`, `H-P2-SPINE-II-001`, `H-P2-SPINE-IV-001`,
+  `H-P2-SPINE-V-001` and `H-P2-SPINE-FINALE-001` — were read because they name
+  exactly what this gate had to fix, and none was consumed here.
+- The complete terminology register and the reviewer route were drafted first,
+  and the gate then closed against that drafted state. Author and editor Luka
+  Sikic accepted it as recommended on 2026-08-05, with no amendment.
+- **Terminology review is the author's own editorial responsibility and nothing
+  else.** The 2026-08-05 amendment is closed out here: no reviewer is sought,
+  recruited or named, and the first edition may make **no independent-review
+  claim** about its terminology anywhere — book, preface, colophon, release
+  metadata or site copy. That binds `P2-TERMS`, `P2-DOCS`, `P6-METHODS`,
+  `P6-VERIFY`, `P8-META` and every packet writing edition copy. This gate makes
+  no such claim itself.
+- **The 166 forms the ratified spines already carry are confirmed, not
+  reopened.** The nineteen ratified spines hold 168 key-term slots and 166
+  distinct Croatian forms. A terminology gate has no authority to weaken a
+  ratified spine, so it confirms them and changes none. `procjena` in the
+  preface and Chapter 9, and `standardizirana razlika` in Chapters 11 and 14,
+  are one concept carried twice rather than a collision.
+- **Fifteen load-bearing forms the spines named without canonising are fixed**,
+  including the Chapter 17 split vocabulary named in `H-P2-SPINE-V-001` —
+  `razdvajanje na skup za učenje, provjeru i ispitivanje` with its three
+  component sets — and the finale terms named in `H-P2-SPINE-FINALE-001`:
+  `paket dokaza`, `putovnica skupa podataka` and `objava uporabe asistenta`.
+  `R36-BOOK-new-cluster` is settled across the four activities, the split
+  vocabulary, `izgledi`, the causal terms, `osjetljivost`, `kalibracija` and
+  `pomak distribucije`. Only `omjer izgleda` and `predviđena vjerojatnost` are
+  fixed without a spine naming them, because the ratified plan foresees a
+  bounded Chapter 16 binary-outcome bridge; whether it appears remains `WD-C16`.
+- **Four meaning collisions carry rules rather than being left to the
+  implementer.** `osjetljivost` never names the confusion-table rate, because a
+  short name for one rate is exactly the single-metric reduction the `c17` brief
+  forbids. `kalibracija` is never standalone and is always written with its
+  object, which is what live Chapter 13 prose already does. `predviđanje` is the
+  canonical noun and `predikcija` survives only inside the ratified compound
+  `sustav predikcije`, so Chapter 17's ratified term is untouched. `referentna
+  oznaka` and `zabilježeni referentni ishod` are two steps of one arc and both
+  remain, and neither is ever written as *istina* or *ground truth*.
+- Three deliberate departures carry recorded reasons: `tablica zabune` rather
+  than a matrix, because the same object is Chapter 13's contingency table and
+  two names would create two sources of truth; `kolider`; and `izgledi`.
+- **Three `#def-` identifiers deliberately do not follow their term and must
+  never be renamed**, because they anchor the concept-graph node and the
+  `pojmovnik.qmd` link: `#def-standardizirani-rezidual`, whose canonical term is
+  `prilagođeni standardizirani rezidual`; `#def-korelacija`, whose canonical term
+  is `Pearsonova korelacija` beside the general key term `korelacija`; and
+  `#def-mala-polja`.
+- The six ratified definition maps are confirmed to take the frozen set of 46
+  live blocks to 52, and none of the six is changed. This gate wrote no block;
+  the live count remains 46 and `scripts/check-concepts.py` still reports
+  `definitions=46 ledger_debt=2 graph_fresh=false`, unchanged.
+- An independent inventory against the live source agrees with the maps: exactly
+  three of the 46 bolded terms are not key terms of their own ratified spine, and
+  they are precisely `varijanca` and `asimetrija` in Chapter 4, which `G-A2b-II`
+  removes as separate blocks, and `Pearsonova korelacija` in Chapter 6, which
+  sits one level below the key term `korelacija`. No other divergence exists.
+- **Ten live-source divergences are anchored to exact files and lines and
+  assigned to the packet that may edit them**, not left as prose. The stale
+  concept-ledger entry `standardizirani rezidual`, still carrying the Pearson-form
+  definition that the Chapter 13 correction removed, is one of the two entries the
+  checker counts as `ledger_debt` and is a `P2-TERMS` obligation. `curenje
+  podataka` at `chapters/02-mjerenje-i-dizajn.qmd:380` is deliberately excluded
+  and must not be changed: there the words describe an actual data breach used as
+  a quasi-experimental comparison, not statistical leakage.
+- `R04-C17-definitions` was deliberately **not** closed here. It is a `P2-TERMS`
+  item, and this gate closes no register item outside its own decision record.
+  `R04-C18-whole-prerequisites` was not touched and remains an obligation of
+  `WE-C18` and `P5-ROUTES`.
+- `OA-G-A2C-TERMS-EDITOR` is `done`, with a dated resolution; no external message
+  was sent. `H-G-A2C-001` carries the accepted register to `P2-TERMS` at its
+  `before_start` gate and to `P5-E` at its `before_close` gate;
+  `H-G-A2C-002` carries the ten anchored divergences to `WA-C00`, `WC-C08`,
+  `WD-C16` and `WD-C17`.
+- Both 2026-08-05 author amendments hold. This gate makes **no
+  independent-review claim** anywhere and claims **no rights-holder permission**
+  for any source; it selects no data package and does not supersede
+  `H-P1B-DATA-LIC-003`.
+- No chapter or appendix prose, registry, spine, `#def-` block, concept graph,
+  identity brief, data package, route, render, generated artifact, chapter stage
+  or external authority changed. All 19 units remain `draft` and the live
+  definition count remains 46.
+
+The durable evidence is `notes/reports/g-a2c-terminology-decision-2026-08-05.md`.
+
+## G-A3-DZS closeout
+
+- Two deliveries target this gate and each was handled at its own gate.
+  `H-P1B-DATA-LIC-003` is `before_start` and was consumed **before the packet
+  claim**; `H-P3-CATALOG-001` is `before_close`, acknowledged before the first
+  edit and consumed at closeout. The five other `G-A3` deliveries of both
+  handoffs remain `pending`.
+- **The accepted selection** is `BS_TU11` as a complete-year national monthly
+  arrivals and overnights series, one `BS_TU12` county cross-section, and a
+  bounded `T01`–`T03` long extract. Totals and suppression codes are retained,
+  annual and monthly rows stay separate so they cannot be double counted, and the
+  full DZS stack stays external.
+- **The snapshot year is a rule, not a number.** The author chose the latest
+  possible year, read as the most recent **complete** calendar year published at
+  retrieval, pinned by exact edition and date. An incomplete current year is
+  excluded. **This gate deliberately names no year**: a gate that retrieves
+  nothing cannot verify what has been published, and naming one would assert an
+  unchecked publication fact. `P3-DZS` pins it, and must **stop and return the
+  question** if the latest complete year is not published in a form the selection
+  admits.
+- **The lane stays `bundled` and promotion was explicitly withheld.**
+  `data/katalog.yml` was not edited: `dzs_turizam` still carries
+  `promoted: false` and `promoting_gate: G-A3-DZS`. The established basis is
+  general — the Croatian Open Licence plus the author's determination — and a
+  general basis is not an exact package record. `P3-DZS` must record the edition,
+  retrieval date, attribution, checksum and reconciliation to the official totals
+  before any promotion.
+- The package serves Chapter 3 as one traceable public claim, with two
+  permissible claim classes and three unavailable ones recorded, and the lawful
+  fallback unchanged until the package passes.
+- The book claims **no rights-holder permission**, because none was sought;
+  `H-P1B-DATA-LIC-003` is not superseded.
+- The author's parallel election answer — keep DIP portal-mediated, option A —
+  was recorded as a pre-disposition in
+  `notes/reports/author-pre-dispositions-2026-08-05.md` rather than consumed
+  here, because it belongs to `G-A3-DIP`.
+- No data file was retrieved, created or committed; no catalogue entry changed;
+  no chapter prose changed. `OA-G-A3-DZS-SELECTION` is `done` with no external
+  message sent.
+
+The durable evidence is
+`notes/reports/g-a3-dzs-selection-decision-2026-08-05.md`.
+
+## P3-DZS closeout
+
+- **The first package in the book to promote data that its own generator did not
+  make.** `dzs_turizam` is now `promoted: true` under `P3-DZS`, with
+  `promoting_gate_ratified_by: G-A3-DZS` and that gate's decision record on disk,
+  so no packet appointed itself. `promoted_total` is 3.
+- **No network retrieval.** The source is the author's local mirror, downloaded
+  2026-07-27 from the DZS PxWeb API. The retrieval date of record is 2026-07-27
+  and not the packet date, and the mirror with its refresh script is the recorded
+  provenance chain.
+- **The ratified selection was not viable as written and was not silently
+  substituted.** `T01`–`T03` is not a unique identifier in the DZS tourism base,
+  and no viable set exists under it: T01 ends at 2019, T02 reaches 2024 with 44%
+  of its 2024 cells empty, and the coastal `BS_T01`–`BS_T03` tables carry roughly
+  55% empty rows. The packet returned the narrowing to the author, who confirmed
+  the household survey `T03` at 2024 on 2026-08-05. The accepted `G-A3-DZS`
+  selection is **amended explicitly**, not overwritten.
+- **Four extracts materialised**, each reproducing byte for byte from the mirror.
+  Annual and monthly rows live in separate files so the published annual row can
+  never be double counted against its own twelve months. Three published
+  missing-value codes stay distinct from one another and from zero.
+- **The promotion contract was tightened, not spent.** A decision gate may no
+  longer be the `promoting_gate` of a promoted package; moving that gate requires
+  naming a different existing decision record; the promotion log now carries the
+  **names** of promoted packages and is compared in both directions. The
+  snapshot-notice check now reads the package's own `licence_uri` instead of
+  demanding a CC BY 4.0 link, which would have forced a false licence onto a
+  Croatian Open Licence source. Composite keys and declared missing-value codes
+  are now first-class. All six rules bind every later external package through
+  `H-P3-DZS-003`.
+- **Closeout re-verified the evidence independently**, recomputing every headline
+  figure directly from the mirror rather than from the extracts: 2025 gives
+  20.698.963 arrivals and 94.820.989 overnights, 2024 gives 20.246.060 arrivals,
+  the 21 county rows sum to the national totals with residual 0 across all six
+  combinations, 126 monthly-to-annual comparisons show zero mismatches, and the
+  survey's largest residual is exactly 1 across 18 comparisons — a property of
+  separately rounded estimates, not an error.
+- **One claim was not re-verified**: the agreement with the *live* PxWeb API. The
+  author's directive forbids network retrieval, so it stands as recorded. Its
+  mirror half is independently confirmed, and the agreement of `BS_TU11` with
+  `BS_TU12` on six independent sums gives the same figure a second, internal
+  proof.
+- Four outgoing handoffs created: `H-P3-DZS-001` (the unit is an arrival, not a
+  person), `H-P3-DZS-002` (the source last-modified date is missing and the
+  attribution obligation is not complete on its face), `H-P3-DZS-003` (the six
+  tightened promotion rules), `H-P3-DZS-004` (survey and administrative figures
+  measure different things and must not be added).
+- The book claims **no rights-holder permission**, because none was sought. No
+  chapter prose changed and all 19 ledger units remain `draft`.
+- **The dashboard's own state table was stale** and is corrected here: it still
+  named `P3-EXISTING` as last completed and `G-A3-DZS` as next permitted, both
+  already superseded by its own front matter.
+
+The durable evidence is `notes/reports/p3-dzs-2026-08-05.md`, whose declared
+state is
+`podaci:sha256-877f77292e41ae8b850fb3687c198acdb3dd9d0dfa59fcf808da3f049fc49796`.
+
+## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
+
+The author removed the five-reader think-aloud pilot from the first edition and
+replaced the recruited release readers with **the author's own read of the
+finished book**. No reader is recruited, invited or named. The order of work is
+now: draft everything, then the author reads the whole book, then revisions.
+
+`P3-PILOT` is descoped and removed from the prerequisites of `P3-VERIFY-A` and
+`G-A4-03`, so **no prose packet waits on a reader**. `P7-PILOT` is **not**
+descoped, still required by `G-A5a`, and runs with the author as its reader; it
+must record that reader explicitly and dispose of the `reader_evidence` clause
+naming deidentified session records, which an author read cannot supply in that
+form. `OA-P3-PILOT-RECRUITMENT` and `OA-P7-PILOT-RECRUITMENT` are
+`withdrawn_with_reason`, and `R26-PILOT-five-reader` is `rejected_with_reason`.
+
+**Chapter acceptance moves under a standing delegation.** The nineteen gates
+`C00`–`C18` keep the six-critic panel and every deterministic check; only the
+author's signature moves to the final whole-book read. The delegation covers
+author acceptance alone, **no packet may record that the author read a
+chapter**, and the author may reopen any chapter at the final read through the
+existing invalidation mechanism.
+
+**Reading times stay as they are.** The author kept the existing `.chapter-meta`
+times unchanged and unlabelled. That is a fourth option
+`R26-META-reading-time`'s test does not admit, so that item is
+`rejected_with_reason` rather than satisfied.
+
+Binding consequence: the first edition may make **no claim that its reading
+times are measured, reader-tested or evidence-based**, and **no claim that the
+book was validated by new readers**. Both bind `WA-C00`, every chapter packet,
+`P5-ROUTES`, `P6-CONTINUITY`, `P7-PILOT` and `P8-META`.
+
+The six-critic panel, every deterministic checker, every spine and the
+prohibition on inventing a number, study, source or citation are unchanged. The
+absence of readers relaxes no evidence rule.
+
+The durable record is
+`notes/reports/author-amendment-reader-route-2026-08-05.md`.
+
+## Author amendment 2026-08-05 — terminology reviewer withdrawn
+
+The author withdrew the independent domestic terminology reviewer from the first
+edition. `OA-P6-TERMS-REVIEWER-RECRUIT` and `OA-P6-TERMS-SIGNOFF` are
+`withdrawn_with_reason`, and `R36-BOOK-domestic-review` is
+`rejected_with_reason`. The canonical term map itself is unchanged and is now
+wholly the author's editorial responsibility.
+
+Binding consequence: the first edition may make **no independent-review claim**
+about its terminology anywhere — book, preface, colophon, release metadata or
+site copy. That binds `P2-TERMS`, `P2-DOCS`, `P6-METHODS`, `P6-VERIFY`, `P8-META`
+and any packet writing edition copy.
+
+The chain `G-A2c` → `P2-TERMS` → `P2-DOCS` → `P2-VERIFY` → `P3-CATALOG` now has
+no external dependency. The DZS and DIP rights asks are untouched and remain open.
+
+The durable record is `notes/reports/g-a2c-reviewer-amendment-2026-08-05.md`.
+
+## Author determination 2026-08-05 — DZS and DIP rights inquiries withdrawn
+
+The author determined that the selected DZS and DIP extracts are publicly
+available and require no permission, and directed that no rights inquiry be sent.
+`OA-G-A3-DZS-RIGHTS` and `OA-G-A3-DIP-RIGHTS` are `withdrawn_with_reason`. This is
+the author's own recorded determination as the accountable party, not an owner
+reply; no external message was sent.
+
+`H-P1B-DATA-LIC-003` is **not** superseded. It already permitted a gate to ratify
+a lawful package rather than preserve the cautious lane, and it already recorded a
+verified general bundled basis for DZS tourism; this determination selects that
+branch. `G-A3-DZS` and `G-A3-DIP` must still consume the handoff and record exact
+package evidence, and `P3-CATALOG` still requires published terms, attribution,
+edition, checksum and fallback per entry.
+
+Binding consequence: the book may **not** claim it obtained rights-holder
+permission, because none was sought. It may cite the source and its published
+terms. That binds `G-A3-DZS`, `P3-DZS`, `G-A3-DIP`, `P3-DIP`, `P3-CATALOG` and
+`P8-META`.
+
+The durable record is
+`notes/reports/g-a3-data-rights-determination-2026-08-05.md`.
+
+## P2-SPINE-FINALE closeout
+
+- `H-G-A2B-FINALE-001` is the only delivery targeting this packet. It was
+  acknowledged and **consumed with an exact disposition and evidence before the
+  packet claim** and before the first substantive edit. Its `P6-CONTINUITY`
+  delivery is `before_close` and correctly remains `pending`.
+  `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS`, `H-G-A2D-005` for
+  `WE-C18`, and `H-P2-SPINE-V-001` and `H-P2-SPINE-V-002` for `P2-TERMS`,
+  `WD-C17` and `P5-ROUTES`. None was consumed here.
+- `chapter-spine.json` now carries the ratified finale unit
+  `18-vase-prvo-istrazivanje` with 12 aspects, 12 terms, 17 prerequisites and 12
+  exclusions, faithful to the accepted draft with nothing added or omitted, and
+  naming its gate `G-A2b-FINALE`, its ratification date and its decision record.
+  Its deterministic state is
+  `spine:sha256-27e5c37481e84cefed4dde818b6d5ed13727faae56e917747916bf3ff2e93efb`.
+- **All nineteen spines are now ratified and none remains unratified.** The
+  three architecture consumers count them and agree on 19 of 19 with their
+  accepted states unchanged; no snapshot assertion was reintroduced.
+- **Chapter 18's whole-book cumulativeness is machine-checked, not asserted.**
+  The prerequisite list and the ratification-order condition in
+  `scripts/check-chapter-spines.py` both name all seventeen numbered chapters,
+  so the finale could not be ratified before any earlier unit. The preface is
+  deliberately excluded from the list with the recorded reason that it is the
+  reader contract rather than content a later unit depends on.
+- **The amended new-method boundary is now enforceable before any finale prose
+  exists.** The two limits are written as exclusions 2 and 3 and carry the
+  literal markers `popisa izvan opsega iz predgovora` and `u cijelosti
+  objašnjena ondje gdje se pojavljuje`; removing either returns exit 1. This
+  packet is the first of the two named enforcers, and `P6-CONTINUITY` remains
+  the second and audits the finished book. One drafted word order in exclusion 3
+  was adjusted from *u cijelosti je objašnjena* to *mora biti u cijelosti
+  objašnjena* so the exclusion literally carries the marker the same decision
+  record tabulates; both conditions are unchanged, and the change is recorded
+  rather than silent.
+- Both deliberate fixtures kept their identifiers and returned exit 1. For unit
+  18 they exercise **all three check kinds**: `ratified_without_decision` breaks
+  the gate binding, and `part_i_visible_code_admitted` breaks the exclusion
+  marker, the load-bearing term **and** the ratification-order rule, because it
+  un-ratifies Chapters 5 and 7, which the finale names as prerequisites. That is
+  a fuller per-unit coverage than Chapters 13, 14, 15 and 17 received, whose
+  order rules that fixture does not reach. No fixture was added, removed or
+  renamed.
+- The approved one-block Chapter 18 definition increase was deliberately **not**
+  implemented: adding a `#def-` block edits chapter prose, and
+  `H-P1C-INTEGRITY-002` freezes the 46 live definitions, the concept ledger and
+  the generated graph until `P2-TERMS` retires that debt. Chapter 18 still
+  carries zero live blocks and the total remains 46. `H-P2-SPINE-FINALE-001`
+  carries the approved map and the eleven rejected blocks to `P2-TERMS` and
+  `WE-C18` exactly as `H-P2-SPINE-V-001` did for Chapter 17.
+- **Two governed items closed and one did not, on purpose.**
+  `R04-SPINE-FINALE` and `R04-C18-definitions` are `accepted`.
+  `R04-C18-whole-prerequisites` was **not** closed and stays `ratified`: its
+  acceptance test requires that metadata, prose, routes and exercises do not
+  suggest the capstone is standalone, and the live `.chapter-meta` row at
+  `chapters/18-vase-prvo-istrazivanje.qmd:110` still reads *pogl. 2, 6 i 16*,
+  which is narrower than the ratified list. This packet may not edit chapter
+  prose and published no route, so closing the item would have asserted a state
+  that did not happen. `H-P2-SPINE-FINALE-002` carries the metadata half to
+  `WE-C18` and the route half to `P5-ROUTES`. Leaving it open does not change
+  when parent `R04` can close, because `R04-ROUTES-two-track-map` is already a
+  required child owned by `P5-ROUTES` in Phase 5.
+- Both 2026-08-05 author amendments hold. This packet makes **no
+  independent-review claim** anywhere, and claims **no rights-holder
+  permission** for any source and selects no data package. The acceptance test
+  of `R17-C18-two-pass` was not amended and that item was not touched.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter
+  stage, terminology, identity brief, data package, route, render, generated
+  artifact or external authority changed. All 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-spine-finale-2026-08-05.md`.
+
+## G-A2b-FINALE closeout
+
+- No handoff targets `G-A2b-FINALE`; the complete ledger was read before the
+  first substantive edit, so there was no incoming delivery to acknowledge or
+  consume. `H-G-A2D-005` remains `pending` for `WE-C18` and carries the dated
+  privacy policy this spine writes in as an obligation, `H-P1C-INTEGRITY-002`
+  remains `pending` for `P2-TERMS`, and `H-P2-SPINE-V-001` and
+  `H-P2-SPINE-V-002` remain `pending` for `P2-TERMS`, `WD-C17` and `P5-ROUTES`.
+  This gate consumes none of them.
+- The complete finale contract, the Chapter 18 spine and the definition
+  hierarchy were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it on 2026-08-05.
+- The finale carries one arc and no more: from the whole book to one evidence
+  package another person can check without talking to its author. Chapter 18
+  assembles rather than introduces, and the book's estimation-first standard
+  holds to the last page — estimate, interval and substantive magnitude lead the
+  conclusion, and no threshold decides either the main finding or its comparison
+  with the alternative.
+- **This is the one gate where the recorded intent amends the register's
+  recommended default, and the disposition is recorded as `accepted_as_amended`
+  rather than `accepted_as_recommended`.** The default forbids any new method in
+  the capstone. The author amended it: Chapter 18 **may** introduce a technique
+  the worked case genuinely requires, under three exact limits — (1) never a
+  method on the preface's out-of-scope list, meaning time series, factor
+  analysis and psychometrics, multilevel models, the mathematics of machine
+  learning, or full Bayesian inference; (2) fully explained where it appears and
+  self-contained; (3) no forward dependency on anything no earlier ratified
+  spine was asked to supply. The author's recorded reason for the limits is that
+  an unbounded new method would reopen the scope promise the preface makes; the
+  amendment itself exists so the capstone stays real research rather than a case
+  truncated to fit a method list.
+- The three limits are written as spine exclusions 2 and 3 with literal
+  deterministic markers, not left as contract prose. **`P2-SPINE-FINALE` and
+  `P6-CONTINUITY` are both named as enforcing them**: `P2-SPINE-FINALE` makes
+  the boundary machine-checkable before any finale prose exists, and
+  `P6-CONTINUITY` audits the finished book against it. `WE-C18` is bound through
+  the ratified spine exclusion rather than a duplicate handoff delivery.
+- The amendment and the ratified register are reconciled explicitly. The
+  acceptance test of `R17-C18-two-pass` requires the empirical transfer to
+  introduce no method, and Chapter 18's worked case is its main guided study,
+  because the whole chapter body is one extended worked example. The permission
+  therefore lands in the main study and the transfer stays method-free, written
+  as exclusion 4, while D13 keeps the main study explanatory as exclusion 5.
+  Extending the permission to the transfer would require amending that item's
+  acceptance test; **this gate deliberately did not, and did not touch the
+  item.**
+- `R04-C18-whole-prerequisites` is settled: Chapter 18 requires all seventeen
+  numbered chapters, written both as a prerequisite list and as a
+  ratification-order condition, so the finale cannot be ratified before any
+  earlier unit. Each prerequisite carries one named obligation. The preface is
+  deliberately excluded with a recorded reason — it is the reader contract
+  rather than content a later unit depends on, and no ratified spine in the book
+  names it as a prerequisite. Chapter 18's existing `.chapter-meta` row still
+  names a narrower prerequisite and is recorded as a `WE-C18` obligation; this
+  gate changed no prose.
+- `R04-C18-definitions` is settled with one explicit disposition. Chapter 18
+  currently carries zero blocks and so falls below the ratified one-to-five
+  band, and rises to exactly one: `paket dokaza`, the only object the finale
+  creates rather than retrieves, whose contents are already fixed by the
+  accepted lifecycle finale role and which five ratified register items name.
+  Because no later chapter exists, the later-dependant rule was applied to the
+  only downstream consumers that do — the generated glossary and concept graph,
+  the Appendix F protocol, `P5-CLOSURE-18` and `P5-ROUTES` — and exactly one
+  term passes it.
+- Eleven further terms stay in prose under `.pojam` with a recorded reason each:
+  the decision trail and reproducible workflow are already carried by Chapter
+  12's approved `reproducibilnost` block, the confirmatory/exploratory
+  distinction by its approved `analitička fleksibilnost` block, the dataset
+  passport and transformation log are components inside the evidence package's
+  own defining sentence, the sensitivity check, claim boundary and honest report
+  are ratified mechanisms of the accepted architecture, and data minimisation
+  and AI-use disclosure are rules of the dated D15 course policy owned by
+  Appendix F, which `R24-C18-dated-policy` forbids presenting as timeless
+  concepts.
+- The net effect on the frozen set of 46 live definitions, with every earlier
+  approved map, is 52: 46 + 3 (`G-A2b-I`) − 2 (`G-A2b-II`) + 0 (`G-A2b-III`)
+  + 2 (`G-A2b-IV`) + 2 (`G-A2b-V`) + 1 here. This gate writes no block; the live
+  count remains 46 and Chapter 18 still carries zero.
+- Chapter 18 carries twelve aspects, twelve terms, seventeen prerequisites and
+  twelve exclusions. The seventh communication thread lands here and nowhere
+  else: the reader writes their own honest report to the ratified standard and
+  then audits an assistant's report on the same analysis by the same measure.
+- The exact exclusion markers, required load-bearing terms and
+  ratification-order condition that `P2-SPINE-FINALE` must encode in
+  `scripts/check-chapter-spines.py` are tabulated in the decision record.
+- The draft matches the recorded author intent in every respect. Twelve
+  alternatives were rejected, including keeping the unamended prohibition,
+  admitting an unlimited technique, leaving the limits as prose, extending the
+  permission to the transfer, stating the prerequisite without listing the
+  chapters, including the preface as a prerequisite, adding no block under a
+  band exception, four separate definition-block proposals, turning the main
+  study predictive, and adding a central widget.
+- Both 2026-08-05 author amendments were read before the decision and both hold.
+  This spine makes no independent-review claim of any kind, and every finale
+  term's canonical Croatian form remains a `G-A2c` decision and the author's own
+  editorial responsibility. It claims no rights-holder permission for any source
+  and selects no data package. Neither constraint was duplicated into a spine
+  exclusion, because both durable records already name the exact packets they
+  bind.
+- `OA-G-A2B-FINALE-SPINE` is `done`, with a dated resolution that states the
+  amendment; no external message was sent. `H-G-A2B-FINALE-001` carries the
+  accepted spine, the amended method limits, the seventeen-unit prerequisite
+  list and the one-block definition increase to `P2-SPINE-FINALE` at its
+  `before_start` gate and to `P6-CONTINUITY` at its `before_close` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, identity brief, data package, route, render, generated artifact
+  or external authority changed. All 19 units remain `draft` and 18 of 19 spines
+  remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-finale-spine-decision-2026-08-05.md`.
+
+## G-A2b-V closeout
+
+- No handoff targets `G-A2b-V`; the complete ledger was read before the first
+  substantive edit, so there was no incoming delivery to acknowledge or consume.
+  `H-P0-REGISTER-004` remains `pending` for `P2-SPINE-V` and `P5-ROUTES`,
+  `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS`, and
+  `H-P0-REGISTER-007` and `H-P0-REGISTER-008` remain `pending` for `WD-C17`.
+  This gate decides what those packets must carry; it consumes none of them.
+- The complete Part V contract, the five chapter spines and the definition
+  hierarchy were drafted first, and the gate then closed against that drafted
+  state. Author and editor Luka Sikic accepted it as drafted on 2026-08-05.
+- Part V carries one arc and no more: from one table to one model to one deployed
+  system. Chapter 13 shows how counting is done and what makes a denominator
+  conditional, Chapters 14 and 15 read one and then several comparisons, Chapter
+  16 reveals that all of it was already one model, and Chapter 17 puts that model
+  into a decision about real people. The chapter order is unchanged under D03.
+- **Chapter 16 is preserved as the summit and the synthesis payoff.** Chapters 14
+  and 15 may prepare the general-model language but may not spend it, which is
+  written into the part contract and as a binding exclusion in each of those two
+  chapters. The book also stays estimation-first inside the model part: estimate,
+  interval and substantive magnitude lead, and the name of a procedure comes
+  after the difference rather than before it.
+- **Chapter 13 is a ratified prerequisite of Chapter 17.** The conditional
+  denominators and the contingency table read in Chapter 13 are what becomes the
+  confusion table in Chapter 17, so fairness and classification may not be
+  introduced before them. That settles the contradiction in `H-P0-REGISTER-004`
+  in favour of the prerequisite: **the route changes, not the prerequisite.**
+  `P5-ROUTES` must amend the advertised short critical-literacy route and may
+  publish no route that sends a reader into Chapter 17 without Chapter 13, which
+  is also Chapter 17's first spine exclusion.
+- `R04-C17-prerequisites` is settled with seven named obligations: Chapter 2 for
+  coding as measurement, Chapter 3 for base rates, Chapter 8 for corpus selection
+  and the sampling-versus-splitting distinction, Chapter 10 for error kinds and
+  the fallible reference label, Chapter 11 for error consequences and magnitude,
+  Chapter 13 for conditional denominators and the contingency table, and Chapter
+  16 for the model, prediction and prediction timing.
+- Chapter 13 carries eleven aspects, eight terms, six prerequisites and seven
+  exclusions; Chapter 14 nine, eight, five and seven; Chapter 15 nine, eight,
+  four and seven; Chapter 16 twelve, eleven, seven and nine; Chapter 17 eleven,
+  twelve, seven and ten. No prerequisite points at a later unit.
+- Chapter 17's spine is explicitly subordinate to the ratified identity brief
+  `c17` and does not repeat it: the brief owns the argument, its nine steps and
+  the measurement-first text module, while the spine fixes what the chapter must
+  carry as term, prerequisite and boundary. The brief was neither changed nor
+  superseded, and its exclusion that the prerequisite metadata remains unresolved
+  until `P2-SPINE-V` stays accurate — this gate decides them, `P2-SPINE-V` writes
+  them.
+- `R04-C17-definitions` is settled through that identity spine. Chapters 13, 14,
+  15 and 16 keep their existing five, two, three and four blocks unchanged, all
+  inside the ratified one-to-five band. Chapter 17, which currently has none and
+  so falls below the band, rises to exactly two: `zabilježeni referentni ishod`,
+  which `R24-C17-recorded-reference` requires as one consistent expression across
+  prose, visual, caption and alt text and which Chapter 18's evidence package
+  depends on, and `klasifikacijski prag`, which `R27-C17-18-transition` and the
+  `c17` plant role hand to Chapter 18 together with the unequal error burden.
+  Every other Chapter 17 term stays in prose under `.pojam`.
+- Three blocks were considered and rejected with a recorded reason: the confusion
+  table, because it is Chapter 13's contingency table with conditional
+  denominators and a second record would create two sources of truth about one
+  object and weaken the very prerequisite this gate ratifies; algorithmic
+  fairness, because a defining sentence pushes toward the single-metric reduction
+  the `c17` brief forbids; and overfitting with the training, validation and test
+  split, because no later chapter depends on their formal definition and D13
+  keeps the capstone's main study explanatory.
+- The net effect on the frozen set of 46 live definitions, together with the maps
+  already approved by earlier gates, is 51: 46 + 3 (`G-A2b-I`) − 2 (`G-A2b-II`)
+  + 0 (`G-A2b-III`) + 2 (`G-A2b-IV`) + 2 here. This gate writes no block; the
+  live count remains 46 and Chapter 17 still carries zero.
+- The exact exclusion markers, required load-bearing terms and ratification-order
+  conditions that `P2-SPINE-V` must encode in
+  `scripts/check-chapter-spines.py` are tabulated in the decision record.
+- The draft matches the recorded author intent in every respect. Ten alternatives
+  were rejected, including opening Part V with regression, revealing the general
+  model in Chapter 14 or 15, leaving Chapter 13 outside Chapter 17's
+  prerequisites, amending the prerequisite instead of the route, three separate
+  definition-block proposals for Chapter 17, a Chapter 16 estimand block,
+  repeating the `c17` argument inside the spine, and introducing logistic
+  regression as a fitted procedure.
+- Both 2026-08-05 author amendments were read before the decision and both hold.
+  This spine makes no independent-review claim of any kind, and every Part V
+  canonical Croatian form remains a `G-A2c` decision and the author's own
+  editorial responsibility. It claims no rights-holder permission for any source
+  and selects no data package. Neither constraint was duplicated into a chapter
+  spine exclusion, because both durable records already name the exact packets
+  they bind and the spine registry does not own those obligations.
+- `OA-G-A2B-V-SPINE` is `done`; no external message was sent. `H-G-A2B-V-001`
+  carries the accepted spine, the two-block Chapter 17 definition increase and
+  the route consequence to `P2-SPINE-V` at its `before_start` gate.
+- No chapter or appendix prose, registry, spine, terminology, `#def-` block,
+  concept graph, identity brief, data package, route, render, generated artifact
+  or external authority changed. All 19 units remain `draft` and 13 of 19 spines
+  remain ratified.
+
+The durable evidence is `notes/reports/g-a2b-v-spine-decision-2026-08-05.md`.
+
+## P2-SPINE-V closeout
+
+- Exactly two deliveries target this packet and both were acknowledged before the
+  first substantive edit. `H-G-A2B-V-001` was acknowledged and **consumed with an
+  exact disposition and evidence before the packet claim**. `H-P0-REGISTER-004`
+  was acknowledged before the first substantive edit and consumed at closeout
+  **on the registry side only**; its `P5-ROUTES` delivery correctly remains
+  `pending`. `H-P1C-INTEGRITY-002` remains `pending` for `P2-TERMS`, and
+  `H-P0-REGISTER-007` and `H-P0-REGISTER-008` remain `pending` for `WD-C17`;
+  none was consumed here.
+- `chapter-spine.json` now carries five ratified Part V units:
+  `13-kategoricki-podaci` with 11 aspects, 8 terms, 6 prerequisites and 7
+  exclusions; `14-dvije-grupe` with 9, 8, 5 and 7; `15-vise-grupa` with 9, 8, 4
+  and 7; `16-regresija` with 12, 11, 7 and 9; and `17-doba-algoritama` with 11,
+  12, 7 and 10. Each is faithful to the accepted draft with nothing added or
+  omitted, and each names its gate, date and decision record. Its deterministic
+  state is
+  `spine:sha256-de298deedf4b34b80bde1d39c048479b61e3f7b02b95eb9461e22dbb205fbd52`.
+- No prerequisite points at a later unit, and the table → model → deployed-system
+  arc is written both as prerequisites and as a ratification-order condition.
+- **Chapter 13 is now a live, machine-checked prerequisite of Chapter 17.**
+  Chapter 17's ratified prerequisites are Chapters 2, 3, 8, 10, 11, 13 and 16,
+  and its first exclusion forbids both reading the chapter without Chapter 13 and
+  any advertised route that reaches Chapter 17 without it. The order is locked
+  twice over, as a prerequisite and as a ratification-order rule, so Chapter 17
+  could not be ratified before Chapter 13. That discharges the registry half of
+  `H-P0-REGISTER-004`. The route half was deliberately **not** claimed: this
+  packet publishes and amends no route, and `H-P2-SPINE-V-002` carries the exact
+  route obligation to `P5-ROUTES`.
+- Chapter 16 is preserved as the summit. The discovery that the two-group
+  difference, the multi-group comparison and regression are one model belongs to
+  Chapter 16 and is written as a binding exclusion in Chapters 14 and 15, so the
+  general-model language may be prepared but not spent. The D02 boundary is live
+  in Chapter 14: the estimate is the same, but ordinary homoskedastic OLS
+  uncertainty is not Welch uncertainty.
+- The Chapter 17 spine is written as subordinate to the ratified identity brief
+  `c17` as its second exclusion. The brief was neither changed nor superseded,
+  and its exclusion that the Chapter 17 prerequisite metadata stays unresolved
+  until `P2-SPINE-V` was accurate until now — the gate decided them, this packet
+  wrote them.
+- `scripts/check-chapter-spines.py` now enforces Part V's exact exclusion
+  markers, required load-bearing terms and ratification order, and reports
+  eighteen ratified and one unratified unit. Both deliberate fixtures kept their
+  identifiers and returned exit 1. They prove the gate-binding, exclusion-marker
+  and term checks for **all five** Part V units, but the ratification-order check
+  **only for Chapter 16**, whose prerequisites include the Chapter 5 spine that
+  `part_i_visible_code_admitted` un-ratifies; Chapters 13, 14, 15 and 17 have no
+  prerequisite that fixture un-ratifies, so their order rules are not exercised.
+  That is the same partial per-unit coverage already recorded for Parts III and
+  IV. No fixture was added, removed or renamed.
+- The approved two-block Chapter 17 definition increase was deliberately **not**
+  implemented: adding a `#def-` block edits chapter prose, and
+  `H-P1C-INTEGRITY-002` freezes the 46 live definitions, the concept ledger and
+  the generated graph until `P2-TERMS` retires that debt. Chapter 17 still
+  carries zero live blocks and the total remains 46. `H-P2-SPINE-V-001` carries
+  the approved map, and the three explicitly rejected blocks, to `P2-TERMS` and
+  `WD-C17` exactly as `H-P2-SPINE-IV-001` did for Chapter 12.
+- **Two governed items closed differently, on purpose.** `R04-SPINE-V` and
+  `R04-C17-prerequisites` are `accepted`; the latter's evidence states in the
+  register itself which half is discharged here (the prerequisite metadata, live
+  and machine-checked) and which half stays with `P5-ROUTES` (the advertised
+  routes). `R04-C17-definitions` was **not** closed and stays `ratified`: its
+  acceptance test requires a *terminologically reviewed* definition map, and
+  under the 2026-08-05 amendment terminology review is wholly the author's own
+  responsibility, taken at `G-A2c`, which has not yet run. Closing it here would
+  have asserted a review that did not happen. `H-P2-SPINE-V-001` carries that
+  closure obligation to `P2-TERMS`, the last Phase 2 packet able to close it
+  before `P2-VERIFY` requires `R04` closed.
+- The three architecture consumers count ratified spines and agree on **18 of
+  19** with their accepted states unchanged; `conventions.json` was not touched
+  and no snapshot assertion was reintroduced. The blocking structure lane passes
+  with 19 chapters.
+- Both 2026-08-05 author amendments hold. This packet makes **no
+  independent-review claim** anywhere — that is precisely why
+  `R04-C17-definitions` stayed open — and claims **no rights-holder permission**
+  for any source and selects no data package; the Part V package and table
+  selections are written as obligations of `G-A3-DIP`, `G-A3-ESS`, `G-A4-16`,
+  `G-A4-17` and `G-A3-TEXT`.
+- No `#def-` block, concept-graph edge, chapter or appendix prose, chapter stage,
+  terminology, identity brief, data package, route, render, generated artifact or
+  external authority changed. All 19 units remain `draft`.
+
+The durable evidence is `notes/reports/p2-spine-v-2026-08-05.md`.
 
 ## P2-SPINE-IV closeout
 
@@ -1695,6 +2673,54 @@ the durable evidence is
   gate is frozen until `P2-TERMS`. `P2-TERMS` must expect them, `WC-C12` must add
   exactly those two and no others and may define no term the spine left in prose
   under `.pojam`, and `WC-C10` and `WC-C11` must leave their blocks unchanged.
+- The ratified Part V spine settles `R04-C17-definitions`: Chapters 13 to 16 keep
+  their five, two, three and four blocks, and Chapter 17 rises from zero to
+  exactly two — `zabilježeni referentni ishod` and `klasifikacijski prag`, each
+  with a named later dependant in Chapter 18 — but neither was written, because
+  the concept gate is frozen until `P2-TERMS`. `P2-SPINE-V` carried that map
+  forward in `H-P2-SPINE-V-001` rather than implementing it; `WD-C17` must add
+  exactly those two and no others, may define no term the spine left in prose
+  under `.pojam`, may not reopen the three rejected blocks — the confusion table,
+  algorithmic fairness, and overfitting with the train/validation/test split —
+  and `WD-C13` to `WD-C16` must leave their blocks unchanged. `P2-TERMS` also
+  owns the closure of `R04-C17-definitions`, which `P2-SPINE-V` deliberately left
+  at `ratified` because that item's acceptance test requires a terminologically
+  reviewed map and `G-A2c` had not yet run.
+- The ratified Part V spine settles `R04-C17-prerequisites`: Chapter 17 requires
+  Chapters 2, 3, 8, 10, 11, 13 and 16, and `P2-SPINE-V` made that live in the
+  registry. Because Chapter 13 supplies the conditional denominators and the
+  contingency table that become Chapter 17's confusion table, `P5-ROUTES` must
+  amend the advertised short critical-literacy route and may publish no route
+  that reaches Chapter 17 without Chapter 13. `H-P0-REGISTER-004` is consumed on
+  the registry side by `P2-SPINE-V` and remains `pending` on the route side for
+  `P5-ROUTES`, which `H-P2-SPINE-V-002` also carries.
+- The ratified finale spine settles `R04-C18-definitions`: Chapter 18 rises from
+  zero to exactly one block, `paket dokaza`, but it was not written, because the
+  concept gate is frozen until `P2-TERMS`. `P2-SPINE-FINALE` carried that map
+  forward in `H-P2-SPINE-FINALE-001` rather than implementing it; `WE-C18` must
+  add exactly that one block and no others, may define no term the spine left in
+  prose under `.pojam`, and may not reopen the eleven rejected blocks.
+  `P2-TERMS` must expect a Chapter 18 that carries one block instead of none,
+  and fixes its canonical Croatian form only after `G-A2c`.
+- The ratified finale spine settles `R04-C18-whole-prerequisites`: Chapter 18
+  requires all seventeen numbered chapters, as both a prerequisite list and a
+  ratification-order condition, and `P2-SPINE-FINALE` made both live and
+  machine-checked. The register item itself stays **open** at `ratified`,
+  because its acceptance test also names metadata, prose, routes and exercises:
+  `WE-C18` must reconcile the chapter's existing `.chapter-meta` row, which
+  still names only chapters 2, 6 and 16, and `P5-ROUTES` may publish no route,
+  map or syllabus projection that enters Chapter 18 without the whole book.
+  `H-P2-SPINE-FINALE-002` carries both halves and neither packet may close the
+  item until both are true of the live source.
+- The amended new-method boundary binds two named packets. `P2-SPINE-FINALE`
+  has made the limits machine-checkable through the exact exclusion markers
+  `popisa izvan opsega iz predgovora` and `u cijelosti objašnjena ondje gdje se
+  pojavljuje`, and removing either now fails the deterministic check.
+  `P6-CONTINUITY` must still audit the finished book against them and report any
+  technique that entered the capstone without a self-contained explanation at
+  its point of appearance or with a dependency no earlier ratified spine
+  supplies. Neither may weaken the limits, and neither may extend the permission
+  to the empirical transfer, which `R17-C18-two-pass` keeps method-free.
 - P2-DOCS must reconcile AGENTS.md's stale description of the former
   nonblocking PDF workflow with the accepted wrapper-only blocking path.
 - P5-ROUTES must re-audit every public route promise; absent solution gates and
@@ -1707,6 +2733,26 @@ the durable evidence is
 - G-A5c must confirm the term-freeze owner. P8-META must replace the null
   release fields only from the accepted metadata decision, while P8-ARCHIVE
   and P8-DEPLOY retain their exact immediate G-A6 authority gates.
+- `UCBAdmissions` and `anscombe` may not be copied into `data/` by any packet on
+  current evidence. `P3-EXISTING` searched for dataset-specific redistribution
+  terms and found only the package-level `Part of R 4.6.0` marker, with both
+  documented origins being third-party copyrighted works. `WA-C01`, `WB-C05`,
+  `WB-C06` and `P5-A` must keep them as an optional local-R route and send every
+  mandatory task to the recorded licence-clean fallback. `H-P3-EXISTING-001`
+  carries this, and neither item can close without an author decision.
+- Every generated snapshot is now checksummed in `data/katalog.yml`. Any packet
+  that changes an aggregate value must rerun `scripts/build-data-snapshots.R`
+  and update the recorded checksums, and none may round a value in the file to
+  make a print table tidier — the `rounded_mean` fixture exists to catch that.
+  `WB-C04`, `WC-C09` and `WC-C11` must build their print presets from the
+  aggregate file, and one of them must carry the task that reproduces an
+  aggregate row so `P5-C` can close `R32-CATALOG-paired-views`.
+- `scripts/check-katalog.py` and `scripts/check-data-fixtures.py` are **not**
+  blocking CI steps. `scripts/check-data-integrity.R` is, so the data-level
+  rules run in CI, but a catalogue defect, a checksum mismatch or an undeclared
+  consumer would pass CI today. `P7-CLEAN-BUILD` must wire both into the
+  blocking ladder, together with the terminology checker that `H-P2-DOCS-003`
+  already carries there.
 
 ## Simple implementation order
 
@@ -1719,7 +2765,6 @@ the durable evidence is
 7. Whole-book continuity and editorial checks.
 8. Release-candidate validation.
 9. Publication only after separate authorisation.
-
 ## Exact next-thread prompt
 
 Paste this into a new thread:
@@ -1735,35 +2780,46 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/author-pre-dispositions-2026-08-04.md.
+Also fully read notes/reports/p3-dzs-2026-08-05.md,
+notes/reports/p1b-data-licence-access-inventory-2026-08-03.md,
+notes/reports/g-a3-data-rights-determination-2026-08-05.md and
+notes/reports/author-pre-dispositions-2026-08-05.md.
 
-Prepare and close the dashboard's next permitted packet, G-A2b-V, only. Do not
-start P2-SPINE-V or any later packet, and do not edit chapter prose.
+Execute the dashboard's next permitted packet, G-A3-DIP, only, and stop.
+It is a DECISION GATE, not a data packet. It retrieves nothing, writes no data
+file, and may not promote anything. Its scope is the DIP selection, its rights,
+and its chapter role. Read the governed items it owns in full and consume only
+deliveries that target this gate.
 
-Before the first substantive edit, acknowledge every applicable incoming handoff
-and say so explicitly; consume each with a concrete disposition and evidence
-before closeout. Read the G-A2b-V packet contract, outside ask
-OA-G-A2B-V-SPINE, governed items R04-SPINE-V, R04-C17-definitions and
-R04-C17-prerequisites, the ratified identity brief c17, the P2-IDENTITY
-deferrals that name P2-SPINE-V, and the recorded author intent in full.
+THE AUTHOR HAS ALREADY ANSWERED THE CORE QUESTION - DO NOT RE-ASK IT.
+The author's parallel election answer, recorded as a pre-disposition rather
+than consumed at G-A3-DZS because it belongs here, is: keep DIP
+portal-mediated, option A. Consume that pre-disposition at this gate and record
+it as the accepted disposition, with alternatives, authority boundary and
+blocked dependencies. H-P1B-DATA-LIC-003 delivers to this gate and must be
+terminal before the claim; it is not superseded and its remaining G-A3
+deliveries stay pending.
 
-Draft the complete Part V contract, the five chapter spines for Chapters 13 to
-17 and the definition hierarchy first, then close the gate against that drafted
-state with a dated disposition, a named owner, alternatives, an authority
-boundary and a blocked-dependency list. Preserve Chapter 16 as the synthesis
-payoff. Chapter 13 IS a prerequisite for Chapter 17: its conditional
-denominators and confusion tables must precede Chapter 17's fairness and
-classification material. That settles the contradiction in H-P0-REGISTER-004,
-where the review's sample critical-literacy route skipped Chapter 13 while the
-same review required it before Chapter 17; the consequence is binding on
-P2-SPINE-V and P5-ROUTES. The Chapter 17 spine is subordinate to its ratified
-identity brief c17 and must not repeat it; settle R04-C17-definitions and
-R04-C17-prerequisites through that identity spine.
+P3-DZS CONSTRAINTS THAT NOW BIND EVERY EXTERNAL PACKAGE.
+H-P3-DZS-003 delivers to P3-DIP at before_close and carries six rules the first
+external package established: a decision gate may not be the promoting_gate of
+a promoted package; moving that gate needs promoting_gate_ratified_by naming a
+different existing decision record on disk; the promotion log carries the names
+of promoted packages and is compared in both directions against promoted_by;
+the snapshot-notice check reads the package's own licence_uri rather than
+demanding CC BY 4.0; a key may be several columns joined by '+'; a declared
+missing-value code is checked for its own presence then set aside, while an
+undeclared absence code in the same column fails. This gate must not weaken any
+of them to admit DIP.
 
-Ratify no spine beyond Part V, write no #def- block, and if the draft departs
-from the recorded intent in any respect, stop and present the exact difference.
+The book may NOT claim it obtained rights-holder permission, because none was
+sought; it may cite the source and its published terms. Availability is not
+promotion and technical access is not redistribution authority. A
+portal-mediated package stores no file in data/ and must not be presented as a
+local file or as parity across editions.
 
-Update the register, handoff ledger, and dashboard together at closeout, then
-run scripts/check-review-workflow.R through the project launcher and prove both
-required negative fixtures still fail.
+Update the register, handoff ledger, and dashboard together at closeout, then run
+scripts/check-review-workflow.R through the project launcher, prove both required
+negative fixtures still fail, rerun every deterministic check this gate touches,
+and make one scoped local commit.
 ```

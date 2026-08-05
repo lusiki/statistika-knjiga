@@ -144,6 +144,46 @@ REQUIRED_EXCLUSION_MARKERS = {
         "reproducibilnost popravlja nevaljanu inferenciju",
         "ocijenjeni zadatak pisanja koda",
     ],
+    "13-kategoricki-podaci": [
+        "katalog testova za kategoričke podatke",
+        "mjera jačine povezanosti",
+        "Kalibracija pod nultom hipotezom",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "14-dvije-grupe": [
+        "homoskedastičnom OLS nesigurnošću",
+        "katalog testova za dvije skupine",
+        "trošenje sinteze poglavlja 16",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "15-vise-grupa": [
+        "katalog post-hoc postupaka",
+        "Neformalni omjer varijanci",
+        "trošenje sinteze poglavlja 16",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "16-regresija": [
+        "prilagođavanje logističkoga modela",
+        "ponovno procjenjivanje objavljene tablice",
+        "zamjena procjenjivane veličine",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    "17-doba-algoritama": [
+        "bez poglavlja 13",
+        "podređena ratificiranom identitetskom brifu c17",
+        "tokenizatora ni predobrade",
+        "ocijenjeni zadatak pisanja koda",
+    ],
+    # The finale's two amended new-method limits are the second and third
+    # markers. G-A2b-FINALE amended the register's no-new-method default and
+    # named this check as the enforcer that makes the boundary machine-checkable
+    # before any finale prose exists, so removing either marker must fail here.
+    "18-vase-prvo-istrazivanje": [
+        "bez cijele knjige",
+        "popisa izvan opsega iz predgovora",
+        "u cijelosti objašnjena ondje gdje se pojavljuje",
+        "ocijenjeni zadatak pisanja koda",
+    ],
 }
 
 # Terms a ratified spine must carry because a later part genuinely depends on them.
@@ -199,6 +239,45 @@ REQUIRED_TERMS = {
         "publikacijska pristranost",
         "replikacija",
     ],
+    "13-kategoricki-podaci": [
+        "kontingencijska tablica",
+        "uvjetni nazivnik",
+        "očekivana frekvencija",
+        "prilagođeni standardizirani rezidual",
+    ],
+    "14-dvije-grupe": [
+        "jedinica neovisnosti",
+        "razlika aritmetičkih sredina",
+        "Welchov t-test",
+        "referentna skupina",
+    ],
+    "15-vise-grupa": [
+        "stopa obiteljske pogreške",
+        "F-statistika",
+        "planirana usporedba",
+        "eta-kvadrat",
+    ],
+    "16-regresija": [
+        "linearna regresija",
+        "procjenjivana veličina",
+        "prilagođena povezanost",
+        "curenje informacija",
+        "interakcija",
+    ],
+    "17-doba-algoritama": [
+        "tekstna jedinica",
+        "zabilježeni referentni ishod",
+        "klasifikacijski prag",
+        "tablica zabune",
+        "algoritamska pravednost",
+    ],
+    "18-vase-prvo-istrazivanje": [
+        "paket dokaza",
+        "putovnica skupa podataka",
+        "trag odluka",
+        "granica tvrdnje",
+        "provjera osjetljivosti",
+    ],
 }
 
 NO_VISIBLE_CODE_UNITS = [
@@ -224,6 +303,67 @@ RATIFICATION_ORDER = {
         "09-procjena",
         "10-logika-testiranja",
         "11-velicina-ucinka-i-snaga",
+    ],
+    "13-kategoricki-podaci": [
+        "02-mjerenje-i-dizajn",
+        "03-kako-brojke-zavode",
+        "04-sazimanje-podataka",
+        "10-logika-testiranja",
+        "11-velicina-ucinka-i-snaga",
+        "12-kriza-i-obnova",
+    ],
+    "14-dvije-grupe": [
+        "02-mjerenje-i-dizajn",
+        "04-sazimanje-podataka",
+        "09-procjena",
+        "10-logika-testiranja",
+        "11-velicina-ucinka-i-snaga",
+    ],
+    "15-vise-grupa": [
+        "09-procjena",
+        "10-logika-testiranja",
+        "11-velicina-ucinka-i-snaga",
+        "14-dvije-grupe",
+    ],
+    "16-regresija": [
+        "02-mjerenje-i-dizajn",
+        "05-vizualizacija",
+        "06-povezanost",
+        "09-procjena",
+        "13-kategoricki-podaci",
+        "14-dvije-grupe",
+        "15-vise-grupa",
+    ],
+    "17-doba-algoritama": [
+        "02-mjerenje-i-dizajn",
+        "03-kako-brojke-zavode",
+        "08-uzorkovanje",
+        "10-logika-testiranja",
+        "11-velicina-ucinka-i-snaga",
+        "13-kategoricki-podaci",
+        "16-regresija",
+    ],
+    # The finale is cumulative at whole-book level: its ratified prerequisite
+    # list and this order condition both name all seventeen numbered chapters,
+    # so Chapter 18 cannot be ratified before any earlier unit.
+    "18-vase-prvo-istrazivanje": [
+        "01-zasto-statistika",
+        "02-mjerenje-i-dizajn",
+        "03-kako-brojke-zavode",
+        "04-sazimanje-podataka",
+        "05-vizualizacija",
+        "06-povezanost",
+        "07-vjerojatnost",
+        "08-uzorkovanje",
+        "09-procjena",
+        "10-logika-testiranja",
+        "11-velicina-ucinka-i-snaga",
+        "12-kriza-i-obnova",
+        "13-kategoricki-podaci",
+        "14-dvije-grupe",
+        "15-vise-grupa",
+        "16-regresija",
+        "17-doba-algoritama",
     ],
 }
 

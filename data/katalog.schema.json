@@ -1,0 +1,528 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://statistika-knjiga/data/katalog.schema.json",
+  "title": "Kanonski katalog podataka",
+  "description": "Jedini strojno citljiv zapis o podacima knjige. Svaki paket nosi tocno jednu traku, jednu zakonitu zamjenu i jedan zapis integriteta. Promocija nije posljedica dostupnosti.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "catalogue",
+    "decision",
+    "ratified_at",
+    "source_inventory",
+    "sole_machine_readable_record",
+    "rights_boundary",
+    "lanes",
+    "refresh_classes",
+    "portfolio_caps",
+    "promotion_contract",
+    "storage_conventions",
+    "packages"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "catalogue": {"const": "data-katalog"},
+    "decision": {"const": "P3-CATALOG"},
+    "ratified_at": {"type": "string", "minLength": 10},
+    "source_inventory": {"type": "string", "minLength": 1},
+    "implementation_record": {"type": "string", "minLength": 1},
+    "sole_machine_readable_record": {"const": true},
+    "rights_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rights_holder_permission_obtained",
+        "rights_holder_permission_claim_permitted",
+        "determination_record",
+        "note"
+      ],
+      "properties": {
+        "rights_holder_permission_obtained": {"const": false},
+        "rights_holder_permission_claim_permitted": {"const": false},
+        "determination_record": {"type": "string", "minLength": 1},
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "lanes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bundled", "portal-mediated", "external-only"],
+      "properties": {
+        "bundled": {"$ref": "#/$defs/lane"},
+        "portal-mediated": {"$ref": "#/$defs/lane"},
+        "external-only": {"$ref": "#/$defs/lane"}
+      }
+    },
+    "refresh_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "portfolio_caps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["note", "author_approval_required_to_exceed", "caps"],
+      "properties": {
+        "note": {"type": "string", "minLength": 1},
+        "author_approval_required_to_exceed": {"const": true},
+        "author_approvals": {
+          "description": "Every raising of a cap, recorded where the cap lives. A cap that moved without an entry here moved without the approval the catalogue requires.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["decided_at", "approver", "record", "raised", "note"],
+            "properties": {
+              "decided_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+              "approver": {"type": "string", "minLength": 1},
+              "record": {"type": "string", "minLength": 1},
+              "raised": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["design", "from", "to", "package"],
+                  "properties": {
+                    "design": {"type": "string", "minLength": 1},
+                    "from": {"type": "integer", "minimum": 0},
+                    "to": {"type": "integer", "minimum": 0},
+                    "package": {"type": "string", "minLength": 1}
+                  }
+                }
+              },
+              "note": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "caps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["design", "cap", "registered", "promoted", "exempt_frozen_landmarks"],
+            "properties": {
+              "design": {"type": "string", "minLength": 1},
+              "cap": {"type": "integer", "minimum": 0},
+              "registered": {"type": "integer", "minimum": 0},
+              "promoted": {"type": "integer", "minimum": 0},
+              "exempt_frozen_landmarks": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "promotion_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "availability_is_not_promotion",
+        "technical_access_is_not_redistribution_authority",
+        "promotable_lanes",
+        "required_before_promotion",
+        "promoted_total",
+        "promotion_log",
+        "note"
+      ],
+      "properties": {
+        "availability_is_not_promotion": {"const": true},
+        "technical_access_is_not_redistribution_authority": {"const": true},
+        "promotable_lanes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"const": "bundled"}
+        },
+        "required_before_promotion": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "promoted_total": {"type": "integer", "minimum": 0},
+        "promotion_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["packet", "promoted", "recorded_at", "record"],
+            "properties": {
+              "packet": {"type": "string", "minLength": 1},
+              "promoted": {"type": "integer", "minimum": 0},
+              "recorded_at": {"type": "string", "minLength": 10},
+              "record": {"type": "string", "minLength": 1},
+              "packages": {
+                "description": "Ids this packet promoted. A count alone lets a promotion hide inside a number; the ids make the log answerable for which package moved.",
+                "type": "array",
+                "uniqueItems": true,
+                "items": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        },
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "storage_conventions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "packages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/package"}
+    }
+  },
+  "$defs": {
+    "lane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["permitted", "forbidden_assumption"],
+      "properties": {
+        "permitted": {"type": "string", "minLength": 1},
+        "forbidden_assumption": {"type": "string", "minLength": 1}
+      }
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "storage": {
+      "description": "Storage-fidelity disposition for a package that has materialised files. Every clause is machine-checked; none of it is prose alone.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "encoding",
+        "line_ending",
+        "filenames_ascii",
+        "weights",
+        "weights_note",
+        "precision_note",
+        "missing_note"
+      ],
+      "properties": {
+        "encoding": {"const": "UTF-8"},
+        "line_ending": {"const": "LF"},
+        "filenames_ascii": {"const": true},
+        "weights": {"description": "Name of the sampling-weight column, or null when the design has none."},
+        "weights_note": {"type": "string", "minLength": 1},
+        "precision_note": {"type": "string", "minLength": 1},
+        "missing_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "column": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "type", "unit", "missing_code", "description"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "type": {"enum": ["integer", "number", "code", "label", "text"]},
+        "unit": {"type": "string", "minLength": 1},
+        "missing_code": {"description": "The literal that marks a missing value, or null when no missing value may occur."},
+        "description": {"type": "string", "minLength": 1},
+        "min": {"type": "number"},
+        "max": {"type": "number"},
+        "levels": {"$ref": "#/$defs/nonEmptyStrings"},
+        "pairs_with": {"type": "string", "minLength": 1},
+        "pattern": {"type": "string", "minLength": 1},
+        "zero_is_meaningful": {"type": "boolean"}
+      }
+    },
+    "fileRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "role", "md5", "rows", "row_band", "key", "columns"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "role": {"enum": ["analysis", "aggregate"]},
+        "md5": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+        "rows": {"type": "integer", "minimum": 1},
+        "row_band": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"type": "integer", "minimum": 0}
+        },
+        "key": {
+          "description": "The column that identifies a row, or several joined by '+' when it takes more than one. A published cross-tabulation is identified by its dimensions together, and inventing a single surrogate key would add a column the source does not have. Column names are lowercase ASCII, so '+' is unambiguous.",
+          "type": "string",
+          "pattern": "^[a-z0-9_]+([+][a-z0-9_]+)*$"
+        },
+        "columns": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/column"}}
+      }
+    },
+    "aggregateReconciliation": {
+      "description": "How the aggregate view is recomputed from the analysis file. The validator recomputes and compares exactly, which is what proves that the file rounds nothing.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "analysis_file",
+        "aggregate_file",
+        "group_code",
+        "group_label",
+        "count_column",
+        "denominator_column",
+        "shares",
+        "sums"
+      ],
+      "properties": {
+        "analysis_file": {"type": "string", "minLength": 1},
+        "aggregate_file": {"type": "string", "minLength": 1},
+        "group_code": {"type": "string", "minLength": 1},
+        "group_label": {"type": "string", "minLength": 1},
+        "count_column": {"type": "string", "minLength": 1},
+        "denominator_column": {"type": "string", "minLength": 1},
+        "shares": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["share", "numerator", "denominator"],
+            "properties": {
+              "share": {"type": "string", "minLength": 1},
+              "numerator": {"type": "string", "minLength": 1},
+              "denominator": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "sums": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source", "total", "mean"],
+            "properties": {
+              "source": {"type": "string", "minLength": 1},
+              "total": {"type": "string", "minLength": 1},
+              "mean": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "positive_counts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source", "count"],
+            "properties": {
+              "source": {"type": "string", "minLength": 1},
+              "count": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "description": "How the bytes in this repository got here from the source, when the route is not a generator this repository runs. Named so a later reader can repeat it rather than trust it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["retrieved_at", "route", "chain"],
+      "properties": {
+        "retrieved_at": {
+          "description": "The date the data was retrieved from the source. It is the retrieval date, never the packet date.",
+          "type": "string",
+          "minLength": 10
+        },
+        "route": {"type": "string", "minLength": 1},
+        "chain": {"$ref": "#/$defs/nonEmptyStrings"},
+        "source_last_modified": {
+          "description": "The source's own last-modified date when it was captured, or null when it was not. Null is a recorded gap, never a licence to invent one."
+        },
+        "source_last_modified_note": {"type": "string", "minLength": 1},
+        "transformations": {"$ref": "#/$defs/nonEmptyStrings"}
+      }
+    },
+    "sourceReconciliation": {
+      "description": "A published total compared with its published parts. Declarative on purpose: the checker knows no column name, so a later package is reconciled by declaring itself.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "description", "total", "parts", "match_on", "values",
+                   "tolerance", "max_abs_residual", "comparisons"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "total": {"$ref": "#/$defs/reconciliationSide"},
+        "parts": {"$ref": "#/$defs/reconciliationSide"},
+        "match_on": {
+          "description": "Columns on which a total row and its part rows must agree. Empty when each side selects exactly one group.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "values": {"$ref": "#/$defs/nonEmptyStrings"},
+        "tolerance": {
+          "description": "The largest residual this comparison may show. Zero for a count; a survey estimate rounds each cell independently, so its parts need not sum to its total.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_abs_residual": {
+          "description": "The largest residual actually observed. Recorded exactly and checked for equality, so a residual can neither grow unnoticed nor be rounded away.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "comparisons": {"type": "integer", "minimum": 1}
+      }
+    },
+    "reconciliationSide": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "filters"],
+      "properties": {
+        "file": {"type": "string", "minLength": 1},
+        "filters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["column", "values"],
+            "properties": {
+              "column": {"type": "string", "minLength": 1},
+              "values": {"$ref": "#/$defs/nonEmptyStrings"}
+            }
+          }
+        }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "status",
+        "design",
+        "domain",
+        "unit",
+        "question",
+        "role",
+        "consumers",
+        "source",
+        "version",
+        "licence",
+        "attribution",
+        "access",
+        "redistribution",
+        "lane",
+        "refresh_class",
+        "fallback",
+        "integrity",
+        "promoted",
+        "promoting_gate",
+        "files",
+        "permissible_claims",
+        "unavailable_claims",
+        "ethics"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+        "name": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1},
+        "design": {"type": "string", "minLength": 1},
+        "domain": {"type": "string", "minLength": 1},
+        "unit": {"type": "string", "minLength": 1},
+        "question": {"type": "string", "minLength": 1},
+        "role": {"type": "string", "minLength": 1},
+        "consumers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "licence": {"type": "string", "minLength": 1},
+        "licence_uri": {
+          "description": "Direct link to the published terms of THIS package's licence. The snapshot notice must carry it, so the notice check is licence-aware rather than assuming every package is CC BY 4.0.",
+          "type": "string",
+          "minLength": 1
+        },
+        "attribution": {"type": "string", "minLength": 1},
+        "access": {"type": "string", "minLength": 1},
+        "redistribution": {"type": "string", "minLength": 1},
+        "lane": {"enum": ["bundled", "portal-mediated", "external-only"]},
+        "refresh_class": {"type": "string", "minLength": 1},
+        "fallback": {"type": "string", "minLength": 1},
+        "generated_data_notice": {"type": "string", "minLength": 1},
+        "build_script": {"type": "string", "minLength": 1},
+        "integrity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["checksum", "official_reconciliation", "note"],
+          "properties": {
+            "checksum": {"description": "String once recorded, null until a package is promoted."},
+            "checksum_algorithm": {"type": "string", "minLength": 1},
+            "official_reconciliation": {"description": "String once recorded, null until a package is promoted."},
+            "note": {"type": "string", "minLength": 1}
+          }
+        },
+        "promoted": {"type": "boolean"},
+        "promoted_by": {"description": "Packet that performed the promotion, or null while the package is unpromoted."},
+        "promoting_gate": {"type": "string", "minLength": 1},
+        "promoting_gate_ratified_by": {
+          "description": "The decision gate that ratified WHICH packet may promote this package, when that is not the packet P3-CATALOG first named. A packet may not quietly appoint itself.",
+          "type": "string",
+          "minLength": 1
+        },
+        "promoting_gate_ratified_record": {"type": "string", "minLength": 1},
+        "provenance": {"$ref": "#/$defs/provenance"},
+        "source_reconciliation": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/sourceReconciliation"}
+        },
+        "missing_value_codes": {
+          "description": "Every published absence code of the source and what each one means. They stay distinct from one another and from zero; none is collapsed to NA, to blank or to zero.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "meaning", "occurs_in_extract"],
+            "properties": {
+              "code": {"type": "string", "minLength": 1},
+              "meaning": {"type": "string", "minLength": 1},
+              "occurs_in_extract": {"type": "boolean"},
+              "note": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "files": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "aggregate_view": {"description": "Path to the paired aggregate view, or null until one exists."},
+        "snapshot_notice": {"type": "string", "minLength": 1},
+        "source_symbol": {"type": "string", "minLength": 1},
+        "consumer_sources": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "storage": {"$ref": "#/$defs/storage"},
+        "file_records": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fileRecord"}},
+        "aggregate_reconciliation": {"$ref": "#/$defs/aggregateReconciliation"},
+        "permissible_claims": {"$ref": "#/$defs/nonEmptyStrings"},
+        "unavailable_claims": {"$ref": "#/$defs/nonEmptyStrings"},
+        "ethics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "category_ownership",
+            "absence",
+            "identifiability",
+            "beneficiaries",
+            "error_burden",
+            "appeal"
+          ],
+          "properties": {
+            "category_ownership": {"type": "string", "minLength": 1},
+            "absence": {"type": "string", "minLength": 1},
+            "identifiability": {"type": "string", "minLength": 1},
+            "beneficiaries": {"type": "string", "minLength": 1},
+            "error_burden": {"type": "string", "minLength": 1},
+            "appeal": {"type": "string", "minLength": 1}
+          }
+        },
+        "caveats": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}
