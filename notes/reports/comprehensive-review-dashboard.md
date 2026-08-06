@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C03
-next_permitted_packet: WA-PART
+last_completed_packet: WA-PART
+next_permitted_packet: G-A3-DIGIKAT
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -44,11 +44,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C03` |
-| Next permitted packet | `WA-PART` |
+| Last completed packet | `WA-PART` |
+| Next permitted packet | `G-A3-DIGIKAT` only |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 155 accepted, 5 deferred with reason, 211 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 75 accepted, 112 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 160 accepted, 5 deferred with reason, 206 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 76 accepted, 111 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -3209,6 +3209,63 @@ the durable evidence is
   widget or render changed in C03. `WA-PART` is next and was not started in this
   thread; push, merge, tag, archive and deployment remain unauthorised.
 
+## WA-PART claim
+
+- The packet was claimed only after the canonical state was reconstructed from
+  all four control files and the checkout-local conductor instructions.
+  `C03` is accepted against WA-C03 commit
+  `72f774a3b302e6beca14730ac82727be92f29be1`, the live Chapter 3 file is
+  unchanged from that commit, and `03-kako-brojke-zavode` is at
+  `coauthor_review` in the checkout-local chapter ledger.
+- The complete handoff ledger contains **no delivery targeting `WA-PART`**.
+  There is therefore no required `before_start` delivery to consume and no
+  required `before_close` delivery to acknowledge. Nothing targeting another
+  packet was touched.
+- The packet owns only the four Part I and transition chapter sources, its
+  two critic reports and continuity synthesis, its packet report, and the three
+  control files. The write lock does not authorise `G-A3-DIGIKAT`, any later
+  packet, or any push, merge, tag, archive or deployment action.
+- The five governed items read before claim are `R08-SPINE-01-03`,
+  `R24-PARTI-thesis`, `R24-LADDER-PartI`, `R27-C03-04-transition` and
+  `R35-SELF-CHECK-I`. The packet will judge each against its own acceptance
+  tests and will not close one by aggregation.
+- `scripts/check-review-workflow.R` passed before claim with no active packet
+  and `WA-PART` as the sole next-permitted packet. It must pass again in this
+  claimed state before the first substantive edit.
+
+## WA-PART closeout
+
+- C03 was reverified against WA-C03 commit
+  `72f774a3b302e6beca14730ac82727be92f29be1`; Chapter 3 remained unchanged and
+  at `coauthor_review`, without a claim that the author read it.
+- No handoff targets WA-PART. There was no `before_start` delivery to consume
+  and no `before_close` delivery to acknowledge or dispose. Nothing targeting
+  another packet was touched.
+- The only chapter-source change is the bounded Chapter 4 bridge „Od izvora do
+  sažetka” at source SHA-256
+  `21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab`.
+  It turns skeptical reading into honest production while leaving joins,
+  missingness, transformations and the full Chapter 4 rewrite to `WB-C04`.
+- `R08-SPINE-01-03`, `R24-PARTI-thesis`, `R24-LADDER-PartI`,
+  `R27-C03-04-transition` and `R35-SELF-CHECK-I` are accepted with separate,
+  source-specific evidence. The DZS/DIP qualification is explicit: DIP carries
+  the reader-facing official-data spine; DZS supplies a verified governance
+  boundary, and no DZS recurrence is falsely claimed in Chapters 1–3.
+- Independent `critic_voice` and `critic_arc` reviews of the final state found
+  zero fatal and zero major issue and recommended closure without another
+  prose edit. Their reports and synthesis are in the three WA-PART continuity
+  reports; the packet record is `notes/reports/wa-part-2026-08-06.md`.
+- Targeted HTML, PDF and DOCX renders exited 0. Architecture, spine,
+  assessment, identity, terminology, style, citation, concept, manuscript,
+  figure, catalogue, data, DZS, DIP, widget, parity, inventory, token and
+  workflow checks pass. Tracked generated files refreshed by the render hook
+  were restored to their clean pre-render state and are outside the packet.
+- The handoff review declares no new future-relevant effect because the bridge
+  is already a governed item and WA-PART is a direct prerequisite of `WB-C04`.
+  Chapter stages and shared registries are unchanged. `G-A3-DIGIKAT` is the
+  only next-permitted packet and was not started. Push, merge, tag, archive and
+  deployment remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -3235,17 +3292,19 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that C03 is accepted against WA-C03 commit
-`72f774a3b302e6beca14730ac82727be92f29be1`, that the Chapter 3 ledger stage is
-`coauthor_review`, and that `WA-PART` is the sole `next_permitted_packet`. Then
-execute only `WA-PART`: Part I bridge, cumulative self-check, empirical-data
-spine, and AI/data route. Read every WA-PART governed item and all applicable
-incoming handoffs before claiming the packet; acknowledge each required
-before-close delivery before the first substantive edit and record a concrete
-disposition before closeout. Use the checkout-local shared registries as the
-only mutable Bookwright state, follow STYLE.md for every prose edit, obtain the
-required current part-continuity evidence, run applicable deterministic checks
-and targeted renders, update the register, handoff ledger and dashboard
-together, make one bounded local packet commit, and stop. Do not start
-`G-A3-DIGIKAT`. Push, merge, tag, archive and deploy remain unauthorised.
+Verify that `WA-PART` is accepted at Chapter 4 source SHA-256
+`21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab`, that
+Chapters 1–3 remain at `coauthor_review`, Chapter 4 remains `draft`, and
+`G-A3-DIGIKAT` is the sole `next_permitted_packet`. Then handle only
+`G-A3-DIGIKAT`, the bounded decision gate for the DigiKat snapshot, rights and
+chapter role. Read every governed item and all applicable incoming handoffs
+before claiming it; consume each `before_start` delivery before the claim,
+acknowledge every `before_close` delivery before the first substantive edit,
+and record a concrete disposition before closeout. Use the checkout-local
+shared registries as the only mutable Bookwright state and the conductor's
+bounded outside-ask format. State the recommended default, alternatives,
+authority boundary, blocked dependencies and exact author reply required; stop
+for that reply if the canonical state does not already contain it. This gate
+must not retrieve, copy, generate, promote or rewrite a DigiKat package. Do not
+start `P3-DIGIKAT`. Push, merge, tag, archive and deploy remain unauthorised.
 ```

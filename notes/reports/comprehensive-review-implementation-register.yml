@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C03"
-  next_permitted_packet: "WA-PART"
+  last_completed_packet: "WA-PART"
+  next_permitted_packet: "G-A3-DIGIKAT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8598,7 +8598,7 @@ packets:
     sequence: 83
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C03"
       - "P3-DZS"
@@ -8611,14 +8611,83 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WA-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-I"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#01-zasto-statistika-02-mjerenje-i-dizajn-03-kako-brojke-zavode-04-sazimanje-podataka"
+            - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-i-2026-08-04.md"
+            - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim-lifecycle-thread-and-assessment-architecture"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/01-zasto-statistika.qmd@sha256-ece15f2c402cfef0444fecd4db6eccc98a9121b9fc8661207575462ca3b31bc1"
+            - "source:chapters/02-mjerenje-i-dizajn.qmd@sha256-4c003ff8520fa57d957601bc2bc25fe53fab2845ff34d8f8458461c23bc94204"
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1#chapters/03-kako-brojke-zavode.qmd-unchanged"
+            - "source:chapters/04-sazimanje-podataka.qmd@sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+            - "report:notes/reports/wa-part-2026-08-06.md#dispozicija-pet-stavki"
+            - "result:DIP-denominator-3558089-approached-2216763-ballots-2215209-difference-1554"
+            - "result:DZS-reader-facing-values-in-Part-I-none-governance-boundary-only"
+            - "check:scripts/build-dzs-extracts.py-DZS_EXTRACTS_OK-extracts-4-mode-verify-retrieved-2026-07-27"
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK-portal-mediated-promoted-false-local-files-0"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-rows-50300-reconciliations-9-undeclared-0"
+            - "check:scripts/check-katalog.py-KATALOG_OK-rights_permission_claim-false"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-182815-sha256-cb58b911530e1e52737fbaf01772c6c8ecd1ed5a7f9b2499b2e93c12255b2f47"
+            - "render:PDF-exit-0-bytes-2730262-sha256-c843a6913d7f72b5d5315cf74d77727e086ea06c8924ef7cae0028619d4a2ee6"
+            - "render:DOCX-exit-0-bytes-1092131-sha256-92aafd13595a4f95200cb06d565f1fbc04c369547b98b71ccb6c9211532cfecf"
+            - "report:notes/reports/wa-part-2026-08-06.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wa-part-critic-voice-2026-08-06.md"
+            - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "result:continuity-panel-zero-fatal-zero-major-one-evidence-qualification-disposed"
+      outputs:
+        - output: "WA-PART verified vertical-slice source and evidence bundle for: Part I bridge, self-check, routes, and AI/data spine."
+          artifacts:
+            - "source:chapters/04-sazimanje-podataka.qmd@sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+            - "report:notes/reports/wa-part-2026-08-06.md"
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "items:R08-SPINE-01-03-R24-PARTI-thesis-R24-LADDER-PartI-R27-C03-04-transition-R35-SELF-CHECK-I"
+        - output: "Completion evidence is tied to the declared WA-PART source state and bounded scope."
+          artifacts:
+            - "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+            - "handoffs:no-incoming-target-WA-PART"
+            - "handoffs:no-new-future-relevant-effect"
+            - "boundary:G-A3-DIGIKAT-not-started"
+            - "check:scripts/check-review-workflow.R-at-WA-PART-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wa-part-2026-08-06.md"
+            - "check:style-architecture-spine-terminology-citation-concept-manuscript-figure-catalogue-data-widget-inventory-token-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "panel:zero-fatal-zero-major"
+            - "disposition:DZS-DIP-reader-facing-and-governance-roles-separated"
+        - test: "The WA-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-01-03-R24-PARTI-thesis-R24-LADDER-PartI-R27-C03-04-transition-R35-SELF-CHECK-I"
+            - "report:notes/reports/wa-part-2026-08-06.md#dispozicija-pet-stavki"
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   G-A3-DIGIKAT:
     sequence: 84
     phase: "3B"
@@ -15878,7 +15947,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Use DZS/DIP to teach counts, denominators, provenance, and aggregation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -15896,11 +15965,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/01-zasto-statistika.qmd#broj-nije-zakljucak"
+      - "source:chapters/03-kako-brojke-zavode.qmd#od-tocnoga-broja-do-potpune-tvrdnje"
+      - "result:DIP-reader-facing-spine-DZS-governance-boundary-no-false-DZS-recurrence"
+      - "report:notes/reports/wa-part-2026-08-06.md#empirijski-i-brojcani-dokaz"
+      - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md#razrjesenje-nalaza-dzsdip"
+      - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+      - "check:scripts/build-dzs-extracts.py-DZS_EXTRACTS_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R08-SPINE-04-06:
     parents:
       - "R08"
@@ -23060,7 +23136,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance the thesis toward provenance, units, denominators, citations, and suspicious precision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23078,11 +23154,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/03-kako-brojke-zavode.qmd#granica-dijela-i-protokol-skepticnoga-citanja"
+      - "source:chapters/04-sazimanje-podataka.qmd#od-izvora-do-sazetka"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+      - "render:HTML-PDF-DOCX-exit-0"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R24-PARTII-thesis:
     parents:
       - "R24"
@@ -23275,7 +23356,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Verify provenance, denominators, units, citations, and suspicious precision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23293,11 +23374,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/01-zasto-statistika.qmd#pitajte-model"
+      - "source:chapters/02-mjerenje-i-dizajn.qmd#pitajte-model"
+      - "source:chapters/03-kako-brojke-zavode.qmd#podrijetlo-ljudskog-i-strojnog-broja"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture-ai_competence_registry-part_i"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK-assessed-code-production-false"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R24-LADDER-PartII:
     parents:
       - "R24"
@@ -24462,7 +24549,7 @@ items:
       location: "§6/§8 + §15 R27"
     description: "Make honest data construction/description the answer to misleading presentation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24481,11 +24568,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/03-kako-brojke-zavode.qmd#sazetak"
+      - "source:chapters/04-sazimanje-podataka.qmd#od-izvora-do-sazetka"
+      - "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+      - "report:notes/reports/wa-part-critic-voice-2026-08-06.md"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "render:HTML-exit-0-new-heading-and-bridge-present"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R27-C12-13-transition:
     parents:
       - "R27"
@@ -26165,7 +26258,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part I cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26183,11 +26276,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/03-kako-brojke-zavode.qmd#samoprovjera-dijela-i"
+      - "source:chapters/03-kako-brojke-zavode.qmd#kolegij-answer-path"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim_registry-and-thread_registry"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R35-SELF-CHECK-II:
     parents:
       - "R35"
