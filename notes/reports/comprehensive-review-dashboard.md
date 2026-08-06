@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WA-C00
-next_permitted_packet: C00
+last_completed_packet: C00
+next_permitted_packet: WA-C01
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -43,15 +43,15 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `WA-C00` |
-| Next permitted packet | `C00` |
+| Last completed packet | `C00` |
+| Next permitted packet | `WA-C01` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 104 accepted, 5 deferred with reason, 262 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 43 accepted, 144 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 110 accepted, 5 deferred with reason, 256 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 44 accepted, 143 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 19 `draft` |
+| Chapter stages | 18 `draft`; `00-predgovor` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 51 of the 82 canonical asks remain `drafted_unsent`; 25 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, and the DZS and DIP selection asks; 0 external messages sent |
+| Open outside asks | 50 of the 82 canonical asks remain `drafted_unsent`; 26 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00 acceptance; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -728,6 +728,34 @@ The final preface source state is
 The durable evidence is `notes/reports/wa-c00-2026-08-05.md`, the six
 `notes/reports/wa-c00-critic-*-2026-08-05.md` reports and
 `notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md`.
+
+## C00 closeout
+
+- No handoff targets `C00`, and nothing targeting another packet was consumed.
+  The author replied exactly: `C00 accepted for
+  0eb9e3c15d191bd5b88124ecf4593af7b1aed02d on 2026-08-05.`
+- The final chapter source commit is
+  `0eb9e3c15d191bd5b88124ecf4593af7b1aed02d`; it contains the final preface
+  SHA-256 `60ec5feb…bac14dbf`. All six reports and the synthesis address that
+  exact material state and record zero remaining fatal or major finding.
+- `notes/reports/c00-acceptance-package-2026-08-05.md` cites the final commit,
+  all six reports, the synthesis, the exact author reply and the applied ledger
+  disposition.
+- `00-predgovor` advances from `draft` to `coauthor_review`; the ledger
+  explicitly says this records acceptance rather than a claim that the author
+  read the chapter. The spine checker now permits that transition only when
+  `C00` is accepted, and its injected unaccepted-gate fixture fails closed. The
+  identity-brief checker retains ledger coverage and valid-stage checks but
+  delegates current acceptance authority to that gate-aware checker; both of
+  its existing negative fixtures still fail. The six C00 child items are
+  accepted against their own source evidence.
+- The fail-closed concept check exposed a stale WA-C00 co-occurrence graph.
+  `data/concept-graph.json` was regenerated against the unchanged accepted
+  chapter source: 46 nodes, 502 edges, zero ledger debt and a fresh graph. No
+  definition, concept-ledger entry or chapter prose changed in C00.
+- `OA-C00-ACCEPTANCE` is `done` from the in-thread reply. No external message
+  was sent. `C00` is accepted, `WA-C01` is next, and no later packet was
+  started in this thread.
 
 ## Author amendment 2026-08-05 — reader pilot removed, author reads at the end
 
@@ -2918,21 +2946,31 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/wa-c00-2026-08-05.md, all six
-notes/reports/wa-c00-critic-*-2026-08-05.md reports and
-notes/reports/wa-c00-six-critic-synthesis-2026-08-05.md.
+Also fully read notes/reports/c00-acceptance-package-2026-08-05.md,
+notes/reports/p2-spine-i-2026-08-04.md,
+notes/reports/p2-terms-2026-08-05.md and
+notes/reports/p3-existing-2026-08-05.md. Before chapter work, read
+notes/struktura-knjige.md, STYLE.md and ENRICHMENT.md in full, plus the
+checkout-local book-style and book-review instructions.
 
-Execute the dashboard's next permitted packet, C00, only. It is an author
-acceptance gate, not a prose packet. Verify that all six reports address the
-final material preface state, that the WA-C00 commit is the final chapter
-source commit, and that no fatal or major finding remains.
+Execute the dashboard's next permitted packet, WA-C01, only, and stop after
+closing it. It is the Chapter 1 vertical slice and requires the ratified Part I
+spine. Before the first substantive edit, acknowledge all three applicable
+incoming handoffs: H-P2-SPINE-I-001, H-P2-TERMS-002 and H-P3-EXISTING-001.
+Consume them only at their recorded before_close gates with dispositions and
+evidence. Add exactly the approved Chapter 1 definition blocks, `jedinica
+analize` and `Simpsonov paradoks`, update the concept ledger in the same packet,
+regenerate the concept graph and rerun both concept and terminology gates. Add
+no other definition block. Keep UCBAdmissions external-only and optional; no
+local copy may be created or promoted, and every mandatory task must use the
+recorded licence-clean fallback.
 
-Prepare the bounded acceptance record with the final chapter source commit,
-all six report paths, the synthesis, the exact author-reply slot and the
-pending chapter-ledger disposition. Put the acceptance question to the author
-and stop. Do not accept on the author's behalf, do not record a reply that has
-not occurred, and do not change the chapter stage before the reply.
-
-No later packet may start. Push, merge, tag, archive and deploy remain
+Meet the complete vertical-slice contract, including verified data and
+numerical results, targeted HTML/PDF/DOCX renders, the Croatian style gate and
+a fresh parallel six-critic panel against the final Chapter 1 source state.
+Resolve every fatal or major finding or obtain an explicit author disposition,
+then update the register, handoff ledger and dashboard together, run the
+workflow check and both required negative fixtures, make one scoped local
+commit and stop. Do not start C01. Push, merge, tag, archive and deploy remain
 unauthorised.
 ```

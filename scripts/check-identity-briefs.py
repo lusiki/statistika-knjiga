@@ -44,6 +44,15 @@ LIFECYCLE_STAGES = {
     "communicate",
     "monitor",
 }
+CHAPTER_STAGES = {
+    "stub",
+    "draft",
+    "enriched",
+    "style_swept",
+    "figures_done",
+    "coauthor_review",
+    "final",
+}
 
 
 def load_architecture_helper() -> Any:
@@ -286,8 +295,16 @@ def main() -> int:
         ),
         "A ratified pillar spine must come from its own part gate, not from the identity briefs.",
     )
-    stages_recorded = {unit.get("stage") for unit in ledger.get("chapters", [])}
-    check(stages_recorded == {"draft"}, "P2-IDENTITY must leave every chapter unit at draft.")
+    ledger_units = ledger.get("chapters", [])
+    ledger_ids = [unit.get("id") for unit in ledger_units]
+    check(
+        sorted(ledger_ids) == sorted(chapter.get("id") for chapter in chapter_spines),
+        "The identity check requires the chapter ledger and spine registry to cover the same 19 units.",
+    )
+    check(
+        all(unit.get("stage") in CHAPTER_STAGES for unit in ledger_units),
+        "The chapter ledger contains a stage outside its canonical lifecycle.",
+    )
     fairness_widgets = [
         widget
         for widget in widgets.get("widgets", [])
@@ -315,8 +332,13 @@ def main() -> int:
     print("- Chapter 17 central widgets registered: 1 (fairness, retained)")
     print("- measurement-first text module: 7 covered topics, implementation excluded")
     print("- assessed code production: excluded in every pillar")
-    print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}; chapter units at draft: "
-          f"{len(ledger.get('chapters', []))}")
+    stage_counts = {
+        stage: sum(1 for unit in ledger_units if unit.get("stage") == stage)
+        for stage in sorted({unit.get("stage") for unit in ledger_units})
+    }
+    stage_summary = "; ".join(f"{count} {stage}" for stage, count in stage_counts.items())
+    print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}; "
+          f"chapter stages: {stage_summary}; acceptance authority checked by check-chapter-spines.py")
     return 0
 
 

@@ -8,6 +8,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -19,6 +20,7 @@ SPINE_SCHEMA_PATH = ROOT / "bookwright_plugin/bookwright/shared/schemas/chapter-
 LEDGER_PATH = ROOT / "bookwright_plugin/bookwright/shared/chapter-ledger.json"
 INVENTORY_PATH = ROOT / "config/book-inventory.json"
 ARCHITECTURE_HELPER_PATH = ROOT / "scripts/check-book-architecture.py"
+REGISTER_PATH = ROOT / "notes/reports/comprehensive-review-implementation-register.yml"
 
 UNIT_ORDER = [
     "00-predgovor",
@@ -63,6 +65,13 @@ GATE_OF_UNIT = {
     "16-regresija": "G-A2b-V",
     "17-doba-algoritama": "G-A2b-V",
     "18-vase-prvo-istrazivanje": "G-A2b-FINALE",
+}
+
+# A chapter may leave draft only after its own author-acceptance gate closes.
+# The register remains authoritative for that decision; the spine decision alone
+# is deliberately insufficient.
+ACCEPTANCE_GATE_OF_UNIT = {
+    unit: f"C{index:02d}" for index, unit in enumerate(UNIT_ORDER)
 }
 
 # Ratified obligations that a spine must state, keyed by unit.
@@ -386,6 +395,29 @@ def load_json(path: Path) -> Any:
         raise AssertionError(f"Invalid JSON in {path.relative_to(ROOT)}: {exc}") from None
 
 
+def load_packet_statuses(path: Path) -> dict[str, str]:
+    """Read packet statuses from the bounded packets section without a YAML dependency."""
+    try:
+        text = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        raise AssertionError(f"Missing implementation register: {path.relative_to(ROOT)}") from None
+
+    packets_match = re.search(r"(?ms)^packets:\s*$\n(.*?)^parents:\s*$", text)
+    if packets_match is None:
+        raise AssertionError("Implementation register has no bounded packets section.")
+
+    packets_text = packets_match.group(1)
+    headers = list(re.finditer(r"(?m)^  ([A-Za-z0-9-]+):\s*$", packets_text))
+    statuses: dict[str, str] = {}
+    for index, header in enumerate(headers):
+        end = headers[index + 1].start() if index + 1 < len(headers) else len(packets_text)
+        block = packets_text[header.end():end]
+        status = re.search(r'(?m)^    status:\s+"([^"]+)"\s*$', block)
+        if status is not None:
+            statuses[header.group(1)] = status.group(1)
+    return statuses
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -399,6 +431,7 @@ def main() -> int:
         spine_schema = load_json(SPINE_SCHEMA_PATH)
         ledger = load_json(LEDGER_PATH)
         inventory = load_json(INVENTORY_PATH)
+        packet_statuses = load_packet_statuses(REGISTER_PATH)
     except AssertionError as exc:
         print(f"Chapter spines: FAILED\n- {exc}")
         return 1
@@ -444,6 +477,10 @@ def main() -> int:
                     "key_terms": [],
                     "ratified": False,
                 })
+    elif fixture == "unaccepted_ledger_stage":
+        # Applied below by making the recorded C00 acceptance unavailable while
+        # leaving the ledger's coauthor_review stage in place.
+        pass
     elif fixture:
         errors.append(f"Unknown chapter-spine negative fixture: {fixture}")
 
@@ -518,10 +555,20 @@ def main() -> int:
         )
 
     stages = {unit.get("id"): unit.get("stage") for unit in ledger.get("chapters", [])}
-    check(
-        set(stages.values()) == {"draft"},
-        "Spine ratification alone may not advance any chapter stage beyond draft.",
-    )
+    if fixture == "unaccepted_ledger_stage":
+        packet_statuses["C00"] = "ratified"
+    for unit, stage in stages.items():
+        if stage == "draft":
+            continue
+        acceptance_gate = ACCEPTANCE_GATE_OF_UNIT.get(unit)
+        check(
+            stage == "coauthor_review",
+            f"Chapter {unit} may advance only from draft to coauthor_review at its Cxx gate; found {stage!r}.",
+        )
+        check(
+            packet_statuses.get(acceptance_gate) == "accepted",
+            f"Chapter {unit} may not advance beyond draft until {acceptance_gate} is accepted.",
+        )
     check(
         sorted(stages) == sorted(UNIT_ORDER),
         "The chapter ledger and the chapter-spine registry must cover the same 19 units.",
@@ -551,7 +598,12 @@ def main() -> int:
             f"prerequisites {len(chapter.get('prerequisites', []))}, "
             f"exclusions {len(chapter.get('exclusions', []))}"
         )
-    print("- chapter stages: 19 draft; solution routes: 0")
+    stage_counts = {
+        stage: sum(1 for value in stages.values() if value == stage)
+        for stage in sorted(set(stages.values()))
+    }
+    stage_summary = "; ".join(f"{count} {stage}" for stage, count in stage_counts.items())
+    print(f"- chapter stages: {stage_summary}; solution routes: 0")
     return 0
 
 
