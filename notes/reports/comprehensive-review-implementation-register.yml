@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WA-C01"
-  next_permitted_packet: "C01"
+  last_completed_packet: "C01"
+  next_permitted_packet: "WA-C02"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8009,7 +8009,7 @@ packets:
     sequence: 77
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WA-C01"
     scope: "Author acceptance and panel disposition for C01."
@@ -8020,14 +8020,71 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wa-c01-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-structure-2026-08-06.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C01-accepted-for-3b1706d42ea1bc56f0a909d895b04641872e85fd-on-2026-08-06"
+            - "report:notes/reports/c01-acceptance-package-2026-08-06.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#01-zasto-statistika-stage-coauthor_review"
+            - "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
+            - "source:sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+            - "check:scripts/check-chapter-spines.py-C01-accepted-stage-transition"
+      outputs:
+        - output: "C01 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c01-acceptance-package-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C01-accepted-for-3b1706d42ea1bc56f0a909d895b04641872e85fd-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#01-zasto-statistika-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C01 source state and bounded scope."
+          artifacts:
+            - "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
+            - "source:sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+            - "check:scripts/check-review-workflow.R-at-C01-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-17-draft-2-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+            - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C01-accepted-for-3b1706d42ea1bc56f0a909d895b04641872e85fd-on-2026-08-06"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c01-acceptance-package-2026-08-06.md"
+            - "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
+            - "reports:wa-c01-six-final-critic-reports"
+            - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C01-accepted-for-3b1706d42ea1bc56f0a909d895b04641872e85fd-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#01-zasto-statistika-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
   WA-C02:
     sequence: 78
     phase: "4"
@@ -22000,7 +22057,7 @@ items:
       location: "§12 data science"
     description: "Explain contributions of statistical learning, algorithms, data, optimisation, hardware, annotation, software, and evaluation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22018,11 +22075,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C01"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
+      - "source:chapters/01-zasto-statistika.qmd#cetiri-djelatnosti-i-cetiri-pitanja"
+      - "report:notes/reports/wa-c01-critic-evidence-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C01-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
   R24-C17-LLM-prediction:
     parents:
       - "R24"
@@ -24682,7 +24744,7 @@ items:
       location: "§10 recurring cases"
     description: "Give Chapter 1’s appearance a distinct instructional question."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24699,11 +24761,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C01"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
+      - "source:chapters/01-zasto-statistika.qmd#broj-nije-zakljucak"
+      - "source:chapters/01-zasto-statistika.qmd#simpsonov-paradoks"
+      - "report:notes/reports/wa-c01-critic-skeptic-2026-08-06.md"
+      - "report:notes/reports/wa-c01-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C01-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:3b1706d42ea1bc56f0a909d895b04641872e85fd"
   R31-C05-Anscombe:
     parents:
       - "R31"
@@ -27352,7 +27421,7 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C01-ACCEPTANCE:
-    status: "drafted_unsent"
+    status: "done"
     readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
@@ -27376,6 +27445,9 @@ outside_asks:
     resume_condition: "C01 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-06"
+    resolution: "C01 accepted for 3b1706d42ea1bc56f0a909d895b04641872e85fd on 2026-08-06."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C02-ACCEPTANCE:
     status: "drafted_unsent"

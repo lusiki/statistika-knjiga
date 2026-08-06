@@ -6660,3 +6660,29 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
       - C01 is prepared next but is not accepted and WA-C02 and every later packet remain unstarted
       - push merge tag archive and deployment remain unauthorised
+
+  C01:
+    reviewed_at: "2026-08-06"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C01 found no new future-relevant effect. The accepted Chapter 1 source,
+      six-critic disposition, two item dispositions and chapter-ledger stage are
+      direct prerequisites already visible to WA-C02 and later packets through
+      the register and ledger. Repeating them as a handoff would create
+      duplicate control state.
+    implementation_state: commit:3b1706d42ea1bc56f0a909d895b04641872e85fd
+    checks:
+      - no incoming handoff targets C01 and nothing targeting another packet was consumed
+      - the author reply is recorded exactly as C01 accepted for 3b1706d42ea1bc56f0a909d895b04641872e85fd on 2026-08-06
+      - the cited commit is still the final material Chapter 1 source and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946
+      - the synthesis records score 5 of 5 for every perspective and zero unresolved fatal major or minor finding
+      - notes/reports/c01-acceptance-package-2026-08-06.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 01-zasto-statistika from draft to coauthor_review and explicitly records no claim that the author read the chapter
+      - R24-C01-modern-AI-history and R31-C01-Berkeley are accepted with source-specific evidence and no other atomic item changes status
+      - OA-C01-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
+      - scripts/check-chapter-spines.py passes with seventeen draft and two coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph or render changed in C01
+      - WA-C02 and every later packet were not started and push merge tag archive and deployment remain unauthorised

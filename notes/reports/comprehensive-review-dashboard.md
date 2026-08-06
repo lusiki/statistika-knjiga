@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WA-C01
-next_permitted_packet: C01
+last_completed_packet: C01
+next_permitted_packet: WA-C02
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -43,15 +43,15 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `WA-C01` |
-| Next permitted packet | `C01` |
+| Last completed packet | `C01` |
+| Next permitted packet | `WA-C02` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 110 accepted, 5 deferred with reason, 256 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 45 accepted, 142 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 112 accepted, 5 deferred with reason, 254 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 46 accepted, 141 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 18 `draft`; `00-predgovor` at `coauthor_review` |
+| Chapter stages | 17 `draft`; `00-predgovor` and `01-zasto-statistika` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 50 of the 82 canonical asks remain `drafted_unsent`; 26 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00 acceptance; 0 external messages sent |
+| Open outside asks | 49 of the 82 canonical asks remain `drafted_unsent`; 27 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00 and C01 acceptance; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -2957,6 +2957,34 @@ the durable evidence is
 - `C01` is next. `WA-C02` and every later packet remain unstarted. Push, merge,
   tag, archive and deployment remain unauthorised.
 
+## C01 closeout
+
+- No handoff targets `C01`, and nothing targeting another packet was consumed.
+  The author replied exactly: `C01 accepted for
+  3b1706d42ea1bc56f0a909d895b04641872e85fd on 2026-08-06.`
+- The final Chapter 1 source commit is
+  `3b1706d42ea1bc56f0a909d895b04641872e85fd`; its Git blob is
+  `99313b22f7174e0b6cef284d9c4972f852ea7914` and its SHA-256 is
+  `e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. Every perspective scores 5/5, with zero fatal, major or minor finding.
+  `notes/reports/c01-acceptance-package-2026-08-06.md` records the final commit,
+  reports, synthesis, exact author reply and applied ledger disposition.
+- Only `R24-C01-modern-AI-history` and `R31-C01-Berkeley` advance from
+  `ratified` to `accepted`, each with source-specific evidence. No other atomic
+  item changes status.
+- Only `01-zasto-statistika` advances from `draft` to `coauthor_review`; the
+  ledger explicitly says that this records acceptance and does not claim that
+  the author read the chapter. This is not a `final` disposition.
+- `OA-C01-ACCEPTANCE` is `done` from the in-thread reply. No external message
+  was sent. C01 creates no outgoing handoff because its accepted source and
+  disposition are already direct prerequisites in the canonical register and
+  ledger.
+- No chapter prose, data, bibliography, terminology, spine, concept graph or
+  render changed in C01. `WA-C02` is next and was not started in this thread;
+  push, merge, tag, archive and deployment remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -2983,23 +3011,30 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/wa-c01-2026-08-06.md, all six
-notes/reports/wa-c01-critic-*-2026-08-06.md reports and
-notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md. Verify the final
-Chapter 1 source hash and the scoped WA-C01 commit cited by the author's reply.
+Execute the dashboard's next permitted packet, WA-C02, only. Read the complete
+Chapter 2 source, its ratified Part I spine, P1A-C02 evidence, both owned items
+R11-C02-units-eligibility and R13-C02-coding-measurement, every incoming
+handoff, the relevant sources in references.bib and the data catalogue before
+editing. Acknowledge every applicable incoming handoff before the first
+substantive edit and consume each at its declared gate with disposition and
+evidence.
 
-Execute the dashboard's next permitted packet, C01, only. This is an
-author/editor acceptance gate, not a new revision packet. Do not claim or close
-it unless the exact named owner has explicitly replied `C01 accepted for
-[WA-C01 commit] on [YYYY-MM-DD]`; a reply that lists blocking revisions returns
-the work to a bounded WA-C01 correction instead. Never infer acceptance from
-silence, the six-critic recommendation or a generic instruction to continue.
+Use Bookwright's chapter-review workflow for the required six independent
+read-only critics and its style workflow for every chapter-prose edit. Implement
+the complete bounded Chapter 2 vertical slice under the ratified spine: make
+units, eligibility, exclusions, filters and target-population change explicit;
+plant language coding only as measurement with ambiguity and exclusions; do
+not introduce text-computation machinery, a new method, a second central widget
+or an unsupported empirical claim. Verify every empirical statement and number
+against repository evidence and references.bib; never invent a citation key.
 
-On exact acceptance, record the reply verbatim, accept only
-R24-C01-modern-AI-history and R31-C01-Berkeley, advance only
-01-zasto-statistika from draft to coauthor_review without claiming that the
-author read the prose, assemble the C01 acceptance package, update the register,
-handoff ledger and dashboard together, run the workflow check and both required
-negative fixtures, make one scoped local C01 commit and stop. Do not start
-WA-C02. Push, merge, tag, archive and deploy remain unauthorised.
+Run all applicable deterministic checks, independent numerical checks, targeted
+HTML/PDF/DOCX renders and required fail-closed fixtures. When the source state is
+stable, run all six critics independently against the same final hash, resolve
+every fatal and major finding, synthesize their disposition, create the bounded
+C02 acceptance package without claiming author acceptance, update the register,
+handoff ledger and dashboard together, run scripts/check-review-workflow.R and
+both required workflow negative fixtures, make one scoped local WA-C02 commit
+and stop. Do not start or accept C02. Push, merge, tag, archive and deploy remain
+unauthorised.
 ```
