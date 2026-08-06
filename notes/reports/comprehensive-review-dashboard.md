@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: C03
 last_completed_packet: WA-C03
-next_permitted_packet: C03
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -43,12 +43,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `C03` |
 | Last completed packet | `WA-C03` |
-| Next permitted packet | `C03` |
+| Next permitted packet | None while `C03` awaits the author/editor |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 114 accepted, 5 deferred with reason, 252 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 50 accepted, 136 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 50 accepted, 135 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 16 `draft`; `00-predgovor`, `01-zasto-statistika` and `02-mjerenje-i-dizajn` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -3156,6 +3156,27 @@ the durable evidence is
   until the author-only `C03` decision. `C03` is next but is not accepted.
   Push, merge, tag, archive and deployment remain unauthorised.
 
+## C03 package prepared — awaiting author decision
+
+- C03 is claimed only as an author-acceptance gate against WA-C03 commit
+  `72f774a3b302e6beca14730ac82727be92f29be1`. The Chapter 3 Git blob is
+  `5ecef6c96379af17e03c30e6facc5a191a670618`, and the working-file SHA-256 is
+  `11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5`.
+- `notes/reports/c03-acceptance-package-2026-08-06.md` cites the final commit,
+  all six reports, the synthesis, the WA-C03 evidence record and the proposed
+  ledger disposition. `OA-C03-ACCEPTANCE` is ready for author decision; no
+  external message was sent.
+- The recommended disposition is to accept the nine governed Chapter 3 items
+  and advance only `03-kako-brojke-zavode` from `draft` to `coauthor_review`,
+  explicitly without claiming that the author read the chapter and without
+  calling it `final`.
+- No proposed disposition has been applied. The chapter ledger is unchanged,
+  all nine items remain `ratified`, C03 remains `in_progress`, and WA-PART is
+  blocked. No chapter prose, data, citation, concept, widget or render changed
+  while assembling the package.
+- The only action now required is the named author/editor's exact accept-or-
+  revise reply. Push, merge, tag, archive and deployment remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -3182,17 +3203,15 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `WA-C03` is the last completed packet and that its final source
-commit contains `chapters/03-kako-brojke-zavode.qmd` at SHA-256
-`11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5`, all six
-critic reports, the synthesis and the WA-C03 evidence report. Claim only `C03`.
+Read `notes/reports/c03-acceptance-package-2026-08-06.md` and verify that C03 is
+active against WA-C03 commit `72f774a3b302e6beca14730ac82727be92f29be1`.
+Do not edit the source, accept C03, advance the chapter ledger or change the
+nine governed item statuses without the named author/editor's reply.
 
-Assemble the bounded author acceptance package against that exact WA-C03 commit.
-Update `OA-C03-ACCEPTANCE` to ready for author decision, cite the final source
-commit and hash, all six reports, the synthesis, the governed-item disposition
-and the still-draft chapter-ledger boundary. Make one scoped local control
-commit. Do not accept C03, advance the chapter ledger, accept the nine governed
-items or edit chapter prose on the author's behalf. Stop with the exact reply
-requested from the author. Push, merge, tag, archive and deploy remain
-unauthorised.
+For acceptance, the required reply is exactly:
+
+C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06.
+
+Otherwise list exact blocking revisions tied to that commit. Push, merge, tag,
+archive and deploy remain unauthorised.
 ```

@@ -10,9 +10,17 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C03"
+    claimed_at: "2026-08-06"
+    owned_paths:
+      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
+      - "notes/reports/c03-acceptance-package-2026-08-06.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WA-C03"
-  next_permitted_packet: "C03"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8518,7 +8526,7 @@ packets:
     sequence: 82
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WA-C03"
     scope: "Author acceptance and panel disposition for C03."
@@ -27849,7 +27857,7 @@ outside_asks:
 
   OA-C03-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WA-C03_revision_and_panel"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -27870,8 +27878,14 @@ outside_asks:
     available_evidence:
       - "packet:WA-C03"
       - "packet:C03"
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+      - "report:notes/reports/wa-c03-2026-08-06.md"
+      - "reports:notes/reports/wa-c03-critic-*-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "report:notes/reports/c03-acceptance-package-2026-08-06.md"
     recommended_default: "Accept only after Chapter 3 is one verified public-claim argument, its planted debts are explicit, and all panel blockers pass."
-    exact_reply_requested: "Reply: C03 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06; or list exact blocking revisions tied to that commit."
     resume_condition: "C03 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the identity-pillar revision."
     external_message_sent: false
