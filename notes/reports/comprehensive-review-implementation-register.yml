@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C02"
-  next_permitted_packet: "G-A4-03"
+  last_completed_packet: "G-A4-03"
+  next_permitted_packet: "WA-C03"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1711,6 +1711,89 @@ decisions:
       promotion, no change to another lane, no chapter edit, and no
       rights-holder-permission claim. It authorises no generated book artefact,
       push, merge, tag, archive, deployment, or publication.
+
+  G-A4-03:
+    status: "accepted"
+    accepted_at: "2026-08-06"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence: "conversation:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+    decision_record: "notes/reports/g-a4-03-decision-package-2026-08-06.md"
+    accepted_against_c02_closeout_commit: "91a92347d93073516f6b77c3652c1f2baa5c9bee"
+    accepted_dispositions:
+      public_claim: >-
+        Chapter 3 uses one portal-mediated audit of the official DIP report for
+        the 2024 Croatian parliamentary election. The opening claim names the
+        published total turnout as 2216763 approached voters divided by 3558089
+        eligible voters at processed polling places, or 62.30 per cent, and
+        cites the exact official report and the 2026-08-05 inspection date.
+      numerator_denominator_and_aggregation: >-
+        The chapter distinguishes eligible voters at processed polling places,
+        approached voters, voters according to ballots, valid ballots and
+        invalid ballots. Valid 2154733 plus invalid 60476 gives 2215209 voters
+        according to ballots, which is 1554 fewer than approached. Those
+        official labels are not interchangeable, and the twelve electoral-unit
+        rows may support only the approved numerator-denominator and aggregation
+        lesson.
+      tier_f_argument: >-
+        The coherent argument follows the ratified nine-step identity brief:
+        exact public claim and source; axis, unit, numerator and denominator;
+        base rate; early poll-reading debt to Chapters 8 and 9; cherry-picking;
+        an assistant-produced number and its audit; synthetic media and
+        provenance; the distinction among simulation, synthetic record,
+        hypothetical model output and fabricated evidence; and a skeptical
+        reading protocol that closes the Part I claim map and self-check.
+      definition_and_widget_boundary: >-
+        WA-C03 adds exactly one new definition block, temeljna stopa, and no
+        other. The existing simulated-election margin-of-error explorer remains
+        the only central widget; it neither derives a formal margin of error nor
+        serves as evidence for the DIP administrative table.
+      data_and_rights_boundary: >-
+        dip_2024 remains portal-mediated, promoted false, with files empty and
+        checksum null. The book does not claim to bundle or redistribute DIP
+        data, does not promise portal parity across editions and does not claim
+        rights-holder permission because none was sought. Every mandatory
+        offline task keeps the promoted DZS aggregate or governed generated
+        data as its fallback without turning that fallback into a second
+        narrative pillar.
+      unavailable_claims_and_dzs_boundary: >-
+        List-support, individual, causal, ecological, predictive and
+        out-of-source generalisation claims remain unavailable. DZS tourism
+        values are recorded arrivals rather than persons, no per-capita person
+        rate may be created from them, administrative and survey figures are
+        never added, and the survey's plus-or-minus-one residual is treated as
+        a property of separately rounded estimates rather than an error.
+    rejected_alternatives:
+      - "Use DZS tourism as the central case instead of the approved DIP turnout audit."
+      - "Return the Tier F brief for further case, evidence, outline, or scope revision."
+      - "Introduce an unverified dataset or merge DIP and DZS into one empirical quantity."
+      - "Move the main ASA episode back from Chapter 10 into Chapter 3."
+      - "Treat portal access as redistribution authority or imply that rights-holder permission was obtained."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "WA-C03"
+      governed_items:
+        - "R07-C03-full-argument"
+        - "R10-C03-base-rate"
+        - "R12-C03-poll-literacy"
+        - "R12-C03-margin-debt"
+        - "R23-C03-no-R-production"
+        - "R24-C03-synthetic-media"
+        - "R24-C03-AI-provenance"
+        - "R30-C03-slide-enumeration"
+        - "R31-C03-public-case"
+      later_gates_still_mandatory:
+        - "C03"
+        - "WA-PART"
+    authority_boundary: >-
+      This decision authorises WA-C03 to implement only the accepted Chapter 3
+      Tier F public claim, governed evidence contract, outline and exclusions
+      against C02 closeout commit 91a92347d93073516f6b77c3652c1f2baa5c9bee.
+      It retrieves no source, writes no data file, promotes no package and
+      accepts no future chapter source. It does not accept C03 on the author's
+      behalf and authorises no push, merge, tag, archive, deployment or
+      publication.
 
   A-READERS-2026-08-05:
     kind: "author_amendment"
@@ -8259,7 +8342,7 @@ packets:
     sequence: 80
     phase: "3C"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C02"
       - "P3-DZS"
@@ -8273,14 +8356,72 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A4-03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:91a92347d93073516f6b77c3652c1f2baa5c9bee"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+            - "register:decisions.G-A4-03.accepted_at-2026-08-06"
+            - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "register:decisions.G-A4-03.author"
+            - "register:decisions.G-A4-03.editor"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A4-03.accepted_dispositions"
+            - "register:decisions.G-A4-03.rejected_alternatives"
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md#preporucena-dispozicija"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A4-03.blocked_dependencies"
+            - "packet:WA-C03"
+            - "items:R07-C03-full-argument-through-R31-C03-public-case"
+      outputs:
+        - output: "Dated G-A4-03 decision and authority record for: Chapter 3 case, evidence, brief, and outline."
+          artifacts:
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+            - "register:decisions.G-A4-03"
+            - "outside-ask:OA-G-A4-03-BRIEF-done"
+        - output: "Completion evidence is tied to the declared G-A4-03 source state and bounded scope."
+          artifacts:
+            - "commit:91a92347d93073516f6b77c3652c1f2baa5c9bee"
+            - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+            - "register:decisions.G-A4-03.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A4-03-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_recommended"
+            - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A4-03.rejected_alternatives"
+            - "register:decisions.G-A4-03.authority_boundary"
+            - "register:decisions.G-A4-03.blocked_dependencies"
+        - test: "The G-A4-03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "commit:C02-closeout-91a92347d93073516f6b77c3652c1f2baa5c9bee"
+            - "report:notes/reports/p2-identity-briefs-2026-08-04.md"
+            - "report:notes/reports/p3-dip-2026-08-05.md"
+            - "report:notes/reports/p3-dzs-2026-08-05.md"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+            - "amendment:P3-PILOT-descoped-and-not-a-prerequisite"
+            - "boundary:no-rights-holder-permission-claimed-and-none-was-sought"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "commit:91a92347d93073516f6b77c3652c1f2baa5c9bee"
   WA-C03:
     sequence: 81
     phase: "4"
@@ -27366,8 +27507,8 @@ outside_asks:
     external_message_sent: false
 
   OA-G-A4-03-BRIEF:
-    status: "drafted_unsent"
-    readiness: "ready_for_author_decision"
+    status: "done"
+    readiness: "resolved_after_PartI_evidence_and_pilot_descoped"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "3C"
@@ -27401,6 +27542,21 @@ outside_asks:
     resume_condition: "WA-C03 may be claimed only after the named author/editor explicitly accepts one G-A4-03 disposition tied to the prepared decision package; the descoped novice pilot is not a prerequisite."
     why_external: "The first identity-pillar case and argumentative brief require author/editor approval."
     external_message_sent: false
+    resolved_at: "2026-08-06"
+    resolution: >-
+      Author and editor Luka Sikic accepted G-A4-03 as recommended for C02
+      closeout commit 91a92347d93073516f6b77c3652c1f2baa5c9bee on 2026-08-06.
+      The earlier readiness waiting_for_PartI_evidence_and_pilot is explicitly
+      retired rather than reinterpreted: C02 supplies the required Part I
+      evidence, while the 2026-08-05 author amendment removed and descoped
+      P3-PILOT without claiming a pilot result. WA-C03 is therefore unblocked by
+      the accepted brief and governed evidence, not by a fictional pilot.
+    resolution_evidence:
+      - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+      - "commit:C02-closeout-91a92347d93073516f6b77c3652c1f2baa5c9bee"
+      - "decision:G-A4-03"
+      - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+      - "amendment:notes/reports/author-amendment-reader-route-2026-08-05.md"
 
   OA-G-A4-12-BRIEF:
     status: "drafted_unsent"

@@ -2,12 +2,19 @@
 
 **Gate:** `G-A4-03`
 
-**Stanje gatea:** spreman za odluku autora/editora; prihvaćanje nije dano ni
-zabilježeno.
+**Stanje gatea:** prihvaćen kako je preporučeno.
 
 **Imenovani vlasnik odluke:** Luka Šikić, autor/editor.
 
 **Datum pripreme:** 6. kolovoza 2026.
+
+**Datum odluke:** 6. kolovoza 2026.
+
+**C02 closeout commit odluke:**
+`91a92347d93073516f6b77c3652c1f2baa5c9bee`.
+
+**Zabilježeni odgovor autora:** `G-A4-03 accepted as recommended for
+91a92347d93073516f6b77c3652c1f2baa5c9bee on 2026-08-06.`
 
 ## Jedna potrebna odluka
 
@@ -18,9 +25,11 @@ ne piše podatkovnu datoteku, ne promovira paket i ne mijenja prozu poglavlja.
 
 ## Dostupni dokazi i ispunjeni preduvjeti
 
-- `C02` je prihvaćen za završni izvor drugoga poglavlja u commitu
-  `0552e4a35052f7f7736b267a0f367f30df02d9c7`; jedinica, nazivnik,
-  prihvatljivost, mjerenje i dizajn zato su dostupni preduvjeti.
+- `C02` je zatvoren u commitu
+  `91a92347d93073516f6b77c3652c1f2baa5c9bee` protiv završnoga izvora drugoga
+  poglavlja u commitu `0552e4a35052f7f7736b267a0f367f30df02d9c7`;
+  jedinica, nazivnik, prihvatljivost, mjerenje i dizajn zato su dostupni
+  preduvjeti.
 - `P2-IDENTITY` u
   `notes/reports/p2-identity-briefs-2026-08-04.md` veže poglavlje uz jednu
   sljedivu javnu tvrdnju i devet koraka argumenta.
@@ -125,16 +134,15 @@ Bez eksplicitne odluke ostaju blokirani `G-A4-03`, `WA-C03` i stavke
 `R24-C03-synthetic-media`, `R24-C03-AI-provenance`,
 `R30-C03-slide-enumeration` i `R31-C03-public-case`.
 
-## Potrebna autorova odluka
+## Zabilježena autorova odluka
 
-Nakon što Codex preda točan lokalni C02 closeout commit, preporučeni odgovor
-glasi:
+Autor je protiv točnoga lokalnog C02 closeout commita odgovorio:
 
 ```text
-G-A4-03 accepted as recommended for [C02 closeout commit] on 2026-08-06.
+G-A4-03 accepted as recommended for 91a92347d93073516f6b77c3652c1f2baa5c9bee on 2026-08-06.
 ```
 
-Ako se preporuka ne prihvaća, odgovor treba navesti točne blokirajuće izmjene
-javne tvrdnje, dokaza, obrisa ili opsega protiv istoga commita. Do takve odluke
-`G-A4-03` ostaje `ratified`; `WA-C03` nije pokrenut, a njegovi handoffovi ostaju
-`pending`.
+Nije navedena nijedna blokirajuća izmjena javne tvrdnje, dokaza, obrisa ili
+opsega. `G-A4-03` je zato zatvoren, a `WA-C03` je sljedeći dopušteni paket.
+Odluka ne prihvaća budući izvor trećega poglavlja, ne zamjenjuje njegov panel i
+ne ovlašćuje `C03`, push, merge, tag, arhiviranje, deployment ni objavu.
