@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C01"
-  next_permitted_packet: "WA-C02"
+  last_completed_packet: "WA-C02"
+  next_permitted_packet: "C02"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8089,7 +8089,7 @@ packets:
     sequence: 78
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C01"
       - "P2-SPINE-I"
@@ -8102,14 +8102,79 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WA-C02 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#02-mjerenje-i-dizajn"
+            - "report:notes/reports/p2-spine-i-2026-08-04.md"
+            - "check:scripts/check-chapter-spines.py-02-mjerenje-i-dizajn-aspects-9-terms-10-prerequisites-1-exclusions-7"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/02-mjerenje-i-dizajn.qmd@sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+            - "source:data/widgets.json#w02-ojs-sha256-fd8b972b2943777aea2f3e8da74bfbafb55eb6e122a3b5a4243d77bf44a46f82"
+            - "result:item-rest-before-0.749900-0.595437-0.760856-minus0.951625-after-0.951625-0.847337-0.832965-0.951625"
+            - "result:score-range-naive-1.75-correct-3.50-first-three-naive-3.75-3.75-3.00-correct-4.25-4.75-3.00"
+            - "result:widget-shift0-pooled-minus0.555279-low-high-minus0.574985-shift4-pooled-0.274939-low-high-minus0.574985"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-48-ledger_debt-0-graph_fresh-true"
+            - "check:scripts/check-katalog.py-KATALOG_OK-rights_permission_claim-false"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-203722-sha256-e5ee05c2c97e09ed3a573b4a029c7381cac3cc6948b79f68e6ec292f01c14ebf"
+            - "render:PDF-exit-0-bytes-2781001-sha256-63c313f9c5478b9e3f312bf5b38015b46241cdc7709019931e14cef2306f6ac7"
+            - "render:DOCX-wrapper-exit-0-bytes-1481944-sha256-72a35a1f1f25f9ca05b683c74b09286aacbf280bc3a180b6b1724dd1478c16f6"
+            - "report:notes/reports/wa-c02-2026-08-06.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wa-c02-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-structure-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+      outputs:
+        - output: "WA-C02 verified vertical-slice source and evidence bundle for: Chapter 2 vertical slice."
+          artifacts:
+            - "source:chapters/02-mjerenje-i-dizajn.qmd@sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+            - "report:notes/reports/wa-c02-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+        - output: "Completion evidence is tied to the declared WA-C02 source state and bounded scope."
+          artifacts:
+            - "source:sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+            - "handoffs:none-target-WA-C02"
+            - "check:scripts/check-review-workflow.R-at-WA-C02-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wa-c02-2026-08-06.md#vertikalni-rez"
+            - "check:inventory-token-style-citation-manuscript-figure-concept-terminology-spine-catalogue-data-widget-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+            - "panel:six-final-confirmations-zero-fatal-zero-major-zero-minor"
+        - test: "The WA-C02 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:P2-SPINE-I"
+            - "items:R11-C02-units-eligibility-R13-C02-coding-measurement"
+            - "report:notes/reports/wa-c02-2026-08-06.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
   C02:
     sequence: 79
     phase: "4"
@@ -27451,7 +27516,7 @@ outside_asks:
 
   OA-C02-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WA-C02_revision_and_panel"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -27469,6 +27534,11 @@ outside_asks:
     available_evidence:
       - "packet:WA-C02"
       - "packet:C02"
+      - "source:chapters/02-mjerenje-i-dizajn.qmd@sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+      - "report:notes/reports/wa-c02-2026-08-06.md"
+      - "reports:notes/reports/wa-c02-critic-*-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+      - "report:notes/reports/c02-acceptance-package-2026-08-06.md"
     recommended_default: "Accept only after design/measurement corrections, causal vocabulary, empirical boundaries, style, and panel findings pass."
     exact_reply_requested: "Reply: C02 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C02 closes only when every blocking revision is resolved on the cited source state."

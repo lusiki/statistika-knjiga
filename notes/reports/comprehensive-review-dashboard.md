@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C01
-next_permitted_packet: WA-C02
+last_completed_packet: WA-C02
+next_permitted_packet: C02
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -43,15 +43,15 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C01` |
-| Next permitted packet | `WA-C02` |
+| Last completed packet | `WA-C02` |
+| Next permitted packet | `C02` — author decision required before claim |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 112 accepted, 5 deferred with reason, 254 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 46 accepted, 141 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 47 accepted, 140 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 17 `draft`; `00-predgovor` and `01-zasto-statistika` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 49 of the 82 canonical asks remain `drafted_unsent`; 27 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00 and C01 acceptance; 0 external messages sent |
+| Open outside asks | 49 of the 82 canonical asks remain `drafted_unsent`; 27 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00 and C01 acceptance; the C02 acceptance package is ready but remains `drafted_unsent`; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -2985,6 +2985,47 @@ the durable evidence is
   render changed in C01. `WA-C02` is next and was not started in this thread;
   push, merge, tag, archive and deployment remain unauthorised.
 
+## WA-C02 closeout — Chapter 2 vertical slice
+
+- `WA-C02` is accepted on source SHA-256
+  `c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55`.
+  The complete evidence record is
+  `notes/reports/wa-c02-2026-08-06.md`.
+- No incoming handoff targets `WA-C02`, and nothing targeting another packet
+  was consumed. The packet records no outgoing handoff because its final
+  source, W02 reconciliation, panel and decision dependency are already direct
+  canonical evidence for `C02`.
+- Chapter 2 now makes units, eligibility, exclusions, filters, target-population
+  change, missingness and coding-as-measurement explicit. The survey-reading
+  card and three-part uncertainty budget keep construct, score and sampling
+  uncertainty separate; the causal and quasi-experimental boundaries remain
+  modest.
+- All four Chapter 2 definition blocks are byte-identical to the preceding
+  source and no definition was added. The shared concept ledger and concept
+  graph are unchanged; the concept check reports 48 definitions, zero ledger
+  debt and a fresh graph.
+- `data/widgets.json` changes only W02's exact instructions and OJS source hash
+  `fd8b972b2943777aea2f3e8da74bfbafb55eb6e122a3b5a4243d77bf44a46f82`.
+  Widget parity passes for all 17 pairs. The chapter adds no second central
+  widget or new method.
+- Independent calculations reproduce all score, item-rest and widget values.
+  Final HTML, PDF and wrapper-built DOCX renders each exited 0; artifact sizes,
+  SHA-256 hashes and verification details are recorded in the packet report.
+  Generated build products were restored and are not packet changes.
+- Six independent read-only critics reviewed the same final hash. Methods,
+  skepticism, pedagogy, evidence, style and structure each score 5/5 with zero
+  fatal, major or minor finding. The durable synthesis is
+  `notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md`.
+- No `digikat_mediji`, `rdp_potpore` or `bdp_dugi_niz` data entered the source;
+  no rights-holder permission is claimed, and `UCBAdmissions` was not copied or
+  redistributed.
+- Chapter 2 remains `draft`. `R11-C02-units-eligibility`,
+  `R13-C02-coding-measurement` and the four applicable P1A items remain
+  `ratified` pending the author-only `C02` decision. The acceptance package is
+  `notes/reports/c02-acceptance-package-2026-08-06.md`.
+- `C02` is next but is not accepted. `G-A4-03` and every later packet remain
+  unstarted. Push, merge, tag, archive and deployment remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -3011,30 +3052,14 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute the dashboard's next permitted packet, WA-C02, only. Read the complete
-Chapter 2 source, its ratified Part I spine, P1A-C02 evidence, both owned items
-R11-C02-units-eligibility and R13-C02-coding-measurement, every incoming
-handoff, the relevant sources in references.bib and the data catalogue before
-editing. Acknowledge every applicable incoming handoff before the first
-substantive edit and consume each at its declared gate with disposition and
-evidence.
+Review `notes/reports/c02-acceptance-package-2026-08-06.md` against the local
+WA-C02 commit reported by Codex. Do not infer acceptance from silence or from
+the completed critic panel. Ask the named author/editor for exactly one bounded
+decision: reply `C02 accepted for [WA-C02 commit reported by Codex] on
+2026-08-06.` or list exact blocking revisions against that same commit and
+source hash.
 
-Use Bookwright's chapter-review workflow for the required six independent
-read-only critics and its style workflow for every chapter-prose edit. Implement
-the complete bounded Chapter 2 vertical slice under the ratified spine: make
-units, eligibility, exclusions, filters and target-population change explicit;
-plant language coding only as measurement with ambiguity and exclusions; do
-not introduce text-computation machinery, a new method, a second central widget
-or an unsupported empirical claim. Verify every empirical statement and number
-against repository evidence and references.bib; never invent a citation key.
-
-Run all applicable deterministic checks, independent numerical checks, targeted
-HTML/PDF/DOCX renders and required fail-closed fixtures. When the source state is
-stable, run all six critics independently against the same final hash, resolve
-every fatal and major finding, synthesize their disposition, create the bounded
-C02 acceptance package without claiming author acceptance, update the register,
-handoff ledger and dashboard together, run scripts/check-review-workflow.R and
-both required workflow negative fixtures, make one scoped local WA-C02 commit
-and stop. Do not start or accept C02. Push, merge, tag, archive and deploy remain
-unauthorised.
+Stop after requesting the decision. Do not claim or close C02 without the exact
+reply. Do not start G-A4-03 or any later packet. Push, merge, tag, archive and
+deploy remain unauthorised.
 ```
