@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C00
-next_permitted_packet: WA-C01
+last_completed_packet: WA-C01
+next_permitted_packet: C01
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
 forward_handoffs: 81
-last_updated: "2026-08-05"
+last_updated: "2026-08-06"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -43,11 +43,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C00` |
-| Next permitted packet | `WA-C01` |
+| Last completed packet | `WA-C01` |
+| Next permitted packet | `C01` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 110 accepted, 5 deferred with reason, 256 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 44 accepted, 143 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 45 accepted, 142 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 18 `draft`; `00-predgovor` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -2902,10 +2902,13 @@ the durable evidence is
 - `UCBAdmissions` and `anscombe` may not be copied into `data/` by any packet on
   current evidence. `P3-EXISTING` searched for dataset-specific redistribution
   terms and found only the package-level `Part of R 4.6.0` marker, with both
-  documented origins being third-party copyrighted works. `WA-C01`, `WB-C05`,
-  `WB-C06` and `P5-A` must keep them as an optional local-R route and send every
-  mandatory task to the recorded licence-clean fallback. `H-P3-EXISTING-001`
-  carries this, and neither item can close without an author decision.
+  documented origins being third-party copyrighted works. `WA-C01` has consumed
+  that constraint: Berkeley remains a cited historical case, no local
+  `UCBAdmissions` computation survives, and every mandatory task uses
+  `populacija_medija`. `WB-C05`, `WB-C06` and `P5-A` must likewise keep the two
+  sets optional and send every mandatory task to the recorded licence-clean
+  fallback. `H-P3-EXISTING-001` carries their pending deliveries, and neither
+  item can close without an author decision.
 - Every generated snapshot is now checksummed in `data/katalog.yml`. Any packet
   that changes an aggregate value must rerun `scripts/build-data-snapshots.R`
   and update the recorded checksums, and none may round a value in the file to
@@ -2919,6 +2922,40 @@ the durable evidence is
   consumer would pass CI today. `P7-CLEAN-BUILD` must wire both into the
   blocking ladder, together with the terminology checker that `H-P2-DOCS-003`
   already carries there.
+
+## WA-C01 closeout — Chapter 1 vertical slice
+
+- `WA-C01` is accepted on source SHA-256
+  `e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946`.
+  The complete evidence record is
+  `notes/reports/wa-c01-2026-08-06.md`.
+- `H-P2-SPINE-I-001`, `H-P2-TERMS-002` and `H-P3-EXISTING-001` were
+  acknowledged before substantive editing and consumed at `before_close` with
+  exact dispositions. No delivery for another packet was touched.
+- Chapter 1 now carries exactly `#def-jedinica-analize` and
+  `#def-simpsonov-paradoks`. The canonical ledger and terminology register
+  reconcile at 48 live definitions; the regenerated graph has 48 nodes and 552
+  edges, zero ledger debt and a fresh-state result.
+- No `UCBAdmissions` file was created, copied or promoted. The final source
+  contains no local UCB computation. The mandatory example, AI task and
+  assessed calculations use the promoted `populacija_medija` aggregate.
+- The exact numerical audit returns five rows and 50.000 records; portal has
+  15.101 records, 3.514 willing to pay and share 0,232699821203894; tisak has
+  4.855, 1.289 and 0,265499485066941; social media has 13.378, 2.841 and
+  0,212363582000299; the last two shares differ by 5,31359030666423 percentage
+  points.
+- Final HTML, PDF and wrapper-built DOCX renders each exited 0. Their artifact
+  sizes and SHA-256 hashes are recorded in the packet report; generated build
+  products were restored and are not packet changes.
+- Six independent read-only critics reviewed the initial source and then the
+  same final hash. Methods, skepticism, pedagogy, evidence, style and structure
+  each score 5/5 with zero remaining fatal, major or minor finding. The durable
+  synthesis is `notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md`.
+- Chapter 1 remains `draft`; `R24-C01-modern-AI-history` and
+  `R31-C01-Berkeley` remain `ratified`. Only the named author/editor may accept
+  their synthesis and advance the chapter through `C01`.
+- `C01` is next. `WA-C02` and every later packet remain unstarted. Push, merge,
+  tag, archive and deployment remain unauthorised.
 
 ## Simple implementation order
 
@@ -2946,31 +2983,23 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Also fully read notes/reports/c00-acceptance-package-2026-08-05.md,
-notes/reports/p2-spine-i-2026-08-04.md,
-notes/reports/p2-terms-2026-08-05.md and
-notes/reports/p3-existing-2026-08-05.md. Before chapter work, read
-notes/struktura-knjige.md, STYLE.md and ENRICHMENT.md in full, plus the
-checkout-local book-style and book-review instructions.
+Also fully read notes/reports/wa-c01-2026-08-06.md, all six
+notes/reports/wa-c01-critic-*-2026-08-06.md reports and
+notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md. Verify the final
+Chapter 1 source hash and the scoped WA-C01 commit cited by the author's reply.
 
-Execute the dashboard's next permitted packet, WA-C01, only, and stop after
-closing it. It is the Chapter 1 vertical slice and requires the ratified Part I
-spine. Before the first substantive edit, acknowledge all three applicable
-incoming handoffs: H-P2-SPINE-I-001, H-P2-TERMS-002 and H-P3-EXISTING-001.
-Consume them only at their recorded before_close gates with dispositions and
-evidence. Add exactly the approved Chapter 1 definition blocks, `jedinica
-analize` and `Simpsonov paradoks`, update the concept ledger in the same packet,
-regenerate the concept graph and rerun both concept and terminology gates. Add
-no other definition block. Keep UCBAdmissions external-only and optional; no
-local copy may be created or promoted, and every mandatory task must use the
-recorded licence-clean fallback.
+Execute the dashboard's next permitted packet, C01, only. This is an
+author/editor acceptance gate, not a new revision packet. Do not claim or close
+it unless the exact named owner has explicitly replied `C01 accepted for
+[WA-C01 commit] on [YYYY-MM-DD]`; a reply that lists blocking revisions returns
+the work to a bounded WA-C01 correction instead. Never infer acceptance from
+silence, the six-critic recommendation or a generic instruction to continue.
 
-Meet the complete vertical-slice contract, including verified data and
-numerical results, targeted HTML/PDF/DOCX renders, the Croatian style gate and
-a fresh parallel six-critic panel against the final Chapter 1 source state.
-Resolve every fatal or major finding or obtain an explicit author disposition,
-then update the register, handoff ledger and dashboard together, run the
-workflow check and both required negative fixtures, make one scoped local
-commit and stop. Do not start C01. Push, merge, tag, archive and deploy remain
-unauthorised.
+On exact acceptance, record the reply verbatim, accept only
+R24-C01-modern-AI-history and R31-C01-Berkeley, advance only
+01-zasto-statistika from draft to coauthor_review without claiming that the
+author read the prose, assemble the C01 acceptance package, update the register,
+handoff ledger and dashboard together, run the workflow check and both required
+negative fixtures, make one scoped local C01 commit and stop. Do not start
+WA-C02. Push, merge, tag, archive and deploy remain unauthorised.
 ```

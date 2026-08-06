@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-05"
+  last_updated: "2026-08-06"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C00"
-  next_permitted_packet: "WA-C01"
+  last_completed_packet: "WA-C01"
+  next_permitted_packet: "C01"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -7923,7 +7923,7 @@ packets:
     sequence: 76
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C00"
       - "P2-SPINE-I"
@@ -7935,14 +7935,76 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WA-C01 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#01-zasto-statistika"
+            - "report:notes/reports/p2-spine-i-2026-08-04.md"
+            - "check:scripts/check-chapter-spines.py-01-zasto-statistika-aspects-7-terms-8-prerequisites-0-exclusions-6"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:data/populacija-medija-agregat.csv"
+            - "catalogue:data/katalog.yml#populacija_medija-consumer-WA-C01-and-chapter-01"
+            - "result:rows-5-total-50000-portal-n-15101-pay-3514-share-0.232699821203894-tisak-n-4855-pay-1289-share-0.265499485066941-drustvene-n-13378-pay-2841-share-0.212363582000299-gap-5.31359030666423pp"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK"
+            - "check:scripts/check-katalog.py-KATALOG_OK"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-184014-sha256-71bf07abacab6add9cf2da82409b91a49a99fc2103b8d32cd899c63ec94cd37f"
+            - "render:PDF-exit-0-bytes-2773679-sha256-a2f34a9f54c71ee7f26c7395b533e6032c16db860012487fcc0d1f78fd29e593"
+            - "render:DOCX-wrapper-exit-0-bytes-1479446-sha256-faf138e1b040eccf5a00c7702d3ed325f665c354e6da1b25ba9cb53164812275"
+            - "report:notes/reports/wa-c01-2026-08-06.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wa-c01-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c01-critic-structure-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+      outputs:
+        - output: "WA-C01 verified vertical-slice source and evidence bundle for: Chapter 1 vertical slice."
+          artifacts:
+            - "source:chapters/01-zasto-statistika.qmd@sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+            - "report:notes/reports/wa-c01-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+        - output: "Completion evidence is tied to the declared WA-C01 source state and bounded scope."
+          artifacts:
+            - "source:sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+            - "handoffs:H-P2-SPINE-I-001-H-P2-TERMS-002-H-P3-EXISTING-001-consumed"
+            - "check:scripts/check-review-workflow.R-at-WA-C01-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wa-c01-2026-08-06.md#vertikalni-rez"
+            - "check:style-citation-manuscript-figure-concept-terminology-spine-catalogue-data-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
+            - "panel:six-final-confirmations-zero-fatal-zero-major-zero-minor"
+        - test: "The WA-C01 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "spine:P2-SPINE-I"
+            - "items:R24-C01-modern-AI-history-R31-C01-Berkeley"
+            - "report:notes/reports/wa-c01-2026-08-06.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
   C01:
     sequence: 77
     phase: "4"
@@ -27291,7 +27353,7 @@ outside_asks:
 
   OA-C01-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WA-C01_revision_and_panel"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -27305,6 +27367,10 @@ outside_asks:
     available_evidence:
       - "packet:WA-C01"
       - "packet:C01"
+      - "source:chapters/01-zasto-statistika.qmd@sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+      - "report:notes/reports/wa-c01-2026-08-06.md"
+      - "reports:notes/reports/wa-c01-critic-*-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c01-six-critic-synthesis-2026-08-06.md"
     recommended_default: "Accept only after the lifecycle/claim foundations, nonrepetitive Berkeley use, AI history, sources, and panel findings pass."
     exact_reply_requested: "Reply: C01 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C01 closes only when every blocking revision is resolved on the cited source state."

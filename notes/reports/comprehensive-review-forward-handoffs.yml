@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-05"
+last_updated: "2026-08-06"
 inventory_child_count: 371
 
 protocol:
@@ -2417,7 +2417,20 @@ handoffs:
           - "handoff:H-P2-TERMS-002-created-for-the-six-implementing-chapter-packets"
       - target_packet: WA-C01
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        disposition: >-
+          WA-C01 added exactly the two ratified Chapter 1 definition blocks,
+          jedinica analize and Simpsonov paradoks, under stable identifiers
+          def-jedinica-analize and def-simpsonov-paradoks. It added no other
+          definition block and left the terms assigned to prose or later
+          chapters outside the Chapter 1 definition surface.
+        evidence:
+          - "source:chapters/01-zasto-statistika.qmd@sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+          - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-01-zasto-statistika-aspects-7-terms-8-exclusions-6"
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-48-ledger_debt-0-graph_fresh-true"
+          - "report:notes/reports/wa-c01-2026-08-06.md#dolazne-isporuke"
       - target_packet: WA-C03
         gate: before_close
         state: pending
@@ -3637,7 +3650,23 @@ handoffs:
     deliveries:
       - target_packet: WA-C01
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        disposition: >-
+          The same packet added the two matching canonical concept-ledger
+          entries, reconciled the live definition count from 46 to 48 in the
+          terminology registry, regenerated data/concept-graph.json through the
+          required launcher and changed no notation entry because neither new
+          concept has a notation dependency. Both fail-closed concept and
+          terminology checks pass with zero ledger debt and a fresh graph.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#jedinica-analize-and-Simpsonov-paradoks"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map-live_count-48"
+          - "generated:data/concept-graph.json-48-nodes-552-edges"
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-48-ledger_debt-0-graph_fresh-true"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-48-approved_total-52"
+          - "report:notes/reports/wa-c01-2026-08-06.md#dolazne-isporuke"
       - target_packet: WA-C03
         gate: before_close
         state: pending
@@ -4292,7 +4321,23 @@ handoffs:
     deliveries:
       - target_packet: WA-C01
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        disposition: >-
+          WA-C01 created, copied and promoted no UCBAdmissions file. The final
+          chapter uses the Berkeley case only as a cited historical example and
+          contains no local UCBAdmissions computation. Every mandatory
+          numerical task uses the promoted licence-clean populacija_medija
+          aggregate; the catalogue records Chapter 1 only for that source and
+          retains UCBAdmissions as external-only and unpromoted.
+        evidence:
+          - "source:chapters/01-zasto-statistika.qmd@sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946"
+          - "catalogue:data/katalog.yml#populacija_medija-consumer-WA-C01-and-chapter-01"
+          - "catalogue:data/katalog.yml#ucbadmissions-external-only-promoted-false-files-empty"
+          - "check:scripts/check-katalog.py-KATALOG_OK-packages-20-promoted-3"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK"
+          - "report:notes/reports/wa-c01-critic-evidence-2026-08-06.md"
       - target_packet: WB-C05
         gate: before_close
         state: pending
@@ -6579,3 +6624,39 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
       - no chapter prose data bibliography terminology spine or render changed in C00; only data/concept-graph.json was regenerated to reconcile the already accepted source state
       - WA-C01 and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  WA-C01:
+    reviewed_at: "2026-08-06"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WA-C01 found no new future-relevant effect. The two new canonical
+      definitions implement an already ratified map whose remaining four
+      additions retain named packet owners; the data boundary arrived through
+      H-P3-EXISTING-001 and remains recorded for its later targets. The Chapter
+      1 source, panel and author-decision dependency are directly visible to C01
+      through the register and evidence bundle, so a duplicate handoff would
+      create competing control state.
+    implementation_state: source:sha256-e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946
+    checks:
+      - exactly three deliveries target WA-C01 and all were acknowledged before the first substantive edit and consumed at before_close
+      - H-P2-SPINE-I-001 produced exactly def-jedinica-analize and def-simpsonov-paradoks and no other definition block
+      - H-P2-TERMS-002 produced matching concept-ledger entries a regenerated 48-node 552-edge graph and zero ledger debt
+      - H-P3-EXISTING-001 left UCBAdmissions external-only unpromoted and absent from every mandatory Chapter 1 task
+      - nothing targeting another packet was consumed and all later deliveries remain pending
+      - the ratified Chapter 1 spine supplies seven aspects eight terms zero prerequisites and six exclusions
+      - the final Chapter 1 hash is e16f109d399c820d65080b9da38f984aa3d68b195d73d5a30d54140ee2f7d946
+      - the final source names the unit of analysis before calculation teaches the denominator in prose and makes provenance precede computation
+      - the nine-stage lifecycle contains the four governed statistical activities and all four are assessed without requiring code
+      - the six claim types and six audit questions bound every worked conclusion while Berkeley asks a distinct historical question only once
+      - the mandatory worked example and model-revision task use the promoted licence-clean populacija_medija aggregate and claim neither generalisation nor causality
+      - the exact numerical audit returns five rows total 50000 portal 15101 pay 3514 share 0.232699821203894 tisak 4855 pay 1289 share 0.265499485066941 drustvene mreze 13378 pay 2841 share 0.212363582000299 and gap 5.31359030666423 percentage points
+      - targeted HTML PDF and wrapper-built DOCX renders each exited 0 and their hashes sizes and commands are recorded in notes/reports/wa-c01-2026-08-06.md
+      - six independent read-only critics reviewed the initial source and all six then confirmed the same final hash with score 5 of 5 and zero fatal major or minor finding
+      - deterministic style citation manuscript figure concept terminology spine catalogue and data-integrity checks pass on the final state
+      - the two structure-linter candidates are deliberate consequences of the ratified lifecycle hierarchy and bounded opening foundation and are not STYLE.md violations
+      - all 41 data negative fixtures all seven shared integrity lanes the widget-parity fixture and all three inventory fixtures fail closed on their injected defect
+      - chapter-ledger.json is unchanged and Chapter 1 remains draft pending the author-only C01 decision
+      - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
+      - C01 is prepared next but is not accepted and WA-C02 and every later packet remain unstarted
+      - push merge tag archive and deployment remain unauthorised
