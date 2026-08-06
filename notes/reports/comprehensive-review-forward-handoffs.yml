@@ -510,7 +510,23 @@ handoffs:
     deliveries:
       - target_packet: WA-C03
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        disposition: >-
+          WA-C03 consumes the identity-pillar prerequisite before the packet
+          claim. P3-DIP supplies the verified portal-mediated public-claim
+          evidence, G-A4-03 supplies the author-accepted Tier F brief against
+          C02 closeout commit 91a92347d93073516f6b77c3652c1f2baa5c9bee, and
+          neither gate authorises a local DIP file or a second narrative pillar.
+          The Chapter 3 rewrite may therefore begin only inside those accepted
+          evidence, outline and rights boundaries.
+        evidence:
+          - "decision:G-A4-03"
+          - "commit:G-A4-03-closeout-6181573"
+          - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+          - "report:notes/reports/p3-dip-2026-08-05.md"
+          - "registry:data/katalog.yml#dip_2024-portal-mediated-promoted-false"
       - target_packet: WC-C12
         gate: before_start
         state: pending
@@ -2433,7 +2449,24 @@ handoffs:
           - "report:notes/reports/wa-c01-2026-08-06.md#dolazne-isporuke"
       - target_packet: WA-C03
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        acknowledgement: >-
+          WA-C03 will add exactly the ratified temeljna stopa definition block
+          and no other, leaving every term assigned to prose or a later chapter
+          outside the Chapter 3 definition surface.
+        disposition: >-
+          WA-C03 added exactly one definition block, def-temeljna-stopa, and no
+          other. Every term assigned to prose or a later chapter remains outside
+          the Chapter 3 definition surface, and the spine check passes on the
+          final source state.
+        evidence:
+          - "report:notes/reports/p2-spine-i-2026-08-04.md"
+          - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+          - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+          - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK"
+          - "report:notes/reports/wa-c03-2026-08-06.md#dolazne-isporuke"
 
   H-G-A2B-II-001:
     source_packet: G-A2b-II
@@ -3669,7 +3702,30 @@ handoffs:
           - "report:notes/reports/wa-c01-2026-08-06.md#dolazne-isporuke"
       - target_packet: WA-C03
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        acknowledgement: >-
+          WA-C03 will update the checkout-local concept ledger in the same
+          packet as the new definition, follow any notation dependency,
+          regenerate data/concept-graph.json through the required launcher and
+          prove ledger_debt zero and graph_fresh true before closeout.
+        disposition: >-
+          The same packet added the canonical temeljna stopa ledger entry,
+          reconciled the live definition count from 48 to 49, regenerated
+          data/concept-graph.json through the required launcher and changed no
+          notation entry because the new concept has no symbol dependency. The
+          fail-closed concept and terminology checks pass with zero ledger debt
+          and a fresh graph.
+        evidence:
+          - "report:notes/reports/p2-terms-2026-08-05.md"
+          - "check:scripts/check-concepts.py-current-fail-closed-contract"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#temeljna-stopa"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map-live_count-49"
+          - "generated:data/concept-graph.json-49-nodes-558-edges"
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-49-ledger_debt-0-graph_fresh-true"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-49-approved_total-52"
+          - "report:notes/reports/wa-c03-2026-08-06.md#dolazne-isporuke"
       - target_packet: WB-C04
         gate: before_close
         state: pending
@@ -4590,7 +4646,25 @@ handoffs:
     deliveries:
       - target_packet: WA-C03
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        acknowledgement: >-
+          WA-C03 will treat every DZS tourism value as a recorded arrival rather
+          than a person, create no per-capita person rate and use the promoted
+          package only as the governed offline fallback.
+        disposition: >-
+          WA-C03 used no DZS tourism value in Chapter 3 prose or calculations.
+          It therefore converted no arrival into a person, visitor or tourist
+          and created no per-capita person rate. Its mandatory offline exercise
+          instead uses the governed generated populacija_medija package, whose
+          unit is explicitly a generated person in a fictional city.
+        evidence:
+          - "report:notes/reports/p3-dzs-2026-08-05.md#odlazna-prosljedivanja"
+          - "registry:data/katalog.yml#dzs_turizam-unit"
+          - "registry:data/katalog.yml#populacija_medija-consumers-WA-C03"
+          - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+          - "report:notes/reports/wa-c03-2026-08-06.md#dolazne-isporuke"
 
   H-P3-DZS-002:
     source_packet: P3-DZS
@@ -4745,7 +4819,24 @@ handoffs:
     deliveries:
       - target_packet: WA-C03
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        acknowledgement: >-
+          WA-C03 will never add the DZS survey estimate to the administrative
+          arrival count, present them as one series or call the survey's exact
+          plus-or-minus-one rounding residual a data error.
+        disposition: >-
+          WA-C03 introduced neither the DZS administrative arrival count nor the
+          DZS survey estimate. It added, combined and plotted neither quantity,
+          and made no claim about the survey's plus-or-minus-one rounding
+          residual. The governed generated offline exercise remains separate
+          from both DZS series.
+        evidence:
+          - "report:notes/reports/p3-dzs-2026-08-05.md#ostatak-koji-se-biljezi-a-ne-zaokruzuje"
+          - "source:data/dzs-putovanja-stanovnistva-2024.csv"
+          - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+          - "report:notes/reports/wa-c03-2026-08-06.md#dolazne-isporuke"
       - target_packet: P5-C
         gate: before_close
         state: pending
@@ -4857,7 +4948,22 @@ handoffs:
     deliveries:
       - target_packet: WA-C03
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-06"
+        resolved_at: "2026-08-06"
+        disposition: >-
+          WA-C03 consumes the verified DIP role before the packet claim. The
+          chapter may use only the official turnout numerator-denominator and
+          aggregation lesson, must distinguish all five published counts, cite
+          the exact official report and 2026-08-05 portal-inspection date, keep
+          list-support, individual, causal and ecological claims unavailable,
+          and preserve the lawful offline fallback without implying local bytes,
+          redistribution authority or portal parity across editions.
+        evidence:
+          - "report:notes/reports/p3-dip-2026-08-05.md"
+          - "passport:data/dip_2024/PUTOVNICA.md"
+          - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+          - "decision:G-A4-03"
 
   H-P3-DIP-002:
     source_packet: P3-DIP
@@ -6748,3 +6854,88 @@ packet_reviews:
       - no chapter prose data bibliography terminology spine concept graph or render changed in C02
       - G-A4-03 is prepared next but is not accepted or claimed and WA-C03 and every later packet remain unstarted
       - push merge tag archive and deployment remain unauthorised
+
+  G-A4-03:
+    reviewed_at: "2026-08-06"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      G-A4-03 found no new future-relevant effect beyond the accepted Tier F
+      disposition already visible as WA-C03's direct prerequisite in the
+      register and durable decision record. The two existing before-start
+      deliveries H-P0-REGISTER-007 and H-P3-DIP-001 already carry the governed
+      evidence-package and DIP-specific constraints into WA-C03, while four
+      existing before-close deliveries carry the exact definition, terminology
+      and DZS constraints. Repeating the accepted brief as another handoff would
+      create duplicate control state and falsely change the declared count of
+      WA-C03 before-start deliveries.
+    implementation_state: author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06
+    checks:
+      - no incoming handoff targets G-A4-03 and nothing targeting another packet was consumed
+      - the author reply is recorded exactly as G-A4-03 accepted as recommended for 91a92347d93073516f6b77c3652c1f2baa5c9bee on 2026-08-06
+      - 91a92347d93073516f6b77c3652c1f2baa5c9bee is the local C02 closeout commit against which the decision package requested acceptance
+      - the accepted disposition uses one portal-mediated audit of official DIP 2024 turnout and preserves the DZS or governed generated offline fallback
+      - the public claim names 2216763 approached over 3558089 eligible voters at processed polling places and 62.30 per cent
+      - valid 2154733 plus invalid 60476 gives 2215209 voters according to ballots which is 1554 fewer than approached and the labels remain noninterchangeable
+      - list-support individual causal ecological predictive and out-of-source generalisation claims remain unavailable
+      - dip_2024 remains promoted false with files empty checksum null and no rights-holder-permission or cross-edition portal-parity claim
+      - the Tier F outline adds exactly one Chapter 3 definition temeljna stopa and retains the existing simulated-election widget as the only central widget
+      - OA-G-A4-03-BRIEF is done and explicitly retires the old waiting_for_PartI_evidence_and_pilot readiness because C02 supplies Part I evidence and P3-PILOT was descoped without a claimed result
+      - G-A4-03 retrieves no source writes no data file promotes no package and accepts no future Chapter 3 source
+      - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
+      - WA-C03 is next and C03 and every later packet remain unstarted
+      - push merge tag archive and deployment remain unauthorised
+
+  WA-C03:
+    reviewed_at: "2026-08-06"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WA-C03 found no new future-relevant effect. The final Chapter 3 source,
+      concept reconciliation, data-consumer declaration, six-critic panel and
+      author-decision dependency are directly visible to C03 through the
+      register and evidence bundle. The four incoming before-close deliveries
+      are consumed with concrete dispositions. Repeating any of those states as
+      a new handoff would create duplicate control state.
+    implementation_state: source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5
+    checks:
+      - H-P0-REGISTER-007 and H-P3-DIP-001 were terminal before claim
+      - H-P2-SPINE-I-001 H-P2-TERMS-002 H-P3-DZS-001 and H-P3-DZS-004 were acknowledged before the first substantive edit and consumed before closeout
+      - the final Chapter 3 hash is 11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5
+      - the accepted Tier F brief is implemented as one portal-mediated DIP 2024 turnout audit with exact source date numerator denominator aggregation and unavailable-claim boundaries
+      - exactly one new definition def-temeljna-stopa is present and the concept ledger terminology live count and generated graph agree at 49 definitions with zero ledger debt and graph_fresh true
+      - no DZS tourism value entered the prose no arrival became a person administrative and survey values were not combined and no plus-or-minus-one rounding residual was called an error
+      - populacija_medija supplies the governed offline task with an explicit generated-person unit and registered WA-C03 and chapter-source consumers
+      - data/widgets.json is unchanged because the W03 code and contract are unchanged; the first fail-closed ladder detected prose guidance drift and the source was restored to the three canonical registered experiments before final review
+      - targeted HTML PDF and wrapper-built DOCX renders each exited 0 on the final material hash and their hashes sizes and commands are recorded in notes/reports/wa-c03-2026-08-06.md
+      - six independent read-only critics confirm the same final hash with score 5 of 5 and zero fatal major or minor finding
+      - deterministic inventory token manuscript figure citation concept terminology spine DIP catalogue data widget and widget-parity checks pass on the final state
+      - chapter-ledger.json is unchanged and Chapter 3 remains draft; all nine governed Chapter 3 content items remain ratified pending C03
+      - C03 is next but is not accepted and every later packet remains unstarted
+      - push merge tag archive and deployment remain unauthorised
+
+  C03:
+    reviewed_at: "2026-08-06"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C03 found no new future-relevant effect. The accepted Chapter 3 source,
+      six-critic disposition, nine item dispositions and chapter-ledger stage
+      are direct prerequisites already visible to WA-PART and later packets
+      through the register and ledger. Repeating them as a handoff would create
+      duplicate control state.
+    implementation_state: commit:72f774a3b302e6beca14730ac82727be92f29be1
+    checks:
+      - no incoming handoff targets C03 and nothing targeting another packet was consumed
+      - the author reply is recorded exactly as C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06
+      - the cited commit is still the final material Chapter 3 source and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5
+      - the synthesis records score 5 of 5 for every perspective and zero unresolved fatal major or minor finding
+      - notes/reports/c03-acceptance-package-2026-08-06.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 03-kako-brojke-zavode from draft to coauthor_review and explicitly records no claim that the author read the chapter
+      - all nine governed Chapter 3 content items are accepted with source-specific evidence and no other atomic item changes status
+      - OA-C03-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
+      - scripts/check-chapter-spines.py passes with fifteen draft and four coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget or render changed in C03
+      - WA-PART is next but was not started and push merge tag archive and deployment remain unauthorised

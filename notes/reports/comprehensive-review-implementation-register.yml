@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C02"
-  next_permitted_packet: "G-A4-03"
+  last_completed_packet: "C03"
+  next_permitted_packet: "WA-PART"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1711,6 +1711,89 @@ decisions:
       promotion, no change to another lane, no chapter edit, and no
       rights-holder-permission claim. It authorises no generated book artefact,
       push, merge, tag, archive, deployment, or publication.
+
+  G-A4-03:
+    status: "accepted"
+    accepted_at: "2026-08-06"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence: "conversation:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+    decision_record: "notes/reports/g-a4-03-decision-package-2026-08-06.md"
+    accepted_against_c02_closeout_commit: "91a92347d93073516f6b77c3652c1f2baa5c9bee"
+    accepted_dispositions:
+      public_claim: >-
+        Chapter 3 uses one portal-mediated audit of the official DIP report for
+        the 2024 Croatian parliamentary election. The opening claim names the
+        published total turnout as 2216763 approached voters divided by 3558089
+        eligible voters at processed polling places, or 62.30 per cent, and
+        cites the exact official report and the 2026-08-05 inspection date.
+      numerator_denominator_and_aggregation: >-
+        The chapter distinguishes eligible voters at processed polling places,
+        approached voters, voters according to ballots, valid ballots and
+        invalid ballots. Valid 2154733 plus invalid 60476 gives 2215209 voters
+        according to ballots, which is 1554 fewer than approached. Those
+        official labels are not interchangeable, and the twelve electoral-unit
+        rows may support only the approved numerator-denominator and aggregation
+        lesson.
+      tier_f_argument: >-
+        The coherent argument follows the ratified nine-step identity brief:
+        exact public claim and source; axis, unit, numerator and denominator;
+        base rate; early poll-reading debt to Chapters 8 and 9; cherry-picking;
+        an assistant-produced number and its audit; synthetic media and
+        provenance; the distinction among simulation, synthetic record,
+        hypothetical model output and fabricated evidence; and a skeptical
+        reading protocol that closes the Part I claim map and self-check.
+      definition_and_widget_boundary: >-
+        WA-C03 adds exactly one new definition block, temeljna stopa, and no
+        other. The existing simulated-election margin-of-error explorer remains
+        the only central widget; it neither derives a formal margin of error nor
+        serves as evidence for the DIP administrative table.
+      data_and_rights_boundary: >-
+        dip_2024 remains portal-mediated, promoted false, with files empty and
+        checksum null. The book does not claim to bundle or redistribute DIP
+        data, does not promise portal parity across editions and does not claim
+        rights-holder permission because none was sought. Every mandatory
+        offline task keeps the promoted DZS aggregate or governed generated
+        data as its fallback without turning that fallback into a second
+        narrative pillar.
+      unavailable_claims_and_dzs_boundary: >-
+        List-support, individual, causal, ecological, predictive and
+        out-of-source generalisation claims remain unavailable. DZS tourism
+        values are recorded arrivals rather than persons, no per-capita person
+        rate may be created from them, administrative and survey figures are
+        never added, and the survey's plus-or-minus-one residual is treated as
+        a property of separately rounded estimates rather than an error.
+    rejected_alternatives:
+      - "Use DZS tourism as the central case instead of the approved DIP turnout audit."
+      - "Return the Tier F brief for further case, evidence, outline, or scope revision."
+      - "Introduce an unverified dataset or merge DIP and DZS into one empirical quantity."
+      - "Move the main ASA episode back from Chapter 10 into Chapter 3."
+      - "Treat portal access as redistribution authority or imply that rights-holder permission was obtained."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "WA-C03"
+      governed_items:
+        - "R07-C03-full-argument"
+        - "R10-C03-base-rate"
+        - "R12-C03-poll-literacy"
+        - "R12-C03-margin-debt"
+        - "R23-C03-no-R-production"
+        - "R24-C03-synthetic-media"
+        - "R24-C03-AI-provenance"
+        - "R30-C03-slide-enumeration"
+        - "R31-C03-public-case"
+      later_gates_still_mandatory:
+        - "C03"
+        - "WA-PART"
+    authority_boundary: >-
+      This decision authorises WA-C03 to implement only the accepted Chapter 3
+      Tier F public claim, governed evidence contract, outline and exclusions
+      against C02 closeout commit 91a92347d93073516f6b77c3652c1f2baa5c9bee.
+      It retrieves no source, writes no data file, promotes no package and
+      accepts no future chapter source. It does not accept C03 on the author's
+      behalf and authorises no push, merge, tag, archive, deployment or
+      publication.
 
   A-READERS-2026-08-05:
     kind: "author_amendment"
@@ -8259,7 +8342,7 @@ packets:
     sequence: 80
     phase: "3C"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C02"
       - "P3-DZS"
@@ -8273,19 +8356,77 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A4-03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:91a92347d93073516f6b77c3652c1f2baa5c9bee"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+            - "register:decisions.G-A4-03.accepted_at-2026-08-06"
+            - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "register:decisions.G-A4-03.author"
+            - "register:decisions.G-A4-03.editor"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A4-03.accepted_dispositions"
+            - "register:decisions.G-A4-03.rejected_alternatives"
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md#preporucena-dispozicija"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A4-03.blocked_dependencies"
+            - "packet:WA-C03"
+            - "items:R07-C03-full-argument-through-R31-C03-public-case"
+      outputs:
+        - output: "Dated G-A4-03 decision and authority record for: Chapter 3 case, evidence, brief, and outline."
+          artifacts:
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+            - "register:decisions.G-A4-03"
+            - "outside-ask:OA-G-A4-03-BRIEF-done"
+        - output: "Completion evidence is tied to the declared G-A4-03 source state and bounded scope."
+          artifacts:
+            - "commit:91a92347d93073516f6b77c3652c1f2baa5c9bee"
+            - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+            - "register:decisions.G-A4-03.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A4-03-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_recommended"
+            - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A4-03.rejected_alternatives"
+            - "register:decisions.G-A4-03.authority_boundary"
+            - "register:decisions.G-A4-03.blocked_dependencies"
+        - test: "The G-A4-03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "commit:C02-closeout-91a92347d93073516f6b77c3652c1f2baa5c9bee"
+            - "report:notes/reports/p2-identity-briefs-2026-08-04.md"
+            - "report:notes/reports/p3-dip-2026-08-05.md"
+            - "report:notes/reports/p3-dzs-2026-08-05.md"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+            - "amendment:P3-PILOT-descoped-and-not-a-prerequisite"
+            - "boundary:no-rights-holder-permission-claimed-and-none-was-sought"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "commit:91a92347d93073516f6b77c3652c1f2baa5c9bee"
   WA-C03:
     sequence: 81
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A4-03"
       - "C02"
@@ -8297,19 +8438,87 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WA-C03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A4-03"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+            - "report:notes/reports/p2-identity-briefs-2026-08-04.md#poglavlje-3-revizija-jedne-javne-tvrdnje"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "source:references.bib#dip2024"
+            - "registry:data/katalog.yml#populacija_medija-consumers-WA-C03"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#temeljna-stopa"
+            - "generated:data/concept-graph.json-49-nodes-558-edges"
+            - "result:DIP-turnout-62.302067-ballots-2215209-difference-1554-I-X-61.479948-difference-0.82pp"
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-49-ledger_debt-0-graph_fresh-true"
+            - "check:scripts/check-katalog.py-KATALOG_OK-rights_permission_claim-false"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-189339-sha256-3d0be3146a1cc9ed666b9d8dc05fef44f879fc990ff0ceebbe06a16e59af7abf"
+            - "render:PDF-exit-0-bytes-2729509-sha256-28a870c92dcb82500c57155137b6521edc383ccd109e6221d8b488bc5c8b901a"
+            - "render:DOCX-wrapper-exit-0-bytes-1491411-sha256-c7509ea68247c044b14bb5e5e43c3b07757f2d20d6f1836a89cb12cbb6982939"
+            - "report:notes/reports/wa-c03-2026-08-06.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+      outputs:
+        - output: "WA-C03 verified vertical-slice source and evidence bundle for: Chapter 3 identity rewrite."
+          artifacts:
+            - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "report:notes/reports/wa-c03-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+        - output: "Completion evidence is tied to the declared WA-C03 source state and bounded scope."
+          artifacts:
+            - "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "handoffs:H-P2-SPINE-I-001-H-P2-TERMS-002-H-P3-DZS-001-H-P3-DZS-004-consumed"
+            - "handoffs:no-new-future-relevant-effect"
+            - "check:scripts/check-review-workflow.R-at-WA-C03-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wa-c03-2026-08-06.md#sadrzajni-rez"
+            - "check:inventory-token-manuscript-figure-citation-concept-terminology-spine-catalogue-data-widget-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "panel:six-final-confirmations-zero-fatal-zero-major-zero-minor"
+        - test: "The WA-C03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A4-03"
+            - "spine:P2-SPINE-I"
+            - "items:R07-C03-full-argument-R10-C03-base-rate-R12-C03-poll-literacy-R12-C03-margin-debt-R23-C03-no-R-production-R24-C03-synthetic-media-R24-C03-AI-provenance-R30-C03-slide-enumeration-R31-C03-public-case"
+            - "report:notes/reports/wa-c03-2026-08-06.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
   C03:
     sequence: 82
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WA-C03"
     scope: "Author acceptance and panel disposition for C03."
@@ -8320,14 +8529,71 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "report:notes/reports/c03-acceptance-package-2026-08-06.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#03-kako-brojke-zavode-stage-coauthor_review"
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+            - "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "check:scripts/check-chapter-spines.py-C03-accepted-stage-transition"
+      outputs:
+        - output: "C03 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c03-acceptance-package-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#03-kako-brojke-zavode-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C03 source state and bounded scope."
+          artifacts:
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+            - "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "check:scripts/check-review-workflow.R-at-C03-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-15-draft-4-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c03-acceptance-package-2026-08-06.md"
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+            - "reports:wa-c03-six-final-critic-reports"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#03-kako-brojke-zavode-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   WA-PART:
     sequence: 83
     phase: "4"
@@ -14524,7 +14790,7 @@ items:
       location: "§5/§8/§10 + §15 R07"
     description: "Rewrite Chapter 3 as one evidence-led public-claim audit."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -14541,11 +14807,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#od-tocnoga-broja-do-potpune-tvrdnje"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R07-C12-full-argument:
     parents:
       - "R07"
@@ -16722,7 +16994,7 @@ items:
       location: "§8 Ch3"
     description: "Plant operational base-rate literacy before Chapter 17 classification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -16739,11 +17011,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#def-temeljna-stopa"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R10-C07-degree-belief:
     parents:
       - "R10"
@@ -17395,7 +17673,7 @@ items:
       location: "§8 Ch3"
     description: "Introduce recruitment/frame, denominator, field dates, and selection versus sampling uncertainty."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17412,11 +17690,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#anketa-obuhvat-i-biranje-tresanja"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R12-C03-margin-debt:
     parents:
       - "R12"
@@ -17430,7 +17714,7 @@ items:
       location: "§8 Ch3"
     description: "Mark early margin-of-error reasoning as intuition and link its later justification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17447,11 +17731,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#interakcija-istrazivac-margine-pogreske"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R12-C08-srs-boundary:
     parents:
       - "R12"
@@ -21354,7 +21644,7 @@ items:
       location: "§8/§12 Ch3"
     description: "Replace required R manipulation with conceptual, static, or control-based work."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -21371,11 +21661,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#zadaci"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R23-C12-no-R-production:
     parents:
       - "R23"
@@ -21936,7 +22232,7 @@ items:
       location: "§8 Ch3"
     description: "Develop a bounded traceable synthetic-media verification case."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -21953,11 +22249,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#podrijetlo-ljudskog-i-strojnog-broja"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R24-C03-AI-provenance:
     parents:
       - "R24"
@@ -21971,7 +22273,7 @@ items:
       location: "§8 Ch3"
     description: "Require source, data, transformation, denominator, and citation checks for AI numbers."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -21988,11 +22290,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#podrijetlo-ljudskog-i-strojnog-broja"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R24-C12-primary-sources:
     parents:
       - "R24"
@@ -24598,7 +24906,7 @@ items:
       location: "§8 Ch3"
     description: "Replace ordinal checklist paragraphs with coherent narrative progression."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24615,11 +24923,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd"
+      - "report:notes/reports/wa-c03-critic-style-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R30-BOOK-widget-openings:
     parents:
       - "R30"
@@ -24995,7 +25309,7 @@ items:
       location: "§8/§10 + §15 R31"
     description: "Anchor Chapter 3 in a traceable DZS/DIP or equivalent public claim, not ASA."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25012,11 +25326,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#razradeni-primjer"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R31-C10-ASA-home:
     parents:
       - "R31"
@@ -27366,8 +27686,8 @@ outside_asks:
     external_message_sent: false
 
   OA-G-A4-03-BRIEF:
-    status: "drafted_unsent"
-    readiness: "ready_for_author_decision"
+    status: "done"
+    readiness: "resolved_after_PartI_evidence_and_pilot_descoped"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "3C"
@@ -27401,6 +27721,21 @@ outside_asks:
     resume_condition: "WA-C03 may be claimed only after the named author/editor explicitly accepts one G-A4-03 disposition tied to the prepared decision package; the descoped novice pilot is not a prerequisite."
     why_external: "The first identity-pillar case and argumentative brief require author/editor approval."
     external_message_sent: false
+    resolved_at: "2026-08-06"
+    resolution: >-
+      Author and editor Luka Sikic accepted G-A4-03 as recommended for C02
+      closeout commit 91a92347d93073516f6b77c3652c1f2baa5c9bee on 2026-08-06.
+      The earlier readiness waiting_for_PartI_evidence_and_pilot is explicitly
+      retired rather than reinterpreted: C02 supplies the required Part I
+      evidence, while the 2026-08-05 author amendment removed and descoped
+      P3-PILOT without claiming a pilot result. WA-C03 is therefore unblocked by
+      the accepted brief and governed evidence, not by a fictional pilot.
+    resolution_evidence:
+      - "author_reply:G-A4-03-accepted-as-recommended-for-91a92347d93073516f6b77c3652c1f2baa5c9bee-on-2026-08-06"
+      - "commit:C02-closeout-91a92347d93073516f6b77c3652c1f2baa5c9bee"
+      - "decision:G-A4-03"
+      - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+      - "amendment:notes/reports/author-amendment-reader-route-2026-08-05.md"
 
   OA-G-A4-12-BRIEF:
     status: "drafted_unsent"
@@ -27624,8 +27959,8 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C03-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WA-C03_revision_and_panel"
+    status: "done"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -27646,11 +27981,20 @@ outside_asks:
     available_evidence:
       - "packet:WA-C03"
       - "packet:C03"
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+      - "report:notes/reports/wa-c03-2026-08-06.md"
+      - "reports:notes/reports/wa-c03-critic-*-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "report:notes/reports/c03-acceptance-package-2026-08-06.md"
     recommended_default: "Accept only after Chapter 3 is one verified public-claim argument, its planted debts are explicit, and all panel blockers pass."
-    exact_reply_requested: "Reply: C03 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06; or list exact blocking revisions tied to that commit."
     resume_condition: "C03 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the identity-pillar revision."
     external_message_sent: false
+    resolved_at: "2026-08-06"
+    resolution: "C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C04-ACCEPTANCE:
     status: "drafted_unsent"

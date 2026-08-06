@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C02
-next_permitted_packet: G-A4-03
+last_completed_packet: C03
+next_permitted_packet: WA-PART
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -39,19 +39,20 @@ stop and repair the control state before editing book content.
 | Gate A2b-V | Accepted as drafted: Part V contract preserving Chapter 16 as the synthesis payoff, five chapter spines, Chapter 13 ratified as a prerequisite of Chapter 17, and a bounded two-block Chapter 17 definition increase; owner Luka Sikic; 2026-08-05 |
 | Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
+| Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C02` |
-| Next permitted packet | `G-A4-03` — author decision required before claim |
+| Last completed packet | `C03` |
+| Next permitted packet | `WA-PART` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 114 accepted, 5 deferred with reason, 252 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 48 accepted, 139 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 155 accepted, 5 deferred with reason, 211 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 75 accepted, 112 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 16 `draft`; `00-predgovor`, `01-zasto-statistika` and `02-mjerenje-i-dizajn` at `coauthor_review` |
+| Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 48 of the 82 canonical asks remain `drafted_unsent`; 28 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00, C01 and C02 acceptance; `OA-G-A4-03-BRIEF` is now ready for the named author decision and remains `drafted_unsent`; 0 external messages sent |
+| Open outside asks | 46 of the 82 canonical asks remain `drafted_unsent`; 30 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, C00, C01, C02 and C03 acceptance, and the G-A4-03 brief; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -3063,6 +3064,151 @@ the durable evidence is
   `WA-C03` and every later packet remain unstarted. Push, merge, tag, archive
   and deployment remain unauthorised.
 
+## G-A4-03 closeout
+
+- No handoff targets `G-A4-03`, and nothing targeting another packet was
+  consumed. The author replied exactly: `G-A4-03 accepted as recommended for
+  91a92347d93073516f6b77c3652c1f2baa5c9bee on 2026-08-06.` The cited commit is
+  the local C02 closeout state requested by the decision package.
+- The accepted Tier F disposition uses one portal-mediated audit of the
+  official DIP report for the 2024 Croatian parliamentary election. It names
+  2.216.763 approached voters over 3.558.089 eligible voters at processed
+  polling places and the published 62,30 %, with the exact source and the
+  5 August 2026 inspection date required in Chapter 3.
+- The disposition keeps all five official counts distinct. Valid 2.154.733 plus
+  invalid 60.476 gives 2.215.209 voters according to ballots, which is 1.554
+  fewer than approached voters. List-support, individual, causal, ecological,
+  predictive and out-of-source generalisation claims remain unavailable.
+- `dip_2024` remains `portal-mediated`, `promoted: false`, with `files: []` and
+  `checksum: null`. The book claims neither local DIP bytes, cross-edition
+  portal parity nor rights-holder permission. The promoted DZS aggregate or
+  governed generated data remains the mandatory offline fallback and does not
+  become a second narrative pillar.
+- The accepted outline adds exactly one Chapter 3 definition, `temeljna stopa`,
+  and no other. The existing simulated-election margin-of-error explorer stays
+  the only central widget and is neither formal margin-of-error derivation nor
+  evidence for the DIP administrative table.
+- `OA-G-A4-03-BRIEF` is `done`. Its earlier readiness
+  `waiting_for_PartI_evidence_and_pilot` is explicitly retired rather than
+  reinterpreted. C02 supplies the Part I evidence, while the 5 August author
+  amendment descoped `P3-PILOT` without claiming any pilot result.
+- The gate retrieved nothing, wrote no data file, promoted nothing and accepted
+  no future Chapter 3 source. It creates no outgoing handoff because its
+  disposition is WA-C03's direct prerequisite and the six existing deliveries
+  already carry every source, definition, terminology and DZS constraint.
+- `WA-C03` is next. `C03` and every later packet remain unstarted. Push, merge,
+  tag, archive and deployment remain unauthorised.
+
+## WA-C03 claim
+
+- The packet is active under the accepted G-A4-03 disposition. Exactly two
+  `before_start` deliveries are terminal before claim. `H-P0-REGISTER-007`
+  confirms that the governed DIP package and author brief are complete, while
+  `H-P3-DIP-001` fixes the portal-mediated numerator, denominator, aggregation,
+  unavailable-claim and offline-fallback boundaries.
+- Four `before_close` deliveries were acknowledged before the first
+  substantive edit. `H-P2-SPINE-I-001` limits Chapter 3 to one new definition,
+  `temeljna stopa`; `H-P2-TERMS-002` requires same-packet ledger and graph
+  reconciliation; `H-P3-DZS-001` preserves the arrival unit; and
+  `H-P3-DZS-004` keeps survey and administrative figures separate and the
+  survey rounding residual truthful.
+- No chapter, data file, shared registry or generated artifact has yet changed
+  in WA-C03. The workflow validator must pass in this claimed state before the
+  first substantive edit.
+
+## WA-C03 closeout — Chapter 3 identity rewrite
+
+- `WA-C03` is accepted on source SHA-256
+  `11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5`.
+  The complete evidence record is
+  `notes/reports/wa-c03-2026-08-06.md`.
+- The two `before_start` deliveries were already consumed before claim. The
+  four `before_close` deliveries `H-P2-SPINE-I-001`, `H-P2-TERMS-002`,
+  `H-P3-DZS-001` and `H-P3-DZS-004` are now consumed with source, registry,
+  check and packet-report evidence.
+- One portal-mediated audit of DIP's 2024 parliamentary turnout remains the
+  sole public case. The chapter distinguishes the five official quantities,
+  reproduces 62,30 %, reconciles the ballot sum at 2.215.209 and preserves the
+  unexplained difference of 1.554 without turning it into evidence of error.
+- The source adds exactly `#def-temeljna-stopa`. The checkout-local concept
+  ledger and terminology live count now agree at 49 definitions; the generated
+  graph has 49 nodes and 558 edges, with zero ledger debt and a fresh graph.
+- No DZS tourism value entered the prose. Arrival is never recoded as a person,
+  the administrative and survey figures are not combined, and the survey's
+  ±1 rounding residual is not called a data error. The offline task uses the
+  governed generated `populacija_medija` package with an explicit generated-
+  person unit and a registered Chapter 3 consumer.
+- The existing widget code was not edited and `data/widgets.json` is unchanged.
+  Digital and print instructions now match the actions available in each
+  format. Part I still contains no visible code and no task requires code
+  production.
+- Final HTML, PDF and wrapper-built DOCX renders exited 0 on the final material
+  hash. Generated `docs/`, `_freeze/`, AI exports and Word output were restored
+  and are not packet changes. The PDF emitted the existing implicit-div-closure
+  warnings, while the blocking manuscript-integrity check remains required.
+- Six independent read-only critics confirmed the same final hash. Methods,
+  skepticism, pedagogy, evidence, style and structure each score 5/5 with zero
+  fatal, major or minor finding. The durable synthesis is
+  `notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md`.
+- The packet found no new future-relevant effect. C03 directly consumes the
+  final source, reports and synthesis, so no duplicate handoff was created.
+- Chapter 3 remains `draft`. Its nine governed content items remain `ratified`
+  until the author-only `C03` decision. `C03` is next but is not accepted.
+  Push, merge, tag, archive and deployment remain unauthorised.
+
+## C03 package preparation record
+
+- C03 was claimed only as an author-acceptance gate against WA-C03 commit
+  `72f774a3b302e6beca14730ac82727be92f29be1`. The Chapter 3 Git blob is
+  `5ecef6c96379af17e03c30e6facc5a191a670618`, and the working-file SHA-256 is
+  `11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5`.
+- The prepared `notes/reports/c03-acceptance-package-2026-08-06.md` cited the final commit,
+  all six reports, the synthesis, the WA-C03 evidence record and the proposed
+  ledger disposition. `OA-C03-ACCEPTANCE` was ready for author decision; no
+  external message was sent.
+- The recommended disposition was to accept the nine governed Chapter 3 items
+  and advance only `03-kako-brojke-zavode` from `draft` to `coauthor_review`,
+  explicitly without claiming that the author read the chapter and without
+  calling it `final`.
+- Before the author decision, no proposed disposition had been applied: the
+  chapter ledger was unchanged, all nine items remained `ratified`, C03 was
+  `in_progress`, and WA-PART was blocked. No chapter prose, data, citation,
+  concept, widget or render changed while assembling the package.
+- At that point, the only required action was the named author/editor's exact
+  accept-or-revise reply. Push, merge, tag, archive and deployment remained
+  unauthorised.
+
+## C03 closeout
+
+- No handoff targets `C03`, and nothing targeting another packet was consumed.
+  The author replied exactly: `C03 accepted for
+  72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06.`
+- The final Chapter 3 source commit is
+  `72f774a3b302e6beca14730ac82727be92f29be1`; its Git blob is
+  `5ecef6c96379af17e03c30e6facc5a191a670618` and its SHA-256 is
+  `11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. Every perspective scores 5/5, with zero fatal, major or minor finding.
+  `notes/reports/c03-acceptance-package-2026-08-06.md` records the final commit,
+  reports, synthesis, exact author reply and applied ledger disposition.
+- Exactly nine governed Chapter 3 content items advance from `ratified` to
+  `accepted`: `R07-C03-full-argument`, `R10-C03-base-rate`,
+  `R12-C03-poll-literacy`, `R12-C03-margin-debt`,
+  `R23-C03-no-R-production`, `R24-C03-synthetic-media`,
+  `R24-C03-AI-provenance`, `R30-C03-slide-enumeration` and
+  `R31-C03-public-case`. No other atomic item changes status.
+- Only `03-kako-brojke-zavode` advances from `draft` to `coauthor_review`; the
+  ledger explicitly says that this records acceptance and does not claim that
+  the author read the chapter. This is not a `final` disposition.
+- `OA-C03-ACCEPTANCE` is `done` from the in-thread reply. No external message
+  was sent. C03 creates no outgoing handoff because its accepted source and
+  disposition are already direct prerequisites in the canonical register and
+  ledger.
+- No chapter prose, data, bibliography, terminology, spine, concept graph,
+  widget or render changed in C03. `WA-PART` is next and was not started in this
+  thread; push, merge, tag, archive and deployment remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -3089,19 +3235,17 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Review `notes/reports/g-a4-03-decision-package-2026-08-06.md` against the local
-C02 closeout commit reported by Codex. The only requested decision is the Tier F
-Chapter 3 public claim, governed evidence contract, outline and exclusions.
-The recommended disposition uses the portal-mediated DIP 2024 turnout audit as
-the single central public case, retains a DZS or generated offline fallback,
-and preserves every scope and rights boundary in the package.
-
-Do not infer acceptance from silence or from the accepted prerequisites. Ask
-the named author/editor to reply `G-A4-03 accepted as recommended for [C02
-closeout commit reported by Codex] on 2026-08-06.` or list exact blocking
-amendments against that same commit and package.
-
-Stop after requesting the decision. Do not claim or close G-A4-03 without the
-exact reply. Do not claim WA-C03 or consume either of its before-start
-handoffs. Push, merge, tag, archive and deploy remain unauthorised.
+Verify that C03 is accepted against WA-C03 commit
+`72f774a3b302e6beca14730ac82727be92f29be1`, that the Chapter 3 ledger stage is
+`coauthor_review`, and that `WA-PART` is the sole `next_permitted_packet`. Then
+execute only `WA-PART`: Part I bridge, cumulative self-check, empirical-data
+spine, and AI/data route. Read every WA-PART governed item and all applicable
+incoming handoffs before claiming the packet; acknowledge each required
+before-close delivery before the first substantive edit and record a concrete
+disposition before closeout. Use the checkout-local shared registries as the
+only mutable Bookwright state, follow STYLE.md for every prose edit, obtain the
+required current part-continuity evidence, run applicable deterministic checks
+and targeted renders, update the register, handoff ledger and dashboard
+together, make one bounded local packet commit, and stop. Do not start
+`G-A3-DIGIKAT`. Push, merge, tag, archive and deploy remain unauthorised.
 ```
