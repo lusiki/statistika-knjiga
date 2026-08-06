@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WA-C02
-next_permitted_packet: C02
+last_completed_packet: C02
+next_permitted_packet: G-A4-03
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -43,15 +43,15 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `WA-C02` |
-| Next permitted packet | `C02` — author decision required before claim |
+| Last completed packet | `C02` |
+| Next permitted packet | `G-A4-03` — author decision required before claim |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 112 accepted, 5 deferred with reason, 254 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 47 accepted, 140 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 114 accepted, 5 deferred with reason, 252 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 48 accepted, 139 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 17 `draft`; `00-predgovor` and `01-zasto-statistika` at `coauthor_review` |
+| Chapter stages | 16 `draft`; `00-predgovor`, `01-zasto-statistika` and `02-mjerenje-i-dizajn` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 49 of the 82 canonical asks remain `drafted_unsent`; 27 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00 and C01 acceptance; the C02 acceptance package is ready but remains `drafted_unsent`; 0 external messages sent |
+| Open outside asks | 48 of the 82 canonical asks remain `drafted_unsent`; 28 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, and C00, C01 and C02 acceptance; `OA-G-A4-03-BRIEF` is now ready for the named author decision and remains `drafted_unsent`; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -3019,12 +3019,49 @@ the durable evidence is
 - No `digikat_mediji`, `rdp_potpore` or `bdp_dugi_niz` data entered the source;
   no rights-holder permission is claimed, and `UCBAdmissions` was not copied or
   redistributed.
-- Chapter 2 remains `draft`. `R11-C02-units-eligibility`,
-  `R13-C02-coding-measurement` and the four applicable P1A items remain
-  `ratified` pending the author-only `C02` decision. The acceptance package is
+- Chapter 2 remains `draft`. `R11-C02-units-eligibility` and
+  `R13-C02-coding-measurement` remain `ratified` pending the author-only `C02`
+  decision; the four applicable P1A-C02 items retain their earlier `accepted`
+  state. The acceptance package is
   `notes/reports/c02-acceptance-package-2026-08-06.md`.
 - `C02` is next but is not accepted. `G-A4-03` and every later packet remain
   unstarted. Push, merge, tag, archive and deployment remain unauthorised.
+
+## C02 closeout
+
+- No handoff targets `C02`, and nothing targeting another packet was consumed.
+  The author replied exactly: `C02 accepted for
+  0552e4a35052f7f7736b267a0f367f30df02d9c7 on 2026-08-06.`
+- The final Chapter 2 source commit is
+  `0552e4a35052f7f7736b267a0f367f30df02d9c7`; its Git blob is
+  `492b495c636d4f9826d9aa70b30ac1e297ebacba` and its SHA-256 is
+  `c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. Every perspective scores 5/5, with zero fatal, major or minor finding.
+  `notes/reports/c02-acceptance-package-2026-08-06.md` records the final commit,
+  reports, synthesis, exact author reply and applied ledger disposition.
+- Only `R11-C02-units-eligibility` and `R13-C02-coding-measurement` advance from
+  `ratified` to `accepted`. The four P1A-C02 methods items were already
+  `accepted` and remain so; the earlier wording that counted all six as
+  ratified has been corrected without changing the accepted source or scope.
+- Only `02-mjerenje-i-dizajn` advances from `draft` to `coauthor_review`; the
+  ledger explicitly says that this records acceptance and does not claim that
+  the author read the chapter. This is not a `final` disposition.
+- `OA-C02-ACCEPTANCE` is `done` from the in-thread reply. No external message
+  was sent. C02 creates no outgoing handoff because its accepted source and
+  disposition are already direct prerequisites in the canonical register and
+  ledger.
+- `notes/reports/g-a4-03-decision-package-2026-08-06.md` now presents one
+  bounded Tier F decision: evidence, recommended DIP public-claim audit, DZS or
+  generated offline fallback, alternatives, exclusions, blocked dependencies
+  and exact reply. The stale novice-pilot dependency is removed from
+  `OA-G-A4-03-BRIEF`; the pilot remains truthfully `descoped` with no result
+  claimed.
+- No chapter prose, data, bibliography, terminology, spine, concept graph or
+  render changed in C02. `G-A4-03` is next but is neither accepted nor claimed;
+  `WA-C03` and every later packet remain unstarted. Push, merge, tag, archive
+  and deployment remain unauthorised.
 
 ## Simple implementation order
 
@@ -3052,14 +3089,19 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Review `notes/reports/c02-acceptance-package-2026-08-06.md` against the local
-WA-C02 commit reported by Codex. Do not infer acceptance from silence or from
-the completed critic panel. Ask the named author/editor for exactly one bounded
-decision: reply `C02 accepted for [WA-C02 commit reported by Codex] on
-2026-08-06.` or list exact blocking revisions against that same commit and
-source hash.
+Review `notes/reports/g-a4-03-decision-package-2026-08-06.md` against the local
+C02 closeout commit reported by Codex. The only requested decision is the Tier F
+Chapter 3 public claim, governed evidence contract, outline and exclusions.
+The recommended disposition uses the portal-mediated DIP 2024 turnout audit as
+the single central public case, retains a DZS or generated offline fallback,
+and preserves every scope and rights boundary in the package.
 
-Stop after requesting the decision. Do not claim or close C02 without the exact
-reply. Do not start G-A4-03 or any later packet. Push, merge, tag, archive and
-deploy remain unauthorised.
+Do not infer acceptance from silence or from the accepted prerequisites. Ask
+the named author/editor to reply `G-A4-03 accepted as recommended for [C02
+closeout commit reported by Codex] on 2026-08-06.` or list exact blocking
+amendments against that same commit and package.
+
+Stop after requesting the decision. Do not claim or close G-A4-03 without the
+exact reply. Do not claim WA-C03 or consume either of its before-start
+handoffs. Push, merge, tag, archive and deploy remain unauthorised.
 ```

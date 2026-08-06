@@ -2,27 +2,32 @@
 
 **Gate:** `C02`
 
-**Stanje gatea:** čeka odluku autora/editora; prihvaćanje nije dano niti
-zabilježeno.
+**Stanje gatea:** autor prihvatio; dispozicija provedena.
 
 **Imenovani vlasnik odluke:** Luka Šikić, autor/editor.
 
 **Datum pripreme:** 6. kolovoza 2026.
 
+**Datum autorove odluke:** 6. kolovoza 2026.
+
+**Datum zapisa odluke:** 6. kolovoza 2026.
+
 ## Konačno materijalno stanje
 
-Konačni izvor drugoga poglavlja ima SHA-256
-`c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55`.
-Nalazi se u lokalnom WA-C02 commitu koji Codex navodi pri predaji ovoga paketa.
-Nakon toga commita autorova odluka mora citirati upravo taj commit; kasnija
-izmjena poglavlja poništila bi ovaj paket.
+Konačni izvor drugoga poglavlja nalazi se u commitu
+`0552e4a35052f7f7736b267a0f367f30df02d9c7`. Taj commit mijenja
+`chapters/02-mjerenje-i-dizajn.qmd`; nakon njega poglavlje nije mijenjano.
 
-Izvješće vertikalnoga reza je
-`notes/reports/wa-c02-2026-08-06.md`.
+- SHA-256 radne datoteke u tom commitu:
+  `c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55`;
+- Git blob poglavlja:
+  `492b495c636d4f9826d9aa70b30ac1e297ebacba`;
+- izvješće vertikalnoga reza:
+  `notes/reports/wa-c02-2026-08-06.md`.
 
 ## Šest završnih izvješća
 
-Svih šest perspektiva neovisno je i samo za čitanje pregledalo navedeni
+Svih šest perspektiva neovisno je i samo za čitanje pregledalo upravo navedeni
 konačni SHA-256:
 
 1. metode — `notes/reports/wa-c02-critic-methods-2026-08-06.md`;
@@ -38,42 +43,59 @@ perspektiva daje 5/5; nema preostaloga fatalnog, velikog ni manjeg nalaza.
 
 ## Sintetizirana dispozicija za odluku
 
-Preporučena je dispozicija **prihvatiti** konačno stanje. Poglavlje provodi
-ratificiranu kralježnicu, zadržava četiri postojeće definicije doslovno
-nepromijenjene, uvodi jedinice i prihvatljivost prije analitičke tablice te
-jezično kodiranje samo kao mjerenje. Tvrdnje o mjernoj pogrešci,
-kvazieksperimentu, neodazivu, težinama i dosegu sada su uvjetovane; kvalitativni
-rad nije podređen kvantitativnoj potvrdi.
+Preporučena dispozicija **prihvatiti** konačno stanje provedena je bez nove
+izmjene poglavlja. Poglavlje provodi ratificiranu kralježnicu, zadržava četiri
+postojeće definicije doslovno nepromijenjene, uvodi jedinice i prihvatljivost
+prije analitičke tablice te jezično kodiranje samo kao mjerenje. Tvrdnje o
+mjernoj pogrešci, kvazieksperimentu, neodazivu, težinama i dosegu uvjetovane su;
+kvalitativni rad nije podređen kvantitativnoj potvrdi.
 
 Razrađeni primjer, widget i zadaci potpuno su izvedivi bez vidljivoga koda.
-HTML, PDF i DOCX renderi, neovisni brojčani računi i sva primjenjiva
-blokirajuća provjera prolaze. Nije korišten nepromoviran skup ni iznesena
-tvrdnja o dopuštenju nositelja prava.
+HTML, PDF i DOCX renderi, neovisni brojčani računi i sve primjenjive blokirajuće
+provjere prolaze. Nije korišten nepromoviran skup ni iznesena tvrdnja o
+dopuštenju nositelja prava.
 
-Prihvat bi zatvorio samo ove stavke drugoga poglavlja:
+Odluka obuhvaća šest imenovanih stavki drugoga poglavlja, ali ne mijenja svih
+šest statusa. `R09-C02-randomisation`, `R09-C02-item-total`,
+`R09-C02-stevens` i `R14-C02-confounder` već su prihvaćene u `P1A-C02` i ostaju
+`accepted`. C02 iz `ratified` u `accepted` premješta samo:
 
 - `R11-C02-units-eligibility`;
-- `R13-C02-coding-measurement`;
-- `R09-C02-randomisation`;
-- `R09-C02-item-total`;
-- `R09-C02-stevens`;
-- `R14-C02-confounder`.
+- `R13-C02-coding-measurement`.
 
-Tek zaseban C02 paket nakon stvarne odluke smije premjestiti samo
-`02-mjerenje-i-dizajn` iz `draft` u `coauthor_review`. Prihvat ne bi značio da
-je poglavlje `final`, ne bi tvrdio da je autor pročitao rukopis ako to sam ne
-kaže i ne bi automatski pokrenuo `G-A4-03`.
+Time se ispravlja zatečena rečenica pripremne inačice ovoga paketa koja je svih
+šest stavki opisala kao `ratified`; mjerodavni ih je registar cijelo vrijeme
+vodio u navedenim dvama različitim stanjima. Ispravak ne mijenja materijalni
+opseg autorove odluke.
 
-## Potrebna autorova odluka
+## Točan odgovor autora
 
-Odgovor treba biti vezan uz točan lokalni WA-C02 commit koji Codex navodi pri
-predaji:
+Odgovor je primljen u aktivnoj niti i zapisan doslovno:
 
 ```text
-C02 accepted for [WA-C02 commit] on 2026-08-06.
+status: accepted
+author_reply: C02 accepted for 0552e4a35052f7f7736b267a0f367f30df02d9c7 on 2026-08-06.
+reply_evidence: conversation:user-message-recorded-2026-08-06
 ```
 
-Ako se stanje ne prihvaća, umjesto te rečenice treba navesti točne blokirajuće
-izmjene protiv istoga commita i izvornoga SHA-256. Do takve eksplicitne odluke
-C02 ostaje `ratified`, šest stavki ostaje `ratified`, poglavlje ostaje `draft`,
-a `G-A4-03` nije započet.
+Odgovor navodi točan završni izvorni commit i datum odluke. Ne tvrdi se da je
+autor pročitao poglavlje.
+
+## Provedena dispozicija knjige poglavlja
+
+- `bookwright_plugin/bookwright/shared/chapter-ledger.json` za
+  `02-mjerenje-i-dizajn` promijenjen je iz `draft` u `coauthor_review`, uz
+  bilješku vezanu uz završni commit i `C02`;
+- prihvaćene su samo dvije dotad ratificirane stavke
+  `R11-C02-units-eligibility` i `R13-C02-coding-measurement`, s dokazima iz
+  WA-C02 i C02; četiri P1A-C02 stavke ostaju u ranije prihvaćenom stanju;
+- `C02` citira ovaj paket, završni commit, svih šest izvješća, sintezu, stvarni
+  odgovor autora i dispoziciju knjige poglavlja;
+- `OA-C02-ACCEPTANCE` je razriješen izravnim odgovorom u niti. Vanjska poruka
+  nije poslana;
+- kontrolni registar, ledger prosljeđivanja i nadzorna ploča usklađeni su prije
+  završnih pozitivnih i negativnih workflow provjera.
+
+`02-mjerenje-i-dizajn` sada je `coauthor_review`. To nije faza `final`; kasniji
+zatvarački, kontinuitetni i release gateovi ostaju obvezni. `G-A4-03` nije
+prihvaćen ni pokrenut.

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WA-C02"
-  next_permitted_packet: "C02"
+  last_completed_packet: "C02"
+  next_permitted_packet: "G-A4-03"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8179,7 +8179,7 @@ packets:
     sequence: 79
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WA-C02"
     scope: "Author acceptance and panel disposition for C02."
@@ -8190,14 +8190,71 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wa-c02-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c02-critic-structure-2026-08-06.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C02-accepted-for-0552e4a35052f7f7736b267a0f367f30df02d9c7-on-2026-08-06"
+            - "report:notes/reports/c02-acceptance-package-2026-08-06.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#02-mjerenje-i-dizajn-stage-coauthor_review"
+            - "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
+            - "source:sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+            - "check:scripts/check-chapter-spines.py-C02-accepted-stage-transition"
+      outputs:
+        - output: "C02 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c02-acceptance-package-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C02-accepted-for-0552e4a35052f7f7736b267a0f367f30df02d9c7-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#02-mjerenje-i-dizajn-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C02 source state and bounded scope."
+          artifacts:
+            - "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
+            - "source:sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+            - "check:scripts/check-review-workflow.R-at-C02-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-16-draft-3-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-c9f902cbe83ae6e17d743e5856252a2b4a62a409d45af084429a7af9089fcf55"
+            - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C02-accepted-for-0552e4a35052f7f7736b267a0f367f30df02d9c7-on-2026-08-06"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c02-acceptance-package-2026-08-06.md"
+            - "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
+            - "reports:wa-c02-six-final-critic-reports"
+            - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C02-accepted-for-0552e4a35052f7f7736b267a0f367f30df02d9c7-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#02-mjerenje-i-dizajn-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
   G-A4-03:
     sequence: 80
     phase: "3C"
@@ -17072,7 +17129,7 @@ items:
       location: "§12 analysis table"
     description: "Make units, eligibility, exclusions, and filters explicit precursors to analysis-table construction."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17090,11 +17147,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C02"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
+      - "source:chapters/02-mjerenje-i-dizajn.qmd#prihvatljivost-iskljucenja-i-filtri"
+      - "report:notes/reports/wa-c02-critic-pedagogy-2026-08-06.md"
+      - "report:notes/reports/wa-c02-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C02-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
   R11-C04-raw-to-table:
     parents:
       - "R11"
@@ -18033,7 +18096,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Plant language coding as measurement with exclusions and ambiguity."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18051,11 +18114,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C02"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
+      - "source:chapters/02-mjerenje-i-dizajn.qmd#prihvatljivost-iskljucenja-i-filtri"
+      - "report:notes/reports/wa-c02-critic-evidence-2026-08-06.md"
+      - "report:notes/reports/wa-c02-critic-pedagogy-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c02-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C02-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:0552e4a35052f7f7736b267a0f367f30df02d9c7"
   R13-C04-denominators:
     parents:
       - "R13"
@@ -27298,7 +27367,7 @@ outside_asks:
 
   OA-G-A4-03-BRIEF:
     status: "drafted_unsent"
-    readiness: "waiting_for_PartI_evidence_and_pilot"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "3C"
@@ -27317,13 +27386,19 @@ outside_asks:
     blocked_gates:
       - "G-A4-03"
     available_evidence:
+      - "packet:C02"
       - "packet:P3-DZS"
       - "packet:P3-DIP"
-      - "packet:P3-PILOT"
       - "packet:P2-IDENTITY"
-    recommended_default: "Build one evidence-led public-claim audit that plants base rates and poll literacy, distinguishes synthetic from fabricated evidence, and moves the main ASA episode to Chapter 10."
-    exact_reply_requested: "Reply: Chapter 3 Tier F brief approved at [state] on [YYYY-MM-DD]; or list exact case, evidence, outline, or scope amendments."
-    resume_condition: "WA-C03 drafting resumes only after the governed case evidence, pilot disposition, and complete brief are approved."
+      - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+      - "report:notes/reports/p2-identity-briefs-2026-08-04.md#poglavlje-3-revizija-jedne-javne-tvrdnje"
+      - "report:notes/reports/p3-dip-2026-08-05.md"
+      - "report:notes/reports/p3-dzs-2026-08-05.md"
+      - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+      - "amendment:P3-PILOT-descoped-2026-08-05-not-a-prerequisite"
+    recommended_default: "Approve the Tier F brief with one portal-mediated audit of the official 62.30 per cent 2024 parliamentary-election turnout claim, using approached voters over eligible voters at processed polling places, preserving the DZS or generated offline fallback, planting base-rate and poll-literacy debts, distinguishing synthetic from fabricated evidence, and keeping the main ASA episode in Chapter 10."
+    exact_reply_requested: "Reply: G-A4-03 accepted as recommended for [C02 closeout commit] on [YYYY-MM-DD]; or list exact public-claim, evidence, outline, or scope amendments."
+    resume_condition: "WA-C03 may be claimed only after the named author/editor explicitly accepts one G-A4-03 disposition tied to the prepared decision package; the descoped novice pilot is not a prerequisite."
     why_external: "The first identity-pillar case and argumentative brief require author/editor approval."
     external_message_sent: false
 
@@ -27515,7 +27590,7 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C02-ACCEPTANCE:
-    status: "drafted_unsent"
+    status: "done"
     readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
@@ -27544,6 +27619,9 @@ outside_asks:
     resume_condition: "C02 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-06"
+    resolution: "C02 accepted for 0552e4a35052f7f7736b267a0f367f30df02d9c7 on 2026-08-06."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C03-ACCEPTANCE:
     status: "drafted_unsent"
