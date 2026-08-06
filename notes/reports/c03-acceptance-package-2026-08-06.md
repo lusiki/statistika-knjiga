@@ -2,11 +2,15 @@
 
 **Gate:** `C03`
 
-**Stanje gatea:** pripremljen; čeka autorovu odluku.
+**Stanje gatea:** autor prihvatio; dispozicija provedena.
 
 **Imenovani vlasnik odluke:** Luka Šikić, autor/editor.
 
 **Datum pripreme:** 6. kolovoza 2026.
+
+**Datum autorove odluke:** 6. kolovoza 2026.
+
+**Datum zapisa odluke:** 6. kolovoza 2026.
 
 ## Konačno materijalno stanje
 
@@ -61,10 +65,9 @@ integritet rukopisa, figure, citati, pojmovi, terminologija, kralježnice,
 katalog, podaci, widgeti, paritet i workflow prolaze. Obje negativne workflow
 probe padaju s očekivanim izlazom 1.
 
-## Predložena dispozicija registra i knjige poglavlja
+## Provedena dispozicija registra i knjige poglavlja
 
-Ako autor prihvati ovaj paket vezan uz navedeni commit, C03 treba provesti
-sljedeću usku dispoziciju:
+C03 je proveo sljedeću usku dispoziciju vezanu uz navedeni commit:
 
 - `03-kako-brojke-zavode` u
   `bookwright_plugin/bookwright/shared/chapter-ledger.json` prelazi iz `draft`
@@ -83,18 +86,39 @@ sljedeću usku dispoziciju:
   - `R30-C03-slide-enumeration`;
   - `R31-C03-public-case`.
 
-Ni jedna od tih promjena još nije provedena. Poglavlje ostaje `draft`, svih
-devet stavki ostaje `ratified`, a C03 ostaje otvoren dok autor ne odgovori.
+Svih devet stavki sada je `accepted`, `03-kako-brojke-zavode` sada je
+`coauthor_review`, a C03 je zatvoren kao `accepted`. To ne tvrdi da je autor
+pročitao poglavlje i ne proglašava ga konačnim.
 
 ## Točan odgovor autora
 
-Za prihvaćanje odgovorite doslovno:
+Odgovor je primljen u aktivnoj niti i zapisan doslovno:
 
 ```text
-C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06.
+status: accepted
+author_reply: C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06.
+reply_evidence: conversation:user-message-recorded-2026-08-06
 ```
 
-Ili navedite točne blokirajuće revizije vezane uz isti commit. Odgovor ne mora
-tvrditi da ste pročitali poglavlje; on prihvaća sintetiziranu dispoziciju.
+Odgovor navodi točan završni izvorni commit i datum odluke. Ne tvrdi se da je
+autor pročitao poglavlje.
+
+## Provedena dispozicija knjige poglavlja
+
+- `bookwright_plugin/bookwright/shared/chapter-ledger.json` za
+  `03-kako-brojke-zavode` promijenjen je iz `draft` u `coauthor_review`, uz
+  bilješku vezanu uz završni commit i `C03`;
+- prihvaćeno je samo devet imenovanih stavki trećega poglavlja, s dokazima iz
+  WA-C03 i C03;
+- `C03` citira ovaj paket, završni commit, svih šest izvješća, sintezu, stvarni
+  odgovor autora i dispoziciju knjige poglavlja;
+- `OA-C03-ACCEPTANCE` je razriješen izravnim odgovorom u niti. Vanjska poruka
+  nije poslana;
+- kontrolni registar, ledger prosljeđivanja i nadzorna ploča usklađeni su prije
+  završnih pozitivnih i negativnih workflow provjera.
+
+`03-kako-brojke-zavode` sada je `coauthor_review`. To nije faza `final`; kasniji
+zatvarački, kontinuitetni i release gateovi ostaju obvezni. `WA-PART` nije
+pokrenut u ovome paketu.
 
 Push, merge, tag, arhiviranje, deployment i objava nisu dio ove odluke.

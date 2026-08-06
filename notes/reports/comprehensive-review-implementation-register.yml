@@ -10,17 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C03"
-    claimed_at: "2026-08-06"
-    owned_paths:
-      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
-      - "notes/reports/c03-acceptance-package-2026-08-06.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WA-C03"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C03"
+  next_permitted_packet: "WA-PART"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8526,7 +8518,7 @@ packets:
     sequence: 82
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WA-C03"
     scope: "Author acceptance and panel disposition for C03."
@@ -8537,14 +8529,71 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "report:notes/reports/c03-acceptance-package-2026-08-06.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#03-kako-brojke-zavode-stage-coauthor_review"
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+            - "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "check:scripts/check-chapter-spines.py-C03-accepted-stage-transition"
+      outputs:
+        - output: "C03 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c03-acceptance-package-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#03-kako-brojke-zavode-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C03 source state and bounded scope."
+          artifacts:
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+            - "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "check:scripts/check-review-workflow.R-at-C03-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-15-draft-4-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c03-acceptance-package-2026-08-06.md"
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+            - "reports:wa-c03-six-final-critic-reports"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "author_reply:C03-accepted-for-72f774a3b302e6beca14730ac82727be92f29be1-on-2026-08-06"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#03-kako-brojke-zavode-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   WA-PART:
     sequence: 83
     phase: "4"
@@ -14741,7 +14790,7 @@ items:
       location: "§5/§8/§10 + §15 R07"
     description: "Rewrite Chapter 3 as one evidence-led public-claim audit."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -14758,11 +14807,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#od-tocnoga-broja-do-potpune-tvrdnje"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R07-C12-full-argument:
     parents:
       - "R07"
@@ -16939,7 +16994,7 @@ items:
       location: "§8 Ch3"
     description: "Plant operational base-rate literacy before Chapter 17 classification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -16956,11 +17011,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#def-temeljna-stopa"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R10-C07-degree-belief:
     parents:
       - "R10"
@@ -17612,7 +17673,7 @@ items:
       location: "§8 Ch3"
     description: "Introduce recruitment/frame, denominator, field dates, and selection versus sampling uncertainty."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17629,11 +17690,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#anketa-obuhvat-i-biranje-tresanja"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R12-C03-margin-debt:
     parents:
       - "R12"
@@ -17647,7 +17714,7 @@ items:
       location: "§8 Ch3"
     description: "Mark early margin-of-error reasoning as intuition and link its later justification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17664,11 +17731,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#interakcija-istrazivac-margine-pogreske"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R12-C08-srs-boundary:
     parents:
       - "R12"
@@ -21571,7 +21644,7 @@ items:
       location: "§8/§12 Ch3"
     description: "Replace required R manipulation with conceptual, static, or control-based work."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -21588,11 +21661,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#zadaci"
+      - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R23-C12-no-R-production:
     parents:
       - "R23"
@@ -22153,7 +22232,7 @@ items:
       location: "§8 Ch3"
     description: "Develop a bounded traceable synthetic-media verification case."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22170,11 +22249,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#podrijetlo-ljudskog-i-strojnog-broja"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R24-C03-AI-provenance:
     parents:
       - "R24"
@@ -22188,7 +22273,7 @@ items:
       location: "§8 Ch3"
     description: "Require source, data, transformation, denominator, and citation checks for AI numbers."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22205,11 +22290,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#podrijetlo-ljudskog-i-strojnog-broja"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R24-C12-primary-sources:
     parents:
       - "R24"
@@ -24815,7 +24906,7 @@ items:
       location: "§8 Ch3"
     description: "Replace ordinal checklist paragraphs with coherent narrative progression."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24832,11 +24923,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd"
+      - "report:notes/reports/wa-c03-critic-style-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R30-BOOK-widget-openings:
     parents:
       - "R30"
@@ -25212,7 +25309,7 @@ items:
       location: "§8/§10 + §15 R31"
     description: "Anchor Chapter 3 in a traceable DZS/DIP or equivalent public claim, not ASA."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25229,11 +25326,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-C03"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:72f774a3b302e6beca14730ac82727be92f29be1"
+      - "source:chapters/03-kako-brojke-zavode.qmd#razradeni-primjer"
+      - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+      - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+      - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+      - "author_reply:C03-accepted-2026-08-06"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:72f774a3b302e6beca14730ac82727be92f29be1"
   R31-C10-ASA-home:
     parents:
       - "R31"
@@ -27856,7 +27959,7 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C03-ACCEPTANCE:
-    status: "drafted_unsent"
+    status: "done"
     readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
@@ -27889,6 +27992,9 @@ outside_asks:
     resume_condition: "C03 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the identity-pillar revision."
     external_message_sent: false
+    resolved_at: "2026-08-06"
+    resolution: "C03 accepted for 72f774a3b302e6beca14730ac82727be92f29be1 on 2026-08-06."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C04-ACCEPTANCE:
     status: "drafted_unsent"
