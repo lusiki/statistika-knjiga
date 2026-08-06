@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A4-03"
-  next_permitted_packet: "WA-C03"
+  last_completed_packet: "WA-C03"
+  next_permitted_packet: "C03"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8426,7 +8426,7 @@ packets:
     sequence: 81
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A4-03"
       - "C02"
@@ -8438,14 +8438,82 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WA-C03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A4-03"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#03-kako-brojke-zavode"
+            - "report:notes/reports/g-a4-03-decision-package-2026-08-06.md"
+            - "report:notes/reports/p2-identity-briefs-2026-08-04.md#poglavlje-3-revizija-jedne-javne-tvrdnje"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "source:references.bib#dip2024"
+            - "registry:data/katalog.yml#populacija_medija-consumers-WA-C03"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#temeljna-stopa"
+            - "generated:data/concept-graph.json-49-nodes-558-edges"
+            - "result:DIP-turnout-62.302067-ballots-2215209-difference-1554-I-X-61.479948-difference-0.82pp"
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-49-ledger_debt-0-graph_fresh-true"
+            - "check:scripts/check-katalog.py-KATALOG_OK-rights_permission_claim-false"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-189339-sha256-3d0be3146a1cc9ed666b9d8dc05fef44f879fc990ff0ceebbe06a16e59af7abf"
+            - "render:PDF-exit-0-bytes-2729509-sha256-28a870c92dcb82500c57155137b6521edc383ccd109e6221d8b488bc5c8b901a"
+            - "render:DOCX-wrapper-exit-0-bytes-1491411-sha256-c7509ea68247c044b14bb5e5e43c3b07757f2d20d6f1836a89cb12cbb6982939"
+            - "report:notes/reports/wa-c03-2026-08-06.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wa-c03-critic-methods-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-skeptic-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-pedagogy-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-evidence-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-style-2026-08-06.md"
+            - "report:notes/reports/wa-c03-critic-structure-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+      outputs:
+        - output: "WA-C03 verified vertical-slice source and evidence bundle for: Chapter 3 identity rewrite."
+          artifacts:
+            - "source:chapters/03-kako-brojke-zavode.qmd@sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "report:notes/reports/wa-c03-2026-08-06.md"
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+        - output: "Completion evidence is tied to the declared WA-C03 source state and bounded scope."
+          artifacts:
+            - "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
+            - "handoffs:H-P2-SPINE-I-001-H-P2-TERMS-002-H-P3-DZS-001-H-P3-DZS-004-consumed"
+            - "handoffs:no-new-future-relevant-effect"
+            - "check:scripts/check-review-workflow.R-at-WA-C03-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wa-c03-2026-08-06.md#sadrzajni-rez"
+            - "check:inventory-token-manuscript-figure-citation-concept-terminology-spine-catalogue-data-widget-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md"
+            - "panel:six-final-confirmations-zero-fatal-zero-major-zero-minor"
+        - test: "The WA-C03 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A4-03"
+            - "spine:P2-SPINE-I"
+            - "items:R07-C03-full-argument-R10-C03-base-rate-R12-C03-poll-literacy-R12-C03-margin-debt-R23-C03-no-R-production-R24-C03-synthetic-media-R24-C03-AI-provenance-R30-C03-slide-enumeration-R31-C03-public-case"
+            - "report:notes/reports/wa-c03-2026-08-06.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5"
   C03:
     sequence: 82
     phase: "4"

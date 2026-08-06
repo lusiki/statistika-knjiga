@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A4-03
-next_permitted_packet: WA-C03
+last_completed_packet: WA-C03
+next_permitted_packet: C03
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -44,11 +44,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A4-03` |
-| Next permitted packet | `WA-C03` — Chapter 3 identity rewrite |
+| Last completed packet | `WA-C03` |
+| Next permitted packet | `C03` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 114 accepted, 5 deferred with reason, 252 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 49 accepted, 138 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 50 accepted, 136 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 16 `draft`; `00-predgovor`, `01-zasto-statistika` and `02-mjerenje-i-dizajn` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -3099,6 +3099,63 @@ the durable evidence is
 - `WA-C03` is next. `C03` and every later packet remain unstarted. Push, merge,
   tag, archive and deployment remain unauthorised.
 
+## WA-C03 claim
+
+- The packet is active under the accepted G-A4-03 disposition. Exactly two
+  `before_start` deliveries are terminal before claim. `H-P0-REGISTER-007`
+  confirms that the governed DIP package and author brief are complete, while
+  `H-P3-DIP-001` fixes the portal-mediated numerator, denominator, aggregation,
+  unavailable-claim and offline-fallback boundaries.
+- Four `before_close` deliveries were acknowledged before the first
+  substantive edit. `H-P2-SPINE-I-001` limits Chapter 3 to one new definition,
+  `temeljna stopa`; `H-P2-TERMS-002` requires same-packet ledger and graph
+  reconciliation; `H-P3-DZS-001` preserves the arrival unit; and
+  `H-P3-DZS-004` keeps survey and administrative figures separate and the
+  survey rounding residual truthful.
+- No chapter, data file, shared registry or generated artifact has yet changed
+  in WA-C03. The workflow validator must pass in this claimed state before the
+  first substantive edit.
+
+## WA-C03 closeout — Chapter 3 identity rewrite
+
+- `WA-C03` is accepted on source SHA-256
+  `11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5`.
+  The complete evidence record is
+  `notes/reports/wa-c03-2026-08-06.md`.
+- The two `before_start` deliveries were already consumed before claim. The
+  four `before_close` deliveries `H-P2-SPINE-I-001`, `H-P2-TERMS-002`,
+  `H-P3-DZS-001` and `H-P3-DZS-004` are now consumed with source, registry,
+  check and packet-report evidence.
+- One portal-mediated audit of DIP's 2024 parliamentary turnout remains the
+  sole public case. The chapter distinguishes the five official quantities,
+  reproduces 62,30 %, reconciles the ballot sum at 2.215.209 and preserves the
+  unexplained difference of 1.554 without turning it into evidence of error.
+- The source adds exactly `#def-temeljna-stopa`. The checkout-local concept
+  ledger and terminology live count now agree at 49 definitions; the generated
+  graph has 49 nodes and 558 edges, with zero ledger debt and a fresh graph.
+- No DZS tourism value entered the prose. Arrival is never recoded as a person,
+  the administrative and survey figures are not combined, and the survey's
+  ±1 rounding residual is not called a data error. The offline task uses the
+  governed generated `populacija_medija` package with an explicit generated-
+  person unit and a registered Chapter 3 consumer.
+- The existing widget code was not edited and `data/widgets.json` is unchanged.
+  Digital and print instructions now match the actions available in each
+  format. Part I still contains no visible code and no task requires code
+  production.
+- Final HTML, PDF and wrapper-built DOCX renders exited 0 on the final material
+  hash. Generated `docs/`, `_freeze/`, AI exports and Word output were restored
+  and are not packet changes. The PDF emitted the existing implicit-div-closure
+  warnings, while the blocking manuscript-integrity check remains required.
+- Six independent read-only critics confirmed the same final hash. Methods,
+  skepticism, pedagogy, evidence, style and structure each score 5/5 with zero
+  fatal, major or minor finding. The durable synthesis is
+  `notes/reports/wa-c03-six-critic-synthesis-2026-08-06.md`.
+- The packet found no new future-relevant effect. C03 directly consumes the
+  final source, reports and synthesis, so no duplicate handoff was created.
+- Chapter 3 remains `draft`. Its nine governed content items remain `ratified`
+  until the author-only `C03` decision. `C03` is next but is not accepted.
+  Push, merge, tag, archive and deployment remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -3125,26 +3182,17 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Execute `WA-C03` only under the accepted `G-A4-03` Tier F disposition, then
-close it and prepare `C03` without accepting C03. Before claiming WA-C03,
-terminally consume exactly the two before-start deliveries
-`H-P0-REGISTER-007` and `H-P3-DIP-001`. Before the first substantive edit,
-acknowledge the four before-close deliveries `H-P2-SPINE-I-001`,
-`H-P2-TERMS-002`, `H-P3-DZS-001` and `H-P3-DZS-004`, then consume them with
-evidence before closeout.
+Verify that `WA-C03` is the last completed packet and that its final source
+commit contains `chapters/03-kako-brojke-zavode.qmd` at SHA-256
+`11e949a5f4bfa3f762a6b3ad4f2f3e6a36333cdd2fbfae08103d2fcd8263bad5`, all six
+critic reports, the synthesis and the WA-C03 evidence report. Claim only `C03`.
 
-Rewrite `chapters/03-kako-brojke-zavode.qmd` as the ratified identity pillar
-around the one portal-mediated DIP 2024 turnout audit. Add exactly one new
-definition, `temeljna stopa`, update the checkout-local concept ledger in the
-same packet, regenerate the concept graph, preserve the portal and rights
-boundaries and keep the offline fallback. Run the targeted renders, full
-deterministic ladder and a fresh parallel six-critic panel against the final
-material source. Update the register, handoff ledger and dashboard together,
-run workflow validation and its two required negative fixtures, and make one
-scoped local WA-C03 commit.
-
-Then assemble C03 against that final source commit and make one scoped local
-control commit. Do not accept C03 on the author's behalf. Stop with the exact
-reply required from the author. Push, merge, tag, archive and deploy remain
+Assemble the bounded author acceptance package against that exact WA-C03 commit.
+Update `OA-C03-ACCEPTANCE` to ready for author decision, cite the final source
+commit and hash, all six reports, the synthesis, the governed-item disposition
+and the still-draft chapter-ledger boundary. Make one scoped local control
+commit. Do not accept C03, advance the chapter ledger, accept the nine governed
+items or edit chapter prose on the author's behalf. Stop with the exact reply
+requested from the author. Push, merge, tag, archive and deploy remain
 unauthorised.
 ```
