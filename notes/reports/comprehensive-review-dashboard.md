@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: C05
 last_completed_packet: WB-C05
-next_permitted_packet: C05
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -45,12 +45,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `C05` |
 | Last completed packet | `WB-C05` |
-| Next permitted packet | `C05` |
+| Next permitted packet | None while `C05` awaits the author/editor |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 170 accepted, 5 deferred with reason, 196 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 84 accepted, 103 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 84 accepted, 102 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 14 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode` and `04-sazimanje-podataka` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -228,7 +228,8 @@ No chapter prose was changed by `P0-OUTSIDE`.
 
 ## WB-C05 closeout — Chapter 5 vertical slice
 
-- `WB-C05` is accepted at source SHA-256
+- `WB-C05` is accepted in final source commit
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`, at source SHA-256
   `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
   The complete evidence record is `notes/reports/wb-c05-2026-08-10.md`.
 - `H-P1C-INTEGRITY-001` and `H-P3-EXISTING-001` are consumed. The approved
@@ -264,6 +265,34 @@ No chapter prose was changed by `P0-OUTSIDE`.
   `ratified` pending the separate author-only C05 gate. `C05` is next; no
   author reading or acceptance is claimed. Push, merge, tag, archive and
   deployment remain unauthorised.
+
+## C05 package prepared — awaiting author decision
+
+- C05 is claimed only as an author-acceptance gate against WB-C05 commit
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`. The Chapter 5 Git blob is
+  `6c478a6efc6c80b44c2475849024db782d139076`, and the working-file SHA-256 is
+  `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+- `notes/reports/c05-acceptance-package-2026-08-10.md` cites the final commit,
+  all six reports, the synthesis, the WB-C05 evidence record, the density
+  memorandum, every open minor finding and the proposed ledger disposition.
+  `OA-C05-ACCEPTANCE` is ready for author decision; no external message was
+  sent.
+- Every critic addressed the same final material hash. There is no fatal or
+  major finding. Two nonblocking skeptical wording notes remain in Chapter 5;
+  one pre-existing documentation minor outside the chapter remains owned by
+  `H-WB-C04-001` and `H-P3-CATALOG-002` for `P5-C`.
+- The recommended disposition is to accept exactly four governed Chapter 5
+  items and advance only `05-vizualizacija` from `draft` to
+  `coauthor_review`, explicitly without claiming that the author read the
+  chapter and without calling it `final`.
+- No proposed disposition has been applied. The chapter ledger is unchanged,
+  all four items remain `ratified`, C05 remains `in_progress`, and WB-C06 is
+  blocked. No chapter prose, data, bibliography, concept, widget, render or
+  generated artifact changed while assembling the package.
+- `H-C04-THREAD-SEQUENCE-001` is acknowledged for C05 but remains unconsumed
+  until the real author reply and gate closeout. The 2026-08-05 standing
+  delegation and the thread amendment do not substitute for that reply. Push,
+  merge, tag, archive and deployment remain unauthorised.
 
 ## G-A3-EUROSTAT claim
 
@@ -3830,37 +3859,18 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `WB-C05` is accepted at source SHA-256
-`db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`,
-that Chapter 5 remains `draft`, that its four governed items remain
-`ratified`, that no write packet is active, and that `C05` is the sole
-next-permitted packet.
+Read `notes/reports/c05-acceptance-package-2026-08-10.md` and verify that C05 is
+active against WB-C05 commit
+`de85c7018b934bf5c6310fd4f1125f0ae65473a0`. Do not edit the source, accept
+C05, advance the chapter ledger or change the four governed item statuses
+without the named author/editor's reply. Do not use the 2026-08-05 standing
+delegation or the thread amendment as a substitute, do not suppress the three
+disclosed minor findings, and do not claim that the author read the chapter.
 
-Claim and prepare only the C05 author-acceptance gate. Cite the final WB-C05
-commit, all six reports in `notes/reports/wb-c05-critic-*-2026-08-10.md`, the
-synthesis `notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md`, and the
-complete packet record `notes/reports/wb-c05-2026-08-10.md`. Confirm that all
-six critics address the exact final source state and that no fatal or major
-finding remains.
+For acceptance, the required reply is exactly:
 
-Present all unresolved findings accurately. The final panel carries two
-nonblocking skeptical wording notes in Chapter 5 and one pre-existing
-documentation minor already owned by `H-WB-C04-001` and
-`H-P3-CATALOG-002` for `P5-C`. Do not silently repair, suppress or duplicate
-them in C05.
+C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10.
 
-Do not change chapter prose, data, bibliography, concepts, widget behaviour or
-generated artifacts while preparing the gate. Do not advance the chapter
-ledger or accept the four governed items before the author's real reply. The
-2026-08-05 standing delegation is not a substitute, and no record may claim
-that the author read the chapter.
-
-State the exact required reply and stop:
-`C05 accepted for <WB-C05-commit> on <YYYY-MM-DD>.`
-
-If the reply is received, close C05 in its own checked local commit, advance
-only Chapter 5 from `draft` to `coauthor_review`, accept only its four governed
-items with source-specific evidence, and then continue to WB-C06 under the
-thread-only author amendment. If no reply is received, leave C05 active and do
-not start WB-C06. Push, merge, tag, archive and deploy remain unauthorised.
+Otherwise list exact blocking revisions tied to that commit. Push, merge, tag,
+archive and deploy remain unauthorised.
 ```

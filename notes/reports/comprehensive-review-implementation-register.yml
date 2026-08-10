@@ -10,9 +10,17 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C05"
+    claimed_at: "2026-08-10"
+    owned_paths:
+      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
+      - "notes/reports/c05-acceptance-package-2026-08-10.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WB-C05"
-  next_permitted_packet: "C05"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9639,7 +9647,7 @@ packets:
     sequence: 92
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WB-C05"
     scope: "Author acceptance and panel disposition for C05."
@@ -29101,7 +29109,7 @@ outside_asks:
 
   OA-C05-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WB-C05_revision_and_panel"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -29117,8 +29125,20 @@ outside_asks:
     available_evidence:
       - "packet:WB-C05"
       - "packet:C05"
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+      - "report:notes/reports/wb-c05-2026-08-10.md"
+      - "report:notes/reports/wb-c05-figure-density-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-evidence-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "report:notes/reports/c05-acceptance-package-2026-08-10.md"
     recommended_default: "Accept only after the Anscombe introduction, graph-as-argument role, accessibility, density, sources, and panel findings pass."
-    exact_reply_requested: "Reply: C05 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10; or list exact blocking revisions tied to that commit."
     resume_condition: "C05 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
