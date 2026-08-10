@@ -5376,7 +5376,26 @@ handoffs:
     deliveries:
       - target_packet: P3-VERIFY-B
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-VERIFY-B independently recomputed the three required repairs from
+          the committed DigiKat CSVs and then verified them from the named
+          source checkout. Complete years are exactly 2021, 2022, 2023 and
+          2025; February-May 2024 are absent and January carries 1911 posts;
+          lom_metode carries the actual TikTok, 2024-06 and Instagram states.
+          Annual versus monthly divergence is 17 of 49, +446 to -389, net zero
+          at 710307 in both files. All six annual denominators reconcile with
+          tolerance zero, while the domain-only source file carries 551712
+          posts. The defects are repaired in machine-checked data, not merely
+          described, and every downstream claim boundary remains unchanged.
+        evidence:
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "check:INDEPENDENT_DIGIKAT_OK-49-438-3604-divergent-17-net-0"
+          - "check:DIGIKAT_RECONCILIATION_OK-years-6-denominator-tolerance-0"
+          - "source:C:/Users/lsikic/projects/DigiKat@278a127f9170c1aca82035a4a8357b8a995f91d8"
+          - "check:DATA_NEGATIVE_FIXTURES_OK-cases-44"
       - target_packet: WB-C04
         gate: before_start
         state: pending
@@ -5454,7 +5473,26 @@ handoffs:
           - "boundary:six-indicators-2025-EU27-WB-C06-only"
       - target_packet: P3-VERIFY-B
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-VERIFY-B independently verified the ratified selection, rights and
+          source-route contract from commit f6d25bb. The manifest contains six
+          official ec.europa.eu requests for 2025 and 27 unique countries, each
+          HTTP 200, zero retries; all raw MD5 and SHA-256 match. Actual responses
+          carry ESTAT and SOURCE_INSTITUTIONS Eurostat with no contrary rights
+          annotation. The teaching table has all 162 unique keys, 161 values and
+          exactly one retained LU early-leaving ':' with API/OBS u and no
+          confidentiality flag. The notice has six component attributions and
+          both exact required sentences. No mixed year, extra consumer, network
+          call, individual claim or causal claim entered the review.
+        evidence:
+          - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#eurostat-neovisna-provjera-izvornoga-traga"
+          - "check:INDEPENDENT_EUROSTAT_OK-requests-6-retries-0-keys-162"
+          - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+          - "check:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
       - target_packet: WB-C06
         gate: before_start
         state: pending
@@ -5509,7 +5547,23 @@ handoffs:
     deliveries:
       - target_packet: P3-VERIFY-B
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-VERIFY-B consumes the complete actual Eurostat package before its
+          claim. The gate will independently verify the single six-request
+          zero-retry official batch, the exact query and retained raw checksums,
+          all 162 same-year keys, the 161-plus-one value/missing split, the LU
+          colon/u relationship, source and rights annotations, offline builder,
+          promotion identity and exact adjacent notice. It will not retrieve,
+          transform, refresh or edit the package and will not widen its country,
+          indicator, year, consumer or claim boundary.
+        evidence:
+          - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+          - "report:notes/reports/p3-eurostat-2026-08-10.md"
+          - "handoff:H-P3-EUROSTAT-001"
+          - "boundary:read-only-independent-review-no-network"
       - target_packet: WB-C06
         gate: before_start
         state: pending
@@ -7487,3 +7541,27 @@ packet_reviews:
       - gitattributes fixes derived JSON to LF and treats raw responses as binary so checkout conversion cannot invalidate evidence
       - H-P3-EUROSTAT-001 carries every actual package constraint to P3-VERIFY-B WB-C06 P6-DATA and P8-META
       - the packet changed no chapter prose no shared Bookwright registry and no generated render output
+
+  P3-VERIFY-B:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P3-VERIFY-B found no new future-relevant condition. Existing
+      H-G-A3-DIGIKAT-002, H-G-A3-EUROSTAT-001 and H-P3-EUROSTAT-001 already
+      carry every verified source, missingness, method-break, denominator,
+      attribution, refresh and claim boundary to WB-C04, WB-C05, WB-C06,
+      P6-DATA and P8-META. Repeating them would create a duplicate control
+      record.
+    implementation_state: commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b
+    checks:
+      - prerequisites WA-PART P3-DIGIKAT and P3-EUROSTAT are accepted with completion evidence and no active blocker
+      - H-P3-EUROSTAT-001 was consumed before claim and both decision-level before-close constraints were acknowledged before review and consumed at closeout
+      - DigiKat was recomputed independently from three CSVs and reproduced from source checkout 278a127f9170c1aca82035a4a8357b8a995f91d8
+      - DigiKat complete years gap partial January denominator identity 17-of-49 divergence method breaks and 551712 source denominator all match
+      - Eurostat queries host year geography raw checksums source institutions rights annotations keys missing status counts and notice were independently checked
+      - Eurostat remains six requests zero retries 162 keys 161 values and one LU colon/u row with zero-tolerance offline reproduction
+      - the first invalid verification attempt is disclosed and excluded and the corrected audit was rerun from the beginning with fail-fast command handling
+      - catalogue data integrity 44 data fixtures and seven general integrity fixture lanes pass
+      - P3-VERIFY-C P3-ESS and P3-TEXT remain later ratified work and are not hidden as Wave B prerequisites
+      - commit f6d25bb changes no chapter appendix docs freeze or shared Bookwright registry path and the review made no network request

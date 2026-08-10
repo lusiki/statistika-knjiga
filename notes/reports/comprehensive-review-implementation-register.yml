@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-EUROSTAT"
-  next_permitted_packet: "P3-VERIFY-B"
+  last_completed_packet: "P3-VERIFY-B"
+  next_permitted_packet: "WB-C04"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3154,7 +3154,7 @@ packets:
     sequence: 88
     phase: "3B"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WA-PART"
       - "P3-DIGIKAT"
@@ -3167,8 +3167,67 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "DigiKat and Eurostat are ready before Chapter 4; Chapter 12, ESS, and text packages remain just-in-time later work."
-    completion_evidence: []
-    change_reference: null
+    completion_evidence:
+      source_state: "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p3-verify-b-2026-08-10.md#matrica-vrata"
+            - "matrix:WA-PART-accepted-source-sha256-21a5f46b-with-completion-evidence"
+            - "matrix:P3-DIGIKAT-accepted-podaci-sha256-b08accc1-with-four-accepted-items"
+            - "matrix:P3-EUROSTAT-accepted-podaci-sha256-bccdee3f-with-four-accepted-items"
+            - "check:scripts/check-review-workflow.R-validates-all-three-prerequisites"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+            - "source:DigiKat-checkout-278a127f9170c1aca82035a4a8357b8a995f91d8"
+            - "source:P3-DIGIKAT-podaci-sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
+            - "source:P3-EUROSTAT-podaci-sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "result:no-active-blocker-in-WA-PART-P3-DIGIKAT-P3-EUROSTAT-or-their-four-data-items"
+            - "handoff:H-G-A3-DIGIKAT-002-consumed-with-independent-recomputation"
+            - "handoff:H-G-A3-EUROSTAT-001-consumed-with-independent-source-and-rights-audit"
+            - "handoff:H-P3-EUROSTAT-001-consumed-before-claim"
+            - "boundary:P3-VERIFY-C-P3-ESS-P3-TEXT-remain-later-ratified-work-not-Wave-B-blockers"
+      outputs:
+        - output: "P3-VERIFY-B durable artifact and evidence record for: Wave B evidence foundation: validated DigiKat and Eurostat packages."
+          artifacts:
+            - "report:notes/reports/p3-verify-b-2026-08-10.md"
+            - "check:INDEPENDENT_DIGIKAT_OK-rows-49-438-3604-divergent-17-net-0"
+            - "check:INDEPENDENT_EUROSTAT_OK-requests-6-retries-0-keys-162-missing-LU-u"
+            - "check:DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify"
+            - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+            - "check:DATA_NEGATIVE_FIXTURES_OK-cases-44"
+            - "check:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+        - output: "Completion evidence is tied to the declared P3-VERIFY-B source state and bounded scope."
+          artifacts:
+            - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+            - "scope:commit-f6d25bb-chapter-appendix-docs-freeze-shared-registry-changes-zero"
+            - "review:packet_reviews.P3-VERIFY-B-no-new-future-relevant-effect"
+            - "check:scripts/check-review-workflow.R-at-P3-VERIFY-B-closeout"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:WA-PART-P3-DIGIKAT-P3-EUROSTAT-each-independently-verified"
+            - "report:notes/reports/p3-verify-b-2026-08-10.md#matrica-vrata"
+            - "result:no-active-blocker"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+            - "report:notes/reports/p3-verify-b-2026-08-10.md"
+            - "scope-audit:no-package-or-chapter-mutation-during-review"
+        - test: "DigiKat and Eurostat are ready before Chapter 4; Chapter 12, ESS, and text packages remain just-in-time later work."
+          result: "passed"
+          evidence:
+            - "registry:P3-DIGIKAT-and-P3-EUROSTAT-accepted"
+            - "registry:WB-C04-requires-P3-VERIFY-B-and-P2-SPINE-II"
+            - "registry:P3-VERIFY-C-requires-C11-and-P3-EVIDENCE12"
+            - "registry:P3-ESS-and-P3-TEXT-remain-ratified"
+            - "boundary:no-later-wave-package-cited-as-complete"
+    change_reference: "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"

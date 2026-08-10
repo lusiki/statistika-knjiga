@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-EUROSTAT
-next_permitted_packet: P3-VERIFY-B
+last_completed_packet: P3-VERIFY-B
+next_permitted_packet: WB-C04
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -46,11 +46,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-EUROSTAT` |
-| Next permitted packet | `P3-VERIFY-B` only |
+| Last completed packet | `P3-VERIFY-B` |
+| Next permitted packet | `WB-C04` only |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 164 accepted, 5 deferred with reason, 202 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 80 accepted, 107 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 81 accepted, 106 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -197,6 +197,51 @@ No chapter prose was changed by `P0-OUTSIDE`.
   render output changed.
 - `P3-VERIFY-B` is the sole next permitted packet. Push, merge, tag, archive,
   deployment and publication remain unauthorised.
+
+## P3-VERIFY-B claim
+
+- `P3-VERIFY-B` is the sole active write packet. Its three prerequisites are
+  accepted: `WA-PART`, `P3-DIGIKAT` and `P3-EUROSTAT`; the last is pinned to
+  commit `f6d25bb30dce3f5ffe41204e87273bd166c6053b`.
+- `H-P3-EUROSTAT-001` was consumed before claim. The two decision-level
+  before-close constraints, `H-G-A3-DIGIKAT-002` and
+  `H-G-A3-EUROSTAT-001`, were acknowledged before the first review edit and
+  remain due at closeout.
+- This is a read-only evidence review of both packages. It may write only its
+  report and the three workflow control files; it performs no network request,
+  refresh, package transformation, data edit, chapter edit or registry edit.
+
+## P3-VERIFY-B closeout
+
+- The three-entry gate matrix passes at source commit
+  `f6d25bb30dce3f5ffe41204e87273bd166c6053b`: `WA-PART`,
+  `P3-DIGIKAT` and `P3-EUROSTAT` are accepted with complete evidence and no
+  active blocker.
+- DigiKat was recomputed independently from its three CSVs and then reproduced
+  from checkout `278a127f9170c1aca82035a4a8357b8a995f91d8`: 49/438/3.604
+  rows, the visible February–May 2024 gap, January at 1.911, four complete
+  years, six exact denominators, 17 divergences from +446 to −389, net zero at
+  710.307, and the domain-only denominator 551.712 all agree.
+- Eurostat was audited independently from its plan, manifest, six raw responses,
+  CSV and notice: six official requests, zero retries, six matching raw hashes,
+  162 unique 2025 keys, 161 numbers, one `LU/:/u` row, expected status counts,
+  ESTAT/Eurostat source identity, no contrary rights annotation and six exact
+  component attributions all agree.
+- The first verification attempt is disclosed and excluded: it used three
+  shorthand DigiKat labels absent from the file and omitted the builder's
+  required checkout argument. The corrected audit named the literal labels and
+  checkout, reran from the beginning with fail-fast handling and passed.
+- Portfeljni checks remain green: `KATALOG_OK`, `DATA_INTEGRITY_OK`, 44 expected
+  data failures and seven expected general-integrity failures. Commit scope
+  changes no chapter, appendix, `docs/`, `_freeze/` or shared Bookwright
+  registry path.
+- `H-P3-EUROSTAT-001` was consumed before claim;
+  `H-G-A3-DIGIKAT-002` and `H-G-A3-EUROSTAT-001` were consumed at closeout.
+  No new future-relevant effect was found, so no duplicate handoff was created.
+- `P3-VERIFY-C`, `P3-ESS` and `P3-TEXT` remain later ratified work and were not
+  misreported as completed or hidden as Wave B blockers. `WB-C04` is now the
+  sole next permitted packet. No network or external system was contacted;
+  push, merge, tag, archive, deployment and publication remain unauthorised.
 
 ## P3-DIGIKAT claim
 
