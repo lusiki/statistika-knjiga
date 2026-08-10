@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-06"
+  last_updated: "2026-08-10"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WA-PART"
-  next_permitted_packet: "G-A3-DIGIKAT"
+  last_completed_packet: "G-A3-DIGIKAT"
+  next_permitted_packet: "P3-DIGIKAT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1711,6 +1711,157 @@ decisions:
       promotion, no change to another lane, no chapter edit, and no
       rights-holder-permission claim. It authorises no generated book artefact,
       push, merge, tag, archive, deployment, or publication.
+
+  G-A3-DIGIKAT:
+    status: "accepted"
+    accepted_at: "2026-08-10"
+    author_disposition: "accepted_as_recommended_with_latest_possible_snapshot_directive"
+    author: "Luka Sikic"
+    data_policy_owner: "Luka Sikic"
+    source_project_lead: "Luka Sikic"
+    evidence: "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+    reconnaissance_record: "notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md"
+    pre_disposition_record: "notes/reports/author-pre-dispositions-2026-08-10.md"
+    accepted_dispositions:
+      selection: >-
+        The package digikat_mediji: three aggregate files derived from three of
+        the project's fourteen tracked aggregate tables, with no named
+        individual anywhere. data/digikat-platforme-godisnje.csv at 49 rows
+        keyed by year and platform, data/digikat-platforme-mjesecno.csv at 438
+        rows keyed by month and platform, and data/digikat-izvori.csv at 3604
+        rows keyed by bare internet domain. The approximately 710307-post master
+        corpus was not read and stays external-only as determ_korpus with its
+        lane untouched.
+      snapshot_recency: >-
+        The author directed the latest possible snapshot. Unlike G-A3-DZS, this
+        gate can verify that as fact rather than record it as a rule, because
+        the source is the author's local checkout and no network call is
+        required. Verified on 2026-08-10: the project HEAD is
+        278a127f9170c1aca82035a4a8357b8a995f91d8 dated 2026-07-22, every
+        data/processed file carries a 2026-07-22 modification time, and the
+        builder in verify mode returns DIGIKAT_EXTRACTS_OK extracts=3
+        mode=verify, so all three files still reproduce byte for byte. The
+        2026-07-22 state is therefore the most recent state that exists. The
+        corpus ends in June 2026. P3-DIGIKAT must rerun the verification at its
+        own date and either re-pin a moved checkout or record that it did not
+        move; it must not rewrite the source date of record to the packet date.
+      chapter_role_and_claims: >-
+        Consumers are exactly WB-C04, WB-C05 and WB-C06. Chapter 4 uses the
+        source file as its skewed distribution, its missing-value testimony
+        through metrika_dostupna and its denominator decision through
+        objave_godina_ukupno. Chapter 5 uses it for the log axis and uses the
+        monthly file for composition over time, including the 2024 gap as a
+        visible fact once D-1 and D-3 are fixed. Chapter 6 uses posts,
+        interactions and reach as three skewed variables for Pearson against
+        Spearman, relationship shape, influential observations and range
+        restriction. The gate deliberately does NOT assign the extract to
+        Chapters 2 and 3, which are accepted and at coauthor_review, and takes
+        no position on Chapters 8, 13, 15, 17 and 18, which belong to their own
+        packets. Beyond the catalogue's recorded unavailable claims, this gate
+        adds two: no growth or trend claim across 2024, and no comparison of
+        periods before and after June 2024 without the method break stated.
+      verified_defects_binding_p3: >-
+        The gate counted the extract rather than taking it on trust. The
+        denominator identity passes 6 of 6 years without tolerance. Three
+        defects do not pass and none was previously recorded anywhere. D-1, the
+        godina_potpuna flag reads da for 2024 although 2024 lacks February
+        through May entirely and its January is partial at 1911 posts against a
+        2021-2023 monthly mean of about 6960, which is a false quality flag in a
+        book that teaches reading quality flags. D-2, the annual and monthly
+        files disagree in 17 of 49 platform-year comparisons, largest plus 446
+        for 2022 web and minus 389 for 2024 web, netting exactly zero at 710307
+        posts across the corpus, consistent with but not proven to be a
+        year-boundary effect, and recorded nowhere. D-3, no method-break flag
+        exists although volume roughly triples from June 2024 onward and
+        platform coverage grows from seven to nine as TikTok enters in 2023 and
+        Instagram in 2024, while the approved disposition explicitly requires
+        that break to be flagged. P3-DIGIKAT must fix all three before promotion
+        and must also record that the 3604 sources carry 551712 of 710307 posts,
+        or 77.67 per cent, because the naming filter is recorded but its size is
+        not.
+      rights_and_lane: >-
+        The rights matrix is resolved and favourable. The project's own
+        DATA_AVAILABILITY.md publishes data/processed/*.rds under CC BY 4.0 with
+        an explicit statement that they are aggregates containing no personal
+        data. The book's author and the project lead are the same person, so
+        this is a proprietary disposition rather than an inference from access,
+        and the gate confirms it explicitly rather than letting it be inherited
+        tacitly. digikat_mediji keeps lane bundled and stays promoted false with
+        promoted_total 3, because a decision gate promotes nothing. The book
+        still claims no rights-holder permission for any source because none was
+        sought, rights_holder_permission_obtained stays false, and
+        H-P1B-DATA-LIC-003 is not superseded. Until promotion the mandatory
+        student path stays anketa_mreze or its aggregate.
+      official_reconciliation_substitute: >-
+        H-P3-CATALOG-001 requires a recorded official reconciliation before any
+        promotion. digikat_mediji cannot have one and never will, because it is
+        a proprietary corpus rather than official statistics, so applied
+        literally that condition would permanently block the package the author
+        just approved. The condition is therefore NOT waived or weakened but
+        given a named substitute for non-official sources, satisfied only by
+        three tests together: byte-for-byte reproduction from the upstream
+        aggregate through the builder in verify mode, the internal denominator
+        identity holding without tolerance for every year, and a recorded
+        divergence statement carrying the exact largest per-cell deviation
+        between the annual and monthly files with its proven zero corpus-wide
+        sum. The third test is stricter than what it replaces because it forces
+        the package to name its own inconsistency instead of passing over it.
+        P3-DIGIKAT must write the substitute into data/katalog.yml and
+        data/katalog.schema.json as a named field and supply a negative fixture
+        that fails when the substitute is declared satisfied without all three
+        tests. It applies only to non-official sources and changes no other
+        package.
+      abandoned_entry_and_named_actor_rule: >-
+        digikat_akteri is closed as abandoned in favour of digikat_mediji,
+        because the registered entry describes a cross-section of named actors
+        and the extract deliberately has none, so it may inherit neither the
+        name nor the description. Its sole consumer WB-C04 moves to
+        digikat_mediji. P3-DIGIKAT must mark it abandoned with a reason and a
+        pointer to its successor rather than delete it, so the decision trail
+        survives. The omission of the upstream tables naming individuals is
+        confirmed as a permanent first-edition rule and not a one-off choice:
+        the book publishes no table naming an individual even when the licence
+        is clean, since CC BY 4.0 covers those tables too and they are excluded
+        by decision rather than by right.
+      reconnaissance_correction: >-
+        The reconnaissance record states that the remaining eleven tables name
+        actors. That is inexact and is corrected here. Ten name actors. The
+        eleventh, proportions_summary.rds, names nobody and holds upstream
+        floating-point shares post_share, interaction_share and reach_share; it
+        was rejected for the separate reason the same report records, that this
+        catalogue carries denominators rather than shares. Same conclusion,
+        different reason, and the evidence must distinguish the two.
+    rejected_alternatives:
+      - "Take the named-actor tables too because the licence is clean; the licence permits and the editorial rule does not."
+      - "Keep the name digikat_akteri for the new extract, whose entry describes actors the extract does not contain."
+      - "Drop the monthly file to avoid D-2, against Chapter 5's ratified need; retained only as a fallback if the divergence cannot be recorded with an exact range."
+      - "Trim the corpus to 2021-2023 before the method break, which would discard the newest and largest data and contradict the author's directive."
+      - "Exclude 2024 because of the gap, when the gap is teaching content rather than an obstacle."
+      - "Relax the reconciliation condition because the source is not official, instead of giving it a stricter named equivalent with three tests and a fixture."
+      - "Promote the package at this gate because rights are resolved, when availability is not promotion and three defects are unfixed."
+      - "Assign the extract to Chapters 2 and 3 as the reconnaissance proposed, reopening accepted chapters through a side door."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-DIGIKAT"
+      governed_items:
+        - "R03-DIGIKAT-rights"
+        - "R08-DIGIKAT-package"
+      later_gates_still_mandatory:
+        - "P3-VERIFY-B"
+        - "WB-C04"
+        - "WB-C05"
+        - "WB-C06"
+    authority_boundary: >-
+      This decision authorises P3-DIGIKAT only to repair the three named
+      defects, record the substitute reconciliation with its negative fixture,
+      close digikat_akteri as abandoned, register WB-C04, WB-C05 and WB-C06 as
+      consumers, re-pin the source state at its own date, and only then promote
+      the package. It authorises no chapter prose edit, no promotion at this
+      gate, no lane change to any other package, no network retrieval, no
+      reading of the master corpus, and no rights-holder-permission claim. It
+      authorises no generated book artefact, push, merge, tag, archive,
+      deployment, or publication.
 
   G-A4-03:
     status: "accepted"
@@ -8692,7 +8843,7 @@ packets:
     sequence: 84
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
       - "P3-CATALOG"
@@ -8704,14 +8855,73 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-DIGIKAT.accepted_at-2026-08-10"
+            - "record:notes/reports/author-pre-dispositions-2026-08-10.md"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor-data-policy-owner-and-source-project-lead"
+            - "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-DIGIKAT.data_policy_owner"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:outside_asks.OA-G-A3-DIGIKAT-SELECTION.recommended_default"
+            - "register:decisions.G-A3-DIGIKAT.rejected_alternatives-8"
+            - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#razmotrene-alternative"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-DIGIKAT.blocked_dependencies"
+            - "items:R03-DIGIKAT-rights-and-R08-DIGIKAT-package"
+            - "packet:P3-DIGIKAT"
+      outputs:
+        - output: "Dated G-A3-DIGIKAT decision and authority record for: DigiKat snapshot, rights, and chapter role."
+          artifacts:
+            - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-DIGIKAT"
+            - "outside-ask:OA-G-A3-DIGIKAT-SELECTION-done"
+            - "outside-ask:OA-G-A3-DIGIKAT-RIGHTS-done"
+        - output: "Completion evidence is tied to the declared G-A3-DIGIKAT source state and bounded scope."
+          artifacts:
+            - "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-DIGIKAT.authority_boundary"
+            - "verification:DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify-at-2026-08-10"
+            - "verification:checkout-HEAD-278a127f9170c1aca82035a4a8357b8a995f91d8-2026-07-22-unmoved"
+            - "boundary:no-data-file-no-catalogue-entry-and-no-chapter-prose-changed"
+            - "check:scripts/check-review-workflow.R-at-G-A3-DIGIKAT-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-accepted_as_recommended_with_latest_possible_snapshot_directive"
+            - "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-DIGIKAT.accepted_dispositions-eight-components"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-DIGIKAT.rejected_alternatives-8"
+            - "register:decisions.G-A3-DIGIKAT.authority_boundary"
+            - "register:decisions.G-A3-DIGIKAT.blocked_dependencies"
+        - test: "The G-A3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-P1B-DATA-LIC-003-consumed-before-packet-claim"
+            - "handoff:H-P3-CATALOG-001-acknowledged-before-first-edit-and-consumed-at-closeout"
+            - "defects:D-1-godina_potpuna-false-for-2024-D-2-annual-monthly-divergence-17-of-49-D-3-no-method-break-flag"
+            - "identity:denominator-6-of-6-years-exact-and-corpus-net-difference-zero-at-710307"
+            - "figures:izvori-n-3604-mean-153.08-median-4-ratio-38.27-one-post-share-30.22pct-top10-26.96pct-independently-recomputed"
+            - "correction:proportions_summary-is-not-a-named-actor-table-reconnaissance-claim-corrected"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
   P3-DIGIKAT:
     sequence: 85
     phase: "3B"
@@ -27582,8 +27792,8 @@ outside_asks:
     external_message_sent: false
 
   OA-G-A3-DIGIKAT-SELECTION:
-    status: "drafted_unsent"
-    readiness: "waiting_for_catalogue_contract"
+    status: "done"
+    readiness: "resolved_author_selection_and_chapter_role"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -27601,10 +27811,24 @@ outside_asks:
     resume_condition: "Candidate promotion resumes after the author approves the exact snapshot and role."
     why_external: "The bounded case selection and curricular role require authorial approval."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Author and editor Luka Sikic approved the recommended default on
+      2026-08-10: a portable aggregate with public labels and method-break and
+      coverage caveats, with the full Determ corpus kept external, plus an
+      explicit directive that the snapshot be as recent as possible. The gate
+      recorded the exact package digikat_mediji with its three files, row
+      counts, keys and checksums; the verified snapshot recency; the consumers
+      WB-C04, WB-C05 and WB-C06 with Chapters 2 and 3 deliberately excluded; the
+      permissible and two newly added unavailable claims; and the closure of
+      digikat_akteri as abandoned together with the permanent named-actor
+      exclusion rule. The ask's own wording sought a disposition naming actors,
+      and the gate ruled the difference explicitly: the extract has no actors
+      and deliberately omits them. No external message was sent.
 
   OA-G-A3-DIGIKAT-RIGHTS:
-    status: "drafted_unsent"
-    readiness: "waiting_for_component_terms"
+    status: "done"
+    readiness: "resolved_by_source_published_terms_and_author_determination"
     kind: "rights_inquiry"
     owner: "DigiKat and component rights owners"
     due_phase: "3B"
@@ -27622,6 +27846,22 @@ outside_asks:
     resume_condition: "Promotion resumes after every component has a documented lawful lane."
     why_external: "Component access and derived-output rights cannot be inferred from one aggregate file."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Resolved without any external message. The component-by-component matrix
+      the ask sought exists and was read from the source's own published record
+      rather than inferred: the DigiKat project's DATA_AVAILABILITY.md places
+      data/processed/*.rds under CC BY 4.0 with an explicit no-personal-data
+      aggregate statement, the master corpus stays outside that permission as
+      determ_korpus, and the raw xlsx level follows its own upstream sources.
+      Because the book's author is the project lead, this is a proprietary
+      disposition, which the author confirmed on 2026-08-05 and this gate
+      confirmed explicitly on 2026-08-10 so that it is stated rather than
+      tacitly inherited. The tables naming individuals carry the same clean
+      licence and are excluded by editorial decision rather than by right, now a
+      permanent first-edition rule. The book still claims no rights-holder
+      permission for any source because none was sought, and
+      H-P1B-DATA-LIC-003 is not superseded.
 
   OA-G-A3-EUROSTAT-SELECTION:
     status: "drafted_unsent"

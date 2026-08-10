@@ -1265,7 +1265,36 @@ handoffs:
           - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
       - target_packet: G-A3-DIGIKAT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-DIGIKAT acknowledges and consumes its incoming lane before the
+          packet claim and before the first substantive edit. The P1B inventory
+          recorded DigiKat and Determ as external-only, and this gate does NOT
+          treat that as immovable: the handoff itself permits a gate to ratify a
+          lawful package when authoritative package-specific evidence supports
+          it. That evidence now exists and did not when P1B was written. The
+          DigiKat project's own DATA_AVAILABILITY.md publishes
+          data/processed/*.rds under CC BY 4.0 with an explicit statement that
+          they are aggregates containing no personal data, and the author of the
+          book is the project lead, so the disposition is proprietary rather
+          than inferred. The gate therefore separates the two levels the handoff
+          conflated under one source name: the aggregate level becomes the
+          bundled package digikat_mediji, and the master corpus stays
+          external-only as determ_korpus with its lane untouched. No broader
+          right is inferred from access: the eleven upstream tables naming
+          individuals are excluded by decision even though the same licence
+          covers them, and the gate promotes nothing, retrieves nothing and
+          writes no data file. The G-A3-EUROSTAT, G-A3-ESS and G-A3-TEXT
+          deliveries remain pending and are not pre-empted.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi-redistribucija-nije-dokazana"
+          - "source:DigiKat-DATA_AVAILABILITY.md-data-processed-rds-CC-BY-4.0-aggregate-no-personal-data"
+          - "report:notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md#4-matrica-prava-glavni-nalaz"
+          - "determination:notes/reports/g-a3-data-rights-determination-2026-08-05.md"
+          - "registry:data/katalog.yml#digikat_mediji-lane-bundled-promoted-false-and-determ_korpus-external-only-unchanged"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
       - target_packet: G-A3-EUROSTAT
         gate: before_start
         state: pending
@@ -4224,7 +4253,39 @@ handoffs:
           - "obligation:P3-DIP-removes-non-operative-promoting_gate-and-promotes-nothing"
       - target_packet: G-A3-DIGIKAT
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-DIGIKAT honoured the catalogue promotion contract by promoting
+          nothing and by editing no catalogue entry at all. digikat_mediji stays
+          promoted false with lane bundled, promoted_total stays 3, and
+          determ_korpus and digikat_akteri are untouched. Resolved rights were
+          not treated as promotion authority. The contract's seven conditions
+          were tested one by one against the package rather than assumed, and
+          that test found the one condition it can never satisfy: a proprietary
+          corpus has no official total to reconcile against, so the requirement
+          applied literally would permanently block the package the author
+          approved. The gate did not waive or weaken it. It ruled a named
+          substitute for non-official sources, satisfied only by three tests
+          together — byte-for-byte reproduction through the builder, the
+          denominator identity holding without tolerance for every year, and a
+          recorded divergence statement carrying the exact largest per-cell
+          deviation between the annual and monthly files with its proven zero
+          corpus-wide sum. The third test is stricter than what it replaces,
+          because it forces the package to name its own inconsistency instead of
+          passing over it. P3-DIGIKAT must implement the substitute in
+          data/katalog.yml and data/katalog.schema.json with a negative fixture
+          that fails when it is declared satisfied without all three tests, and
+          must repair the three verified defects before promotion. The substitute
+          binds only non-official sources and changes no other package.
+        evidence:
+          - "decision:G-A3-DIGIKAT"
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md-section-prava-traka-i-uvjeti-promocije"
+          - "registry:data/katalog.yml#digikat_mediji-promoted-false-lane-bundled-unchanged"
+          - "audit:data/katalog.yml-unchanged-by-G-A3-DIGIKAT"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
+          - "obligation:P3-DIGIKAT-implements-substitute-with-negative-fixture-and-repairs-D-1-D-2-D-3"
       - target_packet: G-A3-EUROSTAT
         gate: before_close
         state: pending
@@ -5104,6 +5165,126 @@ handoffs:
           - "boundary:no-missing-package-no-version-mismatch"
           - "source:scripts/init-renv.R-direct-packages-downlit-xml2"
           - "report:notes/reports/p1c-export-release-path-2026-08-04.md#renv-status-same-five-packages"
+
+  H-G-A3-DIGIKAT-001:
+    source_packet: G-A3-DIGIKAT
+    created_at: "2026-08-10"
+    kind: decision
+    refs:
+      - decision:G-A3-DIGIKAT
+      - item:R03-DIGIKAT-rights
+      - item:R08-DIGIKAT-package
+      - handoff:H-P1B-DATA-LIC-003
+      - handoff:H-P3-CATALOG-001
+      - registry:data/katalog.yml#digikat_mediji
+      - registry:data/katalog.yml#digikat_akteri
+      - report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md
+    statement: >-
+      Author, editor, data-policy owner and source project lead Luka Sikic
+      accepted on 2026-08-10 the package digikat_mediji as the recommended
+      portable aggregate: three files with no named individual, 49 annual
+      platform rows, 438 monthly platform rows and 3604 source rows, derived
+      from three of the project's fourteen tracked aggregate tables. The master
+      corpus was not read and stays external-only as determ_korpus. Rights are
+      resolved from the source's own published record rather than inferred: the
+      project's DATA_AVAILABILITY.md places data/processed/*.rds under CC BY 4.0
+      as aggregates with no personal data, and because the book's author is the
+      project lead this is a proprietary disposition, confirmed explicitly at
+      this gate rather than tacitly inherited. The book still claims no
+      rights-holder permission for any source because none was sought. The
+      author additionally directed the latest possible snapshot, and this gate
+      verified rather than assumed it: the checkout HEAD
+      278a127f9170c1aca82035a4a8357b8a995f91d8 dated 2026-07-22 has not moved
+      and all three files still reproduce byte for byte. The package stays
+      promoted false with lane bundled, because a decision gate promotes
+      nothing.
+    required_action: >-
+      P3-DIGIKAT must repair three defects this gate verified and none of which
+      was previously recorded, before any promotion. It must correct the
+      godina_potpuna flag, which reads da for 2024 although February through May
+      are absent entirely and January is partial. It must record the divergence
+      between the annual and monthly files with its exact largest per-cell
+      deviation and its proven zero corpus-wide sum, or else drop the monthly
+      file. It must add the method-break flag the approved disposition requires,
+      covering both the volume change from June 2024 and the platform-coverage
+      change as TikTok enters in 2023 and Instagram in 2024. It must also record
+      that the 3604 sources carry 551712 of 710307 posts. It must write the
+      named substitute for official reconciliation into data/katalog.yml and
+      data/katalog.schema.json, satisfied only by byte-for-byte reproduction,
+      the denominator identity and the recorded divergence together, with a
+      negative fixture that fails when the substitute is declared satisfied
+      without all three. It must close digikat_akteri as abandoned with a reason
+      and a successor pointer rather than delete it, register WB-C04, WB-C05 and
+      WB-C06 as consumers, and re-run the builder verification at its own date,
+      re-pinning a moved checkout or recording that it did not move without
+      rewriting the 2026-07-22 source date of record.
+    basis:
+      - conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic
+      - notes/reports/g-a3-digikat-selection-decision-2026-08-10.md
+      - notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md
+      - notes/reports/g-a3-data-rights-determination-2026-08-05.md
+      - registry:data/katalog.yml#digikat_mediji-lane-bundled-promoted-false
+    required: true
+    deliveries:
+      - target_packet: P3-DIGIKAT
+        gate: before_start
+        state: pending
+
+  H-G-A3-DIGIKAT-002:
+    source_packet: G-A3-DIGIKAT
+    created_at: "2026-08-10"
+    kind: constraint
+    refs:
+      - decision:G-A3-DIGIKAT
+      - source:data/digikat-platforme-godisnje.csv
+      - source:data/digikat-platforme-mjesecno.csv
+      - source:data/digikat-izvori.csv
+      - report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md
+    statement: >-
+      The corpus is not uniform through time and the chapters may not treat it
+      as if it were. Volume holds near 7000 posts a month across 2021 to 2023
+      and then runs between 8458 and 26155 from June 2024 onward. Platform
+      coverage grows from seven to nine. February through May 2024 are absent
+      entirely, January 2024 is partial at 1911 posts, and June 2026 at 7815
+      against May's 20471 is consistent with a truncated final month. The annual
+      and monthly files also disagree in 17 of 49 platform-year cells, netting
+      exactly zero at 710307 posts. Separately, the source file's 3604 rows
+      carry 551712 of those 710307 posts, or 77.67 per cent, because the naming
+      filter keeps only bare domains. The figures Chapter 4 will use were
+      recomputed independently at this gate and agree with the reconnaissance:
+      3604 sources, mean 153.08, median 4, ratio 38.27, largest hkm.hr at 56500,
+      30.22 per cent with exactly one post, top ten at 26.96 per cent, 515
+      sources with zero reach and 1367 with zero interactions.
+    required_action: >-
+      WB-C04, WB-C05 and WB-C06 may make no growth or trend claim across 2024
+      and no comparison of periods before and after June 2024 without stating
+      the method break. Any monthly display must show the 2024 gap rather than
+      interpolate, smooth or silently drop it; the gap is teaching content and
+      concealing it would be the failure the book exists to teach against. Any
+      share computed from the source file must name 551712 rather than 710307 as
+      its denominator. No chapter may compare interactions or reach between a
+      platform with measurement and one without, because zero there is not a
+      measured zero. P3-VERIFY-B must confirm that the three defects were
+      repaired rather than described.
+    basis:
+      - report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#provjera-izvatka-tri-stvarna-nedostatka
+      - verification:denominator-identity-6-of-6-years-exact
+      - verification:annual-monthly-divergence-17-of-49-net-zero-at-710307
+      - verification:months-2024-02-to-2024-05-absent-and-2024-01-partial
+    required: true
+    deliveries:
+      - target_packet: P3-VERIFY-B
+        gate: before_close
+        state: pending
+      - target_packet: WB-C04
+        gate: before_start
+        state: pending
+      - target_packet: WB-C05
+        gate: before_start
+        state: pending
+      - target_packet: WB-C06
+        gate: before_start
+        state: pending
 
 packet_reviews:
   G-A0:
@@ -6964,3 +7145,42 @@ packet_reviews:
       - deterministic style architecture spine terminology citation concept manuscript figure catalogue data widget inventory token and workflow checks pass
       - chapter-ledger.json and all shared registries remain unchanged with Chapters 1 to 3 at coauthor_review and Chapter 4 at draft
       - G-A3-DIGIKAT is next but was not started and push merge tag archive and deployment remain unauthorised
+
+  G-A3-DIGIKAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A3-DIGIKAT-001
+      - H-G-A3-DIGIKAT-002
+    implementation_state: conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic
+    checks:
+      - exactly two deliveries target this packet and each was handled at its own gate
+      - H-P1B-DATA-LIC-003 was consumed BEFORE the packet claim and H-P3-CATALOG-001 was acknowledged before the first substantive edit and consumed at closeout
+      - nothing targeting another packet was consumed and the G-A3-EUROSTAT G-A3-ESS and G-A3-TEXT deliveries stay pending
+      - the author approved the recommended portable aggregate with public labels method-break and coverage caveats and the full Determ corpus kept external
+      - the accepted package is digikat_mediji with three files 49 and 438 and 3604 rows their keys and their recorded MD5 checksums
+      - the author's latest-possible-snapshot directive was VERIFIED as fact rather than recorded as a rule because the source is a local checkout and no network call was needed
+      - the checkout HEAD 278a127f9170c1aca82035a4a8357b8a995f91d8 dated 2026-07-22 has not moved and the builder returns DIGIKAT_EXTRACTS_OK extracts=3 mode=verify at 2026-08-10
+      - the gate counted the extract rather than taking it on trust and the denominator identity passes 6 of 6 years without tolerance
+      - three real defects were found none of which was previously recorded in the catalogue or the reconnaissance
+      - D-1 the godina_potpuna flag reads da for 2024 although February through May are absent entirely and January is partial at 1911 posts
+      - D-2 the annual and monthly files disagree in 17 of 49 platform-year cells largest plus 446 and minus 389 netting exactly zero at 710307 posts
+      - D-3 no method-break flag exists although volume roughly triples from June 2024 and platform coverage grows from seven to nine
+      - the source file carries 551712 of 710307 posts or 77.67 per cent and that denominator was previously unrecorded
+      - every Chapter 4 figure was recomputed independently from the file and agrees with the reconnaissance
+      - rights are resolved from the source's own published DATA_AVAILABILITY.md under CC BY 4.0 and confirmed explicitly rather than tacitly inherited
+      - the book claims no rights-holder permission because none was sought and H-P1B-DATA-LIC-003 is not superseded
+      - the official-reconciliation condition was not waived but given a named three-test substitute for non-official sources with a required negative fixture
+      - digikat_akteri is closed as abandoned in favour of digikat_mediji and must be marked rather than deleted
+      - the exclusion of tables naming individuals is confirmed as a permanent first-edition rule and rests on editorial decision rather than on licence
+      - one reconnaissance claim was corrected: proportions_summary is not a named-actor table and was rejected for the separate recorded shares-versus-denominator reason
+      - consumers are exactly WB-C04 WB-C05 and WB-C06 and Chapters 2 and 3 were deliberately not assigned because both are accepted and at coauthor_review
+      - eight alternatives were rejected including taking the actor tables promoting at this gate relaxing the reconciliation condition and trimming or excluding 2024
+      - OA-G-A3-DIGIKAT-SELECTION and OA-G-A3-DIGIKAT-RIGHTS are done with dated resolutions and no external message was sent
+      - the author's parallel Eurostat approval was recorded as a pre-disposition rather than consumed here because it belongs to G-A3-EUROSTAT
+      - the open Eurostat attribution question is explicitly left open rather than declared resolved so that it cannot be skipped
+      - no data file no catalogue entry and no chapter prose changed and all 19 units remain draft
+      - H-G-A3-DIGIKAT-001 carries the full disposition to P3-DIGIKAT at before_start and H-G-A3-DIGIKAT-002 carries the non-uniform-corpus constraint to P3-VERIFY-B WB-C04 WB-C05 and WB-C06
+      - scripts/check-review-workflow.R passed with G-A3-DIGIKAT active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-DIGIKAT
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-DIGIKAT and every later packet were not started and push merge tag archive and deployment remain unauthorised

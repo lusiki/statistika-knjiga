@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WA-PART
-next_permitted_packet: G-A3-DIGIKAT
+last_completed_packet: G-A3-DIGIKAT
+next_permitted_packet: P3-DIGIKAT
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 81
-last_updated: "2026-08-06"
+forward_handoffs: 83
+last_updated: "2026-08-10"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -40,24 +40,103 @@ stop and repair the control state before editing book content.
 | Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
+| Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `WA-PART` |
-| Next permitted packet | `G-A3-DIGIKAT` only |
+| Last completed packet | `G-A3-DIGIKAT` |
+| Next permitted packet | `P3-DIGIKAT` only |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 160 accepted, 5 deferred with reason, 206 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 76 accepted, 111 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 77 accepted, 110 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 46 of the 82 canonical asks remain `drafted_unsent`; 30 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, C00, C01, C02 and C03 acceptance, and the G-A4-03 brief; 0 external messages sent |
+| Open outside asks | 44 of the 82 canonical asks remain `drafted_unsent`; 32 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, C00, C01, C02 and C03 acceptance, and the G-A4-03 brief; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A3-DIGIKAT closeout
+
+- Two deliveries target this gate and each was handled at its own gate.
+  `H-P1B-DATA-LIC-003` is `before_start` and was consumed **before the packet
+  claim**; `H-P3-CATALOG-001` is `before_close`, acknowledged before the first
+  edit and consumed at closeout. The `G-A3-EUROSTAT`, `G-A3-ESS` and
+  `G-A3-TEXT` deliveries of both handoffs remain `pending`.
+- **The accepted selection** is `digikat_mediji`: three aggregate files with no
+  named individual anywhere — 49 annual platform rows, 438 monthly platform
+  rows and 3.604 source rows — derived from three of the project's fourteen
+  tracked aggregate tables. The roughly 710.307-post master corpus was not read
+  and stays `external-only` as `determ_korpus`.
+- **The author's "as recent as possible" directive was verified as fact, not
+  recorded as a rule.** `G-A3-DZS` had to leave its year unnamed because a gate
+  that retrieves nothing cannot verify what was published. Here the source is
+  the author's local checkout, so the gate could check without a single network
+  call: HEAD `278a127f9170c1aca82035a4a8357b8a995f91d8` dated 2026-07-22 has not
+  moved, and the builder returns `DIGIKAT_EXTRACTS_OK extracts=3 mode=verify`,
+  so all three files still reproduce byte for byte. The 2026-07-22 state is the
+  most recent state that exists.
+- **The gate counted the extract instead of taking it on trust, and found three
+  real defects that no earlier record contains.** The denominator identity
+  passes 6 of 6 years without tolerance. **D-1:** `godina_potpuna` reads `da`
+  for 2024 although February–May are absent entirely and January is partial at
+  1.911 posts against a 2021–2023 monthly mean near 6.960 — a false quality flag
+  in a book that teaches reading quality flags. **D-2:** the annual and monthly
+  files disagree in 17 of 49 platform-year cells, largest +446 and −389, netting
+  exactly zero at 710.307 posts; consistent with a year-boundary effect, which
+  the gate records as unproven rather than asserting. **D-3:** no method-break
+  flag exists although volume roughly triples from June 2024 and platform
+  coverage grows from seven to nine. All three bind `P3-DIGIKAT` before any
+  promotion.
+- **The official-reconciliation condition was not waived and not weakened.** A
+  proprietary corpus has no official total, so `H-P3-CATALOG-001` applied
+  literally would permanently block the package the author had just approved.
+  The gate ruled a named substitute for non-official sources, satisfied only by
+  three tests together: byte-for-byte reproduction, the denominator identity
+  without tolerance, and a recorded divergence statement carrying the exact
+  largest per-cell deviation with its proven zero corpus-wide sum. The third
+  test is **stricter** than what it replaces, because it forces the package to
+  name its own inconsistency instead of passing over it. `P3-DIGIKAT` must
+  implement it with a negative fixture.
+- **Rights were read from the source's own published record, not inferred from
+  access.** The project's `DATA_AVAILABILITY.md` places `data/processed/*.rds`
+  under CC BY 4.0 as aggregates with no personal data. Because the book's author
+  is the project lead, this is a proprietary disposition, and the gate confirms
+  it explicitly so it is not tacitly inherited. The book still claims **no
+  rights-holder permission** for any source because none was sought, and
+  `H-P1B-DATA-LIC-003` is not superseded.
+- `digikat_akteri` is **closed as abandoned** in favour of `digikat_mediji`,
+  because its entry describes a cross-section of named actors the extract
+  deliberately lacks; `P3-DIGIKAT` must mark it rather than delete it. The
+  omission of the eleven upstream tables naming individuals becomes a
+  **permanent first-edition rule**: the book publishes no table naming an
+  individual even when the licence is clean, so the exclusion rests on
+  editorial decision rather than on right.
+- **One reconnaissance claim was corrected rather than repeated.** Ten of the
+  remaining tables name actors, not eleven; `proportions_summary.rds` names
+  nobody and was rejected for the separate recorded reason that this catalogue
+  carries denominators rather than shares.
+- Consumers are exactly `WB-C04`, `WB-C05` and `WB-C06`. Chapters 2 and 3 were
+  **deliberately not assigned** despite the reconnaissance proposing them, since
+  both are accepted and at `coauthor_review` and reopening them has its own
+  mechanism. Two unavailable claims were added: no growth or trend claim across
+  2024, and no comparison of periods before and after June 2024 without the
+  method break stated.
+- The author's parallel Eurostat approval was recorded as a **pre-disposition**
+  in `notes/reports/author-pre-dispositions-2026-08-10.md` rather than consumed
+  here, because it belongs to `G-A3-EUROSTAT`. The open Eurostat attribution
+  question is explicitly left open rather than declared resolved, so it cannot
+  be skipped.
+- `OA-G-A3-DIGIKAT-SELECTION` and `OA-G-A3-DIGIKAT-RIGHTS` are `done` with dated
+  resolutions and **no external message was sent**. No data file, catalogue
+  entry or chapter prose changed, and all 19 units remain `draft`.
+
+The durable evidence is
+`notes/reports/g-a3-digikat-selection-decision-2026-08-10.md`.
 
 ## P3-EXISTING closeout
 
