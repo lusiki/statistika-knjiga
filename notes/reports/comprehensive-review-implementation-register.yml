@@ -10,9 +10,16 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "G-A3-EUROSTAT"
+    claimed_at: "2026-08-10"
+    owned_paths:
+      - "notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "P3-DIGIKAT"
-  next_permitted_packet: "G-A3-EUROSTAT"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9018,7 +9025,7 @@ packets:
     sequence: 86
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "P0-OUTSIDE"
       - "P3-CATALOG"
@@ -26869,7 +26876,7 @@ items:
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
-  total_asks: 82
+  total_asks: 83
   external_messages_sent: 0
   implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   canonical_status_store: "outside_asks"
@@ -27950,8 +27957,8 @@ outside_asks:
       H-P1B-DATA-LIC-003 is not superseded.
 
   OA-G-A3-EUROSTAT-SELECTION:
-    status: "drafted_unsent"
-    readiness: "waiting_for_catalogue_contract"
+    status: "done"
+    readiness: "resolved_by_author_pre_disposition_and_read_only_official_product_inspection"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -27969,10 +27976,22 @@ outside_asks:
     resume_condition: "Candidate promotion resumes after the exact question-led selection is approved."
     why_external: "First-edition selection and consumers are authorial decisions."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      No new question was sent. Author and editor Luka Sikic had already
+      accepted the recommended question-led common-year rule in
+      notes/reports/author-pre-dispositions-2026-08-10.md. G-A3-EUROSTAT
+      operationalised that disposition after read-only inspection of official
+      Eurostat product pages: six indicators, reference year 2025, all 27 EU
+      Member States and sole consumer WB-C06. The exact table codes, slices,
+      country list, 162-cell same-year rule, flag preservation and stop-on-
+      missing-source boundary are recorded in
+      notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md. No
+      statistical data were retrieved and the gate promotes nothing.
 
   OA-G-A3-EUROSTAT-RIGHTS:
-    status: "drafted_unsent"
-    readiness: "waiting_for_exact_source_terms"
+    status: "done"
+    readiness: "resolved_by_authoritative_published_notice_and_selected_product_exception_check"
     kind: "rights_inquiry"
     owner: "Eurostat rights/data owner"
     due_phase: "3B"
@@ -27989,6 +28008,66 @@ outside_asks:
     exact_reply_requested: "Reply with governing reuse terms, attribution text, restrictions, effective date, and confirmation that the snapshot may be redistributed."
     resume_condition: "Promotion resumes when authoritative terms support the committed snapshot lane."
     why_external: "The exact redistribution and attribution basis must be established by the rights source."
+    external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Resolved without sending an external message. The official Eurostat
+      copyright and free-reuse notice was inspected on 2026-08-10 and its exact
+      customised-dataset attribution template was transcribed. The gate also
+      fixed the exact modification statement and reused the European
+      Commission non-liability sentence that Eurostat places in current
+      publications, while explicitly distinguishing the gate-authored first
+      sentence from official quoted wording. Product-specific inspection found
+      that the six selected non-trade table families identify Eurostat as
+      source, use only the 27 EU Member States and include no publication,
+      image, logo, trademark or country outside the permitted geography; the
+      published third-party and commercial exceptions therefore do not apply
+      to the bounded selection. P3-EUROSTAT remains bound to stop if the actual
+      authorised source carries any contrary individual notice. No rights-
+      holder permission is claimed, no data were retrieved and no package was
+      promoted.
+
+  OA-G-A3-EUROSTAT-SOURCE-ROUTE:
+    status: "drafted_unsent"
+    readiness: "ready_for_author_decision"
+    kind: "source_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: >-
+      Authorise exactly one source route for P3-EUROSTAT: one bounded official
+      retrieval, an author-supplied local mirror, or continued portal-mediated
+      unpromoted status with the necessary packet amendment.
+    expected_form: >-
+      One dated disposition naming the authorised route and, for a supplied
+      mirror, its concrete local path.
+    blocked_items:
+      - "R03-EUROSTAT-rights"
+      - "R08-EUROSTAT-package"
+    blocked_gates:
+      - "G-A3-EUROSTAT"
+      - "P3-EUROSTAT"
+    available_evidence:
+      - "record:notes/reports/author-pre-dispositions-2026-08-10.md"
+      - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+      - "report:notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md#nalaz-o-eurostatovu-zrcalu-za-gate-g-a3-eurostat"
+      - "registry:data/katalog.yml#eurostat_drustvo-portal-mediated-promoted-false-files-empty"
+    recommended_default: >-
+      Authorise one bounded retrieval of exactly the ratified 2025 EU-27 six-
+      indicator slice from the official Eurostat source, outside rendering,
+      retaining the query response, access date, checksum and reconciliation.
+    exact_reply_requested: >-
+      State the authorised Eurostat source route. If it is bounded retrieval,
+      approve that phrase exactly; if it is a supplied mirror, give its exact
+      local path; if the package must remain portal-mediated and unpromoted,
+      direct the corresponding P3-EUROSTAT amendment.
+    resume_condition: >-
+      G-A3-EUROSTAT can close only after the author names one route; only an
+      accepted gate can permit P3-EUROSTAT to start.
+    why_external: >-
+      The repository has no valid local mirror, the only discovered staging
+      table was rejected for duplicate rows, and changing the standing no-
+      network-retrieval directive or descoping a ratified packet is an author
+      decision.
     external_message_sent: false
 
   OA-G-A3-ESS-SELECTION:

@@ -1297,7 +1297,28 @@ handoffs:
           - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
       - target_packet: G-A3-EUROSTAT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-EUROSTAT consumed the cautious portal-mediated lane before its
+          packet claim. The inventory contains no selected Eurostat files and
+          proves neither redistribution of an exact extract nor a local source
+          route. The gate therefore promotes nothing, retrieves no statistical
+          data, preserves promoted false and the empty files list, and treats
+          technical portal or API access as no broader permission. It may
+          inspect the authoritative published reuse notice and exact product
+          pages read-only, but any later bundled lane still requires the exact
+          selected indicators, package-specific exception check, attribution,
+          disclaimer, query, date, checksum, reconciliation and an expressly
+          authorised source route. No rights-holder permission is claimed and
+          none was sought.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi-redistribucija-nije-dokazana"
+          - "record:notes/reports/author-pre-dispositions-2026-08-10.md#eurostat-uvjeti-ponovne-uporabe-i-pripisivanje"
+          - "registry:data/katalog.yml#eurostat_drustvo-portal-mediated-promoted-false-files-empty"
+          - "source:official-Eurostat-copyright-notice-inspected-2026-08-10"
+          - "boundary:no-statistical-data-retrieval-no-rights-holder-permission-claim"
       - target_packet: G-A3-ESS
         gate: before_start
         state: pending
@@ -4288,7 +4309,8 @@ handoffs:
           - "obligation:P3-DIGIKAT-implements-substitute-with-negative-fixture-and-repairs-D-1-D-2-D-3"
       - target_packet: G-A3-EUROSTAT
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-10"
       - target_packet: G-A3-ESS
         gate: before_close
         state: pending
