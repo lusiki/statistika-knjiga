@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: C04
 last_completed_packet: WB-C04
-next_permitted_packet: C04
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -45,12 +45,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `C04` |
 | Last completed packet | `WB-C04` |
-| Next permitted packet | `C04` |
+| Next permitted packet | None while `C04` awaits the author/editor |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 164 accepted, 5 deferred with reason, 202 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 82 accepted, 105 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 82 accepted, 104 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -88,7 +88,8 @@ No chapter prose was changed by `P0-OUTSIDE`.
 
 ## WB-C04 closeout — Chapter 4 vertical slice
 
-- `WB-C04` is accepted on source SHA-256
+- `WB-C04` is accepted in final source commit
+  `2a6ac10596a578e593e652204e06c30b6b3f1ed8`, on source SHA-256
   `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`.
   The complete evidence record is `notes/reports/wb-c04-2026-08-10.md`.
 - `H-G-A3-DIGIKAT-002` was consumed before claim. The three `before_close`
@@ -129,6 +130,34 @@ No chapter prose was changed by `P0-OUTSIDE`.
   until the author-only `C04` decision. `C04` is next but was not opened, no
   author reading or acceptance was claimed, and `WB-C05` was not started.
   Push, merge, tag, archive and deployment remain unauthorised.
+
+## C04 package prepared — awaiting author decision
+
+- C04 is claimed only as an author-acceptance gate against WB-C04 commit
+  `2a6ac10596a578e593e652204e06c30b6b3f1ed8`. The Chapter 4 Git blob is
+  `02a9c2dd88d7ffdc6e598c75ac77e9ae7801a081`, and the working-file SHA-256 is
+  `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`.
+- `notes/reports/c04-acceptance-package-2026-08-10.md` cites the final commit,
+  all six reports, the synthesis, the WB-C04 evidence record, the only open
+  future documentation handoff and the proposed ledger disposition.
+  `OA-C04-ACCEPTANCE` is ready for author decision; no external message was
+  sent.
+- Every critic addressed the same final material hash and scored it 5/5, with
+  zero fatal, major or minor finding. `H-WB-C04-001` remains assigned to
+  `P5-C`; the `fig-anscombe` introduction debt remains assigned to `WB-C05`.
+  Neither is consumed or hidden by C04.
+- The recommended disposition is to accept the six governed Chapter 4 items
+  and advance only `04-sazimanje-podataka` from `draft` to
+  `coauthor_review`, explicitly without claiming that the author read the
+  chapter and without calling it `final`.
+- No proposed disposition has been applied. The chapter ledger is unchanged,
+  all six items remain `ratified`, C04 remains `in_progress`, and WB-C05 is
+  blocked. No chapter prose, data, citation, concept, widget or render changed
+  while assembling the package.
+- No handoff targets C04. The only action now required is the named
+  author/editor's exact accept-or-revise reply. The 2026-08-05 standing
+  delegation does not substitute for the reply explicitly required by this
+  gate. Push, merge, tag, archive and deployment remain unauthorised.
 
 ## G-A3-EUROSTAT claim
 
@@ -3695,33 +3724,17 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `P3-DIGIKAT` is accepted at the live HEAD, that its two governed
-items are accepted independently, that Chapters 1–3 remain at
-`coauthor_review`, Chapter 4 remains `draft`, and `G-A3-EUROSTAT` is the sole
-`next_permitted_packet`. Then handle only `G-A3-EUROSTAT` as a decision gate.
-Read every governed item and applicable incoming handoff before claim; consume
-each `before_start` delivery before claim and acknowledge every `before_close`
-delivery before the first substantive edit.
+Read `notes/reports/c04-acceptance-package-2026-08-10.md` and verify that C04 is
+active against WB-C04 commit
+`2a6ac10596a578e593e652204e06c30b6b3f1ed8`. Do not edit the source, accept
+C04, advance the chapter ledger or change the six governed item statuses
+without the named author/editor's reply. Do not use the 2026-08-05 standing
+delegation as a substitute and do not claim that the author read the chapter.
 
-Consume the author's Eurostat pre-disposition in
-`notes/reports/author-pre-dispositions-2026-08-10.md`: select the smallest
-question-led set of five to seven indicators, one common year defined as the
-latest year in which every selected indicator exists for every selected
-country, and leave missing-data flags visible. Name the indicators, year,
-countries and consumers.
+For acceptance, the required reply is exactly:
 
-Also settle two independent gate obligations. First, verify the authoritative
-Eurostat reuse notice and record the exact required attribution and disclaimer,
-or record a dated author determination, while proving that none of the selected
-indicators falls under the third-party-content exception. Second, determine
-whether any lawful source route exists under the standing no-network-retrieval
-boundary. The rejected CroAIcon MySQL staging table is not a lawful source. Do
-not fetch. If the canonical state authorises none of a bounded retrieval, an
-author-supplied mirror, or a portal-mediated unpromoted route, close only the
-decision gate with the resulting bounded outside ask and STOP before
-`P3-EUROSTAT`; say plainly that Chapter 6 will rest on DigiKat plus the governed
-generated package instead.
+C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10.
 
-This decision gate promotes nothing and edits no chapter prose or data file.
-Push, merge, tag, archive and deploy remain unauthorised.
+Otherwise list exact blocking revisions tied to that commit. Push, merge, tag,
+archive and deploy remain unauthorised.
 ```

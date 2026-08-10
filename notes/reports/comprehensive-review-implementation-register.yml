@@ -10,9 +10,17 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C04"
+    claimed_at: "2026-08-10"
+    owned_paths:
+      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
+      - "notes/reports/c04-acceptance-package-2026-08-10.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WB-C04"
-  next_permitted_packet: "C04"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9434,7 +9442,7 @@ packets:
     sequence: 90
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WB-C04"
     scope: "Author acceptance and panel disposition for C04."
@@ -28866,7 +28874,7 @@ outside_asks:
 
   OA-C04-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WB-C04_revision_and_panel"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -28884,8 +28892,19 @@ outside_asks:
     available_evidence:
       - "packet:WB-C04"
       - "packet:C04"
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+      - "report:notes/reports/wb-c04-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "report:notes/reports/c04-acceptance-package-2026-08-10.md"
     recommended_default: "Accept only after the visible analysis-table pipeline, joins, missingness sensitivity, print path, sources, and panel findings pass."
-    exact_reply_requested: "Reply: C04 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10; or list exact blocking revisions tied to that commit."
     resume_condition: "C04 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
