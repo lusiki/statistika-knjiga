@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C04
-next_permitted_packet: WB-C05
+last_completed_packet: WB-C05
+next_permitted_packet: C05
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -46,11 +46,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C04` |
-| Next permitted packet | `WB-C05` |
+| Last completed packet | `WB-C05` |
+| Next permitted packet | `C05` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 170 accepted, 5 deferred with reason, 196 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 83 accepted, 104 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 84 accepted, 103 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 14 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode` and `04-sazimanje-podataka` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -194,6 +194,76 @@ No chapter prose was changed by `P0-OUTSIDE`.
   widget, render or generated artifact changed in C04. `WB-C05` is next and
   was not started in C04; push, merge, tag, archive and deployment remain
   unauthorised.
+
+## WB-C05 claim
+
+- The clean source state is commit
+  `94d48ffbaddee86aa4c52eb150d5267e08d42c55` on
+  `revision/comprehensive-review`. C04 is accepted against WB-C04 commit
+  `2a6ac10596a578e593e652204e06c30b6b3f1ed8`, Chapter 4 is at
+  `coauthor_review`, and WB-C05 was the sole next-permitted packet before the
+  claim.
+- `H-C04-THREAD-SEQUENCE-001` was consumed before claim. WB-C05 holds the one
+  permitted write lock, stops before C05, receives its own evidence and local
+  commit, and cannot treat the thread amendment as author acceptance or as
+  evidence that the author read Chapter 5.
+- `H-G-A3-DIGIKAT-002` was consumed before claim. WB-C05 makes no trend claim
+  across 2024, no comparison across the June 2024 method break without naming
+  it, no source-file share against a denominator other than 551712, and no
+  comparison between structurally unmeasured and measured reach or
+  interactions. A monthly display, if introduced, must show the February-May
+  2024 gap.
+- `H-P1C-INTEGRITY-001` and `H-P3-EXISTING-001` were acknowledged before the
+  first substantive edit. Closeout must retire only the exact
+  `fig-anscombe` debt, prove the positive and deliberate-failure figure lanes,
+  copy or promote no Anscombe data, keep its local-R route optional, and use
+  licence-clean `anketa_mreze` for every mandatory task.
+- The packet owns only Chapter 5, the `w05` source fingerprint in the canonical
+  widget registry, the one integrity-debt record, its dated packet, density,
+  six-critic and synthesis reports, and the three workflow control views. The
+  widget-registry addition is limited to reconciling the OJS fingerprint after
+  the accessibility repair; adapters, tolerances and golden values remain out
+  of scope. The packet leaves Chapter 5 at `draft` and all four governed items
+  `ratified` until C05.
+
+## WB-C05 closeout — Chapter 5 vertical slice
+
+- `WB-C05` is accepted at source SHA-256
+  `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+  The complete evidence record is `notes/reports/wb-c05-2026-08-10.md`.
+- `H-P1C-INTEGRITY-001` and `H-P3-EXISTING-001` are consumed. The approved
+  Croatian paragraph now immediately precedes `fig-anscombe`, the
+  `figure_introductions` debt list is empty, and both the positive figure gate
+  and deliberate-failure fixture pass. No Anscombe file was copied or
+  promoted; every mandatory numerical path uses `anketa_mreze`.
+- The six-title micro-corpus reproduces 36 tokens, 28 forms, 22 singletons and
+  six repeated forms. It prepares the chapter on algorithms without teaching
+  natural-language processing or widening its tiny purposive corpus.
+- DigiKat reproduces 3,604 named domains, 551,712 posts, median 4 and maximum
+  56,500. The monthly view shows partial January, the February-May gap and the
+  June method break, joins only July-December and makes no trend, growth or
+  before-after claim.
+- The widget has four dynamic descriptions, four `aria-label` states, a live
+  status and a print-completable four-row table. Its OJS fingerprint is updated
+  to `602c13e3ccd0970e24989b4ae98e2ab1ee80ad704f44329731a0572803d41efa`;
+  adapters, tolerances, golden values and the R fingerprint are unchanged.
+- Six logical figures have six distinct argumentative roles, documented in
+  `notes/reports/wb-c05-figure-density-2026-08-10.md`. The immediate Anscombe
+  introduction and all other introductions pass the blocking detector.
+- Final HTML, PDF and wrapper-built DOCX renders exited 0. Their SHA-256 values
+  are `086d26fa3e35f51a77ad3d57b0a6c355209012b90fdbe4f0780721bc8d083c37`,
+  `1c1af5b6467b3f3ae8b0f7a83662b94cf88b4cf12d308622393c55d711f47ac9`
+  and `b371d20bd7f955aaeb92ba0ed40177772f076603ae3509c9beaed0582ebc821c`.
+  Generated `docs/`, `_freeze/`, AI exports and Word output were restored.
+- Six independent read-only critics confirmed the exact final hash. There is
+  no fatal or major finding. Two nonblocking skeptical wording notes remain in
+  the chapter; one documentation minor outside the chapter is already owned by
+  `H-WB-C04-001` and `H-P3-CATALOG-002` for `P5-C`.
+- `packet_reviews.WB-C05` declares all future effects recorded and opens no new
+  handoff. Chapter 5 remains `draft` and all four governed items remain
+  `ratified` pending the separate author-only C05 gate. `C05` is next; no
+  author reading or acceptance is claimed. Push, merge, tag, archive and
+  deployment remain unauthorised.
 
 ## G-A3-EUROSTAT claim
 
@@ -3760,43 +3830,37 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that C04 is accepted against WB-C04 commit
-`2a6ac10596a578e593e652204e06c30b6b3f1ed8`, that
-`04-sazimanje-podataka` is at `coauthor_review`, that exactly its six governed
-items are accepted, and that `WB-C05` is the sole `next_permitted_packet`.
+Verify that `WB-C05` is accepted at source SHA-256
+`db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`,
+that Chapter 5 remains `draft`, that its four governed items remain
+`ratified`, that no write packet is active, and that `C05` is the sole
+next-permitted packet.
 
-Then execute only `WB-C05`, the Chapter 5 vertical slice, and stop before C05.
-Read all four governed items: `R13-C05-frequency-visual`,
-`R28-C05-introduction`, `R28-C05-density` and `R31-C05-Anscombe`.
+Claim and prepare only the C05 author-acceptance gate. Cite the final WB-C05
+commit, all six reports in `notes/reports/wb-c05-critic-*-2026-08-10.md`, the
+synthesis `notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md`, and the
+complete packet record `notes/reports/wb-c05-2026-08-10.md`. Confirm that all
+six critics address the exact final source state and that no fatal or major
+finding remains.
 
-Read every applicable incoming handoff before claim. Consume the
-`before_start` deliveries of `H-C04-THREAD-SEQUENCE-001` and
-`H-G-A3-DIGIKAT-002` before claiming WB-C05. Acknowledge
-`H-P1C-INTEGRITY-001` and `H-P3-EXISTING-001`, both `before_close`
-deliveries, before the first substantive edit and consume them with concrete
-dispositions and evidence before closeout.
+Present all unresolved findings accurately. The final panel carries two
+nonblocking skeptical wording notes in Chapter 5 and one pre-existing
+documentation minor already owned by `H-WB-C04-001` and
+`H-P3-CATALOG-002` for `P5-C`. Do not silently repair, suppress or duplicate
+them in C05.
 
-Add the approved Croatian introduction immediately before `fig-anscombe`,
-remove only its exact entry from `scripts/integrity-debt.json`, and rerun the
-blocking figure-introduction check and its deliberate unregistered-figure
-fixture. Do not copy, commit or promote `anscombe`; keep its local-R use
-optional and route every mandatory task through the licence-cleared
-`anketa_mreze` fallback. Preserve the DigiKat method-break, visible 2024 gap,
-551712 denominator and structural-unmeasurement boundaries. Make no claim
-that reading times were measured or reader-tested and no claim that new
-readers validated the book.
+Do not change chapter prose, data, bibliography, concepts, widget behaviour or
+generated artifacts while preparing the gate. Do not advance the chapter
+ledger or accept the four governed items before the author's real reply. The
+2026-08-05 standing delegation is not a substitute, and no record may claim
+that the author read the chapter.
 
-Complete the bounded textual-frequency view that prepares Chapter 17 without
-teaching NLP, document the distinct argumentative role of every retained
-figure, and preserve the purposeful Anscombe progression across Chapters 4–6.
-Follow STYLE.md and the checkout-local Bookwright style, figure and six-critic
-review workflows. Run the applicable deterministic checks and targeted HTML,
-PDF and wrapper-built DOCX renders.
+State the exact required reply and stop:
+`C05 accepted for <WB-C05-commit> on <YYYY-MM-DD>.`
 
-Before closeout, record all future-relevant effects or explicitly declare that
-none were found. Update the implementation register, forward-handoff ledger
-and dashboard together, run the workflow validator and required negative
-fixtures, make one bounded local packet commit, and stop. Leave Chapter 5 at
-`draft` and its four governed items `ratified` pending C05. Do not start C05.
-Push, merge, tag, archive and deploy remain unauthorised.
+If the reply is received, close C05 in its own checked local commit, advance
+only Chapter 5 from `draft` to `coauthor_review`, accept only its four governed
+items with source-specific evidence, and then continue to WB-C06 under the
+thread-only author amendment. If no reply is received, leave C05 active and do
+not start WB-C06. Push, merge, tag, archive and deploy remain unauthorised.
 ```

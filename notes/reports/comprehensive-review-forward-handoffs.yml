@@ -1782,7 +1782,25 @@ handoffs:
     deliveries:
       - target_packet: WB-C05
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C05 added the approved Croatian interpretive paragraph immediately
+          before fig-anscombe and removed only the exact figure_introductions
+          entry from scripts/integrity-debt.json. Its figure_introductions list
+          is now empty while the schema envelope remains intact. The blocking
+          figure-introduction command reports six
+          Chapter 5 logical figures, seven source variants, zero missing
+          introductions, registered_debt=0, unexpected=0 and stale_debt=0. The
+          deliberate unregistered-figure fixture still fails for its injected
+          defect, so the exception is spent and the gate fails closed.
+        evidence:
+          - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df#fig-anscombe"
+          - "source:scripts/integrity-debt.json#figure_introductions-empty"
+          - "check:scripts/check-figure-introductions.py-FIGURE_INTRO_OK-registered_debt-0-unexpected-0-stale_debt-0"
+          - "fixture:scripts/check-integrity-fixtures.py-figure-lane-deliberate-failure"
+          - "report:notes/reports/wb-c05-2026-08-10.md"
 
   H-P1C-INTEGRITY-002:
     source_packet: P1C-INTEGRITY
@@ -4536,7 +4554,25 @@ handoffs:
           - "report:notes/reports/wa-c01-critic-evidence-2026-08-06.md"
       - target_packet: WB-C05
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C05 created, copied and promoted no anscombe file. The worked
+          example reads the dataset only from the local R installation as an
+          optional authoring route. Every mandatory calculation, widget state,
+          print table and assessed numerical task uses the licence-clean
+          anketa_mreze fallback already materialised in the book. The catalogue
+          therefore retains anscombe as external-only, promoted false and with
+          an empty file list, while the main data and widget checks pass.
+        evidence:
+          - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+          - "catalogue:data/katalog.yml#anscombe-external-only-promoted-false-files-empty"
+          - "source:R/podaci-nastavni.R#anketa_mreze"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+          - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17"
+          - "report:notes/reports/wb-c05-critic-evidence-2026-08-10.md"
+          - "report:notes/reports/wb-c05-2026-08-10.md"
       - target_packet: WB-C06
         gate: before_close
         state: pending
@@ -5473,7 +5509,23 @@ handoffs:
           - "source:data/digikat-izvori.csv-denominator-551712"
       - target_packet: WB-C05
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C05, the packet bound the verified DigiKat limits
+          to its source, prose and review scope. It will make no growth or trend
+          claim across 2024, no before/after-June-2024 comparison without the
+          method break, no source-file share against any denominator other than
+          551712, and no interaction or reach comparison between measured and
+          unmeasured platforms. Any monthly display must retain the visible
+          February-May 2024 gap rather than interpolate, smooth or omit it.
+        evidence:
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#provjera-izvatka-tri-stvarna-nedostatka"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "source:data/digikat-izvori.csv-denominator-551712"
+          - "packet_claim:WB-C05-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c05-claim"
       - target_packet: WB-C06
         gate: before_start
         state: pending
@@ -5707,7 +5759,21 @@ handoffs:
     deliveries:
       - target_packet: WB-C05
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C05 was claimed only after C04 closed and only under the strict
+          author-amended sequence. It holds the sole write lock, will produce
+          packet-specific evidence and one bounded local commit, will stop
+          before C05, and will not treat the amendment as author acceptance or
+          claim that the author read Chapter 5.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "report:notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit"
+          - "commit:94d48ffbaddee86aa4c52eb150d5267e08d42c55"
+          - "packet_claim:WB-C05-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c05-claim"
       - target_packet: C05
         gate: before_close
         state: pending
@@ -7750,3 +7816,28 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
       - no chapter prose data bibliography terminology spine concept graph widget render or generated artifact changed in C04
       - WB-C05 is next but was not started and push merge tag archive and deployment remain unauthorised
+
+  WB-C05:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WB-C05 found no new future-relevant effect. The two residual skeptical
+      wording notes are local, nonblocking findings presented directly to C05,
+      not obligations for a later implementation packet. The stale public data
+      README and ungenerated catalogue view are pre-existing conditions already
+      owned by H-WB-C04-001 and H-P3-CATALOG-002 for P5-C. Repeating either
+      condition would create a duplicate control record.
+    implementation_state: source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df
+    checks:
+      - H-C04-THREAD-SEQUENCE-001 and H-G-A3-DIGIKAT-002 were consumed before work and both before-close deliveries were acknowledged before editing and consumed at closeout
+      - H-P1C-INTEGRITY-001 is discharged by the immediate Croatian fig-anscombe introduction the empty figure_introductions debt list the positive figure gate and the deliberate negative fixture
+      - H-P3-EXISTING-001 is discharged without copying or promoting anscombe and every mandatory numerical task uses anketa_mreze
+      - the six-title micro-corpus reproduces 36 tokens 28 forms 22 singletons and six repeated forms and does not teach NLP
+      - DigiKat reproduces 3604 named domains 551712 posts median 4 maximum 56500 the visible February-May gap partial January and the June method break without a trend claim
+      - the widget provides four dynamic aria labels four live descriptions and four print-completable states and its OJS source fingerprint is reconciled without changing adapters tolerances or golden values
+      - the chapter contains six logical figures seven source variants and six distinct argumentative roles documented in the density memorandum
+      - final HTML PDF and wrapper-built DOCX renders exited zero at the declared chapter hash and generated artifacts were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major two chapter minors and one pre-existing out-of-scope documentation minor
+      - all four governed items remain ratified and Chapter 5 remains draft pending the separate author-only C05 gate
+      - C05 is next but was not accepted no author reading or acceptance was claimed and no external action was taken
