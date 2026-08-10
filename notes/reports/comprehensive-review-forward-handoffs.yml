@@ -4575,7 +4575,27 @@ handoffs:
           - "report:notes/reports/wb-c05-2026-08-10.md"
       - target_packet: WB-C06
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C06 created, copied and promoted no anscombe file. The chapter
+          loads the dataset only from the local R installation for an optional
+          author-side verification of the vignette and asserts only that its
+          four correlations agree. Every mandatory calculation, widget state,
+          print table and assessed task uses the licence-clean anketa_mreze
+          snapshot or the governed Eurostat extract. The catalogue therefore
+          retains anscombe as external-only, promoted false and with an empty
+          file list.
+        evidence:
+          - "source:chapters/06-povezanost.qmd@sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+          - "catalogue:data/katalog.yml#anscombe-external-only-promoted-false-files-empty"
+          - "source:R/podaci-nastavni.R#anketa_mreze"
+          - "source:data/eurostat-drustvo-2025.csv"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+          - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162"
+          - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+          - "report:notes/reports/wb-c06-2026-08-10.md"
       - target_packet: P5-A
         gate: before_close
         state: pending
@@ -5528,7 +5548,22 @@ handoffs:
           - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c05-claim"
       - target_packet: WB-C06
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C06, the packet bound every DigiKat use to the
+          independently verified source limitations. It will make no growth or
+          trend claim across the 2024 gap or June method break, no source-file
+          share against a denominator other than 551712, no comparison between
+          structurally unmeasured and measured reach or interactions and no
+          unqualified association across non-uniform coverage.
+        evidence:
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#provjera-izvatka-tri-stvarna-nedostatka"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "source:data/digikat-izvori.csv-denominator-551712"
+          - "packet_claim:WB-C06-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c06-claim"
 
   H-G-A3-EUROSTAT-001:
     source_packet: G-A3-EUROSTAT
@@ -5619,7 +5654,22 @@ handoffs:
           - "check:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
       - target_packet: WB-C06
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C06, the packet accepted exactly the author-ratified
+          Eurostat scope of six indicators, reference year 2025 and all EU-27
+          countries. Every use remains country-level, retains official absence
+          and status flags, supports only comparison, association and a
+          third-variable question, and excludes individual, causal, trend,
+          mixed-year and out-of-EU claims. No new retrieval is authorised.
+        evidence:
+          - "decision:G-A3-EUROSTAT"
+          - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "boundary:six-indicators-2025-EU27-WB-C06-only"
+          - "packet_claim:WB-C06-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c06-claim"
 
   H-P3-EUROSTAT-001:
     source_packet: P3-EUROSTAT
@@ -5690,7 +5740,23 @@ handoffs:
           - "boundary:read-only-independent-review-no-network"
       - target_packet: WB-C06
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C06, the packet accepted the exact promoted
+          eurostat_drustvo evidence package without changing or refreshing it.
+          It will preserve all 162 country-indicator keys, 161 numerical values
+          and the explicit Luxembourg early-leaving absence with source flags;
+          that value may be excluded only from calculations that require it.
+          The offline, checksum, attribution and no-render-network boundaries
+          remain intact.
+        evidence:
+          - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+          - "report:notes/reports/p3-eurostat-2026-08-10.md"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#eurostat-neovisna-provjera-izvornoga-traga"
+          - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+          - "packet_claim:WB-C06-2026-08-10"
       - target_packet: P6-DATA
         gate: before_close
         state: pending
@@ -5727,6 +5793,136 @@ handoffs:
     required: true
     deliveries:
       - target_packet: P5-C
+        gate: before_close
+        state: pending
+
+  H-WB-C06-001:
+    source_packet: WB-C06
+    created_at: "2026-08-10"
+    kind: invalidation
+    refs:
+      - source:scripts/widget-parity-ojs.mjs#normal
+      - source:chapters/06-povezanost.qmd#w06-scenariji
+      - registry:data/widgets.json#w06
+      - report:notes/reports/wb-c06-2026-08-10.md#interakcija-tisak-i-pristupacnost
+    statement: >-
+      The shared JavaScript parity adapter's normal generator discards the
+      second polar variate, while the live d3.randomNormal implementation used
+      by several chapter widgets caches and returns that second variate on the
+      next call. The adapter therefore does not execute the same pseudorandom
+      stream as the live widget even when a wide distributional tolerance lets
+      the parity gate pass. Chapter 6 was repaired locally by using an explicit
+      matching non-caching generator in the live widget; its actual browser
+      correlations are -0.8267702151, -0.4172254838, 0.5577954416 and
+      0.7177682430, and the registered R twin remains within the existing 0.20
+      contract. The same adapter risk remains for w05, w09, w10, w11, w14, w16
+      and w17.
+    required_action: >-
+      Each target chapter packet must establish exact live-source and adapter
+      generator equivalence, or replace both sides with one explicitly matching
+      generator. It must add actual-execution golden values or fingerprints and
+      a regression fixture that fails when the cached second polar variate is
+      consumed on only one side, then revalidate the named widget without
+      widening its tolerance. P6-FIGURES and P7-HTML must treat the affected
+      widget evidence as needing this revalidation before whole-book figure or
+      browser proof closes.
+    basis:
+      - "diagnostic:scripts/widget-parity-ojs.mjs-normal-discards-second-polar-variate"
+      - "browser:w06-live-correlations-minus-0.8267702151-minus-0.4172254838-0.5577954416-0.7177682430"
+      - "source:chapters/06-povezanost.qmd-explicit-noncaching-polar-generator"
+      - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-with-existing-contract"
+      - "boundary:no-tolerance-widening"
+    required: true
+    deliveries:
+      - target_packet: WC-C09
+        gate: before_close
+        state: pending
+      - target_packet: WC-C10
+        gate: before_close
+        state: pending
+      - target_packet: WC-C11
+        gate: before_close
+        state: pending
+      - target_packet: WD-C14
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+      - target_packet: P6-FIGURES
+        gate: before_close
+        state: pending
+      - target_packet: P7-HTML
+        gate: before_close
+        state: pending
+
+  H-WB-C06-002:
+    source_packet: WB-C06
+    created_at: "2026-08-10"
+    kind: risk
+    refs:
+      - source:chapters/06-povezanost.qmd#def-ogranicenje-raspona
+      - registry:bookwright_plugin/bookwright/shared/concept-ledger.json#ogranicenje-raspona
+      - report:notes/reports/wb-c06-critic-methods-2026-08-10.md
+    statement: >-
+      The corrected Chapter 6 definition says that range restriction may weaken
+      measured association but that the direction of change depends on the
+      relationship and selection rule. The shared concept ledger still defines
+      the term unconditionally as a reduction in measured association. Chapter
+      6 is methodologically correct and the deterministic concept gate currently
+      checks identity rather than this semantic mismatch, so the stale registry
+      wording could reintroduce the rejected universal attenuation claim in a
+      later continuity or glossary pass.
+    required_action: >-
+      P6-CONTINUITY must align the canonical concept-ledger definition and every
+      downstream occurrence with the conditional Chapter 6 formulation, without
+      weakening the useful approximately linear direct-selection example. It
+      must rerun concept, terminology and cross-chapter continuity checks and
+      preserve Chapter 6's accepted definition-block selection.
+    basis:
+      - "source:chapters/06-povezanost.qmd-lines-485-505-conditional-range-restriction"
+      - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json-lines-134-138-unconditional-reduction"
+      - "panel:methods-5-of-5-on-corrected-chapter-source"
+      - "boundary:shared-registry-not-owned-by-WB-C06"
+    required: true
+    deliveries:
+      - target_packet: P6-CONTINUITY
+        gate: before_close
+        state: pending
+
+  H-WB-C06-003:
+    source_packet: WB-C06
+    created_at: "2026-08-10"
+    kind: risk
+    refs:
+      - source:chapters/06-povezanost.qmd#fig-eurostat-obrazovanje-internet
+      - render:docs/chapters/06-povezanost.html@sha256-0a988d6f763e8b493276f9ba4a1bf654160bb3d5070566402fce4921fda23f7b
+      - report:notes/reports/wb-c06-2026-08-10.md#stvarni-renderi-i-preglednik
+    statement: >-
+      A targeted Chromium audit at a 390-pixel viewport found that the cited
+      Eurostat figure is promoted by Quarto to page-full and spans from -12 to
+      402 pixels, making the document width 402 pixels. The w06 widget itself
+      is not the cause: its frame is 320 pixels and its SVG 286 pixels, all four
+      controls, feedback, solution and reset work, and no console or page error
+      occurs. This is a shared responsive treatment risk for cited page-full
+      figures rather than a Chapter 6 statistical or interaction blocker.
+    required_action: >-
+      P7-HTML must make page-full figures with margin citations remain within
+      the mobile viewport, using the shared design layer rather than a
+      chapter-local inline style. It must retain the citation, caption and image
+      accessibility, then add or extend a 390-pixel regression check that fails
+      on document-level horizontal overflow and re-audit Chapter 6.
+    basis:
+      - "browser:chromium-390-document-width-402-figure-left-minus-12-right-402"
+      - "browser:w06-frame-320-svg-286-inputs-4-result-4-of-4-reset-pass-errors-0"
+      - "check:scripts/audit-rendered-html.js-BROWSER_SMOKE_OK-canonical-route"
+      - "boundary:shared-CSS-fix-owned-by-P7-HTML"
+    required: true
+    deliveries:
+      - target_packet: P7-HTML
         gate: before_close
         state: pending
 
@@ -5795,7 +5991,20 @@ handoffs:
           - "boundary:WB-C06-not-started-in-C05"
       - target_packet: WB-C06
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C06 was claimed only after C05 closed and under the strict
+          author-amended sequence. It owns one Chapter 6 write packet, keeps one
+          write lock, will produce source-specific evidence and one bounded
+          local commit, will stop before C06 and will neither treat the
+          amendment as C06 acceptance nor claim that the author read Chapter 6.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "commit:c697a977b2adae063349414abe8a12261c2a2097"
+          - "packet_claim:WB-C06-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c06-claim"
       - target_packet: C06
         gate: before_close
         state: pending
@@ -7884,3 +8093,29 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
       - no chapter prose data bibliography terminology spine concept graph widget render or generated artifact changed in C05
       - WB-C06 is next but was not started in C05 and push merge tag archive and deployment remain unauthorised
+
+  WB-C06:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WB-C06-001
+      - H-WB-C06-002
+      - H-WB-C06-003
+    implementation_state: source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8
+    checks:
+      - H-C04-THREAD-SEQUENCE-001 H-G-A3-DIGIKAT-002 H-G-A3-EUROSTAT-001 and H-P3-EUROSTAT-001 were consumed before work
+      - H-P3-EXISTING-001 was acknowledged before editing and consumed at closeout without copying or promoting anscombe
+      - every mandatory numerical task uses anketa_mreze or the governed Eurostat extract and the local anscombe route remains optional
+      - Eurostat preserves 162 unique 2025 keys 161 numeric values and the one LU colon/u absence with every source status
+      - the country-level exploratory pair reproduces Pearson 0.449994 and Spearman 0.508016 without individual causal trend predictive mixed-year or outside-EU inference
+      - the six-title coded category names its exact rule selected set and author ownership and becomes undefined when the code is constant
+      - Pearson Spearman tied ranks squared-correlation uncertainty range restriction Simpson ecology and causal boundaries pass the final methods review
+      - the AI error callout contains exactly one mistake and no assessed task requires code production
+      - w06 uses the explicit non-caching live generator four accessible controls live feedback hidden solution reset and a print-completable four-row twin
+      - final full HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared source hash and generated artifacts were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major and two nonblocking chapter minors
+      - H-WB-C06-001 carries the shared normal-generator adapter invalidation to the seven remaining affected chapter widgets plus P6-FIGURES and P7-HTML
+      - H-WB-C06-002 carries the stale unconditional range-restriction concept-ledger wording to P6-CONTINUITY
+      - H-WB-C06-003 carries the cited page-full figure mobile overflow to P7-HTML while recording that the w06 widget itself fits and works
+      - R13-C06-coded-association and R35-REACHBACK-06 remain ratified and Chapter 6 remains draft pending the separate C06 author gate
+      - C06 is next but was not opened no author reading or acceptance was claimed and no external action was taken

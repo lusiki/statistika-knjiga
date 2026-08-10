@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C05"
-  next_permitted_packet: "WB-C06"
+  last_completed_packet: "WB-C06"
+  next_permitted_packet: "C06"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9720,7 +9720,7 @@ packets:
     sequence: 93
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C05"
       - "P1A-C06"
@@ -9732,14 +9732,84 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WB-C06 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-II"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#06-povezanost"
+            - "report:notes/reports/g-a2b-ii-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-ii-2026-08-04.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/06-povezanost.qmd@sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "source:data/eurostat-drustvo-2025.csv@sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+            - "source:R/podaci-nastavni.R#anketa_mreze"
+            - "result:anketa-pearson-minus-0.559289-spearman-minus-0.680151-log-pearson-minus-0.683619"
+            - "result:simpson-pooled-0.757952-within-minus-0.767874-minus-0.657974-minus-0.706051"
+            - "result:coded-six-titles-1-1-0-1-1-1-correlation-minus-0.046324-constant-code-undefined"
+            - "result:eurostat-162-keys-161-numeric-one-LU-colon-u-pearson-0.449994-spearman-0.508016"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-live_keys-44-records-44"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+            - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-full-exit-0-routes-37-C06-bytes-217524-sha256-0a988d6f763e8b493276f9ba4a1bf654160bb3d5070566402fce4921fda23f7b"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2647492-sha256-445dc17b6dab9c73fb60946ef4e92d93ce1aecc7365a7a1ab10cb040f5605917"
+            - "render:DOCX-wrapper-exit-0-bytes-1509721-sha256-8941493f07a9ebcd9e17d29fd7f52c5be86fabe5a4d9c3b8cd24d614c53e9ac4"
+            - "browser:w06-inputs-4-result-4-of-4-solution-reset-pass-widget-320-svg-286-at-390-errors-0"
+            - "boundary:generated-docs-freeze-ai-export-pdf-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "reports:notes/reports/wb-c06-critic-*-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "panel:six-of-six-confirm-source-sha256-4b5e5381-zero-fatal-zero-major-two-nonblocking-chapter-minors"
+      outputs:
+        - output: "WB-C06 verified vertical-slice source and evidence bundle for: Chapter 6 vertical slice."
+          artifacts:
+            - "report:notes/reports/wb-c06-2026-08-10.md"
+            - "source:chapters/06-povezanost.qmd"
+            - "bibliography:references.bib#six-Eurostat-records"
+            - "registry:data/widgets.json#w06"
+            - "generated:data/concept-graph.json"
+        - output: "Completion evidence is tied to the declared WB-C06 source state and bounded scope."
+          artifacts:
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "handoff:H-P3-EXISTING-001-consumed"
+            - "handoffs:H-WB-C06-001-H-WB-C06-002-H-WB-C06-003-recorded"
+            - "review:packet_reviews.WB-C06-all-future-effects-recorded"
+            - "boundary:C06-not-opened-no-author-acceptance-claimed"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wb-c06-2026-08-10.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-registered_debt-0-unexpected-0-stale-0"
+            - "check:MANUSCRIPT_STYLE_OK-files-25"
+            - "check:WIDGET_PARITY_OK-pairs-17"
+            - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "panel:zero-fatal-zero-major-two-nonblocking-chapter-minors"
+        - test: "The WB-C06 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "render:three-formats-exit-zero"
+            - "browser:w06-targeted-live-execution-pass"
+            - "check:scripts/check-review-workflow.R-at-WB-C06-closeout"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
   C06:
     sequence: 94
     phase: "4"

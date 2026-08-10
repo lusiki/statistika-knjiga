@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C05
-next_permitted_packet: WB-C06
+last_completed_packet: WB-C06
+next_permitted_packet: C06
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 87
+forward_handoffs: 90
 last_updated: "2026-08-10"
 ---
 
@@ -46,11 +46,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C05` |
-| Next permitted packet | `WB-C06` |
+| Last completed packet | `WB-C06` |
+| Next permitted packet | `C06` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 174 accepted, 5 deferred with reason, 192 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 85 accepted, 102 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 86 accepted, 101 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -323,6 +323,81 @@ No chapter prose was changed by `P0-OUTSIDE`.
 - No chapter prose, data, bibliography, terminology, spine, concept graph,
   widget, render or generated artifact changed in C05. `WB-C06` is next and
   was not started in C05; push, merge, tag, archive and deployment remain
+  unauthorised.
+
+## WB-C06 claim
+
+- The clean claim state is commit
+  `c697a977b2adae063349414abe8a12261c2a2097` on
+  `revision/comprehensive-review`. C05 is accepted against WB-C05 commit
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`, Chapter 5 is at
+  `coauthor_review`, and WB-C06 was the sole next-permitted packet before the
+  claim.
+- `H-C04-THREAD-SEQUENCE-001`, `H-G-A3-DIGIKAT-002`,
+  `H-G-A3-EUROSTAT-001` and `H-P3-EUROSTAT-001` were consumed before claim.
+  The strict thread sequence, DigiKat limits, exact Eurostat selection and
+  promoted package evidence now bind the packet. `H-P3-EXISTING-001` was
+  acknowledged before the first substantive edit and remains due at closeout.
+- Eurostat use is limited to the six ratified 2025 indicators for all EU-27
+  countries. The packet must preserve 162 keys, 161 numerical values and the
+  explicit Luxembourg early-leaving absence with source flags, and may support
+  only country-level comparison, association and a third-variable question.
+  No new retrieval, individual, causal, trend, mixed-year or out-of-EU claim is
+  authorised.
+- The packet may create, copy or promote no `anscombe` file. Its local-R use is
+  optional; every mandatory task must use `anketa_mreze` or the governed
+  Eurostat table. Any DigiKat use retains the method break, gap, denominator
+  and structural-unmeasurement boundaries.
+- WB-C06 owns only Chapter 6, the six verified Eurostat bibliography entries
+  needed by its aggregate example, any necessary `w06` fingerprint
+  reconciliation, the generated concept graph when Chapter 6 changes its
+  co-occurrence edges, its dated packet and six-critic reports, and the three
+  workflow control views. Chapter 6 remains `draft`; its two WB-C06 items remain
+  `ratified` and the four earlier P1A-C06 repairs remain `accepted` until the separate C06
+  gate. C06 is not open, no author reading or acceptance is claimed, and push,
+  merge, tag, archive and deployment remain unauthorised.
+
+## WB-C06 closeout — Chapter 6 vertical slice
+
+- `WB-C06` is accepted at source SHA-256
+  `4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8`.
+  The complete evidence record is `notes/reports/wb-c06-2026-08-10.md`.
+- `H-P3-EXISTING-001` is consumed. No `anscombe` file was copied or promoted;
+  the local-R route is an optional vignette check, while all mandatory
+  calculations and assessed paths use `anketa_mreze` or the governed Eurostat
+  extract.
+- The Eurostat table preserves 162 unique EU-27/2025 keys, 161 numerical
+  values and the one Luxembourg `:`/`u` absence. The exploratory country-level
+  pair reproduces Pearson 0,449994 and Spearman 0,508016 without an individual,
+  causal, trend, predictive, mixed-year or out-of-EU claim.
+- The six-title coded category records its literal rule, purposive set and
+  author ownership. Its code/year correlation is -0,046324; expanding the rule
+  until every code equals one makes the correlation undefined.
+- The final chapter keeps the graph before the coefficient, treats Pearson and
+  Spearman agreement or disagreement as clues, qualifies range restriction,
+  shows Simpson's reversal without regression lines and gives the AI box
+  exactly one error. The Chapter 4 reach-back is a genuine data-integrity task.
+- The w06 browser path has four labelled controls, a live 4/4 result, a hidden
+  then revealed four-row solution, reset and a print-completable twin. At 390 px
+  the widget frame is 320 px and its SVG 286 px, with no runtime error.
+- Full HTML, approved-wrapper PDF and wrapper-built DOCX renders exited 0.
+  Their SHA-256 values are respectively
+  `0a988d6f763e8b493276f9ba4a1bf654160bb3d5070566402fce4921fda23f7b`,
+  `445dc17b6dab9c73fb60946ef4e92d93ce1aecc7365a7a1ab10cb040f5605917`
+  and `8941493f07a9ebcd9e17d29fd7f52c5be86fabe5a4d9c3b8cd24d614c53e9ac4`.
+  Generated `docs/`, `_freeze/`, AI exports, PDF and DOCX were restored.
+- Six independent read-only critics confirmed the exact final hash. There is
+  no fatal or major finding. Pedagogy and style retain one nonblocking minor
+  each; the existing public-catalogue debt remains owned by `P5-C`.
+- `H-WB-C06-001` records the shared normal-generator adapter invalidation for
+  seven later chapter widgets plus `P6-FIGURES` and `P7-HTML`.
+  `H-WB-C06-002` routes the stale unconditional range-restriction concept-ledger
+  wording to `P6-CONTINUITY`. `H-WB-C06-003` routes the 12 px mobile overflow of
+  a cited Quarto `page-full` figure to `P7-HTML`; it does not invalidate w06.
+- Chapter 6 remains `draft`. `R13-C06-coded-association` and
+  `R35-REACHBACK-06` remain `ratified`; the four earlier P1A-C06 repairs remain
+  `accepted`. `C06` is next but was not opened, no author reading or acceptance
+  was claimed, and push, merge, tag, archive and deployment remain
   unauthorised.
 
 ## G-A3-EUROSTAT claim
@@ -3890,47 +3965,43 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that C05 is accepted against WB-C05 commit
-`de85c7018b934bf5c6310fd4f1125f0ae65473a0`, that `05-vizualizacija` is at
-`coauthor_review`, that exactly its four governed items are accepted, and that
-`WB-C06` is the sole `next_permitted_packet`.
+Verify that `WB-C06` is accepted at the current `HEAD`, that the final
+`chapters/06-povezanost.qmd` SHA-256 is
+`4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8`, that
+Chapter 6 remains at `draft`, that `R13-C06-coded-association` and
+`R35-REACHBACK-06` remain `ratified`, that the four governed R09 Chapter 6
+repairs remain `accepted`, and that `C06` is the sole next-permitted packet
+with no active write packet.
 
-Then execute only `WB-C06`, the Chapter 6 vertical slice, and stop before C06.
-Read the two WB-C06 governed items `R13-C06-coded-association` and
-`R35-REACHBACK-06`; preserve the already accepted
-`R09-C06-pearson-spearman-agree` and
-`R09-C06-pearson-spearman-disagree` repairs on the final source state.
+Resume only `C06`, the Chapter 6 author-acceptance gate, and stop before
+`WB-PART`. This is a decision gate, not a prose or implementation packet.
+Require the named author/editor's exact reply:
 
-Before claim, consume the `before_start` deliveries of
-`H-C04-THREAD-SEQUENCE-001`, `H-G-A3-DIGIKAT-002`,
-`H-G-A3-EUROSTAT-001` and `H-P3-EUROSTAT-001`. Acknowledge the
-`before_close` delivery of `H-P3-EXISTING-001` before the first substantive
-edit and consume it with concrete evidence before closeout. Copy, commit or
-promote no `anscombe` file; keep the local-R route optional and make every
-mandatory task use the licence-clean fallback or the governed Eurostat file.
+`C06 accepted for <current WB-C06 closeout commit> on 2026-08-10.`
 
-Use `eurostat_drustvo` only for country-level 2025 comparison, association and
-a third-variable question. Preserve all 162 EU-27 country-indicator keys, the
-161 numerical values and the explicit Luxembourg early-leaving absence with
-its source flags. Exclude that value only from calculations that require it.
-Make no individual, causal, time-trend, mixed-year or out-of-EU claim. Preserve
-the DigiKat method-break, denominator and structural-unmeasurement boundaries
-where the source appears.
+The named commit must be the current `HEAD` and must contain the final Chapter
+6 source, all six critic reports and their synthesis, and the synchronized
+register, handoff ledger and dashboard. Do not infer that the author read the
+chapter, and do not apply the proposed disposition without that exact reply.
 
-Make the scatterplot primary, preserve Pearson/Spearman agreement and
-disagreement as clues rather than proofs, qualify range-restriction
-attenuation, retrieve causal limits, let one coded-text category enter an
-association explicitly as a measurement decision, and replace one exercise
-with a genuine reach-back to material at least two chapters earlier. Complete
-the AI, print, transition and communication-thread obligations without adding
-an assessed code-production task.
+Read the six final WB-C06 critic reports, their synthesis and the packet report
+against the recorded source hash. Preserve the two nonblocking minor findings
+for the author's decision. Preserve all three outgoing WB-C06 handoffs for
+their named later packets. The only incoming delivery for C06 is
+`H-C04-THREAD-SEQUENCE-001`, due `before_close`; acknowledge and consume it
+only after the exact author reply, with the reply and final commit as evidence.
+Touch no handoff that targets another packet.
 
-Follow STYLE.md and the checkout-local Bookwright style, figure and six-critic
-review workflows. Reproduce every number, run the applicable deterministic
-checks and targeted HTML, PDF and wrapper-built DOCX renders. Record all
-future-relevant effects or explicitly declare that none were found, update all
-three control views together, run the workflow validator and required negative
-fixtures, make one bounded local packet commit and stop. Leave Chapter 6 at
-`draft` and its two WB-C06 items `ratified` pending C06. Do not start C06.
-Push, merge, tag, archive and deploy remain unauthorised.
+After the exact reply, accept exactly `R13-C06-coded-association` and
+`R35-REACHBACK-06`, advance only `06-povezanost` from `draft` to
+`coauthor_review`, prepare the bounded C06 acceptance package, and close the
+existing author-acceptance outside ask from the in-thread reply. State
+explicitly that this records acceptance without claiming the author read the
+chapter and does not make it `final`.
+
+Change no chapter prose, data, bibliography, terminology, concept graph,
+widget, figure or render artifact in C06. Update the chapter ledger, register,
+handoff ledger and dashboard together; run the workflow validator and all
+required negative fixtures; make one bounded local C06 commit; and stop before
+`WB-PART`. Push, merge, tag, archive and deploy remain unauthorised.
 ```
