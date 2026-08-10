@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A3-EUROSTAT
-next_permitted_packet: P3-EUROSTAT
+last_completed_packet: P3-EUROSTAT
+next_permitted_packet: P3-VERIFY-B
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 84
+forward_handoffs: 85
 last_updated: "2026-08-10"
 ---
 
@@ -46,11 +46,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A3-EUROSTAT` |
-| Next permitted packet | `P3-EUROSTAT` only |
+| Last completed packet | `P3-EUROSTAT` |
+| Next permitted packet | `P3-VERIFY-B` only |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 162 accepted, 5 deferred with reason, 204 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 79 accepted, 108 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 164 accepted, 5 deferred with reason, 202 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 80 accepted, 107 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -139,6 +139,64 @@ No chapter prose was changed by `P0-OUTSIDE`.
 - `P3-EUROSTAT` is the sole next permitted packet. It was not started before
   this gate closed. Push, merge, tag, archive and deployment remain
   unauthorised.
+
+## P3-EUROSTAT claim
+
+- `P3-EUROSTAT` is the sole active write packet. `G-A3-EUROSTAT` is accepted
+  at live commit `5c9c14cf13fd7d7903ce62372ccf1c3248e32a21`; no later packet has
+  started and the one-lock invariant is intact.
+- `H-G-A3-EUROSTAT-001` was consumed before claim and before the first
+  substantive edit. The packet is bounded to six ratified indicators, reference
+  year 2025, all 27 EU Member States and consumer `WB-C06`; a mixed-year
+  substitute, scope widening, individual claim or causal claim is forbidden.
+- `H-P3-DZS-003` is acknowledged before the first edit and remains due at
+  closeout. Promotion must obey all six inherited external-package rules,
+  including a package gate distinct from its decision gate, an own-licence
+  snapshot notice, exact named promotion-log reconciliation, composite keys and
+  fail-closed missing-code checks.
+- The author-approved network action is one bounded six-request batch against
+  the official Eurostat API outside rendering. The packet will retain the exact
+  request URLs, raw response bytes, retrieval timestamp, checksums and source
+  reconciliation; it will not make a reconnaissance data request first.
+
+## P3-EUROSTAT closeout
+
+- **One retrieval, then offline only.** One six-request batch ran against the
+  official Eurostat Dissemination API between 12:39:03 and 12:39:10 UTC on
+  2026-08-10. All six requests returned HTTP 200, none was retried, and no
+  second network request followed. Exact URLs, unmodified responses, dates,
+  HTTP metadata, MD5 and SHA-256 are retained under `data/eurostat_drustvo/`.
+- **The ratified common-year grid is complete.**
+  `data/eurostat-drustvo-2025.csv` contains all 162
+  `geo+godina+pokazatelj` keys: 27 EU Member States, six indicators and only
+  2025. There are 161 numbers and one explicit source absence: Luxembourg
+  early leaving, `vrijednost = :`, API/OBS status `u`, no confidentiality
+  flag. Croatia's published 2.1 in the same indicator also carries `u`, so the
+  package keeps quality status distinct from missingness.
+- **Source and rights survived contact with the actual responses.** Every raw
+  response names `ESTAT` and `SOURCE_INSTITUTIONS = Eurostat`; none carries a
+  contrary source-specific rights annotation. The adjacent notice supplies six
+  datacode attributions with the actual access date plus the exact ratified
+  modification and Commission disclaimer sentences. No rights-holder
+  permission is claimed.
+- **Promotion is fully named.** `eurostat_drustvo` is now `bundled` and
+  `promoted: true` by `P3-EUROSTAT`, ratified by the separate
+  `G-A3-EUROSTAT` record. The bidirectional promotion log names it; the
+  catalogue now reports five promoted packages and 21 validated snapshots.
+- **The release lane is offline and fail-closed.** The builder reconstructs 162
+  values and statuses from the retained raw bytes with zero tolerance. The main
+  R integrity lane invokes it. Both a changed raw byte and a removed `u` flag
+  fail for their own reason; the complete negative harness reports 44 cases.
+  A final pre-commit audit found and closed the Windows checkout risk:
+  `.gitattributes` pins the derived JSON to LF and treats raw responses as
+  binary, so `core.autocrlf` cannot change checksummed evidence.
+- `H-G-A3-EUROSTAT-001` was consumed before claim and `H-P3-DZS-003` at
+  closeout. `H-P3-EUROSTAT-001` carries the actual package, missingness,
+  attribution, no-refresh and claim boundaries to `P3-VERIFY-B`, `WB-C06`,
+  `P6-DATA` and `P8-META`. No chapter, shared Bookwright registry or generated
+  render output changed.
+- `P3-VERIFY-B` is the sole next permitted packet. Push, merge, tag, archive,
+  deployment and publication remain unauthorised.
 
 ## P3-DIGIKAT claim
 

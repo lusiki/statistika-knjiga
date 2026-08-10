@@ -4898,7 +4898,28 @@ handoffs:
           - "fixture:scripts/check-data-fixtures.py-cases-42"
       - target_packet: P3-EUROSTAT
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-EUROSTAT satisfies all six inherited external-package rules without
+          relaxing the contract. P3-EUROSTAT, not G-A3-EUROSTAT, is both
+          promoting_gate and promoted_by; the existing G-A3-EUROSTAT decision
+          and record ratify the move. The promotion log names
+          eurostat_drustvo and reconciles count and identity in both directions.
+          The snapshot notice carries this package's own Eurostat reuse URI.
+          The teaching key remains the composite geo+godina+pokazatelj. The one
+          source absence code ':' is declared and occurs exactly once, while
+          value zero, API status, observation status, confidentiality status and
+          absence remain distinct. No rule was weakened to admit the package.
+        evidence:
+          - "registry:data/katalog.yml#eurostat_drustvo-promotion-and-codebook"
+          - "decision:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "notice:data/eurostat-drustvo.LICENCA.md"
+          - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+          - "check:scripts/check-katalog.py-packages-20-promoted-5"
+          - "check:scripts/check-data-integrity.R-snapshots-21-validated-21-undeclared-0"
+          - "fixture:scripts/check-data-fixtures.py-cases-44"
       - target_packet: P3-TEXT
         gate: before_close
         state: pending
@@ -5409,12 +5430,94 @@ handoffs:
     deliveries:
       - target_packet: P3-EUROSTAT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-EUROSTAT consumes the complete accepted selection, rights and
+          source-route contract before claim and before its first substantive
+          edit. It owns only the six fixed 2025 indicators for the 27 EU Member
+          States and WB-C06, with one country-indicator key per selected cell,
+          either the 2025 value or the retained official missing state and
+          flags. It will perform one bounded batch retrieval from the official
+          Eurostat API outside rendering, retain every exact query and raw
+          response with retrieval date and checksums, derive only the ratified
+          slice, reproduce the required attribution, modification statement and
+          disclaimer, verify that no contrary source-specific or third-party
+          notice applies, and stop rather than widen the route or substitute a
+          mixed year. The package must remain country-level and may support no
+          individual or causal claim.
+        evidence:
+          - "decision:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "register:decisions.G-A3-EUROSTAT-authority_boundary"
+          - "boundary:one-bounded-official-retrieval-outside-render"
+          - "boundary:six-indicators-2025-EU27-WB-C06-only"
       - target_packet: P3-VERIFY-B
         gate: before_close
         state: pending
       - target_packet: WB-C06
         gate: before_start
+        state: pending
+
+  H-P3-EUROSTAT-001:
+    source_packet: P3-EUROSTAT
+    created_at: "2026-08-10"
+    kind: evidence
+    refs:
+      - item:R03-EUROSTAT-rights
+      - item:R08-EUROSTAT-package
+      - report:notes/reports/p3-eurostat-2026-08-10.md
+      - registry:data/katalog.yml#eurostat_drustvo
+      - source:data/eurostat_drustvo/PREUZIMANJE.json
+      - source:data/eurostat_drustvo/USKLADJENJE.json
+      - source:data/eurostat-drustvo-2025.csv
+      - passport:data/eurostat_drustvo/PUTOVNICA.md
+      - notice:data/eurostat-drustvo.LICENCA.md
+    statement: >-
+      The promoted eurostat_drustvo package is the exact six-indicator EU-27
+      cross-section for 2025 retrieved in one authorised official six-request
+      batch with zero retries. All queries and unmodified raw responses are
+      retained with date, MD5 and SHA-256. The teaching file contains all 162
+      geo+year+indicator keys, 161 numerical values and exactly one retained
+      official absence: Luxembourg early leaving, value ':', API/OBS status u,
+      no confidentiality flag. The offline builder checks every raw checksum,
+      source code, dimension selector, value, status and derived byte with zero
+      tolerance. All actual responses name ESTAT/Eurostat and carry no contrary
+      rights annotation. Exact six-source attribution, modification statement
+      and Commission disclaimer travel with the snapshot. Country-level
+      comparison and association are permitted; individual, causal, time-trend,
+      mixed-year and out-of-EU claims are not.
+    required_action: >-
+      P3-VERIFY-B must independently verify the package, its one-time retrieval
+      boundary, all 162 keys, the LU missing/status relation, raw and derived
+      checksums, offline reproduction, promotion contract and exact notice.
+      WB-C06 must use the package only at country level, keep source flags
+      visible, exclude LU only from numerical calculations involving early
+      leaving while retaining its explicit missing row, and state the ecological
+      and causal boundary. P6-DATA must preserve the offline builder in the
+      blocking data lane and must not authorise refresh or render-time network.
+      P8-META must carry the exact component attribution, modification statement
+      and Commission disclaimer and must not imply rights-holder permission.
+    basis:
+      - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+      - "check:DATA_INTEGRITY_OK-promoted-5-snapshots-21-validated-21-undeclared-0"
+      - "fixture:DATA_NEGATIVE_FIXTURES_OK-cases-44"
+      - "checksum:csv-sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+      - "checksum:retrieval-sha256-335fab2e89eeb473ba7fa31d872fde3eb2f5feed1435cc63fb4b738e12941481"
+      - "boundary:no-second-fetch-no-render-network-no-CroAIcon-staging"
+    required: true
+    deliveries:
+      - target_packet: P3-VERIFY-B
+        gate: before_start
+        state: pending
+      - target_packet: WB-C06
+        gate: before_start
+        state: pending
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -7364,3 +7467,23 @@ packet_reviews:
       - catalogue data integrity builder inventory manuscript concept citation terminology token integrity-fixture and workflow checks pass
       - no chapter prose shared Bookwright registry generated artefact or external system changed
       - G-A3-EUROSTAT is next and was not started before this packet closed and committed
+
+  P3-EUROSTAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-EUROSTAT-001
+    implementation_state: podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3
+    checks:
+      - H-G-A3-EUROSTAT-001 was consumed before claim and H-P3-DZS-003 was acknowledged before the first edit and consumed at closeout
+      - exactly one authorised six-request official Eurostat batch ran with zero retries and no later network request
+      - query plan retrieval manifest six unmodified responses dates MD5 SHA-256 and zero-tolerance reconciliation are retained
+      - all actual responses carry ESTAT and SOURCE_INSTITUTIONS Eurostat and no contrary rights annotation
+      - all 162 EU-27 by six-indicator keys are 2025 with 161 values and one explicit LU early-leaving absence carrying API and OBS status u
+      - the promoted package obeys all six inherited external-package rules and the promotion log reconciles in both directions
+      - R no-code and print use one local UTF-8 LF CSV and no render or portal lane performs a retrieval
+      - exact six-component attribution modification statement disclaimer and no-rights-holder-permission boundary travel with the snapshot
+      - the offline builder main data lane and two packet-specific negative fixtures all pass
+      - gitattributes fixes derived JSON to LF and treats raw responses as binary so checkout conversion cannot invalidate evidence
+      - H-P3-EUROSTAT-001 carries every actual package constraint to P3-VERIFY-B WB-C06 P6-DATA and P8-META
+      - the packet changed no chapter prose no shared Bookwright registry and no generated render output

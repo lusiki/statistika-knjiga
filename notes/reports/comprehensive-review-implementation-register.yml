@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A3-EUROSTAT"
-  next_permitted_packet: "P3-EUROSTAT"
+  last_completed_packet: "P3-EUROSTAT"
+  next_permitted_packet: "P3-VERIFY-B"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9183,7 +9183,7 @@ packets:
     sequence: 87
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-EUROSTAT"
     scope: "Fixed-year Eurostat package."
@@ -9194,14 +9194,94 @@ packets:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "decision:G-A3-EUROSTAT"
+            - "source:data/eurostat_drustvo/PREUZIMANJE.json-six-official-HTTP-200-responses-zero-retries"
+            - "source:data/eurostat_drustvo/USKLADJENJE.json-datastructure-versions-47.0-80.0-44.0-48.0-52.0-33.0"
+            - "source:six-responses-source-ESTAT-SOURCE_INSTITUTIONS-Eurostat"
+            - "source:no-response-carries-contrary-copyright-licence-or-third-party-annotation"
+            - "notice:data/eurostat-drustvo.LICENCA.md-exact-attribution-modification-and-disclaimer"
+            - "boundary:no-rights-holder-permission-claimed-none-sought"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "source:data/katalog.yml#eurostat_drustvo-12-column-typed-codebook"
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+            - "source:data/katalog.yml#eurostat_drustvo-consumer-WB-C06-only"
+            - "source:data/katalog.yml#eurostat_drustvo-permissible-and-unavailable-claims"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+            - "checksum:data/eurostat-drustvo-2025.csv-md5-1dc076aeac134b6bbf9022ece6475747-sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+            - "checksum:data/eurostat_drustvo/UPITI.json-sha256-d80278ea9e454e10af504ccb3560df977275060136e0156ac3985593d3147074"
+            - "checksum:data/eurostat_drustvo/PREUZIMANJE.json-sha256-335fab2e89eeb473ba7fa31d872fde3eb2f5feed1435cc63fb4b738e12941481"
+            - "checksum:data/eurostat_drustvo/USKLADJENJE.json-sha256-1b381e306c1ee2243af08ef41e9ade453a8cedd0f35e8f614d936580e8ad4180"
+            - "source:six-raw-responses-carry-individual-MD5-and-SHA256-in-retrieval-manifest"
+            - "source:.gitattributes-derived-JSON-eol-lf-raw-responses-binary"
+            - "fixture:eurostat_raw_checksum-exit-1-for-own-checksum-defect"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "result:162-unique-geo-plus-year-plus-indicator-keys-all-year-2025"
+            - "result:161-numerical-values-one-explicit-LU-early-leaving-missing-row"
+            - "result:source-status-counts-unmarked-150-b-2-d-4-e-1-ep-1-p-2-u-2"
+            - "result:LU-missing-colon-status-api-u-obs-u-conf-unmarked"
+            - "result:HR-early-leaving-2.1-status-u-proves-status-is-not-missingness"
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md#putovi-uporabe"
+      outputs:
+        - output: "P3-EUROSTAT validated package, passport, checksum, and route evidence for: Fixed-year Eurostat package."
+          artifacts:
+            - "report:notes/reports/p3-eurostat-2026-08-10.md"
+            - "source:data/eurostat-drustvo-2025.csv"
+            - "source:data/eurostat_drustvo/UPITI.json"
+            - "source:data/eurostat_drustvo/PREUZIMANJE.json"
+            - "source:data/eurostat_drustvo/raw"
+            - "source:data/eurostat_drustvo/USKLADJENJE.json"
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+            - "notice:data/eurostat-drustvo.LICENCA.md"
+        - output: "Completion evidence is tied to the declared P3-EUROSTAT source state and bounded scope."
+          artifacts:
+            - "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+            - "handoff:H-G-A3-EUROSTAT-001-consumed-before-claim"
+            - "handoff:H-P3-DZS-003-consumed-at-closeout"
+            - "handoff:H-P3-EUROSTAT-001-records-all-actual-future-effects"
+            - "boundary:one-six-request-batch-zero-retries-no-second-fetch-no-render-network"
+            - "check:scripts/check-review-workflow.R-at-P3-EUROSTAT-closeout"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-katalog.py-packages-20-promoted-5-snapshots-21"
+            - "check:scripts/check-data-integrity.R-promoted-5-snapshots-21-validated-21-undeclared-0"
+            - "check:scripts/build-eurostat-extracts.py-keys-162-available-161-missing-1-tolerance-0"
+            - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-44"
+            - "fixture:eurostat_missing_status-exit-1-for-own-status-defect"
+            - "fixture:eurostat_raw_checksum-exit-1-for-own-checksum-defect"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md#putovi-uporabe"
+            - "source:one-plain-UTF-8-LF-CSV-with-stable-ASCII-name"
+            - "notice:data/eurostat-drustvo.LICENCA.md"
+            - "boundary:no-portal-lane-promised-no-render-time-retrieval"
+        - test: "The P3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p3-eurostat-2026-08-10.md"
+            - "selection:six-named-source-codes-and-dimension-slices"
+            - "source:one-authorised-six-request-batch-started-12-39-03Z-completed-12-39-10Z-zero-retries"
+            - "source:actual-ESTAT-Eurostat-responses-no-contrary-rights-annotation"
+            - "missingness:one-LU-colon-u-row-retained-among-all-162-keys"
+            - "review:packet_reviews.P3-EUROSTAT-all-future-effects-recorded"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
   WB-C04:
     sequence: 89
     phase: "4"
@@ -13316,7 +13396,7 @@ items:
       location: "§12 Eurostat"
     description: "Verify reuse attribution and commit a dated checksummed snapshot with query metadata."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -13334,11 +13414,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EUROSTAT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-EUROSTAT-bounded-official-retrieval-and-rights-contract"
+      - "notice:data/eurostat-drustvo.LICENCA.md-six-component-attribution-modification-and-disclaimer"
+      - "source:data/eurostat_drustvo/UPITI.json-sha256-d80278ea9e454e10af504ccb3560df977275060136e0156ac3985593d3147074"
+      - "source:data/eurostat_drustvo/PREUZIMANJE.json-sha256-335fab2e89eeb473ba7fa31d872fde3eb2f5feed1435cc63fb4b738e12941481"
+      - "source:six-raw-ESTAT-responses-SOURCE_INSTITUTIONS-Eurostat-no-contrary-rights-annotation"
+      - "registry:data/katalog.yml#eurostat_drustvo-verified-redistribution-and-provenance"
+      - "boundary:no-rights-holder-permission-claimed-and-none-sought"
+      - "report:notes/reports/p3-eurostat-2026-08-10.md#prava-i-iznimke"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
   R03-ESS-permission-gate:
     parents:
       - "R03"
@@ -16153,7 +16241,7 @@ items:
       location: "§12 Eurostat"
     description: "Build five to seven question-led indicators in one fixed common year with flags and missingness."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -16171,11 +16259,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EUROSTAT"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/eurostat-drustvo-2025.csv-162-keys-161-values-1-explicit-missing"
+      - "result:all-27-EU-countries-six-indicators-reference-year-2025"
+      - "result:LU-early-leaving-value-colon-status-api-u-obs-u-conf-unmarked"
+      - "check:scripts/build-eurostat-extracts.py-keys-162-available-161-missing-1-tolerance-0"
+      - "check:data/eurostat_drustvo/USKLADJENJE.json-zero-tolerance-all-six-raw-responses"
+      - "check:scripts/check-data-integrity.R-ratified-grid-and-missing-status-relation"
+      - "fixture:eurostat-missing-status-and-raw-checksum-each-exit-1-for-own-defect"
+      - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+      - "report:notes/reports/p3-eurostat-2026-08-10.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
   R08-ESS-route:
     parents:
       - "R08"

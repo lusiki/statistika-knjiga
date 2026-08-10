@@ -104,7 +104,7 @@ portfolio_caps:
     - design: "official_aggregate_statistics"
       cap: 5
       registered: 5
-      promoted: 1
+      promoted: 2
       exempt_frozen_landmarks: false
     - design: "expert_coded_latent_index"
       cap: 1
@@ -143,7 +143,7 @@ promotion_contract:
     - "promoting_gate imenuje paket koji doista dohvaca, nikada odlucivacki gate"
     - "promotion_log imenuje tocno koje je pakete taj paket promovirao"
     - "snapshot_notice nosi izravnu poveznicu na licencu bas toga paketa"
-  promoted_total: 4
+  promoted_total: 5
   promotion_log:
     - packet: "P3-CATALOG"
       promoted: 0
@@ -169,6 +169,12 @@ promotion_contract:
       record: "notes/reports/p3-digikat-2026-08-10.md"
       packages:
         - "digikat_mediji"
+    - packet: "P3-EUROSTAT"
+      promoted: 1
+      recorded_at: "2026-08-10"
+      record: "notes/reports/p3-eurostat-2026-08-10.md"
+      packages:
+        - "eurostat_drustvo"
   note: >-
     P3-CATALOG je stvorio ugovor i registrirao inventar bez ijedne promocije.
     P3-EXISTING promovira tocno dva generirana paketa, i to jedina dva za koja
@@ -190,6 +196,9 @@ promotion_contract:
     reprodukcija bajt po bajt, identitet nazivnika bez tolerancije i otvoreno
     zabiljezena divergencija moraju proci zajedno. Nijedan od ta tri testa ne
     moze se zamijeniti opisom.
+    P3-EUROSTAT prvi put veze promovirani paket uz jedan odobreni sluzbeni
+    mrezni batch izvan rendera: sest tocnih upita, sest neizmijenjenih odgovora,
+    datum i checksum svakoga odgovora te 162 uskladjenja moraju ostati zajedno.
 
 storage_conventions:
   - "UTF-8 kodiranje i stabilna ASCII imena datoteka."
@@ -1777,49 +1786,228 @@ packages:
 
   - id: "eurostat_drustvo"
     name: "Eurostat, drustveni pokazatelji"
-    status: "proposed_not_promoted"
+    status: "registered_and_promoted"
     design: "official_aggregate_statistics"
     domain: "usporedna drustvena statistika"
-    unit: "jedna zemlja u jednoj godini"
+    unit: >-
+      Jedna drzava clanica EU-a za jedan pokazatelj u jednoj, zajednickoj
+      referentnoj godini. Redak je drzavni agregat, a ne osoba.
     question: "Kako se isti pokazatelj razlikuje medju zemljama u istoj godini?"
     role: "Usporedivost, oznake kvalitete i granica ekoloske interpretacije."
     consumers:
       - "WB-C06"
-    source: "Eurostat; predlozeni skup drustvenih pokazatelja."
-    version: "tocni kodovi, rezovi i datum nisu odabrani"
-    licence: "Eurostat dopusta ponovnu uporabu uz priznanje izvora, oznaku izmjena i propisani disclaimer, uz iznimke za sadrzaj trecih strana"
-    attribution: "Eurostat kao izvor, naslov skupa, oznaka izmjena i propisani disclaimer."
-    access: "Sluzbena baza ili API."
-    redistribution: "ne potvrdjuje se za neodabrane pokazatelje"
-    lane: "portal-mediated"
-    refresh_class: "scheduled-manual"
+    source: >-
+      Eurostat Dissemination API, skupovi lfsi_emp_a, ilc_peps01n, sdg_04_20,
+      edat_lfse_14, isoc_ci_ifp_iu i demo_pjanind; svi odgovori nose izvorni
+      agencijski kod ESTAT i SOURCE_INSTITUTIONS = Eurostat.
+    version: >-
+      Presjek 2025. preuzet 10. kolovoza 2026. Verzije struktura redom su 47.0,
+      80.0, 44.0, 48.0, 52.0 i 33.0; vremena azuriranja svakoga skupa stoje u
+      data/eurostat_drustvo/USKLADJENJE.json i putovnici.
+    licence: "Eurostat — Copyright notice and free re-use of data"
+    licence_uri: "https://ec.europa.eu/eurostat/help/copyright-notice"
+    attribution: >-
+      Sest zasebnih recenica oblika Source: [Eurostat dataset datacode link],
+      10 August 2026., zatim tocna oznaka izmjena i disclaimer iz
+      data/eurostat-drustvo.LICENCA.md. Nijedno dopustenje nositelja prava nije
+      trazeno ni pripisano.
+    access: >-
+      Jedan odobreni batch od sest GET zahtjeva prema sluzbenom Eurostatovu
+      Dissemination API-ju, izvan rendera; tocni URL-ovi su u
+      data/eurostat_drustvo/UPITI.json.
+    redistribution: "provjerena prema objavljenim Eurostatovim uvjetima za ovaj tocno omedjeni presjek"
+    lane: "bundled"
+    refresh_class: "pinned"
     fallback: >-
-      Dok P3-EUROSTAT ne promice tocan skup, obvezni put koristi DZS paket ili
-      generirani skup.
+      Ista lokalna CSV snimka opsluzuje R, put bez koda i tisak. Ako se izgubi,
+      obvezni racunski put vraca se na anketa_mreze; render nikada ne dohvaca
+      Eurostat i ne smije tiho osvjeziti godinu ili vrijednosti.
+    provenance:
+      retrieved_at: "2026-08-10"
+      route: >-
+        Autor je izricito odobrio jedan ograniceni sluzbeni dohvat. Paket je u
+        jednome izvodjenju poslao sest unaprijed zapisanih GET zahtjeva na
+        ec.europa.eu, svaki tocno jednom i bez ponavljanja, izmedju 12:39:03 i
+        12:39:10 UTC. Upiti, sirovi odgovori, HTTP trag i checksum svakoga
+        odgovora ostaju u repozitoriju; nikakav CroAIcon staging nije koristen.
+      chain:
+        - "odluka:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+        - "upiti:data/eurostat_drustvo/UPITI.json"
+        - "izvor:data/eurostat_drustvo/raw/*.json (sest neizmijenjenih odgovora)"
+        - "trag:data/eurostat_drustvo/PREUZIMANJE.json"
+        - "izvadak:scripts/build-eurostat-extracts.py"
+        - "uskladjenje:data/eurostat_drustvo/USKLADJENJE.json"
+      source_last_modified: null
+      source_last_modified_note: >-
+        HTTP odgovori ne nose Last-Modified. To se ne nadomjesta izmisljenim
+        datumom: svaki odgovor nosi vlastiti JSON-stat updated i verziju
+        datastructure, a obje su vrijednosti trajno zapisane u uskladjenju i
+        putovnici.
+      transformations:
+        - "Odabir samo referentne godine 2025. i tocno 27 drzava clanica EU-a."
+        - "Odabir sest ratificiranih rezova prema izvornim kodovima dimenzija."
+        - "Spajanje sest tablica u jedan dugi raspored s kljucem geo+godina+pokazatelj."
+        - "Dodavanje hrvatskih naziva drzava i pokazatelja bez izmjene izvornih kodova."
+        - "Doslovni prijenos brojcane vrijednosti i API statusa; odvojena klasifikacija OBS_STATUS i CONF_STATUS bez gubitka izvornoga tokena."
+        - "Izvorna odsutnost vrijednosti zapisana je kao :, nikada kao nula, prazno polje ili druga godina."
+        - "UTF-8 bez BOM-a, LF zavrsetak retka i stabilno ASCII ime datoteke."
+    missing_value_codes:
+      - code: ":"
+        meaning: "izvorna brojcana vrijednost nije objavljena"
+        occurs_in_extract: true
+        note: >-
+          Pojavljuje se tocno jednom: Luksemburg, rano napustanje obrazovanja,
+          2025. Red ostaje u tablici sa status_api = u (low reliability) i
+          vrijednost_dostupna = ne; nije nula i nije popunjen drugom godinom.
     integrity:
-      checksum: null
-      official_reconciliation: null
+      checksum: "1dc076aeac134b6bbf9022ece6475747"
+      checksum_algorithm: "md5"
+      official_reconciliation: >-
+        Svih 162 kljuca ponovno se grade iz sest neizmijenjenih sluzbenih
+        JSON-stat odgovora. Za svaki red provjeravaju se izvorni polozaj celije,
+        vrijednost ili odsutnost, API status i tocan rez dimenzija, s
+        tolerancijom 0. Rezultat je 162 ocekivana i opazena kljuca, 0 duplikata,
+        161 brojcana vrijednost i 1 izvorno odsutna vrijednost. Svaki sirovi
+        odgovor prije toga mora proci vlastiti MD5 i SHA-256 iz manifesta.
       note: >-
-        P3-EUROSTAT mora iskljuciti iznimke za sadrzaj trecih strana prije nego
-        sto se traka uopce moze mijenjati.
-    promoted: false
-    promoting_gate: "G-A3-EUROSTAT"
-    files: []
+        Glavni checksum pripada nastavnoj datoteci
+        data/eurostat-drustvo-2025.csv. Checksumovi plana upita, traga dohvata,
+        uskladjenja i svih sest sirovih odgovora zapisani su u putovnici i
+        PREUZIMANJE.json; builder ih provjerava bez mreze.
+    promoted: true
+    promoted_by: "P3-EUROSTAT"
+    promoting_gate: "P3-EUROSTAT"
+    promoting_gate_ratified_by: "G-A3-EUROSTAT"
+    promoting_gate_ratified_record: "notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+    files:
+      - "data/eurostat-drustvo-2025.csv"
     aggregate_view: null
+    snapshot_notice: "data/eurostat-drustvo.LICENCA.md"
+    passport: "data/eurostat_drustvo/PUTOVNICA.md"
+    build_script: "scripts/build-eurostat-extracts.py"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Ovo su objavljeni drzavni agregati, a ne mikropodaci. Tezine eventualnih
+        uzvodnih anketa dio su Eurostatova proizvodnog postupka i nisu stupac
+        objavljene tablice; ne smiju se izmisliti niti prenijeti na drzavni red.
+      precision_note: >-
+        Sve 161 brojcane vrijednosti serijalizirane su izravno iz JSON brojeva,
+        bez preracunavanja i zaokruzivanja. Razlicit broj decimala ostaje
+        svojstvo izvora. Jedinice ostaju izvorni kodovi PC, PC_IND i PC_POP.
+      missing_note: >-
+        Jedina odsutna vrijednost ostaje doslovni znak :, uz izvorni status u i
+        zasebnu oznaku vrijednost_dostupna = ne. Praznih celija nema. Statusna
+        oznaka sama ne znaci nedostajanje: hrvatska vrijednost 2.1 nosi isti u.
+    file_records:
+      - path: "data/eurostat-drustvo-2025.csv"
+        role: "analysis"
+        md5: "1dc076aeac134b6bbf9022ece6475747"
+        rows: 162
+        row_band: [162, 162]
+        key: "geo+godina+pokazatelj"
+        columns:
+          - name: "geo"
+            type: "label"
+            unit: "Eurostatova geografska sifra"
+            missing_code: null
+            levels: ["AT", "BE", "BG", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "EL", "HR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"]
+            description: "Izvorna sifra jedne od 27 drzava clanica EU-a."
+          - name: "zemlja"
+            type: "label"
+            unit: "naziv drzave"
+            missing_code: null
+            levels: ["Austrija", "Belgija", "Bugarska", "Cipar", "Češka", "Danska", "Estonija", "Finska", "Francuska", "Njemačka", "Grčka", "Hrvatska", "Mađarska", "Irska", "Italija", "Latvija", "Litva", "Luksemburg", "Malta", "Nizozemska", "Poljska", "Portugal", "Rumunjska", "Slovačka", "Slovenija", "Španjolska", "Švedska"]
+            pairs_with: "geo"
+            description: "Hrvatska oznaka uz izvornu geografsku sifru."
+          - name: "godina"
+            type: "integer"
+            unit: "referentna godina"
+            missing_code: null
+            min: 2025
+            max: 2025
+            description: "Zajednicka referentna godina svih 162 kljuceva."
+          - name: "pokazatelj"
+            type: "label"
+            unit: "oznaka pokazatelja"
+            missing_code: null
+            levels: ["stopa_zaposlenosti_20_64", "rizik_siromastva_ili_iskljucenosti", "tercijarno_obrazovanje_25_34", "rano_napustanje_obrazovanja_18_24", "uporaba_interneta_16_74", "udio_stanovnistva_65_plus"]
+            description: "Stabilna hrvatska ASCII sifra jednoga od sest ratificiranih pokazatelja."
+          - name: "pokazatelj_hr"
+            type: "label"
+            unit: "naziv pokazatelja"
+            missing_code: null
+            pairs_with: "pokazatelj"
+            description: "Puni hrvatski naziv pokazatelja; tocan izvorni rez stoji u putovnici."
+          - name: "eurostat_dataset"
+            type: "label"
+            unit: "Eurostatov datacode"
+            missing_code: null
+            levels: ["lfsi_emp_a", "ilc_peps01n", "sdg_04_20", "edat_lfse_14", "isoc_ci_ifp_iu", "demo_pjanind"]
+            description: "Izvorni Eurostatov kod tablice iz koje je red izveden."
+          - name: "vrijednost"
+            type: "number"
+            unit: "postotak prema stupcu jedinica"
+            missing_code: ":"
+            min: 2.1
+            max: 99.78
+            description: "Izvorna brojcana vrijednost ili : kada izvor broj nije objavio."
+          - name: "jedinica"
+            type: "label"
+            unit: "Eurostatov kod mjerne jedinice"
+            missing_code: null
+            levels: ["PC", "PC_IND", "PC_POP"]
+            description: "Postotak, postotak pojedinaca ili postotak ukupnoga stanovnistva."
+          - name: "status_api"
+            type: "label"
+            unit: "izvorni JSON-stat statusni token"
+            missing_code: null
+            levels: ["bez_objavljene_oznake", "b", "d", "e", "ep", "p", "u"]
+            description: "Doslovni statusni token izvora ili izricita oznaka da token nije objavljen."
+          - name: "obs_status"
+            type: "label"
+            unit: "OBS_STATUS"
+            missing_code: null
+            levels: ["bez_objavljene_oznake", "b", "d", "e", "ep", "p", "u"]
+            description: "Opazacka komponenta izvornoga statusa; znacenja i brojnosti su u putovnici."
+          - name: "conf_status"
+            type: "label"
+            unit: "CONF_STATUS"
+            missing_code: null
+            levels: ["bez_objavljene_oznake"]
+            description: "Odabrane celije nemaju objavljenu oznaku povjerljivosti."
+          - name: "vrijednost_dostupna"
+            type: "label"
+            unit: "oznaka dostupnosti"
+            missing_code: null
+            levels: ["da", "ne"]
+            description: "Ne samo za jedini red s vrijednost = :; statusna oznaka sama nije nedostajanje."
     permissible_claims:
-      - "opis objavljenoga pokazatelja po zemlji i godini"
+      - "opis sest objavljenih pokazatelja medju 27 drzava clanica u zajednickoj 2025. godini uz sve izvorne statuse"
+      - "povezanost medju drzavnim agregatima i pitanje trece varijable uz izricitu granicu ekoloskoga zakljucivanja"
     unavailable_claims:
       - "zakljucak o pojedincu iz drzavnoga agregata"
       - "uzrocnost"
+      - "promjena kroz vrijeme iz jednoga presjeka"
+      - "popunjavanje Luksemburga drugom godinom ili nulom"
+      - "tvrdnja o zemlji izvan EU-a"
     ethics:
       category_ownership: "Definicije odredjuje europska statisticka metodologija."
-      absence: "Zemlje bez objave i oznacene niske pouzdanosti ostaju vidljive kao takve."
+      absence: >-
+        Luksemburska odsutna vrijednost i svi statusi ostaju vidljivi. Oznaka `u`
+        na hrvatskoj objavljenoj vrijednosti pokazuje zasto se zastavica ne smije
+        automatski pretvoriti u nedostajanje.
       identifiability: "Agregat; nijedna osoba nije prepoznatljiva."
       beneficiaries: "Citatelj koji uci usporedjivati uz istu definiciju."
       error_burden: "Pogresna usporedba pada na javnu raspravu o zemlji."
       appeal: "Nije primjenjivo za agregat."
     caveats:
       - "Zastavice kvalitete i nedostajuce vrijednosti moraju ostati vidljive."
+      - "status_api je jedini doslovni status izvora; obs_status i conf_status samo su njegova dokumentirana klasifikacija."
+      - "Jedan presjek drzava ne dopusta individualnu ni uzrocnu interpretaciju."
 
   - id: "ess_r11_hr"
     name: "European Social Survey, Round 11, Hrvatska"

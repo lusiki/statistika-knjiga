@@ -719,6 +719,72 @@ validate_digikat_repairs <- function(entry, tables) {
   messages
 }
 
+validate_eurostat_snapshot <- function(entry, tables) {
+  messages <- character()
+  note <- function(...) messages <<- c(messages, paste0(entry$id, ": ", ...))
+  path <- "data/eurostat-drustvo-2025.csv"
+  table <- tables[[path]]
+  if (is.null(table)) return(messages)
+
+  expected_geo <- c(
+    "AT", "BE", "BG", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "EL",
+    "HR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT",
+    "RO", "SK", "SI", "ES", "SE"
+  )
+  expected_indicators <- c(
+    "stopa_zaposlenosti_20_64",
+    "rizik_siromastva_ili_iskljucenosti",
+    "tercijarno_obrazovanje_25_34",
+    "rano_napustanje_obrazovanja_18_24",
+    "uporaba_interneta_16_74",
+    "udio_stanovnistva_65_plus"
+  )
+  keys <- paste(table$geo, table$godina, table$pokazatelj, sep = "\r")
+  if (length(keys) != 162L || anyDuplicated(keys) ||
+      !setequal(unique(table$geo), expected_geo) ||
+      !setequal(unique(table$pokazatelj), expected_indicators) ||
+      any(table$godina != "2025")) {
+    note("the ratified 27-country x 6-indicator x 2025 key grid is not exact")
+  }
+
+  unavailable <- table$vrijednost_dostupna == "ne"
+  expected_missing <- table$geo == "LU" &
+    table$pokazatelj == "rano_napustanje_obrazovanja_18_24" &
+    table$godina == "2025"
+  if (!identical(unavailable, expected_missing) ||
+      !identical(table$vrijednost == ":", expected_missing)) {
+    note("the one official missing value must remain LU early-leaving 2025 and ':'")
+  }
+  if (sum(expected_missing) != 1L ||
+      table$status_api[expected_missing] != "u" ||
+      table$obs_status[expected_missing] != "u" ||
+      table$conf_status[expected_missing] != "bez_objavljene_oznake") {
+    note("the official LU missing value must retain API/OBS status u and explicit absent CONF status")
+  }
+  if (any(table$status_api != table$obs_status) ||
+      any(table$conf_status != "bez_objavljene_oznake")) {
+    note("selected status tokens must remain observational and confidentiality-unmarked")
+  }
+
+  builder <- put("scripts", "build-eurostat-extracts.py")
+  python <- Sys.which("python")
+  if (!file.exists(builder)) {
+    note("offline Eurostat builder is absent")
+  } else if (!nzchar(python)) {
+    note("Python is unavailable for the offline Eurostat builder check")
+  } else {
+    output <- suppressWarnings(system2(
+      python, shQuote(builder), stdout = TRUE, stderr = TRUE
+    ))
+    status <- attr(output, "status")
+    if (is.null(status)) status <- 0L
+    if (status != 0L) {
+      note("offline builder verification failed: ", paste(output, collapse = " | "))
+    }
+  }
+  messages
+}
+
 snapshot_failures <- character()
 validated_files <- 0L
 reconciliations <- 0L
@@ -808,6 +874,10 @@ if (exists("parsed") && is.list(parsed)) {
     if (identical(entry$id, "digikat_mediji")) {
       snapshot_failures <- c(snapshot_failures,
                              validate_digikat_repairs(entry, tables))
+    }
+    if (identical(entry$id, "eurostat_drustvo")) {
+      snapshot_failures <- c(snapshot_failures,
+                             validate_eurostat_snapshot(entry, tables))
     }
   }
 }
