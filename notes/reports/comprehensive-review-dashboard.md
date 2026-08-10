@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-VERIFY-B
-next_permitted_packet: WB-C04
+last_completed_packet: WB-C04
+next_permitted_packet: C04
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 85
+forward_handoffs: 86
 last_updated: "2026-08-10"
 ---
 
@@ -46,11 +46,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-VERIFY-B` |
-| Next permitted packet | `WB-C04` only |
+| Last completed packet | `WB-C04` |
+| Next permitted packet | `C04` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 164 accepted, 5 deferred with reason, 202 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 81 accepted, 106 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 82 accepted, 105 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -60,6 +60,75 @@ stop and repair the control state before editing book content.
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## WB-C04 claim
+
+- The clean source state is commit
+  `7cd017a9b60e736dbaed8f507088674bb50ffdf3` on
+  `revision/comprehensive-review`; `P3-VERIFY-B` and `P2-SPINE-II` are
+  accepted, and `WB-C04` was the sole next permitted packet before claim.
+- The packet owns only Chapter 4, its same-packet concept reconciliation,
+  WB-C04 evidence reports and the three workflow-control views. It does not
+  open `C04`, advance the chapter ledger, claim an author reading, or start
+  `WB-C05`.
+- `H-G-A3-DIGIKAT-002` was consumed before claim. Its four boundaries are now
+  explicit: no trend claim across 2024; no comparison across June 2024 without
+  the method break; 551712 is the denominator for any source-file share; and
+  measured and unmeasured interaction or reach values are never compared.
+- `H-P2-SPINE-II-001`, `H-P2-TERMS-002` and `H-P3-EXISTING-002` were
+  acknowledged before the first substantive edit. Closeout requires exactly
+  four Chapter 4 definition blocks with same-packet ledger/graph
+  reconciliation, and a print-completable aggregate-row task derived from the
+  governed aggregate file without altered values.
+- The vertical slice will be reviewed against the ratified `G-A2b-II` spine
+  with deterministic style, structure and figure preflight plus six independent
+  read-only critics. A fatal or unresolved major methods/evidence finding stops
+  the packet. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## WB-C04 closeout — Chapter 4 vertical slice
+
+- `WB-C04` is accepted on source SHA-256
+  `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`.
+  The complete evidence record is `notes/reports/wb-c04-2026-08-10.md`.
+- `H-G-A3-DIGIKAT-002` was consumed before claim. The three `before_close`
+  deliveries `H-P2-SPINE-II-001`, `H-P2-TERMS-002` and
+  `H-P3-EXISTING-002` are now consumed with concrete source, registry and check
+  evidence.
+- The visible pipeline distinguishes all three DigiKat units, requires the
+  full `godina + platforma` join key, separates structural unmeasurement from
+  measured zero, fixes the 2025 represented set and names 551.712 as every
+  source-file share denominator. It makes no 2024 trend or forbidden
+  interaction/reach comparison.
+- The correct join preserves 438 rows, 438 monthly keys and 710.307 posts. The
+  deliberately wrong join produces 3.571 rows, still only 438 monthly keys and
+  5.959.081 posts. Assertions make both paths fail closed.
+- The domain summary is locked to 3.604 domains, 551.712 posts, mean 153,0832,
+  median 4 and top-ten total 148.748 or 26,96 %. The actual HTML output was
+  inspected after a sequential-`summarise()` masking defect was corrected.
+- Chapter 4 now has exactly four definition blocks. The checkout-local concept
+  ledger and terminology count agree at 47 live definitions, and the regenerated
+  graph has 47 nodes and 497 edges with zero ledger debt and a fresh graph.
+- The exact widget presets work in HTML and print. The aggregate-row task reads
+  `data/anketa-mreze-agregat.csv`, supplies the print arithmetic and asks the
+  reader to reproduce one row from `data/anketa-mreze.csv`; no governed value,
+  snapshot or checksum changed.
+- Final HTML, PDF and wrapper-built DOCX renders exited 0 at the final material
+  hash. Their SHA-256 values are respectively `3bad6217cb25df3b6d7b7fef12f9c1e08610fcf892c649c39bd005a584edea1d`,
+  `b19d5b0b6d94803904aafbf04711c9bead918073da9528c0bed11917c7f3db31`
+  and `9923070a490b734e520671bc6f344bce24ca99a84e17381728eafd5322393222`.
+  Generated `docs/`, `_freeze/`, AI exports and Word output were restored.
+- Six independent read-only critics confirmed the final hash. Methods,
+  skepticism, pedagogy, evidence, style and structure each score 5/5 with zero
+  fatal, major or minor finding. The durable synthesis is
+  `notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md`.
+- `H-WB-C04-001` carries the only new future-relevant effect: the stale
+  promotion statement in `data/README.md` must be reconciled by `P5-C` from the
+  canonical catalogue.
+- Chapter 4 remains `draft`. Its six governed content items remain `ratified`
+  until the author-only `C04` decision. `C04` is next but was not opened, no
+  author reading or acceptance was claimed, and `WB-C05` was not started.
+  Push, merge, tag, archive and deployment remain unauthorised.
 
 ## G-A3-EUROSTAT claim
 

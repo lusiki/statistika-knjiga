@@ -2660,7 +2660,24 @@ handoffs:
           - "report:notes/reports/p2-terms-2026-08-05.md#registar-nazivlja-u-conventionsjson"
       - target_packet: WB-C04
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        acknowledgement: >-
+          WB-C04 accepts the ratified four-block Chapter 4 map as a binding
+          closeout obligation: retain aritmeticka sredina, medijan and
+          standardizirana vrijednost; merge varijanca into the standardna
+          devijacija block while naming both terms; demote asimetrija to prose
+          under .pojam; and add no unapproved definition block.
+        disposition: >-
+          Chapter 4 now carries exactly four live definition blocks. It retains
+          aritmeticka sredina, medijan and standardizirana vrijednost, merges
+          varijanca into the defining sentence of standardna devijacija, moves
+          asimetrija to prose under .pojam and adds no unapproved block.
+        evidence:
+          - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+          - "check:scripts/check-manuscript-integrity.py-Chapter-4-def-4"
+          - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
 
   H-G-A2B-III-001:
     source_packet: G-A2b-III
@@ -3778,7 +3795,27 @@ handoffs:
           - "report:notes/reports/wa-c03-2026-08-06.md#dolazne-isporuke"
       - target_packet: WB-C04
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        acknowledgement: >-
+          WB-C04 will reconcile each live #def- change with the checkout-local
+          concept ledger in this same packet, follow any notation dependency,
+          regenerate data/concept-graph.json through the required launcher and
+          prove zero ledger debt plus a fresh graph before closeout. It will not
+          rename a #def- identifier, add an unapproved block or restore debt.
+        disposition: >-
+          The same packet removed the superseded standalone varijanca and
+          asimetrija nodes, kept both canonical terms in the standardna
+          devijacija entry, reconciled notation, changed the live count from 49
+          to 47, regenerated the graph through the required launcher and left
+          zero ledger debt with a fresh 47-node graph.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#standardna-devijacija"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map-live_count-47"
+          - "generated:data/concept-graph.json-47-nodes-497-edges"
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-ledger_debt-0-graph_fresh-true"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-47-approved_total-52"
       - target_packet: WC-C12
         gate: before_close
         state: pending
@@ -4554,7 +4591,26 @@ handoffs:
     deliveries:
       - target_packet: WB-C04
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        acknowledgement: >-
+          WB-C04 will derive every print preset from the governed aggregate
+          view, preserve its exact stored values and include a task in which the
+          reader reproduces one aggregate row from the analysis view. Any
+          aggregate change would require snapshot regeneration and checksum
+          reconciliation; none is planned at claim.
+        disposition: >-
+          The print-visible task reads data/anketa-mreze-agregat.csv without
+          changing its stored values, presents every numerator denominator total
+          and mean needed for hand checking, and asks the reader to reproduce
+          the first aggregate row from data/anketa-mreze.csv. No snapshot or
+          checksum changed.
+        evidence:
+          - "source:chapters/04-sazimanje-podataka.qmd#racunski"
+          - "source:data/anketa-mreze-agregat.csv"
+          - "source:data/anketa-mreze.csv"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-generated_sets-2-rows-50300"
       - target_packet: WC-C09
         gate: before_close
         state: pending
@@ -5398,7 +5454,23 @@ handoffs:
           - "check:DATA_NEGATIVE_FIXTURES_OK-cases-44"
       - target_packet: WB-C04
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C04, the packet bound the verified DigiKat limits
+          to its source and review scope. It will make no growth or trend claim
+          across 2024, no before/after-June-2024 comparison without the method
+          break, no source-file share against any denominator other than
+          551712, and no interaction or reach comparison between measured and
+          unmeasured platforms. The Chapter 4 distribution slice may use only
+          the independently verified source-table quantities, with structural
+          missingness kept distinct from measured zero.
+        evidence:
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "check:INDEPENDENT_DIGIKAT_OK-49-438-3604-divergent-17-net-0"
+          - "check:DIGIKAT_RECONCILIATION_OK-years-6-denominator-tolerance-0"
+          - "source:data/digikat-izvori.csv-denominator-551712"
       - target_packet: WB-C05
         gate: before_start
         state: pending
@@ -5571,6 +5643,38 @@ handoffs:
         gate: before_close
         state: pending
       - target_packet: P8-META
+        gate: before_close
+        state: pending
+
+  H-WB-C04-001:
+    source_packet: WB-C04
+    created_at: "2026-08-10"
+    kind: risk
+    refs:
+      - source:data/README.md
+      - registry:data/katalog.yml#digikat_mediji
+      - report:notes/reports/wb-c04-critic-evidence-2026-08-10.md
+    statement: >-
+      data/README.md still says that all three author-derived external packages
+      are registered and none is promoted. That statement became stale when
+      digikat_mediji and the other governed packages advanced through their
+      promotion packets. WB-C04 relies on the canonical catalogue, passport,
+      licence notice and validated files, so the stale README does not invalidate
+      Chapter 4, but leaving it uncorrected would give future readers a public
+      documentation view that contradicts the governed state.
+    required_action: >-
+      P5-C must generate and reconcile the public data view from data/katalog.yml
+      and update data/README.md so each package status agrees with the canonical
+      catalogue. The correction must not widen licence, permission, consumer or
+      claim boundaries and must pass catalogue and data-integrity checks.
+    basis:
+      - "source:data/README.md-lines-38-40-states-none-promoted"
+      - "registry:data/katalog.yml#digikat_mediji-promoted-true"
+      - "check:scripts/check-katalog.py-KATALOG_OK-packages-20-promoted-5"
+      - "boundary:documentation-only-no-WB-C04-source-defect"
+    required: true
+    deliveries:
+      - target_packet: P5-C
         gate: before_close
         state: pending
 
@@ -7565,3 +7669,21 @@ packet_reviews:
       - catalogue data integrity 44 data fixtures and seven general integrity fixture lanes pass
       - P3-VERIFY-C P3-ESS and P3-TEXT remain later ratified work and are not hidden as Wave B prerequisites
       - commit f6d25bb changes no chapter appendix docs freeze or shared Bookwright registry path and the review made no network request
+
+  WB-C04:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WB-C04-001
+    implementation_state: source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19
+    checks:
+      - H-G-A3-DIGIKAT-002 was consumed before claim and all three before-close deliveries were acknowledged before editing and consumed at closeout
+      - the Chapter 4 definition map is exactly four blocks and the same-packet ledger terminology count and generated graph reconcile at 47 live definitions
+      - the complete source-to-summary path distinguishes three units the full join key structural missingness represented sets and the 551712 source denominator
+      - the wrong-join audit asserts 3571 rows 438 monthly keys and 5959081 posts while the correct join preserves 438 rows and 710307 posts
+      - the source and rendered HTML reproduce mean 153.0832 median 4 top-ten 148748 and share 26.96 percent of 551712
+      - the print presets and aggregate-row task use governed local files without changing any snapshot or checksum
+      - final HTML PDF and wrapper-built DOCX renders exited zero at the declared chapter hash and generated artifacts were restored
+      - six independent read-only critics each scored the final hash 5 of 5 with zero fatal major or minor finding
+      - H-WB-C04-001 carries the only new future-relevant effect the stale data README promotion statement to P5-C
+      - C04 was not opened no author reading or acceptance was claimed and no external action was taken
