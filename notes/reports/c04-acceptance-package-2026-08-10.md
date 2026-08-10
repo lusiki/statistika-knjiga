@@ -2,11 +2,15 @@
 
 **Gate:** `C04`
 
-**Stanje gatea:** pripremljen; čeka autorovu odluku.
+**Stanje gatea:** autor prihvatio; dispozicija provedena.
 
 **Imenovani vlasnik odluke:** Luka Šikić, autor/editor.
 
 **Datum pripreme:** 10. kolovoza 2026.
+
+**Datum autorove odluke:** 10. kolovoza 2026.
+
+**Datum zapisa odluke:** 10. kolovoza 2026.
 
 ## Konačno materijalno stanje
 
@@ -69,10 +73,9 @@ katalogom. Ta obveza ne mijenja ishod C04 i C04 je ne smije potrošiti.
 Registrirani dug uvoda uz `fig-anscombe` pripada paketu `WB-C05`; ostaje otvoren
 i nije nalaz protiv četvrtoga poglavlja.
 
-## Predložena dispozicija registra i knjige poglavlja
+## Provedena dispozicija registra i knjige poglavlja
 
-Ako autor prihvati ovaj paket vezan uz navedeni commit, C04 treba provesti
-sljedeću usku dispoziciju:
+C04 je proveo sljedeću usku dispoziciju vezanu uz navedeni commit:
 
 - `04-sazimanje-podataka` u
   `bookwright_plugin/bookwright/shared/chapter-ledger.json` prelazi iz `draft`
@@ -88,20 +91,38 @@ sljedeću usku dispoziciju:
   - `R13-C04-denominators`;
   - `R32-C04-static`.
 
-Ni jedna od tih promjena još nije provedena. Poglavlje ostaje `draft`, svih
-šest stavki ostaje `ratified`, a C04 ostaje otvoren dok autor ne odgovori.
-Stalna delegacija od 5. kolovoza ne zamjenjuje odgovor koji ovaj gate izričito
-zahtijeva.
+Svih šest stavki sada je `accepted`, `04-sazimanje-podataka` sada je
+`coauthor_review`, a C04 je zatvoren kao `accepted`. To ne tvrdi da je autor
+pročitao poglavlje i ne proglašava ga konačnim. Stalna delegacija od 5.
+kolovoza nije upotrijebljena umjesto odgovora koji je ovaj gate izričito
+zahtijevao.
 
 ## Točan odgovor autora
 
-Za prihvaćanje odgovorite doslovno:
+Odgovor je primljen u aktivnoj niti i zapisan doslovno:
 
 ```text
-C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10.
+status: accepted
+author_reply: C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10.
+reply_evidence: conversation:user-message-recorded-2026-08-10
 ```
 
-Ili navedite točne blokirajuće revizije vezane uz isti commit. Odgovor ne mora
-tvrditi da ste pročitali poglavlje; on prihvaća sintetiziranu dispoziciju.
+Odgovor navodi točan završni izvorni commit i datum odluke. Ne tvrdi se da je
+autor pročitao poglavlje.
+
+## Autorski amandman za ovu nit
+
+Autorova uputa od 10. kolovoza 2026. dopušta da ova nit, nakon zatvaranja C04,
+nastavi strogo redom kroz `WB-C05`, `C05`, `WB-C06` i `C06`. Svaki paket čuva
+vlastiti zahtjev, jednu aktivnu write-lock granicu, dokaze, dispoziciju
+handoffa, workflow provjeru i lokalni commit. `C05` i `C06`, poput C04,
+zahtijevaju stvarni autorov odgovor; stalna delegacija nije zamjena.
+
+Izmjena je zapisana u registru kao `A-THREAD-C04-C06-2026-08-10`, a handoff
+`H-C04-THREAD-SEQUENCE-001` prenosi je četirima preostalim paketima. Ona ne
+spaja pakete, ne dopušta dvije aktivne write-lock granice i ne autorizira ni
+jedan paket izvan imenovanoga slijeda.
+
+`WB-C05` je sljedeći dopušteni paket i nije otvoren u C04.
 
 Push, merge, tag, arhiviranje, deployment i objava nisu dio ove odluke.

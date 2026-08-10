@@ -10,17 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C04"
-    claimed_at: "2026-08-10"
-    owned_paths:
-      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
-      - "notes/reports/c04-acceptance-package-2026-08-10.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WB-C04"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C04"
+  next_permitted_packet: "WB-C05"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2096,6 +2088,42 @@ decisions:
       identity brief, no accepted architecture, no style rule, no #def- block, no
       data package and no rights decision. It authorises no render, generated
       artifact, push, merge, tag, archive, deployment or publication.
+
+  A-THREAD-C04-C06-2026-08-10:
+    kind: "author_amendment"
+    status: "accepted"
+    accepted_at: "2026-08-10"
+    author: "Luka Sikic"
+    evidence: "conversation:author-amendment-C04-WB-C05-C05-WB-C06-C06-2026-08-10-Luka-Sikic"
+    decision_record: "notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit"
+    recorded_at_packet: "C04"
+    amends: "AGENTS.md#comprehensive-review-packet-workflow"
+    accepted_dispositions:
+      strict_packet_chain:
+        - "C04"
+        - "WB-C05"
+        - "C05"
+        - "WB-C06"
+        - "C06"
+      packet_boundary: >-
+        Each packet remains independently claimed, evidenced, handoff-disposed,
+        closed, workflow-checked and committed before the next is claimed. At
+        most one write packet may be active and no evidence or lock is carried
+        across packet boundaries.
+      acceptance_replies: >-
+        C04, C05 and C06 each require the named author's exact dated reply tied
+        to the final chapter source commit. The 2026-08-05 standing delegation
+        cannot substitute for those replies and no packet may record that the
+        author read a chapter.
+      stop_conditions: >-
+        Stop before the next packet if an exit test lacks real evidence, if a
+        fatal or unresolved major panel finding remains, or if completion would
+        require inventing a number, source, study or citation.
+    authority_boundary: >-
+      This thread-only amendment replaces the usual stop-after-one-packet rule
+      only for the named strict chain through C06. It does not combine packets,
+      authorise a second write lock, waive any gate, widen source or content
+      scope, or authorise push, merge, tag, archive, deployment or publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -9442,7 +9470,7 @@ packets:
     sequence: 90
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WB-C04"
     scope: "Author acceptance and panel disposition for C04."
@@ -9453,14 +9481,73 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-pedagogy-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-style-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "report:notes/reports/c04-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#04-sazimanje-podataka-stage-coauthor_review"
+            - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+            - "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "check:scripts/check-chapter-spines.py-C04-accepted-stage-transition"
+      outputs:
+        - output: "C04 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c04-acceptance-package-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#04-sazimanje-podataka-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C04 source state and bounded scope."
+          artifacts:
+            - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+            - "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "decision:A-THREAD-C04-C06-2026-08-10"
+            - "handoff:H-C04-THREAD-SEQUENCE-001"
+            - "check:scripts/check-review-workflow.R-at-C04-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-14-draft-5-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c04-acceptance-package-2026-08-10.md"
+            - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+            - "reports:wb-c04-six-final-critic-reports"
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#04-sazimanje-podataka-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   WB-C05:
     sequence: 91
     phase: "4"
@@ -15699,7 +15786,7 @@ items:
       location: "§8 Ch4"
     description: "Source the general engagement-distribution claim or confine it to the simulation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -15718,11 +15805,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#oblik-raspodjele-i-polozaj-opazanja"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R08-DESIGN-policy:
     parents:
       - "R08"
@@ -18191,7 +18284,7 @@ items:
       location: "§12 analysis table"
     description: "Show a consequential pipeline with identifiers, row multiplication, totals/components, codes, missingness, and filters."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18210,11 +18303,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#od-izvora-do-sazetka"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R11-C12-pipeline-flexibility:
     parents:
       - "R11"
@@ -18300,7 +18399,7 @@ items:
       location: "§12 analysis table"
     description: "Plant one AI error with correct arithmetic after a row-multiplying or mismatched join."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18319,11 +18418,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#interakcija-oblikovanje-distribucije"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R11-C04-missingness:
     parents:
       - "R11"
@@ -18337,7 +18442,7 @@ items:
       location: "§12 missingness"
     description: "Teach missingness as evidence about the data-generating process using all five steps."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18356,11 +18461,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#kada-nula-znaci-da-mjera-nije-dostupna"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R11-SCOPE-no-multiple-imputation:
     parents:
       - "R11"
@@ -19170,7 +19281,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Use a bounded word-count example to teach denominators."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19189,11 +19300,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#nazivnik-je-dio-tvrdnje"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R13-C05-frequency-visual:
     parents:
       - "R13"
@@ -26145,7 +26262,7 @@ items:
       location: "§8/§11 + §15 R32"
     description: "Supply print-completable data/presets for every widget-dependent Chapter 4 task."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26165,11 +26282,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#racunski"
+      - "report:notes/reports/wb-c04-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R32-C09-static:
     parents:
       - "R32"
@@ -28873,7 +28996,7 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C04-ACCEPTANCE:
-    status: "drafted_unsent"
+    status: "done"
     readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
@@ -28908,6 +29031,9 @@ outside_asks:
     resume_condition: "C04 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: "C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-10"
 
   OA-C05-ACCEPTANCE:
     status: "drafted_unsent"

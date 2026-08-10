@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-06"
+last_updated: "2026-08-10"
 inventory_child_count: 371
 
 protocol:
@@ -5678,6 +5678,46 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-C04-THREAD-SEQUENCE-001:
+    source_packet: C04
+    created_at: "2026-08-10"
+    kind: decision
+    refs:
+      - decision:A-THREAD-C04-C06-2026-08-10
+      - report:notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit
+      - conversation:author-amendment-C04-WB-C05-C05-WB-C06-C06-2026-08-10-Luka-Sikic
+    statement: >-
+      For this thread only, the author permits the strict packet chain C04,
+      WB-C05, C05, WB-C06 and C06 while preserving one active write lock and a
+      separate claim, evidence bundle, handoff disposition, workflow check,
+      closeout and commit for every packet. C04, C05 and C06 each require a
+      distinct exact author reply tied to the final chapter source commit; the
+      2026-08-05 standing delegation cannot substitute for those replies.
+    required_action: >-
+      Each remaining target must acknowledge and consume this decision at its
+      stated gate, preserve the strict order and stop before the next packet if
+      any exit test lacks real evidence, a fatal or unresolved major finding
+      remains, or completion would require an invented number, source, study or
+      citation. No target may claim that the author read a chapter.
+    basis:
+      - "decision:A-THREAD-C04-C06-2026-08-10"
+      - "report:notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit"
+      - "boundary:one-write-lock-separate-packet-commits-no-external-action"
+    required: true
+    deliveries:
+      - target_packet: WB-C05
+        gate: before_start
+        state: pending
+      - target_packet: C05
+        gate: before_close
+        state: pending
+      - target_packet: WB-C06
+        gate: before_start
+        state: pending
+      - target_packet: C06
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -7687,3 +7727,26 @@ packet_reviews:
       - six independent read-only critics each scored the final hash 5 of 5 with zero fatal major or minor finding
       - H-WB-C04-001 carries the only new future-relevant effect the stale data README promotion statement to P5-C
       - C04 was not opened no author reading or acceptance was claimed and no external action was taken
+
+  C04:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-C04-THREAD-SEQUENCE-001
+    implementation_state: commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8
+    checks:
+      - no incoming handoff targets C04 and nothing targeting another packet was consumed
+      - the author reply is recorded exactly as C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10
+      - the cited commit remains the final material Chapter 4 source and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19
+      - the synthesis records score 5 of 5 for every perspective and zero unresolved fatal major or minor finding
+      - notes/reports/c04-acceptance-package-2026-08-10.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 04-sazimanje-podataka from draft to coauthor_review and explicitly records no claim that the author read the chapter
+      - all six governed Chapter 4 content items are accepted with source-specific evidence and no other atomic item changes status
+      - OA-C04-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
+      - A-THREAD-C04-C06-2026-08-10 records the strict five-packet author amendment and H-C04-THREAD-SEQUENCE-001 carries it to the four remaining targets
+      - H-WB-C04-001 remains pending for P5-C and the fig-anscombe integrity debt remains owned by WB-C05
+      - scripts/check-chapter-spines.py passes with fourteen draft and five coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget render or generated artifact changed in C04
+      - WB-C05 is next but was not started and push merge tag archive and deployment remain unauthorised
