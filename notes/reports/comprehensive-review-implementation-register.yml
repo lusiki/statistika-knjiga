@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A3-DIGIKAT"
-  next_permitted_packet: "P3-DIGIKAT"
+  last_completed_packet: "P3-DIGIKAT"
+  next_permitted_packet: "G-A3-EUROSTAT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -8926,7 +8926,7 @@ packets:
     sequence: 85
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-DIGIKAT"
     scope: "Dated DigiKat actor package."
@@ -8937,14 +8937,83 @@ packets:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "source:checkout-C:/Users/lsikic/projects/DigiKat@278a127f9170c1aca82035a4a8357b8a995f91d8"
+            - "source:data/katalog.yml#digikat_mediji-source_last_modified-2026-07-22-verified_at-2026-08-10"
+            - "source:data/digikat-mediji.LICENCA.md-CC-BY-4.0-and-aggregate-only-boundary"
+            - "boundary:master-corpus-not-read-no-network-no-rights-holder-permission-claim"
+            - "decision:G-A3-DIGIKAT"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "source:data/katalog.yml#digikat_mediji-file_records-three-typed-codebooks"
+            - "passport:data/digikat_mediji/PUTOVNICA.md"
+            - "source:data/katalog.yml#digikat_akteri-abandoned-with-reason-and-successor-digikat_mediji"
+            - "source:data/katalog.yml#digikat_mediji-consumers-WB-C04-WB-C05-WB-C06"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify"
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_RECONCILIATION_OK-years-6-denominator-tolerance-0-divergent-cells-17-net-0"
+            - "source:data/katalog.yml#digikat_mediji-non_official_reconciliation_substitute-three-passed-tests"
+            - "fixture:non_official_substitute_incomplete-exit-1-for-missing-recorded_divergence"
+            - "md5:annual-d3b5c32aac2a42c72e93d84472d4ca58-monthly-8809a751fdc05236fc54d55986c366ed-sources-fc90ae84bbb0b03d599a7b9cf3fcb08e"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "passport:data/digikat_mediji/PUTOVNICA.md#putovi-uporabe"
+            - "result:annual-49-monthly-438-sources-3604"
+            - "result:corpus-posts-710307-named-source-posts-551712-share-77.67-percent"
+            - "result:complete-years-2021-2022-2023-2025-2024-gap-February-to-May-January-1911"
+            - "result:method-break-flag-TikTok-2023-07-break-2024-06-Instagram-2024-07"
+      outputs:
+        - output: "P3-DIGIKAT validated package, passport, checksum, and route evidence for: Dated DigiKat actor package."
+          artifacts:
+            - "report:notes/reports/p3-digikat-2026-08-10.md"
+            - "source:data/digikat-platforme-godisnje.csv"
+            - "source:data/digikat-platforme-mjesecno.csv"
+            - "source:data/digikat-izvori.csv"
+            - "passport:data/digikat_mediji/PUTOVNICA.md"
+        - output: "Completion evidence is tied to the declared P3-DIGIKAT source state and bounded scope."
+          artifacts:
+            - "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
+            - "handoff:H-G-A3-DIGIKAT-001-consumed-before-claim"
+            - "handoff:H-P3-DZS-003-consumed-at-closeout"
+            - "handoff:no-new-future-relevant-effect-H-G-A3-DIGIKAT-002-already-carries-downstream-boundary"
+            - "amendment:author-2026-08-10-up-to-five-packets-strict-sequence-recorded-in-report-and-dashboard"
+            - "check:scripts/check-review-workflow.R-at-P3-DIGIKAT-closeout"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-katalog.py-packages-20-promoted-4"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-snapshots-20-validated-20-reconciliations-10-undeclared-0"
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_EXTRACTS_OK-mode-verify"
+            - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-42"
+            - "check:scripts/check-integrity-fixtures.py-INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "passport:data/digikat_mediji/PUTOVNICA.md#putovi-uporabe"
+            - "source:three-plain-UTF-8-LF-CSV-files-with-stable-ASCII-names"
+            - "source:data/digikat-mediji.LICENCA.md-CC-BY-4.0"
+            - "boundary:no-portal-lane-promised-no-network-retrieval"
+        - test: "The P3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p3-digikat-2026-08-10.md"
+            - "repair:D-1-2024-godina_potpuna-ne-machine-checked"
+            - "repair:D-2-17-of-49-divergence-recorded-and-recomputed"
+            - "repair:D-3-lom_metode-present-in-both-time-files-and-machine-checked"
+            - "review:packet_reviews.P3-DIGIKAT-declares-no-new-future-relevant-effect"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
   G-A3-EUROSTAT:
     sequence: 86
     phase: "3B"
@@ -13063,7 +13132,7 @@ items:
       location: "§12 DigiKat"
     description: "Document component-level rights and keep the restricted Determ corpus external."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -13081,11 +13150,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-DIGIKAT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-DIGIKAT-rights-and-aggregate-only-selection"
+      - "source:data/digikat-mediji.LICENCA.md-CC-BY-4.0-notice"
+      - "source:data/katalog.yml#digikat_mediji-redistribution-and-rights-boundary"
+      - "source:data/katalog.yml#digikat_akteri-abandoned-with-successor"
+      - "check:repository-scope-contains-only-three-aggregate-CSVs-no-master-corpus"
+      - "boundary:no-rights-holder-permission-claimed-and-none-sought"
+      - "report:notes/reports/p3-digikat-2026-08-10.md#napusteni-kandidat-i-prava"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
   R03-EUROSTAT-rights:
     parents:
       - "R03"
@@ -15890,7 +15966,7 @@ items:
       location: "§12 DigiKat"
     description: "Build dated portable actor-by-platform aggregates with labels, method-break and coverage caveats."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -15908,11 +15984,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-DIGIKAT"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/digikat-platforme-godisnje.csv-49-rows-key-godina-plus-platforma"
+      - "source:data/digikat-platforme-mjesecno.csv-438-rows-key-mjesec-plus-platforma"
+      - "source:data/digikat-izvori.csv-3604-rows-key-izvor"
+      - "repair:D-1-2024-incomplete-D-2-divergence-exact-D-3-method-break-flag"
+      - "result:551712-of-710307-posts-77.67-percent-in-source-file"
+      - "check:scripts/build-digikat-extracts.R-byte-identical-and-reconciliation-contract"
+      - "check:scripts/check-data-integrity.R-real-file-recomputation"
+      - "fixture:non_official_substitute_incomplete-exit-1"
+      - "passport:data/digikat_mediji/PUTOVNICA.md"
+      - "report:notes/reports/p3-digikat-2026-08-10.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
   R08-EUROSTAT-package:
     parents:
       - "R08"

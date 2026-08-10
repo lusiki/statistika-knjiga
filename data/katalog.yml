@@ -114,7 +114,7 @@ portfolio_caps:
     - design: "digital_trace_or_selected_corpus"
       cap: 4
       registered: 4
-      promoted: 0
+      promoted: 1
       exempt_frozen_landmarks: false
     - design: "volunteer_open_survey"
       cap: 1
@@ -136,14 +136,14 @@ promotion_contract:
     - "traka je bundled"
     - "redistribucija je provjerena"
     - "zabiljezen je kontrolni zbroj"
-    - "zabiljezeno je usklađenje sa sluzbenim izvorom"
+    - "zabiljezeno je uskladjenje sa sluzbenim izvorom ili zadovoljena imenovana trodijelna zamjena za nesluzbeni izvor"
     - "naveden je barem jedan datotecni put"
     - "zabiljezena je zakonita zamjena za svaki obvezni studentski put"
     - "paketni gate imenovan u promoting_gate je prihvacen"
     - "promoting_gate imenuje paket koji doista dohvaca, nikada odlucivacki gate"
     - "promotion_log imenuje tocno koje je pakete taj paket promovirao"
     - "snapshot_notice nosi izravnu poveznicu na licencu bas toga paketa"
-  promoted_total: 3
+  promoted_total: 4
   promotion_log:
     - packet: "P3-CATALOG"
       promoted: 0
@@ -163,6 +163,12 @@ promotion_contract:
       record: "notes/reports/p3-dzs-2026-08-05.md"
       packages:
         - "dzs_turizam"
+    - packet: "P3-DIGIKAT"
+      promoted: 1
+      recorded_at: "2026-08-10"
+      record: "notes/reports/p3-digikat-2026-08-10.md"
+      packages:
+        - "digikat_mediji"
   note: >-
     P3-CATALOG je stvorio ugovor i registrirao inventar bez ijedne promocije.
     P3-EXISTING promovira tocno dva generirana paketa, i to jedina dva za koja
@@ -179,7 +185,11 @@ promotion_contract:
     nosi samo broj nego i imena promoviranih paketa, jer se promocija u broju
     moze sakriti, a u imenu ne. I obavijest uz snimku provjerava se prema licenci
     bas toga paketa, a ne prema pretpostavci da je svaki paket CC BY 4.0.
-    Dostupnost i dalje ne promice nista.
+    Dostupnost i dalje ne promice nista. P3-DIGIKAT dodaje usku zamjenu za
+    sluzbeno uskladjenje kada nesluzbeni izvor nema sluzbeni ukupni broj:
+    reprodukcija bajt po bajt, identitet nazivnika bez tolerancije i otvoreno
+    zabiljezena divergencija moraju proci zajedno. Nijedan od ta tri testa ne
+    moze se zamijeniti opisom.
 
 storage_conventions:
   - "UTF-8 kodiranje i stabilna ASCII imena datoteka."
@@ -1677,14 +1687,21 @@ packages:
 
   - id: "digikat_akteri"
     name: "DigiKat agregat aktera"
-    status: "proposed_not_promoted"
+    status: "abandoned_with_successor"
+    abandonment:
+      decided_at: "2026-08-10"
+      decision: "G-A3-DIGIKAT"
+      reason: >-
+        Kandidat opisuje presjek imenovanih aktera koji odobreni izvadak
+        namjerno ne sadrzi. Cisti licencni uvjeti ne ponistavaju urednicku
+        odluku da prvo izdanje ne objavljuje tablice imenovanih pojedinaca.
+      successor: "digikat_mediji"
     design: "digital_trace_or_selected_corpus"
     domain: "digitalni mediji"
     unit: "jedan akter po platformi na odredjeni datum"
     question: "Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?"
     role: "Digitalni trag sa selekcijom u opazanje i metodoloskim rezom."
-    consumers:
-      - "WB-C04"
+    consumers: []
     source: "Predlozeni lokalni agregat iz komponenti DigiKata."
     version: "komponentne inacice i prava nisu evidentirani"
     licence: "nema mjerodavne komponentne licencne matrice"
@@ -1694,12 +1711,12 @@ packages:
     lane: "external-only"
     refresh_class: "manual-derived"
     fallback: >-
-      Dok prava komponenti nisu rijesena, obvezna vjezba koristi anketa_mreze,
-      DZS agregat ili dokumentirani izostanak toga slucaja.
+      Kandidat je napusten. Svu odobrenu ulogu preuzima digikat_mediji, a
+      obvezna vjezba moze koristiti i anketa_mreze kao generiranu zamjenu.
     integrity:
       checksum: null
       official_reconciliation: null
-      note: "Bez licencne matrice nema temelja za biljezenje integriteta snimke."
+      note: "Nema snimke: zapis ostaje samo kao trag napustene odluke i pokazuje na digikat_mediji."
     promoted: false
     promoting_gate: "G-A3-DIGIKAT"
     files: []
@@ -2109,7 +2126,7 @@ packages:
 
   - id: "digikat_mediji"
     name: "DigiKat, agregat digitalnoga medijskog prostora"
-    status: "registered_not_promoted"
+    status: "registered_and_promoted"
     design: "digital_trace_or_selected_corpus"
     domain: "digitalni mediji i komunikologija"
     unit: >-
@@ -2119,7 +2136,10 @@ packages:
       njih obnoviti.
     question: "Kako se objavljivanje i vidljivost razlikuju medju platformama i medju izvorima?"
     role: "Zakosena raspodjela izvora i mjerni instrument koji ne pokriva sve platforme jednako."
-    consumers: []
+    consumers:
+      - "WB-C04"
+      - "WB-C05"
+      - "WB-C06"
     source: >-
       DigiKat, Prikaz i analiza katolicke tematike u digitalnom medijskom
       prostoru, Hrvatsko katolicko sveuciliste, voditelj Luka Sikic. Izvadak je
@@ -2129,8 +2149,9 @@ packages:
       stoji zasebno u ovom katalogu kao determ_korpus.
     version: >-
       Agregati projekta na dan 22. srpnja 2026. Raspon korpusa je sijecanj 2021.
-      do lipnja 2026.; 2026. ima sest od dvanaest mjeseci i oznacena je stupcem
-      godina_potpuna.
+      do lipnja 2026. Godina 2024. nema veljacu-svibanj i sijecanj joj je
+      djelomican; 2026. ima sest od dvanaest mjeseci. Obje su oznacene kao
+      nepotpune, a promjene obuhvata i lom iz lipnja 2024. nose zasebnu oznaku.
     licence: "CC BY 4.0"
     licence_uri: "https://creativecommons.org/licenses/by/4.0/legalcode"
     attribution: >-
@@ -2148,9 +2169,9 @@ packages:
     lane: "bundled"
     refresh_class: "manual-derived"
     fallback: >-
-      Do promocije obvezni studentski put koristi generirani paket anketa_mreze
-      ili njegov agregat; ovaj paket sluzi za pripremu i za prikaz, a ne kao
-      temelj obvezne vjezbe.
+      Paket je promoviran za WB-C04, WB-C05 i WB-C06. Kad zadatak ne moze nositi
+      njegovu granicu mjerenja ili staticki put, zakonita zamjena ostaje
+      generirani paket anketa_mreze ili njegov agregat.
     provenance:
       retrieved_at: "2026-08-05"
       route: >-
@@ -2166,13 +2187,17 @@ packages:
       source_last_modified_note: >-
         Datum je vrijeme izmjene pracenih agregatnih datoteka u checkoutu
         projekta, a ne datum objave nekoga sluzbenog izdanja.
+      verified_at: "2026-08-10"
+      source_commit: "278a127f9170c1aca82035a4a8357b8a995f91d8"
       transformations:
-        - "Odabir: tri od cetrnaest agregatnih tablica; jedanaest tablica s imenovanim akterima nije preuzeto."
+        - "Odabir: tri od cetrnaest agregatnih tablica; deset tablica s imenovanim akterima nije preuzeto. proportions_summary.rds ne imenuje aktere, ali je izostavljen jer nosi udjele bez nazivnika."
         - "Imena stupaca prevedena na hrvatski; izvorne oznake platformi prepisane doslovno."
         - "Zbrajanje: u datoteci izvora godisnji redci zbrojeni su u jedan redak po izvoru."
         - "Filtar imenovanja: zadrzani su samo izvori cije je ime gola internetska domena; stranice, kanali i osobni racuni izostavljeni su."
         - "Mala slova: imena domena svedena na mala slova."
         - "Dodan stupac metrika_dostupna; dodan stupac objave_godina_ukupno kao nazivnik."
+        - "Dodan stupac lom_metode: biljezi ulazak TikToka od srpnja 2023., lom serije u lipnju 2024. i ulazak Instagrama od srpnja 2024."
+        - "godina_potpuna izvodi se iz svih dvanaest opazenih mjeseci, pa 2024. i 2026. imaju ne."
         - "Izostavljen avg_engagement_rate, jer je prosjek omjera i ne smije se zbrajati kroz godine."
         - "Izostavljeni uzvodni udjeli u pomicnom zarezu; umjesto njih stoji nazivnik."
         - "Kodiranje UTF-8 bez BOM-a, zavrsetak retka LF."
@@ -2180,20 +2205,69 @@ packages:
       checksum: "fc90ae84bbb0b03d599a7b9cf3fcb08e"
       checksum_algorithm: "md5"
       official_reconciliation: null
+      non_official_reconciliation_substitute:
+        status: "satisfied"
+        reason: >-
+          Vlasnicki korpus nije sluzbena statistika i nema sluzbeni ukupni broj.
+          Zamjena je uza od opce napomene: sva tri provjerljiva testa moraju
+          proci zajedno.
+        tests:
+          byte_for_byte_reproduction:
+            status: "passed"
+            builder: "scripts/build-digikat-extracts.R"
+            verified_at: "2026-08-10"
+            source_commit: "278a127f9170c1aca82035a4a8357b8a995f91d8"
+          denominator_identity:
+            status: "passed"
+            file: "data/digikat-platforme-godisnje.csv"
+            group_by: "godina"
+            value: "objave"
+            denominator: "objave_godina_ukupno"
+            comparisons: 6
+            tolerance: 0
+          recorded_divergence:
+            status: "passed"
+            annual_file: "data/digikat-platforme-godisnje.csv"
+            monthly_file: "data/digikat-platforme-mjesecno.csv"
+            match_on:
+              - "godina"
+              - "platforma"
+            value: "objave"
+            direction: "monthly_minus_annual"
+            differing_cells: 17
+            largest_positive:
+              difference: 446
+              match:
+                godina: "2022"
+                platforma: "web"
+            largest_negative:
+              difference: -389
+              match:
+                godina: "2024"
+                platforma: "web"
+            net_difference: 0
+            compared_total: 710307
       note: >-
         Zabiljezeni kontrolni zbroj pripada datoteci data/digikat-izvori.csv;
         svaka od triju datoteka nosi vlastiti MD5 u file_records i sve se
-        provjeravaju nad bajtovima na disku. Usklađenja sa sluzbenim izvorom
+        provjeravaju nad bajtovima na disku. Uskladjenja sa sluzbenim izvorom
         nema i ne moze ga biti: rijec je o vlasnickom korpusu, a ne o sluzbenoj
-        statistici. To je jedan od razloga zasto paket nije promoviran.
-    promoted: false
-    promoting_gate: "G-A3-DIGIKAT"
+        statistici. Umjesto njega prolazi imenovana trodijelna zamjena. Godisnja
+        i mjesecna datoteka odstupaju u 17 od 49 celija; u smjeru mjesecno minus
+        godisnje najvece je +446 za web 2022., najmanje -389 za web 2024., a
+        zbroj odstupanja iznosi tocno 0 pri 710307 objava.
+    promoted: true
+    promoted_by: "P3-DIGIKAT"
+    promoting_gate: "P3-DIGIKAT"
+    promoting_gate_ratified_by: "G-A3-DIGIKAT"
+    promoting_gate_ratified_record: "notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
     files:
       - "data/digikat-platforme-godisnje.csv"
       - "data/digikat-platforme-mjesecno.csv"
       - "data/digikat-izvori.csv"
     aggregate_view: null
     snapshot_notice: "data/digikat-mediji.LICENCA.md"
+    passport: "data/digikat_mediji/PUTOVNICA.md"
     build_script: "scripts/build-digikat-extracts.R"
     storage:
       encoding: "UTF-8"
@@ -2219,7 +2293,7 @@ packages:
     file_records:
       - path: "data/digikat-platforme-godisnje.csv"
         role: "analysis"
-        md5: "fa7ed7c65b0940df9f96a0b3e7fdcff4"
+        md5: "d3b5c32aac2a42c72e93d84472d4ca58"
         rows: 49
         row_band: [49, 49]
         key: "godina+platforma"
@@ -2275,10 +2349,20 @@ packages:
             levels:
               - "da"
               - "ne"
-            description: "Ima li godina svih dvanaest mjeseci. Korpus zavrsava u lipnju 2026."
+            description: "Ima li godina svih dvanaest opazenih mjeseci. Godina 2024. i zavrsna 2026. nose ne."
+          - name: "lom_metode"
+            type: "label"
+            unit: "oznaka usporedivosti"
+            missing_code: null
+            levels:
+              - "prije_promjene_obuhvata"
+              - "tiktok_od_2023-07"
+              - "nepotpuno_lom_2024-06_instagram_od_2024-07"
+              - "nakon_loma_2024-06"
+            description: "Oznaka promjene obuhvata platformi i loma serije; usporedba preko razina zahtijeva izricitu napomenu o metodi."
       - path: "data/digikat-platforme-mjesecno.csv"
         role: "analysis"
-        md5: "3f36b9015a7c4634732998f5bf51ed3f"
+        md5: "8809a751fdc05236fc54d55986c366ed"
         rows: 438
         row_band: [438, 438]
         key: "mjesec+platforma"
@@ -2333,6 +2417,16 @@ packages:
               - "da"
               - "ne"
             description: "Isporucuje li pruzatelj mjere angazmana za tu platformu. Kad je ne, interakcije i doseg stoje na 0 iz izvora."
+          - name: "lom_metode"
+            type: "label"
+            unit: "oznaka usporedivosti"
+            missing_code: null
+            levels:
+              - "prije_promjene_obuhvata"
+              - "tiktok_od_2023-07"
+              - "lom_2024-06"
+              - "nakon_loma_2024-06_instagram_od_2024-07"
+            description: "Oznaka ulaska TikToka, loma serije u lipnju 2024. i ulaska Instagrama; usporedba preko razina nije neprekinuti trend."
       - path: "data/digikat-izvori.csv"
         role: "analysis"
         md5: "fc90ae84bbb0b03d599a7b9cf3fcb08e"
@@ -2380,6 +2474,8 @@ packages:
       - "tvrdnja o broju razlicitih osoba koje su sadrzaj vidjele"
       - "usporedba interakcija izmedju platforme s mjerenjem i platforme bez njega"
       - "svaka tvrdnja o pojedinacnoj objavi ili o imenovanom akteru"
+      - "rast ili trend kroz 2024., jer veljaca-svibanj nedostaju, sijecanj je djelomican i od lipnja vrijedi lom metode"
+      - "usporedba razdoblja prije i nakon lipnja 2024. bez izricito navedena loma metode"
     ethics:
       category_ownership: >-
         Vrste izvora odredjuje komercijalni pruzatelj usluge pracenja medija, a
@@ -2389,7 +2485,7 @@ packages:
         odsutnost iz datoteke ne vidi.
       identifiability: >-
         Nijedna imenovana osoba nije u izvatku. Zadrzane su samo organizacije
-        prepoznate po goloj internetskoj domeni; jedanaest uzvodnih tablica s
+        prepoznate po goloj internetskoj domeni; deset uzvodnih tablica s
         imenovanim akterima namjerno je izostavljeno.
       beneficiaries: "Citatelj koji uci sto digitalni trag mjeri, a sto ne."
       error_burden: >-
@@ -2398,7 +2494,10 @@ packages:
       appeal: "Nije uspostavljen; to je dio pouke o granicama traga."
     caveats:
       - "Korpus nije uzorak: objava ulazi ako sadrzi najmanje dva razlicita katolicka pojma."
-      - "Godina 2026. ima sest mjeseci i ne usporedjuje se s punim godinama."
+      - "Godina 2024. nema veljacu-svibanj, sijecanj je djelomican s 1911 objava, a od lipnja vrijedi lom metode; rupa mora ostati vidljiva."
+      - "Godina 2026. ima sest mjeseci; lipanj s 7815 objava prema svibanjskih 20471 dosljedan je nedovrsenom zavrsnom mjesecu, ali to nije dokaz uzroka."
+      - "Godisnja i mjesecna datoteka odstupaju u 17 od 49 celija, no obje zbrajaju tocno 710307 objava."
+      - "Datoteka 3604 imenovanih domena nosi 551712 od 710307 objava, odnosno 77,67 posto; svaki udio iz te datoteke koristi 551712 kao nazivnik."
       - "Doseg je procjena pruzatelja, nije broj razlicitih osoba i ista se osoba moze brojiti vise puta."
       - "Nula u interakcijama i dosegu na reddit, forum i comment nije izmjerena nula."
       - "515 izvora u datoteci izvora ima doseg 0 i za njih vrijedi ista sumnja."

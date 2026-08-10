@@ -41,6 +41,11 @@ count, and the snapshot-notice check assumed every package is CC BY 4.0:
     KATALOG_NEGATIVE_FIXTURE=ratifying_record_missing
     KATALOG_NEGATIVE_FIXTURE=promotion_log_omits_package
     KATALOG_NEGATIVE_FIXTURE=notice_without_own_licence
+
+P3-DIGIKAT added the non-official-source substitute. It may be declared
+satisfied only when byte reproduction, denominator identity and recorded
+divergence are all present and passed:
+    KATALOG_NEGATIVE_FIXTURE=non_official_substitute_incomplete
 """
 
 from __future__ import annotations
@@ -96,6 +101,7 @@ FIXTURES = (
     "ratifying_record_missing",
     "promotion_log_omits_package",
     "notice_without_own_licence",
+    "non_official_substitute_incomplete",
 )
 
 # A gate that retrieves nothing cannot verify what it would be promoting, so a
@@ -292,6 +298,15 @@ def apply_fixture(catalogue: dict[str, Any], fixture: str) -> list[str]:
                 package["licence_uri"] = "https://example.invalid/not-this-licence"
                 return []
         raise AssertionError("no package declares both a notice and a licence uri")
+    elif fixture == "non_official_substitute_incomplete":
+        for package in packages:
+            substitute = (package.get("integrity") or {}).get(
+                "non_official_reconciliation_substitute"
+            )
+            if substitute:
+                substitute.get("tests", {}).pop("recorded_divergence", None)
+                return []
+        raise AssertionError("no package declares a non-official reconciliation substitute")
     else:
         raise AssertionError(f"Unknown katalog negative fixture: {fixture}")
     return []
@@ -374,8 +389,22 @@ def main() -> int:
                   f"{pid}: promotion requires verified redistribution.")
             check(bool(integrity.get("checksum")),
                   f"{pid}: promotion requires a recorded checksum.")
-            check(bool(integrity.get("official_reconciliation")),
-                  f"{pid}: promotion requires a recorded official reconciliation.")
+            substitute = integrity.get("non_official_reconciliation_substitute") or {}
+            substitute_tests = substitute.get("tests") or {}
+            substitute_complete = (
+                substitute.get("status") == "satisfied"
+                and all(
+                    substitute_tests.get(name, {}).get("status") == "passed"
+                    for name in (
+                        "byte_for_byte_reproduction",
+                        "denominator_identity",
+                        "recorded_divergence",
+                    )
+                )
+            )
+            check(bool(integrity.get("official_reconciliation")) or substitute_complete,
+                  f"{pid}: promotion requires an official reconciliation or a "
+                  "satisfied non-official substitute with all three tests.")
             check(bool(package.get("files")),
                   f"{pid}: promotion requires at least one recorded file path.")
             # A package may only be promoted under the gate it names itself, so
@@ -477,12 +506,32 @@ def main() -> int:
                 check(pid in text,
                       f"{pid}: the snapshot licence notice does not name its own package.")
 
+        passport = package.get("passport")
+        if passport:
+            passport_path = ROOT / str(passport)
+            check(passport_path.is_file(),
+                  f"{pid}: the declared student passport is absent: {passport}.")
+
     # --- consumer roles must be distinct within a design --------------------
     for design, roles in roles_by_design.items():
         folded = [" ".join(r.casefold().split()) for r in roles]
         duplicates = sorted({r for r in folded if folded.count(r) > 1})
         check(not duplicates,
               f"{design}: two packages share one consumer role, so one is admitted only for topic variety: {duplicates}")
+
+    # Abandoned candidates remain in the catalogue as an auditable decision
+    # trail. They point at an existing successor and own no live consumer.
+    for package in packages:
+        if str(package.get("status", "")).startswith("abandoned"):
+            pid = package.get("id", "<missing>")
+            abandonment = package.get("abandonment") or {}
+            successor = abandonment.get("successor")
+            check(bool(abandonment.get("reason")),
+                  f"{pid}: an abandoned package needs a recorded reason.")
+            check(successor in ids and successor != pid,
+                  f"{pid}: an abandoned package needs an existing successor pointer.")
+            check(not package.get("consumers"),
+                  f"{pid}: an abandoned package may retain no live consumers.")
 
     # --- portfolio caps -----------------------------------------------------
     caps = catalogue.get("portfolio_caps", {}).get("caps", [])

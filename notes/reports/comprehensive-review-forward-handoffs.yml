@@ -4832,7 +4832,28 @@ handoffs:
           - "fixture:DIP_PORTAL_NEGATIVE_FIXTURE-six-cases-each-exit-1"
       - target_packet: P3-DIGIKAT
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-DIGIKAT satisfies all six inherited external-package rules.
+          P3-DIGIKAT, not G-A3-DIGIKAT, is the promoting gate and is named in
+          both the package and promotion log; G-A3-DIGIKAT and its existing
+          decision record ratify that move. The log names digikat_mediji and
+          reconciles in both directions. The snapshot notice carries this
+          package's own CC BY 4.0 URI. Composite keys remain
+          godina+platforma and mjesec+platforma. Missing periods and unmeasured
+          zeroes remain explicit through godina_potpuna, the visible 2024 gap,
+          lom_metode and metrika_dostupna. No rule was relaxed to admit the
+          package.
+        evidence:
+          - "registry:data/katalog.yml#digikat_mediji-promotion-and-codebook"
+          - "decision:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+          - "notice:data/digikat-mediji.LICENCA.md"
+          - "passport:data/digikat_mediji/PUTOVNICA.md"
+          - "check:scripts/check-katalog.py-packages-20-promoted-4"
+          - "check:scripts/check-data-integrity.R-reconciliations-10-undeclared-0"
+          - "fixture:scripts/check-data-fixtures.py-cases-42"
       - target_packet: P3-EUROSTAT
         gate: before_close
         state: pending
@@ -5228,7 +5249,24 @@ handoffs:
     deliveries:
       - target_packet: P3-DIGIKAT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-DIGIKAT accepts the complete approved digikat_mediji boundary
+          before claim: it owns only the three aggregate extracts and their
+          catalogue, schema, validator, fixture, passport and promotion
+          evidence; it will repair D-1, D-2 and D-3, implement the three-part
+          non-official reconciliation substitute, retire digikat_akteri with a
+          successor pointer, register WB-C04 through WB-C06, and verify the
+          pinned local checkout without reading the master corpus or using the
+          network. The 2026-07-22 source date of record and the prohibition on
+          rights-holder-permission claims remain unchanged.
+        evidence:
+          - "decision:G-A3-DIGIKAT-accepted-2026-08-10"
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+          - "commit:db18d2b8f66739fb92fbb4a4f3b34cbb15e081b3"
+          - "check:scripts/check-review-workflow.R-preclaim-P3-DIGIKAT"
 
   H-G-A3-DIGIKAT-002:
     source_packet: G-A3-DIGIKAT
@@ -7184,3 +7222,31 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with G-A3-DIGIKAT active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-DIGIKAT
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P3-DIGIKAT and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P3-DIGIKAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P3-DIGIKAT found no new future-relevant effect. The existing
+      H-G-A3-DIGIKAT-002 already carries the non-uniform-corpus, denominator,
+      missing-period, method-break and unavailable-measurement constraints to
+      P3-VERIFY-B, WB-C04, WB-C05 and WB-C06. Repeating that state would create
+      a duplicate control record.
+    implementation_state: podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8
+    checks:
+      - the 2026-08-10 author amendment allowing up to five strictly sequential packets is recorded durably in the packet report and dashboard closeout
+      - H-G-A3-DIGIKAT-001 was consumed before claim and H-P3-DZS-003 was acknowledged before the first substantive edit and consumed at closeout
+      - the local DigiKat checkout remains at 278a127f9170c1aca82035a4a8357b8a995f91d8 and the 2026-07-22 source date of record remains unchanged
+      - the master corpus was not read no network was contacted and no rights-holder-permission claim was made
+      - D-1 is repaired by deriving full years from twelve observed months with 2024 and 2026 marked ne
+      - D-2 is repaired by an exact recorded and recomputed 17-of-49 divergence contract with plus 446 minus 389 net zero and both totals 710307
+      - D-3 is repaired by lom_metode in both time files with TikTok 2023-07 the 2024-06 break and Instagram 2024-07
+      - 3604 named domains carry 551712 of 710307 posts or 77.67 percent and the source-file denominator is explicit
+      - the non-official reconciliation substitute is satisfied only by byte reproduction denominator identity and recorded divergence together
+      - non_official_substitute_incomplete fails closed for its own missing-test defect and the complete data fixture suite reports 42 expected failures
+      - digikat_akteri remains in the catalogue as abandoned with its reason and successor digikat_mediji and has no live consumer
+      - digikat_mediji is promoted by P3-DIGIKAT and consumed only by WB-C04 WB-C05 and WB-C06
+      - catalogue data integrity builder inventory manuscript concept citation terminology token integrity-fixture and workflow checks pass
+      - no chapter prose shared Bookwright registry generated artefact or external system changed
+      - G-A3-EUROSTAT is next and was not started before this packet closed and committed

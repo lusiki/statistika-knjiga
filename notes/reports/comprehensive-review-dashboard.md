@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A3-DIGIKAT
-next_permitted_packet: P3-DIGIKAT
+last_completed_packet: P3-DIGIKAT
+next_permitted_packet: G-A3-EUROSTAT
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -45,11 +45,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A3-DIGIKAT` |
-| Next permitted packet | `P3-DIGIKAT` only |
+| Last completed packet | `P3-DIGIKAT` |
+| Next permitted packet | `G-A3-EUROSTAT` only |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 160 accepted, 5 deferred with reason, 206 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 77 accepted, 110 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 162 accepted, 5 deferred with reason, 204 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 78 accepted, 109 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -59,6 +59,78 @@ stop and repair the control state before editing book content.
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## P3-DIGIKAT claim
+
+- The author amendment dated 2026-08-10 permits this thread to execute up to
+  five named packets in strict sequence, while preserving the one-lock rule,
+  per-packet claim, evidence, handoff, closeout, workflow-check and commit
+  boundaries. The amendment will be recorded permanently in this packet's
+  closeout evidence; it does not authorise any packet outside the named chain.
+- `G-A3-DIGIKAT` is accepted at live commit
+  `db18d2b8f66739fb92fbb4a4f3b34cbb15e081b3`. Chapters 1–3 remain at
+  `coauthor_review`, Chapter 4 remains `draft`, and `P3-DIGIKAT` was the sole
+  next permitted packet before claim.
+- `H-G-A3-DIGIKAT-001` was consumed before claim with the exact aggregate-only,
+  three-defect, reconciliation-substitute, retirement, consumer and pinned-
+  checkout boundaries. `H-P3-DZS-003` was acknowledged before the first
+  substantive edit and remains due for a concrete closeout disposition.
+- The packet owns the bounded DigiKat extract, catalogue, schema, validators,
+  fixtures, passport, evidence report and three control files. It may not read
+  the master corpus, contact the network, edit chapter prose, or claim rights-
+  holder permission.
+- The workflow validator passed before claim and must pass again in this
+  claimed state before the first substantive data edit.
+
+## P3-DIGIKAT closeout
+
+- The author's 2026-08-10 one-thread amendment is now durable in
+  `notes/reports/p3-digikat-2026-08-10.md`: this thread may run at most five
+  packets in the named strict sequence, but every packet keeps a separate lock,
+  evidence record, handoff disposition, workflow check and local commit. No
+  broader authority was inferred.
+- `H-G-A3-DIGIKAT-001` was consumed before claim. `H-P3-DZS-003` was
+  acknowledged before the first substantive edit and consumed at closeout with
+  all six inherited external-package rules satisfied. Nothing targeting
+  another packet was consumed.
+- The source checkout did not move. It remains
+  `278a127f9170c1aca82035a4a8357b8a995f91d8`, so the source date of record stays
+  2026-07-22 and the separate verification date is 2026-08-10. The builder
+  returns `DIGIKAT_EXTRACTS_OK extracts=3 mode=verify`; the master corpus was not
+  read and the network was not used.
+- D-1 is repaired in the data: `godina_potpuna` is `da` only for 2021, 2022,
+  2023 and 2025; 2024 is `ne`, its February-May gap stays absent and January
+  stays partial at 1.911 posts. D-2 is repaired by an exact machine-enforced
+  divergence contract: 17 of 49 cells, monthly minus annual +446 at 2022/web
+  and -389 at 2024/web, net 0, with both files totaling 710.307. D-3 is repaired
+  by `lom_metode` in both time files, carrying TikTok's 2023-07 entry, the
+  2024-06 break and Instagram's 2024-07 entry.
+- The catalogue, schema and validators implement the named non-official-source
+  substitute. It is satisfied only when byte reproduction, the six denominator
+  identities at tolerance zero and the recorded divergence all pass together.
+  The new negative fixture removes the third test and fails for that exact
+  reason; the complete suite reports `DATA_NEGATIVE_FIXTURES_OK cases=42`.
+- The 3.604 source rows carry 551.712 of 710.307 posts, or 77,67 %. The
+  catalogue, licence notice and new `data/digikat_mediji/PUTOVNICA.md` all name
+  551.712 as the denominator for a share computed from that file.
+- `digikat_akteri` remains in the catalogue as
+  `abandoned_with_successor`, with a reason, no live consumer and successor
+  `digikat_mediji`. `digikat_mediji` is promoted by `P3-DIGIKAT`; its consumers
+  are exactly `WB-C04`, `WB-C05` and `WB-C06`. No rights-holder permission is
+  claimed.
+- `R03-DIGIKAT-rights` and `R08-DIGIKAT-package` are accepted separately.
+  Catalogue, data-integrity, builder, 42 data fixtures, seven integrity
+  fixtures, inventory, manuscript, concept, citation, terminology and token
+  checks pass on the final packet files. No render was needed because no book
+  prose or generated public view changed.
+- The packet found no new future-relevant effect. Existing
+  `H-G-A3-DIGIKAT-002` already carries every downstream non-uniformity and
+  denominator constraint, so no duplicate handoff was created. Chapters 1-3
+  remain `coauthor_review`, Chapter 4 remains `draft`, and all shared
+  Bookwright registries are unchanged.
+- `G-A3-EUROSTAT` is the sole next permitted packet. It was not started before
+  this packet closed and committed. Push, merge, tag, archive and deployment
+  remain unauthorised.
 
 ## G-A3-DIGIKAT closeout
 
@@ -3371,36 +3443,33 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `G-A3-DIGIKAT` is accepted at commit
-`27ded7976254b1a54429da116544a9355ca6ca86`, that Chapters 1–3 remain at
-`coauthor_review`, Chapter 4 remains `draft`, and `P3-DIGIKAT` is the sole
-`next_permitted_packet`. Then handle only `P3-DIGIKAT`, the bounded data
-packet for the DigiKat actor package. Read every governed item and all
-applicable incoming handoffs before claiming it; consume each `before_start`
-delivery before the claim — `H-G-A3-DIGIKAT-001` is one — acknowledge every
-`before_close` delivery before the first substantive edit, and record a
-concrete disposition before closeout.
+Verify that `P3-DIGIKAT` is accepted at the live HEAD, that its two governed
+items are accepted independently, that Chapters 1–3 remain at
+`coauthor_review`, Chapter 4 remains `draft`, and `G-A3-EUROSTAT` is the sole
+`next_permitted_packet`. Then handle only `G-A3-EUROSTAT` as a decision gate.
+Read every governed item and applicable incoming handoff before claim; consume
+each `before_start` delivery before claim and acknowledge every `before_close`
+delivery before the first substantive edit.
 
-`G-A3-DIGIKAT` verified three defects that this packet must repair before any
-promotion, and describing them is not repairing them. The `godina_potpuna`
-flag reads `da` for 2024 although February–May are absent entirely and January
-is partial at 1.911 posts. The annual and monthly files disagree in 17 of 49
-platform-year cells, netting exactly zero at 710.307 posts. No method-break
-flag exists although volume roughly triples from June 2024 and platform
-coverage grows from seven to nine. Also record that the 3.604 sources carry
-551.712 of 710.307 posts, or 77,67 %.
+Consume the author's Eurostat pre-disposition in
+`notes/reports/author-pre-dispositions-2026-08-10.md`: select the smallest
+question-led set of five to seven indicators, one common year defined as the
+latest year in which every selected indicator exists for every selected
+country, and leave missing-data flags visible. Name the indicators, year,
+countries and consumers.
 
-Implement the named substitute for official reconciliation in
-`data/katalog.yml` and `data/katalog.schema.json` with a negative fixture that
-fails when the substitute is declared satisfied without all three of its tests.
-Close `digikat_akteri` as abandoned with a reason and a successor pointer
-rather than deleting it, register `WB-C04`, `WB-C05` and `WB-C06` as consumers,
-and re-run `scripts/build-digikat-extracts.R` in verify mode at your own date,
-re-pinning a moved checkout or recording that it did not move — without
-rewriting the 2026-07-22 source date of record.
+Also settle two independent gate obligations. First, verify the authoritative
+Eurostat reuse notice and record the exact required attribution and disclaimer,
+or record a dated author determination, while proving that none of the selected
+indicators falls under the third-party-content exception. Second, determine
+whether any lawful source route exists under the standing no-network-retrieval
+boundary. The rejected CroAIcon MySQL staging table is not a lawful source. Do
+not fetch. If the canonical state authorises none of a bounded retrieval, an
+author-supplied mirror, or a portal-mediated unpromoted route, close only the
+decision gate with the resulting bounded outside ask and STOP before
+`P3-EUROSTAT`; say plainly that Chapter 6 will rest on DigiKat plus the governed
+generated package instead.
 
-Use the checkout-local shared registries as the only mutable Bookwright state.
-This packet must not read the DigiKat master corpus, contact the network, edit
-chapter prose, or claim rights-holder permission. Do not start
-`G-A3-EUROSTAT`. Push, merge, tag, archive and deploy remain unauthorised.
+This decision gate promotes nothing and edits no chapter prose or data file.
+Push, merge, tag, archive and deploy remain unauthorised.
 ```

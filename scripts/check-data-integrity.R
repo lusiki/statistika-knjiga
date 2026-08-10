@@ -582,6 +582,143 @@ validate_source_reconciliation <- function(rule, entry_id, tables) {
   messages
 }
 
+validate_non_official_substitute <- function(rule, entry_id, tables) {
+  messages <- character()
+  note <- function(...) {
+    messages <<- c(messages, paste0(entry_id, "/non_official_substitute: ", ...))
+  }
+
+  tests <- rule$tests
+  required <- c("byte_for_byte_reproduction", "denominator_identity",
+                "recorded_divergence")
+  if (!identical(rule$status, "satisfied") ||
+      !all(required %in% names(tests)) ||
+      !all(vapply(required, function(x) identical(tests[[x]]$status, "passed"),
+                  logical(1)))) {
+    note("a satisfied substitute must carry all three passed tests")
+    return(messages)
+  }
+
+  byte_test <- tests$byte_for_byte_reproduction
+  if (!file.exists(file.path(root, byte_test$builder))) {
+    note("the byte-reproduction test names a builder that does not exist")
+  }
+
+  denominator <- tests$denominator_identity
+  table <- tables[[denominator$file]]
+  if (is.null(table)) {
+    note("the denominator test names a file that did not parse")
+  } else {
+    groups <- split(seq_along(table[[denominator$group_by]]),
+                    table[[denominator$group_by]])
+    residuals <- vapply(groups, function(rows) {
+      values <- as_exact_numeric(table[[denominator$value]][rows])
+      declared <- unique(as_exact_numeric(table[[denominator$denominator]][rows]))
+      if (length(declared) != 1L || anyNA(c(values, declared))) return(Inf)
+      sum(values) - declared
+    }, numeric(1))
+    if (length(groups) != as.integer(denominator$comparisons)) {
+      note("the denominator identity made ", length(groups),
+           " comparisons, not the recorded ", denominator$comparisons)
+    }
+    if (any(abs(residuals) > as.numeric(denominator$tolerance))) {
+      note("the denominator identity exceeds its recorded tolerance")
+    }
+  }
+
+  divergence <- tests$recorded_divergence
+  annual <- tables[[divergence$annual_file]]
+  monthly <- tables[[divergence$monthly_file]]
+  if (is.null(annual) || is.null(monthly)) {
+    note("the divergence test names a file that did not parse")
+    return(messages)
+  }
+  match_on <- unlist(divergence$match_on, use.names = FALSE)
+  key <- function(table) do.call(paste, c(table[match_on], sep = "\r"))
+  annual_key <- key(annual)
+  monthly_key <- key(monthly)
+  annual_values <- as_exact_numeric(annual[[divergence$value]])
+  monthly_values <- as_exact_numeric(monthly[[divergence$value]])
+  monthly_sum <- tapply(monthly_values, monthly_key, sum)
+  if (anyDuplicated(annual_key) || !setequal(annual_key, names(monthly_sum))) {
+    note("the annual and monthly files do not expose the same comparison keys")
+    return(messages)
+  }
+  differences <- as.numeric(monthly_sum[annual_key]) - annual_values
+  if (sum(differences != 0) != as.integer(divergence$differing_cells)) {
+    note("the number of divergent cells is not the recorded ",
+         divergence$differing_cells)
+  }
+  if (sum(differences) != as.numeric(divergence$net_difference)) {
+    note("the corpus-wide divergence does not equal the recorded net difference")
+  }
+  compared_total <- as.numeric(divergence$compared_total)
+  if (sum(annual_values) != compared_total || sum(monthly_values) != compared_total) {
+    note("the two files do not both equal the recorded compared total")
+  }
+
+  check_extreme <- function(which_fun, recorded, label) {
+    i <- which_fun(differences)
+    if (differences[[i]] != as.numeric(recorded$difference)) {
+      note("the ", label, " divergence is not the recorded value")
+    }
+    for (field in names(recorded$match)) {
+      if (!identical(as.character(annual[[field]][[i]]),
+                     as.character(recorded$match[[field]]))) {
+        note("the ", label, " divergence is not in the recorded cell")
+      }
+    }
+  }
+  check_extreme(which.max, divergence$largest_positive, "largest positive")
+  check_extreme(which.min, divergence$largest_negative, "largest negative")
+  messages
+}
+
+validate_digikat_repairs <- function(entry, tables) {
+  messages <- character()
+  note <- function(...) messages <<- c(messages, paste0(entry$id, ": ", ...))
+  annual <- tables[["data/digikat-platforme-godisnje.csv"]]
+  monthly <- tables[["data/digikat-platforme-mjesecno.csv"]]
+  sources <- tables[["data/digikat-izvori.csv"]]
+  if (is.null(annual) || is.null(monthly) || is.null(sources)) return(messages)
+
+  full <- unique(data.frame(godina = annual$godina,
+                            potpuna = annual$godina_potpuna,
+                            stringsAsFactors = FALSE))
+  expected_full <- c("2021", "2022", "2023", "2025")
+  if (!identical(full$godina[full$potpuna == "da"], expected_full) ||
+      any(full$potpuna[full$godina %in% c("2024", "2026")] != "ne")) {
+    note("godina_potpuna must mark exactly 2021, 2022, 2023 and 2025 complete")
+  }
+  months_2024 <- sort(unique(monthly$mjesec[monthly$godina == "2024"]))
+  if (!identical(months_2024, c("2024-01", sprintf("2024-%02d", 6:12)))) {
+    note("the 2024 gap must leave February-May visibly absent")
+  }
+  january_posts <- sum(as_exact_numeric(monthly$objave[monthly$mjesec == "2024-01"]))
+  if (january_posts != 1911) note("January 2024 must retain its partial 1911 posts")
+
+  annual_expected <- ifelse(
+    as.integer(annual$godina) <= 2022L, "prije_promjene_obuhvata",
+    ifelse(as.integer(annual$godina) == 2023L, "tiktok_od_2023-07",
+           ifelse(as.integer(annual$godina) == 2024L,
+                  "nepotpuno_lom_2024-06_instagram_od_2024-07",
+                  "nakon_loma_2024-06")))
+  monthly_expected <- ifelse(
+    monthly$mjesec < "2023-07", "prije_promjene_obuhvata",
+    ifelse(monthly$mjesec < "2024-06", "tiktok_od_2023-07",
+           ifelse(monthly$mjesec == "2024-06", "lom_2024-06",
+                  "nakon_loma_2024-06_instagram_od_2024-07")))
+  if (!identical(annual$lom_metode, annual_expected) ||
+      !identical(monthly$lom_metode, monthly_expected)) {
+    note("the method-break flags do not match the recorded coverage changes")
+  }
+  if (length(sources$izvor) != 3604L ||
+      sum(as_exact_numeric(sources$objave)) != 551712) {
+    note("the source file must retain 3604 domains carrying 551712 posts")
+  }
+  messages
+}
+
 snapshot_failures <- character()
 validated_files <- 0L
 reconciliations <- 0L
@@ -656,6 +793,21 @@ if (exists("parsed") && is.list(parsed)) {
       snapshot_failures <- c(snapshot_failures,
                              validate_source_reconciliation(rule, entry$id, tables))
       reconciliations <- reconciliations + 1L
+    }
+    if (!is.null(entry$integrity$non_official_reconciliation_substitute)) {
+      snapshot_failures <- c(
+        snapshot_failures,
+        validate_non_official_substitute(
+          entry$integrity$non_official_reconciliation_substitute,
+          entry$id,
+          tables
+        )
+      )
+      reconciliations <- reconciliations + 1L
+    }
+    if (identical(entry$id, "digikat_mediji")) {
+      snapshot_failures <- c(snapshot_failures,
+                             validate_digikat_repairs(entry, tables))
     }
   }
 }

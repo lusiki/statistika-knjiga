@@ -61,6 +61,8 @@ CATALOGUE_CASES: tuple[tuple[str, str], ...] = (
     ("ratifying_record_missing", "moved the promoting gate names no existing record"),
     ("promotion_log_omits_package", "promotions but names"),
     ("notice_without_own_licence", "no direct link to the package's own licence"),
+    ("non_official_substitute_incomplete",
+     "satisfied non-official substitute with all three tests"),
 )
 
 DZS_MONTHLY = "data/dzs-turizam-mjesecno.csv"
@@ -292,6 +294,10 @@ def build_root(base: Path, name: str) -> Path:
         shutil.copy2(ROOT / "R" / source, work / "R" / source)
     (work / "scripts").mkdir()
     shutil.copy2(ROOT / "scripts/check-katalog.py", work / "scripts/check-katalog.py")
+    shutil.copy2(
+        ROOT / "scripts/build-digikat-extracts.R",
+        work / "scripts/build-digikat-extracts.R",
+    )
     return work
 
 
