@@ -3371,19 +3371,36 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `WA-PART` is accepted at Chapter 4 source SHA-256
-`21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab`, that
-Chapters 1–3 remain at `coauthor_review`, Chapter 4 remains `draft`, and
-`G-A3-DIGIKAT` is the sole `next_permitted_packet`. Then handle only
-`G-A3-DIGIKAT`, the bounded decision gate for the DigiKat snapshot, rights and
-chapter role. Read every governed item and all applicable incoming handoffs
-before claiming it; consume each `before_start` delivery before the claim,
-acknowledge every `before_close` delivery before the first substantive edit,
-and record a concrete disposition before closeout. Use the checkout-local
-shared registries as the only mutable Bookwright state and the conductor's
-bounded outside-ask format. State the recommended default, alternatives,
-authority boundary, blocked dependencies and exact author reply required; stop
-for that reply if the canonical state does not already contain it. This gate
-must not retrieve, copy, generate, promote or rewrite a DigiKat package. Do not
-start `P3-DIGIKAT`. Push, merge, tag, archive and deploy remain unauthorised.
+Verify that `G-A3-DIGIKAT` is accepted at commit
+`27ded7976254b1a54429da116544a9355ca6ca86`, that Chapters 1–3 remain at
+`coauthor_review`, Chapter 4 remains `draft`, and `P3-DIGIKAT` is the sole
+`next_permitted_packet`. Then handle only `P3-DIGIKAT`, the bounded data
+packet for the DigiKat actor package. Read every governed item and all
+applicable incoming handoffs before claiming it; consume each `before_start`
+delivery before the claim — `H-G-A3-DIGIKAT-001` is one — acknowledge every
+`before_close` delivery before the first substantive edit, and record a
+concrete disposition before closeout.
+
+`G-A3-DIGIKAT` verified three defects that this packet must repair before any
+promotion, and describing them is not repairing them. The `godina_potpuna`
+flag reads `da` for 2024 although February–May are absent entirely and January
+is partial at 1.911 posts. The annual and monthly files disagree in 17 of 49
+platform-year cells, netting exactly zero at 710.307 posts. No method-break
+flag exists although volume roughly triples from June 2024 and platform
+coverage grows from seven to nine. Also record that the 3.604 sources carry
+551.712 of 710.307 posts, or 77,67 %.
+
+Implement the named substitute for official reconciliation in
+`data/katalog.yml` and `data/katalog.schema.json` with a negative fixture that
+fails when the substitute is declared satisfied without all three of its tests.
+Close `digikat_akteri` as abandoned with a reason and a successor pointer
+rather than deleting it, register `WB-C04`, `WB-C05` and `WB-C06` as consumers,
+and re-run `scripts/build-digikat-extracts.R` in verify mode at your own date,
+re-pinning a moved checkout or recording that it did not move — without
+rewriting the 2026-07-22 source date of record.
+
+Use the checkout-local shared registries as the only mutable Bookwright state.
+This packet must not read the DigiKat master corpus, contact the network, edit
+chapter prose, or claim rights-holder permission. Do not start
+`G-A3-EUROSTAT`. Push, merge, tag, archive and deploy remain unauthorised.
 ```
