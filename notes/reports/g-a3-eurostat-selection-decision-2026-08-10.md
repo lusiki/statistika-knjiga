@@ -1,14 +1,21 @@
-# G-A3-EUROSTAT — pripremljena odluka o odabiru, pravima i izvornoj ruti
+# G-A3-EUROSTAT — odluka o odabiru, pravima i izvornoj ruti
 
 **Datum provjere:** 10. kolovoza 2026.
 
 **Vlasnik odluke:** Luka Sikic, autor i urednik
 
-**Status:** vrata su aktivna; odabir i pravni uvjeti su pripremljeni, ali
-izvorna ruta nije autorski odobrena pa odluka još nije prihvaćena
+**Status:** prihvaćeno; autor je odobrio preporučeni ograničeni službeni dohvat
 
 **Izvorno stanje repozitorija:**
 `355aecfcb4a4d0dfda33e10438d92aba019f6081`
+
+**Stanje pripremljeno za autorsku odluku:**
+`fd626f78f2ffbc93e8f4aca6376a91843ebe2c5f`
+
+**Autorska dispozicija:** razgovor od 10. kolovoza 2026., Luka Sikic:
+„Odobravam jedan ograničeni dohvat točno definiranog Eurostatova presjeka za
+2025. iz službenog izvora, izvan rendera, uz spremanje upita, izvornog odgovora,
+datuma, checksuma i usklađenja.”
 
 **Potrošač:** `WB-C06`
 
@@ -144,7 +151,7 @@ izvora. To nije tvrdnja da je pribavljeno dopuštenje nositelja prava; nije
 traženo i nije potrebno prema objavljenoj općoj dozvoli dok iznimka nije
 aktivirana.
 
-## Izvorna ruta: stvarni blokator
+## Izvorna ruta: prihvaćeni ograničeni dohvat
 
 Repozitorij nema lokalno Eurostatovo zrcalo. MySQL tablica
 `stg_eurostat_observations` u CroAIconu izričito je odbačena: staging ponavlja
@@ -154,26 +161,30 @@ vrijednosti ova vrata nisu dotaknula. U repozitoriju nema datoteke iz koje bi
 
 Read-only pregled portala dovoljan je za imenovanje proizvoda, najnovije
 zajedničke godine i objavljenih uvjeta. Nije izvor za gradnju lokalne snimke.
-Autorska dispozicija od 10. kolovoza određuje izbor, ali ne odobrava nijednu od
-tri dopuštene izvorne rute:
+Autor je zato 10. kolovoza 2026. izričito odobrio prvu od tri ponuđene rute:
 
-- jedan ograničen dohvat točno ovoga presjeka iz službenoga Eurostatova izvora,
+- **prihvaćeno:** jedan ograničen dohvat točno ovoga presjeka iz službenoga Eurostatova izvora,
   izvan rendera, s upitom, izvornim odgovorom, datumom, checksumom i
   usklađenjem;
-- lokalno zrcalo koje autor dostavi i imenuje točnim putem, iz kojega se isti
+- **odbijeno:** lokalno zrcalo koje autor dostavi i imenuje točnim putem, iz kojega se isti
   trag može reproducirati;
-- zadržavanje paketa kao `portal-mediated`, `promoted: false`, s praznim
+- **odbijeno:** zadržavanje paketa kao `portal-mediated`, `promoted: false`, s praznim
   `files`, uz autorsku izmjenu kojom se `P3-EUROSTAT` descopira ili mu se
   mijenja ugovor.
 
-Preporučena je prva ruta jer jedina čuva ratificirani fiksni paket i njegov
-offline nastavni put bez ovisnosti rendera o mreži. Ona ipak mijenja autorovu
-stalnu zabranu mrežnoga dohvata i zato se ne smije izvesti bez izričite
-autorizacije.
+Ovlast je jednokratna i odnosi se samo na šest imenovanih Eurostatovih tablica,
+2025. godinu, 27 država članica i metapodatke nužne za dokaz. Ne dopušta drugi
+Eurostatov pokazatelj, drugu godinu, drugu zemlju, drugi izvor, CroAIconovo
+nevaljano staging zrcalo, dohvat tijekom rendera ni opće ukidanje zabrane
+mrežnoga dohvata. `P3-EUROSTAT` mora zadržati stvarni upit i neizmijenjeni
+izvorni odgovor, zabilježiti datum, checksum i usklađenje, te pasti zatvoreno
+ako 2025. nije zajednička godina, ako izvorne zastavice nestanu ili ako se
+pojavi pojedinačna obavijest treće strane.
 
-Dok ta odluka ne postoji, `G-A3-EUROSTAT` ostaje `in_progress`,
-`P3-EUROSTAT` se ne pokreće, a `eurostat_drustvo` ostaje nepromoviran i
-portalno posredovan. Vrata promoviraju nula paketa.
+Ovim je izvorna ruta riješena i `P3-EUROSTAT` smije početi tek nakon što se ova
+vrata zasebno zatvore i commitaju. `eurostat_drustvo` do tada ostaje
+`portal-mediated`, `promoted: false`, s praznim `files`; odluka sama promovira
+nula paketa.
 
 ## Što tada nosi poglavlje 6
 
@@ -189,8 +200,10 @@ izostavljanje, ne zamjena neprovjerenim brojkama.
 
 ## Granica ovlasti
 
-Ovaj pripremljeni zapis ne prihvaća `G-A3-EUROSTAT`, ne dohvaća ni jednu
-vrijednost, ne stvara snimku, ne mijenja `data/katalog.yml`, ne promiče paket i
-ne otvara `P3-EUROSTAT`. Ne uređuje poglavlje ni Bookwrightove zajedničke
-registre. Push, merge, tag, arhiviranje, deployment i objava ostaju
+Ova odluka prihvaća `G-A3-EUROSTAT` i ovlašćuje samo `P3-EUROSTAT` da jednom
+dohvati točno imenovani presjek iz službenoga Eurostatova izvora, izvan
+rendera, te spremi upit, neizmijenjeni odgovor, datum, checksum i usklađenje.
+Sama odluka ne dohvaća ni jednu vrijednost, ne stvara snimku, ne mijenja
+`data/katalog.yml` i ne promiče paket. Ne uređuje poglavlje ni Bookwrightove
+zajedničke registre. Push, merge, tag, arhiviranje, deployment i objava ostaju
 neovlašteni.

@@ -4309,8 +4309,28 @@ handoffs:
           - "obligation:P3-DIGIKAT-implements-substitute-with-negative-fixture-and-repairs-D-1-D-2-D-3"
       - target_packet: G-A3-EUROSTAT
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-EUROSTAT acknowledged this catalogue constraint before its
+          first substantive edit and consumed it at closeout without changing
+          the catalogue or promoting a package. A decision gate cannot satisfy
+          the data-package promotion contract: eurostat_drustvo remains
+          portal-mediated, promoted false and files empty. The gate instead
+          recorded the exact six-indicator 2025 EU-27 selection, reuse terms,
+          third-party-exception test, lawful fallback and one author-approved
+          bounded official retrieval, and bound P3-EUROSTAT to retain the
+          query, unmodified source response, access date, checksums and official
+          reconciliation before any lane or promotion change. Availability and
+          technical API access still promote nothing, no materialised snapshot
+          was committed and no rights-holder permission is claimed.
+        evidence:
+          - "decision:G-A3-EUROSTAT"
+          - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "registry:data/katalog.yml#eurostat_drustvo-unchanged-portal-mediated-promoted-false-files-empty"
+          - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+          - "boundary:gate-promoted-zero-packages-and-retrieved-no-data"
       - target_packet: G-A3-ESS
         gate: before_close
         state: pending
@@ -5341,6 +5361,57 @@ handoffs:
         state: pending
       - target_packet: WB-C05
         gate: before_start
+        state: pending
+      - target_packet: WB-C06
+        gate: before_start
+        state: pending
+
+  H-G-A3-EUROSTAT-001:
+    source_packet: G-A3-EUROSTAT
+    created_at: "2026-08-10"
+    kind: decision
+    refs:
+      - decision:G-A3-EUROSTAT
+      - item:R03-EUROSTAT-rights
+      - item:R08-EUROSTAT-package
+      - report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md
+      - conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic
+    statement: >-
+      The author accepted exactly six Eurostat indicators for reference year
+      2025 and all 27 EU Member States, with WB-C06 as the sole current
+      consumer. Every one of the 162 country-indicator keys must be 2025 and
+      retain source observation and confidentiality flags; an official missing
+      value stays explicit and is never replaced with zero, imputation, row
+      deletion or another year. The accepted source route is one bounded
+      retrieval from the official Eurostat source outside rendering, retaining
+      the exact query, unmodified response, access date, checksums and
+      reconciliation. This is not general network authority. The selected
+      tables identify Eurostat as source, are EU-only and non-trade, and include
+      no third-party image, logo or publication; any contrary individual notice
+      in the actual source stops the package.
+    required_action: >-
+      P3-EUROSTAT must use only lfsi_emp_a, ilc_peps01n, sdg_04_20 sourced from
+      edat_lfse_03, edat_lfse_14, isoc_ci_ifp_iu and demo_pjanind for 2025 and
+      the 27 named EU Member States. It must retain raw source evidence, build a
+      same-year teaching table with flags, reproduce the exact attribution,
+      modification and disclaimer contract, implement checksums and official
+      reconciliation, and stop rather than broaden the route. P3-VERIFY-B must
+      verify this contract independently. WB-C06 may use the package only for
+      country-level comparison, association, a third-variable question and the
+      ecological-inference boundary, never for an individual or causal claim.
+    basis:
+      - report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md
+      - source:https://ec.europa.eu/eurostat/help/copyright-notice-inspected-2026-08-10
+      - source:https://commission.europa.eu/legal-notice_en-inspected-2026-08-10
+      - boundary:one-bounded-official-retrieval-outside-render
+      - boundary:CroAIcon-staging-table-rejected-for-duplicate-rows
+    required: true
+    deliveries:
+      - target_packet: P3-EUROSTAT
+        gate: before_start
+        state: pending
+      - target_packet: P3-VERIFY-B
+        gate: before_close
         state: pending
       - target_packet: WB-C06
         gate: before_start
@@ -7244,6 +7315,27 @@ packet_reviews:
       - scripts/check-review-workflow.R passed with G-A3-DIGIKAT active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-DIGIKAT
       - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
       - P3-DIGIKAT and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  G-A3-EUROSTAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A3-EUROSTAT-001
+    implementation_state: conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic
+    checks:
+      - H-P1B-DATA-LIC-003 was consumed before claim and H-P3-CATALOG-001 was acknowledged before the first substantive edit and consumed at closeout
+      - the existing author pre-disposition was consumed rather than re-asked
+      - the accepted selection is six named indicators for 2025 and all 27 EU Member States with WB-C06 as sole current consumer
+      - all 162 country-indicator keys must be 2025 or an explicit retained official missing value with source flags
+      - the official reuse notice exact customised-dataset attribution template modification statement disclaimer and third-party exception test are recorded
+      - the selected table families identify Eurostat as source are EU-only and non-trade and transfer no image logo trademark or publication
+      - the author approved exactly one bounded official retrieval outside rendering with query raw response date checksums and reconciliation retained
+      - the rejected CroAIcon staging table remains forbidden and no other source indicator year geography retrieval or consumer is authorised
+      - the gate retrieved no data changed no catalogue entry promoted zero packages and edited no chapter or shared Bookwright registry
+      - OA-G-A3-EUROSTAT-SELECTION OA-G-A3-EUROSTAT-RIGHTS and OA-G-A3-EUROSTAT-SOURCE-ROUTE are done with no external message sent
+      - H-G-A3-EUROSTAT-001 carries every future-relevant selection rights source-route flag and claim-boundary effect to P3-EUROSTAT P3-VERIFY-B and WB-C06
+      - scripts/check-review-workflow.R passed in the active state and at closeout
+      - P3-EUROSTAT and every later packet were not started and push merge tag archive and deployment remain unauthorised
 
   P3-DIGIKAT:
     reviewed_at: "2026-08-10"

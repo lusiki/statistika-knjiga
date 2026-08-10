@@ -3,14 +3,14 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: G-A3-EUROSTAT
-last_completed_packet: P3-DIGIKAT
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: G-A3-EUROSTAT
+next_permitted_packet: P3-EUROSTAT
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 83
+forward_handoffs: 84
 last_updated: "2026-08-10"
 ---
 
@@ -41,20 +41,20 @@ stop and repair the control state before editing book content.
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
-| Gate A3-EUROSTAT | In progress: the author pre-disposition is operationalised as six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test are prepared; no source route is authorised, so the gate is not accepted and `P3-EUROSTAT` cannot start |
+| Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `G-A3-EUROSTAT` |
-| Last completed packet | `P3-DIGIKAT` |
-| Next permitted packet | None while `G-A3-EUROSTAT` holds the sole write lock |
+| Active write packet | None |
+| Last completed packet | `G-A3-EUROSTAT` |
+| Next permitted packet | `P3-EUROSTAT` only |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 162 accepted, 5 deferred with reason, 204 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 78 accepted, 109 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 79 accepted, 108 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 43 of the 83 canonical asks remain `drafted_unsent`; 34 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, the Eurostat selection and rights asks, C00, C01, C02 and C03 acceptance, and the G-A4-03 brief; 0 external messages sent. The new bounded Eurostat source-route ask is ready for the author |
+| Open outside asks | 42 of the 83 canonical asks remain `drafted_unsent`; 35 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02 and C03 acceptance, and the G-A4-03 brief; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -112,6 +112,33 @@ No chapter prose was changed by `P0-OUTSIDE`.
   genuine cross-country Eurostat case for comparability and ecological
   interpretation, and that absence must be stated rather than filled with an
   unverified number.
+
+## G-A3-EUROSTAT closeout
+
+- Author and editor Luka Sikic accepted the recommended source route on
+  2026-08-10: one bounded retrieval of the exactly defined six-indicator 2025
+  EU-27 slice from the official Eurostat source, outside rendering, with the
+  query, unmodified response, access date, checksums and reconciliation
+  retained. This is a packet-specific exception, not general network authority.
+- The selection remains six indicators, one common year, all 27 EU Member
+  States and sole consumer `WB-C06`. All 162 country-indicator keys must be
+  2025 or an explicit retained official missing value carrying its source
+  flags. A mixed-year fallback is forbidden.
+- Published reuse terms, exact attribution and disclaimer text, and the
+  third-party-content exception test are settled. The actual retrieved source
+  must still stop the data packet if it carries a contrary individual notice.
+  No rights-holder permission is claimed and none was sought.
+- `H-P1B-DATA-LIC-003` was consumed before claim. `H-P3-CATALOG-001` was
+  acknowledged before the first substantive edit and consumed at closeout:
+  the gate changed no catalogue entry, retrieved no data and promoted zero
+  packages. `eurostat_drustvo` remains portal-mediated, unpromoted and without
+  files until its data packet satisfies the full contract.
+- `H-G-A3-EUROSTAT-001` carries the complete accepted selection, flag,
+  rights, source-route and claim boundary to `P3-EUROSTAT`, `P3-VERIFY-B` and
+  `WB-C06`. The packet review declares all future effects recorded.
+- `P3-EUROSTAT` is the sole next permitted packet. It was not started before
+  this gate closed. Push, merge, tag, archive and deployment remain
+  unauthorised.
 
 ## P3-DIGIKAT claim
 

@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "G-A3-EUROSTAT"
-    claimed_at: "2026-08-10"
-    owned_paths:
-      - "notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "P3-DIGIKAT"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "G-A3-EUROSTAT"
+  next_permitted_packet: "P3-EUROSTAT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1869,6 +1862,90 @@ decisions:
       reading of the master corpus, and no rights-holder-permission claim. It
       authorises no generated book artefact, push, merge, tag, archive,
       deployment, or publication.
+
+  G-A3-EUROSTAT:
+    status: "accepted"
+    accepted_at: "2026-08-10"
+    author_disposition: "accepted_as_recommended_with_one_bounded_official_retrieval"
+    author: "Luka Sikic"
+    data_policy_owner: "Luka Sikic"
+    evidence: "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+    pre_disposition_record: "notes/reports/author-pre-dispositions-2026-08-10.md"
+    preparation_commit: "fd626f78f2ffbc93e8f4aca6376a91843ebe2c5f"
+    accepted_dispositions:
+      selection: >-
+        Six question-led indicators: lfsi_emp_a employment age 20-64;
+        ilc_peps01n risk of poverty or social exclusion; sdg_04_20 sourced
+        from edat_lfse_03 tertiary attainment age 25-34; edat_lfse_14 early
+        leaving age 18-24; isoc_ci_ifp_iu internet use age 16-74; and
+        demo_pjanind population age 65 and over. The common reference year is
+        2025 and the geography is all 27 EU Member States, with EU27_2020
+        permitted only as a control row and never as a country observation.
+      common_year_flags_and_missingness: >-
+        Every one of the 162 country-indicator keys must be 2025 and must
+        retain the source OBS_STATUS and CONF_STATUS information. An official
+        missing value remains an explicit missing row; it is never zero,
+        dropped, imputed or replaced by another year. If the authorised source
+        cannot prove the common-year contract, P3-EUROSTAT stops rather than
+        constructing a mixed-year cross-section.
+      chapter_role: >-
+        The sole current consumer is WB-C06. The package supports country-level
+        comparison, association, a third-variable question, visible quality
+        flags and the ecological-inference boundary. It supports no individual,
+        causal, out-of-EU or unflagged-comparability claim and no other consumer
+        is added by implication.
+      reuse_attribution_and_disclaimer: >-
+        The authoritative Eurostat notice permits commercial and
+        non-commercial reuse of its statistical data with source
+        acknowledgement, requires changes to be stated and requires a
+        non-responsibility disclaimer. P3-EUROSTAT must cite each component
+        using the exact customised-dataset template Source: [Eurostat dataset
+        datacode link], [access date], state the exact gate-approved
+        modification sentence and retain the exact European Commission
+        non-liability sentence recorded in the decision report. No
+        rights-holder permission is claimed because none was sought.
+      third_party_exception: >-
+        The selected tables identify Eurostat as source, contain only EU Member
+        States, are not trade tables and transfer no publication, photograph,
+        illustration, logo or trademark. The published third-party and
+        commercial-geography exceptions therefore do not apply to this bounded
+        selection. P3-EUROSTAT must still stop if the actual retrieved source
+        carries a contrary individual copyright notice.
+      source_route: >-
+        The author expressly authorises one bounded retrieval of exactly the
+        six-table 2025 EU-27 slice from the official Eurostat source outside
+        rendering. P3-EUROSTAT must retain the exact query and unmodified source
+        response, record the access date and checksums, and reconcile the
+        teaching output to that retained response. This is a one-time,
+        packet-specific exception to the standing no-network-retrieval
+        directive, not general network authority.
+    rejected_alternatives:
+      - "Use the rejected CroAIcon MySQL staging table, whose repeated rows break provenance."
+      - "Wait for an author-supplied local mirror, when the author instead approved a bounded official retrieval."
+      - "Keep eurostat_drustvo portal-mediated and unpromoted and amend or descope P3-EUROSTAT."
+      - "Select a separate latest year for each country-indicator pair and create a false mixed-year cross-section."
+      - "Add a seventh indicator without a distinct Chapter 6 question or remove a selected axis merely to reach five."
+      - "Include non-EU geography, trade data, images, logos or other material that could activate a published exception."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-EUROSTAT"
+      governed_items:
+        - "R03-EUROSTAT-rights"
+        - "R08-EUROSTAT-package"
+      later_gates_still_mandatory:
+        - "P3-VERIFY-B"
+        - "WB-C06"
+    authority_boundary: >-
+      This decision authorises only P3-EUROSTAT to perform one bounded official
+      retrieval of the named six-indicator 2025 EU-27 slice, outside rendering,
+      and to retain its exact query, unmodified response, access date,
+      checksums and reconciliation. It authorises no other source, table,
+      indicator, year, geography, retrieval or consumer; no CroAIcon staging
+      use; no render-time network; and no claim of rights-holder permission.
+      The gate itself retrieves no data, changes no catalogue entry, promotes
+      no package and edits no chapter. It authorises no generated book
+      artefact, push, merge, tag, archive, deployment or publication.
 
   G-A4-03:
     status: "accepted"
@@ -9025,7 +9102,7 @@ packets:
     sequence: 86
     phase: "3B"
     kind: "decision_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
       - "P3-CATALOG"
@@ -9037,14 +9114,71 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-EUROSTAT.accepted_at-2026-08-10"
+            - "record:notes/reports/author-pre-dispositions-2026-08-10.md"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor-and-data-policy-owner"
+            - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "outside-ask:OA-G-A3-EUROSTAT-SOURCE-ROUTE-recommended-default"
+            - "register:decisions.G-A3-EUROSTAT.rejected_alternatives-6"
+            - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md#izvorna-ruta-prihvaceni-ograniceni-dohvat"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-EUROSTAT.blocked_dependencies"
+            - "items:R03-EUROSTAT-rights-and-R08-EUROSTAT-package"
+            - "packet:P3-EUROSTAT"
+      outputs:
+        - output: "Dated G-A3-EUROSTAT decision and authority record for: Eurostat selection, rights, and chapter role."
+          artifacts:
+            - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-EUROSTAT"
+            - "outside-ask:OA-G-A3-EUROSTAT-SELECTION-done"
+            - "outside-ask:OA-G-A3-EUROSTAT-RIGHTS-done"
+            - "outside-ask:OA-G-A3-EUROSTAT-SOURCE-ROUTE-done"
+        - output: "Completion evidence is tied to the declared G-A3-EUROSTAT source state and bounded scope."
+          artifacts:
+            - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-EUROSTAT.authority_boundary"
+            - "boundary:gate-retrieved-no-data-changed-no-catalogue-and-promoted-zero-packages"
+            - "check:scripts/check-review-workflow.R-at-G-A3-EUROSTAT-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-accepted-one-bounded-official-retrieval"
+            - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-EUROSTAT.rejected_alternatives-6"
+            - "register:decisions.G-A3-EUROSTAT.authority_boundary"
+            - "register:decisions.G-A3-EUROSTAT.blocked_dependencies"
+        - test: "The G-A3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "selection:six-indicators-2025-all-EU27-sole-consumer-WB-C06"
+            - "contract:162-country-indicator-keys-same-year-or-explicit-missing"
+            - "rights:official-reuse-notice-exact-attribution-change-statement-disclaimer-and-third-party-exception-test"
+            - "route:one-bounded-official-retrieval-outside-render-with-query-response-date-checksum-and-reconciliation"
+            - "handoff:H-P1B-DATA-LIC-003-consumed-before-claim"
+            - "handoff:H-P3-CATALOG-001-acknowledged-before-first-edit-and-consumed-at-closeout"
+            - "review:packet_reviews.G-A3-EUROSTAT-all-future-effects-recorded"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
   P3-EUROSTAT:
     sequence: 87
     phase: "3B"
@@ -28028,8 +28162,8 @@ outside_asks:
       promoted.
 
   OA-G-A3-EUROSTAT-SOURCE-ROUTE:
-    status: "drafted_unsent"
-    readiness: "ready_for_author_decision"
+    status: "done"
+    readiness: "resolved_by_author_bounded_retrieval_authorisation"
     kind: "source_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -28069,6 +28203,16 @@ outside_asks:
       network-retrieval directive or descoping a ratified packet is an author
       decision.
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Author and editor Luka Sikic expressly approved the recommended route in
+      the active thread on 2026-08-10: one bounded retrieval of the exactly
+      defined 2025 Eurostat slice from the official source, outside rendering,
+      retaining the query, unmodified response, date, checksums and
+      reconciliation. The authority is packet-specific and does not permit a
+      second retrieval, another indicator, year, geography or source, the
+      rejected CroAIcon staging table, render-time network access or a
+      rights-holder-permission claim. No external message was sent.
 
   OA-G-A3-ESS-SELECTION:
     status: "drafted_unsent"
