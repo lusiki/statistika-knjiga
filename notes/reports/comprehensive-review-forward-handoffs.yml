@@ -5776,8 +5776,23 @@ handoffs:
           - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c05-claim"
       - target_packet: C05
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          C05 closed only after the named author supplied the exact dated reply
+          tied to WB-C05 commit de85c7018b934bf5c6310fd4f1125f0ae65473a0.
+          The packet advanced only Chapter 5 to coauthor_review and accepted
+          only its four governed items, retained the disclosed two local minors
+          and one pre-existing documentation minor in the durable package,
+          claimed no author reading, made one bounded local closeout commit and
+          left WB-C06 unstarted for its own claim.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+          - "report:notes/reports/c05-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+          - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
+          - "boundary:WB-C06-not-started-in-C05"
       - target_packet: WB-C06
         gate: before_start
         state: pending
@@ -7842,3 +7857,30 @@ packet_reviews:
       - six independent read-only critics confirmed the exact final hash with zero fatal zero major two chapter minors and one pre-existing out-of-scope documentation minor
       - all four governed items remain ratified and Chapter 5 remains draft pending the separate author-only C05 gate
       - C05 is next but was not accepted no author reading or acceptance was claimed and no external action was taken
+
+  C05:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C05 found no new future-relevant effect. The author accepted the
+      synthesised disposition with both nonblocking Chapter 5 wording notes
+      visible. The separate documentation minor remains pre-existing work
+      already owned by H-WB-C04-001 and H-P3-CATALOG-002 for P5-C, so a new
+      handoff would duplicate the canonical obligation.
+    implementation_state: commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0
+    checks:
+      - the author reply is recorded exactly as C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10
+      - the cited commit remains the final material Chapter 5 source and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df
+      - the synthesis records zero fatal zero major two nonblocking Chapter 5 minors and one pre-existing documentation minor
+      - notes/reports/c05-acceptance-package-2026-08-10.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 05-vizualizacija from draft to coauthor_review and explicitly records no claim that the author read the chapter
+      - all four governed Chapter 5 content items are accepted with source-specific evidence and no other atomic item changes status
+      - OA-C05-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
+      - H-C04-THREAD-SEQUENCE-001 is consumed for C05 only after the exact reply and remains pending for WB-C06 and C06
+      - H-WB-C04-001 and H-P3-CATALOG-002 remain pending for P5-C and are not duplicated
+      - scripts/check-chapter-spines.py passes with thirteen draft and six coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget render or generated artifact changed in C05
+      - WB-C06 is next but was not started in C05 and push merge tag archive and deployment remain unauthorised

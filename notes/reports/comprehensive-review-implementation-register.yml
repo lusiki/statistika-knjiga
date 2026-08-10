@@ -10,17 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C05"
-    claimed_at: "2026-08-10"
-    owned_paths:
-      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
-      - "notes/reports/c05-acceptance-package-2026-08-10.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WB-C05"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C05"
+  next_permitted_packet: "WB-C06"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9647,7 +9639,7 @@ packets:
     sequence: 92
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WB-C05"
     scope: "Author acceptance and panel disposition for C05."
@@ -9658,14 +9650,72 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-skeptic-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-pedagogy-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-evidence-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-style-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors-one-preexisting-documentation-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "report:notes/reports/c05-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
+            - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+            - "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "check:scripts/check-chapter-spines.py-C05-accepted-stage-transition"
+      outputs:
+        - output: "C05 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c05-acceptance-package-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C05 source state and bounded scope."
+          artifacts:
+            - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+            - "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "handoff:H-C04-THREAD-SEQUENCE-001-consumed-for-C05"
+            - "check:scripts/check-review-workflow.R-at-C05-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-13-draft-6-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors-one-preexisting-documentation-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c05-acceptance-package-2026-08-10.md"
+            - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+            - "reports:wb-c05-six-final-critic-reports"
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   WB-C06:
     sequence: 93
     phase: "4"
@@ -19396,7 +19446,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Visualise skewed textual frequencies or group comparisons."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19412,11 +19462,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd#fig-ucestalost-rijeci"
+      - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R13-C06-coded-association:
     parents:
       - "R13"
@@ -25672,7 +25728,7 @@ items:
       location: "§4/§8/§11 + §15 R28"
     description: "Add an interpretive Croatian paragraph immediately before fig-anscombe."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25688,11 +25744,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd#fig-anscombe"
+      - "report:notes/reports/wb-c05-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R28-C05-density:
     parents:
       - "R28"
@@ -25706,7 +25768,7 @@ items:
       location: "§11"
     description: "Review each figure’s distinct argumentative function after prose stabilises."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25722,11 +25784,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd"
+      - "report:notes/reports/wb-c05-figure-density-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R29-C07-retrieval-load:
     parents:
       - "R29"
@@ -26182,7 +26251,7 @@ items:
       location: "§10 recurring cases"
     description: "Preserve a purposeful Anscombe spiral across Chapters 4–6."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26198,11 +26267,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd#fig-anscombe"
+      - "source:chapters/06-povezanost.qmd"
+      - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R31-C00-ASA-deemphasis:
     parents:
       - "R31"
@@ -29108,7 +29184,7 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-10"
 
   OA-C05-ACCEPTANCE:
-    status: "drafted_unsent"
+    status: "done"
     readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
@@ -29142,6 +29218,9 @@ outside_asks:
     resume_condition: "C05 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: "C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-10"
 
   OA-C06-ACCEPTANCE:
     status: "drafted_unsent"

@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: C05
-last_completed_packet: WB-C05
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: C05
+next_permitted_packet: WB-C06
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -45,16 +45,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `C05` |
-| Last completed packet | `WB-C05` |
-| Next permitted packet | None while `C05` awaits the author/editor |
+| Active write packet | None |
+| Last completed packet | `C05` |
+| Next permitted packet | `WB-C06` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 170 accepted, 5 deferred with reason, 196 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 84 accepted, 102 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 174 accepted, 5 deferred with reason, 192 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 85 accepted, 102 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 14 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode` and `04-sazimanje-podataka` at `coauthor_review` |
+| Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 41 of the 83 canonical asks remain `drafted_unsent`; 36 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03 and C04 acceptance, and the G-A4-03 brief; 0 external messages sent |
+| Open outside asks | 40 of the 83 canonical asks remain `drafted_unsent`; 37 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04 and C05 acceptance, and the G-A4-03 brief; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
@@ -266,33 +266,64 @@ No chapter prose was changed by `P0-OUTSIDE`.
   author reading or acceptance is claimed. Push, merge, tag, archive and
   deployment remain unauthorised.
 
-## C05 package prepared — awaiting author decision
+## C05 package preparation record
 
-- C05 is claimed only as an author-acceptance gate against WB-C05 commit
+- C05 was claimed only as an author-acceptance gate against WB-C05 commit
   `de85c7018b934bf5c6310fd4f1125f0ae65473a0`. The Chapter 5 Git blob is
   `6c478a6efc6c80b44c2475849024db782d139076`, and the working-file SHA-256 is
   `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
-- `notes/reports/c05-acceptance-package-2026-08-10.md` cites the final commit,
+- `notes/reports/c05-acceptance-package-2026-08-10.md` cited the final commit,
   all six reports, the synthesis, the WB-C05 evidence record, the density
   memorandum, every open minor finding and the proposed ledger disposition.
-  `OA-C05-ACCEPTANCE` is ready for author decision; no external message was
+  `OA-C05-ACCEPTANCE` was ready for author decision; no external message was
   sent.
 - Every critic addressed the same final material hash. There is no fatal or
   major finding. Two nonblocking skeptical wording notes remain in Chapter 5;
   one pre-existing documentation minor outside the chapter remains owned by
   `H-WB-C04-001` and `H-P3-CATALOG-002` for `P5-C`.
-- The recommended disposition is to accept exactly four governed Chapter 5
+- The recommended disposition was to accept exactly four governed Chapter 5
   items and advance only `05-vizualizacija` from `draft` to
   `coauthor_review`, explicitly without claiming that the author read the
   chapter and without calling it `final`.
-- No proposed disposition has been applied. The chapter ledger is unchanged,
-  all four items remain `ratified`, C05 remains `in_progress`, and WB-C06 is
-  blocked. No chapter prose, data, bibliography, concept, widget, render or
-  generated artifact changed while assembling the package.
-- `H-C04-THREAD-SEQUENCE-001` is acknowledged for C05 but remains unconsumed
+- Before the author decision, no proposed disposition had been applied. The
+  chapter ledger was unchanged, all four items remained `ratified`, C05 was
+  `in_progress`, and WB-C06 was blocked. No chapter prose, data, bibliography,
+  concept, widget, render or generated artifact changed while assembling the
+  package.
+- `H-C04-THREAD-SEQUENCE-001` was acknowledged for C05 but remained unconsumed
   until the real author reply and gate closeout. The 2026-08-05 standing
-  delegation and the thread amendment do not substitute for that reply. Push,
-  merge, tag, archive and deployment remain unauthorised.
+  delegation and the thread amendment did not substitute for that reply.
+
+## C05 closeout
+
+- The author replied exactly: `C05 accepted for
+  de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10.` The real reply
+  supplies the author-acceptance evidence; neither the standing delegation nor
+  the thread amendment substitutes for it, and no author reading is claimed.
+- The final Chapter 5 source commit is
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`; its Git blob is
+  `6c478a6efc6c80b44c2475849024db782d139076` and its SHA-256 is
+  `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. There is no fatal or major finding. The accepted disposition keeps
+  two nonblocking Chapter 5 wording notes and one pre-existing documentation
+  minor visible rather than silently repairing or suppressing them.
+- Exactly four governed Chapter 5 content items advance from `ratified` to
+  `accepted`: `R13-C05-frequency-visual`, `R28-C05-introduction`,
+  `R28-C05-density` and `R31-C05-Anscombe`. No other atomic item changes
+  status.
+- Only `05-vizualizacija` advances from `draft` to `coauthor_review`; the
+  ledger explicitly says that this records acceptance and does not claim that
+  the author read the chapter. This is not a `final` disposition.
+- `OA-C05-ACCEPTANCE` is `done` from the in-thread reply. No external message
+  was sent. `H-C04-THREAD-SEQUENCE-001` is consumed for C05 and remains pending
+  for WB-C06 and C06. `H-WB-C04-001` and `H-P3-CATALOG-002` remain pending for
+  `P5-C`.
+- No chapter prose, data, bibliography, terminology, spine, concept graph,
+  widget, render or generated artifact changed in C05. `WB-C06` is next and
+  was not started in C05; push, merge, tag, archive and deployment remain
+  unauthorised.
 
 ## G-A3-EUROSTAT claim
 
@@ -3859,18 +3890,47 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Read `notes/reports/c05-acceptance-package-2026-08-10.md` and verify that C05 is
-active against WB-C05 commit
-`de85c7018b934bf5c6310fd4f1125f0ae65473a0`. Do not edit the source, accept
-C05, advance the chapter ledger or change the four governed item statuses
-without the named author/editor's reply. Do not use the 2026-08-05 standing
-delegation or the thread amendment as a substitute, do not suppress the three
-disclosed minor findings, and do not claim that the author read the chapter.
+Verify that C05 is accepted against WB-C05 commit
+`de85c7018b934bf5c6310fd4f1125f0ae65473a0`, that `05-vizualizacija` is at
+`coauthor_review`, that exactly its four governed items are accepted, and that
+`WB-C06` is the sole `next_permitted_packet`.
 
-For acceptance, the required reply is exactly:
+Then execute only `WB-C06`, the Chapter 6 vertical slice, and stop before C06.
+Read the two WB-C06 governed items `R13-C06-coded-association` and
+`R35-REACHBACK-06`; preserve the already accepted
+`R09-C06-pearson-spearman-agree` and
+`R09-C06-pearson-spearman-disagree` repairs on the final source state.
 
-C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10.
+Before claim, consume the `before_start` deliveries of
+`H-C04-THREAD-SEQUENCE-001`, `H-G-A3-DIGIKAT-002`,
+`H-G-A3-EUROSTAT-001` and `H-P3-EUROSTAT-001`. Acknowledge the
+`before_close` delivery of `H-P3-EXISTING-001` before the first substantive
+edit and consume it with concrete evidence before closeout. Copy, commit or
+promote no `anscombe` file; keep the local-R route optional and make every
+mandatory task use the licence-clean fallback or the governed Eurostat file.
 
-Otherwise list exact blocking revisions tied to that commit. Push, merge, tag,
-archive and deploy remain unauthorised.
+Use `eurostat_drustvo` only for country-level 2025 comparison, association and
+a third-variable question. Preserve all 162 EU-27 country-indicator keys, the
+161 numerical values and the explicit Luxembourg early-leaving absence with
+its source flags. Exclude that value only from calculations that require it.
+Make no individual, causal, time-trend, mixed-year or out-of-EU claim. Preserve
+the DigiKat method-break, denominator and structural-unmeasurement boundaries
+where the source appears.
+
+Make the scatterplot primary, preserve Pearson/Spearman agreement and
+disagreement as clues rather than proofs, qualify range-restriction
+attenuation, retrieve causal limits, let one coded-text category enter an
+association explicitly as a measurement decision, and replace one exercise
+with a genuine reach-back to material at least two chapters earlier. Complete
+the AI, print, transition and communication-thread obligations without adding
+an assessed code-production task.
+
+Follow STYLE.md and the checkout-local Bookwright style, figure and six-critic
+review workflows. Reproduce every number, run the applicable deterministic
+checks and targeted HTML, PDF and wrapper-built DOCX renders. Record all
+future-relevant effects or explicitly declare that none were found, update all
+three control views together, run the workflow validator and required negative
+fixtures, make one bounded local packet commit and stop. Leave Chapter 6 at
+`draft` and its two WB-C06 items `ratified` pending C06. Do not start C06.
+Push, merge, tag, archive and deploy remain unauthorised.
 ```

@@ -2,11 +2,15 @@
 
 **Gate:** `C05`
 
-**Stanje gatea:** pripremljen; čeka autorovu odluku.
+**Stanje gatea:** autor prihvatio; dispozicija provedena.
 
 **Imenovani vlasnik odluke:** Luka Šikić, autor/editor.
 
 **Datum pripreme:** 10. kolovoza 2026.
+
+**Datum autorove odluke:** 10. kolovoza 2026.
+
+**Datum zapisa odluke:** 10. kolovoza 2026.
 
 ## Konačno materijalno stanje
 
@@ -82,10 +86,9 @@ HTML, PDF i omotačem izrađen DOCX prošli su na konačnom materijalnom stanju.
 Citatne, podatkovne, pojmovne, stilske, rukopisne, figurne, widget i workflow
 provjere također prolaze.
 
-## Predložena dispozicija registra i knjige poglavlja
+## Provedena dispozicija registra i knjige poglavlja
 
-Ako autor prihvati ovaj paket vezan uz navedeni commit, C05 treba provesti
-sljedeću usku dispoziciju:
+C05 je proveo sljedeću usku dispoziciju vezanu uz navedeni commit:
 
 - `05-vizualizacija` u
   `bookwright_plugin/bookwright/shared/chapter-ledger.json` prelazi iz `draft`
@@ -99,25 +102,28 @@ sljedeću usku dispoziciju:
   - `R28-C05-density`;
   - `R31-C05-Anscombe`.
 
-Ni jedna druga stavka ne mijenja status. Ni jedna od navedenih promjena još
-nije provedena. Poglavlje ostaje `draft`, sve četiri stavke ostaju `ratified`,
-a C05 ostaje otvoren dok autor ne odgovori. Stalna delegacija od 5. kolovoza i
-amandman niti od 10. kolovoza ne zamjenjuju odgovor koji ovaj gate izričito
-zahtijeva.
+Ni jedna druga stavka nije promijenila status. Sve četiri navedene stavke sada
+su `accepted`, `05-vizualizacija` sada je `coauthor_review`, a C05 je zatvoren
+kao `accepted`. To ne tvrdi da je autor pročitao poglavlje i ne proglašava ga
+konačnim. Stalna delegacija od 5. kolovoza i amandman niti od 10. kolovoza nisu
+upotrijebljeni umjesto odgovora koji je ovaj gate izričito zahtijevao.
 
 ## Granica slijeda
 
-`H-C04-THREAD-SEQUENCE-001` priznat je pri claimu C05, ali neće biti potrošen
-prije stvarne autorove odluke i zatvaranja gatea. `WB-C06` nije pokrenut. Push,
-merge, tag, arhiviranje, deployment i objava nisu dio ove odluke.
+`H-C04-THREAD-SEQUENCE-001` priznat je pri claimu C05 i potrošen tek nakon
+stvarne autorove odluke pri zatvaranju gatea. `WB-C06` je sljedeći dopušteni
+paket i nije pokrenut u C05. Push, merge, tag, arhiviranje, deployment i objava
+nisu dio ove odluke.
 
 ## Točan odgovor autora
 
-Za prihvaćanje odgovorite doslovno:
+Odgovor je primljen u aktivnoj niti i zapisan doslovno:
 
 ```text
-C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10.
+status: accepted
+author_reply: C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10.
+reply_evidence: conversation:user-message-recorded-2026-08-10
 ```
 
-Ili navedite točne blokirajuće revizije vezane uz isti commit. Odgovor ne mora
-tvrditi da ste pročitali poglavlje; on prihvaća sintetiziranu dispoziciju.
+Odgovor navodi točan završni izvorni commit i datum odluke. Ne tvrdi se da je
+autor pročitao poglavlje.
