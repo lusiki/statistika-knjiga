@@ -10,17 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C07"
-    claimed_at: "2026-08-11"
-    owned_paths:
-      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
-      - "notes/reports/c07-acceptance-package-2026-08-11.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WC-C07"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C07"
+  next_permitted_packet: "WC-C08"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10148,7 +10140,7 @@ packets:
     sequence: 97
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WC-C07"
     scope: "Author acceptance and panel disposition for C07."
@@ -10159,14 +10151,76 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wc-c07-critic-methods-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-skeptic-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-pedagogy-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-evidence-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-style-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-structure-2026-08-11.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+            - "result:zero-fatal-zero-major-twenty-nonblocking-minor-eight-useful"
+            - "boundary:catalogue-description-debt-remains-owned-by-H-P3-CATALOG-002-for-P5-C"
+            - "boundary:H-WC-C07-WC-C08-PREREQUISITE-001-remains-pending-and-is-not-waived-by-C07"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+            - "report:notes/reports/c07-acceptance-package-2026-08-11.md#tocan-odgovor-autora"
+            - "conversation:user-message-recorded-2026-08-11"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost-stage-coauthor_review"
+            - "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+            - "source:sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+            - "check:scripts/check-chapter-spines.py-C07-accepted-stage-transition"
+      outputs:
+        - output: "C07 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c07-acceptance-package-2026-08-11.md"
+            - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+            - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C07 source state and bounded scope."
+          artifacts:
+            - "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+            - "source:sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+            - "handoff:H-WC-C07-THREAD-SEQUENCE-001-consumed-for-C07"
+            - "boundary:H-WC-C07-WC-C08-PREREQUISITE-001-remains-pending"
+            - "check:scripts/check-review-workflow.R-at-C07-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-12-draft-7-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+            - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+            - "result:zero-fatal-zero-major-twenty-nonblocking-minor-eight-useful"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c07-acceptance-package-2026-08-11.md"
+            - "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+            - "reports:wc-c07-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+            - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
   WC-C08:
     sequence: 98
     phase: "4"
@@ -18331,7 +18385,7 @@ items:
       location: "§8 Ch7"
     description: "Develop probability as calibrated uncertainty without displacing long-run simulation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18349,11 +18403,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C07"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+      - "source:chapters/07-vjerojatnost.qmd@sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+      - "result:model-probability-personal-confidence-and-repeated-frequency-evidence-distinguished-with-comparable-forecast-calibration"
+      - "report:notes/reports/wc-c07-critic-methods-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-skeptic-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-pedagogy-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+      - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+      - "report:notes/reports/c07-acceptance-package-2026-08-11.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
   R10-C18-whole-book-harvest:
     parents:
       - "R10"
@@ -19236,8 +19299,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: false
-      ask_id: null
+      active: true
+      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
     change_reference: null
   R12-POLL-card:
     parents:
@@ -19345,8 +19408,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: false
-      ask_id: null
+      active: true
+      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
     change_reference: null
   R12-SCOPE-no-variance-course:
     parents:
@@ -19888,8 +19951,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: false
-      ask_id: null
+      active: true
+      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
     change_reference: null
   R13-C09-coded-uncertainty:
     parents:
@@ -26169,7 +26232,7 @@ items:
       location: "§7/§8 + §15 R29"
     description: "Reduce simultaneous novelty and add a midpoint retrieval pause."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26187,11 +26250,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C07"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+      - "source:chapters/07-vjerojatnost.qmd@sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+      - "result:midpoint-retrieval-pause-at-45.5-to-47.3-percent-of-reader-prose-retrieves-Chapter-4-standardisation-and-gives-repair-route"
+      - "report:notes/reports/wc-c07-critic-pedagogy-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-structure-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+      - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+      - "report:notes/reports/c07-acceptance-package-2026-08-11.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
   R29-C16-retrieval:
     parents:
       - "R29"
@@ -27133,7 +27204,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 07 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27151,11 +27222,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C07"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+      - "source:chapters/07-vjerojatnost.qmd@sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+      - "result:four-tier-task-requires-Chapter-3-counts-and-all-six-review-questions-with-canonical-closure-and-no-code-production"
+      - "result:reachback-90-over-100-90-over-585-100-over-10000"
+      - "report:notes/reports/wc-c07-critic-methods-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-pedagogy-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-structure-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+      - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+      - "report:notes/reports/c07-acceptance-package-2026-08-11.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
   R35-REACHBACK-08:
     parents:
       - "R35"
@@ -27189,8 +27270,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: false
-      ask_id: null
+      active: true
+      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
     change_reference: null
   R35-REACHBACK-09:
     parents:
@@ -27882,7 +27963,7 @@ items:
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
-  total_asks: 83
+  total_asks: 84
   external_messages_sent: 0
   implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   canonical_status_store: "outside_asks"
@@ -27916,6 +27997,7 @@ outside_ask_inventory:
       - "G-A5c"
       - "G-A5d"
       - "G-A6"
+      - "WC-C08"
     chapter_acceptance:
       - "C00"
       - "C01"
@@ -29635,7 +29717,7 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-11"
 
   OA-C07-ACCEPTANCE:
-    status: "drafted_unsent"
+    status: "done"
     readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
@@ -29669,6 +29751,41 @@ outside_asks:
     exact_reply_requested: "Reply: C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11; or list exact blocking revisions tied to that commit."
     resume_condition: "C07 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
+    external_message_sent: false
+    resolved_at: "2026-08-11"
+    resolution: "C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-11"
+
+  OA-WC-C08-P3-ESS-DEPENDENCY:
+    status: "drafted_unsent"
+    readiness: "ready_for_author_decision"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: "Choose and authorise one exact control-order resolution for the WC-C08 versus P3-ESS prerequisite contradiction before WC-C08 is claimed; do not decide the separate ESS selection or rights questions by implication."
+    expected_form: "One dated decision either moving G-A3-ESS and P3-ESS immediately after C07, naming the exact replacement dependency and preserving the separate ESS decisions, or replacing the four exact P3-ESS item prerequisites and their evidence contract."
+    blocked_items:
+      - "R12-C08-survey-realism"
+      - "R12-C08-weighted-table"
+      - "R13-C08-corpus-selection"
+      - "R35-REACHBACK-08"
+    blocked_gates:
+      - "WC-C08"
+    available_evidence:
+      - "handoff:H-WC-C07-WC-C08-PREREQUISITE-001"
+      - "decision:A-THREAD-C07-C09-2026-08-11"
+      - "packet:WC-C08-sequence-98-requires-C07-and-P1A-C08"
+      - "packet:G-A3-ESS-sequence-112-requires-WC-PARTS-P0-OUTSIDE-P3-CATALOG"
+      - "packet:P3-ESS-sequence-113-status-ratified"
+      - "items:R12-C08-survey-realism-R12-C08-weighted-table-R13-C08-corpus-selection-R35-REACHBACK-08-require-P3-ESS"
+      - "decision:D08-portal-mediated-default-no-bundling-without-written-permission"
+      - "outside-ask:OA-G-A3-ESS-SELECTION"
+      - "outside-ask:OA-G-A3-ESS-RIGHTS"
+      - "report:notes/reports/wc-c07-2026-08-11.md#kontrolni-nalaz-preduvjeta-za-wc-c08"
+    recommended_default: "Preserve all four WC-C08 content obligations. Move G-A3-ESS and P3-ESS immediately after C07 and before WC-C08 while preserving every other packet's relative order; replace G-A3-ESS prerequisite WC-PARTS with C07 while retaining P0-OUTSIDE and P3-CATALOG; add P3-ESS to WC-C08 prerequisites; and preserve OA-G-A3-ESS-SELECTION plus OA-G-A3-ESS-RIGHTS as separate decisions under D08."
+    exact_reply_requested: "Reply: Route A approved for H-WC-C07-WC-C08-PREREQUISITE-001 on 2026-08-11: move G-A3-ESS and P3-ESS immediately after C07 and before WC-C08, preserve the relative order of all other packets, replace G-A3-ESS prerequisite WC-PARTS with C07 while retaining P0-OUTSIDE and P3-CATALOG, add P3-ESS to WC-C08 prerequisites, retain all four WC-C08 item requirements, and preserve the separate OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS decisions. Or specify Route B with the exact replacement prerequisites and evidence."
+    resume_condition: "After the dated control decision is recorded, implement and validate only its exact order/dependency amendment. WC-C08 may be claimed only after G-A3-ESS and P3-ESS close under their own evidence contracts, the separate ESS selection/rights dispositions remain explicit, and H-WC-C07-WC-C08-PREREQUISITE-001 is terminal at its before_start gate."
+    why_external: "The repository proves the dependency contradiction but cannot choose or authorise a change to the ratified packet order, thread amendment, item prerequisites, or Chapter 8 scope."
     external_message_sent: false
 
   OA-C08-ACCEPTANCE:

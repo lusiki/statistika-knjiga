@@ -6092,8 +6092,25 @@ handoffs:
     deliveries:
       - target_packet: C07
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          C07 closed only after the named author supplied the exact dated reply
+          tied to WC-C07 commit c6c7078b918a3b017b5807d51b68c83ae2d7bc2f.
+          The packet advanced only Chapter 7 to coauthor_review and accepted
+          only R10-C07-degree-belief, R29-C07-retrieval-load and
+          R35-REACHBACK-07, retained all twenty minor and eight useful panel
+          records, claimed no author reading, made one bounded local closeout
+          commit and left WC-C08 unstarted. The separate P3-ESS prerequisite
+          handoff remains pending and is not waived by this acceptance.
+        evidence:
+          - "decision:A-THREAD-C07-C09-2026-08-11"
+          - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
+          - "report:notes/reports/c07-acceptance-package-2026-08-11.md#tocan-odgovor-autora"
+          - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost-stage-coauthor_review"
+          - "boundary:H-WC-C07-WC-C08-PREREQUISITE-001-remains-pending"
+          - "boundary:WC-C08-not-started-in-C07"
       - target_packet: WC-C08
         gate: before_start
         state: pending
@@ -6116,7 +6133,11 @@ handoffs:
       - item:R13-C08-corpus-selection
       - item:R35-REACHBACK-08
       - decision:A-THREAD-C07-C09-2026-08-11
+      - decision:D08
+      - outside-ask:OA-G-A3-ESS-SELECTION
+      - outside-ask:OA-G-A3-ESS-RIGHTS
       - report:notes/reports/wc-c07-2026-08-11.md#kontrolni-nalaz-preduvjeta-za-wc-c08
+      - notes/reports/comprehensive-review-implementation-register.yml#OA-WC-C08-P3-ESS-DEPENDENCY
     statement: >-
       The four governed items assigned to WC-C08 each require P3-ESS, but
       P3-ESS remains ratified at sequence 113 while WC-C08 is sequence 98 and
@@ -6129,6 +6150,9 @@ handoffs:
       Before WC-C08 is claimed, record a separately authorised control
       resolution that either completes and accepts P3-ESS before WC-C08 or
       amends the four exact item prerequisites with source-specific evidence.
+      Any order amendment must preserve the separately bounded ESS selection
+      and rights decisions rather than treating the order decision as their
+      substantive disposition.
       If neither resolution exists, do not claim WC-C08 even if the current
       validator names it next. Do not consume this handoff merely from the
       thread-sequence authority.
@@ -6141,6 +6165,8 @@ handoffs:
       - "register:R35-REACHBACK-08-prerequisite-P3-ESS"
       - "audit:scripts/check-review-workflow.R-does-not-enforce-item-prerequisite-terminal-status"
       - "boundary:A-THREAD-C07-C09-does-not-waive-prerequisites"
+      - "boundary:D08-keeps-ESS-portal-mediated-and-bundling-rights-separate"
+      - "outside-ask:OA-WC-C08-P3-ESS-DEPENDENCY-drafted_unsent"
     required: true
     deliveries:
       - target_packet: WC-C08
@@ -8331,3 +8357,34 @@ packet_reviews:
       - A-THREAD-C07-C09-2026-08-11 records the strict five-packet author amendment and H-WC-C07-THREAD-SEQUENCE-001 carries it to the four remaining targets
       - H-WC-C07-WC-C08-PREREQUISITE-001 records that four WC-C08 items require still-ratified sequence-113 P3-ESS and that the thread amendment does not waive the conflict
       - C07 is next but was not accepted no author reading or acceptance was claimed and no external action was taken
+
+  C07:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C07 found no new future-relevant effect. The author accepted the
+      synthesised disposition with all twenty minor and eight useful findings
+      visible. The catalogue-description debt remains owned by
+      H-P3-CATALOG-002 for P5-C, and the unresolved WC-C08 versus P3-ESS
+      prerequisite conflict remains canonically owned by
+      H-WC-C07-WC-C08-PREREQUISITE-001 and is routed through the bounded
+      outside ask OA-WC-C08-P3-ESS-DEPENDENCY. A new handoff would duplicate
+      an existing obligation.
+    implementation_state: commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f
+    checks:
+      - the author reply is recorded exactly as C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11
+      - the cited commit remains the final material Chapter 7 source with Git blob 1848767a389452f75f2d3263dd82d231940d3c53 and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5
+      - the synthesis records zero fatal zero major twenty nonblocking minor and eight useful findings
+      - notes/reports/c07-acceptance-package-2026-08-11.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 07-vjerojatnost from draft to coauthor_review and explicitly records no claim that the author read the chapter and no final status
+      - only R10-C07-degree-belief R29-C07-retrieval-load and R35-REACHBACK-07 are accepted while R09-C07-clt-conditions remains unchanged and accepted
+      - OA-C07-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
+      - H-WC-C07-THREAD-SEQUENCE-001 is consumed for C07 only after the exact reply
+      - H-WC-C07-WC-C08-PREREQUISITE-001 remains pending and C07 acceptance neither consumes nor waives it
+      - OA-WC-C08-P3-ESS-DEPENDENCY is drafted unsent as the bounded resolution channel for the existing prerequisite conflict
+      - scripts/check-chapter-spines.py passes with twelve draft and seven coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C07
+      - WC-C08 is the register pointer but remains operationally blocked before_start and was not claimed in C07; push merge tag archive and deployment remain unauthorised

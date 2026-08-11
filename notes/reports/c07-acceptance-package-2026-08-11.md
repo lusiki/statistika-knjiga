@@ -2,11 +2,15 @@
 
 **Gate:** `C07`
 
-**Stanje gatea:** pripremljen; čeka autorovu odluku.
+**Stanje gatea:** autor prihvatio; dispozicija provedena.
 
 **Imenovani vlasnik odluke:** Luka Sikic, autor/editor.
 
 **Datum pripreme:** 11. kolovoza 2026.
+
+**Datum autorove odluke:** 11. kolovoza 2026.
+
+**Datum zapisa odluke:** 11. kolovoza 2026.
 
 ## Konačno materijalno stanje
 
@@ -130,10 +134,9 @@ omotačem izrađen PDF i omotačem izrađen DOCX prošli su na završnom hashu, 
 blokirajuće rukopisne, citatne, pojmovne, podatkovne, figurne, widget i
 pregledničke provjere.
 
-## Predložena dispozicija registra i knjige poglavlja
+## Provedena dispozicija registra i knjige poglavlja
 
-Ako autor prihvati ovaj paket vezan uz navedeni commit, C07 treba provesti samo
-sljedeću usku dispoziciju:
+C07 je proveo samo sljedeću usku dispoziciju vezanu uz navedeni commit:
 
 - `07-vjerojatnost` u
   `bookwright_plugin/bookwright/shared/chapter-ledger.json` prelazi iz `draft`
@@ -144,31 +147,41 @@ sljedeću usku dispoziciju:
   C07 paketa, konačnoga commita i stvarnoga autorova odgovora;
 - `R09-C07-clt-conditions` ostaje nepromijenjen i `accepted`.
 
-Nijedna druga stavka ne mijenja status. Nijedna od navedenih promjena još nije
-provedena: Chapter 7 ostaje `draft`, tri WC-C07 stavke ostaju `ratified`, a C07
-ostaje otvoren dok autor ne odgovori. Stalna delegacija od 5. kolovoza i
-thread-amandman od 11. kolovoza ne zamjenjuju odgovor koji ovaj gate izričito
-zahtijeva.
+Nijedna druga stavka nije promijenila status. `07-vjerojatnost` sada je
+`coauthor_review`; tri navedene WC-C07 stavke sada su `accepted`, a
+`R09-C07-clt-conditions` ostaje nepromijenjen i `accepted`. C07 je zatvoren kao
+`accepted`. To ne tvrdi da je autor pročitao poglavlje i ne proglašava ga
+konačnim. Stalna delegacija od 5. kolovoza i thread-amandman od 11. kolovoza
+nisu upotrijebljeni umjesto stvarnoga odgovora.
 
 ## Granica slijeda i kontrolni blocker
 
-C07 dostava u `H-WC-C07-THREAD-SEQUENCE-001` priznata je pri claimu, ali neće
-biti potrošena prije stvarne autorove odluke i closeouta. `WC-C08` nije
+C07 dostava u `H-WC-C07-THREAD-SEQUENCE-001` priznata je pri claimu i
+potrošena tek nakon stvarne autorove odluke pri closeoutu. `WC-C08` nije
 pokrenut.
 
 `H-WC-C07-WC-C08-PREREQUISITE-001` ostaje zasebno pending: četiri WC-C08
 stavke zahtijevaju još ratificirani `P3-ESS` na slijedu 113. Prihvaćanje C07 ne
 razrješava taj kontrolni sukob i ne smije ga se prikazati kao waiver. Prije
 claimanja WC-C08 potrebna je zasebno autorizirana i evidentirana kontrolna
-odluka. Push, merge, tag, arhiviranje, deployment i objava nisu dio C07.
+odluka. `OA-WC-C08-P3-ESS-DEPENDENCY` zato je zapisan kao `drafted_unsent`, a
+sve četiri pogođene stavke upućuju na taj ograničeni autorski/urednički upit.
+Preporučena Ruta A zadržava sva četiri zahtjeva, premješta `G-A3-ESS` i
+`P3-ESS` neposredno iza C07 i prije WC-C08, zamjenjuje preduvjet `WC-PARTS` za
+`G-A3-ESS` preduvjetom C07 te dodaje `P3-ESS` među preduvjete WC-C08. Ona ne
+odlučuje prešutno o izboru ESS paketa ni o pravima: `OA-G-A3-ESS-SELECTION` i
+`OA-G-A3-ESS-RIGHTS` ostaju zasebne odluke pod pravilom D08. Push, merge, tag,
+arhiviranje, deployment i objava nisu dio C07.
 
 ## Točan odgovor autora
 
-Za prihvaćanje odgovorite doslovno:
+Odgovor je primljen u aktivnoj niti i zapisan doslovno:
 
 ```text
-C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.
+status: accepted
+author_reply: C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.
+reply_evidence: conversation:user-message-recorded-2026-08-11
 ```
 
-Ili navedite točne blokirajuće revizije vezane uz isti commit. Odgovor ne mora
-tvrditi da ste pročitali poglavlje; prihvaća sintetiziranu dispoziciju.
+Odgovor navodi točan završni izvorni commit i datum odluke. Ne tvrdi se da je
+autor pročitao poglavlje.

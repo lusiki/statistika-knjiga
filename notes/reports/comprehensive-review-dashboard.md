@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: C07
-last_completed_packet: WC-C07
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: C07
+next_permitted_packet: WC-C08
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -45,18 +45,18 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `C07` |
-| Last completed packet | `WC-C07` |
-| Next permitted packet | None while `C07` awaits the exact author reply |
+| Active write packet | None |
+| Last completed packet | `C07` |
+| Next permitted packet | Register pointer: `WC-C08`; operationally blocked before claim by `H-WC-C07-WC-C08-PREREQUISITE-001`, routed through `OA-WC-C08-P3-ESS-DEPENDENCY` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 180 accepted, 5 deferred with reason, 186 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 89 accepted, 97 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 183 accepted, 5 deferred with reason, 183 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 90 accepted, 97 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review`; `06-povezanost` conservatively reopened to `draft` after its WB-PART material bridge |
+| Chapter stages | 12 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija` and `07-vjerojatnost` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 39 of the 83 canonical asks remain `drafted_unsent`; 38 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05 and C06 acceptance, and the G-A4-03 brief; 0 external messages sent |
+| Open outside asks | 39 of the 84 canonical asks remain `drafted_unsent`; 39 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05, C06 and C07 acceptance, and the G-A4-03 brief; `OA-WC-C08-P3-ESS-DEPENDENCY` is the newly drafted bounded decision ask; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
-| Future packet blocker | `H-WC-C07-WC-C08-PREREQUISITE-001`: four WC-C08 items require still-ratified `P3-ESS` at sequence 113 although WC-C08 is sequence 98. The thread amendment waives no prerequisite; WC-C08 needs a separately authorised control resolution before claim |
+| Future packet blocker | `H-WC-C07-WC-C08-PREREQUISITE-001`: four WC-C08 items require still-ratified `P3-ESS` at sequence 113 although WC-C08 is sequence 98. The thread amendment waives no prerequisite; `OA-WC-C08-P3-ESS-DEPENDENCY` requests the separately authorised control resolution required before claim |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
@@ -176,6 +176,46 @@ No chapter prose was changed by `P0-OUTSIDE`.
 - `scripts/check-review-workflow.R` passed on the clean closeout state before
   claim. It must pass again in this active C07 state. WC-C08 is not started;
   push, merge, tag, archive, deployment and publication remain unauthorised.
+
+## C07 closeout
+
+- The author replied exactly: `C07 accepted for
+  c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.` Neither the
+  standing delegation nor the thread amendment substitutes for that reply, and
+  no author reading is claimed.
+- The final Chapter 7 source commit is
+  `c6c7078b918a3b017b5807d51b68c83ae2d7bc2f`; its Git blob is
+  `1848767a389452f75f2d3263dd82d231940d3c53` and its SHA-256 is
+  `900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. There is no fatal or major finding. The accepted disposition keeps all
+  20 minor and 8 useful records visible rather than silently repairing or
+  suppressing them.
+- Exactly three governed Chapter 7 items advance from `ratified` to `accepted`:
+  `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+  `R35-REACHBACK-07`. The earlier `R09-C07-clt-conditions` remains accepted
+  and no other atomic item changes status.
+- Only `07-vjerojatnost` advances from `draft` to `coauthor_review`; the ledger
+  explicitly records that acceptance does not claim the author read the
+  chapter and is not a `final` disposition. Chapter 6 remains deliberately
+  `draft` and unchanged.
+- `OA-C07-ACCEPTANCE` is `done` from the in-thread reply; no external message
+  was sent. The C07 delivery in `H-WC-C07-THREAD-SEQUENCE-001` is consumed only
+  after that reply.
+- The existing catalogue-description debt remains owned by
+  `H-P3-CATALOG-002` for `P5-C` and is not duplicated.
+  `H-WC-C07-WC-C08-PREREQUISITE-001` remains pending: C07 acceptance neither
+  consumes nor waives the unmet `P3-ESS` prerequisites of four WC-C08 items.
+  `OA-WC-C08-P3-ESS-DEPENDENCY` is `drafted_unsent` as the bounded author/editor
+  decision channel; all four affected item blockers point to it. Its
+  recommended order amendment explicitly preserves the separate
+  `OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` decisions under D08.
+- No chapter prose, data, bibliography, terminology, spine, concept graph,
+  widget, figure, render or generated artifact changed in C07. The register
+  pointer is WC-C08, but that packet was not claimed and remains operationally
+  blocked before_start pending a separately authorised control resolution.
+  Push, merge, tag, archive, deployment and publication remain unauthorised.
 
 ## WB-C04 claim
 
@@ -4203,32 +4243,32 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `WC-C07` is accepted on Chapter 7 SHA-256
-`900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`, that
-all six final critic reports and the synthesis confirm zero fatal and zero
-major finding, and that Chapter 7 and `R10-C07-degree-belief`,
-`R29-C07-retrieval-load` and `R35-REACHBACK-07` remain `draft`/`ratified`.
-Confirm that `R09-C07-clt-conditions` remains accepted, `C07` is the sole
-active packet and no next packet is permitted.
+Verify the accepted C07 closeout on final source commit
+`c6c7078b918a3b017b5807d51b68c83ae2d7bc2f` and Chapter 7 SHA-256
+`900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`.
+Confirm that `07-vjerojatnost` is `coauthor_review`, exactly
+`R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+`R35-REACHBACK-07` advanced to `accepted`, `R09-C07-clt-conditions` remains
+accepted, and `06-povezanost` remains unchanged at `draft`. Confirm that there
+is no active write packet, `C07` is last completed and the register pointer is
+`WC-C08`.
 
-Read `notes/reports/c07-acceptance-package-2026-08-11.md`. Verify that the C07
-delivery in `H-WC-C07-THREAD-SEQUENCE-001` is only acknowledged, that no
-disposition has been applied and that the package cites final WC-C07 commit
-`c6c7078b918a3b017b5807d51b68c83ae2d7bc2f`, all six reports, the synthesis,
-all 20 minor and 8 useful nonblocking records and the two existing catalogue
-descriptions already owned by `H-P3-CATALOG-002`. Do not edit chapter prose,
-data, bibliography, concepts, widgets, figures or generated artifacts; do not
-advance any item or chapter stage before the exact reply.
+Do not claim `WC-C08` and do not edit Chapter 8. Verify that
+`H-WC-C07-WC-C08-PREREQUISITE-001` is still pending at its `before_start` gate:
+all four governed WC-C08 items require still-ratified `P3-ESS` at sequence 113.
+Verify that their active blockers point to the bounded, unsent outside ask
+`OA-WC-C08-P3-ESS-DEPENDENCY`. The five-packet thread amendment waives no
+prerequisite.
 
-Present the bounded acceptance package and stop. The required reply is:
-`C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.`
-Do not substitute the 2026-08-05 standing delegation and do not claim that the
-author read the chapter.
-
-`H-WC-C07-WC-C08-PREREQUISITE-001` is a separate pending blocker: all four
-WC-C08 items require still-ratified `P3-ESS` at sequence 113. C07 may be
-prepared and decided, but WC-C08 must not be claimed until a separately
-authorised control resolution is recorded. The five-packet thread amendment
-waives no prerequisite. Push, merge, tag, archive, deploy and publication
-remain unauthorised.
+Present that one bounded author/editor decision and stop. The recommended exact
+reply is:
+`Route A approved for H-WC-C07-WC-C08-PREREQUISITE-001 on 2026-08-11: move
+G-A3-ESS and P3-ESS immediately after C07 and before WC-C08, preserve the
+relative order of all other packets, replace G-A3-ESS prerequisite WC-PARTS
+with C07 while retaining P0-OUTSIDE and P3-CATALOG, add P3-ESS to WC-C08
+prerequisites, retain all four WC-C08 item requirements, and preserve the
+separate OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS decisions.`
+Alternatively, the author/editor may specify Route B with the exact replacement
+prerequisites and evidence. Do not mutate control state before that decision.
+Push, merge, tag, archive, deploy and publication remain unauthorised.
 ```
