@@ -61,11 +61,15 @@ CATALOGUE_CASES: tuple[tuple[str, str], ...] = (
     ("ratifying_record_missing", "moved the promoting gate names no existing record"),
     ("promotion_log_omits_package", "promotions but names"),
     ("notice_without_own_licence", "no direct link to the package's own licence"),
+    ("non_official_substitute_incomplete",
+     "satisfied non-official substitute with all three tests"),
 )
 
 DZS_MONTHLY = "data/dzs-turizam-mjesecno.csv"
 DZS_COUNTY = "data/dzs-turizam-zupanije-2025.csv"
 DZS_SURVEY = "data/dzs-putovanja-stanovnistva-2024.csv"
+EUROSTAT = "data/eurostat-drustvo-2025.csv"
+EUROSTAT_RAW = "data/eurostat_drustvo/raw/lfsi_emp_a-2025-eu27.json"
 
 
 def run(command: list[str], cwd: Path, env: dict[str, str] | None = None) -> tuple[int, str]:
@@ -251,6 +255,24 @@ def mutate_level_outside(root: Path) -> None:
     edit_lines(root / DZS_MONTHLY, change)
 
 
+def mutate_eurostat_missing_status(root: Path) -> None:
+    """Erase the flag on the one missing 2025 value while leaving ':' visible."""
+    def change(lines: list[str]) -> list[str]:
+        for index, line in enumerate(lines):
+            if line.startswith("LU,Luksemburg,2025,rano_napustanje_obrazovanja_18_24,"):
+                lines[index] = replace_field(line, 8, "bez_objavljene_oznake")
+                lines[index] = replace_field(lines[index], 9, "bez_objavljene_oznake")
+                return lines
+        raise RuntimeError("Eurostat LU missing row not found")
+    edit_lines(root / EUROSTAT, change)
+
+
+def mutate_eurostat_raw_checksum(root: Path) -> None:
+    """Change retained source bytes without changing the recorded checksum."""
+    target = root / EUROSTAT_RAW
+    target.write_bytes(target.read_bytes() + b" ")
+
+
 DATA_CASES: tuple[tuple[str, object, str], ...] = (
     ("duplicate_key", mutate_duplicate_key, "key ispitanik is not unique"),
     ("row_band", mutate_row_band, "row count 299 differs from the declared 300"),
@@ -280,6 +302,10 @@ DATA_CASES: tuple[tuple[str, object, str], ...] = (
      "carries a missing token it does not declare"),
     ("level_outside_declared", mutate_level_outside,
      "carries a value outside its declared levels"),
+    ("eurostat_missing_status", mutate_eurostat_missing_status,
+     "the official LU missing value must retain API/OBS status u"),
+    ("eurostat_raw_checksum", mutate_eurostat_raw_checksum,
+     "raw response checksum disagrees with retrieval manifest"),
 )
 
 
@@ -292,6 +318,14 @@ def build_root(base: Path, name: str) -> Path:
         shutil.copy2(ROOT / "R" / source, work / "R" / source)
     (work / "scripts").mkdir()
     shutil.copy2(ROOT / "scripts/check-katalog.py", work / "scripts/check-katalog.py")
+    shutil.copy2(
+        ROOT / "scripts/build-digikat-extracts.R",
+        work / "scripts/build-digikat-extracts.R",
+    )
+    shutil.copy2(
+        ROOT / "scripts/build-eurostat-extracts.py",
+        work / "scripts/build-eurostat-extracts.py",
+    )
     return work
 
 

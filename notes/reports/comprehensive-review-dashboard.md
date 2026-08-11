@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C03
-next_permitted_packet: WA-PART
+last_completed_packet: WB-PART
+next_permitted_packet: WC-C07
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 81
-last_updated: "2026-08-06"
+forward_handoffs: 91
+last_updated: "2026-08-11"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -40,24 +40,819 @@ stop and repair the control state before editing book content.
 | Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
+| Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
+| Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C03` |
-| Next permitted packet | `WA-PART` |
+| Last completed packet | `WB-PART` |
+| Next permitted packet | `WC-C07` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 155 accepted, 5 deferred with reason, 211 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 75 accepted, 112 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 180 accepted, 5 deferred with reason, 186 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 88 accepted, 99 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 15 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn` and `03-kako-brojke-zavode` at `coauthor_review` |
+| Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review`; `06-povezanost` conservatively reopened to `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 46 of the 82 canonical asks remain `drafted_unsent`; 30 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, C00, C01, C02 and C03 acceptance, and the G-A4-03 brief; 0 external messages sent |
-| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
+| Open outside asks | 39 of the 83 canonical asks remain `drafted_unsent`; 38 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05 and C06 acceptance, and the G-A4-03 brief; 0 external messages sent |
+| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## WB-C04 claim
+
+- The clean source state is commit
+  `7cd017a9b60e736dbaed8f507088674bb50ffdf3` on
+  `revision/comprehensive-review`; `P3-VERIFY-B` and `P2-SPINE-II` are
+  accepted, and `WB-C04` was the sole next permitted packet before claim.
+- The packet owns only Chapter 4, its same-packet concept reconciliation,
+  WB-C04 evidence reports and the three workflow-control views. It does not
+  open `C04`, advance the chapter ledger, claim an author reading, or start
+  `WB-C05`.
+- `H-G-A3-DIGIKAT-002` was consumed before claim. Its four boundaries are now
+  explicit: no trend claim across 2024; no comparison across June 2024 without
+  the method break; 551712 is the denominator for any source-file share; and
+  measured and unmeasured interaction or reach values are never compared.
+- `H-P2-SPINE-II-001`, `H-P2-TERMS-002` and `H-P3-EXISTING-002` were
+  acknowledged before the first substantive edit. Closeout requires exactly
+  four Chapter 4 definition blocks with same-packet ledger/graph
+  reconciliation, and a print-completable aggregate-row task derived from the
+  governed aggregate file without altered values.
+- The vertical slice will be reviewed against the ratified `G-A2b-II` spine
+  with deterministic style, structure and figure preflight plus six independent
+  read-only critics. A fatal or unresolved major methods/evidence finding stops
+  the packet. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## WB-C04 closeout — Chapter 4 vertical slice
+
+- `WB-C04` is accepted in final source commit
+  `2a6ac10596a578e593e652204e06c30b6b3f1ed8`, on source SHA-256
+  `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`.
+  The complete evidence record is `notes/reports/wb-c04-2026-08-10.md`.
+- `H-G-A3-DIGIKAT-002` was consumed before claim. The three `before_close`
+  deliveries `H-P2-SPINE-II-001`, `H-P2-TERMS-002` and
+  `H-P3-EXISTING-002` are now consumed with concrete source, registry and check
+  evidence.
+- The visible pipeline distinguishes all three DigiKat units, requires the
+  full `godina + platforma` join key, separates structural unmeasurement from
+  measured zero, fixes the 2025 represented set and names 551.712 as every
+  source-file share denominator. It makes no 2024 trend or forbidden
+  interaction/reach comparison.
+- The correct join preserves 438 rows, 438 monthly keys and 710.307 posts. The
+  deliberately wrong join produces 3.571 rows, still only 438 monthly keys and
+  5.959.081 posts. Assertions make both paths fail closed.
+- The domain summary is locked to 3.604 domains, 551.712 posts, mean 153,0832,
+  median 4 and top-ten total 148.748 or 26,96 %. The actual HTML output was
+  inspected after a sequential-`summarise()` masking defect was corrected.
+- Chapter 4 now has exactly four definition blocks. The checkout-local concept
+  ledger and terminology count agree at 47 live definitions, and the regenerated
+  graph has 47 nodes and 497 edges with zero ledger debt and a fresh graph.
+- The exact widget presets work in HTML and print. The aggregate-row task reads
+  `data/anketa-mreze-agregat.csv`, supplies the print arithmetic and asks the
+  reader to reproduce one row from `data/anketa-mreze.csv`; no governed value,
+  snapshot or checksum changed.
+- Final HTML, PDF and wrapper-built DOCX renders exited 0 at the final material
+  hash. Their SHA-256 values are respectively `3bad6217cb25df3b6d7b7fef12f9c1e08610fcf892c649c39bd005a584edea1d`,
+  `b19d5b0b6d94803904aafbf04711c9bead918073da9528c0bed11917c7f3db31`
+  and `9923070a490b734e520671bc6f344bce24ca99a84e17381728eafd5322393222`.
+  Generated `docs/`, `_freeze/`, AI exports and Word output were restored.
+- Six independent read-only critics confirmed the final hash. Methods,
+  skepticism, pedagogy, evidence, style and structure each score 5/5 with zero
+  fatal, major or minor finding. The durable synthesis is
+  `notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md`.
+- `H-WB-C04-001` carries the only new future-relevant effect: the stale
+  promotion statement in `data/README.md` must be reconciled by `P5-C` from the
+  canonical catalogue.
+- Chapter 4 remains `draft`. Its six governed content items remain `ratified`
+  until the author-only `C04` decision. `C04` is next but was not opened, no
+  author reading or acceptance was claimed, and `WB-C05` was not started.
+  Push, merge, tag, archive and deployment remain unauthorised.
+
+## C04 package preparation record
+
+- C04 was claimed only as an author-acceptance gate against WB-C04 commit
+  `2a6ac10596a578e593e652204e06c30b6b3f1ed8`. The Chapter 4 Git blob is
+  `02a9c2dd88d7ffdc6e598c75ac77e9ae7801a081`, and the working-file SHA-256 is
+  `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`.
+- `notes/reports/c04-acceptance-package-2026-08-10.md` cited the final commit,
+  all six reports, the synthesis, the WB-C04 evidence record, the only open
+  future documentation handoff and the proposed ledger disposition.
+  `OA-C04-ACCEPTANCE` was ready for author decision; no external message was
+  sent.
+- Every critic addressed the same final material hash and scored it 5/5, with
+  zero fatal, major or minor finding. `H-WB-C04-001` remains assigned to
+  `P5-C`; the `fig-anscombe` introduction debt remains assigned to `WB-C05`.
+  Neither is consumed or hidden by C04.
+- The recommended disposition was to accept the six governed Chapter 4 items
+  and advance only `04-sazimanje-podataka` from `draft` to
+  `coauthor_review`, explicitly without claiming that the author read the
+  chapter and without calling it `final`.
+- Before the author decision, no proposed disposition had been applied. The
+  chapter ledger was unchanged, all six items remained `ratified`, C04 was
+  `in_progress`, and WB-C05 was blocked. No chapter prose, data, citation,
+  concept, widget or render changed while assembling the package.
+- No handoff targets C04. At that point, the only action required was the named
+  author/editor's exact accept-or-revise reply. The 2026-08-05 standing
+  delegation does not substitute for the reply explicitly required by this
+  gate. Push, merge, tag, archive and deployment remain unauthorised.
+
+## C04 closeout
+
+- The author replied exactly: `C04 accepted for
+  2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10.` The real reply,
+  not the 2026-08-05 standing delegation, supplies the author-acceptance
+  evidence; no author reading is claimed.
+- The final Chapter 4 source commit is
+  `2a6ac10596a578e593e652204e06c30b6b3f1ed8`; its Git blob is
+  `02a9c2dd88d7ffdc6e598c75ac77e9ae7801a081` and its SHA-256 is
+  `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. Every perspective scores 5/5, with zero fatal, major or minor finding.
+  `notes/reports/c04-acceptance-package-2026-08-10.md` records the final commit,
+  reports, synthesis, exact author reply and applied ledger disposition.
+- Exactly six governed Chapter 4 content items advance from `ratified` to
+  `accepted`: `R08-C04-engagement-source`, `R11-C04-raw-to-table`,
+  `R11-C04-wrong-join-AI`, `R11-C04-missingness`,
+  `R13-C04-denominators` and `R32-C04-static`. No other atomic item changes
+  status.
+- Only `04-sazimanje-podataka` advances from `draft` to `coauthor_review`; the
+  ledger explicitly says that this records acceptance and does not claim that
+  the author read the chapter. This is not a `final` disposition.
+- `OA-C04-ACCEPTANCE` is `done` from the in-thread reply. No external message
+  was sent. `H-WB-C04-001` remains pending for `P5-C`, while the
+  `fig-anscombe` introduction debt remains owned by `WB-C05`.
+- The thread-only author amendment is durable as
+  `A-THREAD-C04-C06-2026-08-10`. It preserves the strict sequence `C04`,
+  `WB-C05`, `C05`, `WB-C06`, `C06`, one write lock and a separate checked
+  commit per packet. `H-C04-THREAD-SEQUENCE-001` carries its reply and stop
+  boundaries to the four remaining packets.
+- No chapter prose, data, bibliography, terminology, spine, concept graph,
+  widget, render or generated artifact changed in C04. `WB-C05` is next and
+  was not started in C04; push, merge, tag, archive and deployment remain
+  unauthorised.
+
+## WB-C05 claim
+
+- The clean source state is commit
+  `94d48ffbaddee86aa4c52eb150d5267e08d42c55` on
+  `revision/comprehensive-review`. C04 is accepted against WB-C04 commit
+  `2a6ac10596a578e593e652204e06c30b6b3f1ed8`, Chapter 4 is at
+  `coauthor_review`, and WB-C05 was the sole next-permitted packet before the
+  claim.
+- `H-C04-THREAD-SEQUENCE-001` was consumed before claim. WB-C05 holds the one
+  permitted write lock, stops before C05, receives its own evidence and local
+  commit, and cannot treat the thread amendment as author acceptance or as
+  evidence that the author read Chapter 5.
+- `H-G-A3-DIGIKAT-002` was consumed before claim. WB-C05 makes no trend claim
+  across 2024, no comparison across the June 2024 method break without naming
+  it, no source-file share against a denominator other than 551712, and no
+  comparison between structurally unmeasured and measured reach or
+  interactions. A monthly display, if introduced, must show the February-May
+  2024 gap.
+- `H-P1C-INTEGRITY-001` and `H-P3-EXISTING-001` were acknowledged before the
+  first substantive edit. Closeout must retire only the exact
+  `fig-anscombe` debt, prove the positive and deliberate-failure figure lanes,
+  copy or promote no Anscombe data, keep its local-R route optional, and use
+  licence-clean `anketa_mreze` for every mandatory task.
+- The packet owns only Chapter 5, the `w05` source fingerprint in the canonical
+  widget registry, the one integrity-debt record, its dated packet, density,
+  six-critic and synthesis reports, and the three workflow control views. The
+  widget-registry addition is limited to reconciling the OJS fingerprint after
+  the accessibility repair; adapters, tolerances and golden values remain out
+  of scope. The packet leaves Chapter 5 at `draft` and all four governed items
+  `ratified` until C05.
+
+## WB-C05 closeout — Chapter 5 vertical slice
+
+- `WB-C05` is accepted in final source commit
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`, at source SHA-256
+  `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+  The complete evidence record is `notes/reports/wb-c05-2026-08-10.md`.
+- `H-P1C-INTEGRITY-001` and `H-P3-EXISTING-001` are consumed. The approved
+  Croatian paragraph now immediately precedes `fig-anscombe`, the
+  `figure_introductions` debt list is empty, and both the positive figure gate
+  and deliberate-failure fixture pass. No Anscombe file was copied or
+  promoted; every mandatory numerical path uses `anketa_mreze`.
+- The six-title micro-corpus reproduces 36 tokens, 28 forms, 22 singletons and
+  six repeated forms. It prepares the chapter on algorithms without teaching
+  natural-language processing or widening its tiny purposive corpus.
+- DigiKat reproduces 3,604 named domains, 551,712 posts, median 4 and maximum
+  56,500. The monthly view shows partial January, the February-May gap and the
+  June method break, joins only July-December and makes no trend, growth or
+  before-after claim.
+- The widget has four dynamic descriptions, four `aria-label` states, a live
+  status and a print-completable four-row table. Its OJS fingerprint is updated
+  to `602c13e3ccd0970e24989b4ae98e2ab1ee80ad704f44329731a0572803d41efa`;
+  adapters, tolerances, golden values and the R fingerprint are unchanged.
+- Six logical figures have six distinct argumentative roles, documented in
+  `notes/reports/wb-c05-figure-density-2026-08-10.md`. The immediate Anscombe
+  introduction and all other introductions pass the blocking detector.
+- Final HTML, PDF and wrapper-built DOCX renders exited 0. Their SHA-256 values
+  are `086d26fa3e35f51a77ad3d57b0a6c355209012b90fdbe4f0780721bc8d083c37`,
+  `1c1af5b6467b3f3ae8b0f7a83662b94cf88b4cf12d308622393c55d711f47ac9`
+  and `b371d20bd7f955aaeb92ba0ed40177772f076603ae3509c9beaed0582ebc821c`.
+  Generated `docs/`, `_freeze/`, AI exports and Word output were restored.
+- Six independent read-only critics confirmed the exact final hash. There is
+  no fatal or major finding. Two nonblocking skeptical wording notes remain in
+  the chapter; one documentation minor outside the chapter is already owned by
+  `H-WB-C04-001` and `H-P3-CATALOG-002` for `P5-C`.
+- `packet_reviews.WB-C05` declares all future effects recorded and opens no new
+  handoff. Chapter 5 remains `draft` and all four governed items remain
+  `ratified` pending the separate author-only C05 gate. `C05` is next; no
+  author reading or acceptance is claimed. Push, merge, tag, archive and
+  deployment remain unauthorised.
+
+## C05 package preparation record
+
+- C05 was claimed only as an author-acceptance gate against WB-C05 commit
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`. The Chapter 5 Git blob is
+  `6c478a6efc6c80b44c2475849024db782d139076`, and the working-file SHA-256 is
+  `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+- `notes/reports/c05-acceptance-package-2026-08-10.md` cited the final commit,
+  all six reports, the synthesis, the WB-C05 evidence record, the density
+  memorandum, every open minor finding and the proposed ledger disposition.
+  `OA-C05-ACCEPTANCE` was ready for author decision; no external message was
+  sent.
+- Every critic addressed the same final material hash. There is no fatal or
+  major finding. Two nonblocking skeptical wording notes remain in Chapter 5;
+  one pre-existing documentation minor outside the chapter remains owned by
+  `H-WB-C04-001` and `H-P3-CATALOG-002` for `P5-C`.
+- The recommended disposition was to accept exactly four governed Chapter 5
+  items and advance only `05-vizualizacija` from `draft` to
+  `coauthor_review`, explicitly without claiming that the author read the
+  chapter and without calling it `final`.
+- Before the author decision, no proposed disposition had been applied. The
+  chapter ledger was unchanged, all four items remained `ratified`, C05 was
+  `in_progress`, and WB-C06 was blocked. No chapter prose, data, bibliography,
+  concept, widget, render or generated artifact changed while assembling the
+  package.
+- `H-C04-THREAD-SEQUENCE-001` was acknowledged for C05 but remained unconsumed
+  until the real author reply and gate closeout. The 2026-08-05 standing
+  delegation and the thread amendment did not substitute for that reply.
+
+## C05 closeout
+
+- The author replied exactly: `C05 accepted for
+  de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10.` The real reply
+  supplies the author-acceptance evidence; neither the standing delegation nor
+  the thread amendment substitutes for it, and no author reading is claimed.
+- The final Chapter 5 source commit is
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`; its Git blob is
+  `6c478a6efc6c80b44c2475849024db782d139076` and its SHA-256 is
+  `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. There is no fatal or major finding. The accepted disposition keeps
+  two nonblocking Chapter 5 wording notes and one pre-existing documentation
+  minor visible rather than silently repairing or suppressing them.
+- Exactly four governed Chapter 5 content items advance from `ratified` to
+  `accepted`: `R13-C05-frequency-visual`, `R28-C05-introduction`,
+  `R28-C05-density` and `R31-C05-Anscombe`. No other atomic item changes
+  status.
+- Only `05-vizualizacija` advances from `draft` to `coauthor_review`; the
+  ledger explicitly says that this records acceptance and does not claim that
+  the author read the chapter. This is not a `final` disposition.
+- `OA-C05-ACCEPTANCE` is `done` from the in-thread reply. No external message
+  was sent. `H-C04-THREAD-SEQUENCE-001` is consumed for C05 and remains pending
+  for WB-C06 and C06. `H-WB-C04-001` and `H-P3-CATALOG-002` remain pending for
+  `P5-C`.
+- No chapter prose, data, bibliography, terminology, spine, concept graph,
+  widget, render or generated artifact changed in C05. `WB-C06` is next and
+  was not started in C05; push, merge, tag, archive and deployment remain
+  unauthorised.
+
+## WB-C06 claim
+
+- The clean claim state is commit
+  `c697a977b2adae063349414abe8a12261c2a2097` on
+  `revision/comprehensive-review`. C05 is accepted against WB-C05 commit
+  `de85c7018b934bf5c6310fd4f1125f0ae65473a0`, Chapter 5 is at
+  `coauthor_review`, and WB-C06 was the sole next-permitted packet before the
+  claim.
+- `H-C04-THREAD-SEQUENCE-001`, `H-G-A3-DIGIKAT-002`,
+  `H-G-A3-EUROSTAT-001` and `H-P3-EUROSTAT-001` were consumed before claim.
+  The strict thread sequence, DigiKat limits, exact Eurostat selection and
+  promoted package evidence now bind the packet. `H-P3-EXISTING-001` was
+  acknowledged before the first substantive edit and remains due at closeout.
+- Eurostat use is limited to the six ratified 2025 indicators for all EU-27
+  countries. The packet must preserve 162 keys, 161 numerical values and the
+  explicit Luxembourg early-leaving absence with source flags, and may support
+  only country-level comparison, association and a third-variable question.
+  No new retrieval, individual, causal, trend, mixed-year or out-of-EU claim is
+  authorised.
+- The packet may create, copy or promote no `anscombe` file. Its local-R use is
+  optional; every mandatory task must use `anketa_mreze` or the governed
+  Eurostat table. Any DigiKat use retains the method break, gap, denominator
+  and structural-unmeasurement boundaries.
+- WB-C06 owns only Chapter 6, the six verified Eurostat bibliography entries
+  needed by its aggregate example, any necessary `w06` fingerprint
+  reconciliation, the generated concept graph when Chapter 6 changes its
+  co-occurrence edges, its dated packet and six-critic reports, and the three
+  workflow control views. Chapter 6 remains `draft`; its two WB-C06 items remain
+  `ratified` and the four earlier P1A-C06 repairs remain `accepted` until the separate C06
+  gate. C06 is not open, no author reading or acceptance is claimed, and push,
+  merge, tag, archive and deployment remain unauthorised.
+
+## WB-C06 closeout — Chapter 6 vertical slice
+
+- `WB-C06` is accepted at source SHA-256
+  `4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8`.
+  The complete evidence record is `notes/reports/wb-c06-2026-08-10.md`.
+- `H-P3-EXISTING-001` is consumed. No `anscombe` file was copied or promoted;
+  the local-R route is an optional vignette check, while all mandatory
+  calculations and assessed paths use `anketa_mreze` or the governed Eurostat
+  extract.
+- The Eurostat table preserves 162 unique EU-27/2025 keys, 161 numerical
+  values and the one Luxembourg `:`/`u` absence. The exploratory country-level
+  pair reproduces Pearson 0,449994 and Spearman 0,508016 without an individual,
+  causal, trend, predictive, mixed-year or out-of-EU claim.
+- The six-title coded category records its literal rule, purposive set and
+  author ownership. Its code/year correlation is -0,046324; expanding the rule
+  until every code equals one makes the correlation undefined.
+- The final chapter keeps the graph before the coefficient, treats Pearson and
+  Spearman agreement or disagreement as clues, qualifies range restriction,
+  shows Simpson's reversal without regression lines and gives the AI box
+  exactly one error. The Chapter 4 reach-back is a genuine data-integrity task.
+- The w06 browser path has four labelled controls, a live 4/4 result, a hidden
+  then revealed four-row solution, reset and a print-completable twin. At 390 px
+  the widget frame is 320 px and its SVG 286 px, with no runtime error.
+- Full HTML, approved-wrapper PDF and wrapper-built DOCX renders exited 0.
+  Their SHA-256 values are respectively
+  `0a988d6f763e8b493276f9ba4a1bf654160bb3d5070566402fce4921fda23f7b`,
+  `445dc17b6dab9c73fb60946ef4e92d93ce1aecc7365a7a1ab10cb040f5605917`
+  and `8941493f07a9ebcd9e17d29fd7f52c5be86fabe5a4d9c3b8cd24d614c53e9ac4`.
+  Generated `docs/`, `_freeze/`, AI exports, PDF and DOCX were restored.
+- Six independent read-only critics confirmed the exact final hash. There is
+  no fatal or major finding. Pedagogy and style retain one nonblocking minor
+  each; the existing public-catalogue debt remains owned by `P5-C`.
+- `H-WB-C06-001` records the shared normal-generator adapter invalidation for
+  seven later chapter widgets plus `P6-FIGURES` and `P7-HTML`.
+  `H-WB-C06-002` routes the stale unconditional range-restriction concept-ledger
+  wording to `P6-CONTINUITY`. `H-WB-C06-003` routes the 12 px mobile overflow of
+  a cited Quarto `page-full` figure to `P7-HTML`; it does not invalidate w06.
+- Chapter 6 remains `draft`. `R13-C06-coded-association` and
+  `R35-REACHBACK-06` remain `ratified`; the four earlier P1A-C06 repairs remain
+  `accepted`. `C06` is next but was not opened, no author reading or acceptance
+  was claimed, and push, merge, tag, archive and deployment remain
+  unauthorised.
+
+## C06 claim
+
+- C06 was claimed only after the author supplied the exact dated reply
+  `C06 accepted for 34200ef1d723e88623e1bc9e73a47e6535a3673c on
+  2026-08-10.` The cited commit is the clean current `HEAD`, contains the final
+  Chapter 6 source and all eight WB-C06 review artifacts, and leaves the source
+  SHA-256 at
+  `4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8`.
+- The packet owns only the Chapter 6 ledger entry, the bounded acceptance
+  package and the three workflow-control views. It authorises no chapter prose,
+  data, bibliography, terminology, concept, widget, figure, render or generated
+  artifact change.
+- `H-C04-THREAD-SEQUENCE-001`, the only incoming C06 delivery, is acknowledged
+  after the exact reply and remains unconsumed until closeout. No handoff for
+  another packet is touched.
+- During claim, Chapter 6 remains `draft`, `R13-C06-coded-association` and
+  `R35-REACHBACK-06` remain `ratified`, and the four earlier P1A-C06 repairs
+  remain `accepted`. The accepted disposition has not yet been applied, no
+  author reading is claimed and `WB-PART` remains blocked.
+
+## C06 closeout
+
+- The author replied exactly: `C06 accepted for
+  34200ef1d723e88623e1bc9e73a47e6535a3673c on 2026-08-10.` The decision was
+  recorded on 2026-08-11. Neither the standing delegation nor the thread
+  amendment substitutes for that reply, and no author reading is claimed.
+- The final Chapter 6 source commit is
+  `34200ef1d723e88623e1bc9e73a47e6535a3673c`; its Git blob is
+  `d5de2b1ff01815a4f86c78186fcc77d9a8c97994` and its SHA-256 is
+  `4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. There is no fatal or major finding. The accepted disposition keeps
+  one nonblocking pedagogical retrieval note and one nonblocking lexical-style
+  note visible rather than silently repairing or suppressing them.
+- Exactly two governed Chapter 6 items advance from `ratified` to `accepted`:
+  `R13-C06-coded-association` and `R35-REACHBACK-06`. The four earlier
+  `R09-C06-*` repairs remain accepted and no other atomic item changes status.
+- Only `06-povezanost` advances from `draft` to `coauthor_review`; the ledger
+  explicitly says that this records acceptance without claiming that the
+  author read the chapter. This is not a `final` disposition.
+- `OA-C06-ACCEPTANCE` is `done` from the in-thread reply; no external message
+  was sent. `H-C04-THREAD-SEQUENCE-001` is consumed for C06 only after the
+  exact reply.
+- `H-WB-C06-001`, `H-WB-C06-002` and `H-WB-C06-003` remain pending for their
+  named later targets. The pre-existing public-catalogue debt remains owned by
+  `H-WB-C04-001` and `H-P3-CATALOG-002`; C06 creates no duplicate handoff.
+- No chapter prose, data, bibliography, terminology, spine, concept graph,
+  widget, figure, render or generated artifact changed in C06. `WB-PART` is
+  next and was not started; push, merge, tag, archive and deployment remain
+  unauthorised.
+
+## WB-PART claim
+
+- The packet was claimed from clean commit
+  `79d9fe43ee3cd53d1bc6dcce6680d7635e44faa1` only after C06 closed. Chapters
+  4–6 remain at `coauthor_review` on their accepted source states; claiming the
+  packet does not reopen them or presume that a prose edit is needed.
+- The complete handoff ledger has no delivery targeting `WB-PART`. There is no
+  incoming handoff to acknowledge or consume, and nothing targeting another
+  packet may be touched.
+- The packet owns only Chapters 4–6 if a bounded bridge or self-check repair is
+  genuinely required, its packet report, independent voice and arc reports,
+  continuity synthesis and the three workflow-control views. Shared Bookwright
+  registries remain read-only unless a separately evidenced contradiction is
+  found and approved.
+- The four governed items are `R08-SPINE-04-06`, `R24-PARTII-thesis`,
+  `R24-LADDER-PartII` and `R35-SELF-CHECK-II`. Each will be judged separately
+  against the accepted Part II sources, ratified spines and thread registry;
+  an evidence-only closeout is preferred when the current text already passes.
+- `scripts/check-review-workflow.R` passed before claim with no active packet
+  and `WB-PART` uniquely next. `WC-C07` remains blocked; push, merge, tag,
+  archive and deployment remain unauthorised.
+
+## WB-PART closeout — Part II continuity gate
+
+- `WB-PART` is accepted on final Chapter 6 SHA-256
+  `0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd`.
+  Chapters 4 and 5 remain unchanged at
+  `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`
+  and `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+- The complete evidence record is `notes/reports/wb-part-2026-08-11.md`.
+  Independent final voice and arc reports plus their synthesis confirm the
+  exact source hashes with zero fatal and zero major finding. Voice,
+  cumulative build and order score 5/5; register evenness and absence of
+  redundant repetition score 4/5.
+- A separate read-only evidence audit found the initially implicit AI-receipt
+  contract, then verified the bounded repair. The final C06 table gives each
+  C04–C06 assistant task all seven canonical fields, describes the actual
+  visible return, names concrete checks and responsible people, remains
+  readable without code and leaks no protected diagnosis or answer.
+- Exactly four items advance from `ratified` to `accepted`:
+  `R08-SPINE-04-06`, `R24-PARTII-thesis`, `R24-LADDER-PartII` and
+  `R35-SELF-CHECK-II`. Each carries source-specific completion evidence.
+- The first concept check caught a false `mediju` → `medijan` token match.
+  The source now says `formatu`; the canonical graph remains unchanged at 47
+  nodes and 502 edges, and `check-concepts.py` reports a fresh graph with zero
+  ledger debt.
+- Full HTML, approved-wrapper PDF and wrapper DOCX renders exited 0. Their
+  SHA-256 values are respectively
+  `2dd8ae8da9411f6f4f59b12b7ae3a09183c6b2b3cc0e020eee73a82872a79d96`,
+  `b4f773ab59f1cd1774bffe9f47e17139b750bcd245da021b81207daebf362d53`
+  and `76dddcac65158426a837331ffcc5d8c1e96684b88b39e2e94f2fb3b5c2ef173d`.
+  All 37 HTML routes pass; generated `docs/`, `_freeze/`, PDF, DOCX and AI
+  exports were restored.
+- Architecture, spine, assessment, identity, terminology, citation, concept,
+  manuscript, figure, catalogue, data, DigiKat, Eurostat, widget, parity,
+  inventory, token, style and continuity checks pass. The four known C04
+  structure-rhythm candidates remain accepted and unmodified; C05 and C06 have
+  no structure-lint candidate.
+- C06 author acceptance remains historical evidence for commit
+  `34200ef1d723e88623e1bc9e73a47e6535a3673c` and its old source hash. Because
+  the WB-PART bridge is material and lacks a new full chapter panel and author
+  disposition, only `06-povezanost` is conservatively returned from
+  `coauthor_review` to `draft`.
+- `H-WB-PART-001` records the sole new future-relevant effect and routes the
+  required fresh C06 six-critic coverage to the already-ratified
+  `P6-PANELS`. The WB-PART voice/arc panel is not substituted for it.
+- No handoff targeted WB-PART. The active write lock is closed, `WC-C07` is the
+  sole next-permitted packet and was not claimed or started. Push, merge, tag,
+  archive and deployment remain unauthorised.
+
+## G-A3-EUROSTAT claim
+
+- `P3-DIGIKAT` is accepted at commit
+  `355aecfcb4a4d0dfda33e10438d92aba019f6081`; the worktree was clean,
+  `G-A3-EUROSTAT` was the sole next permitted packet, Chapters 1-3 remained
+  at `coauthor_review`, and Chapter 4 remained at `draft` before this claim.
+- `H-P1B-DATA-LIC-003` was consumed before claim. Its cautious
+  `portal-mediated`, `promoted: false`, empty-files boundary remains binding:
+  this gate may inspect official terms and product pages read-only, but it
+  retrieves no statistical data and promotes nothing.
+- `H-P3-CATALOG-001` was acknowledged before the first substantive edit. It
+  remains due for a concrete closeout disposition, and no catalogue lane or
+  package state may change without the complete package-specific contract.
+- The packet owns only its dated decision package and the three control files.
+  The selected indicators, common year, countries, rights terms, exceptions,
+  consumer and source-route alternatives will be recorded there; no chapter,
+  dataset, catalogue entry or shared Bookwright registry is in scope.
+
+## G-A3-EUROSTAT prepared decision and stop
+
+- The existing author pre-disposition was consumed rather than re-asked. The
+  smallest defensible selection is six indicators for reference year 2025 and
+  all 27 EU Member States: employment age 20-64, AROPE, tertiary attainment
+  age 25-34, early leaving age 18-24, internet use age 16-74 and the share age
+  65+. Their sole current consumer is `WB-C06`; the future table has 162
+  country-indicator keys, each constrained to 2025 or an explicit retained
+  official missing value.
+- Read-only inspection of the official Eurostat reuse notice and product
+  pages resolved both original asks without retrieving statistical data. The
+  decision package transcribes the official customised-dataset attribution
+  template, fixes the exact modification statement and Commission disclaimer,
+  and shows why the selected EU-only, non-trade tables with Eurostat named as
+  source do not activate the third-party-content exceptions. Any contrary
+  notice on the actual source must still stop `P3-EUROSTAT`.
+- The repository has no valid source for building the package. The CroAIcon
+  MySQL staging table remains rejected because it repeats rows, and read-only
+  portal inspection cannot produce the retained response, checksum and
+  reconciliation required by the data-package contract. No existing author
+  record permits a bounded retrieval, names a supplied mirror, or amends the
+  packet to remain portal-mediated and unpromoted.
+- `OA-G-A3-EUROSTAT-SOURCE-ROUTE` is therefore ready for one bounded author
+  disposition. The recommended route is one exact official retrieval outside
+  rendering, with the query response, access date, checksum and reconciliation
+  retained. Until the author decides, `G-A3-EUROSTAT` remains the sole active
+  packet, `P3-EUROSTAT` is not started, and the catalogue is unchanged.
+- If the author instead keeps the package portal-mediated and unpromoted,
+  Chapter 6 rests on the promoted `anketa_mreze` for its computational spine
+  and the promoted `digikat_mediji` for empirical transfer. It then has no
+  genuine cross-country Eurostat case for comparability and ecological
+  interpretation, and that absence must be stated rather than filled with an
+  unverified number.
+
+## G-A3-EUROSTAT closeout
+
+- Author and editor Luka Sikic accepted the recommended source route on
+  2026-08-10: one bounded retrieval of the exactly defined six-indicator 2025
+  EU-27 slice from the official Eurostat source, outside rendering, with the
+  query, unmodified response, access date, checksums and reconciliation
+  retained. This is a packet-specific exception, not general network authority.
+- The selection remains six indicators, one common year, all 27 EU Member
+  States and sole consumer `WB-C06`. All 162 country-indicator keys must be
+  2025 or an explicit retained official missing value carrying its source
+  flags. A mixed-year fallback is forbidden.
+- Published reuse terms, exact attribution and disclaimer text, and the
+  third-party-content exception test are settled. The actual retrieved source
+  must still stop the data packet if it carries a contrary individual notice.
+  No rights-holder permission is claimed and none was sought.
+- `H-P1B-DATA-LIC-003` was consumed before claim. `H-P3-CATALOG-001` was
+  acknowledged before the first substantive edit and consumed at closeout:
+  the gate changed no catalogue entry, retrieved no data and promoted zero
+  packages. `eurostat_drustvo` remains portal-mediated, unpromoted and without
+  files until its data packet satisfies the full contract.
+- `H-G-A3-EUROSTAT-001` carries the complete accepted selection, flag,
+  rights, source-route and claim boundary to `P3-EUROSTAT`, `P3-VERIFY-B` and
+  `WB-C06`. The packet review declares all future effects recorded.
+- `P3-EUROSTAT` is the sole next permitted packet. It was not started before
+  this gate closed. Push, merge, tag, archive and deployment remain
+  unauthorised.
+
+## P3-EUROSTAT claim
+
+- `P3-EUROSTAT` is the sole active write packet. `G-A3-EUROSTAT` is accepted
+  at live commit `5c9c14cf13fd7d7903ce62372ccf1c3248e32a21`; no later packet has
+  started and the one-lock invariant is intact.
+- `H-G-A3-EUROSTAT-001` was consumed before claim and before the first
+  substantive edit. The packet is bounded to six ratified indicators, reference
+  year 2025, all 27 EU Member States and consumer `WB-C06`; a mixed-year
+  substitute, scope widening, individual claim or causal claim is forbidden.
+- `H-P3-DZS-003` is acknowledged before the first edit and remains due at
+  closeout. Promotion must obey all six inherited external-package rules,
+  including a package gate distinct from its decision gate, an own-licence
+  snapshot notice, exact named promotion-log reconciliation, composite keys and
+  fail-closed missing-code checks.
+- The author-approved network action is one bounded six-request batch against
+  the official Eurostat API outside rendering. The packet will retain the exact
+  request URLs, raw response bytes, retrieval timestamp, checksums and source
+  reconciliation; it will not make a reconnaissance data request first.
+
+## P3-EUROSTAT closeout
+
+- **One retrieval, then offline only.** One six-request batch ran against the
+  official Eurostat Dissemination API between 12:39:03 and 12:39:10 UTC on
+  2026-08-10. All six requests returned HTTP 200, none was retried, and no
+  second network request followed. Exact URLs, unmodified responses, dates,
+  HTTP metadata, MD5 and SHA-256 are retained under `data/eurostat_drustvo/`.
+- **The ratified common-year grid is complete.**
+  `data/eurostat-drustvo-2025.csv` contains all 162
+  `geo+godina+pokazatelj` keys: 27 EU Member States, six indicators and only
+  2025. There are 161 numbers and one explicit source absence: Luxembourg
+  early leaving, `vrijednost = :`, API/OBS status `u`, no confidentiality
+  flag. Croatia's published 2.1 in the same indicator also carries `u`, so the
+  package keeps quality status distinct from missingness.
+- **Source and rights survived contact with the actual responses.** Every raw
+  response names `ESTAT` and `SOURCE_INSTITUTIONS = Eurostat`; none carries a
+  contrary source-specific rights annotation. The adjacent notice supplies six
+  datacode attributions with the actual access date plus the exact ratified
+  modification and Commission disclaimer sentences. No rights-holder
+  permission is claimed.
+- **Promotion is fully named.** `eurostat_drustvo` is now `bundled` and
+  `promoted: true` by `P3-EUROSTAT`, ratified by the separate
+  `G-A3-EUROSTAT` record. The bidirectional promotion log names it; the
+  catalogue now reports five promoted packages and 21 validated snapshots.
+- **The release lane is offline and fail-closed.** The builder reconstructs 162
+  values and statuses from the retained raw bytes with zero tolerance. The main
+  R integrity lane invokes it. Both a changed raw byte and a removed `u` flag
+  fail for their own reason; the complete negative harness reports 44 cases.
+  A final pre-commit audit found and closed the Windows checkout risk:
+  `.gitattributes` pins the derived JSON to LF and treats raw responses as
+  binary, so `core.autocrlf` cannot change checksummed evidence.
+- `H-G-A3-EUROSTAT-001` was consumed before claim and `H-P3-DZS-003` at
+  closeout. `H-P3-EUROSTAT-001` carries the actual package, missingness,
+  attribution, no-refresh and claim boundaries to `P3-VERIFY-B`, `WB-C06`,
+  `P6-DATA` and `P8-META`. No chapter, shared Bookwright registry or generated
+  render output changed.
+- `P3-VERIFY-B` is the sole next permitted packet. Push, merge, tag, archive,
+  deployment and publication remain unauthorised.
+
+## P3-VERIFY-B claim
+
+- `P3-VERIFY-B` is the sole active write packet. Its three prerequisites are
+  accepted: `WA-PART`, `P3-DIGIKAT` and `P3-EUROSTAT`; the last is pinned to
+  commit `f6d25bb30dce3f5ffe41204e87273bd166c6053b`.
+- `H-P3-EUROSTAT-001` was consumed before claim. The two decision-level
+  before-close constraints, `H-G-A3-DIGIKAT-002` and
+  `H-G-A3-EUROSTAT-001`, were acknowledged before the first review edit and
+  remain due at closeout.
+- This is a read-only evidence review of both packages. It may write only its
+  report and the three workflow control files; it performs no network request,
+  refresh, package transformation, data edit, chapter edit or registry edit.
+
+## P3-VERIFY-B closeout
+
+- The three-entry gate matrix passes at source commit
+  `f6d25bb30dce3f5ffe41204e87273bd166c6053b`: `WA-PART`,
+  `P3-DIGIKAT` and `P3-EUROSTAT` are accepted with complete evidence and no
+  active blocker.
+- DigiKat was recomputed independently from its three CSVs and then reproduced
+  from checkout `278a127f9170c1aca82035a4a8357b8a995f91d8`: 49/438/3.604
+  rows, the visible February–May 2024 gap, January at 1.911, four complete
+  years, six exact denominators, 17 divergences from +446 to −389, net zero at
+  710.307, and the domain-only denominator 551.712 all agree.
+- Eurostat was audited independently from its plan, manifest, six raw responses,
+  CSV and notice: six official requests, zero retries, six matching raw hashes,
+  162 unique 2025 keys, 161 numbers, one `LU/:/u` row, expected status counts,
+  ESTAT/Eurostat source identity, no contrary rights annotation and six exact
+  component attributions all agree.
+- The first verification attempt is disclosed and excluded: it used three
+  shorthand DigiKat labels absent from the file and omitted the builder's
+  required checkout argument. The corrected audit named the literal labels and
+  checkout, reran from the beginning with fail-fast handling and passed.
+- Portfeljni checks remain green: `KATALOG_OK`, `DATA_INTEGRITY_OK`, 44 expected
+  data failures and seven expected general-integrity failures. Commit scope
+  changes no chapter, appendix, `docs/`, `_freeze/` or shared Bookwright
+  registry path.
+- `H-P3-EUROSTAT-001` was consumed before claim;
+  `H-G-A3-DIGIKAT-002` and `H-G-A3-EUROSTAT-001` were consumed at closeout.
+  No new future-relevant effect was found, so no duplicate handoff was created.
+- `P3-VERIFY-C`, `P3-ESS` and `P3-TEXT` remain later ratified work and were not
+  misreported as completed or hidden as Wave B blockers. `WB-C04` is now the
+  sole next permitted packet. No network or external system was contacted;
+  push, merge, tag, archive, deployment and publication remain unauthorised.
+
+## P3-DIGIKAT claim
+
+- The author amendment dated 2026-08-10 permits this thread to execute up to
+  five named packets in strict sequence, while preserving the one-lock rule,
+  per-packet claim, evidence, handoff, closeout, workflow-check and commit
+  boundaries. The amendment will be recorded permanently in this packet's
+  closeout evidence; it does not authorise any packet outside the named chain.
+- `G-A3-DIGIKAT` is accepted at live commit
+  `db18d2b8f66739fb92fbb4a4f3b34cbb15e081b3`. Chapters 1–3 remain at
+  `coauthor_review`, Chapter 4 remains `draft`, and `P3-DIGIKAT` was the sole
+  next permitted packet before claim.
+- `H-G-A3-DIGIKAT-001` was consumed before claim with the exact aggregate-only,
+  three-defect, reconciliation-substitute, retirement, consumer and pinned-
+  checkout boundaries. `H-P3-DZS-003` was acknowledged before the first
+  substantive edit and remains due for a concrete closeout disposition.
+- The packet owns the bounded DigiKat extract, catalogue, schema, validators,
+  fixtures, passport, evidence report and three control files. It may not read
+  the master corpus, contact the network, edit chapter prose, or claim rights-
+  holder permission.
+- The workflow validator passed before claim and must pass again in this
+  claimed state before the first substantive data edit.
+
+## P3-DIGIKAT closeout
+
+- The author's 2026-08-10 one-thread amendment is now durable in
+  `notes/reports/p3-digikat-2026-08-10.md`: this thread may run at most five
+  packets in the named strict sequence, but every packet keeps a separate lock,
+  evidence record, handoff disposition, workflow check and local commit. No
+  broader authority was inferred.
+- `H-G-A3-DIGIKAT-001` was consumed before claim. `H-P3-DZS-003` was
+  acknowledged before the first substantive edit and consumed at closeout with
+  all six inherited external-package rules satisfied. Nothing targeting
+  another packet was consumed.
+- The source checkout did not move. It remains
+  `278a127f9170c1aca82035a4a8357b8a995f91d8`, so the source date of record stays
+  2026-07-22 and the separate verification date is 2026-08-10. The builder
+  returns `DIGIKAT_EXTRACTS_OK extracts=3 mode=verify`; the master corpus was not
+  read and the network was not used.
+- D-1 is repaired in the data: `godina_potpuna` is `da` only for 2021, 2022,
+  2023 and 2025; 2024 is `ne`, its February-May gap stays absent and January
+  stays partial at 1.911 posts. D-2 is repaired by an exact machine-enforced
+  divergence contract: 17 of 49 cells, monthly minus annual +446 at 2022/web
+  and -389 at 2024/web, net 0, with both files totaling 710.307. D-3 is repaired
+  by `lom_metode` in both time files, carrying TikTok's 2023-07 entry, the
+  2024-06 break and Instagram's 2024-07 entry.
+- The catalogue, schema and validators implement the named non-official-source
+  substitute. It is satisfied only when byte reproduction, the six denominator
+  identities at tolerance zero and the recorded divergence all pass together.
+  The new negative fixture removes the third test and fails for that exact
+  reason; the complete suite reports `DATA_NEGATIVE_FIXTURES_OK cases=42`.
+- The 3.604 source rows carry 551.712 of 710.307 posts, or 77,67 %. The
+  catalogue, licence notice and new `data/digikat_mediji/PUTOVNICA.md` all name
+  551.712 as the denominator for a share computed from that file.
+- `digikat_akteri` remains in the catalogue as
+  `abandoned_with_successor`, with a reason, no live consumer and successor
+  `digikat_mediji`. `digikat_mediji` is promoted by `P3-DIGIKAT`; its consumers
+  are exactly `WB-C04`, `WB-C05` and `WB-C06`. No rights-holder permission is
+  claimed.
+- `R03-DIGIKAT-rights` and `R08-DIGIKAT-package` are accepted separately.
+  Catalogue, data-integrity, builder, 42 data fixtures, seven integrity
+  fixtures, inventory, manuscript, concept, citation, terminology and token
+  checks pass on the final packet files. No render was needed because no book
+  prose or generated public view changed.
+- The packet found no new future-relevant effect. Existing
+  `H-G-A3-DIGIKAT-002` already carries every downstream non-uniformity and
+  denominator constraint, so no duplicate handoff was created. Chapters 1-3
+  remain `coauthor_review`, Chapter 4 remains `draft`, and all shared
+  Bookwright registries are unchanged.
+- `G-A3-EUROSTAT` is the sole next permitted packet. It was not started before
+  this packet closed and committed. Push, merge, tag, archive and deployment
+  remain unauthorised.
+
+## G-A3-DIGIKAT closeout
+
+- Two deliveries target this gate and each was handled at its own gate.
+  `H-P1B-DATA-LIC-003` is `before_start` and was consumed **before the packet
+  claim**; `H-P3-CATALOG-001` is `before_close`, acknowledged before the first
+  edit and consumed at closeout. The `G-A3-EUROSTAT`, `G-A3-ESS` and
+  `G-A3-TEXT` deliveries of both handoffs remain `pending`.
+- **The accepted selection** is `digikat_mediji`: three aggregate files with no
+  named individual anywhere — 49 annual platform rows, 438 monthly platform
+  rows and 3.604 source rows — derived from three of the project's fourteen
+  tracked aggregate tables. The roughly 710.307-post master corpus was not read
+  and stays `external-only` as `determ_korpus`.
+- **The author's "as recent as possible" directive was verified as fact, not
+  recorded as a rule.** `G-A3-DZS` had to leave its year unnamed because a gate
+  that retrieves nothing cannot verify what was published. Here the source is
+  the author's local checkout, so the gate could check without a single network
+  call: HEAD `278a127f9170c1aca82035a4a8357b8a995f91d8` dated 2026-07-22 has not
+  moved, and the builder returns `DIGIKAT_EXTRACTS_OK extracts=3 mode=verify`,
+  so all three files still reproduce byte for byte. The 2026-07-22 state is the
+  most recent state that exists.
+- **The gate counted the extract instead of taking it on trust, and found three
+  real defects that no earlier record contains.** The denominator identity
+  passes 6 of 6 years without tolerance. **D-1:** `godina_potpuna` reads `da`
+  for 2024 although February–May are absent entirely and January is partial at
+  1.911 posts against a 2021–2023 monthly mean near 6.960 — a false quality flag
+  in a book that teaches reading quality flags. **D-2:** the annual and monthly
+  files disagree in 17 of 49 platform-year cells, largest +446 and −389, netting
+  exactly zero at 710.307 posts; consistent with a year-boundary effect, which
+  the gate records as unproven rather than asserting. **D-3:** no method-break
+  flag exists although volume roughly triples from June 2024 and platform
+  coverage grows from seven to nine. All three bind `P3-DIGIKAT` before any
+  promotion.
+- **The official-reconciliation condition was not waived and not weakened.** A
+  proprietary corpus has no official total, so `H-P3-CATALOG-001` applied
+  literally would permanently block the package the author had just approved.
+  The gate ruled a named substitute for non-official sources, satisfied only by
+  three tests together: byte-for-byte reproduction, the denominator identity
+  without tolerance, and a recorded divergence statement carrying the exact
+  largest per-cell deviation with its proven zero corpus-wide sum. The third
+  test is **stricter** than what it replaces, because it forces the package to
+  name its own inconsistency instead of passing over it. `P3-DIGIKAT` must
+  implement it with a negative fixture.
+- **Rights were read from the source's own published record, not inferred from
+  access.** The project's `DATA_AVAILABILITY.md` places `data/processed/*.rds`
+  under CC BY 4.0 as aggregates with no personal data. Because the book's author
+  is the project lead, this is a proprietary disposition, and the gate confirms
+  it explicitly so it is not tacitly inherited. The book still claims **no
+  rights-holder permission** for any source because none was sought, and
+  `H-P1B-DATA-LIC-003` is not superseded.
+- `digikat_akteri` is **closed as abandoned** in favour of `digikat_mediji`,
+  because its entry describes a cross-section of named actors the extract
+  deliberately lacks; `P3-DIGIKAT` must mark it rather than delete it. The
+  omission of the eleven upstream tables naming individuals becomes a
+  **permanent first-edition rule**: the book publishes no table naming an
+  individual even when the licence is clean, so the exclusion rests on
+  editorial decision rather than on right.
+- **One reconnaissance claim was corrected rather than repeated.** Ten of the
+  remaining tables name actors, not eleven; `proportions_summary.rds` names
+  nobody and was rejected for the separate recorded reason that this catalogue
+  carries denominators rather than shares.
+- Consumers are exactly `WB-C04`, `WB-C05` and `WB-C06`. Chapters 2 and 3 were
+  **deliberately not assigned** despite the reconnaissance proposing them, since
+  both are accepted and at `coauthor_review` and reopening them has its own
+  mechanism. Two unavailable claims were added: no growth or trend claim across
+  2024, and no comparison of periods before and after June 2024 without the
+  method break stated.
+- The author's parallel Eurostat approval was recorded as a **pre-disposition**
+  in `notes/reports/author-pre-dispositions-2026-08-10.md` rather than consumed
+  here, because it belongs to `G-A3-EUROSTAT`. The open Eurostat attribution
+  question is explicitly left open rather than declared resolved, so it cannot
+  be skipped.
+- `OA-G-A3-DIGIKAT-SELECTION` and `OA-G-A3-DIGIKAT-RIGHTS` are `done` with dated
+  resolutions and **no external message was sent**. No data file, catalogue
+  entry or chapter prose changed, and all 19 units remain `draft`.
+
+The durable evidence is
+`notes/reports/g-a3-digikat-selection-decision-2026-08-10.md`.
 
 ## P3-EXISTING closeout
 
@@ -3209,6 +4004,63 @@ the durable evidence is
   widget or render changed in C03. `WA-PART` is next and was not started in this
   thread; push, merge, tag, archive and deployment remain unauthorised.
 
+## WA-PART claim
+
+- The packet was claimed only after the canonical state was reconstructed from
+  all four control files and the checkout-local conductor instructions.
+  `C03` is accepted against WA-C03 commit
+  `72f774a3b302e6beca14730ac82727be92f29be1`, the live Chapter 3 file is
+  unchanged from that commit, and `03-kako-brojke-zavode` is at
+  `coauthor_review` in the checkout-local chapter ledger.
+- The complete handoff ledger contains **no delivery targeting `WA-PART`**.
+  There is therefore no required `before_start` delivery to consume and no
+  required `before_close` delivery to acknowledge. Nothing targeting another
+  packet was touched.
+- The packet owns only the four Part I and transition chapter sources, its
+  two critic reports and continuity synthesis, its packet report, and the three
+  control files. The write lock does not authorise `G-A3-DIGIKAT`, any later
+  packet, or any push, merge, tag, archive or deployment action.
+- The five governed items read before claim are `R08-SPINE-01-03`,
+  `R24-PARTI-thesis`, `R24-LADDER-PartI`, `R27-C03-04-transition` and
+  `R35-SELF-CHECK-I`. The packet will judge each against its own acceptance
+  tests and will not close one by aggregation.
+- `scripts/check-review-workflow.R` passed before claim with no active packet
+  and `WA-PART` as the sole next-permitted packet. It must pass again in this
+  claimed state before the first substantive edit.
+
+## WA-PART closeout
+
+- C03 was reverified against WA-C03 commit
+  `72f774a3b302e6beca14730ac82727be92f29be1`; Chapter 3 remained unchanged and
+  at `coauthor_review`, without a claim that the author read it.
+- No handoff targets WA-PART. There was no `before_start` delivery to consume
+  and no `before_close` delivery to acknowledge or dispose. Nothing targeting
+  another packet was touched.
+- The only chapter-source change is the bounded Chapter 4 bridge „Od izvora do
+  sažetka” at source SHA-256
+  `21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab`.
+  It turns skeptical reading into honest production while leaving joins,
+  missingness, transformations and the full Chapter 4 rewrite to `WB-C04`.
+- `R08-SPINE-01-03`, `R24-PARTI-thesis`, `R24-LADDER-PartI`,
+  `R27-C03-04-transition` and `R35-SELF-CHECK-I` are accepted with separate,
+  source-specific evidence. The DZS/DIP qualification is explicit: DIP carries
+  the reader-facing official-data spine; DZS supplies a verified governance
+  boundary, and no DZS recurrence is falsely claimed in Chapters 1–3.
+- Independent `critic_voice` and `critic_arc` reviews of the final state found
+  zero fatal and zero major issue and recommended closure without another
+  prose edit. Their reports and synthesis are in the three WA-PART continuity
+  reports; the packet record is `notes/reports/wa-part-2026-08-06.md`.
+- Targeted HTML, PDF and DOCX renders exited 0. Architecture, spine,
+  assessment, identity, terminology, style, citation, concept, manuscript,
+  figure, catalogue, data, DZS, DIP, widget, parity, inventory, token and
+  workflow checks pass. Tracked generated files refreshed by the render hook
+  were restored to their clean pre-render state and are outside the packet.
+- The handoff review declares no new future-relevant effect because the bridge
+  is already a governed item and WA-PART is a direct prerequisite of `WB-C04`.
+  Chapter stages and shared registries are unchanged. `G-A3-DIGIKAT` is the
+  only next-permitted packet and was not started. Push, merge, tag, archive and
+  deployment remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -3235,17 +4087,38 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that C03 is accepted against WA-C03 commit
-`72f774a3b302e6beca14730ac82727be92f29be1`, that the Chapter 3 ledger stage is
-`coauthor_review`, and that `WA-PART` is the sole `next_permitted_packet`. Then
-execute only `WA-PART`: Part I bridge, cumulative self-check, empirical-data
-spine, and AI/data route. Read every WA-PART governed item and all applicable
-incoming handoffs before claiming the packet; acknowledge each required
-before-close delivery before the first substantive edit and record a concrete
-disposition before closeout. Use the checkout-local shared registries as the
-only mutable Bookwright state, follow STYLE.md for every prose edit, obtain the
-required current part-continuity evidence, run applicable deterministic checks
-and targeted renders, update the register, handoff ledger and dashboard
-together, make one bounded local packet commit, and stop. Do not start
-`G-A3-DIGIKAT`. Push, merge, tag, archive and deploy remain unauthorised.
+Verify that `WB-PART` is accepted on Chapter 6 SHA-256
+`0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd`, that
+`R08-SPINE-04-06`, `R24-PARTII-thesis`, `R24-LADDER-PartII` and
+`R35-SELF-CHECK-II` are accepted with structured evidence, and that no write
+packet is active. Confirm that Chapters 4 and 5 remain at `coauthor_review`,
+while `06-povezanost` is conservatively at `draft` because its historical C06
+acceptance covers only the earlier source hash. Preserve `H-WB-PART-001` as a
+pending obligation of `P6-PANELS`; do not consume or repair it in Chapter 7.
+
+Then execute only `WC-C07`, the Chapter 7 vertical slice, and stop before the
+separate `C07` author gate. Claim it only if it is the sole
+`next_permitted_packet`. Verify the complete handoff ledger before work; it
+currently has no delivery targeting `WC-C07`, so touch no delivery owned by a
+different target.
+
+Read Chapter 7 top to bottom, the ratified Part III contract and Chapter 7
+spine, `P1A-C07`, the shared claim/thread and assessment registries, and the
+three governed items `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+`R35-REACHBACK-07`. Revise the complete vertical slice against its exact
+acceptance tests without taking Chapter 8 or later Part III work. Keep
+simulation before formulas, reduce simultaneous novelty, make the midpoint
+retrieval pause real, preserve the probability-to-belief boundary, and provide
+the required reach-back task without assessed code production.
+
+Use checkout-local `book-style` for every prose edit and the six-critic
+`book-review` workflow on the final material Chapter 7 hash. Resolve every
+fatal and major finding before closeout; present any disposition that requires
+author authority instead of inferring it. Run the applicable deterministic
+checks and full HTML, approved-wrapper PDF and wrapper-built DOCX renders.
+Record every future-relevant effect or explicitly declare none; update the
+register, handoff ledger and dashboard together; run the workflow validator
+and its required negative fixtures; make one bounded local `WC-C07` commit;
+leave Chapter 7 and its governed items awaiting the separate `C07` decision;
+and stop. Push, merge, tag, archive and deploy remain unauthorised.
 ```

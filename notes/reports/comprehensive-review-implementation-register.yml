@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-06"
+  last_updated: "2026-08-11"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C03"
-  next_permitted_packet: "WA-PART"
+  last_completed_packet: "WB-PART"
+  next_permitted_packet: "WC-C07"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -1712,6 +1712,241 @@ decisions:
       rights-holder-permission claim. It authorises no generated book artefact,
       push, merge, tag, archive, deployment, or publication.
 
+  G-A3-DIGIKAT:
+    status: "accepted"
+    accepted_at: "2026-08-10"
+    author_disposition: "accepted_as_recommended_with_latest_possible_snapshot_directive"
+    author: "Luka Sikic"
+    data_policy_owner: "Luka Sikic"
+    source_project_lead: "Luka Sikic"
+    evidence: "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+    reconnaissance_record: "notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md"
+    pre_disposition_record: "notes/reports/author-pre-dispositions-2026-08-10.md"
+    accepted_dispositions:
+      selection: >-
+        The package digikat_mediji: three aggregate files derived from three of
+        the project's fourteen tracked aggregate tables, with no named
+        individual anywhere. data/digikat-platforme-godisnje.csv at 49 rows
+        keyed by year and platform, data/digikat-platforme-mjesecno.csv at 438
+        rows keyed by month and platform, and data/digikat-izvori.csv at 3604
+        rows keyed by bare internet domain. The approximately 710307-post master
+        corpus was not read and stays external-only as determ_korpus with its
+        lane untouched.
+      snapshot_recency: >-
+        The author directed the latest possible snapshot. Unlike G-A3-DZS, this
+        gate can verify that as fact rather than record it as a rule, because
+        the source is the author's local checkout and no network call is
+        required. Verified on 2026-08-10: the project HEAD is
+        278a127f9170c1aca82035a4a8357b8a995f91d8 dated 2026-07-22, every
+        data/processed file carries a 2026-07-22 modification time, and the
+        builder in verify mode returns DIGIKAT_EXTRACTS_OK extracts=3
+        mode=verify, so all three files still reproduce byte for byte. The
+        2026-07-22 state is therefore the most recent state that exists. The
+        corpus ends in June 2026. P3-DIGIKAT must rerun the verification at its
+        own date and either re-pin a moved checkout or record that it did not
+        move; it must not rewrite the source date of record to the packet date.
+      chapter_role_and_claims: >-
+        Consumers are exactly WB-C04, WB-C05 and WB-C06. Chapter 4 uses the
+        source file as its skewed distribution, its missing-value testimony
+        through metrika_dostupna and its denominator decision through
+        objave_godina_ukupno. Chapter 5 uses it for the log axis and uses the
+        monthly file for composition over time, including the 2024 gap as a
+        visible fact once D-1 and D-3 are fixed. Chapter 6 uses posts,
+        interactions and reach as three skewed variables for Pearson against
+        Spearman, relationship shape, influential observations and range
+        restriction. The gate deliberately does NOT assign the extract to
+        Chapters 2 and 3, which are accepted and at coauthor_review, and takes
+        no position on Chapters 8, 13, 15, 17 and 18, which belong to their own
+        packets. Beyond the catalogue's recorded unavailable claims, this gate
+        adds two: no growth or trend claim across 2024, and no comparison of
+        periods before and after June 2024 without the method break stated.
+      verified_defects_binding_p3: >-
+        The gate counted the extract rather than taking it on trust. The
+        denominator identity passes 6 of 6 years without tolerance. Three
+        defects do not pass and none was previously recorded anywhere. D-1, the
+        godina_potpuna flag reads da for 2024 although 2024 lacks February
+        through May entirely and its January is partial at 1911 posts against a
+        2021-2023 monthly mean of about 6960, which is a false quality flag in a
+        book that teaches reading quality flags. D-2, the annual and monthly
+        files disagree in 17 of 49 platform-year comparisons, largest plus 446
+        for 2022 web and minus 389 for 2024 web, netting exactly zero at 710307
+        posts across the corpus, consistent with but not proven to be a
+        year-boundary effect, and recorded nowhere. D-3, no method-break flag
+        exists although volume roughly triples from June 2024 onward and
+        platform coverage grows from seven to nine as TikTok enters in 2023 and
+        Instagram in 2024, while the approved disposition explicitly requires
+        that break to be flagged. P3-DIGIKAT must fix all three before promotion
+        and must also record that the 3604 sources carry 551712 of 710307 posts,
+        or 77.67 per cent, because the naming filter is recorded but its size is
+        not.
+      rights_and_lane: >-
+        The rights matrix is resolved and favourable. The project's own
+        DATA_AVAILABILITY.md publishes data/processed/*.rds under CC BY 4.0 with
+        an explicit statement that they are aggregates containing no personal
+        data. The book's author and the project lead are the same person, so
+        this is a proprietary disposition rather than an inference from access,
+        and the gate confirms it explicitly rather than letting it be inherited
+        tacitly. digikat_mediji keeps lane bundled and stays promoted false with
+        promoted_total 3, because a decision gate promotes nothing. The book
+        still claims no rights-holder permission for any source because none was
+        sought, rights_holder_permission_obtained stays false, and
+        H-P1B-DATA-LIC-003 is not superseded. Until promotion the mandatory
+        student path stays anketa_mreze or its aggregate.
+      official_reconciliation_substitute: >-
+        H-P3-CATALOG-001 requires a recorded official reconciliation before any
+        promotion. digikat_mediji cannot have one and never will, because it is
+        a proprietary corpus rather than official statistics, so applied
+        literally that condition would permanently block the package the author
+        just approved. The condition is therefore NOT waived or weakened but
+        given a named substitute for non-official sources, satisfied only by
+        three tests together: byte-for-byte reproduction from the upstream
+        aggregate through the builder in verify mode, the internal denominator
+        identity holding without tolerance for every year, and a recorded
+        divergence statement carrying the exact largest per-cell deviation
+        between the annual and monthly files with its proven zero corpus-wide
+        sum. The third test is stricter than what it replaces because it forces
+        the package to name its own inconsistency instead of passing over it.
+        P3-DIGIKAT must write the substitute into data/katalog.yml and
+        data/katalog.schema.json as a named field and supply a negative fixture
+        that fails when the substitute is declared satisfied without all three
+        tests. It applies only to non-official sources and changes no other
+        package.
+      abandoned_entry_and_named_actor_rule: >-
+        digikat_akteri is closed as abandoned in favour of digikat_mediji,
+        because the registered entry describes a cross-section of named actors
+        and the extract deliberately has none, so it may inherit neither the
+        name nor the description. Its sole consumer WB-C04 moves to
+        digikat_mediji. P3-DIGIKAT must mark it abandoned with a reason and a
+        pointer to its successor rather than delete it, so the decision trail
+        survives. The omission of the upstream tables naming individuals is
+        confirmed as a permanent first-edition rule and not a one-off choice:
+        the book publishes no table naming an individual even when the licence
+        is clean, since CC BY 4.0 covers those tables too and they are excluded
+        by decision rather than by right.
+      reconnaissance_correction: >-
+        The reconnaissance record states that the remaining eleven tables name
+        actors. That is inexact and is corrected here. Ten name actors. The
+        eleventh, proportions_summary.rds, names nobody and holds upstream
+        floating-point shares post_share, interaction_share and reach_share; it
+        was rejected for the separate reason the same report records, that this
+        catalogue carries denominators rather than shares. Same conclusion,
+        different reason, and the evidence must distinguish the two.
+    rejected_alternatives:
+      - "Take the named-actor tables too because the licence is clean; the licence permits and the editorial rule does not."
+      - "Keep the name digikat_akteri for the new extract, whose entry describes actors the extract does not contain."
+      - "Drop the monthly file to avoid D-2, against Chapter 5's ratified need; retained only as a fallback if the divergence cannot be recorded with an exact range."
+      - "Trim the corpus to 2021-2023 before the method break, which would discard the newest and largest data and contradict the author's directive."
+      - "Exclude 2024 because of the gap, when the gap is teaching content rather than an obstacle."
+      - "Relax the reconciliation condition because the source is not official, instead of giving it a stricter named equivalent with three tests and a fixture."
+      - "Promote the package at this gate because rights are resolved, when availability is not promotion and three defects are unfixed."
+      - "Assign the extract to Chapters 2 and 3 as the reconnaissance proposed, reopening accepted chapters through a side door."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-DIGIKAT"
+      governed_items:
+        - "R03-DIGIKAT-rights"
+        - "R08-DIGIKAT-package"
+      later_gates_still_mandatory:
+        - "P3-VERIFY-B"
+        - "WB-C04"
+        - "WB-C05"
+        - "WB-C06"
+    authority_boundary: >-
+      This decision authorises P3-DIGIKAT only to repair the three named
+      defects, record the substitute reconciliation with its negative fixture,
+      close digikat_akteri as abandoned, register WB-C04, WB-C05 and WB-C06 as
+      consumers, re-pin the source state at its own date, and only then promote
+      the package. It authorises no chapter prose edit, no promotion at this
+      gate, no lane change to any other package, no network retrieval, no
+      reading of the master corpus, and no rights-holder-permission claim. It
+      authorises no generated book artefact, push, merge, tag, archive,
+      deployment, or publication.
+
+  G-A3-EUROSTAT:
+    status: "accepted"
+    accepted_at: "2026-08-10"
+    author_disposition: "accepted_as_recommended_with_one_bounded_official_retrieval"
+    author: "Luka Sikic"
+    data_policy_owner: "Luka Sikic"
+    evidence: "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+    pre_disposition_record: "notes/reports/author-pre-dispositions-2026-08-10.md"
+    preparation_commit: "fd626f78f2ffbc93e8f4aca6376a91843ebe2c5f"
+    accepted_dispositions:
+      selection: >-
+        Six question-led indicators: lfsi_emp_a employment age 20-64;
+        ilc_peps01n risk of poverty or social exclusion; sdg_04_20 sourced
+        from edat_lfse_03 tertiary attainment age 25-34; edat_lfse_14 early
+        leaving age 18-24; isoc_ci_ifp_iu internet use age 16-74; and
+        demo_pjanind population age 65 and over. The common reference year is
+        2025 and the geography is all 27 EU Member States, with EU27_2020
+        permitted only as a control row and never as a country observation.
+      common_year_flags_and_missingness: >-
+        Every one of the 162 country-indicator keys must be 2025 and must
+        retain the source OBS_STATUS and CONF_STATUS information. An official
+        missing value remains an explicit missing row; it is never zero,
+        dropped, imputed or replaced by another year. If the authorised source
+        cannot prove the common-year contract, P3-EUROSTAT stops rather than
+        constructing a mixed-year cross-section.
+      chapter_role: >-
+        The sole current consumer is WB-C06. The package supports country-level
+        comparison, association, a third-variable question, visible quality
+        flags and the ecological-inference boundary. It supports no individual,
+        causal, out-of-EU or unflagged-comparability claim and no other consumer
+        is added by implication.
+      reuse_attribution_and_disclaimer: >-
+        The authoritative Eurostat notice permits commercial and
+        non-commercial reuse of its statistical data with source
+        acknowledgement, requires changes to be stated and requires a
+        non-responsibility disclaimer. P3-EUROSTAT must cite each component
+        using the exact customised-dataset template Source: [Eurostat dataset
+        datacode link], [access date], state the exact gate-approved
+        modification sentence and retain the exact European Commission
+        non-liability sentence recorded in the decision report. No
+        rights-holder permission is claimed because none was sought.
+      third_party_exception: >-
+        The selected tables identify Eurostat as source, contain only EU Member
+        States, are not trade tables and transfer no publication, photograph,
+        illustration, logo or trademark. The published third-party and
+        commercial-geography exceptions therefore do not apply to this bounded
+        selection. P3-EUROSTAT must still stop if the actual retrieved source
+        carries a contrary individual copyright notice.
+      source_route: >-
+        The author expressly authorises one bounded retrieval of exactly the
+        six-table 2025 EU-27 slice from the official Eurostat source outside
+        rendering. P3-EUROSTAT must retain the exact query and unmodified source
+        response, record the access date and checksums, and reconcile the
+        teaching output to that retained response. This is a one-time,
+        packet-specific exception to the standing no-network-retrieval
+        directive, not general network authority.
+    rejected_alternatives:
+      - "Use the rejected CroAIcon MySQL staging table, whose repeated rows break provenance."
+      - "Wait for an author-supplied local mirror, when the author instead approved a bounded official retrieval."
+      - "Keep eurostat_drustvo portal-mediated and unpromoted and amend or descope P3-EUROSTAT."
+      - "Select a separate latest year for each country-indicator pair and create a false mixed-year cross-section."
+      - "Add a seventh indicator without a distinct Chapter 6 question or remove a selected axis merely to reach five."
+      - "Include non-EU geography, trade data, images, logos or other material that could activate a published exception."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-EUROSTAT"
+      governed_items:
+        - "R03-EUROSTAT-rights"
+        - "R08-EUROSTAT-package"
+      later_gates_still_mandatory:
+        - "P3-VERIFY-B"
+        - "WB-C06"
+    authority_boundary: >-
+      This decision authorises only P3-EUROSTAT to perform one bounded official
+      retrieval of the named six-indicator 2025 EU-27 slice, outside rendering,
+      and to retain its exact query, unmodified response, access date,
+      checksums and reconciliation. It authorises no other source, table,
+      indicator, year, geography, retrieval or consumer; no CroAIcon staging
+      use; no render-time network; and no claim of rights-holder permission.
+      The gate itself retrieves no data, changes no catalogue entry, promotes
+      no package and edits no chapter. It authorises no generated book
+      artefact, push, merge, tag, archive, deployment or publication.
+
   G-A4-03:
     status: "accepted"
     accepted_at: "2026-08-06"
@@ -1853,6 +2088,42 @@ decisions:
       identity brief, no accepted architecture, no style rule, no #def- block, no
       data package and no rights decision. It authorises no render, generated
       artifact, push, merge, tag, archive, deployment or publication.
+
+  A-THREAD-C04-C06-2026-08-10:
+    kind: "author_amendment"
+    status: "accepted"
+    accepted_at: "2026-08-10"
+    author: "Luka Sikic"
+    evidence: "conversation:author-amendment-C04-WB-C05-C05-WB-C06-C06-2026-08-10-Luka-Sikic"
+    decision_record: "notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit"
+    recorded_at_packet: "C04"
+    amends: "AGENTS.md#comprehensive-review-packet-workflow"
+    accepted_dispositions:
+      strict_packet_chain:
+        - "C04"
+        - "WB-C05"
+        - "C05"
+        - "WB-C06"
+        - "C06"
+      packet_boundary: >-
+        Each packet remains independently claimed, evidenced, handoff-disposed,
+        closed, workflow-checked and committed before the next is claimed. At
+        most one write packet may be active and no evidence or lock is carried
+        across packet boundaries.
+      acceptance_replies: >-
+        C04, C05 and C06 each require the named author's exact dated reply tied
+        to the final chapter source commit. The 2026-08-05 standing delegation
+        cannot substitute for those replies and no packet may record that the
+        author read a chapter.
+      stop_conditions: >-
+        Stop before the next packet if an exit test lacks real evidence, if a
+        fatal or unresolved major panel finding remains, or if completion would
+        require inventing a number, source, study or citation.
+    authority_boundary: >-
+      This thread-only amendment replaces the usual stop-after-one-packet rule
+      only for the named strict chain through C06. It does not combine packets,
+      authorise a second write lock, waive any gate, widen source or content
+      scope, or authorise push, merge, tag, archive, deployment or publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -2919,7 +3190,7 @@ packets:
     sequence: 88
     phase: "3B"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WA-PART"
       - "P3-DIGIKAT"
@@ -2932,8 +3203,67 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "DigiKat and Eurostat are ready before Chapter 4; Chapter 12, ESS, and text packages remain just-in-time later work."
-    completion_evidence: []
-    change_reference: null
+    completion_evidence:
+      source_state: "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p3-verify-b-2026-08-10.md#matrica-vrata"
+            - "matrix:WA-PART-accepted-source-sha256-21a5f46b-with-completion-evidence"
+            - "matrix:P3-DIGIKAT-accepted-podaci-sha256-b08accc1-with-four-accepted-items"
+            - "matrix:P3-EUROSTAT-accepted-podaci-sha256-bccdee3f-with-four-accepted-items"
+            - "check:scripts/check-review-workflow.R-validates-all-three-prerequisites"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+            - "source:DigiKat-checkout-278a127f9170c1aca82035a4a8357b8a995f91d8"
+            - "source:P3-DIGIKAT-podaci-sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
+            - "source:P3-EUROSTAT-podaci-sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "result:no-active-blocker-in-WA-PART-P3-DIGIKAT-P3-EUROSTAT-or-their-four-data-items"
+            - "handoff:H-G-A3-DIGIKAT-002-consumed-with-independent-recomputation"
+            - "handoff:H-G-A3-EUROSTAT-001-consumed-with-independent-source-and-rights-audit"
+            - "handoff:H-P3-EUROSTAT-001-consumed-before-claim"
+            - "boundary:P3-VERIFY-C-P3-ESS-P3-TEXT-remain-later-ratified-work-not-Wave-B-blockers"
+      outputs:
+        - output: "P3-VERIFY-B durable artifact and evidence record for: Wave B evidence foundation: validated DigiKat and Eurostat packages."
+          artifacts:
+            - "report:notes/reports/p3-verify-b-2026-08-10.md"
+            - "check:INDEPENDENT_DIGIKAT_OK-rows-49-438-3604-divergent-17-net-0"
+            - "check:INDEPENDENT_EUROSTAT_OK-requests-6-retries-0-keys-162-missing-LU-u"
+            - "check:DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify"
+            - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+            - "check:DATA_NEGATIVE_FIXTURES_OK-cases-44"
+            - "check:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+        - output: "Completion evidence is tied to the declared P3-VERIFY-B source state and bounded scope."
+          artifacts:
+            - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+            - "scope:commit-f6d25bb-chapter-appendix-docs-freeze-shared-registry-changes-zero"
+            - "review:packet_reviews.P3-VERIFY-B-no-new-future-relevant-effect"
+            - "check:scripts/check-review-workflow.R-at-P3-VERIFY-B-closeout"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:WA-PART-P3-DIGIKAT-P3-EUROSTAT-each-independently-verified"
+            - "report:notes/reports/p3-verify-b-2026-08-10.md#matrica-vrata"
+            - "result:no-active-blocker"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+            - "report:notes/reports/p3-verify-b-2026-08-10.md"
+            - "scope-audit:no-package-or-chapter-mutation-during-review"
+        - test: "DigiKat and Eurostat are ready before Chapter 4; Chapter 12, ESS, and text packages remain just-in-time later work."
+          result: "passed"
+          evidence:
+            - "registry:P3-DIGIKAT-and-P3-EUROSTAT-accepted"
+            - "registry:WB-C04-requires-P3-VERIFY-B-and-P2-SPINE-II"
+            - "registry:P3-VERIFY-C-requires-C11-and-P3-EVIDENCE12"
+            - "registry:P3-ESS-and-P3-TEXT-remain-ratified"
+            - "boundary:no-later-wave-package-cited-as-complete"
+    change_reference: "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
@@ -8598,7 +8928,7 @@ packets:
     sequence: 83
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C03"
       - "P3-DZS"
@@ -8611,19 +8941,88 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WA-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-I"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#01-zasto-statistika-02-mjerenje-i-dizajn-03-kako-brojke-zavode-04-sazimanje-podataka"
+            - "report:notes/reports/g-a2b-i-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-i-2026-08-04.md"
+            - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim-lifecycle-thread-and-assessment-architecture"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/01-zasto-statistika.qmd@sha256-ece15f2c402cfef0444fecd4db6eccc98a9121b9fc8661207575462ca3b31bc1"
+            - "source:chapters/02-mjerenje-i-dizajn.qmd@sha256-4c003ff8520fa57d957601bc2bc25fe53fab2845ff34d8f8458461c23bc94204"
+            - "commit:72f774a3b302e6beca14730ac82727be92f29be1#chapters/03-kako-brojke-zavode.qmd-unchanged"
+            - "source:chapters/04-sazimanje-podataka.qmd@sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+            - "report:notes/reports/wa-part-2026-08-06.md#dispozicija-pet-stavki"
+            - "result:DIP-denominator-3558089-approached-2216763-ballots-2215209-difference-1554"
+            - "result:DZS-reader-facing-values-in-Part-I-none-governance-boundary-only"
+            - "check:scripts/build-dzs-extracts.py-DZS_EXTRACTS_OK-extracts-4-mode-verify-retrieved-2026-07-27"
+            - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK-portal-mediated-promoted-false-local-files-0"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-rows-50300-reconciliations-9-undeclared-0"
+            - "check:scripts/check-katalog.py-KATALOG_OK-rights_permission_claim-false"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-182815-sha256-cb58b911530e1e52737fbaf01772c6c8ecd1ed5a7f9b2499b2e93c12255b2f47"
+            - "render:PDF-exit-0-bytes-2730262-sha256-c843a6913d7f72b5d5315cf74d77727e086ea06c8924ef7cae0028619d4a2ee6"
+            - "render:DOCX-exit-0-bytes-1092131-sha256-92aafd13595a4f95200cb06d565f1fbc04c369547b98b71ccb6c9211532cfecf"
+            - "report:notes/reports/wa-part-2026-08-06.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wa-part-critic-voice-2026-08-06.md"
+            - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "result:continuity-panel-zero-fatal-zero-major-one-evidence-qualification-disposed"
+      outputs:
+        - output: "WA-PART verified vertical-slice source and evidence bundle for: Part I bridge, self-check, routes, and AI/data spine."
+          artifacts:
+            - "source:chapters/04-sazimanje-podataka.qmd@sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+            - "report:notes/reports/wa-part-2026-08-06.md"
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "items:R08-SPINE-01-03-R24-PARTI-thesis-R24-LADDER-PartI-R27-C03-04-transition-R35-SELF-CHECK-I"
+        - output: "Completion evidence is tied to the declared WA-PART source state and bounded scope."
+          artifacts:
+            - "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+            - "handoffs:no-incoming-target-WA-PART"
+            - "handoffs:no-new-future-relevant-effect"
+            - "boundary:G-A3-DIGIKAT-not-started"
+            - "check:scripts/check-review-workflow.R-at-WA-PART-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wa-part-2026-08-06.md"
+            - "check:style-architecture-spine-terminology-citation-concept-manuscript-figure-catalogue-data-widget-inventory-token-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "panel:zero-fatal-zero-major"
+            - "disposition:DZS-DIP-reader-facing-and-governance-roles-separated"
+        - test: "The WA-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-01-03-R24-PARTI-thesis-R24-LADDER-PartI-R27-C03-04-transition-R35-SELF-CHECK-I"
+            - "report:notes/reports/wa-part-2026-08-06.md#dispozicija-pet-stavki"
+            - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   G-A3-DIGIKAT:
     sequence: 84
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
       - "P3-CATALOG"
@@ -8635,19 +9034,78 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-DIGIKAT.accepted_at-2026-08-10"
+            - "record:notes/reports/author-pre-dispositions-2026-08-10.md"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor-data-policy-owner-and-source-project-lead"
+            - "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-DIGIKAT.data_policy_owner"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:outside_asks.OA-G-A3-DIGIKAT-SELECTION.recommended_default"
+            - "register:decisions.G-A3-DIGIKAT.rejected_alternatives-8"
+            - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#razmotrene-alternative"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-DIGIKAT.blocked_dependencies"
+            - "items:R03-DIGIKAT-rights-and-R08-DIGIKAT-package"
+            - "packet:P3-DIGIKAT"
+      outputs:
+        - output: "Dated G-A3-DIGIKAT decision and authority record for: DigiKat snapshot, rights, and chapter role."
+          artifacts:
+            - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-DIGIKAT"
+            - "outside-ask:OA-G-A3-DIGIKAT-SELECTION-done"
+            - "outside-ask:OA-G-A3-DIGIKAT-RIGHTS-done"
+        - output: "Completion evidence is tied to the declared G-A3-DIGIKAT source state and bounded scope."
+          artifacts:
+            - "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-DIGIKAT.authority_boundary"
+            - "verification:DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify-at-2026-08-10"
+            - "verification:checkout-HEAD-278a127f9170c1aca82035a4a8357b8a995f91d8-2026-07-22-unmoved"
+            - "boundary:no-data-file-no-catalogue-entry-and-no-chapter-prose-changed"
+            - "check:scripts/check-review-workflow.R-at-G-A3-DIGIKAT-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-accepted_as_recommended_with_latest_possible_snapshot_directive"
+            - "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-DIGIKAT.accepted_dispositions-eight-components"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-DIGIKAT.rejected_alternatives-8"
+            - "register:decisions.G-A3-DIGIKAT.authority_boundary"
+            - "register:decisions.G-A3-DIGIKAT.blocked_dependencies"
+        - test: "The G-A3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "handoff:H-P1B-DATA-LIC-003-consumed-before-packet-claim"
+            - "handoff:H-P3-CATALOG-001-acknowledged-before-first-edit-and-consumed-at-closeout"
+            - "defects:D-1-godina_potpuna-false-for-2024-D-2-annual-monthly-divergence-17-of-49-D-3-no-method-break-flag"
+            - "identity:denominator-6-of-6-years-exact-and-corpus-net-difference-zero-at-710307"
+            - "figures:izvori-n-3604-mean-153.08-median-4-ratio-38.27-one-post-share-30.22pct-top10-26.96pct-independently-recomputed"
+            - "correction:proportions_summary-is-not-a-named-actor-table-reconnaissance-claim-corrected"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic"
   P3-DIGIKAT:
     sequence: 85
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-DIGIKAT"
     scope: "Dated DigiKat actor package."
@@ -8658,19 +9116,88 @@ packets:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "source:checkout-C:/Users/lsikic/projects/DigiKat@278a127f9170c1aca82035a4a8357b8a995f91d8"
+            - "source:data/katalog.yml#digikat_mediji-source_last_modified-2026-07-22-verified_at-2026-08-10"
+            - "source:data/digikat-mediji.LICENCA.md-CC-BY-4.0-and-aggregate-only-boundary"
+            - "boundary:master-corpus-not-read-no-network-no-rights-holder-permission-claim"
+            - "decision:G-A3-DIGIKAT"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "source:data/katalog.yml#digikat_mediji-file_records-three-typed-codebooks"
+            - "passport:data/digikat_mediji/PUTOVNICA.md"
+            - "source:data/katalog.yml#digikat_akteri-abandoned-with-reason-and-successor-digikat_mediji"
+            - "source:data/katalog.yml#digikat_mediji-consumers-WB-C04-WB-C05-WB-C06"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify"
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_RECONCILIATION_OK-years-6-denominator-tolerance-0-divergent-cells-17-net-0"
+            - "source:data/katalog.yml#digikat_mediji-non_official_reconciliation_substitute-three-passed-tests"
+            - "fixture:non_official_substitute_incomplete-exit-1-for-missing-recorded_divergence"
+            - "md5:annual-d3b5c32aac2a42c72e93d84472d4ca58-monthly-8809a751fdc05236fc54d55986c366ed-sources-fc90ae84bbb0b03d599a7b9cf3fcb08e"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "passport:data/digikat_mediji/PUTOVNICA.md#putovi-uporabe"
+            - "result:annual-49-monthly-438-sources-3604"
+            - "result:corpus-posts-710307-named-source-posts-551712-share-77.67-percent"
+            - "result:complete-years-2021-2022-2023-2025-2024-gap-February-to-May-January-1911"
+            - "result:method-break-flag-TikTok-2023-07-break-2024-06-Instagram-2024-07"
+      outputs:
+        - output: "P3-DIGIKAT validated package, passport, checksum, and route evidence for: Dated DigiKat actor package."
+          artifacts:
+            - "report:notes/reports/p3-digikat-2026-08-10.md"
+            - "source:data/digikat-platforme-godisnje.csv"
+            - "source:data/digikat-platforme-mjesecno.csv"
+            - "source:data/digikat-izvori.csv"
+            - "passport:data/digikat_mediji/PUTOVNICA.md"
+        - output: "Completion evidence is tied to the declared P3-DIGIKAT source state and bounded scope."
+          artifacts:
+            - "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
+            - "handoff:H-G-A3-DIGIKAT-001-consumed-before-claim"
+            - "handoff:H-P3-DZS-003-consumed-at-closeout"
+            - "handoff:no-new-future-relevant-effect-H-G-A3-DIGIKAT-002-already-carries-downstream-boundary"
+            - "amendment:author-2026-08-10-up-to-five-packets-strict-sequence-recorded-in-report-and-dashboard"
+            - "check:scripts/check-review-workflow.R-at-P3-DIGIKAT-closeout"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-katalog.py-packages-20-promoted-4"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-snapshots-20-validated-20-reconciliations-10-undeclared-0"
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_EXTRACTS_OK-mode-verify"
+            - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-42"
+            - "check:scripts/check-integrity-fixtures.py-INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "passport:data/digikat_mediji/PUTOVNICA.md#putovi-uporabe"
+            - "source:three-plain-UTF-8-LF-CSV-files-with-stable-ASCII-names"
+            - "source:data/digikat-mediji.LICENCA.md-CC-BY-4.0"
+            - "boundary:no-portal-lane-promised-no-network-retrieval"
+        - test: "The P3-DIGIKAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p3-digikat-2026-08-10.md"
+            - "repair:D-1-2024-godina_potpuna-ne-machine-checked"
+            - "repair:D-2-17-of-49-divergence-recorded-and-recomputed"
+            - "repair:D-3-lom_metode-present-in-both-time-files-and-machine-checked"
+            - "review:packet_reviews.P3-DIGIKAT-declares-no-new-future-relevant-effect"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
   G-A3-EUROSTAT:
     sequence: 86
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P0-OUTSIDE"
       - "P3-CATALOG"
@@ -8682,19 +9209,76 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-EUROSTAT.accepted_at-2026-08-10"
+            - "record:notes/reports/author-pre-dispositions-2026-08-10.md"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor-and-data-policy-owner"
+            - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "outside-ask:OA-G-A3-EUROSTAT-SOURCE-ROUTE-recommended-default"
+            - "register:decisions.G-A3-EUROSTAT.rejected_alternatives-6"
+            - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md#izvorna-ruta-prihvaceni-ograniceni-dohvat"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-EUROSTAT.blocked_dependencies"
+            - "items:R03-EUROSTAT-rights-and-R08-EUROSTAT-package"
+            - "packet:P3-EUROSTAT"
+      outputs:
+        - output: "Dated G-A3-EUROSTAT decision and authority record for: Eurostat selection, rights, and chapter role."
+          artifacts:
+            - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+            - "register:decisions.G-A3-EUROSTAT"
+            - "outside-ask:OA-G-A3-EUROSTAT-SELECTION-done"
+            - "outside-ask:OA-G-A3-EUROSTAT-RIGHTS-done"
+            - "outside-ask:OA-G-A3-EUROSTAT-SOURCE-ROUTE-done"
+        - output: "Completion evidence is tied to the declared G-A3-EUROSTAT source state and bounded scope."
+          artifacts:
+            - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+            - "register:decisions.G-A3-EUROSTAT.authority_boundary"
+            - "boundary:gate-retrieved-no-data-changed-no-catalogue-and-promoted-zero-packages"
+            - "check:scripts/check-review-workflow.R-at-G-A3-EUROSTAT-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-accepted-one-bounded-official-retrieval"
+            - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-EUROSTAT.rejected_alternatives-6"
+            - "register:decisions.G-A3-EUROSTAT.authority_boundary"
+            - "register:decisions.G-A3-EUROSTAT.blocked_dependencies"
+        - test: "The G-A3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "selection:six-indicators-2025-all-EU27-sole-consumer-WB-C06"
+            - "contract:162-country-indicator-keys-same-year-or-explicit-missing"
+            - "rights:official-reuse-notice-exact-attribution-change-statement-disclaimer-and-third-party-exception-test"
+            - "route:one-bounded-official-retrieval-outside-render-with-query-response-date-checksum-and-reconciliation"
+            - "handoff:H-P1B-DATA-LIC-003-consumed-before-claim"
+            - "handoff:H-P3-CATALOG-001-acknowledged-before-first-edit-and-consumed-at-closeout"
+            - "review:packet_reviews.G-A3-EUROSTAT-all-future-effects-recorded"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
   P3-EUROSTAT:
     sequence: 87
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-EUROSTAT"
     scope: "Fixed-year Eurostat package."
@@ -8705,19 +9289,99 @@ packets:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "decision:G-A3-EUROSTAT"
+            - "source:data/eurostat_drustvo/PREUZIMANJE.json-six-official-HTTP-200-responses-zero-retries"
+            - "source:data/eurostat_drustvo/USKLADJENJE.json-datastructure-versions-47.0-80.0-44.0-48.0-52.0-33.0"
+            - "source:six-responses-source-ESTAT-SOURCE_INSTITUTIONS-Eurostat"
+            - "source:no-response-carries-contrary-copyright-licence-or-third-party-annotation"
+            - "notice:data/eurostat-drustvo.LICENCA.md-exact-attribution-modification-and-disclaimer"
+            - "boundary:no-rights-holder-permission-claimed-none-sought"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "source:data/katalog.yml#eurostat_drustvo-12-column-typed-codebook"
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+            - "source:data/katalog.yml#eurostat_drustvo-consumer-WB-C06-only"
+            - "source:data/katalog.yml#eurostat_drustvo-permissible-and-unavailable-claims"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+            - "checksum:data/eurostat-drustvo-2025.csv-md5-1dc076aeac134b6bbf9022ece6475747-sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+            - "checksum:data/eurostat_drustvo/UPITI.json-sha256-d80278ea9e454e10af504ccb3560df977275060136e0156ac3985593d3147074"
+            - "checksum:data/eurostat_drustvo/PREUZIMANJE.json-sha256-335fab2e89eeb473ba7fa31d872fde3eb2f5feed1435cc63fb4b738e12941481"
+            - "checksum:data/eurostat_drustvo/USKLADJENJE.json-sha256-1b381e306c1ee2243af08ef41e9ade453a8cedd0f35e8f614d936580e8ad4180"
+            - "source:six-raw-responses-carry-individual-MD5-and-SHA256-in-retrieval-manifest"
+            - "source:.gitattributes-derived-JSON-eol-lf-raw-responses-binary"
+            - "fixture:eurostat_raw_checksum-exit-1-for-own-checksum-defect"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "result:162-unique-geo-plus-year-plus-indicator-keys-all-year-2025"
+            - "result:161-numerical-values-one-explicit-LU-early-leaving-missing-row"
+            - "result:source-status-counts-unmarked-150-b-2-d-4-e-1-ep-1-p-2-u-2"
+            - "result:LU-missing-colon-status-api-u-obs-u-conf-unmarked"
+            - "result:HR-early-leaving-2.1-status-u-proves-status-is-not-missingness"
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md#putovi-uporabe"
+      outputs:
+        - output: "P3-EUROSTAT validated package, passport, checksum, and route evidence for: Fixed-year Eurostat package."
+          artifacts:
+            - "report:notes/reports/p3-eurostat-2026-08-10.md"
+            - "source:data/eurostat-drustvo-2025.csv"
+            - "source:data/eurostat_drustvo/UPITI.json"
+            - "source:data/eurostat_drustvo/PREUZIMANJE.json"
+            - "source:data/eurostat_drustvo/raw"
+            - "source:data/eurostat_drustvo/USKLADJENJE.json"
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+            - "notice:data/eurostat-drustvo.LICENCA.md"
+        - output: "Completion evidence is tied to the declared P3-EUROSTAT source state and bounded scope."
+          artifacts:
+            - "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+            - "handoff:H-G-A3-EUROSTAT-001-consumed-before-claim"
+            - "handoff:H-P3-DZS-003-consumed-at-closeout"
+            - "handoff:H-P3-EUROSTAT-001-records-all-actual-future-effects"
+            - "boundary:one-six-request-batch-zero-retries-no-second-fetch-no-render-network"
+            - "check:scripts/check-review-workflow.R-at-P3-EUROSTAT-closeout"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-katalog.py-packages-20-promoted-5-snapshots-21"
+            - "check:scripts/check-data-integrity.R-promoted-5-snapshots-21-validated-21-undeclared-0"
+            - "check:scripts/build-eurostat-extracts.py-keys-162-available-161-missing-1-tolerance-0"
+            - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-44"
+            - "fixture:eurostat_missing_status-exit-1-for-own-status-defect"
+            - "fixture:eurostat_raw_checksum-exit-1-for-own-checksum-defect"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "passport:data/eurostat_drustvo/PUTOVNICA.md#putovi-uporabe"
+            - "source:one-plain-UTF-8-LF-CSV-with-stable-ASCII-name"
+            - "notice:data/eurostat-drustvo.LICENCA.md"
+            - "boundary:no-portal-lane-promised-no-render-time-retrieval"
+        - test: "The P3-EUROSTAT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p3-eurostat-2026-08-10.md"
+            - "selection:six-named-source-codes-and-dimension-slices"
+            - "source:one-authorised-six-request-batch-started-12-39-03Z-completed-12-39-10Z-zero-retries"
+            - "source:actual-ESTAT-Eurostat-responses-no-contrary-rights-annotation"
+            - "missingness:one-LU-colon-u-row-retained-among-all-162-keys"
+            - "review:packet_reviews.P3-EUROSTAT-all-future-effects-recorded"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
   WB-C04:
     sequence: 89
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-VERIFY-B"
       - "P2-SPINE-II"
@@ -8729,19 +9393,84 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WB-C04 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-II"
+            - "handoff:H-P2-SPINE-II-001-consumed"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#04-sazimanje-podataka"
+            - "report:notes/reports/p2-spine-ii-2026-08-04.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "source:references.bib#digikat2026"
+            - "source:data/digikat-platforme-mjesecno.csv"
+            - "source:data/digikat-platforme-godisnje.csv"
+            - "source:data/digikat-izvori.csv"
+            - "result:correct-join-438-keys-710307-posts-wrong-join-3571-rows-438-keys-5959081-posts"
+            - "result:sources-3604-total-551712-mean-153.0832-median-4-top-ten-148748-share-26.961-percent"
+            - "result:2025-nine-platforms-six-measured-236166-posts-median-sensitivity-2724-to-14807.5"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-live_keys-38-records-38"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-202568-sha256-3bad6217cb25df3b6d7b7fef12f9c1e08610fcf892c649c39bd005a584edea1d"
+            - "render:PDF-exit-0-bytes-2740732-sha256-b19d5b0b6d94803904aafbf04711c9bead918073da9528c0bed11917c7f3db31"
+            - "render:DOCX-wrapper-exit-0-bytes-1495888-sha256-9923070a490b734e520671bc6f344bce24ca99a84e17381728eafd5322393222"
+            - "boundary:generated-docs-freeze-ai-export-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "reports:notes/reports/wb-c04-critic-*-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "panel:six-of-six-score-5-of-5-zero-fatal-major-minor"
+      outputs:
+        - output: "WB-C04 verified vertical-slice source and evidence bundle for: Chapter 4 vertical slice."
+          artifacts:
+            - "report:notes/reports/wb-c04-2026-08-10.md"
+            - "source:chapters/04-sazimanje-podataka.qmd"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json"
+            - "generated:data/concept-graph.json"
+        - output: "Completion evidence is tied to the declared WB-C04 source state and bounded scope."
+          artifacts:
+            - "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "handoffs:H-P2-SPINE-II-001-H-P2-TERMS-002-H-P3-EXISTING-002-consumed"
+            - "review:packet_reviews.WB-C04-all-future-effects-recorded"
+            - "handoff:H-WB-C04-001"
+            - "boundary:C04-not-opened-no-author-acceptance-claimed"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wb-c04-2026-08-10.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-registered_debt-1-unexpected-0"
+            - "check:MANUSCRIPT_STYLE_OK-files-25"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "panel:zero-fatal-zero-major-zero-minor"
+        - test: "The WB-C04 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "render:three-formats-exit-zero"
+            - "check:scripts/check-review-workflow.R-at-WB-C04-closeout"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
   C04:
     sequence: 90
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WB-C04"
     scope: "Author acceptance and panel disposition for C04."
@@ -8752,19 +9481,78 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-pedagogy-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-style-2026-08-10.md"
+            - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "report:notes/reports/c04-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#04-sazimanje-podataka-stage-coauthor_review"
+            - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+            - "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "check:scripts/check-chapter-spines.py-C04-accepted-stage-transition"
+      outputs:
+        - output: "C04 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c04-acceptance-package-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#04-sazimanje-podataka-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C04 source state and bounded scope."
+          artifacts:
+            - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+            - "source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "decision:A-THREAD-C04-C06-2026-08-10"
+            - "handoff:H-C04-THREAD-SEQUENCE-001"
+            - "check:scripts/check-review-workflow.R-at-C04-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-14-draft-5-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "result:six-perspectives-score-5-of-5-zero-fatal-zero-major-zero-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c04-acceptance-package-2026-08-10.md"
+            - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+            - "reports:wb-c04-six-final-critic-reports"
+            - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C04-accepted-for-2a6ac10596a578e593e652204e06c30b6b3f1ed8-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#04-sazimanje-podataka-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   WB-C05:
     sequence: 91
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C04"
     scope: "Chapter 5 vertical slice."
@@ -8775,19 +9563,83 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WB-C05 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-II"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#05-vizualizacija"
+            - "report:notes/reports/g-a2b-ii-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-ii-2026-08-04.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "source:data/digikat-izvori.csv"
+            - "source:data/digikat-platforme-mjesecno.csv"
+            - "source:R/podaci-nastavni.R#anketa_mreze"
+            - "result:text-corpus-six-titles-36-tokens-28-forms-22-singletons-6-repeated"
+            - "result:digikat-3604-domains-551712-posts-median-4-maximum-56500-visible-gap-and-method-break"
+            - "result:anketa-group-means-81.5-and-16.2-difference-65.3-share-80.1-percent"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-live_keys-38-records-38"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-204249-sha256-086d26fa3e35f51a77ad3d57b0a6c355209012b90fdbe4f0780721bc8d083c37"
+            - "render:PDF-exit-0-bytes-2355475-sha256-1c1af5b6467b3f3ae8b0f7a83662b94cf88b4cf12d308622393c55d711f47ac9"
+            - "render:DOCX-wrapper-exit-0-bytes-1481172-sha256-b371d20bd7f955aaeb92ba0ed40177772f076603ae3509c9beaed0582ebc821c"
+            - "boundary:generated-docs-freeze-ai-export-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "reports:notes/reports/wb-c05-critic-*-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "panel:six-of-six-confirm-source-sha256-db4203d6-zero-fatal-zero-major-three-minor-two-chapter-one-preexisting-documentation"
+      outputs:
+        - output: "WB-C05 verified vertical-slice source and evidence bundle for: Chapter 5 vertical slice."
+          artifacts:
+            - "report:notes/reports/wb-c05-2026-08-10.md"
+            - "source:chapters/05-vizualizacija.qmd"
+            - "report:notes/reports/wb-c05-figure-density-2026-08-10.md"
+            - "registry:data/widgets.json#w05"
+        - output: "Completion evidence is tied to the declared WB-C05 source state and bounded scope."
+          artifacts:
+            - "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "handoffs:H-P1C-INTEGRITY-001-H-P3-EXISTING-001-consumed"
+            - "review:packet_reviews.WB-C05-all-future-effects-recorded"
+            - "boundary:C05-not-opened-no-author-acceptance-claimed"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wb-c05-2026-08-10.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-registered_debt-0-unexpected-0-stale-0"
+            - "check:MANUSCRIPT_STYLE_OK-files-25"
+            - "check:WIDGET_PARITY_OK-pairs-17"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "panel:zero-fatal-zero-major-two-nonblocking-chapter-minors-one-preexisting-documentation-minor"
+        - test: "The WB-C05 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "render:three-formats-exit-zero"
+            - "check:scripts/check-review-workflow.R-at-WB-C05-closeout"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
   C05:
     sequence: 92
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WB-C05"
     scope: "Author acceptance and panel disposition for C05."
@@ -8798,19 +9650,77 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-skeptic-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-pedagogy-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-evidence-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-style-2026-08-10.md"
+            - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors-one-preexisting-documentation-minor"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "report:notes/reports/c05-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
+            - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+            - "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "check:scripts/check-chapter-spines.py-C05-accepted-stage-transition"
+      outputs:
+        - output: "C05 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c05-acceptance-package-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C05 source state and bounded scope."
+          artifacts:
+            - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+            - "source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "handoff:H-C04-THREAD-SEQUENCE-001-consumed-for-C05"
+            - "check:scripts/check-review-workflow.R-at-C05-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-13-draft-6-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors-one-preexisting-documentation-minor"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c05-acceptance-package-2026-08-10.md"
+            - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+            - "reports:wb-c05-six-final-critic-reports"
+            - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   WB-C06:
     sequence: 93
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C05"
       - "P1A-C06"
@@ -8822,19 +9732,89 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WB-C06 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-II"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#06-povezanost"
+            - "report:notes/reports/g-a2b-ii-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-ii-2026-08-04.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/06-povezanost.qmd@sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "source:data/eurostat-drustvo-2025.csv@sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+            - "source:R/podaci-nastavni.R#anketa_mreze"
+            - "result:anketa-pearson-minus-0.559289-spearman-minus-0.680151-log-pearson-minus-0.683619"
+            - "result:simpson-pooled-0.757952-within-minus-0.767874-minus-0.657974-minus-0.706051"
+            - "result:coded-six-titles-1-1-0-1-1-1-correlation-minus-0.046324-constant-code-undefined"
+            - "result:eurostat-162-keys-161-numeric-one-LU-colon-u-pearson-0.449994-spearman-0.508016"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-live_keys-44-records-44"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+            - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-full-exit-0-routes-37-C06-bytes-217524-sha256-0a988d6f763e8b493276f9ba4a1bf654160bb3d5070566402fce4921fda23f7b"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2647492-sha256-445dc17b6dab9c73fb60946ef4e92d93ce1aecc7365a7a1ab10cb040f5605917"
+            - "render:DOCX-wrapper-exit-0-bytes-1509721-sha256-8941493f07a9ebcd9e17d29fd7f52c5be86fabe5a4d9c3b8cd24d614c53e9ac4"
+            - "browser:w06-inputs-4-result-4-of-4-solution-reset-pass-widget-320-svg-286-at-390-errors-0"
+            - "boundary:generated-docs-freeze-ai-export-pdf-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "reports:notes/reports/wb-c06-critic-*-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "panel:six-of-six-confirm-source-sha256-4b5e5381-zero-fatal-zero-major-two-nonblocking-chapter-minors"
+      outputs:
+        - output: "WB-C06 verified vertical-slice source and evidence bundle for: Chapter 6 vertical slice."
+          artifacts:
+            - "report:notes/reports/wb-c06-2026-08-10.md"
+            - "source:chapters/06-povezanost.qmd"
+            - "bibliography:references.bib#six-Eurostat-records"
+            - "registry:data/widgets.json#w06"
+            - "generated:data/concept-graph.json"
+        - output: "Completion evidence is tied to the declared WB-C06 source state and bounded scope."
+          artifacts:
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "handoff:H-P3-EXISTING-001-consumed"
+            - "handoffs:H-WB-C06-001-H-WB-C06-002-H-WB-C06-003-recorded"
+            - "review:packet_reviews.WB-C06-all-future-effects-recorded"
+            - "boundary:C06-not-opened-no-author-acceptance-claimed"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wb-c06-2026-08-10.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-registered_debt-0-unexpected-0-stale-0"
+            - "check:MANUSCRIPT_STYLE_OK-files-25"
+            - "check:WIDGET_PARITY_OK-pairs-17"
+            - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "panel:zero-fatal-zero-major-two-nonblocking-chapter-minors"
+        - test: "The WB-C06 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "render:three-formats-exit-zero"
+            - "browser:w06-targeted-live-execution-pass"
+            - "check:scripts/check-review-workflow.R-at-WB-C06-closeout"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
   C06:
     sequence: 94
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WB-C06"
     scope: "Author acceptance and panel disposition for C06."
@@ -8845,19 +9825,78 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wb-c06-critic-methods-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-skeptic-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-pedagogy-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-style-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-structure-2026-08-10.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors"
+            - "boundary:three-WB-C06-outgoing-handoffs-remain-pending-for-their-targets"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "report:notes/reports/c06-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
+            - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "check:scripts/check-chapter-spines.py-C06-accepted-stage-transition"
+      outputs:
+        - output: "C06 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c06-acceptance-package-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C06 source state and bounded scope."
+          artifacts:
+            - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "handoff:H-C04-THREAD-SEQUENCE-001-consumed-for-C06"
+            - "check:scripts/check-review-workflow.R-at-C06-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-12-draft-7-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c06-acceptance-package-2026-08-10.md"
+            - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+            - "reports:wb-c06-six-final-critic-reports"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
   WB-PART:
     sequence: 95
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C06"
     scope: "Part II bridge and self-check."
@@ -8868,14 +9907,85 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WB-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-II"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#04-sazimanje-podataka-05-vizualizacija-06-povezanost"
+            - "report:notes/reports/g-a2b-ii-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-ii-2026-08-04.md"
+            - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim-thread-and-assessment-architecture"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "source:chapters/06-povezanost.qmd@sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-nodes-47-edges-502-graph-fresh"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-rows-50300-promoted-5-snapshots-21"
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify"
+            - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-graph-fresh"
+            - "report:notes/reports/wb-part-2026-08-11.md#dispozicija-upravljanih-stavki"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-220952-sha256-2dd8ae8da9411f6f4f59b12b7ae3a09183c6b2b3cc0e020eee73a82872a79d96"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2650787-sha256-b4f773ab59f1cd1774bffe9f47e17139b750bcd245da021b81207daebf362d53"
+            - "render:DOCX-wrapper-exit-0-bytes-1510711-sha256-76dddcac65158426a837331ffcc5d8c1e96684b88b39e2e94f2fb3b5c2ef173d-media-58"
+            - "check:scripts/check-rendered-html.py-37-canonical-pages"
+            - "report:notes/reports/wb-part-2026-08-11.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wb-part-critic-voice-2026-08-11.md"
+            - "report:notes/reports/wb-part-critic-arc-2026-08-11.md"
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md"
+            - "audit:independent-seven-field-receipt-pass-on-sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+            - "result:continuity-panel-zero-fatal-zero-major-two-nonblocking-existing-or-part-level-minors"
+      outputs:
+        - output: "WB-PART verified vertical-slice source and evidence bundle for: Part II bridge and self-check."
+          artifacts:
+            - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+            - "report:notes/reports/wb-part-2026-08-11.md"
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md"
+            - "items:R08-SPINE-04-06-R24-PARTII-thesis-R24-LADDER-PartII-R35-SELF-CHECK-II"
+        - output: "Completion evidence is tied to the declared WB-PART source state and bounded scope."
+          artifacts:
+            - "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+            - "handoffs:no-incoming-target-WB-PART"
+            - "handoff:H-WB-PART-001-created-for-P6-PANELS"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-draft"
+            - "boundary:WC-C07-not-started"
+            - "check:scripts/check-review-workflow.R-at-WB-PART-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wb-part-2026-08-11.md"
+            - "check:style-architecture-spine-terminology-citation-concept-manuscript-figure-catalogue-data-widget-inventory-token-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md"
+            - "panel:zero-fatal-zero-major"
+            - "audit:seven-field-receipt-truthful-checkable-and-no-protected-answer-leak"
+        - test: "The WB-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-04-06-R24-PARTII-thesis-R24-LADDER-PartII-R35-SELF-CHECK-II"
+            - "report:notes/reports/wb-part-2026-08-11.md#dispozicija-upravljanih-stavki"
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   WC-C07:
     sequence: 96
     phase: "4"
@@ -12784,7 +13894,7 @@ items:
       location: "§12 DigiKat"
     description: "Document component-level rights and keep the restricted Determ corpus external."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -12802,11 +13912,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-DIGIKAT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-DIGIKAT-rights-and-aggregate-only-selection"
+      - "source:data/digikat-mediji.LICENCA.md-CC-BY-4.0-notice"
+      - "source:data/katalog.yml#digikat_mediji-redistribution-and-rights-boundary"
+      - "source:data/katalog.yml#digikat_akteri-abandoned-with-successor"
+      - "check:repository-scope-contains-only-three-aggregate-CSVs-no-master-corpus"
+      - "boundary:no-rights-holder-permission-claimed-and-none-sought"
+      - "report:notes/reports/p3-digikat-2026-08-10.md#napusteni-kandidat-i-prava"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
   R03-EUROSTAT-rights:
     parents:
       - "R03"
@@ -12820,7 +13937,7 @@ items:
       location: "§12 Eurostat"
     description: "Verify reuse attribution and commit a dated checksummed snapshot with query metadata."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -12838,11 +13955,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EUROSTAT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-EUROSTAT-bounded-official-retrieval-and-rights-contract"
+      - "notice:data/eurostat-drustvo.LICENCA.md-six-component-attribution-modification-and-disclaimer"
+      - "source:data/eurostat_drustvo/UPITI.json-sha256-d80278ea9e454e10af504ccb3560df977275060136e0156ac3985593d3147074"
+      - "source:data/eurostat_drustvo/PREUZIMANJE.json-sha256-335fab2e89eeb473ba7fa31d872fde3eb2f5feed1435cc63fb4b738e12941481"
+      - "source:six-raw-ESTAT-responses-SOURCE_INSTITUTIONS-Eurostat-no-contrary-rights-annotation"
+      - "registry:data/katalog.yml#eurostat_drustvo-verified-redistribution-and-provenance"
+      - "boundary:no-rights-holder-permission-claimed-and-none-sought"
+      - "report:notes/reports/p3-eurostat-2026-08-10.md#prava-i-iznimke"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
   R03-ESS-permission-gate:
     parents:
       - "R03"
@@ -14983,7 +16108,7 @@ items:
       location: "§8 Ch4"
     description: "Source the general engagement-distribution claim or confine it to the simulation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -15002,11 +16127,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#oblik-raspodjele-i-polozaj-opazanja"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R08-DESIGN-policy:
     parents:
       - "R08"
@@ -15611,7 +16742,7 @@ items:
       location: "§12 DigiKat"
     description: "Build dated portable actor-by-platform aggregates with labels, method-break and coverage caveats."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -15629,11 +16760,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-DIGIKAT"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/digikat-platforme-godisnje.csv-49-rows-key-godina-plus-platforma"
+      - "source:data/digikat-platforme-mjesecno.csv-438-rows-key-mjesec-plus-platforma"
+      - "source:data/digikat-izvori.csv-3604-rows-key-izvor"
+      - "repair:D-1-2024-incomplete-D-2-divergence-exact-D-3-method-break-flag"
+      - "result:551712-of-710307-posts-77.67-percent-in-source-file"
+      - "check:scripts/build-digikat-extracts.R-byte-identical-and-reconciliation-contract"
+      - "check:scripts/check-data-integrity.R-real-file-recomputation"
+      - "fixture:non_official_substitute_incomplete-exit-1"
+      - "passport:data/digikat_mediji/PUTOVNICA.md"
+      - "report:notes/reports/p3-digikat-2026-08-10.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8"
   R08-EUROSTAT-package:
     parents:
       - "R08"
@@ -15647,7 +16788,7 @@ items:
       location: "§12 Eurostat"
     description: "Build five to seven question-led indicators in one fixed common year with flags and missingness."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -15665,11 +16806,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EUROSTAT"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/eurostat-drustvo-2025.csv-162-keys-161-values-1-explicit-missing"
+      - "result:all-27-EU-countries-six-indicators-reference-year-2025"
+      - "result:LU-early-leaving-value-colon-status-api-u-obs-u-conf-unmarked"
+      - "check:scripts/build-eurostat-extracts.py-keys-162-available-161-missing-1-tolerance-0"
+      - "check:data/eurostat_drustvo/USKLADJENJE.json-zero-tolerance-all-six-raw-responses"
+      - "check:scripts/check-data-integrity.R-ratified-grid-and-missing-status-relation"
+      - "fixture:eurostat-missing-status-and-raw-checksum-each-exit-1-for-own-defect"
+      - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+      - "report:notes/reports/p3-eurostat-2026-08-10.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
   R08-ESS-route:
     parents:
       - "R08"
@@ -15878,7 +17028,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Use DZS/DIP to teach counts, denominators, provenance, and aggregation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -15896,11 +17046,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/01-zasto-statistika.qmd#broj-nije-zakljucak"
+      - "source:chapters/03-kako-brojke-zavode.qmd#od-tocnoga-broja-do-potpune-tvrdnje"
+      - "result:DIP-reader-facing-spine-DZS-governance-boundary-no-false-DZS-recurrence"
+      - "report:notes/reports/wa-part-2026-08-06.md#empirijski-i-brojcani-dokaz"
+      - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md#razrjesenje-nalaza-dzsdip"
+      - "check:scripts/check-dip-portal.py-DIP_PORTAL_OK"
+      - "check:scripts/build-dzs-extracts.py-DZS_EXTRACTS_OK"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R08-SPINE-04-06:
     parents:
       - "R08"
@@ -15914,7 +17071,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Use governed distributions for description, visualisation, and comparison."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -15930,11 +17087,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+      - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+      - "source:chapters/06-povezanost.qmd@sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+      - "result:DigiKat-Eurostat-coded-text-and-simulations-remain-within-unit-denominator-time-status-and-claim-boundaries"
+      - "check:DIGIKAT_EXTRACTS_OK-and-EUROSTAT_EXTRACTS_OK"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R08-SPINE-07-11:
     parents:
       - "R08"
@@ -17449,7 +18612,7 @@ items:
       location: "§12 analysis table"
     description: "Show a consequential pipeline with identifiers, row multiplication, totals/components, codes, missingness, and filters."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17468,11 +18631,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#od-izvora-do-sazetka"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R11-C12-pipeline-flexibility:
     parents:
       - "R11"
@@ -17558,7 +18727,7 @@ items:
       location: "§12 analysis table"
     description: "Plant one AI error with correct arithmetic after a row-multiplying or mismatched join."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17577,11 +18746,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#interakcija-oblikovanje-distribucije"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R11-C04-missingness:
     parents:
       - "R11"
@@ -17595,7 +18770,7 @@ items:
       location: "§12 missingness"
     description: "Teach missingness as evidence about the data-generating process using all five steps."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17614,11 +18789,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#kada-nula-znaci-da-mjera-nije-dostupna"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R11-SCOPE-no-multiple-imputation:
     parents:
       - "R11"
@@ -18428,7 +19609,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Use a bounded word-count example to teach denominators."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18447,11 +19628,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#nazivnik-je-dio-tvrdnje"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R13-C05-frequency-visual:
     parents:
       - "R13"
@@ -18465,7 +19652,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Visualise skewed textual frequencies or group comparisons."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18481,11 +19668,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd#fig-ucestalost-rijeci"
+      - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R13-C06-coded-association:
     parents:
       - "R13"
@@ -18499,7 +19692,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Let a coded text category enter association as a measurement decision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18516,11 +19709,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      - "source:chapters/06-povezanost.qmd#matrica-kodovi-i-rangovi"
+      - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      - "report:notes/reports/wb-c06-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C06-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
   R13-C08-corpus-selection:
     parents:
       - "R13"
@@ -23060,7 +24261,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance the thesis toward provenance, units, denominators, citations, and suspicious precision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23078,11 +24279,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/03-kako-brojke-zavode.qmd#granica-dijela-i-protokol-skepticnoga-citanja"
+      - "source:chapters/04-sazimanje-podataka.qmd#od-izvora-do-sazetka"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
+      - "render:HTML-PDF-DOCX-exit-0"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R24-PARTII-thesis:
     parents:
       - "R24"
@@ -23096,7 +24302,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance it toward reproducing summaries/plots and detecting exclusions, scales, and transformations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23112,11 +24318,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture-ai_competence_registry-verification_receipt"
+      - "result:seven-fields-explicit-for-C04-C05-C06-readable-without-code-and-human-responsibility-named"
+      - "audit:visible-return-cells-truthful-verification-routes-checkable-no-protected-answer-leak"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#razrjesenje-nalaza-tijekom-pregleda"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R24-PARTIII-IV-thesis:
     parents:
       - "R24"
@@ -23275,7 +24486,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Verify provenance, denominators, units, citations, and suspicious precision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23293,11 +24504,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/01-zasto-statistika.qmd#pitajte-model"
+      - "source:chapters/02-mjerenje-i-dizajn.qmd#pitajte-model"
+      - "source:chapters/03-kako-brojke-zavode.qmd#podrijetlo-ljudskog-i-strojnog-broja"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture-ai_competence_registry-part_i"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK-assessed-code-production-false"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R24-LADDER-PartII:
     parents:
       - "R24"
@@ -23311,7 +24528,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Reproduce summaries/plots and detect exclusions, poor scales, and transformations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23327,11 +24544,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/04-sazimanje-podataka.qmd#pitajte-model"
+      - "source:chapters/05-vizualizacija.qmd#pitajte-model"
+      - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture-ai_competence_registry-part_ii"
+      - "result:known-data-and-visible-output-used-for-summary-plot-and-association-audits"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-assessed-code-production-false"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R24-LADDER-PartIII:
     parents:
       - "R24"
@@ -24462,7 +25686,7 @@ items:
       location: "§6/§8 + §15 R27"
     description: "Make honest data construction/description the answer to misleading presentation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24481,11 +25705,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/03-kako-brojke-zavode.qmd#sazetak"
+      - "source:chapters/04-sazimanje-podataka.qmd#od-izvora-do-sazetka"
+      - "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
+      - "report:notes/reports/wa-part-critic-voice-2026-08-06.md"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "render:HTML-exit-0-new-heading-and-bridge-present"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R27-C12-13-transition:
     parents:
       - "R27"
@@ -24724,7 +25954,7 @@ items:
       location: "§4/§8/§11 + §15 R28"
     description: "Add an interpretive Croatian paragraph immediately before fig-anscombe."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24740,11 +25970,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd#fig-anscombe"
+      - "report:notes/reports/wb-c05-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R28-C05-density:
     parents:
       - "R28"
@@ -24758,7 +25994,7 @@ items:
       location: "§11"
     description: "Review each figure’s distinct argumentative function after prose stabilises."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24774,11 +26010,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd"
+      - "report:notes/reports/wb-c05-figure-density-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R29-C07-retrieval-load:
     parents:
       - "R29"
@@ -25234,7 +26477,7 @@ items:
       location: "§10 recurring cases"
     description: "Preserve a purposeful Anscombe spiral across Chapters 4–6."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25250,11 +26493,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C05"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd#fig-anscombe"
+      - "source:chapters/06-povezanost.qmd"
+      - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C05-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
   R31-C00-ASA-deemphasis:
     parents:
       - "R31"
@@ -25386,7 +26636,7 @@ items:
       location: "§8/§11 + §15 R32"
     description: "Supply print-completable data/presets for every widget-dependent Chapter 4 task."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25406,11 +26656,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C04"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd#racunski"
+      - "report:notes/reports/wb-c04-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C04-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
   R32-C09-static:
     parents:
       - "R32"
@@ -25702,7 +26958,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 06 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25719,11 +26975,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      - "source:chapters/06-povezanost.qmd#zadaci"
+      - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      - "report:notes/reports/wb-c06-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C06-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
   R35-REACHBACK-07:
     parents:
       - "R35"
@@ -26165,7 +27428,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part I cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26183,11 +27446,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WA-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/03-kako-brojke-zavode.qmd#samoprovjera-dijela-i"
+      - "source:chapters/03-kako-brojke-zavode.qmd#kolegij-answer-path"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim_registry-and-thread_registry"
+      - "report:notes/reports/wa-part-critic-arc-2026-08-06.md"
+      - "synthesis:notes/reports/wa-part-continuity-synthesis-2026-08-06.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab"
   R35-SELF-CHECK-II:
     parents:
       - "R35"
@@ -26201,7 +27469,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part II cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26217,11 +27485,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/06-povezanost.qmd#six-audit-questions-six-claim-dimensions-and-part-ii-self-check"
+      - "source:chapters/06-povezanost.qmd#kolegij-answer-path"
+      - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim_registry-and-thread_registry"
+      - "result:self-check-answerable-retrieves-unit-absence-graph-before-coefficient-and-claim-boundaries"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R35-SELF-CHECK-III:
     parents:
       - "R35"
@@ -26475,7 +27749,7 @@ items:
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
-  total_asks: 82
+  total_asks: 83
   external_messages_sent: 0
   implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   canonical_status_store: "outside_asks"
@@ -27484,8 +28758,8 @@ outside_asks:
     external_message_sent: false
 
   OA-G-A3-DIGIKAT-SELECTION:
-    status: "drafted_unsent"
-    readiness: "waiting_for_catalogue_contract"
+    status: "done"
+    readiness: "resolved_author_selection_and_chapter_role"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -27503,10 +28777,24 @@ outside_asks:
     resume_condition: "Candidate promotion resumes after the author approves the exact snapshot and role."
     why_external: "The bounded case selection and curricular role require authorial approval."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Author and editor Luka Sikic approved the recommended default on
+      2026-08-10: a portable aggregate with public labels and method-break and
+      coverage caveats, with the full Determ corpus kept external, plus an
+      explicit directive that the snapshot be as recent as possible. The gate
+      recorded the exact package digikat_mediji with its three files, row
+      counts, keys and checksums; the verified snapshot recency; the consumers
+      WB-C04, WB-C05 and WB-C06 with Chapters 2 and 3 deliberately excluded; the
+      permissible and two newly added unavailable claims; and the closure of
+      digikat_akteri as abandoned together with the permanent named-actor
+      exclusion rule. The ask's own wording sought a disposition naming actors,
+      and the gate ruled the difference explicitly: the extract has no actors
+      and deliberately omits them. No external message was sent.
 
   OA-G-A3-DIGIKAT-RIGHTS:
-    status: "drafted_unsent"
-    readiness: "waiting_for_component_terms"
+    status: "done"
+    readiness: "resolved_by_source_published_terms_and_author_determination"
     kind: "rights_inquiry"
     owner: "DigiKat and component rights owners"
     due_phase: "3B"
@@ -27524,10 +28812,26 @@ outside_asks:
     resume_condition: "Promotion resumes after every component has a documented lawful lane."
     why_external: "Component access and derived-output rights cannot be inferred from one aggregate file."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Resolved without any external message. The component-by-component matrix
+      the ask sought exists and was read from the source's own published record
+      rather than inferred: the DigiKat project's DATA_AVAILABILITY.md places
+      data/processed/*.rds under CC BY 4.0 with an explicit no-personal-data
+      aggregate statement, the master corpus stays outside that permission as
+      determ_korpus, and the raw xlsx level follows its own upstream sources.
+      Because the book's author is the project lead, this is a proprietary
+      disposition, which the author confirmed on 2026-08-05 and this gate
+      confirmed explicitly on 2026-08-10 so that it is stated rather than
+      tacitly inherited. The tables naming individuals carry the same clean
+      licence and are excluded by editorial decision rather than by right, now a
+      permanent first-edition rule. The book still claims no rights-holder
+      permission for any source because none was sought, and
+      H-P1B-DATA-LIC-003 is not superseded.
 
   OA-G-A3-EUROSTAT-SELECTION:
-    status: "drafted_unsent"
-    readiness: "waiting_for_catalogue_contract"
+    status: "done"
+    readiness: "resolved_by_author_pre_disposition_and_read_only_official_product_inspection"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -27545,10 +28849,22 @@ outside_asks:
     resume_condition: "Candidate promotion resumes after the exact question-led selection is approved."
     why_external: "First-edition selection and consumers are authorial decisions."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      No new question was sent. Author and editor Luka Sikic had already
+      accepted the recommended question-led common-year rule in
+      notes/reports/author-pre-dispositions-2026-08-10.md. G-A3-EUROSTAT
+      operationalised that disposition after read-only inspection of official
+      Eurostat product pages: six indicators, reference year 2025, all 27 EU
+      Member States and sole consumer WB-C06. The exact table codes, slices,
+      country list, 162-cell same-year rule, flag preservation and stop-on-
+      missing-source boundary are recorded in
+      notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md. No
+      statistical data were retrieved and the gate promotes nothing.
 
   OA-G-A3-EUROSTAT-RIGHTS:
-    status: "drafted_unsent"
-    readiness: "waiting_for_exact_source_terms"
+    status: "done"
+    readiness: "resolved_by_authoritative_published_notice_and_selected_product_exception_check"
     kind: "rights_inquiry"
     owner: "Eurostat rights/data owner"
     due_phase: "3B"
@@ -27566,6 +28882,76 @@ outside_asks:
     resume_condition: "Promotion resumes when authoritative terms support the committed snapshot lane."
     why_external: "The exact redistribution and attribution basis must be established by the rights source."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Resolved without sending an external message. The official Eurostat
+      copyright and free-reuse notice was inspected on 2026-08-10 and its exact
+      customised-dataset attribution template was transcribed. The gate also
+      fixed the exact modification statement and reused the European
+      Commission non-liability sentence that Eurostat places in current
+      publications, while explicitly distinguishing the gate-authored first
+      sentence from official quoted wording. Product-specific inspection found
+      that the six selected non-trade table families identify Eurostat as
+      source, use only the 27 EU Member States and include no publication,
+      image, logo, trademark or country outside the permitted geography; the
+      published third-party and commercial exceptions therefore do not apply
+      to the bounded selection. P3-EUROSTAT remains bound to stop if the actual
+      authorised source carries any contrary individual notice. No rights-
+      holder permission is claimed, no data were retrieved and no package was
+      promoted.
+
+  OA-G-A3-EUROSTAT-SOURCE-ROUTE:
+    status: "done"
+    readiness: "resolved_by_author_bounded_retrieval_authorisation"
+    kind: "source_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: >-
+      Authorise exactly one source route for P3-EUROSTAT: one bounded official
+      retrieval, an author-supplied local mirror, or continued portal-mediated
+      unpromoted status with the necessary packet amendment.
+    expected_form: >-
+      One dated disposition naming the authorised route and, for a supplied
+      mirror, its concrete local path.
+    blocked_items:
+      - "R03-EUROSTAT-rights"
+      - "R08-EUROSTAT-package"
+    blocked_gates:
+      - "G-A3-EUROSTAT"
+      - "P3-EUROSTAT"
+    available_evidence:
+      - "record:notes/reports/author-pre-dispositions-2026-08-10.md"
+      - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+      - "report:notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md#nalaz-o-eurostatovu-zrcalu-za-gate-g-a3-eurostat"
+      - "registry:data/katalog.yml#eurostat_drustvo-portal-mediated-promoted-false-files-empty"
+    recommended_default: >-
+      Authorise one bounded retrieval of exactly the ratified 2025 EU-27 six-
+      indicator slice from the official Eurostat source, outside rendering,
+      retaining the query response, access date, checksum and reconciliation.
+    exact_reply_requested: >-
+      State the authorised Eurostat source route. If it is bounded retrieval,
+      approve that phrase exactly; if it is a supplied mirror, give its exact
+      local path; if the package must remain portal-mediated and unpromoted,
+      direct the corresponding P3-EUROSTAT amendment.
+    resume_condition: >-
+      G-A3-EUROSTAT can close only after the author names one route; only an
+      accepted gate can permit P3-EUROSTAT to start.
+    why_external: >-
+      The repository has no valid local mirror, the only discovered staging
+      table was rejected for duplicate rows, and changing the standing no-
+      network-retrieval directive or descoping a ratified packet is an author
+      decision.
+    external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: >-
+      Author and editor Luka Sikic expressly approved the recommended route in
+      the active thread on 2026-08-10: one bounded retrieval of the exactly
+      defined 2025 Eurostat slice from the official source, outside rendering,
+      retaining the query, unmodified response, date, checksums and
+      reconciliation. The authority is packet-specific and does not permit a
+      second retrieval, another indicator, year, geography or source, the
+      rejected CroAIcon staging table, render-time network access or a
+      rights-holder-permission claim. No external message was sent.
 
   OA-G-A3-ESS-SELECTION:
     status: "drafted_unsent"
@@ -27997,8 +29383,8 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-06"
 
   OA-C04-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WB-C04_revision_and_panel"
+    status: "done"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -28016,15 +29402,29 @@ outside_asks:
     available_evidence:
       - "packet:WB-C04"
       - "packet:C04"
+      - "commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8"
+      - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+      - "report:notes/reports/wb-c04-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-evidence-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c04-six-critic-synthesis-2026-08-10.md"
+      - "report:notes/reports/c04-acceptance-package-2026-08-10.md"
     recommended_default: "Accept only after the visible analysis-table pipeline, joins, missingness sensitivity, print path, sources, and panel findings pass."
-    exact_reply_requested: "Reply: C04 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10; or list exact blocking revisions tied to that commit."
     resume_condition: "C04 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: "C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-10"
 
   OA-C05-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WB-C05_revision_and_panel"
+    status: "done"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -28040,15 +29440,30 @@ outside_asks:
     available_evidence:
       - "packet:WB-C05"
       - "packet:C05"
+      - "commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0"
+      - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+      - "report:notes/reports/wb-c05-2026-08-10.md"
+      - "report:notes/reports/wb-c05-figure-density-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-evidence-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c05-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c05-six-critic-synthesis-2026-08-10.md"
+      - "report:notes/reports/c05-acceptance-package-2026-08-10.md"
     recommended_default: "Accept only after the Anscombe introduction, graph-as-argument role, accessibility, density, sources, and panel findings pass."
-    exact_reply_requested: "Reply: C05 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10; or list exact blocking revisions tied to that commit."
     resume_condition: "C05 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-10"
+    resolution: "C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-10"
 
   OA-C06-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WB-C06_revision_and_panel"
+    status: "done"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -28066,11 +29481,25 @@ outside_asks:
     available_evidence:
       - "packet:WB-C06"
       - "packet:C06"
+      - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      - "source:chapters/06-povezanost.qmd@sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      - "report:notes/reports/wb-c06-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+      - "report:notes/reports/c06-acceptance-package-2026-08-10.md"
     recommended_default: "Accept only after association/range claims, scatterplot priority, coded-text measurement, retrieval, and panel findings pass."
-    exact_reply_requested: "Reply: C06 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C06 accepted for 34200ef1d723e88623e1bc9e73a47e6535a3673c on 2026-08-10; or list exact blocking revisions tied to that commit."
     resume_condition: "C06 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-11"
+    resolution: "C06 accepted for 34200ef1d723e88623e1bc9e73a47e6535a3673c on 2026-08-10."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-11"
 
   OA-C07-ACCEPTANCE:
     status: "drafted_unsent"

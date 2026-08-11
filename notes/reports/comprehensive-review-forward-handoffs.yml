@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-06"
+last_updated: "2026-08-11"
 inventory_child_count: 371
 
 protocol:
@@ -1265,10 +1265,60 @@ handoffs:
           - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
       - target_packet: G-A3-DIGIKAT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-DIGIKAT acknowledges and consumes its incoming lane before the
+          packet claim and before the first substantive edit. The P1B inventory
+          recorded DigiKat and Determ as external-only, and this gate does NOT
+          treat that as immovable: the handoff itself permits a gate to ratify a
+          lawful package when authoritative package-specific evidence supports
+          it. That evidence now exists and did not when P1B was written. The
+          DigiKat project's own DATA_AVAILABILITY.md publishes
+          data/processed/*.rds under CC BY 4.0 with an explicit statement that
+          they are aggregates containing no personal data, and the author of the
+          book is the project lead, so the disposition is proprietary rather
+          than inferred. The gate therefore separates the two levels the handoff
+          conflated under one source name: the aggregate level becomes the
+          bundled package digikat_mediji, and the master corpus stays
+          external-only as determ_korpus with its lane untouched. No broader
+          right is inferred from access: the eleven upstream tables naming
+          individuals are excluded by decision even though the same licence
+          covers them, and the gate promotes nothing, retrieves nothing and
+          writes no data file. The G-A3-EUROSTAT, G-A3-ESS and G-A3-TEXT
+          deliveries remain pending and are not pre-empted.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi-redistribucija-nije-dokazana"
+          - "source:DigiKat-DATA_AVAILABILITY.md-data-processed-rds-CC-BY-4.0-aggregate-no-personal-data"
+          - "report:notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md#4-matrica-prava-glavni-nalaz"
+          - "determination:notes/reports/g-a3-data-rights-determination-2026-08-05.md"
+          - "registry:data/katalog.yml#digikat_mediji-lane-bundled-promoted-false-and-determ_korpus-external-only-unchanged"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
       - target_packet: G-A3-EUROSTAT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-EUROSTAT consumed the cautious portal-mediated lane before its
+          packet claim. The inventory contains no selected Eurostat files and
+          proves neither redistribution of an exact extract nor a local source
+          route. The gate therefore promotes nothing, retrieves no statistical
+          data, preserves promoted false and the empty files list, and treats
+          technical portal or API access as no broader permission. It may
+          inspect the authoritative published reuse notice and exact product
+          pages read-only, but any later bundled lane still requires the exact
+          selected indicators, package-specific exception check, attribution,
+          disclaimer, query, date, checksum, reconciliation and an expressly
+          authorised source route. No rights-holder permission is claimed and
+          none was sought.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#trenutacni-paketi-redistribucija-nije-dokazana"
+          - "record:notes/reports/author-pre-dispositions-2026-08-10.md#eurostat-uvjeti-ponovne-uporabe-i-pripisivanje"
+          - "registry:data/katalog.yml#eurostat_drustvo-portal-mediated-promoted-false-files-empty"
+          - "source:official-Eurostat-copyright-notice-inspected-2026-08-10"
+          - "boundary:no-statistical-data-retrieval-no-rights-holder-permission-claim"
       - target_packet: G-A3-ESS
         gate: before_start
         state: pending
@@ -1732,7 +1782,25 @@ handoffs:
     deliveries:
       - target_packet: WB-C05
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C05 added the approved Croatian interpretive paragraph immediately
+          before fig-anscombe and removed only the exact figure_introductions
+          entry from scripts/integrity-debt.json. Its figure_introductions list
+          is now empty while the schema envelope remains intact. The blocking
+          figure-introduction command reports six
+          Chapter 5 logical figures, seven source variants, zero missing
+          introductions, registered_debt=0, unexpected=0 and stale_debt=0. The
+          deliberate unregistered-figure fixture still fails for its injected
+          defect, so the exception is spent and the gate fails closed.
+        evidence:
+          - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df#fig-anscombe"
+          - "source:scripts/integrity-debt.json#figure_introductions-empty"
+          - "check:scripts/check-figure-introductions.py-FIGURE_INTRO_OK-registered_debt-0-unexpected-0-stale_debt-0"
+          - "fixture:scripts/check-integrity-fixtures.py-figure-lane-deliberate-failure"
+          - "report:notes/reports/wb-c05-2026-08-10.md"
 
   H-P1C-INTEGRITY-002:
     source_packet: P1C-INTEGRITY
@@ -2610,7 +2678,24 @@ handoffs:
           - "report:notes/reports/p2-terms-2026-08-05.md#registar-nazivlja-u-conventionsjson"
       - target_packet: WB-C04
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        acknowledgement: >-
+          WB-C04 accepts the ratified four-block Chapter 4 map as a binding
+          closeout obligation: retain aritmeticka sredina, medijan and
+          standardizirana vrijednost; merge varijanca into the standardna
+          devijacija block while naming both terms; demote asimetrija to prose
+          under .pojam; and add no unapproved definition block.
+        disposition: >-
+          Chapter 4 now carries exactly four live definition blocks. It retains
+          aritmeticka sredina, medijan and standardizirana vrijednost, merges
+          varijanca into the defining sentence of standardna devijacija, moves
+          asimetrija to prose under .pojam and adds no unapproved block.
+        evidence:
+          - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+          - "check:scripts/check-manuscript-integrity.py-Chapter-4-def-4"
+          - "report:notes/reports/wb-c04-critic-structure-2026-08-10.md"
 
   H-G-A2B-III-001:
     source_packet: G-A2b-III
@@ -3728,7 +3813,27 @@ handoffs:
           - "report:notes/reports/wa-c03-2026-08-06.md#dolazne-isporuke"
       - target_packet: WB-C04
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        acknowledgement: >-
+          WB-C04 will reconcile each live #def- change with the checkout-local
+          concept ledger in this same packet, follow any notation dependency,
+          regenerate data/concept-graph.json through the required launcher and
+          prove zero ledger debt plus a fresh graph before closeout. It will not
+          rename a #def- identifier, add an unapproved block or restore debt.
+        disposition: >-
+          The same packet removed the superseded standalone varijanca and
+          asimetrija nodes, kept both canonical terms in the standardna
+          devijacija entry, reconciled notation, changed the live count from 49
+          to 47, regenerated the graph through the required launcher and left
+          zero ledger debt with a fresh 47-node graph.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#standardna-devijacija"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map-live_count-47"
+          - "generated:data/concept-graph.json-47-nodes-497-edges"
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-ledger_debt-0-graph_fresh-true"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-47-approved_total-52"
       - target_packet: WC-C12
         gate: before_close
         state: pending
@@ -4224,10 +4329,63 @@ handoffs:
           - "obligation:P3-DIP-removes-non-operative-promoting_gate-and-promotes-nothing"
       - target_packet: G-A3-DIGIKAT
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-DIGIKAT honoured the catalogue promotion contract by promoting
+          nothing and by editing no catalogue entry at all. digikat_mediji stays
+          promoted false with lane bundled, promoted_total stays 3, and
+          determ_korpus and digikat_akteri are untouched. Resolved rights were
+          not treated as promotion authority. The contract's seven conditions
+          were tested one by one against the package rather than assumed, and
+          that test found the one condition it can never satisfy: a proprietary
+          corpus has no official total to reconcile against, so the requirement
+          applied literally would permanently block the package the author
+          approved. The gate did not waive or weaken it. It ruled a named
+          substitute for non-official sources, satisfied only by three tests
+          together — byte-for-byte reproduction through the builder, the
+          denominator identity holding without tolerance for every year, and a
+          recorded divergence statement carrying the exact largest per-cell
+          deviation between the annual and monthly files with its proven zero
+          corpus-wide sum. The third test is stricter than what it replaces,
+          because it forces the package to name its own inconsistency instead of
+          passing over it. P3-DIGIKAT must implement the substitute in
+          data/katalog.yml and data/katalog.schema.json with a negative fixture
+          that fails when it is declared satisfied without all three tests, and
+          must repair the three verified defects before promotion. The substitute
+          binds only non-official sources and changes no other package.
+        evidence:
+          - "decision:G-A3-DIGIKAT"
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md-section-prava-traka-i-uvjeti-promocije"
+          - "registry:data/katalog.yml#digikat_mediji-promoted-false-lane-bundled-unchanged"
+          - "audit:data/katalog.yml-unchanged-by-G-A3-DIGIKAT"
+          - "boundary:no-rights-holder-permission-is-claimed-and-none-was-sought"
+          - "obligation:P3-DIGIKAT-implements-substitute-with-negative-fixture-and-repairs-D-1-D-2-D-3"
       - target_packet: G-A3-EUROSTAT
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          G-A3-EUROSTAT acknowledged this catalogue constraint before its
+          first substantive edit and consumed it at closeout without changing
+          the catalogue or promoting a package. A decision gate cannot satisfy
+          the data-package promotion contract: eurostat_drustvo remains
+          portal-mediated, promoted false and files empty. The gate instead
+          recorded the exact six-indicator 2025 EU-27 selection, reuse terms,
+          third-party-exception test, lawful fallback and one author-approved
+          bounded official retrieval, and bound P3-EUROSTAT to retain the
+          query, unmodified source response, access date, checksums and official
+          reconciliation before any lane or promotion change. Availability and
+          technical API access still promote nothing, no materialised snapshot
+          was committed and no rights-holder permission is claimed.
+        evidence:
+          - "decision:G-A3-EUROSTAT"
+          - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "registry:data/katalog.yml#eurostat_drustvo-unchanged-portal-mediated-promoted-false-files-empty"
+          - "conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic"
+          - "boundary:gate-promoted-zero-packages-and-retrieved-no-data"
       - target_packet: G-A3-ESS
         gate: before_close
         state: pending
@@ -4396,10 +4554,48 @@ handoffs:
           - "report:notes/reports/wa-c01-critic-evidence-2026-08-06.md"
       - target_packet: WB-C05
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C05 created, copied and promoted no anscombe file. The worked
+          example reads the dataset only from the local R installation as an
+          optional authoring route. Every mandatory calculation, widget state,
+          print table and assessed numerical task uses the licence-clean
+          anketa_mreze fallback already materialised in the book. The catalogue
+          therefore retains anscombe as external-only, promoted false and with
+          an empty file list, while the main data and widget checks pass.
+        evidence:
+          - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+          - "catalogue:data/katalog.yml#anscombe-external-only-promoted-false-files-empty"
+          - "source:R/podaci-nastavni.R#anketa_mreze"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+          - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17"
+          - "report:notes/reports/wb-c05-critic-evidence-2026-08-10.md"
+          - "report:notes/reports/wb-c05-2026-08-10.md"
       - target_packet: WB-C06
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C06 created, copied and promoted no anscombe file. The chapter
+          loads the dataset only from the local R installation for an optional
+          author-side verification of the vignette and asserts only that its
+          four correlations agree. Every mandatory calculation, widget state,
+          print table and assessed task uses the licence-clean anketa_mreze
+          snapshot or the governed Eurostat extract. The catalogue therefore
+          retains anscombe as external-only, promoted false and with an empty
+          file list.
+        evidence:
+          - "source:chapters/06-povezanost.qmd@sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+          - "catalogue:data/katalog.yml#anscombe-external-only-promoted-false-files-empty"
+          - "source:R/podaci-nastavni.R#anketa_mreze"
+          - "source:data/eurostat-drustvo-2025.csv"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-promoted-5-snapshots-21"
+          - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162"
+          - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+          - "report:notes/reports/wb-c06-2026-08-10.md"
       - target_packet: P5-A
         gate: before_close
         state: pending
@@ -4451,7 +4647,26 @@ handoffs:
     deliveries:
       - target_packet: WB-C04
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        acknowledgement: >-
+          WB-C04 will derive every print preset from the governed aggregate
+          view, preserve its exact stored values and include a task in which the
+          reader reproduces one aggregate row from the analysis view. Any
+          aggregate change would require snapshot regeneration and checksum
+          reconciliation; none is planned at claim.
+        disposition: >-
+          The print-visible task reads data/anketa-mreze-agregat.csv without
+          changing its stored values, presents every numerator denominator total
+          and mean needed for hand checking, and asks the reader to reproduce
+          the first aggregate row from data/anketa-mreze.csv. No snapshot or
+          checksum changed.
+        evidence:
+          - "source:chapters/04-sazimanje-podataka.qmd#racunski"
+          - "source:data/anketa-mreze-agregat.csv"
+          - "source:data/anketa-mreze.csv"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-generated_sets-2-rows-50300"
       - target_packet: WC-C09
         gate: before_close
         state: pending
@@ -4771,10 +4986,52 @@ handoffs:
           - "fixture:DIP_PORTAL_NEGATIVE_FIXTURE-six-cases-each-exit-1"
       - target_packet: P3-DIGIKAT
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-DIGIKAT satisfies all six inherited external-package rules.
+          P3-DIGIKAT, not G-A3-DIGIKAT, is the promoting gate and is named in
+          both the package and promotion log; G-A3-DIGIKAT and its existing
+          decision record ratify that move. The log names digikat_mediji and
+          reconciles in both directions. The snapshot notice carries this
+          package's own CC BY 4.0 URI. Composite keys remain
+          godina+platforma and mjesec+platforma. Missing periods and unmeasured
+          zeroes remain explicit through godina_potpuna, the visible 2024 gap,
+          lom_metode and metrika_dostupna. No rule was relaxed to admit the
+          package.
+        evidence:
+          - "registry:data/katalog.yml#digikat_mediji-promotion-and-codebook"
+          - "decision:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+          - "notice:data/digikat-mediji.LICENCA.md"
+          - "passport:data/digikat_mediji/PUTOVNICA.md"
+          - "check:scripts/check-katalog.py-packages-20-promoted-4"
+          - "check:scripts/check-data-integrity.R-reconciliations-10-undeclared-0"
+          - "fixture:scripts/check-data-fixtures.py-cases-42"
       - target_packet: P3-EUROSTAT
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-EUROSTAT satisfies all six inherited external-package rules without
+          relaxing the contract. P3-EUROSTAT, not G-A3-EUROSTAT, is both
+          promoting_gate and promoted_by; the existing G-A3-EUROSTAT decision
+          and record ratify the move. The promotion log names
+          eurostat_drustvo and reconciles count and identity in both directions.
+          The snapshot notice carries this package's own Eurostat reuse URI.
+          The teaching key remains the composite geo+godina+pokazatelj. The one
+          source absence code ':' is declared and occurs exactly once, while
+          value zero, API status, observation status, confidentiality status and
+          absence remain distinct. No rule was weakened to admit the package.
+        evidence:
+          - "registry:data/katalog.yml#eurostat_drustvo-promotion-and-codebook"
+          - "decision:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "notice:data/eurostat-drustvo.LICENCA.md"
+          - "passport:data/eurostat_drustvo/PUTOVNICA.md"
+          - "check:scripts/check-katalog.py-packages-20-promoted-5"
+          - "check:scripts/check-data-integrity.R-snapshots-21-validated-21-undeclared-0"
+          - "fixture:scripts/check-data-fixtures.py-cases-44"
       - target_packet: P3-TEXT
         gate: before_close
         state: pending
@@ -5104,6 +5361,705 @@ handoffs:
           - "boundary:no-missing-package-no-version-mismatch"
           - "source:scripts/init-renv.R-direct-packages-downlit-xml2"
           - "report:notes/reports/p1c-export-release-path-2026-08-04.md#renv-status-same-five-packages"
+
+  H-G-A3-DIGIKAT-001:
+    source_packet: G-A3-DIGIKAT
+    created_at: "2026-08-10"
+    kind: decision
+    refs:
+      - decision:G-A3-DIGIKAT
+      - item:R03-DIGIKAT-rights
+      - item:R08-DIGIKAT-package
+      - handoff:H-P1B-DATA-LIC-003
+      - handoff:H-P3-CATALOG-001
+      - registry:data/katalog.yml#digikat_mediji
+      - registry:data/katalog.yml#digikat_akteri
+      - report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md
+    statement: >-
+      Author, editor, data-policy owner and source project lead Luka Sikic
+      accepted on 2026-08-10 the package digikat_mediji as the recommended
+      portable aggregate: three files with no named individual, 49 annual
+      platform rows, 438 monthly platform rows and 3604 source rows, derived
+      from three of the project's fourteen tracked aggregate tables. The master
+      corpus was not read and stays external-only as determ_korpus. Rights are
+      resolved from the source's own published record rather than inferred: the
+      project's DATA_AVAILABILITY.md places data/processed/*.rds under CC BY 4.0
+      as aggregates with no personal data, and because the book's author is the
+      project lead this is a proprietary disposition, confirmed explicitly at
+      this gate rather than tacitly inherited. The book still claims no
+      rights-holder permission for any source because none was sought. The
+      author additionally directed the latest possible snapshot, and this gate
+      verified rather than assumed it: the checkout HEAD
+      278a127f9170c1aca82035a4a8357b8a995f91d8 dated 2026-07-22 has not moved
+      and all three files still reproduce byte for byte. The package stays
+      promoted false with lane bundled, because a decision gate promotes
+      nothing.
+    required_action: >-
+      P3-DIGIKAT must repair three defects this gate verified and none of which
+      was previously recorded, before any promotion. It must correct the
+      godina_potpuna flag, which reads da for 2024 although February through May
+      are absent entirely and January is partial. It must record the divergence
+      between the annual and monthly files with its exact largest per-cell
+      deviation and its proven zero corpus-wide sum, or else drop the monthly
+      file. It must add the method-break flag the approved disposition requires,
+      covering both the volume change from June 2024 and the platform-coverage
+      change as TikTok enters in 2023 and Instagram in 2024. It must also record
+      that the 3604 sources carry 551712 of 710307 posts. It must write the
+      named substitute for official reconciliation into data/katalog.yml and
+      data/katalog.schema.json, satisfied only by byte-for-byte reproduction,
+      the denominator identity and the recorded divergence together, with a
+      negative fixture that fails when the substitute is declared satisfied
+      without all three. It must close digikat_akteri as abandoned with a reason
+      and a successor pointer rather than delete it, register WB-C04, WB-C05 and
+      WB-C06 as consumers, and re-run the builder verification at its own date,
+      re-pinning a moved checkout or recording that it did not move without
+      rewriting the 2026-07-22 source date of record.
+    basis:
+      - conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic
+      - notes/reports/g-a3-digikat-selection-decision-2026-08-10.md
+      - notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md
+      - notes/reports/g-a3-data-rights-determination-2026-08-05.md
+      - registry:data/katalog.yml#digikat_mediji-lane-bundled-promoted-false
+    required: true
+    deliveries:
+      - target_packet: P3-DIGIKAT
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-DIGIKAT accepts the complete approved digikat_mediji boundary
+          before claim: it owns only the three aggregate extracts and their
+          catalogue, schema, validator, fixture, passport and promotion
+          evidence; it will repair D-1, D-2 and D-3, implement the three-part
+          non-official reconciliation substitute, retire digikat_akteri with a
+          successor pointer, register WB-C04 through WB-C06, and verify the
+          pinned local checkout without reading the master corpus or using the
+          network. The 2026-07-22 source date of record and the prohibition on
+          rights-holder-permission claims remain unchanged.
+        evidence:
+          - "decision:G-A3-DIGIKAT-accepted-2026-08-10"
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md"
+          - "commit:db18d2b8f66739fb92fbb4a4f3b34cbb15e081b3"
+          - "check:scripts/check-review-workflow.R-preclaim-P3-DIGIKAT"
+
+  H-G-A3-DIGIKAT-002:
+    source_packet: G-A3-DIGIKAT
+    created_at: "2026-08-10"
+    kind: constraint
+    refs:
+      - decision:G-A3-DIGIKAT
+      - source:data/digikat-platforme-godisnje.csv
+      - source:data/digikat-platforme-mjesecno.csv
+      - source:data/digikat-izvori.csv
+      - report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md
+    statement: >-
+      The corpus is not uniform through time and the chapters may not treat it
+      as if it were. Volume holds near 7000 posts a month across 2021 to 2023
+      and then runs between 8458 and 26155 from June 2024 onward. Platform
+      coverage grows from seven to nine. February through May 2024 are absent
+      entirely, January 2024 is partial at 1911 posts, and June 2026 at 7815
+      against May's 20471 is consistent with a truncated final month. The annual
+      and monthly files also disagree in 17 of 49 platform-year cells, netting
+      exactly zero at 710307 posts. Separately, the source file's 3604 rows
+      carry 551712 of those 710307 posts, or 77.67 per cent, because the naming
+      filter keeps only bare domains. The figures Chapter 4 will use were
+      recomputed independently at this gate and agree with the reconnaissance:
+      3604 sources, mean 153.08, median 4, ratio 38.27, largest hkm.hr at 56500,
+      30.22 per cent with exactly one post, top ten at 26.96 per cent, 515
+      sources with zero reach and 1367 with zero interactions.
+    required_action: >-
+      WB-C04, WB-C05 and WB-C06 may make no growth or trend claim across 2024
+      and no comparison of periods before and after June 2024 without stating
+      the method break. Any monthly display must show the 2024 gap rather than
+      interpolate, smooth or silently drop it; the gap is teaching content and
+      concealing it would be the failure the book exists to teach against. Any
+      share computed from the source file must name 551712 rather than 710307 as
+      its denominator. No chapter may compare interactions or reach between a
+      platform with measurement and one without, because zero there is not a
+      measured zero. P3-VERIFY-B must confirm that the three defects were
+      repaired rather than described.
+    basis:
+      - report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#provjera-izvatka-tri-stvarna-nedostatka
+      - verification:denominator-identity-6-of-6-years-exact
+      - verification:annual-monthly-divergence-17-of-49-net-zero-at-710307
+      - verification:months-2024-02-to-2024-05-absent-and-2024-01-partial
+    required: true
+    deliveries:
+      - target_packet: P3-VERIFY-B
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-VERIFY-B independently recomputed the three required repairs from
+          the committed DigiKat CSVs and then verified them from the named
+          source checkout. Complete years are exactly 2021, 2022, 2023 and
+          2025; February-May 2024 are absent and January carries 1911 posts;
+          lom_metode carries the actual TikTok, 2024-06 and Instagram states.
+          Annual versus monthly divergence is 17 of 49, +446 to -389, net zero
+          at 710307 in both files. All six annual denominators reconcile with
+          tolerance zero, while the domain-only source file carries 551712
+          posts. The defects are repaired in machine-checked data, not merely
+          described, and every downstream claim boundary remains unchanged.
+        evidence:
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "check:INDEPENDENT_DIGIKAT_OK-49-438-3604-divergent-17-net-0"
+          - "check:DIGIKAT_RECONCILIATION_OK-years-6-denominator-tolerance-0"
+          - "source:C:/Users/lsikic/projects/DigiKat@278a127f9170c1aca82035a4a8357b8a995f91d8"
+          - "check:DATA_NEGATIVE_FIXTURES_OK-cases-44"
+      - target_packet: WB-C04
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C04, the packet bound the verified DigiKat limits
+          to its source and review scope. It will make no growth or trend claim
+          across 2024, no before/after-June-2024 comparison without the method
+          break, no source-file share against any denominator other than
+          551712, and no interaction or reach comparison between measured and
+          unmeasured platforms. The Chapter 4 distribution slice may use only
+          the independently verified source-table quantities, with structural
+          missingness kept distinct from measured zero.
+        evidence:
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "check:INDEPENDENT_DIGIKAT_OK-49-438-3604-divergent-17-net-0"
+          - "check:DIGIKAT_RECONCILIATION_OK-years-6-denominator-tolerance-0"
+          - "source:data/digikat-izvori.csv-denominator-551712"
+      - target_packet: WB-C05
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C05, the packet bound the verified DigiKat limits
+          to its source, prose and review scope. It will make no growth or trend
+          claim across 2024, no before/after-June-2024 comparison without the
+          method break, no source-file share against any denominator other than
+          551712, and no interaction or reach comparison between measured and
+          unmeasured platforms. Any monthly display must retain the visible
+          February-May 2024 gap rather than interpolate, smooth or omit it.
+        evidence:
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#provjera-izvatka-tri-stvarna-nedostatka"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "source:data/digikat-izvori.csv-denominator-551712"
+          - "packet_claim:WB-C05-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c05-claim"
+      - target_packet: WB-C06
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C06, the packet bound every DigiKat use to the
+          independently verified source limitations. It will make no growth or
+          trend claim across the 2024 gap or June method break, no source-file
+          share against a denominator other than 551712, no comparison between
+          structurally unmeasured and measured reach or interactions and no
+          unqualified association across non-uniform coverage.
+        evidence:
+          - "report:notes/reports/g-a3-digikat-selection-decision-2026-08-10.md#provjera-izvatka-tri-stvarna-nedostatka"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#digikat-neovisno-ponovno-racunanje"
+          - "source:data/digikat-izvori.csv-denominator-551712"
+          - "packet_claim:WB-C06-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c06-claim"
+
+  H-G-A3-EUROSTAT-001:
+    source_packet: G-A3-EUROSTAT
+    created_at: "2026-08-10"
+    kind: decision
+    refs:
+      - decision:G-A3-EUROSTAT
+      - item:R03-EUROSTAT-rights
+      - item:R08-EUROSTAT-package
+      - report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md
+      - conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic
+    statement: >-
+      The author accepted exactly six Eurostat indicators for reference year
+      2025 and all 27 EU Member States, with WB-C06 as the sole current
+      consumer. Every one of the 162 country-indicator keys must be 2025 and
+      retain source observation and confidentiality flags; an official missing
+      value stays explicit and is never replaced with zero, imputation, row
+      deletion or another year. The accepted source route is one bounded
+      retrieval from the official Eurostat source outside rendering, retaining
+      the exact query, unmodified response, access date, checksums and
+      reconciliation. This is not general network authority. The selected
+      tables identify Eurostat as source, are EU-only and non-trade, and include
+      no third-party image, logo or publication; any contrary individual notice
+      in the actual source stops the package.
+    required_action: >-
+      P3-EUROSTAT must use only lfsi_emp_a, ilc_peps01n, sdg_04_20 sourced from
+      edat_lfse_03, edat_lfse_14, isoc_ci_ifp_iu and demo_pjanind for 2025 and
+      the 27 named EU Member States. It must retain raw source evidence, build a
+      same-year teaching table with flags, reproduce the exact attribution,
+      modification and disclaimer contract, implement checksums and official
+      reconciliation, and stop rather than broaden the route. P3-VERIFY-B must
+      verify this contract independently. WB-C06 may use the package only for
+      country-level comparison, association, a third-variable question and the
+      ecological-inference boundary, never for an individual or causal claim.
+    basis:
+      - report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md
+      - source:https://ec.europa.eu/eurostat/help/copyright-notice-inspected-2026-08-10
+      - source:https://commission.europa.eu/legal-notice_en-inspected-2026-08-10
+      - boundary:one-bounded-official-retrieval-outside-render
+      - boundary:CroAIcon-staging-table-rejected-for-duplicate-rows
+    required: true
+    deliveries:
+      - target_packet: P3-EUROSTAT
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-EUROSTAT consumes the complete accepted selection, rights and
+          source-route contract before claim and before its first substantive
+          edit. It owns only the six fixed 2025 indicators for the 27 EU Member
+          States and WB-C06, with one country-indicator key per selected cell,
+          either the 2025 value or the retained official missing state and
+          flags. It will perform one bounded batch retrieval from the official
+          Eurostat API outside rendering, retain every exact query and raw
+          response with retrieval date and checksums, derive only the ratified
+          slice, reproduce the required attribution, modification statement and
+          disclaimer, verify that no contrary source-specific or third-party
+          notice applies, and stop rather than widen the route or substitute a
+          mixed year. The package must remain country-level and may support no
+          individual or causal claim.
+        evidence:
+          - "decision:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "register:decisions.G-A3-EUROSTAT-authority_boundary"
+          - "boundary:one-bounded-official-retrieval-outside-render"
+          - "boundary:six-indicators-2025-EU27-WB-C06-only"
+      - target_packet: P3-VERIFY-B
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-VERIFY-B independently verified the ratified selection, rights and
+          source-route contract from commit f6d25bb. The manifest contains six
+          official ec.europa.eu requests for 2025 and 27 unique countries, each
+          HTTP 200, zero retries; all raw MD5 and SHA-256 match. Actual responses
+          carry ESTAT and SOURCE_INSTITUTIONS Eurostat with no contrary rights
+          annotation. The teaching table has all 162 unique keys, 161 values and
+          exactly one retained LU early-leaving ':' with API/OBS u and no
+          confidentiality flag. The notice has six component attributions and
+          both exact required sentences. No mixed year, extra consumer, network
+          call, individual claim or causal claim entered the review.
+        evidence:
+          - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#eurostat-neovisna-provjera-izvornoga-traga"
+          - "check:INDEPENDENT_EUROSTAT_OK-requests-6-retries-0-keys-162"
+          - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+          - "check:INTEGRITY_NEGATIVE_FIXTURES_OK-lanes-7"
+      - target_packet: WB-C06
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C06, the packet accepted exactly the author-ratified
+          Eurostat scope of six indicators, reference year 2025 and all EU-27
+          countries. Every use remains country-level, retains official absence
+          and status flags, supports only comparison, association and a
+          third-variable question, and excludes individual, causal, trend,
+          mixed-year and out-of-EU claims. No new retrieval is authorised.
+        evidence:
+          - "decision:G-A3-EUROSTAT"
+          - "report:notes/reports/g-a3-eurostat-selection-decision-2026-08-10.md"
+          - "boundary:six-indicators-2025-EU27-WB-C06-only"
+          - "packet_claim:WB-C06-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c06-claim"
+
+  H-P3-EUROSTAT-001:
+    source_packet: P3-EUROSTAT
+    created_at: "2026-08-10"
+    kind: evidence
+    refs:
+      - item:R03-EUROSTAT-rights
+      - item:R08-EUROSTAT-package
+      - report:notes/reports/p3-eurostat-2026-08-10.md
+      - registry:data/katalog.yml#eurostat_drustvo
+      - source:data/eurostat_drustvo/PREUZIMANJE.json
+      - source:data/eurostat_drustvo/USKLADJENJE.json
+      - source:data/eurostat-drustvo-2025.csv
+      - passport:data/eurostat_drustvo/PUTOVNICA.md
+      - notice:data/eurostat-drustvo.LICENCA.md
+    statement: >-
+      The promoted eurostat_drustvo package is the exact six-indicator EU-27
+      cross-section for 2025 retrieved in one authorised official six-request
+      batch with zero retries. All queries and unmodified raw responses are
+      retained with date, MD5 and SHA-256. The teaching file contains all 162
+      geo+year+indicator keys, 161 numerical values and exactly one retained
+      official absence: Luxembourg early leaving, value ':', API/OBS status u,
+      no confidentiality flag. The offline builder checks every raw checksum,
+      source code, dimension selector, value, status and derived byte with zero
+      tolerance. All actual responses name ESTAT/Eurostat and carry no contrary
+      rights annotation. Exact six-source attribution, modification statement
+      and Commission disclaimer travel with the snapshot. Country-level
+      comparison and association are permitted; individual, causal, time-trend,
+      mixed-year and out-of-EU claims are not.
+    required_action: >-
+      P3-VERIFY-B must independently verify the package, its one-time retrieval
+      boundary, all 162 keys, the LU missing/status relation, raw and derived
+      checksums, offline reproduction, promotion contract and exact notice.
+      WB-C06 must use the package only at country level, keep source flags
+      visible, exclude LU only from numerical calculations involving early
+      leaving while retaining its explicit missing row, and state the ecological
+      and causal boundary. P6-DATA must preserve the offline builder in the
+      blocking data lane and must not authorise refresh or render-time network.
+      P8-META must carry the exact component attribution, modification statement
+      and Commission disclaimer and must not imply rights-holder permission.
+    basis:
+      - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+      - "check:DATA_INTEGRITY_OK-promoted-5-snapshots-21-validated-21-undeclared-0"
+      - "fixture:DATA_NEGATIVE_FIXTURES_OK-cases-44"
+      - "checksum:csv-sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3"
+      - "checksum:retrieval-sha256-335fab2e89eeb473ba7fa31d872fde3eb2f5feed1435cc63fb4b738e12941481"
+      - "boundary:no-second-fetch-no-render-network-no-CroAIcon-staging"
+    required: true
+    deliveries:
+      - target_packet: P3-VERIFY-B
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          P3-VERIFY-B consumes the complete actual Eurostat package before its
+          claim. The gate will independently verify the single six-request
+          zero-retry official batch, the exact query and retained raw checksums,
+          all 162 same-year keys, the 161-plus-one value/missing split, the LU
+          colon/u relationship, source and rights annotations, offline builder,
+          promotion identity and exact adjacent notice. It will not retrieve,
+          transform, refresh or edit the package and will not widen its country,
+          indicator, year, consumer or claim boundary.
+        evidence:
+          - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+          - "report:notes/reports/p3-eurostat-2026-08-10.md"
+          - "handoff:H-P3-EUROSTAT-001"
+          - "boundary:read-only-independent-review-no-network"
+      - target_packet: WB-C06
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          Before claiming WB-C06, the packet accepted the exact promoted
+          eurostat_drustvo evidence package without changing or refreshing it.
+          It will preserve all 162 country-indicator keys, 161 numerical values
+          and the explicit Luxembourg early-leaving absence with source flags;
+          that value may be excluded only from calculations that require it.
+          The offline, checksum, attribution and no-render-network boundaries
+          remain intact.
+        evidence:
+          - "commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+          - "report:notes/reports/p3-eurostat-2026-08-10.md"
+          - "report:notes/reports/p3-verify-b-2026-08-10.md#eurostat-neovisna-provjera-izvornoga-traga"
+          - "check:EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1-tolerance-0"
+          - "packet_claim:WB-C06-2026-08-10"
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+      - target_packet: P8-META
+        gate: before_close
+        state: pending
+
+  H-WB-C04-001:
+    source_packet: WB-C04
+    created_at: "2026-08-10"
+    kind: risk
+    refs:
+      - source:data/README.md
+      - registry:data/katalog.yml#digikat_mediji
+      - report:notes/reports/wb-c04-critic-evidence-2026-08-10.md
+    statement: >-
+      data/README.md still says that all three author-derived external packages
+      are registered and none is promoted. That statement became stale when
+      digikat_mediji and the other governed packages advanced through their
+      promotion packets. WB-C04 relies on the canonical catalogue, passport,
+      licence notice and validated files, so the stale README does not invalidate
+      Chapter 4, but leaving it uncorrected would give future readers a public
+      documentation view that contradicts the governed state.
+    required_action: >-
+      P5-C must generate and reconcile the public data view from data/katalog.yml
+      and update data/README.md so each package status agrees with the canonical
+      catalogue. The correction must not widen licence, permission, consumer or
+      claim boundaries and must pass catalogue and data-integrity checks.
+    basis:
+      - "source:data/README.md-lines-38-40-states-none-promoted"
+      - "registry:data/katalog.yml#digikat_mediji-promoted-true"
+      - "check:scripts/check-katalog.py-KATALOG_OK-packages-20-promoted-5"
+      - "boundary:documentation-only-no-WB-C04-source-defect"
+    required: true
+    deliveries:
+      - target_packet: P5-C
+        gate: before_close
+        state: pending
+
+  H-WB-C06-001:
+    source_packet: WB-C06
+    created_at: "2026-08-10"
+    kind: invalidation
+    refs:
+      - source:scripts/widget-parity-ojs.mjs#normal
+      - source:chapters/06-povezanost.qmd#w06-scenariji
+      - registry:data/widgets.json#w06
+      - report:notes/reports/wb-c06-2026-08-10.md#interakcija-tisak-i-pristupacnost
+    statement: >-
+      The shared JavaScript parity adapter's normal generator discards the
+      second polar variate, while the live d3.randomNormal implementation used
+      by several chapter widgets caches and returns that second variate on the
+      next call. The adapter therefore does not execute the same pseudorandom
+      stream as the live widget even when a wide distributional tolerance lets
+      the parity gate pass. Chapter 6 was repaired locally by using an explicit
+      matching non-caching generator in the live widget; its actual browser
+      correlations are -0.8267702151, -0.4172254838, 0.5577954416 and
+      0.7177682430, and the registered R twin remains within the existing 0.20
+      contract. The same adapter risk remains for w05, w09, w10, w11, w14, w16
+      and w17.
+    required_action: >-
+      Each target chapter packet must establish exact live-source and adapter
+      generator equivalence, or replace both sides with one explicitly matching
+      generator. It must add actual-execution golden values or fingerprints and
+      a regression fixture that fails when the cached second polar variate is
+      consumed on only one side, then revalidate the named widget without
+      widening its tolerance. P6-FIGURES and P7-HTML must treat the affected
+      widget evidence as needing this revalidation before whole-book figure or
+      browser proof closes.
+    basis:
+      - "diagnostic:scripts/widget-parity-ojs.mjs-normal-discards-second-polar-variate"
+      - "browser:w06-live-correlations-minus-0.8267702151-minus-0.4172254838-0.5577954416-0.7177682430"
+      - "source:chapters/06-povezanost.qmd-explicit-noncaching-polar-generator"
+      - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-with-existing-contract"
+      - "boundary:no-tolerance-widening"
+    required: true
+    deliveries:
+      - target_packet: WC-C09
+        gate: before_close
+        state: pending
+      - target_packet: WC-C10
+        gate: before_close
+        state: pending
+      - target_packet: WC-C11
+        gate: before_close
+        state: pending
+      - target_packet: WD-C14
+        gate: before_close
+        state: pending
+      - target_packet: WD-C16
+        gate: before_close
+        state: pending
+      - target_packet: WD-C17
+        gate: before_close
+        state: pending
+      - target_packet: P6-FIGURES
+        gate: before_close
+        state: pending
+      - target_packet: P7-HTML
+        gate: before_close
+        state: pending
+
+  H-WB-C06-002:
+    source_packet: WB-C06
+    created_at: "2026-08-10"
+    kind: risk
+    refs:
+      - source:chapters/06-povezanost.qmd#def-ogranicenje-raspona
+      - registry:bookwright_plugin/bookwright/shared/concept-ledger.json#ogranicenje-raspona
+      - report:notes/reports/wb-c06-critic-methods-2026-08-10.md
+    statement: >-
+      The corrected Chapter 6 definition says that range restriction may weaken
+      measured association but that the direction of change depends on the
+      relationship and selection rule. The shared concept ledger still defines
+      the term unconditionally as a reduction in measured association. Chapter
+      6 is methodologically correct and the deterministic concept gate currently
+      checks identity rather than this semantic mismatch, so the stale registry
+      wording could reintroduce the rejected universal attenuation claim in a
+      later continuity or glossary pass.
+    required_action: >-
+      P6-CONTINUITY must align the canonical concept-ledger definition and every
+      downstream occurrence with the conditional Chapter 6 formulation, without
+      weakening the useful approximately linear direct-selection example. It
+      must rerun concept, terminology and cross-chapter continuity checks and
+      preserve Chapter 6's accepted definition-block selection.
+    basis:
+      - "source:chapters/06-povezanost.qmd-lines-485-505-conditional-range-restriction"
+      - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json-lines-134-138-unconditional-reduction"
+      - "panel:methods-5-of-5-on-corrected-chapter-source"
+      - "boundary:shared-registry-not-owned-by-WB-C06"
+    required: true
+    deliveries:
+      - target_packet: P6-CONTINUITY
+        gate: before_close
+        state: pending
+
+  H-WB-C06-003:
+    source_packet: WB-C06
+    created_at: "2026-08-10"
+    kind: risk
+    refs:
+      - source:chapters/06-povezanost.qmd#fig-eurostat-obrazovanje-internet
+      - render:docs/chapters/06-povezanost.html@sha256-0a988d6f763e8b493276f9ba4a1bf654160bb3d5070566402fce4921fda23f7b
+      - report:notes/reports/wb-c06-2026-08-10.md#stvarni-renderi-i-preglednik
+    statement: >-
+      A targeted Chromium audit at a 390-pixel viewport found that the cited
+      Eurostat figure is promoted by Quarto to page-full and spans from -12 to
+      402 pixels, making the document width 402 pixels. The w06 widget itself
+      is not the cause: its frame is 320 pixels and its SVG 286 pixels, all four
+      controls, feedback, solution and reset work, and no console or page error
+      occurs. This is a shared responsive treatment risk for cited page-full
+      figures rather than a Chapter 6 statistical or interaction blocker.
+    required_action: >-
+      P7-HTML must make page-full figures with margin citations remain within
+      the mobile viewport, using the shared design layer rather than a
+      chapter-local inline style. It must retain the citation, caption and image
+      accessibility, then add or extend a 390-pixel regression check that fails
+      on document-level horizontal overflow and re-audit Chapter 6.
+    basis:
+      - "browser:chromium-390-document-width-402-figure-left-minus-12-right-402"
+      - "browser:w06-frame-320-svg-286-inputs-4-result-4-of-4-reset-pass-errors-0"
+      - "check:scripts/audit-rendered-html.js-BROWSER_SMOKE_OK-canonical-route"
+      - "boundary:shared-CSS-fix-owned-by-P7-HTML"
+    required: true
+    deliveries:
+      - target_packet: P7-HTML
+        gate: before_close
+        state: pending
+
+  H-C04-THREAD-SEQUENCE-001:
+    source_packet: C04
+    created_at: "2026-08-10"
+    kind: decision
+    refs:
+      - decision:A-THREAD-C04-C06-2026-08-10
+      - report:notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit
+      - conversation:author-amendment-C04-WB-C05-C05-WB-C06-C06-2026-08-10-Luka-Sikic
+    statement: >-
+      For this thread only, the author permits the strict packet chain C04,
+      WB-C05, C05, WB-C06 and C06 while preserving one active write lock and a
+      separate claim, evidence bundle, handoff disposition, workflow check,
+      closeout and commit for every packet. C04, C05 and C06 each require a
+      distinct exact author reply tied to the final chapter source commit; the
+      2026-08-05 standing delegation cannot substitute for those replies.
+    required_action: >-
+      Each remaining target must acknowledge and consume this decision at its
+      stated gate, preserve the strict order and stop before the next packet if
+      any exit test lacks real evidence, a fatal or unresolved major finding
+      remains, or completion would require an invented number, source, study or
+      citation. No target may claim that the author read a chapter.
+    basis:
+      - "decision:A-THREAD-C04-C06-2026-08-10"
+      - "report:notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit"
+      - "boundary:one-write-lock-separate-packet-commits-no-external-action"
+    required: true
+    deliveries:
+      - target_packet: WB-C05
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C05 was claimed only after C04 closed and only under the strict
+          author-amended sequence. It holds the sole write lock, will produce
+          packet-specific evidence and one bounded local commit, will stop
+          before C05, and will not treat the amendment as author acceptance or
+          claim that the author read Chapter 5.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "report:notes/reports/c04-acceptance-package-2026-08-10.md#autorski-amandman-za-ovu-nit"
+          - "commit:94d48ffbaddee86aa4c52eb150d5267e08d42c55"
+          - "packet_claim:WB-C05-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c05-claim"
+      - target_packet: C05
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          C05 closed only after the named author supplied the exact dated reply
+          tied to WB-C05 commit de85c7018b934bf5c6310fd4f1125f0ae65473a0.
+          The packet advanced only Chapter 5 to coauthor_review and accepted
+          only its four governed items, retained the disclosed two local minors
+          and one pre-existing documentation minor in the durable package,
+          claimed no author reading, made one bounded local closeout commit and
+          left WB-C06 unstarted for its own claim.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "author_reply:C05-accepted-for-de85c7018b934bf5c6310fd4f1125f0ae65473a0-on-2026-08-10"
+          - "report:notes/reports/c05-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+          - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#05-vizualizacija-stage-coauthor_review"
+          - "boundary:WB-C06-not-started-in-C05"
+      - target_packet: WB-C06
+        gate: before_start
+        state: consumed
+        acknowledged_at: "2026-08-10"
+        resolved_at: "2026-08-10"
+        disposition: >-
+          WB-C06 was claimed only after C05 closed and under the strict
+          author-amended sequence. It owns one Chapter 6 write packet, keeps one
+          write lock, will produce source-specific evidence and one bounded
+          local commit, will stop before C06 and will neither treat the
+          amendment as C06 acceptance nor claim that the author read Chapter 6.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "commit:c697a977b2adae063349414abe8a12261c2a2097"
+          - "packet_claim:WB-C06-2026-08-10"
+          - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c06-claim"
+      - target_packet: C06
+        gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          C06 closed only after the named author supplied the exact dated reply
+          tied to WB-C06 commit 34200ef1d723e88623e1bc9e73a47e6535a3673c.
+          The packet advanced only Chapter 6 to coauthor_review and accepted
+          only R13-C06-coded-association and R35-REACHBACK-06, retained the two
+          disclosed nonblocking chapter minors and all three WB-C06 outgoing
+          handoffs, claimed no author reading, made one bounded local closeout
+          commit and left WB-PART unstarted.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+          - "report:notes/reports/c06-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+          - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
+          - "boundary:WB-PART-not-started-in-C06"
+
+  H-WB-PART-001:
+    source_packet: WB-PART
+    created_at: "2026-08-11"
+    kind: invalidation
+    refs:
+      - packet:WB-PART
+      - packet:C06
+      - packet:P6-PANELS
+      - source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-draft
+    statement: >-
+      WB-PART added the material Part II verification-receipt bridge after the
+      C06 six-critic panel and author decision had been locked to SHA-256
+      4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8.
+      The final WB-PART Chapter 6 state is SHA-256
+      0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd,
+      so the earlier C06 acceptance remains historical evidence for its old
+      source state and no longer supports coauthor_review for the current file.
+    required_action: >-
+      At P6-PANELS, include Chapter 6 in the fresh six-critic coverage for its
+      then-final material state, resolve or explicitly dispose every fatal or
+      major finding, record the required author disposition, and only then
+      advance the chapter ledger again. Treat the WB-PART voice and
+      narrative-arc reviews as Part-level continuity evidence, not as a
+      replacement for the complete chapter panel.
+    basis:
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#phase-6-whole-book-continuity-evidence-and-editorial-pass
+      - notes/reports/c06-acceptance-package-2026-08-10.md
+      - notes/reports/wb-part-continuity-synthesis-2026-08-11.md
+      - bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost
+    required: true
+    deliveries:
+      - target_packet: P6-PANELS
+        gate: before_close
+        state: pending
 
 packet_reviews:
   G-A0:
@@ -6939,3 +7895,329 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and both required negative fixtures fail with exit 1 for their exact injected defect
       - no chapter prose data bibliography terminology spine concept graph widget or render changed in C03
       - WA-PART is next but was not started and push merge tag archive and deployment remain unauthorised
+
+  WA-PART:
+    reviewed_at: "2026-08-06"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WA-PART found no new future-relevant effect. The accepted 3-to-4 bridge is
+      already a governed item and WA-PART is already a direct prerequisite of
+      WB-C04. The DZS/DIP division of labour is fully disposed in the packet
+      report and structured completion evidence, so repeating either state as
+      a handoff would create duplicate control state.
+    implementation_state: source:sha256-21a5f46b0cb1e04a0ef1f336c96f510ccd3a5ddfe448ecc6e7e150869462b3ab
+    checks:
+      - no incoming handoff targets WA-PART and nothing targeting another packet was consumed
+      - C03 remains accepted against commit 72f774a3b302e6beca14730ac82727be92f29be1 and Chapter 3 remains coauthor_review without a claim that the author read it
+      - the only chapter source diff is the bounded Chapter 4 bridge and subordinate measures heading
+      - all five governed items are accepted with item-specific evidence
+      - DIP carries the reader-facing official-data spine while DZS supplies a verified governance boundary and no DZS recurrence is falsely claimed
+      - independent voice and narrative-arc critics reviewed the final material state with zero fatal and zero major finding
+      - the one minor DZS/DIP evidence qualification is concretely disposed in notes/reports/wa-part-continuity-synthesis-2026-08-06.md
+      - targeted HTML PDF and DOCX renders exit zero and their hashes sizes and commands are recorded in notes/reports/wa-part-2026-08-06.md
+      - tracked AI export docs and freeze refreshes produced by the render hook were restored to their clean pre-render HEAD state and are outside the packet
+      - deterministic style architecture spine terminology citation concept manuscript figure catalogue data widget inventory token and workflow checks pass
+      - chapter-ledger.json and all shared registries remain unchanged with Chapters 1 to 3 at coauthor_review and Chapter 4 at draft
+      - G-A3-DIGIKAT is next but was not started and push merge tag archive and deployment remain unauthorised
+
+  G-A3-DIGIKAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A3-DIGIKAT-001
+      - H-G-A3-DIGIKAT-002
+    implementation_state: conversation:G-A3-DIGIKAT-selection-approved-2026-08-10-Luka-Sikic
+    checks:
+      - exactly two deliveries target this packet and each was handled at its own gate
+      - H-P1B-DATA-LIC-003 was consumed BEFORE the packet claim and H-P3-CATALOG-001 was acknowledged before the first substantive edit and consumed at closeout
+      - nothing targeting another packet was consumed and the G-A3-EUROSTAT G-A3-ESS and G-A3-TEXT deliveries stay pending
+      - the author approved the recommended portable aggregate with public labels method-break and coverage caveats and the full Determ corpus kept external
+      - the accepted package is digikat_mediji with three files 49 and 438 and 3604 rows their keys and their recorded MD5 checksums
+      - the author's latest-possible-snapshot directive was VERIFIED as fact rather than recorded as a rule because the source is a local checkout and no network call was needed
+      - the checkout HEAD 278a127f9170c1aca82035a4a8357b8a995f91d8 dated 2026-07-22 has not moved and the builder returns DIGIKAT_EXTRACTS_OK extracts=3 mode=verify at 2026-08-10
+      - the gate counted the extract rather than taking it on trust and the denominator identity passes 6 of 6 years without tolerance
+      - three real defects were found none of which was previously recorded in the catalogue or the reconnaissance
+      - D-1 the godina_potpuna flag reads da for 2024 although February through May are absent entirely and January is partial at 1911 posts
+      - D-2 the annual and monthly files disagree in 17 of 49 platform-year cells largest plus 446 and minus 389 netting exactly zero at 710307 posts
+      - D-3 no method-break flag exists although volume roughly triples from June 2024 and platform coverage grows from seven to nine
+      - the source file carries 551712 of 710307 posts or 77.67 per cent and that denominator was previously unrecorded
+      - every Chapter 4 figure was recomputed independently from the file and agrees with the reconnaissance
+      - rights are resolved from the source's own published DATA_AVAILABILITY.md under CC BY 4.0 and confirmed explicitly rather than tacitly inherited
+      - the book claims no rights-holder permission because none was sought and H-P1B-DATA-LIC-003 is not superseded
+      - the official-reconciliation condition was not waived but given a named three-test substitute for non-official sources with a required negative fixture
+      - digikat_akteri is closed as abandoned in favour of digikat_mediji and must be marked rather than deleted
+      - the exclusion of tables naming individuals is confirmed as a permanent first-edition rule and rests on editorial decision rather than on licence
+      - one reconnaissance claim was corrected: proportions_summary is not a named-actor table and was rejected for the separate recorded shares-versus-denominator reason
+      - consumers are exactly WB-C04 WB-C05 and WB-C06 and Chapters 2 and 3 were deliberately not assigned because both are accepted and at coauthor_review
+      - eight alternatives were rejected including taking the actor tables promoting at this gate relaxing the reconciliation condition and trimming or excluding 2024
+      - OA-G-A3-DIGIKAT-SELECTION and OA-G-A3-DIGIKAT-RIGHTS are done with dated resolutions and no external message was sent
+      - the author's parallel Eurostat approval was recorded as a pre-disposition rather than consumed here because it belongs to G-A3-EUROSTAT
+      - the open Eurostat attribution question is explicitly left open rather than declared resolved so that it cannot be skipped
+      - no data file no catalogue entry and no chapter prose changed and all 19 units remain draft
+      - H-G-A3-DIGIKAT-001 carries the full disposition to P3-DIGIKAT at before_start and H-G-A3-DIGIKAT-002 carries the non-uniform-corpus constraint to P3-VERIFY-B WB-C04 WB-C05 and WB-C06
+      - scripts/check-review-workflow.R passed with G-A3-DIGIKAT active before the first substantive edit and again at closeout with no active packet and next_permitted_packet P3-DIGIKAT
+      - generic_packet_evidence and invalid_outside_ask_link failed with exit 1 for their exact injected defects
+      - P3-DIGIKAT and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  G-A3-EUROSTAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-G-A3-EUROSTAT-001
+    implementation_state: conversation:G-A3-EUROSTAT-bounded-retrieval-approved-2026-08-10-Luka-Sikic
+    checks:
+      - H-P1B-DATA-LIC-003 was consumed before claim and H-P3-CATALOG-001 was acknowledged before the first substantive edit and consumed at closeout
+      - the existing author pre-disposition was consumed rather than re-asked
+      - the accepted selection is six named indicators for 2025 and all 27 EU Member States with WB-C06 as sole current consumer
+      - all 162 country-indicator keys must be 2025 or an explicit retained official missing value with source flags
+      - the official reuse notice exact customised-dataset attribution template modification statement disclaimer and third-party exception test are recorded
+      - the selected table families identify Eurostat as source are EU-only and non-trade and transfer no image logo trademark or publication
+      - the author approved exactly one bounded official retrieval outside rendering with query raw response date checksums and reconciliation retained
+      - the rejected CroAIcon staging table remains forbidden and no other source indicator year geography retrieval or consumer is authorised
+      - the gate retrieved no data changed no catalogue entry promoted zero packages and edited no chapter or shared Bookwright registry
+      - OA-G-A3-EUROSTAT-SELECTION OA-G-A3-EUROSTAT-RIGHTS and OA-G-A3-EUROSTAT-SOURCE-ROUTE are done with no external message sent
+      - H-G-A3-EUROSTAT-001 carries every future-relevant selection rights source-route flag and claim-boundary effect to P3-EUROSTAT P3-VERIFY-B and WB-C06
+      - scripts/check-review-workflow.R passed in the active state and at closeout
+      - P3-EUROSTAT and every later packet were not started and push merge tag archive and deployment remain unauthorised
+
+  P3-DIGIKAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P3-DIGIKAT found no new future-relevant effect. The existing
+      H-G-A3-DIGIKAT-002 already carries the non-uniform-corpus, denominator,
+      missing-period, method-break and unavailable-measurement constraints to
+      P3-VERIFY-B, WB-C04, WB-C05 and WB-C06. Repeating that state would create
+      a duplicate control record.
+    implementation_state: podaci:sha256-b08accc193faf8a5275d36ccfff28f8694275d0cedfca504e6bd7af109fb13a8
+    checks:
+      - the 2026-08-10 author amendment allowing up to five strictly sequential packets is recorded durably in the packet report and dashboard closeout
+      - H-G-A3-DIGIKAT-001 was consumed before claim and H-P3-DZS-003 was acknowledged before the first substantive edit and consumed at closeout
+      - the local DigiKat checkout remains at 278a127f9170c1aca82035a4a8357b8a995f91d8 and the 2026-07-22 source date of record remains unchanged
+      - the master corpus was not read no network was contacted and no rights-holder-permission claim was made
+      - D-1 is repaired by deriving full years from twelve observed months with 2024 and 2026 marked ne
+      - D-2 is repaired by an exact recorded and recomputed 17-of-49 divergence contract with plus 446 minus 389 net zero and both totals 710307
+      - D-3 is repaired by lom_metode in both time files with TikTok 2023-07 the 2024-06 break and Instagram 2024-07
+      - 3604 named domains carry 551712 of 710307 posts or 77.67 percent and the source-file denominator is explicit
+      - the non-official reconciliation substitute is satisfied only by byte reproduction denominator identity and recorded divergence together
+      - non_official_substitute_incomplete fails closed for its own missing-test defect and the complete data fixture suite reports 42 expected failures
+      - digikat_akteri remains in the catalogue as abandoned with its reason and successor digikat_mediji and has no live consumer
+      - digikat_mediji is promoted by P3-DIGIKAT and consumed only by WB-C04 WB-C05 and WB-C06
+      - catalogue data integrity builder inventory manuscript concept citation terminology token integrity-fixture and workflow checks pass
+      - no chapter prose shared Bookwright registry generated artefact or external system changed
+      - G-A3-EUROSTAT is next and was not started before this packet closed and committed
+
+  P3-EUROSTAT:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-EUROSTAT-001
+    implementation_state: podaci:sha256-bccdee3f0fac9804f8d73f09187c5f314f051d189548fc79e26502ffbaed21e3
+    checks:
+      - H-G-A3-EUROSTAT-001 was consumed before claim and H-P3-DZS-003 was acknowledged before the first edit and consumed at closeout
+      - exactly one authorised six-request official Eurostat batch ran with zero retries and no later network request
+      - query plan retrieval manifest six unmodified responses dates MD5 SHA-256 and zero-tolerance reconciliation are retained
+      - all actual responses carry ESTAT and SOURCE_INSTITUTIONS Eurostat and no contrary rights annotation
+      - all 162 EU-27 by six-indicator keys are 2025 with 161 values and one explicit LU early-leaving absence carrying API and OBS status u
+      - the promoted package obeys all six inherited external-package rules and the promotion log reconciles in both directions
+      - R no-code and print use one local UTF-8 LF CSV and no render or portal lane performs a retrieval
+      - exact six-component attribution modification statement disclaimer and no-rights-holder-permission boundary travel with the snapshot
+      - the offline builder main data lane and two packet-specific negative fixtures all pass
+      - gitattributes fixes derived JSON to LF and treats raw responses as binary so checkout conversion cannot invalidate evidence
+      - H-P3-EUROSTAT-001 carries every actual package constraint to P3-VERIFY-B WB-C06 P6-DATA and P8-META
+      - the packet changed no chapter prose no shared Bookwright registry and no generated render output
+
+  P3-VERIFY-B:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P3-VERIFY-B found no new future-relevant condition. Existing
+      H-G-A3-DIGIKAT-002, H-G-A3-EUROSTAT-001 and H-P3-EUROSTAT-001 already
+      carry every verified source, missingness, method-break, denominator,
+      attribution, refresh and claim boundary to WB-C04, WB-C05, WB-C06,
+      P6-DATA and P8-META. Repeating them would create a duplicate control
+      record.
+    implementation_state: commit:f6d25bb30dce3f5ffe41204e87273bd166c6053b
+    checks:
+      - prerequisites WA-PART P3-DIGIKAT and P3-EUROSTAT are accepted with completion evidence and no active blocker
+      - H-P3-EUROSTAT-001 was consumed before claim and both decision-level before-close constraints were acknowledged before review and consumed at closeout
+      - DigiKat was recomputed independently from three CSVs and reproduced from source checkout 278a127f9170c1aca82035a4a8357b8a995f91d8
+      - DigiKat complete years gap partial January denominator identity 17-of-49 divergence method breaks and 551712 source denominator all match
+      - Eurostat queries host year geography raw checksums source institutions rights annotations keys missing status counts and notice were independently checked
+      - Eurostat remains six requests zero retries 162 keys 161 values and one LU colon/u row with zero-tolerance offline reproduction
+      - the first invalid verification attempt is disclosed and excluded and the corrected audit was rerun from the beginning with fail-fast command handling
+      - catalogue data integrity 44 data fixtures and seven general integrity fixture lanes pass
+      - P3-VERIFY-C P3-ESS and P3-TEXT remain later ratified work and are not hidden as Wave B prerequisites
+      - commit f6d25bb changes no chapter appendix docs freeze or shared Bookwright registry path and the review made no network request
+
+  WB-C04:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WB-C04-001
+    implementation_state: source:sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19
+    checks:
+      - H-G-A3-DIGIKAT-002 was consumed before claim and all three before-close deliveries were acknowledged before editing and consumed at closeout
+      - the Chapter 4 definition map is exactly four blocks and the same-packet ledger terminology count and generated graph reconcile at 47 live definitions
+      - the complete source-to-summary path distinguishes three units the full join key structural missingness represented sets and the 551712 source denominator
+      - the wrong-join audit asserts 3571 rows 438 monthly keys and 5959081 posts while the correct join preserves 438 rows and 710307 posts
+      - the source and rendered HTML reproduce mean 153.0832 median 4 top-ten 148748 and share 26.96 percent of 551712
+      - the print presets and aggregate-row task use governed local files without changing any snapshot or checksum
+      - final HTML PDF and wrapper-built DOCX renders exited zero at the declared chapter hash and generated artifacts were restored
+      - six independent read-only critics each scored the final hash 5 of 5 with zero fatal major or minor finding
+      - H-WB-C04-001 carries the only new future-relevant effect the stale data README promotion statement to P5-C
+      - C04 was not opened no author reading or acceptance was claimed and no external action was taken
+
+  C04:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-C04-THREAD-SEQUENCE-001
+    implementation_state: commit:2a6ac10596a578e593e652204e06c30b6b3f1ed8
+    checks:
+      - no incoming handoff targets C04 and nothing targeting another packet was consumed
+      - the author reply is recorded exactly as C04 accepted for 2a6ac10596a578e593e652204e06c30b6b3f1ed8 on 2026-08-10
+      - the cited commit remains the final material Chapter 4 source and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19
+      - the synthesis records score 5 of 5 for every perspective and zero unresolved fatal major or minor finding
+      - notes/reports/c04-acceptance-package-2026-08-10.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 04-sazimanje-podataka from draft to coauthor_review and explicitly records no claim that the author read the chapter
+      - all six governed Chapter 4 content items are accepted with source-specific evidence and no other atomic item changes status
+      - OA-C04-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
+      - A-THREAD-C04-C06-2026-08-10 records the strict five-packet author amendment and H-C04-THREAD-SEQUENCE-001 carries it to the four remaining targets
+      - H-WB-C04-001 remains pending for P5-C and the fig-anscombe integrity debt remains owned by WB-C05
+      - scripts/check-chapter-spines.py passes with fourteen draft and five coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget render or generated artifact changed in C04
+      - WB-C05 is next but was not started and push merge tag archive and deployment remain unauthorised
+
+  WB-C05:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WB-C05 found no new future-relevant effect. The two residual skeptical
+      wording notes are local, nonblocking findings presented directly to C05,
+      not obligations for a later implementation packet. The stale public data
+      README and ungenerated catalogue view are pre-existing conditions already
+      owned by H-WB-C04-001 and H-P3-CATALOG-002 for P5-C. Repeating either
+      condition would create a duplicate control record.
+    implementation_state: source:sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df
+    checks:
+      - H-C04-THREAD-SEQUENCE-001 and H-G-A3-DIGIKAT-002 were consumed before work and both before-close deliveries were acknowledged before editing and consumed at closeout
+      - H-P1C-INTEGRITY-001 is discharged by the immediate Croatian fig-anscombe introduction the empty figure_introductions debt list the positive figure gate and the deliberate negative fixture
+      - H-P3-EXISTING-001 is discharged without copying or promoting anscombe and every mandatory numerical task uses anketa_mreze
+      - the six-title micro-corpus reproduces 36 tokens 28 forms 22 singletons and six repeated forms and does not teach NLP
+      - DigiKat reproduces 3604 named domains 551712 posts median 4 maximum 56500 the visible February-May gap partial January and the June method break without a trend claim
+      - the widget provides four dynamic aria labels four live descriptions and four print-completable states and its OJS source fingerprint is reconciled without changing adapters tolerances or golden values
+      - the chapter contains six logical figures seven source variants and six distinct argumentative roles documented in the density memorandum
+      - final HTML PDF and wrapper-built DOCX renders exited zero at the declared chapter hash and generated artifacts were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major two chapter minors and one pre-existing out-of-scope documentation minor
+      - all four governed items remain ratified and Chapter 5 remains draft pending the separate author-only C05 gate
+      - C05 is next but was not accepted no author reading or acceptance was claimed and no external action was taken
+
+  C05:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C05 found no new future-relevant effect. The author accepted the
+      synthesised disposition with both nonblocking Chapter 5 wording notes
+      visible. The separate documentation minor remains pre-existing work
+      already owned by H-WB-C04-001 and H-P3-CATALOG-002 for P5-C, so a new
+      handoff would duplicate the canonical obligation.
+    implementation_state: commit:de85c7018b934bf5c6310fd4f1125f0ae65473a0
+    checks:
+      - the author reply is recorded exactly as C05 accepted for de85c7018b934bf5c6310fd4f1125f0ae65473a0 on 2026-08-10
+      - the cited commit remains the final material Chapter 5 source and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df
+      - the synthesis records zero fatal zero major two nonblocking Chapter 5 minors and one pre-existing documentation minor
+      - notes/reports/c05-acceptance-package-2026-08-10.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 05-vizualizacija from draft to coauthor_review and explicitly records no claim that the author read the chapter
+      - all four governed Chapter 5 content items are accepted with source-specific evidence and no other atomic item changes status
+      - OA-C05-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
+      - H-C04-THREAD-SEQUENCE-001 is consumed for C05 only after the exact reply and remains pending for WB-C06 and C06
+      - H-WB-C04-001 and H-P3-CATALOG-002 remain pending for P5-C and are not duplicated
+      - scripts/check-chapter-spines.py passes with thirteen draft and six coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget render or generated artifact changed in C05
+      - WB-C06 is next but was not started in C05 and push merge tag archive and deployment remain unauthorised
+
+  WB-C06:
+    reviewed_at: "2026-08-10"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WB-C06-001
+      - H-WB-C06-002
+      - H-WB-C06-003
+    implementation_state: source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8
+    checks:
+      - H-C04-THREAD-SEQUENCE-001 H-G-A3-DIGIKAT-002 H-G-A3-EUROSTAT-001 and H-P3-EUROSTAT-001 were consumed before work
+      - H-P3-EXISTING-001 was acknowledged before editing and consumed at closeout without copying or promoting anscombe
+      - every mandatory numerical task uses anketa_mreze or the governed Eurostat extract and the local anscombe route remains optional
+      - Eurostat preserves 162 unique 2025 keys 161 numeric values and the one LU colon/u absence with every source status
+      - the country-level exploratory pair reproduces Pearson 0.449994 and Spearman 0.508016 without individual causal trend predictive mixed-year or outside-EU inference
+      - the six-title coded category names its exact rule selected set and author ownership and becomes undefined when the code is constant
+      - Pearson Spearman tied ranks squared-correlation uncertainty range restriction Simpson ecology and causal boundaries pass the final methods review
+      - the AI error callout contains exactly one mistake and no assessed task requires code production
+      - w06 uses the explicit non-caching live generator four accessible controls live feedback hidden solution reset and a print-completable four-row twin
+      - final full HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared source hash and generated artifacts were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major and two nonblocking chapter minors
+      - H-WB-C06-001 carries the shared normal-generator adapter invalidation to the seven remaining affected chapter widgets plus P6-FIGURES and P7-HTML
+      - H-WB-C06-002 carries the stale unconditional range-restriction concept-ledger wording to P6-CONTINUITY
+      - H-WB-C06-003 carries the cited page-full figure mobile overflow to P7-HTML while recording that the w06 widget itself fits and works
+      - R13-C06-coded-association and R35-REACHBACK-06 remain ratified and Chapter 6 remains draft pending the separate C06 author gate
+      - C06 is next but was not opened no author reading or acceptance was claimed and no external action was taken
+
+  C06:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C06 found no new future-relevant effect. The author accepted the
+      synthesised disposition with both nonblocking Chapter 6 minors visible.
+      The normal-generator adapter invalidation, stale range-restriction
+      concept-ledger wording and mobile page-full overflow are already owned by
+      H-WB-C06-001, H-WB-C06-002 and H-WB-C06-003, while the pre-existing
+      public catalogue debt remains owned by H-WB-C04-001 and
+      H-P3-CATALOG-002. A new handoff would duplicate canonical obligations.
+    implementation_state: commit:34200ef1d723e88623e1bc9e73a47e6535a3673c
+    checks:
+      - the author reply is recorded exactly as C06 accepted for 34200ef1d723e88623e1bc9e73a47e6535a3673c on 2026-08-10
+      - the cited commit remains the final material Chapter 6 source with Git blob d5de2b1ff01815a4f86c78186fcc77d9a8c97994 and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8
+      - the synthesis records zero fatal zero major and two nonblocking Chapter 6 minors
+      - notes/reports/c06-acceptance-package-2026-08-10.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 06-povezanost from draft to coauthor_review and explicitly records no claim that the author read the chapter and no final status
+      - only R13-C06-coded-association and R35-REACHBACK-06 are accepted and the four earlier R09-C06 items remain unchanged and accepted
+      - OA-C06-ACCEPTANCE is done from the exact in-thread reply recorded on 2026-08-11 with decision date 2026-08-10 and no external message was sent
+      - H-C04-THREAD-SEQUENCE-001 is consumed for C06 only after the exact reply
+      - H-WB-C06-001 H-WB-C06-002 and H-WB-C06-003 remain pending for their named later targets and are neither consumed nor duplicated
+      - scripts/check-chapter-spines.py passes with twelve draft and seven coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C06
+      - WB-PART is next but was not started in C06 and push merge tag archive and deployment remain unauthorised
+
+  WB-PART:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WB-PART-001
+    implementation_state: source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd
+    checks:
+      - no handoff delivery targets WB-PART so no incoming delivery was acknowledged consumed or altered
+      - Chapters 4 and 5 remain unchanged at their accepted hashes and only the Chapter 6 Part II boundary changed
+      - the final receipt gives every C04 C05 and C06 assistant task all seven canonical fields in readable prose
+      - every returned-output cell matches the public visible output and no protected diagnosis correction number or instructor answer leaks
+      - the receipt names concrete verification evidence preserves AI as instrument and fallible analyst and requires no code production
+      - R08-SPINE-04-06 R24-PARTII-thesis R24-LADDER-PartII and R35-SELF-CHECK-II each pass their own acceptance tests and are accepted
+      - the first concept check caught the false mediju-to-medijan match the source was corrected to formatu the canonical graph remains unchanged at 47 nodes and 502 edges and check-concepts.py reports fresh true
+      - final full HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared final Chapter 6 hash and generated outputs were restored
+      - independent final voice and arc critics plus the evidence audit confirmed the exact hashes with zero fatal and zero major finding
+      - the historical C06 acceptance remains tied to its old source hash so only 06-povezanost is conservatively returned to draft
+      - H-WB-PART-001 carries the resulting fresh-six-critic requirement to P6-PANELS and the Part-level voice and arc reviews do not substitute for it
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - WC-C07 is next but was not claimed or started and push merge tag archive and deployment remain unauthorised

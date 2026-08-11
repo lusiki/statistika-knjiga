@@ -2,9 +2,10 @@
 # Build the bounded DigiKat extracts from the author's local project checkout.
 #
 # DigiKat (Prikaz i analiza katolicke tematike u digitalnom medijskom prostoru,
-# HKS, PI Luka Sikic) tracks ten aggregate tables under `data/processed/*.rds`
-# and declares them in its own DATA_AVAILABILITY.md as CC BY 4.0, aggregate, no
-# PII, redistributable. Those ten files are the source of record here. The
+# HKS, PI Luka Sikic) tracks fourteen aggregate tables under
+# `data/processed/*.rds` and declares them in its own DATA_AVAILABILITY.md as CC
+# BY 4.0, aggregate, no PII, redistributable. Three files are the source of
+# record here. The
 # roughly 710.000-row master corpus is NOT read, is not redistributable, and
 # stays `external-only` in the catalogue under `determ_korpus`.
 #
@@ -49,11 +50,6 @@ ROOT <- normalizePath(file.path(dirname(sub("^--file=", "", grep("^--file=",
 # Platforms for which the provider supplies interaction and reach metrics.
 MJERENE_PLATFORME <- c("web", "youtube", "facebook", "twitter", "instagram", "tiktok")
 
-# The corpus runs 2021-01 to 2026-06. 2026 is the only incomplete year and is
-# kept, flagged, rather than dropped: an incomplete last year that is labelled
-# is a better teaching object than a silent truncation.
-ZADNJA_POTPUNA_GODINA <- 2025L
-
 # An outlet name counts as an organisation, and so may be named, when it is a
 # bare domain: no whitespace and an alphabetic top-level domain. Everything else
 # in the upstream `FROM` column - Facebook pages, YouTube channels, personal
@@ -71,6 +67,47 @@ ucitaj <- function(checkout, ime) {
 broj <- function(x) {
   # Full precision, no scientific notation, no invented format.
   ifelse(is.na(x), "..", format(x, scientific = FALSE, trim = TRUE, digits = 15))
+}
+
+
+potpune_godine <- function(checkout) {
+  d <- ucitaj(checkout, "platform_monthly")
+  d$godina <- as.integer(format(d$month, "%Y"))
+  d$mjesec_redni <- as.integer(format(d$month, "%m"))
+  mjeseci <- split(d$mjesec_redni, d$godina)
+  as.integer(names(mjeseci)[vapply(mjeseci, function(x) {
+    identical(sort(unique(x)), 1:12)
+  }, logical(1))])
+}
+
+
+oznaka_loma_godisnje <- function(godina) {
+  ifelse(
+    godina <= 2022L, "prije_promjene_obuhvata",
+    ifelse(
+      godina == 2023L, "tiktok_od_2023-07",
+      ifelse(
+        godina == 2024L,
+        "nepotpuno_lom_2024-06_instagram_od_2024-07",
+        "nakon_loma_2024-06"
+      )
+    )
+  )
+}
+
+
+oznaka_loma_mjesecno <- function(mjesec) {
+  x <- format(mjesec, "%Y-%m")
+  ifelse(
+    x < "2023-07", "prije_promjene_obuhvata",
+    ifelse(
+      x < "2024-06", "tiktok_od_2023-07",
+      ifelse(
+        x == "2024-06", "lom_2024-06",
+        "nakon_loma_2024-06_instagram_od_2024-07"
+      )
+    )
+  )
 }
 
 
@@ -94,7 +131,8 @@ build_platforme_godisnje <- function(checkout) {
     interakcije = broj(d$total_interactions),
     doseg = broj(d$total_reach),
     metrika_dostupna = ifelse(d$SOURCE_TYPE %in% MJERENE_PLATFORME, "da", "ne"),
-    godina_potpuna = ifelse(d$year <= ZADNJA_POTPUNA_GODINA, "da", "ne"),
+    godina_potpuna = ifelse(d$year %in% potpune_godine(checkout), "da", "ne"),
+    lom_metode = oznaka_loma_godisnje(d$year),
     stringsAsFactors = FALSE
   )
 }
@@ -115,6 +153,7 @@ build_platforme_mjesecno <- function(checkout) {
     interakcije = broj(d$total_interactions),
     doseg = broj(d$total_reach),
     metrika_dostupna = ifelse(d$SOURCE_TYPE %in% MJERENE_PLATFORME, "da", "ne"),
+    lom_metode = oznaka_loma_mjesecno(d$month),
     stringsAsFactors = FALSE
   )
   out
@@ -157,6 +196,92 @@ EXTRACTS <- list(
 )
 
 
+verify_contract <- function(built) {
+  annual <- built[["data/digikat-platforme-godisnje.csv"]]
+  monthly <- built[["data/digikat-platforme-mjesecno.csv"]]
+  sources <- built[["data/digikat-izvori.csv"]]
+
+  # D-1: a complete year has all twelve observed calendar months. This makes
+  # 2024 explicitly incomplete: February-May are absent and January is only a
+  # partial 1,911-post month. 2026 remains a labelled six-month year.
+  full_by_year <- tapply(annual$godina_potpuna, annual$godina,
+                         function(x) identical(unique(x), "da"))
+  expected_full <- c("2021", "2022", "2023", "2025")
+  if (!identical(names(full_by_year)[full_by_year], expected_full)) {
+    stop("godina_potpuna does not identify exactly 2021, 2022, 2023 and 2025.",
+         call. = FALSE)
+  }
+  months_2024 <- sort(unique(monthly$mjesec[monthly$godina == "2024"]))
+  expected_2024 <- c("2024-01", sprintf("2024-%02d", 6:12))
+  if (!identical(months_2024, expected_2024)) {
+    stop("The recorded 2024 gap is not exactly February-May.", call. = FALSE)
+  }
+  jan_2024 <- sum(as.numeric(monthly$objave[monthly$mjesec == "2024-01"]))
+  if (!identical(jan_2024, 1911)) {
+    stop("The partial January 2024 total is no longer 1911.", call. = FALSE)
+  }
+
+  # D-2 and the denominator part of the non-official-source reconciliation.
+  annual$objave_num <- as.numeric(annual$objave)
+  annual$denominator_num <- as.numeric(annual$objave_godina_ukupno)
+  denominator_ok <- vapply(split(annual, annual$godina), function(d) {
+    length(unique(d$denominator_num)) == 1L &&
+      sum(d$objave_num) == unique(d$denominator_num)
+  }, logical(1))
+  if (length(denominator_ok) != 6L || !all(denominator_ok)) {
+    stop("The annual denominator identity fails for at least one year.",
+         call. = FALSE)
+  }
+
+  monthly$objave_num <- as.numeric(monthly$objave)
+  monthly_sum <- aggregate(objave_num ~ godina + platforma, monthly, sum)
+  names(monthly_sum)[3] <- "mjesecno"
+  compared <- merge(
+    annual[, c("godina", "platforma", "objave_num")], monthly_sum,
+    by = c("godina", "platforma"), all.x = TRUE
+  )
+  compared$mjesecno[is.na(compared$mjesecno)] <- 0
+  compared$razlika <- compared$mjesecno - compared$objave_num
+  different <- compared[compared$razlika != 0, ]
+  largest_positive <- compared[which.max(compared$razlika), ]
+  largest_negative <- compared[which.min(compared$razlika), ]
+  if (nrow(different) != 17L || sum(compared$razlika) != 0 ||
+      sum(compared$objave_num) != 710307 || sum(compared$mjesecno) != 710307 ||
+      largest_positive$razlika != 446 || largest_positive$godina != "2022" ||
+      largest_positive$platforma != "web" ||
+      largest_negative$razlika != -389 || largest_negative$godina != "2024" ||
+      largest_negative$platforma != "web") {
+    stop("The annual/monthly divergence no longer matches its recorded exact contract.",
+         call. = FALSE)
+  }
+
+  # D-3: both files carry a method-break flag. The flag records TikTok's entry,
+  # the June 2024 break and Instagram's subsequent entry; a chapter may not
+  # compare across its values as though collection were uniform.
+  if (!identical(annual$lom_metode,
+                 oznaka_loma_godisnje(as.integer(annual$godina)))) {
+    stop("The annual method-break flag is inconsistent.", call. = FALSE)
+  }
+  if (!identical(monthly$lom_metode,
+                 oznaka_loma_mjesecno(as.Date(paste0(monthly$mjesec, "-01"))))) {
+    stop("The monthly method-break flag is inconsistent.", call. = FALSE)
+  }
+
+  source_posts <- sum(as.numeric(sources$objave))
+  if (nrow(sources) != 3604L || source_posts != 551712) {
+    stop("The named-source denominator is no longer 3604 sources / 551712 posts.",
+         call. = FALSE)
+  }
+
+  cat(paste0(
+    "DIGIKAT_RECONCILIATION_OK years=6 denominator_tolerance=0 ",
+    "divergent_cells=17 direction=monthly_minus_annual max=446@2022:web ",
+    "min=-389@2024:web net=0 corpus_posts=710307 ",
+    "named_sources=3604 named_source_posts=551712 share_pct=77.67\n"
+  ))
+}
+
+
 serialise <- function(df) {
   for (nm in names(df)) {
     v <- df[[nm]]
@@ -187,8 +312,10 @@ main <- function() {
   }
 
   drift <- character(0)
+  built <- lapply(EXTRACTS, function(builder) builder(checkout))
+  verify_contract(built)
   for (relative in names(EXTRACTS)) {
-    payload <- serialise(EXTRACTS[[relative]](checkout))
+    payload <- serialise(built[[relative]])
     target <- file.path(ROOT, relative)
     if (write) {
       dir.create(dirname(target), showWarnings = FALSE, recursive = TRUE)

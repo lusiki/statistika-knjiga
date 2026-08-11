@@ -9,3 +9,10 @@ renv/activate.R whitespace=-blank-at-eol
 data/*.csv text eol=lf
 data/*.LICENCA.md text eol=lf
 data/LICENCA-generirani-podaci.md text eol=lf
+
+# P3-EUROSTAT checksums the retained query, retrieval and reconciliation JSON
+# and stores the official API responses byte for byte. Keep generated metadata
+# at LF on every platform and treat raw source responses as opaque bytes.
+data/eurostat_drustvo/*.json text eol=lf
+data/eurostat_drustvo/*.md text eol=lf
+data/eurostat_drustvo/raw/*.json binary
