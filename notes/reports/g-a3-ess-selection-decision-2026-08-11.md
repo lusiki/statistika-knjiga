@@ -1,7 +1,7 @@
 # G-A3-ESS — odluka o ESS Round 11 paketu
 
-**Status:** paket je pripremljen i čeka točnu odluku autora; ništa nije
-promaknuto ni preuzeto.
+**Status:** autor je prihvatio preporuku; gate se zatvara bez promocije ili
+dohvata podataka.
 
 **Datum pripreme:** 11. kolovoza 2026.
 
@@ -9,6 +9,17 @@ promaknuto ni preuzeto.
 
 **Vlasnik odluke o redistribuciji:** ESS data/rights owner. Autorova urednička
 odluka ne može zamijeniti pisanu potvrdu nositelja prava.
+
+## Točan odgovor autora
+
+Autor i editor Luka Sikic odgovorio je 11. kolovoza 2026. točno:
+
+```text
+ESS selection approved on 2026-08-11: use ESS Round 11 integrated main file edition 3.0, subset cntry == HR with analysis-specific valid-response denominators, identity variables essround/edition/proddate/idno/cntry, design variables dweight/pspwght/pweight/anweight/prob/stratum/psu, teaching variables vote/trstprl/stflife/gndr/agea/eisced, default analysis weight anweight, consumers WC-C08/WD-C13/WD-C14/WD-C15/WD-C16, and the bounded vote question recorded in notes/reports/g-a3-ess-selection-decision-2026-08-11.md. Keep ESS portal-mediated, unpromoted and optional; keep OA-G-A3-ESS-RIGHTS open and bundling prohibited. Chapter 8's mandatory weighted table and offline task use the separately labelled synthetic finite-population table with known inclusion probabilities, not ESS microdata.
+```
+
+Ovaj odgovor zatvara samo odabir, nastavnu ulogu i opreznu traku. Ne glumi
+odgovor nositelja prava i ne odobrava bundling.
 
 ## Granica paketa
 
@@ -161,3 +172,24 @@ uključiti prešutno: za nju je potreban zaseban odgovor nositelja prava na
 Točan odgovor dopušta samo closeout `G-A3-ESS`. `P3-ESS` se potom zasebno
 claima, dokazuje i commitira. Ne dopušta preuzimanje mikropodataka, bundling,
 uređivanje poglavlja, push, merge, tag, arhiviranje, deployment ni objavu.
+
+## Closeout
+
+- `H-P3-CATALOG-001` potrošen je uz konkretnu dispoziciju: `P3-ESS` smije
+  izmijeniti samo zapis `ess_r11_hr`, mora zadržati `portal-mediated`,
+  `promoted: false` i `files: []`, dodati `WC-C08`, te zapisati odabranu shemu,
+  službeni recept, šifre nedostajanja i izračun kontrolnoga zbroja koji
+  čitatelj izvodi nad vlastitim portalnim preuzimanjem. Lokalni bajtovi i
+  lokalni checksum moraju ostati odsutni.
+- `R03-ESS-permission-gate` prolazi: nijedan ESS mikropodatak nije preuzet ili
+  commitiran, bundling ostaje zabranjen, a svaki obvezni put ima jasno
+  odvojenu sintetičku ili licenčno čistu offline zamjenu.
+- `OA-G-A3-ESS-SELECTION` zatvara se stvarnim odgovorom autora.
+  `OA-G-A3-ESS-RIGHTS` ostaje otvoren, neposlan i ne blokira samo portalni put.
+- Jedini budući učinak već je u potpunosti zapisan u prihvaćenoj odluci i
+  postojećoj niti: `P3-ESS` mora provesti točan recept, `WC-C08` mora koristiti
+  zasebnu sintetičku ponderiranu tablicu, a `WD-C13`–`WD-C16` mogu ESS rabiti
+  samo kao neobveznu portalnu replikaciju. Ne nastaje novi handoff.
+- Gate nije promijenio `data/katalog.yml`, poglavlja, bibliografiju, zajedničke
+  Bookwright registre ni generirane artefakte i nije izvršio mrežni dohvat
+  podataka.

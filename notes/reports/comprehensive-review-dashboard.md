@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: G-A3-ESS
-last_completed_packet: C07
-next_permitted_packet: null
+active_write_packet: null
+last_completed_packet: G-A3-ESS
+next_permitted_packet: P3-ESS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -42,22 +42,23 @@ stop and repair the control state before editing book content.
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
+| Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
 | WC-C08 prerequisite Route A | Accepted exactly: `G-A3-ESS` and `P3-ESS` moved immediately after C07; `WC-PARTS` replaced by C07 in `G-A3-ESS.requires`; `P3-ESS` added to `WC-C08.requires`; four item prerequisites and both separate ESS decisions retained; owner Luka Sikic; 2026-08-11 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `G-A3-ESS`, claimed 2026-08-11; bounded ESS selection/lane decision awaiting the exact author reply |
-| Last completed packet | `C07` |
-| Next permitted packet | None while `G-A3-ESS` is active; `P3-ESS` remains unclaimed and blocked until this gate closes and commits |
+| Active write packet | None |
+| Last completed packet | `G-A3-ESS` |
+| Next permitted packet | `P3-ESS`; it must implement only the accepted portal route, consume its thread delivery before claim, and retrieve no ESS data |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 183 accepted, 5 deferred with reason, 183 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 90 accepted, 97 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 184 accepted, 5 deferred with reason, 182 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 91 accepted, 96 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 12 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija` and `07-vjerojatnost` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 38 of the 84 canonical asks remain `drafted_unsent`; 40 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05, C06 and C07 acceptance, the G-A4-03 brief, and the WC-C08/P3-ESS Route A decision; 0 external messages sent |
+| Open outside asks | 37 of the 84 canonical asks remain `drafted_unsent`; 41 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A3-ESS-SELECTION` is done from the exact in-thread author reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
-| WC-C08 prerequisite resolution | Route A is applied and `H-WC-C07-WC-C08-PREREQUISITE-001` is consumed: `G-A3-ESS` is sequence 98, `P3-ESS` sequence 99 and `WC-C08` sequence 100; `WC-C08` now requires accepted `P3-ESS`. `OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` remain separate and unresolved under D08 |
+| WC-C08 prerequisite resolution | Route A is applied and `H-WC-C07-WC-C08-PREREQUISITE-001` is consumed: `G-A3-ESS` is accepted at sequence 98, `P3-ESS` is sequence 99 and `WC-C08` sequence 100; `WC-C08` requires accepted `P3-ESS`. `OA-G-A3-ESS-SELECTION` is done; `OA-G-A3-ESS-RIGHTS` remains separate and open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
@@ -89,10 +90,17 @@ No chapter prose was changed by `P0-OUTSIDE`.
   author decision. `OA-G-A3-ESS-RIGHTS` remains a separate, open, unsent
   rights-owner inquiry. Bundling is prohibited unless that owner supplies
   written permission tied to the exact files.
-- `G-A3-ESS` is active and cannot close without the exact selection/role reply.
-  `P3-ESS` is not claimed; no chapter, data file, catalogue entry,
-  bibliography, shared Bookwright registry, render or generated artifact was
-  changed. Push, merge, tag, archive, deployment and publication remain
+- The author supplied the exact selection/role reply on 2026-08-11.
+  `OA-G-A3-ESS-SELECTION` is done; `OA-G-A3-ESS-RIGHTS` stays separate and
+  open, and bundling stays prohibited. `R03-ESS-permission-gate` is accepted.
+- `H-P3-CATALOG-001` is consumed with the concrete portal-route disposition.
+  `packet_reviews.G-A3-ESS` records every future effect and creates no new
+  handoff because the accepted decision, existing catalogue and thread
+  handoffs already own them.
+- `G-A3-ESS` closes without changing any chapter, data file, catalogue entry,
+  bibliography, shared Bookwright registry, render or generated artifact and
+  without retrieving ESS data. `P3-ESS` is next but was not claimed inside
+  this gate. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
 ## WC-C07 claim
@@ -4310,25 +4318,30 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Resume active `G-A3-ESS` only. Verify that the one write lock owns only its
-dated decision report and the three control files, `C07` is last completed,
-`next_permitted_packet` is null, and `P3-ESS` remains ratified and unclaimed.
-Read `notes/reports/g-a3-ess-selection-decision-2026-08-11.md` in full. Verify
-that `H-P1B-DATA-LIC-003` and `H-WC-C07-THREAD-SEQUENCE-001` are consumed for
-G-A3-ESS, `H-P3-CATALOG-001` is acknowledged but not consumed, and the
-portal-mediated, promoted-false, empty-files boundary remains unchanged.
+Verify that `G-A3-ESS` is accepted from the exact 2026-08-11 author reply, no
+packet is active, `P3-ESS` is the sole next permitted packet at sequence 99,
+and `WC-C08` remains blocked behind it at sequence 100. Read
+`notes/reports/g-a3-ess-selection-decision-2026-08-11.md` in full and preserve
+its exact edition, subset, variables, weight roles, bounded vote question,
+consumer list, portal lane, synthetic Chapter 8 offline table and rights
+boundary.
 
-Stop for the author's exact ESS selection/role reply printed in the report.
-Do not substitute the recommendation for the author's decision. Keep
-`OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` separate. If the author accepts
-the portal-mediated recommendation, keep the rights ask open and bundling
-prohibited; rights-owner evidence is required only if bundling is selected.
+Execute `P3-ESS` only. Consume its pending
+`H-WC-C07-THREAD-SEQUENCE-001` delivery before claim and rerun
+`scripts/check-review-workflow.R` at claim and closeout. Implement a portal
+route, not a snapshot: retrieve no ESS data; prove local ESS bytes and local
+checksum absent; keep `lane: portal-mediated`, `promoted: false` and `files: []`;
+add `WC-C08` to the four existing consumers; record the exact official edition,
+portal retrieval instructions, approved variables, source-exposed schema,
+weight roles, official missing-code reconciliation and reader-side checksum
+instructions. Amend any local-file test explicitly so it tests the portal route
+rather than waiving or falsely passing an inapplicable assertion. Use the
+accepted synthetic finite-population table as the mandatory Chapter 8 offline
+path and keep ESS empirical work optional.
 
-After the exact reply, close `G-A3-ESS` only: record the disposition and reply,
-consume `H-P3-CATALOG-001` with concrete evidence, record all future effects or
-an explicit none-found declaration, update the register, handoff ledger and
-dashboard together, run `scripts/check-review-workflow.R`, and make one bounded
-local closeout commit. Do not claim `P3-ESS` in the same packet. No ESS data
-retrieval, chapter edit, external rights request, push, merge, tag, archive,
-deploy or publication is authorised.
+Update the register, handoff ledger and dashboard together, record all future
+effects or an explicit none-found declaration, run the route-specific and
+workflow checks, and make one bounded local closeout commit. Do not claim
+`WC-C08` inside `P3-ESS`. No network retrieval, chapter edit, external rights
+request, push, merge, tag, archive, deploy or publication is authorised.
 ```

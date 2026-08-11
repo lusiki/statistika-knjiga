@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "G-A3-ESS"
-    claimed_at: "2026-08-11"
-    owned_paths:
-      - "notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "C07"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "G-A3-ESS"
+  next_permitted_packet: "P3-ESS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2036,6 +2029,66 @@ decisions:
       accepts no future chapter source. It does not accept C03 on the author's
       behalf and authorises no push, merge, tag, archive, deployment or
       publication.
+
+  G-A3-ESS:
+    status: "accepted"
+    accepted_at: "2026-08-11"
+    author_disposition: "accepted_as_recommended_portal_mediated"
+    author: "Luka Sikic"
+    evidence: "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+    preparation_commit: "8695010f3fe024b95f79b3ecfd5c095317e752ed"
+    accepted_dispositions:
+      edition_and_subset: >-
+        Use the ESS Round 11 integrated main file edition 3.0 and only records
+        with cntry equal to HR. Use analysis-specific valid-response
+        denominators rather than one global listwise-complete subset.
+      variables: >-
+        Retain identity variables essround, edition, proddate, idno and cntry;
+        design variables dweight, pspwght, pweight, anweight, prob, stratum and
+        psu; and teaching variables vote, trstprl, stflife, gndr, agea and
+        eisced. P3-ESS must take labels, domains and missing codes from the
+        official edition 3.0 documentation rather than memory.
+      weights_and_question: >-
+        Use anweight as the default analysis weight. The bounded question asks,
+        among Croatian respondents who belong to the official vote denominator,
+        how the reported-voting share differs between the unweighted estimate
+        and the anweight estimate, and which selection or measurement errors
+        weighting still cannot remove. The result is descriptive and
+        generalisational, not official turnout validation or a causal claim.
+      consumers: >-
+        Consumers are exactly WC-C08, WD-C13, WD-C14, WD-C15 and WD-C16.
+      lane_and_rights: >-
+        Keep ESS portal-mediated, unpromoted and optional with no local files.
+        OA-G-A3-ESS-RIGHTS remains open and bundling remains prohibited without
+        separate written rights-owner permission tied to the exact files.
+      mandatory_offline_path: >-
+        Chapter 8's mandatory weighted table and offline task use a separately
+        labelled synthetic finite-population table with known inclusion
+        probabilities, observed responses and inverse-probability weights. They
+        do not use ESS microdata or falsely assign weights to an existing local
+        generated dataset. ESS remains an optional portal replication.
+    rejected_alternatives:
+      - "Bundle an ESS extract without separate written permission."
+      - "Make portal-mediated ESS microdata a mandatory Chapter 8 task."
+      - "Invent a survey weight for anketa_mreze or populacija_medija."
+      - "Use pweight as the Croatia-only teaching weight."
+      - "Select all ESS variables without a bounded consumer role."
+    blocked_dependencies:
+      immediate_next_packet: "P3-ESS"
+      governed_item: "R03-ESS-permission-gate"
+      later_consumers:
+        - "WC-C08"
+        - "WD-C13"
+        - "WD-C14"
+        - "WD-C15"
+        - "WD-C16"
+    authority_boundary: >-
+      This decision authorises only a separately claimed P3-ESS portal route
+      implementing the exact selection, schema exposure and offline fallback.
+      It authorises no ESS data download, local microdata, bundling, chapter
+      edit, external rights request, render, push, merge, tag, archive,
+      deployment or publication.
 
   A-READERS-2026-08-05:
     kind: "author_amendment"
@@ -10604,7 +10657,7 @@ packets:
     sequence: 98
     phase: "3B"
     kind: "decision_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "C07"
       - "P0-OUTSIDE"
@@ -10617,14 +10670,65 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-ESS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+            - "register:decisions.G-A3-ESS.accepted_at-2026-08-11"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A3-ESS.accepted_dispositions"
+            - "register:decisions.G-A3-ESS.rejected_alternatives-5"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-ESS.blocked_dependencies"
+            - "packet:P3-ESS"
+      outputs:
+        - output: "Dated G-A3-ESS decision and authority record for: ESS portal/bundle lane and role."
+          artifacts:
+            - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+            - "register:decisions.G-A3-ESS"
+            - "outside-ask:OA-G-A3-ESS-SELECTION-done"
+            - "outside-ask:OA-G-A3-ESS-RIGHTS-remains-open"
+        - output: "Completion evidence is tied to the declared G-A3-ESS source state and bounded scope."
+          artifacts:
+            - "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
+            - "boundary:no-ESS-data-download-no-promotion-no-bundling"
+            - "check:scripts/check-review-workflow.R-at-G-A3-ESS-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-ESS.rejected_alternatives-5"
+            - "register:decisions.G-A3-ESS.authority_boundary"
+            - "register:decisions.G-A3-ESS.blocked_dependencies"
+        - test: "The G-A3-ESS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "selection:ESS11-edition-3.0-cntry-HR-exact-variable-list"
+            - "weights:anweight-default-with-dweight-pspwght-pweight-retained"
+            - "consumers:WC-C08-WD-C13-WD-C14-WD-C15-WD-C16"
+            - "offline:synthetic-finite-population-weighted-table-not-ESS"
+            - "rights:OA-G-A3-ESS-RIGHTS-open-bundling-prohibited"
+            - "handoff:H-P3-CATALOG-001-consumed-at-closeout"
+            - "review:packet_reviews.G-A3-ESS-all-future-effects-recorded"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
   P3-ESS:
     sequence: 99
     phase: "3B"
@@ -14242,7 +14346,7 @@ items:
       location: "§12 ESS"
     description: "Keep ESS portal-mediated under D08 unless written permission authorizes bundling."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -14261,11 +14365,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "G-A3-ESS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-ESS-portal-mediated-unpromoted-optional"
+      - "author_reply:ESS-selection-approved-2026-08-11"
+      - "registry:data/katalog.yml#ess_r11_hr-portal-mediated-promoted-false-files-empty-unchanged"
+      - "offline:Chapter-8-synthetic-finite-population-weighted-table"
+      - "outside-ask:OA-G-A3-ESS-RIGHTS-remains-open"
+      - "boundary:no-ESS-microdata-downloaded-or-committed-and-bundling-prohibited"
+      - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md#closeout"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
   R03-TEXT-licences:
     parents:
       - "R03"
@@ -29243,8 +29354,8 @@ outside_asks:
       rights-holder-permission claim. No external message was sent.
 
   OA-G-A3-ESS-SELECTION:
-    status: "drafted_unsent"
-    readiness: "ready_for_author_decision"
+    status: "done"
+    readiness: "resolved_by_exact_author_decision"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -29279,6 +29390,20 @@ outside_asks:
     resume_condition: "P3-ESS resumes after the author approves the exact portal route and curricular role."
     why_external: "The survey selection and required-versus-optional role are authorial decisions."
     external_message_sent: false
+    resolved_at: "2026-08-11"
+    resolution: >-
+      Author and editor Luka Sikic approved the exact recommendation on
+      2026-08-11: ESS Round 11 integrated main file edition 3.0, Croatia-only
+      analysis-specific denominators, the named identity, design and teaching
+      variables, anweight as default, consumers WC-C08 and WD-C13 through
+      WD-C16, the bounded vote question, portal-mediated optional use, and a
+      separately labelled synthetic finite-population weighted table for the
+      mandatory Chapter 8 offline path. OA-G-A3-ESS-RIGHTS remains separate and
+      open; bundling was not approved.
+    resolution_evidence:
+      - "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
+      - "decision:G-A3-ESS"
+      - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md#tocan-odgovor-autora"
 
   OA-G-A3-ESS-RIGHTS:
     status: "drafted_unsent"
