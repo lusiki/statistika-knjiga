@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-10"
+last_updated: "2026-08-11"
 inventory_child_count: 371
 
 protocol:
@@ -6007,7 +6007,23 @@ handoffs:
           - "dashboard:notes/reports/comprehensive-review-dashboard.md#wb-c06-claim"
       - target_packet: C06
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          C06 closed only after the named author supplied the exact dated reply
+          tied to WB-C06 commit 34200ef1d723e88623e1bc9e73a47e6535a3673c.
+          The packet advanced only Chapter 6 to coauthor_review and accepted
+          only R13-C06-coded-association and R35-REACHBACK-06, retained the two
+          disclosed nonblocking chapter minors and all three WB-C06 outgoing
+          handoffs, claimed no author reading, made one bounded local closeout
+          commit and left WB-PART unstarted.
+        evidence:
+          - "decision:A-THREAD-C04-C06-2026-08-10"
+          - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+          - "report:notes/reports/c06-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+          - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
+          - "boundary:WB-PART-not-started-in-C06"
 
 packet_reviews:
   G-A0:
@@ -8119,3 +8135,32 @@ packet_reviews:
       - H-WB-C06-003 carries the cited page-full figure mobile overflow to P7-HTML while recording that the w06 widget itself fits and works
       - R13-C06-coded-association and R35-REACHBACK-06 remain ratified and Chapter 6 remains draft pending the separate C06 author gate
       - C06 is next but was not opened no author reading or acceptance was claimed and no external action was taken
+
+  C06:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C06 found no new future-relevant effect. The author accepted the
+      synthesised disposition with both nonblocking Chapter 6 minors visible.
+      The normal-generator adapter invalidation, stale range-restriction
+      concept-ledger wording and mobile page-full overflow are already owned by
+      H-WB-C06-001, H-WB-C06-002 and H-WB-C06-003, while the pre-existing
+      public catalogue debt remains owned by H-WB-C04-001 and
+      H-P3-CATALOG-002. A new handoff would duplicate canonical obligations.
+    implementation_state: commit:34200ef1d723e88623e1bc9e73a47e6535a3673c
+    checks:
+      - the author reply is recorded exactly as C06 accepted for 34200ef1d723e88623e1bc9e73a47e6535a3673c on 2026-08-10
+      - the cited commit remains the final material Chapter 6 source with Git blob d5de2b1ff01815a4f86c78186fcc77d9a8c97994 and the chapter file is unchanged after it
+      - all six independent critic reports confirm source SHA256 4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8
+      - the synthesis records zero fatal zero major and two nonblocking Chapter 6 minors
+      - notes/reports/c06-acceptance-package-2026-08-10.md cites the final source commit all six reports the synthesis the exact author reply and ledger disposition
+      - chapter-ledger.json advances only 06-povezanost from draft to coauthor_review and explicitly records no claim that the author read the chapter and no final status
+      - only R13-C06-coded-association and R35-REACHBACK-06 are accepted and the four earlier R09-C06 items remain unchanged and accepted
+      - OA-C06-ACCEPTANCE is done from the exact in-thread reply recorded on 2026-08-11 with decision date 2026-08-10 and no external message was sent
+      - H-C04-THREAD-SEQUENCE-001 is consumed for C06 only after the exact reply
+      - H-WB-C06-001 H-WB-C06-002 and H-WB-C06-003 remain pending for their named later targets and are neither consumed nor duplicated
+      - scripts/check-chapter-spines.py passes with twelve draft and seven coauthor_review units
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C06
+      - WB-PART is next but was not started in C06 and push merge tag archive and deployment remain unauthorised

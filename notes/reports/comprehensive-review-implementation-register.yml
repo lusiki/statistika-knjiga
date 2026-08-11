@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-10"
+  last_updated: "2026-08-11"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WB-C06"
-  next_permitted_packet: "C06"
+  last_completed_packet: "C06"
+  next_permitted_packet: "WB-PART"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9814,7 +9814,7 @@ packets:
     sequence: 94
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WB-C06"
     scope: "Author acceptance and panel disposition for C06."
@@ -9825,14 +9825,73 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wb-c06-critic-methods-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-skeptic-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-pedagogy-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-style-2026-08-10.md"
+            - "report:notes/reports/wb-c06-critic-structure-2026-08-10.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors"
+            - "boundary:three-WB-C06-outgoing-handoffs-remain-pending-for-their-targets"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "report:notes/reports/c06-acceptance-package-2026-08-10.md#tocan-odgovor-autora"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
+            - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "check:scripts/check-chapter-spines.py-C06-accepted-stage-transition"
+      outputs:
+        - output: "C06 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c06-acceptance-package-2026-08-10.md"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C06 source state and bounded scope."
+          artifacts:
+            - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+            - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "handoff:H-C04-THREAD-SEQUENCE-001-consumed-for-C06"
+            - "check:scripts/check-review-workflow.R-at-C06-closeout"
+            - "check:scripts/check-chapter-spines.py-CHAPTER_SPINES_OK-12-draft-7-coauthor_review"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "result:zero-fatal-zero-major-two-nonblocking-chapter-minors"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c06-acceptance-package-2026-08-10.md"
+            - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+            - "reports:wb-c06-six-final-critic-reports"
+            - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+            - "author_reply:C06-accepted-for-34200ef1d723e88623e1bc9e73a47e6535a3673c-on-2026-08-10"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
   WB-PART:
     sequence: 95
     phase: "4"
@@ -19556,7 +19615,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Let a coded text category enter association as a measurement decision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19573,11 +19632,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      - "source:chapters/06-povezanost.qmd#matrica-kodovi-i-rangovi"
+      - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      - "report:notes/reports/wb-c06-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C06-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
   R13-C08-corpus-selection:
     parents:
       - "R13"
@@ -26802,7 +26869,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 06 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26819,11 +26886,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-C06"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      - "source:chapters/06-povezanost.qmd#zadaci"
+      - "source:sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      - "report:notes/reports/wb-c06-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+      - "author_reply:C06-accepted-2026-08-10"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
   R35-REACHBACK-07:
     parents:
       - "R35"
@@ -29293,8 +29367,8 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-10"
 
   OA-C06-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WB-C06_revision_and_panel"
+    status: "done"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -29312,11 +29386,25 @@ outside_asks:
     available_evidence:
       - "packet:WB-C06"
       - "packet:C06"
+      - "commit:34200ef1d723e88623e1bc9e73a47e6535a3673c"
+      - "source:chapters/06-povezanost.qmd@sha256-4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8"
+      - "report:notes/reports/wb-c06-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-methods-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-skeptic-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-pedagogy-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-evidence-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-style-2026-08-10.md"
+      - "report:notes/reports/wb-c06-critic-structure-2026-08-10.md"
+      - "synthesis:notes/reports/wb-c06-six-critic-synthesis-2026-08-10.md"
+      - "report:notes/reports/c06-acceptance-package-2026-08-10.md"
     recommended_default: "Accept only after association/range claims, scatterplot priority, coded-text measurement, retrieval, and panel findings pass."
-    exact_reply_requested: "Reply: C06 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C06 accepted for 34200ef1d723e88623e1bc9e73a47e6535a3673c on 2026-08-10; or list exact blocking revisions tied to that commit."
     resume_condition: "C06 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-11"
+    resolution: "C06 accepted for 34200ef1d723e88623e1bc9e73a47e6535a3673c on 2026-08-10."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-11"
 
   OA-C07-ACCEPTANCE:
     status: "drafted_unsent"
