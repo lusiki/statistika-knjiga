@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WB-PART
-next_permitted_packet: WC-C07
+last_completed_packet: WC-C07
+next_permitted_packet: C07
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 91
+forward_handoffs: 93
 last_updated: "2026-08-11"
 ---
 
@@ -46,20 +46,103 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `WB-PART` |
-| Next permitted packet | `WC-C07` |
+| Last completed packet | `WC-C07` |
+| Next permitted packet | `C07` |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 180 accepted, 5 deferred with reason, 186 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 88 accepted, 99 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 89 accepted, 98 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review`; `06-povezanost` conservatively reopened to `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 39 of the 83 canonical asks remain `drafted_unsent`; 38 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05 and C06 acceptance, and the G-A4-03 brief; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
+| Future packet blocker | `H-WC-C07-WC-C08-PREREQUISITE-001`: four WC-C08 items require still-ratified `P3-ESS` at sequence 113 although WC-C08 is sequence 98. The thread amendment waives no prerequisite; WC-C08 needs a separately authorised control resolution before claim |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## WC-C07 claim
+
+- The clean claim state is commit
+  `9a4d18198b998037a4e00b28c4f52d1be7dc3b3d` on
+  `revision/comprehensive-review`. `WB-PART`, `P2-SPINE-III` and `P1A-C07`
+  are accepted, no packet was active, and `WC-C07` was the sole
+  `next_permitted_packet` before claim.
+- The complete handoff ledger contains 91 handoffs and no delivery targeting
+  `WC-C07`. There is therefore no incoming delivery to acknowledge or consume,
+  and nothing targeting another packet may be touched. In particular,
+  `H-WB-PART-001` remains pending for `P6-PANELS` and Chapter 6 remains at
+  `draft` exactly as intended.
+- The governed items are `R10-C07-degree-belief`,
+  `R29-C07-retrieval-load` and `R35-REACHBACK-07`. Each remains `ratified`
+  until the separate `C07` author gate. The accepted `P1A-C07` CLT repair is a
+  binding baseline, not a fourth item to reopen or weaken.
+- The packet owns only Chapter 7, any same-packet concept-graph or widget-source
+  reconciliation genuinely required by that chapter, its dated packet and six
+  critic reports, the synthesis, and the three workflow-control views. It does
+  not edit Chapter 8, advance the chapter ledger, claim author acceptance, or
+  start `C07`.
+- The vertical slice will preserve simulation before formalism, distinguish
+  personal confidence, model probability and repeated-frequency evidence,
+  reduce simultaneous novelty through a real midpoint retrieval pause, and add
+  one two-chapter reach-back task without assessed code production. The final
+  material hash receives all six independent read-only critics and targeted
+  HTML, approved-wrapper PDF and wrapper-built DOCX verification.
+- `scripts/check-review-workflow.R` passed immediately before claim with no
+  active packet and `WC-C07` uniquely next. It must pass again in this claimed
+  state before the first substantive edit. Push, merge, tag, archive,
+  deployment and publication remain unauthorised.
+
+## WC-C07 closeout — Chapter 7 vertical slice
+
+- `WC-C07` is accepted at Chapter 7 SHA-256
+  `900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`.
+  The complete evidence record is `notes/reports/wc-c07-2026-08-11.md`.
+- The chapter keeps simulation before formalisation, distinguishes model
+  probability, personal confidence and repeated-frequency evidence, separates
+  general multiplication from the independence shortcut, and gives
+  independence a process/design justification. The CLT bridge distinguishes
+  repeated rates from individual observations and preserves the accepted
+  `R09-C07-clt-conditions` boundary.
+- The one-arm campaign is not called an A/B test. Its analytical probability
+  is 0,19416523, the seed-709 simulation and visible receipt both give 0,1931,
+  and the prose rejects model confirmation, causal attribution and automatic
+  action. The hot-hand example distinguishes the fixed independent null from
+  form, shot difficulty, defence and selection.
+- The w07 path is feasible in HTML and print. Runtime SVG semantics, labelled
+  controls, reset, keyboard use and a live central-90-percent range pass at
+  1.280 and 390 px in both themes. The final widget and print fingerprints are
+  reconciled without changing distributional goldens.
+- `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+  `R35-REACHBACK-07` each materially pass their exact tests, but remain
+  `ratified`; Chapter 7 remains `draft` until C07. No author reading or
+  acceptance is claimed.
+- Full HTML, approved-wrapper PDF and wrapper DOCX renders exited 0. Their
+  SHA-256 values are respectively
+  `96d125731fff09274a0e3e049158ca621ecc9dd7dba0b5e27acee27e6a22431a`,
+  `d513bdb79b1ab75b8675a818ae97f168f3e77fc7601970bc9ee92af54efb8f77`
+  and `c118a25adc9754381b48f7e7f30a66c00be2dec982623129bec70419465405d7`.
+  All 37 routes pass and generated artifacts were restored.
+- Six independent read-only critics confirmed the exact hash. There is no
+  fatal or major finding. Their 20 minor and 8 useful records remain visible
+  and unmodified in the reports and synthesis rather than being repaired after
+  the panel.
+- No handoff targeted WC-C07. `H-WB-PART-001` remains pending for
+  `P6-PANELS`; Chapter 6 stays intentionally `draft` and was not edited.
+  The pre-existing Chapter 7 catalogue-description drift remains owned by
+  `H-P3-CATALOG-002` for `P5-C` and is not duplicated.
+- `A-THREAD-C07-C09-2026-08-11` records the user's five-packet amendment.
+  `H-WC-C07-THREAD-SEQUENCE-001` carries its reply and stop boundaries to C07,
+  WC-C08, C08 and WC-C09. The amendment preserves one write lock, separate
+  packet commits and every prerequisite, and it ends after WC-C09 before C09.
+- `H-WC-C07-WC-C08-PREREQUISITE-001` records a newly verified control
+  contradiction: all four governed WC-C08 items require `P3-ESS`, which remains
+  `ratified` at sequence 113. C07 may proceed, but WC-C08 must not be claimed
+  until a separately authorised resolution is recorded, even if the current
+  validator would otherwise name it next.
+- C07 is next but has not been claimed or accepted. Push, merge, tag, archive,
+  deployment and publication remain unauthorised.
 
 ## WB-C04 claim
 
@@ -4087,38 +4170,32 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `WB-PART` is accepted on Chapter 6 SHA-256
-`0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd`, that
-`R08-SPINE-04-06`, `R24-PARTII-thesis`, `R24-LADDER-PartII` and
-`R35-SELF-CHECK-II` are accepted with structured evidence, and that no write
-packet is active. Confirm that Chapters 4 and 5 remain at `coauthor_review`,
-while `06-povezanost` is conservatively at `draft` because its historical C06
-acceptance covers only the earlier source hash. Preserve `H-WB-PART-001` as a
-pending obligation of `P6-PANELS`; do not consume or repair it in Chapter 7.
+Verify that `WC-C07` is accepted on Chapter 7 SHA-256
+`900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`, that
+all six final critic reports and the synthesis confirm zero fatal and zero
+major finding, and that Chapter 7 and `R10-C07-degree-belief`,
+`R29-C07-retrieval-load` and `R35-REACHBACK-07` remain `draft`/`ratified`.
+Confirm that `R09-C07-clt-conditions` remains accepted, no packet is active and
+`C07` is the sole next-permitted packet.
 
-Then execute only `WC-C07`, the Chapter 7 vertical slice, and stop before the
-separate `C07` author gate. Claim it only if it is the sole
-`next_permitted_packet`. Verify the complete handoff ledger before work; it
-currently has no delivery targeting `WC-C07`, so touch no delivery owned by a
-different target.
+Then claim only `C07`, the author/editor acceptance gate. Own only the Chapter
+7 ledger entry, the C07 acceptance package and the three workflow-control
+views. Acknowledge but do not consume the C07 delivery in
+`H-WC-C07-THREAD-SEQUENCE-001`. Cite the final WC-C07 commit, all six reports,
+the synthesis, all 20 minor and 8 useful nonblocking records and the two
+existing catalogue descriptions already owned by `H-P3-CATALOG-002`. Do not
+edit chapter prose, data, bibliography, concepts, widgets, figures or generated
+artifacts; do not advance any item or chapter stage before the exact reply.
 
-Read Chapter 7 top to bottom, the ratified Part III contract and Chapter 7
-spine, `P1A-C07`, the shared claim/thread and assessment registries, and the
-three governed items `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
-`R35-REACHBACK-07`. Revise the complete vertical slice against its exact
-acceptance tests without taking Chapter 8 or later Part III work. Keep
-simulation before formulas, reduce simultaneous novelty, make the midpoint
-retrieval pause real, preserve the probability-to-belief boundary, and provide
-the required reach-back task without assessed code production.
+Present the bounded acceptance package and stop. The required reply is:
+`C07 accepted for <final WC-C07 commit> on 2026-08-11.` Do not substitute the
+2026-08-05 standing delegation and do not claim that the author read the
+chapter.
 
-Use checkout-local `book-style` for every prose edit and the six-critic
-`book-review` workflow on the final material Chapter 7 hash. Resolve every
-fatal and major finding before closeout; present any disposition that requires
-author authority instead of inferring it. Run the applicable deterministic
-checks and full HTML, approved-wrapper PDF and wrapper-built DOCX renders.
-Record every future-relevant effect or explicitly declare none; update the
-register, handoff ledger and dashboard together; run the workflow validator
-and its required negative fixtures; make one bounded local `WC-C07` commit;
-leave Chapter 7 and its governed items awaiting the separate `C07` decision;
-and stop. Push, merge, tag, archive and deploy remain unauthorised.
+`H-WC-C07-WC-C08-PREREQUISITE-001` is a separate pending blocker: all four
+WC-C08 items require still-ratified `P3-ESS` at sequence 113. C07 may be
+prepared and decided, but WC-C08 must not be claimed until a separately
+authorised control resolution is recorded. The five-packet thread amendment
+waives no prerequisite. Push, merge, tag, archive, deploy and publication
+remain unauthorised.
 ```

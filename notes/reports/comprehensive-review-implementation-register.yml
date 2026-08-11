@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WB-PART"
-  next_permitted_packet: "WC-C07"
+  last_completed_packet: "WC-C07"
+  next_permitted_packet: "C07"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2124,6 +2124,49 @@ decisions:
       only for the named strict chain through C06. It does not combine packets,
       authorise a second write lock, waive any gate, widen source or content
       scope, or authorise push, merge, tag, archive, deployment or publication.
+
+  A-THREAD-C07-C09-2026-08-11:
+    kind: "author_amendment"
+    status: "accepted"
+    accepted_at: "2026-08-11"
+    author: "Luka Sikic"
+    evidence: "conversation:author-amendment-WC-C07-C07-WC-C08-C08-WC-C09-2026-08-11-Luka-Sikic"
+    decision_record: "notes/reports/wc-c07-2026-08-11.md#autorski-amandman-za-ovu-nit"
+    recorded_at_packet: "WC-C07"
+    amends: "AGENTS.md#comprehensive-review-packet-workflow"
+    accepted_dispositions:
+      strict_packet_chain:
+        - "WC-C07"
+        - "C07"
+        - "WC-C08"
+        - "C08"
+        - "WC-C09"
+      packet_boundary: >-
+        Each packet remains independently claimed, evidenced,
+        handoff-disposed, closed, workflow-checked and committed before the
+        next is claimed. At most one write packet may be active and no evidence
+        or lock is carried across packet boundaries. The amended chain ends
+        after WC-C09 closeout and before the separate C09 acceptance gate.
+      acceptance_replies: >-
+        C07 and C08 each require the named author's exact dated reply tied to
+        the final chapter source commit. The 2026-08-05 standing delegation
+        cannot substitute for those replies, C09 is outside this amendment and
+        no packet may record that the author read a chapter.
+      stop_conditions: >-
+        Stop before the next packet if an exit test lacks real evidence, if a
+        fatal or unresolved major panel finding remains, or if completion would
+        require inventing a number, source, study or citation.
+      prerequisite_boundary: >-
+        This amendment changes only the one-packet stopping rule. It does not
+        waive packet or item prerequisites. In particular, the separately
+        recorded WC-C08/P3-ESS ordering conflict requires its own authorised
+        control resolution before WC-C08 may be claimed.
+    authority_boundary: >-
+      This thread-only amendment replaces the usual stop-after-one-packet rule
+      only for the named strict chain through WC-C09. It does not combine
+      packets, authorise a second write lock, waive any gate or prerequisite,
+      include C09 acceptance, widen source or content scope, or authorise push,
+      merge, tag, archive, deployment or publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -9990,7 +10033,7 @@ packets:
     sequence: 96
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WB-PART"
       - "P2-SPINE-III"
@@ -10003,14 +10046,96 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WC-C07 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-III"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#07-vjerojatnost"
+            - "report:notes/reports/g-a2b-iii-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-iii-2026-08-04.md"
+            - "packet:P1A-C07-accepted"
+            - "report:notes/reports/p1a-c07-methods-review-2026-08-03.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/07-vjerojatnost.qmd@sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+            - "result:WC_C07_REPRO_OK-toss_rows-6000-early-0.250-to-0.650-late-0.498-to-0.502-exact-0.19416523-simulated-and-receipt-0.1931-qq_rows-3600-print_rows-4000-reachback-90-over-100-90-over-585-100-over-10000"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-files-37-live_keys-44-records-44"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-nodes-47-edges-510-graph-fresh"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-generated_sets-2-rows-50300-promoted-5-snapshots-21-reconciliations-10"
+            - "check:scripts/check-widgets.py-WIDGETS_OK-count-17"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "check:style-structure-figure-manuscript-inventory-token-architecture-assessment-spine-terminology-identity-all-pass"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-full-exit-0-routes-37-C07-bytes-182204-sha256-96d125731fff09274a0e3e049158ca621ecc9dd7dba0b5e27acee27e6a22431a"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2658463-sha256-d513bdb79b1ab75b8675a818ae97f168f3e77fc7601970bc9ee92af54efb8f77"
+            - "render:DOCX-wrapper-exit-0-bytes-1515069-sha256-c118a25adc9754381b48f7e7f30a66c00be2dec982623129bec70419465405d7-media-58"
+            - "check:scripts/check-rendered-html.py-37-canonical-pages"
+            - "browser:BROWSER_SMOKE_OK-C07-widths-1280-390-themes-light-dark-keyboard-reset-live-region"
+            - "browser:W07_A11Y_OK-role-img-labelled-title-desc-live-central-range"
+            - "boundary:generated-docs-freeze-ai-export-pdf-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wc-c07-critic-methods-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-skeptic-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-pedagogy-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-evidence-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-style-2026-08-11.md"
+            - "report:notes/reports/wc-c07-critic-structure-2026-08-11.md"
+            - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+            - "panel:six-of-six-confirm-source-sha256-900c1c8e-zero-fatal-zero-major-twenty-minor-eight-useful"
+      outputs:
+        - output: "WC-C07 verified vertical-slice source and evidence bundle for: Chapter 7 vertical slice."
+          artifacts:
+            - "source:chapters/07-vjerojatnost.qmd"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json"
+            - "generated:data/concept-graph.json"
+            - "registry:data/widgets.json#w07"
+            - "report:notes/reports/wc-c07-2026-08-11.md"
+            - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+        - output: "Completion evidence is tied to the declared WC-C07 source state and bounded scope."
+          artifacts:
+            - "source:sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+            - "handoffs:no-incoming-target-WC-C07"
+            - "handoff:H-WC-C07-THREAD-SEQUENCE-001-recorded"
+            - "handoff:H-WC-C07-WC-C08-PREREQUISITE-001-recorded"
+            - "review:packet_reviews.WC-C07-all-future-effects-recorded"
+            - "boundary:Chapter-6-unchanged-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "boundary:C07-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WC-C07-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wc-c07-2026-08-11.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-conceptual-4-variants-5-registered_debt-0"
+            - "check:MANUSCRIPT_STYLE_OK-files-25"
+            - "check:WIDGET_PARITY_OK-pairs-17"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+            - "panel:zero-fatal-zero-major-twenty-nonblocking-minor-eight-useful"
+        - test: "The WC-C07 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R10-C07-degree-belief-R29-C07-retrieval-load-R35-REACHBACK-07-materially-pass-remain-ratified-until-C07"
+            - "item:R09-C07-clt-conditions-remains-accepted-and-preserved"
+            - "report:notes/reports/wc-c07-2026-08-11.md#dispozicija-upravljanih-stavki"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
   C07:
     sequence: 97
     phase: "4"

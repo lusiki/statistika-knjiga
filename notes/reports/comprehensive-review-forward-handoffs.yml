@@ -6061,6 +6061,91 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-WC-C07-THREAD-SEQUENCE-001:
+    source_packet: WC-C07
+    created_at: "2026-08-11"
+    kind: decision
+    refs:
+      - decision:A-THREAD-C07-C09-2026-08-11
+      - report:notes/reports/wc-c07-2026-08-11.md#autorski-amandman-za-ovu-nit
+      - conversation:author-amendment-WC-C07-C07-WC-C08-C08-WC-C09-2026-08-11-Luka-Sikic
+    statement: >-
+      For this thread only, the author permits the strict packet chain WC-C07,
+      C07, WC-C08, C08 and WC-C09 while preserving one active write lock and a
+      separate claim, evidence bundle, handoff disposition, workflow check,
+      closeout and commit for every packet. C07 and C08 each require a distinct
+      exact author reply tied to the final chapter source commit; the
+      2026-08-05 standing delegation cannot substitute for those replies. The
+      chain ends after WC-C09 closeout and before C09 acceptance.
+    required_action: >-
+      Each remaining target must acknowledge and consume this decision at its
+      stated gate, preserve the strict order and stop before the next packet if
+      any exit test lacks real evidence, a fatal or unresolved major finding
+      remains, or completion would require an invented number, source, study or
+      citation. No target may claim that the author read a chapter, and the
+      thread sequence waives no packet or item prerequisite.
+    basis:
+      - "decision:A-THREAD-C07-C09-2026-08-11"
+      - "report:notes/reports/wc-c07-2026-08-11.md#autorski-amandman-za-ovu-nit"
+      - "boundary:one-write-lock-separate-packet-commits-no-prerequisite-waiver-no-external-action"
+    required: true
+    deliveries:
+      - target_packet: C07
+        gate: before_close
+        state: pending
+      - target_packet: WC-C08
+        gate: before_start
+        state: pending
+      - target_packet: C08
+        gate: before_close
+        state: pending
+      - target_packet: WC-C09
+        gate: before_start
+        state: pending
+
+  H-WC-C07-WC-C08-PREREQUISITE-001:
+    source_packet: WC-C07
+    created_at: "2026-08-11"
+    kind: prerequisite
+    refs:
+      - packet:WC-C08
+      - packet:P3-ESS
+      - item:R12-C08-survey-realism
+      - item:R12-C08-weighted-table
+      - item:R13-C08-corpus-selection
+      - item:R35-REACHBACK-08
+      - decision:A-THREAD-C07-C09-2026-08-11
+      - report:notes/reports/wc-c07-2026-08-11.md#kontrolni-nalaz-preduvjeta-za-wc-c08
+    statement: >-
+      The four governed items assigned to WC-C08 each require P3-ESS, but
+      P3-ESS remains ratified at sequence 113 while WC-C08 is sequence 98 and
+      its packet-level requires list names only C07 and P1A-C08. The workflow
+      validator checks that item prerequisite identifiers exist but does not
+      prove their terminal status before allowing the owning packet. The
+      thread amendment does not waive this prerequisite or repair the ordering
+      contradiction.
+    required_action: >-
+      Before WC-C08 is claimed, record a separately authorised control
+      resolution that either completes and accepts P3-ESS before WC-C08 or
+      amends the four exact item prerequisites with source-specific evidence.
+      If neither resolution exists, do not claim WC-C08 even if the current
+      validator names it next. Do not consume this handoff merely from the
+      thread-sequence authority.
+    basis:
+      - "register:WC-C08-sequence-98-requires-C07-and-P1A-C08"
+      - "register:P3-ESS-sequence-113-status-ratified"
+      - "register:R12-C08-survey-realism-prerequisite-P3-ESS"
+      - "register:R12-C08-weighted-table-prerequisite-P3-ESS"
+      - "register:R13-C08-corpus-selection-prerequisite-P3-ESS"
+      - "register:R35-REACHBACK-08-prerequisite-P3-ESS"
+      - "audit:scripts/check-review-workflow.R-does-not-enforce-item-prerequisite-terminal-status"
+      - "boundary:A-THREAD-C07-C09-does-not-waive-prerequisites"
+    required: true
+    deliveries:
+      - target_packet: WC-C08
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -8221,3 +8306,27 @@ packet_reviews:
       - H-WB-PART-001 carries the resulting fresh-six-critic requirement to P6-PANELS and the Part-level voice and arc reviews do not substitute for it
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
       - WC-C07 is next but was not claimed or started and push merge tag archive and deployment remain unauthorised
+
+  WC-C07:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WC-C07-THREAD-SEQUENCE-001
+      - H-WC-C07-WC-C08-PREREQUISITE-001
+    implementation_state: source:sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5
+    checks:
+      - the complete 91-handoff ledger had no delivery targeting WC-C07 so no incoming handoff was acknowledged consumed or altered
+      - H-WB-PART-001 remains pending for P6-PANELS and Chapter 6 remains deliberately draft and unchanged
+      - simulation precedes formalisation and model probability personal confidence and repeated-frequency evidence remain distinct
+      - general multiplication is separated from the independence shortcut and independence is justified from process or design rather than inferred from separate units
+      - the w07 HTML path has accessible controls a labelled SVG dynamic description central-90-percent live feedback reset and a print-completable twin
+      - the campaign task is feasible in HTML and print and the visible and hidden seed-709 receipts both reproduce 0.1931 against exact 0.19416523
+      - the CLT bridge distinguishes individual observations from repeated rates and preserves R09-C07-clt-conditions
+      - the hot-hand and campaign examples separate null model compatibility causal identification and decision costs
+      - R10-C07-degree-belief R29-C07-retrieval-load and R35-REACHBACK-07 materially pass but remain ratified pending C07
+      - final full HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared source hash and generated outputs were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major twenty nonblocking minor and eight useful findings
+      - the existing Chapter-7 catalogue-description drift remains owned by H-P3-CATALOG-002 for P5-C and is not duplicated
+      - A-THREAD-C07-C09-2026-08-11 records the strict five-packet author amendment and H-WC-C07-THREAD-SEQUENCE-001 carries it to the four remaining targets
+      - H-WC-C07-WC-C08-PREREQUISITE-001 records that four WC-C08 items require still-ratified sequence-113 P3-ESS and that the thread amendment does not waive the conflict
+      - C07 is next but was not accepted no author reading or acceptance was claimed and no external action was taken
