@@ -12,7 +12,7 @@ control:
 execution:
   active_write_packet: null
   last_completed_packet: "C07"
-  next_permitted_packet: "WC-C08"
+  next_permitted_packet: "G-A3-ESS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2134,10 +2134,13 @@ decisions:
     decision_record: "notes/reports/wc-c07-2026-08-11.md#autorski-amandman-za-ovu-nit"
     recorded_at_packet: "WC-C07"
     amends: "AGENTS.md#comprehensive-review-packet-workflow"
+    amended_by: "A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
     accepted_dispositions:
       strict_packet_chain:
         - "WC-C07"
         - "C07"
+        - "G-A3-ESS"
+        - "P3-ESS"
         - "WC-C08"
         - "C08"
         - "WC-C09"
@@ -2157,15 +2160,78 @@ decisions:
         fatal or unresolved major panel finding remains, or if completion would
         require inventing a number, source, study or citation.
       prerequisite_boundary: >-
-        This amendment changes only the one-packet stopping rule. It does not
-        waive packet or item prerequisites. In particular, the separately
-        recorded WC-C08/P3-ESS ordering conflict requires its own authorised
-        control resolution before WC-C08 may be claimed.
+        This amendment changes the one-packet stopping rule and, through its
+        later Route A amendment, inserts G-A3-ESS and P3-ESS before WC-C08. It
+        waives no packet, item, evidence, ESS-selection, or rights requirement.
+        WC-C08 now requires accepted P3-ESS at packet level as well as through
+        its four unchanged item prerequisites.
     authority_boundary: >-
       This thread-only amendment replaces the usual stop-after-one-packet rule
-      only for the named strict chain through WC-C09. It does not combine
-      packets, authorise a second write lock, waive any gate or prerequisite,
-      include C09 acceptance, widen source or content scope, or authorise push,
+      only for the amended named strict chain through WC-C09. It does not
+      combine packets, authorise a second write lock, waive any gate or
+      prerequisite, include C09 acceptance, decide the separate ESS selection
+      or rights questions, widen source or content scope, or authorise push,
+      merge, tag, archive, deployment or publication.
+
+  A-WC-C08-P3-ESS-ROUTE-A-2026-08-11:
+    kind: "author_amendment"
+    status: "accepted"
+    accepted_at: "2026-08-11"
+    author: "Luka Sikic"
+    evidence: "conversation:Route-A-approved-for-H-WC-C07-WC-C08-PREREQUISITE-001-2026-08-11"
+    exact_reply: "Route A approved for H-WC-C07-WC-C08-PREREQUISITE-001 on 2026-08-11: move G-A3-ESS and P3-ESS immediately after C07 and before WC-C08, preserve the relative order of all other packets, replace G-A3-ESS prerequisite WC-PARTS with C07 while retaining P0-OUTSIDE and P3-CATALOG, add P3-ESS to WC-C08 prerequisites, retain all four WC-C08 item requirements, and preserve the separate OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS decisions."
+    decision_record: "notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md"
+    recorded_after_packet: "C07"
+    amends: "decision:A-THREAD-C07-C09-2026-08-11, notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#packet-and-work-in-progress-rule, and register packet order/dependencies"
+    accepted_dispositions:
+      strict_packet_chain:
+        - "WC-C07"
+        - "C07"
+        - "G-A3-ESS"
+        - "P3-ESS"
+        - "WC-C08"
+        - "C08"
+        - "WC-C09"
+      order_change: >-
+        Move G-A3-ESS and P3-ESS immediately after C07 and before WC-C08,
+        preserving the relative order of every other packet. Renumber only the
+        affected sequence interval; no packet is added, removed, combined, or
+        made terminal by this decision.
+      dependency_changes:
+        G-A3-ESS:
+          remove:
+            - "WC-PARTS"
+          add:
+            - "C07"
+          retain:
+            - "P0-OUTSIDE"
+            - "P3-CATALOG"
+        WC-C08:
+          add:
+            - "P3-ESS"
+          retain:
+            - "C07"
+            - "P1A-C08"
+      item_requirement_boundary: >-
+        R12-C08-survey-realism, R12-C08-weighted-table,
+        R13-C08-corpus-selection and R35-REACHBACK-08 retain P3-ESS as an exact
+        prerequisite. The control amendment satisfies no content or evidence
+        test for those items.
+      ess_decision_boundary: >-
+        OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS remain separate bounded
+        decisions under D08. This order decision neither selects an ESS
+        edition, variables, weights or consumers nor grants redistribution
+        permission. The portal-mediated route may proceed only within D08's
+        existing boundary; bundling still requires written permission.
+      handoff_disposition: >-
+        H-WC-C07-WC-C08-PREREQUISITE-001 is consumed only because the applied
+        order and dependency edges now make accepted P3-ESS mechanically
+        necessary before WC-C08. H-WC-C07-THREAD-SEQUENCE-001 is extended to
+        G-A3-ESS and P3-ESS without waiving their own gates or evidence.
+    authority_boundary: >-
+      This decision authorises only the exact register order, dependency,
+      outside-ask and handoff reconciliation stated above. It authorises no ESS
+      selection, rights inference, data retrieval, chapter edit, render, push,
       merge, tag, archive, deployment or publication.
 atomic_inventory:
   status: "complete"
@@ -3313,7 +3379,7 @@ packets:
       - "source commit or state hash"
       - "resolved blocker list"
   P3-VERIFY-C:
-    sequence: 108
+    sequence: 110
     phase: "3C"
     kind: "review_gate"
     status: "ratified"
@@ -10222,13 +10288,14 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
   WC-C08:
-    sequence: 98
+    sequence: 100
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
     requires:
       - "C07"
       - "P1A-C08"
+      - "P3-ESS"
     scope: "Chapter 8 vertical slice."
     outputs:
       - "WC-C08 verified vertical-slice source and evidence bundle for: Chapter 8 vertical slice."
@@ -10246,7 +10313,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C08:
-    sequence: 99
+    sequence: 101
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -10269,7 +10336,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   WC-C09:
-    sequence: 100
+    sequence: 102
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -10293,7 +10360,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C09:
-    sequence: 101
+    sequence: 103
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -10316,7 +10383,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   WC-C10:
-    sequence: 102
+    sequence: 104
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -10340,7 +10407,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C10:
-    sequence: 103
+    sequence: 105
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -10363,7 +10430,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   WC-C11:
-    sequence: 104
+    sequence: 106
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -10387,7 +10454,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C11:
-    sequence: 105
+    sequence: 107
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -10410,7 +10477,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   G-A4-12:
-    sequence: 106
+    sequence: 108
     phase: "3B"
     kind: "decision_gate"
     status: "ratified"
@@ -10435,7 +10502,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   P3-EVIDENCE12:
-    sequence: 107
+    sequence: 109
     phase: "3B"
     kind: "evidence_package"
     status: "ratified"
@@ -10458,7 +10525,7 @@ packets:
       - "reproducible derived values"
     change_reference: null
   WC-C12:
-    sequence: 109
+    sequence: 111
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -10481,7 +10548,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C12:
-    sequence: 110
+    sequence: 112
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -10504,7 +10571,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   WC-PARTS:
-    sequence: 111
+    sequence: 113
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -10527,12 +10594,12 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   G-A3-ESS:
-    sequence: 112
+    sequence: 98
     phase: "3B"
     kind: "decision_gate"
     status: "ratified"
     requires:
-      - "WC-PARTS"
+      - "C07"
       - "P0-OUTSIDE"
       - "P3-CATALOG"
     scope: "ESS portal/bundle lane and role."
@@ -10552,7 +10619,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   P3-ESS:
-    sequence: 113
+    sequence: 99
     phase: "3B"
     kind: "data_package"
     status: "ratified"
@@ -19299,8 +19366,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: true
-      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
+      active: false
+      ask_id: null
     change_reference: null
   R12-POLL-card:
     parents:
@@ -19408,8 +19475,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: true
-      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
+      active: false
+      ask_id: null
     change_reference: null
   R12-SCOPE-no-variance-course:
     parents:
@@ -19951,8 +20018,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: true
-      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
+      active: false
+      ask_id: null
     change_reference: null
   R13-C09-coded-uncertainty:
     parents:
@@ -27270,8 +27337,8 @@ items:
     packet: "WC-C08"
     completion_evidence: []
     blocker:
-      active: true
-      ask_id: "OA-WC-C08-P3-ESS-DEPENDENCY"
+      active: false
+      ask_id: null
     change_reference: null
   R35-REACHBACK-09:
     parents:
@@ -29170,7 +29237,7 @@ outside_asks:
 
   OA-G-A3-ESS-SELECTION:
     status: "drafted_unsent"
-    readiness: "waiting_for_catalogue_contract"
+    readiness: "ready_for_author_decision"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -29183,6 +29250,8 @@ outside_asks:
     available_evidence:
       - "decision:D08"
       - "packet:P3-ESS"
+      - "packet:P3-CATALOG-status-accepted"
+      - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
     recommended_default: "Use a portal-mediated optional replication route with a pinned recipe and licence-cleared required alternatives."
     exact_reply_requested: "Reply: ESS selection approved for [edition/variables/weights/consumers]; or list one exact change."
     resume_condition: "P3-ESS resumes after the author approves the exact portal route and curricular role."
@@ -29757,8 +29826,8 @@ outside_asks:
     resolution_evidence: "conversation:user-message-recorded-2026-08-11"
 
   OA-WC-C08-P3-ESS-DEPENDENCY:
-    status: "drafted_unsent"
-    readiness: "ready_for_author_decision"
+    status: "done"
+    readiness: "resolved"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -29774,19 +29843,25 @@ outside_asks:
     available_evidence:
       - "handoff:H-WC-C07-WC-C08-PREREQUISITE-001"
       - "decision:A-THREAD-C07-C09-2026-08-11"
-      - "packet:WC-C08-sequence-98-requires-C07-and-P1A-C08"
-      - "packet:G-A3-ESS-sequence-112-requires-WC-PARTS-P0-OUTSIDE-P3-CATALOG"
-      - "packet:P3-ESS-sequence-113-status-ratified"
+      - "pre-amendment:commit-36376c7a815d43a113aeeff4917ae11695931206-WC-C08-sequence-98-requires-C07-and-P1A-C08"
+      - "pre-amendment:commit-36376c7a815d43a113aeeff4917ae11695931206-G-A3-ESS-sequence-112-requires-WC-PARTS-P0-OUTSIDE-P3-CATALOG"
+      - "pre-amendment:commit-36376c7a815d43a113aeeff4917ae11695931206-P3-ESS-sequence-113-status-ratified"
       - "items:R12-C08-survey-realism-R12-C08-weighted-table-R13-C08-corpus-selection-R35-REACHBACK-08-require-P3-ESS"
       - "decision:D08-portal-mediated-default-no-bundling-without-written-permission"
       - "outside-ask:OA-G-A3-ESS-SELECTION"
       - "outside-ask:OA-G-A3-ESS-RIGHTS"
       - "report:notes/reports/wc-c07-2026-08-11.md#kontrolni-nalaz-preduvjeta-za-wc-c08"
+      - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
+      - "post-amendment:G-A3-ESS-98-P3-ESS-99-WC-C08-100-and-WC-C08-requires-P3-ESS"
     recommended_default: "Preserve all four WC-C08 content obligations. Move G-A3-ESS and P3-ESS immediately after C07 and before WC-C08 while preserving every other packet's relative order; replace G-A3-ESS prerequisite WC-PARTS with C07 while retaining P0-OUTSIDE and P3-CATALOG; add P3-ESS to WC-C08 prerequisites; and preserve OA-G-A3-ESS-SELECTION plus OA-G-A3-ESS-RIGHTS as separate decisions under D08."
     exact_reply_requested: "Reply: Route A approved for H-WC-C07-WC-C08-PREREQUISITE-001 on 2026-08-11: move G-A3-ESS and P3-ESS immediately after C07 and before WC-C08, preserve the relative order of all other packets, replace G-A3-ESS prerequisite WC-PARTS with C07 while retaining P0-OUTSIDE and P3-CATALOG, add P3-ESS to WC-C08 prerequisites, retain all four WC-C08 item requirements, and preserve the separate OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS decisions. Or specify Route B with the exact replacement prerequisites and evidence."
     resume_condition: "After the dated control decision is recorded, implement and validate only its exact order/dependency amendment. WC-C08 may be claimed only after G-A3-ESS and P3-ESS close under their own evidence contracts, the separate ESS selection/rights dispositions remain explicit, and H-WC-C07-WC-C08-PREREQUISITE-001 is terminal at its before_start gate."
     why_external: "The repository proves the dependency contradiction but cannot choose or authorise a change to the ratified packet order, thread amendment, item prerequisites, or Chapter 8 scope."
     external_message_sent: false
+    resolved_at: "2026-08-11"
+    resolution: "Route A approved for H-WC-C07-WC-C08-PREREQUISITE-001 on 2026-08-11: move G-A3-ESS and P3-ESS immediately after C07 and before WC-C08, preserve the relative order of all other packets, replace G-A3-ESS prerequisite WC-PARTS with C07 while retaining P0-OUTSIDE and P3-CATALOG, add P3-ESS to WC-C08 prerequisites, retain all four WC-C08 item requirements, and preserve the separate OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS decisions."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-11"
+    decision_record: "notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md"
 
   OA-C08-ACCEPTANCE:
     status: "drafted_unsent"

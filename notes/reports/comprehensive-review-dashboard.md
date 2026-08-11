@@ -5,7 +5,7 @@ baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
 last_completed_packet: C07
-next_permitted_packet: WC-C08
+next_permitted_packet: G-A3-ESS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -42,21 +42,22 @@ stop and repair the control state before editing book content.
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
+| WC-C08 prerequisite Route A | Accepted exactly: `G-A3-ESS` and `P3-ESS` moved immediately after C07; `WC-PARTS` replaced by C07 in `G-A3-ESS.requires`; `P3-ESS` added to `WC-C08.requires`; four item prerequisites and both separate ESS decisions retained; owner Luka Sikic; 2026-08-11 |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
 | Last completed packet | `C07` |
-| Next permitted packet | Register pointer: `WC-C08`; operationally blocked before claim by `H-WC-C07-WC-C08-PREREQUISITE-001`, routed through `OA-WC-C08-P3-ESS-DEPENDENCY` |
+| Next permitted packet | `G-A3-ESS`; its `H-P1B-DATA-LIC-003` and Route A thread deliveries remain `pending` at `before_start`, `H-P3-CATALOG-001` remains `pending` at `before_close`, and the packet was not claimed by this control amendment |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 183 accepted, 5 deferred with reason, 183 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 90 accepted, 97 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 12 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija` and `07-vjerojatnost` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 39 of the 84 canonical asks remain `drafted_unsent`; 39 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05, C06 and C07 acceptance, and the G-A4-03 brief; `OA-WC-C08-P3-ESS-DEPENDENCY` is the newly drafted bounded decision ask; 0 external messages sent |
+| Open outside asks | 38 of the 84 canonical asks remain `drafted_unsent`; 40 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05, C06 and C07 acceptance, the G-A4-03 brief, and the WC-C08/P3-ESS Route A decision; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
-| Future packet blocker | `H-WC-C07-WC-C08-PREREQUISITE-001`: four WC-C08 items require still-ratified `P3-ESS` at sequence 113 although WC-C08 is sequence 98. The thread amendment waives no prerequisite; `OA-WC-C08-P3-ESS-DEPENDENCY` requests the separately authorised control resolution required before claim |
+| WC-C08 prerequisite resolution | Route A is applied and `H-WC-C07-WC-C08-PREREQUISITE-001` is consumed: `G-A3-ESS` is sequence 98, `P3-ESS` sequence 99 and `WC-C08` sequence 100; `WC-C08` now requires accepted `P3-ESS`. `OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` remain separate and unresolved under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
@@ -205,17 +206,51 @@ No chapter prose was changed by `P0-OUTSIDE`.
   after that reply.
 - The existing catalogue-description debt remains owned by
   `H-P3-CATALOG-002` for `P5-C` and is not duplicated.
-  `H-WC-C07-WC-C08-PREREQUISITE-001` remains pending: C07 acceptance neither
-  consumes nor waives the unmet `P3-ESS` prerequisites of four WC-C08 items.
-  `OA-WC-C08-P3-ESS-DEPENDENCY` is `drafted_unsent` as the bounded author/editor
-  decision channel; all four affected item blockers point to it. Its
-  recommended order amendment explicitly preserves the separate
-  `OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` decisions under D08.
+  At C07 closeout, `H-WC-C07-WC-C08-PREREQUISITE-001` remained pending: C07
+  acceptance neither consumed nor waived the unmet `P3-ESS` prerequisites of
+  four WC-C08 items. `OA-WC-C08-P3-ESS-DEPENDENCY` was `drafted_unsent` as its
+  bounded author/editor decision channel. The later Route A decision is
+  recorded in the next section.
 - No chapter prose, data, bibliography, terminology, spine, concept graph,
   widget, figure, render or generated artifact changed in C07. The register
-  pointer is WC-C08, but that packet was not claimed and remains operationally
-  blocked before_start pending a separately authorised control resolution.
+  pointer at that closeout was WC-C08, but that packet was not claimed and
+  remained operationally blocked before_start pending a separately authorised
+  control resolution.
   Push, merge, tag, archive, deployment and publication remain unauthorised.
+
+## Route A control-order amendment
+
+- The author approved `A-WC-C08-P3-ESS-ROUTE-A-2026-08-11` exactly on
+  2026-08-11. The durable decision record is
+  `notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md`.
+- `G-A3-ESS` and `P3-ESS` move from sequences 112 and 113 to 98 and 99.
+  Every formerly intervening packet keeps its relative order: `WC-C08` is now
+  sequence 100 and the remaining affected interval ends with `WC-PARTS` at
+  sequence 113; `P3-VERIFY-D` remains 114.
+- `G-A3-ESS` now requires `C07`, `P0-OUTSIDE` and `P3-CATALOG`; `P3-ESS`
+  continues to require `G-A3-ESS`; `WC-C08` now requires `C07`, `P1A-C08` and
+  `P3-ESS`. All four WC-C08 item prerequisites remain unchanged.
+- `OA-WC-C08-P3-ESS-DEPENDENCY` is `done` from the exact in-thread reply and no
+  external message was sent. `H-WC-C07-WC-C08-PREREQUISITE-001` is consumed
+  only after the exact graph repair was applied; no prerequisite was waived.
+- `H-WC-C07-THREAD-SEQUENCE-001` now carries the amended chain through
+  `G-A3-ESS` and `P3-ESS`. Their deliveries remain pending at `before_start`.
+- `OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` remain separate. Route A
+  selects no ESS edition, variable, weight or consumer and grants no
+  redistribution right. D08's portal-mediated boundary remains binding.
+- There is no active write packet; `C07` remains last completed and
+  `G-A3-ESS` is the next permitted pointer. It was not claimed, and no chapter,
+  data, bibliography, shared Bookwright registry, render or generated artifact
+  was changed.
+  Its two `before_start` deliveries (`H-P1B-DATA-LIC-003` and
+  `H-WC-C07-THREAD-SEQUENCE-001`) remain pending, as does the
+  `before_close` delivery `H-P3-CATALOG-001`.
+  Push, merge, tag, archive, deployment and publication remain unauthorised.
+- The workflow validator passes with 188 packets and 93 handoffs. All three
+  required negative fixtures fail closed with exit 1. A separate sequence
+  audit proves 188 unique values, all sixteen intended moves and preserved
+  relative order for every other packet; the ask inventory reconciles to
+  40 `done`, 38 `drafted_unsent` and 6 `withdrawn_with_reason`.
 
 ## WB-C04 claim
 
@@ -4243,32 +4278,30 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify the accepted C07 closeout on final source commit
-`c6c7078b918a3b017b5807d51b68c83ae2d7bc2f` and Chapter 7 SHA-256
-`900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`.
-Confirm that `07-vjerojatnost` is `coauthor_review`, exactly
-`R10-C07-degree-belief`, `R29-C07-retrieval-load` and
-`R35-REACHBACK-07` advanced to `accepted`, `R09-C07-clt-conditions` remains
-accepted, and `06-povezanost` remains unchanged at `draft`. Confirm that there
-is no active write packet, `C07` is last completed and the register pointer is
-`WC-C08`.
+Verify the accepted Route A decision in
+`notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md`. Confirm that the
+register has no active write packet, `C07` is last completed and `G-A3-ESS` is
+the sole next permitted packet. Verify the exact order `C07` 97, `G-A3-ESS` 98,
+`P3-ESS` 99 and `WC-C08` 100; the exact dependency edges; the four unchanged
+WC-C08 item prerequisites; `OA-WC-C08-P3-ESS-DEPENDENCY` done; and
+`H-WC-C07-WC-C08-PREREQUISITE-001` consumed without a waiver.
 
-Do not claim `WC-C08` and do not edit Chapter 8. Verify that
-`H-WC-C07-WC-C08-PREREQUISITE-001` is still pending at its `before_start` gate:
-all four governed WC-C08 items require still-ratified `P3-ESS` at sequence 113.
-Verify that their active blockers point to the bounded, unsent outside ask
-`OA-WC-C08-P3-ESS-DEPENDENCY`. The five-packet thread amendment waives no
-prerequisite.
+Execute `G-A3-ESS` only. In its bounded claim update, consume both pending
+`before_start` deliveries, `H-P1B-DATA-LIC-003` and
+`H-WC-C07-THREAD-SEQUENCE-001`, and acknowledge `H-P3-CATALOG-001` at its
+`before_close` gate before establishing the one-packet write lock. Rerun
+`scripts/check-review-workflow.R` before the first substantive edit. Read all
+three dispositions plus the existing
+`OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` records. Prepare the bounded
+ESS portal/bundle-lane and chapter-role decision with exact evidence,
+recommended default, alternatives, blocked dependencies and exact reply.
+Stop for the author's exact ESS selection/role decision before closing the
+gate. Rights-owner evidence is additionally required only if bundling is
+selected; otherwise keep the rights ask open and bundling prohibited under D08.
 
-Present that one bounded author/editor decision and stop. The recommended exact
-reply is:
-`Route A approved for H-WC-C07-WC-C08-PREREQUISITE-001 on 2026-08-11: move
-G-A3-ESS and P3-ESS immediately after C07 and before WC-C08, preserve the
-relative order of all other packets, replace G-A3-ESS prerequisite WC-PARTS
-with C07 while retaining P0-OUTSIDE and P3-CATALOG, add P3-ESS to WC-C08
-prerequisites, retain all four WC-C08 item requirements, and preserve the
-separate OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS decisions.`
-Alternatively, the author/editor may specify Route B with the exact replacement
-prerequisites and evidence. Do not mutate control state before that decision.
-Push, merge, tag, archive, deploy and publication remain unauthorised.
+Do not claim `P3-ESS`, retrieve ESS data, select variables by inference, infer
+redistribution permission, edit a chapter, or send an external rights request.
+D08 remains binding: portal-mediated work may proceed within its boundary, but
+no microdata may be bundled without written permission. Push, merge, tag,
+archive, deploy and publication remain unauthorised.
 ```

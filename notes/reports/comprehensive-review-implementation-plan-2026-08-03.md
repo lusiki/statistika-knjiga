@@ -5,7 +5,7 @@
 **Plan date:** 3 August 2026
 
 **Status:** ratified at Gate A0 on 3 August 2026, amended by the author on
-5 August 2026
+5 August and 11 August 2026
 
 > **Author amendment, 5 August 2026 — the reader route.** The five-reader
 > think-aloud pilot in Batch 3C is **removed from the first edition**, and the
@@ -33,6 +33,21 @@
 > `notes/reports/author-amendment-reader-route-2026-08-05.md`. Where this
 > amendment and the text below disagree, the amendment governs; the original
 > text is left standing as the historical plan.
+
+> **Author amendment, 11 August 2026 — Route A for the WC-C08/P3-ESS
+> prerequisite.** `G-A3-ESS` and `P3-ESS` move immediately after C07 and before
+> `WC-C08`; every other packet keeps its relative order. `G-A3-ESS` replaces
+> `WC-PARTS` with C07 while retaining `P0-OUTSIDE` and `P3-CATALOG`, and
+> `WC-C08` adds `P3-ESS` to its prerequisites. The four governed WC-C08 item
+> prerequisites remain unchanged. `OA-G-A3-ESS-SELECTION` and
+> `OA-G-A3-ESS-RIGHTS` remain separate under D08: exact selection/role is
+> required before `P3-ESS`, while rights-owner evidence is additionally
+> required only if bundling is selected; otherwise the rights ask remains open
+> and bundling prohibited.
+>
+> The durable record is
+> `notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md`. Where this
+> amendment and the historical order below disagree, this amendment governs.
 
 **Primary requirements source:** `comprehensive-book-review-2026-07-31.md`
 
@@ -1248,6 +1263,14 @@ explicitly permits a harmless parallel read-only audit.
 | 19 | `G-A6`, `P8-META`, `P8-TAG`, `P8-ARCHIVE`, `P8-DEPLOY`, `P8-SMOKE` | Citable tagged/archive/deployed edition and final dashboard/register snapshot. | Author explicitly authorises each external action. |
 
 Use these exact prompt forms.
+
+Author amendment `A-WC-C08-P3-ESS-ROUTE-A-2026-08-11` moves `G-A3-ESS` and
+`P3-ESS` immediately after C07 while preserving every other packet's relative
+order. `G-A3-ESS` requires `C07`, `P0-OUTSIDE` and `P3-CATALOG`; `WC-C08`
+additionally requires `P3-ESS`. The four WC-C08 item prerequisites and the
+separate `OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` decisions remain
+unchanged; the amendment neither selects ESS data nor grants redistribution
+permission.
 
 - Decision gate: `Prepare <gate ID> only. Show the evidence, recommended
   default, alternatives, what it blocks, and the exact reply needed. Do not edit.`

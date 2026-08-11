@@ -6067,27 +6067,36 @@ handoffs:
     kind: decision
     refs:
       - decision:A-THREAD-C07-C09-2026-08-11
+      - decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11
       - report:notes/reports/wc-c07-2026-08-11.md#autorski-amandman-za-ovu-nit
+      - report:notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md
       - conversation:author-amendment-WC-C07-C07-WC-C08-C08-WC-C09-2026-08-11-Luka-Sikic
+      - conversation:Route-A-approved-for-H-WC-C07-WC-C08-PREREQUISITE-001-2026-08-11
     statement: >-
       For this thread only, the author permits the strict packet chain WC-C07,
-      C07, WC-C08, C08 and WC-C09 while preserving one active write lock and a
-      separate claim, evidence bundle, handoff disposition, workflow check,
-      closeout and commit for every packet. C07 and C08 each require a distinct
-      exact author reply tied to the final chapter source commit; the
-      2026-08-05 standing delegation cannot substitute for those replies. The
-      chain ends after WC-C09 closeout and before C09 acceptance.
+      C07, G-A3-ESS, P3-ESS, WC-C08, C08 and WC-C09 while preserving one
+      active write lock and a separate claim, evidence bundle, handoff
+      disposition, workflow check, closeout and commit for every packet. C07
+      and C08 each require a distinct exact author reply tied to the final
+      chapter source commit; the 2026-08-05 standing delegation cannot
+      substitute for those replies. G-A3-ESS and P3-ESS retain their own
+      decision and data-package contracts. The chain ends after WC-C09
+      closeout and before C09 acceptance.
     required_action: >-
       Each remaining target must acknowledge and consume this decision at its
       stated gate, preserve the strict order and stop before the next packet if
       any exit test lacks real evidence, a fatal or unresolved major finding
       remains, or completion would require an invented number, source, study or
       citation. No target may claim that the author read a chapter, and the
-      thread sequence waives no packet or item prerequisite.
+      thread sequence waives no packet or item prerequisite. G-A3-ESS and
+      P3-ESS must preserve the separate OA-G-A3-ESS-SELECTION and
+      OA-G-A3-ESS-RIGHTS decisions under D08.
     basis:
       - "decision:A-THREAD-C07-C09-2026-08-11"
+      - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
       - "report:notes/reports/wc-c07-2026-08-11.md#autorski-amandman-za-ovu-nit"
-      - "boundary:one-write-lock-separate-packet-commits-no-prerequisite-waiver-no-external-action"
+      - "report:notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md"
+      - "boundary:one-write-lock-separate-packet-commits-separate-ESS-decisions-no-prerequisite-waiver-no-external-action"
     required: true
     deliveries:
       - target_packet: C07
@@ -6102,15 +6111,22 @@ handoffs:
           only R10-C07-degree-belief, R29-C07-retrieval-load and
           R35-REACHBACK-07, retained all twenty minor and eight useful panel
           records, claimed no author reading, made one bounded local closeout
-          commit and left WC-C08 unstarted. The separate P3-ESS prerequisite
-          handoff remains pending and is not waived by this acceptance.
+          commit and left WC-C08 unstarted. C07 neither waived nor consumed the
+          separate P3-ESS prerequisite handoff; its later Route A resolution is
+          recorded on that handoff's own delivery.
         evidence:
           - "decision:A-THREAD-C07-C09-2026-08-11"
           - "author_reply:C07-accepted-for-c6c7078b918a3b017b5807d51b68c83ae2d7bc2f-on-2026-08-11"
           - "report:notes/reports/c07-acceptance-package-2026-08-11.md#tocan-odgovor-autora"
           - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost-stage-coauthor_review"
-          - "boundary:H-WC-C07-WC-C08-PREREQUISITE-001-remains-pending"
+          - "boundary:H-WC-C07-WC-C08-PREREQUISITE-001-not-consumed-by-C07"
           - "boundary:WC-C08-not-started-in-C07"
+      - target_packet: G-A3-ESS
+        gate: before_start
+        state: pending
+      - target_packet: P3-ESS
+        gate: before_start
+        state: pending
       - target_packet: WC-C08
         gate: before_start
         state: pending
@@ -6133,45 +6149,62 @@ handoffs:
       - item:R13-C08-corpus-selection
       - item:R35-REACHBACK-08
       - decision:A-THREAD-C07-C09-2026-08-11
+      - decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11
       - decision:D08
       - outside-ask:OA-G-A3-ESS-SELECTION
       - outside-ask:OA-G-A3-ESS-RIGHTS
       - report:notes/reports/wc-c07-2026-08-11.md#kontrolni-nalaz-preduvjeta-za-wc-c08
+      - report:notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md
+      - conversation:Route-A-approved-for-H-WC-C07-WC-C08-PREREQUISITE-001-2026-08-11
       - notes/reports/comprehensive-review-implementation-register.yml#OA-WC-C08-P3-ESS-DEPENDENCY
     statement: >-
-      The four governed items assigned to WC-C08 each require P3-ESS, but
-      P3-ESS remains ratified at sequence 113 while WC-C08 is sequence 98 and
-      its packet-level requires list names only C07 and P1A-C08. The workflow
-      validator checks that item prerequisite identifiers exist but does not
-      prove their terminal status before allowing the owning packet. The
-      thread amendment does not waive this prerequisite or repair the ordering
-      contradiction.
+      At WC-C07 closeout the four governed items assigned to WC-C08 each
+      required P3-ESS, but P3-ESS was ratified at sequence 113 while WC-C08 was
+      sequence 98 and its packet-level requires list named only C07 and
+      P1A-C08. Route A moves G-A3-ESS and P3-ESS to sequences 98 and 99, moves
+      WC-C08 to sequence 100, and adds P3-ESS to the WC-C08 packet
+      prerequisites. The four item prerequisites remain unchanged, so the
+      applied graph now fails closed before WC-C08 without waiving any content,
+      evidence, selection, or rights requirement.
     required_action: >-
-      Before WC-C08 is claimed, record a separately authorised control
-      resolution that either completes and accepts P3-ESS before WC-C08 or
-      amends the four exact item prerequisites with source-specific evidence.
-      Any order amendment must preserve the separately bounded ESS selection
-      and rights decisions rather than treating the order decision as their
-      substantive disposition.
-      If neither resolution exists, do not claim WC-C08 even if the current
-      validator names it next. Do not consume this handoff merely from the
-      thread-sequence authority.
+      Preserve the applied Route A edges: G-A3-ESS requires C07, P0-OUTSIDE and
+      P3-CATALOG; P3-ESS requires G-A3-ESS; WC-C08 requires C07, P1A-C08 and
+      accepted P3-ESS. Do not claim WC-C08 before P3-ESS closes, and do not
+      treat this order amendment as the substantive disposition of
+      OA-G-A3-ESS-SELECTION or OA-G-A3-ESS-RIGHTS.
     basis:
-      - "register:WC-C08-sequence-98-requires-C07-and-P1A-C08"
-      - "register:P3-ESS-sequence-113-status-ratified"
+      - "register:G-A3-ESS-sequence-98-requires-C07-P0-OUTSIDE-P3-CATALOG"
+      - "register:P3-ESS-sequence-99-requires-G-A3-ESS"
+      - "register:WC-C08-sequence-100-requires-C07-P1A-C08-P3-ESS"
       - "register:R12-C08-survey-realism-prerequisite-P3-ESS"
       - "register:R12-C08-weighted-table-prerequisite-P3-ESS"
       - "register:R13-C08-corpus-selection-prerequisite-P3-ESS"
       - "register:R35-REACHBACK-08-prerequisite-P3-ESS"
-      - "audit:scripts/check-review-workflow.R-does-not-enforce-item-prerequisite-terminal-status"
-      - "boundary:A-THREAD-C07-C09-does-not-waive-prerequisites"
+      - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
+      - "boundary:Route-A-does-not-waive-prerequisites"
       - "boundary:D08-keeps-ESS-portal-mediated-and-bundling-rights-separate"
-      - "outside-ask:OA-WC-C08-P3-ESS-DEPENDENCY-drafted_unsent"
+      - "outside-ask:OA-WC-C08-P3-ESS-DEPENDENCY-done"
     required: true
     deliveries:
       - target_packet: WC-C08
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          The named author approved Route A exactly. The register now places
+          G-A3-ESS and P3-ESS before WC-C08, replaces the late WC-PARTS edge on
+          G-A3-ESS with C07 while retaining P0-OUTSIDE and P3-CATALOG, and adds
+          P3-ESS to WC-C08 requires. The four item prerequisites are retained;
+          the separate ESS selection and rights decisions remain open. WC-C08
+          was not claimed.
+        evidence:
+          - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
+          - "author_reply:Route-A-approved-for-H-WC-C07-WC-C08-PREREQUISITE-001-2026-08-11"
+          - "report:notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md"
+          - "register:G-A3-ESS-98-P3-ESS-99-WC-C08-100"
+          - "register:WC-C08-requires-P3-ESS"
+          - "boundary:OA-G-A3-ESS-SELECTION-and-OA-G-A3-ESS-RIGHTS-remain-separate"
 
 packet_reviews:
   G-A0:
@@ -8354,8 +8387,8 @@ packet_reviews:
       - final full HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared source hash and generated outputs were restored
       - six independent read-only critics confirmed the exact final hash with zero fatal zero major twenty nonblocking minor and eight useful findings
       - the existing Chapter-7 catalogue-description drift remains owned by H-P3-CATALOG-002 for P5-C and is not duplicated
-      - A-THREAD-C07-C09-2026-08-11 records the strict five-packet author amendment and H-WC-C07-THREAD-SEQUENCE-001 carries it to the four remaining targets
-      - H-WC-C07-WC-C08-PREREQUISITE-001 records that four WC-C08 items require still-ratified sequence-113 P3-ESS and that the thread amendment does not waive the conflict
+      - A-THREAD-C07-C09-2026-08-11 originally recorded the strict five-packet author amendment; A-WC-C08-P3-ESS-ROUTE-A-2026-08-11 later inserted G-A3-ESS and P3-ESS and the same handoff now carries the amended chain to six remaining targets after WC-C07
+      - H-WC-C07-WC-C08-PREREQUISITE-001 recorded the sequence-113 P3-ESS conflict at WC-C07 closeout and its later consumed delivery records the exact fail-closed Route A repair without waiving any requirement
       - C07 is next but was not accepted no author reading or acceptance was claimed and no external action was taken
 
   C07:
@@ -8363,14 +8396,14 @@ packet_reviews:
     declaration: all_future_effects_recorded
     outgoing: []
     no_outgoing_handoff_reason: >-
-      C07 found no new future-relevant effect. The author accepted the
+      C07 found no new future-relevant effect at its closeout. The author accepted the
       synthesised disposition with all twenty minor and eight useful findings
       visible. The catalogue-description debt remains owned by
-      H-P3-CATALOG-002 for P5-C, and the unresolved WC-C08 versus P3-ESS
-      prerequisite conflict remains canonically owned by
-      H-WC-C07-WC-C08-PREREQUISITE-001 and is routed through the bounded
-      outside ask OA-WC-C08-P3-ESS-DEPENDENCY. A new handoff would duplicate
-      an existing obligation.
+      H-P3-CATALOG-002 for P5-C. At C07 closeout, the unresolved WC-C08 versus
+      P3-ESS prerequisite conflict was canonically owned by
+      H-WC-C07-WC-C08-PREREQUISITE-001 and routed through the bounded outside
+      ask OA-WC-C08-P3-ESS-DEPENDENCY; its later Route A disposition therefore
+      required no new handoff.
     implementation_state: commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f
     checks:
       - the author reply is recorded exactly as C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11
@@ -8382,9 +8415,9 @@ packet_reviews:
       - only R10-C07-degree-belief R29-C07-retrieval-load and R35-REACHBACK-07 are accepted while R09-C07-clt-conditions remains unchanged and accepted
       - OA-C07-ACCEPTANCE is done from the exact in-thread reply and no external message was sent
       - H-WC-C07-THREAD-SEQUENCE-001 is consumed for C07 only after the exact reply
-      - H-WC-C07-WC-C08-PREREQUISITE-001 remains pending and C07 acceptance neither consumes nor waives it
-      - OA-WC-C08-P3-ESS-DEPENDENCY is drafted unsent as the bounded resolution channel for the existing prerequisite conflict
+      - H-WC-C07-WC-C08-PREREQUISITE-001 was left pending by C07 and C07 acceptance neither consumed nor waived it; its later Route A delivery is recorded separately
+      - OA-WC-C08-P3-ESS-DEPENDENCY was drafted unsent at C07 closeout as the bounded resolution channel and was later completed by the exact Route A reply
       - scripts/check-chapter-spines.py passes with twelve draft and seven coauthor_review units
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C07
-      - WC-C08 is the register pointer but remains operationally blocked before_start and was not claimed in C07; push merge tag archive and deployment remain unauthorised
+      - WC-C08 was the register pointer but remained operationally blocked before_start and was not claimed in C07; the later Route A amendment moved G-A3-ESS ahead of it and push merge tag archive and deployment remain unauthorised
