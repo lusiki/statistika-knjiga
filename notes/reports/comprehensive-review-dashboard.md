@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-ESS
-next_permitted_packet: WC-C08
+last_completed_packet: WC-C08
+next_permitted_packet: C08
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -48,11 +48,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-ESS` |
-| Next permitted packet | `WC-C08`; it must consume `H-P3-ESS-001`, keep ESS optional and build the mandatory weighted table from the separate synthetic finite population |
+| Last completed packet | `WC-C08`; Chapter 8 source SHA-256 `9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04` |
+| Next permitted packet | `C08`, but it must not be claimed without the distinct exact author reply tied to the WC-C08 commit |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 185 accepted, 5 deferred with reason, 181 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 92 accepted, 95 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 93 accepted, 94 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 12 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija` and `07-vjerojatnost` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -4322,6 +4322,61 @@ the durable evidence is
   only next-permitted packet and was not started. Push, merge, tag, archive and
   deployment remain unauthorised.
 
+## WC-C08 closeout — Chapter 8 vertical slice
+
+- `WC-C08` is accepted at Chapter 8 SHA-256
+  `9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04`.
+  The complete evidence record is `notes/reports/wc-c08-2026-08-11.md`.
+- The central repeated-SRS simulation remains intact and precedes
+  formalisation. The corrected sample-size relation states that ten times
+  larger `n` reduces standard error by `sqrt(10)` and halving it requires four
+  times larger `n`.
+- The mandatory weighted table is a separately labelled synthetic finite
+  population of 16 units. Its six observed rows reproduce `3/6 = 50,0 %`
+  without weights and `6/16 = 37,5 %` with inverse-inclusion weights; the text
+  keeps 37,5 % as an estimate and denies that weights remove sampling error or
+  all selection and measurement problems.
+- Survey realism covers coverage, unequal inclusion, weights, calibration,
+  nonresponse, self-selection, clustering, design effect and effective sample
+  size. No task derives a variance formula or claims that the future Appendix
+  D recovery route already exists.
+- Corpus selection explicitly names speech, platform, date, language, speaker,
+  unit, denominator and coverage. Population generalisation remains distinct
+  from train/validation/test separation. The Chapter 3 reach-back separates
+  coverage, nonresponse and sampling variability without inventing missing
+  poll evidence.
+- ESS remains optional, portal-mediated and unpromoted: Round 11 edition 3.0,
+  `cntry == HR`, `vote`, analysis-specific valid-response denominators and
+  default `anweight`, with a self-report warning and no local empirical result.
+  `OA-G-A3-ESS-RIGHTS` remains open and bundling remains prohibited.
+- Canonical `težina uzorkovanja`, `procjena s težinama` and `procjena bez
+  težina` replace the two WC-C08 divergences. Only their two registry records
+  were removed; the terminology check passes with five later divergences. The
+  concept graph is regenerated and passes fresh at 47 nodes and 511 edges.
+- Targeted HTML, approved-wrapper PDF and wrapper DOCX exited 0 at the final
+  hash. Their SHA-256 values are respectively
+  `39fd71b04beda68c26972258144377705e9cb18fc1ee7f97c14f17a3bf2eb1ca`,
+  `dea7292681fa1d97146237bc1de82a630a592189fd54a8e1f58c6ff47cf549d3`
+  and `1f50252ee6d2a2adae231bac873e0729b626807c8446958fed6d1975c1e2a5ef`.
+  Generated outputs were restored.
+- Six independent read-only critics confirmed the exact hash after all
+  prefinal blockers were resolved. The final panel records zero fatal, zero
+  major, 17 nonblocking minor and zero useful findings; none was silently
+  edited after the panel.
+- `H-P3-ESS-001` was consumed before start. `H-P0-REGISTER-008`,
+  `H-G-A2C-002`, `H-P2-TERMS-003` and `H-P2-DOCS-001` are consumed at
+  closeout with exact dispositions. No delivery for another packet was used.
+- No new outgoing handoff is created: the reader-facing ESS catalogue debt is
+  already `H-P3-CATALOG-002` for `P5-C`, the rights boundary already has
+  `OA-G-A3-ESS-RIGHTS`, and later consumer boundaries already have
+  `H-P3-ESS-001`.
+- `R12-C08-survey-realism`, `R12-C08-weighted-table`,
+  `R13-C08-corpus-selection` and `R35-REACHBACK-08` materially pass but remain
+  `ratified`; Chapter 8 remains `draft`. Chapter 6 is unchanged and `draft`.
+  C08 is next but has not been claimed or accepted, and no author reading is
+  claimed. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4348,42 +4403,40 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `P3-ESS` is accepted at sequence 99 from source state
-`portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675`,
-no packet is active and `WC-C08` is the sole next permitted packet at sequence
-100. Read `notes/reports/p3-ess-2026-08-11.md` and
-`data/ess_r11_hr/PUTOVNICA.md` in full. Preserve the portal-mediated,
-unpromoted, optional route, empty files and null local checksum, the exact
-edition/subset/variables/weights/consumers, the open rights ask and the separate
-synthetic mandatory Chapter 8 path.
+Verify that `WC-C08` is accepted at sequence 100 from Chapter 8 source state
+`source:sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04`,
+no packet is active and `C08` is the sole next permitted packet at sequence
+101. Verify that the current HEAD is the bounded WC-C08 closeout commit and
+contains the chapter, all six final critic reports, the synthesis and
+`notes/reports/wc-c08-2026-08-11.md`. Do not infer author acceptance from the
+panel or from the standing 5 August delegation.
 
-Before book-content work, fully read `notes/struktura-knjige.md`, `STYLE.md`
-and `ENRICHMENT.md`. Use checkout-local Bookwright `book-review` for the full
-six-critic panel and `book-style` for every prose edit; read both instructions
-completely before acting. Inspect every incoming WC-C08 handoff and consume or
-acknowledge each at its stated gate, including `H-P3-ESS-001`, before the first
-substantive edit. Rerun `scripts/check-review-workflow.R` at claim and closeout.
+If the author has not supplied this exact dated reply, stop and request it
+using the full current WC-C08 commit:
 
-Execute `WC-C08` only. Preserve the central repeated-SRS simulation and the
-ratified Chapter 8 spine while delivering the four assigned items: survey
-realism, one fully reproducible synthetic weighted/unweighted table, corpus
-selection as a sampling question and a reach-back exercise. The mandatory
-weighted table and offline task must use a separately labelled synthetic
-finite population with known inclusion probabilities, observed responses and
-inverse-probability weights. Do not use ESS microdata, invent an ESS number,
-invent a weight for existing generated data or make portal access mandatory.
-Keep the optional ESS vote/anweight route within `H-P3-ESS-001` and preserve
-analysis-specific denominators, self-report and weighting limits.
+`C08 accepted for <full WC-C08 commit> on 2026-08-11.`
 
-Run the applicable deterministic, data, style, figure and targeted HTML/PDF/
-DOCX checks. Dispatch six independent read-only critics for methods,
-skepticism, pedagogy, evidence, Croatian style and structure against the final
-source state; wait for all six and synthesize agreement and disagreement.
-Resolve fatal and major findings before presenting the coauthor-review package.
-Record every future effect in the handoff ledger, update the register, dashboard
-and chapter ledger/shared registries only where the packet actually authorises,
-and make one bounded local WC-C08 commit. Then stop and ask for the exact C08
-author reply tied to that commit; do not claim C08 or WC-C09 without it. No
-network retrieval, external rights request, push, merge, tag, archive, deploy
-or publication is authorised.
+Alternatively the author may list exact blocking revisions tied to that same
+commit. Do not claim C08, edit the chapter ledger or accept the four Chapter 8
+items without one of those two dispositions.
+
+After the exact acceptance reply, execute `C08` only. Read the checkout-local
+book-conductor instructions, claim the gate under one write lock and consume
+the C08 delivery of `H-WC-C07-THREAD-SEQUENCE-001`. Record the exact reply,
+the final WC-C08 commit, all six reports, the synthesis and the ledger
+disposition in a bounded C08 acceptance package. Advance only Chapter 8 from
+`draft` to `coauthor_review` without claiming that the author read it or that
+it is final; accept only `R12-C08-survey-realism`,
+`R12-C08-weighted-table`, `R13-C08-corpus-selection` and
+`R35-REACHBACK-08`. Preserve ESS as portal-mediated, optional and unpromoted,
+leave `OA-G-A3-ESS-RIGHTS` open and bundling prohibited, and leave Chapter 6
+unchanged and draft.
+
+Update the register, handoff ledger and dashboard together, run
+`scripts/check-review-workflow.R` plus its three required closeout fixtures,
+make one bounded local C08 commit, then continue no farther without first
+reconstructing the new canonical pointer. No chapter prose, data, bibliography,
+terminology, concept, widget, render, network retrieval, external rights
+request, push, merge, tag, archive, deployment or publication is authorised by
+C08.
 ```

@@ -557,7 +557,20 @@ handoffs:
     deliveries:
       - target_packet: WC-C08
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          WC-C08 closes the Chapter 3 sampling debt with a survey-reading card
+          and a reach-back exercise. The task marks known and unknown fields
+          and requires separate judgments about coverage, nonresponse and
+          sampling variability; it invents no missing poll datum and does not
+          replace the distinct interval debt assigned to WC-C09.
+        evidence:
+          - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+          - "item:R12-C08-survey-realism-materially-passes-pending-C08"
+          - "item:R35-REACHBACK-08-materially-passes-pending-C08"
+          - "report:notes/reports/wc-c08-2026-08-11.md#dolazni-handoffovi"
       - target_packet: WC-C09
         gate: before_close
         state: pending
@@ -3691,7 +3704,19 @@ handoffs:
           - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-7"
       - target_packet: WC-C08
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          WC-C08 writes the canonical forms tezina uzorkovanja, procjena s
+          tezinama and procjena bez tezina throughout Chapter 8, including the
+          terms block. It changes no later chapter and leaves the deliberate
+          Chapter 2 data-breach use untouched.
+        evidence:
+          - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+          - "decision:G-A2c"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.live_divergences-5"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-5"
       - target_packet: WD-C16
         gate: before_close
         state: pending
@@ -3913,7 +3938,19 @@ handoffs:
           - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-7"
       - target_packet: WC-C08
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          After Chapter 8 repairs both owned terminology families, WC-C08
+          removes only their two matching live-divergence records. The five
+          entries owned by WD-C16 and WD-C17 remain, the Chapter 2 exclusion is
+          unchanged and the bidirectional terminology assertion passes.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.live_divergences-5"
+          - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-5"
+          - "boundary:only-WC-C08-owned-divergences-removed"
       - target_packet: WD-C16
         gate: before_close
         state: pending
@@ -4012,7 +4049,21 @@ handoffs:
     deliveries:
       - target_packet: WC-C08
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          WC-C08 keeps design effect and effective sample size as explicit
+          literacy-level limits, tells readers that clustered and unequal-
+          weight designs can reduce precision and requires a design-aware
+          uncertainty procedure. No task derives a variance formula and the
+          chapter makes no claim that the still-partial Appendix D already
+          provides the future recovery route.
+        evidence:
+          - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+          - "report:notes/reports/wc-c08-critic-methods-2026-08-11.md"
+          - "report:notes/reports/wc-c08-2026-08-11.md#terminologija-i-ogranicenja-metode"
+          - "boundary:no-variance-formula-no-premature-Appendix-D-route"
       - target_packet: WD-C16
         gate: before_close
         state: pending
@@ -6203,7 +6254,23 @@ handoffs:
           - "boundary:one-write-lock-P3-ESS-only-no-data-no-chapter-edit"
       - target_packet: WC-C08
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          WC-C08 consumes the strict sequence before claim. P3-ESS is accepted
+          and committed at a72c306ee5cd522d93cfde3d2562828671a3efdd,
+          WC-C08 is the sole next packet and the work will remain one bounded
+          Chapter 8 vertical slice. The packet must run a fresh six-critic
+          panel, close with its own source-state evidence and commit, then stop
+          for the distinct exact C08 author reply. It may not claim C08 or
+          WC-C09, claim that the author read the chapter or broaden authority
+          to any external action.
+        evidence:
+          - "decision:A-THREAD-C07-C09-2026-08-11"
+          - "commit:P3-ESS-closeout-a72c306ee5cd522d93cfde3d2562828671a3efdd"
+          - "register:WC-C08-sequence-100-next-permitted"
+          - "boundary:one-write-lock-WC-C08-only-and-separate-C08-reply"
       - target_packet: C08
         gate: before_close
         state: pending
@@ -6325,7 +6392,26 @@ handoffs:
     deliveries:
       - target_packet: WC-C08
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          WC-C08 consumes the implemented ESS boundary before claim. The
+          chapter may describe ESS Round 11 edition 3.0 only as an optional
+          reader-owned portal replication with analysis-specific denominators
+          and anweight as default, and may use no ESS number or local bytes.
+          Its mandatory weighted comparison and offline task will instead use
+          a separately labelled synthetic finite population with known
+          inclusion probabilities, observed responses and inverse-probability
+          weights. OA-G-A3-ESS-RIGHTS stays open and bundling remains
+          prohibited.
+        evidence:
+          - "commit:P3-ESS-closeout-a72c306ee5cd522d93cfde3d2562828671a3efdd"
+          - "report:notes/reports/p3-ess-2026-08-11.md"
+          - "passport:data/ess_r11_hr/PUTOVNICA.md"
+          - "registry:data/katalog.yml#ess_r11_hr"
+          - "check:scripts/check-ess-portal.py-ESS_PORTAL_OK"
+          - "boundary:synthetic-mandatory-table-ESS-optional-no-data-no-bundling"
       - target_packet: WD-C13
         gate: before_start
         state: pending
@@ -8598,3 +8684,36 @@ packet_reviews:
       - H-P3-ESS-001 routes every future effect to exactly the five approved consumers before their substantive work
       - no chapter appendix bibliography Bookwright shared registry concept widget render docs freeze or generated artifact changed
       - WC-C08 is next but was not claimed inside P3-ESS and push merge tag archive deployment and publication remain unauthorised
+
+  WC-C08:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WC-C08 found no new future-relevant effect. Reader-facing exposure of the
+      optional ESS passport is already owned by H-P3-CATALOG-002 for P5-C;
+      OA-G-A3-ESS-RIGHTS already owns the open rights question and bundling
+      prohibition; H-P3-ESS-001 already routes the portal boundary to the four
+      later approved chapter consumers. Duplicating any of those records would
+      create two owners for one obligation.
+    implementation_state: source:sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04
+    checks:
+      - H-P3-ESS-001 was consumed before the first substantive edit and preserved the optional portal route separate from the mandatory synthetic table
+      - H-P0-REGISTER-008 H-G-A2C-002 H-P2-TERMS-003 and H-P2-DOCS-001 were acknowledged before work and consumed before closeout with exact dispositions and evidence
+      - nothing targeting another packet was consumed and H-WB-PART-001 remains pending for P6-PANELS while Chapter 6 remains unchanged and draft
+      - the final Chapter 8 hash is 9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04
+      - the central repeated-SRS simulation and static twin remain intact and simulation precedes formalisation
+      - the synthetic finite population has 16 units and the observed six rows reproduce 3 over 6 or 50.0 percent without weights and 6 over 16 or 37.5 percent with inverse-inclusion weights
+      - the text states that the weighted value remains an estimate and that weights do not remove sampling error absent coverage or measurement problems
+      - survey realism covers unequal inclusion coverage nonresponse self-selection calibration clustering design effect effective sample size and design-aware uncertainty without a variance-formula task
+      - corpus selection names speech platform date language speaker unit denominator and coverage and remains distinct from train validation and test separation
+      - the Chapter 3 reach-back marks known and unknown evidence and separates coverage nonresponse and sampling variability without inventing missing values
+      - optional ESS use is restricted to the reader-owned Round 11 edition 3.0 Croatia vote analysis-specific denominator and anweight route with self-report limits and no local result
+      - OA-G-A3-ESS-RIGHTS remains open and unsent ESS stays portal-mediated unpromoted and optional local data files remain zero and bundling stays prohibited
+      - canonical Chapter 8 terminology replaces both owned divergences and scripts/check-terminology.py passes with five later divergences intact
+      - data/concept-graph.json is regenerated from the final source with 47 nodes 511 edges fresh true and zero concept-ledger debt
+      - final targeted HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared source hash and all generated outputs were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major seventeen nonblocking minor and zero useful findings
+      - the existing reader-facing ESS catalogue debt remains owned by H-P3-CATALOG-002 for P5-C and is not duplicated
+      - R12-C08-survey-realism R12-C08-weighted-table R13-C08-corpus-selection and R35-REACHBACK-08 materially pass but remain ratified pending C08
+      - Chapter 8 remains draft C08 is next but is not claimed no author reading or acceptance is claimed and no external or release action was taken
