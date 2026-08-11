@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: G-A3-ESS
 last_completed_packet: C07
-next_permitted_packet: G-A3-ESS
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -46,9 +46,9 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `G-A3-ESS`, claimed 2026-08-11; bounded ESS selection/lane decision awaiting the exact author reply |
 | Last completed packet | `C07` |
-| Next permitted packet | `G-A3-ESS`; its `H-P1B-DATA-LIC-003` and Route A thread deliveries remain `pending` at `before_start`, `H-P3-CATALOG-001` remains `pending` at `before_close`, and the packet was not claimed by this control amendment |
+| Next permitted packet | None while `G-A3-ESS` is active; `P3-ESS` remains unclaimed and blocked until this gate closes and commits |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 183 accepted, 5 deferred with reason, 183 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 90 accepted, 97 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -62,6 +62,38 @@ stop and repair the control state before editing book content.
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A3-ESS claim and bounded decision
+
+- The packet was claimed from clean commit
+  `10a4e9803e7738f7592ebfea4a1aca0c7692ccbe` only after the workflow
+  validator confirmed no active packet, accepted C07, `G-A3-ESS` alone at
+  sequence 98 and the exact Route A dependency graph.
+- `H-P1B-DATA-LIC-003` and `H-WC-C07-THREAD-SEQUENCE-001` are consumed at
+  `before_start`. `H-P3-CATALOG-001` is acknowledged at `before_close`. Their
+  combined boundary preserves `portal-mediated`, `promoted: false`, empty
+  `files`, one write lock, no microdata retrieval and no inferred
+  redistribution authority.
+- The bounded evidence and recommendation are recorded in
+  `notes/reports/g-a3-ess-selection-decision-2026-08-11.md`. They pin Round 11
+  edition 3.0 and present one exact Croatia-only variable/weight recipe,
+  teaching question, consumer list and offline-table solution for author
+  decision. The gate does not treat that recommendation as the author's answer.
+- The recommended consumer list adds `WC-C08` to `WD-C13`, `WD-C14`,
+  `WD-C15` and `WD-C16`. The ESS empirical replication remains optional and
+  portal-mediated. Chapter 8's mandatory weighted table and offline task are
+  proposed to use a separately labelled synthetic finite-population table with
+  known inclusion probabilities; neither local generated dataset is falsely
+  described as carrying survey weights.
+- `OA-G-A3-ESS-SELECTION` remains `drafted_unsent` and ready for the exact
+  author decision. `OA-G-A3-ESS-RIGHTS` remains a separate, open, unsent
+  rights-owner inquiry. Bundling is prohibited unless that owner supplies
+  written permission tied to the exact files.
+- `G-A3-ESS` is active and cannot close without the exact selection/role reply.
+  `P3-ESS` is not claimed; no chapter, data file, catalogue entry,
+  bibliography, shared Bookwright registry, render or generated artifact was
+  changed. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
 
 ## WC-C07 claim
 
@@ -4278,30 +4310,25 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify the accepted Route A decision in
-`notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md`. Confirm that the
-register has no active write packet, `C07` is last completed and `G-A3-ESS` is
-the sole next permitted packet. Verify the exact order `C07` 97, `G-A3-ESS` 98,
-`P3-ESS` 99 and `WC-C08` 100; the exact dependency edges; the four unchanged
-WC-C08 item prerequisites; `OA-WC-C08-P3-ESS-DEPENDENCY` done; and
-`H-WC-C07-WC-C08-PREREQUISITE-001` consumed without a waiver.
+Resume active `G-A3-ESS` only. Verify that the one write lock owns only its
+dated decision report and the three control files, `C07` is last completed,
+`next_permitted_packet` is null, and `P3-ESS` remains ratified and unclaimed.
+Read `notes/reports/g-a3-ess-selection-decision-2026-08-11.md` in full. Verify
+that `H-P1B-DATA-LIC-003` and `H-WC-C07-THREAD-SEQUENCE-001` are consumed for
+G-A3-ESS, `H-P3-CATALOG-001` is acknowledged but not consumed, and the
+portal-mediated, promoted-false, empty-files boundary remains unchanged.
 
-Execute `G-A3-ESS` only. In its bounded claim update, consume both pending
-`before_start` deliveries, `H-P1B-DATA-LIC-003` and
-`H-WC-C07-THREAD-SEQUENCE-001`, and acknowledge `H-P3-CATALOG-001` at its
-`before_close` gate before establishing the one-packet write lock. Rerun
-`scripts/check-review-workflow.R` before the first substantive edit. Read all
-three dispositions plus the existing
-`OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` records. Prepare the bounded
-ESS portal/bundle-lane and chapter-role decision with exact evidence,
-recommended default, alternatives, blocked dependencies and exact reply.
-Stop for the author's exact ESS selection/role decision before closing the
-gate. Rights-owner evidence is additionally required only if bundling is
-selected; otherwise keep the rights ask open and bundling prohibited under D08.
+Stop for the author's exact ESS selection/role reply printed in the report.
+Do not substitute the recommendation for the author's decision. Keep
+`OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` separate. If the author accepts
+the portal-mediated recommendation, keep the rights ask open and bundling
+prohibited; rights-owner evidence is required only if bundling is selected.
 
-Do not claim `P3-ESS`, retrieve ESS data, select variables by inference, infer
-redistribution permission, edit a chapter, or send an external rights request.
-D08 remains binding: portal-mediated work may proceed within its boundary, but
-no microdata may be bundled without written permission. Push, merge, tag,
-archive, deploy and publication remain unauthorised.
+After the exact reply, close `G-A3-ESS` only: record the disposition and reply,
+consume `H-P3-CATALOG-001` with concrete evidence, record all future effects or
+an explicit none-found declaration, update the register, handoff ledger and
+dashboard together, run `scripts/check-review-workflow.R`, and make one bounded
+local closeout commit. Do not claim `P3-ESS` in the same packet. No ESS data
+retrieval, chapter edit, external rights request, push, merge, tag, archive,
+deploy or publication is authorised.
 ```

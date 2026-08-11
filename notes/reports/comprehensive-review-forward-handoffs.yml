@@ -1321,7 +1321,27 @@ handoffs:
           - "boundary:no-statistical-data-retrieval-no-rights-holder-permission-claim"
       - target_packet: G-A3-ESS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          G-A3-ESS consumes the cautious ESS lane before packet claim. ESS
+          Round 11 edition 3.0 remains portal-mediated, promoted false and
+          files empty. The gate treats neither the data and documentation
+          licences nor registered portal access as authority that overrides
+          D08 or permits repository bundling. It promotes and retrieves
+          nothing, keeps OA-G-A3-ESS-RIGHTS separate and open, and prepares a
+          bounded author decision for the exact edition, Croatia subset,
+          variables, weights, teaching question, consumers and required
+          offline alternative. Written rights-owner evidence remains mandatory
+          before any future bundled lane.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#potpuni-inventar-izvora-i-prava"
+          - "decision:D08"
+          - "registry:data/katalog.yml#ess_r11_hr-portal-mediated-promoted-false-files-empty"
+          - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+          - "outside-ask:OA-G-A3-ESS-RIGHTS-remains-open"
+          - "boundary:no-ESS-data-retrieval-no-promotion-no-bundling"
       - target_packet: G-A3-TEXT
         gate: before_start
         state: pending
@@ -4388,7 +4408,8 @@ handoffs:
           - "boundary:gate-promoted-zero-packages-and-retrieved-no-data"
       - target_packet: G-A3-ESS
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-11"
       - target_packet: G-A3-TEXT
         gate: before_close
         state: pending
@@ -6123,7 +6144,23 @@ handoffs:
           - "boundary:WC-C08-not-started-in-C07"
       - target_packet: G-A3-ESS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          G-A3-ESS consumes the amended thread decision before claim and keeps
+          the one-packet lock. It prepares only the separate ESS selection and
+          lane decision, leaves P3-ESS unclaimed, preserves
+          OA-G-A3-ESS-SELECTION and OA-G-A3-ESS-RIGHTS as distinct records,
+          retrieves no data, edits no chapter and stops for the exact author
+          reply. The decision waives no packet or item prerequisite and the
+          thread cannot continue to P3-ESS until G-A3-ESS closes and commits.
+        evidence:
+          - "decision:A-THREAD-C07-C09-2026-08-11"
+          - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
+          - "report:notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md"
+          - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+          - "boundary:P3-ESS-unclaimed-no-data-no-chapter-edit"
       - target_packet: P3-ESS
         gate: before_start
         state: pending

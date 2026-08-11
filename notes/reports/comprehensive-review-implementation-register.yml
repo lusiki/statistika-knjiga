@@ -10,9 +10,16 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "G-A3-ESS"
+    claimed_at: "2026-08-11"
+    owned_paths:
+      - "notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "C07"
-  next_permitted_packet: "G-A3-ESS"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10597,7 +10604,7 @@ packets:
     sequence: 98
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "C07"
       - "P0-OUTSIDE"
@@ -29252,8 +29259,23 @@ outside_asks:
       - "packet:P3-ESS"
       - "packet:P3-CATALOG-status-accepted"
       - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
-    recommended_default: "Use a portal-mediated optional replication route with a pinned recipe and licence-cleared required alternatives."
-    exact_reply_requested: "Reply: ESS selection approved for [edition/variables/weights/consumers]; or list one exact change."
+      - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+      - "source:official-ESS-Round-11-edition-3.0-release"
+      - "source:official-ESS-weighting-guide-anweight-default"
+    recommended_default: >-
+      Use the Round 11 integrated main file edition 3.0, Croatia respondents
+      only, the exact identity/design/teaching variables and bounded vote
+      question recorded in the G-A3-ESS decision report, anweight as the
+      default analysis weight, and consumers WC-C08 plus WD-C13 through
+      WD-C16. Keep empirical replication optional and portal-mediated. Make
+      Chapter 8's mandatory weighted table and offline task use a separately
+      labelled synthetic finite-population table with known inclusion
+      probabilities rather than ESS microdata.
+    exact_reply_requested: >-
+      Reply exactly with the ESS selection approval line in
+      notes/reports/g-a3-ess-selection-decision-2026-08-11.md, or list one exact
+      change to its edition, subset, variables, weights, question, consumers or
+      offline table.
     resume_condition: "P3-ESS resumes after the author approves the exact portal route and curricular role."
     why_external: "The survey selection and required-versus-optional role are authorial decisions."
     external_message_sent: false
@@ -29274,6 +29296,7 @@ outside_asks:
     available_evidence:
       - "decision:D08"
       - "item:R03-ESS-permission-gate"
+      - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
     recommended_default: "Keep ESS portal-mediated unless written permission explicitly authorises bundling."
     exact_reply_requested: "Reply: bundling [permitted/not permitted] for [exact edition/files], with governing terms, attribution, restrictions, and date."
     resume_condition: "The portal route can proceed under D08; bundling resumes only after written permission."
