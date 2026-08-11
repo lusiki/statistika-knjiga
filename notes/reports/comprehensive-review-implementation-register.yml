@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A3-ESS"
-  next_permitted_packet: "P3-ESS"
+  last_completed_packet: "P3-ESS"
+  next_permitted_packet: "WC-C08"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10733,25 +10733,113 @@ packets:
     sequence: 99
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-ESS"
     scope: "Pinned ESS portal route and cleared alternatives."
+    amendments:
+      - amended_at: "2026-08-11"
+        amended_by: "Luka Sikic"
+        authority: "G-A3-ESS"
+        evidence: "conversation:ESS-selection-approved-2026-08-11-Luka-Sikic"
+        reason: >-
+          The generic data-package wording assumed locally retained source
+          bytes and their checksum, but the author approved a genuinely
+          portal-mediated, unpromoted and optional ESS route. Local ESS bytes
+          and a repository-owned checksum therefore must be absent and cannot
+          be claimed as passed. The route-specific branch preserves the
+          verification burden through the exact edition and selection,
+          source-exposed 18-variable schema, official missing-metadata
+          reconciliation, reader-side SHA-256 instructions, fail-closed local
+          recipe, five named consumers and lawful mandatory fallbacks.
     outputs:
       - "P3-ESS validated package, passport, checksum, and route evidence for: Pinned ESS portal route and cleared alternatives."
       - "Completion evidence is tied to the declared P3-ESS source state and bounded scope."
+      - "The portal route proves local ESS bytes and a local checksum absent while preserving reader-side checksum and official-codebook reconciliation instructions."
     exit_tests:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+      - "The portal route proves local data and checksum absent; records the exact official edition, subset, variables, weight roles, source-exposed schema, missing-code reconciliation and reader-side checksum instructions; and keeps every empirical ESS task optional."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-ESS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "version:ESS11-integrated-main-file-edition-3.0"
+            - "registry:data/katalog.yml#ess_r11_hr-source-version-licence-access"
+            - "passport:data/ess_r11_hr/PUTOVNICA.md#sluzbeni-izvor-i-identitet"
+            - "rights:OA-G-A3-ESS-RIGHTS-drafted-unsent-bundling-prohibited"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "passport:data/ess_r11_hr/PUTOVNICA.md"
+            - "schema:18-approved-variables-three-role-groups-formal-key"
+            - "recipe:scripts/prepare-ess-r11-hr.R-source-labels-value-labels-na-values-na-range"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "amendment:G-A3-ESS-local-checksum-not-applicable-and-must-remain-null"
+            - "reader-checksum:PowerShell-Get-FileHash-SHA256-and-shasum-a-256"
+            - "reconciliation:ESS11-edition-3.0-SAV-metadata-to-official-codebook-fail-closed"
+            - "registry:data/katalog.yml#ess_r11_hr-files-empty-checksum-null"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "expected:round-11-edition-3.0-subset-HR-variables-18-consumers-5"
+            - "expected:default-weight-anweight-lane-portal-mediated-promoted-false-local-data-files-0"
+            - "fixture:nine-ESS-portal-defects-each-exit-1"
+      outputs:
+        - output: "P3-ESS validated package, passport, checksum, and route evidence for: Pinned ESS portal route and cleared alternatives."
+          artifacts:
+            - "registry:data/katalog.yml#ess_r11_hr"
+            - "passport:data/ess_r11_hr/PUTOVNICA.md"
+            - "recipe:scripts/prepare-ess-r11-hr.R"
+            - "check:scripts/check-ess-portal.py-ESS_PORTAL_OK"
+            - "report:notes/reports/p3-ess-2026-08-11.md"
+        - output: "Completion evidence is tied to the declared P3-ESS source state and bounded scope."
+          artifacts:
+            - "portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
+            - "report:notes/reports/p3-ess-2026-08-11.md#manifest-deklariranoga-stanja"
+            - "check:scripts/check-review-workflow.R-at-P3-ESS-closeout"
+        - output: "The portal route proves local ESS bytes and a local checksum absent while preserving reader-side checksum and official-codebook reconciliation instructions."
+          artifacts:
+            - "check:scripts/check-ess-portal.py-local-data-files-0-checksum-null"
+            - "passport:data/ess_r11_hr/PUTOVNICA.md#tocna-ruta-citatelja"
+            - "passport:data/ess_r11_hr/PUTOVNICA.md#sluzbene-sifre-nedostajanja-i-nazivnici"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "not_applicable_by_author_amendment"
+          evidence:
+            - "amendment:packets.P3-ESS.amendments-2026-08-11"
+            - "decision:G-A3-ESS-portal-mediated-local-bytes-and-checksum-prohibited"
+            - "report:notes/reports/p3-ess-2026-08-11.md#izricita-dispozicija-generickoga-lokalnog-testa"
+        - test: "The portal route proves local data and checksum absent; records the exact official edition, subset, variables, weight roles, source-exposed schema, missing-code reconciliation and reader-side checksum instructions; and keeps every empirical ESS task optional."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-ess-portal.py-ESS_PORTAL_OK-local-data-files-0-checksum-null"
+            - "passport:data/ess_r11_hr/PUTOVNICA.md"
+            - "recipe:scripts/prepare-ess-r11-hr.R"
+            - "fixture:nine-ESS-portal-defects-each-exit-1"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "route:official-ESS-portal-reader-owned-optional"
+            - "recipe:R-reader-owned-SAV-and-output-outside-repository"
+            - "route:jamovi-reader-owned-SAV-optional"
+            - "fallback:WC-C08-synthetic-finite-population-and-WD-C13-C16-local-licensed-packages"
+            - "rights:OA-G-A3-ESS-RIGHTS-open-bundling-prohibited"
+        - test: "The P3-ESS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "source_state:portal-contract-sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
+            - "handoff:H-P3-ESS-001"
+            - "review:packet_reviews.P3-ESS-all-future-effects-recorded"
+            - "boundary:no-network-no-chapter-edit-no-promotion-no-external-message"
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
   WD-C13:
     sequence: 115
     phase: "4"
@@ -17205,7 +17293,7 @@ items:
       location: "§12 ESS"
     description: "Implement pinned edition, selection recipe, codebook, weights, missing codes, checksums, and cleared alternatives."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -17223,11 +17311,23 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-ESS"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:G-A3-ESS-accepted-2026-08-11"
+      - "source_state:portal-contract-sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
+      - "registry:data/katalog.yml#ess_r11_hr-validated-portal-route"
+      - "passport:data/ess_r11_hr/PUTOVNICA.md"
+      - "recipe:scripts/prepare-ess-r11-hr.R"
+      - "check:scripts/check-ess-portal.py-ESS_PORTAL_OK"
+      - "fixture:nine-ESS-portal-defects-each-exit-1"
+      - "result:ESS11-edition-3.0-HR-18-variables-anweight-five-consumers"
+      - "boundary:files-empty-checksum-null-rights-open-bundling-prohibited"
+      - "fallback:WC-C08-synthetic-finite-population-and-WD-C13-C16-local"
+      - "handoff:H-P3-ESS-001"
+      - "report:notes/reports/p3-ess-2026-08-11.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
   R08-VDEM-deferral:
     parents:
       - "R08"

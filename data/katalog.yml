@@ -2011,13 +2011,21 @@ packages:
 
   - id: "ess_r11_hr"
     name: "European Social Survey, Round 11, Hrvatska"
-    status: "proposed_not_promoted"
+    status: "validated_portal_route_not_promoted"
     design: "probability_survey_with_weights"
     domain: "drustveni stavovi"
-    unit: "jedan ispitanik s tezinom uzorkovanja"
-    question: "Kako se stavovi razlikuju po skupinama kad se uzme u obzir nacrt uzorka?"
-    role: "Reprezentativnost, neodgovor, tezine i mjerenje na razini osobe."
+    unit: "jedan ispitanik ESS Round 11 iz Hrvatske, s izvornim nacrtnim varijablama"
+    question: >-
+      Medju hrvatskim ispitanicima u sluzbenom nazivniku varijable vote, koliko
+      se prijavljeni udio glasalih razlikuje izmedju neponderirane procjene i
+      procjene s anweight, te koje pogreske odabira ili mjerenja ponder ne moze
+      ukloniti?
+    role: >-
+      Neobvezna portalna replikacija za reprezentativnost, neodgovor, tezine i
+      mjerenje na razini osobe; anweight je zadana analiza, a dweight, pspwght,
+      pweight, prob, stratum i psu ostaju izlozeni radi citanja nacrta.
     consumers:
+      - "WC-C08"
       - "WD-C13"
       - "WD-C14"
       - "WD-C15"
@@ -2026,24 +2034,37 @@ packages:
     version: "Round 11, edition 3.0"
     licence: "Podaci CC BY-NC-SA 4.0; dokumentacija CC BY-SA 4.0"
     attribution: "Propisani ESS navod, runda, izdanje, datum, licenca i oznaka izmjena."
-    access: "ESS Data Portal, uz pravila portala."
+    access: >-
+      ESS Data Portal; citatelj se prijavljuje kod pruzatelja, odabire ESS11
+      integrated main file edition 3.0 i format SAV, a zatim slijedi
+      data/ess_r11_hr/PUTOVNICA.md. Knjiga ne preuzima datoteku.
     redistribution: "vlasnicka odluka D08 ne odobrava bundling bez posebne pisane potvrde"
     lane: "portal-mediated"
     refresh_class: "pinned"
     fallback: >-
-      Empirijska replikacija ostaje neobvezna; obvezni putevi u poglavljima
-      13-16 koriste populacija_medija ili drugi licencno cist paket i njegov
-      agregat.
+      Empirijska ESS replikacija ostaje neobvezna. Obvezna ponderirana tablica
+      i offline zadatak u WC-C08 koriste zasebno oznacenu sinteticku konacnu
+      populaciju s poznatim vjerojatnostima ukljucivanja; obvezni putevi u
+      poglavljima 13-16 koriste populacija_medija ili drugi licencno cist paket
+      i njegov agregat.
     integrity:
       checksum: null
-      official_reconciliation: null
+      official_reconciliation: >-
+        Nakon vlastitoga portalnog preuzimanja citatelj mora potvrditi ESS11,
+        edition 3.0 i cntry HR, izvorni skup od 18 odabranih varijabli te za
+        svaku nastavnu varijablu usporediti oznaku, domenu i korisnicki
+        definirane nedostajuce vrijednosti iz SAV metapodataka sa sluzbenim
+        codebookom iste runde i izdanja. Svako neslaganje zaustavlja obradu.
       note: >-
-        Knjiga daje recept odabira, sifrarnik, tezine, sifre nedostajucih
-        vrijednosti i uputu za kontrolni zbroj; datoteku preuzima citatelj.
+        Lokalni checksum namjerno je null jer knjiga nema ESS bajtove. Putovnica
+        daje uputu da citatelj izracuna SHA-256 nad vlastitim izvornim
+        preuzimanjem i spremi ga izvan repozitorija; prepare-ess-r11-hr.R iz
+        izvornih SAV metapodataka izradjuje citateljev trag sheme i sifri
+        nedostajanja bez pretvaranja tih sifri u nulu.
     promoted: false
-    promoting_gate: "G-A3-ESS"
     files: []
     aggregate_view: null
+    passport: "data/ess_r11_hr/PUTOVNICA.md"
     permissible_claims:
       - "opis uz tezine"
       - "povezanost uz imenovanu populaciju"
@@ -2051,6 +2072,8 @@ packages:
     unavailable_claims:
       - "uzrocnost"
       - "tvrdnja o skupini koju nacrt ne pokriva"
+      - "provjera sluzbene izlaznosti"
+      - "tvrdnja da ponderiranje uklanja samoprijavu, neodgovor ili nepokrivenost"
     ethics:
       category_ownership: "Kategorije odredjuje medjunarodni upitnik."
       absence: "Neodgovor i nepokrivenost okvira ostaju izvan podataka."
@@ -2058,6 +2081,11 @@ packages:
       beneficiaries: "Citatelj koji uci citati anketu s nacrtom."
       error_burden: "Pogresna generalizacija pada na skupinu o kojoj se govori."
       appeal: "Nije primjenjivo; ispitanik nije klasificiran odlukom."
+    caveats:
+      - "Nazivnik je analiticki specifican; ne postoji jedan globalni listwise-complete podskup."
+      - "vote je samoprijava i nije sluzbena mjera izlaznosti."
+      - "pweight se ne koristi u hrvatskoj jednocountry tablici."
+      - "OA-G-A3-ESS-RIGHTS ostaje otvoren; bundling je zabranjen."
 
   - id: "vdem_v16"
     name: "V-Dem Dataset v16"

@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A3-ESS
-next_permitted_packet: P3-ESS
+last_completed_packet: P3-ESS
+next_permitted_packet: WC-C08
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 93
+forward_handoffs: 94
 last_updated: "2026-08-11"
 ---
 
@@ -48,17 +48,17 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A3-ESS` |
-| Next permitted packet | `P3-ESS`; it must implement only the accepted portal route, consume its thread delivery before claim, and retrieve no ESS data |
+| Last completed packet | `P3-ESS` |
+| Next permitted packet | `WC-C08`; it must consume `H-P3-ESS-001`, keep ESS optional and build the mandatory weighted table from the separate synthetic finite population |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 184 accepted, 5 deferred with reason, 182 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 91 accepted, 96 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 185 accepted, 5 deferred with reason, 181 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 92 accepted, 95 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 12 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija` and `07-vjerojatnost` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 37 of the 84 canonical asks remain `drafted_unsent`; 41 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A3-ESS-SELECTION` is done from the exact in-thread author reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
-| WC-C08 prerequisite resolution | Route A is applied and `H-WC-C07-WC-C08-PREREQUISITE-001` is consumed: `G-A3-ESS` is accepted at sequence 98, `P3-ESS` is sequence 99 and `WC-C08` sequence 100; `WC-C08` requires accepted `P3-ESS`. `OA-G-A3-ESS-SELECTION` is done; `OA-G-A3-ESS-RIGHTS` remains separate and open under D08 |
+| WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
@@ -102,6 +102,36 @@ No chapter prose was changed by `P0-OUTSIDE`.
   without retrieving ESS data. `P3-ESS` is next but was not claimed inside
   this gate. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
+
+## P3-ESS closeout
+
+- `H-WC-C07-THREAD-SEQUENCE-001` was consumed for `P3-ESS` before claim.
+  The packet retained one write lock and did not claim `WC-C08`.
+- `data/katalog.yml#ess_r11_hr` now records ESS11 integrated main file edition
+  3.0, `cntry == HR`, all 18 approved variables, five exact consumers and
+  `anweight` as default. It remains `portal-mediated`, unpromoted, with empty
+  `files`, null local checksum and no promotion-log entry.
+- `data/ess_r11_hr/PUTOVNICA.md` and `scripts/prepare-ess-r11-hr.R` provide the
+  exact reader-owned route, source-exposed schema, weight roles, official
+  missing-metadata reconciliation and reader-side SHA-256 instructions. The R
+  recipe has no network operation and refuses repository-local input/output.
+- No ESS bytes, empirical denominator, weighted percentage or local checksum
+  was retrieved or invented. `OA-G-A3-ESS-RIGHTS` remains open and unsent;
+  bundling remains prohibited.
+- `scripts/check-ess-portal.py` passes the exact 18-variable/five-consumer
+  contract and proves zero local data files; all nine route-specific negative
+  fixtures fail closed. The catalogue, data-integrity and workflow checks pass.
+- `R08-ESS-route` is accepted. The generic local-file test is explicitly
+  `not_applicable_by_author_amendment`; the replacement portal test passes and
+  does not masquerade as a local snapshot check.
+- `H-P3-ESS-001` routes the complete boundary to `WC-C08` and `WD-C13`–`WD-C16`.
+  Chapter 8's mandatory weighted table and offline task must use the separately
+  labelled synthetic finite population; every empirical ESS route remains
+  optional, and mandatory later work keeps licensed local alternatives.
+- No chapter, appendix, bibliography, shared Bookwright registry, concept,
+  widget, render, `docs/`, `_freeze/` or generated artifact changed. `WC-C08`
+  is next but remains unclaimed; push, merge, tag, archive, deployment and
+  publication remain unauthorised.
 
 ## WC-C07 claim
 
@@ -4318,30 +4348,42 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `G-A3-ESS` is accepted from the exact 2026-08-11 author reply, no
-packet is active, `P3-ESS` is the sole next permitted packet at sequence 99,
-and `WC-C08` remains blocked behind it at sequence 100. Read
-`notes/reports/g-a3-ess-selection-decision-2026-08-11.md` in full and preserve
-its exact edition, subset, variables, weight roles, bounded vote question,
-consumer list, portal lane, synthetic Chapter 8 offline table and rights
-boundary.
+Verify that `P3-ESS` is accepted at sequence 99 from source state
+`portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675`,
+no packet is active and `WC-C08` is the sole next permitted packet at sequence
+100. Read `notes/reports/p3-ess-2026-08-11.md` and
+`data/ess_r11_hr/PUTOVNICA.md` in full. Preserve the portal-mediated,
+unpromoted, optional route, empty files and null local checksum, the exact
+edition/subset/variables/weights/consumers, the open rights ask and the separate
+synthetic mandatory Chapter 8 path.
 
-Execute `P3-ESS` only. Consume its pending
-`H-WC-C07-THREAD-SEQUENCE-001` delivery before claim and rerun
-`scripts/check-review-workflow.R` at claim and closeout. Implement a portal
-route, not a snapshot: retrieve no ESS data; prove local ESS bytes and local
-checksum absent; keep `lane: portal-mediated`, `promoted: false` and `files: []`;
-add `WC-C08` to the four existing consumers; record the exact official edition,
-portal retrieval instructions, approved variables, source-exposed schema,
-weight roles, official missing-code reconciliation and reader-side checksum
-instructions. Amend any local-file test explicitly so it tests the portal route
-rather than waiving or falsely passing an inapplicable assertion. Use the
-accepted synthetic finite-population table as the mandatory Chapter 8 offline
-path and keep ESS empirical work optional.
+Before book-content work, fully read `notes/struktura-knjige.md`, `STYLE.md`
+and `ENRICHMENT.md`. Use checkout-local Bookwright `book-review` for the full
+six-critic panel and `book-style` for every prose edit; read both instructions
+completely before acting. Inspect every incoming WC-C08 handoff and consume or
+acknowledge each at its stated gate, including `H-P3-ESS-001`, before the first
+substantive edit. Rerun `scripts/check-review-workflow.R` at claim and closeout.
 
-Update the register, handoff ledger and dashboard together, record all future
-effects or an explicit none-found declaration, run the route-specific and
-workflow checks, and make one bounded local closeout commit. Do not claim
-`WC-C08` inside `P3-ESS`. No network retrieval, chapter edit, external rights
-request, push, merge, tag, archive, deploy or publication is authorised.
+Execute `WC-C08` only. Preserve the central repeated-SRS simulation and the
+ratified Chapter 8 spine while delivering the four assigned items: survey
+realism, one fully reproducible synthetic weighted/unweighted table, corpus
+selection as a sampling question and a reach-back exercise. The mandatory
+weighted table and offline task must use a separately labelled synthetic
+finite population with known inclusion probabilities, observed responses and
+inverse-probability weights. Do not use ESS microdata, invent an ESS number,
+invent a weight for existing generated data or make portal access mandatory.
+Keep the optional ESS vote/anweight route within `H-P3-ESS-001` and preserve
+analysis-specific denominators, self-report and weighting limits.
+
+Run the applicable deterministic, data, style, figure and targeted HTML/PDF/
+DOCX checks. Dispatch six independent read-only critics for methods,
+skepticism, pedagogy, evidence, Croatian style and structure against the final
+source state; wait for all six and synthesize agreement and disagreement.
+Resolve fatal and major findings before presenting the coauthor-review package.
+Record every future effect in the handoff ledger, update the register, dashboard
+and chapter ledger/shared registries only where the packet actually authorises,
+and make one bounded local WC-C08 commit. Then stop and ask for the exact C08
+author reply tied to that commit; do not claim C08 or WC-C09 without it. No
+network retrieval, external rights request, push, merge, tag, archive, deploy
+or publication is authorised.
 ```

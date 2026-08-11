@@ -6182,7 +6182,25 @@ handoffs:
           - "boundary:P3-ESS-unclaimed-no-data-no-chapter-edit"
       - target_packet: P3-ESS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-11"
+        resolved_at: "2026-08-11"
+        disposition: >-
+          P3-ESS consumes the amended strict sequence before claim. G-A3-ESS
+          is accepted and committed at 3b482898cb1ffe6a83ac18b9157a1bc64b50f4db;
+          this packet may implement only the approved ESS Round 11 edition 3.0
+          Croatia portal route, with no ESS data retrieval, local microdata,
+          promotion, bundling or chapter edit. It must keep the rights ask open,
+          prove local bytes and a local checksum absent, make every empirical
+          ESS exercise optional, and leave WC-C08 unclaimed until its own
+          separate packet after this package closes and commits.
+        evidence:
+          - "decision:A-THREAD-C07-C09-2026-08-11"
+          - "decision:A-WC-C08-P3-ESS-ROUTE-A-2026-08-11"
+          - "decision:G-A3-ESS"
+          - "commit:G-A3-ESS-closeout-3b482898cb1ffe6a83ac18b9157a1bc64b50f4db"
+          - "report:notes/reports/g-a3-ess-selection-decision-2026-08-11.md"
+          - "boundary:one-write-lock-P3-ESS-only-no-data-no-chapter-edit"
       - target_packet: WC-C08
         gate: before_start
         state: pending
@@ -6261,6 +6279,65 @@ handoffs:
           - "register:G-A3-ESS-98-P3-ESS-99-WC-C08-100"
           - "register:WC-C08-requires-P3-ESS"
           - "boundary:OA-G-A3-ESS-SELECTION-and-OA-G-A3-ESS-RIGHTS-remain-separate"
+
+  H-P3-ESS-001:
+    source_packet: P3-ESS
+    created_at: "2026-08-11"
+    kind: constraint
+    refs:
+      - item:R08-ESS-route
+      - decision:G-A3-ESS
+      - registry:data/katalog.yml#ess_r11_hr
+      - passport:data/ess_r11_hr/PUTOVNICA.md
+      - recipe:scripts/prepare-ess-r11-hr.R
+      - validator:scripts/check-ess-portal.py
+      - report:notes/reports/p3-ess-2026-08-11.md
+    statement: >-
+      The exact ESS route is Round 11 integrated main file edition 3.0,
+      restricted to cntry HR with analysis-specific valid-response
+      denominators, the 18 approved identity, design and teaching variables,
+      and anweight as the default analysis weight. It is portal-mediated,
+      unpromoted and optional: no ESS bytes, local checksum or empirical result
+      belongs to the repository, OA-G-A3-ESS-RIGHTS remains open, and bundling
+      is prohibited. The passport and local-only recipe preserve source labels
+      and user-defined missing metadata and require reader-side reconciliation
+      to the official edition-specific codebook. Chapter 8's mandatory
+      weighted table is a separately labelled synthetic finite population;
+      mandatory Chapter 13-16 work uses licensed local alternatives.
+    required_action: >-
+      WC-C08 must consume the synthetic-versus-ESS boundary before its first
+      substantive edit, use no invented ESS number or weight, keep the ESS vote
+      comparison optional, and build its mandatory weighted table from the
+      separately labelled finite-population teaching table with known inclusion
+      probabilities. WD-C13 through WD-C16 may offer only the approved optional
+      reader-owned portal replication, must use analysis-specific denominators
+      and anweight by default, and must preserve their local mandatory
+      alternatives. Every target must keep the rights ask open and must not
+      imply local bytes, a repository checksum, redistribution authority or an
+      official-turnout validation.
+    basis:
+      - "decision:G-A3-ESS"
+      - "report:notes/reports/p3-ess-2026-08-11.md"
+      - "passport:data/ess_r11_hr/PUTOVNICA.md"
+      - "check:scripts/check-ess-portal.py-ESS_PORTAL_OK"
+      - "boundary:no-data-no-network-no-promotion-no-bundling"
+    required: true
+    deliveries:
+      - target_packet: WC-C08
+        gate: before_start
+        state: pending
+      - target_packet: WD-C13
+        gate: before_start
+        state: pending
+      - target_packet: WD-C14
+        gate: before_start
+        state: pending
+      - target_packet: WD-C15
+        gate: before_start
+        state: pending
+      - target_packet: WD-C16
+        gate: before_start
+        state: pending
 
 packet_reviews:
   G-A0:
@@ -8501,3 +8578,23 @@ packet_reviews:
       - R03-ESS-permission-gate passes and is accepted without claiming the future P3-ESS route already exists
       - no chapter data catalogue bibliography shared Bookwright registry render or generated artifact changed
       - P3-ESS is next but was not claimed inside G-A3-ESS and no external action was authorised
+
+  P3-ESS:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-ESS-001
+    implementation_state: "portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
+    checks:
+      - H-WC-C07-THREAD-SEQUENCE-001 was consumed for P3-ESS before claim and no other target delivery was appropriated
+      - the catalogue records ESS11 integrated main file edition 3.0 cntry HR 18 exact variables five exact consumers and anweight default
+      - data/ess_r11_hr contains only PUTOVNICA.md while catalogue files is empty checksum is null and the package is absent from promotion_log
+      - the passport carries the exact portal route source-exposed schema weight roles official missing-metadata reconciliation and reader-side SHA-256 instructions
+      - scripts/prepare-ess-r11-hr.R has no network operation refuses repository-local input and output and preserves SAV labels na_values and na_range
+      - scripts/check-ess-portal.py passes and nine independent negative fixtures each fail closed with exit 1
+      - scripts/check-katalog.py and scripts/check-data-integrity.R pass without declaring a new snapshot or reconciliation over nonexistent bytes
+      - OA-G-A3-ESS-RIGHTS remains drafted unsent and bundling remains prohibited while no external message or network retrieval occurred
+      - WC-C08 mandatory weighting uses the separately labelled synthetic finite-population table and WD-C13 through WD-C16 retain licensed local mandatory fallbacks
+      - H-P3-ESS-001 routes every future effect to exactly the five approved consumers before their substantive work
+      - no chapter appendix bibliography Bookwright shared registry concept widget render docs freeze or generated artifact changed
+      - WC-C08 is next but was not claimed inside P3-ESS and push merge tag archive deployment and publication remain unauthorised
