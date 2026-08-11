@@ -6025,6 +6025,42 @@ handoffs:
           - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
           - "boundary:WB-PART-not-started-in-C06"
 
+  H-WB-PART-001:
+    source_packet: WB-PART
+    created_at: "2026-08-11"
+    kind: invalidation
+    refs:
+      - packet:WB-PART
+      - packet:C06
+      - packet:P6-PANELS
+      - source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-draft
+    statement: >-
+      WB-PART added the material Part II verification-receipt bridge after the
+      C06 six-critic panel and author decision had been locked to SHA-256
+      4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8.
+      The final WB-PART Chapter 6 state is SHA-256
+      0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd,
+      so the earlier C06 acceptance remains historical evidence for its old
+      source state and no longer supports coauthor_review for the current file.
+    required_action: >-
+      At P6-PANELS, include Chapter 6 in the fresh six-critic coverage for its
+      then-final material state, resolve or explicitly dispose every fatal or
+      major finding, record the required author disposition, and only then
+      advance the chapter ledger again. Treat the WB-PART voice and
+      narrative-arc reviews as Part-level continuity evidence, not as a
+      replacement for the complete chapter panel.
+    basis:
+      - notes/reports/comprehensive-review-implementation-plan-2026-08-03.md#phase-6-whole-book-continuity-evidence-and-editorial-pass
+      - notes/reports/c06-acceptance-package-2026-08-10.md
+      - notes/reports/wb-part-continuity-synthesis-2026-08-11.md
+      - bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost
+    required: true
+    deliveries:
+      - target_packet: P6-PANELS
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -8164,3 +8200,24 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C06
       - WB-PART is next but was not started in C06 and push merge tag archive and deployment remain unauthorised
+
+  WB-PART:
+    reviewed_at: "2026-08-11"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WB-PART-001
+    implementation_state: source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd
+    checks:
+      - no handoff delivery targets WB-PART so no incoming delivery was acknowledged consumed or altered
+      - Chapters 4 and 5 remain unchanged at their accepted hashes and only the Chapter 6 Part II boundary changed
+      - the final receipt gives every C04 C05 and C06 assistant task all seven canonical fields in readable prose
+      - every returned-output cell matches the public visible output and no protected diagnosis correction number or instructor answer leaks
+      - the receipt names concrete verification evidence preserves AI as instrument and fallible analyst and requires no code production
+      - R08-SPINE-04-06 R24-PARTII-thesis R24-LADDER-PartII and R35-SELF-CHECK-II each pass their own acceptance tests and are accepted
+      - the first concept check caught the false mediju-to-medijan match the source was corrected to formatu the canonical graph remains unchanged at 47 nodes and 502 edges and check-concepts.py reports fresh true
+      - final full HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared final Chapter 6 hash and generated outputs were restored
+      - independent final voice and arc critics plus the evidence audit confirmed the exact hashes with zero fatal and zero major finding
+      - the historical C06 acceptance remains tied to its old source hash so only 06-povezanost is conservatively returned to draft
+      - H-WB-PART-001 carries the resulting fresh-six-critic requirement to P6-PANELS and the Part-level voice and arc reviews do not substitute for it
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail with exit 1 for their exact injected defect
+      - WC-C07 is next but was not claimed or started and push merge tag archive and deployment remain unauthorised

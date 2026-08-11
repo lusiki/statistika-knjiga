@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C06"
-  next_permitted_packet: "WB-PART"
+  last_completed_packet: "WB-PART"
+  next_permitted_packet: "WC-C07"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -9896,7 +9896,7 @@ packets:
     sequence: 95
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C06"
     scope: "Part II bridge and self-check."
@@ -9907,14 +9907,85 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WB-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-II"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#04-sazimanje-podataka-05-vizualizacija-06-povezanost"
+            - "report:notes/reports/g-a2b-ii-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-ii-2026-08-04.md"
+            - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim-thread-and-assessment-architecture"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+            - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+            - "source:chapters/06-povezanost.qmd@sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-nodes-47-edges-502-graph-fresh"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-rows-50300-promoted-5-snapshots-21"
+            - "check:scripts/build-digikat-extracts.R-DIGIKAT_EXTRACTS_OK-extracts-3-mode-verify"
+            - "check:scripts/build-eurostat-extracts.py-EUROSTAT_EXTRACTS_OK-keys-162-available-161-missing-1"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-graph-fresh"
+            - "report:notes/reports/wb-part-2026-08-11.md#dispozicija-upravljanih-stavki"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-bytes-220952-sha256-2dd8ae8da9411f6f4f59b12b7ae3a09183c6b2b3cc0e020eee73a82872a79d96"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2650787-sha256-b4f773ab59f1cd1774bffe9f47e17139b750bcd245da021b81207daebf362d53"
+            - "render:DOCX-wrapper-exit-0-bytes-1510711-sha256-76dddcac65158426a837331ffcc5d8c1e96684b88b39e2e94f2fb3b5c2ef173d-media-58"
+            - "check:scripts/check-rendered-html.py-37-canonical-pages"
+            - "report:notes/reports/wb-part-2026-08-11.md#stvarni-renderi"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wb-part-critic-voice-2026-08-11.md"
+            - "report:notes/reports/wb-part-critic-arc-2026-08-11.md"
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md"
+            - "audit:independent-seven-field-receipt-pass-on-sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+            - "result:continuity-panel-zero-fatal-zero-major-two-nonblocking-existing-or-part-level-minors"
+      outputs:
+        - output: "WB-PART verified vertical-slice source and evidence bundle for: Part II bridge and self-check."
+          artifacts:
+            - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+            - "report:notes/reports/wb-part-2026-08-11.md"
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md"
+            - "items:R08-SPINE-04-06-R24-PARTII-thesis-R24-LADDER-PartII-R35-SELF-CHECK-II"
+        - output: "Completion evidence is tied to the declared WB-PART source state and bounded scope."
+          artifacts:
+            - "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+            - "handoffs:no-incoming-target-WB-PART"
+            - "handoff:H-WB-PART-001-created-for-P6-PANELS"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-draft"
+            - "boundary:WC-C07-not-started"
+            - "check:scripts/check-review-workflow.R-at-WB-PART-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wb-part-2026-08-11.md"
+            - "check:style-architecture-spine-terminology-citation-concept-manuscript-figure-catalogue-data-widget-inventory-token-all-pass"
+            - "render:HTML-PDF-DOCX-exit-0"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md"
+            - "panel:zero-fatal-zero-major"
+            - "audit:seven-field-receipt-truthful-checkable-and-no-protected-answer-leak"
+        - test: "The WB-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-04-06-R24-PARTII-thesis-R24-LADDER-PartII-R35-SELF-CHECK-II"
+            - "report:notes/reports/wb-part-2026-08-11.md#dispozicija-upravljanih-stavki"
+            - "synthesis:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   WC-C07:
     sequence: 96
     phase: "4"
@@ -17000,7 +17071,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Use governed distributions for description, visualisation, and comparison."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17016,11 +17087,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/04-sazimanje-podataka.qmd@sha256-7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19"
+      - "source:chapters/05-vizualizacija.qmd@sha256-db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df"
+      - "source:chapters/06-povezanost.qmd@sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
+      - "result:DigiKat-Eurostat-coded-text-and-simulations-remain-within-unit-denominator-time-status-and-claim-boundaries"
+      - "check:DIGIKAT_EXTRACTS_OK-and-EUROSTAT_EXTRACTS_OK"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R08-SPINE-07-11:
     parents:
       - "R08"
@@ -24225,7 +24302,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance it toward reproducing summaries/plots and detecting exclusions, scales, and transformations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24241,11 +24318,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture-ai_competence_registry-verification_receipt"
+      - "result:seven-fields-explicit-for-C04-C05-C06-readable-without-code-and-human-responsibility-named"
+      - "audit:visible-return-cells-truthful-verification-routes-checkable-no-protected-answer-leak"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#razrjesenje-nalaza-tijekom-pregleda"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R24-PARTIII-IV-thesis:
     parents:
       - "R24"
@@ -24446,7 +24528,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Reproduce summaries/plots and detect exclusions, poor scales, and transformations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24462,11 +24544,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/04-sazimanje-podataka.qmd#pitajte-model"
+      - "source:chapters/05-vizualizacija.qmd#pitajte-model"
+      - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture-ai_competence_registry-part_ii"
+      - "result:known-data-and-visible-output-used-for-summary-plot-and-association-audits"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-assessed-code-production-false"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R24-LADDER-PartIII:
     parents:
       - "R24"
@@ -27380,7 +27469,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part II cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27396,11 +27485,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WB-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/06-povezanost.qmd#six-audit-questions-six-claim-dimensions-and-part-ii-self-check"
+      - "source:chapters/06-povezanost.qmd#kolegij-answer-path"
+      - "source:chapters/06-povezanost.qmd#tbl-racun-provjere-dio-ii"
+      - "architecture:bookwright_plugin/bookwright/shared/conventions.json#claim_registry-and-thread_registry"
+      - "result:self-check-answerable-retrieves-unit-absence-graph-before-coefficient-and-claim-boundaries"
+      - "report:notes/reports/wb-part-continuity-synthesis-2026-08-11.md#dispozicija-cetiriju-stavki"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd"
   R35-SELF-CHECK-III:
     parents:
       - "R35"

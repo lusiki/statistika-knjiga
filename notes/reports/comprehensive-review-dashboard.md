@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C06
-next_permitted_packet: WB-PART
+last_completed_packet: WB-PART
+next_permitted_packet: WC-C07
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 90
+forward_handoffs: 91
 last_updated: "2026-08-11"
 ---
 
@@ -46,16 +46,16 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `C06` |
-| Next permitted packet | `WB-PART` |
+| Last completed packet | `WB-PART` |
+| Next permitted packet | `WC-C07` |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 176 accepted, 5 deferred with reason, 190 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 87 accepted, 100 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 180 accepted, 5 deferred with reason, 186 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 88 accepted, 99 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 12 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija` and `06-povezanost` at `coauthor_review` |
+| Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review`; `06-povezanost` conservatively reopened to `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 39 of the 83 canonical asks remain `drafted_unsent`; 38 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05 and C06 acceptance, and the G-A4-03 brief; 0 external messages sent |
-| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only at the current source state and remain accepted; no prose changed |
+| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
@@ -451,6 +451,76 @@ No chapter prose was changed by `P0-OUTSIDE`.
   widget, figure, render or generated artifact changed in C06. `WB-PART` is
   next and was not started; push, merge, tag, archive and deployment remain
   unauthorised.
+
+## WB-PART claim
+
+- The packet was claimed from clean commit
+  `79d9fe43ee3cd53d1bc6dcce6680d7635e44faa1` only after C06 closed. Chapters
+  4–6 remain at `coauthor_review` on their accepted source states; claiming the
+  packet does not reopen them or presume that a prose edit is needed.
+- The complete handoff ledger has no delivery targeting `WB-PART`. There is no
+  incoming handoff to acknowledge or consume, and nothing targeting another
+  packet may be touched.
+- The packet owns only Chapters 4–6 if a bounded bridge or self-check repair is
+  genuinely required, its packet report, independent voice and arc reports,
+  continuity synthesis and the three workflow-control views. Shared Bookwright
+  registries remain read-only unless a separately evidenced contradiction is
+  found and approved.
+- The four governed items are `R08-SPINE-04-06`, `R24-PARTII-thesis`,
+  `R24-LADDER-PartII` and `R35-SELF-CHECK-II`. Each will be judged separately
+  against the accepted Part II sources, ratified spines and thread registry;
+  an evidence-only closeout is preferred when the current text already passes.
+- `scripts/check-review-workflow.R` passed before claim with no active packet
+  and `WB-PART` uniquely next. `WC-C07` remains blocked; push, merge, tag,
+  archive and deployment remain unauthorised.
+
+## WB-PART closeout — Part II continuity gate
+
+- `WB-PART` is accepted on final Chapter 6 SHA-256
+  `0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd`.
+  Chapters 4 and 5 remain unchanged at
+  `7053754fad4753e3b2252463b3e8095fb43122efdeb8460bf034589d028b7c19`
+  and `db4203d6caf05a5e5e07ba841a58e3b5be7bb6916eb159be0054196d89bf14df`.
+- The complete evidence record is `notes/reports/wb-part-2026-08-11.md`.
+  Independent final voice and arc reports plus their synthesis confirm the
+  exact source hashes with zero fatal and zero major finding. Voice,
+  cumulative build and order score 5/5; register evenness and absence of
+  redundant repetition score 4/5.
+- A separate read-only evidence audit found the initially implicit AI-receipt
+  contract, then verified the bounded repair. The final C06 table gives each
+  C04–C06 assistant task all seven canonical fields, describes the actual
+  visible return, names concrete checks and responsible people, remains
+  readable without code and leaks no protected diagnosis or answer.
+- Exactly four items advance from `ratified` to `accepted`:
+  `R08-SPINE-04-06`, `R24-PARTII-thesis`, `R24-LADDER-PartII` and
+  `R35-SELF-CHECK-II`. Each carries source-specific completion evidence.
+- The first concept check caught a false `mediju` → `medijan` token match.
+  The source now says `formatu`; the canonical graph remains unchanged at 47
+  nodes and 502 edges, and `check-concepts.py` reports a fresh graph with zero
+  ledger debt.
+- Full HTML, approved-wrapper PDF and wrapper DOCX renders exited 0. Their
+  SHA-256 values are respectively
+  `2dd8ae8da9411f6f4f59b12b7ae3a09183c6b2b3cc0e020eee73a82872a79d96`,
+  `b4f773ab59f1cd1774bffe9f47e17139b750bcd245da021b81207daebf362d53`
+  and `76dddcac65158426a837331ffcc5d8c1e96684b88b39e2e94f2fb3b5c2ef173d`.
+  All 37 HTML routes pass; generated `docs/`, `_freeze/`, PDF, DOCX and AI
+  exports were restored.
+- Architecture, spine, assessment, identity, terminology, citation, concept,
+  manuscript, figure, catalogue, data, DigiKat, Eurostat, widget, parity,
+  inventory, token, style and continuity checks pass. The four known C04
+  structure-rhythm candidates remain accepted and unmodified; C05 and C06 have
+  no structure-lint candidate.
+- C06 author acceptance remains historical evidence for commit
+  `34200ef1d723e88623e1bc9e73a47e6535a3673c` and its old source hash. Because
+  the WB-PART bridge is material and lacks a new full chapter panel and author
+  disposition, only `06-povezanost` is conservatively returned from
+  `coauthor_review` to `draft`.
+- `H-WB-PART-001` records the sole new future-relevant effect and routes the
+  required fresh C06 six-critic coverage to the already-ratified
+  `P6-PANELS`. The WB-PART voice/arc panel is not substituted for it.
+- No handoff targeted WB-PART. The active write lock is closed, `WC-C07` is the
+  sole next-permitted packet and was not claimed or started. Push, merge, tag,
+  archive and deployment remain unauthorised.
 
 ## G-A3-EUROSTAT claim
 
@@ -4017,43 +4087,38 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that C06 is accepted against the final WB-C06 source commit
-`34200ef1d723e88623e1bc9e73a47e6535a3673c`, that
-`chapters/06-povezanost.qmd` remains at SHA-256
-`4b5e538138a6b385e4d970b193d2ea29e3cf71d934e2700fdf37a7e65633efa8`, that
-`06-povezanost` is at `coauthor_review`, and that exactly
-`R13-C06-coded-association` and `R35-REACHBACK-06` joined the four earlier
-accepted R09 Chapter 6 repairs. Confirm that the C06 acceptance package records
-the exact author reply without claiming an author reading or `final` status.
+Verify that `WB-PART` is accepted on Chapter 6 SHA-256
+`0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd`, that
+`R08-SPINE-04-06`, `R24-PARTII-thesis`, `R24-LADDER-PartII` and
+`R35-SELF-CHECK-II` are accepted with structured evidence, and that no write
+packet is active. Confirm that Chapters 4 and 5 remain at `coauthor_review`,
+while `06-povezanost` is conservatively at `draft` because its historical C06
+acceptance covers only the earlier source hash. Preserve `H-WB-PART-001` as a
+pending obligation of `P6-PANELS`; do not consume or repair it in Chapter 7.
 
-Then execute only `WB-PART`, the Part II bridge and cumulative self-check, and
-stop before `WC-C07`. Claim it only if it is the sole next-permitted packet and
-no write packet is active. The complete handoff ledger currently has no
-delivery targeting `WB-PART`; verify that fact before work and touch no handoff
-for another packet.
+Then execute only `WC-C07`, the Chapter 7 vertical slice, and stop before the
+separate `C07` author gate. Claim it only if it is the sole
+`next_permitted_packet`. Verify the complete handoff ledger before work; it
+currently has no delivery targeting `WC-C07`, so touch no delivery owned by a
+different target.
 
-Read Chapters 4–6 top to bottom, the ratified Part II contract and three
-chapter spines, the shared claim/thread and AI-competence registries, and the
-four governed WB-PART items: `R08-SPINE-04-06`, `R24-PARTII-thesis`,
-`R24-LADDER-PartII` and `R35-SELF-CHECK-II`. Judge each acceptance test
-separately. The part boundary must use governed distributions within their
-claim limits, advance the AI competence toward reproducible summaries and
-plots plus detection of exclusions, scales and transformations, and provide an
-answerable cumulative self-check with a canonical answer path.
+Read Chapter 7 top to bottom, the ratified Part III contract and Chapter 7
+spine, `P1A-C07`, the shared claim/thread and assessment registries, and the
+three governed items `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+`R35-REACHBACK-07`. Revise the complete vertical slice against its exact
+acceptance tests without taking Chapter 8 or later Part III work. Keep
+simulation before formulas, reduce simultaneous novelty, make the midpoint
+retrieval pause real, preserve the probability-to-belief boundary, and provide
+the required reach-back task without assessed code production.
 
-Do not reopen accepted chapter work merely to manufacture a change. If the
-existing final states already satisfy an item, close it evidence-only with
-exact source anchors. If a bounded bridge or self-check prose edit is genuinely
-required, keep it within WB-PART ownership, follow STYLE.md and the Bookwright
-style workflow, and conservatively reopen any chapter stage whose last-valid
-panel state the edit invalidates.
-
-Run the applicable deterministic checks and targeted HTML, approved-wrapper
-PDF and wrapper-built DOCX renders. Use the checkout-local Bookwright
-continuity workflow to obtain independent read-only voice and narrative-arc
-reviews of the final Part II state and synthesize them. Record every
-future-relevant effect or explicitly declare that none was found; update the
+Use checkout-local `book-style` for every prose edit and the six-critic
+`book-review` workflow on the final material Chapter 7 hash. Resolve every
+fatal and major finding before closeout; present any disposition that requires
+author authority instead of inferring it. Run the applicable deterministic
+checks and full HTML, approved-wrapper PDF and wrapper-built DOCX renders.
+Record every future-relevant effect or explicitly declare none; update the
 register, handoff ledger and dashboard together; run the workflow validator
-and required negative fixtures; make one bounded local WB-PART commit; and
-stop before `WC-C07`. Push, merge, tag, archive and deploy remain unauthorised.
+and its required negative fixtures; make one bounded local `WC-C07` commit;
+leave Chapter 7 and its governed items awaiting the separate `C07` decision;
+and stop. Push, merge, tag, archive and deploy remain unauthorised.
 ```
