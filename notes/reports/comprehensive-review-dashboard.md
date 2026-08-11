@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: C07
 last_completed_packet: WC-C07
-next_permitted_packet: C07
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -45,12 +45,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `C07` |
 | Last completed packet | `WC-C07` |
-| Next permitted packet | `C07` |
+| Next permitted packet | None while `C07` awaits the exact author reply |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 180 accepted, 5 deferred with reason, 186 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 89 accepted, 98 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 89 accepted, 97 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review`; `06-povezanost` conservatively reopened to `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -143,6 +143,39 @@ No chapter prose was changed by `P0-OUTSIDE`.
   validator would otherwise name it next.
 - C07 is next but has not been claimed or accepted. Push, merge, tag, archive,
   deployment and publication remain unauthorised.
+
+## C07 claim — awaiting author decision
+
+- C07 was claimed only after the clean WC-C07 closeout commit
+  `c6c7078b918a3b017b5807d51b68c83ae2d7bc2f`. The commit contains Chapter 7
+  at SHA-256
+  `900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`,
+  all six final critic reports, the synthesis and the packet report.
+- The packet owns only the Chapter 7 ledger entry, the bounded acceptance
+  package and the three workflow-control views. It authorises no prose, data,
+  bibliography, terminology, concept, widget, figure, render or generated
+  artifact change.
+- The C07 delivery in `H-WC-C07-THREAD-SEQUENCE-001` is acknowledged but will
+  remain unconsumed until a real exact dated reply and closeout. The
+  2026-08-05 standing delegation does not substitute for that reply, and no
+  author reading is claimed.
+- All six final critics confirm the exact hash with zero fatal and zero major
+  finding. The acceptance package discloses all 20 minor and 8 useful records
+  and the existing two catalogue descriptions already owned by
+  `H-P3-CATALOG-002`.
+- No disposition has been applied. `07-vjerojatnost` remains `draft`;
+  `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+  `R35-REACHBACK-07` remain `ratified`; `R09-C07-clt-conditions` remains
+  accepted.
+- The exact required reply is `C07 accepted for
+  c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.` C07 must stop and
+  wait for it or for exact blocking revisions tied to the same commit.
+- `H-WC-C07-WC-C08-PREREQUISITE-001` remains pending and is not resolved by
+  C07 acceptance. WC-C08 must not be claimed without a separately authorised
+  resolution of its four `P3-ESS` item prerequisites.
+- `scripts/check-review-workflow.R` passed on the clean closeout state before
+  claim. It must pass again in this active C07 state. WC-C08 is not started;
+  push, merge, tag, archive, deployment and publication remain unauthorised.
 
 ## WB-C04 claim
 
@@ -4175,22 +4208,22 @@ Verify that `WC-C07` is accepted on Chapter 7 SHA-256
 all six final critic reports and the synthesis confirm zero fatal and zero
 major finding, and that Chapter 7 and `R10-C07-degree-belief`,
 `R29-C07-retrieval-load` and `R35-REACHBACK-07` remain `draft`/`ratified`.
-Confirm that `R09-C07-clt-conditions` remains accepted, no packet is active and
-`C07` is the sole next-permitted packet.
+Confirm that `R09-C07-clt-conditions` remains accepted, `C07` is the sole
+active packet and no next packet is permitted.
 
-Then claim only `C07`, the author/editor acceptance gate. Own only the Chapter
-7 ledger entry, the C07 acceptance package and the three workflow-control
-views. Acknowledge but do not consume the C07 delivery in
-`H-WC-C07-THREAD-SEQUENCE-001`. Cite the final WC-C07 commit, all six reports,
-the synthesis, all 20 minor and 8 useful nonblocking records and the two
-existing catalogue descriptions already owned by `H-P3-CATALOG-002`. Do not
-edit chapter prose, data, bibliography, concepts, widgets, figures or generated
-artifacts; do not advance any item or chapter stage before the exact reply.
+Read `notes/reports/c07-acceptance-package-2026-08-11.md`. Verify that the C07
+delivery in `H-WC-C07-THREAD-SEQUENCE-001` is only acknowledged, that no
+disposition has been applied and that the package cites final WC-C07 commit
+`c6c7078b918a3b017b5807d51b68c83ae2d7bc2f`, all six reports, the synthesis,
+all 20 minor and 8 useful nonblocking records and the two existing catalogue
+descriptions already owned by `H-P3-CATALOG-002`. Do not edit chapter prose,
+data, bibliography, concepts, widgets, figures or generated artifacts; do not
+advance any item or chapter stage before the exact reply.
 
 Present the bounded acceptance package and stop. The required reply is:
-`C07 accepted for <final WC-C07 commit> on 2026-08-11.` Do not substitute the
-2026-08-05 standing delegation and do not claim that the author read the
-chapter.
+`C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.`
+Do not substitute the 2026-08-05 standing delegation and do not claim that the
+author read the chapter.
 
 `H-WC-C07-WC-C08-PREREQUISITE-001` is a separate pending blocker: all four
 WC-C08 items require still-ratified `P3-ESS` at sequence 113. C07 may be

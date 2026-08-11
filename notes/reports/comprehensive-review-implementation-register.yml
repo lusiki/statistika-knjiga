@@ -10,9 +10,17 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C07"
+    claimed_at: "2026-08-11"
+    owned_paths:
+      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
+      - "notes/reports/c07-acceptance-package-2026-08-11.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WC-C07"
-  next_permitted_packet: "C07"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10140,7 +10148,7 @@ packets:
     sequence: 97
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WC-C07"
     scope: "Author acceptance and panel disposition for C07."
@@ -29628,7 +29636,7 @@ outside_asks:
 
   OA-C07-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WC-C07_revision_and_panel"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -29644,8 +29652,21 @@ outside_asks:
     available_evidence:
       - "packet:WC-C07"
       - "packet:C07"
+      - "commit:c6c7078b918a3b017b5807d51b68c83ae2d7bc2f"
+      - "source:chapters/07-vjerojatnost.qmd@sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+      - "report:notes/reports/wc-c07-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-methods-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-skeptic-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-pedagogy-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-evidence-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-style-2026-08-11.md"
+      - "report:notes/reports/wc-c07-critic-structure-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c07-six-critic-synthesis-2026-08-11.md"
+      - "report:notes/reports/c07-acceptance-package-2026-08-11.md"
+      - "handoff:H-WC-C07-THREAD-SEQUENCE-001"
+      - "handoff:H-WC-C07-WC-C08-PREREQUISITE-001"
     recommended_default: "Accept only after probability, CLT conditions, cognitive-load retrieval, reach-back, and panel findings pass."
-    exact_reply_requested: "Reply: C07 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C07 accepted for c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11; or list exact blocking revisions tied to that commit."
     resume_condition: "C07 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
