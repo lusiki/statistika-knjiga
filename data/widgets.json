@@ -229,14 +229,14 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 40, "critical": 1.96, "intervals": 50, "seed": 908, "r_seed": 909}]},
-        "seed_policy": {"ojs": "d3.randomLcg(908) i d3.randomNormal", "r": "set.seed(909) i rnorm", "shared": "Razlicita su sjemena dio izvora; zlatni broj pogodaka ostaje zaseban, a obuhvat se usporeduje distribucijski."},
+        "seed_policy": {"ojs": "d3.randomLcg(908) i eksplicitni Marsaglijin polarni generator bez pohrane drugoga parnjaka", "r": "set.seed(909) i rnorm", "shared": "OJS uzivo i OJS adapter trose potpuno isti tok; razlicito R sjeme dio je izvora, zlatni broj pogodaka ostaje zaseban, a obuhvat se usporeduje distribucijski."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.coverage_rate": 0.15, "default.mean_width": 1e-10, "default.mean_estimate": 0.2}},
         "expected": {
           "ojs": {"default.coverage_rate": 0.96, "default.mean_width": 0.6198064213930023, "default.mean_estimate": -0.01783690823480316},
           "r": {"default.coverage_rate": 0.92, "default.mean_width": 0.6198064213930023, "default.mean_estimate": -0.009883802777233178}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w09", "r": "scripts/widget-parity-r.R#w09"},
-        "source": {"ojs_label": "fig-w09", "r_label": "fig-w09-print", "ojs_sha256": "4fe8715a14b8cc5d0a6c35a132be1d6beb5d5e4ee65d10e80a6cd82b136b9bcd", "r_sha256": "84e40a86f0c333e602acfddb34d838f867d35a28e0d3f611b3beb8bbf0e93838"},
+        "source": {"ojs_label": "fig-w09", "r_label": "fig-w09-print", "ojs_sha256": "cfdde28bef37b5ef8ce5d5715b94bb937a64b1358736d5934bd7293abc2487b3", "r_sha256": "84e40a86f0c333e602acfddb34d838f867d35a28e0d3f611b3beb8bbf0e93838"},
         "claim_boundary": "Sirina i dugorocni obuhvat postupka za normalnu sredinu; ne zahtijeva isti broj promasenih intervala ni iste procjene."
       },
       "naziv": "Hvatač intervala",

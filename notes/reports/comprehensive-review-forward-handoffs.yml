@@ -573,7 +573,29 @@ handoffs:
           - "report:notes/reports/wc-c08-2026-08-11.md#dolazni-handoffovi"
       - target_packet: WC-C09
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-12"
+        acknowledgement: >-
+          WC-C09 accepts the distinct Chapter 3 interval and margin-of-error
+          debt as a binding closeout obligation. Chapter 9 will retrieve the
+          earlier poll-reading frame, distinguish a point estimate from the
+          uncertainty attached to its procedure, and close the debt without
+          repeating Chapter 8's sampling-design work or inventing missing poll
+          evidence.
+        disposition: >-
+          Chapter 9 explicitly retrieves „Istraživač margine pogreške” and its
+          two states, defines margin of error as z* times standard error and as
+          an interval half-width, and limits it to sampling uncertainty. The
+          task closes the interval debt without repeating Chapter 8's coverage,
+          nonresponse and sampling-design audit and without inventing a missing
+          poll value.
+        evidence:
+          - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+          - "item:R35-REACHBACK-09-materially-passes-pending-C09"
+          - "boundary:margin-of-error-covers-sampling-uncertainty-not-bias-coverage-nonresponse-measurement-or-coding"
+          - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
+          - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
       - target_packet: WD-C17
         gate: before_close
         state: pending
@@ -4760,7 +4782,34 @@ handoffs:
           - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-generated_sets-2-rows-50300"
       - target_packet: WC-C09
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-12"
+        acknowledgement: >-
+          WC-C09 will build its print-completable preset from the governed
+          aggregate view without changing or rounding stored values, and will
+          write the still-missing reader task that reproduces a published
+          aggregate row from the analysis view. The packet will rerun the exact
+          aggregate reconciliation and close R32-CATALOG-paired-views here under
+          the 2026-08-12 author amendment rather than defer the prose obligation
+          again.
+        disposition: >-
+          The print-visible table reads the governed aggregate view without
+          changing its stored values. The new reader task filters the analysis
+          view to izvor_vijesti_sifra 1 and reproduces the portal row through R
+          or jamovi: 15101 of 50000, share 0.30202, trust total 72101 and mean
+          4.774584464604993. Exact reconciliation and all three established
+          negative fixtures pass, so the author-amended WC-C09 closeout accepts
+          R32-CATALOG-paired-views; P5-C retains only its separate public-view
+          obligation.
+        evidence:
+          - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+          - "source:data/populacija-medija.csv"
+          - "source:data/populacija-medija-agregat.csv"
+          - "item:R32-CATALOG-paired-views-accepted-by-WC-C09-author-amendment"
+          - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-generated-sets-2-rows-50300"
+          - "fixture:rounded_mean-total_mismatch-share_mismatch-fail-closed"
+          - "report:notes/reports/wc-c09-critic-evidence-2026-08-12.md"
       - target_packet: WC-C11
         gate: before_close
         state: pending
@@ -5927,7 +5976,32 @@ handoffs:
     deliveries:
       - target_packet: WC-C09
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-12"
+        acknowledgement: >-
+          WC-C09 treats the normal-generator mismatch as a binding widget
+          revalidation obligation. It will establish exact equivalence between
+          the live w09 source and parity adapter, add actual-execution golden
+          evidence plus a regression fixture that detects asymmetric use of the
+          cached polar variate, and retain the existing tolerance unchanged.
+        disposition: >-
+          The live w09 source and production parity adapter now use the same
+          explicit non-caching Marsaglia-polar generator and seeded draw order.
+          The registered live OJS hash is refreshed, ordinary parity passes at
+          its unchanged distributional tolerance, and the new
+          normal-cache-asymmetry fixture deliberately restores cached-pair
+          consumption on one side and fails closed.
+        evidence:
+          - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+          - "source:scripts/widget-parity-ojs.mjs"
+          - "source:scripts/check-widget-parity.py"
+          - "source:scripts/check-widget-parity-fixtures.py"
+          - "registry:data/widgets.json#w09-ojs-sha256-cfdde28bef37b5ef8ce5d5715b94bb937a64b1358736d5934bd7293abc2487b3"
+          - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+          - "check:WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-2"
+          - "boundary:w09-tolerance-unchanged"
+          - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
       - target_packet: WC-C10
         gate: before_close
         state: pending
@@ -6304,7 +6378,25 @@ handoffs:
           - "boundary:WC-C09-delivery-remains-pending"
       - target_packet: WC-C09
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-12"
+        disposition: >-
+          WC-C09 consumes the surviving strict-sequence delivery before claim.
+          C08 is accepted and committed at
+          b0be3b01570eb5502db041417d9d8d386a4b17c9, WC-C09 is the sole next
+          packet and this claim opens one bounded Chapter 9 vertical slice. The
+          packet must close and commit its own source-state evidence and fresh
+          six-critic panel, then stop for the distinct exact C09 author reply.
+          It claims neither C09 nor WC-C10, claims no author reading and widens
+          no authority to an external or release action.
+        evidence:
+          - "decision:A-THREAD-C07-C09-2026-08-11"
+          - "decision:A-THREAD-C08-C10-2026-08-12"
+          - "commit:C08-closeout-b0be3b01570eb5502db041417d9d8d386a4b17c9"
+          - "register:WC-C09-sequence-102-next-permitted-before-claim"
+          - "check:scripts/check-review-workflow.R-before-claim-ok"
+          - "boundary:one-write-lock-WC-C09-only-and-separate-C09-reply"
 
   H-WC-C07-WC-C08-PREREQUISITE-001:
     source_packet: WC-C07
@@ -8772,3 +8864,39 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail closed for their injected defect
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C08
       - WC-C09 is the sole next permitted packet but is not claimed inside C08 and no external or release action was authorised
+
+  WC-C09:
+    reviewed_at: "2026-08-12"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WC-C09 found no new future-relevant effect. The public catalogue route
+      for the paired views remains owned by the existing P5-C delivery; closing
+      the reader-task half here does not duplicate that documentation work.
+      H-WB-C06-001 already routes the same generator obligation separately to
+      every later affected widget and the whole-book figure/browser gates.
+      Chapter 9's accepted source is a direct prerequisite of C09.
+    implementation_state: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+    checks:
+      - H-WC-C07-THREAD-SEQUENCE-001 was consumed before the first substantive edit and preserved the strict packet sequence separate claim and exact C09 reply
+      - H-P0-REGISTER-008 H-P3-EXISTING-002 and H-WB-C06-001 were acknowledged before work and consumed before closeout with exact dispositions and evidence
+      - nothing targeting another packet was consumed and H-WB-PART-001 remains pending for P6-PANELS while Chapter 6 remains unchanged and draft
+      - the final Chapter 9 hash is 42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f
+      - coverage is experienced and counted before the confidence level critical value formula and formal interval definition
+      - A and B change confidence only and A and C change sample size only while all presets share the seed 919 draw matrix in interactive print and document routes
+      - margin of error is the interval half-width for sampling uncertainty and does not absorb bias nonresponse coverage measurement or coding uncertainty
+      - coded-text sampling coding and measurement uncertainties are named separately and population claims are withdrawn when representativeness is not defensible
+      - the percentile bootstrap constructs an interval without claiming to validate coverage and a normal descriptive range is not called a prediction interval
+      - the worked example uses a prespecified ten-minute precision target and the non-overlap discussion requires direct estimation of the difference with design and dependence considered
+      - the Part III boundary carries six audit questions six claim dimensions an answerable self-check and a seven-field verification receipt
+      - the Chapter 3 reach-back names Istrazivac margine pogreske and both states while remaining distinct from the Chapter 8 sampling-design debt
+      - the governed aggregate table and R or jamovi task reproduce the portal row from the analytical view without changing stored values or assessing syntax
+      - R32-CATALOG-paired-views is accepted here under the 2026-08-12 author amendment while the separate P5-C public-catalogue delivery remains pending
+      - live w09 and the production parity adapter use the same non-caching Marsaglia-polar generator and the registered live OJS source hash is refreshed
+      - ordinary parity passes with 17 pairs 6 exact and 11 distributional while the expected-value and normal-cache-asymmetry negative fixtures both fail closed and no tolerance changed
+      - data/concept-graph.json is regenerated from the final source with 47 nodes 511 edges fresh true and zero concept-ledger debt
+      - style figure manuscript citation terminology data widget parity inventory and workflow checks pass on the declared final state
+      - final targeted HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared source hash and all tracked generated outputs were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major five nonblocking minor and zero useful findings
+      - R13-C09-coded-uncertainty R23-C09-code-reading R32-C09-static and R35-REACHBACK-09 materially pass but remain ratified pending C09
+      - Chapter 9 remains draft C09 is next but is not accepted no author reading is claimed and no external or release action was taken

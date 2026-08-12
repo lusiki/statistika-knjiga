@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C08"
-  next_permitted_packet: "WC-C09"
+  last_completed_packet: "WC-C09"
+  next_permitted_packet: "C09"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10598,7 +10598,7 @@ packets:
     sequence: 102
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C08"
       - "P1A-C09"
@@ -10610,14 +10610,96 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WC-C09 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-III"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#09-procjena"
+            - "report:notes/reports/g-a2b-iii-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-iii-2026-08-04.md"
+            - "packet:P1A-C09-accepted"
+            - "report:notes/reports/p1a-c09-methods-review-2026-08-03.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+            - "source:data/populacija-medija.csv"
+            - "source:data/populacija-medija-agregat.csv"
+            - "result:portal-row-15101-of-50000-share-0.30202-trust-total-72101-mean-4.774584464604993"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-generated-sets-2-rows-50300"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-live-keys-44-records-44"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-nodes-47-edges-511-graph-fresh"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "check:scripts/check-widget-parity-fixtures.py-WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-2"
+            - "boundary:w09-live-and-adapter-noncaching-generator-equivalent-tolerance-unchanged"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-C09-bytes-191400-sha256-8de0b999a60af656c35a717f717737be8554427107200d5d7770c234d91d3731"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2678886-sha256-4bb51ca11c5d2bc1e6357b6ebf58f1515c90955a507c031c619ad2a1ae130b24"
+            - "render:DOCX-wrapper-exit-0-bytes-1522875-sha256-12c20709885d918a2f36853a3e666949c4e76a6c3128e7b10e6adccd79fa1ce0-media-58"
+            - "boundary:tracked-generated-docs-freeze-ai-export-pdf-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-skeptic-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-evidence-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-style-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-structure-2026-08-12.md"
+            - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+            - "panel:six-of-six-confirm-source-sha256-42c69be9-zero-fatal-zero-major-five-minor-zero-useful"
+      outputs:
+        - output: "WC-C09 verified vertical-slice source and evidence bundle for: Chapter 9 vertical slice."
+          artifacts:
+            - "source:chapters/09-procjena.qmd"
+            - "generated:data/concept-graph.json-47-nodes-511-edges"
+            - "registry:data/widgets.json#w09"
+            - "source:scripts/widget-parity-ojs.mjs"
+            - "source:scripts/check-widget-parity.py"
+            - "source:scripts/check-widget-parity-fixtures.py"
+            - "report:notes/reports/wc-c09-2026-08-12.md"
+            - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+        - output: "Completion evidence is tied to the declared WC-C09 source state and bounded scope."
+          artifacts:
+            - "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+            - "handoff:H-WC-C07-THREAD-SEQUENCE-001-consumed-before-start"
+            - "handoffs:H-P0-REGISTER-008-H-P3-EXISTING-002-H-WB-C06-001-consumed-before-close"
+            - "review:packet_reviews.WC-C09-all-future-effects-recorded"
+            - "boundary:Chapter-6-unchanged-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "boundary:C09-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WC-C09-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wc-c09-2026-08-12.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK"
+            - "check:MANUSCRIPT_STYLE_OK-hits-0"
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+            - "panel:zero-fatal-zero-major-five-nonblocking-minor-zero-useful"
+        - test: "The WC-C09 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R13-C09-coded-uncertainty-R23-C09-code-reading-R32-C09-static-R35-REACHBACK-09-materially-pass-remain-ratified-until-C09"
+            - "item:R32-CATALOG-paired-views-accepted-under-2026-08-12-author-amendment"
+            - "report:notes/reports/wc-c09-2026-08-12.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
   C09:
     sequence: 103
     phase: "4"
@@ -20496,11 +20578,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+      - "result:sampling-coding-and-measurement-uncertainty-named-separately"
+      - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-skeptic-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
   R13-C10-label-fallibility:
     parents:
       - "R13"
@@ -23832,11 +23919,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+      - "result:short-bootstrap-code-receipt-one-realistic-interpretive-error-no-code-production"
+      - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-structure-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
   R23-C12-code-ladder:
     parents:
       - "R23"
@@ -27414,11 +27506,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+      - "result:print-completable-A-B-confidence-and-A-C-sample-size-pairs-share-seed-919-draw-matrix"
+      - "render:pdf-wrapper-sha256-4bb51ca11c5d2bc1e6357b6ebf58f1515c90955a507c031c619ad2a1ae130b24"
+      - "render:docx-wrapper-sha256-12c20709885d918a2f36853a3e666949c4e76a6c3128e7b10e6adccd79fa1ce0"
+      - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
   R32-C11-static:
     parents:
       - "R32"
@@ -27469,24 +27567,18 @@ items:
       location: "§12 outstanding integration"
     description: "Provide analysis files for R/jamovi and aggregate files for hand/print verification."
     open_reason: >-
-      P3-CATALOG left this open because neither file nor task existed.
-      P3-EXISTING discharged the first half and deliberately did not claim the
-      second. Both pairs now exist and reconcile exactly: the validator
-      recomputes every group count, total, mean and share from the analysis file
-      and compares without tolerance, and the rounded_mean, total_mismatch and
-      share_mismatch fixtures each fail closed. The test also requires at least
-      one task that reproduces an aggregate, and no such task exists: a task is
-      a reader exercise, which lives in chapter or appendix prose that a
-      data_package packet may not write. The aggregate is deliberately built so
-      that such a task is possible by hand -- every share carries its numerator
-      and denominator and every mean its integer total -- but building the
-      possibility is not the same as writing the task, and this packet does not
-      claim it did. WB-C04, WC-C09 and WC-C11 own the print presets that would
-      use it and P5-C owns the appendix route.
-    closure_packet: "P5-C"
+      Closed by the 2026-08-12 author amendment in WC-C09. P3-EXISTING had
+      already provided exactly reconciled analysis and aggregate pairs;
+      Chapter 9 now adds the missing reader task, which reproduces the portal
+      row of data/populacija-medija-agregat.csv from
+      data/populacija-medija.csv through R or jamovi. The validator recomputes
+      every group count, total, mean and share without tolerance and all three
+      established aggregate fixtures remain fail-closed. P5-C still owns the
+      separate public catalogue route, not this completed paired-view test.
+    closure_packet: "WC-C09"
     closure_handoff: "H-P3-EXISTING-002"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -27504,11 +27596,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "author_amendment:close-R32-CATALOG-paired-views-in-WC-C09-2026-08-12"
+      - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+      - "source:data/populacija-medija.csv"
+      - "source:data/populacija-medija-agregat.csv"
+      - "result:portal-row-15101-of-50000-share-0.30202-trust-total-72101-mean-4.774584464604993"
+      - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-generated-sets-2-rows-50300"
+      - "fixture:rounded_mean-total_mismatch-share_mismatch-fail-closed"
+      - "report:notes/reports/wc-c09-critic-evidence-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
   R32-C18-transfer-path:
     parents:
       - "R32"
@@ -27824,11 +27925,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C09"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+      - "result:critical-task-retrieves-Chapter-3-Istrazivac-margine-pogreske-and-both-states"
+      - "boundary:distinct-interval-debt-no-repeat-of-Chapter-8-sampling-design-debt"
+      - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-structure-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
   R35-REACHBACK-10:
     parents:
       - "R35"

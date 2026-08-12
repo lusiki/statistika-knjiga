@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C08
-next_permitted_packet: WC-C09
+last_completed_packet: WC-C09
+next_permitted_packet: C09
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -48,12 +48,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
-| Last completed packet | `C08`; accepted for WC-C08 commit `39db651decc561fb082facb7feeebc40103eace8` on 2026-08-12 |
-| Next permitted packet | `WC-C09` at sequence 102 under the strict C08-C10 thread amendment |
+| Active write packet | None; `WC-C09` closed against Chapter 9 SHA-256 `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f` |
+| Last completed packet | `WC-C09`; six final critics report 0 fatal, 0 major, 5 nonblocking minor and 0 useful findings |
+| Next permitted packet | `C09`, a separate author-acceptance gate that must cite the final WC-C09 commit and receive its own exact dated reply |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 189 accepted, 5 deferred with reason, 177 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 94 accepted, 93 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 190 accepted, 5 deferred with reason, 176 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 95 accepted, 92 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 11 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost` and `08-uzorkovanje` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -4436,6 +4436,77 @@ the durable evidence is
   inside C08. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## WC-C09 claim — Chapter 9 vertical slice
+
+- WC-C09 was claimed from clean commit
+  `b0be3b01570eb5502db041417d9d8d386a4b17c9` after the workflow validator
+  confirmed no active packet, accepted C08 and WC-C09 alone at sequence 102.
+  Exactly one write lock is active; C09 and WC-C10 remain unclaimed.
+- `H-WC-C07-THREAD-SEQUENCE-001` is consumed at `before_start`. It preserves
+  the older thread decision through WC-C09 closeout while the distinct
+  `A-THREAD-C08-C10-2026-08-12` decision carries the later C09–C10 sequence.
+- `H-P0-REGISTER-008`, `H-P3-EXISTING-002` and `H-WB-C06-001` are acknowledged
+  before the first substantive edit and remain pending for exact `before_close`
+  dispositions. Their obligations are respectively the Chapter 3 interval
+  debt, the governed aggregate print/task closure and exact w09 live/adapter
+  random-generator equivalence with a fail-closed regression fixture.
+- The governed Chapter 9 items are `R13-C09-coded-uncertainty`,
+  `R23-C09-code-reading`, `R32-C09-static` and `R35-REACHBACK-09`.
+  `R32-CATALOG-paired-views` is additionally closed here, rather than deferred
+  again, under the 12 August author amendment. All remain `ratified` while the
+  packet is active.
+- The packet is bounded to the ratified G-A2b-III estimation spine, required
+  parity support and evidence reports. Chapter 6 remains unchanged and
+  deliberately `draft`; no author reading is claimed and no external or
+  release action is authorised.
+
+## WC-C09 closeout — Chapter 9 vertical slice
+
+- The final Chapter 9 SHA-256 is
+  `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`.
+  Coverage is experienced and counted before formalisation; `z*` is explained
+  before the interval formula, and margin of error is an interval half-width
+  restricted to sampling uncertainty.
+- Interactive and static A/B and A/C comparisons share one seed-919 draw
+  matrix and vary confidence level or sample size one at a time. Approved
+  wrapper PDF and DOCX carry both pairs.
+- The worked example uses a prespecified margin target of at most ten minutes,
+  withdraws a population claim when representativeness fails and treats
+  interval non-overlap only as compatibility evidence pending a direct
+  interval for the difference and a design/dependence audit.
+- Sampling uncertainty for coded text remains distinct from coding and
+  measurement uncertainty. The bootstrap receipt asks for code reading, not
+  production; a percentile bootstrap is not presented as a coverage
+  validation and a normal descriptive range is not called predictive.
+- The Part III boundary now has six audit questions, six claim dimensions, an
+  answerable self-check and a seven-field verification receipt. The Chapter 3
+  reach-back names „Istraživač margine pogreške” and both states without
+  repeating Chapter 8's sampling-design debt.
+- The governed aggregate table and the R-or-jamovi task reproduce the portal
+  row from the paired analytical view. Exact data reconciliation passes, so
+  the author-amended `R32-CATALOG-paired-views` closes here; its separate
+  `P5-C` public-catalogue route remains pending.
+- Live w09 and the production parity adapter now share the same non-caching
+  Marsaglia-polar generator. Ordinary parity passes for all 17 pairs, both
+  expected-value and asymmetric-normal-cache negative fixtures fail closed,
+  and no tolerance changed.
+- The concept graph is fresh at 47 nodes and 511 edges. Style, figure,
+  manuscript, citation, terminology, data, widget and parity checks pass.
+  Targeted HTML, approved-wrapper PDF and wrapper DOCX renders exited 0 and
+  tracked generated outputs were restored.
+- Six final independent read-only critics reviewed the exact same hash and
+  report 0 fatal, 0 major, 5 nonblocking minor and 0 useful findings. The full
+  evidence and synthesis are in `notes/reports/wc-c09-2026-08-12.md` and
+  `notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md`; the final source
+  was not changed after their review.
+- `H-P0-REGISTER-008`, `H-P3-EXISTING-002` and `H-WB-C06-001` are consumed
+  with exact dispositions. No new handoff is needed because the public view
+  and later affected widget obligations already have canonical owners.
+- The four Chapter 9 items remain `ratified` and the chapter remains `draft`
+  until C09. Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`; no author reading, external action or release action is
+  claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4462,49 +4533,32 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify first that C08 is accepted at sequence 101 for WC-C08 commit
-`39db651decc561fb082facb7feeebc40103eace8`, Chapter 8 is at
-`coauthor_review` without an author-reading or finality claim, no packet is
-active and `WC-C09` is the sole next permitted packet at sequence 102. Confirm
-that Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not
-re-advance or re-panel it.
+Verify that WC-C09 is closed at Chapter 9 SHA-256
+`42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`,
+that its six final critic reports and synthesis record zero fatal, zero major,
+five nonblocking minor and zero useful findings, and that the repository is at
+the clean scoped WC-C09 closeout commit named by the dashboard. Do not edit the
+chapter or any final report because that would invalidate the common panel
+hash.
 
-Continue under the distinct decision `A-THREAD-C08-C10-2026-08-12`, whose
-strict remainder is `WC-C09`, `C09`, `WC-C10`, `C10`. Each packet must still
-be claimed, evidenced, handoff-disposed, workflow-checked, closed and committed
-before the next is claimed. The older `A-THREAD-C07-C09-2026-08-11` is not
-superseded: consume its `H-WC-C07-THREAD-SEQUENCE-001` delivery for WC-C09 at
-`before_start`.
+Claim only `C09` as the next permitted packet. Prepare its author-acceptance
+package tied to the full WC-C09 commit, the final Chapter 9 source hash, all six
+critic reports, the synthesis, the proposed four-item disposition and the
+proposed chapter-ledger move from `draft` to `coauthor_review`. Do not apply the
+item or chapter-ledger dispositions before the exact reply, do not claim that
+the author read the chapter, and do not call the chapter final.
 
-Before content work, fully read `notes/struktura-knjige.md`, `STYLE.md`,
-`ENRICHMENT.md`, the ratified G-A2b-III spine and Chapter 9 source plus adjacent
-Chapters 8 and 10. Use checkout-local Bookwright book-style for every prose
-edit and book-review for a full six-critic panel; read both instructions in
-full before acting.
+Preserve `R32-CATALOG-paired-views` as already accepted under the 12 August
+amendment; C09 governs only `R13-C09-coded-uncertainty`,
+`R23-C09-code-reading`, `R32-C09-static` and `R35-REACHBACK-09`. Chapter 6
+remains deliberately `draft` under `H-WB-PART-001`; do not edit, advance or
+re-panel it. ESS remains optional, portal-mediated and unpromoted, its rights
+ask stays open and bundling stays prohibited.
 
-Execute `WC-C09` only. Before the first substantive edit acknowledge
-`H-P0-REGISTER-008`, `H-P3-EXISTING-002` and `H-WB-C06-001`, and preserve the
-already consumed WC-C09 thread delivery separately. Implement the ratified
-estimation spine: correct interval and bootstrap boundaries, develop estimate
-+ interval + population language, preserve code-reading progression, add the
-required print-completable preset and reach-back, and keep coded-text sampling
-uncertainty distinct from coding or measurement uncertainty.
-
-Close the half-open `R32-CATALOG-paired-views` obligation here with reader
-prose and a task that reproduces a published aggregate from the governed paired
-analysis/aggregate views; invent no number, denominator, source or citation.
-Consume all three named before_close handoffs with exact dispositions and
-evidence. Preserve all DigiKat and Eurostat boundaries: no 2024 trend claim,
-no silent comparison across the June 2024 method break, use 551.712 as the
-source-file denominator where applicable, make no measured-versus-unmeasured
-platform reach comparison, and show the 2024 gap rather than smoothing it.
-
-Run all applicable deterministic, style, figure, data, citation, concept,
-widget and targeted HTML/PDF/DOCX checks. Dispatch six independent read-only
-critics for methods, skepticism, pedagogy, evidence, Croatian style and
-structure against the final material hash, await all six and synthesize them.
-Stop if a fatal or unresolved major finding remains. Otherwise close and commit
-WC-C09, then present the separate C09 author gate and stop for the exact reply
+Update the three control views for the C09 claim and run
+`scripts/check-review-workflow.R`. Then present the separate author gate and
+stop for the exact reply
 `C09 accepted for <full WC-C09 commit> on <date>.` Do not use the 5 August
-standing delegation and do not claim that the author read the chapter.
+standing delegation. Do not start WC-C10 before that exact reply has been
+received, C09 has been closed and committed, and the workflow validator passes.
 ```
