@@ -45,6 +45,7 @@ stop and repair the control state before editing book content.
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
 | WC-C08 prerequisite Route A | Accepted exactly: `G-A3-ESS` and `P3-ESS` moved immediately after C07; `WC-PARTS` replaced by C07 in `G-A3-ESS.requires`; `P3-ESS` added to `WC-C08.requires`; four item prerequisites and both separate ESS decisions retained; owner Luka Sikic; 2026-08-11 |
 | Thread amendment C08-C10 | `A-THREAD-C08-C10-2026-08-12` accepted as a new, distinct decision: strict chain `C08 -> WC-C09 -> C09 -> WC-C10 -> C10`; one lock and a separate claim, evidence bundle, handoff disposition, workflow check, closeout and commit per packet; exact author replies remain mandatory for C08, C09 and C10; the older C07-C09 decision and its two live handoff deliveries are not superseded |
+| Thread amendment C11-P3C | `A-THREAD-C11-P3-VERIFY-C-2026-08-11` accepted as a new, distinct decision: strict chain `WC-C11 -> C11 -> G-A4-12 -> P3-EVIDENCE12 -> P3-VERIFY-C`; each packet keeps its own lock, evidence, handoff disposition, workflow checks, closeout and commit; C11 still requires the exact author reply; both earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
@@ -4681,6 +4682,30 @@ the durable evidence is
   closeout commit. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## Author amendment 2026-08-11 — C11 through P3-VERIFY-C
+
+- `A-THREAD-C11-P3-VERIFY-C-2026-08-11` is a new, distinct author decision
+  recorded on 12 August before WC-C11. For this thread only it authorises the
+  strict chain `WC-C11`, `C11`, `G-A4-12`, `P3-EVIDENCE12`, `P3-VERIFY-C`
+  instead of the usual stop after one packet.
+- Every packet still receives its own claim, single write lock, evidence,
+  handoff disposition, workflow checks, closeout and bounded commit before the
+  next packet is claimed. No evidence or lock crosses a packet boundary, and no
+  prerequisite is waived.
+- The amendment is distinct from both earlier thread decisions, whose chains
+  have ended. C11 still requires a separate exact dated author reply tied to
+  the final WC-C11 commit; the 5 August standing delegation cannot replace it,
+  and no packet may record that the author read a chapter.
+- WC-C11 must consume exactly its three incoming deliveries, close only
+  `R04-C11-fixed-order` among the four open R04 children, preserve governed
+  aggregate values and repair w11 generator equivalence without widening
+  tolerance. G-A4-12 remains decision-only; P3-EVIDENCE12 admits no remembered
+  or approximate evidence; P3-VERIFY-C verifies prerequisites independently.
+- Chapter 6 remains unchanged and `draft`; all DigiKat, Eurostat, ESS,
+  reading-time, reader-validation and terminology-review claim boundaries
+  remain binding. The durable decision record is
+  `notes/reports/c11-p3-verify-c-thread-amendment-2026-08-11.md`.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4713,6 +4738,13 @@ Verify the clean C10 closeout commit named by the dashboard, then claim only
 `coauthor_review` without an author-reading claim, no packet is active and
 WC-C11 is the sole next-permitted packet. Chapter 6 remains deliberately
 `draft` under `H-WB-PART-001`; do not edit, advance or re-panel it.
+
+Confirm the control-only amendment commit records
+`A-THREAD-C11-P3-VERIFY-C-2026-08-11` as a new decision distinct from the two
+ended earlier chains. It authorises only the strict sequence `WC-C11`, `C11`,
+`G-A4-12`, `P3-EVIDENCE12`, `P3-VERIFY-C`; every packet retains its own claim,
+single lock, evidence, handoff disposition, workflow checks, closeout and
+commit, and C11 still requires the exact author reply.
 
 Before the first substantive edit, fully read the accepted P1A-C11 evidence,
 the ratified G-A2b-IV spine, Chapter 11, its adjacent chapters, STYLE.md and all
