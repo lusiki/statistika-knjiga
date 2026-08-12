@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WC-C09
-next_permitted_packet: C09
+last_completed_packet: C09
+next_permitted_packet: WC-C10
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -48,16 +48,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `WC-C09` closed against Chapter 9 SHA-256 `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f` |
-| Last completed packet | `WC-C09`; six final critics report 0 fatal, 0 major, 5 nonblocking minor and 0 useful findings |
-| Next permitted packet | `C09`, a separate author-acceptance gate that must cite the final WC-C09 commit and receive its own exact dated reply |
+| Active write packet | None; `C09` accepted the final WC-C09 source on the exact dated author reply |
+| Last completed packet | `C09`; accepted for WC-C09 commit `6c50a9fb5389401d2bb05585d6b12feaa6010e81` on 2026-08-12 |
+| Next permitted packet | `WC-C10`, but it requires its own claim, one write lock, evidence bundle, handoff disposition, final panel and local commit |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 190 accepted, 5 deferred with reason, 176 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 95 accepted, 92 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 194 accepted, 5 deferred with reason, 172 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 96 accepted, 91 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 11 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost` and `08-uzorkovanje` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
+| Chapter stages | 10 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje` and `09-procjena` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 36 of the 84 canonical asks remain `drafted_unsent`; 42 are `done`; 6 are `withdrawn_with_reason`. `OA-C08-ACCEPTANCE` is done from the exact in-thread reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
+| Open outside asks | 35 of the 84 canonical asks remain `drafted_unsent`; 43 are `done`; 6 are `withdrawn_with_reason`. `OA-C09-ACCEPTANCE` is done from the exact in-thread reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -4507,6 +4507,62 @@ the durable evidence is
   `H-WB-PART-001`; no author reading, external action or release action is
   claimed.
 
+## C09 claim and prepared author gate
+
+- C09 was claimed only after WC-C09 closed and was locally committed as
+  `6c50a9fb5389401d2bb05585d6b12feaa6010e81`. The Chapter 9 Git blob is
+  `197ffe4340022d7465e797095645fb7a523863b2`, and the working-file SHA-256
+  remains `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`.
+- `notes/reports/c09-acceptance-package-2026-08-12.md` cites the final commit,
+  packet report, all six critic reports, synthesis and exact proposed ledger
+  disposition. `OA-C09-ACCEPTANCE` is ready for the in-thread author decision;
+  no external message was sent.
+- The recommended disposition is to accept only
+  `R13-C09-coded-uncertainty`, `R23-C09-code-reading`, `R32-C09-static` and
+  `R35-REACHBACK-09`, and to move only `09-procjena` from `draft` to
+  `coauthor_review` with an explicit no-author-reading and not-final note.
+- `R32-CATALOG-paired-views` is already accepted under the WC-C09 amendment
+  and is not reopened. The three accepted R09 correction items remain
+  unchanged.
+- No proposed status or chapter-ledger disposition has yet been applied. There
+  is no delivery targeting C09 to consume. Chapter 6 remains unchanged and
+  `draft`; ESS remains optional, portal-mediated and unpromoted, its rights ask
+  remains open and bundling remains prohibited.
+- C09 requires the exact dated author reply tied to the full WC-C09 commit.
+  The standing 5 August delegation is not a substitute. WC-C10 is not claimed,
+  and no push, merge, tag, archive, deployment or publication is authorised.
+
+## C09 closeout
+
+- The author replied exactly: `C09 accepted for
+  6c50a9fb5389401d2bb05585d6b12feaa6010e81 on 2026-08-12.` The standing 5
+  August delegation was not substituted, and no author reading is claimed.
+- The final Chapter 9 source remains byte-identical to WC-C09 commit
+  `6c50a9fb5389401d2bb05585d6b12feaa6010e81`, Git blob
+  `197ffe4340022d7465e797095645fb7a523863b2` and SHA-256
+  `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`.
+- All six final critic reports and the synthesis address that material state.
+  The panel records zero fatal, zero major, five nonblocking minor and zero
+  useful findings. The complete decision record is
+  `notes/reports/c09-acceptance-package-2026-08-12.md`.
+- Exactly `R13-C09-coded-uncertainty`, `R23-C09-code-reading`,
+  `R32-C09-static` and `R35-REACHBACK-09` advance from `ratified` to
+  `accepted`. `R32-CATALOG-paired-views` and the three accepted R09 correction
+  items remain accepted without being reopened.
+- Only `09-procjena` advances from `draft` to `coauthor_review`; the ledger
+  says explicitly that this is not `final` and does not mean that the author
+  read the chapter.
+- `OA-C09-ACCEPTANCE` is done from the in-thread reply. No handoff targets C09,
+  and C09 creates no new outgoing handoff because every future effect already
+  has one canonical owner.
+- Chapter 6 remains unchanged and `draft`; ESS remains optional,
+  portal-mediated and unpromoted, `OA-G-A3-ESS-RIGHTS` stays open and bundling
+  prohibited. C09 changes no chapter prose, data, citation, concept, widget or
+  render.
+- `WC-C10` is uniquely next but remains unclaimed until the separate C09
+  closeout commit. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4533,32 +4589,37 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that WC-C09 is closed at Chapter 9 SHA-256
-`42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`,
-that its six final critic reports and synthesis record zero fatal, zero major,
-five nonblocking minor and zero useful findings, and that the repository is at
-the clean scoped WC-C09 closeout commit named by the dashboard. Do not edit the
-chapter or any final report because that would invalidate the common panel
-hash.
+Verify the clean C09 closeout commit named by the dashboard, then claim only
+`WC-C10`. Confirm C09 is accepted for WC-C09 commit
+`6c50a9fb5389401d2bb05585d6b12feaa6010e81`, `09-procjena` is at
+`coauthor_review` without an author-reading claim, no packet is active and
+WC-C10 is the sole next-permitted packet. Chapter 6 remains deliberately
+`draft` under `H-WB-PART-001`; do not edit, advance or re-panel it.
 
-Claim only `C09` as the next permitted packet. Prepare its author-acceptance
-package tied to the full WC-C09 commit, the final Chapter 9 source hash, all six
-critic reports, the synthesis, the proposed four-item disposition and the
-proposed chapter-ledger move from `draft` to `coauthor_review`. Do not apply the
-item or chapter-ledger dispositions before the exact reply, do not claim that
-the author read the chapter, and do not call the chapter final.
+Before the first substantive edit, fully read the accepted G-A1a/D01 Chapter
+10 correction specification, accepted P1A-C10 evidence, the ratified G-A2b-IV
+spine, Chapter 10, its adjacent chapters, STYLE.md and all deliveries targeting
+WC-C10. Acknowledge `H-WB-C06-001` before work and consume it at
+`before_close`: live w10 and its parity adapter must use equivalent normal
+generators, with actual-execution golden evidence and a regression fixture
+that fails on asymmetric cached-pair consumption, without widening tolerance.
 
-Preserve `R32-CATALOG-paired-views` as already accepted under the 12 August
-amendment; C09 governs only `R13-C09-coded-uncertainty`,
-`R23-C09-code-reading`, `R32-C09-static` and `R35-REACHBACK-09`. Chapter 6
-remains deliberately `draft` under `H-WB-PART-001`; do not edit, advance or
-re-panel it. ESS remains optional, portal-mediated and unpromoted, its rights
-ask stays open and bundling stays prohibited.
+Implement only the ratified Chapter 10 vertical slice. Preserve D01 exactly:
+the raw-label two-sided difference-in-means permutation tests the
+exchangeability/full-distribution no-association null, never an
+assumption-free equality-of-means null; use `(b + 1) / (B + 1)`; state the
+exchangeability assumptions and estimand boundary; preserve the simulation
+before formalism; and keep the bounded Bayesian frame. Open Part IV with
+magnitude and error consequences rather than ritual, include the ASA home,
+reference-label fallibility and the required reach-back.
 
-Update the three control views for the C09 claim and run
-`scripts/check-review-workflow.R`. Then present the separate author gate and
-stop for the exact reply
-`C09 accepted for <full WC-C09 commit> on <date>.` Do not use the 5 August
-standing delegation. Do not start WC-C10 before that exact reply has been
-received, C09 has been closed and committed, and the workflow validator passes.
+Run all applicable deterministic, style, figure, data, citation, concept,
+widget and targeted HTML/PDF/DOCX checks. Dispatch six independent read-only
+critics in parallel for methods, skepticism, pedagogy, evidence, Croatian
+style and structure against the final material hash, await all six and
+synthesize them. Stop on a fatal or unresolved major finding. Otherwise close
+and commit WC-C10, claim the separate C10 author gate, present the final commit,
+all six reports, synthesis and every unresolved finding, then stop for the
+exact reply `C10 accepted for <full WC-C10 commit> on <date>.` Do not use the
+5 August standing delegation and do not claim that the author read the chapter.
 ```

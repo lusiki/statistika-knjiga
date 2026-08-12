@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WC-C09"
-  next_permitted_packet: "C09"
+  last_completed_packet: "C09"
+  next_permitted_packet: "WC-C10"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10704,7 +10704,7 @@ packets:
     sequence: 103
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WC-C09"
     scope: "Author acceptance and panel disposition for C09."
@@ -10715,14 +10715,80 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-skeptic-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-evidence-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-style-2026-08-12.md"
+            - "report:notes/reports/wc-c09-critic-structure-2026-08-12.md"
+            - "panel:zero-fatal-zero-major-five-nonblocking-minor-zero-useful"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+            - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
+            - "disposition:accept-four-Chapter-9-items-and-advance-only-09-procjena-to-coauthor_review"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+            - "evidence:conversation-user-message-recorded-2026-08-12"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+            - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+            - "blob:197ffe4340022d7465e797095645fb7a523863b2"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#09-procjena-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C09 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+            - "reports:wc-c09-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+            - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+            - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
+        - output: "Completion evidence is tied to the declared C09 source state and bounded scope."
+          artifacts:
+            - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+            - "items:R13-C09-coded-uncertainty-R23-C09-code-reading-R32-C09-static-R35-REACHBACK-09-accepted"
+            - "item:R32-CATALOG-paired-views-left-accepted-and-not-reopened"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#09-procjena"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "review:packet_reviews.C09-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+            - "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+            - "reports:wc-c09-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+            - "result:zero-fatal-zero-major-five-nonblocking-minor-zero-useful"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
+            - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+            - "reports:wc-c09-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+            - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#09-procjena-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
   WC-C10:
     sequence: 104
     phase: "4"
@@ -20561,7 +20627,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Separate sampling uncertainty in a coded proportion from coding uncertainty."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -20584,10 +20650,13 @@ items:
       - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
       - "report:notes/reports/wc-c09-critic-skeptic-2026-08-12.md"
       - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+      - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+      - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+      - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+    change_reference: "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
   R13-C10-label-fallibility:
     parents:
       - "R13"
@@ -23902,7 +23971,7 @@ items:
       location: "§8 Ch9"
     description: "Add a readable short code receipt appropriate to estimation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23925,10 +23994,13 @@ items:
       - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
       - "report:notes/reports/wc-c09-critic-structure-2026-08-12.md"
       - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+      - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+      - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+      - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+    change_reference: "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
   R23-C12-code-ladder:
     parents:
       - "R23"
@@ -27488,7 +27560,7 @@ items:
       location: "§11"
     description: "Supply print-completable presets for Chapter 9."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27513,10 +27585,13 @@ items:
       - "render:docx-wrapper-sha256-12c20709885d918a2f36853a3e666949c4e76a6c3128e7b10e6adccd79fa1ce0"
       - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
       - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+      - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+      - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+      - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+    change_reference: "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
   R32-C11-static:
     parents:
       - "R32"
@@ -27908,7 +27983,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 09 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27932,10 +28007,13 @@ items:
       - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
       - "report:notes/reports/wc-c09-critic-structure-2026-08-12.md"
       - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+      - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+      - "author_reply:C09-accepted-for-6c50a9fb5389401d2bb05585d6b12feaa6010e81-on-2026-08-12"
+      - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+    change_reference: "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
   R35-REACHBACK-10:
     parents:
       - "R35"
@@ -30499,8 +30577,8 @@ outside_asks:
     decision_record: "notes/reports/c08-acceptance-package-2026-08-12.md"
 
   OA-C09-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WC-C09_revision_and_panel"
+    status: "done"
+    readiness: "decision_received"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -30519,11 +30597,26 @@ outside_asks:
     available_evidence:
       - "packet:WC-C09"
       - "packet:C09"
+      - "commit:6c50a9fb5389401d2bb05585d6b12feaa6010e81"
+      - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+      - "report:notes/reports/wc-c09-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-skeptic-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-pedagogy-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-evidence-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-style-2026-08-12.md"
+      - "report:notes/reports/wc-c09-critic-structure-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md"
+      - "report:notes/reports/c09-acceptance-package-2026-08-12.md"
     recommended_default: "Accept only after interval/bootstrap corrections, code-reading and static paths, coded uncertainty, reach-back, and panel findings pass."
-    exact_reply_requested: "Reply: C09 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C09 accepted for 6c50a9fb5389401d2bb05585d6b12feaa6010e81 on 2026-08-12; or list exact blocking revisions tied to that commit."
     resume_condition: "C09 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-12"
+    resolution: "C09 accepted for 6c50a9fb5389401d2bb05585d6b12feaa6010e81 on 2026-08-12."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-12"
+    decision_record: "notes/reports/c09-acceptance-package-2026-08-12.md"
 
   OA-C10-ACCEPTANCE:
     status: "drafted_unsent"
