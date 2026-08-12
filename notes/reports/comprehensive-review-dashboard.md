@@ -11,7 +11,7 @@ packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
 forward_handoffs: 94
-last_updated: "2026-08-11"
+last_updated: "2026-08-12"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -44,6 +44,7 @@ stop and repair the control state before editing book content.
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
 | WC-C08 prerequisite Route A | Accepted exactly: `G-A3-ESS` and `P3-ESS` moved immediately after C07; `WC-PARTS` replaced by C07 in `G-A3-ESS.requires`; `P3-ESS` added to `WC-C08.requires`; four item prerequisites and both separate ESS decisions retained; owner Luka Sikic; 2026-08-11 |
+| Thread amendment C08-C10 | `A-THREAD-C08-C10-2026-08-12` accepted as a new, distinct decision: strict chain `C08 -> WC-C09 -> C09 -> WC-C10 -> C10`; one lock and a separate claim, evidence bundle, handoff disposition, workflow check, closeout and commit per packet; exact author replies remain mandatory for C08, C09 and C10; the older C07-C09 decision and its two live handoff deliveries are not superseded |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
@@ -4377,6 +4378,26 @@ the durable evidence is
   claimed. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## Author amendment 2026-08-12 — C08 through C10
+
+- `A-THREAD-C08-C10-2026-08-12` is a new, distinct author decision recorded
+  before C08. For this thread only it authorises the strict chain `C08`,
+  `WC-C09`, `C09`, `WC-C10`, `C10` instead of the usual stop after one packet.
+- Every packet still receives its own claim, single write lock, evidence,
+  handoff disposition, workflow checks, closeout and bounded commit before the
+  next packet is claimed. No evidence or lock crosses a packet boundary.
+- The amendment does not supersede `A-THREAD-C07-C09-2026-08-11`.
+  `H-WC-C07-THREAD-SEQUENCE-001` still has its pending `before_close` delivery
+  for C08 and `before_start` delivery for WC-C09; both remain mandatory at
+  their original gates.
+- C08, C09 and C10 each still require a separate exact dated author reply tied
+  to the final chapter source commit. The 5 August standing delegation cannot
+  replace any of them, and no packet may record that the author read a chapter.
+- All packet prerequisites, D01, the Part III/IV spines, ESS and official-data
+  claim boundaries, Chapter 6's draft status and the stated stop conditions
+  remain unchanged. The durable decision record is
+  `notes/reports/c08-c10-thread-amendment-2026-08-12.md`.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4406,15 +4427,19 @@ for mutable state.
 Verify that `WC-C08` is accepted at sequence 100 from Chapter 8 source state
 `source:sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04`,
 no packet is active and `C08` is the sole next permitted packet at sequence
-101. Verify that the current HEAD is the bounded WC-C08 closeout commit and
-contains the chapter, all six final critic reports, the synthesis and
-`notes/reports/wc-c08-2026-08-11.md`. Do not infer author acceptance from the
-panel or from the standing 5 August delegation.
+101. Verify that the final Chapter 8 source commit is
+`39db651decc561fb082facb7feeebc40103eace8` and contains the chapter, all six
+final critic reports, the synthesis and `notes/reports/wc-c08-2026-08-11.md`.
+Verify that the later control-only commit records
+`A-THREAD-C08-C10-2026-08-12` without changing the Chapter 8 source. The new
+decision authorises the strict chain `C08`, `WC-C09`, `C09`, `WC-C10`, `C10`
+but waives no packet boundary or acceptance reply. Do not infer author
+acceptance from the panel or from the standing 5 August delegation.
 
 If the author has not supplied this exact dated reply, stop and request it
 using the full current WC-C08 commit:
 
-`C08 accepted for <full WC-C08 commit> on 2026-08-11.`
+`C08 accepted for 39db651decc561fb082facb7feeebc40103eace8 on 2026-08-12.`
 
 Alternatively the author may list exact blocking revisions tied to that same
 commit. Do not claim C08, edit the chapter ledger or accept the four Chapter 8
@@ -4434,8 +4459,10 @@ unchanged and draft.
 
 Update the register, handoff ledger and dashboard together, run
 `scripts/check-review-workflow.R` plus its three required closeout fixtures,
-make one bounded local C08 commit, then continue no farther without first
-reconstructing the new canonical pointer. No chapter prose, data, bibliography,
+make one bounded local C08 commit, then reconstruct the new canonical pointer
+before claiming WC-C09 under `A-THREAD-C08-C10-2026-08-12`. Preserve the
+pending WC-C09 `before_start` delivery of
+`H-WC-C07-THREAD-SEQUENCE-001`. No chapter prose, data, bibliography,
 terminology, concept, widget, render, network retrieval, external rights
 request, push, merge, tag, archive, deployment or publication is authorised by
 C08.
