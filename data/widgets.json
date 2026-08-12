@@ -257,14 +257,14 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 60, "effect": 0.35, "threshold": 0.05, "repetitions": 4000, "seed": 1010}]},
-        "seed_policy": {"ojs": "d3.randomLcg(1010), d3.randomNormal i aproksimacija normalnog CDF-a", "r": "set.seed(1010), rnorm i pnorm", "shared": "Analiticke normalne p-vrijednosti imaju zasebne zlatne stope po adapteru."},
+        "seed_policy": {"ojs": "d3.randomLcg(1010), eksplicitni Marsaglijin polarni generator bez pohrane drugoga parnjaka i aproksimacija normalnog CDF-a", "r": "set.seed(1010), rnorm i pnorm", "shared": "Zivi OJS izvor i OJS adapter trose potpuno isti tok; analiticke normalne p-vrijednosti imaju zasebne zlatne stope po adapteru."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.null_rejection_rate": 0.04, "default.effect_rejection_rate": 0.04, "default.null_p_mean": 0.04, "default.effect_p_mean": 0.04}},
         "expected": {
           "ojs": {"default.null_rejection_rate": 0.05325, "default.effect_rejection_rate": 0.48425, "default.null_p_mean": 0.4956705464020087, "default.effect_p_mean": 0.15944903402757546},
           "r": {"default.null_rejection_rate": 0.051, "default.effect_rejection_rate": 0.47725, "default.null_p_mean": 0.5021236782281805, "default.effect_p_mean": 0.1577691778496513}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w10", "r": "scripts/widget-parity-r.R#w10"},
-        "source": {"ojs_label": "fig-w10", "r_label": "fig-w10-print", "ojs_sha256": "1be9f05ed29b917df73d1fdc2b9aa1d1ef322117a4d770258de404a413c25823", "r_sha256": "9ed0d121d86e08e8ede94bd6cc88016859043090ded3bd5800284d6534e66dba"},
+        "source": {"ojs_label": "fig-w10", "r_label": "fig-w10-print", "ojs_sha256": "9c8092a29345f3f47b34c765eae48b49c9a2911efbadbe0b61f48e0054c5469b", "r_sha256": "9ed0d121d86e08e8ede94bd6cc88016859043090ded3bd5800284d6534e66dba"},
         "claim_boundary": "Raspodjela analitickih obostranih normalnih p-vrijednosti pod nulom i ucinkom; izricito ne obuhvaca permutacijski Monte Carlo postupak."
       },
       "naziv": "Simulator p-vrijednosti",

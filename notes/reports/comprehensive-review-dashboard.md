@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C09
-next_permitted_packet: WC-C10
+last_completed_packet: WC-C10
+next_permitted_packet: C10
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -48,12 +48,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `C09` accepted the final WC-C09 source on the exact dated author reply |
-| Last completed packet | `C09`; accepted for WC-C09 commit `6c50a9fb5389401d2bb05585d6b12feaa6010e81` on 2026-08-12 |
-| Next permitted packet | `WC-C10`, but it requires its own claim, one write lock, evidence bundle, handoff disposition, final panel and local commit |
+| Active write packet | None; `WC-C10` is closed and the separate `C10` gate has not yet been claimed |
+| Last completed packet | `WC-C10`; final Chapter 10 source SHA-256 `b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236` |
+| Next permitted packet | `C10` only; it requires a separate claim and the exact dated author reply tied to the final WC-C10 commit |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 194 accepted, 5 deferred with reason, 172 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 96 accepted, 91 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 97 accepted, 90 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 10 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje` and `09-procjena` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -4563,6 +4563,71 @@ the durable evidence is
   closeout commit. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## WC-C10 claim — Chapter 10 vertical slice
+
+- WC-C10 was claimed from clean C09 closeout commit
+  `c3a8cbd0ec1da65c0e7b903b263cc4a658c73ab8` after the workflow validator
+  confirmed no active packet, accepted C09 and WC-C10 alone at sequence 104.
+  Exactly one write lock is active; C10 remains unclaimed.
+- The complete G-A1a/D01 correction is a fixed baseline: raw-label
+  permutation targets the exchangeability/full-distribution no-association
+  null, the two-sided unstudentized difference in means remains the statistic,
+  `(b + 1) / (B + 1)` governs random permutations, a known-null demonstration
+  must satisfy the full null, analytic normal p-values do not receive the
+  permutation correction, and the Bayesian frame remains bounded and balanced.
+- `H-WB-C06-001` is acknowledged before the first substantive edit and remains
+  pending for an exact `before_close` disposition. Live w10 and the parity
+  adapter must share a generator and draw order, actual-execution golden proof
+  must be retained, asymmetric cached-pair use must fail closed and tolerance
+  must not widen.
+- The three ratified governed items are `R13-C10-label-fallibility`,
+  `R31-C10-ASA-home` and `R35-REACHBACK-10`. The three accepted R01/D01 items
+  remain binding baselines and are not reopened without a real finding.
+- The packet opens Part IV against G-A2b-IV with magnitude and error
+  consequences before ritual. Chapter 6 remains unchanged and deliberately
+  `draft`; no author reading, external action or release action is authorised.
+
+## WC-C10 closeout — Chapter 10 vertical slice
+
+- `WC-C10` is accepted at Chapter 10 SHA-256
+  `b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236`.
+  The complete implementation, numerical receipt, all deterministic checks,
+  three targeted renders, six final critic reports and synthesis are recorded
+  in `notes/reports/wc-c10-2026-08-12.md` and the seven panel files.
+- Magnitude, uncertainty and concrete error consequences now precede test
+  mechanics; the full-null simulation precedes formal naming. The accepted
+  D01 exchangeability null, raw mean-difference statistic, assumptions,
+  `(b + 1) / (B + 1)` correction, exact-enumeration distinction, known-null
+  error-rate demonstration, analytic-widget boundary and bounded Bayesian
+  comparison remain intact.
+- Chapter 10 is the principal instructional home of the ASA episode, introduces
+  bounded fallibility of reference labels for later Chapter 17 work, and carries
+  a Chapter 7/8 reach-back with both interactive and print or DOCX routes plus a
+  canonical closure.
+- `H-WB-C06-001` is consumed at its `before_close` gate. Live w10 and the
+  production parity adapter now use the same non-caching Marsaglia-polar
+  generator; ordinary parity passes for 17 pairs, and the three negative
+  fixtures fail closed, including all four w10 golden values under asymmetric
+  cached-pair consumption. No tolerance changed.
+- The concept graph was regenerated to 47 nodes and 514 edges with zero debt.
+  HTML, the approved PDF wrapper and the DOCX wrapper all exited zero; generated
+  outputs were restored and are not part of the packet.
+- Six independent final critics confirmed the exact final source hash. The
+  panel records 0 fatal, 0 major, 4 nonblocking minor and 0 useful findings.
+  The four visible minor notes concern the order of the eight closing terms, one
+  stiff curricular phrase, one slide-like ordinal sequence in the AI frame and
+  numeric rather than thematic references to Chapters 7 and 8. The source is
+  frozen after that common panel hash.
+- `R13-C10-label-fallibility`, `R31-C10-ASA-home` and
+  `R35-REACHBACK-10` materially pass but remain `ratified` until C10. The three
+  accepted R01/D01 items remain accepted and unmodified. Chapter 10 remains
+  `draft`; no author reading or acceptance is claimed.
+- No new outgoing handoff is needed. The existing P5-C owner covers the
+  catalogue documentation and `H-WB-C06-001` already routes every remaining
+  affected widget. Chapter 6 remains unchanged and `draft` under
+  `H-WB-PART-001`. C10 is solely next but is not claimed inside WC-C10; no
+  external or release action is authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4589,37 +4654,22 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify the clean C09 closeout commit named by the dashboard, then claim only
-`WC-C10`. Confirm C09 is accepted for WC-C09 commit
-`6c50a9fb5389401d2bb05585d6b12feaa6010e81`, `09-procjena` is at
-`coauthor_review` without an author-reading claim, no packet is active and
-WC-C10 is the sole next-permitted packet. Chapter 6 remains deliberately
-`draft` under `H-WB-PART-001`; do not edit, advance or re-panel it.
+Verify that no packet is active, that `WC-C10` is accepted at Chapter 10
+SHA-256 `b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236`,
+and that `C10` alone is next permitted. Verify that WC-C10 is committed before
+claiming C10. Chapter 6 remains deliberately `draft` under `H-WB-PART-001`;
+do not edit, advance or re-panel it.
 
-Before the first substantive edit, fully read the accepted G-A1a/D01 Chapter
-10 correction specification, accepted P1A-C10 evidence, the ratified G-A2b-IV
-spine, Chapter 10, its adjacent chapters, STYLE.md and all deliveries targeting
-WC-C10. Acknowledge `H-WB-C06-001` before work and consume it at
-`before_close`: live w10 and its parity adapter must use equivalent normal
-generators, with actual-execution golden evidence and a regression fixture
-that fails on asymmetric cached-pair consumption, without widening tolerance.
+Claim only the separate `C10` author gate. Read the final WC-C10 commit, all six
+critic reports, `notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md` and
+`notes/reports/wc-c10-2026-08-12.md`. Prepare the bounded C10 acceptance package
+without changing Chapter 10, data, citations, concepts, widgets, renders,
+chapter stage or governed-item status. Present the final WC-C10 commit, all six
+reports, the synthesis and all four unresolved nonblocking minor findings, then
+stop for the exact reply `C10 accepted for <full WC-C10 commit> on <date>.`
 
-Implement only the ratified Chapter 10 vertical slice. Preserve D01 exactly:
-the raw-label two-sided difference-in-means permutation tests the
-exchangeability/full-distribution no-association null, never an
-assumption-free equality-of-means null; use `(b + 1) / (B + 1)`; state the
-exchangeability assumptions and estimand boundary; preserve the simulation
-before formalism; and keep the bounded Bayesian frame. Open Part IV with
-magnitude and error consequences rather than ritual, include the ASA home,
-reference-label fallibility and the required reach-back.
-
-Run all applicable deterministic, style, figure, data, citation, concept,
-widget and targeted HTML/PDF/DOCX checks. Dispatch six independent read-only
-critics in parallel for methods, skepticism, pedagogy, evidence, Croatian
-style and structure against the final material hash, await all six and
-synthesize them. Stop on a fatal or unresolved major finding. Otherwise close
-and commit WC-C10, claim the separate C10 author gate, present the final commit,
-all six reports, synthesis and every unresolved finding, then stop for the
-exact reply `C10 accepted for <full WC-C10 commit> on <date>.` Do not use the
-5 August standing delegation and do not claim that the author read the chapter.
+Do not use the 5 August standing delegation, do not claim that the author read
+the chapter, and do not close C10 without the exact in-thread reply. Do not
+claim WC-C11 or authorise any push, merge, tag, archive, deployment or
+publication action.
 ```

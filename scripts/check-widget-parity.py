@@ -221,6 +221,8 @@ def check_parity(root: Path, fixture: str | None) -> int:
         ojs_command = ["node", str(root / ADAPTERS["ojs"]), str(root)]
         if fixture == "normal-cache-asymmetry":
             ojs_command.append("w09-cached-normal")
+        elif fixture == "w10-normal-cache-asymmetry":
+            ojs_command.append("w10-cached-normal")
         payloads["ojs"] = run_json(ojs_command, root)
         payloads["r"] = run_json(
             [
@@ -312,7 +314,11 @@ def main() -> int:
     parser.add_argument("root", nargs="?", default=".")
     parser.add_argument(
         "--fixture",
-        choices=["expected-value-regression", "normal-cache-asymmetry"],
+        choices=[
+            "expected-value-regression",
+            "normal-cache-asymmetry",
+            "w10-normal-cache-asymmetry",
+        ],
     )
     parser.add_argument("--print-source-hashes", action="store_true")
     args = parser.parse_args()

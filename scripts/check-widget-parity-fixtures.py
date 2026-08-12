@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prove that the widget parity gate rejects two numeric regressions."""
+"""Prove that the widget parity gate rejects governed numeric regressions."""
 
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ def main() -> int:
     fixtures = {
         "expected-value-regression": "[golden] w01/ojs/default.aggregate_a",
         "normal-cache-asymmetry": "[golden] w09/ojs/",
+        "w10-normal-cache-asymmetry": "[golden] w10/ojs/",
     }
     for fixture, expected in fixtures.items():
         completed = subprocess.run(
@@ -43,7 +44,7 @@ def main() -> int:
             )
             print(diagnostic.strip(), file=sys.stderr)
             return 1
-    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=2")
+    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=3")
     return 0
 
 

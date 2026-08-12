@@ -295,7 +295,7 @@ function w09(parameters) {
 function w10(parameters) {
   const p = parameters.scenarios[0];
   const rng = lcg(p.seed);
-  const randomNormal = normal(rng);
+  const randomNormal = fixture === "w10-cached-normal" ? normalCached(rng) : normal(rng);
   const shift = p.effect * Math.sqrt(p.n / 2);
   const simulate = center => Array.from({length: p.repetitions}, () => {
     const z = center + randomNormal();

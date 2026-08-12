@@ -6004,7 +6004,37 @@ handoffs:
           - "report:notes/reports/wc-c09-critic-methods-2026-08-12.md"
       - target_packet: WC-C10
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-12"
+        acknowledgement: >-
+          WC-C10 treats the normal-generator mismatch as a binding widget
+          revalidation obligation acknowledged before the first substantive
+          edit. It will establish exact equivalence between live w10 and its
+          production parity adapter, add actual-execution golden evidence and
+          retain a regression fixture that fails on asymmetric cached-pair
+          consumption, without widening the existing tolerance.
+        disposition: >-
+          The live w10 source and production parity adapter now use the same
+          explicit non-caching Marsaglia-polar generator with seed 1010 and the
+          same draw order. The registered live OJS hash is refreshed while the
+          R hash and every tolerance remain unchanged. Ordinary parity passes
+          against the existing four golden values, and the new
+          w10-normal-cache-asymmetry fixture consumes the cached second polar
+          variate on the adapter side only and fails on all four w10 outputs.
+        evidence:
+          - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+          - "source:scripts/widget-parity-ojs.mjs"
+          - "source:scripts/check-widget-parity.py"
+          - "source:scripts/check-widget-parity-fixtures.py"
+          - "registry:data/widgets.json#w10-ojs-sha256-9c8092a29345f3f47b34c765eae48b49c9a2911efbadbe0b61f48e0054c5469b"
+          - "golden:w10-0.05325-0.48425-0.4956705464020087-0.15944903402757546"
+          - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+          - "check:WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-3"
+          - "fixture:w10-normal-cache-asymmetry-fails-all-four-golden-values"
+          - "boundary:w10-tolerance-unchanged"
+          - "report:notes/reports/wc-c10-critic-methods-2026-08-12.md"
+          - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
       - target_packet: WC-C11
         gate: before_close
         state: pending
@@ -8926,3 +8956,32 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail closed for their injected defect
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C09
       - WC-C10 is the sole next permitted packet but is not claimed inside C09 and no external or release action was authorised
+
+  WC-C10:
+    reviewed_at: "2026-08-12"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WC-C10 found no new future-relevant effect. The separate reader-facing
+      catalogue documentation remains owned by the existing P5-C delivery.
+      H-WB-C06-001 already routes the generator-equivalence obligation to every
+      remaining affected widget and to the whole-book figure and browser gates,
+      so duplicating it here would add no information. Chapter 10's reviewed
+      source is a direct prerequisite of C10.
+    implementation_state: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+    checks:
+      - H-WB-C06-001 was acknowledged before the first substantive edit and consumed before closeout with exact w10 generator golden fixture and unchanged-tolerance evidence
+      - nothing targeting another packet was acknowledged or consumed and H-WB-PART-001 remains pending for P6-PANELS while Chapter 6 remains unchanged and draft
+      - the final Chapter 10 hash is b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236
+      - magnitude uncertainty and concrete error consequences precede ritual mechanics and the full-null simulation precedes formal naming
+      - the accepted D01 full-distribution exchangeability null statistic assumptions Monte Carlo correction exact-enumeration distinction causal boundary and bounded Bayesian balance are preserved
+      - the ASA episode is the principal Chapter 10 home and the bounded fallible-reference-label preparation does not create a new empirical claim
+      - the Chapter 7 and Chapter 8 reach-back has HTML and print or DOCX routes and a course-only canonical closure within the four exercise tiers
+      - live w10 and the production parity adapter use the same non-caching Marsaglia-polar generator and the registered live OJS source hash is refreshed
+      - ordinary parity passes with 17 pairs 6 exact and 11 distributional while all three negative fixtures fail closed including four of four w10 golden values and no tolerance changed
+      - data/concept-graph.json is regenerated from the final source with 47 nodes 514 edges fresh true and zero concept-ledger debt
+      - style figure manuscript citation terminology data widget parity inventory concept assessment spine and workflow checks pass on the declared final state
+      - final targeted HTML approved-wrapper PDF and wrapper DOCX renders exited zero at the declared source hash and all tracked generated outputs were restored
+      - six independent read-only critics confirmed the exact final hash with zero fatal zero major four nonblocking minor and zero useful findings
+      - R13-C10-label-fallibility R31-C10-ASA-home and R35-REACHBACK-10 materially pass but remain ratified pending C10
+      - Chapter 10 remains draft C10 is next but is not accepted no author reading is claimed and no external or release action was taken

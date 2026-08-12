@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C09"
-  next_permitted_packet: "WC-C10"
+  last_completed_packet: "WC-C10"
+  next_permitted_packet: "C10"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10793,7 +10793,7 @@ packets:
     sequence: 104
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C09"
       - "P1A-C10"
@@ -10805,14 +10805,94 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WC-C10 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-IV"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#10-logika-testiranja"
+            - "report:notes/reports/g-a2b-iv-spine-decision-2026-08-04.md"
+            - "report:notes/reports/p2-spine-iv-2026-08-04.md"
+            - "packet:P1A-C10-accepted"
+            - "decision:G-A1a-D01"
+            - "report:notes/reports/p1a-c10-methods-review-2026-08-03.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+            - "result:WC_C10_NUMERICAL_OK-main-diff-0.640938989801-main-p-0.016245938515-null-p-0.696075981005-type1-4.875pct-alternative-reject-79.5pct"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-live-keys-44-records-44"
+            - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-47-nodes-47-edges-514-graph-fresh"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "check:scripts/check-widget-parity-fixtures.py-WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-3"
+            - "boundary:w10-live-and-adapter-noncaching-generator-equivalent-tolerance-unchanged"
+            - "registry:data/widgets.json#w10-ojs-source-sha256-9c8092a29345f3f47b34c765eae48b49c9a2911efbadbe0b61f48e0054c5469b"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-C10-bytes-194412-sha256-bf9c896a7532740c7879231c9d5f7543214f9b1e00519a3b68b5000f356ed32a"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2683832-sha256-f50f134e2ddf8ef27a5c9e6374add992fb4a1321389222f9e4e9b520b36610fb"
+            - "render:DOCX-wrapper-exit-0-bytes-1524873-sha256-26aa1e268244105368af419ca06be4312e6728e5766be88b23092eb85569f9a4"
+            - "boundary:tracked-generated-docs-freeze-ai-export-pdf-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wc-c10-critic-methods-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-skeptic-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-pedagogy-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-evidence-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-style-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-structure-2026-08-12.md"
+            - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+            - "panel:six-of-six-confirm-source-sha256-b019a0e3-zero-fatal-zero-major-four-minor-zero-useful"
+      outputs:
+        - output: "WC-C10 verified vertical-slice source and evidence bundle for: Chapter 10 vertical slice."
+          artifacts:
+            - "source:chapters/10-logika-testiranja.qmd"
+            - "generated:data/concept-graph.json-47-nodes-514-edges"
+            - "registry:data/widgets.json#w10"
+            - "source:scripts/widget-parity-ojs.mjs"
+            - "source:scripts/check-widget-parity.py"
+            - "source:scripts/check-widget-parity-fixtures.py"
+            - "report:notes/reports/wc-c10-2026-08-12.md"
+            - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+        - output: "Completion evidence is tied to the declared WC-C10 source state and bounded scope."
+          artifacts:
+            - "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+            - "handoff:H-WB-C06-001-consumed-before-close"
+            - "review:packet_reviews.WC-C10-all-future-effects-recorded"
+            - "boundary:Chapter-6-unchanged-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "boundary:C10-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WC-C10-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wc-c10-2026-08-12.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK"
+            - "check:MANUSCRIPT_STYLE_OK-hits-0"
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+            - "panel:zero-fatal-zero-major-four-nonblocking-minor-zero-useful"
+        - test: "The WC-C10 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R13-C10-label-fallibility-R31-C10-ASA-home-R35-REACHBACK-10-materially-pass-remain-ratified-until-C10"
+            - "baseline:R01-C10-null-exchangeability-R01-C10-monte-carlo-correction-R01-C10-bayesian-balance-remain-accepted"
+            - "report:notes/reports/wc-c10-2026-08-12.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
   C10:
     sequence: 105
     phase: "4"
@@ -20687,11 +20767,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C10"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+      - "result:estimated-error-rate-distinguished-from-fallible-reference-label-without-derailing-testing"
+      - "boundary:bounded-preparation-for-Chapter-17-with-no-new-empirical-claim"
+      - "report:notes/reports/wc-c10-critic-methods-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-evidence-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
   R13-C13-contingency:
     parents:
       - "R13"
@@ -27497,11 +27583,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C10"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+      - "citation:references.bib#wasserstein2016"
+      - "result:ASA-episode-is-Chapter-10-principal-home-with-what-why-and-reading-rule-change"
+      - "boundary:does-not-claim-p-values-were-abolished-or-displace-Chapter-12-reform-argument"
+      - "report:notes/reports/wc-c10-critic-evidence-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-structure-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
   R32-C04-static:
     parents:
       - "R32"
@@ -28044,11 +28137,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C10"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+      - "result:reach-back-retrieves-Chapter-7-probability-and-Chapter-8-sampling-with-HTML-and-print-DOCX-routes"
+      - "result:four-tier-task-has-course-only-canonical-closure-and-cannot-be-solved-by-current-method-alone"
+      - "report:notes/reports/wc-c10-critic-pedagogy-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-structure-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
   R35-REACHBACK-11:
     parents:
       - "R35"
