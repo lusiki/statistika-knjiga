@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WC-C10"
-  next_permitted_packet: "C10"
+  last_completed_packet: "C10"
+  next_permitted_packet: "WC-C11"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10897,7 +10897,7 @@ packets:
     sequence: 105
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WC-C10"
     scope: "Author acceptance and panel disposition for C10."
@@ -10908,14 +10908,80 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wc-c10-critic-methods-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-skeptic-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-pedagogy-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-evidence-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-style-2026-08-12.md"
+            - "report:notes/reports/wc-c10-critic-structure-2026-08-12.md"
+            - "panel:zero-fatal-zero-major-four-nonblocking-minor-zero-useful"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+            - "report:notes/reports/c10-acceptance-package-2026-08-12.md"
+            - "disposition:accept-three-Chapter-10-items-and-advance-only-10-logika-testiranja-to-coauthor_review"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C10-accepted-for-88b41d02fcea8222673f28a40938fe7db2aaffd6-on-2026-08-12"
+            - "evidence:conversation-user-message-recorded-2026-08-12"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+            - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+            - "blob:e0275e8ba85f360d238bbace6a216dcdef5283bc"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#10-logika-testiranja-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C10 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+            - "reports:wc-c10-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+            - "author_reply:C10-accepted-for-88b41d02fcea8222673f28a40938fe7db2aaffd6-on-2026-08-12"
+            - "report:notes/reports/c10-acceptance-package-2026-08-12.md"
+        - output: "Completion evidence is tied to the declared C10 source state and bounded scope."
+          artifacts:
+            - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+            - "items:R13-C10-label-fallibility-R31-C10-ASA-home-R35-REACHBACK-10-accepted"
+            - "items:R01-C10-null-exchangeability-R01-C10-monte-carlo-correction-R01-C10-bayesian-balance-left-accepted-and-not-reopened"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#10-logika-testiranja"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "review:packet_reviews.C10-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+            - "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+            - "reports:wc-c10-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C10-accepted-for-88b41d02fcea8222673f28a40938fe7db2aaffd6-on-2026-08-12"
+            - "result:zero-fatal-zero-major-four-nonblocking-minor-zero-useful"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c10-acceptance-package-2026-08-12.md"
+            - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+            - "reports:wc-c10-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+            - "author_reply:C10-accepted-for-88b41d02fcea8222673f28a40938fe7db2aaffd6-on-2026-08-12"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#10-logika-testiranja-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
   WC-C11:
     sequence: 106
     phase: "4"
@@ -20750,7 +20816,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Distinguish estimated error rates from infallible reference truth."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -20774,10 +20840,13 @@ items:
       - "report:notes/reports/wc-c10-critic-methods-2026-08-12.md"
       - "report:notes/reports/wc-c10-critic-evidence-2026-08-12.md"
       - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+      - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+      - "author_reply:C10-accepted-for-88b41d02fcea8222673f28a40938fe7db2aaffd6-on-2026-08-12"
+      - "report:notes/reports/c10-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+    change_reference: "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
   R13-C13-contingency:
     parents:
       - "R13"
@@ -27566,7 +27635,7 @@ items:
       location: "§10 recurring cases"
     description: "Make Chapter 10 the principal instructional home of the ASA episode."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27591,10 +27660,13 @@ items:
       - "report:notes/reports/wc-c10-critic-evidence-2026-08-12.md"
       - "report:notes/reports/wc-c10-critic-structure-2026-08-12.md"
       - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+      - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+      - "author_reply:C10-accepted-for-88b41d02fcea8222673f28a40938fe7db2aaffd6-on-2026-08-12"
+      - "report:notes/reports/c10-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+    change_reference: "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
   R32-C04-static:
     parents:
       - "R32"
@@ -28120,7 +28192,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 10 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28144,10 +28216,13 @@ items:
       - "report:notes/reports/wc-c10-critic-pedagogy-2026-08-12.md"
       - "report:notes/reports/wc-c10-critic-structure-2026-08-12.md"
       - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+      - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+      - "author_reply:C10-accepted-for-88b41d02fcea8222673f28a40938fe7db2aaffd6-on-2026-08-12"
+      - "report:notes/reports/c10-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+    change_reference: "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
   R35-REACHBACK-11:
     parents:
       - "R35"
@@ -30718,8 +30793,8 @@ outside_asks:
     decision_record: "notes/reports/c09-acceptance-package-2026-08-12.md"
 
   OA-C10-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WC-C10_revision_and_panel"
+    status: "done"
+    readiness: "decision_received"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -30737,11 +30812,26 @@ outside_asks:
     available_evidence:
       - "packet:WC-C10"
       - "packet:C10"
+      - "commit:88b41d02fcea8222673f28a40938fe7db2aaffd6"
+      - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+      - "report:notes/reports/wc-c10-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-methods-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-skeptic-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-pedagogy-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-evidence-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-style-2026-08-12.md"
+      - "report:notes/reports/wc-c10-critic-structure-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
+      - "report:notes/reports/c10-acceptance-package-2026-08-12.md"
     recommended_default: "Accept only after D01, reproduced results, balanced framing, ASA placement, label fallibility, reach-back, and panel findings pass."
-    exact_reply_requested: "Reply: C10 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C10 accepted for 88b41d02fcea8222673f28a40938fe7db2aaffd6 on 2026-08-12; or list exact blocking revisions tied to that commit."
     resume_condition: "C10 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-12"
+    resolution: "C10 accepted for 88b41d02fcea8222673f28a40938fe7db2aaffd6 on 2026-08-12."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-12"
+    decision_record: "notes/reports/c10-acceptance-package-2026-08-12.md"
 
   OA-C11-ACCEPTANCE:
     status: "drafted_unsent"
