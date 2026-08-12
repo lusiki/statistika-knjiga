@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WC-C08
-next_permitted_packet: C08
+last_completed_packet: C08
+next_permitted_packet: WC-C09
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -49,15 +49,15 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `WC-C08`; Chapter 8 source SHA-256 `9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04` |
-| Next permitted packet | `C08`, but it must not be claimed without the distinct exact author reply tied to the WC-C08 commit |
+| Last completed packet | `C08`; accepted for WC-C08 commit `39db651decc561fb082facb7feeebc40103eace8` on 2026-08-12 |
+| Next permitted packet | `WC-C09` at sequence 102 under the strict C08-C10 thread amendment |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 185 accepted, 5 deferred with reason, 181 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 93 accepted, 94 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 189 accepted, 5 deferred with reason, 177 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 94 accepted, 93 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 12 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija` and `07-vjerojatnost` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
+| Chapter stages | 11 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost` and `08-uzorkovanje` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 37 of the 84 canonical asks remain `drafted_unsent`; 41 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A3-ESS-SELECTION` is done from the exact in-thread author reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
+| Open outside asks | 36 of the 84 canonical asks remain `drafted_unsent`; 42 are `done`; 6 are `withdrawn_with_reason`. `OA-C08-ACCEPTANCE` is done from the exact in-thread reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -4398,6 +4398,44 @@ the durable evidence is
   remain unchanged. The durable decision record is
   `notes/reports/c08-c10-thread-amendment-2026-08-12.md`.
 
+## C08 claim and closeout
+
+- C08 was claimed from the clean control-only amendment commit
+  `3a8f0510d225c3f5874ee7f141a41725bb1626ae` only after the workflow validator
+  confirmed no active packet and C08 uniquely next. The final Chapter 8 source
+  remained byte-identical to WC-C08 commit
+  `39db651decc561fb082facb7feeebc40103eace8`, Git blob
+  `d3fedbd809aec0ceae9a0480b7b772b99546c44a` and SHA-256
+  `9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04`.
+- The named author replied exactly: `C08 accepted for
+  39db651decc561fb082facb7feeebc40103eace8 on 2026-08-12.` The standing 5
+  August delegation was not substituted, and no author reading is claimed.
+- All six final critic reports and the synthesis address that exact material
+  state. The panel records zero fatal, zero major, seventeen nonblocking minor
+  and zero useful findings. The complete acceptance record is
+  `notes/reports/c08-acceptance-package-2026-08-12.md`.
+- Exactly `R12-C08-survey-realism`, `R12-C08-weighted-table`,
+  `R13-C08-corpus-selection` and `R35-REACHBACK-08` advance from `ratified` to
+  `accepted`. Only `08-uzorkovanje` advances from `draft` to
+  `coauthor_review`; the ledger says explicitly that this is not `final` and
+  does not mean that the author read the chapter.
+- ESS remains optional, portal-mediated and unpromoted. Chapter 8's required
+  weighted comparison remains the synthetic `3/6 = 50,0 %` against
+  `6/16 = 37,5 %` table. No ESS microdata, empirical result, local checksum,
+  parity promise or redistribution permission is claimed;
+  `OA-G-A3-ESS-RIGHTS` stays open and bundling prohibited.
+- The C08 delivery in `H-WC-C07-THREAD-SEQUENCE-001` is consumed only after the
+  exact reply. Its distinct `WC-C09` `before_start` delivery remains pending.
+  C08 creates no outgoing handoff because all future ESS and catalogue effects
+  already have one owner.
+- Chapter 6 remains unchanged and `draft`; `H-WB-PART-001` remains pending for
+  `P6-PANELS`. C08 changes no chapter prose, data, bibliography, terminology,
+  concept, widget, figure, render or generated artifact.
+- The workflow validator passed at claim. At closeout it and all three required
+  fail-closed fixtures pass. `WC-C09` is uniquely next but was not claimed
+  inside C08. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4424,46 +4462,49 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `WC-C08` is accepted at sequence 100 from Chapter 8 source state
-`source:sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04`,
-no packet is active and `C08` is the sole next permitted packet at sequence
-101. Verify that the final Chapter 8 source commit is
-`39db651decc561fb082facb7feeebc40103eace8` and contains the chapter, all six
-final critic reports, the synthesis and `notes/reports/wc-c08-2026-08-11.md`.
-Verify that the later control-only commit records
-`A-THREAD-C08-C10-2026-08-12` without changing the Chapter 8 source. The new
-decision authorises the strict chain `C08`, `WC-C09`, `C09`, `WC-C10`, `C10`
-but waives no packet boundary or acceptance reply. Do not infer author
-acceptance from the panel or from the standing 5 August delegation.
+Verify first that C08 is accepted at sequence 101 for WC-C08 commit
+`39db651decc561fb082facb7feeebc40103eace8`, Chapter 8 is at
+`coauthor_review` without an author-reading or finality claim, no packet is
+active and `WC-C09` is the sole next permitted packet at sequence 102. Confirm
+that Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not
+re-advance or re-panel it.
 
-If the author has not supplied this exact dated reply, stop and request it
-using the full current WC-C08 commit:
+Continue under the distinct decision `A-THREAD-C08-C10-2026-08-12`, whose
+strict remainder is `WC-C09`, `C09`, `WC-C10`, `C10`. Each packet must still
+be claimed, evidenced, handoff-disposed, workflow-checked, closed and committed
+before the next is claimed. The older `A-THREAD-C07-C09-2026-08-11` is not
+superseded: consume its `H-WC-C07-THREAD-SEQUENCE-001` delivery for WC-C09 at
+`before_start`.
 
-`C08 accepted for 39db651decc561fb082facb7feeebc40103eace8 on 2026-08-12.`
+Before content work, fully read `notes/struktura-knjige.md`, `STYLE.md`,
+`ENRICHMENT.md`, the ratified G-A2b-III spine and Chapter 9 source plus adjacent
+Chapters 8 and 10. Use checkout-local Bookwright book-style for every prose
+edit and book-review for a full six-critic panel; read both instructions in
+full before acting.
 
-Alternatively the author may list exact blocking revisions tied to that same
-commit. Do not claim C08, edit the chapter ledger or accept the four Chapter 8
-items without one of those two dispositions.
+Execute `WC-C09` only. Before the first substantive edit acknowledge
+`H-P0-REGISTER-008`, `H-P3-EXISTING-002` and `H-WB-C06-001`, and preserve the
+already consumed WC-C09 thread delivery separately. Implement the ratified
+estimation spine: correct interval and bootstrap boundaries, develop estimate
++ interval + population language, preserve code-reading progression, add the
+required print-completable preset and reach-back, and keep coded-text sampling
+uncertainty distinct from coding or measurement uncertainty.
 
-After the exact acceptance reply, execute `C08` only. Read the checkout-local
-book-conductor instructions, claim the gate under one write lock and consume
-the C08 delivery of `H-WC-C07-THREAD-SEQUENCE-001`. Record the exact reply,
-the final WC-C08 commit, all six reports, the synthesis and the ledger
-disposition in a bounded C08 acceptance package. Advance only Chapter 8 from
-`draft` to `coauthor_review` without claiming that the author read it or that
-it is final; accept only `R12-C08-survey-realism`,
-`R12-C08-weighted-table`, `R13-C08-corpus-selection` and
-`R35-REACHBACK-08`. Preserve ESS as portal-mediated, optional and unpromoted,
-leave `OA-G-A3-ESS-RIGHTS` open and bundling prohibited, and leave Chapter 6
-unchanged and draft.
+Close the half-open `R32-CATALOG-paired-views` obligation here with reader
+prose and a task that reproduces a published aggregate from the governed paired
+analysis/aggregate views; invent no number, denominator, source or citation.
+Consume all three named before_close handoffs with exact dispositions and
+evidence. Preserve all DigiKat and Eurostat boundaries: no 2024 trend claim,
+no silent comparison across the June 2024 method break, use 551.712 as the
+source-file denominator where applicable, make no measured-versus-unmeasured
+platform reach comparison, and show the 2024 gap rather than smoothing it.
 
-Update the register, handoff ledger and dashboard together, run
-`scripts/check-review-workflow.R` plus its three required closeout fixtures,
-make one bounded local C08 commit, then reconstruct the new canonical pointer
-before claiming WC-C09 under `A-THREAD-C08-C10-2026-08-12`. Preserve the
-pending WC-C09 `before_start` delivery of
-`H-WC-C07-THREAD-SEQUENCE-001`. No chapter prose, data, bibliography,
-terminology, concept, widget, render, network retrieval, external rights
-request, push, merge, tag, archive, deployment or publication is authorised by
-C08.
+Run all applicable deterministic, style, figure, data, citation, concept,
+widget and targeted HTML/PDF/DOCX checks. Dispatch six independent read-only
+critics for methods, skepticism, pedagogy, evidence, Croatian style and
+structure against the final material hash, await all six and synthesize them.
+Stop if a fatal or unresolved major finding remains. Otherwise close and commit
+WC-C09, then present the separate C09 author gate and stop for the exact reply
+`C09 accepted for <full WC-C09 commit> on <date>.` Do not use the 5 August
+standing delegation and do not claim that the author read the chapter.
 ```

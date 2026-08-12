@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WC-C08"
-  next_permitted_packet: "C08"
+  last_completed_packet: "C08"
+  next_permitted_packet: "WC-C09"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -10513,7 +10513,7 @@ packets:
     sequence: 101
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WC-C08"
     scope: "Author acceptance and panel disposition for C08."
@@ -10524,14 +10524,76 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:39db651decc561fb082facb7feeebc40103eace8"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wc-c08-critic-methods-2026-08-11.md"
+            - "report:notes/reports/wc-c08-critic-skeptic-2026-08-11.md"
+            - "report:notes/reports/wc-c08-critic-pedagogy-2026-08-11.md"
+            - "report:notes/reports/wc-c08-critic-evidence-2026-08-11.md"
+            - "report:notes/reports/wc-c08-critic-style-2026-08-11.md"
+            - "report:notes/reports/wc-c08-critic-structure-2026-08-11.md"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+            - "result:zero-fatal-zero-major-seventeen-nonblocking-minor-zero-useful"
+            - "boundary:ESS-reader-facing-passport-debt-remains-owned-by-H-P3-CATALOG-002-for-P5-C"
+            - "boundary:ESS-portal-mediated-optional-unpromoted-no-local-data-rights-ask-open-bundling-prohibited"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+            - "report:notes/reports/c08-acceptance-package-2026-08-12.md#tocan-odgovor-autora"
+            - "conversation:user-message-recorded-2026-08-12"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#08-uzorkovanje-stage-coauthor_review"
+            - "commit:39db651decc561fb082facb7feeebc40103eace8"
+            - "source:sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+            - "boundary:no-author-reading-claimed-not-final"
+      outputs:
+        - output: "C08 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "report:notes/reports/c08-acceptance-package-2026-08-12.md"
+            - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+            - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#08-uzorkovanje-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared C08 source state and bounded scope."
+          artifacts:
+            - "commit:39db651decc561fb082facb7feeebc40103eace8"
+            - "source:sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+            - "handoff:H-WC-C07-THREAD-SEQUENCE-001-consumed-for-C08"
+            - "boundary:H-WC-C07-THREAD-SEQUENCE-001-WC-C09-delivery-remains-pending"
+            - "boundary:Chapter-6-remains-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "check:scripts/check-review-workflow.R-at-C08-closeout"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "panel:six-reports-confirm-source-sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+            - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+            - "result:zero-fatal-zero-major-seventeen-nonblocking-minor-zero-useful"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c08-acceptance-package-2026-08-12.md"
+            - "commit:39db651decc561fb082facb7feeebc40103eace8"
+            - "reports:wc-c08-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+            - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#08-uzorkovanje-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:39db651decc561fb082facb7feeebc40103eace8"
   WC-C09:
     sequence: 102
     phase: "4"
@@ -19701,7 +19763,7 @@ items:
       location: "§12 survey realism"
     description: "Add coverage, unequal selection, weights, nonresponse, calibration, weighted comparison, and probability versus volunteer sampling."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19719,11 +19781,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C08"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:39db651decc561fb082facb7feeebc40103eace8"
+      - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+      - "result:survey-realism-covers-frame-coverage-unequal-inclusion-weights-calibration-nonresponse-self-selection-clustering-design-effect-effective-sample-size"
+      - "boundary:central-repeated-SRS-simulation-preserved-and-complex-design-variance-not-taught"
+      - "report:notes/reports/wc-c08-critic-methods-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-skeptic-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+      - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+      - "report:notes/reports/c08-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:39db651decc561fb082facb7feeebc40103eace8"
   R12-POLL-card:
     parents:
       - "R12"
@@ -19810,7 +19881,7 @@ items:
       location: "§12 survey realism"
     description: "Add a verified comparison showing how weights can change a percentage."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19828,11 +19899,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C08"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:39db651decc561fb082facb7feeebc40103eace8"
+      - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+      - "result:synthetic-finite-population-16-observed-6-unweighted-3-over-6-50.0-percent-weighted-6-over-16-37.5-percent"
+      - "result:inverse-inclusion-weights-2-and-4-hidden-stopifnot-passes"
+      - "boundary:weighted-value-remains-estimate-and-does-not-cure-coverage-selection-or-measurement-error"
+      - "report:notes/reports/wc-c08-critic-methods-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-evidence-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+      - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+      - "report:notes/reports/c08-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:39db651decc561fb082facb7feeebc40103eace8"
   R12-SCOPE-no-variance-course:
     parents:
       - "R12"
@@ -20353,7 +20434,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Retrieve corpus inclusion as a sampling/selection question."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -20371,11 +20452,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C08"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:39db651decc561fb082facb7feeebc40103eace8"
+      - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+      - "result:corpus-frame-names-speech-platform-date-language-speaker-unit-denominator-and-coverage"
+      - "boundary:population-generalisation-distinct-from-train-validation-test-separation"
+      - "report:notes/reports/wc-c08-critic-skeptic-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-pedagogy-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+      - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+      - "report:notes/reports/c08-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:39db651decc561fb082facb7feeebc40103eace8"
   R13-C09-coded-uncertainty:
     parents:
       - "R13"
@@ -27672,7 +27762,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 08 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27690,11 +27780,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C08"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:39db651decc561fb082facb7feeebc40103eace8"
+      - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+      - "result:Chapter-3-poll-card-reach-back-marks-known-and-unknown-and-separates-coverage-nonresponse-and-sampling-variability"
+      - "boundary:four-tier-placement-no-code-production-no-invented-missing-poll-data"
+      - "report:notes/reports/wc-c08-critic-pedagogy-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-structure-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+      - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+      - "report:notes/reports/c08-acceptance-package-2026-08-12.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:39db651decc561fb082facb7feeebc40103eace8"
   R35-REACHBACK-09:
     parents:
       - "R35"
@@ -30249,8 +30348,8 @@ outside_asks:
     decision_record: "notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md"
 
   OA-C08-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WC-C08_revision_and_panel"
+    status: "done"
+    readiness: "resolved"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -30269,11 +30368,28 @@ outside_asks:
     available_evidence:
       - "packet:WC-C08"
       - "packet:C08"
+      - "commit:39db651decc561fb082facb7feeebc40103eace8"
+      - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+      - "report:notes/reports/wc-c08-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-methods-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-skeptic-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-pedagogy-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-evidence-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-style-2026-08-11.md"
+      - "report:notes/reports/wc-c08-critic-structure-2026-08-11.md"
+      - "synthesis:notes/reports/wc-c08-six-critic-synthesis-2026-08-11.md"
+      - "report:notes/reports/c08-acceptance-package-2026-08-12.md"
+      - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+      - "handoff:H-WC-C07-THREAD-SEQUENCE-001"
     recommended_default: "Accept only after survey realism, weights, design boundaries, corpus selection retrieval, hinge function, and panel findings pass."
-    exact_reply_requested: "Reply: C08 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C08 accepted for 39db651decc561fb082facb7feeebc40103eace8 on 2026-08-12; or list exact blocking revisions tied to that commit."
     resume_condition: "C08 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the hinge-chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-12"
+    resolution: "C08 accepted for 39db651decc561fb082facb7feeebc40103eace8 on 2026-08-12."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-12"
+    decision_record: "notes/reports/c08-acceptance-package-2026-08-12.md"
 
   OA-C09-ACCEPTANCE:
     status: "drafted_unsent"

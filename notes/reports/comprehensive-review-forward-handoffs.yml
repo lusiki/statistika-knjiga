@@ -6281,7 +6281,27 @@ handoffs:
           - "boundary:one-write-lock-WC-C08-only-and-separate-C08-reply"
       - target_packet: C08
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-12"
+        disposition: >-
+          C08 closed only after the named author supplied the exact dated reply
+          tied to WC-C08 commit 39db651decc561fb082facb7feeebc40103eace8.
+          The packet advances only Chapter 8 to coauthor_review and accepts
+          only R12-C08-survey-realism, R12-C08-weighted-table,
+          R13-C08-corpus-selection and R35-REACHBACK-08. It retains all
+          seventeen minor panel records, preserves ESS as portal-mediated,
+          optional and unpromoted, claims no author reading, leaves Chapter 6
+          draft and makes one bounded local closeout commit before WC-C09.
+          The separate WC-C09 before_start delivery remains pending.
+        evidence:
+          - "decision:A-THREAD-C07-C09-2026-08-11"
+          - "decision:A-THREAD-C08-C10-2026-08-12"
+          - "author_reply:C08-accepted-for-39db651decc561fb082facb7feeebc40103eace8-on-2026-08-12"
+          - "report:notes/reports/c08-acceptance-package-2026-08-12.md#tocan-odgovor-autora"
+          - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#08-uzorkovanje-stage-coauthor_review"
+          - "boundary:ESS-portal-mediated-optional-unpromoted-rights-ask-open-bundling-prohibited"
+          - "boundary:WC-C09-delivery-remains-pending"
       - target_packet: WC-C09
         gate: before_start
         state: pending
@@ -8725,3 +8745,30 @@ packet_reviews:
       - the existing reader-facing ESS catalogue debt remains owned by H-P3-CATALOG-002 for P5-C and is not duplicated
       - R12-C08-survey-realism R12-C08-weighted-table R13-C08-corpus-selection and R35-REACHBACK-08 materially pass but remain ratified pending C08
       - Chapter 8 remains draft C08 is next but is not claimed no author reading or acceptance is claimed and no external or release action was taken
+
+  C08:
+    reviewed_at: "2026-08-12"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C08 creates no new future obligation. WC-C08 already routed the optional
+      ESS catalogue debt to P5-C through H-P3-CATALOG-002, retained the rights
+      decision in OA-G-A3-ESS-RIGHTS and routed later ESS consumers through
+      H-P3-ESS-001. The accepted Chapter 8 source and ledger disposition are
+      direct prerequisites of WC-C09. The distinct thread continuation is
+      already durable in A-THREAD-C08-C10-2026-08-12, while the older
+      H-WC-C07-THREAD-SEQUENCE-001 delivery for WC-C09 remains pending.
+    implementation_state: "commit:39db651decc561fb082facb7feeebc40103eace8"
+    checks:
+      - the exact author reply names final WC-C08 commit 39db651decc561fb082facb7feeebc40103eace8 and date 2026-08-12
+      - all six critic reports and the synthesis address source SHA256 9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04
+      - the panel records zero fatal zero major seventeen nonblocking minor and zero useful findings
+      - notes/reports/c08-acceptance-package-2026-08-12.md cites the final source commit all six reports the synthesis exact reply and ledger disposition
+      - chapter-ledger.json advances only 08-uzorkovanje from draft to coauthor_review and explicitly records no claim that the author read the chapter and no final status
+      - only R12-C08-survey-realism R12-C08-weighted-table R13-C08-corpus-selection and R35-REACHBACK-08 are accepted
+      - ESS remains portal-mediated optional and unpromoted with no local microdata or empirical result while OA-G-A3-ESS-RIGHTS remains open and bundling prohibited
+      - Chapter 6 remains draft H-WB-PART-001 remains pending for P6-PANELS and no attempt is made to re-advance or re-panel it
+      - H-WC-C07-THREAD-SEQUENCE-001 is consumed for C08 only after the exact reply and its WC-C09 before_start delivery remains pending
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail closed for their injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C08
+      - WC-C09 is the sole next permitted packet but is not claimed inside C08 and no external or release action was authorised
