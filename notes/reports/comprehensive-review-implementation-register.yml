@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-EVIDENCE12"
-  next_permitted_packet: "P3-VERIFY-C"
+  last_completed_packet: "P3-VERIFY-C"
+  next_permitted_packet: "WC-C12"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3647,7 +3647,7 @@ packets:
     sequence: 110
     phase: "3C"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C11"
       - "P3-EVIDENCE12"
@@ -3659,8 +3659,68 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The Chapter 12 lifecycle, sensitivity, and forest-plot artifact is verified after Chapters 9–11 and before WC-C12."
-    completion_evidence: []
-    change_reference: null
+    completion_evidence:
+      source_state: "commit:08cbdfa4e0120b04c0f1408d6e76284bf28b3f87"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p3-verify-c-2026-08-13.md#matrica-vrata"
+            - "matrix:C11-accepted-commit-00c40c9e-sha256-d438ba3e-blob-87db0124-six-critics-zero-fatal-zero-major"
+            - "matrix:P3-EVIDENCE12-accepted-artifact-sha256-23ca66fd-offline-reconstruction-and-rights-boundary"
+            - "check:scripts/check-review-workflow.R-validates-both-prerequisites"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:08cbdfa4e0120b04c0f1408d6e76284bf28b3f87"
+            - "source:C11-commit-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+            - "source:C11-sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+            - "source:C11-blob-87db0124679ae2085f87c4e7cc4145f9e3191b8f"
+            - "source:P3-EVIDENCE12-evidence-sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "result:no-active-blocker-in-C11-or-P3-EVIDENCE12"
+            - "result:C11-two-required-findings-fixed-and-thirteen-minors-author-disposed-as-nonblocking"
+            - "boundary:OSF-license-null-rightsList-empty-portal-mediated-no-source-bundling"
+            - "unavailable:Talarico-pout-SD-archive-1.594894-versus-article-1.60-not-a-book-claim"
+            - "boundary:temporary-audit-26-files-1390281-bytes-removed"
+            - "handoff:H-P3-EVIDENCE12-001-pending-for-WC-C12-before-start-not-consumed-here"
+            - "boundary:wagenmakers2016-key-and-first-citation-deferred-together-to-WC-C12"
+      outputs:
+        - output: "P3-VERIFY-C durable artifact and evidence record for: Chapter 12 evidence foundation after the stable inference sequence."
+          artifacts:
+            - "report:notes/reports/p3-verify-c-2026-08-13.md"
+            - "check:scripts/check-p3-evidence12.py-P3_EVIDENCE12_OK"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK"
+            - "check:scripts/check-katalog.py-KATALOG_OK"
+            - "check:scripts/check-manuscript-integrity.py-MANUSCRIPT_INTEGRITY_OK"
+            - "check:scripts/check-review-workflow.R-REVIEW_WORKFLOW_OK"
+        - output: "Completion evidence is tied to the declared P3-VERIFY-C source state and bounded scope."
+          artifacts:
+            - "commit:08cbdfa4e0120b04c0f1408d6e76284bf28b3f87"
+            - "scope:only-P3-VERIFY-C-report-and-three-control-views-changed"
+            - "review:packet_reviews.P3-VERIFY-C-no-new-future-relevant-effect"
+            - "boundary:no-network-source-evidence-chapter-bibliography-figure-widget-data-registry-or-render-mutation"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:C11-and-P3-EVIDENCE12-each-independently-verified"
+            - "report:notes/reports/p3-verify-c-2026-08-13.md#matrica-vrata"
+            - "result:no-active-blocker"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:08cbdfa4e0120b04c0f1408d6e76284bf28b3f87"
+            - "report:notes/reports/p3-verify-c-2026-08-13.md"
+            - "scope-audit:no-prerequisite-or-book-source-mutation-during-review"
+        - test: "The Chapter 12 lifecycle, sensitivity, and forest-plot artifact is verified after Chapters 9–11 and before WC-C12."
+          result: "passed"
+          evidence:
+            - "sequence:C09-103-C10-105-WC-C11-106-C11-107-G-A4-12-108-P3-EVIDENCE12-109-P3-VERIFY-C-110-WC-C12-111"
+            - "ledger:chapters-09-10-11-coauthor_review-and-12-draft"
+            - "artifact:notes/reports/p3-evidence12-rrr-lab-effects.csv-sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+            - "handoff:H-P3-EVIDENCE12-001-pending-for-WC-C12-before-start"
+            - "boundary:WC-C12-remains-unclaimed"
+    change_reference: "commit:08cbdfa4e0120b04c0f1408d6e76284bf28b3f87"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"

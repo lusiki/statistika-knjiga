@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-EVIDENCE12
-next_permitted_packet: P3-VERIFY-C
+last_completed_packet: P3-VERIFY-C
+next_permitted_packet: WC-C12
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -51,11 +51,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P3-EVIDENCE12`; verified evidence artifact SHA-256 `23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2` on 2026-08-13 |
-| Next permitted packet | `P3-VERIFY-C`; not yet claimed |
+| Last completed packet | `P3-VERIFY-C`; both `C11` and `P3-EVIDENCE12` independently verified against source commit `08cbdfa4e0120b04c0f1408d6e76284bf28b3f87` on 2026-08-13 |
+| Next permitted packet | `WC-C12` only; unclaimed, and outside the ended `A-THREAD-C11-P3-VERIFY-C-2026-08-11` chain |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 202 accepted, 5 deferred with reason, 164 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 102 accepted, 85 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 103 accepted, 84 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 8 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja` and `11-velicina-ucinka-i-snaga` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -4919,6 +4919,55 @@ the durable evidence is
   P3-EVIDENCE12 closeout commit. Push, merge, tag, archive, deployment and
   publication remain unauthorised.
 
+## P3-VERIFY-C claim
+
+- P3-VERIFY-C was claimed only from clean P3-EVIDENCE12 closeout commit
+  `08cbdfa4e0120b04c0f1408d6e76284bf28b3f87`. Exactly one write lock is
+  active; WC-C12 and every later packet remain unclaimed.
+- No handoff delivery targets P3-VERIFY-C. The pending
+  `H-P3-EVIDENCE12-001` delivery targets WC-C12 and will be verified but not
+  acknowledged or consumed here.
+- The gate is read-only over C11 and P3-EVIDENCE12. It may write only its
+  verification report and the three workflow control views; it may not
+  retrieve sources, alter the evidence artifact, add the reserved bibliography
+  key, edit Chapter 12 or produce the forest plot.
+
+## P3-VERIFY-C closeout
+
+- The gate is tied to P3-EVIDENCE12 closeout commit
+  `08cbdfa4e0120b04c0f1408d6e76284bf28b3f87`. `C11` and `P3-EVIDENCE12`
+  pass separately; no aggregate status was treated as proof and no active
+  blocker is hidden.
+- C11's final commit `00c40c9ebc0627ec8dda9f25d1ee70465f4861c9`,
+  Chapter 11 SHA-256
+  `d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1`
+  and git blob `87db0124679ae2085f87c4e7cc4145f9e3191b8f` reconcile. All six final
+  critics address that state; the panel has 0 fatal, 0 major and 13
+  author-disposed nonblocking minor records. The ledger stage remains only
+  `coauthor_review`, not author-read or `final`.
+- The evidence CSV retains SHA-256
+  `23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2`.
+  Offline validation reproduces 17 laboratories, `N = 1.894`, raw REML
+  `0,026766 [-0,107693; 0,161225]` and standardized REML
+  `d = 0,014151 [-0,076191; 0,104493]`.
+- Official OSF identities and hashes, the `license: null` / empty
+  `rightsList` boundary, the removed 26-file temporary audit, the Talarico
+  unavailable cell and the claim-source matrix remain explicit. No network
+  retrieval or new source use occurred.
+- `H-P3-EVIDENCE12-001` remains `pending` for `WC-C12` at `before_start` and
+  was not acknowledged or consumed here. It already carries every verified
+  plot, sensitivity, rights, citation and reconstruction constraint, so the
+  gate records no new outgoing handoff.
+- The registered order is C09/C10/C11, G-A4-12, P3-EVIDENCE12, P3-VERIFY-C,
+  then WC-C12. Chapters 9–11 remain `coauthor_review`; Chapter 12 remains
+  `draft`. Chapter 6 remains unchanged and `draft`.
+- Only the gate report and three control views changed. Chapter prose,
+  `references.bib`, evidence artifact, catalogue, shared registries, figures,
+  widgets, renders, `docs/` and `_freeze/` remain unchanged.
+- `WC-C12` is now uniquely next but remains unclaimed. The authorised
+  `A-THREAD-C11-P3-VERIFY-C-2026-08-11` chain stops here; no push, merge, tag,
+  archive, deployment or publication action is authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4930,6 +4979,7 @@ the durable evidence is
 7. Whole-book continuity and editorial checks.
 8. Release-candidate validation.
 9. Publication only after separate authorisation.
+
 ## Exact next-thread prompt
 
 Paste this into a new thread:
@@ -4945,29 +4995,25 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the local P3-EVIDENCE12 closeout commit and that the
-worktree is clean. Confirm that the register and dashboard name no active write
-packet, `P3-EVIDENCE12` as last completed and `P3-VERIFY-C` as the sole next
-permitted packet. Chapter 6 remains deliberately `draft` under
-`H-WB-PART-001`; do not edit, advance or re-panel it.
+Verify that HEAD is the local P3-VERIFY-C closeout commit and that the worktree
+is clean. Confirm that the register and dashboard name no active write packet,
+`P3-VERIFY-C` as last completed and `WC-C12` as the sole next permitted packet.
+Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not edit,
+advance or re-panel it.
 
-The active thread decision is `A-THREAD-C11-P3-VERIFY-C-2026-08-11`, distinct
-from the two ended earlier chains. It permits the later sequence only after
-each packet independently closes and commits. C11 still requires the exact
-author reply, and no lock or evidence may cross a packet boundary.
+The bounded thread decision `A-THREAD-C11-P3-VERIFY-C-2026-08-11` ended when
+P3-VERIFY-C closed. Do not infer authority to claim `WC-C12` from that ended
+chain. Report that WC-C12 is structurally ready and wait for a new explicit,
+bounded author instruction before opening its write lock.
 
-Claim only `P3-VERIFY-C` from the clean P3-EVIDENCE12 closeout state. Verify
-`C11` and `P3-EVIDENCE12` independently against their exact completion
-evidence; do not treat an aggregate status as proof. Confirm the official
-artifact identities, source hashes, rights boundary, claim-source matrix,
-reproducible raw and standardized values, declared Talarico unavailable cell,
-temporary-source removal and `H-P3-EVIDENCE12-001` delivery to `WC-C12`.
-Do not retrieve another source, edit Chapter 12, add the reserved bibliography
-key, produce the forest plot or consume a handoff targeted to a later packet.
-Record the gate-specific verification matrix, declared source state, resolved
-blocker list and all future effects or an explicit no-outgoing declaration.
-Update the three control views together, run the workflow and negative
-fixtures, close with a bounded local commit, and stop the authorised thread.
-Do not claim an external action or authorise any push, merge, tag, archive,
-deployment or publication action.
+If the author separately authorises WC-C12, begin it only from the clean
+P3-VERIFY-C closeout state. Before the first substantive edit, acknowledge and
+consume `H-P3-EVIDENCE12-001` with concrete dispositions for the book-native
+HTML/print forest plot, raw-versus-standardized sensitivity, portal/right
+boundary, local reconstruction, `wagenmakers2016` key plus first citation and
+the Talarico unavailable cell. Do not bundle participant data or OSF sources,
+copy the publisher plot, infer a causal explanation, introduce a second widget
+or turn the task into meta-analysis production. Keep one packet lock, record
+all future effects durably and stop after its separate closeout commit. Push,
+merge, tag, archive, deployment and publication remain separately gated.
 ```
