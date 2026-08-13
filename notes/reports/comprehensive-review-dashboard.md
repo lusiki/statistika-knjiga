@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C11
-next_permitted_packet: G-A4-12
+last_completed_packet: G-A4-12
+next_permitted_packet: P3-EVIDENCE12
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -40,6 +40,7 @@ stop and repair the control state before editing book content.
 | Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
+| Gate A4-12 | Accepted as recommended against C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`: portal-mediated 2016 Registered Replication Report lifecycle artifact, exact P3 verification contract, Chapter 12 outline and exclusions; owner Luka Sikic; 2026-08-13 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -49,16 +50,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `C11` is closed and no later lock has yet been claimed |
-| Last completed packet | `C11`; accepted for WC-C11 commit `00c40c9ebc0627ec8dda9f25d1ee70465f4861c9` on 2026-08-13 |
-| Next permitted packet | `G-A4-12` alone; it requires its own claim and bounded author decision |
+| Active write packet | None |
+| Last completed packet | `G-A4-12`; accepted as recommended for C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5` on 2026-08-13 |
+| Next permitted packet | `P3-EVIDENCE12`; not yet claimed |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 202 accepted, 5 deferred with reason, 164 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 100 accepted, 87 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 101 accepted, 86 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 8 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja` and `11-velicina-ucinka-i-snaga` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 33 of the 84 canonical asks remain `drafted_unsent`; 45 are `done`; 6 are `withdrawn_with_reason`. `OA-C11-ACCEPTANCE` is done from the exact in-thread reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
+| Open outside asks | 32 of the 84 canonical asks remain `drafted_unsent`; 46 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A4-12-BRIEF` is done from the in-thread exact reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -4823,6 +4824,58 @@ the durable evidence is
   unclaimed until the separate C11 closeout commit. Push, merge, tag, archive,
   deployment and publication remain unauthorised.
 
+## G-A4-12 claim and prepared Chapter 12 decision
+
+- G-A4-12 was claimed only after C11 closed and was locally committed as
+  `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`. Exactly one write lock is
+  active; `P3-EVIDENCE12` and every later packet remain unclaimed.
+- `notes/reports/g-a4-12-decision-package-2026-08-13.md` presents one bounded
+  Tier F decision. The recommended central artifact is the 2016 Registered
+  Replication Report of the Strack, Martin and Stepper study: a portal-mediated
+  primary case with 17 laboratory estimates, intervals, a pooled replication
+  estimate, a registered plan, code and protocol trail.
+- The proposed `P3-EVIDENCE12` contract requires exact source identity,
+  per-file rights and checksums, a minimal non-identifying lab-level derived
+  record, a book-native forest plot, and one comparison of the preregistered
+  raw-difference analysis with its standardized-effect alternative. It forbids
+  significance-only comparison, approximate or remembered values, raw
+  participant-data bundling and reuse of the publisher's figure.
+- The ratified outline carries one lifecycle from the original claim through
+  analytic choices, multilab evidence, forest-plot reading, reform and its
+  limits. Existing `w12` stays the central simulation; no second widget or
+  metaanalysis-production lesson is introduced. The bridge to Chapter 13 is a
+  five-part contract for a named claim, primary analysis, defensible
+  alternative, provenance and conclusion boundary.
+- OSC 2015 remains supporting context rather than the single pooled artifact;
+  Many Analysts is rejected as a second main case because repeated analyses of
+  one dataset are not independent replications; COVIDiSTRESS remains deferred
+  under D16. Two new definition blocks remain exactly `analitička
+  fleksibilnost` and `reproducibilnost` for later WC-C12 implementation.
+- No handoff targets G-A4-12. No data, bibliography, figure, code, chapter
+  prose, concept graph or registry has been edited. Chapter 6 remains
+  unchanged and `draft`.
+- `OA-G-A4-12-BRIEF` is ready for the exact in-thread author decision. No
+  external message was sent, and no push, merge, tag, archive, deployment or
+  publication action is authorised.
+
+## G-A4-12 closeout
+
+- Author/editor Luka Sikic accepted the recommended package exactly for C11
+  closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5` on
+  2026-08-13. `OA-G-A4-12-BRIEF` is done without an external message.
+- The accepted artifact, P3 verification contract, outline, definitions,
+  supporting-source boundary, rejected alternatives and authority boundary are
+  durable in `notes/reports/g-a4-12-decision-package-2026-08-13.md` and
+  `decisions.G-A4-12`.
+- No handoff targets G-A4-12 and it creates no new outgoing handoff. The direct
+  prerequisite and registered item ownership already carry every later effect.
+- No source was retrieved and no data, bibliography, figure, code, chapter
+  prose, concept graph or shared registry changed. Chapter 6 remains unchanged
+  and `draft`.
+- `P3-EVIDENCE12` is uniquely next but remains unclaimed until the separate
+  G-A4-12 closeout commit. Push, merge, tag, archive, deployment and publication
+  remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4849,11 +4902,10 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify the latest scoped C11 closeout commit at `HEAD`, including the exact
-author reply for WC-C11 commit
-`00c40c9ebc0627ec8dda9f25d1ee70465f4861c9`, then claim only `G-A4-12`.
-Confirm first that C11 is accepted, no write packet is active and G-A4-12 alone
-is next. Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not
+Verify that HEAD is the local G-A4-12 closeout commit and that the worktree is
+clean. Confirm that the register and dashboard name no active write packet,
+`G-A4-12` as last completed and `P3-EVIDENCE12` as the sole next permitted
+packet. Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not
 edit, advance or re-panel it.
 
 The active thread decision is `A-THREAD-C11-P3-VERIFY-C-2026-08-11`, distinct
@@ -4861,13 +4913,17 @@ from the two ended earlier chains. It permits the later sequence only after
 each packet independently closes and commits. C11 still requires the exact
 author reply, and no lock or evidence may cross a packet boundary.
 
-Prepare only the bounded G-A4-12 Chapter 12 brief, evidence-artifact decision
-and outline from its ratified evidence and applicable incoming handoffs.
-Record the named owner, recommended default, alternatives, authority boundary
-and blocked dependencies. Do not edit Chapter 12 prose and do not claim
-P3-EVIDENCE12 before a dated author disposition closes and commits G-A4-12.
-
-Stop after presenting the G-A4-12 decision package and request its exact author
-reply. Do not claim any later packet, claim an external action, or authorise any
-push, merge, tag, archive, deployment or publication action.
+Claim only `P3-EVIDENCE12` from the clean G-A4-12 closeout state. Before its
+first substantive edit, acknowledge every handoff delivery targeted to it.
+Verify the accepted portal-mediated Registered Replication Report artifact
+from primary official sources; record exact identities, access dates,
+checksums, per-file rights, a claim-source matrix and reproducible derived
+values. Do not use remembered or approximate quantities, bundle raw
+participant data, copy the publisher's forest plot or edit Chapter 12 prose.
+Consume every applicable incoming handoff with evidence before closeout,
+record all future effects or an explicit no-outgoing declaration, update all
+three control views together, run the workflow and negative fixtures, and
+close with a bounded local commit before any P3-VERIFY-C claim. Do not claim an
+external action or authorise any push, merge, tag, archive, deployment or
+publication action.
 ```

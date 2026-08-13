@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C11"
-  next_permitted_packet: "G-A4-12"
+  last_completed_packet: "G-A4-12"
+  next_permitted_packet: "P3-EVIDENCE12"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2029,6 +2029,89 @@ decisions:
       accepts no future chapter source. It does not accept C03 on the author's
       behalf and authorises no push, merge, tag, archive, deployment or
       publication.
+
+  G-A4-12:
+    status: "accepted"
+    accepted_at: "2026-08-13"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence: "conversation:G-A4-12-accepted-as-recommended-for-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5-on-2026-08-13"
+    decision_record: "notes/reports/g-a4-12-decision-package-2026-08-13.md"
+    accepted_against_c11_closeout_commit: "afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5"
+    accepted_dispositions:
+      central_artifact: >-
+        Chapter 12 follows the 2016 Registered Replication Report of Strack,
+        Martin and Stepper as one portal-mediated primary lifecycle artifact.
+        It uses the official article, APS project page and OSF project trail;
+        it does not bundle raw participant data or copy the publisher's forest
+        plot.
+      evidence_contract: >-
+        P3-EVIDENCE12 must verify exact bibliographic and project identities,
+        per-file rights, access dates and checksums; retain a minimal
+        non-identifying laboratory-level derived record; support a book-native
+        forest plot; and compare the preregistered raw-difference primary
+        analysis with a standardized-effect alternative without reducing the
+        comparison to significant versus non-significant.
+      claim_boundary: >-
+        The reported 17 laboratories, total N of 1894, pooled raw difference
+        of 0.03 with 95 per cent interval from -0.11 to 0.16, and original
+        estimate of 0.82 establish candidate fitness only until
+        P3-EVIDENCE12 independently reconciles every value to the primary
+        artifact. Remembered, approximate or unreproduced values are not book
+        evidence.
+      tier_f_argument: >-
+        The chapter carries one research-to-reform lifecycle from the original
+        claim and analytic flexibility through preregistration, multilab
+        evidence, forest-plot reading, cumulative replication, reform and its
+        limits. Existing w12 remains the only central widget, and the bridge to
+        Chapter 13 names claim, primary analysis, defensible alternative,
+        provenance and conclusion boundary.
+      definition_and_assessment_boundary: >-
+        The only two new definition blocks are analitička fleksibilnost and
+        reproducibilnost. The reader interprets estimates, intervals,
+        synthesis and heterogeneity; the chapter does not assess R production,
+        teach meta-analysis computation or add a second widget.
+      supporting_sources_and_rights: >-
+        Simmons et al. 2011, Gelman and Loken 2013, and Open Science
+        Collaboration 2015 remain contextual sources. P3-EVIDENCE12 verifies
+        any new RRR bibliographic record and every relevant file licence
+        separately; portal visibility is not treated as redistribution
+        permission.
+    rejected_alternatives:
+      - "Use Open Science Collaboration 2015 as the single pooled lifecycle artifact despite its heterogeneous targets."
+      - "Use Many Analysts as a second central case even though analyses of one dataset are not independent replications."
+      - "Use COVIDiSTRESS while it remains deferred under D16."
+      - "Replace the real lifecycle with simulation-only evidence."
+      - "Copy the publisher's forest plot instead of building a book-native representation from verified numerical facts."
+      - "Turn the chapter into a reform list or a meta-analysis production course."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-EVIDENCE12"
+      governed_items:
+        - "R07-C12-full-argument"
+        - "R08-SPINE-12"
+        - "R11-C12-pipeline-flexibility"
+        - "R19-C12-forest-plot"
+        - "R19-C12-replication-cumulative"
+        - "R23-C12-no-R-production"
+        - "R23-C12-visible-receipt"
+        - "R23-C12-code-ladder"
+        - "R24-C12-primary-sources"
+        - "R35-REACHBACK-12"
+      later_gates_still_mandatory:
+        - "P3-VERIFY-C"
+        - "WC-C12"
+        - "C12"
+    authority_boundary: >-
+      This decision authorises only the accepted Chapter 12 brief, selection of
+      a portal-mediated artifact, its P3 verification contract, outline and
+      exclusions against C11 closeout commit
+      afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5. It retrieves no source,
+      accepts no unreproduced quantity, decides no redistribution right, writes
+      no data or bibliography record, edits no chapter, closes no content item
+      and accepts no future packet. It authorises no push, merge, tag, archive,
+      deployment or publication.
 
   G-A3-ESS:
     status: "accepted"
@@ -11258,7 +11341,7 @@ packets:
     sequence: 108
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C11"
       - "P0-OUTSIDE"
@@ -11271,14 +11354,71 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A4-12 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
+            - "register:decisions.G-A4-12.accepted_at-2026-08-13"
+            - "author_reply:G-A4-12-accepted-as-recommended-for-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5-on-2026-08-13"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "register:decisions.G-A4-12.author"
+            - "register:decisions.G-A4-12.editor"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A4-12.accepted_dispositions"
+            - "register:decisions.G-A4-12.rejected_alternatives"
+            - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md#preporucena-odluka"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A4-12.blocked_dependencies"
+            - "packet:P3-EVIDENCE12"
+            - "items:R07-C12-full-argument-through-R35-REACHBACK-12"
+      outputs:
+        - output: "Dated G-A4-12 decision and authority record for: Chapter 12 brief, evidence artifact, and outline."
+          artifacts:
+            - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
+            - "register:decisions.G-A4-12"
+            - "outside-ask:OA-G-A4-12-BRIEF-done"
+        - output: "Completion evidence is tied to the declared G-A4-12 source state and bounded scope."
+          artifacts:
+            - "commit:C11-closeout-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5"
+            - "author_reply:G-A4-12-accepted-as-recommended-for-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5-on-2026-08-13"
+            - "register:decisions.G-A4-12.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A4-12-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_recommended"
+            - "author_reply:G-A4-12-accepted-as-recommended-for-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5-on-2026-08-13"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A4-12.rejected_alternatives"
+            - "register:decisions.G-A4-12.authority_boundary"
+            - "register:decisions.G-A4-12.blocked_dependencies"
+        - test: "The G-A4-12 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "commit:C11-closeout-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5"
+            - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
+            - "report:notes/reports/p2-identity-briefs-2026-08-04.md"
+            - "identity:bookwright_plugin/bookwright/shared/conventions.json#identity_briefs-c12"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#12-kriza-i-obnova"
+            - "boundary:no-source-retrieval-data-bibliography-figure-code-or-prose-change"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "commit:afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5"
   P3-EVIDENCE12:
     sequence: 109
     phase: "3B"
@@ -30506,8 +30646,8 @@ outside_asks:
       - "amendment:notes/reports/author-amendment-reader-route-2026-08-05.md"
 
   OA-G-A4-12-BRIEF:
-    status: "drafted_unsent"
-    readiness: "waiting_for_inference_and_evidence_packet"
+    status: "done"
+    readiness: "resolved_by_in_thread_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -30529,11 +30669,28 @@ outside_asks:
     available_evidence:
       - "packet:P3-EVIDENCE12"
       - "packet:P2-IDENTITY"
+      - "commit:afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5"
+      - "identity:bookwright_plugin/bookwright/shared/conventions.json#identity_briefs-c12"
+      - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#12-kriza-i-obnova"
+      - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
     recommended_default: "Follow one research-to-reform lifecycle with primary evidence, a sensitivity comparison, a forest plot, and no assessed code production."
-    exact_reply_requested: "Reply: Chapter 12 Tier F brief approved at [state] on [YYYY-MM-DD]; or list exact evidence, outline, or scope amendments."
+    exact_reply_requested: "Reply: G-A4-12 accepted as recommended for afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5 on 2026-08-13; or list exact evidence, outline, or scope amendments tied to that state."
     resume_condition: "WC-C12 drafting resumes only after the evidence package and complete Tier F brief are approved together."
     why_external: "The identity-pillar argument and evidence choice require author/editor approval."
     external_message_sent: false
+    resolved_at: "2026-08-13"
+    resolution: >-
+      Author and editor Luka Sikic accepted G-A4-12 as recommended for C11
+      closeout commit afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5 on
+      2026-08-13. The decision approves the portal-mediated Registered
+      Replication Report lifecycle artifact, exact P3-EVIDENCE12 verification
+      contract, Chapter 12 outline and exclusions without accepting any
+      unreproduced quantity, redistribution right or later packet.
+    resolution_evidence:
+      - "author_reply:G-A4-12-accepted-as-recommended-for-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5-on-2026-08-13"
+      - "commit:C11-closeout-afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5"
+      - "decision:G-A4-12"
+      - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
 
   OA-G-A4-16-ARTIFACT:
     status: "drafted_unsent"
