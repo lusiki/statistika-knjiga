@@ -6636,6 +6636,51 @@ handoffs:
         gate: before_start
         state: pending
 
+  H-P3-EVIDENCE12-001:
+    source_packet: P3-EVIDENCE12
+    created_at: "2026-08-13"
+    kind: evidence
+    refs:
+      - decision:G-A4-12
+      - report:notes/reports/p3-evidence12-2026-08-13.md
+      - artifact:notes/reports/p3-evidence12-rrr-lab-effects.csv
+      - validator:scripts/check-p3-evidence12.py
+      - bibliography-specification:wagenmakers2016
+    statement: >-
+      The verified Chapter 12 lifecycle artifact is the portal-mediated 2016
+      Registered Replication Report of Strack Martin and Stepper. The local
+      editorial record contains only 17 non-identifying lab-level estimates
+      reconstructed from the exact OSF Data_FINAL.zip; participant rows source
+      archives and the publisher figure are not bundled. The raw REML estimate
+      is 0.026766 with 95 per cent interval -0.107693 to 0.161225 and the
+      standardized sensitivity is d 0.014151 with interval -0.076191 to
+      0.104493. The original 0.82 is a reference only and does not enter the
+      pool. The archived Talarico pout SD reconstructs as 1.59 while the article
+      table prints 1.60, so exact equivalence of that cell is unavailable.
+    required_action: >-
+      WC-C12 must acknowledge this evidence before its first substantive edit,
+      build a book-native HTML and print forest plot from the verified local
+      record with zero and the non-pooled original 0.82 clearly distinguished,
+      retain the raw-versus-standardized sensitivity without a significance-only
+      comparison, add and cite the verified wagenmakers2016 record in the same
+      packet and disclose the local reconstruction.
+      It must not quote the unreconciled Talarico SD cell, bundle participant
+      data or OSF source files, copy or adapt the publisher plot, infer a cause
+      for the result, generalise absence of the effect to all contexts, add a
+      second central widget or turn the task into meta-analysis production.
+    basis:
+      - "decision:G-A4-12"
+      - "report:notes/reports/p3-evidence12-2026-08-13.md"
+      - "check:scripts/check-p3-evidence12.py-P3_EVIDENCE12_OK"
+      - "source:OSF-Data_FINAL.zip-sha256-6e3e14d9a7eebd03aa45bcf1928ad62395745052e20dc20107878a8118ae7348"
+      - "source:OSF-Analysis_R_Scripts.zip-sha256-c648a1d8a65c496dc6b4bdabd86c7ae71716f50cbd6ca5d0287d5e9f66da7c69"
+      - "boundary:portal-mediated-no-raw-data-no-publisher-figure"
+    required: true
+    deliveries:
+      - target_packet: WC-C12
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -9150,3 +9195,26 @@ packet_reviews:
       - no source retrieval data bibliography figure code chapter prose concept graph registry external message or release action was undertaken
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail closed for their injected defects
       - P3-EVIDENCE12 is the sole next permitted packet but is not claimed inside G-A4-12
+
+  P3-EVIDENCE12:
+    reviewed_at: "2026-08-13"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P3-EVIDENCE12-001
+    implementation_state: "evidence:sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+    checks:
+      - no handoff delivery targets P3-EVIDENCE12 and nothing targeting another packet was acknowledged or consumed
+      - G-A4-12 and P3-CATALOG were accepted before claim and the packet began from clean G-A4-12 closeout commit 09c399173537eb958b968bb1353d2c84f473fa25
+      - the official SAGE article APS project page OSF pkd65 project and OSF h2f98 Data and Results component were reconciled by stable identifiers
+      - Analysis_R_Scripts.zip preregisteredAnalysisPlan.pdf and Data_FINAL.zip were downloaded once from exact OSF URLs and their local MD5 and SHA256 values matched OSF metadata
+      - OSF declares no node licence and an empty DataCite rightsList so the source archives remain portal-mediated and no redistribution permission is inferred
+      - the temporary audit contained 26 files and 1390281 bytes and was removed outside the checkout after verification with no participant or source byte retained
+      - the local editorial artifact contains exactly 17 non-identifying laboratory rows and SHA256 23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2
+      - online reconstruction and offline validation both return P3_EVIDENCE12_OK with N 1894 raw 0.026766 interval -0.107693 to 0.161225 and d 0.014151 interval -0.076191 to 0.104493
+      - the published 9 of 17 positive estimates 0 of 17 strictly positive intervals and 2 of 17 intervals overlapping 0.82 reconcile exactly
+      - the Talarico pout SD difference between archival 1.594894 and published 1.60 is recorded as an unavailable cell and cannot become a book claim
+      - wrong-total and broken-interval in-memory fixtures each fail closed with exit code 1 and leave the checkout unchanged
+      - H-P3-EVIDENCE12-001 carries the verified forest plot sensitivity rights citation and source-discrepancy constraints to WC-C12 before start
+      - citation manuscript catalogue and workflow checks pass while references.bib chapters data catalogue shared registries widgets figures renders docs and freeze remain unchanged
+      - Chapter 6 remains unchanged and draft under H-WB-PART-001 with no edit advancement or panel run
+      - P3-VERIFY-C is the sole next permitted packet but is not claimed inside P3-EVIDENCE12 and no external or release action was authorised

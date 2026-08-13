@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A4-12
-next_permitted_packet: P3-EVIDENCE12
+last_completed_packet: P3-EVIDENCE12
+next_permitted_packet: P3-VERIFY-C
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 94
+forward_handoffs: 95
 last_updated: "2026-08-13"
 ---
 
@@ -51,11 +51,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `G-A4-12`; accepted as recommended for C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5` on 2026-08-13 |
-| Next permitted packet | `P3-EVIDENCE12`; not yet claimed |
+| Last completed packet | `P3-EVIDENCE12`; verified evidence artifact SHA-256 `23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2` on 2026-08-13 |
+| Next permitted packet | `P3-VERIFY-C`; not yet claimed |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 202 accepted, 5 deferred with reason, 164 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 101 accepted, 86 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 102 accepted, 85 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 8 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja` and `11-velicina-ucinka-i-snaga` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -4876,6 +4876,49 @@ the durable evidence is
   G-A4-12 closeout commit. Push, merge, tag, archive, deployment and publication
   remain unauthorised.
 
+## P3-EVIDENCE12 claim
+
+- P3-EVIDENCE12 was claimed only from clean G-A4-12 closeout commit
+  `09c399173537eb958b968bb1353d2c84f473fa25`. Exactly one write lock is
+  active; P3-VERIFY-C and every later packet remain unclaimed.
+- No handoff delivery targets P3-EVIDENCE12. There is therefore no incoming
+  delivery to acknowledge or consume, and nothing targeted to another packet
+  will be touched.
+- The bounded write surface is the durable evidence report, its minimal
+  lab-level derived record, a fail-closed offline verifier, the verified
+  bibliography specification and the three workflow control views. Raw participant
+  data, publisher figures, Chapter 12 prose, the data catalogue, shared
+  registries and Chapter 6 are outside the lock.
+
+## P3-EVIDENCE12 closeout
+
+- The verified primary chain is the SAGE article DOI
+  `10.1177/1745691616674458`, APS final-article page, OSF project `pkd65` and
+  OSF Data and Results component `h2f98`. Three exact OSF files were retrieved
+  once and matched their API MD5 and SHA-256 metadata.
+- The portal source declares no OSF node licence and an empty DataCite rights
+  list. All 26 temporary files and 1.390.281 bytes were removed outside the
+  checkout after verification; no participant row, source archive, plan, code
+  or publisher figure is bundled.
+- `notes/reports/p3-evidence12-rrr-lab-effects.csv` retains only 17
+  non-identifying laboratory rows and has SHA-256
+  `23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2`.
+  Online reconstruction and offline validation both reproduce `N = 1.894`,
+  raw REML `0,026766 [-0,107693; 0,161225]` and standardized REML
+  `d = 0,014151 [-0,076191; 0,104493]`.
+- The source discrepancy is explicit and bounded: Talarico's archived pout SD
+  is `1,594894` (`1,59`), whereas Table 1 prints `1,60`. That cell is an
+  unavailable claim; it is not needed for any approved book assertion.
+- `H-P3-EVIDENCE12-001` carries the book-native forest-plot, sensitivity,
+  rights, future citation and source-discrepancy contract to `WC-C12` before
+  start. No incoming handoff targeted this packet.
+- Chapter 12 prose, `references.bib`, the data catalogue, shared registries,
+  figures, widgets and renders remain unchanged. Chapter 6 remains unchanged
+  and `draft`.
+- `P3-VERIFY-C` is uniquely next but remains unclaimed until the separate
+  P3-EVIDENCE12 closeout commit. Push, merge, tag, archive, deployment and
+  publication remain unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4902,28 +4945,29 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the local G-A4-12 closeout commit and that the worktree is
-clean. Confirm that the register and dashboard name no active write packet,
-`G-A4-12` as last completed and `P3-EVIDENCE12` as the sole next permitted
-packet. Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not
-edit, advance or re-panel it.
+Verify that HEAD is the local P3-EVIDENCE12 closeout commit and that the
+worktree is clean. Confirm that the register and dashboard name no active write
+packet, `P3-EVIDENCE12` as last completed and `P3-VERIFY-C` as the sole next
+permitted packet. Chapter 6 remains deliberately `draft` under
+`H-WB-PART-001`; do not edit, advance or re-panel it.
 
 The active thread decision is `A-THREAD-C11-P3-VERIFY-C-2026-08-11`, distinct
 from the two ended earlier chains. It permits the later sequence only after
 each packet independently closes and commits. C11 still requires the exact
 author reply, and no lock or evidence may cross a packet boundary.
 
-Claim only `P3-EVIDENCE12` from the clean G-A4-12 closeout state. Before its
-first substantive edit, acknowledge every handoff delivery targeted to it.
-Verify the accepted portal-mediated Registered Replication Report artifact
-from primary official sources; record exact identities, access dates,
-checksums, per-file rights, a claim-source matrix and reproducible derived
-values. Do not use remembered or approximate quantities, bundle raw
-participant data, copy the publisher's forest plot or edit Chapter 12 prose.
-Consume every applicable incoming handoff with evidence before closeout,
-record all future effects or an explicit no-outgoing declaration, update all
-three control views together, run the workflow and negative fixtures, and
-close with a bounded local commit before any P3-VERIFY-C claim. Do not claim an
-external action or authorise any push, merge, tag, archive, deployment or
-publication action.
+Claim only `P3-VERIFY-C` from the clean P3-EVIDENCE12 closeout state. Verify
+`C11` and `P3-EVIDENCE12` independently against their exact completion
+evidence; do not treat an aggregate status as proof. Confirm the official
+artifact identities, source hashes, rights boundary, claim-source matrix,
+reproducible raw and standardized values, declared Talarico unavailable cell,
+temporary-source removal and `H-P3-EVIDENCE12-001` delivery to `WC-C12`.
+Do not retrieve another source, edit Chapter 12, add the reserved bibliography
+key, produce the forest plot or consume a handoff targeted to a later packet.
+Record the gate-specific verification matrix, declared source state, resolved
+blocker list and all future effects or an explicit no-outgoing declaration.
+Update the three control views together, run the workflow and negative
+fixtures, close with a bounded local commit, and stop the authorised thread.
+Do not claim an external action or authorise any push, merge, tag, archive,
+deployment or publication action.
 ```

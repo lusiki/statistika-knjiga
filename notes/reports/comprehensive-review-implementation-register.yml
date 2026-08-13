@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A4-12"
-  next_permitted_packet: "P3-EVIDENCE12"
+  last_completed_packet: "P3-EVIDENCE12"
+  next_permitted_packet: "P3-VERIFY-C"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -11423,7 +11423,7 @@ packets:
     sequence: 109
     phase: "3B"
     kind: "evidence_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A4-12"
       - "P3-CATALOG"
@@ -11435,13 +11435,77 @@ packets:
       - "Every empirical quantity and representation reconciles to the verified artifact."
       - "The package supports the intended claim and explicitly records unavailable claims."
       - "The P3-EVIDENCE12 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "evidence:sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+      required_evidence:
+        - requirement: "verified primary artifact"
+          artifacts:
+            - "doi:10.1177/1745691616674458"
+            - "source:APS-final-article-project-page"
+            - "source:OSF-pkd65-Strack-Replication"
+            - "source:OSF-h2f98-Data-and-Results"
+            - "source:OSF-Data_FINAL.zip-sha256-6e3e14d9a7eebd03aa45bcf1928ad62395745052e20dc20107878a8118ae7348"
+            - "source:OSF-Analysis_R_Scripts.zip-sha256-c648a1d8a65c496dc6b4bdabd86c7ae71716f50cbd6ca5d0287d5e9f66da7c69"
+            - "source:OSF-preregisteredAnalysisPlan.pdf-sha256-86d9d3289d51bd1b4243aced531bec3e58cf7cd68216ac689022215742c27bfc"
+            - "rights:OSF-license-null-rightsList-empty-portal-mediated-no-bundling"
+        - requirement: "claim-source matrix"
+          artifacts:
+            - "report:notes/reports/p3-evidence12-2026-08-13.md#matrica-tvrdnja-izvor"
+            - "report:notes/reports/p3-evidence12-2026-08-13.md#nedostupne-tvrdnje"
+            - "boundary:Talarico-pout-SD-1.59-archive-versus-1.60-article-unavailable"
+            - "handoff:H-P3-EVIDENCE12-001"
+        - requirement: "reproducible derived values"
+          artifacts:
+            - "artifact:notes/reports/p3-evidence12-rrr-lab-effects.csv-sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+            - "check:scripts/check-p3-evidence12.py-P3_EVIDENCE12_OK"
+            - "result:labs-17-total-n-1894"
+            - "result:raw-0.026766-ci-minus-0.107693-to-0.161225"
+            - "result:d-0.014151-ci-minus-0.076191-to-0.104493"
+            - "fixture:wrong-total-exit-1"
+            - "fixture:broken-interval-exit-1"
+      outputs:
+        - output: "P3-EVIDENCE12 durable artifact and evidence record for: Verified Chapter 12 lifecycle, sensitivity, and forest-plot evidence."
+          artifacts:
+            - "report:notes/reports/p3-evidence12-2026-08-13.md"
+            - "artifact:notes/reports/p3-evidence12-rrr-lab-effects.csv"
+            - "validator:scripts/check-p3-evidence12.py"
+            - "handoff:H-P3-EVIDENCE12-001"
+        - output: "Completion evidence is tied to the declared P3-EVIDENCE12 source state and bounded scope."
+          artifacts:
+            - "evidence:sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+            - "source-commit:G-A4-12-closeout-09c399173537eb958b968bb1353d2c84f473fa25"
+            - "report:notes/reports/p3-evidence12-2026-08-13.md#granica-paketa"
+            - "check:scripts/check-review-workflow.R-at-P3-EVIDENCE12-closeout"
+      exit_tests:
+        - test: "Every empirical quantity and representation reconciles to the verified artifact."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-p3-evidence12.py-online-and-offline-P3_EVIDENCE12_OK"
+            - "reconciliation:published-raw-0.03-minus-0.11-to-0.16"
+            - "reconciliation:published-counts-9-of-17-0-of-17-2-of-17"
+            - "unavailable:Talarico-pout-SD-article-1.60-archive-1.594894"
+            - "boundary:unavailable-cell-is-not-a-book-claim-or-plot-input-label"
+        - test: "The package supports the intended claim and explicitly records unavailable claims."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p3-evidence12-2026-08-13.md#matrica-tvrdnja-izvor"
+            - "report:notes/reports/p3-evidence12-2026-08-13.md#nedostupne-tvrdnje"
+            - "report:notes/reports/p3-evidence12-2026-08-13.md#ugovor-za-vlastiti-forest-plot"
+            - "handoff:H-P3-EVIDENCE12-001"
+        - test: "The P3-EVIDENCE12 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "decision:G-A4-12"
+            - "report:notes/reports/p3-evidence12-2026-08-13.md"
+            - "source:three-OSF-files-exact-identities-hashes-and-rights-boundary"
+            - "boundary:temporary-audit-26-files-1390281-bytes-removed-no-source-bytes-retained"
+            - "boundary:no-chapter-catalogue-shared-registry-figure-or-widget-change"
     contract: "evidence_package"
     required_evidence:
       - "verified primary artifact"
       - "claim-source matrix"
       - "reproducible derived values"
-    change_reference: null
+    change_reference: "evidence:sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
   WC-C12:
     sequence: 111
     phase: "4"
