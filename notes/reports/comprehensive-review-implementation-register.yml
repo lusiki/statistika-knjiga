@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WC-C12"
-  next_permitted_packet: "C12"
+  last_completed_packet: "C12"
+  next_permitted_packet: "WC-PARTS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -11758,7 +11758,7 @@ packets:
     sequence: 112
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WC-C12"
     scope: "Author acceptance and panel disposition for C12."
@@ -11769,14 +11769,80 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wc-c12-critic-methods-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-skeptic-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-pedagogy-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-evidence-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-style-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-structure-2026-08-13.md"
+            - "panel:zero-fatal-zero-major-ten-nonblocking-lens-level-minor-records"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+            - "report:notes/reports/c12-acceptance-package-2026-08-13.md"
+            - "disposition:accept-ten-Chapter-12-items-and-advance-only-12-kriza-i-obnova-to-coauthor_review"
+            - "disposition:ten-lens-level-minors-known-and-nonblocking-for-this-edition"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C12-accepted-for-23282e67cf876a3d654d1465f399ce48c31baacd-on-2026-08-13"
+            - "evidence:conversation-user-message-recorded-2026-08-13"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
+            - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+            - "blob:bc9bb538625e6996f116ae1fd5b1acba56dc0852"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#12-kriza-i-obnova-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C12 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
+            - "reports:wc-c12-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+            - "author_reply:C12-accepted-for-23282e67cf876a3d654d1465f399ce48c31baacd-on-2026-08-13"
+            - "report:notes/reports/c12-acceptance-package-2026-08-13.md"
+        - output: "Completion evidence is tied to the declared C12 source state and bounded scope."
+          artifacts:
+            - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+            - "items:R07-C12-full-argument-R08-SPINE-12-R11-C12-pipeline-flexibility-R19-C12-forest-plot-R19-C12-replication-cumulative-R23-C12-no-R-production-R23-C12-visible-receipt-R23-C12-code-ladder-R24-C12-primary-sources-R35-REACHBACK-12-accepted"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#12-kriza-i-obnova"
+            - "boundary:ten-lens-level-minors-known-nonblocking-and-not-edited"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "boundary:WC-PARTS-unclaimed-and-blast-radius-stop-preserved"
+            - "review:packet_reviews.C12-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
+            - "source:sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+            - "reports:wc-c12-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C12-accepted-for-23282e67cf876a3d654d1465f399ce48c31baacd-on-2026-08-13"
+            - "panel:zero-fatal-zero-major-ten-known-nonblocking-minor-records"
+            - "disposition:ten-minors-known-and-nonblocking-for-this-edition"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c12-acceptance-package-2026-08-13.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#12-kriza-i-obnova-stage-coauthor_review"
+            - "items:ten-WC-C12-governed-items-accepted"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   WC-PARTS:
     sequence: 113
     phase: "4"
@@ -17569,7 +17635,7 @@ items:
       location: "§5/§8/§10 + §15 R07"
     description: "Rewrite Chapter 12 around one research-to-reform lifecycle."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -17587,11 +17653,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:one-verified-RRR-lifecycle-carries-flexibility-incentives-selection-replication-reform-and-limits"
+      - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+      - "report:notes/reports/wc-c12-critic-structure-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R07-C17-full-argument:
     parents:
       - "R07"
@@ -18768,7 +18839,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Use a verified auditable research-lifecycle artifact."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -18786,11 +18857,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "evidence:notes/reports/p3-evidence12-rrr-lab-effects.csv@sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+      - "result:all-RRR-quantities-trace-to-the-verified-evidence-package"
+      - "report:notes/reports/wc-c12-critic-evidence-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R08-SPINE-13-16:
     parents:
       - "R08"
@@ -20287,7 +20363,7 @@ items:
       location: "§12 analysis table"
     description: "Treat acquisition, exclusions, joins, recodes, and missing-data rules as degrees of freedom and reproducibility duties."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -20305,11 +20381,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:upstream-standardization-branch-changes-estimand-weighting-and-claim-boundary-without-changing-the-near-zero-conclusion"
+      - "result:raw-0.026766-ci--0.107693-to-0.161225-d-0.014151-ci--0.076191-to-0.104493"
+      - "report:notes/reports/wc-c12-critic-methods-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R11-C18-table-audit:
     parents:
       - "R11"
@@ -23954,7 +24035,7 @@ items:
       location: "§12 evidence synthesis"
     description: "Teach study estimates/intervals, pooled estimate, visible heterogeneity, and selection/context limits without computation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23972,11 +24053,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:book-native-forest-plot-teaches-study-estimates-intervals-model-summary-visible-variation-and-selection-context-limits"
+      - "boundary:no-publisher-plot-no-student-meta-analysis-production"
+      - "report:notes/reports/wc-c12-critic-methods-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R19-C12-replication-cumulative:
     parents:
       - "R19"
@@ -23990,7 +24076,7 @@ items:
       location: "§12 evidence synthesis"
     description: "Frame replication as cumulative evidence with context, design, and measurement uncertainty."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24008,11 +24094,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:seventeen-laboratories-read-as-cumulative-estimates-and-intervals-not-binary-votes"
+      - "boundary:no-single-replication-or-pooled-estimate-becomes-a-final-universal-verdict"
+      - "report:notes/reports/wc-c12-critic-skeptic-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R19-C18-substantive-sensitivity:
     parents:
       - "R19"
@@ -24576,7 +24667,7 @@ items:
       location: "§8/§12 Ch12"
     description: "Remove required code production while retaining appropriate code reading."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24594,11 +24685,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:all-four-assessed-tiers-have-complete-non-programming-answer-paths"
+      - "check:MANUSCRIPT_STRUCTURE_OK-Chapter-12-tasks-4-of-4"
+      - "report:notes/reports/wc-c12-critic-pedagogy-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R23-C17-no-R-production:
     parents:
       - "R23"
@@ -24689,7 +24785,7 @@ items:
       location: "§12 H10"
     description: "Create inspectable concept-bearing receipts and hide cosmetic plumbing."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24707,11 +24803,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:seven-nonblank-line-receipt-is-below-H10-limit-and-mapped-line-by-line-in-beginner-readable-prose"
+      - "result:receipt-checks-17-laboratories-and-N-1894-and-does-not-recompute-meta-analysis"
+      - "report:notes/reports/wc-c12-critic-style-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R23-C17-visible-receipt:
     parents:
       - "R23"
@@ -24839,7 +24940,7 @@ items:
       location: "§8 Ch12"
     description: "Use visible code receipts to expose analytic branching and provenance."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24857,11 +24958,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:receipt-explicitly-labels-primary-raw-and-alternative-standardized-branches-and-their-verified-estimates-and-intervals"
+      - "boundary:execution-is-a-provenance-check-not-proof-of-validity"
+      - "report:notes/reports/wc-c12-critic-structure-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R23-C15-suspect-code:
     parents:
       - "R23"
@@ -25212,7 +25318,7 @@ items:
       location: "§13"
     description: "Source, qualify, or remove the named contemporary open-science claims."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25231,11 +25337,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "source:references.bib#wagenmakers2016"
+      - "check:CITATION_INTEGRITY_OK-files-37-live-keys-45-records-45"
+      - "result:all-five-panel-identified-RRR-claims-have-same-sentence-wagenmakers2016-citations"
+      - "report:notes/reports/wc-c12-critic-evidence-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R24-C17-primary-sources:
     parents:
       - "R24"
@@ -28955,7 +29067,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 12 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28973,11 +29085,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C12"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "result:critical-task-retrieves-Chapter-9-interval-definition-and-Chapter-10-null-model-logic"
+      - "result:task-remains-inside-the-four-tier-assessment-and-has-course-only-canonical-closure"
+      - "report:notes/reports/wc-c12-critic-pedagogy-2026-08-13.md"
+      - "report:notes/reports/wc-c12-critic-structure-2026-08-13.md"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
   R35-REACHBACK-13:
     parents:
       - "R35"
@@ -31571,8 +31689,8 @@ outside_asks:
     decision_record: "notes/reports/c11-acceptance-package-2026-08-13.md"
 
   OA-C12-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WC-C12_revision_and_panel"
+    status: "done"
+    readiness: "resolved_by_in_thread_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -31594,6 +31712,11 @@ outside_asks:
     available_evidence:
       - "packet:WC-C12"
       - "packet:C12"
+      - "commit:23282e67cf876a3d654d1465f399ce48c31baacd"
+      - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      - "reports:notes/reports/wc-c12-critic-{methods,skeptic,pedagogy,evidence,style,structure}-2026-08-13.md"
+      - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+      - "report:notes/reports/c12-acceptance-package-2026-08-13.md"
     recommended_default: "Accept only after the full lifecycle argument, governed evidence, sensitivity, forest plot, code-reading boundary, and all panel blockers pass."
     exact_reply_requested: "Reply: C12 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C12 closes only when every blocking revision is resolved on the cited source state."

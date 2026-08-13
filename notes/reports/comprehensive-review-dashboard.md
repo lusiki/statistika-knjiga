@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WC-C12
-next_permitted_packet: C12
+last_completed_packet: C12
+next_permitted_packet: WC-PARTS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -51,16 +51,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; WC-C12 is closed and C12 remains unclaimed |
-| Last completed packet | `WC-C12`; final Chapter 12 SHA-256 `47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a`, 0 fatal, 0 major and 10 untouched lens-level minors |
-| Next permitted packet | `C12` only; requires a separate claim and exact dated author reply naming the final WC-C12 closeout commit |
+| Active write packet | None; C12 is closed and WC-PARTS remains unclaimed |
+| Last completed packet | `C12`; exact author acceptance ties final WC-C12 commit `23282e67cf876a3d654d1465f399ce48c31baacd` to 2026-08-13, accepts 10 governed items and advances only Chapter 12 to `coauthor_review` |
+| Next permitted packet | `WC-PARTS` only; before its first prose edit it must stop and present the exact blast-radius list for author choice |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 202 accepted, 5 deferred with reason, 164 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 104 accepted, 83 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 212 accepted, 5 deferred with reason, 154 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 105 accepted, 82 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 8 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja` and `11-velicina-ucinka-i-snaga` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
+| Chapter stages | 7 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga` and `12-kriza-i-obnova` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 32 of the 84 canonical asks remain `drafted_unsent`; 46 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A4-12-BRIEF` is done from the in-thread exact reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
+| Open outside asks | 31 of the 84 canonical asks remain `drafted_unsent`; 47 are `done`; 6 are `withdrawn_with_reason`. `OA-C12-ACCEPTANCE` is done from the exact in-thread reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5057,6 +5057,45 @@ the durable evidence is
   unclaimed. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## C12 closeout
+
+- C12 was claimed from clean WC-C12 closeout commit
+  `23282e67cf876a3d654d1465f399ce48c31baacd` only after the workflow checker
+  confirmed no active packet, accepted WC-C12 and C12 alone next. No handoff
+  delivery targets C12.
+- The author supplied the exact dated reply `C12 accepted for
+  23282e67cf876a3d654d1465f399ce48c31baacd on 2026-08-13.` The cited commit
+  still contains Chapter 12 SHA-256
+  `47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a` and git
+  blob `bc9bb538625e6996f116ae1fd5b1acba56dc0852`; the source is unchanged after
+  the final panel.
+- All six final critics address that exact state. The panel records 0 fatal,
+  0 major and 10 known nonblocking lens-level minor records. The exact minor
+  list and author disposition are recorded in
+  `notes/reports/c12-acceptance-package-2026-08-13.md`; none was silently
+  edited after source lock.
+- Only `12-kriza-i-obnova` advances from `draft` to `coauthor_review`.
+  Acceptance does not claim that the author read the chapter and is not a
+  `final` designation.
+- Only the ten governed Chapter 12 items move from `ratified` to `accepted`:
+  `R07-C12-full-argument`, `R08-SPINE-12`,
+  `R11-C12-pipeline-flexibility`, `R19-C12-forest-plot`,
+  `R19-C12-replication-cumulative`, `R23-C12-no-R-production`,
+  `R23-C12-visible-receipt`, `R23-C12-code-ladder`,
+  `R24-C12-primary-sources` and `R35-REACHBACK-12`.
+- `OA-C12-ACCEPTANCE` is done from the in-thread reply; no external message was
+  sent. `packet_reviews.C12` declares no new outgoing handoff because the
+  accepted source is a direct WC-PARTS prerequisite and the thread amendment
+  already owns its mandatory blast-radius stop.
+- Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`. No chapter prose, data, bibliography, concept, widget,
+  figure, render or generated artifact changes in C12.
+- C12 is accepted, its lock is released, and `WC-PARTS` alone is next but
+  unclaimed. WC-PARTS must stop before its first prose edit and present the
+  exact affected-unit, current-stage and proposed-change list for author
+  choice. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5084,11 +5123,11 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean WC-C12 closeout commit and that
-`chapters/12-kriza-i-obnova.qmd` has SHA-256
-`47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a`.
-Confirm no write packet is active, `WC-C12` is the last completed packet and
-`C12` alone is next. Chapter 6 remains deliberately `draft` under
+Verify that HEAD is the clean C12 closeout commit. Confirm no write packet is
+active, `C12` is the last completed packet and `WC-PARTS` alone is next.
+Verify that Chapter 12 remains at source SHA-256
+`47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a` and
+stage `coauthor_review`. Chapter 6 remains deliberately `draft` under
 `H-WB-PART-001`; do not edit, advance or re-panel it.
 
 Confirm the control-only decision
@@ -5097,18 +5136,19 @@ Confirm the control-only decision
 own claim, single lock, evidence, handoff dispositions, workflow checks,
 closeout and commit. C12 and WC-PARTS retain their mandatory author stops.
 
-Claim only C12. Read all six `wc-c12-critic-*-2026-08-13.md` reports, the
-six-critic synthesis and `notes/reports/wc-c12-2026-08-13.md`; verify that all
-address the final hash with 0 fatal, 0 major and 10 untouched lens-level minors.
-The user's reply approving only the three WC-C12 major fixes is not Chapter 12
-acceptance and must not be reinterpreted as such.
+Claim only WC-PARTS, but make no prose edit. Read its exact registered scope,
+items, dependencies and all applicable handoffs. Then enumerate every unit the
+packet would change, each unit's current chapter-ledger stage, the exact
+proposed change and whether it would materially alter an already accepted
+chapter body.
 
-Ask for the exact dated reply:
-`C12 accepted for <full-WC-C12-closeout-commit> on 2026-08-13.`
-If that exact reply is absent, stop at the author gate without
-changing source, ledgers, items or chapter stage. If supplied, record the ten
-minor dispositions, accept only the ten governed Chapter 12 items, advance only
-`12-kriza-i-obnova` to `coauthor_review`, close and commit C12, and stop before
-WC-PARTS. Chapter 6 remains deliberately draft and untouched. Push, merge, tag,
-archive, deployment and publication remain separately gated.
+Stop and present that blast-radius list to the author before editing prose. Ask
+the author to choose between: (A) honestly returning every materially changed
+accepted unit to `draft` and scheduling its fresh panel, or (B) constraining
+WC-PARTS to additive bridges and self-checks that do not alter accepted chapter
+bodies. Do not infer the choice from prior approvals or standing delegation.
+Leave WC-PARTS active at this mandatory author stop until the choice is given.
+Chapter 6 remains deliberately draft and untouched. Do not claim P3-VERIFY-D
+or WD-C13. Push, merge, tag, archive, deployment and publication remain
+separately gated.
 ```
