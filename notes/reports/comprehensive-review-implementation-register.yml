@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WC-C11"
-  next_permitted_packet: "C11"
+  last_completed_packet: "C11"
+  next_permitted_packet: "G-A4-12"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -11167,7 +11167,7 @@ packets:
     sequence: 107
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WC-C11"
     scope: "Author acceptance and panel disposition for C11."
@@ -11178,14 +11178,82 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wc-c11-critic-methods-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-skeptic-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-pedagogy-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-evidence-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-style-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-structure-2026-08-12.md"
+            - "panel:zero-fatal-zero-major-thirteen-nonblocking-minor-records"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+            - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
+            - "disposition:accept-four-Chapter-11-items-and-advance-only-11-velicina-ucinka-i-snaga-to-coauthor_review"
+            - "disposition:thirteen-lens-level-minors-known-and-nonblocking-for-this-edition"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+            - "evidence:conversation-user-message-recorded-2026-08-13"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+            - "blob:87db0124679ae2085f87c4e7cc4145f9e3191b8f"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#11-velicina-ucinka-i-snaga-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C11 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+            - "reports:wc-c11-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+            - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+            - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
+        - output: "Completion evidence is tied to the declared C11 source state and bounded scope."
+          artifacts:
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+            - "items:R17-C11-exaggeration-R17-C11-low-power-R32-C11-static-R35-REACHBACK-11-accepted"
+            - "items:R04-C11-fixed-order-R01-C11-inherited-permutation-R09-C11-power-assumptions-left-accepted-and-not-reopened"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#11-velicina-ucinka-i-snaga"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "boundary:R04-parent-remains-open"
+            - "review:packet_reviews.C11-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+            - "source:sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+            - "reports:wc-c11-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+            - "result:zero-fatal-zero-major-thirteen-known-nonblocking-minor-records"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
+            - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+            - "reports:wc-c11-six-final-critic-reports"
+            - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+            - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#11-velicina-ucinka-i-snaga-stage-coauthor_review"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
   G-A4-12:
     sequence: 108
     phase: "3B"
@@ -22333,7 +22401,7 @@ items:
       location: "§8 Ch11"
     description: "Bound the winner's-curse/exaggeration result to its simulation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22350,11 +22418,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C11"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+      - "result:exaggeration-factor-bounded-to-declared-simulation-no-universal-factor"
+      - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+      - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+      - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+      - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
   R17-C11-low-power:
     parents:
       - "R17"
@@ -22368,7 +22442,7 @@ items:
       location: "§8 Ch11"
     description: "Replace blanket distrust with calibrated attention to uncertainty, selection, prior evidence, and replication."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22385,11 +22459,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C11"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+      - "result:low-power-calibrated-to-uncertainty-selection-prior-evidence-and-replication"
+      - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+      - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+      - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+      - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
   R17-REPORT-honest-standard:
     parents:
       - "R17"
@@ -27931,7 +28011,7 @@ items:
       location: "§11"
     description: "Supply print-completable presets for Chapter 11."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27949,11 +28029,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C11"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+      - "result:print-completable-power-presets-and-independently-verified-answers"
+      - "render:PDF-DOCX-wrappers-exit-zero"
+      - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+      - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+      - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
   R32-CATALOG-paired-views:
     parents:
       - "R25"
@@ -28397,7 +28483,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 11 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28414,11 +28500,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C11"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+      - "result:reach-back-retrieves-Chapter-9-interval-precision-with-course-only-canonical-closure"
+      - "report:notes/reports/wc-c11-critic-pedagogy-2026-08-12.md"
+      - "report:notes/reports/wc-c11-critic-structure-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+      - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+      - "author_reply:C11-accepted-for-00c40c9ebc0627ec8dda9f25d1ee70465f4861c9-on-2026-08-13"
+      - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
   R35-REACHBACK-12:
     parents:
       - "R35"
@@ -30995,8 +31089,8 @@ outside_asks:
     decision_record: "notes/reports/c10-acceptance-package-2026-08-12.md"
 
   OA-C11-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WC-C11_revision_and_panel"
+    status: "done"
+    readiness: "resolved_by_in_thread_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -31015,11 +31109,20 @@ outside_asks:
     available_evidence:
       - "packet:WC-C11"
       - "packet:C11"
+      - "commit:00c40c9ebc0627ec8dda9f25d1ee70465f4861c9"
+      - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+      - "reports:notes/reports/wc-c11-critic-{methods,skeptic,pedagogy,evidence,style,structure}-2026-08-12.md"
+      - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+      - "report:notes/reports/c11-acceptance-package-2026-08-13.md"
     recommended_default: "Accept only after power/error assumptions, reporting limits, fixed order, static and retrieval paths, and panel findings pass."
-    exact_reply_requested: "Reply: C11 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "Reply: C11 accepted for 00c40c9ebc0627ec8dda9f25d1ee70465f4861c9 on 2026-08-13; or list exact blocking revisions tied to that commit."
     resume_condition: "C11 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    resolved_at: "2026-08-13"
+    resolution: "C11 accepted for 00c40c9ebc0627ec8dda9f25d1ee70465f4861c9 on 2026-08-13."
+    resolution_evidence: "conversation:user-message-recorded-2026-08-13"
+    decision_record: "notes/reports/c11-acceptance-package-2026-08-13.md"
 
   OA-C12-ACCEPTANCE:
     status: "drafted_unsent"
