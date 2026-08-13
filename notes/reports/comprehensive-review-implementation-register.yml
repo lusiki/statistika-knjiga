@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-VERIFY-C"
-  next_permitted_packet: "WC-C12"
+  last_completed_packet: "WC-C12"
+  next_permitted_packet: "C12"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -11645,7 +11645,7 @@ packets:
     sequence: 111
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-VERIFY-C"
     scope: "Chapter 12 identity rewrite."
@@ -11656,14 +11656,104 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WC-C12 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A4-12"
+            - "decision:G-A2b-IV"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#12-kriza-i-obnova"
+            - "packet:P3-EVIDENCE12-accepted"
+            - "packet:P3-VERIFY-C-accepted"
+            - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
+            - "report:notes/reports/p3-evidence12-2026-08-13.md"
+            - "author_approval:conversation-2026-08-13-three-WC-C12-major-fixes-only"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+            - "blob:bc9bb538625e6996f116ae1fd5b1acba56dc0852"
+            - "evidence:notes/reports/p3-evidence12-rrr-lab-effects.csv@sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+            - "result:17-laboratories-N-1894-raw-0.026766-ci--0.107693-to-0.161225-d-0.014151-ci--0.076191-to-0.104493"
+            - "check:P3_EVIDENCE12_OK"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-files-37-live-keys-45-records-45"
+            - "check:scripts/check-concepts.py-definitions-49-nodes-49-edges-543-graph-fresh-true-ledger-debt-0"
+            - "check:scripts/check-terminology.py-live-definitions-49-approved-total-52"
+            - "registry:data/widgets.json#w12-r-source-sha256-5866361511fc4549ce8506610493842ab551a78fdb0e0f219419fff0421141c9"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "check:scripts/check-widget-parity-fixtures.py-WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-4"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-C12-bytes-184155-sha256-7e202c9aadbeb0d06d33127bca0150931d1920bc7e0e0bb8ae67a9193b632911"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2742557-sha256-b4fa00693fe3b6e855d2efa83bc95f2256871a44d81961e985a9759113a9f43b"
+            - "render:DOCX-wrapper-exit-0-bytes-1569393-sha256-8bdeb1dd80df1fe01418228a9cfc514a420d21b89d9ec16f257701fb47881d92"
+            - "boundary:tracked-generated-docs-freeze-ai-export-pdf-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wc-c12-critic-methods-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-skeptic-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-pedagogy-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-evidence-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-style-2026-08-13.md"
+            - "report:notes/reports/wc-c12-critic-structure-2026-08-13.md"
+            - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+            - "panel:six-of-six-confirm-source-sha256-47700c17-zero-fatal-zero-major-ten-nonblocking-minor-records"
+      outputs:
+        - output: "WC-C12 verified vertical-slice source and evidence bundle for: Chapter 12 identity rewrite."
+          artifacts:
+            - "source:chapters/12-kriza-i-obnova.qmd"
+            - "source:references.bib#wagenmakers2016"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#analiticka-fleksibilnost"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#reproducibilnost"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map-live_count-49"
+            - "generated:data/concept-graph.json-49-nodes-543-edges"
+            - "registry:data/widgets.json#w12"
+            - "report:notes/reports/wc-c12-2026-08-13.md"
+            - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+        - output: "Completion evidence is tied to the declared WC-C12 source state and bounded scope."
+          artifacts:
+            - "source:sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+            - "handoff:H-P0-REGISTER-007-consumed-before-start"
+            - "handoff:H-P3-EVIDENCE12-001-consumed-before-start"
+            - "handoff:H-P2-SPINE-IV-001-consumed-before-close"
+            - "handoff:H-P2-TERMS-002-consumed-before-close"
+            - "review:packet_reviews.WC-C12-all-future-effects-recorded"
+            - "boundary:ten-governed-items-materially-pass-and-remain-ratified-until-C12"
+            - "boundary:ten-lens-level-minors-unchanged-for-C12"
+            - "boundary:Chapter-6-unchanged-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "boundary:C12-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WC-C12-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wc-c12-2026-08-13.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-conceptual-2-all-introduced"
+            - "check:STYLE-lint-zero-candidates"
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "author_approval:conversation-2026-08-13-three-WC-C12-major-fixes-only"
+            - "synthesis:notes/reports/wc-c12-six-critic-synthesis-2026-08-13.md"
+            - "panel:zero-fatal-zero-major-ten-nonblocking-minor-records"
+        - test: "The WC-C12 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R07-C12-full-argument-R08-SPINE-12-R11-C12-pipeline-flexibility-R19-C12-forest-plot-R19-C12-replication-cumulative-R23-C12-no-R-production-R23-C12-visible-receipt-R23-C12-code-ladder-R24-C12-primary-sources-R35-REACHBACK-12-materially-pass-remain-ratified-until-C12"
+            - "report:notes/reports/wc-c12-2026-08-13.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
   C12:
     sequence: 112
     phase: "4"

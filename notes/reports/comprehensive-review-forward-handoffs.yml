@@ -529,7 +529,23 @@ handoffs:
           - "registry:data/katalog.yml#dip_2024-portal-mediated-promoted-false"
       - target_packet: WC-C12
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-13"
+        resolved_at: "2026-08-13"
+        disposition: >-
+          WC-C12 consumes the identity-pillar prerequisite before claim.
+          G-A4-12 supplies the accepted Tier F brief, P3-EVIDENCE12 supplies
+          the governed portal-mediated RRR artifact, and P3-VERIFY-C verifies
+          that foundation after Chapters 9 through 11. The rewrite therefore
+          begins only inside those evidence, outline and rights boundaries,
+          retains w12 as the sole central widget and adds no unsupported case.
+        evidence:
+          - "decision:G-A4-12"
+          - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
+          - "report:notes/reports/p3-evidence12-2026-08-13.md"
+          - "report:notes/reports/p3-verify-c-2026-08-13.md"
+          - "commit:P3-VERIFY-C-closeout-f86d2d8d042a187291b39a95d9d73de4c375f679"
+          - "boundary:one-verified-artifact-one-central-widget-no-unverified-source"
       - target_packet: WD-C17
         gate: before_start
         state: pending
@@ -2983,7 +2999,28 @@ handoffs:
           - "check:scripts/check-terminology.py-TERMINOLOGY_OK-spine_forms-166"
       - target_packet: WC-C12
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-13"
+        resolved_at: "2026-08-13"
+        acknowledgement: >-
+          WC-C12 will add exactly the two approved Chapter 12 definition
+          blocks, analiticka fleksibilnost and reproducibilnost, and no other
+          block. The same packet will reconcile the checkout-local concept
+          ledger and generated graph under H-P2-TERMS-002 before closeout.
+        disposition: >-
+          WC-C12 added exactly the approved analiticka fleksibilnost and
+          reproducibilnost definition blocks and no other block. Both appear in
+          the ratified Chapter 12 spine, the checkout-local concept ledger and
+          the regenerated graph; Chapters 10 and 11 retain their existing
+          definition loads unchanged.
+        evidence:
+          - "source:chapters/12-kriza-i-obnova.qmd@sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#analiticka-fleksibilnost"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#reproducibilnost"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map-live_count-49"
+          - "generated:data/concept-graph.json-49-nodes-543-edges"
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-49-ledger_debt-0-graph_fresh-true"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-49-approved_total-52"
 
   H-G-A2B-V-001:
     source_packet: G-A2b-V
@@ -3903,7 +3940,30 @@ handoffs:
           - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-47-approved_total-52"
       - target_packet: WC-C12
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-13"
+        resolved_at: "2026-08-13"
+        acknowledgement: >-
+          WC-C12 will reconcile both approved #def- additions with the
+          checkout-local concept ledger in this same packet, follow any
+          notation dependency, regenerate data/concept-graph.json through the
+          required launcher and prove zero ledger debt plus a fresh graph. It
+          will not rename a #def- identifier, add an unapproved block or
+          restore integrity debt.
+        disposition: >-
+          The same packet added both matching canonical concept-ledger entries,
+          changed the live definition count from 47 to 49, regenerated the
+          graph through the required launcher and changed no notation entry
+          because neither new concept has a symbol dependency. Both fail-closed
+          concept and terminology checks pass with zero ledger debt and a fresh
+          graph.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#analiticka-fleksibilnost"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#reproducibilnost"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.definition_map-live_count-49"
+          - "generated:data/concept-graph.json-49-nodes-543-edges"
+          - "check:scripts/check-concepts.py-CONCEPT_INTEGRITY_OK-definitions-49-ledger_debt-0-graph_fresh-true"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-live_definitions-49-approved_total-52"
       - target_packet: WD-C17
         gate: before_close
         state: pending
@@ -6679,7 +6739,26 @@ handoffs:
     deliveries:
       - target_packet: WC-C12
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-13"
+        resolved_at: "2026-08-13"
+        disposition: >-
+          WC-C12 consumes the verified evidence contract before claim. It will
+          build a book-native HTML and print forest plot only from the local
+          17-lab record, distinguish zero and the non-pooled original 0.82,
+          compare raw and standardized syntheses without a significance-only
+          verdict, disclose the local reconstruction and add the verified
+          wagenmakers2016 record together with its first citation. Participant
+          rows, OSF source files, the publisher plot, causal explanations,
+          universal no-effect claims and the unreconciled Talarico SD cell are
+          excluded.
+        evidence:
+          - "decision:G-A4-12"
+          - "report:notes/reports/p3-evidence12-2026-08-13.md"
+          - "artifact:notes/reports/p3-evidence12-rrr-lab-effects.csv-sha256-23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2"
+          - "check:scripts/check-p3-evidence12.py-P3_EVIDENCE12_OK"
+          - "report:notes/reports/p3-verify-c-2026-08-13.md"
+          - "boundary:portal-mediated-no-source-bundling-no-publisher-figure"
 
 packet_reviews:
   G-A0:
@@ -9244,3 +9323,32 @@ packet_reviews:
       - Chapter 6 remains unchanged and draft under H-WB-PART-001 with no edit advancement or panel run
       - the evidence artifact bibliography chapters catalogue shared registries figures widgets renders docs and freeze remain unchanged and no network retrieval occurred
       - WC-C12 is the sole next permitted packet but remains unclaimed and the authorised C11 to P3-VERIFY-C thread ends here
+
+  WC-C12:
+    reviewed_at: "2026-08-13"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WC-C12 found no new future-relevant effect without an owner. The ten
+      nonblocking panel minors pass directly to the separate C12 author gate,
+      while the existing WD-C13 and later sequence already owns every data,
+      route and continuity consequence. Duplicating either set as a handoff
+      would add no ownership or information.
+    implementation_state: "source:sha256-47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a"
+    checks:
+      - H-P0-REGISTER-007 and H-P3-EVIDENCE12-001 were consumed before claim with exact dispositions and evidence
+      - H-P2-SPINE-IV-001 and H-P2-TERMS-002 were acknowledged before the first substantive edit and consumed before closeout with exact dispositions and evidence
+      - the author approved only the three WC-C12 major fixes and no panel minor was edited or silently dispositioned
+      - the final Chapter 12 SHA256 is 47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a and git blob is bc9bb538625e6996f116ae1fd5b1acba56dc0852
+      - the source contains exactly the two ratified new definitions analiticka fleksibilnost and reproducibilnost and no further definition block
+      - data/concept-graph.json is regenerated with 49 nodes 543 edges graph fresh true and zero concept-ledger debt
+      - data/widgets.json records the final w12 R source SHA256 5866361511fc4549ce8506610493842ab551a78fdb0e0f219419fff0421141c9 while the OJS hash and contract remain unchanged
+      - offline evidence validation returns 17 laboratories N 1894 raw 0.026766 interval -0.107693 to 0.161225 and d 0.014151 interval -0.076191 to 0.104493
+      - style structure figure citation concept terminology manuscript widget and widget-parity checks pass on the declared final state
+      - targeted HTML approved-wrapper PDF and wrapper DOCX renders exit zero with hashes and sizes recorded in notes/reports/wc-c12-2026-08-13.md
+      - all six independent critics address the exact final hash with zero fatal zero major and ten nonblocking lens-level minor records
+      - R07-C12-full-argument R08-SPINE-12 R11-C12-pipeline-flexibility R19-C12-forest-plot R19-C12-replication-cumulative R23-C12-no-R-production R23-C12-visible-receipt R23-C12-code-ladder R24-C12-primary-sources and R35-REACHBACK-12 materially pass but remain ratified pending C12
+      - all tracked HTML AI-export freeze PDF and Word artifacts were restored and no generated output enters the packet commit
+      - Chapter 6 remains byte-identical to HEAD blob cf8d0f0f0bcec2c8e4cf10e2caf8f3dc0e5b5215 unchanged and draft under H-WB-PART-001
+      - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail closed for their injected defect
+      - C12 is the sole next permitted packet but is not claimed and no author reading acceptance external message push merge tag archive deployment or publication is claimed or authorised

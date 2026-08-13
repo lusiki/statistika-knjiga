@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P3-VERIFY-C
-next_permitted_packet: WC-C12
+last_completed_packet: WC-C12
+next_permitted_packet: C12
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -51,12 +51,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
-| Last completed packet | `P3-VERIFY-C`; both `C11` and `P3-EVIDENCE12` independently verified against source commit `08cbdfa4e0120b04c0f1408d6e76284bf28b3f87` on 2026-08-13 |
-| Next permitted packet | `WC-C12` only; unclaimed, and outside the ended `A-THREAD-C11-P3-VERIFY-C-2026-08-11` chain |
+| Active write packet | None; WC-C12 is closed and C12 remains unclaimed |
+| Last completed packet | `WC-C12`; final Chapter 12 SHA-256 `47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a`, 0 fatal, 0 major and 10 untouched lens-level minors |
+| Next permitted packet | `C12` only; requires a separate claim and exact dated author reply naming the final WC-C12 closeout commit |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 202 accepted, 5 deferred with reason, 164 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 103 accepted, 84 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 188 packets: 104 accepted, 83 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 8 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja` and `11-velicina-ucinka-i-snaga` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -4993,6 +4993,70 @@ the durable evidence is
   `H-WB-PART-001`. The durable decision record is
   `notes/reports/c12-wd-c13-thread-amendment-2026-08-13.md`.
 
+## WC-C12 claim — Chapter 12 identity rewrite
+
+- WC-C12 was claimed only from clean control-only decision commit `901340b`
+  after the workflow validator confirmed no active packet, accepted
+  P3-VERIFY-C and WC-C12 alone at sequence 111. Exactly one write lock is
+  active; C12 and every later packet remain unclaimed.
+- `H-P0-REGISTER-007` and `H-P3-EVIDENCE12-001` were consumed before claim.
+  They bind the single verified lifecycle artifact, book-native forest plot,
+  raw-versus-standardized sensitivity, portal and rights boundary, local
+  reconstruction, simultaneous `wagenmakers2016` key and first citation, and
+  the Talarico unavailable cell.
+- `H-P2-SPINE-IV-001` and `H-P2-TERMS-002` were acknowledged before the first
+  substantive edit. Exactly two approved definition blocks will be reconciled
+  with the checkout-local concept ledger and regenerated graph in this packet.
+- The packet owns the ten ratified WC-C12 items and only their bounded source,
+  bibliography, concept, figure, assessment, panel and control evidence. It
+  does not edit Chapter 6, add another central widget, bundle OSF source data,
+  teach meta-analysis production or claim author acceptance.
+- The complete claim record is `notes/reports/wc-c12-2026-08-13.md`. C12 is not
+  claimed, and push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## WC-C12 closeout
+
+- The final Chapter 12 source is SHA-256
+  `47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a`, git
+  blob `bc9bb538625e6996f116ae1fd5b1acba56dc0852`. The author approved only the
+  three major panel repairs: same-sentence citations, simulation before the
+  formula with format-specific guidance, and a beginner-readable visible
+  receipt that preserves the primary raw versus alternative standardized
+  branch.
+- Six independent read-only critics reviewed the exact final hash. The final
+  panel records 0 fatal, 0 major and 10 nonblocking lens-level minors. No minor
+  was edited or treated as accepted; all remain explicit for the separate C12
+  author disposition.
+- The chapter adds exactly the ratified `analitička fleksibilnost` and
+  `reproducibilnost` definition blocks. The checkout-local ledger and
+  terminology state agree at 49 live definitions; the regenerated graph has
+  49 nodes and 543 edges, zero ledger debt and `graph_fresh=true`.
+- The verified RRR evidence remains 17 laboratories, `N = 1.894`, raw REML
+  `0,026766 [-0,107693; 0,161225]` and standardized REML
+  `d = 0,014151 [-0,076191; 0,104493]`. The `wagenmakers2016` bibliography key
+  entered with its first citations, and the local CSV remains an editorial
+  reconstruction rather than a bundled student dataset.
+- `data/widgets.json#w12` now records R-source SHA-256
+  `5866361511fc4549ce8506610493842ab551a78fdb0e0f219419fff0421141c9`;
+  the OJS hash and contract are unchanged. Widget parity passes at 17 pairs,
+  6 exact and 11 distributional, and all four negative fixtures fail closed.
+- Final targeted HTML, approved-wrapper PDF and wrapper DOCX renders all exit
+  zero. Their exact sizes and SHA-256 values, including the isolated Quarto
+  resource-recursion recovery, are recorded in
+  `notes/reports/wc-c12-2026-08-13.md`. All tracked generated outputs and every
+  temporary DOCX source gate were restored before closeout.
+- `H-P2-SPINE-IV-001` and `H-P2-TERMS-002` are consumed. The packet declares no
+  new outgoing handoff because the 10 minors pass directly to C12 and all later
+  data and continuity effects already have registered owners.
+- All 10 governed Chapter 12 items materially pass but remain `ratified` until
+  C12. Chapter 12 stays `draft`; no author reading or acceptance is claimed.
+  Chapter 6 remains byte-identical, unchanged and deliberately `draft` under
+  `H-WB-PART-001`.
+- WC-C12 is accepted, its write lock is released, and `C12` alone is next but
+  unclaimed. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5020,11 +5084,12 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the local P3-VERIFY-C closeout commit and that the worktree
-is clean. Confirm that the register and dashboard name no active write packet,
-`P3-VERIFY-C` as last completed and `WC-C12` as the sole next permitted packet.
-Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not edit,
-advance or re-panel it.
+Verify that HEAD is the clean WC-C12 closeout commit and that
+`chapters/12-kriza-i-obnova.qmd` has SHA-256
+`47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a`.
+Confirm no write packet is active, `WC-C12` is the last completed packet and
+`C12` alone is next. Chapter 6 remains deliberately `draft` under
+`H-WB-PART-001`; do not edit, advance or re-panel it.
 
 Confirm the control-only decision
 `A-THREAD-C12-WD-C13-2026-08-13` authorises only the strict sequence
@@ -5032,13 +5097,18 @@ Confirm the control-only decision
 own claim, single lock, evidence, handoff dispositions, workflow checks,
 closeout and commit. C12 and WC-PARTS retain their mandatory author stops.
 
-Claim WC-C12 only from that clean decision commit. Consume
-`H-P0-REGISTER-007` and `H-P3-EVIDENCE12-001` before claim, acknowledge
-`H-P2-SPINE-IV-001` and `H-P2-TERMS-002` before the first substantive edit,
-and implement only the accepted G-A4-12 brief with verified evidence. Use all
-six independent critics and stop on any fatal or unresolved major finding.
-Do not bundle participant data or OSF sources, copy the publisher plot, infer a
-causal explanation, introduce a second widget or teach meta-analysis
-production. Chapter 6 remains deliberately draft and untouched. Push, merge,
-tag, archive, deployment and publication remain separately gated.
+Claim only C12. Read all six `wc-c12-critic-*-2026-08-13.md` reports, the
+six-critic synthesis and `notes/reports/wc-c12-2026-08-13.md`; verify that all
+address the final hash with 0 fatal, 0 major and 10 untouched lens-level minors.
+The user's reply approving only the three WC-C12 major fixes is not Chapter 12
+acceptance and must not be reinterpreted as such.
+
+Ask for the exact dated reply:
+`C12 accepted for <full-WC-C12-closeout-commit> on 2026-08-13.`
+If that exact reply is absent, stop at the author gate without
+changing source, ledgers, items or chapter stage. If supplied, record the ten
+minor dispositions, accept only the ten governed Chapter 12 items, advance only
+`12-kriza-i-obnova` to `coauthor_review`, close and commit C12, and stop before
+WC-PARTS. Chapter 6 remains deliberately draft and untouched. Push, merge, tag,
+archive, deployment and publication remain separately gated.
 ```
