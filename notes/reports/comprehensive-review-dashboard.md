@@ -47,6 +47,7 @@ stop and repair the control state before editing book content.
 | WC-C08 prerequisite Route A | Accepted exactly: `G-A3-ESS` and `P3-ESS` moved immediately after C07; `WC-PARTS` replaced by C07 in `G-A3-ESS.requires`; `P3-ESS` added to `WC-C08.requires`; four item prerequisites and both separate ESS decisions retained; owner Luka Sikic; 2026-08-11 |
 | Thread amendment C08-C10 | `A-THREAD-C08-C10-2026-08-12` accepted as a new, distinct decision: strict chain `C08 -> WC-C09 -> C09 -> WC-C10 -> C10`; one lock and a separate claim, evidence bundle, handoff disposition, workflow check, closeout and commit per packet; exact author replies remain mandatory for C08, C09 and C10; the older C07-C09 decision and its two live handoff deliveries are not superseded |
 | Thread amendment C11-P3C | `A-THREAD-C11-P3-VERIFY-C-2026-08-11` accepted as a new, distinct decision: strict chain `WC-C11 -> C11 -> G-A4-12 -> P3-EVIDENCE12 -> P3-VERIFY-C`; each packet keeps its own lock, evidence, handoff disposition, workflow checks, closeout and commit; C11 still requires the exact author reply; both earlier thread chains have ended |
+| Thread amendment C12-WD-C13 | `A-THREAD-C12-WD-C13-2026-08-13` accepted as a new, distinct decision: strict chain `WC-C12 -> C12 -> WC-PARTS -> P3-VERIFY-D -> WD-C13`; every packet remains separate; C12 requires the exact author reply and WC-PARTS must stop for the blast-radius choice before any prose edit; all earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
@@ -4968,6 +4969,30 @@ the durable evidence is
   `A-THREAD-C11-P3-VERIFY-C-2026-08-11` chain stops here; no push, merge, tag,
   archive, deployment or publication action is authorised.
 
+## Author amendment 2026-08-13 — WC-C12 through WD-C13
+
+- `A-THREAD-C12-WD-C13-2026-08-13` is a new, distinct numbered decision for
+  this thread. It authorises the strict sequence `WC-C12`, `C12`, `WC-PARTS`,
+  `P3-VERIFY-D`, `WD-C13`; every earlier thread amendment has ended on its own
+  boundary.
+- Every packet retains its own claim, single write lock, evidence bundle,
+  handoff dispositions, workflow checks, closeout and bounded local commit.
+  No evidence, lock or unfinished disposition crosses a packet boundary.
+- C12 still requires the exact dated reply `C12 accepted for <commit> on
+  <date>.` The standing 5 August delegation cannot substitute and no author
+  reading may be claimed. The thread must stop while that reply is absent.
+- WC-PARTS must stop before its first prose edit and present the exact
+  blast-radius list. The author then chooses between honest stage reversions
+  plus fresh panels and additive bridge/self-check material that does not alter
+  accepted chapter bodies.
+- WC-C12 is limited to the accepted G-A4-12 brief, G-A2b-IV spine and verified
+  P3-EVIDENCE12 package. P3-VERIFY-D verifies prerequisites independently, and
+  WD-C13 preserves the optional, portal-mediated, unpromoted ESS boundary with
+  an explicit mandatory offline alternative.
+- Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`. The durable decision record is
+  `notes/reports/c12-wd-c13-thread-amendment-2026-08-13.md`.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5001,19 +5026,19 @@ is clean. Confirm that the register and dashboard name no active write packet,
 Chapter 6 remains deliberately `draft` under `H-WB-PART-001`; do not edit,
 advance or re-panel it.
 
-The bounded thread decision `A-THREAD-C11-P3-VERIFY-C-2026-08-11` ended when
-P3-VERIFY-C closed. Do not infer authority to claim `WC-C12` from that ended
-chain. Report that WC-C12 is structurally ready and wait for a new explicit,
-bounded author instruction before opening its write lock.
+Confirm the control-only decision
+`A-THREAD-C12-WD-C13-2026-08-13` authorises only the strict sequence
+`WC-C12`, `C12`, `WC-PARTS`, `P3-VERIFY-D`, `WD-C13`. Each packet keeps its
+own claim, single lock, evidence, handoff dispositions, workflow checks,
+closeout and commit. C12 and WC-PARTS retain their mandatory author stops.
 
-If the author separately authorises WC-C12, begin it only from the clean
-P3-VERIFY-C closeout state. Before the first substantive edit, acknowledge and
-consume `H-P3-EVIDENCE12-001` with concrete dispositions for the book-native
-HTML/print forest plot, raw-versus-standardized sensitivity, portal/right
-boundary, local reconstruction, `wagenmakers2016` key plus first citation and
-the Talarico unavailable cell. Do not bundle participant data or OSF sources,
-copy the publisher plot, infer a causal explanation, introduce a second widget
-or turn the task into meta-analysis production. Keep one packet lock, record
-all future effects durably and stop after its separate closeout commit. Push,
-merge, tag, archive, deployment and publication remain separately gated.
+Claim WC-C12 only from that clean decision commit. Consume
+`H-P0-REGISTER-007` and `H-P3-EVIDENCE12-001` before claim, acknowledge
+`H-P2-SPINE-IV-001` and `H-P2-TERMS-002` before the first substantive edit,
+and implement only the accepted G-A4-12 brief with verified evidence. Use all
+six independent critics and stop on any fatal or unresolved major finding.
+Do not bundle participant data or OSF sources, copy the publisher plot, infer a
+causal explanation, introduce a second widget or teach meta-analysis
+production. Chapter 6 remains deliberately draft and untouched. Push, merge,
+tag, archive, deployment and publication remain separately gated.
 ```
