@@ -4228,7 +4228,26 @@ handoffs:
     deliveries:
       - target_packet: WC-C11
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-13"
+        acknowledgement: >-
+          WC-C11 acknowledges before its first substantive edit that it owns
+          only R04-C11-fixed-order among the four open R04 children. It will
+          restore and mechanically verify the canonical seven-part order, name
+          the three still-open children and their WE-C18 or P5-ROUTES owners at
+          closeout, and will not claim that R04 itself is closed.
+        disposition: >-
+          The canonical seven-part order is mechanically and manually verified
+          on the final Chapter 11 source. WC-C11 accepts only
+          R04-C11-fixed-order. R04-ARCH-macro-order and
+          R04-ROUTES-two-track-map remain with P5-ROUTES, while
+          R04-C18-whole-prerequisites remains with WE-C18 and P5-ROUTES; the
+          R04 parent remains open.
+        evidence:
+          - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+          - "check:structure-scan-vinjeta-five-concept-sections-interaction-divljina-model-greska-worked-summary-terms-four-tiers"
+          - "report:notes/reports/wc-c11-2026-08-12.md#zakljucano-izvorno-stanje"
       - target_packet: WE-C18
         gate: before_close
         state: pending
@@ -4812,7 +4831,28 @@ handoffs:
           - "report:notes/reports/wc-c09-critic-evidence-2026-08-12.md"
       - target_packet: WC-C11
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-13"
+        acknowledgement: >-
+          WC-C11 acknowledges before its first substantive edit that every
+          print preset must read the governed aggregate view without changing
+          or rounding its stored values. The packet will preserve the already
+          accepted reader-reproduction task and P5-C public-view ownership,
+          rerun exact aggregate reconciliation, and record the precise Chapter
+          11 print route at closeout.
+        disposition: >-
+          The Chapter 11 print preset reads the governed aggregate with
+          character columns, exposes the exact stored count sum and mean for
+          portal and print, and performs no display-time recomputation or
+          rounding of those values. The already accepted paired-view closure
+          and later P5-C public documentation ownership remain unchanged.
+        evidence:
+          - "result:portal-15101-72101-4.774584464604993"
+          - "result:tisak-4855-26791-5.518228630278064"
+          - "result:difference-0.743644165673071"
+          - "check:DATA_INTEGRITY_OK-generated-2-rows-50300-snapshots-21-reconciliations-10-undeclared-0"
+          - "report:notes/reports/wc-c11-2026-08-12.md#podaci-i-regenerirani-artefakti"
       - target_packet: P5-C
         gate: before_close
         state: pending
@@ -6037,7 +6077,28 @@ handoffs:
           - "synthesis:notes/reports/wc-c10-six-critic-synthesis-2026-08-12.md"
       - target_packet: WC-C11
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-12"
+        resolved_at: "2026-08-13"
+        acknowledgement: >-
+          WC-C11 acknowledges before its first substantive edit that live w11
+          and the production parity adapter must consume an equivalent seeded
+          normal stream. It will add actual-execution golden evidence and a
+          w11-specific regression fixture that fails on asymmetric cached-pair
+          consumption, without widening the existing tolerance.
+        disposition: >-
+          Live w11 and the production OJS adapter now use d3.randomLcg(1111)
+          with the same explicit non-caching Marsaglia-polar generator and draw
+          order. Actual-execution w11 goldens are registered, ordinary parity
+          passes, and the dedicated cached-pair fixture fails closed with ten
+          golden errors at the unchanged 1e-10 golden tolerance.
+        evidence:
+          - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+          - "check:WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-4"
+          - "fixture:w11-normal-cache-asymmetry-exit-1-WIDGET_PARITY_FAILED-errors-10"
+          - "source:ojs-sha256-a0f4ec21f0e775a78a0672aa4fa0df6c9a574bbff845f6bf33cf155026eddb25"
+          - "source:r-sha256-a9f157e66b4ef467064964a4bc3938ad4c89842216eecee7b8ec820c0e7a8dd5"
+          - "report:notes/reports/wc-c11-2026-08-12.md#prosirenje-opsega"
       - target_packet: WD-C14
         gate: before_close
         state: pending
@@ -9011,3 +9072,30 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required negative fixtures fail closed for their injected defect
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C10
       - WC-C11 is the sole next permitted packet but is not claimed inside C10 and no external or release action was authorised
+
+  WC-C11:
+    reviewed_at: "2026-08-13"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WC-C11 found no new future-relevant effect without an owner. The existing
+      P5-C route already owns public paired-view documentation and
+      H-WB-C06-001 already routes generator equivalence to the remaining
+      widgets and whole-book gates. The thirteen nonblocking panel minors pass
+      directly to the C11 author gate, so duplicating them as a handoff would
+      add no ownership or information.
+    implementation_state: "source:sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+    checks:
+      - H-P2-VERIFY-001 H-P3-EXISTING-002 and H-WB-C06-001 were acknowledged before the first substantive edit and consumed before closeout with exact dispositions and evidence
+      - only R04-C11-fixed-order is accepted while the three remaining R04 children retain their WE-C18 or P5-ROUTES ownership and R04 remains open
+      - the final Chapter 11 SHA256 is d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1 and git blob is 87db0124679ae2085f87c4e7cc4145f9e3191b8f
+      - the governed aggregate print route preserves exact stored portal and print counts sums and means and the previous P5-C ownership is not reopened
+      - live w11 and its adapter share the explicit non-caching Marsaglia-polar generator ordinary parity passes and the w11 cached-pair fixture fails closed with ten golden errors at unchanged tolerance
+      - data/concept-graph.json and data/widgets.json are regenerated from the final prose with 47 nodes 516 edges graph fresh true and zero concept-ledger debt
+      - style structure figure citation data widget parity manuscript and workflow checks pass on the declared final state
+      - targeted HTML approved-wrapper PDF and wrapper DOCX renders exit zero and all tracked generated outputs are restored
+      - all six independent critics address the exact final hash with zero fatal zero major and thirteen nonblocking minor records
+      - R17-C11-exaggeration R17-C11-low-power R32-C11-static and R35-REACHBACK-11 materially pass but remain ratified pending C11
+      - accepted R01-C11-inherited-permutation and R09-C11-power-assumptions remain accepted and are not reopened
+      - Chapter 6 remains unchanged and draft under H-WB-PART-001 for P6-PANELS with no edit advancement or panel run
+      - no author reading acceptance external message push merge tag archive deployment or publication is claimed or authorised

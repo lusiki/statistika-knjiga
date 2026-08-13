@@ -285,14 +285,14 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"effects": [0.2, 0.4, 0.6], "report_n": [40, 80, 160, 300], "threshold": 0.05, "repetitions": 2000, "seed": 1111, "r_seed": 1111},
-        "seed_policy": {"ojs": "d3.randomLcg(1111) se ponavlja za svaku krivulju i ukljucuje n=10", "r": "jedan set.seed(1111) kroz d=0,2/0,4/0,6 i n=20..300", "shared": "Svaka krivulja ima zasebne zlatne Monte Carlo tocke; usporeduje se snaga na unaprijed zadanim n."},
+        "seed_policy": {"ojs": "Zivi izvor i adapter rabe d3.randomLcg(1111) i isti eksplicitni necachirajuci Marsaglia-polar generator; tok se ponavlja za svaku krivulju i ukljucuje n=10", "r": "jedan set.seed(1111) kroz d=0,2/0,4/0,6 i n=20..300", "shared": "Svaka krivulja ima zasebne zlatne Monte Carlo tocke; usporeduje se snaga na unaprijed zadanim n."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*.power": 0.06, "d0.2.first_n_80": 0, "d0.4.first_n_80": 30, "d0.6.first_n_80": 30}, "invariants": [{"adapter": "both", "left": "d0.6.n80.power", "operator": ">", "right": "d0.4.n80.power"}, {"adapter": "both", "left": "d0.4.n80.power", "operator": ">", "right": "d0.2.n80.power"}]},
         "expected": {
           "ojs": {"d0.2.n40.power": 0.1475, "d0.2.n80.power": 0.248, "d0.2.n160.power": 0.4385, "d0.2.n300.power": 0.691, "d0.2.first_n_80": null, "d0.4.n40.power": 0.4375, "d0.4.n80.power": 0.7315, "d0.4.n160.power": 0.9455, "d0.4.n300.power": 0.9985, "d0.4.first_n_80": 100, "d0.6.n40.power": 0.7605, "d0.6.n80.power": 0.9635, "d0.6.n160.power": 1, "d0.6.n300.power": 1, "d0.6.first_n_80": 50},
           "r": {"d0.2.n40.power": 0.1545, "d0.2.n80.power": 0.252, "d0.2.n160.power": 0.429, "d0.2.n300.power": 0.685, "d0.2.first_n_80": null, "d0.4.n40.power": 0.425, "d0.4.n80.power": 0.724, "d0.4.n160.power": 0.9455, "d0.4.n300.power": 0.9985, "d0.4.first_n_80": 100, "d0.6.n40.power": 0.7655, "d0.6.n80.power": 0.9705, "d0.6.n160.power": 1, "d0.6.n300.power": 1, "d0.6.first_n_80": 50}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w11", "r": "scripts/widget-parity-r.R#w11"},
-        "source": {"ojs_label": "fig-w11", "r_label": "fig-w11-print", "ojs_sha256": "2d8ecb942b4ed41b34aa009dad2a2ef2b7aff75ab53c684a6f9d02c7c7c1a816", "r_sha256": "a9f157e66b4ef467064964a4bc3938ad4c89842216eecee7b8ec820c0e7a8dd5"},
+        "source": {"ojs_label": "fig-w11", "r_label": "fig-w11-print", "ojs_sha256": "a0f4ec21f0e775a78a0672aa4fa0df6c9a574bbff845f6bf33cf155026eddb25", "r_sha256": "a9f157e66b4ef467064964a4bc3938ad4c89842216eecee7b8ec820c0e7a8dd5"},
         "claim_boundary": "Idealizirana obostrana z-snaga raste s n i ucinkom pri poznatoj varijabilnosti; ne zahtijeva iste Monte Carlo putanje niti generalizira na druge testove."
       },
       "naziv": "Istraživač snage",

@@ -35,7 +35,7 @@ function normal(source, meanValue = 0, sdValue = 1) {
 }
 
 // Fixture-only variant. It deliberately consumes the cached second polar
-// variate so the negative gate proves that the live w09 stream and its adapter
+// variate so the negative gate proves that live streams and their adapters
 // cannot drift to different normal-generator semantics unnoticed.
 function normalCached(source, meanValue = 0, sdValue = 1) {
   let cached = null;
@@ -315,7 +315,7 @@ function w11(parameters) {
   const result = {};
   for (const effect of parameters.effects) {
     const rng = lcg(parameters.seed);
-    const randomNormal = normal(rng);
+    const randomNormal = fixture === "w11-cached-normal" ? normalCached(rng) : normal(rng);
     const critical = normalQuantile(1 - parameters.threshold / 2);
     const powers = [];
     for (let n = 10; n <= 300; n += 10) {

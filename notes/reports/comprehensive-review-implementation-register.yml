@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-12"
+  last_updated: "2026-08-13"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C10"
-  next_permitted_packet: "WC-C11"
+  last_completed_packet: "WC-C11"
+  next_permitted_packet: "C11"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -11053,7 +11053,7 @@ packets:
     sequence: 106
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C10"
       - "P1A-C11"
@@ -11065,14 +11065,104 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WC-C11 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-IV"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#11-velicina-ucinka-i-snaga"
+            - "report:notes/reports/g-a2b-iv-spine-decision-2026-08-04.md"
+            - "packet:P1A-C11-accepted"
+            - "report:notes/reports/p1a-c11-methods-review-2026-08-03.md"
+            - "author_approval:conversation-2026-08-13-two-mandatory-panel-fixes-only"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+            - "blob:87db0124679ae2085f87c4e7cc4145f9e3191b8f"
+            - "result:strict-superiority-53.6377175pct-ties-13.9392260pct-adjusted-superiority-60.6073305pct"
+            - "result:target-d-0.2631579-power-n-227.6400263-ceiling-228"
+            - "result:governed-aggregate-portal-15101-72101-4.774584464604993-print-4855-26791-5.518228630278064-difference-0.743644165673071"
+            - "check:DATA_INTEGRITY_OK-generated-2-rows-50300-promoted-5-snapshots-21-reconciliations-10-undeclared-0"
+            - "check:scripts/check-citations.py-CITATION_INTEGRITY_OK-files-37-live-keys-44-records-44"
+            - "check:scripts/check-concepts.py-nodes-47-edges-516-graph-fresh-true-ledger-mismatch-0"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "check:scripts/check-widget-parity-fixtures.py-WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-4"
+            - "fixture:w11-normal-cache-asymmetry-exit-1-WIDGET_PARITY_FAILED-errors-10-tolerance-unchanged"
+            - "registry:data/widgets.json#w11-ojs-source-sha256-a0f4ec21f0e775a78a0672aa4fa0df6c9a574bbff845f6bf33cf155026eddb25"
+            - "registry:data/widgets.json#w11-r-source-sha256-a9f157e66b4ef467064964a4bc3938ad4c89842216eecee7b8ec820c0e7a8dd5"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-C11-bytes-173532-sha256-aea46adc2fe3adb18a8afacb4a7dd06c5060d39ef6eb865bb23d93b0e00281ad"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2686409-sha256-20a1bb4a7b0fa53bacdea4ef3e9fe598461b92bc9ceb0dad20c358609a21da4c"
+            - "render:DOCX-wrapper-exit-0-bytes-1525742-sha256-cd995a98e65bd364d5dd1addabd53e8f84e6b3aa8975887c1d26e2e8f8f87eae"
+            - "boundary:tracked-generated-docs-freeze-ai-export-pdf-and-word-artifacts-restored"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wc-c11-critic-methods-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-skeptic-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-pedagogy-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-evidence-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-style-2026-08-12.md"
+            - "report:notes/reports/wc-c11-critic-structure-2026-08-12.md"
+            - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+            - "panel:six-of-six-confirm-source-sha256-d438ba3e-zero-fatal-zero-major-thirteen-nonblocking-minor-records"
+      outputs:
+        - output: "WC-C11 verified vertical-slice source and evidence bundle for: Chapter 11 vertical slice."
+          artifacts:
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd"
+            - "generated:data/concept-graph.json-47-nodes-516-edges"
+            - "registry:data/widgets.json#w11"
+            - "source:scripts/widget-parity-ojs.mjs"
+            - "source:scripts/check-widget-parity.py"
+            - "source:scripts/check-widget-parity-fixtures.py"
+            - "extension:parity-three-script-scope-recorded-in-closeout"
+            - "report:notes/reports/wc-c11-2026-08-12.md"
+            - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+        - output: "Completion evidence is tied to the declared WC-C11 source state and bounded scope."
+          artifacts:
+            - "source:sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+            - "handoff:H-P2-VERIFY-001-consumed-before-close"
+            - "handoff:H-P3-EXISTING-002-consumed-before-close"
+            - "handoff:H-WB-C06-001-consumed-before-close"
+            - "review:packet_reviews.WC-C11-all-future-effects-recorded"
+            - "boundary:R04-parent-open-three-children-retain-WE-C18-or-P5-ROUTES-owners"
+            - "boundary:Chapter-6-unchanged-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "boundary:C11-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WC-C11-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wc-c11-2026-08-12.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-conceptual-2-source-variants-3"
+            - "check:STYLE-lint-zero-candidates"
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "author_approval:conversation-2026-08-13-two-mandatory-panel-fixes-only"
+            - "synthesis:notes/reports/wc-c11-six-critic-synthesis-2026-08-12.md"
+            - "panel:zero-fatal-zero-major-thirteen-nonblocking-minor-records"
+        - test: "The WC-C11 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "item:R04-C11-fixed-order-accepted-on-structural-evidence"
+            - "items:R17-C11-exaggeration-R17-C11-low-power-R32-C11-static-R35-REACHBACK-11-materially-pass-remain-ratified-until-C11"
+            - "baseline:R01-C11-inherited-permutation-R09-C11-power-assumptions-remain-accepted"
+            - "report:notes/reports/wc-c11-2026-08-12.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
   C11:
     sequence: 107
     phase: "4"
@@ -15672,7 +15762,7 @@ items:
       location: "§12"
     description: "Restore the canonical seven-part order in Chapter 11."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -15689,11 +15779,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-C11"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+      - "check:structure-scan-canonical-seven-part-order"
+      - "critic:notes/reports/wc-c11-critic-structure-2026-08-12.md"
+      - "report:notes/reports/wc-c11-2026-08-12.md#zakljucano-izvorno-stanje"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
   R04-C12-definitions:
     parents:
       - "R04"

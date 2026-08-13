@@ -14,6 +14,7 @@ def main() -> int:
         "expected-value-regression": "[golden] w01/ojs/default.aggregate_a",
         "normal-cache-asymmetry": "[golden] w09/ojs/",
         "w10-normal-cache-asymmetry": "[golden] w10/ojs/",
+        "w11-normal-cache-asymmetry": "[golden] w11/ojs/",
     }
     for fixture, expected in fixtures.items():
         completed = subprocess.run(
@@ -44,7 +45,7 @@ def main() -> int:
             )
             print(diagnostic.strip(), file=sys.stderr)
             return 1
-    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=3")
+    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=4")
     return 0
 
 

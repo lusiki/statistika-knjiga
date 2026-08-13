@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C10
-next_permitted_packet: WC-C11
+last_completed_packet: WC-C11
+next_permitted_packet: C11
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
 forward_handoffs: 94
-last_updated: "2026-08-12"
+last_updated: "2026-08-13"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -49,12 +49,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `C10` accepted the final WC-C10 source on the exact dated author reply |
-| Last completed packet | `C10`; accepted for WC-C10 commit `88b41d02fcea8222673f28a40938fe7db2aaffd6` on 2026-08-12 |
-| Next permitted packet | `WC-C11`, but it requires its own claim, one write lock, evidence bundle, handoff disposition, final panel and local commit |
+| Active write packet | None; `WC-C11` is closed and no later lock has yet been claimed |
+| Last completed packet | `WC-C11`; final Chapter 11 source SHA-256 `d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1` |
+| Next permitted packet | `C11` alone; it remains unclaimed and requires its own exact dated author reply tied to the WC-C11 closeout commit |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 197 accepted, 5 deferred with reason, 169 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 98 accepted, 89 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 198 accepted, 5 deferred with reason, 168 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 99 accepted, 88 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 9 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena` and `10-logika-testiranja` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -4706,6 +4706,67 @@ the durable evidence is
   remain binding. The durable decision record is
   `notes/reports/c11-p3-verify-c-thread-amendment-2026-08-11.md`.
 
+## WC-C11 claim — Chapter 11 vertical slice
+
+- WC-C11 was claimed from clean control-only amendment commit
+  `64f97250f11dc2fbe6a0c69981cc9834e2c54003` after the workflow validator
+  confirmed no active packet, accepted C10 and WC-C11 alone at sequence 106.
+  Exactly one write lock is active; C11 and every later packet remain unclaimed.
+- `H-P2-VERIFY-001`, `H-P3-EXISTING-002` and `H-WB-C06-001` were acknowledged
+  before the first substantive edit and remain pending for exact
+  `before_close` dispositions. They respectively bind the lone Chapter 11 R04
+  child, governed aggregate print values and exact live/adapter w11 random
+  generator equivalence with a fail-closed cached-pair fixture.
+- The packet owns `R04-C11-fixed-order`, `R17-C11-exaggeration`,
+  `R17-C11-low-power`, `R32-C11-static` and `R35-REACHBACK-11`. The accepted
+  `R01-C11-inherited-permutation` correction remains a binding baseline and is
+  not reopened without a real finding.
+- WC-C11 may close only `R04-C11-fixed-order`. The still-open R04 children are
+  `R04-ARCH-macro-order` and `R04-ROUTES-two-track-map` under `P5-ROUTES`, plus
+  `R04-C18-whole-prerequisites` under `WE-C18` and `P5-ROUTES`; R04 itself may
+  not be called closed here.
+- Chapter 6 remains unchanged and deliberately `draft`; no author reading,
+  external action or release action is authorised.
+
+## WC-C11 closeout — Chapter 11 vertical slice
+
+- The final Chapter 11 material is fixed at SHA-256
+  `d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1`
+  and Git blob `87db0124679ae2085f87c4e7cc4145f9e3191b8f`. The exact discrete
+  distribution now distinguishes 53.6% strict superiority, 13.9% ties and
+  the 60.6% tie-adjusted measure; the prospective power example uses the
+  pre-data target 0.5, standard deviation 1.9, `d = 0.26` and 228 participants
+  per group.
+- All three incoming deliveries were consumed. `H-P2-VERIFY-001` accepted only
+  `R04-C11-fixed-order`; `H-P3-EXISTING-002` preserved the governed aggregate
+  values without re-rounding; `H-WB-C06-001` established the same non-cached
+  generator for live w11 and its adapter with ordinary parity and negative
+  fixture proof.
+- Widget parity passes for all 17 pairs: six exact and eleven distributional.
+  The w11 extension records actual goldens, retains tolerance `1e-10`, and its
+  direct negative fixture fails closed with ten errors. Concept regeneration
+  is fresh at SHA-256
+  `673267479d0092c69297eba821184c35df4b291b6dbeaebb90f6a370dbb885e2`;
+  data, citation, manuscript, figure-introduction and widget-inventory checks
+  all pass.
+- Targeted HTML, the approved PDF wrapper and the DOCX wrapper all pass. The
+  PDF artifact is 2,686,409 bytes at SHA-256
+  `20a1bb4a7b0fa53bacdea4ef3e9fe598461b92bc9ceb0dad20c358609a21da4c`;
+  the DOCX artifact is 1,525,742 bytes at SHA-256
+  `cd995a98e65bd364d5dd1addabd53e8f84e6b3aa8975887c1d26e2e8f8f87eae`.
+- The final-hash six-critic panel reports zero fatal, zero major and thirteen
+  lens-level minor findings. By the author's instruction, those nonblocking
+  findings pass unchanged to C11. `R04-C11-fixed-order` alone is accepted;
+  `R17-C11-exaggeration`, `R17-C11-low-power`, `R32-C11-static` and
+  `R35-REACHBACK-11` remain ratified for the author gate.
+- R04 remains open: `R04-ARCH-macro-order` and
+  `R04-ROUTES-two-track-map` belong to `P5-ROUTES`, while
+  `R04-C18-whole-prerequisites` belongs to `WE-C18` and `P5-ROUTES`.
+  Chapter 6 is unchanged and remains deliberately `draft`. WC-C11 found no
+  additional future-relevant effect, so it emitted no outgoing handoff.
+- No write lock remains active. `C11` is the sole next permitted packet and
+  must be claimed separately before its acceptance package is presented.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4732,40 +4793,28 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify the clean C10 closeout commit named by the dashboard, then claim only
-`WC-C11`. Confirm C10 is accepted for WC-C10 commit
-`88b41d02fcea8222673f28a40938fe7db2aaffd6`, `10-logika-testiranja` is at
-`coauthor_review` without an author-reading claim, no packet is active and
-WC-C11 is the sole next-permitted packet. Chapter 6 remains deliberately
-`draft` under `H-WB-PART-001`; do not edit, advance or re-panel it.
+Verify the latest scoped WC-C11 closeout commit at `HEAD`, including final
+Chapter 11 SHA-256
+`d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1`,
+then claim only `C11`. Confirm first that WC-C11 is accepted, no write packet
+is active and C11 alone is next. Chapter 6 remains deliberately `draft` under
+`H-WB-PART-001`; do not edit, advance or re-panel it.
 
-Confirm the control-only amendment commit records
-`A-THREAD-C11-P3-VERIFY-C-2026-08-11` as a new decision distinct from the two
-ended earlier chains. It authorises only the strict sequence `WC-C11`, `C11`,
-`G-A4-12`, `P3-EVIDENCE12`, `P3-VERIFY-C`; every packet retains its own claim,
-single lock, evidence, handoff disposition, workflow checks, closeout and
-commit, and C11 still requires the exact author reply.
+The active thread decision is `A-THREAD-C11-P3-VERIFY-C-2026-08-11`, distinct
+from the two ended earlier chains. It permits the later sequence only after
+each packet independently closes and commits. C11 still requires the exact
+author reply, and no lock or evidence may cross a packet boundary.
 
-Before the first substantive edit, fully read the accepted P1A-C11 evidence,
-the ratified G-A2b-IV spine, Chapter 11, its adjacent chapters, STYLE.md and all
-deliveries targeting WC-C11. Acknowledge the incoming deliveries from
-`H-P2-VERIFY-001`, `H-P3-EXISTING-002` and `H-WB-C06-001` before work and
-consume each at `before_close` with an exact disposition. In particular,
-close only `R04-C11-fixed-order`, preserve the governed data-view boundary and
-make live w11 plus its parity adapter generator-equivalent with actual golden
-and fail-closed cached-pair evidence without widening tolerance.
-
-Implement only the ratified Chapter 11 vertical slice, including
-`R01-C11-inherited-permutation`, `R04-C11-fixed-order`,
+Prepare only the C11 acceptance package from the committed WC-C11 evidence.
+Present the six final-hash critic reports, their synthesis, all thirteen
+nonblocking minor findings and the proposed dispositions for
 `R17-C11-exaggeration`, `R17-C11-low-power`, `R32-C11-static` and
-`R35-REACHBACK-11`. Run all applicable deterministic, style, figure, data,
-citation, concept, widget and targeted HTML/PDF/DOCX checks. Dispatch six
-independent read-only critics in parallel for methods, skepticism, pedagogy,
-evidence, Croatian style and structure against the final material hash, await
-all six and synthesize them.
+`R35-REACHBACK-11`. Do not alter Chapter 11 prose or close C11 before the exact
+dated author reply tied to the full WC-C11 commit.
 
-Stop on a fatal or unresolved major finding. Otherwise close and commit
-WC-C11, prepare but do not close the separate C11 author gate, and stop. Do not
-claim that the author read the chapter, do not claim any later packet and do
-not authorise any push, merge, tag, archive, deployment or publication action.
+Stop after presenting the package and request exactly:
+`C11 accepted for <full WC-C11 commit> on <YYYY-MM-DD>.`
+Do not claim G-A4-12 or any later packet, do not claim that the author read the
+chapter, and do not authorise any push, merge, tag, archive, deployment or
+publication action.
 ```
