@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = path.resolve(process.argv[2] ?? ".");
+const fixture = process.argv[3] ?? "";
 const registry = JSON.parse(
   fs.readFileSync(path.join(root, "data", "widgets.json"), "utf8")
 );
@@ -30,6 +31,31 @@ function normal(source, meanValue = 0, sdValue = 1) {
       radius = x * x + y * y;
     } while (!radius || radius > 1);
     return meanValue + sdValue * x * Math.sqrt(-2 * Math.log(radius) / radius);
+  };
+}
+
+// Fixture-only variant. It deliberately consumes the cached second polar
+// variate so the negative gate proves that live streams and their adapters
+// cannot drift to different normal-generator semantics unnoticed.
+function normalCached(source, meanValue = 0, sdValue = 1) {
+  let cached = null;
+  return () => {
+    if (cached !== null) {
+      const value = cached;
+      cached = null;
+      return meanValue + sdValue * value;
+    }
+    let x;
+    let y;
+    let radius;
+    do {
+      x = source() * 2 - 1;
+      y = source() * 2 - 1;
+      radius = x * x + y * y;
+    } while (!radius || radius > 1);
+    const scale = Math.sqrt(-2 * Math.log(radius) / radius);
+    cached = y * scale;
+    return meanValue + sdValue * x * scale;
   };
 }
 
@@ -248,7 +274,7 @@ function w08(parameters) {
 function w09(parameters) {
   const p = parameters.scenarios[0];
   const rng = lcg(p.seed);
-  const randomNormal = normal(rng);
+  const randomNormal = fixture === "w09-cached-normal" ? normalCached(rng) : normal(rng);
   const estimates = [];
   let covered = 0;
   const margin = p.critical / Math.sqrt(p.n);
@@ -269,7 +295,7 @@ function w09(parameters) {
 function w10(parameters) {
   const p = parameters.scenarios[0];
   const rng = lcg(p.seed);
-  const randomNormal = normal(rng);
+  const randomNormal = fixture === "w10-cached-normal" ? normalCached(rng) : normal(rng);
   const shift = p.effect * Math.sqrt(p.n / 2);
   const simulate = center => Array.from({length: p.repetitions}, () => {
     const z = center + randomNormal();
@@ -289,7 +315,7 @@ function w11(parameters) {
   const result = {};
   for (const effect of parameters.effects) {
     const rng = lcg(parameters.seed);
-    const randomNormal = normal(rng);
+    const randomNormal = fixture === "w11-cached-normal" ? normalCached(rng) : normal(rng);
     const critical = normalQuantile(1 - parameters.threshold / 2);
     const powers = [];
     for (let n = 10; n <= 300; n += 10) {

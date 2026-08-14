@@ -218,7 +218,14 @@ def check_parity(root: Path, fixture: str | None) -> int:
 
     payloads: dict[str, dict[str, Any]] = {}
     try:
-        payloads["ojs"] = run_json(["node", str(root / ADAPTERS["ojs"]), str(root)], root)
+        ojs_command = ["node", str(root / ADAPTERS["ojs"]), str(root)]
+        if fixture == "normal-cache-asymmetry":
+            ojs_command.append("w09-cached-normal")
+        elif fixture == "w10-normal-cache-asymmetry":
+            ojs_command.append("w10-cached-normal")
+        elif fixture == "w11-normal-cache-asymmetry":
+            ojs_command.append("w11-cached-normal")
+        payloads["ojs"] = run_json(ojs_command, root)
         payloads["r"] = run_json(
             [
                 sys.executable,
@@ -307,7 +314,15 @@ def check_parity(root: Path, fixture: str | None) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("root", nargs="?", default=".")
-    parser.add_argument("--fixture", choices=["expected-value-regression"])
+    parser.add_argument(
+        "--fixture",
+        choices=[
+            "expected-value-regression",
+            "normal-cache-asymmetry",
+            "w10-normal-cache-asymmetry",
+            "w11-normal-cache-asymmetry",
+        ],
+    )
     parser.add_argument("--print-source-hashes", action="store_true")
     args = parser.parse_args()
     root = Path(args.root).resolve()

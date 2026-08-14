@@ -180,19 +180,19 @@
           "r": {"n20.mean": 0.300825, "n20.sd": 0.10293622932988331, "n20.q05": 0.15, "n20.q95": 0.5, "n200.mean": 0.2995225, "n200.sd": 0.03233739858776076, "n200.q05": 0.245, "n200.q95": 0.355, "width_ratio": 3.183194500031403}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w07", "r": "scripts/widget-parity-r.R#w07"},
-        "source": {"ojs_label": "fig-w07", "r_label": "fig-w07-print", "ojs_sha256": "b3c8c9535631de2a033ed7c38dbf8ae6e35ac6c07af5006d4a37a386259f344a", "r_sha256": "c8affa17510183ec25fa17e78629afdd93045f09035114bc7d90e56524a90957"},
+        "source": {"ojs_label": "fig-w07", "r_label": "fig-w07-print", "ojs_sha256": "c2f581803d09da2dbb6531310d215c1bc8563ec869a598d8408874af9c88a499", "r_sha256": "ca53262d32bc2985705c1a37daff753ce805107375415e89f60d72d58c605264"},
         "claim_boundary": "Sredina, standardna devijacija i repovi ponovljenih stopa pri p=0,30 za n=20 i n=200; ne zahtijeva jednake binove ni nizove."
       },
-      "naziv": "Simulator novčića i A/B kampanje",
+      "naziv": "Simulator novčića i kampanje",
       "poglavlje": "chapters/07-vjerojatnost.qmd",
       "naslovPoglavlja": "Vjerojatnost koliko treba",
       "prioritet": "standardni",
       "status": "gotov",
-      "opis": "Povezuje bacanje novčića i A/B kampanju kroz raspodjelu ponovljenih udjela uspjeha.",
+      "opis": "Povezuje bacanje novčića i jednu kampanju kroz raspodjelu ponovljenih udjela uspjeha.",
       "sto_isprobati": [
         "Postavite pošten novčić i dvadeset pokušaja pa opišite raspon simuliranih udjela glava.",
         "Povećajte niz na dvjesto pokušaja bez promjene vjerojatnosti.",
-        "Prebacite scenarij na A/B kampanju i postavite stvarnu stopu uspjeha na trideset posto.",
+        "Prebacite scenarij na kampanju i postavite zadanu stopu uspjeha na trideset posto.",
         "Usporedite jednu krajnju simuliranu stopu s cijelom raspodjelom ponovljenih kampanja."
       ]
     },
@@ -229,14 +229,14 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 40, "critical": 1.96, "intervals": 50, "seed": 908, "r_seed": 909}]},
-        "seed_policy": {"ojs": "d3.randomLcg(908) i d3.randomNormal", "r": "set.seed(909) i rnorm", "shared": "Razlicita su sjemena dio izvora; zlatni broj pogodaka ostaje zaseban, a obuhvat se usporeduje distribucijski."},
+        "seed_policy": {"ojs": "d3.randomLcg(908) i eksplicitni Marsaglijin polarni generator bez pohrane drugoga parnjaka", "r": "set.seed(909) i rnorm", "shared": "OJS uzivo i OJS adapter trose potpuno isti tok; razlicito R sjeme dio je izvora, zlatni broj pogodaka ostaje zaseban, a obuhvat se usporeduje distribucijski."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.coverage_rate": 0.15, "default.mean_width": 1e-10, "default.mean_estimate": 0.2}},
         "expected": {
           "ojs": {"default.coverage_rate": 0.96, "default.mean_width": 0.6198064213930023, "default.mean_estimate": -0.01783690823480316},
           "r": {"default.coverage_rate": 0.92, "default.mean_width": 0.6198064213930023, "default.mean_estimate": -0.009883802777233178}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w09", "r": "scripts/widget-parity-r.R#w09"},
-        "source": {"ojs_label": "fig-w09", "r_label": "fig-w09-print", "ojs_sha256": "4fe8715a14b8cc5d0a6c35a132be1d6beb5d5e4ee65d10e80a6cd82b136b9bcd", "r_sha256": "84e40a86f0c333e602acfddb34d838f867d35a28e0d3f611b3beb8bbf0e93838"},
+        "source": {"ojs_label": "fig-w09", "r_label": "fig-w09-print", "ojs_sha256": "cfdde28bef37b5ef8ce5d5715b94bb937a64b1358736d5934bd7293abc2487b3", "r_sha256": "84e40a86f0c333e602acfddb34d838f867d35a28e0d3f611b3beb8bbf0e93838"},
         "claim_boundary": "Sirina i dugorocni obuhvat postupka za normalnu sredinu; ne zahtijeva isti broj promasenih intervala ni iste procjene."
       },
       "naziv": "Hvatač intervala",
@@ -257,14 +257,14 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 60, "effect": 0.35, "threshold": 0.05, "repetitions": 4000, "seed": 1010}]},
-        "seed_policy": {"ojs": "d3.randomLcg(1010), d3.randomNormal i aproksimacija normalnog CDF-a", "r": "set.seed(1010), rnorm i pnorm", "shared": "Analiticke normalne p-vrijednosti imaju zasebne zlatne stope po adapteru."},
+        "seed_policy": {"ojs": "d3.randomLcg(1010), eksplicitni Marsaglijin polarni generator bez pohrane drugoga parnjaka i aproksimacija normalnog CDF-a", "r": "set.seed(1010), rnorm i pnorm", "shared": "Zivi OJS izvor i OJS adapter trose potpuno isti tok; analiticke normalne p-vrijednosti imaju zasebne zlatne stope po adapteru."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.null_rejection_rate": 0.04, "default.effect_rejection_rate": 0.04, "default.null_p_mean": 0.04, "default.effect_p_mean": 0.04}},
         "expected": {
           "ojs": {"default.null_rejection_rate": 0.05325, "default.effect_rejection_rate": 0.48425, "default.null_p_mean": 0.4956705464020087, "default.effect_p_mean": 0.15944903402757546},
           "r": {"default.null_rejection_rate": 0.051, "default.effect_rejection_rate": 0.47725, "default.null_p_mean": 0.5021236782281805, "default.effect_p_mean": 0.1577691778496513}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w10", "r": "scripts/widget-parity-r.R#w10"},
-        "source": {"ojs_label": "fig-w10", "r_label": "fig-w10-print", "ojs_sha256": "1be9f05ed29b917df73d1fdc2b9aa1d1ef322117a4d770258de404a413c25823", "r_sha256": "9ed0d121d86e08e8ede94bd6cc88016859043090ded3bd5800284d6534e66dba"},
+        "source": {"ojs_label": "fig-w10", "r_label": "fig-w10-print", "ojs_sha256": "9c8092a29345f3f47b34c765eae48b49c9a2911efbadbe0b61f48e0054c5469b", "r_sha256": "9ed0d121d86e08e8ede94bd6cc88016859043090ded3bd5800284d6534e66dba"},
         "claim_boundary": "Raspodjela analitickih obostranih normalnih p-vrijednosti pod nulom i ucinkom; izricito ne obuhvaca permutacijski Monte Carlo postupak."
       },
       "naziv": "Simulator p-vrijednosti",
@@ -285,14 +285,14 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"effects": [0.2, 0.4, 0.6], "report_n": [40, 80, 160, 300], "threshold": 0.05, "repetitions": 2000, "seed": 1111, "r_seed": 1111},
-        "seed_policy": {"ojs": "d3.randomLcg(1111) se ponavlja za svaku krivulju i ukljucuje n=10", "r": "jedan set.seed(1111) kroz d=0,2/0,4/0,6 i n=20..300", "shared": "Svaka krivulja ima zasebne zlatne Monte Carlo tocke; usporeduje se snaga na unaprijed zadanim n."},
+        "seed_policy": {"ojs": "Zivi izvor i adapter rabe d3.randomLcg(1111) i isti eksplicitni necachirajuci Marsaglia-polar generator; tok se ponavlja za svaku krivulju i ukljucuje n=10", "r": "jedan set.seed(1111) kroz d=0,2/0,4/0,6 i n=20..300", "shared": "Svaka krivulja ima zasebne zlatne Monte Carlo tocke; usporeduje se snaga na unaprijed zadanim n."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*.power": 0.06, "d0.2.first_n_80": 0, "d0.4.first_n_80": 30, "d0.6.first_n_80": 30}, "invariants": [{"adapter": "both", "left": "d0.6.n80.power", "operator": ">", "right": "d0.4.n80.power"}, {"adapter": "both", "left": "d0.4.n80.power", "operator": ">", "right": "d0.2.n80.power"}]},
         "expected": {
           "ojs": {"d0.2.n40.power": 0.1475, "d0.2.n80.power": 0.248, "d0.2.n160.power": 0.4385, "d0.2.n300.power": 0.691, "d0.2.first_n_80": null, "d0.4.n40.power": 0.4375, "d0.4.n80.power": 0.7315, "d0.4.n160.power": 0.9455, "d0.4.n300.power": 0.9985, "d0.4.first_n_80": 100, "d0.6.n40.power": 0.7605, "d0.6.n80.power": 0.9635, "d0.6.n160.power": 1, "d0.6.n300.power": 1, "d0.6.first_n_80": 50},
           "r": {"d0.2.n40.power": 0.1545, "d0.2.n80.power": 0.252, "d0.2.n160.power": 0.429, "d0.2.n300.power": 0.685, "d0.2.first_n_80": null, "d0.4.n40.power": 0.425, "d0.4.n80.power": 0.724, "d0.4.n160.power": 0.9455, "d0.4.n300.power": 0.9985, "d0.4.first_n_80": 100, "d0.6.n40.power": 0.7655, "d0.6.n80.power": 0.9705, "d0.6.n160.power": 1, "d0.6.n300.power": 1, "d0.6.first_n_80": 50}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w11", "r": "scripts/widget-parity-r.R#w11"},
-        "source": {"ojs_label": "fig-w11", "r_label": "fig-w11-print", "ojs_sha256": "2d8ecb942b4ed41b34aa009dad2a2ef2b7aff75ab53c684a6f9d02c7c7c1a816", "r_sha256": "a9f157e66b4ef467064964a4bc3938ad4c89842216eecee7b8ec820c0e7a8dd5"},
+        "source": {"ojs_label": "fig-w11", "r_label": "fig-w11-print", "ojs_sha256": "a0f4ec21f0e775a78a0672aa4fa0df6c9a574bbff845f6bf33cf155026eddb25", "r_sha256": "a9f157e66b4ef467064964a4bc3938ad4c89842216eecee7b8ec820c0e7a8dd5"},
         "claim_boundary": "Idealizirana obostrana z-snaga raste s n i ucinkom pri poznatoj varijabilnosti; ne zahtijeva iste Monte Carlo putanje niti generalizira na druge testove."
       },
       "naziv": "Istraživač snage",
@@ -320,7 +320,7 @@
           "r": {"paths1.nominal_rate": 0.0498, "paths1.corrected_rate": 0.0498, "paths1.cdf_001": 0.0102, "paths12.nominal_rate": 0.4656, "paths12.corrected_rate": 0.0476, "paths12.cdf_001": 0.1098, "paths48.nominal_rate": 0.9146, "paths48.corrected_rate": 0.047, "paths48.cdf_001": 0.3818}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w12", "r": "scripts/widget-parity-r.R#w12"},
-        "source": {"ojs_label": "fig-w12", "r_label": "fig-w12-print", "ojs_sha256": "95efce839997b171a757ea066e81aec1d5a6d8c8daa9a79e298996a2f8c0ae6f", "r_sha256": "a8f1a60963d27ffcf82fccdfa82f31421db46eae39ed7c8f4052057e92536690"},
+        "source": {"ojs_label": "fig-w12", "r_label": "fig-w12-print", "ojs_sha256": "95efce839997b171a757ea066e81aec1d5a6d8c8daa9a79e298996a2f8c0ae6f", "r_sha256": "5866361511fc4549ce8506610493842ab551a78fdb0e0f219419fff0421141c9"},
         "claim_boundary": "Vjerojatnost barem jednog malog rezultata raste s brojem neovisnih analitickih putova i Bonferronijev prag je 0,05/m; ne opisuje ovisne stvarne putove."
       },
       "naziv": "Pješčanik p-hakiranja",

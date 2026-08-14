@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WB-PART
-next_permitted_packet: WC-C07
+last_completed_packet: C12
+next_permitted_packet: WC-PARTS
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 91
-last_updated: "2026-08-11"
+forward_handoffs: 95
+last_updated: "2026-08-13"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -40,26 +40,291 @@ stop and repair the control state before editing book content.
 | Gate A2b-FINALE | Accepted **as amended**: finale contract, one whole-book-cumulative Chapter 18 spine with all seventeen numbered chapters as prerequisites, a bounded one-block definition increase, and a bounded new-method permission under three exact limits that amends the register's no-new-method default; owner Luka Sikic; 2026-08-05 |
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
+| Gate A4-12 | Accepted as recommended against C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`: portal-mediated 2016 Registered Replication Report lifecycle artifact, exact P3 verification contract, Chapter 12 outline and exclusions; owner Luka Sikic; 2026-08-13 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
+| Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
+| WC-C08 prerequisite Route A | Accepted exactly: `G-A3-ESS` and `P3-ESS` moved immediately after C07; `WC-PARTS` replaced by C07 in `G-A3-ESS.requires`; `P3-ESS` added to `WC-C08.requires`; four item prerequisites and both separate ESS decisions retained; owner Luka Sikic; 2026-08-11 |
+| Thread amendment C08-C10 | `A-THREAD-C08-C10-2026-08-12` accepted as a new, distinct decision: strict chain `C08 -> WC-C09 -> C09 -> WC-C10 -> C10`; one lock and a separate claim, evidence bundle, handoff disposition, workflow check, closeout and commit per packet; exact author replies remain mandatory for C08, C09 and C10; the older C07-C09 decision and its two live handoff deliveries are not superseded |
+| Thread amendment C11-P3C | `A-THREAD-C11-P3-VERIFY-C-2026-08-11` accepted as a new, distinct decision: strict chain `WC-C11 -> C11 -> G-A4-12 -> P3-EVIDENCE12 -> P3-VERIFY-C`; each packet keeps its own lock, evidence, handoff disposition, workflow checks, closeout and commit; C11 still requires the exact author reply; both earlier thread chains have ended |
+| Thread amendment C12-WD-C13 | `A-THREAD-C12-WD-C13-2026-08-13` accepted as a new, distinct decision: strict chain `WC-C12 -> C12 -> WC-PARTS -> P3-VERIFY-D -> WD-C13`; every packet remains separate; C12 requires the exact author reply and WC-PARTS must stop for the blast-radius choice before any prose edit; all earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
-| Last completed packet | `WB-PART` |
-| Next permitted packet | `WC-C07` |
+| Active write packet | None; C12 is closed and WC-PARTS remains unclaimed |
+| Last completed packet | `C12`; exact author acceptance ties final WC-C12 commit `23282e67cf876a3d654d1465f399ce48c31baacd` to 2026-08-13, accepts 10 governed items and advances only Chapter 12 to `coauthor_review` |
+| Next permitted packet | `WC-PARTS` only; before its first prose edit it must stop and present the exact blast-radius list for author choice |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 180 accepted, 5 deferred with reason, 186 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 88 accepted, 99 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 212 accepted, 5 deferred with reason, 154 ratified; zero unmapped |
+| Exact packet catalogue | 188 packets: 105 accepted, 82 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 13 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka` and `05-vizualizacija` at `coauthor_review`; `06-povezanost` conservatively reopened to `draft` after its WB-PART material bridge |
+| Chapter stages | 7 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga` and `12-kriza-i-obnova` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 39 of the 83 canonical asks remain `drafted_unsent`; 38 are `done`; 6 are `withdrawn_with_reason` — the terminology recruitment and sign-off asks, the DZS and DIP rights inquiries, and the two reader-recruitment asks, all withdrawn by the author on 2026-08-05 — the two methods asks, three G-A1c licence/access asks, four G-A1d governance/owner asks, the G-A2a claim-system ask, the five G-A2d policy asks, the preface, Part I, Part II, Part III, Part IV, Part V and finale spine asks, the G-A2c term-map ask, the DZS and DIP selection asks, the DigiKat selection and rights asks, all three Eurostat selection, rights and source-route asks, C00, C01, C02, C03, C04, C05 and C06 acceptance, and the G-A4-03 brief; 0 external messages sent |
+| Open outside asks | 31 of the 84 canonical asks remain `drafted_unsent`; 47 are `done`; 6 are `withdrawn_with_reason`. `OA-C12-ACCEPTANCE` is done from the exact in-thread reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
+| WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
 | Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
 
 No chapter prose was changed by `P0-OUTSIDE`.
+
+## G-A3-ESS claim and bounded decision
+
+- The packet was claimed from clean commit
+  `10a4e9803e7738f7592ebfea4a1aca0c7692ccbe` only after the workflow
+  validator confirmed no active packet, accepted C07, `G-A3-ESS` alone at
+  sequence 98 and the exact Route A dependency graph.
+- `H-P1B-DATA-LIC-003` and `H-WC-C07-THREAD-SEQUENCE-001` are consumed at
+  `before_start`. `H-P3-CATALOG-001` is acknowledged at `before_close`. Their
+  combined boundary preserves `portal-mediated`, `promoted: false`, empty
+  `files`, one write lock, no microdata retrieval and no inferred
+  redistribution authority.
+- The bounded evidence and recommendation are recorded in
+  `notes/reports/g-a3-ess-selection-decision-2026-08-11.md`. They pin Round 11
+  edition 3.0 and present one exact Croatia-only variable/weight recipe,
+  teaching question, consumer list and offline-table solution for author
+  decision. The gate does not treat that recommendation as the author's answer.
+- The recommended consumer list adds `WC-C08` to `WD-C13`, `WD-C14`,
+  `WD-C15` and `WD-C16`. The ESS empirical replication remains optional and
+  portal-mediated. Chapter 8's mandatory weighted table and offline task are
+  proposed to use a separately labelled synthetic finite-population table with
+  known inclusion probabilities; neither local generated dataset is falsely
+  described as carrying survey weights.
+- `OA-G-A3-ESS-SELECTION` remains `drafted_unsent` and ready for the exact
+  author decision. `OA-G-A3-ESS-RIGHTS` remains a separate, open, unsent
+  rights-owner inquiry. Bundling is prohibited unless that owner supplies
+  written permission tied to the exact files.
+- The author supplied the exact selection/role reply on 2026-08-11.
+  `OA-G-A3-ESS-SELECTION` is done; `OA-G-A3-ESS-RIGHTS` stays separate and
+  open, and bundling stays prohibited. `R03-ESS-permission-gate` is accepted.
+- `H-P3-CATALOG-001` is consumed with the concrete portal-route disposition.
+  `packet_reviews.G-A3-ESS` records every future effect and creates no new
+  handoff because the accepted decision, existing catalogue and thread
+  handoffs already own them.
+- `G-A3-ESS` closes without changing any chapter, data file, catalogue entry,
+  bibliography, shared Bookwright registry, render or generated artifact and
+  without retrieving ESS data. `P3-ESS` is next but was not claimed inside
+  this gate. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## P3-ESS closeout
+
+- `H-WC-C07-THREAD-SEQUENCE-001` was consumed for `P3-ESS` before claim.
+  The packet retained one write lock and did not claim `WC-C08`.
+- `data/katalog.yml#ess_r11_hr` now records ESS11 integrated main file edition
+  3.0, `cntry == HR`, all 18 approved variables, five exact consumers and
+  `anweight` as default. It remains `portal-mediated`, unpromoted, with empty
+  `files`, null local checksum and no promotion-log entry.
+- `data/ess_r11_hr/PUTOVNICA.md` and `scripts/prepare-ess-r11-hr.R` provide the
+  exact reader-owned route, source-exposed schema, weight roles, official
+  missing-metadata reconciliation and reader-side SHA-256 instructions. The R
+  recipe has no network operation and refuses repository-local input/output.
+- No ESS bytes, empirical denominator, weighted percentage or local checksum
+  was retrieved or invented. `OA-G-A3-ESS-RIGHTS` remains open and unsent;
+  bundling remains prohibited.
+- `scripts/check-ess-portal.py` passes the exact 18-variable/five-consumer
+  contract and proves zero local data files; all nine route-specific negative
+  fixtures fail closed. The catalogue, data-integrity and workflow checks pass.
+- `R08-ESS-route` is accepted. The generic local-file test is explicitly
+  `not_applicable_by_author_amendment`; the replacement portal test passes and
+  does not masquerade as a local snapshot check.
+- `H-P3-ESS-001` routes the complete boundary to `WC-C08` and `WD-C13`–`WD-C16`.
+  Chapter 8's mandatory weighted table and offline task must use the separately
+  labelled synthetic finite population; every empirical ESS route remains
+  optional, and mandatory later work keeps licensed local alternatives.
+- No chapter, appendix, bibliography, shared Bookwright registry, concept,
+  widget, render, `docs/`, `_freeze/` or generated artifact changed. `WC-C08`
+  is next but remains unclaimed; push, merge, tag, archive, deployment and
+  publication remain unauthorised.
+
+## WC-C07 claim
+
+- The clean claim state is commit
+  `9a4d18198b998037a4e00b28c4f52d1be7dc3b3d` on
+  `revision/comprehensive-review`. `WB-PART`, `P2-SPINE-III` and `P1A-C07`
+  are accepted, no packet was active, and `WC-C07` was the sole
+  `next_permitted_packet` before claim.
+- The complete handoff ledger contains 91 handoffs and no delivery targeting
+  `WC-C07`. There is therefore no incoming delivery to acknowledge or consume,
+  and nothing targeting another packet may be touched. In particular,
+  `H-WB-PART-001` remains pending for `P6-PANELS` and Chapter 6 remains at
+  `draft` exactly as intended.
+- The governed items are `R10-C07-degree-belief`,
+  `R29-C07-retrieval-load` and `R35-REACHBACK-07`. Each remains `ratified`
+  until the separate `C07` author gate. The accepted `P1A-C07` CLT repair is a
+  binding baseline, not a fourth item to reopen or weaken.
+- The packet owns only Chapter 7, any same-packet concept-graph or widget-source
+  reconciliation genuinely required by that chapter, its dated packet and six
+  critic reports, the synthesis, and the three workflow-control views. It does
+  not edit Chapter 8, advance the chapter ledger, claim author acceptance, or
+  start `C07`.
+- The vertical slice will preserve simulation before formalism, distinguish
+  personal confidence, model probability and repeated-frequency evidence,
+  reduce simultaneous novelty through a real midpoint retrieval pause, and add
+  one two-chapter reach-back task without assessed code production. The final
+  material hash receives all six independent read-only critics and targeted
+  HTML, approved-wrapper PDF and wrapper-built DOCX verification.
+- `scripts/check-review-workflow.R` passed immediately before claim with no
+  active packet and `WC-C07` uniquely next. It must pass again in this claimed
+  state before the first substantive edit. Push, merge, tag, archive,
+  deployment and publication remain unauthorised.
+
+## WC-C07 closeout — Chapter 7 vertical slice
+
+- `WC-C07` is accepted at Chapter 7 SHA-256
+  `900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`.
+  The complete evidence record is `notes/reports/wc-c07-2026-08-11.md`.
+- The chapter keeps simulation before formalisation, distinguishes model
+  probability, personal confidence and repeated-frequency evidence, separates
+  general multiplication from the independence shortcut, and gives
+  independence a process/design justification. The CLT bridge distinguishes
+  repeated rates from individual observations and preserves the accepted
+  `R09-C07-clt-conditions` boundary.
+- The one-arm campaign is not called an A/B test. Its analytical probability
+  is 0,19416523, the seed-709 simulation and visible receipt both give 0,1931,
+  and the prose rejects model confirmation, causal attribution and automatic
+  action. The hot-hand example distinguishes the fixed independent null from
+  form, shot difficulty, defence and selection.
+- The w07 path is feasible in HTML and print. Runtime SVG semantics, labelled
+  controls, reset, keyboard use and a live central-90-percent range pass at
+  1.280 and 390 px in both themes. The final widget and print fingerprints are
+  reconciled without changing distributional goldens.
+- `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+  `R35-REACHBACK-07` each materially pass their exact tests, but remain
+  `ratified`; Chapter 7 remains `draft` until C07. No author reading or
+  acceptance is claimed.
+- Full HTML, approved-wrapper PDF and wrapper DOCX renders exited 0. Their
+  SHA-256 values are respectively
+  `96d125731fff09274a0e3e049158ca621ecc9dd7dba0b5e27acee27e6a22431a`,
+  `d513bdb79b1ab75b8675a818ae97f168f3e77fc7601970bc9ee92af54efb8f77`
+  and `c118a25adc9754381b48f7e7f30a66c00be2dec982623129bec70419465405d7`.
+  All 37 routes pass and generated artifacts were restored.
+- Six independent read-only critics confirmed the exact hash. There is no
+  fatal or major finding. Their 20 minor and 8 useful records remain visible
+  and unmodified in the reports and synthesis rather than being repaired after
+  the panel.
+- No handoff targeted WC-C07. `H-WB-PART-001` remains pending for
+  `P6-PANELS`; Chapter 6 stays intentionally `draft` and was not edited.
+  The pre-existing Chapter 7 catalogue-description drift remains owned by
+  `H-P3-CATALOG-002` for `P5-C` and is not duplicated.
+- `A-THREAD-C07-C09-2026-08-11` records the user's five-packet amendment.
+  `H-WC-C07-THREAD-SEQUENCE-001` carries its reply and stop boundaries to C07,
+  WC-C08, C08 and WC-C09. The amendment preserves one write lock, separate
+  packet commits and every prerequisite, and it ends after WC-C09 before C09.
+- `H-WC-C07-WC-C08-PREREQUISITE-001` records a newly verified control
+  contradiction: all four governed WC-C08 items require `P3-ESS`, which remains
+  `ratified` at sequence 113. C07 may proceed, but WC-C08 must not be claimed
+  until a separately authorised resolution is recorded, even if the current
+  validator would otherwise name it next.
+- C07 is next but has not been claimed or accepted. Push, merge, tag, archive,
+  deployment and publication remain unauthorised.
+
+## C07 claim — awaiting author decision
+
+- C07 was claimed only after the clean WC-C07 closeout commit
+  `c6c7078b918a3b017b5807d51b68c83ae2d7bc2f`. The commit contains Chapter 7
+  at SHA-256
+  `900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`,
+  all six final critic reports, the synthesis and the packet report.
+- The packet owns only the Chapter 7 ledger entry, the bounded acceptance
+  package and the three workflow-control views. It authorises no prose, data,
+  bibliography, terminology, concept, widget, figure, render or generated
+  artifact change.
+- The C07 delivery in `H-WC-C07-THREAD-SEQUENCE-001` is acknowledged but will
+  remain unconsumed until a real exact dated reply and closeout. The
+  2026-08-05 standing delegation does not substitute for that reply, and no
+  author reading is claimed.
+- All six final critics confirm the exact hash with zero fatal and zero major
+  finding. The acceptance package discloses all 20 minor and 8 useful records
+  and the existing two catalogue descriptions already owned by
+  `H-P3-CATALOG-002`.
+- No disposition has been applied. `07-vjerojatnost` remains `draft`;
+  `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+  `R35-REACHBACK-07` remain `ratified`; `R09-C07-clt-conditions` remains
+  accepted.
+- The exact required reply is `C07 accepted for
+  c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.` C07 must stop and
+  wait for it or for exact blocking revisions tied to the same commit.
+- `H-WC-C07-WC-C08-PREREQUISITE-001` remains pending and is not resolved by
+  C07 acceptance. WC-C08 must not be claimed without a separately authorised
+  resolution of its four `P3-ESS` item prerequisites.
+- `scripts/check-review-workflow.R` passed on the clean closeout state before
+  claim. It must pass again in this active C07 state. WC-C08 is not started;
+  push, merge, tag, archive, deployment and publication remain unauthorised.
+
+## C07 closeout
+
+- The author replied exactly: `C07 accepted for
+  c6c7078b918a3b017b5807d51b68c83ae2d7bc2f on 2026-08-11.` Neither the
+  standing delegation nor the thread amendment substitutes for that reply, and
+  no author reading is claimed.
+- The final Chapter 7 source commit is
+  `c6c7078b918a3b017b5807d51b68c83ae2d7bc2f`; its Git blob is
+  `1848767a389452f75f2d3263dd82d231940d3c53` and its SHA-256 is
+  `900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5`.
+  The chapter has not changed after that commit.
+- All six final critic reports and the synthesis address that exact material
+  state. There is no fatal or major finding. The accepted disposition keeps all
+  20 minor and 8 useful records visible rather than silently repairing or
+  suppressing them.
+- Exactly three governed Chapter 7 items advance from `ratified` to `accepted`:
+  `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
+  `R35-REACHBACK-07`. The earlier `R09-C07-clt-conditions` remains accepted
+  and no other atomic item changes status.
+- Only `07-vjerojatnost` advances from `draft` to `coauthor_review`; the ledger
+  explicitly records that acceptance does not claim the author read the
+  chapter and is not a `final` disposition. Chapter 6 remains deliberately
+  `draft` and unchanged.
+- `OA-C07-ACCEPTANCE` is `done` from the in-thread reply; no external message
+  was sent. The C07 delivery in `H-WC-C07-THREAD-SEQUENCE-001` is consumed only
+  after that reply.
+- The existing catalogue-description debt remains owned by
+  `H-P3-CATALOG-002` for `P5-C` and is not duplicated.
+  At C07 closeout, `H-WC-C07-WC-C08-PREREQUISITE-001` remained pending: C07
+  acceptance neither consumed nor waived the unmet `P3-ESS` prerequisites of
+  four WC-C08 items. `OA-WC-C08-P3-ESS-DEPENDENCY` was `drafted_unsent` as its
+  bounded author/editor decision channel. The later Route A decision is
+  recorded in the next section.
+- No chapter prose, data, bibliography, terminology, spine, concept graph,
+  widget, figure, render or generated artifact changed in C07. The register
+  pointer at that closeout was WC-C08, but that packet was not claimed and
+  remained operationally blocked before_start pending a separately authorised
+  control resolution.
+  Push, merge, tag, archive, deployment and publication remain unauthorised.
+
+## Route A control-order amendment
+
+- The author approved `A-WC-C08-P3-ESS-ROUTE-A-2026-08-11` exactly on
+  2026-08-11. The durable decision record is
+  `notes/reports/wc-c08-p3-ess-route-a-decision-2026-08-11.md`.
+- `G-A3-ESS` and `P3-ESS` move from sequences 112 and 113 to 98 and 99.
+  Every formerly intervening packet keeps its relative order: `WC-C08` is now
+  sequence 100 and the remaining affected interval ends with `WC-PARTS` at
+  sequence 113; `P3-VERIFY-D` remains 114.
+- `G-A3-ESS` now requires `C07`, `P0-OUTSIDE` and `P3-CATALOG`; `P3-ESS`
+  continues to require `G-A3-ESS`; `WC-C08` now requires `C07`, `P1A-C08` and
+  `P3-ESS`. All four WC-C08 item prerequisites remain unchanged.
+- `OA-WC-C08-P3-ESS-DEPENDENCY` is `done` from the exact in-thread reply and no
+  external message was sent. `H-WC-C07-WC-C08-PREREQUISITE-001` is consumed
+  only after the exact graph repair was applied; no prerequisite was waived.
+- `H-WC-C07-THREAD-SEQUENCE-001` now carries the amended chain through
+  `G-A3-ESS` and `P3-ESS`. Their deliveries remain pending at `before_start`.
+- `OA-G-A3-ESS-SELECTION` and `OA-G-A3-ESS-RIGHTS` remain separate. Route A
+  selects no ESS edition, variable, weight or consumer and grants no
+  redistribution right. D08's portal-mediated boundary remains binding.
+- There is no active write packet; `C07` remains last completed and
+  `G-A3-ESS` is the next permitted pointer. It was not claimed, and no chapter,
+  data, bibliography, shared Bookwright registry, render or generated artifact
+  was changed.
+  Its two `before_start` deliveries (`H-P1B-DATA-LIC-003` and
+  `H-WC-C07-THREAD-SEQUENCE-001`) remain pending, as does the
+  `before_close` delivery `H-P3-CATALOG-001`.
+  Push, merge, tag, archive, deployment and publication remain unauthorised.
+- The workflow validator passes with 188 packets and 93 handoffs. All three
+  required negative fixtures fail closed with exit 1. A separate sequence
+  audit proves 188 unique values, all sixteen intended moves and preserved
+  relative order for every other packet; the ask inventory reconciles to
+  40 `done`, 38 `drafted_unsent` and 6 `withdrawn_with_reason`.
 
 ## WB-C04 claim
 
@@ -4061,6 +4326,776 @@ the durable evidence is
   only next-permitted packet and was not started. Push, merge, tag, archive and
   deployment remain unauthorised.
 
+## WC-C08 closeout — Chapter 8 vertical slice
+
+- `WC-C08` is accepted at Chapter 8 SHA-256
+  `9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04`.
+  The complete evidence record is `notes/reports/wc-c08-2026-08-11.md`.
+- The central repeated-SRS simulation remains intact and precedes
+  formalisation. The corrected sample-size relation states that ten times
+  larger `n` reduces standard error by `sqrt(10)` and halving it requires four
+  times larger `n`.
+- The mandatory weighted table is a separately labelled synthetic finite
+  population of 16 units. Its six observed rows reproduce `3/6 = 50,0 %`
+  without weights and `6/16 = 37,5 %` with inverse-inclusion weights; the text
+  keeps 37,5 % as an estimate and denies that weights remove sampling error or
+  all selection and measurement problems.
+- Survey realism covers coverage, unequal inclusion, weights, calibration,
+  nonresponse, self-selection, clustering, design effect and effective sample
+  size. No task derives a variance formula or claims that the future Appendix
+  D recovery route already exists.
+- Corpus selection explicitly names speech, platform, date, language, speaker,
+  unit, denominator and coverage. Population generalisation remains distinct
+  from train/validation/test separation. The Chapter 3 reach-back separates
+  coverage, nonresponse and sampling variability without inventing missing
+  poll evidence.
+- ESS remains optional, portal-mediated and unpromoted: Round 11 edition 3.0,
+  `cntry == HR`, `vote`, analysis-specific valid-response denominators and
+  default `anweight`, with a self-report warning and no local empirical result.
+  `OA-G-A3-ESS-RIGHTS` remains open and bundling remains prohibited.
+- Canonical `težina uzorkovanja`, `procjena s težinama` and `procjena bez
+  težina` replace the two WC-C08 divergences. Only their two registry records
+  were removed; the terminology check passes with five later divergences. The
+  concept graph is regenerated and passes fresh at 47 nodes and 511 edges.
+- Targeted HTML, approved-wrapper PDF and wrapper DOCX exited 0 at the final
+  hash. Their SHA-256 values are respectively
+  `39fd71b04beda68c26972258144377705e9cb18fc1ee7f97c14f17a3bf2eb1ca`,
+  `dea7292681fa1d97146237bc1de82a630a592189fd54a8e1f58c6ff47cf549d3`
+  and `1f50252ee6d2a2adae231bac873e0729b626807c8446958fed6d1975c1e2a5ef`.
+  Generated outputs were restored.
+- Six independent read-only critics confirmed the exact hash after all
+  prefinal blockers were resolved. The final panel records zero fatal, zero
+  major, 17 nonblocking minor and zero useful findings; none was silently
+  edited after the panel.
+- `H-P3-ESS-001` was consumed before start. `H-P0-REGISTER-008`,
+  `H-G-A2C-002`, `H-P2-TERMS-003` and `H-P2-DOCS-001` are consumed at
+  closeout with exact dispositions. No delivery for another packet was used.
+- No new outgoing handoff is created: the reader-facing ESS catalogue debt is
+  already `H-P3-CATALOG-002` for `P5-C`, the rights boundary already has
+  `OA-G-A3-ESS-RIGHTS`, and later consumer boundaries already have
+  `H-P3-ESS-001`.
+- `R12-C08-survey-realism`, `R12-C08-weighted-table`,
+  `R13-C08-corpus-selection` and `R35-REACHBACK-08` materially pass but remain
+  `ratified`; Chapter 8 remains `draft`. Chapter 6 is unchanged and `draft`.
+  C08 is next but has not been claimed or accepted, and no author reading is
+  claimed. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## Author amendment 2026-08-12 — C08 through C10
+
+- `A-THREAD-C08-C10-2026-08-12` is a new, distinct author decision recorded
+  before C08. For this thread only it authorises the strict chain `C08`,
+  `WC-C09`, `C09`, `WC-C10`, `C10` instead of the usual stop after one packet.
+- Every packet still receives its own claim, single write lock, evidence,
+  handoff disposition, workflow checks, closeout and bounded commit before the
+  next packet is claimed. No evidence or lock crosses a packet boundary.
+- The amendment does not supersede `A-THREAD-C07-C09-2026-08-11`.
+  `H-WC-C07-THREAD-SEQUENCE-001` still has its pending `before_close` delivery
+  for C08 and `before_start` delivery for WC-C09; both remain mandatory at
+  their original gates.
+- C08, C09 and C10 each still require a separate exact dated author reply tied
+  to the final chapter source commit. The 5 August standing delegation cannot
+  replace any of them, and no packet may record that the author read a chapter.
+- All packet prerequisites, D01, the Part III/IV spines, ESS and official-data
+  claim boundaries, Chapter 6's draft status and the stated stop conditions
+  remain unchanged. The durable decision record is
+  `notes/reports/c08-c10-thread-amendment-2026-08-12.md`.
+
+## C08 claim and closeout
+
+- C08 was claimed from the clean control-only amendment commit
+  `3a8f0510d225c3f5874ee7f141a41725bb1626ae` only after the workflow validator
+  confirmed no active packet and C08 uniquely next. The final Chapter 8 source
+  remained byte-identical to WC-C08 commit
+  `39db651decc561fb082facb7feeebc40103eace8`, Git blob
+  `d3fedbd809aec0ceae9a0480b7b772b99546c44a` and SHA-256
+  `9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04`.
+- The named author replied exactly: `C08 accepted for
+  39db651decc561fb082facb7feeebc40103eace8 on 2026-08-12.` The standing 5
+  August delegation was not substituted, and no author reading is claimed.
+- All six final critic reports and the synthesis address that exact material
+  state. The panel records zero fatal, zero major, seventeen nonblocking minor
+  and zero useful findings. The complete acceptance record is
+  `notes/reports/c08-acceptance-package-2026-08-12.md`.
+- Exactly `R12-C08-survey-realism`, `R12-C08-weighted-table`,
+  `R13-C08-corpus-selection` and `R35-REACHBACK-08` advance from `ratified` to
+  `accepted`. Only `08-uzorkovanje` advances from `draft` to
+  `coauthor_review`; the ledger says explicitly that this is not `final` and
+  does not mean that the author read the chapter.
+- ESS remains optional, portal-mediated and unpromoted. Chapter 8's required
+  weighted comparison remains the synthetic `3/6 = 50,0 %` against
+  `6/16 = 37,5 %` table. No ESS microdata, empirical result, local checksum,
+  parity promise or redistribution permission is claimed;
+  `OA-G-A3-ESS-RIGHTS` stays open and bundling prohibited.
+- The C08 delivery in `H-WC-C07-THREAD-SEQUENCE-001` is consumed only after the
+  exact reply. Its distinct `WC-C09` `before_start` delivery remains pending.
+  C08 creates no outgoing handoff because all future ESS and catalogue effects
+  already have one owner.
+- Chapter 6 remains unchanged and `draft`; `H-WB-PART-001` remains pending for
+  `P6-PANELS`. C08 changes no chapter prose, data, bibliography, terminology,
+  concept, widget, figure, render or generated artifact.
+- The workflow validator passed at claim. At closeout it and all three required
+  fail-closed fixtures pass. `WC-C09` is uniquely next but was not claimed
+  inside C08. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## WC-C09 claim — Chapter 9 vertical slice
+
+- WC-C09 was claimed from clean commit
+  `b0be3b01570eb5502db041417d9d8d386a4b17c9` after the workflow validator
+  confirmed no active packet, accepted C08 and WC-C09 alone at sequence 102.
+  Exactly one write lock is active; C09 and WC-C10 remain unclaimed.
+- `H-WC-C07-THREAD-SEQUENCE-001` is consumed at `before_start`. It preserves
+  the older thread decision through WC-C09 closeout while the distinct
+  `A-THREAD-C08-C10-2026-08-12` decision carries the later C09–C10 sequence.
+- `H-P0-REGISTER-008`, `H-P3-EXISTING-002` and `H-WB-C06-001` are acknowledged
+  before the first substantive edit and remain pending for exact `before_close`
+  dispositions. Their obligations are respectively the Chapter 3 interval
+  debt, the governed aggregate print/task closure and exact w09 live/adapter
+  random-generator equivalence with a fail-closed regression fixture.
+- The governed Chapter 9 items are `R13-C09-coded-uncertainty`,
+  `R23-C09-code-reading`, `R32-C09-static` and `R35-REACHBACK-09`.
+  `R32-CATALOG-paired-views` is additionally closed here, rather than deferred
+  again, under the 12 August author amendment. All remain `ratified` while the
+  packet is active.
+- The packet is bounded to the ratified G-A2b-III estimation spine, required
+  parity support and evidence reports. Chapter 6 remains unchanged and
+  deliberately `draft`; no author reading is claimed and no external or
+  release action is authorised.
+
+## WC-C09 closeout — Chapter 9 vertical slice
+
+- The final Chapter 9 SHA-256 is
+  `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`.
+  Coverage is experienced and counted before formalisation; `z*` is explained
+  before the interval formula, and margin of error is an interval half-width
+  restricted to sampling uncertainty.
+- Interactive and static A/B and A/C comparisons share one seed-919 draw
+  matrix and vary confidence level or sample size one at a time. Approved
+  wrapper PDF and DOCX carry both pairs.
+- The worked example uses a prespecified margin target of at most ten minutes,
+  withdraws a population claim when representativeness fails and treats
+  interval non-overlap only as compatibility evidence pending a direct
+  interval for the difference and a design/dependence audit.
+- Sampling uncertainty for coded text remains distinct from coding and
+  measurement uncertainty. The bootstrap receipt asks for code reading, not
+  production; a percentile bootstrap is not presented as a coverage
+  validation and a normal descriptive range is not called predictive.
+- The Part III boundary now has six audit questions, six claim dimensions, an
+  answerable self-check and a seven-field verification receipt. The Chapter 3
+  reach-back names „Istraživač margine pogreške” and both states without
+  repeating Chapter 8's sampling-design debt.
+- The governed aggregate table and the R-or-jamovi task reproduce the portal
+  row from the paired analytical view. Exact data reconciliation passes, so
+  the author-amended `R32-CATALOG-paired-views` closes here; its separate
+  `P5-C` public-catalogue route remains pending.
+- Live w09 and the production parity adapter now share the same non-caching
+  Marsaglia-polar generator. Ordinary parity passes for all 17 pairs, both
+  expected-value and asymmetric-normal-cache negative fixtures fail closed,
+  and no tolerance changed.
+- The concept graph is fresh at 47 nodes and 511 edges. Style, figure,
+  manuscript, citation, terminology, data, widget and parity checks pass.
+  Targeted HTML, approved-wrapper PDF and wrapper DOCX renders exited 0 and
+  tracked generated outputs were restored.
+- Six final independent read-only critics reviewed the exact same hash and
+  report 0 fatal, 0 major, 5 nonblocking minor and 0 useful findings. The full
+  evidence and synthesis are in `notes/reports/wc-c09-2026-08-12.md` and
+  `notes/reports/wc-c09-six-critic-synthesis-2026-08-12.md`; the final source
+  was not changed after their review.
+- `H-P0-REGISTER-008`, `H-P3-EXISTING-002` and `H-WB-C06-001` are consumed
+  with exact dispositions. No new handoff is needed because the public view
+  and later affected widget obligations already have canonical owners.
+- The four Chapter 9 items remain `ratified` and the chapter remains `draft`
+  until C09. Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`; no author reading, external action or release action is
+  claimed.
+
+## C09 claim and prepared author gate
+
+- C09 was claimed only after WC-C09 closed and was locally committed as
+  `6c50a9fb5389401d2bb05585d6b12feaa6010e81`. The Chapter 9 Git blob is
+  `197ffe4340022d7465e797095645fb7a523863b2`, and the working-file SHA-256
+  remains `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`.
+- `notes/reports/c09-acceptance-package-2026-08-12.md` cites the final commit,
+  packet report, all six critic reports, synthesis and exact proposed ledger
+  disposition. `OA-C09-ACCEPTANCE` is ready for the in-thread author decision;
+  no external message was sent.
+- The recommended disposition is to accept only
+  `R13-C09-coded-uncertainty`, `R23-C09-code-reading`, `R32-C09-static` and
+  `R35-REACHBACK-09`, and to move only `09-procjena` from `draft` to
+  `coauthor_review` with an explicit no-author-reading and not-final note.
+- `R32-CATALOG-paired-views` is already accepted under the WC-C09 amendment
+  and is not reopened. The three accepted R09 correction items remain
+  unchanged.
+- No proposed status or chapter-ledger disposition has yet been applied. There
+  is no delivery targeting C09 to consume. Chapter 6 remains unchanged and
+  `draft`; ESS remains optional, portal-mediated and unpromoted, its rights ask
+  remains open and bundling remains prohibited.
+- C09 requires the exact dated author reply tied to the full WC-C09 commit.
+  The standing 5 August delegation is not a substitute. WC-C10 is not claimed,
+  and no push, merge, tag, archive, deployment or publication is authorised.
+
+## C09 closeout
+
+- The author replied exactly: `C09 accepted for
+  6c50a9fb5389401d2bb05585d6b12feaa6010e81 on 2026-08-12.` The standing 5
+  August delegation was not substituted, and no author reading is claimed.
+- The final Chapter 9 source remains byte-identical to WC-C09 commit
+  `6c50a9fb5389401d2bb05585d6b12feaa6010e81`, Git blob
+  `197ffe4340022d7465e797095645fb7a523863b2` and SHA-256
+  `42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f`.
+- All six final critic reports and the synthesis address that material state.
+  The panel records zero fatal, zero major, five nonblocking minor and zero
+  useful findings. The complete decision record is
+  `notes/reports/c09-acceptance-package-2026-08-12.md`.
+- Exactly `R13-C09-coded-uncertainty`, `R23-C09-code-reading`,
+  `R32-C09-static` and `R35-REACHBACK-09` advance from `ratified` to
+  `accepted`. `R32-CATALOG-paired-views` and the three accepted R09 correction
+  items remain accepted without being reopened.
+- Only `09-procjena` advances from `draft` to `coauthor_review`; the ledger
+  says explicitly that this is not `final` and does not mean that the author
+  read the chapter.
+- `OA-C09-ACCEPTANCE` is done from the in-thread reply. No handoff targets C09,
+  and C09 creates no new outgoing handoff because every future effect already
+  has one canonical owner.
+- Chapter 6 remains unchanged and `draft`; ESS remains optional,
+  portal-mediated and unpromoted, `OA-G-A3-ESS-RIGHTS` stays open and bundling
+  prohibited. C09 changes no chapter prose, data, citation, concept, widget or
+  render.
+- `WC-C10` is uniquely next but remains unclaimed until the separate C09
+  closeout commit. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## WC-C10 claim — Chapter 10 vertical slice
+
+- WC-C10 was claimed from clean C09 closeout commit
+  `c3a8cbd0ec1da65c0e7b903b263cc4a658c73ab8` after the workflow validator
+  confirmed no active packet, accepted C09 and WC-C10 alone at sequence 104.
+  Exactly one write lock is active; C10 remains unclaimed.
+- The complete G-A1a/D01 correction is a fixed baseline: raw-label
+  permutation targets the exchangeability/full-distribution no-association
+  null, the two-sided unstudentized difference in means remains the statistic,
+  `(b + 1) / (B + 1)` governs random permutations, a known-null demonstration
+  must satisfy the full null, analytic normal p-values do not receive the
+  permutation correction, and the Bayesian frame remains bounded and balanced.
+- `H-WB-C06-001` is acknowledged before the first substantive edit and remains
+  pending for an exact `before_close` disposition. Live w10 and the parity
+  adapter must share a generator and draw order, actual-execution golden proof
+  must be retained, asymmetric cached-pair use must fail closed and tolerance
+  must not widen.
+- The three ratified governed items are `R13-C10-label-fallibility`,
+  `R31-C10-ASA-home` and `R35-REACHBACK-10`. The three accepted R01/D01 items
+  remain binding baselines and are not reopened without a real finding.
+- The packet opens Part IV against G-A2b-IV with magnitude and error
+  consequences before ritual. Chapter 6 remains unchanged and deliberately
+  `draft`; no author reading, external action or release action is authorised.
+
+## WC-C10 closeout — Chapter 10 vertical slice
+
+- `WC-C10` is accepted at Chapter 10 SHA-256
+  `b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236`.
+  The complete implementation, numerical receipt, all deterministic checks,
+  three targeted renders, six final critic reports and synthesis are recorded
+  in `notes/reports/wc-c10-2026-08-12.md` and the seven panel files.
+- Magnitude, uncertainty and concrete error consequences now precede test
+  mechanics; the full-null simulation precedes formal naming. The accepted
+  D01 exchangeability null, raw mean-difference statistic, assumptions,
+  `(b + 1) / (B + 1)` correction, exact-enumeration distinction, known-null
+  error-rate demonstration, analytic-widget boundary and bounded Bayesian
+  comparison remain intact.
+- Chapter 10 is the principal instructional home of the ASA episode, introduces
+  bounded fallibility of reference labels for later Chapter 17 work, and carries
+  a Chapter 7/8 reach-back with both interactive and print or DOCX routes plus a
+  canonical closure.
+- `H-WB-C06-001` is consumed at its `before_close` gate. Live w10 and the
+  production parity adapter now use the same non-caching Marsaglia-polar
+  generator; ordinary parity passes for 17 pairs, and the three negative
+  fixtures fail closed, including all four w10 golden values under asymmetric
+  cached-pair consumption. No tolerance changed.
+- The concept graph was regenerated to 47 nodes and 514 edges with zero debt.
+  HTML, the approved PDF wrapper and the DOCX wrapper all exited zero; generated
+  outputs were restored and are not part of the packet.
+- Six independent final critics confirmed the exact final source hash. The
+  panel records 0 fatal, 0 major, 4 nonblocking minor and 0 useful findings.
+  The four visible minor notes concern the order of the eight closing terms, one
+  stiff curricular phrase, one slide-like ordinal sequence in the AI frame and
+  numeric rather than thematic references to Chapters 7 and 8. The source is
+  frozen after that common panel hash.
+- `R13-C10-label-fallibility`, `R31-C10-ASA-home` and
+  `R35-REACHBACK-10` materially pass but remain `ratified` until C10. The three
+  accepted R01/D01 items remain accepted and unmodified. Chapter 10 remains
+  `draft`; no author reading or acceptance is claimed.
+- No new outgoing handoff is needed. The existing P5-C owner covers the
+  catalogue documentation and `H-WB-C06-001` already routes every remaining
+  affected widget. Chapter 6 remains unchanged and `draft` under
+  `H-WB-PART-001`. C10 is solely next but is not claimed inside WC-C10; no
+  external or release action is authorised.
+
+## C10 claim and prepared author gate
+
+- C10 was claimed only after WC-C10 closed and was locally committed as
+  `88b41d02fcea8222673f28a40938fe7db2aaffd6`. The Chapter 10 Git blob is
+  `e0275e8ba85f360d238bbace6a216dcdef5283bc`, and the working-file SHA-256
+  remains `b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236`.
+- `notes/reports/c10-acceptance-package-2026-08-12.md` cites the final commit,
+  packet report, all six critic reports, synthesis and exact proposed ledger
+  disposition. `OA-C10-ACCEPTANCE` is ready for the in-thread author decision;
+  no external message was sent.
+- The recommended disposition is to accept only
+  `R13-C10-label-fallibility`, `R31-C10-ASA-home` and `R35-REACHBACK-10`, and
+  to move only `10-logika-testiranja` from `draft` to `coauthor_review` with an
+  explicit no-author-reading and not-final note. The three accepted R01/D01
+  items remain unchanged.
+- The final panel has 0 fatal, 0 major, 4 nonblocking minor and 0 useful
+  findings. All four minor notes are reproduced in the acceptance package and
+  no source changed after the common reviewed hash.
+- No proposed status or chapter-ledger disposition has yet been applied. There
+  is no handoff delivery targeting C10 to consume. Chapter 6 remains unchanged
+  and `draft` under `H-WB-PART-001`.
+- C10 requires the exact dated author reply tied to the full WC-C10 commit.
+  The standing 5 August delegation is not a substitute. WC-C11 is not claimed,
+  and no push, merge, tag, archive, deployment or publication is authorised.
+
+## C10 closeout
+
+- The author replied exactly: `C10 accepted for
+  88b41d02fcea8222673f28a40938fe7db2aaffd6 on 2026-08-12.` The standing 5
+  August delegation was not substituted, and no author reading is claimed.
+- The final Chapter 10 source remains byte-identical to WC-C10 commit
+  `88b41d02fcea8222673f28a40938fe7db2aaffd6`, Git blob
+  `e0275e8ba85f360d238bbace6a216dcdef5283bc` and SHA-256
+  `b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236`.
+- All six final critic reports and the synthesis address that material state.
+  The panel records zero fatal, zero major, four nonblocking minor and zero
+  useful findings. The complete decision record is
+  `notes/reports/c10-acceptance-package-2026-08-12.md`.
+- Exactly `R13-C10-label-fallibility`, `R31-C10-ASA-home` and
+  `R35-REACHBACK-10` advance from `ratified` to `accepted`. The three accepted
+  R01/D01 correction items remain accepted without being reopened.
+- Only `10-logika-testiranja` advances from `draft` to `coauthor_review`; the
+  ledger says explicitly that this is not `final` and does not mean that the
+  author read the chapter.
+- `OA-C10-ACCEPTANCE` is done from the in-thread reply. No handoff targets C10,
+  and C10 creates no new outgoing handoff because every future effect already
+  has one canonical owner.
+- Chapter 6 remains unchanged and `draft`. C10 changes no chapter prose, data,
+  citation, concept, widget or render.
+- `WC-C11` is uniquely next but remains unclaimed until the separate C10
+  closeout commit. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## Author amendment 2026-08-11 — C11 through P3-VERIFY-C
+
+- `A-THREAD-C11-P3-VERIFY-C-2026-08-11` is a new, distinct author decision
+  recorded on 12 August before WC-C11. For this thread only it authorises the
+  strict chain `WC-C11`, `C11`, `G-A4-12`, `P3-EVIDENCE12`, `P3-VERIFY-C`
+  instead of the usual stop after one packet.
+- Every packet still receives its own claim, single write lock, evidence,
+  handoff disposition, workflow checks, closeout and bounded commit before the
+  next packet is claimed. No evidence or lock crosses a packet boundary, and no
+  prerequisite is waived.
+- The amendment is distinct from both earlier thread decisions, whose chains
+  have ended. C11 still requires a separate exact dated author reply tied to
+  the final WC-C11 commit; the 5 August standing delegation cannot replace it,
+  and no packet may record that the author read a chapter.
+- WC-C11 must consume exactly its three incoming deliveries, close only
+  `R04-C11-fixed-order` among the four open R04 children, preserve governed
+  aggregate values and repair w11 generator equivalence without widening
+  tolerance. G-A4-12 remains decision-only; P3-EVIDENCE12 admits no remembered
+  or approximate evidence; P3-VERIFY-C verifies prerequisites independently.
+- Chapter 6 remains unchanged and `draft`; all DigiKat, Eurostat, ESS,
+  reading-time, reader-validation and terminology-review claim boundaries
+  remain binding. The durable decision record is
+  `notes/reports/c11-p3-verify-c-thread-amendment-2026-08-11.md`.
+
+## WC-C11 claim — Chapter 11 vertical slice
+
+- WC-C11 was claimed from clean control-only amendment commit
+  `64f97250f11dc2fbe6a0c69981cc9834e2c54003` after the workflow validator
+  confirmed no active packet, accepted C10 and WC-C11 alone at sequence 106.
+  Exactly one write lock is active; C11 and every later packet remain unclaimed.
+- `H-P2-VERIFY-001`, `H-P3-EXISTING-002` and `H-WB-C06-001` were acknowledged
+  before the first substantive edit and remain pending for exact
+  `before_close` dispositions. They respectively bind the lone Chapter 11 R04
+  child, governed aggregate print values and exact live/adapter w11 random
+  generator equivalence with a fail-closed cached-pair fixture.
+- The packet owns `R04-C11-fixed-order`, `R17-C11-exaggeration`,
+  `R17-C11-low-power`, `R32-C11-static` and `R35-REACHBACK-11`. The accepted
+  `R01-C11-inherited-permutation` correction remains a binding baseline and is
+  not reopened without a real finding.
+- WC-C11 may close only `R04-C11-fixed-order`. The still-open R04 children are
+  `R04-ARCH-macro-order` and `R04-ROUTES-two-track-map` under `P5-ROUTES`, plus
+  `R04-C18-whole-prerequisites` under `WE-C18` and `P5-ROUTES`; R04 itself may
+  not be called closed here.
+- Chapter 6 remains unchanged and deliberately `draft`; no author reading,
+  external action or release action is authorised.
+
+## WC-C11 closeout — Chapter 11 vertical slice
+
+- The final Chapter 11 material is fixed at SHA-256
+  `d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1`
+  and Git blob `87db0124679ae2085f87c4e7cc4145f9e3191b8f`. The exact discrete
+  distribution now distinguishes 53.6% strict superiority, 13.9% ties and
+  the 60.6% tie-adjusted measure; the prospective power example uses the
+  pre-data target 0.5, standard deviation 1.9, `d = 0.26` and 228 participants
+  per group.
+- All three incoming deliveries were consumed. `H-P2-VERIFY-001` accepted only
+  `R04-C11-fixed-order`; `H-P3-EXISTING-002` preserved the governed aggregate
+  values without re-rounding; `H-WB-C06-001` established the same non-cached
+  generator for live w11 and its adapter with ordinary parity and negative
+  fixture proof.
+- Widget parity passes for all 17 pairs: six exact and eleven distributional.
+  The w11 extension records actual goldens, retains tolerance `1e-10`, and its
+  direct negative fixture fails closed with ten errors. Concept regeneration
+  is fresh at SHA-256
+  `673267479d0092c69297eba821184c35df4b291b6dbeaebb90f6a370dbb885e2`;
+  data, citation, manuscript, figure-introduction and widget-inventory checks
+  all pass.
+- Targeted HTML, the approved PDF wrapper and the DOCX wrapper all pass. The
+  PDF artifact is 2,686,409 bytes at SHA-256
+  `20a1bb4a7b0fa53bacdea4ef3e9fe598461b92bc9ceb0dad20c358609a21da4c`;
+  the DOCX artifact is 1,525,742 bytes at SHA-256
+  `cd995a98e65bd364d5dd1addabd53e8f84e6b3aa8975887c1d26e2e8f8f87eae`.
+- The final-hash six-critic panel reports zero fatal, zero major and thirteen
+  lens-level minor findings. By the author's instruction, those nonblocking
+  findings pass unchanged to C11. `R04-C11-fixed-order` alone is accepted;
+  `R17-C11-exaggeration`, `R17-C11-low-power`, `R32-C11-static` and
+  `R35-REACHBACK-11` remain ratified for the author gate.
+- R04 remains open: `R04-ARCH-macro-order` and
+  `R04-ROUTES-two-track-map` belong to `P5-ROUTES`, while
+  `R04-C18-whole-prerequisites` belongs to `WE-C18` and `P5-ROUTES`.
+  Chapter 6 is unchanged and remains deliberately `draft`. WC-C11 found no
+  additional future-relevant effect, so it emitted no outgoing handoff.
+- No write lock remains active. `C11` is the sole next permitted packet and
+  must be claimed separately before its acceptance package is presented.
+
+## C11 claim and prepared author gate
+
+- C11 was claimed only after WC-C11 closed and was locally committed as
+  `00c40c9ebc0627ec8dda9f25d1ee70465f4861c9`. The Chapter 11 Git blob is
+  `87db0124679ae2085f87c4e7cc4145f9e3191b8f`, and the working-file SHA-256
+  remains `d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1`.
+- `notes/reports/c11-acceptance-package-2026-08-13.md` cites the final commit,
+  packet report, all six critic reports, synthesis, all thirteen minor records
+  and the exact proposed ledger disposition. `OA-C11-ACCEPTANCE` is ready for
+  the in-thread author decision; no external message was sent.
+- The recommended disposition is to accept only `R17-C11-exaggeration`,
+  `R17-C11-low-power`, `R32-C11-static` and `R35-REACHBACK-11`, and to move
+  only `11-velicina-ucinka-i-snaga` from `draft` to `coauthor_review` with an
+  explicit no-author-reading and not-final note. `R04-C11-fixed-order` and the
+  two accepted R01/R09 baselines remain unchanged; R04 itself remains open.
+- The final panel has 0 fatal, 0 major and 13 nonblocking minor records. All
+  thirteen are reproduced in the acceptance package, proposed as known and
+  nonblocking for this edition, and no source changed after the common reviewed
+  hash.
+- No proposed status or chapter-ledger disposition has yet been applied. There
+  is no handoff delivery targeting C11 to consume. Chapter 6 remains unchanged
+  and `draft` under `H-WB-PART-001`.
+- C11 requires the exact dated author reply tied to the full WC-C11 commit.
+  The standing 5 August delegation is not a substitute. `G-A4-12` is not
+  claimed, and no push, merge, tag, archive, deployment or publication is
+  authorised.
+
+## C11 closeout
+
+- The author replied exactly: `C11 accepted for
+  00c40c9ebc0627ec8dda9f25d1ee70465f4861c9 on 2026-08-13.` The standing 5
+  August delegation was not substituted, and no author reading is claimed.
+- The final Chapter 11 source remains byte-identical to WC-C11 commit
+  `00c40c9ebc0627ec8dda9f25d1ee70465f4861c9`, Git blob
+  `87db0124679ae2085f87c4e7cc4145f9e3191b8f` and SHA-256
+  `d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1`.
+- All six final critic reports and the synthesis address that material state.
+  The panel records zero fatal, zero major and thirteen known nonblocking minor
+  records. The complete decision record is
+  `notes/reports/c11-acceptance-package-2026-08-13.md`.
+- Exactly `R17-C11-exaggeration`, `R17-C11-low-power`, `R32-C11-static` and
+  `R35-REACHBACK-11` advance from `ratified` to `accepted`.
+  `R04-C11-fixed-order`, `R01-C11-inherited-permutation` and
+  `R09-C11-power-assumptions` remain accepted without being reopened; R04
+  remains open because its three other children retain their later owners.
+- Only `11-velicina-ucinka-i-snaga` advances from `draft` to
+  `coauthor_review`; the ledger says explicitly that this is not `final` and
+  does not mean that the author read the chapter.
+- `OA-C11-ACCEPTANCE` is done from the in-thread reply. No handoff targets C11,
+  and C11 creates no new outgoing handoff because every future effect already
+  has one canonical owner or was explicitly disposed here.
+- Chapter 6 remains unchanged and `draft`. C11 changes no chapter prose, data,
+  citation, concept, widget or render. `G-A4-12` is uniquely next but remains
+  unclaimed until the separate C11 closeout commit. Push, merge, tag, archive,
+  deployment and publication remain unauthorised.
+
+## G-A4-12 claim and prepared Chapter 12 decision
+
+- G-A4-12 was claimed only after C11 closed and was locally committed as
+  `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`. Exactly one write lock is
+  active; `P3-EVIDENCE12` and every later packet remain unclaimed.
+- `notes/reports/g-a4-12-decision-package-2026-08-13.md` presents one bounded
+  Tier F decision. The recommended central artifact is the 2016 Registered
+  Replication Report of the Strack, Martin and Stepper study: a portal-mediated
+  primary case with 17 laboratory estimates, intervals, a pooled replication
+  estimate, a registered plan, code and protocol trail.
+- The proposed `P3-EVIDENCE12` contract requires exact source identity,
+  per-file rights and checksums, a minimal non-identifying lab-level derived
+  record, a book-native forest plot, and one comparison of the preregistered
+  raw-difference analysis with its standardized-effect alternative. It forbids
+  significance-only comparison, approximate or remembered values, raw
+  participant-data bundling and reuse of the publisher's figure.
+- The ratified outline carries one lifecycle from the original claim through
+  analytic choices, multilab evidence, forest-plot reading, reform and its
+  limits. Existing `w12` stays the central simulation; no second widget or
+  metaanalysis-production lesson is introduced. The bridge to Chapter 13 is a
+  five-part contract for a named claim, primary analysis, defensible
+  alternative, provenance and conclusion boundary.
+- OSC 2015 remains supporting context rather than the single pooled artifact;
+  Many Analysts is rejected as a second main case because repeated analyses of
+  one dataset are not independent replications; COVIDiSTRESS remains deferred
+  under D16. Two new definition blocks remain exactly `analitička
+  fleksibilnost` and `reproducibilnost` for later WC-C12 implementation.
+- No handoff targets G-A4-12. No data, bibliography, figure, code, chapter
+  prose, concept graph or registry has been edited. Chapter 6 remains
+  unchanged and `draft`.
+- `OA-G-A4-12-BRIEF` is ready for the exact in-thread author decision. No
+  external message was sent, and no push, merge, tag, archive, deployment or
+  publication action is authorised.
+
+## G-A4-12 closeout
+
+- Author/editor Luka Sikic accepted the recommended package exactly for C11
+  closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5` on
+  2026-08-13. `OA-G-A4-12-BRIEF` is done without an external message.
+- The accepted artifact, P3 verification contract, outline, definitions,
+  supporting-source boundary, rejected alternatives and authority boundary are
+  durable in `notes/reports/g-a4-12-decision-package-2026-08-13.md` and
+  `decisions.G-A4-12`.
+- No handoff targets G-A4-12 and it creates no new outgoing handoff. The direct
+  prerequisite and registered item ownership already carry every later effect.
+- No source was retrieved and no data, bibliography, figure, code, chapter
+  prose, concept graph or shared registry changed. Chapter 6 remains unchanged
+  and `draft`.
+- `P3-EVIDENCE12` is uniquely next but remains unclaimed until the separate
+  G-A4-12 closeout commit. Push, merge, tag, archive, deployment and publication
+  remain unauthorised.
+
+## P3-EVIDENCE12 claim
+
+- P3-EVIDENCE12 was claimed only from clean G-A4-12 closeout commit
+  `09c399173537eb958b968bb1353d2c84f473fa25`. Exactly one write lock is
+  active; P3-VERIFY-C and every later packet remain unclaimed.
+- No handoff delivery targets P3-EVIDENCE12. There is therefore no incoming
+  delivery to acknowledge or consume, and nothing targeted to another packet
+  will be touched.
+- The bounded write surface is the durable evidence report, its minimal
+  lab-level derived record, a fail-closed offline verifier, the verified
+  bibliography specification and the three workflow control views. Raw participant
+  data, publisher figures, Chapter 12 prose, the data catalogue, shared
+  registries and Chapter 6 are outside the lock.
+
+## P3-EVIDENCE12 closeout
+
+- The verified primary chain is the SAGE article DOI
+  `10.1177/1745691616674458`, APS final-article page, OSF project `pkd65` and
+  OSF Data and Results component `h2f98`. Three exact OSF files were retrieved
+  once and matched their API MD5 and SHA-256 metadata.
+- The portal source declares no OSF node licence and an empty DataCite rights
+  list. All 26 temporary files and 1.390.281 bytes were removed outside the
+  checkout after verification; no participant row, source archive, plan, code
+  or publisher figure is bundled.
+- `notes/reports/p3-evidence12-rrr-lab-effects.csv` retains only 17
+  non-identifying laboratory rows and has SHA-256
+  `23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2`.
+  Online reconstruction and offline validation both reproduce `N = 1.894`,
+  raw REML `0,026766 [-0,107693; 0,161225]` and standardized REML
+  `d = 0,014151 [-0,076191; 0,104493]`.
+- The source discrepancy is explicit and bounded: Talarico's archived pout SD
+  is `1,594894` (`1,59`), whereas Table 1 prints `1,60`. That cell is an
+  unavailable claim; it is not needed for any approved book assertion.
+- `H-P3-EVIDENCE12-001` carries the book-native forest-plot, sensitivity,
+  rights, future citation and source-discrepancy contract to `WC-C12` before
+  start. No incoming handoff targeted this packet.
+- Chapter 12 prose, `references.bib`, the data catalogue, shared registries,
+  figures, widgets and renders remain unchanged. Chapter 6 remains unchanged
+  and `draft`.
+- `P3-VERIFY-C` is uniquely next but remains unclaimed until the separate
+  P3-EVIDENCE12 closeout commit. Push, merge, tag, archive, deployment and
+  publication remain unauthorised.
+
+## P3-VERIFY-C claim
+
+- P3-VERIFY-C was claimed only from clean P3-EVIDENCE12 closeout commit
+  `08cbdfa4e0120b04c0f1408d6e76284bf28b3f87`. Exactly one write lock is
+  active; WC-C12 and every later packet remain unclaimed.
+- No handoff delivery targets P3-VERIFY-C. The pending
+  `H-P3-EVIDENCE12-001` delivery targets WC-C12 and will be verified but not
+  acknowledged or consumed here.
+- The gate is read-only over C11 and P3-EVIDENCE12. It may write only its
+  verification report and the three workflow control views; it may not
+  retrieve sources, alter the evidence artifact, add the reserved bibliography
+  key, edit Chapter 12 or produce the forest plot.
+
+## P3-VERIFY-C closeout
+
+- The gate is tied to P3-EVIDENCE12 closeout commit
+  `08cbdfa4e0120b04c0f1408d6e76284bf28b3f87`. `C11` and `P3-EVIDENCE12`
+  pass separately; no aggregate status was treated as proof and no active
+  blocker is hidden.
+- C11's final commit `00c40c9ebc0627ec8dda9f25d1ee70465f4861c9`,
+  Chapter 11 SHA-256
+  `d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1`
+  and git blob `87db0124679ae2085f87c4e7cc4145f9e3191b8f` reconcile. All six final
+  critics address that state; the panel has 0 fatal, 0 major and 13
+  author-disposed nonblocking minor records. The ledger stage remains only
+  `coauthor_review`, not author-read or `final`.
+- The evidence CSV retains SHA-256
+  `23ca66fd8853fe64247d41a4b48221a0e27be158431fe309ec242efbb0dccbf2`.
+  Offline validation reproduces 17 laboratories, `N = 1.894`, raw REML
+  `0,026766 [-0,107693; 0,161225]` and standardized REML
+  `d = 0,014151 [-0,076191; 0,104493]`.
+- Official OSF identities and hashes, the `license: null` / empty
+  `rightsList` boundary, the removed 26-file temporary audit, the Talarico
+  unavailable cell and the claim-source matrix remain explicit. No network
+  retrieval or new source use occurred.
+- `H-P3-EVIDENCE12-001` remains `pending` for `WC-C12` at `before_start` and
+  was not acknowledged or consumed here. It already carries every verified
+  plot, sensitivity, rights, citation and reconstruction constraint, so the
+  gate records no new outgoing handoff.
+- The registered order is C09/C10/C11, G-A4-12, P3-EVIDENCE12, P3-VERIFY-C,
+  then WC-C12. Chapters 9–11 remain `coauthor_review`; Chapter 12 remains
+  `draft`. Chapter 6 remains unchanged and `draft`.
+- Only the gate report and three control views changed. Chapter prose,
+  `references.bib`, evidence artifact, catalogue, shared registries, figures,
+  widgets, renders, `docs/` and `_freeze/` remain unchanged.
+- `WC-C12` is now uniquely next but remains unclaimed. The authorised
+  `A-THREAD-C11-P3-VERIFY-C-2026-08-11` chain stops here; no push, merge, tag,
+  archive, deployment or publication action is authorised.
+
+## Author amendment 2026-08-13 — WC-C12 through WD-C13
+
+- `A-THREAD-C12-WD-C13-2026-08-13` is a new, distinct numbered decision for
+  this thread. It authorises the strict sequence `WC-C12`, `C12`, `WC-PARTS`,
+  `P3-VERIFY-D`, `WD-C13`; every earlier thread amendment has ended on its own
+  boundary.
+- Every packet retains its own claim, single write lock, evidence bundle,
+  handoff dispositions, workflow checks, closeout and bounded local commit.
+  No evidence, lock or unfinished disposition crosses a packet boundary.
+- C12 still requires the exact dated reply `C12 accepted for <commit> on
+  <date>.` The standing 5 August delegation cannot substitute and no author
+  reading may be claimed. The thread must stop while that reply is absent.
+- WC-PARTS must stop before its first prose edit and present the exact
+  blast-radius list. The author then chooses between honest stage reversions
+  plus fresh panels and additive bridge/self-check material that does not alter
+  accepted chapter bodies.
+- WC-C12 is limited to the accepted G-A4-12 brief, G-A2b-IV spine and verified
+  P3-EVIDENCE12 package. P3-VERIFY-D verifies prerequisites independently, and
+  WD-C13 preserves the optional, portal-mediated, unpromoted ESS boundary with
+  an explicit mandatory offline alternative.
+- Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`. The durable decision record is
+  `notes/reports/c12-wd-c13-thread-amendment-2026-08-13.md`.
+
+## WC-C12 claim — Chapter 12 identity rewrite
+
+- WC-C12 was claimed only from clean control-only decision commit `901340b`
+  after the workflow validator confirmed no active packet, accepted
+  P3-VERIFY-C and WC-C12 alone at sequence 111. Exactly one write lock is
+  active; C12 and every later packet remain unclaimed.
+- `H-P0-REGISTER-007` and `H-P3-EVIDENCE12-001` were consumed before claim.
+  They bind the single verified lifecycle artifact, book-native forest plot,
+  raw-versus-standardized sensitivity, portal and rights boundary, local
+  reconstruction, simultaneous `wagenmakers2016` key and first citation, and
+  the Talarico unavailable cell.
+- `H-P2-SPINE-IV-001` and `H-P2-TERMS-002` were acknowledged before the first
+  substantive edit. Exactly two approved definition blocks will be reconciled
+  with the checkout-local concept ledger and regenerated graph in this packet.
+- The packet owns the ten ratified WC-C12 items and only their bounded source,
+  bibliography, concept, figure, assessment, panel and control evidence. It
+  does not edit Chapter 6, add another central widget, bundle OSF source data,
+  teach meta-analysis production or claim author acceptance.
+- The complete claim record is `notes/reports/wc-c12-2026-08-13.md`. C12 is not
+  claimed, and push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## WC-C12 closeout
+
+- The final Chapter 12 source is SHA-256
+  `47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a`, git
+  blob `bc9bb538625e6996f116ae1fd5b1acba56dc0852`. The author approved only the
+  three major panel repairs: same-sentence citations, simulation before the
+  formula with format-specific guidance, and a beginner-readable visible
+  receipt that preserves the primary raw versus alternative standardized
+  branch.
+- Six independent read-only critics reviewed the exact final hash. The final
+  panel records 0 fatal, 0 major and 10 nonblocking lens-level minors. No minor
+  was edited or treated as accepted; all remain explicit for the separate C12
+  author disposition.
+- The chapter adds exactly the ratified `analitička fleksibilnost` and
+  `reproducibilnost` definition blocks. The checkout-local ledger and
+  terminology state agree at 49 live definitions; the regenerated graph has
+  49 nodes and 543 edges, zero ledger debt and `graph_fresh=true`.
+- The verified RRR evidence remains 17 laboratories, `N = 1.894`, raw REML
+  `0,026766 [-0,107693; 0,161225]` and standardized REML
+  `d = 0,014151 [-0,076191; 0,104493]`. The `wagenmakers2016` bibliography key
+  entered with its first citations, and the local CSV remains an editorial
+  reconstruction rather than a bundled student dataset.
+- `data/widgets.json#w12` now records R-source SHA-256
+  `5866361511fc4549ce8506610493842ab551a78fdb0e0f219419fff0421141c9`;
+  the OJS hash and contract are unchanged. Widget parity passes at 17 pairs,
+  6 exact and 11 distributional, and all four negative fixtures fail closed.
+- Final targeted HTML, approved-wrapper PDF and wrapper DOCX renders all exit
+  zero. Their exact sizes and SHA-256 values, including the isolated Quarto
+  resource-recursion recovery, are recorded in
+  `notes/reports/wc-c12-2026-08-13.md`. All tracked generated outputs and every
+  temporary DOCX source gate were restored before closeout.
+- `H-P2-SPINE-IV-001` and `H-P2-TERMS-002` are consumed. The packet declares no
+  new outgoing handoff because the 10 minors pass directly to C12 and all later
+  data and continuity effects already have registered owners.
+- All 10 governed Chapter 12 items materially pass but remain `ratified` until
+  C12. Chapter 12 stays `draft`; no author reading or acceptance is claimed.
+  Chapter 6 remains byte-identical, unchanged and deliberately `draft` under
+  `H-WB-PART-001`.
+- WC-C12 is accepted, its write lock is released, and `C12` alone is next but
+  unclaimed. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
+## C12 closeout
+
+- C12 was claimed from clean WC-C12 closeout commit
+  `23282e67cf876a3d654d1465f399ce48c31baacd` only after the workflow checker
+  confirmed no active packet, accepted WC-C12 and C12 alone next. No handoff
+  delivery targets C12.
+- The author supplied the exact dated reply `C12 accepted for
+  23282e67cf876a3d654d1465f399ce48c31baacd on 2026-08-13.` The cited commit
+  still contains Chapter 12 SHA-256
+  `47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a` and git
+  blob `bc9bb538625e6996f116ae1fd5b1acba56dc0852`; the source is unchanged after
+  the final panel.
+- All six final critics address that exact state. The panel records 0 fatal,
+  0 major and 10 known nonblocking lens-level minor records. The exact minor
+  list and author disposition are recorded in
+  `notes/reports/c12-acceptance-package-2026-08-13.md`; none was silently
+  edited after source lock.
+- Only `12-kriza-i-obnova` advances from `draft` to `coauthor_review`.
+  Acceptance does not claim that the author read the chapter and is not a
+  `final` designation.
+- Only the ten governed Chapter 12 items move from `ratified` to `accepted`:
+  `R07-C12-full-argument`, `R08-SPINE-12`,
+  `R11-C12-pipeline-flexibility`, `R19-C12-forest-plot`,
+  `R19-C12-replication-cumulative`, `R23-C12-no-R-production`,
+  `R23-C12-visible-receipt`, `R23-C12-code-ladder`,
+  `R24-C12-primary-sources` and `R35-REACHBACK-12`.
+- `OA-C12-ACCEPTANCE` is done from the in-thread reply; no external message was
+  sent. `packet_reviews.C12` declares no new outgoing handoff because the
+  accepted source is a direct WC-PARTS prerequisite and the thread amendment
+  already owns its mandatory blast-radius stop.
+- Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`. No chapter prose, data, bibliography, concept, widget,
+  figure, render or generated artifact changes in C12.
+- C12 is accepted, its lock is released, and `WC-PARTS` alone is next but
+  unclaimed. WC-PARTS must stop before its first prose edit and present the
+  exact affected-unit, current-stage and proposed-change list for author
+  choice. Push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -4072,6 +5107,7 @@ the durable evidence is
 7. Whole-book continuity and editorial checks.
 8. Release-candidate validation.
 9. Publication only after separate authorisation.
+
 ## Exact next-thread prompt
 
 Paste this into a new thread:
@@ -4087,38 +5123,32 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that `WB-PART` is accepted on Chapter 6 SHA-256
-`0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd`, that
-`R08-SPINE-04-06`, `R24-PARTII-thesis`, `R24-LADDER-PartII` and
-`R35-SELF-CHECK-II` are accepted with structured evidence, and that no write
-packet is active. Confirm that Chapters 4 and 5 remain at `coauthor_review`,
-while `06-povezanost` is conservatively at `draft` because its historical C06
-acceptance covers only the earlier source hash. Preserve `H-WB-PART-001` as a
-pending obligation of `P6-PANELS`; do not consume or repair it in Chapter 7.
+Verify that HEAD is the clean C12 closeout commit. Confirm no write packet is
+active, `C12` is the last completed packet and `WC-PARTS` alone is next.
+Verify that Chapter 12 remains at source SHA-256
+`47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a` and
+stage `coauthor_review`. Chapter 6 remains deliberately `draft` under
+`H-WB-PART-001`; do not edit, advance or re-panel it.
 
-Then execute only `WC-C07`, the Chapter 7 vertical slice, and stop before the
-separate `C07` author gate. Claim it only if it is the sole
-`next_permitted_packet`. Verify the complete handoff ledger before work; it
-currently has no delivery targeting `WC-C07`, so touch no delivery owned by a
-different target.
+Confirm the control-only decision
+`A-THREAD-C12-WD-C13-2026-08-13` authorises only the strict sequence
+`WC-C12`, `C12`, `WC-PARTS`, `P3-VERIFY-D`, `WD-C13`. Each packet keeps its
+own claim, single lock, evidence, handoff dispositions, workflow checks,
+closeout and commit. C12 and WC-PARTS retain their mandatory author stops.
 
-Read Chapter 7 top to bottom, the ratified Part III contract and Chapter 7
-spine, `P1A-C07`, the shared claim/thread and assessment registries, and the
-three governed items `R10-C07-degree-belief`, `R29-C07-retrieval-load` and
-`R35-REACHBACK-07`. Revise the complete vertical slice against its exact
-acceptance tests without taking Chapter 8 or later Part III work. Keep
-simulation before formulas, reduce simultaneous novelty, make the midpoint
-retrieval pause real, preserve the probability-to-belief boundary, and provide
-the required reach-back task without assessed code production.
+Claim only WC-PARTS, but make no prose edit. Read its exact registered scope,
+items, dependencies and all applicable handoffs. Then enumerate every unit the
+packet would change, each unit's current chapter-ledger stage, the exact
+proposed change and whether it would materially alter an already accepted
+chapter body.
 
-Use checkout-local `book-style` for every prose edit and the six-critic
-`book-review` workflow on the final material Chapter 7 hash. Resolve every
-fatal and major finding before closeout; present any disposition that requires
-author authority instead of inferring it. Run the applicable deterministic
-checks and full HTML, approved-wrapper PDF and wrapper-built DOCX renders.
-Record every future-relevant effect or explicitly declare none; update the
-register, handoff ledger and dashboard together; run the workflow validator
-and its required negative fixtures; make one bounded local `WC-C07` commit;
-leave Chapter 7 and its governed items awaiting the separate `C07` decision;
-and stop. Push, merge, tag, archive and deploy remain unauthorised.
+Stop and present that blast-radius list to the author before editing prose. Ask
+the author to choose between: (A) honestly returning every materially changed
+accepted unit to `draft` and scheduling its fresh panel, or (B) constraining
+WC-PARTS to additive bridges and self-checks that do not alter accepted chapter
+bodies. Do not infer the choice from prior approvals or standing delegation.
+Leave WC-PARTS active at this mandatory author stop until the choice is given.
+Chapter 6 remains deliberately draft and untouched. Do not claim P3-VERIFY-D
+or WD-C13. Push, merge, tag, archive, deployment and publication remain
+separately gated.
 ```
