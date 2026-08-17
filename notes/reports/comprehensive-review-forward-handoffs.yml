@@ -6810,7 +6810,27 @@ handoffs:
     deliveries:
       - target_packet: C07-C12-REACCEPT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-17"
+        resolved_at: "2026-08-17"
+        disposition: >-
+          C07-C12-REACCEPT consumes the invalidation contract before claim and
+          accepts ownership of the exact six-source manifest frozen by
+          WC-PARTS closeout commit ddde7f6cabc0d4335660755c6fbc7601937b4318.
+          It will run one fresh round of exactly six reports total, with every
+          critic reading all six sources, then produce one synthesis and stop
+          for the exact dated author reply. This consumption binds the review
+          obligation; it does not satisfy the panel, accept a chapter or claim
+          an author reading. Chapter 6 remains excluded under H-WB-PART-001.
+        evidence:
+          - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+          - "report:notes/reports/wc-parts-2026-08-17.md"
+          - "source:chapters/12-kriza-i-obnova.qmd@sha256-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4"
+          - "report:notes/reports/wc-parts-critic-voice-final-2026-08-17.md"
+          - "report:notes/reports/wc-parts-critic-arc-final-2026-08-17.md"
+          - "synthesis:notes/reports/wc-parts-continuity-synthesis-final-2026-08-17.md"
+          - "gate:C07-C12-REACCEPT-sequence-114"
+          - "boundary:no-author-reading-no-chapter-acceptance"
 
   H-WC-PARTS-DOCX-001:
     source_packet: WC-PARTS

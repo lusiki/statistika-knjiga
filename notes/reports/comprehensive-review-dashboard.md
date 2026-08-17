@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: C07-C12-REACCEPT
 last_completed_packet: WC-PARTS
-next_permitted_packet: C07-C12-REACCEPT
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -52,16 +52,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `WC-PARTS` is closed and its write lock released |
+| Active write packet | `C07-C12-REACCEPT`; claimed from clean WC-PARTS closeout commit `ddde7f6cabc0d4335660755c6fbc7601937b4318` after consuming `H-WC-PARTS-REACCEPT-001` before start |
 | Last completed packet | `WC-PARTS`; Chapters 7–11 remain byte-identical, Chapter 12 closes at SHA-256 `4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4`, and the final continuity panel has zero fatal and zero major findings |
-| Next permitted packet | `C07-C12-REACCEPT` alone at sequence 114; it must consume `H-WC-PARTS-REACCEPT-001` before start and may not claim `P3-VERIFY-D` while author acceptance is absent |
+| Next permitted packet | None while `C07-C12-REACCEPT` is active; `P3-VERIFY-D` remains unclaimed and blocked until the exact author reply closes this gate |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 212 accepted, 5 deferred with reason and 154 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 106 accepted, 82 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 106 accepted, 81 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 8 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja` and `11-velicina-ucinka-i-snaga` at `coauthor_review`; `12-kriza-i-obnova` has honestly returned to `draft` after its WC-PARTS byte change, while `06-povezanost` remains `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 32 of the 85 canonical asks remain `drafted_unsent`; 47 are `done`; 6 are `withdrawn_with_reason`. `OA-C07-C12-REACCEPT` is bounded but awaits the WC-PARTS closeout and combined panel; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
+| Open outside asks | 32 of the 85 canonical asks remain `drafted_unsent`; 47 are `done`; 6 are `withdrawn_with_reason`. `OA-C07-C12-REACCEPT` is ready for the exact author decision after a complete six-report panel with zero fatal and zero major findings; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5198,6 +5198,33 @@ the durable evidence is
   `H-WB-PART-001`. `C07-C12-REACCEPT` is now the sole next packet;
   `P3-VERIFY-D` remains unclaimed.
 
+## C07-C12-REACCEPT claim and fresh panel
+
+- The gate was claimed only from clean WC-PARTS closeout commit
+  `ddde7f6cabc0d4335660755c6fbc7601937b4318`. Before claim it consumed
+  `H-WC-PARTS-REACCEPT-001` and accepted ownership of the exact six-source
+  manifest, not acceptance of any chapter. No prose or ledger stage changed.
+- The preflight found zero deterministic style candidates in all six sources,
+  complete structural components and all four exercise tiers, and zero figures
+  without introductions. The six ratified spines were available. The only
+  environment note remains the existing `renv` out-of-sync warning.
+- Exactly six independent read-only critics each read all six sources tied to
+  the same commit: methods, skepticism, pedagogy, evidence, Croatian style and
+  structure. The result is zero fatal, zero major and eleven nonblocking
+  lens-level minor records. The evidence critic reports
+  `missing_or_unverified: []`.
+- The complete synthesis is
+  `notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md`; the
+  bounded decision package is
+  `notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md`. The
+  recommendation is acceptance of the locked manifest with the eleven minor
+  records visible and unedited.
+- The gate remains active and fail-closed. Chapter 12 remains `draft`, the
+  seven governed items remain `ratified`, and `P3-VERIFY-D` is not permitted
+  until the exact reply `C07-C12-REACCEPT accepted for
+  ddde7f6cabc0d4335660755c6fbc7601937b4318 on 2026-08-17.` is received.
+  No author reading is claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5226,21 +5253,22 @@ outside-ask reference. Also read STYLE.md and the checkout-local book-style and
 book-continuity instructions. Do not rely on prior chat or the installed plugin
 cache for mutable state.
 
-Verify that WC-PARTS is accepted in one clean bounded closeout commit,
-C07-C12-REACCEPT is the sole next packet at sequence 114, and
-H-WC-PARTS-REACCEPT-001 is pending for that gate at before_start. Confirm all
-seven WC-PARTS items are ratified, Chapters 7-11 remain at their accepted
-hashes and coauthor_review, and only Chapter 12 is draft at SHA-256
-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4.
-Chapter 6 remains deliberately draft under H-WB-PART-001 and must not be
-edited, advanced or included in the 07-12 panel.
+Verify that C07-C12-REACCEPT is the sole active packet, claimed from WC-PARTS
+closeout commit ddde7f6cabc0d4335660755c6fbc7601937b4318, and that
+H-WC-PARTS-REACCEPT-001 was consumed before start. Confirm exactly six fresh
+critic reports and one synthesis cover all six post-WC-PARTS sources, with zero
+fatal, zero major, eleven nonblocking lens-level minor records and
+missing_or_unverified empty. Chapter 12 remains draft, the seven governed items
+remain ratified, Chapter 6 remains draft under H-WB-PART-001, and no author
+reading is claimed.
 
-Consume H-WC-PARTS-REACCEPT-001 before claim, claim only
-C07-C12-REACCEPT, and run one fresh six-critic round with exactly six reports
-total. Every critic must read all six exact post-WC-PARTS sources tied to the
-same WC-PARTS closeout commit. Synthesize the round, prepare the author package,
-and stop for the exact reply `C07-C12-REACCEPT accepted for <commit> on
-<date>.` Do not claim P3-VERIFY-D while that reply is absent. Preserve
-H-WC-PARTS-DOCX-001 for P7-DOCX. Push, merge, tag, archive, deployment and
-publication remain separately gated.
+Do not edit any chapter or close the gate while the exact author reply is
+absent. Stop for: `C07-C12-REACCEPT accepted for
+ddde7f6cabc0d4335660755c6fbc7601937b4318 on 2026-08-17.` If that exact reply
+is provided, perform only the narrow ledger/item/control disposition stated in
+notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md, run the
+workflow checks and negative fixtures, commit the gate closeout, then continue
+only according to the active thread amendment. Do not claim P3-VERIFY-D before
+the gate closeout. Preserve H-WC-PARTS-DOCX-001 for P7-DOCX. Push, merge, tag,
+archive, deployment and publication remain separately gated.
 ```

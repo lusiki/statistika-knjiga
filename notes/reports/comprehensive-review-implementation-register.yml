@@ -10,9 +10,30 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C07-C12-REACCEPT"
+    claimed_at: "2026-08-17"
+    owned_paths:
+      - "chapters/07-vjerojatnost.qmd"
+      - "chapters/08-uzorkovanje.qmd"
+      - "chapters/09-procjena.qmd"
+      - "chapters/10-logika-testiranja.qmd"
+      - "chapters/11-velicina-ucinka-i-snaga.qmd"
+      - "chapters/12-kriza-i-obnova.qmd"
+      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
+      - "notes/reports/c07-c12-reaccept-critic-methods-2026-08-17.md"
+      - "notes/reports/c07-c12-reaccept-critic-skeptic-2026-08-17.md"
+      - "notes/reports/c07-c12-reaccept-critic-pedagogy-2026-08-17.md"
+      - "notes/reports/c07-c12-reaccept-critic-evidence-2026-08-17.md"
+      - "notes/reports/c07-c12-reaccept-critic-style-2026-08-17.md"
+      - "notes/reports/c07-c12-reaccept-critic-structure-2026-08-17.md"
+      - "notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WC-PARTS"
-  next_permitted_packet: "C07-C12-REACCEPT"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12037,7 +12058,7 @@ packets:
     sequence: 114
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WC-PARTS"
     scope: >-
@@ -31927,7 +31948,7 @@ outside_asks:
 
   OA-C07-C12-REACCEPT:
     status: "drafted_unsent"
-    readiness: "waiting_for_WC-PARTS_closeout_and_batched_panel"
+    readiness: "ready_for_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -31950,13 +31971,18 @@ outside_asks:
     available_evidence:
       - "packet:WC-PARTS"
       - "packet:C07-C12-REACCEPT"
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
       - "report:notes/reports/wc-parts-2026-08-17.md"
+      - "reports:notes/reports/c07-c12-reaccept-critic-{methods,skeptic,pedagogy,evidence,style,structure}-2026-08-17.md"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "report:notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md"
     recommended_default: >-
       Accept only after every critic has read all six exact post-WC-PARTS
       sources, the combined synthesis reports no fatal or unresolved major
       finding, and the ledger states each unit's exact source state.
     exact_reply_requested: >-
-      Reply exactly: C07-C12-REACCEPT accepted for <commit> on <date>.
+      Reply exactly: C07-C12-REACCEPT accepted for
+      ddde7f6cabc0d4335660755c6fbc7601937b4318 on 2026-08-17.
     resume_condition: >-
       The gate closes only after the exact reply names the WC-PARTS closeout
       commit reviewed by the complete batched panel.
