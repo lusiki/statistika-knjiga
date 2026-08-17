@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C07-C12-REACCEPT"
-  next_permitted_packet: "P3-VERIFY-D"
+  last_completed_packet: "P3-VERIFY-D"
+  next_permitted_packet: "WD-C13"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3911,7 +3911,7 @@ packets:
     sequence: 115
     phase: "3D"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C07-C12-REACCEPT"
       - "P3-ESS"
@@ -3923,8 +3923,69 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The ESS lane and cleared alternatives are usable before Chapters 13–16; the text package remains gated immediately before Chapter 17."
-    completion_evidence: []
-    change_reference: null
+    completion_evidence:
+      source_state: "commit:339ec599a8e836d283771a0f271574ef34708993"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p3-verify-d-2026-08-17.md#matrica-vrata"
+            - "matrix:C07-C12-REACCEPT-six-current-sources-six-reports-six-ledger-records-seven-items-no-stale-acceptance"
+            - "matrix:P3-ESS-portal-contract-four-manifest-blobs-nine-negative-fixtures-local-alternative"
+            - "check:scripts/check-review-workflow.R-validates-both-prerequisites"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:339ec599a8e836d283771a0f271574ef34708993"
+            - "source:C07-C12-REACCEPT-source-commit-ddde7f6cabc0d4335660755c6fbc7601937b4318"
+            - "source:C07-C12-REACCEPT-panel-commit-e88623ef0ba8c680859c71a200539f3df746b72f"
+            - "source:P3-ESS-portal-contract-sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "result:no-active-blocker-in-C07-C12-REACCEPT-or-P3-ESS"
+            - "result:chapters-07-through-12-current-acceptance-matches-named-bytes"
+            - "boundary:ESS-portal-mediated-optional-unpromoted-zero-local-bytes-checksum-null"
+            - "boundary:OA-G-A3-ESS-RIGHTS-open-does-not-block-portal-use-but-bundling-remains-prohibited"
+            - "alternative:populacija_medija-local-promoted-bundled-CC-BY-4.0-for-WD-C13-through-WD-C16"
+            - "handoff:H-P3-ESS-001-pending-for-WD-C13-through-WD-C16-before-start-not-consumed-here"
+            - "boundary:H-WC-PARTS-DOCX-001-and-H-WB-PART-001-remain-pending-for-their-own-targets"
+      outputs:
+        - output: "P3-VERIFY-D durable artifact and evidence record for: Model-wave evidence foundation: the approved ESS route and cleared alternatives."
+          artifacts:
+            - "report:notes/reports/p3-verify-d-2026-08-17.md"
+            - "check:P3_VERIFY_D_MANIFEST_OK-chapters-6-reports-6-ledger-6-items-7-chapter6-draft-stale_acceptance-0"
+            - "check:scripts/check-ess-portal.py-ESS_PORTAL_OK"
+            - "check:scripts/check-katalog.py-KATALOG_OK"
+            - "check:scripts/check-data-integrity.R-50300-rows-21-of-21-snapshots-zero-undeclared"
+            - "check:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-44-after-successful-full-retry"
+            - "check:full-deterministic-manuscript-evidence-concept-terminology-figure-widget-and-parity-suite-passed"
+            - "check:scripts/check-review-workflow.R-REVIEW_WORKFLOW_OK"
+        - output: "Completion evidence is tied to the declared P3-VERIFY-D source state and bounded scope."
+          artifacts:
+            - "commit:339ec599a8e836d283771a0f271574ef34708993"
+            - "scope:only-P3-VERIFY-D-report-and-three-control-views-changed"
+            - "review:packet_reviews.P3-VERIFY-D-no-new-future-relevant-effect"
+            - "boundary:no-chapter-data-bibliography-concept-terminology-widget-figure-render-or-generated-artifact-mutation"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:C07-C12-REACCEPT-and-P3-ESS-each-independently-verified"
+            - "report:notes/reports/p3-verify-d-2026-08-17.md#matrica-vrata"
+            - "result:no-active-blocker"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:339ec599a8e836d283771a0f271574ef34708993"
+            - "report:notes/reports/p3-verify-d-2026-08-17.md"
+            - "scope-audit:no-prerequisite-chapter-data-or-generated-artifact-mutation-during-review"
+        - test: "The ESS lane and cleared alternatives are usable before Chapters 13–16; the text package remains gated immediately before Chapter 17."
+          result: "passed"
+          evidence:
+            - "contract:ESS11-edition-3.0-HR-18-variables-anweight-portal-mediated-unpromoted"
+            - "alternative:populacija_medija-local-promoted-CC-BY-4.0-WD-C13-through-WD-C16"
+            - "sequence:WD-C13-116-through-WD-C16-122-before-G-A4-17-125-G-A3-TEXT-126-P3-TEXT-127-P3-VERIFY-128-WD-C17-129"
+            - "handoff:H-P3-ESS-001-remains-pending-for-each-model-wave-consumer"
+            - "boundary:WD-C13-is-next-but-remains-unclaimed-at-P3-VERIFY-D-closeout"
+    change_reference: "commit:339ec599a8e836d283771a0f271574ef34708993"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"

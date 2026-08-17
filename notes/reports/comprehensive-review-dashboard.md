@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C07-C12-REACCEPT
-next_permitted_packet: P3-VERIFY-D
+last_completed_packet: P3-VERIFY-D
+next_permitted_packet: WD-C13
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -52,12 +52,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `C07-C12-REACCEPT` is accepted and its write lock released |
-| Last completed packet | `C07-C12-REACCEPT`; exact author acceptance names WC-PARTS closeout commit `ddde7f6cabc0d4335660755c6fbc7601937b4318` and 2026-08-17, accepts the six-source panel disposition and advances only Chapter 12 to `coauthor_review` |
-| Next permitted packet | `P3-VERIFY-D` alone at sequence 115; it must independently verify every named prerequisite and stage rather than trust aggregate status |
+| Active write packet | None; `P3-VERIFY-D` is accepted and its evidence-only write lock released |
+| Last completed packet | `P3-VERIFY-D`; independently verified both named prerequisites against commit `339ec599a8e836d283771a0f271574ef34708993`, found no stale chapter acceptance and preserved the optional portal ESS route plus mandatory licensed local alternative |
+| Next permitted packet | `WD-C13` alone at sequence 116; it must consume `H-P3-ESS-001` before claim and keep ESS optional, unpromoted and portal-mediated |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 219 accepted, 5 deferred with reason and 147 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 107 accepted, 81 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 108 accepted, 80 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 7 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga` and `12-kriza-i-obnova` at `coauthor_review`; only `06-povezanost` among Chapters 0–12 remains `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -5245,6 +5245,38 @@ the durable evidence is
   widget, figure, render or generated-artifact change. `P3-VERIFY-D` is the
   sole next packet and remains unclaimed inside this gate.
 
+## P3-VERIFY-D closeout
+
+- The evidence gate was claimed from clean C07-C12-REACCEPT closeout commit
+  `339ec599a8e836d283771a0f271574ef34708993` and independently verified both
+  named prerequisites. It did not rely on their aggregate `accepted` status.
+- All six Chapter 7–12 sources match the manifest at commit
+  `ddde7f6cabc0d4335660755c6fbc7601937b4318`; all six critic reports, the
+  synthesis, exact dated author reply, six ledger records and seven accepted
+  WC-PARTS items are current. The manifest audit reports `stale_acceptance=0`.
+  Chapters 7–12 are `coauthor_review`, with no author-reading or `final` claim.
+- P3-ESS still specifies ESS11 edition 3.0, Croatia, 18 variables and
+  `anweight`: portal-mediated, optional, unpromoted, zero local ESS files and
+  `checksum: null`. All four governed file blobs, the positive validator and
+  nine deliberate negative fixtures match the accepted contract.
+  `populacija_medija` remains the licensed local CC BY 4.0 mandatory
+  alternative for `WD-C13`–`WD-C16`. The open rights ask does not block portal
+  use, but bundling remains prohibited without permission.
+- The full deterministic ladder passes. The initial 124-second run of the 44
+  data negative fixtures hit the process timeout; the complete retry finished
+  in 178.2 seconds with `DATA_NEGATIVE_FIXTURES_OK cases=44`. This is recorded
+  as a timeout followed by a successful full run, not as an inferred pass.
+- No handoff targets this gate. `H-P3-ESS-001` remains pending for each
+  model-wave consumer, `H-WC-PARTS-DOCX-001` remains with `P7-DOCX`, and
+  `H-WB-PART-001` keeps unchanged Chapter 6 `draft` for `P6-PANELS`.
+  `packet_reviews.P3-VERIFY-D` declares no new future effect because those
+  existing owners and the direct dependency on `WD-C13` already cover it.
+- The text package remains just-in-time gated at sequences 125–128 immediately
+  before `WD-C17`; these gates do not falsely make it ready now. No chapter,
+  data, bibliography, concept, terminology, widget, figure, render or
+  generated artifact changed. `WD-C13` is the sole next packet and remains
+  unclaimed inside this closeout.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5273,21 +5305,29 @@ outside-ask reference. Also read STYLE.md and the checkout-local book-style and
 book-continuity instructions. Do not rely on prior chat or the installed plugin
 cache for mutable state.
 
-Verify that C07-C12-REACCEPT is accepted in a clean bounded closeout commit,
-that the exact author reply names WC-PARTS commit
-ddde7f6cabc0d4335660755c6fbc7601937b4318 and 2026-08-17, and that
-P3-VERIFY-D is the sole next packet at sequence 115. Confirm all six chapter
-ledger records are coauthor_review, the seven WC-PARTS items are accepted,
-Chapter 6 remains draft under H-WB-PART-001, and no author reading or final
-stage is claimed.
+Verify that P3-VERIFY-D is accepted in a clean bounded closeout commit tied to
+source state 339ec599a8e836d283771a0f271574ef34708993 and that WD-C13 alone is
+next at sequence 116. Confirm Chapters 7-12 remain coauthor_review with zero
+stale acceptance, Chapter 6 remains draft under H-WB-PART-001, the ESS route
+is optional unpromoted and portal-mediated, and populacija_medija is the
+mandatory licensed local alternative.
 
-Claim and execute only P3-VERIFY-D. Independently verify every prerequisite
-against one declared source state, repeat all applicable deterministic checks
-and the required negative fixtures, and report Chapters 7-12 stages plus any
-acceptance older than the bytes it names. Do not rely on aggregate accepted
-status and do not edit chapter prose. Record every outgoing handoff or an
-explicit no-future-effect declaration, close the packet, run the workflow
-validator, and commit before claiming WD-C13. Preserve H-WC-PARTS-DOCX-001 for
-P7-DOCX and H-WB-PART-001 for P6-PANELS. Push, merge, tag, archive, deployment
-and publication remain separately gated.
+Claim and execute only WD-C13. Before claim consume H-P3-ESS-001 at its exact
+before_start gate, then independently verify P2-SPINE-V and P1A-C13. Preserve
+the ESS boundary: no local ESS bytes, invented checksum, promotion or result;
+use analysis-specific denominators and provide the local populacija_medija
+path. Implement the complete Chapter 13 vertical slice in Croatian under the
+ratified spine and STYLE.md, run the deterministic style and manuscript checks,
+all applicable data/widget/figure/citation/concept checks and targeted HTML,
+approved-wrapper PDF and wrapper DOCX renders. Dispatch exactly six fresh
+independent read-only critics against one final material source state, resolve
+every fatal or major finding or obtain an explicit author disposition, record
+all handoff outcomes, close and commit WD-C13 before claiming C13.
+
+Then claim only C13, prepare the bounded acceptance package tied to the final
+WD-C13 commit and exact six reports, and stop for the exact dated reply
+`C13 accepted for <commit> on <date>.` Do not treat the standing 5 August
+delegation as acceptance and do not claim WD-C14 while the reply is absent.
+Preserve H-WC-PARTS-DOCX-001 for P7-DOCX and H-WB-PART-001 for P6-PANELS.
+Push, merge, tag, archive, deployment and publication remain separately gated.
 ```
