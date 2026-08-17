@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-VERIFY-D"
-  next_permitted_packet: "WD-C13"
+  last_completed_packet: "WD-C13"
+  next_permitted_packet: "C13"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12384,7 +12384,7 @@ packets:
     sequence: 116
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-VERIFY-D"
       - "P2-SPINE-V"
@@ -12397,14 +12397,94 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-C13 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#13-kategoricki-podaci"
+            - "packet:P2-SPINE-V-accepted"
+            - "packet:P1A-C13-accepted"
+            - "handoff:H-P3-ESS-001-consumed-before-start"
+            - "author_approval:conversation-2026-08-17-eight-WD-C13-fixes-only-minors-for-C13"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/13-kategoricki-podaci.qmd@sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+            - "blob:e7ff4e8adc9d2438461ffbddb01e193aba24b671"
+            - "result:digital-share-difference-56.4-percentage-points-ci-47.4-to-65.3"
+            - "result:gof-largest-observed-proportion-gap-1.8-percentage-points"
+            - "result:static-twin-chi-square-1.6-to-6.4-cramers-v-0.20-to-0.20"
+            - "registry:data/widgets.json#w13-r-source-sha256-130158017eff43321e8b429eefc937486c9d28459e6bbbaa06efc4a2d672479b"
+            - "check:scripts/check-widgets.py-WIDGET_CONTRACT_OK"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "check:scripts/check-concepts.py-definitions-49-nodes-49-edges-578-graph-fresh-true"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-C13-bytes-176785-sha256-4af9b743194266c2ad38fc1417a303564fed429d9c1be43b54bbaef410cf6b26"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2752817-sha256-858a3f1428dd5822890aad0449afd1290790b3ee8bbce3e40bdffbde4f139de6"
+            - "render:DOCX-wrapper-exit-0-bytes-1575666-sha256-1c22637f481bbf15c784b1fc313e29cfdf04d7764fddc8f6537c44ff77b8116a"
+            - "boundary:isolated-render-worktrees-removed-main-worktree-generated-artifacts-unchanged"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-c13-critic-methods-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-skeptic-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-pedagogy-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-evidence-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-style-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-structure-2026-08-17.md"
+            - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+            - "panel:six-of-six-confirm-source-sha256-b5234176-zero-fatal-zero-major-fourteen-nonblocking-minor-records"
+      outputs:
+        - output: "WD-C13 verified vertical-slice source and evidence bundle for: Chapter 13 vertical slice."
+          artifacts:
+            - "source:chapters/13-kategoricki-podaci.qmd"
+            - "registry:data/widgets.json#w13"
+            - "generated:data/concept-graph.json-49-nodes-578-edges"
+            - "report:notes/reports/wd-c13-2026-08-17.md"
+            - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+        - output: "Completion evidence is tied to the declared WD-C13 source state and bounded scope."
+          artifacts:
+            - "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+            - "handoff:H-P3-ESS-001-consumed-before-start"
+            - "review:packet_reviews.WD-C13-all-future-effects-recorded"
+            - "boundary:three-governed-items-materially-pass-and-remain-ratified-until-C13"
+            - "boundary:fourteen-lens-level-minors-unchanged-for-C13"
+            - "boundary:Chapter-6-unchanged-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "boundary:C13-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WD-C13-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wd-c13-2026-08-17.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO_OK-conceptual-2-all-introduced"
+            - "check:STYLE-lint-zero-candidates"
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "author_approval:conversation-2026-08-17-eight-WD-C13-fixes-only-minors-for-C13"
+            - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+            - "panel:zero-fatal-zero-major-fourteen-nonblocking-minor-records"
+        - test: "The WD-C13 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R13-C13-contingency-R27-C13-partV-contract-R35-REACHBACK-13-materially-pass-remain-ratified-until-C13"
+            - "report:notes/reports/wd-c13-2026-08-17.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
   C13:
     sequence: 117
     phase: "4"
@@ -21951,11 +22031,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C13"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/13-kategoricki-podaci.qmd@sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+      - "result:coded-text-unit-eligibility-codebook-owner-category-rules-and-valid-denominator-explicit"
+      - "result:contingency-table-bridge-to-Chapter-17-confusion-table"
+      - "report:notes/reports/wd-c13-critic-evidence-2026-08-17.md"
+      - "report:notes/reports/wd-c13-critic-skeptic-2026-08-17.md"
+      - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+      - "boundary:materially-passes-remains-ratified-until-C13"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
   R13-C18-corpus-package:
     parents:
       - "R13"
@@ -27987,11 +28074,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C13"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/13-kategoricki-podaci.qmd@sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+      - "result:Part-V-opens-with-model-expectation-assumptions-magnitude-boundary-denominator-and-uncertainty"
+      - "result:one-table-model-family-not-procedure-catalogue-and-Chapter-16-not-spent"
+      - "report:notes/reports/wd-c13-critic-methods-2026-08-17.md"
+      - "report:notes/reports/wd-c13-critic-structure-2026-08-17.md"
+      - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+      - "boundary:materially-passes-remains-ratified-until-C13"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
   R27-BOOK-part-bridges:
     parents:
       - "R27"
@@ -29485,11 +29579,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C13"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/13-kategoricki-podaci.qmd@sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+      - "result:critical-task-retrieves-Chapter-6-Simpson-paradox-and-Berkeley-case"
+      - "result:aggregate-and-departmental-schemas-comparison-and-missing-variable-required-without-code"
+      - "report:notes/reports/wd-c13-critic-pedagogy-2026-08-17.md"
+      - "report:notes/reports/wd-c13-critic-structure-2026-08-17.md"
+      - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+      - "boundary:materially-passes-remains-ratified-until-C13"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
   R35-REACHBACK-14:
     parents:
       - "R35"

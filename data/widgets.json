@@ -340,16 +340,16 @@
       "id": "w13",
       "parity": {
         "classification": "exact",
-        "parameters": {"scenarios": [{"id": "none", "n": 80, "shift_percent": 0}, {"id": "moderate", "n": 80, "shift_percent": 45}, {"id": "large", "n": 80, "shift_percent": 80}]},
+        "parameters": {"scenarios": [{"id": "none", "n": 80, "shift_percent": 0}, {"id": "small", "n": 20, "shift_percent": 20}, {"id": "large", "n": 80, "shift_percent": 20}]},
         "seed_policy": {"ojs": "none", "r": "none", "shared": "Ocekivane i opazene frekvencije te doprinosi su deterministicki."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
         "expected": {
-          "ojs": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "moderate.expected": 40, "moderate.shift": 18, "moderate.cell_contribution": 8.1, "moderate.chi_square": 32.4, "moderate.cramers_v": 0.45, "large.expected": 40, "large.shift": 32, "large.cell_contribution": 25.6, "large.chi_square": 102.4, "large.cramers_v": 0.8},
-          "r": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "moderate.expected": 40, "moderate.shift": 18, "moderate.cell_contribution": 8.1, "moderate.chi_square": 32.4, "moderate.cramers_v": 0.45, "large.expected": 40, "large.shift": 32, "large.cell_contribution": 25.6, "large.chi_square": 102.4, "large.cramers_v": 0.8}
+          "ojs": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "small.expected": 10, "small.shift": 2, "small.cell_contribution": 0.4, "small.chi_square": 1.6, "small.cramers_v": 0.2, "large.expected": 40, "large.shift": 8, "large.cell_contribution": 1.6, "large.chi_square": 6.4, "large.cramers_v": 0.2},
+          "r": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "small.expected": 10, "small.shift": 2, "small.cell_contribution": 0.4, "small.chi_square": 1.6, "small.cramers_v": 0.2, "large.expected": 40, "large.shift": 8, "large.cell_contribution": 1.6, "large.chi_square": 6.4, "large.cramers_v": 0.2}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w13", "r": "scripts/widget-parity-r.R#w13"},
-        "source": {"ojs_label": "fig-w13", "r_label": "fig-w13-print", "ojs_sha256": "f9e17cc755eeae33d308aa935c55aa5eb0583fdf6a62ab8b50c89f718dba8e07", "r_sha256": "754d61937199aa8432015b8e856ed52fd505cbc725c0b31a8438d6dda26ec4dc"},
-        "claim_boundary": "Frekvencije, doprinosi celija, hi-kvadrat i Cramerovo V za tri tiskana pomaka uz jednake rubove; ne usporeduje polozaj oznaka."
+        "source": {"ojs_label": "fig-w13", "r_label": "fig-w13-print", "ojs_sha256": "f9e17cc755eeae33d308aa935c55aa5eb0583fdf6a62ab8b50c89f718dba8e07", "r_sha256": "130158017eff43321e8b429eefc937486c9d28459e6bbbaa06efc4a2d672479b"},
+        "claim_boundary": "Frekvencije, doprinosi celija, hi-kvadrat i Cramerovo V bez pomaka te pri istom relativnom pomaku uz male i velike rubove; ne usporeduje polozaj oznaka."
       },
       "naziv": "Očekivano i opaženo",
       "poglavlje": "chapters/13-kategoricki-podaci.qmd",
@@ -361,7 +361,7 @@
         "Postavite opažene frekvencije jednake očekivanima i pogledajte doprinose.",
         "Pomaknite opažanja u oba smjera i provjerite ostaju li rubni zbrojevi jednaki.",
         "Povećajte pomak i pratite koliko brže raste ukupno odstupanje od pomaka.",
-        "Zadržite pomak u postocima, a smanjite rubni zbroj na deset."
+        "Zadržite pomak u postocima i usporedite mali s velikim rubnim zbrojem."
       ]
     },
     {
