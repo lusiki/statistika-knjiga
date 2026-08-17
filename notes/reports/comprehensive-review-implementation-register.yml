@@ -2635,6 +2635,20 @@ decisions:
         that moves their deferred panels away from P6-PANELS. Do not create
         that gate without a new explicit author approval, and do not record
         that the author read any chapter.
+      wc_parts_batched_gate_approval:
+        approved_at: "2026-08-17"
+        author: "Luka Sikic"
+        evidence: "conversation:Approve-C07-C12-REACCEPT-at-sequence-114-with-contract-and-handoff-as-proposed-2026-08-17"
+        gate: "C07-C12-REACCEPT"
+        sequence: 114
+        contract: "chapter_acceptance_gate"
+        handoff: "H-WC-PARTS-REACCEPT-001"
+        disposition: >-
+          Create the gate and handoff exactly as proposed, shift every current
+          packet at sequence 114 or later by one, and make P3-VERIFY-D depend
+          on C07-C12-REACCEPT plus P3-ESS. This approval authorises control-
+          plane creation and continuation of WC-PARTS; it is not chapter
+          acceptance and claims no author reading.
       verify_d_boundary: >-
         P3-VERIFY-D verifies every prerequisite independently against one
         declared source state, repeats deterministic checks and deliberate
@@ -2668,16 +2682,17 @@ decisions:
         Stop before the next packet if an exit test lacks real evidence, if a
         fatal or unresolved major panel finding remains, if completion would
         require inventing a number, source, study or citation, at the
-        WC-PARTS batched-gate proposal, or at the C13 author gate. Honest
-        partial completion is required.
+        C07-C12-REACCEPT author gate, or at the C13 author gate. Honest partial
+        completion is required.
     authority_boundary: >-
       This thread-only amendment replaces the usual stop-after-one-packet rule
-      only for the named strict five-packet chain through WD-C14. It does not
-      create the proposed batched re-acceptance gate, combine packets,
-      authorise a second write lock, waive any gate, item, prerequisite,
-      handoff, panel, deterministic check or exact author reply, claim an
-      author reading, widen source or content scope, or authorise push, merge,
-      tag, archive, deployment or publication.
+      only for the named strict chain through WD-C14, now interrupted by the
+      separately approved C07-C12-REACCEPT gate. The approval creates only
+      that gate and its handoff; it does not combine packets, authorise a
+      second write lock, waive any gate, item, prerequisite, handoff, panel,
+      deterministic check or exact author reply, claim an author reading,
+      widen source or content scope, or authorise push, merge, tag, archive,
+      deployment or publication.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -3907,12 +3922,12 @@ packets:
       - "source commit or state hash"
       - "resolved blocker list"
   P3-VERIFY-D:
-    sequence: 114
+    sequence: 115
     phase: "3D"
     kind: "review_gate"
     status: "ratified"
     requires:
-      - "WC-PARTS"
+      - "C07-C12-REACCEPT"
       - "P3-ESS"
     scope: "Model-wave evidence foundation: the approved ESS route and cleared alternatives."
     outputs:
@@ -3930,7 +3945,7 @@ packets:
       - "source commit or state hash"
       - "resolved blocker list"
   P7-HTML:
-    sequence: 175
+    sequence: 176
     phase: "7"
     kind: "release_proof"
     status: "ratified"
@@ -3952,7 +3967,7 @@ packets:
       - "source commit and artifact hash"
       - "negative or regression check"
   G-A6:
-    sequence: 183
+    sequence: 184
     phase: "8"
     kind: "decision_gate"
     status: "ratified"
@@ -11971,6 +11986,40 @@ packets:
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
+  C07-C12-REACCEPT:
+    sequence: 114
+    phase: "4"
+    kind: "chapter_acceptance_gate"
+    status: "ratified"
+    requires:
+      - "WC-PARTS"
+    scope: >-
+      Batched re-acceptance of the exact post-WC-PARTS source states for
+      Chapters 07 through 12 after one fresh six-critic round in which every
+      critic reads all six chapters.
+    outputs:
+      - >-
+        C07-C12-REACCEPT author-approved six-critic synthesis and ledger
+        disposition for all six covered units.
+      - >-
+        Completion evidence is tied to the declared C07-C12-REACCEPT source
+        state and bounded scope.
+    exit_tests:
+      - "All six critic perspectives address the final material chapter state."
+      - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+      - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+      - >-
+        Methods, skepticism, pedagogy, evidence, style and structure critics
+        each review all six exact post-WC-PARTS source states in one fresh
+        round, producing exactly six reports total and one synthesis.
+    completion_evidence: []
+    contract: "chapter_acceptance_gate"
+    required_evidence:
+      - "six independent critic reports"
+      - "synthesised revision disposition"
+      - "author acceptance"
+      - "chapter-ledger evidence tied to source state"
+    change_reference: null
   G-A3-ESS:
     sequence: 98
     phase: "3B"
@@ -12159,7 +12208,7 @@ packets:
       - "route-specific expected values"
     change_reference: "portal-contract:sha256-7c64a3baf10959734d6d9ba2fbafcc5516ad0a41b394fb4cb56717b118aff675"
   WD-C13:
-    sequence: 115
+    sequence: 116
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -12184,7 +12233,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C13:
-    sequence: 116
+    sequence: 117
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -12207,7 +12256,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   WD-C14:
-    sequence: 117
+    sequence: 118
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -12231,7 +12280,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C14:
-    sequence: 118
+    sequence: 119
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -12254,7 +12303,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   WD-C15:
-    sequence: 119
+    sequence: 120
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -12278,7 +12327,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C15:
-    sequence: 120
+    sequence: 121
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -12301,7 +12350,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   G-A4-16:
-    sequence: 121
+    sequence: 122
     phase: "3C"
     kind: "decision_gate"
     status: "ratified"
@@ -12327,7 +12376,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   WD-C16:
-    sequence: 122
+    sequence: 123
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -12352,7 +12401,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C16:
-    sequence: 123
+    sequence: 124
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -12375,7 +12424,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   G-A4-17:
-    sequence: 124
+    sequence: 125
     phase: "3B"
     kind: "decision_gate"
     status: "ratified"
@@ -12400,7 +12449,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   G-A3-TEXT:
-    sequence: 125
+    sequence: 126
     phase: "3B"
     kind: "decision_gate"
     status: "ratified"
@@ -12425,7 +12474,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   P3-TEXT:
-    sequence: 126
+    sequence: 127
     phase: "3B"
     kind: "data_package"
     status: "ratified"
@@ -12448,7 +12497,7 @@ packets:
       - "route-specific expected values"
     change_reference: null
   P3-VERIFY:
-    sequence: 127
+    sequence: 128
     phase: "3"
     kind: "review_gate"
     status: "ratified"
@@ -12474,7 +12523,7 @@ packets:
       - "resolved blocker list"
     change_reference: null
   WD-C17:
-    sequence: 128
+    sequence: 129
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -12500,7 +12549,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C17:
-    sequence: 129
+    sequence: 130
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -12523,7 +12572,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   WD-PART:
-    sequence: 130
+    sequence: 131
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -12546,7 +12595,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   WE-C18:
-    sequence: 131
+    sequence: 132
     phase: "4"
     kind: "chapter_or_part_packet"
     status: "ratified"
@@ -12571,7 +12620,7 @@ packets:
       - "fresh six-critic or part-continuity evidence"
     change_reference: null
   C18:
-    sequence: 132
+    sequence: 133
     phase: "4"
     kind: "chapter_acceptance_gate"
     status: "ratified"
@@ -12594,7 +12643,7 @@ packets:
       - "chapter-ledger evidence tied to source state"
     change_reference: null
   P5-CLOSURE-00:
-    sequence: 133
+    sequence: 134
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12617,7 +12666,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-01:
-    sequence: 134
+    sequence: 135
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12640,7 +12689,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-02:
-    sequence: 135
+    sequence: 136
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12663,7 +12712,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-03:
-    sequence: 136
+    sequence: 137
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12686,7 +12735,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-04:
-    sequence: 137
+    sequence: 138
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12709,7 +12758,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-05:
-    sequence: 138
+    sequence: 139
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12732,7 +12781,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-06:
-    sequence: 139
+    sequence: 140
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12755,7 +12804,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-07:
-    sequence: 140
+    sequence: 141
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12778,7 +12827,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-08:
-    sequence: 141
+    sequence: 142
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12801,7 +12850,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-09:
-    sequence: 142
+    sequence: 143
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12824,7 +12873,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-10:
-    sequence: 143
+    sequence: 144
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12847,7 +12896,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-11:
-    sequence: 144
+    sequence: 145
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12870,7 +12919,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-12:
-    sequence: 145
+    sequence: 146
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12893,7 +12942,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-13:
-    sequence: 146
+    sequence: 147
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12916,7 +12965,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-14:
-    sequence: 147
+    sequence: 148
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12939,7 +12988,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-15:
-    sequence: 148
+    sequence: 149
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12962,7 +13011,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-16:
-    sequence: 149
+    sequence: 150
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -12985,7 +13034,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-17:
-    sequence: 150
+    sequence: 151
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -13008,7 +13057,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-CLOSURE-18:
-    sequence: 151
+    sequence: 152
     phase: "5"
     kind: "assessment_unit"
     status: "ratified"
@@ -13031,7 +13080,7 @@ packets:
       - "profile visibility and export test"
     change_reference: null
   P5-A:
-    sequence: 152
+    sequence: 153
     phase: "5"
     kind: "appendix"
     status: "ratified"
@@ -13054,7 +13103,7 @@ packets:
       - "cross-reference and print proof"
     change_reference: null
   P5-B:
-    sequence: 153
+    sequence: 154
     phase: "5"
     kind: "appendix"
     status: "ratified"
@@ -13077,7 +13126,7 @@ packets:
       - "cross-reference and print proof"
     change_reference: null
   P5-C:
-    sequence: 154
+    sequence: 155
     phase: "5"
     kind: "appendix"
     status: "ratified"
@@ -13100,7 +13149,7 @@ packets:
       - "cross-reference and print proof"
     change_reference: null
   P5-D:
-    sequence: 155
+    sequence: 156
     phase: "5"
     kind: "appendix"
     status: "ratified"
@@ -13123,7 +13172,7 @@ packets:
       - "cross-reference and print proof"
     change_reference: null
   P5-E:
-    sequence: 156
+    sequence: 157
     phase: "5"
     kind: "appendix"
     status: "ratified"
@@ -13146,7 +13195,7 @@ packets:
       - "cross-reference and print proof"
     change_reference: null
   P5-F:
-    sequence: 157
+    sequence: 158
     phase: "5"
     kind: "appendix"
     status: "ratified"
@@ -13169,7 +13218,7 @@ packets:
       - "cross-reference and print proof"
     change_reference: null
   P5-G:
-    sequence: 158
+    sequence: 159
     phase: "5"
     kind: "appendix"
     status: "ratified"
@@ -13193,7 +13242,7 @@ packets:
       - "cross-reference and print proof"
     change_reference: null
   P5-ROUTES:
-    sequence: 159
+    sequence: 160
     phase: "5"
     kind: "pathway_verification"
     status: "ratified"
@@ -13222,7 +13271,7 @@ packets:
       - "public-promise reconciliation"
     change_reference: null
   P5-VERIFY:
-    sequence: 160
+    sequence: 161
     phase: "5"
     kind: "review_gate"
     status: "ratified"
@@ -13244,7 +13293,7 @@ packets:
       - "resolved blocker list"
     change_reference: null
   P6-CONTINUITY:
-    sequence: 161
+    sequence: 162
     phase: "6"
     kind: "whole_book_review"
     status: "ratified"
@@ -13266,7 +13315,7 @@ packets:
       - "resolved finding log"
     change_reference: null
   P6-EVIDENCE:
-    sequence: 162
+    sequence: 163
     phase: "6"
     kind: "whole_book_review"
     status: "ratified"
@@ -13288,7 +13337,7 @@ packets:
       - "resolved finding log"
     change_reference: null
   P6-FIGURES:
-    sequence: 163
+    sequence: 164
     phase: "6"
     kind: "whole_book_review"
     status: "ratified"
@@ -13310,7 +13359,7 @@ packets:
       - "resolved finding log"
     change_reference: null
   P6-STYLE:
-    sequence: 164
+    sequence: 165
     phase: "6"
     kind: "whole_book_review"
     status: "ratified"
@@ -13332,7 +13381,7 @@ packets:
       - "resolved finding log"
     change_reference: null
   P6-DATA:
-    sequence: 165
+    sequence: 166
     phase: "6"
     kind: "whole_book_review"
     status: "ratified"
@@ -13355,7 +13404,7 @@ packets:
       - "resolved finding log"
     change_reference: null
   P6-PANELS:
-    sequence: 166
+    sequence: 167
     phase: "6"
     kind: "whole_book_review"
     status: "ratified"
@@ -13377,7 +13426,7 @@ packets:
       - "resolved finding log"
     change_reference: null
   P6-ARC:
-    sequence: 167
+    sequence: 168
     phase: "6"
     kind: "whole_book_review"
     status: "ratified"
@@ -13399,7 +13448,7 @@ packets:
       - "resolved finding log"
     change_reference: null
   P6-METHODS:
-    sequence: 168
+    sequence: 169
     phase: "6"
     kind: "review_gate"
     status: "ratified"
@@ -13422,7 +13471,7 @@ packets:
       - "resolved blocker list"
     change_reference: null
   P6-VERIFY:
-    sequence: 169
+    sequence: 170
     phase: "6"
     kind: "review_gate"
     status: "ratified"
@@ -13444,7 +13493,7 @@ packets:
       - "resolved blocker list"
     change_reference: null
   G-A5b:
-    sequence: 170
+    sequence: 171
     phase: "7"
     kind: "decision_gate"
     status: "ratified"
@@ -13468,7 +13517,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   P7-FREEZE:
-    sequence: 171
+    sequence: 172
     phase: "7"
     kind: "release_candidate"
     status: "ratified"
@@ -13490,7 +13539,7 @@ packets:
       - "clean-worktree provenance"
     change_reference: null
   P7-PILOT:
-    sequence: 172
+    sequence: 173
     phase: "7"
     kind: "reader_evidence"
     status: "ratified"
@@ -13524,7 +13573,7 @@ packets:
       - "repeated/blocking finding memo"
     change_reference: null
   G-A5a:
-    sequence: 173
+    sequence: 174
     phase: "7"
     kind: "decision_gate"
     status: "ratified"
@@ -13548,7 +13597,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   P7-A11Y:
-    sequence: 174
+    sequence: 175
     phase: "7"
     kind: "release_proof"
     status: "ratified"
@@ -13570,7 +13619,7 @@ packets:
       - "negative or regression check"
     change_reference: null
   P7-PDF:
-    sequence: 176
+    sequence: 177
     phase: "7"
     kind: "release_proof"
     status: "ratified"
@@ -13592,7 +13641,7 @@ packets:
       - "negative or regression check"
     change_reference: null
   P7-DOCX:
-    sequence: 177
+    sequence: 178
     phase: "7"
     kind: "release_proof"
     status: "ratified"
@@ -13614,7 +13663,7 @@ packets:
       - "negative or regression check"
     change_reference: null
   P7-CLEAN-BUILD:
-    sequence: 178
+    sequence: 179
     phase: "7"
     kind: "release_proof"
     status: "ratified"
@@ -13636,7 +13685,7 @@ packets:
       - "negative or regression check"
     change_reference: null
   G-A5c:
-    sequence: 179
+    sequence: 180
     phase: "7"
     kind: "decision_gate"
     status: "ratified"
@@ -13660,7 +13709,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   P7-CONDUCTOR:
-    sequence: 180
+    sequence: 181
     phase: "7"
     kind: "review_gate"
     status: "ratified"
@@ -13683,7 +13732,7 @@ packets:
       - "resolved blocker list"
     change_reference: null
   G-A5d:
-    sequence: 181
+    sequence: 182
     phase: "7"
     kind: "decision_gate"
     status: "ratified"
@@ -13707,7 +13756,7 @@ packets:
       - "blocked dependency list"
     change_reference: null
   P7-VERIFY:
-    sequence: 182
+    sequence: 183
     phase: "7"
     kind: "review_gate"
     status: "ratified"
@@ -13729,7 +13778,7 @@ packets:
       - "resolved blocker list"
     change_reference: null
   P8-META:
-    sequence: 184
+    sequence: 185
     phase: "8"
     kind: "release_metadata"
     status: "ratified"
@@ -13751,7 +13800,7 @@ packets:
       - "reader-facing changelog and errata state"
     change_reference: null
   G-A6-PUSH:
-    sequence: 185
+    sequence: 186
     phase: "8"
     kind: "external_action_gate"
     status: "ratified"
@@ -13773,7 +13822,7 @@ packets:
       - "accepted source commit or tag"
     change_reference: null
   P8-PUSH:
-    sequence: 186
+    sequence: 187
     phase: "8"
     kind: "external_action"
     status: "ratified"
@@ -13795,7 +13844,7 @@ packets:
       - "source and resulting remote identifier"
     change_reference: null
   G-A6-TAG:
-    sequence: 187
+    sequence: 188
     phase: "8"
     kind: "external_action_gate"
     status: "ratified"
@@ -13817,7 +13866,7 @@ packets:
       - "accepted source commit or tag"
     change_reference: null
   P8-TAG:
-    sequence: 188
+    sequence: 189
     phase: "8"
     kind: "external_action"
     status: "ratified"
@@ -13839,7 +13888,7 @@ packets:
       - "source and resulting remote identifier"
     change_reference: null
   G-A6-ARCHIVE:
-    sequence: 189
+    sequence: 190
     phase: "8"
     kind: "external_action_gate"
     status: "ratified"
@@ -13861,7 +13910,7 @@ packets:
       - "accepted source commit or tag"
     change_reference: null
   P8-ARCHIVE:
-    sequence: 190
+    sequence: 191
     phase: "8"
     kind: "external_action"
     status: "ratified"
@@ -13883,7 +13932,7 @@ packets:
       - "source and resulting remote identifier"
     change_reference: null
   G-A6-DEPLOY:
-    sequence: 191
+    sequence: 192
     phase: "8"
     kind: "external_action_gate"
     status: "ratified"
@@ -13905,7 +13954,7 @@ packets:
       - "accepted source commit or tag"
     change_reference: null
   P8-DEPLOY:
-    sequence: 192
+    sequence: 193
     phase: "8"
     kind: "external_action"
     status: "ratified"
@@ -13927,7 +13976,7 @@ packets:
       - "source and resulting remote identifier"
     change_reference: null
   P8-SMOKE:
-    sequence: 193
+    sequence: 194
     phase: "8"
     kind: "release_record"
     status: "ratified"
@@ -13949,7 +13998,7 @@ packets:
       - "final register and ledger snapshot"
     change_reference: null
   P8-VERIFY:
-    sequence: 194
+    sequence: 195
     phase: "8"
     kind: "review_gate"
     status: "ratified"
@@ -29750,7 +29799,7 @@ items:
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
-  total_asks: 84
+  total_asks: 85
   external_messages_sent: 0
   implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   canonical_status_store: "outside_asks"
@@ -29799,6 +29848,7 @@ outside_ask_inventory:
       - "C10"
       - "C11"
       - "C12"
+      - "C07-C12-REACCEPT"
       - "C13"
       - "C14"
       - "C15"
@@ -31826,6 +31876,46 @@ outside_asks:
     exact_reply_requested: "Reply: C12 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C12 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the identity-pillar revision."
+    external_message_sent: false
+
+  OA-C07-C12-REACCEPT:
+    status: "drafted_unsent"
+    readiness: "waiting_for_WC-PARTS_closeout_and_batched_panel"
+    kind: "editorial_decision"
+    owner: "author/editor"
+    due_phase: "4"
+    needed: >-
+      Accept or return the combined final-state disposition for Chapters 07
+      through 12 after WC-PARTS and the fresh batched six-critic round.
+    expected_form: >-
+      One exact dated accept-or-revise decision tied to the WC-PARTS closeout
+      commit, six reports total and one synthesis covering all six sources.
+    blocked_items:
+      - "R08-SPINE-07-11"
+      - "R24-PARTIII-IV-thesis"
+      - "R24-LADDER-PartIII"
+      - "R24-LADDER-PartIV"
+      - "R27-C12-13-transition"
+      - "R35-SELF-CHECK-III"
+      - "R35-SELF-CHECK-IV"
+    blocked_gates:
+      - "C07-C12-REACCEPT"
+    available_evidence:
+      - "packet:WC-PARTS"
+      - "packet:C07-C12-REACCEPT"
+      - "report:notes/reports/wc-parts-2026-08-17.md"
+    recommended_default: >-
+      Accept only after every critic has read all six exact post-WC-PARTS
+      sources, the combined synthesis reports no fatal or unresolved major
+      finding, and the ledger states each unit's exact source state.
+    exact_reply_requested: >-
+      Reply exactly: C07-C12-REACCEPT accepted for <commit> on <date>.
+    resume_condition: >-
+      The gate closes only after the exact reply names the WC-PARTS closeout
+      commit reviewed by the complete batched panel.
+    why_external: >-
+      Only the author/editor can accept the combined final-state chapter
+      disposition; no earlier single-chapter acceptance covers changed bytes.
     external_message_sent: false
 
   OA-C13-ACCEPTANCE:

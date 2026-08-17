@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-13"
+last_updated: "2026-08-17"
 inventory_child_count: 371
 
 protocol:
@@ -6759,6 +6759,54 @@ handoffs:
           - "check:scripts/check-p3-evidence12.py-P3_EVIDENCE12_OK"
           - "report:notes/reports/p3-verify-c-2026-08-13.md"
           - "boundary:portal-mediated-no-source-bundling-no-publisher-figure"
+
+  H-WC-PARTS-REACCEPT-001:
+    source_packet: WC-PARTS
+    created_at: "2026-08-17"
+    kind: invalidation
+    refs:
+      - packet:WC-PARTS
+      - packet:C07-C12-REACCEPT
+      - packet:P6-PANELS
+      - decision:A-THREAD-WC-PARTS-WD-C14-2026-08-17
+      - report:notes/reports/wc-parts-2026-08-17.md#odobrena-skupna-vrata
+      - item:R08-SPINE-07-11
+      - item:R24-PARTIII-IV-thesis
+      - item:R24-LADDER-PartIII
+      - item:R24-LADDER-PartIV
+      - item:R27-C12-13-transition
+      - item:R35-SELF-CHECK-III
+      - item:R35-SELF-CHECK-IV
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#08-uzorkovanje
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#09-procjena
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#10-logika-testiranja
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#11-velicina-ucinka-i-snaga
+      - ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#12-kriza-i-obnova
+    statement: >-
+      WC-PARTS evaluates Chapters 07 through 12 as one vertical slice and will
+      materially change the Chapter 12 source after its earlier C12 panel and
+      author decision. The earlier individual acceptances remain historical
+      evidence for their named bytes but cannot stand in for a fresh combined
+      reading of the exact post-WC-PARTS state.
+    required_action: >-
+      C07-C12-REACCEPT must own one fresh round of exactly six reports total,
+      with methods, skepticism, pedagogy, evidence, style and structure critics
+      each reading all six post-WC-PARTS sources tied to one commit, followed by
+      one synthesis, the exact dated author reply and ledger dispositions for
+      all six units. Do not create H-WC-PARTS-001 for Chapters 07 through 12;
+      P6-PANELS retains only its separate Chapter 6 duty under H-WB-PART-001.
+    basis:
+      - "decision:A-THREAD-WC-PARTS-WD-C14-2026-08-17"
+      - "author_approval:Approve-C07-C12-REACCEPT-at-sequence-114-with-contract-and-handoff-as-proposed-2026-08-17"
+      - "report:notes/reports/wc-parts-2026-08-17.md"
+      - "boundary:no-author-reading-claimed"
+      - "boundary:Chapter-6-remains-draft-under-H-WB-PART-001"
+    required: true
+    deliveries:
+      - target_packet: C07-C12-REACCEPT
+        gate: before_start
+        state: pending
 
 packet_reviews:
   G-A0:
