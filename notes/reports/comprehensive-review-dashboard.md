@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: WC-PARTS
 last_completed_packet: C12
-next_permitted_packet: WC-PARTS
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 188
 source_coverage_sections: 18
@@ -52,12 +52,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; the new thread amendment is recorded against the clean C12 closeout state and WC-PARTS remains unclaimed |
+| Active write packet | `WC-PARTS`; claimed from clean decision commit `f4329bac42735ff1b3f5cabe0a651a47f4ce53ef` and stopped before the first prose edit for the mandatory blast-radius and batched-gate approval |
 | Last completed packet | `C12`; exact author acceptance ties final WC-C12 commit `23282e67cf876a3d654d1465f399ce48c31baacd` to 2026-08-13, accepts 10 governed items and advances only Chapter 12 to `coauthor_review` |
-| Next permitted packet | `WC-PARTS` only; option B is pre-approved, but before its first prose edit it must stop with the exact blast-radius list and one fully specified batched re-acceptance-gate proposal for explicit author approval |
+| Next permitted packet | None while active `WC-PARTS` awaits explicit approval of the fully specified batched re-acceptance-gate proposal |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 212 accepted, 5 deferred with reason, 154 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 105 accepted, 82 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 212 accepted, 5 deferred with reason, 147 ratified and 7 in progress under WC-PARTS; zero unmapped |
+| Exact packet catalogue | 188 packets: 105 accepted, 81 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 7 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga` and `12-kriza-i-obnova` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -5128,6 +5128,49 @@ the durable evidence is
   `H-WB-PART-001`. The durable decision record is
   `notes/reports/wc-parts-wd-c14-thread-amendment-2026-08-17.md`.
 
+## WC-PARTS claim — mandatory pre-prose stop
+
+- WC-PARTS was claimed only from clean control-only decision commit
+  `f4329bac42735ff1b3f5cabe0a651a47f4ce53ef` after the workflow validator
+  confirmed no active packet, accepted C12 and WC-PARTS alone next at sequence
+  113. Exactly one write lock is active; P3-VERIFY-D and every later packet
+  remain unclaimed.
+- The packet owns exactly the six chapter sources 07–12, their chapter-ledger
+  records, `notes/reports/wc-parts-2026-08-17.md` and the three workflow-control
+  views. Chapter 6 is outside the lock and remains deliberately `draft` under
+  `H-WB-PART-001`.
+- All six units still enter at `coauthor_review`; their source hashes and git
+  blobs remain exactly those named by C07–C12. No chapter prose or chapter
+  stage changed at claim.
+- The seven owned items are `R08-SPINE-07-11`, `R24-PARTIII-IV-thesis`,
+  `R24-LADDER-PartIII`, `R24-LADDER-PartIV`, `R27-C12-13-transition`,
+  `R35-SELF-CHECK-III` and `R35-SELF-CHECK-IV`. They are `in_progress`, not
+  implemented or accepted.
+- No handoff delivery targets WC-PARTS. There is therefore no incoming delivery
+  to acknowledge or consume before the first edit, and no outgoing handoff or
+  closeout declaration has yet been recorded.
+- The source audit finds that Chapters 7–11 already carry the required seeded-
+  simulation boundary, both cumulative AI ladders and the complete Part III
+  bridge/self-check. They require no byte change and remain
+  `coauthor_review`. Only Chapter 12 lacks the complete Part IV boundary; its
+  proposed additive section contains the claim bridge, six review questions,
+  six-dimension claim map and answerable self-check, while preserving the
+  existing reformed-practice transition. Its first edit would return only
+  Chapter 12 to `draft`.
+- The proposed gate is `C07-C12-REACCEPT`, sequence 114, contract
+  `chapter_acceptance_gate`, covering all six units with one round of six
+  reports total, one synthesis and the exact reply `C07-C12-REACCEPT accepted
+  for <commit> on <date>.` It would shift all current sequences 114 onward by
+  one and make `P3-VERIFY-D` require the new gate plus `P3-ESS`.
+- Proposed `H-WC-PARTS-REACCEPT-001` would deliver the six-chapter final-state
+  panel to that gate at `before_start`. No `H-WC-PARTS-001` delivery to
+  `P6-PANELS` would be created; P6-PANELS would retain only its separate Chapter
+  6 duty under `H-WB-PART-001` and exclude Chapters 7–12.
+- The packet is stopped before prose, stage change, gate creation or handoff
+  creation. It may proceed only after the author explicitly approves that
+  proposal. The complete live record is
+  `notes/reports/wc-parts-2026-08-17.md`.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5155,32 +5198,33 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean control-only commit recording
-`A-THREAD-WC-PARTS-WD-C14-2026-08-17`. Confirm no write packet is active,
-`C12` is the last completed packet and `WC-PARTS` alone is next. Verify that
-all Chapters 07–12 remain at `coauthor_review`, while Chapter 6 remains
-deliberately `draft` under `H-WB-PART-001`; do not edit, advance or re-panel
-Chapter 6.
+Verify that HEAD is the clean active-stop commit for WC-PARTS. Confirm
+`WC-PARTS` is the sole active packet, no next packet is permitted, its seven
+items are `in_progress`, and no chapter-source or chapter-stage change has
+occurred. Chapters 07–12 remain `coauthor_review`; Chapter 6 remains
+deliberately `draft` under `H-WB-PART-001` and must not be edited, advanced or
+re-panelled here.
 
-Confirm the new decision authorises only the strict sequence `WC-PARTS`,
-`P3-VERIFY-D`, `WD-C13`, `C13`, `WD-C14`. Each packet keeps its own claim,
-single lock, evidence, handoff dispositions, workflow checks, closeout and
-commit. Option B for WC-PARTS is pre-approved, but the batched re-acceptance
-gate is not.
+Read `notes/reports/wc-parts-2026-08-17.md`. Verify the recorded source audit:
+Chapters 7–11 already carry the ratified simulation boundary, cumulative AI
+ladders and complete Part III boundary, so they require no byte edit. Only
+Chapter 12 requires the additive `Granica Dijela IV` material, and its first
+edit would return only that unit to `draft`. Confirm no incoming handoff targets
+WC-PARTS and no gate or outgoing handoff has yet been created.
 
-Run check-review-workflow.R, claim only WC-PARTS and run the checker again.
-Make no prose edit. Read the packet's exact scope, seven owned items,
-dependencies, G-A2b-III and G-A2b-IV contracts, current Chapters 07–12 and all
-applicable handoffs. Enumerate every unit that would change, its current stage,
-the exact additive bridge or self-check change and why it stays inside the
-ratified spine. State whether any required material can be carried without
-altering accepted chapter bodies.
+Present the bounded proposal and stop. The proposed package is exactly
+`C07-C12-REACCEPT` at sequence 114 under `chapter_acceptance_gate`, covering
+all six units through one six-report critic round, one synthesis and the exact
+reply `C07-C12-REACCEPT accepted for <commit> on <date>.` It inserts one
+packet, shifts current sequences 114 onward by one, and makes P3-VERIFY-D
+require the new gate plus P3-ESS. Proposed handoff
+`H-WC-PARTS-REACCEPT-001` targets that gate at before_start and prevents a
+separate WC-PARTS panel delivery to P6-PANELS; P6-PANELS retains Chapter 6 only
+under H-WB-PART-001.
 
-Then propose exactly one batched re-acceptance gate immediately after
-WC-PARTS. Give its exact ID, sequence, contract, required evidence, exit tests,
-covered units and the exact handoff that moves their deferred panels away from
-P6-PANELS. Do not create the gate, edit prose or change chapter stages before
-the author's explicit approval of that proposal. Leave WC-PARTS active at this
-mandatory stop. Do not claim P3-VERIFY-D. Push, merge, tag, archive, deployment
-and publication remain separately gated.
+Do not create the gate or handoff, edit prose, change a chapter stage or claim
+P3-VERIFY-D without the author's explicit approval. The requested reply is:
+`Approve C07-C12-REACCEPT at sequence 114 with contract and handoff as
+proposed.` Push, merge, tag, archive, deployment and publication remain
+separately gated.
 ```
