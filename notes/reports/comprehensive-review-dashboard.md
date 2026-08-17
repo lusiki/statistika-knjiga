@@ -11,7 +11,7 @@ packet_count: 188
 source_coverage_sections: 18
 unmapped_actionable: 0
 forward_handoffs: 95
-last_updated: "2026-08-13"
+last_updated: "2026-08-17"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -48,12 +48,13 @@ stop and repair the control state before editing book content.
 | Thread amendment C08-C10 | `A-THREAD-C08-C10-2026-08-12` accepted as a new, distinct decision: strict chain `C08 -> WC-C09 -> C09 -> WC-C10 -> C10`; one lock and a separate claim, evidence bundle, handoff disposition, workflow check, closeout and commit per packet; exact author replies remain mandatory for C08, C09 and C10; the older C07-C09 decision and its two live handoff deliveries are not superseded |
 | Thread amendment C11-P3C | `A-THREAD-C11-P3-VERIFY-C-2026-08-11` accepted as a new, distinct decision: strict chain `WC-C11 -> C11 -> G-A4-12 -> P3-EVIDENCE12 -> P3-VERIFY-C`; each packet keeps its own lock, evidence, handoff disposition, workflow checks, closeout and commit; C11 still requires the exact author reply; both earlier thread chains have ended |
 | Thread amendment C12-WD-C13 | `A-THREAD-C12-WD-C13-2026-08-13` accepted as a new, distinct decision: strict chain `WC-C12 -> C12 -> WC-PARTS -> P3-VERIFY-D -> WD-C13`; every packet remains separate; C12 requires the exact author reply and WC-PARTS must stop for the blast-radius choice before any prose edit; all earlier thread chains have ended |
+| Thread amendment WC-PARTS-WD-C14 | `A-THREAD-WC-PARTS-WD-C14-2026-08-17` accepted as a new, distinct decision: strict chain `WC-PARTS -> P3-VERIFY-D -> WD-C13 -> C13 -> WD-C14`; every packet remains separate; WC-PARTS has pre-approved option B but must stop with the exact blast radius and one fully specified batched-gate proposal before prose or gate creation; C13 still requires the exact author reply; all earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; C12 is closed and WC-PARTS remains unclaimed |
+| Active write packet | None; the new thread amendment is recorded against the clean C12 closeout state and WC-PARTS remains unclaimed |
 | Last completed packet | `C12`; exact author acceptance ties final WC-C12 commit `23282e67cf876a3d654d1465f399ce48c31baacd` to 2026-08-13, accepts 10 governed items and advances only Chapter 12 to `coauthor_review` |
-| Next permitted packet | `WC-PARTS` only; before its first prose edit it must stop and present the exact blast-radius list for author choice |
+| Next permitted packet | `WC-PARTS` only; option B is pre-approved, but before its first prose edit it must stop with the exact blast-radius list and one fully specified batched re-acceptance-gate proposal for explicit author approval |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 212 accepted, 5 deferred with reason, 154 ratified; zero unmapped |
 | Exact packet catalogue | 188 packets: 105 accepted, 82 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
@@ -5096,6 +5097,37 @@ the durable evidence is
   choice. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## Author amendment 2026-08-17 — WC-PARTS through WD-C14
+
+- `A-THREAD-WC-PARTS-WD-C14-2026-08-17` is a new, distinct numbered decision
+  for this thread. It authorises the strict sequence `WC-PARTS`,
+  `P3-VERIFY-D`, `WD-C13`, `C13`, `WD-C14`; every earlier thread amendment
+  has ended on its own boundary.
+- Every packet retains its own claim, single write lock, evidence bundle,
+  handoff dispositions, workflow checks, closeout and bounded local commit.
+  No evidence, lock or unfinished disposition crosses a packet boundary.
+- Option B is pre-approved for WC-PARTS: proceed with the ratified bridges and
+  self-checks and return every edited accepted unit honestly to `draft`.
+  Before the first prose edit, enumerate the exact units and changes and state
+  whether any required material can be carried without altering accepted
+  chapter bodies.
+- WC-PARTS must then propose exactly one batched re-acceptance gate immediately
+  after itself. The proposal must name the exact ID, sequence, contract,
+  required evidence, exit tests, covered units and handoff that moves their
+  deferred panels away from `P6-PANELS`. The gate must not be created without
+  a further explicit author approval, and no author reading may be claimed.
+- P3-VERIFY-D independently verifies every prerequisite and reports draft
+  versus `coauthor_review` stages and any acceptance older than named bytes.
+  WD-C13 and WD-C14 preserve the portal-mediated, optional and unpromoted ESS
+  route with explicit mandatory offline alternatives. WD-C14 also implements
+  the ratified D02 correction without reinterpretation.
+- C13 requires the exact dated reply `C13 accepted for <commit> on <date>.` The
+  standing 5 August delegation cannot substitute and the thread stops while
+  that reply is absent.
+- Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`. The durable decision record is
+  `notes/reports/wc-parts-wd-c14-thread-amendment-2026-08-17.md`.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5123,32 +5155,32 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean C12 closeout commit. Confirm no write packet is
-active, `C12` is the last completed packet and `WC-PARTS` alone is next.
-Verify that Chapter 12 remains at source SHA-256
-`47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a` and
-stage `coauthor_review`. Chapter 6 remains deliberately `draft` under
-`H-WB-PART-001`; do not edit, advance or re-panel it.
+Verify that HEAD is the clean control-only commit recording
+`A-THREAD-WC-PARTS-WD-C14-2026-08-17`. Confirm no write packet is active,
+`C12` is the last completed packet and `WC-PARTS` alone is next. Verify that
+all Chapters 07–12 remain at `coauthor_review`, while Chapter 6 remains
+deliberately `draft` under `H-WB-PART-001`; do not edit, advance or re-panel
+Chapter 6.
 
-Confirm the control-only decision
-`A-THREAD-C12-WD-C13-2026-08-13` authorises only the strict sequence
-`WC-C12`, `C12`, `WC-PARTS`, `P3-VERIFY-D`, `WD-C13`. Each packet keeps its
-own claim, single lock, evidence, handoff dispositions, workflow checks,
-closeout and commit. C12 and WC-PARTS retain their mandatory author stops.
+Confirm the new decision authorises only the strict sequence `WC-PARTS`,
+`P3-VERIFY-D`, `WD-C13`, `C13`, `WD-C14`. Each packet keeps its own claim,
+single lock, evidence, handoff dispositions, workflow checks, closeout and
+commit. Option B for WC-PARTS is pre-approved, but the batched re-acceptance
+gate is not.
 
-Claim only WC-PARTS, but make no prose edit. Read its exact registered scope,
-items, dependencies and all applicable handoffs. Then enumerate every unit the
-packet would change, each unit's current chapter-ledger stage, the exact
-proposed change and whether it would materially alter an already accepted
-chapter body.
+Run check-review-workflow.R, claim only WC-PARTS and run the checker again.
+Make no prose edit. Read the packet's exact scope, seven owned items,
+dependencies, G-A2b-III and G-A2b-IV contracts, current Chapters 07–12 and all
+applicable handoffs. Enumerate every unit that would change, its current stage,
+the exact additive bridge or self-check change and why it stays inside the
+ratified spine. State whether any required material can be carried without
+altering accepted chapter bodies.
 
-Stop and present that blast-radius list to the author before editing prose. Ask
-the author to choose between: (A) honestly returning every materially changed
-accepted unit to `draft` and scheduling its fresh panel, or (B) constraining
-WC-PARTS to additive bridges and self-checks that do not alter accepted chapter
-bodies. Do not infer the choice from prior approvals or standing delegation.
-Leave WC-PARTS active at this mandatory author stop until the choice is given.
-Chapter 6 remains deliberately draft and untouched. Do not claim P3-VERIFY-D
-or WD-C13. Push, merge, tag, archive, deployment and publication remain
-separately gated.
+Then propose exactly one batched re-acceptance gate immediately after
+WC-PARTS. Give its exact ID, sequence, contract, required evidence, exit tests,
+covered units and the exact handoff that moves their deferred panels away from
+P6-PANELS. Do not create the gate, edit prose or change chapter stages before
+the author's explicit approval of that proposal. Leave WC-PARTS active at this
+mandatory stop. Do not claim P3-VERIFY-D. Push, merge, tag, archive, deployment
+and publication remain separately gated.
 ```
