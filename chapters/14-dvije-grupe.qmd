@@ -5,20 +5,22 @@ subtitle: "Ista razlika, različiti dizajni i zaključci"
 
 <!-- =====================================================================
   STATUS:  cjelovit nacrt — prijenos tjedna 11, runda 4
-  IZVOR:   tjedan 11, odjeljci 2 do 13, prestrukturirano oko linearnog modela
+  IZVOR:   tjedan 11, odjeljci 2 do 13, prestrukturirano oko dizajna usporedbe
   OPSEG:   ~4500 riječi
   WIDGET:  w14 · Uzorkivač dviju grupa
   FAZA:    3 (plan proizvodnje, notes/struktura-knjige.md)
-  NAPOMENA: Od ovog poglavlja nadalje formula modela stoji uz svaki test.
+  NAPOMENA: Modelni zapis ovdje je ograničen na binarnu oznaku skupine.
 
   SADRŽAJ (iz plana):
-  Tri inačice t-testa poučene odjednom kao jedan linearni model s binarnim prediktorom, pretpostavke provjerene vizualno, Cohenov d u kontekstu, Wilcoxon kao rezerva.
+  Jednouzoračni, neovisni i upareni dizajn razlikovani po jedinici neovisnosti,
+  procjena i interval prije testa, binarni modelni zapis kao most, standardizirana
+  razlika u kontekstu te pretpostavke provjerene vizualno.
 
   PODRIJETLO (runda 4, notes/plan-prijenosa.md):
   1. Ovo je prestrukturiranje, ne prijenos. Predavanje uči tri t-testa kao tri
-     postupka; poglavlje ih uči kao jedan model s binarnim prediktorom, kako
-     plan izričito traži. Redoslijed izlaganja zato ne prati redoslijed
-     predavanja.
+     postupka; poglavlje ih povezuje preko procjene razlike, ali modelni zapis
+     ograničava na binarni prediktor. Redoslijed izlaganja zato ne prati
+     redoslijed predavanja.
   2. Nastavni skup tjedna 11 (article_visuals.csv) knjizi nije dostupan.
      Usporedba dviju skupina preračunata je na `populacija_medija` iz
      R/podaci-nastavni.R, pa je stvarna razlika u populaciji poznata i
@@ -68,6 +70,25 @@ s14_sazetak <- dvije_skupine |>
     sd = sd(povjerenje_medijima),
     dob = mean(dob),
     .groups = "drop"
+  )
+
+s14_agregat_zadatak <- read.csv(
+  "data/populacija-medija-agregat.csv",
+  check.names = FALSE,
+  colClasses = "character",
+  fileEncoding = "UTF-8"
+) |>
+  filter(izvor_vijesti %in% c("TV", "društvene mreže")) |>
+  transmute(
+    Izvor = izvor_vijesti,
+    Broj = broj,
+    `Zbroj povjerenja` = zbroj_povjerenja,
+    `Pohranjeni prosjek` = formatC(
+      as.numeric(prosjek_povjerenja),
+      format = "f",
+      digits = 6,
+      decimal.mark = ","
+    )
   )
 
 s14_tv <- dvije_skupine |>
@@ -173,11 +194,11 @@ s14 <- list(
 ::: {.chapter-meta}
 | Vrijeme čitanja | Widget | Podaci | Preduvjet |
 |---|---|---|---|
-| 24 min | Uzorkivač dviju grupa | simulirana populacija | pogl. 10, 11, 13 |
+| 24 min | Uzorkivač dviju grupa | simulirana populacija | pogl. 2, 4, 9–11 |
 :::
 
 ::: {.callout-vinjeta}
-Cumming je urednicima psihologijskih časopisa predložio promjenu koja izgleda
+Cumming je istraživačima predložio promjenu koja izgleda
 skromno, a mijenja cijeli izvještaj. Umjesto da rad završi oznakom je li
 rezultat prešao prag, treba dati procjenu razlike i interval koji uz nju ide
 [@cumming2014].
@@ -193,17 +214,18 @@ veličinom koju opisuje i s općim jezikom modela?
 
 ## Tko nosi dva rezultata
 
-Usporedba dviju sredina izgleda kao jedno pitanje, a zapravo ih je troje.
+Usporedba dviju sredina izgleda kao jedno pitanje, a zapravo skriva tri.
 Razlika je u tome odakle dolaze dva broja koja uspoređujemo, i to pitanje nije
 statističko nego pitanje o dizajnu istraživanja.
 
-U prvom slučaju imamo jednu skupinu i vrijednost izvana. Prosječno povjerenje u
-našem uzorku uspoređujemo sa službenom vrijednošću iz ranije objavljenog vala
-istraživanja ili sa sredinom ljestvice. U drugom slučaju imamo dvije odvojene
-skupine sastavljene od različitih ljudi, recimo one koji se prvenstveno
-informiraju s televizije i one koji to čine preko društvenih mreža. U trećem
-slučaju iste jedinice mjerimo dva puta, prije i poslije nekog događaja, pa svaki
-ispitanik nosi oba rezultata.
+U prvom slučaju imamo jednu skupinu i unaprijed zadanu vrijednost, primjerice
+sredinu ljestvice ili prag odluke. Procjena iz ranijeg anketnog vala nije takva
+konstanta, jer nosi vlastitu uzoračku nesigurnost i možda drugu ciljnu populaciju
+ili način mjerenja. Nju treba usporediti kao drugu procjenu, s objema
+nesigurnostima. U drugom slučaju imamo dvije odvojene skupine sastavljene od
+različitih ljudi, recimo osobe kojima je primarni izvor vijesti TV i osobe koje
+navode društvene mreže. U trećem slučaju iste jedinice mjerimo dva puta, prije i
+poslije nekog događaja, pa svaki ispitanik nosi oba rezultata.
 
 ::: {#def-jedinica-neovisnosti}
 **Jedinica neovisnosti** je entitet koji se u istraživanju mogao pojaviti ili
@@ -214,31 +236,46 @@ vrijednosti bilo koje druge jedinice u istom skupu.
 Ta jedinica određuje sve ostalo. U usporedbi dviju skupina to je osoba, jer je
 svaka osoba u samo jednoj skupini. U ponovljenom mjerenju to je i dalje osoba,
 ali sada nosi dva rezultata koja su međusobno povezana, pa se analiza ne provodi
-na četrdeset mjerenja nego na dvadeset razlika. Postupak koji tu vezu previdi
-računa s dvostruko više podataka nego što ih doista ima.
+na četrdeset neovisnih mjerenja nego na dvadeset razlika. Postupak koji tu vezu
+previdi tretira mjerenja kao neovisne jedinice i izostavlja kovarijancu unutar
+para, pa računa pogrešnu nesigurnost. Uz pozitivnu povezanost iz ovog poglavlja
+interval je nepotrebno širok.
 
 Prvi korak analize zato nije izbor testa nego rečenica koja imenuje jedinicu.
 Ako se ta rečenica ne može napisati, podaci još nisu spremni za bilo kakvu
 usporedbu.
 
+Ponovljeno mjerenje nije jedini znak ovisnosti opažanja. Učenici iz istog
+razreda, članovi istog kućanstva i osobe povezane društvenom mrežom mogu dijeliti
+izvor varijacije, iako u tablici zauzimaju različite retke. Čim dizajn sadrži
+takvo gnijezdo ili vezu, zaustavljamo račun za neovisne skupine. Ovo poglavlje
+ne uvodi modele za ovisne podatke, nego traži da se zapišu jedinica i veza te
+odabere postupak koji tu strukturu može sačuvati.
+
 ## Razlika prije oznake
 
 Poglavlje radi na istoj simuliranoj populaciji kao poglavlja o uzorkovanju i
-procjeni. Iz nje je izvučeno `r s14$n` osoba koje se informiraju s televizije ili
-preko društvenih mreža, i pitanje glasi razlikuju li se te dvije skupine po
-povjerenju u medije.
+procjeni. Iz nje je izvučeno `r s14$n` osoba koje navode TV ili društvene mreže
+kao primarni izvor vijesti, i pitanje glasi razlikuju li se te dvije skupine po
+povjerenju u medije. Glavni primjer i obvezni zadatak dostupni su bez mreže u
+lokalnom skupu `populacija_medija` i upravljanom agregatu
+`data/populacija-medija-agregat.csv`. Kao neobveznu nadogradnju čitatelj može na
+vlastitoj portalnoj kopiji ESS Round 11, edition 3.0 usporediti prijavljeno
+glasanje bez pondera i uz `anweight`, nakon što iz službenih metapodataka odredi
+valjani nazivnik za `vote`; ESS mikropodaci i rezultat nisu dio knjige. Osobe s
+drugim ili nedostajućim primarnim izvorom vijesti ostaju izvan glavne usporedbe.
 
 Redoslijed izvještavanja postavljamo prije nego što bilo što izračunamo. Prvo
 dolazi razlika u izvornim jedinicama, zatim interval koji joj pripada, pa tek
-onda test i standardizirana veličina. Taj redoslijed nije stvar ukusa. Razlika i
+onda test i standardizirana razlika. Taj redoslijed nije stvar ukusa. Razlika i
 njezin interval odgovaraju na pitanje koliko iznosi učinak, a test odgovara na
 mnogo uže pitanje je li podacima uskladiva i nula.
 
 U našem uzorku prosječno povjerenje iznosi
 `r hr_broj(s14_sazetak$sredina[s14_sazetak$izvor == "TV"], 2)` među onima koji
-gledaju televiziju i
+navode TV kao primarni izvor vijesti i
 `r hr_broj(s14_sazetak$sredina[s14_sazetak$izvor == "društvene mreže"], 2)` među
-onima koji se informiraju preko društvenih mreža. Razlika iznosi
+onima koji navode društvene mreže. Razlika iznosi
 `r hr_broj(s14$razlika, 2)` boda uz interval pouzdanosti od
 `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)`.
 
@@ -254,9 +291,9 @@ unutar kojeg bi se praktične odluke mogle razlikovati. Izvještaj koji bi umjes
 toga napisao samo da je razlika značajna o toj neizvjesnosti ne bi rekao ništa.
 
 Budući da je populacija simulirana, znamo i točan odgovor. Prava razlika u njoj
-iznosi `r hr_broj(s14$pop_razlika, 2)` boda, dakle unutar intervala koji je
-uzorak proizveo. To je jedna potvrda od mnogo mogućih, a koliko ih se u dugom
-nizu ponavljanja može očekivati, pokazalo je poglavlje o procjeni.
+iznosi `r hr_broj(s14$pop_razlika, 2)` boda i ovaj je interval obuhvaća. Jedan
+takav ishod ne provjerava stopu pokrivanja, a što intervali rade u dugom nizu
+ponavljanja pokazalo je poglavlje o procjeni.
 
 ## Interakcija — Uzorkivač dviju grupa
 
@@ -314,8 +351,22 @@ viewof w14_par = Inputs.form({
     style: "percent",
     maximumFractionDigits: 0
   });
+  function normalnaBezSpremnika(source) {
+    return () => {
+      let x;
+      let y;
+      let radius;
+      do {
+        x = source() * 2 - 1;
+        y = source() * 2 - 1;
+        radius = x * x + y * y;
+      } while (!radius || radius > 1);
+      return x * Math.sqrt(-2 * Math.log(radius) / radius);
+    };
+  }
+
   const rng = d3.randomLcg(1414);
-  const standardna = d3.randomNormal.source(rng)(0, 1);
+  const standardna = normalnaBezSpremnika(rng);
   const korelacija = 0.65;
 
   let skupina1;
@@ -517,44 +568,76 @@ viewof w14_par = Inputs.form({
 #| echo: false
 #| cache: false
 #| label: fig-w14-print
-#| fig-cap: "Raspodjele procijenjene razlike u neovisnom i uparenom dizajnu uz jednake rubne varijabilnosti."
-#| fig-alt: "Obje raspodjele procjena centrirane su oko razlike pet, ali je raspodjela u uparenom dizajnu uža."
+#| fig-cap: "Preklapanje ishoda u jednom uzorku te raspodjele procijenjene razlike u neovisnom i uparenom dizajnu."
+#| fig-alt: "Skupine A i B u jednom uzorku znatno se preklapaju. Obje raspodjele procijenjene razlike centrirane su oko pet, ali je ona u uparenom dizajnu uža."
 #| fig-width: 6.6
-#| fig-height: 4.8
+#| fig-height: 5.5
 set.seed(1414)
 
 w14_n <- 50
 w14_razlika <- 5
 w14_sd <- 10
 w14_korelacija <- 0.65
-w14_procjene <- tibble(
-  dizajn = rep(c("Neovisne skupine", "Uparena mjerenja"), each = 4000),
-  procjena = c(
-    rnorm(4000, w14_razlika, w14_sd * sqrt(2 / w14_n)),
-    rnorm(
+w14_tisak <- bind_rows(
+  tibble(
+    panel = "Skupina A · jedan uzorak",
+    vrijednost = rnorm(w14_n, 0, w14_sd)
+  ),
+  tibble(
+    panel = "Skupina B · jedan uzorak",
+    vrijednost = rnorm(w14_n, w14_razlika, w14_sd)
+  ),
+  tibble(
+    panel = "Razlika · neovisne skupine",
+    vrijednost = rnorm(4000, w14_razlika, w14_sd * sqrt(2 / w14_n))
+  ),
+  tibble(
+    panel = "Razlika · uparena mjerenja",
+    vrijednost = rnorm(
       4000,
       w14_razlika,
       w14_sd * sqrt(2 * (1 - w14_korelacija) / w14_n)
     )
   )
+) |>
+  mutate(
+    panel = factor(
+      panel,
+      levels = c(
+        "Skupina A · jedan uzorak",
+        "Skupina B · jedan uzorak",
+        "Razlika · neovisne skupine",
+        "Razlika · uparena mjerenja"
+      )
+    )
+  )
+
+w14_referenca <- tibble(
+  panel = factor(levels(w14_tisak$panel), levels = levels(w14_tisak$panel)),
+  vrijednost = c(0, w14_razlika, w14_razlika, w14_razlika)
 )
 
-ggplot(w14_procjene, aes(procjena)) +
+ggplot(w14_tisak, aes(vrijednost, fill = panel)) +
   geom_histogram(
     aes(y = after_stat(density)),
     bins = 32,
-    fill = sivo[[4]],
     colour = NA
   ) +
   geom_vline(
-    xintercept = w14_razlika,
+    data = w14_referenca,
+    aes(xintercept = vrijednost),
+    inherit.aes = FALSE,
     colour = sivo[[1]],
     linewidth = 0.7
   ) +
-  facet_wrap(~ dizajn, ncol = 1) +
+  facet_wrap(~ panel, ncol = 2, scales = "free_y") +
+  scale_fill_manual(
+    values = c(sivo[[2]], sivo[[4]], sivo[[3]], sivo[[5]]),
+    guide = "none"
+  ) +
   scale_x_continuous(labels = function(x) hr_broj(x, 1)) +
   scale_y_continuous(labels = function(x) hr_broj(x, 2)) +
-  labs(x = "Procijenjena razlika", y = "Gustoća") +
+  labs(x = "Ishod ili procijenjena razlika", y = "Gustoća") +
   theme_knjiga(base_size = 13)
 ```
 :::
@@ -576,8 +659,9 @@ jedinicama. Ta dobit postoji samo dok analiza vezu unutar para zadrži.
 Tvrdnja da dizajn mijenja zaključak zvuči apstraktno dok se ne vidi na jednom
 skupu brojeva. Zato konstruiramo mjerenje `r s14$np` osoba prije i poslije
 jednog događaja. Skup je izmišljen za ovu svrhu i nije nalaz ni o kome, a jedino
-što je u njemu namješteno jest da su dva mjerenja iste osobe povezana, kao što u
-ponovljenim mjerenjima uvijek jesu.
+što iz njega učimo jest račun za povezana mjerenja. Pomak, varijance i povezanost
+zadani su simulacijom. Bez kontrolne skupine ili randomizacije prosječna promjena
+ne bi bila dokaz da ju je događaj uzrokovao.
 
 Povezanost dvaju mjerenja iznosi `r hr_broj(s14$r_parova, 2)`. Osobe koje su
 imale visoku vrijednost prije imale su je uglavnom i poslije, pa najveći dio
@@ -601,20 +685,19 @@ raspršenosti promjena unutar osoba, koja je mnogo manja jer je razlika među
 osobama oduzeta. Uparivanje zato nije trik za manju p-vrijednost nego posljedica
 toga da je promjena unutar osobe druga veličina od razlike među osobama.
 
-Koliko se time dobiva, ovisi isključivo o povezanosti dvaju mjerenja. Uparena
-raspršenost sadrži faktor koji pada kako povezanost raste, pa je dobitak velik
-kad se osobe kroz vrijeme drže svojih razina, a nikakav kad se drugo mjerenje
-ponaša kao da s prvim nema veze. Uz povezanost blizu nule upareni postupak
-zapravo gubi, jer troši polovicu stupnjeva slobode za ispravak koji nije bio
-potreban. Uparivanje se zato planira u dizajnu, gdje se zna hoće li ista osoba
-sa sobom donijeti stabilnu razinu, a ne bira nakon što se vide podaci.
+Koliko se time dobiva, ovisi o varijanci razlika, koju određuju raspršenost oba
+mjerenja i njihova povezanost. Uz slične rubne varijance veća pozitivna
+povezanost obično daje uži interval, dok slaba povezanost ne donosi očekivani
+dobitak, a pogrešno sastavljeni parovi mogu ga i poništiti. Uparivanje se zato
+određuje dizajnom i stvarnim identitetom jedinice, a ne bira nakon što se vide
+podaci.
 
 ## Jedan model iza triju testova
 
-Tri dizajna iz prvog odjeljka izgledaju kao tri postupka, a mogu se zapisati kao
-jedan. Pretpostavimo da svaka osoba ima brojčani ishod i pripadnost jednoj od
-dviju skupina. Model kaže da očekivani ishod ovisi o toj pripadnosti, i to
-jednim brojem po skupini.
+Tri dizajna iz prvog odjeljka ostaju tri različite podatkovne situacije. Kod
+neovisnih skupina razliku koju smo već procijenili možemo zapisati i kao
+koeficijent uz binarnu oznaku skupine. Taj zapis ovdje služi samo kao most prema
+kasnijim poglavljima.
 
 $$\text{povjerenje} = \beta_0 + \beta_1 \cdot \text{skupina} + \varepsilon$$
 
@@ -632,13 +715,16 @@ modela, a koeficijenti ostalih kategorija odstupanja od nje.
 U našem uzorku polazna je skupina onih koji se informiraju preko društvenih
 mreža, pa $\beta_0$ iznosi `r hr_broj(s14$presjek, 2)` i jednak je njihovoj
 sredini. Koeficijent $\beta_1$ iznosi `r hr_broj(s14$nagib, 2)` i jednak je
-razlici koju smo već izračunali. Model dakle nije dao novu brojku nego stari
-odgovor u novom obliku.
+razlici koju smo već izračunali. Zamijenimo li referentnu skupinu, odsječak i
+predznak koeficijenta promijenit će se, ali dvije procijenjene skupne sredine i
+podaci neće.
 
-Dobitak od tog oblika pokazat će se kasnije, i to na dva mjesta. Prediktor s više
-od dviju kategorija donosi poglavlje o više skupina, a prediktor koji nije
-kategorija nego broj donosi poglavlje o regresiji. Test dviju sredina odatle
-gledano nije zaseban postupak nego najmanji mogući slučaj jednog jedinog okvira.
+Jednouzoračna usporedba polazi od jedne sredine i vanjske vrijednosti, a uparena
+usporedba od sredine razlika unutar parova. Ne treba ih pretvarati u isti ispis
+da bi se vidjelo što dijele, a to su procjena, nesigurnost i pitanje o nuli.
+Poglavlje o više skupina proširit će oznaku skupine, a poglavlje o regresiji
+objasniti širi doseg modelnoga zapisa. Ovdje se zaustavljamo na binarnoj oznaci i
+ne izjednačujemo inferenciju različitih dizajna.
 
 Model pritom ne zamjenjuje dizajn. Koeficijent opisuje razliku među skupinama
 onako kako su one nastale, a uzročno značenje dolazi isključivo iz načina na koji
@@ -650,7 +736,7 @@ govori ništa, koliko god uredno bio ispisan.
 Razlika u izvornim jedinicama nosi značenje samo dok se zna koliko je ljestvica
 raspršena. Bod razlike na ljestvici čije su vrijednosti zbijene znači nešto
 sasvim drugo nego bod razlike na ljestvici na kojoj su ljudi raspoređeni široko.
-Standardizirana veličina učinka upravo to uzima u obzir.
+Standardizirana razlika upravo to uzima u obzir.
 
 Standardiziranu razliku uvelo je poglavlje o veličini učinka i snazi, gdje je
 razlika sredina podijeljena združenom standardnom devijacijom skupina, pa se
@@ -667,24 +753,31 @@ skup daje `r hr_broj(s14$up_d, 2)`.
 
 Standardizacija ipak ne rješava ono zbog čega usporedbe dviju skupina najčešće
 zavaravaju. U našim podacima skupine se ne razlikuju samo po izvoru vijesti.
-Prosječna dob onih koji se informiraju preko društvenih mreža iznosi
-`r hr_broj(s14$pop_dob_mreze)` godine, a onih koji gledaju televiziju
+Prosječna dob onih koji navode društvene mreže kao primarni izvor iznosi
+`r hr_broj(s14$pop_dob_mreze)` godine, a onih koji navode TV
 `r hr_broj(s14$pop_dob_tv)` godine, dok povjerenje u ovoj populaciji raste s
 dobi.
 
-Budući da je populacija poznata, taj se udio može izmjeriti umjesto pretpostaviti.
-Ukupna razlika u njoj iznosi `r hr_broj(s14$pop_razlika, 2)` boda. Ograničimo li
-je na osobe između trideset i pedeset godina, dakle na raspon unutar kojeg se dob
-dviju skupina znatno manje razlikuje, razlika pada na
-`r hr_broj(s14$pop_razlika_uska, 2)` boda. Otprilike trećina onoga što bi
-neoprezan izvještaj pripisao izvoru vijesti pripada dobi.
+Budući da je simulirana populacija poznata, možemo provesti opisnu analizu
+osjetljivosti. Ukupna razlika u njoj iznosi
+`r hr_broj(s14$pop_razlika, 2)` boda. Promijenimo li ciljnu populaciju na osobe
+od trideset do četrdeset devet godina, unutar koje se skupine manje razlikuju po
+dobi, razlika iznosi `r hr_broj(s14$pop_razlika_uska, 2)` boda. Taj postupak ne
+mjeri „udio zbog dobi” i ne razdvaja uzročne učinke dobi i izvora vijesti.
 
-U našem uzorku od `r s14$n` osoba u taj uski raspon upada tek `r s14$uzak_n`
-njih, i interval razlike proteže se od `r hr_broj(s14$uzak_donja, 2)` do
-`r hr_broj(s14$uzak_gornja, 2)`, dakle preko nule. Uzorak koji je za ukupnu
-razliku bio dovoljan za razliku unutar dobnog raspona više nije, a o tome koliko
-podataka treba da bi se učinak zadane veličine uopće mogao razlučiti govori
-poglavlje o veličini učinka i snazi.
+U našem uzorku u taj raspon upada `r s14$uzak_n` od `r s14$n` osoba, a interval
+razlike proteže se od `r hr_broj(s14$uzak_donja, 2)` do
+`r hr_broj(s14$uzak_gornja, 2)`, dakle preko nule. U odnosu na ukupnu usporedbu
+ovdje je ciljna razlika manja, a procjena manje precizna zbog manjeg broja
+jedinica. Koliko podataka treba da bi se razlika zadane veličine mogla razlučiti
+objašnjava poglavlje o veličini učinka i snazi.
+
+Razlika vrijedi samo za način na koji su ovdje izmjereni povjerenje i izvor
+vijesti te za populaciju koju dizajn može dosegnuti. Odluka traži još jedan
+unaprijed izrečen prag. Interval od pola do gotovo dva boda može biti dovoljno
+uzak za odluku kojoj je važna bilo koja pozitivna razlika, a preširok za odluku
+koja traži barem dva boda. Podaci ne biraju između tih kriterija umjesto
+istraživača.
 
 ## Pretpostavke i njihove granice
 
@@ -705,23 +798,18 @@ jednu zajedničku rezidualnu varijancu i raspoređuje je na obje skupine, zbog
 čega njegova uobičajena homoskedastična inferencija pretpostavlja jednake
 uvjetne rezidualne varijance.
 
-U našem uzorku društvene mreže imaju `r s14$n_mreze` opažanja i varijancu
-`r hr_broj(s14$var_mreze, 3)`, a televizija `r s14$n_tv` opažanja i varijancu
-`r hr_broj(s14$var_tv, 3)`. Oba postupka procjenjuju razliku od
-`r hr_broj(s14$razlika, 3)` boda, ali Welchova standardna pogreška iznosi
-`r hr_broj(s14$se_welch, 3)` uz `r hr_broj(s14$df_welch, 3)` stupnja slobode,
-dok obični linearni model daje `r hr_broj(s14$se_ols, 3)` uz
-`r s14$df_ols` stupnjeva slobode. Njihovi se intervali na dvije decimale oba
-ispisuju kao 0,45 do 1,92, ali ta podudarnost nakon zaokruživanja ne čini ih
-istim inferencijskim postupkom. Welch zato ostaje početni izbor, a obični
-linearni model služi kao izričito označena usporedba pod pretpostavkom jednake
-rezidualne varijance.
+U našem uzorku veličine i varijance skupina nisu jednake, pa Welch ostaje
+početni izbor. On i obični linearni model daju istu procijenjenu razliku, ali
+nesigurnost računaju pod različitim pretpostavkama. Brojčanu razliku u
+standardnim pogreškama, stupnjevima slobode i intervalima prikazuje razrađeni
+primjer. Obični linearni model ondje služi kao izričito označena usporedba pod
+pretpostavkom jednake rezidualne varijance.
 
 Normalnost se procjenjuje pogledom na raspodjelu, a tek onda testom.
-Shapiro-Wilkov test ima istu osjetljivost na veličinu uzorka kao svaki drugi
-test, pa će na velikom uzorku prijaviti odstupanja bez ikakvih posljedica, a na
-malom propustiti ozbiljna. Njegov rezultat zato ne može biti prekidač koji sam
-odlučuje o izboru postupka.
+Shapiro-Wilkov rezultat, kao i rezultati drugih testova, snažno ovisi o veličini
+uzorka. Velik uzorak može otkriti zanemarivo odstupanje, a mali propustiti ono
+koje je važno. Rezultat zato ne može biti prekidač koji sam odlučuje o izboru
+postupka.
 
 Krajnja opažanja traže pregled, a ne automatsko brisanje. Mogu biti pogreške u
 unosu, mogu biti rijetki ali stvarni slučajevi, a mogu biti i znak da sredina
@@ -729,9 +817,11 @@ nije prikladan sažetak te varijable. Analiza provedena s njima i bez njih, uz o
 rezultata u izvještaju, poštenija je od tihe odluke donesene nakon pogleda na
 p-vrijednost.
 
-Wilcoxonov postupak radi s rangovima umjesto s vrijednostima, pa ga jedno krajnje
-opažanje ne može pomaknuti. Njegovo pitanje ipak nije isto, jer se ne odnosi na
-razliku sredina nego na položaje raspodjela. U našem uparenom skupu daje
+Wilcoxonov postupak radi s rangovima umjesto s izvornim veličinama, pa krajnja
+vrijednost obično ima manji utjecaj nego na sredinu, ali postupak nije imun na
+neobična opažanja. U uparenoj inačici ispituje raspored predznaka i rangova
+razlika, a ne prosječnu razliku, pa nije zamjenski put do iste tvrdnje. U našem
+uparenom skupu daje
 p-vrijednost od
 `r formatC(s14$wilcoxon_p, format = "f", digits = 4, decimal.mark = ",")`, dakle
 isti zaključak, ali ne i istu tvrdnju.
@@ -739,9 +829,9 @@ isti zaključak, ali ne i istu tvrdnju.
 ::: {.callout-divljina}
 **Preklapanje crtica.** Pravilo da razlika nije značajna ako se crtice pogreške
 na grafu preklapaju kruži znanstvenim tekstovima kao da je egzaktno. Belia i
-suradnici pozvali su 473 autora radova iz psihologije, bihevioralne neuroznanosti
-i medicine da na internetskom prikazu pomiču dvije sredine s crticama sve dok
-razlika ne postane taman značajna [@belia2005].
+suradnici izvijestili su o 473 autora radova iz psihologije, bihevioralne
+neuroznanosti i medicine koji su dovršili internetski zadatak pomicanja dviju
+sredina s crticama sve dok razlika ne postane taman značajna [@belia2005].
 
 Odgovori su pokazali da mnogi vodeći istraživači ne razlikuju interval
 pouzdanosti od standardne pogreške i ne uzimaju u obzir jesu li dvije sredine
@@ -752,8 +842,8 @@ da se crtice izbjegavaju.
 :::
 
 ::: {.callout-model}
-Asistent gotovo uvijek ponudi t-test čim vidi jednu kategoričku i jednu brojčanu
-varijablu, i obično ne pita ono što bi moralo doći prvo. Prije poziva mu treba
+Asistent može odmah ponuditi t-test čim vidi jednu kategoričku i jednu brojčanu
+varijablu te preskočiti ono što bi moralo doći prvo. Prije poziva mu treba
 opis dizajna i identifikator jedinice, jer iz samog oblika tablice ne može znati
 jesu li dva stupca dva mjerenja istih osoba. Provjeravamo je li uparivanje
 sačuvano, koristi li Welchovu inačicu, izvještava li razliku i interval prije
@@ -765,11 +855,12 @@ testa i je li tiho izbacio retke s praznim vrijednostima.
 :::
 
 ::: {.callout-greska}
-Usporedba povjerenja u medije između dviju skupina provedena je Welchovim testom,
-uz prikazane raspodjele i interval razlike. Analiza je zatim ponovljena unutar
-dobne skupine od trideset do pedeset godina, gdje interval razlike obuhvaća nulu.
-Zaključak izvještaja glasi da unutar te dobne skupine izvor vijesti nema veze s
-povjerenjem.
+Jedinica neovisnosti označena je kao osoba, a svaka je osoba u samo jednoj
+skupini. Referentna skupina su društvene mreže, pa pozitivan koeficijent uz TV
+znači višu sredinu u TV skupini. Raspodjele i neobična opažanja pregledani su, a
+Welchov test ne traži jednake varijance. Analiza je zatim ponovljena među osobama
+od 30 do 49 godina, gdje interval razlike obuhvaća nulu. Zaključak izvještaja
+glasi da u toj dobnoj skupini primarni izvor vijesti nema veze s povjerenjem.
 
 ::: {.content-visible when-profile="kolegij"}
 Greška je čitanje nesignifikantnog rezultata kao dokaza da razlike nema. Interval
@@ -817,9 +908,9 @@ skupine društvenih mreža. Njegova obična standardna pogreška ipak iznosi
 proteže se od `r hr_broj(s14$ols_donja, 3)` do
 `r hr_broj(s14$ols_gornja, 3)`, prema Welchovu intervalu od
 `r hr_broj(s14$donja, 3)` do `r hr_broj(s14$gornja, 3)`. Jednakost procjene
-razlike zato je egzaktna, a jednakost inferencije nije. Kad u sljedećem
-poglavlju skupina bude pet umjesto dvije, zajednički oblik modela ostaje, ali
-izbor postupka za nesigurnost ostaje zasebna odluka.
+razlike zato je egzaktna, a jednakost inferencije nije. Kad broj skupina u
+sljedećem poglavlju poraste s dvije na pet, modelni zapis ostaje
+srodan, ali izbor postupka za nesigurnost ostaje zasebna odluka.
 
 Izvještaj koji bi na tome stao još ne bi bio potpun. Treba mu opis kako su skupine
 nastale, jer ljudi svoj izvor vijesti biraju sami, i napomena da skupine nisu
@@ -829,46 +920,60 @@ rečenicu o učinku, a to su dvije različite tvrdnje.
 ## Sažetak {.sazetak}
 
 Usporedba dviju grupa počinje dizajnom i rečenicom koja imenuje jedinicu
-neovisnosti. Jednouzoračni, neovisni i upareni postupak tri su lica iste procjene
-razlike, a razlikuju se po tome prema čemu se razlika mjeri. Isti brojevi
-obrađeni kao upareni i kao neovisni daju suprotne zaključke, pa taj izbor nije
-tehnički detalj. Linearni model s binarnim prediktorom otkriva zajednički okvir u
-kojem je test dviju sredina najmanji mogući slučaj. Standardizirana veličina
-učinka čuva usporedivost, ali ne uklanja razlike među skupinama koje s ishodom
-dolaze zajedno. Sljedeće poglavlje isti model širi na više skupina i uvodi cijenu
-mnogih usporedbi.
+neovisnosti. Jednouzoračni, neovisni i upareni postupak procjenjuju razliku iz
+različitih podatkovnih situacija. Isti brojevi obrađeni kao upareni i kao
+neovisni mogu dati različitu nesigurnost, pa taj izbor nije tehnički detalj.
+Binarna oznaka skupine pokazuje da je koeficijent jednak razlici sredina, ali ne
+izjednačuje Welchovu i običnu OLS nesigurnost. Standardizirana razlika pomaže
+usporedbi razmjera, ali ne uklanja razlike među skupinama koje s ishodom dolaze
+zajedno. Sljedeće poglavlje prelazi na više skupina i uvodi cijenu mnogih
+usporedbi.
 
 ## Pojmovi {.pojmovi}
 
 jedinica neovisnosti (*unit of independence*), neovisne skupine (*independent
-groups*), upareni podaci (*paired data*), Welchov t-test (*Welch's t-test*),
-referentna skupina (*reference category*), standardizirana razlika (*Cohen's d*),
-Wilcoxonov test (*Wilcoxon test*)
+groups*), upareni podaci (*paired data*), razlika aritmetičkih sredina
+(*difference in arithmetic means*), Welchov t-test (*Welch's t-test*), referentna
+skupina (*reference category*), standardizirana razlika (*Cohen's d*), ovisnost
+opažanja (*dependence among observations*)
 
 ## Zadaci
 
 ### Konceptualni {.zadaci-razina}
 
 Za tri istraživačke situacije imenujte jedinicu neovisnosti i odgovarajući
-dizajn. Prva uspoređuje prosječno povjerenje u uzorku sa službenom vrijednošću iz
-ranijeg vala istraživanja, druga uspoređuje dvije skupine gledatelja, a treća
-mjeri iste ispitanike prije i poslije kampanje.
+dizajn. Prva uspoređuje prosječno povjerenje u uzorku s unaprijed zadanim pragom
+od pet bodova, druga uspoređuje dvije skupine prema primarnom izvoru vijesti, a
+treća mjeri iste ispitanike prije i poslije kampanje.
 
 ### Računski {.zadaci-razina}
 
-Dvije skupine imaju po dvadeset pet ispitanika, sredine 5,4 i 4,6 te jednake
-standardne devijacije od 1,6. Izračunajte razliku i standardiziranu razliku, a
-zatim ponovite račun uz standardnu devijaciju 3,2. Objasnite zašto se prva brojka
-nije promijenila, a druga jest.
+Iz upravljanoga agregata `data/populacija-medija-agregat.csv` uzmite retke za TV
+i društvene mreže. Za svaki redak podijelite `zbroj_povjerenja` stupcem `broj`,
+provjerite pohranjeni prosjek i izračunajte razliku aritmetičkih sredina. Zatim
+pretpostavite jednake standardne devijacije 1,6 pa 3,2 i za obje izračunajte
+standardiziranu razliku. Objasnite zašto se prva brojka nije promijenila, a druga
+jest. Za rad bez datoteke upotrijebite izvadak iz istoga agregata.
+
+```{r}
+#| echo: false
+#| tbl-cap: "Izvadak upravljanoga agregata za obvezni zadatak."
+knitr::kable(s14_agregat_zadatak, align = c("l", "r", "r", "r"))
+```
 
 ### Kritički {.zadaci-razina}
 
-Prosudite koliko izvještaj gubi kad umjesto procjene razlike s intervalom ponudi
-samo oznaku značajnosti [@cumming2014]. Predajte kratku bilješku recenzentu i
-navedite jednu odluku koja bi se bez intervala mogla donijeti pogrešno.
+Vratite se operacionalizaciji iz poglavlja 2 i tumačenju intervala iz poglavlja
+9. Za glavni primjer najprije napišite što ljestvica povjerenja i kategorija
+izvora vijesti ne mjere. Zatim za isti interval usporedite odluku kojoj je važna
+bilo koja pozitivna razlika s odlukom koja traži najmanje dva boda. Predajte
+kratku bilješku recenzentu i objasnite zašto sama oznaka značajnosti ne može
+riješiti ni problem mjerenja ni izbor praga [@cumming2014].
 
 ### Revizija modela {.zadaci-razina}
 
-Ocijenite modelsku analizu iz okvira. Imenujte korake koji su provedeni ispravno,
-izdvojite tvrdnju koja iz rezultata ne slijedi i napišite rečenicu kojom bi je
-trebalo zamijeniti.
+Ocijenite modelsku analizu iz okvira. Imenujte referentnu skupinu i objasnite što
+bi se promijenilo, a što ostalo isto kada bi se referenca zamijenila. Zatim
+provjerite jedinicu neovisnosti, vrstu ishoda, odnos prema varijancama i doseg
+ciljne populacije. Izdvojite jedinu tvrdnju koja iz rezultata ne slijedi i
+napišite rečenicu kojom bi je trebalo zamijeniti.

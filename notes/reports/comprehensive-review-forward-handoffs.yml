@@ -6161,7 +6161,34 @@ handoffs:
           - "report:notes/reports/wc-c11-2026-08-12.md#prosirenje-opsega"
       - target_packet: WD-C14
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-17"
+        resolved_at: "2026-08-17"
+        acknowledgement: >-
+          WD-C14 treats the normal-generator mismatch as a binding widget
+          revalidation obligation before its first substantive edit. It will
+          establish exact equivalence between live w14 and the production
+          parity adapter, add actual-execution golden evidence plus a dedicated
+          regression fixture for asymmetric cached-pair consumption, and retain
+          the existing distributional tolerance unchanged.
+        disposition: >-
+          Live w14 and the production OJS adapter now use the same explicit
+          non-caching Marsaglia-polar generator and seeded draw order. Actual
+          adapter goldens and final source fingerprints are registered,
+          ordinary parity passes at the unchanged distributional tolerance,
+          and the dedicated w14 cached-pair asymmetry fixture fails closed.
+        evidence:
+          - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+          - "source:scripts/widget-parity-ojs.mjs"
+          - "source:scripts/check-widget-parity.py"
+          - "source:scripts/check-widget-parity-fixtures.py"
+          - "registry:data/widgets.json#w14-ojs-sha256-4ae9495970b646938b1869980fc9eac0c0be6e7a27f0d9e587f9f355d4c8254b"
+          - "registry:data/widgets.json#w14-r-sha256-4903b5d44894b3af7aff6d26fc6253a15126321c60abd6c054a99c7ceb5fd0e8"
+          - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+          - "check:WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-5"
+          - "fixture:w14-normal-cache-asymmetry-exit-1"
+          - "boundary:w14-tolerance-unchanged"
+          - "report:notes/reports/wd-c14-2026-08-17.md"
       - target_packet: WD-C16
         gate: before_close
         state: pending
@@ -6708,7 +6735,27 @@ handoffs:
           - "boundary:ESS-optional-portal-mediated-unpromoted-no-data-no-checksum-no-bundling"
       - target_packet: WD-C14
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-17"
+        resolved_at: "2026-08-17"
+        disposition: >-
+          WD-C14 consumes the ESS boundary before claim. Chapter 14 keeps
+          populacija_medija as its mandatory licensed local and offline route.
+          ESS Round 11 edition 3.0 remains an optional reader-owned portal
+          replication only, with the Croatia subset, analysis-specific valid-
+          response denominator and anweight as the default weight. The packet
+          will add no ESS result, local bytes, checksum, promotion, edition-
+          parity claim, redistribution authority or official-turnout claim.
+          OA-G-A3-ESS-RIGHTS remains open and bundling remains prohibited.
+        evidence:
+          - "commit:thread-amendment-closeout-2e8da0307491a6a489c34cffe9b34624a0592d78"
+          - "report:notes/reports/p3-verify-d-2026-08-17.md"
+          - "report:notes/reports/p3-ess-2026-08-11.md"
+          - "passport:data/ess_r11_hr/PUTOVNICA.md"
+          - "registry:data/katalog.yml#ess_r11_hr"
+          - "check:scripts/check-ess-portal.py-ESS_PORTAL_OK"
+          - "alternative:populacija_medija-bundled-local-CC-BY-4.0"
+          - "boundary:ESS-optional-portal-mediated-unpromoted-no-data-no-checksum-no-bundling"
       - target_packet: WD-C15
         gate: before_start
         state: pending
@@ -9658,3 +9705,37 @@ packet_reviews:
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C13
       - WD-C14 is the sole next permitted packet but is not claimed inside C13
       - no external message push merge tag archive deployment publication or author-reading claim is made or authorised
+
+  WD-C14:
+    reviewed_at: "2026-08-17"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WD-C14 found no new future-relevant effect without an existing owner. The
+      four nonblocking panel-minor records pass directly to the separate C14
+      author gate. H-P3-ESS-001 retains its pending deliveries for WD-C15 and
+      WD-C16, H-WB-C06-001 retains later widget deliveries, the accepted Part V
+      sequence owns the Chapter 16 bridge, H-WC-PARTS-DOCX-001 owns the
+      release-path risk, R22-C14-C16-dependence remains owned by WD-PART, and
+      H-WB-PART-001 continues to own Chapter 6. Duplicating those obligations
+      would add no ownership or information.
+    implementation_state: "source:sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+    checks:
+      - H-P3-ESS-001 was consumed before claim with the optional portal anweight denominator no-data no-promotion no-checksum no-bundling boundary intact
+      - populacija_medija remains the licensed local CC BY 4.0 mandatory route while no ESS result or local ESS byte was introduced
+      - H-WB-C06-001 was acknowledged before the first substantive edit and consumed before closeout with exact live-adapter noncached polar equivalence
+      - the final Chapter 14 SHA256 is 84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2 and git blob is 6ef3a218dfc61d5ad73f83e236a70e3917909d86
+      - D02 Welch-default TV-minus-social estimate and distinct ordinary OLS uncertainty reproduce exactly and R02-C14-welch-ols remains accepted
+      - R35-REACHBACK-14 materially passes but remains ratified pending C14
+      - the Chapter 14 contribution to R22-C14-C16-dependence passes while the multi-chapter item remains ratified for WD-PART
+      - the final panel records zero fatal zero major and four nonblocking lens-level minor records on one source blob
+      - data/widgets.json records final w14 OJS and R source hashes and retains the distributional tolerance unchanged
+      - the dedicated w14 normal-cache-asymmetry fixture fails closed and the complete widget parity fixture suite reports five cases
+      - data/concept-graph.json is regenerated with 49 nodes 602 edges and fresh state without a shared-registry edit
+      - style structure figure citation concept terminology manuscript spine catalogue ESS portal data widget parity and token checks pass
+      - the seven-lane manuscript forty-four-case data five-case widget and required workflow negative fixtures fail closed
+      - targeted HTML approved-wrapper PDF and wrapper DOCX renders exit zero with evidence recorded in notes/reports/wd-c14-2026-08-17.md
+      - the clean isolated render worktree was removed and no tracked or untracked generated artifact enters the packet commit
+      - Chapter 6 remains unchanged and draft under H-WB-PART-001 and Chapters 7 through 13 retain their accepted states
+      - C14 is the sole next permitted packet but is not accepted and requires the exact dated author reply naming the final WD-C14 closeout commit
+      - no author reading acceptance external message push merge tag archive deployment or publication is claimed or authorised

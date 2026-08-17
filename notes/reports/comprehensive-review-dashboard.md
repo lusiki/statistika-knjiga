@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C13
-next_permitted_packet: WD-C14
+last_completed_packet: WD-C14
+next_permitted_packet: C14
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -53,12 +53,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `C13` is closed and `WD-C14` remains unclaimed |
-| Last completed packet | `C13`; exact reply accepted WD-C13 commit `a88fc80ad1b323f514e3e50d51c5da49fea07bd8`, Chapter 13 advanced only to `coauthor_review`, three items accepted and 14 known minor records left unedited |
-| Next permitted packet | `WD-C14` alone at sequence 118; it must consume its `H-P3-ESS-001` delivery before claim and preserve the optional portal/local-alternative boundary |
+| Active write packet | None; WD-C14 closed on one final source blob and `C14` remains unclaimed |
+| Last completed packet | `WD-C14`; Chapter 14 remains `draft`, D02 is revalidated, R35 materially passes but remains `ratified`, and the final panel records 0 fatal, 0 major and 4 known minor records |
+| Next permitted packet | `C14` at sequence 119, but only to prepare the complete acceptance package and stop for the exact dated author reply; WD-C15 is not permitted |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 222 accepted, 5 deferred with reason and 144 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 110 accepted, 78 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 111 accepted, 77 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 6 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova` and `13-kategoricki-podaci` at `coauthor_review`; only `06-povezanost` among Chapters 0–13 remains `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -5395,6 +5395,51 @@ the durable evidence is
   inside this gate. No chapter prose, data, bibliography, concept, terminology,
   figure, widget, render or generated artifact changed.
 
+## WD-C14 closeout
+
+- WD-C14 closes on Chapter 14 SHA-256
+  `84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2`
+  and git blob `6ef3a218dfc61d5ad73f83e236a70e3917909d86`. The source has 11
+  sections, 2.692 prose words, two definitions, one faithful HTML/PDF widget
+  pair and all four exercise tiers.
+- D02 is reproduced exactly: television-minus-social estimate
+  `1,185714285714`; Welch SE `0,372609208160`, df `102,471131550669`,
+  p `0,001935138042`; ordinary homoskedastic OLS retains the estimate but has
+  SE `0,369536997510`, df 118 and p `0,001717470691`.
+- H-P3-ESS-001 was consumed before claim. ESS remains optional,
+  reader-owned, portal-mediated and unpromoted with `anweight` and an
+  analysis-specific valid denominator; no local ESS bytes, result, checksum,
+  promotion or rights claim was added. `populacija_medija` remains the
+  mandatory licensed local route.
+- H-WB-C06-001 is consumed. Live w14 and its production adapter share one
+  explicit non-caching Marsaglia-polar stream; final OJS and R fingerprints
+  are registered, all 17 parity pairs pass, the tolerance is unchanged and
+  the dedicated w14 cache-asymmetry fixture fails closed. The static twin now
+  faithfully carries both the group-overlap and independent-versus-paired
+  arguments.
+- All six final critics confirmed the same blob. The panel records 0 fatal, 0
+  major and 4 nonblocking lens-level minors: one skeptical terminology note
+  and three local Croatian copyedit notes. None was edited after the source
+  lock; all are exposed to C14.
+- Style, structure, figure introductions, spines, terminology, citations,
+  concepts, catalogue, ESS, widgets, parity, data, manuscript integrity and
+  tokens pass. All required negative fixture suites fail closed. Targeted
+  HTML, approved-wrapper PDF and wrapper DOCX render successfully; the final
+  PDF has SHA-256
+  `4f863d0195c71224f74fc9295ba311c35f930841557cda9222d1d96e09cf05bd`.
+- R35-REACHBACK-14 materially passes but remains `ratified` pending C14;
+  R02-C14-welch-ols stays accepted and revalidated. Chapter 14's dependence
+  stop rule passes, while the multi-chapter R22-C14-C16-dependence item remains
+  `ratified` for WD-PART. Chapter 14 remains `draft`.
+- No new outgoing handoff is required. Chapter 6 remains unchanged and
+  deliberately `draft`; Chapters 7–13 remain in their accepted states. No
+  author reading, C14 acceptance, external message or release action is
+  claimed.
+- No write lock remains active. Under
+  `A-THREAD-WD-C14-C14-PREP-2026-08-13`, C14 alone may next be claimed to
+  assemble its complete acceptance package and then stop for the exact reply.
+  WD-C15 may not start.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5419,34 +5464,26 @@ canonical state. Read AGENTS.md and fully read:
 - notes/reports/comprehensive-review-dashboard.md
 - notes/reports/comprehensive-review-forward-handoffs.yml
 Also fully read the checkout-local book-conductor instructions and its bounded
-outside-ask reference. Also read STYLE.md and the checkout-local book-style and
-book-continuity instructions. Do not rely on prior chat or the installed plugin
-cache for mutable state.
+outside-ask reference. Also read the checkout-local book-review instructions
+and panel reference. Do not rely on prior chat or the installed plugin cache
+for mutable state.
 
-Verify that HEAD is the clean C13 closeout commit. Confirm C13 accepts exact
-WD-C13 source commit `a88fc80ad1b323f514e3e50d51c5da49fea07bd8`,
-`chapters/13-kategoricki-podaci.qmd` remains SHA-256
-`b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3`,
-Chapter 13 alone advanced to coauthor_review, and only
-R13-C13-contingency, R27-C13-partV-contract and R35-REACHBACK-13 advanced to
-accepted. Confirm the fourteen minor records remain known, nonblocking and
-unedited, Chapter 6 remains draft under H-WB-PART-001, no packet is active and
-WD-C14 alone is next at sequence 118.
+Verify that HEAD is the clean WD-C14 closeout commit. Confirm
+`chapters/14-dvije-grupe.qmd` remains SHA-256
+`84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2` and
+git blob `6ef3a218dfc61d5ad73f83e236a70e3917909d86`; all six final reports and
+the synthesis address that same blob; the panel records 0 fatal, 0 major and 4
+known nonblocking minor records; D02 remains exact; H-WB-C06-001 is consumed
+for w14 without tolerance widening; R35-REACHBACK-14 materially passes but
+remains ratified; Chapter 14 remains draft; Chapter 6 remains deliberately
+draft; and no packet is active.
 
-Claim and execute only WD-C14. Before claim consume the WD-C14 delivery of
-H-P3-ESS-001 and preserve its exact boundary: ESS Round 11 edition 3.0 remains
-optional, reader-owned, portal-mediated and unpromoted; use an analysis-specific
-valid-response denominator and anweight; introduce no local ESS bytes,
-invented checksum, redistribution claim or ESS result; retain
-populacija_medija as the mandatory licensed local route. Independently verify
-P2-SPINE-V and P1A-C14 before substantive work. Implement the bounded Chapter
-14 vertical slice in Croatian under its ratified spine and STYLE.md, run all
-applicable deterministic checks and targeted HTML, approved-wrapper PDF and
-wrapper DOCX renders, and dispatch exactly six fresh independent read-only
-critics against one final material source state. Resolve every fatal or major
-finding or obtain an explicit author disposition, record every handoff outcome,
-close and locally commit WD-C14, then stop. Do not claim C14 or any later
-packet. Preserve H-WC-PARTS-DOCX-001 for P7-DOCX and H-WB-PART-001 for
-P6-PANELS. Push, merge, tag, archive, deployment and publication remain
-separately gated.
+Under A-THREAD-WD-C14-C14-PREP-2026-08-13, claim only C14. Assemble the
+complete acceptance package naming the final WD-C14 closeout commit, all six
+critic reports, the synthesis, the D02 disposition, all four minor records and
+the exact ledger disposition that would follow acceptance. Do not alter chapter
+prose or close C14. Stop for the exact author reply
+`C14 accepted for <commit> on <date>`. Do not start WD-C15. Leave one clean,
+resumable C14-awaiting-author state. Push, merge, tag, archive, deployment and
+publication remain separately gated.
 ```

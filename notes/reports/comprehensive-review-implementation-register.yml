@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C13"
-  next_permitted_packet: "WD-C14"
+  last_completed_packet: "WD-C14"
+  next_permitted_packet: "C14"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12649,7 +12649,7 @@ packets:
     sequence: 118
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C13"
       - "P1A-C14"
@@ -12661,14 +12661,99 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-C14 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#14-dvije-grupe"
+            - "packet:P2-SPINE-V-accepted"
+            - "packet:P1A-C14-accepted"
+            - "handoff:H-P3-ESS-001-consumed-before-start"
+            - "handoff:H-WB-C06-001-consumed-before-close"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+            - "blob:6ef3a218dfc61d5ad73f83e236a70e3917909d86"
+            - "result:estimate-TV-minus-social-1.185714285714"
+            - "result:Welch-SE-0.372609208160-df-102.471131550669-p-0.001935138042-CI-0.446686471421-to-1.924742100008"
+            - "result:OLS-SE-0.369536997510-df-118-p-0.001717470691-CI-0.453930424466-to-1.917498146963"
+            - "registry:data/widgets.json#w14-ojs-sha256-4ae9495970b646938b1869980fc9eac0c0be6e7a27f0d9e587f9f355d4c8254b"
+            - "registry:data/widgets.json#w14-r-sha256-4903b5d44894b3af7aff6d26fc6253a15126321c60abd6c054a99c7ceb5fd0e8"
+            - "check:scripts/check-widget-parity.py-WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "fixture:w14-normal-cache-asymmetry-fails-closed-with-tolerance-unchanged"
+            - "check:scripts/check-concepts.py-definitions-49-nodes-49-edges-602-graph-fresh-true"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2760104-sha256-4f863d0195c71224f74fc9295ba311c35f930841557cda9222d1d96e09cf05bd"
+            - "render:DOCX-wrapper-exit-0-all-temporary-gates-restored"
+            - "boundary:isolated-render-worktree-removed-main-worktree-generated-artifacts-unchanged"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-c14-critic-methods-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-skeptic-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-pedagogy-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-evidence-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-style-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-structure-2026-08-17.md"
+            - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+            - "panel:six-of-six-confirm-blob-6ef3a218-zero-fatal-zero-major-four-nonblocking-minor-records"
+      outputs:
+        - output: "WD-C14 verified vertical-slice source and evidence bundle for: Chapter 14 vertical slice."
+          artifacts:
+            - "source:chapters/14-dvije-grupe.qmd"
+            - "registry:data/widgets.json#w14"
+            - "generated:data/concept-graph.json-49-nodes-602-edges"
+            - "report:notes/reports/wd-c14-2026-08-17.md"
+            - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+        - output: "Completion evidence is tied to the declared WD-C14 source state and bounded scope."
+          artifacts:
+            - "source:sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+            - "handoff:H-P3-ESS-001-consumed-before-start"
+            - "handoff:H-WB-C06-001-consumed-before-close"
+            - "review:packet_reviews.WD-C14-all-future-effects-recorded"
+            - "boundary:R35-REACHBACK-14-materially-passes-and-remains-ratified-until-C14"
+            - "boundary:R02-C14-welch-ols-remains-accepted-and-revalidated"
+            - "boundary:R22-C14-C16-dependence-Chapter-14-slice-passes-item-remains-ratified-for-WD-PART"
+            - "boundary:four-lens-level-minors-unchanged-for-C14"
+            - "boundary:Chapter-6-unchanged-draft-H-WB-PART-001-pending-for-P6-PANELS"
+            - "boundary:C14-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WD-C14-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wd-c14-2026-08-17.md"
+            - "check:MANUSCRIPT_INTEGRITY_OK-lane-all"
+            - "check:FIGURE_INTRO-all-introduced"
+            - "check:STYLE-lint-zero-candidates"
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+            - "panel:zero-fatal-zero-major-four-nonblocking-minor-records"
+        - test: "The WD-C14 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R35-REACHBACK-14-materially-passes-remains-ratified-until-C14"
+            - "item:R02-C14-welch-ols-exact-D02-numerically-revalidated"
+            - "item:R22-C14-C16-dependence-Chapter-14-contribution-recorded-status-unchanged"
+            - "report:notes/reports/wd-c14-2026-08-17.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
   C14:
     sequence: 119
     phase: "4"
@@ -29767,11 +29852,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C14"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+      - "task:critical-reach-back-operationalisation-Chapter-2-and-interval-reading-Chapter-9"
+      - "critic:pedagogy-pass-reach-back-cannot-be-solved-by-current-method-alone"
+      - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+      - "boundary:materially-passes-remains-ratified-until-C14"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
   R35-REACHBACK-15:
     parents:
       - "R35"
@@ -32430,7 +32520,7 @@ outside_asks:
 
   OA-C14-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WD-C14_revision_and_panel"
+    readiness: "ready_for_C14_acceptance_package"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -32445,6 +32535,9 @@ outside_asks:
     available_evidence:
       - "packet:WD-C14"
       - "packet:C14"
+      - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+      - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+      - "panel:zero-fatal-zero-major-four-nonblocking-minor-records"
     recommended_default: "Accept only after D02, empirical/code-reading receipts, dependence stop rule, reach-back, and panel findings pass."
     exact_reply_requested: "Reply: C14 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C14 closes only when every blocking revision is resolved on the cited source state."

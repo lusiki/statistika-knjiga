@@ -370,7 +370,7 @@ function w14(parameters) {
   const result = {};
   for (const p of parameters.scenarios) {
     const rng = lcg(parameters.seed);
-    const randomNormal = normal(rng);
+    const randomNormal = fixture === "w14-cached-normal" ? normalCached(rng) : normal(rng);
     const paired = p.design === "paired";
     if (paired) {
       for (let i = 0; i < p.n; i += 1) {
