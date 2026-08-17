@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WD-C13"
-  next_permitted_packet: "C13"
+  last_completed_packet: "C13"
+  next_permitted_packet: "WD-C14"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12489,7 +12489,7 @@ packets:
     sequence: 117
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WD-C13"
     scope: "Author acceptance and panel disposition for C13."
@@ -12500,14 +12500,81 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wd-c13-critic-methods-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-skeptic-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-pedagogy-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-evidence-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-style-2026-08-17.md"
+            - "report:notes/reports/wd-c13-critic-structure-2026-08-17.md"
+            - "panel:zero-fatal-zero-major-fourteen-nonblocking-lens-level-minor-records"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+            - "report:notes/reports/c13-acceptance-package-2026-08-17.md"
+            - "disposition:accept-three-Chapter-13-items-and-advance-only-13-kategoricki-podaci-to-coauthor_review"
+            - "disposition:fourteen-lens-level-minors-known-and-nonblocking-for-this-edition"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C13-accepted-for-a88fc80ad1b323f514e3e50d51c5da49fea07bd8-on-2026-08-17"
+            - "evidence:conversation-user-message-recorded-2026-08-17"
+            - "boundary:earlier-reply-without-C-prefix-not-used"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+            - "source:chapters/13-kategoricki-podaci.qmd@sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+            - "blob:e7ff4e8adc9d2438461ffbddb01e193aba24b671"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#13-kategoricki-podaci-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C13 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+            - "reports:wd-c13-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+            - "author_reply:C13-accepted-for-a88fc80ad1b323f514e3e50d51c5da49fea07bd8-on-2026-08-17"
+            - "report:notes/reports/c13-acceptance-package-2026-08-17.md"
+        - output: "Completion evidence is tied to the declared C13 source state and bounded scope."
+          artifacts:
+            - "source:chapters/13-kategoricki-podaci.qmd@sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+            - "items:R13-C13-contingency-R27-C13-partV-contract-R35-REACHBACK-13-accepted"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#13-kategoricki-podaci"
+            - "boundary:fourteen-lens-level-minors-known-nonblocking-and-not-edited"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "boundary:WD-C14-unclaimed"
+            - "review:packet_reviews.C13-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+            - "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+            - "reports:wd-c13-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C13-accepted-for-a88fc80ad1b323f514e3e50d51c5da49fea07bd8-on-2026-08-17"
+            - "panel:zero-fatal-zero-major-fourteen-known-nonblocking-minor-records"
+            - "disposition:fourteen-minors-known-and-nonblocking-for-this-edition"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c13-acceptance-package-2026-08-17.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#13-kategoricki-podaci-stage-coauthor_review"
+            - "items:three-WD-C13-governed-items-accepted"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
   WD-C14:
     sequence: 118
     phase: "4"
@@ -22012,7 +22079,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Use/retrieve coded text in a contingency table with denominator and category ownership."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22039,10 +22106,13 @@ items:
       - "report:notes/reports/wd-c13-critic-skeptic-2026-08-17.md"
       - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
       - "boundary:materially-passes-remains-ratified-until-C13"
+      - "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+      - "author_reply:C13-accepted-for-a88fc80ad1b323f514e3e50d51c5da49fea07bd8-on-2026-08-17"
+      - "report:notes/reports/c13-acceptance-package-2026-08-17.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+    change_reference: "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
   R13-C18-corpus-package:
     parents:
       - "R13"
@@ -28055,7 +28125,7 @@ items:
       location: "§7/§8 Ch13"
     description: "Open Part V by continuing the reformed-practice contract and model-family reading."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28082,10 +28152,13 @@ items:
       - "report:notes/reports/wd-c13-critic-structure-2026-08-17.md"
       - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
       - "boundary:materially-passes-remains-ratified-until-C13"
+      - "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+      - "author_reply:C13-accepted-for-a88fc80ad1b323f514e3e50d51c5da49fea07bd8-on-2026-08-17"
+      - "report:notes/reports/c13-acceptance-package-2026-08-17.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+    change_reference: "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
   R27-BOOK-part-bridges:
     parents:
       - "R27"
@@ -29560,7 +29633,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 13 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29587,10 +29660,13 @@ items:
       - "report:notes/reports/wd-c13-critic-structure-2026-08-17.md"
       - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
       - "boundary:materially-passes-remains-ratified-until-C13"
+      - "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+      - "author_reply:C13-accepted-for-a88fc80ad1b323f514e3e50d51c5da49fea07bd8-on-2026-08-17"
+      - "report:notes/reports/c13-acceptance-package-2026-08-17.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+    change_reference: "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
   R35-REACHBACK-14:
     parents:
       - "R35"
@@ -32246,8 +32322,8 @@ outside_asks:
       package; no author reading or final stage is claimed.
 
   OA-C13-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WD-C13_revision_and_panel"
+    status: "done"
+    readiness: "resolved_by_in_thread_author_decision"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -32264,11 +32340,23 @@ outside_asks:
     available_evidence:
       - "packet:WD-C13"
       - "packet:C13"
+      - "commit:a88fc80ad1b323f514e3e50d51c5da49fea07bd8"
+      - "source:chapters/13-kategoricki-podaci.qmd@sha256-b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3"
+      - "reports:notes/reports/wd-c13-critic-{methods,skeptic,pedagogy,evidence,style,structure}-2026-08-17.md"
+      - "synthesis:notes/reports/wd-c13-six-critic-synthesis-2026-08-17.md"
+      - "report:notes/reports/c13-acceptance-package-2026-08-17.md"
     recommended_default: "Accept only after residual/calibration corrections, survey denominators, Part V contract, retrieval, and panel findings pass."
     exact_reply_requested: "Reply: C13 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C13 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    completed_at: "2026-08-17"
+    outcome: >-
+      Luka Sikic supplied the exact dated C13 acceptance naming WD-C13
+      closeout commit a88fc80ad1b323f514e3e50d51c5da49fea07bd8. The gate
+      applies only the narrow chapter-ledger and three-item disposition in the
+      acceptance package; fourteen minor records remain known and
+      nonblocking, and no author reading or final stage is claimed.
 
   OA-C14-ACCEPTANCE:
     status: "drafted_unsent"
