@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C14"
-  next_permitted_packet: "WD-C15"
+  last_completed_packet: "WD-C15"
+  next_permitted_packet: "C15"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12938,7 +12938,7 @@ packets:
     sequence: 120
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C14"
       - "P1A-C15"
@@ -12950,14 +12950,91 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-C15 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#15-vise-grupa"
+            - "packet:P1A-C15-accepted"
+            - "handoff:H-P3-ESS-001-consumed-before-claim"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+            - "blob:aa644049bacb62e7fc05ab75d3b6157b83165b96"
+            - "result:F-8.381812957409-df-4-295-p-2.04182135962458e-06-eta2-0.102053183238-omega2-0.089604885986"
+            - "result:Tukey-TV-minus-social-1.585714285714-CI-0.707372515223-to-2.464056056205-four-of-ten"
+            - "result:variance-ratio-1.432656498313-Welch-F-7.320807631166-df2-112.425284937609"
+            - "result:null-simulations-dependent-27.4-omnibus-4.25-independent-40.4-percent"
+            - "result:offline-aggregate-TV-minus-social-1.297259749250"
+            - "registry:data/widgets.json#w15-ojs-sha256-f9f2533eb899673a6a26ee494a149f0512c3f70d68b962df0fa27f1d54b13a73"
+            - "registry:data/widgets.json#w15-r-sha256-b8b3acf152646f0a8864f9a3eb64eb67636929e5c0eb8692a670af0e20c9dfc1"
+            - "generated:data/concept-graph.json-49-nodes-608-edges-249-displayed-45-definition"
+            - "check:DATA_INTEGRITY_OK-rows-50300-snapshots-21"
+            - "check:ESS_PORTAL_OK-no-local-data-no-checksum-rights-ask-open"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-cells-13-bytes-178751-sha256-6dd95e5a0d7f3aa21e794c1633147a3d42b4a57e122bf5bd787949d602d448ad"
+            - "render:PDF-approved-wrapper-exit-0-bytes-2765235-sha256-27d40997601e7abc4924462c03dbd86d7fb4fe1a100479faaa8c49746f2bbf7d"
+            - "render:DOCX-wrapper-exit-0-bytes-1589391-sha256-bfac7f17c9ffeb4cb240a5c711ee885c14efe9e2baff7fe6a2b4ffff59b982a7"
+            - "boundary:isolated-render-worktree-removed-primary-generated-artifacts-unchanged"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-c15-critic-methods-2026-08-17.md"
+            - "report:notes/reports/wd-c15-critic-skeptic-2026-08-17.md"
+            - "report:notes/reports/wd-c15-critic-pedagogy-2026-08-17.md"
+            - "report:notes/reports/wd-c15-critic-evidence-2026-08-17.md"
+            - "report:notes/reports/wd-c15-critic-style-2026-08-17.md"
+            - "report:notes/reports/wd-c15-critic-structure-2026-08-17.md"
+            - "synthesis:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
+            - "panel:six-of-six-confirm-blob-aa644049-zero-fatal-zero-major-four-nonblocking-style-minor-records"
+      outputs:
+        - output: "WD-C15 verified vertical-slice source and evidence bundle for: Chapter 15 vertical slice."
+          artifacts:
+            - "source:chapters/15-vise-grupa.qmd"
+            - "registry:data/widgets.json#w15"
+            - "generated:data/concept-graph.json-49-nodes-608-edges"
+            - "report:notes/reports/wd-c15-2026-08-17.md"
+            - "synthesis:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
+        - output: "Completion evidence is tied to the declared WD-C15 source state and bounded scope."
+          artifacts:
+            - "source:sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+            - "review:packet_reviews.WD-C15-all-future-effects-recorded"
+            - "boundary:R09-R23-R35-materially-pass-and-remain-ratified-until-C15"
+            - "boundary:R02-C15-remains-accepted-R22-C14-C16-remains-ratified-for-WD-PART"
+            - "boundary:four-style-minors-pass-to-C15-without-post-panel-source-edit"
+            - "boundary:C15-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WD-C15-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wd-c15-2026-08-17.md"
+            - "check:MANUSCRIPT_INTEGRITY-FIGURE_INTRO-STYLE-WIDGET_PARITY-all-pass"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
+            - "panel:zero-fatal-zero-major-four-nonblocking-style-minor-records"
+        - test: "The WD-C15 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R09-C15-R23-C15-R35-REACHBACK-15-materially-pass"
+            - "item:R02-C15-final-state-revalidated"
+            - "item:R22-C14-C16-Chapter-15-contribution-recorded-status-unchanged"
+            - "report:notes/reports/wd-c15-2026-08-17.md"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
   C15:
     sequence: 121
     phase: "4"
@@ -16009,10 +16086,15 @@ items:
       - "chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10"
       - "report:notes/reports/p1a-c15-methods-review-2026-08-03.md"
       - "critic_methods:pass-shared-mean-model-distinct-classical-and-welch-inference-and-bounded-scope"
+      - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+      - "blob:aa644049bacb62e7fc05ab75d3b6157b83165b96"
+      - "result:shared-group-means-and-contrasts-distinct-classical-and-Welch-uncertainty-reproduced"
+      - "report:notes/reports/wd-c15-critic-methods-2026-08-17.md"
+      - "report:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-0eadfd02627a95aed614a005f93f81878249ea10"
+    change_reference: "source:sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
   R02-C16-dependent-revalidation:
     parents:
       - "R02"
@@ -20484,11 +20566,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P1A-C15"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+      - "result:variance-ratio-1.432656498313-described-only-as-orienting-indicator"
+      - "boundary:not-assumption-proof-or-inferential-licence"
+      - "report:notes/reports/wd-c15-critic-methods-2026-08-17.md"
+      - "report:notes/reports/wd-c15-critic-skeptic-2026-08-17.md"
+      - "boundary:materially-passes-remains-ratified-until-C15"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
   R09-C16-estimand:
     parents:
       - "R09"
@@ -25245,6 +25333,15 @@ items:
           - "report:notes/reports/wd-c14-critic-skeptic-2026-08-17.md"
           - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
           - "boundary:item-remains-ratified-for-WD-PART-until-Chapters-15-and-16-pass"
+      chapter_15:
+        status: "verified_pending_multi_chapter_owner"
+        artifacts:
+          - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+          - "rule:stop-before-independent-row-inference-for-repeated-nested-household-place-organisation-or-network-linked-observations"
+          - "report:notes/reports/wd-c15-critic-methods-2026-08-17.md"
+          - "report:notes/reports/wd-c15-critic-skeptic-2026-08-17.md"
+          - "report:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
+          - "boundary:item-remains-ratified-for-WD-PART-until-Chapter-16-passes"
     blocker:
       active: false
       ask_id: null
@@ -25817,11 +25914,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C15"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+      - "artifact:one-error-p-adjust-method-none-leaves-ten-pairwise-tests-unprotected"
+      - "assessment:diagnose-fatal-and-useful-parts-no-execution-no-replacement-code"
+      - "report:notes/reports/wd-c15-critic-methods-2026-08-17.md"
+      - "report:notes/reports/wd-c15-critic-pedagogy-2026-08-17.md"
+      - "boundary:materially-passes-remains-ratified-until-C15"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
   R23-SCOPE-no-technical-ds:
     parents:
       - "R23"
@@ -30068,11 +30171,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C15"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+      - "task:retrieves-descriptive-versus-causal-boundary-and-smallest-important-effect"
+      - "data:data/populacija-medija-agregat.csv-CC-BY-4.0"
+      - "closure:TV-minus-social-media-approximately-1.30-and-no-causal-inference"
+      - "report:notes/reports/wd-c15-critic-pedagogy-2026-08-17.md"
+      - "report:notes/reports/wd-c15-critic-structure-2026-08-17.md"
+      - "boundary:materially-passes-remains-ratified-until-C15"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
   R35-REACHBACK-16:
     parents:
       - "R35"
@@ -32733,7 +32843,7 @@ outside_asks:
 
   OA-C15-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WD-C15_revision_and_panel"
+    readiness: "ready_for_C15_claim_and_acceptance_package"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -32750,6 +32860,9 @@ outside_asks:
     available_evidence:
       - "packet:WD-C15"
       - "packet:C15"
+      - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
+      - "synthesis:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
+      - "panel:zero-fatal-zero-major-four-nonblocking-style-minor-records"
     recommended_default: "Accept only after variance-screening and inherited D02 repairs, suspect-code restoration, dependence stop rule, retrieval, and panel findings pass."
     exact_reply_requested: "Reply: C15 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
     resume_condition: "C15 closes only when every blocking revision is resolved on the cited source state."
