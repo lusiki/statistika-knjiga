@@ -2,12 +2,13 @@
 
 **Gate:** `C14`
 
-**Stanje gatea:** aktivan; kompletan paket pripremljen; čeka točan autorov
-odgovor. Gate nije zatvoren.
+**Stanje gatea:** autor prihvatio; uska dispozicija provedena.
 
 **Imenovani vlasnik odluke:** Luka Sikic, autor/editor.
 
 **Datum pripreme:** 17. kolovoza 2026.
+
+**Datum autorove odluke:** 17. kolovoza 2026.
 
 ## Konačno materijalno stanje
 
@@ -71,13 +72,13 @@ p-vrijednost `0,001935138042` i 95-postotni interval od `0,446686471421` do
 `0,369536997510`, 118 stupnjeva slobode, p-vrijednost `0,001717470691` i
 interval od `0,453930424466` do `1,917498146963`.
 
-Stoga bi C14 ostavio `R02-C14-welch-ols` u postojećem statusu `accepted` i
-zabilježio samo njegovu svježu revalidaciju na konačnom izvoru.
+Stoga C14 ostavlja `R02-C14-welch-ols` u postojećem statusu `accepted` i
+bilježi samo njegovu svježu revalidaciju na konačnom izvoru.
 
 ## Četiri minor zapisa za autorsku dispoziciju
 
-Sljedeći su zapisi autoru potpuno izloženi. Predložena je dispozicija da budu
-poznati i neblokirajući za ovo izdanje, bez izmjene zaključanoga izvora.
+Sljedeći su zapisi autoru potpuno izloženi i prihvaćeni kao poznati i
+neblokirajući za ovo izdanje, bez izmjene zaključanoga izvora.
 
 ### Skepticizam — 1
 
@@ -114,22 +115,22 @@ statički par vjeran je živom argumentu, tolerancija nije proširena, a
 asimetrični cache fixture pada zatvoreno. Ciljani HTML, odobreni PDF wrapper i
 DOCX wrapper prolaze. Konceptni graf svjež je s 49 čvorova i 602 brida.
 
-## Točna uska dispozicija koja bi slijedila prihvaćanje
+## Provedena uska dispozicija
 
-Ako autor pošalje niže navedeni točan odgovor, C14 smije provesti samo ovo:
+Nakon provjere niže navedenoga točnog odgovora C14 provodi samo ovo:
 
-- pomaknuti `14-dvije-grupe` iz `draft` u `coauthor_review`, uz izričitu
+- pomiče `14-dvije-grupe` iz `draft` u `coauthor_review`, uz izričitu
   bilješku da prihvaćanje ne znači da je autor pročitao poglavlje i da to nije
   faza `final`;
-- pomaknuti samo `R35-REACHBACK-14` iz `ratified` u `accepted`;
-- ostaviti `R02-C14-welch-ols` u postojećem statusu `accepted`, uz zapis svježe
+- pomiče samo `R35-REACHBACK-14` iz `ratified` u `accepted`;
+- ostavlja `R02-C14-welch-ols` u postojećem statusu `accepted`, uz zapis svježe
   revalidacije D02 na finalnom WD-C14 izvoru;
-- ostaviti `R22-C14-C16-dependence` u `ratified`, jer Chapter 14 sada podmiruje
+- ostavlja `R22-C14-C16-dependence` u `ratified`, jer 14. poglavlje sada podmiruje
   svoj dio, ali višepoglavni ugovor ostaje pod `WD-PART` do provjere poglavlja
   15 i 16;
-- evidentirati četiri minor zapisa kao autoru izložena, poznata i
+- evidentira četiri minor zapisa kao autoru izložena, poznata i
   neblokirajuća za ovo izdanje, bez promjene zaključanoga izvora;
-- zatvoriti samo C14, ukloniti njegov write lock i tek tada učiniti WD-C15
+- zatvara samo C14, uklanja njegov write lock i tek tada čini WD-C15
   mogućim sljedećim paketom.
 
 Nijedna druga stavka, poglavlje, handoff ili zapis ne mijenja status. Poglavlje
@@ -142,18 +143,17 @@ arhiviranje, deployment ili objavu. Ne tvrdi se da je autor pročitao
 poglavlje. `WD-C15` se ne smije otvoriti prije točnoga odgovora i zasebnoga
 C14 closeouta.
 
-Ovaj pripremni korak ne zatvara C14 i ne provodi nijednu predloženu ledger
-promjenu. Chapter 14 ostaje `draft`, `R35-REACHBACK-14` ostaje `ratified`, a
-write lock ostaje na C14 dok čeka autora.
+C14 closeout ne mijenja zaključani izvor. Poglavlje 14 napreduje samo u
+`coauthor_review`, `R35-REACHBACK-14` u `accepted`, a write lock se uklanja.
+To ne znači da je autor pročitao poglavlje i ne daje mu fazu `final`.
 
 ## Točan odgovor autora
 
-Za prihvaćanje ovoga točno određenog stanja odgovorite doslovno:
+Odgovor je primljen u aktivnoj niti i zapisan doslovno:
 
 ```text
 C14 accepted for 378bc362f9090e3bcdf8e9e02090c2c1d732e532 on 2026-08-17
 ```
 
-Svaki drukčiji commit ili datum zahtijeva novu provjeru podudaranja. Umjesto
-prihvaćanja možete navesti točne blokirajuće dorade; u tom slučaju C14 ostaje
-otvoren i izvor se ne mijenja bez zasebne dispozicije.
+Odgovor navodi točan završni WD-C14 commit i datum odluke. Stalna delegacija od
+5. kolovoza nije upotrijebljena i ne tvrdi se da je autor pročitao poglavlje.

@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C14"
-    claimed_at: "2026-08-17"
-    owned_paths:
-      - "notes/reports/c14-acceptance-package-2026-08-17.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WD-C14"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C14"
+  next_permitted_packet: "WD-C15"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12765,7 +12758,7 @@ packets:
     sequence: 119
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WD-C14"
     scope: "Author acceptance and panel disposition for C14."
@@ -12776,28 +12769,84 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    preparation_evidence:
-      state: "complete_awaiting_exact_author_reply"
+    completion_evidence:
       source_state: "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
-      artifacts:
-        - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
-        - "blob:6ef3a218dfc61d5ad73f83e236a70e3917909d86"
-        - "reports:notes/reports/wd-c14-critic-methods-skeptic-pedagogy-evidence-style-structure-2026-08-17"
-        - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
-        - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
-        - "panel:zero-fatal-zero-major-four-known-nonblocking-minor-records"
-        - "disposition:on-acceptance-advance-only-14-dvije-grupe-to-coauthor_review-and-R35-REACHBACK-14-to-accepted"
-        - "boundary:R02-C14-welch-ols-remains-accepted-R22-C14-C16-dependence-remains-ratified"
-        - "author_reply_required:C14-accepted-for-378bc362f9090e3bcdf8e9e02090c2c1d732e532-on-2026-08-17"
-        - "boundary:C14-open-Chapter-14-draft-WD-C15-not-started"
-    completion_evidence: []
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wd-c14-critic-methods-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-skeptic-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-pedagogy-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-evidence-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-style-2026-08-17.md"
+            - "report:notes/reports/wd-c14-critic-structure-2026-08-17.md"
+            - "panel:zero-fatal-zero-major-four-nonblocking-lens-level-minor-records"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+            - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
+            - "disposition:accept-R35-REACHBACK-14-and-advance-only-14-dvije-grupe-to-coauthor_review"
+            - "disposition:four-lens-level-minors-known-and-nonblocking-for-this-edition"
+            - "boundary:R02-C14-welch-ols-remains-accepted-and-R22-C14-C16-dependence-remains-ratified"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C14-accepted-for-378bc362f9090e3bcdf8e9e02090c2c1d732e532-on-2026-08-17"
+            - "evidence:conversation-user-message-recorded-2026-08-17"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
+            - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+            - "blob:6ef3a218dfc61d5ad73f83e236a70e3917909d86"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#14-dvije-grupe-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C14 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
+            - "reports:wd-c14-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+            - "author_reply:C14-accepted-for-378bc362f9090e3bcdf8e9e02090c2c1d732e532-on-2026-08-17"
+            - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
+        - output: "Completion evidence is tied to the declared C14 source state and bounded scope."
+          artifacts:
+            - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+            - "item:R35-REACHBACK-14-accepted"
+            - "item:R02-C14-welch-ols-remains-accepted-and-revalidated"
+            - "item:R22-C14-C16-dependence-remains-ratified-with-Chapter-14-slice-recorded"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#14-dvije-grupe"
+            - "boundary:four-lens-level-minors-known-nonblocking-and-not-edited"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "boundary:WD-C15-unclaimed"
+            - "review:packet_reviews.C14-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
+            - "source:sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+            - "reports:wd-c14-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C14-accepted-for-378bc362f9090e3bcdf8e9e02090c2c1d732e532-on-2026-08-17"
+            - "panel:zero-fatal-zero-major-four-known-nonblocking-minor-records"
+            - "disposition:four-minors-known-and-nonblocking-for-this-edition"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#14-dvije-grupe-stage-coauthor_review"
+            - "item:R35-REACHBACK-14-accepted"
+            - "boundary:R02-C14-welch-ols-accepted-R22-C14-C16-dependence-ratified"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
   WD-C15:
     sequence: 120
     phase: "4"
@@ -15830,6 +15879,12 @@ items:
       - "chapter:sha1-449c88f25e032fd8d4a9066deb45c8648497e8e5"
       - "report:notes/reports/p1a-c14-methods-review-2026-08-03.md"
       - "critic_methods:pass-welch-default-point-estimate-identity-distinct-uncertainty-and-scope"
+      - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+      - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
+      - "result:Welch-and-homoskedastic-OLS-share-estimate-1.185714285714-with-distinct-SE-df-p-and-CI"
+      - "report:notes/reports/wd-c14-critic-methods-2026-08-17.md"
+      - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
+      - "author_reply:C14-accepted-for-378bc362f9090e3bcdf8e9e02090c2c1d732e532-on-2026-08-17"
     blocker:
       active: false
       ask_id: null
@@ -25092,6 +25147,17 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
     completion_evidence: []
+    partial_completion_evidence:
+      chapter_14:
+        status: "verified_pending_multi_chapter_owner"
+        artifacts:
+          - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+          - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
+          - "rule:stop-before-independent-row-inference-for-repeated-nested-household-or-network-linked-observations"
+          - "report:notes/reports/wd-c14-critic-methods-2026-08-17.md"
+          - "report:notes/reports/wd-c14-critic-skeptic-2026-08-17.md"
+          - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
+          - "boundary:item-remains-ratified-for-WD-PART-until-Chapters-15-and-16-pass"
     blocker:
       active: false
       ask_id: null
@@ -29856,7 +29922,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 14 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29878,11 +29944,13 @@ items:
       - "task:critical-reach-back-operationalisation-Chapter-2-and-interval-reading-Chapter-9"
       - "critic:pedagogy-pass-reach-back-cannot-be-solved-by-current-method-alone"
       - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
-      - "boundary:materially-passes-remains-ratified-until-C14"
+      - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
+      - "author_reply:C14-accepted-for-378bc362f9090e3bcdf8e9e02090c2c1d732e532-on-2026-08-17"
+      - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+    change_reference: "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
   R35-REACHBACK-15:
     parents:
       - "R35"
@@ -32540,8 +32608,8 @@ outside_asks:
       nonblocking, and no author reading or final stage is claimed.
 
   OA-C14-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "awaiting_exact_author_reply"
+    status: "done"
+    readiness: "complete"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -32566,6 +32634,15 @@ outside_asks:
     resume_condition: "C14 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
+    completed_at: "2026-08-17"
+    outcome: >-
+      Luka Sikic supplied the exact dated C14 acceptance naming WD-C14
+      closeout commit 378bc362f9090e3bcdf8e9e02090c2c1d732e532. The gate
+      applies only the narrow chapter-ledger and R35-REACHBACK-14 disposition
+      in the acceptance package; R02-C14-welch-ols remains accepted and
+      revalidated, R22-C14-C16-dependence remains ratified for WD-PART, four
+      minor records remain known and nonblocking, and no author reading or
+      final stage is claimed.
 
   OA-C15-ACCEPTANCE:
     status: "drafted_unsent"
