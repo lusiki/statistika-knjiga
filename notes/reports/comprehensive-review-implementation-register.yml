@@ -10,9 +10,16 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C14"
+    claimed_at: "2026-08-17"
+    owned_paths:
+      - "notes/reports/c14-acceptance-package-2026-08-17.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WD-C14"
-  next_permitted_packet: "C14"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12758,7 +12765,7 @@ packets:
     sequence: 119
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WD-C14"
     scope: "Author acceptance and panel disposition for C14."
@@ -12769,6 +12776,20 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+    preparation_evidence:
+      state: "complete_awaiting_exact_author_reply"
+      source_state: "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
+      artifacts:
+        - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
+        - "blob:6ef3a218dfc61d5ad73f83e236a70e3917909d86"
+        - "reports:notes/reports/wd-c14-critic-methods-skeptic-pedagogy-evidence-style-structure-2026-08-17"
+        - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
+        - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
+        - "panel:zero-fatal-zero-major-four-known-nonblocking-minor-records"
+        - "disposition:on-acceptance-advance-only-14-dvije-grupe-to-coauthor_review-and-R35-REACHBACK-14-to-accepted"
+        - "boundary:R02-C14-welch-ols-remains-accepted-R22-C14-C16-dependence-remains-ratified"
+        - "author_reply_required:C14-accepted-for-378bc362f9090e3bcdf8e9e02090c2c1d732e532-on-2026-08-17"
+        - "boundary:C14-open-Chapter-14-draft-WD-C15-not-started"
     completion_evidence: []
     contract: "chapter_acceptance_gate"
     required_evidence:
@@ -32520,7 +32541,7 @@ outside_asks:
 
   OA-C14-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "ready_for_C14_acceptance_package"
+    readiness: "awaiting_exact_author_reply"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -32538,8 +32559,10 @@ outside_asks:
       - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
       - "synthesis:notes/reports/wd-c14-six-critic-synthesis-2026-08-17.md"
       - "panel:zero-fatal-zero-major-four-nonblocking-minor-records"
+      - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
+      - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
     recommended_default: "Accept only after D02, empirical/code-reading receipts, dependence stop rule, reach-back, and panel findings pass."
-    exact_reply_requested: "Reply: C14 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "C14 accepted for 378bc362f9090e3bcdf8e9e02090c2c1d732e532 on 2026-08-17"
     resume_condition: "C14 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the synthesised chapter revision."
     external_message_sent: false
