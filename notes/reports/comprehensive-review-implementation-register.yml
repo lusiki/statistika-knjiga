@@ -10,30 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C07-C12-REACCEPT"
-    claimed_at: "2026-08-17"
-    owned_paths:
-      - "chapters/07-vjerojatnost.qmd"
-      - "chapters/08-uzorkovanje.qmd"
-      - "chapters/09-procjena.qmd"
-      - "chapters/10-logika-testiranja.qmd"
-      - "chapters/11-velicina-ucinka-i-snaga.qmd"
-      - "chapters/12-kriza-i-obnova.qmd"
-      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
-      - "notes/reports/c07-c12-reaccept-critic-methods-2026-08-17.md"
-      - "notes/reports/c07-c12-reaccept-critic-skeptic-2026-08-17.md"
-      - "notes/reports/c07-c12-reaccept-critic-pedagogy-2026-08-17.md"
-      - "notes/reports/c07-c12-reaccept-critic-evidence-2026-08-17.md"
-      - "notes/reports/c07-c12-reaccept-critic-style-2026-08-17.md"
-      - "notes/reports/c07-c12-reaccept-critic-structure-2026-08-17.md"
-      - "notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
-      - "notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WC-PARTS"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C07-C12-REACCEPT"
+  next_permitted_packet: "P3-VERIFY-D"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -12058,7 +12037,7 @@ packets:
     sequence: 114
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WC-PARTS"
     scope: >-
@@ -12080,14 +12059,79 @@ packets:
         Methods, skepticism, pedagogy, evidence, style and structure critics
         each review all six exact post-WC-PARTS source states in one fresh
         round, producing exactly six reports total and one synthesis.
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "commit:e88623ef0ba8c680859c71a200539f3df746b72f"
+            - "reports:notes/reports/c07-c12-reaccept-critic-{methods,skeptic,pedagogy,evidence,style,structure}-2026-08-17.md"
+            - "result:every-critic-read-all-six-exact-sources"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+            - "result:zero-fatal-zero-major-eleven-known-nonblocking-minor-records"
+            - "result:missing_or_unverified-empty"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C07-C12-REACCEPT-accepted-for-ddde7f6cabc0d4335660755c6fbc7601937b4318-on-2026-08-17"
+            - "owner:Luka-Sikic-author-editor"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost-through-12-kriza-i-obnova"
+            - "manifest:chapters-07-12-six-SHA256-and-six-git-blobs"
+            - "boundary:only-chapter-12-advances-draft-to-coauthor_review"
+            - "boundary:no-author-reading-claimed-no-final-stage"
+      outputs:
+        - output: >-
+            C07-C12-REACCEPT author-approved six-critic synthesis and ledger
+            disposition for all six covered units.
+          artifacts:
+            - "report:notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md"
+            - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+            - "author_reply:C07-C12-REACCEPT-accepted-for-ddde7f6cabc0d4335660755c6fbc7601937b4318-on-2026-08-17"
+            - "ledger:chapters-07-12-coauthor_review"
+        - output: >-
+            Completion evidence is tied to the declared C07-C12-REACCEPT
+            source state and bounded scope.
+          artifacts:
+            - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+            - "reports:exactly-six-plus-one-synthesis"
+            - "items:seven-WC-PARTS-governed-items-accepted"
+            - "boundary:Chapter-6-unchanged-and-draft-under-H-WB-PART-001"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+            - "reports:exactly-six-each-covering-Chapters-07-through-12"
+            - "manifest:six-source-hashes-identical-across-reports"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C07-C12-REACCEPT-accepted-for-ddde7f6cabc0d4335660755c6fbc7601937b4318-on-2026-08-17"
+            - "panel:zero-fatal-zero-major-eleven-known-nonblocking-minor-records"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#07-vjerojatnost-through-12-kriza-i-obnova"
+            - "items:seven-WC-PARTS-governed-items-accepted"
+        - test: >-
+            Methods, skepticism, pedagogy, evidence, style and structure critics
+            each review all six exact post-WC-PARTS source states in one fresh
+            round, producing exactly six reports total and one synthesis.
+          result: "passed"
+          evidence:
+            - "reports:critic-methods,critic-skeptic,critic-pedagogy,critic-evidence,critic-style,critic-structure"
+            - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   G-A3-ESS:
     sequence: 98
     phase: "3B"
@@ -19027,7 +19071,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Keep seeded simulations central and empirical data in bounded transfers."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19043,11 +19087,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-PARTS"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      - "source:chapters/07-11-byte-identical-to-C07-C11-accepted-hashes"
+      - "result:seeded-simulations-central-known-and-unknown-truth-distinguished"
+      - "reports:exactly-six-C07-C12-REACCEPT-critic-reports"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "author_reply:C07-C12-REACCEPT-accepted-2026-08-17"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   R08-SPINE-12:
     parents:
       - "R08"
@@ -26372,7 +26422,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance it through sampling, nulls, multiplicity, flexibility, asymmetry, and reproducibility."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26388,11 +26438,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-PARTS"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      - "source:chapters/09-procjena.qmd#granica-Dijela-III"
+      - "source:chapters/12-kriza-i-obnova.qmd#granica-Dijela-IV"
+      - "result:both-boundaries-add-cumulative-inferential-burden"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "author_reply:C07-C12-REACCEPT-accepted-2026-08-17"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   R24-PARTV-thesis:
     parents:
       - "R24"
@@ -26600,7 +26656,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Distinguish generated certainty from sampling uncertainty and unsupported reach."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26616,11 +26672,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-PARTS"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      - "source:chapters/07-09-cumulative-AI-ladder"
+      - "result:generated-certainty-sampling-uncertainty-and-unsupported-reach-distinguished"
+      - "reports:exactly-six-C07-C12-REACCEPT-critic-reports"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "author_reply:C07-C12-REACCEPT-accepted-2026-08-17"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   R24-LADDER-PartIV:
     parents:
       - "R24"
@@ -26634,7 +26696,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Audit null, multiplicity, flexibility, evidential asymmetry, and reproducibility."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26650,11 +26712,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-PARTS"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      - "source:chapters/10-12-cumulative-AI-ladder"
+      - "result:null-multiplicity-flexibility-asymmetry-and-reproducibility-audited"
+      - "reports:exactly-six-C07-C12-REACCEPT-critic-reports"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "author_reply:C07-C12-REACCEPT-accepted-2026-08-17"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   R24-LADDER-C13-16:
     parents:
       - "R24"
@@ -27761,7 +27829,7 @@ items:
       location: "§6/§8"
     description: "End Chapter 12 with a reformed-practice contract that Chapter 13 enacts."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27778,11 +27846,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-PARTS"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      - "source:chapters/12-kriza-i-obnova.qmd#reformed-practice-contract-to-Part-V"
+      - "result:evidence-assumptions-transparency-and-consequences-carried-forward"
+      - "reports:exactly-six-C07-C12-REACCEPT-critic-reports"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "author_reply:C07-C12-REACCEPT-accepted-2026-08-17"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   R27-C17-18-transition:
     parents:
       - "R27"
@@ -29627,7 +29701,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part III cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29643,11 +29717,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-PARTS"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      - "source:chapters/09-procjena.qmd#Part-III-answerable-self-check"
+      - "result:self-check-retrieves-completed-part-and-matches-thread-map"
+      - "reports:exactly-six-C07-C12-REACCEPT-critic-reports"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "author_reply:C07-C12-REACCEPT-accepted-2026-08-17"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   R35-SELF-CHECK-IV:
     parents:
       - "R35"
@@ -29661,7 +29741,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part IV cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29677,11 +29757,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WC-PARTS"
-    completion_evidence: []
+    completion_evidence:
+      - "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
+      - "source:chapters/12-kriza-i-obnova.qmd#Part-IV-answerable-self-check"
+      - "result:self-check-retrieves-null-effect-power-multiplicity-flexibility-reproducibility-and-claim-boundary"
+      - "reports:exactly-six-C07-C12-REACCEPT-critic-reports"
+      - "synthesis:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md"
+      - "author_reply:C07-C12-REACCEPT-accepted-2026-08-17"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:ddde7f6cabc0d4335660755c6fbc7601937b4318"
   R35-SELF-CHECK-V:
     parents:
       - "R35"
@@ -31947,8 +32033,8 @@ outside_asks:
     external_message_sent: false
 
   OA-C07-C12-REACCEPT:
-    status: "drafted_unsent"
-    readiness: "ready_for_author_decision"
+    status: "done"
+    readiness: "decision_received"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -31990,6 +32076,12 @@ outside_asks:
       Only the author/editor can accept the combined final-state chapter
       disposition; no earlier single-chapter acceptance covers changed bytes.
     external_message_sent: false
+    completed_at: "2026-08-17"
+    outcome: >-
+      Luka Sikic supplied the exact dated acceptance naming WC-PARTS closeout
+      commit ddde7f6cabc0d4335660755c6fbc7601937b4318. The gate may apply only
+      the narrow ledger, seven-item and control disposition in the acceptance
+      package; no author reading or final stage is claimed.
 
   OA-C13-ACCEPTANCE:
     status: "drafted_unsent"

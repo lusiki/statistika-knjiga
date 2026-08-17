@@ -2,7 +2,7 @@
 
 **Gate:** `C07-C12-REACCEPT`, sequence 114
 
-**Stanje:** svježi šesterostruki panel dovršen; čeka se točan odgovor autora
+**Stanje:** autor prihvatio; uska closeout dispozicija provedena
 
 **Vlasnik odluke:** Luka Sikic, autor/editor
 
@@ -15,7 +15,7 @@ Odluka pokriva točno šest post-`WC-PARTS` izvora iz commita
 bajtno jednaka ranijim pojedinačno prihvaćenim izvorima; samo je poglavlje 12
 materijalno promijenjeno i zato je vraćeno u `draft` prije ovoga gatea.
 
-| Poglavlje | SHA-256 | Trenutačna faza |
+| Poglavlje | SHA-256 | Faza prije odluke |
 |---|---|---|
 | 07 | `900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5` | `coauthor_review` |
 | 08 | `9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04` | `coauthor_review` |
@@ -58,7 +58,7 @@ Preporuka je prihvatiti ovaj zaključani manifest uz jedanaest poznatih,
 neblokirajućih minor zapisa. Time se ne tvrdi da je autor pročitao poglavlja i
 ne dodjeljuje im se faza `final`.
 
-Ako autor pošalje točan odgovor, closeout smije provesti samo sljedeće:
+Nakon provjere točnoga odgovora closeout provodi samo sljedeće:
 
 - potvrditi svih šest ledger zapisa protiv navedenih hashova i pomaknuti samo
   `12-kriza-i-obnova` iz `draft` u `coauthor_review`; poglavlja 7–11 ostaju u
@@ -81,14 +81,18 @@ arhiviranje, deployment ili objavu. Sadašnji control-plane approval kojim su
 gate i handoff stvoreni nije chapter acceptance i ne može zamijeniti donji
 točan odgovor.
 
-## Točan odgovor
+## Točan odgovor i provedena odluka
 
-Za prihvaćanje upišite točno:
+Autor je u aktivnoj niti 17. kolovoza 2026. poslao točno:
 
 ```text
 C07-C12-REACCEPT accepted for ddde7f6cabc0d4335660755c6fbc7601937b4318 on 2026-08-17.
 ```
 
-Ako neki minor ipak smatrate blokirajućim, umjesto te rečenice navedite točan
-broj nalaza i traženu izmjenu. Dok je odgovor odsutan, gate ostaje aktivan i
-`P3-VERIFY-D` se ne smije preuzeti.
+Odgovor imenuje točan `WC-PARTS` closeout commit i datum. Time su jedanaest
+minor zapisa autoru izloženi, poznati i neblokirajući za ovo izdanje, bez
+promjene zaključanih izvora. Svih šest ledger jedinica sada je u
+`coauthor_review`; samo je poglavlje 12 promijenilo fazu. Sedam upravljanih
+stavki prelazi u `accepted`, gate i njegov write lock zatvaraju se, a
+`P3-VERIFY-D` postaje jedini sljedeći paket. Nije zabilježeno da je autor
+pročitao poglavlja i nijedna jedinica nije označena kao `final`.
