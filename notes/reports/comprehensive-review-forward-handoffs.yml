@@ -6770,6 +6770,10 @@ handoffs:
       - packet:P6-PANELS
       - decision:A-THREAD-WC-PARTS-WD-C14-2026-08-17
       - report:notes/reports/wc-parts-2026-08-17.md#odobrena-skupna-vrata
+      - source:chapters/12-kriza-i-obnova.qmd@sha256-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4
+      - report:notes/reports/wc-parts-critic-voice-final-2026-08-17.md
+      - report:notes/reports/wc-parts-critic-arc-final-2026-08-17.md
+      - synthesis:notes/reports/wc-parts-continuity-synthesis-final-2026-08-17.md
       - item:R08-SPINE-07-11
       - item:R24-PARTIII-IV-thesis
       - item:R24-LADDER-PartIII
@@ -6806,6 +6810,44 @@ handoffs:
     deliveries:
       - target_packet: C07-C12-REACCEPT
         gate: before_start
+        state: pending
+
+  H-WC-PARTS-DOCX-001:
+    source_packet: WC-PARTS
+    created_at: "2026-08-17"
+    kind: risk
+    refs:
+      - packet:WC-PARTS
+      - packet:P7-DOCX
+      - report:notes/reports/wc-parts-2026-08-17.md#zavrsni-formatni-dokaz
+      - script:scripts/render-book-docx.ps1
+      - artifact:word/Statistika.docx@sha256-ddc4f4a6b77b35b31fa1a20ecca775c95d971a8ea1679213b0d5217c6a2382a8
+      - isolation:C:/Users/lsikic/AppData/Local/Temp/statistika-wc-parts-render-20260817-0732/docs-kolegij
+      - isolation:C:/Users/lsikic/AppData/Local/Temp/statistika-wc-parts-render-final-failed-20260817-0753/docs-kolegij
+      - isolation:C:/Users/lsikic/AppData/Local/Temp/statistika-wc-parts-docx-final-retry-20260817-0807
+    statement: >-
+      The approved DOCX wrapper completed successfully only after root-level
+      build-only directories were temporarily and recoverably isolated. Two
+      preceding final-state attempts failed closed with Quarto recursion, and
+      every attempt restored all 17 temporary source gates. WC-PARTS isolated
+      generated recursive resource trees and restored every tracked render,
+      cache and export artifact before review and commit.
+    required_action: >-
+      Before P7-DOCX closes, run the approved DOCX wrapper from its frozen
+      candidate, prove all temporary gates are restored, prove no recursive
+      docs/docs-kolegij or equivalent build-only resource tree remains in the
+      checkout, and record the fresh DOCX hash together with a clean-worktree
+      audit. Do not treat the WC-PARTS artifact as release-candidate proof.
+    basis:
+      - "render:DOCX-exit-0-source-tree-restored"
+      - "observation:untracked-recursive-docs-docs-kolegij-tree"
+      - "boundary:generated-tree-isolated-not-deleted"
+      - "boundary:no-source-change-from-wrapper"
+      - "boundary:no-release-authority"
+    required: true
+    deliveries:
+      - target_packet: P7-DOCX
+        gate: before_close
         state: pending
 
 packet_reviews:
@@ -9427,3 +9469,29 @@ packet_reviews:
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C12
       - WC-PARTS is the sole next permitted packet but is not claimed and must stop before its first prose edit for the exact blast-radius choice
       - no external message push merge tag archive deployment publication or author-reading claim is made or authorised
+
+  WC-PARTS:
+    reviewed_at: "2026-08-17"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-WC-PARTS-REACCEPT-001
+      - H-WC-PARTS-DOCX-001
+    implementation_state: "source:chapters/12-kriza-i-obnova.qmd@sha256-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4"
+    checks:
+      - no handoff delivery targets WC-PARTS and nothing targeting another packet was acknowledged or consumed
+      - Chapters 7 through 11 remain byte-identical at their C07 through C11 accepted source hashes and git blobs
+      - only Chapter 12 changed materially and remains draft because its previous C12 decision names older bytes
+      - the final Chapter 12 SHA256 is 4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4 and git blob is eeafc212904f6cf822432be6ef0c9a20c1c47d47
+      - the regenerated concept graph has 49 nodes 549 edges SHA256 6e3d8d1dda54386f9d16fe7a4a7d339ddaa16eb29c58ee2711f28c9fc9521794 and no new definition or node
+      - style structure figure citation concept terminology manuscript spine architecture assessment data widget parity and token checks pass
+      - P3 evidence validation returns 17 laboratories N 1894 raw 0.026766 interval -0.107693 to 0.161225 and d 0.014151 interval -0.076191 to 0.104493
+      - targeted HTML approved-wrapper PDF and wrapper DOCX render evidence is tied to the final source hash and recorded in notes/reports/wc-parts-2026-08-17.md
+      - the initial continuity panel major was corrected within four Part IV self-check questions and their answer without adding evidence or scope
+      - the final independent voice and arc continuity round records zero fatal zero major and two nonblocking voice minors
+      - all seven governed items materially pass and return to ratified pending the separate C07-C12-REACCEPT author gate
+      - H-WC-PARTS-REACCEPT-001 carries the exact six-chapter fresh-panel and author-decision obligation to C07-C12-REACCEPT before start
+      - H-WC-PARTS-DOCX-001 carries the recursive-resource release risk and fresh wrapper proof obligation to P7-DOCX before close
+      - Chapter 6 remains byte-identical at SHA256 0c10a9b827651228777379826bf64f27bfc585633b0d889af2396f7a28d6ebfd and draft under H-WB-PART-001
+      - all tracked render cache PDF Word and export outputs were restored and no generated output enters the packet commit
+      - C07-C12-REACCEPT is the sole next permitted packet but is not claimed inside WC-PARTS
+      - no author reading chapter acceptance external message push merge tag archive deployment or publication is claimed or authorised

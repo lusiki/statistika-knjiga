@@ -10,23 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "WC-PARTS"
-    claimed_at: "2026-08-17"
-    owned_paths:
-      - "chapters/07-vjerojatnost.qmd"
-      - "chapters/08-uzorkovanje.qmd"
-      - "chapters/09-procjena.qmd"
-      - "chapters/10-logika-testiranja.qmd"
-      - "chapters/11-velicina-ucinka-i-snaga.qmd"
-      - "chapters/12-kriza-i-obnova.qmd"
-      - "bookwright_plugin/bookwright/shared/chapter-ledger.json"
-      - "notes/reports/wc-parts-2026-08-17.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "C12"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "WC-PARTS"
+  next_permitted_packet: "C07-C12-REACCEPT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -11967,7 +11953,7 @@ packets:
     sequence: 113
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "C12"
     scope: "Parts III and IV bridges and self-checks."
@@ -11978,14 +11964,75 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WC-PARTS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:A-THREAD-WC-PARTS-WD-C14-2026-08-17#wc_parts_option_b"
+            - "decision:G-A2b-III"
+            - "decision:G-A2b-IV"
+            - "report:notes/reports/wc-parts-2026-08-17.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/07-vjerojatnost.qmd@sha256-900c1c8ed1b0729eb4bb2fd34421277713e4ecae534290161bc21b0d44d617d5"
+            - "source:chapters/08-uzorkovanje.qmd@sha256-9c21300575573d86b60120eb54ef3d4c37acb3edb4d2bf207163c3563daf0c04"
+            - "source:chapters/09-procjena.qmd@sha256-42c69be9eec5fa9dcfed853e95269d661ea8cf73c6ac7ddd9de431c88ae5b08f"
+            - "source:chapters/10-logika-testiranja.qmd@sha256-b019a0e3c5f7845e2362aaaa3c37b33fc9e1a3430b0fcd6ccc7e8fcbc8481236"
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-d438ba3e1c90fa6b954c6f796da4a0768ef1324352e77b3a966c934a7044e6e1"
+            - "source:chapters/12-kriza-i-obnova.qmd@sha256-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4"
+            - "artifact:data/concept-graph.json@sha256-6e3d8d1dda54386f9d16fe7a4a7d339ddaa16eb29c58ee2711f28c9fc9521794"
+            - "check:P3_EVIDENCE12_OK-17-labs-N-1894"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-sha256-4190f6920aa33b3168a348eb14d0a313fe1f45caefa9d62cca2b7b3bfcbb8213"
+            - "render:PDF_BUILD_OK-sha256-ba23142112c751e1d602e94c866152d3e233eb6ba5d8653a50e68412abe1268f"
+            - "render:DOCX-wrapper-exit-0-sha256-ddc4f4a6b77b35b31fa1a20ecca775c95d971a8ea1679213b0d5217c6a2382a8"
+            - "report:notes/reports/wc-parts-2026-08-17.md#zavrsni-formatni-dokaz"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wc-parts-critic-voice-final-2026-08-17.md"
+            - "report:notes/reports/wc-parts-critic-arc-final-2026-08-17.md"
+            - "synthesis:notes/reports/wc-parts-continuity-synthesis-final-2026-08-17.md"
+            - "result:zero-fatal-zero-major-two-nonblocking-voice-minors"
+      outputs:
+        - output: "WC-PARTS verified vertical-slice source and evidence bundle for: Parts III and IV bridges and self-checks."
+          artifacts:
+            - "report:notes/reports/wc-parts-2026-08-17.md"
+            - "source:chapters/12-kriza-i-obnova.qmd@sha256-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4"
+            - "synthesis:notes/reports/wc-parts-continuity-synthesis-final-2026-08-17.md"
+        - output: "Completion evidence is tied to the declared WC-PARTS source state and bounded scope."
+          artifacts:
+            - "manifest:chapters-07-12-six-SHA256-and-six-git-blobs"
+            - "boundary:chapters-07-11-byte-identical-only-chapter-12-changed"
+            - "ledger:chapter-12-draft-chapters-07-11-coauthor_review"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "checks:style-structure-figure-citation-concept-terminology-integrity-spines-architecture-assessment-data-widgets-parity-tokens"
+            - "renders:targeted-HTML-approved-wrapper-PDF-wrapper-DOCX"
+            - "report:notes/reports/wc-parts-2026-08-17.md"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "initial-major:Part-IV-self-check-insufficiently-cumulative"
+            - "correction:four-questions-and-answer-only"
+            - "final-panel:zero-fatal-zero-major-two-nonblocking-voice-minors"
+        - test: "The WC-PARTS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-07-11,R24-PARTIII-IV-thesis,R24-LADDER-PartIII,R24-LADDER-PartIV,R27-C12-13-transition,R35-SELF-CHECK-III,R35-SELF-CHECK-IV"
+            - "handoff:H-WC-PARTS-REACCEPT-001"
+            - "handoff:H-WC-PARTS-DOCX-001"
+            - "boundary:chapter-6-unchanged-draft-under-H-WB-PART-001"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4"
   C07-C12-REACCEPT:
     sequence: 114
     phase: "4"
@@ -18959,7 +19006,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Keep seeded simulations central and empirical data in bounded transfers."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "ratified"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26304,7 +26351,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance it through sampling, nulls, multiplicity, flexibility, asymmetry, and reproducibility."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "ratified"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26532,7 +26579,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Distinguish generated certainty from sampling uncertainty and unsupported reach."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "ratified"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26566,7 +26613,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Audit null, multiplicity, flexibility, evidential asymmetry, and reproducibility."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "ratified"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27693,7 +27740,7 @@ items:
       location: "§6/§8"
     description: "End Chapter 12 with a reformed-practice contract that Chapter 13 enacts."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "ratified"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29559,7 +29606,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part III cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "ratified"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29593,7 +29640,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part IV cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "in_progress"
+    status: "ratified"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
