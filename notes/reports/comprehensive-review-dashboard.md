@@ -50,6 +50,7 @@ stop and repair the control state before editing book content.
 | Thread amendment C12-WD-C13 | `A-THREAD-C12-WD-C13-2026-08-13` accepted as a new, distinct decision: strict chain `WC-C12 -> C12 -> WC-PARTS -> P3-VERIFY-D -> WD-C13`; every packet remains separate; C12 requires the exact author reply and WC-PARTS must stop for the blast-radius choice before any prose edit; all earlier thread chains have ended |
 | Thread amendment WC-PARTS-WD-C14 | `A-THREAD-WC-PARTS-WD-C14-2026-08-17` accepted as a new, distinct decision: strict chain now runs `WC-PARTS -> C07-C12-REACCEPT -> P3-VERIFY-D -> WD-C13 -> C13 -> WD-C14`; every packet remains separate; option B and the exact batched gate/handoff are approved, while C07-C12-REACCEPT and C13 retain their exact author-reply stops; all earlier thread chains have ended |
 | Thread amendment WD-C14/C14 preparation | `A-THREAD-WD-C14-C14-PREP-2026-08-13` accepted as a new, distinct decision and recorded on 17 August: execute and commit `WD-C14`, then claim `C14` only to assemble the complete acceptance package and stop for the exact reply `C14 accepted for <commit> on <date>`; do not close C14 or start WD-C15; all earlier thread chains have ended |
+| Thread amendment WD-C15–G-A4-16 | `A-THREAD-WD-C15-G-A4-16-2026-08-17` is the eighth, new and distinct thread decision: strict chain `WD-C15 -> C15 -> G-A4-16`; every packet remains separate; C15 keeps the exact author-reply stop and G-A4-16 prepares the artifact, rights and binary-outcome-bridge brief without retrieval, promotion or prose; all seven earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
@@ -5499,6 +5500,31 @@ the durable evidence is
   not claimed inside C14. It requires a fresh clean preflight, its own handoff
   consumption, bounded evidence, closeout and local commit.
 
+## Eighth thread amendment and WD-C15 handoff preflight
+
+- Author and editor Luka Sikic approved the new, distinct decision
+  `A-THREAD-WD-C15-G-A4-16-2026-08-17` on 17 August 2026. Its strict chain is
+  `WD-C15 -> C15 -> G-A4-16`; all seven earlier thread-amendment chains have
+  ended and none is treated as continuing authority.
+- The amendment changes only the ordinary stop-after-one-packet rule. Each
+  packet keeps its own lock, claim and closeout checks, evidence, handoff
+  disposition and scoped commit. C15 still stops for exactly
+  `C15 accepted for <commit> on <date>`, and G-A4-16 stops for the author's
+  artifact, rights and binary-outcome-bridge decisions.
+- Clean preflight at C14 closeout commit `7dc4a18f23116fdcc5cb2847d2fbd79aeed735c0`
+  confirmed no active packet and WD-C15 alone at sequence 120. A complete
+  target scan of all 97 handoffs found exactly one delivery to WD-C15:
+  `H-P3-ESS-001` at `before_start`.
+- That delivery is consumed before claim. ESS remains optional, reader-owned,
+  portal-mediated and unpromoted; no local file, checksum, empirical result,
+  file-parity or rights-holder-permission claim is allowed. Mandatory offline
+  work uses the promoted CC BY 4.0 `data/populacija-medija.csv` or its five-row
+  aggregate. `OA-G-A3-ESS-RIGHTS` remains open and bundling remains prohibited.
+- WD-C15 remains unclaimed. Chapter 6 remains deliberately `draft`, Chapters
+  7–12 retain their reaccepted states, and no chapter prose, registry stage,
+  data file, figure, widget or generated artifact changes in this control
+  record.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5527,8 +5553,9 @@ outside-ask reference. Also read the checkout-local book-review instructions
 and panel reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean C14 closeout commit. Confirm C14 accepts exact
-WD-C14 source commit `378bc362f9090e3bcdf8e9e02090c2c1d732e532`, and that
+Verify that HEAD is the clean eighth-thread-amendment and WD-C15-handoff
+preflight commit. Confirm C14 accepts exact WD-C14 source commit
+`378bc362f9090e3bcdf8e9e02090c2c1d732e532`, and that
 `chapters/14-dvije-grupe.qmd` remains SHA-256
 `84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2` and
 git blob `6ef3a218dfc61d5ad73f83e236a70e3917909d86`; all six final reports and
@@ -5539,13 +5566,16 @@ R02-C14-welch-ols remains accepted and revalidated;
 R22-C14-C16-dependence remains ratified for WD-PART; Chapter 6 remains
 deliberately draft; and no packet is active.
 
-WD-C15 alone is next at sequence 120. Do not infer authority from this prompt:
-claim and execute WD-C15 only when the user explicitly asks to continue the
-ratified programme. Before claim, consume its H-P3-ESS-001 delivery and
+WD-C15 alone is next at sequence 120 under the eighth, distinct thread decision
+`A-THREAD-WD-C15-G-A4-16-2026-08-17`. H-P3-ESS-001 was consumed before claim;
 independently verify P2-SPINE-V and P1A-C15. Keep ESS optional,
-portal-mediated and unpromoted and retain the mandatory licensed local route.
+portal-mediated and unpromoted and state that mandatory offline work uses the
+promoted CC BY 4.0 populacija_medija files.
 Within the ratified Chapter 15 spine, verify the suspect-code task, reach-back,
 variance screening, inherited D02 revalidation and dependence stop rule, then
-run one final six-critic panel on a single material state. Push, merge, tag,
-archive, deployment and publication remain separately gated.
+run one final six-critic panel on a single material state. Close and commit
+WD-C15 before claiming C15; C15 must stop for the exact author reply. Only after
+that reply and C15 closeout may G-A4-16 be claimed to prepare the artifact,
+rights and binary-outcome-bridge brief and stop for the author's decisions.
+Push, merge, tag, archive, deployment and publication remain separately gated.
 ```
