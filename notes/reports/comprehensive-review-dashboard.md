@@ -5965,10 +5965,26 @@ the durable evidence is
   promotion-log entry, empirical result, chapter edit or outgoing handoff was
   created. `H-P3-DZS-003` remains acknowledged and unconsumed because P3-TEXT
   is not closed.
-- `OA-P3-TEXT-LINKAGE-RESEARCH` asks the author for one bounded decision: permit
-  a separate research gate to identify the exact official, versioned and
-  licensed ParlaMint-HR edition used by ParlaSent 1.0. The ask approves no new
-  source, output or promotion and preserves the all-test-rows condition.
+- `OA-P3-TEXT-LINKAGE-RESEARCH` is `done`. Luka Sikic supplied the exact dated
+  reply tied to the observed ParlaMint-HR 5.0 and ParlaSent BCS test SHA-256
+  values. `A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18` now permits only bounded
+  research over official, versioned and licensed ParlaMint-HR editions; it
+  accepts no replacement source, right, output, promotion or row removal.
+- The bounded research is complete. ParlaMint-HR 1.0 and 2.1 cover only
+  2016-11-15 through 2020-05-17, while 873 selected Croatian test rows predate
+  2016. ParlaMint-HR 3.0 is the only temporally possible full-range official
+  edition, but its published-MD5 archive reproduces the exact 1,297/24/15
+  blocker. Releases 4.0, 4.1 and 5.0 postdate ParlaSent 1.0.
+- The original ParlaSent paper identifies CROCorp DOI
+  `10.5281/zenodo.6521372`, not a ParlaMint-HR edition, as the Croatian source
+  corpus. CROCorp was not selected or downloaded. The full evidence is in
+  `notes/reports/p3-text-linkage-research-2026-08-18.md`.
+- `OA-P3-TEXT-ROUTE` now asks for one separate author decision. The recommended
+  route is ParlaSent-only: retain every Croatian test row and label-production
+  path, remove grouped train/test leakage, publish one sentence-level table
+  under CC BY-SA 4.0, and remove every speech join, context field,
+  ParlaMint-only output and three-layer promise. Removal of the empirical
+  package is the wider alternative.
 - P3-TEXT remains `in_progress` with the only write lock. P3-VERIFY, WD-C17 and
   C17 remain blocked; the tenth packet chain stops here.
 
@@ -6014,13 +6030,21 @@ link and 15 are ambiguous. The accepted selection forbids dropping, guessing
 or fuzzy-matching those rows. No teaching file, passport, notice, catalogue
 edit or promotion exists, and P3-VERIFY, WD-C17 and C17 remain blocked.
 
-Stop for this exact author/editor reply:
-`P3-TEXT-LINKAGE-RESEARCH approved for ParlaMint-HR SHA256 bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c and ParlaSent BCS test SHA256 412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0 on 2026-08-18.`
+The exact `P3-TEXT-LINKAGE-RESEARCH` reply and completed research are recorded.
+Read `notes/reports/p3-text-linkage-research-decision-2026-08-18.md` and
+`notes/reports/p3-text-linkage-research-2026-08-18.md`. No official
+ParlaMint-HR edition is the proven Croatian ParlaSent source and uniquely links
+all 1,336 selected test rows. ParlaMint-HR 3.0 reproduces the 1,297/24/15
+blocker; the original ParlaSent paper identifies CROCorp instead. Do not select
+or fetch CROCorp.
 
-That reply authorises only a new bounded research gate over official,
-versioned and licensed ParlaMint-HR editions to identify the edition from
-which ParlaSent 1.0 was derived. It approves no new source, right, output,
-promotion or row removal. Without the exact reply, make no further network
-request or packet change. Do not infer author reading, rights-holder
-permission, push, merge, tag, archive, deployment or publication.
+Stop for this exact author/editor reply:
+`P3-TEXT-ROUTE accepted as recommended: ParlaSent-only for ParlaSent BCS SHA256 c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98 and ParlaSent BCS test SHA256 412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0 on 2026-08-18.`
+
+That reply authorises only the ParlaSent-only redesign stated in
+`OA-P3-TEXT-ROUTE`; it does not accept a finished package. Without the exact
+reply, make no teaching output, licence notice, catalogue change, promotion,
+chapter edit or further network request. P3-TEXT stays active and unaccepted;
+P3-VERIFY, WD-C17 and C17 remain blocked. Do not infer author reading,
+rights-holder permission, push, merge, tag, archive, deployment or publication.
 ```

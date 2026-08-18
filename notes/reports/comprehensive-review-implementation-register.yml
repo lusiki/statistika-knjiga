@@ -32,6 +32,8 @@ execution:
       - "scripts/check-data-integrity.R"
       - "scripts/check-data-fixtures.py"
       - "notes/reports/p3-text-2026-08-18.md"
+      - "notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
+      - "notes/reports/p3-text-linkage-research-2026-08-18.md"
       - "notes/reports/comprehensive-review-implementation-register.yml"
       - "notes/reports/comprehensive-review-forward-handoffs.yml"
       - "notes/reports/comprehensive-review-dashboard.md"
@@ -2407,6 +2409,34 @@ decisions:
       rights-holder permission, author reading, reader test, measured reading
       time or independent terminology review and authorises no push, merge,
       tag, archive, deployment or publication.
+
+  A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "bounded_official_edition_research_authorised"
+    author: "Luka Sikic"
+    evidence: "conversation:P3-TEXT-LINKAGE-RESEARCH-approved-for-ParlaMint-HR-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c-and-ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+    decision_record: "notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
+    applies_to: "P3-TEXT"
+    accepted_source_state:
+      parlamint_hr_5_0_sha256: "bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c"
+      parlasent_bcs_test_1_0_sha256: "412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+    authorised_action: >-
+      Inspect only official, versioned and licensed ParlaMint-HR editions to
+      identify the exact edition from which ParlaSent 1.0 was derived and test
+      whether all 1336 Croatian test rows link uniquely without fuzzy matching,
+      row removal or guessing.
+    stop_conditions:
+      - "If one exact official edition links all 1336 Croatian test rows uniquely, stop for a separate source-selection and rights decision before using it."
+      - "If no exact official edition passes, record the blocker and stop for a separate ParlaSent-only redesign or removal decision."
+    authority_boundary: >-
+      This amendment permits bounded source research and candidate-lane
+      retrieval only. It accepts no different ParlaMint-HR edition, licence or
+      right for the teaching package; creates no teaching output; changes no
+      catalogue or promotion state; removes no row; and does not close P3-TEXT
+      or unblock P3-VERIFY, WD-C17 or C17. No rights-holder permission, author
+      reading, reader test, measured reading time, independent terminology
+      review, push, merge, tag, archive, deployment or publication is claimed.
 
   G-A3-ESS:
     status: "accepted"
@@ -14112,10 +14142,24 @@ packets:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+    amendments:
+      - amended_at: "2026-08-18"
+        amended_by: "Luka Sikic"
+        authority: "A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+        evidence: "conversation:P3-TEXT-LINKAGE-RESEARCH-approved-for-ParlaMint-HR-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c-and-ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+        amendment_record: "notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
+        reason: >-
+          The accepted ParlaMint-HR 5.0 archive fails the all-test-rows unique
+          linkage condition. The author therefore permits a bounded search over
+          official, versioned and licensed ParlaMint-HR editions for the exact
+          edition used by ParlaSent 1.0. The search accepts no replacement source
+          or right and cannot create or promote the teaching package.
     completion_evidence: []
     blocker_evidence:
-      state: "fail_closed_awaiting_author_scope_decision"
+      state: "fail_closed_no_official_parlamint_hr_source_edition"
       investigated_at: "2026-08-18"
+      research_completed_at: "2026-08-18"
+      research_authority: "A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
       source_state: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
       pinned_source_signature:
         parlamint_hr_sha256: "bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c"
@@ -14133,6 +14177,47 @@ packets:
         test_ambiguous: 15
         source_document_overlap: 20
         resolved_speech_overlap: 40
+      research_observed:
+        parlamint_1_0:
+          handle: "11356/1345"
+          issued: "2020-10-15"
+          published_md5: "01ef392a95587ba35b6f109e61f68be1"
+          local_sha256: "a49a9e72efe6781190d926ccf3b9de4802e409bbcfb92797dadd6e003dca6a1e"
+          hr_coverage: "2016-11-15/2020-05-17"
+          disposition: "cannot_contain_873_selected_test_rows_before_2016"
+        parlamint_2_1:
+          handle: "11356/1432"
+          issued: "2021-06-18"
+          published_md5: "cf2ce85cb3d61df368d8bbfe2635988a"
+          local_sha256: "b24411e9a5f94a65a33fe25e64a7f9be1e03ac408741ee4dc98c5320fc44914d"
+          hr_coverage: "2016-11-15/2020-05-17"
+          disposition: "cannot_contain_873_selected_test_rows_before_2016"
+        parlamint_3_0:
+          handle: "11356/1486"
+          issued: "2023-07-04"
+          published_md5: "4191e37352aaf96166af03b3214ac671"
+          local_sha256: "773c8d6e10415fdea3003b154c310f923652df54aef66c82e7f5650488bf350b"
+          test_linked: 1297
+          test_no_link: 24
+          test_ambiguous: 15
+          disposition: "only_temporally_possible_full_range_release_fails_unique_linkage"
+        parlamint_4_0:
+          handle: "11356/1859"
+          issued: "2023-10-24"
+          disposition: "postdates_ParlaSent_1_0"
+        parlamint_4_1:
+          handle: "11356/1912"
+          issued: "2024-06-03"
+          disposition: "postdates_ParlaSent_1_0"
+        parlamint_5_0:
+          handle: "11356/2004"
+          issued: "2025-07-08"
+          disposition: "postdates_ParlaSent_1_0_and_fails_unique_linkage"
+        provenance_finding: >-
+          The original ParlaSent article version 1 identifies CROCorp DOI
+          10.5281/zenodo.6521372, not a ParlaMint-HR edition, as the Croatian
+          source corpus. The official CROCorp record is version 1.1.1 under CC
+          BY 4.0, but it was not selected, downloaded or accepted by this gate.
       failed_exit_tests:
         - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
         - "Every promised R, no-code, print, or portal lane is lawful and testable."
@@ -14145,11 +14230,25 @@ packets:
         - "fixture:TEXT_PACKAGE_NEGATIVE_FIXTURE-source_md5_mismatch-exit-1"
         - "registry:data/katalog.yml#parlamint_hr-and-parlasent-remain-unpromoted"
         - "outside-ask:OA-P3-TEXT-LINKAGE-RESEARCH"
+        - "decision:A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+        - "report:notes/reports/p3-text-linkage-research-2026-08-18.md"
+        - "check:ParlaMint-HR-3.0-test-1297-linked-24-no-link-15-ambiguous"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1345"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1432"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1486"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1859"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1912"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/2004"
+        - "source:https://arxiv.org/abs/2309.09783v1"
+        - "source:https://doi.org/10.5281/zenodo.6521372"
+        - "outside-ask:OA-P3-TEXT-ROUTE"
       boundary: >-
         P3-TEXT remains active and unaccepted. No teaching file, passport,
         licence notice, catalogue promotion, empirical result, chapter edit,
         outgoing handoff or packet closeout is claimed. P3-VERIFY, WD-C17 and
-        C17 remain blocked.
+        C17 remain blocked. No different corpus may be selected until the author
+        separately decides between a ParlaSent-only redesign and removal of the
+        empirical text package.
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
@@ -31690,7 +31789,7 @@ items:
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
-  total_asks: 86
+  total_asks: 87
   external_messages_sent: 0
   implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   canonical_status_store: "outside_asks"
@@ -33070,8 +33169,8 @@ outside_asks:
       - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
 
   OA-P3-TEXT-LINKAGE-RESEARCH:
-    status: "drafted_unsent"
-    readiness: "ready_for_exact_author_reply"
+    status: "done"
+    readiness: "complete"
     kind: "source_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -33111,6 +33210,67 @@ outside_asks:
       cannot uniquely link every selected Croatian test row. Inspecting another
       edition expands the ratified source scope and therefore requires an
       author/editor decision rather than a technical inference.
+    external_message_sent: false
+    completed_at: "2026-08-18"
+    outcome: >-
+      Luka Sikic supplied the exact dated reply tied to the observed
+      ParlaMint-HR 5.0 and ParlaSent BCS test SHA-256 values. The reply permits
+      only bounded research across official, versioned and licensed
+      ParlaMint-HR editions. It accepts no replacement source, right, teaching
+      output, promotion or row removal and does not close P3-TEXT.
+    resolution_evidence:
+      - "author_reply:P3-TEXT-LINKAGE-RESEARCH-approved-for-ParlaMint-HR-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c-and-ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+      - "decision:A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+      - "report:notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
+
+  OA-P3-TEXT-ROUTE:
+    status: "drafted_unsent"
+    readiness: "ready_for_exact_author_reply"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Choose whether P3-TEXT is redesigned as ParlaSent-only or removed from the first-edition empirical route."
+    expected_form: "One dated route decision tied to the exact unchanged ParlaSent BCS source SHA-256 values."
+    insertion_point:
+      - "decisions.A-P3-TEXT-ROUTE-2026-08-18"
+      - "packets.P3-TEXT.amendments"
+    blocked_items:
+      - "R03-TEXT-licences"
+      - "R13-TEXT-package"
+      - "R13-TEXT-label-split"
+      - "R13-TEXT-three-layers"
+    blocked_gates:
+      - "P3-TEXT"
+      - "P3-VERIFY"
+      - "WD-C17"
+      - "C17"
+    available_evidence:
+      - "decision:A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+      - "report:notes/reports/p3-text-linkage-research-2026-08-18.md"
+      - "source:ParlaSent-BCS-sha256-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+      - "source:ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+      - "blocker:no-official-ParlaMint-HR-edition-links-all-1336-test-rows"
+    recommended_default: >-
+      Redesign P3-TEXT as ParlaSent-only. Retain every Croatian source-test row,
+      remove source-training documents that cross the test boundary, derive the
+      grouped training/validation split only from the remaining source-training
+      rows, preserve the recorded label-production paths and publish one
+      sentence-level teaching table under CC BY-SA 4.0. Remove every
+      ParlaMint-HR join, speech-context field, ParlaMint-only output, three-layer
+      promise and unique-speech-link test. WD-C17 remains the sole analytical
+      consumer and must describe the bounded sentence-review task without a
+      speech-context or prevalence claim. This decision would still require a
+      separately evidenced P3-TEXT build and closeout.
+    rejected_alternative: >-
+      Remove the empirical text package from the first edition and revise the
+      Chapter 17 brief before WD-C17. This is lawful but sacrifices the accepted
+      real-data teaching route and requires a wider content disposition.
+    exact_reply_requested: "P3-TEXT-ROUTE accepted as recommended: ParlaSent-only for ParlaSent BCS SHA256 c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98 and ParlaSent BCS test SHA256 412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0 on 2026-08-18."
+    resume_condition: "P3-TEXT may redesign or remove the empirical package only after one explicit author route decision is recorded."
+    why_external: >-
+      Repository evidence proves the accepted joined route impossible, but only
+      the author/editor can replace the accepted three-layer source design or
+      remove the empirical teaching route.
     external_message_sent: false
 
   OA-P3-PILOT-RECRUITMENT:

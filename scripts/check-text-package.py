@@ -93,8 +93,7 @@ def load_jsonl(path: Path, expected_keys: set[str], role: str) -> list[dict]:
     return rows
 
 
-def load_speeches(candidate: Path, dates: set[str]) -> dict[str, list[dict]]:
-    text_root = candidate / "ParlaMint-HR.txt"
+def load_speeches(text_root: Path, dates: set[str]) -> dict[str, list[dict]]:
     if not text_root.is_dir():
         raise AuditError(
             "missing extracted ParlaMint-HR.txt candidate directory; "
@@ -149,9 +148,27 @@ def resolve(row: dict, speeches: dict[str, list[dict]]) -> tuple[str, str | None
     return "ambiguous", None
 
 
-def audit(candidate: Path) -> tuple[dict[str, int], list[dict], dict[str, str]]:
+def audit(
+    candidate: Path,
+    parlamint_archive: Path | None = None,
+    parlamint_text_root: Path | None = None,
+    parlamint_md5: str | None = None,
+) -> tuple[dict[str, int], list[dict], dict[str, str]]:
     source_hashes: dict[str, str] = {}
-    for name, expected in EXPECTED_MD5.items():
+    expected_sources = dict(EXPECTED_MD5)
+    archive_name = "ParlaMint-HR.tgz"
+    if parlamint_archive is not None:
+        expected_sources.pop(archive_name)
+        if parlamint_md5 is None:
+            raise AuditError("research ParlaMint archive requires its published MD5")
+        observed = md5(parlamint_archive)
+        if observed != parlamint_md5:
+            raise AuditError(
+                f"source MD5 mismatch for {parlamint_archive.name}: "
+                f"{observed} != {parlamint_md5}"
+            )
+        source_hashes[parlamint_archive.name] = sha256(parlamint_archive)
+    for name, expected in expected_sources.items():
         path = candidate / name
         if not path.is_file():
             raise AuditError(f"missing pinned source file: {path}")
@@ -168,7 +185,8 @@ def audit(candidate: Path) -> tuple[dict[str, int], list[dict], dict[str, str]]:
     countries = sorted({row["country"] for row in train + test})
     if countries != ["BiH", "HR", "SRB"]:
         raise AuditError(f"unexpected literal BCS country values: {countries}")
-    speeches = load_speeches(candidate, {row["date"] for row in selected})
+    text_root = parlamint_text_root or (candidate / "ParlaMint-HR.txt")
+    speeches = load_speeches(text_root, {row["date"] for row in selected})
 
     counts: Counter[str] = Counter()
     failures: list[dict] = []
@@ -204,9 +222,28 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--candidate", type=Path, default=DEFAULT_CANDIDATE)
     parser.add_argument("--expect-blocker", action="store_true")
+    parser.add_argument("--research-parlamint-archive", type=Path)
+    parser.add_argument("--research-text-root", type=Path)
+    parser.add_argument("--research-parlamint-md5")
     args = parser.parse_args()
+    research_values = (
+        args.research_parlamint_archive,
+        args.research_text_root,
+        args.research_parlamint_md5,
+    )
+    if any(research_values) and not all(research_values):
+        parser.error(
+            "--research-parlamint-archive, --research-text-root and "
+            "--research-parlamint-md5 must be supplied together"
+        )
     try:
-        counts, failures, source_hashes = audit(args.candidate.resolve())
+        counts, failures, source_hashes = audit(
+            args.candidate.resolve(),
+            args.research_parlamint_archive.resolve()
+            if args.research_parlamint_archive else None,
+            args.research_text_root.resolve() if args.research_text_root else None,
+            args.research_parlamint_md5,
+        )
     except (AuditError, OSError, UnicodeError, json.JSONDecodeError) as error:
         print(f"TEXT_PACKAGE_FAIL {error}", file=sys.stderr)
         return 1
