@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "G-A4-17"
-    claimed_at: "2026-08-18"
-    owned_paths:
-      - "notes/reports/g-a4-17-decision-package-2026-08-18.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "C16"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "G-A4-17"
+  next_permitted_packet: "G-A3-TEXT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2190,6 +2183,121 @@ decisions:
       WD-C16 re-verification, closes no content item and accepts no future
       packet. It authorises no push, merge, tag, archive, deployment or
       publication.
+
+  G-A4-17:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence: "conversation:G-A4-17-accepted-as-recommended-for-26197f84889f1b1caffc25e4bbc171631328adb4-on-2026-08-18"
+    decision_record: "notes/reports/g-a4-17-decision-package-2026-08-18.md"
+    preparation_commit: "cc08688e021c3e2f12662b654d952bd35854c676"
+    accepted_against_c16_closeout_commit: "26197f84889f1b1caffc25e4bbc171631328adb4"
+    accepted_dispositions:
+      central_question_and_decision: >-
+        Follow one bounded consequential decision: whether a parliamentary
+        sentence is sent to human review for possible inclusion in a public
+        summary. This is a teaching decision over governed real text, not a
+        claim that an identified institution deployed the system, and it does
+        not automate publication, deletion, punishment or an inference about
+        speaker intention.
+      selection_and_split_rule: >-
+        Keep every unit meeting predeclared language, country, time and stable
+        linkage conditions without outcome balancing. Preserve the original
+        test portion as the untouched skup za ispitivanje; derive skup za
+        učenje and skup za provjeru only inside the original training portion
+        by deterministic speech/document grouping, with no record, text twin,
+        speech or document crossing splits and no prevalence claim from the
+        training file.
+      text_package_roles: >-
+        Use three linked inspectable layers with stable keys: speech/sentence
+        text and context, prepared counts, and labelled sentences preserving
+        individual coder labels, the reconciled recorded-reference label and
+        the source split. Compare normalization, corpus boundary and coding
+        procedure while keeping predictive performance distinct from
+        construct validity.
+      widget_and_argument: >-
+        Retain w17 as the sole central widget and as a known-mechanism fairness
+        simulation. Use the linked ParlaMint-HR/ParlaSent package only for the
+        empirical worked example with fallible recorded labels and an
+        inspectable transformation trail. Neither route substitutes for the
+        other and the prose carries the argument before the widget.
+      terminology_and_definitions: >-
+        Apply G-A2c exactly: predviđanje is canonical; predikcija occurs only
+        inside sustav predikcije; use the full razdvajanje na skup za učenje,
+        provjeru i ispitivanje vocabulary and its three fixed component names;
+        tablica zabune is the Chapter 17 name for the same table object already
+        introduced in Chapter 13; osjetljivost never names a confusion-table
+        rate; and zabilježeni referentni ishod is never truth. Permit exactly
+        two new definition blocks, zabilježeni referentni ishod and
+        klasifikacijski prag.
+      outline_and_scope: >-
+        Build one Tier F argument through corpus and unit, selective
+        observation, label production, grouped splitting and evaluation,
+        probability and threshold, the confusion table, subgroup error
+        burdens, procedural fairness, contestability and appeal, deployed
+        system feedback and monitoring, and language models as prediction
+        systems. Machine-learning mathematics, NLP implementation,
+        tokenization, lemmatization, model training and assessed R production
+        remain outside scope.
+      claim_and_data_boundaries: >-
+        The chapter supports description, association, prediction and decision
+        but not causation, speaker intention, sentiment prevalence or
+        population generalisation from the selected corpus. DigiKat and
+        Eurostat are not repurposed and retain every accepted method-break,
+        denominator, platform-coverage, gap, common-year, flag and claim
+        boundary if a later reach-back mentions them.
+    rejected_alternatives:
+      - "Use COMPAS/Chouldechova as the sole carrying case even though it is not text classification and cannot satisfy D07."
+      - "Use only descriptive ParlaMint word analysis without labels, held-out evaluation, a threshold, confusion table or disputed reference label."
+      - "Use only a ParlaSent classification table without speech context, corpus boundaries and prepared counts."
+      - "Balance labels or split random rows in a way that hides selection or permits speech/document leakage."
+      - "Use only training and test sets and tune the threshold on the final test set."
+      - "Invent an institutional automatic sanction or content-removal system."
+      - "Add a second widget or turn the ParlaSent empirical result into a widget."
+      - "Teach technical NLP implementation or machine-learning mathematics."
+      - "Replace the one argument with several unrelated systems or a catalogue of current tools."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "G-A3-TEXT"
+      governed_items:
+        - "R07-C17-full-argument"
+        - "R07-C17-widget-prose-balance"
+        - "R08-SPINE-17"
+        - "R13-C17-module-contract"
+        - "R13-C17-boundary-sensitivity"
+        - "R13-C17-performance-validity"
+        - "R13-C17-placement"
+        - "R14-C17-classification-bridge"
+        - "R23-C17-no-R-production"
+        - "R23-C17-visible-receipt"
+        - "R23-C17-no-tokenizer"
+        - "R24-C17-primary-sources"
+        - "R24-C17-LLM-prediction"
+        - "R24-C17-system-feedback"
+        - "R24-C17-recorded-reference"
+        - "R24-C17-label-process"
+        - "R24-C17-selective-observation"
+        - "R24-C17-procedural-fairness"
+        - "R24-LADDER-C17"
+        - "R35-REACHBACK-17"
+      later_gates_still_mandatory:
+        - "G-A3-TEXT"
+        - "P3-TEXT"
+        - "P3-VERIFY"
+        - "WD-C17"
+    authority_boundary: >-
+      This decision authorises only the exact Chapter 17 question, grouped
+      sampling and split rule, three text-package roles, retained-widget role,
+      Tier F outline, terminology contract and exclusions against C16 closeout
+      commit 26197f84889f1b1caffc25e4bbc171631328adb4. It does not verify or
+      select source files, settle source-specific rights, retrieve or promote
+      data, accept a number or empirical claim, add a bibliography record, edit
+      Chapter 17, close any of the 20 governed content items or accept a future
+      packet. It claims no author reading, reader test, measured reading time or
+      independent terminology review and authorises no push, merge, tag,
+      archive, deployment or publication.
 
   G-A3-ESS:
     status: "accepted"
@@ -13594,7 +13702,7 @@ packets:
     sequence: 125
     phase: "3B"
     kind: "decision_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "C16"
       - "P0-OUTSIDE"
@@ -13607,32 +13715,80 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A4-17 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
-    preparation_evidence:
+    completion_evidence:
       source_state: "commit:26197f84889f1b1caffc25e4bbc171631328adb4"
-      prepared_at: "2026-08-18"
-      state: "awaiting_exact_author_reply"
-      named_decision_owner: "Luka Sikic, author/editor"
-      artifacts:
-        - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md"
-        - "decision:D07"
-        - "packet:P2-IDENTITY"
-        - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama"
-        - "terminology:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry"
-        - "outside-ask:OA-G-A4-17-BRIEF"
-        - "handoff-scan:no-delivery-targeted-to-G-A4-17"
-      exact_reply_requested: "G-A4-17 accepted as recommended for 26197f84889f1b1caffc25e4bbc171631328adb4 on 2026-08-18."
-      authority_boundary: >-
-        Preparation only. No author decision is inferred, no Chapter 17 prose,
-        data, bibliography, widget, catalogue or shared registry is changed,
-        and G-A3-TEXT, P3-TEXT and WD-C17 remain blocked.
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md"
+            - "register:decisions.G-A4-17.accepted_at-2026-08-18"
+            - "author_reply:G-A4-17-accepted-as-recommended-for-26197f84889f1b1caffc25e4bbc171631328adb4-on-2026-08-18"
+            - "commit:preparation-cc08688e021c3e2f12662b654d952bd35854c676"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "register:decisions.G-A4-17.author"
+            - "register:decisions.G-A4-17.editor"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A4-17.accepted_dispositions"
+            - "register:decisions.G-A4-17.rejected_alternatives"
+            - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md#preporucena-odluka"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A4-17.blocked_dependencies"
+            - "packet:G-A3-TEXT"
+            - "items:20-G-A4-17-governed-content-items-remain-ratified-for-later-owners"
+      outputs:
+        - output: "Dated G-A4-17 decision and authority record for: Chapter 17 question, sampling rule, text package, and outline."
+          artifacts:
+            - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md"
+            - "register:decisions.G-A4-17"
+            - "outside-ask:OA-G-A4-17-BRIEF-done"
+        - output: "Completion evidence is tied to the declared G-A4-17 source state and bounded scope."
+          artifacts:
+            - "commit:C16-closeout-26197f84889f1b1caffc25e4bbc171631328adb4"
+            - "commit:G-A4-17-preparation-cc08688e021c3e2f12662b654d952bd35854c676"
+            - "author_reply:G-A4-17-accepted-as-recommended-for-26197f84889f1b1caffc25e4bbc171631328adb4-on-2026-08-18"
+            - "register:decisions.G-A4-17.authority_boundary"
+            - "review:packet_reviews.G-A4-17-all-future-effects-recorded"
+            - "boundary:no-source-rights-retrieval-data-bibliography-widget-prose-or-item-acceptance"
+            - "check:scripts/check-review-workflow.R-at-G-A4-17-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_recommended"
+            - "author_reply:G-A4-17-accepted-as-recommended-for-26197f84889f1b1caffc25e4bbc171631328adb4-on-2026-08-18"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A4-17.rejected_alternatives"
+            - "register:decisions.G-A4-17.authority_boundary"
+            - "register:decisions.G-A4-17.blocked_dependencies"
+        - test: "The G-A4-17 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "commit:C16-closeout-26197f84889f1b1caffc25e4bbc171631328adb4"
+            - "commit:G-A4-17-preparation-cc08688e021c3e2f12662b654d952bd35854c676"
+            - "decision:D07"
+            - "packet:P2-IDENTITY"
+            - "packet:P2-SPINE-V"
+            - "decision:G-A2c"
+            - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md"
+            - "handoff-scan:no-delivery-targeted-to-G-A4-17"
+            - "boundary:20-governed-content-items-remain-ratified"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "commit:26197f84889f1b1caffc25e4bbc171631328adb4"
   G-A3-TEXT:
     sequence: 126
     phase: "3B"
@@ -32771,8 +32927,8 @@ outside_asks:
       - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
 
   OA-G-A4-17-BRIEF:
-    status: "drafted_unsent"
-    readiness: "awaiting_exact_author_reply"
+    status: "done"
+    readiness: "resolved_by_exact_author_reply"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -32826,6 +32982,21 @@ outside_asks:
     external_message_sent: false
     prepared_at: "2026-08-18"
     prepared_against_c16_closeout_commit: "26197f84889f1b1caffc25e4bbc171631328adb4"
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Author and editor Luka Sikic accepted the complete Chapter 17 Tier F
+      brief exactly as recommended against C16 closeout commit
+      26197f84889f1b1caffc25e4bbc171631328adb4. The accepted decision covers
+      the central human-review question, grouped no-leakage selection and split
+      rule, three linked text-package layers, retained fairness-widget role,
+      Tier F outline, G-A2c terminology and exclusions. It accepts no source
+      file, source-specific rights conclusion, empirical result, Chapter 17
+      prose or later content item.
+    resolution_evidence:
+      - "author_reply:G-A4-17-accepted-as-recommended-for-26197f84889f1b1caffc25e4bbc171631328adb4-on-2026-08-18"
+      - "decision:G-A4-17"
+      - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md"
+      - "commit:G-A4-17-preparation-cc08688e021c3e2f12662b654d952bd35854c676"
 
   OA-C00-ACCEPTANCE:
     status: "done"

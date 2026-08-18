@@ -2,11 +2,13 @@
 
 **Gate:** `G-A4-17`
 
-**Stanje gatea:** pripremljen; čeka točnu odluku autora/editora.
+**Stanje gatea:** prihvaćen kao preporučen.
 
 **Imenovani vlasnik odluke:** Luka Sikic, autor/editor.
 
 **Datum pripreme:** 18. kolovoza 2026.
+
+**Datum odluke:** 18. kolovoza 2026.
 
 **Zaključano ulazno stanje:** C16 closeout commit
 `26197f84889f1b1caffc25e4bbc171631328adb4`.
@@ -31,14 +33,14 @@ Cjeloviti ledger od 97 handoffa nema isporuku ciljanu na `G-A4-17`. Zato ovaj
 gate ništa ne priznaje ni troši u ime `G-A3-TEXT`, `P3-TEXT` ili `WD-C17`.
 Njihove provjere izvora, prava, podataka i proze ostaju zasebne.
 
-Ovaj paket samo priprema odluku. Ne dohvaća ParlaMint ni ParlaSent, ne odabire
+Ovaj paket donosi samo ovu odluku. Ne dohvaća ParlaMint ni ParlaSent, ne odabire
 ili promovira datoteku, ne zaključuje prava, ne dodaje bibliografski ključ i ne
 mijenja `chapters/17-doba-algoritama.qmd`, widget, podatke, katalog ili
 zajedničke registre.
 
 ## Preporučena odluka
 
-Prihvatiti sljedeći povezani Tier F brif.
+Prihvaćen je sljedeći povezani Tier F brif.
 
 ### Jedno središnje pitanje i jedna odluka
 
@@ -279,10 +281,12 @@ rendere i završni panel šest neovisnih kritičara. Ne tvrdi se da je poglavlje
    identitetski stup ponovno postao popis. Dodatni izvor ulazi samo ako
    podupire jedan korak istoga argumenta i prođe provjeru primarnoga izvora.
 
-## Blokirane ovisnosti
+## Ovisnosti nakon odluke
 
-Do točne autorove odluke ostaju blokirani `G-A3-TEXT`, `P3-TEXT`,
-`P3-VERIFY`, `WD-C17` i sljedeće sadržajne obveze:
+Prihvaćanje uklanja autorski blocker samo s `G-A3-TEXT`, koji postaje sljedeći
+dopušteni paket. `P3-TEXT`, `P3-VERIFY` i `WD-C17` i dalje čekaju vlastite
+preduvjete, dok sljedeće sadržajne obveze ostaju `ratified` do njihova stvarnog
+dokaza i implementacije:
 
 - `R07-C17-full-argument`, `R07-C17-widget-prose-balance` i `R08-SPINE-17`;
 - `R13-C17-module-contract`, `R13-C17-boundary-sensitivity`,
@@ -320,17 +324,17 @@ terminologiju neovisno pregledala treća osoba.
 
 Nema vanjske poruke, pusha, mergea, taga, arhiviranja, deploymenta ni objave.
 
-## Potrebna odluka autora
+## Odluka autora
 
-Za prihvaćanje preporuke potreban je točno ovaj odgovor:
+Autor/editor Luka Sikic prihvatio je preporuku točnim odgovorom:
 
 ```text
 G-A4-17 accepted as recommended for 26197f84889f1b1caffc25e4bbc171631328adb4 on 2026-08-18.
 ```
 
-Ako preporuka nije prihvatljiva, umjesto toga treba navesti točnu izmjenu
-središnjega pitanja, pravila odabira i razdvajanja, uloge tekstnoga paketa,
-obrisa ili isključenja protiv istoga ulaznog stanja.
-
-Do toga odgovora `G-A4-17` ostaje aktivan. `G-A3-TEXT` i `WD-C17` ne smiju biti
-preuzeti, a ovaj dokument ne bilježi niti pretpostavlja autorovu odluku.
+Odluka je vezana uz C16 closeout commit
+`26197f84889f1b1caffc25e4bbc171631328adb4` i ne oslanja se na raniju opću
+delegaciju. Zatvara samo `G-A4-17`; ne tvrdi da je autor pročitao 17. poglavlje
+i ne prihvaća podatke, prava, rezultate, prozu ili ijednu od 20 kasnijih
+sadržajnih obveza. `G-A3-TEXT` smije se preuzeti tek nakon zasebnoga closeouta,
+provjera i lokalnoga commita ovoga gatea.
