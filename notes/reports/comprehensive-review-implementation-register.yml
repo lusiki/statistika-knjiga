@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-17"
+  last_updated: "2026-08-18"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C15"
-  next_permitted_packet: "G-A4-16"
+  last_completed_packet: "G-A4-16"
+  next_permitted_packet: "WD-C16"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2112,6 +2112,77 @@ decisions:
       no data or bibliography record, edits no chapter, closes no content item
       and accepts no future packet. It authorises no push, merge, tag, archive,
       deployment or publication.
+
+  G-A4-16:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence:
+      - "conversation:G-A4-16-ARTIFACT-accepted-as-recommended-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+      - "conversation:G-A4-16-RIGHTS-accepted-as-recommended-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+      - "conversation:G-A4-16-BRIDGE-accepted-as-recommended-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+    decision_record: "notes/reports/g-a4-16-decision-package-2026-08-18.md"
+    accepted_against_c15_closeout_commit: "a9697b1808765038e1d4a176223023e363ad3c3a"
+    accepted_dispositions:
+      artifact: >-
+        Use Kleppang et al. (2021), PLOS ONE 16(7) e0254197, Table 3 and only
+        the first results paragraph immediately beneath it for a bounded
+        no-refit reading task. The source is DOI
+        10.1371/journal.pone.0254197 and the table is DOI
+        10.1371/journal.pone.0254197.t003.
+      representation: >-
+        Build a semantic Croatian table rather than copying publisher
+        graphics. Preserve all three specifications, both reference groups,
+        four adjusted odds ratios and 95 per cent intervals, outcome coding
+        and adjustment note. Use one explicitly adapted and shortened Croatian
+        translation of the selected paragraph and connect every claim to its
+        supporting table quantity.
+      rights: >-
+        Use the documented CC BY 4.0 route in HTML, PDF and DOCX with full
+        author and source attribution, article and table DOI, licence link and
+        change notice. Claim no separate permission or fee and do not extend
+        article rights to retrieval, packaging or redistribution of Ungdata
+        data.
+      binary_outcome_bridge: >-
+        WD-C16 includes a bounded reading bridge covering probability, odds,
+        reference groups, omjer izgleda, 95 per cent intervals and the reason
+        an unavailable predviđena vjerojatnost cannot be recovered from this
+        table. It introduces no logistic-model fitting or derivation,
+        empirical prediction, new definition block or second widget.
+      no_refit_and_claim_boundary: >-
+        The task supplies the table and paragraph only. It retrieves no data,
+        reconstructs no individual rows and fits no model. It explicitly marks
+        unavailable model-specific N, fit, diagnostics, p values, intercept,
+        absolute risks, risk ratios and predicted probabilities and permits no
+        causal conclusion from the cross-sectional study.
+    rejected_alternatives:
+      - "Use Westreich and Greenland 2013 as the bounded empirical table even though it remains the separate Table 2 Fallacy wild-case source and lacks the same clear CC BY table route."
+      - "Use the denser Sserunkuuma et al. 2023 five-model continuous-outcome table and remove the ratified binary bridge."
+      - "Pre-spend the Chapter 17 fairness arc by using Chouldechova 2017."
+      - "Use an invented or synthetic table where the obligation requires a published empirical result."
+      - "Refit the paper from Ungdata or optional portal-mediated ESS microdata."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "WD-C16"
+      governed_items:
+        - "R16-ARTIFACT-selection"
+        - "R16-C16-table"
+        - "R16-C16-paragraph"
+        - "R16-C16-no-refit"
+      later_gates_still_mandatory:
+        - "C16"
+        - "G-A4-17"
+    authority_boundary: >-
+      This decision authorises only the exact published artifact, CC BY 4.0
+      adapted-table and adapted-paragraph route, bounded binary-outcome reading
+      bridge and no-refit contract against C15 closeout commit
+      a9697b1808765038e1d4a176223023e363ad3c3a. It retrieves no data, adds no
+      bibliography record, edits no chapter, accepts no empirical claim before
+      WD-C16 re-verification, closes no content item and accepts no future
+      packet. It authorises no push, merge, tag, archive, deployment or
+      publication.
 
   G-A3-ESS:
     status: "accepted"
@@ -13230,7 +13301,7 @@ packets:
     sequence: 122
     phase: "3C"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C15"
       - "P0-OUTSIDE"
@@ -13244,14 +13315,73 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A4-16 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:a9697b1808765038e1d4a176223023e363ad3c3a"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
+            - "register:decisions.G-A4-16.accepted_at-2026-08-18"
+            - "author_reply:G-A4-16-three-exact-replies-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "register:decisions.G-A4-16.author"
+            - "register:decisions.G-A4-16.editor"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A4-16.accepted_dispositions"
+            - "register:decisions.G-A4-16.rejected_alternatives"
+            - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md#preporucena-odluka-o-artefaktu"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A4-16.blocked_dependencies"
+            - "packet:WD-C16"
+            - "items:R16-ARTIFACT-selection-R16-C16-table-R16-C16-paragraph-R16-C16-no-refit"
+      outputs:
+        - output: "Dated G-A4-16 decision and authority record for: Published results artifact and rights."
+          artifacts:
+            - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
+            - "register:decisions.G-A4-16"
+            - "outside-asks:OA-G-A4-16-ARTIFACT-and-OA-G-A4-16-RIGHTS-done"
+        - output: "Completion evidence is tied to the declared G-A4-16 source state and bounded scope."
+          artifacts:
+            - "commit:C15-closeout-a9697b1808765038e1d4a176223023e363ad3c3a"
+            - "author_reply:G-A4-16-three-exact-replies-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+            - "register:decisions.G-A4-16.authority_boundary"
+            - "check:scripts/check-review-workflow.R-at-G-A4-16-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor-accepted_as_recommended"
+            - "author_reply:G-A4-16-three-exact-replies-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A4-16.rejected_alternatives"
+            - "register:decisions.G-A4-16.authority_boundary"
+            - "register:decisions.G-A4-16.blocked_dependencies"
+        - test: "The G-A4-16 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "commit:C15-closeout-a9697b1808765038e1d4a176223023e363ad3c3a"
+            - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
+            - "source:https://doi.org/10.1371/journal.pone.0254197"
+            - "artifact:https://doi.org/10.1371/journal.pone.0254197.t003"
+            - "licence:https://creativecommons.org/licenses/by/4.0/"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#16-regresija"
+            - "boundary:no-retrieval-data-bibliography-figure-widget-or-prose-change"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "commit:a9697b1808765038e1d4a176223023e363ad3c3a"
   WD-C16:
     sequence: 123
     phase: "4"
@@ -25518,7 +25648,7 @@ items:
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:a9697b1808765038e1d4a176223023e363ad3c3a"
   R22-AD-visual-tree:
     parents:
       - "R22"
@@ -32270,8 +32400,8 @@ outside_asks:
       - "report:notes/reports/g-a4-12-decision-package-2026-08-13.md"
 
   OA-G-A4-16-ARTIFACT:
-    status: "drafted_unsent"
-    readiness: "waiting_for_candidate_artifacts"
+    status: "done"
+    readiness: "resolved_by_in_thread_author_decision"
     kind: "source_selection_decision"
     owner: "author/editor"
     due_phase: "3C"
@@ -32287,17 +32417,42 @@ outside_asks:
     available_evidence:
       - "packet:G-A4-16"
       - "decision:D02"
-    recommended_default: "Choose a substantively relevant, lawfully reproducible artifact that supports annotation without refitting."
-    exact_reply_requested: "Reply: select [full citation/table/paragraph] for the bounded reading task; date [YYYY-MM-DD]. Or select one listed alternative."
-    resume_condition: "The artifact route resumes when the author selects one exact source and use."
+      - "commit:C15-closeout-a9697b1808765038e1d4a176223023e363ad3c3a"
+      - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#16-regresija"
+      - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
+      - "source:https://doi.org/10.1371/journal.pone.0254197"
+      - "artifact:https://doi.org/10.1371/journal.pone.0254197.t003"
+    recommended_default: >-
+      Select Kleppang et al. (2021) Table 3 and only the first results
+      paragraph immediately beneath it for an adapted Croatian table and
+      adapted translated paragraph. Preserve all three model columns,
+      reference groups, four AOR estimates and 95% intervals; annotate the
+      unreported model N, fit, diagnostics, p values, intercept, risks and
+      predicted probabilities; do not retrieve data or refit any model.
+    exact_reply_requested: "G-A4-16 ARTIFACT accepted as recommended for a9697b1808765038e1d4a176223023e363ad3c3a on 2026-08-18."
+    resume_condition: >-
+      The artifact route resumes only when the author accepts this exact
+      source and use, the CC BY 4.0 route, and the bounded binary-outcome
+      bridge against the same prepared package.
     why_external: "The exemplar and editorial relevance are authorial choices."
     external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Author and editor Luka Sikic accepted Kleppang et al. (2021) Table 3 and
+      only its first following results paragraph as recommended against C15
+      closeout commit a9697b1808765038e1d4a176223023e363ad3c3a. The choice is
+      a bounded no-refit reading task with a semantic Croatian table and
+      adapted paragraph, not a data or model-reproduction task.
+    resolution_evidence:
+      - "author_reply:G-A4-16-ARTIFACT-accepted-as-recommended-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+      - "decision:G-A4-16"
+      - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
 
   OA-G-A4-16-RIGHTS:
-    status: "drafted_unsent"
-    readiness: "waiting_for_artifact_selection"
+    status: "done"
+    readiness: "resolved_by_documented_licence_and_in_thread_author_decision"
     kind: "rights_inquiry"
-    owner: "published-artifact rights owner"
+    owner: "author/editor"
     due_phase: "3C"
     needed: "Confirm reproduction or quotation conditions for the exact selected Chapter 16 table/paragraph."
     expected_form: "Written permission or documented lawful-use basis tied to the exact artifact and proposed representation."
@@ -32310,11 +32465,40 @@ outside_asks:
     available_evidence:
       - "packet:G-A4-16"
       - "item:R16-ARTIFACT-selection"
-    recommended_default: "Use a licence-cleared artifact or original schematic representation with citation; request permission if the exact reproduction is not clearly covered."
-    exact_reply_requested: "Reply with permission/lawful-use basis, exact permitted material, formats, attribution, restrictions, fee if any, and effective date."
-    resume_condition: "The artifact may enter source only when one documented lawful route covers every target format."
-    why_external: "Access to a publication does not grant reproduction rights."
+      - "commit:C15-closeout-a9697b1808765038e1d4a176223023e363ad3c3a"
+      - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
+      - "article-rights:https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0254197"
+      - "publisher-policy:https://journals.plos.org/plosone/s/licenses-and-copyright"
+      - "licence:https://creativecommons.org/licenses/by/4.0/"
+    recommended_default: >-
+      Use the documented CC BY 4.0 route for a semantically redrawn Croatian
+      table and an explicitly adapted translation of the selected paragraph
+      in HTML, PDF and DOCX, with full source and DOI attribution, licence
+      link, change notice, no endorsement implication and no additional
+      restriction. No separate permission or fee is claimed; article rights
+      do not extend to retrieval or redistribution of Ungdata data.
+    exact_reply_requested: "G-A4-16 RIGHTS accepted as recommended for a9697b1808765038e1d4a176223023e363ad3c3a on 2026-08-18: use the CC BY 4.0 adapted-table and adapted-paragraph route."
+    resume_condition: >-
+      The artifact may enter source only after the author accepts the exact
+      documented licence route and the decision packet closes separately.
+    why_external: >-
+      The public licence supplies the lawful-use basis, while the author/editor
+      must approve this exact representation and attribution route; no
+      rights-holder permission request is inferred or claimed.
     external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Author and editor Luka Sikic accepted the documented CC BY 4.0 route for
+      a semantic adapted table and adapted translated paragraph in HTML, PDF
+      and DOCX against C15 closeout commit
+      a9697b1808765038e1d4a176223023e363ad3c3a. Full attribution, DOI and
+      licence links and a change notice are mandatory. No separate permission,
+      fee or right to retrieve or redistribute Ungdata data is claimed.
+    resolution_evidence:
+      - "author_reply:G-A4-16-RIGHTS-accepted-as-recommended-for-a9697b1808765038e1d4a176223023e363ad3c3a-on-2026-08-18"
+      - "licence:https://creativecommons.org/licenses/by/4.0/"
+      - "decision:G-A4-16"
+      - "report:notes/reports/g-a4-16-decision-package-2026-08-18.md"
 
   OA-G-A4-17-BRIEF:
     status: "drafted_unsent"

@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C15
-next_permitted_packet: G-A4-16
+last_completed_packet: G-A4-16
+next_permitted_packet: WD-C16
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -41,6 +41,7 @@ stop and repair the control state before editing book content.
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
 | Gate A4-12 | Accepted as recommended against C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`: portal-mediated 2016 Registered Replication Report lifecycle artifact, exact P3 verification contract, Chapter 12 outline and exclusions; owner Luka Sikic; 2026-08-13 |
+| Gate A4-16 | Accepted as recommended against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a`: Kleppang et al. 2021 PLOS ONE Table 3 plus its first results paragraph, semantic Croatian adaptation under CC BY 4.0, bounded no-refit reading task and immediate binary-outcome reading bridge without logistic fitting or derivation; owner Luka Sikic; 2026-08-18 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -55,16 +56,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; C15 closed on the exact dated author reply and no later packet is claimed |
-| Last completed packet | `C15`; exact reply accepted WD-C15 commit `a385ddc85c11e5d1cf63b33043c1df2a90cff6fb`, Chapter 15 advanced only to `coauthor_review`, R09/R23/R35 accepted and 4 known style-minor records left unedited |
-| Next permitted packet | `G-A4-16` at sequence 122; it remains unclaimed and must prepare the complete artifact, rights and binary-outcome-bridge brief before stopping for the author |
+| Active write packet | None; G-A4-16 closed on all three exact dated author replies and no later packet is claimed |
+| Last completed packet | `G-A4-16`; artifact, CC BY 4.0 representation route and bounded binary-outcome bridge accepted against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a` |
+| Next permitted packet | `WD-C16` at sequence 123; it remains unclaimed and must consume its incoming handoffs before any substantive edit |
 | Review parents | 32 ratified; 4 accepted |
 | Atomic child inventory | Complete: 371 stable children; 226 accepted, 5 deferred with reason and 140 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 114 accepted, 74 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 115 accepted, 73 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 4 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe` and `15-vise-grupa` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 28 of the 85 canonical asks remain `drafted_unsent`; 51 are `done`; 6 are `withdrawn_with_reason`. `OA-C15-ACCEPTANCE` is done on the exact dated reply; both `OA-G-A4-16-ARTIFACT` and `OA-G-A4-16-RIGHTS` remain open and unsent; 0 external messages sent |
+| Open outside asks | 26 of the 85 canonical asks remain `drafted_unsent`; 53 are `done`; 6 are `withdrawn_with_reason`. Both `OA-G-A4-16-ARTIFACT` and `OA-G-A4-16-RIGHTS` are done on the exact dated in-thread replies and documented CC BY 4.0 basis; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5621,6 +5622,50 @@ the durable evidence is
 - No active write lock remains. `G-A4-16` alone is next at sequence 122 but is
   not claimed inside C15.
 
+## G-A4-16 closeout
+
+- Clean preflight at C15 closeout commit
+  `a9697b1808765038e1d4a176223023e363ad3c3a` found no active packet,
+  `G-A4-16` alone at sequence 122 and a passing workflow validator. The gate
+  was claimed on 18 August 2026 as the sole write packet.
+- The bounded write set is
+  `notes/reports/g-a4-16-decision-package-2026-08-18.md` and the three control
+  files. Chapter 16, bibliography, data, figures, widgets, generated artifacts
+  and shared registries are outside the lock.
+- A complete scan of all 97 handoffs found no delivery targeted to `G-A4-16`.
+  Deliveries targeted to `WD-C16` remain unacknowledged and unconsumed until
+  that separate packet is lawfully claimed.
+- The complete decision package recommends Kleppang et al. (2021), PLOS ONE
+  Table 3 and only the first results paragraph beneath it. The bounded task
+  uses a semantically redrawn Croatian table and an adapted translated
+  paragraph; it preserves three specifications, reference groups, four AOR
+  estimates and 95% intervals and requires readers to mark absent model `N`,
+  fit, diagnostics, risks and predicted probabilities. There is no data
+  retrieval or model refit.
+- The documented lawful-use basis is CC BY 4.0 for an adapted table and
+  adapted paragraph in HTML, PDF and DOCX, with full attribution, DOI and
+  licence links and a change notice. No separate rights-holder permission,
+  fee or extension of article rights to Ungdata data is inferred or claimed.
+- The recommended binary-outcome disposition is to include a bounded reading
+  bridge in `WD-C16`: probability versus odds, reference group, `omjer
+  izgleda`, 95% interval and why the unavailable `predviđena vjerojatnost`
+  cannot be recovered from the table. It permits no logistic-model fitting or
+  derivation, empirical prediction, new definition block or second widget.
+- Author/editor Luka Sikic supplied all three exact replies on 18 August 2026
+  against C15 closeout commit
+  `a9697b1808765038e1d4a176223023e363ad3c3a`. Artifact, rights and bridge are
+  accepted exactly as recommended; neither the standing delegation nor an
+  inferred rights-holder permission was used.
+- `OA-G-A4-16-ARTIFACT` and `OA-G-A4-16-RIGHTS` are done. The decision record,
+  alternatives, blocked dependencies and authority boundary are complete;
+  `packet_reviews.G-A4-16` declares no new outgoing handoff because every
+  future consequence already has a direct registered owner.
+- Chapter 6 remains deliberately `draft`; Chapters 7–15 retain their accepted
+  stages. No chapter prose, bibliography, data, registry stage or generated
+  artifact changed, and no external or release action is claimed.
+- No active write lock remains. `WD-C16` alone is next at sequence 123 but is
+  not claimed inside G-A4-16.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5648,26 +5693,25 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean C15 closeout commit. Confirm that C15 accepted
-exact WD-C15 source commit `a385ddc85c11e5d1cf63b33043c1df2a90cff6fb`,
-and that Chapter 15 remains SHA-256
-`fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813` and
-git blob `aa644049bacb62e7fc05ab75d3b6157b83165b96`; all six final reports and
-the synthesis address that exact blob; the panel records 0 fatal, 0 major and
-4 known nonblocking style-minor records; Chapter 15 alone advanced to
-coauthor_review; only R09-C15, R23-C15 and R35-REACHBACK-15 newly advanced to
-accepted; R02-C15 remains accepted and revalidated; R22-C14-C16-dependence
-remains ratified for WD-PART; Chapter 6 remains deliberately draft; and no
-packet is active.
+Verify that HEAD is the clean G-A4-16 closeout commit. Confirm that all three
+exact author replies accepted the artifact, CC BY 4.0 representation route and
+bounded binary-outcome bridge against C15 closeout commit
+`a9697b1808765038e1d4a176223023e363ad3c3a`; both outside asks are done; the
+decision package and `packet_reviews.G-A4-16` are complete; Chapter 6 remains
+deliberately draft; and no packet is active.
 
-G-A4-16 alone is next at sequence 122. Claim it only to prepare the complete
-decision brief using G-A4-03 and G-A4-12 as structural models. Present one
-verified published regression results table and short paragraph for a bounded
-no-refit reading task, exact source fit and representation plan, exact
-reproduction or quotation conditions without inferring permission, unavailable
-claims, alternatives, authority boundary and blocked dependencies. Rule on the
-binary-outcome bridge or state explicitly that it is deferred to WD-C16 and
-why. Retrieve nothing, promote nothing and write no chapter prose. Stop for
-the exact replies to OA-G-A4-16-ARTIFACT and OA-G-A4-16-RIGHTS. Push, merge,
-tag, archive, deployment and publication remain separately gated.
+WD-C16 alone is next at sequence 123. Before claim, fully read the Chapter 16
+spine, the accepted G-A4-16 decision, every incoming WD-C16 handoff and all
+governed R16 items. Acknowledge each applicable handoff before the first
+substantive edit and consume it with evidence before closeout. Implement the
+complete Chapter 16 vertical slice, including the semantic adapted table and
+paragraph, exact CC BY 4.0 attribution, bounded binary-outcome bridge,
+no-refit task, mandatory licensed offline path, optional unpromoted ESS route,
+existing w16 and static twin, assessments and transitions. Run Bookwright
+style and figure checks, all deterministic checks, numerical verification,
+targeted HTML and approved-wrapper PDF/DOCX renders, then a fresh six-critic
+panel on one final source blob. Resolve every fatal and major finding before a
+separate WD-C16 closeout and local commit. Do not advance the chapter ledger
+or accept C16; stop at the separate exact C16 author gate. Push, merge, tag,
+archive, deployment and publication remain separately gated.
 ```
