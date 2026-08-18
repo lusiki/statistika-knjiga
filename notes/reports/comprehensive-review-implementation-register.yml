@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C16"
-    claimed_at: "2026-08-18"
-    owned_paths:
-      - "notes/reports/c16-acceptance-package-2026-08-18.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WD-C16"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C16"
+  next_permitted_packet: "G-A4-17"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -13500,7 +13493,7 @@ packets:
     sequence: 124
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WD-C16"
     scope: "Author acceptance and panel disposition for C16."
@@ -13511,28 +13504,85 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    preparation_evidence:
-      state: "complete_awaiting_exact_author_reply"
+    completion_evidence:
       source_state: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
-      artifacts:
-        - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
-        - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
-        - "reports:notes/reports/wd-c16-critic-methods-skeptic-pedagogy-evidence-style-structure-2026-08-18"
-        - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
-        - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
-        - "panel:zero-fatal-zero-major-four-known-nonblocking-minor-records"
-        - "disposition:on-acceptance-advance-only-16-regresija-to-coauthor_review-and-nine-C16-owned-items-to-accepted"
-        - "boundary:R02-C16-and-three-R09-C16-items-remain-accepted-R22-C14-C16-dependence-remains-ratified"
-        - "author_reply_required:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
-        - "boundary:C16-open-Chapter-16-draft-G-A4-17-not-started"
-    completion_evidence: []
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-skeptic-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-pedagogy-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-evidence-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-style-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-structure-2026-08-18.md"
+            - "panel:zero-fatal-zero-major-four-nonblocking-minor-records"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+            - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
+            - "disposition:accept-nine-C16-owned-items-and-advance-only-16-regresija-to-coauthor_review"
+            - "disposition:four-minors-known-and-nonblocking-for-this-edition"
+            - "boundary:R02-C16-and-three-R09-C16-items-remain-accepted-R22-C14-C16-dependence-remains-ratified"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+            - "evidence:conversation-user-message-recorded-2026-08-18"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+            - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+            - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#16-regresija-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C16 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+            - "reports:wd-c16-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+            - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+            - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
+        - output: "Completion evidence is tied to the declared C16 source state and bounded scope."
+          artifacts:
+            - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+            - "items:nine-C16-owned-items-accepted"
+            - "items:R02-C16-and-three-R09-C16-items-remain-accepted-and-revalidated"
+            - "item:R22-C14-C16-dependence-remains-ratified-for-WD-PART"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#16-regresija"
+            - "boundary:four-minors-known-nonblocking-and-not-edited"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "boundary:G-A4-17-unclaimed"
+            - "review:packet_reviews.C16-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+            - "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+            - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+            - "reports:wd-c16-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+            - "panel:zero-fatal-zero-major-four-known-nonblocking-minor-records"
+            - "disposition:four-minors-known-and-nonblocking-for-this-edition"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#16-regresija-stage-coauthor_review"
+            - "items:nine-C16-owned-items-accepted"
+            - "boundary:R02-R09-accepted-R22-C14-C16-dependence-ratified"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   G-A4-17:
     sequence: 125
     phase: "3B"
@@ -16533,10 +16583,18 @@ items:
       - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
       - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
       - "critic_methods:pass-shared-mean-model-distinct-point-estimate-and-inference"
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+      - "result:shared-two-group-point-estimate-with-distinct-Student-and-Welch-uncertainty-revalidated"
+      - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+      - "report:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+      - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+      - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
   R03-NAVARRO-provenance:
     parents:
       - "R03"
@@ -20313,7 +20371,7 @@ items:
       location: "§12 outstanding integration"
     description: "Compare a shared everyday construct across non-equivalent designs, preferably ESS and DigiKat."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -20331,11 +20389,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "evidence:construct-unit-population-and-visibility-differences-explicit-across-non-equivalent-designs"
+      - "report:notes/reports/wd-c16-2026-08-18.md"
+      - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R08-CATALOG-local-independence:
     parents:
       - "R08"
@@ -21017,10 +21080,18 @@ items:
       - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
       - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
       - "critic_methods:pass-finite-population-recorded-outcome-estimand"
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+      - "evidence:one-finite-population-OLS-target-maintained-through-model-interpretation-and-conclusion"
+      - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+      - "report:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+      - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+      - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
   R09-C16-uncertainty:
     parents:
       - "R09"
@@ -21055,10 +21126,18 @@ items:
       - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
       - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
       - "critic_methods:pass-census-target-no-sampling-uncertainty-no-latent-truth"
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+      - "evidence:finite-population-estimate-distinguished-from-latent-generator-and-sampling-uncertainty"
+      - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+      - "report:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+      - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+      - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
   R09-C16-leakage-time:
     parents:
       - "R09"
@@ -21093,10 +21172,18 @@ items:
       - "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
       - "report:notes/reports/p1a-c16-methods-review-2026-08-03.md"
       - "critic_methods:pass-auditable-time-boundary-target-leakage-and-held-out-logic"
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+      - "evidence:prediction-time-boundary-information-leakage-and-held-out-units-explicit"
+      - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+      - "report:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+      - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+      - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-ba93f9a62965dc1a9ae1c67a3c54d536976773cb"
+    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
   R09-C18-interval-conclusion:
     parents:
       - "R09"
@@ -23012,7 +23099,7 @@ items:
       location: "§12 binary outcomes"
     description: "Teach recognition of binary outcomes, probability, odds, odds/risk ratios, references, intervals, and predicted probabilities."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23030,11 +23117,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "evidence:bounded-reading-of-binary-outcome-reference-group-odds-ratio-and-interval-without-fitting"
+      - "report:notes/reports/wd-c16-2026-08-18.md#objavljeni-artefakt-i-prava"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R14-C17-classification-bridge:
     parents:
       - "R14"
@@ -23118,7 +23209,7 @@ items:
       location: "§12 heterogeneity"
     description: "Teach heterogeneity with predicted lines/values and distinguish planned from exploratory subgroup work."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23136,11 +23227,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "result:conditional-slopes-0.6-and-minus-0.2-versus-misleading-aggregate-0.2"
+      - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R14-C16-adjustment-contract:
     parents:
       - "R14"
@@ -23154,7 +23249,7 @@ items:
       location: "§8 Ch16"
     description: "State when adjustment can help and how mediators, colliders, measurement, timing, and omitted causes limit it."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23172,11 +23267,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "evidence:common-cause-mediator-and-collider-separated-with-no-control-everything-rule"
+      - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+      - "report:notes/reports/wd-c16-critic-skeptic-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R14-SCOPE-reading-not-fitting:
     parents:
       - "R14"
@@ -24111,7 +24211,7 @@ items:
       location: "§12 published results"
     description: "Annotate rows, model columns, coefficients, references, uncertainty, stars, N, fit, specifications, and unsupported claims."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24129,11 +24229,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "artifact:Kleppang-Table-3-semantic-Croatian-adaptation-AOR-1.60-CI-1.43-to-1.80"
+      - "rights:CC-BY-4.0-adaptation-attribution-and-no-endorsement-boundary"
+      - "report:notes/reports/wd-c16-critic-evidence-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R16-C16-paragraph:
     parents:
       - "R16"
@@ -24147,7 +24252,7 @@ items:
       location: "§12 published results"
     description: "Add a shorter annotated results-paragraph reading."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24165,11 +24270,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "artifact:bounded-adapted-results-paragraph-AOR-1.60-CI-1.43-to-1.80-and-missing-information-explicit"
+      - "rights:CC-BY-4.0-selection-shortening-reformatting-and-Croatian-translation-disclosed"
+      - "report:notes/reports/wd-c16-critic-evidence-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R16-C16-no-refit:
     parents:
       - "R16"
@@ -24184,7 +24294,7 @@ items:
     description: "Keep the artifact strictly as reading literacy."
     disposition: "rejected_with_reason"
     disposition_reason: "The curricular purpose is genre literacy, not reproduction of the published model."
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24202,11 +24312,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "boundary:no-Ungdata-retrieval-no-redistribution-no-logistic-refit-no-invented-model-output"
+      - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+      - "report:notes/reports/wd-c16-critic-evidence-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R17-C11-exaggeration:
     parents:
       - "R17"
@@ -25803,7 +25918,7 @@ items:
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R22-AD-reference-spread:
     parents:
       - "R22"
@@ -29270,7 +29385,7 @@ items:
       location: "§8 Ch16 + §15 R29"
     description: "Add a deliberate midpoint retrieval pause before the summit's later synthesis."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29288,11 +29403,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "assessment:midpoint-retrieval-pause-requires-answer-before-profile-feedback"
+      - "report:notes/reports/wd-c16-critic-pedagogy-2026-08-18.md"
+      - "report:notes/reports/wd-c16-critic-structure-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R30-C00-register:
     parents:
       - "R30"
@@ -30623,7 +30743,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 16 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -30641,11 +30761,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C16"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "assessment:exercise-retrieves-earlier-design-interval-and-group-comparison-judgments"
+      - "report:notes/reports/wd-c16-critic-pedagogy-2026-08-18.md"
+      - "report:notes/reports/wd-c16-critic-structure-2026-08-18.md"
+      - "author_reply:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
   R35-REACHBACK-17:
     parents:
       - "R35"
@@ -33363,8 +33488,8 @@ outside_asks:
       stage is claimed.
 
   OA-C16-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "awaiting_exact_author_reply"
+    status: "done"
+    readiness: "complete"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -33399,6 +33524,16 @@ outside_asks:
     resume_condition: "C16 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the summit revision."
     external_message_sent: false
+    completed_at: "2026-08-18"
+    outcome: >-
+      Luka Sikic supplied the exact dated C16 acceptance naming WD-C16
+      closeout commit 9cd5a7983d61d27fe9bb8ca77d8764b419ec857a. The gate
+      applies only the narrow Chapter 16 ledger disposition and nine C16-owned
+      item acceptances recorded in the package; R02-C16-dependent-revalidation
+      and the three R09-C16 items remain accepted and revalidated,
+      R22-C14-C16-dependence remains ratified for WD-PART, four minor records
+      remain known and nonblocking, and no author reading or final stage is
+      claimed.
 
   OA-C17-ACCEPTANCE:
     status: "drafted_unsent"

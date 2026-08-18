@@ -2,12 +2,13 @@
 
 **Gate:** `C16`
 
-**Stanje gatea:** aktivan; kompletan paket pripremljen; čeka točan autorov
-odgovor. Gate nije zatvoren.
+**Stanje gatea:** autor prihvatio; uska dispozicija provedena.
 
 **Imenovani vlasnik odluke:** Luka Sikic, autor/editor.
 
 **Datum pripreme:** 18. kolovoza 2026.
+
+**Datum autorove odluke:** 18. kolovoza 2026.
 
 ## Konačno materijalno stanje
 
@@ -90,8 +91,8 @@ workflow prolaze.
 
 ## Četiri minor zapisa za autorsku dispoziciju
 
-Sljedeći su zapisi autoru potpuno izloženi. Predložena je dispozicija da budu
-poznati i neblokirajući za ovo izdanje, bez izmjene zaključanoga izvora.
+Sljedeći su zapisi autoru potpuno izloženi i prihvaćeni kao poznati i
+neblokirajući za ovo izdanje, bez izmjene zaključanoga izvora.
 
 1. Skeptički zapis predlaže aritmetički opis reziduala kao modelne razlike
    umjesto kratkoga izraza „neobjašnjeni dio”.
@@ -102,25 +103,25 @@ poznati i neblokirajući za ovo izdanje, bez izmjene zaključanoga izvora.
 Nijedan zapis ne mijenja procjenjivanu veličinu, brojčani rezultat,
 pretpostavku, citat, odgovor zadatka, widget ugovor ni fiksnu strukturu.
 
-## Točna uska dispozicija koja bi slijedila prihvaćanje
+## Provedena uska dispozicija
 
-Ako autor pošalje niže navedeni točan odgovor, C16 smije provesti samo ovo:
+Nakon provjere niže navedenoga točnog odgovora C16 provodi samo ovo:
 
-- pomaknuti `16-regresija` iz `draft` u `coauthor_review`, uz izričitu bilješku
+- pomiče `16-regresija` iz `draft` u `coauthor_review`, uz izričitu bilješku
   da prihvaćanje ne znači da je autor pročitao poglavlje i da to nije faza
   `final`;
-- pomaknuti samo `R08-C16-cross-design`, `R14-C16-binary-reading`,
+- pomiče samo `R08-C16-cross-design`, `R14-C16-binary-reading`,
   `R14-C16-interaction`, `R14-C16-adjustment-contract`, `R16-C16-table`,
   `R16-C16-paragraph`, `R16-C16-no-refit`, `R29-C16-retrieval` i
   `R35-REACHBACK-16` iz `ratified` u `accepted`;
-- ostaviti `R02-C16-dependent-revalidation`, `R09-C16-estimand`,
+- ostavlja `R02-C16-dependent-revalidation`, `R09-C16-estimand`,
   `R09-C16-uncertainty` i `R09-C16-leakage-time` u postojećem statusu
   `accepted`, uz zapis njihove svježe revalidacije na konačnom izvoru;
-- ostaviti `R22-C14-C16-dependence` u `ratified`: poglavlje 16 podmiruje svoj
+- ostavlja `R22-C14-C16-dependence` u `ratified`: poglavlje 16 podmiruje svoj
   dio, ali višepoglavna stavka ostaje u vlasništvu `WD-PART`;
-- evidentirati četiri minor zapisa kao autoru izložena, poznata i
+- evidentira četiri minor zapisa kao autoru izložena, poznata i
   neblokirajuća za ovo izdanje, bez promjene zaključanoga izvora;
-- zatvoriti samo C16, ukloniti njegov write lock i tek tada učiniti `G-A4-17`
+- zatvara samo C16, uklanja njegov write lock i tek tada čini `G-A4-17`
   mogućim sljedećim paketom.
 
 Nijedna druga stavka, poglavlje, handoff ili zapis ne mijenja status. Poglavlje
@@ -130,21 +131,16 @@ Nijedna druga stavka, poglavlje, handoff ili zapis ne mijenja status. Poglavlje
 
 C16 ne autorizira promjenu proze, novi panel, vanjsku poruku, push, merge, tag,
 arhiviranje, deployment ili objavu. Ne tvrdi se da je autor pročitao poglavlje.
-`G-A4-17` se ne smije otvoriti prije točnoga odgovora i zasebnoga C16
-closeouta.
-
-Ovaj pripremni korak ne zatvara C16 i ne provodi nijednu predloženu ledger
-promjenu. Poglavlje 16 ostaje `draft`, devet novih stavki ostaje `ratified`, a
-write lock ostaje na C16 dok čeka autora.
+`G-A4-17` ostaje zaseban gate i smije se otvoriti tek zasebnim claimom nakon
+C16 closeout commita.
 
 ## Točan odgovor autora
 
-Za prihvaćanje ovoga točno određenog stanja odgovorite doslovno:
+Odgovor je primljen u aktivnoj niti i zapisan doslovno:
 
 ```text
 C16 accepted for 9cd5a7983d61d27fe9bb8ca77d8764b419ec857a on 2026-08-18
 ```
 
-Svaki drukčiji commit ili datum zahtijeva novu provjeru podudaranja. Umjesto
-prihvaćanja možete navesti točne blokirajuće dorade; u tom slučaju C16 ostaje
-otvoren i izvor se ne mijenja bez zasebne dispozicije.
+Odgovor navodi točan završni WD-C16 commit i datum odluke. Stalna delegacija od
+5. kolovoza nije upotrijebljena i ne tvrdi se da je autor pročitao poglavlje.
