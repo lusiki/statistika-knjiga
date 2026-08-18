@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WD-C15
-next_permitted_packet: C15
+last_completed_packet: C15
+next_permitted_packet: G-A4-16
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
 forward_handoffs: 97
-last_updated: "2026-08-17"
+last_updated: "2026-08-18"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -51,19 +51,20 @@ stop and repair the control state before editing book content.
 | Thread amendment WC-PARTS-WD-C14 | `A-THREAD-WC-PARTS-WD-C14-2026-08-17` accepted as a new, distinct decision: strict chain now runs `WC-PARTS -> C07-C12-REACCEPT -> P3-VERIFY-D -> WD-C13 -> C13 -> WD-C14`; every packet remains separate; option B and the exact batched gate/handoff are approved, while C07-C12-REACCEPT and C13 retain their exact author-reply stops; all earlier thread chains have ended |
 | Thread amendment WD-C14/C14 preparation | `A-THREAD-WD-C14-C14-PREP-2026-08-13` accepted as a new, distinct decision and recorded on 17 August: execute and commit `WD-C14`, then claim `C14` only to assemble the complete acceptance package and stop for the exact reply `C14 accepted for <commit> on <date>`; do not close C14 or start WD-C15; all earlier thread chains have ended |
 | Thread amendment WD-C15–G-A4-16 | `A-THREAD-WD-C15-G-A4-16-2026-08-17` is the eighth, new and distinct thread decision: strict chain `WD-C15 -> C15 -> G-A4-16`; every packet remains separate; C15 keeps the exact author-reply stop and G-A4-16 prepares the artifact, rights and binary-outcome-bridge brief without retrieval, promotion or prose; all seven earlier thread chains have ended |
+| Thread amendment C15-G-A4-17 | `A-THREAD-C15-G-A4-17-2026-08-17` is the ninth, new and distinct thread decision: strict chain `C15 -> G-A4-16 -> WD-C16 -> C16 -> G-A4-17`; every packet remains separate and committed before the next claim; C15 and C16 retain exact acceptance replies, both decision gates stop for the author, and only WD-C16 may finish unattended; all eight earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `WD-C15` is closed and its bounded commit is the next source state to be cited by C15 |
-| Last completed packet | `WD-C15`; final Chapter 15 SHA-256 `fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813`, six critics on blob `aa644049bacb62e7fc05ab75d3b6157b83165b96`, 0 fatal, 0 major and 4 nonblocking style-minor records |
-| Next permitted packet | `C15` alone at sequence 121; it must be claimed separately and stop for the exact dated author reply naming the final WD-C15 closeout commit |
+| Active write packet | None; C15 closed on the exact dated author reply and no later packet is claimed |
+| Last completed packet | `C15`; exact reply accepted WD-C15 commit `a385ddc85c11e5d1cf63b33043c1df2a90cff6fb`, Chapter 15 advanced only to `coauthor_review`, R09/R23/R35 accepted and 4 known style-minor records left unedited |
+| Next permitted packet | `G-A4-16` at sequence 122; it remains unclaimed and must prepare the complete artifact, rights and binary-outcome-bridge brief before stopping for the author |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 223 accepted, 5 deferred with reason and 143 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 113 accepted, 75 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 226 accepted, 5 deferred with reason and 140 ratified pending their later gates; zero in progress and zero unmapped |
+| Exact packet catalogue | 189 packets: 114 accepted, 74 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 5 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci` and `14-dvije-grupe` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
+| Chapter stages | 4 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe` and `15-vise-grupa` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 29 of the 85 canonical asks remain `drafted_unsent`; 50 are `done`; 6 are `withdrawn_with_reason`. `OA-C14-ACCEPTANCE` is done on the exact dated reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
+| Open outside asks | 28 of the 85 canonical asks remain `drafted_unsent`; 51 are `done`; 6 are `withdrawn_with_reason`. `OA-C15-ACCEPTANCE` is done on the exact dated reply; both `OA-G-A4-16-ARTIFACT` and `OA-G-A4-16-RIGHTS` remain open and unsent; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5585,6 +5586,41 @@ the durable evidence is
   separately to assemble the acceptance package, cite the WD-C15 closeout
   commit and stop for exactly `C15 accepted for <commit> on <date>`.
 
+## C15 closeout
+
+- The exact author reply was received as
+  `C15 accepted for a385ddc85c11e5d1cf63b33043c1df2a90cff6fb on 2026-08-17`.
+  It names the final WD-C15 closeout commit and decision date; the standing
+  5 August delegation was not used.
+- `notes/reports/c15-acceptance-package-2026-08-17.md` ties the decision to
+  Chapter 15 SHA-256
+  `fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813`,
+  git blob `aa644049bacb62e7fc05ab75d3b6157b83165b96`, all six final reports and
+  the synthesis.
+- The panel basis is 0 fatal, 0 major and 4 known nonblocking style-minor
+  records. No source edit or new panel is proposed.
+- Only `15-vise-grupa` advances from `draft` to `coauthor_review`. This records
+  an accepted revision state, not an assertion that the author read the
+  chapter and not a `final` stage.
+- Only `R09-C15-variance-ratio`, `R23-C15-suspect-code` and
+  `R35-REACHBACK-15` advance from `ratified` to `accepted`.
+  `R02-C15-dependent-revalidation` remains accepted and revalidated.
+  `R22-C14-C16-dependence` retains the passing Chapter 15 slice but remains
+  `ratified` for `WD-PART` until Chapter 16 passes.
+- Four style-minor records are known and nonblocking for this edition. They
+  were not edited, silently resolved or converted into a new obligation.
+- `packet_reviews.C15` records no outgoing handoff because the direct
+  successor and every ESS, dependence, DOCX and Chapter 6 consequence already
+  have stable owners.
+- The ninth distinct thread amendment is recorded in
+  `notes/reports/c15-g-a4-17-thread-amendment-2026-08-17.md`; it authorises the
+  strict chain only and waives no stop, gate or prerequisite.
+- Chapter 6 remains unchanged and deliberately `draft`. Chapters 7–14 retain
+  their accepted states. No author reading, external message or release action
+  is claimed.
+- No active write lock remains. `G-A4-16` alone is next at sequence 122 but is
+  not claimed inside C15.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5612,23 +5648,26 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that no packet is active, `WD-C15` is the last completed packet and
-`C15` alone is next at sequence 121 under the eighth distinct thread decision
-`A-THREAD-WD-C15-G-A4-16-2026-08-17`. Confirm final Chapter 15 SHA-256
+Verify that HEAD is the clean C15 closeout commit. Confirm that C15 accepted
+exact WD-C15 source commit `a385ddc85c11e5d1cf63b33043c1df2a90cff6fb`,
+and that Chapter 15 remains SHA-256
 `fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813` and
 git blob `aa644049bacb62e7fc05ab75d3b6157b83165b96`; all six final reports and
 the synthesis address that exact blob; the panel records 0 fatal, 0 major and
-4 known nonblocking style-minor records; all deterministic checks and HTML,
-PDF and DOCX renders pass; and packet_reviews.WD-C15 records no outgoing
-handoff.
+4 known nonblocking style-minor records; Chapter 15 alone advanced to
+coauthor_review; only R09-C15, R23-C15 and R35-REACHBACK-15 newly advanced to
+accepted; R02-C15 remains accepted and revalidated; R22-C14-C16-dependence
+remains ratified for WD-PART; Chapter 6 remains deliberately draft; and no
+packet is active.
 
-Claim C15 separately only to assemble the complete acceptance package. Cite
-the final WD-C15 closeout commit, source identity, all six reports, synthesis,
-four minor records and proposed narrow ledger disposition. Do not edit the
-locked chapter or apply the disposition. Stop and request exactly
-`C15 accepted for <WD-C15 closeout commit> on <YYYY-MM-DD>` or exact blocking
-revisions. Only after that exact reply and C15 closeout may G-A4-16 be claimed.
-Chapter 6 remains deliberately draft; push, merge, tag, archive, deployment
-and publication remain separately gated.
-Push, merge, tag, archive, deployment and publication remain separately gated.
+G-A4-16 alone is next at sequence 122. Claim it only to prepare the complete
+decision brief using G-A4-03 and G-A4-12 as structural models. Present one
+verified published regression results table and short paragraph for a bounded
+no-refit reading task, exact source fit and representation plan, exact
+reproduction or quotation conditions without inferring permission, unavailable
+claims, alternatives, authority boundary and blocked dependencies. Rule on the
+binary-outcome bridge or state explicitly that it is deferred to WD-C16 and
+why. Retrieve nothing, promote nothing and write no chapter prose. Stop for
+the exact replies to OA-G-A4-16-ARTIFACT and OA-G-A4-16-RIGHTS. Push, merge,
+tag, archive, deployment and publication remain separately gated.
 ```
