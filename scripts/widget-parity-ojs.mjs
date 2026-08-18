@@ -412,7 +412,7 @@ function w15(parameters) {
 function w16(parameters) {
   const p = parameters.scenarios[0];
   const rng = lcg(p.seed);
-  const randomNormal = normal(rng);
+  const randomNormal = fixture === "w16-cached-normal" ? normalCached(rng) : normal(rng);
   const rows = Array.from({length: p.n}, () => {
     const interest = randomNormal();
     const time = Math.max(0, 5 + 1.8 * interest + 1.5 * randomNormal());

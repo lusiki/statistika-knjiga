@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "G-A4-16"
-  next_permitted_packet: "WD-C16"
+  last_completed_packet: "WD-C16"
+  next_permitted_packet: "C16"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -13386,7 +13386,7 @@ packets:
     sequence: 123
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A4-16"
       - "C15"
@@ -13399,14 +13399,96 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-C16 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "decision:G-A4-16"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#16-regresija"
+            - "packet:P1A-C16-accepted"
+            - "handoffs:H-P3-ESS-001-H-G-A2C-002-H-P2-TERMS-003-H-P2-DOCS-001-H-WB-C06-001-consumed"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+            - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+            - "result:simple-slope-0.0367-adjusted-slope-0.0269-latent-rule-0.028"
+            - "result:R2-simple-8.8-percent-adjusted-12.2-percent"
+            - "result:two-groups-difference-and-OLS-coefficient-1.19-Student-t-3.21-Welch-t-3.18"
+            - "result:five-groups-classical-F-8.38-Welch-F-7.32-eta2-10.2-percent"
+            - "result:interaction-slopes-0.6-minus-0.2-aggregate-0.2"
+            - "result:print-candidate-SSE-2575.9-minimum-2561.1"
+            - "artifact:Kleppang-Table-3-AOR-1.60-CI-1.43-to-1.80-CC-BY-4.0"
+            - "registry:data/widgets.json#w16-ojs-sha256-bdc6ffbda4b05db4825fadb0f5660dd906ad60852d51eedcc07e8d007c045c37"
+            - "registry:data/widgets.json#w16-r-sha256-36fbdccd1e17bdd9b1dbc5c0cd94ad386f587215f3970d700f48fc8701c5b8df"
+            - "generated:data/concept-graph.json-49-nodes-620-edges-257-displayed-45-definition"
+            - "check:DATA_INTEGRITY_OK-rows-50300-snapshots-21"
+            - "check:ESS_PORTAL_OK-no-local-data-no-checksum-rights-ask-open"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-cells-29-bytes-235391-sha256-31be2b4b969de9c010fff996a921483713799d799222d0d8c7c510b36d8ef7fd"
+            - "render:PDF-approved-wrapper-exit-0-pages-471-bytes-5923376-sha256-6790130fccfa7f7646ee79c99afb3a40f946b62ef4a9331d538fb8f4bebe5734"
+            - "render:DOCX-wrapper-exit-0-bytes-2811935-sha256-70f6480bedd0d2e7bfe5b58c0a176c244f2837478c3d79eeb93c44810e0bfc9f"
+            - "boundary:isolated-render-only-primary-generated-artifacts-unchanged"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-skeptic-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-pedagogy-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-evidence-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-style-2026-08-18.md"
+            - "report:notes/reports/wd-c16-critic-structure-2026-08-18.md"
+            - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+            - "panel:six-of-six-confirm-blob-99e20c58-zero-fatal-zero-major-four-nonblocking-minor-records"
+      outputs:
+        - output: "WD-C16 verified vertical-slice source and evidence bundle for: Chapter 16 vertical slice."
+          artifacts:
+            - "source:chapters/16-regresija.qmd"
+            - "registry:data/widgets.json#w16"
+            - "generated:data/concept-graph.json-49-nodes-620-edges"
+            - "report:notes/reports/wd-c16-2026-08-18.md"
+            - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+        - output: "Completion evidence is tied to the declared WD-C16 source state and bounded scope."
+          artifacts:
+            - "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+            - "review:packet_reviews.WD-C16-all-future-effects-recorded"
+            - "boundary:nine-C16-items-materially-pass-and-remain-ratified-until-C16"
+            - "boundary:R02-and-three-R09-C16-items-remain-accepted-and-revalidated"
+            - "boundary:R22-C14-C16-remains-ratified-for-WD-PART-with-Chapter-16-slice-passing"
+            - "boundary:four-minors-pass-to-C16-without-post-panel-source-edit"
+            - "boundary:C16-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WD-C16-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wd-c16-2026-08-18.md"
+            - "check:MANUSCRIPT_INTEGRITY-FIGURE_INTRO-STYLE-WIDGET_PARITY-all-pass"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+            - "panel:zero-fatal-zero-major-four-nonblocking-minor-records"
+        - test: "The WD-C16 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-C16-R14-C16-R16-C16-R29-C16-R35-REACHBACK-16-materially-pass"
+            - "items:R02-C16-and-R09-C16-final-state-revalidated"
+            - "item:R22-C14-C16-Chapter-16-contribution-recorded-status-unchanged"
+            - "report:notes/reports/wd-c16-2026-08-18.md"
+            - "fixture:w16-normal-cache-asymmetry-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
   C16:
     sequence: 124
     phase: "4"
@@ -25652,10 +25734,20 @@ items:
           - "report:notes/reports/wd-c15-critic-skeptic-2026-08-17.md"
           - "report:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
           - "boundary:item-remains-ratified-for-WD-PART-until-Chapter-16-passes"
+      chapter_16:
+        status: "verified_pending_multi_chapter_owner"
+        artifacts:
+          - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+          - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+          - "rule:stop-before-independent-row-inference-for-repeated-nested-household-place-organisation-or-network-linked-observations"
+          - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
+          - "report:notes/reports/wd-c16-critic-skeptic-2026-08-18.md"
+          - "report:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+          - "boundary:item-remains-ratified-for-WD-PART-until-multi-chapter-owner-closes"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
   R22-AD-visual-tree:
     parents:
       - "R22"

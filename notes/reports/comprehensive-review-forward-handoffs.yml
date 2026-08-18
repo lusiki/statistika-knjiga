@@ -3778,7 +3778,23 @@ handoffs:
           - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-5"
       - target_packet: WD-C16
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        acknowledgement: >-
+          WD-C16 će u svim živim pojavama napisati kanonske oblike
+          predviđanje i curenje informacija, zadržati vremensku granicu u istoj
+          rečenici i ostaviti stvarni opis curenja podataka u Poglavlju 2
+          nepromijenjenim.
+        disposition: >-
+          Završni izvor rabi kanonske oblike predviđanje i curenje informacija,
+          vremensku granicu nosi u rečenici o primjeni i nije promijenio stvarni
+          opis curenja podataka u Poglavlju 2. Stroga terminološka provjera
+          prolazi s tri preostale divergencije u vlasništvu WD-C17.
+        evidence:
+          - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-3"
+          - "boundary:chapters/02-mjerenje-i-dizajn.qmd-data-breach-use-unchanged"
       - target_packet: WD-C17
         gate: before_close
         state: pending
@@ -4035,7 +4051,23 @@ handoffs:
           - "boundary:only-WC-C08-owned-divergences-removed"
       - target_packet: WD-C16
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        acknowledgement: >-
+          WD-C16 će nakon popravka proze ukloniti samo dvije svoje zastarjele
+          stavke iz terminology_registry.live_divergences, ostaviti zapise za
+          WD-C17 i iznimku Poglavlja 2 netaknutima te ponovno pokrenuti strogu
+          terminološku provjeru.
+        disposition: >-
+          Uklonjene su samo dvije WD-C16 stavke nakon stvarnoga popravka proze.
+          Tri WD-C17 divergencije i iznimka Poglavlja 2 ostaju netaknute, a
+          dvosmjerna terminološka provjera prolazi.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.live_divergences-3"
+          - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+          - "check:scripts/check-terminology.py-TERMINOLOGY_OK-divergences-3"
+          - "boundary:only-WD-C16-owned-divergences-removed"
       - target_packet: WD-C17
         gate: before_close
         state: pending
@@ -4148,7 +4180,24 @@ handoffs:
           - "boundary:no-variance-formula-no-premature-Appendix-D-route"
       - target_packet: WD-C16
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        acknowledgement: >-
+          WD-C16 ostaje na prepoznavanju, tumačenju, ograničenju i usmjeravanju
+          regresijskih rezultata. Binarni most služi samo čitanju ishoda i neće
+          uvoditi procjenjivanje logističkog modela ni prerano zatvoriti buduću
+          rutu Dodatka D.
+        disposition: >-
+          Binarni most prepoznaje i tumači ishod, referentnu skupinu, omjer
+          izgleda, interval i nedostupnu apsolutnu vjerojatnost. Ne procjenjuje
+          logistički model, ne izvodi njegovu jednadžbu i ne tvrdi da nepotpuni
+          Dodatak D već pruža buduću rutu za ovisne podatke.
+        evidence:
+          - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+          - "report:notes/reports/wd-c16-2026-08-18.md#objavljeni-artefakt-i-prava"
+          - "panel:zero-fatal-zero-major-on-bounded-binary-reading-bridge"
+          - "boundary:no-logistic-fitting-no-derivation-no-premature-Appendix-D-closure"
       - target_packet: P5-D
         gate: before_close
         state: pending
@@ -6191,7 +6240,31 @@ handoffs:
           - "report:notes/reports/wd-c14-2026-08-17.md"
       - target_packet: WD-C16
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        acknowledgement: >-
+          WD-C16 će uskladiti živi w16 i proizvodni adapter jednim eksplicitnim
+          Marsaglia-polar generatorom bez spremanja drugog para, dodati stvarne
+          zlatne vrijednosti i zasebnu negativnu provjeru asimetričnog spremanja
+          te zadržati postojeću toleranciju.
+        disposition: >-
+          Živi w16 i proizvodni OJS adapter sada koriste isti eksplicitni
+          nekeshirani Marsaglia-polar generator i isti redoslijed izvlačenja.
+          Registar nosi osvježeni izvorni fingerprint i zlatne vrijednosti,
+          obični paritet prolazi bez širenja tolerancije, a namjenski fixture
+          pada zatvoreno kad se samo adapter vrati na cacheirani drugi par.
+        evidence:
+          - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+          - "source:scripts/widget-parity-ojs.mjs#w16"
+          - "source:scripts/check-widget-parity.py#w16-normal-cache-asymmetry"
+          - "source:scripts/check-widget-parity-fixtures.py#w16-normal-cache-asymmetry"
+          - "registry:data/widgets.json#w16-ojs-sha256-bdc6ffbda4b05db4825fadb0f5660dd906ad60852d51eedcc07e8d007c045c37"
+          - "registry:data/widgets.json#w16-r-sha256-36fbdccd1e17bdd9b1dbc5c0cd94ad386f587215f3970d700f48fc8701c5b8df"
+          - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+          - "check:WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-6"
+          - "fixture:w16-normal-cache-asymmetry-exit-1"
+          - "boundary:w16-tolerance-unchanged"
       - target_packet: WD-C17
         gate: before_close
         state: pending
@@ -6782,7 +6855,27 @@ handoffs:
           - "boundary:ESS-optional-portal-mediated-unpromoted-no-data-no-checksum-no-bundling"
       - target_packet: WD-C16
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        acknowledgement: >-
+          WD-C16 prihvaća granicu prije početka: ESS Round 11 edition 3.0 za
+          Hrvatsku ostaje nepromovirana, portalno posredovana i neobvezna ruta
+          čitatelja s nazivnikom po analizi i zadanom težinom anweight.
+          Obvezni lokalni tijek koristi licencirani populacija_medija.
+        disposition: >-
+          Handoff je potrošen prije claim-a bez preuzimanja ESS datoteka,
+          kontrolnog zbroja, rezultata, prava, pariteta datoteka, službenog
+          odaziva ili prava na paketiranje. Otvoreni OA-G-A3-ESS-RIGHTS ostaje
+          otvoren, a WD-C16 ne promovira ESS i za obvezni rad zadržava lokalni
+          CC BY 4.0 populacija_medija.
+        evidence:
+          - "report:notes/reports/p3-ess-2026-08-11.md"
+          - "passport:data/ess_r11_hr/PUTOVNICA.md"
+          - "registry:data/katalog.yml#ess_r11_hr"
+          - "registry:data/katalog.yml#populacija_medija"
+          - "alternative:data/populacija-medija.csv-and-data/populacija-medija-agregat.csv-CC-BY-4.0"
+          - "boundary:ESS-optional-portal-mediated-unpromoted-no-data-no-checksum-no-bundling"
 
   H-P3-EVIDENCE12-001:
     source_packet: P3-EVIDENCE12
@@ -9898,3 +9991,36 @@ packet_reviews:
       - no data bibliography chapter prose figure widget concept graph registry render or generated artifact changed in G-A4-16
       - WD-C16 is the sole next permitted packet but is not claimed inside G-A4-16
       - no external message push merge tag archive deployment publication or future-packet acceptance is claimed or authorised
+
+  WD-C16:
+    reviewed_at: "2026-08-18"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      WD-C16 found no new future-relevant effect without an existing owner. The
+      four nonblocking panel-minor records pass directly to the separate C16
+      author gate. H-P3-ESS-001 already owns the optional portal and mandatory
+      local-alternative boundary, R22-C14-C16-dependence remains owned by
+      WD-PART, H-WC-PARTS-DOCX-001 owns the later release-path risk,
+      H-WB-PART-001 owns Chapter 6, and the accepted Part V sequence owns the
+      Chapter 17 bridge. Repeating those controls would add no ownership or
+      information.
+    implementation_state: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+    checks:
+      - H-P3-ESS-001 was consumed before claim with optional portal anweight denominator no-data no-promotion no-checksum and no-bundling boundaries intact
+      - H-G-A2C-002 H-P2-TERMS-003 H-P2-DOCS-001 and H-WB-C06-001 were acknowledged before substantive work and consumed with final-state evidence before closeout
+      - the final Chapter 16 SHA256 is dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671 and git blob is 99e20c5885ab10a0bbdfaa8981431edf20e556a3
+      - nine C16-owned ratified items materially pass but remain ratified pending the separate C16 gate
+      - R02-C16-dependent-revalidation and the three R09-C16 items remain accepted and are revalidated on the final source
+      - the Chapter 16 contribution to R22-C14-C16-dependence passes while the multi-chapter item remains ratified for WD-PART
+      - all six final critics independently confirm the same source blob and record zero fatal zero major and four nonblocking minor records
+      - the earlier diagnostic and H9-blocked panel states are not used as final evidence
+      - data/widgets.json records final w16 OJS and R source fingerprints and retains the distributional parity tolerance
+      - the dedicated w16 normal-cache-asymmetry fixture fails closed and the complete widget parity fixture suite reports six cases
+      - data/concept-graph.json is fresh with 49 nodes 620 edges 257 displayed co-occurrence edges and 45 definition edges
+      - style structure figure citation concept terminology manuscript spine catalogue ESS portal assessment data widget parity token and workflow checks pass
+      - targeted HTML approved-wrapper PDF and wrapper DOCX renders exit zero on the exact held source with evidence in notes/reports/wd-c16-2026-08-18.md
+      - generated render artifacts remain isolated and do not enter the primary packet checkout
+      - Chapter 6 remains unchanged and draft and Chapters 7 through 15 retain their accepted states
+      - C16 is the sole next permitted packet but is not accepted and requires the exact dated author reply naming the final WD-C16 closeout commit
+      - no author reading acceptance external message push merge tag archive deployment or publication is claimed or authorised

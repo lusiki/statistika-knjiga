@@ -424,15 +424,15 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 52, "seed": 1616, "user_intercept": 10, "user_slope": 4.5}]},
-        "seed_policy": {"ojs": "d3.randomLcg(1616) i isprepleteni normalni izvlaci po jedinici", "r": "set.seed(1616) i tri uzastopna vektora rnorm", "shared": "Razliciti redoslijed i RNG daju razlicite podatke; svaki adapter ima zlatne koeficijente i SSE."},
+        "seed_policy": {"ojs": "d3.randomLcg(1616) i eksplicitni Marsaglia-polar generator bez spremanja drugog para, s isprepletenim izvlacima po jedinici", "r": "set.seed(1616) i tri uzastopna vektora rnorm", "shared": "Zivi OJS i proizvodni OJS adapter trose isti nekesirani normalni niz i imaju iste zlatne koeficijente i SSE; R ima zasebne zlatne vrijednosti i distribucijsku usporedbu."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.aggregate_intercept": 3.0, "default.aggregate_slope": 0.6, "default.adjusted_slope": 0.6, "default.user_to_minimum_ratio": 0.5}, "invariants": [{"adapter": "both", "left": "default.user_sse", "operator": ">=", "right": "default.sse_minimum"}, {"adapter": "both", "left": "default.aggregate_slope", "operator": ">", "right": "default.adjusted_slope"}]},
         "expected": {
           "ojs": {"default.aggregate_intercept": 8.6871215720568, "default.aggregate_slope": 4.797800043204114, "default.adjusted_slope": 2.0417289469737767, "default.sse_minimum": 1540.0663961918815, "default.user_sse": 1562.0323507483897, "default.user_to_minimum_ratio": 1.0142629919143897},
           "r": {"default.aggregate_intercept": 9.0983634210344, "default.aggregate_slope": 4.587964445158936, "default.adjusted_slope": 2.0200791450317213, "default.sse_minimum": 2561.139633487693, "default.user_sse": 2575.9064684624595, "default.user_to_minimum_ratio": 1.005765728186658}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w16", "r": "scripts/widget-parity-r.R#w16"},
-        "source": {"ojs_label": "fig-w16", "r_label": "fig-w16-print", "ojs_sha256": "70ecc3c90ff987b984079e2e62d03a140d758211c8b320df4fee7205f4af8c98", "r_sha256": "be5d7b9ab11db9d1b1e872365ae7f92d95043cc88b53a0d5785453fd9a883af2"},
-        "claim_boundary": "Zbirni nagib je pozitivniji od prilagodenog, a pravac najmanjih kvadrata minimizira SSE u svakom simuliranom skupu; ne zahtijeva jednake tocke ili sirove SSE-ove medu izdanjima."
+        "source": {"ojs_label": "fig-w16", "r_label": "fig-w16-print", "ojs_sha256": "bdc6ffbda4b05db4825fadb0f5660dd906ad60852d51eedcc07e8d007c045c37", "r_sha256": "36fbdccd1e17bdd9b1dbc5c0cd94ad386f587215f3970d700f48fc8701c5b8df"},
+        "claim_boundary": "Zivi OJS i njegov adapter imaju tocno istu nekesiranu normalnu putanju i zlatne vrijednosti. Zbirni nagib je pozitivniji od prilagodenog, a pravac najmanjih kvadrata minimizira SSE u svakom simuliranom skupu; OJS i R ne moraju imati jednake tocke ili sirove SSE-ove."
       },
       "naziv": "Regresijski pravac",
       "poglavlje": "chapters/16-regresija.qmd",

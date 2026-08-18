@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: G-A4-16
-next_permitted_packet: WD-C16
+last_completed_packet: WD-C16
+next_permitted_packet: C16
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -56,12 +56,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; G-A4-16 closed on all three exact dated author replies and no later packet is claimed |
-| Last completed packet | `G-A4-16`; artifact, CC BY 4.0 representation route and bounded binary-outcome bridge accepted against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a` |
-| Next permitted packet | `WD-C16` at sequence 123; it remains unclaimed and must consume its incoming handoffs before any substantive edit |
-| Review parents | 32 ratified; 4 accepted |
+| Active write packet | None; WD-C16 is closed and the separate C16 acceptance gate has not yet been claimed |
+| Last completed packet | `WD-C16`; final source SHA-256 `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`, all required handoffs consumed, multi-format renders pass and the final panel records 0 fatal, 0 major and 4 nonblocking minor records |
+| Next permitted packet | `C16` at sequence 124; it may be claimed only to assemble the acceptance package and stop for the exact author reply |
+| Review parents | 31 ratified; 5 accepted |
 | Atomic child inventory | Complete: 371 stable children; 227 accepted, 5 deferred with reason and 139 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 115 accepted, 73 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 116 accepted, 72 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 4 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe` and `15-vise-grupa` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -5666,6 +5666,55 @@ the durable evidence is
 - No active write lock remains. `WD-C16` alone is next at sequence 123 but is
   not claimed inside G-A4-16.
 
+## WD-C16 closeout
+
+- WD-C16 was claimed from clean G-A4-16 reconciliation commit
+  `8e4a2c602d6acaa002d88ea8fbb00dab5e6439e5` as the sole write packet. Its
+  final source SHA-256 is
+  `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`
+  and git blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`.
+- `H-P3-ESS-001` was consumed before claim. `H-G-A2C-002`,
+  `H-P2-TERMS-003`, `H-P2-DOCS-001` and `H-WB-C06-001` were acknowledged
+  before substantive work and consumed before closeout with final-state
+  evidence. ESS remains optional, portal-mediated and unbundled; mandatory
+  work uses `populacija_medija`.
+- The chapter now holds one stable finite-population OLS estimand, distinguishes
+  total from source-conditional age patterns, teaches common cause, mediator and
+  collider roles, adds planned interaction and a real retrieval pause, enforces
+  the dependent-row stop rule and separates explanation, prediction and cause.
+- The accepted G-A4-16 route is implemented as a semantic Croatian adaptation
+  of Kleppang Table 3 plus its bounded paragraph. AOR 1,60, interval 1,43–1,80,
+  the 80th-percentile outcome, missing model information and complete CC BY 4.0
+  attribution appear without data retrieval or logistic-model refitting.
+- w16 and its production adapter now consume the same explicit noncached polar
+  stream. The OJS and R fingerprints are respectively
+  `bdc6ffbda4b05db4825fadb0f5660dd906ad60852d51eedcc07e8d007c045c37`
+  and `36fbdccd1e17bdd9b1dbc5c0cd94ad386f587215f3970d700f48fc8701c5b8df`;
+  the tolerance is unchanged and the sixth cache-asymmetry fixture fails closed.
+- The fresh concept graph has 49 nodes, 620 edges, 257 displayed co-occurrence
+  edges and 45 definition edges. Style, structure, figures, citations, concepts,
+  terminology, manuscript, spines, catalogue, ESS, assessment, data, all 17
+  widgets, token and workflow checks pass.
+- The exact held source rendered as targeted HTML of 235.391 bytes
+  (`31be2b4b…ef7fd`), approved-wrapper PDF of 5.923.376 bytes and 471 pages
+  (`6790130f…e5734`) and wrapper DOCX of 2.811.935 bytes
+  (`70f6480b…fc9f`). No generated artifact enters the primary checkout.
+- Two earlier panels were diagnostic. The mandatory final six-critic rerun on
+  blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3` records 0 fatal, 0 major and
+  4 nonblocking minor records: one skeptical, one pedagogical and two style.
+  There was no post-panel source edit.
+- Nine C16-owned ratified items materially pass but remain ratified until C16.
+  R02-C16 and the three R09-C16 items remain accepted and are revalidated. The
+  Chapter 16 slice of `R22-C14-C16-dependence` passes, while that multi-chapter
+  item remains ratified for `WD-PART`.
+- `packet_reviews.WD-C16` declares no outgoing handoff because all future
+  consequences already have owners. Chapter 6 remains deliberately `draft`,
+  Chapters 7–15 retain their accepted states and no chapter-ledger stage changes
+  in WD-C16.
+- No write lock remains. C16 alone is next at sequence 124 and must be claimed
+  separately only to prepare its acceptance package. No author reading,
+  acceptance, release action or publication is claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5693,25 +5742,20 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean G-A4-16 closeout commit. Confirm that all three
-exact author replies accepted the artifact, CC BY 4.0 representation route and
-bounded binary-outcome bridge against C15 closeout commit
-`a9697b1808765038e1d4a176223023e363ad3c3a`; both outside asks are done; the
-decision package and `packet_reviews.G-A4-16` are complete; Chapter 6 remains
-deliberately draft; and no packet is active.
+Verify that HEAD is the clean WD-C16 closeout commit and that Chapter 16 remains
+SHA-256 `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`
+with git blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`. Confirm all five applicable
+handoff deliveries are consumed, the final HTML/PDF/DOCX evidence passes, all
+six final reports and the synthesis address that same blob, the panel records
+0 fatal, 0 major and 4 known nonblocking minor records, Chapter 6 remains
+deliberately draft and no packet is active.
 
-WD-C16 alone is next at sequence 123. Before claim, fully read the Chapter 16
-spine, the accepted G-A4-16 decision, every incoming WD-C16 handoff and all
-governed R16 items. Acknowledge each applicable handoff before the first
-substantive edit and consume it with evidence before closeout. Implement the
-complete Chapter 16 vertical slice, including the semantic adapted table and
-paragraph, exact CC BY 4.0 attribution, bounded binary-outcome bridge,
-no-refit task, mandatory licensed offline path, optional unpromoted ESS route,
-existing w16 and static twin, assessments and transitions. Run Bookwright
-style and figure checks, all deterministic checks, numerical verification,
-targeted HTML and approved-wrapper PDF/DOCX renders, then a fresh six-critic
-panel on one final source blob. Resolve every fatal and major finding before a
-separate WD-C16 closeout and local commit. Do not advance the chapter ledger
-or accept C16; stop at the separate exact C16 author gate. Push, merge, tag,
-archive, deployment and publication remain separately gated.
+C16 alone is next at sequence 124. Claim it only to assemble the complete
+acceptance package and stop for the exact reply
+`C16 accepted for <WD-C16-closeout-commit> on 2026-08-18`. Do not alter chapter
+prose, accept C16, advance the chapter ledger or start G-A4-17 without that
+exact author reply. The proposed narrow disposition may advance only Chapter
+16 and its C16-owned ratified items, must retain the accepted R02/R09 items as
+revalidated, and must leave `R22-C14-C16-dependence` ratified for WD-PART.
+Push, merge, tag, archive, deployment and publication remain separately gated.
 ```
