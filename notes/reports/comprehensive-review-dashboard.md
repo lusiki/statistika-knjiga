@@ -60,7 +60,7 @@ stop and repair the control state before editing book content.
 | Last completed packet | `G-A4-16`; artifact, CC BY 4.0 representation route and bounded binary-outcome bridge accepted against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a` |
 | Next permitted packet | `WD-C16` at sequence 123; it remains unclaimed and must consume its incoming handoffs before any substantive edit |
 | Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 226 accepted, 5 deferred with reason and 140 ratified pending their later gates; zero in progress and zero unmapped |
+| Atomic child inventory | Complete: 371 stable children; 227 accepted, 5 deferred with reason and 139 ratified pending their later gates; zero in progress and zero unmapped |
 | Exact packet catalogue | 189 packets: 115 accepted, 73 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 4 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe` and `15-vise-grupa` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
