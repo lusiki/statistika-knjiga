@@ -4657,8 +4657,31 @@ handoffs:
           - "boundary:local-checksum-null-and-rights-ask-open"
       - target_packet: G-A3-TEXT
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        disposition: >-
+          G-A3-TEXT consumes the catalogue constraint without promoting or
+          retrieving anything. The author accepted the exact source selection,
+          row and linkage boundary, grouped split, output roles and file-level
+          licence matrix, but a decision gate is not a package promotion gate.
+          parlamint_hr and parlasent therefore remain bundled, promoted false,
+          files empty and checksum null, with no promotion-log entry. P3-TEXT
+          alone must inspect the selected bytes, record exact source, version,
+          licence, attribution, checksum algorithm and reconciliation or a
+          proved impossibility, and may promote only under its own accepted
+          packet identity after every catalogue condition passes. Technical
+          availability is not treated as redistribution authority, no lane is
+          changed and no rights-holder permission is claimed or sought.
+        evidence:
+          - "decision:G-A3-TEXT-selection-and-rights-accepted-as-recommended"
+          - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+          - "author_reply:G-A3-TEXT-SELECTION-accepted-for-7298a62a1c030f80c3d65443e8d311c76e1b1205"
+          - "author_reply:G-A3-TEXT-RIGHTS-accepted-for-7298a62a1c030f80c3d65443e8d311c76e1b1205"
+          - "registry:data/katalog.yml#parlamint_hr-and-parlasent-bundled-promoted-false-files-empty-checksum-null"
+          - "check:scripts/check-katalog.py-at-G-A3-TEXT-closeout"
+          - "check:scripts/check-data-integrity.R-at-G-A3-TEXT-closeout"
+          - "handoff:H-G-A3-TEXT-001-binds-P3-TEXT-to-exact-package-evidence"
 
   H-P3-CATALOG-002:
     source_packet: P3-CATALOG
@@ -7075,6 +7098,63 @@ handoffs:
     deliveries:
       - target_packet: P7-DOCX
         gate: before_close
+        state: pending
+
+  H-G-A3-TEXT-001:
+    source_packet: G-A3-TEXT
+    created_at: "2026-08-18"
+    kind: constraint
+    refs:
+      - decision:G-A3-TEXT
+      - report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md
+      - source:http://hdl.handle.net/11356/2004
+      - source:http://hdl.handle.net/11356/1868
+      - handoff:H-P1B-DATA-LIC-003
+      - handoff:H-P3-CATALOG-001
+      - registry:data/katalog.yml#parlamint_hr-and-parlasent
+    statement: >-
+      The author accepted the exact linked Croatian text selection and its
+      file-level rights matrix against commit
+      7298a62a1c030f80c3d65443e8d311c76e1b1205. P3-TEXT is bound to official
+      ParlaMint 5.0 ParlaMint-HR.tgz at MD5
+      b852098ae5c2561aef1de43f44e09a77 and ParlaSent 1.0
+      ParlaSent_BCS.jsonl at MD5 c8b59c84c476b031cc553bc3c768e627,
+      ParlaSent_BCS_test.jsonl at MD5 ee8699a4a7b1a834f79fe74b8ebdfaf1
+      and README.txt at MD5 583856c8d470334e5638f6a078f727d5. It must keep all
+      and only demonstrably Croatian source rows, preserve the selected source
+      test rows untouched, derive training and validation only inside remaining
+      source-training documents by a published deterministic grouped SHA-256
+      rule, preserve the asymmetric label-production path, retain only uniquely
+      linked enclosing ParlaMint-HR speeches, and produce only the three
+      accepted linked views. ParlaMint-only outputs are CC BY 4.0;
+      ParlaSent-derived and truly joined outputs are CC BY-SA 4.0 with
+      ShareAlike and full source-specific attribution.
+    required_action: >-
+      Before its first substantive edit, P3-TEXT must acknowledge and consume
+      this handoff. It must retrieve only the ratified files into the candidate
+      lane, verify published source MD5 values, inspect and record literal
+      schemas and the Croatian country value, and fail closed if the test data
+      do not expose country or an equally authoritative stable Croatia link, if
+      any selected test row lacks one unique ParlaMint-HR link, or if document,
+      speech, record or text-twin leakage survives. It must record exact source,
+      version, licence, attribution, checksum algorithm, deterministic split
+      constant, label reconciliation or proved impossibility, codebook,
+      passport, route-specific expected values and negative fixtures. It may
+      promote only under accepted P3-TEXT after all catalogue conditions pass;
+      G-A3-TEXT may never appear as the promoting gate. If any fail-closed
+      condition is real, close P3-TEXT with the evidenced blocker rather than
+      weaken, infer or silently filter the accepted selection.
+    basis:
+      - "author_reply:G-A3-TEXT-SELECTION-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "author_reply:G-A3-TEXT-RIGHTS-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "decision:G-A3-TEXT.accepted_dispositions"
+      - "catalogue:parlamint_hr-and-parlasent-remain-bundled-promoted-false-files-empty-checksum-null"
+      - "boundary:no-prevalence-causation-speaker-intent-or-out-of-corpus-generalisation"
+      - "boundary:no-rights-holder-permission-claim"
+    required: true
+    deliveries:
+      - target_packet: P3-TEXT
+        gate: before_start
         state: pending
 
 packet_reviews:
@@ -10115,3 +10195,27 @@ packet_reviews:
       - no chapter prose data bibliography terminology spine concept graph widget figure render generated artifact or shared registry changed in G-A4-17
       - G-A3-TEXT is the sole next permitted packet but is not claimed inside G-A4-17
       - no author reading reader test measured reading time independent terminology review external message push merge tag archive deployment publication or future-packet acceptance is claimed or authorised
+
+  G-A3-TEXT:
+    reviewed_at: "2026-08-18"
+    declaration: all_future_effects_recorded
+    outgoing: [H-G-A3-TEXT-001]
+    implementation_state: "commit:7298a62a1c030f80c3d65443e8d311c76e1b1205"
+    checks:
+      - H-P1B-DATA-LIC-003 was consumed before claim and H-P3-CATALOG-001 was acknowledged before substantive work and consumed at closeout
+      - both separate exact author replies name G-A4-17 closeout commit 7298a62a1c030f80c3d65443e8d311c76e1b1205 and date 2026-08-18
+      - the accepted source set is limited to ParlaMint 5.0 ParlaMint-HR.tgz and ParlaSent 1.0 BCS train test and README files at their published MD5 values
+      - selection keeps all and only demonstrably Croatian source rows and forbids inference from names parties or text
+      - the selected source test rows remain untouched and training validation grouping occurs only inside remaining source-training documents without outcome balancing or document leakage
+      - missing test-country evidence nonunique or orphan linkage and surviving record text-twin speech or document leakage must fail P3-TEXT closed
+      - the two-coder reconciliation training path and single-expert test path remain visible through put_oznake and no test reconciliation may be invented
+      - only the speech measure and labelled-sentence views are authorised and WD-C17 is their sole analytical consumer
+      - ParlaMint-only outputs are CC BY 4.0 while ParlaSent-derived and truly joined outputs are CC BY-SA 4.0 with ShareAlike and source-specific attribution
+      - parlamint_hr and parlasent remain bundled promoted false files empty checksum null and absent from the promotion log
+      - H-G-A3-TEXT-001 assigns every byte-level schema linkage split checksum reconciliation attribution promotion and fail-closed duty to P3-TEXT before its first substantive edit
+      - all 20 Chapter 17 content items remain ratified Chapter 17 and w17 remain unchanged and Chapter 6 remains deliberately draft
+      - no prevalence causation speaker-intent out-of-corpus generalisation empirical result rights-holder permission author reading reader test measured reading time or independent terminology review is claimed
+      - scripts/check-review-workflow.R scripts/check-katalog.py and scripts/check-data-integrity.R pass at closeout and all three required workflow negative fixtures fail closed with exit 1
+      - no chapter prose data catalogue bibliography terminology spine concept graph widget figure render generated artifact or shared Bookwright registry changed in G-A3-TEXT
+      - P3-TEXT is the sole next permitted packet but is not claimed inside G-A3-TEXT
+      - no external message push merge tag archive deployment publication or future-packet acceptance is made or authorised

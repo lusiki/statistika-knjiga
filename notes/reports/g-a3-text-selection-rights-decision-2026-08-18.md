@@ -2,7 +2,8 @@
 
 **Gate:** `G-A3-TEXT`
 
-**Stanje gatea:** pripremljen; čeka dvije odvojene točne odluke autora/editora.
+**Stanje gatea:** prihvaćen; obje odvojene preporučene odluke prihvaćene su
+točnim odgovorima autora/editora 18. kolovoza 2026.
 
 **Imenovani vlasnik obiju odluka:** Luka Sikic, autor/editor.
 
@@ -22,8 +23,11 @@ uvela.
 `H-P1B-DATA-LIC-003` potrošen je prije claima. On za oba izvora daje samo
 opći temelj za traku `bundled`: ParlaMint-HR pod CC BY 4.0 i ParlaSent pod
 CC BY-SA 4.0. Opći temelj nije točan paketni zapis. `H-P3-CATALOG-001` priznat
-je na gateu `before_close`, ali nije potrošen: closeout još nema autorske
-odluke, a P3-TEXT tek mora izraditi i provjeriti točan paketni zapis.
+je na gateu `before_close` i potrošen pri closeoutu. Gate nije ništa promovirao:
+oba kataloška zapisa ostaju `bundled`, `promoted: false`, bez datoteka i bez
+kontrolnoga zbroja. Prihvaćeni odabir i licenčni režim obvezuju `P3-TEXT` da
+točan zapis izradi tek nakon provjere stvarnih bajtova; odluka `G-A3-TEXT` ne
+smije biti upisana kao gate koji je promovirao paket.
 
 Ovaj gate ne dohvaća arhive, ne stvara kandidata, ne mijenja `data/katalog.yml`,
 ne promovira paket, ne dodaje bibliografski ključ i ne mijenja 17. poglavlje,
@@ -191,10 +195,21 @@ zbroj te dokazati da nijedna obavijest ne flattena dvije licence u jednu.
    prihvati ShareAlike režim, ali tada povezani empirijski brif nije ispunjen i
    traži novu dispoziciju prije P3-TEXT.
 
-## Blokirane ovisnosti i ovlast
+## Prihvaćene odluke i ovlast
 
-Dok obje odluke nisu primljene, `G-A3-TEXT` ostaje `in_progress`.
-`P3-TEXT`, `P3-VERIFY`, `WD-C17` i `C17` ostaju blokirani. Svih 20 sadržajnih
+Autor/editor Luka Sikic prihvatio je 18. kolovoza 2026. obje preporuke protiv
+zaključanoga ulaznog stanja
+`7298a62a1c030f80c3d65443e8d311c76e1b1205`, zasebnim točnim odgovorima:
+
+```text
+G-A3-TEXT-SELECTION accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18.
+G-A3-TEXT-RIGHTS accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18.
+```
+
+Time su prihvaćeni samo odabir, granica redaka, tri izlazna pogleda, asimetrični
+put oznake, grupirano razdvajanje, nastavna uloga i licenca po datoteci opisani
+u ovom zapisu. `P3-TEXT` postaje jedini sljedeći dopušteni paket; `P3-VERIFY`,
+`WD-C17` i `C17` ostaju blokirani svojim kasnijim gateovima. Svih 20 sadržajnih
 stavki 17. poglavlja ostaje `ratified`; 17. poglavlje i njegov widget ostaju
 nepromijenjeni. Poglavlje 6 ostaje namjerno `draft`.
 
@@ -204,20 +219,15 @@ stavku. Ne tvrdi mjereno vrijeme čitanja, testiranje novim čitateljima,
 neovisnu terminološku recenziju ili autorovo čitanje poglavlja. Push, merge,
 tag, arhiviranje, deployment i objava nisu autorizirani.
 
-## Potrebne odluke autora
+## Closeout
 
-Za prihvaćanje odabira potreban je točno ovaj odgovor:
-
-```text
-G-A3-TEXT-SELECTION accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18.
-```
-
-Za prihvaćanje prava potreban je zaseban točan odgovor:
-
-```text
-G-A3-TEXT-RIGHTS accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18.
-```
-
-Ako preporuka nije prihvatljiva, treba navesti jednu točnu promjenu u
-odgovarajućoj odluci protiv istoga ulaznog stanja. Do dvaju odgovora gate se ne
-zatvara, `H-P3-CATALOG-001` se ne troši i `P3-TEXT` se ne claima.
+- `H-P3-CATALOG-001` potrošen je bez izmjene kataloga i bez promocije.
+- `H-G-A3-TEXT-001` prenosi `P3-TEXT`-u prihvaćeni odabir, prava, provjere koje
+  padaju zatvoreno i zabranu da decision gate glumi promotion gate.
+- Nije dohvaćen nijedan podatkovni bajt, nije prihvaćena nijedna brojnost,
+  veza, izvedeni checksum ili empirijski rezultat i nije traženo posebno
+  dopuštenje nositelja prava.
+- Nisu promijenjeni poglavlje, widget, bibliografija, terminološki registar,
+  konceptni graf ni zajednički Bookwright registar.
+- Sljedeći paket može samo zasebno claimati `P3-TEXT`; ovaj closeout ga ne
+  claima niti prihvaća.

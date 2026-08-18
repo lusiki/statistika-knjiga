@@ -10,17 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "G-A3-TEXT"
-    claimed_at: "2026-08-18"
-    owned_paths:
-      - "notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
-      - "notes/reports/g-a3-text-c17-thread-amendment-2026-08-17.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "G-A4-17"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "G-A3-TEXT"
+  next_permitted_packet: "P3-TEXT"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2306,6 +2298,91 @@ decisions:
       packet. It claims no author reading, reader test, measured reading time or
       independent terminology review and authorises no push, merge, tag,
       archive, deployment or publication.
+
+  G-A3-TEXT:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "selection_and_rights_accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence:
+      - "conversation:G-A3-TEXT-SELECTION-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "conversation:G-A3-TEXT-RIGHTS-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+    decision_record: "notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+    preparation_commit: "8d4d36f0df502c624d5ee5420b70af5f849262cb"
+    accepted_against_g_a4_17_closeout_commit: "7298a62a1c030f80c3d65443e8d311c76e1b1205"
+    accepted_dispositions:
+      pinned_sources: >-
+        Use only official ParlaMint 5.0 ParlaMint-HR.tgz at published MD5
+        b852098ae5c2561aef1de43f44e09a77 and ParlaSent 1.0
+        ParlaSent_BCS.jsonl, ParlaSent_BCS_test.jsonl and README at their
+        published MD5 values. ParlaMint is CC BY 4.0 and ParlaSent is CC BY-SA
+        4.0. No data byte was retrieved or accepted at this decision gate.
+      rows_and_linkage: >-
+        Keep all and only rows whose source country field demonstrably means
+        Croatia, without label balancing, and retain only uniquely linked
+        enclosing Croatian ParlaMint speeches plus necessary context and
+        metadata. If the test schema lacks country or an equally authoritative
+        stable Croatia link, or any selected sentence lacks a unique speech
+        link, P3-TEXT must fail closed rather than infer country or discard the
+        inconvenient row.
+      split_and_labels: >-
+        Preserve selected source-test rows as the untouched skup za
+        ispitivanje, remove training documents crossing that boundary, and
+        derive deterministic grouped 80:20 training and validation partitions
+        only inside remaining source-training documents using the published
+        SHA-256 rule. Preserve the two-coder-plus-reconciliation training path
+        and single-expert test path in put_oznake; never invent a test
+        reconciliation.
+      output_views_and_consumer: >-
+        Produce only parlament_govori.csv, parlament_mjere.csv and
+        parlament_oznake.csv with stable links and the exact speech, measure,
+        label and split roles in the decision record. WD-C17 is the sole
+        analytical consumer across HTML, PDF, DOCX, no-code and print; P3-TEXT
+        and P3-VERIFY are governance packets rather than analytical consumers.
+      rights_and_attribution: >-
+        Distribute ParlaMint-only speech and measure outputs under CC BY 4.0.
+        Distribute every ParlaSent-derived labelled output and every truly
+        joined output under CC BY-SA 4.0, preserving ShareAlike and attributing
+        each contributing source with creators, title, version, publisher,
+        handle, licence and modifications. File-level data licences do not
+        relicense MIT code, other CC BY data, separate ParlaMint-only files or
+        the whole book. No special rights-holder permission is claimed or was
+        sought.
+      claim_boundary: >-
+        The package may support only the bounded teaching decision about human
+        review and inspectable corpus, label, split, threshold and conditional
+        denominator choices. It supports no prevalence, causal, speaker-intent
+        or out-of-corpus generalisation claim and accepts no empirical count,
+        linkage rate or performance result at this gate.
+    rejected_alternatives:
+      - "Infer Croatia from speaker names, party labels or sentence text when the source test schema lacks authoritative country evidence."
+      - "Drop unlinked or inconvenient Croatian test rows after inspection, rebalance outcomes or randomly split sentences across documents."
+      - "Use the complete 398 MB ParlaMint-HR corpus rather than the minimal uniquely linked speech subset."
+      - "Flatten every derived file to CC BY 4.0 and erase ParlaSent ShareAlike obligations."
+      - "Flatten all outputs to CC BY-SA 4.0 and obscure the separate CC BY 4.0 route for ParlaMint-only files."
+      - "Fall back to a portal or ParlaMint-only package without a new author disposition."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-TEXT"
+      later_gates_still_mandatory:
+        - "P3-TEXT"
+        - "P3-VERIFY"
+        - "WD-C17"
+        - "C17"
+      governed_items_remain_ratified: 20
+    authority_boundary: >-
+      This decision accepts only the exact source editions, Croatian row and
+      linkage boundary, grouped split, label-path preservation, three output
+      roles, sole WD-C17 consumer, file-level licence matrix and claim limits
+      recorded in the dated report against commit
+      7298a62a1c030f80c3d65443e8d311c76e1b1205. It retrieves and promotes no
+      data, records no derived checksum or count, edits no catalogue,
+      bibliography, chapter, widget, terminology or Bookwright shared registry,
+      closes no content item and accepts no later packet. It claims no
+      rights-holder permission, author reading, reader test, measured reading
+      time or independent terminology review and authorises no push, merge,
+      tag, archive, deployment or publication.
 
   G-A3-ESS:
     status: "accepted"
@@ -13889,7 +13966,7 @@ packets:
     sequence: 126
     phase: "3B"
     kind: "decision_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "G-A4-17"
       - "P0-OUTSIDE"
@@ -13902,11 +13979,72 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:7298a62a1c030f80c3d65443e8d311c76e1b1205"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+            - "register:decisions.G-A3-TEXT.accepted_at-2026-08-18"
+            - "commit:preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "author_reply:G-A3-TEXT-SELECTION-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+            - "author_reply:G-A3-TEXT-RIGHTS-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A3-TEXT.accepted_dispositions"
+            - "register:decisions.G-A3-TEXT.rejected_alternatives"
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md#oa-g-a3-text-selection--preporucena-odluka"
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md#oa-g-a3-text-rights--preporucena-odluka"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-TEXT.blocked_dependencies"
+            - "packet:P3-TEXT-next-permitted"
+            - "packets:P3-VERIFY-WD-C17-C17-remain-later-gated"
+      outputs:
+        - output: "Dated G-A3-TEXT decision and authority record for: ParlaMint/ParlaSent selection and rights."
+          artifacts:
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+            - "register:decisions.G-A3-TEXT"
+            - "outside-asks:OA-G-A3-TEXT-SELECTION-and-OA-G-A3-TEXT-RIGHTS-done"
+        - output: "Completion evidence is tied to the declared G-A3-TEXT source state and bounded scope."
+          artifacts:
+            - "commit:G-A4-17-closeout-7298a62a1c030f80c3d65443e8d311c76e1b1205"
+            - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
+            - "handoff:H-P3-CATALOG-001-consumed-without-promotion"
+            - "handoff:H-G-A3-TEXT-001-to-P3-TEXT"
+            - "review:packet_reviews.G-A3-TEXT-all-future-effects-recorded"
+            - "boundary:no-data-retrieval-promotion-chapter-edit-or-rights-holder-permission-claim"
+            - "check:scripts/check-review-workflow.R-at-G-A3-TEXT-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor"
+            - "author_replies:two-separate-exact-replies-2026-08-18"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-TEXT.rejected_alternatives"
+            - "register:decisions.G-A3-TEXT.authority_boundary"
+            - "register:decisions.G-A3-TEXT.blocked_dependencies"
+        - test: "The G-A3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+            - "source:CLARIN-SI-11356-2004-ParlaMint-5.0-ParlaMint-HR.tgz-MD5-b852098ae5c2561aef1de43f44e09a77-CC-BY-4.0"
+            - "source:CLARIN-SI-11356-1868-ParlaSent-1.0-BCS-train-test-CC-BY-SA-4.0"
+            - "registry:data/katalog.yml-parlamint_hr-and-parlasent-remain-unpromoted"
+            - "handoff:H-P3-CATALOG-001-consumed"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     preparation_evidence:
       source_state: "commit:7298a62a1c030f80c3d65443e8d311c76e1b1205"
       prepared_at: "2026-08-18"
-      state: "awaiting_two_exact_author_replies"
+      state: "resolved_by_two_exact_author_replies"
       named_decision_owner: "Luka Sikic, author/editor"
       artifacts:
         - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
@@ -13934,7 +14072,7 @@ packets:
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "commit:7298a62a1c030f80c3d65443e8d311c76e1b1205"
   P3-TEXT:
     sequence: 127
     phase: "3B"
@@ -32773,8 +32911,8 @@ outside_asks:
     external_message_sent: false
 
   OA-G-A3-TEXT-SELECTION:
-    status: "drafted_unsent"
-    readiness: "awaiting_exact_author_reply"
+    status: "done"
+    readiness: "resolved_by_exact_author_reply"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -32808,10 +32946,24 @@ outside_asks:
     resume_condition: "P3-TEXT resumes after the exact question-led package is approved."
     why_external: "The empirical question, sample boundary, and chapter role require authorial approval."
     external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Author and editor Luka Sikic accepted the exact recommended ParlaMint-HR
+      5.0 and ParlaSent 1.0 selection, Croatian row and unique-link boundary,
+      untouched source test set, grouped no-leakage training/validation split,
+      asymmetric label path, three output views and sole WD-C17 analytical
+      consumer against commit 7298a62a1c030f80c3d65443e8d311c76e1b1205.
+      P3-TEXT must fail closed if the test schema cannot prove Croatian source
+      membership or any selected test sentence lacks a unique stable link.
+    resolution_evidence:
+      - "author_reply:G-A3-TEXT-SELECTION-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "decision:G-A3-TEXT"
+      - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+      - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
 
   OA-G-A3-TEXT-RIGHTS:
-    status: "drafted_unsent"
-    readiness: "awaiting_exact_author_reply"
+    status: "done"
+    readiness: "resolved_by_exact_author_reply"
     kind: "rights_inquiry"
     owner: "author/editor"
     due_phase: "3B"
@@ -32841,6 +32993,20 @@ outside_asks:
     resume_condition: "Package promotion resumes when every proposed output has a compatible documented lane."
     why_external: "Licence compatibility and redistribution obligations require authoritative rights evidence."
     external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Author and editor Luka Sikic accepted the recommended file-level rights
+      matrix against commit 7298a62a1c030f80c3d65443e8d311c76e1b1205:
+      ParlaMint-only outputs remain CC BY 4.0, ParlaSent-derived and truly joined
+      outputs carry CC BY-SA 4.0 and ShareAlike, and every contributing source
+      receives exact attribution and modification notices. No special
+      rights-holder permission is claimed or was sought, and no repository-wide
+      relicensing is inferred.
+    resolution_evidence:
+      - "author_reply:G-A3-TEXT-RIGHTS-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "decision:G-A3-TEXT"
+      - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+      - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
 
   OA-P3-PILOT-RECRUITMENT:
     status: "withdrawn_with_reason"
