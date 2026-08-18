@@ -5372,7 +5372,8 @@ handoffs:
           - "fixture:scripts/check-data-fixtures.py-cases-44"
       - target_packet: P3-TEXT
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-18"
       - target_packet: P6-DATA
         gate: before_close
         state: pending
@@ -7155,7 +7156,32 @@ handoffs:
     deliveries:
       - target_packet: P3-TEXT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        disposition: >-
+          P3-TEXT consumes the accepted selection and rights boundary before
+          its first substantive edit. It will retrieve only the four pinned
+          official source files into data/_kandidat, verify every published MD5
+          before transformation, inspect literal train and test schemas and
+          record the source Croatia value. It will preserve all selected source
+          test rows, group training and validation only inside remaining source
+          training documents, preserve put_oznake and require exactly one
+          authoritative ParlaMint-HR link for every selected sentence. Missing
+          test-country evidence, orphan or multiple linkage, or surviving
+          record, text-twin, speech or document leakage is accepted as a real
+          fail-closed blocker rather than permission to infer or filter. Any
+          promotion must name P3-TEXT, cite the accepted G-A3-TEXT decision as
+          ratification and satisfy the six inherited catalogue rules. No data
+          byte has yet been retrieved and no empirical count, result or special
+          rights-holder permission is claimed at claim time.
+        evidence:
+          - "commit:G-A3-TEXT-closeout-e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+          - "decision:G-A3-TEXT"
+          - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+          - "registry:data/katalog.yml#parlamint_hr-and-parlasent-incoming-unpromoted-state"
+          - "register:packets.P3-TEXT-status-in_progress"
+          - "boundary:no-source-byte-retrieved-at-claim"
 
 packet_reviews:
   G-A0:

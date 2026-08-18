@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: P3-TEXT
 last_completed_packet: G-A3-TEXT
-next_permitted_packet: P3-TEXT
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -44,6 +44,7 @@ stop and repair the control state before editing book content.
 | Gate A4-16 | Accepted as recommended against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a`: Kleppang et al. 2021 PLOS ONE Table 3 plus its first results paragraph, semantic Croatian adaptation under CC BY 4.0, bounded no-refit reading task and immediate binary-outcome reading bridge without logistic fitting or derivation; owner Luka Sikic; 2026-08-18 |
 | Gate A4-17 | Accepted as recommended against C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4`: one bounded parliamentary-text human-review decision, grouped no-leakage split rule, three linked text layers, retained fairness widget, fixed G-A2c vocabulary, full outline and exclusions; owner Luka Sikic; 2026-08-18 |
 | Gate A3-TEXT | Accepted as recommended against G-A4-17 closeout commit `7298a62a1c030f80c3d65443e8d311c76e1b1205`: exact Croatian ParlaMint-HR 5.0/ParlaSent 1.0 selection, fail-closed test-schema and unique-link boundary, asymmetric label path, grouped no-leakage split, three views and separate CC BY 4.0 versus CC BY-SA 4.0 file-level regime; owner Luka Sikic; 2026-08-18 |
+| P3-TEXT | Active and fail-closed against `e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e`: all four pinned source MD5s pass and the test schema exposes `country = HR`, but only 1,297 of 1,336 Croatian test rows have one unique ParlaMint-HR 5.0 link; 24 have none and 15 are ambiguous. No output or promotion; exact author scope ask `OA-P3-TEXT-LINKAGE-RESEARCH` is ready |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -59,16 +60,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; the G-A3-TEXT write lock is released after its bounded closeout |
+| Active write packet | `P3-TEXT`, claimed from clean G-A3-TEXT closeout commit `e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e`; ownership is limited to its candidate lane, three exact data views and notices/passport, bounded builders/checkers/report and the three workflow-control views |
 | Last completed packet | `G-A3-TEXT`; two separate exact author replies accepted the source selection and file-level rights matrix against `7298a62a1c030f80c3d65443e8d311c76e1b1205`, without data retrieval, promotion, result or prose acceptance |
-| Next permitted packet | `P3-TEXT` alone at sequence 127; it is not claimed inside G-A3-TEXT and must first consume `H-G-A3-TEXT-001` |
+| Next permitted packet | None while `P3-TEXT` is active; `P3-VERIFY` remains unclaimed and blocked |
 | Review parents | 31 ratified; 5 accepted |
 | Atomic child inventory | Complete: 371 stable children; 236 accepted, 5 deferred with reason and 130 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 119 accepted, 69 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 119 accepted, 68 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 3 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa` and `16-regresija` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 22 of the 85 canonical asks remain `drafted_unsent`; 57 are `done`; 6 are `withdrawn_with_reason`. Both G-A3-TEXT asks are done from their separate exact author replies; 0 external messages sent |
+| Open outside asks | 23 of the 86 canonical asks remain `drafted_unsent`; 57 are `done`; 6 are `withdrawn_with_reason`. Both G-A3-TEXT asks are done; `OA-P3-TEXT-LINKAGE-RESEARCH` is the new bounded author scope decision; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5930,8 +5931,46 @@ the durable evidence is
   remain `ratified`; Chapter 17 and w17 remain unchanged. No author reading,
   reader-tested validation, measured reading time, independent terminology
   review, external message or release action is claimed.
-- No write lock remains. `G-A3-TEXT` is accepted and `P3-TEXT` alone is next;
-  it is not claimed inside this closeout.
+- G-A3-TEXT released its lock before the separate P3-TEXT claim. P3-TEXT is now
+  active from clean closeout commit `e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e`;
+  `H-G-A3-TEXT-001` was consumed before the first substantive edit. No source
+  byte had been retrieved at claim time, and `P3-VERIFY` remains blocked.
+
+## P3-TEXT fail-closed linkage blocker
+
+- Only the four ratified official files were retrieved into
+  `data/_kandidat/p3-text/`. Their published MD5 values all match. The candidate
+  directory, the 417,667,764-byte archive and its 913,642,410-byte extracted
+  plain-text view are git-ignored and do not enter the packet commit.
+- The literal ParlaSent test schema does contain `country`, `document_id` and
+  `sentence_id`; there are 1,336 source rows with `country = HR`. Thus the
+  geographic test condition passes without inference.
+- `scripts/check-text-package.py` links only within the same date, requires the
+  entire normalized labelled sentence, prefers a matching source
+  `document_id`, then an exact unique speaker/content link, and uses no fuzzy
+  nearest match or first-row tie break.
+- The reproducible audit reports `test_linked=1297`, `test_no_link=24` and
+  `test_ambiguous=15`. The accepted G-A3-TEXT rule requires exactly one link
+  for every selected Croatian test row and forbids dropping an inconvenient
+  row, so the package fails before materialisation.
+- The same audit reports 1,387 Croatian training rows, of which 1,340 link,
+  18 have no link and 29 are ambiguous. Twenty numeric source document IDs and
+  40 resolved ParlaMint speech IDs cross the source train/test boundary. Those
+  overlaps would require grouped training removal, but cannot repair the 39
+  test blockers.
+- Default validation exits 1. `--expect-blocker` exits 0 only when the exact
+  1,297/24/15 signature is reproduced. Missing-test-country and source-MD5
+  negative fixtures each exit 1 for their injected defect.
+- No teaching CSV, passport, licence notice, catalogue edit, promotion,
+  promotion-log entry, empirical result, chapter edit or outgoing handoff was
+  created. `H-P3-DZS-003` remains acknowledged and unconsumed because P3-TEXT
+  is not closed.
+- `OA-P3-TEXT-LINKAGE-RESEARCH` asks the author for one bounded decision: permit
+  a separate research gate to identify the exact official, versioned and
+  licensed ParlaMint-HR edition used by ParlaSent 1.0. The ask approves no new
+  source, output or promotion and preserves the all-test-rows condition.
+- P3-TEXT remains `in_progress` with the only write lock. P3-VERIFY, WD-C17 and
+  C17 remain blocked; the tenth packet chain stops here.
 
 ## Simple implementation order
 
@@ -5960,31 +5999,28 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify a clean worktree after the G-A3-TEXT closeout commit, no active write
-packet, `last_completed_packet: G-A3-TEXT`, and `next_permitted_packet:
-P3-TEXT`. Read the accepted G-A3-TEXT decision report and
-`H-G-A3-TEXT-001` in full. Confirm that ParlaMint-HR and ParlaSent remain
-bundled, promoted false, files empty and checksum null, and that the decision
-gate appears nowhere as a promotion gate.
+Resume active `P3-TEXT` only. Verify its write lock, G-A3-TEXT closeout commit
+`e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e`, `last_completed_packet:
+G-A3-TEXT`, null `next_permitted_packet`, consumed `H-G-A3-TEXT-001` and
+acknowledged-but-unconsumed `H-P3-DZS-003`. Read
+`notes/reports/p3-text-2026-08-18.md` and rerun
+`python scripts/check-text-package.py --expect-blocker` only if the ignored
+candidate files are still present.
 
-Claim `P3-TEXT` as a separate packet and consume `H-G-A3-TEXT-001` before its
-first substantive edit. Build only the ratified official ParlaMint 5.0
-ParlaMint-HR and ParlaSent 1.0 BCS selection. Verify source MD5 values and
-literal schemas before transformation. Fail closed if the source test data do
-not expose country or an equally authoritative stable Croatia link, if any
-selected Croatian test sentence lacks exactly one ParlaMint-HR link, or if
-record, text-twin, speech or document leakage remains; do not infer country,
-silently discard rows or weaken the accepted selection.
+Do not close or accept P3-TEXT. The four source MD5 values pass and the test
+schema exposes `country = HR`, but the pinned ParlaMint-HR 5.0 archive gives
+one unique link for only 1297 of 1336 selected Croatian test rows; 24 have no
+link and 15 are ambiguous. The accepted selection forbids dropping, guessing
+or fuzzy-matching those rows. No teaching file, passport, notice, catalogue
+edit or promotion exists, and P3-VERIFY, WD-C17 and C17 remain blocked.
 
-Record exact version, licence, attribution, checksum algorithm, deterministic
-grouped split rule and constant, label path, reconciliation or proved
-impossibility, codebook, passport, route-specific expected values and negative
-fixtures. Apply every catalogue promotion condition; `G-A3-TEXT` may never
-promote. A real fail-closed source condition is a packet blocker and stops the
-thread. Otherwise close P3-TEXT only after all incoming handoffs, outputs,
-exit tests, outgoing effects and control views are evidenced together, run the
-required validators, and make one bounded local commit before separately
-claiming P3-VERIFY under the tenth author amendment. Do not edit Chapter 17 or
-claim an empirical result, rights-holder permission, author reading, push,
-merge, tag, archive, deployment or publication in P3-TEXT.
+Stop for this exact author/editor reply:
+`P3-TEXT-LINKAGE-RESEARCH approved for ParlaMint-HR SHA256 bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c and ParlaSent BCS test SHA256 412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0 on 2026-08-18.`
+
+That reply authorises only a new bounded research gate over official,
+versioned and licensed ParlaMint-HR editions to identify the edition from
+which ParlaSent 1.0 was derived. It approves no new source, right, output,
+promotion or row removal. Without the exact reply, make no further network
+request or packet change. Do not infer author reading, rights-holder
+permission, push, merge, tag, archive, deployment or publication.
 ```

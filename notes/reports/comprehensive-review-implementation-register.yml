@@ -10,9 +10,33 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P3-TEXT"
+    claimed_at: "2026-08-18"
+    owned_paths:
+      - "data/_kandidat/"
+      - "data/katalog.yml"
+      - "data/katalog.schema.json"
+      - "data/parlament_govori.csv"
+      - "data/parlament_mjere.csv"
+      - "data/parlament_oznake.csv"
+      - "data/parlament-govori.LICENCA.md"
+      - "data/parlament-mjere.LICENCA.md"
+      - "data/parlament-oznake.LICENCA.md"
+      - "data/parlament_tekst/"
+      - "scripts/build-text-package.R"
+      - "scripts/build-text-package.py"
+      - "scripts/check-text-package.R"
+      - "scripts/check-text-package.py"
+      - "scripts/check-katalog.py"
+      - "scripts/check-data-integrity.R"
+      - "scripts/check-data-fixtures.py"
+      - "notes/reports/p3-text-2026-08-18.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "G-A3-TEXT"
-  next_permitted_packet: "P3-TEXT"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -14077,7 +14101,7 @@ packets:
     sequence: 127
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "G-A3-TEXT"
     scope: "Linked governed text package."
@@ -14089,6 +14113,43 @@ packets:
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence: []
+    blocker_evidence:
+      state: "fail_closed_awaiting_author_scope_decision"
+      investigated_at: "2026-08-18"
+      source_state: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+      pinned_source_signature:
+        parlamint_hr_sha256: "bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c"
+        parlasent_bcs_sha256: "c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+        parlasent_bcs_test_sha256: "412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+        parlasent_readme_sha256: "848a892cede62d37f469532eba6d2f5e6f00d29234f0257a67737f8a8646c285"
+      observed:
+        train_rows_hr: 1387
+        train_linked: 1340
+        train_no_link: 18
+        train_ambiguous: 29
+        test_rows_hr: 1336
+        test_linked: 1297
+        test_no_link: 24
+        test_ambiguous: 15
+        source_document_overlap: 20
+        resolved_speech_overlap: 40
+      failed_exit_tests:
+        - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+        - "Every promised R, no-code, print, or portal lane is lawful and testable."
+        - "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+      artifacts:
+        - "report:notes/reports/p3-text-2026-08-18.md"
+        - "check:scripts/check-text-package.py-expect-blocker-exit-0"
+        - "check:scripts/check-text-package.py-default-exit-1"
+        - "fixture:TEXT_PACKAGE_NEGATIVE_FIXTURE-missing_test_country-exit-1"
+        - "fixture:TEXT_PACKAGE_NEGATIVE_FIXTURE-source_md5_mismatch-exit-1"
+        - "registry:data/katalog.yml#parlamint_hr-and-parlasent-remain-unpromoted"
+        - "outside-ask:OA-P3-TEXT-LINKAGE-RESEARCH"
+      boundary: >-
+        P3-TEXT remains active and unaccepted. No teaching file, passport,
+        licence notice, catalogue promotion, empirical result, chapter edit,
+        outgoing handoff or packet closeout is claimed. P3-VERIFY, WD-C17 and
+        C17 remain blocked.
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
@@ -31629,7 +31690,7 @@ items:
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
-  total_asks: 85
+  total_asks: 86
   external_messages_sent: 0
   implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   canonical_status_store: "outside_asks"
@@ -33007,6 +33068,50 @@ outside_asks:
       - "decision:G-A3-TEXT"
       - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
       - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
+
+  OA-P3-TEXT-LINKAGE-RESEARCH:
+    status: "drafted_unsent"
+    readiness: "ready_for_exact_author_reply"
+    kind: "source_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve one bounded gate to investigate the exact official ParlaMint-HR edition from which ParlaSent 1.0 was derived."
+    expected_form: "One dated research-scope decision tied to both observed source SHA-256 values; it approves no source or promotion."
+    insertion_point:
+      - "decisions.G-A3-TEXT"
+      - "packets.P3-TEXT.amendments"
+    blocked_items:
+      - "R03-TEXT-licences"
+      - "R13-TEXT-package"
+      - "R13-TEXT-label-split"
+      - "R13-TEXT-three-layers"
+    blocked_gates:
+      - "P3-TEXT"
+      - "P3-VERIFY"
+      - "WD-C17"
+      - "C17"
+    available_evidence:
+      - "decision:G-A3-TEXT"
+      - "report:notes/reports/p3-text-2026-08-18.md"
+      - "check:scripts/check-text-package.py"
+      - "source:ParlaMint-HR-5.0-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c"
+      - "source:ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+      - "blocker:test-HR-1336-linked-1297-no-link-24-ambiguous-15"
+    recommended_default: >-
+      Authorise only a bounded search across official versioned and licensed
+      ParlaMint-HR editions for the exact source-aligned edition used by
+      ParlaSent 1.0. Preserve all 1336 Croatian test rows and require one unique
+      link for each. The research gate approves no edition, right, data output
+      or promotion; if no edition passes, return a new blocker before any
+      separate ParlaSent-only redesign or removal decision.
+    exact_reply_requested: "P3-TEXT-LINKAGE-RESEARCH approved for ParlaMint-HR SHA256 bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c and ParlaSent BCS test SHA256 412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0 on 2026-08-18."
+    resume_condition: "P3-TEXT may inspect any different ParlaMint-HR edition only after this exact author decision is recorded as a new scope amendment."
+    why_external: >-
+      The repository proves that the only accepted ParlaMint-HR 5.0 archive
+      cannot uniquely link every selected Croatian test row. Inspecting another
+      edition expands the ratified source scope and therefore requires an
+      author/editor decision rather than a technical inference.
+    external_message_sent: false
 
   OA-P3-PILOT-RECRUITMENT:
     status: "withdrawn_with_reason"
