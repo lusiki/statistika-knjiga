@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-17"
+last_updated: "2026-08-18"
 inventory_child_count: 371
 
 protocol:
@@ -1395,7 +1395,32 @@ handoffs:
           - "boundary:no-ESS-data-retrieval-no-promotion-no-bundling"
       - target_packet: G-A3-TEXT
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-18"
+        disposition: >-
+          G-A3-TEXT consumes the final delivery of this Phase 1 rights
+          constraint before packet claim and before the first substantive edit.
+          Both packages retain exactly their incoming lanes: parlamint_hr and
+          parlasent remain bundled, promoted false and without local files.
+          The gate confirms that the official ParlaMint 5.0 record publishes
+          ParlaMint-HR.tgz under CC BY 4.0 and the official ParlaSent 1.0 record
+          publishes the BCS train and test files under CC BY-SA 4.0, but it does
+          not mistake those general public licences for the completed exact
+          package record. It prepares two separate author decisions for the
+          minimal Croatian linked selection and the file-level CC BY versus
+          CC BY-SA/ShareAlike disposition. It retrieves and promotes nothing,
+          changes no catalogue entry, claims no special rights-holder
+          permission and binds P3-TEXT to the exact version, file, checksum,
+          attribution and reconciliation evidence after ratification.
+        evidence:
+          - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md#mjerodavni-izvori"
+          - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+          - "source:CLARIN-SI-11356-2004-ParlaMint-5.0-ParlaMint-HR.tgz-MD5-b852098ae5c2561aef1de43f44e09a77-CC-BY-4.0"
+          - "source:CLARIN-SI-11356-1868-ParlaSent-1.0-BCS-train-test-CC-BY-SA-4.0"
+          - "registry:data/katalog.yml#parlamint_hr-and-parlasent-bundled-promoted-false-files-empty"
+          - "outside-asks:OA-G-A3-TEXT-SELECTION-and-OA-G-A3-TEXT-RIGHTS-remain-separate"
+          - "boundary:no-data-retrieval-no-promotion-no-rights-holder-permission-claim"
 
   H-P1B-META-001:
     source_packet: P1B-META
@@ -4632,7 +4657,8 @@ handoffs:
           - "boundary:local-checksum-null-and-rights-ask-open"
       - target_packet: G-A3-TEXT
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-18"
 
   H-P3-CATALOG-002:
     source_packet: P3-CATALOG

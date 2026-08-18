@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: G-A3-TEXT
 last_completed_packet: G-A4-17
-next_permitted_packet: G-A3-TEXT
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -43,6 +43,7 @@ stop and repair the control state before editing book content.
 | Gate A4-12 | Accepted as recommended against C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`: portal-mediated 2016 Registered Replication Report lifecycle artifact, exact P3 verification contract, Chapter 12 outline and exclusions; owner Luka Sikic; 2026-08-13 |
 | Gate A4-16 | Accepted as recommended against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a`: Kleppang et al. 2021 PLOS ONE Table 3 plus its first results paragraph, semantic Croatian adaptation under CC BY 4.0, bounded no-refit reading task and immediate binary-outcome reading bridge without logistic fitting or derivation; owner Luka Sikic; 2026-08-18 |
 | Gate A4-17 | Accepted as recommended against C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4`: one bounded parliamentary-text human-review decision, grouped no-leakage split rule, three linked text layers, retained fairness widget, fixed G-A2c vocabulary, full outline and exclusions; owner Luka Sikic; 2026-08-18 |
+| Gate A3-TEXT | Complete selection and rights decision prepared against G-A4-17 closeout commit `7298a62a1c030f80c3d65443e8d311c76e1b1205`; exact Croatian ParlaMint-HR/ParlaSent selection, asymmetric label path and separate CC BY 4.0 versus CC BY-SA 4.0 file-level regime; awaiting two exact author/editor replies; 2026-08-18 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -54,19 +55,20 @@ stop and repair the control state before editing book content.
 | Thread amendment WD-C14/C14 preparation | `A-THREAD-WD-C14-C14-PREP-2026-08-13` accepted as a new, distinct decision and recorded on 17 August: execute and commit `WD-C14`, then claim `C14` only to assemble the complete acceptance package and stop for the exact reply `C14 accepted for <commit> on <date>`; do not close C14 or start WD-C15; all earlier thread chains have ended |
 | Thread amendment WD-C15–G-A4-16 | `A-THREAD-WD-C15-G-A4-16-2026-08-17` is the eighth, new and distinct thread decision: strict chain `WD-C15 -> C15 -> G-A4-16`; every packet remains separate; C15 keeps the exact author-reply stop and G-A4-16 prepares the artifact, rights and binary-outcome-bridge brief without retrieval, promotion or prose; all seven earlier thread chains have ended |
 | Thread amendment C15-G-A4-17 | `A-THREAD-C15-G-A4-17-2026-08-17` is the ninth, new and distinct thread decision: strict chain `C15 -> G-A4-16 -> WD-C16 -> C16 -> G-A4-17`; every packet remains separate and committed before the next claim; C15 and C16 retain exact acceptance replies, both decision gates stop for the author, and only WD-C16 may finish unattended; all eight earlier thread chains have ended |
+| Thread amendment G-A3-TEXT-C17 | `A-THREAD-G-A3-TEXT-C17-2026-08-17` is the tenth, new and distinct thread decision: strict chain `G-A3-TEXT -> P3-TEXT -> P3-VERIFY -> WD-C17 -> C17`; every packet remains separate and committed before the next claim; G-A3-TEXT and C17 retain exact author-reply stops; all nine earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; G-A4-17 is closed and G-A3-TEXT has not been claimed |
+| Active write packet | `G-A3-TEXT`, claimed from clean G-A4-17 closeout commit `7298a62a1c030f80c3d65443e8d311c76e1b1205`; ownership is limited to its dated decision report, the tenth thread-amendment record and the three workflow-control views |
 | Last completed packet | `G-A4-17`; the exact author reply accepted the complete Tier F brief against C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4` without accepting a source, right, result, prose edit or content item |
-| Next permitted packet | `G-A3-TEXT` at sequence 126; it must separately decide and verify ParlaMint/ParlaSent selection and rights before P3-TEXT |
+| Next permitted packet | None while `G-A3-TEXT` is active and awaiting two exact author decisions; `P3-TEXT` is not permitted |
 | Review parents | 31 ratified; 5 accepted |
 | Atomic child inventory | Complete: 371 stable children; 236 accepted, 5 deferred with reason and 130 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 118 accepted, 70 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 118 accepted, 69 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 3 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa` and `16-regresija` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 24 of the 85 canonical asks remain `drafted_unsent`; 55 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A4-17-BRIEF` is done on the exact dated reply; both G-A3-TEXT selection and rights asks remain separate; 0 external messages sent |
+| Open outside asks | 24 of the 85 canonical asks remain `drafted_unsent`; 55 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A4-17-BRIEF` is done; both G-A3-TEXT asks are separately ready and awaiting their exact author replies; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5865,6 +5867,65 @@ the durable evidence is
 - No active write lock remains. `G-A3-TEXT` alone is next at sequence 126 and
   is not claimed inside G-A4-17.
 
+## G-A3-TEXT selection and rights preparation
+
+- The tenth thread amendment,
+  `A-THREAD-G-A3-TEXT-C17-2026-08-17`, records the strict chain
+  `G-A3-TEXT -> P3-TEXT -> P3-VERIFY -> WD-C17 -> C17`. All nine earlier
+  thread chains have ended. Every packet retains its own claim, evidence,
+  handoff disposition, workflow checks, closeout and local commit; only one
+  write lock may exist.
+- G-A3-TEXT was claimed from clean G-A4-17 closeout commit
+  `7298a62a1c030f80c3d65443e8d311c76e1b1205`. Its bounded write set contains
+  only the dated decision report, the tenth amendment record and the three
+  workflow-control views. No chapter, data, catalogue, bibliography, widget or
+  shared registry is owned.
+- `H-P1B-DATA-LIC-003` is consumed before claim. Its final delivery preserves
+  both incoming `bundled`, `promoted: false`, empty-file states and does not
+  convert a general public licence into a completed exact package record.
+  `H-P3-CATALOG-001` is acknowledged at `before_close` but remains unconsumed
+  until two real author decisions permit closeout.
+- The official records pin ParlaMint 5.0 `ParlaMint-HR.tgz` at MD5
+  `b852098ae5c2561aef1de43f44e09a77` under CC BY 4.0 and ParlaSent 1.0
+  `ParlaSent_BCS.jsonl`/`ParlaSent_BCS_test.jsonl` at their published MD5s
+  under CC BY-SA 4.0. Only metadata and licence pages were inspected; no corpus
+  byte was retrieved.
+- The recommended selection keeps every row whose source field demonstrably
+  marks Croatia in the two BCS files, preserves the selected source test rows
+  as the untouched `skup za ispitivanje`, removes training documents that
+  cross that boundary and derives grouped training/validation partitions only
+  inside the remaining source-training documents. The public README documents
+  the training schema but not a separate test schema, so absent test-country or
+  stable-link fields fail closed at P3-TEXT. ParlaMint-HR contributes only
+  uniquely linked enclosing speeches and necessary metadata, never the full
+  398 MB corpus.
+- The source records expose an important label-production asymmetry rather than
+  a blocker to hide: training rows have two coder labels plus reconciliation,
+  whereas test rows were labelled by one trained annotator. The package must
+  retain `put_oznake`; it may not invent two test labels or reconciliation.
+  Actual one-to-one linkage and no-leakage remain fail-closed P3-TEXT byte-level
+  tests.
+- The three proposed views are speech-level context, minimal prepared
+  length/linkage measures and sentence-level labels. Their sole analytical
+  consumer is WD-C17 across its HTML, PDF, DOCX, no-code and print routes. No
+  prevalence, causal, intention or out-of-corpus generalisation claim is
+  admitted.
+- Rights remain separate by file. ParlaMint-only speech and measure outputs
+  use CC BY 4.0. Every ParlaSent-derived labelled output and every truly joined
+  derived output uses CC BY-SA 4.0 with the required ShareAlike offer. Each
+  source receives its own creators/title/version/publisher/handle/licence/change
+  attribution. This is compatible with the repository's existing file-level
+  data licences and does not relicense MIT code, CC BY generated data, separate
+  ParlaMint-only files or the whole book.
+- `OA-G-A3-TEXT-SELECTION` and `OA-G-A3-TEXT-RIGHTS` remain separate and
+  `drafted_unsent`, each awaiting its exact author reply. No rights-holder
+  permission is claimed and none was sought. G-A3-TEXT stays `in_progress`;
+  P3-TEXT is not claimed.
+- Chapter 6 remains deliberately `draft`; all 20 Chapter 17 content items
+  remain `ratified`; Chapter 17 and w17 remain unchanged. No author reading,
+  reader-tested validation, measured reading time, independent terminology
+  review, external message or release action is claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5892,25 +5953,27 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean G-A4-17 closeout commit whose parent is the
-preparation commit `cc08688e021c3e2f12662b654d952bd35854c676`. Confirm that
-G-A4-17 is accepted against C16 closeout commit
-`26197f84889f1b1caffc25e4bbc171631328adb4`, no packet is active and
-G-A3-TEXT alone is next at sequence 126. Confirm that all 20 Chapter 17 content
-items remain ratified, Chapter 17 and its widget are unchanged, Chapter 6
-remains deliberately draft, and `OA-G-A4-17-BRIEF` is done.
+Resume active `G-A3-TEXT` only. Verify that its one write lock owns only
+`notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md`, the tenth
+thread-amendment record and the three workflow-control views; G-A4-17 remains
+last completed; `next_permitted_packet` is null; and P3-TEXT remains ratified
+and unclaimed. Read the decision report in full. Verify that
+`H-P1B-DATA-LIC-003` is consumed for G-A3-TEXT and
+`H-P3-CATALOG-001` is acknowledged but not consumed, while both catalogue
+entries remain bundled, promoted false and files empty.
 
-Claim only G-A3-TEXT. Fully read the accepted G-A4-17 brief, P1B licence/access
-inventory, catalogue contract, `OA-G-A3-TEXT-SELECTION` and
-`OA-G-A3-TEXT-RIGHTS`. Prepare the complete ParlaMint-HR/ParlaSent selection
-and rights decision: pin the exact official editions and files; prove the
-source-level linkage and grouped split are feasible or fail closed; specify
-the three linked layers, units, labels, source split and exclusions; and verify
-CC BY 4.0 versus CC BY-SA 4.0 derivation, redistribution, attribution and
-ShareAlike duties from primary official records. Do not retrieve or promote
-data, write Chapter 17 prose, accept G-A3-TEXT, claim P3-TEXT or infer a right
-that the sources do not state. Stop for the exact author/rights dispositions.
-Preserve G-A2c vocabulary, the Chapter 13 prerequisite and all DigiKat/Eurostat
-boundaries. Push, merge, tag, archive, deployment and publication remain
-separately gated.
+Stop for these two separate exact author/editor replies:
+`G-A3-TEXT-SELECTION accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18.`
+and
+`G-A3-TEXT-RIGHTS accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18.`
+Do not substitute the recommendation or the 2026-08-05 standing delegation for
+either decision. Do not claim rights-holder permission or author reading.
+
+After both exact replies, close G-A3-TEXT only: record both dispositions,
+consume H-P3-CATALOG-001 with concrete evidence, record every future effect or
+an explicit none-found declaration, update the register, handoff ledger and
+dashboard together, run the workflow validator and make one bounded local
+closeout commit. Do not claim P3-TEXT in the same packet. No data retrieval,
+promotion, chapter edit, external request, push, merge, tag, archive,
+deployment or publication is authorised.
 ```
