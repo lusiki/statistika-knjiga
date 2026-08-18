@@ -10,9 +10,16 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C16"
+    claimed_at: "2026-08-18"
+    owned_paths:
+      - "notes/reports/c16-acceptance-package-2026-08-18.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WD-C16"
-  next_permitted_packet: "C16"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -13493,7 +13500,7 @@ packets:
     sequence: 124
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WD-C16"
     scope: "Author acceptance and panel disposition for C16."
@@ -13504,6 +13511,20 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+    preparation_evidence:
+      state: "complete_awaiting_exact_author_reply"
+      source_state: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+      artifacts:
+        - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+        - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+        - "reports:notes/reports/wd-c16-critic-methods-skeptic-pedagogy-evidence-style-structure-2026-08-18"
+        - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+        - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
+        - "panel:zero-fatal-zero-major-four-known-nonblocking-minor-records"
+        - "disposition:on-acceptance-advance-only-16-regresija-to-coauthor_review-and-nine-C16-owned-items-to-accepted"
+        - "boundary:R02-C16-and-three-R09-C16-items-remain-accepted-R22-C14-C16-dependence-remains-ratified"
+        - "author_reply_required:C16-accepted-for-9cd5a7983d61d27fe9bb8ca77d8764b419ec857a-on-2026-08-18"
+        - "boundary:C16-open-Chapter-16-draft-G-A4-17-not-started"
     completion_evidence: []
     contract: "chapter_acceptance_gate"
     required_evidence:
@@ -33343,7 +33364,7 @@ outside_asks:
 
   OA-C16-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WD-C16_revision_and_panel"
+    readiness: "awaiting_exact_author_reply"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -33368,8 +33389,13 @@ outside_asks:
     available_evidence:
       - "packet:WD-C16"
       - "packet:C16"
+      - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+      - "synthesis:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
+      - "panel:zero-fatal-zero-major-four-nonblocking-minor-records"
+      - "report:notes/reports/c16-acceptance-package-2026-08-18.md"
+      - "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
     recommended_default: "Accept only after the synthesis reveal, stable estimand, adjustment/interaction/binary bridges, lawful artifact, retrieval, and all panel blockers pass."
-    exact_reply_requested: "Reply: C16 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+    exact_reply_requested: "C16 accepted for 9cd5a7983d61d27fe9bb8ca77d8764b419ec857a on 2026-08-18"
     resume_condition: "C16 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the summit revision."
     external_message_sent: false

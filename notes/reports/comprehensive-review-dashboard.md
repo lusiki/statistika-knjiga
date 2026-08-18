@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: C16
 last_completed_packet: WD-C16
-next_permitted_packet: C16
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -56,16 +56,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; WD-C16 is closed and the separate C16 acceptance gate has not yet been claimed |
+| Active write packet | `C16`, claimed from clean WD-C16 closeout commit `9cd5a7983d61d27fe9bb8ca77d8764b419ec857a`; ownership is limited to the acceptance package and three workflow-control views |
 | Last completed packet | `WD-C16`; final source SHA-256 `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`, all required handoffs consumed, multi-format renders pass and the final panel records 0 fatal, 0 major and 4 nonblocking minor records |
-| Next permitted packet | `C16` at sequence 124; it may be claimed only to assemble the acceptance package and stop for the exact author reply |
+| Next permitted packet | None while `C16` is active and awaiting the exact dated author reply; `G-A4-17` is not permitted |
 | Review parents | 31 ratified; 5 accepted |
 | Atomic child inventory | Complete: 371 stable children; 227 accepted, 5 deferred with reason and 139 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 116 accepted, 72 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 116 accepted, 71 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 4 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe` and `15-vise-grupa` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 26 of the 85 canonical asks remain `drafted_unsent`; 53 are `done`; 6 are `withdrawn_with_reason`. Both `OA-G-A4-16-ARTIFACT` and `OA-G-A4-16-RIGHTS` are done on the exact dated in-thread replies and documented CC BY 4.0 basis; 0 external messages sent |
+| Open outside asks | 26 of the 85 canonical asks remain `drafted_unsent`; 53 are `done`; 6 are `withdrawn_with_reason`. `OA-C16-ACCEPTANCE` now has its complete package and awaits the exact dated reply; both G-A4-16 asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5711,9 +5711,35 @@ the durable evidence is
   consequences already have owners. Chapter 6 remains deliberately `draft`,
   Chapters 7–15 retain their accepted states and no chapter-ledger stage changes
   in WD-C16.
-- No write lock remains. C16 alone is next at sequence 124 and must be claimed
-  separately only to prepare its acceptance package. No author reading,
-  acceptance, release action or publication is claimed.
+- At WD-C16 closeout no write lock remained and C16 alone became next at
+  sequence 124. That boundary was preserved until the separate C16 claim; no
+  author reading, acceptance, release action or publication was claimed.
+
+## C16 acceptance-package preparation
+
+- C16 was claimed from the clean WD-C16 closeout commit
+  `9cd5a7983d61d27fe9bb8ca77d8764b419ec857a` as the sole active packet.
+  Ownership is limited to the acceptance package and three control views; no
+  chapter prose, registry item, chapter-ledger stage or handoff status changed.
+- The complete package is
+  `notes/reports/c16-acceptance-package-2026-08-18.md`. It binds the author
+  decision to Chapter 16 SHA-256
+  `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`, git
+  blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`, all six final reports and the
+  synthesis.
+- The panel disposition is fully exposed: 0 fatal, 0 major and 4 proposed
+  known nonblocking minor records. There was no post-panel source edit.
+- On an exact acceptance reply only, the proposed narrow disposition would
+  advance `16-regresija` from `draft` to `coauthor_review` and only nine
+  C16-owned ratified items to `accepted`. The accepted R02-C16 and three
+  R09-C16 items would remain accepted and be recorded as revalidated;
+  `R22-C14-C16-dependence` would remain ratified for `WD-PART`.
+- C16 remains `in_progress`; Chapter 16 remains `draft`; the nine items remain
+  `ratified`. `G-A4-17` is not claimed or permitted while the author reply is
+  absent. Chapter 6 remains deliberately `draft`.
+- The exact required reply is
+  `C16 accepted for 9cd5a7983d61d27fe9bb8ca77d8764b419ec857a on 2026-08-18`.
+  No author reading, `final` state, release action or publication is claimed.
 
 ## Simple implementation order
 
@@ -5742,20 +5768,22 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean WD-C16 closeout commit and that Chapter 16 remains
-SHA-256 `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`
-with git blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`. Confirm all five applicable
-handoff deliveries are consumed, the final HTML/PDF/DOCX evidence passes, all
-six final reports and the synthesis address that same blob, the panel records
-0 fatal, 0 major and 4 known nonblocking minor records, Chapter 6 remains
-deliberately draft and no packet is active.
+Verify that HEAD is the clean C16 acceptance-package preparation commit and
+that C16 is the sole active packet. Fully read
+`notes/reports/c16-acceptance-package-2026-08-18.md`. Confirm that its source
+commit is `9cd5a7983d61d27fe9bb8ca77d8764b419ec857a`, Chapter 16 remains SHA-256
+`dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671` with
+git blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`, all six final reports and the
+synthesis address that blob, and the panel records 0 fatal, 0 major and 4 known
+nonblocking minor records.
 
-C16 alone is next at sequence 124. Claim it only to assemble the complete
-acceptance package and stop for the exact reply
-`C16 accepted for <WD-C16-closeout-commit> on 2026-08-18`. Do not alter chapter
-prose, accept C16, advance the chapter ledger or start G-A4-17 without that
-exact author reply. The proposed narrow disposition may advance only Chapter
-16 and its C16-owned ratified items, must retain the accepted R02/R09 items as
-revalidated, and must leave `R22-C14-C16-dependence` ratified for WD-PART.
-Push, merge, tag, archive, deployment and publication remain separately gated.
+Stop for the exact author reply
+`C16 accepted for 9cd5a7983d61d27fe9bb8ca77d8764b419ec857a on 2026-08-18`.
+Without that exact reply, do not alter chapter prose, accept C16, advance the
+chapter ledger or start G-A4-17. If the reply is received, close only C16 with
+the package's narrow disposition: advance only Chapter 16 and its nine
+C16-owned ratified items, retain the accepted R02/R09 items as revalidated,
+and leave `R22-C14-C16-dependence` ratified for WD-PART. Chapter 6 remains
+deliberately draft. Push, merge, tag, archive, deployment and publication
+remain separately gated.
 ```
