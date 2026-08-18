@@ -10,9 +10,16 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "G-A4-17"
+    claimed_at: "2026-08-18"
+    owned_paths:
+      - "notes/reports/g-a4-17-decision-package-2026-08-18.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "C16"
-  next_permitted_packet: "G-A4-17"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -13587,7 +13594,7 @@ packets:
     sequence: 125
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "C16"
       - "P0-OUTSIDE"
@@ -13601,6 +13608,24 @@ packets:
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A4-17 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
     completion_evidence: []
+    preparation_evidence:
+      source_state: "commit:26197f84889f1b1caffc25e4bbc171631328adb4"
+      prepared_at: "2026-08-18"
+      state: "awaiting_exact_author_reply"
+      named_decision_owner: "Luka Sikic, author/editor"
+      artifacts:
+        - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md"
+        - "decision:D07"
+        - "packet:P2-IDENTITY"
+        - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama"
+        - "terminology:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry"
+        - "outside-ask:OA-G-A4-17-BRIEF"
+        - "handoff-scan:no-delivery-targeted-to-G-A4-17"
+      exact_reply_requested: "G-A4-17 accepted as recommended for 26197f84889f1b1caffc25e4bbc171631328adb4 on 2026-08-18."
+      authority_boundary: >-
+        Preparation only. No author decision is inferred, no Chapter 17 prose,
+        data, bibliography, widget, catalogue or shared registry is changed,
+        and G-A3-TEXT, P3-TEXT and WD-C17 remain blocked.
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
@@ -32747,7 +32772,7 @@ outside_asks:
 
   OA-G-A4-17-BRIEF:
     status: "drafted_unsent"
-    readiness: "waiting_for_model_sequence_and_text_candidates"
+    readiness: "awaiting_exact_author_reply"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -32779,12 +32804,28 @@ outside_asks:
     available_evidence:
       - "decision:D07"
       - "packet:P2-IDENTITY"
-      - "packet:P3-TEXT"
-    recommended_default: "Retain the fairness widget and follow one consequential text-classification decision from corpus construction through appeal and monitoring."
-    exact_reply_requested: "Reply: Chapter 17 Tier F brief approved at [state] on [YYYY-MM-DD]; or list exact question, sampling, outline, or scope amendments."
+      - "commit:26197f84889f1b1caffc25e4bbc171631328adb4"
+      - "report:notes/reports/g-a4-17-decision-package-2026-08-18.md"
+      - "packet:P2-SPINE-V"
+      - "decision:G-A2c"
+      - "handoff-scan:no-delivery-targeted-to-G-A4-17"
+    recommended_default: >-
+      Retain the fairness widget as the known-mechanism simulation and follow
+      one bounded consequential decision: whether a parliamentary sentence is
+      sent to human review for possible inclusion in a public summary. Use the
+      linked ParlaMint-HR/ParlaSent package for the empirical worked example,
+      preserve fallible recorded-reference labels, derive training and
+      validation groups only inside the original training portion by stable
+      speech/document key, leave the original test portion untouched, and
+      follow corpus, labels, threshold, error burdens, contestability, appeal,
+      feedback and monitoring without NLP implementation or machine-learning
+      mathematics.
+    exact_reply_requested: "G-A4-17 accepted as recommended for 26197f84889f1b1caffc25e4bbc171631328adb4 on 2026-08-18."
     resume_condition: "G-A3-TEXT and WD-C17 resume only after the bounded brief is approved."
     why_external: "The identity-pillar argument, sampling choice, and exclusions require author/editor approval."
     external_message_sent: false
+    prepared_at: "2026-08-18"
+    prepared_against_c16_closeout_commit: "26197f84889f1b1caffc25e4bbc171631328adb4"
 
   OA-C00-ACCEPTANCE:
     status: "done"

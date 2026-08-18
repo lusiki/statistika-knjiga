@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: G-A4-17
 last_completed_packet: C16
-next_permitted_packet: G-A4-17
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -42,6 +42,7 @@ stop and repair the control state before editing book content.
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
 | Gate A4-12 | Accepted as recommended against C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`: portal-mediated 2016 Registered Replication Report lifecycle artifact, exact P3 verification contract, Chapter 12 outline and exclusions; owner Luka Sikic; 2026-08-13 |
 | Gate A4-16 | Accepted as recommended against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a`: Kleppang et al. 2021 PLOS ONE Table 3 plus its first results paragraph, semantic Croatian adaptation under CC BY 4.0, bounded no-refit reading task and immediate binary-outcome reading bridge without logistic fitting or derivation; owner Luka Sikic; 2026-08-18 |
+| Gate A4-17 | Complete Tier F brief prepared against C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4`; one bounded parliamentary-text human-review decision, grouped no-leakage split rule, three linked text layers, retained fairness widget, fixed G-A2c vocabulary, full outline and exclusions; awaiting the exact author/editor reply; 2026-08-18 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -56,12 +57,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; C16 is closed and the separate G-A4-17 decision gate has not yet been claimed |
+| Active write packet | `G-A4-17`, claimed from clean C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4`; ownership is limited to the Chapter 17 decision package and three workflow-control views |
 | Last completed packet | `C16`; the exact reply accepted WD-C16 commit `9cd5a7983d61d27fe9bb8ca77d8764b419ec857a`, advanced only Chapter 16 and nine C16-owned items, and retained four known nonblocking minor records |
-| Next permitted packet | `G-A4-17` at sequence 125; it may be claimed only to assemble the Chapter 17 brief and stop for the exact author reply |
+| Next permitted packet | None while `G-A4-17` is active and awaiting its exact author-owned brief disposition; `G-A3-TEXT` is not permitted |
 | Review parents | 31 ratified; 5 accepted |
 | Atomic child inventory | Complete: 371 stable children; 236 accepted, 5 deferred with reason and 130 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 117 accepted, 71 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 117 accepted, 70 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 3 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa` and `16-regresija` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -5769,6 +5770,62 @@ the durable evidence is
   claimed inside C16. Push, merge, tag, archive, deployment and publication
   remain unauthorised.
 
+## G-A4-17 author-brief preparation
+
+- G-A4-17 was claimed from the clean C16 closeout commit
+  `26197f84889f1b1caffc25e4bbc171631328adb4` as the sole write packet. Its
+  bounded write set contains only
+  `notes/reports/g-a4-17-decision-package-2026-08-18.md` and the three workflow
+  control views. Chapter 17, data, bibliography, widget, catalogue and shared
+  registries remain outside the lock.
+- The complete 97-handoff ledger has no delivery targeted to `G-A4-17`.
+  Deliveries and evidence owned by `G-A3-TEXT`, `P3-TEXT` and `WD-C17` are not
+  acknowledged or consumed in advance.
+- The recommended central question follows one decision: whether a
+  parliamentary sentence is sent to human review for possible inclusion in a
+  public summary. This is a bounded teaching decision over real governed text,
+  not a claim that an identified institution deployed such a system. It does
+  not automate publication, deletion, punishment or an inference about the
+  speaker's intention.
+- D07 remains intact. The existing fairness widget is the sole central widget
+  and carries a simulation with a known mechanism. The linked
+  ParlaMint-HR/ParlaSent package carries the empirical worked example with
+  fallible recorded labels, selection and an inspectable transformation trail;
+  the two roles are not interchangeable.
+- The recommended selection rule keeps every unit meeting predeclared
+  language, country, time and linkage conditions without outcome balancing.
+  The source test portion remains an untouched `skup za ispitivanje`; only the
+  original training portion is deterministically grouped by stable
+  speech/document key into `skup za učenje` and `skup za provjeru`, with no
+  cross-split twin or document leakage. No training-file prevalence claim is
+  permitted.
+- The three linked layers are inspectable speech/sentence text, prepared counts
+  and labelled sentences. They support one comparison of normalization, corpus
+  boundary and coding procedure, while separating predictive performance from
+  construct validity and the recorded reference outcome from truth.
+- The full outline follows corpus and unit, label production, split and
+  evaluation, threshold and the single confusion-table object, subgroup error
+  burdens, procedural fairness, system feedback and monitoring, and language
+  models as prediction systems. Machine-learning mathematics, tokenization,
+  lemmatization, model training and assessed R production remain excluded.
+- G-A2c remains binding: `predviđanje` is canonical; `predikcija` appears only
+  in `sustav predikcije`; the full split vocabulary and its three component
+  names are fixed; `tablica zabune` is the Chapter 17 name for the same table
+  object introduced in Chapter 13; `osjetljivost` never names a rate from that
+  table. Exactly two later definition blocks remain permitted:
+  `zabilježeni referentni ishod` and `klasifikacijski prag`.
+- DigiKat and Eurostat are not repurposed. Any later reach-back retains the
+  no-trend-across-2024 rule, the June 2024 method break, denominator 551.712,
+  no measured/unmeasured reach or interaction comparison, the visible unsmoothed
+  2024 gap, and Eurostat's single 2025 cross-section with source flags.
+- `OA-G-A4-17-BRIEF` is ready and awaiting exactly
+  `G-A4-17 accepted as recommended for 26197f84889f1b1caffc25e4bbc171631328adb4 on 2026-08-18.`
+  The gate remains `in_progress`; no author decision, chapter reading,
+  reader-tested validation, measured reading time or independent terminology
+  review is inferred.
+- `G-A3-TEXT`, `P3-TEXT` and `WD-C17` remain blocked. Chapter 6 remains
+  deliberately `draft`. No external message or release action is claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5796,22 +5853,20 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean C16 closeout commit, no packet is active and
-G-A4-17 alone is next at sequence 125. Confirm that Chapter 16 still matches
-SHA-256 `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`
-and git blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`, that `16-regresija` alone
-advanced to `coauthor_review`, exactly nine C16-owned items advanced to
-accepted, the four R02/R09 items remained accepted and revalidated, and
-`R22-C14-C16-dependence` remained ratified for WD-PART.
+Verify that HEAD is the clean G-A4-17 preparation commit whose parent chain
+contains C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4`.
+Confirm that G-A4-17 is the sole active packet, no successor is permitted and
+`notes/reports/g-a4-17-decision-package-2026-08-18.md` is the complete pending
+brief. Confirm that Chapter 17, its widget, data, bibliography, catalogue and
+shared registries are unchanged, Chapter 6 remains deliberately draft, and no
+handoff delivery targets G-A4-17.
 
-Claim G-A4-17 only to prepare the complete Chapter 17 author brief governed by
-`OA-G-A4-17-BRIEF`, then stop for its exact reply. Respect the ratified Chapter
-17 spine and G-A2c vocabulary: Chapter 13 is a prerequisite; `predviđanje` is
-canonical; `predikcija` survives only inside `sustav predikcije`; `tablica
-zabune` names the single table object; `osjetljivost` never names one
-confusion-table rate; machine learning remains conceptual and social rather
-than mathematical. Apply the live DigiKat and Eurostat data boundaries. Do not
-write Chapter 17 prose, answer the author-owned decision, accept G-A4-17 or
-claim its successor. Chapter 6 remains deliberately draft. Push, merge, tag,
-archive, deployment and publication remain separately gated.
+Stop for the exact author/editor reply:
+`G-A4-17 accepted as recommended for 26197f84889f1b1caffc25e4bbc171631328adb4 on 2026-08-18.`
+Do not answer the author-owned decision, accept G-A4-17, claim G-A3-TEXT or
+edit Chapter 17 prose without that exact disposition. Preserve the full brief,
+G-A2c vocabulary, Chapter 13 prerequisite and DigiKat/Eurostat boundaries. Do
+not claim author reading, reader-tested validation, measured reading time or an
+independent terminology review. Push, merge, tag, archive, deployment and
+publication remain separately gated.
 ```
