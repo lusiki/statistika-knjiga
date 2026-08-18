@@ -340,16 +340,16 @@
       "id": "w13",
       "parity": {
         "classification": "exact",
-        "parameters": {"scenarios": [{"id": "none", "n": 80, "shift_percent": 0}, {"id": "moderate", "n": 80, "shift_percent": 45}, {"id": "large", "n": 80, "shift_percent": 80}]},
+        "parameters": {"scenarios": [{"id": "none", "n": 80, "shift_percent": 0}, {"id": "small", "n": 20, "shift_percent": 20}, {"id": "large", "n": 80, "shift_percent": 20}]},
         "seed_policy": {"ojs": "none", "r": "none", "shared": "Ocekivane i opazene frekvencije te doprinosi su deterministicki."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 1e-10}},
         "expected": {
-          "ojs": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "moderate.expected": 40, "moderate.shift": 18, "moderate.cell_contribution": 8.1, "moderate.chi_square": 32.4, "moderate.cramers_v": 0.45, "large.expected": 40, "large.shift": 32, "large.cell_contribution": 25.6, "large.chi_square": 102.4, "large.cramers_v": 0.8},
-          "r": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "moderate.expected": 40, "moderate.shift": 18, "moderate.cell_contribution": 8.1, "moderate.chi_square": 32.4, "moderate.cramers_v": 0.45, "large.expected": 40, "large.shift": 32, "large.cell_contribution": 25.6, "large.chi_square": 102.4, "large.cramers_v": 0.8}
+          "ojs": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "small.expected": 10, "small.shift": 2, "small.cell_contribution": 0.4, "small.chi_square": 1.6, "small.cramers_v": 0.2, "large.expected": 40, "large.shift": 8, "large.cell_contribution": 1.6, "large.chi_square": 6.4, "large.cramers_v": 0.2},
+          "r": {"none.expected": 40, "none.shift": 0, "none.cell_contribution": 0, "none.chi_square": 0, "none.cramers_v": 0, "small.expected": 10, "small.shift": 2, "small.cell_contribution": 0.4, "small.chi_square": 1.6, "small.cramers_v": 0.2, "large.expected": 40, "large.shift": 8, "large.cell_contribution": 1.6, "large.chi_square": 6.4, "large.cramers_v": 0.2}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w13", "r": "scripts/widget-parity-r.R#w13"},
-        "source": {"ojs_label": "fig-w13", "r_label": "fig-w13-print", "ojs_sha256": "f9e17cc755eeae33d308aa935c55aa5eb0583fdf6a62ab8b50c89f718dba8e07", "r_sha256": "754d61937199aa8432015b8e856ed52fd505cbc725c0b31a8438d6dda26ec4dc"},
-        "claim_boundary": "Frekvencije, doprinosi celija, hi-kvadrat i Cramerovo V za tri tiskana pomaka uz jednake rubove; ne usporeduje polozaj oznaka."
+        "source": {"ojs_label": "fig-w13", "r_label": "fig-w13-print", "ojs_sha256": "f9e17cc755eeae33d308aa935c55aa5eb0583fdf6a62ab8b50c89f718dba8e07", "r_sha256": "130158017eff43321e8b429eefc937486c9d28459e6bbbaa06efc4a2d672479b"},
+        "claim_boundary": "Frekvencije, doprinosi celija, hi-kvadrat i Cramerovo V bez pomaka te pri istom relativnom pomaku uz male i velike rubove; ne usporeduje polozaj oznaka."
       },
       "naziv": "Očekivano i opaženo",
       "poglavlje": "chapters/13-kategoricki-podaci.qmd",
@@ -361,7 +361,7 @@
         "Postavite opažene frekvencije jednake očekivanima i pogledajte doprinose.",
         "Pomaknite opažanja u oba smjera i provjerite ostaju li rubni zbrojevi jednaki.",
         "Povećajte pomak i pratite koliko brže raste ukupno odstupanje od pomaka.",
-        "Zadržite pomak u postocima, a smanjite rubni zbroj na deset."
+        "Zadržite pomak u postocima i usporedite mali s velikim rubnim zbrojem."
       ]
     },
     {
@@ -369,15 +369,15 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "independent", "design": "independent", "n": 50, "difference": 5, "sd": 10}, {"id": "paired", "design": "paired", "n": 50, "difference": 5, "sd": 10}], "correlation": 0.65, "seed": 1414, "r_seed": 1414, "ojs_repetitions": 1500, "r_repetitions": 4000},
-        "seed_policy": {"ojs": "d3.randomLcg(1414) se ponavlja po dizajnu nakon jednog prikazanog uzorka", "r": "jedan set.seed(1414) za 4000 neovisnih pa 4000 uparenih procjena", "shared": "Teorijske standardne pogreske su tocne; simulirane sredine i SD imaju zasebne zlatne vrijednosti."},
+        "seed_policy": {"ojs": "d3.randomLcg(1414) i necachirana Marsaglia-polarna normala ponavljaju se po dizajnu nakon jednog prikazanog uzorka", "r": "jedan set.seed(1414) za 4000 neovisnih pa 4000 uparenih procjena", "shared": "Zivi OJS i produkcijski adapter trose isti necachirani polarni tok; teorijske standardne pogreske su tocne, a simulirane sredine i SD imaju zasebne zlatne vrijednosti."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"independent.theoretical_se": 1e-10, "paired.theoretical_se": 1e-10, "independent.estimate_mean": 0.15, "paired.estimate_mean": 0.15, "independent.estimate_sd": 0.15, "paired.estimate_sd": 0.15, "se_ratio": 1e-10}, "invariants": [{"adapter": "both", "left": "paired.theoretical_se", "operator": "<", "right": "independent.theoretical_se"}]},
         "expected": {
           "ojs": {"independent.theoretical_se": 2, "independent.estimate_mean": 4.972878241219766, "independent.estimate_sd": 2.031018899064352, "paired.theoretical_se": 1.1832159566199232, "paired.estimate_mean": 4.983954551119823, "paired.estimate_sd": 1.2015669847847852, "se_ratio": 0.5916079783099616},
           "r": {"independent.theoretical_se": 2, "independent.estimate_mean": 5.020459160869459, "independent.estimate_sd": 2.0485143311696268, "paired.theoretical_se": 1.1832159566199232, "paired.estimate_mean": 5.002823165202756, "paired.estimate_sd": 1.1691824636539214, "se_ratio": 0.5916079783099616}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w14", "r": "scripts/widget-parity-r.R#w14"},
-        "source": {"ojs_label": "fig-w14", "r_label": "fig-w14-print", "ojs_sha256": "53538739b69065e7c489278090ec2284ebabc12e2f05797d49c937c995a7289d", "r_sha256": "4326e315a8409b1d0ea2f3577ce57773aba1ea89076853aa1b60c79b691f6db8"},
-        "claim_boundary": "Oba dizajna ciljaju razliku 5, a uparivanje pri korelaciji 0,65 suzava raspodjelu procjene; ne zahtijeva iste uzorke, binove ili broj ponavljanja."
+        "source": {"ojs_label": "fig-w14", "r_label": "fig-w14-print", "ojs_sha256": "4ae9495970b646938b1869980fc9eac0c0be6e7a27f0d9e587f9f355d4c8254b", "r_sha256": "4903b5d44894b3af7aff6d26fc6253a15126321c60abd6c054a99c7ceb5fd0e8"},
+        "claim_boundary": "Oba izdanja pokazuju preklapanje ishoda pri razlici 5 i SD 10; oba dizajna ciljaju razliku 5, a uparivanje pri korelaciji 0,65 suzava raspodjelu procjene. Ne zahtijevaju iste uzorke, binove ili broj ponavljanja."
       },
       "naziv": "Uzorkivač dviju grupa",
       "poglavlje": "chapters/14-dvije-grupe.qmd",
@@ -404,7 +404,7 @@
           "r": {"equal.grand_mean": 52, "equal.ms_between": 0, "equal.ms_within": 36, "equal.f_ratio": 0, "separated.grand_mean": 52, "separated.ms_between": 864, "separated.ms_within": 36, "separated.f_ratio": 24, "more_within.grand_mean": 52, "more_within.ms_between": 864, "more_within.ms_within": 121, "more_within.f_ratio": 7.140495867768595}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w15", "r": "scripts/widget-parity-r.R#w15"},
-        "source": {"ojs_label": "fig-w15", "r_label": "fig-w15-print", "ojs_sha256": "07eac0de4d01fdd78928a2446bf872df6095af5f7ba4695f3d5270010a473801", "r_sha256": "f5e112f2031ad31d60a6a1ccef0f49ffcac8d4a13bd2f1a2d65041266d2032ec"},
+        "source": {"ojs_label": "fig-w15", "r_label": "fig-w15-print", "ojs_sha256": "f9f2533eb899673a6a26ee494a149f0512c3f70d68b962df0fa27f1d54b13a73", "r_sha256": "b8b3acf152646f0a8864f9a3eb64eb67636929e5c0eb8692a670af0e20c9dfc1"},
         "claim_boundary": "Skupne sredine, zajednicka sredina, MS izmedu, MS unutar i F za tri tiskana stanja; ne zahtijeva jednake standardizirane tocke ni jitter."
       },
       "naziv": "Dekompozicija varijance",
@@ -424,15 +424,15 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 52, "seed": 1616, "user_intercept": 10, "user_slope": 4.5}]},
-        "seed_policy": {"ojs": "d3.randomLcg(1616) i isprepleteni normalni izvlaci po jedinici", "r": "set.seed(1616) i tri uzastopna vektora rnorm", "shared": "Razliciti redoslijed i RNG daju razlicite podatke; svaki adapter ima zlatne koeficijente i SSE."},
+        "seed_policy": {"ojs": "d3.randomLcg(1616) i eksplicitni Marsaglia-polar generator bez spremanja drugog para, s isprepletenim izvlacima po jedinici", "r": "set.seed(1616) i tri uzastopna vektora rnorm", "shared": "Zivi OJS i proizvodni OJS adapter trose isti nekesirani normalni niz i imaju iste zlatne koeficijente i SSE; R ima zasebne zlatne vrijednosti i distribucijsku usporedbu."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.aggregate_intercept": 3.0, "default.aggregate_slope": 0.6, "default.adjusted_slope": 0.6, "default.user_to_minimum_ratio": 0.5}, "invariants": [{"adapter": "both", "left": "default.user_sse", "operator": ">=", "right": "default.sse_minimum"}, {"adapter": "both", "left": "default.aggregate_slope", "operator": ">", "right": "default.adjusted_slope"}]},
         "expected": {
           "ojs": {"default.aggregate_intercept": 8.6871215720568, "default.aggregate_slope": 4.797800043204114, "default.adjusted_slope": 2.0417289469737767, "default.sse_minimum": 1540.0663961918815, "default.user_sse": 1562.0323507483897, "default.user_to_minimum_ratio": 1.0142629919143897},
           "r": {"default.aggregate_intercept": 9.0983634210344, "default.aggregate_slope": 4.587964445158936, "default.adjusted_slope": 2.0200791450317213, "default.sse_minimum": 2561.139633487693, "default.user_sse": 2575.9064684624595, "default.user_to_minimum_ratio": 1.005765728186658}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w16", "r": "scripts/widget-parity-r.R#w16"},
-        "source": {"ojs_label": "fig-w16", "r_label": "fig-w16-print", "ojs_sha256": "70ecc3c90ff987b984079e2e62d03a140d758211c8b320df4fee7205f4af8c98", "r_sha256": "be5d7b9ab11db9d1b1e872365ae7f92d95043cc88b53a0d5785453fd9a883af2"},
-        "claim_boundary": "Zbirni nagib je pozitivniji od prilagodenog, a pravac najmanjih kvadrata minimizira SSE u svakom simuliranom skupu; ne zahtijeva jednake tocke ili sirove SSE-ove medu izdanjima."
+        "source": {"ojs_label": "fig-w16", "r_label": "fig-w16-print", "ojs_sha256": "bdc6ffbda4b05db4825fadb0f5660dd906ad60852d51eedcc07e8d007c045c37", "r_sha256": "36fbdccd1e17bdd9b1dbc5c0cd94ad386f587215f3970d700f48fc8701c5b8df"},
+        "claim_boundary": "Zivi OJS i njegov adapter imaju tocno istu nekesiranu normalnu putanju i zlatne vrijednosti. Zbirni nagib je pozitivniji od prilagodenog, a pravac najmanjih kvadrata minimizira SSE u svakom simuliranom skupu; OJS i R ne moraju imati jednake tocke ili sirove SSE-ove."
       },
       "naziv": "Regresijski pravac",
       "poglavlje": "chapters/16-regresija.qmd",

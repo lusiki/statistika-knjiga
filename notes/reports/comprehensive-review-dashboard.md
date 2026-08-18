@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C12
-next_permitted_packet: WC-PARTS
+last_completed_packet: G-A4-17
+next_permitted_packet: G-A3-TEXT
 atomic_children: 371
-packet_count: 188
+packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 95
-last_updated: "2026-08-13"
+forward_handoffs: 97
+last_updated: "2026-08-18"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -41,6 +41,8 @@ stop and repair the control state before editing book content.
 | Gate A2c | Accepted as recommended: canonical terminology register and reviewer route; 166 ratified spine forms confirmed, 15 load-bearing forms fixed, the R36 new-term cluster settled, four meaning collisions and three deliberate departures ruled, ten live divergences anchored; terminology review is the author's own; owner Luka Sikic; 2026-08-05 |
 | Gate A4-03 | Accepted as recommended against C02 closeout commit `91a92347d93073516f6b77c3652c1f2baa5c9bee`: one portal-mediated DIP 2024 turnout audit, governed offline fallback, Tier F outline and exclusions; owner Luka Sikic; 2026-08-06 |
 | Gate A4-12 | Accepted as recommended against C11 closeout commit `afd7f474700bcb2a1d63e7ea63543dc7f27dc1d5`: portal-mediated 2016 Registered Replication Report lifecycle artifact, exact P3 verification contract, Chapter 12 outline and exclusions; owner Luka Sikic; 2026-08-13 |
+| Gate A4-16 | Accepted as recommended against C15 closeout commit `a9697b1808765038e1d4a176223023e363ad3c3a`: Kleppang et al. 2021 PLOS ONE Table 3 plus its first results paragraph, semantic Croatian adaptation under CC BY 4.0, bounded no-refit reading task and immediate binary-outcome reading bridge without logistic fitting or derivation; owner Luka Sikic; 2026-08-18 |
+| Gate A4-17 | Accepted as recommended against C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4`: one bounded parliamentary-text human-review decision, grouped no-leakage split rule, three linked text layers, retained fairness widget, fixed G-A2c vocabulary, full outline and exclusions; owner Luka Sikic; 2026-08-18 |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -48,19 +50,23 @@ stop and repair the control state before editing book content.
 | Thread amendment C08-C10 | `A-THREAD-C08-C10-2026-08-12` accepted as a new, distinct decision: strict chain `C08 -> WC-C09 -> C09 -> WC-C10 -> C10`; one lock and a separate claim, evidence bundle, handoff disposition, workflow check, closeout and commit per packet; exact author replies remain mandatory for C08, C09 and C10; the older C07-C09 decision and its two live handoff deliveries are not superseded |
 | Thread amendment C11-P3C | `A-THREAD-C11-P3-VERIFY-C-2026-08-11` accepted as a new, distinct decision: strict chain `WC-C11 -> C11 -> G-A4-12 -> P3-EVIDENCE12 -> P3-VERIFY-C`; each packet keeps its own lock, evidence, handoff disposition, workflow checks, closeout and commit; C11 still requires the exact author reply; both earlier thread chains have ended |
 | Thread amendment C12-WD-C13 | `A-THREAD-C12-WD-C13-2026-08-13` accepted as a new, distinct decision: strict chain `WC-C12 -> C12 -> WC-PARTS -> P3-VERIFY-D -> WD-C13`; every packet remains separate; C12 requires the exact author reply and WC-PARTS must stop for the blast-radius choice before any prose edit; all earlier thread chains have ended |
+| Thread amendment WC-PARTS-WD-C14 | `A-THREAD-WC-PARTS-WD-C14-2026-08-17` accepted as a new, distinct decision: strict chain now runs `WC-PARTS -> C07-C12-REACCEPT -> P3-VERIFY-D -> WD-C13 -> C13 -> WD-C14`; every packet remains separate; option B and the exact batched gate/handoff are approved, while C07-C12-REACCEPT and C13 retain their exact author-reply stops; all earlier thread chains have ended |
+| Thread amendment WD-C14/C14 preparation | `A-THREAD-WD-C14-C14-PREP-2026-08-13` accepted as a new, distinct decision and recorded on 17 August: execute and commit `WD-C14`, then claim `C14` only to assemble the complete acceptance package and stop for the exact reply `C14 accepted for <commit> on <date>`; do not close C14 or start WD-C15; all earlier thread chains have ended |
+| Thread amendment WD-C15–G-A4-16 | `A-THREAD-WD-C15-G-A4-16-2026-08-17` is the eighth, new and distinct thread decision: strict chain `WD-C15 -> C15 -> G-A4-16`; every packet remains separate; C15 keeps the exact author-reply stop and G-A4-16 prepares the artifact, rights and binary-outcome-bridge brief without retrieval, promotion or prose; all seven earlier thread chains have ended |
+| Thread amendment C15-G-A4-17 | `A-THREAD-C15-G-A4-17-2026-08-17` is the ninth, new and distinct thread decision: strict chain `C15 -> G-A4-16 -> WD-C16 -> C16 -> G-A4-17`; every packet remains separate and committed before the next claim; C15 and C16 retain exact acceptance replies, both decision gates stop for the author, and only WD-C16 may finish unattended; all eight earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; C12 is closed and WC-PARTS remains unclaimed |
-| Last completed packet | `C12`; exact author acceptance ties final WC-C12 commit `23282e67cf876a3d654d1465f399ce48c31baacd` to 2026-08-13, accepts 10 governed items and advances only Chapter 12 to `coauthor_review` |
-| Next permitted packet | `WC-PARTS` only; before its first prose edit it must stop and present the exact blast-radius list for author choice |
-| Review parents | 32 ratified; 4 accepted |
-| Atomic child inventory | Complete: 371 stable children; 212 accepted, 5 deferred with reason, 154 ratified; zero unmapped |
-| Exact packet catalogue | 188 packets: 105 accepted, 82 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Active write packet | None; G-A4-17 is closed and G-A3-TEXT has not been claimed |
+| Last completed packet | `G-A4-17`; the exact author reply accepted the complete Tier F brief against C16 closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4` without accepting a source, right, result, prose edit or content item |
+| Next permitted packet | `G-A3-TEXT` at sequence 126; it must separately decide and verify ParlaMint/ParlaSent selection and rights before P3-TEXT |
+| Review parents | 31 ratified; 5 accepted |
+| Atomic child inventory | Complete: 371 stable children; 236 accepted, 5 deferred with reason and 130 ratified pending their later gates; zero in progress and zero unmapped |
+| Exact packet catalogue | 189 packets: 118 accepted, 70 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 7 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga` and `12-kriza-i-obnova` at `coauthor_review`; `06-povezanost` conservatively remains `draft` after its WB-PART material bridge |
+| Chapter stages | 3 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa` and `16-regresija` at `coauthor_review`; `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 31 of the 84 canonical asks remain `drafted_unsent`; 47 are `done`; 6 are `withdrawn_with_reason`. `OA-C12-ACCEPTANCE` is done from the exact in-thread reply; `OA-G-A3-ESS-RIGHTS` remains separate, open and unsent; 0 external messages sent |
+| Open outside asks | 24 of the 85 canonical asks remain `drafted_unsent`; 55 are `done`; 6 are `withdrawn_with_reason`. `OA-G-A4-17-BRIEF` is done on the exact dated reply; both G-A3-TEXT selection and rights asks remain separate; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -5096,6 +5102,769 @@ the durable evidence is
   choice. Push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## Author amendment 2026-08-17 — WC-PARTS through WD-C14
+
+- `A-THREAD-WC-PARTS-WD-C14-2026-08-17` is a new, distinct numbered decision
+  for this thread. It authorises the strict sequence `WC-PARTS`,
+  `P3-VERIFY-D`, `WD-C13`, `C13`, `WD-C14`; every earlier thread amendment
+  has ended on its own boundary.
+- Every packet retains its own claim, single write lock, evidence bundle,
+  handoff dispositions, workflow checks, closeout and bounded local commit.
+  No evidence, lock or unfinished disposition crosses a packet boundary.
+- Option B is pre-approved for WC-PARTS: proceed with the ratified bridges and
+  self-checks and return every edited accepted unit honestly to `draft`.
+  Before the first prose edit, enumerate the exact units and changes and state
+  whether any required material can be carried without altering accepted
+  chapter bodies.
+- WC-PARTS must then propose exactly one batched re-acceptance gate immediately
+  after itself. The proposal must name the exact ID, sequence, contract,
+  required evidence, exit tests, covered units and handoff that moves their
+  deferred panels away from `P6-PANELS`. The gate must not be created without
+  a further explicit author approval, and no author reading may be claimed.
+- P3-VERIFY-D independently verifies every prerequisite and reports draft
+  versus `coauthor_review` stages and any acceptance older than named bytes.
+  WD-C13 and WD-C14 preserve the portal-mediated, optional and unpromoted ESS
+  route with explicit mandatory offline alternatives. WD-C14 also implements
+  the ratified D02 correction without reinterpretation.
+- C13 requires the exact dated reply `C13 accepted for <commit> on <date>.` The
+  standing 5 August delegation cannot substitute and the thread stops while
+  that reply is absent.
+- Chapter 6 remains unchanged and deliberately `draft` under
+  `H-WB-PART-001`. The durable decision record is
+  `notes/reports/wc-parts-wd-c14-thread-amendment-2026-08-17.md`.
+
+## WC-PARTS claim and approved batched gate
+
+- WC-PARTS was claimed only from clean control-only decision commit
+  `f4329bac42735ff1b3f5cabe0a651a47f4ce53ef` after the workflow validator
+  confirmed no active packet, accepted C12 and WC-PARTS alone next at sequence
+  113. Exactly one write lock is active; P3-VERIFY-D and every later packet
+  remain unclaimed.
+- The packet owns exactly the six chapter sources 07–12, their chapter-ledger
+  records, `notes/reports/wc-parts-2026-08-17.md` and the three workflow-control
+  views. Chapter 6 is outside the lock and remains deliberately `draft` under
+  `H-WB-PART-001`.
+- All six units still enter at `coauthor_review`; their source hashes and git
+  blobs remain exactly those named by C07–C12. No chapter prose or chapter
+  stage changed at claim.
+- The seven owned items are `R08-SPINE-07-11`, `R24-PARTIII-IV-thesis`,
+  `R24-LADDER-PartIII`, `R24-LADDER-PartIV`, `R27-C12-13-transition`,
+  `R35-SELF-CHECK-III` and `R35-SELF-CHECK-IV`. They are `in_progress`, not
+  implemented or accepted.
+- No handoff delivery targets WC-PARTS. There is therefore no incoming delivery
+  to acknowledge or consume before the first edit, and no outgoing handoff or
+  closeout declaration has yet been recorded.
+- The source audit finds that Chapters 7–11 already carry the required seeded-
+  simulation boundary, both cumulative AI ladders and the complete Part III
+  bridge/self-check. They require no byte change and remain
+  `coauthor_review`. Only Chapter 12 lacks the complete Part IV boundary; its
+  proposed additive section contains the claim bridge, six review questions,
+  six-dimension claim map and answerable self-check, while preserving the
+  existing reformed-practice transition. Its first edit would return only
+  Chapter 12 to `draft`.
+- The approved and created gate is `C07-C12-REACCEPT`, sequence 114, contract
+  `chapter_acceptance_gate`, covering all six units with one round of six
+  reports total, one synthesis and the exact reply `C07-C12-REACCEPT accepted
+  for <commit> on <date>.` It shifts all prior sequences 114 onward by one and
+  makes `P3-VERIFY-D` require the new gate plus `P3-ESS`.
+- Created `H-WC-PARTS-REACCEPT-001` delivers the six-chapter final-state
+  panel to that gate at `before_start`. No `H-WC-PARTS-001` delivery to
+  `P6-PANELS` is created; P6-PANELS retains only its separate Chapter 6 duty
+  under `H-WB-PART-001` and excludes Chapters 7–12.
+- Luka Sikic approved the exact proposal on 17 August 2026 with the reply
+  `Approve C07-C12-REACCEPT at sequence 114 with contract and handoff as
+  proposed.` The pre-prose stop is therefore resolved. This is control-plane
+  approval, not chapter acceptance, and it claims no author reading. The
+  complete live record is
+  `notes/reports/wc-parts-2026-08-17.md`.
+
+## WC-PARTS closeout
+
+- `WC-PARTS` closes on the six-source manifest recorded in
+  `notes/reports/wc-parts-2026-08-17.md`. Chapters 7–11 remain byte-identical
+  to their C07–C11 decisions. Only Chapter 12 changed; its final SHA-256 is
+  `4a6d173d7e995e1f251e34003121a8eae7be2a3f7753b538634bc96a0d49a1b4`
+  and it remains `draft` pending the separately approved batched gate.
+- The initial arc critic's single major finding was resolved by tightening
+  only the four Part IV self-check questions and their answer. The final voice
+  and arc round records zero fatal, zero major and two nonblocking voice
+  minors. All seven owned items materially pass and return to `ratified`; no
+  chapter acceptance is inferred.
+- Style, structure, figures, citations, concepts, terminology, manuscript
+  integrity, spines, book and assessment architecture, data, widgets, parity
+  and tokens pass. The fresh concept graph has 49 nodes and 549 edges. Final
+  HTML, approved-wrapper PDF and wrapper-built DOCX hashes are recorded in the
+  packet report; tracked render and cache output was restored.
+- `H-WC-PARTS-REACCEPT-001` carries the exact six-chapter fresh-panel duty to
+  `C07-C12-REACCEPT` before start. `H-WC-PARTS-DOCX-001` separately carries
+  the discovered recursive-resource release risk to `P7-DOCX` before close.
+  These are all future-relevant effects discovered by the packet.
+- Chapter 6 remains byte-identical, `draft` and excluded under
+  `H-WB-PART-001`. `C07-C12-REACCEPT` is now the sole next packet;
+  `P3-VERIFY-D` remains unclaimed.
+
+## C07-C12-REACCEPT claim and fresh panel
+
+- The gate was claimed only from clean WC-PARTS closeout commit
+  `ddde7f6cabc0d4335660755c6fbc7601937b4318`. Before claim it consumed
+  `H-WC-PARTS-REACCEPT-001` and accepted ownership of the exact six-source
+  manifest, not acceptance of any chapter. No prose or ledger stage changed.
+- The preflight found zero deterministic style candidates in all six sources,
+  complete structural components and all four exercise tiers, and zero figures
+  without introductions. The six ratified spines were available. The only
+  environment note remains the existing `renv` out-of-sync warning.
+- Exactly six independent read-only critics each read all six sources tied to
+  the same commit: methods, skepticism, pedagogy, evidence, Croatian style and
+  structure. The result is zero fatal, zero major and eleven nonblocking
+  lens-level minor records. The evidence critic reports
+  `missing_or_unverified: []`.
+- The complete synthesis is
+  `notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md`; the
+  bounded decision package is
+  `notes/reports/c07-c12-reaccept-acceptance-package-2026-08-17.md`. The
+  recommendation is acceptance of the locked manifest with the eleven minor
+  records visible and unedited.
+- Before the author reply, the gate remained active and fail-closed. Chapter 12
+  remained `draft`, the seven governed items remained `ratified`, and
+  `P3-VERIFY-D` was not permitted until the exact reply `C07-C12-REACCEPT accepted for
+  ddde7f6cabc0d4335660755c6fbc7601937b4318 on 2026-08-17.` is received.
+  No author reading is claimed.
+
+## C07-C12-REACCEPT closeout
+
+- Luka Sikic supplied the exact required reply on 17 August 2026, naming
+  `ddde7f6cabc0d4335660755c6fbc7601937b4318`. It accepts the six-report
+  synthesis with zero fatal, zero major and eleven known nonblocking minor
+  records. It does not state or imply that the author read any chapter.
+- All six ledger records now name the batched decision and exact source
+  manifest. Chapters 7–11 remain byte-identical and in `coauthor_review`; only
+  Chapter 12 advances from `draft` to `coauthor_review`. No chapter is `final`.
+- Exactly seven items advance from `ratified` to `accepted`:
+  `R08-SPINE-07-11`, `R24-PARTIII-IV-thesis`, `R24-LADDER-PartIII`,
+  `R24-LADDER-PartIV`, `R27-C12-13-transition`, `R35-SELF-CHECK-III` and
+  `R35-SELF-CHECK-IV`. No other item changes status.
+- `packet_reviews.C07-C12-REACCEPT` records no new outgoing handoff because
+  `P3-VERIFY-D` directly owns independent verification, while the existing
+  DOCX and Chapter 6 handoffs retain their separate owners and boundaries.
+- The gate closes with no prose, data, bibliography, concept, terminology,
+  widget, figure, render or generated-artifact change. `P3-VERIFY-D` is the
+  sole next packet and remains unclaimed inside this gate.
+
+## P3-VERIFY-D closeout
+
+- The evidence gate was claimed from clean C07-C12-REACCEPT closeout commit
+  `339ec599a8e836d283771a0f271574ef34708993` and independently verified both
+  named prerequisites. It did not rely on their aggregate `accepted` status.
+- All six Chapter 7–12 sources match the manifest at commit
+  `ddde7f6cabc0d4335660755c6fbc7601937b4318`; all six critic reports, the
+  synthesis, exact dated author reply, six ledger records and seven accepted
+  WC-PARTS items are current. The manifest audit reports `stale_acceptance=0`.
+  Chapters 7–12 are `coauthor_review`, with no author-reading or `final` claim.
+- P3-ESS still specifies ESS11 edition 3.0, Croatia, 18 variables and
+  `anweight`: portal-mediated, optional, unpromoted, zero local ESS files and
+  `checksum: null`. All four governed file blobs, the positive validator and
+  nine deliberate negative fixtures match the accepted contract.
+  `populacija_medija` remains the licensed local CC BY 4.0 mandatory
+  alternative for `WD-C13`–`WD-C16`. The open rights ask does not block portal
+  use, but bundling remains prohibited without permission.
+- The full deterministic ladder passes. The initial 124-second run of the 44
+  data negative fixtures hit the process timeout; the complete retry finished
+  in 178.2 seconds with `DATA_NEGATIVE_FIXTURES_OK cases=44`. This is recorded
+  as a timeout followed by a successful full run, not as an inferred pass.
+- No handoff targets this gate. `H-P3-ESS-001` remains pending for each
+  model-wave consumer, `H-WC-PARTS-DOCX-001` remains with `P7-DOCX`, and
+  `H-WB-PART-001` keeps unchanged Chapter 6 `draft` for `P6-PANELS`.
+  `packet_reviews.P3-VERIFY-D` declares no new future effect because those
+  existing owners and the direct dependency on `WD-C13` already cover it.
+- The text package remains just-in-time gated at sequences 125–128 immediately
+  before `WD-C17`; these gates do not falsely make it ready now. No chapter,
+  data, bibliography, concept, terminology, widget, figure, render or
+  generated artifact changed. `WD-C13` is the sole next packet and remains
+  unclaimed inside this closeout.
+
+## WD-C13 claim
+
+- `WD-C13` was claimed only from clean P3-VERIFY-D closeout commit
+  `1fbda82351ac8d4889bce7a82cf564afd806a9bb`. Exactly one write lock owns the
+  Chapter 13 source, its ledger/concept consequences, one packet report, six
+  critic reports, one synthesis and the three workflow-control views.
+- `H-P3-ESS-001` was consumed before claim. Its disposition keeps
+  `populacija_medija` as the mandatory bundled local CC BY 4.0 route and limits
+  ESS Round 11 edition 3.0 to an optional reader-owned portal replication for
+  Croatia with an analysis-specific valid-response denominator and
+  `anweight`. No ESS result, local bytes, checksum, promotion, edition-parity
+  claim, redistribution authority or official-turnout claim is permitted.
+- `P2-SPINE-V` was independently checked against the live ratified Chapter 13
+  spine with 11 aspects, 8 terms, 6 prerequisites and 7 exclusions.
+  `P1A-C13` remains exactly present at git blob
+  `9242e057c6602b273368164de6193b08eba5eeb8`; adjusted standardized residuals
+  and separate null-calibration and alternative-power simulations remain
+  intact. Both spine and ESS deterministic checks pass.
+- The packet owns exactly `R13-C13-contingency`,
+  `R27-C13-partV-contract` and `R35-REACHBACK-13`. They are `in_progress`, not
+  accepted. Chapter 13 remains `draft`; no author reading or acceptance is
+  claimed. `C13` and `WD-C14` remain unclaimed.
+
+## WD-C13 closeout
+
+- The final Chapter 13 source is SHA-256
+  `b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3`, git
+  blob `e7ff4e8adc9d2438461ffbddb01e193aba24b671`. It has 11 main sections,
+  2,964 prose words and section-evenness coefficient 0.32.
+- The author approved exactly eight combined repairs and directed all
+  independent minors to `C13`. The source now has the correct p-value
+  direction, bounded GOF interpretation, correct Fisher explanation,
+  predeclared recoding question, 95-percent confidence interval, distinct
+  Berkeley tool roles, reader-voice ESS path and a faithful static twin.
+- The static twin and `data/widgets.json#w13` agree on the exact scenarios:
+  with the same 20-percent relative shift, chi-square rises from 1.6 at margin
+  20 to 6.4 at margin 80 while Cramer's V remains 0.20. The final R source hash
+  is `130158017eff43321e8b429eefc937486c9d28459e6bbbaa06efc4a2d672479b`.
+- All six final read-only critics address the same source hash and independently
+  confirm all eight repairs. The panel records 0 fatal, 0 major and 14
+  nonblocking lens-level minor records: methods 1, skepticism 2, pedagogy 3,
+  evidence 4, style 4 and structure 0. No independent minor was edited or
+  silently accepted.
+- The deterministic ladder passes, including style, structure, figures,
+  citations, concepts, terminology, manuscript, spines, assessment, catalogue,
+  ESS portal, data, tokens, widget contract and parity. All required manuscript,
+  inventory, AI-export, data, widget-parity and workflow negative fixtures fail
+  closed.
+- Targeted HTML succeeds at 176,785 bytes and SHA-256
+  `4af9b743194266c2ad38fc1417a303564fed429d9c1be43b54bbaef410cf6b26`.
+  The approved PDF wrapper succeeds at 2,752,817 bytes and SHA-256
+  `858a3f1428dd5822890aad0449afd1290790b3ee8bbce3e40bdffbde4f139de6`;
+  the DOCX wrapper succeeds at 1,575,666 bytes and SHA-256
+  `1c22637f481bbf15c784b1fc313e29cfdf04d7764fddc8f6537c44ff77b8116a`.
+  Both full renders ran in clean isolated worktrees, which were removed after
+  verification; no generated artifact enters the packet commit.
+- `H-P3-ESS-001` is consumed only for WD-C13. Its pending deliveries to
+  WD-C14–WD-C16 remain intact, ESS remains optional and portal-mediated, and
+  `populacija_medija` remains the mandatory licensed local route. No new
+  outgoing handoff is needed because every later effect already has an owner.
+- `R13-C13-contingency`, `R27-C13-partV-contract` and `R35-REACHBACK-13`
+  materially pass but return to `ratified` pending `C13`. Chapter 13 remains
+  `draft`; Chapter 6 remains byte-identical and `draft` under
+  `H-WB-PART-001`. No author reading, chapter acceptance or final-stage claim
+  is made.
+- No write lock remains active. `C13` alone is next and requires the exact
+  dated author reply naming the final WD-C13 closeout commit. `WD-C14` may not
+  be claimed while that reply is absent.
+
+## C13 claim
+
+- The exact author reply was received as
+  `C13 accepted for a88fc80ad1b323f514e3e50d51c5da49fea07bd8 on 2026-08-17.`
+  It names the clean WD-C13 closeout commit and the current decision date; the
+  earlier malformed reply without the `C` prefix was not used.
+- Preflight confirms HEAD `a88fc80ad1b323f514e3e50d51c5da49fea07bd8`,
+  Chapter 13 SHA-256
+  `b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3`, six
+  final reports, one synthesis, 0 fatal, 0 major and 14 known minor records.
+- No handoff delivery targets `C13`. The gate owns only the chapter-ledger
+  disposition, its acceptance package and the three workflow-control views;
+  it owns no chapter prose, data, bibliography, figure, widget or generated
+  artifact.
+- Chapter 13 remains `draft` and the three governed items remain `ratified`
+  until closeout. The only permitted state change is their narrow accepted
+  disposition plus `coauthor_review`; no author reading or `final` claim is
+  permitted.
+
+## C13 closeout
+
+- The exact accepted state is WD-C13 commit
+  `a88fc80ad1b323f514e3e50d51c5da49fea07bd8`, Chapter 13 SHA-256
+  `b52341768fd6b6e985d3e5c9d1093c9196857dee895982438e3e63ee22d586d3` and git
+  blob `e7ff4e8adc9d2438461ffbddb01e193aba24b671`. The chapter source is unchanged
+  by the acceptance gate.
+- `notes/reports/c13-acceptance-package-2026-08-17.md` cites the final commit,
+  all six reports, the synthesis, exact reply, ledger disposition, eight
+  resolved mandatory repairs and all fourteen known nonblocking minor records.
+- Only `13-kategoricki-podaci` advances from `draft` to `coauthor_review`.
+  This records an accepted revision state, not an assertion that the author
+  read the chapter and not a `final` stage.
+- Only `R13-C13-contingency`, `R27-C13-partV-contract` and
+  `R35-REACHBACK-13` advance from `ratified` to `accepted`. The already
+  accepted P1A-C13 residual and calibration items remain unchanged; no other
+  child moves.
+- Fourteen lens-level minor records are known and nonblocking for this edition.
+  They were not edited, silently resolved or converted into a new obligation.
+- No delivery targets `C13`, and `packet_reviews.C13` records no outgoing
+  handoff because WD-C14 is the direct successor while the ESS, DOCX and
+  Chapter 6 obligations already have stable owners.
+- Chapter 6 remains byte-identical and `draft` under `H-WB-PART-001`.
+  `H-P3-ESS-001` remains pending for WD-C14–WD-C16 and
+  `H-WC-PARTS-DOCX-001` remains pending for P7-DOCX.
+- No active write lock remains. `WD-C14` alone is next and is not claimed
+  inside this gate. No chapter prose, data, bibliography, concept, terminology,
+  figure, widget, render or generated artifact changed.
+
+## WD-C14 closeout
+
+- WD-C14 closes on Chapter 14 SHA-256
+  `84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2`
+  and git blob `6ef3a218dfc61d5ad73f83e236a70e3917909d86`. The source has 11
+  sections, 2.692 prose words, two definitions, one faithful HTML/PDF widget
+  pair and all four exercise tiers.
+- D02 is reproduced exactly: television-minus-social estimate
+  `1,185714285714`; Welch SE `0,372609208160`, df `102,471131550669`,
+  p `0,001935138042`; ordinary homoskedastic OLS retains the estimate but has
+  SE `0,369536997510`, df 118 and p `0,001717470691`.
+- H-P3-ESS-001 was consumed before claim. ESS remains optional,
+  reader-owned, portal-mediated and unpromoted with `anweight` and an
+  analysis-specific valid denominator; no local ESS bytes, result, checksum,
+  promotion or rights claim was added. `populacija_medija` remains the
+  mandatory licensed local route.
+- H-WB-C06-001 is consumed. Live w14 and its production adapter share one
+  explicit non-caching Marsaglia-polar stream; final OJS and R fingerprints
+  are registered, all 17 parity pairs pass, the tolerance is unchanged and
+  the dedicated w14 cache-asymmetry fixture fails closed. The static twin now
+  faithfully carries both the group-overlap and independent-versus-paired
+  arguments.
+- All six final critics confirmed the same blob. The panel records 0 fatal, 0
+  major and 4 nonblocking lens-level minors: one skeptical terminology note
+  and three local Croatian copyedit notes. None was edited after the source
+  lock; all are exposed to C14.
+- Style, structure, figure introductions, spines, terminology, citations,
+  concepts, catalogue, ESS, widgets, parity, data, manuscript integrity and
+  tokens pass. All required negative fixture suites fail closed. Targeted
+  HTML, approved-wrapper PDF and wrapper DOCX render successfully; the final
+  PDF has SHA-256
+  `4f863d0195c71224f74fc9295ba311c35f930841557cda9222d1d96e09cf05bd`.
+- R35-REACHBACK-14 materially passes but remains `ratified` pending C14;
+  R02-C14-welch-ols stays accepted and revalidated. Chapter 14's dependence
+  stop rule passes, while the multi-chapter R22-C14-C16-dependence item remains
+  `ratified` for WD-PART. Chapter 14 remains `draft`.
+- No new outgoing handoff is required. Chapter 6 remains unchanged and
+  deliberately `draft`; Chapters 7–13 remain in their accepted states. No
+  author reading, C14 acceptance, external message or release action is
+  claimed.
+- No write lock remains active. Under
+  `A-THREAD-WD-C14-C14-PREP-2026-08-13`, C14 alone may next be claimed to
+  assemble its complete acceptance package and then stop for the exact reply.
+  WD-C15 may not start.
+
+## C14 acceptance-package preparation
+
+- C14 was claimed only after the clean WD-C14 closeout commit
+  `378bc362f9090e3bcdf8e9e02090c2c1d732e532` and a passing workflow
+  preflight. No handoff delivery targets C14, and its ownership is limited to
+  the acceptance package and three workflow-control views.
+- `notes/reports/c14-acceptance-package-2026-08-17.md` cites the exact WD-C14
+  commit, Chapter 14 SHA-256 and blob, all six final critic reports, their
+  synthesis, D02 numerical disposition, all four known minor records and the
+  complete proposed ledger disposition.
+- The package proposes that an exact acceptance move only
+  `14-dvije-grupe` from `draft` to `coauthor_review` and
+  `R35-REACHBACK-14` from `ratified` to `accepted`. R02-C14-welch-ols would
+  remain accepted with a fresh revalidation record, while the multi-chapter
+  R22-C14-C16-dependence item would remain ratified for WD-PART.
+- No proposed disposition has been applied. Chapter 14 remains `draft`, C14
+  remains `in_progress`, its completion evidence remains empty, and WD-C15 has
+  not been claimed. No author reading or `final` state is claimed.
+- `OA-C14-ACCEPTANCE` is ready and awaits exactly
+  `C14 accepted for 378bc362f9090e3bcdf8e9e02090c2c1d732e532 on 2026-08-17`.
+  A different commit or date requires a new match check; exact blocking
+  revisions may be returned instead.
+- The C14 lock deliberately remains active while awaiting the reply. This is a
+  clean, resumable preparation checkpoint, not a gate closeout. WD-C15, push,
+  merge, tag, archive, deployment and publication remain prohibited.
+
+## C14 closeout
+
+- The exact author reply was received as
+  `C14 accepted for 378bc362f9090e3bcdf8e9e02090c2c1d732e532 on 2026-08-17`.
+  It names the final WD-C14 closeout commit and current decision date; the
+  standing 5 August delegation was not used.
+- The accepted source remains Chapter 14 SHA-256
+  `84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2`
+  and git blob `6ef3a218dfc61d5ad73f83e236a70e3917909d86`. C14 changes no
+  chapter prose, data, bibliography, terminology, concept, widget, figure or
+  generated artifact.
+- `notes/reports/c14-acceptance-package-2026-08-17.md` records the exact
+  reply, final commit, all six reports, synthesis, D02 revalidation, four
+  known minor records and applied ledger disposition.
+- Only `14-dvije-grupe` advances from `draft` to `coauthor_review`. This
+  records an accepted revision state, not an assertion that the author read
+  the chapter and not a `final` stage.
+- Only `R35-REACHBACK-14` advances from `ratified` to `accepted`.
+  `R02-C14-welch-ols` remains accepted and gains final-state revalidation
+  evidence. `R22-C14-C16-dependence` records the passing Chapter 14 slice but
+  remains `ratified` for WD-PART until Chapters 15 and 16 pass.
+- Four lens-level minor records are known and nonblocking for this edition.
+  They were not edited, silently resolved or converted into a new obligation.
+- No delivery targets C14. `packet_reviews.C14` records no outgoing handoff
+  because the direct successor and every ESS, widget, dependence, DOCX and
+  Chapter 6 consequence already have stable owners.
+- Chapter 6 remains unchanged and deliberately `draft`. Chapters 7–13 retain
+  their accepted states. No author reading, external message or release
+  action is claimed.
+- No active write lock remains. WD-C15 alone is next at sequence 120 but is
+  not claimed inside C14. It requires a fresh clean preflight, its own handoff
+  consumption, bounded evidence, closeout and local commit.
+
+## Eighth thread amendment and WD-C15 handoff preflight
+
+- Author and editor Luka Sikic approved the new, distinct decision
+  `A-THREAD-WD-C15-G-A4-16-2026-08-17` on 17 August 2026. Its strict chain is
+  `WD-C15 -> C15 -> G-A4-16`; all seven earlier thread-amendment chains have
+  ended and none is treated as continuing authority.
+- The amendment changes only the ordinary stop-after-one-packet rule. Each
+  packet keeps its own lock, claim and closeout checks, evidence, handoff
+  disposition and scoped commit. C15 still stops for exactly
+  `C15 accepted for <commit> on <date>`, and G-A4-16 stops for the author's
+  artifact, rights and binary-outcome-bridge decisions.
+- Clean preflight at C14 closeout commit `7dc4a18f23116fdcc5cb2847d2fbd79aeed735c0`
+  confirmed no active packet and WD-C15 alone at sequence 120. A complete
+  target scan of all 97 handoffs found exactly one delivery to WD-C15:
+  `H-P3-ESS-001` at `before_start`.
+- That delivery is consumed before claim. ESS remains optional, reader-owned,
+  portal-mediated and unpromoted; no local file, checksum, empirical result,
+  file-parity or rights-holder-permission claim is allowed. Mandatory offline
+  work uses the promoted CC BY 4.0 `data/populacija-medija.csv` or its five-row
+  aggregate. `OA-G-A3-ESS-RIGHTS` remains open and bundling remains prohibited.
+- WD-C15 remains unclaimed. Chapter 6 remains deliberately `draft`, Chapters
+  7–12 retain their reaccepted states, and no chapter prose, registry stage,
+  data file, figure, widget or generated artifact changes in this control
+  record.
+
+## WD-C15 claim
+
+- `WD-C15` was claimed on 17 August 2026 from clean commit
+  `4e482de7fd8c805d5349ed9677bc1e9898684eb9` after a fresh workflow check
+  passed. It is the sole active write packet; `C15` is not claimed.
+- The bounded write set is Chapter 15, its regenerated concept graph, the w15
+  source fingerprints in `data/widgets.json`, the packet and six-critic
+  reports, the synthesis, and the register, handoff ledger and dashboard.
+  Chapter 14, Chapter 16, shared registries, datasets, AI exports and render
+  artifacts are outside the lock.
+- `H-P3-ESS-001` remains consumed before claim. Mandatory work uses the
+  promoted CC BY 4.0 `populacija_medija` files; ESS stays optional,
+  portal-mediated, unpromoted and without a local-result or rights claim.
+- The claim preserves Chapter 6 at deliberate `draft`, Chapters 7–12 at their
+  reaccepted states, and the exact C15 author-reply stop.
+
+## WD-C15 closeout
+
+- The final Chapter 15 source is SHA-256
+  `fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813`
+  and git blob `aa644049bacb62e7fc05ab75d3b6157b83165b96`. The structural
+  lint reports 10 top-level sections, 2,527 prose words and body evenness 0.21.
+- The revision leads with multiplicity consequences, puts both simulations
+  before formulas, interprets eta-squared before F, distinguishes omnibus from
+  planned and post-hoc questions, and reports the illustrative pair with a
+  simultaneous interval. It teaches the SS/MS divisors, bounds eta/omega
+  uncertainty, separates Tukey from Welch and stops for dependent rows.
+- `R09-C15-variance-ratio`, `R23-C15-suspect-code` and
+  `R35-REACHBACK-15` materially pass but remain `ratified` for the separate C15
+  author gate. `R02-C15-dependent-revalidation` remains accepted and is
+  revalidated. The Chapter 15 slice of `R22-C14-C16-dependence` passes, while
+  that multi-chapter item remains `ratified` for `WD-PART`.
+- The final widget fingerprints are OJS
+  `f9f2533eb899673a6a26ee494a149f0512c3f70d68b962df0fa27f1d54b13a73`
+  and R
+  `b8b3acf152646f0a8864f9a3eb64eb67636929e5c0eb8692a670af0e20c9dfc1`.
+  The regenerated concept graph has 49 nodes, 608 edges, 249 displayed
+  co-occurrence edges and 45 definition edges.
+- A clean-session numerical reproduction confirms every classical, Welch,
+  rank, Tukey, multiplicity-simulation and offline-aggregate value. Citation,
+  style, structure, figure, concept, terminology, spine, assessment, catalogue,
+  ESS portal, data, widget parity, token and workflow checks pass; all three
+  workflow negative fixtures fail closed.
+- The exact held blob rendered successfully as targeted HTML and full-wrapper
+  PDF and DOCX in a disposable isolated worktree. The wrapper gates were
+  restored, the worktree was removed and no generated render artifact entered
+  the primary checkout.
+- The mandatory final six-critic rerun records 0 fatal, 0 major and 4
+  nonblocking style-minor records. The earlier diagnostic panel's six majors
+  were all resolved before this rerun. The four surviving polish records were
+  not silently edited after the panel and pass visibly to C15.
+- `packet_reviews.WD-C15` declares no outgoing handoff. Every ESS, Chapter 16,
+  dependence, DOCX and Chapter 6 consequence already has a stable owner.
+- Chapter 6 remains deliberately `draft`; Chapters 7–14 retain their accepted
+  states. No chapter-ledger stage changes in WD-C15, no author reading is
+  claimed and no release action is authorised.
+- No write lock remains. C15 alone is next at sequence 121 and must be claimed
+  separately to assemble the acceptance package, cite the WD-C15 closeout
+  commit and stop for exactly `C15 accepted for <commit> on <date>`.
+
+## C15 closeout
+
+- The exact author reply was received as
+  `C15 accepted for a385ddc85c11e5d1cf63b33043c1df2a90cff6fb on 2026-08-17`.
+  It names the final WD-C15 closeout commit and decision date; the standing
+  5 August delegation was not used.
+- `notes/reports/c15-acceptance-package-2026-08-17.md` ties the decision to
+  Chapter 15 SHA-256
+  `fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813`,
+  git blob `aa644049bacb62e7fc05ab75d3b6157b83165b96`, all six final reports and
+  the synthesis.
+- The panel basis is 0 fatal, 0 major and 4 known nonblocking style-minor
+  records. No source edit or new panel is proposed.
+- Only `15-vise-grupa` advances from `draft` to `coauthor_review`. This records
+  an accepted revision state, not an assertion that the author read the
+  chapter and not a `final` stage.
+- Only `R09-C15-variance-ratio`, `R23-C15-suspect-code` and
+  `R35-REACHBACK-15` advance from `ratified` to `accepted`.
+  `R02-C15-dependent-revalidation` remains accepted and revalidated.
+  `R22-C14-C16-dependence` retains the passing Chapter 15 slice but remains
+  `ratified` for `WD-PART` until Chapter 16 passes.
+- Four style-minor records are known and nonblocking for this edition. They
+  were not edited, silently resolved or converted into a new obligation.
+- `packet_reviews.C15` records no outgoing handoff because the direct
+  successor and every ESS, dependence, DOCX and Chapter 6 consequence already
+  have stable owners.
+- The ninth distinct thread amendment is recorded in
+  `notes/reports/c15-g-a4-17-thread-amendment-2026-08-17.md`; it authorises the
+  strict chain only and waives no stop, gate or prerequisite.
+- Chapter 6 remains unchanged and deliberately `draft`. Chapters 7–14 retain
+  their accepted states. No author reading, external message or release action
+  is claimed.
+- No active write lock remains. `G-A4-16` alone is next at sequence 122 but is
+  not claimed inside C15.
+
+## G-A4-16 closeout
+
+- Clean preflight at C15 closeout commit
+  `a9697b1808765038e1d4a176223023e363ad3c3a` found no active packet,
+  `G-A4-16` alone at sequence 122 and a passing workflow validator. The gate
+  was claimed on 18 August 2026 as the sole write packet.
+- The bounded write set is
+  `notes/reports/g-a4-16-decision-package-2026-08-18.md` and the three control
+  files. Chapter 16, bibliography, data, figures, widgets, generated artifacts
+  and shared registries are outside the lock.
+- A complete scan of all 97 handoffs found no delivery targeted to `G-A4-16`.
+  Deliveries targeted to `WD-C16` remain unacknowledged and unconsumed until
+  that separate packet is lawfully claimed.
+- The complete decision package recommends Kleppang et al. (2021), PLOS ONE
+  Table 3 and only the first results paragraph beneath it. The bounded task
+  uses a semantically redrawn Croatian table and an adapted translated
+  paragraph; it preserves three specifications, reference groups, four AOR
+  estimates and 95% intervals and requires readers to mark absent model `N`,
+  fit, diagnostics, risks and predicted probabilities. There is no data
+  retrieval or model refit.
+- The documented lawful-use basis is CC BY 4.0 for an adapted table and
+  adapted paragraph in HTML, PDF and DOCX, with full attribution, DOI and
+  licence links and a change notice. No separate rights-holder permission,
+  fee or extension of article rights to Ungdata data is inferred or claimed.
+- The recommended binary-outcome disposition is to include a bounded reading
+  bridge in `WD-C16`: probability versus odds, reference group, `omjer
+  izgleda`, 95% interval and why the unavailable `predviđena vjerojatnost`
+  cannot be recovered from the table. It permits no logistic-model fitting or
+  derivation, empirical prediction, new definition block or second widget.
+- Author/editor Luka Sikic supplied all three exact replies on 18 August 2026
+  against C15 closeout commit
+  `a9697b1808765038e1d4a176223023e363ad3c3a`. Artifact, rights and bridge are
+  accepted exactly as recommended; neither the standing delegation nor an
+  inferred rights-holder permission was used.
+- `OA-G-A4-16-ARTIFACT` and `OA-G-A4-16-RIGHTS` are done. The decision record,
+  alternatives, blocked dependencies and authority boundary are complete;
+  `packet_reviews.G-A4-16` declares no new outgoing handoff because every
+  future consequence already has a direct registered owner.
+- Chapter 6 remains deliberately `draft`; Chapters 7–15 retain their accepted
+  stages. No chapter prose, bibliography, data, registry stage or generated
+  artifact changed, and no external or release action is claimed.
+- No active write lock remains. `WD-C16` alone is next at sequence 123 but is
+  not claimed inside G-A4-16.
+
+## WD-C16 closeout
+
+- WD-C16 was claimed from clean G-A4-16 reconciliation commit
+  `8e4a2c602d6acaa002d88ea8fbb00dab5e6439e5` as the sole write packet. Its
+  final source SHA-256 is
+  `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`
+  and git blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`.
+- `H-P3-ESS-001` was consumed before claim. `H-G-A2C-002`,
+  `H-P2-TERMS-003`, `H-P2-DOCS-001` and `H-WB-C06-001` were acknowledged
+  before substantive work and consumed before closeout with final-state
+  evidence. ESS remains optional, portal-mediated and unbundled; mandatory
+  work uses `populacija_medija`.
+- The chapter now holds one stable finite-population OLS estimand, distinguishes
+  total from source-conditional age patterns, teaches common cause, mediator and
+  collider roles, adds planned interaction and a real retrieval pause, enforces
+  the dependent-row stop rule and separates explanation, prediction and cause.
+- The accepted G-A4-16 route is implemented as a semantic Croatian adaptation
+  of Kleppang Table 3 plus its bounded paragraph. AOR 1,60, interval 1,43–1,80,
+  the 80th-percentile outcome, missing model information and complete CC BY 4.0
+  attribution appear without data retrieval or logistic-model refitting.
+- w16 and its production adapter now consume the same explicit noncached polar
+  stream. The OJS and R fingerprints are respectively
+  `bdc6ffbda4b05db4825fadb0f5660dd906ad60852d51eedcc07e8d007c045c37`
+  and `36fbdccd1e17bdd9b1dbc5c0cd94ad386f587215f3970d700f48fc8701c5b8df`;
+  the tolerance is unchanged and the sixth cache-asymmetry fixture fails closed.
+- The fresh concept graph has 49 nodes, 620 edges, 257 displayed co-occurrence
+  edges and 45 definition edges. Style, structure, figures, citations, concepts,
+  terminology, manuscript, spines, catalogue, ESS, assessment, data, all 17
+  widgets, token and workflow checks pass.
+- The exact held source rendered as targeted HTML of 235.391 bytes
+  (`31be2b4b…ef7fd`), approved-wrapper PDF of 5.923.376 bytes and 471 pages
+  (`6790130f…e5734`) and wrapper DOCX of 2.811.935 bytes
+  (`70f6480b…fc9f`). No generated artifact enters the primary checkout.
+- Two earlier panels were diagnostic. The mandatory final six-critic rerun on
+  blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3` records 0 fatal, 0 major and
+  4 nonblocking minor records: one skeptical, one pedagogical and two style.
+  There was no post-panel source edit.
+- Nine C16-owned ratified items materially pass but remain ratified until C16.
+  R02-C16 and the three R09-C16 items remain accepted and are revalidated. The
+  Chapter 16 slice of `R22-C14-C16-dependence` passes, while that multi-chapter
+  item remains ratified for `WD-PART`.
+- `packet_reviews.WD-C16` declares no outgoing handoff because all future
+  consequences already have owners. Chapter 6 remains deliberately `draft`,
+  Chapters 7–15 retain their accepted states and no chapter-ledger stage changes
+  in WD-C16.
+- At WD-C16 closeout no write lock remained and C16 alone became next at
+  sequence 124. That boundary was preserved until the separate C16 claim; no
+  author reading, acceptance, release action or publication was claimed.
+
+## C16 acceptance-package preparation
+
+- C16 was claimed from the clean WD-C16 closeout commit
+  `9cd5a7983d61d27fe9bb8ca77d8764b419ec857a` as the sole active packet.
+  Ownership is limited to the acceptance package and three control views; no
+  chapter prose, registry item, chapter-ledger stage or handoff status changed.
+- The complete package is
+  `notes/reports/c16-acceptance-package-2026-08-18.md`. It binds the author
+  decision to Chapter 16 SHA-256
+  `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`, git
+  blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`, all six final reports and the
+  synthesis.
+- The panel disposition is fully exposed: 0 fatal, 0 major and 4 proposed
+  known nonblocking minor records. There was no post-panel source edit.
+- On an exact acceptance reply only, the proposed narrow disposition would
+  advance `16-regresija` from `draft` to `coauthor_review` and only nine
+  C16-owned ratified items to `accepted`. The accepted R02-C16 and three
+  R09-C16 items would remain accepted and be recorded as revalidated;
+  `R22-C14-C16-dependence` would remain ratified for `WD-PART`.
+- At the preparation checkpoint C16 remained `in_progress`, Chapter 16 stayed
+  `draft` and the nine items stayed `ratified`; `G-A4-17` was neither claimed
+  nor permitted while the reply was absent. Chapter 6 remained deliberately
+  `draft`.
+- The exact required reply is
+  `C16 accepted for 9cd5a7983d61d27fe9bb8ca77d8764b419ec857a on 2026-08-18`.
+  No author reading, `final` state, release action or publication is claimed.
+
+## C16 closeout
+
+- Luka Sikic supplied the exact required reply for WD-C16 commit
+  `9cd5a7983d61d27fe9bb8ca77d8764b419ec857a` on 18 August 2026. The standing
+  5 August delegation was not used and no author reading is claimed.
+- C16 accepts the six-report synthesis on Chapter 16 SHA-256
+  `dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671`
+  and git blob `99e20c5885ab10a0bbdfaa8981431edf20e556a3`, with 0 fatal, 0 major and 4
+  known nonblocking minor records. The source was not edited.
+- `16-regresija` alone advances from `draft` to `coauthor_review`. The ledger
+  explicitly records that this is not `final` and does not mean that the author
+  read the chapter.
+- Exactly nine C16-owned items advance from `ratified` to `accepted`:
+  `R08-C16-cross-design`, `R14-C16-binary-reading`, `R14-C16-interaction`,
+  `R14-C16-adjustment-contract`, `R16-C16-table`, `R16-C16-paragraph`,
+  `R16-C16-no-refit`, `R29-C16-retrieval` and `R35-REACHBACK-16`.
+- `R02-C16-dependent-revalidation` and the three R09-C16 items remain
+  accepted and gain final-state revalidation evidence.
+  `R22-C14-C16-dependence` records a passing Chapter 16 slice but remains
+  ratified for `WD-PART`.
+- `packet_reviews.C16` declares no new outgoing handoff because every later
+  consequence already has an owner. Chapter 6 remains deliberately `draft`,
+  and Chapters 7–15 retain their accepted states.
+- No write lock remains. G-A4-17 alone is next at sequence 125 and is not
+  claimed inside C16. Push, merge, tag, archive, deployment and publication
+  remain unauthorised.
+
+## G-A4-17 author-brief preparation
+
+- G-A4-17 was claimed from the clean C16 closeout commit
+  `26197f84889f1b1caffc25e4bbc171631328adb4` as the sole write packet. Its
+  bounded write set contains only
+  `notes/reports/g-a4-17-decision-package-2026-08-18.md` and the three workflow
+  control views. Chapter 17, data, bibliography, widget, catalogue and shared
+  registries remain outside the lock.
+- The complete 97-handoff ledger has no delivery targeted to `G-A4-17`.
+  Deliveries and evidence owned by `G-A3-TEXT`, `P3-TEXT` and `WD-C17` are not
+  acknowledged or consumed in advance.
+- The recommended central question follows one decision: whether a
+  parliamentary sentence is sent to human review for possible inclusion in a
+  public summary. This is a bounded teaching decision over real governed text,
+  not a claim that an identified institution deployed such a system. It does
+  not automate publication, deletion, punishment or an inference about the
+  speaker's intention.
+- D07 remains intact. The existing fairness widget is the sole central widget
+  and carries a simulation with a known mechanism. The linked
+  ParlaMint-HR/ParlaSent package carries the empirical worked example with
+  fallible recorded labels, selection and an inspectable transformation trail;
+  the two roles are not interchangeable.
+- The recommended selection rule keeps every unit meeting predeclared
+  language, country, time and linkage conditions without outcome balancing.
+  The source test portion remains an untouched `skup za ispitivanje`; only the
+  original training portion is deterministically grouped by stable
+  speech/document key into `skup za učenje` and `skup za provjeru`, with no
+  cross-split twin or document leakage. No training-file prevalence claim is
+  permitted.
+- The three linked layers are inspectable speech/sentence text, prepared counts
+  and labelled sentences. They support one comparison of normalization, corpus
+  boundary and coding procedure, while separating predictive performance from
+  construct validity and the recorded reference outcome from truth.
+- The full outline follows corpus and unit, label production, split and
+  evaluation, threshold and the single confusion-table object, subgroup error
+  burdens, procedural fairness, system feedback and monitoring, and language
+  models as prediction systems. Machine-learning mathematics, tokenization,
+  lemmatization, model training and assessed R production remain excluded.
+- G-A2c remains binding: `predviđanje` is canonical; `predikcija` appears only
+  in `sustav predikcije`; the full split vocabulary and its three component
+  names are fixed; `tablica zabune` is the Chapter 17 name for the same table
+  object introduced in Chapter 13; `osjetljivost` never names a rate from that
+  table. Exactly two later definition blocks remain permitted:
+  `zabilježeni referentni ishod` and `klasifikacijski prag`.
+- DigiKat and Eurostat are not repurposed. Any later reach-back retains the
+  no-trend-across-2024 rule, the June 2024 method break, denominator 551.712,
+  no measured/unmeasured reach or interaction comparison, the visible unsmoothed
+  2024 gap, and Eurostat's single 2025 cross-section with source flags.
+- `OA-G-A4-17-BRIEF` is ready and awaiting exactly
+  `G-A4-17 accepted as recommended for 26197f84889f1b1caffc25e4bbc171631328adb4 on 2026-08-18.`
+  The gate remains `in_progress`; no author decision, chapter reading,
+  reader-tested validation, measured reading time or independent terminology
+  review is inferred.
+- `G-A3-TEXT`, `P3-TEXT` and `WD-C17` remain blocked. Chapter 6 remains
+  deliberately `draft`. No external message or release action is claimed.
+
+## G-A4-17 closeout
+
+- Luka Sikic supplied the exact required reply on 18 August 2026 against C16
+  closeout commit `26197f84889f1b1caffc25e4bbc171631328adb4`. The accepted
+  preparation commit is `cc08688e021c3e2f12662b654d952bd35854c676`; no
+  standing delegation was used and no author reading is claimed.
+- The accepted brief follows one decision: whether a parliamentary sentence is
+  sent to human review for possible inclusion in a public summary. It claims no
+  deployed institutional system, automatic publication, deletion, punishment
+  or inference about speaker intention.
+- The selection contract keeps every unit satisfying predeclared conditions,
+  preserves the source test portion as the untouched `skup za ispitivanje` and
+  derives training and validation only inside the source training portion by
+  stable speech/document grouping. Outcome balancing, prevalence claims and
+  record, text-twin, speech or document leakage are excluded.
+- The empirical package retains three linked roles: inspectable speech and
+  sentence text, prepared counts and labelled sentences with individual coder
+  labels, the reconciled recorded-reference label and source split. `w17`
+  remains the sole central known-mechanism simulation and does not become an
+  empirical ParlaSent widget.
+- G-A2c remains exact: `predviđanje` is canonical, `predikcija` survives only
+  in `sustav predikcije`, the three split components keep their fixed names,
+  `tablica zabune` is the same table object already introduced in Chapter 13,
+  and `osjetljivost` never names a confusion-table rate. Only
+  `zabilježeni referentni ishod` and `klasifikacijski prag` may later receive
+  new definition blocks.
+- All 20 governed Chapter 17 content items remain `ratified`. The gate accepts
+  no source file, rights conclusion, empirical number, bibliography entry,
+  data package, widget change or Chapter 17 prose. `G-A3-TEXT`, `P3-TEXT`,
+  `P3-VERIFY` and `WD-C17` retain their separate evidence gates.
+- `packet_reviews.G-A4-17` declares no new outgoing handoff because the two
+  G-A3-TEXT asks, later packets, 20 content items and Chapter 6 already have
+  registered owners. The DigiKat and Eurostat boundaries remain unchanged.
+- Chapter 6 remains deliberately `draft`. No reader test, measured reading
+  time, independent terminology review, external message or release action is
+  claimed.
+- No active write lock remains. `G-A3-TEXT` alone is next at sequence 126 and
+  is not claimed inside G-A4-17.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -5123,32 +5892,25 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify that HEAD is the clean C12 closeout commit. Confirm no write packet is
-active, `C12` is the last completed packet and `WC-PARTS` alone is next.
-Verify that Chapter 12 remains at source SHA-256
-`47700c17b95dcccad6972eec9f1db1729ea0be42c70dc511bf2b755c2220db7a` and
-stage `coauthor_review`. Chapter 6 remains deliberately `draft` under
-`H-WB-PART-001`; do not edit, advance or re-panel it.
+Verify that HEAD is the clean G-A4-17 closeout commit whose parent is the
+preparation commit `cc08688e021c3e2f12662b654d952bd35854c676`. Confirm that
+G-A4-17 is accepted against C16 closeout commit
+`26197f84889f1b1caffc25e4bbc171631328adb4`, no packet is active and
+G-A3-TEXT alone is next at sequence 126. Confirm that all 20 Chapter 17 content
+items remain ratified, Chapter 17 and its widget are unchanged, Chapter 6
+remains deliberately draft, and `OA-G-A4-17-BRIEF` is done.
 
-Confirm the control-only decision
-`A-THREAD-C12-WD-C13-2026-08-13` authorises only the strict sequence
-`WC-C12`, `C12`, `WC-PARTS`, `P3-VERIFY-D`, `WD-C13`. Each packet keeps its
-own claim, single lock, evidence, handoff dispositions, workflow checks,
-closeout and commit. C12 and WC-PARTS retain their mandatory author stops.
-
-Claim only WC-PARTS, but make no prose edit. Read its exact registered scope,
-items, dependencies and all applicable handoffs. Then enumerate every unit the
-packet would change, each unit's current chapter-ledger stage, the exact
-proposed change and whether it would materially alter an already accepted
-chapter body.
-
-Stop and present that blast-radius list to the author before editing prose. Ask
-the author to choose between: (A) honestly returning every materially changed
-accepted unit to `draft` and scheduling its fresh panel, or (B) constraining
-WC-PARTS to additive bridges and self-checks that do not alter accepted chapter
-bodies. Do not infer the choice from prior approvals or standing delegation.
-Leave WC-PARTS active at this mandatory author stop until the choice is given.
-Chapter 6 remains deliberately draft and untouched. Do not claim P3-VERIFY-D
-or WD-C13. Push, merge, tag, archive, deployment and publication remain
+Claim only G-A3-TEXT. Fully read the accepted G-A4-17 brief, P1B licence/access
+inventory, catalogue contract, `OA-G-A3-TEXT-SELECTION` and
+`OA-G-A3-TEXT-RIGHTS`. Prepare the complete ParlaMint-HR/ParlaSent selection
+and rights decision: pin the exact official editions and files; prove the
+source-level linkage and grouped split are feasible or fail closed; specify
+the three linked layers, units, labels, source split and exclusions; and verify
+CC BY 4.0 versus CC BY-SA 4.0 derivation, redistribution, attribution and
+ShareAlike duties from primary official records. Do not retrieve or promote
+data, write Chapter 17 prose, accept G-A3-TEXT, claim P3-TEXT or infer a right
+that the sources do not state. Stop for the exact author/rights dispositions.
+Preserve G-A2c vocabulary, the Chapter 13 prerequisite and all DigiKat/Eurostat
+boundaries. Push, merge, tag, archive, deployment and publication remain
 separately gated.
 ```
