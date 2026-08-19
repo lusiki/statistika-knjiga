@@ -7649,8 +7649,9 @@ handoffs:
           - "boundary:item-remains-ratified-until-C18-author-reply"
       - target_packet: C18
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-19"
+        resolved_at: "2026-08-19"
         acknowledgement: >-
           C18 accepts the verified two-source transition as an incoming
           acceptance constraint. WE-C18 has now performed or explicitly
@@ -7659,6 +7660,23 @@ handoffs:
           R27-C17-18-transition remains ratified and this acknowledged
           delivery is not consumed until the exact dated author reply closes
           C18.
+        disposition: >-
+          Luka Sikic supplied the exact C18 acceptance for WE-C18 closeout
+          commit be70fef341c46103b7252c3dd6b5c76c9545072e on 2026-08-19.
+          Both source sides are verified on their exact blobs, so
+          R27-C17-18-transition advances from ratified to accepted without a
+          chapter-source edit. The acceptance claims neither author reading
+          nor a final chapter stage.
+        evidence:
+          - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+          - "blob:chapters/18-vase-prvo-istrazivanje.qmd@d71b8f511acda07986a17bb39506078458f5fe65"
+          - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+          - "report:notes/reports/wd-part-2026-08-19.md"
+          - "report:notes/reports/we-c18-2026-08-19.md"
+          - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+          - "report:notes/reports/c18-acceptance-package-2026-08-19.md"
+          - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
+          - "item:R27-C17-18-transition-accepted"
 
   H-WE-C18-001:
     source_packet: WE-C18
@@ -10916,3 +10934,32 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - C18 is the sole next permitted packet but is not claimed inside WE-C18
       - no author reading external message push merge tag archive deployment publication or future-packet acceptance is claimed or authorised
+
+  C18:
+    reviewed_at: "2026-08-19"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C18 creates no new future obligation. H-WE-C18-001 already owns the
+      bibliography-type reconciliation for P6-EVIDENCE, H-P3-CATALOG-002
+      already owns public ParlaSent catalogue exposure for P5-C,
+      R04-C18-whole-prerequisites remains explicitly owned by P5-ROUTES, and
+      the assessment-closure packets own their canonical answer and visibility
+      work. Repeating those controls would add no ownership or information.
+    implementation_state: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
+    checks:
+      - H-WD-PART-001 was acknowledged before C18 preparation and consumed only after the exact dated author reply with both source blobs and final panel evidence
+      - the exact author reply names final WE-C18 closeout commit be70fef341c46103b7252c3dd6b5c76c9545072e and date 2026-08-19
+      - the standing 5 August delegation was not used and no author reading is claimed
+      - all six critic reports and the synthesis address source SHA256 5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88 and git blob d71b8f511acda07986a17bb39506078458f5fe65
+      - the final panel records zero fatal and zero major findings and every minor and useful finding is displayed and accepted as nonblocking without reopening the source
+      - notes/reports/c18-acceptance-package-2026-08-19.md cites the final source commit all six reports the synthesis exact reply complete blocked-item list and ledger disposition
+      - chapter-ledger.json advances only 18-vase-prvo-istrazivanje from draft to coauthor_review and explicitly records no claim that the author read the chapter and no final status
+      - only the thirteen WE-C18 items and R27-C17-18-transition named in the acceptance package advance from ratified to accepted
+      - R09-C18-interval-conclusion remains accepted with final-source revalidation and R04-C18-whole-prerequisites remains ratified for P5-ROUTES
+      - H-WE-C18-001 remains pending only for P6-EVIDENCE and no new outgoing handoff is required
+      - Chapter 6 remains unchanged and draft and Chapters 7 through 17 retain their accepted states
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C18
+      - P5-CLOSURE-00 is the sole next permitted packet but is not claimed inside C18
+      - no external message push merge tag archive deployment publication or author-reading claim is made or authorised

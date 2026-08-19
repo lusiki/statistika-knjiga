@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C18"
-    claimed_at: "2026-08-19"
-    owned_paths:
-      - "notes/reports/c18-acceptance-package-2026-08-19.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WE-C18"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C18"
+  next_permitted_packet: "P5-CLOSURE-00"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -14904,7 +14897,7 @@ packets:
     sequence: 133
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WE-C18"
     scope: "Author acceptance and panel disposition for C18."
@@ -14915,14 +14908,86 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-skeptic-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-style-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-structure-2026-08-19.md"
+            - "panel:zero-fatal-zero-major-all-minor-and-useful-findings-displayed-and-dispositioned"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+            - "report:notes/reports/c18-acceptance-package-2026-08-19.md"
+            - "disposition:accept-13-WE-C18-items-plus-R27-C17-18-transition-and-advance-only-18-vase-prvo-istrazivanje-to-coauthor_review"
+            - "revalidation:R09-C18-interval-conclusion-remains-accepted"
+            - "boundary:R04-C18-whole-prerequisites-remains-ratified-for-P5-ROUTES"
+            - "boundary:all-minor-and-useful-findings-accepted-as-nonblocking-without-source-reopening"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
+            - "evidence:conversation-user-message-recorded-2026-08-19"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+            - "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#18-vase-prvo-istrazivanje-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C18 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
+            - "reports:we-c18-six-final-critic-reports"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+            - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
+            - "report:notes/reports/c18-acceptance-package-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared C18 source state and bounded scope."
+          artifacts:
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+            - "items:14-C18-blocked-items-accepted"
+            - "revalidation:R09-C18-interval-conclusion-remains-accepted"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#18-vase-prvo-istrazivanje"
+            - "handoff:H-WD-PART-001-consumed-at-C18"
+            - "boundary:R04-C18-whole-prerequisites-remains-ratified-for-P5-ROUTES"
+            - "boundary:Chapter-6-unchanged-and-draft"
+            - "boundary:P5-CLOSURE-00-unclaimed"
+            - "review:packet_reviews.C18-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
+            - "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+            - "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+            - "reports:we-c18-six-final-critic-reports"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
+            - "panel:zero-fatal-zero-major"
+            - "disposition:all-minor-and-useful-findings-displayed-and-accepted-as-nonblocking"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c18-acceptance-package-2026-08-19.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#18-vase-prvo-istrazivanje-stage-coauthor_review"
+            - "items:14-C18-blocked-items-accepted"
+            - "boundary:acceptance-does-not-claim-author-reading-or-final-stage"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   P5-CLOSURE-00:
     sequence: 134
     phase: "5"
@@ -21439,7 +21504,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Retain the known-truth study and add a bounded real-data transfer."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -21461,11 +21526,12 @@ items:
       - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
       - "evidence:known-truth-simulated-study-plus-bounded-ParlaSent-transfer-with-passport-and-claim-boundary"
       - "check:TEXT_PACKAGE_OK-and-CITATION_INTEGRITY_OK"
-      - "panel:zero-fatal-zero-major-pending-C18-author-gate"
+      - "panel:zero-fatal-zero-major-C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R08-CATALOG-question-led:
     parents:
       - "R08"
@@ -22369,10 +22435,13 @@ items:
       - "chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1"
       - "report:notes/reports/p1a-c18-methods-review-2026-08-03.md"
       - "critic_methods:pass-interval-compatible-conclusion-and-known-generator-boundary"
+      - "revalidation:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "revalidation:report-notes/reports/we-c18-critic-methods-2026-08-19.md"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "chapter:sha1-f291e63173892eca483ed9c9e89df70be5bb1bd1"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R10-C03-base-rate:
     parents:
       - "R10"
@@ -22473,7 +22542,7 @@ items:
       location: "§7/§8 Ch18"
     description: "Harvest the four promises, six claim dimensions, seven threads, lifecycle, and method boundaries."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22495,11 +22564,12 @@ items:
       - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
       - "evidence:four-promises-six-claim-dimensions-seven-threads-nine-lifecycle-stages-and-four-activity-boundaries-harvested"
       - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
-      - "boundary:no-new-method-and-pending-C18-author-gate"
+      - "boundary:no-new-method-and-C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R10-DS-workflow-scope:
     parents:
       - "R10"
@@ -22938,7 +23008,7 @@ items:
       location: "§12 analysis table"
     description: "Require capstone audit of units, eligibility, joins, recodes, transformations, and missingness."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22960,11 +23030,12 @@ items:
       - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
       - "evidence:analysis-table-audits-unit-eligibility-joins-recodes-transformations-exclusions-and-missingness"
       - "evidence:complete-case-boundary-explicitly-retained"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R11-C04-wrong-join-AI:
     parents:
       - "R11"
@@ -24221,7 +24292,7 @@ items:
       location: "§12 text cross-chapter preparation"
     description: "Require corpus passport, transformations, labels, and claim limits in transfer."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24243,11 +24314,12 @@ items:
       - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
       - "evidence:ParlaSent-passport-transformations-label-paths-and-unavailable-claims-auditable"
       - "check:TEXT_PACKAGE_OK-rows-2698-documents-2499-splits-1090-272-1336"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R14-C02-confounder:
     parents:
       - "R14"
@@ -25729,7 +25801,7 @@ items:
       location: "§12 finale"
     description: "Retain the known-truth simulated study and add a bounded empirical transfer audit."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -25751,11 +25823,12 @@ items:
       - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
       - "evidence:known-generator-first-pass-and-unknown-truth-ParlaSent-transfer-second-pass"
       - "evidence:question-design-claim-audit-repeated-without-new-method"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R18-PARITY-framework:
     parents:
       - "R18"
@@ -26751,7 +26824,7 @@ items:
       location: "§8/§12 Ch18"
     description: "Include a defensible capstone sensitivity that changes the conclusion boundary without threshold ritual."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26774,11 +26847,12 @@ items:
       - "evidence:age-adjusted-primary-estimate-minus-0.0083-CI-minus-0.1864-to-0.1697"
       - "evidence:unadjusted-sensitivity-estimate-0.2461-CI-0.0927-to-0.3996"
       - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R20-AA-loader:
     parents:
       - "R20"
@@ -28099,7 +28173,7 @@ items:
       location: "§13"
     description: "Source factual claims and distinguish dated book policy."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor_and_course_or_institutional_owner"
     scope:
@@ -28123,11 +28197,12 @@ items:
       - "evidence:D15-policy-v1.0-dated-2026-08-04-and-explicitly-not-law-or-institutional-rule"
       - "evidence:no-unsourced-empirical-reidentification-claim"
       - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R24-AF-privacy-sources:
     parents:
       - "R24"
@@ -28658,7 +28733,7 @@ items:
       location: "§6/§8 Ch18"
     description: "Apply the Chapter 17 audit to the empirical transfer where relevant."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28681,11 +28756,12 @@ items:
       - "evidence:provenance-label-path-document-leakage-verification-and-AI-disclosure-performed"
       - "boundary:classifier-subgroup-error-shift-threshold-monitoring-and-appeal-explicitly-unavailable-or-future-bounded"
       - "handoff:H-WD-PART-001-consumed-at-receiving-side"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R24-C18-explanatory-scope:
     parents:
       - "R24"
@@ -28699,7 +28775,7 @@ items:
       location: "§8 Ch18"
     description: "State why the main explanatory study does not use every predictive/Chapter 17 method."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28722,11 +28798,12 @@ items:
       - "evidence:main-study-explicitly-explanatory-with-linear-additive-age-adjustment"
       - "boundary:train-test-threshold-and-subgroup-error-omissions-are-claim-scope-not-forgotten-content"
       - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R24-C18-dated-policy:
     parents:
       - "R24"
@@ -28740,7 +28817,7 @@ items:
       location: "§8 Ch18"
     description: "Frame respondent privacy under D15 as dated conservative policy."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor_and_course_or_institutional_owner"
     scope:
@@ -28763,11 +28840,12 @@ items:
       - "decision:D15-course-policy-v1.0-2026-08-04"
       - "evidence:public-contract-protected-and-local-data-lanes-with-safe-alternative"
       - "boundary:policy-legal-description-and-empirical-evidence-remain-distinct"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R24-C00-stable-thesis:
     parents:
       - "R24"
@@ -28980,7 +29058,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Harvest specify, delegate, reproduce, challenge, document, and disclose."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29003,11 +29081,12 @@ items:
       - "evidence:specify-delegate-reproduce-challenge-document-disclose-six-step-workflow"
       - "evidence:seven-field-verification-record-and-transfer-specific-AI-disclosure"
       - "evidence:exactly-one-planted-AI-error-confirmed-by-six-critic-panel"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R24-BOOK-three-roles:
     parents:
       - "R24"
@@ -30370,7 +30449,7 @@ items:
       location: "§6/§8"
     description: "Hand off thresholds, error burdens, monitoring, appeal, and responsible delegation to Chapter 18."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -30387,10 +30466,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+      - "blob:chapters/18-vase-prvo-istrazivanje.qmd@d71b8f511acda07986a17bb39506078458f5fe65"
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "result:Chapter-17-handoff-performed-or-explicitly-bounded-in-Chapter-18"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "report:notes/reports/we-c18-2026-08-19.md"
+      - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+      - "handoff:H-WD-PART-001-consumed-at-C18"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     partial_completion_evidence:
       chapter_17:
-        status: "verified_pending_chapter_18_receiving_side"
+        status: "verified_and_accepted_at_C18"
         artifacts:
           - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
           - "result:explicit-handoff-of-threshold-error-burden-monitoring-appeal-and-responsible-delegation"
@@ -30398,21 +30486,17 @@ items:
           - "report:notes/reports/wd-part-2026-08-19.md"
           - "handoff:H-WD-PART-001"
       chapter_18:
-        status: "verified_pending_C18_author_gate"
+        status: "verified_and_accepted_at_C18"
         artifacts:
           - "blob:chapters/18-vase-prvo-istrazivanje.qmd@d71b8f511acda07986a17bb39506078458f5fe65"
           - "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
           - "result:threshold-error-burden-monitoring-appeal-and-responsible-delegation-performed-or-explicitly-bounded"
           - "panel:six-independent-critics-zero-fatal-zero-major"
           - "handoff:H-WD-PART-001-consumed-by-WE-C18"
-    open_reason: >-
-      Both source sides are now verified on their exact blobs. The item remains
-      ratified because final acceptance belongs to the separate C18 author gate
-      and requires the exact dated author reply tied to the WE-C18 closeout.
     blocker:
       active: false
       ask_id: null
-    change_reference: "source-pair:86e387bbd0df139762001dd22d079d1a51a96c77+d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R27-C13-partV-contract:
     parents:
       - "R27"
@@ -31496,7 +31580,7 @@ items:
       location: "§8/Phase 4 Ch18"
     description: "Make the empirical transfer completable through every supported route."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -31520,11 +31604,12 @@ items:
       - "render:HTML-ed276c39617af6f5c4b7687d4cd726d4b56b5f91e9d57d97a5f4a50e51ee4ded"
       - "render:PDF-2f82e9046270129390389abe0ed37ceb826ae7d5a8fcfc1b390650874e7a5b59"
       - "render:DOCX-ec6be44ad85fd9a26bd564d84433ff9cd0f9ba73b45e1376c385d920bdb0ec99"
-      - "boundary:pending-C18-author-gate"
+      - "boundary:C18-author-gate-accepted"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R33-C00-miniature-inquiry:
     parents:
       - "R33"
@@ -32175,7 +32260,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 18 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -32198,11 +32283,12 @@ items:
       - "evidence:conceptual-task-reaches-back-to-misleading-numbers-sampling-crisis-and-reform-and-algorithm-age"
       - "evidence:task-cannot-be-solved-by-current-chapter-model-alone-and-remains-in-four-tier-structure"
       - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
-      - "boundary:canonical-closure-remains-P5-CLOSURE-18-and-final-item-acceptance-remains-C18"
+      - "boundary:canonical-closure-remains-P5-CLOSURE-18-and-final-item-accepted-at-C18"
+      - "author_reply:C18-accepted-for-be70fef341c46103b7252c3dd6b5c76c9545072e-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "commit:be70fef341c46103b7252c3dd6b5c76c9545072e"
   R35-SELF-CHECK-I:
     parents:
       - "R35"
@@ -35169,8 +35255,8 @@ outside_asks:
       Chapter 6 remains draft, and no author reading or final stage is claimed.
 
   OA-C18-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "awaiting_exact_author_reply"
+    status: "done"
+    readiness: "complete"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -35221,6 +35307,17 @@ outside_asks:
     external_message_sent: false
     prepared_at: "2026-08-19"
     prepared_against_we_c18_closeout_commit: "be70fef341c46103b7252c3dd6b5c76c9545072e"
+    completed_at: "2026-08-19"
+    outcome: >-
+      Luka Sikic supplied the exact dated C18 acceptance naming WE-C18
+      closeout commit be70fef341c46103b7252c3dd6b5c76c9545072e. The gate
+      applies only the narrow Chapter 18 ledger disposition, the thirteen
+      WE-C18 item acceptances and R27-C17-18-transition recorded in the
+      package. R09-C18-interval-conclusion remains accepted and revalidated,
+      R04-C18-whole-prerequisites remains ratified for P5-ROUTES, every minor
+      and useful finding is accepted as nonblocking without reopening the
+      source, Chapter 6 remains draft, and no author reading or final stage is
+      claimed.
 
   OA-G-A5B-FINAL-METADATA:
     status: "drafted_unsent"
