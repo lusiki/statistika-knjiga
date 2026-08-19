@@ -444,7 +444,7 @@ function w16(parameters) {
 function w17(parameters) {
   const p = parameters.scenarios[0];
   const rng = lcg(p.seed);
-  const randomNormal = normal(rng);
+  const randomNormal = fixture === "w17-cached-normal" ? normalCached(rng) : normal(rng);
   const clamp = value => Math.max(0, Math.min(1, value));
   const negative = Array.from({length: p.n_per_class}, () => clamp(0.30 + 0.18 * randomNormal()));
   const positive = Array.from({length: p.n_per_class}, () => clamp(0.70 + 0.18 * randomNormal()));

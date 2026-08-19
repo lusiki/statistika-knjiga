@@ -201,7 +201,9 @@ def apply_fixture(catalogue: dict[str, Any], fixture: str) -> list[str]:
         for package in packages:
             if package["lane"] == "bundled" and package.get("promoted") is not True:
                 package["promoted"] = True
-                package["promoted_by"] = package["promoting_gate"]
+                promoting_packet = package.get("promoting_gate") or "P3-FIXTURE"
+                package["promoting_gate"] = promoting_packet
+                package["promoted_by"] = promoting_packet
                 package["redistribution"] = "provjerena"
                 break
         else:

@@ -6,13 +6,20 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-18"
+  last_updated: "2026-08-19"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
-  last_completed_packet: "G-A4-17"
-  next_permitted_packet: "G-A3-TEXT"
+  active_write_packet:
+    id: "C18"
+    claimed_at: "2026-08-19"
+    owned_paths:
+      - "notes/reports/c18-acceptance-package-2026-08-19.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
+  last_completed_packet: "WE-C18"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2299,6 +2306,155 @@ decisions:
       independent terminology review and authorises no push, merge, tag,
       archive, deployment or publication.
 
+  G-A3-TEXT:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "selection_and_rights_accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence:
+      - "conversation:G-A3-TEXT-SELECTION-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "conversation:G-A3-TEXT-RIGHTS-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+    decision_record: "notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+    preparation_commit: "8d4d36f0df502c624d5ee5420b70af5f849262cb"
+    accepted_against_g_a4_17_closeout_commit: "7298a62a1c030f80c3d65443e8d311c76e1b1205"
+    accepted_dispositions:
+      pinned_sources: >-
+        Use only official ParlaMint 5.0 ParlaMint-HR.tgz at published MD5
+        b852098ae5c2561aef1de43f44e09a77 and ParlaSent 1.0
+        ParlaSent_BCS.jsonl, ParlaSent_BCS_test.jsonl and README at their
+        published MD5 values. ParlaMint is CC BY 4.0 and ParlaSent is CC BY-SA
+        4.0. No data byte was retrieved or accepted at this decision gate.
+      rows_and_linkage: >-
+        Keep all and only rows whose source country field demonstrably means
+        Croatia, without label balancing, and retain only uniquely linked
+        enclosing Croatian ParlaMint speeches plus necessary context and
+        metadata. If the test schema lacks country or an equally authoritative
+        stable Croatia link, or any selected sentence lacks a unique speech
+        link, P3-TEXT must fail closed rather than infer country or discard the
+        inconvenient row.
+      split_and_labels: >-
+        Preserve selected source-test rows as the untouched skup za
+        ispitivanje, remove training documents crossing that boundary, and
+        derive deterministic grouped 80:20 training and validation partitions
+        only inside remaining source-training documents using the published
+        SHA-256 rule. Preserve the two-coder-plus-reconciliation training path
+        and single-expert test path in put_oznake; never invent a test
+        reconciliation.
+      output_views_and_consumer: >-
+        Produce only parlament_govori.csv, parlament_mjere.csv and
+        parlament_oznake.csv with stable links and the exact speech, measure,
+        label and split roles in the decision record. WD-C17 is the sole
+        analytical consumer across HTML, PDF, DOCX, no-code and print; P3-TEXT
+        and P3-VERIFY are governance packets rather than analytical consumers.
+      rights_and_attribution: >-
+        Distribute ParlaMint-only speech and measure outputs under CC BY 4.0.
+        Distribute every ParlaSent-derived labelled output and every truly
+        joined output under CC BY-SA 4.0, preserving ShareAlike and attributing
+        each contributing source with creators, title, version, publisher,
+        handle, licence and modifications. File-level data licences do not
+        relicense MIT code, other CC BY data, separate ParlaMint-only files or
+        the whole book. No special rights-holder permission is claimed or was
+        sought.
+      claim_boundary: >-
+        The package may support only the bounded teaching decision about human
+        review and inspectable corpus, label, split, threshold and conditional
+        denominator choices. It supports no prevalence, causal, speaker-intent
+        or out-of-corpus generalisation claim and accepts no empirical count,
+        linkage rate or performance result at this gate.
+    rejected_alternatives:
+      - "Infer Croatia from speaker names, party labels or sentence text when the source test schema lacks authoritative country evidence."
+      - "Drop unlinked or inconvenient Croatian test rows after inspection, rebalance outcomes or randomly split sentences across documents."
+      - "Use the complete 398 MB ParlaMint-HR corpus rather than the minimal uniquely linked speech subset."
+      - "Flatten every derived file to CC BY 4.0 and erase ParlaSent ShareAlike obligations."
+      - "Flatten all outputs to CC BY-SA 4.0 and obscure the separate CC BY 4.0 route for ParlaMint-only files."
+      - "Fall back to a portal or ParlaMint-only package without a new author disposition."
+    blocked_dependencies:
+      immediate_next_packet:
+        - "P3-TEXT"
+      later_gates_still_mandatory:
+        - "P3-TEXT"
+        - "P3-VERIFY"
+        - "WD-C17"
+        - "C17"
+      governed_items_remain_ratified: 20
+    authority_boundary: >-
+      This decision accepts only the exact source editions, Croatian row and
+      linkage boundary, grouped split, label-path preservation, three output
+      roles, sole WD-C17 consumer, file-level licence matrix and claim limits
+      recorded in the dated report against commit
+      7298a62a1c030f80c3d65443e8d311c76e1b1205. It retrieves and promotes no
+      data, records no derived checksum or count, edits no catalogue,
+      bibliography, chapter, widget, terminology or Bookwright shared registry,
+      closes no content item and accepts no later packet. It claims no
+      rights-holder permission, author reading, reader test, measured reading
+      time or independent terminology review and authorises no push, merge,
+      tag, archive, deployment or publication.
+
+  A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "bounded_official_edition_research_authorised"
+    author: "Luka Sikic"
+    evidence: "conversation:P3-TEXT-LINKAGE-RESEARCH-approved-for-ParlaMint-HR-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c-and-ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+    decision_record: "notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
+    applies_to: "P3-TEXT"
+    accepted_source_state:
+      parlamint_hr_5_0_sha256: "bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c"
+      parlasent_bcs_test_1_0_sha256: "412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+    authorised_action: >-
+      Inspect only official, versioned and licensed ParlaMint-HR editions to
+      identify the exact edition from which ParlaSent 1.0 was derived and test
+      whether all 1336 Croatian test rows link uniquely without fuzzy matching,
+      row removal or guessing.
+    stop_conditions:
+      - "If one exact official edition links all 1336 Croatian test rows uniquely, stop for a separate source-selection and rights decision before using it."
+      - "If no exact official edition passes, record the blocker and stop for a separate ParlaSent-only redesign or removal decision."
+    authority_boundary: >-
+      This amendment permits bounded source research and candidate-lane
+      retrieval only. It accepts no different ParlaMint-HR edition, licence or
+      right for the teaching package; creates no teaching output; changes no
+      catalogue or promotion state; removes no row; and does not close P3-TEXT
+      or unblock P3-VERIFY, WD-C17 or C17. No rights-holder permission, author
+      reading, reader test, measured reading time, independent terminology
+      review, push, merge, tag, archive, deployment or publication is claimed.
+
+  A-P3-TEXT-ROUTE-2026-08-18:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "parlasent_only_accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence: "conversation:P3-TEXT-ROUTE-accepted-as-recommended-ParlaSent-only-for-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98-and-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+    decision_record: "notes/reports/p3-text-route-decision-2026-08-18.md"
+    applies_to: "P3-TEXT"
+    accepted_source_state:
+      parlasent_bcs_sha256: "c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+      parlasent_bcs_test_sha256: "412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+    accepted_disposition: >-
+      Redesign P3-TEXT as ParlaSent-only. Retain every Croatian source-test
+      row, remove source-training documents crossing the test boundary, derive
+      deterministic grouped training and validation partitions only from the
+      remaining source-training rows, preserve the recorded label-production
+      paths and publish one sentence-level teaching table under CC BY-SA 4.0.
+      Remove every ParlaMint-HR join, speech-context field, ParlaMint-only
+      output, three-layer promise and unique-speech-link test. WD-C17 remains
+      the sole analytical consumer and may make no speech-context or prevalence
+      claim.
+    rejected_alternative: >-
+      Remove the empirical text package from the first edition. That route is
+      lawful but would sacrifice the accepted real-data teaching route and
+      require a wider Chapter 17 brief disposition.
+    authority_boundary: >-
+      This decision changes only the active P3-TEXT source and output contract.
+      It does not accept a derived file, count, split, checksum, passport,
+      licence notice, catalogue promotion, empirical result, chapter edit or
+      later packet; it selects or fetches no CROCorp data and claims no special
+      rights-holder permission. P3-TEXT must still pass its own exit tests and
+      H-P3-DZS-003 before closeout. No author reading, reader test, measured
+      reading time, independent terminology review, push, merge, tag, archive,
+      deployment or publication is claimed.
+
   G-A3-ESS:
     status: "accepted"
     accepted_at: "2026-08-11"
@@ -3104,6 +3260,189 @@ decisions:
         Chapters 13 through 15 retain their accepted states. DigiKat, Eurostat,
         ESS, reading-time, new-reader-validation, independent terminology-
         review and rights boundaries remain binding.
+      stop_conditions: >-
+        Stop before the next packet whenever an author reply is required, if an
+        exit test lacks real evidence, if a fatal or unresolved major finding
+        remains, or if completion would require inventing a number, source,
+        study, citation or permission. Honest partial completion is required.
+    authority_boundary: >-
+      This thread-only amendment replaces the ordinary one-packet stop only for
+      the named strict five-packet chain. It does not combine packets,
+      authorise a second write lock, waive any gate, prerequisite, item,
+      handoff, panel, deterministic check, rights evidence or exact author
+      reply, claim an author reading, widen source or content scope, or
+      authorise push, merge, tag, archive, deployment, publication or any
+      external action.
+  A-THREAD-G-A3-TEXT-C17-2026-08-17:
+    kind: "author_amendment"
+    thread_amendment_number: 10
+    status: "accepted"
+    accepted_at: "2026-08-17"
+    recorded_at: "2026-08-18"
+    author: "Luka Sikic"
+    evidence: "conversation:author-amendment-G-A3-TEXT-P3-TEXT-P3-VERIFY-WD-C17-C17-2026-08-17-Luka-Sikic"
+    decision_record: "notes/reports/g-a3-text-c17-thread-amendment-2026-08-17.md"
+    recorded_before_packet: "G-A3-TEXT"
+    amends: "AGENTS.md#comprehensive-review-packet-workflow"
+    distinct_from:
+      - "A-THREAD-C04-C06-2026-08-10"
+      - "A-THREAD-C07-C09-2026-08-11"
+      - "A-THREAD-C08-C10-2026-08-12"
+      - "A-THREAD-C11-P3-VERIFY-C-2026-08-11"
+      - "A-THREAD-C12-WD-C13-2026-08-13"
+      - "A-THREAD-WC-PARTS-WD-C14-2026-08-17"
+      - "A-THREAD-WD-C14-C14-PREP-2026-08-13"
+      - "A-THREAD-WD-C15-G-A4-16-2026-08-17"
+      - "A-THREAD-C15-G-A4-17-2026-08-17"
+    accepted_dispositions:
+      strict_packet_chain:
+        - "G-A3-TEXT"
+        - "P3-TEXT"
+        - "P3-VERIFY"
+        - "WD-C17"
+        - "C17"
+      packet_boundary: >-
+        Each packet remains independently claimed, evidenced,
+        handoff-disposed, closed, workflow-checked and locally committed before
+        the next is claimed. At most one write packet may be active, and no
+        evidence, lock or unfinished disposition crosses a packet boundary.
+        No packet or item prerequisite is waived.
+      prior_decision_boundary: >-
+        This is the tenth and a new, distinct thread amendment. It supersedes
+        none of the nine earlier thread amendments, whose chains have all
+        ended on their own terms.
+      g_a3_text_stop: >-
+        G-A3-TEXT consumes H-P1B-DATA-LIC-003 before claim, acknowledges
+        H-P3-CATALOG-001 before the first substantive edit, separately prepares
+        OA-G-A3-TEXT-SELECTION and OA-G-A3-TEXT-RIGHTS, retrieves and promotes
+        nothing, answers neither author decision and stops for both exact
+        replies. A general bundled basis is not an exact package record, the
+        two licences are not flattened and no rights-holder permission is
+        claimed.
+      p3_text_boundary: >-
+        P3-TEXT builds only the exact ratified selection, records source,
+        version, licence, attribution, checksum with its algorithm and source
+        reconciliation or documented impossibility, applies all six tightened
+        promotion rules from H-P3-DZS-003 and proves any unpromoted state rather
+        than describing it.
+      p3_verify_boundary: >-
+        P3-VERIFY aggregates exactly P3-VERIFY-A, P3-VERIFY-B, P3-VERIFY-C,
+        P3-VERIFY-D and P3-TEXT. It verifies every prerequisite independently
+        on its own contract against one declared source state and reruns every
+        deterministic check and deliberate negative fixture.
+      wd_c17_boundary: >-
+        WD-C17 follows G-A2b-V and the accepted G-A4-17 brief, handles all seven
+        live incoming deliveries at their stated gates, updates the terminology
+        registry in the same packet when repairing its anchored divergences,
+        and runs six independent read-only critics on one final material source
+        state. Every fatal or unresolved major finding stops the packet.
+      c17_acceptance_stop: >-
+        C17 presents the final source commit, all six reports, synthesis,
+        deliberately displayed minor findings and proposed ledger disposition,
+        then stops for exactly C17 accepted for <commit> on <date>. The standing
+        delegation cannot replace that reply and no author reading is claimed.
+      standing_boundaries: >-
+        Chapter 6 remains deliberately draft under H-WB-PART-001 and is not
+        edited or advanced. Chapters 7 through 12 retain C07-C12-REACCEPT.
+        Chapter 13 remains a Chapter 17 prerequisite; G-A2c terminology and all
+        DigiKat, Eurostat, ESS, reading-time, reader-validation, terminology-
+        review and rights boundaries remain binding.
+      stop_conditions: >-
+        Stop before the next packet whenever an author reply is required, if an
+        exit test lacks real evidence, if a fatal or unresolved major panel
+        finding remains, or if completion would require inventing a number,
+        source, study, citation or permission. Honest partial completion is
+        required.
+    authority_boundary: >-
+      This thread-only amendment replaces the ordinary one-packet stop only for
+      the named strict five-packet chain. It does not combine packets,
+      authorise a second write lock, waive any gate, prerequisite, item,
+      handoff, panel, deterministic check, rights evidence or exact author
+      reply, claim an author reading, widen source or content scope, or
+      authorise push, merge, tag, archive, deployment, publication or any
+      external action.
+  A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19:
+    kind: "author_amendment"
+    thread_amendment_number: 11
+    status: "accepted"
+    accepted_at: "2026-08-19"
+    recorded_at: "2026-08-19"
+    author: "Luka Sikic"
+    evidence: "conversation:author-amendment-next-five-packets-WD-PART-WE-C18-C18-P5-CLOSURE-00-P5-CLOSURE-01-2026-08-19-Luka-Sikic"
+    decision_record: "notes/reports/wd-part-p5-closure-01-thread-amendment-2026-08-19.md"
+    recorded_before_packet: "WD-PART"
+    amends: "AGENTS.md#comprehensive-review-packet-workflow"
+    distinct_from:
+      - "A-THREAD-C04-C06-2026-08-10"
+      - "A-THREAD-C07-C09-2026-08-11"
+      - "A-THREAD-C08-C10-2026-08-12"
+      - "A-THREAD-C11-P3-VERIFY-C-2026-08-11"
+      - "A-THREAD-C12-WD-C13-2026-08-13"
+      - "A-THREAD-WC-PARTS-WD-C14-2026-08-17"
+      - "A-THREAD-WD-C14-C14-PREP-2026-08-13"
+      - "A-THREAD-WD-C15-G-A4-16-2026-08-17"
+      - "A-THREAD-C15-G-A4-17-2026-08-17"
+      - "A-THREAD-G-A3-TEXT-C17-2026-08-17"
+    accepted_dispositions:
+      strict_packet_chain:
+        - "WD-PART"
+        - "WE-C18"
+        - "C18"
+        - "P5-CLOSURE-00"
+        - "P5-CLOSURE-01"
+      packet_boundary: >-
+        Each packet remains independently claimed, evidenced,
+        handoff-disposed, closed, workflow-checked and locally committed before
+        the next is claimed. At most one write packet may be active, and no
+        evidence, lock or unfinished disposition crosses a packet boundary.
+        No packet or item prerequisite is waived. The five packets are exactly
+        catalogue sequences 131 through 135.
+      prior_decision_boundary: >-
+        This is the eleventh and a new, distinct thread amendment. It
+        supersedes none of the ten earlier thread amendments, whose chains have
+        all ended on their own terms.
+      wd_part_boundary: >-
+        WD-PART owns only the Part V bridge and cumulative self-check across
+        accepted Chapters 13 through 17 and its six governed items. No
+        delivery targets it. An evidence-only closeout is preferred when the
+        accepted sources already carry the bridge, thread harvest and
+        answerable self-check; any genuinely required bounded repair follows
+        the WB-PART and WC-PARTS precedent, returns the edited unit to draft
+        and routes the fresh panel and author disposition to a named later
+        gate by recorded handoff. Independent read-only voice and arc critics
+        read one final Part V manifest. No new number, source, citation,
+        definition, widget, code-production task or Chapter 18 prose.
+      we_c18_boundary: >-
+        WE-C18 harvests the capstone under the ratified G-A2b-FINALE spine and
+        accepted P1A-C18 corrections, consumes H-G-A2D-005 before claim,
+        acknowledges H-P2-SPINE-FINALE-001, H-P2-SPINE-FINALE-002,
+        H-P2-TERMS-002 and H-P2-VERIFY-001 before substantive work and consumes
+        them with final-state evidence, adds exactly the one ratified paket
+        dokaza definition with same-packet concept regeneration, keeps the main
+        study explanatory under D13, and runs six independent read-only critics
+        on one final material source state. Every fatal or unresolved major
+        finding stops the packet.
+      c18_acceptance_stop: >-
+        C18 presents the final source commit, all six reports, synthesis,
+        deliberately displayed minor findings and proposed ledger disposition,
+        then stops for exactly C18 accepted for <commit> on <date>. The standing
+        delegation cannot replace that reply and no author reading is claimed.
+      p5_closure_boundary: >-
+        P5-CLOSURE-00 and P5-CLOSURE-01 are separate assessment-unit packets
+        under the accepted G-A2d solutions policy and P2-ASSESS architecture.
+        Each closes canonical answer, check, rubric and planted-error records
+        for its unit with independent numerical checks and structural proof
+        that protected instructor content is absent from public routes and
+        exports; neither advances any chapter stage.
+      standing_boundaries: >-
+        Chapter 6 remains deliberately draft under H-WB-PART-001 and is not
+        edited or advanced. Chapters 7 through 12 retain C07-C12-REACCEPT and
+        Chapters 13 through 17 retain their accepted states unless WD-PART
+        records a bounded material repair under the stated precedent. G-A2c
+        terminology, the Chapter 13 prerequisite of Chapter 17, the
+        ParlaSent-only A-P3-TEXT-ROUTE-2026-08-18 contract and all DigiKat,
+        Eurostat, ESS, reading-time, reader-validation, terminology-review and
+        rights boundaries remain binding.
       stop_conditions: >-
         Stop before the next packet whenever an author reply is required, if an
         exit test lacks real evidence, if a fatal or unresolved major finding
@@ -13793,7 +14132,7 @@ packets:
     sequence: 126
     phase: "3B"
     kind: "decision_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A4-17"
       - "P0-OUTSIDE"
@@ -13806,42 +14145,306 @@ packets:
       - "The named decision owner has explicitly accepted one disposition."
       - "Alternatives, authority boundary, and blocked dependencies are recorded."
       - "The G-A3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:7298a62a1c030f80c3d65443e8d311c76e1b1205"
+      required_evidence:
+        - requirement: "dated decision record"
+          artifacts:
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+            - "register:decisions.G-A3-TEXT.accepted_at-2026-08-18"
+            - "commit:preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
+        - requirement: "named decision owner"
+          artifacts:
+            - "owner:Luka-Sikic-author-editor"
+            - "author_reply:G-A3-TEXT-SELECTION-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+            - "author_reply:G-A3-TEXT-RIGHTS-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+        - requirement: "recommended default and alternatives"
+          artifacts:
+            - "register:decisions.G-A3-TEXT.accepted_dispositions"
+            - "register:decisions.G-A3-TEXT.rejected_alternatives"
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md#oa-g-a3-text-selection--preporucena-odluka"
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md#oa-g-a3-text-rights--preporucena-odluka"
+        - requirement: "blocked dependency list"
+          artifacts:
+            - "register:decisions.G-A3-TEXT.blocked_dependencies"
+            - "packet:P3-TEXT-next-permitted"
+            - "packets:P3-VERIFY-WD-C17-C17-remain-later-gated"
+      outputs:
+        - output: "Dated G-A3-TEXT decision and authority record for: ParlaMint/ParlaSent selection and rights."
+          artifacts:
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+            - "register:decisions.G-A3-TEXT"
+            - "outside-asks:OA-G-A3-TEXT-SELECTION-and-OA-G-A3-TEXT-RIGHTS-done"
+        - output: "Completion evidence is tied to the declared G-A3-TEXT source state and bounded scope."
+          artifacts:
+            - "commit:G-A4-17-closeout-7298a62a1c030f80c3d65443e8d311c76e1b1205"
+            - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
+            - "handoff:H-P3-CATALOG-001-consumed-without-promotion"
+            - "handoff:H-G-A3-TEXT-001-to-P3-TEXT"
+            - "review:packet_reviews.G-A3-TEXT-all-future-effects-recorded"
+            - "boundary:no-data-retrieval-promotion-chapter-edit-or-rights-holder-permission-claim"
+            - "check:scripts/check-review-workflow.R-at-G-A3-TEXT-closeout"
+      exit_tests:
+        - test: "The named decision owner has explicitly accepted one disposition."
+          result: "passed"
+          evidence:
+            - "owner:Luka-Sikic-author-editor"
+            - "author_replies:two-separate-exact-replies-2026-08-18"
+        - test: "Alternatives, authority boundary, and blocked dependencies are recorded."
+          result: "passed"
+          evidence:
+            - "register:decisions.G-A3-TEXT.rejected_alternatives"
+            - "register:decisions.G-A3-TEXT.authority_boundary"
+            - "register:decisions.G-A3-TEXT.blocked_dependencies"
+        - test: "The G-A3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+            - "source:CLARIN-SI-11356-2004-ParlaMint-5.0-ParlaMint-HR.tgz-MD5-b852098ae5c2561aef1de43f44e09a77-CC-BY-4.0"
+            - "source:CLARIN-SI-11356-1868-ParlaSent-1.0-BCS-train-test-CC-BY-SA-4.0"
+            - "registry:data/katalog.yml-parlamint_hr-and-parlasent-remain-unpromoted"
+            - "handoff:H-P3-CATALOG-001-consumed"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
+    preparation_evidence:
+      source_state: "commit:7298a62a1c030f80c3d65443e8d311c76e1b1205"
+      prepared_at: "2026-08-18"
+      state: "resolved_by_two_exact_author_replies"
+      named_decision_owner: "Luka Sikic, author/editor"
+      artifacts:
+        - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+        - "decision:G-A4-17"
+        - "report:notes/reports/p1b-data-licence-access-inventory-2026-08-03.md"
+        - "report:notes/reports/p3-catalog-2026-08-05.md"
+        - "source:data/katalog.yml#parlamint_hr-and-parlasent"
+        - "source:http://hdl.handle.net/11356/2004"
+        - "source:http://hdl.handle.net/11356/1868"
+        - "outside-ask:OA-G-A3-TEXT-SELECTION"
+        - "outside-ask:OA-G-A3-TEXT-RIGHTS"
+        - "handoff:H-P1B-DATA-LIC-003-consumed-before-start"
+        - "handoff:H-P3-CATALOG-001-acknowledged-before-close"
+      exact_replies_requested:
+        - "G-A3-TEXT-SELECTION accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18."
+        - "G-A3-TEXT-RIGHTS accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18."
+      authority_boundary: >-
+        Preparation only. No author decision or rights-holder permission is
+        inferred, no data is retrieved or promoted, no catalogue, chapter,
+        bibliography, widget or shared registry is changed, and P3-TEXT,
+        P3-VERIFY and WD-C17 remain blocked.
     contract: "decision_gate"
     required_evidence:
       - "dated decision record"
       - "named decision owner"
       - "recommended default and alternatives"
       - "blocked dependency list"
-    change_reference: null
+    change_reference: "commit:7298a62a1c030f80c3d65443e8d311c76e1b1205"
   P3-TEXT:
     sequence: 127
     phase: "3B"
     kind: "data_package"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A3-TEXT"
-    scope: "Linked governed text package."
+    scope: "Governed ParlaSent-only Croatian sentence package."
     outputs:
-      - "P3-TEXT validated package, passport, checksum, and route evidence for: Linked governed text package."
+      - "P3-TEXT validated package, passport, checksum, and route evidence for the ParlaSent-only Croatian sentence package."
       - "Completion evidence is tied to the declared P3-TEXT source state and bounded scope."
     exit_tests:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
       - "Every promised R, no-code, print, or portal lane is lawful and testable."
       - "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    amendments:
+      - amended_at: "2026-08-18"
+        amended_by: "Luka Sikic"
+        authority: "A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+        evidence: "conversation:P3-TEXT-LINKAGE-RESEARCH-approved-for-ParlaMint-HR-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c-and-ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+        amendment_record: "notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
+        reason: >-
+          The accepted ParlaMint-HR 5.0 archive fails the all-test-rows unique
+          linkage condition. The author therefore permits a bounded search over
+          official, versioned and licensed ParlaMint-HR editions for the exact
+          edition used by ParlaSent 1.0. The search accepts no replacement source
+          or right and cannot create or promote the teaching package.
+      - amended_at: "2026-08-18"
+        amended_by: "Luka Sikic"
+        authority: "A-P3-TEXT-ROUTE-2026-08-18"
+        evidence: "conversation:P3-TEXT-ROUTE-accepted-as-recommended-ParlaSent-only-for-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98-and-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+        amendment_record: "notes/reports/p3-text-route-decision-2026-08-18.md"
+        reason: >-
+          No official ParlaMint-HR edition is the demonstrated Croatian
+          ParlaSent source or uniquely links all 1336 selected test rows. The
+          author therefore replaces the joined three-layer design with one
+          ParlaSent-only sentence table while preserving every Croatian test
+          row, the source label paths and grouped no-leakage splitting.
+    completion_evidence:
+      source_state: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+            - "source:ParlaSent_BCS.jsonl-sha256-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+            - "source:ParlaSent_BCS_test.jsonl-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+            - "notice:data/parlament-oznake.LICENCA.md-CC-BY-SA-4.0"
+            - "boundary:no-rights-holder-permission-claim"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "passport:data/parlament_tekst/PUTOVNICA.md"
+            - "codebook:data/parlament_tekst/KODNA-KNJIGA.md"
+            - "registry:data/katalog.yml#parlasent-codebook"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "artifact:data/parlament_oznake.csv-md5-55b1c4263009ab783911f094907312d9-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "builder:scripts/build-text-package.py-byte-for-byte"
+            - "check:scripts/check-text-package.py-TEXT_PACKAGE_OK"
+            - "fixture:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-51"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "counts:2698-rows-2499-documents-train-1090-validation-272-test-1336-overlap-rows-removed-25"
+            - "registry:data/katalog.yml#parlasent-promoted-by-P3-TEXT"
+            - "registry:data/katalog.yml#parlamint_hr-unpromoted-files-empty-checksum-null"
+            - "boundary:data/parlament_govori.csv-and-data/parlament_mjere.csv-absent"
+      outputs:
+        - output: "P3-TEXT validated package, passport, checksum, and route evidence for the ParlaSent-only Croatian sentence package."
+          artifacts:
+            - "source:data/parlament_oznake.csv"
+            - "passport:data/parlament_tekst/PUTOVNICA.md"
+            - "codebook:data/parlament_tekst/KODNA-KNJIGA.md"
+            - "notice:data/parlament-oznake.LICENCA.md"
+            - "report:notes/reports/p3-text-2026-08-18.md"
+        - output: "Completion evidence is tied to the declared P3-TEXT source state and bounded scope."
+          artifacts:
+            - "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+            - "handoff:H-P3-DZS-003-consumed-at-closeout"
+            - "handoff:H-P3-TEXT-001"
+            - "handoff:H-P3-TEXT-002"
+            - "handoff:H-P3-TEXT-003"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-text-package.py-TEXT_PACKAGE_OK"
+            - "check:scripts/check-katalog.py-KATALOG_OK-packages-20-promoted-6"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-rows-50300-snapshots-22-validated-22-undeclared-0"
+            - "fixture:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-51"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "passport:data/parlament_tekst/PUTOVNICA.md"
+            - "notice:data/parlament-oznake.LICENCA.md"
+            - "source:one-plain-UTF-8-CSV-with-stable-ASCII-name"
+            - "boundary:no-portal-or-render-time-network-lane-promised"
+        - test: "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p3-text-2026-08-18.md"
+            - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+            - "check:source-schemas-country-selection-document-split-label-path-and-byte-output"
+            - "review:packet_reviews.P3-TEXT-all-future-effects-recorded"
+    blocker_evidence:
+      state: "historical_join_blocker_resolved_by_A-P3-TEXT-ROUTE-2026-08-18"
+      investigated_at: "2026-08-18"
+      research_completed_at: "2026-08-18"
+      research_authority: "A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+      source_state: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+      pinned_source_signature:
+        parlamint_hr_sha256: "bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c"
+        parlasent_bcs_sha256: "c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+        parlasent_bcs_test_sha256: "412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+        parlasent_readme_sha256: "848a892cede62d37f469532eba6d2f5e6f00d29234f0257a67737f8a8646c285"
+      observed:
+        train_rows_hr: 1387
+        train_linked: 1340
+        train_no_link: 18
+        train_ambiguous: 29
+        test_rows_hr: 1336
+        test_linked: 1297
+        test_no_link: 24
+        test_ambiguous: 15
+        source_document_overlap: 20
+        resolved_speech_overlap: 40
+      research_observed:
+        parlamint_1_0:
+          handle: "11356/1345"
+          issued: "2020-10-15"
+          published_md5: "01ef392a95587ba35b6f109e61f68be1"
+          local_sha256: "a49a9e72efe6781190d926ccf3b9de4802e409bbcfb92797dadd6e003dca6a1e"
+          hr_coverage: "2016-11-15/2020-05-17"
+          disposition: "cannot_contain_873_selected_test_rows_before_2016"
+        parlamint_2_1:
+          handle: "11356/1432"
+          issued: "2021-06-18"
+          published_md5: "cf2ce85cb3d61df368d8bbfe2635988a"
+          local_sha256: "b24411e9a5f94a65a33fe25e64a7f9be1e03ac408741ee4dc98c5320fc44914d"
+          hr_coverage: "2016-11-15/2020-05-17"
+          disposition: "cannot_contain_873_selected_test_rows_before_2016"
+        parlamint_3_0:
+          handle: "11356/1486"
+          issued: "2023-07-04"
+          published_md5: "4191e37352aaf96166af03b3214ac671"
+          local_sha256: "773c8d6e10415fdea3003b154c310f923652df54aef66c82e7f5650488bf350b"
+          test_linked: 1297
+          test_no_link: 24
+          test_ambiguous: 15
+          disposition: "only_temporally_possible_full_range_release_fails_unique_linkage"
+        parlamint_4_0:
+          handle: "11356/1859"
+          issued: "2023-10-24"
+          disposition: "postdates_ParlaSent_1_0"
+        parlamint_4_1:
+          handle: "11356/1912"
+          issued: "2024-06-03"
+          disposition: "postdates_ParlaSent_1_0"
+        parlamint_5_0:
+          handle: "11356/2004"
+          issued: "2025-07-08"
+          disposition: "postdates_ParlaSent_1_0_and_fails_unique_linkage"
+        provenance_finding: >-
+          The original ParlaSent article version 1 identifies CROCorp DOI
+          10.5281/zenodo.6521372, not a ParlaMint-HR edition, as the Croatian
+          source corpus. The official CROCorp record is version 1.1.1 under CC
+          BY 4.0, but it was not selected, downloaded or accepted by this gate.
+      historical_failed_exit_tests:
+        - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+        - "Every promised R, no-code, print, or portal lane is lawful and testable."
+        - "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+      artifacts:
+        - "report:notes/reports/p3-text-2026-08-18.md"
+        - "check:scripts/check-text-package.py-expect-blocker-exit-0"
+        - "check:scripts/check-text-package.py-default-exit-1"
+        - "fixture:TEXT_PACKAGE_NEGATIVE_FIXTURE-missing_test_country-exit-1"
+        - "fixture:TEXT_PACKAGE_NEGATIVE_FIXTURE-source_md5_mismatch-exit-1"
+        - "registry:data/katalog.yml#parlamint_hr-and-parlasent-remain-unpromoted"
+        - "outside-ask:OA-P3-TEXT-LINKAGE-RESEARCH"
+        - "decision:A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+        - "report:notes/reports/p3-text-linkage-research-2026-08-18.md"
+        - "check:ParlaMint-HR-3.0-test-1297-linked-24-no-link-15-ambiguous"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1345"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1432"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1486"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1859"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/1912"
+        - "source:https://www.clarin.si/repository/xmlui/handle/11356/2004"
+        - "source:https://arxiv.org/abs/2309.09783v1"
+        - "source:https://doi.org/10.5281/zenodo.6521372"
+        - "outside-ask:OA-P3-TEXT-ROUTE"
+      boundary: >-
+        This evidence remains the historical proof that the joined
+        ParlaMint-HR route failed closed. A-P3-TEXT-ROUTE-2026-08-18 removes
+        the join, speech context and ParlaMint-only outputs from the authorised
+        package; it does not reinterpret, repair or suppress the failed audit.
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
   P3-VERIFY:
     sequence: 128
     phase: "3"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-VERIFY-A"
       - "P3-VERIFY-B"
@@ -13856,18 +14459,80 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "All wave-specific data gates and the linked text package have passed by the Chapter 17 boundary."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:2ef8973a4f2da6827bb077d39389f5a19363385e"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p3-verify-2026-08-19.md#verifikacijska-matrica"
+            - "matrix:P3-VERIFY-A-P3-VERIFY-B-P3-VERIFY-C-P3-VERIFY-D-P3-TEXT"
+            - "check:all-five-prerequisites-independently-rerun"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "commit:2ef8973a4f2da6827bb077d39389f5a19363385e"
+            - "source:P3-VERIFY-A-commit-47577dca217f0425513e7898ac65dcd6e616363b"
+            - "source:P3-VERIFY-B-commit-f6d25bb30dce3f5ffe41204e87273bd166c6053b"
+            - "source:P3-VERIFY-C-commit-08cbdfa4e0120b04c0f1408d6e76284bf28b3f87"
+            - "source:P3-VERIFY-D-commit-339ec599a8e836d283771a0f271574ef34708993"
+            - "source:P3-TEXT-output-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "result:no-active-blocker-in-any-of-five-prerequisites"
+            - "boundary:P3-PILOT-descoped-without-accepted-evidence"
+            - "boundary:DIP-and-ESS-portal-mediated-unpromoted"
+            - "boundary:ParlaMint-joined-route-historical-failure-and-parlamint_hr-unpromoted"
+            - "handoff:H-P3-VERIFY-001-legacy-hash-convention-to-P8-META"
+      outputs:
+        - output: "P3-VERIFY durable artifact and evidence record for: Data and novice-reader foundation gate."
+          artifacts:
+            - "report:notes/reports/p3-verify-2026-08-19.md"
+            - "check:DATA_SNAPSHOTS_OK-snapshots-4"
+            - "check:DZS_EXTRACTS_OK-extracts-4"
+            - "check:DIP_PORTAL_OK"
+            - "check:DIGIKAT_EXTRACTS_OK-extracts-3"
+            - "check:EUROSTAT_EXTRACTS_OK-keys-162"
+            - "check:P3_EVIDENCE12_OK-labs-17-total-n-1894"
+            - "check:ESS_PORTAL_OK"
+            - "check:TEXT_PACKAGE_OK-rows-2698"
+        - output: "Completion evidence is tied to the declared P3-VERIFY source state and bounded scope."
+          artifacts:
+            - "commit:2ef8973a4f2da6827bb077d39389f5a19363385e"
+            - "handoff:H-P3-TEXT-001-consumed-before-verification"
+            - "handoff:H-P3-VERIFY-001-records-only-new-future-effect"
+            - "review:packet_reviews.P3-VERIFY-all-future-effects-recorded"
+            - "check:scripts/check-review-workflow.R-at-P3-VERIFY-closeout"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:exactly-P3-VERIFY-A-B-C-D-and-P3-TEXT"
+            - "result:no-active-blocker"
+            - "fixture:all-prerequisite-negative-lanes-fail-for-own-defects"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "commit:2ef8973a4f2da6827bb077d39389f5a19363385e"
+            - "report:notes/reports/p3-verify-2026-08-19.md"
+            - "scope-audit:no-prerequisite-chapter-data-or-generated-artifact-mutation"
+        - test: "All wave-specific data gates and the linked text package have passed by the Chapter 17 boundary."
+          result: "passed"
+          evidence:
+            - "registry:P3-VERIFY-A-P3-VERIFY-B-P3-VERIFY-C-P3-VERIFY-D-P3-TEXT-accepted"
+            - "check:scripts/check-katalog.py-promoted-6-snapshots-22"
+            - "check:scripts/check-data-integrity.R-snapshots-22-validated-22-undeclared-0"
+            - "check:scripts/check-data-fixtures.py-cases-51"
+            - "sequence:P3-VERIFY-128-before-WD-C17-129"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: null
+    change_reference: "commit:2ef8973a4f2da6827bb077d39389f5a19363385e"
   WD-C17:
     sequence: 129
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-VERIFY"
       - "G-A4-17"
@@ -13881,19 +14546,101 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-C17 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "decision:G-A4-17"
+            - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama"
+            - "packet:P3-TEXT-accepted"
+            - "packet:P3-VERIFY-accepted"
+            - "handoffs:H-P0-REGISTER-007-H-P3-TEXT-002-consumed-before-claim"
+            - "handoffs:H-P0-REGISTER-008-H-P2-SPINE-V-001-H-G-A2C-002-H-P2-TERMS-002-H-P2-TERMS-003-H-WB-C06-001-consumed-before-close"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "artifact:data/parlament_oznake.csv@sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "source:ParlaSent-BCS-sha256-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+            - "source:ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+            - "result:rows-2698-splits-1090-272-1336-removed-20-documents-25-rows"
+            - "result:threshold-one-TP122-FP16-FN0-TN134-FPR10.7-FNR0-PPV88.4"
+            - "result:threshold-two-TP100-FP1-FN22-TN149-FPR0.7-FNR18-PPV99"
+            - "citation:mochtakparlasent2024-primary-ACL-source"
+            - "registry:data/widgets.json#w17-ojs-sha256-d207c0867520bcc9a630eb36ef19eb1ab60e575f79701da3dc278743fc94fe7d"
+            - "registry:data/widgets.json#w17-r-sha256-8de0402c61d750a8e0ae05dbc9ff128875c0e759e59588a72188ba9fd6d8e235"
+            - "generated:data/concept-graph.json-51-nodes-642-edges-261-displayed-47-definition"
+            - "check:TEXT_PACKAGE_OK-rows-2698-output-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "check:CITATION_INTEGRITY_OK-live-keys-49-records-49"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-cells-17-bytes-190143-sha256-6a20927ad3d0775b08adee53858267282ef391e0a7d2e916283f23f89c183603"
+            - "render:PDF-approved-wrapper-PDF_BUILD_OK-bytes-5950965-sha256-d638223cf2c42813cfb24b35f6d631858fdd6d9a67764c6997d7283a4ec7fea1"
+            - "render:DOCX-wrapper-exit-0-source-restored-bytes-2821605-sha256-0e939a6d5cadffe2bae1ed373af9713d578a16e639727a46edb3381505e1ba86"
+            - "boundary:first-final-PDF-attempt-failed-closed-transient-NotFound-partial-and-stale-outputs-removed"
+            - "boundary:isolated-render-only-primary-generated-artifacts-unchanged"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "panel:six-of-six-confirm-blob-86e387bb-zero-fatal-zero-major-zero-minor-zero-useful-improvement"
+      outputs:
+        - output: "WD-C17 verified vertical-slice source and evidence bundle for: Chapter 17 identity rewrite."
+          artifacts:
+            - "source:chapters/17-doba-algoritama.qmd"
+            - "registry:data/widgets.json#w17"
+            - "generated:data/concept-graph.json-51-nodes-642-edges"
+            - "report:notes/reports/wd-c17-2026-08-19.md"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared WD-C17 source state and bounded scope."
+          artifacts:
+            - "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "review:packet_reviews.WD-C17-all-future-effects-recorded"
+            - "boundary:20-WD-C17-items-materially-pass-and-remain-ratified-until-C17"
+            - "boundary:zero-panel-findings-on-final-locked-source"
+            - "boundary:C17-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WD-C17-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wd-c17-2026-08-19.md"
+            - "check:MANUSCRIPT_INTEGRITY-FIGURE_INTRO-STYLE-TEXT_PACKAGE-WIDGET_PARITY-all-pass"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "panel:zero-fatal-zero-major-zero-minor-zero-useful-improvement"
+        - test: "The WD-C17 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:20-WD-C17-owned-items-materially-pass"
+            - "report:notes/reports/wd-c17-2026-08-19.md"
+            - "fixture:w17-normal-cache-asymmetry-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   C17:
     sequence: 130
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WD-C17"
     scope: "Author acceptance and panel disposition for C17."
@@ -13904,19 +14651,89 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+            - "panel:zero-fatal-zero-major-zero-minor-zero-useful-improvement-findings"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "report:notes/reports/c17-acceptance-package-2026-08-19.md"
+            - "disposition:accept-20-C17-owned-items-and-advance-only-17-doba-algoritama-to-coauthor_review"
+            - "disposition:no-panel-finding-requires-separate-author-disposition"
+            - "boundary:ParlaSent-only-route-remains-controlling-and-Chapter-6-remains-draft"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
+            - "evidence:conversation-user-message-recorded-2026-08-19"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+            - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#17-doba-algoritama-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C17 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+            - "reports:wd-c17-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
+            - "report:notes/reports/c17-acceptance-package-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared C17 source state and bounded scope."
+          artifacts:
+            - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "items:20-C17-owned-items-accepted"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#17-doba-algoritama"
+            - "boundary:zero-panel-findings-and-no-source-edit"
+            - "boundary:ParlaSent-only-route-intact"
+            - "boundary:Chapter-6-and-Chapter-18-unchanged-and-draft"
+            - "boundary:WD-PART-unclaimed"
+            - "review:packet_reviews.C17-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+            - "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "reports:wd-c17-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
+            - "panel:zero-fatal-zero-major-zero-minor-zero-useful-improvement-findings"
+            - "disposition:no-special-finding-disposition-required"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c17-acceptance-package-2026-08-19.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#17-doba-algoritama-stage-coauthor_review"
+            - "items:20-C17-owned-items-accepted"
+            - "boundary:acceptance-does-not-claim-author-reading-or-final-stage"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   WD-PART:
     sequence: 131
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C17"
     scope: "Part V bridge and self-check."
@@ -13927,19 +14744,80 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "decision:A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19"
+            - "report:notes/reports/wd-part-2026-08-19.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "blob:chapters/13-kategoricki-podaci.qmd@e7ff4e8adc9d2438461ffbddb01e193aba24b671"
+            - "blob:chapters/14-dvije-grupe.qmd@6ef3a218dfc61d5ad73f83e236a70e3917909d86"
+            - "blob:chapters/15-vise-grupa.qmd@aa644049bacb62e7fc05ab75d3b6157b83165b96"
+            - "blob:chapters/16-regresija.qmd@99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+            - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "check:DATA_INTEGRITY_OK-50300-rows-22-of-22-snapshots"
+            - "check:TEXT_PACKAGE_OK-2698-rows"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-sha256-a05b9d7932be1364ee31de1595fd4937314c2f356d342d85963c8994657d1c55"
+            - "render:PDF_BUILD_OK-sha256-9ee488aa5c9068d4b8d79d23cf8295c35b76bc73f1451f4cb761fee087c88a95"
+            - "render:DOCX-wrapper-exit-0-sha256-cd332676045ffb1b3122d1580c3bcc01504405bd1193773ae6d0798d21c237ff"
+            - "report:notes/reports/wd-part-2026-08-19.md#ciljani-viseformatni-dokaz"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-part-critic-voice-2026-08-19.md"
+            - "report:notes/reports/wd-part-critic-arc-2026-08-19.md"
+            - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
+            - "result:zero-fatal-zero-major-three-nonblocking-minors"
+      outputs:
+        - output: "WD-PART verified vertical-slice source and evidence bundle for: Part V bridge and self-check."
+          artifacts:
+            - "report:notes/reports/wd-part-2026-08-19.md"
+            - "manifest:chapters-13-17-five-exact-git-blobs"
+            - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared WD-PART source state and bounded scope."
+          artifacts:
+            - "source:commit-be3602053a4aff615f4010451f0c4d647758ad20"
+            - "boundary:evidence-only-zero-chapter-source-edits"
+            - "items:five-accepted-one-ratified-pending-Chapter-18-receiving-side"
+            - "handoff:H-WD-PART-001"
+            - "ledger:chapters-13-17-remain-coauthor_review-Chapter-18-remains-draft"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "checks:style-structure-figure-citation-concept-terminology-integrity-spines-architecture-assessment-data-text-widgets-parity-tokens"
+            - "renders:targeted-HTML-approved-wrapper-PDF-wrapper-DOCX"
+            - "report:notes/reports/wd-part-2026-08-19.md"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "panel:zero-fatal-zero-major-three-nonblocking-minors"
+            - "disposition:three-minors-displayed-and-consciously-declined-as-source-reopening-reasons"
+            - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
+        - test: "The WD-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-13-16,R22-C14-C16-dependence,R24-PARTV-thesis,R24-LADDER-C13-16,R27-C17-18-transition,R35-SELF-CHECK-V"
+            - "handoff:H-WD-PART-001"
+            - "boundary:Chapter-18-receiving-side-stays-ratified-for-WE-C18-and-C18"
+            - "boundary:Chapter-6-unchanged-and-draft"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   WE-C18:
     sequence: 132
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WD-PART"
       - "P2-SPINE-FINALE"
@@ -13952,19 +14830,81 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WE-C18 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-FINALE"
+            - "decision:A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19"
+            - "report:notes/reports/we-c18-2026-08-19.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+            - "blob:chapters/18-vase-prvo-istrazivanje.qmd@d71b8f511acda07986a17bb39506078458f5fe65"
+            - "check:DATA_INTEGRITY_OK-50300-rows-22-of-22-snapshots"
+            - "check:TEXT_PACKAGE_OK-2698-rows"
+            - "check:CONCEPT_INTEGRITY_OK-52-definitions-zero-debt-fresh-graph"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-sha256-ed276c39617af6f5c4b7687d4cd726d4b56b5f91e9d57d97a5f4a50e51ee4ded"
+            - "render:PDF_BUILD_OK-sha256-2f82e9046270129390389abe0ed37ceb826ae7d5a8fcfc1b390650874e7a5b59"
+            - "render:DOCX-wrapper-exit-0-sha256-ec6be44ad85fd9a26bd564d84433ff9cd0f9ba73b45e1376c385d920bdb0ec99"
+            - "report:notes/reports/we-c18-2026-08-19.md#provjere-i-panel"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-skeptic-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-style-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-structure-2026-08-19.md"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+            - "result:zero-fatal-zero-major-with-all-minors-and-useful-improvements-dispositioned"
+      outputs:
+        - output: "WE-C18 verified vertical-slice source and evidence bundle for: Chapter 18 capstone harvest."
+          artifacts:
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+            - "report:notes/reports/we-c18-2026-08-19.md"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared WE-C18 source state and bounded scope."
+          artifacts:
+            - "items:thirteen-materially-complete-and-ratified-pending-C18"
+            - "handoff:H-WE-C18-001"
+            - "existing-handoff:H-P3-CATALOG-002-already-owns-public-catalogue-views"
+            - "ledger:Chapter-18-remains-draft"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "checks:style-structure-figure-citation-concept-terminology-integrity-spines-architecture-assessment-data-text-widgets-parity-tokens"
+            - "renders:targeted-HTML-approved-wrapper-PDF-wrapper-DOCX"
+            - "report:notes/reports/we-c18-2026-08-19.md"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "panel:six-independent-critics-zero-fatal-zero-major"
+            - "disposition:all-final-minors-and-useful-improvements-displayed"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+        - test: "The WE-C18 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-18,R10-C18-whole-book-harvest,R11-C18-table-audit,R13-C18-corpus-package,R17-C18-two-pass,R19-C18-substantive-sensitivity,R24-C18-privacy-sources,R24-C18-algorithm-harvest,R24-C18-explanatory-scope,R24-C18-dated-policy,R24-C18-workflow,R32-C18-transfer-path,R35-REACHBACK-18"
+            - "partials:R04-C18-whole-prerequisites-live-source-and-R27-C17-18-transition-receiving-side"
+            - "handoff:H-WE-C18-001"
+            - "boundary:C18-author-gate-pending"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
   C18:
     sequence: 133
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WE-C18"
     scope: "Author acceptance and panel disposition for C18."
@@ -17208,7 +18148,7 @@ items:
       location: "§12 text package"
     description: "Verify pinned editions, compatible derivation/redistribution, attribution, and ShareAlike obligations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -17227,11 +18167,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+      - "source:ParlaSent-1.0-handle-11356/1868"
+      - "notice:data/parlament-oznake.LICENCA.md-CC-BY-SA-4.0"
+      - "registry:data/katalog.yml#parlasent-rights-and-attribution"
+      - "boundary:no-rights-holder-permission-claim"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R03-GFI-FINA-external:
     parents:
       - "R03"
@@ -19195,7 +20140,7 @@ items:
       location: "§5/§8/§10 + §15 R07"
     description: "Rewrite Chapter 17 around one consequential text-classification decision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19213,11 +20158,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:one-human-review-decision-links-corpus-labels-threshold-error-burdens-contestability-feedback-and-monitoring"
+      - "report:notes/reports/wd-c17-2026-08-19.md"
+      - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R07-C17-widget-prose-balance:
     parents:
       - "R07"
@@ -19231,7 +20181,7 @@ items:
       location: "§11"
     description: "Make the Chapter 17 argument understandable before and without operating the widget."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19249,11 +20199,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:threshold-error-denominators-and-fairness-limits-developed-before-widget-and-static-twin"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R07-ALT-distributed-pillars:
     parents:
       - "R07"
@@ -20403,7 +21358,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Reuse one pinned person-level survey across model families."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -20419,11 +21374,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "manifest:chapters-13-16-blobs-e7ff4e8a-6ef3a218-aa644049-99e20c58"
+      - "result:one-pinned-person-level-teaching-population-reused-across-four-model-families"
+      - "result:variables-weight-boundaries-and-lawful-ESS-alternative-consistent"
+      - "check:DATA_INTEGRITY_OK-50300-rows-22-of-22-snapshots"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R08-SPINE-17:
     parents:
       - "R08"
@@ -20437,7 +21398,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Use simulation for known truth and governed text for the empirical analysis."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -20455,11 +21416,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:known-mechanism-simulation-for-fairness-and-governed-ParlaSent-data-for-worked-label-audit-have-noninterchangeable-roles"
+      - "check:TEXT_PACKAGE_OK-rows-2698-splits-1090-272-1336"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R08-SPINE-18:
     parents:
       - "R08"
@@ -20491,11 +21457,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:known-truth-simulated-study-plus-bounded-ParlaSent-transfer-with-passport-and-claim-boundary"
+      - "check:TEXT_PACKAGE_OK-and-CITATION_INTEGRITY_OK"
+      - "panel:zero-fatal-zero-major-pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R08-CATALOG-question-led:
     parents:
       - "R08"
@@ -21521,11 +22491,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:four-promises-six-claim-dimensions-seven-threads-nine-lifecycle-stages-and-four-activity-boundaries-harvested"
+      - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+      - "boundary:no-new-method-and-pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R10-DS-workflow-scope:
     parents:
       - "R10"
@@ -21982,11 +22956,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:analysis-table-audits-unit-eligibility-joins-recodes-transformations-exclusions-and-missingness"
+      - "evidence:complete-case-boundary-explicitly-retained"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R11-C04-wrong-join-AI:
     parents:
       - "R11"
@@ -22609,7 +23587,7 @@ items:
       location: "§12 text as data"
     description: "Cover the ratified text-literacy content at bounded depth."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22627,11 +23605,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:unit-corpus-selection-label-production-split-evaluation-and-limitations-covered-without-NLP-implementation"
+      - "boundary:no-tokenizer-lemmatizer-embedding-topic-model-or-model-training-task"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-C17-boundary-sensitivity:
     parents:
       - "R13"
@@ -22645,7 +23628,7 @@ items:
       location: "§12 text as data"
     description: "Use a substantive question and compare normalization, corpus boundary, and coding procedure."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22663,11 +23646,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18-supersedes-ParlaMint-three-layer-normalization-and-boundary-comparison"
+      - "evidence:amended-ParlaSent-only-contract-tests-upstream-selection-label-mapping-threshold-and-neutral-policy-alternatives"
+      - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-C17-performance-validity:
     parents:
       - "R13"
@@ -22681,7 +23669,7 @@ items:
       location: "§12 text as data"
     description: "Distinguish held-out predictive performance from construct validity."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22699,11 +23687,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:held-out-performance-recorded-reference-quality-and-construct-validity-explicitly-distinct"
+      - "evidence:AI-error-is-exactly-the-invalid-transition-from-held-out-accuracy-to-construct-validity"
+      - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-TEXT-package:
     parents:
       - "R13"
@@ -22715,9 +23708,9 @@ items:
         - "S12"
         - "S15"
       location: "§12 text package"
-    description: "Build a question-led linked speech/sentence package with text, metadata, counts, coder labels, reconciled label, and original split."
+    description: "Build one question-led ParlaSent-only Croatian sentence package with inspectable source identifiers, label paths, recorded labels, and source/derived split fields."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22731,15 +23724,21 @@ items:
       - "scope-specific provenance or catalogue record"
       - "documented approval and reconciliation evidence"
     acceptance_tests:
-      - "Unit, boundary, label, split, checksum, UTF-8, and source counts pass; full archive stays external."
+      - "Unit, boundary, label, grouped split, checksum, UTF-8, source-count, no-leakage and byte-for-byte checks pass; full source files stay external."
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:data/parlament_oznake.csv-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+      - "counts:2698-rows-all-1336-Croatian-test-rows-retained"
+      - "builder:scripts/build-text-package.py"
+      - "check:scripts/check-text-package.py-TEXT_PACKAGE_OK"
+      - "fixture:scripts/check-data-fixtures.py-cases-51"
+      - "boundary:no-ParlaMint-join-or-speech-context"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R13-TEXT-label-split:
     parents:
       - "R13"
@@ -22753,7 +23752,7 @@ items:
       location: "§12 text package"
     description: "Preserve country, coder labels, reconciled recorded label, and split; disclose selection."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22770,11 +23769,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "passport:data/parlament_tekst/PUTOVNICA.md#odabir-i-podjela"
+      - "codebook:data/parlament_tekst/KODNA-KNJIGA.md"
+      - "counts:20-overlap-documents-25-training-rows-removed"
+      - "split:statistika-p3-text-parlasent-only-v1-grouped-SHA256"
+      - "label-path:training-two-coders-and-reconciliation-test-single-expert"
+      - "boundary:no-prevalence-or-ground-truth-claim"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R13-TEXT-three-layers:
     parents:
       - "R13"
@@ -22786,9 +23791,9 @@ items:
         - "S12"
         - "S15"
       location: "§12 text module"
-    description: "Provide three linked inspectable layers with stable keys."
+    description: "Provide one inspectable ParlaSent sentence layer with stable source and derived keys; the accepted route removes the joined speech and prepared-count layers."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22800,15 +23805,20 @@ items:
       - "scope-specific provenance or catalogue record"
       - "documented approval and reconciliation evidence"
     acceptance_tests:
-      - "Passport documents transformations and all layers join without leakage or orphaned records."
+      - "Passport documents every retained field and transformation; all selected rows have stable keys and no document leakage or orphaned record survives."
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18-removes-three-layer-promise"
+      - "artifact:data/parlament_oznake.csv-one-inspectable-layer"
+      - "passport:data/parlament_tekst/PUTOVNICA.md"
+      - "check:scripts/check-text-package.py-no-document-leakage-or-orphans"
+      - "boundary:data/parlament_govori.csv-and-data/parlament_mjere.csv-absent"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R13-C17-placement:
     parents:
       - "R13"
@@ -22822,7 +23832,7 @@ items:
       location: "§12 text module"
     description: "Implement D07 with one fairness widget and one empirical text worked example."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -22841,11 +23851,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:w17-is-the-sole-central-widget-and-ParlaSent-label-audit-is-the-one-complete-empirical-worked-example"
+      - "registry:data/widgets.json#w17"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-C02-coding-measurement:
     parents:
       - "R13"
@@ -23224,11 +24239,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:ParlaSent-passport-transformations-label-paths-and-unavailable-claims-auditable"
+      - "check:TEXT_PACKAGE_OK-rows-2698-documents-2499-splits-1090-272-1336"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R14-C02-confounder:
     parents:
       - "R14"
@@ -23320,7 +24339,7 @@ items:
       location: "§12 binary outcomes"
     description: "Retrieve probability/odds literacy for thresholded classification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23338,11 +24357,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:predicted-probability-classification-threshold-coder-vote-rule-and-error-tradeoff-remain-distinct"
+      - "evidence:main-prose-retrieves-predicted-probability-from-regression-without-logistic-fitting"
+      - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R14-BOOK-causal-thread:
     parents:
       - "R14"
@@ -24723,11 +25747,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:known-generator-first-pass-and-unknown-truth-ParlaSent-transfer-second-pass"
+      - "evidence:question-design-claim-audit-repeated-without-new-method"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R18-PARITY-framework:
     parents:
       - "R18"
@@ -25741,11 +26769,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:age-adjusted-primary-estimate-minus-0.0083-CI-minus-0.1864-to-0.1697"
+      - "evidence:unadjusted-sensitivity-estimate-0.2461-CI-0.0927-to-0.3996"
+      - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R20-AA-loader:
     parents:
       - "R20"
@@ -26014,7 +27047,7 @@ items:
       location: "§12 dependence"
     description: "Operationalise dependence red flags in Chapters 14–16."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26030,10 +27063,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "manifest:chapters-14-16-blobs-6ef3a218-aa644049-99e20c58"
+      - "result:all-three-chapters-stop-before-ordinary-independent-row-inference"
+      - "result:dependence-rule-is-context-specific-without-redundant-mini-lectures"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "report:notes/reports/wd-part-critic-voice-2026-08-19.md"
     partial_completion_evidence:
       chapter_14:
-        status: "verified_pending_multi_chapter_owner"
+        status: "verified_and_accepted_by_multi_chapter_owner"
         artifacts:
           - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
           - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
@@ -26041,18 +27079,18 @@ items:
           - "report:notes/reports/wd-c14-critic-methods-2026-08-17.md"
           - "report:notes/reports/wd-c14-critic-skeptic-2026-08-17.md"
           - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
-          - "boundary:item-remains-ratified-for-WD-PART-until-Chapters-15-and-16-pass"
+          - "result:accepted-by-WD-PART-after-Chapters-15-and-16-pass"
       chapter_15:
-        status: "verified_pending_multi_chapter_owner"
+        status: "verified_and_accepted_by_multi_chapter_owner"
         artifacts:
           - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
           - "rule:stop-before-independent-row-inference-for-repeated-nested-household-place-organisation-or-network-linked-observations"
           - "report:notes/reports/wd-c15-critic-methods-2026-08-17.md"
           - "report:notes/reports/wd-c15-critic-skeptic-2026-08-17.md"
           - "report:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
-          - "boundary:item-remains-ratified-for-WD-PART-until-Chapter-16-passes"
+          - "result:accepted-by-WD-PART-after-Chapter-16-passes"
       chapter_16:
-        status: "verified_pending_multi_chapter_owner"
+        status: "verified_and_accepted_by_multi_chapter_owner"
         artifacts:
           - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
           - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
@@ -26060,11 +27098,11 @@ items:
           - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
           - "report:notes/reports/wd-c16-critic-skeptic-2026-08-18.md"
           - "report:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
-          - "boundary:item-remains-ratified-for-WD-PART-until-multi-chapter-owner-closes"
+          - "result:accepted-by-WD-PART-multi-chapter-closeout"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R22-AD-visual-tree:
     parents:
       - "R22"
@@ -26344,7 +27382,7 @@ items:
       location: "§8/§12 Ch17"
     description: "Remove required R production from text/fairness tasks."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26362,11 +27400,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:all-four-assessment-tiers-use-prepared-tables-widget-states-and-judgment-without-required-code-production"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-assessed-code-production-false"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R23-C03-visible-receipt-conflict:
     parents:
       - "R23"
@@ -26461,7 +27504,7 @@ items:
       location: "§12 H10"
     description: "Split the Chapter 17 computation into short visible receipts plus hidden plumbing."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26479,11 +27522,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:only-visible-R-receipt-is-three-lines-in-the-worked-example-with-conceptual-explanation-before-it"
+      - "evidence:all-preparation-and-counting-plumbing-is-hidden-and-reproduces-from-the-prepared-package"
+      - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R23-BOOK-suspect-code-ladder:
     parents:
       - "R23"
@@ -26802,7 +27850,7 @@ items:
       location: "§12 text module"
     description: "Use supplied text/tables and test decisions rather than preprocessing implementation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26821,11 +27869,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:students-inspect-supplied-sentences-labels-counts-and-decisions-without-tokenisation-or-lemmatisation"
+      - "boundary:no-NLP-preprocessing-implementation-in-prose-widget-or-exercises"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C00-code-trace:
     parents:
       - "R24"
@@ -27004,7 +28057,7 @@ items:
       location: "§13"
     description: "Source, date, qualify, or remove named technical claims."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27023,11 +28076,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "citation:mochtakparlasent2024-primary-ACL-source-for-selection-filters"
+      - "check:CITATION_INTEGRITY_OK-live-keys-49-records-49"
+      - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C18-privacy-sources:
     parents:
       - "R24"
@@ -27060,11 +28118,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:D15-policy-v1.0-dated-2026-08-04-and-explicitly-not-law-or-institutional-rule"
+      - "evidence:no-unsourced-empirical-reidentification-claim"
+      - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-AF-privacy-sources:
     parents:
       - "R24"
@@ -27193,7 +28256,7 @@ items:
       location: "§12 data science"
     description: "Teach language-model output as predictive generation requiring verification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27211,11 +28274,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:language-model-output-taught-as-predictive-generation-requiring-source-number-and-inference-verification"
+      - "boundary:no-product-marketing-certified-retrieval-or-interface-specific-timeless-claim"
+      - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-system-feedback:
     parents:
       - "R24"
@@ -27229,7 +28297,7 @@ items:
       location: "§12 data science"
     description: "Represent deployed AI through data, interface, decisions, feedback, and monitoring."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27247,11 +28315,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:system-in-application-includes-data-threshold-interface-review-appeal-feedback-and-independent-monitoring"
+      - "evidence:random-or-stratified-independent-sample-of-unreviewed-text-required-to-estimate-postdeployment-false-negatives"
+      - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-BOOK-human-AI-competence:
     parents:
       - "R24"
@@ -27420,7 +28493,7 @@ items:
       location: "§8/§11 Ch17"
     description: "Use recorded-reference-outcome language throughout prose, visual, caption, and alt text."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27438,11 +28511,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:recorded-reference-outcome-language-is-consistent-across-prose-definition-table-caption-alt-text-and-exercises"
+      - "check:TERMINOLOGY_OK-divergences-0"
+      - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-label-process:
     parents:
       - "R24"
@@ -27456,7 +28534,7 @@ items:
       location: "§11 Ch17"
     description: "Show how label production and disputed labels affect metrics."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27474,11 +28552,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:two-coder-reconciliation-and-single-expert-paths-remain-visible-and-label-change-alters-confusion-table-rates"
+      - "evidence:six-raw-labels-are-explicitly-mapped-in-the-worked-example"
+      - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-selective-observation:
     parents:
       - "R24"
@@ -27492,7 +28575,7 @@ items:
       location: "§8 Ch17"
     description: "Develop selective observation and label construction before model evaluation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27510,11 +28593,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:moderator-length-lexicon-and-ParlaSent-only-selection-boundaries-precede-model-evaluation"
+      - "evidence:absence-of-subgroup-fields-is-a-limit-on-audit-not-proof-of-fairness"
+      - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-procedural-fairness:
     parents:
       - "R24"
@@ -27528,7 +28616,7 @@ items:
       location: "§8 Ch17"
     description: "Include error burdens, notice, explanation, contestability, and appeal."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27546,11 +28634,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:error-burdens-notice-explanation-internal-contestability-and-affected-party-appeal-are-distinct"
+      - "evidence:fairness-is-not-reduced-to-one-parity-metric-or-used-to-legitimate-the-editorial-goal"
+      - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C18-algorithm-harvest:
     parents:
       - "R24"
@@ -27583,11 +28676,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:provenance-label-path-document-leakage-verification-and-AI-disclosure-performed"
+      - "boundary:classifier-subgroup-error-shift-threshold-monitoring-and-appeal-explicitly-unavailable-or-future-bounded"
+      - "handoff:H-WD-PART-001-consumed-at-receiving-side"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-C18-explanatory-scope:
     parents:
       - "R24"
@@ -27619,11 +28717,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:main-study-explicitly-explanatory-with-linear-additive-age-adjustment"
+      - "boundary:train-test-threshold-and-subgroup-error-omissions-are-claim-scope-not-forgotten-content"
+      - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-C18-dated-policy:
     parents:
       - "R24"
@@ -27655,11 +28758,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "decision:D15-course-policy-v1.0-2026-08-04"
+      - "evidence:public-contract-protected-and-local-data-lanes-with-safe-alternative"
+      - "boundary:policy-legal-description-and-empirical-evidence-remain-distinct"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-C00-stable-thesis:
     parents:
       - "R24"
@@ -27833,7 +28941,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance it through model assumptions, leakage, labels, subgroup errors, and shift."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27849,11 +28957,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+      - "result:Part-V-advances-assumptions-leakage-labels-subgroup-errors-and-shift"
+      - "result:boundary-prepares-complete-evidence-package"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "report:notes/reports/wd-part-critic-arc-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R24-C18-workflow:
     parents:
       - "R24"
@@ -27885,11 +28998,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:specify-delegate-reproduce-challenge-document-disclose-six-step-workflow"
+      - "evidence:seven-field-verification-record-and-transfer-specific-AI-disclosure"
+      - "evidence:exactly-one-planted-AI-error-confirmed-by-six-critic-panel"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-BOOK-three-roles:
     parents:
       - "R24"
@@ -28107,7 +29225,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Audit references, assumptions, omitted variables, causal language, diagnostics, and sensitivity."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28123,11 +29241,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "manifest:chapters-13-16-blobs-e7ff4e8a-6ef3a218-aa644049-99e20c58"
+      - "result:references-assumptions-omitted-variables-causal-language-diagnostics-and-sensitivity-have-planned-homes"
+      - "check:assessment-and-identity-briefs-assessed-code-production-excluded"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R24-LADDER-C17:
     parents:
       - "R24"
@@ -28141,7 +29264,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Audit splits, labels, leakage, threshold, subgroup errors, shift, and coding validity."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28159,11 +29282,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:split-labels-leakage-threshold-subgroup-errors-shift-coding-validity-and-procedure-have-answerable-evidence-or-assessment"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-ladder-stages-7"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-AF-copyable-protocol:
     parents:
       - "R24"
@@ -29260,10 +30388,31 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
     completion_evidence: []
+    partial_completion_evidence:
+      chapter_17:
+        status: "verified_pending_chapter_18_receiving_side"
+        artifacts:
+          - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+          - "result:explicit-handoff-of-threshold-error-burden-monitoring-appeal-and-responsible-delegation"
+          - "render:HTML-PDF-DOCX-all-contain-transition"
+          - "report:notes/reports/wd-part-2026-08-19.md"
+          - "handoff:H-WD-PART-001"
+      chapter_18:
+        status: "verified_pending_C18_author_gate"
+        artifacts:
+          - "blob:chapters/18-vase-prvo-istrazivanje.qmd@d71b8f511acda07986a17bb39506078458f5fe65"
+          - "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+          - "result:threshold-error-burden-monitoring-appeal-and-responsible-delegation-performed-or-explicitly-bounded"
+          - "panel:six-independent-critics-zero-fatal-zero-major"
+          - "handoff:H-WD-PART-001-consumed-by-WE-C18"
+    open_reason: >-
+      Both source sides are now verified on their exact blobs. The item remains
+      ratified because final acceptance belongs to the separate C18 author gate
+      and requires the exact dated author reply tied to the WE-C18 closeout.
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source-pair:86e387bbd0df139762001dd22d079d1a51a96c77+d71b8f511acda07986a17bb39506078458f5fe65"
   R27-C13-partV-contract:
     parents:
       - "R27"
@@ -29421,10 +30570,24 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-FINALE"
     completion_evidence: []
+    partial_completion_evidence:
+      live_source:
+        status: "verified_pending_P5_ROUTES"
+        artifacts:
+          - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+          - "evidence:chapter-meta-prerequisite-is-cijela-knjiga"
+          - "evidence:prose-and-exercises-harvest-all-seventeen-numbered-chapters"
+          - "check:CHAPTER_SPINES_OK-18-prerequisites-17"
+          - "handoffs:H-P2-SPINE-FINALE-002-and-H-P2-VERIFY-001-consumed-by-WE-C18"
+      routes:
+        status: "pending_P5_ROUTES"
+        artifacts:
+          - "boundary:no-route-created-or-amended-by-WE-C18"
+          - "boundary:R04-parent-remains-open"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R28-C05-introduction:
     parents:
       - "R28"
@@ -30351,11 +31514,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:canonical-CSV-passport-and-license-paths-explicit"
+      - "render:HTML-ed276c39617af6f5c4b7687d4cd726d4b56b5f91e9d57d97a5f4a50e51ee4ded"
+      - "render:PDF-2f82e9046270129390389abe0ed37ceb826ae7d5a8fcfc1b390650874e7a5b59"
+      - "render:DOCX-ec6be44ad85fd9a26bd564d84433ff9cd0f9ba73b45e1376c385d920bdb0ec99"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R33-C00-miniature-inquiry:
     parents:
       - "R33"
@@ -30965,7 +32134,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 17 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -30983,11 +32152,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:conceptual-task-retrieves-categorical-denominators-regression-prediction-versus-explanation-base-rates-overfitting-and-leakage"
+      - "evidence:task-remains-within-four-tiers-and-has-canonical-kolegij-closure"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R35-REACHBACK-18:
     parents:
       - "R35"
@@ -31019,11 +32193,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:conceptual-task-reaches-back-to-misleading-numbers-sampling-crisis-and-reform-and-algorithm-age"
+      - "evidence:task-cannot-be-solved-by-current-chapter-model-alone-and-remains-in-four-tier-structure"
+      - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+      - "boundary:canonical-closure-remains-P5-CLOSURE-18-and-final-item-acceptance-remains-C18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R35-SELF-CHECK-I:
     parents:
       - "R35"
@@ -31198,7 +32377,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part V cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -31214,11 +32393,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+      - "result:four-answerable-cumulative-questions-adjacent-to-complete-six-by-six-thread-map"
+      - "result:answer-path-visible-only-in-kolegij-profile"
+      - "render:HTML-PDF-DOCX-public-routes-exclude-protected-answer"
+      - "report:notes/reports/wd-part-critic-arc-2026-08-19.md"
+      - "disposition:optional-extra-question-is-nonblocking-and-consciously-declined"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R36-BOOK-domestic-review:
     parents:
       - "R36"
@@ -31370,7 +32555,7 @@ items:
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
-  total_asks: 85
+  total_asks: 87
   external_messages_sent: 0
   implementation_state: "state:sha256-aacc04b76559edbea0e656bdd4e2a027a5912eff82792fda557706a60a47bdf1"
   canonical_status_store: "outside_asks"
@@ -32652,8 +33837,8 @@ outside_asks:
     external_message_sent: false
 
   OA-G-A3-TEXT-SELECTION:
-    status: "drafted_unsent"
-    readiness: "waiting_for_Chapter17_brief"
+    status: "done"
+    readiness: "resolved_by_exact_author_reply"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -32668,17 +33853,45 @@ outside_asks:
     available_evidence:
       - "decision:D07"
       - "packet:P3-TEXT"
-    recommended_default: "Use linked inspectable speech, prepared-count, and labelled-sentence layers with recorded-reference labels and the original split."
-    exact_reply_requested: "Reply: text selection approved for [editions/question/sampling/split]; or list one exact change."
+      - "decision:G-A4-17"
+      - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+      - "source:http://hdl.handle.net/11356/2004"
+      - "source:http://hdl.handle.net/11356/1868"
+    recommended_default: >-
+      Use ParlaMint-HR 5.0 ParlaMint-HR.tgz only for speeches uniquely linked
+      from every Croatian row in the ParlaSent 1.0 BCS train and BCS test
+      files. Keep every demonstrably Croatian source test row as the untouched
+      test set; fail closed if the source test schema does not expose country or
+      an equally authoritative stable Croatia link. Remove training documents
+      that cross that boundary, derive grouped 80:20 training and validation
+      partitions only inside the remaining source training portion, preserve
+      the asymmetric two-coder/reconciliation versus single-expert label paths,
+      produce only the three linked speech, measure and labelled-sentence
+      views, and name WD-C17 as the sole analytical consumer.
+    exact_reply_requested: "G-A3-TEXT-SELECTION accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18."
     resume_condition: "P3-TEXT resumes after the exact question-led package is approved."
     why_external: "The empirical question, sample boundary, and chapter role require authorial approval."
     external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Author and editor Luka Sikic accepted the exact recommended ParlaMint-HR
+      5.0 and ParlaSent 1.0 selection, Croatian row and unique-link boundary,
+      untouched source test set, grouped no-leakage training/validation split,
+      asymmetric label path, three output views and sole WD-C17 analytical
+      consumer against commit 7298a62a1c030f80c3d65443e8d311c76e1b1205.
+      P3-TEXT must fail closed if the test schema cannot prove Croatian source
+      membership or any selected test sentence lacks a unique stable link.
+    resolution_evidence:
+      - "author_reply:G-A3-TEXT-SELECTION-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "decision:G-A3-TEXT"
+      - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+      - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
 
   OA-G-A3-TEXT-RIGHTS:
-    status: "drafted_unsent"
-    readiness: "waiting_for_pinned_editions"
+    status: "done"
+    readiness: "resolved_by_exact_author_reply"
     kind: "rights_inquiry"
-    owner: "ParlaMint/ParlaSent rights owners or licence specialist"
+    owner: "author/editor"
     due_phase: "3B"
     needed: "Confirm compatible derivation, redistribution, attribution, and ShareAlike obligations for the linked text package."
     expected_form: "One source-by-source licence matrix tied to pinned editions and every proposed derived file."
@@ -32690,11 +33903,153 @@ outside_asks:
     available_evidence:
       - "decision:D07"
       - "item:R03-TEXT-licences"
-    recommended_default: "Use only licence-compatible linked layers, preserve required attribution/ShareAlike terms, and omit any uncleared file."
-    exact_reply_requested: "Reply with each source licence, compatible derived outputs, attribution, ShareAlike duties, restrictions, and effective date."
+      - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+      - "source:http://hdl.handle.net/11356/2004"
+      - "source:http://hdl.handle.net/11356/1868"
+      - "licence:https://creativecommons.org/licenses/by/4.0/"
+      - "licence:https://creativecommons.org/licenses/by-sa/4.0/"
+    recommended_default: >-
+      Keep ParlaMint-only speech and measure outputs under CC BY 4.0 with full
+      source, version, URI, licence and change attribution. License every
+      ParlaSent-derived labelled output and every truly joined derived output
+      under CC BY-SA 4.0 with full attribution to both sources where joined.
+      Keep file-level notices separate from MIT code and CC BY generated data,
+      impose no downstream restriction, and claim no rights-holder permission.
+    exact_reply_requested: "G-A3-TEXT-RIGHTS accepted as recommended for 7298a62a1c030f80c3d65443e8d311c76e1b1205 on 2026-08-18."
     resume_condition: "Package promotion resumes when every proposed output has a compatible documented lane."
     why_external: "Licence compatibility and redistribution obligations require authoritative rights evidence."
     external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Author and editor Luka Sikic accepted the recommended file-level rights
+      matrix against commit 7298a62a1c030f80c3d65443e8d311c76e1b1205:
+      ParlaMint-only outputs remain CC BY 4.0, ParlaSent-derived and truly joined
+      outputs carry CC BY-SA 4.0 and ShareAlike, and every contributing source
+      receives exact attribution and modification notices. No special
+      rights-holder permission is claimed or was sought, and no repository-wide
+      relicensing is inferred.
+    resolution_evidence:
+      - "author_reply:G-A3-TEXT-RIGHTS-accepted-as-recommended-for-7298a62a1c030f80c3d65443e8d311c76e1b1205-on-2026-08-18"
+      - "decision:G-A3-TEXT"
+      - "report:notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+      - "commit:G-A3-TEXT-preparation-8d4d36f0df502c624d5ee5420b70af5f849262cb"
+
+  OA-P3-TEXT-LINKAGE-RESEARCH:
+    status: "done"
+    readiness: "complete"
+    kind: "source_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Approve one bounded gate to investigate the exact official ParlaMint-HR edition from which ParlaSent 1.0 was derived."
+    expected_form: "One dated research-scope decision tied to both observed source SHA-256 values; it approves no source or promotion."
+    insertion_point:
+      - "decisions.G-A3-TEXT"
+      - "packets.P3-TEXT.amendments"
+    blocked_items:
+      - "R03-TEXT-licences"
+      - "R13-TEXT-package"
+      - "R13-TEXT-label-split"
+      - "R13-TEXT-three-layers"
+    blocked_gates:
+      - "P3-TEXT"
+      - "P3-VERIFY"
+      - "WD-C17"
+      - "C17"
+    available_evidence:
+      - "decision:G-A3-TEXT"
+      - "report:notes/reports/p3-text-2026-08-18.md"
+      - "check:scripts/check-text-package.py"
+      - "source:ParlaMint-HR-5.0-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c"
+      - "source:ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+      - "blocker:test-HR-1336-linked-1297-no-link-24-ambiguous-15"
+    recommended_default: >-
+      Authorise only a bounded search across official versioned and licensed
+      ParlaMint-HR editions for the exact source-aligned edition used by
+      ParlaSent 1.0. Preserve all 1336 Croatian test rows and require one unique
+      link for each. The research gate approves no edition, right, data output
+      or promotion; if no edition passes, return a new blocker before any
+      separate ParlaSent-only redesign or removal decision.
+    exact_reply_requested: "P3-TEXT-LINKAGE-RESEARCH approved for ParlaMint-HR SHA256 bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c and ParlaSent BCS test SHA256 412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0 on 2026-08-18."
+    resume_condition: "P3-TEXT may inspect any different ParlaMint-HR edition only after this exact author decision is recorded as a new scope amendment."
+    why_external: >-
+      The repository proves that the only accepted ParlaMint-HR 5.0 archive
+      cannot uniquely link every selected Croatian test row. Inspecting another
+      edition expands the ratified source scope and therefore requires an
+      author/editor decision rather than a technical inference.
+    external_message_sent: false
+    completed_at: "2026-08-18"
+    outcome: >-
+      Luka Sikic supplied the exact dated reply tied to the observed
+      ParlaMint-HR 5.0 and ParlaSent BCS test SHA-256 values. The reply permits
+      only bounded research across official, versioned and licensed
+      ParlaMint-HR editions. It accepts no replacement source, right, teaching
+      output, promotion or row removal and does not close P3-TEXT.
+    resolution_evidence:
+      - "author_reply:P3-TEXT-LINKAGE-RESEARCH-approved-for-ParlaMint-HR-sha256-bb78b3611e313f9eb3139a036e22ab2f6c543648915af9c5e390460f7d725b8c-and-ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+      - "decision:A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+      - "report:notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
+
+  OA-P3-TEXT-ROUTE:
+    status: "done"
+    readiness: "resolved_by_exact_author_reply"
+    kind: "data_selection_decision"
+    owner: "author/editor"
+    due_phase: "3B"
+    needed: "Choose whether P3-TEXT is redesigned as ParlaSent-only or removed from the first-edition empirical route."
+    expected_form: "One dated route decision tied to the exact unchanged ParlaSent BCS source SHA-256 values."
+    insertion_point:
+      - "decisions.A-P3-TEXT-ROUTE-2026-08-18"
+      - "packets.P3-TEXT.amendments"
+    blocked_items:
+      - "R03-TEXT-licences"
+      - "R13-TEXT-package"
+      - "R13-TEXT-label-split"
+      - "R13-TEXT-three-layers"
+    blocked_gates:
+      - "P3-TEXT"
+      - "P3-VERIFY"
+      - "WD-C17"
+      - "C17"
+    available_evidence:
+      - "decision:A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
+      - "report:notes/reports/p3-text-linkage-research-2026-08-18.md"
+      - "source:ParlaSent-BCS-sha256-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+      - "source:ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+      - "blocker:no-official-ParlaMint-HR-edition-links-all-1336-test-rows"
+    recommended_default: >-
+      Redesign P3-TEXT as ParlaSent-only. Retain every Croatian source-test row,
+      remove source-training documents that cross the test boundary, derive the
+      grouped training/validation split only from the remaining source-training
+      rows, preserve the recorded label-production paths and publish one
+      sentence-level teaching table under CC BY-SA 4.0. Remove every
+      ParlaMint-HR join, speech-context field, ParlaMint-only output, three-layer
+      promise and unique-speech-link test. WD-C17 remains the sole analytical
+      consumer and must describe the bounded sentence-review task without a
+      speech-context or prevalence claim. This decision would still require a
+      separately evidenced P3-TEXT build and closeout.
+    rejected_alternative: >-
+      Remove the empirical text package from the first edition and revise the
+      Chapter 17 brief before WD-C17. This is lawful but sacrifices the accepted
+      real-data teaching route and requires a wider content disposition.
+    exact_reply_requested: "P3-TEXT-ROUTE accepted as recommended: ParlaSent-only for ParlaSent BCS SHA256 c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98 and ParlaSent BCS test SHA256 412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0 on 2026-08-18."
+    resume_condition: "P3-TEXT may redesign or remove the empirical package only after one explicit author route decision is recorded."
+    why_external: >-
+      Repository evidence proves the accepted joined route impossible, but only
+      the author/editor can replace the accepted three-layer source design or
+      remove the empirical teaching route.
+    external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Luka Sikic supplied the exact dated reply tied to both unchanged
+      ParlaSent source SHA-256 values. P3-TEXT is authorised to replace the
+      failed joined design with one ParlaSent-only sentence table under CC
+      BY-SA 4.0, preserving every Croatian test row, removing overlapping
+      training documents and retaining the source label-production paths. The
+      reply does not accept the finished package.
+    resolution_evidence:
+      - "author_reply:P3-TEXT-ROUTE-accepted-as-recommended-ParlaSent-only-for-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98-and-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+      - "report:notes/reports/p3-text-route-decision-2026-08-18.md"
 
   OA-P3-PILOT-RECRUITMENT:
     status: "withdrawn_with_reason"
@@ -33748,8 +35103,8 @@ outside_asks:
       claimed.
 
   OA-C17-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "waiting_for_WD-C17_revision_and_panel"
+    status: "done"
+    readiness: "complete"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -33779,17 +35134,43 @@ outside_asks:
     blocked_gates:
       - "C17"
     available_evidence:
-      - "packet:WD-C17"
-      - "packet:C17"
-    recommended_default: "Accept only after one coherent text-classification argument, governed text evidence, preserved fairness widget, recorded-reference language, and all panel blockers pass."
-    exact_reply_requested: "Reply: C17 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+      - "commit:WD-C17-closeout-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+      - "report:notes/reports/wd-c17-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+      - "report:notes/reports/c17-acceptance-package-2026-08-19.md"
+      - "panel:zero-fatal-zero-major-zero-minor-zero-useful-improvement"
+      - "disposition:advance-only-17-doba-algoritama-to-coauthor-review-and-20-C17-items-to-accepted-after-exact-reply"
+    recommended_default: >-
+      Accept the exact WD-C17 closeout state. It carries one coherent
+      text-classification argument, governed ParlaSent-only evidence, one
+      preserved fairness widget, consistent recorded-reference language,
+      complete multi-format proof and a clean final six-critic panel.
+    exact_reply_requested: "C17 accepted for bff7106e156a49b51fc55ca4b11c9cd2fc6645f8 on 2026-08-19"
     resume_condition: "C17 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the identity-pillar revision."
     external_message_sent: false
+    prepared_at: "2026-08-19"
+    prepared_against_wd_c17_closeout_commit: "bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+    completed_at: "2026-08-19"
+    outcome: >-
+      Luka Sikic supplied the exact dated C17 acceptance naming WD-C17
+      closeout commit bff7106e156a49b51fc55ca4b11c9cd2fc6645f8. The gate
+      applies only the narrow Chapter 17 ledger disposition and 20 C17-owned
+      item acceptances recorded in the package. The final panel has zero
+      findings at every severity, the ParlaSent-only boundary remains intact,
+      Chapter 6 remains draft, and no author reading or final stage is claimed.
 
   OA-C18-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WE-C18_revision_and_panel"
+    readiness: "awaiting_exact_author_reply"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -33802,22 +35183,44 @@ outside_asks:
       - "R13-C18-corpus-package"
       - "R17-C18-two-pass"
       - "R19-C18-substantive-sensitivity"
+      - "R24-C18-privacy-sources"
       - "R24-C18-algorithm-harvest"
       - "R24-C18-explanatory-scope"
+      - "R24-C18-dated-policy"
       - "R24-C18-workflow"
+      - "R27-C17-18-transition"
       - "R32-C18-transfer-path"
       - "R35-REACHBACK-18"
-      - "R09-C18-interval-conclusion"
     blocked_gates:
       - "C18"
     available_evidence:
-      - "packet:WE-C18"
-      - "packet:C18"
-    recommended_default: "Accept only after the whole-book harvest, evidence package, sensitivity, report/AI audit, privacy policy, cross-format routes, and all panel blockers pass."
-    exact_reply_requested: "Reply: C18 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+      - "commit:WE-C18-closeout-be70fef341c46103b7252c3dd6b5c76c9545072e"
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+      - "report:notes/reports/we-c18-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-skeptic-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-style-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-structure-2026-08-19.md"
+      - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+      - "report:notes/reports/c18-acceptance-package-2026-08-19.md"
+      - "panel:zero-fatal-zero-major-all-minor-and-useful-findings-displayed-and-dispositioned"
+      - "disposition:advance-only-18-vase-prvo-istrazivanje-to-coauthor-review-and-14-C18-blocked-items-to-accepted-after-exact-reply"
+      - "revalidation:R09-C18-interval-conclusion-remains-accepted"
+    recommended_default: >-
+      Accept the exact WE-C18 closeout state. It carries the whole-book
+      capstone harvest, one evidence package, an explanatory simulated study,
+      a bounded ParlaSent transfer, sensitivity and AI audits, the dated D15
+      course-policy boundary, complete multi-format proof and a final
+      six-critic panel with zero fatal and zero major findings.
+    exact_reply_requested: "C18 accepted for be70fef341c46103b7252c3dd6b5c76c9545072e on 2026-08-19"
     resume_condition: "C18 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the capstone revision."
     external_message_sent: false
+    prepared_at: "2026-08-19"
+    prepared_against_we_c18_closeout_commit: "be70fef341c46103b7252c3dd6b5c76c9545072e"
 
   OA-G-A5B-FINAL-METADATA:
     status: "drafted_unsent"
