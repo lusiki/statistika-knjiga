@@ -6,12 +6,14 @@ files, so the defect classes the review names -- keys, row bands, domains,
 totals, units, weights and official aggregates -- can finally be exercised
 against bytes on disk rather than against an empty catalogue.
 
-Two harnesses run here:
+Three harnesses run here:
 
 * catalogue defects are injected in memory through KATALOG_NEGATIVE_FIXTURE and
   never touch a file;
 * data defects are injected into a throwaway copy of the repository's data,
   R and script inputs, so the checked-out tree is never mutated.
+* text-package defects are injected in memory by its package checker, including
+  source, row-preservation, leakage, split, label-path and byte-drift failures.
 
 Each case must exit non-zero AND print the message belonging to its own rule.
 Exit status alone is too weak a proof: a fixture that fails for an unrelated
@@ -63,6 +65,16 @@ CATALOGUE_CASES: tuple[tuple[str, str], ...] = (
     ("notice_without_own_licence", "no direct link to the package's own licence"),
     ("non_official_substitute_incomplete",
      "satisfied non-official substitute with all three tests"),
+)
+
+TEXT_CASES: tuple[tuple[str, str], ...] = (
+    ("missing_test_country", "test schema mismatch"),
+    ("source_md5_mismatch", "source MD5 mismatch"),
+    ("dropped_test_row", "package count mismatch for test_hr_rows"),
+    ("document_leakage", "package count mismatch for overlap_rows_removed"),
+    ("split_drift", "split hash mismatch"),
+    ("fabricated_label_path", "test label path was fabricated"),
+    ("output_tamper", "promoted output is not byte-for-byte reproducible"),
 )
 
 DZS_MONTHLY = "data/dzs-turizam-mjesecno.csv"
@@ -345,6 +357,15 @@ def main() -> int:
         expect_failure("katalog:unknown_fixture_name",
                        "Unknown katalog negative fixture", code, output)
 
+        for fixture, expected in TEXT_CASES:
+            env = dict(os.environ, TEXT_PACKAGE_NEGATIVE_FIXTURE=fixture)
+            code, output = run(
+                [sys.executable, str(ROOT / "scripts/check-text-package.py")],
+                ROOT,
+                env,
+            )
+            expect_failure(f"text:{fixture}", expected, code, output)
+
         with tempfile.TemporaryDirectory(prefix="statistika-podaci-") as directory:
             base = Path(directory).resolve()
             if Path(tempfile.gettempdir()).resolve() not in base.parents:
@@ -377,7 +398,7 @@ def main() -> int:
         expect_failure("podaci:in_memory_duplicate_key",
                        "contains a duplicate respondent key", code, output)
 
-        total = len(CATALOGUE_CASES) + 1 + len(DATA_CASES) + 1
+        total = len(CATALOGUE_CASES) + 1 + len(TEXT_CASES) + len(DATA_CASES) + 1
         print(f"DATA_NEGATIVE_FIXTURES_OK cases={total}")
         return 0
     except (OSError, RuntimeError) as error:

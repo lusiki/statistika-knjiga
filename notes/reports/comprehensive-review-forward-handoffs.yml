@@ -5372,8 +5372,31 @@ handoffs:
           - "fixture:scripts/check-data-fixtures.py-cases-44"
       - target_packet: P3-TEXT
         gate: before_close
-        state: acknowledged
+        state: consumed
         acknowledged_at: "2026-08-18"
+        resolved_at: "2026-08-19"
+        disposition: >-
+          P3-TEXT satisfies all six inherited external-package rules without
+          relaxing the catalogue contract. P3-TEXT, not G-A3-TEXT, is both
+          promoting_gate and promoted_by; the accepted G-A3-TEXT selection and
+          its on-disk decision record ratify that move. The promotion log names
+          parlasent and reconciles its count and identity in both directions.
+          The file-level notice carries the package's own CC BY-SA 4.0 URI and
+          full attribution. The teaching key is the stable record_id while
+          source_document_id and source_sentence_id preserve source auditability.
+          Source-inapplicable fields use the declared
+          nije_dostupno_iz_izvora marker and remain distinct from empty text or
+          a fabricated value. parlamint_hr remains unpromoted, with promoted_by
+          null, files empty, checksum null and no promotion-log entry.
+        evidence:
+          - "registry:data/katalog.yml#parlasent-promotion-and-codebook"
+          - "decision:notes/reports/p3-text-route-decision-2026-08-18.md"
+          - "notice:data/parlament-oznake.LICENCA.md"
+          - "passport:data/parlament_tekst/PUTOVNICA.md"
+          - "registry:data/katalog.yml#parlamint_hr-unpromoted"
+          - "check:scripts/check-katalog.py-packages-20-promoted-6"
+          - "check:scripts/check-data-integrity.R-snapshots-22-validated-22-undeclared-0"
+          - "fixture:scripts/check-data-fixtures.py-cases-51"
       - target_packet: P6-DATA
         gate: before_close
         state: pending
@@ -7182,6 +7205,116 @@ handoffs:
           - "registry:data/katalog.yml#parlamint_hr-and-parlasent-incoming-unpromoted-state"
           - "register:packets.P3-TEXT-status-in_progress"
           - "boundary:no-source-byte-retrieved-at-claim"
+
+  H-P3-TEXT-001:
+    source_packet: P3-TEXT
+    created_at: "2026-08-19"
+    kind: constraint
+    refs:
+      - decision:A-P3-TEXT-ROUTE-2026-08-18
+      - report:notes/reports/p3-text-2026-08-18.md
+      - source:data/parlament_oznake.csv
+      - passport:data/parlament_tekst/PUTOVNICA.md
+      - codebook:data/parlament_tekst/KODNA-KNJIGA.md
+      - check:scripts/check-text-package.py
+    statement: >-
+      P3-TEXT promotes exactly one ParlaSent-only Croatian sentence table at
+      SHA-256 0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef.
+      It retains all 1336 Croatian source-test rows, removes 25 training rows
+      from all 20 documents shared with the test source, and assigns the 1362
+      retained training rows by the published grouped SHA-256 rule. The joined
+      ParlaMint route remains a historical failed audit and is not part of the
+      accepted package. parlamint_hr remains unpromoted and no speech or count
+      output exists.
+    required_action: >-
+      Before P3-VERIFY begins substantive aggregation, independently rerun the
+      builder and text checker, catalogue checker, generic data-integrity check
+      and the complete negative-fixture harness. Aggregate only P3-VERIFY-A,
+      P3-VERIFY-B, P3-VERIFY-C, P3-VERIFY-D and P3-TEXT. Fail closed if the
+      output hash, all-test-row retention, grouped no-leakage split, label-path
+      provenance, licence notice, promotion identity or unpromoted ParlaMint
+      boundary cannot be reproduced.
+    basis:
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+      - "artifact:data/parlament_oznake.csv-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+      - "counts:2698-rows-1090-learning-272-validation-1336-test"
+      - "check:TEXT_PACKAGE_OK"
+      - "fixture:DATA_NEGATIVE_FIXTURES_OK-cases-51"
+      - "boundary:no-ParlaMint-join-speaker-context-or-prevalence-claim"
+    required: true
+    deliveries:
+      - target_packet: P3-VERIFY
+        gate: before_start
+        state: pending
+
+  H-P3-TEXT-002:
+    source_packet: P3-TEXT
+    created_at: "2026-08-19"
+    kind: constraint
+    refs:
+      - decision:A-P3-TEXT-ROUTE-2026-08-18
+      - source:data/parlament_oznake.csv
+      - notice:data/parlament-oznake.LICENCA.md
+      - passport:data/parlament_tekst/PUTOVNICA.md
+      - item:R13-TEXT-package
+      - item:R13-TEXT-label-split
+      - item:R13-TEXT-three-layers
+    statement: >-
+      The Chapter 17 data route is sentence-level ParlaSent only. The output
+      carries fallible recorded-reference sentiment labels and two distinct
+      label-production paths, not speaker intention or ground truth. It carries
+      no speaker, party, gender, date, term, ruling, speech or institutional
+      deployment context. CC BY-SA 4.0 attribution and ShareAlike obligations
+      apply to the derived table; no special rights-holder permission exists.
+    required_action: >-
+      Before WD-C17 edits prose, acknowledge and consume this boundary. Use the
+      package only for the accepted human-review worked example. Do not infer
+      prevalence, speaker intention, causation, deployment effects or
+      out-of-corpus performance; do not reconstruct a ParlaMint join or invent
+      missing context. Keep the label-production asymmetry and grouped split
+      inspectable, cite empirical claims only through verified bibliography,
+      and preserve the CC BY-SA attribution path in every used edition.
+    basis:
+      - "boundary:sentence-level-human-review-example-only"
+      - "boundary:labels-are-fallible-recorded-reference-not-ground-truth"
+      - "boundary:no-prevalence-causation-speaker-intent-or-out-of-corpus-generalisation"
+      - "boundary:no-rights-holder-permission-claim"
+      - "boundary:no-ParlaMint-derived-fields"
+    required: true
+    deliveries:
+      - target_packet: WD-C17
+        gate: before_start
+        state: pending
+
+  H-P3-TEXT-003:
+    source_packet: P3-TEXT
+    created_at: "2026-08-19"
+    kind: constraint
+    refs:
+      - source:data/README.md
+      - registry:data/katalog.yml
+      - handoff:H-P3-DZS-003
+    statement: >-
+      The human-readable data/README.md predates several accepted promotions:
+      it describes DigiKat and the Croatian AI/ICT package group as wholly
+      unpromoted and omits the later Eurostat and ParlaSent teaching snapshots.
+      data/katalog.yml remains the authoritative and currently correct source.
+      P3-TEXT did not expand its owned paths to repair this cross-package index.
+    required_action: >-
+      At P6-DATA closeout, reconcile data/README.md against the authoritative
+      catalogue and every accepted promotion without weakening the distinction
+      among bundled, portal-mediated and external-reference lanes. Verify the
+      resulting overview does not claim rights-holder permission or promote an
+      undeclared snapshot.
+    basis:
+      - "observation:data-README-stale-against-promoted-count-6"
+      - "authority:data/katalog.yml-is-source-of-truth"
+      - "boundary:not-owned-by-P3-TEXT"
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_close
+        state: pending
 
 packet_reviews:
   G-A0:
@@ -10245,3 +10378,31 @@ packet_reviews:
       - no chapter prose data catalogue bibliography terminology spine concept graph widget figure render generated artifact or shared Bookwright registry changed in G-A3-TEXT
       - P3-TEXT is the sole next permitted packet but is not claimed inside G-A3-TEXT
       - no external message push merge tag archive deployment publication or future-packet acceptance is made or authorised
+
+  P3-TEXT:
+    reviewed_at: "2026-08-19"
+    declaration: all_future_effects_recorded
+    outgoing: [H-P3-TEXT-001, H-P3-TEXT-002, H-P3-TEXT-003]
+    implementation_state: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+    checks:
+      - H-G-A3-TEXT-001 was consumed before the first substantive edit and H-P3-DZS-003 was acknowledged before work and consumed at closeout
+      - the exact ParlaSent-only route reply names both accepted ParlaSent source SHA-256 values and date 2026-08-18
+      - the historical joined ParlaMint audit remains recorded at 1297 unique 24 missing and 15 ambiguous test links and is not reinterpreted as a successful package
+      - only ParlaSent_BCS.jsonl ParlaSent_BCS_test.jsonl and README.txt are inputs to the promoted output and all pinned MD5 and SHA-256 values pass
+      - all 1336 Croatian source-test rows are retained and 25 training rows from all 20 overlapping source documents are removed
+      - the grouped SHA-256 rule assigns 1090 rows to learning and 272 to validation without using the outcome while 1336 rows retain the source test role
+      - the two-coder-plus-reconciliation training path and single-expert test path remain explicit and no absent coder reconciliation or source split is fabricated
+      - data/parlament_oznake.csv has 2698 rows MD5 55b1c4263009ab783911f094907312d9 and SHA-256 0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef
+      - the builder reproduces the promoted CSV byte for byte and the checker independently reproduces source schemas counts splits labels keys and checksum
+      - the CC BY-SA 4.0 notice names the package authors title publisher handle source checksums and exact transformations and claims no special permission
+      - parlasent is promoted only by P3-TEXT with G-A3-TEXT ratification and a bidirectionally reconciled promotion log
+      - parlamint_hr remains unpromoted with promoted_by null files empty checksum null and no promotion-log entry
+      - data/parlament_govori.csv and data/parlament_mjere.csv are absent and no speaker or speech context is exported
+      - scripts/check-katalog.py passes with 20 packages and 6 promotions
+      - scripts/check-data-integrity.R passes with 50300 rows 22 declared and validated snapshots and zero undeclared files
+      - scripts/check-data-fixtures.py passes all 51 expected-failure cases including seven text-package corruptions
+      - H-P3-TEXT-001 carries exact independent verification duties to P3-VERIFY and H-P3-TEXT-002 carries interpretation rights and scope constraints to WD-C17
+      - H-P3-TEXT-003 assigns the stale data README reconciliation to P6-DATA rather than expanding this packet lock
+      - no chapter prose widget bibliography terminology spine concept graph shared Bookwright registry docs or freeze artifact changed
+      - P3-VERIFY is the sole next permitted packet but is not claimed inside P3-TEXT
+      - no author reading reader test rights-holder permission external message push merge tag archive deployment publication or future-packet acceptance is claimed or authorised

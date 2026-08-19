@@ -114,7 +114,7 @@ portfolio_caps:
     - design: "digital_trace_or_selected_corpus"
       cap: 4
       registered: 4
-      promoted: 1
+      promoted: 2
       exempt_frozen_landmarks: false
     - design: "volunteer_open_survey"
       cap: 1
@@ -143,7 +143,7 @@ promotion_contract:
     - "promoting_gate imenuje paket koji doista dohvaca, nikada odlucivacki gate"
     - "promotion_log imenuje tocno koje je pakete taj paket promovirao"
     - "snapshot_notice nosi izravnu poveznicu na licencu bas toga paketa"
-  promoted_total: 5
+  promoted_total: 6
   promotion_log:
     - packet: "P3-CATALOG"
       promoted: 0
@@ -175,6 +175,12 @@ promotion_contract:
       record: "notes/reports/p3-eurostat-2026-08-10.md"
       packages:
         - "eurostat_drustvo"
+    - packet: "P3-TEXT"
+      promoted: 1
+      recorded_at: "2026-08-18"
+      record: "notes/reports/p3-text-2026-08-18.md"
+      packages:
+        - "parlasent"
   note: >-
     P3-CATALOG je stvorio ugovor i registrirao inventar bez ijedne promocije.
     P3-EXISTING promovira tocno dva generirana paketa, i to jedina dva za koja
@@ -2209,14 +2215,16 @@ packages:
 
   - id: "parlamint_hr"
     name: "ParlaMint-HR 5.0"
-    status: "proposed_not_promoted"
+    status: "registered_unpromoted_removed_from_text_route"
     design: "digital_trace_or_selected_corpus"
     domain: "parlamentarni govor"
     unit: "jedan govor s metapodacima govornika"
     question: "Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?"
-    role: "Granica korpusa, tekstna jedinica i selekcija u opazanje."
-    consumers:
-      - "WD-C17"
+    role: >-
+      Registrirani, ali nepromovirani kandidat. Odluka
+      A-P3-TEXT-ROUTE-2026-08-18 uklonila je govornu vezu i svaki ParlaMint-only
+      izlaz iz prvoga izdanja tekstnoga paketa.
+    consumers: []
     source: "CLARIN.SI zapis 11356/2004, ParlaMint 5.0; hrvatska arhiva ima zasebno objavljeni MD5; izdanje 8. srpnja 2025."
     version: "5.0"
     licence: "CC BY 4.0"
@@ -2226,16 +2234,18 @@ packages:
     lane: "bundled"
     refresh_class: "pinned"
     fallback: >-
-      Nakon P3-TEXT tocan CC BY 4.0 podskup i njegovi agregati pokrivaju
-      analiticki i tiskani put.
+      Nema potrosaca ni lokalne nastavne datoteke. ParlaSent-only paket pokriva
+      prihvaceni recenicni put za WD-C17; ParlaMint-HR ne ulazi u taj put.
     integrity:
       checksum: null
       official_reconciliation: null
       note: >-
-        P3-TEXT mora prenijeti puni objavljeni MD5, tocan podskup i obavijest
-        bez prepisivanja iz sjecanja.
+        Sluzbeni MD5 i kandidat provjereni su u P3-TEXT, ali paket nije
+        promoviran jer nijedno sluzbeno izdanje ParlaMint-HR nije dokazani
+        hrvatski izvor ParlaSenta niti jedinstveno povezuje svih 1336 testnih
+        redaka. Dostupnost arhive nije promocija.
     promoted: false
-    promoting_gate: "G-A3-TEXT"
+    promoted_by: null
     files: []
     aggregate_view: null
     permissible_claims:
@@ -2254,49 +2264,228 @@ packages:
 
   - id: "parlasent"
     name: "ParlaSent 1.0"
-    status: "proposed_not_promoted"
+    status: "registered_and_promoted"
     design: "digital_trace_or_selected_corpus"
     domain: "oznaceni parlamentarni govor"
     unit: "jedna oznacena recenica"
-    question: "Kako se ljudska oznaka pretvara u referentni ishod, i koliko je pogresiva?"
-    role: "Okvir kodiranja i zabiljezeni referentni ishod za poglavlje 17."
+    question: "Kako se ljudska oznaka pretvara u zabiljezeni referentni ishod, i koliko je pogresiva?"
+    role: >-
+      Okvir kodiranja, dva razlicita puta nastanka oznake i dokumentno
+      razdvajanje bez curenja za omeđeni recenicni zadatak u poglavlju 17.
     consumers:
       - "WD-C17"
-    source: "CLARIN.SI zapis 11356/1868, ParlaSent 1.0; 18200 oznacenih recenica prema sluzbenom zapisu."
-    version: "1.0"
+    source: >-
+      The multilingual sentiment dataset of parliamentary debates ParlaSent
+      1.0, CLARIN.SI zapis 11356/1868; sluzbene datoteke
+      ParlaSent_BCS.jsonl, ParlaSent_BCS_test.jsonl i README.txt.
+    version: "1.0, izdanje 18. rujna 2023.; hrvatski ParlaSent-only izvadak P3-TEXT od 18. kolovoza 2026."
     licence: "CC BY-SA 4.0"
-    attribution: "Cjeloviti navod skupa iz repozitorijskoga zapisa, inacica 1.0, trajni zapis, licenca i oznaka izmjena."
+    licence_uri: "https://creativecommons.org/licenses/by-sa/4.0/legalcode"
+    attribution: >-
+      Mochtak, Michal; Rupnik, Peter; Meden, Katja; Ljubesic, Nikola. The
+      multilingual sentiment dataset of parliamentary debates ParlaSent 1.0.
+      Jozef Stefan Institute; http://hdl.handle.net/11356/1868; CC BY-SA 4.0;
+      promjene su oznacene u data/parlament-oznake.LICENCA.md.
     access: "Izravno iz sluzbenoga CLARIN.SI repozitorija."
-    redistribution: "opci temelj utvrdjen uz CC BY-SA 4.0; izvedeni skup zadrzava ShareAlike rezim"
+    redistribution: >-
+      provjerena prema objavljenoj CC BY-SA 4.0 licenci za tocan hrvatski
+      izvedeni skup; izvedena tablica zadrzava ShareAlike, punu atribuciju i
+      oznaku promjena. Nije trazeno posebno dopustenje nositelja prava.
     lane: "bundled"
     refresh_class: "pinned"
     fallback: >-
-      Nakon P3-TEXT zasebno oznaceni CC BY-SA 4.0 podskup pokriva sentimentni
-      put; ako kompozicija ne prodje provjeru, koristi se ParlaMint-only opisna
-      vjezba bez prenesenih oznaka sentimenta.
+      Jedna CSV datoteka pokriva isti R, no-code, tiskani, HTML, PDF i DOCX put.
+      Svaki obvezni zadatak koristi unaprijed zadane retke ili agregate izvedene
+      iz te iste datoteke; ne postoji portalna ni ParlaMint-only ovisnost.
+    provenance:
+      retrieved_at: "2026-08-18"
+      route: >-
+        Tri sluzbene datoteke dohvaćene su izravno iz CLARIN.SI zapisa
+        11356/1868 u git-ignoriranu kandidatnu mapu. Objavljeni MD5 i lokalni
+        SHA-256 provjereni su prije transformacije; render ne dohvaca podatke.
+      chain:
+        - "http://hdl.handle.net/11356/1868"
+        - "data/_kandidat/p3-text/ParlaSent_BCS.jsonl"
+        - "data/_kandidat/p3-text/ParlaSent_BCS_test.jsonl"
+        - "data/_kandidat/p3-text/README.txt"
+        - "scripts/build-text-package.py"
+        - "data/parlament_oznake.csv"
+      source_last_modified: null
+      source_last_modified_note: >-
+        Zapis daje datum izdanja 18. rujna 2023., ali ovaj paket nije zabiljezio
+        zasebno polje posljednje izmjene i ne izmislja ga.
+      verified_at: "2026-08-18"
+      source_commit: "e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+      transformations:
+        - "Odabrani su svi i samo retci s doslovnim country = HR."
+        - "Iz datoteke za ucenje uklonjeno je svih 25 redaka iz 20 document_id skupina koje se pojavljuju u izvornoj ispitnoj datoteci."
+        - "Preostalih 1178 dokumenata razdvojeno je SHA-256 pravilom s konstantom statistika-p3-text-parlasent-only-v1 i pragom 0,20."
+        - "Izvorni testni redci ostali su netaknut skup za ispitivanje."
+        - "Izostavljena su polja govornoga konteksta; sacuvani su recenica, izvorni kljucevi, izvorna uloga datoteke, oznake i put oznake."
+        - "CSV je zapisan u UTF-8 bez BOM-a s LF zavrsecima redaka."
     integrity:
-      checksum: null
-      official_reconciliation: null
+      checksum: "55b1c4263009ab783911f094907312d9"
+      checksum_algorithm: "md5"
+      official_reconciliation: >-
+        Obje sluzbene BCS datoteke imaju po 2600 redaka. Doslovni HR rez daje
+        1387 train i 1336 test redaka. Dvadeset dokumenta prelazi izvornu
+        granicu; uklanjanjem njihovih 25 train redaka ostaje 1362 train redaka,
+        a s svih 1336 test redaka nastaje tocno 2698 izlaznih redaka. Izvedene
+        oznake daju 1212 Negative, 979 Neutral i 507 Positive; checker ih
+        ponovno racuna iz izvornih JSONL bajtova.
       note: >-
-        ShareAlike rezim ostaje odvojen od MIT koda knjige i aktivira se na
-        prilagodbama ovoga skupa.
-    promoted: false
-    promoting_gate: "G-A3-TEXT"
-    files: []
+        Glavni checksum pripada data/parlament_oznake.csv. Builder i neovisni
+        checker potvrđuju iste izvorne MD5/SHA-256 vrijednosti, doslovne sheme,
+        HR rez, uklanjanje preklopljenih dokumenata, split, put oznake,
+        brojnosti i byte-for-byte reprodukciju. ShareAlike ostaje odvojen od
+        MIT koda knjige.
+    promoted: true
+    promoted_by: "P3-TEXT"
+    promoting_gate: "P3-TEXT"
+    promoting_gate_ratified_by: "G-A3-TEXT"
+    promoting_gate_ratified_record: "notes/reports/g-a3-text-selection-rights-decision-2026-08-18.md"
+    files:
+      - "data/parlament_oznake.csv"
     aggregate_view: null
+    snapshot_notice: "data/parlament-oznake.LICENCA.md"
+    passport: "data/parlament_tekst/PUTOVNICA.md"
+    build_script: "scripts/build-text-package.py"
+    storage:
+      encoding: "UTF-8"
+      line_ending: "LF"
+      filenames_ascii: true
+      weights: null
+      weights_note: >-
+        Ovo nije anketni uzorak i nema tezine uzorkovanja. Izvorna selekcija
+        recenica ne dobiva izmisljenu tezinu niti se predstavlja kao
+        reprezentativna za parlamentarni govor.
+      precision_note: >-
+        Izvorni tekst, kljucevi i oznake preneseni su bez brojcanoga
+        zaokruzivanja. Jedina izvedena vrijednost jest deterministicki skup;
+        njezino se SHA-256 pravilo ponovno racuna za svaki dokument.
+      missing_note: >-
+        Doslovni marker nije_dostupno_iz_izvora razlikuje nedostupan izvorni
+        split, drugi koder i uskladjenje testnih redaka od praznine, nule ili
+        slaganja kodera. Nijedno drugo polje u izlazu nije prazno.
+    missing_value_codes:
+      - code: "nije_dostupno_iz_izvora"
+        meaning: >-
+          Izvorna ispitna datoteka ne pruza drugi koder, uskladjenje ni izvorni
+          split; marker nije podatak o slaganju i nije nula.
+        occurs_in_extract: true
+    file_records:
+      - path: "data/parlament_oznake.csv"
+        role: "analysis"
+        md5: "55b1c4263009ab783911f094907312d9"
+        rows: 2698
+        row_band: [2698, 2698]
+        key: "record_id"
+        columns:
+          - name: "record_id"
+            type: "text"
+            unit: "izvedeni kljuc retka"
+            missing_code: null
+            pattern: "^(train|test)-[0-9]{4}$"
+            description: "Izvorna uloga datoteke i redni broj izvornoga JSONL retka."
+          - name: "sentence_text"
+            type: "text"
+            unit: "jedna oznacena recenica"
+            missing_code: null
+            description: "Doslovni izvorni tekst recenice."
+          - name: "country_source"
+            type: "label"
+            unit: "izvorna oznaka zemlje"
+            missing_code: null
+            levels: ["HR"]
+            description: "Doslovna vrijednost country iz izvorne datoteke."
+          - name: "source_role"
+            type: "label"
+            unit: "uloga izvorne datoteke"
+            missing_code: null
+            levels: ["train_file", "test_file"]
+            description: "Navodi iz koje je sluzbene JSONL datoteke redak dosao."
+          - name: "source_line"
+            type: "integer"
+            unit: "redni broj izvornoga retka"
+            missing_code: null
+            min: 1
+            max: 2600
+            description: "Jednobazni redni broj u izvornoj datoteci."
+          - name: "source_document_id"
+            type: "integer"
+            unit: "izvorni unutarnji kljuc dokumenta"
+            missing_code: null
+            min: 40
+            max: 206573
+            description: "Grupni kljuc za uklanjanje curenja i split."
+          - name: "source_sentence_id"
+            type: "integer"
+            unit: "izvorni unutarnji kljuc recenice"
+            missing_code: null
+            min: 2
+            max: 2600
+            description: "Izvorni identifikator recenice."
+          - name: "source_split"
+            type: "label"
+            unit: "izvorna oznaka splita"
+            missing_code: "nije_dostupno_iz_izvora"
+            levels: ["train", "dev", "test"]
+            description: "Izvorni split train datoteke; za test datoteku nije dostupan."
+          - name: "derived_split"
+            type: "label"
+            unit: "izvedeni nastavni split"
+            missing_code: null
+            levels: ["ucenje", "provjera", "ispitivanje"]
+            description: "Dokumentno razdvajanje prema javnom SHA-256 pravilu."
+          - name: "annotator1_raw"
+            type: "label"
+            unit: "izvorna oznaka prvoga ili jedinoga kodera"
+            missing_code: null
+            levels: ["Negative", "Positive", "N_Neutral", "P_Neutral", "M_Negative", "M_Positive"]
+            description: "Doslovna oznaka annotator1."
+          - name: "annotator2_raw"
+            type: "label"
+            unit: "izvorna oznaka drugoga kodera"
+            missing_code: "nije_dostupno_iz_izvora"
+            levels: ["Negative", "Positive", "N_Neutral", "P_Neutral", "M_Negative", "M_Positive"]
+            description: "Doslovna oznaka annotator2 ili izricit marker nedostupnosti."
+          - name: "reconciliation_raw"
+            type: "label"
+            unit: "izvorna uskladjena oznaka"
+            missing_code: "nije_dostupno_iz_izvora"
+            levels: ["Negative", "Positive", "N_Neutral", "P_Neutral", "M_Negative", "M_Positive"]
+            description: "Doslovno uskladjenje ili izricit marker nedostupnosti."
+          - name: "recorded_label"
+            type: "label"
+            unit: "trostupanjski zabiljezeni referentni ishod"
+            missing_code: null
+            levels: ["Negative", "Neutral", "Positive"]
+            description: "Izvorni trostupanjski label; nije istina o recenici."
+          - name: "label_path"
+            type: "label"
+            unit: "put nastanka oznake"
+            missing_code: null
+            levels: ["dva_kodera_i_uskladjenje", "jedan_uvjezbani_koder"]
+            description: "Razlikuje train i test postupak proizvodnje oznake."
     permissible_claims:
       - "opis oznacenih recenica"
       - "vrednovanje klasifikatora prema zabiljezenom referentnom ishodu"
+      - "provjera dokumentnoga razdvajanja bez curenja"
     unavailable_claims:
       - "tvrdnja da je oznaka istina"
       - "generalizacija na neoznacene recenice"
+      - "prevalencija sentimenta u Hrvatskome saboru"
+      - "govorni kontekst ili namjera govornika"
     ethics:
       category_ownership: "Okvir kodiranja odredili su autori skupa."
       absence: "Recenice izvan uzorka za oznacavanje nemaju oznaku."
-      identifiability: "Govornici su javne osobe i imenovani su."
+      identifiability: >-
+        Izlaz ne nosi ime, stranku, spol, godinu rodjenja ni ulogu
+        vlasti/opozicije. Izvorni unutarnji kljucevi ostaju radi provjere
+        razdvajanja, a tekst javnoga govora i dalje moze biti prepoznatljiv.
       beneficiaries: "Citatelj koji uci da je referentna oznaka pogresiva."
       error_burden: "Kriva oznaka pada na imenovanoga zastupnika."
-      appeal: "Nije uspostavljen; upravo je to pouka poglavlja 17."
+      appeal: "Nije uspostavljen u podatkovnom skupu; upravo je to pouka poglavlja 17."
 
   - id: "gfi_fina"
     name: "GFI/FINA"

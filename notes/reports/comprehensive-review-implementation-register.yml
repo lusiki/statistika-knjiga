@@ -6,39 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-18"
+  last_updated: "2026-08-19"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "P3-TEXT"
-    claimed_at: "2026-08-18"
-    owned_paths:
-      - "data/_kandidat/"
-      - "data/katalog.yml"
-      - "data/katalog.schema.json"
-      - "data/parlament_govori.csv"
-      - "data/parlament_mjere.csv"
-      - "data/parlament_oznake.csv"
-      - "data/parlament-govori.LICENCA.md"
-      - "data/parlament-mjere.LICENCA.md"
-      - "data/parlament-oznake.LICENCA.md"
-      - "data/parlament_tekst/"
-      - "scripts/build-text-package.R"
-      - "scripts/build-text-package.py"
-      - "scripts/check-text-package.R"
-      - "scripts/check-text-package.py"
-      - "scripts/check-katalog.py"
-      - "scripts/check-data-integrity.R"
-      - "scripts/check-data-fixtures.py"
-      - "notes/reports/p3-text-2026-08-18.md"
-      - "notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
-      - "notes/reports/p3-text-linkage-research-2026-08-18.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "G-A3-TEXT"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "P3-TEXT"
+  next_permitted_packet: "P3-VERIFY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -2437,6 +2411,42 @@ decisions:
       or unblock P3-VERIFY, WD-C17 or C17. No rights-holder permission, author
       reading, reader test, measured reading time, independent terminology
       review, push, merge, tag, archive, deployment or publication is claimed.
+
+  A-P3-TEXT-ROUTE-2026-08-18:
+    status: "accepted"
+    accepted_at: "2026-08-18"
+    author_disposition: "parlasent_only_accepted_as_recommended"
+    author: "Luka Sikic"
+    editor: "Luka Sikic"
+    evidence: "conversation:P3-TEXT-ROUTE-accepted-as-recommended-ParlaSent-only-for-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98-and-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+    decision_record: "notes/reports/p3-text-route-decision-2026-08-18.md"
+    applies_to: "P3-TEXT"
+    accepted_source_state:
+      parlasent_bcs_sha256: "c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+      parlasent_bcs_test_sha256: "412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+    accepted_disposition: >-
+      Redesign P3-TEXT as ParlaSent-only. Retain every Croatian source-test
+      row, remove source-training documents crossing the test boundary, derive
+      deterministic grouped training and validation partitions only from the
+      remaining source-training rows, preserve the recorded label-production
+      paths and publish one sentence-level teaching table under CC BY-SA 4.0.
+      Remove every ParlaMint-HR join, speech-context field, ParlaMint-only
+      output, three-layer promise and unique-speech-link test. WD-C17 remains
+      the sole analytical consumer and may make no speech-context or prevalence
+      claim.
+    rejected_alternative: >-
+      Remove the empirical text package from the first edition. That route is
+      lawful but would sacrifice the accepted real-data teaching route and
+      require a wider Chapter 17 brief disposition.
+    authority_boundary: >-
+      This decision changes only the active P3-TEXT source and output contract.
+      It does not accept a derived file, count, split, checksum, passport,
+      licence notice, catalogue promotion, empirical result, chapter edit or
+      later packet; it selects or fetches no CROCorp data and claims no special
+      rights-holder permission. P3-TEXT must still pass its own exit tests and
+      H-P3-DZS-003 before closeout. No author reading, reader test, measured
+      reading time, independent terminology review, push, merge, tag, archive,
+      deployment or publication is claimed.
 
   G-A3-ESS:
     status: "accepted"
@@ -14131,12 +14141,12 @@ packets:
     sequence: 127
     phase: "3B"
     kind: "data_package"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "G-A3-TEXT"
-    scope: "Linked governed text package."
+    scope: "Governed ParlaSent-only Croatian sentence package."
     outputs:
-      - "P3-TEXT validated package, passport, checksum, and route evidence for: Linked governed text package."
+      - "P3-TEXT validated package, passport, checksum, and route evidence for the ParlaSent-only Croatian sentence package."
       - "Completion evidence is tied to the declared P3-TEXT source state and bounded scope."
     exit_tests:
       - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
@@ -14154,9 +14164,83 @@ packets:
           official, versioned and licensed ParlaMint-HR editions for the exact
           edition used by ParlaSent 1.0. The search accepts no replacement source
           or right and cannot create or promote the teaching package.
-    completion_evidence: []
+      - amended_at: "2026-08-18"
+        amended_by: "Luka Sikic"
+        authority: "A-P3-TEXT-ROUTE-2026-08-18"
+        evidence: "conversation:P3-TEXT-ROUTE-accepted-as-recommended-ParlaSent-only-for-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98-and-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+        amendment_record: "notes/reports/p3-text-route-decision-2026-08-18.md"
+        reason: >-
+          No official ParlaMint-HR edition is the demonstrated Croatian
+          ParlaSent source or uniquely links all 1336 selected test rows. The
+          author therefore replaces the joined three-layer design with one
+          ParlaSent-only sentence table while preserving every Croatian test
+          row, the source label paths and grouped no-leakage splitting.
+    completion_evidence:
+      source_state: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+      required_evidence:
+        - requirement: "verified source version and licence"
+          artifacts:
+            - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+            - "source:ParlaSent_BCS.jsonl-sha256-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+            - "source:ParlaSent_BCS_test.jsonl-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+            - "notice:data/parlament-oznake.LICENCA.md-CC-BY-SA-4.0"
+            - "boundary:no-rights-holder-permission-claim"
+        - requirement: "codebook and passport"
+          artifacts:
+            - "passport:data/parlament_tekst/PUTOVNICA.md"
+            - "codebook:data/parlament_tekst/KODNA-KNJIGA.md"
+            - "registry:data/katalog.yml#parlasent-codebook"
+        - requirement: "checksum and source reconciliation"
+          artifacts:
+            - "artifact:data/parlament_oznake.csv-md5-55b1c4263009ab783911f094907312d9-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "builder:scripts/build-text-package.py-byte-for-byte"
+            - "check:scripts/check-text-package.py-TEXT_PACKAGE_OK"
+            - "fixture:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-51"
+        - requirement: "route-specific expected values"
+          artifacts:
+            - "counts:2698-rows-2499-documents-train-1090-validation-272-test-1336-overlap-rows-removed-25"
+            - "registry:data/katalog.yml#parlasent-promoted-by-P3-TEXT"
+            - "registry:data/katalog.yml#parlamint_hr-unpromoted-files-empty-checksum-null"
+            - "boundary:data/parlament_govori.csv-and-data/parlament_mjere.csv-absent"
+      outputs:
+        - output: "P3-TEXT validated package, passport, checksum, and route evidence for the ParlaSent-only Croatian sentence package."
+          artifacts:
+            - "source:data/parlament_oznake.csv"
+            - "passport:data/parlament_tekst/PUTOVNICA.md"
+            - "codebook:data/parlament_tekst/KODNA-KNJIGA.md"
+            - "notice:data/parlament-oznake.LICENCA.md"
+            - "report:notes/reports/p3-text-2026-08-18.md"
+        - output: "Completion evidence is tied to the declared P3-TEXT source state and bounded scope."
+          artifacts:
+            - "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
+            - "handoff:H-P3-DZS-003-consumed-at-closeout"
+            - "handoff:H-P3-TEXT-001"
+            - "handoff:H-P3-TEXT-002"
+            - "handoff:H-P3-TEXT-003"
+      exit_tests:
+        - test: "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
+          result: "passed"
+          evidence:
+            - "check:scripts/check-text-package.py-TEXT_PACKAGE_OK"
+            - "check:scripts/check-katalog.py-KATALOG_OK-packages-20-promoted-6"
+            - "check:scripts/check-data-integrity.R-DATA_INTEGRITY_OK-rows-50300-snapshots-22-validated-22-undeclared-0"
+            - "fixture:scripts/check-data-fixtures.py-DATA_NEGATIVE_FIXTURES_OK-cases-51"
+        - test: "Every promised R, no-code, print, or portal lane is lawful and testable."
+          result: "passed"
+          evidence:
+            - "passport:data/parlament_tekst/PUTOVNICA.md"
+            - "notice:data/parlament-oznake.LICENCA.md"
+            - "source:one-plain-UTF-8-CSV-with-stable-ASCII-name"
+            - "boundary:no-portal-or-render-time-network-lane-promised"
+        - test: "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p3-text-2026-08-18.md"
+            - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+            - "check:source-schemas-country-selection-document-split-label-path-and-byte-output"
+            - "review:packet_reviews.P3-TEXT-all-future-effects-recorded"
     blocker_evidence:
-      state: "fail_closed_no_official_parlamint_hr_source_edition"
+      state: "historical_join_blocker_resolved_by_A-P3-TEXT-ROUTE-2026-08-18"
       investigated_at: "2026-08-18"
       research_completed_at: "2026-08-18"
       research_authority: "A-P3-TEXT-LINKAGE-RESEARCH-2026-08-18"
@@ -14218,7 +14302,7 @@ packets:
           10.5281/zenodo.6521372, not a ParlaMint-HR edition, as the Croatian
           source corpus. The official CROCorp record is version 1.1.1 under CC
           BY 4.0, but it was not selected, downloaded or accepted by this gate.
-      failed_exit_tests:
+      historical_failed_exit_tests:
         - "The package passes unit, schema, key, missing-code, checksum, and source reconciliation checks."
         - "Every promised R, no-code, print, or portal lane is lawful and testable."
         - "The P3-TEXT packet-specific scope is fully evidenced; no generic contract alone is used as proof."
@@ -14243,19 +14327,17 @@ packets:
         - "source:https://doi.org/10.5281/zenodo.6521372"
         - "outside-ask:OA-P3-TEXT-ROUTE"
       boundary: >-
-        P3-TEXT remains active and unaccepted. No teaching file, passport,
-        licence notice, catalogue promotion, empirical result, chapter edit,
-        outgoing handoff or packet closeout is claimed. P3-VERIFY, WD-C17 and
-        C17 remain blocked. No different corpus may be selected until the author
-        separately decides between a ParlaSent-only redesign and removal of the
-        empirical text package.
+        This evidence remains the historical proof that the joined
+        ParlaMint-HR route failed closed. A-P3-TEXT-ROUTE-2026-08-18 removes
+        the join, speech context and ParlaMint-only outputs from the authorised
+        package; it does not reinterpret, repair or suppress the failed audit.
     contract: "data_package"
     required_evidence:
       - "verified source version and licence"
       - "codebook and passport"
       - "checksum and source reconciliation"
       - "route-specific expected values"
-    change_reference: null
+    change_reference: "commit:e948cf2aaae2f24fb600d44898d3fcdbc1e99e2e"
   P3-VERIFY:
     sequence: 128
     phase: "3"
@@ -17627,7 +17709,7 @@ items:
       location: "§12 text package"
     description: "Verify pinned editions, compatible derivation/redistribution, attribution, and ShareAlike obligations."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -17646,11 +17728,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+      - "source:ParlaSent-1.0-handle-11356/1868"
+      - "notice:data/parlament-oznake.LICENCA.md-CC-BY-SA-4.0"
+      - "registry:data/katalog.yml#parlasent-rights-and-attribution"
+      - "boundary:no-rights-holder-permission-claim"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R03-GFI-FINA-external:
     parents:
       - "R03"
@@ -23134,9 +23221,9 @@ items:
         - "S12"
         - "S15"
       location: "§12 text package"
-    description: "Build a question-led linked speech/sentence package with text, metadata, counts, coder labels, reconciled label, and original split."
+    description: "Build one question-led ParlaSent-only Croatian sentence package with inspectable source identifiers, label paths, recorded labels, and source/derived split fields."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -23150,15 +23237,21 @@ items:
       - "scope-specific provenance or catalogue record"
       - "documented approval and reconciliation evidence"
     acceptance_tests:
-      - "Unit, boundary, label, split, checksum, UTF-8, and source counts pass; full archive stays external."
+      - "Unit, boundary, label, grouped split, checksum, UTF-8, source-count, no-leakage and byte-for-byte checks pass; full source files stay external."
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:data/parlament_oznake.csv-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+      - "counts:2698-rows-all-1336-Croatian-test-rows-retained"
+      - "builder:scripts/build-text-package.py"
+      - "check:scripts/check-text-package.py-TEXT_PACKAGE_OK"
+      - "fixture:scripts/check-data-fixtures.py-cases-51"
+      - "boundary:no-ParlaMint-join-or-speech-context"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R13-TEXT-label-split:
     parents:
       - "R13"
@@ -23172,7 +23265,7 @@ items:
       location: "§12 text package"
     description: "Preserve country, coder labels, reconciled recorded label, and split; disclose selection."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -23189,11 +23282,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "passport:data/parlament_tekst/PUTOVNICA.md#odabir-i-podjela"
+      - "codebook:data/parlament_tekst/KODNA-KNJIGA.md"
+      - "counts:20-overlap-documents-25-training-rows-removed"
+      - "split:statistika-p3-text-parlasent-only-v1-grouped-SHA256"
+      - "label-path:training-two-coders-and-reconciliation-test-single-expert"
+      - "boundary:no-prevalence-or-ground-truth-claim"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R13-TEXT-three-layers:
     parents:
       - "R13"
@@ -23205,9 +23304,9 @@ items:
         - "S12"
         - "S15"
       location: "§12 text module"
-    description: "Provide three linked inspectable layers with stable keys."
+    description: "Provide one inspectable ParlaSent sentence layer with stable source and derived keys; the accepted route removes the joined speech and prepared-count layers."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -23219,15 +23318,20 @@ items:
       - "scope-specific provenance or catalogue record"
       - "documented approval and reconciliation evidence"
     acceptance_tests:
-      - "Passport documents transformations and all layers join without leakage or orphaned records."
+      - "Passport documents every retained field and transformation; all selected rows have stable keys and no document leakage or orphaned record survives."
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-TEXT"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18-removes-three-layer-promise"
+      - "artifact:data/parlament_oznake.csv-one-inspectable-layer"
+      - "passport:data/parlament_tekst/PUTOVNICA.md"
+      - "check:scripts/check-text-package.py-no-document-leakage-or-orphans"
+      - "boundary:data/parlament_govori.csv-and-data/parlament_mjere.csv-absent"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
   R13-C17-placement:
     parents:
       - "R13"
@@ -33224,8 +33328,8 @@ outside_asks:
       - "report:notes/reports/p3-text-linkage-research-decision-2026-08-18.md"
 
   OA-P3-TEXT-ROUTE:
-    status: "drafted_unsent"
-    readiness: "ready_for_exact_author_reply"
+    status: "done"
+    readiness: "resolved_by_exact_author_reply"
     kind: "data_selection_decision"
     owner: "author/editor"
     due_phase: "3B"
@@ -33272,6 +33376,18 @@ outside_asks:
       the author/editor can replace the accepted three-layer source design or
       remove the empirical teaching route.
     external_message_sent: false
+    resolved_at: "2026-08-18"
+    resolution: >-
+      Luka Sikic supplied the exact dated reply tied to both unchanged
+      ParlaSent source SHA-256 values. P3-TEXT is authorised to replace the
+      failed joined design with one ParlaSent-only sentence table under CC
+      BY-SA 4.0, preserving every Croatian test row, removing overlapping
+      training documents and retaining the source label-production paths. The
+      reply does not accept the finished package.
+    resolution_evidence:
+      - "author_reply:P3-TEXT-ROUTE-accepted-as-recommended-ParlaSent-only-for-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98-and-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0-on-2026-08-18"
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+      - "report:notes/reports/p3-text-route-decision-2026-08-18.md"
 
   OA-P3-PILOT-RECRUITMENT:
     status: "withdrawn_with_reason"

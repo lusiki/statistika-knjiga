@@ -177,8 +177,6 @@ read_snapshot <- function(path) {
   list(bytes = bytes, text = text)
 }
 
-split_fields <- function(line) strsplit(line, ",", fixed = TRUE)[[1]]
-
 field_at <- function(rows, index) {
   vapply(rows, function(row) row[[index]], character(1))
 }
@@ -207,16 +205,33 @@ validate_file_record <- function(record, entry_id, storage, source_codes = chara
   if (!length(raw$bytes) || raw$bytes[[length(raw$bytes)]] != as.raw(10L)) {
     note("snapshot does not end with a newline")
   }
-  if (!grepl("^[a-z0-9][a-z0-9.-]*$", basename(record$path))) {
+  if (!grepl("^[a-z0-9][a-z0-9._-]*$", basename(record$path))) {
     note("file name is not a stable lowercase ASCII name")
   }
 
-  lines <- strsplit(raw$text, "\n", fixed = TRUE)[[1]]
-  if (length(lines) < 2L) {
+  parsed <- tryCatch(
+    read.csv(
+      text = raw$text,
+      header = TRUE,
+      check.names = FALSE,
+      stringsAsFactors = FALSE,
+      colClasses = "character",
+      na.strings = character(),
+      quote = "\"",
+      comment.char = "",
+      strip.white = FALSE
+    ),
+    error = function(error) error
+  )
+  if (inherits(parsed, "error")) {
+    note("CSV parser failed: ", conditionMessage(parsed))
+    return(list(problems = problems, columns = NULL))
+  }
+  if (!nrow(parsed)) {
     note("snapshot has no data rows")
     return(list(problems = problems, columns = NULL))
   }
-  header <- split_fields(lines[[1]])
+  header <- names(parsed)
   declared <- vapply(record$columns, function(column) column$name, character(1))
   if (!identical(header, declared)) {
     note("header does not match the declared codebook: file has ",
@@ -224,12 +239,9 @@ validate_file_record <- function(record, entry_id, storage, source_codes = chara
     return(list(problems = problems, columns = NULL))
   }
 
-  rows <- lapply(lines[-1], split_fields)
-  widths <- vapply(rows, length, integer(1))
-  if (any(widths != length(header))) {
-    note("a row has a different number of fields than the header")
-    return(list(problems = problems, columns = NULL))
-  }
+  rows <- lapply(seq_len(nrow(parsed)), function(index) {
+    unname(as.character(parsed[index, , drop = TRUE]))
+  })
   if (length(rows) != as.integer(record$rows)) {
     note("row count ", length(rows), " differs from the declared ",
          record$rows)
