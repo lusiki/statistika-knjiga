@@ -7245,7 +7245,25 @@ handoffs:
     deliveries:
       - target_packet: P3-VERIFY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-19"
+        resolved_at: "2026-08-19"
+        disposition: >-
+          P3-VERIFY acknowledges and consumes the exact P3-TEXT package
+          boundary before substantive aggregation. It will independently rerun
+          the builder, text checker, catalogue, generic data integrity and full
+          negative-fixture harness against P3-TEXT closeout commit 2ef8973. It
+          requires the exact output hash, all 1336 Croatian test rows, grouped
+          no-leakage split, asymmetric label paths, CC BY-SA notice, P3-TEXT
+          promotion identity and unpromoted ParlaMint state. It will aggregate
+          exactly P3-VERIFY-A through D plus P3-TEXT and fail closed rather than
+          hide any prerequisite blocker.
+        evidence:
+          - "commit:P3-TEXT-closeout-2ef8973"
+          - "report:notes/reports/p3-text-2026-08-18.md"
+          - "register:packets.P3-TEXT-completion_evidence"
+          - "artifact:data/parlament_oznake.csv-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+          - "register:packets.P3-VERIFY-status-in_progress"
 
   H-P3-TEXT-002:
     source_packet: P3-TEXT
@@ -7313,6 +7331,46 @@ handoffs:
     required: true
     deliveries:
       - target_packet: P6-DATA
+        gate: before_close
+        state: pending
+
+  H-P3-VERIFY-001:
+    source_packet: P3-VERIFY
+    created_at: "2026-08-19"
+    kind: evidence
+    refs:
+      - report:notes/reports/p3-verify-2026-08-19.md
+      - report:notes/reports/p3-verify-d-2026-08-17.md
+      - report:notes/reports/c07-c12-reaccept-six-critic-synthesis-2026-08-17.md
+      - source:chapters/07-vjerojatnost.qmd
+      - source:chapters/08-uzorkovanje.qmd
+      - source:chapters/09-procjena.qmd
+      - source:chapters/10-logika-testiranja.qmd
+      - source:chapters/11-velicina-ucinka-i-snaga.qmd
+      - source:chapters/12-kriza-i-obnova.qmd
+    statement: >-
+      P3-VERIFY confirms that all six current Git blob IDs for Chapters 7-12
+      exactly match the accepted C07-C12-REACCEPT manifest and locked commits.
+      It also finds that the six legacy values labelled SHA-256 in that panel
+      are not SHA-256 hashes of the raw Git blob bytes; CRLF checkout bytes
+      produce a third set. Source identity is unambiguous through the exact Git
+      blobs, so this does not block WD-C17, but the hash convention itself is
+      not documented and may not be repeated as a raw-byte checksum.
+    required_action: >-
+      Before P8-META closes, identify and document the legacy hash
+      canonicalisation or replace release-facing references with one explicit
+      reproducible byte convention and the already-accepted Git blob IDs.
+      Reconcile all six labels consistently without changing accepted chapter
+      prose or claiming a new review. Add a deterministic release check if raw
+      SHA-256 values remain part of metadata.
+    basis:
+      - "identity:all-six-accepted-Git-blobs-match-current-HEAD"
+      - "observation:legacy-SHA-labels-do-not-equal-raw-Git-blob-SHA256"
+      - "boundary:no-chapter-byte-change-or-review-invalidation"
+      - "boundary:nonblocking-for-WD-C17"
+    required: true
+    deliveries:
+      - target_packet: P8-META
         gate: before_close
         state: pending
 
@@ -10405,4 +10463,29 @@ packet_reviews:
       - H-P3-TEXT-003 assigns the stale data README reconciliation to P6-DATA rather than expanding this packet lock
       - no chapter prose widget bibliography terminology spine concept graph shared Bookwright registry docs or freeze artifact changed
       - P3-VERIFY is the sole next permitted packet but is not claimed inside P3-TEXT
+      - no author reading reader test rights-holder permission external message push merge tag archive deployment publication or future-packet acceptance is claimed or authorised
+
+  P3-VERIFY:
+    reviewed_at: "2026-08-19"
+    declaration: all_future_effects_recorded
+    outgoing: [H-P3-VERIFY-001]
+    implementation_state: "commit:2ef8973a4f2da6827bb077d39389f5a19363385e"
+    checks:
+      - H-P3-TEXT-001 was acknowledged and consumed before substantive aggregation
+      - the gate aggregates exactly P3-VERIFY-A P3-VERIFY-B P3-VERIFY-C P3-VERIFY-D and P3-TEXT
+      - all five prerequisite source commits or output hashes exist and every prerequisite has structured completion evidence
+      - four generated snapshots and four DZS extracts reproduce without writing and DIP remains portal-mediated unpromoted with no local file or checksum
+      - the pinned DigiKat checkout is 278a127f9170c1aca82035a4a8357b8a995f91d8 and all three extracts and their reconciliation reproduce
+      - Eurostat reproduces 162 keys 161 values and one explicit missing value with tolerance zero
+      - the Chapter 12 evidence validator reproduces 17 labs total N 1894 both REML estimates and intervals
+      - all six Chapter 7-12 Git blob IDs exactly match the accepted C07-C12-REACCEPT manifest and locked commits
+      - legacy Chapter 7-12 values labelled SHA-256 do not equal raw Git blob SHA-256 values so H-P3-VERIFY-001 assigns convention reconciliation to P8-META without invalidating exact blob identity
+      - ESS remains portal-mediated optional unpromoted with zero local data files checksum null and open rights ask
+      - the ParlaSent builder and checker reproduce 2698 rows all 1336 Croatian test rows 20 removed overlap documents 25 removed training rows and exact output SHA-256 0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef
+      - parlamint_hr remains unpromoted and the two ParlaMint-only outputs remain absent
+      - catalogue data integrity citations manuscript concepts terminology figures widgets parity tokens inventory architecture spines assessment and identity briefs all pass
+      - all 51 data seven integrity six widget-parity six DIP nine ESS two evidence and three workflow negative cases fail closed for their intended defect
+      - the known renv warning remains visible while every invoked R checker exits successfully
+      - no chapter data bibliography terminology concept graph widget figure rendered artifact docs freeze or shared Bookwright registry changed
+      - WD-C17 is the sole next permitted packet but is not claimed inside P3-VERIFY
       - no author reading reader test rights-holder permission external message push merge tag archive deployment publication or future-packet acceptance is claimed or authorised
