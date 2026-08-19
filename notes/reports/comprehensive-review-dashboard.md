@@ -60,6 +60,7 @@ stop and repair the control state before editing book content.
 | Thread amendment WD-C15–G-A4-16 | `A-THREAD-WD-C15-G-A4-16-2026-08-17` is the eighth, new and distinct thread decision: strict chain `WD-C15 -> C15 -> G-A4-16`; every packet remains separate; C15 keeps the exact author-reply stop and G-A4-16 prepares the artifact, rights and binary-outcome-bridge brief without retrieval, promotion or prose; all seven earlier thread chains have ended |
 | Thread amendment C15-G-A4-17 | `A-THREAD-C15-G-A4-17-2026-08-17` is the ninth, new and distinct thread decision: strict chain `C15 -> G-A4-16 -> WD-C16 -> C16 -> G-A4-17`; every packet remains separate and committed before the next claim; C15 and C16 retain exact acceptance replies, both decision gates stop for the author, and only WD-C16 may finish unattended; all eight earlier thread chains have ended |
 | Thread amendment G-A3-TEXT-C17 | `A-THREAD-G-A3-TEXT-C17-2026-08-17` is the tenth, new and distinct thread decision: strict chain `G-A3-TEXT -> P3-TEXT -> P3-VERIFY -> WD-C17 -> C17`; every packet remains separate and committed before the next claim; G-A3-TEXT and C17 retain exact author-reply stops; all nine earlier thread chains have ended |
+| Thread amendment WD-PART-P5-CLOSURE-01 | `A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19` is the eleventh, new and distinct thread decision: strict chain `WD-PART -> WE-C18 -> C18 -> P5-CLOSURE-00 -> P5-CLOSURE-01`, exactly catalogue sequences 131–135; every packet remains separate and committed before the next claim; C18 retains the exact author-reply stop; WD-PART prefers an evidence-only closeout and WE-C18 is the only other unattended write packet; all ten earlier thread chains have ended |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
@@ -6111,6 +6112,28 @@ the durable evidence is
   released and `WD-PART` is now the sole next permitted packet, but it was not
   claimed inside C17.
 
+## Eleventh thread amendment — WD-PART through P5-CLOSURE-01
+
+- Author and editor Luka Sikic authorised the next five packets on 19 August
+  2026 with the words "and here we go for the next five packets." The new,
+  distinct decision `A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19` fixes the
+  strict chain `WD-PART -> WE-C18 -> C18 -> P5-CLOSURE-00 -> P5-CLOSURE-01`,
+  exactly catalogue sequences 131 through 135. All ten earlier thread chains
+  have ended and supply no continuing authority.
+- The amendment changes only the ordinary stop-after-one-packet rule. Each
+  packet keeps its own lock, claim and closeout checks, evidence, handoff
+  disposition and scoped local commit. C18 still stops for exactly
+  `C18 accepted for <commit> on <date>`; no author reading is claimed.
+- WD-PART owns only the Part V bridge and cumulative self-check with its six
+  governed items; no delivery targets it. An evidence-only closeout is
+  preferred; any genuinely required bounded repair follows the WB-PART and
+  WC-PARTS precedent. WE-C18 consumes `H-G-A2D-005` before claim and handles
+  its four `before_close` deliveries at their gates.
+- The decision record is
+  `notes/reports/wd-part-p5-closure-01-thread-amendment-2026-08-19.md`. This
+  control record changes no chapter prose, registry stage, data file, figure,
+  widget or generated artifact, and claims no packet.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -6143,7 +6166,11 @@ Verify `active_write_packet: null`, `last_completed_packet: C17` and
 closeout `bff7106e156a49b51fc55ca4b11c9cd2fc6645f8`, advanced only Chapter 17
 and its 20 named items, and recorded neither author reading nor a final stage.
 
-Claim and execute only `WD-PART` as a separate packet. Fully read its packet
+Under the eleventh, distinct thread decision
+`A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19` the strict chain is
+`WD-PART -> WE-C18 -> C18 -> P5-CLOSURE-00 -> P5-CLOSURE-01`; each packet is
+claimed, closed and committed separately and C18 stops for the exact author
+reply. Claim and execute only `WD-PART` first, as a separate packet. Fully read its packet
 record, the six governed items `R08-SPINE-13-16`,
 `R22-C14-C16-dependence`, `R24-PARTV-thesis`, `R24-LADDER-C13-16`,
 `R27-C17-18-transition` and `R35-SELF-CHECK-V`, plus every applicable incoming
@@ -6156,6 +6183,7 @@ Before closeout, obtain the required fresh part-continuity evidence, run all
 applicable deterministic and targeted multi-format checks, record either every
 future-relevant outgoing handoff or an explicit no-effect declaration, update
 the register, handoff ledger and dashboard together, run the workflow checker
-and its negative fixtures, close and locally commit WD-PART, then stop. Do not
-claim the next packet, push, merge, tag, archive, deploy or publish.
+and its negative fixtures, close and locally commit WD-PART. Only then may WE-C18 be
+claimed under the same thread decision. Do not push, merge, tag, archive,
+deploy or publish.
 ```
