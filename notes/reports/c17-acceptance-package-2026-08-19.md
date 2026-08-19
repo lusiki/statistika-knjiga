@@ -2,8 +2,8 @@
 
 **Gate:** `C17`
 
-**Stanje gatea:** aktivan; kompletan paket pripremljen; čeka točan autorov
-odgovor. Gate nije zatvoren.
+**Stanje gatea:** prihvaćen; točan autorov odgovor zaprimljen je 19. kolovoza
+2026. i uska dispozicija iz ovoga paketa provedena je bez proširenja opsega.
 
 **Imenovani vlasnik odluke:** Luka Sikic, autor/editor.
 
@@ -108,9 +108,9 @@ trening-redaka iz 20 dokumenata koji prelaze testnu granicu. Izlazni SHA-256 je
 `0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef` i paket
 zadržava CC BY-SA 4.0. ParlaMint-HR ostaje nepromoviran i bez govornoga izlaza.
 
-## Točna uska dispozicija koja bi slijedila prihvaćanje
+## Provedena točna uska dispozicija
 
-Ako autor pošalje niže navedeni točan odgovor, C17 smije provesti samo ovo:
+Nakon točnoga odgovora C17 je proveo samo ovo:
 
 - pomaknuti `17-doba-algoritama` iz `draft` u `coauthor_review`, uz izričitu
   bilješku da prihvaćanje ne znači da je autor pročitao poglavlje i da to nije
@@ -131,28 +131,28 @@ Ako autor pošalje niže navedeni točan odgovor, C17 smije provesti samo ovo:
 - zatvoriti samo C17, ukloniti njegov write lock i tek tada učiniti `WD-PART`
   mogućim sljedećim paketom.
 
-Nijedna druga stavka, poglavlje, handoff ili zapis ne mijenja status. Poglavlje
-6 ostaje `draft`; poglavlja 7–16 zadržavaju svoja prihvaćena stanja.
+Nijedna druga stavka, poglavlje ili handoff nije promijenio status. Poglavlje 6
+ostaje `draft`; poglavlja 7–16 zadržavaju svoja prihvaćena stanja.
 
 ## Granice odluke
 
 C17 ne autorizira promjenu proze, novi panel, vanjsku poruku, push, merge, tag,
 arhiviranje, deployment ili objavu. Ne tvrdi se da je autor pročitao poglavlje.
-`WD-PART` se ne smije otvoriti prije točnoga odgovora i zasebnoga C17
-closeouta.
+`WD-PART` je tek nakon ovoga zasebnoga C17 closeouta postao dopušten sljedeći
+paket; nije otvoren ni preuzet unutar C17.
 
-Ovaj pripremni korak ne zatvara C17 i ne provodi nijednu predloženu ledger
-promjenu. Poglavlje 17 ostaje `draft`, svih 20 stavki ostaje `ratified`, a
-write lock ostaje na C17 dok čeka autora.
+C17 closeout ne mijenja izvor poglavlja. Poglavlje 17 prelazi u
+`coauthor_review`, točno 20 navedenih stavki prelazi u `accepted`, a C17 write
+lock uklonjen je. Ne tvrdi se da je autor pročitao poglavlje ni da je ono
+`final`.
 
-## Točan odgovor autora
+## Zaprimljeni točan odgovor autora
 
-Za prihvaćanje ovoga točno određenog stanja odgovorite doslovno:
+Autor je doslovno odgovorio:
 
 ```text
 C17 accepted for bff7106e156a49b51fc55ca4b11c9cd2fc6645f8 on 2026-08-19
 ```
 
-Svaki drukčiji commit ili datum zahtijeva novu provjeru podudaranja. Umjesto
-prihvaćanja možete navesti točne blokirajuće dorade; u tom slučaju C17 ostaje
-otvoren i izvor se ne mijenja bez zasebne dispozicije.
+Commit i datum podudaraju se s pripremljenim ugovorom. Odgovor prihvaća samo
+točno određeno WD-C17 stanje i ne autorizira promjenu proze ni release radnju.

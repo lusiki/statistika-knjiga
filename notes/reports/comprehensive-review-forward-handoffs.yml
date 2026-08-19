@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-18"
+last_updated: "2026-08-19"
 inventory_child_count: 371
 
 protocol:
@@ -10646,3 +10646,31 @@ packet_reviews:
       - Chapter 6 remains unchanged and draft and Chapters 7 through 16 retain their accepted states
       - C17 is the sole next permitted packet but is not accepted and requires the exact dated author reply naming the final WD-C17 closeout commit
       - no author reading acceptance external message push merge tag archive deployment or publication is claimed or authorised
+
+  C17:
+    reviewed_at: "2026-08-19"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      C17 creates no new future obligation. The accepted Chapter 17 source and
+      bounded ledger disposition are direct prerequisites of WD-PART. The
+      accepted Part V spine and R27-C17-18 transition already own the Chapter
+      18 handoff; WE-C18 owns the final approved definition; H-WB-PART-001 owns
+      Chapter 6; and the release packets own later format-wide proof. Repeating
+      those controls would add no ownership or information.
+    implementation_state: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+    checks:
+      - no handoff delivery targets C17 and nothing targeting another packet was acknowledged or consumed
+      - the exact author reply names final WD-C17 closeout commit bff7106e156a49b51fc55ca4b11c9cd2fc6645f8 and date 2026-08-19
+      - the standing 5 August delegation was not used and no author reading is claimed
+      - all six critic reports and the synthesis address source SHA256 7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f and git blob 86e387bbd0df139762001dd22d079d1a51a96c77
+      - the final panel records zero fatal zero major zero minor and zero useful-improvement findings
+      - notes/reports/c17-acceptance-package-2026-08-19.md cites the final source commit all six reports the synthesis exact reply and ledger disposition
+      - chapter-ledger.json advances only 17-doba-algoritama from draft to coauthor_review and explicitly records no claim that the author read the chapter and no final status
+      - only the 20 C17-owned items named in the acceptance package advance from ratified to accepted
+      - the superseding A-P3-TEXT-ROUTE-2026-08-18 ParlaSent-only boundary remains intact and no obsolete ParlaMint join is reinstated
+      - Chapter 6 remains unchanged and draft and Chapters 7 through 16 retain their accepted states
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C17
+      - WD-PART is the sole next permitted packet but is not claimed inside C17
+      - no external message push merge tag archive deployment publication or author-reading claim is made or authorised

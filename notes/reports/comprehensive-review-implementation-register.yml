@@ -10,16 +10,9 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet:
-    id: "C17"
-    claimed_at: "2026-08-19"
-    owned_paths:
-      - "notes/reports/c17-acceptance-package-2026-08-19.md"
-      - "notes/reports/comprehensive-review-implementation-register.yml"
-      - "notes/reports/comprehensive-review-forward-handoffs.yml"
-      - "notes/reports/comprehensive-review-dashboard.md"
-  last_completed_packet: "WD-C17"
-  next_permitted_packet: null
+  active_write_packet: null
+  last_completed_packet: "C17"
+  next_permitted_packet: "WD-PART"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -14545,7 +14538,7 @@ packets:
     sequence: 130
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "in_progress"
+    status: "accepted"
     requires:
       - "WD-C17"
     scope: "Author acceptance and panel disposition for C17."
@@ -14556,14 +14549,84 @@ packets:
       - "All six critic perspectives address the final material chapter state."
       - "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
       - "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+      required_evidence:
+        - requirement: "six independent critic reports"
+          artifacts:
+            - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+            - "panel:zero-fatal-zero-major-zero-minor-zero-useful-improvement-findings"
+        - requirement: "synthesised revision disposition"
+          artifacts:
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "report:notes/reports/c17-acceptance-package-2026-08-19.md"
+            - "disposition:accept-20-C17-owned-items-and-advance-only-17-doba-algoritama-to-coauthor_review"
+            - "disposition:no-panel-finding-requires-separate-author-disposition"
+            - "boundary:ParlaSent-only-route-remains-controlling-and-Chapter-6-remains-draft"
+        - requirement: "author acceptance"
+          artifacts:
+            - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
+            - "evidence:conversation-user-message-recorded-2026-08-19"
+            - "boundary:standing-2026-08-05-delegation-not-used"
+        - requirement: "chapter-ledger evidence tied to source state"
+          artifacts:
+            - "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+            - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#17-doba-algoritama-stage-coauthor_review"
+            - "boundary:acceptance-does-not-claim-author-reading-and-is-not-final"
+      outputs:
+        - output: "C17 author-approved six-critic synthesis and ledger disposition."
+          artifacts:
+            - "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+            - "reports:wd-c17-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
+            - "report:notes/reports/c17-acceptance-package-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared C17 source state and bounded scope."
+          artifacts:
+            - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "items:20-C17-owned-items-accepted"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#17-doba-algoritama"
+            - "boundary:zero-panel-findings-and-no-source-edit"
+            - "boundary:ParlaSent-only-route-intact"
+            - "boundary:Chapter-6-and-Chapter-18-unchanged-and-draft"
+            - "boundary:WD-PART-unclaimed"
+            - "review:packet_reviews.C17-all-future-effects-recorded"
+      exit_tests:
+        - test: "All six critic perspectives address the final material chapter state."
+          result: "passed"
+          evidence:
+            - "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+            - "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "reports:wd-c17-six-final-critic-reports"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+        - test: "The author has accepted the synthesised disposition and no fatal or major finding is unresolved."
+          result: "passed"
+          evidence:
+            - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
+            - "panel:zero-fatal-zero-major-zero-minor-zero-useful-improvement-findings"
+            - "disposition:no-special-finding-disposition-required"
+        - test: "The Cxx decision cites the final chapter source commit, all six reports, the synthesis, author reply, and ledger disposition."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/c17-acceptance-package-2026-08-19.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#17-doba-algoritama-stage-coauthor_review"
+            - "items:20-C17-owned-items-accepted"
+            - "boundary:acceptance-does-not-claim-author-reading-or-final-stage"
     contract: "chapter_acceptance_gate"
     required_evidence:
       - "six independent critic reports"
       - "synthesised revision disposition"
       - "author acceptance"
       - "chapter-ledger evidence tied to source state"
-    change_reference: null
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   WD-PART:
     sequence: 131
     phase: "4"
@@ -19852,7 +19915,7 @@ items:
       location: "§5/§8/§10 + §15 R07"
     description: "Rewrite Chapter 17 around one consequential text-classification decision."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19875,10 +19938,11 @@ items:
       - "evidence:one-human-review-decision-links-corpus-labels-threshold-error-burdens-contestability-feedback-and-monitoring"
       - "report:notes/reports/wd-c17-2026-08-19.md"
       - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R07-C17-widget-prose-balance:
     parents:
       - "R07"
@@ -19892,7 +19956,7 @@ items:
       location: "§11"
     description: "Make the Chapter 17 argument understandable before and without operating the widget."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -19915,10 +19979,11 @@ items:
       - "evidence:threshold-error-denominators-and-fairness-limits-developed-before-widget-and-static-twin"
       - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
       - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R07-ALT-distributed-pillars:
     parents:
       - "R07"
@@ -21102,7 +21167,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Use simulation for known truth and governed text for the empirical analysis."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -21125,10 +21190,11 @@ items:
       - "evidence:known-mechanism-simulation-for-fairness-and-governed-ParlaSent-data-for-worked-label-audit-have-noninterchangeable-roles"
       - "check:TEXT_PACKAGE_OK-rows-2698-splits-1090-272-1336"
       - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R08-SPINE-18:
     parents:
       - "R08"
@@ -23278,7 +23344,7 @@ items:
       location: "§12 text as data"
     description: "Cover the ratified text-literacy content at bounded depth."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23301,10 +23367,11 @@ items:
       - "evidence:unit-corpus-selection-label-production-split-evaluation-and-limitations-covered-without-NLP-implementation"
       - "boundary:no-tokenizer-lemmatizer-embedding-topic-model-or-model-training-task"
       - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-C17-boundary-sensitivity:
     parents:
       - "R13"
@@ -23318,7 +23385,7 @@ items:
       location: "§12 text as data"
     description: "Use a substantive question and compare normalization, corpus boundary, and coding procedure."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23341,10 +23408,11 @@ items:
       - "decision:A-P3-TEXT-ROUTE-2026-08-18-supersedes-ParlaMint-three-layer-normalization-and-boundary-comparison"
       - "evidence:amended-ParlaSent-only-contract-tests-upstream-selection-label-mapping-threshold-and-neutral-policy-alternatives"
       - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-C17-performance-validity:
     parents:
       - "R13"
@@ -23358,7 +23426,7 @@ items:
       location: "§12 text as data"
     description: "Distinguish held-out predictive performance from construct validity."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23381,10 +23449,11 @@ items:
       - "evidence:held-out-performance-recorded-reference-quality-and-construct-validity-explicitly-distinct"
       - "evidence:AI-error-is-exactly-the-invalid-transition-from-held-out-accuracy-to-construct-validity"
       - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-TEXT-package:
     parents:
       - "R13"
@@ -23520,7 +23589,7 @@ items:
       location: "§12 text module"
     description: "Implement D07 with one fairness widget and one empirical text worked example."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -23544,10 +23613,11 @@ items:
       - "evidence:w17-is-the-sole-central-widget-and-ParlaSent-label-audit-is-the-one-complete-empirical-worked-example"
       - "registry:data/widgets.json#w17"
       - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R13-C02-coding-measurement:
     parents:
       - "R13"
@@ -24022,7 +24092,7 @@ items:
       location: "§12 binary outcomes"
     description: "Retrieve probability/odds literacy for thresholded classification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -24045,10 +24115,11 @@ items:
       - "evidence:predicted-probability-classification-threshold-coder-vote-rule-and-error-tradeoff-remain-distinct"
       - "evidence:main-prose-retrieves-predicted-probability-from-regression-without-logistic-fitting"
       - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R14-BOOK-causal-thread:
     parents:
       - "R14"
@@ -27050,7 +27121,7 @@ items:
       location: "§8/§12 Ch17"
     description: "Remove required R production from text/fairness tasks."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27073,10 +27144,11 @@ items:
       - "evidence:all-four-assessment-tiers-use-prepared-tables-widget-states-and-judgment-without-required-code-production"
       - "check:ASSESSMENT_ARCHITECTURE_OK-assessed-code-production-false"
       - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R23-C03-visible-receipt-conflict:
     parents:
       - "R23"
@@ -27171,7 +27243,7 @@ items:
       location: "§12 H10"
     description: "Split the Chapter 17 computation into short visible receipts plus hidden plumbing."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27194,10 +27266,11 @@ items:
       - "evidence:only-visible-R-receipt-is-three-lines-in-the-worked-example-with-conceptual-explanation-before-it"
       - "evidence:all-preparation-and-counting-plumbing-is-hidden-and-reproduces-from-the-prepared-package"
       - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R23-BOOK-suspect-code-ladder:
     parents:
       - "R23"
@@ -27516,7 +27589,7 @@ items:
       location: "§12 text module"
     description: "Use supplied text/tables and test decisions rather than preprocessing implementation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27540,10 +27613,11 @@ items:
       - "evidence:students-inspect-supplied-sentences-labels-counts-and-decisions-without-tokenisation-or-lemmatisation"
       - "boundary:no-NLP-preprocessing-implementation-in-prose-widget-or-exercises"
       - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C00-code-trace:
     parents:
       - "R24"
@@ -27722,7 +27796,7 @@ items:
       location: "§13"
     description: "Source, date, qualify, or remove named technical claims."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27746,10 +27820,11 @@ items:
       - "citation:mochtakparlasent2024-primary-ACL-source-for-selection-filters"
       - "check:CITATION_INTEGRITY_OK-live-keys-49-records-49"
       - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C18-privacy-sources:
     parents:
       - "R24"
@@ -27915,7 +27990,7 @@ items:
       location: "§12 data science"
     description: "Teach language-model output as predictive generation requiring verification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27938,10 +28013,11 @@ items:
       - "evidence:language-model-output-taught-as-predictive-generation-requiring-source-number-and-inference-verification"
       - "boundary:no-product-marketing-certified-retrieval-or-interface-specific-timeless-claim"
       - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-system-feedback:
     parents:
       - "R24"
@@ -27955,7 +28031,7 @@ items:
       location: "§12 data science"
     description: "Represent deployed AI through data, interface, decisions, feedback, and monitoring."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -27978,10 +28054,11 @@ items:
       - "evidence:system-in-application-includes-data-threshold-interface-review-appeal-feedback-and-independent-monitoring"
       - "evidence:random-or-stratified-independent-sample-of-unreviewed-text-required-to-estimate-postdeployment-false-negatives"
       - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-BOOK-human-AI-competence:
     parents:
       - "R24"
@@ -28150,7 +28227,7 @@ items:
       location: "§8/§11 Ch17"
     description: "Use recorded-reference-outcome language throughout prose, visual, caption, and alt text."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28173,10 +28250,11 @@ items:
       - "evidence:recorded-reference-outcome-language-is-consistent-across-prose-definition-table-caption-alt-text-and-exercises"
       - "check:TERMINOLOGY_OK-divergences-0"
       - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-label-process:
     parents:
       - "R24"
@@ -28190,7 +28268,7 @@ items:
       location: "§11 Ch17"
     description: "Show how label production and disputed labels affect metrics."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28213,10 +28291,11 @@ items:
       - "evidence:two-coder-reconciliation-and-single-expert-paths-remain-visible-and-label-change-alters-confusion-table-rates"
       - "evidence:six-raw-labels-are-explicitly-mapped-in-the-worked-example"
       - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-selective-observation:
     parents:
       - "R24"
@@ -28230,7 +28309,7 @@ items:
       location: "§8 Ch17"
     description: "Develop selective observation and label construction before model evaluation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28253,10 +28332,11 @@ items:
       - "evidence:moderator-length-lexicon-and-ParlaSent-only-selection-boundaries-precede-model-evaluation"
       - "evidence:absence-of-subgroup-fields-is-a-limit-on-audit-not-proof-of-fairness"
       - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C17-procedural-fairness:
     parents:
       - "R24"
@@ -28270,7 +28350,7 @@ items:
       location: "§8 Ch17"
     description: "Include error burdens, notice, explanation, contestability, and appeal."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28293,10 +28373,11 @@ items:
       - "evidence:error-burdens-notice-explanation-internal-contestability-and-affected-party-appeal-are-distinct"
       - "evidence:fairness-is-not-reduced-to-one-parity-metric-or-used-to-legitimate-the-editorial-goal"
       - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-C18-algorithm-harvest:
     parents:
       - "R24"
@@ -28887,7 +28968,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Audit splits, labels, leakage, threshold, subgroup errors, shift, and coding validity."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28910,10 +28991,11 @@ items:
       - "evidence:split-labels-leakage-threshold-subgroup-errors-shift-coding-validity-and-procedure-have-answerable-evidence-or-assessment"
       - "check:ASSESSMENT_ARCHITECTURE_OK-ladder-stages-7"
       - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R24-AF-copyable-protocol:
     parents:
       - "R24"
@@ -31715,7 +31797,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Replace one Chapter 17 task with a reach-back to material at least two chapters earlier."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -31738,10 +31820,11 @@ items:
       - "evidence:conceptual-task-retrieves-categorical-denominators-regression-prediction-versus-explanation-base-rates-overfitting-and-leakage"
       - "evidence:task-remains-within-four-tiers-and-has-canonical-kolegij-closure"
       - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+      - "author_reply:C17-accepted-for-bff7106e156a49b51fc55ca4b11c9cd2fc6645f8-on-2026-08-19"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+    change_reference: "commit:bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
   R35-REACHBACK-18:
     parents:
       - "R35"
@@ -34672,8 +34755,8 @@ outside_asks:
       claimed.
 
   OA-C17-ACCEPTANCE:
-    status: "drafted_unsent"
-    readiness: "awaiting_exact_author_reply"
+    status: "done"
+    readiness: "complete"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -34728,6 +34811,14 @@ outside_asks:
     external_message_sent: false
     prepared_at: "2026-08-19"
     prepared_against_wd_c17_closeout_commit: "bff7106e156a49b51fc55ca4b11c9cd2fc6645f8"
+    completed_at: "2026-08-19"
+    outcome: >-
+      Luka Sikic supplied the exact dated C17 acceptance naming WD-C17
+      closeout commit bff7106e156a49b51fc55ca4b11c9cd2fc6645f8. The gate
+      applies only the narrow Chapter 17 ledger disposition and 20 C17-owned
+      item acceptances recorded in the package. The final panel has zero
+      findings at every severity, the ParlaSent-only boundary remains intact,
+      Chapter 6 remains draft, and no author reading or final stage is claimed.
 
   OA-C18-ACCEPTANCE:
     status: "drafted_unsent"
