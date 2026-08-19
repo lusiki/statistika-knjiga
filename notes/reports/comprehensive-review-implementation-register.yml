@@ -10,9 +10,16 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "C18"
+    claimed_at: "2026-08-19"
+    owned_paths:
+      - "notes/reports/c18-acceptance-package-2026-08-19.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
   last_completed_packet: "WE-C18"
-  next_permitted_packet: "C18"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -14897,7 +14904,7 @@ packets:
     sequence: 133
     phase: "4"
     kind: "chapter_acceptance_gate"
-    status: "ratified"
+    status: "in_progress"
     requires:
       - "WE-C18"
     scope: "Author acceptance and panel disposition for C18."
@@ -35163,7 +35170,7 @@ outside_asks:
 
   OA-C18-ACCEPTANCE:
     status: "drafted_unsent"
-    readiness: "waiting_for_WE-C18_revision_and_panel"
+    readiness: "awaiting_exact_author_reply"
     kind: "editorial_decision"
     owner: "author/editor"
     due_phase: "4"
@@ -35176,22 +35183,44 @@ outside_asks:
       - "R13-C18-corpus-package"
       - "R17-C18-two-pass"
       - "R19-C18-substantive-sensitivity"
+      - "R24-C18-privacy-sources"
       - "R24-C18-algorithm-harvest"
       - "R24-C18-explanatory-scope"
+      - "R24-C18-dated-policy"
       - "R24-C18-workflow"
+      - "R27-C17-18-transition"
       - "R32-C18-transfer-path"
       - "R35-REACHBACK-18"
-      - "R09-C18-interval-conclusion"
     blocked_gates:
       - "C18"
     available_evidence:
-      - "packet:WE-C18"
-      - "packet:C18"
-    recommended_default: "Accept only after the whole-book harvest, evidence package, sensitivity, report/AI audit, privacy policy, cross-format routes, and all panel blockers pass."
-    exact_reply_requested: "Reply: C18 accepted for [commit] on [YYYY-MM-DD]; or list exact blocking revisions."
+      - "commit:WE-C18-closeout-be70fef341c46103b7252c3dd6b5c76c9545072e"
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+      - "report:notes/reports/we-c18-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-skeptic-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-style-2026-08-19.md"
+      - "report:notes/reports/we-c18-critic-structure-2026-08-19.md"
+      - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+      - "report:notes/reports/c18-acceptance-package-2026-08-19.md"
+      - "panel:zero-fatal-zero-major-all-minor-and-useful-findings-displayed-and-dispositioned"
+      - "disposition:advance-only-18-vase-prvo-istrazivanje-to-coauthor-review-and-14-C18-blocked-items-to-accepted-after-exact-reply"
+      - "revalidation:R09-C18-interval-conclusion-remains-accepted"
+    recommended_default: >-
+      Accept the exact WE-C18 closeout state. It carries the whole-book
+      capstone harvest, one evidence package, an explanatory simulated study,
+      a bounded ParlaSent transfer, sensitivity and AI audits, the dated D15
+      course-policy boundary, complete multi-format proof and a final
+      six-critic panel with zero fatal and zero major findings.
+    exact_reply_requested: "C18 accepted for be70fef341c46103b7252c3dd6b5c76c9545072e on 2026-08-19"
     resume_condition: "C18 closes only when every blocking revision is resolved on the cited source state."
     why_external: "Only the author/editor can accept the capstone revision."
     external_message_sent: false
+    prepared_at: "2026-08-19"
+    prepared_against_we_c18_closeout_commit: "be70fef341c46103b7252c3dd6b5c76c9545072e"
 
   OA-G-A5B-FINAL-METADATA:
     status: "drafted_unsent"

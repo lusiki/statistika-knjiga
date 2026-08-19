@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: C18
 last_completed_packet: WE-C18
-next_permitted_packet: C18
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -48,6 +48,9 @@ stop and repair the control state before editing book content.
 | P3-VERIFY | Accepted against clean P3-TEXT closeout `2ef8973`; exactly P3-VERIFY-A, P3-VERIFY-B, P3-VERIFY-C, P3-VERIFY-D and P3-TEXT independently rerun; all positive and negative lanes pass; legacy C07-C12 SHA-label convention recorded in `H-P3-VERIFY-001` without obscuring exact matching Git blobs |
 | WD-C17 | Accepted from clean P3-VERIFY closeout `11b2b75` on source SHA-256 `7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f`; all eight incoming handoffs consumed, 20 governed items materially pass pending C17, all deterministic checks and HTML/PDF/DOCX pass, and six final critics report zero findings |
 | C17 | Accepted on the exact dated author reply for WD-C17 closeout `bff7106e156a49b51fc55ca4b11c9cd2fc6645f8`; only Chapter 17 and the 20 named C17 items advanced, with zero panel findings and no author-reading or final-stage claim |
+| WD-PART | Accepted evidence-only from clean C17 closeout; Chapters 13–17 retained their exact blobs, five part items advanced, and `R27-C17-18-transition` remained ratified for the Chapter 18 receiving side and C18 author gate |
+| WE-C18 | Accepted from clean WD-PART closeout on source SHA-256 `5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88`; all thirteen governed items materially pass pending C18, both sides of `R27-C17-18-transition` are verified, all deterministic checks and HTML/PDF/DOCX pass, and six final critics report zero fatal and zero major findings |
+| C18 | Active from clean WE-C18 closeout `be70fef341c46103b7252c3dd6b5c76c9545072e`; preparation only, with no acceptance, chapter-ledger advance, handoff consumption or item disposition before the exact dated reply |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -64,16 +67,16 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; WE-C18 write lock released after verified closeout |
+| Active write packet | `C18`, claimed from clean WE-C18 closeout commit `be70fef341c46103b7252c3dd6b5c76c9545072e`; ownership is limited to the acceptance package and three workflow-control views |
 | Last completed packet | `WE-C18`; final Chapter 18 SHA-256 `5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88`, thirteen items materially complete and ratified pending C18, six critics at zero fatal/major |
-| Next permitted packet | `C18`; prepare the exact acceptance package only after the WE-C18 closeout is locally committed, then stop for the author reply |
+| Next permitted packet | None while `C18` is active and awaiting the exact dated author reply; `P5-CLOSURE-00` is not permitted |
 | Review parents | 31 ratified; 5 accepted |
 | Atomic child inventory | Complete: 371 stable children; 265 accepted, 5 deferred with reason, 101 ratified pending their later gates and 0 in progress; zero unmapped |
-| Exact packet catalogue | 189 packets: 125 accepted, 63 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 125 accepted, 62 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 2 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija` and `17-doba-algoritama` at `coauthor_review`; `06-povezanost` and `18-vase-prvo-istrazivanje` remain `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
-| Open outside asks | 21 of the 87 canonical asks remain `drafted_unsent`; 60 are `done`; 6 are `withdrawn_with_reason`. `OA-C17-ACCEPTANCE` is done on the exact dated reply; both G-A3-TEXT asks remain done; 0 external messages sent |
+| Open outside asks | 21 of the 87 canonical asks remain `drafted_unsent`; 60 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` now has its complete package and awaits the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
@@ -6210,6 +6213,36 @@ the durable evidence is
   author reading, external action, push, merge, tag, archive, deployment or
   publication is claimed or authorised.
 
+## C18 preparation — awaiting the author
+
+- C18 is active from clean WE-C18 closeout commit
+  `be70fef341c46103b7252c3dd6b5c76c9545072e`. Its write scope contains only
+  `notes/reports/c18-acceptance-package-2026-08-19.md` and the three control
+  views. No chapter source, bibliography, registry, route, generated artifact
+  or chapter ledger is in scope.
+- `H-WD-PART-001` is acknowledged for C18. Both source sides of
+  `R27-C17-18-transition` are verified, but the delivery is not consumed and
+  the item remains ratified until the exact dated author reply.
+- The acceptance package cites the full WE-C18 closeout commit, final source
+  SHA-256 `5aa91d8b…`, git blob `d71b8f5…`, all six reports, their synthesis,
+  deterministic checks and exact HTML/PDF/DOCX hashes.
+- The complete active C18 block list has fourteen ratified items: all thirteen
+  WE-C18 items plus `R27-C17-18-transition`. The already accepted
+  `R09-C18-interval-conclusion` would remain accepted with final-source
+  revalidation; `R04-C18-whole-prerequisites` would remain ratified for
+  P5-ROUTES.
+- The proposed narrow disposition would advance only
+  `18-vase-prvo-istrazivanje` from `draft` to `coauthor_review` and those
+  fourteen items from `ratified` to `accepted`. It would record no author
+  reading and no `final` stage.
+- The final panel has zero fatal and zero major findings. Every minor and useful
+  finding is displayed and dispositioned in the synthesis; none remains only
+  in chat. `H-WE-C18-001` remains pending only for P6-EVIDENCE.
+- C18 remains open, Chapter 18 remains `draft`, all fourteen items remain
+  `ratified`, and `P5-CLOSURE-00` remains blocked. The C18 lock is deliberately
+  left active in the workflow-valid state while waiting for exactly:
+  `C18 accepted for be70fef341c46103b7252c3dd6b5c76c9545072e on 2026-08-19`.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -6227,43 +6260,28 @@ the durable evidence is
 Paste this into a new thread:
 
 ```text
-Continue the ratified comprehensive-review implementation from the repository's
-canonical state. Read AGENTS.md and fully read:
-- notes/reports/comprehensive-review-implementation-plan-2026-08-03.md
-- notes/reports/comprehensive-review-implementation-register.yml
-- notes/reports/comprehensive-review-dashboard.md
-- notes/reports/comprehensive-review-forward-handoffs.yml
-Also fully read the checkout-local book-conductor instructions and its bounded
-outside-ask reference. Do not rely on prior chat or the installed plugin cache
-for mutable state.
+Resume only the already active `C18` packet. Read AGENTS.md and fully read the
+four canonical comprehensive-review control files, the checkout-local
+book-conductor instructions, its bounded outside-ask reference,
+`notes/reports/c18-acceptance-package-2026-08-19.md`, the WE-C18 report, all
+six final critic reports and their synthesis. Do not rely on prior chat or the
+installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: WE-C18` and
-`next_permitted_packet: C18`. Confirm that the clean WE-C18 closeout contains
-Chapter 18 SHA-256
-`5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88`,
-Git blob `d71b8f511acda07986a17bb39506078458f5fe65`, all six final critic reports
-and `notes/reports/we-c18-six-critic-synthesis-2026-08-19.md`. Confirm the
-panel has zero fatal and zero major findings, all five `before_close`
-deliveries are consumed, `H-WE-C18-001` is pending only for P6-EVIDENCE and
-Chapter 18 remains draft.
+Verify `active_write_packet: C18`, `last_completed_packet: WE-C18` and
+`next_permitted_packet: null`. Confirm that Chapter 18 remains `draft`, all
+fourteen C18-blocked items remain `ratified`, `H-WD-PART-001` is acknowledged
+but not consumed for C18, and `H-WE-C18-001` is pending only for P6-EVIDENCE.
 
-Under the eleventh, distinct thread decision
-`A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19` the strict chain is
-`WD-PART -> WE-C18 -> C18 -> P5-CLOSURE-00 -> P5-CLOSURE-01`; each packet is
-claimed, closed and committed separately and C18 stops for the exact author
-reply. Claim only `C18` from the clean WE-C18 closeout commit. Acknowledge the
-`H-WD-PART-001` delivery targeting C18 before preparing the gate, but do not
-accept it or any Chapter 18 item without the author's exact reply.
+Proceed only if the user supplies exactly:
+`C18 accepted for be70fef341c46103b7252c3dd6b5c76c9545072e on 2026-08-19`;
+or lists exact blocking revisions. On the exact acceptance reply, verify the
+commit and date, apply only the narrow ledger, item and handoff disposition
+stated in the package, update all control views together, run the workflow
+checker and its three negative fixtures, close and locally commit C18, and
+only then make `P5-CLOSURE-00` eligible. Do not infer that the author read the
+chapter and do not mark it final.
 
-Prepare `notes/reports/c18-acceptance-package-2026-08-19.md`. Tie it to the
-full WE-C18 closeout commit, the final Chapter 18 SHA-256 and Git blob, all six
-critic reports, the synthesis, the proposed narrow ledger disposition and the
-complete list of C18-blocked items. Record that minor and useful findings were
-displayed and dispositioned, Chapter 18 remains draft, no author reading is
-claimed and only `coauthor_review` is proposed. Set OA-C18-ACCEPTANCE to ready,
-run the workflow checker and all three required negative fixtures, locally
-commit the C18 preparation, and stop. Ask for exactly
-`C18 accepted for <full WE-C18 closeout commit> on 2026-08-19` or exact blocking
-revisions. Do not close C18 or start P5-CLOSURE-00 without that reply. Do not
-push, merge, tag, archive, deploy or publish.
+Without that exact reply, leave C18 active and change nothing. Do not edit
+chapter prose, accept any item, consume the handoff, advance the chapter
+ledger, claim `P5-CLOSURE-00`, push, merge, tag, archive, deploy or publish.
 ```
