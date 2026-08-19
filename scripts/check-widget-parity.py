@@ -229,6 +229,8 @@ def check_parity(root: Path, fixture: str | None) -> int:
             ojs_command.append("w14-cached-normal")
         elif fixture == "w16-normal-cache-asymmetry":
             ojs_command.append("w16-cached-normal")
+        elif fixture == "w17-normal-cache-asymmetry":
+            ojs_command.append("w17-cached-normal")
         payloads["ojs"] = run_json(ojs_command, root)
         payloads["r"] = run_json(
             [
@@ -327,6 +329,7 @@ def main() -> int:
             "w11-normal-cache-asymmetry",
             "w14-normal-cache-asymmetry",
             "w16-normal-cache-asymmetry",
+            "w17-normal-cache-asymmetry",
         ],
     )
     parser.add_argument("--print-source-hashes", action="store_true")

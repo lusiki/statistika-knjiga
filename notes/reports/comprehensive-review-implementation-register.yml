@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P3-VERIFY"
-  next_permitted_packet: "WD-C17"
+  last_completed_packet: "WD-C17"
+  next_permitted_packet: "C17"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -14430,7 +14430,7 @@ packets:
     sequence: 129
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-VERIFY"
       - "G-A4-17"
@@ -14444,14 +14444,96 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-C17 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "decision:G-A4-17"
+            - "decision:A-P3-TEXT-ROUTE-2026-08-18"
+            - "spine:bookwright_plugin/bookwright/shared/chapter-spine.json#17-doba-algoritama"
+            - "packet:P3-TEXT-accepted"
+            - "packet:P3-VERIFY-accepted"
+            - "handoffs:H-P0-REGISTER-007-H-P3-TEXT-002-consumed-before-claim"
+            - "handoffs:H-P0-REGISTER-008-H-P2-SPINE-V-001-H-G-A2C-002-H-P2-TERMS-002-H-P2-TERMS-003-H-WB-C06-001-consumed-before-close"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "artifact:data/parlament_oznake.csv@sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "source:ParlaSent-BCS-sha256-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+            - "source:ParlaSent-BCS-test-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+            - "result:rows-2698-splits-1090-272-1336-removed-20-documents-25-rows"
+            - "result:threshold-one-TP122-FP16-FN0-TN134-FPR10.7-FNR0-PPV88.4"
+            - "result:threshold-two-TP100-FP1-FN22-TN149-FPR0.7-FNR18-PPV99"
+            - "citation:mochtakparlasent2024-primary-ACL-source"
+            - "registry:data/widgets.json#w17-ojs-sha256-d207c0867520bcc9a630eb36ef19eb1ab60e575f79701da3dc278743fc94fe7d"
+            - "registry:data/widgets.json#w17-r-sha256-8de0402c61d750a8e0ae05dbc9ff128875c0e759e59588a72188ba9fd6d8e235"
+            - "generated:data/concept-graph.json-51-nodes-642-edges-261-displayed-47-definition"
+            - "check:TEXT_PACKAGE_OK-rows-2698-output-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "check:CITATION_INTEGRITY_OK-live-keys-49-records-49"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-targeted-exit-0-cells-17-bytes-190143-sha256-6a20927ad3d0775b08adee53858267282ef391e0a7d2e916283f23f89c183603"
+            - "render:PDF-approved-wrapper-PDF_BUILD_OK-bytes-5950965-sha256-d638223cf2c42813cfb24b35f6d631858fdd6d9a67764c6997d7283a4ec7fea1"
+            - "render:DOCX-wrapper-exit-0-source-restored-bytes-2821605-sha256-0e939a6d5cadffe2bae1ed373af9713d578a16e639727a46edb3381505e1ba86"
+            - "boundary:first-final-PDF-attempt-failed-closed-transient-NotFound-partial-and-stale-outputs-removed"
+            - "boundary:isolated-render-only-primary-generated-artifacts-unchanged"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
+            - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "panel:six-of-six-confirm-blob-86e387bb-zero-fatal-zero-major-zero-minor-zero-useful-improvement"
+      outputs:
+        - output: "WD-C17 verified vertical-slice source and evidence bundle for: Chapter 17 identity rewrite."
+          artifacts:
+            - "source:chapters/17-doba-algoritama.qmd"
+            - "registry:data/widgets.json#w17"
+            - "generated:data/concept-graph.json-51-nodes-642-edges"
+            - "report:notes/reports/wd-c17-2026-08-19.md"
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared WD-C17 source state and bounded scope."
+          artifacts:
+            - "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+            - "review:packet_reviews.WD-C17-all-future-effects-recorded"
+            - "boundary:20-WD-C17-items-materially-pass-and-remain-ratified-until-C17"
+            - "boundary:zero-panel-findings-on-final-locked-source"
+            - "boundary:C17-not-accepted-no-author-reading-claimed"
+            - "check:scripts/check-review-workflow.R-at-WD-C17-closeout"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/wd-c17-2026-08-19.md"
+            - "check:MANUSCRIPT_INTEGRITY-FIGURE_INTRO-STYLE-TEXT_PACKAGE-WIDGET_PARITY-all-pass"
+            - "render:HTML-PDF-DOCX-exit-zero"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
+            - "panel:zero-fatal-zero-major-zero-minor-zero-useful-improvement"
+        - test: "The WD-C17 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:20-WD-C17-owned-items-materially-pass"
+            - "report:notes/reports/wd-c17-2026-08-19.md"
+            - "fixture:w17-normal-cache-asymmetry-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   C17:
     sequence: 130
     phase: "4"
@@ -19781,11 +19863,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:one-human-review-decision-links-corpus-labels-threshold-error-burdens-contestability-feedback-and-monitoring"
+      - "report:notes/reports/wd-c17-2026-08-19.md"
+      - "synthesis:notes/reports/wd-c17-six-critic-synthesis-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R07-C17-widget-prose-balance:
     parents:
       - "R07"
@@ -19817,11 +19903,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:threshold-error-denominators-and-fairness-limits-developed-before-widget-and-static-twin"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R07-ALT-distributed-pillars:
     parents:
       - "R07"
@@ -21023,11 +21113,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:known-mechanism-simulation-for-fairness-and-governed-ParlaSent-data-for-worked-label-audit-have-noninterchangeable-roles"
+      - "check:TEXT_PACKAGE_OK-rows-2698-splits-1090-272-1336"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R08-SPINE-18:
     parents:
       - "R08"
@@ -23195,11 +23289,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:unit-corpus-selection-label-production-split-evaluation-and-limitations-covered-without-NLP-implementation"
+      - "boundary:no-tokenizer-lemmatizer-embedding-topic-model-or-model-training-task"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R13-C17-boundary-sensitivity:
     parents:
       - "R13"
@@ -23231,11 +23329,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "decision:A-P3-TEXT-ROUTE-2026-08-18-supersedes-ParlaMint-three-layer-normalization-and-boundary-comparison"
+      - "evidence:amended-ParlaSent-only-contract-tests-upstream-selection-label-mapping-threshold-and-neutral-policy-alternatives"
+      - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R13-C17-performance-validity:
     parents:
       - "R13"
@@ -23267,11 +23369,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:held-out-performance-recorded-reference-quality-and-construct-validity-explicitly-distinct"
+      - "evidence:AI-error-is-exactly-the-invalid-transition-from-held-out-accuracy-to-construct-validity"
+      - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R13-TEXT-package:
     parents:
       - "R13"
@@ -23426,11 +23532,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:w17-is-the-sole-central-widget-and-ParlaSent-label-audit-is-the-one-complete-empirical-worked-example"
+      - "registry:data/widgets.json#w17"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R13-C02-coding-measurement:
     parents:
       - "R13"
@@ -23923,11 +24033,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:predicted-probability-classification-threshold-coder-vote-rule-and-error-tradeoff-remain-distinct"
+      - "evidence:main-prose-retrieves-predicted-probability-from-regression-without-logistic-fitting"
+      - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R14-BOOK-causal-thread:
     parents:
       - "R14"
@@ -26947,11 +27061,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:all-four-assessment-tiers-use-prepared-tables-widget-states-and-judgment-without-required-code-production"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-assessed-code-production-false"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R23-C03-visible-receipt-conflict:
     parents:
       - "R23"
@@ -27064,11 +27182,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:only-visible-R-receipt-is-three-lines-in-the-worked-example-with-conceptual-explanation-before-it"
+      - "evidence:all-preparation-and-counting-plumbing-is-hidden-and-reproduces-from-the-prepared-package"
+      - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R23-BOOK-suspect-code-ladder:
     parents:
       - "R23"
@@ -27406,11 +27528,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:students-inspect-supplied-sentences-labels-counts-and-decisions-without-tokenisation-or-lemmatisation"
+      - "boundary:no-NLP-preprocessing-implementation-in-prose-widget-or-exercises"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-C00-code-trace:
     parents:
       - "R24"
@@ -27608,11 +27734,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "citation:mochtakparlasent2024-primary-ACL-source-for-selection-filters"
+      - "check:CITATION_INTEGRITY_OK-live-keys-49-records-49"
+      - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-C18-privacy-sources:
     parents:
       - "R24"
@@ -27796,11 +27926,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:language-model-output-taught-as-predictive-generation-requiring-source-number-and-inference-verification"
+      - "boundary:no-product-marketing-certified-retrieval-or-interface-specific-timeless-claim"
+      - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-C17-system-feedback:
     parents:
       - "R24"
@@ -27832,11 +27966,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:system-in-application-includes-data-threshold-interface-review-appeal-feedback-and-independent-monitoring"
+      - "evidence:random-or-stratified-independent-sample-of-unreviewed-text-required-to-estimate-postdeployment-false-negatives"
+      - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-BOOK-human-AI-competence:
     parents:
       - "R24"
@@ -28023,11 +28161,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:recorded-reference-outcome-language-is-consistent-across-prose-definition-table-caption-alt-text-and-exercises"
+      - "check:TERMINOLOGY_OK-divergences-0"
+      - "report:notes/reports/wd-c17-critic-style-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-C17-label-process:
     parents:
       - "R24"
@@ -28059,11 +28201,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:two-coder-reconciliation-and-single-expert-paths-remain-visible-and-label-change-alters-confusion-table-rates"
+      - "evidence:six-raw-labels-are-explicitly-mapped-in-the-worked-example"
+      - "report:notes/reports/wd-c17-critic-methods-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-C17-selective-observation:
     parents:
       - "R24"
@@ -28095,11 +28241,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:moderator-length-lexicon-and-ParlaSent-only-selection-boundaries-precede-model-evaluation"
+      - "evidence:absence-of-subgroup-fields-is-a-limit-on-audit-not-proof-of-fairness"
+      - "report:notes/reports/wd-c17-critic-evidence-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-C17-procedural-fairness:
     parents:
       - "R24"
@@ -28131,11 +28281,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:error-burdens-notice-explanation-internal-contestability-and-affected-party-appeal-are-distinct"
+      - "evidence:fairness-is-not-reduced-to-one-parity-metric-or-used-to-legitimate-the-editorial-goal"
+      - "report:notes/reports/wd-c17-critic-skeptic-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-C18-algorithm-harvest:
     parents:
       - "R24"
@@ -28744,11 +28898,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:split-labels-leakage-threshold-subgroup-errors-shift-coding-validity-and-procedure-have-answerable-evidence-or-assessment"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-ladder-stages-7"
+      - "report:notes/reports/wd-c17-critic-pedagogy-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R24-AF-copyable-protocol:
     parents:
       - "R24"
@@ -31568,11 +31726,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-C17"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/17-doba-algoritama.qmd@sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
+      - "evidence:conceptual-task-retrieves-categorical-denominators-regression-prediction-versus-explanation-base-rates-overfitting-and-leakage"
+      - "evidence:task-remains-within-four-tiers-and-has-canonical-kolegij-closure"
+      - "report:notes/reports/wd-c17-critic-structure-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "source:sha256-7e8ff74127f77519434b50afbce50c8354bf019b6a7a2f46684a05c2ecc37e6f"
   R35-REACHBACK-18:
     parents:
       - "R35"

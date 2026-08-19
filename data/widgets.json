@@ -451,14 +451,14 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "threshold": 0.6, "base_rate_a": 0.2, "base_rate_b": 0.45, "n_per_class": 6000, "seed": 1717}]},
-        "seed_policy": {"ojs": "d3.randomLcg(1717), d3.randomNormal i ogranicenje na [0,1]", "r": "set.seed(1717), rnorm i ogranicenje na [0,1]", "shared": "Uvjetne stope imaju zasebne zlatne simulacije; izvedena mjerila usporeduju se distribucijski."},
+        "seed_policy": {"ojs": "Zivi izvor i adapter rabe d3.randomLcg(1717) i isti eksplicitni necachirajuci Marsaglia-polar generator, uz ogranicenje na [0,1]", "r": "set.seed(1717), rnorm i ogranicenje na [0,1]", "shared": "Zivi OJS i proizvodni OJS adapter trose isti necachirani normalni niz; R ima zasebne zlatne vrijednosti, a izvedena mjerila usporeduju se distribucijski."},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 0.03}, "invariants": [{"adapter": "both", "left": "default.group_b.ppv", "operator": ">", "right": "default.group_a.ppv"}]},
         "expected": {
           "ojs": {"default.fpr": 0.051333333333333335, "default.fnr": 0.2966666666666667, "default.group_a.ppv": 0.7740278796771827, "default.group_a.accuracy": 0.8996000000000001, "default.group_b.ppv": 0.918100947592342, "default.group_b.accuracy": 0.8382666666666667},
           "r": {"default.fpr": 0.0495, "default.fnr": 0.28883333333333333, "default.group_a.ppv": 0.782218148487626, "default.group_a.accuracy": 0.9026333333333334, "default.group_b.ppv": 0.921598272138229, "default.group_b.accuracy": 0.8428000000000002}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w17", "r": "scripts/widget-parity-r.R#w17"},
-        "source": {"ojs_label": "fig-w17", "r_label": "fig-w17-print", "ojs_sha256": "027dd2572a262882cbd4f5da59d9ce49ecfa40306df1e2931d1baafe450f3b6f", "r_sha256": "8de0402c61d750a8e0ae05dbc9ff128875c0e759e59588a72188ba9fd6d8e235"},
+        "source": {"ojs_label": "fig-w17", "r_label": "fig-w17-print", "ojs_sha256": "d207c0867520bcc9a630eb36ef19eb1ab60e575f79701da3dc278743fc94fe7d", "r_sha256": "8de0402c61d750a8e0ae05dbc9ff128875c0e759e59588a72188ba9fd6d8e235"},
         "claim_boundary": "Jednake uvjetne FPR/FNR stope po skupini uz zajednicki prag te razliciti PPV i tocnost zbog temeljnih stopa; recorded reference outcome nije nepogresiva istina."
       },
       "naziv": "Istraživač pravednosti",

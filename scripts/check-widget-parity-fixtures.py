@@ -17,6 +17,7 @@ def main() -> int:
         "w11-normal-cache-asymmetry": "[golden] w11/ojs/",
         "w14-normal-cache-asymmetry": "[golden] w14/ojs/",
         "w16-normal-cache-asymmetry": "[golden] w16/ojs/",
+        "w17-normal-cache-asymmetry": "[golden] w17/ojs/",
     }
     for fixture, expected in fixtures.items():
         completed = subprocess.run(
@@ -47,7 +48,7 @@ def main() -> int:
             )
             print(diagnostic.strip(), file=sys.stderr)
             return 1
-    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=6")
+    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=7")
     return 0
 
 
