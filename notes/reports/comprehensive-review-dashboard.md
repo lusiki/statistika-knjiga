@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: WD-PART
-next_permitted_packet: WE-C18
+last_completed_packet: WE-C18
+next_permitted_packet: C18
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 103
+forward_handoffs: 104
 last_updated: "2026-08-19"
 ---
 
@@ -64,12 +64,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; `WD-PART` is closed and its write lock is released |
-| Last completed packet | `WD-PART`; evidence-only closeout on source commit `be3602053a4aff615f4010451f0c4d647758ad20`, five items accepted, `R27-C17-18-transition` retained as ratified for the Chapter 18 receiving side, zero fatal/major and three displayed nonblocking minors |
-| Next permitted packet | `WE-C18` at sequence 132; it may be claimed only as a separate packet after `H-G-A2D-005` is consumed at its `before_start` gate |
+| Active write packet | None; WE-C18 write lock released after verified closeout |
+| Last completed packet | `WE-C18`; final Chapter 18 SHA-256 `5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88`, thirteen items materially complete and ratified pending C18, six critics at zero fatal/major |
+| Next permitted packet | `C18`; prepare the exact acceptance package only after the WE-C18 closeout is locally committed, then stop for the author reply |
 | Review parents | 31 ratified; 5 accepted |
-| Atomic child inventory | Complete: 371 stable children; 265 accepted, 5 deferred with reason and 101 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 124 accepted, 64 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 265 accepted, 5 deferred with reason, 101 ratified pending their later gates and 0 in progress; zero unmapped |
+| Exact packet catalogue | 189 packets: 125 accepted, 63 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 2 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija` and `17-doba-algoritama` at `coauthor_review`; `06-povezanost` and `18-vase-prvo-istrazivanje` remain `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -6168,6 +6168,48 @@ the durable evidence is
   unclaimed; push, merge, tag, archive, deployment and publication remain
   unauthorised.
 
+## WE-C18 closeout
+
+- `WE-C18` was claimed separately from clean WD-PART closeout `d1b8e8e` only
+  after `H-G-A2D-005` was consumed at `before_start`. D15 is fixed as the
+  course's dated policy v1.0 of 2026-08-04, not a university regulation,
+  legal conclusion or empirical reidentification claim.
+- All five `before_close` deliveries were acknowledged before the first source
+  edit: the one-definition map, whole-book prerequisite, fail-closed concept
+  reconciliation, R04 timing boundary and Chapter 17 receiving-side handoff.
+- The packet owns Chapter 18, the same-packet concept ledger/live count/graph
+  reconciliation, the narrow addition of WE-C18 to the existing ParlaSent
+  consumer list, its report and six-critic evidence, and the three control
+  views. It does not own Chapter 17, Appendix F, routes, chapter-ledger,
+  assessment closure or generated render artifacts.
+- The final source has SHA-256 `5aa91d8b…` and Git blob `d71b8f5…`. It keeps
+  the explanatory simulated study, adds one governed ParlaSent transfer
+  without a new method, remains widget-free and whole-book cumulative, and
+  preserves one extended worked example.
+- Exactly one `#def-paket-dokaza` block, eleven `.pojam` anchors, a matching
+  concept-ledger entry, live count 52 and a regenerated 52-node graph move
+  together. Concept debt is zero and the graph is fresh.
+- All five `before_close` deliveries are consumed with exact final-source
+  evidence. `R04-C18-whole-prerequisites` records only its source half and
+  remains ratified for P5-ROUTES. `R27-C17-18-transition` records both source
+  sides and remains ratified for C18.
+- All thirteen WE-C18 items materially pass but return to `ratified` because
+  only the author gate may accept them. Chapter 18 remains `draft` and the
+  chapter ledger is unchanged.
+- All six final critics read the same immutable source. The panel is unanimous
+  at zero fatal and zero major; every small and useful finding is displayed and
+  dispositioned in the synthesis.
+- Targeted HTML, approved-wrapper PDF and wrapper DOCX pass in an isolated
+  worktree. Style, structure, figures, citations, concepts, terminology,
+  manuscript, spines, architecture, assessment, identity, tokens, catalogue,
+  data, text package, widgets and parity pass.
+- `H-WE-C18-001` is the one new future-relevant effect and targets
+  P6-EVIDENCE for bibliographic types. The public catalogue-view observation
+  is already owned by `H-P3-CATALOG-002` and is not duplicated.
+- The WE-C18 lock is released. `C18` alone is next but is not yet claimed. No
+  author reading, external action, push, merge, tag, archive, deployment or
+  publication is claimed or authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -6195,37 +6237,33 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: WD-PART` and
-`next_permitted_packet: WE-C18`. Confirm that WD-PART closed evidence-only on
-source commit `be3602053a4aff615f4010451f0c4d647758ad20`, accepted five governed
-items, retained `R27-C17-18-transition` as ratified for the Chapter 18 receiving
-side, changed no chapter source or chapter-ledger entry, and recorded
-`H-WD-PART-001` as its only new outgoing handoff.
+Verify `active_write_packet: null`, `last_completed_packet: WE-C18` and
+`next_permitted_packet: C18`. Confirm that the clean WE-C18 closeout contains
+Chapter 18 SHA-256
+`5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88`,
+Git blob `d71b8f511acda07986a17bb39506078458f5fe65`, all six final critic reports
+and `notes/reports/we-c18-six-critic-synthesis-2026-08-19.md`. Confirm the
+panel has zero fatal and zero major findings, all five `before_close`
+deliveries are consumed, `H-WE-C18-001` is pending only for P6-EVIDENCE and
+Chapter 18 remains draft.
 
 Under the eleventh, distinct thread decision
 `A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19` the strict chain is
 `WD-PART -> WE-C18 -> C18 -> P5-CLOSURE-00 -> P5-CLOSURE-01`; each packet is
 claimed, closed and committed separately and C18 stops for the exact author
-reply. Execute only `WE-C18` next, as a separate packet. Fully read its packet
-record, Chapter 18 and the adjacent Chapter 17 boundary, the finale spine,
-STYLE.md, ENRICHMENT.md and the checkout-local Bookwright style, enrichment and
-review instructions. Consume `H-G-A2D-005` at `before_start` before claiming
-the packet. Before the first substantive edit acknowledge
-`H-P2-SPINE-FINALE-001`, `H-P2-SPINE-FINALE-002`, `H-P2-TERMS-002`,
-`H-P2-VERIFY-001` and `H-WD-PART-001`; consume each at `before_close` with an
-exact disposition and final-source evidence.
+reply. Claim only `C18` from the clean WE-C18 closeout commit. Acknowledge the
+`H-WD-PART-001` delivery targeting C18 before preparing the gate, but do not
+accept it or any Chapter 18 item without the author's exact reply.
 
-Keep the work limited to the ratified Chapter 18 capstone harvest. Add exactly
-one `#def-` block for `paket dokaza`, regenerate the concept graph in the same
-packet, reconcile `.chapter-meta`, and explain D13 without weakening its
-boundary. Preserve Chapter 18's deliberate extended-worked-example structure
-and do not add a widget. After the final material edit, run the Bookwright style
-workflow, all applicable deterministic and targeted multi-format checks, and
-six independent read-only critics. Resolve every fatal or major finding before
-closeout; display and disposition every minor. Record every future-relevant
-handoff or an explicit no-effect declaration, update the register, handoff
-ledger and dashboard together, run the workflow checker and its negative
-fixtures, close and locally commit WE-C18. Only then prepare `C18` as a separate
-packet and stop for the exact reply `C18 accepted for <commit> on <date>`.
-Do not push, merge, tag, archive, deploy or publish.
+Prepare `notes/reports/c18-acceptance-package-2026-08-19.md`. Tie it to the
+full WE-C18 closeout commit, the final Chapter 18 SHA-256 and Git blob, all six
+critic reports, the synthesis, the proposed narrow ledger disposition and the
+complete list of C18-blocked items. Record that minor and useful findings were
+displayed and dispositioned, Chapter 18 remains draft, no author reading is
+claimed and only `coauthor_review` is proposed. Set OA-C18-ACCEPTANCE to ready,
+run the workflow checker and all three required negative fixtures, locally
+commit the C18 preparation, and stop. Ask for exactly
+`C18 accepted for <full WE-C18 closeout commit> on 2026-08-19` or exact blocking
+revisions. Do not close C18 or start P5-CLOSURE-00 without that reply. Do not
+push, merge, tag, archive, deploy or publish.
 ```

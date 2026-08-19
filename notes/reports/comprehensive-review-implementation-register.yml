@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "WD-PART"
-  next_permitted_packet: "WE-C18"
+  last_completed_packet: "WE-C18"
+  next_permitted_packet: "C18"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -14810,7 +14810,7 @@ packets:
     sequence: 132
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "WD-PART"
       - "P2-SPINE-FINALE"
@@ -14823,14 +14823,76 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WE-C18 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-FINALE"
+            - "decision:A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19"
+            - "report:notes/reports/we-c18-2026-08-19.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+            - "blob:chapters/18-vase-prvo-istrazivanje.qmd@d71b8f511acda07986a17bb39506078458f5fe65"
+            - "check:DATA_INTEGRITY_OK-50300-rows-22-of-22-snapshots"
+            - "check:TEXT_PACKAGE_OK-2698-rows"
+            - "check:CONCEPT_INTEGRITY_OK-52-definitions-zero-debt-fresh-graph"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-sha256-ed276c39617af6f5c4b7687d4cd726d4b56b5f91e9d57d97a5f4a50e51ee4ded"
+            - "render:PDF_BUILD_OK-sha256-2f82e9046270129390389abe0ed37ceb826ae7d5a8fcfc1b390650874e7a5b59"
+            - "render:DOCX-wrapper-exit-0-sha256-ec6be44ad85fd9a26bd564d84433ff9cd0f9ba73b45e1376c385d920bdb0ec99"
+            - "report:notes/reports/we-c18-2026-08-19.md#provjere-i-panel"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-skeptic-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-style-2026-08-19.md"
+            - "report:notes/reports/we-c18-critic-structure-2026-08-19.md"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+            - "result:zero-fatal-zero-major-with-all-minors-and-useful-improvements-dispositioned"
+      outputs:
+        - output: "WE-C18 verified vertical-slice source and evidence bundle for: Chapter 18 capstone harvest."
+          artifacts:
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+            - "report:notes/reports/we-c18-2026-08-19.md"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared WE-C18 source state and bounded scope."
+          artifacts:
+            - "items:thirteen-materially-complete-and-ratified-pending-C18"
+            - "handoff:H-WE-C18-001"
+            - "existing-handoff:H-P3-CATALOG-002-already-owns-public-catalogue-views"
+            - "ledger:Chapter-18-remains-draft"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "checks:style-structure-figure-citation-concept-terminology-integrity-spines-architecture-assessment-data-text-widgets-parity-tokens"
+            - "renders:targeted-HTML-approved-wrapper-PDF-wrapper-DOCX"
+            - "report:notes/reports/we-c18-2026-08-19.md"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "panel:six-independent-critics-zero-fatal-zero-major"
+            - "disposition:all-final-minors-and-useful-improvements-displayed"
+            - "synthesis:notes/reports/we-c18-six-critic-synthesis-2026-08-19.md"
+        - test: "The WE-C18 packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-18,R10-C18-whole-book-harvest,R11-C18-table-audit,R13-C18-corpus-package,R17-C18-two-pass,R19-C18-substantive-sensitivity,R24-C18-privacy-sources,R24-C18-algorithm-harvest,R24-C18-explanatory-scope,R24-C18-dated-policy,R24-C18-workflow,R32-C18-transfer-path,R35-REACHBACK-18"
+            - "partials:R04-C18-whole-prerequisites-live-source-and-R27-C17-18-transition-receiving-side"
+            - "handoff:H-WE-C18-001"
+            - "boundary:C18-author-gate-pending"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
   C18:
     sequence: 133
     phase: "4"
@@ -21388,11 +21450,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:known-truth-simulated-study-plus-bounded-ParlaSent-transfer-with-passport-and-claim-boundary"
+      - "check:TEXT_PACKAGE_OK-and-CITATION_INTEGRITY_OK"
+      - "panel:zero-fatal-zero-major-pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R08-CATALOG-question-led:
     parents:
       - "R08"
@@ -22418,11 +22484,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:four-promises-six-claim-dimensions-seven-threads-nine-lifecycle-stages-and-four-activity-boundaries-harvested"
+      - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+      - "boundary:no-new-method-and-pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R10-DS-workflow-scope:
     parents:
       - "R10"
@@ -22879,11 +22949,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:analysis-table-audits-unit-eligibility-joins-recodes-transformations-exclusions-and-missingness"
+      - "evidence:complete-case-boundary-explicitly-retained"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R11-C04-wrong-join-AI:
     parents:
       - "R11"
@@ -24158,11 +24232,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:ParlaSent-passport-transformations-label-paths-and-unavailable-claims-auditable"
+      - "check:TEXT_PACKAGE_OK-rows-2698-documents-2499-splits-1090-272-1336"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R14-C02-confounder:
     parents:
       - "R14"
@@ -25662,11 +25740,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:known-generator-first-pass-and-unknown-truth-ParlaSent-transfer-second-pass"
+      - "evidence:question-design-claim-audit-repeated-without-new-method"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R18-PARITY-framework:
     parents:
       - "R18"
@@ -26680,11 +26762,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:age-adjusted-primary-estimate-minus-0.0083-CI-minus-0.1864-to-0.1697"
+      - "evidence:unadjusted-sensitivity-estimate-0.2461-CI-0.0927-to-0.3996"
+      - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R20-AA-loader:
     parents:
       - "R20"
@@ -28024,11 +28111,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:D15-policy-v1.0-dated-2026-08-04-and-explicitly-not-law-or-institutional-rule"
+      - "evidence:no-unsourced-empirical-reidentification-claim"
+      - "report:notes/reports/we-c18-critic-evidence-2026-08-19.md"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-AF-privacy-sources:
     parents:
       - "R24"
@@ -28577,11 +28669,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:provenance-label-path-document-leakage-verification-and-AI-disclosure-performed"
+      - "boundary:classifier-subgroup-error-shift-threshold-monitoring-and-appeal-explicitly-unavailable-or-future-bounded"
+      - "handoff:H-WD-PART-001-consumed-at-receiving-side"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-C18-explanatory-scope:
     parents:
       - "R24"
@@ -28613,11 +28710,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:main-study-explicitly-explanatory-with-linear-additive-age-adjustment"
+      - "boundary:train-test-threshold-and-subgroup-error-omissions-are-claim-scope-not-forgotten-content"
+      - "report:notes/reports/we-c18-critic-methods-2026-08-19.md"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-C18-dated-policy:
     parents:
       - "R24"
@@ -28649,11 +28751,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "decision:D15-course-policy-v1.0-2026-08-04"
+      - "evidence:public-contract-protected-and-local-data-lanes-with-safe-alternative"
+      - "boundary:policy-legal-description-and-empirical-evidence-remain-distinct"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-C00-stable-thesis:
     parents:
       - "R24"
@@ -28884,11 +28991,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:specify-delegate-reproduce-challenge-document-disclose-six-step-workflow"
+      - "evidence:seven-field-verification-record-and-transfer-specific-AI-disclosure"
+      - "evidence:exactly-one-planted-AI-error-confirmed-by-six-critic-panel"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R24-BOOK-three-roles:
     parents:
       - "R24"
@@ -30279,19 +30391,21 @@ items:
           - "report:notes/reports/wd-part-2026-08-19.md"
           - "handoff:H-WD-PART-001"
       chapter_18:
-        status: "pending_WE-C18_and_C18"
+        status: "verified_pending_C18_author_gate"
         artifacts:
-          - "blob:chapters/18-vase-prvo-istrazivanje.qmd@f291e63173892eca483ed9c9e89df70be5bb1bd1"
-          - "boundary:current-draft-does-not-yet-perform-or-explicitly-bound-the-handoff"
-          - "handoff:H-WD-PART-001"
+          - "blob:chapters/18-vase-prvo-istrazivanje.qmd@d71b8f511acda07986a17bb39506078458f5fe65"
+          - "source:sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+          - "result:threshold-error-burden-monitoring-appeal-and-responsible-delegation-performed-or-explicitly-bounded"
+          - "panel:six-independent-critics-zero-fatal-zero-major"
+          - "handoff:H-WD-PART-001-consumed-by-WE-C18"
     open_reason: >-
-      Chapter 17's sending side is verified on its accepted blob, but the live
-      Chapter 18 draft does not yet perform or explicitly bound the task. The
-      receiving side belongs to WE-C18 and final acceptance belongs to C18.
+      Both source sides are now verified on their exact blobs. The item remains
+      ratified because final acceptance belongs to the separate C18 author gate
+      and requires the exact dated author reply tied to the WE-C18 closeout.
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
+    change_reference: "source-pair:86e387bbd0df139762001dd22d079d1a51a96c77+d71b8f511acda07986a17bb39506078458f5fe65"
   R27-C13-partV-contract:
     parents:
       - "R27"
@@ -30449,10 +30563,24 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-FINALE"
     completion_evidence: []
+    partial_completion_evidence:
+      live_source:
+        status: "verified_pending_P5_ROUTES"
+        artifacts:
+          - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+          - "evidence:chapter-meta-prerequisite-is-cijela-knjiga"
+          - "evidence:prose-and-exercises-harvest-all-seventeen-numbered-chapters"
+          - "check:CHAPTER_SPINES_OK-18-prerequisites-17"
+          - "handoffs:H-P2-SPINE-FINALE-002-and-H-P2-VERIFY-001-consumed-by-WE-C18"
+      routes:
+        status: "pending_P5_ROUTES"
+        artifacts:
+          - "boundary:no-route-created-or-amended-by-WE-C18"
+          - "boundary:R04-parent-remains-open"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R28-C05-introduction:
     parents:
       - "R28"
@@ -31379,11 +31507,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:canonical-CSV-passport-and-license-paths-explicit"
+      - "render:HTML-ed276c39617af6f5c4b7687d4cd726d4b56b5f91e9d57d97a5f4a50e51ee4ded"
+      - "render:PDF-2f82e9046270129390389abe0ed37ceb826ae7d5a8fcfc1b390650874e7a5b59"
+      - "render:DOCX-ec6be44ad85fd9a26bd564d84433ff9cd0f9ba73b45e1376c385d920bdb0ec99"
+      - "boundary:pending-C18-author-gate"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R33-C00-miniature-inquiry:
     parents:
       - "R33"
@@ -32052,11 +32186,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WE-C18"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
+      - "evidence:conceptual-task-reaches-back-to-misleading-numbers-sampling-crisis-and-reform-and-algorithm-age"
+      - "evidence:task-cannot-be-solved-by-current-chapter-model-alone-and-remains-in-four-tier-structure"
+      - "report:notes/reports/we-c18-critic-pedagogy-2026-08-19.md"
+      - "boundary:canonical-closure-remains-P5-CLOSURE-18-and-final-item-acceptance-remains-C18"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
   R35-SELF-CHECK-I:
     parents:
       - "R35"
