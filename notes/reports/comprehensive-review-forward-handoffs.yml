@@ -7499,6 +7499,45 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-WD-PART-001:
+    source_packet: WD-PART
+    created_at: "2026-08-19"
+    kind: constraint
+    refs:
+      - item:R27-C17-18-transition
+      - source:chapters/17-doba-algoritama.qmd
+      - source:chapters/18-vase-prvo-istrazivanje.qmd
+      - report:notes/reports/wd-part-2026-08-19.md
+      - synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md
+    statement: >-
+      WD-PART verifies the sending side of R27-C17-18-transition on Chapter
+      17 git blob 86e387bbd0df139762001dd22d079d1a51a96c77: the boundary explicitly
+      hands threshold choice, error burdens, monitoring, appeal and responsible
+      delegation to the finale. The live Chapter 18 draft on git blob
+      f291e63173892eca483ed9c9e89df70be5bb1bd1 does not yet perform or
+      explicitly bound that task. WD-PART may not edit Chapter 18 and therefore
+      cannot accept the two-chapter item.
+    required_action: >-
+      WE-C18 must implement or explicitly bound the threshold, error-burden,
+      monitoring, appeal and responsible-delegation handoff in Chapter 18 and
+      record exact final-source evidence. C18 must keep
+      R27-C17-18-transition ratified until the six-critic final source and the
+      exact dated author reply are accepted; only then may the item advance.
+    basis:
+      - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+      - "blob:chapters/18-vase-prvo-istrazivanje.qmd@f291e63173892eca483ed9c9e89df70be5bb1bd1"
+      - "result:Chapter-17-sending-side-verified"
+      - "boundary:Chapter-18-receiving-side-pending"
+      - "boundary:no-early-acceptance-of-R27-C17-18-transition"
+    required: true
+    deliveries:
+      - target_packet: WE-C18
+        gate: before_close
+        state: pending
+      - target_packet: C18
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -10674,3 +10713,24 @@ packet_reviews:
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C17
       - WD-PART is the sole next permitted packet but is not claimed inside C17
       - no external message push merge tag archive deployment publication or author-reading claim is made or authorised
+
+  WD-PART:
+    reviewed_at: "2026-08-19"
+    declaration: all_future_effects_recorded
+    outgoing: [H-WD-PART-001]
+    implementation_state: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
+    checks:
+      - the complete handoff ledger had 102 records and no delivery targeting WD-PART so no incoming delivery was acknowledged or consumed
+      - Chapters 13 through 17 remain on exact git blobs e7ff4e8a 6ef3a218 aa644049 99e20c58 and 86e387bb and no chapter source changed
+      - five governed items advance to accepted while R27-C17-18-transition returns to ratified with exact partial evidence for Chapter 17
+      - H-WD-PART-001 records the only newly discovered future effect and targets WE-C18 and C18 at before_close
+      - both independent continuity critics confirmed the same immutable manifest and reported zero fatal zero major and three nonblocking minor findings in total
+      - every minor is displayed and consciously declined as a reason to reopen an accepted source in this evidence-only packet
+      - style structure figure citation concept terminology manuscript spine inventory identity assessment architecture token catalogue data text-package widget and parity checks pass
+      - widget-parity integrity data and inventory negative fixture suites fail closed for all 7 7 51 and 3 cases
+      - targeted HTML approved-wrapper PDF and wrapper DOCX renders exit zero on the exact held source with evidence in notes/reports/wd-part-2026-08-19.md
+      - generated render artifacts remain isolated and do not enter the primary packet checkout
+      - chapter-ledger.json is unchanged Chapters 13 through 17 remain coauthor_review and Chapters 6 and 18 remain draft
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - WE-C18 is the sole next permitted packet but is not claimed inside WD-PART
+      - no author reading external message push merge tag archive deployment publication or future-packet acceptance is claimed or authorised

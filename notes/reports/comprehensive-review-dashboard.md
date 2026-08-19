@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C17
-next_permitted_packet: WD-PART
+last_completed_packet: WD-PART
+next_permitted_packet: WE-C18
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 102
+forward_handoffs: 103
 last_updated: "2026-08-19"
 ---
 
@@ -64,12 +64,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; C17 is closed and the separate WD-PART packet has not been claimed |
-| Last completed packet | `C17`; the exact reply accepted WD-C17 closeout `bff7106e156a49b51fc55ca4b11c9cd2fc6645f8`, advanced only Chapter 17 and 20 C17-owned items, and retained the clean zero-finding panel disposition |
-| Next permitted packet | `WD-PART` at sequence 131; it may be claimed only as a separate packet for the Part V bridge and self-check |
+| Active write packet | None; `WD-PART` is closed and its write lock is released |
+| Last completed packet | `WD-PART`; evidence-only closeout on source commit `be3602053a4aff615f4010451f0c4d647758ad20`, five items accepted, `R27-C17-18-transition` retained as ratified for the Chapter 18 receiving side, zero fatal/major and three displayed nonblocking minors |
+| Next permitted packet | `WE-C18` at sequence 132; it may be claimed only as a separate packet after `H-G-A2D-005` is consumed at its `before_start` gate |
 | Review parents | 31 ratified; 5 accepted |
-| Atomic child inventory | Complete: 371 stable children; 260 accepted, 5 deferred with reason and 106 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 123 accepted, 65 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 265 accepted, 5 deferred with reason and 101 ratified pending their later gates; zero in progress and zero unmapped |
+| Exact packet catalogue | 189 packets: 124 accepted, 64 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 2 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija` and `17-doba-algoritama` at `coauthor_review`; `06-povezanost` and `18-vase-prvo-istrazivanje` remain `draft` |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -6134,6 +6134,40 @@ the durable evidence is
   control record changes no chapter prose, registry stage, data file, figure,
   widget or generated artifact, and claims no packet.
 
+## WD-PART closeout
+
+- `WD-PART` was claimed separately from clean amendment commit `be36020` and
+  closed evidence-only on that exact source state. Chapters 13–17 retain git
+  blobs `e7ff4e8a`, `6ef3a218`, `aa644049`, `99e20c58` and `86e387bb`; no
+  chapter prose, chapter-ledger entry, data, bibliography, term, widget,
+  figure or generated artifact changed.
+- The Part V vertical slice satisfies the one-dataset model-family spine,
+  dependence stopping rule, cumulative AI thesis and competence ladder,
+  Chapter 17 sending-side transition, 6 × 6 map and answerable cumulative
+  self-check. Five governed items advance to `accepted`.
+- `R27-C17-18-transition` returns to `ratified`: Chapter 17 explicitly hands
+  threshold, error burdens, monitoring, appeal and responsible delegation to
+  the finale, but the live Chapter 18 draft does not yet perform or explicitly
+  bound that task. `H-WD-PART-001` assigns the receiving side to `WE-C18` and
+  final item acceptance to `C18`.
+- Both independent read-only continuity critics confirmed the same manifest.
+  The combined panel has zero fatal, zero major and three nonblocking minor
+  findings. All three are displayed and consciously declined as reasons to
+  reopen an already accepted source; the synthesis records the exact
+  disposition.
+- Style, structure, figures, citations, concepts, terminology, manuscript,
+  spines, architecture, assessment, identity, tokens, catalogue, data, text,
+  widgets and parity pass. Targeted HTML, approved-wrapper PDF and wrapper
+  DOCX pass on the isolated exact source; public routes exclude the protected
+  self-check answer.
+- `H-WD-PART-001` is the only new future-relevant effect. No delivery targeted
+  `WD-PART`; nothing owned by another packet was acknowledged or consumed.
+  Chapter 6 and Chapter 18 remain `draft`; Chapters 13–17 remain
+  `coauthor_review`.
+- The WD-PART write lock is released. `WE-C18` is solely next but remains
+  unclaimed; push, merge, tag, archive, deployment and publication remain
+  unauthorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -6161,29 +6195,37 @@ Also fully read the checkout-local book-conductor instructions and its bounded
 outside-ask reference. Do not rely on prior chat or the installed plugin cache
 for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: C17` and
-`next_permitted_packet: WD-PART`. Confirm that C17 accepted only WD-C17
-closeout `bff7106e156a49b51fc55ca4b11c9cd2fc6645f8`, advanced only Chapter 17
-and its 20 named items, and recorded neither author reading nor a final stage.
+Verify `active_write_packet: null`, `last_completed_packet: WD-PART` and
+`next_permitted_packet: WE-C18`. Confirm that WD-PART closed evidence-only on
+source commit `be3602053a4aff615f4010451f0c4d647758ad20`, accepted five governed
+items, retained `R27-C17-18-transition` as ratified for the Chapter 18 receiving
+side, changed no chapter source or chapter-ledger entry, and recorded
+`H-WD-PART-001` as its only new outgoing handoff.
 
 Under the eleventh, distinct thread decision
 `A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19` the strict chain is
 `WD-PART -> WE-C18 -> C18 -> P5-CLOSURE-00 -> P5-CLOSURE-01`; each packet is
 claimed, closed and committed separately and C18 stops for the exact author
-reply. Claim and execute only `WD-PART` first, as a separate packet. Fully read its packet
-record, the six governed items `R08-SPINE-13-16`,
-`R22-C14-C16-dependence`, `R24-PARTV-thesis`, `R24-LADDER-C13-16`,
-`R27-C17-18-transition` and `R35-SELF-CHECK-V`, plus every applicable incoming
-handoff. Acknowledge each applicable handoff before the first substantive edit
-and consume it with evidence before closeout. Keep the work limited to the
-Part V bridge and cumulative self-check; use the checkout-local Bookwright
-continuity and style workflows as required by the source changes.
+reply. Execute only `WE-C18` next, as a separate packet. Fully read its packet
+record, Chapter 18 and the adjacent Chapter 17 boundary, the finale spine,
+STYLE.md, ENRICHMENT.md and the checkout-local Bookwright style, enrichment and
+review instructions. Consume `H-G-A2D-005` at `before_start` before claiming
+the packet. Before the first substantive edit acknowledge
+`H-P2-SPINE-FINALE-001`, `H-P2-SPINE-FINALE-002`, `H-P2-TERMS-002`,
+`H-P2-VERIFY-001` and `H-WD-PART-001`; consume each at `before_close` with an
+exact disposition and final-source evidence.
 
-Before closeout, obtain the required fresh part-continuity evidence, run all
-applicable deterministic and targeted multi-format checks, record either every
-future-relevant outgoing handoff or an explicit no-effect declaration, update
-the register, handoff ledger and dashboard together, run the workflow checker
-and its negative fixtures, close and locally commit WD-PART. Only then may WE-C18 be
-claimed under the same thread decision. Do not push, merge, tag, archive,
-deploy or publish.
+Keep the work limited to the ratified Chapter 18 capstone harvest. Add exactly
+one `#def-` block for `paket dokaza`, regenerate the concept graph in the same
+packet, reconcile `.chapter-meta`, and explain D13 without weakening its
+boundary. Preserve Chapter 18's deliberate extended-worked-example structure
+and do not add a widget. After the final material edit, run the Bookwright style
+workflow, all applicable deterministic and targeted multi-format checks, and
+six independent read-only critics. Resolve every fatal or major finding before
+closeout; display and disposition every minor. Record every future-relevant
+handoff or an explicit no-effect declaration, update the register, handoff
+ledger and dashboard together, run the workflow checker and its negative
+fixtures, close and locally commit WE-C18. Only then prepare `C18` as a separate
+packet and stop for the exact reply `C18 accepted for <commit> on <date>`.
+Do not push, merge, tag, archive, deploy or publish.
 ```

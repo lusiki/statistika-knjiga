@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "C17"
-  next_permitted_packet: "WD-PART"
+  last_completed_packet: "WD-PART"
+  next_permitted_packet: "WE-C18"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -14726,7 +14726,7 @@ packets:
     sequence: 131
     phase: "4"
     kind: "chapter_or_part_packet"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "C17"
     scope: "Part V bridge and self-check."
@@ -14737,14 +14737,75 @@ packets:
       - "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
       - "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
       - "The WD-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
+      required_evidence:
+        - requirement: "approved scope or spine"
+          artifacts:
+            - "decision:G-A2b-V"
+            - "decision:A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19"
+            - "report:notes/reports/wd-part-2026-08-19.md"
+        - requirement: "verified source/data and numerical results"
+          artifacts:
+            - "blob:chapters/13-kategoricki-podaci.qmd@e7ff4e8adc9d2438461ffbddb01e193aba24b671"
+            - "blob:chapters/14-dvije-grupe.qmd@6ef3a218dfc61d5ad73f83e236a70e3917909d86"
+            - "blob:chapters/15-vise-grupa.qmd@aa644049bacb62e7fc05ab75d3b6157b83165b96"
+            - "blob:chapters/16-regresija.qmd@99e20c5885ab10a0bbdfaa8981431edf20e556a3"
+            - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+            - "check:DATA_INTEGRITY_OK-50300-rows-22-of-22-snapshots"
+            - "check:TEXT_PACKAGE_OK-2698-rows"
+        - requirement: "targeted multi-format renders"
+          artifacts:
+            - "render:HTML-exit-0-sha256-a05b9d7932be1364ee31de1595fd4937314c2f356d342d85963c8994657d1c55"
+            - "render:PDF_BUILD_OK-sha256-9ee488aa5c9068d4b8d79d23cf8295c35b76bc73f1451f4cb761fee087c88a95"
+            - "render:DOCX-wrapper-exit-0-sha256-cd332676045ffb1b3122d1580c3bcc01504405bd1193773ae6d0798d21c237ff"
+            - "report:notes/reports/wd-part-2026-08-19.md#ciljani-viseformatni-dokaz"
+        - requirement: "fresh six-critic or part-continuity evidence"
+          artifacts:
+            - "report:notes/reports/wd-part-critic-voice-2026-08-19.md"
+            - "report:notes/reports/wd-part-critic-arc-2026-08-19.md"
+            - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
+            - "result:zero-fatal-zero-major-three-nonblocking-minors"
+      outputs:
+        - output: "WD-PART verified vertical-slice source and evidence bundle for: Part V bridge and self-check."
+          artifacts:
+            - "report:notes/reports/wd-part-2026-08-19.md"
+            - "manifest:chapters-13-17-five-exact-git-blobs"
+            - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
+        - output: "Completion evidence is tied to the declared WD-PART source state and bounded scope."
+          artifacts:
+            - "source:commit-be3602053a4aff615f4010451f0c4d647758ad20"
+            - "boundary:evidence-only-zero-chapter-source-edits"
+            - "items:five-accepted-one-ratified-pending-Chapter-18-receiving-side"
+            - "handoff:H-WD-PART-001"
+            - "ledger:chapters-13-17-remain-coauthor_review-Chapter-18-remains-draft"
+      exit_tests:
+        - test: "The complete vertical slice satisfies prose, data, evidence, figure, AI, assessment, print, and transition obligations."
+          result: "passed"
+          evidence:
+            - "checks:style-structure-figure-citation-concept-terminology-integrity-spines-architecture-assessment-data-text-widgets-parity-tokens"
+            - "renders:targeted-HTML-approved-wrapper-PDF-wrapper-DOCX"
+            - "report:notes/reports/wd-part-2026-08-19.md"
+        - test: "All fatal and major findings are resolved or explicitly author-disposed for the reviewed source state."
+          result: "passed"
+          evidence:
+            - "panel:zero-fatal-zero-major-three-nonblocking-minors"
+            - "disposition:three-minors-displayed-and-consciously-declined-as-source-reopening-reasons"
+            - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
+        - test: "The WD-PART packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "items:R08-SPINE-13-16,R22-C14-C16-dependence,R24-PARTV-thesis,R24-LADDER-C13-16,R27-C17-18-transition,R35-SELF-CHECK-V"
+            - "handoff:H-WD-PART-001"
+            - "boundary:Chapter-18-receiving-side-stays-ratified-for-WE-C18-and-C18"
+            - "boundary:Chapter-6-unchanged-and-draft"
     contract: "chapter_or_part_packet"
     required_evidence:
       - "approved scope or spine"
       - "verified source/data and numerical results"
       - "targeted multi-format renders"
       - "fresh six-critic or part-continuity evidence"
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   WE-C18:
     sequence: 132
     phase: "4"
@@ -21228,7 +21289,7 @@ items:
       location: "§12 empirical-data spine"
     description: "Reuse one pinned person-level survey across model families."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -21244,11 +21305,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "manifest:chapters-13-16-blobs-e7ff4e8a-6ef3a218-aa644049-99e20c58"
+      - "result:one-pinned-person-level-teaching-population-reused-across-four-model-families"
+      - "result:variables-weight-boundaries-and-lawful-ESS-alternative-consistent"
+      - "check:DATA_INTEGRITY_OK-50300-rows-22-of-22-snapshots"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R08-SPINE-17:
     parents:
       - "R08"
@@ -26886,7 +26953,7 @@ items:
       location: "§12 dependence"
     description: "Operationalise dependence red flags in Chapters 14–16."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -26902,10 +26969,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "manifest:chapters-14-16-blobs-6ef3a218-aa644049-99e20c58"
+      - "result:all-three-chapters-stop-before-ordinary-independent-row-inference"
+      - "result:dependence-rule-is-context-specific-without-redundant-mini-lectures"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "report:notes/reports/wd-part-critic-voice-2026-08-19.md"
     partial_completion_evidence:
       chapter_14:
-        status: "verified_pending_multi_chapter_owner"
+        status: "verified_and_accepted_by_multi_chapter_owner"
         artifacts:
           - "source:chapters/14-dvije-grupe.qmd@sha256-84b6c8fac8ce4eecf5474a0535ba02030dbf332a37789bcd7347c4ae9a66cfa2"
           - "commit:378bc362f9090e3bcdf8e9e02090c2c1d732e532"
@@ -26913,18 +26985,18 @@ items:
           - "report:notes/reports/wd-c14-critic-methods-2026-08-17.md"
           - "report:notes/reports/wd-c14-critic-skeptic-2026-08-17.md"
           - "report:notes/reports/c14-acceptance-package-2026-08-17.md"
-          - "boundary:item-remains-ratified-for-WD-PART-until-Chapters-15-and-16-pass"
+          - "result:accepted-by-WD-PART-after-Chapters-15-and-16-pass"
       chapter_15:
-        status: "verified_pending_multi_chapter_owner"
+        status: "verified_and_accepted_by_multi_chapter_owner"
         artifacts:
           - "source:chapters/15-vise-grupa.qmd@sha256-fd8337520901df9bbce56e25880f12b889fd54d46e4c1bb3e8f17da3ca49d813"
           - "rule:stop-before-independent-row-inference-for-repeated-nested-household-place-organisation-or-network-linked-observations"
           - "report:notes/reports/wd-c15-critic-methods-2026-08-17.md"
           - "report:notes/reports/wd-c15-critic-skeptic-2026-08-17.md"
           - "report:notes/reports/wd-c15-six-critic-synthesis-2026-08-17.md"
-          - "boundary:item-remains-ratified-for-WD-PART-until-Chapter-16-passes"
+          - "result:accepted-by-WD-PART-after-Chapter-16-passes"
       chapter_16:
-        status: "verified_pending_multi_chapter_owner"
+        status: "verified_and_accepted_by_multi_chapter_owner"
         artifacts:
           - "source:chapters/16-regresija.qmd@sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
           - "blob:99e20c5885ab10a0bbdfaa8981431edf20e556a3"
@@ -26932,11 +27004,11 @@ items:
           - "report:notes/reports/wd-c16-critic-methods-2026-08-18.md"
           - "report:notes/reports/wd-c16-critic-skeptic-2026-08-18.md"
           - "report:notes/reports/wd-c16-six-critic-synthesis-2026-08-18.md"
-          - "boundary:item-remains-ratified-for-WD-PART-until-multi-chapter-owner-closes"
+          - "result:accepted-by-WD-PART-multi-chapter-closeout"
     blocker:
       active: false
       ask_id: null
-    change_reference: "source:sha256-dc31161a54058a92054e3c3d2ac78cc09bad500984be5db5cda9b4e90fcad671"
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R22-AD-visual-tree:
     parents:
       - "R22"
@@ -28755,7 +28827,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Advance it through model assumptions, leakage, labels, subgroup errors, and shift."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -28771,11 +28843,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+      - "result:Part-V-advances-assumptions-leakage-labels-subgroup-errors-and-shift"
+      - "result:boundary-prepares-complete-evidence-package"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "report:notes/reports/wd-part-critic-arc-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R24-C18-workflow:
     parents:
       - "R24"
@@ -29029,7 +29106,7 @@ items:
       location: "§12 cumulative AI strand"
     description: "Audit references, assumptions, omitted variables, causal language, diagnostics, and sensitivity."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -29045,11 +29122,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "manifest:chapters-13-16-blobs-e7ff4e8a-6ef3a218-aa644049-99e20c58"
+      - "result:references-assumptions-omitted-variables-causal-language-diagnostics-and-sensitivity-have-planned-homes"
+      - "check:assessment-and-identity-briefs-assessed-code-production-excluded"
+      - "report:notes/reports/wd-part-2026-08-19.md"
+      - "synthesis:notes/reports/wd-part-continuity-synthesis-2026-08-19.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R24-LADDER-C17:
     parents:
       - "R24"
@@ -30187,10 +30269,29 @@ items:
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
     completion_evidence: []
+    partial_completion_evidence:
+      chapter_17:
+        status: "verified_pending_chapter_18_receiving_side"
+        artifacts:
+          - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+          - "result:explicit-handoff-of-threshold-error-burden-monitoring-appeal-and-responsible-delegation"
+          - "render:HTML-PDF-DOCX-all-contain-transition"
+          - "report:notes/reports/wd-part-2026-08-19.md"
+          - "handoff:H-WD-PART-001"
+      chapter_18:
+        status: "pending_WE-C18_and_C18"
+        artifacts:
+          - "blob:chapters/18-vase-prvo-istrazivanje.qmd@f291e63173892eca483ed9c9e89df70be5bb1bd1"
+          - "boundary:current-draft-does-not-yet-perform-or-explicitly-bound-the-handoff"
+          - "handoff:H-WD-PART-001"
+    open_reason: >-
+      Chapter 17's sending side is verified on its accepted blob, but the live
+      Chapter 18 draft does not yet perform or explicitly bound the task. The
+      receiving side belongs to WE-C18 and final acceptance belongs to C18.
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "blob:86e387bbd0df139762001dd22d079d1a51a96c77"
   R27-C13-partV-contract:
     parents:
       - "R27"
@@ -32130,7 +32231,7 @@ items:
       location: "§12 retrieval + §15 R35"
     description: "Add the Part V cumulative self-check."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_chapter_or_part_owner"
     approval_owner: "author_editor"
     scope:
@@ -32146,11 +32247,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "WD-PART"
-    completion_evidence: []
+    completion_evidence:
+      - "blob:chapters/17-doba-algoritama.qmd@86e387bbd0df139762001dd22d079d1a51a96c77"
+      - "result:four-answerable-cumulative-questions-adjacent-to-complete-six-by-six-thread-map"
+      - "result:answer-path-visible-only-in-kolegij-profile"
+      - "render:HTML-PDF-DOCX-public-routes-exclude-protected-answer"
+      - "report:notes/reports/wd-part-critic-arc-2026-08-19.md"
+      - "disposition:optional-extra-question-is-nonblocking-and-consciously-declined"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "commit:be3602053a4aff615f4010451f0c4d647758ad20"
   R36-BOOK-domestic-review:
     parents:
       - "R36"
