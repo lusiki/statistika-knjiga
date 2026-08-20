@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-00-callout-greska-01",
+  "exercise_id": "ex-00-callout-greska-01",
+  "unit_id": "00",
+  "source_anchor": {
+    "path": "chapters/00-predgovor.qmd",
+    "anchor": "ex-00-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:6a55f761b583c1cbf6ebe088e714422be6d13d35021ecdd41834828b5fede1b1",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "largest-category-is-majority",
+      "statement": "Iz činjenice da je portal najčešća pojedinačna kategorija izvedeno je da čini većinu generirane populacije.",
+      "why_wrong": "Većina mora obuhvatiti više od polovice zapisa, a 15.101 od 50.000 iznosi 30,202 % i manje je od 25.000 zapisa."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Usporediti 15.101 sa svakim drugim retkom, a zatim odvojeno s polovicom od 50.000.",
+      "expected_evidence": "Portal ima najveći pojedinačni broj, ali 15.101 < 25.000 i 30,202 % < 50 %."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Račun 15.101 / 50.000 je točan, pa je cijela analiza točna.",
+          "why_insufficient": "Točnost računa ne opravdava zamjenu najčešće kategorije većinom."
+        },
+        {
+          "response": "Jedini je problem to što se rezultat ne može prenijeti na stvarne ljude.",
+          "why_insufficient": "Analiza tu granicu već navodi; namjerna pogreška odnosi se na značenje većine unutar generirane populacije."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "correct-count-and-share",
+          "required_claim": "Brojnik 15.101, nazivnik 50.000 i udio 30,202 % točni su.",
+          "required_evidence": "Tablica #tbl-predgovor-izvori i račun 15.101 / 50.000."
+        },
+        {
+          "component_id": "name-the-only-error",
+          "required_claim": "Pogreška je zaključak da najčešća kategorija čini većinu.",
+          "required_evidence": "Usporedba 15.101 s pragom većine od 25.000."
+        },
+        {
+          "component_id": "preserve-scope-boundary",
+          "required_claim": "Rezultat opisuje samo poznatu generiranu populaciju, ne stvarne ljude.",
+          "required_evidence": "Izričita granica u promptu i opis skupa neposredno prije tablice."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "15.101 / 50.000 = 0,30202 = 30,202 %; 15.101 < 25.000",
+      "tolerance_or_acceptance_rule": "Cijeli brojevi moraju biti točni; prihvaća se 30,202 % ili ista vrijednost ispravno zaokružena uz zaključak da je manja od 50 %.",
+      "independent_method": "Ponovno podijeliti brojnik nazivnikom decimalnom aritmetikom i neovisno usporediti brojnik s nazivnik/2.",
+      "evidence_reference": "chapters/00-predgovor.qmd#tbl-predgovor-izvori, redak portal i ukupno 50.000"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-majority-or-real-population",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća tvrdnju o većini ili prenosi rezultat na stvarne ljude.",
+          "observable_evidence": "Središnji zaključak ostaje nespojiv s 30,202 % ili s deklariranom generiranom populacijom."
+        },
+        {
+          "criterion_id": "major-missing-threshold-check",
+          "severity": "major",
+          "description": "Odgovor ne imenuje prag većine i ne pokazuje usporedbu s 25.000 ili 50 %.",
+          "observable_evidence": "Navodi samo da je portal najveća kategorija ili samo ponavlja udio."
+        },
+        {
+          "criterion_id": "minor-incomplete-arithmetic-trace",
+          "severity": "minor",
+          "description": "Razlika najčešće kategorije i većine ispravno je opisana, ali brojnik ili nazivnik nisu izričito navedeni.",
+          "observable_evidence": "Zaključak je točan, no trag provjere ostaje nepotpun."
+        },
+        {
+          "criterion_id": "useful-explicit-two-comparisons",
+          "severity": "useful_improvement",
+          "description": "Odgovor jasno razdvaja usporedbu s drugim kategorijama od usporedbe s polovicom populacije.",
+          "observable_evidence": "Dvije provjere prikazane su kao različiti koraci bez dodavanja nove tvrdnje."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "plurality-wording",
+      "description": "Prihvatljiva je formulacija da portal ima relativnu većinu ili da je modalna kategorija ako odgovor odmah pojasni da nema natpolovičnu većinu.",
+      "acceptance_boundary": "Termin ne smije prikriti činjenicu da 30,202 % nije više od 50 %."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina namjerna pogreška jest zamjena najčešće kategorije većinom; broj, udio i granica prema stvarnim ljudima namjerno su točni.",
+    "Ne tražiti kod. Dokaz je cjelobrojna usporedba s 25.000 i decimalni račun iz tablice."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

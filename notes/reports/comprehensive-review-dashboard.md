@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: C18
-next_permitted_packet: P5-CLOSURE-00
+last_completed_packet: P5-CLOSURE-00
+next_permitted_packet: P5-CLOSURE-01
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 104
-last_updated: "2026-08-19"
+forward_handoffs: 105
+last_updated: "2026-08-20"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -51,6 +51,7 @@ stop and repair the control state before editing book content.
 | WD-PART | Accepted evidence-only from clean C17 closeout; Chapters 13–17 retained their exact blobs, five part items advanced, and `R27-C17-18-transition` remained ratified for the Chapter 18 receiving side and C18 author gate |
 | WE-C18 | Accepted from clean WD-PART closeout on source SHA-256 `5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88`; all thirteen governed items materially pass pending C18, both sides of `R27-C17-18-transition` are verified, all deterministic checks and HTML/PDF/DOCX pass, and six final critics report zero fatal and zero major findings |
 | C18 | Accepted on the exact dated author reply for WE-C18 closeout `be70fef341c46103b7252c3dd6b5c76c9545072e`; only Chapter 18, thirteen WE-C18 items and `R27-C17-18-transition` advanced, with all panel findings dispositioned and no author-reading or final-stage claim |
+| P5-CLOSURE-00 | Accepted on assessment state `6d59ea4d13df6fa4df8f553b63083003bf7aa5a3cdd8b9c3f8b51bc4443ec1df`; five schema-valid unit 00 records cover the planted error and all four Zadaci tiers, independent numerical, profile and export checks pass, no route was assembled, and `H-P5-CLOSURE-00-001` binds the implementation rules for units 01–18 and P5-ROUTES |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -67,12 +68,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; C18 is closed and the separate P5-CLOSURE-00 packet has not been claimed |
-| Last completed packet | `C18`; the exact reply accepted WE-C18 closeout `be70fef341c46103b7252c3dd6b5c76c9545072e`, advanced only Chapter 18 and fourteen named items, consumed only the C18 delivery of `H-WD-PART-001`, and retained all nonblocking panel dispositions |
-| Next permitted packet | `P5-CLOSURE-00` at sequence 134; it may be claimed only as a separate packet for unit 00 assessment closure |
+| Active write packet | None |
+| Last completed packet | `P5-CLOSURE-00`; exactly `R15-CLOSURE-00` advanced, five unit 00 solution records and five source anchors were accepted, and route assembly remained deferred |
+| Next permitted packet | `P5-CLOSURE-01`; it remains unclaimed and must consume `H-P5-CLOSURE-00-001` before its first substantive edit |
 | Review parents | 31 ratified; 5 accepted |
-| Atomic child inventory | Complete: 371 stable children; 279 accepted, 5 deferred with reason, 87 ratified pending their later gates and 0 in progress; zero unmapped |
-| Exact packet catalogue | 189 packets: 126 accepted, 62 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 280 accepted, 5 deferred with reason, 86 ratified pending their later gates and 0 in progress; zero unmapped |
+| Exact packet catalogue | 189 packets: 127 accepted, 61 ratified, 0 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -6241,6 +6242,54 @@ the durable evidence is
   C18 write lock is released and `P5-CLOSURE-00` is now the sole next permitted
   packet, but it was not claimed inside C18.
 
+## P5-CLOSURE-00 closeout
+
+- `P5-CLOSURE-00` is active from clean C18 closeout
+  `5bc054217dd99019f08369285e66c0e07aa0a1f1`. It governs exactly
+  `R15-CLOSURE-00` over `chapters/00-predgovor.qmd`; no chapter stage may
+  advance and no route may be assembled in this packet.
+- The packet and item records, `assessment_unit` contract, solution-record
+  schema, D06-two-layer-v1 visibility contract, unit 00 source and assessment
+  rules were read in full before claim.
+- A full delivery scan of all 104 immutable handoffs found zero delivery whose
+  `target_packet` is `P5-CLOSURE-00`. There is therefore no applicable incoming
+  handoff to acknowledge or consume; this explicit zero result precedes the
+  first substantive edit.
+- The packet may settle the storage, identifier, source-anchor and validation
+  rules that the ratified contract deliberately left to the first unit packet.
+  Those decisions must become one explicit outgoing handoff binding
+  `P5-CLOSURE-01` through `P5-CLOSURE-18` and `P5-ROUTES`.
+- `config/book-inventory.json#solution_routes` remains empty. No self-study,
+  print or instructor route, navigation, push, merge, tag, archive, deployment
+  or publication is authorised.
+- Five canonical records now live one per JSON file in
+  `assessment/solution-records/unit-00/`. They cover the planted-error callout
+  and the conceptual, computational, critical and model-revision tiers. Every
+  record carries all six canonical components, explicit not-applicable reasons
+  where needed, and the complete stable source binding.
+- The first-unit decisions are ratified in the checkout-local conventions and
+  schema: one-record-per-file storage, non-reused two-digit identifiers,
+  matching Quarto anchors and a normalized default-visible prompt SHA-256.
+  `H-P5-CLOSURE-00-001` delivers those rules before start to units 01–18 and
+  P5-ROUTES.
+- Independent source recomputation gives total `50000`, portal `30.202%`,
+  networks `26.756%`, gap `3.446` percentage points and count gap `1723`.
+  The assessment checker reports five records, five anchors, three numerical
+  records, 60 protected strings and zero public-export leaks.
+- Isolated targeted renders distinguish default SHA-256
+  `c6106e371287353ea2a5e7797a93324cf88cda40a5655c58065588833b847f21`
+  from kolegij SHA-256
+  `deab6c2180c77c564fb25718e5cf844e4af47cf581ba57f7bcb40ccffb7ac852`:
+  the existing protected concise key is absent by default and present only in
+  kolegij. The new instructor route remains deliberately unassembled.
+- The release-mode AI export rebuild passes for 19 chapters and the post-build
+  leak scan proves that no solution-record rubric, alternative or instructor
+  note reaches public export inputs. All packet-specific positive checks pass;
+  all four assessment and all three workflow negative fixtures fail closed.
+- `P5-CLOSURE-00` advances exactly `R15-CLOSURE-00` and creates no chapter-stage
+  change. The write lock is released; `P5-CLOSURE-01` is the sole next permitted
+  packet and remains unclaimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -6263,23 +6312,24 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: C18` and
-`next_permitted_packet: P5-CLOSURE-00`. Confirm that C18 accepted only WE-C18
-closeout `be70fef341c46103b7252c3dd6b5c76c9545072e`, advanced only Chapter 18
-and the fourteen named items, consumed only the C18 delivery of
-`H-WD-PART-001`, and recorded neither author reading nor a final stage.
+Verify `active_write_packet: null`, `last_completed_packet: P5-CLOSURE-00` and
+`next_permitted_packet: P5-CLOSURE-01`. Confirm that P5-CLOSURE-00 advanced
+only `R15-CLOSURE-00`, left every chapter stage unchanged, kept
+`config/book-inventory.json#solution_routes` empty, and created required
+handoff `H-P5-CLOSURE-00-001`.
 
-Claim and execute only `P5-CLOSURE-00` as a separate packet. Fully read its
-packet record, governed items, assessment registry and every applicable
-incoming handoff. Acknowledge each applicable incoming handoff before the
-first substantive edit and consume it with exact evidence before closeout.
-Implement only unit 00's canonical answer, independent check, rubric and
-planted-error closure under the approved visibility policy.
+Claim and execute only `P5-CLOSURE-01` as a separate packet. Fully read its
+packet record, governed item, assessment registry, solution-record schema,
+unit 01 source and every applicable incoming handoff. Acknowledge and consume
+`H-P5-CLOSURE-00-001` before the first substantive edit, preserving its
+storage, identifier, anchor, prompt-fingerprint, schema, visibility and
+no-route-assembly decisions. Implement only unit 01's canonical answer,
+independent check, rubric and planted-error closure under D06-two-layer-v1.
 
 Before closeout, run every packet-specific assessment, numerical, profile and
 export check; record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger and dashboard
 together; run the workflow checker and all three negative fixtures; close and
-locally commit P5-CLOSURE-00; then stop. Do not claim P5-CLOSURE-01, push,
+locally commit P5-CLOSURE-01; then stop. Do not claim P5-CLOSURE-02, push,
 merge, tag, archive, deploy or publish.
 ```

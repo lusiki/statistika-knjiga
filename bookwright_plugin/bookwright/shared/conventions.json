@@ -904,7 +904,25 @@
         "unit_id",
         "source_path_and_anchor",
         "prompt_sha256_fingerprint"
-      ]
+      ],
+      "implementation_contract": {
+        "settled_by_packet": "P5-CLOSURE-00",
+        "storage_root": "assessment/solution-records",
+        "file_layout": "unit-<unit_id>/<record_id>.json",
+        "one_schema_record_per_file": true,
+        "record_id_pattern": "^sol-(00|0[1-9]|1[0-8]|appendix-[a-g])-(callout-greska|konceptualni|racunski|kriticki|revizija-modela)-[0-9]{2}$",
+        "record_id_minting_rule": "Mint sol-<unit_id>-<task_class_slug>-<two_digit_ordinal>; never renumber or reuse an issued ordinal, and derive the file name directly from record_id.",
+        "exercise_id_pattern": "^ex-(00|0[1-9]|1[0-8]|appendix-[a-g])-(callout-greska|konceptualni|racunski|kriticki|revizija-modela)-[0-9]{2}$",
+        "exercise_id_minting_rule": "Mint ex-<unit_id>-<task_class_slug>-<two_digit_ordinal> in source order within a task class; later insertions take the next unused ordinal instead of renumbering existing exercises.",
+        "source_anchor_rule": "Attach an explicit Quarto identifier exactly equal to exercise_id to the callout-greska fence or zadaci-razina heading that owns the prompt.",
+        "prompt_fingerprint_rule": "Hash the default-visible prompt body as LF-normalized UTF-8 after trimming outer blank lines and appending one final LF; exclude the anchor-bearing fence or heading and every nested when-profile region.",
+        "concise_check_projection_rule": "Concise self-study and print checks are derived from revealing_diagnostic, model_response_components, numerical_check and planted_error when applicable; concise_check is not a seventh answer source.",
+        "route_boundary": "Unit packets author records and anchors only; P5-ROUTES alone assembles self-study, print or kolegij presentations and navigation.",
+        "binding_packets": [
+          "P5-CLOSURE-00-through-P5-CLOSURE-18",
+          "P5-ROUTES"
+        ]
+      }
     },
     "rubric_severity_scale": [
       {

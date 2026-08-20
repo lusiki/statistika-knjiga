@@ -912,7 +912,8 @@
             "canonical_components",
             "protected_components",
             "applicability_rule",
-            "source_binding"
+            "source_binding",
+            "implementation_contract"
           ],
           "properties": {
             "schema": {"type": "string", "minLength": 1},
@@ -932,7 +933,47 @@
             },
             "protected_components": {"$ref": "#/$defs/nonEmptyStringArray"},
             "applicability_rule": {"type": "string", "minLength": 1},
-            "source_binding": {"$ref": "#/$defs/nonEmptyStringArray"}
+            "source_binding": {"$ref": "#/$defs/nonEmptyStringArray"},
+            "implementation_contract": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "settled_by_packet",
+                "storage_root",
+                "file_layout",
+                "one_schema_record_per_file",
+                "record_id_pattern",
+                "record_id_minting_rule",
+                "exercise_id_pattern",
+                "exercise_id_minting_rule",
+                "source_anchor_rule",
+                "prompt_fingerprint_rule",
+                "concise_check_projection_rule",
+                "route_boundary",
+                "binding_packets"
+              ],
+              "properties": {
+                "settled_by_packet": {"const": "P5-CLOSURE-00"},
+                "storage_root": {"const": "assessment/solution-records"},
+                "file_layout": {"const": "unit-<unit_id>/<record_id>.json"},
+                "one_schema_record_per_file": {"const": true},
+                "record_id_pattern": {"type": "string", "minLength": 1},
+                "record_id_minting_rule": {"type": "string", "minLength": 1},
+                "exercise_id_pattern": {"type": "string", "minLength": 1},
+                "exercise_id_minting_rule": {"type": "string", "minLength": 1},
+                "source_anchor_rule": {"type": "string", "minLength": 1},
+                "prompt_fingerprint_rule": {"type": "string", "minLength": 1},
+                "concise_check_projection_rule": {"type": "string", "minLength": 1},
+                "route_boundary": {"type": "string", "minLength": 1},
+                "binding_packets": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "uniqueItems": true,
+                  "items": {"type": "string", "minLength": 1}
+                }
+              }
+            }
           }
         },
         "rubric_severity_scale": {

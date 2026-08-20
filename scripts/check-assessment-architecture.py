@@ -8,7 +8,9 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import sys
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONVENTIONS_PATH = ROOT / "bookwright_plugin/bookwright/shared/conventions.json"
 CONVENTIONS_SCHEMA_PATH = ROOT / "bookwright_plugin/bookwright/shared/schemas/conventions.schema.json"
 SOLUTION_SCHEMA_PATH = ROOT / "bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json"
+SOLUTION_RECORD_ROOT = ROOT / "assessment/solution-records"
 SPINE_PATH = ROOT / "bookwright_plugin/bookwright/shared/chapter-spine.json"
 INVENTORY_PATH = ROOT / "config/book-inventory.json"
 STYLE_PATH = ROOT / "STYLE.md"
@@ -51,6 +54,333 @@ def by_id(records: list[dict[str, Any]], record_id: str) -> dict[str, Any]:
     return matches[0] if len(matches) == 1 else {}
 
 
+def schema_ref(schema_root: dict[str, Any], reference: str) -> dict[str, Any]:
+    node: Any = schema_root
+    for part in reference.removeprefix("#/").split("/"):
+        node = node[part]
+    if not isinstance(node, dict):
+        raise AssertionError(f"Solution schema reference is not an object: {reference}")
+    return node
+
+
+def schema_type_matches(value: Any, expected: str) -> bool:
+    checks = {
+        "object": lambda candidate: isinstance(candidate, dict),
+        "array": lambda candidate: isinstance(candidate, list),
+        "string": lambda candidate: isinstance(candidate, str),
+        "boolean": lambda candidate: isinstance(candidate, bool),
+        "integer": lambda candidate: isinstance(candidate, int) and not isinstance(candidate, bool),
+        "number": lambda candidate: isinstance(candidate, (int, float)) and not isinstance(candidate, bool),
+        "null": lambda candidate: candidate is None,
+    }
+    return expected in checks and checks[expected](value)
+
+
+def validate_solution_schema(
+    value: Any,
+    schema: dict[str, Any],
+    schema_root: dict[str, Any],
+    location: str = "$",
+) -> list[str]:
+    """Validate the dependency-free JSON-Schema subset used by solution records."""
+    if "$ref" in schema:
+        return validate_solution_schema(value, schema_ref(schema_root, schema["$ref"]), schema_root, location)
+
+    errors: list[str] = []
+    if "const" in schema and value != schema["const"]:
+        errors.append(f"{location}: expected constant {schema['const']!r}, found {value!r}")
+    if "enum" in schema and value not in schema["enum"]:
+        errors.append(f"{location}: value {value!r} is outside {schema['enum']!r}")
+
+    expected_types = schema.get("type")
+    if isinstance(expected_types, str):
+        expected_types = [expected_types]
+    if isinstance(expected_types, list) and not any(schema_type_matches(value, item) for item in expected_types):
+        return errors + [f"{location}: expected one of {expected_types!r}, found {type(value).__name__}"]
+
+    if isinstance(value, dict):
+        for key in schema.get("required", []):
+            if key not in value:
+                errors.append(f"{location}: missing required property {key!r}")
+        properties = schema.get("properties", {})
+        if schema.get("additionalProperties") is False:
+            for key in value:
+                if key not in properties:
+                    errors.append(f"{location}: unexpected property {key!r}")
+        for key, child_schema in properties.items():
+            if key in value:
+                errors.extend(
+                    validate_solution_schema(value[key], child_schema, schema_root, f"{location}.{key}")
+                )
+
+    if isinstance(value, list):
+        if len(value) < schema.get("minItems", 0):
+            errors.append(f"{location}: fewer than {schema['minItems']} items")
+        if "maxItems" in schema and len(value) > schema["maxItems"]:
+            errors.append(f"{location}: more than {schema['maxItems']} items")
+        for index, child_schema in enumerate(schema.get("prefixItems", [])):
+            if index < len(value):
+                errors.extend(
+                    validate_solution_schema(value[index], child_schema, schema_root, f"{location}[{index}]")
+                )
+        item_schema = schema.get("items")
+        if isinstance(item_schema, dict):
+            for index, item in enumerate(value):
+                errors.extend(validate_solution_schema(item, item_schema, schema_root, f"{location}[{index}]"))
+
+    if isinstance(value, str):
+        if len(value) < schema.get("minLength", 0):
+            errors.append(f"{location}: string is shorter than {schema['minLength']}")
+        if "pattern" in schema and re.search(schema["pattern"], value) is None:
+            errors.append(f"{location}: string does not match {schema['pattern']!r}")
+
+    return errors
+
+
+def without_profile_regions(lines: list[str], anchor: str) -> list[str]:
+    """Remove complete nested when-profile fenced divs while preserving other markup."""
+    result: list[str] = []
+    skipped_depth = 0
+    for line in lines:
+        opened = re.match(r"^:::+\s*\{", line)
+        closed = re.match(r"^:::+\s*$", line)
+        if skipped_depth:
+            if opened:
+                skipped_depth += 1
+            elif closed:
+                skipped_depth -= 1
+            continue
+        if opened and "when-profile=" in line:
+            skipped_depth = 1
+            continue
+        result.append(line)
+    if skipped_depth:
+        raise AssertionError(f"Source anchor {anchor!r} contains an unclosed when-profile region")
+    return result
+
+
+def canonical_prompt(lines: list[str], anchor: str) -> str:
+    """Return the LF-normalized, default-visible prompt body bound to an anchor."""
+    matches = [index for index, line in enumerate(lines) if f"#{anchor}" in line]
+    if len(matches) != 1:
+        raise AssertionError(f"Source anchor {anchor!r} occurs {len(matches)} times")
+    start = matches[0]
+    owner = lines[start]
+    raw_prompt: list[str] = []
+
+    if re.match(r"^:::+\s*\{", owner):
+        depth = 1
+        for line in lines[start + 1 :]:
+            if re.match(r"^:::+\s*\{", line):
+                depth += 1
+            elif re.match(r"^:::+\s*$", line):
+                depth -= 1
+                if depth == 0:
+                    break
+            raw_prompt.append(line)
+        else:
+            raise AssertionError(f"Source anchor {anchor!r} has an unclosed owner fence")
+    else:
+        heading = re.match(r"^(#+)\s", owner)
+        if not heading:
+            raise AssertionError(f"Source anchor {anchor!r} is not on a fenced div or heading")
+        level = len(heading.group(1))
+        for line in lines[start + 1 :]:
+            following = re.match(r"^(#+)\s", line)
+            if following and len(following.group(1)) <= level:
+                break
+            raw_prompt.append(line)
+
+    prompt = without_profile_regions(raw_prompt, anchor)
+    while prompt and not prompt[0].strip():
+        prompt.pop(0)
+    while prompt and not prompt[-1].strip():
+        prompt.pop()
+    return "\n".join(prompt) + "\n"
+
+
+def profile_visible_regions(lines: list[str], profile: str) -> list[str]:
+    """Collect content-visible regions assigned to one Quarto profile."""
+    regions: list[str] = []
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        if (
+            re.match(r"^:::+\s*\{", line)
+            and "content-visible" in line
+            and re.search(rf'when-profile=["\']{re.escape(profile)}["\']', line)
+        ):
+            depth = 1
+            body: list[str] = []
+            index += 1
+            while index < len(lines) and depth:
+                nested = lines[index]
+                if re.match(r"^:::+\s*\{", nested):
+                    depth += 1
+                elif re.match(r"^:::+\s*$", nested):
+                    depth -= 1
+                    if depth == 0:
+                        break
+                if depth:
+                    body.append(nested)
+                index += 1
+            regions.append("\n".join(body).strip())
+        index += 1
+    return regions
+
+
+def profile_projection(lines: list[str], profile: str | None) -> str:
+    """Project profile-conditional fenced-div content without invoking a render."""
+    active_stack: list[bool] = []
+    output: list[str] = []
+    for line in lines:
+        opened = re.match(r"^:::+\s*\{(.*)\}\s*$", line)
+        if opened:
+            attrs = opened.group(1)
+            inherited = all(active_stack) if active_stack else True
+            profile_match = re.search(r'when-profile=["\']([^"\']+)["\']', attrs)
+            active = inherited
+            if profile_match and "content-visible" in attrs:
+                active = inherited and profile == profile_match.group(1)
+            elif profile_match and "content-hidden" in attrs:
+                active = inherited and profile != profile_match.group(1)
+            active_stack.append(active)
+            continue
+        if re.match(r"^:::+\s*$", line) and active_stack:
+            active_stack.pop()
+            continue
+        if all(active_stack) if active_stack else True:
+            output.append(line)
+    return "\n".join(output)
+
+
+def normalize_for_leak_check(value: str) -> str:
+    return " ".join(value.split()).casefold()
+
+
+def protected_record_strings(record: dict[str, Any]) -> list[str]:
+    rubric = record["answer_components"]["severity_ranked_rubric"]
+    values: list[str] = []
+    for criterion in rubric["criteria"]:
+        values.extend([criterion["description"], criterion["observable_evidence"]])
+    for alternative in record["alternatives"]:
+        values.extend([alternative["description"], alternative["acceptance_boundary"]])
+    values.extend(record["instructor_notes"])
+    return [value for value in values if len(normalize_for_leak_check(value)) >= 40]
+
+
+def applicability_errors(record: dict[str, Any], location: str) -> list[str]:
+    errors: list[str] = []
+    components = record["answer_components"]
+    content_fields = {
+        "planted_error": ["error_id", "statement", "why_wrong"],
+        "revealing_diagnostic": ["procedure", "expected_evidence"],
+        "plausible_non_answers": ["responses"],
+        "model_response_components": ["components"],
+        "numerical_check": [
+            "expected_result",
+            "tolerance_or_acceptance_rule",
+            "independent_method",
+            "evidence_reference",
+        ],
+    }
+    for component_name, fields in content_fields.items():
+        component = components[component_name]
+        applicable = component["applicable"]
+        reason = component["not_applicable_reason"]
+        values = [component[field] for field in fields]
+        if applicable:
+            if reason is not None:
+                errors.append(f"{location}.{component_name}: applicable component has a not-applicable reason")
+            for field, value in zip(fields, values):
+                if value is None or value == [] or value == "":
+                    errors.append(f"{location}.{component_name}.{field}: applicable content is empty")
+        else:
+            if not isinstance(reason, str) or not reason.strip():
+                errors.append(f"{location}.{component_name}: not-applicable reason is missing")
+            for field, value in zip(fields, values):
+                if value not in (None, []):
+                    errors.append(f"{location}.{component_name}.{field}: not-applicable content must be empty")
+    return errors
+
+
+def unit_00_numerical_check(lines: list[str], records: list[dict[str, Any]]) -> tuple[list[str], dict[str, str]]:
+    """Recompute every unit 00 numerical answer from the chapter's stated table."""
+    errors: list[str] = []
+    table_rows: dict[str, tuple[int, Decimal]] = {}
+    for line in lines:
+        match = re.match(r"^\|\s*([^|]+?)\s*\|\s*([0-9.]+)\s*\|\s*([0-9,]+)\s*%\s*\|$", line)
+        if not match:
+            continue
+        label = match.group(1).strip()
+        count = int(match.group(2).replace(".", ""))
+        stated_share = Decimal(match.group(3).replace(",", ".")) / Decimal(100)
+        table_rows[label] = (count, stated_share)
+
+    required_labels = {"portal", "društvene mreže", "TV", "radio", "tisak"}
+    if set(table_rows) != required_labels:
+        return [f"Unit 00 table rows disagree with the five declared categories: {sorted(table_rows)}"], {}
+
+    total = sum(count for count, _ in table_rows.values())
+    portal_count, portal_stated = table_rows["portal"]
+    network_count, network_stated = table_rows["društvene mreže"]
+    portal_share = Decimal(portal_count) / Decimal(total)
+    network_share = Decimal(network_count) / Decimal(total)
+    gap = portal_share - network_share
+    if portal_share != portal_stated:
+        errors.append("Unit 00 portal share does not reproduce from the chapter table.")
+    if network_share != network_stated:
+        errors.append("Unit 00 social-network share does not reproduce from the chapter table.")
+    if portal_count >= total // 2:
+        errors.append("Unit 00 planted-error premise drifted: portal is no longer below half the stated total.")
+
+    by_class = {record["task_class"]: record for record in records}
+    applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"callout_greska", "racunski", "revizija_modela"}
+    if applicable != expected_applicable:
+        errors.append(f"Unit 00 numerical applicability mismatch: {sorted(applicable)}")
+
+    hr_integer = lambda value: f"{value:,}".replace(",", ".")
+    hr_decimal = lambda value: f"{value:.3f}".replace(".", ",")
+    hr_percent = lambda value: hr_decimal(value * 100) + " %"
+    expected_tokens = {
+        "callout_greska": [
+            f"{hr_integer(portal_count)} / {hr_integer(total)}",
+            hr_percent(portal_share),
+            f"{hr_integer(portal_count)} < {hr_integer(total // 2)}",
+        ],
+        "racunski": [
+            f"{hr_integer(network_count)} / {hr_integer(total)}",
+            hr_percent(network_share),
+            f"{hr_decimal(gap * 100)} postotnih bodova",
+            f"{hr_integer(portal_count - network_count)} zapisa",
+        ],
+        "revizija_modela": [
+            f"{hr_integer(network_count)} / {hr_integer(total)}",
+            hr_percent(network_share),
+        ],
+    }
+    for task_class, tokens in expected_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        missing = [token for token in tokens if token not in result]
+        if missing:
+            errors.append(f"Unit 00 {task_class} numerical result lacks recomputed tokens: {missing}")
+
+    evidence = {
+        "total": str(total),
+        "portal_share": f"{portal_share * 100:.3f}",
+        "network_share": f"{network_share * 100:.3f}",
+        "gap_pp": f"{gap * 100:.3f}",
+        "count_gap": str(portal_count - network_count),
+        "applicable_records": str(len(applicable)),
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -67,6 +397,8 @@ def main() -> int:
         inventory = load_json(INVENTORY_PATH)
         style = STYLE_PATH.read_text(encoding="utf-8")
         exporter = EXPORT_PATH.read_text(encoding="utf-8")
+        record_paths = sorted(SOLUTION_RECORD_ROOT.glob("unit-*/*.json"))
+        solution_records = [(path, load_json(path)) for path in record_paths]
     except (AssertionError, OSError) as exc:
         print(f"Assessment architecture: FAILED\n- {exc}")
         return 1
@@ -83,6 +415,13 @@ def main() -> int:
         ladder = assessment.get("ai_competence_registry", {}).get("stage_ladder", [])
         if ladder:
             ladder[0]["assessed_code_production"] = True
+    elif fixture == "invalid_solution_record":
+        if solution_records:
+            solution_records[0][1]["answer_components"].pop("planted_error", None)
+        else:
+            errors.append("The invalid_solution_record fixture requires at least one canonical record.")
+    elif fixture == "protected_record_leak":
+        pass
     elif fixture:
         errors.append(f"Unknown assessment negative fixture: {fixture}")
 
@@ -116,9 +455,47 @@ def main() -> int:
         "Every exercise must have one canonical record and no second answer source.",
     )
     check(
-        solution_contract.get("records_authored_in_this_packet") is False
-        and inventory.get("solution_routes") == [],
-        "P2-ASSESS may define the contract but may not author records or implement solution routes.",
+        solution_contract.get("records_authored_in_this_packet") is False,
+        "The historical P2-ASSESS contract must still record that its architecture packet authored no records.",
+    )
+    check(
+        inventory.get("solution_routes") == [],
+        "Solution routes must remain empty until the separately governed P5-ROUTES packet.",
+    )
+    implementation = solution_contract.get("implementation_contract", {})
+    check(
+        implementation.get("settled_by_packet") == "P5-CLOSURE-00"
+        and implementation.get("storage_root") == "assessment/solution-records"
+        and implementation.get("file_layout") == "unit-<unit_id>/<record_id>.json"
+        and implementation.get("one_schema_record_per_file") is True,
+        "The P5-CLOSURE-00 canonical storage and one-record-per-file layout are incomplete.",
+    )
+    check(
+        implementation.get("record_id_pattern")
+        == solution_schema.get("properties", {}).get("record_id", {}).get("pattern")
+        and implementation.get("exercise_id_pattern")
+        == solution_schema.get("properties", {}).get("exercise_id", {}).get("pattern"),
+        "Identifier patterns in the architecture and solution schema disagree.",
+    )
+    check(
+        implementation.get("binding_packets")
+        == ["P5-CLOSURE-00-through-P5-CLOSURE-18", "P5-ROUTES"]
+        and "P5-ROUTES alone" in implementation.get("route_boundary", ""),
+        "The first-unit implementation decisions must bind all later unit packets while reserving route assembly.",
+    )
+    prompt_contract_fixture = [
+        "### Konceptualni {#ex-prompt-contract .zadaci-razina}",
+        "Vidljivi prompt.",
+        "",
+        '::: {.content-visible when-profile="kolegij"}',
+        "Zaštićeni ključ.",
+        ":::",
+        "",
+        "### Sljedeći zadatak {.zadaci-razina}",
+    ]
+    check(
+        canonical_prompt(prompt_contract_fixture, "ex-prompt-contract") == "Vidljivi prompt.\n",
+        "Prompt fingerprint contract must exclude nested profile-only content under an anchored heading.",
     )
 
     top_required = solution_schema.get("required", [])
@@ -210,6 +587,153 @@ def main() -> int:
         and "protected-content leak" in exporter
         and "unexpected_ai" in exporter,
         "The live exporter lacks one structural protection named by the visibility contract.",
+    )
+
+    expected_task_classes = {
+        "callout_greska",
+        "konceptualni",
+        "racunski",
+        "kriticki",
+        "revizija_modela",
+    }
+    task_slugs = {
+        "callout_greska": "callout-greska",
+        "konceptualni": "konceptualni",
+        "racunski": "racunski",
+        "kriticki": "kriticki",
+        "revizija_modela": "revizija-modela",
+    }
+    records_by_unit: dict[str, list[dict[str, Any]]] = {}
+    seen_record_ids: set[str] = set()
+    seen_exercise_ids: set[str] = set()
+    source_lines: dict[str, list[str]] = {}
+    protected_strings: list[str] = []
+
+    check(bool(solution_records), "At least one canonical solution record must exist from P5-CLOSURE-00 onward.")
+    for path, record in solution_records:
+        relative = path.relative_to(ROOT).as_posix()
+        record_errors = validate_solution_schema(record, solution_schema, solution_schema, relative)
+        errors.extend(record_errors)
+        if record_errors:
+            continue
+
+        record_id = record["record_id"]
+        exercise_id = record["exercise_id"]
+        unit_id = record["unit_id"]
+        task_class = record["task_class"]
+        expected_record_id = "sol-" + exercise_id.removeprefix("ex-")
+        expected_path = f"assessment/solution-records/unit-{unit_id}/{record_id}.json"
+        check(relative == expected_path, f"Solution record file layout mismatch: {relative} != {expected_path}")
+        check(record_id == expected_record_id, f"{relative}: record_id must derive exactly from exercise_id")
+        check(record_id not in seen_record_ids, f"Duplicate canonical record_id: {record_id}")
+        check(exercise_id not in seen_exercise_ids, f"Duplicate stable exercise_id: {exercise_id}")
+        seen_record_ids.add(record_id)
+        seen_exercise_ids.add(exercise_id)
+        check(
+            f"-{task_slugs[task_class]}-" in exercise_id,
+            f"{relative}: exercise_id task slug disagrees with task_class",
+        )
+        check(
+            record["source_anchor"]["anchor"] == exercise_id,
+            f"{relative}: source anchor must equal the stable exercise_id",
+        )
+        check(
+            record["visibility_contract"] == visibility.get("contract_id"),
+            f"{relative}: record visibility contract disagrees with D06",
+        )
+        check(
+            record["human_responsibility"]
+            == {
+                "judgment_owner": "student_or_submitting_author",
+                "verification_required": True,
+                "code_production_assessed": False,
+            },
+            f"{relative}: human-responsibility boundary is incomplete",
+        )
+        errors.extend(applicability_errors(record, relative))
+
+        source_path = record["source_anchor"]["path"]
+        if source_path not in source_lines:
+            source = ROOT / source_path
+            if not source.exists():
+                errors.append(f"{relative}: missing bound source {source_path}")
+                continue
+            source_lines[source_path] = source.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n").splitlines()
+        try:
+            prompt = canonical_prompt(source_lines[source_path], exercise_id)
+        except AssertionError as exc:
+            errors.append(f"{relative}: {exc}")
+        else:
+            digest = "sha256:" + hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+            check(
+                record["prompt_fingerprint"] == digest,
+                f"{relative}: prompt fingerprint drift ({record['prompt_fingerprint']} != {digest})",
+            )
+
+        records_by_unit.setdefault(unit_id, []).append(record)
+        protected_strings.extend(protected_record_strings(record))
+
+    for unit_id, records in records_by_unit.items():
+        classes = [record["task_class"] for record in records]
+        check(
+            len(records) == 5 and set(classes) == expected_task_classes and len(classes) == len(set(classes)),
+            f"Unit {unit_id} must have exactly one record for callout-greska and each of the four Zadaci tiers.",
+        )
+    check(
+        "00" in records_by_unit and len(records_by_unit["00"]) == 5,
+        "P5-CLOSURE-00 must author exactly five canonical unit 00 records.",
+    )
+    unit_00_numerical: dict[str, str] = {}
+    if "00" in records_by_unit and "chapters/00-predgovor.qmd" in source_lines:
+        numerical_errors, unit_00_numerical = unit_00_numerical_check(
+            source_lines["chapters/00-predgovor.qmd"], records_by_unit["00"]
+        )
+        errors.extend(numerical_errors)
+
+    page_sources = {
+        page.get("source")
+        for page in inventory.get("pages", [])
+        if page.get("kind") in {"preface", "chapter"}
+    }
+    check(
+        not any(path.startswith(implementation.get("storage_root", "") + "/") for path in page_sources if path),
+        "Canonical solution-record storage must not be a declared public AI-export input.",
+    )
+    check(
+        implementation.get("storage_root", "") not in exporter,
+        "The public AI exporter must not ingest canonical solution-record storage.",
+    )
+
+    profile_region_count = 0
+    for source_path, lines in source_lines.items():
+        regions = profile_visible_regions(lines, "kolegij")
+        profile_region_count += len(regions)
+        default_projection = normalize_for_leak_check(profile_projection(lines, None))
+        kolegij_projection = normalize_for_leak_check(profile_projection(lines, "kolegij"))
+        for region in regions:
+            normalized = normalize_for_leak_check(region)
+            if len(normalized) >= 40:
+                check(normalized not in default_projection, f"{source_path}: protected profile content leaks into default")
+                check(normalized in kolegij_projection, f"{source_path}: protected profile content is absent from kolegij")
+
+    export_paths = sorted((ROOT / "docs/ai").glob("*.md"))
+    export_paths.extend([ROOT / "docs/llms.txt", ROOT / "docs/llms-full.txt", ROOT / "data/ai-exports.json"])
+    public_export_text = "\n".join(
+        path.read_text(encoding="utf-8", errors="replace") for path in export_paths if path.exists()
+    )
+    public_export_normalized = normalize_for_leak_check(public_export_text)
+    if fixture == "protected_record_leak" and protected_strings:
+        public_export_normalized += " " + normalize_for_leak_check(protected_strings[0])
+    leaked_protected = sorted(
+        {
+            value
+            for value in protected_strings
+            if normalize_for_leak_check(value) in public_export_normalized
+        }
+    )
+    check(
+        not leaked_protected,
+        "Protected solution-record rubric, alternative, or instructor-note content reached a public AI export.",
     )
 
     competence = assessment.get("ai_competence_registry", {})
@@ -316,7 +840,27 @@ def main() -> int:
     print("- rubric severity levels: fatal, major, minor, useful_improvement")
     print("- AI roles: 3; competence dimensions: 5; ladder stages: 7")
     print("- assessed code production: false in every stage")
-    print("- solution records authored: 0; solution routes implemented: 0")
+    print(
+        f"- solution records authored: {len(solution_records)}; "
+        f"units closed: {', '.join(sorted(records_by_unit))}; solution routes implemented: 0"
+    )
+    print(
+        f"- source anchors and prompt SHA-256 bindings: {len(seen_exercise_ids)}; "
+        f"kolegij-only source regions checked: {profile_region_count}"
+    )
+    print(
+        f"- protected rubric/alternative/instructor strings checked: {len(protected_strings)}; "
+        "public export leaks: 0"
+    )
+    print(
+        "- unit 00 independent numerics: "
+        f"total={unit_00_numerical.get('total')} "
+        f"portal={unit_00_numerical.get('portal_share')}% "
+        f"networks={unit_00_numerical.get('network_share')}% "
+        f"gap={unit_00_numerical.get('gap_pp')}pp "
+        f"count_gap={unit_00_numerical.get('count_gap')} "
+        f"records={unit_00_numerical.get('applicable_records')}"
+    )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
 

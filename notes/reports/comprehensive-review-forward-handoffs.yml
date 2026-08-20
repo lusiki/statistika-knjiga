@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-19"
+last_updated: "2026-08-20"
 inventory_child_count: 371
 
 protocol:
@@ -7713,6 +7713,116 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P5-CLOSURE-00-001:
+    source_packet: P5-CLOSURE-00
+    created_at: "2026-08-20"
+    kind: decision
+    refs:
+      - item:R15-CLOSURE-00
+      - decision:D06
+      - contract:D06-two-layer-v1
+      - registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.solution_record_contract.implementation_contract
+      - schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json
+      - source:scripts/check-assessment-architecture.py
+      - report:notes/reports/p5-closure-00-2026-08-20.md
+    statement: >-
+      P5-CLOSURE-00 settles the implementation choices that D06 and
+      P2-ASSESS deliberately left to the first unit packet. Canonical records
+      live one per JSON file under
+      assessment/solution-records/unit-<unit_id>/<record_id>.json. Stable
+      exercise ids, record ids and explicit Quarto anchors use the fixed
+      two-digit ordinal rules recorded in conventions.json; the anchor equals
+      exercise_id; and prompt SHA-256 fingerprints use the fixed default-visible
+      LF-normalized UTF-8 body rule. The dependency-free assessment checker now
+      validates the schema, one-record-per-exercise coverage, ids, paths,
+      anchors, prompt hashes, applicability reasons, numerical unit-00 evidence,
+      profile separation and absence of protected rubric, alternative and
+      instructor content from public AI exports. Unit packets author records
+      and anchors only. Route assembly remains exclusively P5-ROUTES.
+    required_action: >-
+      Every P5-CLOSURE-01 through P5-CLOSURE-18 packet must acknowledge this
+      decision before its first substantive edit, mint ids without renumbering
+      or reusing an issued ordinal, attach one matching source anchor per
+      exercise, author one schema-valid record for callout-greska and each of
+      the four Zadaci tiers, preserve all six canonical components, mark every
+      non-applicable component with a reason and pass the extended checker.
+      P5-ROUTES must consume the same record store rather than create a second
+      answer source, derive concise self-study and print checks plus protected
+      kolegij rubrics, alternatives and instructor notes, keep protected
+      material out of public AI exports and public navigation, reconcile the
+      legacy in-source concise keys, update solution_routes only inside its own
+      packet and repeat the final profile and fail-closed export proof.
+    basis:
+      - "registry:bookwright_plugin/bookwright/shared/conventions.json@sha256-ae60243a10af4ae7754d2f6cc88b129a04982dfa4adfdb3f46187043b321fed0"
+      - "schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json@sha256-6294c22aa49df5213b1f0a75a428696ba8c9dcf5908214e4cb8fe432816e628c"
+      - "source:scripts/check-assessment-architecture.py@sha256-da83546b25a551d7770de4d544a971aae03d4fd0316079cfd3e24e889608c765"
+      - "source:chapters/00-predgovor.qmd@sha256-a829761ebbfc089ec1a3f4b9f3ef731a8ffdfe136670242ce340cfbe73df1e58"
+      - "records:assessment/solution-records/unit-00-five-schema-valid-records"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-records-5-anchors-5-numerical-records-3-public-export-leaks-0"
+      - "profile:default-html-c6106e371287353ea2a5e7797a93324cf88cda40a5655c58065588833b847f21-protected-key-absent"
+      - "profile:kolegij-html-deab6c2180c77c564fb25718e5cf844e4af47cf581ba57f7bcb40ccffb7ac852-protected-key-present"
+      - "export:AI_EXPORT_RELEASE_OK-chapters-19-protected-regions-33-governance-pre_release"
+      - "boundary:config/book-inventory.json-solution_routes-empty"
+    required: true
+    deliveries:
+      - target_packet: P5-CLOSURE-01
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-02
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-03
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-04
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-05
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-06
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-07
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-08
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-09
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-10
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-11
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-12
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-13
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-14
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-15
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-16
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-17
+        gate: before_start
+        state: pending
+      - target_packet: P5-CLOSURE-18
+        gate: before_start
+        state: pending
+      - target_packet: P5-ROUTES
+        gate: before_start
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -10963,3 +11073,24 @@ packet_reviews:
       - no chapter prose data bibliography terminology spine concept graph widget figure render or generated artifact changed in C18
       - P5-CLOSURE-00 is the sole next permitted packet but is not claimed inside C18
       - no external message push merge tag archive deployment publication or author-reading claim is made or authorised
+
+  P5-CLOSURE-00:
+    reviewed_at: "2026-08-20"
+    declaration: all_future_effects_recorded
+    outgoing: [H-P5-CLOSURE-00-001]
+    implementation_state: "assessment:sha256-6d59ea4d13df6fa4df8f553b63083003bf7aa5a3cdd8b9c3f8b51bc4443ec1df"
+    checks:
+      - the full immutable handoff ledger had 104 records before this packet and no delivery targeted P5-CLOSURE-00 so there was no applicable incoming handoff to acknowledge or consume
+      - the packet governs exactly R15-CLOSURE-00 and chapters/00-predgovor.qmd and no chapter stage changes
+      - five canonical JSON records cover callout-greska and all four Zadaci tiers with stable ids full source bindings exact prompt SHA-256 values and all six canonical components
+      - every non-applicable component carries an explicit reason rather than being omitted
+      - the source changed only by five stable exercise anchors and retains SHA256 a829761ebbfc089ec1a3f4b9f3ef731a8ffdfe136670242ce340cfbe73df1e58
+      - H-P5-CLOSURE-00-001 records the storage layout id minting anchor prompt-fingerprint schema and checker decisions and delivers them before_start to units 01 through 18 and P5-ROUTES
+      - the assessment checker independently recomputes total 50000 portal 30.202 percent networks 26.756 percent gap 3.446 percentage points and count gap 1723 from the chapter source
+      - the default isolated render omits the existing protected concise key and the kolegij isolated render includes it while neither render assembles the new instructor route
+      - R/build-ai-exports.R --release passes for 19 chapters and the extended checker finds zero leaks among 60 protected solution-record strings
+      - config/book-inventory.json solution_routes remains empty and no self-study print instructor or navigation route is assembled
+      - assessment architecture book architecture inventory style structure and figure-introduction checks pass and all four assessment negative fixtures fail closed for their injected defect
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P5-CLOSURE-01 is the sole next permitted packet but is not claimed inside P5-CLOSURE-00
+      - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
