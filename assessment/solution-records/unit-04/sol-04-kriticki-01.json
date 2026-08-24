@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-04-kriticki-01",
+  "exercise_id": "ex-04-kriticki-01",
+  "unit_id": "04",
+  "source_anchor": {
+    "path": "chapters/04-sazimanje-podataka.qmd",
+    "anchor": "ex-04-kriticki-01"
+  },
+  "task_class": "kriticki",
+  "prompt_fingerprint": "sha256:932a1f8beeae8c38795e8f67241d1ef82dceb5fee1dad3932dcdddf918c74d56",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Kritički zadatak traži procjenu uredničkoga naslova i omeđenu zamjensku rečenicu, a ne audit jedne posađene modelne pogreške.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Naslov usporediti s medijanom, jedinicom retka, punim nazivnikom i pravilom ulaska u korpus; zatim provjeriti prelazi li svaka riječ zamjenske rečenice granice DigiKatove datoteke izvora.",
+      "expected_evidence": "Aritmetička sredina 153,1 nije vrijednost tipične domene jer medijan iznosi 4, prvih deset domena nosi 148.748 od 551.712 objava, a datoteka predstavlja samo 3.604 imenovane domene koje su prošle filtar korpusa."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Naslov je netočan jer prosjek nije 153.",
+          "why_insufficient": "Prosjek iznosi približno 153,1 i naslov ga ispravno zaokružuje. Problem je njegovo čitanje kao opisa tipične domene bez raspodjele i obuhvata."
+        },
+        {
+          "response": "Bolji naslov glasi da hrvatski medij objavljuje četiri priloga.",
+          "why_insufficient": "Medijan se odnosi na imenovanu domenu u filtriranom korpusu, ne na hrvatski medij općenito niti na proizvoljno vremensko razdoblje."
+        },
+        {
+          "response": "Prvih deset domena nosi 148.748 objava, pa nazivnik nije potreban.",
+          "why_insufficient": "Bez 551.712 nije moguće procijeniti udio koncentracije ni granicu datoteke na koju se brojnik odnosi."
+        },
+        {
+          "response": "Treba usporediti doseg i interakcije najaktivnijih domena.",
+          "why_insufficient": "Datoteka izvora nema oznaku koja bi njihove nule razdvojila na izmjerene i nedostupne, pa ta tvrdnja nije dopuštena."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "interpret-median-against-mean",
+          "required_claim": "Medijan od četiri objave pokazuje da za najmanje polovinu domena broj objava ne prelazi četiri, pa sredina 153,1 nije opis tipične domene.",
+          "required_evidence": "Provjereni sažetak 3.604 jedinstvene domene i desno asimetrična raspodjela [@digikat2026]."
+        },
+        {
+          "component_id": "name-concentration-denominator",
+          "required_claim": "Broj 148.748 za prvih deset domena mora se čitati nad nazivnikom 551.712 objava iz iste datoteke, što iznosi približno 26,96 %.",
+          "required_evidence": "Neovisni zbroj stupca objava i deset najvećih vrijednosti u datoteci izvora."
+        },
+        {
+          "component_id": "write-honest-sentence",
+          "required_claim": "Poštena rečenica imenuje 3.604 imenovane domene, DigiKatov filtrirani korpus, medijan četiri, koncentraciju prvih deset i puni nazivnik.",
+          "required_evidence": "Svaki element dolazi iz upravljane datoteke izvora i njezina pravila obuhvata [@digikat2026]."
+        },
+        {
+          "component_id": "state-generalisation-boundary",
+          "required_claim": "Opis se ne smije generalizirati na hrvatske medije, objave ili publiku izvan pravila ulaska u korpus niti proširiti na doseg i interakcije.",
+          "required_evidence": "Jedinica je imenovana domena kroz obuhvaćeni raspon, a nedostupnost metrika u ovoj datoteci nije razdvojena od nule."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak zadaje provjerene brojke iz razrađenoga primjera i traži njihov kritički raspored u tri rečenice, a ne novi jedinstveni račun.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-generalises-beyond-corpus-or-unavailable-metric",
+          "severity": "fatal",
+          "description": "Odgovor opisuje hrvatske medije, publiku, doseg ili interakcije kao da ih DigiKatova datoteka izvora izravno mjeri.",
+          "observable_evidence": "Središnja tvrdnja prelazi imenovanu jedinicu, obuhvat ili dostupne varijable."
+        },
+        {
+          "criterion_id": "major-missing-median-denominator-or-honest-sentence",
+          "severity": "major",
+          "description": "Nedostaje tumačenje medijana, nazivnik 551.712 ili potpuna poštena rečenica s jedinicom, obuhvatom i granicom.",
+          "observable_evidence": "Jedna od izričito tražene tri rečenice nema svoj dokazni posao."
+        },
+        {
+          "criterion_id": "minor-rounding-or-scope-wording",
+          "severity": "minor",
+          "description": "Sud je omeđen i točan, ali prosjek, udio ili naziv jedinice nije prikazan s dosljednom preciznošću.",
+          "observable_evidence": "Lokalna urednička dorada dovoljna je bez promjene argumenta."
+        },
+        {
+          "criterion_id": "useful-contrasts-two-questions",
+          "severity": "useful_improvement",
+          "description": "Odgovor razlikuje pitanje o ravnomjerno raspoređenom ukupnom broju objava od pitanja o domeni na sredini poretka.",
+          "observable_evidence": "Sredina i medijan nisu rangirani kao bolja i lošija mjera nego povezani s različitim pitanjima."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "median-led-headline",
+      "description": "Prihvatljiva zamjena može nasloviti medijan od četiri objave i koncentraciju prvih deset domena umjesto da zadrži sredinu.",
+      "acceptance_boundary": "Mora imenovati DigiKatov filtrirani korpus i ne smije pretvoriti domenu u opći hrvatski medij."
+    },
+    {
+      "alternative_id": "mean-retained-with-boundary",
+      "description": "Prosjek 153,1 može ostati u poštenoj rečenici ako je uz njega naveden medijan, jedinica, obuhvat i koncentracija raspodjele.",
+      "acceptance_boundary": "Broj se ne smije opisati kao vrijednost tipičnoga izvora bez kvalifikacije."
+    }
+  ],
+  "instructor_notes": [
+    "Naslov nije aritmetički lažan. Ocjenjuje se razlika između točnoga prosjeka i preširoke interpretacije tipičnosti.",
+    "Treća rečenica mora funkcionirati kao samostalna izvještajna rečenica, a ne kao popis upozorenja nakon naslova."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

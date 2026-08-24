@@ -774,6 +774,297 @@ def unit_03_numerical_check(
     return errors, evidence
 
 
+def unit_04_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    monthly_path: Path,
+    annual_path: Path,
+    aggregate_path: Path,
+    sources_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 04 joins, preset summaries, aggregates, and source totals."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-04-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-04-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-04-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-04-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-04-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 04 prompt is unavailable: {exc}"], {}
+
+    def read_rows(path: Path, label: str) -> list[dict[str, str]]:
+        try:
+            with path.open(encoding="utf-8", newline="") as handle:
+                return list(csv.DictReader(handle))
+        except (OSError, csv.Error) as exc:
+            errors.append(f"Unit 04 {label} data could not be read independently: {exc}")
+            return []
+
+    monthly = read_rows(monthly_path, "monthly DigiKat")
+    annual = read_rows(annual_path, "annual DigiKat")
+    aggregate = read_rows(aggregate_path, "survey aggregate")
+    sources = read_rows(sources_path, "DigiKat sources")
+    if not all((monthly, annual, aggregate, sources)):
+        return errors, {}
+
+    try:
+        monthly_values = [
+            {
+                "month": row["mjesec"],
+                "year": row["godina"],
+                "platform": row["platforma"],
+                "posts": int(row["objave"]),
+            }
+            for row in monthly
+        ]
+        annual_keys = [(row["godina"], row["platforma"]) for row in annual]
+    except (KeyError, ValueError) as exc:
+        return errors + [f"Unit 04 DigiKat join fields are invalid: {exc}"], {}
+
+    annual_by_year: dict[str, list[tuple[str, str]]] = {}
+    for key in annual_keys:
+        annual_by_year.setdefault(key[0], []).append(key)
+    if len(annual_keys) != len(set(annual_keys)):
+        errors.append("Unit 04 annual year-plus-platform key is not unique.")
+
+    before_rows = len(monthly_values)
+    before_keys = len({(row["month"], row["platform"]) for row in monthly_values})
+    before_sum = sum(row["posts"] for row in monthly_values)
+    missing_correct_keys = [
+        (row["year"], row["platform"])
+        for row in monthly_values
+        if (row["year"], row["platform"]) not in set(annual_keys)
+    ]
+    if missing_correct_keys:
+        errors.append(f"Unit 04 correct join lacks annual keys: {missing_correct_keys[:5]}")
+    correct_rows = before_rows - len(missing_correct_keys)
+    correct_keys = before_keys
+    correct_sum = sum(
+        row["posts"]
+        for row in monthly_values
+        if (row["year"], row["platform"]) in set(annual_keys)
+    )
+    wrong_rows = sum(len(annual_by_year.get(row["year"], [])) for row in monthly_values)
+    wrong_keys = before_keys
+    wrong_sum = sum(
+        row["posts"] * len(annual_by_year.get(row["year"], []))
+        for row in monthly_values
+    )
+    join_values = (
+        before_rows,
+        before_keys,
+        before_sum,
+        wrong_rows,
+        wrong_keys,
+        wrong_sum,
+        correct_rows,
+        correct_keys,
+        correct_sum,
+    )
+    expected_join_values = (438, 438, 710307, 3571, 438, 5959081, 438, 438, 710307)
+    if join_values != expected_join_values:
+        errors.append(f"Unit 04 independent join state drifted: {join_values}")
+
+    source_text = "\n".join(lines)
+    preset_block = re.search(
+        r"s4_w04_preseti\s*<-\s*tibble\(.*?Vrijednosti\s*=\s*c\((.*?)\),\s*"
+        r"Sredina\s*=\s*c\((.*?)\),\s*Medijan\s*=\s*c\((.*?)\)\s*\)",
+        source_text,
+        flags=re.DOTALL,
+    )
+    if not preset_block:
+        return errors + ["Unit 04 preset source values could not be parsed."], {}
+    preset_strings = re.findall(r'"([0-9, ]+)"', preset_block.group(1))
+    if len(preset_strings) < 2:
+        return errors + ["Unit 04 lacks the two assessed preset series."], {}
+
+    def parse_series(value: str) -> list[Decimal]:
+        return [Decimal(token.strip()) for token in value.split(",")]
+
+    def median(values: list[Decimal]) -> Decimal:
+        ordered = sorted(values)
+        middle = len(ordered) // 2
+        if len(ordered) % 2:
+            return ordered[middle]
+        return (ordered[middle - 1] + ordered[middle]) / Decimal(2)
+
+    compact = parse_series(preset_strings[0])
+    extreme = parse_series(preset_strings[1])
+    compact_sum = sum(compact, Decimal(0))
+    compact_mean = compact_sum / Decimal(len(compact))
+    compact_median = median(compact)
+    extreme_sum = sum(extreme, Decimal(0))
+    extreme_mean = extreme_sum / Decimal(len(extreme))
+    extreme_median = median(extreme)
+    mean_shift = extreme_mean - compact_mean
+    median_shift = extreme_median - compact_median
+    preset_values = (
+        compact_sum,
+        compact_mean,
+        compact_median,
+        extreme_sum,
+        extreme_mean,
+        extreme_median,
+        mean_shift,
+        median_shift,
+    )
+    expected_preset_values = tuple(
+        Decimal(value) for value in ("110", "11", "11", "169", "16.9", "11.5", "5.9", "0.5")
+    )
+    if preset_values != expected_preset_values:
+        errors.append(f"Unit 04 preset summaries drifted: {preset_values}")
+
+    try:
+        aggregate_by_code = {row["dobna_skupina_sifra"]: row for row in aggregate}
+        first = aggregate_by_code["1"]
+        first_count = int(first["broj"])
+        first_total = int(first["ukupno"])
+        first_minutes = int(first["zbroj_minuta"])
+        first_mean_stored = Decimal(first["prosjek_minuta"])
+        first_share_stored = Decimal(first["udio"])
+        aggregate_count = sum(int(row["broj"]) for row in aggregate)
+        aggregate_minutes = sum(int(row["zbroj_minuta"]) for row in aggregate)
+    except (KeyError, ValueError, ArithmeticError) as exc:
+        return errors + [f"Unit 04 survey aggregate fields are invalid: {exc}"], {}
+    first_mean = Decimal(first_minutes) / Decimal(first_count)
+    first_share = Decimal(first_count) / Decimal(first_total)
+    if abs(first_mean - first_mean_stored) > Decimal("0.000000000001") or first_share != first_share_stored:
+        errors.append("Unit 04 stored first aggregate row does not reproduce exactly.")
+    if (first_count, first_total, first_minutes, aggregate_count, aggregate_minutes) != (
+        90,
+        300,
+        7339,
+        300,
+        15019,
+    ):
+        errors.append("Unit 04 aggregate count or minute totals drifted.")
+
+    try:
+        source_counts = [int(row["objave"]) for row in sources]
+    except (KeyError, ValueError) as exc:
+        return errors + [f"Unit 04 DigiKat source counts are invalid: {exc}"], {}
+    source_rows = len(source_counts)
+    source_total = sum(source_counts)
+    source_mean = Decimal(source_total) / Decimal(source_rows)
+    source_median = median([Decimal(value) for value in source_counts])
+    source_top_ten = sum(sorted(source_counts, reverse=True)[:10])
+    source_top_share = Decimal(source_top_ten) / Decimal(source_total) * Decimal(100)
+    if (source_rows, source_total, source_median, source_top_ten) != (3604, 551712, Decimal(4), 148748):
+        errors.append("Unit 04 DigiKat source summary drifted.")
+
+    normalized_numerical_prompt = " ".join(numerical_prompt.split()).casefold()
+    required_print_tokens = (
+        "zadatak je jednak u digitalnoj i tiskanoj inačici",
+        "interakcija služi samo za dodatne pokuse",
+        "zadatak ne zahtijeva pisanje koda",
+        "u tisku su svi potrebni brojnici, nazivnici i provjereni odgovori već u tablici",
+    )
+    if not all(token in normalized_numerical_prompt for token in required_print_tokens):
+        errors.append("Unit 04 print path must expose exact presets and aggregates without widget or code dependence.")
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 04 {label} prompt is empty.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 04 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    if planted_ids != {"incomplete-join-key-multiplies-rows"}:
+        errors.append(f"Unit 04 callout and model revision do not close one stable planted error: {planted_ids}")
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"callout_greska", "konceptualni", "racunski", "revizija_modela"}
+    if numerical_applicable != expected_applicable:
+        errors.append(f"Unit 04 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    hr_integer = lambda value: f"{value:,}".replace(",", ".")
+    join_before = (
+        f"{before_rows} redaka, {before_keys} jedinstvenih ključeva i "
+        f"{hr_integer(before_sum)} objava"
+    )
+    join_wrong = (
+        f"{hr_integer(wrong_rows)} redak, {wrong_keys} jedinstvenih ključeva i "
+        f"{hr_integer(wrong_sum)} objava"
+    )
+    join_correct = (
+        f"{correct_rows} redaka, {correct_keys} jedinstvenih ključeva i "
+        f"{hr_integer(correct_sum)} objava"
+    )
+    expected_tokens = {
+        "callout_greska": [join_before, join_wrong, join_correct],
+        "konceptualni": [
+            f"{before_rows} redaka, {before_keys} jedinstvenih mjesečnih ključeva i {hr_integer(before_sum)} objava",
+            f"{hr_integer(wrong_rows)} redak, {wrong_keys} jedinstvenih mjesečnih ključeva i {hr_integer(wrong_sum)} objava",
+        ],
+        "racunski": [
+            "110 / 10 = 11,0",
+            "(11 + 11) / 2 = 11,0",
+            "169 / 10 = 16,9",
+            "(11 + 12) / 2 = 11,5",
+            "pomak sredine 5,9 i medijana 0,5",
+            "7.339 / 90 = 81,5444",
+            "90 / 300 = 0,30 = 30 %",
+            "90 + 84 + 66 + 60 = 300",
+            "7.339 + 4.567 + 2.139 + 974 = 15.019",
+        ],
+        "revizija_modela": [join_wrong, join_correct],
+    }
+    for task_class, tokens in expected_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        missing_tokens = [token for token in tokens if token not in result]
+        if missing_tokens:
+            errors.append(f"Unit 04 {task_class} numerical result lacks recomputed tokens: {missing_tokens}")
+
+    critical_text = " ".join(
+        component["required_claim"]
+        for component in by_class["kriticki"]["answer_components"]["model_response_components"]["components"]
+    )
+    critical_tokens = (
+        hr_integer(source_rows),
+        f"{source_mean:.1f}".replace(".", ","),
+        str(source_median),
+        hr_integer(source_top_ten),
+        hr_integer(source_total),
+        f"{source_top_share:.2f}".replace(".", ","),
+    )
+    if not all(token in critical_text for token in critical_tokens):
+        errors.append(f"Unit 04 critical answer lacks independently verified source tokens: {critical_tokens}")
+
+    evidence = {
+        "join_before": f"{before_rows}/{before_keys}/{before_sum}",
+        "join_wrong": f"{wrong_rows}/{wrong_keys}/{wrong_sum}",
+        "join_correct": f"{correct_rows}/{correct_keys}/{correct_sum}",
+        "compact": f"{compact_mean:.1f}/{compact_median:.1f}",
+        "extreme": f"{extreme_mean:.1f}/{extreme_median:.1f}",
+        "aggregate_first": f"{first_mean:.4f}/{first_share * 100:.0f}%",
+        "aggregate_totals": f"{aggregate_count}/{aggregate_minutes}",
+        "source_summary": f"{source_rows}/{source_mean:.4f}/{source_median}/{source_top_ten}/{source_total}/{source_top_share:.4f}%",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-preset-and-aggregate-tables-hand-calculation-widget-optional-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -1125,6 +1416,22 @@ def main() -> int:
             ROOT / "data/populacija-medija-agregat.csv",
         )
         errors.extend(numerical_errors)
+    unit_04_numerical: dict[str, str] = {}
+    if (
+        "04" in records_by_unit
+        and len(records_by_unit["04"]) == 5
+        and {record["task_class"] for record in records_by_unit["04"]} == expected_task_classes
+        and "chapters/04-sazimanje-podataka.qmd" in source_lines
+    ):
+        numerical_errors, unit_04_numerical = unit_04_numerical_check(
+            source_lines["chapters/04-sazimanje-podataka.qmd"],
+            records_by_unit["04"],
+            ROOT / "data/digikat-platforme-mjesecno.csv",
+            ROOT / "data/digikat-platforme-godisnje.csv",
+            ROOT / "data/anketa-mreze-agregat.csv",
+            ROOT / "data/digikat-izvori.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -1349,6 +1656,20 @@ def main() -> int:
             f"records={unit_03_numerical.get('applicable_records')} "
             f"planted_error={unit_03_numerical.get('planted_error')} "
             f"print_path={unit_03_numerical.get('print_path')}"
+        )
+    if unit_04_numerical:
+        print(
+            "- unit 04 independent numerics: "
+            f"before={unit_04_numerical.get('join_before')} "
+            f"wrong={unit_04_numerical.get('join_wrong')} "
+            f"correct={unit_04_numerical.get('join_correct')} "
+            f"presets={unit_04_numerical.get('compact')}|{unit_04_numerical.get('extreme')} "
+            f"aggregate={unit_04_numerical.get('aggregate_first')} "
+            f"totals={unit_04_numerical.get('aggregate_totals')} "
+            f"sources={unit_04_numerical.get('source_summary')} "
+            f"records={unit_04_numerical.get('applicable_records')} "
+            f"planted_error={unit_04_numerical.get('planted_error')} "
+            f"print_path={unit_04_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
