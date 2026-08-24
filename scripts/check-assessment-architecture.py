@@ -1771,6 +1771,212 @@ def unit_07_numerical_check(
     return errors, evidence
 
 
+def unit_08_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 08 weighted estimates and verify the two-level error."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-08-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-08-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-08-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-08-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-08-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 08 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 08 {label} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    probability_match = re.search(
+        r"vjerojatnost_ukljucivanja\s*=\s*c\(\s*"
+        r"rep\((\d+(?:\.\d+)?),\s*(\d+)\),\s*"
+        r"rep\((\d+(?:\.\d+)?),\s*(\d+)\)\s*\)",
+        source_text,
+    )
+    response_match = re.search(r"odgovor\s*=\s*c\(([^)]+)\)", source_text)
+    if not probability_match or not response_match:
+        return errors + ["Unit 08 synthetic weighting rows could not be parsed independently."], {}
+
+    p_first, n_first, p_second, n_second = probability_match.groups()
+    probabilities = (
+        [Decimal(p_first)] * int(n_first)
+        + [Decimal(p_second)] * int(n_second)
+    )
+    try:
+        responses = [
+            Decimal(token.strip())
+            for token in response_match.group(1).split(",")
+        ]
+    except Exception as exc:
+        return errors + [f"Unit 08 synthetic responses are invalid: {exc}"], {}
+    if len(probabilities) != len(responses):
+        return errors + [
+            "Unit 08 synthetic probability and response vectors have different lengths."
+        ], {}
+
+    weights = [Decimal("1") / probability for probability in probabilities]
+    unweighted_numerator = sum(responses, Decimal("0"))
+    unweighted_denominator = Decimal(len(responses))
+    unweighted_estimate = unweighted_numerator / unweighted_denominator
+    weighted_numerator = sum(
+        (weight * response for weight, response in zip(weights, responses)),
+        Decimal("0"),
+    )
+    weighted_denominator = sum(weights, Decimal("0"))
+    weighted_estimate = weighted_numerator / weighted_denominator
+    shift_pp = Decimal("100") * (weighted_estimate - unweighted_estimate)
+
+    expected_values = (
+        Decimal("3"),
+        Decimal("6"),
+        Decimal("0.5"),
+        Decimal("6"),
+        Decimal("16"),
+        Decimal("0.375"),
+        Decimal("-12.5"),
+    )
+    observed_values = (
+        unweighted_numerator,
+        unweighted_denominator,
+        unweighted_estimate,
+        weighted_numerator,
+        weighted_denominator,
+        weighted_estimate,
+        shift_pp,
+    )
+    if observed_values != expected_values:
+        errors.append(
+            f"Unit 08 weighted estimates drifted: {observed_values} != {expected_values}"
+        )
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    required_callout_tokens = (
+        "veći nasumični uzorak",
+        "užu distribuciju uzoračkih sredina",
+        "standardna pogreška manja",
+        "vrijednosti pojedinaca",
+        "međusobno sličnije",
+    )
+    if not all(token in normalized_callout for token in required_callout_tokens):
+        errors.append("Unit 08 callout no longer exposes the complete two-level variation error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "raspodjelu pojedinačnih opažanja",
+            "distribucije uzoračkih sredina",
+            "što joj je jedinica",
+            "što mjeri njezina širina",
+            "kada uzorak naraste",
+            "skicu obiju raspodjela",
+        )
+    ):
+        errors.append("Unit 08 conceptual prompt no longer requires both units, widths and n effects.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    required_numerical_tokens = (
+        "sintetičke konačne populacije",
+        "bez programa",
+        "brojnik, nazivnik i postotak prvo bez težina",
+        "s težinama uzorkovanja",
+        "zašto se procjena pomaknula prema dolje",
+        "jednu pogrešku koju taj pomak ne može ispraviti",
+        "neobvezna nadogradnja",
+        "ess mikropodaci i rezultat te provjere nisu dio knjige ni obveznoga zadatka",
+    )
+    if not all(token in normalized_numerical for token in required_numerical_tokens):
+        errors.append("Unit 08 numerical prompt no longer preserves the hand calculation and optional ESS boundary.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "literary digest",
+            "[@squire1988]",
+            "što je iz prikazanoga slučaja poznato, a što nije",
+            "pogrešku pokrivenosti i neodgovor",
+            "slučajne promjenjivosti",
+            "ne dopunjujte nepoznata polja pretpostavkama",
+        )
+    ):
+        errors.append("Unit 08 critical prompt no longer preserves the evidence-bounded survey audit.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if (
+        "tvrdnju koja je točna" not in normalized_revision
+        or "zamjenu dviju razina varijabilnosti" not in normalized_revision
+        or "ispravljenu verziju druge rečenice" not in normalized_revision
+        or any(
+            phrase in normalized_revision
+            for phrase in ("napišite kod", "popravite kod", "prepišite kod")
+        )
+    ):
+        errors.append("Unit 08 model revision must diagnose and repair the two-level error without code production.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 08 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "smaller-standard-error-implies-smaller-individual-variation"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 08 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    if numerical_applicable != {"racunski"}:
+        errors.append(f"Unit 08 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    numerical_result = str(
+        by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    numerical_tokens = ["3/6", "50 %", "6/16", "37,5 %", "-12,5 postotnih bodova"]
+    missing_numerical = [token for token in numerical_tokens if token not in numerical_result]
+    if missing_numerical:
+        errors.append(f"Unit 08 numerical answer lacks recomputed weighting tokens: {missing_numerical}")
+    if "ess" in numerical_result.casefold():
+        errors.append("Unit 08 canonical numerical answer must not depend on optional ESS microdata.")
+
+    evidence = {
+        "unweighted": (
+            f"{unweighted_numerator}/{unweighted_denominator}/{unweighted_estimate:.4f}"
+        ),
+        "weighted": (
+            f"{weighted_numerator}/{weighted_denominator}/{weighted_estimate:.4f}"
+        ),
+        "shift_pp": f"{shift_pp:.4f}",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-synthetic-weight-table-and-hand-calculation-no-code-or-ess",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -2179,6 +2385,18 @@ def main() -> int:
             ROOT / "chapters/03-kako-brojke-zavode.qmd",
         )
         errors.extend(numerical_errors)
+    unit_08_numerical: dict[str, str] = {}
+    if (
+        "08" in records_by_unit
+        and len(records_by_unit["08"]) == 5
+        and {record["task_class"] for record in records_by_unit["08"]} == expected_task_classes
+        and "chapters/08-uzorkovanje.qmd" in source_lines
+    ):
+        numerical_errors, unit_08_numerical = unit_08_numerical_check(
+            source_lines["chapters/08-uzorkovanje.qmd"],
+            records_by_unit["08"],
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -2454,6 +2672,16 @@ def main() -> int:
             f"records={unit_07_numerical.get('applicable_records')} "
             f"planted_error={unit_07_numerical.get('planted_error')} "
             f"print_path={unit_07_numerical.get('print_path')}"
+        )
+    if unit_08_numerical:
+        print(
+            "- unit 08 independent numerics: "
+            f"unweighted={unit_08_numerical.get('unweighted')} "
+            f"weighted={unit_08_numerical.get('weighted')} "
+            f"shift={unit_08_numerical.get('shift_pp')}pp "
+            f"records={unit_08_numerical.get('applicable_records')} "
+            f"planted_error={unit_08_numerical.get('planted_error')} "
+            f"print_path={unit_08_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-08-revizija-modela-01",
+  "exercise_id": "ex-08-revizija-modela-01",
+  "unit_id": "08",
+  "source_anchor": {
+    "path": "chapters/08-uzorkovanje.qmd",
+    "anchor": "ex-08-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:a6be4ac6c745f06b98bf1897cfbccff8a627d72de241a50c6627b1b4d20a4694",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "smaller-standard-error-implies-smaller-individual-variation",
+      "statement": "Druga rečenica pogrešno prenosi manju standardnu pogrešku uzoračke sredine na veću međusobnu sličnost pojedinačnih vrijednosti.",
+      "why_wrong": "Veličina uzorka mijenja raspodjelu procjene kroz ponovljena uzorkovanja, a ne populacijsku raspodjelu pojedinaca. Uz istu populaciju standardna devijacija pojedinačnih vrijednosti ostaje približno ista, dok standardna pogreška sredine pada."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Prvu rečenicu označiti kao tvrdnju o distribuciji uzoračkih sredina, drugu rastaviti na premisu o standardnoj pogrešci i zaključak o pojedincima te za svaku imenovati odgovarajuću raspodjelu i mjeru širine.",
+      "expected_evidence": "Veći nasumični uzorak doista daje užu distribuciju sredina. Ne slijedi da su pojedinci sličniji, jer njihova očekivana raspršenost i dalje dolazi iz iste populacije. Ispravljena druga rečenica mora zadržati manju standardnu pogrešku i odbaciti zaključak o individualnoj sličnosti."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Obje su rečenice pogrešne jer nijedan uzorak ne može biti uži od populacije.",
+          "why_insufficient": "Distribucija uzoračkih sredina može biti znatno uža od raspodjele pojedinačnih opažanja. Prva je rečenica namjerno točna."
+        },
+        {
+          "response": "Obje su rečenice točne jer standardna pogreška pada s n.",
+          "why_insufficient": "Pad standardne pogreške govori o procjeni, ne o međusobnoj sličnosti pojedinačnih vrijednosti."
+        },
+        {
+          "response": "Ispravak je zamijeniti riječ pojedinci riječju ispitanici.",
+          "why_insufficient": "Promjena naziva jedinice ne popravlja zamjenu standardne pogreške i standardne devijacije."
+        },
+        {
+          "response": "Drugu rečenicu treba izbrisati bez objašnjenja.",
+          "why_insufficient": "Zadatak traži očuvati ono što je točno, imenovati pogrešku i napisati ograničenu zamjensku rečenicu."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "grade-first-sentence-correct",
+          "required_claim": "Točna je prva rečenica o užoj distribuciji uzoračkih sredina pri većem nasumičnom uzorku.",
+          "required_evidence": "U istom modelu standardna pogreška sredine opada s veličinom uzorka."
+        },
+        {
+          "component_id": "name-level-substitution",
+          "required_claim": "Pogreška je zamjena varijabilnosti procjene varijabilnošću pojedinačnih opažanja.",
+          "required_evidence": "Standardna pogreška i standardna devijacija odnose se na različite jedinice i raspodjele."
+        },
+        {
+          "component_id": "reject-individual-similarity",
+          "required_claim": "Veći n ne čini pojedince iz iste populacije očekivano sličnijima jedne drugima.",
+          "required_evidence": "Postupak odabira ne mijenja populacijsku raspodjelu vrijednosti."
+        },
+        {
+          "component_id": "write-corrected-second-sentence",
+          "required_claim": "Budući da je standardna pogreška manja, uzoračke će sredine kroz ponovljena uzorkovanja biti zbijenije, dok očekivana raspršenost pojedinačnih vrijednosti ostaje ista.",
+          "required_evidence": "Zamjenska rečenica čuva manju standardnu pogrešku, ali je veže samo uz stabilnost procjene."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Revizija traži ocjenu, pojmovnu dijagnozu i ispravljenu rečenicu bez obveznoga novog brojčanog računa.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-individual-variation-inference",
+          "severity": "fatal",
+          "description": "Revizija zadržava tvrdnju da manja standardna pogreška znači veću sličnost pojedinaca.",
+          "observable_evidence": "Posađena zamjena dviju razina ostaje u ocjeni ili popravljenoj rečenici."
+        },
+        {
+          "criterion_id": "major-misses-correct-claim-diagnosis-or-repair",
+          "severity": "major",
+          "description": "Nedostaje izdvojena točna tvrdnja, naziv zamjene razina ili ispravljena druga rečenica.",
+          "observable_evidence": "Jedan od triju izričitih zahtjeva zadatka nije provjerljivo ispunjen."
+        },
+        {
+          "criterion_id": "minor-imprecise-distribution-language",
+          "severity": "minor",
+          "description": "Presuda i popravak su ispravni, ali raspodjela opažanja, distribucija sredina ili njihova širina nisu precizno imenovani.",
+          "observable_evidence": "Lokalna terminološka dopuna dovoljna je bez promjene presude."
+        },
+        {
+          "criterion_id": "useful-adds-standard-error-rule",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno objašnjava zašto standardna pogreška pada s korijenom veličine uzorka.",
+          "observable_evidence": "Dodatak jača mehanizam, ali nije potreban za potpuno izvršenje revizije."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equivalent-bounded-replacement-sentence",
+      "description": "Prihvatljiva je drukčije formulirana druga rečenica koja manju standardnu pogrešku veže uz stabilniju procjenu, a ne uz homogenije pojedince.",
+      "acceptance_boundary": "Mora ostati izričito da populacijska ili očekivana individualna raspršenost ne pada samo zato što je n veći."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija moraju zatvoriti isti error_id. Ne dodavati zasebnu pogrešku za izostanak formule ili za riječ nasumični.",
+    "Ne zahtijevati simulaciju, pisanje ni popravak koda. Ocjenjuju se statistička razina, dokaz i ograničena formulacija."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
