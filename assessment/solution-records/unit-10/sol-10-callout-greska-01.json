@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-10-callout-greska-01",
+  "exercise_id": "ex-10-callout-greska-01",
+  "unit_id": "10",
+  "source_anchor": {
+    "path": "chapters/10-logika-testiranja.qmd",
+    "anchor": "ex-10-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:ce3a764e58fe781fd57018a5917b34cf229b8ff44cd156235b4bf5af0ed65d23",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "p-value-interpreted-as-posterior-probability-of-null",
+      "statement": "Korigirana p-vrijednost od približno 0,016 znači da vjerojatnost nepostojanja razlike između skupina iznosi približno 1,6 %.",
+      "why_wrong": "P-vrijednost je repna vjerojatnost rezultata barem toliko neusklađenih s nultim modelom, uvjetovana vrijedenjem toga modela. Ona nije posteriorna vjerojatnost nultoga modela nakon podataka, za koju bi trebalo zadati početne vjerojatnosti i modele podataka pod konkurentskim hipotezama."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Zapisati ispravnu i spornu uvjetnu vjerojatnost tako da se zamijene samo uvjet i zaključak, zatim pregledati sadrži li analiza ikakav prior ili model podataka pod alternativama koji bi dopustio posteriorni račun.",
+      "expected_evidence": "Kod broji permutirane apsolutne razlike barem onoliko velike kao opažena i računa (b + 1)/(B + 1). Ne zadaje prior ni vjerojatnost podataka pod alternativama, pa podupire P(rezultat barem ovako ekstreman | nulti model), a ne P(nulti model | podaci)."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Greška je u dodavanju jedinice brojniku i nazivniku.",
+          "why_insufficient": "Korekcija (b + 1)/(B + 1) valjana je za konačan nasumični skup permutacija i sprečava procjenu jednaku nuli. Ne mijenja smjer uvjetovanja."
+        },
+        {
+          "response": "Greška je u tome što su permutirane oznake umjesto ishoda.",
+          "why_insufficient": "Pri fiksnim ishodima i veličinama skupina permutiranje oznaka upravo gradi zadanu nultu raspodjelu pod zamjenjivošću."
+        },
+        {
+          "response": "Rezultat je uzročan jer je p-vrijednost mala.",
+          "why_insufficient": "To bi bila dodatna pogreška, ali ponuđeno obrazloženje već izričito kaže da su oznake promatračke i da uzročna tvrdnja nije poduprta."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "validate-permutation-procedure",
+          "required_claim": "Kod ispravno provodi obostrani permutacijski test sirove razlike sredina i Monte Carlo korekciju.",
+          "required_evidence": "Oznake se premještaju 4000 puta, uspoređuju se apsolutne razlike, a završni izraz jest (b + 1)/(B + 1)."
+        },
+        {
+          "component_id": "preserve-null-and-design-boundary",
+          "required_claim": "Nulti model pune raspodjele, zasebne jedinice, zamjenjivost i promatračka granica uzročne tvrdnje navedeni su ispravno.",
+          "required_evidence": "Tekst uz kod izrijekom navodi svaku od tih pretpostavki i ograničenja."
+        },
+        {
+          "component_id": "reverse-conditional-diagnosis",
+          "required_claim": "Jedina je pogreška pretvaranje P(rezultat barem ovako ekstreman | nulti model) u P(nulti model | podaci).",
+          "required_evidence": "Analiza nema prior ni model podataka pod alternativama, pa posteriorna tvrdnja ne slijedi iz permutacijskoga udjela."
+        },
+        {
+          "component_id": "correct-reporting-sentence",
+          "required_claim": "Nulti model proizveo bi apsolutnu razliku ovoliku ili veću uz korigiranu p-vrijednost 65/4001, približno 0,01625.",
+          "required_evidence": "U 4000 nasumičnih permutacija b iznosi 64, pa korekcija daje (64 + 1)/(4000 + 1)."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Za B = 4000 i b = 64 korigirana p-vrijednost iznosi 65/4001 = 0,0162459385154, odnosno približno 0,016 ili 1,6 %. Opažena razlika iznosi 0,6409389898 boda, uz interval od 0,1748111931 do 1,1070667865.",
+      "tolerance_or_acceptance_rule": "Prihvatiti p-vrijednost 0,016 uz jasno navođenje da je riječ o P(rezultat barem ovako ekstreman | nulti model), ne o vjerojatnosti hipoteze. Ako se navode procjena i interval, prihvatiti zaokruživanje na 0,64 te 0,17 do 1,11.",
+      "independent_method": "Neovisno prebrojiti 64 ekstremne permutacije u determinističkom nizu sa sjemenom 1011, primijeniti (b + 1)/(B + 1) i zasebno iz uzorka izračunati razliku sredina i standardnu pogrešku za interval.",
+      "evidence_reference": "chapters/10-logika-testiranja.qmd#s10-vrijednosti; chapters/10-logika-testiranja.qmd#ex-10-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-posterior-null-probability",
+          "severity": "fatal",
+          "description": "Odgovor zadržava tvrdnju da p-vrijednost daje vjerojatnost nulte hipoteze nakon podataka.",
+          "observable_evidence": "Ispravak i dalje piše P(nulti model | podaci) bez priora i konkurentskoga modela podataka."
+        },
+        {
+          "criterion_id": "major-invents-code-or-assumption-error",
+          "severity": "major",
+          "description": "Odgovor pogrešno ruši valjani permutacijski račun ili već navedene pretpostavke umjesto završne interpretacije.",
+          "observable_evidence": "Kao središnji kvar označava permutiranje oznaka, apsolutnu usporedbu ili korekciju bez dokaza."
+        },
+        {
+          "criterion_id": "minor-omits-estimate-or-condition",
+          "severity": "minor",
+          "description": "Smjer uvjetovanja ispravljen je, ali izvještaj izostavlja procjenu s intervalom ili uvjet vrijedenja nultoga modela.",
+          "observable_evidence": "Zaključak je statistički ispravan, no ne zadovoljava potpuni redoslijed izvještavanja."
+        },
+        {
+          "criterion_id": "useful-writes-both-conditionals",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno zapisuje obje uvjetne vjerojatnosti jednu uz drugu i imenuje nedostajuće Bayesovske ulaze.",
+          "observable_evidence": "Notacija jasno pokazuje zašto zamjena uvjeta i zaključka nije dopuštena."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "compatibility-language",
+      "description": "Prihvatljivo je napisati da su podaci pri opaženoj statistici slabo uskladivi s navedenim nultim modelom.",
+      "acceptance_boundary": "Jezik uskladivosti ne smije postati posteriorna vjerojatnost nultoga modela ni dokaz uzročnosti ili važnosti učinka."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina posađena pogreška jest posljednja interpretacijska rečenica. Kod, obostrana usporedba, korekcija, nulti model i promatračka granica namjerno su ispravni.",
+    "Ne prihvatiti zabranu p-vrijednosti kao dijagnozu. Zadatak traži ispravno pitanje i izvještavanje, ne izbor druge statističke škole."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

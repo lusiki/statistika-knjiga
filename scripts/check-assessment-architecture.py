@@ -2277,6 +2277,235 @@ def unit_09_numerical_check(
     return errors, evidence
 
 
+def unit_10_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    analytical_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 10 permutation, calibration and reporting quantities."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-10-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-10-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-10-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-10-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-10-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 10 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 10 {label} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        "set.seed(1011)",
+        "s10_n <- 300",
+        "s10_nulte <- nulta_raspodjela",
+        "4000)",
+        "(sum(abs(nulte) >= abs(opazena)) + 1) / (length(nulte) + 1)",
+        "set.seed(1012)",
+        "s10_p_niz_nulta <- replicate(800",
+        "nulte <- nulta_raspodjela(skupina, ishod, \"A\", \"B\", 300)",
+        "#| label: tbl-stope-odbacivanja",
+        "#| label: fig-w10-print",
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 10 source no longer exposes required numerical contract: {source_token}")
+
+    try:
+        with analytical_path.open(encoding="utf-8", newline="") as handle:
+            analytical_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 10 analytical data could not be read independently: {exc}"], {}
+
+    portal_rows = [row for row in analytical_rows if row.get("izvor_vijesti_sifra") == "1"]
+    print_rows = [row for row in analytical_rows if row.get("izvor_vijesti_sifra") == "5"]
+    try:
+        portal_mean = sum(Decimal(row["povjerenje_medijima"]) for row in portal_rows) / Decimal(
+            len(portal_rows)
+        )
+        print_mean = sum(Decimal(row["povjerenje_medijima"]) for row in print_rows) / Decimal(
+            len(print_rows)
+        )
+    except (KeyError, ArithmeticError, ZeroDivisionError) as exc:
+        return errors + [f"Unit 10 analytical trust values are invalid: {exc}"], {}
+    population_difference = print_mean - portal_mean
+    expected_population_difference = Decimal("0.743644165673070804881187577")
+    if abs(population_difference - expected_population_difference) > Decimal("1e-15"):
+        errors.append(
+            f"Unit 10 population difference drifted: {population_difference} "
+            f"!= {expected_population_difference}"
+        )
+
+    permutation_count = 4000
+    extreme_count = 64
+    corrected_p = Decimal(extreme_count + 1) / Decimal(permutation_count + 1)
+    expected_p = Decimal("0.01624593851537115721069732567")
+    if abs(corrected_p - expected_p) > Decimal("1e-27"):
+        errors.append(f"Unit 10 corrected p-value drifted: {corrected_p} != {expected_p}")
+
+    observed_difference = Decimal("0.640938989801461")
+    lower = Decimal("0.174811193068577")
+    upper = Decimal("1.10706678653434")
+    null_sd = Decimal("0.255870611768815")
+    empirical_boundary = Decimal("0.499607748476254")
+    two_sigma = Decimal(2) * null_sd
+    boundary_gap = abs(two_sigma - empirical_boundary)
+    if abs((upper - lower) / Decimal(2) - (upper - observed_difference)) > Decimal("1e-14"):
+        errors.append("Unit 10 observed interval is no longer symmetric around its estimate.")
+    if two_sigma != Decimal("0.511741223537630"):
+        errors.append(f"Unit 10 two-sigma boundary drifted: {two_sigma}")
+    if boundary_gap != Decimal("0.012133475061376"):
+        errors.append(f"Unit 10 empirical-boundary gap drifted: {boundary_gap}")
+
+    calibration_rejections = 39
+    calibration_repetitions = 800
+    calibration_rate = Decimal(calibration_rejections) / Decimal(calibration_repetitions) * Decimal(100)
+    if calibration_rate != Decimal("4.875"):
+        errors.append(f"Unit 10 calibration rate drifted: {calibration_rate}")
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "nulti model pretpostavlja jednaku punu raspodjelu",
+            "zasebne jedinice opažanja",
+            "oznake smatraju zamjenjivima",
+            "oznake su promatračke",
+            "ne podupire uzročnu tvrdnju",
+            "(b + 1) / (b + 1)",
+            "vjerojatnost da između dviju skupina nema razlike",
+        )
+    ):
+        errors.append("Unit 10 callout no longer exposes one complete reversed-conditional error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "p-vrijednost nije vjerojatnost nulte hipoteze",
+            "dvije rečenice koje se razlikuju samo po tome što je uvjet",
+            "što zaključak",
+            "podatak koji bi bio potreban",
+        )
+    ):
+        errors.append("Unit 10 conceptual prompt no longer requires both conditionals and missing information.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "sredinu nula i standardnu devijaciju",
+            "dvije standardne devijacije udaljene od nule",
+            "imenujte testnu statistiku",
+            "postupak kojim je nulta raspodjela izgrađena",
+            "dobrovoljnom poveznicom na jednom portalu",
+            "koju tvrdnju o populaciji ni mala p-vrijednost ne bi mogla opravdati",
+            "u html widgetu postavite stvarnu razliku na nulu",
+            "u tiskanom ili dokumentnom izdanju",
+            "prvoga retka tablice stopa odbacivanja",
+        )
+    ):
+        errors.append("Unit 10 numerical prompt no longer preserves calculation, selection and print paths.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "strukovnom udruženju",
+            "popis od dvadeset pet pogrešnih tumačenja",
+            "jedno pravilo izvještavanja",
+            "tko u glavnom primjeru snosi posljedice svake vrste pogreške",
+            "referentnim oznakama ne dokazuje da su te oznake nepogrešive",
+        )
+    ):
+        errors.append("Unit 10 critical prompt no longer preserves reporting, consequence and label audits.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if (
+        not all(
+            token in normalized_revision
+            for token in (
+                "analizu iz okvira o pogrešci",
+                "korake koji su provedeni ispravno",
+                "redak koda iz kojeg izlazi izvještajna brojka",
+                "rečenicu koja iz nje ne slijedi",
+                "njezinu ispravljenu inačicu",
+            )
+        )
+        or any(phrase in normalized_revision for phrase in ("napišite kod", "popravite kod"))
+    ):
+        errors.append("Unit 10 model revision must diagnose the report without code production.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 10 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "p-value-interpreted-as-posterior-probability-of-null"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 10 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    if numerical_applicable != {"callout_greska", "racunski", "revizija_modela"}:
+        errors.append(f"Unit 10 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    callout_result = str(
+        by_class["callout_greska"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    for token in ("65/4001", "0,0162459385154", "0,6409389898", "0,1748111931", "1,1070667865"):
+        if token not in callout_result:
+            errors.append(f"Unit 10 callout answer lacks recomputed token: {token}")
+
+    numerical_result = str(
+        by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    for token in ("0,255870611769", "0,511741223538", "0,499607748476", "0,0121334750614", "39/800", "4,875 %"):
+        if token not in numerical_result:
+            errors.append(f"Unit 10 numerical answer lacks recomputed token: {token}")
+
+    revision_result = str(
+        by_class["revizija_modela"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    for token in ("b = 64", "B = 4000", "65/4001", "0,0162459385154"):
+        if token not in revision_result:
+            errors.append(f"Unit 10 model-revision answer lacks recomputed token: {token}")
+
+    evidence = {
+        "population_truth": f"{print_mean:.10f}-{portal_mean:.10f}={population_difference:.12f}",
+        "observed": f"{observed_difference}/{lower}-{upper}",
+        "permutation": f"b-{extreme_count}/B-{permutation_count}/p-{corrected_p:.13f}",
+        "null_shape": f"sd-{null_sd}/q95-{empirical_boundary}/two-sigma-{two_sigma}/gap-{boundary_gap}",
+        "calibration": f"{calibration_rejections}/{calibration_repetitions}/{calibration_rate}%",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-w10-calibration-table-and-static-widget-twin-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -2712,6 +2941,19 @@ def main() -> int:
             ROOT / "chapters/03-kako-brojke-zavode.qmd",
         )
         errors.extend(numerical_errors)
+    unit_10_numerical: dict[str, str] = {}
+    if (
+        "10" in records_by_unit
+        and len(records_by_unit["10"]) == 5
+        and {record["task_class"] for record in records_by_unit["10"]} == expected_task_classes
+        and "chapters/10-logika-testiranja.qmd" in source_lines
+    ):
+        numerical_errors, unit_10_numerical = unit_10_numerical_check(
+            source_lines["chapters/10-logika-testiranja.qmd"],
+            records_by_unit["10"],
+            ROOT / "data/populacija-medija.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -3008,6 +3250,18 @@ def main() -> int:
             f"records={unit_09_numerical.get('applicable_records')} "
             f"planted_error={unit_09_numerical.get('planted_error')} "
             f"print_path={unit_09_numerical.get('print_path')}"
+        )
+    if unit_10_numerical:
+        print(
+            "- unit 10 independent numerics: "
+            f"population={unit_10_numerical.get('population_truth')} "
+            f"observed={unit_10_numerical.get('observed')} "
+            f"permutation={unit_10_numerical.get('permutation')} "
+            f"null_shape={unit_10_numerical.get('null_shape')} "
+            f"calibration={unit_10_numerical.get('calibration')} "
+            f"records={unit_10_numerical.get('applicable_records')} "
+            f"planted_error={unit_10_numerical.get('planted_error')} "
+            f"print_path={unit_10_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
