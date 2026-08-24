@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-16-racunski-01",
+  "exercise_id": "ex-16-racunski-01",
+  "unit_id": "16",
+  "source_anchor": {
+    "path": "chapters/16-regresija.qmd",
+    "anchor": "ex-16-racunski-01"
+  },
+  "task_class": "racunski",
+  "prompt_fingerprint": "sha256:dba501170075bd2441205a8120900c9a909e5b850b78f55091a2a350887967fb",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak izravno zadaje dva nagiba i dvije dobi te traži dva množenja i granicu modelnoga predviđanja; nema skrivene analize s namjernom pogreškom.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Najprije izračunati dobni razmak 55 − 25 = 30 godina, zatim svaki nagib pomnožiti s 30 i za svaku brojku imenovati modelno pitanje i neobuhvaćeni individualni rezidual.",
+      "expected_evidence": "Iz prikazanih nagiba slijedi 30 × 0,0367 = 1,1010 boda i 30 × 0,0269 = 0,8070 boda. Nezaokruženi koeficijenti daju 1,101714491813 i 0,806555195344. Nijedna brojka nije ostvarena razlika dviju osoba."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Razmak je 55 godina, pa su razlike 2,0185 i 1,4795 boda.",
+          "why_insufficient": "Nagib se množi promjenom dobi, odnosno s 55 − 25 = 30, ne završnom dobi."
+        },
+        {
+          "response": "Dvije su razlike 1,10 i 0,81, pa će svaka osoba od 55 godina imati toliko više povjerenja od svake osobe od 25 godina.",
+          "why_insufficient": "Model uspoređuje predviđene prosjeke; individualne vrijednosti imaju reziduale i druge razlike."
+        },
+        {
+          "response": "Prilagođena razlika pokazuje koliko će se istoj osobi povjerenje promijeniti kada ostari trideset godina.",
+          "why_insufficient": "Presječna populacija ne prati istu osobu kroz vrijeme i ne identificira učinak starenja."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "compute-age-gap",
+          "required_claim": "Razmak između 25 i 55 godina iznosi 30 godina.",
+          "required_evidence": "55 − 25 = 30."
+        },
+        {
+          "component_id": "compute-aggregate-prediction",
+          "required_claim": "Zbirni model predviđa razliku prosjeka od 1,1010 boda iz prikazanoga nagiba.",
+          "required_evidence": "30 × 0,0367 = 1,1010; račun s nezaokruženim koeficijentom daje 1,101714491813."
+        },
+        {
+          "component_id": "compute-adjusted-prediction",
+          "required_claim": "Pri jednakom izvoru model predviđa razliku prosjeka od 0,8070 boda iz prikazanoga nagiba.",
+          "required_evidence": "30 × 0,0269 = 0,8070; račun s nezaokruženim koeficijentom daje 0,806555195344."
+        },
+        {
+          "component_id": "bound-individual-claim",
+          "required_claim": "Rezultati su razlike modelom predviđenih prosjeka, ne ostvarene razlike dviju konkretnih osoba ni promjena iste osobe kroz vrijeme.",
+          "required_evidence": "Pojedinačni ishodi odstupaju od pravca rezidualima, a podatci su presječni."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Dobni razmak je 30. Iz vidljivih četverodecimalnih nagiba dobiva se 1,1010 i 0,8070 boda. Iz neovisno reproduciranih konačnopopulacijskih nagiba 0,036723816394 i 0,026885173178 dobiva se 1,101714491813 i 0,806555195344 boda.",
+      "tolerance_or_acceptance_rule": "Prihvatiti 1,1010 i 0,8070 kada se rabe prikazani nagibi, odnosno vrijednosti unutar 0,000001 od 1,101714491813 i 0,806555195344 kada se rabe nezaokruženi koeficijenti. Smjer mora biti dob 55 minus dob 25.",
+      "independent_method": "Iz komitirane populacijske snimke riješiti normalne jednadžbe za model samo s dobi i model s dobi te četiri indikatora izvora, pa oba dobivena nagiba pomnožiti razlikom 55 − 25.",
+      "evidence_reference": "chapters/16-regresija.qmd#ex-16-racunski-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-wrong-age-gap-or-direction",
+          "severity": "fatal",
+          "description": "Odgovor rabi 55 ili 25 umjesto razmaka 30, obrće zadani smjer bez objašnjenja ili obje brojke prikazuje kao individualne učinke.",
+          "observable_evidence": "Najmanje jedan temeljni račun ili ciljna tvrdnja nije popravljiv samo zaokruživanjem."
+        },
+        {
+          "criterion_id": "major-missing-one-model",
+          "severity": "major",
+          "description": "Nedostaje zbirna ili prilagođena razlika, odnosno nije navedeno da druga vrijedi uz jednak izvor.",
+          "observable_evidence": "Predane nisu obje tražene modelne procjene."
+        },
+        {
+          "criterion_id": "minor-rounding-mismatch",
+          "severity": "minor",
+          "description": "Postupak i tumačenje stoje, ali rezultat miješa zaokruženi i nezaokruženi nagib bez označavanja.",
+          "observable_evidence": "Mala razlika nestaje kada se dosljedno odabere jedna preciznost."
+        },
+        {
+          "criterion_id": "useful-distinguishes-cross-sectional-change",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno razlikuje presječnu razliku prosjeka od longitudinalne promjene iste osobe.",
+          "observable_evidence": "Granica individualnoga zaključka povezana je s nacrtom podataka."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "rounded-input-solution",
+      "description": "Rješenje smije rabiti samo četverodecimalne nagibe prikazane u zadatku.",
+      "acceptance_boundary": "Mora dobiti 1,1010 i 0,8070, navesti razmak 30 i očuvati granicu predviđenoga prosjeka."
+    }
+  ],
+  "instructor_notes": [
+    "Ne penalizirati razliku između računa s prikazanim i nezaokruženim nagibima ako je odabrana preciznost jasna i dosljedna.",
+    "Zadatak je potpuno rješiv rukom; ne ocjenjuje se pisanje ni izvršavanje koda."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

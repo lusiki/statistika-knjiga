@@ -4472,6 +4472,332 @@ def unit_15_numerical_check(
     return errors, evidence
 
 
+def unit_16_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    analytical_path: Path,
+    verifier_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 16 regression tasks and bind the exact independent verifier."""
+    errors: list[str] = []
+
+    anchors = {
+        "callout_greska": "ex-16-callout-greska-01",
+        "konceptualni": "ex-16-konceptualni-01",
+        "racunski": "ex-16-racunski-01",
+        "kriticki": "ex-16-kriticki-01",
+        "revizija_modela": "ex-16-revizija-modela-01",
+    }
+    prompts: dict[str, str] = {}
+    try:
+        for task_class, anchor in anchors.items():
+            prompts[task_class] = canonical_prompt(lines, anchor)
+    except AssertionError as exc:
+        return [f"Unit 16 prompt is unavailable: {exc}"], {}
+    for task_class, prompt in prompts.items():
+        if not prompt.strip():
+            errors.append(f"Unit 16 {task_class} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        "s16_latentno_dob <- 0.028",
+        "m16_jedan <- lm(povjerenje_medijima ~ dob, data = populacija_medija)",
+        "povjerenje_medijima ~ dob + izvor_vijesti",
+        "set.seed(1414)",
+        "set.seed(1515)",
+        "set.seed(1616)",
+        "set.seed(1618)",
+        "s16_K <- 25",
+        "s16_indeks <- sample(nrow(populacija_medija), 150)",
+        "s16_provjera <- s16_ostatak[sample(nrow(s16_ostatak), 2000), ]",
+        "fitted(model)",
+        "summary(model)$r.squared",
+        "1,60 (1,43–1,80)",
+        "#| label: fig-w16",
+        "#| label: fig-w16-print",
+        "#ex-16-callout-greska-01",
+        "#ex-16-konceptualni-01",
+        "#ex-16-racunski-01",
+        "#ex-16-kriticki-01",
+        "#ex-16-revizija-modela-01",
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 16 source no longer exposes required regression contract: {source_token}")
+
+    try:
+        verifier = verifier_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return errors + [f"Unit 16 exact numerical verifier could not be read: {exc}"], {}
+    for verifier_token in (
+        "This script does not source the chapter",
+        "solve(crossprod(x), crossprod(x, y))",
+        "sample.int(nrow(population), 150L)",
+        "verification <- remaining[sample.int(nrow(remaining), 2000L), ]",
+        "training_rich_r2 = 0.253764009686708",
+        "rmse_rich_verification = 2.061987662423383",
+        "widget_candidate_sse = 2575.906468462459543",
+        'cat("UNIT_16_NUMERICS_OK\\n")',
+    ):
+        if verifier_token not in verifier:
+            errors.append(f"Unit 16 exact verifier lost required independent contract: {verifier_token}")
+
+    try:
+        with analytical_path.open(encoding="utf-8", newline="") as handle:
+            analytical_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 16 population data could not be read independently: {exc}"], {}
+    if len(analytical_rows) != 50000:
+        return errors + [f"Unit 16 population row count drifted: {len(analytical_rows)}"], {}
+
+    source_codes = ("1", "2", "3", "4", "5")
+
+    def solve_system(matrix: list[list[float]], vector: list[float]) -> list[float]:
+        size = len(vector)
+        augmented = [row[:] + [value] for row, value in zip(matrix, vector)]
+        for column in range(size):
+            pivot = max(range(column, size), key=lambda row: abs(augmented[row][column]))
+            if abs(augmented[pivot][column]) < 1e-14:
+                raise AssertionError("Unit 16 independent normal equations are singular.")
+            augmented[column], augmented[pivot] = augmented[pivot], augmented[column]
+            divisor = augmented[column][column]
+            augmented[column] = [value / divisor for value in augmented[column]]
+            for row in range(size):
+                if row == column:
+                    continue
+                factor = augmented[row][column]
+                if factor:
+                    augmented[row] = [
+                        value - factor * pivot_value
+                        for value, pivot_value in zip(augmented[row], augmented[column])
+                    ]
+        return [augmented[row][-1] for row in range(size)]
+
+    def fit_ols(outcome: list[float], design: list[list[float]]) -> dict[str, Any]:
+        columns = len(design[0])
+        cross = [
+            [math.fsum(row[first] * row[second] for row in design) for second in range(columns)]
+            for first in range(columns)
+        ]
+        rhs = [
+            math.fsum(row[column] * value for row, value in zip(design, outcome))
+            for column in range(columns)
+        ]
+        beta = solve_system(cross, rhs)
+        fitted = [math.fsum(coef * value for coef, value in zip(beta, row)) for row in design]
+        residual = [value - prediction for value, prediction in zip(outcome, fitted)]
+        sse = math.fsum(value * value for value in residual)
+        mean_outcome = math.fsum(outcome) / len(outcome)
+        sst = math.fsum((value - mean_outcome) ** 2 for value in outcome)
+        return {
+            "beta": beta,
+            "fitted": fitted,
+            "residual": residual,
+            "sse": sse,
+            "r2": 1 - sse / sst,
+            "adj_r2": 1 - (sse / (len(outcome) - columns)) / (sst / (len(outcome) - 1)),
+        }
+
+    def design_row(row: dict[str, str], extras: list[float] | None = None) -> list[float]:
+        values = [1.0, float(row["dob"])]
+        values.extend(float(row["izvor_vijesti_sifra"] == code) for code in source_codes[1:])
+        if extras:
+            values.extend(extras)
+        return values
+
+    outcomes = [float(row["povjerenje_medijima"]) for row in analytical_rows]
+    ages = [float(row["dob"]) for row in analytical_rows]
+    simple_model = fit_ols(outcomes, [[1.0, age] for age in ages])
+    adjusted_model = fit_ols(outcomes, [design_row(row) for row in analytical_rows])
+    deterministic_targets = {
+        "slope_one": (simple_model["beta"][1], 0.036723816393759),
+        "intercept_one": (simple_model["beta"][0], 3.329375993217577),
+        "r2_one": (simple_model["r2"], 0.088000437806151),
+        "slope_two": (adjusted_model["beta"][1], 0.026885173178122),
+        "r2_two": (adjusted_model["r2"], 0.122277516285767),
+        "source_networks": (adjusted_model["beta"][2], -0.533533786572308),
+        "source_tv": (adjusted_model["beta"][3], 0.311646662154156),
+        "source_radio": (adjusted_model["beta"][4], 0.595079781147251),
+        "source_print": (adjusted_model["beta"][5], 0.486393753673952),
+    }
+    for label, (actual, target) in deterministic_targets.items():
+        if abs(float(actual) - target) > 1e-11:
+            errors.append(f"Unit 16 independent {label} drifted: {actual} != {target}")
+
+    rows_by_code = {
+        code: [row for row in analytical_rows if row["izvor_vijesti_sifra"] == code]
+        for code in source_codes
+    }
+    group_slopes: dict[str, float] = {}
+    group_age_means: dict[str, float] = {}
+    for code, group_rows in rows_by_code.items():
+        group_outcomes = [float(row["povjerenje_medijima"]) for row in group_rows]
+        group_ages = [float(row["dob"]) for row in group_rows]
+        group_slopes[code] = fit_ols(group_outcomes, [[1.0, age] for age in group_ages])["beta"][1]
+        group_age_means[code] = math.fsum(group_ages) / len(group_ages)
+    if abs(group_age_means["2"] - 33.429660636866494) > 1e-12:
+        errors.append(f"Unit 16 networks mean age drifted: {group_age_means['2']}")
+    if abs(group_age_means["4"] - 47.867443055317693) > 1e-12:
+        errors.append(f"Unit 16 radio mean age drifted: {group_age_means['4']}")
+    if abs(min(group_slopes.values()) - 0.025479869074142) > 1e-12:
+        errors.append(f"Unit 16 minimum within-source slope drifted: {min(group_slopes.values())}")
+    if abs(max(group_slopes.values()) - 0.028054221774352) > 1e-12:
+        errors.append(f"Unit 16 maximum within-source slope drifted: {max(group_slopes.values())}")
+
+    narrow_rows = [row for row in analytical_rows if 30 <= float(row["dob"]) <= 50]
+    narrow_model = fit_ols(
+        [float(row["povjerenje_medijima"]) for row in narrow_rows],
+        [[1.0, float(row["dob"])] for row in narrow_rows],
+    )
+    if len(narrow_rows) != 24282:
+        errors.append(f"Unit 16 narrow-range count drifted: {len(narrow_rows)}")
+    if abs(narrow_model["beta"][1] - 0.038507423166654) > 1e-11:
+        errors.append(f"Unit 16 narrow-range slope drifted: {narrow_model['beta'][1]}")
+    if abs(narrow_model["r2"] - 0.013875319001514) > 1e-12:
+        errors.append(f"Unit 16 narrow-range R-squared drifted: {narrow_model['r2']}")
+
+    consequence_model = fit_ols(
+        outcomes,
+        [design_row(row, [float(row["spremnost_platiti"])]) for row in analytical_rows],
+    )
+    if abs(consequence_model["r2"] - 0.131956275921432) > 1e-12:
+        errors.append(f"Unit 16 post-outcome R-squared drifted: {consequence_model['r2']}")
+
+    minute_outcomes = [float(row["minute_medija"]) for row in analytical_rows]
+    minute_model = fit_ols(minute_outcomes, [[1.0, age] for age in ages])
+    if abs(minute_model["beta"][1] - 1.050468521424146) > 1e-10:
+        errors.append(f"Unit 16 media-minute slope drifted: {minute_model['beta'][1]}")
+
+    thirty_year_one = 30 * simple_model["beta"][1]
+    thirty_year_two = 30 * adjusted_model["beta"][1]
+    if abs(thirty_year_one - 1.101714491812777) > 1e-11:
+        errors.append(f"Unit 16 aggregate 30-year prediction drifted: {thirty_year_one}")
+    if abs(thirty_year_two - 0.806555195343662) > 1e-11:
+        errors.append(f"Unit 16 adjusted 30-year prediction drifted: {thirty_year_two}")
+
+    interaction_x = [float(value) for value in range(11)]
+    interaction_a = [2 + 0.6 * value for value in interaction_x]
+    interaction_b = [8 - 0.2 * value for value in interaction_x]
+    slope_a = fit_ols(interaction_a, [[1.0, value] for value in interaction_x])["beta"][1]
+    slope_b = fit_ols(interaction_b, [[1.0, value] for value in interaction_x])["beta"][1]
+    pooled_x = interaction_x + interaction_x
+    pooled_y = interaction_a + interaction_b
+    slope_pooled = fit_ols(pooled_y, [[1.0, value] for value in pooled_x])["beta"][1]
+    if any(
+        abs(actual - target) > 1e-12
+        for actual, target in ((slope_a, 0.6), (slope_b, -0.2), (slope_pooled, 0.2))
+    ):
+        errors.append(f"Unit 16 interaction slopes drifted: {slope_a}/{slope_b}/{slope_pooled}")
+
+    normalized_callout = " ".join(prompts["callout_greska"].split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "novih korisnika",
+            "sve navedene varijable zabilježene su prije odgovora",
+            "data = uzorak",
+            "fitted(model)",
+            "korisnika koje nije vidio",
+            "primjenu na novim podacima",
+        )
+    ):
+        errors.append("Unit 16 callout no longer exposes one complete training-validation error.")
+    normalized_conceptual = " ".join(prompts["konceptualni"].split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in ("nagib uz dob mijenja", "svaki od dvaju nagiba", "skupinu a", "skupinu b", "zbirni nagib")
+    ):
+        errors.append("Unit 16 conceptual prompt no longer separates aggregate, adjusted and interaction slopes.")
+    normalized_numerical = " ".join(prompts["racunski"].split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in ("dobi od 25 i 55 godina", "prilagođenim nagibom", "uz jednak izvor vijesti", "dviju konkretnih osoba")
+    ):
+        errors.append("Unit 16 numerical prompt no longer preserves both hand calculations and their boundary.")
+    normalized_critical = " ".join(prompts["kriticki"].split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in ("referentna skupina", "ćelija 1,60", "apsolutnoj vjerojatnosti", "presječni nacrt", "omjer izgleda")
+    ):
+        errors.append("Unit 16 critical prompt no longer preserves the published-table audit.")
+    normalized_revision = " ".join(prompts["revizija_modela"].split()).casefold()
+    if not all(
+        token in normalized_revision
+        for token in ("što je u kodu ispravno", "redak u kojem se pogreška događa", "isti ispis podnio", "nije curenje informacija", "skupu za učenje")
+    ):
+        errors.append("Unit 16 model revision no longer requires one evidence-based validation audit.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 16 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "training-set-fit-treated-as-unseen-data-validation"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 16 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_numerical = set(anchors)
+    if numerical_applicable != expected_numerical:
+        errors.append(f"Unit 16 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    required_result_tokens = {
+        "callout_greska": ("R-kvadrat je 1 − SSE/SST", "sqrt(SSE/n)", "Nula redaka odvojene provjere"),
+        "konceptualni": ("0,036723816394", "0,026885173178", "33,429660636866", "47,867443055318", "0,6, −0,2 i zbirno 0,2"),
+        "racunski": ("1,1010", "0,8070", "1,101714491813", "0,806555195344"),
+        "kriticki": ("AOR 1,60", "1,43–1,80", "60 % veće izglede", "apsolutna promjena ostaje neodređena"),
+        "revizija_modela": ("RMSE = sqrt(SSE/n)", "R-kvadrat = 1 − SSE/SST", "nula odvojenih redaka", "1,647113", "2,061988"),
+    }
+    for task_class, tokens in required_result_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        method = str(by_class[task_class]["answer_components"]["numerical_check"]["independent_method"])
+        combined = result + " " + method
+        for token in tokens:
+            if token not in combined:
+                errors.append(f"Unit 16 {task_class} answer lacks independently checked token: {token}")
+
+    evidence = {
+        "population": (
+            f"n-{len(analytical_rows)}/slope-{simple_model['beta'][1]:.15f}/"
+            f"intercept-{simple_model['beta'][0]:.15f}/r2-{simple_model['r2']:.15f}"
+        ),
+        "adjusted": (
+            f"slope-{adjusted_model['beta'][1]:.15f}/r2-{adjusted_model['r2']:.15f}/"
+            + "sources-" + "-".join(f"{value:.15f}" for value in adjusted_model["beta"][2:])
+        ),
+        "composition": (
+            f"ages-{group_age_means['2']:.15f}-{group_age_means['4']:.15f}/"
+            f"within-{min(group_slopes.values()):.15f}-{max(group_slopes.values()):.15f}"
+        ),
+        "tasks": (
+            f"thirty-year-{thirty_year_one:.15f}-{thirty_year_two:.15f}/"
+            f"interaction-{slope_a:.1f}-{slope_b:.1f}-{slope_pooled:.1f}/"
+            "AOR-1.60-[1.43,1.80]-not-absolute-probability"
+        ),
+        "range_and_timing": (
+            f"narrow-n-{len(narrow_rows)}-slope-{narrow_model['beta'][1]:.15f}-r2-{narrow_model['r2']:.15f}/"
+            f"post-outcome-r2-{consequence_model['r2']:.15f}/minute-slope-{minute_model['beta'][1]:.15f}"
+        ),
+        "exact_verifier": "scripts/check-unit-16-numerics.R-UNIT_16_NUMERICS_OK",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "source-embedded-hand-calculation-published-table-and-static-widget-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -4987,6 +5313,20 @@ def main() -> int:
             ROOT / "data/populacija-medija-agregat.csv",
         )
         errors.extend(numerical_errors)
+    unit_16_numerical: dict[str, str] = {}
+    if (
+        "16" in records_by_unit
+        and len(records_by_unit["16"]) == 5
+        and {record["task_class"] for record in records_by_unit["16"]} == expected_task_classes
+        and "chapters/16-regresija.qmd" in source_lines
+    ):
+        numerical_errors, unit_16_numerical = unit_16_numerical_check(
+            source_lines["chapters/16-regresija.qmd"],
+            records_by_unit["16"],
+            ROOT / "data/populacija-medija.csv",
+            ROOT / "scripts/check-unit-16-numerics.R",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -5361,6 +5701,19 @@ def main() -> int:
             f"records={unit_15_numerical.get('applicable_records')} "
             f"planted_error={unit_15_numerical.get('planted_error')} "
             f"print_path={unit_15_numerical.get('print_path')}"
+        )
+    if unit_16_numerical:
+        print(
+            "- unit 16 independent numerics: "
+            f"population={unit_16_numerical.get('population')} "
+            f"adjusted={unit_16_numerical.get('adjusted')} "
+            f"composition={unit_16_numerical.get('composition')} "
+            f"tasks={unit_16_numerical.get('tasks')} "
+            f"range_timing={unit_16_numerical.get('range_and_timing')} "
+            f"exact={unit_16_numerical.get('exact_verifier')} "
+            f"records={unit_16_numerical.get('applicable_records')} "
+            f"planted_error={unit_16_numerical.get('planted_error')} "
+            f"print_path={unit_16_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
