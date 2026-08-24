@@ -506,6 +506,100 @@ def unit_01_numerical_check(
     return errors, evidence
 
 
+def unit_02_numerical_check(
+    lines: list[str], records: list[dict[str, Any]]
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute every unit 02 numerical answer from the authored response rows."""
+    errors: list[str] = []
+    rows: dict[str, tuple[int, int, int, int]] = {}
+    in_response_data = False
+    for line in lines:
+        if line.strip() == "s2_odgovori <- tribble(":
+            in_response_data = True
+            continue
+        if in_response_data and line.strip() == ")":
+            break
+        if not in_response_data:
+            continue
+        match = re.match(
+            r'^\s*"(I\d{2})",\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),?\s*$',
+            line,
+        )
+        if match:
+            rows[match.group(1)] = tuple(int(value) for value in match.groups()[1:])
+
+    expected_ids = {f"I{index:02d}" for index in range(1, 13)}
+    if set(rows) != expected_ids:
+        return [f"Unit 02 response rows disagree with I01-I12: {sorted(rows)}"], {}
+
+    try:
+        numerical_prompt = canonical_prompt(lines, "ex-02-racunski-01")
+    except AssertionError as exc:
+        return [f"Unit 02 numerical prompt is unavailable: {exc}"], {}
+    normalized_prompt = " ".join(numerical_prompt.split())
+    required_print_tokens = (
+        "tablicu povezanosti stavki",
+        "ručno provjerite",
+        "iz tablice s odgovorima",
+        "izračunajte prosjek",
+        "nalazi se u praktikumu",
+    )
+    if not all(token in normalized_prompt for token in required_print_tokens):
+        errors.append(
+            "Unit 02 print path must require hand calculation from the displayed tables and leave the full-data praktikum as an optional extension."
+        )
+
+    scale = re.search(r"od\s+(\d+)\s+do\s+(\d+)", numerical_prompt)
+    if not scale:
+        return errors + ["Unit 02 reverse-coding scale endpoints are absent from the source prompt."], {}
+    scale_low, scale_high = (int(value) for value in scale.groups())
+    reverse_constant = scale_low + scale_high
+    mapping = {value: reverse_constant - value for value in range(scale_low, scale_high + 1)}
+    expected_mapping = {1: 5, 2: 4, 3: 3, 4: 2, 5: 1}
+    if mapping != expected_mapping:
+        errors.append(f"Unit 02 reverse-coding map drifted: {mapping}")
+
+    means: dict[str, tuple[Decimal, Decimal]] = {}
+    for respondent in ("I01", "I02", "I03"):
+        original = rows[respondent]
+        reversed_values = (*original[:3], mapping[original[3]])
+        before = Decimal(sum(original)) / Decimal(len(original))
+        after = Decimal(sum(reversed_values)) / Decimal(len(reversed_values))
+        means[respondent] = (before, after)
+
+    by_class = {record["task_class"]: record for record in records}
+    applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"racunski"}
+    if applicable != expected_applicable:
+        errors.append(f"Unit 02 numerical applicability mismatch: {sorted(applicable)}")
+
+    hr_decimal = lambda value: f"{value:.2f}".replace(".", ",")
+    mapping_token = ", ".join(f"{source}→{target}" for source, target in mapping.items())
+    expected_tokens = [mapping_token]
+    expected_tokens.extend(
+        f"{respondent} prije {hr_decimal(before)} i nakon {hr_decimal(after)}"
+        for respondent, (before, after) in means.items()
+    )
+    result = str(by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"])
+    missing_tokens = [token for token in expected_tokens if token not in result]
+    if missing_tokens:
+        errors.append(f"Unit 02 racunski numerical result lacks recomputed tokens: {missing_tokens}")
+
+    evidence = {
+        "mapping": "/".join(f"{source}-to-{target}" for source, target in mapping.items()),
+        "i01": f"{means['I01'][0]:.2f}/{means['I01'][1]:.2f}",
+        "i02": f"{means['I02'][0]:.2f}/{means['I02'][1]:.2f}",
+        "i03": f"{means['I03'][0]:.2f}/{means['I03'][1]:.2f}",
+        "applicable_records": str(len(applicable)),
+        "print_path": "hand-calculation-from-rendered-tables-with-optional-full-data-praktikum",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -832,6 +926,18 @@ def main() -> int:
             ROOT / "data/populacija-medija-agregat.csv",
         )
         errors.extend(numerical_errors)
+    unit_02_numerical: dict[str, str] = {}
+    if (
+        "02" in records_by_unit
+        and len(records_by_unit["02"]) == 5
+        and {record["task_class"] for record in records_by_unit["02"]} == expected_task_classes
+        and "chapters/02-mjerenje-i-dizajn.qmd" in source_lines
+    ):
+        numerical_errors, unit_02_numerical = unit_02_numerical_check(
+            source_lines["chapters/02-mjerenje-i-dizajn.qmd"],
+            records_by_unit["02"],
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -1032,6 +1138,16 @@ def main() -> int:
             f"simpson={unit_01_numerical.get('simpson_a')}%/{unit_01_numerical.get('simpson_b')}% "
             f"records={unit_01_numerical.get('applicable_records')} "
             f"print_path={unit_01_numerical.get('print_path')}"
+        )
+    if unit_02_numerical:
+        print(
+            "- unit 02 independent numerics: "
+            f"mapping={unit_02_numerical.get('mapping')} "
+            f"I01={unit_02_numerical.get('i01')} "
+            f"I02={unit_02_numerical.get('i02')} "
+            f"I03={unit_02_numerical.get('i03')} "
+            f"records={unit_02_numerical.get('applicable_records')} "
+            f"print_path={unit_02_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

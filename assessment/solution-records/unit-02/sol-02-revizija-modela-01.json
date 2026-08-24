@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-02-revizija-modela-01",
+  "exercise_id": "ex-02-revizija-modela-01",
+  "unit_id": "02",
+  "source_anchor": {
+    "path": "chapters/02-mjerenje-i-dizajn.qmd",
+    "anchor": "ex-02-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:14a5513a9a6a7e9db33918701a241ca84427ae6b64969d3fb112751ad7e4def3",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "causal-proof-from-cross-sectional-observational-association",
+      "statement": "Neopravdana je rečenica 'Rezultat zato dokazuje da dulje korištenje društvenih mreža smanjuje povjerenje.'",
+      "why_wrong": "Istodobna opažačka anketa bez nasumične dodjele ne utvrđuje vremenski smjer, a prilagodba samo za dob ne uklanja druge zajedničke uzroke. Analiza može opisati povezanost uz dob, ali ne dokazati da korištenje smanjuje povjerenje."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Imenovati dizajn i vremenski raspored mjerenja, izdvojiti glagole 'dokazuje' i 'smanjuje', zatim provjeriti postoji li dodjela izloženosti i mogu li niže povjerenje ili neizmjereni zajednički uzroci proizvesti isti obrazac.",
+      "expected_evidence": "Dizajn je istodobna opažačka anketa; dodjele nema; dob je jedina navedena prilagodba; obrnuti smjer i neizmjereno konfundiranje ostaju dopušteni."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogrešno je što analiza uključuje dob.",
+          "why_insufficient": "Dob može biti opravdan zajednički uzrok; pogreška nije sama prilagodba, nego tvrdnja da ona zajedno s opažačkim dizajnom dokazuje uzrok."
+        },
+        {
+          "response": "Ispravak glasi da društvene mreže možda smanjuju povjerenje.",
+          "why_insufficient": "Dodavanje riječi 'možda' ne pretvara povezanost u uzročni nalaz niti imenuje granicu dizajna."
+        },
+        {
+          "response": "Potrebna je longitudinalna anketa i tada bi uzrok bio dokazan.",
+          "why_insufficient": "Vremenski slijed smanjuje problem obrnutoga smjera, ali bez vjerodostojne dodjele ili jače identifikacijske strategije ne uklanja sve zajedničke uzroke."
+        },
+        {
+          "response": "Potreban je samo veći i reprezentativniji uzorak.",
+          "why_insufficient": "Reprezentativnost poboljšava doseg, a veći uzorak preciznost; nijedno samo po sebi ne uspostavlja uzročnu usporedivost."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "name-design",
+          "required_claim": "Model opisuje presječnu opažačku anketu s istodobno izmjerenim korištenjem mreža i povjerenjem.",
+          "required_evidence": "Izričit opis ankete i zajedničkoga upitnika bez nasumične dodjele."
+        },
+        {
+          "component_id": "identify-one-unsupported-sentence",
+          "required_claim": "Neopravdana je samo završna rečenica koja rezultat naziva dokazom da dulje korištenje smanjuje povjerenje.",
+          "required_evidence": "Kauzalni glagoli uspoređeni su s opažačkim, istodobnim dizajnom."
+        },
+        {
+          "component_id": "bounded-corrected-version",
+          "required_claim": "Ispravak kaže da je dulje prijavljeno korištenje društvenih mreža povezano s nižim prijavljenim povjerenjem uz prilagodbu za dob, dok uzročni smjer ostaje neutvrđen.",
+          "required_evidence": "Zamjenska rečenica čuva ono što analiza opisuje i izbacuje nedopušten dokaz uzroka."
+        },
+        {
+          "component_id": "causal-design-needed",
+          "required_claim": "Za užu uzročnu tvrdnju bio bi potreban izvediv eksperiment s nasumičnom dodjelom jasno definirane promjene izloženosti, mjerenjem povjerenja nakon dodjele i provjerom pridržavanja, prelijevanja, osipanja i mjerenja.",
+          "required_evidence": "Nasumična dodjela stvara usporedivost u očekivanju, a naknadne provjere čuvaju granicu između dodijeljenoga i primljenoga tretmana."
+        },
+        {
+          "component_id": "feasibility-and-claim-boundary",
+          "required_claim": "Dugotrajno nametanje količine korištenja mreža vjerojatno je praktično i etički teško, uz slabo pridržavanje i prelijevanje, pa bi i eksperiment podupirao samo učinak određene dodijeljene intervencije u određenoj populaciji i razdoblju.",
+          "required_evidence": "Obrazloženje povezuje izvedivost s kontrolom stvarne izloženosti i ograničava uzročni zaključak na konkretan tretman."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Revizijski prompt ne sadrži brojčani nalaz; ocjenjuju se dizajn, kauzalni jezik, zamjenska tvrdnja i izvedivost potrebnoga dizajna.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-keeps-causal-proof-or-misnames-design",
+          "severity": "fatal",
+          "description": "Odgovor zadržava tvrdnju o dokazanom smanjenju povjerenja, presječnu anketu naziva eksperimentom ili tvrdi da sama prilagodba za dob uklanja sve suparničke priče.",
+          "observable_evidence": "Središnji zaključak ostaje nespojiv s načinom nastanka podataka."
+        },
+        {
+          "criterion_id": "major-missing-required-revision-part",
+          "severity": "major",
+          "description": "Nedostaje imenovanje dizajna, pogrešna rečenica, ograničena zamjenska rečenica, potreban dizajn ili obrazloženje njegove neizvedivosti.",
+          "observable_evidence": "Barem jedan od pet kanonskih dijelova predaje nije moguće pronaći."
+        },
+        {
+          "criterion_id": "minor-overstates-randomized-design-or-feasibility",
+          "severity": "minor",
+          "description": "Odgovor ispravno traži randomizaciju, ali ne ograničava nalaz na definiranu intervenciju ili izvedivost opisuje bez veze s pridržavanjem, prelijevanjem, etikom ili trajanjem.",
+          "observable_evidence": "Lokalna granica dizajna treba precizniji opis bez promjene glavne revizije."
+        },
+        {
+          "criterion_id": "useful-separates-assignment-receipt-and-generalization",
+          "severity": "useful_improvement",
+          "description": "Odgovor razlikuje učinak dodijeljene intervencije od učinka stvarno primljene izloženosti i od prijenosa izvan ispitane populacije.",
+          "observable_evidence": "Tri granice prikazane su kao odvojeni koraci provjere."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "credible-quasi-experimental-route",
+      "description": "Prihvatljiv je precizno opisan kvazieksperimentalni dizajn s vanjskim pravilom ili događajem koji stvara vjerodostojno usporedivu izloženost.",
+      "acceptance_boundary": "Odgovor mora objasniti zašto mehanizam izloženosti nije samo odraz ranijih razlika i ne smije takav dizajn nazvati univerzalnim dokazom."
+    },
+    {
+      "alternative_id": "longitudinal-as-partial-improvement",
+      "description": "Longitudinalno mjerenje prihvatljivo je kao poboljšanje za vremenski redoslijed.",
+      "acceptance_boundary": "Ne može se predstaviti kao dovoljno za uklanjanje svih neizmjerenih zajedničkih uzroka bez dodatne identifikacijske osnove."
+    }
+  ],
+  "instructor_notes": [
+    "Revizijski zadatak cilja istu jedinu pogrešku kao callout-greska, ali traži i dizajn koji bi nosio užu uzročnu tvrdnju te njegovu izvedivost.",
+    "Ne zahtijevati apsolutno obećanje da bi eksperiment 'dokazao' univerzalni uzrok. Pun kredit traži tvrdnju ograničenu na definiranu dodjelu, populaciju i razdoblje."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
