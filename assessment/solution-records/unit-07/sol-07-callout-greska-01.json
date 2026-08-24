@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-07-callout-greska-01",
+  "exercise_id": "ex-07-callout-greska-01",
+  "unit_id": "07",
+  "source_anchor": {
+    "path": "chapters/07-vjerojatnost.qmd",
+    "anchor": "ex-07-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:a8dc3e13cdf1ad4d4a350db4afccabe95b3cd6ae28aba3c1415fc3f58d72e46d",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "separate-posts-assumed-independent-without-justification",
+      "statement": "Završna rečenica proglašava račun potpunim zato što su objave zasebne jedinice iste kampanje i time neopravdano zamjenjuje odvojenost jedinica neovisnošću ishoda.",
+      "why_wrong": "Potenciranje vjerojatnosti 0,98 na petu vrijedi samo ako su ishodi pet objava neovisni i svaka ima istu vjerojatnost od 0,02. Zajednička kampanja može stvarati ovisnost preko publike, dosega, vremena ili dijeljenja, pa račun opisuje samo izričiti model neovisnih objava."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Razložiti račun na komplement, jednaku rubnu vjerojatnost i potenciranje, zatim za svaki korak imenovati potrebnu pretpostavku te odvojeno pitati podupiru li dizajn ili opis procesa neovisnost objava.",
+      "expected_evidence": "Komplement i aritmetika daju 1 - 0,98^5 = 0,0960792032, odnosno približno 9,6 %, ali samo u modelu pet neovisnih objava s jednakom vjerojatnošću 0,02. Činjenica da su objave zasebni retci ne dokazuje neovisnost."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogreška je uporaba komplementa umjesto zbrajanja pet vjerojatnosti.",
+          "why_insufficient": "Komplement je ispravan put u modelu neovisnih pokušaja. Problem nije algebra nego neobrazložena pretpostavka koja dopušta potenciranje."
+        },
+        {
+          "response": "Račun je pogrešan jer dva posto nije izmjereno na stvarnim objavama.",
+          "why_insufficient": "Prompt izričito određuje 0,02 kao ulaz hipotetskoga modela. Granica je prijenos toga modelskog računa na stvarnu kampanju, a ne podrijetlo zadane vrijednosti unutar vježbe."
+        },
+        {
+          "response": "Objave su sigurno ovisne jer pripadaju istoj kampanji.",
+          "why_insufficient": "Pripadnost istoj kampanji ne potvrđuje ni ne opovrgava neovisnost. Odgovor mora reći da je neovisnost neprovjerena i navesti kakav bi dokaz bio potreban."
+        },
+        {
+          "response": "Jedina je pogreška zaokruživanje rezultata na 9,6 %.",
+          "why_insufficient": "Zaokruživanje je prikladno i ne mijenja zaključak. Središnji je problem granica modela."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "confirm-complement-and-arithmetic",
+          "required_claim": "Komplement i račun 1 - 0,98^5 ispravni su za pet neovisnih pokušaja s jednakom vjerojatnošću 0,02.",
+          "required_evidence": "Izravni neovisni račun daje 0,0960792032, odnosno približno 9,6 %."
+        },
+        {
+          "component_id": "name-independence-condition",
+          "required_claim": "Potenciranje vjerojatnosti da nijedna objava ne prijeđe prag zahtijeva neovisnost ishoda pet objava.",
+          "required_evidence": "Opće pravilo množenja bez neovisnosti koristi uvjetne, a ne samo rubne vjerojatnosti."
+        },
+        {
+          "component_id": "reject-separate-equals-independent",
+          "required_claim": "Zasebne objave ili zasebni retci nisu sami po sebi dokaz neovisnosti.",
+          "required_evidence": "Ista publika, doseg, vrijeme i prijenos dijeljenjem mogu povezati ishode unutar kampanje."
+        },
+        {
+          "component_id": "state-bounded-conclusion",
+          "required_claim": "Rezultat od 9,6 % treba izvijestiti kao vjerojatnost pod modelom neovisnih objava, bez tvrdnje da taj model opisuje stvarnu kampanju.",
+          "required_evidence": "Ispravljena rečenica izričito uvjetuje zaključak neovisnošću i traži procesni ili podatkovni dokaz prije primjene."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "1 - 0,98^5 = 0,0960792032, odnosno 9,60792032 % i približno 9,6 %, pod uvjetom pet neovisnih objava s jednakom vjerojatnošću 0,02.",
+      "tolerance_or_acceptance_rule": "Prihvatiti 9,6 % na jednu decimalu ili vrijednost 9,6079 % na četiri decimale samo ako je rezultat izričito uvjetovan neovisnošću i jednakom vjerojatnošću.",
+      "independent_method": "Izračunati komplement vjerojatnosti nijednoga uspjeha kao 1 - (1 - 0,02)^5 neovisno o prikazanom kodu.",
+      "evidence_reference": "chapters/07-vjerojatnost.qmd#ex-07-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-accepts-separate-as-independent",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća zasebnost objava kao dokaz neovisnosti ili bez uvjeta prenosi 9,6 % na stvarnu kampanju.",
+          "observable_evidence": "Zaključak ne imenuje model neovisnih pokušaja i tvrdi da je račun potpun za kampanju."
+        },
+        {
+          "criterion_id": "major-misses-correct-step-or-evidence-need",
+          "severity": "major",
+          "description": "Odgovor ne odvaja ispravan komplement od sporne pretpostavke ili ne navodi dokaz potreban za neovisnost.",
+          "observable_evidence": "Nedostaje jedna središnja karika između računa, pretpostavke i granice primjene."
+        },
+        {
+          "criterion_id": "minor-imprecise-rounding-or-model-language",
+          "severity": "minor",
+          "description": "Središnja je dijagnoza ispravna, ali zaokruživanje, jednaka vjerojatnost ili naziv modela nisu precizno navedeni.",
+          "observable_evidence": "Lokalna dopuna brojčane ili terminološke preciznosti dovoljna je bez promjene presude."
+        },
+        {
+          "criterion_id": "useful-names-dependence-mechanisms",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno imenuje moguće mehanizme ovisnosti unutar kampanje i prijedlog njihove provjere.",
+          "observable_evidence": "Dodatak jača procesnu provjeru, ali nije zamjena za izričiti uvjet neovisnosti."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "retain-model-result-with-explicit-condition",
+      "description": "Prihvatljivo je zadržati broj 9,6 % ako se jasno kaže da vrijedi u hipotetskom modelu pet neovisnih objava s jednakom vjerojatnošću uspjeha.",
+      "acceptance_boundary": "Ne smije se tvrditi da pripadnost istoj kampanji potvrđuje neovisnost niti da broj bez dodatnih podataka opisuje stvarnu kampanju."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina posađena pogreška jest neopravdano izjednačavanje zasebnih jedinica s neovisnim ishodima. Komplement, potenciranje pod tim uvjetom i zaokruživanje nisu zasebne pogreške.",
+    "Ne zahtijevati pisanje ili popravak koda. Ocjenjuju se čitanje pretpostavke, neovisna aritmetička provjera i granica zaključka."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-07-revizija-modela-01",
+  "exercise_id": "ex-07-revizija-modela-01",
+  "unit_id": "07",
+  "source_anchor": {
+    "path": "chapters/07-vjerojatnost.qmd",
+    "anchor": "ex-07-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:36f9b5c650d6d2e425e87cfdb040ed1b50b2782ae0cf8a184f166d3a67b03a3b",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "separate-posts-assumed-independent-without-justification",
+      "statement": "Rečenica da su zasebne jedinice iste kampanje potvrđuje potpunost računa neopravdano proglašava ishode objava neovisnima.",
+      "why_wrong": "Formula 1 - (1 - p)^5 zahtijeva pet neovisnih pokušaja s jednakim p. Zasebne objave mogu dijeliti publiku, doseg, vrijeme i mehanizme širenja, pa račun bez dodatnoga dokaza ostaje uvjetna tvrdnja o modelu."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Označiti ispravne korake komplementa i potenciranja, uz potenciranje zapisati uvjet neovisnosti, izdvojiti završnu rečenicu kao mjesto neopravdane potvrde i preoblikovati zaključak tako da broj ostane vezan uz model.",
+      "expected_evidence": "Vrijednosti 0,98, 0,98^5 i 1 - 0,98^5 računaju se ispravno te daju približno 9,6 %. Pogreška nastaje samo kada se zasebnost objava uzme kao dokaz neovisnosti i rezultat bez uvjeta pripiše kampanji."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Sve je pogrešno jer se vjerojatnosti ne smiju potencirati.",
+          "why_insufficient": "Potenciranje je ispravno uz neovisnost i jednaku vjerojatnost. Revizija mora razlikovati valjan račun od neopravdane primjene."
+        },
+        {
+          "response": "Analiza je potpuno točna jer je svaka objava zaseban redak.",
+          "why_insufficient": "Zasebnost jedinica ne znači neovisnost ishoda. Upravo je ta zamjena posađena pogreška."
+        },
+        {
+          "response": "Treba promijeniti 9,6 % u 10 % i time je analiza popravljena.",
+          "why_insufficient": "Zaokruživanje ne rješava pretpostavku. Granica zaključka ostala bi pogrešna."
+        },
+        {
+          "response": "Dovoljno je napisati da korelacija nije uzročnost.",
+          "why_insufficient": "Problem nije uzročni jezik nego pravilo množenja i neprovjerena neovisnost pokušaja."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "grade-correct-complement",
+          "required_claim": "Ispravno je izračunati vjerojatnost da pojedina objava ne uspije kao 0,98 i traženi događaj dobiti komplementom nijednoga uspjeha.",
+          "required_evidence": "Događaj barem jedne uspješne objave komplementaran je događaju nijedne uspješne objave."
+        },
+        {
+          "component_id": "mark-independence-dependent-step",
+          "required_claim": "Korak 0,98^5 vrijedi samo ako su pet ishoda neovisni i jednako vjerojatni.",
+          "required_evidence": "Potenciranje je prečac pravila množenja pod neovisnošću."
+        },
+        {
+          "component_id": "quote-unjustified-sentence",
+          "required_claim": "Pogrešna je rečenica koja iz zasebnosti objava iste kampanje zaključuje da je račun potpun.",
+          "required_evidence": "Rečenica jedina pretpostavku proglašava potvrđenom bez dizajna ili procesnoga dokaza."
+        },
+        {
+          "component_id": "write-bounded-replacement",
+          "required_claim": "Ako je pet objava neovisno i svaka ima vjerojatnost 0,02, model daje približno 9,6 % za barem jednu uspješnu objavu; bez provjere neovisnosti taj broj ne opisuje nužno stvarnu kampanju.",
+          "required_evidence": "Ispravljena rečenica čuva račun, izriče uvjet i povlači granicu primjene."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "0,98^5 = 0,9039207968, a 1 - 0,98^5 = 0,0960792032, odnosno približno 9,6 %, samo u modelu neovisnih jednako vjerojatnih objava.",
+      "tolerance_or_acceptance_rule": "Prihvatiti 9,6 % na jednu decimalu uz točno označen komplement i obvezan uvjet neovisnosti; broj bez granice modela nije potpun odgovor.",
+      "independent_method": "Ručnim potenciranjem ili kalkulatorom izračunati vjerojatnost nijednoga uspjeha i njezin komplement, bez oslanjanja na prikazani kod.",
+      "evidence_reference": "chapters/07-vjerojatnost.qmd#ex-07-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-unjustified-independence",
+          "severity": "fatal",
+          "description": "Revizija prihvaća zasebnost objava kao dokaz neovisnosti ili zadržava bezuvjetan zaključak o stvarnoj kampanji.",
+          "observable_evidence": "Posađena pogreška ostaje u presudi ili ispravljenoj rečenici."
+        },
+        {
+          "criterion_id": "major-misses-correct-step-condition-or-repair",
+          "severity": "major",
+          "description": "Nedostaje ispravan korak računa, uvjet neovisnosti, sporna rečenica ili ograničena zamjenska rečenica.",
+          "observable_evidence": "Jedan od četiriju izričitih zahtjeva zadatka nije provjerljivo ispunjen."
+        },
+        {
+          "criterion_id": "minor-rounding-or-wording-defect",
+          "severity": "minor",
+          "description": "Dijagnoza i popravak su ispravni, ali broj ili formulacija modelskoga uvjeta nisu dovoljno precizni.",
+          "observable_evidence": "Lokalna brojčana ili jezična dopuna dovoljna je bez promjene presude."
+        },
+        {
+          "criterion_id": "useful-proposes-process-check",
+          "severity": "useful_improvement",
+          "description": "Revizija dodatno predlaže provjeru zajedničke publike, vremena, dosega ili prijenosa dijeljenjem.",
+          "observable_evidence": "Prijedlog jača validaciju modela, ali nije obvezan za zatvaranje posađene pogreške."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "reject-number-for-real-campaign-but-retain-model",
+      "description": "Prihvatljivo je reći da se broj ne može primijeniti na stvarnu kampanju uz istodobno priznavanje da je točan unutar modela neovisnih objava.",
+      "acceptance_boundary": "Odgovor ne smije odbaciti ispravnu aritmetiku niti pretpostavku prikazati kao potvrđenu činjenicu."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija moraju zatvoriti isti error_id. Ne dodavati zasebnu pogrešku za hipotetsku vrijednost 0,02 ili prikladno zaokruživanje.",
+    "Ne tražiti popravljanje koda. U ovom se stupnju ocjenjuju čitanje koda, provjera računa i statistička granica."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

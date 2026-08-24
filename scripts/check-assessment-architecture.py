@@ -1570,6 +1570,207 @@ def unit_06_numerical_check(
     return errors, evidence
 
 
+def unit_07_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    chapter_03_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 07 complements and the chapter 03 verifier table."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-07-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-07-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-07-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-07-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-07-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 07 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 07 {label} prompt is empty.")
+
+    p_failure = Decimal("0.98")
+    no_success = p_failure**5
+    at_least_one = Decimal("1") - no_success
+    at_least_one_percent = Decimal("100") * at_least_one
+    if no_success != Decimal("0.9039207968"):
+        errors.append(f"Unit 07 no-success complement drifted: {no_success}")
+    if at_least_one != Decimal("0.0960792032"):
+        errors.append(f"Unit 07 at-least-one complement drifted: {at_least_one}")
+    if at_least_one_percent != Decimal("9.6079203200"):
+        errors.append(f"Unit 07 complement percentage drifted: {at_least_one_percent}")
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    required_callout_tokens = (
+        "p_viral <- 0.02",
+        "1 - (1 - p_viral)^5",
+        "zasebne jedinice iste kampanje",
+        "račun potpun",
+    )
+    if not all(token in normalized_callout for token in required_callout_tokens):
+        errors.append("Unit 07 callout no longer exposes the complete independence-dependent calculation.")
+
+    try:
+        chapter_03_text = chapter_03_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return errors + [f"Unit 07 chapter 03 reachback could not be read: {exc}"], {}
+    verifier_match = re.search(
+        r"Zamislimo\s+([\d.]+)\s+zapisa\.\s+Njih\s+([\d.]+).*?"
+        r"Provjera\s+pronađe\s+([\d.]+)\s+od\s+tih\s+([\d.]+)\s+zapisa,\s+"
+        r"ali\s+pogrešno\s+označi\s+i\s+([\d.]+)\s+ostalih\.\s+"
+        r"Dobiva\s+([\d.]+)\s+upozorenja",
+        chapter_03_text,
+        flags=re.DOTALL,
+    )
+    if not verifier_match:
+        return errors + ["Unit 07 chapter 03 verifier counts could not be parsed independently."], {}
+
+    try:
+        total, targets, true_alerts, repeated_targets, false_alerts, all_alerts = (
+            int(value.replace(".", "")) for value in verifier_match.groups()
+        )
+    except ValueError as exc:
+        return errors + [f"Unit 07 chapter 03 verifier counts are invalid: {exc}"], {}
+    expected_counts = (10000, 100, 90, 100, 495, 585)
+    observed_counts = (total, targets, true_alerts, repeated_targets, false_alerts, all_alerts)
+    if observed_counts != expected_counts:
+        errors.append(f"Unit 07 verifier counts drifted: {observed_counts} != {expected_counts}")
+    if true_alerts + false_alerts != all_alerts:
+        errors.append("Unit 07 verifier alert cells do not sum to all alerts.")
+    missed_targets = targets - true_alerts
+    true_negatives = total - targets - false_alerts
+    sensitivity = Decimal(true_alerts) / Decimal(targets)
+    precision = Decimal(true_alerts) / Decimal(all_alerts)
+    base_rate = Decimal(targets) / Decimal(total)
+    if (missed_targets, true_negatives) != (10, 9405):
+        errors.append(
+            f"Unit 07 verifier residual cells drifted: missed={missed_targets}, true_negative={true_negatives}"
+        )
+    if sensitivity != Decimal("0.9") or base_rate != Decimal("0.01"):
+        errors.append(
+            f"Unit 07 verifier exact rates drifted: sensitivity={sensitivity}, base={base_rate}"
+        )
+    if abs(precision - (Decimal(2) / Decimal(13))) > Decimal("1e-27"):
+        errors.append(f"Unit 07 verifier precision drifted: {precision}")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    required_numerical_tokens = (
+        "hipotetsku provjeru zapisa",
+        "svih šest",
+        "udio upozorenja među ciljanim zapisima",
+        "udio ciljanih zapisa među svim upozorenjima",
+        "temeljnu stopu",
+        "kratku revizijsku tablicu",
+        "dvije rečenice",
+    )
+    if not all(token in normalized_numerical for token in required_numerical_tokens):
+        errors.append("Unit 07 numerical prompt no longer requires the full six-question reachback audit.")
+    normalized_chapter_03 = " ".join(chapter_03_text.split()).casefold()
+    if not all(
+        token in normalized_chapter_03
+        for token in ("10.000 zapisa", "90 od tih 100 zapisa", "495 ostalih", "585 upozorenja")
+    ):
+        errors.append("Unit 07 print reachback must preserve the rendered chapter 03 verifier counts.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "poštenoga novčića s poznatom vjerojatnošću",
+            "stopa uspjeha nije poznata",
+            "dokaz bio potreban",
+            "velikom skupinom nula",
+            "qq prikazu",
+        )
+    ):
+        errors.append("Unit 07 conceptual prompt no longer separates a known model, unknown rate and QQ check.")
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in ("vrućoj ruci", "općenite tvrdnje", "ispravka mjere", "@gilovich1985", "@miller2018")
+    ):
+        errors.append("Unit 07 critical prompt no longer preserves the bounded hot-hand evidence comparison.")
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if (
+        "označite račun koji vrijedi samo uz neovisnost" not in normalized_revision
+        or "izdvojite rečenicu" not in normalized_revision
+        or any(phrase in normalized_revision for phrase in ("napišite kod", "popravite kod", "prepišite kod"))
+    ):
+        errors.append("Unit 07 model revision must assess code reading without code production.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 07 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "separate-posts-assumed-independent-without-justification"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 07 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"callout_greska", "racunski", "revizija_modela"}
+    if numerical_applicable != expected_applicable:
+        errors.append(f"Unit 07 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    complement_tokens = ["0,0960792032", "9,6 %", "neovis"]
+    for task_class in ("callout_greska", "revizija_modela"):
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        missing_tokens = [token for token in complement_tokens if token not in result.casefold()]
+        if missing_tokens:
+            errors.append(
+                f"Unit 07 {task_class} numerical result lacks recomputed tokens: {missing_tokens}"
+            )
+    callout_result = str(
+        by_class["callout_greska"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    if "9,60792032 %" not in callout_result:
+        errors.append("Unit 07 callout numerical result lacks the exact percentage before rounding.")
+    revision_result = str(
+        by_class["revizija_modela"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    if "0,9039207968" not in revision_result:
+        errors.append("Unit 07 revision numerical result lacks the exact no-success probability.")
+    numerical_result = str(
+        by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    numerical_tokens = ["90/100", "90 %", "90/585", "15,4 %", "100/10.000", "1 %", "10 ", "9.405"]
+    missing_numerical = [token for token in numerical_tokens if token not in numerical_result]
+    if missing_numerical:
+        errors.append(f"Unit 07 numerical answer lacks recomputed verifier tokens: {missing_numerical}")
+
+    evidence = {
+        "complement": f"{no_success}/{at_least_one}/{at_least_one_percent}%",
+        "verifier_counts": f"{total}/{targets}/{true_alerts}/{false_alerts}/{all_alerts}/{missed_targets}/{true_negatives}",
+        "verifier_rates": f"{sensitivity:.4f}/{precision:.6f}/{base_rate:.4f}",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "chapter-03-rendered-inline-counts-and-unit-07-callout-hand-calculation-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -1965,6 +2166,19 @@ def main() -> int:
             ROOT / "data/widgets.json",
         )
         errors.extend(numerical_errors)
+    unit_07_numerical: dict[str, str] = {}
+    if (
+        "07" in records_by_unit
+        and len(records_by_unit["07"]) == 5
+        and {record["task_class"] for record in records_by_unit["07"]} == expected_task_classes
+        and "chapters/07-vjerojatnost.qmd" in source_lines
+    ):
+        numerical_errors, unit_07_numerical = unit_07_numerical_check(
+            source_lines["chapters/07-vjerojatnost.qmd"],
+            records_by_unit["07"],
+            ROOT / "chapters/03-kako-brojke-zavode.qmd",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -2230,6 +2444,16 @@ def main() -> int:
             f"records={unit_06_numerical.get('applicable_records')} "
             f"planted_error={unit_06_numerical.get('planted_error')} "
             f"print_path={unit_06_numerical.get('print_path')}"
+        )
+    if unit_07_numerical:
+        print(
+            "- unit 07 independent numerics: "
+            f"complement={unit_07_numerical.get('complement')} "
+            f"verifier_counts={unit_07_numerical.get('verifier_counts')} "
+            f"verifier_rates={unit_07_numerical.get('verifier_rates')} "
+            f"records={unit_07_numerical.get('applicable_records')} "
+            f"planted_error={unit_07_numerical.get('planted_error')} "
+            f"print_path={unit_07_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
