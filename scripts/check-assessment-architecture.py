@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import copy
+import csv
 import hashlib
 import importlib.util
 import json
@@ -381,6 +382,130 @@ def unit_00_numerical_check(lines: list[str], records: list[dict[str, Any]]) -> 
     return errors, evidence
 
 
+def unit_01_numerical_check(
+    lines: list[str], records: list[dict[str, Any]], data_path: Path
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute every unit 01 numerical answer from its CSV and stated simulation."""
+    errors: list[str] = []
+    try:
+        with data_path.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return [f"Unit 01 data could not be read independently: {exc}"], {}
+
+    required_labels = {"portal", "društvene mreže", "tisak"}
+    by_label = {row.get("izvor_vijesti", ""): row for row in rows}
+    missing = required_labels - set(by_label)
+    if missing:
+        return [f"Unit 01 data lacks required categories: {sorted(missing)}"], {}
+
+    paid: dict[str, tuple[int, int, Decimal]] = {}
+    for label in required_labels:
+        row = by_label[label]
+        try:
+            denominator = int(row["broj"])
+            numerator = int(row["broj_platio"])
+            stored_share = Decimal(row["udio_platio"])
+        except (KeyError, ValueError, ArithmeticError) as exc:
+            errors.append(f"Unit 01 {label} payment fields are invalid: {exc}")
+            continue
+        share = Decimal(numerator) / Decimal(denominator)
+        if abs(share - stored_share) > Decimal("1e-15"):
+            errors.append(f"Unit 01 {label} stored payment share does not reproduce.")
+        paid[label] = (numerator, denominator, share)
+    if len(paid) != len(required_labels):
+        return errors, {}
+
+    try:
+        numerical_prompt = canonical_prompt(lines, "ex-01-racunski-01")
+    except AssertionError as exc:
+        return errors + [f"Unit 01 numerical prompt is unavailable: {exc}"], {}
+    normalized_numerical_prompt = " ".join(numerical_prompt.split())
+    if (
+        "ručno podijelite" not in normalized_numerical_prompt
+        or "možete provjeriti widgetom" not in normalized_numerical_prompt
+    ):
+        errors.append(
+            "Unit 01 print path must require a hand calculation and describe the widget only as an optional check."
+        )
+    simulation = re.search(
+        r"stope skupine A.*?(\d+)\s*%\s*i\s*(\d+)\s*%.*?"
+        r"stope skupine B\s*(\d+)\s*%\s*i\s*(\d+)\s*%.*?"
+        r"obje skupine imaju po\s*(\d+)\s*%",
+        numerical_prompt,
+        flags=re.DOTALL,
+    )
+    if not simulation:
+        return errors + ["Unit 01 Simpson exercise values could not be parsed from the source prompt."], {}
+    a_high, a_low, b_high, b_low, common_weight = (
+        Decimal(value) / Decimal(100) for value in simulation.groups()
+    )
+    a_aggregate = common_weight * a_high + (Decimal(1) - common_weight) * a_low
+    b_aggregate = common_weight * b_high + (Decimal(1) - common_weight) * b_low
+    if not (b_high > a_high and b_low > a_low and b_aggregate > a_aggregate):
+        errors.append("Unit 01 equal-weight Simpson exercise no longer supports its stated no-reversal conclusion.")
+
+    by_class = {record["task_class"]: record for record in records}
+    applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"callout_greska", "racunski", "revizija_modela"}
+    if applicable != expected_applicable:
+        errors.append(f"Unit 01 numerical applicability mismatch: {sorted(applicable)}")
+
+    portal_n, portal_d, portal_share = paid["portal"]
+    print_n, print_d, print_share = paid["tisak"]
+    network_n, network_d, network_share = paid["društvene mreže"]
+    print_network_gap = print_share - network_share
+    hr_integer = lambda value: f"{value:,}".replace(",", ".")
+    hr_decimal = lambda value: f"{value:.2f}".replace(".", ",")
+    hr_percent = lambda value: hr_decimal(value * 100) + " %"
+    expected_tokens = {
+        "callout_greska": [
+            f"{hr_integer(portal_n)} / {hr_integer(portal_d)}",
+            hr_percent(portal_share),
+            f"{hr_integer(print_n)} / {hr_integer(print_d)}",
+            hr_percent(print_share),
+        ],
+        "racunski": [
+            f"{hr_integer(portal_n)} / {hr_integer(portal_d)}",
+            hr_percent(portal_share),
+            f"{hr_integer(print_n)} / {hr_integer(print_d)}",
+            hr_percent(print_share),
+            f"{hr_integer(network_n)} / {hr_integer(network_d)}",
+            hr_percent(network_share),
+            f"{hr_decimal(print_network_gap * 100)} postotnih bodova",
+            hr_percent(a_aggregate),
+            hr_percent(b_aggregate),
+        ],
+        "revizija_modela": [
+            f"{hr_integer(portal_n)} / {hr_integer(portal_d)}",
+            hr_percent(portal_share),
+            f"{hr_integer(print_n)} / {hr_integer(print_d)}",
+            hr_percent(print_share),
+        ],
+    }
+    for task_class, tokens in expected_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        missing_tokens = [token for token in tokens if token not in result]
+        if missing_tokens:
+            errors.append(f"Unit 01 {task_class} numerical result lacks recomputed tokens: {missing_tokens}")
+
+    evidence = {
+        "portal_share": f"{portal_share * 100:.5f}",
+        "print_share": f"{print_share * 100:.5f}",
+        "network_share": f"{network_share * 100:.5f}",
+        "print_network_gap_pp": f"{print_network_gap * 100:.5f}",
+        "simpson_a": f"{a_aggregate * 100:.2f}",
+        "simpson_b": f"{b_aggregate * 100:.2f}",
+        "applicable_records": str(len(applicable)),
+        "print_path": "hand-calculation-with-optional-widget-check",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -684,9 +809,27 @@ def main() -> int:
         "P5-CLOSURE-00 must author exactly five canonical unit 00 records.",
     )
     unit_00_numerical: dict[str, str] = {}
-    if "00" in records_by_unit and "chapters/00-predgovor.qmd" in source_lines:
+    if (
+        "00" in records_by_unit
+        and len(records_by_unit["00"]) == 5
+        and {record["task_class"] for record in records_by_unit["00"]} == expected_task_classes
+        and "chapters/00-predgovor.qmd" in source_lines
+    ):
         numerical_errors, unit_00_numerical = unit_00_numerical_check(
             source_lines["chapters/00-predgovor.qmd"], records_by_unit["00"]
+        )
+        errors.extend(numerical_errors)
+    unit_01_numerical: dict[str, str] = {}
+    if (
+        "01" in records_by_unit
+        and len(records_by_unit["01"]) == 5
+        and {record["task_class"] for record in records_by_unit["01"]} == expected_task_classes
+        and "chapters/01-zasto-statistika.qmd" in source_lines
+    ):
+        numerical_errors, unit_01_numerical = unit_01_numerical_check(
+            source_lines["chapters/01-zasto-statistika.qmd"],
+            records_by_unit["01"],
+            ROOT / "data/populacija-medija-agregat.csv",
         )
         errors.extend(numerical_errors)
 
@@ -833,6 +976,17 @@ def main() -> int:
     digest = hashlib.sha256(
         json.dumps(assessment, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()
+    unit_record_digests = {
+        unit_id: hashlib.sha256(
+            json.dumps(
+                sorted(records, key=lambda record: record["record_id"]),
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        ).hexdigest()
+        for unit_id, records in sorted(records_by_unit.items())
+    }
     print("ASSESSMENT_ARCHITECTURE_OK")
     print(f"- state: assessment:sha256-{digest}")
     print("- governed items: 3; canonical answer components: 6")
@@ -849,6 +1003,13 @@ def main() -> int:
         f"kolegij-only source regions checked: {profile_region_count}"
     )
     print(
+        "- unit record states: "
+        + "; ".join(
+            f"{unit_id}=assessment-unit:sha256-{record_digest}"
+            for unit_id, record_digest in unit_record_digests.items()
+        )
+    )
+    print(
         f"- protected rubric/alternative/instructor strings checked: {len(protected_strings)}; "
         "public export leaks: 0"
     )
@@ -861,6 +1022,17 @@ def main() -> int:
         f"count_gap={unit_00_numerical.get('count_gap')} "
         f"records={unit_00_numerical.get('applicable_records')}"
     )
+    if unit_01_numerical:
+        print(
+            "- unit 01 independent numerics: "
+            f"portal={unit_01_numerical.get('portal_share')}% "
+            f"print={unit_01_numerical.get('print_share')}% "
+            f"networks={unit_01_numerical.get('network_share')}% "
+            f"print_network_gap={unit_01_numerical.get('print_network_gap_pp')}pp "
+            f"simpson={unit_01_numerical.get('simpson_a')}%/{unit_01_numerical.get('simpson_b')}% "
+            f"records={unit_01_numerical.get('applicable_records')} "
+            f"print_path={unit_01_numerical.get('print_path')}"
+        )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
 

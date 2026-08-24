@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-01-callout-greska-01",
+  "exercise_id": "ex-01-callout-greska-01",
+  "unit_id": "01",
+  "source_anchor": {
+    "path": "chapters/01-zasto-statistika.qmd",
+    "anchor": "ex-01-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:a26b0f860b2080439a6ce07af470068fead1292ce6da77ee2d6909a10153add5",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "count-substituted-for-within-group-share",
+      "statement": "Iz većega broja osoba spremnih platiti na portalima izvedeno je da portal ima i veći udio takvih osoba.",
+      "why_wrong": "Brojevi 3.514 i 1.289 imaju različite nazivnike. Portal ima 3.514 od 15.101, odnosno 23,27 %, a tisak 1.289 od 4.855, odnosno 26,55 %, pa portal ima veći broj, ali manji udio."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Za portal i tisak zasebno podijeliti broj osoba spremnih platiti ukupnim brojem osoba u toj skupini, a zatim usporediti dobivene udjele umjesto brojnika.",
+      "expected_evidence": "3.514 / 15.101 = 23,27 %, dok je 1.289 / 4.855 = 26,55 %; smjer usporedbe udjela suprotan je usporedbi brojeva."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Portal ima više osoba spremnih platiti, pa je zaključak točan.",
+          "why_insufficient": "Ponavlja usporedbu brojnika i ne izračunava udio unutar skupine koji posljednja rečenica tvrdi."
+        },
+        {
+          "response": "Skup je generiran pa se iz njega ništa ne može zaključiti.",
+          "why_insufficient": "Iz skupa se smiju opisati broj i udio unutar poznate generirane populacije; problem je zamjena tih dviju mjera, a ne nemogućnost svakoga opisa."
+        },
+        {
+          "response": "Tisak ima udio od 26,55 %.",
+          "why_insufficient": "Navodi samo jedan rezultat i ne pokazuje zašto veći portalni broj ne znači veći portalni udio."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "portal-numerator-denominator-share",
+          "required_claim": "Portal ima 3.514 spremnih platiti među 15.101 osobom, odnosno 23,27 %.",
+          "required_evidence": "Redak portal u prikazanoj tablici i neovisni račun 3.514 / 15.101."
+        },
+        {
+          "component_id": "print-numerator-denominator-share",
+          "required_claim": "Tisak ima 1.289 spremnih platiti među 4.855 osoba, odnosno 26,55 %.",
+          "required_evidence": "Redak tisak u prikazanoj tablici i neovisni račun 1.289 / 4.855."
+        },
+        {
+          "component_id": "name-and-correct-only-error",
+          "required_claim": "Jedina je pogreška zamjena većega broja većim udjelom; ispravno je reći da portal ima veći broj, a tisak veći udio.",
+          "required_evidence": "Usporedba dvaju brojnika odvojena od usporedbe dvaju omjera."
+        },
+        {
+          "component_id": "preserve-generated-population-boundary",
+          "required_claim": "Ispravljeni opis vrijedi samo za poznatu generiranu populaciju i ne opisuje stvarne stanovnike Hrvatske.",
+          "required_evidence": "Deklarirano podrijetlo skupa u okviru modela i razrađenom primjeru."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "3.514 / 15.101 = 0,2326998212 = 23,27 %; 1.289 / 4.855 = 0,2654994851 = 26,55 %; 23,27 % < 26,55 %",
+      "tolerance_or_acceptance_rule": "Brojnici i nazivnici moraju biti točni; prihvaćaju se udjeli 23,27 % i 26,55 % ili dosljedno prikazane preciznije vrijednosti uz ispravan smjer usporedbe.",
+      "independent_method": "Ponovno izračunati oba omjera iz cjelobrojnih stupaca broj_platio i broj u izvornom CSV-u, bez preuzimanja zapisanoga udjela ili rješenja.",
+      "evidence_reference": "data/populacija-medija-agregat.csv, retci portal i tisak; chapters/01-zasto-statistika.qmd#ex-01-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-count-share-confusion-or-population-transfer",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća da veći broj dokazuje veći udio ili ispravljeni rezultat prenosi na stvarne stanovnike Hrvatske.",
+          "observable_evidence": "Središnja tvrdnja ostaje nespojiva s nazivnicima ili prelazi deklariranu granicu generirane populacije."
+        },
+        {
+          "criterion_id": "major-missing-one-denominator-or-correction",
+          "severity": "major",
+          "description": "Pogreška je imenovana, ali nedostaje jedan nazivnik, jedan udio ili jasna ispravna zamjena posljednje rečenice.",
+          "observable_evidence": "Ne može se provjeriti cijela usporedba portala i tiska."
+        },
+        {
+          "criterion_id": "minor-rounding-or-measure-label",
+          "severity": "minor",
+          "description": "Smjer i logika su točni, ali zaokruživanje nije dosljedno ili broj i udio nisu jasno označeni.",
+          "observable_evidence": "Rezultat se može ispraviti lokalnom oznakom ili dosljednim decimalnim mjestima."
+        },
+        {
+          "criterion_id": "useful-parallel-fraction-display",
+          "severity": "useful_improvement",
+          "description": "Odgovor prikazuje oba razlomka usporedno i jednom rečenicom razdvaja broj od udjela.",
+          "observable_evidence": "Trag provjere čitljiv je bez vraćanja na dodatni račun."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equivalent-corrected-wording",
+      "description": "Prihvatljiva je svaka formulacija koja portal veže uz veći broj, tisak uz veći udio i oba udjela veže uz njihove stvarne nazivnike.",
+      "acceptance_boundary": "Formulacija ne smije broj osoba nazvati udjelom niti rezultat prenijeti izvan generirane populacije."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina namjerna pogreška jest posljednja rečenica koja iz većega broja izvodi veći udio; svi navedeni brojnici i tiskani udio namjerno su točni.",
+    "Ne tražiti kod. Dovoljan je ručni račun iz prikazane tablice ili izvornih cjelobrojnih stupaca."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

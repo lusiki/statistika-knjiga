@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-01-revizija-modela-01",
+  "exercise_id": "ex-01-revizija-modela-01",
+  "unit_id": "01",
+  "source_anchor": {
+    "path": "chapters/01-zasto-statistika.qmd",
+    "anchor": "ex-01-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:790926d347f98f3add076ca2316a1fefb422d659f391e2ea225e1c80f1267631",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "count-substituted-for-within-group-share",
+      "statement": "Rečenica 'Prema tome, portal ima veći udio osoba spremnih platiti' izvodi usporedbu udjela samo iz usporedbe broja osoba.",
+      "why_wrong": "Portalni broj 3.514 dijeli se s 15.101, a tiskani broj 1.289 s 4.855. Dobivenih 23,27 % za portal manje je od 26,55 % za tisak."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Iz modelnoga teksta izdvojiti oba brojnika, pronaći pripadne nazivnike u tablici, neovisno ponoviti dva dijeljenja i zatim provjeriti ostaje li zamjenska rečenica unutar generirane populacije.",
+      "expected_evidence": "3.514 / 15.101 = 23,27 % i 1.289 / 4.855 = 26,55 %; ispravna zamjena glasi da portal ima veći broj, a tisak veći udio u generiranoj populaciji."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogrešna je brojka 1.289.",
+          "why_insufficient": "Brojnik za tisak točan je; pogreška nastaje tek kada se broj portala protumači kao veći udio."
+        },
+        {
+          "response": "Portal nema više osoba spremnih platiti.",
+          "why_insufficient": "Portal doista ima veći broj od tiska, ali nema veći udio unutar svoje veće skupine."
+        },
+        {
+          "response": "Jedina je pogreška to što skup nije stvaran.",
+          "why_insufficient": "Generirano podrijetlo ispravno ograničava zaključak; ono ne poništava opis poznate generirane populacije."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "correct-numerators-and-denominators",
+          "required_claim": "Portalni su brojnik i nazivnik 3.514 i 15.101, a tiskani 1.289 i 4.855.",
+          "required_evidence": "Odgovarajući retci prikazane tablice."
+        },
+        {
+          "component_id": "identify-one-wrong-sentence",
+          "required_claim": "Pogrešna je samo posljednja rečenica koja portalnom većem broju pripisuje veći udio.",
+          "required_evidence": "Usporedba strukture tvrdnje s dvama različitim nazivnicima."
+        },
+        {
+          "component_id": "correct-replacement",
+          "required_claim": "Ispravna zamjena navodi da portal ima veći broj osoba spremnih platiti, ali tisak ima veći udio, 26,55 % prema 23,27 %.",
+          "required_evidence": "Neovisni računi oba udjela."
+        },
+        {
+          "component_id": "real-population-boundary",
+          "required_claim": "Ni ispravljeni odgovor ne opisuje stvarne stanovnike Hrvatske jer su zapisi generirani za nastavu, a ne prikupljeni iz te populacije.",
+          "required_evidence": "Deklarirano podrijetlo skupa i granica generalizacije u poglavlju."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "3.514 / 15.101 = 0,2326998212 = 23,27 %; 1.289 / 4.855 = 0,2654994851 = 26,55 %; portal ima veći broj, a tisak veći udio",
+      "tolerance_or_acceptance_rule": "Brojnici i nazivnici moraju odgovarati tablici; prihvaćaju se udjeli na dvije decimale ili precizniji ekvivalenti uz ispravnu usporedbu i granicu generirane populacije.",
+      "independent_method": "Ponoviti dva omjera iz cjelobrojnih stupaca izvornoga CSV-a i odvojeno provjeriti podrijetlo skupa prije pisanja zamjenske rečenice.",
+      "evidence_reference": "data/populacija-medija-agregat.csv, retci portal i tisak; chapters/01-zasto-statistika.qmd#ex-01-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-keeps-wrong-share-or-generalises",
+          "severity": "fatal",
+          "description": "Odgovor zadržava tvrdnju da portal ima veći udio ili ispravljeni rezultat generalizira na stvarne stanovnike Hrvatske.",
+          "observable_evidence": "Središnja analiza ostaje nespojiva s računom ili podrijetlom podataka."
+        },
+        {
+          "criterion_id": "major-missing-required-deliverable",
+          "severity": "major",
+          "description": "Nedostaju točni brojnici i nazivnici, pogrešna rečenica, zamjenska rečenica ili objašnjenje granice prema stvarnoj populaciji.",
+          "observable_evidence": "Barem jedan od četiri izričito tražena dijela predaje nije moguće pronaći."
+        },
+        {
+          "criterion_id": "minor-incomplete-arithmetic-trace",
+          "severity": "minor",
+          "description": "Zaključak i granica su točni, ali jedan omjer ili način zaokruživanja nije potpuno prikazan.",
+          "observable_evidence": "Rezultat se može potvrditi, ali trag provjere nije samodostatan."
+        },
+        {
+          "criterion_id": "useful-separates-description-and-generalisation",
+          "severity": "useful_improvement",
+          "description": "Odgovor izričito odvaja valjan opis generirane populacije od nedopuštene generalizacije na stvarne ljude.",
+          "observable_evidence": "Ispravljena rečenica i granica tvrdnje čine dva jasna, povezana koraka."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equivalent-replacement-sentence",
+      "description": "Prihvatljiva je formulacija da je tisak vodeći prema udjelu, a portal prema apsolutnom broju.",
+      "acceptance_boundary": "Mora zadržati ispravan smjer, oba nazivnika i ograničenje na generiranu populaciju."
+    }
+  ],
+  "instructor_notes": [
+    "Namjerna pogreška ista je ona koju revizijski zadatak traži da student pronađe. Brojnici, tiskani udio i tvrdnja da portal ima veći broj nisu pogrešni.",
+    "Zadatak ocjenjuje statističku prosudbu i ne smije se pretvoriti u pisanje ili popravljanje koda."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
