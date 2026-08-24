@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P5-CLOSURE-08
-next_permitted_packet: P5-CLOSURE-09
+last_completed_packet: P5-CLOSURE-09
+next_permitted_packet: P5-CLOSURE-10
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -76,12 +76,12 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; the P5-CLOSURE-08 write lock is released |
-| Last completed packet | `P5-CLOSURE-08`; exactly `R15-CLOSURE-08` advanced, five unit 08 solution records and five source anchors were accepted, and route assembly remained deferred |
-| Next permitted packet | `P5-CLOSURE-09`; not claimed |
+| Active write packet | None |
+| Last completed packet | `P5-CLOSURE-09`; exactly `R15-CLOSURE-09` advanced, five unit 09 solution records and five source anchors were accepted, and route assembly remained deferred |
+| Next permitted packet | `P5-CLOSURE-10` only; not claimed |
 | Review parents | 31 ratified; 5 accepted |
-| Atomic child inventory | Complete: 371 stable children; 288 accepted, 5 deferred with reason and 78 ratified pending their later gates; zero in progress and zero unmapped |
-| Exact packet catalogue | 189 packets: 135 accepted, 53 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 289 accepted, 5 deferred with reason and 77 ratified pending their later gates; zero in progress and zero unmapped |
+| Exact packet catalogue | 189 packets: 136 accepted, 52 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -6644,6 +6644,59 @@ the durable evidence is
   released, exactly `R15-CLOSURE-08` advances and `P5-CLOSURE-09` becomes the
   sole next permitted packet without being claimed.
 
+## P5-CLOSURE-09 claim
+
+- The workflow checker passed from clean P5-CLOSURE-08 closeout `75eae1e`
+  with no active packet and `P5-CLOSURE-09` as the sole next permitted packet.
+- The predecessor diff confirms that only its packet record and
+  `R15-CLOSURE-08` advanced, while `chapter-ledger.json` and
+  `config/book-inventory.json` retained their exact parent blobs and
+  `solution_routes` remained empty.
+- The packet record, governed item, complete unit 09 source, assessment
+  registry, solution-record schema and sole applicable incoming handoff were
+  read before claim.
+- `H-P5-CLOSURE-00-001` was acknowledged and consumed at `before_start` before
+  the first chapter or solution-record edit. Its storage, identifier, anchor,
+  prompt-fingerprint, six-component schema, D06-two-layer-v1 visibility and
+  no-route-assembly decisions remain binding.
+- The only write lock now belongs to `P5-CLOSURE-09`. Its scope is five unit
+  09 anchors, five canonical records, the independent checker, one closeout
+  report and the three canonical control files. No chapter stage, route or
+  external action is authorised.
+
+## P5-CLOSURE-09 closeout
+
+- Five schema-valid records close the planted-error callout and all four
+  Zadaci tiers under unit-record state
+  `bfe8a07efe336d48b15197e9c56abc83e7a3f1b924205ccd7a303ac1dcff5a7d`.
+  The chapter diff adds exactly five matching identifiers and changes no prose.
+- The sole planted error is
+  `confidence-level-assigned-to-fixed-parameter-after-observed-interval`:
+  confidence belongs to the long-run procedure, while a fixed parameter is
+  either inside or outside the already observed interval.
+- Independent checks reproduce preset widths `0,619806421393`,
+  `0,814602725259` and `0,309903210697`, miss counts `3/0/1`, all five
+  analytical/aggregate data values, and the chapter-03 bias reach-back with a
+  `3,0965518888`-point margin and biased target `46 %` outside the interval.
+- Actual isolated full-source renders execute all 25 steps. Default HTML
+  SHA-256 `5d65f33348c5b89eef7203aee798244eaa740d840a240f13a728b0d8c5f8c8c5`
+  omits the existing protected key, while `kolegij` SHA-256
+  `582ad26617c78ee3a411e5362d95bf215d67ac8ffbcc4fdb6ed8442dac1e9cd4`
+  includes it. Both carry all five anchors and neither carries any of the 61
+  protected strings from the new records.
+- Release-mode AI export passes for 19 chapters and the checker finds zero
+  leaks among 625 protected record strings. Generated export artifacts are
+  restored to their exact pre-check Git state; `solution_routes` remains empty.
+- Assessment, book architecture, inventory, chapter-spine, style,
+  figure-introduction and JSON checks pass. Four advisory structure candidates
+  predate the packet and remain untouched by the anchor-only source diff. All
+  four assessment fixtures and all three workflow fixtures fail closed for
+  their injected defects.
+- `packet_reviews.P5-CLOSURE-09` declares all future effects recorded with an
+  empty outgoing list. The chapter ledger is unchanged, the write lock is
+  released, exactly `R15-CLOSURE-09` advances and `P5-CLOSURE-10` becomes the
+  sole next permitted packet without being claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -6666,24 +6719,24 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P5-CLOSURE-08` and
-`next_permitted_packet: P5-CLOSURE-09`. Confirm that P5-CLOSURE-08 advanced
-only `R15-CLOSURE-08`, left every chapter stage unchanged, kept
+Verify `active_write_packet: null`, `last_completed_packet: P5-CLOSURE-09` and
+`next_permitted_packet: P5-CLOSURE-10`. Confirm that P5-CLOSURE-09 advanced
+only `R15-CLOSURE-09`, left every chapter stage unchanged, kept
 `config/book-inventory.json#solution_routes` empty, consumed required handoff
 `H-P5-CLOSURE-00-001` and declared no new future-relevant effect.
 
-Claim and execute only `P5-CLOSURE-09` as a separate packet. Fully read its
+Claim and execute only `P5-CLOSURE-10` as a separate packet. Fully read its
 packet record, governed item, assessment registry, solution-record schema,
-unit 09 source and every applicable incoming handoff. Acknowledge and consume
+unit 10 source and every applicable incoming handoff. Acknowledge and consume
 `H-P5-CLOSURE-00-001` before the first substantive edit, preserving its
 storage, identifier, anchor, prompt-fingerprint, schema, visibility and
-no-route-assembly decisions. Implement only unit 09's canonical answer,
+no-route-assembly decisions. Implement only unit 10's canonical answer,
 independent check, rubric and planted-error closure under D06-two-layer-v1.
 
 Before closeout, run every packet-specific assessment, numerical, profile and
 export check; record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger and dashboard
 together; run the workflow checker and all three negative fixtures; close and
-locally commit P5-CLOSURE-09; then stop. Do not claim P5-CLOSURE-10, push,
+locally commit P5-CLOSURE-10; then stop. Do not claim P5-CLOSURE-11, push,
 merge, tag, archive, deploy or publish.
 ```

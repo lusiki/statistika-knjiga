@@ -1977,6 +1977,306 @@ def unit_08_numerical_check(
     return errors, evidence
 
 
+def unit_09_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    analytical_path: Path,
+    aggregate_path: Path,
+    chapter_03_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 09 interval, aggregate and reach-back quantities."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-09-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-09-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-09-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-09-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-09-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 09 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 09 {label} prompt is empty.")
+
+    preset_parameters = {
+        "A": (40, 1.960),
+        "B": (40, 2.576),
+        "C": (160, 1.960),
+    }
+    widths = {
+        label: 2 * critical / math.sqrt(sample_size)
+        for label, (sample_size, critical) in preset_parameters.items()
+    }
+    expected_widths = {
+        "A": 0.6198064213930023,
+        "B": 0.8146027252593745,
+        "C": 0.3099032106965012,
+    }
+    for label in preset_parameters:
+        if not math.isclose(widths[label], expected_widths[label], rel_tol=0, abs_tol=1e-12):
+            errors.append(
+                f"Unit 09 preset {label} width drifted: {widths[label]} != {expected_widths[label]}"
+            )
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        "set.seed(919)",
+        "matrix(rnorm(50 * 160)",
+        's9_preset("A", 40, 1.960, "95 %")',
+        's9_preset("B", 40, 2.576, "99 %")',
+        's9_preset("C", 160, 1.960, "95 %")',
+        '"data/populacija-medija-agregat.csv"',
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 09 source no longer exposes required numerical contract: {source_token}")
+
+    try:
+        with analytical_path.open(encoding="utf-8", newline="") as handle:
+            analytical_rows = list(csv.DictReader(handle))
+        with aggregate_path.open(encoding="utf-8", newline="") as handle:
+            aggregate_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 09 data files could not be read independently: {exc}"], {}
+
+    portal_rows = [row for row in analytical_rows if row.get("izvor_vijesti_sifra") == "1"]
+    total_rows = len(analytical_rows)
+    portal_count = len(portal_rows)
+    try:
+        trust_sum = sum(Decimal(row["povjerenje_medijima"]) for row in portal_rows)
+    except (KeyError, ArithmeticError) as exc:
+        return errors + [f"Unit 09 analytical trust values are invalid: {exc}"], {}
+    portal_share = Decimal(portal_count) / Decimal(total_rows)
+    portal_mean = trust_sum / Decimal(portal_count)
+
+    expected_data = (
+        50000,
+        15101,
+        Decimal("72101"),
+        Decimal("0.30202"),
+        Decimal("4.774584464604993"),
+    )
+    observed_data = (total_rows, portal_count, trust_sum, portal_share, portal_mean)
+    if observed_data[:4] != expected_data[:4] or abs(portal_mean - expected_data[4]) > Decimal("1e-14"):
+        errors.append(f"Unit 09 analytical values drifted: {observed_data} != {expected_data}")
+
+    portal_aggregates = [row for row in aggregate_rows if row.get("izvor_vijesti_sifra") == "1"]
+    if len(portal_aggregates) != 1:
+        errors.append(f"Unit 09 aggregate portal row count is {len(portal_aggregates)}, expected 1.")
+    else:
+        aggregate = portal_aggregates[0]
+        aggregate_values = (
+            int(aggregate["broj"]),
+            int(aggregate["ukupno"]),
+            Decimal(aggregate["zbroj_povjerenja"]),
+            Decimal(aggregate["udio"]),
+            Decimal(aggregate["prosjek_povjerenja"]),
+        )
+        expected_aggregate = (
+            portal_count,
+            total_rows,
+            trust_sum,
+            portal_share,
+            portal_mean,
+        )
+        if aggregate_values[:4] != expected_aggregate[:4] or abs(
+            aggregate_values[4] - expected_aggregate[4]
+        ) > Decimal("1e-14"):
+            errors.append(
+                f"Unit 09 analytical and aggregate portal values disagree: "
+                f"{aggregate_values} != {expected_aggregate}"
+            )
+
+    estimate = 0.52
+    sample_size = 1000
+    selection_bias = 0.06
+    margin = 1.96 * math.sqrt(estimate * (1 - estimate) / sample_size)
+    lower = estimate - margin
+    upper = estimate + margin
+    target = estimate - selection_bias
+    expected_reachback = (0.030965518887950193, 0.48903448111204983, 0.5509655188879502, 0.46)
+    observed_reachback = (margin, lower, upper, target)
+    if not all(
+        math.isclose(observed, expected, rel_tol=0, abs_tol=1e-15)
+        for observed, expected in zip(observed_reachback, expected_reachback)
+    ):
+        errors.append(f"Unit 09 Chapter 03 reach-back drifted: {observed_reachback}")
+
+    try:
+        chapter_03 = chapter_03_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return errors + [f"Unit 09 Chapter 03 reach-back source is unavailable: {exc}"], {}
+    for token in (
+        "const margina = 1.96 * Math.sqrt(",
+        "const istina = procjena - pristranost;",
+        '"n = 1 000, pristranost 6 bodova"',
+        "Pristranost = c(0, 0, 0.06)",
+        "#| label: fig-w03-print",
+    ):
+        if token not in chapter_03:
+            errors.append(f"Unit 09 Chapter 03 reach-back contract is missing: {token}")
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "jednom vrijednošću po neovisno uzorkovanoj osobi",
+            "replicate",
+            "sample",
+            "median",
+            "quantile",
+            "devedesetpetpostotna vjerojatnost",
+            "fiksna populacijska vrijednost",
+            "upravo ovog opaženog intervala",
+        )
+    ):
+        errors.append("Unit 09 callout no longer exposes the complete fixed-parameter probability error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "razina pouzdanosti pripada postupku",
+            "što je u postupku slučajno, a što fiksno",
+            "vjerojatnosti da parametar leži unutar zadanih granica",
+            "bootstrap gotovih oznaka teksta",
+            "nesigurnost pravila kodiranja",
+            "predajte jedan odlomak",
+        )
+    ):
+        errors.append("Unit 09 conceptual prompt no longer requires procedure, parameter and coding-uncertainty boundaries.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "iz tiskane tablice s trima postavkama",
+            "$2z^*/\\sqrt{n}$",
+            "između postavki a i b",
+            "između a i c",
+            "data/populacija-medija.csv",
+            "izvor_vijesti_sifra",
+            "data/populacija-medija-agregat.csv",
+            "pet reproduciranih vrijednosti",
+            "ne pisanje koda",
+        )
+    ):
+        errors.append("Unit 09 numerical prompt no longer preserves preset, file-reconciliation and no-code requirements.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "istraživač margine pogreške",
+            "uzorkom od 1000 osoba bez pristranosti",
+            "pristranošću od šest postotnih bodova",
+            "oba pokazuju procjenu od 52 %",
+            "ne može obuhvatiti pristranost odabira",
+            "koji je izvor nesigurnosti unutar, a koji izvan intervala",
+            "ispravljenu tvrdnju",
+        )
+    ):
+        errors.append("Unit 09 critical prompt no longer preserves the Chapter 03 bias reach-back.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if (
+        not all(
+            token in normalized_revision
+            for token in (
+                "replicate",
+                "sample",
+                "median",
+                "quantile",
+                "jedinu pogrešnu rečenicu",
+                "frekventistički ispravnu zamjenu",
+                "zadržava razinu od 95 %",
+                "kod ne treba prepisivati ni mijenjati",
+            )
+        )
+        or any(phrase in normalized_revision for phrase in ("napišite kod", "popravite kod"))
+    ):
+        errors.append("Unit 09 model revision must map the trace and repair only the interpretation without code production.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 09 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "confidence-level-assigned-to-fixed-parameter-after-observed-interval"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 09 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    if numerical_applicable != {"racunski", "kriticki"}:
+        errors.append(f"Unit 09 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    racunski_result = str(
+        by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    required_racunski_tokens = (
+        "0,619806421393",
+        "0,814602725259",
+        "0,309903210697",
+        "3 promašaja",
+        "0 promašaja",
+        "1 promašaj",
+        "50000",
+        "15101",
+        "72101",
+        "0,30202",
+        "4,7745844646",
+    )
+    missing_racunski = [token for token in required_racunski_tokens if token not in racunski_result]
+    if missing_racunski:
+        errors.append(f"Unit 09 numerical answer lacks recomputed preset or aggregate tokens: {missing_racunski}")
+
+    critical_result = str(
+        by_class["kriticki"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    required_critical_tokens = (
+        "0,0309655",
+        "3,0966 postotnih bodova",
+        "48,9034 %",
+        "55,0966 %",
+        "46 %",
+    )
+    missing_critical = [token for token in required_critical_tokens if token not in critical_result]
+    if missing_critical:
+        errors.append(f"Unit 09 critical answer lacks recomputed margin tokens: {missing_critical}")
+
+    evidence = {
+        "widths": "/".join(f"{label}-{widths[label]:.12f}" for label in ("A", "B", "C")),
+        "misses": "A-3/B-0/C-1",
+        "analytical": f"{total_rows}/{portal_count}/{trust_sum}/{portal_share}/{portal_mean:.10f}",
+        "reachback": f"{100*margin:.10f}pp/{100*lower:.10f}-{100*upper:.10f}/{100*target:.4f}",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-w09-preset-and-aggregate-tables-plus-w03-static-state-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -2397,6 +2697,21 @@ def main() -> int:
             records_by_unit["08"],
         )
         errors.extend(numerical_errors)
+    unit_09_numerical: dict[str, str] = {}
+    if (
+        "09" in records_by_unit
+        and len(records_by_unit["09"]) == 5
+        and {record["task_class"] for record in records_by_unit["09"]} == expected_task_classes
+        and "chapters/09-procjena.qmd" in source_lines
+    ):
+        numerical_errors, unit_09_numerical = unit_09_numerical_check(
+            source_lines["chapters/09-procjena.qmd"],
+            records_by_unit["09"],
+            ROOT / "data/populacija-medija.csv",
+            ROOT / "data/populacija-medija-agregat.csv",
+            ROOT / "chapters/03-kako-brojke-zavode.qmd",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -2682,6 +2997,17 @@ def main() -> int:
             f"records={unit_08_numerical.get('applicable_records')} "
             f"planted_error={unit_08_numerical.get('planted_error')} "
             f"print_path={unit_08_numerical.get('print_path')}"
+        )
+    if unit_09_numerical:
+        print(
+            "- unit 09 independent numerics: "
+            f"widths={unit_09_numerical.get('widths')} "
+            f"misses={unit_09_numerical.get('misses')} "
+            f"analytical={unit_09_numerical.get('analytical')} "
+            f"reachback={unit_09_numerical.get('reachback')} "
+            f"records={unit_09_numerical.get('applicable_records')} "
+            f"planted_error={unit_09_numerical.get('planted_error')} "
+            f"print_path={unit_09_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
