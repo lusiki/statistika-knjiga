@@ -2506,6 +2506,311 @@ def unit_10_numerical_check(
     return errors, evidence
 
 
+def unit_11_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    analytical_path: Path,
+    aggregate_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 11 effect-size, power and planning quantities."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-11-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-11-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-11-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-11-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-11-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 11 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 11 {label} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        "set.seed(1111)",
+        "s11_studija <- function(velicina, permutacija = 200)",
+        "(b + 1) / (permutacija + 1)",
+        "set.seed(1112)",
+        "s11_male <- t(replicate(3000, s11_studija(60)))",
+        "s11_ciljni_d <- 0.5 / 1.9",
+        "s11_ciljni_n <- ceiling(power.t.test(",
+        "#| label: fig-w11-print",
+        "#| label: tbl-w11-print-agregat",
+        "#| label: tbl-w11-print-snaga",
+        "d_opazeni <- (mean(tisak) - mean(portal)) / sd_zdruzena",
+        "power.t.test(n = 30, delta = d_opazeni, sd = 1,",
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 11 source no longer exposes required numerical contract: {source_token}")
+
+    try:
+        with analytical_path.open(encoding="utf-8", newline="") as handle:
+            analytical_rows = list(csv.DictReader(handle))
+        with aggregate_path.open(encoding="utf-8", newline="") as handle:
+            aggregate_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 11 data could not be read independently: {exc}"], {}
+
+    analytical_groups: dict[str, list[Decimal]] = {"portal": [], "tisak": []}
+    code_to_group = {"1": "portal", "5": "tisak"}
+    try:
+        for row in analytical_rows:
+            group = code_to_group.get(row.get("izvor_vijesti_sifra", ""))
+            if group:
+                analytical_groups[group].append(Decimal(row["povjerenje_medijima"]))
+    except (KeyError, ArithmeticError) as exc:
+        return errors + [f"Unit 11 analytical trust values are invalid: {exc}"], {}
+
+    aggregate_by_group = {
+        row.get("izvor_vijesti", ""): row
+        for row in aggregate_rows
+        if row.get("izvor_vijesti") in analytical_groups
+    }
+    expected_aggregate = {
+        "portal": (15101, Decimal("72101"), Decimal("4.774584464604993")),
+        "tisak": (4855, Decimal("26791"), Decimal("5.518228630278064")),
+    }
+    recomputed_means: dict[str, Decimal] = {}
+    for group, (expected_count, expected_sum, stored_mean) in expected_aggregate.items():
+        row = aggregate_by_group.get(group)
+        if row is None:
+            errors.append(f"Unit 11 aggregate lacks {group!r} row.")
+            continue
+        try:
+            count = int(row["broj"])
+            trust_sum = Decimal(row["zbroj_povjerenja"])
+            aggregate_mean = Decimal(row["prosjek_povjerenja"])
+        except (KeyError, ValueError, ArithmeticError) as exc:
+            errors.append(f"Unit 11 aggregate {group!r} row is invalid: {exc}")
+            continue
+        analytical = analytical_groups[group]
+        analytical_sum = sum(analytical, Decimal(0))
+        recomputed_mean = trust_sum / Decimal(count)
+        recomputed_means[group] = recomputed_mean
+        if (count, trust_sum, aggregate_mean) != (expected_count, expected_sum, stored_mean):
+            errors.append(
+                f"Unit 11 aggregate {group!r} drifted: "
+                f"{count}/{trust_sum}/{aggregate_mean}"
+            )
+        if count != len(analytical) or trust_sum != analytical_sum:
+            errors.append(
+                f"Unit 11 analytical/aggregate reconciliation failed for {group!r}: "
+                f"{len(analytical)}/{analytical_sum} != {count}/{trust_sum}"
+            )
+        if abs(recomputed_mean - aggregate_mean) > Decimal("1e-15"):
+            errors.append(
+                f"Unit 11 stored mean drifted for {group!r}: "
+                f"{aggregate_mean} != {recomputed_mean}"
+            )
+
+    if set(recomputed_means) != {"portal", "tisak"}:
+        return errors + ["Unit 11 means could not be reconstructed for both groups."], {}
+
+    mean_difference = recomputed_means["tisak"] - recomputed_means["portal"]
+    expected_difference = Decimal("0.743644165673070804881187577")
+    if abs(mean_difference - expected_difference) > Decimal("1e-15"):
+        errors.append(f"Unit 11 mean difference drifted: {mean_difference} != {expected_difference}")
+
+    portal_float = [float(value) for value in analytical_groups["portal"]]
+    print_float = [float(value) for value in analytical_groups["tisak"]]
+
+    def sample_variance(values: list[float]) -> float:
+        mean_value = math.fsum(values) / len(values)
+        return math.fsum((value - mean_value) ** 2 for value in values) / (len(values) - 1)
+
+    portal_variance = sample_variance(portal_float)
+    print_variance = sample_variance(print_float)
+    pooled_sd = math.sqrt(
+        ((len(portal_float) - 1) * portal_variance + (len(print_float) - 1) * print_variance)
+        / (len(portal_float) + len(print_float) - 2)
+    )
+    standardized_difference = float(mean_difference) / pooled_sd
+    if abs(pooled_sd - 1.9121848632846543) > 1e-12:
+        errors.append(f"Unit 11 pooled standard deviation drifted: {pooled_sd}")
+    if abs(standardized_difference - 0.3888976322067926) > 1e-12:
+        errors.append(f"Unit 11 standardized difference drifted: {standardized_difference}")
+
+    simulated_power = {40: 0.425, 80: 0.724, 160: 0.946, 300: 0.999}
+    critical_z = 1.959963984540054
+
+    def normal_cdf(value: float) -> float:
+        return 0.5 * (1 + math.erf(value / math.sqrt(2)))
+
+    analytical_power: dict[int, float] = {}
+    for group_n, simulated in simulated_power.items():
+        mean_z = 0.4 * math.sqrt(group_n / 2)
+        exact = normal_cdf(-critical_z - mean_z) + 1 - normal_cdf(critical_z - mean_z)
+        analytical_power[group_n] = exact
+        if abs(simulated - exact) > 0.03:
+            errors.append(
+                f"Unit 11 printed power at n={group_n} is not within Monte Carlo tolerance: "
+                f"{simulated} versus {exact}"
+            )
+    if not all(
+        simulated_power[current] < simulated_power[following]
+        for current, following in zip((40, 80, 160), (80, 160, 300))
+    ):
+        errors.append("Unit 11 printed power values are not strictly increasing with group size.")
+
+    target_d = Decimal("0.5") / Decimal("1.9")
+    expected_target_d = Decimal("0.2631578947368421052631578947")
+    if abs(target_d - expected_target_d) > Decimal("1e-27"):
+        errors.append(f"Unit 11 target standardized effect drifted: {target_d}")
+    posthoc_power = Decimal("0.8438926")
+    target_n_raw = Decimal("227.64002629604767")
+    target_n_ceiling = 228
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "tridesetero ljudi po skupini",
+            "delta = d_opazeni",
+            "opažena razlika daje standardiziranu razliku oko 0,78",
+            "snaga izračunata za tu vrijednost",
+            "studija bila dovoljno velika",
+            "procijenjenoj razlici može vjerovati",
+        )
+    ):
+        errors.append("Unit 11 callout no longer exposes one complete observed-effect power error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "podskup procjena koje su prešle prag",
+            "prosjek svih procjena ostaje blizu istini",
+            "korak u kojem nastaje iskrivljenje",
+            "faktor ne smije prenijeti na svako područje",
+        )
+    ):
+        errors.append("Unit 11 conceptual prompt no longer requires selection and transfer boundaries.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "data/populacija-medija-agregat.csv",
+            "podijelite zbroj povjerenja brojem osoba",
+            "izračunajte razliku prosjeka",
+            "pri 40, 80, 160 i 300",
+            "u html-u upotrijebite widget",
+            "u tiskanom izdanju tablicu",
+            "veći uzorak istodobno sužava interval i povećava snagu",
+            "ne mijenja unaprijed zadanu veličinu učinka",
+            "ne pisanje koda",
+        )
+    ):
+        errors.append("Unit 11 numerical prompt no longer preserves calculation, print and H10 paths.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "niska prosječna snaga nekog područja znači samo",
+            "istraživanja propuštaju stvarne učinke",
+            "kratku uredničku bilješku",
+            "podatak koji bi vam trebao",
+            "koliko je objavljena veličina učinka precijenjena",
+        )
+    ):
+        errors.append("Unit 11 critical prompt no longer requires consequence and evidence judgments.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if (
+        not all(
+            token in normalized_revision
+            for token in (
+                "provjeru iz okvira o pogrešci",
+                "što je u pozivu ispravno",
+                "argument u kojem stoji kružnost",
+                "redak koda u kojem ona ulazi u račun",
+                "čime bi taj argument trebalo zamijeniti",
+            )
+        )
+        or any(phrase in normalized_revision for phrase in ("napišite kod", "popravite kod"))
+    ):
+        errors.append("Unit 11 model revision must diagnose the input without code production.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 11 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "observed-effect-used-for-post-hoc-power"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 11 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    if numerical_applicable != {"callout_greska", "racunski", "revizija_modela"}:
+        errors.append(f"Unit 11 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    for task_class in ("callout_greska", "revizija_modela"):
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        for token in ("0,8438926", "0,2631578947", "227,6400263", "228"):
+            if token not in result:
+                errors.append(f"Unit 11 {task_class} answer lacks recomputed token: {token}")
+
+    numerical_result = str(
+        by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    for token in (
+        "72101/15101",
+        "4,774584464604993",
+        "26791/4855",
+        "5,518228630278064",
+        "0,743644165673071",
+        "42,5 %",
+        "72,4 %",
+        "94,6 %",
+        "99,9 %",
+    ):
+        if token not in numerical_result:
+            errors.append(f"Unit 11 numerical answer lacks recomputed token: {token}")
+
+    evidence = {
+        "aggregate": (
+            f"portal-72101/15101/{recomputed_means['portal']:.15f}-"
+            f"tisak-26791/4855/{recomputed_means['tisak']:.15f}-"
+            f"gap-{mean_difference:.15f}"
+        ),
+        "effect": f"pooled-sd-{pooled_sd:.12f}/d-{standardized_difference:.12f}",
+        "power_print": "/".join(f"{group_n}-{100*value:.1f}%" for group_n, value in simulated_power.items()),
+        "power_analytic": "/".join(
+            f"{group_n}-{100*value:.4f}%" for group_n, value in analytical_power.items()
+        ),
+        "posthoc": f"d-0.78/n-30/power-{posthoc_power}",
+        "target": f"raw-d-{target_d:.12f}/n-{target_n_raw}/ceiling-{target_n_ceiling}",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-w11-aggregate-and-power-preset-tables-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -2954,6 +3259,20 @@ def main() -> int:
             ROOT / "data/populacija-medija.csv",
         )
         errors.extend(numerical_errors)
+    unit_11_numerical: dict[str, str] = {}
+    if (
+        "11" in records_by_unit
+        and len(records_by_unit["11"]) == 5
+        and {record["task_class"] for record in records_by_unit["11"]} == expected_task_classes
+        and "chapters/11-velicina-ucinka-i-snaga.qmd" in source_lines
+    ):
+        numerical_errors, unit_11_numerical = unit_11_numerical_check(
+            source_lines["chapters/11-velicina-ucinka-i-snaga.qmd"],
+            records_by_unit["11"],
+            ROOT / "data/populacija-medija.csv",
+            ROOT / "data/populacija-medija-agregat.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -3262,6 +3581,19 @@ def main() -> int:
             f"records={unit_10_numerical.get('applicable_records')} "
             f"planted_error={unit_10_numerical.get('planted_error')} "
             f"print_path={unit_10_numerical.get('print_path')}"
+        )
+    if unit_11_numerical:
+        print(
+            "- unit 11 independent numerics: "
+            f"aggregate={unit_11_numerical.get('aggregate')} "
+            f"effect={unit_11_numerical.get('effect')} "
+            f"power_print={unit_11_numerical.get('power_print')} "
+            f"power_analytic={unit_11_numerical.get('power_analytic')} "
+            f"posthoc={unit_11_numerical.get('posthoc')} "
+            f"target={unit_11_numerical.get('target')} "
+            f"records={unit_11_numerical.get('applicable_records')} "
+            f"planted_error={unit_11_numerical.get('planted_error')} "
+            f"print_path={unit_11_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

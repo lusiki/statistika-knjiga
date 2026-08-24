@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-11-callout-greska-01",
+  "exercise_id": "ex-11-callout-greska-01",
+  "unit_id": "11",
+  "source_anchor": {
+    "path": "chapters/11-velicina-ucinka-i-snaga.qmd",
+    "anchor": "ex-11-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:0a3ed56abe16037cff9410ac51f4b93ae07aee40d6204d0d190a32a36188bbb3",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "observed-effect-used-for-post-hoc-power",
+      "statement": "Snaga od približno 0,84, izračunana iz opažene standardizirane razlike 0,78, dokazuje da je završena studija bila dovoljno velika i da se opaženoj razlici može vjerovati.",
+      "why_wrong": "Opažena je razlika procjena iz istih podataka čija se uvjerljivost navodno provjerava. Njezino uvrštavanje kao ciljnoga učinka čini račun kružnim i može proizvesti visoku post hoc snagu upravo kada je procjena slučajno velika. Snaga plana računa se prije podataka za sadržajno zadan najmanji važan učinak, dok se pouzdanost završene procjene prosuđuje njezinim intervalom, dizajnom i neovisnim dokazima."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Povezati svaki argument poziva s njegovim izvorom i pitati je li vrijednost bila dostupna prije prikupljanja podataka. Zatim zamijeniti opaženi učinak unaprijed opravdanim najmanjim važnim učinkom i usporediti zaključak o potrebnom uzorku.",
+      "expected_evidence": "Argument `delta = d_opazeni` preuzima procjenu iz istih trideset jedinica po skupini. Kada se umjesto nje uporabi najmanja važna razlika od 0,5 boda uz standardnu devijaciju 1,9 boda, ciljni standardizirani učinak iznosi približno 0,263, a za 80 % snage treba 228 ljudi po skupini."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Greška je u tome što `sd` iznosi jedan.",
+          "why_insufficient": "Uz standardiziranu razliku postavljanje standardne devijacije na jedan upravo izražava učinak u standardnim devijacijama. Kružnost ulazi preko izvora argumenta `delta`."
+        },
+        {
+          "response": "Greška je u funkciji `power.t.test`, pa treba uporabiti permutacijski test.",
+          "why_insufficient": "Poziv je sintaktički i računski valjan za zadani idealizirani dvoskupinski plan. Promjena postupka ne uklanja činjenicu da je ciljni učinak uzet iz istih podataka."
+        },
+        {
+          "response": "Studija je dovoljno velika jer je dobivena snaga iznad 0,80.",
+          "why_insufficient": "Takav odgovor prihvaća upravo kružni rezultat koji treba provjeriti i ne pita odakle dolazi ciljni učinak."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "validate-call-structure",
+          "required_claim": "Poziv ispravno navodi dvije skupine, trideset jedinica po skupini, obostrani postupak i prag 0,05.",
+          "required_evidence": "Argumenti `n`, `sig.level` i `type` odgovaraju opisanom planu, a standardizirana skala opravdava `sd = 1`."
+        },
+        {
+          "component_id": "locate-circular-input",
+          "required_claim": "Kružnost je u argumentu `delta = d_opazeni`, a ulazi retkom koji `d_opazeni` računa iz istih podataka.",
+          "required_evidence": "Brojnik koristi sredine `tisak` i `portal`, a nazivnik `sd_zdruzena` iz završene studije."
+        },
+        {
+          "component_id": "replace-with-planning-effect",
+          "required_claim": "Argument `delta` treba zamijeniti unaprijed opravdanim najmanjim važnim učinkom ili rasponom takvih učinaka.",
+          "required_evidence": "Pola boda uz raspršenost 1,9 daje standardizirani cilj približno 0,263 i mnogo veći potrebni uzorak od trideset po skupini."
+        },
+        {
+          "component_id": "separate-estimate-trust-from-power",
+          "required_claim": "Post hoc snaga ne potvrđuje pouzdanost opažene procjene.",
+          "required_evidence": "Završena procjena traži interval, provjeru dizajna i neovisne dokaze, dok snaga opisuje plan pod unaprijed zadanim učinkom."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Prikazani post hoc poziv pri d = 0,78 i n = 30 po skupini vraća snagu 0,8438926. Unaprijed zadana razlika 0,5 boda uz standardnu devijaciju 1,9 daje d = 0,5/1,9 = 0,2631578947. `power.t.test` za obostrani postupak, prag 0,05 i snagu 0,80 daje 227,6400263, pa se plan zaokružuje na 228 ljudi po skupini.",
+      "tolerance_or_acceptance_rule": "Prihvatiti post hoc vrijednost približno 0,84 samo ako je označena kao kružni rezultat, ne kao dokaz dostatnosti. Ciljni d prihvatiti od 0,26 do 0,2632, a potrebni uzorak samo uz zaokruživanje naviše na 228 po skupini.",
+      "independent_method": "U čistoj R sesiji zasebno izvesti oba poziva `power.t.test`, prvi s opaženim d = 0,78, a drugi s unaprijed zadanim `delta = 0,5` i `sd = 1,9`; ručno provjeriti omjer 0,5/1,9 i zaokruživanje veličine skupine naviše.",
+      "evidence_reference": "chapters/11-velicina-ucinka-i-snaga.qmd#ex-11-callout-greska-01; chapters/11-velicina-ucinka-i-snaga.qmd#s11-vrijednosti"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-accepts-observed-effect-power",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća post hoc snagu kao dokaz da je studija bila dostatna ili da je opaženi učinak pouzdan.",
+          "observable_evidence": "Zaključak zadržava kružni argument `delta = d_opazeni` bez provjere izvora ciljnoga učinka."
+        },
+        {
+          "criterion_id": "major-fails-to-locate-delta",
+          "severity": "major",
+          "description": "Odgovor prepoznaje opću kružnost, ali ne imenuje argument `delta`, redak koji računa `d_opazeni` ili obranjivu zamjenu.",
+          "observable_evidence": "Dijagnoza se ne može povezati s konkretnim pozivom i planom."
+        },
+        {
+          "criterion_id": "minor-imprecise-planning-language",
+          "severity": "minor",
+          "description": "Središnja dijagnoza stoji, ali najmanji važan učinak nije jasno odvojen od očekivanoga ili opaženoga učinka.",
+          "observable_evidence": "Potrebna je lokalna terminološka dorada bez promjene zaključka."
+        },
+        {
+          "criterion_id": "useful-adds-precision-route",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno predlaže planiranje prema potrebnoj širini intervala kao drugi obranjivi put.",
+          "observable_evidence": "Alternativa jasno odvaja preciznost procjene od vjerojatnosti prelaska praga."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "precision-first-diagnosis",
+      "description": "Prihvatljiv odgovor može kružni post hoc račun zamijeniti planiranjem prema unaprijed zadanoj širini intervala.",
+      "acceptance_boundary": "Mora i dalje izrijekom locirati `delta = d_opazeni`, odbiti tvrdnju da snaga potvrđuje procjenu i navesti podatke potrebne za plan preciznosti."
+    }
+  ],
+  "instructor_notes": [
+    "Ocjenjuje se dijagnoza statističkoga ulaza, ne popravljanje ili prepisivanje koda.",
+    "Ne proglasiti samu vrijednost 0,8438926 računskom pogreškom. Ona je točan izlaz pogrešno postavljenoga provjernog pitanja."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

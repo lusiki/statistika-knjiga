@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-CLOSURE-10"
-  next_permitted_packet: "P5-CLOSURE-11"
+  last_completed_packet: "P5-CLOSURE-11"
+  next_permitted_packet: "P5-CLOSURE-12"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -15810,7 +15810,7 @@ packets:
     sequence: 145
     phase: "5"
     kind: "assessment_unit"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-CLOSURE-10"
       - "P2-ASSESS"
@@ -15822,13 +15822,67 @@ packets:
       - "Every applicable task has its required key, check, rubric, or model-answer component."
       - "Protected instructor content is absent from public routes and exports."
       - "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-8559bfead72e2a2be7c87101957a45828ce2660457144df238ba7f60a7b6f7f1"
+      required_evidence:
+        - requirement: "canonical answer records"
+          artifacts:
+            - "records:assessment/solution-records/unit-11-five-schema-valid-records"
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-38672c28974fc3e2f53860b2bf4e8f393a46ec8a990443ef9461f684a7addbd1"
+            - "report:notes/reports/p5-closure-11-2026-08-24.md"
+            - "handoff:H-P5-CLOSURE-00-001-consumed-before-start"
+        - requirement: "independent numerical checks"
+          artifacts:
+            - "check:unit-11-aggregate-portal-72101-over-15101-equals-4.774584464604993-print-26791-over-4855-equals-5.518228630278064-gap-0.743644165673071"
+            - "check:unit-11-pooled-sd-1.912184863285-standardized-effect-0.388897632207"
+            - "check:unit-11-print-power-42.5-72.4-94.6-99.9-percent-analytic-power-43.2158-71.5617-94.7141-99.8354-percent"
+            - "check:unit-11-posthoc-d-0.78-n-30-power-0.8438926"
+            - "check:unit-11-target-d-0.263157894737-raw-n-227.64002629604767-ceiling-228"
+            - "check:ASSESSMENT_ARCHITECTURE_OK-unit-11-numerical-records-3-print-path-rendered-aggregate-and-power-tables-no-code"
+        - requirement: "profile visibility and export test"
+          artifacts:
+            - "profile:default-html-9536eaa3f1991f3564a6b0216e38b9b773b8a52042b5c15047e60e15e785248f-kolegij-key-absent"
+            - "profile:kolegij-html-6bf960c513714b2f921e49f3cac96a01ae413ce926524a3bf96daef7524bafd9-kolegij-key-present"
+            - "export:AI_EXPORT_RELEASE_OK-chapters-19-protected-regions-33-governance-pre_release"
+            - "check:protected-record-strings-746-public-export-leaks-0"
+            - "boundary:config/book-inventory.json-solution_routes-empty"
+      outputs:
+        - output: "P5-CLOSURE-11 canonical assessment-closure record for: Canonical answer, check, rubric, and planted-error closure for unit 11."
+          artifacts:
+            - "records:assessment/solution-records/unit-11"
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd#five-stable-assessment-anchors"
+            - "source:scripts/check-assessment-architecture.py#unit-11-independent-numerics-and-planted-error"
+            - "report:notes/reports/p5-closure-11-2026-08-24.md"
+        - output: "Completion evidence is tied to the declared P5-CLOSURE-11 source state and bounded scope."
+          artifacts:
+            - "assessment-unit:sha256-8559bfead72e2a2be7c87101957a45828ce2660457144df238ba7f60a7b6f7f1"
+            - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-38672c28974fc3e2f53860b2bf4e8f393a46ec8a990443ef9461f684a7addbd1"
+            - "boundary:no-route-no-stage-no-prose-change"
+      exit_tests:
+        - test: "Every applicable task has its required key, check, rubric, or model-answer component."
+          result: "passed"
+          evidence:
+            - "check:five-records-five-anchors-five-task-classes-six-components-each"
+            - "check:one-stable-planted-error-shared-by-callout-and-model-revision"
+            - "check:not-applicable-components-carry-reasons"
+        - test: "Protected instructor content is absent from public routes and exports."
+          result: "passed"
+          evidence:
+            - "check:protected-record-strings-746-public-export-leaks-0"
+            - "boundary:solution-routes-empty-and-no-route-assembly"
+        - test: "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
+          result: "passed"
+          evidence:
+            - "check:four-Zadaci-tiers-plus-callout-greska-covered"
+            - "check:unit-11-independent-numerical-recomputation-passed"
+            - "check:default-versus-kolegij-full-source-profile-separation-passed"
+            - "check:print-path-unit-11-rendered-aggregate-and-power-tables-no-code-passed"
     contract: "assessment_unit"
     required_evidence:
       - "canonical answer records"
       - "independent numerical checks"
       - "profile visibility and export test"
-    change_reference: null
+    change_reference: "assessment-unit:sha256-8559bfead72e2a2be7c87101957a45828ce2660457144df238ba7f60a7b6f7f1"
   P5-CLOSURE-12:
     sequence: 146
     phase: "5"
@@ -25778,7 +25832,7 @@ items:
       location: "§12 assessment closure + §15 R15"
     description: "Complete canonical assessment closure for unit 11."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_assessment_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -25795,11 +25849,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-CLOSURE-11"
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-8559bfead72e2a2be7c87101957a45828ce2660457144df238ba7f60a7b6f7f1"
+      artifacts:
+        - "records:assessment/solution-records/unit-11-five-schema-valid-records"
+        - "source:chapters/11-velicina-ucinka-i-snaga.qmd@sha256-38672c28974fc3e2f53860b2bf4e8f393a46ec8a990443ef9461f684a7addbd1"
+        - "check:ASSESSMENT_ARCHITECTURE_OK-records-60-anchors-60-unit-11-numerics-print-profile-export-pass"
+        - "profile:default-9536eaa3f1991f3564a6b0216e38b9b773b8a52042b5c15047e60e15e785248f-kolegij-6bf960c513714b2f921e49f3cac96a01ae413ce926524a3bf96daef7524bafd9"
+        - "report:notes/reports/p5-closure-11-2026-08-24.md"
+        - "handoff:H-P5-CLOSURE-00-001-consumed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "assessment-unit:sha256-8559bfead72e2a2be7c87101957a45828ce2660457144df238ba7f60a7b6f7f1"
   R15-CLOSURE-12:
     parents:
       - "R15"
