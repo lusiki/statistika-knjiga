@@ -3069,6 +3069,211 @@ def unit_12_numerical_check(
     return errors, evidence
 
 
+def unit_13_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 13 contingency-table closure and planted-error boundaries."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-13-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-13-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-13-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-13-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-13-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 13 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 13 {label} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        "set.seed(1313)",
+        "s13_tablica <- table(",
+        "s13_rez <- s13_test$stdres",
+        "s13_v <- sqrt(",
+        "#| label: fig-w13",
+        "#| label: fig-w13-print",
+        "#ex-13-callout-greska-01",
+        "#ex-13-konceptualni-01",
+        "#ex-13-racunski-01",
+        "#ex-13-kriticki-01",
+        "#ex-13-revizija-modela-01",
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 13 source no longer exposes required assessment contract: {source_token}")
+
+    row_totals = (100, 100)
+    column_totals = (120, 80)
+    grand_total = sum(row_totals)
+    expected = tuple(
+        tuple(row_total * column_total / grand_total for column_total in column_totals)
+        for row_total in row_totals
+    )
+    first_observed = 70
+    observed = (
+        (first_observed, row_totals[0] - first_observed),
+        (column_totals[0] - first_observed, column_totals[1] - (row_totals[0] - first_observed)),
+    )
+    if tuple(map(sum, observed)) != row_totals:
+        errors.append(f"Unit 13 observed row totals drifted: {observed}")
+    if tuple(sum(row[column] for row in observed) for column in range(2)) != column_totals:
+        errors.append(f"Unit 13 observed column totals drifted: {observed}")
+
+    expected_target = ((60.0, 40.0), (60.0, 40.0))
+    observed_target = ((70, 30), (50, 50))
+    if expected != expected_target:
+        errors.append(f"Unit 13 expected table drifted: {expected} != {expected_target}")
+    if observed != observed_target:
+        errors.append(f"Unit 13 observed table drifted: {observed} != {observed_target}")
+
+    contributions = tuple(
+        (observed[row][column] - expected[row][column]) ** 2 / expected[row][column]
+        for row in range(2)
+        for column in range(2)
+    )
+    chi_square = math.fsum(contributions)
+    threshold = 3.84
+    p_value_df1 = math.erfc(math.sqrt(chi_square / 2))
+    cramer_v = math.sqrt(chi_square / grand_total)
+    contribution_target = (5 / 3, 5 / 2, 5 / 3, 5 / 2)
+    if any(abs(actual - target) > 1e-15 for actual, target in zip(contributions, contribution_target)):
+        errors.append(f"Unit 13 cell contributions drifted: {contributions}")
+    if abs(chi_square - 25 / 3) > 1e-15 or chi_square <= threshold:
+        errors.append(f"Unit 13 chi-square comparison drifted: {chi_square} versus {threshold}")
+    if abs(cramer_v - math.sqrt(1 / 24)) > 1e-15:
+        errors.append(f"Unit 13 Cramer's V verification drifted: {cramer_v}")
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "očekivane frekvencije",
+            "prilagođeni standardizirani reziduali",
+            "značajan na razini ispod jedan promil",
+            "veza između dobi i izvora vijesti vrlo je snažna",
+        )
+    ):
+        errors.append("Unit 13 callout no longer exposes one complete p-value-as-strength error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "testa nezavisnosti",
+            "mjere jačine veze",
+            "dvije rečenice",
+            "što test kaže",
+            "što v kaže",
+        )
+    ):
+        errors.append("Unit 13 conceptual prompt no longer separates the test from effect strength.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "dva retka s po sto ispitanika",
+            "rubnim zbrojevima stodvadeset i osamdeset",
+            "sve četiri očekivane frekvencije",
+            "sa sedamdeset u prvoj ćeliji",
+            "doprinos svake ćelije",
+            "graničnom vrijednošću 3,84",
+        )
+    ):
+        errors.append("Unit 13 numerical prompt no longer determines the complete 2x2 calculation.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "simpsonov paradoks",
+            "berkeleyjev slučaj",
+            "zbirnu tablicu spola i ishoda prijave",
+            "skup odjelskih tablica",
+            "razliku u sastavu prijava",
+            "razlike u odlučivanju unutar odjela",
+            "naziv varijable",
+        )
+    ):
+        errors.append("Unit 13 critical prompt no longer requires aggregate and department-level schemes.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if not all(
+        token in normalized_revision
+        for token in (
+            "dijagnostičke korake koji su provedeni ispravno",
+            "jedan pogrešan zaključak",
+            "koju bi veličinu izvještaj morao sadržavati",
+        )
+    ):
+        errors.append("Unit 13 model revision no longer diagnoses one claim and names strength evidence.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 13 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "small-p-treated-as-strong-association"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 13 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    if numerical_applicable != {"racunski"}:
+        errors.append(f"Unit 13 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    numerical_result = str(
+        by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    for token in (
+        "[[60, 40], [60, 40]]",
+        "[[70, 30], [50, 50]]",
+        "1,666666666667",
+        "2,5",
+        "8,333333333333",
+        "3,84",
+        "jedan stupanj slobode",
+    ):
+        if token not in numerical_result:
+            errors.append(f"Unit 13 numerical answer lacks recomputed token: {token}")
+
+    evidence = {
+        "expected": "60/40/60/40",
+        "observed": "70/30/50/50",
+        "contributions": "/".join(f"{value:.12f}" for value in contributions),
+        "chi_square": f"{chi_square:.12f}>{threshold:.2f}",
+        "p_value_df1": f"{p_value_df1:.12f}",
+        "cramer_v": f"{cramer_v:.12f}",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "source-embedded-2x2-margins-and-first-cell-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -3544,6 +3749,18 @@ def main() -> int:
             ROOT / "notes/reports/p3-evidence12-rrr-lab-effects.csv",
         )
         errors.extend(numerical_errors)
+    unit_13_numerical: dict[str, str] = {}
+    if (
+        "13" in records_by_unit
+        and len(records_by_unit["13"]) == 5
+        and {record["task_class"] for record in records_by_unit["13"]} == expected_task_classes
+        and "chapters/13-kategoricki-podaci.qmd" in source_lines
+    ):
+        numerical_errors, unit_13_numerical = unit_13_numerical_check(
+            source_lines["chapters/13-kategoricki-podaci.qmd"],
+            records_by_unit["13"],
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -3877,6 +4094,19 @@ def main() -> int:
             f"records={unit_12_numerical.get('applicable_records')} "
             f"planted_error={unit_12_numerical.get('planted_error')} "
             f"print_path={unit_12_numerical.get('print_path')}"
+        )
+    if unit_13_numerical:
+        print(
+            "- unit 13 independent numerics: "
+            f"expected={unit_13_numerical.get('expected')} "
+            f"observed={unit_13_numerical.get('observed')} "
+            f"contributions={unit_13_numerical.get('contributions')} "
+            f"chi_square={unit_13_numerical.get('chi_square')} "
+            f"p_df1={unit_13_numerical.get('p_value_df1')} "
+            f"cramer_v={unit_13_numerical.get('cramer_v')} "
+            f"records={unit_13_numerical.get('applicable_records')} "
+            f"planted_error={unit_13_numerical.get('planted_error')} "
+            f"print_path={unit_13_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

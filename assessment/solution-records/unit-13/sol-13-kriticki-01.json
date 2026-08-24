@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-13-kriticki-01",
+  "exercise_id": "ex-13-kriticki-01",
+  "unit_id": "13",
+  "source_anchor": {
+    "path": "chapters/13-kategoricki-podaci.qmd",
+    "anchor": "ex-13-kriticki-01"
+  },
+  "task_class": "kriticki",
+  "prompt_fingerprint": "sha256:eb3c929ad769319987f39c2024f1df773311a576dcdd2de90838f5ec2074a7a0",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak otvoreno traži usporedbu zbirne i slojevite tablice te granicu dvovarijantnoga testa, a ne daje jednu skrivenu pogrešku za otkrivanje.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "U zbirnoj shemi usporediti spol i ishod prijave bez treće varijable, a zatim istu usporedbu ponoviti unutar svakoga odjela. Provjeriti mijenja li se zaključak kada nazivnik postane skup prijava unutar odjela.",
+      "expected_evidence": "Zbirni test otkriva povezanost spola i ishoda u ukupnoj tablici, ali ne pokazuje nastaje li ona zato što se skupine prijavljuju odjelima različite selektivnosti ili zato što se ishodi razlikuju unutar istoga odjela. Odjel je nužna treća varijabla."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Hi-kvadrat test zbirne tablice pogrešan je jer postoji Simpsonov paradoks.",
+          "why_insufficient": "Test može točno odgovoriti na zbirno pitanje. Problem je što zbirno pitanje ne razlikuje sastav prijava od odlučivanja unutar odjela."
+        },
+        {
+          "response": "Potrebna varijabla je dob prijavljenih.",
+          "why_insufficient": "Zadatak se vraća na konkretan Berkeleyjev mehanizam. Izostavljeni sloj koji razdvaja sastav i unutarskupinsko odlučivanje jest odjel."
+        },
+        {
+          "response": "Odjelske tablice automatski dokazuju da diskriminacije nema.",
+          "why_insufficient": "Slojevit prikaz uklanja jednu agregacijsku dvosmislenost, ali ne dokazuje potpun uzročni model niti isključuje druge mehanizme."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "aggregate-scheme",
+          "required_claim": "Zbirna shema križa spol s ishodom prijave i koristi ukupan broj prijava odgovarajućega spola kao nazivnik.",
+          "required_evidence": "Shema sadrži dva retka ili stupca za spol i dva za primljen ili nije primljen, bez odjela."
+        },
+        {
+          "component_id": "department-schemes",
+          "required_claim": "Slojevite sheme ponavljaju istu tablicu zasebno unutar svakoga odjela.",
+          "required_evidence": "Nazivnici su sada prijave istoga spola unutar istoga odjela, pa se uspoređuju ishodi pri zajedničkoj razini selektivnosti."
+        },
+        {
+          "component_id": "explain-nonidentification",
+          "required_claim": "Zbirni hi-kvadrat test ne može razlikovati sastav prijava od razlike u odlučivanju unutar odjela.",
+          "required_evidence": "Oba mehanizma mogu proizvesti istu ukupnu kontingencijsku tablicu spola i ishoda."
+        },
+        {
+          "component_id": "name-missing-layer",
+          "required_claim": "Varijabla potrebna za razdvajanje dvaju objašnjenja jest odjel na koji je prijava podnesena.",
+          "required_evidence": "Odjeli se razlikuju po selektivnosti, a raspodjela prijava među njima određuje zbirne nazivnike i ishode."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Prompt traži shematske tablice i objašnjenje izostavljenoga sloja, ali ne daje frekvencije za brojčani ponovni račun.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-treats-aggregate-as-mechanism",
+          "severity": "fatal",
+          "description": "Odgovor tvrdi da zbirni test sam razlikuje sastav prijava od odlučivanja unutar odjela ili da iz njega slijedi uzročni zaključak.",
+          "observable_evidence": "Izostavljena treća varijabla ne smatra se potrebnom za razdvajanje mehanizama."
+        },
+        {
+          "criterion_id": "major-missing-scheme-or-department",
+          "severity": "major",
+          "description": "Nedostaje zbirna shema, skup odjelskih shema, usporedni odlomak ili točno imenovana varijabla odjela.",
+          "observable_evidence": "Jedan od četiriju izričitih dijelova isporuke nije prisutan."
+        },
+        {
+          "criterion_id": "minor-unclear-denominator",
+          "severity": "minor",
+          "description": "Središnji sud stoji, ali nije jasno kako se nazivnik mijenja između zbirne i odjelske usporedbe.",
+          "observable_evidence": "Potrebna je lokalna dopuna sheme ili odlomka bez promjene zaključka."
+        },
+        {
+          "criterion_id": "useful-adds-limited-causal-caveat",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno navodi da vraćanje odjela rješava agregacijsku dvosmislenost, ali ne dovršava uzročnu analizu.",
+          "observable_evidence": "Dodatak čuva razliku između boljega opisa i potpunoga objašnjenja."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "three-way-table",
+      "description": "Prihvatljiva je jedna trodimenzionalna shema spol × ishod × odjel umjesto više zasebnih crteža.",
+      "acceptance_boundary": "Mora jasno prikazati zbirnu marginu, odjelske slojeve, promjenu nazivnika i nemogućnost zbirnoga testa da razlikuje dva mehanizma."
+    }
+  ],
+  "instructor_notes": [
+    "Ne zahtijevati reprodukciju povijesnih frekvencija jer ih prompt ne daje. Ocjenjuju se struktura tablica, nazivnik i logika izostavljene varijable.",
+    "Ne prihvatiti moralni ili pravni zaključak kao zamjenu za statističku dijagnozu. Zadatak pita što zbirna tablica može i ne može razdvojiti."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
