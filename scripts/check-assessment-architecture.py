@@ -4798,6 +4798,230 @@ def unit_16_numerical_check(
     return errors, evidence
 
 
+def unit_17_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    data_path: Path,
+    widget_path: Path,
+    verifier_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 17 classification claims and bind the raw-source verifier."""
+    errors: list[str] = []
+
+    anchors = {
+        "callout_greska": "ex-17-callout-greska-01",
+        "konceptualni": "ex-17-konceptualni-01",
+        "racunski": "ex-17-racunski-01",
+        "kriticki": "ex-17-kriticki-01",
+        "revizija_modela": "ex-17-revizija-modela-01",
+    }
+    try:
+        prompts = {task_class: canonical_prompt(lines, anchor) for task_class, anchor in anchors.items()}
+    except AssertionError as exc:
+        return [f"Unit 17 prompt is unavailable: {exc}"], {}
+    for task_class, prompt in prompts.items():
+        if not prompt.strip():
+            errors.append(f"Unit 17 {task_class} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        '"data/parlament_oznake.csv"',
+        'filter(derived_split == "provjera")',
+        'grepl("Negative$", annotator1_raw)',
+        'grepl("Negative$", annotator2_raw)',
+        'recorded_label == "Negative"',
+        "d3.randomLcg(1717)",
+        "set.seed(1717)",
+        "#| label: fig-w17",
+        "#| label: fig-w17-print",
+        *[f"#{anchor}" for anchor in anchors.values()],
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 17 source no longer exposes required classification contract: {source_token}")
+
+    try:
+        verifier = verifier_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return errors + [f"Unit 17 exact numerical verifier could not be read: {exc}"], {}
+    for verifier_token in (
+        "This script does not source the chapter",
+        'at("data", "_kandidat", "p3-text", "ParlaSent_BCS.jsonl")',
+        'at("data", "_kandidat", "p3-text", "ParlaSent_BCS_test.jsonl")',
+        'split_salt <- "statistika-p3-text-parlasent-only-v1"',
+        'threshold_hex <- "3333333333333400"',
+        'digest::digest(file = promoted_path, algo = "sha256")',
+        "make_lcg <- function(seed)",
+        "make_polar <- function(rng)",
+        "set.seed(1717)",
+        'cat("UNIT_17_NUMERICS_OK\\n")',
+    ):
+        if verifier_token not in verifier:
+            errors.append(f"Unit 17 exact verifier lost required independent contract: {verifier_token}")
+
+    try:
+        raw_bytes = data_path.read_bytes()
+        with data_path.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 17 promoted data could not be read independently: {exc}"], {}
+    data_sha = hashlib.sha256(raw_bytes).hexdigest()
+    if data_sha != "0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef":
+        errors.append(f"Unit 17 promoted data checksum drifted: {data_sha}")
+    if len(rows) != 2698:
+        errors.append(f"Unit 17 promoted data row count drifted: {len(rows)}")
+
+    split_order = ("ucenje", "provjera", "ispitivanje")
+    label_order = ("Negative", "Neutral", "Positive")
+    expected_split_counts = {"ucenje": 1090, "provjera": 272, "ispitivanje": 1336}
+    expected_document_counts = {"ucenje": 944, "provjera": 234, "ispitivanje": 1321}
+    expected_label_counts = {
+        "ucenje": {"Negative": 530, "Neutral": 343, "Positive": 217},
+        "provjera": {"Negative": 122, "Neutral": 90, "Positive": 60},
+        "ispitivanje": {"Negative": 560, "Neutral": 546, "Positive": 230},
+    }
+    split_counts = {split: sum(row.get("derived_split") == split for row in rows) for split in split_order}
+    document_counts = {
+        split: len({row.get("source_document_id") for row in rows if row.get("derived_split") == split})
+        for split in split_order
+    }
+    label_counts = {
+        split: {
+            label: sum(
+                row.get("derived_split") == split and row.get("recorded_label") == label for row in rows
+            )
+            for label in label_order
+        }
+        for split in split_order
+    }
+    if split_counts != expected_split_counts:
+        errors.append(f"Unit 17 split counts drifted: {split_counts}")
+    if document_counts != expected_document_counts:
+        errors.append(f"Unit 17 document counts drifted: {document_counts}")
+    if label_counts != expected_label_counts:
+        errors.append(f"Unit 17 label counts drifted: {label_counts}")
+
+    first_path = tuple(
+        rows[0].get(field, "") if rows else ""
+        for field in ("record_id", "annotator1_raw", "annotator2_raw", "reconciliation_raw", "recorded_label")
+    )
+    expected_first_path = ("train-0001", "N_Neutral", "Negative", "M_Negative", "Negative")
+    if first_path != expected_first_path:
+        errors.append(f"Unit 17 first label path drifted: {first_path}")
+
+    validation = [row for row in rows if row.get("derived_split") == "provjera"]
+
+    def confusion(threshold: float) -> tuple[int, int, int, int, float, float, float, float]:
+        tp = fp = fn = tn = 0
+        for row in validation:
+            votes = (
+                int(str(row.get("annotator1_raw", "")).endswith("Negative"))
+                + int(str(row.get("annotator2_raw", "")).endswith("Negative"))
+            ) / 2
+            decision = votes >= threshold
+            reference = row.get("recorded_label") == "Negative"
+            tp += int(decision and reference)
+            fp += int(decision and not reference)
+            fn += int(not decision and reference)
+            tn += int(not decision and not reference)
+        return (
+            tp,
+            fp,
+            fn,
+            tn,
+            fp / (fp + tn),
+            fn / (fn + tp),
+            tp / (tp + fp),
+            (tp + tn) / (tp + fp + fn + tn),
+        )
+
+    low = confusion(0.5)
+    high = confusion(1.0)
+    expected_low = (122, 16, 0, 134, 16 / 150, 0.0, 122 / 138, 256 / 272)
+    expected_high = (100, 1, 22, 149, 1 / 150, 22 / 122, 100 / 101, 249 / 272)
+    for label, observed, expected in (("low", low, expected_low), ("high", high, expected_high)):
+        if any(abs(float(actual) - float(target)) > 1e-15 for actual, target in zip(observed, expected)):
+            errors.append(f"Unit 17 validation confusion ({label}) drifted: {observed}")
+
+    task = (90, 30, 10, 170)
+    task_metrics = (task[1] / (task[1] + task[3]), task[2] / (task[2] + task[0]), task[0] / (task[0] + task[1]), (task[0] + task[3]) / sum(task))
+    if any(abs(actual - target) > 1e-15 for actual, target in zip(task_metrics, (0.15, 0.10, 0.75, 260 / 300))):
+        errors.append(f"Unit 17 exercise metrics drifted: {task_metrics}")
+
+    try:
+        widgets = load_json(widget_path).get("widgets", [])
+        widget = by_id(widgets, "w17")
+        widget_expected = widget["parity"]["expected"]
+    except (AssertionError, KeyError, TypeError) as exc:
+        errors.append(f"Unit 17 widget registry contract could not be read: {exc}")
+        widget_expected = {}
+    expected_widget = {
+        "ojs": {
+            "default.fpr": 0.051333333333333335,
+            "default.fnr": 0.2966666666666667,
+            "default.group_a.ppv": 0.7740278796771827,
+            "default.group_a.accuracy": 0.8996000000000001,
+            "default.group_b.ppv": 0.918100947592342,
+            "default.group_b.accuracy": 0.8382666666666667,
+        },
+        "r": {
+            "default.fpr": 0.0495,
+            "default.fnr": 0.28883333333333333,
+            "default.group_a.ppv": 0.782218148487626,
+            "default.group_a.accuracy": 0.9026333333333334,
+            "default.group_b.ppv": 0.921598272138229,
+            "default.group_b.accuracy": 0.8428000000000002,
+        },
+    }
+    if widget_expected != expected_widget:
+        errors.append(f"Unit 17 widget golden values drifted: {widget_expected}")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 17 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "held-out-label-accuracy-treated-as-construct-validity"
+    if planted_ids != {expected_error_id}:
+        errors.append(f"Unit 17 callout and model revision do not close one stable planted error: {planted_ids}")
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    if numerical_applicable != {"racunski"}:
+        errors.append(f"Unit 17 numerical applicability mismatch: {sorted(numerical_applicable)}")
+    numerical = str(by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"])
+    for token in ("30/200", "15 %", "10/100", "10 %", "90/120", "75 %", "260/300", "86,7 %"):
+        if token not in numerical:
+            errors.append(f"Unit 17 numerical answer lacks independently checked token: {token}")
+
+    evidence = {
+        "package": (
+            f"rows-{len(rows)}/splits-{split_counts['ucenje']}-{split_counts['provjera']}-{split_counts['ispitivanje']}/"
+            f"documents-{document_counts['ucenje']}-{document_counts['provjera']}-{document_counts['ispitivanje']}/sha256-{data_sha}"
+        ),
+        "confusion": (
+            "low-" + "-".join(f"{value:.12f}" if isinstance(value, float) else str(value) for value in low)
+            + "/high-" + "-".join(f"{value:.12f}" if isinstance(value, float) else str(value) for value in high)
+        ),
+        "task": "FPR-0.15/FNR-0.10/PPV-0.75/accuracy-0.866666666667",
+        "widget": "ojs-and-r-goldens-bound-with-0.03-distributional-parity",
+        "exact_verifier": "scripts/check-unit-17-numerics.R-UNIT_17_NUMERICS_OK",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "source-embedded-confusion-table-arithmetic-and-static-widget-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -5327,6 +5551,21 @@ def main() -> int:
             ROOT / "scripts/check-unit-16-numerics.R",
         )
         errors.extend(numerical_errors)
+    unit_17_numerical: dict[str, str] = {}
+    if (
+        "17" in records_by_unit
+        and len(records_by_unit["17"]) == 5
+        and {record["task_class"] for record in records_by_unit["17"]} == expected_task_classes
+        and "chapters/17-doba-algoritama.qmd" in source_lines
+    ):
+        numerical_errors, unit_17_numerical = unit_17_numerical_check(
+            source_lines["chapters/17-doba-algoritama.qmd"],
+            records_by_unit["17"],
+            ROOT / "data/parlament_oznake.csv",
+            ROOT / "data/widgets.json",
+            ROOT / "scripts/check-unit-17-numerics.R",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -5714,6 +5953,18 @@ def main() -> int:
             f"records={unit_16_numerical.get('applicable_records')} "
             f"planted_error={unit_16_numerical.get('planted_error')} "
             f"print_path={unit_16_numerical.get('print_path')}"
+        )
+    if unit_17_numerical:
+        print(
+            "- unit 17 independent numerics: "
+            f"package={unit_17_numerical.get('package')} "
+            f"confusion={unit_17_numerical.get('confusion')} "
+            f"task={unit_17_numerical.get('task')} "
+            f"widget={unit_17_numerical.get('widget')} "
+            f"exact={unit_17_numerical.get('exact_verifier')} "
+            f"records={unit_17_numerical.get('applicable_records')} "
+            f"planted_error={unit_17_numerical.get('planted_error')} "
+            f"print_path={unit_17_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

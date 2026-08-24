@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-17-racunski-01",
+  "exercise_id": "ex-17-racunski-01",
+  "unit_id": "17",
+  "source_anchor": {
+    "path": "chapters/17-doba-algoritama.qmd",
+    "anchor": "ex-17-racunski-01"
+  },
+  "task_class": "racunski",
+  "prompt_fingerprint": "sha256:778a8537a2a0fdca014822aba586b2c53ac87ef6be05182af7ec9706749ddc0b",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak izričito daje četiri ćelije i traži četiri imenovana izračuna i posljedice; nema skrivenoga modelnog artefakta s posađenom pogreškom.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Rasporediti 90, 30, 10 i 170 u TP, FP, FN i TN. Za svako mjerilo prvo zapisati pitanje i nazivnik, zatim podijeliti odgovarajući brojnik te rezultat povezati s posljedicom odluke o ljudskom pregledu.",
+      "expected_evidence": "FPR = 30/(30 + 170) = 15 %, FNR = 10/(10 + 90) = 10 %, PPV = 90/(90 + 30) = 75 %, a točnost = (90 + 170)/300 = 86,6667 %, odnosno 86,7 %."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Stopa lažno pozitivnih odluka iznosi 30/300 = 10 %.",
+          "why_insufficient": "Nazivnik FPR-a nisu svi slučajevi, nego svih 200 zabilježeno nenegativnih slučajeva, FP + TN."
+        },
+        {
+          "response": "Stopa lažno negativnih odluka iznosi 10/300 = 3,3 %.",
+          "why_insufficient": "Nazivnik FNR-a čini svih 100 zabilježeno negativnih slučajeva, FN + TP."
+        },
+        {
+          "response": "Pozitivna prediktivna vrijednost iznosi 90/100 = 90 %.",
+          "why_insufficient": "To je udio otkrivenih među zabilježeno negativnima, dok PPV polazi od svih 120 slučajeva poslanih u pregled."
+        },
+        {
+          "response": "Točnost 86,7 % dokazuje da je sustav pravedan.",
+          "why_insufficient": "Agregatna točnost ne određuje raspodjelu tereta pogrešaka, valjanost oznake ni legitimnost cilja."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "calculate-fpr",
+          "required_claim": "Stopa lažno pozitivnih odluka iznosi 30/200 = 15 %.",
+          "required_evidence": "Nazivnik FP + TN obuhvaća svih 200 zabilježeno nenegativnih slučajeva; posljedica može biti 30 nepotrebnih pregleda."
+        },
+        {
+          "component_id": "calculate-fnr",
+          "required_claim": "Stopa lažno negativnih odluka iznosi 10/100 = 10 %.",
+          "required_evidence": "Nazivnik FN + TP obuhvaća svih 100 zabilježeno negativnih slučajeva; posljedica može biti deset propuštenih rečenica."
+        },
+        {
+          "component_id": "calculate-ppv",
+          "required_claim": "Pozitivna prediktivna vrijednost iznosi 90/120 = 75 %.",
+          "required_evidence": "Nazivnik TP + FP obuhvaća svih 120 rečenica poslanih u pregled, pa jedna četvrtina reda nema zabilježeni negativni ishod."
+        },
+        {
+          "component_id": "calculate-accuracy",
+          "required_claim": "Točnost iznosi 260/300 = 86,6667 %, što se može zaokružiti na 86,7 %.",
+          "required_evidence": "Brojnik TP + TN obuhvaća 260 podudarnih odluka; posljedica je da jedna zbirna stopa skriva različite vrste i terete 40 pogrešaka."
+        },
+        {
+          "component_id": "state-claim-boundary",
+          "required_claim": "Nijedno od četiriju mjerila samo ne dokazuje valjanost oznake, pravednost sustava ni opravdanost uredničkoga cilja.",
+          "required_evidence": "Sva su mjerila uvjetovana zadanom tablicom prema zabilježenom referentnom ishodu."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "FPR = 30/(30 + 170) = 30/200 = 0,15 = 15 %; FNR = 10/(10 + 90) = 10/100 = 0,10 = 10 %; PPV = 90/(90 + 30) = 90/120 = 0,75 = 75 %; točnost = (90 + 170)/(90 + 30 + 10 + 170) = 260/300 = 0,866666666667 = 86,7 %.",
+      "tolerance_or_acceptance_rule": "Prihvatiti stope unutar 0,05 postotnoga boda uz točne nazivnike. Svaki rezultat mora imati posljedicu za red pregleda, a ukupna točnost ne smije biti proglašena dokazom pravednosti ili valjanosti.",
+      "independent_method": "Iz četiri zadane ćelije zasebno sastaviti svaki uvjetni skup i provjeriti četiri razlomka osnovnom aritmetikom, bez pozivanja poglavlja, widgeta ili programskoga koda.",
+      "evidence_reference": "chapters/17-doba-algoritama.qmd#ex-17-racunski-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-wrong-conditional-denominators",
+          "severity": "fatal",
+          "description": "Odgovor računa FPR ili FNR s ukupnim brojem slučajeva ili PPV s brojem zabilježeno negativnih slučajeva.",
+          "observable_evidence": "Najmanje jedno mjerilo odgovara na drugo pitanje od onoga imenovanoga u zadatku."
+        },
+        {
+          "criterion_id": "major-missing-consequences",
+          "severity": "major",
+          "description": "Brojke su točne, ali nisu povezane s posljedicama za nepotrebne ili propuštene ljudske preglede.",
+          "observable_evidence": "Zadatak je sveden na četiri postotka bez odluke koju opisuju."
+        },
+        {
+          "criterion_id": "minor-rounding-or-label",
+          "severity": "minor",
+          "description": "Izračuni i nazivnici stoje, ali zaokruživanje nije dosljedno ili jedno mjerilo nije jasno imenovano.",
+          "observable_evidence": "Središnja tablica može se rekonstruirati nakon lokalne uredničke korekcije."
+        },
+        {
+          "criterion_id": "useful-compares-error-burdens",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno objašnjava zašto ista brojnost ili stopa dviju vrsta pogreške ne znači isti društveni teret.",
+          "observable_evidence": "Brojčani rezultat povezan je s kapacitetom pregleda i posljedicom propuštanja."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "fraction-first-presentation",
+      "description": "Prihvatljiv prikaz može ostaviti rezultate kao razlomke i postotke u tablici s retkom posljedice.",
+      "acceptance_boundary": "Sva četiri nazivnika moraju biti vidljiva, a posljedice i granica tvrdnje ne smiju nestati."
+    }
+  ],
+  "instructor_notes": [
+    "Ne dodjeljivati punu vrijednost za četiri točna postotka bez nazivnika jer je izbor uvjetnoga skupa središte zadatka.",
+    "Zadatak je potpuno rješiv rukom i u tisku; ne traži se kod ni widget."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
