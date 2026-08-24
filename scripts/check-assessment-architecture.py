@@ -600,6 +600,180 @@ def unit_02_numerical_check(
     return errors, evidence
 
 
+def unit_03_numerical_check(
+    lines: list[str], records: list[dict[str, Any]], data_path: Path
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 03 turnout and simulated-media answers from source inputs."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-03-callout-greska-01")
+        numerical_prompt = canonical_prompt(lines, "ex-03-racunski-01")
+    except AssertionError as exc:
+        return [f"Unit 03 numerical prompt is unavailable: {exc}"], {}
+
+    turnout_match = re.search(
+        r"(\d{1,3}(?:\.\d{3})+)\s+važećih.*?"
+        r"(\d{1,3}(?:\.\d{3})+)\s+nevažećih.*?"
+        r"(\d{1,3}(?:\.\d{3})+)\s+birača prema glasačkim listićima.*?"
+        r"(\d{1,3}(?:\.\d{3})+)\s+manje od\s+"
+        r"(\d{1,3}(?:\.\d{3})+)\s+pristupilih.*?"
+        r"približno\s+([0-9]+,[0-9]+)\s*%",
+        callout_prompt,
+        flags=re.DOTALL,
+    )
+    if not turnout_match:
+        return ["Unit 03 turnout values could not be parsed from the planted-error prompt."], {}
+
+    parse_hr_integer = lambda value: int(value.replace(".", ""))
+    valid, invalid, stated_ballots, stated_gap, accessed = (
+        parse_hr_integer(value) for value in turnout_match.groups()[:5]
+    )
+    stated_relative_percent = Decimal(turnout_match.group(6).replace(",", "."))
+    ballots = valid + invalid
+    turnout_gap = accessed - ballots
+    relative_gap_percent = Decimal(turnout_gap) / Decimal(accessed) * Decimal(100)
+    if ballots != stated_ballots:
+        errors.append("Unit 03 stated ballot total does not reproduce from valid and invalid ballots.")
+    if turnout_gap != stated_gap:
+        errors.append("Unit 03 stated turnout gap does not reproduce from the two operational totals.")
+    if abs(relative_gap_percent - stated_relative_percent) > Decimal("0.005"):
+        errors.append("Unit 03 stated relative turnout gap is not the rounded independent result.")
+
+    try:
+        with data_path.open(encoding="utf-8", newline="") as handle:
+            data_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 03 data could not be read independently: {exc}"], {}
+    by_label = {row.get("izvor_vijesti", ""): row for row in data_rows}
+    missing_labels = {"portal", "TV"} - set(by_label)
+    if missing_labels:
+        return errors + [f"Unit 03 data lacks required categories: {sorted(missing_labels)}"], {}
+
+    media: dict[str, tuple[int, int, Decimal]] = {}
+    for label in ("portal", "TV"):
+        row = by_label[label]
+        try:
+            count = int(row["broj"])
+            total = int(row["ukupno"])
+            stored_share = Decimal(row["udio"])
+        except (KeyError, ValueError, ArithmeticError) as exc:
+            errors.append(f"Unit 03 {label} aggregate fields are invalid: {exc}")
+            continue
+        share = Decimal(count) / Decimal(total)
+        if share != stored_share:
+            errors.append(f"Unit 03 {label} stored share does not reproduce.")
+        media[label] = (count, total, share)
+    if len(media) != 2:
+        return errors, {}
+
+    prompt_counts = re.search(
+        r"portal je glavni izvor vijesti za\s+(\d{1,3}(?:\.\d{3})+)\s+od\s+"
+        r"(\d{1,3}(?:\.\d{3})+)\s+generiranih osoba,\s+a\s+"
+        r"televizija za\s+(\d{1,3}(?:\.\d{3})+)",
+        numerical_prompt,
+        flags=re.DOTALL,
+    )
+    if not prompt_counts:
+        errors.append("Unit 03 simulated-media counts could not be parsed from the numerical prompt.")
+    else:
+        prompt_portal, prompt_total, prompt_tv = (
+            parse_hr_integer(value) for value in prompt_counts.groups()
+        )
+        if (prompt_portal, prompt_total) != media["portal"][:2]:
+            errors.append("Unit 03 portal prompt values disagree with the offline aggregate.")
+        if (prompt_tv, prompt_total) != media["TV"][:2]:
+            errors.append("Unit 03 television prompt values disagree with the offline aggregate.")
+
+    normalized_prompt = " ".join(numerical_prompt.split()).casefold()
+    required_print_tokens = (
+        "15.101 od 50.000",
+        "televizija za 10.827",
+        "dopušten je kalkulator ili proračunska tablica",
+        "ne predaje se kod",
+    )
+    if not all(token in normalized_prompt for token in required_print_tokens):
+        errors.append(
+            "Unit 03 print path must expose all counts, permit a calculator or spreadsheet, and require no code."
+        )
+
+    portal_count, portal_total, portal_share = media["portal"]
+    tv_count, tv_total, tv_share = media["TV"]
+    if portal_total != tv_total:
+        errors.append("Unit 03 portal and television rows do not share the stated generated-population total.")
+    share_gap = portal_share - tv_share
+    relative_media_gap_percent = share_gap / tv_share * Decimal(100)
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 03 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    if planted_ids != {"small-relative-gap-erases-operational-distinction"}:
+        errors.append(f"Unit 03 callout and model revision do not close one stable planted error: {planted_ids}")
+
+    applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"callout_greska", "racunski", "revizija_modela"}
+    if applicable != expected_applicable:
+        errors.append(f"Unit 03 numerical applicability mismatch: {sorted(applicable)}")
+
+    hr_integer = lambda value: f"{value:,}".replace(",", ".")
+    hr_decimal = lambda value, digits: f"{value:.{digits}f}".replace(".", ",")
+    turnout_tokens = [
+        f"{hr_integer(valid)} + {hr_integer(invalid)} = {hr_integer(ballots)}",
+        f"{hr_integer(accessed)} - {hr_integer(ballots)} = {hr_integer(turnout_gap)}",
+    ]
+    callout_tokens = turnout_tokens + [
+        f"{hr_integer(turnout_gap)} / {hr_integer(accessed)} × 100 = "
+        f"{hr_decimal(relative_gap_percent, 4)} %"
+    ]
+    computational_tokens = [
+        f"{hr_integer(portal_count)} / {hr_integer(portal_total)} × 100 = "
+        f"{hr_decimal(portal_share * 100, 3)} %",
+        f"{hr_integer(tv_count)} / {hr_integer(tv_total)} × 100 = "
+        f"{hr_decimal(tv_share * 100, 3)} %",
+        f"{hr_decimal(portal_share * 100, 3)} % - {hr_decimal(tv_share * 100, 3)} % = "
+        f"{hr_decimal(share_gap * 100, 3)} postotnih bodova",
+        f"({hr_integer(portal_count)} - {hr_integer(tv_count)}) / {hr_integer(tv_count)} × 100 = "
+        f"{hr_decimal(relative_media_gap_percent, 3)} %",
+    ]
+    expected_tokens = {
+        "callout_greska": callout_tokens,
+        "racunski": computational_tokens,
+        "revizija_modela": turnout_tokens,
+    }
+    for task_class, tokens in expected_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        missing_tokens = [token for token in tokens if token not in result]
+        if missing_tokens:
+            errors.append(f"Unit 03 {task_class} numerical result lacks recomputed tokens: {missing_tokens}")
+
+    evidence = {
+        "ballot_sum": str(ballots),
+        "turnout_gap": str(turnout_gap),
+        "turnout_relative_percent": f"{relative_gap_percent:.4f}",
+        "portal_share": f"{portal_share * 100:.3f}",
+        "tv_share": f"{tv_share * 100:.3f}",
+        "share_gap_pp": f"{share_gap * 100:.3f}",
+        "relative_media_gap_percent": f"{relative_media_gap_percent:.3f}",
+        "applicable_records": str(len(applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "inline-counts-hand-calculation-with-calculator-or-spreadsheet-and-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -938,6 +1112,19 @@ def main() -> int:
             records_by_unit["02"],
         )
         errors.extend(numerical_errors)
+    unit_03_numerical: dict[str, str] = {}
+    if (
+        "03" in records_by_unit
+        and len(records_by_unit["03"]) == 5
+        and {record["task_class"] for record in records_by_unit["03"]} == expected_task_classes
+        and "chapters/03-kako-brojke-zavode.qmd" in source_lines
+    ):
+        numerical_errors, unit_03_numerical = unit_03_numerical_check(
+            source_lines["chapters/03-kako-brojke-zavode.qmd"],
+            records_by_unit["03"],
+            ROOT / "data/populacija-medija-agregat.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -1148,6 +1335,20 @@ def main() -> int:
             f"I03={unit_02_numerical.get('i03')} "
             f"records={unit_02_numerical.get('applicable_records')} "
             f"print_path={unit_02_numerical.get('print_path')}"
+        )
+    if unit_03_numerical:
+        print(
+            "- unit 03 independent numerics: "
+            f"ballots={unit_03_numerical.get('ballot_sum')} "
+            f"turnout_gap={unit_03_numerical.get('turnout_gap')} "
+            f"turnout_relative={unit_03_numerical.get('turnout_relative_percent')}% "
+            f"portal={unit_03_numerical.get('portal_share')}% "
+            f"tv={unit_03_numerical.get('tv_share')}% "
+            f"gap={unit_03_numerical.get('share_gap_pp')}pp "
+            f"relative_gap={unit_03_numerical.get('relative_media_gap_percent')}% "
+            f"records={unit_03_numerical.get('applicable_records')} "
+            f"planted_error={unit_03_numerical.get('planted_error')} "
+            f"print_path={unit_03_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

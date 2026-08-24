@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-CLOSURE-02"
-  next_permitted_packet: "P5-CLOSURE-03"
+  last_completed_packet: "P5-CLOSURE-03"
+  next_permitted_packet: "P5-CLOSURE-04"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -15208,7 +15208,7 @@ packets:
     sequence: 137
     phase: "5"
     kind: "assessment_unit"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-CLOSURE-02"
       - "P2-ASSESS"
@@ -15220,13 +15220,64 @@ packets:
       - "Every applicable task has its required key, check, rubric, or model-answer component."
       - "Protected instructor content is absent from public routes and exports."
       - "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-9e4676e4d173f7a5e9df1fac73d8ec45126ddbb12cf52e70fdfd245512f35ecf"
+      required_evidence:
+        - requirement: "canonical answer records"
+          artifacts:
+            - "records:assessment/solution-records/unit-03-five-schema-valid-records"
+            - "source:chapters/03-kako-brojke-zavode.qmd@sha256-66f9efe391035d7e7aee617d5d86f68ea1b79f25ec69688291b28bdaea5ef7a6"
+            - "report:notes/reports/p5-closure-03-2026-08-24.md"
+            - "handoff:H-P5-CLOSURE-00-001-consumed-before-start"
+        - requirement: "independent numerical checks"
+          artifacts:
+            - "check:unit-03-ballots-2215209-turnout-gap-1554-relative-0.0701-percent"
+            - "check:unit-03-portal-30.202-tv-21.654-gap-8.548pp-relative-39.475-percent"
+            - "check:ASSESSMENT_ARCHITECTURE_OK-unit-03-numerical-records-3-print-path-inline-counts-no-code"
+        - requirement: "profile visibility and export test"
+          artifacts:
+            - "profile:default-html-342e758497dd0df3d65add3ef1d08b4ac255f58cc3ca3d9c3410dded28ef2e77-kolegij-regions-absent"
+            - "profile:kolegij-html-a3f21fbbca323beba0064cdf6ba209dbef924a0fcf8293c2f8ec76998b3689d7-kolegij-regions-present"
+            - "export:AI_EXPORT_RELEASE_OK-chapters-19-protected-regions-33-governance-pre_release"
+            - "check:protected-record-strings-254-public-export-leaks-0"
+            - "boundary:config/book-inventory.json-solution_routes-empty"
+      outputs:
+        - output: "P5-CLOSURE-03 canonical assessment-closure record for: Canonical answer, check, rubric, and planted-error closure for unit 03."
+          artifacts:
+            - "records:assessment/solution-records/unit-03"
+            - "source:chapters/03-kako-brojke-zavode.qmd#five-stable-assessment-anchors"
+            - "source:scripts/check-assessment-architecture.py#unit-03-independent-numerics-and-planted-error"
+            - "report:notes/reports/p5-closure-03-2026-08-24.md"
+        - output: "Completion evidence is tied to the declared P5-CLOSURE-03 source state and bounded scope."
+          artifacts:
+            - "assessment-unit:sha256-9e4676e4d173f7a5e9df1fac73d8ec45126ddbb12cf52e70fdfd245512f35ecf"
+            - "source:chapters/03-kako-brojke-zavode.qmd@sha256-66f9efe391035d7e7aee617d5d86f68ea1b79f25ec69688291b28bdaea5ef7a6"
+            - "boundary:no-route-no-stage-no-prose-change"
+      exit_tests:
+        - test: "Every applicable task has its required key, check, rubric, or model-answer component."
+          result: "passed"
+          evidence:
+            - "check:five-records-five-anchors-five-task-classes-six-components-each"
+            - "check:one-stable-planted-error-shared-by-callout-and-model-revision"
+            - "check:not-applicable-components-carry-reasons"
+        - test: "Protected instructor content is absent from public routes and exports."
+          result: "passed"
+          evidence:
+            - "check:protected-record-strings-254-public-export-leaks-0"
+            - "boundary:solution-routes-empty-and-no-route-assembly"
+        - test: "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
+          result: "passed"
+          evidence:
+            - "check:four-Zadaci-tiers-plus-callout-greska-covered"
+            - "check:unit-03-independent-numerical-recomputation-passed"
+            - "check:default-versus-kolegij-full-source-profile-separation-passed"
+            - "check:print-path-inline-counts-calculator-or-spreadsheet-no-code-passed"
     contract: "assessment_unit"
     required_evidence:
       - "canonical answer records"
       - "independent numerical checks"
       - "profile visibility and export test"
-    change_reference: null
+    change_reference: "assessment-unit:sha256-9e4676e4d173f7a5e9df1fac73d8ec45126ddbb12cf52e70fdfd245512f35ecf"
   P5-CLOSURE-04:
     sequence: 138
     phase: "5"
@@ -25016,7 +25067,7 @@ items:
       location: "§12 assessment closure + §15 R15"
     description: "Complete canonical assessment closure for unit 03."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_assessment_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -25033,11 +25084,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-CLOSURE-03"
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-9e4676e4d173f7a5e9df1fac73d8ec45126ddbb12cf52e70fdfd245512f35ecf"
+      artifacts:
+        - "records:assessment/solution-records/unit-03-five-schema-valid-records"
+        - "source:chapters/03-kako-brojke-zavode.qmd@sha256-66f9efe391035d7e7aee617d5d86f68ea1b79f25ec69688291b28bdaea5ef7a6"
+        - "check:ASSESSMENT_ARCHITECTURE_OK-records-20-anchors-20-unit-03-numerics-print-profile-export-pass"
+        - "profile:default-342e758497dd0df3d65add3ef1d08b4ac255f58cc3ca3d9c3410dded28ef2e77-kolegij-a3f21fbbca323beba0064cdf6ba209dbef924a0fcf8293c2f8ec76998b3689d7"
+        - "report:notes/reports/p5-closure-03-2026-08-24.md"
+        - "handoff:H-P5-CLOSURE-00-001-consumed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "assessment-unit:sha256-9e4676e4d173f7a5e9df1fac73d8ec45126ddbb12cf52e70fdfd245512f35ecf"
   R15-CLOSURE-04:
     parents:
       - "R15"

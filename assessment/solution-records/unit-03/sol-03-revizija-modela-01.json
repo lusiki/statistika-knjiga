@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-03-revizija-modela-01",
+  "exercise_id": "ex-03-revizija-modela-01",
+  "unit_id": "03",
+  "source_anchor": {
+    "path": "chapters/03-kako-brojke-zavode.qmd",
+    "anchor": "ex-03-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:96a63fb36bb65d1dcee2a238b3fb515590e94b293d2030c12b5566a47b3f26c4",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "small-relative-gap-erases-operational-distinction",
+      "statement": "Model pogrešno zaključuje da mala relativna razlika dopušta zamjensku uporabu dviju službenih oznaka.",
+      "why_wrong": "Brojčana blizina ne utvrđuje semantičku istovjetnost. Izvor razlikuje pristupile od birača prema glasačkim listićima, a prikazana tablica ne daje uzročno objašnjenje njihova odstupanja."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Ponoviti zbroj važećih i nevažećih listića te oduzeti taj ukupni broj od broja pristupilih, zatim svaku brojku vratiti njezinoj izvornoj oznaci i označiti svaku uzročnu dopunu koja nije u tablici.",
+      "expected_evidence": "Zbroj je 2.215.209, razlika 1.554, a dvije se brojke i dalje odnose na različite službene faze; uzrok razlike ostaje nepotvrđen [@dip2024, str. 124]."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Odgovor je pogrešan jer 1.554 nije mala razlika.",
+          "why_insufficient": "Značenje oznaka ne ovisi o subjektivnoj procjeni veličine; ostale bi različite i uz brojčano podudaranje."
+        },
+        {
+          "response": "Razliku sigurno uzrokuju birači koji nisu predali listić.",
+          "why_insufficient": "Takvo objašnjenje nije potvrđeno prikazanim izvorom i zadatak traži da se nepotvrđeni uzrok odvoji od računa."
+        },
+        {
+          "response": "Dovoljno je zamijeniti riječ 'sinonimi' riječju 'slični'.",
+          "why_insufficient": "Stilska zamjena ne ispravlja miješanje dviju operativnih veličina niti postavlja granicu nepoznata uzroka."
+        },
+        {
+          "response": "Model je nepouzdan pa njegov račun ne treba provjeravati.",
+          "why_insufficient": "Aritmetika je ponovljiva i točna; ljudska je obveza odvojeno provjeriti račun i nedopuštenu izvedenicu."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "grade-arithmetic-as-correct",
+          "required_claim": "Zbroj 2.154.733 + 60.476 = 2.215.209 i razlika 2.216.763 - 2.215.209 = 1.554 točni su.",
+          "required_evidence": "Neovisno ponovljena dva cjelobrojna računa iz službenih vrijednosti [@dip2024, str. 124]."
+        },
+        {
+          "component_id": "grade-semantic-inference-as-wrong",
+          "required_claim": "Pogrešan je zaključak da brojčano mala razlika dopušta izjednačavanje službenih oznaka.",
+          "required_evidence": "Izvor zasebno označava broj pristupilih i broj prema glasačkim listićima."
+        },
+        {
+          "component_id": "separate-confirmed-from-unexplained",
+          "required_claim": "Potvrđeni su zbroj, razlika i oznake, dok bi svako objašnjenje uzroka razlike zahtijevalo dodatni dokaz.",
+          "required_evidence": "Prikazana tablica ne sadrži polje ili bilješku koja uzročno tumači odstupanje."
+        },
+        {
+          "component_id": "write-four-sentence-maximum-replacement",
+          "required_claim": "Zamjenski odgovor u najviše četiri rečenice navodi oba računa, čuva obje službene oznake i izričito ostavlja uzrok neutvrđenim.",
+          "required_evidence": "Broj rečenica i usporedba svake tvrdnje s izvornom tablicom."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "2.154.733 + 60.476 = 2.215.209; 2.216.763 - 2.215.209 = 1.554",
+      "tolerance_or_acceptance_rule": "Oba cjelobrojna rezultata moraju biti točna i vezana uz ispravne službene oznake; približni ili relativni zapis ne zamjenjuje traženi zbroj i razliku.",
+      "independent_method": "Ponovno zbrojiti dvije vrste listića i dobiveni ukupni broj oduzeti od broja pristupilih, bez oslanjanja na modelovu evaluaciju veličine razlike.",
+      "evidence_reference": "chapters/03-kako-brojke-zavode.qmd#ex-03-callout-greska-01, #ex-03-revizija-modela-01 i @dip2024, str. 124"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-preserves-synonym-or-invents-cause",
+          "severity": "fatal",
+          "description": "Zamjena i dalje izjednačava dvije službene veličine ili iznosi uzrok odstupanja kao potvrđenu činjenicu bez novoga dokaza.",
+          "observable_evidence": "Središnja rečenica prelazi semantičku ili uzročnu granicu izvora."
+        },
+        {
+          "criterion_id": "major-missing-calculation-grade-or-bounded-replacement",
+          "severity": "major",
+          "description": "Nedostaje jedan račun, procjena što je u modelovu odgovoru točno i pogrešno ili tražena zamjena ograničena na četiri rečenice.",
+          "observable_evidence": "Jedan obvezni dio revizijskoga traga ne može se provjeriti."
+        },
+        {
+          "criterion_id": "minor-label-citation-or-length-slip",
+          "severity": "minor",
+          "description": "Ispravak čuva dokaznu granicu, ali jedna oznaka nije precizna, citat nije vezan uz potvrđenu brojku ili zamjena neznatno prelazi zadani opseg.",
+          "observable_evidence": "Popravak je lokalan i ne mijenja sud o jedinoj posađenoj pogrešci."
+        },
+        {
+          "criterion_id": "useful-explicit-verification-receipt",
+          "severity": "useful_improvement",
+          "description": "Odgovor kratko bilježi što je preuzeto iz izvora, što je neovisno preračunato i što je ostalo neprovjereno.",
+          "observable_evidence": "Revizija se može pratiti kao niz ljudskih provjera, a ne kao zamjena jednoga autoritativnog odgovora drugim."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "three-sentence-replacement",
+      "description": "Prihvatljiv je zamjenski odgovor u dvije ili tri rečenice ako sadrži oba rezultata, razlikuje oznake i izričito uskraćuje nepotvrđeno objašnjenje.",
+      "acceptance_boundary": "Sažimanje ne smije izostaviti nijednu od triju dokaznih granica niti spojiti dvije veličine u zajedničku oznaku."
+    }
+  ],
+  "instructor_notes": [
+    "Revizija modela vraća se na isti artefakt kao okvir pogreške. Ne uvoditi drugu namjernu pogrešku kroz nagađanje o administrativnom postupku.",
+    "Traženih najviše četiri rečenice ograničavaju zamjenski odgovor, ne obrazloženje ocjene. Kod se ne piše niti popravlja."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
