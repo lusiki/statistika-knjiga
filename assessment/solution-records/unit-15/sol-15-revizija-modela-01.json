@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-15-revizija-modela-01",
+  "exercise_id": "ex-15-revizija-modela-01",
+  "unit_id": "15",
+  "source_anchor": {
+    "path": "chapters/15-vise-grupa.qmd",
+    "anchor": "ex-15-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:18c23cf47e6865a39fd7e346829346e43bc7b9e1070c42be4b451d41c8b6468d",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "unadjusted-pairwise-tests-treated-as-family-protected",
+      "statement": "Poziv s `p.adjust.method = \"none\"` može poduprijeti zaključke o svih deset parova jer su pojedinačni t-testovi uredno izračunati.",
+      "why_wrong": "Neprilagođeni testovi ne štite stopu obiteljske pogreške. Čak i kada je svaki pojedinačni račun ispravan, deset odluka otvara više prilika da barem jedan istiniti nulti par slučajno prođe prag."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Razdvojiti korisni ukupni model i valjano odabrane varijable od parametra prilagodbe, zatim prebrojiti parove i usporediti nultu stopu barem jedne parne pogreške sa stopom jednoga ukupnog testa.",
+      "expected_evidence": "Pet skupina daje deset parova. Jedina fatalna postavka jest `none`. Fiksna provjera daje 548 od 2000 nultih ponavljanja s barem jednim lažno pozitivnim parom, nasuprot 85 od 2000 za jedan ukupni test."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Cijeli artefakt je fatalan jer je napisan u R-u.",
+          "why_insufficient": "Jezik i funkcije nisu statistička pogreška; zadatak procjenjuje čitanje artefakta, ne proizvodnju koda."
+        },
+        {
+          "response": "Fatalna je uporaba kategoričkoga prediktora u `aov`.",
+          "why_insufficient": "Kategorički prediktor s pet razina upravo definira ukupni model sredina."
+        },
+        {
+          "response": "Pojedinačne p-vrijednosti dovoljne su ako se izvijeste sve, a ne samo najmanja.",
+          "why_insufficient": "Potpuno izvještavanje popravlja transparentnost, ali ne mijenja stopu barem jednoga lažnog odbacivanja kroz deset odluka."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "name-single-fatal-error",
+          "required_claim": "Jedina fatalna pogreška jest izostanak prilagodbe u `p.adjust.method = \"none\"`.",
+          "required_evidence": "Poziv otvara deset parnih odluka bez imenovane zaštite obitelji."
+        },
+        {
+          "component_id": "name-target-error-rate",
+          "required_claim": "Ugrožena je stopa obiteljske pogreške, odnosno vjerojatnost barem jednoga lažno pozitivnog para u unaprijed određenoj obitelji.",
+          "required_evidence": "Nulta simulacija za dijeljene parove daje 548/2000 = 27,4 %, znatno više od pojedinačnih pet posto."
+        },
+        {
+          "component_id": "preserve-useful-artifact-parts",
+          "required_claim": "Korisni ostaju ukupni model, ishod, skupna varijabla i činjenica da artefakt izričito prikazuje svih deset parova.",
+          "required_evidence": "Ti dijelovi određuju pitanje i čine broj usporedbi provjerljivim; ne stvaraju nezaštićenu stopu."
+        },
+        {
+          "component_id": "avoid-code-repair",
+          "required_claim": "Revizija završava statističkom dijagnozom i dokazom, bez izvršavanja ili pisanja zamjenskoga koda.",
+          "required_evidence": "Predani odgovor imenuje postavku, obitelj i stopu pogreške u prozi."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Artefakt uspoređuje 5 skupina kroz 10 parova. Nezaštićena obitelj u fiksnoj nultoj simulaciji daje 548/2000 = 27,4 % ponavljanja s barem jednom pogreškom, dok jedan ukupni test daje 85/2000 = 4,25 %. Deset neovisnih testova daje 808/2000 = 40,4 %, blizu teorijskih 40,126306076162 %.",
+      "tolerance_or_acceptance_rule": "Traže se točan broj 10 parova i točni simulacijski brojevi 548, 85 i 808; postotke prihvatiti unutar 0,01 postotnoga boda. Formula za neovisne testove ne smije se pripisati dijeljenim parovima.",
+      "independent_method": "Neovisno kombinatorno prebrojiti parove i s fiksnim strujama iz kanonske simulirane populacije ponovno izvesti 2000 potpunih nultih obitelji parnih i ukupnih testova te zasebnu provjeru deset neovisnih testova.",
+      "evidence_reference": "chapters/15-vise-grupa.qmd#ex-15-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-misses-or-retains-none",
+          "severity": "fatal",
+          "description": "Odgovor ne pronalazi `none`, zadržava ga kao prihvatljiv ili fatalnom proglašava drugi ispravan dio artefakta.",
+          "observable_evidence": "Središnja dijagnoza ne zatvara jedinu posađenu pogrešku."
+        },
+        {
+          "criterion_id": "major-omits-family-evidence",
+          "severity": "major",
+          "description": "Postavka je pronađena, ali nisu imenovani deset parova, stopa obiteljske pogreške ili dokaz da pojedinačna valjanost nije dovoljna.",
+          "observable_evidence": "Najmanje jedan traženi dio statističke revizije nedostaje."
+        },
+        {
+          "criterion_id": "minor-fails-to-preserve-useful-parts",
+          "severity": "minor",
+          "description": "Fatalni prigovor stoji, ali odgovor ne razdvaja ga od ukupnog modela i varijabli koje su još korisne.",
+          "observable_evidence": "Artefakt se odbacuje u cijelosti bez lokalizacije pogreške."
+        },
+        {
+          "criterion_id": "useful-compares-null-rates",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno uspoređuje simulacijskih 27,4 % za dijeljene parove, 4,25 % za ukupni test i teorijskih 40,1263 % za neovisne testove.",
+          "observable_evidence": "Dodatak pokazuje i veličinu problema i granicu formule."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "concise-audit-table",
+      "description": "Revizija se smije predati kao tablica s redovima postavka, obitelj, ugrožena stopa, dokaz i korisni dijelovi.",
+      "acceptance_boundary": "Tablica mora zatvoriti isti planted-error ID kao callout i ne smije sadržavati zamjenski kod."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina fatalna pogreška ostaje `p.adjust.method = \"none\"`; puni model i odabrane varijable nisu posađeni nedostaci.",
+    "Student ne treba znati sintaksu zamjene. Ocjenjuju se obitelj, stopa pogreške, dokaz i očuvanje korisnih dijelova."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

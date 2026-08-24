@@ -10,6 +10,7 @@ import importlib.util
 import json
 import math
 import os
+import random
 import re
 import sys
 from decimal import Decimal
@@ -3852,6 +3853,625 @@ def unit_14_numerical_check(
     return errors, evidence
 
 
+def unit_15_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    analytical_path: Path,
+    aggregate_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 15 multi-group claims, task answers and planted-error bounds."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-15-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-15-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-15-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-15-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-15-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 15 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 15 {label} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        "set.seed(1515)",
+        "slice_sample(populacija_medija, n = 300)",
+        "s15_model <- aov(povjerenje_medijima ~ izvor_vijesti, data = pet_izvora)",
+        "TukeyHSD(s15_model)$izvor_vijesti",
+        "oneway.test(",
+        "kruskal.test(povjerenje_medijima ~ izvor_vijesti, data = pet_izvora)",
+        "set.seed(1516)",
+        "set.seed(1517)",
+        "(1 - 0.95^10) * 100",
+        "#| label: fig-w15",
+        "#| label: fig-w15-print",
+        "data/populacija-medija-agregat.csv",
+        "#ex-15-callout-greska-01",
+        "#ex-15-konceptualni-01",
+        "#ex-15-racunski-01",
+        "#ex-15-kriticki-01",
+        "#ex-15-revizija-modela-01",
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 15 source no longer exposes required numerical contract: {source_token}")
+
+    try:
+        with analytical_path.open(encoding="utf-8", newline="") as handle:
+            analytical_rows = list(csv.DictReader(handle))
+        with aggregate_path.open(encoding="utf-8", newline="") as handle:
+            aggregate_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 15 data could not be read independently: {exc}"], {}
+
+    sampled_person_ids = (
+        27776, 31534, 44051, 25912, 12322, 11767, 9773, 2114, 31250, 27826,
+        13616, 12259, 8431, 13984, 15866, 23510, 4495, 36033, 41136, 15063,
+        8149, 39718, 20156, 33736, 26196, 13199, 46333, 3161, 29601, 43004,
+        7966, 28995, 46688, 14429, 2798, 356, 7687, 41214, 8106, 21299,
+        36412, 4708, 7665, 14520, 1388, 49525, 49881, 26549, 269, 18099,
+        43759, 31357, 22927, 9384, 27863, 49348, 20866, 9206, 674, 49120,
+        16343, 42308, 18827, 38926, 18429, 17886, 23349, 18693, 13165, 42958,
+        4345, 28997, 14420, 32716, 41199, 4889, 17313, 12266, 26454, 1368,
+        46817, 31947, 8307, 35914, 12975, 25600, 11804, 37192, 18319, 45896,
+        25196, 10437, 29167, 48311, 2570, 39631, 19293, 13552, 34017, 490,
+        1196, 38030, 32796, 31648, 1046, 19935, 11933, 19345, 12227, 16190,
+        28623, 16721, 2070, 5297, 10243, 35650, 31698, 38504, 41004, 23970,
+        41485, 19136, 39110, 22055, 21780, 10018, 34239, 32504, 40495, 14541,
+        17030, 32320, 36311, 45736, 41101, 11365, 43158, 2175, 22943, 26567,
+        31904, 37570, 12025, 47490, 3613, 21444, 23846, 4796, 43403, 11502,
+        10572, 39932, 17989, 22181, 10011, 49755, 11459, 47339, 34482, 21569,
+        11161, 3310, 23239, 34195, 45783, 28420, 31932, 28837, 2574, 42088,
+        11529, 48988, 10335, 12593, 37801, 36127, 7018, 34178, 10120, 47416,
+        19375, 22730, 9941, 30414, 24744, 22637, 47832, 26192, 42817, 31066,
+        22625, 43552, 31440, 22694, 5226, 33208, 9422, 26322, 13917, 44341,
+        13802, 47598, 32395, 11642, 18326, 2914, 49151, 17935, 30921, 29667,
+        46265, 28618, 33858, 47698, 1629, 43363, 43843, 21126, 48309, 36642,
+        26932, 25719, 35023, 7289, 43109, 6653, 313, 41968, 45895, 8884,
+        19475, 33075, 31780, 6295, 34180, 41649, 17301, 21992, 36310, 38833,
+        36170, 8543, 9980, 44812, 19342, 905, 36864, 19408, 34413, 1888,
+        22559, 25488, 17111, 25519, 48524, 18203, 8841, 39101, 28817, 25582,
+        44721, 8249, 49003, 33145, 25035, 40067, 29708, 40371, 44853, 45787,
+        17299, 14529, 44835, 5041, 25952, 11052, 45664, 17423, 35040, 34486,
+        23509, 25583, 7753, 7437, 36312, 14247, 25470, 3179, 7823, 13141,
+        24295, 36121, 19825, 35582, 23913, 40891, 952, 41398, 2139, 4295,
+    )
+    if len(sampled_person_ids) != 300 or len(set(sampled_person_ids)) != 300:
+        errors.append("Unit 15 fixed sample identifier receipt is not 300 unique persons.")
+
+    row_by_person: dict[int, dict[str, str]] = {}
+    try:
+        for row in analytical_rows:
+            row_by_person[int(row["osoba"])] = row
+        sampled_rows = [row_by_person[person_id] for person_id in sampled_person_ids]
+    except (KeyError, ValueError) as exc:
+        return errors + [f"Unit 15 fixed sample could not be reconstructed: {exc}"], {}
+
+    def sample_variance(values: list[float]) -> float:
+        mean_value = math.fsum(values) / len(values)
+        return math.fsum((value - mean_value) ** 2 for value in values) / (len(values) - 1)
+
+    def beta_continued_fraction(a: float, b: float, x: float) -> float:
+        max_iterations = 250
+        epsilon = 3e-14
+        tiny = 1e-300
+        qab = a + b
+        qap = a + 1.0
+        qam = a - 1.0
+        c = 1.0
+        d = 1.0 - qab * x / qap
+        if abs(d) < tiny:
+            d = tiny
+        d = 1.0 / d
+        h = d
+        for iteration in range(1, max_iterations + 1):
+            twice = 2 * iteration
+            aa = iteration * (b - iteration) * x / ((qam + twice) * (a + twice))
+            d = 1.0 + aa * d
+            if abs(d) < tiny:
+                d = tiny
+            c = 1.0 + aa / c
+            if abs(c) < tiny:
+                c = tiny
+            d = 1.0 / d
+            h *= d * c
+            aa = -(a + iteration) * (qab + iteration) * x / ((a + twice) * (qap + twice))
+            d = 1.0 + aa * d
+            if abs(d) < tiny:
+                d = tiny
+            c = 1.0 + aa / c
+            if abs(c) < tiny:
+                c = tiny
+            d = 1.0 / d
+            delta = d * c
+            h *= delta
+            if abs(delta - 1.0) < epsilon:
+                return h
+        raise AssertionError("Unit 15 incomplete-beta calculation did not converge.")
+
+    def regularized_beta(x: float, a: float, b: float) -> float:
+        if x <= 0:
+            return 0.0
+        if x >= 1:
+            return 1.0
+        factor = math.exp(
+            math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b)
+            + a * math.log(x) + b * math.log1p(-x)
+        )
+        if x < (a + 1.0) / (a + b + 2.0):
+            return factor * beta_continued_fraction(a, b, x) / a
+        return 1.0 - factor * beta_continued_fraction(b, a, 1.0 - x) / b
+
+    def student_t_cdf(value: float, degrees_freedom: float) -> float:
+        beta_value = regularized_beta(
+            degrees_freedom / (degrees_freedom + value * value),
+            degrees_freedom / 2.0,
+            0.5,
+        )
+        return 1.0 - beta_value / 2.0 if value >= 0 else beta_value / 2.0
+
+    def f_survival(value: float, numerator_df: float, denominator_df: float) -> float:
+        return regularized_beta(
+            denominator_df / (denominator_df + numerator_df * value),
+            denominator_df / 2.0,
+            numerator_df / 2.0,
+        )
+
+    group_names = {
+        "1": "portal",
+        "2": "networks",
+        "3": "tv",
+        "4": "radio",
+        "5": "print",
+    }
+    groups: dict[str, list[float]] = {name: [] for name in group_names.values()}
+    for row in sampled_rows:
+        group = group_names.get(row.get("izvor_vijesti_sifra", ""))
+        if group is None:
+            errors.append(f"Unit 15 sampled person has an unexpected news-source code: {row}")
+            continue
+        groups[group].append(float(row["povjerenje_medijima"]))
+
+    group_order = ("portal", "networks", "tv", "radio", "print")
+    counts = {group: len(groups[group]) for group in group_order}
+    sums = {group: math.fsum(groups[group]) for group in group_order}
+    means = {group: sums[group] / counts[group] for group in group_order}
+    variances = {group: sample_variance(groups[group]) for group in group_order}
+    count_targets = {"portal": 99, "networks": 70, "tv": 63, "radio": 36, "print": 32}
+    sum_targets = {"portal": 477.0, "networks": 269.0, "tv": 342.0, "radio": 193.0, "print": 175.0}
+    variance_targets = {
+        "portal": 3.007421150278293,
+        "networks": 4.250310559006211,
+        "tv": 3.152073732718894,
+        "radio": 3.608730158730159,
+        "print": 2.966733870967742,
+    }
+    if counts != count_targets or sums != sum_targets:
+        errors.append(f"Unit 15 group counts or sums drifted: {counts}/{sums}")
+    for group, target in variance_targets.items():
+        if abs(variances[group] - target) > 1e-12:
+            errors.append(f"Unit 15 {group} variance drifted: {variances[group]} != {target}")
+
+    n_total = len(sampled_rows)
+    k_groups = len(group_order)
+    grand_mean = math.fsum(sums.values()) / n_total
+    ss_between = math.fsum(counts[group] * (means[group] - grand_mean) ** 2 for group in group_order)
+    ss_within = math.fsum(
+        math.fsum((value - means[group]) ** 2 for value in groups[group])
+        for group in group_order
+    )
+    df_between = k_groups - 1
+    df_within = n_total - k_groups
+    ms_between = ss_between / df_between
+    ms_within = ss_within / df_within
+    f_value = ms_between / ms_within
+    f_p = f_survival(f_value, df_between, df_within)
+    eta_squared = ss_between / (ss_between + ss_within)
+    omega_squared = (ss_between - df_between * ms_within) / (ss_between + ss_within + ms_within)
+    anova_targets = (
+        113.845088383838,
+        1001.701578282829,
+        28.46127209595945,
+        3.39559857045027,
+        8.38181295740898,
+        0.00000204182135962458,
+        0.102053183237968,
+        0.0896048859864900,
+    )
+    anova_actual = (
+        ss_between, ss_within, ms_between, ms_within, f_value, f_p,
+        eta_squared, omega_squared,
+    )
+    if any(abs(actual - target) > 1e-12 for actual, target in zip(anova_actual, anova_targets)):
+        errors.append(f"Unit 15 ANOVA/effect-size reconstruction drifted: {anova_actual}")
+
+    tukey_q_critical = 3.881627335613887
+    tukey_intervals: dict[tuple[str, str], tuple[float, float, float]] = {}
+    significant_pairs = 0
+    for first_index, first in enumerate(group_order):
+        for second in group_order[first_index + 1 :]:
+            difference = means[second] - means[first]
+            tukey_se = math.sqrt(ms_within / 2 * (1 / counts[first] + 1 / counts[second]))
+            lower = difference - tukey_q_critical * tukey_se
+            upper = difference + tukey_q_critical * tukey_se
+            tukey_intervals[(second, first)] = (difference, lower, upper)
+            significant_pairs += int(lower > 0 or upper < 0)
+    tv_networks = tukey_intervals[("tv", "networks")]
+    print_tv = tukey_intervals[("print", "tv")]
+    tukey_targets = (
+        10,
+        4,
+        1.585714285714284,
+        0.707372515223464,
+        2.464056056205104,
+        0.040178571428561,
+        -1.057748641684964,
+        1.138105784542085,
+    )
+    tukey_actual = (
+        len(tukey_intervals), significant_pairs,
+        tv_networks[0], tv_networks[1], tv_networks[2],
+        print_tv[0], print_tv[1], print_tv[2],
+    )
+    if any(abs(float(actual) - float(target)) > 1e-12 for actual, target in zip(tukey_actual, tukey_targets)):
+        errors.append(f"Unit 15 Tukey reconstruction drifted: {tukey_actual}")
+
+    weights = {group: counts[group] / variances[group] for group in group_order}
+    total_weight = math.fsum(weights.values())
+    weighted_mean = math.fsum(weights[group] * means[group] for group in group_order) / total_weight
+    welch_numerator = math.fsum(
+        weights[group] * (means[group] - weighted_mean) ** 2
+        for group in group_order
+    ) / df_between
+    welch_sum = math.fsum(
+        (1 - weights[group] / total_weight) ** 2 / (counts[group] - 1)
+        for group in group_order
+    )
+    welch_correction = 1 + 2 * (k_groups - 2) * welch_sum / (k_groups**2 - 1)
+    welch_f = welch_numerator / welch_correction
+    welch_df2 = (k_groups**2 - 1) / (3 * welch_sum)
+    welch_p = f_survival(welch_f, df_between, welch_df2)
+    welch_targets = (7.32080763116556, 112.425284937609, 0.0000281679627812019)
+    welch_actual = (welch_f, welch_df2, welch_p)
+    if any(abs(actual - target) > 1e-12 for actual, target in zip(welch_actual, welch_targets)):
+        errors.append(f"Unit 15 Welch reconstruction drifted: {welch_actual}")
+
+    ranked = sorted(
+        (value, group)
+        for group in group_order
+        for value in groups[group]
+    )
+    rank_sums = {group: 0.0 for group in group_order}
+    tie_counts: list[int] = []
+    index = 0
+    while index < len(ranked):
+        end = index + 1
+        while end < len(ranked) and ranked[end][0] == ranked[index][0]:
+            end += 1
+        average_rank = ((index + 1) + end) / 2
+        tie_counts.append(end - index)
+        for _, group in ranked[index:end]:
+            rank_sums[group] += average_rank
+        index = end
+    kruskal_raw = (
+        12 / (n_total * (n_total + 1))
+        * math.fsum(rank_sums[group] ** 2 / counts[group] for group in group_order)
+        - 3 * (n_total + 1)
+    )
+    tie_correction = 1 - math.fsum(tie**3 - tie for tie in tie_counts) / (n_total**3 - n_total)
+    kruskal_h = kruskal_raw / tie_correction
+    kruskal_p = math.exp(-kruskal_h / 2) * (1 + kruskal_h / 2)
+    if abs(kruskal_h - 29.8204244799890) > 1e-11 or abs(kruskal_p - 0.00000532418421217587) > 1e-15:
+        errors.append(f"Unit 15 Kruskal-Wallis reconstruction drifted: {kruskal_h}/{kruskal_p}")
+
+    variance_ratio = max(variances.values()) / min(variances.values())
+    if abs(variance_ratio - 1.43265649831266) > 1e-12:
+        errors.append(f"Unit 15 variance-ratio reconstruction drifted: {variance_ratio}")
+
+    aggregate_by_code = {
+        row.get("izvor_vijesti_sifra", ""): row
+        for row in aggregate_rows
+        if row.get("izvor_vijesti_sifra") in {"2", "3"}
+    }
+    aggregate_expected = {
+        "2": (13378, Decimal("54432"), Decimal("4.06876962176708")),
+        "3": (10827, Decimal("58098"), Decimal("5.366029371016902")),
+    }
+    aggregate_means: dict[str, Decimal] = {}
+    for code, (expected_count, expected_sum, expected_mean) in aggregate_expected.items():
+        row = aggregate_by_code.get(code)
+        if row is None:
+            errors.append(f"Unit 15 aggregate lacks news-source code {code}.")
+            continue
+        count = int(row["broj"])
+        total = Decimal(row["zbroj_povjerenja"])
+        stored_mean = Decimal(row["prosjek_povjerenja"])
+        recomputed_mean = total / Decimal(count)
+        aggregate_means[code] = recomputed_mean
+        analytical_for_code = [
+            candidate for candidate in analytical_rows
+            if candidate.get("izvor_vijesti_sifra") == code
+        ]
+        analytical_sum = sum(
+            (Decimal(candidate["povjerenje_medijima"]) for candidate in analytical_for_code),
+            Decimal(0),
+        )
+        if (count, total, stored_mean) != (expected_count, expected_sum, expected_mean):
+            errors.append(f"Unit 15 aggregate code {code} drifted: {count}/{total}/{stored_mean}")
+        if count != len(analytical_for_code) or total != analytical_sum:
+            errors.append(f"Unit 15 aggregate/analytical reconciliation failed for code {code}.")
+        if abs(recomputed_mean - stored_mean) > Decimal("1e-15"):
+            errors.append(f"Unit 15 stored mean for code {code} drifted: {stored_mean}")
+    if set(aggregate_means) != {"2", "3"}:
+        return errors + ["Unit 15 aggregate means could not be reconstructed."], {}
+    aggregate_difference = aggregate_means["3"] - aggregate_means["2"]
+    if abs(aggregate_difference - Decimal("1.297259749249822")) > Decimal("1e-15"):
+        errors.append(f"Unit 15 aggregate task difference drifted: {aggregate_difference}")
+
+    task_df_between = 4 - 1
+    task_df_within = 100 - 4
+    task_ms_between = 120 / task_df_between
+    task_ms_within = 480 / task_df_within
+    task_f = task_ms_between / task_ms_within
+    task_eta = 120 / (120 + 480)
+    task_ms_within_doubled = 960 / task_df_within
+    task_f_doubled = task_ms_between / task_ms_within_doubled
+    task_eta_doubled = 120 / (120 + 960)
+    task_actual = (
+        task_df_between, task_df_within, task_ms_between, task_ms_within,
+        task_f, task_eta, task_ms_within_doubled, task_f_doubled, task_eta_doubled,
+    )
+    task_targets = (3, 96, 40, 5, 8, 0.2, 10, 4, 1 / 9)
+    if any(abs(float(actual) - float(target)) > 1e-15 for actual, target in zip(task_actual, task_targets)):
+        errors.append(f"Unit 15 computational task reconstruction drifted: {task_actual}")
+
+    source_pairwise_count = 548
+    source_overall_count = 85
+    source_independent_count = 808
+    source_pairwise_rate = 100 * source_pairwise_count / 2000
+    source_overall_rate = 100 * source_overall_count / 2000
+    source_independent_rate = 100 * source_independent_count / 2000
+    independent_formula = 100 * (1 - 0.95**10)
+    if (source_pairwise_rate, source_overall_rate, source_independent_rate) != (27.4, 4.25, 40.4):
+        errors.append("Unit 15 fixed-source simulation receipts no longer yield their stated rates.")
+    if abs(independent_formula - 40.12630607616213) > 1e-12:
+        errors.append(f"Unit 15 independent-test formula drifted: {independent_formula}")
+
+    population_values = [float(row["povjerenje_medijima"]) for row in analytical_rows]
+    replication_rng = random.Random(1518)
+
+    def welch_p_value(first: list[float], second: list[float]) -> float:
+        first_variance = sample_variance(first)
+        second_variance = sample_variance(second)
+        standard_error_squared = first_variance / len(first) + second_variance / len(second)
+        statistic = (math.fsum(first) / len(first) - math.fsum(second) / len(second)) / math.sqrt(
+            standard_error_squared
+        )
+        degrees_freedom = standard_error_squared**2 / (
+            (first_variance / len(first)) ** 2 / (len(first) - 1)
+            + (second_variance / len(second)) ** 2 / (len(second) - 1)
+        )
+        return 2 * (1 - student_t_cdf(abs(statistic), degrees_freedom))
+
+    def one_way_p_value(sample_groups: list[list[float]]) -> float:
+        all_values = [value for group in sample_groups for value in group]
+        overall_mean = math.fsum(all_values) / len(all_values)
+        sample_means = [math.fsum(group) / len(group) for group in sample_groups]
+        between = math.fsum(
+            len(group) * (mean_value - overall_mean) ** 2
+            for group, mean_value in zip(sample_groups, sample_means)
+        )
+        within = math.fsum(
+            math.fsum((value - mean_value) ** 2 for value in group)
+            for group, mean_value in zip(sample_groups, sample_means)
+        )
+        statistic = (between / (len(sample_groups) - 1)) / (within / (len(all_values) - len(sample_groups)))
+        return f_survival(statistic, len(sample_groups) - 1, len(all_values) - len(sample_groups))
+
+    replication_pairwise = 0
+    replication_overall = 0
+    replication_independent = 0
+    for _ in range(2000):
+        shared_groups = [replication_rng.sample(population_values, 40) for _ in range(5)]
+        pairwise_ps = [
+            welch_p_value(shared_groups[first], shared_groups[second])
+            for first in range(5)
+            for second in range(first + 1, 5)
+        ]
+        replication_pairwise += int(any(p_value < 0.05 for p_value in pairwise_ps))
+        replication_overall += int(one_way_p_value(shared_groups) < 0.05)
+        independent_ps = [
+            welch_p_value(
+                replication_rng.sample(population_values, 40),
+                replication_rng.sample(population_values, 40),
+            )
+            for _ in range(10)
+        ]
+        replication_independent += int(any(p_value < 0.05 for p_value in independent_ps))
+    replication_pairwise_rate = 100 * replication_pairwise / 2000
+    replication_overall_rate = 100 * replication_overall / 2000
+    replication_independent_rate = 100 * replication_independent / 2000
+    if abs(replication_pairwise_rate - source_pairwise_rate) > 3:
+        errors.append(f"Unit 15 independent pairwise FWER replication drifted: {replication_pairwise_rate}%")
+    if abs(replication_overall_rate - source_overall_rate) > 1.5:
+        errors.append(f"Unit 15 independent overall-test replication drifted: {replication_overall_rate}%")
+    if abs(replication_independent_rate - source_independent_rate) > 3:
+        errors.append(f"Unit 15 independent ten-test replication drifted: {replication_independent_rate}%")
+
+    widget_ss_between = 24 * ((46 - 52) ** 2 + (52 - 52) ** 2 + (58 - 52) ** 2)
+    widget_ss_within = 3 * (24 - 1) * 6**2
+    widget_ms_between = widget_ss_between / 2
+    widget_ms_within = widget_ss_within / (3 * (24 - 1))
+    widget_f = widget_ms_between / widget_ms_within
+    if (widget_ss_between, widget_ss_within, widget_ms_between, widget_ms_within, widget_f) != (
+        1728, 2484, 864, 36, 24,
+    ):
+        errors.append("Unit 15 widget default variance decomposition drifted.")
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "točno jedna pogreška",
+            "p.adjust.method = \"none\"",
+            "koju obitelj pogrešaka",
+            "uredne pojedinačne p-vrijednosti",
+            "ne pišite zamjenski kod",
+        )
+    ):
+        errors.append("Unit 15 callout no longer exposes one complete unprotected-family error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "značajan ukupni test ne znači",
+            "samo jedan par razlučiv",
+            "odabrali tek nakon pregleda svih sredina",
+            "planirana ili post-hoc",
+            "obitelj koju treba zaštititi",
+        )
+    ):
+        errors.append("Unit 15 conceptual prompt no longer separates global, pair and family claims.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "120 na razlike među četirima skupinama",
+            "480 na razlike unutar njih",
+            "ukupno sto opažanja",
+            "obje prosječne raspršenosti",
+            "njihov omjer i eta-kvadrat",
+            "drugi broj dvostruko veći",
+        )
+    ):
+        errors.append("Unit 15 numerical prompt no longer preserves the complete hand-calculation path.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "opisne i uzročne tvrdnje",
+            "najmanjega važnog učinka",
+            "data/populacija-medija-agregat.csv",
+            "najmanju razliku na ljestvici od 0 do 10",
+            "zbroj_povjerenja` i `broj",
+            "ne dokazuje da odabir izvora uzrokuje povjerenje",
+        )
+    ):
+        errors.append("Unit 15 critical prompt no longer joins threshold, aggregate and causal boundaries.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if not all(
+        token in normalized_revision
+        for token in (
+            "imenujte jedinu pogrešku",
+            "koju stopu pogreške ugrožava",
+            "fatalni prigovor",
+            "dijelova artefakta koji su još korisni",
+            "ne pokrećite kod",
+            "ne pišite njegovu zamjenu",
+        )
+    ):
+        errors.append("Unit 15 model revision no longer requires one evidence-based no-code audit.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 15 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "unadjusted-pairwise-tests-treated-as-family-protected"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 15 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_numerical = {"callout_greska", "racunski", "kriticki", "revizija_modela"}
+    if numerical_applicable != expected_numerical:
+        errors.append(f"Unit 15 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    required_result_tokens = {
+        "callout_greska": ("10 parova", "548/2000 = 27,4 %", "85/2000 = 4,25 %", "808/2000 = 40,4 %", "40,126306076162 %"),
+        "racunski": ("df između = 3", "df unutar = 96", "MS između = 120/3 = 40", "MS unutar = 480/96 = 5", "F = 8", "0,20", "F = 4", "0,111111111111"),
+        "kriticki": ("58098/10827", "5,366029371017", "54432/13378", "4,068769621767", "1,297259749250"),
+        "revizija_modela": ("5 skupina", "10 parova", "548/2000 = 27,4 %", "85/2000 = 4,25 %", "40,126306076162 %"),
+    }
+    for task_class, tokens in required_result_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        for token in tokens:
+            if token not in result:
+                errors.append(f"Unit 15 {task_class} answer lacks recomputed token: {token}")
+
+    evidence = {
+        "sample": (
+            f"n-{n_total}/groups-"
+            + "-".join(f"{group}-{counts[group]}" for group in group_order)
+            + "/means-"
+            + "-".join(f"{means[group]:.12f}" for group in group_order)
+            + "/variances-"
+            + "-".join(f"{variances[group]:.12f}" for group in group_order)
+        ),
+        "anova": (
+            f"ss-{ss_between:.12f}-{ss_within:.12f}/ms-{ms_between:.12f}-{ms_within:.12f}/"
+            f"F-{f_value:.12f}/df-{df_between}-{df_within}/p-{f_p:.15f}/"
+            f"eta2-{eta_squared:.12f}/omega2-{omega_squared:.12f}"
+        ),
+        "tukey": (
+            f"pairs-{len(tukey_intervals)}/significant-{significant_pairs}/"
+            f"tv-networks-{tv_networks[0]:.12f}-[{tv_networks[1]:.12f},{tv_networks[2]:.12f}]/"
+            f"print-tv-{print_tv[0]:.12f}-[{print_tv[1]:.12f},{print_tv[2]:.12f}]"
+        ),
+        "robustness": (
+            f"variance-ratio-{variance_ratio:.12f}/welch-F-{welch_f:.12f}-df2-{welch_df2:.12f}-p-{welch_p:.15f}/"
+            f"kruskal-H-{kruskal_h:.12f}-p-{kruskal_p:.15f}"
+        ),
+        "multiplicity": (
+            f"source-pairwise-{source_pairwise_count}/2000-{source_pairwise_rate:.2f}%/"
+            f"overall-{source_overall_count}/2000-{source_overall_rate:.2f}%/"
+            f"independent-{source_independent_count}/2000-{source_independent_rate:.2f}%/"
+            f"formula-{independent_formula:.12f}%/"
+            f"python-replication-{replication_pairwise}/2000-{replication_pairwise_rate:.2f}%-"
+            f"{replication_overall}/2000-{replication_overall_rate:.2f}%-"
+            f"{replication_independent}/2000-{replication_independent_rate:.2f}%"
+        ),
+        "tasks": (
+            f"computational-df-{task_df_between}-{task_df_within}/ms-{task_ms_between:.0f}-{task_ms_within:.0f}/"
+            f"F-{task_f:.0f}/eta-{task_eta:.12f}/doubled-{task_ms_within_doubled:.0f}-{task_f_doubled:.0f}-{task_eta_doubled:.12f}/"
+            f"aggregate-tv-58098/10827-networks-54432/13378-difference-{aggregate_difference:.15f}"
+        ),
+        "widget": (
+            f"default-ss-{widget_ss_between}-{widget_ss_within}/"
+            f"ms-{widget_ms_between}-{widget_ms_within}/F-{widget_f}"
+        ),
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "source-embedded-hand-calculation-and-bundled-five-row-aggregate-no-code-widget-optional",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -4353,6 +4973,20 @@ def main() -> int:
             ROOT / "data/populacija-medija-agregat.csv",
         )
         errors.extend(numerical_errors)
+    unit_15_numerical: dict[str, str] = {}
+    if (
+        "15" in records_by_unit
+        and len(records_by_unit["15"]) == 5
+        and {record["task_class"] for record in records_by_unit["15"]} == expected_task_classes
+        and "chapters/15-vise-grupa.qmd" in source_lines
+    ):
+        numerical_errors, unit_15_numerical = unit_15_numerical_check(
+            source_lines["chapters/15-vise-grupa.qmd"],
+            records_by_unit["15"],
+            ROOT / "data/populacija-medija.csv",
+            ROOT / "data/populacija-medija-agregat.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -4713,6 +5347,20 @@ def main() -> int:
             f"records={unit_14_numerical.get('applicable_records')} "
             f"planted_error={unit_14_numerical.get('planted_error')} "
             f"print_path={unit_14_numerical.get('print_path')}"
+        )
+    if unit_15_numerical:
+        print(
+            "- unit 15 independent numerics: "
+            f"sample={unit_15_numerical.get('sample')} "
+            f"anova={unit_15_numerical.get('anova')} "
+            f"tukey={unit_15_numerical.get('tukey')} "
+            f"robustness={unit_15_numerical.get('robustness')} "
+            f"multiplicity={unit_15_numerical.get('multiplicity')} "
+            f"tasks={unit_15_numerical.get('tasks')} "
+            f"widget={unit_15_numerical.get('widget')} "
+            f"records={unit_15_numerical.get('applicable_records')} "
+            f"planted_error={unit_15_numerical.get('planted_error')} "
+            f"print_path={unit_15_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

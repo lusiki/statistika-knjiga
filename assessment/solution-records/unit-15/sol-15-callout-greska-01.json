@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-15-callout-greska-01",
+  "exercise_id": "ex-15-callout-greska-01",
+  "unit_id": "15",
+  "source_anchor": {
+    "path": "chapters/15-vise-grupa.qmd",
+    "anchor": "ex-15-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:74e2f5fb91338845b190cbd19e86a06b55137e45c6d7f953e35a0b7ee8cb9b07",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "unadjusted-pairwise-tests-treated-as-family-protected",
+      "statement": "Deset parnih usporedbi nakon ukupnog testa može se čitati iz pojedinačnih p-vrijednosti bez prilagodbe za cijelu obitelj.",
+      "why_wrong": "Postavka `p.adjust.method = \"none\"` provodi svih deset testova na pojedinačnoj razini bez zaštite vjerojatnosti da barem jedan istiniti nulti par bude lažno odbačen. Ispravni pojedinačni računi ne popravljaju višestrukost odluke."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Prebrojiti sve parove pet skupina, pročitati postavku prilagodbe i neovisno simulirati potpunu nultu situaciju za deset dijeljenih parnih usporedbi te za jedan ukupni test.",
+      "expected_evidence": "Pet skupina daje 10 parova. Uz `none` nema imenovane zaštite obitelji. U 2000 fiksnih nultih ponavljanja barem jedan parni test prolazi u 548 slučajeva ili 27,4 %, dok jedan ukupni test prolazi u 85 slučajeva ili 4,25 %."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogreška je funkcija `aov`, jer se nakon nje smiju provesti samo pojedinačni t-testovi.",
+          "why_insufficient": "Ukupni klasični model prikladan je za zajedničko pitanje. Problem je nezaštićena obitelj u drugom pozivu."
+        },
+        {
+          "response": "Nema pogreške jer je svaki pojedinačni t-test valjano izračunat.",
+          "why_insufficient": "Valjanost pojedinačnoga testa ne drži stopu barem jednoga lažno pozitivnog para na pet posto kroz deset odluka."
+        },
+        {
+          "response": "Dovoljno je zadržati samo najmanju p-vrijednost.",
+          "why_insufficient": "Odabir najmanje vrijednosti dodatno naglašava upravo najveću slučajnu krajnost i ne uklanja broj otvorenih prilika."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-overall-model",
+          "required_claim": "Poziv `aov` i odabrane varijable mogu ostati korisni za klasični ukupni test.",
+          "required_evidence": "Model zajednički uspoređuje svih pet sredina umjesto da svaku parnu odluku tretira kao samostalno istraživanje."
+        },
+        {
+          "component_id": "identify-unprotected-family",
+          "required_claim": "Jedina je pogreška `p.adjust.method = \"none\"`, zbog koje deset parnih testova nema zaštitu stope obiteljske pogreške.",
+          "required_evidence": "Broj parova iznosi 5 nad 2, odnosno 10, a nijedna prilagodba nije uključena."
+        },
+        {
+          "component_id": "explain-individual-versus-family",
+          "required_claim": "Uredna pojedinačna p-vrijednost odgovara jednom paru, ali ne vjerojatnosti barem jedne pogreške u cijelome skupu parova.",
+          "required_evidence": "Nulta simulacija daje 27,4 % ponavljanja s barem jednim lažno pozitivnim parom nasuprot 4,25 % za jedan ukupni test."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Pet skupina daje 10 parova. U fiksnoj nultoj simulaciji nezaštićene parne usporedbe daju barem jednu pogrešku u 548/2000 = 27,4 % ponavljanja, a jedan ukupni test u 85/2000 = 4,25 %. Za deset doista neovisnih testova simulacija daje 808/2000 = 40,4 %, a formula 1 − 0,95^10 daje 40,126306076162 %.",
+      "tolerance_or_acceptance_rule": "Za broj parova i simulacijske brojeve traži se točno 10, 548, 85 i 808. Postotke prihvatiti unutar 0,01 postotnoga boda, uz izričitu napomenu da formula od 40,1263 % vrijedi za neovisne testove, ne za deset dijeljenih parova.",
+      "independent_method": "Izračunati kombinaciju 5 nad 2, zatim iz kanonske simulirane populacije s fiksnim strujama 1516 i 1517 zasebno ponoviti deset Welchovih parova, jedan ukupni F-test i deset neovisnih testova kroz 2000 ponavljanja; teorijsku vrijednost izračunati kao komplement deset zajedničkih neuspjeha.",
+      "evidence_reference": "chapters/15-vise-grupa.qmd#ex-15-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-unadjusted-family",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća `none` ili pojedinačne p-vrijednosti prikazuje kao zaštitu cijele obitelji.",
+          "observable_evidence": "Deset odluka i dalje se tumači na petpostotnoj pojedinačnoj razini bez imenovanoga obiteljskog postupka."
+        },
+        {
+          "criterion_id": "major-misses-family-definition",
+          "severity": "major",
+          "description": "Postavka je označena kao sumnjiva, ali odgovor ne imenuje deset parova ni stopu barem jednoga lažno pozitivnog rezultata.",
+          "observable_evidence": "Dijagnoza ostaje na općoj tvrdnji o korekciji bez ciljne pogreške."
+        },
+        {
+          "criterion_id": "minor-condemns-correct-model",
+          "severity": "minor",
+          "description": "Središnja pogreška je pronađena, ali korisni ukupni model ili odabrane varijable pogrešno se odbacuju.",
+          "observable_evidence": "Lokalna prosudba širi kritiku izvan jedinoga posađenog nedostatka."
+        },
+        {
+          "criterion_id": "useful-adds-null-rate-check",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno provjerava razliku između 27,4 % za dijeljene parove i 40,1263 % za neovisne testove.",
+          "observable_evidence": "Dodatak točno ograničava domet uobičajene formule."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "named-family-procedure",
+      "description": "Prihvatljiv odgovor može kao primjer zaštite imenovati Tukeyjev postupak ili unaprijed planiranu užu obitelj, bez pisanja zamjenskoga koda.",
+      "acceptance_boundary": "Mora zadržati dijagnozu `none`, imenovati deset trenutačnih parova i razlikovati pojedinačnu od obiteljske stope."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija modela moraju zatvoriti isti planted-error ID. Ne prihvatiti `aov`, formule funkcije ni odabrane varijable kao središnju pogrešku.",
+    "Ne tražiti zamjenski kod. Ocjenjuje se statistička obitelj, dokaz i granica tvrdnje."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
