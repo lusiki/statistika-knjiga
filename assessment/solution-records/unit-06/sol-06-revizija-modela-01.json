@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-06-revizija-modela-01",
+  "exercise_id": "ex-06-revizija-modela-01",
+  "unit_id": "06",
+  "source_anchor": {
+    "path": "chapters/06-povezanost.qmd",
+    "anchor": "ex-06-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:fff01f5a83456f279ee206629f204214769a6429ea72d555bad59c93ebe9c76d",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "filtered-subgroup-generalized-to-full-sample",
+      "statement": "Model rezultat nakon filtra za dobnu skupinu od 18 do 24 godine pogrešno koristi za zaključak o cijelom simuliranom uzorku.",
+      "why_wrong": "Poziv točno računa r = 0,18 za 90 najmlađih ispitanika, ali filter mijenja ciljnu skupinu. Cijeli skup ima 300 ispitanika i Pearsonov r = -0,56, pa filtrirani koeficijent ne odgovara na početno pitanje o cijelom rasponu dobi."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Razdvojiti ispravne operacije od granice zaključka, označiti redak filter, neovisno izračunati r i n prije i nakon filtra te svaki rezultat vezati uz njegov raspon i raspršeni dijagram.",
+      "expected_evidence": "Ispravni su filter, cor i n kao odgovor na pitanje o najmlađoj skupini. Filter zadržava dob od 18 do 24 godine, n = 90 i r = 0,18; bez filtra ostaje n = 300 i r = -0,56."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Poziv je cijeli pogrešan jer sadrži filter.",
+          "why_insufficient": "Filter valjano odgovara na uže pitanje. Pogreška je prenošenje toga odgovora na širu skupinu."
+        },
+        {
+          "response": "Funkcija cor ne smije se koristiti bez testa značajnosti.",
+          "why_insufficient": "Zadatak provjerava opis povezanosti i ciljnu skupinu. Test ne bi popravio zamjenu populacije ni raspona."
+        },
+        {
+          "response": "Treba napisati novi kod bez retka filter.",
+          "why_insufficient": "Predaja traži dijagnozu, dokaz i ispravljenu rečenicu, a ne pisanje ili popravljanje koda."
+        },
+        {
+          "response": "Zaključak je dopušten jer su najmlađi ispitanici dio cijeloga uzorka.",
+          "why_insufficient": "Podskupina ne predstavlja cijeli raspon, a generator unutar nje proizvodi drukčiji odnos od onoga među skupinama."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "grade-correct-operations",
+          "required_claim": "Poziv ispravno zadržava imenovanu dobnu skupinu, računa Pearsonovu korelaciju u njoj i vraća broj opažanja.",
+          "required_evidence": "Operacije filter, cor i n izravno odgovaraju na ograničeno pitanje o najmlađoj skupini."
+        },
+        {
+          "component_id": "identify-filter-line",
+          "required_claim": "Redak filter(dobna_skupina == \"18 do 24\") mijenja ciljnu skupinu i raspon dobi.",
+          "required_evidence": "Nakon njega ostaje 90 od 300 redaka i samo dob od 18 do 24 godine."
+        },
+        {
+          "component_id": "explain-target-mismatch",
+          "required_claim": "Koeficijent 0,18 ne odgovara na pitanje o cijelom rasponu jer opisuje samo varijaciju unutar najmlađe skupine.",
+          "required_evidence": "Cijeli uzorak daje r = -0,56 i pokazuje zakrivljen silazni odnos koji nastaje preko širega dobnog raspona."
+        },
+        {
+          "component_id": "write-corrected-report",
+          "required_claim": "Ispravljena rečenica odvojeno izvještava da je u skupini od 18 do 24 godine r = 0,18 uz n = 90, dok je u cijelom simuliranom uzorku dob negativno povezana s minutama, uz Pearsonov r = -0,56 i n = 300.",
+          "required_evidence": "Obje vrijednosti reproducirane su iz iste datoteke uz jasno imenovan filtar."
+        },
+        {
+          "component_id": "respect-code-reading-boundary",
+          "required_claim": "Odgovor čita i dijagnosticira prikazani kod, ali ne proizvodi njegovu zamjenu.",
+          "required_evidence": "Predaja imenuje redak, ciljnu skupinu, dokaz i ispravljenu izvještajnu rečenicu."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Nakon filtra n = 90 i Pearsonov r = 0,18; bez filtra n = 300 i Pearsonov r = -0,56.",
+      "tolerance_or_acceptance_rule": "Prihvaćaju se koeficijenti zaokruženi na dvije decimale uz točne brojnosti i izričito vezivanje svakoga rezultata uz njegovu skupinu.",
+      "independent_method": "Iz data/anketa-mreze.csv ponovno izračunati n i Pearsonovu korelaciju prije i nakon filtra za dobnu skupinu od 18 do 24 godine.",
+      "evidence_reference": "chapters/06-povezanost.qmd#ex-06-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-keeps-full-sample-conclusion",
+          "severity": "fatal",
+          "description": "Odgovor zadržava zaključak o cijelom uzorku iz filtriranoga koeficijenta ili ne prepoznaje promjenu ciljne skupine.",
+          "observable_evidence": "Ispravljena rečenica i dalje pripisuje r = 0,18 svim dobnim skupinama."
+        },
+        {
+          "criterion_id": "major-missing-correct-step-filter-or-recalculation",
+          "severity": "major",
+          "description": "Nedostaje ocjena ispravnih operacija, imenovani redak filter, objašnjenje nepodudarnosti ili brojčana usporedba prije i nakon filtra.",
+          "observable_evidence": "Jedan izričito traženi dio revizije ne može se provjeriti."
+        },
+        {
+          "criterion_id": "minor-incomplete-report-boundary",
+          "severity": "minor",
+          "description": "Središnja je dijagnoza točna, ali ispravljena rečenica izostavlja jednu brojnost, raspon ili naziv mjere.",
+          "observable_evidence": "Lokalna dopuna dovoljna je bez promjene presude."
+        },
+        {
+          "criterion_id": "useful-documents-human-responsibility",
+          "severity": "useful_improvement",
+          "description": "Odgovor bilježi što je asistent izračunao, što je čovjek provjerio u datoteci i grafu te tko preuzima odgovornost za granicu zaključka.",
+          "observable_evidence": "Kratak račun provjere prati specifikaciju, rezultat, neovisnu provjeru i odgovornu osobu."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "two-sentence-separated-report",
+      "description": "Prihvatljivo je napisati dvije odvojene rečenice, jednu samo za najmlađu skupinu i jednu za cijeli uzorak, umjesto jedne složene rečenice.",
+      "acceptance_boundary": "Obje moraju navesti odgovarajuću brojnost i koeficijent te ne smiju tvrditi uzrok."
+    }
+  ],
+  "instructor_notes": [
+    "Revizija zatvara istu jedinu pogrešku kao okvir o pogrešci. Ne proglašavati samu uporabu Pearsonove korelacije ili filtra dodatnom pogreškom.",
+    "Student ne popravlja kod. Dovoljno je pročitati operacije, reproducirati dva sažetka i napisati statistički ograničen izvještaj."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

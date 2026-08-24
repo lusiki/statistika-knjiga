@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-CLOSURE-05"
-  next_permitted_packet: "P5-CLOSURE-06"
+  last_completed_packet: "P5-CLOSURE-06"
+  next_permitted_packet: "P5-CLOSURE-07"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -15432,7 +15432,7 @@ packets:
     sequence: 140
     phase: "5"
     kind: "assessment_unit"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-CLOSURE-05"
       - "P2-ASSESS"
@@ -15444,13 +15444,66 @@ packets:
       - "Every applicable task has its required key, check, rubric, or model-answer component."
       - "Protected instructor content is absent from public routes and exports."
       - "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-7bfef8409b75defaa07ede89f5c2ebc5b05170a9f6c65ff28aa50e884f55741e"
+      required_evidence:
+        - requirement: "canonical answer records"
+          artifacts:
+            - "records:assessment/solution-records/unit-06-five-schema-valid-records"
+            - "source:chapters/06-povezanost.qmd@sha256-8b143c01a79e59b19b53a814907dcbefae2a7dc50b12f8b218b3b1030e2bf10d"
+            - "report:notes/reports/p5-closure-06-2026-08-24.md"
+            - "handoff:H-P5-CLOSURE-00-001-consumed-before-start"
+        - requirement: "independent numerical checks"
+          artifacts:
+            - "check:unit-06-full-n-300-pearson-minus-0.559289-spearman-minus-0.680151"
+            - "check:unit-06-youngest-n-90-age-18-24-pearson-0.180377"
+            - "check:unit-06-eurostat-main-27-early-26-r-0.449994-HR-2.1-u-LU-missing-u"
+            - "check:unit-06-w06-r-minus-0.85-minus-0.53-0.40-0.77-deviations-0.15-0.33-0.20-0.27"
+            - "check:ASSESSMENT_ARCHITECTURE_OK-unit-06-numerical-records-4-print-path-rendered-tables-scatterplot-presets-no-code"
+        - requirement: "profile visibility and export test"
+          artifacts:
+            - "profile:default-html-6cef48e00b87c049be7dfcc71a2c8af2aeca05fbc58b3cabd54fdc578e63f76a-kolegij-key-absent"
+            - "profile:kolegij-html-15f35081c90649b170a85f76f4e936209de4f6bfc314a2b9887cc0baf2cf8911-kolegij-key-present"
+            - "export:AI_EXPORT_RELEASE_OK-chapters-19-protected-regions-33-governance-pre_release"
+            - "check:protected-record-strings-444-public-export-leaks-0"
+            - "boundary:config/book-inventory.json-solution_routes-empty"
+      outputs:
+        - output: "P5-CLOSURE-06 canonical assessment-closure record for: Canonical answer, check, rubric, and planted-error closure for unit 06."
+          artifacts:
+            - "records:assessment/solution-records/unit-06"
+            - "source:chapters/06-povezanost.qmd#five-stable-assessment-anchors"
+            - "source:scripts/check-assessment-architecture.py#unit-06-independent-numerics-and-planted-error"
+            - "report:notes/reports/p5-closure-06-2026-08-24.md"
+        - output: "Completion evidence is tied to the declared P5-CLOSURE-06 source state and bounded scope."
+          artifacts:
+            - "assessment-unit:sha256-7bfef8409b75defaa07ede89f5c2ebc5b05170a9f6c65ff28aa50e884f55741e"
+            - "source:chapters/06-povezanost.qmd@sha256-8b143c01a79e59b19b53a814907dcbefae2a7dc50b12f8b218b3b1030e2bf10d"
+            - "boundary:no-route-no-stage-no-prose-change"
+      exit_tests:
+        - test: "Every applicable task has its required key, check, rubric, or model-answer component."
+          result: "passed"
+          evidence:
+            - "check:five-records-five-anchors-five-task-classes-six-components-each"
+            - "check:one-stable-planted-error-shared-by-callout-and-model-revision"
+            - "check:not-applicable-components-carry-reasons"
+        - test: "Protected instructor content is absent from public routes and exports."
+          result: "passed"
+          evidence:
+            - "check:protected-record-strings-444-public-export-leaks-0"
+            - "boundary:solution-routes-empty-and-no-route-assembly"
+        - test: "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
+          result: "passed"
+          evidence:
+            - "check:four-Zadaci-tiers-plus-callout-greska-covered"
+            - "check:unit-06-independent-numerical-recomputation-passed"
+            - "check:default-versus-kolegij-full-source-profile-separation-passed"
+            - "check:print-path-rendered-tables-scatterplot-fixed-presets-no-code-passed"
     contract: "assessment_unit"
     required_evidence:
       - "canonical answer records"
       - "independent numerical checks"
       - "profile visibility and export test"
-    change_reference: null
+    change_reference: "assessment-unit:sha256-7bfef8409b75defaa07ede89f5c2ebc5b05170a9f6c65ff28aa50e884f55741e"
   P5-CLOSURE-07:
     sequence: 141
     phase: "5"
@@ -25300,7 +25353,7 @@ items:
       location: "§12 assessment closure + §15 R15"
     description: "Complete canonical assessment closure for unit 06."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_assessment_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -25317,11 +25370,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-CLOSURE-06"
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-7bfef8409b75defaa07ede89f5c2ebc5b05170a9f6c65ff28aa50e884f55741e"
+      artifacts:
+        - "records:assessment/solution-records/unit-06-five-schema-valid-records"
+        - "source:chapters/06-povezanost.qmd@sha256-8b143c01a79e59b19b53a814907dcbefae2a7dc50b12f8b218b3b1030e2bf10d"
+        - "check:ASSESSMENT_ARCHITECTURE_OK-records-35-anchors-35-unit-06-numerics-print-profile-export-pass"
+        - "profile:default-6cef48e00b87c049be7dfcc71a2c8af2aeca05fbc58b3cabd54fdc578e63f76a-kolegij-15f35081c90649b170a85f76f4e936209de4f6bfc314a2b9887cc0baf2cf8911"
+        - "report:notes/reports/p5-closure-06-2026-08-24.md"
+        - "handoff:H-P5-CLOSURE-00-001-consumed"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "assessment-unit:sha256-7bfef8409b75defaa07ede89f5c2ebc5b05170a9f6c65ff28aa50e884f55741e"
   R15-CLOSURE-07:
     parents:
       - "R15"

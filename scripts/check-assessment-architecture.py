@@ -8,6 +8,7 @@ import csv
 import hashlib
 import importlib.util
 import json
+import math
 import os
 import re
 import sys
@@ -1265,6 +1266,310 @@ def unit_05_numerical_check(
     return errors, evidence
 
 
+def unit_06_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    survey_path: Path,
+    eurostat_path: Path,
+    widget_registry_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 06 correlations, filtered scope, Eurostat pairs and print deviations."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-06-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-06-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-06-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-06-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-06-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 06 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 06 {label} prompt is empty.")
+
+    def pearson(left: list[float], right: list[float]) -> float:
+        if len(left) != len(right) or len(left) < 2:
+            raise ArithmeticError("correlation requires paired values")
+        left_mean = sum(left) / len(left)
+        right_mean = sum(right) / len(right)
+        numerator = sum((x - left_mean) * (y - right_mean) for x, y in zip(left, right))
+        left_ss = sum((x - left_mean) ** 2 for x in left)
+        right_ss = sum((y - right_mean) ** 2 for y in right)
+        denominator = math.sqrt(left_ss * right_ss)
+        if denominator == 0:
+            raise ArithmeticError("correlation denominator is zero")
+        return numerator / denominator
+
+    def average_ranks(values: list[float]) -> list[float]:
+        order = sorted(range(len(values)), key=values.__getitem__)
+        ranks = [0.0] * len(values)
+        start = 0
+        while start < len(order):
+            end = start + 1
+            while end < len(order) and values[order[end]] == values[order[start]]:
+                end += 1
+            average = (start + 1 + end) / 2
+            for index in order[start:end]:
+                ranks[index] = average
+            start = end
+        return ranks
+
+    try:
+        with survey_path.open(encoding="utf-8", newline="") as handle:
+            survey = list(csv.DictReader(handle))
+        if len(survey) != 300:
+            errors.append(f"Unit 06 survey row count drifted: {len(survey)}")
+        age = [float(row["dob"]) for row in survey]
+        minutes = [float(row["minute_dnevno"]) for row in survey]
+        trust = [float(row["povjerenje"]) for row in survey]
+        youngest = [row for row in survey if row["dobna_skupina"] == "18 do 24"]
+        youngest_age = [float(row["dob"]) for row in youngest]
+        youngest_minutes = [float(row["minute_dnevno"]) for row in youngest]
+        full_r = pearson(age, minutes)
+        youngest_r = pearson(youngest_age, youngest_minutes)
+        age_trust_r = pearson(age, trust)
+        minutes_trust_r = pearson(minutes, trust)
+        spearman_age_minutes = pearson(average_ranks(age), average_ranks(minutes))
+    except (OSError, csv.Error, KeyError, ValueError, ArithmeticError) as exc:
+        return errors + [f"Unit 06 survey could not be checked independently: {exc}"], {}
+
+    expected_correlations = {
+        "full": -0.559289315825884,
+        "youngest": 0.180376722320621,
+        "age_trust": -0.329040101725562,
+        "minutes_trust": 0.179849462681741,
+        "spearman_age_minutes": -0.680150964765922,
+    }
+    observed_correlations = {
+        "full": full_r,
+        "youngest": youngest_r,
+        "age_trust": age_trust_r,
+        "minutes_trust": minutes_trust_r,
+        "spearman_age_minutes": spearman_age_minutes,
+    }
+    for label, expected in expected_correlations.items():
+        observed = observed_correlations[label]
+        if abs(observed - expected) > 1e-12:
+            errors.append(
+                f"Unit 06 {label} correlation drifted: {observed:.15f} != {expected:.15f}"
+            )
+    if len(youngest) != 90 or (min(youngest_age), max(youngest_age)) != (18, 24):
+        errors.append(
+            "Unit 06 filtered subgroup must contain 90 observations spanning ages 18 through 24."
+        )
+
+    try:
+        with eurostat_path.open(encoding="utf-8", newline="") as handle:
+            eurostat = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 06 Eurostat extract could not be read independently: {exc}"], {}
+    by_geo: dict[str, dict[str, dict[str, str]]] = {}
+    for row in eurostat:
+        by_geo.setdefault(row.get("geo", ""), {})[row.get("pokazatelj", "")] = row
+    main_indicators = ("tercijarno_obrazovanje_25_34", "uporaba_interneta_16_74")
+    early_indicator = "rano_napustanje_obrazovanja_18_24"
+
+    def available(row: dict[str, str] | None) -> bool:
+        return bool(row) and row.get("vrijednost_dostupna") == "da" and row.get("vrijednost") != ":"
+
+    main_complete = [
+        geo
+        for geo, values in by_geo.items()
+        if all(available(values.get(indicator)) for indicator in main_indicators)
+    ]
+    early_complete = [
+        geo
+        for geo, values in by_geo.items()
+        if available(values.get(main_indicators[0])) and available(values.get(early_indicator))
+    ]
+    luxembourg_early = by_geo.get("LU", {}).get(early_indicator, {})
+    croatia_early = by_geo.get("HR", {}).get(early_indicator, {})
+    if len(by_geo) != 27 or len(main_complete) != 27 or len(early_complete) != 26:
+        errors.append(
+            "Unit 06 Eurostat pair counts drifted: "
+            f"states={len(by_geo)}, main={len(main_complete)}, early={len(early_complete)}"
+        )
+    if not (
+        luxembourg_early.get("vrijednost") == ":"
+        and luxembourg_early.get("status_api") == "u"
+        and luxembourg_early.get("vrijednost_dostupna") == "ne"
+        and croatia_early.get("vrijednost") == "2.1"
+        and croatia_early.get("status_api") == "u"
+        and croatia_early.get("vrijednost_dostupna") == "da"
+    ):
+        errors.append("Unit 06 Eurostat absence-versus-status evidence drifted for LU or HR.")
+    try:
+        eurostat_tertiary = [
+            float(by_geo[geo][main_indicators[0]]["vrijednost"]) for geo in main_complete
+        ]
+        eurostat_internet = [
+            float(by_geo[geo][main_indicators[1]]["vrijednost"]) for geo in main_complete
+        ]
+        eurostat_main_r = pearson(eurostat_tertiary, eurostat_internet)
+    except (KeyError, TypeError, ValueError, ArithmeticError) as exc:
+        return errors + [f"Unit 06 Eurostat main correlation could not be checked: {exc}"], {}
+    expected_eurostat_main_r = 0.4499935433452106
+    if abs(eurostat_main_r - expected_eurostat_main_r) > 1e-12:
+        errors.append(
+            "Unit 06 Eurostat main correlation drifted: "
+            f"{eurostat_main_r:.15f} != {expected_eurostat_main_r:.15f}"
+        )
+
+    try:
+        widget_registry = load_json(widget_registry_path)
+        widget_matches = [
+            widget for widget in widget_registry.get("widgets", []) if widget.get("id") == "w06"
+        ]
+        if len(widget_matches) != 1:
+            raise AssertionError(f"expected one w06 parity record, found {len(widget_matches)}")
+        widget = widget_matches[0]
+        r_expected = widget["parity"]["expected"]["r"]
+        widget_correlations = [
+            float(r_expected[f"cloud_{index}.correlation"]) for index in range(1, 5)
+        ]
+    except (AssertionError, KeyError, TypeError, ValueError) as exc:
+        return errors + [f"Unit 06 w06 parity evidence is invalid: {exc}"], {}
+    expected_widget = [
+        -0.8481563468979553,
+        -0.533683839737063,
+        0.40057528730241643,
+        0.7678317664817833,
+    ]
+    if any(abs(observed - expected) > 1e-12 for observed, expected in zip(widget_correlations, expected_widget)):
+        errors.append(f"Unit 06 w06 R golden correlations drifted: {widget_correlations}")
+
+    source_text = "\n".join(lines)
+    preset_match = re.search(
+        r"mutate\s*\(\s*procjena\s*=\s*c\(([^)]*)\)", source_text, flags=re.DOTALL
+    )
+    if not preset_match:
+        return errors + ["Unit 06 print preset vector could not be parsed."], {}
+    try:
+        print_presets = [Decimal(value.strip()) for value in preset_match.group(1).split(",")]
+    except ArithmeticError as exc:
+        return errors + [f"Unit 06 print presets are invalid: {exc}"], {}
+    if print_presets != [Decimal("-0.70"), Decimal("-0.20"), Decimal("0.20"), Decimal("0.50")]:
+        errors.append(f"Unit 06 print presets drifted: {print_presets}")
+    displayed_widget = [Decimal(f"{value:.2f}") for value in widget_correlations]
+    print_deviations = [abs(value - preset) for value, preset in zip(displayed_widget, print_presets)]
+    expected_deviations = [Decimal("0.15"), Decimal("0.33"), Decimal("0.20"), Decimal("0.27")]
+    if print_deviations != expected_deviations:
+        errors.append(f"Unit 06 print absolute deviations drifted: {print_deviations}")
+
+    normalized_source = " ".join(lines).casefold()
+    normalized_numerical_prompt = " ".join(numerical_prompt.split()).casefold()
+    required_source_tokens = (
+        "label: tbl-korelacije-anketa",
+        "label: fig-zakrivljeno",
+        "label: fig-w06-print",
+        "label: tbl-w06-print-procjene",
+    )
+    required_prompt_tokens = (
+        "tablicu korelacija triju varijabli",
+        "u tisku uzmite četiri zadane procjene",
+        "apsolutno odstupanje procjene",
+    )
+    if not all(token in normalized_source for token in required_source_tokens) or not all(
+        token in normalized_numerical_prompt for token in required_prompt_tokens
+    ):
+        errors.append(
+            "Unit 06 print path must expose the correlation table, scatterplot and fixed w06 preset table."
+        )
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if "redak koda koji mijenja ciljnu skupinu" not in normalized_revision or any(
+        phrase in normalized_revision for phrase in ("napišite kod", "popravite kod", "prepišite kod")
+    ):
+        errors.append("Unit 06 model revision must assess code reading without code production.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 06 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    if planted_ids != {"filtered-subgroup-generalized-to-full-sample"}:
+        errors.append(
+            "Unit 06 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"callout_greska", "konceptualni", "racunski", "revizija_modela"}
+    if numerical_applicable != expected_applicable:
+        errors.append(f"Unit 06 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    scope_tokens = ["n = 90", "r = 0,18", "n = 300", "r = -0,56"]
+    for task_class in ("callout_greska", "revizija_modela"):
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        missing_tokens = [token for token in scope_tokens if token not in result]
+        if missing_tokens:
+            errors.append(
+                f"Unit 06 {task_class} numerical result lacks recomputed tokens: {missing_tokens}"
+            )
+    conceptual_result = str(
+        by_class["konceptualni"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    conceptual_tokens = ["27", "26", "2,1", "vrijednost :", "status u"]
+    missing_conceptual = [token for token in conceptual_tokens if token not in conceptual_result]
+    if missing_conceptual:
+        errors.append(
+            f"Unit 06 conceptual numerical result lacks source tokens: {missing_conceptual}"
+        )
+    numerical_result = str(
+        by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"]
+    )
+    numerical_tokens = [
+        "-0,56",
+        "-0,33",
+        "0,18",
+        "-0,68",
+        "0,15",
+        "0,33",
+        "0,20",
+        "0,27",
+    ]
+    missing_numerical = [token for token in numerical_tokens if token not in numerical_result]
+    if missing_numerical:
+        errors.append(f"Unit 06 numerical answer lacks recomputed tokens: {missing_numerical}")
+    critical_components = " ".join(
+        str(component.get("required_evidence", ""))
+        for component in by_class["kriticki"]["answer_components"]["model_response_components"]["components"]
+    )
+    if "0,45" not in critical_components:
+        errors.append("Unit 06 critical answer lacks the independently reproduced Eurostat r = 0,45.")
+
+    evidence = {
+        "full_sample": f"{len(survey)}/{full_r:.6f}/{spearman_age_minutes:.6f}",
+        "youngest": f"{len(youngest)}/{youngest_r:.6f}/{int(min(youngest_age))}-{int(max(youngest_age))}",
+        "pair_correlations": f"{full_r:.6f}/{age_trust_r:.6f}/{minutes_trust_r:.6f}",
+        "eurostat_pairs": f"{len(main_complete)}/{len(early_complete)}/r-{eurostat_main_r:.6f}/HR-{croatia_early.get('vrijednost')}-u/LU-missing-u",
+        "print_correlations": "/".join(f"{value:.2f}" for value in displayed_widget),
+        "print_deviations": "/".join(f"{value:.2f}" for value in print_deviations),
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-correlation-table-scatterplot-and-fixed-w06-presets-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -1645,6 +1950,21 @@ def main() -> int:
             ROOT / "data/anketa-mreze-agregat.csv",
         )
         errors.extend(numerical_errors)
+    unit_06_numerical: dict[str, str] = {}
+    if (
+        "06" in records_by_unit
+        and len(records_by_unit["06"]) == 5
+        and {record["task_class"] for record in records_by_unit["06"]} == expected_task_classes
+        and "chapters/06-povezanost.qmd" in source_lines
+    ):
+        numerical_errors, unit_06_numerical = unit_06_numerical_check(
+            source_lines["chapters/06-povezanost.qmd"],
+            records_by_unit["06"],
+            ROOT / "data/anketa-mreze.csv",
+            ROOT / "data/eurostat-drustvo-2025.csv",
+            ROOT / "data/widgets.json",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -1897,6 +2217,19 @@ def main() -> int:
             f"records={unit_05_numerical.get('applicable_records')} "
             f"planted_error={unit_05_numerical.get('planted_error')} "
             f"print_path={unit_05_numerical.get('print_path')}"
+        )
+    if unit_06_numerical:
+        print(
+            "- unit 06 independent numerics: "
+            f"full={unit_06_numerical.get('full_sample')} "
+            f"youngest={unit_06_numerical.get('youngest')} "
+            f"pairs={unit_06_numerical.get('pair_correlations')} "
+            f"eurostat={unit_06_numerical.get('eurostat_pairs')} "
+            f"print_r={unit_06_numerical.get('print_correlations')} "
+            f"deviations={unit_06_numerical.get('print_deviations')} "
+            f"records={unit_06_numerical.get('applicable_records')} "
+            f"planted_error={unit_06_numerical.get('planted_error')} "
+            f"print_path={unit_06_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-06-konceptualni-01",
+  "exercise_id": "ex-06-konceptualni-01",
+  "unit_id": "06",
+  "source_anchor": {
+    "path": "chapters/06-povezanost.qmd",
+    "anchor": "ex-06-konceptualni-01"
+  },
+  "task_class": "konceptualni",
+  "prompt_fingerprint": "sha256:1665bc22177fee9437e421c46255180e51608bd88640910ee16d470ee1d7c4c3",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak traži obrazložene odluke o uključivanju službenih agregata i granici tvrdnje, a ne reviziju jedne namjerno pogrešne analize.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Provjeriti jedinstveni ključ država + godina + pokazatelj, za svaki traženi par odvojiti brojčanu vrijednost od statusne oznake i odsutnosti te nakon širenja pokazatelja prebrojiti potpune parove po državi.",
+      "expected_evidence": "Luksemburg ima brojčane vrijednosti za tercijarno obrazovanje i uporabu interneta pa glavni odnos zadržava svih 27 država. Za rano napuštanje obrazovanja njegov je zapis dvotočka i parova ostaje najviše 26, dok hrvatskih 2,1 uz status u ostaje brojčana vrijednost s upozorenjem."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Svaki redak sa statusom u treba ukloniti.",
+          "why_insufficient": "Status niske pouzdanosti nije isto što i odsutna brojčana vrijednost. Hrvatskih 2,1 ostaje dostupno uz sačuvano upozorenje."
+        },
+        {
+          "response": "Dvotočku treba pretvoriti u nulu kako bi ostalo 27 država.",
+          "why_insufficient": "Dvotočka označuje odsutnost, a nula bi bila izmišljena objavljena vrijednost i promijenila bi odnos."
+        },
+        {
+          "response": "Luksemburg treba izbaciti iz svih analiza jer mu nedostaje jedan pokazatelj.",
+          "why_insufficient": "Odsutnost je vezana uz rano napuštanje obrazovanja. Drugi parovi ostaju potpuni i ne opravdavaju potpuno uklanjanje države."
+        },
+        {
+          "response": "Glavni odnos pokazuje da obrazovaniji ljudi češće koriste internet.",
+          "why_insufficient": "Jedan redak nakon spajanja predstavlja državu, pa agregatni odnos ne podupire individualnu tvrdnju."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "state-unique-key",
+          "required_claim": "Izvorni jedinstveni ključ jest država + godina + pokazatelj, a nakon širenja se parovi povezuju po državi i godini.",
+          "required_evidence": "Svaka od 162 kombinacije u izvatku jedinstvena je unutar 27 država, 2025. godine i šest pokazatelja."
+        },
+        {
+          "component_id": "retain-luxembourg-main-pair",
+          "required_claim": "Luksemburg ulazi u glavni odnos, koji ima 27 država, jer su oba tražena pokazatelja brojčana.",
+          "required_evidence": "Redci za tercijarno obrazovanje i uporabu interneta u Luksemburgu nose dostupne brojčane vrijednosti."
+        },
+        {
+          "component_id": "exclude-only-missing-early-leaving-pair",
+          "required_claim": "Luksemburški zapis dvotočka ne ulazi kao nula u par s ranim napuštanjem obrazovanja, pa taj odnos ima najviše 26 potpunih parova.",
+          "required_evidence": "Vrijednost je označena kao nedostupna, uz status u, dok redak ostaje sačuvan u datoteci."
+        },
+        {
+          "component_id": "retain-croatian-value-with-flag",
+          "required_claim": "Hrvatskih 2,1 ostaje brojčana vrijednost, a status u ostaje uz nju kao upozorenje o niskoj pouzdanosti.",
+          "required_evidence": "Polje vrijednosti sadrži 2,1 i dostupnost da; status ne zamjenjuje vrijednost."
+        },
+        {
+          "component_id": "write-country-level-claim",
+          "required_claim": "Dopuštena rečenica opisuje pozitivnu povezanost dvaju državnih udjela u 27 članica EU-a 2025. i ne pripisuje je pojedincima ili uzroku.",
+          "required_evidence": "Jedna točka i jedan redak nakon spajanja predstavljaju državu, a izvorni par ima potpun obuhvat EU-27."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Glavni par ima 27 potpunih država; par s ranim napuštanjem obrazovanja ima najviše 26 jer je luksemburška vrijednost :, dok hrvatskih 2,1 uz status u ostaje uključeno.",
+      "tolerance_or_acceptance_rule": "Brojnosti moraju biti 27 i najviše 26, hrvatska vrijednost 2,1 ne smije postati odsutna, a luksemburška dvotočka ne smije postati nula.",
+      "independent_method": "Iz data/eurostat-drustvo-2025.csv neovisno provjeriti dostupnost triju pokazatelja po državi i prebrojiti potpune parove.",
+      "evidence_reference": "chapters/06-povezanost.qmd#ex-06-konceptualni-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-invents-zero-or-individual-claim",
+          "severity": "fatal",
+          "description": "Odgovor pretvara odsutnu luksemburšku vrijednost u nulu ili agregatni odnos prikazuje kao individualnu ili uzročnu tvrdnju.",
+          "observable_evidence": "Tablica ili poštena rečenica mijenja izvorni zapis ili prelazi s država na ljude odnosno uzrok."
+        },
+        {
+          "criterion_id": "major-misses-key-count-or-status-distinction",
+          "severity": "major",
+          "description": "Nedostaje jedinstveni ključ, jedna od brojnosti 27 i 26 ili razlika između brojčane vrijednosti sa statusom i odsutnosti.",
+          "observable_evidence": "Jedan od tri tražena retka odluke ili njegova osnova nije provjerljiv."
+        },
+        {
+          "criterion_id": "minor-incomplete-country-sentence",
+          "severity": "minor",
+          "description": "Odluke su točne, ali završna rečenica izostavlja godinu, dobne obuhvate ili ograničenje na države.",
+          "observable_evidence": "Lokalna dopuna obuhvata dovoljna je bez promjene analize."
+        },
+        {
+          "criterion_id": "useful-preserves-source-flags",
+          "severity": "useful_improvement",
+          "description": "Odgovor izričito čuva izvornu statusnu oznaku uz svaku objavljenu vrijednost i odvaja je od odluke o potpunom paru.",
+          "observable_evidence": "Tablica odluka razlikuje vrijednost, status i dostupnost u zasebnim koracima."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "omit-flagged-croatia-only-with-preregistered-rule",
+      "description": "Moguća je osjetljivost koja izostavlja hrvatskih 2,1 zbog statusa u ako je pravilo unaprijed opravdano i rezultat se usporedi s glavnom analizom.",
+      "acceptance_boundary": "To nije zadana glavna odluka i status se ne smije poistovjetiti s nedostajućom vrijednošću."
+    }
+  ],
+  "instructor_notes": [
+    "Brojčana provjera ovdje potvrđuje podatkovne odluke, iako je zadatak konceptualan. Ne svoditi ocjenu na račun bez granice tvrdnje.",
+    "Dopuštena rečenica mora ostati na razini država. Ne zahtijevati tvrdnju o pojedincima niti uzročno tumačenje."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
