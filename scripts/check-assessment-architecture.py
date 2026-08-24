@@ -2811,6 +2811,264 @@ def unit_11_numerical_check(
     return errors, evidence
 
 
+def unit_12_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    rrr_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 12 RRR, multiplicity and planted-error quantities."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-12-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-12-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-12-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-12-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-12-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 12 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 12 {label} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        'w12_rrr <- read.csv(',
+        '"notes/reports/p3-evidence12-rrr-lab-effects.csv"',
+        "#| label: fig-rrr-forest",
+        "#| label: fig-w12",
+        "#| label: fig-w12-print",
+        "#| label: tbl-rrr-laboratoriji",
+        "set.seed(1212)",
+        "0.05 / 12",
+        "stopifnot(nrow(rrr) == 17, sum(rrr$n_total) == 1894)",
+        'procjena <- c(0.026766, 0.014151)',
+        'donja <- c(-0.107693, -0.076191)',
+        'gornja <- c(0.161225, 0.104493)',
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 12 source no longer exposes required numerical contract: {source_token}")
+
+    try:
+        with rrr_path.open(encoding="utf-8", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 12 RRR artifact could not be read independently: {exc}"], {}
+
+    try:
+        study_order = [int(row["study_order"]) for row in rows]
+        labs = [row["lab"] for row in rows]
+        total_n = sum(int(row["n_total"]) for row in rows)
+        raw_effects = [float(row["raw_mean_difference"]) for row in rows]
+        raw_ses = [float(row["raw_se"]) for row in rows]
+        raw_lows = [float(row["raw_ci_low"]) for row in rows]
+        raw_highs = [float(row["raw_ci_high"]) for row in rows]
+        d_effects = [float(row["cohen_d"]) for row in rows]
+        d_ses = [float(row["d_se"]) for row in rows]
+    except (KeyError, ValueError, ArithmeticError) as exc:
+        return errors + [f"Unit 12 RRR artifact contains invalid values: {exc}"], {}
+
+    if len(rows) != 17 or study_order != list(range(1, 18)) or len(set(labs)) != 17:
+        errors.append(
+            f"Unit 12 RRR laboratory identity drifted: rows={len(rows)} "
+            f"orders={study_order} unique_labs={len(set(labs))}"
+        )
+    if total_n != 1894:
+        errors.append(f"Unit 12 RRR participant total drifted: {total_n} != 1894")
+
+    positive_points = sum(effect > 0 for effect in raw_effects)
+    positive_intervals = sum(low > 0 for low in raw_lows)
+    includes_original = sum(low <= 0.82 <= high for low, high in zip(raw_lows, raw_highs))
+    positive_share = positive_points / len(rows) if rows else math.nan
+    if (positive_points, positive_intervals, includes_original) != (9, 0, 2):
+        errors.append(
+            "Unit 12 RRR point/interval counts drifted: "
+            f"{positive_points}/{positive_intervals}/{includes_original} != 9/0/2"
+        )
+    if abs(positive_share - 9 / 17) > 1e-15:
+        errors.append(f"Unit 12 positive-point share drifted: {positive_share}")
+
+    critical_z = 1.959963984540054
+
+    def inverse_variance_summary(effects: list[float], standard_errors: list[float]) -> tuple[float, float, float]:
+        weights = [1 / standard_error**2 for standard_error in standard_errors]
+        estimate = math.fsum(weight * effect for weight, effect in zip(weights, effects)) / math.fsum(weights)
+        summary_se = math.sqrt(1 / math.fsum(weights))
+        return estimate, estimate - critical_z * summary_se, estimate + critical_z * summary_se
+
+    raw_summary = inverse_variance_summary(raw_effects, raw_ses)
+    d_summary = inverse_variance_summary(d_effects, d_ses)
+    expected_raw = (0.026766, -0.107693, 0.161225)
+    expected_d = (0.014151, -0.076191, 0.104493)
+    for label, observed, expected in (
+        ("raw", raw_summary, expected_raw),
+        ("standardized", d_summary, expected_d),
+    ):
+        for component, actual, target in zip(("estimate", "low", "high"), observed, expected):
+            if abs(actual - target) > 1e-6:
+                errors.append(
+                    f"Unit 12 {label} {component} drifted: {actual:.9f} != {target:.6f}"
+                )
+
+    path_count = 12
+    nominal_family_rate = 1 - (1 - 0.05) ** path_count
+    corrected_threshold = 0.05 / path_count
+    corrected_family_rate = 1 - (1 - corrected_threshold) ** path_count
+    if abs(nominal_family_rate - 0.45963991233736334) > 1e-15:
+        errors.append(f"Unit 12 nominal multiplicity probability drifted: {nominal_family_rate}")
+    if abs(corrected_family_rate - 0.04886993281129881) > 1e-15:
+        errors.append(f"Unit 12 corrected multiplicity probability drifted: {corrected_family_rate}")
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "unaprijed naveo glavni ishod",
+            "objedinjena sirova razlika iznosi 0,03 boda",
+            "interval od −0,11 do 0,16",
+            "budući da je analiza predregistrirana",
+            "zaključak nužno valjan",
+        )
+    ):
+        errors.append("Unit 12 callout no longer exposes one complete preregistration-validity error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "pet pravila isključivanja",
+            "vrt račvajućih putova",
+            "trag postupka",
+            "analitička fleksibilnost",
+            "reproducibilnost",
+            "replikacije koja bi prikupila nove podatke",
+        )
+    ):
+        errors.append("Unit 12 conceptual prompt no longer distinguishes mechanisms, traces and replication.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "tiskanu tablicu laboratorijskih procjena",
+            "bez pisanja koda",
+            "17 točkastih procjena",
+            "udio u postocima",
+            "u cijelosti iznad nule",
+            "obuhvaća izvornu procjenu 0,82",
+            "nije stopa „uspjelih replikacija”",
+        )
+    ):
+        errors.append("Unit 12 numerical prompt no longer preserves counts, interpretation and print/H10 path.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "dokazano da učinak ne postoji",
+            "objedinjenu procjenu s intervalom",
+            "što nula u prikazu znači",
+            "standardiziranu analizu osjetljivosti",
+            "populacijsku ili kontekstualnu granicu",
+            "publikacijska pristranost",
+        )
+    ):
+        errors.append("Unit 12 critical prompt no longer requires interval, sensitivity and selection judgments.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if (
+        not all(
+            token in normalized_revision
+            for token in (
+                "zapis s četiri polja",
+                "provjerene brojke",
+                "jedinu pogrešnu tvrdnju",
+                "ispravljeni zaključak",
+                "dokument ili redak postupka",
+                "ne traži se novi kod",
+            )
+        )
+        or any(phrase in normalized_revision for phrase in ("napišite kod", "popravite kod"))
+    ):
+        errors.append("Unit 12 model revision must diagnose one claim and name evidence without code production.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 12 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "preregistration-treated-as-validity-guarantee"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 12 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_numerical = {"callout_greska", "racunski", "kriticki", "revizija_modela"}
+    if numerical_applicable != expected_numerical:
+        errors.append(f"Unit 12 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    for task_class in ("callout_greska", "revizija_modela"):
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        for token in ("17", "1.894", "0,026766", "−0,107693", "0,161225"):
+            if token not in result:
+                errors.append(f"Unit 12 {task_class} answer lacks recomputed token: {token}")
+
+    numerical_result = str(by_class["racunski"]["answer_components"]["numerical_check"]["expected_result"])
+    for token in ("9/17", "0,5294117647", "52,9 %", "jest 0", "jest 2"):
+        if token not in numerical_result:
+            errors.append(f"Unit 12 numerical answer lacks recomputed token: {token}")
+
+    critical_result = str(by_class["kriticki"]["answer_components"]["numerical_check"]["expected_result"])
+    for token in (
+        "0,026766",
+        "−0,107693",
+        "0,161225",
+        "0,014151",
+        "−0,076191",
+        "0,104493",
+    ):
+        if token not in critical_result:
+            errors.append(f"Unit 12 critical answer lacks recomputed token: {token}")
+
+    evidence = {
+        "rrr": f"labs-{len(rows)}/n-{total_n}",
+        "counts": (
+            f"positive-{positive_points}/{len(rows)}/{100*positive_share:.4f}%-"
+            f"strict-positive-ci-{positive_intervals}/includes-0.82-{includes_original}"
+        ),
+        "raw": f"{raw_summary[0]:.6f}/[{raw_summary[1]:.6f},{raw_summary[2]:.6f}]",
+        "standardized": f"{d_summary[0]:.6f}/[{d_summary[1]:.6f},{d_summary[2]:.6f}]",
+        "multiplicity": (
+            f"m-12/nominal-{100*nominal_family_rate:.4f}%/"
+            f"threshold-{corrected_threshold:.12f}/corrected-{100*corrected_family_rate:.4f}%"
+        ),
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-w12-laboratory-table-and-static-widget-twin-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -3273,6 +3531,19 @@ def main() -> int:
             ROOT / "data/populacija-medija-agregat.csv",
         )
         errors.extend(numerical_errors)
+    unit_12_numerical: dict[str, str] = {}
+    if (
+        "12" in records_by_unit
+        and len(records_by_unit["12"]) == 5
+        and {record["task_class"] for record in records_by_unit["12"]} == expected_task_classes
+        and "chapters/12-kriza-i-obnova.qmd" in source_lines
+    ):
+        numerical_errors, unit_12_numerical = unit_12_numerical_check(
+            source_lines["chapters/12-kriza-i-obnova.qmd"],
+            records_by_unit["12"],
+            ROOT / "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -3594,6 +3865,18 @@ def main() -> int:
             f"records={unit_11_numerical.get('applicable_records')} "
             f"planted_error={unit_11_numerical.get('planted_error')} "
             f"print_path={unit_11_numerical.get('print_path')}"
+        )
+    if unit_12_numerical:
+        print(
+            "- unit 12 independent numerics: "
+            f"rrr={unit_12_numerical.get('rrr')} "
+            f"counts={unit_12_numerical.get('counts')} "
+            f"raw={unit_12_numerical.get('raw')} "
+            f"standardized={unit_12_numerical.get('standardized')} "
+            f"multiplicity={unit_12_numerical.get('multiplicity')} "
+            f"records={unit_12_numerical.get('applicable_records')} "
+            f"planted_error={unit_12_numerical.get('planted_error')} "
+            f"print_path={unit_12_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-12-konceptualni-01",
+  "exercise_id": "ex-12-konceptualni-01",
+  "unit_id": "12",
+  "source_anchor": {
+    "path": "chapters/12-kriza-i-obnova.qmd",
+    "anchor": "ex-12-konceptualni-01"
+  },
+  "task_class": "konceptualni",
+  "prompt_fingerprint": "sha256:84cfe353d6e19619b5cdd6b0990342cb844cd1eb953fb1b1aa3884144c54b6a9",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Konceptualni zadatak uspoređuje dva oblika analitičke fleksibilnosti i dvije vrste ponovne provjere, a ne daje jednu posađenu analizu.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Za svaki primjer odrediti kada je odluka nastala, je li pretraženo više izvedenih rezultata i bi li izbor grane bio drukčiji da su isti podaci izgledali drukčije. Zatim odvojiti ponovno izvođenje istoga traga od prikupljanja novih podataka.",
+      "expected_evidence": "Pet naknadno iskušanih pravila i objava samo poželjnoga rezultata čine p-hakiranje. Unaprijed zapisano uvjetno pravilo stvara vrt račvajućih putova jer izbor grane ovisi o obliku podataka, iako je izvedena samo jedna grana."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Oba su primjera p-hakiranje jer u oba postoji više mogućih analiza.",
+          "why_insufficient": "Drugi primjer ne pretražuje rezultate nakon analize. Njegova je fleksibilnost u podatkovno uvjetovanom pravilu koje bi odabralo drugu granu pod drugim uzorkom."
+        },
+        {
+          "response": "Drugi primjer nema fleksibilnosti jer je pravilo zapisano unaprijed.",
+          "why_insufficient": "Unaprijed zapisano pravilo čini odluku vidljivom, ali izbor sredine ili medijana i dalje ovisi o podacima i pripada račvajućem postupku."
+        },
+        {
+          "response": "Reproducibilnost i replikacija znače da druga osoba ponovi istraživanje.",
+          "why_insufficient": "Odgovor ne razlikuje ponavljanje računa iz istoga materijala od nove studije s novim podacima."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "identify-p-hacking",
+          "required_claim": "Naknadno iskušavanje pet pravila i selektivna objava poželjnoga ishoda primjer su p-hakiranja.",
+          "required_evidence": "Odluke su donesene nakon pregleda podataka, više je rezultata izračunano, a vidljiv je samo poželjni put."
+        },
+        {
+          "component_id": "identify-forking-path",
+          "required_claim": "Uvjetno pravilo za medijan ili sredinu primjer je vrta račvajućih putova.",
+          "required_evidence": "Provedena je jedna grana, ali njezin izbor ovisi o opaženoj asimetriji i bio bi drukčiji pod drukčijim podacima."
+        },
+        {
+          "component_id": "name-audit-traces",
+          "required_claim": "Prvi primjer traži trag svih iskušanih pravila i rezultata, a drugi vremenski označeno uvjetno pravilo, kriterij asimetrije i zapis odabrane grane.",
+          "required_evidence": "Tek cjelovit trag pokazuje skup razmotrenih putova, vrijeme odluka i razlog konačnoga izbora."
+        },
+        {
+          "component_id": "separate-reproduction-replication",
+          "required_claim": "Reproducibilnost ponovno izvodi isti račun iz istih podataka i materijala, dok replikacija prikuplja nove podatke za usporedivu ciljnu tvrdnju.",
+          "required_evidence": "Prvi postupak provjerava trag izračuna, a drugi uvodi novu realizaciju istraživanja."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak traži klasifikaciju odluka, potrebne tragove i pojmovnu razliku između reproducibilnosti i replikacije; ne zadaje brojčani rezultat za izračun.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-collapses-both-mechanisms",
+          "severity": "fatal",
+          "description": "Odgovor oba primjera svrstava u isti mehanizam ili tvrdi da unaprijed zapisano uvjetno pravilo nema analitičke fleksibilnosti.",
+          "observable_evidence": "Nestaje razlika između pretraživanja nakon rezultata i podatkovno uvjetovanoga puta."
+        },
+        {
+          "criterion_id": "major-omits-trace-or-replication-distinction",
+          "severity": "major",
+          "description": "Klasifikacija je točna, ali nedostaje provjerljivi trag za jedan primjer ili razlika između reproducibilnosti i replikacije.",
+          "observable_evidence": "Jedan izričiti dio tražene isporuke nije zatvoren."
+        },
+        {
+          "criterion_id": "minor-vague-timing-language",
+          "severity": "minor",
+          "description": "Odgovor prepoznaje oba mehanizma, ali ne označuje jasno vrijeme odluke ili uvjet koji bira granu.",
+          "observable_evidence": "Potrebna je lokalna precizacija bez promjene klasifikacije."
+        },
+        {
+          "criterion_id": "useful-links-trace-to-claim",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno objašnjava kako bi svaki otkriveni put promijenio tumačenje konačne tvrdnje.",
+          "observable_evidence": "Trag nije samo popis datoteka nego je povezan s evidencijskom težinom rezultata."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "decision-tree-language",
+      "description": "Prihvatljiv odgovor može drugi primjer opisati kao unaprijed definiran podatkovno uvjetovan stablo odluke.",
+      "acceptance_boundary": "Mora ga povezati s vrtom račvajućih putova, imenovati kriterij koji bira granu i razlikovati ga od naknadnoga pretraživanja rezultata."
+    }
+  ],
+  "instructor_notes": [
+    "Ne kažnjavati unaprijed zapisano uvjetno pravilo kao neetično. Ocjenjuje se struktura postupka i vidljivost odluke, ne moralni sud o istraživačici.",
+    "Za reproducibilnost je dovoljan opis ponovnoga računa iz istoga materijala; za replikaciju mora biti izričito navedeno prikupljanje novih podataka."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

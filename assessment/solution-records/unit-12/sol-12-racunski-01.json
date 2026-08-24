@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-12-racunski-01",
+  "exercise_id": "ex-12-racunski-01",
+  "unit_id": "12",
+  "source_anchor": {
+    "path": "chapters/12-kriza-i-obnova.qmd",
+    "anchor": "ex-12-racunski-01"
+  },
+  "task_class": "racunski",
+  "prompt_fingerprint": "sha256:a5049c847fc5f10a716d124d046dd0297c5dc301c5f1d346f25f08930f0702dd",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Računski zadatak traži tri prebrojavanja, jedan udio i njihovo tumačenje, a ne daje jednu posađenu analizu.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Iz svakoga od 17 redaka odvojeno označiti predznak točkaste procjene, položaj obiju granica intervala prema nuli i obuhvaća li interval vrijednost 0,82. Tek nakon toga izračunati udio pozitivnih točaka.",
+      "expected_evidence": "Devet je točkastih procjena pozitivno, pa je udio 9/17 = 0,5294118, odnosno 52,9 %. Nijedan interval nije u cijelosti iznad nule, a dva intervala obuhvaćaju 0,82."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Devet od 17 laboratorija uspješno je repliciralo učinak.",
+          "why_insufficient": "Predznak točke ne pokazuje preciznost ni podudaranje s izvornom veličinom. Svih 17 intervala presijeca nulu."
+        },
+        {
+          "response": "Nijedan interval ne obuhvaća 0,82.",
+          "why_insufficient": "Intervali laboratorija Lynott i Zeelenberg protežu se preko 0,82, pa je točan broj dva."
+        },
+        {
+          "response": "Udio pozitivnih procjena iznosi devet posto.",
+          "why_insufficient": "Devet je broj laboratorija, a udio traži dijeljenje s ukupno 17 laboratorija i pretvorbu u postotak."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "count-positive-points",
+          "required_claim": "Devet od 17 točkastih procjena veće je od nule.",
+          "required_evidence": "Pozitivne su procjene Albohn, Allard, Bulnes, Holmes, Korb, Lynott, Talarico, Wagenmakers i Zeelenberg."
+        },
+        {
+          "component_id": "compute-positive-share",
+          "required_claim": "Udio pozitivnih točkastih procjena iznosi 9/17 = 52,9 %.",
+          "required_evidence": "Decimalni omjer 0,5294118 zaokružen je na jednu decimalu postotka."
+        },
+        {
+          "component_id": "count-interval-properties",
+          "required_claim": "Nijedan 95-postotni interval nije u cijelosti iznad nule, a dva obuhvaćaju izvornu procjenu 0,82.",
+          "required_evidence": "Sve donje granice manje su od nule; gornje granice za Lynott i Zeelenberg dosežu najmanje 0,82."
+        },
+        {
+          "component_id": "reject-success-rate",
+          "required_claim": "Udio pozitivnih točaka nije stopa uspjelih replikacija jer zanemaruje neizvjesnost i udaljenost od zajedničke ciljane vrijednosti.",
+          "required_evidence": "Svih 17 intervala obuhvaća nulu, a samo dva obuhvaćaju izvornih 0,82, pa isti predznak nije dovoljan kriterij potvrde."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Od 17 laboratorijskih procjena njih 9 veće je od nule. Udio iznosi 9/17 = 0,5294117647, odnosno 52,9 %. Broj intervala u cijelosti iznad nule jest 0, a broj intervala koji obuhvaćaju 0,82 jest 2.",
+      "tolerance_or_acceptance_rule": "Za udio prihvatiti 52,9 % ili 53 % uz vidljiv račun 9/17. Prebrojavanja moraju biti točno 9, 0 i 2 i ne smiju se opisati kao broj uspjelih ili neuspjelih replikacija.",
+      "independent_method": "Neovisno pročitati CSV na razini laboratorija, izbrojiti `raw_mean_difference > 0`, `raw_ci_low > 0` i `raw_ci_low <= 0.82 <= raw_ci_high`, a udio izračunati iz cjelobrojnoga omjera 9/17.",
+      "evidence_reference": "notes/reports/p3-evidence12-rrr-lab-effects.csv; chapters/12-kriza-i-obnova.qmd#tbl-rrr-laboratoriji; chapters/12-kriza-i-obnova.qmd#ex-12-racunski-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-turns-sign-count-into-success-rate",
+          "severity": "fatal",
+          "description": "Odgovor pozitivni predznak proglašava stopom uspjelih replikacija ili iz njega izvodi potvrdu izvorne veličine.",
+          "observable_evidence": "Središnje tumačenje zanemaruje intervale i zajedničku ciljanu tvrdnju."
+        },
+        {
+          "criterion_id": "major-wrong-count-or-missing-interpretation",
+          "severity": "major",
+          "description": "Jedno od prebrojavanja nije 9, 0 i 2, udio nije izveden iz 9/17 ili nedostaju dvije tražene rečenice tumačenja.",
+          "observable_evidence": "Isporuka ne reproducira tablicu ili ne zatvara razlog zašto predznak nije potvrda."
+        },
+        {
+          "criterion_id": "minor-rounding-or-label",
+          "severity": "minor",
+          "description": "Svi računi i sud stoje, ali postotak je nejasno zaokružen ili nije izričito označeno da se broje 95-postotni intervali.",
+          "observable_evidence": "Potrebna je lokalna oznaka bez promjene rezultata."
+        },
+        {
+          "criterion_id": "useful-names-two-labs",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno imenuje dva laboratorija čiji intervali obuhvaćaju 0,82 ili provjerava zbroj sudionika.",
+          "observable_evidence": "Dodatna provjera pokazuje trag do tablice, ali nije uvjet osnovnoga računa."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "whole-percent-reporting",
+      "description": "Prihvatljiv je prikaz 53 % ako je jasno da dolazi iz omjera 9/17.",
+      "acceptance_boundary": "Brojevi intervala moraju ostati 0 i 2, a pozitivni predznak ne smije se nazvati uspješnom replikacijom."
+    }
+  ],
+  "instructor_notes": [
+    "Račun je potpuno rješiv iz tiskane tablice i ne zahtijeva R, widget ni pristup sudioničkim podacima.",
+    "Ne prihvatiti brojanje statistički značajnih laboratorija kao zamjenu za traženo čitanje točaka i intervala."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
