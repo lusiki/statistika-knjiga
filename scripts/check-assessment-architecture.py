@@ -1065,6 +1065,206 @@ def unit_04_numerical_check(
     return errors, evidence
 
 
+def unit_05_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    aggregate_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 05 bar-area distortion and displayed group-mean comparison."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-05-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-05-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-05-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-05-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-05-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 05 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 05 {label} prompt is empty.")
+
+    width_match = re.search(
+        r"geom_col\s*\(\s*width\s*=\s*c\(([^)]*)\)",
+        callout_prompt,
+        flags=re.DOTALL,
+    )
+    if not width_match:
+        return errors + ["Unit 05 planted-error width vector could not be parsed."], {}
+    try:
+        widths = [Decimal(value.strip()) for value in width_match.group(1).split(",")]
+    except ArithmeticError as exc:
+        return errors + [f"Unit 05 planted-error widths are invalid: {exc}"], {}
+    if widths != [Decimal("0.6"), Decimal("0.6"), Decimal("0.9")]:
+        errors.append(f"Unit 05 planted-error width vector drifted: {widths}")
+    narrow_width = min(widths)
+    wide_width = max(widths)
+    area_ratio = wide_width / narrow_width
+    area_increase = (area_ratio - Decimal(1)) * Decimal(100)
+    if (area_ratio, area_increase) != (Decimal("1.5"), Decimal(50)):
+        errors.append(
+            f"Unit 05 independent area distortion drifted: ratio={area_ratio}, increase={area_increase}%"
+        )
+
+    try:
+        with aggregate_path.open(encoding="utf-8", newline="") as handle:
+            aggregate = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 05 survey aggregate could not be read independently: {exc}"], {}
+    if not aggregate:
+        return errors + ["Unit 05 survey aggregate is empty."], {}
+
+    try:
+        group_means: list[tuple[str, Decimal, Decimal]] = []
+        for row in aggregate:
+            count = Decimal(row["broj"])
+            minute_total = Decimal(row["zbroj_minuta"])
+            recomputed = minute_total / count
+            stored = Decimal(row["prosjek_minuta"])
+            if abs(recomputed - stored) > Decimal("0.000000000001"):
+                errors.append(
+                    "Unit 05 stored group mean does not reproduce for "
+                    f"{row['dobna_skupina']}: {stored} != {recomputed}"
+                )
+            group_means.append((row["dobna_skupina"], recomputed, stored))
+    except (KeyError, ArithmeticError) as exc:
+        return errors + [f"Unit 05 survey aggregate fields are invalid: {exc}"], {}
+
+    maximum_group, maximum_mean, _ = max(group_means, key=lambda value: value[1])
+    minimum_group, minimum_mean, _ = min(group_means, key=lambda value: value[1])
+    exact_gap = maximum_mean - minimum_mean
+    exact_percent = exact_gap / maximum_mean * Decimal(100)
+    if (maximum_group, minimum_group) != ("18 do 24", "45 i više"):
+        errors.append(
+            f"Unit 05 extreme group identities drifted: {maximum_group!r}, {minimum_group!r}"
+        )
+    expected_exact = (
+        Decimal(7339) / Decimal(90),
+        Decimal(974) / Decimal(60),
+        Decimal(7339) / Decimal(90) - Decimal(974) / Decimal(60),
+    )
+    if (maximum_mean, minimum_mean, exact_gap) != expected_exact:
+        errors.append(
+            "Unit 05 independent group means or absolute difference drifted: "
+            f"{maximum_mean}, {minimum_mean}, {exact_gap}"
+        )
+
+    displayed_maximum = Decimal(f"{maximum_mean:.1f}")
+    displayed_minimum = Decimal(f"{minimum_mean:.1f}")
+    displayed_gap = displayed_maximum - displayed_minimum
+    displayed_percent = displayed_gap / displayed_maximum * Decimal(100)
+    if (
+        displayed_maximum,
+        displayed_minimum,
+        displayed_gap,
+        Decimal(f"{displayed_percent:.1f}"),
+        Decimal(f"{exact_percent:.1f}"),
+    ) != (
+        Decimal("81.5"),
+        Decimal("16.2"),
+        Decimal("65.3"),
+        Decimal("80.1"),
+        Decimal("80.1"),
+    ):
+        errors.append("Unit 05 displayed or full-precision percentage calculation drifted.")
+
+    normalized_source = " ".join(lines).casefold()
+    normalized_numerical_prompt = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_source
+        for token in ("label: tbl-s5-skupine", "label: fig-skraceni-raspon")
+    ) or not all(
+        token in normalized_numerical_prompt
+        for token in (
+            "#tbl-s5-skupine",
+            "#fig-skraceni-raspon",
+            "svi potrebni podaci nalaze se u tablici",
+        )
+    ):
+        errors.append(
+            "Unit 05 print path must expose the rendered summary table and static axis comparison."
+        )
+    if "bez pisanja ili popravljanja koda" not in " ".join(revision_prompt.split()).casefold():
+        errors.append("Unit 05 revision deliverable must remain code-free.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 05 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    if planted_ids != {"unequal-bar-width-encodes-unsupported-area"}:
+        errors.append(
+            "Unit 05 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_applicable = {"callout_greska", "racunski", "revizija_modela"}
+    if numerical_applicable != expected_applicable:
+        errors.append(f"Unit 05 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    width_tokens = ["0,9 / 0,6 = 1,5", "50 %"]
+    for task_class in ("callout_greska", "revizija_modela"):
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        missing_tokens = [token for token in width_tokens if token not in result]
+        if missing_tokens:
+            errors.append(
+                f"Unit 05 {task_class} numerical result lacks recomputed tokens: {missing_tokens}"
+            )
+
+    numerical_record = by_class["racunski"]["answer_components"]["numerical_check"]
+    displayed_tokens = ["81,5", "16,2", "65,3", "80,1 %"]
+    missing_displayed = [
+        token for token in displayed_tokens if token not in str(numerical_record["expected_result"])
+    ]
+    if missing_displayed:
+        errors.append(f"Unit 05 numerical result lacks recomputed display tokens: {missing_displayed}")
+    full_precision_tokens = ["65,3111", "80,0927 %"]
+    numerical_acceptance = str(numerical_record["tolerance_or_acceptance_rule"])
+    missing_precision = [token for token in full_precision_tokens if token not in numerical_acceptance]
+    if missing_precision:
+        errors.append(
+            f"Unit 05 numerical acceptance lacks independent full-precision tokens: {missing_precision}"
+        )
+
+    evidence = {
+        "widths": "/".join(f"{width:.1f}" for width in widths),
+        "area_ratio": f"{area_ratio:.1f}",
+        "area_increase_percent": f"{area_increase:.0f}",
+        "maximum": f"{maximum_mean:.4f}",
+        "minimum": f"{minimum_mean:.4f}",
+        "gap": f"{exact_gap:.4f}",
+        "relative_percent": f"{exact_percent:.4f}",
+        "displayed": (
+            f"{displayed_maximum:.1f}/{displayed_minimum:.1f}/"
+            f"{displayed_gap:.1f}/{displayed_percent:.1f}%"
+        ),
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-summary-table-and-static-axis-comparison-hand-calculation-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -1432,6 +1632,19 @@ def main() -> int:
             ROOT / "data/digikat-izvori.csv",
         )
         errors.extend(numerical_errors)
+    unit_05_numerical: dict[str, str] = {}
+    if (
+        "05" in records_by_unit
+        and len(records_by_unit["05"]) == 5
+        and {record["task_class"] for record in records_by_unit["05"]} == expected_task_classes
+        and "chapters/05-vizualizacija.qmd" in source_lines
+    ):
+        numerical_errors, unit_05_numerical = unit_05_numerical_check(
+            source_lines["chapters/05-vizualizacija.qmd"],
+            records_by_unit["05"],
+            ROOT / "data/anketa-mreze-agregat.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -1670,6 +1883,20 @@ def main() -> int:
             f"records={unit_04_numerical.get('applicable_records')} "
             f"planted_error={unit_04_numerical.get('planted_error')} "
             f"print_path={unit_04_numerical.get('print_path')}"
+        )
+    if unit_05_numerical:
+        print(
+            "- unit 05 independent numerics: "
+            f"widths={unit_05_numerical.get('widths')} "
+            f"area={unit_05_numerical.get('area_ratio')}x/"
+            f"{unit_05_numerical.get('area_increase_percent')}% "
+            f"means={unit_05_numerical.get('maximum')}/{unit_05_numerical.get('minimum')} "
+            f"gap={unit_05_numerical.get('gap')} "
+            f"relative={unit_05_numerical.get('relative_percent')}% "
+            f"displayed={unit_05_numerical.get('displayed')} "
+            f"records={unit_05_numerical.get('applicable_records')} "
+            f"planted_error={unit_05_numerical.get('planted_error')} "
+            f"print_path={unit_05_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

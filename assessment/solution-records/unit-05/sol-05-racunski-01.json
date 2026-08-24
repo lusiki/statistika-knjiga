@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-05-racunski-01",
+  "exercise_id": "ex-05-racunski-01",
+  "unit_id": "05",
+  "source_anchor": {
+    "path": "chapters/05-vizualizacija.qmd",
+    "anchor": "ex-05-racunski-01"
+  },
+  "task_class": "racunski",
+  "prompt_fingerprint": "sha256:bb937baa3593dd4623d5b7f1d267b32dbc241d440baf75fdef2fce68dc7a3f9d",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Računski zadatak traži jedan ponovljiv omjer i prosudbu dvaju prikaza iste četiri vrijednosti, a ne reviziju namjerno pogrešnoga modelnog odgovora.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Iz tablice uzeti najveći i najmanji zaokruženi prosjek, oduzeti ih, razliku podijeliti većim prosjekom te rezultat usporediti s identičnim visinama stupaca na osi od nule i na skraćenoj osi.",
+      "expected_evidence": "Najveći prosjek iznosi 81,5 minute, najmanji 16,2, razlika 65,3, a 65,3 podijeljeno s 81,5 puta sto iznosi približno 80,1 %. Oba grafa prikazuju iste prosjeke, ali skraćena os vizualno povećava udio raspoloživoga prostora koji razlika zauzima."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Razlika iznosi 97,7 jer treba zbrojiti najveći i najmanji prosjek.",
+          "why_insufficient": "Zadatak traži udaljenost između prosjeka, pa se manja vrijednost oduzima od veće."
+        },
+        {
+          "response": "Postotak je 65,3 % jer razlika već predstavlja postotak.",
+          "why_insufficient": "Razlika je izražena u minutama. Tek dijeljenje s većim prosjekom daje relativni omjer."
+        },
+        {
+          "response": "Skraćena os promijenila je podatke jer stupci izgledaju različitije.",
+          "why_insufficient": "Visine i tablične vrijednosti jednake su u oba prikaza; promijenjen je samo raspon osi i time vizualni dojam."
+        },
+        {
+          "response": "Za točan odgovor treba pokrenuti R kod koji stvara graf.",
+          "why_insufficient": "Svi potrebni prosjeci već su prikazani u tiskanoj tablici, a račun je izvediv ručno ili kalkulatorom."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "identify-extreme-means",
+          "required_claim": "Najveći prosjek iznosi 81,5 minute za skupinu od 18 do 24 godine, a najmanji 16,2 minute za skupinu od 45 i više godina.",
+          "required_evidence": "Krajnje vrijednosti stupca Prosjek u tiskanoj tablici skupinskih sažetaka."
+        },
+        {
+          "component_id": "calculate-absolute-gap",
+          "required_claim": "Apsolutna razlika iznosi 81,5 minus 16,2, odnosno 65,3 minute.",
+          "required_evidence": "Oduzimanje dvaju prikazanih prosjeka."
+        },
+        {
+          "component_id": "calculate-relative-gap",
+          "required_claim": "Razlika u odnosu na veći prosjek iznosi 65,3 podijeljeno s 81,5 puta sto, odnosno približno 80,1 %.",
+          "required_evidence": "Imenovani brojnik 65,3 i nazivnik 81,5 iz istoga tabličnog prikaza."
+        },
+        {
+          "component_id": "separate-data-from-scale",
+          "required_claim": "Brojčana razlika i relativni omjer jednaki su na oba grafa jer se podaci nisu promijenili.",
+          "required_evidence": "Oba polja koriste ista četiri skupinska prosjeka."
+        },
+        {
+          "component_id": "judge-truncated-bar-axis",
+          "required_claim": "Skraćena os pojačava vizualni dojam jer stupci više ne kodiraju vrijednost punom duljinom od nule, pa je za taj stupčani prikaz neprikladna.",
+          "required_evidence": "Desno polje počinje blizu najmanjega prosjeka, a lijevo od nule, premda su visine podataka iste."
+        },
+        {
+          "component_id": "keep-print-path-code-free",
+          "required_claim": "Obvezni račun i prosudba dovršivi su iz tablice i statičke usporedbe bez preglednika, widgeta ili pisanja koda.",
+          "required_evidence": "Prompt izričito navodi da su svi potrebni podaci u tablici."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Najveći prosjek 81,5; najmanji 16,2; 81,5 - 16,2 = 65,3 minute; 65,3 / 81,5 × 100 = 80,1 % zaokruženo na jednu decimalu.",
+      "tolerance_or_acceptance_rule": "Prihvaća se račun iz prikazanih vrijednosti 65,3 / 81,5 = 80,1 % ili račun iz punih CSV vrijednosti 65,3111 / 81,5444 = 80,0927 %, zaokružen na 80,1 %.",
+      "independent_method": "Iz CSV agregata neovisno pronaći najveći i najmanji prosjek iz omjera zbroja minuta i broja osoba, a zatim ponoviti apsolutnu i relativnu razliku bez čitanja kanonskoga odgovora.",
+      "evidence_reference": "data/anketa-mreze-agregat.csv i chapters/05-vizualizacija.qmd#ex-05-racunski-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-wrong-denominator-or-scale-conclusion",
+          "severity": "fatal",
+          "description": "Odgovor rabi pogrešan nazivnik za relativnu razliku ili tvrdi da je promjena osi promijenila podatke.",
+          "observable_evidence": "Središnji brojčani ili grafički zaključak više ne odgovara zadanom pitanju."
+        },
+        {
+          "criterion_id": "major-missing-gap-percentage-or-judgment",
+          "severity": "major",
+          "description": "Nedostaje apsolutna razlika, relativni postotak ili objašnjenje zašto je broj ostao isti, a dojam se promijenio.",
+          "observable_evidence": "Jedan cijeli traženi dio predaje nije provjerljiv."
+        },
+        {
+          "criterion_id": "minor-rounding-or-unit-slip",
+          "severity": "minor",
+          "description": "Postupak i presuda su točni, ali zaokruživanje, oznaka minuta ili znak postotka nije dosljedan.",
+          "observable_evidence": "Lokalni popravak zapisa ne mijenja rezultat 65,3 i 80,1 %."
+        },
+        {
+          "criterion_id": "useful-compares-full-precision",
+          "severity": "useful_improvement",
+          "description": "Odgovor razlikuje račun iz zaokružene tiskane tablice od neovisne provjere punom preciznošću i pokazuje da oba završavaju na 80,1 %.",
+          "observable_evidence": "Trag provjere objašnjava malu razliku prije konačnoga zaokruživanja."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "full-precision-recalculation",
+      "description": "Prihvatljiv je račun s punim CSV prosjecima 81,5444 i 16,2333.",
+      "acceptance_boundary": "Mora dati razliku približno 65,3111 i relativni omjer približno 80,0927 %, odnosno isti konačni rezultat 80,1 %."
+    },
+    {
+      "alternative_id": "calculator-or-spreadsheet",
+      "description": "Kalkulator ili proračunska tablica prihvatljivi su za račun.",
+      "acceptance_boundary": "Predaja mora pokazati brojnik, nazivnik, rezultat i prosudbu, ali proizvodnja koda nije uvjet."
+    }
+  ],
+  "instructor_notes": [
+    "Ocjenjivati račun prema vrijednostima koje student vidi u tablici. Ne kažnjavati četvrtu decimalu iz neovisne CSV provjere ako završno zaokruživanje daje 80,1 %.",
+    "Skraćena os u nastavnom paru namjerno je označena. Zadatak ne traži otkrivanje skrivene obmane nego objašnjenje zašto označen zahvat i dalje ne odgovara stupcima."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
