@@ -3274,6 +3274,584 @@ def unit_13_numerical_check(
     return errors, evidence
 
 
+def unit_14_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    analytical_path: Path,
+    aggregate_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 14 two-group claims, task answers and planted-error bounds."""
+    errors: list[str] = []
+
+    try:
+        callout_prompt = canonical_prompt(lines, "ex-14-callout-greska-01")
+        conceptual_prompt = canonical_prompt(lines, "ex-14-konceptualni-01")
+        numerical_prompt = canonical_prompt(lines, "ex-14-racunski-01")
+        critical_prompt = canonical_prompt(lines, "ex-14-kriticki-01")
+        revision_prompt = canonical_prompt(lines, "ex-14-revizija-modela-01")
+    except AssertionError as exc:
+        return [f"Unit 14 prompt is unavailable: {exc}"], {}
+
+    for label, prompt in (
+        ("callout", callout_prompt),
+        ("conceptual", conceptual_prompt),
+        ("numerical", numerical_prompt),
+        ("critical", critical_prompt),
+        ("revision", revision_prompt),
+    ):
+        if not prompt.strip():
+            errors.append(f"Unit 14 {label} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        "set.seed(1414)",
+        "slice_sample(n = 120)",
+        "s14_welch <- t.test(s14_tv, s14_mreze)",
+        "s14_model <- lm(povjerenje_medijima ~ izvor, data = dvije_skupine)",
+        "set.seed(1415)",
+        "s14_np <- 60",
+        "s14_upareni <- t.test(s14_poslije, s14_prije, paired = TRUE)",
+        "s14_kao_neovisni <- t.test(s14_poslije, s14_prije)",
+        "s14_wilcoxon <- wilcox.test(s14_poslije, s14_prije, paired = TRUE)",
+        "w14_par.sd * Math.sqrt(2 / w14_par.n)",
+        "w14_par.sd * Math.sqrt(2 * (1 - korelacija) / w14_par.n)",
+        "#| label: fig-w14",
+        "#| label: fig-w14-print",
+        "data/populacija-medija-agregat.csv",
+        "#ex-14-callout-greska-01",
+        "#ex-14-konceptualni-01",
+        "#ex-14-racunski-01",
+        "#ex-14-kriticki-01",
+        "#ex-14-revizija-modela-01",
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 14 source no longer exposes required numerical contract: {source_token}")
+
+    try:
+        with analytical_path.open(encoding="utf-8", newline="") as handle:
+            analytical_rows = list(csv.DictReader(handle))
+        with aggregate_path.open(encoding="utf-8", newline="") as handle:
+            aggregate_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 14 data could not be read independently: {exc}"], {}
+
+    sampled_person_ids = (
+        30471, 46889, 22647, 35627, 19019, 1181, 10746, 47263, 35626, 15485,
+        6294, 39446, 20322, 38664, 4194, 42262, 44302, 37104, 32312, 24474,
+        16309, 21421, 32668, 28807, 16014, 3018, 45151, 36272, 624, 956,
+        3140, 21732, 36764, 28149, 308, 11309, 44960, 14251, 6150, 20691,
+        12186, 24647, 2181, 39513, 4968, 41007, 32344, 16308, 3793, 43758,
+        37188, 42529, 45594, 15090, 23642, 33477, 46262, 8718, 32546, 40995,
+        34823, 45088, 22932, 9730, 18628, 29395, 12955, 15857, 5019, 26874,
+        31916, 19814, 38891, 658, 7938, 43481, 30572, 2337, 44864, 1577,
+        2438, 36635, 25005, 22885, 3293, 43171, 46320, 10022, 26130, 30427,
+        29730, 25848, 7391, 3242, 737, 25583, 29286, 33452, 38097, 662,
+        28631, 5952, 34793, 10684, 29469, 13233, 5525, 26484, 49775, 4995,
+        47738, 49341, 15004, 4590, 9818, 31979, 23235, 24415, 22900, 31246,
+    )
+    if len(sampled_person_ids) != 120 or len(set(sampled_person_ids)) != 120:
+        errors.append("Unit 14 fixed sample identifier receipt is not 120 unique persons.")
+
+    row_by_person: dict[int, dict[str, str]] = {}
+    try:
+        for row in analytical_rows:
+            row_by_person[int(row["osoba"])] = row
+        sampled_rows = [row_by_person[person_id] for person_id in sampled_person_ids]
+    except (KeyError, ValueError) as exc:
+        return errors + [f"Unit 14 fixed sample could not be reconstructed: {exc}"], {}
+
+    def sample_variance(values: list[float]) -> float:
+        mean_value = math.fsum(values) / len(values)
+        return math.fsum((value - mean_value) ** 2 for value in values) / (len(values) - 1)
+
+    def beta_continued_fraction(a: float, b: float, x: float) -> float:
+        max_iterations = 250
+        epsilon = 3e-14
+        tiny = 1e-300
+        qab = a + b
+        qap = a + 1.0
+        qam = a - 1.0
+        c = 1.0
+        d = 1.0 - qab * x / qap
+        if abs(d) < tiny:
+            d = tiny
+        d = 1.0 / d
+        h = d
+        for iteration in range(1, max_iterations + 1):
+            twice = 2 * iteration
+            aa = iteration * (b - iteration) * x / ((qam + twice) * (a + twice))
+            d = 1.0 + aa * d
+            if abs(d) < tiny:
+                d = tiny
+            c = 1.0 + aa / c
+            if abs(c) < tiny:
+                c = tiny
+            d = 1.0 / d
+            h *= d * c
+            aa = -(a + iteration) * (qab + iteration) * x / (
+                (a + twice) * (qap + twice)
+            )
+            d = 1.0 + aa * d
+            if abs(d) < tiny:
+                d = tiny
+            c = 1.0 + aa / c
+            if abs(c) < tiny:
+                c = tiny
+            d = 1.0 / d
+            delta = d * c
+            h *= delta
+            if abs(delta - 1.0) < epsilon:
+                return h
+        raise AssertionError("Unit 14 incomplete-beta calculation did not converge.")
+
+    def regularized_beta(x: float, a: float, b: float) -> float:
+        if x <= 0:
+            return 0.0
+        if x >= 1:
+            return 1.0
+        factor = math.exp(
+            math.lgamma(a + b) - math.lgamma(a) - math.lgamma(b)
+            + a * math.log(x) + b * math.log1p(-x)
+        )
+        if x < (a + 1.0) / (a + b + 2.0):
+            return factor * beta_continued_fraction(a, b, x) / a
+        return 1.0 - factor * beta_continued_fraction(b, a, 1.0 - x) / b
+
+    def student_t_cdf(value: float, degrees_freedom: float) -> float:
+        beta_value = regularized_beta(
+            degrees_freedom / (degrees_freedom + value * value),
+            degrees_freedom / 2.0,
+            0.5,
+        )
+        return 1.0 - beta_value / 2.0 if value >= 0 else beta_value / 2.0
+
+    def student_t_quantile(probability: float, degrees_freedom: float) -> float:
+        lower = -16.0
+        upper = 16.0
+        for _ in range(120):
+            midpoint = (lower + upper) / 2.0
+            if student_t_cdf(midpoint, degrees_freedom) < probability:
+                lower = midpoint
+            else:
+                upper = midpoint
+        return (lower + upper) / 2.0
+
+    def welch_summary(first: list[float], second: list[float]) -> dict[str, float]:
+        first_mean = math.fsum(first) / len(first)
+        second_mean = math.fsum(second) / len(second)
+        first_variance = sample_variance(first)
+        second_variance = sample_variance(second)
+        difference = first_mean - second_mean
+        standard_error = math.sqrt(
+            first_variance / len(first) + second_variance / len(second)
+        )
+        degrees_freedom = (
+            first_variance / len(first) + second_variance / len(second)
+        ) ** 2 / (
+            (first_variance / len(first)) ** 2 / (len(first) - 1)
+            + (second_variance / len(second)) ** 2 / (len(second) - 1)
+        )
+        statistic = difference / standard_error
+        critical = student_t_quantile(0.975, degrees_freedom)
+        return {
+            "first_mean": first_mean,
+            "second_mean": second_mean,
+            "first_variance": first_variance,
+            "second_variance": second_variance,
+            "difference": difference,
+            "se": standard_error,
+            "df": degrees_freedom,
+            "t": statistic,
+            "p": 2 * (1 - student_t_cdf(abs(statistic), degrees_freedom)),
+            "lower": difference - critical * standard_error,
+            "upper": difference + critical * standard_error,
+        }
+
+    sampled_groups: dict[str, list[float]] = {"networks": [], "tv": []}
+    for row in sampled_rows:
+        group = {"2": "networks", "3": "tv"}.get(row.get("izvor_vijesti_sifra", ""))
+        if group is None:
+            errors.append(f"Unit 14 sampled person has an unexpected news-source code: {row}")
+            continue
+        sampled_groups[group].append(float(row["povjerenje_medijima"]))
+
+    main_welch = welch_summary(sampled_groups["tv"], sampled_groups["networks"])
+    main_targets = {
+        "first_mean": 5.7,
+        "second_mean": 4.514285714285714,
+        "first_variance": 4.214285714285714,
+        "second_variance": 3.818633540372671,
+        "difference": 1.185714285714286,
+        "se": 0.372609208159600,
+        "df": 102.471131550669,
+        "t": 3.18219265586805,
+        "p": 0.00193513804157212,
+        "lower": 0.446686471420565,
+        "upper": 1.92474210000801,
+    }
+    if (len(sampled_groups["networks"]), len(sampled_groups["tv"])) != (70, 50):
+        errors.append(
+            "Unit 14 sampled group sizes drifted: "
+            f"{len(sampled_groups['networks'])}/{len(sampled_groups['tv'])}"
+        )
+    for key, target in main_targets.items():
+        if abs(main_welch[key] - target) > 1e-12:
+            errors.append(f"Unit 14 main Welch {key} drifted: {main_welch[key]} != {target}")
+
+    pooled_variance = (
+        (len(sampled_groups["tv"]) - 1) * main_welch["first_variance"]
+        + (len(sampled_groups["networks"]) - 1) * main_welch["second_variance"]
+    ) / (len(sampled_rows) - 2)
+    pooled_sd = math.sqrt(pooled_variance)
+    ols_df = len(sampled_rows) - 2
+    ols_se = pooled_sd * math.sqrt(
+        1 / len(sampled_groups["tv"]) + 1 / len(sampled_groups["networks"])
+    )
+    ols_t = main_welch["difference"] / ols_se
+    ols_critical = student_t_quantile(0.975, ols_df)
+    ols_p = 2 * (1 - student_t_cdf(abs(ols_t), ols_df))
+    ols_lower = main_welch["difference"] - ols_critical * ols_se
+    ols_upper = main_welch["difference"] + ols_critical * ols_se
+    cohen_d = main_welch["difference"] / pooled_sd
+    ols_targets = (0.369536997509771, 3.20864837270572, 0.0017174706905821,
+                   0.453930424466036, 1.91749814696254, 0.594126231310689)
+    ols_actual = (ols_se, ols_t, ols_p, ols_lower, ols_upper, cohen_d)
+    if any(abs(actual - target) > 1e-12 for actual, target in zip(ols_actual, ols_targets)):
+        errors.append(f"Unit 14 OLS/effect-size reconstruction drifted: {ols_actual}")
+
+    population_groups: dict[str, list[dict[str, str]]] = {"networks": [], "tv": []}
+    for row in analytical_rows:
+        group = {"2": "networks", "3": "tv"}.get(row.get("izvor_vijesti_sifra", ""))
+        if group:
+            population_groups[group].append(row)
+
+    def row_mean(rows: list[dict[str, str]], column: str) -> float:
+        return math.fsum(float(row[column]) for row in rows) / len(rows)
+
+    population_difference = (
+        row_mean(population_groups["tv"], "povjerenje_medijima")
+        - row_mean(population_groups["networks"], "povjerenje_medijima")
+    )
+    population_age_networks = row_mean(population_groups["networks"], "dob")
+    population_age_tv = row_mean(population_groups["tv"], "dob")
+    narrow_population = {
+        group: [row for row in rows if 30 <= int(row["dob"]) <= 49]
+        for group, rows in population_groups.items()
+    }
+    population_narrow_difference = (
+        row_mean(narrow_population["tv"], "povjerenje_medijima")
+        - row_mean(narrow_population["networks"], "povjerenje_medijima")
+    )
+    population_targets = (
+        1.297259749249822,
+        33.4296606368665,
+        50.2448508358733,
+        0.900295271035001,
+    )
+    population_actual = (
+        population_difference,
+        population_age_networks,
+        population_age_tv,
+        population_narrow_difference,
+    )
+    if any(abs(actual - target) > 1e-12 for actual, target in zip(population_actual, population_targets)):
+        errors.append(f"Unit 14 population and sensitivity values drifted: {population_actual}")
+
+    narrow_sample_rows = [row for row in sampled_rows if 30 <= int(row["dob"]) <= 49]
+    narrow_tv = [
+        float(row["povjerenje_medijima"])
+        for row in narrow_sample_rows
+        if row["izvor_vijesti_sifra"] == "3"
+    ]
+    narrow_networks = [
+        float(row["povjerenje_medijima"])
+        for row in narrow_sample_rows
+        if row["izvor_vijesti_sifra"] == "2"
+    ]
+    narrow_welch = welch_summary(narrow_tv, narrow_networks)
+    narrow_targets = (55, 0.770270270270270, -0.335616307974888, 1.87615684851543)
+    narrow_actual = (
+        len(narrow_sample_rows),
+        narrow_welch["difference"],
+        narrow_welch["lower"],
+        narrow_welch["upper"],
+    )
+    if any(abs(float(actual) - float(target)) > 1e-12 for actual, target in zip(narrow_actual, narrow_targets)):
+        errors.append(f"Unit 14 narrow-sample Welch values drifted: {narrow_actual}")
+
+    aggregate_by_code = {
+        row.get("izvor_vijesti_sifra", ""): row
+        for row in aggregate_rows
+        if row.get("izvor_vijesti_sifra") in {"2", "3"}
+    }
+    aggregate_expected = {
+        "2": (13378, Decimal("54432"), Decimal("4.06876962176708")),
+        "3": (10827, Decimal("58098"), Decimal("5.366029371016902")),
+    }
+    aggregate_means: dict[str, Decimal] = {}
+    for code, (expected_count, expected_sum, expected_mean) in aggregate_expected.items():
+        row = aggregate_by_code.get(code)
+        if row is None:
+            errors.append(f"Unit 14 aggregate lacks news-source code {code}.")
+            continue
+        count = int(row["broj"])
+        total = Decimal(row["zbroj_povjerenja"])
+        stored_mean = Decimal(row["prosjek_povjerenja"])
+        recomputed_mean = total / Decimal(count)
+        aggregate_means[code] = recomputed_mean
+        analytical_sum = sum(
+            (Decimal(row_value["povjerenje_medijima"]) for row_value in population_groups[
+                "networks" if code == "2" else "tv"
+            ]),
+            Decimal(0),
+        )
+        if (count, total, stored_mean) != (expected_count, expected_sum, expected_mean):
+            errors.append(f"Unit 14 aggregate code {code} drifted: {count}/{total}/{stored_mean}")
+        if total != analytical_sum or count != len(population_groups["networks" if code == "2" else "tv"]):
+            errors.append(f"Unit 14 aggregate/analytical reconciliation failed for code {code}.")
+        if abs(recomputed_mean - stored_mean) > Decimal("1e-15"):
+            errors.append(f"Unit 14 stored mean for code {code} drifted: {stored_mean}")
+
+    if set(aggregate_means) != {"2", "3"}:
+        return errors + ["Unit 14 aggregate means could not be reconstructed."], {}
+    aggregate_difference = aggregate_means["3"] - aggregate_means["2"]
+    aggregate_d_16 = aggregate_difference / Decimal("1.6")
+    aggregate_d_32 = aggregate_difference / Decimal("3.2")
+    aggregate_targets = (
+        Decimal("1.297259749249822"),
+        Decimal("0.810787343281139"),
+        Decimal("0.405393671640569"),
+    )
+    aggregate_actual = (aggregate_difference, aggregate_d_16, aggregate_d_32)
+    if any(abs(actual - target) > Decimal("1e-15") for actual, target in zip(aggregate_actual, aggregate_targets)):
+        errors.append(f"Unit 14 aggregate task values drifted: {aggregate_actual}")
+
+    paired_n = 60
+    paired_correlation = 0.864746050662474
+    paired_mean = 0.480290890185894
+    paired_sd = 0.901343412520157
+    paired_se = paired_sd / math.sqrt(paired_n)
+    paired_df = paired_n - 1
+    paired_t = paired_mean / paired_se
+    paired_p = 2 * (1 - student_t_cdf(abs(paired_t), paired_df))
+    paired_critical = student_t_quantile(0.975, paired_df)
+    paired_lower = paired_mean - paired_critical * paired_se
+    paired_upper = paired_mean + paired_critical * paired_se
+    paired_d = paired_mean / paired_sd
+    paired_targets = (
+        0.116362934196811,
+        4.12752474403535,
+        0.000116826096963618,
+        0.247449196677287,
+        0.713132583694502,
+        0.532861153156931,
+    )
+    paired_actual = (paired_se, paired_t, paired_p, paired_lower, paired_upper, paired_d)
+    if any(abs(actual - target) > 1e-12 for actual, target in zip(paired_actual, paired_targets)):
+        errors.append(f"Unit 14 paired reconstruction drifted: {paired_actual}")
+
+    before_mean = 4.78142830282708
+    after_mean = 5.26171919301298
+    before_variance = 2.6251525432855
+    after_variance = 3.19980332495503
+    independent_difference = after_mean - before_mean
+    independent_se = math.sqrt(before_variance / paired_n + after_variance / paired_n)
+    independent_df = (before_variance / paired_n + after_variance / paired_n) ** 2 / (
+        (before_variance / paired_n) ** 2 / (paired_n - 1)
+        + (after_variance / paired_n) ** 2 / (paired_n - 1)
+    )
+    independent_t = independent_difference / independent_se
+    independent_p = 2 * (1 - student_t_cdf(abs(independent_t), independent_df))
+    independent_critical = student_t_quantile(0.975, independent_df)
+    independent_lower = independent_difference - independent_critical * independent_se
+    independent_upper = independent_difference + independent_critical * independent_se
+    independent_targets = (
+        0.311580804614163,
+        116.86263878741,
+        1.54146495250453,
+        0.125907198174549,
+        -0.136786144693963,
+        1.09736792506575,
+    )
+    independent_actual = (
+        independent_se,
+        independent_df,
+        independent_t,
+        independent_p,
+        independent_lower,
+        independent_upper,
+    )
+    if any(abs(actual - target) > 1e-12 for actual, target in zip(independent_actual, independent_targets)):
+        errors.append(f"Unit 14 independent-treatment-of-pairs values drifted: {independent_actual}")
+
+    wilcoxon_statistic = 1391
+    wilcoxon_mean = paired_n * (paired_n + 1) / 4
+    wilcoxon_sd = math.sqrt(paired_n * (paired_n + 1) * (2 * paired_n + 1) / 24)
+    wilcoxon_z = (wilcoxon_statistic - wilcoxon_mean - 0.5) / wilcoxon_sd
+    wilcoxon_p = math.erfc(abs(wilcoxon_z) / math.sqrt(2))
+    if abs(wilcoxon_p - 0.000464486906942119) > 1e-15:
+        errors.append(f"Unit 14 Wilcoxon approximation drifted: {wilcoxon_p}")
+
+    widget_independent_se = 10 * math.sqrt(2 / 50)
+    widget_paired_se = 10 * math.sqrt(2 * (1 - 0.65) / 50)
+    if widget_independent_se != 2 or abs(widget_paired_se - 1.18321595661992) > 1e-12:
+        errors.append(
+            "Unit 14 widget standard-error formulas drifted: "
+            f"{widget_independent_se}/{widget_paired_se}"
+        )
+
+    normalized_callout = " ".join(callout_prompt.split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "jedinica neovisnosti označena je kao osoba",
+            "referentna skupina su društvene mreže",
+            "welchov test ne traži jednake varijance",
+            "od 30 do 49 godina",
+            "interval razlike obuhvaća nulu",
+            "nema veze s povjerenjem",
+        )
+    ):
+        errors.append("Unit 14 callout no longer exposes one complete absence-from-nonsignificance error.")
+
+    normalized_conceptual = " ".join(conceptual_prompt.split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "tri istraživačke situacije",
+            "jedinicu neovisnosti",
+            "unaprijed zadanim pragom od pet bodova",
+            "dvije skupine prema primarnom izvoru vijesti",
+            "iste ispitanike prije i poslije kampanje",
+        )
+    ):
+        errors.append("Unit 14 conceptual prompt no longer identifies all three designs.")
+
+    normalized_numerical = " ".join(numerical_prompt.split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "data/populacija-medija-agregat.csv",
+            "podijelite `zbroj_povjerenja` stupcem `broj`",
+            "provjerite pohranjeni prosjek",
+            "razliku aritmetičkih sredina",
+            "standardne devijacije 1,6 pa 3,2",
+            "standardiziranu razliku",
+            "za rad bez datoteke upotrijebite izvadak",
+        )
+    ):
+        errors.append("Unit 14 numerical prompt no longer preserves aggregate, print and H10 paths.")
+
+    normalized_critical = " ".join(critical_prompt.split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "što ljestvica povjerenja i kategorija izvora vijesti ne mjere",
+            "bilo koja pozitivna razlika",
+            "najmanje dva boda",
+            "kratku bilješku recenzentu",
+            "sama oznaka značajnosti",
+            "problem mjerenja ni izbor praga",
+        )
+    ):
+        errors.append("Unit 14 critical prompt no longer joins measurement and decision thresholds.")
+
+    normalized_revision = " ".join(revision_prompt.split()).casefold()
+    if not all(
+        token in normalized_revision
+        for token in (
+            "imenujte referentnu skupinu",
+            "što bi se promijenilo, a što ostalo isto",
+            "jedinicu neovisnosti",
+            "vrstu ishoda",
+            "odnos prema varijancama",
+            "doseg ciljne populacije",
+            "jedinu tvrdnju koja iz rezultata ne slijedi",
+            "rečenicu kojom bi je trebalo zamijeniti",
+        )
+    ):
+        errors.append("Unit 14 model revision no longer requires the full audit and one replacement claim.")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 14 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "nonsignificant-subgroup-treated-as-no-association"
+    if planted_ids != {expected_error_id}:
+        errors.append(
+            "Unit 14 callout and model revision do not close one stable planted error: "
+            f"{planted_ids}"
+        )
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    expected_numerical = {"callout_greska", "racunski", "kriticki", "revizija_modela"}
+    if numerical_applicable != expected_numerical:
+        errors.append(f"Unit 14 numerical applicability mismatch: {sorted(numerical_applicable)}")
+
+    required_result_tokens = {
+        "callout_greska": ("55", "0,770270270270", "−0,335616307975", "1,876156848515", "0,900295271035"),
+        "racunski": ("58098/10827", "5,366029371017", "54432/13378", "4,068769621767", "1,297259749250", "0,810787343281", "0,405393671641"),
+        "kriticki": ("1,185714285714", "0,446686471421", "1,924742100008", "iznad 0", "ispod 2"),
+        "revizija_modela": ("4,514285714286", "1,185714285714", "0,770270270270", "−0,335616307975", "1,876156848515"),
+    }
+    for task_class, tokens in required_result_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        for token in tokens:
+            if token not in result:
+                errors.append(f"Unit 14 {task_class} answer lacks recomputed token: {token}")
+
+    evidence = {
+        "sample": (
+            f"n-120/groups-networks-{len(sampled_groups['networks'])}-tv-{len(sampled_groups['tv'])}/"
+            f"means-{main_welch['second_mean']:.12f}-{main_welch['first_mean']:.12f}/"
+            f"variances-{main_welch['second_variance']:.12f}-{main_welch['first_variance']:.12f}"
+        ),
+        "welch": (
+            f"difference-{main_welch['difference']:.12f}/se-{main_welch['se']:.12f}/"
+            f"df-{main_welch['df']:.12f}/t-{main_welch['t']:.12f}/p-{main_welch['p']:.15f}/"
+            f"interval-{main_welch['lower']:.12f}-to-{main_welch['upper']:.12f}"
+        ),
+        "ols": (
+            f"se-{ols_se:.12f}/df-{ols_df}/t-{ols_t:.12f}/p-{ols_p:.15f}/"
+            f"interval-{ols_lower:.12f}-to-{ols_upper:.12f}/d-{cohen_d:.12f}"
+        ),
+        "paired": (
+            f"n-{paired_n}/r-{paired_correlation:.12f}/mean-{paired_mean:.12f}/sd-{paired_sd:.12f}/"
+            f"interval-{paired_lower:.12f}-to-{paired_upper:.12f}/p-{paired_p:.15f}/d-{paired_d:.12f}/"
+            f"as-independent-{independent_lower:.12f}-to-{independent_upper:.12f}-p-{independent_p:.15f}/"
+            f"wilcoxon-W-{wilcoxon_statistic}-p-{wilcoxon_p:.15f}"
+        ),
+        "population": (
+            f"difference-{population_difference:.12f}/ages-{population_age_networks:.12f}-{population_age_tv:.12f}/"
+            f"narrow-difference-{population_narrow_difference:.12f}/sample-narrow-n-{len(narrow_sample_rows)}/"
+            f"sample-narrow-{narrow_welch['difference']:.12f}/"
+            f"interval-{narrow_welch['lower']:.12f}-to-{narrow_welch['upper']:.12f}"
+        ),
+        "aggregate": (
+            f"networks-54432/13378/{aggregate_means['2']:.15f}-"
+            f"tv-58098/10827/{aggregate_means['3']:.15f}-"
+            f"difference-{aggregate_difference:.15f}/d-{aggregate_d_16:.15f}-{aggregate_d_32:.15f}"
+        ),
+        "widget": f"se-independent-{widget_independent_se:.12f}/paired-{widget_paired_se:.12f}",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "rendered-aggregate-table-static-widget-and-source-values-no-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -3761,6 +4339,20 @@ def main() -> int:
             records_by_unit["13"],
         )
         errors.extend(numerical_errors)
+    unit_14_numerical: dict[str, str] = {}
+    if (
+        "14" in records_by_unit
+        and len(records_by_unit["14"]) == 5
+        and {record["task_class"] for record in records_by_unit["14"]} == expected_task_classes
+        and "chapters/14-dvije-grupe.qmd" in source_lines
+    ):
+        numerical_errors, unit_14_numerical = unit_14_numerical_check(
+            source_lines["chapters/14-dvije-grupe.qmd"],
+            records_by_unit["14"],
+            ROOT / "data/populacija-medija.csv",
+            ROOT / "data/populacija-medija-agregat.csv",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -4107,6 +4699,20 @@ def main() -> int:
             f"records={unit_13_numerical.get('applicable_records')} "
             f"planted_error={unit_13_numerical.get('planted_error')} "
             f"print_path={unit_13_numerical.get('print_path')}"
+        )
+    if unit_14_numerical:
+        print(
+            "- unit 14 independent numerics: "
+            f"sample={unit_14_numerical.get('sample')} "
+            f"welch={unit_14_numerical.get('welch')} "
+            f"ols={unit_14_numerical.get('ols')} "
+            f"paired={unit_14_numerical.get('paired')} "
+            f"population={unit_14_numerical.get('population')} "
+            f"aggregate={unit_14_numerical.get('aggregate')} "
+            f"widget={unit_14_numerical.get('widget')} "
+            f"records={unit_14_numerical.get('applicable_records')} "
+            f"planted_error={unit_14_numerical.get('planted_error')} "
+            f"print_path={unit_14_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0
