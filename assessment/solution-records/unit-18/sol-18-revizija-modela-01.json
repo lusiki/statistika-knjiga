@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-18-revizija-modela-01",
+  "exercise_id": "ex-18-revizija-modela-01",
+  "unit_id": "18",
+  "source_anchor": {
+    "path": "chapters/18-vase-prvo-istrazivanje.qmd",
+    "anchor": "ex-18-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:937e4333d12e31a4f2e9bb8c283da4b188850e1a993d52d1965ac96adc8d7243",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "confidence-interval-includes-zero-treated-as-no-association",
+      "statement": "Asistent iz intervala koji obuhvaća nulu zaključuje da u simuliranom skupu nema povezanosti vremena i povjerenja.",
+      "why_wrong": "Prilagođena procjena jest blizu nule, ali njezin interval uključuje male razlike oba predznaka. Bez unaprijed opravdane granice praktične ekvivalencije rezultat ne dokazuje odsutnost svake povezanosti; pokazuje da je zbirna pozitivna procjena osjetljiva na dob i da smjer male preostale povezanosti nije precizno određen."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Prepisati prilagođenu procjenu i obje granice, neovisno ih obnoviti iz 300 generiranih zapisa, zatim označiti točnu rečenicu u kojoj se obuhvaćanje nule pretvara u odsutnost. Ispravljeni zaključak povezati s neprilagođenom osjetljivošću i ispuniti svih sedam polja potvrde provjere.",
+      "expected_evidence": "Točne pune vrijednosti jesu -0,008323 boda uz interval od -0,186355 do 0,169708, prikazano kao -0,01 uz -0,19 do 0,17. Jedina pogrešna rečenica tvrdi da zato nema povezanosti. Potvrda mora imenovati zahtjev, povrat, provjereno, način provjere, ulogu AI-ja, neprovjereno i odgovornu osobu."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Sažetak je potpuno pogrešan jer je asistent sudjelovao u analizi.",
+          "why_insufficient": "Brojke, prilagodba i ograničenje oblika dobi mogu biti točni; treba pronaći jedan određeni pogrešan prijelaz i zadržati valjane dijelove."
+        },
+        {
+          "response": "Ispravak glasi da postoji pozitivna povezanost jer neprilagođeni interval ne obuhvaća nulu.",
+          "why_insufficient": "Primarna analiza unaprijed uključuje dob, a provjera osjetljivosti pokazuje ovisnost zaključka o toj odluci umjesto da je zamjenjuje."
+        },
+        {
+          "response": "Dovoljno je promijeniti riječ nema u možda nema.",
+          "why_insufficient": "Neodređena ograda ne navodi koje su vrijednosti uskladive s podacima ni što usporedba dvaju modela pokazuje."
+        },
+        {
+          "response": "Potvrda provjere jest kopija koda koji je proizveo interval.",
+          "why_insufficient": "Potvrda mora biti čitljiva bez koda i obuhvatiti svih sedam polja, uključujući ono što je ostalo neprovjereno i odgovornu osobu."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "copy-correct-numbers",
+          "required_claim": "Nakon prilagodbe za dob procjena za trideset minuta iznosi -0,01 boda, uz 95 % interval od -0,19 do 0,17.",
+          "required_evidence": "Pune neovisne vrijednosti jesu -0,008323206698, -0,186354833188 i 0,169708419792."
+        },
+        {
+          "component_id": "name-one-invalid-transition",
+          "required_claim": "Jedina je pogreška prijelaz s intervala koji obuhvaća nulu na tvrdnju da povezanosti nema.",
+          "required_evidence": "Interval uključuje male razlike oba predznaka, a ne samo točnu nulu."
+        },
+        {
+          "component_id": "write-corrected-conclusion",
+          "required_claim": "Nakon prilagodbe za dob procijenjena je razlika blizu nule i nepreciznoga predznaka; zbirna pozitivna procjena osjetljiva je na dob, a mala povezanost u oba smjera ostaje uskladiva s podacima.",
+          "required_evidence": "Prilagođeni interval prelazi nulu, dok neprilagođeni učinak za trideset minuta iznosi 0,246146 boda uz interval iznad nule."
+        },
+        {
+          "component_id": "complete-seven-field-receipt",
+          "required_claim": "Potvrda navodi što je zatraženo, što je vraćeno, što je provjereno, kako je provjereno, ulogu asistenta, što je ostalo neprovjereno i odgovornu osobu.",
+          "required_evidence": "Provjera uključuje čistu lokalnu reprodukciju brojki, usporedbu s tablicom i granicu dizajna; mjerenje izvan generatora i prijenos na stvarne ljude ostaju neprovjereni."
+        },
+        {
+          "component_id": "bound-next-delegation",
+          "required_claim": "U sljedećem krugu može se delegirati omeđena provjera računa ili usporedba izvještaja s tablicom, ali ne odluka o dopuštenoj tvrdnji, dijeljenju podataka ili prihvatljivom ograničenju.",
+          "required_evidence": "Odgovorna osoba zadržava istraživački cilj, provjeru, objavu i posljedice zaključka."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Ispravno treba prepisati -0,01 boda i 95 % interval od -0,19 do 0,17. Neovisne pune vrijednosti jesu -0,008323206698 te -0,186354833188 do 0,169708419792. Za osjetljivost, neprilagođena procjena iznosi 0,246145599410 te 0,092666097355 do 0,399625101466.",
+      "tolerance_or_acceptance_rule": "Prihvatiti prikaz na dvije decimale iz izvora. Sva tri prilagođena broja moraju biti točna, a brojčana provjera ne vrijedi bez označavanja jedinoga pogrešnog prijelaza i ispravnoga zaključka.",
+      "independent_method": "Zasebno obnoviti simulirani skup iz deklariranoga generatora, koeficijente riješiti matrično i interval izračunati iz t-kvantila i rezidualne varijance, bez pozivanja izvornoga lm ili confint računa. Potom usporediti zaokružene vrijednosti s asistentovim sažetkom.",
+      "evidence_reference": "scripts/check-unit-18-numerics.R#UNIT_18_NUMERICS_OK"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-no-association-claim",
+          "severity": "fatal",
+          "description": "Revizija zadržava tvrdnju da interval preko nule dokazuje odsutnost povezanosti ili je zamjenjuje uzročnom tvrdnjom iz neprilagođenoga modela.",
+          "observable_evidence": "Središnji planted-error ili granica presječnoga dizajna ostaje nepopravljen."
+        },
+        {
+          "criterion_id": "major-missing-receipt-or-delegation-boundary",
+          "severity": "major",
+          "description": "Brojke i zaključak su popravljeni, ali nedostaje najmanje jedno od sedam polja potvrde ili odluka koja se ne smije delegirati.",
+          "observable_evidence": "Human-AI provjera nije potpuni capstone račun odgovornosti."
+        },
+        {
+          "criterion_id": "minor-imprecise-rounding-or-limitation",
+          "severity": "minor",
+          "description": "Središnji sud stoji, ali jedna brojka nije dosljedno zaokružena ili određeno ograničenje nije imenovano.",
+          "observable_evidence": "Odgovor se može popraviti lokalnom uredničkom korekcijom."
+        },
+        {
+          "criterion_id": "useful-challenges-model-form",
+          "severity": "useful_improvement",
+          "description": "Sljedeći delegirani korak predlaže provjeru nelinearnoga oblika dobnoga odnosa uz unaprijed zapisanu granicu usporedbe.",
+          "observable_evidence": "Alternativa izravno provjerava ograničenje koje je sažetak već ispravno imenovao."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "compact-seven-field-table",
+      "description": "Prihvatljiv odgovor može potvrdu provjere prikazati kao tablicu sa sedam redaka i odvojeno dati ispravljeni zaključak.",
+      "acceptance_boundary": "Mora zadržati sve brojke, isti planted-error, jedno određeno ograničenje, granicu sljedeće delegacije i ljudsku odgovornost."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija modela zatvaraju isti planted-error ID. Ne pretvarati obvezna polja potvrde u dodatne skrivene pogreške sažetka.",
+    "Ne tražiti pisanje ili popravljanje koda. Ocjenjuje se čitanje brojki, neovisna provjera, granica zaključka i odgovorna delegacija."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

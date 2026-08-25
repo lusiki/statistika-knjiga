@@ -4440,7 +4440,24 @@ handoffs:
         state: pending
       - target_packet: P5-CLOSURE-18
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        disposition: >-
+          P5-CLOSURE-18 consumes only its own before-close delivery and leaves
+          R23-SCOPE-no-new-chapters-widgets ratified and open. The verified
+          inventory counts are preserved but are not treated, alone or by
+          aggregation, as proof that retrieval has replaced lower-value work.
+          This packet adds no numbered chapter, central widget or callout type;
+          it adds only five unit-18 assessment records, their matching anchors
+          and independent assessment verification. P5-ROUTES retains its
+          separate pending delivery and no route is assembled here.
+        evidence:
+          - "item:R23-SCOPE-no-new-chapters-widgets-status-ratified-open_reason-preserved"
+          - "check:BOOK_INVENTORY_OK-pages-37-chapters-19-appendices-6-solutions-0"
+          - "check:scripts/check-widgets.py-17-widgets-with-static-twins"
+          - "boundary:chapter-18-no-widget-and-no-new-callout-type"
+          - "boundary:config/book-inventory.json-solution_routes-empty"
 
   H-P2-DOCS-003:
     source_packet: P2-DOCS
@@ -8130,7 +8147,26 @@ handoffs:
           - "boundary:config/book-inventory.json-solution-routes-empty"
       - target_packet: P5-CLOSURE-18
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        disposition: >-
+          P5-CLOSURE-18 preserves the settled one-record-per-file store, stable
+          non-reused two-digit exercise and record identifiers, matching Quarto
+          anchors, normalized default-visible prompt SHA-256 rule, complete
+          six-component schema, D06-two-layer-v1 visibility contract and the
+          prohibition on route assembly. Unit 18 will add only its five
+          canonical records, five matching source anchors and independent
+          capstone and evidence-package numerical and planted-error checks;
+          P5-ROUTES remains the sole owner of self-study, print, kolegij and
+          navigation assembly.
+        evidence:
+          - "handoff:H-P5-CLOSURE-00-001-read-in-full-before-claim"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.solution_record_contract.implementation_contract"
+          - "schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json"
+          - "source:chapters/18-vase-prvo-istrazivanje.qmd-read-in-full"
+          - "source:scripts/check-assessment-architecture.py"
+          - "boundary:config/book-inventory.json-solution-routes-empty"
       - target_packet: P5-ROUTES
         gate: before_start
         state: pending
@@ -11842,4 +11878,33 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - no new future-relevant effect requires a handoff because H-P5-CLOSURE-00-001 already binds unit 18 and P5-ROUTES and the later clean-build packet already owns root-project release verification
       - P5-CLOSURE-18 is the sole next permitted packet but is not claimed inside P5-CLOSURE-17
+      - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
+  P5-CLOSURE-18:
+    reviewed_at: "2026-08-25"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    implementation_state: "assessment-unit:sha256-7170357808e525995edb0497793a52c3544949d92bdd66a22155d1337a0863a9"
+    checks:
+      - H-P5-CLOSURE-00-001 was acknowledged and consumed at before_start before the first source record or checker edit
+      - the storage identifier anchor prompt-fingerprint schema visibility and no-route-assembly decisions from P5-CLOSURE-00 remain unchanged
+      - H-P2-DOCS-002 was acknowledged on claim and consumed at before_close without closing R23-SCOPE-no-new-chapters-widgets by aggregation or by its verified counts half alone
+      - R23-SCOPE-no-new-chapters-widgets remains ratified and open while its retrieval half remains separately required
+      - exactly five schema-valid JSON records cover callout-greska and all four unit 18 Zadaci tiers with stable ids matching anchors exact prompt SHA-256 values and all six canonical components
+      - the callout-greska and model-revision records close the same sole planted error confidence-interval-includes-zero-treated-as-no-association
+      - the unit 18 accepted prose is unchanged and the source diff adds only five stable Quarto identifiers
+      - the assessment checker independently reproduces every capstone survey group correlation regression interval exercise evidence-package label-path and checksum claim
+      - the dedicated base-R verifier independently regenerates the survey and independently reconstructs the raw Croatian text selection grouped SHA-256 split and promoted checksum without sourcing the chapter setup generator or assessment checker
+      - numerical components are applicable only to callout-greska racunski and revizija-modela and the other two records carry explicit non-applicability reasons
+      - the unit 18 print path uses source-embedded group and model tables the evidence passport and hand arithmetic without a widget or assessed code production
+      - actual full-source isolated default and kolegij renders contain all five structural anchors preserve the existing protected-key separation and render no record identifiers or protected record text
+      - R/build-ai-exports.R --release passes for 19 chapters and the isolated scan finds zero leaks among 1166 protected solution-record strings
+      - isolated generated public AI export and render artifacts are not packet outputs
+      - config/book-inventory.json solution_routes remains empty and no self-study print instructor or navigation route is assembled
+      - chapter-ledger.json remains unchanged and no chapter stage advances
+      - no numbered chapter central widget or callout type is added and unit 18 remains the widget-free extended worked example
+      - assessment exact unit numerics text-package widget inventory and parity book architecture inventory chapter-spine manuscript-integrity style structure and figure-introduction checks pass
+      - all four assessment negative fixtures fail closed for their injected defect
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - no new future-relevant effect requires a handoff because H-P5-CLOSURE-00-001 and H-P2-DOCS-002 already bind P5-ROUTES and the later clean-build packet already owns root-project release verification
+      - P5-A is the sole next permitted packet but is not claimed inside P5-CLOSURE-18
       - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised

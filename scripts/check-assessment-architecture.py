@@ -5022,6 +5022,329 @@ def unit_17_numerical_check(
     return errors, evidence
 
 
+def unit_18_numerical_check(
+    lines: list[str],
+    records: list[dict[str, Any]],
+    survey_path: Path,
+    evidence_path: Path,
+    verifier_path: Path,
+) -> tuple[list[str], dict[str, str]]:
+    """Recompute unit 18 capstone and evidence-package claims independently."""
+    errors: list[str] = []
+
+    anchors = {
+        "callout_greska": "ex-18-callout-greska-01",
+        "konceptualni": "ex-18-konceptualni-01",
+        "racunski": "ex-18-racunski-01",
+        "kriticki": "ex-18-kriticki-01",
+        "revizija_modela": "ex-18-revizija-modela-01",
+    }
+    try:
+        prompts = {task_class: canonical_prompt(lines, anchor) for task_class, anchor in anchors.items()}
+    except AssertionError as exc:
+        return [f"Unit 18 prompt is unavailable: {exc}"], {}
+    for task_class, prompt in prompts.items():
+        if not prompt.strip():
+            errors.append(f"Unit 18 {task_class} prompt is empty.")
+
+    source_text = "\n".join(lines)
+    for source_token in (
+        'WIDGET:  bez widgeta',
+        '| 39 min | bez widgeta | simulirana anketa i ParlaSent 1.0 | cijela knjiga |',
+        '"data/parlament_oznake.csv"',
+        "s18_prijenos$n == 2698",
+        "s18_prijenos$dokumenti == 2499",
+        "s18_prijenos$dva_kodera_negativno == 652",
+        "s18_prijenos$jedan_koder_negativno == 560",
+        *[f"#{anchor}" for anchor in anchors.values()],
+    ):
+        if source_token not in source_text:
+            errors.append(f"Unit 18 source no longer exposes required capstone contract: {source_token}")
+
+    normalized_callout = " ".join(prompts["callout_greska"].split()).casefold()
+    if not all(
+        token in normalized_callout
+        for token in (
+            "nakon linearne prilagodbe za dob",
+            "trideset minuta više dnevnog vremena",
+            "95 % interval",
+            "obuhvaća nulu",
+            "u ovom skupu nema",
+            "povezanosti vremena i povjerenja",
+        )
+    ):
+        errors.append("Unit 18 callout no longer exposes one complete interval-interpretation error.")
+    normalized_conceptual = " ".join(prompts["konceptualni"].split()).casefold()
+    if not all(
+        token in normalized_conceptual
+        for token in (
+            "šest revizijskih pitanja",
+            "zavaravajućem nazivniku",
+            "selekciji",
+            "analitičkoj fleksibilnosti",
+            "teretu odluke",
+            "jednu tvrdnju koju paket podupire i jednu koju ne podupire",
+        )
+    ):
+        errors.append("Unit 18 conceptual prompt no longer preserves the whole-book retrieval audit.")
+    normalized_numerical = " ".join(prompts["racunski"].split()).casefold()
+    if not all(
+        token in normalized_numerical
+        for token in (
+            "iz tablice opisa po dobnim skupinama",
+            "razliku u prosječnom dnevnom vremenu",
+            "razliku u prosječnom povjerenju",
+            "neprilagođenoga nagiba",
+            "opaženom razlikom u povjerenju",
+            "ne zamjenjuje primarnu analizu uz dob",
+        )
+    ):
+        errors.append("Unit 18 numerical prompt no longer preserves the print-completable capstone calculation.")
+    normalized_critical = " ".join(prompts["kriticki"].split()).casefold()
+    if not all(
+        token in normalized_critical
+        for token in (
+            "studentski ili novinski izvještaj",
+            "postotke bez broja ispitanika",
+            "bez opisa načina prikupljanja",
+            "procjenu i njezin raspon stavlja u prvi plan",
+            "koji je zaključak zbog toga neprovjerljiv",
+        )
+    ):
+        errors.append("Unit 18 critical prompt no longer preserves the external-report evidence audit.")
+    normalized_revision = " ".join(prompts["revizija_modela"].split()).casefold()
+    if not all(
+        token in normalized_revision
+        for token in (
+            "prepišite točne brojke",
+            "jedini pogrešan prijelaz",
+            "ispravljeni zaključak",
+            "sedam polja potvrde provjere",
+            "što biste delegirali",
+            "koju odluku ne biste",
+        )
+    ):
+        errors.append("Unit 18 model revision no longer requires the complete verification receipt.")
+
+    try:
+        verifier = verifier_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return errors + [f"Unit 18 exact numerical verifier could not be read: {exc}"], {}
+    for verifier_token in (
+        "This script does not source the chapter",
+        "the teaching-data",
+        "ols_manual <- function(y, x)",
+        "set.seed(4001)",
+        'at("data", "_kandidat", "p3-text", "ParlaSent_BCS.jsonl")',
+        'at("data", "_kandidat", "p3-text", "ParlaSent_BCS_test.jsonl")',
+        'split_salt <- "statistika-p3-text-parlasent-only-v1"',
+        'digest::digest(file = promoted_path, algo = "sha256")',
+        'cat("UNIT_18_NUMERICS_OK\\n")',
+    ):
+        if verifier_token not in verifier:
+            errors.append(f"Unit 18 exact verifier lost required independent contract: {verifier_token}")
+
+    try:
+        survey_bytes = survey_path.read_bytes()
+        with survey_path.open(encoding="utf-8", newline="") as handle:
+            survey_rows = list(csv.DictReader(handle))
+        evidence_bytes = evidence_path.read_bytes()
+        with evidence_path.open(encoding="utf-8", newline="") as handle:
+            evidence_rows = list(csv.DictReader(handle))
+    except (OSError, csv.Error) as exc:
+        return errors + [f"Unit 18 canonical data could not be read independently: {exc}"], {}
+
+    survey_sha = hashlib.sha256(survey_bytes).hexdigest()
+    evidence_sha = hashlib.sha256(evidence_bytes).hexdigest()
+    if survey_sha != "ae123f46104e10fc83e12d44e0be1b3ab8edf23a92290182ca61b5a46cde93bc":
+        errors.append(f"Unit 18 survey checksum drifted: {survey_sha}")
+    if evidence_sha != "0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef":
+        errors.append(f"Unit 18 evidence-package checksum drifted: {evidence_sha}")
+    if len(survey_rows) != 300:
+        errors.append(f"Unit 18 survey row count drifted: {len(survey_rows)}")
+    if len(evidence_rows) != 2698:
+        errors.append(f"Unit 18 evidence row count drifted: {len(evidence_rows)}")
+
+    def solve_system(matrix: list[list[float]], vector: list[float]) -> list[float]:
+        size = len(vector)
+        augmented = [row[:] + [value] for row, value in zip(matrix, vector)]
+        for column in range(size):
+            pivot = max(range(column, size), key=lambda row: abs(augmented[row][column]))
+            if abs(augmented[pivot][column]) < 1e-14:
+                raise AssertionError("Unit 18 independent normal equations are singular.")
+            augmented[column], augmented[pivot] = augmented[pivot], augmented[column]
+            divisor = augmented[column][column]
+            augmented[column] = [value / divisor for value in augmented[column]]
+            for row in range(size):
+                if row == column:
+                    continue
+                factor = augmented[row][column]
+                if factor:
+                    augmented[row] = [
+                        value - factor * pivot_value
+                        for value, pivot_value in zip(augmented[row], augmented[column])
+                    ]
+        return [augmented[row][-1] for row in range(size)]
+
+    def fit_ols(outcome: list[float], design: list[list[float]]) -> dict[str, Any]:
+        columns = len(design[0])
+        cross = [
+            [math.fsum(row[first] * row[second] for row in design) for second in range(columns)]
+            for first in range(columns)
+        ]
+        rhs = [
+            math.fsum(row[column] * value for row, value in zip(design, outcome))
+            for column in range(columns)
+        ]
+        beta = solve_system(cross, rhs)
+        fitted = [math.fsum(coef * value for coef, value in zip(beta, row)) for row in design]
+        residual = [value - prediction for value, prediction in zip(outcome, fitted)]
+        sse = math.fsum(value * value for value in residual)
+        mean_outcome = math.fsum(outcome) / len(outcome)
+        sst = math.fsum((value - mean_outcome) ** 2 for value in outcome)
+        return {"beta": beta, "sse": sse, "r2": 1 - sse / sst}
+
+    ages = [float(row["dob"]) for row in survey_rows]
+    minutes = [float(row["minute_dnevno"]) for row in survey_rows]
+    trust = [float(row["povjerenje"]) for row in survey_rows]
+    simple = fit_ols(trust, [[1.0, minute] for minute in minutes])
+    adjusted = fit_ols(trust, [[1.0, minute, age] for minute, age in zip(minutes, ages)])
+    deterministic_targets = {
+        "age_mean": (math.fsum(ages) / len(ages), 34.516666666666667),
+        "minute_mean": (math.fsum(minutes) / len(minutes), 50.063333333333333),
+        "minute_median": (sorted(minutes)[len(minutes) // 2 - 1 : len(minutes) // 2 + 1], [39.0, 39.0]),
+        "trust_mean": (math.fsum(trust) / len(trust), 5.446666666666666),
+        "simple_slope": (simple["beta"][1], 0.008204853313673210),
+        "adjusted_slope": (adjusted["beta"][1], -0.0002774402232627593),
+        "age_slope": (adjusted["beta"][2], -0.04437094375860995),
+        "simple_r2": (simple["r2"], 0.03234582922691076),
+        "adjusted_r2": (adjusted["r2"], 0.1082928038751434),
+    }
+    for label, (actual, target) in deterministic_targets.items():
+        if isinstance(actual, list):
+            if actual != target:
+                errors.append(f"Unit 18 independent {label} drifted: {actual} != {target}")
+        elif abs(float(actual) - float(target)) > 1e-12:
+            errors.append(f"Unit 18 independent {label} drifted: {actual} != {target}")
+    if (min(minutes), max(minutes), sum(math.isnan(value) for value in ages + minutes + trust)) != (3.0, 248.0, 0):
+        errors.append("Unit 18 range or missingness contract drifted.")
+
+    group_order = ("18 do 24", "25 do 34", "35 do 44", "45 i više")
+    group_minutes: dict[str, float] = {}
+    group_trust: dict[str, float] = {}
+    group_counts: dict[str, int] = {}
+    for group in group_order:
+        selected = [row for row in survey_rows if row["dobna_skupina"] == group]
+        group_counts[group] = len(selected)
+        group_minutes[group] = math.fsum(float(row["minute_dnevno"]) for row in selected) / len(selected)
+        group_trust[group] = math.fsum(float(row["povjerenje"]) for row in selected) / len(selected)
+    if tuple(group_counts.values()) != (90, 84, 66, 60):
+        errors.append(f"Unit 18 group counts drifted: {group_counts}")
+    minute_difference = group_minutes[group_order[0]] - group_minutes[group_order[-1]]
+    trust_difference = group_trust[group_order[0]] - group_trust[group_order[-1]]
+    attributed_difference = simple["beta"][1] * minute_difference
+    for label, actual, target in (
+        ("minute difference", minute_difference, 65.31111111111112),
+        ("trust difference", trust_difference, 1.877777777777778),
+        ("attributed difference", attributed_difference, 0.5358680864196793),
+    ):
+        if abs(actual - target) > 1e-12:
+            errors.append(f"Unit 18 {label} drifted: {actual} != {target}")
+
+    split_counts = {
+        split: sum(row.get("derived_split") == split for row in evidence_rows)
+        for split in ("ucenje", "provjera", "ispitivanje")
+    }
+    label_counts = {
+        label: sum(row.get("recorded_label") == label for row in evidence_rows)
+        for label in ("Negative", "Neutral", "Positive")
+    }
+    path_counts = {
+        path: sum(row.get("label_path") == path for row in evidence_rows)
+        for path in ("dva_kodera_i_uskladjenje", "jedan_uvjezbani_koder")
+    }
+    negative_by_path = {
+        path: sum(row.get("label_path") == path and row.get("recorded_label") == "Negative" for row in evidence_rows)
+        for path in path_counts
+    }
+    document_count = len({row.get("source_document_id") for row in evidence_rows})
+    if split_counts != {"ucenje": 1090, "provjera": 272, "ispitivanje": 1336}:
+        errors.append(f"Unit 18 split counts drifted: {split_counts}")
+    if label_counts != {"Negative": 1212, "Neutral": 979, "Positive": 507}:
+        errors.append(f"Unit 18 label counts drifted: {label_counts}")
+    if path_counts != {"dva_kodera_i_uskladjenje": 1362, "jedan_uvjezbani_koder": 1336}:
+        errors.append(f"Unit 18 path counts drifted: {path_counts}")
+    if negative_by_path != {"dva_kodera_i_uskladjenje": 652, "jedan_uvjezbani_koder": 560}:
+        errors.append(f"Unit 18 path-specific negative counts drifted: {negative_by_path}")
+    if document_count != 2499:
+        errors.append(f"Unit 18 evidence document count drifted: {document_count}")
+
+    by_class = {record["task_class"]: record for record in records}
+    planted_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["planted_error"]["applicable"]
+    }
+    if planted_applicable != {"callout_greska", "revizija_modela"}:
+        errors.append(f"Unit 18 planted-error applicability mismatch: {sorted(planted_applicable)}")
+    planted_ids = {
+        by_class[task_class]["answer_components"]["planted_error"]["error_id"]
+        for task_class in planted_applicable
+    }
+    expected_error_id = "confidence-interval-includes-zero-treated-as-no-association"
+    if planted_ids != {expected_error_id}:
+        errors.append(f"Unit 18 callout and model revision do not close one stable planted error: {planted_ids}")
+
+    numerical_applicable = {
+        task_class
+        for task_class, record in by_class.items()
+        if record["answer_components"]["numerical_check"]["applicable"]
+    }
+    if numerical_applicable != {"callout_greska", "racunski", "revizija_modela"}:
+        errors.append(f"Unit 18 numerical applicability mismatch: {sorted(numerical_applicable)}")
+    required_result_tokens = {
+        "callout_greska": ("-0,008323206698", "-0,186354833188", "0,169708419792", "0,246145599410"),
+        "racunski": ("65,3 minute", "1,88 bodova", "0,53546", "0,535868086420"),
+        "revizija_modela": ("-0,01 boda", "-0,19 do 0,17", "-0,008323206698", "0,246145599410"),
+    }
+    for task_class, tokens in required_result_tokens.items():
+        result = str(by_class[task_class]["answer_components"]["numerical_check"]["expected_result"])
+        method = str(by_class[task_class]["answer_components"]["numerical_check"]["independent_method"])
+        combined = result + " " + method
+        for token in tokens:
+            if token not in combined:
+                errors.append(f"Unit 18 {task_class} answer lacks independently checked token: {token}")
+
+    evidence = {
+        "survey": (
+            f"rows-{len(survey_rows)}/sha256-{survey_sha}/"
+            f"means-{math.fsum(ages) / len(ages):.12f}-{math.fsum(minutes) / len(minutes):.12f}-"
+            f"{math.fsum(trust) / len(trust):.12f}"
+        ),
+        "models": (
+            f"simple-{simple['beta'][1]:.12f}/adjusted-{adjusted['beta'][1]:.12f}/"
+            f"age-{adjusted['beta'][2]:.12f}/r2-{simple['r2']:.12f}-{adjusted['r2']:.12f}"
+        ),
+        "task": f"minutes-{minute_difference:.12f}/trust-{trust_difference:.12f}/attributed-{attributed_difference:.12f}",
+        "package": (
+            f"rows-{len(evidence_rows)}/documents-{document_count}/"
+            f"splits-{split_counts['ucenje']}-{split_counts['provjera']}-{split_counts['ispitivanje']}/"
+            f"labels-{label_counts['Negative']}-{label_counts['Neutral']}-{label_counts['Positive']}/sha256-{evidence_sha}"
+        ),
+        "label_paths": (
+            f"counts-{path_counts['dva_kodera_i_uskladjenje']}-{path_counts['jedan_uvjezbani_koder']}/"
+            f"negative-{negative_by_path['dva_kodera_i_uskladjenje']}-{negative_by_path['jedan_uvjezbani_koder']}/"
+            f"shares-{negative_by_path['dva_kodera_i_uskladjenje'] / path_counts['dva_kodera_i_uskladjenje']:.12f}-"
+            f"{negative_by_path['jedan_uvjezbani_koder'] / path_counts['jedan_uvjezbani_koder']:.12f}"
+        ),
+        "exact_verifier": "scripts/check-unit-18-numerics.R-UNIT_18_NUMERICS_OK",
+        "applicable_records": str(len(numerical_applicable)),
+        "planted_error": next(iter(planted_ids), ""),
+        "print_path": "source-embedded-group-table-model-table-passport-and-hand-arithmetic-no-widget-or-code",
+    }
+    return errors, evidence
+
+
 def main() -> int:
     errors: list[str] = []
 
@@ -5566,6 +5889,21 @@ def main() -> int:
             ROOT / "scripts/check-unit-17-numerics.R",
         )
         errors.extend(numerical_errors)
+    unit_18_numerical: dict[str, str] = {}
+    if (
+        "18" in records_by_unit
+        and len(records_by_unit["18"]) == 5
+        and {record["task_class"] for record in records_by_unit["18"]} == expected_task_classes
+        and "chapters/18-vase-prvo-istrazivanje.qmd" in source_lines
+    ):
+        numerical_errors, unit_18_numerical = unit_18_numerical_check(
+            source_lines["chapters/18-vase-prvo-istrazivanje.qmd"],
+            records_by_unit["18"],
+            ROOT / "data/anketa-mreze.csv",
+            ROOT / "data/parlament_oznake.csv",
+            ROOT / "scripts/check-unit-18-numerics.R",
+        )
+        errors.extend(numerical_errors)
 
     page_sources = {
         page.get("source")
@@ -5965,6 +6303,19 @@ def main() -> int:
             f"records={unit_17_numerical.get('applicable_records')} "
             f"planted_error={unit_17_numerical.get('planted_error')} "
             f"print_path={unit_17_numerical.get('print_path')}"
+        )
+    if unit_18_numerical:
+        print(
+            "- unit 18 independent numerics: "
+            f"survey={unit_18_numerical.get('survey')} "
+            f"models={unit_18_numerical.get('models')} "
+            f"task={unit_18_numerical.get('task')} "
+            f"package={unit_18_numerical.get('package')} "
+            f"label_paths={unit_18_numerical.get('label_paths')} "
+            f"exact={unit_18_numerical.get('exact_verifier')} "
+            f"records={unit_18_numerical.get('applicable_records')} "
+            f"planted_error={unit_18_numerical.get('planted_error')} "
+            f"print_path={unit_18_numerical.get('print_path')}"
         )
     print(f"- chapter spines ratified: {len(ratified_spines)} of {len(chapter_spines)}, each at its own G-A2b gate")
     return 0

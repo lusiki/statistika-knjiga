@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-24"
+  last_updated: "2026-08-25"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-CLOSURE-17"
-  next_permitted_packet: "P5-CLOSURE-18"
+  last_completed_packet: "P5-CLOSURE-18"
+  next_permitted_packet: "P5-A"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16358,7 +16358,7 @@ packets:
     sequence: 152
     phase: "5"
     kind: "assessment_unit"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-CLOSURE-17"
       - "P2-ASSESS"
@@ -16370,13 +16370,71 @@ packets:
       - "Every applicable task has its required key, check, rubric, or model-answer component."
       - "Protected instructor content is absent from public routes and exports."
       - "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-7170357808e525995edb0497793a52c3544949d92bdd66a22155d1337a0863a9"
+      required_evidence:
+        - requirement: "canonical answer records"
+          artifacts:
+            - "records:assessment/solution-records/unit-18-five-schema-valid-records"
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-97703ea16a258229ceffbe86fcc8574b3b707adc0f6ee8bcacdade41504d7da5"
+            - "report:notes/reports/p5-closure-18-2026-08-25.md"
+            - "handoff:H-P5-CLOSURE-00-001-consumed-before-start"
+            - "handoff:H-P2-DOCS-002-consumed-before-close-R23-SCOPE-remains-ratified-open"
+        - requirement: "independent numerical checks"
+          artifacts:
+            - "check:unit-18-survey-300-complete-rows-and-capstone-descriptives-correlations-models-intervals"
+            - "check:unit-18-task-65.311111111111-1.877777777778-0.535868086420"
+            - "check:unit-18-evidence-rows-2698-documents-2499-splits-1090-272-1336-labels-1212-979-507"
+            - "check:unit-18-label-paths-1362-1336-negatives-652-560"
+            - "check:UNIT_18_NUMERICS_OK-capstone-evidence-package-task-and-planted-error"
+            - "check:ASSESSMENT_ARCHITECTURE_OK-unit-18-numerical-records-3-print-path-source-tables-passport-hand-arithmetic-no-widget-or-code"
+            - "check:TEXT_PACKAGE_OK-rows-2698-removed-documents-20-removed-rows-25-output-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "check:WIDGET_PARITY_OK-pairs-17-unit-18-no-widget"
+        - requirement: "profile visibility and export test"
+          artifacts:
+            - "profile:default-html-f0fbdfccb8ee76ea054c4ea74d17d828ebca8ae418832abba3463b5ecc5fd048-kolegij-key-absent"
+            - "profile:kolegij-html-8a30a7618fcb8649d4f4a21b1be45aad0449c2211cfa2c7f16298430c3251a83-kolegij-key-present"
+            - "export:AI_EXPORT_RELEASE_OK-chapters-19-protected-regions-33-governance-pre_release"
+            - "check:protected-record-strings-1166-public-export-leaks-0"
+            - "boundary:config/book-inventory.json-solution_routes-empty"
+      outputs:
+        - output: "P5-CLOSURE-18 canonical assessment-closure record for: Canonical answer, check, rubric, and planted-error closure for unit 18."
+          artifacts:
+            - "records:assessment/solution-records/unit-18"
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd#five-stable-assessment-anchors"
+            - "source:scripts/check-assessment-architecture.py#unit-18-independent-capstone-evidence-and-planted-error"
+            - "source:scripts/check-unit-18-numerics.R#capstone-evidence-package-task-and-planted-error"
+            - "report:notes/reports/p5-closure-18-2026-08-25.md"
+        - output: "Completion evidence is tied to the declared P5-CLOSURE-18 source state and bounded scope."
+          artifacts:
+            - "assessment-unit:sha256-7170357808e525995edb0497793a52c3544949d92bdd66a22155d1337a0863a9"
+            - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-97703ea16a258229ceffbe86fcc8574b3b707adc0f6ee8bcacdade41504d7da5"
+            - "boundary:no-route-no-stage-no-prose-no-new-chapter-widget-or-callout-change"
+      exit_tests:
+        - test: "Every applicable task has its required key, check, rubric, or model-answer component."
+          result: "passed"
+          evidence:
+            - "check:five-records-five-anchors-five-task-classes-six-components-each"
+            - "check:one-stable-planted-error-shared-by-callout-and-model-revision"
+            - "check:not-applicable-components-carry-reasons"
+        - test: "Protected instructor content is absent from public routes and exports."
+          result: "passed"
+          evidence:
+            - "check:protected-record-strings-1166-public-export-leaks-0"
+            - "boundary:solution-routes-empty-and-no-route-assembly"
+        - test: "The named unit passes all four closure forms and independent numerical checks under the approved visibility policy."
+          result: "passed"
+          evidence:
+            - "check:four-Zadaci-tiers-plus-callout-greska-covered"
+            - "check:unit-18-all-capstone-and-evidence-package-numerical-recomputations-passed"
+            - "check:default-versus-kolegij-full-source-profile-separation-passed"
+            - "check:print-path-source-tables-passport-and-hand-arithmetic-no-widget-or-code-passed"
     contract: "assessment_unit"
     required_evidence:
       - "canonical answer records"
       - "independent numerical checks"
       - "profile visibility and export test"
-    change_reference: null
+    change_reference: "assessment-unit:sha256-7170357808e525995edb0497793a52c3544949d92bdd66a22155d1337a0863a9"
   P5-A:
     sequence: 153
     phase: "5"
@@ -26468,7 +26526,7 @@ items:
       location: "§12 assessment closure + §15 R15"
     description: "Complete canonical assessment closure for unit 18."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_assessment_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -26485,11 +26543,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-CLOSURE-18"
-    completion_evidence: []
+    completion_evidence:
+      source_state: "assessment-unit:sha256-7170357808e525995edb0497793a52c3544949d92bdd66a22155d1337a0863a9"
+      artifacts:
+        - "records:assessment/solution-records/unit-18-five-schema-valid-records"
+        - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-97703ea16a258229ceffbe86fcc8574b3b707adc0f6ee8bcacdade41504d7da5"
+        - "check:ASSESSMENT_ARCHITECTURE_OK-records-95-anchors-95-unit-18-capstone-and-evidence-package-numerics-print-profile-export-pass"
+        - "check:UNIT_18_NUMERICS_OK"
+        - "profile:default-f0fbdfccb8ee76ea054c4ea74d17d828ebca8ae418832abba3463b5ecc5fd048-kolegij-8a30a7618fcb8649d4f4a21b1be45aad0449c2211cfa2c7f16298430c3251a83"
+        - "report:notes/reports/p5-closure-18-2026-08-25.md"
+        - "handoff:H-P5-CLOSURE-00-001-consumed"
+        - "handoff:H-P2-DOCS-002-consumed-with-R23-SCOPE-open"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "assessment-unit:sha256-7170357808e525995edb0497793a52c3544949d92bdd66a22155d1337a0863a9"
   R15-BOOK-closure-audit:
     parents:
       - "R15"
