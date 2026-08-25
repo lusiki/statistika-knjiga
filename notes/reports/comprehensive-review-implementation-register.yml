@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-CLOSURE-18"
-  next_permitted_packet: "P5-A"
+  last_completed_packet: "P5-A"
+  next_permitted_packet: "P5-B"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16439,7 +16439,7 @@ packets:
     sequence: 153
     phase: "5"
     kind: "appendix"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-CLOSURE-18"
       - "P3-CATALOG"
@@ -16451,13 +16451,70 @@ packets:
       - "The appendix fulfils its exact public promise from canonical files and values."
       - "Its HTML, print, and supported pathway behavior is verified."
       - "The P5-A packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "appendix-a-state:sha256-79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e"
+      required_evidence:
+        - requirement: "appendix-specific route artifact"
+          artifacts:
+            - "source:dodaci/a-praktikum.qmd@sha256-9003a7152f020f071df37ca22f30aa8c42347eca577f754add0bf93e2de0dbcf"
+            - "source:scripts/appendix-a-route.R@sha256-89c31021abe7f65e8f4aa8eddcdb5cd0ea989e78539a0e3c6d907e1ce9990921"
+            - "source:scripts/check-appendix-a.py@sha256-52294a2b4ffeeec92b9adfd3ed25fbff5c4a2413988c25435720023d55a1d910"
+            - "catalogue:data/katalog.yml@sha256-b05b990895349b72fc9ef160dcd2c08a2d8dceceb5fdf515d625289273a1608e"
+            - "report:notes/reports/p5-a-2026-08-25.md"
+        - requirement: "clean pathway test"
+          artifacts:
+            - "check:APPENDIX_A_CHECK_OK-route-artifact-clean-pathway-chapters-6-16-text-transform-xrefs-print-table"
+            - "check:APPENDIX_A_ROUTE_OK-chapters-6-16-checks-26-text-transform-verified"
+            - "check:route-output-sha256-6b89a6431b6b0b4ab3c4bf996b7775650acb536981c78018bc51b743e230a4cc"
+            - "check:TEXT_BUILD_OK-and-TEXT_PACKAGE_OK-rows-2698-md5-55b1c4263009ab783911f094907312d9-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+            - "check:KATALOG_OK-promoted-6-snapshots-22-rights-permission-claim-false"
+            - "check:DATA_INTEGRITY_OK-generated-sets-2-rows-50300-validated-22-undeclared-0"
+        - requirement: "cross-reference and print proof"
+          artifacts:
+            - "render:isolated-html-sha256-8dd1cded7dd0e4495a3fcc397dc9eb49245013efc187099a8b3223040aac400f-all-215-knitr-steps"
+            - "render:isolated-pdf-sha256-8690852143a5248217459a01c9808e8a19c70ad41bbc0f80f48217cf49bd7bd7-all-215-knitr-steps"
+            - "check:three-section-anchors-table-anchor-and-local-cross-references-resolve-in-HTML"
+            - "visual:PDF-pages-65-through-67-route-table-text-transform-readable-without-clipping-or-overlap"
+            - "check:STYLE-md-lint-no-deterministic-candidate-violations"
+      outputs:
+        - output: "P5-A durable artifact and evidence record for: Appendix A standalone R route."
+          artifacts:
+            - "source:dodaci/a-praktikum.qmd#sec-a-ucitavanje"
+            - "source:dodaci/a-praktikum.qmd#sec-a-rute-06-16"
+            - "source:dodaci/a-praktikum.qmd#sec-a-tekst-transformacija"
+            - "source:scripts/appendix-a-route.R"
+            - "source:scripts/check-appendix-a.py"
+            - "report:notes/reports/p5-a-2026-08-25.md"
+        - output: "Completion evidence is tied to the declared P5-A source state and bounded scope."
+          artifacts:
+            - "appendix-a-state:sha256-79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e"
+            - "handoff:H-P3-EXISTING-001-consumed-before-close-R25-items-remain-ratified-open"
+            - "boundary:no-chapter-stage-or-solution-route-change"
+      exit_tests:
+        - test: "The appendix fulfils its exact public promise from canonical files and values."
+          result: "passed"
+          evidence:
+            - "check:fresh-session-loaders-use-canonical-CSV-files-names-questions-and-checked-row-counts"
+            - "check:all-chapters-6-through-16-have-recomputed-supported-results"
+            - "check:raw-and-standardized-RRR-syntheses-and-ParlaSent-transform-reproduced"
+        - test: "Its HTML, print, and supported pathway behavior is verified."
+          result: "passed"
+          evidence:
+            - "check:isolated-HTML-and-PDF-complete-all-215-knitr-steps"
+            - "check:clean-staged-route-runs-without-R-setup-or-chapter-state"
+            - "visual:route-command-table-and-text-transform-pass-print-inspection"
+        - test: "The P5-A packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-appendix-a-checker-validates-26-exact-results-and-source-contract"
+            - "check:H-P3-EXISTING-001-fallbacks-used-and-external-only-datasets-removed-from-P5-A-consumers"
+            - "report:notes/reports/p5-a-2026-08-25.md"
     contract: "appendix"
     required_evidence:
       - "appendix-specific route artifact"
       - "clean pathway test"
       - "cross-reference and print proof"
-    change_reference: null
+    change_reference: "appendix-a-state:sha256-79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e"
   P5-B:
     sequence: 154
     phase: "5"
@@ -28034,7 +28091,7 @@ items:
       location: "§9 Appendix A + §15 R20"
     description: "Add a real standalone acquisition/loading route using canonical files."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28051,11 +28108,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-A"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/a-praktikum.qmd#sec-a-ucitavanje"
+      - "source:dodaci/a-praktikum.qmd@sha256-9003a7152f020f071df37ca22f30aa8c42347eca577f754add0bf93e2de0dbcf"
+      - "check:APPENDIX_A_CHECK_OK-clean-pathway-verified"
+      - "check:canonical-anketa-300-and-populacija-50000-row-and-variable-contracts"
+      - "catalogue:populacija_medija-and-anketa_mreze-declared-P5-A-consumers"
+      - "report:notes/reports/p5-a-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-a-state:sha256-79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e"
   R20-AA-coverage-06-16:
     parents:
       - "R20"
@@ -28069,7 +28132,7 @@ items:
       location: "§9 Appendix A"
     description: "Provide verified R routes for the supported analyses in Chapters 6–16."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28086,11 +28149,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-A"
-    completion_evidence: []
+    completion_evidence:
+      - "source:scripts/appendix-a-route.R@sha256-89c31021abe7f65e8f4aa8eddcdb5cd0ea989e78539a0e3c6d907e1ce9990921"
+      - "source:dodaci/a-praktikum.qmd#sec-a-rute-06-16"
+      - "check:APPENDIX_A_ROUTE_OK-chapters-6-16-checks-26"
+      - "check:route-output-sha256-6b89a6431b6b0b4ab3c4bf996b7775650acb536981c78018bc51b743e230a4cc"
+      - "render:HTML-and-PDF-all-215-knitr-steps-and-table-generated-from-route"
+      - "report:notes/reports/p5-a-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-a-state:sha256-79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e"
   R20-TEXT-transform:
     parents:
       - "R20"
@@ -28104,7 +28173,7 @@ items:
       location: "§12 text module"
     description: "Add a route reproducing the committed raw-to-prepared text table."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28122,11 +28191,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-A"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/a-praktikum.qmd#sec-a-tekst-transformacija"
+      - "source:scripts/appendix-a-route.R#text-candidate-path"
+      - "check:APPENDIX_A_CHECK_OK-text-transform-verified"
+      - "check:TEXT_BUILD_OK-rows-2698-output-sha256-0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef"
+      - "check:TEXT_PACKAGE_OK-output-md5-55b1c4263009ab783911f094907312d9"
+      - "report:notes/reports/p5-a-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-a-state:sha256-79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e"
   R21-AB-versioned-core:
     parents:
       - "R21"

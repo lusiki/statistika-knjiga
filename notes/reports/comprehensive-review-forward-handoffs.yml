@@ -5090,7 +5090,27 @@ handoffs:
           - "report:notes/reports/wb-c06-2026-08-10.md"
       - target_packet: P5-A
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        disposition: >-
+          P5-A created, copied and promoted no UCBAdmissions or anscombe file
+          and removed both datasets from the Appendix A consumer path. The
+          mandatory categorical exercise and Chapters 7 through 16 route use
+          the promoted licence-clean populacija_medija snapshot; the mandatory
+          visualisation, association and Chapter 6 route use the promoted
+          licence-clean anketa_mreze snapshot. The catalogue retains both
+          external datasets as external-only, unpromoted and with empty file
+          lists, and R25-EXISTING-UCB and R25-EXISTING-Anscombe remain ratified
+          and open for the author-rights disposition in P6-DATA.
+        evidence:
+          - "source:dodaci/a-praktikum.qmd@sha256-9003a7152f020f071df37ca22f30aa8c42347eca577f754add0bf93e2de0dbcf"
+          - "catalogue:data/katalog.yml@sha256-b05b990895349b72fc9ef160dcd2c08a2d8dceceb5fdf515d625289273a1608e"
+          - "catalogue:ucbadmissions-and-anscombe-external-only-promoted-false-files-empty-no-P5-A-consumer"
+          - "catalogue:populacija_medija-and-anketa_mreze-P5-A-consumers"
+          - "check:KATALOG_OK-packages-20-promoted-6-snapshots-22-rights-permission-claim-false"
+          - "check:DATA_INTEGRITY_OK-generated-sets-2-rows-50300-validated-22-undeclared-0"
+          - "report:notes/reports/p5-a-2026-08-25.md"
       - target_packet: P6-DATA
         gate: before_close
         state: pending
@@ -11907,4 +11927,29 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - no new future-relevant effect requires a handoff because H-P5-CLOSURE-00-001 and H-P2-DOCS-002 already bind P5-ROUTES and the later clean-build packet already owns root-project release verification
       - P5-A is the sole next permitted packet but is not claimed inside P5-CLOSURE-18
+      - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
+  P5-A:
+    reviewed_at: "2026-08-25"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    implementation_state: "appendix-a-state:sha256-79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e"
+    checks:
+      - H-P3-EXISTING-001 was acknowledged on claim and consumed at before_close
+      - UCBAdmissions and anscombe remain external-only unpromoted and without local files or P5-A consumers
+      - R25-EXISTING-UCB and R25-EXISTING-Anscombe remain ratified and open for P6-DATA author-rights reconciliation
+      - the mandatory categorical exercise uses populacija_medija and the mandatory visualisation and association exercise uses anketa_mreze
+      - the public loader reads both promoted canonical CSV files in a new session and verifies exact row and variable contracts
+      - scripts/appendix-a-route.R reads no R setup or chapter state and covers every supported chapter from 6 through 16 with 25 checked numerical rows
+      - both raw and standardized Chapter 12 synthesis branches reproduce from the governed evidence package
+      - the optional text candidate route reproduces 2698 prepared rows MD5 55b1c4263009ab783911f094907312d9 and SHA-256 0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef
+      - scripts/check-appendix-a.py passes from an isolated staged directory and verifies 26 output rows including the text transform
+      - the catalogue checker and data-integrity checker pass after the bounded P5-A consumer reconciliation
+      - isolated HTML and PDF renders complete all 215 knitr steps and the section links and table anchor resolve
+      - visual inspection of PDF pages 65 through 67 finds the route table and text-transform proof readable without clipping or overlap
+      - manuscript integrity citation inventory architecture token and appendix style checks pass
+      - the canonical workflow checker passes with P5-A closed no active packet and P5-B next
+      - workflow negative fixtures generic_packet_evidence invalid_outside_ask_link and descoped_without_amendment each fail closed with exit 1 for the injected defect
+      - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
+      - no new future-relevant effect requires a handoff because the only rights constraint remains durably queued to P6-DATA and P8-META in H-P3-EXISTING-001
+      - P5-B is the sole next permitted packet but is not claimed inside P5-A
       - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
