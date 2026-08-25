@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "route_id": "appendix-d-decision-and-dependence-routing",
+  "source": "dodaci/d-koji-test.qmd",
+  "public_promise": {
+    "starting_procedure": true,
+    "dependence_rule": true,
+    "route_out_of_book": true
+  },
+  "decision_order": [
+    "question",
+    "outcome_type",
+    "design_and_dependence",
+    "estimand",
+    "assumptions",
+    "claim"
+  ],
+  "supported_routes": [
+    {
+      "id": "D-DESCRIBE-NUMERIC",
+      "question": "describe one numeric outcome",
+      "design": "one row per independent unit",
+      "method": "distribution, centre, spread and an honest graph",
+      "chapter": "chapters/04-sazimanje-podataka.qmd",
+      "anchor": "mjere-središta",
+      "claim_limit": "sample description does not automatically describe a population"
+    },
+    {
+      "id": "D-ASSOCIATE-NUMERIC",
+      "question": "associate two numeric variables",
+      "design": "one row per independent unit",
+      "method": "scatterplot and correlation, followed by linear regression when the question needs a conditional mean",
+      "chapter": "chapters/06-povezanost.qmd",
+      "anchor": "zajedničko-kretanje",
+      "claim_limit": "association is not causation"
+    },
+    {
+      "id": "D-TWO-INDEPENDENT",
+      "question": "compare a numeric outcome across two independent groups",
+      "design": "different independent units in the two groups",
+      "method": "Welch t test",
+      "chapter": "chapters/14-dvije-grupe.qmd",
+      "anchor": "pretpostavke-i-njihove-granice",
+      "claim_limit": "group membership alone supplies no causal meaning"
+    },
+    {
+      "id": "D-TWO-PAIRED",
+      "question": "compare a numeric outcome across exactly two linked measurements",
+      "design": "the same unit measured exactly twice or a pair fixed by design",
+      "method": "paired t test on within-pair differences",
+      "chapter": "chapters/14-dvije-grupe.qmd",
+      "anchor": "ista-razlika-dva-dizajna",
+      "claim_limit": "pairing must be preserved from the design and does not establish causation"
+    },
+    {
+      "id": "D-MULTI-INDEPENDENT",
+      "question": "compare a numeric outcome across more than two independent groups",
+      "design": "one independent group membership per unit",
+      "method": "ANOVA as a linear model with planned or multiplicity-protected comparisons",
+      "chapter": "chapters/15-vise-grupa.qmd",
+      "anchor": "granice-pretpostavki",
+      "claim_limit": "the omnibus test does not identify which groups differ"
+    },
+    {
+      "id": "D-CATEGORICAL-ASSOCIATION",
+      "question": "associate two categorical variables",
+      "design": "one row per independent unit",
+      "method": "contingency table and chi-square, or Fisher exact test for a small table with a thin approximation",
+      "chapter": "chapters/13-kategoricki-podaci.qmd",
+      "anchor": "kad-je-aproksimacija-tanka",
+      "claim_limit": "no mechanical expected-frequency threshold replaces examination of the table"
+    },
+    {
+      "id": "D-POPULATION-ESTIMATE",
+      "question": "estimate a population mean or proportion",
+      "design": "a sampling design that supports the target population",
+      "method": "point estimate and interval appropriate to the sampling design",
+      "chapter": "chapters/09-procjena.qmd",
+      "anchor": "od-točke-prema-rasponu",
+      "claim_limit": "sampling uncertainty does not cover selection, coverage or measurement bias"
+    },
+    {
+      "id": "D-LINEAR-REGRESSION",
+      "question": "model a numeric outcome with multiple predictors",
+      "design": "one row per independent unit",
+      "method": "linear regression",
+      "chapter": "chapters/16-regresija.qmd",
+      "anchor": "pravac-kao-tvrdnja-o-prosjeku",
+      "claim_limit": "adjustment is not causal identification"
+    },
+    {
+      "id": "D-READ-BINARY-RESULT",
+      "question": "read a published binary-outcome result",
+      "design": "published model output with a named reference group",
+      "method": "read the outcome, reference group, odds ratio and interval without refitting",
+      "chapter": "chapters/16-regresija.qmd",
+      "anchor": "granica-prema-uzroku",
+      "claim_limit": "the book does not fit or diagnose a logistic model"
+    }
+  ],
+  "stop_routes": [
+    {
+      "id": "D-STOP-DEPENDENT",
+      "patterns": ["dependent", "unknown linkage"],
+      "reason": "the independence unit or link between rows is not resolved",
+      "referral": "record the unit, linkage and estimand, then consult a methods specialist or a source for that exact design"
+    },
+    {
+      "id": "D-STOP-REPEATED",
+      "patterns": ["more than two repeated measurements", "longitudinal"],
+      "reason": "the book supports exactly two linked quantitative measurements but no broader repeated-data model",
+      "referral": "seek a method that preserves every repetition and its time structure"
+    },
+    {
+      "id": "D-STOP-CLUSTERED",
+      "patterns": ["clustered", "nested", "household", "school", "organisation", "place"],
+      "reason": "rows within a group may share variation",
+      "referral": "seek a method whose uncertainty preserves clustering and all design levels"
+    },
+    {
+      "id": "D-STOP-TEMPORAL",
+      "patterns": ["temporal", "time series", "serial dependence"],
+      "reason": "observation order links neighbouring values",
+      "referral": "seek a method that explicitly preserves temporal dependence"
+    },
+    {
+      "id": "D-STOP-NETWORK",
+      "patterns": ["network-linked", "relational"],
+      "reason": "ties between units violate an independent-row analysis",
+      "referral": "seek a method that preserves nodes, ties and the observed network boundary"
+    },
+    {
+      "id": "D-STOP-COMPLEX-SURVEY",
+      "patterns": ["survey weights", "survey strata", "survey clusters", "design effect"],
+      "reason": "the book recognises design effects and effective sample size but does not teach complex-survey variance",
+      "referral": "seek a procedure and documentation that use the full sampling design"
+    },
+    {
+      "id": "D-STOP-BINARY-FIT",
+      "patterns": ["fit binary outcome model", "logistic fitting"],
+      "reason": "the book teaches reading odds ratios but not logistic-model fitting or diagnostics",
+      "referral": "use the reading bridge in Chapter 16, then seek an outside method for fitting"
+    },
+    {
+      "id": "D-STOP-CAUSAL",
+      "patterns": ["causal estimator", "causal effect from observational data"],
+      "reason": "adjustment alone does not identify a causal effect",
+      "referral": "specify a defensible design and identification strategy before choosing an estimator"
+    },
+    {
+      "id": "D-STOP-META",
+      "patterns": ["meta-analysis computation", "quantitative synthesis of studies"],
+      "reason": "the book teaches reading replication estimates and a forest plot but no meta-analysis computation",
+      "referral": "seek an outside method for the synthesis estimand, assumptions and uncertainty"
+    }
+  ],
+  "test_cases": [
+    {"id": "T01", "scenario": "describe one numeric variable", "expected_route": "D-DESCRIBE-NUMERIC"},
+    {"id": "T02", "scenario": "associate two numeric variables on independent units", "expected_route": "D-ASSOCIATE-NUMERIC"},
+    {"id": "T03", "scenario": "compare two independent groups", "expected_route": "D-TWO-INDEPENDENT"},
+    {"id": "T04", "scenario": "same units measured exactly twice", "expected_route": "D-TWO-PAIRED"},
+    {"id": "T05", "scenario": "same units measured at three waves", "expected_route": "D-STOP-REPEATED"},
+    {"id": "T06", "scenario": "students nested in schools", "expected_route": "D-STOP-CLUSTERED"},
+    {"id": "T07", "scenario": "members nested in households", "expected_route": "D-STOP-CLUSTERED"},
+    {"id": "T08", "scenario": "longitudinal panel", "expected_route": "D-STOP-REPEATED"},
+    {"id": "T09", "scenario": "monthly time series", "expected_route": "D-STOP-TEMPORAL"},
+    {"id": "T10", "scenario": "people linked by a social network", "expected_route": "D-STOP-NETWORK"},
+    {"id": "T11", "scenario": "compare five independent groups", "expected_route": "D-MULTI-INDEPENDENT"},
+    {"id": "T12", "scenario": "associate two categorical variables", "expected_route": "D-CATEGORICAL-ASSOCIATION"},
+    {"id": "T13", "scenario": "estimate a population proportion from a simple sample", "expected_route": "D-POPULATION-ESTIMATE"},
+    {"id": "T14", "scenario": "estimate survey uncertainty with weights and clusters", "expected_route": "D-STOP-COMPLEX-SURVEY"},
+    {"id": "T15", "scenario": "model a numeric outcome with independent rows", "expected_route": "D-LINEAR-REGRESSION"},
+    {"id": "T16", "scenario": "read a published adjusted odds ratio", "expected_route": "D-READ-BINARY-RESULT"},
+    {"id": "T17", "scenario": "fit a logistic model", "expected_route": "D-STOP-BINARY-FIT"},
+    {"id": "T18", "scenario": "estimate a causal effect from observational data", "expected_route": "D-STOP-CAUSAL"},
+    {"id": "T19", "scenario": "compute a meta-analysis", "expected_route": "D-STOP-META"},
+    {"id": "T20", "scenario": "rows have an unresolved dependence link", "expected_route": "D-STOP-DEPENDENT"}
+  ]
+}

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-C"
-  next_permitted_packet: "P5-D"
+  last_completed_packet: "P5-D"
+  next_permitted_packet: "P5-E"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16692,7 +16692,7 @@ packets:
     sequence: 156
     phase: "5"
     kind: "appendix"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-C"
       - "WD-PART"
@@ -16704,13 +16704,75 @@ packets:
       - "The appendix fulfils its exact public promise from canonical files and values."
       - "Its HTML, print, and supported pathway behavior is verified."
       - "The P5-D packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
+      required_evidence:
+        - requirement: "appendix-specific route artifact"
+          artifacts:
+            - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+            - "artifact:config/appendix-d-decision-route.json@sha256-df5ceed7057e38467a1bb78ec7678ba054fbbad8e058144875e814bbc6d3d107"
+            - "artifact:images/infographics/koji-test-kada.svg@sha256-2e053afe8605203ed87de88c1fbbfa28ec2d83d0fbf6aeb8b7e9d705c61a5646"
+            - "artifact:images/infographics/koji-test-kada.png@sha256-ae3f73f56887c6fe808fa1e2d91adbb87d9a858d10988b394132954dde016e03"
+            - "source:scripts/check-appendix-d.py@sha256-1d4eea8fb300464da415a2231d9c44618a2570a8f1945566b6f6e14dd33274c2"
+            - "report:notes/reports/p5-d-2026-08-25.md"
+        - requirement: "clean pathway test"
+          artifacts:
+            - "check:APPENDIX_D_CHECK_OK-routes-9-stops-9-pathways-20-of-20"
+            - "check:dependence-verified-and-scope-stops-verified"
+            - "check:declared-input-clean-pathway-verified"
+            - "boundary:paired-route-only-for-exactly-two-correctly-linked-numeric-measurements"
+            - "boundary:solution-routes-inventory-remains-empty"
+        - requirement: "cross-reference and print proof"
+          artifacts:
+            - "check:17-chapter-cross-references-resolve-to-existing-source-anchors"
+            - "render:isolated-Croatian-HTML-four-local-anchors-SVG-and-alt-text-present"
+            - "render:targeted-b5-pdf-sha256-9306c09ac687b7c3221f5faed58908319e67c8511b4e74c4c0fd707b5b415032"
+            - "check:6-page-PDF-498.898-by-708.661-points-zero-raw-markup"
+            - "visual:all-six-pages-readable-without-clipping-overlap-or-illegible-table-breaks"
+            - "boundary:temporary-SVG-to-PNG-link-swap-and-font-fallback-not-full-release-build"
+            - "check:STYLE-md-lint-no-deterministic-candidate-violations"
+            - "check:FIGURE_INTRO_OK-one-conceptual-figure-one-introduced-source-variant"
+      outputs:
+        - output: "P5-D durable artifact and evidence record for: Appendix D decision and dependence routing aid."
+          artifacts:
+            - "source:dodaci/d-koji-test.qmd"
+            - "artifact:images/infographics/koji-test-kada.svg"
+            - "artifact:images/infographics/koji-test-kada.png"
+            - "artifact:config/appendix-d-decision-route.json"
+            - "source:scripts/check-appendix-d.py"
+            - "report:notes/reports/p5-d-2026-08-25.md"
+        - output: "Completion evidence is tied to the declared P5-D source state and bounded scope."
+          artifacts:
+            - "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
+            - "handoff:H-P2-DOCS-001-consumed-with-three-separate-scope-item-dispositions"
+            - "handoff:H-P5-D-001-records-starting-state-Quarto-table-cross-reference-checker-risk"
+            - "boundary:no-new-numbered-chapter-widget-callout-type-or-production-method"
+      exit_tests:
+        - test: "The appendix fulfils its exact public promise from canonical files and values."
+          result: "passed"
+          evidence:
+            - "check:six-step-decision-order-agrees-across-prose-table-tree-and-route-artifact"
+            - "check:all-named-dependence-patterns-reach-explicit-stop-or-the-narrow-paired-exception"
+            - "check:reader-receives-a-stated-route-beyond-the-book-when-no-taught-method-fits"
+        - test: "Its HTML, print, and supported pathway behavior is verified."
+          result: "passed"
+          evidence:
+            - "check:isolated-declared-input-pathway-covers-20-of-20-cases"
+            - "check:isolated-HTML-and-17-source-cross-references-resolve"
+            - "visual:targeted-B5-PDF-all-six-pages-pass"
+            - "boundary:targeted-proof-does-not-claim-a-full-release-build"
+        - test: "The P5-D packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-appendix-d-artifact-and-checker-verify-order-routes-dependence-links-and-print-twin"
+            - "check:H-P2-DOCS-001-dispositioned-with-each-dependent-item-tested-separately"
+            - "report:notes/reports/p5-d-2026-08-25.md"
     contract: "appendix"
     required_evidence:
       - "appendix-specific route artifact"
       - "clean pathway test"
       - "cross-reference and print proof"
-    change_reference: null
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   P5-E:
     sequence: 157
     phase: "5"
@@ -18280,7 +18342,7 @@ parents:
   R22:
     title: "Appendix D and dependence routing"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -18296,7 +18358,12 @@ parents:
       - "R22-AD-reference-spread"
       - "R22-AD-decision-order"
       - "R22-AD-no-method-route"
-    completion_evidence: []
+    completion_evidence:
+      - "packet:WD-PART"
+      - "packet:P5-D"
+      - "state:appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
+      - "check:all-5-required-children-accepted"
+      - "report:notes/reports/p5-d-2026-08-25.md"
   R23:
     title: "H10 and no assessed code production"
     disposition: "accepted_first_edition"
@@ -24762,20 +24829,19 @@ items:
         - "S15"
       location: "§12 survey realism"
     description: "Keep complex-survey variance formulas outside production scope while retaining recognition and routing."
-    open_reason: >-
-      Deliberately left open by P2-DOCS. The no-derivation half is satisfied and
-      verified: Chapter 8's four exercise tiers work from the margin-of-error
-      table and derive no formula, and the prose carries cluster sampling, design
-      effects and effective sample size explicitly. The limits half is not
-      delivered in the item's own declared scope: dodaci/d-koji-test.qmd is 47
-      lines, marks itself a partial draft against a planned 1500 words, and states
-      no rule about dependent, clustered, repeated or network-linked observations
-      and no route out of the book.
+    closed_note: >-
+      Closed by P5-D against this item's own test after the previously verified
+      Chapter 8 half was checked separately. Appendix D now recognises the full
+      complex-survey design, keeps design effect and effective sample size as
+      reading-level limits, and routes population uncertainty to a procedure
+      that uses the full survey design. No complex-survey variance formula or
+      production task was added. This decision is not inferred from P5-D or R12
+      aggregation.
     closure_packet: "P5-D"
     closure_handoff: "H-P2-DOCS-001"
     disposition: "rejected_with_reason"
     disposition_reason: "The book teaches recognition and limitations, not a complex-survey variance course."
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -24793,11 +24859,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-DOCS"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/08-uzorkovanje.qmd@sha256-2d9a7865030cb16f17e3f5243c436763b75c801f13334e14517dc948d4475b89"
+      - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+      - "result:Chapter-8-retains-design-effect-and-effective-sample-size-without-a-complex-variance-derivation"
+      - "result:Appendix-D-complex-survey-variance-route-stops-outside-the-book"
+      - "check:APPENDIX_D_CHECK_OK-scope-stops-verified"
+      - "handoff:H-P2-DOCS-001-consumed-by-P5-D-with-separate-item-disposition"
+      - "report:notes/reports/p5-d-2026-08-25.md#dolazni-handoff-i-odluke-po-stavkama"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   R13-ARCH-measurement-first:
     parents:
       - "R13"
@@ -25760,18 +25833,18 @@ items:
         - "S15"
       location: "§12 scope"
     description: "Keep logistic fitting/derivation and causal estimators outside production work."
-    open_reason: >-
-      Deliberately left open by P2-DOCS. The recognition, interpretation and
-      limitation halves are satisfied and verified: Chapter 16 fits no logistic
-      model, introduces no causal estimator, and its exercises assess judgment
-      rather than production. The routing half is not delivered, because routing
-      lives in dodaci/d-koji-test.qmd, which is a partial draft carrying one
-      starting-procedure table and no route out of the book.
+    closed_note: >-
+      Closed by P5-D against this item's own test after the previously verified
+      Chapter 16 half was checked separately. Appendix D now routes binary-model
+      fitting and causal estimation outside the book while preserving reading of
+      an odds ratio, interval, design and adjustment boundary. No logistic model
+      is fitted and no causal estimator is introduced. This decision is not
+      inferred from P5-D or R14 aggregation.
     closure_packet: "P5-D"
     closure_handoff: "H-P2-DOCS-001"
     disposition: "rejected_with_reason"
     disposition_reason: "These methods exceed the ratified first-edition production scope."
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -25789,11 +25862,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-DOCS"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-2c1f8ccaf855dd3bc881d76a9dd76d3239003d9b54a259144670dea712f4b98c"
+      - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+      - "result:Chapter-16-retains-recognition-interpretation-and-limitation-without-logistic-fitting-or-a-causal-estimator"
+      - "result:Appendix-D-binary-fitting-and-causal-estimation-routes-stop-outside-the-book"
+      - "check:APPENDIX_D_CHECK_OK-scope-stops-verified"
+      - "handoff:H-P2-DOCS-001-consumed-by-P5-D-with-separate-item-disposition"
+      - "report:notes/reports/p5-d-2026-08-25.md#dolazni-handoff-i-odluke-po-stavkama"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   R15-C00-self-contained:
     parents:
       - "R15"
@@ -28582,7 +28662,7 @@ items:
       location: "§9 Appendix D + §15 R22"
     description: "Build the visual decision/recovery tree."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28599,11 +28679,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-D"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+      - "artifact:images/infographics/koji-test-kada.svg@sha256-2e053afe8605203ed87de88c1fbbfa28ec2d83d0fbf6aeb8b7e9d705c61a5646"
+      - "artifact:images/infographics/koji-test-kada.png@sha256-ae3f73f56887c6fe808fa1e2d91adbb87d9a858d10988b394132954dde016e03"
+      - "check:APPENDIX_D_CHECK_OK-pathways-20-of-20-png-2400-by-3360"
+      - "render:targeted-b5-pdf-sha256-9306c09ac687b7c3221f5faed58908319e67c8511b4e74c4c0fd707b5b415032"
+      - "visual:all-six-B5-pages-readable-without-clipping-or-overlap"
+      - "report:notes/reports/p5-d-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: "commit:9cd5a7983d61d27fe9bb8ca77d8764b419ec857a"
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   R22-AD-reference-spread:
     parents:
       - "R22"
@@ -28617,7 +28704,7 @@ items:
       location: "§9 Appendix D"
     description: "Build the concise reference spread aligned with the tree."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28634,11 +28721,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-D"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+      - "artifact:config/appendix-d-decision-route.json@sha256-df5ceed7057e38467a1bb78ec7678ba054fbbad8e058144875e814bbc6d3d107"
+      - "result:supported-route-and-outside-book-tables-carry-method-output-assumption-and-claim-boundaries"
+      - "check:17-cross-references-resolve-to-13-source-chapters"
+      - "visual:two-reference-tables-remain-readable-across-targeted-B5-pages"
+      - "report:notes/reports/p5-d-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   R22-AD-decision-order:
     parents:
       - "R22"
@@ -28652,7 +28745,7 @@ items:
       location: "§9 Appendix D"
     description: "Order decisions by question, outcome/type, design/dependence, estimand, assumptions, and claim."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28669,11 +28762,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-D"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+      - "artifact:config/appendix-d-decision-route.json@sha256-df5ceed7057e38467a1bb78ec7678ba054fbbad8e058144875e814bbc6d3d107"
+      - "result:question-outcome-and-unit-design-and-dependence-estimand-assumptions-claim-order-is-identical-in-all-public-and-machine-readable-forms"
+      - "check:APPENDIX_D_CHECK_OK-decision-order-and-clean-pathway-verified"
+      - "boundary:variable-type-alone-never-selects-a-procedure"
+      - "report:notes/reports/p5-d-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   R22-AD-no-method-route:
     parents:
       - "R22"
@@ -28687,7 +28786,7 @@ items:
       location: "§12 dependence"
     description: "Add explicit stop/referral routes for paired, repeated, clustered, longitudinal, temporal, and network data."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28704,11 +28803,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-D"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+      - "artifact:config/appendix-d-decision-route.json@sha256-df5ceed7057e38467a1bb78ec7678ba054fbbad8e058144875e814bbc6d3d107"
+      - "result:paired-repeated-clustered-longitudinal-temporal-network-and-complex-survey-patterns-have-explicit-distinct-routes"
+      - "check:APPENDIX_D_CHECK_OK-routes-9-stops-9-pathways-20-of-20-dependence-verified"
+      - "handoff:H-P2-DOCS-001-consumed-with-three-dependent-scope-items-tested-separately"
+      - "report:notes/reports/p5-d-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   R23-PARTI-D05-resolution:
     parents:
       - "R23"
@@ -29222,17 +29327,18 @@ items:
         - "S15"
       location: "§12 scope"
     description: "Keep logistic fitting, causal estimators, meta-analysis computation, and excluded dependent-data models outside production work."
-    open_reason: >-
-      Deliberately left open by P2-DOCS for the same reason as
-      R14-SCOPE-reading-not-fitting. Recognition, interpretation and limitation
-      are verified in Chapter 16, and no meta-analysis is computed anywhere; the
-      single occurrence in Chapter 12 names meta-analysis as a concept being read.
-      The routing half is not delivered in dodaci/d-koji-test.qmd.
+    closed_note: >-
+      Closed by P5-D against this item's own test after the previously verified
+      reading-only halves were checked separately. Appendix D now sends binary-
+      model fitting, causal estimators, meta-analytic computation and excluded
+      dependent-data models outside the book while retaining only recognition,
+      interpretation and limitation. No production task was added. This decision
+      is not inferred from P5-D or R23 aggregation.
     closure_packet: "P5-D"
     closure_handoff: "H-P2-DOCS-001"
     disposition: "rejected_with_reason"
     disposition_reason: "The first edition prioritises statistical literacy over additional method production."
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -29250,11 +29356,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-DOCS"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/16-regresija.qmd@sha256-2c1f8ccaf855dd3bc881d76a9dd76d3239003d9b54a259144670dea712f4b98c"
+      - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+      - "result:binary-causal-meta-analytic-and-dependent-data-production-routes-all-stop-outside-the-book"
+      - "result:recognition-interpretation-and-limitation-remain-available-before-each-stop"
+      - "check:APPENDIX_D_CHECK_OK-stops-9-pathways-20-of-20"
+      - "handoff:H-P2-DOCS-001-consumed-by-P5-D-with-separate-item-disposition"
+      - "report:notes/reports/p5-d-2026-08-25.md#dolazni-handoff-i-odluke-po-stavkama"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
   R23-SCOPE-no-new-chapters-widgets:
     parents:
       - "R23"

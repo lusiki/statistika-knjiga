@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-24"
+last_updated: "2026-08-25"
 inventory_child_count: 371
 
 protocol:
@@ -4409,7 +4409,35 @@ handoffs:
           - "boundary:no-logistic-fitting-no-derivation-no-premature-Appendix-D-closure"
       - target_packet: P5-D
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        acknowledgement: >-
+          P5-D ce prvo izgraditi potpunu rutu od pitanja, ishoda, dizajna i
+          ovisnosti do obranjivoga pocetnog postupka ili izricitoga
+          zaustavljanja. Uparena mjerenja ostaju u knjizi samo na podrzanoj
+          granici, dok ponovljena, grupirana, longitudinalna, vremenska i
+          mrezno povezana opazanja moraju zavrsiti u ruti izvan opsega knjige.
+          R12-SCOPE-no-variance-course, R14-SCOPE-reading-not-fitting i
+          R23-SCOPE-reading-not-production nece se zatvoriti agregacijom niti
+          prije zasebne provjere njihovih drugih, vec dokazanih polovica.
+        disposition: >-
+          Dodatak D sada od pitanja preko ishoda, dizajna i ovisnosti vodi do
+          podrzanoga pocetnog postupka ili izricitoga izlaska iz knjige. Tocno
+          dva pravilno spojena brojcana mjerenja zadrzavaju uparenu rutu, dok
+          ponovljena, grupirana, longitudinalna, vremenska, mrezno povezana i
+          slozena anketna opazanja zavrsavaju zasebnim stop-rutama. Tri
+          odgodjene scope-stavke zatvorene su pojedinacno tek nakon ponovne
+          provjere njihovih ranije dokazanih polovica; nisu izvedene iz statusa
+          paketa ni roditelja.
+        evidence:
+          - "state:appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
+          - "source:dodaci/d-koji-test.qmd@sha256-8bd4c8ab2efb2b798089d800d2ed344231509a146bbc2d6391369d1cfc416b93"
+          - "source:chapters/08-uzorkovanje.qmd@sha256-2d9a7865030cb16f17e3f5243c436763b75c801f13334e14517dc948d4475b89"
+          - "source:chapters/16-regresija.qmd@sha256-2c1f8ccaf855dd3bc881d76a9dd76d3239003d9b54a259144670dea712f4b98c"
+          - "artifact:config/appendix-d-decision-route.json@sha256-df5ceed7057e38467a1bb78ec7678ba054fbbad8e058144875e814bbc6d3d107"
+          - "check:APPENDIX_D_CHECK_OK-routes-9-stops-9-pathways-20-of-20-dependence-and-scope-stops-verified"
+          - "report:notes/reports/p5-d-2026-08-25.md#dolazni-handoff-i-odluke-po-stavkama"
 
   H-P2-DOCS-002:
     source_packet: P2-DOCS
@@ -8338,6 +8366,39 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P5-D-001:
+    source_packet: P5-D
+    created_at: "2026-08-25"
+    kind: risk
+    refs:
+      - check:scripts/check-citations.py
+      - source:dodaci/b-jamovi.qmd#tbl-b-rute
+      - source:dodaci/c-katalog-podataka.qmd
+      - source:podaci.qmd
+      - packet:P5-ROUTES
+    statement: >-
+      Paketna provjera Dodatka D razrjesava svih 17 stvarnih ciljnih sidara,
+      ali cjeloknjizni scripts/check-citations.py izlazi kodom 1 jer jedanaest
+      postojecih Quarto referenci na tablice iz P5-B, P5-C i podaci.qmd tumaci
+      kao bibliografske kljuceve. Gitov pregled pocetnoga HEAD-a potvrdjuje da
+      nijednu od tih referenci nije uveo P5-D.
+    required_action: >-
+      Prije zatvaranja P5-ROUTES uskladiti provjerivac s Quarto semantikom
+      referenci na tablice ili njihove izvore, zatim zahtijevati da zasebno
+      prolaze i bibliografska provjera i provjera svih ruta. Ne oslabiti
+      odbijanje stvarno nepoznatih bibliografskih kljuceva.
+    basis:
+      - "check:scripts/check-appendix-d.py-APPENDIX_D_CHECK_OK-xrefs-17"
+      - "check:scripts/check-citations.py-exit-1-eleven-existing-tbl-keys"
+      - "audit:git-grep-HEAD-confirms-all-eleven-references-pre-date-P5-D"
+      - "boundary:dodaci/d-koji-test.qmd-introduces-no-bibliographic-key"
+      - "report:notes/reports/p5-d-2026-08-25.md#buduci-ucinak"
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -12158,4 +12219,30 @@ packet_reviews:
       - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
       - no new future-relevant effect requires a handoff because accepted packet evidence and existing handoffs already carry every later ownership and boundary
       - P5-D is the sole next permitted packet but is not claimed inside P5-C
+      - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
+  P5-D:
+    reviewed_at: "2026-08-25"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P5-D-001
+    implementation_state: "appendix-d-state:sha256-7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94"
+    checks:
+      - H-P2-DOCS-001 was acknowledged before substantive edits and consumed before closeout with exact route and source evidence
+      - the appendix and machine-readable artifact use the same six-step order question outcome and unit design and dependence estimand assumptions and claim
+      - nine supported routes and nine stop routes cover all 20 declared pathway cases
+      - exactly two correctly paired numeric measurements retain the supported paired route while every wider named dependence pattern stops outside the book
+      - repeated longitudinal clustered nested temporal network-linked and complex-survey-variance paths explicitly preserve the question and route beyond the book
+      - binary-model fitting causal estimators meta-analytic computation and excluded dependent-data models remain reading and limitation topics rather than production tasks
+      - R12-SCOPE-no-variance-course R14-SCOPE-reading-not-fitting and R23-SCOPE-reading-not-production each pass their own test and are not closed from packet or parent aggregation
+      - R22-AD-visual-tree R22-AD-reference-spread R22-AD-decision-order and R22-AD-no-method-route each carry separate exact evidence
+      - R22 closes only after all five required children are accepted while R12 R14 and R23 remain ratified because other required children remain open
+      - scripts/check-appendix-d.py verifies the declared-input clean pathway 20 of 20 routes 17 target anchors SVG and 2400 by 3360 PNG print twin
+      - isolated Croatian HTML contains all three table anchors and the figure anchor with the SVG source and alt text
+      - targeted B5 PDF has six pages no raw markup and no clipping overlap or illegible table break on visual inspection of every page
+      - the targeted PDF uses a temporary SVG-to-PNG link swap and a fallback font and is not claimed as a full release build
+      - appendix style figure introduction inventory architecture manuscript integrity and token checks pass
+      - scripts/check-citations.py has a starting-state failure on eleven Quarto table references from P5-B P5-C and podaci.qmd and H-P5-D-001 routes the exact risk to P5-ROUTES without weakening real citation-key validation
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
+      - P5-E is the sole next permitted packet but is not claimed inside P5-D
       - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised

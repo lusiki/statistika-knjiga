@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P5-C
-next_permitted_packet: P5-D
+last_completed_packet: P5-D
+next_permitted_packet: P5-E
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 106
+forward_handoffs: 107
 last_updated: "2026-08-25"
 ---
 
@@ -73,6 +73,7 @@ stop and repair the control state before editing book content.
 | P5-A | Accepted on appendix state `79a7e4ab87054bcdba3955d7dcd38877c10a475f2c6d36d26beae5fbfb893d0e`; fresh canonical loaders, 25 checked numerical rows for Chapters 6–16 and the 2698-row text transform pass the clean pathway, HTML and print checks, `H-P3-EXISTING-001` is consumed, both R25 rights items remain open and no new outgoing handoff is required |
 | P5-B | Accepted on appendix state `fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688`; the versioned jamovi 2.7.30.0 and jmv 2.7.7 route has 19 supported and 7 guarded checks with exact 26-of-26 Appendix A value parity, `H-G-A2D-002` is consumed, clean-install verification remains pending with Luka Sikic and is not claimed, and `H-P5-B-001` carries the exact boundary to P5-ROUTES |
 | P5-C | Accepted on appendix state `55e5d873c1b03fac115505d263ad3c581b740260da68e176a37e36ece9cf1230`; both public views and 20 paired package routes regenerate from the canonical catalogue, full-precision aggregate and DZS checks pass, all four incoming handoffs are consumed, no fresh-clone result is claimed and no new outgoing handoff is required |
+| P5-D | Accepted on appendix state `7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94`; the six-step decision order, 9 supported routes, 9 stop routes and 20-of-20 pathway cases agree across the appendix, artifact and decision tree, `H-P2-DOCS-001` is consumed with seven separate item decisions, all 17 source anchors and the six-page B5 proof pass, and `H-P5-D-001` routes the pre-existing Quarto-table citation-checker risk to P5-ROUTES |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -90,11 +91,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P5-C`; `R25-CATALOG-single-source` and `R25-CATALOG-public-views` advanced on separate exact tests, all four incoming handoffs were consumed, the pre-use passport and fresh-clone tests remain open, prior paired-view, storage and validation closures were not aggregated or reopened, and no chapter stage or solution route changed |
-| Next permitted packet | `P5-D` |
-| Review parents | 31 ratified; 5 accepted |
-| Atomic child inventory | Complete: 371 stable children; 305 accepted, 5 deferred with reason and 61 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 147 accepted, 41 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Last completed packet | `P5-D`; all seven governed or inherited items advanced only on separate exact tests, `R22` closed only after all five children passed, `R12`, `R14` and `R23` remain ratified because other children are open, `H-P2-DOCS-001` was consumed, and `H-P5-D-001` carries the pre-existing Quarto-table citation-checker risk to P5-ROUTES |
+| Next permitted packet | `P5-E` |
+| Review parents | 30 ratified; 6 accepted |
+| Atomic child inventory | Complete: 371 stable children; 312 accepted, 5 deferred with reason and 54 ratified pending their later gates; zero unmapped |
+| Exact packet catalogue | 189 packets: 148 accepted, 40 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -7313,6 +7314,58 @@ the durable evidence is
   released and P5-D becomes the sole next permitted packet without being
   claimed.
 
+## P5-D claim and closeout
+
+- The workflow checker passed from canonical P5-C closeout with no active
+  packet and `P5-D` as the sole next permitted packet. P5-C had consumed all
+  four incoming handoffs, regenerated both public views from the catalogue,
+  left the passport and clean-build obligations open, and closed no catalogue
+  item by aggregation.
+- The `appendix` contract, packet record, all seven governed or inherited
+  items, complete Appendix D source, WD-PART decisions and checkout-local
+  conductor, style and figure instructions were read before implementation.
+  `H-P2-DOCS-001` was acknowledged before the first substantive edit and
+  consumed before closeout.
+- `dodaci/d-koji-test.qmd` now uses one six-step order: question, outcome and
+  unit, design and dependence, estimand, assumptions and claim. The same order
+  appears in the reference table, the decision/recovery tree and
+  `config/appendix-d-decision-route.json`; variable type alone never selects a
+  procedure.
+- The artifact contains 9 supported routes, 9 stop routes and 20 test cases.
+  Exactly two correctly paired numeric measurements retain an in-book paired
+  route. Repeated, longitudinal, clustered, nested, temporal, network-linked
+  and complex-survey-variance patterns stop and send the reader beyond the
+  book with the question, unit, dependence and estimand preserved.
+- The same boundary keeps binary-model fitting, causal estimators,
+  meta-analytic computation and excluded dependent-data methods outside
+  production while retaining recognition, interpretation and limitation.
+  No numbered chapter, central widget, callout type or method was added.
+- `R12-SCOPE-no-variance-course`, `R14-SCOPE-reading-not-fitting` and
+  `R23-SCOPE-reading-not-production` each advance against a separate source
+  and route test. `R22-AD-visual-tree`, `R22-AD-reference-spread`,
+  `R22-AD-decision-order` and `R22-AD-no-method-route` also carry separate
+  exact evidence. Only `R22` then closes by its five-child rule; `R12`, `R14`
+  and `R23` remain ratified because other required children are open.
+- The dedicated checker passes all 20 pathways from a staged declared-input
+  set, resolves 17 links against 13 chapter sources, validates the SVG and its
+  2400 × 3360 PNG print twin, and finds every promised stop. Isolated Croatian
+  HTML contains all four local anchors and the alt text.
+- The targeted six-page B5 PDF has no raw markup. Visual review of every page
+  finds no clipping, overlap or illegible table break. It uses a temporary
+  SVG-to-PNG link swap and a fallback font, so it is a bounded print-layout
+  proof rather than a full release build.
+- The appendix style, figure-introduction, inventory, architecture,
+  manuscript-integrity and token checks pass. An extra global diagnostic found
+  that `scripts/check-citations.py` treats 11 starting-state Quarto table
+  references from P5-B, P5-C and `podaci.qmd` as bibliography keys.
+  `H-P5-D-001` assigns that exact risk to `P5-ROUTES` without weakening real
+  unknown-key validation.
+- The canonical workflow checker passes with P5-D closed and P5-E next. All
+  three required workflow fixtures fail closed for their exact injected
+  defects. The chapter ledger and `solution_routes` remain unchanged, the
+  write lock is released and P5-E becomes the sole next permitted packet
+  without being claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7335,46 +7388,42 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P5-C` and
-`next_permitted_packet: P5-D`. Confirm that P5-C advanced only
-`R25-CATALOG-single-source` and `R25-CATALOG-public-views`, consumed
-`H-P3-CATALOG-002`, `H-P3-EXISTING-002`, `H-P3-DZS-004` and
-`H-WB-C04-001`, left `R25-CATALOG-passport` and
-`R08-CATALOG-local-independence` ratified, did not reclose the accepted paired-
-view, storage or validation items by aggregation, left every chapter stage
-unchanged, kept `config/book-inventory.json#solution_routes` empty and recorded
-an explicit no-new-effect declaration. If any of this does not hold, stop and
-repair the control state before editing book content.
+Verify `active_write_packet: null`, `last_completed_packet: P5-D` and
+`next_permitted_packet: P5-E`. Confirm that P5-D consumed
+`H-P2-DOCS-001`, advanced each of its seven governed or inherited items only
+on a separate exact test, closed parent `R22` only after all five required
+children passed, left parents `R12`, `R14` and `R23` ratified because other
+children remain open, left every chapter stage and
+`config/book-inventory.json#solution_routes` unchanged, and recorded
+`H-P5-D-001` for `P5-ROUTES`. If any of this does not hold, stop and repair the
+control state before editing book content.
 
-Claim and execute only `P5-D` as a separate packet under the `appendix`
-contract. Fully read its packet record, governed items
-`R22-AD-visual-tree`, `R22-AD-reference-spread`,
-`R22-AD-decision-order` and `R22-AD-no-method-route`, inherited scope items
-`R12-SCOPE-no-variance-course`, `R14-SCOPE-reading-not-fitting` and
-`R23-SCOPE-reading-not-production`, the complete source of
-`dodaci/d-koji-test.qmd`, all applicable chapter anchors and every incoming
-handoff.
+Claim and execute only `P5-E` as a separate packet under the `appendix`
+contract. Fully read its packet record, governed item
+`R36-BOOK-alternatives`, the complete sources of `dodaci/e-rjecnik.qmd` and
+`pojmovnik.qmd`, the terminology registry and schema in checkout-local
+Bookwright state, the concept ledger and graph, their generators and checks,
+and every applicable incoming handoff.
 
-Acknowledge and consume `H-P2-DOCS-001` before closeout. Preserve the ratified
-scope boundary: the appendix teaches recognition, assumptions, interpretation,
-limitations and referral, not complex-survey variance, logistic-model fitting,
-causal estimators, meta-analysis computation or dependent-data methods. Every
-paired, repeated, clustered, longitudinal, temporal and network-linked pattern
-must reach an explicit no-supported-method or referral route rather than a
-misleading in-book test.
+Acknowledge and consume `H-G-A2C-001` and `H-P2-TERMS-004` before closeout.
+Generate both reader-visible glossary views from
+`bookwright_plugin/bookwright/shared/conventions.json#terminology_registry` as
+the single source for accepted variants and deliberate departures with their
+reasons. Replace the stale partial-draft marker in Appendix E, do not silently
+normalise a contested form, do not present any superseded form as an accepted
+synonym, and do not rename a stable `#def-` identifier. Do not claim an
+independent terminology review.
 
-Deliver the visual decision and recovery tree plus its aligned concise
-reference spread. Order decisions by question, outcome and type, design and
-dependence, estimand, assumptions and claim; never route by variable type
-alone. Evidence the appendix-specific route artifact, a clean pathway test,
-and cross-reference and print proof. Write all prose in Croatian, follow
-STYLE.md and DESIGN.md, and never invent a method, assumption, menu path,
-number or citation.
+Deliver the appendix-specific terminology route artifact, a clean regeneration
+pathway and cross-reference and print proof. Keep `H-P5-D-001` pending for its
+actual owner `P5-ROUTES`; P5-E must neither absorb nor silently repair that
+separate citation-checker risk. Write all prose in Croatian, follow STYLE.md,
+and never invent a term, variant, rationale, definition or citation.
 
-Before closeout, run every packet-specific route, decision-coverage,
-dependence-stop, cross-reference and print check; record every future-relevant
-outgoing handoff or an explicit no-effect declaration; update the register,
-handoff ledger and dashboard together; run the workflow checker and all three
-negative fixtures; close and locally commit P5-D; then stop. Do not claim P5-E,
-push, merge, tag, archive, deploy or publish.
+Before closeout, run every packet-specific registry/view parity, superseded-
+form, variant/departure, concept, cross-reference and print check; record every
+future-relevant outgoing handoff or an explicit no-effect declaration; update
+the register, handoff ledger and dashboard together; run the workflow checker
+and all three negative fixtures; close and locally commit P5-E; then stop. Do
+not claim P5-F, push, merge, tag, archive, deploy or publish.
 ```
