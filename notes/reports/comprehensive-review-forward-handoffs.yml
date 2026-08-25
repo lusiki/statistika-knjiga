@@ -2271,7 +2271,22 @@ handoffs:
     deliveries:
       - target_packet: P5-B
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        disposition: >-
+          P5-B prihvatio je D09 kao tvrdu granicu prije prve sadrzajne izmjene:
+          jamovi put smije poduprijeti samo jezgrene analize koje vec izvodi
+          Dodatak A te mora zadrzati iste kanonske datoteke, varijable, pitanja
+          i zlatne vrijednosti. Paket smije datirati i dokumentacijski provjeriti
+          put za jamovi 2.7.30 s ugradjenim modulom jmv 2.7.7, ali ne smije
+          tvrditi da je provedena provjera na cistoj instalaciji; ona ostaje
+          izvan paketa u vlasnistvu autora i vlasnika kolegija Luke Sikica.
+        evidence:
+          - decision:D09
+          - notes/reports/g-a2d-policy-decisions-2026-08-04.md
+          - owner:Luka-Sikic
+          - scope:no-clean-install-claim-in-P5-B
       - target_packet: P5-ROUTES
         gate: before_close
         state: pending
@@ -8191,6 +8206,39 @@ handoffs:
         gate: before_start
         state: pending
 
+  H-P5-B-001:
+    source_packet: P5-B
+    created_at: "2026-08-25"
+    kind: constraint
+    refs:
+      - decision:D09
+      - item:R21-AB-versioned-core
+      - item:R21-JAMOVI-product-dating
+      - item:R21-AB-public-promise
+      - artifact:config/appendix-b-jamovi-route.json
+    statement: >-
+      P5-B dokumentirao je put za jamovi 2.7.30.0 s ugradjenim modulom
+      jmv 2.7.7. Artefakt podupire 19 provjera i cuva jos sedam tocnih
+      vrijednosti Dodatka A samo kao ogradjene: permutacijsku p-vrijednost
+      poglavlja 10 i sest vrijednosti fiksnoga spoja poglavlja 12. Luka Sikic
+      ostaje vlasnik nedovrsene provjere ciste instalacije; P5-B je ne tvrdi.
+    required_action: >-
+      P5-ROUTES smije javno obecati samo skup oznacen kao supported_metric_keys
+      u verzioniranom artefaktu. Ne smije ogradjenih sedam vrijednosti
+      zamijeniti drugim testom, drugim brojem preslagivanja ili nedatiranim
+      vanjskim modulom i ne smije tvrditi provjeru ciste instalacije bez
+      zasebnoga datiranog dokaza vlasnika Luke Sikica.
+    basis:
+      - notes/reports/p5-b-2026-08-25.md
+      - config/appendix-b-jamovi-route.json
+      - check:APPENDIX_B_CHECK_OK-parity-26-of-26-supported-19-guarded-7
+      - boundary:clean-install-pending-owner
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -11952,4 +12000,31 @@ packet_reviews:
       - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
       - no new future-relevant effect requires a handoff because the only rights constraint remains durably queued to P6-DATA and P8-META in H-P3-EXISTING-001
       - P5-B is the sole next permitted packet but is not claimed inside P5-A
+      - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
+  P5-B:
+    reviewed_at: "2026-08-25"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P5-B-001
+    implementation_state: "appendix-b-state:sha256-fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688"
+    checks:
+      - H-G-A2D-002 was acknowledged and consumed before the first substantive edit and its P5-ROUTES delivery remains pending
+      - D09 binds P5-B to only the core analyses already represented in Appendix A with the same canonical files variables questions and golden values
+      - jamovi is pinned to 2.7.30.0 and the bundled jmv module to 2.7.7 at commit 8c07513626f458bf9d855ac3a8271a9de9c312f9
+      - every supported route records import types menu settings filter weights expected output golden values export verification interpretation claim boundary and documentation date
+      - the exact seeded Appendix A row identities are preserved as jamovi filter formulas rather than replaced by new samples or files
+      - the artifact contains all 26 Appendix A contract rows and the independent checker verifies parity of file question metric and numerical value for every row
+      - 19 checks are documented as supported pending clean-install verification and seven checks are guarded without a substitute test or external module
+      - the guarded set is exactly the Chapter 10 permutation p-value and all six Chapter 12 fixed-effect synthesis values
+      - the text path uses data/parlament_oznake.csv and exposes one-sentence unit 2698-row denominator recorded-label and label-path coding and grouped validation decisions
+      - the text path makes no party comparison because the prepared table has no party variable
+      - Luka Sikic remains the owner of the pending clean-install verification and P5-B makes no claim that it occurred
+      - scripts/check-appendix-b.py passes from an isolated staged directory and reports route artifact clean pathway parity 26 of 26 xrefs and print table verified
+      - scripts/check-appendix-a.py continues to pass and the catalogue inventory token and appendix style checks pass
+      - targeted HTML executes all five Appendix B knitr steps and resolves the four source anchors table links boundary link and accepted Appendix A target anchor
+      - targeted B5 PDF executes all five Appendix B knitr steps and visual inspection of pages 5 through 11 finds all 19 supported checks readable without clipping overlap or illegible breaks
+      - the targeted render is packet-specific proof and does not claim a full release build or a clean jamovi installation
+      - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
+      - H-P5-B-001 carries the exact supported guarded and clean-install boundary to P5-ROUTES and no other future-relevant effect was found
+      - P5-C is the sole next permitted packet but is not claimed inside P5-B
       - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised

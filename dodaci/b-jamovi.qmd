@@ -2,47 +2,250 @@
 title: "Put bez koda"
 ---
 
-<!-- =====================================================================
-  STATUS:  djelomični nacrt — konceptualna mapa bez krhkih snimki zaslona
-  IZVOR:   novo
-  OPSEG:   ~4000 riječi
-  NAPOMENA: OTVORENA ODLUKA: dokumentiraju li se točni izbornici (snimke zaslona brzo zastare) ili dodatak ostaje konceptualan. Vidi notes/struktura-knjige.md.
+```{r}
+#| include: false
+#| cache: false
+b_route <- jsonlite::fromJSON(
+  "config/appendix-b-jamovi-route.json",
+  simplifyVector = FALSE
+)
 
-  SADRŽAJ (iz plana):
-  Pratitelj u jamoviju, četiri stranice po dijelu knjige, koji svaku analizu iz knjige preslikava na softver s izbornicima, za odsjeke koji ne uče programiranje.
-===================================================================== -->
+route_by_id <- function(id) {
+  hits <- Filter(function(x) identical(x$id, id), b_route$routes)
+  stopifnot(length(hits) == 1L)
+  hits[[1L]]
+}
 
-Ovaj dodatak prati analize iz knjige u jamoviju. Namjerno se oslanja na nazive
-analiza i očekivane izlaze, a ne na snimke zaslona koje se mijenjaju s verzijom
-sučelja. Čitatelj bez programiranja tako može reproducirati statistički
-postupak, dok iste provjere dizajna i interpretacije ostaju obvezne.
+format_value <- function(value) {
+  formatC(
+    as.numeric(value),
+    digits = 6,
+    format = "f",
+    decimal.mark = ","
+  )
+}
 
-## Priprema podataka
+metric_labels <- c(
+  "6:pearson_r" = "Pearsonov r",
+  "7:p_mreze_dob_le_29" = "uvjetni udio mreža",
+  "8:se_povjerenje_n_100" = "standardna pogreška, n = 100",
+  "9:mean_povjerenje" = "sredina",
+  "9:ci95_lower" = "donja granica 95 %",
+  "9:ci95_upper" = "gornja granica 95 %",
+  "10:mean_difference_portal_minus_tisak" = "razlika portal − tisak",
+  "11:cohen_d_portal_minus_tisak" = "Cohenov d, portal − tisak",
+  "13:chi_squared" = "hi-kvadrat",
+  "13:cramers_v" = "Cramérov V",
+  "14:mean_difference_tv_minus_mreze" = "razlika TV − mreže",
+  "14:welch_ci95_lower" = "donja Welchova granica",
+  "14:welch_ci95_upper" = "gornja Welchova granica",
+  "15:anova_f" = "F-omjer",
+  "15:eta_squared" = "eta-kvadrat",
+  "16:slope_dob" = "nagib dobi",
+  "16:coefficient_drustvene_mreze" = "koeficijent mreža",
+  "16:adjusted_r_squared" = "prilagođeni R-kvadrat",
+  "A-tekst:prepared_rows" = "pripremljeni redci"
+)
 
-Svaki redak predstavlja jedinicu analize, a svaki stupac varijablu. Prije
-odabira analize provjeravamo razinu mjerenja koju jamovi prikazuje ikonom uz
-ime stupca. Pogrešno postavljena razina može sakriti postupak ili ponuditi
-račun koji nema sadržajno značenje.
+route_rows <- lapply(b_route$routes, function(route) {
+  values <- unlist(route$golden_values, use.names = TRUE)
+  stopifnot(all(names(values) %in% names(metric_labels)))
+  data.frame(
+    ruta = sub("^B-", "", route$id),
+    mjera = unname(metric_labels[names(values)]),
+    vrijednost = vapply(values, format_value, character(1L)),
+    stringsAsFactors = FALSE
+  )
+})
+route_table <- do.call(rbind, route_rows)
+```
 
-U opisnom modulu najprije tražimo broj valjanih opažanja, nedostajuće
-vrijednosti, prikladnu mjeru središta i raspršenosti te graf raspodjele.
-Izlaz spremamo uz datoteku podataka i bilježimo verziju programa.
+Ovaj dodatak daje put kroz izbornike za jezgrene analize koje već izvodi
+Dodatak A. Radi samo s istim kanonskim datotekama, varijablama, pitanjima i
+očekivanim vrijednostima. Ne dodaje drugi skup podataka ni novu analizu.
 
-## Povezanost i skupine
+Ruta je prikovana na **jamovi 2.7.30.0** i ugrađeni modul **jmv 2.7.7**.
+Inačice su provjerene 25. kolovoza 2026. u [službenom izdanju
+programa](https://github.com/jamovi/jamovi/releases/tag/v2.7.30) i
+[zapisu ugrađenoga modula](https://raw.githubusercontent.com/jamovi/jmv/8c07513626f458bf9d855ac3a8271a9de9c312f9/DESCRIPTION).
+Svi detalji rute, uključujući filtre i vrijednosti pune preciznosti, nalaze se
+u [verzioniranom artefaktu](../config/appendix-b-jamovi-route.json).
 
-Za dvije brojčane varijable biramo korelacijsku matricu i uključujemo raspršeni
-prikaz. Pearsonov i Spearmanov koeficijent uspoređujemo tek nakon pregleda
-oblika. Za dvije skupine odabiremo neovisni ili upareni t-test prema jedinici
-analize, a ne prema rasporedu stupaca.
+Ovo je dokumentacijski provjeren put, a ne potvrda rada na čistoj instalaciji.
+Vlasnik te zasebne provjere jest autor i vlasnik kolegija Luka Sikic. Dok je ne
+završi, svaka je ruta označena kao `documented_pending_clean_install`.
 
-Kod više skupina koristimo ANOVA-u, uključujemo prikaz reziduala, veličinu
-učinka i unaprijed obrazložene usporedbe. Hi-kvadrat analiza pripada
-kontingencijskim tablicama i uz test treba pokazati očekivane frekvencije,
-reziduale i Cramérovo V.
+## Priprema podataka {#sec-b-priprema}
 
-## Izvoz koji se može provjeriti
+Otvorite točno jednu distribuiranu datoteku. Za povezanost vremena na mrežama
+i povjerenja skup `anketa_mreze` koristi `data/anketa-mreze.csv`. Pitanje o
+povjerenju, dobi i izvoru vijesti u skupu `populacija_medija` koristi
+`data/populacija-medija.csv`, a pregled pripremljene tekstne tablice koristi
+`data/parlament_oznake.csv`.
 
-Tablica iz jamovija nije samostalan zaključak. Uz nju čuvamo opis varijabli,
-dizajna, svih uključenih opcija i razloga odabira. U izvještaj prenosimo
-procjenu i interval prije testa, a graf preuređujemo samo ako promjena ne skriva
-ljestvicu, skupine ili pojedinačna opažanja.
+Prve dvije datoteke sadrže generirane osobe. Ne daju nalaz o stvarnoj
+populaciji. Treća datoteka sadrži označene parlamentarne rečenice i ima vlastita
+pravila atribucije. Uvjeti stoje uz [anketu](../data/anketa-mreze.LICENCA.md),
+[populaciju](../data/populacija-medija.LICENCA.md) i [tekstnu
+tablicu](../data/parlament-oznake.LICENCA.md).
+
+Nakon uvoza otvorite postavke varijabli. Identifikatore `ispitanik`, `osoba`,
+`record_id` i `source_document_id` postavite kao `ID`. Brojčane varijable
+`dob`, `minute_dnevno`, `povjerenje` i `povjerenje_medijima` postavite kao
+`Continuous`. Kategorijske varijable `obrazovanje`, `izvor_vijesti`,
+`derived_split`, `recorded_label` i `label_path` postavite kao `Nominal`.
+Artefakt navodi samo tipove potrebne pojedinoj ruti.
+
+Nijedna od tih datoteka nema težinu uzorkovanja. Ne stvarajte prazan stupac
+težina i ne uključujte težine u analizi. Ta odluka dolazi iz kataloga podataka,
+a ne iz zadanih postavki programa.
+
+### Fiksni uzorci i filtri
+
+Poglavlja 9, 10, 13, 14 i 15 u Dodatku A rade na fiksnim izvacima. Da bi
+jamovi dobio iste retke, na vrpci `Data` odaberite `Filters` i kopirajte polje
+`jamovi_formula` iz odgovarajuće rute artefakta. Formula koristi samo ključ
+`osoba` i logički operator `or`; ne stvara novi skup ni novu analitičku
+varijablu. [Službene upute za filtre](https://docs.jamovi.org/usermanual/um_4_spreadsheet.html)
+potvrđuju oba dijela sintakse.
+
+Prije analize provjerite broj uključenih redaka naveden kao `selected_rows`.
+Ako se broj ne slaže, ne nastavljajte. Najčešći su uzroci pogrešna datoteka,
+promijenjen redak ili nepotpuno kopirana formula.
+
+## Jezgrene rute {#sec-b-rute}
+
+Tablica @tbl-b-rute nastaje izravno iz verzioniranoga artefakta. Zato se
+izbornik i očekivana vrijednost ne prepisuju u izvor dodatka.
+
+```{r}
+#| label: tbl-b-rute
+#| tbl-cap: "Dokumentirane jamovi rute i zlatne vrijednosti Dodatka A"
+#| echo: false
+knitr::kable(
+  route_table,
+  col.names = c("Ruta", "Mjera", "Vrijednost"),
+  align = c("l", "l", "r"),
+  row.names = FALSE
+)
+```
+
+### Povezanost i uvjetni udio
+
+Za `B-C06-PEARSON` slijedite `Analyses → Regression → Correlation Matrix`.
+Premjestite `minute_dnevno` i `povjerenje` među varijable, ostavite uključen
+samo Pearsonov koeficijent i zatražite broj opažanja. Koeficijent sažima
+linearnu povezanost; prije tumačenja i dalje treba pogledati raspršeni prikaz.
+
+Za `B-C07-UVJETNI-UDIO` najprije uključite filtar `dob <= 29`. Zatim slijedite
+`Analyses → Exploration → Descriptives`, premjestite `izvor_vijesti` među
+varijable i uključite tablicu frekvencija. Traženi je nazivnik broj svih
+uključenih redaka, a brojnik broj redaka s oznakom `društvene mreže`.
+
+### Standardna pogreška i interval
+
+Ruta `B-C08-STANDARDNA-POGRESKA` koristi `Data → Compute`. Nazovite novu
+provjernu varijablu `se_n100` i kopirajte formulu iz polja
+`settings.jamovi_formula`. Korekcija pretvara uzoračku standardnu devijaciju
+koju vraća `VSTDEV()` u populacijsku vrijednost koju koristi Dodatak A, pa je
+ne smijete izostaviti.
+
+Za `B-C09-INTERVAL` prvo primijenite njegov fiksni filtar. U
+`Analyses → Exploration → Descriptives` zatražite `N`, `Mean` i `SE` za
+`povjerenje_medijima`. Granice se provjeravaju pravilom
+`Mean − 1,96 × SE` i `Mean + 1,96 × SE`. To je ista normalna aproksimacija kao
+u Dodatku A, a ne dodatni postupak.
+
+### Razlika dviju skupina i veličina učinka
+
+Ruta `B-C10-RAZLIKA` koristi samo fiksni uzorak i opisne sredine po
+`izvor_vijesti`. U `Analyses → Exploration → Descriptives` postavite
+`povjerenje_medijima` kao varijablu, a `izvor_vijesti` kao podjelu. Oduzmite
+sredinu tiska od sredine portala. Ne čitajte p-vrijednost iz drugoga testa kao
+zamjenu za permutacijski rezultat Dodatka A.
+
+Za `B-C11-COHEN-D` najprije uključite samo `portal` i `tisak`. Slijedite
+`Analyses → T-Tests → Independent Samples T-Test`, postavite
+`povjerenje_medijima` kao zavisnu varijablu i `izvor_vijesti` kao skupinu,
+zadržite Studentovu granu i uključite veličinu učinka. Redoslijed je portal
+minus tisak. Tumačite samo Cohenov (d) koji je imenovan u tablici.
+
+### Kategorije, dvije i više grupa
+
+Za `B-C13-HI-KVADRAT` primijenite njegov fiksni filtar. Slijedite
+`Analyses → Frequencies → Contingency Tables → Independent Samples`, postavite
+`obrazovanje` u retke i `izvor_vijesti` u stupce te uključite očekivane
+frekvencije, hi-kvadrat i Cramérov V.
+
+Za `B-C14-WELCH` primijenite njegov fiksni filtar. Slijedite
+`Analyses → T-Tests → Independent Samples T-Test`, postavite
+`povjerenje_medijima` kao zavisnu varijablu i `izvor_vijesti` kao skupinu,
+isključite Studentovu i uključite Welchovu granu, razliku sredina te interval od
+95 %. Redoslijed je TV minus društvene mreže.
+
+Za `B-C15-ANOVA` primijenite njegov fiksni filtar. Slijedite
+`Analyses → ANOVA → ANOVA`, postavite `povjerenje_medijima` kao zavisnu
+varijablu i `izvor_vijesti` kao fiksni faktor. Upotrijebite klasični model i
+uključite eta-kvadrat; ne prebacujte se na Welchovu jednofaktorsku analizu.
+
+### Regresija
+
+Za `B-C16-REGRESIJA` slijedite
+`Analyses → Regression → Linear Regression`. Postavite
+`povjerenje_medijima` kao zavisnu varijablu, `dob` kao kovarijatu i
+`izvor_vijesti` kao faktor. Referentna kategorija mora biti `portal`. Uključite
+procjene koeficijenata i mjere pristajanja modela.
+
+Koeficijent dobi tumači promjenu uz isti izvor vijesti. Koeficijent društvenih
+mreža uspoređuje tu kategoriju s portalom uz istu dob. Ni jedan koeficijent ne
+dokazuje uzročnost.
+
+## Pripremljena tekstna tablica
+
+Ruta `B-TEXT-PREPARED` otvara `data/parlament_oznake.csv` i slijedi
+`Analyses → Exploration → Descriptives`. Uključite tablice frekvencija za
+`derived_split`, `recorded_label` i `label_path`.
+
+Jedinica je jedna označena rečenica, a očekivani nazivnik je vrijednost
+`A-tekst:prepared_rows` u tablici @tbl-b-rute. `recorded_label` je zabilježeni
+referentni ishod, ne istina o rečenici. `label_path` razlikuje put dvaju kodera
+i usklađivanja od puta jednoga uvježbanog kodera. `derived_split` čuva
+dokumentno razdvajanje bez curenja, kako opisuje [putovnica
+podataka](../data/parlament_tekst/PUTOVNICA.md).
+
+Pitanje je preuzeto iz Dodatka A, ali ova pripremljena tablica nema varijablu
+stranačke pripadnosti. Zato ruta ne računa razliku među strankama i ne širi
+tekstni zadatak. Ona provjerava samo uvoz, jedinicu, nazivnik, kodiranje i
+odluku o validaciji.
+
+## Granica prikovanoga puta {#sec-b-granica}
+
+Ugrađeni `jmv 2.7.7` nema dokumentiran postupak koji bi točno ponovio
+permutacijsku p-vrijednost iz poglavlja 10 s istim brojem preslagivanja i istom
+korekcijom. Ne dokumentira ni fiksni spoj dokaznoga paketa iz poglavlja 12 u
+obliku kojim ga izvodi Dodatak A. Zato tih sedam zlatnih vrijednosti ostaje u
+artefaktu radi pariteta, ali nisu jamovi ruta.
+
+Ne zamjenjujte ih parametarskim testom, drugim brojem preslagivanja ili
+nedatiranim vanjskim modulom. Za te rezultate upotrijebite [provjerenu R
+rutu](a-praktikum.qmd#sec-a-rute-06-16). Time Dodatak B ostaje uži od Dodatka
+A, ali se ne razilazi ni u jednoj vrijednosti koju podupire.
+
+## Spremanje i provjera
+
+Spremite radnu datoteku kao `.omv`. Taj format čuva podatke, postavke i
+rezultate. Uz nju izvezite samo tablicu koja sadrži vrijednost imenovanu u
+tablici @tbl-b-rute i zapišite identifikator rute. Ne prenosite p-vrijednost ili
+drugi izlaz koji ruta ne imenuje.
+
+Strojnu provjeru paketa pokrenite iz korijena knjige ovom naredbom.
+
+```{.text}
+python scripts/check-appendix-b.py
+```
+
+Provjera u privremenoj mapi ponovno gradi artefakt samo iz kanonskih datoteka i
+rute Dodatka A. Zatim uspoređuje svih 26 očekivanih vrijednosti, popis
+varijabli, pitanja, inačice, filtre, poveznice i tiskovnu tablicu. To je čisti
+put izvora knjige. Nije zamjena za provjeru programa na čistoj instalaciji,
+koja ostaje otvorena vlasniku navedenom u [odjeljku o granici](#sec-b-granica).

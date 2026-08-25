@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-A"
-  next_permitted_packet: "P5-B"
+  last_completed_packet: "P5-B"
+  next_permitted_packet: "P5-C"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16519,7 +16519,7 @@ packets:
     sequence: 154
     phase: "5"
     kind: "appendix"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-A"
       - "G-A2d"
@@ -16531,13 +16531,73 @@ packets:
       - "The appendix fulfils its exact public promise from canonical files and values."
       - "Its HTML, print, and supported pathway behavior is verified."
       - "The P5-B packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "appendix-b-state:sha256-fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688"
+      required_evidence:
+        - requirement: "appendix-specific route artifact"
+          artifacts:
+            - "source:dodaci/b-jamovi.qmd@sha256-4638f4e2d9c7ba84f23bd8a444dc353af318a04e45206fae22d9674f084618e2"
+            - "artifact:config/appendix-b-jamovi-route.json@sha256-921cc70dac74fcee92fa80f91cdc4e1271f7ade3d9c48661515dd818252485e0"
+            - "source:scripts/build-appendix-b-route.R@sha256-ef4be3c397e9f170ef8c429c08ae1efee1aa522f4fa18ce9b4cff4dabba3ff18"
+            - "source:scripts/check-appendix-b.py@sha256-0156cc3d52bed083920a6f411f575cdc160ac5c014bc64751dcc7d8c443b23ff"
+            - "catalogue:data/katalog.yml@sha256-cf8e92e87e5fbf2aae073ac5d7215277d9aea1139c90f956f9a1c67ce0496e10"
+            - "report:notes/reports/p5-b-2026-08-25.md"
+        - requirement: "clean pathway test"
+          artifacts:
+            - "check:APPENDIX_B_ROUTE_OK-product-2.7.30.0-module-2.7.7-supported-19-guarded-7-total-26-clean-install-pending-owner"
+            - "check:APPENDIX_B_CHECK_OK-route-artifact-clean-pathway-parity-26-of-26-xrefs-print-table-clean-install-pending-owner"
+            - "check:APPENDIX_A_CHECK_OK-route-artifact-clean-pathway-chapters-6-16-text-transform-xrefs-print-table"
+            - "check:KATALOG_OK-packages-20-promoted-6-snapshots-22-rights-permission-claim-false"
+            - "boundary:clean-pathway-is-isolated-source-test-not-clean-jamovi-installation"
+        - requirement: "cross-reference and print proof"
+          artifacts:
+            - "render:targeted-html-sha256-93ad7a908d269dd672079700669575d69384b4b258d019269bb469cf1d4bf438-five-knitr-steps"
+            - "render:targeted-b5-pdf-sha256-662a777772704259601929c9891471d1c16cf7dada4ebad839b6bc0e86f7721c-five-knitr-steps"
+            - "check:four-appendix-b-anchors-three-cross-reference-routes-and-appendix-a-target-anchor-resolve-in-HTML"
+            - "visual:PDF-pages-5-through-11-all-19-supported-checks-readable-without-clipping-overlap-or-illegible-breaks"
+            - "check:STYLE-md-lint-no-deterministic-candidate-violations"
+      outputs:
+        - output: "P5-B durable artifact and evidence record for: Appendix B versioned jamovi route."
+          artifacts:
+            - "source:dodaci/b-jamovi.qmd#sec-b-priprema"
+            - "source:dodaci/b-jamovi.qmd#sec-b-rute"
+            - "source:dodaci/b-jamovi.qmd#sec-b-granica"
+            - "artifact:config/appendix-b-jamovi-route.json"
+            - "source:scripts/build-appendix-b-route.R"
+            - "source:scripts/check-appendix-b.py"
+            - "report:notes/reports/p5-b-2026-08-25.md"
+        - output: "Completion evidence is tied to the declared P5-B source state and bounded scope."
+          artifacts:
+            - "appendix-b-state:sha256-fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688"
+            - "handoff:H-G-A2D-002-consumed-before-first-substantive-edit"
+            - "handoff:H-P5-B-001-records-exact-P5-ROUTES-boundary"
+            - "boundary:no-clean-install-claim-no-new-analysis-no-external-dataset"
+      exit_tests:
+        - test: "The appendix fulfils its exact public promise from canonical files and values."
+          result: "passed"
+          evidence:
+            - "check:all-26-appendix-a-contract-rows-match-file-question-metric-and-value"
+            - "check:19-supported-checks-and-7-guarded-checks-form-an-exact-partition-with-no-extra-metric"
+            - "check:only-anketa_mreze-populacija_medija-and-parlasent-are-declared-P5-B-consumers"
+        - test: "Its HTML, print, and supported pathway behavior is verified."
+          result: "passed"
+          evidence:
+            - "check:isolated-source-pathway-rebuilds-the-versioned-artifact-from-canonical-inputs"
+            - "check:targeted-HTML-resolves-table-boundary-and-accepted-appendix-a-route-links"
+            - "visual:targeted-B5-PDF-pages-5-through-11-pass-after-wide-table-was-rejected-and-reflowed"
+            - "boundary:owner-clean-install-verification-remains-pending-and-unclaimed"
+        - test: "The P5-B packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-appendix-b-builder-and-checker-verify-version-metadata-filters-values-and-guardrails"
+            - "check:H-G-A2D-002-same-file-variable-question-value-and-no-scope-expansion-decisions-enforced"
+            - "report:notes/reports/p5-b-2026-08-25.md"
     contract: "appendix"
     required_evidence:
       - "appendix-specific route artifact"
       - "clean pathway test"
       - "cross-reference and print proof"
-    change_reference: null
+    change_reference: "appendix-b-state:sha256-fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688"
   P5-C:
     sequence: 155
     phase: "5"
@@ -28215,7 +28275,7 @@ items:
       location: "§9 Appendix B + §15 R21"
     description: "Implement a versioned core jamovi companion using the same data, variables, questions, outputs, and checks."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28232,11 +28292,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-B"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/appendix-b-jamovi-route.json@sha256-921cc70dac74fcee92fa80f91cdc4e1271f7ade3d9c48661515dd818252485e0"
+      - "source:dodaci/b-jamovi.qmd#sec-b-rute"
+      - "check:APPENDIX_B_CHECK_OK-parity-26-of-26-supported-19-guarded-7"
+      - "check:every-supported-route-reuses-appendix-a-file-question-variable-and-golden-value-contract"
+      - "boundary:permutation-and-fixed-effect-synthesis-remain-in-appendix-a-without-substitute-analysis"
+      - "boundary:clean-install-verification-owner-Luka-Sikic-status-pending-and-not-claimed-by-P5-B"
+      - "report:notes/reports/p5-b-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-b-state:sha256-fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688"
   R21-AB-public-promise:
     parents:
       - "R21"
@@ -28292,7 +28359,7 @@ items:
       location: "§12 inconsistencies"
     description: "Pin version/module, route, settings, filters/weights, output, export, and test date."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28310,11 +28377,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-B"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/appendix-b-jamovi-route.json#product"
+      - "version:jamovi-2.7.30.0-tag-v2.7.30"
+      - "module:jmv-2.7.7-commit-8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      - "check:every-supported-route-has-import-types-menu-settings-filter-weights-output-golden-export-verification-interpretation-boundary-and-documentation-date"
+      - "source:dodaci/b-jamovi.qmd#sec-b-priprema"
+      - "source:dodaci/b-jamovi.qmd#sec-b-granica"
+      - "boundary:documentation-checked-2026-08-25-clean-install-owner-verification-remains-pending"
+      - "report:notes/reports/p5-b-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-b-state:sha256-fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688"
   R21-TEXT-prepared-route:
     parents:
       - "R21"
@@ -28328,7 +28403,7 @@ items:
       location: "§12 text module"
     description: "Make the supported no-code path use prepared tables while exposing unit, denominator, coding, and validation decisions."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28346,11 +28421,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-B"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/b-jamovi.qmd#pripremljena-tekstna-tablica"
+      - "artifact:config/appendix-b-jamovi-route.json#B-TEXT-PREPARED"
+      - "file:data/parlament_oznake.csv-md5-55b1c4263009ab783911f094907312d9-rows-2698"
+      - "check:unit-one-annotated-sentence-denominator-2698-recorded-label-and-label-path-coding-grouped-validation-split"
+      - "boundary:no-corpus-preprocessing-no-party-variable-no-party-comparison-and-no-new-analysis"
+      - "boundary:clean-install-verification-owner-Luka-Sikic-status-pending-and-not-claimed-by-P5-B"
+      - "report:notes/reports/p5-b-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-b-state:sha256-fb47c7ed01f5769513117a1565420dac8211b1a503a9eb5ffeeb453923225688"
   R22-C14-C16-dependence:
     parents:
       - "R22"
