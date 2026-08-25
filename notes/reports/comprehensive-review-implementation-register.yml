@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-B"
-  next_permitted_packet: "P5-C"
+  last_completed_packet: "P5-C"
+  next_permitted_packet: "P5-D"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16602,7 +16602,7 @@ packets:
     sequence: 155
     phase: "5"
     kind: "appendix"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P3-CATALOG"
       - "P5-B"
@@ -16614,13 +16614,80 @@ packets:
       - "The appendix fulfils its exact public promise from canonical files and values."
       - "Its HTML, print, and supported pathway behavior is verified."
       - "The P5-C packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "appendix-c-state:sha256-55e5d873c1b03fac115505d263ad3c581b740260da68e176a37e36ece9cf1230"
+      required_evidence:
+        - requirement: "appendix-specific route artifact"
+          artifacts:
+            - "source:dodaci/c-katalog-podataka.qmd@sha256-48b87e4e3b9234d1bd1a43726c6df39853928cb579e13ed64f653462c7d9bec5"
+            - "source:podaci.qmd@sha256-2f7f788e89784549ca9eec8a919df94264f223a8eb1e994bba15ab1a6a18eb30"
+            - "artifact:config/appendix-c-data-route.json@sha256-55fbae1910705383f7e76142c4926b76e8db1d51c0c0ad67726dbd11c153eb2e"
+            - "source:scripts/build-appendix-c-views.R@sha256-20e75343398cf9b491dd32e780e5b76e15b5e8bae0375add77d07d3003a48cd1"
+            - "source:scripts/check-appendix-c.py@sha256-6e44d9fd032a41be3c4bcfafd9cce4fe43cefc9aa0192fccae5022c337ac50f3"
+            - "catalogue:data/katalog.yml@sha256-2b2b11b03fe283fc68eed8c764958e7bfe5482ef00faab89ec767d791f210e73"
+            - "report:notes/reports/p5-c-2026-08-25.md"
+        - requirement: "clean pathway test"
+          artifacts:
+            - "check:APPENDIX_C_VIEWS_OK-packages-20-promoted-6-views-2-routes-20"
+            - "check:APPENDIX_C_CHECK_OK-regeneration-2-of-2-clean-pathway-routes-20-of-20"
+            - "check:KATALOG_OK-packages-20-promoted-6"
+            - "check:DATA_SNAPSHOTS_OK-snapshots-4-mode-verify"
+            - "check:DATA_INTEGRITY_OK-generated-sets-2-rows-50300-validated-22-reconciliations-10"
+            - "boundary:isolated-declared-input-pathway-is-not-a-fresh-clone-or-clean-worktree-render"
+        - requirement: "cross-reference and print proof"
+          artifacts:
+            - "render:podaci-html-sha256-a49f28611078cbb53a66aee9c31bcdb066b6d0be65088063297947f71cc6c077"
+            - "render:appendix-c-html-sha256-87f7abf91885cf433c4382060c4c2b850af4eb4ccc268338d8a37fc16c42da16"
+            - "render:targeted-b5-pdf-sha256-b89a3bef64190fd9c09a6fd1c04cb784d77378a6c19efe3533c619d52b34cd1b"
+            - "check:20-public-and-20-appendix-anchors-with-all-local-links-resolved"
+            - "check:78-page-PDF-zero-raw-markup-and-zero-outside-text-blocks"
+            - "visual:aggregate-DZS-and-long-file-record-pages-readable-without-clipping-or-overlap"
+            - "boundary:Latin-Modern-font-fallback-not-canonical-Literata-proof"
+            - "check:STYLE-md-lint-no-deterministic-candidate-violations"
+      outputs:
+        - output: "P5-C durable artifact and evidence record for: Generated Appendix C and public data view."
+          artifacts:
+            - "source:dodaci/c-katalog-podataka.qmd"
+            - "source:podaci.qmd"
+            - "source:data/README.md"
+            - "artifact:config/appendix-c-data-route.json"
+            - "source:scripts/build-appendix-c-views.R"
+            - "source:scripts/check-appendix-c.py"
+            - "report:notes/reports/p5-c-2026-08-25.md"
+        - output: "Completion evidence is tied to the declared P5-C source state and bounded scope."
+          artifacts:
+            - "appendix-c-state:sha256-55e5d873c1b03fac115505d263ad3c581b740260da68e176a37e36ece9cf1230"
+            - "handoff:H-P3-CATALOG-002-consumed-with-separate-item-dispositions"
+            - "handoff:H-P3-EXISTING-002-consumed-with-full-precision-values"
+            - "handoff:H-P3-DZS-004-consumed-with-residuals-0-and-1-separated"
+            - "handoff:H-WB-C04-001-consumed-with-public-documentation-reconciled"
+            - "boundary:no-fresh-clone-claim-no-rights-expansion-no-data-file-change"
+      exit_tests:
+        - test: "The appendix fulfils its exact public promise from canonical files and values."
+          result: "passed"
+          evidence:
+            - "check:both-public-views-and-route-artifact-regenerate-byte-for-byte-from-data/katalog.yml"
+            - "check:all-20-package-routes-and-canonical-statuses-agree"
+            - "check:all-shares-have-numerator-denominator-and-all-means-have-integer-total"
+        - test: "Its HTML, print, and supported pathway behavior is verified."
+          result: "passed"
+          evidence:
+            - "check:isolated-source-pathway-rebuilds-both-views-and-route-artifact"
+            - "check:targeted-HTML-resolves-40-package-anchors-and-all-local-targets"
+            - "visual:targeted-B5-PDF-aggregate-DZS-and-long-file-record-pages-pass"
+            - "boundary:font-fallback-recorded-and-no-full-release-build-or-fresh-clone-claimed"
+        - test: "The P5-C packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-appendix-c-builder-and-checker-verify-regeneration-values-links-and-print-tables"
+            - "check:four-incoming-handoffs-dispositioned-with-exact-evidence"
+            - "report:notes/reports/p5-c-2026-08-25.md"
     contract: "appendix"
     required_evidence:
       - "appendix-specific route artifact"
       - "clean pathway test"
       - "cross-reference and print proof"
-    change_reference: null
+    change_reference: "appendix-c-state:sha256-55e5d873c1b03fac115505d263ad3c581b740260da68e176a37e36ece9cf1230"
   P5-D:
     sequence: 156
     phase: "5"
@@ -30931,16 +30998,18 @@ items:
         - "S15"
       location: "§9/§12 + §15 R25"
     description: "Make data/katalog.yml the sole metadata source and generate both public views."
-    open_reason: >-
-      Deliberately left open by P3-CATALOG. data/katalog.yml is the sole
-      machine-readable record and was verified to contradict neither public
-      view, but the test requires that both views regenerate. podaci.qmd and
-      dodaci/c-katalog-podataka.qmd are still hand-maintained and generating
-      them is R25-CATALOG-public-views in P5-C.
+    closed_note: >-
+      Closed by P5-C on its own acceptance test. data/katalog.yml remains the
+      sole machine-readable metadata record; one builder now generates both
+      podaci.qmd and dodaci/c-katalog-podataka.qmd together with their route
+      artifact. A separate checker stages only declared catalogue and aggregate
+      inputs, rebuilds all three outputs and requires byte-for-byte agreement.
+      This closure does not aggregate or reopen any passport, paired-view,
+      storage, validation or clean-build item.
     closure_packet: "P5-C"
     closure_handoff: "H-P3-CATALOG-002"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -30960,11 +31029,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-CATALOG"
-    completion_evidence: []
+    completion_evidence:
+      - "source:data/katalog.yml@sha256-2b2b11b03fe283fc68eed8c764958e7bfe5482ef00faab89ec767d791f210e73"
+      - "source:scripts/build-appendix-c-views.R@sha256-20e75343398cf9b491dd32e780e5b76e15b5e8bae0375add77d07d3003a48cd1"
+      - "source:podaci.qmd@sha256-2f7f788e89784549ca9eec8a919df94264f223a8eb1e994bba15ab1a6a18eb30"
+      - "source:dodaci/c-katalog-podataka.qmd@sha256-48b87e4e3b9234d1bd1a43726c6df39853928cb579e13ed64f653462c7d9bec5"
+      - "artifact:config/appendix-c-data-route.json@sha256-55fbae1910705383f7e76142c4926b76e8db1d51c0c0ad67726dbd11c153eb2e"
+      - "check:APPENDIX_C_CHECK_OK-regeneration-2-of-2-clean-pathway-verified"
+      - "boundary:no-fresh-clone-or-clean-worktree-render-claimed"
+      - "report:notes/reports/p5-c-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-c-state:sha256-55e5d873c1b03fac115505d263ad3c581b740260da68e176a37e36ece9cf1230"
   R25-CATALOG-schema:
     parents:
       - "R25"
@@ -31509,7 +31586,7 @@ items:
       location: "§9 Appendix C"
     description: "Generate both student-facing views and validate all downloads."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -31527,11 +31604,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-C"
-    completion_evidence: []
+    completion_evidence:
+      - "source:podaci.qmd@sha256-2f7f788e89784549ca9eec8a919df94264f223a8eb1e994bba15ab1a6a18eb30"
+      - "source:dodaci/c-katalog-podataka.qmd@sha256-48b87e4e3b9234d1bd1a43726c6df39853928cb579e13ed64f653462c7d9bec5"
+      - "artifact:config/appendix-c-data-route.json@sha256-55fbae1910705383f7e76142c4926b76e8db1d51c0c0ad67726dbd11c153eb2e"
+      - "check:APPENDIX_C_CHECK_OK-routes-20-of-20-xrefs-and-local-links-verified"
+      - "check:P5_C_HTML_OK-pages-2-public-ids-20-appendix-ids-20-local-hrefs-resolved"
+      - "check:P5_C_PDF_STRUCT_OK-pages-78-raw-markup-0-outside-blocks-0"
+      - "visual:aggregate-DZS-and-long-file-record-pages-readable-without-clipping-or-overlap"
+      - "check:data/README.md-reconciled-to-canonical-promotion-status"
+      - "report:notes/reports/p5-c-2026-08-25.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-c-state:sha256-55e5d873c1b03fac115505d263ad3c581b740260da68e176a37e36ece9cf1230"
   R26-PILOT-five-reader:
     parents:
       - "R26"

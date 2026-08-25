@@ -1,6 +1,6 @@
 ---
 title: "Podaci"
-toc: false
+toc: true
 number-sections: false
 lang: hr-HR
 body-classes: "standalone-page support-page podaci-page"
@@ -10,58 +10,382 @@ format:
     code-tools: false
 ---
 
-<!-- =====================================================================
-  Pregled skupova podataka koje knjiga koristi. Održava se zajedno s
-  Dodatkom C (dodaci/c-katalog-podataka.qmd), koji nosi puni katalog s
-  licencama i opisom varijabli, i s R/fetch-podaci.R, koji ih dohvaća.
+<!-- Generira scripts/build-appendix-c-views.R iz data/katalog.yml. -->
 
-  Privremeno stanje prikazano je kao namjerna prazna stranica dok se svaki
-  skup ne provjeri; ne vraćati prijašnji prazan obrazac.
-===================================================================== -->
+Ovo je sažeti javni prikaz kanonskoga kataloga podataka. Svaki zapis vodi
+do punoga zapisa u Dodatku C; status promocije, pristupna traka, datoteke i
+granice tvrdnji dolaze iz `data/katalog.yml`, a ne iz zasebno održavanoga popisa.
 
-Svaki skup podataka koji se pojavljuje u knjizi mora imati provjeren izvor,
-inačicu, licencu, atribuciju, način pristupa i zasebnu odluku o redistribuciji.
-Poveznica za preuzimanje sama po sebi nije dopuštenje za uključivanje datoteke
-u repozitorij. Puni čitateljski katalog s opisom varijabli je Dodatak C.
+## Stanje kataloga {#sec-podaci-stanje}
 
-Knjiga razlikuje tri pristupne trake. Paket `bundled` smije se podijeliti uz
-zabilježene uvjete. Paket `portal-mediated` preuzima se izravno od službenoga
-izvora i ne prikazuje se kao lokalna kopija. Paket `external-only` ostaje izvan
-repozitorija. Svaki obvezni zadatak uz drugu ili treću traku mora imati
-licenčno čistu lokalnu datoteku ili agregatnu zamjenu.
+Katalog sadrži 20 paketa. Među njima je 9 u traci `bundled`, 2 u traci `portal-mediated` i 9 u traci `external-only`. Promovirano ih je 6. Promocija je zasebna odluka; sama dostupnost datoteke ne mijenja status.
 
-Generirani nastavni skupovi `anketa_mreze` i `populacija_medija` dostupni su
-pod licencom [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode).
-Obavijest navodi Luku Sikica kao nositelja prava i nalazi se u
-`data/LICENCA-generirani-podaci.md`. Kod generatora i autorski sadržaj knjige
-ostaju pod MIT licencom, a uvjeti podataka trećih strana vode se zasebno.
+Skup|Traka|Status|Pitanje
+|---|---|---|---|
+| [Anketa o drustvenim mrezama, generirani nastavni skup](#podaci-anketa-mreze) | `bundled` | promoviran paketom `P3-EXISTING` | Koliko vremena ljudi provode na mrezama i kako to ide uz povjerenje? |
+| [Populacija medijskih navika, generirani nastavni skup](#podaci-populacija-medija) | `bundled` | promoviran paketom `P3-EXISTING` | Kako se povjerenje u medije mijenja s dobi i izvorom vijesti? |
+| [UCBAdmissions, zamrznuti orijentir iz R-ove distribucije](#podaci-ucbadmissions) | `external-only` | nije promoviran | Kako zbirna stopa upisa moze obrnuti predznak razlike po odjelima? |
+| [Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije](#podaci-anscombe) | `external-only` | nije promoviran | Zasto cetiri skupa s istim sazetcima izgledaju posve razlicito? |
+| [DZS turizam, omedjeni izvadak](#podaci-dzs-turizam) | `bundled` | promoviran paketom `P3-DZS` | Kako se dolasci i nocenja mijenjaju kroz godinu i po zupanijama? |
+| [Drugi DZS domen](#podaci-dzs-drugi-domen) | `external-only` | nije promoviran | Nije odredjeno jer domena i tablice nisu odabrane. |
+| [DIP, izbori za Hrvatski sabor 2024.](#podaci-dip-2024) | `portal-mediated` | nije promoviran | Kako se izlaznost mijenja po izbornim jedinicama i sto joj je nazivnik? |
+| [DigiKat agregat aktera](#podaci-digikat-akteri) | `external-only` | nije promoviran | Kako se vidljivost aktera razlikuje po platformama u jednom presjeku? |
+| [Determ, puni korpus](#podaci-determ-korpus) | `external-only` | nije promoviran | Sto se moze i sto se ne moze reproducirati iz ogranicenoga komercijalnog izvora? |
+| [Eurostat, drustveni pokazatelji](#podaci-eurostat-drustvo) | `bundled` | promoviran paketom `P3-EUROSTAT` | Kako se isti pokazatelj razlikuje medju zemljama u istoj godini? |
+| [European Social Survey, Round 11, Hrvatska](#podaci-ess-r11-hr) | `portal-mediated` | nije promoviran | Medju hrvatskim ispitanicima u sluzbenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje izmedju neponderirane procjene i procjene s anweight, te koje pogreske odabira ili mjerenja ponder ne moze ukloniti? |
+| [V-Dem Dataset v16](#podaci-vdem-v16) | `external-only` | nije promoviran | Kako se latentni pojam poput demokracije pretvara u broj s nesigurnoscu? |
+| [COVIDiSTRESS II](#podaci-covidistress-ii) | `external-only` | nije promoviran | Zasto vrlo velik dobrovoljni uzorak ne popravlja samoodabir? |
+| [World Development Indicators](#podaci-wdi) | `external-only` | nije promoviran | Nije odredjeno jer pokazatelj nije odabran. |
+| [ParlaMint-HR 5.0](#podaci-parlamint-hr) | `bundled` | nije promoviran | Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi? |
+| [ParlaSent 1.0](#podaci-parlasent) | `bundled` | promoviran paketom `P3-TEXT` | Kako se ljudska oznaka pretvara u zabiljezeni referentni ishod, i koliko je pogresiva? |
+| [GFI/FINA](#podaci-gfi-fina) | `external-only` | nije promoviran | Sto se smije tvrditi iz izvora koji citatelj ne moze otvoriti? |
+| [DigiKat, agregat digitalnoga medijskog prostora](#podaci-digikat-mediji) | `bundled` | promoviran paketom `P3-DIGIKAT` | Kako se objavljivanje i vidljivost razlikuju medju platformama i medju izvorima? |
+| [Registar drzavnih potpora, agregati koncentracije](#podaci-rdp-potpore) | `bundled` | nije promoviran | Koliko je koncentrirana dodjela drzavnih potpora i koliko ju je snimka registra uopce zabiljezila? |
+| [BDP po stanovniku, dugi niz i pet procjena](#podaci-bdp-dugi-niz) | `bundled` | nije promoviran | Koliko se razlikuju objavljene procjene iste velicine i sto se dobiva kad ih se spoji u jedan niz? |
 
-## Popis
+: Sažeti popis paketa iz kanonskoga kataloga. {#tbl-podaci-paketi}
 
-::: {.empty-state}
-::: {.empty-state-title}
-Katalog je u pripremi
-:::
+## Provjerljivi redci generiranih skupova {#sec-podaci-provjera}
 
-Popis će biti objavljen kada svaki skup dobije provjeren izvor, inačicu,
-licencu, atribuciju, pristup, odluku o redistribuciji i pripadajuću traku. Do
-tada se ovdje ne prikazuje prazan obrazac koji bi mogao izgledati kao gotov
-katalog.
-:::
+Agregatne datoteke dvaju generiranih nastavnih skupova omogućuju provjeru bez analitičkoga softvera. Vrijednosti ispod prepisuju se kao znakovni zapisi iz datoteka koje katalog izrijekom proglašava agregatnim prikazima.
 
-## Kako se podaci dohvaćaju
+### Anketa o drustvenim mrezama, generirani nastavni skup — provjera retka {#provjera-podaci-anketa-mreze}
 
-Skripta `R/fetch-podaci.R` dohvaća samo pakete s provjerenim pravom
-redistribucije i trakom `bundled`. Pokreće se ručno, ne pri svakom renderu, jer
-izvori mijenjaju adrese sporije nego što se knjiga gradi. Portalno posredovani
-i vanjski paketi ne ulaze u `data/`.
+Udio u @tbl-podaci-anketa-mreze-udjeli uvijek nosi vlastiti brojnik i nazivnik. Prosjek u @tbl-podaci-anketa-mreze-prosjeci uvijek stoji uz cjelobrojni zbroj iz iste skupine.
 
-```bash
-Rscript R/fetch-podaci.R
-```
+Skupina|Udio|Brojnik / nazivnik = točna vrijednost
+|---|---|---|
+| 18 do 24 | `udio` | `90` / `300` = `0.3` |
+| 25 do 34 | `udio` | `84` / `300` = `0.28` |
+| 35 do 44 | `udio` | `66` / `300` = `0.22` |
+| 45 i više | `udio` | `60` / `300` = `0.2` |
 
-## Pravila
+: Udio s brojnikom i nazivnikom. {#tbl-podaci-anketa-mreze-udjeli}
 
-Podaci koji opisuju ljude ne ulaze u razgovor s AI asistentom. To vrijedi i za
-podatke prikupljene u studentskim projektima, koliko god djelovali bezazleno.
-Postupak je opisan u Dodatku F.
+Skupina|Prosjek|Cjelobrojni zbroj i točna vrijednost
+|---|---|---|
+| 18 do 24 | `prosjek_minuta` | zbroj `7339`; prosjek `81.54444444444445` |
+| 25 do 34 | `prosjek_minuta` | zbroj `4567`; prosjek `54.36904761904762` |
+| 35 do 44 | `prosjek_minuta` | zbroj `2139`; prosjek `32.40909090909091` |
+| 45 i više | `prosjek_minuta` | zbroj `974`; prosjek `16.233333333333334` |
+| 18 do 24 | `prosjek_povjerenja` | zbroj `574`; prosjek `6.377777777777778` |
+| 25 do 34 | `prosjek_povjerenja` | zbroj `467`; prosjek `5.559523809523809` |
+| 35 do 44 | `prosjek_povjerenja` | zbroj `323`; prosjek `4.893939393939394` |
+| 45 i više | `prosjek_povjerenja` | zbroj `270`; prosjek `4.5` |
+
+: Prosjek s pripadajućim cjelobrojnim zbrojem. {#tbl-podaci-anketa-mreze-prosjeci}
+
+### Populacija medijskih navika, generirani nastavni skup — provjera retka {#provjera-podaci-populacija-medija}
+
+Udio u @tbl-podaci-populacija-medija-udjeli uvijek nosi vlastiti brojnik i nazivnik. Prosjek u @tbl-podaci-populacija-medija-prosjeci uvijek stoji uz cjelobrojni zbroj iz iste skupine.
+
+Skupina|Udio|Brojnik / nazivnik = točna vrijednost
+|---|---|---|
+| portal | `udio` | `15101` / `50000` = `0.30202` |
+| društvene mreže | `udio` | `13378` / `50000` = `0.26756` |
+| TV | `udio` | `10827` / `50000` = `0.21654` |
+| radio | `udio` | `5839` / `50000` = `0.11678` |
+| tisak | `udio` | `4855` / `50000` = `0.0971` |
+| portal | `udio_platio` | `3514` / `15101` = `0.2326998212038938` |
+| društvene mreže | `udio_platio` | `2841` / `13378` = `0.212363582000299` |
+| TV | `udio_platio` | `2773` / `10827` = `0.2561189618546227` |
+| radio | `udio_platio` | `1528` / `5839` = `0.26168864531597874` |
+| tisak | `udio_platio` | `1289` / `4855` = `0.2654994850669413` |
+
+: Udio s brojnikom i nazivnikom. {#tbl-podaci-populacija-medija-udjeli}
+
+Skupina|Prosjek|Cjelobrojni zbroj i točna vrijednost
+|---|---|---|
+| portal | `prosjek_povjerenja` | zbroj `72101`; prosjek `4.774584464604993` |
+| društvene mreže | `prosjek_povjerenja` | zbroj `54432`; prosjek `4.06876962176708` |
+| TV | `prosjek_povjerenja` | zbroj `58098`; prosjek `5.366029371016902` |
+| radio | `prosjek_povjerenja` | zbroj `32614`; prosjek `5.585545470114746` |
+| tisak | `prosjek_povjerenja` | zbroj `26791`; prosjek `5.518228630278064` |
+| portal | `prosjek_minuta` | zbroj `2589478`; prosjek `171.47725316204225` |
+| društvene mreže | `prosjek_minuta` | zbroj `2217273`; prosjek `165.74024517865152` |
+| TV | `prosjek_minuta` | zbroj `1978691`; prosjek `182.75524152581508` |
+| radio | `prosjek_minuta` | zbroj `1058774`; prosjek `181.32796711765712` |
+| tisak | `prosjek_minuta` | zbroj `882321`; prosjek `181.73450051493305` |
+| portal | `prosjek_spremnosti` | zbroj `88920`; prosjek `5.888351764783789` |
+| društvene mreže | `prosjek_spremnosti` | zbroj `74065`; prosjek `5.536328300194349` |
+| TV | `prosjek_spremnosti` | zbroj `71225`; prosjek `6.578461254271728` |
+| radio | `prosjek_spremnosti` | zbroj `39563`; prosjek `6.775646514814181` |
+| tisak | `prosjek_spremnosti` | zbroj `32560`; prosjek `6.70648815653965` |
+
+: Prosjek s pripadajućim cjelobrojnim zbrojem. {#tbl-podaci-populacija-medija-prosjeci}
+
+## Dvije DZS-ove mjere nisu jedna serija {#sec-dzs-dvije-mjere}
+
+Tablice BS_TU11 i BS_TU12 bilježe administrativne eVisitor dolaske, dok je T03 uzoračka anketa o procijenjenim putovanjima stanovnika. Dolazak nije osoba, a putovanje nije dolazak; te se brojke ne zbrajaju i ne prikazuju kao usporedive serije.
+
+Administrativne provjere u @tbl-podaci-dzs imaju najveći ostatak točno `0`. Sve tri anketne razgradnje, koje obuhvaćaju odredište, trajanje i dobnu skupinu, imaju najveći ostatak točno `1`, jer su objavljene ćelije zasebno zaokružene procjene.
+
+Provjera|Vrsta mjere|Rezultat usklađenja
+|---|---|---|
+| mjeseci-u-objavljenu-godinu | administrativno prebrojavanje | 126 usporedbi; tolerancija 0; najveći ostatak 0 |
+| domaci-i-strani-u-ukupno | administrativno prebrojavanje | 42 usporedbi; tolerancija 0; najveći ostatak 0 |
+| zupanije-u-drzavni-redak | administrativno prebrojavanje | 6 usporedbi; tolerancija 0; najveći ostatak 0 |
+| zupanije-2025-u-nacionalni-ukupno | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
+| zupanije-2025-u-nacionalni-domaci | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
+| zupanije-2025-u-nacionalni-strani | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
+| anketa-odrediste | anketna procjena | 72 usporedbi; tolerancija 1; najveći ostatak 1 |
+| anketa-trajanje | anketna procjena | 72 usporedbi; tolerancija 1; najveći ostatak 1 |
+| anketa-dobne-skupine | anketna procjena | 54 usporedbi; tolerancija 1; najveći ostatak 1 |
+
+: Usklađenja dviju različitih DZS-ovih mjera. {#tbl-podaci-dzs}
+
+Provjera|Datoteke
+|---|---|
+| mjeseci-u-objavljenu-godinu | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-mjesecno.csv` |
+| domaci-i-strani-u-ukupno | `data/dzs-turizam-godisnje.csv` |
+| zupanije-u-drzavni-redak | `data/dzs-turizam-zupanije-2025.csv` |
+| zupanije-2025-u-nacionalni-ukupno | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
+| zupanije-2025-u-nacionalni-domaci | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
+| zupanije-2025-u-nacionalni-strani | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
+| anketa-odrediste | `data/dzs-putovanja-stanovnistva-2024.csv` |
+| anketa-trajanje | `data/dzs-putovanja-stanovnistva-2024.csv` |
+| anketa-dobne-skupine | `data/dzs-putovanja-stanovnistva-2024.csv` |
+
+: Datoteke uključene u DZS-ova usklađenja. {#tbl-podaci-dzs-datoteke}
+
+## Svi paketi {#sec-podaci-svi}
+
+### Anketa o drustvenim mrezama, generirani nastavni skup {#podaci-anketa-mreze}
+
+**Identifikator.** `anketa_mreze`.
+
+**Pitanje.** Koliko vremena ljudi provode na mrezama i kako to ide uz povjerenje?
+
+**Status i pristup.** promoviran paketom `P3-EXISTING`; traka `bundled`; jedinica je jedan ispitanik.
+
+**Datoteke.** [`data/anketa-mreze.csv`](data/anketa-mreze.csv), [`data/anketa-mreze-agregat.csv`](data/anketa-mreze-agregat.csv)
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-anketa-mreze).
+
+### Populacija medijskih navika, generirani nastavni skup {#podaci-populacija-medija}
+
+**Identifikator.** `populacija_medija`.
+
+**Pitanje.** Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?
+
+**Status i pristup.** promoviran paketom `P3-EXISTING`; traka `bundled`; jedinica je jedna osoba u generiranoj populaciji.
+
+**Datoteke.** [`data/populacija-medija.csv`](data/populacija-medija.csv), [`data/populacija-medija-agregat.csv`](data/populacija-medija-agregat.csv)
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-populacija-medija).
+
+### UCBAdmissions, zamrznuti orijentir iz R-ove distribucije {#podaci-ucbadmissions}
+
+**Identifikator.** `ucbadmissions`.
+
+**Pitanje.** Kako zbirna stopa upisa moze obrnuti predznak razlike po odjelima?
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedna prijava, agregirana po odjelu, spolu i ishodu.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-ucbadmissions).
+
+### Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije {#podaci-anscombe}
+
+**Identifikator.** `anscombe`.
+
+**Pitanje.** Zasto cetiri skupa s istim sazetcima izgledaju posve razlicito?
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedan konstruirani par vrijednosti.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-anscombe).
+
+### DZS turizam, omedjeni izvadak {#podaci-dzs-turizam}
+
+**Identifikator.** `dzs_turizam`.
+
+**Pitanje.** Kako se dolasci i nocenja mijenjaju kroz godinu i po zupanijama?
+
+**Status i pristup.** promoviran paketom `P3-DZS`; traka `bundled`; jedinica je jedan objavljeni redak sluzbene tablice. U mjesecnoj i godisnjoj datoteci to je zabiljezeni DOLAZAK, ne osoba; u anketnoj datoteci procijenjeno PUTOVANJE stanovnika, ne osoba.
+
+**Datoteke.** [`data/dzs-turizam-mjesecno.csv`](data/dzs-turizam-mjesecno.csv), [`data/dzs-turizam-godisnje.csv`](data/dzs-turizam-godisnje.csv), [`data/dzs-turizam-zupanije-2025.csv`](data/dzs-turizam-zupanije-2025.csv), [`data/dzs-putovanja-stanovnistva-2024.csv`](data/dzs-putovanja-stanovnistva-2024.csv)
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-dzs-turizam).
+
+### Drugi DZS domen {#podaci-dzs-drugi-domen}
+
+**Identifikator.** `dzs_drugi_domen`.
+
+**Pitanje.** Nije odredjeno jer domena i tablice nisu odabrane.
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je neodabrana.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-dzs-drugi-domen).
+
+### DIP, izbori za Hrvatski sabor 2024. {#podaci-dip-2024}
+
+**Identifikator.** `dip_2024`.
+
+**Pitanje.** Kako se izlaznost mijenja po izbornim jedinicama i sto joj je nazivnik?
+
+**Status i pristup.** nije promoviran; traka `portal-mediated`; jedinica je jedna izborna jedinica I.-XII. u sluzbenoj tablici odaziva; XII. jedinica za vazeci i nevazeci listic koristi zbroj sest objavljenih manjinskih redaka.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-dip-2024).
+
+### DigiKat agregat aktera {#podaci-digikat-akteri}
+
+**Identifikator.** `digikat_akteri`.
+
+**Pitanje.** Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedan akter po platformi na odredjeni datum.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-digikat-akteri).
+
+### Determ, puni korpus {#podaci-determ-korpus}
+
+**Identifikator.** `determ_korpus`.
+
+**Pitanje.** Sto se moze i sto se ne moze reproducirati iz ogranicenoga komercijalnog izvora?
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedna objava.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-determ-korpus).
+
+### Eurostat, drustveni pokazatelji {#podaci-eurostat-drustvo}
+
+**Identifikator.** `eurostat_drustvo`.
+
+**Pitanje.** Kako se isti pokazatelj razlikuje medju zemljama u istoj godini?
+
+**Status i pristup.** promoviran paketom `P3-EUROSTAT`; traka `bundled`; jedinica je jedna drzava clanica EU-a za jedan pokazatelj u jednoj, zajednickoj referentnoj godini. Redak je drzavni agregat, a ne osoba.
+
+**Datoteke.** [`data/eurostat-drustvo-2025.csv`](data/eurostat-drustvo-2025.csv)
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-eurostat-drustvo).
+
+### European Social Survey, Round 11, Hrvatska {#podaci-ess-r11-hr}
+
+**Identifikator.** `ess_r11_hr`.
+
+**Pitanje.** Medju hrvatskim ispitanicima u sluzbenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje izmedju neponderirane procjene i procjene s anweight, te koje pogreske odabira ili mjerenja ponder ne moze ukloniti?
+
+**Status i pristup.** nije promoviran; traka `portal-mediated`; jedinica je jedan ispitanik ESS Round 11 iz Hrvatske, s izvornim nacrtnim varijablama.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-ess-r11-hr).
+
+### V-Dem Dataset v16 {#podaci-vdem-v16}
+
+**Identifikator.** `vdem_v16`.
+
+**Pitanje.** Kako se latentni pojam poput demokracije pretvara u broj s nesigurnoscu?
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedna zemlja u jednoj godini.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-vdem-v16).
+
+### COVIDiSTRESS II {#podaci-covidistress-ii}
+
+**Identifikator.** `covidistress_ii`.
+
+**Pitanje.** Zasto vrlo velik dobrovoljni uzorak ne popravlja samoodabir?
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedan dobrovoljni sudionik.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-covidistress-ii).
+
+### World Development Indicators {#podaci-wdi}
+
+**Identifikator.** `wdi`.
+
+**Pitanje.** Nije odredjeno jer pokazatelj nije odabran.
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedna zemlja u jednoj godini.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-wdi).
+
+### ParlaMint-HR 5.0 {#podaci-parlamint-hr}
+
+**Identifikator.** `parlamint_hr`.
+
+**Pitanje.** Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?
+
+**Status i pristup.** nije promoviran; traka `bundled`; jedinica je jedan govor s metapodacima govornika.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-parlamint-hr).
+
+### ParlaSent 1.0 {#podaci-parlasent}
+
+**Identifikator.** `parlasent`.
+
+**Pitanje.** Kako se ljudska oznaka pretvara u zabiljezeni referentni ishod, i koliko je pogresiva?
+
+**Status i pristup.** promoviran paketom `P3-TEXT`; traka `bundled`; jedinica je jedna oznacena recenica.
+
+**Datoteke.** [`data/parlament_oznake.csv`](data/parlament_oznake.csv)
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-parlasent).
+
+### GFI/FINA {#podaci-gfi-fina}
+
+**Identifikator.** `gfi_fina`.
+
+**Pitanje.** Sto se smije tvrditi iz izvora koji citatelj ne moze otvoriti?
+
+**Status i pristup.** nije promoviran; traka `external-only`; jedinica je jedan poslovni subjekt.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-gfi-fina).
+
+### DigiKat, agregat digitalnoga medijskog prostora {#podaci-digikat-mediji}
+
+**Identifikator.** `digikat_mediji`.
+
+**Pitanje.** Kako se objavljivanje i vidljivost razlikuju medju platformama i medju izvorima?
+
+**Status i pristup.** promoviran paketom `P3-DIGIKAT`; traka `bundled`; jedinica je jedna celija agregata, ne jedna objava. U platformskim datotekama to je platforma u godini ili u mjesecu; u datoteci izvora jedan izvor kroz cijeli raspon korpusa. Pojedinacna objava nije u ovim datotekama i ne moze se iz njih obnoviti.
+
+**Datoteke.** [`data/digikat-platforme-godisnje.csv`](data/digikat-platforme-godisnje.csv), [`data/digikat-platforme-mjesecno.csv`](data/digikat-platforme-mjesecno.csv), [`data/digikat-izvori.csv`](data/digikat-izvori.csv)
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-digikat-mediji).
+
+### Registar drzavnih potpora, agregati koncentracije {#podaci-rdp-potpore}
+
+**Identifikator.** `rdp_potpore`.
+
+**Pitanje.** Koliko je koncentrirana dodjela drzavnih potpora i koliko ju je snimka registra uopce zabiljezila?
+
+**Status i pristup.** nije promoviran; traka `bundled`; jedinica je jedna agregatna celija. Ovisno o datoteci to je skupina primatelja, godina, razred velicine, vrsta potpore ili jedan naslovni pokazatelj. Pojedinacna dodjela i pojedinacni primatelj nisu u ovim datotekama i nijedan OIB se ne pojavljuje.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-rdp-potpore).
+
+### BDP po stanovniku, dugi niz i pet procjena {#podaci-bdp-dugi-niz}
+
+**Identifikator.** `bdp_dugi_niz`.
+
+**Pitanje.** Koliko se razlikuju objavljene procjene iste velicine i sto se dobiva kad ih se spoji u jedan niz?
+
+**Status i pristup.** nije promoviran; traka `bundled`; jedinica je jedna godina. U datoteci izvora to je godina s pet odvojenih procjena, u spojenoj datoteci godina jednoga ulancanog niza, a u datoteci razdoblja jedno imenovano razdoblje.
+
+**Datoteke.** Nema javne lokalne datoteke. Paket nije promoviran.
+
+[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-bdp-dugi-niz).

@@ -4992,7 +4992,37 @@ handoffs:
           - "report:notes/reports/p3-existing-2026-08-05.md"
       - target_packet: P5-C
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        acknowledgement: >-
+          P5-C ce prije zatvaranja zasebno provjeriti svaku povijesnu obvezu
+          ovoga handoffa. Oba javna prikaza moraju nastati iz data/katalog.yml,
+          a nijedna stavka nece se zatvoriti agregacijom. Paket nece pripisati
+          svjezi clone ili clean-worktree render, nece ponovno zatvarati vec
+          prihvacene stavke i nece zatvoriti putovnicu bez dokaza da je potpuna
+          putovnica dostupna prije prve analiticke uporabe.
+        disposition: >-
+          P5-C je provjerio svaku obvezu zasebno. R25-CATALOG-single-source
+          prihvacen je jer jedan graditelj iz data/katalog.yml reproducira oba
+          javna prikaza i route artefakt, a izolirani checker zahtijeva njihovu
+          bajt-po-bajt jednakost. R25-CATALOG-public-views prolazi vlastite
+          rute, veze i tiskovni dokaz. R25-CATALOG-passport ostaje ratified jer
+          ovaj paket nije dokazao potpunu putovnicu prije prve analiticke
+          uporabe u poglavlju. R32-CATALOG-paired-views,
+          R25-CATALOG-storage i R25-CATALOG-validation cuvaju ranije prihvaceno
+          stanje bez ponovnoga zatvaranja. R08-CATALOG-local-independence ostaje
+          ratified za P7-CLEAN-BUILD; nije proveden ni pripisan svjezi clone ili
+          clean-worktree render.
+        evidence:
+          - "item:R25-CATALOG-single-source-accepted-by-its-own-two-view-regeneration-test"
+          - "item:R25-CATALOG-public-views-accepted-by-its-own-route-link-and-print-tests"
+          - "item:R25-CATALOG-passport-remains-ratified-with-first-use-half-unproved"
+          - "audit:R32-CATALOG-paired-views-R25-CATALOG-storage-and-R25-CATALOG-validation-not-reclosed"
+          - "item:R08-CATALOG-local-independence-remains-ratified-for-P7-CLEAN-BUILD"
+          - "check:APPENDIX_C_CHECK_OK-regeneration-2-of-2-clean-pathway-verified"
+          - "boundary:no-fresh-clone-or-clean-worktree-render-claimed"
+          - "report:notes/reports/p5-c-2026-08-25.md"
       - target_packet: P7-CLEAN-BUILD
         gate: before_close
         state: pending
@@ -5250,7 +5280,32 @@ handoffs:
           - "report:notes/reports/wc-c11-2026-08-12.md#podaci-i-regenerirani-artefakti"
       - target_packet: P5-C
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        acknowledgement: >-
+          P5-C ce oba javna prikaza graditi iz kanonskoga kataloga i u njima
+          sacuvati tocne brojnosti 90, 84, 66 i 60 od 300 te 15101, 13378,
+          10827, 5839 i 4855 od 50000. Svaki prikazani udio nosit ce brojnik i
+          nazivnik, a svaki prikazani prosjek svoj cjelobrojni zbroj; datoteke
+          i njihove vrijednosti nece se zaokruzivati ni ponovno racunati u
+          rukopisu.
+        disposition: >-
+          Oba generirana prikaza prenose brojnosti 90, 84, 66 i 60 od 300 te
+          15101, 13378, 10827, 5839 i 4855 od 50000. Svih 14 prikazanih udjela
+          nosi vlastiti brojnik i nazivnik, a svih 23 prosjeka svoj cjelobrojni
+          zbroj. Neovisni checker ponovno racuna te vrijednosti iz analitickih
+          datoteka i usporedjuje ih s agregatima bez tolerancije. Vec prihvaceni
+          R32-CATALOG-paired-views nije ponovno zatvoren ni promijenjen.
+        evidence:
+          - "source:podaci.qmd#sec-podaci-provjera"
+          - "source:dodaci/c-katalog-podataka.qmd#sec-c-provjera"
+          - "artifact:config/appendix-c-data-route.json#aggregate_hand_checks"
+          - "result:anketa-mreze-counts-90-84-66-60-of-300"
+          - "result:populacija-medija-counts-15101-13378-10827-5839-4855-of-50000"
+          - "check:APPENDIX_C_CHECK_OK-shares-14-means-23"
+          - "check:DATA_INTEGRITY_OK-generated-sets-2-rows-50300-reconciliations-10"
+          - "report:notes/reports/p5-c-2026-08-25.md"
 
   H-P3-EXISTING-003:
     source_packet: P3-EXISTING
@@ -5695,7 +5750,32 @@ handoffs:
           - "report:notes/reports/wa-c03-2026-08-06.md#dolazne-isporuke"
       - target_packet: P5-C
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        acknowledgement: >-
+          P5-C ce administrativne eVisitor dolaske iz BS_TU11 i BS_TU12
+          prikazati odvojeno od anketnih procjena putovanja iz T03. Tocan
+          administrativni ostatak 0 i najveci anketni ostatak 1 u svakoj od
+          triju razgradnji bit ce vidljivi kao dvije razlicite provjere; brojevi
+          se nece zbrajati, pretvarati u jednu seriju ni zaokruzivati do lazne
+          jednakosti.
+        disposition: >-
+          Oba javna prikaza oznacuju BS_TU11 i BS_TU12 kao administrativno
+          eVisitor prebrojavanje, a T03 kao anketnu procjenu. Sest
+          administrativnih uskladjenja biljezi toleranciju i najveci ostatak 0;
+          tri anketna uskladjenja biljeze toleranciju i najveci ostatak 1.
+          Artefakt izricito postavlja measures_are_comparable_series na false,
+          pa se dvije mjere ne sastavljaju u jednu seriju i ostatak 1 se ne
+          zaokruzuje.
+        evidence:
+          - "source:podaci.qmd#sec-dzs-dvije-mjere"
+          - "source:dodaci/c-katalog-podataka.qmd#sec-dzs-dvije-mjere"
+          - "artifact:config/appendix-c-data-route.json#dzs_reconciliation"
+          - "result:administrative-checks-6-largest-residual-0"
+          - "result:survey-checks-3-largest-residual-1"
+          - "check:APPENDIX_C_CHECK_OK-dzs-admin-residual-0-dzs-survey-residual-1"
+          - "report:notes/reports/p5-c-2026-08-25.md"
       - target_packet: P6-DATA
         gate: before_close
         state: pending
@@ -6393,7 +6473,26 @@ handoffs:
     deliveries:
       - target_packet: P5-C
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-25"
+        resolved_at: "2026-08-25"
+        acknowledgement: >-
+          P5-C ce uskladiti data/README.md s kanonskim statusima svih paketa iz
+          data/katalog.yml, ukloniti zastarjelu tvrdnju da nijedan izvedeni
+          paket nije promoviran i pritom nece prosiriti nijednu licencu,
+          dozvolu, potrosaca, pristupnu traku ni dopustenu tvrdnju.
+        disposition: >-
+          data/README.md sada navodi da je digikat_mediji promoviran paketom
+          P3-DIGIKAT, dok rdp_potpore i bdp_dugi_niz ostaju nepromovirani.
+          Statusi se podudaraju s data/katalog.yml i nijedna licenca, dozvola,
+          pristupna traka, datoteka ni granica tvrdnje nije prosirena.
+        evidence:
+          - "source:data/README.md#paketi-iz-vanjskih-izvora"
+          - "source:data/katalog.yml#digikat_mediji-promoted-true-promoted-by-P3-DIGIKAT"
+          - "source:data/katalog.yml#rdp_potpore-and-bdp_dugi_niz-promoted-false"
+          - "artifact:config/appendix-c-data-route.json#readme_status"
+          - "check:APPENDIX_C_CHECK_OK-readme-canonical"
+          - "report:notes/reports/p5-c-2026-08-25.md"
 
   H-WB-C06-001:
     source_packet: WB-C06
@@ -12027,4 +12126,36 @@ packet_reviews:
       - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
       - H-P5-B-001 carries the exact supported guarded and clean-install boundary to P5-ROUTES and no other future-relevant effect was found
       - P5-C is the sole next permitted packet but is not claimed inside P5-B
+      - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
+  P5-C:
+    reviewed_at: "2026-08-25"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P5-C nije otkrio novu buducu obvezu. Prihvaceni zapis i ovisnost
+      P5-ROUTES o P5-C vec nose generiranu javnu rutu. H-P3-CATALOG-002 i dalje
+      zasebno cuva pre-use putovnicu i clean-build vlasnistvo, H-P3-DZS-004
+      ostaje dostavljen P6-DATA, a ranija prava i granice paketa nisu
+      promijenjene. Ponavljanje tih kontrola ne bi dodalo novo vlasnistvo ni
+      informaciju.
+    implementation_state: "appendix-c-state:sha256-55e5d873c1b03fac115505d263ad3c581b740260da68e176a37e36ece9cf1230"
+    checks:
+      - H-P3-CATALOG-002 H-P3-EXISTING-002 H-P3-DZS-004 and H-WB-C04-001 were acknowledged before substantive edits and consumed before closeout with separate dispositions and exact evidence
+      - one builder reads data/katalog.yml as the sole machine-readable metadata record and regenerates podaci.qmd dodaci/c-katalog-podataka.qmd and the route artifact together
+      - scripts/check-appendix-c.py reproduces both views and the artifact byte for byte from an isolated set of declared inputs
+      - all 20 packages have matching public and appendix anchors and all local download and cross-reference targets resolve
+      - anketa_mreze retains counts 90 84 66 and 60 of 300 and populacija_medija retains 15101 13378 10827 5839 and 4855 of 50000
+      - every displayed share has its numerator and denominator and every displayed mean has its integer total
+      - six administrative DZS reconciliations have largest residual 0 while three survey reconciliations have largest residual 1 and the measures are not presented as comparable series
+      - data/README.md now records digikat_mediji as promoted while rdp_potpore and bdp_dugi_niz remain unpromoted
+      - R25-CATALOG-single-source and R25-CATALOG-public-views advance only on their separate exact tests
+      - R25-CATALOG-passport and R08-CATALOG-local-independence remain ratified and no fresh-clone or clean-worktree render is claimed
+      - R32-CATALOG-paired-views R25-CATALOG-storage and R25-CATALOG-validation retain their earlier accepted states and were not reclosed by aggregation
+      - isolated HTML proves 20 plus 20 package anchors and all local links while targeted B5 PDF proof has 78 pages zero raw markup zero outside text blocks and readable aggregate DZS and long-file records
+      - the PDF used Latin Modern because Literata is unavailable so the proof is limited to fallback-font layout and readability
+      - catalogue regeneration snapshot data-integrity inventory token and appendix style checks pass
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
+      - no new future-relevant effect requires a handoff because accepted packet evidence and existing handoffs already carry every later ownership and boundary
+      - P5-D is the sole next permitted packet but is not claimed inside P5-C
       - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
