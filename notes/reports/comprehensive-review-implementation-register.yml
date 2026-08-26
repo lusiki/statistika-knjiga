@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-E"
-  next_permitted_packet: "P5-F"
+  last_completed_packet: "P5-F"
+  next_permitted_packet: "P5-G"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16863,7 +16863,7 @@ packets:
     sequence: 158
     phase: "5"
     kind: "appendix"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P2-ASSESS"
       - "P5-E"
@@ -16875,13 +16875,74 @@ packets:
       - "The appendix fulfils its exact public promise from canonical files and values."
       - "Its HTML, print, and supported pathway behavior is verified."
       - "The P5-F packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "appendix-f-state:sha256-837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70"
+      required_evidence:
+        - requirement: "appendix-specific route artifact"
+          artifacts:
+            - "source:dodaci/f-ai-protokol.qmd@sha256-86f895203455863567cb7a0b083cfb38247617d824e6aa9f11e1bf413762ec4d"
+            - "artifact:config/appendix-f-ai-route.json@sha256-e62eec70b9d3362e027d62bd8c6652ff3062b8e09114ec02a3c7ab529f81a9f4"
+            - "source:scripts/build-appendix-f-route.py@sha256-cd285e9eddf61858d1debe1acbaef9ec3e04c2c8c4b8702f0a96bf47c2cebe41"
+            - "source:scripts/check-appendix-f.py@sha256-2f46ed9d555da074657355d8b64885b7b78daac31320bdeff249a06f347cdd12"
+            - "report:notes/reports/p5-f-2026-08-26.md"
+        - requirement: "clean pathway test"
+          artifacts:
+            - "check:APPENDIX_F_CHECK_OK-lanes-3-exercises-95-units-19"
+            - "check:95-of-95-live-prompt-fingerprints-and-safe-routes"
+            - "check:declared-input-clean-regeneration-byte-identical"
+            - "check:three-packet-negative-fixtures-fail-closed"
+            - "boundary:required-vendor-model-and-version-null"
+        - requirement: "cross-reference and print proof"
+          artifacts:
+            - "check:two-Chapter-18-target-anchors-resolve-with-chapter-source-unchanged"
+            - "render:isolated-HTML-sha256-cb4b1d87b9d4e17b0010278009361684e1552e1a09ce195bf50cbfa01487f255"
+            - "render:targeted-b5-pdf-sha256-0d10f6d4f1131a0771289cc84e724d05595ae2e196ec620095718ac311398300"
+            - "check:6-page-PDF-176-by-250-mm-no-raw-markup"
+            - "visual:all-six-pages-readable-without-clipping-overlap-or-illegible-table-breaks"
+            - "boundary:targeted-proof-not-full-release-build"
+            - "check:STYLE-md-lint-zero-deterministic-candidates"
+      outputs:
+        - output: "P5-F durable artifact and evidence record for: Copyable AI protocol and privacy/tool lanes."
+          artifacts:
+            - "source:dodaci/f-ai-protokol.qmd"
+            - "artifact:config/appendix-f-ai-route.json"
+            - "source:scripts/build-appendix-f-route.py"
+            - "source:scripts/check-appendix-f.py"
+            - "report:notes/reports/p5-f-2026-08-26.md"
+        - output: "Completion evidence is tied to the declared P5-F source state and bounded scope."
+          artifacts:
+            - "appendix-f-state:sha256-837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70"
+            - "handoff:H-G-A2D-005-consumed-before-first-substantive-edit"
+            - "audit:95-exercises-19-units-5-classes-zero-required-transfer"
+            - "boundary:chapter-18-source-unchanged"
+            - "boundary:H-P5-D-001-remains-pending-for-P5-ROUTES"
+      exit_tests:
+        - test: "The appendix fulfils its exact public promise from canonical files and values."
+          result: "passed"
+          evidence:
+            - "check:exactly-three-D15-lanes-with-their-canonical-conditions"
+            - "check:course-policy-v1.0-as-of-2026-08-04-not-university-regulation"
+            - "check:exact-disclosure-statement-and-eight-stage-model-independent-protocol"
+            - "check:all-95-exercises-have-safe-routes-and-zero-require-prohibited-data"
+        - test: "Its HTML, print, and supported pathway behavior is verified."
+          result: "passed"
+          evidence:
+            - "check:isolated-clean-regeneration-is-byte-identical"
+            - "check:two-Chapter-18-cross-references-resolve-without-editing-Chapter-18"
+            - "visual:targeted-B5-PDF-all-six-pages-pass"
+            - "boundary:targeted-proof-does-not-claim-a-full-release-build"
+        - test: "The P5-F packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-appendix-f-artifact-and-checker-verify-lanes-disclosure-protocol-exercises-links-and-clean-regeneration"
+            - "check:H-G-A2D-005-consumed-with-exact-policy-source-route-and-audit-evidence"
+            - "report:notes/reports/p5-f-2026-08-26.md"
     contract: "appendix"
     required_evidence:
       - "appendix-specific route artifact"
       - "clean pathway test"
       - "cross-reference and print proof"
-    change_reference: null
+    change_reference: "appendix-f-state:sha256-837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70"
   P5-G:
     sequence: 159
     phase: "5"
@@ -29784,7 +29845,7 @@ items:
       location: "§13"
     description: "Source/date privacy and tool claims while retaining a model-independent protocol."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -29802,11 +29863,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-F"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/f-ai-protokol.qmd@sha256-86f895203455863567cb7a0b083cfb38247617d824e6aa9f11e1bf413762ec4d"
+      - "artifact:config/appendix-f-ai-route.json@sha256-e62eec70b9d3362e027d62bd8c6652ff3062b8e09114ec02a3c7ab529f81a9f4#course_policy"
+      - "check:exactly-three-D15-lanes-with-canonical-conditions"
+      - "check:policy-v1.0-dated-2026-08-04-and-not-university-regulation"
+      - "check:no-external-policy-title-link-version-guarantee-or-citation-invented"
+      - "check:APPENDIX_F_CHECK_OK-lanes-3-disclosure-verified"
+      - "render:targeted-six-page-B5-PDF-all-pages-pass"
+      - "report:notes/reports/p5-f-2026-08-26.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-f-state:sha256-837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70"
   R24-BOOK-four-activities:
     parents:
       - "R24"
@@ -30953,7 +31022,7 @@ items:
       location: "§9/§12 Appendix F"
     description: "Implement question/target, sharing decision, assumptions/steps, independent checks, sensitivity, record, disclosure, and responsibility."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -30970,11 +31039,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-F"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/f-ai-protokol.qmd@sha256-86f895203455863567cb7a0b083cfb38247617d824e6aa9f11e1bf413762ec4d"
+      - "artifact:config/appendix-f-ai-route.json@sha256-e62eec70b9d3362e027d62bd8c6652ff3062b8e09114ec02a3c7ab529f81a9f4#protocol"
+      - "check:all-eight-protocol-stages-present-in-order"
+      - "check:worked-use-covers-all-eight-stages-on-a-safe-teaching-aggregate"
+      - "check:exact-D15-disclosure-text-present"
+      - "check:required-vendor-model-and-version-null"
+      - "check:APPENDIX_F_CHECK_OK-protocol-8-of-8-clean-pathway-verified"
+      - "render:targeted-six-page-B5-PDF-all-pages-pass"
+      - "report:notes/reports/p5-f-2026-08-26.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-f-state:sha256-837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70"
   R24-BOOK-AppendixF-references:
     parents:
       - "R24"
@@ -31066,7 +31144,7 @@ items:
       location: "§12 AI strand"
     description: "Prohibit required public-model upload of non-shareable data."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -31085,11 +31163,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-F"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/appendix-f-ai-route.json@sha256-e62eec70b9d3362e027d62bd8c6652ff3062b8e09114ec02a3c7ab529f81a9f4#exercise_audit"
+      - "inventory:95-canonical-solution-records-in-19-units-and-five-task-classes"
+      - "check:95-of-95-live-prompt-fingerprints-verified"
+      - "check:zero-assistant-transfer-required"
+      - "check:zero-personal-identifiable-restricted-or-non-shareable-data-required"
+      - "check:95-of-95-safe-supplied-data-routes-present"
+      - "check:19-of-19-closure-reports-bound-to-their-units"
+      - "check:sensitive_transfer_required-negative-fixture-exit-1"
+      - "boundary:no-chapter-source-edited"
+      - "report:notes/reports/p5-f-2026-08-26.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-f-state:sha256-837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70"
   R24-BOOK-dated-product-claims:
     parents:
       - "R24"

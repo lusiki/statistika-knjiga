@@ -2442,7 +2442,39 @@ handoffs:
     deliveries:
       - target_packet: P5-F
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        acknowledgement: >-
+          P5-F prihvaća D15 isključivo kao vlastitu datiranu politiku kolegija
+          uz udžbenik, inačicu 1.0 od 2026-08-04, u kontekstu matične ustanove
+          Hrvatskoga katoličkog sveučilišta. To nije sveučilišni propis ni
+          vanjski pravni zaključak. Paket će provesti točno tri zapisane trake,
+          tekst objave uporabe i modelno neovisan protokol, bez izmišljanja
+          vanjskoga naslova, poveznice, propisa, inačice ili jamstva alata.
+        disposition: >-
+          Odluka je potrošena na vratima before_start prije prvoga sadržajnog
+          zahvata. P5-F preuzima točne uvjete javne, ugovorno zaštićene i
+          institucijski odobrene lokalne trake te obvezu revizije svih 95
+          kanonskih zadataka. Dokaz provedbe bit će vezan uz završni izvor
+          Dodatka F, strojno čitljiv zapis svake revidirane rute i zasebne
+          paketne provjere; potrošnja ne stvara ni ne podrazumijeva vanjski
+          institucijski autoritet.
+        evidence:
+          - "decision:G-A2d"
+          - "decision:D15"
+          - "report:notes/reports/g-a2d-policy-decisions-2026-08-04.md"
+          - "register:item-R24-AF-privacy-sources-read-in-full"
+          - "register:item-R24-AF-copyable-protocol-read-in-full"
+          - "register:item-R24-BOOK-no-sensitive-upload-read-in-full"
+          - "boundary:course-policy-v1.0-as-of-2026-08-04-not-university-regulation"
+          - "inventory:assessment-solution-records-95-records-in-19-units-read-in-full"
+          - "source:dodaci/f-ai-protokol.qmd@sha256-86f895203455863567cb7a0b083cfb38247617d824e6aa9f11e1bf413762ec4d"
+          - "artifact:config/appendix-f-ai-route.json@sha256-e62eec70b9d3362e027d62bd8c6652ff3062b8e09114ec02a3c7ab529f81a9f4"
+          - "check:APPENDIX_F_CHECK_OK-lanes-3-exercises-95-safe-routes-95-of-95"
+          - "check:exact-disclosure-and-eight-stage-model-independent-protocol"
+          - "check:chapter-18-policy-reconciled-without-editing-chapter-18"
+          - "report:notes/reports/p5-f-2026-08-26.md"
       - target_packet: P6-EVIDENCE
         gate: before_start
         state: pending
@@ -12320,3 +12352,33 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P5-F is the sole next permitted packet but is not claimed inside P5-E
       - no external message push merge tag archive deployment publication independent-review author-reading or final-stage claim is made or authorised
+  P5-F:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_reason: >-
+      P5-F je proveo D15 i reviziju svih 95 kanonskih zadataka bez otkrivanja
+      nove obveze za kasniji paket. Postojeća isporuka H-G-A2D-005 za
+      P6-EVIDENCE već nosi buduće ponovno datiranje i dokazivanje pravnih,
+      institucijskih i proizvodnih tvrdnji, a H-P5-D-001 ostaje pending za
+      P5-ROUTES; paket ne stvara novi podatak, vlasnika ni vratnicu.
+    implementation_state: "appendix-f-state:sha256-837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70"
+    checks:
+      - H-G-A2D-005 was acknowledged and consumed at before_start before the first substantive edit with the course-policy and authority boundary intact
+      - D15 is implemented as the course own policy version 1.0 dated 2026-08-04 with Hrvatsko katolicko sveuciliste only as the home institution and not as issuer of a university regulation
+      - Appendix F contains exactly the public contractually protected and institutionally approved local lanes with every exact canonical condition
+      - no external policy title link regulation version tool guarantee empirical result or citation is invented
+      - the exact disclosure statement and all eight protocol stages are present and the protocol requires no vendor model or version
+      - all 95 live prompts in 19 units and five task classes match their solution-record fingerprints
+      - zero exercises require assistant transfer or personal identifiable restricted or non-shareable data and all 95 carry a safe route
+      - each of the three governed items advances only on its own exact lane protocol or all-exercise audit evidence while parent R24 remains ratified because other children remain open
+      - Chapter 18 remains unchanged at sha256 97703ea16a258229ceffbe86fcc8574b3b707adc0f6ee8bcacdade41504d7da5 and both policy references resolve
+      - scripts/check-appendix-f.py verifies lanes disclosure protocol all exercises clean regeneration cross-references print inputs and the Chapter 18 no-edit boundary
+      - the three packet negative fixtures fail closed for a dropped lane a required sensitive transfer and a required vendor
+      - isolated Croatian HTML resolves both Chapter 18 links and the targeted six-page B5 PDF passes visual inspection without clipping overlap or illegible table breaks
+      - the targeted PDF is a bounded print-layout proof and is not claimed as a full release build
+      - the chapter ledger config/book-inventory.json solution_routes all chapter sources and parent R24 remain unchanged
+      - H-P5-D-001 remains pending for P5-ROUTES and P5-F neither changes nor weakens scripts/check-citations.py
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P5-G is the sole next permitted packet but is not claimed inside P5-F
+      - no external message push merge tag archive deployment publication author-reading or final-stage claim is made or authorised
