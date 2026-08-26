@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-25"
+  last_updated: "2026-08-26"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-D"
-  next_permitted_packet: "P5-E"
+  last_completed_packet: "P5-E"
+  next_permitted_packet: "P5-F"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16777,7 +16777,7 @@ packets:
     sequence: 157
     phase: "5"
     kind: "appendix"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P2-TERMS"
       - "P5-D"
@@ -16789,13 +16789,76 @@ packets:
       - "The appendix fulfils its exact public promise from canonical files and values."
       - "Its HTML, print, and supported pathway behavior is verified."
       - "The P5-E packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "appendix-e-state:sha256-a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f"
+      required_evidence:
+        - requirement: "appendix-specific route artifact"
+          artifacts:
+            - "source:dodaci/e-rjecnik.qmd@sha256-0f52ab8ae6ad73fedad452e7ba22d6c96da54623002480accc63f11d56aa8e64"
+            - "source:pojmovnik.qmd@sha256-49a9b0e76c39f7770b80923aa9e074a211f8f3dfb8195e90ef13732289f401ba"
+            - "artifact:config/appendix-e-terminology-route.json@sha256-100b0f0f9d9f0c6022e82a8785db0afb213083960f810c85975126779fb27418"
+            - "source:scripts/build-terminology-views.py@sha256-c3eb6b2833915c493df8f9bdaabe91ea59c734385649fdd219d30ab3256030e0"
+            - "source:scripts/check-appendix-e.py@sha256-ba07660fcbea56479383dbc5c34541303e896a576162cf5ffc7447d462c66693"
+            - "report:notes/reports/p5-e-2026-08-26.md"
+        - requirement: "clean pathway test"
+          artifacts:
+            - "check:APPENDIX_E_CHECK_OK-concepts-52-edges-664-views-2-of-2"
+            - "check:registry-parity-superseded-12-departures-3-rules-4-stable-ids-3"
+            - "check:declared-input-clean-regeneration-byte-identical"
+            - "check:three-packet-negative-fixtures-fail-closed"
+            - "boundary:independent-terminology-review-claim-false"
+        - requirement: "cross-reference and print proof"
+          artifacts:
+            - "check:52-unique-concept-routes-resolve-to-existing-chapter-def-anchors"
+            - "render:isolated-HTML-52-concept-links"
+            - "render:targeted-b5-pdf-sha256-f2a820afb8d2385343d87a2fe7c5882b85a60b4812bdbe2a510641ec5086b043"
+            - "check:15-page-PDF-176-by-250-mm-57-links-all-five-headings-present"
+            - "visual:all-fifteen-pages-readable-without-clipping-overlap-or-illegible-table-breaks"
+            - "boundary:fallback-font-targeted-proof-not-full-release-build"
+            - "check:STYLE-md-lint-zero-deterministic-candidates"
+      outputs:
+        - output: "P5-E durable artifact and evidence record for: Regenerated terminology appendix."
+          artifacts:
+            - "source:dodaci/e-rjecnik.qmd"
+            - "source:pojmovnik.qmd"
+            - "artifact:config/appendix-e-terminology-route.json"
+            - "source:scripts/build-terminology-views.py"
+            - "source:scripts/check-appendix-e.py"
+            - "report:notes/reports/p5-e-2026-08-26.md"
+        - output: "Completion evidence is tied to the declared P5-E source state and bounded scope."
+          artifacts:
+            - "appendix-e-state:sha256-a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f"
+            - "handoff:H-G-A2C-001-consumed-with-registry-and-review-boundary"
+            - "handoff:H-P2-TERMS-004-consumed-with-two-generated-reader-views"
+            - "boundary:H-P5-D-001-remains-pending-for-P5-ROUTES"
+            - "boundary:no-chapter-stage-definition-identifier-or-solution-route-change"
+      exit_tests:
+        - test: "The appendix fulfils its exact public promise from canonical files and values."
+          result: "passed"
+          evidence:
+            - "check:both-reader-visible-route-blocks-are-identical-and-registry-derived"
+            - "check:all-superseded-routes-and-departure-reasons-are-reader-visible"
+            - "check:no-superseded-form-is-presented-as-an-accepted-synonym"
+            - "check:stale-partial-draft-marker-absent-and-independent-review-claim-false"
+        - test: "Its HTML, print, and supported pathway behavior is verified."
+          result: "passed"
+          evidence:
+            - "check:isolated-clean-regeneration-is-byte-identical"
+            - "check:52-source-cross-references-and-664-concept-graph-edges-validate"
+            - "visual:targeted-B5-PDF-all-fifteen-pages-pass"
+            - "boundary:targeted-proof-does-not-claim-a-full-release-build"
+        - test: "The P5-E packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-appendix-e-artifact-and-checker-verify-views-registry-routes-identifiers-links-and-clean-regeneration"
+            - "check:H-G-A2C-001-and-H-P2-TERMS-004-consumed-with-exact-source-and-route-evidence"
+            - "report:notes/reports/p5-e-2026-08-26.md"
     contract: "appendix"
     required_evidence:
       - "appendix-specific route artifact"
       - "clean pathway test"
       - "cross-reference and print proof"
-    change_reference: null
+    change_reference: "appendix-e-state:sha256-a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f"
   P5-F:
     sequence: 158
     phase: "5"
@@ -34082,7 +34145,7 @@ items:
       location: "§10 terminology"
     description: "Render alternatives, competing conventions, and reasons for deliberate departures."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -34101,11 +34164,20 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-E"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/e-rjecnik.qmd@sha256-0f52ab8ae6ad73fedad452e7ba22d6c96da54623002480accc63f11d56aa8e64"
+      - "source:pojmovnik.qmd@sha256-49a9b0e76c39f7770b80923aa9e074a211f8f3dfb8195e90ef13732289f401ba"
+      - "artifact:config/appendix-e-terminology-route.json@sha256-100b0f0f9d9f0c6022e82a8785db0afb213083960f810c85975126779fb27418"
+      - "check:APPENDIX_E_CHECK_OK-registry-parity-two-views-clean-pathway-xrefs-verified"
+      - "check:12-superseded-routes-not-accepted-synonyms-3-departures-with-reasons-4-meaning-rules"
+      - "check:52-def-routes-and-3-stable-identifiers-verified"
+      - "render:targeted-15-page-b5-pdf-sha256-f2a820afb8d2385343d87a2fe7c5882b85a60b4812bdbe2a510641ec5086b043"
+      - "boundary:no-independent-terminology-review-claim"
+      - "report:notes/reports/p5-e-2026-08-26.md"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-e-state:sha256-a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f"
   R36-BOOK-new-cluster:
     parents:
       - "R36"

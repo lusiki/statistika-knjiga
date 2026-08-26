@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-25"
+last_updated: "2026-08-26"
 inventory_child_count: 371
 
 protocol:
@@ -3850,7 +3850,29 @@ handoffs:
           - "check:scripts/check-review-workflow.R-before-P2-TERMS-claim"
       - target_packet: P5-E
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        acknowledgement: >-
+          P5-E prihvaca kanonski terminoloski registar kao jedini izvor
+          prihvacenih varijanti i namjernih odstupanja s njihovim razlozima.
+          Oba citateljska prikaza bit ce izvedena iz toga registra bez
+          preimenovanja stabilnih #def- identifikatora, bez tihoga
+          normiranja spornoga oblika i bez tvrdnje o neovisnoj terminoloskoj
+          recenziji.
+        disposition: >-
+          Dodatak E i Pojmovnik sada iz istoga terminološkog registra generiraju
+          identične uputnice za svih dvanaest povučenih oblika, tri namjerna
+          odstupanja s razlozima i četiri pravila značenja. Povučen oblik nije
+          prikazan kao prihvaćen sinonim, tri stabilna #def- identifikatora
+          ostaju nepromijenjena, a oba prikaza izričito navode da neovisna
+          terminološka recenzija nije pribavljena.
+        evidence:
+          - "state:appendix-e-state:sha256-a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry"
+          - "artifact:config/appendix-e-terminology-route.json@sha256-100b0f0f9d9f0c6022e82a8785db0afb213083960f810c85975126779fb27418"
+          - "check:APPENDIX_E_CHECK_OK-registry-parity-stable-ids-3-independent-review-claim-false"
+          - "report:notes/reports/p5-e-2026-08-26.md#dolazni-handoffi"
 
   H-G-A2C-002:
     source_packet: G-A2c
@@ -4321,7 +4343,30 @@ handoffs:
     deliveries:
       - target_packet: P5-E
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        acknowledgement: >-
+          P5-E ce ukloniti zastarjeli status djelomicnoga nacrta u Dodatku E
+          i iz terminology_registry generirati oba javna prikaza prihvacenih
+          varijanti i namjernih odstupanja s razlozima. Nijedan prevladani
+          oblik nece biti prikazan kao prihvatljiv sinonim i nece nastati
+          drugi izvor terminoloske istine.
+        disposition: >-
+          Zastarjela oznaka djelomičnoga nacrta uklonjena je, a Dodatak E sada
+          sadrži svih 52 živa formalno definirana pojma. Oba čitateljska prikaza
+          nose isti generirani terminološki blok iz terminology_registry, sa
+          svih dvanaest uputnica za povučene oblike i sva tri namjerna
+          odstupanja s točnim registriranim razlozima. Generator i provjeritelj
+          onemogućuju drugi izvor istine i prikaz povučenoga oblika kao
+          prihvaćenoga sinonima.
+        evidence:
+          - "state:appendix-e-state:sha256-a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f"
+          - "source:dodaci/e-rjecnik.qmd@sha256-0f52ab8ae6ad73fedad452e7ba22d6c96da54623002480accc63f11d56aa8e64"
+          - "source:pojmovnik.qmd@sha256-49a9b0e76c39f7770b80923aa9e074a211f8f3dfb8195e90ef13732289f401ba"
+          - "check:APPENDIX_E_CHECK_OK-views-2-of-2-clean-pathway-verified"
+          - "check:negative-fixtures-superseded-as-accepted-departure-dropped-stable-id-renamed-fail-closed"
+          - "report:notes/reports/p5-e-2026-08-26.md#dolazni-handoffi"
 
   H-P2-DOCS-001:
     source_packet: P2-DOCS
@@ -12246,3 +12291,32 @@ packet_reviews:
       - config/book-inventory.json solution_routes remains empty and chapter-ledger.json remains unchanged
       - P5-E is the sole next permitted packet but is not claimed inside P5-D
       - no external message push merge tag archive deployment publication author-reading claim or final-stage claim is made or authorised
+  P5-E:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_reason: >-
+      P5-E je u oba prikaza proveo jedini kanonski terminološki registar, nije
+      pronašao novu obvezu za kasniji paket i nije dirao zasebni rizik
+      H-P5-D-001, koji ostaje pending za P5-ROUTES.
+    implementation_state: "appendix-e-state:sha256-a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f"
+    checks:
+      - H-G-A2C-001 and H-P2-TERMS-004 were acknowledged before substantive edits and consumed before closeout with exact registry view and route evidence
+      - terminology_registry is the sole source for all reader-visible superseded routes deliberate departures meaning rules stable identifiers and the review boundary
+      - Appendix E replaces its stale partial-draft marker and carries all 52 live formal definitions with English pairs and source anchors
+      - Appendix E and Pojmovnik carry byte-identical generated terminology-route blocks
+      - all 12 superseded forms are recognition routes and none is presented as an accepted synonym
+      - all three deliberate departures carry their exact registered reasons and all four meaning rules remain distinct
+      - the three stable #def- identifiers remain unchanged and all 52 source anchors resolve
+      - no independent terminology review is claimed or implied
+      - scripts/check-appendix-e.py verifies registry parity two views 52 concepts 664 graph edges clean regeneration and print inputs
+      - the three packet negative fixtures fail closed for an accepted superseded synonym a dropped departure and a renamed stable identifier
+      - scripts/check-terminology.py and scripts/check-concepts.py pass on 52 live definitions with zero ledger debt and a fresh graph
+      - isolated HTML carries 52 unique concept routes and the targeted 15-page B5 PDF passes visual inspection without clipping overlap or illegible table breaks
+      - the targeted PDF uses a fallback font and is not claimed as a full release build
+      - R36-BOOK-alternatives advances on its own exact registry view route and print evidence while R36 remains ratified because R36-BOOK-new-cluster remains open
+      - H-P5-D-001 remains pending for P5-ROUTES and P5-E neither changes nor weakens scripts/check-citations.py
+      - chapter-ledger.json config/book-inventory.json solution_routes and all chapter sources remain unchanged
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P5-F is the sole next permitted packet but is not claimed inside P5-E
+      - no external message push merge tag archive deployment publication independent-review author-reading or final-stage claim is made or authorised
