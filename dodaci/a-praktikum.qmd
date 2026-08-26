@@ -29,9 +29,9 @@ execute:
   3. Wickham, Çetinkaya-Rundel i Grolemund dobili su unos wickham2023,
      provjeren preko OpenLibraryja i stranice knjige. Plan ga je vodio kao dug
      rundi 1.
-  4. Odjeljak „Postupci iz poglavlja" namiruje uputnice iz poglavlja 1, 2, 4
-     i 5. Poglavlja 4 i 5 nosila su ih od prije, a poglavlja 1 i 2 dobila su ih
-     u ovoj rundi.
+  4. Odjeljak „Postupci iz poglavlja" namiruje uputnice iz poglavlja 1 do 16.
+     Samostalna provjerna ruta za poglavlja 6 do 16 živi u
+     scripts/appendix-a-route.R.
   5. Sustavna mehanika paketa ggplot2 dolazi iz tjedna 6 i pripada rundi 3.
      Ovdje je samo onoliko crtanja koliko traži uputnica iz poglavlja 5.
   6. Dodan je `execute: echo: true` u zaglavlju. Bez toga bi projektni
@@ -107,8 +107,8 @@ Mapa u kojoj R traži datoteke naziva se radnim direktorijem i može se
 provjeriti funkcijom `getwd()`. Uređivačka okruženja ga postavljaju na mapu
 projekta kada projekt otvorite kao projekt, a ne kao pojedinačnu datoteku.
 Odatle slijedi pravilo koje štedi mnogo živaca. Putanje pišite relativno prema
-mapi projekta, dakle `"data/anketa.csv"`, a nikada apsolutno, dakle nikada
-`"C:/Users/ime/Dokumenti/faks/data/anketa.csv"`. Apsolutna putanja radi samo na
+mapi projekta, dakle `"data/anketa-mreze.csv"`, a nikada apsolutno, dakle nikada
+`"C:/Users/ime/Dokumenti/faks/data/anketa-mreze.csv"`. Apsolutna putanja radi samo na
 vašem računalu, jer na tuđem ne postoji mapa s vašim imenom. Relativna radi
 svugdje gdje se prenese cijela mapa projekta.
 
@@ -130,6 +130,47 @@ library(tidyverse)
 # ovom dodatku izvršavaju, a što R/setup.R već nije učinio.
 library(stringr)
 library(forcats)
+library(readr)
+```
+
+## Učitavanje knjižnih podataka {#sec-a-ucitavanje}
+
+Primjeri ne ovise o objektima koji su ostali nakon čitanja nekog poglavlja.
+Preuzmite [anketu o mrežama](../data/anketa-mreze.csv) i [sintetičku populaciju
+medijskih navika](../data/populacija-medija.csv) zajedno s projektnim mapama,
+a zatim ih na početku nove sesije učitajte ovim kodom.
+
+```{r}
+anketa_mreze <- read_csv(
+  "data/anketa-mreze.csv",
+  show_col_types = FALSE,
+  locale = locale(encoding = "UTF-8")
+)
+
+populacija_medija <- read_csv(
+  "data/populacija-medija.csv",
+  show_col_types = FALSE,
+  locale = locale(encoding = "UTF-8")
+)
+```
+
+Prvi skup ima pitanje „Koliko vremena ljudi provode na mrežama i kako to ide uz
+povjerenje?”, a drugi „Kako se povjerenje u medije mijenja s dobi i izvorom
+vijesti?”. To su pitanja zapisana u katalogu podataka, a ne zaključci o stvarnim
+ljudima. Oba su skupa sintetička. Uvjeti ponovne uporabe stoje uz
+[anketu](../data/anketa-mreze.LICENCA.md) i
+[populaciju](../data/populacija-medija.LICENCA.md). Provjerite da su se učitali
+očekivani stupci prije prve analize.
+
+```{r}
+stopifnot(
+  nrow(anketa_mreze) == 300,
+  nrow(populacija_medija) == 50000,
+  all(c("dob", "dobna_skupina", "minute_dnevno", "povjerenje") %in%
+        names(anketa_mreze)),
+  all(c("dob", "obrazovanje", "izvor_vijesti", "povjerenje_medijima") %in%
+        names(populacija_medija))
+)
 ```
 
 ## Prve naredbe i objekti
@@ -535,8 +576,11 @@ vrijednosti odvojene zarezima. Za uvoz služi funkcija `read_csv()` iz paketa
 readr.
 
 ```{r}
-#| eval: false
-anketa <- read_csv("data/anketa.csv")
+anketa <- read_csv(
+  "data/anketa-mreze.csv",
+  show_col_types = FALSE,
+  locale = locale(encoding = "UTF-8")
+)
 ```
 
 Obratite pozornost na podvlaku. Funkcija `read_csv()` s podvlakom brža je od
@@ -549,11 +593,10 @@ protumačila stupce. Spremanje ide obrnutim putem funkcijom `write_csv()`, pri
 write_csv(sazetak, "outputs/sazetak.csv")
 ```
 
-Skup na kojem radi ostatak ovog dodatka ne dolazi iz datoteke nego iz skripte
-`R/podaci-nastavni.R`, koja ga proizvodi uz fiksno sjeme. Takav postupak ima
-prednost da se podaci nikada ne mogu razići s kodom, i knjiga ga koristi upravo
-zato što svi njezini nastavni skupovi moraju biti simulirani i označeni kao
-takvi.
+Skup na kojem radi ostatak ovog dodatka dolazi iz iste kanonske datoteke koju
+ste učitali u [odjeljku o učitavanju](#sec-a-ucitavanje). Skripta koja ga
+proizvodi, kataloški zapis i datoteka usklađeni su provjerom sažetka, pa se
+objavljeni primjer ne može tiho odvojiti od svoje dokumentirane inačice.
 
 Kada dobijete nove podatke, prvo ih pogledajte. Nikada ne počinjite analizu prije
 nego što znate koliko redaka i stupaca imate, kojeg su tipa i kako izgledaju
@@ -1564,7 +1607,7 @@ i tek onda rezultate.
 library(tidyverse)
 
 # 2. Podaci ----
-anketa <- read_csv("data/anketa.csv")
+anketa <- read_csv("data/anketa-mreze.csv", show_col_types = FALSE)
 
 # 3. Pregled ----
 glimpse(anketa)
@@ -1709,60 +1752,42 @@ Ovaj odjeljak okuplja postupke na koje poglavlja upućuju kada zadatak traži
 izračun nad cijelim skupom podataka. Svaki je zaokružen i može se pokrenuti
 samostalno.
 
-### Zbirne i skupne stope iz poglavlja 1
+### Kategorijalna usporedba iz poglavlja 1
 
-Poglavlje o statističkom mišljenju uspoređuje zbirnu stopu sa stopama po
-podskupinama. Postupak ima tri koraka. Najprije se izračunaju stope unutar
-skupina, zatim zbirna stopa, i naposljetku se usporede.
-
-```{r}
-upisi <- as.data.frame(UCBAdmissions)
-
-# Stope po odjelu i spolu
-po_odjelu <- upisi |>
-  group_by(Dept, Gender) |>
-  summarise(
-    prijave = sum(Freq),
-    primljeni = sum(Freq[Admit == "Admitted"]),
-    stopa = primljeni / prijave,
-    .groups = "drop"
-  )
-
-# Zbirna stopa, bez odjela
-zbirno <- upisi |>
-  group_by(Gender) |>
-  summarise(
-    prijave = sum(Freq),
-    primljeni = sum(Freq[Admit == "Admitted"]),
-    stopa = primljeni / prijave,
-    .groups = "drop"
-  )
-
-zbirno
-```
-
-Zbirna tablica pokazuje razliku u korist muškaraca. Usporedba po odjelima
-pokazuje drukčiju sliku, a broj odjela u kojima žene prolaze barem jednako dobro
-dobiva se preoblikovanjem u široki oblik.
+Poglavlje o statističkom mišljenju traži da zbirnu tvrdnju rastavimo po
+smislenim skupinama. Obvezna kategorijalna vježba zato radi na sintetičkoj
+populaciji medijskih navika učitanoj u [odjeljku o
+učitavanju](#sec-a-ucitavanje). Najprije broji izvore vijesti unutar obrazovnih
+skupina, a zatim računa udjele unutar svake skupine.
 
 ```{r}
-po_odjelu |>
-  select(Dept, Gender, stopa) |>
-  pivot_wider(names_from = Gender, values_from = stopa) |>
-  mutate(zene_bolje = Female >= Male)
+izvori_po_obrazovanju <- populacija_medija |>
+  count(obrazovanje, izvor_vijesti, name = "broj") |>
+  group_by(obrazovanje) |>
+  mutate(udio = broj / sum(broj)) |>
+  ungroup()
+
+izvori_po_obrazovanju
 ```
 
-Ključ mehanizma leži u raspodjeli prijava, jer zbirna stopa svakom odjelu daje
-težinu prema broju prijava iz te skupine.
+Zbirni udio svakog izvora nije zamjena za skupne udjele. Sljedeća usporedba
+stavlja ih jedan uz drugi, pa se može provjeriti mijenja li se opis kada se
+sačuva obrazovna skupina.
 
 ```{r}
-po_odjelu |>
-  group_by(Gender) |>
-  mutate(udio_prijava = 100 * prijave / sum(prijave)) |>
-  ungroup() |>
-  select(Dept, Gender, stopa, udio_prijava) |>
-  pivot_wider(names_from = Gender, values_from = c(stopa, udio_prijava))
+zbirni_izvori <- populacija_medija |>
+  count(izvor_vijesti, name = "broj") |>
+  mutate(udio_zbirno = broj / sum(broj)) |>
+  select(izvor_vijesti, udio_zbirno)
+
+izvori_po_obrazovanju |>
+  left_join(zbirni_izvori, by = "izvor_vijesti") |>
+  mutate(razlika = udio - udio_zbirno)
 ```
+
+Ovaj je skup zakonita knjižna zamjena za vanjski primjer. Putanja ostaje
+ponovljiva iz distribuiranih datoteka, a izračun ne tvrdi ništa o stvarnoj
+populaciji.
 
 ### Provjera instrumenta iz poglavlja 2
 
@@ -1890,27 +1915,165 @@ Histogram i raspršeni prikaz ne računaju ništa od toga, jer crtaju pojedinač
 opažanja ili njihove razrede. Usporedba pokazuje koliko se informacije gubi na
 putu od svih opažanja do jednog stupca po skupini.
 
-Isti se postupak primjenjuje i na Anscombeov kvartet, koji je ugrađen u R.
+Obvezna vježba vizualizacije i povezanosti ostaje na distribuiranoj anketi.
+Najprije pogledajte oblik odnosa, a tek zatim izračunajte Pearsonov koeficijent.
 
 ```{r}
-anscombe |>
-  pivot_longer(
-    everything(),
-    names_to = c(".value", "skup"),
-    names_pattern = "(.)(.)"
-  ) |>
-  group_by(skup) |>
+ggplot(anketa_mreze, aes(x = minute_dnevno, y = povjerenje)) +
+  geom_point(alpha = 0.35) +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  labs(
+    x = "Minute dnevno na mrežama",
+    y = "Povjerenje",
+    title = "Vrijeme na mrežama i povjerenje"
+  )
+
+anketa_mreze |>
   summarise(
-    sredina_x = mean(x),
-    sredina_y = round(mean(y), 2),
-    sd_y = round(sd(y), 2),
-    korelacija = round(cor(x, y), 2),
-    .groups = "drop"
+    n = sum(complete.cases(minute_dnevno, povjerenje)),
+    pearson_r = cor(minute_dnevno, povjerenje, use = "complete.obs")
   )
 ```
 
-Sva četiri skupa imaju gotovo jednake sažetke i posve različite oblike, što je
-argument koji poglavlje razrađuje.
+Koeficijent ne zamjenjuje graf. On sažima linearnu povezanost, dok graf
+otkriva oblik, raspršenje i opažanja koja bi sažetak mogao prikriti.
+
+## Provjerene rute iz poglavlja 6–16 {#sec-a-rute-06-16}
+
+Samostalna [provjerna skripta](../scripts/appendix-a-route.R) učitava kanonske
+datoteke izravno s diska, provjerava njihove sažetke i ponavlja po jedan
+postupak iz svakog poglavlja od 6 do 16. Ne učitava `R/setup.R`, ne izvršava
+kod iz poglavlja i ne ovisi o objektima stvorenima ranije. Nakon
+[koraka učitavanja](#sec-a-ucitavanje) možete je pokrenuti iz nove R sesije.
+
+```{r}
+#| eval: false
+dir.create("outputs", showWarnings = FALSE)
+rscript <- file.path(
+  R.home("bin"),
+  if (.Platform$OS.type == "windows") "Rscript.exe" else "Rscript"
+)
+
+status <- system2(
+  rscript,
+  c(
+    "scripts/appendix-a-route.R",
+    "--root", ".",
+    "--output", "outputs/dodatak-a-provjera.csv"
+  )
+)
+stopifnot(status == 0)
+```
+
+Ruta koristi `anketa_mreze` za povezanost iz poglavlja 6 te
+`populacija_medija` za vjerojatnost, uzorkovanje, procjenu, testiranje,
+veličinu učinka, kategorijalnu analizu, dvije i više grupa te regresiju. Za
+poglavlje 12 čita provjereni dokazni paket
+`notes/reports/p3-evidence12-rrr-lab-effects.csv`, izračunava sirovu i
+standardiziranu granu te odgovara na pitanje koliko iznosi zajednički učinak
+laboratorijskih replikacija RRR-a. Imena datoteka, varijabli i istraživačka
+pitanja zapisana su u izlazu, pa se mogu usporediti s katalogom bez
+prepisivanja.
+
+Sljedeća tablica nastaje pokretanjem iste samostalne skripte tijekom izrade
+knjige. Stoga je i u tisku vidljiv stvarni provjereni izlaz, a ne ručno
+prepisana tvrdnja.
+
+```{r}
+#| include: false
+route_environment <- new.env(parent = globalenv())
+route_log <- capture.output(
+  source("scripts/appendix-a-route.R", local = route_environment)
+)
+stopifnot(any(str_detect(route_log, fixed("APPENDIX_A_ROUTE_OK"))))
+route_results <- as_tibble(route_environment$results)
+```
+
+```{r}
+#| label: tbl-a-rute-provjera
+#| tbl-cap: "Provjereni izlazi samostalne rute za poglavlja 6–16"
+#| echo: false
+route_results |>
+  mutate(
+    datoteka = basename(file),
+    provjera = recode(
+      metric,
+      pearson_r = "Pearsonov r",
+      p_mreze_dob_le_29 = "uvjetni udio mreža",
+      se_povjerenje_n_100 = "standardna pogreška, n = 100",
+      mean_povjerenje = "sredina",
+      ci95_lower = "donja granica 95 %",
+      ci95_upper = "gornja granica 95 %",
+      mean_difference_portal_minus_tisak = "razlika portal − tisak",
+      permutation_p_two_sided = "dvostrani permutacijski p",
+      cohen_d_portal_minus_tisak = "Cohenov d, portal − tisak",
+      raw_fixed_effect_estimate = "sirova procjena učinka",
+      raw_ci95_lower = "donja sirova granica 95 %",
+      raw_ci95_upper = "gornja sirova granica 95 %",
+      standardized_fixed_effect_estimate = "standardizirana procjena",
+      standardized_ci95_lower = "donja standardizirana granica",
+      standardized_ci95_upper = "gornja standardizirana granica",
+      chi_squared = "hi-kvadrat",
+      cramers_v = "Cramérov V",
+      mean_difference_tv_minus_mreze = "razlika TV − mreže",
+      welch_ci95_lower = "donja Welchova granica",
+      welch_ci95_upper = "gornja Welchova granica",
+      anova_f = "F-omjer",
+      eta_squared = "eta-kvadrat",
+      slope_dob = "nagib dobi",
+      coefficient_drustvene_mreze = "koeficijent mreža",
+      adjusted_r_squared = "prilagođeni R-kvadrat"
+    ),
+    vrijednost = formatC(value, digits = 6, format = "f", decimal.mark = ",")
+  ) |>
+  select(
+    poglavlje = chapter,
+    datoteka,
+    provjera,
+    vrijednost
+  ) |>
+  knitr::kable(align = c("r", "l", "l", "r"))
+```
+
+Datoteka `outputs/dodatak-a-provjera.csv` čuva više znamenki nego [tablica
+provjerenih izlaza](#tbl-a-rute-provjera). Ako se promijeni ulaz, redak, sjeme
+ili očekivana vrijednost, skripta prekida rad umjesto da prikaže stari rezultat.
+
+## Reprodukcija tekstne tablice {#sec-a-tekst-transformacija}
+
+Pripremljena tablica `data/parlament_oznake.csv` potječe iz hrvatskih zapisa
+skupa ParlaSent 1.0. Sirove datoteke nisu dio knjige. One se preuzimaju od
+izdavača pod uvjetima koje dokumentira [putovnica
+podataka](../data/parlament_tekst/PUTOVNICA.md) i spremaju u mapu
+`data/_kandidat/p3-text`. Time se ne pretvara vanjski skup u distribuirani
+knjižni podatak.
+
+Kanonski graditelj zatim bira samo zapise na hrvatskom, izvodi dokumentirani
+razlaz na skup za učenje i provjeru te zapisuje tablicu s pitanjem „Kako se ton
+parlamentarnih iskaza razlikuje s obzirom na stranačku pripadnost?”. Iz R-a ga
+možete pozvati ovako; za ovaj dodatni reprodukcijski korak potreban je i Python.
+
+```{r}
+#| eval: false
+status <- system2(
+  "python",
+  c(
+    "scripts/build-text-package.py",
+    "--candidate", "data/_kandidat/p3-text",
+    "--output", "outputs/parlament_oznake.csv",
+    "--write"
+  )
+)
+stopifnot(status == 0)
+```
+
+Graditelj provjerava nazive i sažetke sirovih datoteka te očekuje 2698 redaka
+i SHA-256 izlaza
+`0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef`.
+[Samostalna ruta](#sec-a-rute-06-16) ima i mogućnost `--text-candidate`. U
+privremenu datoteku pokreće isti graditelj, uspoređuje izlaz i briše ga nakon
+provjere. Tako se provjerava transformacija bez prepisivanja distribuirane
+tablice.
 
 ## Kamo dalje
 

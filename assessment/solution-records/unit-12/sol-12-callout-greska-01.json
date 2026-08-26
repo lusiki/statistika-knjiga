@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-12-callout-greska-01",
+  "exercise_id": "ex-12-callout-greska-01",
+  "unit_id": "12",
+  "source_anchor": {
+    "path": "chapters/12-kriza-i-obnova.qmd",
+    "anchor": "ex-12-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:0d094d1d5fb6f1c802afa20e6b9ca6f04c0dd4a7a8c13a0dddd318e0fe95f4e9",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "preregistration-treated-as-validity-guarantee",
+      "statement": "Budući da je analiza predregistrirana, njezin je zaključak nužno valjan.",
+      "why_wrong": "Predregistracija vremenski odvaja planirane odluke od odluka potaknutih rezultatima i olakšava provjeru odstupanja, ali sama ne jamči valjanost mjerenja, uzorka, modela, ciljane tvrdnje ni prijenosa na drugi kontekst. Zaključak se i dalje mora prosuditi prema dizajnu, podacima, analizi, intervalima i granici tvrdnje."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Odvojeno provjeriti slažu li se rukopis, registrirani plan, kriteriji uključivanja, primarna analiza i izvedeni zapis, a zatim pitati koju vrstu valjanosti svaki od tih tragova uopće može poduprijeti.",
+      "expected_evidence": "Plan može potvrditi da su glavni ishod i analiza određeni prije uvida u podatke, ali ne može sam dokazati da ishod valjano mjeri konstrukt, da je model prikladan ili da se zaključak prenosi izvan 17 provedenih laboratorijskih postupaka."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Greška je u tome što interval obuhvaća nulu.",
+          "why_insufficient": "Interval je ispravno prenesen. Posađena pogreška jest jamstvo valjanosti izvedeno iz same predregistracije, a ne brojčani položaj intervala."
+        },
+        {
+          "response": "Predregistrirana analiza nikada nije valjana.",
+          "why_insufficient": "Predregistracija povećava vidljivost odluka i može ojačati provjerljivost. Problem je tvrdnja da ona valjanost jamči, ne tvrdnja da je beskorisna."
+        },
+        {
+          "response": "Zaključak je valjan jer je uzorak velik.",
+          "why_insufficient": "Veći uzorak može povećati preciznost, ali ne popravlja pogrešno mjerenje, neprikladan model ili neopravdan prijenos tvrdnje."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-verified-rrr-facts",
+          "required_claim": "RRR je unaprijed naveo glavni ishod, pravila uključivanja i primarnu analizu, a objedinjena sirova razlika iznosi približno 0,03 uz 95-postotni interval od −0,11 do 0,16.",
+          "required_evidence": "Provjereni članak, plan i izvedeni zapis podupiru prve dvije rečenice analize."
+        },
+        {
+          "component_id": "locate-validity-guarantee",
+          "required_claim": "Jedina je pogreška zaključak da predregistracija nužno jamči valjanost.",
+          "required_evidence": "Posljednja rečenica prelazi s vidljivosti redoslijeda odluka na opće jamstvo o kvaliteti zaključka."
+        },
+        {
+          "component_id": "name-remaining-validity-tests",
+          "required_claim": "Mjerenje, uzorak, model, provedba i doseg tvrdnje ostaju zasebni predmeti provjere.",
+          "required_evidence": "Nijedan od tih elemenata ne postaje ispravan samo zato što je plan vremenski označen."
+        },
+        {
+          "component_id": "state-bounded-correction",
+          "required_claim": "Predregistracija povećava provjerljivost, dok zaključak ovoga RRR-a ostaje ograničen na uključene laboratorije i usporedive provedene postupke.",
+          "required_evidence": "Sirova i standardizirana sinteza blizu su nule, ali analiza ne pokriva svaku populaciju, kontekst ili operacionalizaciju facijalne povratne sprege."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Izvedeni zapis sadrži 17 laboratorija i 1.894 uključena sudionika. REML sinteza sirove razlike iznosi 0,026766 uz interval [−0,107693; 0,161225], što se u analizi ispravno zaokružuje na 0,03 [−0,11; 0,16].",
+      "tolerance_or_acceptance_rule": "Prihvatiti objavljeni zaokruženi oblik 0,03 [−0,11; 0,16] ili izvedene vrijednosti na šest decimala. Brojke nisu pogreška i moraju ostati odvojene od nevaljanoga jamstva predregistracije.",
+      "independent_method": "Pokrenuti provjeru lokalnoga laboratorijskog artefakta, potvrditi 17 redaka i zbroj n_total = 1.894 te usporediti spremljenu REML sintezu s provjerenim izvještajem P3-EVIDENCE12.",
+      "evidence_reference": "notes/reports/p3-evidence12-rrr-lab-effects.csv; notes/reports/p3-evidence12-2026-08-13.md; chapters/12-kriza-i-obnova.qmd#ex-12-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-validity-guarantee",
+          "severity": "fatal",
+          "description": "Odgovor zadržava tvrdnju da predregistracija sama jamči valjan zaključak.",
+          "observable_evidence": "Zaključak ne zahtijeva zasebnu provjeru mjerenja, dizajna, modela ili dosega tvrdnje."
+        },
+        {
+          "criterion_id": "major-rejects-or-misstates-verified-facts",
+          "severity": "major",
+          "description": "Odgovor pogrešno odbacuje provjerene RRR brojke ili ne razlikuje vidljivost odluka od drugih sastavnica valjanosti.",
+          "observable_evidence": "Dijagnoza mijenja ispravne prve dvije rečenice ili ne navodi što predregistracija doista omogućuje."
+        },
+        {
+          "criterion_id": "minor-omits-one-boundary",
+          "severity": "minor",
+          "description": "Središnja dijagnoza stoji, ali ispravljeni zaključak izostavlja jednu važnu granicu poput mjerenja, modela ili konteksta.",
+          "observable_evidence": "Potrebna je lokalna dopuna bez promjene glavnoga suda."
+        },
+        {
+          "criterion_id": "useful-links-plan-to-deviations",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno predlaže usporedbu registriranoga plana s rukopisom i jasno označavanje svake naknadne grane.",
+          "observable_evidence": "Dodatak pojačava provjerljivost bez pretvaranja plana u jamstvo kvalitete."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "transparency-not-validity-language",
+      "description": "Prihvatljiv odgovor može pogrešku izraziti razlikom između transparentnosti postupka i sadržajne valjanosti zaključka.",
+      "acceptance_boundary": "Mora sačuvati provjerene brojke, odbiti nužnost zaključka i imenovati barem dizajn, mjerenje ili model kao zasebnu provjeru."
+    }
+  ],
+  "instructor_notes": [
+    "Ocjenjuje se jedna posađena pogreška. Ne prihvatiti dodavanje nove navodne pogreške u zaokružene RRR brojke.",
+    "Predregistracija se ne prikazuje ni kao lijek za sve ni kao bezvrijedna formalnost. Ključna je precizna granica onoga što vremenski označen plan čini vidljivim."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

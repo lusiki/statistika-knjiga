@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-08-callout-greska-01",
+  "exercise_id": "ex-08-callout-greska-01",
+  "unit_id": "08",
+  "source_anchor": {
+    "path": "chapters/08-uzorkovanje.qmd",
+    "anchor": "ex-08-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:4293833237f8289878708923712c658cc8908e2aa25db8bf97a5f4c4d87f4851",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "smaller-standard-error-implies-smaller-individual-variation",
+      "statement": "Druga rečenica iz manje standardne pogreške zaključuje da su vrijednosti pojedinaca u većem uzorku međusobno sličnije.",
+      "why_wrong": "Veći uzorak sužava distribuciju uzoračke sredine, ali ne mijenja populacijsku raspodjelu iz koje su pojedinci izvučeni. Standardna pogreška opisuje varijabilnost procjene kroz uzorke, dok standardna devijacija opisuje varijabilnost pojedinačnih opažanja."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Za isti populacijski proces odvojeno usporediti raspodjelu svih pojedinačnih opažanja i raspodjelu sredina ponovljenih uzoraka pri dvjema veličinama uzorka. Za svaku raspodjelu imenovati jedinicu i mjeru širine.",
+      "expected_evidence": "Pojedinačna su opažanja pri objema veličinama uzorka izvučena iz iste populacije i očekivana im raspršenost ostaje jednaka populacijskoj. Standardna pogreška sredine pada približno sa sigma podijeljenom korijenom iz n, pa se mijenja širina raspodjele sredina, a ne širina populacijskih vrijednosti."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Analiza je točna jer veći uzorak uvijek daje manje varijacije.",
+          "why_insufficient": "Ne navodi koja se razina varijacije smanjuje. Smanjuje se slučajna varijabilnost procjene kroz uzorke, ne populacijska raspršenost pojedinaca."
+        },
+        {
+          "response": "Pogreška je samo to što se ne navodi središnji granični teorem.",
+          "why_insufficient": "Ime teorema ne ispravlja zamjenu razina. Odgovor mora razdvojiti jedinice i širine dviju raspodjela."
+        },
+        {
+          "response": "Standardna pogreška i standardna devijacija isto su jer obje mjere širinu.",
+          "why_insufficient": "Obje jesu standardne devijacije, ali različitih raspodjela. Jedna pripada pojedinačnim vrijednostima, a druga procjenama kroz uzorke."
+        },
+        {
+          "response": "Veći uzorak mijenja ljude tako da postaju sličniji prosjeku.",
+          "why_insufficient": "Postupak uzorkovanja ne mijenja populacijske vrijednosti. On samo smanjuje utjecaj pojedinačnih odstupanja na uzoračku sredinu."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "retain-correct-sampling-distribution-claim",
+          "required_claim": "Točna je tvrdnja da veći nasumični uzorak daje užu distribuciju uzoračkih sredina u istom jednostavnom modelu uzorkovanja.",
+          "required_evidence": "Standardna pogreška sredine pada približno s korijenom veličine uzorka."
+        },
+        {
+          "component_id": "name-two-levels-of-variation",
+          "required_claim": "Standardna pogreška mjeri raspršenost uzoračkih sredina, a standardna devijacija pojedinačnih opažanja mjeri raspršenost ljudi ili drugih jedinica.",
+          "required_evidence": "Jedinica prve raspodjele jest procjena iz cijeloga uzorka, a jedinica druge jedno opažanje."
+        },
+        {
+          "component_id": "reject-individual-similarity-inference",
+          "required_claim": "Manja standardna pogreška ne znači da su pojedinci u većem uzorku međusobno sličniji.",
+          "required_evidence": "Oba uzorka dolaze iz iste populacijske raspodjele, čija se očekivana širina ne mijenja s n."
+        },
+        {
+          "component_id": "state-bounded-correction",
+          "required_claim": "Veći uzorak daje stabilniju sredinu kroz ponovljena uzorkovanja, dok očekivana raspršenost pojedinačnih vrijednosti ostaje populacijska.",
+          "required_evidence": "Ispravak izričito razdvaja preciznost procjene od heterogenosti pojedinaca."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Okvir traži pojmovnu dijagnozu dviju razina varijabilnosti i ne zadaje jedan brojčani rezultat.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-level-confusion",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća da manja standardna pogreška dokazuje manju raspršenost pojedinaca.",
+          "observable_evidence": "Preciznost uzoračke sredine i sličnost pojedinačnih vrijednosti ostaju izjednačene."
+        },
+        {
+          "criterion_id": "major-misses-correct-claim-or-correction",
+          "severity": "major",
+          "description": "Odgovor ne zadržava točnu tvrdnju o užoj distribuciji sredina ili ne daje ispravljenu granicu između dviju raspodjela.",
+          "observable_evidence": "Nedostaje jedna središnja karika između dijagnoze i ispravka."
+        },
+        {
+          "criterion_id": "minor-imprecise-width-language",
+          "severity": "minor",
+          "description": "Središnja je dijagnoza ispravna, ali jedinica raspodjele ili naziv mjere širine nije precizno naveden.",
+          "observable_evidence": "Lokalna terminološka dopuna dovoljna je bez promjene presude."
+        },
+        {
+          "criterion_id": "useful-connects-root-n-rule",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno povezuje sužavanje distribucije sredina s pravilom korijena veličine uzorka.",
+          "observable_evidence": "Dodatak produbljuje mehanizam, ali nije potreban za prepoznavanje posađene pogreške."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equivalent-estimator-versus-observation-language",
+      "description": "Prihvatljiv je odgovor koji govori o stabilnosti procjenitelja i heterogenosti opažanja umjesto o dvjema raspodjelama.",
+      "acceptance_boundary": "Mora ostati jasno da povećanje n smanjuje varijabilnost procjene, a ne očekivanu raspršenost pojedinačnih vrijednosti iz iste populacije."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina posađena pogreška jest zamjena standardne pogreške procjene raspršenošću pojedinačnih opažanja. Prva je rečenica namjerno točna.",
+    "Ne zahtijevati brojčanu simulaciju ni pisanje koda. Ocjenjuju se jedinica raspodjele, dijagnoza i ograničeni popravak tvrdnje."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

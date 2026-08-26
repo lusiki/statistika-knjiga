@@ -574,8 +574,8 @@ def main() -> int:
         "The chapter ledger and the chapter-spine registry must cover the same 19 units.",
     )
     check(
-        inventory.get("solution_routes") == [],
-        "Spine ratification may not create a solution route.",
+        inventory.get("solution_routes") == ["solutions"],
+        "The post-P5-ROUTES inventory must expose exactly one separated solution route.",
     )
 
     if errors:
@@ -603,7 +603,7 @@ def main() -> int:
         for stage in sorted(set(stages.values()))
     }
     stage_summary = "; ".join(f"{count} {stage}" for stage, count in stage_counts.items())
-    print(f"- chapter stages: {stage_summary}; solution routes: 0")
+    print(f"- chapter stages: {stage_summary}; solution routes: 1")
     return 0
 
 

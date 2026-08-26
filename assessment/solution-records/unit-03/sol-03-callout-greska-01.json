@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-03-callout-greska-01",
+  "exercise_id": "ex-03-callout-greska-01",
+  "unit_id": "03",
+  "source_anchor": {
+    "path": "chapters/03-kako-brojke-zavode.qmd",
+    "anchor": "ex-03-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:a6541eeadb4dcbe88dd59184d9288fb793fac07bbf16194ea2f376e527ac631c",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "small-relative-gap-erases-operational-distinction",
+      "statement": "Zaključak da se dvije službene oznake smiju rabiti kao sinonimi zato što razlika čini približno 0,07 % broja pristupilih jedina je posađena pogreška.",
+      "why_wrong": "Relativna veličina razlike ne određuje značenje varijable. Broj pristupilih i broj birača prema glasačkim listićima pripadaju različitim operativnim fazama službenoga zapisa, pa ih ni mala ni nulta brojčana razlika ne pretvara u isti pojam."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Odvojeno provjeriti zbroj listića, razliku prema broju pristupilih i relativni udio razlike, a zatim vratiti svaki rezultat točnoj službenoj oznaci umjesto da o značenju odlučuje veličina razlike.",
+      "expected_evidence": "Aritmetika daje 2.215.209 birača prema listićima, razliku 1.554 i približno 0,07 % broja pristupilih; izvor ipak zadržava dvije različite oznake i ne daje osnovu za njihovo izjednačavanje [@dip2024, str. 124]."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogreška je u zbroju važećih i nevažećih listića.",
+          "why_insufficient": "Zbroj 2.154.733 + 60.476 = 2.215.209 točan je i slaže se s navedenim brojem prema listićima."
+        },
+        {
+          "response": "Razlika od 1.554 dokazuje pogrešku u službenoj evidenciji.",
+          "why_insufficient": "Tablica pokazuje različite zabilježene ukupne brojeve, ali sama ne objašnjava uzrok razlike niti dokazuje kvar."
+        },
+        {
+          "response": "Oznake su zamjenjive jer bi naslov bio čitljiviji.",
+          "why_insufficient": "Urednička jednostavnost ne daje dopuštenje da se izbriše operativna razlika koja određuje što broj znači."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "verify-ballot-sum",
+          "required_claim": "Važeći i nevažeći listići zbrajaju se u 2.215.209 birača prema glasačkim listićima.",
+          "required_evidence": "Ponovljen zbroj 2.154.733 + 60.476 i službene oznake iz izvješća [@dip2024, str. 124]."
+        },
+        {
+          "component_id": "verify-gap-and-relative-size",
+          "required_claim": "Broj prema listićima manji je od broja pristupilih za 1.554, što je približno 0,07 % broja pristupilih.",
+          "required_evidence": "Oduzimanje 2.216.763 - 2.215.209 i dijeljenje razlike brojem pristupilih."
+        },
+        {
+          "component_id": "identify-semantic-error",
+          "required_claim": "Pogrešna je izvedenica da mala relativna razlika dopušta uporabu dviju službenih oznaka kao sinonima.",
+          "required_evidence": "Izvješće odvojeno imenuje pristupile i birače prema glasačkim listićima [@dip2024, str. 124]."
+        },
+        {
+          "component_id": "state-bounded-correction",
+          "required_claim": "Ispravak čuva oba točna ukupna broja, rabi njihove izvorne oznake i ne nudi objašnjenje razlike bez dodatnoga izvora.",
+          "required_evidence": "Odvojen aritmetički nalaz od semantičke i uzročne granice tablice."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "2.154.733 + 60.476 = 2.215.209; 2.216.763 - 2.215.209 = 1.554; 1.554 / 2.216.763 × 100 = 0,0701 % ≈ 0,07 %",
+      "tolerance_or_acceptance_rule": "Zbroj i razlika moraju biti cjelobrojno točni; relativni udio prihvaća se kao 0,0701 % ili ispravno zaokružen 0,07 %.",
+      "independent_method": "Brojeve iz zadanoga odgovora ponovno zbrojiti i oduzeti cjelobrojno, zatim razliku podijeliti brojem pristupilih bez preuzimanja modelova zaključka.",
+      "evidence_reference": "chapters/03-kako-brojke-zavode.qmd#ex-03-callout-greska-01 i @dip2024, str. 124"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-keeps-synonym-conclusion",
+          "severity": "fatal",
+          "description": "Odgovor zadržava tvrdnju da brojčano mala razlika ukida razliku među operativnim oznakama.",
+          "observable_evidence": "Završni sud i dalje dopušta zamjenjivanje broja pristupilih brojem prema listićima."
+        },
+        {
+          "criterion_id": "major-misses-arithmetic-or-semantic-boundary",
+          "severity": "major",
+          "description": "Nedostaje provjera zbroja ili razlike, imenovanje jedine pogreške ili razgraničenje potvrđenih vrijednosti od nepoznata uzroka.",
+          "observable_evidence": "Jedna ključna karika od službenih polja do ispravljenoga zaključka nije prikazana."
+        },
+        {
+          "criterion_id": "minor-rounding-or-label-imprecision",
+          "severity": "minor",
+          "description": "Središnji sud je ispravan, ali relativni udio nije uredno zaokružen ili jedna od dviju službenih veličina nije precizno imenovana.",
+          "observable_evidence": "Lokalna oznaka ili prikaz računa može se popraviti bez promjene zaključka."
+        },
+        {
+          "criterion_id": "useful-separates-three-checks",
+          "severity": "useful_improvement",
+          "description": "Odgovor jasno razdvaja aritmetičku, semantičku i uzročnu provjeru umjesto da ih spoji u jedan sud.",
+          "observable_evidence": "Čitatelj može vidjeti što je izračunano, što oznake znače i što izvor ne objašnjava."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "omit-relative-percentage",
+      "description": "Prihvatljiv je ispravak koji navodi samo cjelobrojni zbroj i razliku ako svejedno objasni zašto veličina razlike ne upravlja značenjem oznaka.",
+      "acceptance_boundary": "Ne smije se osporiti točna aritmetika niti ponuditi neprovjeren uzrok odstupanja."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina namjerna pogreška jest semantička izvedenica iz male relativne razlike. Aritmetički navodi služe kao vjerodostojan trag, a ne kao mamac s drugom pogreškom.",
+    "Ne nagrađivati nagađanje administrativnoga uzroka. Ovaj zadatak provjerava granicu između ponovljiva računa i značenja polja."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

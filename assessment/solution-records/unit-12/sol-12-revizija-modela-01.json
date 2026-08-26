@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-12-revizija-modela-01",
+  "exercise_id": "ex-12-revizija-modela-01",
+  "unit_id": "12",
+  "source_anchor": {
+    "path": "chapters/12-kriza-i-obnova.qmd",
+    "anchor": "ex-12-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:f9d48d92d32060d9a4dc701e48b9f7ebf9f3930cc581c18e67531e04b395ebb5",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "preregistration-treated-as-validity-guarantee",
+      "statement": "Predregistracija nužno čini zaključak valjanim.",
+      "why_wrong": "Predregistracija daje vremenski označen trag planiranih odluka i omogućuje provjeru odstupanja, ali ne jamči ispravnost mjerenja, uzorka, provedbe, modela, ciljane tvrdnje ni prijenosa na druge kontekste. Valjanost se prosuđuje tim zasebnim dokazima, a ne statusom plana."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Ispuniti četiri tražena polja odvojeno. Najprije sačuvati provjerene brojke, zatim označiti samo posljednju rečenicu, napisati zaključak koji predregistraciji daje ulogu traga umjesto jamstva i imenovati točan dokument ili redak kojim bi se usporedili plan i provedba.",
+      "expected_evidence": "Brojke 0,03 [−0,11; 0,16] ostaju nepromijenjene. Ispravak navodi da plan povećava vidljivost, ali da zaključak o maloj razlici vrijedi samo za provjereni postupak i ostaje ovisan o dizajnu, mjerenju, analizi i dosegu."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogrešna je procjena 0,03 jer interval sadrži negativne vrijednosti.",
+          "why_insufficient": "Točkasta procjena može biti pozitivna dok interval obuhvaća vrijednosti u oba smjera. Brojčani je zapis provjeren."
+        },
+        {
+          "response": "Ispravak je ukloniti predregistraciju iz analize.",
+          "why_insufficient": "Predregistracija je stvaran i relevantan trag postupka. Treba ograničiti zaključak o njezinoj ulozi, a ne izbrisati je."
+        },
+        {
+          "response": "Provjerio bih samo objavljeni sažetak.",
+          "why_insufficient": "Sažetak ne omogućuje usporedbu vremenski označenoga plana, pravila uključivanja, analitičkoga koda i konačnoga rukopisa."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "field-one-verified-numbers",
+          "required_claim": "Objedinjena sirova razlika iznosi 0,03 boda uz 95-postotni interval od −0,11 do 0,16.",
+          "required_evidence": "Izvedena REML procjena 0,026766 [−0,107693; 0,161225] potvrđuje zaokruženi zapis."
+        },
+        {
+          "component_id": "field-two-single-error",
+          "required_claim": "Jedina pogrešna tvrdnja jest da predregistracija nužno jamči valjanost zaključka.",
+          "required_evidence": "Prve dvije rečenice odgovaraju provjerenom planu i brojčanom zapisu, a posljednja neopravdano prelazi na opće jamstvo."
+        },
+        {
+          "component_id": "field-three-corrected-conclusion",
+          "required_claim": "Predregistracija povećava vidljivost i provjerljivost odluka, dok procjena blizu nule ostaje ograničena na uključene laboratorije i usporedive provedene postupke.",
+          "required_evidence": "Valjanost i prijenos i dalje traže provjeru mjerenja, dizajna, modela, intervala i granice ciljane tvrdnje."
+        },
+        {
+          "component_id": "field-four-audit-target",
+          "required_claim": "Prije prihvaćanja treba usporediti registrirani plan i kod s konačnim pravilima uključivanja, primarnim izlazom i rukopisom te označiti svako odstupanje.",
+          "required_evidence": "Registrirani izvještaj čini vrijeme odluka i kasnije promjene vidljivima jer se pitanje i metoda vrednuju prije poznatoga glavnoga rezultata."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Polje provjerenih brojki mora sadržavati zaokruženu sirovu REML procjenu 0,03 i 95-postotni interval [−0,11; 0,16], izvedene iz 0,026766 [−0,107693; 0,161225] na 17 laboratorijskih redaka i ukupno 1.894 sudionika.",
+      "tolerance_or_acceptance_rule": "Prihvatiti čitateljski ili šestodecimalni oblik procjene i granica intervala. Brojke moraju biti označene kao provjerene, dok se pogreška mora ograničiti na zaključak o nužnoj valjanosti.",
+      "independent_method": "Neovisno provjeriti lokalni RRR artefakt s `scripts/check-p3-evidence12.py`, potvrditi 17 laboratorija i zbroj N = 1.894 te usporediti sirovu REML procjenu s poljem odgovora.",
+      "evidence_reference": "scripts/check-p3-evidence12.py; notes/reports/p3-evidence12-rrr-lab-effects.csv; chapters/12-kriza-i-obnova.qmd#ex-12-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-or-replaces-core-error",
+          "severity": "fatal",
+          "description": "Odgovor zadržava jamstvo valjanosti ili umjesto njega izmišlja pogrešku u provjerenoj procjeni i intervalu.",
+          "observable_evidence": "Jedina posađena pogreška nije uklonjena ili su ispravne prve dvije rečenice neopravdano promijenjene."
+        },
+        {
+          "criterion_id": "major-missing-one-required-field",
+          "severity": "major",
+          "description": "Nedostaje jedno od četiri tražena polja ili dokument za provjeru nije povezan s konkretnom odlukom i vrstom vidljivosti.",
+          "observable_evidence": "Isporuka se ne može pratiti od brojke preko dijagnoze i ispravka do dokaznoga traga."
+        },
+        {
+          "criterion_id": "minor-vague-registered-report-benefit",
+          "severity": "minor",
+          "description": "Ispravak je sadržajno točan, ali dodatnu vidljivost registriranoga izvještaja opisuje samo kao opću otvorenost.",
+          "observable_evidence": "Nedostaje precizna veza s vremenom vrednovanja plana ili usporedbom plana i konačne izvedbe."
+        },
+        {
+          "criterion_id": "useful-names-disposition-log",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno predlaže zapis dispozicije za svako pronađeno odstupanje između plana, koda, podataka i rukopisa.",
+          "observable_evidence": "Dodatak jasno razlikuje potvrđeno odstupanje od mogućega i navodi koja se tvrdnja mijenja."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "materials-first-audit",
+      "description": "Kao četvrto polje prihvatljiva je provjera registriranoga plana prema konačnim materijalima i rukopisu umjesto prema kodu ako se točno imenuje odluka koja se uspoređuje.",
+      "acceptance_boundary": "Odgovor i dalje mora prenijeti brojke, zatvoriti isti planted-error ID, dati ograničen zaključak i objasniti vremensku vidljivost registriranoga izvještaja."
+    }
+  ],
+  "instructor_notes": [
+    "Četiri polja mogu biti oblikovana kao tablica ili jasno označena proza. Ocjenjuje se sadržaj i trag provjere, ne format.",
+    "Revizija mora zatvoriti isti `preregistration-treated-as-validity-guarantee` kao okvir o pogrešci i ne smije dodati drugu statističku pogrešku."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

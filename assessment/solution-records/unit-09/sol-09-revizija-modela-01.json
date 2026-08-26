@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-09-revizija-modela-01",
+  "exercise_id": "ex-09-revizija-modela-01",
+  "unit_id": "09",
+  "source_anchor": {
+    "path": "chapters/09-procjena.qmd",
+    "anchor": "ex-09-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:0e7bb2abbfe09335927a58110c0b0aba88b7e246e240f08a5a28a82c0cd31a5a",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "confidence-level-assigned-to-fixed-parameter-after-observed-interval",
+      "statement": "Postoji devedesetpetpostotna vjerojatnost da se fiksna populacijska vrijednost nalazi unutar upravo ovog opaženog intervala.",
+      "why_wrong": "Frekventistička razina pouzdanosti pripada dugoročnom obuhvatu postupka. Nakon što su uzorak i granice opaženi, fiksni parametar jest ili nije unutar intervala, pa mu ovaj račun ne dodjeljuje vjerojatnost od 95 %."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Najprije povezati svaki od četiriju poziva s operacijom koju stvarno provodi i potvrditi da je račun koherentan za neovisne jedinice. Zatim izdvojiti rečenicu koja mijenja frekventističko značenje razine pouzdanosti.",
+      "expected_evidence": "replicate ponavlja cijeli postupak 4000 puta; sample izvlači s vraćanjem na punoj veličini; median računa istu statistiku u svakom uzorku; quantile uzima središnji percentilni raspon. Jedina greška ostaje rečenica o vjerojatnosti fiksnoga parametra."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Treba popraviti sample tako da replace bude FALSE.",
+          "why_insufficient": "Izvlačenje bez vraćanja samo bi permutiralo isti uzorak i uklonilo bootstrap promjenjivost."
+        },
+        {
+          "response": "quantile je pogrešan jer 95-postotni raspon mora uzeti 0,05 i 0,95.",
+          "why_insufficient": "Središnji 95-postotni raspon ostavlja po 2,5 % u svakom repu, pa su 0,025 i 0,975 ispravni."
+        },
+        {
+          "response": "Sve je ispravno jer je 95 % uobičajena razina pouzdanosti.",
+          "why_insufficient": "Uobičajena razina ne opravdava pogrešnu interpretaciju jednoga opaženog intervala."
+        },
+        {
+          "response": "Kod treba prepisati u drugom programskom jeziku.",
+          "why_insufficient": "Zadatak ocjenjuje čitanje statističkog postupka i zaključka, ne proizvodnju ili prijevod koda."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "map-replicate",
+          "required_claim": "replicate ponavlja cijeli bootstrap postupak 4000 puta.",
+          "required_evidence": "B je postavljen na 4000 i svaki prolaz proizvodi jedan bootstrap medijan."
+        },
+        {
+          "component_id": "map-sample",
+          "required_claim": "sample izvlači s vraćanjem na punoj veličini opaženoga uzorka.",
+          "required_evidence": "size je length(minute), a replace je TRUE."
+        },
+        {
+          "component_id": "map-median",
+          "required_claim": "median u svakom bootstrap uzorku računa istu ciljanu točkastu mjeru.",
+          "required_evidence": "Svako ponavljanje vraća jedan medijan vektora iz sample."
+        },
+        {
+          "component_id": "map-quantile",
+          "required_claim": "quantile uzima 2,5. i 97,5. percentil bootstrap medijana kao središnji 95-postotni percentilni raspon.",
+          "required_evidence": "Vektor vjerojatnosti jest c(0.025, 0.975)."
+        },
+        {
+          "component_id": "identify-sole-error",
+          "required_claim": "Jedina pogrešna rečenica pripisuje vjerojatnost od 95 % fiksnom parametru u opaženom intervalu.",
+          "required_evidence": "Operacije u kodu i njihovi opisi podudaraju se s javno objašnjenim percentilnim bootstrapom."
+        },
+        {
+          "component_id": "write-frequentist-replacement",
+          "required_claim": "Postupak koji proizvodi interval razine 95 % u dugom nizu usporedivih ponovljenih uzoraka obuhvaća fiksni parametar približno u 95 % slučajeva, pod njegovim uvjetima.",
+          "required_evidence": "Zamjena zadržava razinu 95 %, ali je veže uz ponovljeni postupak i ne dodaje novu tvrdnju o podacima."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Revizija traži čitanje četiriju poziva i ispravak interpretacije bez novoga brojčanog izračuna.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-fails-to-remove-fixed-parameter-probability",
+          "severity": "fatal",
+          "description": "Ispravljena rečenica i dalje daje 95-postotnu vjerojatnost fiksnom parametru u opaženom intervalu.",
+          "observable_evidence": "Središnja posađena pogreška preživljava reviziju."
+        },
+        {
+          "criterion_id": "major-misreads-call-or-omits-replacement",
+          "severity": "major",
+          "description": "Barem jedan poziv bitno je pogrešno povezan s pojmom ili nedostaje frekventistički ispravna zamjena.",
+          "observable_evidence": "Čitanje traga ili zaključak nije dovoljno pouzdan za središnji sud."
+        },
+        {
+          "criterion_id": "minor-omits-one-local-detail",
+          "severity": "minor",
+          "description": "Svi pozivi i zaključak shvaćeni su ispravno, ali jedna rečenica izostavlja punu veličinu, vraćanje, istu statistiku ili središnje percentile.",
+          "observable_evidence": "Jedna lokalna dopuna zatvara odgovor bez promjene zaključka."
+        },
+        {
+          "criterion_id": "useful-names-design-boundary",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno napominje da jednostavni redni bootstrap vrijedi za ovdje zadane neovisne jedinice.",
+          "observable_evidence": "Dodatak pokazuje razumijevanje dizajna, ali nije zamjena za traženo mapiranje i ispravak."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "compact-four-line-code-map",
+      "description": "Prihvatljiva je tablica s jednim retkom po pozivu umjesto četiriju odvojenih proznih rečenica.",
+      "acceptance_boundary": "Svaki poziv mora imati točnu pojmovnu ulogu, a posađena pogreška i zamjenska rečenica moraju ostati izričite."
+    }
+  ],
+  "instructor_notes": [
+    "Ne tražiti prepisivanje ili popravak koda. Prompt izričito ocjenjuje čitanje traga i zaključka.",
+    "callout-greska i revizija modela moraju ostati vezani uz isti stabilni error_id; ne stvarati drugu pogrešku iz ispravnoga poziva."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

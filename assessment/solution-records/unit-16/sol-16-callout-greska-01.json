@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-16-callout-greska-01",
+  "exercise_id": "ex-16-callout-greska-01",
+  "unit_id": "16",
+  "source_anchor": {
+    "path": "chapters/16-regresija.qmd",
+    "anchor": "ex-16-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:1264bd0027be154fde6ecbcdd168950426ef78e01af36ad702a1bb09ec409c4b",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "training-set-fit-treated-as-unseen-data-validation",
+      "statement": "Koeficijent determinacije i RMSE izračunati na istom uzorku na kojem je model procijenjen dovoljni su za tvrdnju o pouzdanom predviđanju novih korisnika.",
+      "why_wrong": "Obje brojke opisuju pristajanje na skupu za učenje. Procjena je već prilagodila koeficijente upravo tim ishodima, pa takav račun u očekivanju podcjenjuje pogrešku na novim jedinicama i ne provjerava obećanje izvan uzorka."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Za svaku brojku utvrditi na kojim je redcima model procijenjen i na kojim je redcima ishod uspoređen s predviđanjem; zatim provjeriti postoji li skup izdvojen prije procjene.",
+      "expected_evidence": "Model rabi `data = uzorak`, `fitted(model)` vraća predviđanja za isti taj uzorak, a i `summary(model)$r.squared` pripada istom prilagođavanju. Nema odvojenoga skupa, pa nema provjere novih korisnika."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogreška je u tome što model uključuje previše prediktora.",
+          "why_insufficient": "Broj prediktora može povećati optimizam, ali središnji nedostatak postoji i za mali model: ocjena je provedena na istim ishodima koji su služili procjeni."
+        },
+        {
+          "response": "Pogreška je curenje informacija jer se rabe obrazovanje, minute medija i spol.",
+          "why_insufficient": "Prompt izričito određuje da su sve navedene varijable dostupne prije ishoda. Vremenska granica prediktora nije prekršena."
+        },
+        {
+          "response": "RMSE manji od dva boda dokazuje da će model biti dovoljno dobar u primjeni.",
+          "why_insufficient": "Bez unaprijed postavljena kriterija i pogreške na odvojenim jedinicama ta brojka ne mjeri obećanu generalizaciju."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-correct-calculation",
+          "required_claim": "Model, R-kvadrat i korijen srednje kvadratne rezidualne pogreške računaju se ispravno kao mjere pristajanja na zadanom uzorku.",
+          "required_evidence": "`fitted(model)` ima jedno prilagođeno predviđanje za svaki redak `uzorak`, a `summary(model)$r.squared` potječe iz istoga modela."
+        },
+        {
+          "component_id": "identify-training-evaluation",
+          "required_claim": "Jedina posađena pogreška jest zaključivanje o neviđenim korisnicima iz ocjene na skupu za učenje.",
+          "required_evidence": "I procjena modela i usporedba opaženih s predviđenim ishodima koriste objekt `uzorak`; odvojeni skup nije naveden."
+        },
+        {
+          "component_id": "state-supported-conclusion",
+          "required_claim": "Isti ispis podupire samo opis koliko model pristaje tim redcima, ne koliko će dobro predviđati nove redke.",
+          "required_evidence": "R-kvadrat opisuje udio varijabilnosti na skupu za učenje, a navedeni RMSE njegov prosječni rezidualni promašaj."
+        },
+        {
+          "component_id": "require-held-out-check",
+          "required_claim": "Prediktivnu tvrdnju treba provjeriti istom mjerom na podacima izdvojenima prije procjene, uz unaprijed zadanu vremensku granicu i kriterij korisnosti.",
+          "required_evidence": "Takvi ishodi nisu sudjelovali u izboru koeficijenata, pa njihova pogreška odgovara pitanju o novim korisnicima."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Obje prijavljene veličine pripadaju istih n redaka skupa za učenje: R-kvadrat je 1 − SSE/SST na tom skupu, a `pogreska` je sqrt(SSE/n) iz istih reziduala. Nula redaka odvojene provjere ulazi u račun.",
+      "tolerance_or_acceptance_rule": "Traži se točna identifikacija zajedničkoga skupa i nula odvojenih redaka. Ne traži se izmišljena brojčana vrijednost jer prompt ne daje konkretan objekt `uzorak`; zaključak o novim podacima mora biti odbijen.",
+      "independent_method": "Algebarski povezati `fitted(model)` s rezidualnim zbrojem kvadrata i provjeriti iz koda identitet izvora redaka, bez izvršavanja nedostupnoga objekta `uzorak` i bez prepisivanja zaključka iz poglavlja.",
+      "evidence_reference": "chapters/16-regresija.qmd#ex-16-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-accepts-unseen-claim",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća tvrdnju o novim korisnicima ili trening-RMSE prikazuje kao provjeru izvan uzorka.",
+          "observable_evidence": "Zaključak o generalizaciji ostaje iako nijedan odvojeni ishod nije provjeren."
+        },
+        {
+          "criterion_id": "major-misses-shared-rows",
+          "severity": "major",
+          "description": "Odgovor sluti optimizam, ali ne pokazuje da `data = uzorak`, `fitted(model)` i R-kvadrat rabe iste redke.",
+          "observable_evidence": "Nedostaje provjerljiv trag koji lokalizira pogrešku."
+        },
+        {
+          "criterion_id": "minor-mislabels-leakage",
+          "severity": "minor",
+          "description": "Glavna dijagnoza stoji, ali odgovor pogrešno proglašava unaprijed dostupne prediktore budućim curenjem.",
+          "observable_evidence": "Ne čuva se zadana vremenska granica varijabli."
+        },
+        {
+          "criterion_id": "useful-adds-decision-threshold",
+          "severity": "useful_improvement",
+          "description": "Odgovor uz odvojenu provjeru traži i unaprijed zadanu granicu prihvatljive predikcijske pogreške.",
+          "observable_evidence": "Prediktivna ocjena povezana je s odlukom, a ne samo s manjim RMSE-om."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "cross-validation-boundary",
+      "description": "Umjesto jednoga izdvojenog skupa može se prihvatiti pravilno ugniježđena unakrsna provjera.",
+      "acceptance_boundary": "Svaka ocjenjivana jedinica mora biti izvan procjene i izbora modela u svojem presjeku, a prediktori moraju poštovati isti trenutak primjene."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija modela moraju zatvoriti isti planted-error ID. Ne prihvatiti tvrdnju da su sami prediktori poslijeishodni jer prompt tu mogućnost izričito isključuje.",
+    "Ne tražiti brojčani izlaz za nedostupan objekt `uzorak`. Ocjenjuju se identitet redaka, značenje mjera i granica zaključka."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

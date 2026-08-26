@@ -1,0 +1,100 @@
+{
+  "schema_version": "p5-routes-v1",
+  "packet": "P5-ROUTES",
+  "generated_at": "2026-08-26",
+  "decisions": ["D03", "D06", "D09", "D10"],
+  "reading_routes": [
+    {
+      "id": "kriticko-citateljski",
+      "label": "Kritičko-čitalački put",
+      "unit_order": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"],
+      "emphasis_units": ["01", "02", "03", "05", "08", "10", "12", "13", "17", "18"],
+      "basis": "Ilustrativni slijed iz sveobuhvatnoga pregleda proširen je svim živim ratificiranim preduvjetima; Poglavlje 13 stoji prije Poglavlja 17, a Poglavlje 18 dolazi tek nakon svih sedamnaest ranijih poglavlja.",
+      "public_boundary": "Naglasak pomaže usmjeriti pozornost, ali nijedno nenaglašeno poglavlje nije preskočivo ako čitatelj želi doći do Poglavlja 17 ili 18."
+    },
+    {
+      "id": "analiticki",
+      "label": "Analitički put",
+      "unit_order": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"],
+      "emphasis_units": ["01", "02", "04", "05", "06", "07", "08", "09", "10", "11", "13", "14", "15", "16", "18"],
+      "basis": "Analitički slijed iz sveobuhvatnoga pregleda usklađen je sa živim ratificiranim preduvjetima i makroredoslijedom knjige.",
+      "public_boundary": "Dodatak A prati provjerenu R-rutu, a Dodatak B samo dokumentirane jezgrene analize označene u svojem verzioniranom artefaktu; čista instalacija Dodatka B još nije potvrđena."
+    }
+  ],
+  "solution_projection": {
+    "inventory_page_id": "solutions",
+    "source": "rjesenja.qmd",
+    "generator": "scripts/build-solution-routes.py",
+    "record_store": "assessment/solution-records",
+    "record_count": 95,
+    "unit_count": 19,
+    "records_per_unit": 5,
+    "graded_frozen_outputs": 38,
+    "frozen_snapshot_date": "2026-08-26",
+    "frozen_output_key": "record_id + answer_components.planted_error.error_id",
+    "live_repetition": "optional_not_required",
+    "public_projection": "self_study_check_and_print_check",
+    "protected_projection": "kolegij_rubric",
+    "public_ai_export": "excluded",
+    "legacy_record_answer_blocks": "removed_from_exercise_sources"
+  },
+  "pathway_matrix": [
+    {
+      "id": "self-study",
+      "status": "complete",
+      "entry": "rjesenja.qmd",
+      "scope": "Sažete javne provjere za svih 95 zapisa u 19 jedinica, izvedene iz jedinoga kanonskog spremišta.",
+      "boundary": "Puni kriteriji, alternative i bilješke nastavniku nisu dio javne projekcije."
+    },
+    {
+      "id": "r",
+      "status": "complete",
+      "entry": "dodaci/a-praktikum.qmd",
+      "scope": "Provjerena samostalna R-ruta za poglavlja 6–16 i pripremu tekstnoga paketa.",
+      "boundary": "R-ruta ne pretvara programiranje u pretpostavku za čitanje knjige."
+    },
+    {
+      "id": "no-code",
+      "status": "documented_pending_clean_install",
+      "entry": "dodaci/b-jamovi.qmd",
+      "scope_source": "config/appendix-b-jamovi-route.json#scope.supported_metric_keys",
+      "scope": "Samo dokumentirane jezgrene analize u označenom skupu podržanih mjerila.",
+      "boundary": "Sedam ograđenih vrijednosti nije obećano, a čista instalacija ostaje u vlasništvu Luke Sikica i nije potvrđena u ovom paketu."
+    },
+    {
+      "id": "print",
+      "status": "complete",
+      "entry": "rjesenja.qmd",
+      "scope": "Iste sažete provjere kao u javnom samostalnom putu, bez ovisnosti o widgetu ili instalaciji softvera.",
+      "boundary": "Zaštićeni kolegijski sloj ne ulazi u zadanu tiskanu projekciju."
+    },
+    {
+      "id": "ai-output",
+      "status": "complete",
+      "entry": "R/build-ai-exports.R",
+      "scope": "Javni tekstualni izvozi 19 jedinica knjige.",
+      "boundary": "Sve stranice iz `solution_routes` i sav zaštićeni sadržaj zapisa rješenja isključeni su iz javnih AI izvoza."
+    }
+  ],
+  "architecture": {
+    "post_p5_g_basis": {
+      "chapters": 19,
+      "appendices": 7,
+      "canonical_pages": 38,
+      "widgets": 17,
+      "static_twins": 17,
+      "callout_types": 4,
+      "authority": "Gate A2d / D10"
+    },
+    "after_solution_route": {
+      "chapters": 19,
+      "appendices": 7,
+      "canonical_pages": 39,
+      "solution_routes": 1,
+      "widgets": 17,
+      "static_twins": 17,
+      "callout_types": 4,
+      "authority": "Gate A2d / D06"
+    }
+  }
+}

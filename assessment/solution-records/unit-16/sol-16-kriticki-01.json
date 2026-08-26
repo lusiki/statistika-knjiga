@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-16-kriticki-01",
+  "exercise_id": "ex-16-kriticki-01",
+  "unit_id": "16",
+  "source_anchor": {
+    "path": "chapters/16-regresija.qmd",
+    "anchor": "ex-16-kriticki-01"
+  },
+  "task_class": "kriticki",
+  "prompt_fingerprint": "sha256:40bff9ee4841484b8102b5db1ca84c99d6a31dc1f60887921c85f33301bfb5b1",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak izričito daje preširok naslov koji treba suziti i traži audit objavljene tablice; nije riječ o skrivenoj analizi s jednom posađenom pogreškom.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Za ćeliju 1,60 pročitati naslov retka, referentni redak, naslov stupca i napomenu o ishodu i prilagodbama; zatim razlikovati omjer izgleda od rizika, postotnih bodova i uzročnoga učinka.",
+      "expected_evidence": "Mjereni su samoprijavljena dnevna uporaba društvenih mreža i binarizirani samoprijavljeni simptomi na ili iznad 80. percentila. Referenca je do tri sata. Ćelija daje AOR 1,60 s 95 % intervalom 1,43–1,80, a za apsolutnu vjerojatnost treba polazišna vjerojatnost ili cijeli model s vrijednostima prilagodbi."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Više od tri sata uzrokuje 60 % više depresije.",
+          "why_insufficient": "Presječni samoprijavljeni nacrt ne identificira učinak, a 1,60 je omjer izgleda, ne relativni rizik niti količina depresije."
+        },
+        {
+          "response": "Vjerojatnost simptoma veća je za 60 postotnih bodova.",
+          "why_insufficient": "Omjer izgleda ne određuje razliku vjerojatnosti bez polazišne vjerojatnosti i punoga modela."
+        },
+        {
+          "response": "Referentna skupina su adolescenti bez depresije.",
+          "why_insufficient": "To je referentna kategorija ishoda; referentna skupina prediktora za ćeliju jest uporaba društvenih mreža do tri sata."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "name-operationalizations",
+          "required_claim": "Prediktor je samoprijavljena dnevna uporaba društvenih mreža kategorizirana na do tri i više od tri sata, a ishod samoprijavljeni simptomi binarizirani na 80. percentilu.",
+          "required_evidence": "Naslov retka, referentni redak i napomena ispod tablice daju te operacionalizacije."
+        },
+        {
+          "component_id": "read-reference-and-estimate",
+          "required_claim": "U odnosu na skupinu do tri sata, skupina iznad tri sata ima 1,60 puta onolike prilagođene izglede za ishod; 95 % interval iznosi 1,43–1,80.",
+          "required_evidence": "Riječ je o ćeliji Modela 1 i njezinu retku, uz imenovane prilagodbe iz napomene."
+        },
+        {
+          "component_id": "name-missing-absolute-quantity",
+          "required_claim": "Za apsolutnu vjerojatnost treba polazišna vjerojatnost ili odsječak i cijeli model s određenim vrijednostima prilagodbenih varijabli.",
+          "required_evidence": "Sam omjer izgleda ne preslikava se u jednu razliku vjerojatnosti."
+        },
+        {
+          "component_id": "rewrite-noncausal-headline",
+          "required_claim": "U presječnim podatcima norveških adolescenata od 15 do 16 godina više od tri sata samoprijavljene uporabe bilo je povezano s 1,60 puta većim prilagođenim izgledima za simptome na ili iznad 80. percentila nego uporaba do tri sata (AOR 1,60; 95 % interval 1,43–1,80).",
+          "required_evidence": "Rečenica imenuje populaciju, mjere, referencu, procjenu, interval, prilagodbu i povezanost bez uzročnoga glagola."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Ćelija Modela 1 za više od tri sata iznosi AOR 1,60 s 95 % intervalom 1,43–1,80 u odnosu na do tri sata. Broj 1,60 znači 60 % veće izglede, ali ne 60 % veći rizik ni 60 postotnih bodova; apsolutna promjena ostaje neodređena.",
+      "tolerance_or_acceptance_rule": "AOR i obje granice intervala moraju biti točno prepisani iz prihvaćenoga tabličnog izvatka. Ne prihvatiti pretvorbu u rizik ili vjerojatnost bez dodatne polazišne količine niti uzročni glagol.",
+      "independent_method": "Neovisno križno pročitati redak, stupac, referencu i napomenu tablice te algebarski provjeriti da omjer izgleda 1,60 predstavlja 60 % veće izglede. Ne tvrditi ponovnu procjenu iz nedostupnih pojedinačnih podataka.",
+      "evidence_reference": "chapters/16-regresija.qmd#ex-16-kriticki-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-causal-or-risk-conversion",
+          "severity": "fatal",
+          "description": "Odgovor zadržava uzročni naslov ili AOR 1,60 pretvara u 60 % veći rizik odnosno 60 postotnih bodova.",
+          "observable_evidence": "Ciljna količina ili doseg nacrta ostaju pogrešni."
+        },
+        {
+          "criterion_id": "major-wrong-reference-or-measures",
+          "severity": "major",
+          "description": "Pogrešno su imenovani referentna skupina, samoprijavljena uporaba ili binarizirani ishod.",
+          "observable_evidence": "Ćelija više nije vezana uz točan redak, ishod i usporedbu."
+        },
+        {
+          "criterion_id": "minor-omits-interval-or-adjustment",
+          "severity": "minor",
+          "description": "Neuzročna rečenica stoji, ali izostavlja interval ili činjenicu da je omjer prilagođen.",
+          "observable_evidence": "Procjena je nepotpuno izviještena iako su sastavnice dostupne."
+        },
+        {
+          "criterion_id": "useful-names-full-absolute-requirement",
+          "severity": "useful_improvement",
+          "description": "Odgovor precizira da apsolutna vjerojatnost traži odsječak, koeficijente i vrijednosti prilagodbenih varijabli, ne samo bilo koju baznu stopu.",
+          "observable_evidence": "Granica pretvorbe iz omjera izgleda izrečena je modelno točno."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "short-associated-odds-sentence",
+      "description": "Prihvatljiva je kraća rečenica o povezanosti i prilagođenim izgledima.",
+      "acceptance_boundary": "Mora zadržati norveške adolescente 15–16 godina, samoprijavljene mjere, referencu do tri sata, AOR 1,60, interval 1,43–1,80 i neuzročni doseg."
+    }
+  ],
+  "instructor_notes": [
+    "Ne zahtijevati račun apsolutne vjerojatnosti: izvadak namjerno ne daje polazišnu vjerojatnost ni cijeli model.",
+    "Ocjenjuje se čitanje prihvaćenoga tabličnog izvatka, ne ponovna analiza nedostupnih pojedinačnih podataka."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

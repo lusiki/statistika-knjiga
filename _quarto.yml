@@ -7,6 +7,8 @@ project:
   # Skripta je obavijena tryCatch-om pa nikad ne ruši build.
   pre-render:
     - python scripts/check-book-inventory.py
+    - python scripts/build-solution-routes.py --check
+    - python scripts/check-pathways.py
     - R/build-ai-exports.R
   # GitHub Pages mora moći prikazati 404 s bilo koje dubine URL-a, a ista se
   # datoteka mora moći pregledati i iz lokalnog korijena. Ugradnja lokalnih
@@ -114,6 +116,8 @@ book:
         href: raspored.qmd
       - text: "Resursi"
         href: resursi.qmd
+      - text: "Provjere rješenja"
+        href: rjesenja.qmd
       - text: "Ispravci"
         href: errata.qmd
     # END GENERATED: book-inventory footer
@@ -164,6 +168,7 @@ book:
     - dodaci/d-koji-test.qmd
     - dodaci/e-rjecnik.qmd
     - dodaci/f-ai-protokol.qmd
+    - dodaci/g-numericki-podsjetnik.qmd
   # END GENERATED: book-inventory structure
 
 bibliography: references.bib

@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-02-callout-greska-01",
+  "exercise_id": "ex-02-callout-greska-01",
+  "unit_id": "02",
+  "source_anchor": {
+    "path": "chapters/02-mjerenje-i-dizajn.qmd",
+    "anchor": "ex-02-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:26918403e2a2ade12d2a2204245a19a7a4502c9b9c4f95c80b49b46fba0888d5",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "causal-proof-from-cross-sectional-observational-association",
+      "statement": "Rečenica 'Rezultat zato dokazuje da dulje korištenje društvenih mreža smanjuje povjerenje' pretvara opaženu vezu u dokaz uzročnoga djelovanja.",
+      "why_wrong": "Opažačka anketa mjeri korištenje i povjerenje u istom trenutku, bez nasumične dodjele. Prilagodba samo za dob ne uklanja obrnuti smjer ni druge neizmjerene zajedničke uzroke, pa rezultat podupire povezanost, a ne dokaz da korištenje smanjuje povjerenje."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Imenovati dizajn, provjeriti postoji li nasumična dodjela i vremenski redoslijed te popis prilagođenih varijabli usporediti s mogućim obrnutim smjerom i neizmjerenim zajedničkim uzrocima.",
+      "expected_evidence": "Dizajn je istodobna opažačka anketa, dodjele nema, obje su varijable izmjerene istim upitnikom, a jedina imenovana prilagodba jest dob; iz tih činjenica ne slijedi dokazan uzrok."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Problem je što ne znamo je li dob statistički značajna.",
+          "why_insufficient": "Značajnost dobi ne bi stvorila nasumičnu dodjelu, vremenski redoslijed ni mjerenje svih zajedničkih uzroka."
+        },
+        {
+          "response": "Istraživanje je pogrešno jer su obje varijable u istom upitniku.",
+          "why_insufficient": "Zajednički instrument može biti mjerni rizik, ali ne poništava svaki opis ili povezanost; jedina posađena pogreška jest nedopušten kauzalni zaključak."
+        },
+        {
+          "response": "Zaključak bi bio opravdan samo s većim uzorkom.",
+          "why_insufficient": "Veći opažački uzorak može povećati preciznost, ali ne uklanja obrnuti smjer ni konfundiranje koje proizlazi iz dizajna."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "name-observational-cross-sectional-design",
+          "required_claim": "Riječ je o opažačkoj anketi u kojoj su korištenje mreža i povjerenje izmjereni u istom trenutku.",
+          "required_evidence": "Opis dizajna i istodobnoga mjerenja u modelnom odgovoru."
+        },
+        {
+          "component_id": "identify-only-planted-error",
+          "required_claim": "Neopravdana je posljednja rečenica koja povezanost naziva dokazom da dulje korištenje smanjuje povjerenje.",
+          "required_evidence": "Usporedba jezika 'dokazuje' i 'smanjuje' s opažačkim dizajnom bez dodjele."
+        },
+        {
+          "component_id": "state-reverse-direction-and-residual-confounding",
+          "required_claim": "Niže povjerenje može prethoditi duljem korištenju, a dob nije jedini mogući zajednički uzrok.",
+          "required_evidence": "Istodobno mjerenje ne uspostavlja redoslijed, a model navodi samo jednu prilagođenu varijablu."
+        },
+        {
+          "component_id": "write-bounded-replacement",
+          "required_claim": "Ispravna zamjena kaže da su dulje prijavljeno korištenje i niže prijavljeno povjerenje povezani uz prilagodbu za dob, bez uzročnoga zaključka.",
+          "required_evidence": "Zamjenska rečenica čuva opaženu povezanost i izričito ograničava doseg dizajna."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Modelni odgovor ne navodi brojčani rezultat; pogreška se otkriva provjerom dizajna, vremenskoga reda i dosega tvrdnje.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-preserves-causal-proof",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća da istodobna opažačka anketa i prilagodba za dob dokazuju da korištenje mreža smanjuje povjerenje.",
+          "observable_evidence": "Središnja tvrdnja i dalje prelazi granicu dizajna."
+        },
+        {
+          "criterion_id": "major-missing-design-or-corrected-claim",
+          "severity": "major",
+          "description": "Pogreška je naslućena, ali nedostaje imenovanje opažačkoga dizajna, obrnuti smjer ili zamjenska rečenica ograničena na povezanost.",
+          "observable_evidence": "Nije moguće provjeriti cijeli put od dizajna do ispravljenoga zaključka."
+        },
+        {
+          "criterion_id": "minor-overbroad-wording-about-observational-data",
+          "severity": "minor",
+          "description": "Ispravak je sadržajno točan, ali tvrdi da opažački podaci ne mogu poduprijeti nikakvu korisnu tvrdnju ili ne navodi da je dob bila prilagođena.",
+          "observable_evidence": "Granica se može precizirati bez promjene središnjega suda."
+        },
+        {
+          "criterion_id": "useful-distinguishes-association-and-causal-design",
+          "severity": "useful_improvement",
+          "description": "Odgovor usporedno navodi dopuštenu tvrdnju o povezanosti i svojstva dizajna potrebna za užu uzročnu tvrdnju.",
+          "observable_evidence": "Čitatelj može vidjeti što podaci nose i što bi trebalo promijeniti u dizajnu."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equivalent-association-wording",
+      "description": "Prihvatljiva je svaka formulacija koja opisuje povezanost prijavljenoga korištenja i povjerenja uz dob bez glagola uzročnoga djelovanja.",
+      "acceptance_boundary": "Formulacija ne smije tvrditi dokaz uzroka, uklonjeno konfundiranje ili utvrđen vremenski smjer."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina namjerna pogreška jest uzročna posljednja rečenica. Istodobno mjerenje i prilagodba za dob namjerno su navedeni kao nedovoljni, ali stvarni elementi opažačke analize.",
+    "Ne pretvarati zadatak u opću osudu anketa. Ocjenjuje se razlika između opisane povezanosti i tvrdnje o uzroku."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-10-revizija-modela-01",
+  "exercise_id": "ex-10-revizija-modela-01",
+  "unit_id": "10",
+  "source_anchor": {
+    "path": "chapters/10-logika-testiranja.qmd",
+    "anchor": "ex-10-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:1ae03f69641bc27cbe24f585bbe98ca756d0254d79a4f86162096085d6d25822",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "p-value-interpreted-as-posterior-probability-of-null",
+      "statement": "Iz korigirane p-vrijednosti približno 0,016 slijedi da je vjerojatnost nepostojanja razlike približno 1,6 %.",
+      "why_wrong": "Izraz (b + 1)/(B + 1) procjenjuje koliko često nulti model proizvodi opaženu ili ekstremniju testnu statistiku. Ne računa vjerojatnost nultoga modela nakon podataka i ne sadrži prior ni konkurentski model podataka."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Povezati svaki red koda s njegovim statističkim korakom, izdvojiti red koji proizvodi p-vrijednost i zatim provjeriti odgovara li izvještajna rečenica smjeru uvjetovanja toga računa.",
+      "expected_evidence": "sample premješta oznake, replicate gradi 4000 nultih razlika, sum(abs(nulte) >= abs(razlika)) daje b = 64, a (b + 1)/(B + 1) daje 65/4001. Jedina pogrešna rečenica iz toga rezultata izvodi P(H0 | podaci)."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Treba popraviti kod tako da se izbriše dodavanje jedinice.",
+          "why_insufficient": "Korekcija je namjerna i ispravna za konačan nasumični skup permutacija; kvar je u izvještajnoj interpretaciji."
+        },
+        {
+          "response": "Greška je što sample premješta oznake.",
+          "why_insufficient": "Premještanje oznaka uz fiksne ishode i veličine skupina upravo provodi zadani test pod pretpostavkom zamjenjivosti."
+        },
+        {
+          "response": "Nedostaje upozorenje da rezultat nije uzročan.",
+          "why_insufficient": "Upozorenje je već izričito napisano u analiziranom okviru, pa ne može biti jedina posađena pogreška."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "name-correct-steps",
+          "required_claim": "Ispravno su definirani opažena razlika, nulta raspodjela premještanjem oznaka, obostrano prebrojavanje i Monte Carlo korekcija.",
+          "required_evidence": "Svaki navedeni korak ima odgovarajući red u prikazanom kodu, a pretpostavke stoje u tekstu okvira."
+        },
+        {
+          "component_id": "identify-reporting-line",
+          "required_claim": "Izvještajna brojka izlazi iz završnoga izraza (b + 1)/(B + 1), nakon što je b dobiven retkom sum(abs(nulte) >= abs(razlika)).",
+          "required_evidence": "Za b = 64 i B = 4000 izraz vraća 65/4001."
+        },
+        {
+          "component_id": "identify-invalid-sentence",
+          "required_claim": "Ne slijedi rečenica da p-vrijednost daje vjerojatnost nepostojanja razlike.",
+          "required_evidence": "Račun je uvjetovan nultim modelom i mjeri rep rezultata, a ne posterior modela."
+        },
+        {
+          "component_id": "write-corrected-sentence",
+          "required_claim": "Ako vrijedi navedeni nulti model, razlika ovolika ili veća po apsolutnoj vrijednosti pojavljuje se uz korigiranu p-vrijednost približno 0,016.",
+          "required_evidence": "Ispravak zadržava smjer P(rezultat | nulti model), korigiranu brojku i promatračku granicu bez izmjene koda."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Red b <- sum(abs(nulte) >= abs(razlika)) daje b = 64, a završni red (b + 1)/(B + 1) pri B = 4000 daje 65/4001 = 0,0162459385154.",
+      "tolerance_or_acceptance_rule": "Brojčani rezultat prihvatiti kao 0,016 ili 1,6 % uz obvezan ispravan uvjet. Ne prihvatiti 64/4000 kao reprodukciju prikazanoga korigiranog računa niti ikakvu posteriornu interpretaciju.",
+      "independent_method": "U čistoj sesiji ponovno izvesti fiksni niz permutacija sa sjemenom 1011, neovisno prebrojiti b = 64 i ručno provjeriti razlomak 65/4001.",
+      "evidence_reference": "chapters/10-logika-testiranja.qmd#s10-vrijednosti; chapters/10-logika-testiranja.qmd#ex-10-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-keeps-reversed-conditional",
+          "severity": "fatal",
+          "description": "Odgovor zadržava ili ponavlja tvrdnju da p-vrijednost daje vjerojatnost nulte hipoteze nakon podataka.",
+          "observable_evidence": "Ispravljena rečenica i dalje tumači 0,016 kao P(H0 | podaci)."
+        },
+        {
+          "criterion_id": "major-misdiagnoses-valid-code",
+          "severity": "major",
+          "description": "Odgovor označava valjani red koda kao središnju pogrešku ili ne može povezati završnu brojku s dvama završnim redovima.",
+          "observable_evidence": "Predlaže popravak sample, abs ili +1 korekcije bez dokaza i ne imenuje stvarnu pogrešnu rečenicu."
+        },
+        {
+          "criterion_id": "minor-corrects-meaning-without-complete-receipt",
+          "severity": "minor",
+          "description": "Uvjetna rečenica ispravljena je, ali nedostaje b, završni red ili veza između koda i izvještajne brojke.",
+          "observable_evidence": "Statistički zaključak stoji, no račun provjere nije potpun."
+        },
+        {
+          "criterion_id": "useful-restores-estimate-first",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno vraća procjenu razlike s intervalom ispred p-vrijednosti.",
+          "observable_evidence": "Dodatak poštuje izvještajni redoslijed poglavlja, ali nije zamjena za dijagnozu uvjetovanja."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "compatibility-correction",
+      "description": "Prihvatljiv je ispravak da opaženi podaci pokazuju slabu uskladivost s navedenim nultim modelom, uz p približno 0,016.",
+      "acceptance_boundary": "Odgovor mora zadržati uvjet vrijedenja modela, prepoznati izvorni red koda i ne tvrditi posteriornu vjerojatnost, važnost ili uzročnost."
+    }
+  ],
+  "instructor_notes": [
+    "Revizija mora dijagnosticirati isti jedini error_id kao callout-greska. Ne uvoditi drugu pogrešku u kod, zamjenjivost ili uzročnu granicu.",
+    "Student ne mora prepisivati ni popravljati kod. Dovoljno je povezati postojeće retke s postupkom, brojkom i pogrešnom rečenicom."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

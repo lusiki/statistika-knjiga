@@ -2,8 +2,8 @@
 
 **Gate:** `C18`
 
-**Stanje gatea:** aktivan; kompletan paket pripremljen; čeka točan autorov
-odgovor. Gate nije zatvoren.
+**Stanje gatea:** prihvaćen; točan autorov odgovor zaprimljen je 19. kolovoza
+2026. i uska dispozicija iz ovoga paketa provedena je bez proširenja opsega.
 
 **Imenovani vlasnik odluke:** Luka Sikic, autor/editor.
 
@@ -104,9 +104,9 @@ Zasebni worktree na točnom završnom izvoru proizveo je:
 Wrapperi su završili izlazom nula i vratili privremenu konfiguraciju;
 generirani izlazi nisu ušli u primarni checkout.
 
-## Potpuni popis stavki koje blokira C18
+## Potpuni popis stavki prihvaćenih u C18
 
-Četrnaest još ratificiranih stavki čeka upravo ovaj autorski gate:
+C18 je prihvatio točno četrnaest prethodno ratificiranih stavki:
 
 1. `R08-SPINE-18`;
 2. `R10-C18-whole-book-harvest`;
@@ -126,17 +126,18 @@ generirani izlazi nisu ušli u primarni checkout.
 Prvih trinaest materijalno je završio WE-C18. Četrnaesta ima verificirane obje
 izvorne strane: poglavlje 17 predaje prag, terete pogreške, nadzor, prigovor i
 odgovornu delegaciju, a poglavlje 18 taj zadatak provodi ili izričito omeđuje.
-Dolazna isporuka `H-WD-PART-001` zato je u C18 priznata kao `acknowledged`, ali
-nije potrošena, a stavka ostaje `ratified` do točnoga odgovora autora.
+Dolazna isporuka `H-WD-PART-001` najprije je priznata kao `acknowledged`, a
+nakon točnoga odgovora potrošena je s dokazom obje izvorne strane. Stavka je
+tek tada prešla iz `ratified` u `accepted`.
 
 `R09-C18-interval-conclusion` nije u tom popisu: već je `accepted` iz
 `P1A-C18` i svježe je revalidiran na konačnom izvoru. C18 mu ne mijenja
 status. `R04-C18-whole-prerequisites` također nije C18 stavka: njegova izvorna
 polovica prolazi, ali stavka ostaje `ratified` u vlasništvu `P5-ROUTES`.
 
-## Točna uska dispozicija koja bi slijedila prihvaćanje
+## Provedena točna uska dispozicija
 
-Ako autor pošalje niže navedeni točan odgovor, C18 smije provesti samo ovo:
+Nakon točnoga odgovora C18 je proveo samo ovo:
 
 - pomaknuti `18-vase-prvo-istrazivanje` iz `draft` u `coauthor_review`, uz
   izričitu bilješku da prihvaćanje ne znači da je autor pročitao poglavlje i
@@ -152,7 +153,7 @@ Ako autor pošalje niže navedeni točan odgovor, C18 smije provesti samo ovo:
 - zatvoriti samo C18, ukloniti njegov write lock i tek tada učiniti
   `P5-CLOSURE-00` mogućim sljedećim paketom.
 
-Nijedna druga stavka, poglavlje ili handoff ne mijenja status. Poglavlje 6
+Nijedna druga stavka, poglavlje ili handoff nije promijenio status. Poglavlje 6
 ostaje `draft`; poglavlja 7–17 zadržavaju svoja prihvaćena stanja.
 `H-WE-C18-001` ostaje `pending` samo za `P6-EVIDENCE`.
 
@@ -160,21 +161,21 @@ ostaje `draft`; poglavlja 7–17 zadržavaju svoja prihvaćena stanja.
 
 C18 ne autorizira promjenu proze, novi panel, vanjsku poruku, push, merge, tag,
 arhiviranje, deployment ili objavu. Ne tvrdi se da je autor pročitao poglavlje.
-`P5-CLOSURE-00` se ne smije otvoriti prije točnoga odgovora i zasebnoga C18
-closeouta.
+`P5-CLOSURE-00` je tek nakon ovoga zasebnoga C18 closeouta postao dopušten
+sljedeći paket; nije otvoren ni preuzet unutar C18.
 
-Ovaj pripremni korak ne zatvara C18 i ne provodi nijednu predloženu ledger
-promjenu. Poglavlje 18 ostaje `draft`, svih četrnaest stavki ostaje `ratified`,
-a write lock ostaje na C18 dok čeka autora.
+C18 closeout ne mijenja izvor poglavlja. Poglavlje 18 prelazi u
+`coauthor_review`, točno četrnaest navedenih stavki prelazi u `accepted`, a C18
+write lock uklonjen je. Ne tvrdi se da je autor pročitao poglavlje ni da je ono
+`final`.
 
-## Točan odgovor autora
+## Zaprimljeni točan odgovor autora
 
-Za prihvaćanje ovoga točno određenog stanja odgovorite doslovno:
+Autor je doslovno odgovorio:
 
 ```text
 C18 accepted for be70fef341c46103b7252c3dd6b5c76c9545072e on 2026-08-19
 ```
 
-Svaki drukčiji commit ili datum zahtijeva novu provjeru podudaranja. Umjesto
-prihvaćanja možete navesti točne blokirajuće dorade; u tom slučaju C18 ostaje
-otvoren i izvor se ne mijenja bez zasebne dispozicije.
+Commit i datum podudaraju se s pripremljenim ugovorom. Odgovor prihvaća samo
+točno određeno WE-C18 stanje i ne autorizira promjenu proze ni release radnju.

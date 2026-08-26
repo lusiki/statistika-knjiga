@@ -4,13 +4,13 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/13-kategoricki-podaci.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
 | Vrijeme čitanja | Widget | Podaci | Preduvjet |
 |---|---|---|---|
-| 24 min | Očekivano i opaženo | simulirana populacija | pogl. 4, 8, 10 |
+| 24 min | Očekivano i opaženo | `populacija_medija` · simulirano | pogl. 2–4, 10–12 |
 
 **Vinjeta.**
 Sveučilište u Berkeleyju našlo se sredinom sedamdesetih pred pitanjem na koje
@@ -27,6 +27,19 @@ uopće trebalo nalaziti da spol i ishod prijave nemaju nikakve veze.
 Kako iz same tablice brojanja prepoznati postoji li veza, gdje se ona nalazi i
 koliko je snažna?
 
+Obnovljena praksa iz prethodnog poglavlja mijenja i način na koji ulazimo u
+modele. Model nije ime postupka ni automat za p-vrijednost, nego opis onoga što
+bismo uz izrečene pretpostavke očekivali vidjeti. Od njega tražimo usporedbu
+podataka s tim očekivanjem, mjeru veličine odstupanja, provjeru granica i
+izvještaj koji čuva nazivnik i neizvjesnost.
+
+Obitelj modela nije zbirka testova. Prvi model
+namjerno ostaje izvan linearnoga okvira i cijelo poglavlje čita jednu
+kontingencijsku tablicu od odluke što ćelija broji do zaključka koji se smije
+braniti. Hi-kvadrat test, reziduali, Cramérovo V i Fisherov postupak odgovaraju
+na različita pitanja o istoj tablici, pa nijedan od njih nije zamjensko ime za
+cijelu analizu.
+
 ## Brojanje prije testiranja
 
 Kategoričke varijable ne mjere količinu nego pripadnost. Dobna skupina, izvor
@@ -35,8 +48,9 @@ kutijama može učiniti jest prebrojati ih. Sve što slijedi u ovom poglavlju
 izvedeno je iz tih brojeva, pa je vrijedno zadržati se na tome koliko se lako
 prebrojavanje pokvari.
 
-Frekvencija govori koliko je jedinica u nekoj kategoriji. Udio istu tu
-frekvenciju stavlja u odnos prema nazivniku, i tek s nazivnikom postaje čitljiv.
+Frekvencija govori koliko je jedinica u nekoj kategoriji. **Uvjetni nazivnik**
+određuje unutar koje se skupine udio računa, i tek s tim nazivnikom frekvencija
+postaje čitljiva.
 Rečenica da četrdeset posto ispitanika bira društvene mreže znači nešto sasvim
 drugo ako je nazivnik cijeli uzorak, ako je to samo najmlađa dobna skupina ili
 ako su to samo oni koji su na pitanje uopće odgovorili. Nazivnik se u
@@ -60,6 +74,12 @@ raspodjelu. Rubni zbrojevi po retcima daju raspodjelu prve varijable, rubni
 zbrojevi po stupcima raspodjelu druge, a ćelije govore kako se te dvije
 raspodjele preklapaju. Poglavlje radi na simuliranoj populaciji iz koje je
 izvučeno `r s13_n` osoba, i sve brojke u njemu potječu iz tog uzorka.
+
+Glavni primjer koristi lokalno dostupan simulirani skup `populacija_medija`, pa
+se cijela analiza može provesti bez mreže. Istu logiku čitatelj može provjeriti
+na vlastitoj portalnoj kopiji ESS-a. Tada za svaku analizu mora odrediti valjani
+nazivnik i upotrijebiti zadani ponder `anweight`, a dobivene brojke ne zamjenjuju
+brojke glavnoga primjera.
 
 Postoci po retku i postoci po stupcu odgovaraju na različita pitanja i nisu
 zamjenjivi. Postotak po retku pita kako se unutar jedne dobne skupine dijele
@@ -128,13 +148,14 @@ te ćelije.
 1. Postavite opažene frekvencije jednake očekivanima i pogledajte doprinose.
 2. Pomaknite opažanja u oba smjera i provjerite ostaju li rubni zbrojevi jednaki.
 3. Povećajte pomak i pratite koliko brže raste ukupno odstupanje od pomaka.
-4. Zadržite pomak u postocima, a smanjite rubni zbroj na deset.
+4. Zadržite pomak u postocima i usporedite mali s velikim rubnim zbrojem.
 
 Posljednji korak pokazuje ono što se u tablici brojeva ne vidi. Isti relativni
 pomak u maloj ćeliji daje mnogo manji doprinos nego u velikoj, jer se svako
 odstupanje dijeli očekivanom frekvencijom. Postupak zato ne mjeri koliko je
 razlika velika u postocima nego koliko je malo vjerojatna uz zadane rubne
-zbrojeve.
+zbrojeve. U dva statička panela hi-kvadrat raste s 1,6 na 6,4, dok Cramérovo V
+ostaje 0,20 jer relativna jačina obrasca ostaje ista.
 
 ## Zbroj odstupanja i njegov raspored
 
@@ -254,8 +275,10 @@ Prva pretpostavka jest da su četiri razine obrazovanja jednako zastupljene.
 Uz nju statistika iznosi `r hr_broj(s13$gof_ravno)` i nesklad je golem. Druga
 pretpostavka koristi stvarne udjele populacije iz koje je uzorak izvučen. Uz nju
 statistika pada na `r hr_broj(s13$gof_pop, 2)`, a p-vrijednost iznosi
-`r hr_broj(s13$p_gof_pop, 2)`, što znači da uzorak dobro odražava populacijsku
-strukturu.
+`r hr_broj(s13$p_gof_pop, 2)`, pa test ne otkriva jasan nesklad s poznatim
+populacijskim udjelima. To nije dokaz jednakosti. Najveće opaženo odstupanje
+jednog udjela od populacijskoga iznosi
+`r hr_broj(s13$gof_max_razlika, 1)` postotnih bodova.
 
 Isti podaci, dva potpuno različita zaključka, i nijedan račun nije pogrešan.
 Razlika je u tome što tvrdimo. Prvi test odbacuje pretpostavku koju nitko nije
@@ -264,6 +287,19 @@ Budući da je populacija u ovom poglavlju simulirana i time poznata, znamo koja
 je referencija istinita, što je luksuz kakav stvarno istraživanje nema. U njemu
 izbor referentne raspodjele nosi istraživač, i taj se izbor obrazlaže prije
 nego što se test provede.
+
+Ista mjerna granica vrijedi kada kategorije nastanu kodiranjem teksta. Jedinica
+tada nije tema nego konkretan dokument, objava ili govor koji je mogao ući u
+korpus. Prije tablice treba imenovati tko je odredio kodnu knjigu i pravila
+pridruživanja, a nazivnik mora obuhvatiti samo jedinice koje su prema tim
+pravilima bile podobne za kodiranje. Nekodirane i višestruko kodirane jedinice
+ne smiju nestati u tišini.
+
+Retci takve tablice mogu označavati izvor teksta, a stupci kodiranu kategoriju.
+Veza koju pronađemo tada pripada i tekstovima i mjernim odlukama koje su ih
+pretvorile u kategorije. U poglavlju o algoritmima isti će uvjetni nazivnici i
+ista kontingencijska tablica postati temelj za čitanje tablice zabune, pa se
+vlasništvo nad kategorijama ne može prepustiti nevidljivom klasifikatoru.
 
 ## Kad je aproksimacija tanka
 
@@ -307,16 +343,18 @@ odbacivanja pod nezavisnošću, a druga vjerojatnost otkrivanja jedne unaprijed
 određene veze.
 
 Za male tablice postoji postupak koji aproksimaciju uopće ne koristi. Fisherov
-egzaktni test prebroji sve rasporede koji su mogući uz zadane rubne zbrojeve i
-izračuna koliko je njih barem toliko neuravnoteženo kao opaženi. Njegovo ime ne
-znači da je svaki drugi test netočan, nego da p-vrijednost dolazi iz
-prebrojavanja umjesto iz krivulje.
+egzaktni test enumerira sve tablice moguće uz zadane rubne zbrojeve i svakoj
+pridružuje njezinu točnu uvjetnu hipergeometrijsku vjerojatnost. P-vrijednost je
+zbroj vjerojatnosti tablica koje su prema unaprijed navedenom pravilu barem
+toliko ekstremne kao opažena. Njegovo ime ne znači da je svaki drugi test
+netočan, nego da račun dolazi iz točnih uvjetnih vjerojatnosti umjesto iz
+aproksimacijske krivulje.
 
-Treći put je preraspodjela samih kategorija. Više rijetkih kategorija često nosi
-manje informacije od dvije popunjene, pa spajanje istovremeno rješava problem
-malih ćelija i izoštrava priču. Uvjet je da spajanje ima sadržajno opravdanje i
-da je odlučeno prije nego što se vidi rezultat. Kategorije se ne spajaju zato da
-bi nesklad postao veći ili da bi nezgodna skupina nestala.
+Treći put je unaprijed određena preraspodjela samih kategorija. Ona ne liječi
+automatski male ćelije i ne čuva isto pitanje, jer nova kategorija definira novu
+varijablu. Autor analize zato prije rezultata mora imenovati sadržajno pravilo
+spajanja i preuzeti odgovornost za njega. Kategorije se ne spajaju zato da bi
+nesklad postao veći ili da bi nezgodna skupina nestala.
 
 **Statistika u divljini.**
 **Prag pet.** Pravilo da svaka očekivana frekvencija mora biti barem pet
@@ -357,11 +395,12 @@ izvora vijesti vrlo je snažna.
 
 ## Razrađeni primjer
 
-Pet kategorija izvora vijesti daje tablicu koju je teško čitati i o kojoj je
-još teže odlučivati. Sadržajna podjela na digitalne i tradicionalne izvore
-zadržava ono što je u podacima nosivo, a uklanja rijetke ćelije. Analiza koja
-slijedi tu podjelu provodi, ispisuje profile po dobnim skupinama i testira
-tablicu koja iz njih nastaje.
+Pet kategorija izvora vijesti odgovara na pitanje koji se pojedinačni izvor
+bira. Odvojeno i unaprijed određeno pitanje uspoređuje digitalne s
+tradicionalnim izvorima. Autor analize u njemu portal i društvene mreže svrstava
+u digitalne, a televiziju, tisak i radio u tradicionalne izvore. Ta podjela ne
+popravlja prvu tablicu, nego definira novu varijablu čiji se profil i test
+prikazuju u nastavku.
 
 Funkcija `table` prebrojava kombinacije dviju varijabli, `prop.table` pretvara
 frekvencije u udjele uz zadani smjer, a `chisq.test` prima gotovu tablicu i
@@ -369,12 +408,16 @@ vraća statistiku, stupnjeve slobode i p-vrijednost.
 
 Udio digitalnih izvora pada s
 `r hr_broj(s13_digitalni[["18 do 29"]])` % u najmlađoj skupini na
-`r hr_broj(s13_digitalni[["60 i više"]])` % u najstarijoj. Statistika iznosi
+`r hr_broj(s13_digitalni[["60 i više"]])` % u najstarijoj. Razlika iznosi
+`r hr_broj(s13$razlika_digitalni, 1)` postotnih bodova, uz 95-postotni interval
+pouzdanosti od `r hr_broj(s13$ci_digitalni[[1]], 1)` do
+`r hr_broj(s13$ci_digitalni[[2]], 1)` postotnih bodova. Statistika iznosi
 `r hr_broj(s13$hi_spojena)` uz `r s13$df_spojena` stupnja slobode, a Cramérovo V
-raste na `r hr_broj(s13$v_spojena, 2)` s
-`r hr_broj(s13$v, 2)` u tablici sa svih pet izvora. Sažimanje je ovdje pojačalo
-mjeru jačine, jer je uklonilo razlike među srodnim kategorijama koje su
-razrjeđivale glavni obrazac.
+iznosi `r hr_broj(s13$v_spojena, 2)`. U peterokategorijskoj tablici V iznosi
+`r hr_broj(s13$v, 2)`, ali dvije vrijednosti ne rangiraju dvije kodne sheme.
+Prva čuva razlike među pojedinačnim izvorima, a druga odgovara na uži binarni
+kontrast, pa njihova usporedba služi provjeri osjetljivosti zaključka na
+operacionalizaciju.
 
 Izvještaj s time ipak nije gotov. Tablica opisuje povezanost dobi i izbora
 izvora, ali ne kaže zašto ona postoji. Razlika među generacijama može biti
@@ -384,14 +427,15 @@ takvih objašnjenja traži varijable koje tablica ne sadrži i model koji ih mo�
 istovremeno uzeti u obzir, o čemu govori poglavlje o regresiji.
 
 Time se zatvara i pitanje s početka poglavlja. Zbirna tablica prijava u
-Berkeleyju doista nije bila usklađena s modelom nezavisnosti, i svaki bi
-postupak iz ovog poglavlja to potvrdio (Bickel, 1975). Ono što nijedan od njih
-nije mogao dati jest objašnjenje, jer se odgovor nalazio u varijabli koje u
-tablici nije bilo. Prijave su bile neravnomjerno raspoređene po odjelima, a
-odjeli su se razlikovali po tome koliko su primali. Kako se takav zbirni obrazac
-preokrene čim se sloj vrati u račun, pokazuje poglavlje o povezanosti
-(Simpson, 1951). Ovdje je dovoljna pouka da tablica s dvije varijable odgovara
-točno na jedno pitanje, a da se pitanje o mehanizmu njome ne može ni postaviti.
+Berkeleyju doista nije bila usklađena s modelom nezavisnosti, što bi pokazao
+hi-kvadrat test nezavisnosti (Bickel, 1975). Cramérovo V opisalo bi jačinu toga
+nesklada, a reziduali ćelije koje mu najviše pridonose. Nijedan od tih alata ne
+bi dao objašnjenje, jer se odgovor nalazio u varijabli koje u tablici nije bilo.
+Prijave su bile neravnomjerno raspoređene po odjelima, a odjeli su se razlikovali
+po tome koliko su primali. Kako se takav zbirni obrazac preokrene čim se sloj
+vrati u račun, pokazuje poglavlje o povezanosti (Simpson, 1951). Ovdje je dovoljna
+pouka da tablica s dvije varijable odgovara točno na jedno pitanje, a da se
+pitanje o mehanizmu njome ne može ni postaviti.
 
 ## Sažetak
 
@@ -408,11 +452,12 @@ logiku usporedbe prenosi na brojčani ishod i dvije skupine.
 
 ## Pojmovi
 
-kontingencijska tablica (*contingency table*), očekivana frekvencija (*expected
-frequency*), hi-kvadrat test (*chi-squared test*), test prilagodbe
-(*goodness-of-fit test*), prilagođeni standardizirani rezidual (*adjusted
-standardized residual*),
-Cramérovo V (*Cramér's V*), Fisherov egzaktni test (*Fisher's exact test*)
+kontingencijska tablica (*contingency table*), uvjetni nazivnik (*conditional
+denominator*), očekivana frekvencija (*expected frequency*), hi-kvadrat
+statistika (*chi-squared statistic*), prilagođeni standardizirani rezidual
+(*adjusted standardized residual*), test prilagodbe (*goodness-of-fit test*),
+referentna raspodjela (*reference distribution*), Cramérovo V (*Cramér's V*),
+Fisherov egzaktni test (*Fisher's exact test*)
 
 ## Zadaci
 
@@ -431,9 +476,12 @@ za opaženu tablicu sa sedamdeset u prvoj ćeliji izračunajte doprinos svake
 
 ### Kritički
 
-Prosudite što zbirna kontingencijska tablica prijava može reći o upisima, a što
-gubi kad se odjeli izostave (Bickel, 1975). Predajte jedan odlomak i imenujte
-podatak koji bi vam trebao da razlikujete dva ponuđena objašnjenja.
+Vratite se na Simpsonov paradoks iz poglavlja o povezanosti i na Berkeleyjev
+slučaj (Bickel, 1975). Skicirajte zbirnu tablicu spola i ishoda prijave te skup
+odjelskih tablica koje vraćaju izostavljeni sloj. Objasnite zašto hi-kvadrat
+test prve tablice ne može razlikovati razliku u sastavu prijava od razlike u
+odlučivanju unutar odjela. Predajte obje sheme, jedan odlomak usporedbe i naziv
+varijable bez koje se ta dva objašnjenja ne mogu razdvojiti.
 
 ### Revizija modela
 

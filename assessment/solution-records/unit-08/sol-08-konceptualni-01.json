@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-08-konceptualni-01",
+  "exercise_id": "ex-08-konceptualni-01",
+  "unit_id": "08",
+  "source_anchor": {
+    "path": "chapters/08-uzorkovanje.qmd",
+    "anchor": "ex-08-konceptualni-01"
+  },
+  "task_class": "konceptualni",
+  "prompt_fingerprint": "sha256:d2a89a1ddcc11d2e394215284d9512512d031bfd410461e22393d3042a5b723e",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Konceptualni zadatak traži usporedbu dviju raspodjela i njihovih širina, a ne daje jednu posađenu pogrešnu analizu.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Na svakoj skici označiti što predstavlja jedna točka ili stupac, gdje je zajedničko središte i što mjeri širina. Zatim povećati n uz istu populaciju i odvojeno pratiti raspodjelu opažanja i raspodjelu sredina.",
+      "expected_evidence": "Jedinica populacijske raspodjele jest pojedinačno opažanje, a širinu joj mjeri standardna devijacija i ona se s većim n ne sužava. Jedinica distribucije uzorkovanja jest sredina jednoga uzorka, širinu joj mjeri standardna pogreška i ona se smanjuje približno s korijenom iz n."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Obje raspodjele prikazuju ljude, samo je druga nacrtana iz većega uzorka.",
+          "why_insufficient": "Distribucija uzorkovanja ne prikazuje ljude nego po jednu statistiku iz svakoga ponovljenog uzorka."
+        },
+        {
+          "response": "Kada n poraste, obje raspodjele postaju uže.",
+          "why_insufficient": "Povećanje n sužava raspodjelu procjene kroz uzorke, ali ne mijenja populacijsku raspršenost pojedinačnih opažanja."
+        },
+        {
+          "response": "Standardna pogreška opisuje koliko se ljudi razlikuju od uzoračke sredine.",
+          "why_insufficient": "To je uloga standardne devijacije opažanja. Standardna pogreška opisuje koliko bi se mijenjala procjena kroz ponovljene uzorke."
+        },
+        {
+          "response": "Dovoljna je jedna skica zvonaste krivulje za obje raspodjele.",
+          "why_insufficient": "Izvorna populacija ne mora biti normalna, a zadatak traži različite jedinice i širine, ne samo generički oblik."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "identify-observation-distribution-unit",
+          "required_claim": "Jedinica raspodjele pojedinačnih opažanja jest jedna osoba ili druga promatrana jedinica.",
+          "required_evidence": "Svaka vrijednost dolazi izravno iz populacije ili uzorka, prije izračuna sredine."
+        },
+        {
+          "component_id": "identify-observation-width",
+          "required_claim": "Širina raspodjele opažanja opisuje heterogenost pojedinaca i mjeri se standardnom devijacijom.",
+          "required_evidence": "Uz fiksnu populaciju očekivana širina pojedinačnih vrijednosti ne pada samo zato što je uzorak veći."
+        },
+        {
+          "component_id": "identify-sampling-distribution-unit",
+          "required_claim": "Jedinica distribucije uzorkovanja jest uzoračka sredina iz jednoga ponovljenog uzorka.",
+          "required_evidence": "Svaka točka sažima cijeli uzorak, a mnoge točke nastaju ponavljanjem istoga postupka odabira."
+        },
+        {
+          "component_id": "identify-sampling-width-and-n-change",
+          "required_claim": "Širinu distribucije sredina mjeri standardna pogreška, koja se u jednostavnom modelu smanjuje približno s korijenom iz n.",
+          "required_evidence": "Veći n smanjuje utjecaj pojedinačnih odstupanja na sredinu, pa sredine kroz ponovljene uzorke postaju zbijenije."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Zadatak traži skice, jedinice i pojmovno tumačenje širina bez obveznoga novog brojčanog rezultata.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-conflates-distribution-units",
+          "severity": "fatal",
+          "description": "Odgovor obje raspodjele tumači kao raspodjele pojedinaca ili standardnu pogrešku kao mjeru heterogenosti ljudi.",
+          "observable_evidence": "Jedinica opažanja i jedinica procjene nisu razdvojene."
+        },
+        {
+          "criterion_id": "major-misses-width-or-n-effect",
+          "severity": "major",
+          "description": "Nedostaje jedna od dviju mjera širine ili točan opis učinka većega uzorka na svaku raspodjelu.",
+          "observable_evidence": "Jedna skica ili jedno popratno objašnjenje nema traženo statističko značenje."
+        },
+        {
+          "criterion_id": "minor-unclear-sketch-label",
+          "severity": "minor",
+          "description": "Pojmovna je razlika ispravna, ali skica ne označuje jasno središte, jedinicu ili širinu.",
+          "observable_evidence": "Lokalna oznaka dovoljna je bez promjene objašnjenja."
+        },
+        {
+          "criterion_id": "useful-adds-shape-qualification",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno razlikuje sužavanje od približavanja normalnom obliku i navodi uvjete pod kojima se oblik uređuje.",
+          "observable_evidence": "Dodatak produbljuje odgovor, ali nije obvezan za traženu usporedbu širina."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "paired-density-or-dot-sketch",
+      "description": "Prihvatljive su skice histogramom, gustoćom ili točkama ako jasno označuju pojedinačno opažanje nasuprot uzoračkoj sredini.",
+      "acceptance_boundary": "Obje skice moraju imati jedinicu, mjeru širine i zaseban opis promjene pri većem n."
+    }
+  ],
+  "instructor_notes": [
+    "Ne zahtijevati normalan oblik populacijske raspodjele. Središnji je kriterij razlika između opažanja i procjene.",
+    "Prihvatiti verbalno pravilo da standardna pogreška pada s korijenom veličine uzorka bez izvođenja formule."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

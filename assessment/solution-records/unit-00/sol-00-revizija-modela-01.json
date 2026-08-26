@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-00-revizija-modela-01",
+  "exercise_id": "ex-00-revizija-modela-01",
+  "unit_id": "00",
+  "source_anchor": {
+    "path": "chapters/00-predgovor.qmd",
+    "anchor": "ex-00-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:a838a3422d190f451ddc627fc01d1d8c274c329a0d51c56961b258c5107aa44d",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "auditable-trace-replaces-verification",
+      "statement": "Jasno zapisan račun navodno uklanja potrebu za neovisnom usporedbom s izvornom tablicom.",
+      "why_wrong": "Provjerljiv trag omogućuje provjeru, ali je ne izvršava; čovjek i dalje mora potvrditi ulaze, račun i granicu zaključka."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Pronaći brojnik i nazivnik u izvornoj tablici, neovisno ponoviti dijeljenje i zatim provjeriti ostaje li zaključak unutar generirane populacije.",
+      "expected_evidence": "13.378 / 50.000 = 0,26756 = 26,756 % i izvorni redak potvrđuje ulaze; upravo je ta usporedba nužna unatoč zapisanom računu."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogrešan je udio od 26,756 %.",
+          "why_insufficient": "Udio je aritmetički točan za 13.378 od 50.000."
+        },
+        {
+          "response": "Pogreška je ograničenje na generiranu populaciju.",
+          "why_insufficient": "To je ispravna granica; rezultat se ne smije prenositi na stvarne ljude."
+        },
+        {
+          "response": "Model treba napisati kod koji će popraviti račun.",
+          "why_insufficient": "Račun nije pogrešan, a zadatak ocjenjuje prosudbu i ne traži proizvodnju koda."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "two-correct-elements",
+          "required_claim": "Točni su brojnik, nazivnik i udio te ograničenje zaključka na generiranu populaciju.",
+          "required_evidence": "Redak društvene mreže u tablici i opis generiranoga skupa."
+        },
+        {
+          "component_id": "only-error",
+          "required_claim": "Jedina je pogreška tvrdnja da jasno zapisan račun ne treba neovisnu provjeru.",
+          "required_evidence": "Ugovor knjige ostavlja provjeru izvora i zaključka čovjeku."
+        },
+        {
+          "component_id": "required-human-check",
+          "required_claim": "Čitatelj mora usporediti 13.378 i 50.000 s izvornom tablicom i ponovno provjeriti dijeljenje.",
+          "required_evidence": "Neovisni račun 13.378 / 50.000."
+        },
+        {
+          "component_id": "trace-limit",
+          "required_claim": "Provjerljiv trag računa ne jamči prikladnost podataka, valjanost dizajna ni poštenje tumačenja.",
+          "required_evidence": "Granica traga računa iz odjeljka Granice i putovi čitanja."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "13.378 / 50.000 = 0,26756 = 26,756 %",
+      "tolerance_or_acceptance_rule": "Brojnik i nazivnik moraju odgovarati tablici; prihvaća se 26,756 % ili dosljedno zaokružena ekvivalentna vrijednost.",
+      "independent_method": "Ponoviti decimalno dijeljenje iz cjelobrojnih vrijednosti i usporediti oba ulaza s retkom društvene mreže u tablici.",
+      "evidence_reference": "chapters/00-predgovor.qmd#tbl-predgovor-izvori, redak društvene mreže"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-accepts-no-verification",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća da zapisani račun zamjenjuje neovisnu provjeru ili odgovornost prenosi na model.",
+          "observable_evidence": "Središnja pogreška ostaje neprepoznata i čovjek nema obvezu provjeriti izvor."
+        },
+        {
+          "criterion_id": "major-misses-correct-elements-or-limit",
+          "severity": "major",
+          "description": "Ne navodi dva točna elementa, potrebnu ljudsku provjeru ili granicu onoga što trag računa jamči.",
+          "observable_evidence": "Barem jedan izričito traženi dio predaje nedostaje ili je materijalno pogrešan."
+        },
+        {
+          "criterion_id": "minor-vague-source-check",
+          "severity": "minor",
+          "description": "Traži provjeru, ali ne imenuje usporedbu brojnika i nazivnika s izvornom tablicom.",
+          "observable_evidence": "Postupak provjere ostaje općenit i ne može se ponoviti."
+        },
+        {
+          "criterion_id": "useful-separates-arithmetic-data-design",
+          "severity": "useful_improvement",
+          "description": "Odgovor jasno odvaja provjeru aritmetike od prosudbe podataka, dizajna i tumačenja.",
+          "observable_evidence": "Granica traga računa objašnjena je bez uvođenja druge pogreške u modelni odgovor."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "verification-wording",
+      "description": "Prihvatljivi su izrazi ponoviti račun, usporediti s tablicom ili potvrditi brojnik i nazivnik.",
+      "acceptance_boundary": "Odgovor mora opisati stvarnu neovisnu radnju, a ne samo reći da rezultat izgleda uvjerljivo."
+    }
+  ],
+  "instructor_notes": [
+    "Pogreška je epistemološka, ne aritmetička. Ne oduzimati za točan rezultat od 26,756 % ili za ispravnu granicu prema stvarnim ljudima.",
+    "Tražena ljudska provjera može biti ručna; proizvodnja ili popravak koda nije dio zadatka."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

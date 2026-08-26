@@ -301,6 +301,10 @@ ni intervala koji bi je trebao izraziti. Brojevi iz generatora opisuju latentno
 pravilo prije zaokruživanja i rezanja ljestvice. Oni nisu procjenjivana veličina
 ove analize.
 
+::: {#podsjetnik-nagib .column-margin}
+**Podsjetnik.** [Nagib](../dodaci/g-numericki-podsjetnik.qmd#sec-ag-nagib)
+:::
+
 ```{r}
 #| label: fig-pravac
 #| fig-cap: "Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem najmanjih kvadrata izračunatim na svih pedeset tisuća pojedinačnih odgovora."
@@ -1365,7 +1369,7 @@ sudjelovali u procjeni.
 > ocijeni na odvojenom skupu.
 :::
 
-::: {.callout-greska}
+::: {#ex-16-callout-greska-01 .callout-greska}
 Na traženje da procijeni koliko dobro model predviđa povjerenje kod novih
 korisnika asistent je priložio ovaj račun. U zamišljenoj primjeni sve navedene
 varijable zabilježene su prije odgovora o povjerenju, pa je vremenska granica
@@ -1385,16 +1389,6 @@ na ljestvici od jedan do deset. Iz toga zaključuje da model dovoljno pouzdano
 predviđa povjerenje kod korisnika koje nije vidio i preporučuje ga za primjenu
 na novim podacima.
 
-::: {.content-visible when-profile="kolegij"}
-Greška je ocjena predviđanja na podacima na kojima je model procijenjen. Račun
-je ispravan i obje su brojke točne, ali obje opisuju pristajanje na skupu za
-učenje, koje je u očekivanju optimističnije od uspješnosti na novim jedinicama
-i prividno se poboljšava sa svakom dodanom varijablom. Tablica u ovom poglavlju
-mjeri koliko je razlika velika, jer je model s dodanim slučajnim brojevima na
-svojem uzorku griješio manje, a na odvojenom skupu više nego postupak koji
-svakome pripiše prosjek. Odgovor bi tražio skup podataka odvojen prije procjene,
-i tek tada izračunatu pogrešku uz istu vremensku granicu prediktora.
-:::
 :::
 
 ## Razrađeni primjer
@@ -1497,14 +1491,14 @@ uzorka (*out-of-sample prediction*), izgledi (*odds*)
 
 ## Zadaci
 
-### Konceptualni {.zadaci-razina}
+### Konceptualni {#ex-16-konceptualni-01 .zadaci-razina}
 
 Objasnite u jednom odlomku zašto se nagib uz dob mijenja kada u model uđe izvor
 vijesti, a nijedan podatak o dobi pritom nije promijenjen. Imenujte pitanje na
 koje odgovara svaki od dvaju nagiba. Na prikazu interakcije zatim odredite koji
 nagib opisuje skupinu A, koji skupinu B i zašto zbirni nagib ne opisuje nijednu.
 
-### Računski {.zadaci-razina}
+### Računski {#ex-16-racunski-01 .zadaci-razina}
 
 Zbirni nagib iznosi `r hr_broj(s16$nagib_jedan, 4)` boda po godini. Izračunajte
 modelom predviđenu razliku prosjeka između dobi od 25 i 55 godina, a zatim isti
@@ -1512,7 +1506,7 @@ račun ponovite s prilagođenim nagibom
 `r hr_broj(s16$nagib_dva, 4)` uz jednak izvor vijesti. Predajte obje brojke i
 objasnite zašto nijedna ne određuje ostvarenu razliku dviju konkretnih osoba.
 
-### Kritički {.zadaci-razina}
+### Kritički {#ex-16-kriticki-01 .zadaci-razina}
 
 Vratite se poglavlju o mjerenju i dizajnu radi operacionalizacije i vremenskog
 reda te poglavlju o tome kako brojke zavode radi razlike između točne brojke i
@@ -1522,19 +1516,8 @@ količina trebala za tvrdnju o apsolutnoj vjerojatnosti. Zatim preuredite naslov
 „Više od tri sata na društvenim mrežama povećava depresiju za 60 %” u jednu
 rečenicu koju presječni nacrt i prikazani omjer izgleda doista podupiru.
 
-::: {.content-visible when-profile="kolegij"}
-Rješenje mora razlikovati samoprijavljenu uporabu od binariziranih simptoma,
-imenovati skupinu do tri sata kao referentnu i pročitati 1,60 kao prilagođeni
-omjer izgleda s intervalom od 1,43 do 1,80. Apsolutna vjerojatnost nije
-dostupna bez polazišne vjerojatnosti ili cijelog modela. Dopuštena rečenica
-navodi da su u presječnim samoprijavljenim podacima norveški adolescenti od 15
-do 16 godina s više od tri sata uporabe imali 1,60 puta onolike prilagođene
-izglede da budu na ili iznad 80. percentila simptoma kao referentna skupina do
-tri sata, uz navedene prilagodbe (AOR 1,60; 95 % interval 1,43–1,80). Ne tvrdi
-učinak, rizik ni promjenu od 60 postotnih bodova.
-:::
 
-### Revizija modela {.zadaci-razina}
+### Revizija modela {#ex-16-revizija-modela-01 .zadaci-razina}
 
 Ocijenite račun i zaključak iz okvira o pogrešci. Imenujte što je u kodu
 ispravno, redak u kojem se pogreška događa, razlog zbog kojeg obje priložene

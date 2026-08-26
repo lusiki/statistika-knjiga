@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-14-revizija-modela-01",
+  "exercise_id": "ex-14-revizija-modela-01",
+  "unit_id": "14",
+  "source_anchor": {
+    "path": "chapters/14-dvije-grupe.qmd",
+    "anchor": "ex-14-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:611f91ae1d4b6acc98ec8ad8b7c58a27e0a4ee152df5f5caddfb2b18d90a079a",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "nonsignificant-subgroup-treated-as-no-association",
+      "statement": "Interval podskupine obuhvaća nulu, pa primarni izvor vijesti u toj dobnoj skupini nema veze s povjerenjem.",
+      "why_wrong": "Nesignifikantnost ne potvrđuje jednakost. Interval je dovoljno širok da obuhvati nulu, malu negativnu razliku i pozitivne razlike do približno 1,88 bodova, pa poduzorak nije dovoljno precizan za tvrdnju o odsutnosti veze."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Proći redom referentnu skupinu, jedinicu neovisnosti, vrstu ishoda, postupanje s varijancama i doseg populacije, a zatim jedinu zaključnu tvrdnju usporediti s cijelim intervalom podskupine.",
+      "expected_evidence": "Referentne su društvene mreže; promjena reference mijenja odsječak i predznak koeficijenta, ali ne skupne sredine ni veličinu razlike. Osoba je jedinica, ishod je brojčana ljestvica, Welch dopušta nejednake varijance, a samoodabrane skupine ne podupiru uzročnost. Jedina pogreška ostaje dokazivanje odsutnosti iz intervala preko nule."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Zamjena referentne skupine promijenila bi procijenjene skupne sredine i p-vrijednost.",
+          "why_insufficient": "Rekodiranje mijenja odsječak i predznak koeficijenta, ali ne podatke, dvije procijenjene sredine, apsolutnu razliku ni test iste hipoteze."
+        },
+        {
+          "response": "Greška je uporaba Welchova postupka kada varijance nisu jednake.",
+          "why_insufficient": "To je njegova prednost i ispravno je navedeno u okviru."
+        },
+        {
+          "response": "Sve tvrdnje slijede jer su provjerene raspodjele i neobična opažanja.",
+          "why_insufficient": "Dijagnostika ne pretvara nesignifikantan interval u dokaz jednakosti niti samoodabrane skupine u uzročni dizajn."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "explain-reference-recoding",
+          "required_claim": "Društvene mreže su referentna skupina; zamjena reference mijenja odsječak i predznak koeficijenta, ali ne skupne sredine, apsolutnu razliku ni inferenciju iste usporedbe.",
+          "required_evidence": "Sadašnji odsječak jednak je sredini društvenih mreža, a koeficijent uz TV razlici TV minus društvene mreže."
+        },
+        {
+          "component_id": "audit-design-and-outcome",
+          "required_claim": "Jedinica neovisnosti jest osoba, ishod je brojčana ljestvica, a svaka osoba pripada samo jednoj skupini.",
+          "required_evidence": "Opis dizajna podupire usporedbu neovisnih skupina, ne upareni postupak."
+        },
+        {
+          "component_id": "audit-variance-and-reach",
+          "required_claim": "Welchov postupak ispravno dopušta različite varijance, dok samoodabrani izvor vijesti ograničava zaključak na povezanost u dosegnutoj populaciji.",
+          "required_evidence": "Nijedan test ne uklanja dobne i druge razlike među skupinama niti stvara uzročnu dodjelu."
+        },
+        {
+          "component_id": "replace-single-error",
+          "required_claim": "U dobnoj podskupini interval obuhvaća nulu, pa podaci ne razlučuju razliku dovoljno precizno; ne dokazuju da veze nema.",
+          "required_evidence": "Interval [−0,335616; 1,876157] uključuje i nulu i pozitivne razlike, uključujući poznatu simuliranu populacijsku razliku od približno 0,90 boda."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Referentna sredina društvenih mreža iznosi 4,514285714286, koeficijent TV minus društvene mreže 1,185714285714, a podskupina od 30 do 49 godina daje razliku 0,770270270270 i Welchov interval [−0,335616307975; 1,876156848515].",
+      "tolerance_or_acceptance_rule": "Prihvatiti brojke unutar 0,000001. Promjena reference mora ostaviti skupne sredine i apsolutnu razliku nepromijenjenima, a zaključak o podskupini mora biti jezik nepreciznosti, ne dokaz odsutnosti.",
+      "independent_method": "Iz fiksnoga uzorka zasebno obnoviti skupne sredine i njihov koeficijent, algebarski promijeniti referencu, zatim za dobnu podskupinu ručno sastaviti Welchovu standardnu pogrešku, stupnjeve slobode i interval.",
+      "evidence_reference": "chapters/14-dvije-grupe.qmd#ex-14-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-absence-or-causal-claim",
+          "severity": "fatal",
+          "description": "Odgovor zadržava dokaz odsutnosti iz nesignifikantnosti ili opaženoj usporedbi pripisuje uzročni učinak izvora vijesti.",
+          "observable_evidence": "Završna tvrdnja i dalje prelazi intervalnu ili dizajnersku granicu."
+        },
+        {
+          "criterion_id": "major-misses-required-audit",
+          "severity": "major",
+          "description": "Nedostaje objašnjenje reference, provjera jedinice i ishoda, odnos prema varijancama, doseg populacije ili zamjenska rečenica.",
+          "observable_evidence": "Jedan izričito traženi dio revizije nije predan ili je sadržajno pogrešan."
+        },
+        {
+          "criterion_id": "minor-reference-imprecision",
+          "severity": "minor",
+          "description": "Središnja revizija stoji, ali odgovor ne razlikuje promjenu predznaka od nepromijenjene apsolutne razlike i skupnih sredina.",
+          "observable_evidence": "Rekodiranje je opisano neprecizno bez promjene glavne dijagnoze."
+        },
+        {
+          "criterion_id": "useful-adds-known-truth-check",
+          "severity": "useful_improvement",
+          "description": "Odgovor uspoređuje interval s poznatom razlikom simulirane populacije i izričito označava da ona nije empirijski nalaz.",
+          "observable_evidence": "Dodatak pojačava provjeru bez proširenja tvrdnje na stvarnu populaciju."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "audit-matrix",
+      "description": "Revizija može biti predana kao matrica s redovima referenca, jedinica, ishod, varijance, populacija i zaključak.",
+      "acceptance_boundary": "Svaki red mora sadržavati sud i dokaz, a zaključni red mora zatvoriti isti planted-error ID kao callout."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija moraju zatvoriti `nonsignificant-subgroup-treated-as-no-association`; ne dodavati drugu posađenu pogrešku.",
+    "Kod se ne proizvodi niti popravlja. Ocjenjuje se čitanje koeficijenta, dizajna, intervala i dosega tvrdnje."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

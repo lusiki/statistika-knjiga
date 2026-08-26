@@ -1,0 +1,913 @@
+{
+  "schema_version": "appendix-b-jamovi-route-v1",
+  "packet": "P5-B",
+  "decision": "D09",
+  "generated_at": "2026-08-25",
+  "canonical_appendix_a_route": "scripts/appendix-a-route.R",
+  "public_promise": "Dokumentirana ruta za jezgrene analize koje moze izvesti ugradjeni jmv 2.7.7 u jamoviju 2.7.30.0, uz iste kanonske datoteke, varijable, pitanja i zlatne vrijednosti kao Dodatak A; cista instalacija jos ceka vlasnika.",
+  "product": {
+    "product": "jamovi",
+    "product_version": "2.7.30.0",
+    "product_tag": "v2.7.30",
+    "core_module": "jmv",
+    "core_module_version": "2.7.7",
+    "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+  },
+  "clean_install": {
+    "owner": "Luka Sikic",
+    "roles": ["autor", "vlasnik kolegija"],
+    "status": "pending_owner_verification",
+    "claimed_by_packet": false,
+    "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+  },
+  "scope": {
+    "supported_metric_keys": ["6:pearson_r", "7:p_mreze_dob_le_29", "8:se_povjerenje_n_100", "9:mean_povjerenje", "9:ci95_lower", "9:ci95_upper", "10:mean_difference_portal_minus_tisak", "11:cohen_d_portal_minus_tisak", "13:chi_squared", "13:cramers_v", "14:mean_difference_tv_minus_mreze", "14:welch_ci95_lower", "14:welch_ci95_upper", "15:anova_f", "15:eta_squared", "16:slope_dob", "16:coefficient_drustvene_mreze", "16:adjusted_r_squared", "A-tekst:prepared_rows"],
+    "unsupported_metric_keys": ["10:permutation_p_two_sided", "12:raw_fixed_effect_estimate", "12:raw_ci95_lower", "12:raw_ci95_upper", "12:standardized_fixed_effect_estimate", "12:standardized_ci95_lower", "12:standardized_ci95_upper"],
+    "all_appendix_a_metric_keys": ["6:pearson_r", "7:p_mreze_dob_le_29", "8:se_povjerenje_n_100", "9:mean_povjerenje", "9:ci95_lower", "9:ci95_upper", "10:mean_difference_portal_minus_tisak", "10:permutation_p_two_sided", "11:cohen_d_portal_minus_tisak", "12:raw_fixed_effect_estimate", "12:raw_ci95_lower", "12:raw_ci95_upper", "12:standardized_fixed_effect_estimate", "12:standardized_ci95_lower", "12:standardized_ci95_upper", "13:chi_squared", "13:cramers_v", "14:mean_difference_tv_minus_mreze", "14:welch_ci95_lower", "14:welch_ci95_upper", "15:anova_f", "15:eta_squared", "16:slope_dob", "16:coefficient_drustvene_mreze", "16:adjusted_r_squared", "A-tekst:prepared_rows"],
+    "no_extra_metrics": true
+  },
+  "golden_values": {
+    "6:pearson_r": 0.179849462681741,
+    "7:p_mreze_dob_le_29": 0.458576051779935,
+    "8:se_povjerenje_n_100": 0.198409986684138,
+    "9:mean_povjerenje": 4.815,
+    "9:ci95_lower": 4.52485748398763,
+    "9:ci95_upper": 5.10514251601237,
+    "10:mean_difference_portal_minus_tisak": -0.640938989801461,
+    "10:permutation_p_two_sided": 0.0117470632341915,
+    "11:cohen_d_portal_minus_tisak": -0.388897632206793,
+    "12:raw_fixed_effect_estimate": 0.026765925060349,
+    "12:raw_ci95_lower": -0.107693099301188,
+    "12:raw_ci95_upper": 0.161224949421886,
+    "12:standardized_fixed_effect_estimate": 0.0141509286792652,
+    "12:standardized_ci95_lower": -0.076190683163476,
+    "12:standardized_ci95_upper": 0.104492540522006,
+    "13:chi_squared": 6.03709187333708,
+    "13:cramers_v": 0.0501543113523033,
+    "14:mean_difference_tv_minus_mreze": 1.18571428571429,
+    "14:welch_ci95_lower": 0.446686471420565,
+    "14:welch_ci95_upper": 1.92474210000801,
+    "15:anova_f": 8.38181295740898,
+    "15:eta_squared": 0.102053183237968,
+    "16:slope_dob": 0.0268851731781231,
+    "16:coefficient_drustvene_mreze": -0.533533786572297,
+    "16:adjusted_r_squared": 0.122189733503462,
+    "A-tekst:prepared_rows": 2698
+  },
+  "appendix_a_contract": [
+    {
+      "chapter": 6,
+      "dataset": "anketa_mreze",
+      "file": "data/anketa-mreze.csv",
+      "question": "Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje?",
+      "metric": "pearson_r",
+      "value": 0.179849462681741
+    },
+    {
+      "chapter": 7,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "p_mreze_dob_le_29",
+      "value": 0.458576051779935
+    },
+    {
+      "chapter": 8,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "se_povjerenje_n_100",
+      "value": 0.198409986684138
+    },
+    {
+      "chapter": 9,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "mean_povjerenje",
+      "value": 4.815
+    },
+    {
+      "chapter": 9,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "ci95_lower",
+      "value": 4.52485748398763
+    },
+    {
+      "chapter": 9,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "ci95_upper",
+      "value": 5.10514251601237
+    },
+    {
+      "chapter": 10,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "mean_difference_portal_minus_tisak",
+      "value": -0.640938989801461
+    },
+    {
+      "chapter": 10,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "permutation_p_two_sided",
+      "value": 0.0117470632341915
+    },
+    {
+      "chapter": 11,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "cohen_d_portal_minus_tisak",
+      "value": -0.388897632206793
+    },
+    {
+      "chapter": 12,
+      "dataset": "rrr_lab_effects",
+      "file": "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+      "question": "Koliki je zajednički učinak laboratorijskih replikacija RRR-a?",
+      "metric": "raw_fixed_effect_estimate",
+      "value": 0.026765925060349
+    },
+    {
+      "chapter": 12,
+      "dataset": "rrr_lab_effects",
+      "file": "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+      "question": "Koliki je zajednički učinak laboratorijskih replikacija RRR-a?",
+      "metric": "raw_ci95_lower",
+      "value": -0.107693099301188
+    },
+    {
+      "chapter": 12,
+      "dataset": "rrr_lab_effects",
+      "file": "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+      "question": "Koliki je zajednički učinak laboratorijskih replikacija RRR-a?",
+      "metric": "raw_ci95_upper",
+      "value": 0.161224949421886
+    },
+    {
+      "chapter": 12,
+      "dataset": "rrr_lab_effects",
+      "file": "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+      "question": "Koliki je zajednički učinak laboratorijskih replikacija RRR-a?",
+      "metric": "standardized_fixed_effect_estimate",
+      "value": 0.0141509286792652
+    },
+    {
+      "chapter": 12,
+      "dataset": "rrr_lab_effects",
+      "file": "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+      "question": "Koliki je zajednički učinak laboratorijskih replikacija RRR-a?",
+      "metric": "standardized_ci95_lower",
+      "value": -0.076190683163476
+    },
+    {
+      "chapter": 12,
+      "dataset": "rrr_lab_effects",
+      "file": "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+      "question": "Koliki je zajednički učinak laboratorijskih replikacija RRR-a?",
+      "metric": "standardized_ci95_upper",
+      "value": 0.104492540522006
+    },
+    {
+      "chapter": 13,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "chi_squared",
+      "value": 6.03709187333708
+    },
+    {
+      "chapter": 13,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "cramers_v",
+      "value": 0.0501543113523033
+    },
+    {
+      "chapter": 14,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "mean_difference_tv_minus_mreze",
+      "value": 1.18571428571429
+    },
+    {
+      "chapter": 14,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "welch_ci95_lower",
+      "value": 0.446686471420565
+    },
+    {
+      "chapter": 14,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "welch_ci95_upper",
+      "value": 1.92474210000801
+    },
+    {
+      "chapter": 15,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "anova_f",
+      "value": 8.38181295740898
+    },
+    {
+      "chapter": 15,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "eta_squared",
+      "value": 0.102053183237968
+    },
+    {
+      "chapter": 16,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "slope_dob",
+      "value": 0.0268851731781231
+    },
+    {
+      "chapter": 16,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "coefficient_drustvene_mreze",
+      "value": -0.533533786572297
+    },
+    {
+      "chapter": 16,
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "metric": "adjusted_r_squared",
+      "value": 0.122189733503462
+    },
+    {
+      "chapter": "A-tekst",
+      "dataset": "parlasent_hr",
+      "file": "data/parlament_oznake.csv",
+      "question": "Kako se ton parlamentarnih iskaza razlikuje s obzirom na stranačku pripadnost?",
+      "metric": "prepared_rows",
+      "value": 2698
+    }
+  ],
+  "routes": [
+    {
+      "id": "B-C06-PEARSON",
+      "chapter": "6",
+      "dataset": "anketa_mreze",
+      "file": "data/anketa-mreze.csv",
+      "question": "Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje?",
+      "variables": ["minute_dnevno", "povjerenje"],
+      "import_types": {
+        "minute_dnevno": "Continuous/Integer",
+        "povjerenje": "Continuous/Integer"
+      },
+      "analysis": "Pearsonova korelacijska matrica",
+      "menu_path": ["Analyses", "Regression", "Correlation Matrix"],
+      "settings": {
+        "variables": ["minute_dnevno", "povjerenje"],
+        "pearson": true,
+        "spearman": false,
+        "kendall": false,
+        "report_n": true
+      },
+      "filter": {
+        "active": false,
+        "formula": null
+      },
+      "expected_output": "6:pearson_r",
+      "golden_values": {
+        "6:pearson_r": 0.179849462681741
+      },
+      "interpretation": "Predznak daje smjer, a velicina linearnu povezanost; rasprseni prikaz ostaje obvezna provjera oblika.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://jamovi.readthedocs.io/en/latest/jmv/jmv_corrMatrix/", "https://jamovi.readthedocs.io/en/latest/developer/dh_info_file-format/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C07-UVJETNI-UDIO",
+      "chapter": "7",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["dob", "izvor_vijesti"],
+      "import_types": {
+        "dob": "Continuous/Integer",
+        "izvor_vijesti": "Nominal/Text"
+      },
+      "analysis": "Frekvencije nakon uvjetnoga filtra",
+      "menu_path": ["Analyses", "Exploration", "Descriptives"],
+      "settings": {
+        "variables": "izvor_vijesti",
+        "frequency_tables": true,
+        "ratio": "društvene mreže / svi uključeni redci"
+      },
+      "filter": {
+        "active": true,
+        "label": "dob_do_29",
+        "jamovi_formula": "dob <= 29"
+      },
+      "expected_output": "7:p_mreze_dob_le_29",
+      "golden_values": {
+        "7:p_mreze_dob_le_29": 0.458576051779935
+      },
+      "interpretation": "Udio je uvjetovan dobi do i ukljucivo 29 godina; nazivnik su samo ukljuceni redci.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://docs.jamovi.org/usermanual/um_4_spreadsheet.html", "https://jamovi.readthedocs.io/en/latest/jmv/jmv_descriptives/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C08-STANDARDNA-POGRESKA",
+      "chapter": "8",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": "povjerenje_medijima",
+      "import_types": {
+        "povjerenje_medijima": "Continuous/Integer"
+      },
+      "analysis": "Opisna provjera populacijske standardne pogreske za n = 100",
+      "menu_path": ["Data", "Compute"],
+      "settings": {
+        "computed_variable": "se_n100",
+        "jamovi_formula": "SQRT((VROWS(povjerenje_medijima) - 1) / VROWS(povjerenje_medijima)) * VSTDEV(povjerenje_medijima) / SQRT(100)"
+      },
+      "filter": {
+        "active": false,
+        "formula": null
+      },
+      "expected_output": "8:se_povjerenje_n_100",
+      "golden_values": {
+        "8:se_povjerenje_n_100": 0.198409986684138
+      },
+      "interpretation": "Ovo je poznata standardna pogreska za izvlake velicine 100 iz generirane populacije, a ne procjena iz stvarne populacije.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://docs.jamovi.org/data/data_5_list_of_functions.html", "https://docs.jamovi.org/usermanual/um_4_spreadsheet.html"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C09-INTERVAL",
+      "chapter": "9",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["osoba", "povjerenje_medijima"],
+      "import_types": {
+        "osoba": "ID/Integer",
+        "povjerenje_medijima": "Continuous/Integer"
+      },
+      "analysis": "Sredina i standardna pogreska istoga fiksnog uzorka",
+      "menu_path": ["Analyses", "Exploration", "Descriptives"],
+      "settings": {
+        "variables": "povjerenje_medijima",
+        "statistics": ["N", "Mean", "SE"],
+        "interval_rule": "Mean +/- 1.96 * SE"
+      },
+      "filter": {
+        "label": "uzorak_poglavlje_09",
+        "key": "osoba",
+        "selected_rows": 200,
+        "selected_ids": [133, 459, 589, 612, 665, 764, 844, 939, 1364, 1393, 1563, 1703, 1952, 2217, 2665, 2771, 2783, 2795, 2862, 2903, 3280, 3617, 4681, 5793, 5922, 6142, 6248, 6572, 6880, 7000, 7679, 7704, 7841, 8204, 8256, 8400, 8974, 9613, 9841, 10133, 10532, 11184, 11656, 12226, 12227, 12401, 12408, 12481, 12712, 13024, 13067, 13477, 13528, 13531, 13730, 13886, 14180, 14203, 14335, 14441, 14639, 15367, 15759, 15863, 15959, 16270, 16631, 16716, 17052, 17166, 17285, 17430, 17492, 17537, 17670, 17863, 18187, 18250, 18309, 18328, 18477, 18525, 18647, 19051, 19284, 19303, 19430, 19516, 19702, 19755, 19887, 19979, 20014, 20234, 20293, 20341, 20437, 20561, 20996, 21233, 22016, 22020, 22046, 22110, 22238, 22312, 23183, 23293, 23352, 23527, 23811, 23941, 24152, 24876, 25236, 25490, 25498, 26369, 26442, 26949, 27002, 27524, 27961, 28189, 28380, 28387, 28457, 28837, 28936, 29268, 29339, 29676, 29705, 29804, 30080, 30432, 31840, 32045, 32413, 32909, 33434, 33726, 33896, 34188, 34526, 34589, 34791, 34990, 35163, 35338, 35348, 35419, 36579, 36709, 37064, 37644, 38060, 38420, 38796, 38974, 39062, 39180, 40022, 40125, 40594, 40819, 40907, 40913, 40955, 41237, 42053, 42129, 42182, 42419, 42560, 42845, 42984, 43012, 43440, 44327, 44347, 45296, 45414, 45569, 46309, 46480, 46678, 46768, 47532, 47559, 48071, 48453, 48585, 48713, 48730, 48745, 48750, 49165, 49601, 49650],
+        "jamovi_formula": "osoba == 133 or osoba == 459 or osoba == 589 or osoba == 612 or osoba == 665 or osoba == 764 or osoba == 844 or osoba == 939 or osoba == 1364 or osoba == 1393 or osoba == 1563 or osoba == 1703 or osoba == 1952 or osoba == 2217 or osoba == 2665 or osoba == 2771 or osoba == 2783 or osoba == 2795 or osoba == 2862 or osoba == 2903 or osoba == 3280 or osoba == 3617 or osoba == 4681 or osoba == 5793 or osoba == 5922 or osoba == 6142 or osoba == 6248 or osoba == 6572 or osoba == 6880 or osoba == 7000 or osoba == 7679 or osoba == 7704 or osoba == 7841 or osoba == 8204 or osoba == 8256 or osoba == 8400 or osoba == 8974 or osoba == 9613 or osoba == 9841 or osoba == 10133 or osoba == 10532 or osoba == 11184 or osoba == 11656 or osoba == 12226 or osoba == 12227 or osoba == 12401 or osoba == 12408 or osoba == 12481 or osoba == 12712 or osoba == 13024 or osoba == 13067 or osoba == 13477 or osoba == 13528 or osoba == 13531 or osoba == 13730 or osoba == 13886 or osoba == 14180 or osoba == 14203 or osoba == 14335 or osoba == 14441 or osoba == 14639 or osoba == 15367 or osoba == 15759 or osoba == 15863 or osoba == 15959 or osoba == 16270 or osoba == 16631 or osoba == 16716 or osoba == 17052 or osoba == 17166 or osoba == 17285 or osoba == 17430 or osoba == 17492 or osoba == 17537 or osoba == 17670 or osoba == 17863 or osoba == 18187 or osoba == 18250 or osoba == 18309 or osoba == 18328 or osoba == 18477 or osoba == 18525 or osoba == 18647 or osoba == 19051 or osoba == 19284 or osoba == 19303 or osoba == 19430 or osoba == 19516 or osoba == 19702 or osoba == 19755 or osoba == 19887 or osoba == 19979 or osoba == 20014 or osoba == 20234 or osoba == 20293 or osoba == 20341 or osoba == 20437 or osoba == 20561 or osoba == 20996 or osoba == 21233 or osoba == 22016 or osoba == 22020 or osoba == 22046 or osoba == 22110 or osoba == 22238 or osoba == 22312 or osoba == 23183 or osoba == 23293 or osoba == 23352 or osoba == 23527 or osoba == 23811 or osoba == 23941 or osoba == 24152 or osoba == 24876 or osoba == 25236 or osoba == 25490 or osoba == 25498 or osoba == 26369 or osoba == 26442 or osoba == 26949 or osoba == 27002 or osoba == 27524 or osoba == 27961 or osoba == 28189 or osoba == 28380 or osoba == 28387 or osoba == 28457 or osoba == 28837 or osoba == 28936 or osoba == 29268 or osoba == 29339 or osoba == 29676 or osoba == 29705 or osoba == 29804 or osoba == 30080 or osoba == 30432 or osoba == 31840 or osoba == 32045 or osoba == 32413 or osoba == 32909 or osoba == 33434 or osoba == 33726 or osoba == 33896 or osoba == 34188 or osoba == 34526 or osoba == 34589 or osoba == 34791 or osoba == 34990 or osoba == 35163 or osoba == 35338 or osoba == 35348 or osoba == 35419 or osoba == 36579 or osoba == 36709 or osoba == 37064 or osoba == 37644 or osoba == 38060 or osoba == 38420 or osoba == 38796 or osoba == 38974 or osoba == 39062 or osoba == 39180 or osoba == 40022 or osoba == 40125 or osoba == 40594 or osoba == 40819 or osoba == 40907 or osoba == 40913 or osoba == 40955 or osoba == 41237 or osoba == 42053 or osoba == 42129 or osoba == 42182 or osoba == 42419 or osoba == 42560 or osoba == 42845 or osoba == 42984 or osoba == 43012 or osoba == 43440 or osoba == 44327 or osoba == 44347 or osoba == 45296 or osoba == 45414 or osoba == 45569 or osoba == 46309 or osoba == 46480 or osoba == 46678 or osoba == 46768 or osoba == 47532 or osoba == 47559 or osoba == 48071 or osoba == 48453 or osoba == 48585 or osoba == 48713 or osoba == 48730 or osoba == 48745 or osoba == 48750 or osoba == 49165 or osoba == 49601 or osoba == 49650"
+      },
+      "expected_output": ["9:mean_povjerenje", "9:ci95_lower", "9:ci95_upper"],
+      "golden_values": {
+        "9:mean_povjerenje": 4.815,
+        "9:ci95_lower": 4.52485748398763,
+        "9:ci95_upper": 5.10514251601237
+      },
+      "interpretation": "Interval opisuje postupak ponavljanoga uzorkovanja; jedna dobivena granica nije vjerojatnost da parametar lezi u njoj.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://docs.jamovi.org/usermanual/um_4_spreadsheet.html", "https://jamovi.readthedocs.io/en/latest/jmv/jmv_descriptives/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C10-RAZLIKA",
+      "chapter": "10",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["osoba", "izvor_vijesti", "povjerenje_medijima"],
+      "import_types": {
+        "osoba": "ID/Integer",
+        "izvor_vijesti": "Nominal/Text",
+        "povjerenje_medijima": "Continuous/Integer"
+      },
+      "analysis": "Opisna razlika sredina istoga fiksnog uzorka",
+      "menu_path": ["Analyses", "Exploration", "Descriptives"],
+      "settings": {
+        "variables": "povjerenje_medijima",
+        "split_by": "izvor_vijesti",
+        "retained_levels": ["portal", "tisak"],
+        "difference_order": "portal minus tisak"
+      },
+      "filter": {
+        "label": "uzorak_poglavlje_10",
+        "key": "osoba",
+        "selected_rows": 300,
+        "selected_ids": [39, 209, 422, 449, 581, 1093, 1367, 1401, 1409, 1423, 2130, 2300, 2393, 2589, 2836, 2839, 2902, 3038, 3142, 3164, 3614, 3691, 4003, 4260, 4493, 4992, 5079, 5149, 5323, 5370, 5672, 5728, 5768, 5772, 5929, 5935, 6627, 6665, 6932, 7364, 7392, 7440, 7720, 7744, 7819, 7825, 7944, 8179, 8501, 8693, 9020, 9088, 9174, 9431, 9524, 9549, 9726, 9851, 9867, 9881, 9959, 10003, 10039, 10066, 10119, 10234, 10393, 10544, 10552, 11199, 11308, 11399, 11550, 11646, 11958, 12133, 12287, 12302, 12431, 12673, 13009, 13085, 13306, 13651, 13843, 13866, 13949, 13991, 14041, 14121, 14297, 14535, 14586, 14744, 14832, 14940, 15014, 15117, 15155, 15218, 15531, 15739, 15917, 16447, 16638, 16725, 16794, 16799, 16830, 17017, 17171, 17275, 17288, 17332, 17378, 17407, 17714, 17927, 18089, 18503, 18601, 18965, 19202, 19215, 19471, 19995, 19997, 20020, 20672, 20922, 21366, 21576, 21773, 22135, 22230, 22291, 22397, 22513, 22871, 22980, 23376, 23592, 23733, 24025, 24185, 24225, 24231, 24331, 24619, 24747, 24793, 24817, 25116, 25506, 25718, 25817, 25859, 26203, 26292, 26337, 26575, 26902, 27028, 27178, 27288, 27457, 27790, 28072, 28648, 28700, 28789, 29315, 29787, 29814, 29980, 30076, 30147, 30479, 30549, 30570, 30631, 31300, 31836, 31844, 31947, 32015, 32803, 32866, 32999, 33041, 33174, 33360, 33424, 33496, 33625, 33770, 33891, 33923, 34116, 34171, 34242, 34302, 34372, 34412, 34626, 34685, 34923, 34924, 35219, 35454, 35687, 35869, 36276, 36427, 36714, 36813, 36974, 37035, 37133, 37538, 37582, 37805, 38187, 38310, 38521, 38610, 38734, 38806, 38970, 39037, 39059, 39113, 39236, 39288, 39639, 40041, 40231, 40237, 40848, 40931, 41056, 41121, 41192, 41232, 41239, 41249, 41260, 41354, 41564, 41932, 42099, 42120, 42289, 42355, 42366, 42400, 42470, 43132, 43244, 43250, 43438, 43485, 43917, 44112, 44229, 44393, 44574, 44590, 44639, 44704, 44879, 45091, 45342, 45352, 45841, 46069, 46540, 46639, 46778, 46807, 47210, 47463, 47508, 47621, 47837, 47851, 47929, 48067, 48252, 48258, 48311, 48569, 48574, 48588, 49126, 49280, 49480, 49560, 49785, 49853],
+        "jamovi_formula": "osoba == 39 or osoba == 209 or osoba == 422 or osoba == 449 or osoba == 581 or osoba == 1093 or osoba == 1367 or osoba == 1401 or osoba == 1409 or osoba == 1423 or osoba == 2130 or osoba == 2300 or osoba == 2393 or osoba == 2589 or osoba == 2836 or osoba == 2839 or osoba == 2902 or osoba == 3038 or osoba == 3142 or osoba == 3164 or osoba == 3614 or osoba == 3691 or osoba == 4003 or osoba == 4260 or osoba == 4493 or osoba == 4992 or osoba == 5079 or osoba == 5149 or osoba == 5323 or osoba == 5370 or osoba == 5672 or osoba == 5728 or osoba == 5768 or osoba == 5772 or osoba == 5929 or osoba == 5935 or osoba == 6627 or osoba == 6665 or osoba == 6932 or osoba == 7364 or osoba == 7392 or osoba == 7440 or osoba == 7720 or osoba == 7744 or osoba == 7819 or osoba == 7825 or osoba == 7944 or osoba == 8179 or osoba == 8501 or osoba == 8693 or osoba == 9020 or osoba == 9088 or osoba == 9174 or osoba == 9431 or osoba == 9524 or osoba == 9549 or osoba == 9726 or osoba == 9851 or osoba == 9867 or osoba == 9881 or osoba == 9959 or osoba == 10003 or osoba == 10039 or osoba == 10066 or osoba == 10119 or osoba == 10234 or osoba == 10393 or osoba == 10544 or osoba == 10552 or osoba == 11199 or osoba == 11308 or osoba == 11399 or osoba == 11550 or osoba == 11646 or osoba == 11958 or osoba == 12133 or osoba == 12287 or osoba == 12302 or osoba == 12431 or osoba == 12673 or osoba == 13009 or osoba == 13085 or osoba == 13306 or osoba == 13651 or osoba == 13843 or osoba == 13866 or osoba == 13949 or osoba == 13991 or osoba == 14041 or osoba == 14121 or osoba == 14297 or osoba == 14535 or osoba == 14586 or osoba == 14744 or osoba == 14832 or osoba == 14940 or osoba == 15014 or osoba == 15117 or osoba == 15155 or osoba == 15218 or osoba == 15531 or osoba == 15739 or osoba == 15917 or osoba == 16447 or osoba == 16638 or osoba == 16725 or osoba == 16794 or osoba == 16799 or osoba == 16830 or osoba == 17017 or osoba == 17171 or osoba == 17275 or osoba == 17288 or osoba == 17332 or osoba == 17378 or osoba == 17407 or osoba == 17714 or osoba == 17927 or osoba == 18089 or osoba == 18503 or osoba == 18601 or osoba == 18965 or osoba == 19202 or osoba == 19215 or osoba == 19471 or osoba == 19995 or osoba == 19997 or osoba == 20020 or osoba == 20672 or osoba == 20922 or osoba == 21366 or osoba == 21576 or osoba == 21773 or osoba == 22135 or osoba == 22230 or osoba == 22291 or osoba == 22397 or osoba == 22513 or osoba == 22871 or osoba == 22980 or osoba == 23376 or osoba == 23592 or osoba == 23733 or osoba == 24025 or osoba == 24185 or osoba == 24225 or osoba == 24231 or osoba == 24331 or osoba == 24619 or osoba == 24747 or osoba == 24793 or osoba == 24817 or osoba == 25116 or osoba == 25506 or osoba == 25718 or osoba == 25817 or osoba == 25859 or osoba == 26203 or osoba == 26292 or osoba == 26337 or osoba == 26575 or osoba == 26902 or osoba == 27028 or osoba == 27178 or osoba == 27288 or osoba == 27457 or osoba == 27790 or osoba == 28072 or osoba == 28648 or osoba == 28700 or osoba == 28789 or osoba == 29315 or osoba == 29787 or osoba == 29814 or osoba == 29980 or osoba == 30076 or osoba == 30147 or osoba == 30479 or osoba == 30549 or osoba == 30570 or osoba == 30631 or osoba == 31300 or osoba == 31836 or osoba == 31844 or osoba == 31947 or osoba == 32015 or osoba == 32803 or osoba == 32866 or osoba == 32999 or osoba == 33041 or osoba == 33174 or osoba == 33360 or osoba == 33424 or osoba == 33496 or osoba == 33625 or osoba == 33770 or osoba == 33891 or osoba == 33923 or osoba == 34116 or osoba == 34171 or osoba == 34242 or osoba == 34302 or osoba == 34372 or osoba == 34412 or osoba == 34626 or osoba == 34685 or osoba == 34923 or osoba == 34924 or osoba == 35219 or osoba == 35454 or osoba == 35687 or osoba == 35869 or osoba == 36276 or osoba == 36427 or osoba == 36714 or osoba == 36813 or osoba == 36974 or osoba == 37035 or osoba == 37133 or osoba == 37538 or osoba == 37582 or osoba == 37805 or osoba == 38187 or osoba == 38310 or osoba == 38521 or osoba == 38610 or osoba == 38734 or osoba == 38806 or osoba == 38970 or osoba == 39037 or osoba == 39059 or osoba == 39113 or osoba == 39236 or osoba == 39288 or osoba == 39639 or osoba == 40041 or osoba == 40231 or osoba == 40237 or osoba == 40848 or osoba == 40931 or osoba == 41056 or osoba == 41121 or osoba == 41192 or osoba == 41232 or osoba == 41239 or osoba == 41249 or osoba == 41260 or osoba == 41354 or osoba == 41564 or osoba == 41932 or osoba == 42099 or osoba == 42120 or osoba == 42289 or osoba == 42355 or osoba == 42366 or osoba == 42400 or osoba == 42470 or osoba == 43132 or osoba == 43244 or osoba == 43250 or osoba == 43438 or osoba == 43485 or osoba == 43917 or osoba == 44112 or osoba == 44229 or osoba == 44393 or osoba == 44574 or osoba == 44590 or osoba == 44639 or osoba == 44704 or osoba == 44879 or osoba == 45091 or osoba == 45342 or osoba == 45352 or osoba == 45841 or osoba == 46069 or osoba == 46540 or osoba == 46639 or osoba == 46778 or osoba == 46807 or osoba == 47210 or osoba == 47463 or osoba == 47508 or osoba == 47621 or osoba == 47837 or osoba == 47851 or osoba == 47929 or osoba == 48067 or osoba == 48252 or osoba == 48258 or osoba == 48311 or osoba == 48569 or osoba == 48574 or osoba == 48588 or osoba == 49126 or osoba == 49280 or osoba == 49480 or osoba == 49560 or osoba == 49785 or osoba == 49853"
+      },
+      "expected_output": "10:mean_difference_portal_minus_tisak",
+      "golden_values": {
+        "10:mean_difference_portal_minus_tisak": -0.640938989801461
+      },
+      "interpretation": "Razlika sredina nije permutacijski p niti uzrocni ucinak.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": "Ugradjeni jmv 2.7.7 nema dokumentiran tocno isti test s 4000 permutacija i +1 korekcijom; 10:permutation_p_two_sided ostaje samo u Dodatku A.",
+      "documentation": ["https://docs.jamovi.org/usermanual/um_4_spreadsheet.html", "https://jamovi.readthedocs.io/en/latest/jmv/jmv_descriptives/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C11-COHEN-D",
+      "chapter": "11",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["izvor_vijesti", "povjerenje_medijima"],
+      "import_types": {
+        "izvor_vijesti": "Nominal/Text",
+        "povjerenje_medijima": "Continuous/Integer"
+      },
+      "analysis": "Standardizirana razlika dviju skupina",
+      "menu_path": ["Analyses", "T-Tests", "Independent Samples T-Test"],
+      "settings": {
+        "dependent_variables": "povjerenje_medijima",
+        "grouping_variable": "izvor_vijesti",
+        "retained_levels": ["portal", "tisak"],
+        "group_order": "portal minus tisak",
+        "students": true,
+        "effect_size": true
+      },
+      "filter": {
+        "active": true,
+        "label": "portal_ili_tisak",
+        "jamovi_formula": "izvor_vijesti == 'portal' or izvor_vijesti == 'tisak'"
+      },
+      "expected_output": "11:cohen_d_portal_minus_tisak",
+      "golden_values": {
+        "11:cohen_d_portal_minus_tisak": -0.388897632206793
+      },
+      "interpretation": "Cohenov d izrazava razliku u jedinicama zajednicke standardne devijacije; ne daje prakticnu vaznost sam po sebi.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://docs.jamovi.org/usermanual/um_4_spreadsheet.html", "https://jamovi.readthedocs.io/en/latest/jmv/jmv_ttestIS/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C13-HI-KVADRAT",
+      "chapter": "13",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["osoba", "obrazovanje", "izvor_vijesti"],
+      "import_types": {
+        "osoba": "ID/Integer",
+        "obrazovanje": "Nominal/Text",
+        "izvor_vijesti": "Nominal/Text"
+      },
+      "analysis": "Kontingencijska tablica i hi-kvadrat",
+      "menu_path": ["Analyses", "Frequencies", "Contingency Tables", "Independent Samples"],
+      "settings": {
+        "rows": "obrazovanje",
+        "columns": "izvor_vijesti",
+        "chi_square": true,
+        "expected_counts": true,
+        "cramers_v": true
+      },
+      "filter": {
+        "label": "uzorak_poglavlje_13",
+        "key": "osoba",
+        "selected_rows": 800,
+        "selected_ids": [155, 160, 164, 226, 271, 516, 544, 629, 639, 655, 661, 714, 749, 861, 891, 955, 995, 1028, 1070, 1096, 1107, 1138, 1159, 1172, 1193, 1195, 1221, 1265, 1285, 1431, 1520, 1724, 1758, 1774, 1924, 1976, 2099, 2188, 2212, 2236, 2333, 2393, 2722, 2740, 2814, 2840, 2896, 3188, 3189, 3200, 3290, 3428, 3466, 3525, 3608, 3795, 3844, 3896, 3963, 4021, 4074, 4132, 4196, 4228, 4262, 4383, 4424, 4438, 4476, 4533, 4563, 4567, 4613, 4632, 4670, 4671, 4681, 4704, 4819, 4820, 4843, 4873, 4895, 4945, 4967, 5198, 5201, 5204, 5296, 5325, 5436, 5445, 5549, 5735, 5777, 5836, 5952, 6044, 6148, 6257, 6369, 6397, 6510, 6559, 6567, 6676, 6801, 6873, 6915, 6919, 6969, 7010, 7063, 7072, 7181, 7184, 7341, 7364, 7379, 7390, 7401, 7426, 7494, 7524, 7579, 7628, 7629, 7634, 7659, 7854, 7858, 7871, 7939, 8004, 8111, 8138, 8302, 8402, 8541, 8642, 8715, 8729, 8731, 8875, 8951, 8962, 9024, 9109, 9285, 9294, 9301, 9420, 9511, 9575, 9585, 9625, 9654, 9666, 9710, 9739, 9784, 9873, 9879, 9905, 9970, 10000, 10228, 10254, 10399, 10464, 10467, 10498, 10620, 10682, 10756, 10807, 10881, 10909, 10949, 10953, 10984, 11044, 11264, 11274, 11286, 11361, 11374, 11445, 11605, 11732, 11741, 11770, 11797, 11824, 11882, 11964, 12040, 12057, 12076, 12084, 12332, 12339, 12571, 12659, 12719, 12767, 12810, 12884, 12946, 12992, 13192, 13238, 13254, 13256, 13279, 13363, 13449, 13475, 13512, 13516, 13605, 13751, 13793, 13865, 13872, 13882, 14027, 14082, 14107, 14136, 14158, 14159, 14168, 14179, 14248, 14339, 14365, 14447, 14511, 14562, 14635, 14955, 14985, 15148, 15183, 15197, 15202, 15270, 15366, 15430, 15467, 15497, 15520, 15552, 15621, 15642, 15679, 15743, 15960, 15973, 16004, 16107, 16123, 16140, 16184, 16246, 16250, 16253, 16280, 16355, 16429, 16533, 16548, 16652, 16809, 16820, 16921, 16971, 16993, 17152, 17185, 17328, 17338, 17385, 17460, 17520, 17534, 17632, 17730, 17793, 17814, 17827, 17856, 17997, 18029, 18154, 18190, 18258, 18278, 18327, 18590, 18654, 18671, 18746, 18755, 18809, 18904, 19030, 19094, 19096, 19456, 19519, 19539, 19713, 19716, 19725, 19738, 19742, 19765, 19815, 19826, 19863, 19896, 19916, 19925, 19999, 20117, 20143, 20248, 20269, 20270, 20316, 20383, 20480, 20510, 20545, 20552, 20685, 20809, 20838, 20855, 20863, 20875, 20905, 21216, 21268, 21476, 21551, 21707, 21715, 21787, 21800, 21871, 21881, 21929, 21944, 22047, 22251, 22259, 22261, 22286, 22508, 22575, 22605, 22652, 22678, 22690, 22752, 22779, 22794, 22920, 23057, 23108, 23111, 23117, 23260, 23276, 23286, 23528, 23542, 23579, 23811, 23830, 23881, 23933, 23976, 23978, 24020, 24039, 24218, 24297, 24390, 24484, 24519, 24534, 24581, 24595, 24665, 24722, 24744, 24938, 24974, 24976, 25180, 25304, 25334, 25380, 25443, 25450, 25470, 25617, 25659, 25694, 25783, 25804, 25901, 25913, 25967, 26060, 26102, 26159, 26173, 26253, 26416, 26540, 26570, 26601, 26605, 26630, 26673, 26707, 26911, 26958, 27068, 27083, 27405, 27441, 27583, 27683, 27730, 27785, 27866, 27917, 28089, 28105, 28199, 28240, 28311, 28328, 28378, 28463, 28578, 28586, 28590, 28617, 28653, 28742, 28809, 28901, 28962, 29034, 29121, 29219, 29220, 29356, 29448, 29564, 29648, 29651, 29661, 29707, 29806, 29883, 29895, 30026, 30035, 30076, 30184, 30220, 30276, 30381, 30424, 30676, 30719, 30741, 30910, 30979, 30990, 31064, 31169, 31278, 31320, 31408, 31409, 31429, 31532, 31582, 31606, 31890, 31923, 31941, 31991, 32003, 32022, 32030, 32140, 32153, 32224, 32322, 32403, 32475, 32639, 32733, 32753, 32809, 32841, 32842, 32940, 32970, 32985, 33025, 33065, 33087, 33092, 33116, 33225, 33226, 33385, 33604, 33720, 33733, 33761, 33824, 33831, 33832, 34254, 34382, 34571, 34669, 34841, 34853, 34890, 34954, 35081, 35135, 35234, 35376, 35491, 35526, 35538, 35678, 35721, 35784, 35884, 35890, 35933, 36009, 36043, 36063, 36122, 36176, 36232, 36279, 36509, 36529, 36615, 36641, 36646, 36728, 36735, 36744, 36745, 36753, 36778, 36786, 36794, 36800, 36820, 36963, 36968, 37100, 37161, 37171, 37187, 37257, 37514, 37516, 37735, 37766, 37794, 37853, 37867, 37896, 37977, 38015, 38039, 38087, 38198, 38287, 38365, 38387, 38468, 38529, 38540, 38555, 38631, 38733, 38921, 38956, 39025, 39038, 39163, 39183, 39263, 39282, 39289, 39413, 39439, 39444, 39477, 39534, 39825, 39931, 39987, 40097, 40132, 40256, 40257, 40267, 40325, 40462, 40697, 40716, 40785, 40802, 40806, 40825, 40875, 40909, 41180, 41221, 41235, 41259, 41364, 41412, 41472, 41539, 41555, 41593, 41641, 41679, 41721, 41756, 41826, 41977, 42032, 42142, 42167, 42192, 42263, 42335, 42443, 42462, 42519, 42530, 42630, 42720, 42770, 42803, 42806, 42838, 42872, 42943, 42973, 43011, 43163, 43204, 43212, 43364, 43381, 43395, 43406, 43532, 43596, 43627, 43680, 43698, 43716, 43740, 43743, 43824, 43862, 43880, 43930, 44026, 44145, 44196, 44513, 44605, 44678, 44702, 44777, 44794, 44837, 44848, 45065, 45079, 45097, 45112, 45169, 45190, 45191, 45220, 45306, 45318, 45326, 45404, 45408, 45511, 45560, 45613, 45628, 45802, 45832, 45834, 45868, 45885, 45971, 45984, 46017, 46124, 46186, 46192, 46268, 46312, 46353, 46355, 46467, 46486, 46570, 46705, 46708, 46740, 46782, 47010, 47026, 47140, 47194, 47236, 47290, 47379, 47409, 47512, 47642, 47773, 47976, 48045, 48050, 48079, 48178, 48233, 48248, 48322, 48339, 48361, 48384, 48387, 48428, 48486, 48502, 48511, 48540, 48610, 48690, 48750, 48762, 48786, 48829, 48878, 48882, 49065, 49166, 49167, 49236, 49293, 49349, 49477, 49492, 49495, 49565, 49617, 49627, 49657, 49693, 49703, 49798, 49808, 49859, 49967, 49970],
+        "jamovi_formula": "osoba == 155 or osoba == 160 or osoba == 164 or osoba == 226 or osoba == 271 or osoba == 516 or osoba == 544 or osoba == 629 or osoba == 639 or osoba == 655 or osoba == 661 or osoba == 714 or osoba == 749 or osoba == 861 or osoba == 891 or osoba == 955 or osoba == 995 or osoba == 1028 or osoba == 1070 or osoba == 1096 or osoba == 1107 or osoba == 1138 or osoba == 1159 or osoba == 1172 or osoba == 1193 or osoba == 1195 or osoba == 1221 or osoba == 1265 or osoba == 1285 or osoba == 1431 or osoba == 1520 or osoba == 1724 or osoba == 1758 or osoba == 1774 or osoba == 1924 or osoba == 1976 or osoba == 2099 or osoba == 2188 or osoba == 2212 or osoba == 2236 or osoba == 2333 or osoba == 2393 or osoba == 2722 or osoba == 2740 or osoba == 2814 or osoba == 2840 or osoba == 2896 or osoba == 3188 or osoba == 3189 or osoba == 3200 or osoba == 3290 or osoba == 3428 or osoba == 3466 or osoba == 3525 or osoba == 3608 or osoba == 3795 or osoba == 3844 or osoba == 3896 or osoba == 3963 or osoba == 4021 or osoba == 4074 or osoba == 4132 or osoba == 4196 or osoba == 4228 or osoba == 4262 or osoba == 4383 or osoba == 4424 or osoba == 4438 or osoba == 4476 or osoba == 4533 or osoba == 4563 or osoba == 4567 or osoba == 4613 or osoba == 4632 or osoba == 4670 or osoba == 4671 or osoba == 4681 or osoba == 4704 or osoba == 4819 or osoba == 4820 or osoba == 4843 or osoba == 4873 or osoba == 4895 or osoba == 4945 or osoba == 4967 or osoba == 5198 or osoba == 5201 or osoba == 5204 or osoba == 5296 or osoba == 5325 or osoba == 5436 or osoba == 5445 or osoba == 5549 or osoba == 5735 or osoba == 5777 or osoba == 5836 or osoba == 5952 or osoba == 6044 or osoba == 6148 or osoba == 6257 or osoba == 6369 or osoba == 6397 or osoba == 6510 or osoba == 6559 or osoba == 6567 or osoba == 6676 or osoba == 6801 or osoba == 6873 or osoba == 6915 or osoba == 6919 or osoba == 6969 or osoba == 7010 or osoba == 7063 or osoba == 7072 or osoba == 7181 or osoba == 7184 or osoba == 7341 or osoba == 7364 or osoba == 7379 or osoba == 7390 or osoba == 7401 or osoba == 7426 or osoba == 7494 or osoba == 7524 or osoba == 7579 or osoba == 7628 or osoba == 7629 or osoba == 7634 or osoba == 7659 or osoba == 7854 or osoba == 7858 or osoba == 7871 or osoba == 7939 or osoba == 8004 or osoba == 8111 or osoba == 8138 or osoba == 8302 or osoba == 8402 or osoba == 8541 or osoba == 8642 or osoba == 8715 or osoba == 8729 or osoba == 8731 or osoba == 8875 or osoba == 8951 or osoba == 8962 or osoba == 9024 or osoba == 9109 or osoba == 9285 or osoba == 9294 or osoba == 9301 or osoba == 9420 or osoba == 9511 or osoba == 9575 or osoba == 9585 or osoba == 9625 or osoba == 9654 or osoba == 9666 or osoba == 9710 or osoba == 9739 or osoba == 9784 or osoba == 9873 or osoba == 9879 or osoba == 9905 or osoba == 9970 or osoba == 10000 or osoba == 10228 or osoba == 10254 or osoba == 10399 or osoba == 10464 or osoba == 10467 or osoba == 10498 or osoba == 10620 or osoba == 10682 or osoba == 10756 or osoba == 10807 or osoba == 10881 or osoba == 10909 or osoba == 10949 or osoba == 10953 or osoba == 10984 or osoba == 11044 or osoba == 11264 or osoba == 11274 or osoba == 11286 or osoba == 11361 or osoba == 11374 or osoba == 11445 or osoba == 11605 or osoba == 11732 or osoba == 11741 or osoba == 11770 or osoba == 11797 or osoba == 11824 or osoba == 11882 or osoba == 11964 or osoba == 12040 or osoba == 12057 or osoba == 12076 or osoba == 12084 or osoba == 12332 or osoba == 12339 or osoba == 12571 or osoba == 12659 or osoba == 12719 or osoba == 12767 or osoba == 12810 or osoba == 12884 or osoba == 12946 or osoba == 12992 or osoba == 13192 or osoba == 13238 or osoba == 13254 or osoba == 13256 or osoba == 13279 or osoba == 13363 or osoba == 13449 or osoba == 13475 or osoba == 13512 or osoba == 13516 or osoba == 13605 or osoba == 13751 or osoba == 13793 or osoba == 13865 or osoba == 13872 or osoba == 13882 or osoba == 14027 or osoba == 14082 or osoba == 14107 or osoba == 14136 or osoba == 14158 or osoba == 14159 or osoba == 14168 or osoba == 14179 or osoba == 14248 or osoba == 14339 or osoba == 14365 or osoba == 14447 or osoba == 14511 or osoba == 14562 or osoba == 14635 or osoba == 14955 or osoba == 14985 or osoba == 15148 or osoba == 15183 or osoba == 15197 or osoba == 15202 or osoba == 15270 or osoba == 15366 or osoba == 15430 or osoba == 15467 or osoba == 15497 or osoba == 15520 or osoba == 15552 or osoba == 15621 or osoba == 15642 or osoba == 15679 or osoba == 15743 or osoba == 15960 or osoba == 15973 or osoba == 16004 or osoba == 16107 or osoba == 16123 or osoba == 16140 or osoba == 16184 or osoba == 16246 or osoba == 16250 or osoba == 16253 or osoba == 16280 or osoba == 16355 or osoba == 16429 or osoba == 16533 or osoba == 16548 or osoba == 16652 or osoba == 16809 or osoba == 16820 or osoba == 16921 or osoba == 16971 or osoba == 16993 or osoba == 17152 or osoba == 17185 or osoba == 17328 or osoba == 17338 or osoba == 17385 or osoba == 17460 or osoba == 17520 or osoba == 17534 or osoba == 17632 or osoba == 17730 or osoba == 17793 or osoba == 17814 or osoba == 17827 or osoba == 17856 or osoba == 17997 or osoba == 18029 or osoba == 18154 or osoba == 18190 or osoba == 18258 or osoba == 18278 or osoba == 18327 or osoba == 18590 or osoba == 18654 or osoba == 18671 or osoba == 18746 or osoba == 18755 or osoba == 18809 or osoba == 18904 or osoba == 19030 or osoba == 19094 or osoba == 19096 or osoba == 19456 or osoba == 19519 or osoba == 19539 or osoba == 19713 or osoba == 19716 or osoba == 19725 or osoba == 19738 or osoba == 19742 or osoba == 19765 or osoba == 19815 or osoba == 19826 or osoba == 19863 or osoba == 19896 or osoba == 19916 or osoba == 19925 or osoba == 19999 or osoba == 20117 or osoba == 20143 or osoba == 20248 or osoba == 20269 or osoba == 20270 or osoba == 20316 or osoba == 20383 or osoba == 20480 or osoba == 20510 or osoba == 20545 or osoba == 20552 or osoba == 20685 or osoba == 20809 or osoba == 20838 or osoba == 20855 or osoba == 20863 or osoba == 20875 or osoba == 20905 or osoba == 21216 or osoba == 21268 or osoba == 21476 or osoba == 21551 or osoba == 21707 or osoba == 21715 or osoba == 21787 or osoba == 21800 or osoba == 21871 or osoba == 21881 or osoba == 21929 or osoba == 21944 or osoba == 22047 or osoba == 22251 or osoba == 22259 or osoba == 22261 or osoba == 22286 or osoba == 22508 or osoba == 22575 or osoba == 22605 or osoba == 22652 or osoba == 22678 or osoba == 22690 or osoba == 22752 or osoba == 22779 or osoba == 22794 or osoba == 22920 or osoba == 23057 or osoba == 23108 or osoba == 23111 or osoba == 23117 or osoba == 23260 or osoba == 23276 or osoba == 23286 or osoba == 23528 or osoba == 23542 or osoba == 23579 or osoba == 23811 or osoba == 23830 or osoba == 23881 or osoba == 23933 or osoba == 23976 or osoba == 23978 or osoba == 24020 or osoba == 24039 or osoba == 24218 or osoba == 24297 or osoba == 24390 or osoba == 24484 or osoba == 24519 or osoba == 24534 or osoba == 24581 or osoba == 24595 or osoba == 24665 or osoba == 24722 or osoba == 24744 or osoba == 24938 or osoba == 24974 or osoba == 24976 or osoba == 25180 or osoba == 25304 or osoba == 25334 or osoba == 25380 or osoba == 25443 or osoba == 25450 or osoba == 25470 or osoba == 25617 or osoba == 25659 or osoba == 25694 or osoba == 25783 or osoba == 25804 or osoba == 25901 or osoba == 25913 or osoba == 25967 or osoba == 26060 or osoba == 26102 or osoba == 26159 or osoba == 26173 or osoba == 26253 or osoba == 26416 or osoba == 26540 or osoba == 26570 or osoba == 26601 or osoba == 26605 or osoba == 26630 or osoba == 26673 or osoba == 26707 or osoba == 26911 or osoba == 26958 or osoba == 27068 or osoba == 27083 or osoba == 27405 or osoba == 27441 or osoba == 27583 or osoba == 27683 or osoba == 27730 or osoba == 27785 or osoba == 27866 or osoba == 27917 or osoba == 28089 or osoba == 28105 or osoba == 28199 or osoba == 28240 or osoba == 28311 or osoba == 28328 or osoba == 28378 or osoba == 28463 or osoba == 28578 or osoba == 28586 or osoba == 28590 or osoba == 28617 or osoba == 28653 or osoba == 28742 or osoba == 28809 or osoba == 28901 or osoba == 28962 or osoba == 29034 or osoba == 29121 or osoba == 29219 or osoba == 29220 or osoba == 29356 or osoba == 29448 or osoba == 29564 or osoba == 29648 or osoba == 29651 or osoba == 29661 or osoba == 29707 or osoba == 29806 or osoba == 29883 or osoba == 29895 or osoba == 30026 or osoba == 30035 or osoba == 30076 or osoba == 30184 or osoba == 30220 or osoba == 30276 or osoba == 30381 or osoba == 30424 or osoba == 30676 or osoba == 30719 or osoba == 30741 or osoba == 30910 or osoba == 30979 or osoba == 30990 or osoba == 31064 or osoba == 31169 or osoba == 31278 or osoba == 31320 or osoba == 31408 or osoba == 31409 or osoba == 31429 or osoba == 31532 or osoba == 31582 or osoba == 31606 or osoba == 31890 or osoba == 31923 or osoba == 31941 or osoba == 31991 or osoba == 32003 or osoba == 32022 or osoba == 32030 or osoba == 32140 or osoba == 32153 or osoba == 32224 or osoba == 32322 or osoba == 32403 or osoba == 32475 or osoba == 32639 or osoba == 32733 or osoba == 32753 or osoba == 32809 or osoba == 32841 or osoba == 32842 or osoba == 32940 or osoba == 32970 or osoba == 32985 or osoba == 33025 or osoba == 33065 or osoba == 33087 or osoba == 33092 or osoba == 33116 or osoba == 33225 or osoba == 33226 or osoba == 33385 or osoba == 33604 or osoba == 33720 or osoba == 33733 or osoba == 33761 or osoba == 33824 or osoba == 33831 or osoba == 33832 or osoba == 34254 or osoba == 34382 or osoba == 34571 or osoba == 34669 or osoba == 34841 or osoba == 34853 or osoba == 34890 or osoba == 34954 or osoba == 35081 or osoba == 35135 or osoba == 35234 or osoba == 35376 or osoba == 35491 or osoba == 35526 or osoba == 35538 or osoba == 35678 or osoba == 35721 or osoba == 35784 or osoba == 35884 or osoba == 35890 or osoba == 35933 or osoba == 36009 or osoba == 36043 or osoba == 36063 or osoba == 36122 or osoba == 36176 or osoba == 36232 or osoba == 36279 or osoba == 36509 or osoba == 36529 or osoba == 36615 or osoba == 36641 or osoba == 36646 or osoba == 36728 or osoba == 36735 or osoba == 36744 or osoba == 36745 or osoba == 36753 or osoba == 36778 or osoba == 36786 or osoba == 36794 or osoba == 36800 or osoba == 36820 or osoba == 36963 or osoba == 36968 or osoba == 37100 or osoba == 37161 or osoba == 37171 or osoba == 37187 or osoba == 37257 or osoba == 37514 or osoba == 37516 or osoba == 37735 or osoba == 37766 or osoba == 37794 or osoba == 37853 or osoba == 37867 or osoba == 37896 or osoba == 37977 or osoba == 38015 or osoba == 38039 or osoba == 38087 or osoba == 38198 or osoba == 38287 or osoba == 38365 or osoba == 38387 or osoba == 38468 or osoba == 38529 or osoba == 38540 or osoba == 38555 or osoba == 38631 or osoba == 38733 or osoba == 38921 or osoba == 38956 or osoba == 39025 or osoba == 39038 or osoba == 39163 or osoba == 39183 or osoba == 39263 or osoba == 39282 or osoba == 39289 or osoba == 39413 or osoba == 39439 or osoba == 39444 or osoba == 39477 or osoba == 39534 or osoba == 39825 or osoba == 39931 or osoba == 39987 or osoba == 40097 or osoba == 40132 or osoba == 40256 or osoba == 40257 or osoba == 40267 or osoba == 40325 or osoba == 40462 or osoba == 40697 or osoba == 40716 or osoba == 40785 or osoba == 40802 or osoba == 40806 or osoba == 40825 or osoba == 40875 or osoba == 40909 or osoba == 41180 or osoba == 41221 or osoba == 41235 or osoba == 41259 or osoba == 41364 or osoba == 41412 or osoba == 41472 or osoba == 41539 or osoba == 41555 or osoba == 41593 or osoba == 41641 or osoba == 41679 or osoba == 41721 or osoba == 41756 or osoba == 41826 or osoba == 41977 or osoba == 42032 or osoba == 42142 or osoba == 42167 or osoba == 42192 or osoba == 42263 or osoba == 42335 or osoba == 42443 or osoba == 42462 or osoba == 42519 or osoba == 42530 or osoba == 42630 or osoba == 42720 or osoba == 42770 or osoba == 42803 or osoba == 42806 or osoba == 42838 or osoba == 42872 or osoba == 42943 or osoba == 42973 or osoba == 43011 or osoba == 43163 or osoba == 43204 or osoba == 43212 or osoba == 43364 or osoba == 43381 or osoba == 43395 or osoba == 43406 or osoba == 43532 or osoba == 43596 or osoba == 43627 or osoba == 43680 or osoba == 43698 or osoba == 43716 or osoba == 43740 or osoba == 43743 or osoba == 43824 or osoba == 43862 or osoba == 43880 or osoba == 43930 or osoba == 44026 or osoba == 44145 or osoba == 44196 or osoba == 44513 or osoba == 44605 or osoba == 44678 or osoba == 44702 or osoba == 44777 or osoba == 44794 or osoba == 44837 or osoba == 44848 or osoba == 45065 or osoba == 45079 or osoba == 45097 or osoba == 45112 or osoba == 45169 or osoba == 45190 or osoba == 45191 or osoba == 45220 or osoba == 45306 or osoba == 45318 or osoba == 45326 or osoba == 45404 or osoba == 45408 or osoba == 45511 or osoba == 45560 or osoba == 45613 or osoba == 45628 or osoba == 45802 or osoba == 45832 or osoba == 45834 or osoba == 45868 or osoba == 45885 or osoba == 45971 or osoba == 45984 or osoba == 46017 or osoba == 46124 or osoba == 46186 or osoba == 46192 or osoba == 46268 or osoba == 46312 or osoba == 46353 or osoba == 46355 or osoba == 46467 or osoba == 46486 or osoba == 46570 or osoba == 46705 or osoba == 46708 or osoba == 46740 or osoba == 46782 or osoba == 47010 or osoba == 47026 or osoba == 47140 or osoba == 47194 or osoba == 47236 or osoba == 47290 or osoba == 47379 or osoba == 47409 or osoba == 47512 or osoba == 47642 or osoba == 47773 or osoba == 47976 or osoba == 48045 or osoba == 48050 or osoba == 48079 or osoba == 48178 or osoba == 48233 or osoba == 48248 or osoba == 48322 or osoba == 48339 or osoba == 48361 or osoba == 48384 or osoba == 48387 or osoba == 48428 or osoba == 48486 or osoba == 48502 or osoba == 48511 or osoba == 48540 or osoba == 48610 or osoba == 48690 or osoba == 48750 or osoba == 48762 or osoba == 48786 or osoba == 48829 or osoba == 48878 or osoba == 48882 or osoba == 49065 or osoba == 49166 or osoba == 49167 or osoba == 49236 or osoba == 49293 or osoba == 49349 or osoba == 49477 or osoba == 49492 or osoba == 49495 or osoba == 49565 or osoba == 49617 or osoba == 49627 or osoba == 49657 or osoba == 49693 or osoba == 49703 or osoba == 49798 or osoba == 49808 or osoba == 49859 or osoba == 49967 or osoba == 49970"
+      },
+      "expected_output": ["13:chi_squared", "13:cramers_v"],
+      "golden_values": {
+        "13:chi_squared": 6.03709187333708,
+        "13:cramers_v": 0.0501543113523033
+      },
+      "interpretation": "Hi-kvadrat sazimlje odstupanja opazenih od ocekivanih frekvencija, a Cramerov V velicinu povezanosti.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://docs.jamovi.org/usermanual/um_4_spreadsheet.html", "https://jamovi.readthedocs.io/en/latest/jmv/jmv_contTables/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C14-WELCH",
+      "chapter": "14",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["osoba", "izvor_vijesti", "povjerenje_medijima"],
+      "import_types": {
+        "osoba": "ID/Integer",
+        "izvor_vijesti": "Nominal/Text",
+        "povjerenje_medijima": "Continuous/Integer"
+      },
+      "analysis": "Welchova usporedba dviju skupina",
+      "menu_path": ["Analyses", "T-Tests", "Independent Samples T-Test"],
+      "settings": {
+        "dependent_variables": "povjerenje_medijima",
+        "grouping_variable": "izvor_vijesti",
+        "retained_levels": ["TV", "društvene mreže"],
+        "group_order": "TV minus društvene mreže",
+        "students": false,
+        "welchs": true,
+        "mean_difference": true,
+        "confidence_interval": 95
+      },
+      "filter": {
+        "label": "uzorak_poglavlje_14",
+        "key": "osoba",
+        "selected_rows": 120,
+        "selected_ids": [308, 624, 658, 662, 737, 956, 1181, 1577, 2181, 2337, 2438, 3018, 3140, 3242, 3293, 3793, 4194, 4590, 4968, 4995, 5019, 5525, 5952, 6150, 6294, 7391, 7938, 8718, 9730, 9818, 10022, 10684, 10746, 11309, 12186, 12955, 13233, 14251, 15004, 15090, 15485, 15857, 16014, 16308, 16309, 18628, 19019, 19814, 20322, 20691, 21421, 21732, 22647, 22885, 22900, 22932, 23235, 23642, 24415, 24474, 24647, 25005, 25583, 25848, 26130, 26484, 26874, 28149, 28631, 28807, 29286, 29395, 29469, 29730, 30427, 30471, 30572, 31246, 31916, 31979, 32312, 32344, 32546, 32668, 33452, 33477, 34793, 34823, 35626, 35627, 36272, 36635, 36764, 37104, 37188, 38097, 38664, 38891, 39446, 39513, 40995, 41007, 42262, 42529, 43171, 43481, 43758, 44302, 44864, 44960, 45088, 45151, 45594, 46262, 46320, 46889, 47263, 47738, 49341, 49775],
+        "jamovi_formula": "osoba == 308 or osoba == 624 or osoba == 658 or osoba == 662 or osoba == 737 or osoba == 956 or osoba == 1181 or osoba == 1577 or osoba == 2181 or osoba == 2337 or osoba == 2438 or osoba == 3018 or osoba == 3140 or osoba == 3242 or osoba == 3293 or osoba == 3793 or osoba == 4194 or osoba == 4590 or osoba == 4968 or osoba == 4995 or osoba == 5019 or osoba == 5525 or osoba == 5952 or osoba == 6150 or osoba == 6294 or osoba == 7391 or osoba == 7938 or osoba == 8718 or osoba == 9730 or osoba == 9818 or osoba == 10022 or osoba == 10684 or osoba == 10746 or osoba == 11309 or osoba == 12186 or osoba == 12955 or osoba == 13233 or osoba == 14251 or osoba == 15004 or osoba == 15090 or osoba == 15485 or osoba == 15857 or osoba == 16014 or osoba == 16308 or osoba == 16309 or osoba == 18628 or osoba == 19019 or osoba == 19814 or osoba == 20322 or osoba == 20691 or osoba == 21421 or osoba == 21732 or osoba == 22647 or osoba == 22885 or osoba == 22900 or osoba == 22932 or osoba == 23235 or osoba == 23642 or osoba == 24415 or osoba == 24474 or osoba == 24647 or osoba == 25005 or osoba == 25583 or osoba == 25848 or osoba == 26130 or osoba == 26484 or osoba == 26874 or osoba == 28149 or osoba == 28631 or osoba == 28807 or osoba == 29286 or osoba == 29395 or osoba == 29469 or osoba == 29730 or osoba == 30427 or osoba == 30471 or osoba == 30572 or osoba == 31246 or osoba == 31916 or osoba == 31979 or osoba == 32312 or osoba == 32344 or osoba == 32546 or osoba == 32668 or osoba == 33452 or osoba == 33477 or osoba == 34793 or osoba == 34823 or osoba == 35626 or osoba == 35627 or osoba == 36272 or osoba == 36635 or osoba == 36764 or osoba == 37104 or osoba == 37188 or osoba == 38097 or osoba == 38664 or osoba == 38891 or osoba == 39446 or osoba == 39513 or osoba == 40995 or osoba == 41007 or osoba == 42262 or osoba == 42529 or osoba == 43171 or osoba == 43481 or osoba == 43758 or osoba == 44302 or osoba == 44864 or osoba == 44960 or osoba == 45088 or osoba == 45151 or osoba == 45594 or osoba == 46262 or osoba == 46320 or osoba == 46889 or osoba == 47263 or osoba == 47738 or osoba == 49341 or osoba == 49775"
+      },
+      "expected_output": ["14:mean_difference_tv_minus_mreze", "14:welch_ci95_lower", "14:welch_ci95_upper"],
+      "golden_values": {
+        "14:mean_difference_tv_minus_mreze": 1.18571428571429,
+        "14:welch_ci95_lower": 0.446686471420565,
+        "14:welch_ci95_upper": 1.92474210000801
+      },
+      "interpretation": "Procjena i interval vode tumacenje; rezultat ne pretvara skupine u randomizirani pokus.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://docs.jamovi.org/usermanual/um_4_spreadsheet.html", "https://jamovi.readthedocs.io/en/latest/jmv/jmv_ttestIS/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C15-ANOVA",
+      "chapter": "15",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["osoba", "izvor_vijesti", "povjerenje_medijima"],
+      "import_types": {
+        "osoba": "ID/Integer",
+        "izvor_vijesti": "Nominal/Text",
+        "povjerenje_medijima": "Continuous/Integer"
+      },
+      "analysis": "Jednofaktorska klasicna ANOVA",
+      "menu_path": ["Analyses", "ANOVA", "ANOVA"],
+      "settings": {
+        "dependent_variable": "povjerenje_medijima",
+        "fixed_factors": "izvor_vijesti",
+        "sums_of_squares": 3,
+        "effect_size": "eta squared",
+        "welch": false
+      },
+      "filter": {
+        "label": "uzorak_poglavlje_15",
+        "key": "osoba",
+        "selected_rows": 300,
+        "selected_ids": [269, 313, 356, 490, 674, 905, 952, 1046, 1196, 1368, 1388, 1629, 1888, 2070, 2114, 2139, 2175, 2570, 2574, 2798, 2914, 3161, 3179, 3310, 3613, 4295, 4345, 4495, 4708, 4796, 4889, 5041, 5226, 5297, 6295, 6653, 7018, 7289, 7437, 7665, 7687, 7753, 7823, 7966, 8106, 8149, 8249, 8307, 8431, 8543, 8841, 8884, 9206, 9384, 9422, 9773, 9941, 9980, 10011, 10018, 10120, 10243, 10335, 10437, 10572, 11052, 11161, 11365, 11459, 11502, 11529, 11642, 11767, 11804, 11933, 12025, 12227, 12259, 12266, 12322, 12593, 12975, 13141, 13165, 13199, 13552, 13616, 13802, 13917, 13984, 14247, 14420, 14429, 14520, 14529, 14541, 15063, 15866, 16190, 16343, 16721, 17030, 17111, 17299, 17301, 17313, 17423, 17886, 17935, 17989, 18099, 18203, 18319, 18326, 18429, 18693, 18827, 19136, 19293, 19342, 19345, 19375, 19408, 19475, 19825, 19935, 20156, 20866, 21126, 21299, 21444, 21569, 21780, 21992, 22055, 22181, 22559, 22625, 22637, 22694, 22730, 22927, 22943, 23239, 23349, 23509, 23510, 23846, 23913, 23970, 24295, 24744, 25035, 25196, 25470, 25488, 25519, 25582, 25583, 25600, 25719, 25912, 25952, 26192, 26196, 26322, 26454, 26549, 26567, 26932, 27776, 27826, 27863, 28420, 28618, 28623, 28817, 28837, 28995, 28997, 29167, 29601, 29667, 29708, 30414, 30921, 31066, 31250, 31357, 31440, 31534, 31648, 31698, 31780, 31904, 31932, 31947, 32320, 32395, 32504, 32716, 32796, 33075, 33145, 33208, 33736, 33858, 34017, 34178, 34180, 34195, 34239, 34413, 34482, 34486, 35023, 35040, 35582, 35650, 35914, 36033, 36121, 36127, 36170, 36310, 36311, 36312, 36412, 36642, 36864, 37192, 37570, 37801, 38030, 38504, 38833, 38926, 39101, 39110, 39631, 39718, 39932, 40067, 40371, 40495, 40891, 41004, 41101, 41136, 41199, 41214, 41398, 41485, 41649, 41968, 42088, 42308, 42817, 42958, 43004, 43109, 43158, 43363, 43403, 43552, 43759, 43843, 44051, 44341, 44721, 44812, 44835, 44853, 45664, 45736, 45783, 45787, 45895, 45896, 46265, 46333, 46688, 46817, 47339, 47416, 47490, 47598, 47698, 47832, 48309, 48311, 48524, 48988, 49003, 49120, 49151, 49348, 49525, 49755, 49881],
+        "jamovi_formula": "osoba == 269 or osoba == 313 or osoba == 356 or osoba == 490 or osoba == 674 or osoba == 905 or osoba == 952 or osoba == 1046 or osoba == 1196 or osoba == 1368 or osoba == 1388 or osoba == 1629 or osoba == 1888 or osoba == 2070 or osoba == 2114 or osoba == 2139 or osoba == 2175 or osoba == 2570 or osoba == 2574 or osoba == 2798 or osoba == 2914 or osoba == 3161 or osoba == 3179 or osoba == 3310 or osoba == 3613 or osoba == 4295 or osoba == 4345 or osoba == 4495 or osoba == 4708 or osoba == 4796 or osoba == 4889 or osoba == 5041 or osoba == 5226 or osoba == 5297 or osoba == 6295 or osoba == 6653 or osoba == 7018 or osoba == 7289 or osoba == 7437 or osoba == 7665 or osoba == 7687 or osoba == 7753 or osoba == 7823 or osoba == 7966 or osoba == 8106 or osoba == 8149 or osoba == 8249 or osoba == 8307 or osoba == 8431 or osoba == 8543 or osoba == 8841 or osoba == 8884 or osoba == 9206 or osoba == 9384 or osoba == 9422 or osoba == 9773 or osoba == 9941 or osoba == 9980 or osoba == 10011 or osoba == 10018 or osoba == 10120 or osoba == 10243 or osoba == 10335 or osoba == 10437 or osoba == 10572 or osoba == 11052 or osoba == 11161 or osoba == 11365 or osoba == 11459 or osoba == 11502 or osoba == 11529 or osoba == 11642 or osoba == 11767 or osoba == 11804 or osoba == 11933 or osoba == 12025 or osoba == 12227 or osoba == 12259 or osoba == 12266 or osoba == 12322 or osoba == 12593 or osoba == 12975 or osoba == 13141 or osoba == 13165 or osoba == 13199 or osoba == 13552 or osoba == 13616 or osoba == 13802 or osoba == 13917 or osoba == 13984 or osoba == 14247 or osoba == 14420 or osoba == 14429 or osoba == 14520 or osoba == 14529 or osoba == 14541 or osoba == 15063 or osoba == 15866 or osoba == 16190 or osoba == 16343 or osoba == 16721 or osoba == 17030 or osoba == 17111 or osoba == 17299 or osoba == 17301 or osoba == 17313 or osoba == 17423 or osoba == 17886 or osoba == 17935 or osoba == 17989 or osoba == 18099 or osoba == 18203 or osoba == 18319 or osoba == 18326 or osoba == 18429 or osoba == 18693 or osoba == 18827 or osoba == 19136 or osoba == 19293 or osoba == 19342 or osoba == 19345 or osoba == 19375 or osoba == 19408 or osoba == 19475 or osoba == 19825 or osoba == 19935 or osoba == 20156 or osoba == 20866 or osoba == 21126 or osoba == 21299 or osoba == 21444 or osoba == 21569 or osoba == 21780 or osoba == 21992 or osoba == 22055 or osoba == 22181 or osoba == 22559 or osoba == 22625 or osoba == 22637 or osoba == 22694 or osoba == 22730 or osoba == 22927 or osoba == 22943 or osoba == 23239 or osoba == 23349 or osoba == 23509 or osoba == 23510 or osoba == 23846 or osoba == 23913 or osoba == 23970 or osoba == 24295 or osoba == 24744 or osoba == 25035 or osoba == 25196 or osoba == 25470 or osoba == 25488 or osoba == 25519 or osoba == 25582 or osoba == 25583 or osoba == 25600 or osoba == 25719 or osoba == 25912 or osoba == 25952 or osoba == 26192 or osoba == 26196 or osoba == 26322 or osoba == 26454 or osoba == 26549 or osoba == 26567 or osoba == 26932 or osoba == 27776 or osoba == 27826 or osoba == 27863 or osoba == 28420 or osoba == 28618 or osoba == 28623 or osoba == 28817 or osoba == 28837 or osoba == 28995 or osoba == 28997 or osoba == 29167 or osoba == 29601 or osoba == 29667 or osoba == 29708 or osoba == 30414 or osoba == 30921 or osoba == 31066 or osoba == 31250 or osoba == 31357 or osoba == 31440 or osoba == 31534 or osoba == 31648 or osoba == 31698 or osoba == 31780 or osoba == 31904 or osoba == 31932 or osoba == 31947 or osoba == 32320 or osoba == 32395 or osoba == 32504 or osoba == 32716 or osoba == 32796 or osoba == 33075 or osoba == 33145 or osoba == 33208 or osoba == 33736 or osoba == 33858 or osoba == 34017 or osoba == 34178 or osoba == 34180 or osoba == 34195 or osoba == 34239 or osoba == 34413 or osoba == 34482 or osoba == 34486 or osoba == 35023 or osoba == 35040 or osoba == 35582 or osoba == 35650 or osoba == 35914 or osoba == 36033 or osoba == 36121 or osoba == 36127 or osoba == 36170 or osoba == 36310 or osoba == 36311 or osoba == 36312 or osoba == 36412 or osoba == 36642 or osoba == 36864 or osoba == 37192 or osoba == 37570 or osoba == 37801 or osoba == 38030 or osoba == 38504 or osoba == 38833 or osoba == 38926 or osoba == 39101 or osoba == 39110 or osoba == 39631 or osoba == 39718 or osoba == 39932 or osoba == 40067 or osoba == 40371 or osoba == 40495 or osoba == 40891 or osoba == 41004 or osoba == 41101 or osoba == 41136 or osoba == 41199 or osoba == 41214 or osoba == 41398 or osoba == 41485 or osoba == 41649 or osoba == 41968 or osoba == 42088 or osoba == 42308 or osoba == 42817 or osoba == 42958 or osoba == 43004 or osoba == 43109 or osoba == 43158 or osoba == 43363 or osoba == 43403 or osoba == 43552 or osoba == 43759 or osoba == 43843 or osoba == 44051 or osoba == 44341 or osoba == 44721 or osoba == 44812 or osoba == 44835 or osoba == 44853 or osoba == 45664 or osoba == 45736 or osoba == 45783 or osoba == 45787 or osoba == 45895 or osoba == 45896 or osoba == 46265 or osoba == 46333 or osoba == 46688 or osoba == 46817 or osoba == 47339 or osoba == 47416 or osoba == 47490 or osoba == 47598 or osoba == 47698 or osoba == 47832 or osoba == 48309 or osoba == 48311 or osoba == 48524 or osoba == 48988 or osoba == 49003 or osoba == 49120 or osoba == 49151 or osoba == 49348 or osoba == 49525 or osoba == 49755 or osoba == 49881"
+      },
+      "expected_output": ["15:anova_f", "15:eta_squared"],
+      "golden_values": {
+        "15:anova_f": 8.38181295740898,
+        "15:eta_squared": 0.102053183237968
+      },
+      "interpretation": "F-omjer je zbirna usporedba, a eta-kvadrat udio varijabilnosti povezan s faktorom u ovom uzorku.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://docs.jamovi.org/usermanual/um_4_spreadsheet.html", "https://jamovi.readthedocs.io/en/latest/jmv/jmv_ANOVA/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-C16-REGRESIJA",
+      "chapter": "16",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["dob", "izvor_vijesti", "povjerenje_medijima"],
+      "import_types": {
+        "dob": "Continuous/Integer",
+        "izvor_vijesti": "Nominal/Text",
+        "povjerenje_medijima": "Continuous/Integer"
+      },
+      "analysis": "Visestruka linearna regresija",
+      "menu_path": ["Analyses", "Regression", "Linear Regression"],
+      "settings": {
+        "dependent_variable": "povjerenje_medijima",
+        "covariates": "dob",
+        "factors": "izvor_vijesti",
+        "factor_reference": "portal",
+        "estimates": true,
+        "model_fit": true
+      },
+      "filter": {
+        "active": false,
+        "formula": null
+      },
+      "expected_output": ["16:slope_dob", "16:coefficient_drustvene_mreze", "16:adjusted_r_squared"],
+      "golden_values": {
+        "16:slope_dob": 0.0268851731781231,
+        "16:coefficient_drustvene_mreze": -0.533533786572297,
+        "16:adjusted_r_squared": 0.122189733503462
+      },
+      "interpretation": "Koeficijent dobi drzi izvor vijesti stalnim, a kategorijski koeficijent usporedjuje mreze s referentnim portalom; model nije uzrocna tvrdnja.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": null,
+      "documentation": ["https://jamovi.readthedocs.io/en/latest/analyses/jg_42_regression-linear/", "https://jamovi.readthedocs.io/en/latest/developer/dh_info_file-format/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    },
+    {
+      "id": "B-TEXT-PREPARED",
+      "chapter": "A-tekst",
+      "dataset": "parlasent_hr",
+      "file": "data/parlament_oznake.csv",
+      "question": "Kako se ton parlamentarnih iskaza razlikuje s obzirom na stranačku pripadnost?",
+      "variables": ["record_id", "source_document_id", "derived_split", "recorded_label", "label_path"],
+      "import_types": {
+        "record_id": "ID/Text",
+        "source_document_id": "ID/Integer",
+        "derived_split": "Nominal/Text",
+        "recorded_label": "Nominal/Text",
+        "label_path": "Nominal/Text"
+      },
+      "analysis": "Pregled pripremljene tablice i frekvencija putova oznake",
+      "menu_path": ["Analyses", "Exploration", "Descriptives"],
+      "settings": {
+        "variables": ["derived_split", "recorded_label", "label_path"],
+        "frequency_tables": true,
+        "expected_rows": 2698
+      },
+      "filter": {
+        "active": false,
+        "formula": null
+      },
+      "expected_output": "A-tekst:prepared_rows",
+      "golden_values": {
+        "A-tekst:prepared_rows": 2698
+      },
+      "interpretation": "Jedan redak je jedna oznacena recenica; zabiljezena oznaka nije istina o recenici ni govorniku.",
+      "support_status": "documented_pending_clean_install",
+      "additional_claim_boundary": "Datoteka nema stranacku pripadnost, pa ovo nije analiza razlika medju strankama; put samo provjerava pripremljenu tablicu koju Dodatak A vec imenuje.",
+      "documentation": ["https://jamovi.readthedocs.io/en/latest/jmv/jmv_descriptives/", "https://jamovi.readthedocs.io/en/latest/developer/dh_info_file-format/"],
+      "module": {
+        "product": "jamovi",
+        "product_version": "2.7.30.0",
+        "product_tag": "v2.7.30",
+        "core_module": "jmv",
+        "core_module_version": "2.7.7",
+        "core_module_commit": "8c07513626f458bf9d855ac3a8271a9de9c312f9"
+      },
+      "documentation_checked_at": "2026-08-25",
+      "weights": "Nema tezina; katalog za ove ulaze izrijekom zabranjuje izmisljanje praznoga stupca tezina.",
+      "export": "Spremiti radnu datoteku .omv, koja cuva podatke, postavke i rezultate, te uz nju izvesti samo tablicu koja nosi imenovanu zlatnu vrijednost.",
+      "verification": "Usporediti neokrugljenu vrijednost s config/appendix-b-jamovi-route.json; odstupanje se ne tumaci nego prijavljuje vlasniku ciste instalacije.",
+      "claim_boundary": "Sinteticki podaci ne podupiru tvrdnju o stvarnoj populaciji; rezultat opisuje samo imenovani skup i postupak.",
+      "clean_install": {
+        "owner": "Luka Sikic",
+        "roles": ["autor", "vlasnik kolegija"],
+        "status": "pending_owner_verification",
+        "claimed_by_packet": false,
+        "note": "P5-B ne tvrdi da je ruta provjerena na cistoj instalaciji."
+      }
+    }
+  ],
+  "unsupported_in_pinned_core": [
+    {
+      "chapter": "10",
+      "metric_keys": "10:permutation_p_two_sided",
+      "dataset": "populacija_medija",
+      "file": "data/populacija-medija.csv",
+      "question": "Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?",
+      "variables": ["osoba", "izvor_vijesti", "povjerenje_medijima"],
+      "reason": "Ugradjeni jmv 2.7.7 ne dokumentira tocno 4000 preslagivanja uz +1 korekciju Dodatka A; vrijednost se ne reproducira drugim testom."
+    },
+    {
+      "chapter": "12",
+      "metric_keys": ["12:raw_fixed_effect_estimate", "12:raw_ci95_lower", "12:raw_ci95_upper", "12:standardized_fixed_effect_estimate", "12:standardized_ci95_lower", "12:standardized_ci95_upper"],
+      "dataset": "rrr_lab_effects",
+      "file": "notes/reports/p3-evidence12-rrr-lab-effects.csv",
+      "question": "Koliki je zajednički učinak laboratorijskih replikacija RRR-a?",
+      "variables": ["raw_se", "raw_mean_difference", "d_se", "cohen_d"],
+      "reason": "Fiksni dokazni spoj iz Dodatka A nije dokumentiran postupak u ugradjenom jmv 2.7.7; vanjski modul nije uveden bez vlasnicke provjere ciste instalacije."
+    }
+  ],
+  "documentation": {
+    "release": "https://github.com/jamovi/jamovi/releases/tag/v2.7.30",
+    "product_version": "https://raw.githubusercontent.com/jamovi/jamovi/v2.7.30/version",
+    "module_version": "https://raw.githubusercontent.com/jamovi/jmv/8c07513626f458bf9d855ac3a8271a9de9c312f9/DESCRIPTION",
+    "data_and_filters": "https://docs.jamovi.org/usermanual/um_4_spreadsheet.html",
+    "functions": "https://docs.jamovi.org/data/data_5_list_of_functions.html",
+    "descriptives": "https://jamovi.readthedocs.io/en/latest/jmv/jmv_descriptives/",
+    "correlation": "https://jamovi.readthedocs.io/en/latest/jmv/jmv_corrMatrix/",
+    "independent_t": "https://jamovi.readthedocs.io/en/latest/jmv/jmv_ttestIS/",
+    "contingency": "https://jamovi.readthedocs.io/en/latest/jmv/jmv_contTables/",
+    "anova": "https://jamovi.readthedocs.io/en/latest/jmv/jmv_ANOVA/",
+    "regression": "https://jamovi.readthedocs.io/en/latest/analyses/jg_42_regression-linear/",
+    "archive": "https://jamovi.readthedocs.io/en/latest/developer/dh_info_file-format/"
+  }
+}

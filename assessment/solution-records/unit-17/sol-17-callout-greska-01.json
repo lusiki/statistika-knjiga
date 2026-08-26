@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-17-callout-greska-01",
+  "exercise_id": "ex-17-callout-greska-01",
+  "unit_id": "17",
+  "source_anchor": {
+    "path": "chapters/17-doba-algoritama.qmd",
+    "anchor": "ex-17-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:4ebcf5b254ecd8e49cd57d0cac40907aa48606da61f70c620ac87d4824bf42ad",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "held-out-label-accuracy-treated-as-construct-validity",
+      "statement": "Visoka točnost na izdvojenom skupu prema zabilježenim oznakama dokazuje da klasifikator ispravno mjeri ton.",
+      "why_wrong": "Izdvajanje štiti procjenu predviđanja od uporabe istih jedinica za učenje i vrednovanje, ali ne čini zabilježeni referentni ishod nepogrešivim niti dokazuje valjanost konstrukta. Model može vrlo dobro reproducirati sustav oznaka koji je dvosmislen, pristran ili neusporediv s postupkom u primjeni."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Odvojeno provjeriti što dokazuje izdvojeni skup i kako je nastao zabilježeni referentni ishod. Zatim tražiti dokaz da okvir kodiranja, koderi, usklađenje i vanjska provjera doista mjere ciljani ton.",
+      "expected_evidence": "Izdvojena točnost može poduprijeti uspješnost prema zabilježenim oznakama samo uz zaključan model, prag i usporediv postupak mjerenja. ParlaSent pritom izričito pokazuje da oznaka nastaje kodiranjem i da se put oznake razlikuje između izvornoga skupa za učenje i ispitivanje."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Tvrdnja je pogrešna samo ako je točnost niža od unaprijed zadanoga praga.",
+          "why_insufficient": "Čak ni visoka i korisna prediktivna točnost ne dokazuje da zabilježena oznaka valjano predstavlja konstrukt tona."
+        },
+        {
+          "response": "Izdvojeni skup automatski uklanja svako curenje i jamči reprezentativnost.",
+          "why_insufficient": "Razdvajanje mora čuvati povezane dokumente zajedno, a ni ispravno razdvajanje ne mijenja uzvodni odabir korpusa ni populacijski doseg."
+        },
+        {
+          "response": "Problem je samo to što se rabi ukupna točnost umjesto F1-mjere.",
+          "why_insufficient": "Drugo mjerilo uspješnosti i dalje uspoređuje predviđanja s istim pogrešivim referentnim zapisom i ne rješava valjanost mjerenja."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-held-out-claim",
+          "required_claim": "Visoka uspješnost na prethodno izdvojenim i usporedivo označenim jedinicama može poduprijeti predviđanje zabilježenoga referentnog ishoda.",
+          "required_evidence": "Te jedinice nisu sudjelovale u učenju ni izboru postupka, a isti zaključani prag i referentni postupak vrijede pri vrednovanju."
+        },
+        {
+          "component_id": "identify-validity-jump",
+          "required_claim": "Jedini posađeni pogrešan prijelaz jest pretvaranje uspješnosti prema zabilježenim oznakama u dokaz da je konstrukt tona valjano izmjeren.",
+          "required_evidence": "Zabilježena oznaka ovisi o okviru kodiranja, koderima i usklađenju te sama može sadržavati pogrešku."
+        },
+        {
+          "component_id": "name-required-validity-evidence",
+          "required_claim": "Valjanost traži zasebne dokaze o značenju kategorija, dosljednosti kodiranja, spornim slučajevima i ponašanju oznaka u ciljanom kontekstu primjene.",
+          "required_evidence": "Neslaganja kodera i promjena postupka oznake mogu promijeniti referentni ishod bez promjene modela."
+        },
+        {
+          "component_id": "retain-human-judgment",
+          "required_claim": "Čovjek ostaje odgovoran za cilj, prag, provjeru valjanosti i posljedice slanja rečenice u pregled.",
+          "required_evidence": "Prediktivno mjerilo ne odlučuje je li negativan ton legitiman kriterij uredničke pozornosti."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Prompt ne daje klasifikacijsku tablicu, prag, konkretnu točnost ni predviđanja iz kojih bi se mogla reproducirati brojka. Pogreška je prijelaz između dviju vrsta dokaza, a ne račun.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-accepts-validity-proof",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća da točnost prema zabilježenim oznakama sama dokazuje valjano mjerenje tona.",
+          "observable_evidence": "Prediktivna uspješnost i valjanost konstrukta ostaju spojene u isti zaključak."
+        },
+        {
+          "criterion_id": "major-misses-label-path",
+          "severity": "major",
+          "description": "Odgovor odbacuje zaključak, ali ne povezuje pogrešku s okvirom kodiranja, koderima ili usklađenjem.",
+          "observable_evidence": "Nedostaje dokaz zašto referentna oznaka može biti pogrešiva."
+        },
+        {
+          "criterion_id": "minor-overstates-split",
+          "severity": "minor",
+          "description": "Glavna dijagnoza stoji, ali odgovor izdvojeni skup prikazuje kao jamstvo reprezentativnosti ili potpunoga odsustva curenja.",
+          "observable_evidence": "Nije očuvana razlika između prediktivne procjene, grupiranoga razdvajanja i uzorkovanja."
+        },
+        {
+          "criterion_id": "useful-adds-external-validity-check",
+          "severity": "useful_improvement",
+          "description": "Odgovor predlaže neovisno ponovno kodiranje spornih i slučajno odabranih novih rečenica prema unaprijed zapisanim pravilima.",
+          "observable_evidence": "Predloženi dokaz provjerava mjerenje, a ne samo još jedno mjerilo istih oznaka."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "bounded-construct-validity-audit",
+      "description": "Prihvatljiv odgovor može valjanost provjeravati neovisnim kodiranjem, usporedbom s jasnijim vanjskim kriterijem ili ciljanim pregledom spornih slučajeva.",
+      "acceptance_boundary": "Alternativa mora ostati odvojena od procjene prediktivne uspješnosti i ne smije zabilježenu oznaku preimenovati u istinu."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija modela moraju zatvoriti isti planted-error ID. Ne prihvatiti zamjenu ukupne točnosti drugim mjerilom kao rješenje valjanosti konstrukta.",
+    "Ne tražiti izmišljenu brojčanu točnost. Ocjenjuje se granica dokaza između predviđanja zabilježenoga ishoda i mjerenja tona."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

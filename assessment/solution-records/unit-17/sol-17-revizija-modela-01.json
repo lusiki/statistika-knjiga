@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-17-revizija-modela-01",
+  "exercise_id": "ex-17-revizija-modela-01",
+  "unit_id": "17",
+  "source_anchor": {
+    "path": "chapters/17-doba-algoritama.qmd",
+    "anchor": "ex-17-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:37f2a3aef8062f848cc91bfa2566910b621d1c2adc3315852732d4c67b301271",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "held-out-label-accuracy-treated-as-construct-validity",
+      "statement": "Tvrdnja prelazi s visoke točnosti prema izdvojenim zabilježenim oznakama na zaključak da model valjano mjeri ton.",
+      "why_wrong": "Izdvojeni skup može provjeriti predviđanje zabilježenoga referentnog ishoda samo u granicama svojega korpusa, postupka oznake i zaključanoga praga. Ne provjerava automatski valjanost tona, nepogrešivost oznake, reprezentativnost, podskupinske terete, budući pomak ni postupovnu pravednost."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Rastaviti tvrdnju na prihvatljivi prediktivni dio i pogrešan zaključak o mjerenju. Provjeriti jedinicu, granicu korpusa, grupirano razdvajanje, put oznake, prag i dostupne skupne varijable, a zatim navesti što bi trebalo nadzirati i kako se odluka osporava.",
+      "expected_evidence": "Prihvatljiva tvrdnja ograničena je na uspješnost prema zabilježenim ishodima na usporedivo označenim izdvojenim rečenicama. Paket nema govornika ni obranjive podskupine, oznaka je pogrešiva, a buduća uporaba traži praćenje pomaka, slučajni ili stratificirani neovisni audit nepregledanih rečenica te obavijest, prigovor i žalbu."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Tvrdnja je potpuno neprihvatljiva jer se modelima nikada ne smije vjerovati.",
+          "why_insufficient": "Izdvojena procjena može biti valjan dokaz predviđanja zabilježenoga ishoda; treba odbiti točno određeni prijelaz, ne model po reputaciji."
+        },
+        {
+          "response": "Dovoljno je zamijeniti točnost uravnoteženom točnošću ili F1-mjerom.",
+          "why_insufficient": "Drugo mjerilo ne provjerava valjanost konstrukta, uzvodni odabir, postupak oznake, pomak ni pravo na prigovor."
+        },
+        {
+          "response": "Visoka točnost vrijedi za sav parlamentarni govor jer je skup za ispitivanje izdvojen.",
+          "why_insufficient": "Izdvajanje ne čini korpus reprezentativnim i ne vraća rečenice isključene uzvodnim pravilima."
+        },
+        {
+          "response": "Podskupinske stope treba izračunati iz imena i teksta rečenice.",
+          "why_insufficient": "Paket ne pruža obranjivu skupnu varijablu, a nagađanje identiteta iz teksta stvorilo bi novu neprovjerenu oznaku."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "state-acceptable-claim",
+          "required_claim": "Zaključan model može na usporedivo označenom i prethodno izdvojenom skupu pokazati koliko dobro predviđa zabilježeni referentni ishod.",
+          "required_evidence": "Dokumenti ne smiju prijeći među skupovima, a ispitni ishodi ne smiju voditi učenje, izbor modela ili praga."
+        },
+        {
+          "component_id": "name-invalid-transition",
+          "required_claim": "Visoka uspješnost prema zabilježenom ishodu ne dokazuje da je ton valjano izmjeren.",
+          "required_evidence": "Okvir kodiranja, koderi i usklađenje proizvode pogrešiv referentni zapis."
+        },
+        {
+          "component_id": "bound-unit-corpus-and-label-path",
+          "required_claim": "Jedinica je odabrana parlamentarna rečenica, korpus ima uzvodne filtre, a put oznake mora biti usporediv između procjene i primjene.",
+          "required_evidence": "Paket ne predstavlja cijeli govor ni govornika, a izvorni dijelovi imaju različitu dostupnost drugoga kodera i usklađenja."
+        },
+        {
+          "component_id": "bind-threshold-and-subgroups",
+          "required_claim": "Prag pretvara rezultat u odluku i raspoređuje terete pogrešaka, dok se podskupinske stope smiju prikazati samo za unaprijed opravdane dostupne skupine.",
+          "required_evidence": "ParlaSentov nastavni paket nema takvu skupnu varijablu, pa se podskupine ne smiju izvesti iz teksta."
+        },
+        {
+          "component_id": "require-monitoring-and-appeal",
+          "required_claim": "Primjena traži nadzor pomaka, neovisno označen uzorak nepregledanih rečenica, obavijest, obrazloženje, prigovor i žalbu.",
+          "required_evidence": "Redovni red pregleda selektivno opaža ishode, pa bez zasebnoga audita ne otkriva pouzdano lažno negativne odluke."
+        },
+        {
+          "component_id": "reject-fluency-as-evidence",
+          "required_claim": "Tečan odgovor jezičnoga modela ne dokazuje nedostupnu oznaku, skupinu, kontekst, valjanost ili buduću uspješnost.",
+          "required_evidence": "Jezična uvjerljivost nije podatkovni izvor ni neovisna provjera."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Tvrdnja ne navodi konkretnu točnost, tablicu zabune, prag ni predviđanja. Revizija mora odbiti izmišljanje brojke i uspostaviti dokazne granice u najviše šest rečenica.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-validity-proof",
+          "severity": "fatal",
+          "description": "Revizija zadržava dokaz valjanosti tona, izmišlja nepogrešivu oznaku ili širi tvrdnju na sav parlamentarni govor.",
+          "observable_evidence": "Središnji planted-error ili granica korpusa ostaje nepopravljen."
+        },
+        {
+          "criterion_id": "major-omits-required-system-boundaries",
+          "severity": "major",
+          "description": "Odgovor ispravlja valjanost, ali izostavlja više od jednoga ključnog zahtjeva među curenjem, pragom, dostupnim podskupinama, pomakom i osporavanjem.",
+          "observable_evidence": "Modelna rečenica je sužena, ali sustav odluke nije auditiran."
+        },
+        {
+          "criterion_id": "minor-exceeds-or-blurs-constraint",
+          "severity": "minor",
+          "description": "Sve bitne granice postoje, ali odgovor prelazi šest rečenica ili ne razlikuje prigovor na oznaku od žalbe na posljedičnu odluku.",
+          "observable_evidence": "Sadržaj stoji nakon bounded uredničke korekcije."
+        },
+        {
+          "criterion_id": "useful-names-independent-monitoring-sample",
+          "severity": "useful_improvement",
+          "description": "Odgovor konkretno predlaže slučajni ili unaprijed stratificirani neovisno označen uzorak nepregledanih rečenica.",
+          "observable_evidence": "Nadzor može otkriti lažno negativne odluke izvan selektivnoga reda pregleda."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "six-sentence-audit-template",
+      "description": "Prihvatljiva revizija može rasporediti sadržaj u šest rečenica o dopuštenoj tvrdnji, valjanosti oznake, korpusu i curenju, pragu i podskupinama, nadzoru i pomaku te obavijesti i osporavanju.",
+      "acceptance_boundary": "Mora zatvoriti isti planted-error ID kao callout, odbiti nedostupne sastavnice i ne smije zahtijevati pisanje ili popravljanje koda."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina posađena pogreška jest dokaz valjanosti konstrukta iz uspješnosti prema zabilježenoj oznaci. Ostali elementi su obvezne granice revizije, ne dodatne skrivene pogreške.",
+    "Ne tražiti konkretnu stopu ni podskupinsku analizu jer ih prompt i paket ne daju. Tečan odgovor ocjenjuje se po dokazima, ne po stilu."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

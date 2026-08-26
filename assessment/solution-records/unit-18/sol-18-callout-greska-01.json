@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-18-callout-greska-01",
+  "exercise_id": "ex-18-callout-greska-01",
+  "unit_id": "18",
+  "source_anchor": {
+    "path": "chapters/18-vase-prvo-istrazivanje.qmd",
+    "anchor": "ex-18-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:55fe3a73d4b703f570948803c2572be6f7b1dbb3142018d4bf9274fa386a1393",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "confidence-interval-includes-zero-treated-as-no-association",
+      "statement": "Budući da 95 % interval prilagođene procjene obuhvaća nulu, u simuliranom skupu nema povezanosti vremena i povjerenja.",
+      "why_wrong": "Interval od -0,1864 do 0,1697 boda uz trideset minuta više vremena ostavlja s podacima uskladive male razlike u oba smjera. Obuhvaćanje nule ne dokazuje točnu odsutnost povezanosti niti je zamjena za unaprijed određenu ekvivalencijsku granicu."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Neovisno obnoviti prilagođeni nagib i njegov 95 % interval, pomnožiti ih s trideset te provjeriti koje vrijednosti interval uključuje i isključuje. Zatim usporediti prilagođenu procjenu s neprilagođenom provjerom osjetljivosti.",
+      "expected_evidence": "Prilagođena razlika iznosi -0,008323 boda, uz 95 % interval od -0,186355 do 0,169708. Interval uključuje nulu i male razlike oba predznaka, dok neprilagođena razlika iznosi 0,246146 boda, uz interval od 0,092666 do 0,399625."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogreška je samo to što asistent nije naveo p-vrijednost.",
+          "why_insufficient": "P-vrijednost ne bi pretvorila obuhvaćanje nule u dokaz odsutnosti povezanosti; procjena i interval već pokazuju dopušteni raspon."
+        },
+        {
+          "response": "Povezanost sigurno postoji jer neprilagođeni interval ne obuhvaća nulu.",
+          "why_insufficient": "Neprilagođena procjena je provjera osjetljivosti koja miješa dobni sastav s vremenom i ne zamjenjuje unaprijed obrazloženi primarni model."
+        },
+        {
+          "response": "Zaključak je pogrešan samo zato što je uzorak premalen.",
+          "why_insufficient": "Veličina uzorka utječe na preciznost, ali konkretna pogreška jest logički prijelaz s intervala koji obuhvaća nulu na dokaz točne odsutnosti."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-adjusted-estimate",
+          "required_claim": "Nakon linearne, aditivne prilagodbe za dob procijenjena razlika uz trideset minuta više vremena iznosi približno -0,01 boda.",
+          "required_evidence": "Neovisni matrični račun daje -0,008323 boda i 95 % interval od -0,186355 do 0,169708."
+        },
+        {
+          "component_id": "identify-sole-transition",
+          "required_claim": "Jedini pogrešan prijelaz jest tumačenje intervala koji obuhvaća nulu kao dokaza da svaka povezanost izostaje.",
+          "required_evidence": "Interval uključuje male vrijednosti oba predznaka, pa točna nula nije jedina vrijednost uskladiva s podacima."
+        },
+        {
+          "component_id": "state-corrected-conclusion",
+          "required_claim": "Podaci podupiru zaključak da je zbirna pozitivna procjena osjetljiva na prilagodbu dobi, dok mala povezanost bilo kojega predznaka ostaje moguća.",
+          "required_evidence": "Neprilagođena procjena za trideset minuta jest 0,246146 boda, a prilagođena -0,008323 boda s intervalom preko nule."
+        },
+        {
+          "component_id": "retain-specific-limitation",
+          "required_claim": "Zaključak ostaje uvjetovan linearnom, aditivnom prilagodbom za dob i presječnim simuliranim skupom.",
+          "required_evidence": "Drukčiji oblik dobnoga odnosa mogao bi promijeniti procjenu, a dizajn ne podupire uzročnu ni populacijsku tvrdnju."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Prilagođeni nagib po minuti iznosi -0,000277440223263; za 30 minuta procjena je -0,008323206698, uz 95 % interval od -0,186354833188 do 0,169708419792. Neprilagođena procjena za 30 minuta iznosi 0,246145599410, uz interval od 0,092666097355 do 0,399625101466.",
+      "tolerance_or_acceptance_rule": "Prihvatiti izvorno prikazane vrijednosti -0,01 te -0,19 do 0,17 zbog zaokruživanja na dvije decimale. Zaključak mora ostaviti otvorene male razlike oba predznaka i ne smije interval koji obuhvaća nulu pretvoriti u dokaz odsutnosti.",
+      "independent_method": "Ponovno generirati 300 zapisa algoritmom sa sjemenom 4001, procijeniti koeficijente rješavanjem normalnih jednadžbi X'X beta = X'y te interval dobiti iz rezidualne varijance, inverza X'X i t-kvantila s 297 stupnjeva slobode, bez učitavanja poglavlja ili njegova modela.",
+      "evidence_reference": "scripts/check-unit-18-numerics.R#UNIT_18_NUMERICS_OK"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-accepts-no-association-proof",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća da interval koji obuhvaća nulu dokazuje odsutnost svake povezanosti.",
+          "observable_evidence": "Male vrijednosti oba predznaka nestaju iz skupa dopuštenih zaključaka."
+        },
+        {
+          "criterion_id": "major-omits-sensitivity-comparison",
+          "severity": "major",
+          "description": "Pogrešan prijelaz je imenovan, ali odgovor ne povezuje ga s promjenom između neprilagođene i prilagođene procjene.",
+          "observable_evidence": "Nije objašnjeno što podaci doista pokazuju o ulozi dobi."
+        },
+        {
+          "criterion_id": "minor-rounding-or-boundary",
+          "severity": "minor",
+          "description": "Središnji sud stoji, ali brojke su nedosljedno zaokružene ili nedostaje presječna i simulirana granica.",
+          "observable_evidence": "Odgovor se može popraviti lokalnom brojčanom ili izvještajnom korekcijom."
+        },
+        {
+          "criterion_id": "useful-names-equivalence-boundary",
+          "severity": "useful_improvement",
+          "description": "Odgovor razlikuje interval preko nule od unaprijed planirane provjere praktične ekvivalencije.",
+          "observable_evidence": "Jasno je navedeno da bi zaključak o zanemarivoj povezanosti tražio sadržajno opravdanu granicu."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "bounded-interval-language",
+      "description": "Prihvatljiv odgovor može reći da prilagođena procjena ne pokazuje jasan smjer i da su s podacima uskladive male razlike u oba smjera.",
+      "acceptance_boundary": "Ne smije tvrditi da je povezanost dokazano točno nula niti zanemariti osjetljivost na dob."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija modela moraju zatvoriti isti planted-error ID. Jedina skrivena pogreška nije izbor prilagodbe, nego zaključak o odsutnosti iz intervala preko nule.",
+    "Prihvatiti brojke zaokružene kao u vidljivom tekstu, ali tražiti ispravnu granicu tvrdnje i jedno određeno ograničenje."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

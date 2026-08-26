@@ -71,6 +71,12 @@ def require_failure(
 def copy_export_sources(destination: Path) -> None:
     shutil.copy2(ROOT / "_quarto.yml", destination / "_quarto.yml")
     shutil.copy2(ROOT / "references.bib", destination / "references.bib")
+    shutil.copy2(ROOT / "rjesenja.qmd", destination / "rjesenja.qmd")
+    (destination / "config").mkdir()
+    shutil.copy2(
+        ROOT / "config/book-inventory.json",
+        destination / "config/book-inventory.json",
+    )
     shutil.copytree(ROOT / "chapters", destination / "chapters")
     shutil.copytree(ROOT / "dodaci", destination / "dodaci")
     (destination / "release").mkdir()
@@ -145,9 +151,9 @@ def main() -> int:
                 "protected-source-clean-build",
                 run(export_command(leak_root, leak_output)),
             )
-            protected_body = first_protected_body(
-                leak_root / "chapters/00-predgovor.qmd"
-            )
+            # P5-ROUTES mora dokazati granicu stvarne odvojene rute rješenja,
+            # a ne samo naslijediti probu nekoga profilnog bloka iz poglavlja.
+            protected_body = first_protected_body(leak_root / "rjesenja.qmd")
             full_export = leak_output / "docs/llms-full.txt"
             with full_export.open("a", encoding="utf-8", newline="\n") as handle:
                 handle.write(f"\n\n{protected_body}\n")

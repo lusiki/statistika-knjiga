@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-08-racunski-01",
+  "exercise_id": "ex-08-racunski-01",
+  "unit_id": "08",
+  "source_anchor": {
+    "path": "chapters/08-uzorkovanje.qmd",
+    "anchor": "ex-08-racunski-01"
+  },
+  "task_class": "racunski",
+  "prompt_fingerprint": "sha256:9585e2845d5807613bbf12b9629141184e55100531d3cd2edb4e3bfc5de56715",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Računski zadatak traži dvije procjene iz iste sintetičke tablice i njihovu granicu, a ne daje jednu posađenu pogrešnu analizu.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Najprije zbrojiti odgovore i broj redaka. Zatim svaki odgovor pomnožiti pripadnom težinom dva ili četiri, zasebno zbrojiti ponderirane odgovore i sve težine te usporediti doprinose dvaju slojeva nazivniku.",
+      "expected_evidence": "Bez težina brojnik je 3, nazivnik 6 i procjena 50 %. S težinama brojnik je 6, nazivnik 16 i procjena 37,5 %. Procjena pada jer dvije nule iz rjeđe uključivanoga sloja dobivaju težinu četiri, ali taj račun ne ispravlja nepokrivenost, neodgovor, loše mjerenje ni neizmjerene razlike."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Procjena s težinama iznosi 6/6 = 100 % jer je ponderirani brojnik šest.",
+          "why_insufficient": "Ponderiranju podliježe i nazivnik. Zbroj svih težina iznosi šesnaest."
+        },
+        {
+          "response": "Procjena s težinama iznosi 3/16 = 18,75 %.",
+          "why_insufficient": "Brojnik mora ponderirati svaki odgovor pripadnom težinom, pa tri jedinice s odgovorom jedan daju ponderirani brojnik šest."
+        },
+        {
+          "response": "Težine povećavaju važnost već zastupljenoga sloja i zato procjena pada.",
+          "why_insufficient": "Veću težinu imaju rjeđe uključene jedinice iz drugoga sloja. Njihove dvije nule povećavaju nazivnik više od jedinica iz prvoga sloja."
+        },
+        {
+          "response": "Budući da je primijenjena težina, procjena više nema pogrešku odabira.",
+          "why_insufficient": "Težine prilagođavaju poznate vjerojatnosti uključivanja, ali ne vraćaju nepokrivene jedinice i ne uklanjaju neodgovor, mjernu pogrešku ili nepoznate razlike."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "calculate-unweighted-estimate",
+          "required_claim": "Procjena bez težina ima brojnik 3, nazivnik 6 i iznosi 50 %.",
+          "required_evidence": "Tri od šest opaženih odgovora jednaka su jedan."
+        },
+        {
+          "component_id": "calculate-weighted-estimate",
+          "required_claim": "Procjena s težinama ima brojnik 6, nazivnik 16 i iznosi 37,5 %.",
+          "required_evidence": "Ponderirani brojnik jest 2 + 2 + 2, a nazivnik 2 + 2 + 2 + 2 + 4 + 4."
+        },
+        {
+          "component_id": "explain-downward-shift",
+          "required_claim": "Procjena se pomaknula prema dolje jer rjeđe uključene jedinice s odgovorom nula dobivaju veću težinu.",
+          "required_evidence": "Dvije nule iz drugoga sloja svaka doprinose četiri nazivniku, dok opažanja iz prvoga sloja doprinose po dva."
+        },
+        {
+          "component_id": "state-unrepaired-error",
+          "required_claim": "Težine same ne mogu ispraviti barem jednu pogrešku poput nepokrivenosti, neodgovora ili mjerenja.",
+          "required_evidence": "Obrnute vjerojatnosti uključivanja korigiraju samo poznatu nejednaku priliku ulaska među obuhvaćenim jedinicama."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Bez težina 3/6 = 0,50, odnosno 50 %. S težinama ponderirani je brojnik 2 + 2 + 2 = 6, ponderirani nazivnik 2 + 2 + 2 + 2 + 4 + 4 = 16, pa je 6/16 = 0,375, odnosno 37,5 %. Razlika iznosi -12,5 postotnih bodova.",
+      "tolerance_or_acceptance_rule": "Oba brojnika i nazivnika moraju biti točni; prihvatiti 37,5 % ili 0,375 te pomak od 12,5 postotnih bodova prema dolje. Objašnjenje mora vezati pomak uz veće težine nula iz rjeđe uključivanoga sloja.",
+      "independent_method": "Iz javno prikazane tablice ručno rekonstruirati šest umnožaka težine i odgovora te ih zbrojiti odvojeno od zbroja težina, bez oslanjanja na R ili ESS mikropodatke.",
+      "evidence_reference": "chapters/08-uzorkovanje.qmd#tbl-sinteticke-tezine"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-wrong-weighted-denominator-or-unbounded-claim",
+          "severity": "fatal",
+          "description": "Odgovor ne ponderira brojnik i nazivnik istim težinama ili tvrdi da težine uklanjaju svaku pogrešku odabira i mjerenja.",
+          "observable_evidence": "Procjena se ne temelji na 6/16 ili se njezina granica pretvara u opće jamstvo valjanosti."
+        },
+        {
+          "criterion_id": "major-misses-one-estimate-shift-or-limit",
+          "severity": "major",
+          "description": "Nedostaje jedan račun, objašnjenje pomaka ili pogreška koju težine ne mogu ispraviti.",
+          "observable_evidence": "Jedan od četiriju traženih dijelova nema provjerljiv odgovor."
+        },
+        {
+          "criterion_id": "minor-rounding-or-label-defect",
+          "severity": "minor",
+          "description": "Račun i tumačenje su ispravni, ali postotak, postotni bodovi ili oznaka brojnika i nazivnika nisu dovoljno precizni.",
+          "observable_evidence": "Lokalna brojčana ili terminološka dopuna dovoljna je bez promjene zaključka."
+        },
+        {
+          "criterion_id": "useful-shows-rowwise-products",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno prikazuje svih šest umnožaka težine i odgovora ili uspoređuje doprinos slojeva.",
+          "observable_evidence": "Dodatna raščlamba olakšava provjeru, ali nije zamjena za oba konačna računa i granicu."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equivalent-stratum-contribution-table",
+      "description": "Prihvatljiv je račun po slojevima umjesto po retcima ako daje iste ponderirane brojnike i nazivnike.",
+      "acceptance_boundary": "Odgovor mora završiti s 3/6 = 50 %, 6/16 = 37,5 %, objašnjenjem pomaka i jednom neispravljenom pogreškom."
+    }
+  ],
+  "instructor_notes": [
+    "Obvezni odgovor završava na sintetičkoj tablici. ESS nadogradnja iz prompta ne ulazi u kanonski brojčani rezultat jer je izričito neobvezna, portalna i ovisi o vlastitoj kopiji mikropodataka.",
+    "Ne zahtijevati proizvodnju koda. Rukom, kalkulatorom ili tabličnim računalom izveden račun potpuno zadovoljava zadatak."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

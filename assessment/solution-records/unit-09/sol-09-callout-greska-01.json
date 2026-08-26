@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-09-callout-greska-01",
+  "exercise_id": "ex-09-callout-greska-01",
+  "unit_id": "09",
+  "source_anchor": {
+    "path": "chapters/09-procjena.qmd",
+    "anchor": "ex-09-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:80b00dbf523548f9ad2b5bc147741428554aa408b2fbc0d749bffd849c2ec86a",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "confidence-level-assigned-to-fixed-parameter-after-observed-interval",
+      "statement": "Postoji devedesetpetpostotna vjerojatnost da se fiksna populacijska vrijednost nalazi unutar upravo ovog opaženog intervala.",
+      "why_wrong": "U frekventističkom okviru parametar je fiksan, a slučajni uzorak proizvodi interval koji ga ili obuhvaća ili ne. Razina od 95 % opisuje dugoročni udio obuhvata postupka kroz ponovljena uzorkovanja, a ne vjerojatnost dodijeljenu parametru nakon opažanja granica."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Odvojeno označiti što se mijenja kroz zamišljena ponavljanja i što ostaje fiksno, zatim provjeriti opisuje li završna rečenica postupak ili upravo opaženi interval.",
+      "expected_evidence": "Uzorak, bootstrap uzorci i njihove granice mijenjaju se; populacijski parametar ostaje fiksan. Kod pravilno uzorkuje neovisne osobe s vraćanjem i računa percentilni raspon, ali završna rečenica pogrešno prenosi svojstvo postupka na jedan već opaženi raspon."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Greška je u tome što je trebalo uporabiti više od 4000 bootstrap ponavljanja.",
+          "why_insufficient": "Više ponavljanja može smanjiti računalno kolebanje percentila, ali ne mijenja frekventističko značenje razine pouzdanosti."
+        },
+        {
+          "response": "Greška je u pozivu sample jer se uzorak ne smije izvlačiti s vraćanjem.",
+          "why_insufficient": "Jednostavni bootstrap neovisnih jedinica upravo traži izvlačenje s vraćanjem na punoj veličini uzorka."
+        },
+        {
+          "response": "Interval kaže da će 95 % pojedinačnih vrijednosti pasti između njegovih granica.",
+          "why_insufficient": "Interval procjenjuje populacijski medijan, a ne raspon pojedinačnih opažanja."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "validate-bootstrap-operation",
+          "required_claim": "Prikazani kod pravilno provodi percentilni bootstrap medijana za jednu vrijednost po neovisno uzorkovanoj osobi.",
+          "required_evidence": "Svako ponavljanje izvlači s vraćanjem točno length(minute) vrijednosti, računa medijan i na kraju uzima 2,5. i 97,5. percentil."
+        },
+        {
+          "component_id": "separate-random-and-fixed",
+          "required_claim": "Slučajni su uzorak i interval koji iz njega nastaje, dok je populacijski parametar fiksan.",
+          "required_evidence": "Kroz ponovljena uzorkovanja granice se mijenjaju oko iste ciljane populacijske vrijednosti."
+        },
+        {
+          "component_id": "replace-probability-claim",
+          "required_claim": "Postupak za interval razine 95 % u dugom nizu usporedivih ponavljanja obuhvaća fiksni parametar približno u 95 % slučajeva, pod njegovim uvjetima.",
+          "required_evidence": "Razina pouzdanosti vezana je uz dugoročni obuhvat postupka, ne uz položaj fiksnog parametra nakon opažanja intervala."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Okvir traži dijagnozu interpretacije već izračunanoga 95-postotnog intervala, a ne novi brojčani rezultat.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-probability-for-fixed-parameter",
+          "severity": "fatal",
+          "description": "Odgovor zadržava vjerojatnost od 95 % za fiksni parametar u upravo opaženom intervalu.",
+          "observable_evidence": "Ispravak i dalje govori koliko je vjerojatno da parametar leži između već poznatih granica."
+        },
+        {
+          "criterion_id": "major-misdiagnoses-correct-bootstrap-code",
+          "severity": "major",
+          "description": "Odgovor ne razlikuje ispravan bootstrap račun od pogrešne zaključne rečenice.",
+          "observable_evidence": "Kao središnji kvar označava replicate, sample, median ili quantile bez dokaza."
+        },
+        {
+          "criterion_id": "minor-omits-procedure-condition",
+          "severity": "minor",
+          "description": "Ispravno veže 95 % uz ponovljeni postupak, ali ne navodi da tvrdnja vrijedi pod uvjetima postupka.",
+          "observable_evidence": "Značenje je ispravljeno, no granica primjene ostaje neizrečena."
+        },
+        {
+          "criterion_id": "useful-names-observed-interval-binary-status",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno kaže da opaženi interval fiksni parametar ili obuhvaća ili ne obuhvaća.",
+          "observable_evidence": "Dodatna rečenica pojašnjava posljedicu podjele na slučajno i fiksno."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "compatibility-language",
+      "description": "Prihvatljivo je granice opisati kao skup vrijednosti uskladivih s podacima pod uvjetima postupka.",
+      "acceptance_boundary": "Odgovor ne smije tom jeziku dodati posteriornu vjerojatnost za fiksni parametar."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina posađena pogreška nalazi se u zaključnoj rečenici. Ne kažnjavati ispravan opis četiriju poziva niti izmišljati kodnu pogrešku.",
+    "Bayesovski interval mogao bi nositi drukčiju interpretaciju pod izričitim modelom i priorom, ali taj okvir nije dio prompta i ne popravlja ovu frekventističku rečenicu."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-13-callout-greska-01",
+  "exercise_id": "ex-13-callout-greska-01",
+  "unit_id": "13",
+  "source_anchor": {
+    "path": "chapters/13-kategoricki-podaci.qmd",
+    "anchor": "ex-13-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:01ab56df807988570be3f424a9242a834e3833e97dd049279c2102b49ef56de1",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "small-p-treated-as-strong-association",
+      "statement": "Budući da je rezultat značajan na razini ispod jedan promil, veza između dobi i izvora vijesti vrlo je snažna.",
+      "why_wrong": "P-vrijednost mjeri koliko je opaženo odstupanje neobično uz model nezavisnosti i ovisi o veličini uzorka. Ne mjeri jačinu povezanosti. Jačinu treba procijeniti Cramérovim V i sadržajnim razlikama uvjetnih udjela, uz jasno naveden nazivnik."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Odvojeno provjeriti jesu li očekivane frekvencije dovoljno velike za aproksimaciju, jesu li reziduali pravilno imenovani i koje ćelije odstupaju, a zatim za jačinu izračunati Cramérovo V i usporediti postotke po retku uz isti nazivnik.",
+      "expected_evidence": "Očekivane frekvencije i prilagođeni standardizirani reziduali podupiru primjerenost računa i mjesto odstupanja. Tek Cramérovo V i razlike uvjetnih udjela podupiru sud o jačini obrasca; vrlo mala p-vrijednost sama ga ne podupire."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Greška je u tome što očekivane frekvencije nisu provjerene.",
+          "why_insufficient": "Prva rečenica izričito navodi da su provjerene i da su sve iznad pet. Posađena pogreška nalazi se u zaključku o jačini veze."
+        },
+        {
+          "response": "Prilagođeni standardizirani reziduali ne smiju se tumačiti po ćelijama.",
+          "why_insufficient": "Reziduali upravo služe lociranju ćelija koje odstupaju od nezavisnosti. Oni ne zamjenjuju globalnu mjeru jačine, ali njihova uporaba u okviru nije pogrešna."
+        },
+        {
+          "response": "Dob sigurno uzrokuje izbor izvora vijesti.",
+          "why_insufficient": "To bi bila dodatna neopravdana tvrdnja, ali okvir je ne iznosi. Revizija mora pronaći jednu stvarno posađenu pogrešku, a ne dodati novu."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-diagnostic-steps",
+          "required_claim": "Provjera očekivanih frekvencija i čitanje prilagođenih standardiziranih reziduala provedeni su ispravno.",
+          "required_evidence": "Prvi korak provjerava granicu hi-kvadrat aproksimacije, a drugi locira smjer i mjesto odstupanja u tablici."
+        },
+        {
+          "component_id": "locate-strength-error",
+          "required_claim": "Jedina je pogreška zaključak da vrlo mala p-vrijednost dokazuje vrlo snažnu vezu.",
+          "required_evidence": "P-vrijednost se može smanjiti povećanjem uzorka i kada uvjetni postotci, a time i sadržajna jačina obrasca, ostanu isti."
+        },
+        {
+          "component_id": "name-strength-evidence",
+          "required_claim": "Jačinu treba opisati Cramérovim V i razlikama uvjetnih udjela uz imenovani nazivnik.",
+          "required_evidence": "V odvaja relativnu jačinu od veličine uzorka, dok postotci vraćaju obrazac u sadržajno čitljivu skalu."
+        },
+        {
+          "component_id": "state-claim-boundary",
+          "required_claim": "Analiza podupire povezanost u simuliranom uzorku, ali ne utvrđuje uzrok generacijskoga obrasca.",
+          "required_evidence": "Kontingencijska tablica s dvije varijable ne sadrži podatke potrebne za razlikovanje navike, dostupnosti uređaja i životnoga ciklusa."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": false,
+      "not_applicable_reason": "Okvir ne daje tablicu iz koje bi čitatelj trebao ponovno izračunati V; zadatak traži dijagnozu odnosa p-vrijednosti i jačine te naziv potrebne mjere.",
+      "expected_result": null,
+      "tolerance_or_acceptance_rule": null,
+      "independent_method": null,
+      "evidence_reference": null
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-p-as-strength",
+          "severity": "fatal",
+          "description": "Odgovor zadržava ili ponavlja tvrdnju da veličina p-vrijednosti mjeri jačinu povezanosti.",
+          "observable_evidence": "Vrlo mala p-vrijednost i dalje se navodi kao dokaz vrlo snažne veze."
+        },
+        {
+          "criterion_id": "major-omits-strength-evidence",
+          "severity": "major",
+          "description": "Pogreška je prepoznata, ali odgovor ne imenuje Cramérovo V ni sadržajne razlike uvjetnih udjela kao potrebnu zamjenu.",
+          "observable_evidence": "Dijagnoza nema mjeru ni prikaz iz kojega bi se jačina mogla prosuditi."
+        },
+        {
+          "criterion_id": "minor-mislabels-one-correct-step",
+          "severity": "minor",
+          "description": "Središnja dijagnoza stoji, ali odgovor ne razlikuje provjeru aproksimacije od lociranja ćelijskih odstupanja.",
+          "observable_evidence": "Jedan ispravan dijagnostički korak opisan je neprecizno bez promjene glavnoga suda."
+        },
+        {
+          "criterion_id": "useful-adds-causal-boundary",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno ograničava nalaz na povezanost i navodi koje bi varijable trebale za objašnjenje mehanizma.",
+          "observable_evidence": "Dodatak odvaja opis obrasca od uzročnoga zaključka."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "effect-size-and-percentages",
+      "description": "Prihvatljiv odgovor može jačinu prvenstveno opisati razlikama postotaka ako uz njih navede Cramérovo V kao globalnu mjeru.",
+      "acceptance_boundary": "Mora izričito odbiti p-vrijednost kao mjeru jačine, sačuvati ispravne dijagnostičke korake i imenovati zajednički nazivnik postotaka."
+    }
+  ],
+  "instructor_notes": [
+    "Ocjenjuje se točno jedna posađena pogreška. Ne prihvatiti izmišljenu pogrešku u provjeri očekivanih frekvencija ili uporabi prilagođenih standardiziranih reziduala.",
+    "Odgovor ne mora navesti brojčanu vrijednost V jer prompt ne daje tablicu za neovisan ponovni račun; mora imenovati mjeru i objasniti zašto je p-vrijednost ne zamjenjuje."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

@@ -36,16 +36,16 @@ zbog jamovija, tiska i preuzimanja, a ne zato da bi zamijenile generator:
 | `populacija_medija` | `populacija-medija.csv` | `populacija-medija-agregat.csv` | `populacija-medija.LICENCA.md` |
 
 Uz njih od 5. kolovoza 2026. stoje i tri paketa izvedena iz autorovih vanjskih
-projekata. **Sva tri su prijavljena, nijedan nije promoviran**, pa nijedno
-poglavlje iz njih još ne smije tvrditi ništa; postoje radi pripreme i prikaza.
-Pregled izvora, prava i planirane integracije je u
+projekata. Sva tri su prijavljena. `digikat_mediji` promoviran je paketom
+`P3-DIGIKAT`; `rdp_potpore` i `bdp_dugi_niz` nisu promovirani i ne podupiru
+tvrdnje u poglavljima. Pregled izvora, prava i planirane integracije je u
 [`notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md`](../notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md).
 
-| Paket | Datoteke | Vanjski izvor | Obavijest |
-|---|---|---|---|
-| `digikat_mediji` | `digikat-platforme-godisnje.csv`, `digikat-platforme-mjesecno.csv`, `digikat-izvori.csv` | DigiKat, HKS | `digikat-mediji.LICENCA.md` |
-| `rdp_potpore` | `rdp-potpore-{skupine,godisnje,velicina,vrsta,obuhvat,sazetak}.csv` | Registar državnih potpora, preko projekta AI.econ | `rdp-potpore.LICENCA.md` |
-| `bdp_dugi_niz` | `bdp-hrvatska-{izvori,spojeni,razdoblja}.csv` | pet objavljenih procjena BDP-a, preko projekta AI.econ | `bdp-hrvatska.LICENCA.md` |
+| Paket | Status iz kataloga | Datoteke | Vanjski izvor | Obavijest |
+|---|---|---|---|---|
+| `digikat_mediji` | promoviran paketom `P3-DIGIKAT` | `digikat-platforme-godisnje.csv`, `digikat-platforme-mjesecno.csv`, `digikat-izvori.csv` | DigiKat, HKS | `digikat-mediji.LICENCA.md` |
+| `rdp_potpore` | nije promoviran | `rdp-potpore-{skupine,godisnje,velicina,vrsta,obuhvat,sazetak}.csv` | Registar državnih potpora, preko projekta AI.econ | `rdp-potpore.LICENCA.md` |
+| `bdp_dugi_niz` | nije promoviran | `bdp-hrvatska-{izvori,spojeni,razdoblja}.csv` | pet objavljenih procjena BDP-a, preko projekta AI.econ | `bdp-hrvatska.LICENCA.md` |
 
 Njihove izvorne baze ostaju izvan repozitorija i njihovi graditelji nikada ne
 diraju mrežu: čitaju autorov lokalni checkout i bez `--write` samo provjeravaju

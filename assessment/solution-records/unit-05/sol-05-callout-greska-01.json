@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-05-callout-greska-01",
+  "exercise_id": "ex-05-callout-greska-01",
+  "unit_id": "05",
+  "source_anchor": {
+    "path": "chapters/05-vizualizacija.qmd",
+    "anchor": "ex-05-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:df2dd82950d71b0977a053708253ef24b2daf1785092d04d4e3a3a57659e344e",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "unequal-bar-width-encodes-unsupported-area",
+      "statement": "Tvrdnja da širi treći stupac samo popravlja optičku ravnotežu jedina je posađena pogreška.",
+      "why_wrong": "Stupci kodiraju udio duljinom od zajedničke nule. Kada treći stupac dobije veću širinu, njegova površina raste i uvodi drugo vizualno značenje koje nije povezano ni s jednom varijablom, pa treća kategorija izgleda važnije nego što njezina visina pokazuje."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Odvojeno popisati jedinicu oznake, pridruživanja, geometriju i ljestvicu, a zatim usporediti širine stupaca i izračunati omjer površine po istoj jedinici visine.",
+      "expected_evidence": "Prva dva stupca imaju širinu 0,6, treći 0,9. Omjer 0,9 podijeljeno s 0,6 iznosi 1,5, pa treći stupac za jednaku visinu zauzima 50 % veću površinu bez podatkovnoga opravdanja."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Pogreška je što os završava na jedan.",
+          "why_insufficient": "Za udjele od nule do jedan ta je ljestvica dopuštena i počinje od zajedničke nule. Problem nije raspon nego nejednaka širina stupaca."
+        },
+        {
+          "response": "Vrijednosti ne smiju stajati iznad stupaca.",
+          "why_insufficient": "Izravne brojčane oznake mogu olakšati provjeru visine. One ne stvaraju dodatno kodiranje površinom."
+        },
+        {
+          "response": "Treću kategoriju treba ukloniti jer je vizualno neuravnotežena.",
+          "why_insufficient": "Sve tri kategorije pripadaju usporedbi. Treba ukloniti neopravdanu razliku u širini, a ne podatkovnu kategoriju."
+        },
+        {
+          "response": "Graf je ispravan jer su brojke uz stupce točne.",
+          "why_insufficient": "Točna oznaka ne poništava obmanjujuću površinu. Čitatelj i dalje prima dva proturječna vizualna signala."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "confirm-correct-scale-and-labels",
+          "required_claim": "Os od nule do jedan, označene kategorije i izravne vrijednosti ispravne su odluke za usporedbu udjela.",
+          "required_evidence": "Poziv pridružuje kategoriju vodoravnoj osi, udio okomitoj osi i postavlja zajedničku nulu."
+        },
+        {
+          "component_id": "identify-unsupported-width",
+          "required_claim": "Jedina pogreška jest širina 0,9 samo za treći stupac, dok prva dva imaju širinu 0,6.",
+          "required_evidence": "Vektor širina u pozivu glasi 0,6, 0,6 i 0,9."
+        },
+        {
+          "component_id": "explain-area-distortion",
+          "required_claim": "Nejednaka širina pretvara površinu u nenajavljeno drugo kodiranje i vizualno pojačava treću kategoriju.",
+          "required_evidence": "Pri jednakoj visini stupac širine 0,9 ima 1,5 puta površinu stupca širine 0,6."
+        },
+        {
+          "component_id": "state-conceptual-repair",
+          "required_claim": "Sva tri stupca trebaju imati jednaku širinu kako bi udio ponovno bio kodiran samo duljinom od zajedničke nule.",
+          "required_evidence": "Uklanjanje vektora različitih širina ostavlja kategorije, visine, oznake i ljestvicu nepromijenjenima."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Treći stupac širok je 0,9, ostali 0,6; 0,9 / 0,6 = 1,5, pa za jednaku visinu ima 50 % veću površinu.",
+      "tolerance_or_acceptance_rule": "Omjer mora biti 1,5, odnosno povećanje površine 50 %, i mora se vezati uz jednaku visinu ili jednu jedinicu visine.",
+      "independent_method": "Širine pročitati iz izvornoga poziva i izračunati njihov omjer bez oslanjanja na kanonski zapis.",
+      "evidence_reference": "chapters/05-vizualizacija.qmd#ex-05-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-accepts-unequal-width-as-decoration",
+          "severity": "fatal",
+          "description": "Odgovor prihvaća nejednaku širinu kao bezazlenu dekoraciju ili zadržava prikaz u kojem površina neovlašteno pojačava treću kategoriju.",
+          "observable_evidence": "Završni sud dopušta da stupci iste vrste imaju različite širine bez podatkovne varijable koja ih opravdava."
+        },
+        {
+          "criterion_id": "major-misses-area-or-repair",
+          "severity": "major",
+          "description": "Nedostaje objašnjenje dodatnoga kodiranja površinom, omjer širina ili zahtjev da svi stupci ponovno imaju jednaku širinu.",
+          "observable_evidence": "Jedna središnja karika od izvornoga poziva do popravljene gramatike nije provjerljiva."
+        },
+        {
+          "criterion_id": "minor-imprecise-channel-language",
+          "severity": "minor",
+          "description": "Dijagnoza je ispravna, ali odgovor ne razlikuje jasno duljinu stupca od njegove površine.",
+          "observable_evidence": "Terminološka dopuna dovoljna je bez promjene presude."
+        },
+        {
+          "criterion_id": "useful-preserves-correct-decisions",
+          "severity": "useful_improvement",
+          "description": "Odgovor izričito zadržava zajedničku nulu, oznake i izravne vrijednosti te mijenja samo širinu.",
+          "observable_evidence": "Revizija razlikuje jednu posađenu pogrešku od ostalih ispravnih odluka gramatike."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equal-width-with-any-fixed-value",
+      "description": "Prihvatljiva je bilo koja razumna jednaka širina za sva tri stupca, uključujući zadanu širinu geometrije.",
+      "acceptance_boundary": "Širina mora biti jednaka i ne smije ponovno kodirati kategoriju ili udio."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina namjerna pogreška jest različita širina trećega stupca. Os, oznake i izravno ispisane vrijednosti ne proglašavati pogrešnima.",
+    "Ne zahtijevati popravak koda. Ocjenjuje se čitanje specifikacije grafa, dijagnoza kanala i opis konceptualne promjene."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

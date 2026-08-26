@@ -2,86 +2,163 @@
 title: "Protokol za rad s asistentom"
 ---
 
-<!-- =====================================================================
-  STATUS:  djelomični nacrt — privatnost, provjera, reprodukcija i objava
-  IZVOR:   novo
-  OPSEG:   ~2500 riječi
-  NAPOMENA: Izvor je za sve kutije „Pitajte model” u poglavljima i za izjavu u kolofonu.
+Asistent može ubrzati račun, provjeru i uređivanje, ali ne preuzima odluku o
+pitanju, podacima, dokazu ni objavljenoj tvrdnji. Ovaj dodatak zato počinje
+odlukom o tome što se smije dijeliti, a završava zapisom koji druga osoba može
+provjeriti bez pristupa razgovoru. Protokol ne zahtijeva određenoga proizvođača,
+sustav ni inačicu.
 
-  SADRŽAJ (iz plana):
-  Pravila knjige o korištenju AI-ja na četiri stranice. Privatnost i obveze iz Opće uredbe o zaštiti podataka kada podaci opisuju ljude, navike provjere i reprodukcije, norme objavljivanja za studentske radove i publikacije, te kratak vodič za nastavnike o ocjenjivanju koje ostaje smisleno kad svaki student ima asistenta.
-===================================================================== -->
+## Politika kolegija {#sec-politika-kolegija}
 
-Asistent ubrzava rad kada dobije jasno ograničen zadatak i kada se svaki njegov
-rezultat provjerava izvan razgovora. Ovaj protokol primjenjuje se na kod,
-interpretaciju, izvore i pisanje. Odgovornost ostaje na osobi koja predaje,
-objavljuje ili donosi odluku.
+> **Vlastita politika kolegija uz udžbenik.** *Osnove statistike za društvene
+> znanosti*
+>
+> **Inačica.** 1.0
+>
+> **Vrijedi od.** 4. kolovoza 2026.
+>
+> **Matična ustanova kolegija.** Hrvatsko katoličko sveučilište
+>
+> **Odgovorna osoba.** Luka Šikić, docent, Sveučilišni odjel za
+> komunikologiju, Hrvatsko katoličko sveučilište
 
-## Privatnost prije praktičnosti
+Ovo je vlastita, datirana politika knjige i kolegija. Nije propis Hrvatskoga
+katoličkog sveučilišta, nije opća pravna ocjena i ne poziva se na vanjski
+institucijski dokument. Odgovorna osoba provjerava je i ponovno datira prije
+svakoga izvođenja kolegija.
 
-Podaci koji opisuju ljude ne šalju se javnom modelu. Uklanjanje imena nije
-dovoljno ako kombinacija varijabli može ponovno identificirati osobu.
-Koristimo strukturu tablice, sintetički primjer ili lokalno odobren alat prema
-pravilima ustanove i istraživačkog odobrenja.
+### Tri trake alata {#sec-trake-alata}
 
-Modelu dajemo najmanju količinu informacija potrebnu za zadatak. Kontakti,
-otvoreni odgovori, identifikatori i osjetljiva obilježja ostaju izvan razgovora.
+Traka se bira prema podacima i provjerljivim uvjetima uporabe, a ne prema
+praktičnosti. Ako uvjet neke trake nije provjeren, ta traka nije dostupna za
+zadatak.
 
-## Upit, provjera i reprodukcija
-
-Dobar upit navodi pitanje, dizajn, jedinicu analize, varijable, dopušteni
-zaključak i željeni oblik izlaza. Od modela tražimo kod ili račun, pretpostavke
-i popis ručnih provjera. Ne tražimo samo „analiziraj podatke".
-
-Svaki broj povezujemo s izlazom koji možemo ponovno proizvesti. Svaki izvor
-otvaramo i provjeravamo podupire li tvrdnju. Kod pokrećemo u čistoj lokalnoj
-sesiji, pregledavamo pogreške i spremamo konačnu verziju uz podatke.
-
-## Objavljivanje uporabe
-
-U studentskom radu i publikaciji navodimo gdje je asistent korišten prema
-pravilima kolegija, časopisa ili ustanove. Objavljujemo ulogu alata, a ne
-prebacujemo na njega autorstvo ili odgovornost. Kada je važan za
-reproducibilnost, bilježimo naziv sustava, datum, verziju ako je dostupna i
-sažetak zadatka.
-
-## Kriteriji za prvo istraživanje
-
-Poglavlje o prvom istraživanju vodi kroz faze rada, a ovdje stoji mjerilo po
-kojem se gotov rad procjenjuje. Kriteriji su isti bez obzira na to je li rad
-nastao uz asistenta ili bez njega, jer se svi tiču onoga što se u predanom radu
-može provjeriti.
-
-| Kriterij | Zadovoljava kada | Ne zadovoljava kada |
+| Traka | Dopušteni podaci | Točan uvjet |
 |---|---|---|
-| Istraživačko pitanje | imenuje populaciju, jedinicu analize, mjere i usporedbu | ostaje na temi ili se mijenja nakon što su rezultati viđeni |
-| Dizajn i granica zaključka | zaključak ostaje unutar onoga što dizajn dopušta | opisni nacrt nosi uzročni jezik |
-| Podaci i trag odluka | podrijetlo, čišćenje i isključenja zapisani su i pregledni | brojke se ne mogu vratiti na izvornik |
-| Opis i prikaz | tablice i grafovi nose jedinice, broj jedinica i izvor | prikaz skriva raspršenost ili skraćuje os bez napomene |
-| Analiza | postupak odgovara pitanju, a procjena dolazi s intervalom | izvještaj vodi golom p-vrijednošću |
-| Tumačenje | nesigurnost i granica generalizacije stoje uz nalaz | zaključak je širi od uzorka ili od dizajna |
-| Reproducibilnost | tuđa čista sesija daje iste tablice i grafove | rezultat ovisi o koracima kojih nema u zapisu |
-| Objava uporabe asistenta | navodi sustav, dio posla i provedene provjere | izostaje ili tvrdi više nego što je provjereno |
+| **Javni alati** | samo javno objavljeni podaci, podaci čija provjerena licencija dopušta takvu uporabu, simulirani i sintetički podaci te nastavni agregati | u tu traku ne ulaze osobni, identifikacijski, ograničeni ni ugovorom zaštićeni podaci |
+| **Ugovorno zaštićeni alati** | pseudonimizirani radni podaci, ali ne posebne kategorije osobnih podataka ni podaci čiji vlastiti uvjeti pristupa to ne dopuštaju | postoji provjeren i datiran pisani sporazum koji izričito isključuje uporabu unosa za treniranje modela i utvrđuje rok čuvanja |
+| **Institucijski odobreni lokalni alati** | ograničeni podaci unutar njihovih vlastitih uvjeta pristupa | alat radi na uređaju korisnika ili na poslužitelju pod institucijskom kontrolom i nema izlaza podataka iz toga okruženja |
 
-: Mjerilo za procjenu prvog istraživanja. Izrada autora. {#tbl-kriteriji}
+: Tri trake vlastite politike kolegija, inačica 1.0 od 4. kolovoza 2026. Izrada autora. {#tbl-trake-alata}
 
-Kriteriji nisu jednako teški i ne nose jednaku težinu u svakom radu. Pitanje,
-dizajn i tumačenje nose najviše, jer su to odluke koje kasniji rad ne može
-popraviti. Reproducibilnost i objava uporabe binarne su, budući da rad ili jest
-ili nije moguće ponoviti.
+Nijedan zadatak, vježba, ispit ni prijenosni zadatak ne smije zahtijevati
+slanje osobnih, identifikacijskih, ograničenih ili neraspodjeljivih podataka ni
+u jednu traku. Ako je takav podatak dio istraživačkoga konteksta, zadatak mora
+ponuditi sigurnu priloženu zamjenu, primjerice simulirani ili nastavni agregat.
+Pseudonimizacija sama po sebi ne premješta podatke u javnu traku.
 
-::: {.content-visible when-profile="kolegij"}
-Na kolegiju se uz gornje mjerilo ocjenjuju i kvaliteta koda te usmeno izlaganje.
-Kod se procjenjuje po čitljivosti i po tome izvršava li se od učitavanja
-podataka do posljednjeg rezultata bez ručnih zahvata, a ne po duljini.
-Izlaganje se procjenjuje po tome je li u zadanom vremenu preneseno pitanje,
-postupak, jedan nalaz s rasponom i jedna granica zaključka.
-:::
+## Protokol koji se može kopirati {#sec-protokol-asistenta}
 
-## Procjena znanja uz asistenta
+Sljedeći se zapis ispunjava prije slanja bilo kakva sadržaja alatu. Svako polje
+ostaje vidljivo uz konačni rad.
 
-Zadaci ostaju smisleni kada traže prosudbu, provjeru i reviziju. Student treba
-objasniti zašto je model prikladan, pronaći pogrešku u uvjerljivom rješenju,
-reproducirati broj i ograničiti zaključak. Lokalni podaci, usmena obrana i
-simulacijske igre dodatno pokazuju razumije li postupak osoba koja je koristila
-alat.
+> **1. Pitanje i cilj.** Pitanje je [...]. Ciljana količina ili odluka jest
+> [...]. Dopuštena vrsta tvrdnje jest [...]. Očekivani provjerljivi izlaz jest
+> [...].
+>
+> **2. Odluka o dijeljenju.** Podaci pripadaju traci [...] zato što [...].
+> Provjerena licencija, sporazum ili uvjet pristupa jest [...]. Alatu se ne
+> šalje [...]. Sigurna priložena zamjena, kada je potrebna, jest [...].
+>
+> **3. Pretpostavke i koraci.** Jedinica analize jest [...]. Asistent treba
+> navesti pretpostavke, korake računa i oblik izlaza [...]. Ne smije proširiti
+> pitanje na [...].
+>
+> **4. Neovisne provjere.** Broj redaka, brojnik, nazivnik, jedinice, procjena,
+> interval, izvor i granica tvrdnje provjeravaju se na sljedeći način. [...].
+>
+> **5. Osjetljivost.** Primarna se odluka uspoređuje s ovom obranjivom
+> alternativom [...]. Bilježe se promjena procjene, intervala, zaključka i
+> dosegnute populacije.
+>
+> **6. Zapis.** Čuvaju se datum, ulaz koji se smio podijeliti, puni upit,
+> vraćeni izlaz, zadržani dijelovi, odbačeni dijelovi i trag neovisne provjere.
+>
+> **7. Objava uporabe.** Uz rad se prilaže izjava iz sljedećega odjeljka,
+> uključujući ono što je ostalo neprovjereno.
+>
+> **8. Odgovornost.** Za izbor pitanja, podatkovne trake, provjeru i konačnu
+> tvrdnju odgovara [...]. Asistent nije autoritet za tu odluku.
+
+Protokol je modelno neovisan. Naziv i inačica stvarno korištenoga sustava
+pripadaju zapisu o provedbi, ali nijedan proizvođač, naziv sustava ni inačica
+nije uvjet za primjenu protokola.
+
+## Objava uporabe {#sec-objava-uporabe}
+
+Ovo je pravilo kolegija.
+
+```text
+Uz svaki predani rad nastao uz pomoć asistenta prilaže se kratka izjava o
+uporabi: koji je alat i koja inačica korištena, što je delegirano, kojoj
+traci pripadaju upotrijebljeni podaci, što je autor sam provjerio i kako te
+što je ostalo neprovjereno. Nenavedena uporaba tretira se kao povreda
+akademske čestitosti; navedena uporaba sama po sebi ne umanjuje ocjenu.
+```
+
+Za kopiranje u rad može se upotrijebiti ovaj obrazac.
+
+```text
+U ovom je radu asistent korišten za [...]. Korišteni alat i inačica, ili
+izričit zapis da inačica nije bila dostupna, jesu [...]. Podaci pripadaju
+traci [...] jer [...]. Autor je sam provjerio [...] postupkom [...]. Zadržano
+je [...], a neprovjereno je ostalo [...]. Za konačnu tvrdnju odgovara [...].
+```
+
+Navođenje uporabe ne pretvara izlaz u dokaz. Izvor se otvara, račun se ponavlja
+izvan razgovora, a zaključak se ponovno piše prema provjerenom rezultatu.
+
+## Razrađena primjena protokola {#sec-primjer-protokola}
+
+Pretpostavimo da zadatak traži provjeru zbrojeva i nacrt granice tvrdnje iz
+priloženoga nastavnog agregata generirane populacije. Zadatak ne traži
+pojedinačne retke ni stvarne podatke o ljudima.
+
+| Polje protokola | Ispunjeni zapis |
+|---|---|
+| pitanje i cilj | provjeriti slažu li se zbrojevi agregata i sastaviti ograničenu opisnu rečenicu |
+| odluka o dijeljenju | javna traka; dijeli se samo priloženi nastavni agregat, bez pojedinačnih redaka |
+| pretpostavke i koraci | jedinica je agregatni redak; traže se brojnik, nazivnik, račun i granica prema stvarnim ljudima |
+| neovisne provjere | lokalno se ponovno računaju zbrojevi i udjeli te uspoređuju s izvornom datotekom |
+| osjetljivost | provjerava se mijenja li se rečenica kada se umjesto broja navede udio s točnim nazivnikom |
+| zapis | čuvaju se datoteka, datum, upit, izlaz, ručni račun i odbačene rečenice |
+| objava uporabe | navode se alat, dostupna inačica, delegirana provjera, javna traka, lokalna provjera i neprovjereni doseg |
+| odgovornost | osoba koja predaje rad bira nazivnik i potpisuje konačnu granicu tvrdnje |
+
+: Primjena svih osam koraka na sigurnom nastavnom agregatu. Izrada autora. {#tbl-primjer-ai-protokola}
+
+U [završnom projektu](../chapters/18-vase-prvo-istrazivanje.qmd#rad-s-asistentom)
+isti se redoslijed primjenjuje na simuliranu anketu i omeđeni empirijski
+prijenos. Ondje su [potvrda provjere](../chapters/18-vase-prvo-istrazivanje.qmd#tbl-potvrda-provjere-c18)
+i primjer objave povezani s paketom dokaza. Dvije su upute usklađene. Poglavlje
+18 politiku izričito naziva politikom kolegija, inačicom 1.0 od 4. kolovoza
+2026., razlikuje iste tri trake i kaže da nije propis Hrvatskoga katoličkog
+sveučilišta.
+
+## Revizija svih zadataka {#sec-revizija-zadataka}
+
+Revizija obuhvaća svih 95 kanonskih zadataka u 19 jedinica, dakle okvir
+pogreške i četiri razine zadataka u svakoj jedinici. Nijedan od tih zadataka ne
+zahtijeva slanje podataka asistentu. Nijedan ne zahtijeva osobne,
+identifikacijske, ograničene ni neraspodjeljive podatke. Zadaci se rješavaju iz
+vidljivoga teksta, priloženih tablica i datoteka, simuliranih ili sintetičkih
+podataka, nastavnih agregata te javno objavljenih izvora koje čitatelj sam
+otvara.
+
+Svaki je zadatak vezan uz svoje stabilno `#ex-` sidro, otisak prompta i sigurnu
+rutu u `config/appendix-f-ai-route.json`. Ako se prompt promijeni, čuvar traži
+novu reviziju umjesto preuzimanja stare presude. Otvoreni zadatci koji traže
+vlastiti primjer ili javno objavljeni izvor ne traže prijenos toga materijala
+alatu. Mogu se dovršiti lokalnim čitanjem i predajom vlastite prosudbe.
+
+## Što se ocjenjuje {#sec-ocjenjivanje-asistenta}
+
+Od kraja prvoga dijela zadatak koji uključuje asistenta mora imati čitljivu
+potvrdu. U njoj stoji što je zatraženo, što je vraćeno, što je provjereno i
+kako. Ocjenjuje se prosudba, a ne proizvodnja koda. Student može čitati,
+osporavati i popravljati sumnjivi kod, ali nijedan ocijenjeni zadatak ne traži
+da ga napiše.
+
+Najvažniji su tragovi točna jedinica i nazivnik, provjeren izvor, ponovljen
+račun, jedna obranjiva provjera osjetljivosti, granica tvrdnje i
+potpisana odgovornost. Tečan izlaz bez tih tragova nije dovršen rad.

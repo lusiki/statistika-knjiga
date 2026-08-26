@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-04-revizija-modela-01",
+  "exercise_id": "ex-04-revizija-modela-01",
+  "unit_id": "04",
+  "source_anchor": {
+    "path": "chapters/04-sazimanje-podataka.qmd",
+    "anchor": "ex-04-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:33fe7343676657a914fdf0c8a3247a8b7a8f5ca951df8d3c7a33c5b8455c5067",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "incomplete-join-key-multiplies-rows",
+      "statement": "Model pogrešno proglašava spoj valjanim zato što su aritmetika i skup različitih mjesečnih ključeva ostali provjerljivi.",
+      "why_wrong": "Spajanje samo po godini ponavlja svaki mjesečni redak za više godišnjih platformskih redaka. Broj jedinstvenih ključeva ne bilježi njihovu višestrukost, a točan zbroj umnoženih redaka ne vraća izvornu jedinicu."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Potvrditi modelov zbroj nad proizvedenom tablicom, zatim usporediti ukupne retke s različitim mjesečnim ključevima, provjeriti jedinstvenost godišnjega ključa i ponoviti spoj na paru godina plus platforma.",
+      "expected_evidence": "Pogrešna tablica doista zbraja 5.959.081 objava, ali 3.571 redak nosi samo 438 različitih mjesečnih ključeva; ispravan spoj zadržava 438 redaka i 710.307 objava."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Model je pogriješio jer zbroj 5.959.081 nije točan.",
+          "why_insufficient": "Zbroj je točan za pogrešno umnoženu tablicu i upravo zato ne razotkriva nevaljanu jedinicu samostalno."
+        },
+        {
+          "response": "Treba obrisati duplicirane retke nakon spajanja.",
+          "why_insufficient": "Naknadno uklanjanje bez ispravna ključa može proizvoljno zadržati pogrešan godišnji par i prikriti uzrok problema."
+        },
+        {
+          "response": "Pogreška je što model nije provjerio prazne vrijednosti.",
+          "why_insufficient": "Nepotpun ključ može svakom retku pronaći barem jedan par, pa izostanak praznina ne provjerava kardinalnost."
+        },
+        {
+          "response": "Dovoljno je navesti da kod spajanja uvijek treba biti oprezan.",
+          "why_insufficient": "Revizija mora imenovati platformu kao izostavljeni dio ključa i pokazati brojčani trag promijenjene jedinice."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "grade-produced-sum-as-correct",
+          "required_claim": "Zbroj 5.959.081 točan je za 3.571 redak koje je model proizveo.",
+          "required_evidence": "Neovisno zbrajanje mjesečnih objava nakon ponavljanja po svim godišnjim platformama iste godine."
+        },
+        {
+          "component_id": "prove-sole-key-error",
+          "required_claim": "Jedina je pogreška nepotpun ključ jer godina bez platforme nije jedinstvena na godišnjoj strani spoja.",
+          "required_evidence": "Godišnji CSV sadrži zaseban redak za svaku kombinaciju godine i platforme [@digikat2026]."
+        },
+        {
+          "component_id": "compare-rows-and-distinct-keys",
+          "required_claim": "Razlika između 3.571 redaka i 438 različitih mjesečnih ključeva pokazuje da su izvorne jedinice višestruko zastupljene.",
+          "required_evidence": "Dvije kontrole nad istom proizvedenom tablicom."
+        },
+        {
+          "component_id": "state-correct-key-and-sum",
+          "required_claim": "Ispravan ključ godina plus platforma daje 438 redaka i zbroj 710.307 objava.",
+          "required_evidence": "Ponovljen spoj na punom ključu i usporedba s izvornom mjesečnom tablicom."
+        },
+        {
+          "component_id": "close-arithmetic-boundary",
+          "required_claim": "Točna aritmetika odgovara samo na pitanje o tablici koja joj je predana i ne može sama potvrditi da redak predstavlja ispravnu jedinicu.",
+          "required_evidence": "Istodobna točnost zbroja 5.959.081 i nevaljanost many-to-many strukture."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Pogrešni spoj 3.571 redak, 438 jedinstvenih ključeva i 5.959.081 objava; ispravan spoj po godini i platformi 438 redaka, 438 jedinstvenih ključeva i 710.307 objava.",
+      "tolerance_or_acceptance_rule": "Svih šest cjelobrojnih kontrola mora biti točno; zbroj pogrešnoga spoja mora biti potvrđen kao aritmetički točan, ali podatkovno nedopušten za sažimanje po izvornoj jedinici.",
+      "independent_method": "Iz izvornih CSV-ova izgraditi kardinalnost oba ključa i zbrojiti mjesečne objave uz pripadajuću višestrukost, bez oslanjanja na modelovu procjenu valjanosti.",
+      "evidence_reference": "data/digikat-platforme-mjesecno.csv, data/digikat-platforme-godisnje.csv i chapters/04-sazimanje-podataka.qmd#ex-04-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-keeps-invalid-join-or-rejects-correct-arithmetic",
+          "severity": "fatal",
+          "description": "Odgovor i dalje prihvaća spoj samo po godini ili pogrešno odbacuje modelov ponovljivi zbroj umjesto njegova zaključka o valjanosti.",
+          "observable_evidence": "Revizija ne razlikuje račun nad tablicom od provjere jedinice te tablice."
+        },
+        {
+          "criterion_id": "major-missing-key-proof-or-correct-state",
+          "severity": "major",
+          "description": "Nedostaje platforma kao dio ključa, usporedba 3.571 prema 438 ili ispravno stanje od 438 redaka i 710.307 objava.",
+          "observable_evidence": "Jedan obvezni korak dijagnoze ili popravka nije dokaziv."
+        },
+        {
+          "criterion_id": "minor-number-or-unit-label-slip",
+          "severity": "minor",
+          "description": "Središnja je revizija točna, ali jedna kontrolna vrijednost ili naziv jedinice nije precizno prenesen.",
+          "observable_evidence": "Lokalni popravak ne mijenja jedinu dijagnosticiranu pogrešku."
+        },
+        {
+          "criterion_id": "useful-records-verification-receipt",
+          "severity": "useful_improvement",
+          "description": "Odgovor bilježi što je model vratio, što je neovisno provjereno, koji je ključ zamijenjen i što je ostalo izvan provjere.",
+          "observable_evidence": "Revizija ima čitljiv ljudski trag specifikacije, provjere i odgovornosti bez proizvodnje koda."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "cardinality-language-without-many-to-many",
+      "description": "Prihvatljiv je odgovor koji ne rabi stručni izraz many-to-many ako jasno pokaže da jednoj godini odgovara više platformskih redaka i da se mjesečni redci zato ponavljaju.",
+      "acceptance_boundary": "Mora imenovati puni ključ, obje kontrolne veličine i granicu točne aritmetike."
+    }
+  ],
+  "instructor_notes": [
+    "Revizija modela zatvara isti artefakt i istu jedinu pogrešku kao okvir. Ne uvoditi novu pogrešku u nule metrika, datoteku izvora ili izbor sažetka.",
+    "Dopušten je kalkulator ili proračunska tablica za ponovnu provjeru. Student ne piše niti popravlja kod spajanja."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

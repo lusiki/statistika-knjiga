@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-04-racunski-01",
+  "exercise_id": "ex-04-racunski-01",
+  "unit_id": "04",
+  "source_anchor": {
+    "path": "chapters/04-sazimanje-podataka.qmd",
+    "anchor": "ex-04-racunski-01"
+  },
+  "task_class": "racunski",
+  "prompt_fingerprint": "sha256:3a40f506e4bd884e92cd2b5f2bc234f93e5b860691f466079a5cec2717977514",
+  "answer_components": {
+    "planted_error": {
+      "applicable": false,
+      "not_applicable_reason": "Računski zadatak traži ponovljive sažetke dvaju nizova i jednoga agregatnog retka, a ne reviziju namjerno pogrešnoga modelnog odgovora.",
+      "error_id": null,
+      "statement": null,
+      "why_wrong": null
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Za oba preseta zbrojiti svih deset vrijednosti, podijeliti s deset i medijan uzeti iz srednja dva poredana mjesta; zatim iz agregata za šifru 1 odvojeno ponoviti prosjek i udio te uskladiti zbrojeve četiriju dobnih redaka.",
+      "expected_evidence": "Zbijeni niz ima sredinu i medijan 11,0, niz s krajnjim opažanjem sredinu 16,9 i medijan 11,5; prvi agregat daje 81,5444 minute i udio 0,30, a četiri retka zbrajaju se na 300 osoba i 15.019 minuta."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Oba preseta imaju sredinu 11 jer se devet vrijednosti grupira oko 11.",
+          "why_insufficient": "Krajnje opažanje 70 ulazi u puni zbroj i podiže sredinu na 16,9."
+        },
+        {
+          "response": "Medijan stanja s krajnjim opažanjem iznosi 11 jer krajnja vrijednost ne utječe na medijan.",
+          "why_insufficient": "Pri parnom broju opažanja medijan je sredina petoga i šestoga mjesta, ovdje 11 i 12, pa iznosi 11,5."
+        },
+        {
+          "response": "Prosjek za šifru 1 iznosi 81,5444 jer tako piše u tablici.",
+          "why_insufficient": "Zadatak traži neovisnu provjeru dijeljenjem 7.339 s 90, a ne samo prijepis gotova stupca."
+        },
+        {
+          "response": "Za provjeru agregata treba napisati kod koji filtrira CSV.",
+          "why_insufficient": "Tiskana tablica sadrži sve brojnike, nazivnike i zbrojeve, a prompt izričito ne zahtijeva proizvodnju koda."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "compact-preset-summary",
+          "required_claim": "Zbijeni niz ima zbroj 110, sredinu 11,0 i medijan 11,0.",
+          "required_evidence": "Zbroj svih deset navedenih vrijednosti i srednja dva poredana mjesta."
+        },
+        {
+          "component_id": "extreme-preset-summary",
+          "required_claim": "Niz s krajnjim opažanjem ima zbroj 169, sredinu 16,9 i medijan 11,5.",
+          "required_evidence": "Zbroj svih deset vrijednosti te prosjek petoga i šestoga mjesta, 11 i 12."
+        },
+        {
+          "component_id": "compare-mean-and-median-movement",
+          "required_claim": "Krajnje opažanje pomiče sredinu za 5,9, a medijan za 0,5 jer sredina koristi veličinu svake vrijednosti, dok medijan prvenstveno ovisi o poretku središnjih mjesta.",
+          "required_evidence": "Razlike 16,9 minus 11,0 i 11,5 minus 11,0."
+        },
+        {
+          "component_id": "verify-first-aggregate-row",
+          "required_claim": "Za šifru 1 prosjek je 7.339 podijeljeno s 90, odnosno 81,5444 minute, a udio je 90 podijeljeno s 300, odnosno 0,30 ili 30 %.",
+          "required_evidence": "Brojnik, nazivnik i zbroj minuta iz kontrolnoga agregata simulirane ankete."
+        },
+        {
+          "component_id": "reconcile-all-aggregate-rows",
+          "required_claim": "Četiri brojnika zbrajaju se na 300, a četiri zbroja minuta na 15.019.",
+          "required_evidence": "Zbrojevi 90 + 84 + 66 + 60 i 7.339 + 4.567 + 2.139 + 974."
+        },
+        {
+          "component_id": "keep-print-path-code-free",
+          "required_claim": "Cijela obvezna provjera izvediva je iz tiskanih tablica bez widgeta, datoteke ili pisanja koda.",
+          "required_evidence": "Oba niza i svih pet polja agregatne provjere vidljivi su u zadatku."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Zbijena 110 / 10 = 11,0 i medijan (11 + 11) / 2 = 11,0; Krajnje opažanje 169 / 10 = 16,9 i medijan (11 + 12) / 2 = 11,5; pomak sredine 5,9 i medijana 0,5; 7.339 / 90 = 81,5444; 90 / 300 = 0,30 = 30 %; 90 + 84 + 66 + 60 = 300; 7.339 + 4.567 + 2.139 + 974 = 15.019.",
+      "tolerance_or_acceptance_rule": "Sredine i medijani moraju biti točni na jednu decimalu; prosjek 7.339 kroz 90 prihvaća se od 81,5444 do 81,5445, udio kao 0,30 ili 30 %, a zbrojevi moraju biti cjelobrojno točni.",
+      "independent_method": "Vrijednosti preseta pročitati iz izvornoga objekta poglavlja, a agregatne vrijednosti iz CSV-a; svaki sažetak ponovno izračunati standardnom aritmetikom bez čitanja kanonskoga rješenja.",
+      "evidence_reference": "chapters/04-sazimanje-podataka.qmd#ex-04-racunski-01 i data/anketa-mreze-agregat.csv"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "fatal-uses-wrong-series-or-denominator",
+          "severity": "fatal",
+          "description": "Odgovor računa nad nepotpunim nizom, rabi pogrešan nazivnik ili tvrdi da tablica opisuje stvarnu populaciju.",
+          "observable_evidence": "Središnji sažetak nije rezultat deset zadanih vrijednosti ili upravljanoga agregata simulirane ankete."
+        },
+        {
+          "criterion_id": "major-missing-preset-or-aggregate-check",
+          "severity": "major",
+          "description": "Nedostaje jedan traženi sažetak preseta, objašnjenje različita pomaka ili jedna od četiriju agregatnih provjera.",
+          "observable_evidence": "Jedan cijeli računski ili interpretacijski dio zadatka nije moguće provjeriti."
+        },
+        {
+          "criterion_id": "minor-rounding-or-median-notation",
+          "severity": "minor",
+          "description": "Računi su sadržajno točni, ali zaokruživanje nije dosljedno ili medijan nije prikazan iz srednja dva mjesta.",
+          "observable_evidence": "Lokalna dopuna zapisa ne mijenja nijedan rezultat."
+        },
+        {
+          "criterion_id": "useful-shows-check-order",
+          "severity": "useful_improvement",
+          "description": "Predaja prvo pokazuje neovisni račun, zatim uspoređuje gotov stupac tablice i na kraju odvaja brojčani rezultat od granice simulacije.",
+          "observable_evidence": "Račun ima čitljiv trag koji se može provjeriti i u tisku."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "equivalent-fraction-or-percentage",
+      "description": "Udio prvoga agregatnog retka može se zapisati kao 0,3, 0,30 ili 30 %.",
+      "acceptance_boundary": "Brojnik 90, nazivnik 300 i veza između omjera i postotka moraju ostati vidljivi."
+    },
+    {
+      "alternative_id": "spreadsheet-recalculation",
+      "description": "Kalkulator ili proračunska tablica prihvatljivi su za neovisni račun preseta i agregata.",
+      "acceptance_boundary": "Predaja mora sadržavati rezultate i obrazloženje, ali se ne ocjenjuje niti zahtijeva proizvodnja koda."
+    }
+  ],
+  "instructor_notes": [
+    "Računski naslov pokriva dva povezana provjerna bloka. Oba moraju ostati u istom kanonskom zapisu jer pripadaju jednom izvornom zadatku i jednoj stabilnoj kotvi.",
+    "Widget je dodatni pokus, a ne preduvjet. Ocijenjeni put završava ručnim ili tabličnim računom iz točno prikazanih vrijednosti."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-14-callout-greska-01",
+  "exercise_id": "ex-14-callout-greska-01",
+  "unit_id": "14",
+  "source_anchor": {
+    "path": "chapters/14-dvije-grupe.qmd",
+    "anchor": "ex-14-callout-greska-01"
+  },
+  "task_class": "callout_greska",
+  "prompt_fingerprint": "sha256:b656d8abd1de7f66314840df87debbfc3d7ad999666140eebf1ec592ad3e1ee8",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "nonsignificant-subgroup-treated-as-no-association",
+      "statement": "Budući da interval u dobnoj podskupini obuhvaća nulu, primarni izvor vijesti u toj skupini nema veze s povjerenjem.",
+      "why_wrong": "Interval koji obuhvaća nulu pokazuje da poduzorak ne razlučuje smjer i veličinu razlike s traženom preciznošću. Ne dokazuje jednakost ni odsutnost povezanosti, osobito kada uključuje i pozitivne razlike koje bi mogle biti sadržajno važne."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Odvojiti provjeru dizajna i postupka od završnoga zaključka, zatim neovisno obnoviti Welchov interval za osobe od 30 do 49 godina i provjeriti koje razlike interval još dopušta.",
+      "expected_evidence": "Jedinica neovisnosti, referentna skupina, pregled raspodjela i izbor Welcha ispravni su. Poduzorak ima 55 osoba, procijenjena razlika TV minus društvene mreže iznosi 0,770270 boda, a 95-postotni interval od −0,335616 do 1,876157 obuhvaća nulu i sadržajno pozitivne vrijednosti."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Greška je u tome što Welchov test ne smije imati nejednake varijance.",
+          "why_insufficient": "Welchov postupak upravo zadržava zasebne varijance i ne zahtijeva njihovu jednakost."
+        },
+        {
+          "response": "Zaključak je ispravan jer je p-vrijednost veća od 0,05.",
+          "why_insufficient": "Nesignifikantan rezultat nije dokaz jednakosti. Treba pročitati cijeli interval i njegovu preciznost."
+        },
+        {
+          "response": "Primarni izvor vijesti uzrokuje razliku u povjerenju.",
+          "why_insufficient": "To bi dodalo novu uzročnu pogrešku koju okvir ne iznosi i koju samoprijavljene skupine ne mogu poduprijeti."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-correct-design-checks",
+          "required_claim": "Ispravno su imenovane jedinica neovisnosti i referentna skupina te su pregledane raspodjele i neobična opažanja.",
+          "required_evidence": "Svaka je osoba u jednoj skupini, a pozitivan koeficijent uz TV čita se prema referentnoj skupini društvenih mreža."
+        },
+        {
+          "component_id": "preserve-welch-choice",
+          "required_claim": "Ispravno je navedeno da Welchov postupak ne zahtijeva jednake varijance.",
+          "required_evidence": "Standardna pogreška zadržava zasebnu varijancu i veličinu svake skupine."
+        },
+        {
+          "component_id": "identify-single-error",
+          "required_claim": "Jedina je pogreška pretvaranje intervala koji obuhvaća nulu u dokaz da povezanosti nema.",
+          "required_evidence": "Interval od −0,335616 do 1,876157 dopušta i nulu i pozitivne razlike."
+        },
+        {
+          "component_id": "replace-overclaim",
+          "required_claim": "U dobnoj podskupini podaci ne razlučuju razliku od nule dovoljno precizno, pa ne podupiru tvrdnju ni o odsutnosti ni o točnoj veličini veze.",
+          "required_evidence": "Zamjenska rečenica mora opisati nepreciznost procjene, a ne proglasiti jednakost skupina."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Za 55 osoba od 30 do 49 godina procjena TV minus društvene mreže iznosi 0,770270270270 boda, a Welchov 95-postotni interval [−0,335616307975; 1,876156848515]. Stvarna razlika u simuliranoj populaciji toga raspona iznosi 0,900295271035 boda.",
+      "tolerance_or_acceptance_rule": "Prihvatiti procjenu i granice unutar 0,000001. Zaključak mora navesti da interval obuhvaća nulu i pozitivne razlike; ne smije ga tumačiti kao dokaz jednakosti ili odsutnosti povezanosti.",
+      "independent_method": "Ponovno izdvojiti iste jedinice iz lokalnoga simuliranog skupa, ručno izračunati dvije sredine, zasebne varijance, Welchovu standardnu pogrešku i Satterthwaiteove stupnjeve slobode te interval usporediti s poznatom populacijskom razlikom.",
+      "evidence_reference": "chapters/14-dvije-grupe.qmd#ex-14-callout-greska-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-retains-absence-claim",
+          "severity": "fatal",
+          "description": "Odgovor zadržava tvrdnju da nesignifikantan rezultat dokazuje nepostojanje razlike ili veze.",
+          "observable_evidence": "Interval koji obuhvaća nulu i dalje se čita kao potvrda jednakosti."
+        },
+        {
+          "criterion_id": "major-misses-interval-evidence",
+          "severity": "major",
+          "description": "Pogreška je imenovana, ali odgovor ne pokazuje da interval uključuje i pozitivne sadržajno relevantne razlike.",
+          "observable_evidence": "Dijagnoza nema brojčanu ili smjersku provjeru raspona uskladivih vrijednosti."
+        },
+        {
+          "criterion_id": "minor-mislabels-correct-step",
+          "severity": "minor",
+          "description": "Središnji sud stoji, ali jedan ispravan korak o referenci, varijancama ili jedinici opisan je neprecizno.",
+          "observable_evidence": "Lokalna terminološka pogreška ne mijenja završnu reviziju."
+        },
+        {
+          "criterion_id": "useful-adds-population-check",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno uspoređuje interval s poznatom simuliranom populacijskom razlikom od približno 0,90 boda.",
+          "observable_evidence": "Dodatak pokazuje zašto jedan nesignifikantan poduzorak ne potvrđuje odsutnost razlike."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "compatibility-language",
+      "description": "Prihvatljiva zamjena može govoriti o rasponu vrijednosti uskladivih s podacima umjesto o nedovoljnoj preciznosti.",
+      "acceptance_boundary": "Mora odbiti dokaz odsutnosti, sačuvati smjer TV minus društvene mreže i navesti da interval uključuje nulu i pozitivne razlike."
+    }
+  ],
+  "instructor_notes": [
+    "Callout i revizija modela moraju zatvoriti isti planted-error ID. Ne prihvatiti varijance, referentnu skupinu ili jedinicu neovisnosti kao navodnu središnju pogrešku jer su u okviru ispravne.",
+    "Poznata populacijska razlika dolazi iz označenoga simuliranog skupa i služi provjeri, a ne empirijskoj tvrdnji o stvarnoj populaciji."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}

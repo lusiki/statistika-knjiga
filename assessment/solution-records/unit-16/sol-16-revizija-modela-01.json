@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "record_id": "sol-16-revizija-modela-01",
+  "exercise_id": "ex-16-revizija-modela-01",
+  "unit_id": "16",
+  "source_anchor": {
+    "path": "chapters/16-regresija.qmd",
+    "anchor": "ex-16-revizija-modela-01"
+  },
+  "task_class": "revizija_modela",
+  "prompt_fingerprint": "sha256:669999f13cffd114f594767382c691a06467bc57503d3776bc697f1dfa7cf634",
+  "answer_components": {
+    "planted_error": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "error_id": "training-set-fit-treated-as-unseen-data-validation",
+      "statement": "Ispis R-kvadrata i RMSE-a iz istih redaka na kojima je model procijenjen može se tumačiti kao dokaz pouzdana predviđanja novih korisnika.",
+      "why_wrong": "Koeficijenti su odabrani da smanje pogrešku upravo na tim ishodima. Trening-RMSE i trening-R-kvadrat zato su mjere pristajanja, u očekivanju optimistične za nove jedinice, i ne zamjenjuju odvojenu prediktivnu provjeru."
+    },
+    "revealing_diagnostic": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "procedure": "Auditirati redak po redak: potvrditi da su formula i vremenski dostupni prediktori dopušteni, označiti da `pogreska` uspoređuje ishod `uzorak` s `fitted(model)` iz istoga uzorka te utvrditi što oba broja mogu i ne mogu poduprijeti.",
+      "expected_evidence": "Sintaksa i in-sample računi mogu biti točni. Fatalna je uporaba istih redaka za procjenu i ocjenu. R-kvadrat i RMSE izgledaju dobro jer najmanji kvadrati upravo na tim redcima smanjuju SSE, a dodavanje prediktora ne može pogoršati taj minimum."
+    },
+    "plausible_non_answers": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "responses": [
+        {
+          "response": "Fatalno je to što se upotrebljava R umjesto ručnoga računa.",
+          "why_insufficient": "Zadatak ocjenjuje statistički audit, a kod je dopušten računarski trag; proizvodnja koda nije cilj."
+        },
+        {
+          "response": "Fatalno je uključiti spol ili obrazovanje jer su to osjetljive varijable.",
+          "why_insufficient": "Njihova uporaba može zahtijevati zaseban etički audit, ali prompt ih postavlja prije ishoda i jedina posađena pogreška jest trening-procjena."
+        },
+        {
+          "response": "Dovoljno je trening-RMSE preimenovati u testni RMSE.",
+          "why_insufficient": "Naziv ne mijenja redke. Ocjena mora doista rabiti ishode koji nisu sudjelovali u procjeni ni izboru modela."
+        }
+      ]
+    },
+    "model_response_components": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "components": [
+        {
+          "component_id": "preserve-valid-parts",
+          "required_claim": "Valjani su specifikacija modela, uporaba unaprijed dostupnih varijabli i račun in-sample R-kvadrata i RMSE-a kao mjera pristajanja.",
+          "required_evidence": "Prompt isključuje poslijeishodne prediktore, a kod dosljedno rabi ishod i prilagođene vrijednosti istoga modela."
+        },
+        {
+          "component_id": "locate-error-line",
+          "required_claim": "Pogreška se vidi u retku `pogreska <- ... fitted(model)`, jer se opaženi ishodi `uzorak` uspoređuju s predviđanjima modela procijenjenoga na `uzorak`.",
+          "required_evidence": "Nema argumenta `newdata` ni prethodno izdvojena skupa; i R-kvadrat je iz istoga prilagođavanja."
+        },
+        {
+          "component_id": "explain-plausibility",
+          "required_claim": "Brojke izgledaju uvjerljivo jer najmanji kvadrati minimiziraju trening-SSE, a dodatni prediktori mogu samo zadržati ili povećati trening-R-kvadrat.",
+          "required_evidence": "RMSE je sqrt(SSE/n), a R-kvadrat 1 − SSE/SST na istim redcima."
+        },
+        {
+          "component_id": "state-revised-conclusion",
+          "required_claim": "Ispis pokazuje pristajanje modela na skupu za učenje; o novim korisnicima ne daje zaključak dok se ista mjera ne izračuna na unaprijed izdvojenim redcima.",
+          "required_evidence": "Zaključak izričito povlači preporuku za primjenu i čuva samo opis trening-skupa."
+        },
+        {
+          "component_id": "distinguish-from-future-leakage",
+          "required_claim": "Pogreška nije curenje iz budućnosti jer su svi prediktori po zadanoj vremenskoj granici dostupni prije ishoda; riječ je o pogrešnoj validaciji.",
+          "required_evidence": "Audit razlikuje trenutak mjerenja prediktora od identiteta redaka za ocjenu."
+        }
+      ]
+    },
+    "numerical_check": {
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "Oba broja rabe istih n trening-redaka i nula odvojenih redaka. Algebra daje RMSE = sqrt(SSE/n) i R-kvadrat = 1 − SSE/SST na skupu za učenje; smanjenje SSE-a zato istodobno smanjuje trening-RMSE i povećava trening-R-kvadrat.",
+      "tolerance_or_acceptance_rule": "Traži se točan odnos dviju mjera prema istom SSE-u, nula odvojenih redaka i zaključak ograničen na pristajanje. Ne prihvatiti izmišljene vrijednosti izlaza jer konkretni objekt `uzorak` nije dio prompta.",
+      "independent_method": "Iz definicija dviju mjera izvesti njihov zajednički rezidualni zbroj kvadrata i neovisno provjeriti iz koda da su redci za procjenu i ocjenu identični; zatim usporediti s odvojenom simulacijom poglavlja u kojoj bogati model ima manji trening-RMSE 1,647113, ali veći provjerni RMSE 2,061988.",
+      "evidence_reference": "chapters/16-regresija.qmd#ex-16-revizija-modela-01"
+    },
+    "severity_ranked_rubric": {
+      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "criteria": [
+        {
+          "criterion_id": "fatal-misses-training-validation",
+          "severity": "fatal",
+          "description": "Odgovor zadržava preporuku za nove korisnike, ne pronalazi ponovnu uporabu `uzorak` ili fatalnom proglašava drugi ispravan dio artefakta.",
+          "observable_evidence": "Jedina posađena pogreška nije zatvorena."
+        },
+        {
+          "criterion_id": "major-omits-plausibility-or-supported-claim",
+          "severity": "major",
+          "description": "Trening-procjena je pronađena, ali nije objašnjeno zašto brojke izgledaju dobro ili što isti ispis ipak podupire.",
+          "observable_evidence": "Nedostaje veza s najmanjim kvadratima ili ograničeni zaključak o pristajanju."
+        },
+        {
+          "criterion_id": "minor-confuses-future-leakage",
+          "severity": "minor",
+          "description": "Glavna revizija stoji, ali odgovor također tvrdi da unaprijed dostupni prediktori cure iz budućnosti.",
+          "observable_evidence": "Vremenska i validacijska granica nisu potpuno razdvojene."
+        },
+        {
+          "criterion_id": "useful-proposes-nested-validation",
+          "severity": "useful_improvement",
+          "description": "Odgovor dodatno zahtijeva da i izbor prediktora ili modela ostane unutar trening-dijela odvojene ili ugniježđene provjere.",
+          "observable_evidence": "Spriječena je posredna uporaba provjernih ishoda pri izboru modela."
+        }
+      ]
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "audit-table-format",
+      "description": "Revizija se smije predati kao tablica s redovima ispravno, fatalno, zašto uvjerljivo, poduprt zaključak i vremenska granica.",
+      "acceptance_boundary": "Tablica mora zatvoriti isti planted-error ID kao callout, imenovati redak s `fitted(model)` i ne smije zahtijevati pisanje zamjenskoga koda."
+    }
+  ],
+  "instructor_notes": [
+    "Jedina fatalna pogreška jest ocjena na skupu za učenje. Izbor prediktora, sintaksa i vremenska dostupnost nisu posađeni nedostaci.",
+    "Prihvatiti odvojeni testni skup ili pravilno ugniježđenu unakrsnu provjeru kao popravak u prozi; ne ocjenjuje se kod."
+  ],
+  "visibility_contract": "D06-two-layer-v1",
+  "human_responsibility": {
+    "judgment_owner": "student_or_submitting_author",
+    "verification_required": true,
+    "code_production_assessed": false
+  }
+}
