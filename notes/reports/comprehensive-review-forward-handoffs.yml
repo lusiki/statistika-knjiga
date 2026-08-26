@@ -2569,7 +2569,29 @@ handoffs:
           - "report:notes/reports/p5-f-2026-08-26.md"
       - target_packet: P6-EVIDENCE
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        acknowledgement: >-
+          P6-EVIDENCE prihvaća D15 isključivo kao vlastitu datiranu politiku
+          kolegija uz udžbenik, inačicu 1.0 od 2026-08-04. Hrvatsko katoličko
+          sveučilište navodi se samo kao matična ustanova kolegija, ne kao
+          izdavatelj vanjskoga propisa. Paket neće izmisliti naslov, poveznicu,
+          inačicu ni jamstvo vanjskoga pravnog, institucijskog ili proizvodnog
+          izvora; potreba za novim vanjskim izvorom vraća se vlasniku.
+        disposition: >-
+          Dostava je potrošena na vratima before_start prije prvoga
+          sadržajnoga zahvata. Njezina zasebna obveza ostaje audit svake pravne,
+          institucijske i proizvodne tvrdnje prema izvoru i datumu; prolaz
+          svježine P5-F ni prihvaćeni status P6-CONTINUITY neće biti zamjena za
+          taj audit.
+        evidence:
+          - "decision:D15"
+          - "report:notes/reports/g-a2d-policy-decisions-2026-08-04.md"
+          - "source:dodaci/f-ai-protokol.qmd#politika-kolegija"
+          - "boundary:course-policy-v1.0-as-of-2026-08-04-not-university-regulation"
+          - "boundary:no-invented-external-policy-title-link-version-or-guarantee"
+          - "check:scripts/check-review-workflow.R-before-P6-EVIDENCE-claim"
       - target_packet: WE-C18
         gate: before_start
         state: consumed
@@ -8142,7 +8164,33 @@ handoffs:
     deliveries:
       - target_packet: P6-EVIDENCE
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        acknowledgement: >-
+          P6-EVIDENCE drži ovaj dokaz odvojeno od obiju before_start dostava.
+          Oba ParlaSent ključa i podržane tvrdnje Poglavlja 18 ostaju
+          nepromijenjeni dok se službeni repozitorijski i zbornički zapisi
+          ponovno ne provjere. Dostava se neće potrošiti prije vlastitoga testa
+          tipa zapisa, citatne provjere i zahvaćenih rendera.
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Službeni CLARIN.SI zapis 11356/1868 i ACL Anthology zapis
+          2024.lrec-main.1393 ponovno su provjereni. Oba ključa i podržane
+          tvrdnje Poglavlja 18 ostaju isti. Aktivni validirani bibliografski put
+          nema tip dataset, pa je mochtak2023 omeđeno tipiziran kao misc, a
+          mochtakparlasent2024 kao inproceedings s nazivom zbornika, stranicama,
+          izdavačem i službenim URL-om. Citatni provjerivač i izolirani citeproc
+          render nepromijenjenoga Poglavlja 18 prolaze; puni projektni render
+          staje prije poglavlja na zasebnom H-P5-VERIFY-007 LF/CRLF kvaru.
+        evidence:
+          - "source:references.bib#mochtak2023"
+          - "source:references.bib#mochtakparlasent2024"
+          - "official:https://www.clarin.si/repository/xmlui/handle/11356/1868"
+          - "official:https://aclanthology.org/2024.lrec-main.1393/"
+          - "check:CITATION_INTEGRITY_OK-files-39-live-keys-49-records-49"
+          - "render:isolated-citeproc-Chapter18-exit-0-both-ParlaSent-keys-resolved"
+          - "boundary:Chapter18-source-and-supported-claims-unchanged"
+          - "boundary:full-targeted-render-blocked-before-Chapter18-by-existing-H-P5-VERIFY-007"
 
   H-P5-CLOSURE-00-001:
     source_packet: P5-CLOSURE-00
@@ -8960,7 +9008,26 @@ handoffs:
     deliveries:
       - target_packet: P6-EVIDENCE
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        acknowledgement: >-
+          P6-EVIDENCE prihvaća zastarjeli hash izvora P5-F kao zaseban kvar
+          `B-P5V-F`. Zabilježene tri trake, osam koraka i 95 sigurnih ruta nisu
+          dokaz svježine, a prihvaćeni status P5-F nije zamjena za ponovnu
+          izgradnju i paketni test na konačnom izvoru.
+        disposition: >-
+          Dostava je potrošena na vratima before_start uz obvezu omeđenoga
+          pomirenja samo generiranoga artefakta `appendix-f-ai-route.json`,
+          zatim zasebnoga clean-regeneration testa. Konačna dispozicija bit će
+          vezana uz deklarirano P6-EVIDENCE izvorno stanje; sadržajna granica
+          P5-F ostaje nepromijenjena.
+        evidence:
+          - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+          - "report:notes/reports/p5-verification-2026-08-26.md#matrica-27-imenovanih-preduvjeta"
+          - "artifact:config/appendix-f-ai-route.json"
+          - "check:scripts/check-appendix-f.py-required-after-regeneration"
+          - "boundary:content-counts-are-not-freshness-proof"
 
   H-P5-VERIFY-005:
     source_packet: P5-VERIFY
@@ -9299,6 +9366,269 @@ handoffs:
     required: true
     deliveries:
       - target_packet: P6-DATA
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-001:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - item:R24-BOOK-dated-product-claims
+      - finding:F-P6E-P01
+      - source:uci-s-ai.qmd-lines-21-24
+    statement: >-
+      Javna stranica Uči uz AI univerzalno tvrdi da sve radi u korisnikovu
+      asistentu bez prijave i troška. Tvrdnja nema datum ni službeni izvor i ne
+      može se izvesti iz dostupnosti knjižnih tekstualnih izvoza.
+    required_action: >-
+      P6-STYLE mora zasebno suziti tvrdnju na dokazivu knjižnu funkciju. Ako se
+      želi zadržati vanjska tvrdnja o proizvodu ili usluzi, paket mora stati i
+      vratiti je imenovanom vlasniku službenoga, datiranoga product-source
+      dokaza; ne smije izmisliti proizvod, inačicu, poveznicu ni cijenu.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-major-P01"
+      - "report:notes/reports/p6-evidence-2026-08-26.md#aktualne-pravne-institucijske-i-proizvodne-tvrdnje"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-002:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - item:R24-BOOK-dated-product-claims
+      - finding:F-P6E-P02
+      - source:dodaci/a-praktikum.qmd-lines-79-88
+    statement: >-
+      Dodatak A bez inačice, datuma i službenoga izvora tvrdi da su Positron i
+      RStudio iz istoga razvojnog tima i besplatni te da dijele isti tijek i
+      prečac sučelja. To su četiri aktualne proizvodne tvrdnje, zasebne od
+      datiranoga jamovi puta Dodatka B.
+    required_action: >-
+      P6-STYLE i vlasnik Dodatka A moraju zasebno presuditi vlasništvo, cijenu,
+      tijek i prečac: vezati zadržane tvrdnje uz službenu inačicu i datum ili ih
+      svesti na sučelju neovisan postupak. Nedostajući vanjski dokaz ne smije se
+      pogoditi.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-major-P02"
+      - "boundary:Appendix-B-versioned-jamovi-route-is-a-separate-pass"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-003:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - item:R24-BOOK-dated-legal-claims
+      - finding:F-P6E-L01
+      - source:index.qmd-lines-47-63
+    statement: >-
+      Naslovnica objavljuje aktualne akademske titule i institucijske afilijacije
+      obaju autora bez as-of datuma i provjerljivoga institucijskog izvora.
+      Vlastita D15 politika ne dokazuje te zasebne javne statusne tvrdnje.
+    required_action: >-
+      P6-STYLE smije suziti ili ukloniti trenutni status. Zadržavanje traži novu,
+      datiranu dispoziciju autora/editora i course-or-institutional ownera sa
+      službenim izvorom; paket ne smije proizvesti potvrdu iz D15 zapisa.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-major-L01"
+      - "boundary:D15-course-policy-is-not-affiliation-evidence"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-004:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-DATA
+      - item:R24-BOOK-dated-legal-claims
+      - finding:F-P6E-L02
+      - registry:data/katalog.yml-lines-1700-1705
+      - source:dodaci/c-katalog-podataka.qmd-lines-734-739
+    statement: >-
+      DIP etička putovnica tvrdi da zakon određuje izborne kategorije, da
+      registar određuje nazivnik, da je glas tajan i da je izborni prigovor
+      zakonski postupak. Nijedna od četiri pravne tvrdnje nema imenovan i
+      datiran pravni izvor.
+    required_action: >-
+      P6-DATA mora svaku tvrdnju zasebno suziti na svojstvo koje je stvarno
+      opažljivo u službenoj DIP tablici ili za zadržanu pravnu tvrdnju stati i
+      pribaviti novu dispoziciju legal/institutional source ownera. Zatim mora
+      regenerirati obje javne projekcije; ne smije pogoditi naziv propisa.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-major-L02"
+      - "boundary:no-invented-external-policy-title-link-or-version"
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-005:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-DATA
+      - item:R24-BOOK-dated-legal-claims
+      - finding:F-P6E-L03
+      - registry:data/katalog.yml-lines-2536-2541
+      - source:dodaci/c-katalog-podataka.qmd-lines-1468-1473
+    statement: >-
+      Kandidatski kataloški zapis pripisuje vlasništvo kategorija pružatelju i
+      regulatoru te spominje prigovor iako sam zapis nema odabran točan izvor.
+      Taj kvar nije DIP kvar i ne smije se zatvoriti njegovom dispozicijom.
+    required_action: >-
+      P6-DATA mora zasebno suziti zapis na dokumentirana svojstva ili ga vratiti
+      novom vlasniku imenovanoga, datiranoga izvora. Obje javne projekcije moraju
+      se potom regenerirati iz kanonskoga kataloga.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-major-L03"
+      - "boundary:separate-from-DIP-and-state-aid-findings"
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-006:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-DATA
+      - item:R24-BOOK-dated-legal-claims
+      - finding:F-P6E-L04
+      - registry:data/katalog.yml-lines-3313-3326
+      - source:dodaci/c-katalog-podataka.qmd-lines-1736-1741
+    statement: >-
+      Zapis državnih potpora pripisuje kategorije regulatoru i europskom okviru
+      te opisuje žalbu bez imenovanoga, datiranoga pravnog izvora. To je zaseban
+      kvar od DIP-a i neimenovanoga pružatelja.
+    required_action: >-
+      P6-DATA mora tvrdnje svesti na dokumentirana svojstva skupa ili za zadržani
+      pravni opis stati i dobiti novu dispoziciju pravnoga/institucijskog
+      vlasnika. Ne smije izmišljati propis, naslov, inačicu ili poveznicu.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-major-L04"
+      - "boundary:separate-from-DIP-and-provider-regulator-findings"
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-007:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - finding:F-P6E-C01
+      - source:index.qmd-lines-68-83
+      - registry:config/book-inventory.json
+    statement: >-
+      Naslovnica oglašava šest dodataka, a kanonski inventar i živa arhitektura
+      imaju sedam dodataka A-G. Nalaz je izvan registriranoga opsega
+      R06-BOOK-h7-anchors i zato ne mijenja njegov zaseban prolaz.
+    required_action: >-
+      P6-STYLE odnosno landing owner mora javni broj uskladiti isključivo s
+      kanonskim inventarom i ponovno pokrenuti inventarnu provjeru. Taj popravak
+      ne zatvara nijedan proizvodni ili pravni nalaz.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-minor-C01"
+      - "check:BOOK_INVENTORY_OK-appendices-7"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-008:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: invalidation
+    refs:
+      - packet:P6-VERIFY
+      - packet:P7-CLEAN-BUILD
+      - source:references.bib
+      - artifact:config/appendix-g-numeracy-route.json
+      - check:scripts/check-appendix-g.py
+      - finding:F-P6E-G01
+    statement: >-
+      Obvezna korekcija tipova dvaju ParlaSent zapisa promijenila je
+      references.bib, koji je deklarirani ulaz Dodatka G. Puni ladder zato
+      ispravno nalazi zaseban zastarjeli Appendix-G hash. P6-EVIDENCE ga nije
+      prikrio rebuildom niti ga spojio s P5-F, P5-C ili LF/CRLF kvarovima.
+    required_action: >-
+      P6-VERIFY mora ovaj invalidacijski kvar držati vidljivim na svojoj
+      zasebnoj matrici. P7-CLEAN-BUILD mora iz čista stanja regenerirati i
+      dokazati Appendix-G artefakt nakon svih Phase-6 materijalnih promjena;
+      prolaz drugoga dodatka ili generatora nije zamjena.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "check:scripts/check-appendix-g.py-exit-1-route-artifact-is-stale"
+      - "boundary:caused-by-required-ParlaSent-bibliography-type-correction"
+    required: true
+    deliveries:
+      - target_packet: P6-VERIFY
+        gate: before_start
+        state: pending
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_start
+        state: pending
+
+  H-P6-EVIDENCE-009:
+    source_packet: P6-EVIDENCE
+    created_at: "2026-08-26"
+    kind: constraint
+    refs:
+      - packet:P6-PANELS
+      - handoff:H-P6-EVIDENCE-001
+      - handoff:H-P6-EVIDENCE-002
+      - handoff:H-P6-EVIDENCE-003
+      - handoff:H-P6-EVIDENCE-004
+      - handoff:H-P6-EVIDENCE-005
+      - handoff:H-P6-EVIDENCE-006
+      - handoff:H-P6-EVIDENCE-007
+    statement: >-
+      P6-EVIDENCE prihvaćen je kao audit i izvješće, ne kao dokaz popravka šest
+      velikih current-source kvarova ni zasebnoga pogrešnog broja dodataka.
+      Popravci P6-STYLE i P6-DATA mijenjat će materijalno stanje nakon ovoga
+      evidence čitanja.
+    required_action: >-
+      P6-PANELS mora na jednom konačnom stanju ponovno provjeriti F-P6E-P01,
+      P02, L01, L02, L03, L04 i C01 zasebno. Nijedan se nalaz ne smije zatvoriti
+      statusom P6-EVIDENCE, prolazom drugoga nalaza ili prihvaćanjem roditelja.
+    basis:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "review:critic-evidence-five-item-passes-two-item-fails"
+      - "contract:whole_book_review-major-findings-resolved-before-downstream-release-proof"
+    required: true
+    deliveries:
+      - target_packet: P6-PANELS
         gate: before_start
         state: pending
 
@@ -13338,4 +13668,38 @@ packet_reviews:
       - the full blocking ladder records the independent undeclared rjesenja.qmd catalogue consumer in H-P6-CONTINUITY-008 for P6-DATA without consuming that packet delivery
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P6-EVIDENCE is the sole next permitted packet but is not claimed inside P6-CONTINUITY
+      - no external message push merge tag archive deployment publication or release-proof claim is made or authorised
+  P6-EVIDENCE:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P6-EVIDENCE-001
+      - H-P6-EVIDENCE-002
+      - H-P6-EVIDENCE-003
+      - H-P6-EVIDENCE-004
+      - H-P6-EVIDENCE-005
+      - H-P6-EVIDENCE-006
+      - H-P6-EVIDENCE-007
+      - H-P6-EVIDENCE-008
+      - H-P6-EVIDENCE-009
+    no_other_outgoing_reason: >-
+      Svih šest velikih current-product/legal/institutional nalaza, zaseban
+      netočan broj dodataka, invalidirani Appendix-G hash i obveza svježe
+      završne evidence recenzije imaju poimence zapisane vlasnike. Postojeći
+      P6-FIGURES, P6-DATA i P7-CLEAN-BUILD kvarovi iz ranijih paketa nisu
+      potrošeni ni preuzeti. Nije pronađen drugi novi podatak, vlasnik, obveza
+      ili vratnica.
+    implementation_state: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+    checks:
+      - the initial state was active null last P6-CONTINUITY next P6-EVIDENCE and all P6-CONTINUITY handoff dispositions were independently rechecked
+      - H-G-A2D-005 and H-P5-VERIFY-004 were consumed separately before start and H-WE-C18-001 only at before close after its own official-source citation and render tests
+      - the report contains a 39-page source matrix 19-unit claim-boundary matrix 19-unit change-mind and sensitivity matrix and separate five-chapter evidence-object matrix
+      - R06-BOOK-h7-anchors R10-CLAIMS-application R17-BOOK-change-mind R19-SENSITIVITY-bookwide and R24-EVIDENCE-boundaries pass their own exact tests
+      - R24-BOOK-dated-product-claims remains ratified on two separate major findings and R24-BOOK-dated-legal-claims remains ratified on four separate major findings
+      - the fresh evidence critic reports no missing bibliography key and separately identifies every unresolved current-source defect without inventing an external title link version finding number or effect size
+      - P5-F was rebuilt and reproved on the final source with three lanes eight protocol steps and 95 of 95 safe routes while its prior accepted status was not used as freshness evidence
+      - both ParlaSent keys and Chapter 18 claims remain unchanged while mochtak2023 is misc and mochtakparlasent2024 is inproceedings on rechecked official CLARIN.SI and ACL records
+      - the full ladder passes all unaffected lanes and retains separate failures for the known P7 solution-route hash P6-FIGURES introduction P6-DATA catalogue paths and the newly recorded Appendix-G invalidation
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P6-FIGURES is the sole next permitted packet but is not claimed inside P6-EVIDENCE
       - no external message push merge tag archive deployment publication or release-proof claim is made or authorised

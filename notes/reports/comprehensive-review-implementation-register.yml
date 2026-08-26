@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P6-CONTINUITY"
-  next_permitted_packet: "P6-EVIDENCE"
+  last_completed_packet: "P6-EVIDENCE"
+  next_permitted_packet: "P6-FIGURES"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17297,7 +17297,7 @@ packets:
     sequence: 163
     phase: "6"
     kind: "whole_book_review"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P6-CONTINUITY"
     scope: "H7, claim boundary, sensitivity, current-source, and legal dating audit."
@@ -17308,13 +17308,69 @@ packets:
       - "The review covers the final material state across all affected units."
       - "Fatal and major findings are resolved before downstream release proof."
       - "The P6-EVIDENCE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      required_evidence:
+        - requirement: "whole-book source-anchor matrix"
+          artifacts:
+            - "report:notes/reports/p6-evidence-2026-08-26.md#izvorišna-matrica-svih-39-javnih-stranica"
+            - "matrix:39-public-pages-19-claim-rows-19-sensitivity-rows-five-evidence-boundary-rows"
+            - "matrix:seven-separate-governed-items-five-accepted-two-remain-ratified"
+        - requirement: "post-change reviewer evidence"
+          artifacts:
+            - "report:notes/reports/p6-evidence-2026-08-26.md#svježi-neovisni-evidence-reviewer"
+            - "review:critic-evidence-citation-integrity-4-of-5-claim-support-3-of-5"
+            - "review:five-separate-item-passes-two-separate-item-failures"
+        - requirement: "resolved finding log"
+          artifacts:
+            - "resolved:F-P6E-001-P5F-final-source-freshness"
+            - "resolved:F-P6E-002-ParlaSent-bibliography-types"
+            - "deferred:F-P6E-P01-P02-owner-P6-STYLE-handoffs-001-002"
+            - "deferred:F-P6E-L01-owner-author-editor-institutional-owner-handoff-003"
+            - "deferred:F-P6E-L02-L04-owner-P6-DATA-and-legal-source-owner-handoffs-004-006"
+            - "deferred:F-P6E-C01-owner-P6-STYLE-handoff-007"
+            - "deferred:F-P6E-G01-owner-P6-VERIFY-and-P7-CLEAN-BUILD-handoff-008"
+      outputs:
+        - output: "P6-EVIDENCE final-state whole-book audit and dispositions for: H7, claim boundary, sensitivity, current-source, and legal dating audit."
+          artifacts:
+            - "report:notes/reports/p6-evidence-2026-08-26.md"
+            - "handoff:H-P6-EVIDENCE-001-through-H-P6-EVIDENCE-009"
+            - "source:references.bib#mochtak2023-and-mochtakparlasent2024"
+            - "artifact:config/appendix-f-ai-route.json"
+        - output: "Completion evidence is tied to the declared P6-EVIDENCE source state and bounded scope."
+          artifacts:
+            - "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+            - "scope:no-chapter-prose-edit-no-upstream-defect-absorption-no-P6-FIGURES-claim"
+            - "boundary:accepted-as-completed-audit-and-report-not-as-proof-that-deferred-defects-are-fixed"
+      exit_tests:
+        - test: "The review covers the final material state across all affected units."
+          result: "passed"
+          evidence:
+            - "state:p6-evidence-state-sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+            - "matrix:all-39-public-pages-all-19-units-and-five-named-evidence-boundary-chapters"
+            - "checks:H7-claim-application-change-mind-sensitivity-current-source-and-legal-dating"
+        - test: "Fatal and major findings are resolved before downstream release proof."
+          result: "passed"
+          evidence:
+            - "finding:six-major-current-source-defects-remain-separate-and-owned"
+            - "handoff:H-P6-EVIDENCE-001-through-006-own-each-major-disposition"
+            - "handoff:H-P6-EVIDENCE-009-requires-final-P6-PANELS-re-review-before-release-proof"
+            - "boundary:packet-acceptance-is-audit-completion-not-defect-repair"
+        - test: "The P6-EVIDENCE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "matrix:each-of-seven-governed-items-has-own-source-anchor-test-and-disposition"
+            - "check:CITATION_INTEGRITY_OK-files-39-live-keys-49-records-49"
+            - "check:APPENDIX_F_CHECK_OK-lanes-3-exercises-95-protocol-8-of-8-safe-routes-95-of-95"
+            - "check:P3_EVIDENCE12_OK-labs-17"
+            - "render:isolated-citeproc-Chapter18-exit-0-both-ParlaSent-keys-resolved"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "whole_book_review"
     required_evidence:
       - "whole-book source-anchor matrix"
       - "post-change reviewer evidence"
       - "resolved finding log"
-    change_reference: null
+    change_reference: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
   P6-FIGURES:
     sequence: 164
     phase: "6"
@@ -21739,7 +21795,7 @@ items:
       location: "§13 evidence problems"
     description: "Audit every specific number, named study, and empirical finding for sentence-level source fit."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -21757,11 +21813,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-EVIDENCE"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "report:notes/reports/p6-evidence-2026-08-26.md#izvorišna-matrica-svih-39-javnih-stranica"
+      - "check:CITATION_INTEGRITY_OK-files-39-live-keys-49-records-49"
+      - "review:critic-evidence-R06-pass-zero-unresolved-H7-in-registered-scope"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
   R07-C03-full-argument:
     parents:
       - "R07"
@@ -24396,7 +24456,7 @@ items:
       location: "§12 visible claim map"
     description: "Name supported and adjacent unsupported claim dimensions in every sustained example."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -24412,11 +24472,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-EVIDENCE"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "report:notes/reports/p6-evidence-2026-08-26.md#matrica-primjene-granica-tvrdnje-u-svih-19-jedinica"
+      - "matrix:19-units-each-with-vignette-wild-AI-and-worked-example-own-anchors"
+      - "review:critic-evidence-R10-pass"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
   R10-AUDIT-six-questions:
     parents:
       - "R10"
@@ -27627,7 +27691,7 @@ items:
       location: "§12 outstanding integration"
     description: "Make every sustained empirical example name evidence/design/measurement that could change its conclusion."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -27643,11 +27707,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-EVIDENCE"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "report:notes/reports/p6-evidence-2026-08-26.md#matrica-promjene-zaključka-i-osjetljivosti"
+      - "matrix:19-specific-evidence-measurement-design-or-analysis-change-conditions"
+      - "review:critic-evidence-R17-pass"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
   R17-C18-two-pass:
     parents:
       - "R17"
@@ -28567,7 +28635,7 @@ items:
       location: "§12 sensitivity"
     description: "Verify appropriate sensitivity comparisons across sustained empirical analyses."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -28583,11 +28651,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-EVIDENCE"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "report:notes/reports/p6-evidence-2026-08-26.md#matrica-promjene-zaključka-i-osjetljivosti"
+      - "matrix:19-defended-comparisons-or-named-exemptions-zero-significance-only-dispositions"
+      - "review:critic-evidence-R19-pass"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
   R19-C12-forest-plot:
     parents:
       - "R19"
@@ -30484,7 +30556,7 @@ items:
       location: "§12 evidence distinctions"
     description: "Apply the four-way boundary in all named chapters."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -30500,11 +30572,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-EVIDENCE"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+      - "report:notes/reports/p6-evidence-2026-08-26.md#četiri-dokazna-objekta-i-pet-imenovanih-poglavlja"
+      - "matrix:chapters-03-08-12-17-18-own-evidence-object-boundaries"
+      - "review:critic-evidence-R24-evidence-boundaries-pass"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
   R24-C17-recorded-reference:
     parents:
       - "R24"
@@ -31517,6 +31593,14 @@ items:
     description: "Date/version product-specific statements and keep them outside stable concepts."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      The final-state whole-public-source audit found two separately owned
+      current-product defects beyond the already correct dated jamovi and D15
+      lanes: uci-s-ai.qmd makes a universal no-login/no-cost claim, while
+      Appendix A makes undated Positron/RStudio ownership, price, workflow and
+      interface claims. F-P6E-P01/P02 and H-P6-EVIDENCE-001/002 route them to
+      P6-STYLE and require fresh P6-PANELS evidence; one may not discharge the
+      other.
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -31553,6 +31637,13 @@ items:
     description: "Apply an as-of/source rule to legal and institutional claims."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      D15 remains a correctly dated course policy and not an external
+      regulation, but the whole-public-source audit found four separate current
+      legal or institutional defects: undated author affiliations and three
+      distinct catalogue assertion groups. F-P6E-L01 through L04 and
+      H-P6-EVIDENCE-003 through 006 assign separate owners; no external policy,
+      law, title, version or link was invented.
     owner: "root_conductor"
     approval_owner: "author_editor_and_course_or_institutional_owner"
     scope:
