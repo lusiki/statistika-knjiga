@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P6-EVIDENCE"
-  next_permitted_packet: "P6-FIGURES"
+  last_completed_packet: "P6-FIGURES"
+  next_permitted_packet: "P6-STYLE"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17375,7 +17375,7 @@ packets:
     sequence: 164
     phase: "6"
     kind: "whole_book_review"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P6-EVIDENCE"
     scope: "Figure introductions, captions, alt text, widgets, and print twins."
@@ -17386,13 +17386,64 @@ packets:
       - "The review covers the final material state across all affected units."
       - "Fatal and major findings are resolved before downstream release proof."
       - "The P6-FIGURES packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817"
+      required_evidence:
+        - requirement: "whole-book source-anchor matrix"
+          artifacts:
+            - "report:notes/reports/p6-figures-2026-08-26.md#izvorišna-matrica-svih-43-konceptualnih-slika"
+            - "matrix:43-conceptual-figures-60-source-variants-59-labelled-chunks-one-figure-div"
+            - "matrix:17-widget-html-and-static-print-pairs"
+        - requirement: "post-change reviewer evidence"
+          artifacts:
+            - "report:notes/reports/p6-figures-2026-08-26.md#svježi-neovisni-reviewer"
+            - "review:critic-structure-10-of-10-figure-introductions-5-of-5"
+            - "review:zero-fatal-zero-major-zero-minor-on-exact-declared-state"
+        - requirement: "resolved finding log"
+          artifacts:
+            - "resolved:F-P6F-INTRO-01-D10-reminder-preserved-and-fig-pravac-introduction-restored"
+            - "resolved:F-P6F-RNG-01-w05-live-and-adapter-stream-equivalence"
+            - "resolved:F-P6F-RNG-02-six-other-normal-stream-contracts-revalidated"
+            - "resolved:F-P6F-META-01-caption-alt-and-static-twin-gate"
+      outputs:
+        - output: "P6-FIGURES final-state whole-book audit and dispositions for: Figure introductions, captions, alt text, widgets, and print twins."
+          artifacts:
+            - "report:notes/reports/p6-figures-2026-08-26.md"
+            - "source:chapters/16-regresija.qmd#podsjetnik-nagib-and-fig-pravac"
+            - "registry:data/widgets.json#normal-stream-contracts-w05-w09-w10-w11-w14-w16-w17"
+            - "checks:scripts/check-figure-contracts.py-and-scripts/check-widget-parity.py"
+        - output: "Completion evidence is tied to the declared P6-FIGURES source state and bounded scope."
+          artifacts:
+            - "p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817"
+            - "scope:no-D10-removal-no-prose-claim-change-no-tolerance-widening"
+            - "boundary:no-browser-PDF-DOCX-or-release-proof-claim"
+      exit_tests:
+        - test: "The review covers the final material state across all affected units."
+          result: "passed"
+          evidence:
+            - "state:p6-figures-state-sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817"
+            - "check:FIGURE_INTRO_OK-debt-0-unexpected-0-stale-0"
+            - "check:FIGURE_CONTRACTS_OK-conceptual-43-labelled-59-divs-1-widget-pairs-17"
+            - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+        - test: "Fatal and major findings are resolved before downstream release proof."
+          result: "passed"
+          evidence:
+            - "review:zero-fatal-zero-major-zero-minor"
+            - "findings:F-P6F-INTRO-01-RNG-01-RNG-02-META-01-resolved-separately"
+            - "boundary:artifact-proofs-remain-with-existing-P7-owners"
+        - test: "The P6-FIGURES packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "matrix:each-of-43-conceptual-figures-has-own-source-anchor-and-disposition"
+            - "fixtures:figure-contract-3-widget-parity-8-integrity-7-pass-closed"
+            - "style:changed-chapters-zero-lint-candidates-and-complete-manual-read"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "whole_book_review"
     required_evidence:
       - "whole-book source-anchor matrix"
       - "post-change reviewer evidence"
       - "resolved finding log"
-    change_reference: null
+    change_reference: "p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817"
   P6-STYLE:
     sequence: 165
     phase: "6"

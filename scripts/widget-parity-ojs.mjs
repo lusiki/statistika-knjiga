@@ -196,7 +196,9 @@ function w04(parameters) {
 function w05(parameters) {
   const p = parameters.scenarios[0];
   const rng = lcg(p.seed);
-  const randomNormal = normal(rng, 0, p.noise_sd);
+  const randomNormal = fixture === "w05-cached-normal"
+    ? normalCached(rng, 0, p.noise_sd)
+    : normal(rng, 0, p.noise_sd);
   const rows = Array.from({length: p.n}, (_, i) => {
     const group = i < p.n / 2 ? "a" : "b";
     const x = 1 + (i % (p.n / 2)) * 9 / (p.n / 2 - 1);

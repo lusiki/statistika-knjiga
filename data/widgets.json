@@ -117,15 +117,16 @@
       "parity": {
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 72, "seed": 505, "noise_sd": 0.85, "group_shift": 0.8}]},
-        "seed_policy": {"ojs": "d3.randomLcg(505) i d3.randomNormal", "r": "set.seed(505) i rnorm", "shared": "Razliciti RNG-ovi daju razlicite tocke, ali isti model i fiksne zlatne sazetke po adapteru."},
+        "seed_policy": {"ojs": "Zivi izvor i adapter rabe d3.randomLcg(505) i isti eksplicitni necachirajuci Marsaglia-polar generator", "r": "set.seed(505) i rnorm", "shared": "Zivi OJS i proizvodni OJS adapter trose isti necachirani normalni niz; R ima zasebne zlatne vrijednosti i distribucijsku usporedbu."},
+        "normal_stream_contract": {"generator": "marsaglia-polar-noncaching-v1", "live_adapter_relation": "same-seed-same-draw-order", "golden_kind": "actual-execution", "cache_asymmetry_fixture": "w05-normal-cache-asymmetry"},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.overall_mean": 0.35, "default.overall_sd": 0.35, "default.group_a_mean": 0.4, "default.group_b_mean": 0.4, "default.group_difference": 0.45, "default.slope": 0.2}},
         "expected": {
           "ojs": {"default.overall_mean": 4.848658241294558, "default.overall_sd": 1.729298778863879, "default.group_a_mean": 4.396669556331336, "default.group_b_mean": 5.300646926257778, "default.group_difference": 0.9039773699264417, "default.slope": 0.5299682799158235},
           "r": {"default.overall_mean": 4.857675415894299, "default.overall_sd": 2.03700005261924, "default.group_a_mean": 4.405291774263405, "default.group_b_mean": 5.3100590575251925, "default.group_difference": 0.9047672832617879, "default.slope": 0.6705542669005967}
         },
         "adapters": {"ojs": "scripts/widget-parity-ojs.mjs#w05", "r": "scripts/widget-parity-r.R#w05"},
-        "source": {"ojs_label": "fig-w05", "r_label": "fig-w05-print", "ojs_sha256": "602c13e3ccd0970e24989b4ae98e2ab1ee80ad704f44329731a0572803d41efa", "r_sha256": "24ec2a586998042926d8f19f020ddb73fea25704e5f7ee6036c1d484bba9077c"},
-        "claim_boundary": "Isti simulacijski model, skupinske sredine, rasprsenost i pozitivan nagib; ne zahtijeva jednake retke, histogram ili jitter."
+        "source": {"ojs_label": "fig-w05", "r_label": "fig-w05-print", "ojs_sha256": "a53e863bbac1e4fefd11b82674d79c5742aada1122d59442b564fc491fb43a72", "r_sha256": "24ec2a586998042926d8f19f020ddb73fea25704e5f7ee6036c1d484bba9077c"},
+        "claim_boundary": "Zivi OJS i njegov adapter imaju tocno istu nekesiranu normalnu putanju i zlatne vrijednosti. OJS i R dijele simulacijski model, skupinske sredine, rasprsenost i pozitivan nagib, ali ne moraju imati jednake retke, histogram ili jitter."
       },
       "naziv": "Isti podaci, četiri grafa",
       "poglavlje": "chapters/05-vizualizacija.qmd",
@@ -230,6 +231,7 @@
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 40, "critical": 1.96, "intervals": 50, "seed": 908, "r_seed": 909}]},
         "seed_policy": {"ojs": "d3.randomLcg(908) i eksplicitni Marsaglijin polarni generator bez pohrane drugoga parnjaka", "r": "set.seed(909) i rnorm", "shared": "OJS uzivo i OJS adapter trose potpuno isti tok; razlicito R sjeme dio je izvora, zlatni broj pogodaka ostaje zaseban, a obuhvat se usporeduje distribucijski."},
+        "normal_stream_contract": {"generator": "marsaglia-polar-noncaching-v1", "live_adapter_relation": "same-seed-same-draw-order", "golden_kind": "actual-execution", "cache_asymmetry_fixture": "normal-cache-asymmetry"},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.coverage_rate": 0.15, "default.mean_width": 1e-10, "default.mean_estimate": 0.2}},
         "expected": {
           "ojs": {"default.coverage_rate": 0.96, "default.mean_width": 0.6198064213930023, "default.mean_estimate": -0.01783690823480316},
@@ -258,6 +260,7 @@
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 60, "effect": 0.35, "threshold": 0.05, "repetitions": 4000, "seed": 1010}]},
         "seed_policy": {"ojs": "d3.randomLcg(1010), eksplicitni Marsaglijin polarni generator bez pohrane drugoga parnjaka i aproksimacija normalnog CDF-a", "r": "set.seed(1010), rnorm i pnorm", "shared": "Zivi OJS izvor i OJS adapter trose potpuno isti tok; analiticke normalne p-vrijednosti imaju zasebne zlatne stope po adapteru."},
+        "normal_stream_contract": {"generator": "marsaglia-polar-noncaching-v1", "live_adapter_relation": "same-seed-same-draw-order", "golden_kind": "actual-execution", "cache_asymmetry_fixture": "w10-normal-cache-asymmetry"},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.null_rejection_rate": 0.04, "default.effect_rejection_rate": 0.04, "default.null_p_mean": 0.04, "default.effect_p_mean": 0.04}},
         "expected": {
           "ojs": {"default.null_rejection_rate": 0.05325, "default.effect_rejection_rate": 0.48425, "default.null_p_mean": 0.4956705464020087, "default.effect_p_mean": 0.15944903402757546},
@@ -286,6 +289,7 @@
         "classification": "distributional",
         "parameters": {"effects": [0.2, 0.4, 0.6], "report_n": [40, 80, 160, 300], "threshold": 0.05, "repetitions": 2000, "seed": 1111, "r_seed": 1111},
         "seed_policy": {"ojs": "Zivi izvor i adapter rabe d3.randomLcg(1111) i isti eksplicitni necachirajuci Marsaglia-polar generator; tok se ponavlja za svaku krivulju i ukljucuje n=10", "r": "jedan set.seed(1111) kroz d=0,2/0,4/0,6 i n=20..300", "shared": "Svaka krivulja ima zasebne zlatne Monte Carlo tocke; usporeduje se snaga na unaprijed zadanim n."},
+        "normal_stream_contract": {"generator": "marsaglia-polar-noncaching-v1", "live_adapter_relation": "same-seed-same-draw-order", "golden_kind": "actual-execution", "cache_asymmetry_fixture": "w11-normal-cache-asymmetry"},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*.power": 0.06, "d0.2.first_n_80": 0, "d0.4.first_n_80": 30, "d0.6.first_n_80": 30}, "invariants": [{"adapter": "both", "left": "d0.6.n80.power", "operator": ">", "right": "d0.4.n80.power"}, {"adapter": "both", "left": "d0.4.n80.power", "operator": ">", "right": "d0.2.n80.power"}]},
         "expected": {
           "ojs": {"d0.2.n40.power": 0.1475, "d0.2.n80.power": 0.248, "d0.2.n160.power": 0.4385, "d0.2.n300.power": 0.691, "d0.2.first_n_80": null, "d0.4.n40.power": 0.4375, "d0.4.n80.power": 0.7315, "d0.4.n160.power": 0.9455, "d0.4.n300.power": 0.9985, "d0.4.first_n_80": 100, "d0.6.n40.power": 0.7605, "d0.6.n80.power": 0.9635, "d0.6.n160.power": 1, "d0.6.n300.power": 1, "d0.6.first_n_80": 50},
@@ -370,6 +374,7 @@
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "independent", "design": "independent", "n": 50, "difference": 5, "sd": 10}, {"id": "paired", "design": "paired", "n": 50, "difference": 5, "sd": 10}], "correlation": 0.65, "seed": 1414, "r_seed": 1414, "ojs_repetitions": 1500, "r_repetitions": 4000},
         "seed_policy": {"ojs": "d3.randomLcg(1414) i necachirana Marsaglia-polarna normala ponavljaju se po dizajnu nakon jednog prikazanog uzorka", "r": "jedan set.seed(1414) za 4000 neovisnih pa 4000 uparenih procjena", "shared": "Zivi OJS i produkcijski adapter trose isti necachirani polarni tok; teorijske standardne pogreske su tocne, a simulirane sredine i SD imaju zasebne zlatne vrijednosti."},
+        "normal_stream_contract": {"generator": "marsaglia-polar-noncaching-v1", "live_adapter_relation": "same-seed-same-draw-order", "golden_kind": "actual-execution", "cache_asymmetry_fixture": "w14-normal-cache-asymmetry"},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"independent.theoretical_se": 1e-10, "paired.theoretical_se": 1e-10, "independent.estimate_mean": 0.15, "paired.estimate_mean": 0.15, "independent.estimate_sd": 0.15, "paired.estimate_sd": 0.15, "se_ratio": 1e-10}, "invariants": [{"adapter": "both", "left": "paired.theoretical_se", "operator": "<", "right": "independent.theoretical_se"}]},
         "expected": {
           "ojs": {"independent.theoretical_se": 2, "independent.estimate_mean": 4.972878241219766, "independent.estimate_sd": 2.031018899064352, "paired.theoretical_se": 1.1832159566199232, "paired.estimate_mean": 4.983954551119823, "paired.estimate_sd": 1.2015669847847852, "se_ratio": 0.5916079783099616},
@@ -425,6 +430,7 @@
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "n": 52, "seed": 1616, "user_intercept": 10, "user_slope": 4.5}]},
         "seed_policy": {"ojs": "d3.randomLcg(1616) i eksplicitni Marsaglia-polar generator bez spremanja drugog para, s isprepletenim izvlacima po jedinici", "r": "set.seed(1616) i tri uzastopna vektora rnorm", "shared": "Zivi OJS i proizvodni OJS adapter trose isti nekesirani normalni niz i imaju iste zlatne koeficijente i SSE; R ima zasebne zlatne vrijednosti i distribucijsku usporedbu."},
+        "normal_stream_contract": {"generator": "marsaglia-polar-noncaching-v1", "live_adapter_relation": "same-seed-same-draw-order", "golden_kind": "actual-execution", "cache_asymmetry_fixture": "w16-normal-cache-asymmetry"},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"default.aggregate_intercept": 3.0, "default.aggregate_slope": 0.6, "default.adjusted_slope": 0.6, "default.user_to_minimum_ratio": 0.5}, "invariants": [{"adapter": "both", "left": "default.user_sse", "operator": ">=", "right": "default.sse_minimum"}, {"adapter": "both", "left": "default.aggregate_slope", "operator": ">", "right": "default.adjusted_slope"}]},
         "expected": {
           "ojs": {"default.aggregate_intercept": 8.6871215720568, "default.aggregate_slope": 4.797800043204114, "default.adjusted_slope": 2.0417289469737767, "default.sse_minimum": 1540.0663961918815, "default.user_sse": 1562.0323507483897, "default.user_to_minimum_ratio": 1.0142629919143897},
@@ -452,6 +458,7 @@
         "classification": "distributional",
         "parameters": {"scenarios": [{"id": "default", "threshold": 0.6, "base_rate_a": 0.2, "base_rate_b": 0.45, "n_per_class": 6000, "seed": 1717}]},
         "seed_policy": {"ojs": "Zivi izvor i adapter rabe d3.randomLcg(1717) i isti eksplicitni necachirajuci Marsaglia-polar generator, uz ogranicenje na [0,1]", "r": "set.seed(1717), rnorm i ogranicenje na [0,1]", "shared": "Zivi OJS i proizvodni OJS adapter trose isti necachirani normalni niz; R ima zasebne zlatne vrijednosti, a izvedena mjerila usporeduju se distribucijski."},
+        "normal_stream_contract": {"generator": "marsaglia-polar-noncaching-v1", "live_adapter_relation": "same-seed-same-draw-order", "golden_kind": "actual-execution", "cache_asymmetry_fixture": "w17-normal-cache-asymmetry"},
         "tolerance": {"golden_absolute": 1e-10, "pair_absolute": {"*": 0.03}, "invariants": [{"adapter": "both", "left": "default.group_b.ppv", "operator": ">", "right": "default.group_a.ppv"}]},
         "expected": {
           "ojs": {"default.fpr": 0.051333333333333335, "default.fnr": 0.2966666666666667, "default.group_a.ppv": 0.7740278796771827, "default.group_a.accuracy": 0.8996000000000001, "default.group_b.ppv": 0.918100947592342, "default.group_b.accuracy": 0.8382666666666667},

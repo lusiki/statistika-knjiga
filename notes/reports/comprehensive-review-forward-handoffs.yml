@@ -6983,7 +6983,35 @@ handoffs:
           - "boundary:w17-tolerance-unchanged"
       - target_packet: P6-FIGURES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        acknowledgement: >-
+          P6-FIGURES keeps this delivery separate until before_close. It will
+          independently revalidate w05, w09, w10, w11, w14, w16 and w17 on
+          final live sources and the production adapter, preserve every
+          registered tolerance, retain actual-execution goldens or
+          fingerprints, and require an asymmetric cached-second-variate
+          regression fixture to fail before consuming the delivery.
+        disposition: >-
+          Consumed at before_close only after the final 17-pair execution and
+          all eight parity negative fixtures passed on the declared source
+          state. The live w05 source now shares the explicit non-caching
+          Marsaglia-polar semantics and seeded draw order with the production
+          adapter. w09, w10, w11, w14, w16 and w17 were independently
+          revalidated against their final live-source fingerprints. All seven
+          rows require actual-execution goldens, their own cache-asymmetry
+          fixture and the same-seed-same-draw-order contract; no tolerance was
+          widened.
+        evidence:
+          - "state:p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817"
+          - "source:chapters/05-vizualizacija.qmd#w05-explicit-noncaching-generator"
+          - "registry:data/widgets.json#normal-stream-contracts-w05-w09-w10-w11-w14-w16-w17"
+          - "check:WIDGET_PARITY_OK-pairs-17-exact-6-distributional-11"
+          - "check:WIDGET_PARITY_NEGATIVE_FIXTURES_OK-fixtures-8"
+          - "fixtures:seven-widget-specific-normal-cache-asymmetry-exit-1"
+          - "boundary:all-seven-tolerance-objects-unchanged-from-HEAD"
+          - "review:critic-structure-10-of-10-zero-findings"
       - target_packet: P7-HTML
         gate: before_close
         state: pending
@@ -8872,7 +8900,27 @@ handoffs:
           - "blocker:B-P5V-FIG16-owner-P6-FIGURES"
       - target_packet: P6-FIGURES
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        acknowledgement: >-
+          P6-FIGURES accepts the existing `fig-pravac` failure as its own
+          bounded repair obligation. The sanctioned D10 `podsjetnik` must
+          remain, and the immediate-prose introduction rule must remain
+          fail-closed; P5-VERIFY's report is baseline evidence only, not proof
+          that either side has already been reconciled.
+        disposition: >-
+          Consumed at before_start before the packet claim and before any
+          manuscript or checker edit. The packet will preserve the reminder,
+          move or structure only the existing source needed to restore a prose
+          paragraph immediately before `fig-pravac`, then rerun the whole-book
+          checker and all its negative probes without weakening the rule.
+        evidence:
+          - "source:chapters/16-regresija.qmd#fig-pravac-read-before-claim"
+          - "source:dodaci/g-numericki-podsjetnik.qmd#sanctioned-D10-content-preserved"
+          - "check:scripts/check-figure-introductions.py-exit-1-fig-pravac-before-claim"
+          - "report:notes/reports/p5-verification-2026-08-26.md#B-P5V-FIG16"
+          - "boundary:no-D10-removal-no-rule-weakening"
 
   H-P5-VERIFY-001:
     source_packet: P5-VERIFY
@@ -13702,4 +13750,34 @@ packet_reviews:
       - the full ladder passes all unaffected lanes and retains separate failures for the known P7 solution-route hash P6-FIGURES introduction P6-DATA catalogue paths and the newly recorded Appendix-G invalidation
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P6-FIGURES is the sole next permitted packet but is not claimed inside P6-EVIDENCE
+      - no external message push merge tag archive deployment publication or release-proof claim is made or authorised
+  P6-FIGURES:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_reason: >-
+      P6-FIGURES nije pronašao novi buduće relevantan izvorni učinak. Promjena
+      Poglavlja 16 dodatno mijenja ulaz već zastarjeloga Appendix-G artefakta,
+      ali H-P6-EVIDENCE-008 već poimence zahtijeva regeneraciju nakon svih
+      materijalnih promjena Phase 6 u P7-CLEAN-BUILD i zasebnu vidljivost u
+      P6-VERIFY. H-P5-VERIFY-007 već nosi obični projektni render/solution-route
+      kvar, a H-WB-C06-001 zadržava zasebnu pending dostavu za P7-HTML. Novi bi
+      handoff duplicirao iste vlasnike, radnju i vratnicu.
+    implementation_state: "p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817"
+    checks:
+      - the initial state was active null last P6-EVIDENCE next P6-FIGURES and all three P6-EVIDENCE incoming handoffs and final-source P5-F and ParlaSent dispositions were independently rechecked
+      - H-P5-ROUTES-002 was consumed at before_start before the first substantive edit while H-WB-C06-001 remained acknowledged until its separate before_close proof
+      - the sanctioned D10 podsjetnik remains and the existing estimand paragraph is now immediately before fig-pravac without weakening the fail-closed rule
+      - the report contains separate source-anchored rows for all 43 conceptual figures 60 source variants 59 labelled chunks one figure div and 17 widget-print pairs
+      - all captions and alt text are complete and every w01 through w17 widget has exactly one HTML figure and one registered static print twin
+      - w05 w09 w10 w11 w14 w16 and w17 require the same explicit non-caching Marsaglia-polar stream contract actual-execution goldens source fingerprints and a dedicated asymmetric cache fixture
+      - all seven affected tolerance objects remain unchanged and w06 retains its four browser correlations and existing 0.20 R-twin contract
+      - the fresh read-only structure reviewer independently reproduced the 33-file source state scored the bounded audit 10 of 10 and reported zero fatal major or minor findings
+      - figure introduction figure contract widget inventory and 17-pair parity checks pass on the final source state
+      - three figure-contract eight parity and seven integral integrity negative fixtures fail closed for their injected defects
+      - the two changed chapters have zero style-lint candidates and both received complete manual reads without a prose or claim change
+      - ordinary project Quarto rendering is not claimed as a pass artifact or release proof and the existing P7 handoffs remain untouched
+      - no new outgoing handoff is required because H-P6-EVIDENCE-008 H-P5-VERIFY-007 and the P7-HTML delivery of H-WB-C06-001 already own every observed downstream effect
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P6-STYLE is the sole next permitted packet but is not claimed inside P6-FIGURES
       - no external message push merge tag archive deployment publication or release-proof claim is made or authorised

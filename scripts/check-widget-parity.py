@@ -27,6 +27,15 @@ ADAPTERS = {
     "ojs": "scripts/widget-parity-ojs.mjs",
     "r": "scripts/widget-parity-r.R",
 }
+NORMAL_STREAM_FIXTURES = {
+    "w05": "w05-normal-cache-asymmetry",
+    "w09": "normal-cache-asymmetry",
+    "w10": "w10-normal-cache-asymmetry",
+    "w11": "w11-normal-cache-asymmetry",
+    "w14": "w14-normal-cache-asymmetry",
+    "w16": "w16-normal-cache-asymmetry",
+    "w17": "w17-normal-cache-asymmetry",
+}
 
 
 def normalized_block(block: str) -> str:
@@ -205,6 +214,23 @@ def check_registry(root: Path, registry: dict[str, Any], errors: list[str]) -> l
                     errors.append(f"[registry] {widget_id}: valid {adapter} SHA-256 is required")
         if not isinstance(parity.get("claim_boundary"), str) or not parity["claim_boundary"].strip():
             errors.append(f"[registry] {widget_id}: claim boundary is required")
+        if widget_id in NORMAL_STREAM_FIXTURES:
+            expected_contract = {
+                "generator": "marsaglia-polar-noncaching-v1",
+                "live_adapter_relation": "same-seed-same-draw-order",
+                "golden_kind": "actual-execution",
+                "cache_asymmetry_fixture": NORMAL_STREAM_FIXTURES[widget_id],
+            }
+            if parity.get("normal_stream_contract") != expected_contract:
+                errors.append(f"[registry] {widget_id}: invalid normal stream contract")
+            try:
+                live_source = (root / widget["poglavlje"]).read_text(encoding="utf-8")
+                if "d3.randomNormal" in live_source:
+                    errors.append(f"[source] {widget_id}: live source still uses cached d3.randomNormal")
+                if "Math.sqrt(-2 * Math.log(" not in live_source:
+                    errors.append(f"[source] {widget_id}: explicit non-caching polar generator is absent")
+            except (KeyError, OSError) as error:
+                errors.append(f"[source] {widget_id}: cannot inspect live normal stream: {error}")
 
     if counts != EXPECTED_CLASS_COUNTS:
         errors.append(f"[registry] classification counts {counts!r} != {EXPECTED_CLASS_COUNTS!r}")
@@ -219,7 +245,9 @@ def check_parity(root: Path, fixture: str | None) -> int:
     payloads: dict[str, dict[str, Any]] = {}
     try:
         ojs_command = ["node", str(root / ADAPTERS["ojs"]), str(root)]
-        if fixture == "normal-cache-asymmetry":
+        if fixture == "w05-normal-cache-asymmetry":
+            ojs_command.append("w05-cached-normal")
+        elif fixture == "normal-cache-asymmetry":
             ojs_command.append("w09-cached-normal")
         elif fixture == "w10-normal-cache-asymmetry":
             ojs_command.append("w10-cached-normal")
@@ -324,6 +352,7 @@ def main() -> int:
         "--fixture",
         choices=[
             "expected-value-regression",
+            "w05-normal-cache-asymmetry",
             "normal-cache-asymmetry",
             "w10-normal-cache-asymmetry",
             "w11-normal-cache-asymmetry",
