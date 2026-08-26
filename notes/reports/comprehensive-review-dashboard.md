@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P5-F
-next_permitted_packet: P5-G
+last_completed_packet: P5-G
+next_permitted_packet: P5-ROUTES
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 107
+forward_handoffs: 108
 last_updated: "2026-08-26"
 ---
 
@@ -93,11 +93,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P5-F`; `H-G-A2D-005` was consumed before the first substantive edit, exactly three D15 lanes and the disclosure/protocol contract pass, all 95 exercises carry safe routes, all three governed items passed separately, parent `R24` remains ratified because other children are open, and `H-P5-D-001` remains pending for P5-ROUTES |
-| Next permitted packet | `P5-G` only; not claimed |
-| Review parents | 30 ratified; 6 accepted |
-| Atomic child inventory | Complete: 371 stable children; 316 accepted, 5 deferred with reason and 50 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 150 accepted, 38 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Last completed packet | `P5-G`; D10's exactly four-topic Appendix G and four sanctioned first-use reminders pass, inventory projections were generated before the source was added, parent `R34` closed only after both children passed separately, and `H-P5-G-001` carries the authorised 19/7/38/17/17/4 architecture basis to P5-ROUTES |
+| Next permitted packet | `P5-ROUTES` under the `pathway_verification` contract; not yet claimed |
+| Review parents | 29 ratified; 7 accepted |
+| Atomic child inventory | Complete: 371 stable children; 318 accepted, 5 deferred with reason and 48 ratified pending their later gates; zero unmapped |
+| Exact packet catalogue | 189 packets: 151 accepted, 37 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -7468,6 +7468,50 @@ the durable evidence is
   defects. The write lock is released and P5-G becomes the sole next permitted
   packet without being claimed.
 
+## P5-G claim and closeout
+
+- The workflow checker passed from canonical P5-F closeout with no active
+  packet and `P5-G` as the sole next permitted packet. P5-F had consumed its
+  policy handoff, implemented exactly three D15 lanes, given all 95 exercises
+  safe routes and recorded its explicit no-new-effect declaration.
+- The `appendix` contract, packet record, both governed items, D10, the full
+  `P1C-INVENTORY` contract, inventory and generator, generated projections,
+  sanctioned `podsjetnik` mechanism and incoming handoff were read before
+  implementation. `H-G-A2D-003` was acknowledged and consumed at
+  `before_start` before the first substantive edit.
+- `config/book-inventory.json` received `app-g` first. Only then did
+  `scripts/book_inventory.py` generate `_quarto.yml` and
+  `styles/book-include.html`; the Appendix G source was added after those
+  inventory operations. The checker now reports 38 canonical pages, 19
+  chapters and 7 appendices, while `solution_routes` remains empty.
+- Appendix G contains exactly percentages and percentage points, proportions
+  and rates, slope, and logarithmic scale. It adds no fifth topic, statistical
+  method, widget, formal definition or chapter mini-lesson. Its only numeric
+  examples and citations are existing canonical DIP 2024 and teaching-data
+  values.
+- Four `.column-margin` reminder blocks precede the mapped first uses in
+  Chapters 1, 4 and 16 and resolve to the correct appendix anchors. No raw
+  HTML, inline style, improvised class or duplicated mini-lesson was added.
+- `config/appendix-g-numeracy-route.json` binds D10, inventory projections,
+  all four topics, four first-use routes and the post-D10 architecture. The
+  dedicated checker proves byte-identical clean regeneration; its three
+  packet fixtures and all three inventory fixtures fail closed.
+- Isolated cited HTML contains all four anchors and no raw citations. The
+  targeted two-page 176 × 250 mm PDF was inspected page by page without
+  clipping, overlap, split citation or illegible content. This remains a
+  bounded print-layout proof, not a full release build.
+- `R34-AG-numeracy-refresher` and `R34-AG-first-use-links` each advance only on
+  their separate exact test. Parent `R34` closes only after both pass.
+  `R23-SCOPE-no-new-chapters-widgets` remains ratified and open.
+- `H-P5-G-001` carries the authorised current basis of 19 chapters, 7
+  appendices, 38 canonical pages, 17 widgets with 17 static twins and 4 callout
+  types to P5-ROUTES. `H-P2-DOCS-002` and `H-P5-D-001` remain pending for that
+  actual owner; P5-G did not pre-empt either obligation.
+- The canonical workflow checker passes with P5-G closed and P5-ROUTES next.
+  All three required workflow fixtures fail closed for their exact injected
+  defects. The write lock is released and P5-ROUTES becomes the sole next
+  permitted packet without being claimed.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7490,44 +7534,47 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P5-F` and
-`next_permitted_packet: P5-G`. Confirm that P5-F consumed `H-G-A2D-005` before
-its first substantive edit, implemented D15 only as the course's own dated
-policy v1.0 of 2026-08-04, kept exactly three lanes with their exact
-conditions, published the exact disclosure text and eight-stage
-model-independent protocol, and audited all 95 exercises with live prompt
-fingerprints and safe routes. Confirm that Chapter 18 was not edited, all
-three governed items advanced only on separate exact evidence, parent `R24`
-remains ratified because other children are open, `H-P5-D-001` remains pending
-for `P5-ROUTES`, and P5-F recorded an explicit no-new-effect declaration. If
-any of this does not hold, stop and repair the control state before editing
-book content.
+Verify `active_write_packet: null`, `last_completed_packet: P5-G` and
+`next_permitted_packet: P5-ROUTES`. Confirm that P5-G consumed
+`H-G-A2D-003` before its first substantive edit, updated the canonical
+inventory and both generated projections before adding Appendix G, retained
+exactly the four D10 topics, used only sanctioned first-use `podsjetnik`
+blocks, and closed parent `R34` only after both governed children passed
+separate exact tests. Confirm that `solution_routes` and every chapter stage
+remain unchanged, `R23-SCOPE-no-new-chapters-widgets` remains ratified and
+open, and `H-P5-G-001` records the authorised current counts of 19 chapters,
+7 appendices, 38 canonical pages, 17 widgets with 17 static twins and 4 callout
+types. If any of this does not hold, stop and repair the control state before
+editing book content.
 
-Claim and execute only `P5-G` as a separate packet under the `appendix`
-contract. Fully read its packet record, governed items
-`R34-AG-numeracy-refresher` and `R34-AG-first-use-links`, the complete D10
-decision source, all configuration-driven inventory contracts, the sanctioned
-`podsjetnik` mechanism and every applicable incoming handoff. Preserve
-unrelated chapter work and do not infer a new method or topic from prior chat.
+Claim and execute only `P5-ROUTES` as a separate packet under the
+`pathway_verification` contract. Fully read its packet record and governed
+items, every advertised self-study, R, no-code, print and AI-output route,
+their canonical inventories and generators, and every applicable incoming
+handoff. Do not rely on prior chat or the installed plugin cache for mutable
+state.
 
-Acknowledge and consume `H-G-A2D-003` at its `before_start` gate. Dodatak G
-must cover exactly four topics and no others: percentages and percentage
-points, proportions and rates, slope, and logarithmic scale. Keep every topic
-bounded by assumed secondary-school numeracy, correct and print-safe. Do not
-turn the appendix into a methods chapter or duplicate a chapter mini-lesson.
+Acknowledge every applicable incoming handoff before its gate and consume it
+with a recorded disposition and evidence before closeout. In particular,
+reconcile the Appendix B versioned/no-clean-install boundary, the closure-unit
+route contract, `H-P2-DOCS-002`, the Quarto-table citation-checker risk in
+`H-P5-D-001`, and the post-D10 architecture basis in `H-P5-G-001`. Preserve
+real unknown-bibliography-key rejection while making Quarto cross-reference
+semantics pass; do not claim a clean installation without the required dated
+owner evidence.
 
-Use only the sanctioned `podsjetnik` mechanism for first-use references and
-do not improvise inline styling. Update every configuration-driven inventory
-before adding the appendix source, then map and verify every intended first use
-against the correct refresher target. Write all prose in Croatian, follow
-STYLE.md, and never invent an example, number, definition or citation.
+Deliver the route coverage matrix, clean-install or bounded print proof and
+public-promise reconciliation required by the packet. Verify all seven
+appendices and all 38 canonical pages against the inventory-generated routes,
+and close `R23-SCOPE-no-new-chapters-widgets` only if its complete acceptance
+test passes on the current 19/7/38/17/17/4 basis. Write all prose in Croatian,
+follow STYLE.md, and never invent a route, guarantee, value, definition or
+citation.
 
-Deliver the appendix-specific route artifact, a clean pathway test and
-cross-reference and print proof. Before closeout, run every packet-specific
-four-topic, first-use, inventory, pathway, cross-reference, style and print
-check; record every future-relevant outgoing handoff or an explicit no-effect
-declaration; update the register, handoff ledger and dashboard together; run
-the workflow checker and all three negative fixtures; close and locally commit
-P5-G; then stop. Do not claim P5-ROUTES, push, merge, tag, archive, deploy or
-publish.
+Before closeout, run every packet-specific route, inventory, citation,
+cross-reference, clean-path and print check; record every future-relevant
+outgoing handoff or an explicit no-effect declaration; update the register,
+handoff ledger and dashboard together; run the workflow checker and all three
+negative fixtures; close and locally commit P5-ROUTES; then stop. Do not claim
+P5-VERIFY, push, merge, tag, archive, deploy or publish.
 ```

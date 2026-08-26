@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-F"
-  next_permitted_packet: "P5-G"
+  last_completed_packet: "P5-G"
+  next_permitted_packet: "P5-ROUTES"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -16947,7 +16947,7 @@ packets:
     sequence: 159
     phase: "5"
     kind: "appendix"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "G-A2d"
       - "P1C-INVENTORY"
@@ -16960,13 +16960,74 @@ packets:
       - "The appendix fulfils its exact public promise from canonical files and values."
       - "Its HTML, print, and supported pathway behavior is verified."
       - "The P5-G packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "appendix-g-state:sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
+      required_evidence:
+        - requirement: "appendix-specific route artifact"
+          artifacts:
+            - "source:dodaci/g-numericki-podsjetnik.qmd@sha256-66c555f63a5c7cb6709555c6c84dda366140a37f3631fb0deb47231670f40de6"
+            - "artifact:config/appendix-g-numeracy-route.json@sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
+            - "source:scripts/build-appendix-g-route.py@sha256-cc671000f5c805cf1c2dc9e9ec35cf7217143681972f3e0987074a1ec88b105b"
+            - "source:scripts/check-appendix-g.py@sha256-0454645dc639c76a17ffd0683e79e8c556d1f2d21387da2063029b22eb88de41"
+            - "report:notes/reports/p5-g-2026-08-26.md@sha256-2f5837cb7f3b5593191693b77980454995e553d7558743a302cd37db55ef6f24"
+        - requirement: "clean pathway test"
+          artifacts:
+            - "check:APPENDIX_G_CHECK_OK-topics-4-first-use-routes-4-pages-38-appendices-7"
+            - "check:declared-input-clean-regeneration-byte-identical"
+            - "check:BOOK_INVENTORY_OK-pages-38-chapters-19-appendices-7-solutions-0"
+            - "check:three-packet-and-three-inventory-negative-fixtures-fail-closed"
+            - "boundary:exactly-four-D10-topics-and-no-new-statistical-method"
+        - requirement: "cross-reference and print proof"
+          artifacts:
+            - "check:four-sanctioned-column-margin-first-use-routes-resolve"
+            - "render:isolated-cited-HTML-sha256-f0ddd1cf57ff0b4e9a7064dad3434ddb70000afd2d035097b2c5e5c54ee36bd3"
+            - "render:targeted-b5-pdf-sha256-8c8f1dcc077faadb44d0036a470f77817a1f74d3ff6d4deb030b36e92b1b6603"
+            - "check:2-page-PDF-176-by-250-mm-no-raw-markup"
+            - "visual:both-pages-readable-without-clipping-overlap-citation-split-or-illegible-content"
+            - "boundary:targeted-proof-not-full-release-build"
+            - "check:STYLE-md-lint-zero-deterministic-candidates"
+      outputs:
+        - output: "P5-G durable artifact and evidence record for: Numeracy refresher and first-use reminders."
+          artifacts:
+            - "source:dodaci/g-numericki-podsjetnik.qmd"
+            - "artifact:config/appendix-g-numeracy-route.json"
+            - "source:scripts/build-appendix-g-route.py"
+            - "source:scripts/check-appendix-g.py"
+            - "report:notes/reports/p5-g-2026-08-26.md"
+        - output: "Completion evidence is tied to the declared P5-G source state and bounded scope."
+          artifacts:
+            - "appendix-g-state:sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
+            - "handoff:H-G-A2D-003-consumed-before-first-substantive-edit"
+            - "handoff:H-P5-G-001-records-current-architecture-counts-for-P5-ROUTES"
+            - "boundary:R23-and-H-P2-DOCS-002-remain-open-for-P5-ROUTES"
+            - "boundary:H-P5-D-001-remains-pending-for-P5-ROUTES"
+      exit_tests:
+        - test: "The appendix fulfils its exact public promise from canonical files and values."
+          result: "passed"
+          evidence:
+            - "check:exactly-four-D10-topics-with-no-addition-or-removal"
+            - "check:secondary-school-numeracy-only-and-methods-added-zero"
+            - "check:only-existing-dip2024-and-sikic2026-citations-and-source-values-used"
+            - "check:inventory-updated-and-generated-before-appendix-source-added"
+        - test: "Its HTML, print, and supported pathway behavior is verified."
+          result: "passed"
+          evidence:
+            - "check:clean-regeneration-is-byte-identical"
+            - "check:four-first-use-cross-references-resolve-through-sanctioned-podsjetnik-blocks"
+            - "visual:targeted-B5-PDF-both-pages-pass"
+            - "boundary:targeted-proof-does-not-claim-a-full-release-build"
+        - test: "The P5-G packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-appendix-g-artifact-and-checker-verify-topics-inventory-first-use-routes-counts-and-clean-regeneration"
+            - "check:H-G-A2D-003-consumed-with-exact-D10-scope-and-inventory-order-evidence"
+            - "report:notes/reports/p5-g-2026-08-26.md"
     contract: "appendix"
     required_evidence:
       - "appendix-specific route artifact"
       - "clean pathway test"
       - "cross-reference and print proof"
-    change_reference: null
+    change_reference: "appendix-g-state:sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
   P5-ROUTES:
     sequence: 160
     phase: "5"
@@ -18809,7 +18870,7 @@ parents:
   R34:
     title: "Numeracy refresher"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -18819,7 +18880,12 @@ parents:
     required_children:
       - "R34-AG-numeracy-refresher"
       - "R34-AG-first-use-links"
-    completion_evidence: []
+    completion_evidence:
+      - "child:R34-AG-numeracy-refresher-accepted-on-separate-four-topic-numeracy-and-print-test"
+      - "child:R34-AG-first-use-links-accepted-on-separate-route-placement-and-no-duplication-test"
+      - "check:all-two-required-children-accepted-before-parent-close"
+      - "artifact:config/appendix-g-numeracy-route.json@sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
+      - "report:notes/reports/p5-g-2026-08-26.md"
   R35:
     title: "Reach-back exercises and part self-checks"
     disposition: "accepted_first_edition"
@@ -33340,7 +33406,7 @@ items:
       location: "§9 + §15 R34"
     description: "Implement the ratified compact numeracy refresher under D10."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -33359,11 +33425,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-G"
-    completion_evidence: []
+    completion_evidence:
+      - "source:dodaci/g-numericki-podsjetnik.qmd@sha256-66c555f63a5c7cb6709555c6c84dda366140a37f3631fb0deb47231670f40de6"
+      - "artifact:config/appendix-g-numeracy-route.json@sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202#topics"
+      - "check:exactly-four-D10-topics-correct-bounded-print-safe-and-no-new-method"
+      - "check:clean-regeneration-and-three-packet-negative-fixtures"
+      - "render:targeted-two-page-B5-PDF-sha256-8c8f1dcc077faadb44d0036a470f77817a1f74d3ff6d4deb030b36e92b1b6603"
+      - "report:notes/reports/p5-g-2026-08-26.md#točno-četiri-teme-i-prve-uporabe"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-g-state:sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
   R34-AG-first-use-links:
     parents:
       - "R34"
@@ -33377,7 +33449,7 @@ items:
       location: "§9 numeracy"
     description: "Add sanctioned first-use reminder links without improvised styling."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -33396,11 +33468,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-G"
-    completion_evidence: []
+    completion_evidence:
+      - "source:chapters/01-zasto-statistika.qmd@sha256-d6bb79544fbc9a5252d0d04ea68c95c38066555a1dd6016614f834b76659897e"
+      - "source:chapters/04-sazimanje-podataka.qmd@sha256-66925a6c10f421779bf7e8a6c01846d85fc006e167610d7041df2655d685b392"
+      - "source:chapters/16-regresija.qmd@sha256-d0d401b8f0ccc3882fefef10ecdbc3521f586cbbef475c24409f164fcd0257dd"
+      - "artifact:config/appendix-g-numeracy-route.json@sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202#first_use_routes"
+      - "check:four-first-use-column-margin-reminders-precede-their-markers-and-resolve"
+      - "check:no-raw-div-inline-style-new-class-or-duplicated-mini-lesson"
+      - "report:notes/reports/p5-g-2026-08-26.md#točno-četiri-teme-i-prve-uporabe"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "appendix-g-state:sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
   R35-REACHBACK-06:
     parents:
       - "R35"

@@ -2322,7 +2322,27 @@ handoffs:
     deliveries:
       - target_packet: P5-G
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          P5-G je prije prve sadržajne izmjene preuzeo D10 kao zatvoren
+          opseg: Dodatak G smije obuhvatiti samo postotke i postotne bodove,
+          udjele i stope, nagib te logaritamsku skalu. Svaka tema ostaje na
+          razini pretpostavljene srednjoškolske numeričke pismenosti, bez nove
+          statističke metode i bez ponavljanja mini-lekcije u poglavlju.
+          Konfiguracijski inventar ažurirat će se prije dodavanja izvora
+          dodatka, a prve uporabe koristit će postojeći Quarto blok
+          `.column-margin`, bez sirovog HTML-a, nove klase ili inline stila.
+        evidence:
+          - decision:conversation:G-A2d-policy-decisions-approved-2026-08-04-Luka-Sikic
+          - decision:D10
+          - report:notes/reports/g-a2d-policy-decisions-2026-08-04.md
+          - register:item-R34-AG-numeracy-refresher-read-in-full
+          - register:item-R34-AG-first-use-links-read-in-full
+          - contract:notes/reports/p1c-book-inventory-2026-08-04.md
+          - mechanism:knjiga-stil/predlosci/poglavlje.qmd#column-margin
+          - mechanism:styles/_base.scss#column-margin
 
   H-G-A2D-004:
     source_packet: G-A2d
@@ -8476,6 +8496,44 @@ handoffs:
         gate: before_close
         state: pending
 
+  H-P5-G-001:
+    source_packet: P5-G
+    created_at: "2026-08-26"
+    kind: constraint
+    refs:
+      - decision:G-A2d
+      - decision:D10
+      - item:R23-SCOPE-no-new-chapters-widgets
+      - handoff:H-P2-DOCS-002
+      - artifact:config/appendix-g-numeracy-route.json#architecture_after_d10
+      - packet:P5-ROUTES
+    statement: >-
+      Gate A2d i D10 od 2026-08-04 izričito su odobrili Dodatak G. Nakon
+      njegove inventarno upravljane izrade kanonska arhitektura ima 19
+      poglavlja, 7 dodataka, 38 kanonskih stranica, 17 widgeta sa 17 statičnih
+      parnjaka i 4 vrste callouta. Time je prethodno provjerena polovica stavke
+      R23-SCOPE-no-new-chapters-widgets s brojkama 19, 6, 37, 17/17 i 4 postala
+      zastarjela samo u broju dodataka i kanonskih stranica.
+    required_action: >-
+      P5-ROUTES mora prije zatvaranja potrošiti ovu sadašnju arhitekturnu
+      osnovu zajedno s H-P2-DOCS-002, provjeriti rute prema sedam dodataka i 38
+      kanonskih stranica te zasebno dokazati punu stavku
+      R23-SCOPE-no-new-chapters-widgets. Ovlaštenje Gate A2d / D10 dopušta
+      upravo Dodatak G; ne dopušta novi numerirani naslov, središnji widget ni
+      vrstu callouta. P5-G ne zatvara, ne slabi i ne preuzima R23.
+    basis:
+      - notes/reports/g-a2d-policy-decisions-2026-08-04.md#d10-dodatak-g
+      - config/book-inventory.json
+      - config/appendix-g-numeracy-route.json#architecture_after_d10
+      - check:BOOK_INVENTORY_OK-pages-38-chapters-19-appendices-7-solutions-0
+      - check:APPENDIX_G_CHECK_OK-pages-38-appendices-7
+      - report:notes/reports/p5-g-2026-08-26.md#odluke-po-zahtjevu-i-budući-učinak
+    required: true
+    deliveries:
+      - target_packet: P5-ROUTES
+        gate: before_close
+        state: pending
+
 packet_reviews:
   G-A0:
     reviewed_at: "2026-08-03"
@@ -12382,3 +12440,33 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P5-G is the sole next permitted packet but is not claimed inside P5-F
       - no external message push merge tag archive deployment publication author-reading or final-stage claim is made or authorised
+  P5-G:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P5-G-001
+    no_other_outgoing_reason: >-
+      P5-G je prenio jedini novi buduće relevantan učinak: D10 povećava broj
+      dodataka na sedam i kanonskih stranica na 38, pa P5-ROUTES mora dobiti
+      sadašnju osnovu za H-P2-DOCS-002 i otvorenu stavku R23. Nije pronađen
+      drugi novi podatak, obveza, vlasnik ili vratnica. H-P5-D-001 ostaje
+      zasebno pending za P5-ROUTES i ovaj ga paket nije mijenjao.
+    implementation_state: "appendix-g-state:sha256-50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202"
+    checks:
+      - H-G-A2D-003 was acknowledged and consumed at before_start before the first substantive edit with the exact four-topic D10 scope intact
+      - config/book-inventory.json was updated before the Appendix G source existed and scripts/book_inventory.py generated both projections without hand editing
+      - Appendix G contains exactly percentages and percentage points proportions and rates slope and logarithmic scale with nothing added or removed
+      - every topic remains bounded by secondary-school numeracy print-safe and adds no statistical method widget definition or chapter mini-lesson
+      - only existing dip2024 and sikic2026 source values and bibliography keys are used and no number rule empirical example or citation is invented
+      - four sanctioned column-margin reminders precede their mapped first use resolve to the correct appendix target and use no raw div inline style or new class
+      - scripts/check-appendix-g.py verifies exact scope generated inventory route artifact cross-references clean regeneration print inputs and current architecture counts
+      - the three packet negative fixtures fail closed for an extra topic wrong route and raw style and the three inventory fixtures fail closed for missing extra and reordered routes
+      - isolated cited Croatian HTML has all four anchors and no raw citations and the targeted two-page B5 PDF passes visual inspection without clipping overlap citation split or illegible content
+      - the targeted PDF is a bounded print-layout proof and is not claimed as a full release build
+      - R34-AG-numeracy-refresher and R34-AG-first-use-links each advance only on separate exact evidence and parent R34 closes only after both pass
+      - H-P5-G-001 carries the authorized new 19 chapter 7 appendix 38 page 17 widget and static twin 4 callout basis to P5-ROUTES
+      - R23-SCOPE-no-new-chapters-widgets remains ratified and open while H-P2-DOCS-002 and H-P5-D-001 remain pending for P5-ROUTES
+      - chapter-ledger stages and config/book-inventory.json solution_routes remain unchanged
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P5-ROUTES is the sole next permitted packet but is not claimed inside P5-G
+      - no external message push merge tag archive deployment publication independent-review author-reading or final-stage claim is made or authorised
