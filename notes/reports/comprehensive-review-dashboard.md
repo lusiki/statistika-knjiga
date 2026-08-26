@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P5-ROUTES
-next_permitted_packet: P5-VERIFY
+last_completed_packet: P5-VERIFY
+next_permitted_packet: P6-CONTINUITY
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 110
+forward_handoffs: 117
 last_updated: "2026-08-26"
 ---
 
@@ -78,6 +78,7 @@ stop and repair the control state before editing book content.
 | P5-F | Accepted on appendix state `837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70`; Appendix F carries the course's own D15 policy v1.0 dated 2026-08-04, exactly three tool lanes, the exact disclosure text and eight-stage model-independent protocol; all 95 exercises in 19 units have live prompt fingerprints and safe routes, zero require prohibited transfer, Chapter 18 remains unchanged and the six-page B5 proof passes |
 | P5-G | Accepted on appendix state `50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202`; D10's exactly four-topic Appendix G and four sanctioned first-use reminders pass, inventory projections were generated before the source was added, parent `R34` closed only after both children passed separately, and `H-P5-G-001` carried the authorised 19/7/38/17/17/4 architecture basis to P5-ROUTES |
 | P5-ROUTES | Accepted on pathway state `7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db`; two prerequisite-valid reading routes, all five advertised path classes and the single-source 95-record public/protected solution projections pass; public promises are reconciled, all 13 incoming handoffs are consumed, parents `R15` and `R21` close, and two future effects are routed to P5-VERIFY/P6-FIGURES |
+| P5-VERIFY | Accepted as a reporting gate on composite state `0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990`; all 27 named prerequisites have separate own-evidence rows, 23 pass and P5-C/P5-E/P5-F/P5-G remain blocked by five separately owned defects; the full ladder additionally retains the Chapter 16 figure blocker, two clean-build risks and the narrowed jamovi boundary without repairing upstream work |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -94,19 +95,19 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
-| Last completed packet | `P5-ROUTES`; two reading routes and all five advertised pathway classes pass, 95 canonical records generate separated public and protected solution projections, all 13 incoming handoffs are consumed, and `H-P5-ROUTES-001` plus `H-P5-ROUTES-002` record both future-relevant effects |
-| Next permitted packet | `P5-VERIFY` under the `review_gate` contract; not yet claimed |
+| Active write packet | None; P5-VERIFY released the write lock after verification and reporting only |
+| Last completed packet | `P5-VERIFY`; its 27-row matrix records 23 passing and 4 blocked prerequisites, with five distinct packet defects and every additional boundary assigned without upstream repair |
+| Next permitted packet | `P6-CONTINUITY`; not claimed |
 | Review parents | 27 ratified; 9 accepted |
 | Atomic child inventory | Complete: 371 stable children; 326 accepted, 5 deferred with reason and 40 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 152 accepted, 36 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 153 accepted, 35 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
+| Failed gates | None in `P1-VERIFY`. P5-VERIFY completed its reporting contract but found four blocked prerequisites: P5-C, P5-E, P5-F and P5-G; their five distinct defects have owners in `H-P5-VERIFY-001` through `H-P5-VERIFY-005`. The Chapter 16 figure blocker remains in `H-P5-ROUTES-002`, while two clean-build risks are in `H-P5-VERIFY-006` and `H-P5-VERIFY-007` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7557,6 +7558,45 @@ the durable evidence is
   being claimed. No push, merge, tag, archive, deployment or publication is
   authorised.
 
+## P5-VERIFY claim and closeout
+
+- P5-VERIFY was claimed only after the canonical branch and control state were
+  reconciled. The prompt's counts were stale: P5-ROUTES had 13 applicable
+  incoming deliveries, not 12, and the ledger had two deliveries for
+  P5-VERIFY, not zero. Both P5-VERIFY deliveries are now consumed with concrete
+  dispositions and evidence.
+- The gate report is tied to composite source state
+  `p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990`,
+  which fixes commit `5b2de98ee2986a9616a52b13f4d51b9069f5f375`, tree
+  `7731381e0e24a75e52a4128bc0b4a89509adc3c6` and the SHA-256 values of the
+  three external P5-A inputs.
+- The gate-specific matrix gives every named prerequisite its own evidence
+  row: all 19 P5-CLOSURE packets, P5-A, P5-B, P5-D and P5-ROUTES pass; P5-C,
+  P5-E, P5-F and P5-G are blocked. P5-E's conventions hash and concept graph
+  are two separately named defects, so the result is 23 passing prerequisites,
+  four blocked prerequisites and five distinct package defects.
+- All 19 units separately retain five schema-valid records and matching live
+  anchors, for 95 records and 95 anchors. Public exports and navigation expose
+  zero protected rubrics, alternatives or instructor notes; the record store
+  remains the sole answer source. Both reading routes satisfy all live ratified
+  prerequisites of all 19 spines without changing `_quarto.yml` order.
+- The full check ladder was run on the declared state. In addition to the five
+  package defects, it preserves the existing Chapter 16 `fig-pravac` blocker.
+  All three workflow negative fixtures and all four assessment negative
+  fixtures fail closed for their exact injected defect.
+- `H-P5-VERIFY-001` through `H-P5-VERIFY-005` assign the five package defects
+  separately to P6-DATA, P6-CONTINUITY and P6-EVIDENCE. Existing
+  `H-P5-ROUTES-002` remains pending for P6-FIGURES. `H-P5-VERIFY-006` and
+  `H-P5-VERIFY-007` assign the external-input and LF/CRLF reproducibility risks
+  to P7-CLEAN-BUILD.
+- The owner-pending jamovi clean-install check is not newly claimed or dropped:
+  it remains with Luka Sikic under `H-P5-B-001`, while the public promise stays
+  narrowed to 19 supported and 7 guarded values.
+- P5-VERIFY repaired, completed and absorbed no upstream packet. The lock is
+  released and P6-CONTINUITY is the sole next permitted packet without being
+  claimed. No push, merge, tag, archive, deployment, publication or other
+  external action is authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7579,43 +7619,38 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P5-ROUTES` and
-`next_permitted_packet: P5-VERIFY`. Confirm that P5-ROUTES consumed all 13
-applicable incoming handoff deliveries, published two reader routes that obey
-all live prerequisites, generated the public and protected solution views from
-all 95 canonical records without a second answer source, reconciled every
-public pathway promise, and left the owner-pending no-code clean-install check
-unclaimed. Confirm the current 19 chapters, 7 appendices, 39 canonical pages,
-1 solution route, 17 widgets with 17 static twins and 4 callout types; parents
-R04, R23 and R24 must remain ratified, while R15 and R21 are accepted. Confirm
-that `H-P5-ROUTES-001` and `H-P5-ROUTES-002` record both future-relevant
-effects. If any of this does not hold, stop and repair the control state before
-verification.
+Verify `active_write_packet: null`, `last_completed_packet: P5-VERIFY` and
+`next_permitted_packet: P6-CONTINUITY`. Confirm that P5-VERIFY is accepted only
+as a completed verification/reporting gate on source state
+`p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990`:
+its matrix has 27 separate prerequisite rows, 23 passes and four blocked
+prerequisites containing five separately owned defects. Confirm that it did
+not repair, complete, absorb or reclassify any upstream packet.
 
-Claim and execute only `P5-VERIFY` as a separate packet under the
-`review_gate` contract. Fully read its packet record, the Phase 5 gate matrix,
-all required packet reports and artifacts, the complete register and handoff
-ledger, every applicable incoming handoff, and the checkout-local Bookwright
-instructions required by the packet. Do not rely on prior chat or the installed
-plugin cache for mutable state.
+Claim and execute only `P6-CONTINUITY` under its `whole_book_review` contract.
+Fully read its packet record, the P5-VERIFY report, all four canonical control
+files and the checkout-local Bookwright continuity instructions. Do not rely
+on prior chat or the installed plugin cache for mutable state.
 
-Acknowledge and consume `H-P5-ROUTES-001` and the P5-VERIFY delivery of
-`H-P5-ROUTES-002` before closeout. Use the current 19/7/39/1/17/17/4 basis and
-verify the separate D10 and D06 authorities. Record the Chapter 16
-`podsjetnik`/figure-introduction conflict in the exact blocker list and leave
-its repair to `P6-FIGURES`; do not misattribute it to P5-ROUTES and do not edit
-accepted chapter prose in this review gate.
+Before the first substantive edit, acknowledge and consume the three required
+before-start deliveries targeting P6-CONTINUITY: `H-P5-VERIFY-002` for the
+stale P5-E conventions hash, `H-P5-VERIFY-003` for the independently stale
+concept graph, and `H-P5-VERIFY-005` for the stale P5-G inventory trace. Keep
+them separate; one passing child or parent must not discharge another. Do not
+consume deliveries owned by P6-DATA, P6-EVIDENCE, P6-FIGURES or
+P7-CLEAN-BUILD, and do not treat P5-VERIFY's reporting acceptance as evidence
+that its deferred defects are fixed.
 
-Deliver the complete Phase 5 gate matrix, source commit or state hash and exact
-blocker list. Re-run every required Phase 5 pathway, appendix, assessment,
-inventory, citation, cross-reference, profile-separation, export, print-input
-and workflow check with their mandated negative fixtures. Do not infer a pass
-from packet status or generic contract evidence, and do not claim the pending
-owner clean-install result.
+Run the final-state whole-book continuity audit over structure, terminology,
+prerequisites, threads and transitions with exact source anchors and fresh
+reviewer evidence. Preserve the current 19/7/39/1/17/17/4 architecture, both
+reading routes, all 19 ratified spines and the single-source 95-record
+assessment architecture unless the packet's own evidence and authority require
+a bounded reconciliation. Record every finding and disposition separately.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger and dashboard
 together; run the workflow checker and all three workflow negative fixtures;
-close and locally commit P5-VERIFY; then stop. Do not claim a Phase 6 packet,
+close and locally commit P6-CONTINUITY; then stop. Do not claim P6-EVIDENCE,
 push, merge, tag, archive, deploy or publish.
 ```

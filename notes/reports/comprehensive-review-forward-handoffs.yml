@@ -8711,7 +8711,21 @@ handoffs:
     deliveries:
       - target_packet: P5-VERIFY
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Gate je koristio završnu osnovu 19/7/39/1/17/17/4, zasebno provjerio
+          ovlasti D10 za Dodatak G i D06 za rutu rješenja te potvrdio da roditelj
+          R23 ostaje ratificiran. Nijedan je rezultat nije izveden iz zastarjele
+          osnove prije P5-G ili prije rute rješenja.
+        evidence:
+          - "report:notes/reports/p5-verification-2026-08-26.md#provjera-p5-routes-prije-matrice"
+          - "check:BOOK_INVENTORY_OK-pages-39-chapters-19-appendices-7-solutions-1"
+          - "check:PATHWAYS_CHECK_OK-widgets-17-static-twins-17-callout-types-4"
+          - "authority:Gate-A2d-D10-appendix-g"
+          - "authority:Gate-A2d-D06-solution-route"
+          - "boundary:parent-R23-remains-ratified"
 
   H-P5-ROUTES-002:
     source_packet: P5-ROUTES
@@ -8742,8 +8756,214 @@ handoffs:
     deliveries:
       - target_packet: P5-VERIFY
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Gate je ponovio cjeloknjižnu provjeru, evidentirao `fig-pravac` kao
+          zaseban blokator `B-P5V-FIG16` i nije mijenjao prihvaćeni izvor.
+          Dostava za P6-FIGURES ostaje pending i zadržava vlasništvo popravka.
+        evidence:
+          - "report:notes/reports/p5-verification-2026-08-26.md#puni-blokirajući-niz-provjera"
+          - "check:scripts/check-figure-introductions.py-exit-1-fig-pravac"
+          - "blocker:B-P5V-FIG16-owner-P6-FIGURES"
       - target_packet: P6-FIGURES
+        gate: before_start
+        state: pending
+
+  H-P5-VERIFY-001:
+    source_packet: P5-VERIFY
+    created_at: "2026-08-26"
+    kind: invalidation
+    refs:
+      - packet:P5-C
+      - artifact:config/appendix-c-data-route.json
+      - source:data/katalog.yml
+      - packet:P6-DATA
+    statement: >-
+      P5-C više nema valjan dokaz na deklariranom stanju P5-VERIFY jer njegov
+      artefakt nema kontrolni zbroj sadašnjega kataloga podataka. Paketni
+      provjerivač i svježi graditelj zaustavljaju se na istom neskladu.
+    required_action: >-
+      P6-DATA mora zasebno razriješiti zastarjeli kataloški artefakt i ponovno
+      dokazati P5-C protiv tadašnjega konačnog izvora; prihvaćeni status P5-C
+      nije zamjena za taj dokaz.
+    basis:
+      - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      - "check:scripts/check-appendix-c.py-exit-1-current-catalogue-checksum"
+      - "check:R/build-appendix-c.R-check-exit-1-route-artifact-stale"
+      - "report:notes/reports/p5-verification-2026-08-26.md#matrica-27-imenovanih-preduvjeta"
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
+        gate: before_start
+        state: pending
+
+  H-P5-VERIFY-002:
+    source_packet: P5-VERIFY
+    created_at: "2026-08-26"
+    kind: invalidation
+    refs:
+      - packet:P5-E
+      - artifact:config/appendix-e-glossary-route.json
+      - registry:bookwright_plugin/bookwright/shared/conventions.json
+      - packet:P6-CONTINUITY
+    statement: >-
+      P5-E artefakt sadrži zastarjeli hash terminoloških konvencija. To je
+      zaseban kvar od zastarjeloga konceptnog grafa i dobiva vlastiti blokator
+      `B-P5V-E-CONVENTIONS`.
+    required_action: >-
+      P6-CONTINUITY mora zasebno razriješiti hash konvencija i ponovno provesti
+      paketnu provjeru P5-E na konačnom stanju, bez pripisivanja prolaza drugom
+      terminološkom ili grafovskom testu.
+    basis:
+      - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      - "check:scripts/check-appendix-e.py-exit-1-stale-conventions-hash"
+      - "blocker:B-P5V-E-CONVENTIONS"
+      - "report:notes/reports/p5-verification-2026-08-26.md#razriješeno-i-odgođeno-s-vlasnikom"
+    required: true
+    deliveries:
+      - target_packet: P6-CONTINUITY
+        gate: before_start
+        state: pending
+
+  H-P5-VERIFY-003:
+    source_packet: P5-VERIFY
+    created_at: "2026-08-26"
+    kind: invalidation
+    refs:
+      - packet:P5-E
+      - artifact:data/concept-graph.json
+      - source:R/build-concept-graph.R
+      - packet:P6-CONTINUITY
+    statement: >-
+      Predani konceptni graf ima 52 čvora i 664 veze, dok svježa izgradnja na
+      deklariranom stanju daje 52 čvora i 662 veze. To je zaseban blokator
+      `B-P5V-E-GRAPH`, ne posljedica statusa testa konvencija.
+    required_action: >-
+      P6-CONTINUITY mora zasebno razriješiti i provjeriti graf na konačnom
+      materijalnom stanju; prolaz registra terminologije ne smije se koristiti
+      kao zamjena za svježinu grafa.
+    basis:
+      - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      - "check:scripts/check-concepts.py-exit-1-committed-664-regenerated-662-edges"
+      - "blocker:B-P5V-E-GRAPH"
+      - "report:notes/reports/p5-verification-2026-08-26.md#puni-blokirajući-niz-provjera"
+    required: true
+    deliveries:
+      - target_packet: P6-CONTINUITY
+        gate: before_start
+        state: pending
+
+  H-P5-VERIFY-004:
+    source_packet: P5-VERIFY
+    created_at: "2026-08-26"
+    kind: invalidation
+    refs:
+      - packet:P5-F
+      - artifact:config/appendix-f-ai-route.json
+      - registry:bookwright_plugin/bookwright/shared/conventions.json
+      - packet:P6-EVIDENCE
+    statement: >-
+      P5-F više nema valjan izvorni hash nakon kasnije promjene konvencija,
+      premda njegova sadržajna granica triju traka, osam koraka i 95 sigurnih
+      ruta ostaje zabilježena.
+    required_action: >-
+      P6-EVIDENCE mora razriješiti artefakt i ponovno dokazati P5-F na
+      konačnom izvoru; sadržajni brojevi sami nisu zamjena za svježinu dokaza.
+    basis:
+      - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      - "check:scripts/check-appendix-f.py-exit-1-stale-source-hash"
+      - "blocker:B-P5V-F"
+      - "report:notes/reports/p5-verification-2026-08-26.md#matrica-27-imenovanih-preduvjeta"
+    required: true
+    deliveries:
+      - target_packet: P6-EVIDENCE
+        gate: before_start
+        state: pending
+
+  H-P5-VERIFY-005:
+    source_packet: P5-VERIFY
+    created_at: "2026-08-26"
+    kind: invalidation
+    refs:
+      - packet:P5-G
+      - artifact:config/appendix-g-numeracy-route.json
+      - registry:config/book-inventory.json#solution_routes
+      - packet:P6-CONTINUITY
+    statement: >-
+      P5-G artefakt je nastao prije nego što je D06 ruta rješenja dodana u
+      inventar, pa sadašnja paketna provjera prijavljuje zastarjeli inventarni
+      trag. Četiri odobrene teme i četiri prve uporabe nisu time uklonjene.
+    required_action: >-
+      P6-CONTINUITY mora zasebno pomiriti P5-G artefakt s konačnim inventarom i
+      ponovno provjeriti točan D10 opseg, bez mijenjanja tema ili proširenja
+      obećanja.
+    basis:
+      - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      - "check:scripts/check-appendix-g.py-exit-1-stale-inventory-after-solution-route"
+      - "blocker:B-P5V-G"
+      - "report:notes/reports/p5-verification-2026-08-26.md#matrica-27-imenovanih-preduvjeta"
+    required: true
+    deliveries:
+      - target_packet: P6-CONTINUITY
+        gate: before_start
+        state: pending
+
+  H-P5-VERIFY-006:
+    source_packet: P5-VERIFY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P5-A
+      - source:data/_kandidat/p3-text/ParlaSent_BCS.jsonl
+      - source:data/_kandidat/p3-text/ParlaSent_BCS_test.jsonl
+      - source:data/_kandidat/p3-text/README.txt
+      - packet:P7-CLEAN-BUILD
+    statement: >-
+      P5-A prolazi samo kada su uz commit dostupna tri deklarirana i hashirana
+      sirova ulaza koja nisu predana Gitovu stablu. Čist checkout samoga
+      commita zato ne može reproducirati njegov dokaz.
+    required_action: >-
+      P7-CLEAN-BUILD mora odlučiti i dokazati reproducibilan, pravno dopušten
+      način pribavljanja ili paketiranja tih točno hashiranih ulaza prije nego
+      što čistu izgradnju proglasi prolaznom.
+    basis:
+      - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      - "check:P5-A-clean-commit-without-declared-raw-inputs-fails"
+      - "check:P5-A-clean-commit-plus-three-declared-inputs-passes-26-of-26"
+      - "blocker:B-P5V-A-RAW"
+      - "report:notes/reports/p5-verification-2026-08-26.md#jedno-deklarirano-izvorno-stanje"
+    required: true
+    deliveries:
+      - target_packet: P7-CLEAN-BUILD
+        gate: before_start
+        state: pending
+
+  H-P5-VERIFY-007:
+    source_packet: P5-VERIFY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - check:scripts/build-solution-routes.py
+      - artifact:config/pathway-routes.json
+      - packet:P7-CLEAN-BUILD
+    statement: >-
+      Neki ugrađeni bajtni sažeci ovise o pretvorbi LF/CRLF. Generator ruta
+      rješenja pada u CRLF radnom checkoutu, a prolazi nad kanonskim Gitovim
+      LF blobovima istoga commita, pa dokaz nije prenosiv između checkouta.
+    required_action: >-
+      P7-CLEAN-BUILD mora ukloniti ili izričito normalizirati ovisnost o
+      završecima redaka te dokazati istu izgradnju u čistom izvornom stanju.
+    basis:
+      - "state:p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      - "check:build-solution-routes-check-exit-1-CRLF-working-checkout"
+      - "check:build-solution-routes-check-pass-canonical-LF-blob-tree"
+      - "blocker:B-P5V-EOL"
+      - "report:notes/reports/p5-verification-2026-08-26.md#razriješeno-i-odgođeno-s-vlasnikom"
+    required: true
+    deliveries:
+      - target_packet: P7-CLEAN-BUILD
         gate: before_start
         state: pending
 
@@ -12715,3 +12935,34 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P5-VERIFY is the sole next permitted packet but is not claimed inside P5-ROUTES
       - no external message push merge tag archive deployment publication clean-install author-reading or final-stage claim is made or authorised
+  P5-VERIFY:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P5-VERIFY-001
+      - H-P5-VERIFY-002
+      - H-P5-VERIFY-003
+      - H-P5-VERIFY-004
+      - H-P5-VERIFY-005
+      - H-P5-VERIFY-006
+      - H-P5-VERIFY-007
+    no_other_outgoing_reason: >-
+      Pet pojedinačnih kvarova četiriju paketnih dokaza, dva rizika čiste
+      izgradnje i postojeći fig-pravac rizik dobili su točne vlasnike. Jamovi
+      čista instalacija nije nova obveza: ostaje kod Luke Šikića pod već
+      potrošenim H-P5-B-001, a javno obećanje ostaje suženo na 19 podržanih i
+      7 ograđenih vrijednosti. Nijedan drugi budući učinak nije pronađen.
+    implementation_state: "p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+    checks:
+      - all 27 named prerequisites received separate rows against their own required evidence with 23 passes and four blocked prerequisites
+      - five distinct defects inside P5-C P5-E P5-F and P5-G are exposed separately and none is hidden by package or parent aggregation
+      - the full gate report is tied to one composite source state comprising commit tree and three exact external P5-A inputs
+      - all 19 units have five schema-valid records and five matching live anchors for 95 records and 95 anchors total
+      - public exports and navigation expose zero protected rubrics alternatives or instructor notes and use the 95-record store as the sole answer source
+      - both advertised reading routes satisfy the live ratified prerequisites of all 19 spines and preserve the canonical chapter order
+      - every undelivered public promise remains narrowed including the 19 supported and 7 guarded jamovi values
+      - the blocking check ladder passes except for the separately recorded concept-graph and Chapter 16 figure-introduction blockers
+      - all three workflow negative fixtures fail closed for their exact injected defects and all four assessment negative fixtures fail closed
+      - H-P5-ROUTES-001 and the P5-VERIFY delivery of H-P5-ROUTES-002 are consumed with dispositions and evidence
+      - H-P5-VERIFY-001 through H-P5-VERIFY-007 record every newly found future effect while H-P5-ROUTES-002 remains pending for P6-FIGURES
+      - no upstream packet is repaired completed absorbed or reclassified and no Phase 6 packet or external action is claimed

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-ROUTES"
-  next_permitted_packet: "P5-VERIFY"
+  last_completed_packet: "P5-VERIFY"
+  next_permitted_packet: "P6-CONTINUITY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17123,7 +17123,7 @@ packets:
     sequence: 161
     phase: "5"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-ROUTES"
     scope: "Phase 5 assessment and pathway gate."
@@ -17134,13 +17134,85 @@ packets:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The P5-VERIFY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p5-verification-2026-08-26.md#matrica-27-imenovanih-preduvjeta"
+            - "matrix:27-named-prerequisites-checked-against-own-required-evidence"
+            - "matrix:P5-CLOSURE-00-through-P5-CLOSURE-18-all-19-pass-separately"
+            - "matrix:P5-A-P5-B-P5-D-and-P5-ROUTES-pass-separately"
+            - "matrix:P5-C-P5-E-P5-F-and-P5-G-blocked-separately"
+            - "matrix:23-pass-4-blocked-prerequisites-five-distinct-defects"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+            - "commit:5b2de98ee2986a9616a52b13f4d51b9069f5f375"
+            - "tree:7731381e0e24a75e52a4128bc0b4a89509adc3c6"
+            - "external-input:ParlaSent_BCS.jsonl-sha256-c6a6f51a819941c19f148405ed83adbabc38e3333305a44a7149b23d99b1cc98"
+            - "external-input:ParlaSent_BCS_test.jsonl-sha256-412b3ba399dab24041ff11a0eb1d530b402511615c8206cb1838092bc22ea7a0"
+            - "external-input:README.txt-sha256-848a892cede62d37f469532eba6d2f5e6f00d29234f0257a67737f8a8646c285"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "resolved:canonical-ledger-has-two-P5-VERIFY-deliveries-not-zero"
+            - "resolved:P5-ROUTES-consumed-all-13-applicable-deliveries-not-12"
+            - "resolved:four-phase-5-discoveries-routed-only-to-P5-ROUTES-were-re-read-and-have-recorded-dispositions-and-final-transfer"
+            - "resolved:R04-R23-and-R24-remain-ratified-no-parent-closed-by-aggregation"
+            - "deferred:B-P5V-C-owner-P6-DATA-handoff-H-P5-VERIFY-001"
+            - "deferred:B-P5V-E-CONVENTIONS-owner-P6-CONTINUITY-handoff-H-P5-VERIFY-002"
+            - "deferred:B-P5V-E-GRAPH-owner-P6-CONTINUITY-handoff-H-P5-VERIFY-003"
+            - "deferred:B-P5V-F-owner-P6-EVIDENCE-handoff-H-P5-VERIFY-004"
+            - "deferred:B-P5V-G-owner-P6-CONTINUITY-handoff-H-P5-VERIFY-005"
+            - "deferred:B-P5V-FIG16-owner-P6-FIGURES-existing-handoff-H-P5-ROUTES-002"
+            - "deferred:B-P5V-A-RAW-owner-P7-CLEAN-BUILD-handoff-H-P5-VERIFY-006"
+            - "deferred:B-P5V-EOL-owner-P7-CLEAN-BUILD-handoff-H-P5-VERIFY-007"
+            - "deferred:B-P5V-JAMOVI-owner-Luka-Sikic-public-promise-remains-narrowed-under-H-P5-B-001"
+      outputs:
+        - output: "P5-VERIFY durable artifact and evidence record for: Phase 5 assessment and pathway gate."
+          artifacts:
+            - "report:notes/reports/p5-verification-2026-08-26.md"
+            - "handoff:H-P5-VERIFY-001-through-H-P5-VERIFY-007"
+            - "handoff:H-P5-ROUTES-002-remains-pending-for-P6-FIGURES"
+        - output: "Completion evidence is tied to the declared P5-VERIFY source state and bounded scope."
+          artifacts:
+            - "p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+            - "scope-diff:three-control-files-and-one-gate-report-only"
+            - "boundary:no-upstream-repair-no-content-edit-no-P6-claim"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "matrix:all-27-named-prerequisites-have-own-evidence-row-and-verdict"
+            - "result:23-pass-and-four-blocked-prerequisites-with-five-distinct-defects"
+            - "check:95-schema-valid-records-five-per-19-units-and-95-matching-live-anchors"
+            - "check:zero-protected-rubrics-alternatives-or-instructor-notes-in-public-exports-or-navigation"
+            - "check:two-routes-reconciled-against-all-19-live-ratified-spines"
+            - "check:all-undelivered-public-promises-narrowed-not-dropped"
+            - "boundary:no-parent-or-package-status-used-as-substitute-for-own-proof"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
+            - "report:notes/reports/p5-verification-2026-08-26.md#jedno-deklarirano-izvorno-stanje"
+            - "manifest:commit-tree-and-three-exact-external-P5-A-inputs"
+            - "check:deterministic-commands-rerun-in-clean-LF-checkout-at-declared-commit"
+        - test: "The P5-VERIFY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:packet-specific-27-row-matrix-full-ladder-handoff-gap-audit-and-blocker-dispositions"
+            - "check:full-blocking-ladder-run-with-concepts-and-figure-introductions-recorded-as-failures"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-generic_packet_evidence-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-invalid_outside_ask_link-exit-1"
+            - "fixture:REVIEW_WORKFLOW_NEGATIVE_FIXTURE-descoped_without_amendment-exit-1"
+            - "fixture:assessment-architecture-negative-4-of-4-fail-closed"
+            - "authority:gate-verified-and-reported-without-upstream-repair-completion-or-absorption"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: null
+    change_reference: "p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990"
   P6-CONTINUITY:
     sequence: 162
     phase: "6"
