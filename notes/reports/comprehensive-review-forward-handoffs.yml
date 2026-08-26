@@ -2468,7 +2468,22 @@ handoffs:
           - fixture:ASSESSMENT_ARCHITECTURE_NEGATIVE_FIXTURE-assessed_code_production-exit-1
       - target_packet: P6-CONTINUITY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          P6-CONTINUITY vezao je svoj zasebni redak matrice uz cijelu H10
+          ljestvicu. Svih 19 jedinica ima evidentiran stupanj: osam stvarnih
+          artefakata čitanja koda i jedanaest poimence obrazloženih iznimki.
+          Zasebna provjera procjene potvrđuje da nijedan od 95 zadataka ne
+          zahtijeva proizvodnju koda. Proza nije mijenjana i nijedan stupanj nije
+          zatvoren prolazom drugoga.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md#h10-i-ljestvica-osumnjičenoga-koda"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.ai_competence_registry"
+          - "source:STYLE.md#H10"
+          - "audit:19-units-8-code-reading-artifacts-11-recorded-exceptions"
+          - "check:ASSESSMENT_ARCHITECTURE_OK-95-records-code-production-assessed-false"
 
   H-G-A2D-005:
     source_packet: G-A2d
@@ -3665,7 +3680,20 @@ handoffs:
           - "check:scripts/check-review-workflow.R-before-P2-SPINE-FINALE-claim"
       - target_packet: P6-CONTINUITY
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Konačni audit potvrđuje svih 17 preduvjeta Poglavlja 18 i dvanaest
+          isključenja. Glavna studija ostaje objasnidbena, empirijski prijenos
+          izričito rabi isti redoslijed bez nove metode, paket dokaza ostaje
+          jedini novi definicijski objekt, a nijedna tehnika ne stvara prednju
+          ovisnost niti ulazi s popisa izvan opsega.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md#prijelazi-preduvjeti-i-finale"
+          - "source:chapters/18-vase-prvo-istrazivanje.qmd-lines-484-505-575-582-787-810"
+          - "check:CHAPTER_SPINES_OK-ratified-19-of-19-finale-prerequisites-17"
+          - "boundary:no-new-method-or-forward-dependency"
 
   H-P2-SPINE-FINALE-001:
     source_packet: P2-SPINE-FINALE
@@ -4158,7 +4186,19 @@ handoffs:
     deliveries:
       - target_packet: P6-CONTINUITY
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Cijela je knjiga provjerena prema živom registru, uključujući prozu,
+          slike, zadatke, definicije i oba rječnička prikaza. Nema živih
+          divergencija ni zabranjene uporabe; R36-BOOK-new-cluster zatvoren je
+          samo na ovom vlastitom auditu, ne prolazom registra ili roditelja.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md#terminološko-pomirenje"
+          - "check:TERMINOLOGY_OK-166-spine-forms-12-superseded-3-departures-4-rules-52-definitions-zero-divergences"
+          - "check:APPENDIX_E_CHECK_OK-52-concepts-662-edges"
+          - "register:item-R36-BOOK-new-cluster-accepted-on-own-test"
 
   H-P2-TERMS-002:
     source_packet: P2-TERMS
@@ -6958,7 +6998,22 @@ handoffs:
     deliveries:
       - target_packet: P6-CONTINUITY
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Kanonska ledger-definicija ograničenja raspona pomirena je s već
+          prihvaćenim uvjetnim tekstom Poglavlja 6: pojava može oslabiti
+          izmjerenu povezanost, ali smjer ovisi o obliku odnosa i pravilu
+          odabira. Tek nakon toga regenerirani su graf i terminološke projekcije;
+          primjer približno linearnoga izravnog odabira nije oslabljen.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md#terminološko-pomirenje"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#ogranicenje-raspona"
+          - "source:chapters/06-povezanost.qmd#def-ogranicenje-raspona"
+          - "check:CONCEPT_INTEGRITY_OK-graph-fresh-52-nodes-662-edges"
+          - "check:TERMINOLOGY_OK-zero-divergences"
+          - "check:APPENDIX_E_CHECK_OK"
 
   H-WB-C06-003:
     source_packet: WB-C06
@@ -8825,7 +8880,19 @@ handoffs:
     deliveries:
       - target_packet: P6-CONTINUITY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Zastarjeli hash konvencija vođen je kao samostalan kvar. Terminološki
+          prikazi i ruta ponovno su izgrađeni iz živoga registra, a zaseban
+          `check-appendix-e.py` prolazi; rezultat konceptnoga grafa nije
+          upotrijebljen kao zamjena.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md#tri-p5-verify-invalida"
+          - "artifact:config/appendix-e-terminology-route.json"
+          - "check:APPENDIX_E_CHECK_OK-52-concepts-662-edges"
+          - "boundary:separate-from-H-P5-VERIFY-003"
 
   H-P5-VERIFY-003:
     source_packet: P5-VERIFY
@@ -8853,7 +8920,20 @@ handoffs:
     deliveries:
       - target_packet: P6-CONTINUITY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Zastarjeli konceptni graf vodi se kao drugi, neovisni kvar P5-E.
+          Paket je prvo pomirio živi konceptni zapis s prihvaćenom uvjetnom
+          definicijom ograničenja raspona, zatim regenerirao graf; zaseban
+          `check-concepts.py` prolazi s 52 čvora i 662 brida.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md#tri-p5-verify-invalida"
+          - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#ogranicenje-raspona"
+          - "artifact:data/concept-graph.json"
+          - "check:CONCEPT_INTEGRITY_OK-graph-fresh-52-nodes-662-edges"
+          - "boundary:separate-from-H-P5-VERIFY-002"
 
   H-P5-VERIFY-004:
     source_packet: P5-VERIFY
@@ -8908,7 +8988,20 @@ handoffs:
     deliveries:
       - target_packet: P6-CONTINUITY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Zastarjeli trag inventara u P5-G vodi se odvojeno od oba kvara P5-E.
+          Paket je regenerirao samo konfiguracijsku rutu Dodatka G iz živoga
+          inventara. Zaseban test prolazi za točno četiri D10 teme i četiri prve
+          uporabe uz nepromijenjenu arhitekturu 19/7/39/1/17/17/4.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md#tri-p5-verify-invalida"
+          - "artifact:config/appendix-g-numeracy-route.json"
+          - "registry:config/book-inventory.json#solution_routes"
+          - "check:APPENDIX_G_CHECK_OK-topics-4-routes-4-pages-39-appendices-7"
+          - "boundary:separate-from-P5-E-defects"
 
   H-P5-VERIFY-006:
     source_packet: P5-VERIFY
@@ -8964,6 +9057,248 @@ handoffs:
     required: true
     deliveries:
       - target_packet: P7-CLEAN-BUILD
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-001:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - report:notes/reports/p6-continuity-2026-08-26.md#deterministički-kandidati-za-kasniji-urednički-paket
+      - finding:F-P6C-R01-through-F-P6C-R16
+      - finding:F-P6C-V05-through-F-P6C-V08
+    statement: >-
+      Deterministički audit ima 16 zasebnih kandidata raspoređenih u jedinice
+      00, 01, 03, 04, 09 i 10. Svježi glasovni pregled dodaje četiri manja
+      nalaza o antitezi, deiktičkim otvaranjima, površinskoj formulaičnosti
+      mostova i operativnom registru Poglavlja 4. Kandidati nisu automatske
+      pogreške i nijedan se ne smije sakriti zbrajanjem.
+    required_action: >-
+      P6-STYLE mora na svom konačnom stanju pojedinačno presuditi svih 16
+      determinističkih kandidata i nalaze F-P6C-V05 do V08, popraviti samo
+      stvarne H1-H10/S1-S9 kvarove u svojoj ovlasti i zadržati zasebne
+      dispozicije. Prolaz jednoga kandidata ne zatvara drugi.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "check:book-continuity-structure_lint.R-16-candidates"
+      - "review:critic-voice-4-minor-findings"
+      - "report:notes/reports/p6-continuity-2026-08-26.md#nalazi-i-dispozicije"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-002:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - packet:P6-ARC
+      - item:R27-BOOK-part-bridges
+      - finding:F-P6C-V01
+    statement: >-
+      Svježi glasovni pregled označio je velikim nalazom činjenicu da je prva
+      granica dijela na chapters/03-kako-brojke-zavode.qmd:630 naslov treće
+      razine unutar razrađenoga primjera, dok su ostale četiri granice vidljive
+      kao cjeline razine knjige. Sadržaj mosta prolazi, ali hijerarhijski kvar
+      ostavlja R27-BOOK-part-bridges ratificiranim.
+    required_action: >-
+      P6-STYLE mora zasebno razriješiti hijerarhiju prve granice dijela i ponovno
+      provjeriti ritam ostatka razrađenoga primjera. P6-ARC potom mora potvrditi
+      vidljivost svih pet mostova na stanju nakon promjene prije release proofa.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "source:chapters/03-kako-brojke-zavode.qmd-lines-558-600-630"
+      - "review:critic-voice-V01-major"
+      - "report:notes/reports/p6-continuity-2026-08-26.md#odgođeni-nalazi-svježih-čitatelja-s-vlasnikom"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-003:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - packet:P6-ARC
+      - item:R12-POLL-recurrence
+      - finding:F-P6C-V02
+    statement: >-
+      Funkcija anketne kartice spiralno napreduje, ali Poglavlja 2 i 3 oba
+      zvuče kao prvo uvođenje, a Poglavlje 8 podrijetlo pripisuje samo Poglavlju
+      3. Svježi glasovni pregled to je označio velikim kontinuitetskim nalazom,
+      pa R12-POLL-recurrence ostaje ratificiran unatoč arc-prolazu sadržaja.
+    required_action: >-
+      P6-STYLE mora uskladiti jedno podrijetlo kartice bez gubitka novih pitanja
+      u svakom povratku. P6-ARC mora nakon promjene ponovno provjeriti cijeli
+      slijed 2-3-8-13-16; arc-prolaz prethodnoga stanja nije dokaz popravka.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "source:chapters/02-mjerenje-i-dizajn.qmd-lines-429-448"
+      - "source:chapters/03-kako-brojke-zavode.qmd-lines-167-194"
+      - "source:chapters/08-uzorkovanje.qmd-lines-1014-1028"
+      - "review:critic-voice-V02-major"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-004:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - packet:P6-ARC
+      - finding:F-P6C-V03
+      - rule:STYLE-H10
+    statement: >-
+      Svih 19 AI-okvira počinje subjektom Asistent, a 16 od 19 formulom
+      Asistent može. Sadržaji i H10 artefakti jesu različiti, no svježi glasovni
+      pregled označio je retorički obrazac velikim nalazom. Prolaz H10 matrice
+      ne zatvara ovaj zaseban glasovni kvar.
+    required_action: >-
+      P6-STYLE mora varirati retoričku strukturu otvaranja, ne samo glagole, uz
+      očuvanje ljestvice instrument-pogrešivi analitičar-predmet istraživanja.
+      P6-ARC mora ponovno provjeriti svih 19 okvira nakon posljednje promjene.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "audit:19-callout-model-openings-19-subject-Asistent-16-formula-Asistent-može"
+      - "review:critic-voice-V03-major"
+      - "boundary:H10-content-matrix-remains-a-separate-pass"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-005:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - packet:P6-ARC
+      - source:dodaci/f-ai-protokol.qmd
+      - finding:F-P6C-V04
+    statement: >-
+      Dodatak F na redcima 130-150 u čitateljski tekst umeće inventar 95
+      kanonskih zadataka, stabilna sidra, otisak prompta, konfiguracijsku putanju
+      i opis čuvara. Svježi glasovni pregled taj je prijelaz u registar
+      održavatelja označio velikim nalazom.
+    required_action: >-
+      P6-STYLE mora u Dodatku F zadržati samo čitateljski učinak o dopuštenim
+      podacima, provjeri i potvrdi, a implementacijski dokaz ostaviti u
+      projektnom izvješću. P6-ARC mora ponovno provjeriti registar dodatka.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "source:dodaci/f-ai-protokol.qmd-lines-130-150"
+      - "review:critic-voice-V04-major"
+      - "report:notes/reports/p6-continuity-2026-08-26.md#odgođeni-nalazi-svježih-čitatelja-s-vlasnikom"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-006:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - packet:P6-STYLE
+      - packet:P6-ARC
+      - item:R24-BOOK-AppendixF-references
+      - finding:F-P6C-A01
+    statement: >-
+      Kompetencije rada s asistentom rastu i puni protokol nije nepotrebno
+      ponovljen, ali izričita poveznica prema Dodatku F pojavljuje se tek u
+      Poglavlju 18. Svježi arc-pregled zato nije prihvatio doslovni zahtjev za
+      progresivnim referencama, pa R24-BOOK-AppendixF-references ostaje
+      ratificiran.
+    required_action: >-
+      P6-STYLE mora dodati rijetke usidrene poveznice prema
+      dodaci/f-ai-protokol.qmd#sec-protokol-asistenta pri svakoj novoj razini
+      kompetencije, imenujući samo novu lokalnu sposobnost. P6-ARC mora potvrditi
+      progresiju i izostanak umnoženoga protokola na konačnom stanju.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "review:critic-arc-one-minor-finding"
+      - "audit:Appendix-F-explicitly-named-only-in-Chapter-18"
+      - "report:notes/reports/p6-continuity-2026-08-26.md#odgođeni-nalazi-svježih-čitatelja-s-vlasnikom"
+    required: true
+    deliveries:
+      - target_packet: P6-STYLE
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-007:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: constraint
+    refs:
+      - packet:P6-ARC
+      - handoff:H-P6-CONTINUITY-002
+      - handoff:H-P6-CONTINUITY-003
+      - handoff:H-P6-CONTINUITY-004
+      - handoff:H-P6-CONTINUITY-005
+      - handoff:H-P6-CONTINUITY-006
+    statement: >-
+      P6-CONTINUITY prihvaćen je kao dovršen audit i izvješće, ne kao dokaz da
+      su četiri velika glasovna nalaza i manji kvar progresivnih poveznica
+      popravljeni. P6-STYLE je vlasnik promjena proze, a P6-ARC dolazi nakon
+      završnih materijalnih promjena i mora dati svjež dokaz.
+    required_action: >-
+      P6-ARC mora na jednom tadašnjem deklariranom stanju ponovno provjeriti
+      F-P6C-V01 do V04 i F-P6C-A01 zasebno. Ne smije ih proglasiti riješenima
+      zbog statusa P6-CONTINUITY, prolaza drugoga nalaza ili prihvaćanja
+      roditelja; svaki veliki nalaz mora biti razriješen prije release proofa.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "contract:whole_book_review-fatal-and-major-resolved-before-downstream-release-proof"
+      - "report:notes/reports/p6-continuity-2026-08-26.md#svježi-neovisni-čitatelji"
+    required: true
+    deliveries:
+      - target_packet: P6-ARC
+        gate: before_start
+        state: pending
+
+  H-P6-CONTINUITY-008:
+    source_packet: P6-CONTINUITY
+    created_at: "2026-08-26"
+    kind: invalidation
+    refs:
+      - packet:P6-DATA
+      - source:rjesenja.qmd
+      - registry:data/katalog.yml#populacija_medija
+      - check:scripts/check-katalog.py
+    statement: >-
+      Puni closeout ladder nalazi da generirana javna ruta rješenja koristi
+      paket populacija_medija, ali rjesenja.qmd nije deklariran među njegovim
+      manuscript consumers u kanonskom katalogu. To je zaseban katalogski kvar
+      od zastarjeloga P5-C artefakta iz H-P5-VERIFY-001 i od CRLF hasha iz
+      H-P5-VERIFY-007.
+    required_action: >-
+      P6-DATA mora zasebno pomiriti stvarni generirani consumer s kanonskim
+      katalogom ili dokazati da generator ne smije biti consumer, zatim ponovno
+      pokrenuti check-katalog.py i relevantne P5-C provjere. Ne smije zatvoriti
+      ovaj kvar prolazom H-P5-VERIFY-001 ili popravkom završetaka redaka.
+    basis:
+      - "state:p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      - "check:scripts/check-katalog.py-exit-1-populacija-medija-undeclared-rjesenja-qmd-consumer"
+      - "boundary:separate-from-H-P5-VERIFY-001-and-H-P5-VERIFY-007"
+      - "report:notes/reports/p6-continuity-2026-08-26.md#završni-testovi"
+    required: true
+    deliveries:
+      - target_packet: P6-DATA
         gate: before_start
         state: pending
 
@@ -12966,3 +13301,41 @@ packet_reviews:
       - H-P5-ROUTES-001 and the P5-VERIFY delivery of H-P5-ROUTES-002 are consumed with dispositions and evidence
       - H-P5-VERIFY-001 through H-P5-VERIFY-007 record every newly found future effect while H-P5-ROUTES-002 remains pending for P6-FIGURES
       - no upstream packet is repaired completed absorbed or reclassified and no Phase 6 packet or external action is claimed
+  P6-CONTINUITY:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P6-CONTINUITY-001
+      - H-P6-CONTINUITY-002
+      - H-P6-CONTINUITY-003
+      - H-P6-CONTINUITY-004
+      - H-P6-CONTINUITY-005
+      - H-P6-CONTINUITY-006
+      - H-P6-CONTINUITY-007
+      - H-P6-CONTINUITY-008
+    no_other_outgoing_reason: >-
+      Svih 16 determinističkih kandidata, četiri velika i pet manjih nalaza
+      svježih čitatelja dobili su zasebne dispozicije i točne vlasnike. Četiri
+      velika glasovna nalaza i manji kvar izričitih poveznica imaju vlastite
+      blokirajuće handoffe prema P6-STYLE, a P6-ARC ima zasebnu obvezu svježe
+      ponovne provjere. Raniji handoffi za P6-EVIDENCE, P6-FIGURES, P6-DATA i
+      P7-CLEAN-BUILD nisu potrošeni ni preuzeti. Puni ladder dodatno je otkrio
+      jedan neovisni katalogski consumer kvar i H-P6-CONTINUITY-008 dodjeljuje
+      ga P6-DATA; nijedan drugi novi podatak, vlasnik, obveza ili vratnica nije
+      pronađen.
+    implementation_state: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+    checks:
+      - the initial state was active null last P5-VERIFY next P6-CONTINUITY and the exact 27-row 23-pass 4-blocked 5-defect P5 gate was accepted only as reporting evidence
+      - all four canonical before-start deliveries including the extra H-G-A2D-004 and all three before-close deliveries were separately consumed with dispositions and evidence
+      - the three P5-VERIFY invalidations for Appendix E conventions the independent concept graph and Appendix G inventory each pass their own current-source test
+      - architecture remains 19 chapters 7 appendices 39 pages 1 solution route 17 widgets 17 static twins and 4 pedagogical callouts
+      - both reading routes all 19 ratified spines and the 95-record single-source assessment architecture remain intact
+      - nine governed items received separate evidence rows with six accepted and R12-POLL-recurrence R24-BOOK-AppendixF-references and R27-BOOK-part-bridges retained as ratified on their own findings
+      - R10-LIFECYCLE-distribution R12-SAMPLING-vs-test R14-BOOK-causal-thread R17-REPORT-thread R23-BOOK-suspect-code-ladder and R36-BOOK-new-cluster pass their own exact tests
+      - no parent item is closed by aggregation and no incoming delivery owned by P6-EVIDENCE P6-FIGURES P6-DATA or P7-CLEAN-BUILD is consumed
+      - the fresh arc review reports zero fatal zero major and one minor while the fresh voice review reports zero fatal four major and four minor findings
+      - all four major findings and the separate Appendix F link defect are deferred with owners and must be re-reviewed by P6-ARC before downstream release proof
+      - the full blocking ladder records the independent undeclared rjesenja.qmd catalogue consumer in H-P6-CONTINUITY-008 for P6-DATA without consuming that packet delivery
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P6-EVIDENCE is the sole next permitted packet but is not claimed inside P6-CONTINUITY
+      - no external message push merge tag archive deployment publication or release-proof claim is made or authorised

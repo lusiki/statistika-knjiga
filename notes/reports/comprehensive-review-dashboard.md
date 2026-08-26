@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P5-VERIFY
-next_permitted_packet: P6-CONTINUITY
+last_completed_packet: P6-CONTINUITY
+next_permitted_packet: P6-EVIDENCE
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 117
+forward_handoffs: 125
 last_updated: "2026-08-26"
 ---
 
@@ -79,6 +79,7 @@ stop and repair the control state before editing book content.
 | P5-G | Accepted on appendix state `50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202`; D10's exactly four-topic Appendix G and four sanctioned first-use reminders pass, inventory projections were generated before the source was added, parent `R34` closed only after both children passed separately, and `H-P5-G-001` carried the authorised 19/7/38/17/17/4 architecture basis to P5-ROUTES |
 | P5-ROUTES | Accepted on pathway state `7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db`; two prerequisite-valid reading routes, all five advertised path classes and the single-source 95-record public/protected solution projections pass; public promises are reconciled, all 13 incoming handoffs are consumed, parents `R15` and `R21` close, and two future effects are routed to P5-VERIFY/P6-FIGURES |
 | P5-VERIFY | Accepted as a reporting gate on composite state `0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990`; all 27 named prerequisites have separate own-evidence rows, 23 pass and P5-C/P5-E/P5-F/P5-G remain blocked by five separately owned defects; the full ladder additionally retains the Chapter 16 figure blocker, two clean-build risks and the narrowed jamovi boundary without repairing upstream work |
+| P6-CONTINUITY | Accepted only as a completed final-state audit and report on `p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da`; architecture remains 19/7/39/1/17/17/4 with two routes, 19 spines and 95 single-source records; six of nine governed items pass independently, while `R12-POLL-recurrence`, `R24-BOOK-AppendixF-references` and `R27-BOOK-part-bridges` remain ratified on separate findings; four major voice findings, five reviewer-minor findings and one new catalogue-consumer defect have explicit downstream owners and are not represented as fixed |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -95,19 +96,19 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; P5-VERIFY released the write lock after verification and reporting only |
-| Last completed packet | `P5-VERIFY`; its 27-row matrix records 23 passing and 4 blocked prerequisites, with five distinct packet defects and every additional boundary assigned without upstream repair |
-| Next permitted packet | `P6-CONTINUITY`; not claimed |
+| Active write packet | None |
+| Last completed packet | `P6-CONTINUITY`; completed as an audit/report packet with four major and five reviewer-minor findings separately deferred with owners, not as evidence those defects are repaired |
+| Next permitted packet | `P6-EVIDENCE` only; not claimed |
 | Review parents | 27 ratified; 9 accepted |
-| Atomic child inventory | Complete: 371 stable children; 326 accepted, 5 deferred with reason and 40 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 153 accepted, 35 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 332 accepted, 5 deferred with reason and 34 ratified pending their later gates; zero unmapped |
+| Exact packet catalogue | 189 packets: 154 accepted, 34 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | None in `P1-VERIFY`. P5-VERIFY completed its reporting contract but found four blocked prerequisites: P5-C, P5-E, P5-F and P5-G; their five distinct defects have owners in `H-P5-VERIFY-001` through `H-P5-VERIFY-005`. The Chapter 16 figure blocker remains in `H-P5-ROUTES-002`, while two clean-build risks are in `H-P5-VERIFY-006` and `H-P5-VERIFY-007` |
+| Failed gates | None in `P1-VERIFY`. P6-CONTINUITY separately resolved the P5-E conventions, P5-E graph and P5-G inventory defects; P5-C remains owned by P6-DATA and P5-F by P6-EVIDENCE. Four major editorial findings and the separate Appendix F progressive-link defect remain in `H-P6-CONTINUITY-002` through `H-P6-CONTINUITY-006`, with final re-review in `H-P6-CONTINUITY-007`; the newly exposed undeclared `rjesenja.qmd` catalogue consumer is separately owned by P6-DATA in `H-P6-CONTINUITY-008`. The Chapter 16 figure blocker remains in `H-P5-ROUTES-002`; two clean-build risks remain in `H-P5-VERIFY-006` and `H-P5-VERIFY-007` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7597,6 +7598,52 @@ the durable evidence is
   claimed. No push, merge, tag, archive, deployment, publication or other
   external action is authorised.
 
+## P6-CONTINUITY claim and closeout
+
+- P6-CONTINUITY was claimed only after the canonical null/P5-VERIFY/P6-CONTINUITY
+  state and the exact P5 verification hash, 27 rows, 23 passes, 4 blocked
+  prerequisites and 5 defects were rechecked. It accepted P5-VERIFY only as a
+  reporting gate and did not use that status as proof of repair.
+- The ledger had four, not three, `before_start` deliveries: the prompt omitted
+  `H-G-A2D-004`. It and `H-P5-VERIFY-002`, `003` and `005` were consumed
+  separately before substantive work. The three `before_close` deliveries
+  `H-G-A2B-FINALE-001`, `H-P2-TERMS-001` and `H-WB-C06-002` were also consumed
+  separately with source-anchored evidence.
+- The complete audit is tied to
+  `p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da`.
+  It preserves 19 chapters, 7 appendices, 39 canonical pages, 1 solution route,
+  17 widgets, 17 static twins and 4 pedagogical callout classes, plus both
+  reading routes, all 19 ratified spines and the 95-record single answer source.
+- The three inherited invalidations were not aggregated: the P5-E conventions
+  route, independent 52-node/662-edge concept graph and P5-G inventory route
+  each pass their own fresh check. The range-restriction ledger wording was
+  reconciled to the already accepted conditional Chapter 6 definition before
+  the graph and terminology projections were regenerated.
+- The nine governed items each have their own row and evidence. Six are
+  accepted: lifecycle distribution, sampling-versus-test, causal thread, honest
+  reporting, the 19-unit H10 ladder and the new-term cluster. Poll recurrence,
+  progressive Appendix F references and part bridges remain ratified on three
+  separate findings; no parent was closed by aggregation.
+- The fresh arc critic reports 0 fatal, 0 major and 1 minor finding. The fresh
+  voice critic reports 0 fatal, 4 major and 4 minor findings. The report keeps
+  each finding separate. P6-CONTINUITY did not edit chapter prose under the
+  checkout-local continuity boundary; eight outgoing handoffs assign the 16
+  deterministic candidates, all reviewer findings, the required final
+  re-review and one independent catalogue-consumer defect to P6-STYLE, P6-ARC
+  and P6-DATA.
+- The full blocking ladder passes all unaffected lanes. It preserves the known
+  P7-CLEAN-BUILD route-hash, P6-FIGURES introduction, P6-DATA Appendix C and
+  P6-EVIDENCE Appendix F failures, and separately exposes the undeclared
+  `rjesenja.qmd` consumer in `H-P6-CONTINUITY-008`; no owner-pending defect was
+  repaired or consumed here.
+- Acceptance of P6-CONTINUITY means the audit and report are complete. It does
+  not reclassify the four major findings or the Appendix F link defect as fixed;
+  they must be resolved and freshly reviewed before downstream release proof.
+- The workflow checker and all three workflow negative fixtures pass closed at
+  closeout. The lock is released and P6-EVIDENCE alone is next, without being
+  claimed. No push, merge, tag, archive, deployment or publication is
+  authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7619,38 +7666,43 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P5-VERIFY` and
-`next_permitted_packet: P6-CONTINUITY`. Confirm that P5-VERIFY is accepted only
-as a completed verification/reporting gate on source state
-`p5-verify-state:sha256-0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990`:
-its matrix has 27 separate prerequisite rows, 23 passes and four blocked
-prerequisites containing five separately owned defects. Confirm that it did
-not repair, complete, absorb or reclassify any upstream packet.
+Verify `active_write_packet: null`, `last_completed_packet: P6-CONTINUITY` and
+`next_permitted_packet: P6-EVIDENCE`. Confirm that P6-CONTINUITY is accepted
+only as a completed whole-book audit/report on source state
+`p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da`.
+Its nine governed items have separate evidence: six are accepted, while
+`R12-POLL-recurrence`, `R24-BOOK-AppendixF-references` and
+`R27-BOOK-part-bridges` remain ratified on separate findings. Confirm that its
+four major and five reviewer-minor findings are deferred with owners, not
+represented as fixed, and that no parent was closed by aggregation.
 
-Claim and execute only `P6-CONTINUITY` under its `whole_book_review` contract.
-Fully read its packet record, the P5-VERIFY report, all four canonical control
-files and the checkout-local Bookwright continuity instructions. Do not rely
-on prior chat or the installed plugin cache for mutable state.
+Claim and execute only `P6-EVIDENCE` under its `whole_book_review` contract.
+Fully read its packet record, the P6-CONTINUITY report, all four canonical
+control files and the checkout-local Bookwright evidence/review instructions
+required by the packet. Do not rely on prior chat or installed-plugin mutable
+state.
 
-Before the first substantive edit, acknowledge and consume the three required
-before-start deliveries targeting P6-CONTINUITY: `H-P5-VERIFY-002` for the
-stale P5-E conventions hash, `H-P5-VERIFY-003` for the independently stale
-concept graph, and `H-P5-VERIFY-005` for the stale P5-G inventory trace. Keep
-them separate; one passing child or parent must not discharge another. Do not
-consume deliveries owned by P6-DATA, P6-EVIDENCE, P6-FIGURES or
-P7-CLEAN-BUILD, and do not treat P5-VERIFY's reporting acceptance as evidence
-that its deferred defects are fixed.
+Before the first substantive edit, separately acknowledge and consume the two
+required `before_start` deliveries targeting P6-EVIDENCE:
+`H-G-A2D-005` for the dated privacy/tool-lane boundary and
+`H-P5-VERIFY-004` for the independently stale P5-F source hash. Acknowledge
+`H-WE-C18-001` at its separate `before_close` gate and consume it only after its
+own evidence test. Do not consume deliveries owned by P6-STYLE, P6-ARC,
+P6-DATA, P6-FIGURES or P7-CLEAN-BUILD, and do not treat P6-CONTINUITY's
+reporting acceptance as evidence that any deferred defect is fixed.
 
-Run the final-state whole-book continuity audit over structure, terminology,
-prerequisites, threads and transitions with exact source anchors and fresh
-reviewer evidence. Preserve the current 19/7/39/1/17/17/4 architecture, both
-reading routes, all 19 ratified spines and the single-source 95-record
-assessment architecture unless the packet's own evidence and authority require
-a bounded reconciliation. Record every finding and disposition separately.
+Run the final-state whole-book evidence audit over H7, claim boundaries,
+sensitivity, current-source use and legal dating. Give every governed item and
+every incoming delivery its own source-anchored test; do not hide a blocker by
+aggregation. Tie the report and fresh reviewer evidence to one declared source
+state. Preserve the 19/7/39/1/17/17/4 architecture, both routes, all 19 spines
+and the 95-record single-source assessment system unless this packet's exact
+authority requires a bounded reconciliation. Record every finding and
+disposition separately, including anything later packets must inherit.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger and dashboard
 together; run the workflow checker and all three workflow negative fixtures;
-close and locally commit P6-CONTINUITY; then stop. Do not claim P6-EVIDENCE,
-push, merge, tag, archive, deploy or publish.
+close and locally commit P6-EVIDENCE; then stop. Do not claim P6-FIGURES, push,
+merge, tag, archive, deploy or publish.
 ```

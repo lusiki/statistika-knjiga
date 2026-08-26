@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-VERIFY"
-  next_permitted_packet: "P6-CONTINUITY"
+  last_completed_packet: "P6-CONTINUITY"
+  next_permitted_packet: "P6-EVIDENCE"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17217,7 +17217,7 @@ packets:
     sequence: 162
     phase: "6"
     kind: "whole_book_review"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-VERIFY"
     scope: "Structure, terminology, prerequisites, threads, and transitions."
@@ -17228,13 +17228,71 @@ packets:
       - "The review covers the final material state across all affected units."
       - "Fatal and major findings are resolved before downstream release proof."
       - "The P6-CONTINUITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+      required_evidence:
+        - requirement: "whole-book source-anchor matrix"
+          artifacts:
+            - "report:notes/reports/p6-continuity-2026-08-26.md#matrica-devet-zasebnih-stavki"
+            - "matrix:9-separate-governed-items-6-accepted-3-remain-ratified-with-separate-findings"
+            - "matrix:9-lifecycle-stages-19-H10-units-5-part-bridges-and-finale-boundary"
+            - "architecture:19-7-39-1-17-17-4-two-routes-19-ratified-spines-95-record-single-source"
+        - requirement: "post-change reviewer evidence"
+          artifacts:
+            - "report:notes/reports/p6-continuity-2026-08-26.md#svježi-neovisni-čitatelji"
+            - "review:critic-voice-0-fatal-4-major-4-minor"
+            - "review:critic-arc-0-fatal-0-major-1-minor"
+            - "boundary:critic-disagreement-preserved-without-aggregation"
+        - requirement: "resolved finding log"
+          artifacts:
+            - "resolved:F-P6C-001-through-F-P6C-006"
+            - "deferred:F-P6C-R01-through-R16-owner-P6-STYLE-handoff-H-P6-CONTINUITY-001"
+            - "deferred:F-P6C-V01-owner-P6-STYLE-and-P6-ARC-handoffs-002-and-007"
+            - "deferred:F-P6C-V02-owner-P6-STYLE-and-P6-ARC-handoffs-003-and-007"
+            - "deferred:F-P6C-V03-owner-P6-STYLE-and-P6-ARC-handoffs-004-and-007"
+            - "deferred:F-P6C-V04-owner-P6-STYLE-and-P6-ARC-handoffs-005-and-007"
+            - "deferred:F-P6C-V05-through-V08-owner-P6-STYLE-handoff-001"
+            - "deferred:F-P6C-A01-owner-P6-STYLE-and-P6-ARC-handoffs-006-and-007"
+            - "deferred:F-P6C-D01-owner-P6-DATA-handoff-H-P6-CONTINUITY-008"
+      outputs:
+        - output: "P6-CONTINUITY final-state whole-book audit and dispositions for: Structure, terminology, prerequisites, threads, and transitions."
+          artifacts:
+            - "report:notes/reports/p6-continuity-2026-08-26.md"
+            - "handoff:H-P6-CONTINUITY-001-through-H-P6-CONTINUITY-008"
+            - "registry:bookwright_plugin/bookwright/shared/concept-ledger.json#ogranicenje-raspona"
+            - "artifacts:data/concept-graph.json-config/appendix-e-terminology-route.json-config/appendix-g-numeracy-route.json"
+        - output: "Completion evidence is tied to the declared P6-CONTINUITY source state and bounded scope."
+          artifacts:
+            - "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+            - "scope:no-chapter-prose-edit-no-P6-EVIDENCE-claim"
+            - "boundary:accepted-as-completed-audit-and-report-not-as-proof-that-deferred-defects-are-fixed"
+      exit_tests:
+        - test: "The review covers the final material state across all affected units."
+          result: "passed"
+          evidence:
+            - "state:p6-continuity-state-sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
+            - "matrix:all-19-units-all-7-appendices-all-19-spines-both-routes-and-95-records"
+            - "checks:architecture-inventory-spines-assessment-terminology-concepts-appendix-e-appendix-g-structure-and-semantic-routes"
+            - "ladder:known-failures-recorded-separately-for-P6-DATA-P6-EVIDENCE-P6-FIGURES-and-P7-CLEAN-BUILD"
+        - test: "Fatal and major findings are resolved before downstream release proof."
+          result: "passed"
+          evidence:
+            - "review:zero-fatal-findings"
+            - "boundary:four-major-findings-not-reclassified-as-fixed"
+            - "handoff:H-P6-CONTINUITY-002-through-005-own-each-major-repair"
+            - "handoff:H-P6-CONTINUITY-007-requires-final-P6-ARC-re-review-before-release-proof"
+        - test: "The P6-CONTINUITY packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:packet-specific-structure-terminology-prerequisite-thread-transition-matrices"
+            - "matrix:each-of-nine-governed-items-has-own-source-anchor-test-and-disposition"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "whole_book_review"
     required_evidence:
       - "whole-book source-anchor matrix"
       - "post-change reviewer evidence"
       - "resolved finding log"
-    change_reference: null
+    change_reference: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
   P6-EVIDENCE:
     sequence: 163
     phase: "6"
@@ -24262,7 +24320,7 @@ items:
       location: "§12 lifecycle"
     description: "Verify that the book progressively teaches every lifecycle stage."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -24279,11 +24337,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "report:notes/reports/p6-continuity-2026-08-26.md#devet-faza-životnoga-ciklusa"
+      - "matrix:9-stages-each-with-separate-plant-develop-harvest-source-anchors"
+      - "review:critic-arc-cumulative-build-5-of-5"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
   R10-CLAIMS-six-dimensions:
     parents:
       - "R10"
@@ -24969,7 +25030,7 @@ items:
       location: "§12 lifecycle"
     description: "Build the Chapter 8→16→17 bridge between population generalisation and predictive evaluation."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -24987,11 +25048,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "report:notes/reports/p6-continuity-2026-08-26.md#matrica-devet-zasebnih-stavki"
+      - "anchors:chapters-08-1014-1061-16-1183-1234-17-209-234-and-767-782"
+      - "review:critic-arc-sequence-and-prerequisites-5-of-5"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
   R12-C08-survey-realism:
     parents:
       - "R12"
@@ -25090,6 +25154,12 @@ items:
     description: "Verify purposeful recurrence of the poll card."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      The final-state functional recurrence changes purpose at each return, but
+      the fresh voice review found a separately owned origin mismatch: Chapters
+      2 and 3 both sound like the first card, while Chapter 8 attributes the
+      card only to Chapter 3. F-P6C-V02 and H-P6-CONTINUITY-003 route the bounded
+      prose repair to P6-STYLE and require final P6-ARC re-review.
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -26058,7 +26128,7 @@ items:
       location: "§12 causal literacy"
     description: "Implement one causal diagram/vocabulary across design, association, sampling, regression, and deployment."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -26074,11 +26144,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "report:notes/reports/p6-continuity-2026-08-26.md#matrica-devet-zasebnih-stavki"
+      - "anchors:chapters-02-06-08-16-17-distinguish-association-reach-adjustment-identification-prediction-feedback"
+      - "review:critic-arc-zero-fatal-zero-major"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
   R14-C16-interaction:
     parents:
       - "R14"
@@ -27517,7 +27590,7 @@ items:
       location: "§12 honest sentence"
     description: "Implement the communication plant/develop/harvest progression."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -27533,11 +27606,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "report:notes/reports/p6-continuity-2026-08-26.md#matrica-devet-zasebnih-stavki"
+      - "anchors:chapters-04-09-11-16-18-progressive-production-and-audit"
+      - "review:critic-arc-zero-fatal-zero-major"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
   R17-BOOK-change-mind:
     parents:
       - "R17"
@@ -29475,7 +29551,7 @@ items:
       location: "§12 H10"
     description: "Restore the escalating suspect-code strand with approved stage-appropriate exceptions."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -29492,11 +29568,14 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "report:notes/reports/p6-continuity-2026-08-26.md#h10-i-ljestvica-osumnjičenoga-koda"
+      - "matrix:19-units-8-code-reading-artifacts-11-stage-appropriate-recorded-exceptions"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-95-records-code-production-assessed-false"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
   R23-C09-code-reading:
     parents:
       - "R23"
@@ -31302,6 +31381,11 @@ items:
     description: "Replace repeated generic advice with progressive Appendix F references plus one new competence."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      The final-state competence ladder progresses and does not repeat the full
+      protocol, but the fresh arc review found that explicit Appendix F links
+      appear only in Chapter 18. F-P6C-A01 and H-P6-CONTINUITY-006 route sparse
+      stage links to P6-STYLE and require final P6-ARC re-review.
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -32475,6 +32559,12 @@ items:
     description: "Verify all part-ending claim bridges."
     disposition: "accepted_first_edition"
     status: "ratified"
+    open_reason: >-
+      All five bridges contain the required newly available, unavailable and
+      next-thread claims, but the fresh voice review found that the first bridge
+      remains a level-three heading inside the worked example rather than a
+      visible book-level boundary. F-P6C-V01 and H-P6-CONTINUITY-002 route the
+      hierarchy repair to P6-STYLE and require final P6-ARC re-review.
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -34526,18 +34616,7 @@ items:
       location: "§12 new terms"
     description: "Canonicalise Croatian/English forms and variants for the new term cluster."
     disposition: "accepted_first_edition"
-    status: "ratified"
-    open_reason: >-
-      Deliberately left open by P2-TERMS. G-A2c settled every canonical form in
-      the cluster and P2-TERMS made the register live, schema-valid and
-      machine-checked, and an audit found zero contradictions in the concept
-      ledger, pojmovnik.qmd or the sixteen Dodatak E entries. The acceptance test
-      also names prose, figures and exercises, and eight recorded divergences
-      still live in Chapters 0, 8, 16 and 17. P2-TERMS is a shared_registry
-      packet that may not edit prose, so closing the item would have asserted a
-      book-wide consistency that does not yet exist. This does not stall Phase 2:
-      the ratified plan's Phase 2 exit condition keeps R10, R15, R24 and R36 open
-      until their book-wide implementation is verified.
+    status: "accepted"
     closure_packet: "P6-CONTINUITY"
     closure_handoff: "H-P2-TERMS-001"
     owner: "root_conductor"
@@ -34564,11 +34643,15 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-TERMS"
-    completion_evidence: []
+    completion_evidence:
+      - "report:notes/reports/p6-continuity-2026-08-26.md#terminološko-pomirenje"
+      - "check:TERMINOLOGY_OK-166-spine-forms-12-superseded-3-departures-4-semantic-rules-52-definitions-zero-divergences"
+      - "check:APPENDIX_E_CHECK_OK-52-concepts-662-edges"
+      - "check:CONCEPT_INTEGRITY_OK-graph-fresh-52-nodes-662-edges"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da"
 outside_ask_inventory:
   status: "complete"
   completion_packet: "P0-OUTSIDE"
