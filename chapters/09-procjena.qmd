@@ -779,13 +779,16 @@ koji ih proizvodi.
 :::
 
 ::: {.callout-model}
-Asistent može bootstrapirati mnoge statistike, ali ispravan kod ne jamči
-ispravan plan ponovnog uzorkovanja. Provjeravamo predstavlja li početni uzorak
+Kod bootstrapa ispravan kod još ne jamči ispravan plan ponovnog uzorkovanja.
+Provjeravamo predstavlja li početni uzorak
 ciljnu populaciju i koja je stvarno neovisna jedinica. Zatim gledamo uzorkuje li
 s vraćanjem na punoj veličini uzorka i čuva li parove, skupine ili ponovljena
 opažanja. Broj ponavljanja također mora biti dovoljan da računalno kolebanje
 granica bude malo. Ključna pogreška koju ovdje provjeravamo nije u kodu nego u
 zaključnoj rečenici, gdje se već izračunatom intervalu pripiše vjerojatnost.
+Tu provjeru vodi sljedeći stupanj
+[protokola za rad s asistentom](../dodaci/f-ai-protokol.qmd#sec-protokol-asistenta).
+Račun se prihvaća tek nakon provjere ciljne populacije, jedinice i zaključka.
 
 > Izračunaj točkastu procjenu i bootstrap interval. Uzorkuj s vraćanjem na
 > punoj veličini uzorka, sačuvaj strukturu podataka i interpretiraj razinu
@@ -891,9 +894,10 @@ i upravo zato mora biti izveden pažljivo.
 
 ## Granica Dijela III — Od procjene do tvrdnje
 
-Šest revizijskih pitanja povezuje vjerojatnost, uzorkovanje i procjenu. Ona
-sprječavaju da uzak raspon postane dopuštenje za širu tvrdnju od one koju
-podaci i postupak mogu nositi. Na razrađenom primjeru odgovori izgledaju ovako.
+Procjena prelazi u tvrdnju tek kad se povežu vjerojatnost, uzorkovanje i doseg.
+Šest revizijskih pitanja sprječava da uzak raspon postane dopuštenje za širu
+tvrdnju od one koju podaci i postupak mogu nositi. Razrađeni primjer daje ove
+odgovore.
 
 | Pitanje revizije | Primjena na bootstrap medijana |
 |---|---|
@@ -906,10 +910,10 @@ podaci i postupak mogu nositi. Na razrađenom primjeru odgovori izgledaju ovako.
 
 : Šest revizijskih pitanja primijenjenih na procjenu iz simulirane populacije. Izrada autora.
 
-Odgovori određuju rečenicu koja se smije prenijeti. Oni ne pretvaraju
+Odgovori omeđuju rečenicu koja se smije prenijeti. Oni ne pretvaraju
 sintetičku populaciju u empirijski dokaz, a izostavljenu mjernu nesigurnost ili
-nesigurnost kodiranja ne skrivaju unutar uzoračkoga raspona. Karta tvrdnji zato
-razdvaja šest mogućih dosega iste analize.
+nesigurnost kodiranja ne skrivaju unutar uzoračkoga raspona. Šest mogućih dosega
+iste analize zatim razdvaja karta tvrdnji.
 
 | Dimenzija tvrdnje | Što ovaj dokaz dopušta |
 |---|---|
@@ -1014,7 +1018,7 @@ ne pisanje koda.
 
 ### Kritički {#ex-09-kriticki-01 .zadaci-razina}
 
-Vratite se prikazu **Istraživač margine pogreške** u poglavlju o tome kako
+Vratite se prikazu Istraživač margine pogreške u poglavlju o tome kako
 brojke zavode. Usporedite stanje s uzorkom od 1000 osoba bez pristranosti i
 stanje s jednakim uzorkom te pristranošću od šest postotnih bodova. Oba
 pokazuju procjenu od 52 %. Primijenite ondje uvedeni protokol čitanja ankete i

@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P6-FIGURES
-next_permitted_packet: P6-STYLE
+last_completed_packet: P6-STYLE
+next_permitted_packet: P6-DATA
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 134
+forward_handoffs: 142
 last_updated: "2026-08-26"
 ---
 
@@ -81,6 +81,8 @@ stop and repair the control state before editing book content.
 | P5-VERIFY | Accepted as a reporting gate on composite state `0a592fbf1a78f7281b9e528abd9688ed11483c705c77f1e6621490726c362990`; all 27 named prerequisites have separate own-evidence rows, 23 pass and P5-C/P5-E/P5-F/P5-G remain blocked by five separately owned defects; the full ladder additionally retains the Chapter 16 figure blocker, two clean-build risks and the narrowed jamovi boundary without repairing upstream work |
 | P6-CONTINUITY | Accepted only as a completed final-state audit and report on `p6-continuity-state:sha256-e65f9fc6b56fc6ea085ff7aed37d3419979ecd01d7163f4fc5fd062d3f8e93da`; architecture remains 19/7/39/1/17/17/4 with two routes, 19 spines and 95 single-source records; six of nine governed items pass independently, while `R12-POLL-recurrence`, `R24-BOOK-AppendixF-references` and `R27-BOOK-part-bridges` remain ratified on separate findings; four major voice findings, five reviewer-minor findings and one new catalogue-consumer defect have explicit downstream owners and are not represented as fixed |
 | P6-EVIDENCE | Accepted only as a completed final-state audit, bounded bibliography/checker correction and report on `p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c`; five of seven governed items pass independently, while dated product claims retain two major defects and dated legal/institutional claims retain four major defects; the incorrect public appendix count and newly invalidated Appendix-G hash also have separate downstream owners and are not represented as fixed |
+| P6-FIGURES | Accepted on `p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817`; all 43 conceptual figures, captions, alt descriptions and 17 widget/static-print pairs pass separate source-anchored checks, the Chapter 16 D10 reminder remains, seven normal streams have exact contracts and unchanged tolerances, and no project-artifact or release proof is claimed |
+| P6-STYLE | Accepted on `p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282`; all 39 canonical pages have distinct deterministic and manual H1–H10 rows, 38 ordinary pages have zero lint candidates, generated solution/catalogue findings have explicit later owners, and six final critics independently reproduce the 64-file state |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -98,18 +100,18 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P6-FIGURES`; accepted on the exact 33-file final source state after all 43 conceptual figures, 17 widget/print pairs and seven affected normal streams passed separate source-anchored and reviewer proof |
-| Next permitted packet | `P6-STYLE` only; not claimed |
+| Last completed packet | `P6-STYLE`; accepted on the exact 64-file final source state after all 39 pages received separate deterministic and manual H1–H10 dispositions and six critics reproduced the state |
+| Next permitted packet | `P6-DATA` only; it is not claimed in the P6-STYLE closeout |
 | Review parents | 27 ratified; 9 accepted |
 | Atomic child inventory | Complete: 371 stable children; 338 accepted, 5 deferred with reason and 28 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 157 accepted, 31 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 158 accepted, 30 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | None in `P1-VERIFY`. P6-CONTINUITY separately resolved the P5-E conventions, P5-E graph and P5-G inventory defects; P5-C remains owned by P6-DATA, while P5-F is freshly resolved by P6-EVIDENCE. Four major editorial findings and the separate Appendix F progressive-link defect remain in `H-P6-CONTINUITY-002` through `H-P6-CONTINUITY-006`, with final re-review in `H-P6-CONTINUITY-007`; the undeclared `rjesenja.qmd` catalogue consumer remains separately owned by P6-DATA in `H-P6-CONTINUITY-008`. P6-EVIDENCE adds six separately owned current-product/legal/institutional blockers, the landing-page count defect and one Appendix-G invalidation in `H-P6-EVIDENCE-001` through `009`. P6-FIGURES resolved the Chapter 16 introduction and seven normal-stream proof defects without consuming later owners; clean-build risks remain in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
+| Failed gates | None in `P1-VERIFY`. P6-STYLE resolved its ten incoming findings without consuming sibling deliveries. P6-DATA still owns the P5-C invalidation, undeclared `rjesenja.qmd` catalogue consumer, three separate legal-source clusters and the two new generated-catalogue style findings. P6-PANELS owns two new AI overclaims, generated solution-register language and the interaction-hub code promise; P6-ARC owns the final 16-advisory and whole-book re-review; P6-METHODS owns the generated name form. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7719,6 +7721,52 @@ the durable evidence is
   The lock is released and `P6-STYLE` alone is next without being claimed. No
   push, merge, tag, archive, deployment or publication is authorised.
 
+## P6-STYLE claim and closeout
+
+- The canonical register was re-read at null/P6-FIGURES/P6-STYLE and the clean
+  P6-FIGURES commit was independently rechecked. Figure introductions,
+  caption/alt contracts, 17 widget/static-print pairs, all seven affected
+  non-caching normal streams and eight parity fixtures pass. The Chapter 16
+  D10 reminder and the immediate `fig-pravac` introduction remain intact, and
+  the P6-FIGURES diff contains no tolerance widening.
+- The prompt's assertion of no incoming delivery was not used. The canonical
+  ledger instead has ten required `before_start` deliveries to P6-STYLE:
+  `H-P6-CONTINUITY-001` through `006`, `H-P6-EVIDENCE-001`, `002`, `003` and
+  `007`. All ten were read and consumed separately before this claim with
+  bounded dispositions; none was discharged by another finding.
+- Upstream findings routed only to sibling packets remain with those owners.
+  In particular `H-P6-CONTINUITY-007` stays with P6-ARC,
+  `H-P6-CONTINUITY-008` and `H-P6-EVIDENCE-004` through `006` stay with
+  P6-DATA, `H-P6-EVIDENCE-008` stays with P6-VERIFY/P7-CLEAN-BUILD and
+  `H-P6-EVIDENCE-009` stays with P6-PANELS. P6-STYLE will record their
+  presence but will not silently absorb or consume them.
+- The audit is tied to
+  `p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282`.
+  Its matrix gives all 39 canonical pages separate deterministic and manual
+  H1–H10 rows. The checkout-local linter reports zero candidates on 38 ordinary
+  pages; the 2,156 candidates in generated `rjesenja.qmd` remain separately
+  visible rather than being called a whole-book zero.
+- The fixed skeleton, four callout classes, 52 accepted definition IDs, 43
+  conceptual figures, 17 widget/print pairs and 95 assessment routes remain
+  intact. Appendix F and G artifacts were rebuilt against the final source,
+  and the two changed prompt fingerprints preserve their existing record IDs,
+  schema and public/protected boundary.
+- Six read-only critics independently reproduced the 64-file state. Methods
+  and structure report no concern; skepticism, pedagogy, evidence and Croatian
+  style accept the bounded delta while retaining their pre-existing or
+  generated findings with named later owners.
+- Eight outgoing handoffs keep two AI overclaims, two catalogue-generation
+  findings, the generated solution register, 16 S7 advisories, the generated
+  author-name form and the interaction-hub code promise separate. Existing
+  legal, sibling and clean-build deliveries remain pending and undischarged.
+- All source gates and seven integrity negative lanes pass. All 27 changed QMD
+  sources pass isolated HTML/citeproc parsing. A full no-execute project render
+  timed out after 300 seconds in responsive Deno preprocessing and is not
+  claimed as a pass; the existing P7 clean-build owners remain unchanged.
+- The workflow checker and all three workflow negative fixtures pass closed.
+  The lock is released and `P6-DATA` alone is next without being claimed. No
+  push, merge, tag, archive, deployment or publication is authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7741,45 +7789,43 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P6-FIGURES` and
-`next_permitted_packet: P6-STYLE`. Confirm that P6-FIGURES closed only on
-`p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817`,
-that its 43 conceptual figures and 17 widget/static-print pairs have separate
-source-anchored dispositions, and that the fresh reviewer independently
-reproduced the state and reported zero fatal, major or minor findings. Confirm
-that `H-P5-ROUTES-002` and the P6-FIGURES delivery of `H-WB-C06-001` were
-consumed separately, that D10 remained intact, all seven affected tolerances
-remained unchanged, and no browser, PDF, DOCX or release proof was claimed.
+Verify `active_write_packet: null`, `last_completed_packet: P6-STYLE` and
+`next_permitted_packet: P6-DATA`. Confirm that P6-STYLE closed only on
+`p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282`,
+that all 39 canonical pages have separate deterministic and manual H1-H10
+dispositions, that 38 ordinary pages have zero deterministic candidates, and
+that the 2,156 generated `rjesenja.qmd` candidates were routed rather than
+hidden in a generic pass. Confirm all ten P6-STYLE incoming handoffs were
+consumed separately, all eight outgoing handoffs were recorded, and sibling or
+clean-build deliveries were not consumed.
 
-Claim and execute only `P6-STYLE` under its `whole_book_review` contract. Fully
-read its packet record, the P6-CONTINUITY, P6-EVIDENCE and P6-FIGURES reports,
-the four canonical control files and the checkout-local Bookwright style and
-review instructions required by the packet. Do not rely on prior chat or the
-installed plugin cache for mutable state.
+Claim and execute only `P6-DATA` under its `whole_book_review` contract. Its
+scope is catalogue consumers, public downloads, metadata and data evidence.
+Fully read its packet record, `data/katalog.yml`, both generated catalogue
+views, the catalogue and data-integrity builders/checkers and their negative
+fixtures, the P6-STYLE report, and every applicable incoming handoff.
 
-Before the first substantive edit, acknowledge and consume all ten applicable
-`before_start` deliveries separately: `H-P6-CONTINUITY-001` through `006`,
-`H-P6-EVIDENCE-001`, `002`, `003` and `007`. Give the 16 deterministic
-candidates and findings `F-P6C-V05` through `V08` individual dispositions;
-repair the first part-boundary hierarchy, poll-card origin, repetitive AI-box
-openings, Appendix F maintainer register and progressive Appendix F links
-without using one repair to discharge another. Separately resolve or return the
-unsupported current product and author-status claims under their exact owner
-boundaries, and correct the public appendix count from the canonical inventory.
-Never invent a product, version, price, title, affiliation, official source or
-legal/institutional confirmation.
+Consume all seven `before_start` deliveries separately before the first
+substantive edit: `H-P5-VERIFY-001`, `H-P6-CONTINUITY-008`,
+`H-P6-EVIDENCE-004`, `H-P6-EVIDENCE-005`, `H-P6-EVIDENCE-006`,
+`H-P6-STYLE-003` and `H-P6-STYLE-004`. Do not let the stale Appendix C proof,
+the undeclared `rjesenja.qmd` consumer, any one of the three legal-source
+clusters, missing Croatian diacritics or the H8 field-label conflict discharge
+one another. Repair canonical catalogue data or generators and regenerate both
+public views together; never hand-edit generated pages and never invent a
+statute, regulator, source title, version or link.
 
-Run the deterministic and manual H1-H10 Croatian style pass on the final
-material state, with source-anchored dispositions for every governed item and a
-fresh post-change reviewer tied to one declared state. Preserve every
-P6-FIGURES introduction, caption, alt, widget/static twin, normal-stream
-contract and unchanged tolerance. Do not consume deliveries owned by P6-DATA,
-P6-ARC, P6-PANELS, P6-VERIFY or P7-CLEAN-BUILD, and do not represent a deferred
-external-source decision as a style repair.
+Before closeout, separately consume the eight applicable `before_close`
+deliveries `H-P3-EXISTING-001`, `H-P3-EXISTING-003`, `H-P3-DZS-002`,
+`H-P3-DZS-003`, `H-P3-DZS-004`, `H-P3-DIP-002`, `H-P3-EUROSTAT-001` and
+`H-P3-TEXT-003` with exact rights, provenance, metadata and consumer evidence.
+Deliver a whole-book source-anchor matrix, post-change reviewer evidence and a
+resolved finding log tied to one declared state. A generic contract statement
+is not proof, and one dataset or legal disposition may not close another.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger and dashboard
 together; run the workflow checker and all three workflow negative fixtures;
-close and locally commit P6-STYLE; then stop. Do not claim P6-DATA, push, merge,
+close and locally commit P6-DATA; then stop. Do not claim P6-PANELS, push, merge,
 tag, archive, deploy or publish.
 ```

@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P6-FIGURES"
-  next_permitted_packet: "P6-STYLE"
+  last_completed_packet: "P6-STYLE"
+  next_permitted_packet: "P6-DATA"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17448,7 +17448,7 @@ packets:
     sequence: 165
     phase: "6"
     kind: "whole_book_review"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P6-FIGURES"
     scope: "Deterministic and manual H1-H10 Croatian style pass."
@@ -17459,13 +17459,61 @@ packets:
       - "The review covers the final material state across all affected units."
       - "Fatal and major findings are resolved before downstream release proof."
       - "The P6-STYLE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
+      required_evidence:
+        - requirement: "whole-book source-anchor matrix"
+          artifacts:
+            - "report:notes/reports/p6-style-2026-08-26.md#matrica-39-kanonskih-stranica"
+            - "matrix:39-canonical-pages-with-distinct-deterministic-and-manual-H1-H10-dispositions"
+            - "structure:16-advisories-individually-disposed-final-P6-ARC-ownership-retained"
+        - requirement: "post-change reviewer evidence"
+          artifacts:
+            - "report:notes/reports/p6-style-2026-08-26.md#neovisni-post-change-panel"
+            - "review:six-independent-critics-reproduced-the-64-file-final-state"
+            - "review:methods-skepticism-pedagogy-evidence-structure-and-Croatian-style-final-verdicts"
+        - requirement: "resolved finding log"
+          artifacts:
+            - "report:notes/reports/p6-style-2026-08-26.md#razriješeni-i-odgođeni-nalazi"
+            - "resolved:ten-incoming-deliveries-each-on-own-evidence"
+            - "handoffs:H-P6-STYLE-001-through-H-P6-STYLE-008"
+      outputs:
+        - output: "P6-STYLE final-state whole-book audit and dispositions for: Deterministic and manual H1-H10 Croatian style pass."
+          artifacts:
+            - "report:notes/reports/p6-style-2026-08-26.md"
+            - "linter:38-ordinary-pages-zero-rjesenja-H1-1114-H4-1042-separately-routed"
+            - "manual:all-39-pages-read-on-the-declared-state"
+        - output: "Completion evidence is tied to the declared P6-STYLE source state and bounded scope."
+          artifacts:
+            - "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
+            - "scope:no-new-section-part-title-vignette-claim-callout-type-or-definition-id"
+            - "boundary:project-Deno-timeout-not-claimed-as-render-or-release-proof"
+      exit_tests:
+        - test: "The review covers the final material state across all affected units."
+          result: "passed"
+          evidence:
+            - "matrix:39-pages-39-source-ranges"
+            - "checks:manuscript-inventory-citations-concepts-terminology-architecture-spines-assessment-and-figures-pass"
+            - "artifacts:Appendix-F-95-of-95-Appendix-G-four-topics-solution-routes-95-drift-zero"
+        - test: "Fatal and major findings are resolved before downstream release proof."
+          result: "passed"
+          evidence:
+            - "resolved:all-in-scope-handwritten-style-findings"
+            - "deferred:generated-and-product-claim-findings-have-eight-required-later-owner-deliveries"
+            - "boundary:no-downstream-release-proof-claimed"
+        - test: "The P6-STYLE packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "state:p6-style-state-sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
+            - "fixtures:integrity-seven-and-workflow-three-fail-closed"
+            - "render:27-affected-QMD-isolated-HTML-citeproc-pass"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "whole_book_review"
     required_evidence:
       - "whole-book source-anchor matrix"
       - "post-change reviewer evidence"
       - "resolved finding log"
-    change_reference: null
+    change_reference: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
   P6-DATA:
     sequence: 166
     phase: "6"
@@ -25270,11 +25318,11 @@ items:
     disposition: "accepted_first_edition"
     status: "ratified"
     open_reason: >-
-      The final-state functional recurrence changes purpose at each return, but
-      the fresh voice review found a separately owned origin mismatch: Chapters
-      2 and 3 both sound like the first card, while Chapter 8 attributes the
-      card only to Chapter 3. F-P6C-V02 and H-P6-CONTINUITY-003 route the bounded
-      prose repair to P6-STYLE and require final P6-ARC re-review.
+      P6-STYLE repaired the separately owned origin mismatch by rooting the
+      card in Chapter 2 while preserving a new purpose at each return. The item
+      remains ratified until P6-ARC rechecks the complete 2-3-8-13-16 sequence
+      on the final material state under H-P6-CONTINUITY-007 and
+      H-P6-STYLE-006.
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -25294,7 +25342,7 @@ items:
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
   R12-C08-weighted-table:
     parents:
       - "R12"
@@ -31509,10 +31557,10 @@ items:
     disposition: "accepted_first_edition"
     status: "ratified"
     open_reason: >-
-      The final-state competence ladder progresses and does not repeat the full
-      protocol, but the fresh arc review found that explicit Appendix F links
-      appear only in Chapter 18. F-P6C-A01 and H-P6-CONTINUITY-006 route sparse
-      stage links to P6-STYLE and require final P6-ARC re-review.
+      P6-STYLE added sparse anchored Appendix F links at genuine competence
+      transitions without repeating the protocol. The item remains ratified
+      until P6-ARC rechecks the full progression and absence of duplication on
+      the final material state under H-P6-CONTINUITY-007 and H-P6-STYLE-006.
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -31533,7 +31581,7 @@ items:
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
   R24-BOOK-frozen-outputs:
     parents:
       - "R24"
@@ -32702,11 +32750,11 @@ items:
     disposition: "accepted_first_edition"
     status: "ratified"
     open_reason: >-
-      All five bridges contain the required newly available, unavailable and
-      next-thread claims, but the fresh voice review found that the first bridge
-      remains a level-three heading inside the worked example rather than a
-      visible book-level boundary. F-P6C-V01 and H-P6-CONTINUITY-002 route the
-      hierarchy repair to P6-STYLE and require final P6-ARC re-review.
+      P6-STYLE promoted the first bridge to a visible book-level boundary while
+      preserving its accepted title and content. The item remains ratified
+      until P6-ARC rechecks all five bridges and the Chapter 3 worked-example
+      rhythm on the final material state under H-P6-CONTINUITY-007 and
+      H-P6-STYLE-006.
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -32726,7 +32774,7 @@ items:
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
   R04-C17-prerequisites:
     parents:
       - "R04"
