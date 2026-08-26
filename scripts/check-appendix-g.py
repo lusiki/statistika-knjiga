@@ -142,7 +142,7 @@ def validate(root: Path, fixture: str = "") -> dict[str, int]:
     }
     if architecture != expected_architecture:
         fail(f"architecture counts={architecture}")
-    if len(inventory["pages"]) != 38 or len(inventory["book"]["appendices"]) != 7:
+    if len(inventory["pages"]) != 39 or len(inventory["book"]["appendices"]) != 7:
         fail("inventory counts")
     quarto = (root / builder.QUARTO).read_text(encoding="utf-8")
     runtime = (root / builder.RUNTIME_ROUTES).read_text(encoding="utf-8")
@@ -150,8 +150,8 @@ def validate(root: Path, fixture: str = "") -> dict[str, int]:
         fail("generated Quarto navigation")
     if runtime.count('"app-g": "/dodaci/g-numericki-podsjetnik.html"') != 1:
         fail("generated runtime route")
-    if inventory.get("solution_routes") != []:
-        fail("solution_routes changed")
+    if inventory.get("solution_routes") != ["solutions"]:
+        fail("post-P5-ROUTES solution route is not the single sanctioned projection")
 
     promise = artifact.get("public_promise", {})
     if promise != {

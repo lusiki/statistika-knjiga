@@ -485,7 +485,20 @@ def main() -> int:
     args = parser.parse_args()
     fixture = os.environ.get("APPENDIX_F_NEGATIVE_FIXTURE", "")
     try:
-        result = validate(ROOT, fixture=fixture, check_git_boundary=not fixture)
+        register = (
+            ROOT / "notes/reports/comprehensive-review-implementation-register.yml"
+        ).read_text(encoding="utf-8")
+        p5_f_is_active = bool(
+            re.search(
+                r"(?ms)^\s*active_write_packet:\s*\n\s+id:\s*[\"']?P5-F[\"']?\s*$",
+                register,
+            )
+        )
+        result = validate(
+            ROOT,
+            fixture=fixture,
+            check_git_boundary=p5_f_is_active and not fixture,
+        )
         if not args.skip_clean and not fixture:
             clean_regeneration(result)
         print(

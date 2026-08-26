@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P5-G"
-  next_permitted_packet: "P5-ROUTES"
+  last_completed_packet: "P5-ROUTES"
+  next_permitted_packet: "P5-VERIFY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17032,7 +17032,7 @@ packets:
     sequence: 160
     phase: "5"
     kind: "pathway_verification"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P5-A"
       - "P5-B"
@@ -17050,13 +17050,75 @@ packets:
       - "Every advertised pathway is complete, versioned where needed, and uses canonical data and expected values."
       - "Any undelivered promise is explicitly narrowed before publication."
       - "The P5-ROUTES packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
+      required_evidence:
+        - requirement: "route coverage matrix"
+          artifacts:
+            - "artifact:config/pathway-routes.json@sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
+            - "source:chapters/00-predgovor.qmd@sha256-b27a739c6fc0ee6da6c99908de260c9f37ed6f9ab1157d2a40a659e6ee7e5055"
+            - "source:rjesenja.qmd@sha256-ae9465f699e1fdebce871b39a509e1bd9166ec73e9191f7077ea2c6c69ef756e"
+            - "source:scripts/build-solution-routes.py"
+            - "source:scripts/check-pathways.py"
+            - "report:notes/reports/p5-routes-2026-08-26.md"
+        - requirement: "clean-install or print test"
+          artifacts:
+            - "check:SOLUTION_ROUTES_GENERATED_OK-records-95-units-19-drift-0"
+            - "check:PATHWAYS_CHECK_OK-two-routes-all-live-prerequisites-95-xrefs-38-frozen-outputs-18-retrieval-replacements"
+            - "check:APPENDIX_A_CHECK_OK-clean-pathway-verified"
+            - "check:APPENDIX_B_CHECK_OK-supported-19-guarded-7-clean-install-pending-owner"
+            - "render:isolated-rjesenja-PDF-109-pages-364524-bytes-sha256-30ac8936090f51799ecdfc5d9bc247bc9b0492eff98f68ceea79b55ce0d3c7d8"
+            - "visual:isolated-rjesenja-PDF-pages-1-55-109-readable-no-clipping-or-overlap"
+            - "fixtures:assessment-architecture-negative-4-of-4-fail-closed"
+            - "check:comprehensive-review-workflow-OK-next-P5-VERIFY-handoffs-110"
+            - "fixtures:review-workflow-negative-3-of-3-fail-closed"
+        - requirement: "public-promise reconciliation"
+          artifacts:
+            - "source:README.md-public-route-boundaries"
+            - "source:_quarto-kolegij.yml-95-canonical-records"
+            - "check:CITATION_INTEGRITY_OK-live-keys-49-quarto-crossrefs-11"
+            - "fixture:unknown-bibliographic-key-integrityfixture2099-exit-1"
+            - "check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-101"
+            - "fixture:protected-content-leak-from-rjesenja.qmd-exit-1"
+      outputs:
+        - output: "P5-ROUTES durable artifact and evidence record for: Verify self-study, R, no-code, print, and AI-output routes."
+          artifacts:
+            - "artifact:config/pathway-routes.json"
+            - "source:rjesenja.qmd"
+            - "source:scripts/build-solution-routes.py"
+            - "source:scripts/check-pathways.py"
+            - "report:notes/reports/p5-routes-2026-08-26.md"
+        - output: "Completion evidence is tied to the declared P5-ROUTES source state and bounded scope."
+          artifacts:
+            - "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
+            - "handoff:all-13-applicable-deliveries-consumed"
+            - "handoff:H-P5-ROUTES-001-and-H-P5-ROUTES-002-record-all-future-effects"
+            - "boundary:no-P5-VERIFY-claim-no-push-merge-tag-archive-deploy-or-publish"
+      exit_tests:
+        - test: "Every advertised pathway is complete, versioned where needed, and uses canonical data and expected values."
+          result: "passed"
+          evidence:
+            - "check:five-route-matrix-self-study-R-no-code-print-AI-output"
+            - "check:95-record-single-source-projection-and-19-unit-closure-audit"
+            - "check:both-reading-routes-follow-all-live-spine-prerequisites"
+        - test: "Any undelivered promise is explicitly narrowed before publication."
+          result: "passed"
+          evidence:
+            - "boundary:no-code-only-19-supported-metrics-seven-guarded"
+            - "boundary:clean-install-verification-remains-pending-owner-Luka-Sikic"
+            - "boundary:public-AI-exports-exclude-solution-route-and-protected-regions"
+        - test: "The P5-ROUTES packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:dedicated-route-artifact-generator-and-pathway-checker"
+            - "check:eight-governed-items-each-received-a-separate-exact-test"
+            - "report:notes/reports/p5-routes-2026-08-26.md"
     contract: "pathway_verification"
     required_evidence:
       - "route coverage matrix"
       - "clean-install or print test"
       - "public-promise reconciliation"
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   P5-VERIFY:
     sequence: 161
     phase: "5"
@@ -18321,7 +18383,7 @@ parents:
   R15:
     title: "Assessment closure"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -18373,7 +18435,13 @@ parents:
       - "R15-CLOSURE-17"
       - "R15-CLOSURE-18"
       - "R15-BOOK-closure-audit"
-    completion_evidence: []
+    completion_evidence:
+      - "packet:P2-ASSESS"
+      - "packets:P5-CLOSURE-00-through-P5-CLOSURE-18"
+      - "packet:P5-ROUTES"
+      - "check:all-22-required-children-accepted"
+      - "check:ASSESSMENT_ARCHITECTURE_OK-records-95-units-19-solution-routes-1"
+      - "report:notes/reports/p5-routes-2026-08-26.md"
   R16:
     title: "Published results genre"
     disposition: "accepted_first_edition"
@@ -18509,7 +18577,7 @@ parents:
   R21:
     title: "Appendix B"
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     source: "Ratified plan §9 coverage matrix, reconciled to the detailed comprehensive review."
     closure_rule: "all_required_children_accepted"
     children_inventory_complete: true
@@ -18523,7 +18591,12 @@ parents:
       - "R21-AB-public-promise"
       - "R21-JAMOVI-product-dating"
       - "R21-TEXT-prepared-route"
-    completion_evidence: []
+    completion_evidence:
+      - "packet:P5-B"
+      - "packet:P5-ROUTES"
+      - "check:all-4-required-children-accepted"
+      - "check:APPENDIX_B_CHECK_OK-supported-19-guarded-7-clean-install-pending-owner"
+      - "report:notes/reports/p5-routes-2026-08-26.md"
   R22:
     title: "Appendix D and dependence routing"
     disposition: "accepted_first_edition"
@@ -19748,17 +19821,7 @@ items:
       location: "§6/§17 alternatives"
     description: "Preserve canonical chapter order and implement D03 as navigation, not reordering."
     disposition: "accepted_first_edition"
-    status: "ratified"
-    open_reason: >-
-      Deliberately left open by P2-DOCS. The first half of the acceptance test is
-      satisfied and verified: the _quarto.yml order is unchanged and
-      check-book-inventory.py reports the canonical 19 chapters and 6 appendices
-      with an unchanged checksum. The second half cannot be satisfied, because
-      the two reading routes do not exist. chapters/00-predgovor.qmd carries a
-      Granice i putovi citanja section that states the scope boundary and the
-      appendices and advertises no critical-literacy and no analysis route.
-      Asserting that both routes are accurate would assert a state that did not
-      happen.
+    status: "accepted"
     closure_packet: "P5-ROUTES"
     closure_handoff: "H-P2-DOCS-002"
     owner: "root_conductor"
@@ -19779,11 +19842,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-DOCS"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/pathway-routes.json#reading_routes"
+      - "source:chapters/00-predgovor.qmd#granice-i-putovi-citanja"
+      - "check:PATHWAYS_CHECK_OK-reading-routes-2-prerequisites-19"
+      - "check:BOOK_INVENTORY_OK-pages-39-chapters-19-appendices-7-solutions-1"
+      - "result:canonical-chapter-order-1-through-18-unchanged"
+      - "handoff:H-P2-DOCS-002-consumed-on-separate-item-test"
+      - "report:notes/reports/p5-routes-2026-08-26.md#dva-čitateljska-puta"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R04-SPINE-PREFACE:
     parents:
       - "R04"
@@ -20473,7 +20543,7 @@ items:
       location: "§17 Alternative A"
     description: "Implement and verify critical-literacy and analysis routes after spine ratification."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -20496,11 +20566,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-ROUTES"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/pathway-routes.json#reading_routes"
+      - "source:chapters/00-predgovor.qmd#granice-i-putovi-citanja"
+      - "check:PATHWAYS_CHECK_OK-two-routes-all-live-prerequisites"
+      - "result:chapter-13-precedes-17-in-both-routes"
+      - "result:chapter-18-follows-all-seventeen-numbered-chapters-in-both-routes"
+      - "boundary:Appendix-A-verified-Appendix-B-19-supported-7-guarded-clean-install-pending"
+      - "report:notes/reports/p5-routes-2026-08-26.md#dva-čitateljska-puta"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R04-ALT-test-catalogue:
     parents:
       - "R04"
@@ -26159,7 +26236,7 @@ items:
       location: "§12 assessment closure"
     description: "Implement D06 with one answer source, separated self-study checks, and protected instructor rubrics."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -26184,11 +26261,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-ROUTES"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/pathway-routes.json#solution_projection"
+      - "source:rjesenja.qmd@sha256-ae9465f699e1fdebce871b39a509e1bd9166ec73e9191f7077ea2c6c69ef756e"
+      - "check:SOLUTION_ROUTES_GENERATED_OK-records-95-units-19-drift-0"
+      - "check:PATHWAYS_CHECK_OK-public-checks-95-protected-rubrics-95-legacy-answer-sources-0"
+      - "fixture:protected-content-leak-from-rjesenja.qmd-exit-1"
+      - "report:notes/reports/p5-routes-2026-08-26.md#jedan-izvor-rješenja-i-vidljivost"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R15-CLOSURE-00:
     parents:
       - "R15"
@@ -27025,7 +27108,7 @@ items:
       location: "§12 assessment closure"
     description: "Verify all unit records and protected/public routes as one system."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -27048,11 +27131,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-ROUTES"
-    completion_evidence: []
+    completion_evidence:
+      - "check:ASSESSMENT_ARCHITECTURE_OK-records-95-units-19-solution-routes-1"
+      - "check:PATHWAYS_CHECK_OK-units-19-records-95-xrefs-95-protected-rubrics-95"
+      - "check:all-19-unit-closure-packets-accepted-before-system-audit"
+      - "check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-101"
+      - "fixture:protected-content-leak-from-rjesenja.qmd-exit-1"
+      - "render:isolated-public-PDF-protected-headings-0"
+      - "report:notes/reports/p5-routes-2026-08-26.md#jedan-izvor-rješenja-i-vidljivost"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R16-ARTIFACT-selection:
     parents:
       - "R16"
@@ -28654,7 +28744,7 @@ items:
       location: "§9 Appendix B"
     description: "Narrow any no-code public promise not fully delivered by the tested route."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -28678,11 +28768,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-ROUTES"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/appendix-b-jamovi-route.json#scope"
+      - "source:chapters/00-predgovor.qmd#granice-i-putovi-citanja"
+      - "source:README.md#putovi-u-radnom-nacrtu"
+      - "check:APPENDIX_B_CHECK_OK-supported-19-guarded-7-clean-install-pending-owner"
+      - "check:PATHWAYS_CHECK_OK-no-code-supported-19-guarded-7-clean-install-pending-owner"
+      - "boundary:no-claim-of-owner-Luka-Sikic-clean-install-proof"
+      - "report:notes/reports/p5-routes-2026-08-26.md#matrica-putova"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R21-JAMOVI-product-dating:
     parents:
       - "R21"
@@ -29571,15 +29668,7 @@ items:
       location: "§12 scope control"
     description: "Integrate additions as seeds, harvests, and retrieval without new chapter/widget/callout type."
     disposition: "accepted_first_edition"
-    status: "ratified"
-    open_reason: >-
-      Deliberately left open by P2-DOCS. The counts half is satisfied and
-      verified: 19 chapters, 6 appendices, 37 canonical pages, 17 widgets each
-      with a static twin and a complete registry, and four callout types with no
-      new type added. The second half, that retrieval replaces lower-value work,
-      is not a state that exists: reach-back tasks are R35 work in Phases 4 and 5
-      and no chapter carries one yet. Closing on the verified half alone would be
-      closure by aggregation.
+    status: "accepted"
     closure_packet: "P5-CLOSURE-18"
     closure_handoff: "H-P2-DOCS-002"
     owner: "root_conductor"
@@ -29601,11 +29690,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-DOCS"
-    completion_evidence: []
+    completion_evidence:
+      - "authority:Gate-A2d-D10-adds-Appendix-G"
+      - "authority:Gate-A2d-D06-adds-one-solution-route"
+      - "check:BOOK_INVENTORY_OK-pages-39-chapters-19-appendices-7-solutions-1"
+      - "check:PATHWAYS_CHECK_OK-widgets-17-static-twins-17-callout-types-4"
+      - "check:all-13-R35-reachback-items-accepted"
+      - "check:all-5-R35-self-check-items-accepted"
+      - "boundary:no-new-numbered-chapter-central-widget-or-callout-type"
+      - "report:notes/reports/p5-routes-2026-08-26.md#arhitektura-i-zasebne-odluke-po-stavkama"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R23-C17-no-tokenizer:
     parents:
       - "R23"
@@ -31167,7 +31264,7 @@ items:
       location: "§12 AI strand"
     description: "Use dated frozen outputs for graded comparisons; live repetition stays optional."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_appendix_or_pathway_owner"
     approval_owner: "author_editor_and_course_owner"
     scope:
@@ -31192,11 +31289,17 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P5-ROUTES"
-    completion_evidence: []
+    completion_evidence:
+      - "artifact:config/pathway-routes.json#solution_projection-frozen-snapshot-date-2026-08-26"
+      - "check:PATHWAYS_CHECK_OK-frozen-outputs-38-dated-2026-08-26-live-repetition-optional"
+      - "key:record-id-plus-answer-components-planted-error-error-id"
+      - "check:all-38-graded-AI-output-records-have-stable-error-id-and-prompt-sha256"
+      - "boundary:live-repetition-is-optional-and-not-a-graded-dependency"
+      - "report:notes/reports/p5-routes-2026-08-26.md#jedan-izvor-rješenja-i-vidljivost"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R24-BOOK-no-sensitive-upload:
     parents:
       - "R24"
@@ -32378,7 +32481,7 @@ items:
       location: "§8 Ch18"
     description: "Mark Chapter 18 explicitly whole-book cumulative."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor"
     scope:
@@ -32394,25 +32497,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P2-SPINE-FINALE"
-    completion_evidence: []
-    partial_completion_evidence:
-      live_source:
-        status: "verified_pending_P5_ROUTES"
-        artifacts:
-          - "source:chapters/18-vase-prvo-istrazivanje.qmd@sha256-5aa91d8b4b39ed93004f0b009441cc2fb32f97a551762e51365f8171b20beb88"
-          - "evidence:chapter-meta-prerequisite-is-cijela-knjiga"
-          - "evidence:prose-and-exercises-harvest-all-seventeen-numbered-chapters"
-          - "check:CHAPTER_SPINES_OK-18-prerequisites-17"
-          - "handoffs:H-P2-SPINE-FINALE-002-and-H-P2-VERIFY-001-consumed-by-WE-C18"
-      routes:
-        status: "pending_P5_ROUTES"
-        artifacts:
-          - "boundary:no-route-created-or-amended-by-WE-C18"
-          - "boundary:R04-parent-remains-open"
+    completion_evidence:
+      - "source:chapters/18-vase-prvo-istrazivanje.qmd-live-source-half-verified-by-WE-C18"
+      - "evidence:chapter-meta-prerequisite-is-cijela-knjiga"
+      - "evidence:prose-and-exercises-harvest-all-seventeen-numbered-chapters"
+      - "check:CHAPTER_SPINES_OK-18-prerequisites-17"
+      - "check:PATHWAYS_CHECK_OK-chapter-18-follows-all-seventeen-numbered-chapters-in-both-routes"
+      - "handoffs:H-P2-SPINE-FINALE-002-and-H-P2-VERIFY-001-consumed-by-P5-ROUTES"
+      - "boundary:R04-parent-remains-ratified-for-P6-VERIFY"
     blocker:
       active: false
       ask_id: null
-    change_reference: "blob:d71b8f511acda07986a17bb39506078458f5fe65"
+    change_reference: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
   R28-C05-introduction:
     parents:
       - "R28"

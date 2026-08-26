@@ -4,13 +4,13 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
 | Vrijeme čitanja | Widget | Podaci | Preduvjet |
 |---|---|---|---|
-| 22 min | Isti podaci, četiri grafa | Anscombeov kvartet, simulirana anketa | pogl. 4 |
+| 22 min | Isti podaci, četiri grafa | DigiKat, simulirana anketa, Anscombeov kvartet | pogl. 3–4 |
 
 **Vinjeta.**
 Anscombe je sastavio četiri skupa podataka s gotovo jednakim uobičajenim
@@ -47,17 +47,18 @@ jedna oznaka predstavlja, koja je varijabla pridružena kojem vizualnom kanalu,
 veličinu.
 
 Razlaganje na odluke svaku od njih izlaže zasebnoj provjeri. Ideju je kao
-sustav postavio Wilkinson (Wilkinson, 2005), a paket ggplot2 postao je njezina
-najraširenija izvedba (Wickham, 2016). Sama gramatika ne pripada nijednom
-programu i primjenjuje se pred tiskanom grafikom, bez pisanja koda.
+sustav postavio Wilkinson (Wilkinson, 2005), a paket ggplot2 postao je jedna od
+njezinih najpoznatijih izvedbi (Wickham, 2016). Sama gramatika ne pripada nijednom
+programu i primjenjuje se pri čitanju tiskane grafike, bez pisanja koda.
 
 Najprije treba znati što predstavlja jedna oznaka na grafu. Točka može stajati
 za ispitanika, državu, godinu ili stranku, a prikazi tu jedinicu mijenjaju bez
 najave. Kada agregat zamijeni pojedinca, mijenja se i pitanje na koje graf
 odgovara, što je ista opasnost koju opisuje poglavlje o mjerenju i dizajnu.
 
-Sljedeći korak pridružuje varijable vizualnim kanalima, položaju na dvjema
-osima, boji, veličini i obliku.
+**Geometrija** određuje prikazuje li se ta jedinica točkom, stupcem, linijom ili
+drugom oznakom. Sljedeći korak pridružuje varijable vizualnim kanalima,
+položaju na dvjema osima, boji, veličini i obliku.
 
 **Pridruživanje** (*aesthetic mapping*) je odluka koja varijabla ulazi u koji
 vizualni kanal, čime se određuje koja usporedba čitatelju postaje neposredno
@@ -65,7 +66,7 @@ dostupna.
 
 Pridruživanje je tvrdnja o tome što zaslužuje usporedbu. Kada skupinu nosi
 boja, graf poziva na neposrednu usporedbu skupina. Kada je skupina razdvojena u
-zasebna polja, graf traži da se obrazac čita unutar svake od njih. Podaci
+zasebna polja, graf traži da se obrazac čita u svakom polju. Podaci
 ostaju isti, argument se mijenja, a obmane nije bilo.
 
 Najtiša odluka dolazi prije crtanja. Graf redovito nešto izračuna prije nego što
@@ -76,56 +77,60 @@ model koji nitko nije zatražio. Poglavlje o sažimanju pokazalo je koji sažeta
 neoznačen. Anscombeov kvartet poseban je slučaj upravo tog pravila
 (Anscombe, 1973).
 
-Ljestvica je pravilo kojim vrijednost postaje vizualna veličina. Raspon osi,
+**Ljestvica** je pravilo kojim vrijednost postaje vizualna veličina. Raspon osi,
 njezin prekid, logaritamska transformacija i položaj sredine u ljestvici boja
 mijenjaju koliko promjena zauzima prostora, a podatke pritom ne mijenjaju.
-Koordinatni sustav zatvara popis i najčešće služi kao opomena, jer polarne
+**Koordinatni sustav** zatvara popis i najčešće služi kao opomena, jer polarne
 koordinate duljinu pretvaraju u kut i time istu usporedbu čine težom.
 
 Iz tih odluka slijedi postupak za čitanje tuđega grafa. Što predstavlja jedna
 oznaka, što je pridruženo kojem kanalu, što je izračunato prije crtanja i što
-dopušta ljestvica jesu pitanja koja se pred novinskom grafikom postavljaju bez
-ikakva programa. Knjiga taj postupak dalje koristi pri svakom rastavljanju
+dopušta ljestvica jesu pitanja koja se pri čitanju novinske grafike postavljaju
+bez ikakva programa. Knjiga taj postupak dalje koristi pri svakom rastavljanju
 objavljene tvrdnje.
 
 ## Što oko može očitati
 
-Gramatika kaže da oznaka nosi usporedbu, ali ne kaže koliko dobro. To pitanje
-nije stvar ukusa i ima izmjeren odgovor. Cleveland i McGill zadavali su
-sudionicima parove vrijednosti prikazane različitim kanalima i mjerili koliko
-im omjer promaši (Cleveland, 1984). Iz tih pokusa slijedi poredak elementarnih
-zadataka po pogrešci koju proizvode, u kojem je očitavanje položaja na
-zajedničkoj osi najtočnije, zatim slijede položaj na odvojenim osima s
-usklađenom ljestvicom, duljina, nagib, površina, te na kraju obujam, zakrivljenost
-i zasićenost boje (Cleveland, 1984).
+Gramatika kaže da oznaka nosi usporedbu, ali ne kaže koliko dobro. Cleveland i
+McGill povezali su ranije psihofizičke nalaze s vlastitim pokusima u kojima su
+sudionici procjenjivali omjere vrijednosti prikazanih različitim kanalima
+(Cleveland, 1984). Izravno su potvrdili prednost položaja pred duljinom i kutom,
+a za širi su skup kanala predložili poredak po očekivanoj pogrešci. Na prvom je
+mjestu položaj na zajedničkoj osi, zatim položaj na odvojenim osima s
+usklađenom ljestvicom, duljina, nagib i površina, a na kraju obujam,
+zakrivljenost i zasićenost boje (Cleveland, 1984). Taj je puni poredak hipoteza
+utemeljena na više izvora, a ne popis svih kanala izravno uspoređenih u njihovu
+pokusu.
 
 Poredak nije popis zabrana nego pravilo raspodjele. Kanal na vrhu poretka
 dodjeljuje se veličini koja nosi zaključak, a kanali s dna sekundarnim
-razlikama, gdje je gruba procjena dovoljna. Kružni dijagram udio kodira kutom, a
+razlikama, gdje je gruba procjena dovoljna. Kružni dijagram kodira udio kutom, a
 kut leži nisko u poretku, pa isti podaci u stupcima na zajedničkoj osi
 proizvode točnije očitanje (Cleveland, 1984). Kada nekoliko udjela treba samo
 prepoznati, a ne rangirati, ta razlika prestaje biti važna.
 
-Iz istog poretka slijedi i zašto trodimenzionalni prikaz ravnih podataka
-pogoršava očitanje. Perspektiva duljinu pretvara u obujam, a obujam se u
-pokusima nalazi među najlošije očitanim kanalima (Cleveland, 1984). Ukras se
-dodaje kanalu koji nosi zaključak, i to je ista obitelj postupaka kojoj
-pripada skraćena os iz poglavlja o zavaravanju brojkama.
+Iz istog poretka slijedi i zašto trodimenzionalni prikaz ravnih podataka može
+pogoršati očitanje. Perspektiva jednostavnu duljinu pretvara u kombinaciju
+duljine, površine i prividnoga obujma, a potonji su kanali pri dnu predloženoga
+poretka (Cleveland, 1984). Dodavanje ukrasa kanalu koji nosi zaključak pripada
+istoj obitelji postupaka kao skraćena os iz poglavlja o zavaravanju brojkama.
 
-Tufte je isti problem postavio kao pitanje raspodjele tinte na stranici, gdje se
-svaki element grafa mjeri time nosi li podatak ili ne nosi (Tufte, 2001). Sjena
-ispod stupca, rešetka u pozadini, obrub oko svake oznake i preljev boje troše
-prostor i pažnju, a ne dodaju nijednu vrijednost, pa ih Tufte skupno naziva
-grafičkim otpadom. Njegovo je pravilo da se takav element ukloni i da se
-provjeri je li se išta izgubilo, jer ako nije, nije ni trebao biti ondje.
+Tufte je istom problemu pristupio heuristikom raspodjele tinte na stranici i
+predložio da se za svaki element pita nosi li podatak (Tufte, 2001). Sjena ispod
+stupca, obrub oko svake oznake i preljev boje mogu trošiti prostor i pažnju bez
+nove informacije, pa ih Tufte ubraja u grafički otpad. To nije zabrana svakoga
+elementa koji ne prikazuje podatke. Rešetka, razdjelna crta ili izravna oznaka
+mogu olakšati očitanje, grupiranje i pristupačnost prikaza. Razuman je test ukloniti element
+i provjeriti jesu li usporedba ili snalaženje postali teži. Ako nisu, element
+nije potreban.
 
-Postoji i oštriji oblik istog mjerenja. Tufte uspoređuje veličinu učinka koji
-graf pokazuje s veličinom učinka koji u podacima postoji, a omjer tih dviju
-veličina naziva faktorom laži (Tufte, 2001). Pošten graf ima taj omjer blizu
-jedinice. Kada ga skraćena os, površina umjesto duljine ili perspektiva podignu,
-graf tvrdi više nego što podaci nose, i to bez ijedne netočne brojke. Vrijednost
-te mjere nije u tome što se često računa nego u tome što obmanu premješta iz
-područja ukusa u područje provjere.
+U prikazima u kojima duljina ili površina izravno predstavlja kvantitativnu
+promjenu Tufte uspoređuje veličinu učinka koji graf pokazuje s veličinom učinka
+u podacima. Taj omjer naziva faktorom laži (Tufte, 2001). Omjer blizu jedinice
+podupire tvrdnju da je geometrijsko kodiranje razmjerno, ali ne dokazuje da je
+cijeli graf pošten. Skraćena os, površina umjesto duljine ili perspektiva mogu
+omjer povećati bez ijedne netočne brojke. Mjera je zato korisna kao ograničena
+provjera jasne geometrijske usporedbe, a ne kao opća ocjena svakoga grafa.
 
 ## Prikaz prema tvrdnji
 
@@ -137,7 +142,7 @@ imati pri ruci.
 |---|---|---|
 | jedna brojčana varijabla | histogram, krivulja gustoće | čuva oblik cijele raspodjele, gubi pojedinačno opažanje |
 | jedna kategorijalna varijabla | stupci na zajedničkoj osi | čuva učestalost, ne kaže ništa o raspršenosti unutar kategorije |
-| brojčana po skupinama | okvir s brkovima, violina | čuva položaj i raspon, odbacuje broj vrhova i pojedinačna opažanja |
+| brojčana po skupinama | okvir s brkovima | čuva medijan, kvartile i izdvojena opažanja, odbacuje broj vrhova i položaj većine opažanja |
 | dvije brojčane varijable | raspršeni dijagram | čuva svako opažanje, teško podnosi velik broj točaka |
 | dvije kategorijalne varijable | grupirani ili složeni stupci | čuva odnos udjela, otežava usporedbu unutar složenih stupaca |
 
@@ -167,31 +172,33 @@ segmenata svodi na očitavanje duljine bez zajedničke početne točke, što je
 prema poretku iz prethodnog odjeljka osjetno teži zadatak (Cleveland, 1984). Kada
 usporedba jednog segmenta nosi zaključak, on dobiva vlastiti prikaz.
 
-Ono što je odbačeno vidi se tek kada se vrati na graf. Simulirana anketa
-`anketa_mreze` sadrži `r s5_n` ispitanika s dnevnim vremenom korištenja
-društvenih mreža, i nije mjerenje nego nastavni skup proizveden kodom. Kada se
-uz okvire nacrtaju i opažanja iz kojih su izračunati, razlika između sažetka i
-podatka prestaje biti apstraktna.
+Prikaz učestalosti riječi najprije traži odluku što se broji. U šest namjerno
+odabranih naslova o grafičkom prikazu podataka ima 36 pojavnica i 28 različitih
+oblika [Anscombe, 1973; Cleveland, 1984; Tufte, 2001; Wilkinson, 2005;
+Wickham, 2016; Matejka, 2017]. Pravilo je skromno i ponovljivo. Sva se slova
+pretvaraju u mala, interpunkcija se uklanja, a oblici se ne svode na zajednički
+korijen. Zato
+`graphs`, `graphical` i `graphics` ostaju tri različite jedinice.
 
-*Slika. Okvir s brkovima i opažanja iz kojih je nastao. Kutija stoji na kvartilima, a točke pokazuju raspored koji kvartili ne mogu prenijeti.*
+Sljedeći prikaz izdvaja šest ponovljenih oblika i učestalost svakoga od
+preostala 22. Naziv zadnjeg retka namjerno govori da njegova duljina vrijedi za
+svaki oblik zasebno, a nije njihov zbroj.
 
-Kutija sažima svaku skupinu u pet brojeva. U najmlađoj skupini polovina
-ispitanika leži između `r hr_broj(s5_najmladi$q1, 0)` i
-`r hr_broj(s5_najmladi$q3, 0)` minuta, a u najstarijoj između
-`r hr_broj(s5_najstariji$q1, 0)` i `r hr_broj(s5_najstariji$q3, 0)`. Točke iza
-kutije pokazuju što je taj sažetak potrošio, jer se iz njih vidi koliko je
-opažanja stisnuto uz donji rub i koliko rijetko rep doseže svoje najveće
-vrijednosti. Kutija bi bila ista i da su opažanja unutar nje raspoređena posve
-drukčije, što je isti nalaz koji poglavlje o sažimanju podataka izvodi
-brojčano.
+*Slika. Učestalost točnih oblika u šest namjerno odabranih bibliografskih naslova. Izrada autora prema objavljenim naslovima [@anscombe1973; @cleveland1984; @tufte2001; @wilkinson2005; @wickham2016; @matejka2017].*
+
+Prikaz opisuje samo tih šest naslova. Ne predstavlja literaturu o
+vizualizaciji, a kamoli znanstveno pisanje općenito. Upravo je ta granica dio
+čitanja. Prije tumačenja treba imenovati jedinicu, pretvorbu, nazivnik i skup na
+koji se zaključak smije odnositi. Poglavlje o algoritmima vratit će isti nadzor kada tekst
+postane ulaz algoritma, bez uvođenja obrade prirodnoga jezika ovdje.
 
 ## Dvije varijable u istom prostoru
 
-Kada obje varijable nose brojeve, raspršeni dijagram jedini je prikaz koji ne
-mora ništa izračunati. Svaka točka je jedno opažanje na svojem mjestu, pa se iz
-oblaka čita smjer veze, njezina zakrivljenost, postojanje podskupina i položaj
-opažanja koja odudaraju. Zbog toga je to prikaz s najvećom informacijskom
-gustoćom u knjizi i prikaz kojim počinje svaka provjera odnosa.
+Kada obje varijable nose brojeve, raspršeni dijagram može sačuvati svako
+opažanje bez prethodnoga sažimanja. Svaka točka je jedno opažanje na svojem
+mjestu, pa se iz oblaka čita smjer veze, njezina zakrivljenost, postojanje
+podskupina i položaj opažanja koja odudaraju. Zbog toga je u ovom poglavlju
+raspršeni dijagram polazište provjere odnosa.
 
 Njegova slabost je vlastiti uspjeh. Kada opažanja ima mnogo, točke se
 preklapaju, a gustoća prestaje biti vidljiva, jer sto opažanja na istom mjestu
@@ -200,17 +207,9 @@ preklopljena područja postaju tamnija, pa gustoća opet nosi značenje. Drugi j
 popravak lagano razmicanje oznaka, koje se koristi kada je jedna varijabla
 zapravo diskretna, a treći prelazak na prikaz koji gustoću računa izravno.
 
-*Slika. Dob i dnevno vrijeme korištenja u simuliranoj anketi. Lijevo su neprozirne oznake, desno prozirne, a razlika je u tome što se vidi gdje je opažanja mnogo.*
-
-Oba polja sadrže istih `r s5_n` opažanja i oba pokazuju da vrijeme korištenja
-opada s dobi. Desno polje uz to pokazuje gdje ih je mnogo, a gdje malo, i time
-odgovara na pitanje koliko je obrazac tipičan, a ne samo postoji li. Prozirnost
-ovdje nije ukras nego pridruživanje gustoće tami oznake, dakle odluka gramatike
-kao i svaka druga.
-
 Na raspršeni se dijagram redovito dodaje izglađena linija koja kroz oblak
-provlači procijenjeni prosječni odnos. Ta linija nije podatak nego model, i to
-je najvažnija stvar koju o njoj treba znati. Ona pretpostavlja oblik veze,
+provlači procijenjeni prosječni odnos. Ta linija nije podatak nego model, što je
+ključna napomena za njezino čitanje. Ona pretpostavlja oblik veze,
 zaglađuje ono što joj ne odgovara i ostaje uvjerljiva i onda kada oblak ispod nje
 nema nikakav stabilan obrazac. Poglavlje o regresiji pokazuje kako se takva
 linija dobiva i pod kojim je uvjetima opravdana, a do tada vrijedi pravilo da
@@ -224,32 +223,50 @@ dobnim skupinama razlikuju se za `r hr_broj(s5_raspon_prosjeka, 0)` minuta, što
 je `r paste0(hr_broj(100 * s5_udio_raspona, 0), " %")` najvećeg među njima.
 Koliko će ta razlika zauzeti prostora ne ovisi o podacima nego o rasponu osi.
 
+*Slika. Broj ispitanika, prosjek i medijan dnevnih minuta u četirima dobnim skupinama simuliranoga nastavnog skupa `anketa_mreze`. Izrada autora.*
+
+Tablica skupinskih sažetaka čuva vrijednosti za račun, a
+usporedba dviju osi pokazuje koliko dojam o istoj razlici
+ovisi o početku osi.
+
 *Slika. Isti prosjeci na dvjema osima. Lijevi prikaz počinje od nule, desni od najmanje vrijednosti, a razlika među skupinama nije se promijenila.*
 
 Desni prikaz nije izmislio nijedan broj. Sve četiri vrijednosti stoje ondje gdje
 i lijevo, a promijenio se samo raspon koji im je dodijeljen. Kod stupaca je to
-ozbiljna pogreška, jer duljina stupca nosi značenje, pa odsječena os duljinu
+ozbiljna pogreška, jer duljina stupca nosi značenje, pa skraćena os duljinu
 pretvara u veličinu koja više ne odgovara vrijednosti. Kod linijskog grafa i
-raspršenog dijagrama, gdje značenje nosi položaj a ne duljina, raspon smije
-slijediti podatke, uz obavezu da os bude označena tako da čitatelj vidi odakle
+raspršenog dijagrama, gdje značenje nosi položaj, a ne duljina, raspon smije
+slijediti podatke, uz obvezu da os bude označena tako da čitatelj vidi odakle
 počinje.
 
-Odatle slijedi pravilo koje vrijedi i za tuđi i za vlastiti graf. Odsječena os
-dopuštena je kada je razlika koju treba vidjeti manja od šuma na osi od nule, a
-uvjet je da odsjecanje bude vidljivo. Sakriveno odsjecanje čitatelju oduzima
-podatak koji mu treba da bi prosudio tvrdnju, a to je isti postupak koji
-poglavlje o zavaravanju brojkama opisuje kao odabir prikaza prema željenom
-zaključku.
+Odatle slijedi pravilo koje vrijedi i za tuđi i za vlastiti graf. Skraćena os
+može biti opravdana u linijskom ili raspršenom prikazu kada položaj, a ne
+duljina od nule, nosi usporedbu. Odsjecanje tada mora biti vidljivo. Kod stupaca
+vidljiva oznaka jasno pokazuje zahvat, ali ne vraća duljini njezino značenje, pa
+os treba početi od nule. Neoznačeno skraćivanje dodatno uskraćuje informaciju
+potrebnu za prosudbu tvrdnje.
 
-Ista logika vrijedi za logaritamsku ljestvicu, koja dugi desni rep raspodjele
-stišće i time pokazuje strukturu koja se na izvornoj ljestvici zbila u jedan
-stupac. Ona ne krivotvori ništa, ali mijenja što znači jednaki razmak, pa graf
-koji je koristi mora to reći u oznaci osi. Poglavlje o sažimanju podataka istu
-je pretvorbu uvelo brojčano, i graf od nje ne traži ništa novo.
+DigiKatov izvadak sadrži `r hr_broj(s5_izvori_sazetak$izvora, 0)` imenovane
+domene i `r hr_broj(s5_izvori_sazetak$objava, 0)` objava unutar toga korpusa
+(Šikić, 2026). Medijan je `r hr_broj(s5_izvori_sazetak$medijan, 0)` objave po
+domeni, a najveća vrijednost `r hr_broj(s5_izvori_sazetak$najvise, 0)`. Na
+linearnoj osi raspon od jedan do najveće vrijednosti stisnuo bi većinu domena
+uz lijevi rub. Logaritamski prikaz zato zadržava broj objava,
+ali jednake razmake na osi dodjeljuje jednakim omjerima.
+
+*Slika. Raspodjela broja objava među 3.604 imenovane domene na logaritamskoj osi. Izrada autora prema DigiKatu [@digikat2026].*
+
+Logaritamska os ne mijenja izvorne vrijednosti, ali sažima vizualne razmake među
+velikim vrijednostima i time mijenja prividni oblik raspodjele. Pomak od 10 do
+100 jednak je pomaku od 100 do 1.000, pa se na toj osi uspoređuju omjeri, a ne
+apsolutne razlike. Zato naziv osi mora izreći pretvorbu. Tvrdnja ostaje
+ograničena na imenovane domene u korpusu; graf ne opisuje sve hrvatske medije,
+njihove korisnike ni pojedinačne objave. Poglavlje o sažimanju podataka istu je
+pretvorbu uvelo brojčano, i graf od nje ne traži ništa novo.
 
 ## Mala višestruka polja
 
-Kada skupina ima više od tri ili četiri, boja prestaje raditi. Krivulje se
+Kada prikaz ima više od tri ili četiri skupine, boja prestaje raditi. Krivulje se
 preklapaju, legenda traži stalno vraćanje pogleda, a čitatelj usporedbu
 provodi po sjećanju. Alternativa je da se isti graf ponovi za svaku skupinu.
 
@@ -258,23 +275,33 @@ iste ljestvice, po jedan za svaku skupinu, tako da se razlike među skupinama
 očitavaju usporedbom položaja između polja.
 
 Zajednička ljestvica je uvjet bez kojega postupak gubi smisao. Kada svako polje
-dobije vlastiti raspon, panel s malim razlikama izgleda jednako dramatično kao
-panel s velikima, pa se usporedba koja je bila svrha prikaza više ne može
-provesti. Slobodne osi imaju svoje mjesto tamo gdje se uspoređuje oblik, a ne
-razina, ali to je iznimka koja se izriče, a ne zadana postavka.
+dobije vlastiti raspon, niz polja s malim razlikama izgleda jednako dramatično
+kao niz polja s velikima, pa se usporedba koja je bila svrha prikaza više ne
+može provesti. Slobodne osi imaju svoje mjesto tamo gdje se uspoređuje oblik, a
+ne razina, ali to je iznimka koja se izrijekom navodi, a ne zadana postavka.
 
-*Slika. Ista raspodjela u zbirnom polju i u četirima skupinskim poljima uz zajedničku os. Zbirni oblik nastaje preklapanjem raspodjela različitih položaja.*
+DigiKatov mjesečni izvadak za 2024. nema retke od veljače do svibnja, siječanj
+je djelomičan, a lipanj označuje lom metode i promjenu obuhvata
+(Šikić, 2026). Nedostatak retka nije nula. Zato tablica prikazuje svih 12
+mjeseci, a graf ne spaja siječanj s lipnjem i ne popunjava prazninu.
 
-Gornji prikaz ima jedan vrh i dugi rep. Donji pokazuje da taj oblik nije
-svojstvo nijedne skupine nego posljedica njihova zbrajanja, jer se vrh pomiče
-prema manjim vrijednostima kako dob raste. Zbirna raspodjela postoji, uredno je
-izračunata i ne opisuje nijednog stvarnog ispitanika osobito dobro.
+*Slika. Broj objava i udio weba u mjesečnom zbroju platformskoga izvatka za 2024. Duga crta označuje mjesec bez retka, ne nulu. Izrada autora prema DigiKatu [@digikat2026].*
 
-To je vizualni oblik pojave koju je Simpson opisao brojčano na tablicama
-frekvencija (Simpson, 1951), i razlog zbog kojeg poglavlje o povezanosti tom
-pitanju vraća s koeficijentom u ruci. Prikaz koji skupine zbraja nije pogrešan,
-nego odgovara na drugo pitanje od prikaza koji ih razdvaja. Nevolja nastaje kada
-se odgovor na prvo pitanje objavi kao odgovor na drugo.
+Broj objava odgovara na pitanje o mjesečnoj količini, a udio weba na pitanje o
+sastavu iste mjesečne količine. Nazivnik udjela u [mjesečnoj
+tablici](#tbl-s5-digikat-2024) jest zbroj platformskih redaka toga mjeseca. To
+nije zbroj 551.712 iz datoteke imenovanih domena, jer dvije datoteke nemaju istu
+jedinicu ni zajednički ključ. Mala višestruka polja zato
+prikazuju samo broj objava, uz zajedničku logaritamsku os za četiri platforme s
+najvećim zbrojem objava u dostupnim mjesecima 2024. i njihov objedinjeni ostatak.
+
+*Slika. Mjesečni broj objava za četiri platforme s najvećim zbrojem u dostupnim mjesecima 2024. i objedinjene ostale platforme. Praznina od veljače do svibnja znači da nema redaka; isprekidana crta i odvojene točke u lipnju označuju lom metode. Zajednička okomita os je logaritamska. Izrada autora prema DigiKatu [@digikat2026].*
+
+Ni u jednom polju linija ne prelazi četveromjesečnu prazninu, a lipanjska je
+točka odvojena od niza nakon promjene obuhvata. Zbog djelomičnoga siječnja i
+loma metode prikaz ne podupire tvrdnju o trendu, rastu ni razlici prije i
+poslije lipnja. On pokazuje samo raspored dostupnih brojeva objava među
+platformama i istodobno čuva trag onoga što nije zabilježeno.
 
 ## Graf pred čitateljem
 
@@ -282,55 +309,48 @@ Graf mora raditi u tri okolnosti koje autor pri crtanju obično ne vidi.
 Netko ga čita u crno-bijelom tisku, netko preko čitača zaslona, a netko razlikuje
 boje drukčije od autora.
 
-Prva obveza je da boja nikada ne bude jedini nosač značenja. Kada se skupine
-razlikuju samo tinkturom, uklanjanje boje uklanja podatak, pa graf koji je u
-digitalnom izdanju čitljiv u tiskanom prestaje biti graf. Rješenje je da kanal
-koji nosi razliku bude udvostručen, dakle da uz boju stoji i oblik oznake,
-vrsta linije ili izravna oznaka uz krivulju. Paleta ove knjige zbog istog je
-razloga poredana po svjetlini, a ne po tonu, pa u tisku daje razlučive sive
-razine.
+Boja nikada ne smije biti jedini nosač značenja. Kada se skupine razlikuju samo
+bojom, njezino uklanjanje uklanja podatak, pa graf u tiskanom izdanju prestaje
+prenositi tu razliku. Kanal koji nosi razliku zato se
+udvostručuje oblikom oznake, vrstom linije ili izravnom oznakom uz krivulju.
+Paleta ove knjige zbog istog je razloga poredana po svjetlini, a ne po tonu, pa
+u tisku daje razlučive sive razine.
 
-Druga obveza je opis. Svaki graf u knjizi nosi alternativni tekst koji kaže što
-se na njemu vidi, a ne kako je nastao. Dobar opis imenuje varijable, smjer i
-najizrazitiju osobinu obrasca, i piše se tako da čitatelj koji sliku ne vidi
-dobije isti nalaz, a ne popis elemenata. Opis koji glasi „graf prikazuje odnos
-dviju varijabli" nije ispunio obvezu, jer ne prenosi ništa što naslov već ne
-kaže.
+Alternativni tekst prenosi ono što se na grafu vidi, a ne način na koji je
+nastao. Dobar opis imenuje varijable, smjer i najizrazitiju osobinu obrasca kako
+bi čitatelj koji sliku ne vidi dobio isti nalaz, a ne popis elemenata. Opis koji
+glasi „graf prikazuje odnos dviju varijabli" ne ispunjava tu obvezu jer ne
+prenosi ništa što naslov već ne kaže.
 
-Treća obveza je izravno označavanje. Legenda traži da čitatelj pamti par boje i
-imena dok pogled putuje između legende i grafa, a oznaka postavljena uz krivulju
-taj put uklanja. Isto vrijedi za redoslijed kategorija, koji abecedni poredak
-gotovo nikada ne pogađa. Kategorije poredane po veličini čitaju se bez napora,
-a poredane po abecedi traže da čitatelj sam obavi rangiranje koje je graf mogao
-obaviti umjesto njega.
+Izravne oznake uklanjaju put između legende i grafa na kojem čitatelj mora
+pamtiti par boje i imena. Isto vrijedi za redoslijed kategorija, koji abecedni
+poredak rijetko čini informativnim. Kategorije poredane po veličini čitaju se
+bez napora, a poredane po abecedi traže da čitatelj sam obavi rangiranje koje
+je graf mogao obaviti umjesto njega.
 
-Tri obveze vrijede za graf koji sami crtamo. Pred tuđim grafom iste odluke
-postaju pitanja, i tada gramatika iz prvog odjeljka radi kao popis provjere.
-Vrijedi ga provesti do kraja na primjeru koji je već pred nama, dakle na desnom
-polju s odsječenom osi.
+Odluke o boji, alternativnom tekstu i oznakama vrijede za graf koji sami crtamo.
+Pri čitanju tuđega grafa iste odluke postaju provjera gramatike iz prvog
+odjeljka. Desno polje sa skraćenom osi pokazuje kako ta provjera radi.
 
-Prvo pitanje glasi što predstavlja jedna oznaka. Ondje jedan stupac stoji za
-jednu dobnu skupinu, dakle za agregat, a ne za ispitanika, pa se iz njega ne
-smije zaključivati ništa o pojedincu. Drugo pitanje traži pridruživanja, a ona
-su dva, jer kategorija određuje vodoravni položaj, a prosjek duljinu stupca.
-Boja i širina ne nose ništa, što je uredno, budući da bi svaka razlika u njima
+Jedinica prikaza u tom je polju dobna skupina. Jedan stupac zato predstavlja
+agregat, a ne ispitanika, pa se iz njega ne smije zaključivati ništa o pojedincu.
+Pridruživanje povezuje kategoriju s vodoravnim položajem, a prosjek s duljinom
+stupca. Boja i širina ne nose ništa, što je uredno, jer bi svaka razlika u njima
 sugerirala razliku koje u podacima nema.
 
-Treće pitanje je najtiše i ovdje najvažnije. Prije crtanja izračunata je
-aritmetička sredina po skupini, čime su odbačene sve raspodjele, a s njima i
-dugi desni rep koji je histogram pokazao. Stupac visok
-`r hr_broj(s5_najmladi$prosjek, 0)` minuta postoji, ali ne postoji ispitanik
-kojemu ta vrijednost pripada, jer je medijan iste skupine
-`r hr_broj(s5_najmladi$medijan, 0)` minuta. Četvrto pitanje odnosi se na
-ljestvicu i otkriva ono zbog čega je prikaz uopće sporan, dakle da os ne počinje
-od nule i da to nije označeno.
+Sažimanje prethodi crtanju jer je po skupini izračunata aritmetička sredina.
+Time su odbačene sve raspodjele, a s njima i dugi desni rep koji je histogram
+pokazao. Stupac visok `r hr_broj(s5_najmladi$prosjek, 0)` minuta nije
+pojedinačno opažanje, nego izračunati prosjek, dok medijan iste skupine iznosi
+`r hr_broj(s5_najmladi$medijan, 0)` minuta. Ljestvica otkriva da os ne počinje
+od nule, premda je ta nastavna intervencija jasno označena.
 
-Iz četiri odgovora slijedi presuda koja je preciznija od dojma. Prikaz nije
-netočan, nego kombinira odbačenu raspodjelu s neoznačenim odsjecanjem, pa
-duljina stupca ne odgovara ni vrijednosti ni tipičnom ispitaniku. Isti se popis
-primjenjuje na novinsku grafiku, na sliku iz izvještaja i na graf koji je
-proizveo asistent, i traži manje vremena nego čitanje teksta koji uz njega
-stoji.
+Takva provjera daje presudu precizniju od dojma. Prikaz nije brojčano netočan,
+nego kombinira odbačenu raspodjelu s vidljivo označenim, ali za stupce
+neprikladnim odsjecanjem. Duljina stupca zato ne odgovara prikazanoj vrijednosti,
+a prosjek ne opisuje nužno tipičnoga ispitanika. Oznaka pomaže otkriti zahvat,
+ali ga ne čini ispravnim kodiranjem. Ista se provjera primjenjuje na novinsku
+grafiku, sliku iz izvještaja i graf koji je proizveo asistent.
 
 ## Interakcija — Isti podaci, četiri grafa
 
@@ -351,7 +371,7 @@ grafa ne mijenja opažanja, ali mijenja usporedbu koja postaje laka ili teška.
 **Kružni dijagram nikada.** Zabrana kruži uredništvima i priručnicima kao
 utvrđena činjenica, a redovito se poziva na jedan izvor. Cleveland i McGill
 doista su izmjerili da sudionici točnije očitavaju položaj na zajedničkoj osi
-nego kut, i taj nalaz stoji (Cleveland, 1984). Iz njega slijedi da udio koji nosi
+nego kut, i taj nalaz ostaje valjan (Cleveland, 1984). Iz njega slijedi da udio koji nosi
 zaključak ne treba kodirati kutom.
 
 Ne slijedi zabrana. Pokusi su mjerili točnost očitavanja omjera dviju
@@ -359,12 +379,12 @@ istaknutih vrijednosti, a ne razumijevanje prikaza u kontekstu, pamćenje ni
 brzinu prepoznavanja (Cleveland, 1984). Prikaz u kojem treba vidjeti da jedna
 kategorija drži otprilike polovinu, a ne rangirati sedam bliskih udjela, ne pada
 pod izmjereni nedostatak. Kratki oblik tvrdnje sadrži pravi nalaz i izgubljen
-uvjet pod kojim vrijedi, što je najčešći način na koji izmjeren rezultat
+uvjet pod kojim vrijedi, što je jedan čest način na koji izmjeren rezultat
 postane pravilo.
 
 **Pitajte model.**
-Asistent može predložiti geometriju i napisati alt-tekst, ali treba dobiti
-pitanje koje graf mora odgovoriti. Nakon izrade provjeravamo zajedničke osi,
+Asistent može predložiti geometriju i napisati alternativni tekst, ali treba
+dobiti pitanje na koje graf mora odgovoriti. Nakon izrade provjeravamo zajedničke osi,
 nazive jedinica, redoslijed kategorija i nosi li boja značenje koje nestaje u
 tisku.
 
@@ -372,10 +392,10 @@ Dva promašaja ponavljaju se dovoljno često da ih vrijedi tražiti unaprijed.
 Asistent rado dodaje izglađenu liniju kroz raspršeni dijagram, čime u prikaz
 uvodi model koji nitko nije zatražio i koji poglavlje o regresiji tek uvodi.
 I rado veže boju uz kategoriju bez drugoga nosača razlike, pa graf koji je na
-zaslonu čitljiv u tisku ostaje bez jednog stupca podataka.
+zaslonu čitljiv u tisku više ne pokazuje varijablu pripadnosti skupini.
 
 > Predloži najjednostavniji graf za ovu tvrdnju. Obrazloži koja usporedba nosi
-> zaključak, navedi potrebnu ljestvicu i napiši alt-tekst bez tumačenja koje
+> zaključak, navedi potrebnu ljestvicu i napiši alternativni tekst bez tumačenja koje
 > podaci ne podupiru.
 
 **Nađite grešku.**
@@ -386,28 +406,30 @@ treća kategorija, prema obrazloženju, samo popravlja optičku ravnotežu prika
 
 ## Razrađeni primjer
 
-Zadatak je provjeriti koliko brojčani sažetak sam po sebi jamči o strukturi
+Zadatak je provjeriti koliko brojčani sažetak sam po sebi otkriva o strukturi
 podataka. Anscombeovi su skupovi za to izabrani zato što su im sažeci gotovo
 jednaki po konstrukciji (Anscombe, 1973), pa ostaje samo pitanje što prikaz
 dodaje. Podaci `anscombe` ugrađeni su u R i reproduciraju objavljeni kvartet.
 
-Prije crtanja vrijedi vidjeti koliko je sličnost bliska. Aritmetičke sredine
-ishoda u četirima skupovima iznose `r hr_broj(s5_ans$sredina_y[[1]], 2)`,
-`r hr_broj(s5_ans$sredina_y[[2]], 2)`, `r hr_broj(s5_ans$sredina_y[[3]], 2)` i
-`r hr_broj(s5_ans$sredina_y[[4]], 2)`, a standardne devijacije
-`r hr_broj(s5_ans$sd_y[[1]], 2)`, `r hr_broj(s5_ans$sd_y[[2]], 2)`,
-`r hr_broj(s5_ans$sd_y[[3]], 2)` i `r hr_broj(s5_ans$sd_y[[4]], 2)`. Tablica
-sastavljena od tih osam brojeva ne bi imala što reći, jer se skupovi po njoj ne
-razlikuju.
+Sličnost sažetaka najprije treba brojčano provjeriti. Zaokružene na dvije
+decimale, sve četiri aritmetičke sredine ishoda iznose
+`r hr_broj(s5_ans$sredina_y[[1]], 2)`, a sve četiri standardne devijacije
+`r hr_broj(s5_ans$sd_y[[1]], 2)`. Tablica tih sažetaka zato ne bi razlikovala
+oblike četiriju skupova.
 
-Prvi blok slaže četiri skupa u jednu tablicu s jednim opažanjem u svakom redu.
-Drugi ispisuje odluke gramatike u redoslijedu u kojem smo ih izgradili. Poziv
+Prvi dio slaže četiri skupa u jednu tablicu s jednim opažanjem u svakom redu.
+Drugi dio ispisuje odluke gramatike u redoslijedu u kojem smo ih izgradili. Poziv
 `aes` pridružuje varijable osima, `geom_point` bira oznaku, `geom_smooth` dodaje
 izračun koji nastaje prije crtanja, a `facet_wrap` razdvaja skupove u ponovljena
-polja. Dodani pravac je onaj najmanjih kvadrata, u izvornom radu jednak u sva
-četiri skupa (Anscombe, 1973), a poglavlje o regresiji pokazuje kako se dobiva.
-Nakon ovog imenovanja svaki se graf u knjizi može pročitati bez novoga
-objašnjenja, jer se iste četiri odluke vraćaju u svakom pozivu.
+polja. Dodani pravac procijenjen je iz opažanja i u izvornom je radu jednak u
+sva četiri skupa (Anscombe, 1973), a poglavlje o regresiji pokazuje kako se
+dobiva.
+Ta četiri imena daju rječnik za čitanje kasnijih poziva, u kojima se iste
+odluke vraćaju.
+
+Sažeci četiriju parova gotovo su jednaki (Anscombe, 1973). Uspoređujemo sva
+četiri polja i pitamo u kojem oblik podataka najviše proturječi priči koju bi ti
+sažeci ispričali, pri jednakom rasponu osi i jednakom pravcu.
 
 Anscombeov kvartet s jednakim sažecima i različitim oblicima. Izrada autora
 prema anscombe1973.
@@ -425,18 +447,22 @@ vizualnu veličinu. Te se odluke provjeravaju pojedinačno, a njihov redoslijed
 nije stvar ukusa, jer je izmjereno da kanali nose usporedbu različito točno
 (Cleveland, 1984). Svaki prikaz nešto čuva i nešto odbaci, pa se bira prema
 tvrdnji koju treba provjeriti, a ne prema izgledu. Raspon osi, razdvajanje u
-mala polja i oslanjanje na boju mijenjaju što će čitatelj vidjeti bez ijedne
+mala višestruka polja i oslanjanje na boju mijenjaju što će čitatelj vidjeti bez ijedne
 promjene u podacima, što graf čini argumentom koji podliježe istoj provjeri kao
-brojka. Sljedeće poglavlje uzima jedan od tih prikaza, raspršeni dijagram,
-sažima ga u jedan koeficijent i pita što je pritom izgubljeno.
+brojka. Prikaz učestalosti riječi uz to ovisi o jedinici, pretvorbi, nazivniku i
+granici skupa na koji se zaključak odnosi; isti se nadzor vraća u poglavlju o
+algoritmima. Poglavlje o povezanosti uzima jedan od tih prikaza, raspršeni
+dijagram, sažima ga u jedan koeficijent i pita što je pritom izgubljeno.
 
 ## Pojmovi
 
 gramatika grafike (*grammar of graphics*), pridruživanje (*aesthetic mapping*),
 geometrija grafa (*geom*), ljestvica (*scale*), grafička percepcija (*graphical
-perception*), mala višestruka polja (*small multiples*), pristupačnost
-(*accessibility*), alt-tekst (*alternative text*), utjecajno opažanje
-(*influential observation*)
+perception*), prikaz učestalosti riječi (*word-frequency plot*), logaritamska
+ljestvica (*logarithmic scale*), skraćena os (*truncated axis*), mala višestruka
+polja (*small multiples*), pristupačnost prikaza (*visualization accessibility*),
+alternativni tekst (*alternative text*), Anscombeov kvartet (*Anscombe's quartet*), utjecajno
+opažanje (*influential observation*)
 
 ## Zadaci
 
@@ -444,15 +470,18 @@ perception*), mala višestruka polja (*small multiples*), pristupačnost
 
 Odaberite graf za raspodjelu jedne varijable, usporedbu kategorija i odnos
 dviju brojčanih varijabli. Za svaki izbor navedite što prikaz odbacuje.
-Predajte tri izbora s obrazloženjem.
+Za jedan izbor dodajte alternativni tekst koji prenosi glavni nalaz i provjerite ostaje
+li taj nalaz čitljiv bez boje. Predajte tri izbora s obrazloženjem, jedan
+alternativni tekst i presudu o boji.
 
 ### Računski
 
-Upotrijebite interakciju poglavlja. Za svaki od četiriju prikaza zapišite što
-čuva, što izračunava prije crtanja i koju usporedbu olakšava, a zatim iste
-odluke pročitajte s Anscombeovih prikaza iz razrađenog primjera (Anscombe, 1973).
-Predajte tablicu s četirima redovima i jednom rečenicom obrazloženja u svakom.
-Postupak za ponavljanje izračuna nad cijelim skupom nalazi se u praktikumu.
+Iz tablice skupinskih sažetaka uzmite najveći i najmanji
+prosjek dnevnih minuta. Izračunajte njihovu razliku, a zatim je podijelite s
+većim prosjekom i pretvorite u postotak. Usporedite dobiveni postotak s [dvama
+prikazima osi](#fig-skraceni-raspon) i objasnite zašto se brojčana razlika nije
+promijenila, premda se promijenio vizualni dojam. Predajte račun, postotak i
+dvije rečenice prosudbe. Svi potrebni podaci nalaze se u tablici.
 
 ### Kritički
 
@@ -463,6 +492,7 @@ odlomak s presudom i s uvjetom pod kojim bi presuda bila suprotna.
 
 ### Revizija modela
 
-Ocijenite prijedlog modela iz okvira. Imenujte odluke gramatike koje su
-ispravno odgovorene, jednu koja obmanjuje, redak koda u kojem ta odluka stoji i
-način njezina popravka.
+Ocijenite prijedlog modela iz okvira. Imenujte odluke gramatike koje su ispravno
+odgovorene i onu koja obmanjuje. Opišite kako se grafička odluka treba promijeniti
+da prikaz ponovno kodira udio samo duljinom, bez pisanja ili popravljanja koda.
+Predajte prosudbu i opis promjene.

@@ -14,6 +14,9 @@ CHECKOUT_ROOT = Path(__file__).resolve().parents[1]
 CITE_RE = re.compile(
     r"(?<![\w])@([A-Za-z][A-Za-z0-9_:-]*(?:\.[A-Za-z0-9_:-]+)*)"
 )
+QUARTO_XREF_RE = re.compile(
+    r"^(?:fig|tbl|sec|eq|lst|thm|lem|cor|prp|cnj|def|exm|exr)-"
+)
 
 
 @dataclass(frozen=True)
@@ -150,6 +153,11 @@ def validate_metadata(entries: dict[str, Entry]) -> list[str]:
     return failures
 
 
+def is_quarto_crossref(key: str) -> bool:
+    """Razdvoji Quarto identifikator objekta od bibliografskoga ključa."""
+    return QUARTO_XREF_RE.match(key) is not None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=CHECKOUT_ROOT)
@@ -160,11 +168,16 @@ def main() -> int:
         if not files:
             raise ValueError("no manuscript .qmd files found")
         cited: set[str] = set()
+        crossrefs: set[str] = set()
         blanket_hits: list[str] = []
         for path in files:
             text = path.read_text(encoding="utf-8")
             visible = re.sub(r"<!--.*?-->", "", text, flags=re.S)
-            cited.update(CITE_RE.findall(visible))
+            for key in CITE_RE.findall(visible):
+                if is_quarto_crossref(key):
+                    crossrefs.add(key)
+                else:
+                    cited.add(key)
             if re.search(r"(?im)^\s*nocite\s*:\s*.*@\*", visible):
                 blanket_hits.append(path.relative_to(root).as_posix())
         for path in [root / "_quarto.yml", *root.glob("_quarto-*.yml")]:
@@ -187,7 +200,8 @@ def main() -> int:
             raise ValueError("\n- ".join(["citation gate failed", *failures]))
         print(
             "CITATION_INTEGRITY_OK "
-            f"files={len(files)} live_keys={len(cited)} records={len(entries)} blanket_nocite=0"
+            f"files={len(files)} live_keys={len(cited)} quarto_crossrefs={len(crossrefs)} "
+            f"records={len(entries)} blanket_nocite=0"
         )
         return 0
     except (OSError, ValueError) as error:

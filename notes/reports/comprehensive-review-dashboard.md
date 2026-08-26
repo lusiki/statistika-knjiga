@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P5-G
-next_permitted_packet: P5-ROUTES
+last_completed_packet: P5-ROUTES
+next_permitted_packet: P5-VERIFY
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 108
+forward_handoffs: 110
 last_updated: "2026-08-26"
 ---
 
@@ -76,6 +76,8 @@ stop and repair the control state before editing book content.
 | P5-D | Accepted on appendix state `7ff2f20e72a90d824fd82ec163c810a60e397189c91a8cce8b5584efc6108e94`; the six-step decision order, 9 supported routes, 9 stop routes and 20-of-20 pathway cases agree across the appendix, artifact and decision tree, `H-P2-DOCS-001` is consumed with seven separate item decisions, all 17 source anchors and the six-page B5 proof pass, and `H-P5-D-001` routes the pre-existing Quarto-table citation-checker risk to P5-ROUTES |
 | P5-E | Accepted on appendix state `a71890a1aebd47e415592200a4c94a76e5193d7c3c08550375a791c07e7d941f`; Appendix E now carries 52 live definition routes, both glossary views carry the same registry-generated block, all 12 superseded forms remain recognition routes rather than accepted synonyms, all 3 deliberate departures retain their reasons, `H-G-A2C-001` and `H-P2-TERMS-004` are consumed, the 15-page B5 proof passes and no independent terminology review is claimed |
 | P5-F | Accepted on appendix state `837f0925f527bb2bfdb660e0c11e560162ca66582c5a0292e4ffb5fe23569e70`; Appendix F carries the course's own D15 policy v1.0 dated 2026-08-04, exactly three tool lanes, the exact disclosure text and eight-stage model-independent protocol; all 95 exercises in 19 units have live prompt fingerprints and safe routes, zero require prohibited transfer, Chapter 18 remains unchanged and the six-page B5 proof passes |
+| P5-G | Accepted on appendix state `50150da6bc04b33db7f7f738ba983254c30b7086114f5d51f0503f277f1ba202`; D10's exactly four-topic Appendix G and four sanctioned first-use reminders pass, inventory projections were generated before the source was added, parent `R34` closed only after both children passed separately, and `H-P5-G-001` carried the authorised 19/7/38/17/17/4 architecture basis to P5-ROUTES |
+| P5-ROUTES | Accepted on pathway state `7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db`; two prerequisite-valid reading routes, all five advertised path classes and the single-source 95-record public/protected solution projections pass; public promises are reconciled, all 13 incoming handoffs are consumed, parents `R15` and `R21` close, and two future effects are routed to P5-VERIFY/P6-FIGURES |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -93,11 +95,11 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P5-G`; D10's exactly four-topic Appendix G and four sanctioned first-use reminders pass, inventory projections were generated before the source was added, parent `R34` closed only after both children passed separately, and `H-P5-G-001` carries the authorised 19/7/38/17/17/4 architecture basis to P5-ROUTES |
-| Next permitted packet | `P5-ROUTES` under the `pathway_verification` contract; not yet claimed |
-| Review parents | 29 ratified; 7 accepted |
-| Atomic child inventory | Complete: 371 stable children; 318 accepted, 5 deferred with reason and 48 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 151 accepted, 37 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Last completed packet | `P5-ROUTES`; two reading routes and all five advertised pathway classes pass, 95 canonical records generate separated public and protected solution projections, all 13 incoming handoffs are consumed, and `H-P5-ROUTES-001` plus `H-P5-ROUTES-002` record both future-relevant effects |
+| Next permitted packet | `P5-VERIFY` under the `review_gate` contract; not yet claimed |
+| Review parents | 27 ratified; 9 accepted |
+| Atomic child inventory | Complete: 371 stable children; 326 accepted, 5 deferred with reason and 40 ratified pending their later gates; zero unmapped |
+| Exact packet catalogue | 189 packets: 152 accepted, 36 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
@@ -105,7 +107,7 @@ stop and repair the control state before editing book content.
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
 | Failed gates | None in `P1-VERIFY`; all twelve prerequisites pass independently. The pre-existing `_quarto.yml` checksum mismatch remains separately recorded in `H-P1C-EXPORT-002` for `P7-FREEZE` and `P8-META` |
-| Phase 2 exit condition | **4 of 5 clauses met.** `R04 is closed` is **not** met and is structurally unmeetable in Phase 2: four of its 21 required children are owned by `WC-C11` (Phase 4), `P5-ROUTES` (Phase 5) and `WE-C18` (Phase 4). Recorded as a plan-versus-register conflict in `H-P2-VERIFY-001`; not forced, not redefined |
+| Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
 
@@ -7512,6 +7514,49 @@ the durable evidence is
   defects. The write lock is released and P5-ROUTES becomes the sole next
   permitted packet without being claimed.
 
+## P5-ROUTES claim and closeout
+
+- The packet was claimed only from the canonical idle P5-G closeout. Both
+  `before_start` deliveries were consumed before claim, and the remaining
+  eleven applicable deliveries were acknowledged before substantive work and
+  consumed with evidence before closeout.
+- `config/pathway-routes.json` is the packet-specific route artifact. It binds
+  two reader-visible routes to all live spine prerequisites, records exact
+  self-study, R, no-code, print and AI-output boundaries, and records the
+  authorised architecture before and after the D06 solution route.
+- Both reader routes cover Chapters 1–18. Chapter 13 precedes Chapter 17 and
+  Chapter 18 follows all seventeen earlier numbered chapters in both routes;
+  the canonical book order itself is unchanged.
+- All 95 canonical solution records in 19 units now generate `rjesenja.qmd`.
+  The public projection contains only concise checks and allowed answer
+  components; the `kolegij` projection adds all 95 rubrics, alternatives and
+  instructor notes. No second answer source remains in chapter files, public
+  navigation or public AI exports.
+- The public pathway promise is exact: R and self-study routes are complete;
+  the no-code route promises only 19 supported measures, retains seven guarded
+  values, and does not claim Luka Sikic's pending clean-install check; 38 graded
+  AI-output comparisons are frozen and dated while live repetition is optional.
+- `scripts/check-citations.py` now recognises Quarto cross-references without
+  weakening bibliographic rejection. The positive citation check and the route
+  check pass independently, and a genuinely unknown bibliography key still
+  fails closed.
+- The isolated public HTML resolved all 95 exercise links. The isolated
+  109-page public PDF contained zero protected headings and pages 1, 55 and 109
+  passed visual inspection without clipping or overlap. The unsuccessful
+  full-book PDF attempt is not claimed as proof because this machine lacks
+  `rsvg-convert` for an unrelated existing SVG path.
+- Eight governed items advanced only on eight separate exact tests. Parents
+  `R15` and `R21` close after all their required children pass; parents `R04`,
+  `R23` and `R24` remain ratified for their later verification or open children.
+- `H-P5-ROUTES-001` gives P5-VERIFY the current 19/7/39/1/17/17/4 basis and its
+  separate D10/D06 authorities. `H-P5-ROUTES-002` records the pre-existing
+  Chapter 16 `podsjetnik`/figure-introduction checker conflict for P5-VERIFY and
+  P6-FIGURES; P5-ROUTES made no out-of-scope prose repair.
+- `packet_reviews.P5-ROUTES` declares all future effects recorded. The write
+  lock is released and `P5-VERIFY` is the sole next permitted packet without
+  being claimed. No push, merge, tag, archive, deployment or publication is
+  authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7534,47 +7579,43 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P5-G` and
-`next_permitted_packet: P5-ROUTES`. Confirm that P5-G consumed
-`H-G-A2D-003` before its first substantive edit, updated the canonical
-inventory and both generated projections before adding Appendix G, retained
-exactly the four D10 topics, used only sanctioned first-use `podsjetnik`
-blocks, and closed parent `R34` only after both governed children passed
-separate exact tests. Confirm that `solution_routes` and every chapter stage
-remain unchanged, `R23-SCOPE-no-new-chapters-widgets` remains ratified and
-open, and `H-P5-G-001` records the authorised current counts of 19 chapters,
-7 appendices, 38 canonical pages, 17 widgets with 17 static twins and 4 callout
-types. If any of this does not hold, stop and repair the control state before
-editing book content.
+Verify `active_write_packet: null`, `last_completed_packet: P5-ROUTES` and
+`next_permitted_packet: P5-VERIFY`. Confirm that P5-ROUTES consumed all 13
+applicable incoming handoff deliveries, published two reader routes that obey
+all live prerequisites, generated the public and protected solution views from
+all 95 canonical records without a second answer source, reconciled every
+public pathway promise, and left the owner-pending no-code clean-install check
+unclaimed. Confirm the current 19 chapters, 7 appendices, 39 canonical pages,
+1 solution route, 17 widgets with 17 static twins and 4 callout types; parents
+R04, R23 and R24 must remain ratified, while R15 and R21 are accepted. Confirm
+that `H-P5-ROUTES-001` and `H-P5-ROUTES-002` record both future-relevant
+effects. If any of this does not hold, stop and repair the control state before
+verification.
 
-Claim and execute only `P5-ROUTES` as a separate packet under the
-`pathway_verification` contract. Fully read its packet record and governed
-items, every advertised self-study, R, no-code, print and AI-output route,
-their canonical inventories and generators, and every applicable incoming
-handoff. Do not rely on prior chat or the installed plugin cache for mutable
-state.
+Claim and execute only `P5-VERIFY` as a separate packet under the
+`review_gate` contract. Fully read its packet record, the Phase 5 gate matrix,
+all required packet reports and artifacts, the complete register and handoff
+ledger, every applicable incoming handoff, and the checkout-local Bookwright
+instructions required by the packet. Do not rely on prior chat or the installed
+plugin cache for mutable state.
 
-Acknowledge every applicable incoming handoff before its gate and consume it
-with a recorded disposition and evidence before closeout. In particular,
-reconcile the Appendix B versioned/no-clean-install boundary, the closure-unit
-route contract, `H-P2-DOCS-002`, the Quarto-table citation-checker risk in
-`H-P5-D-001`, and the post-D10 architecture basis in `H-P5-G-001`. Preserve
-real unknown-bibliography-key rejection while making Quarto cross-reference
-semantics pass; do not claim a clean installation without the required dated
-owner evidence.
+Acknowledge and consume `H-P5-ROUTES-001` and the P5-VERIFY delivery of
+`H-P5-ROUTES-002` before closeout. Use the current 19/7/39/1/17/17/4 basis and
+verify the separate D10 and D06 authorities. Record the Chapter 16
+`podsjetnik`/figure-introduction conflict in the exact blocker list and leave
+its repair to `P6-FIGURES`; do not misattribute it to P5-ROUTES and do not edit
+accepted chapter prose in this review gate.
 
-Deliver the route coverage matrix, clean-install or bounded print proof and
-public-promise reconciliation required by the packet. Verify all seven
-appendices and all 38 canonical pages against the inventory-generated routes,
-and close `R23-SCOPE-no-new-chapters-widgets` only if its complete acceptance
-test passes on the current 19/7/38/17/17/4 basis. Write all prose in Croatian,
-follow STYLE.md, and never invent a route, guarantee, value, definition or
-citation.
+Deliver the complete Phase 5 gate matrix, source commit or state hash and exact
+blocker list. Re-run every required Phase 5 pathway, appendix, assessment,
+inventory, citation, cross-reference, profile-separation, export, print-input
+and workflow check with their mandated negative fixtures. Do not infer a pass
+from packet status or generic contract evidence, and do not claim the pending
+owner clean-install result.
 
-Before closeout, run every packet-specific route, inventory, citation,
-cross-reference, clean-path and print check; record every future-relevant
-outgoing handoff or an explicit no-effect declaration; update the register,
-handoff ledger and dashboard together; run the workflow checker and all three
-negative fixtures; close and locally commit P5-ROUTES; then stop. Do not claim
-P5-VERIFY, push, merge, tag, archive, deploy or publish.
+Before closeout, record every future-relevant outgoing handoff or an explicit
+no-effect declaration; update the register, handoff ledger and dashboard
+together; run the workflow checker and all three workflow negative fixtures;
+close and locally commit P5-VERIFY; then stop. Do not claim a Phase 6 packet,
+push, merge, tag, archive, deploy or publish.
 ```

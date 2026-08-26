@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -62,12 +62,14 @@ moguće pogoditi odakle se informira.
 
 Standardna devijacija kao mjerna jedinica ipak ostaje apstraktna, pa isti učinak
 vrijedi izraziti i na način koji se može zamisliti. Izvučemo li nasumce jednog
-čitatelja tiska i jednog čitatelja portala, prvi ima više povjerenja u
-`r hr_broj(s11$nadmoc, 1)` % slučajeva. Kad razlike ne bi bilo, taj bi udio
-iznosio pedeset posto, pa je učinak veličine kakvu ovdje gledamo pomak od desetak
-postotnih bodova u tako postavljenom pitanju. Rečenica tog oblika prolazi kroz
-uredničku raspravu bolje od bilo koje standardizirane mjere, jer nitko ne mora
-znati što je standardna devijacija da bi razumio ishod.
+čitatelja tiska i jednog čitatelja portala, prvi ima strogo više povjerenja u
+`r hr_broj(s11$nadmoc_stroga, 1)` % parova, dok je
+`r hr_broj(s11$izjednaceno, 1)` % parova izjednačeno. Ako se izjednačenja
+nasumično razriješe, prilagođena vjerojatnost nadmoći iznosi
+`r hr_broj(s11$nadmoc, 1)` %. Kad razlike u raspodjelama ne bi bilo, ta bi mjera
+iznosila pedeset posto. Rečenica tog oblika prolazi kroz uredničku raspravu bolje
+od bilo koje standardizirane mjere, jer nitko ne mora znati što je standardna
+devijacija da bi razumio ishod.
 
 Orijentacijske vrijednosti za takve mjere postoje i najčešće se navode prema
 Cohenu, koji ih je ponudio kao pomoć u odsutnosti boljeg oslonca, a ne kao
@@ -109,8 +111,9 @@ uvijek stoji ispred testa.
 
 ## Snaga kao svojstvo plana
 
-Vjerojatnost da postupak pronađe učinak koji postoji nije svojstvo testa nego
-kombinacije nekoliko odluka, od kojih se većina donosi prije podataka.
+Vjerojatnost da postupak pronađe učinak koji postoji nije svojstvo dobivenoga
+rezultata. Pripada cijelom planu, koji povezuje postupak, veličinu učinka,
+uzorak, raspršenost i prag prije nego što su podaci prikupljeni.
 
 **Statistička snaga** je vjerojatnost da postupak odbaci nultu hipotezu kad je
 ona lažna, dakle udio ponavljanja u kojima bi učinak zadane veličine bio
@@ -137,19 +140,97 @@ mehanizam podataka i taj postupak, a ne opće svojstvo uzorka određene veličin
 Rast nije ravnomjeran i to je najvažnije u tablici. Podizanje uzorka sa
 šezdeset na tristo osoba snagu diže s `r hr_broj(s11$snaga_60, 1)` % na
 `r hr_broj(s11$snaga_300, 1)` %, a svako daljnje ulaganje kupuje sve manje, jer
-je udio ograničen odozgo. Studija sa šezdeset osoba nije upola lošija od studije
-s tristo, nego je gotovo beskorisna za ovo pitanje.
+je udio ograničen odozgo. Pri šezdeset osoba ovaj bi postupak stvarnu razliku
+propustio u približno tri od četiri zamišljene studije.
 
 Četiri stvari određuju gdje se na toj krivulji nalazimo. Veći stvarni učinak
 lakše se otkriva, veći uzorak daje precizniju procjenu, manja raspršenost ishoda
-čisti signal, a blaži prag propušta više rezultata. Prve dvije obično su jedine
-koje istraživač može mijenjati, i samo je druga u njegovim rukama nakon što je
-pitanje postavljeno.
+čisti signal, a blaži prag propušta više rezultata. Plan izravno određuje uzorak
+i prag, dok dizajn i kvaliteta mjerenja mogu utjecati na raspršenost. Stvarni
+učinak nije upravljačka postavka, nego veličina za koju se snaga mora zasebno
+procijeniti.
 
-Konvencija traži barem 80 %, i kao svaka konvencija služi kao polazište, a ne
-kao dokaz. Ako propuštena razlika nosi ozbiljnu posljedicu, osamdeset posto je
-premalo, a ako je istraživanje prvo u nizu i služi kao provjera izvedivosti,
-može biti previše.
+Uobičajeno polazište od 80 % nije univerzalno pravilo (Cohen, 1988). Ako
+propuštena razlika nosi ozbiljnu posljedicu, osamdeset posto može biti premalo,
+a ako je istraživanje prvo u nizu i služi kao provjera izvedivosti, može biti
+više nego što je potrebno.
+
+## Podsnažene studije pretjeruju
+
+Uobičajena pouka o slaboj snazi glasi da se stvarni učinci propuštaju. To je
+točno, ali nije cijela posljedica. Slaba snaga mijenja i skup procjena koje
+prežive prag, a na poznatoj populaciji taj se selekcijski učinak može izmjeriti.
+
+Ponovili smo isto pitanje na tri tisuće studija sa šezdeset osoba. Prosjek svih
+procjena iznosi `r hr_broj(s11$prosjek_svih, 2)` boda i praktički se poklapa sa
+stvarnom razlikom od `r hr_broj(s11$razlika, 2)`, pa postupak prije primjene
+praga nije pristran u ovoj simulaciji.
+
+*Slika. Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji.*
+
+Donji panel prikazuje odabrani podskup koji je u ovoj simulaciji prešao prag.
+Prosječna procjena u tom podskupu iznosi
+`r hr_broj(s11$prosjek_znacajnih, 2)` boda, odnosno
+`r hr_broj(s11$faktor, 1)` puta više od istine. Razlog je mehanički i ne ovisi o
+namjeri istraživača. Uz slabu snagu prag uglavnom prelaze uzorci u kojima je
+slučajnost razliku uvećala, jer manja procjena s ovako malim uzorkom najčešće ne
+može prijeći prag. Najmanja značajna procjena u ovoj simulaciji iznosi
+`r hr_broj(s11$najmanja_znacajna, 2)` boda.
+
+Drugi je smjer rjeđi, ali nije nemoguć. Među procjenama koje su u ovoj
+simulaciji prešle prag `r hr_broj(s11$krivi_predznak, 2)` % ima suprotan
+predznak od stvarne razlike. Takav nalaz ne sadržava računsku pogrešku, ali bi
+izolirano vodio pogrešnom sadržajnom zaključku.
+
+Kad istu simulaciju ponovimo s pet stotina osoba, odabrane procjene istinu
+premašuju za faktor `r hr_broj(s11$faktor_veliki, 2)`. U tom scenariju
+iskrivljenja gotovo nema. Brojčani faktori vrijede samo za ovdje zadanu
+populaciju, veličine uzoraka, postupak i prag. Ne opisuju svako istraživačko
+područje ni svaki nalaz iz maloga uzorka.
+
+Za čitanje objavljenoga rada zato nije dovoljna presuda da mu je uzorak malen.
+Velik učinak uz p-vrijednost tik ispod praga sam po sebi ne dokazuje
+precjenjivanje, ali traži provjeru širine intervala, načina odabira nalaza i
+usklađenosti s prethodnim dokazima. Povjerenje u veličinu procjene raste ako je
+sličan rezultat dobiven u neovisnoj replikaciji. Niska snaga tako usmjerava
+pozornost na nesigurnost i selekciju, a ne daje automatsku odluku o tome je li
+tvrdnja istinita.
+
+## Planiranje unatrag
+
+Uzorak nije samo stvar raspoloživosti. Odluka o njegovoj veličini počinje
+razlikom koja bi bila dovoljno važna da promijeni postupanje.
+
+**Najmanji važan učinak** je najmanja razlika koja bi promijenila zaključak,
+odluku ili postupanje, određena sadržajno i prije prikupljanja podataka.
+
+Postavlja ga istraživač, a ne račun, i obrazlaže se troškom postupanja,
+ozbiljnošću ishoda i onim što je u istom području već izmjereno. Tek kad je
+zapisan, pitanje o veličini uzorka ima odgovor, jer se snaga uvijek računa za
+neku određenu veličinu učinka.
+
+Redoslijed je time obrnut od uobičajenog. Ne pita se koliko se ispitanika može
+prikupiti pa se nada da će biti dovoljno, nego se kreće od razlike koja bi nešto
+značila, dodaje se željena snaga i iz toga izlazi broj jedinica. Ako je taj broj
+neizvediv, to je nalaz sam po sebi i treba ga znati prije istraživanja, a ne
+poslije.
+
+Postoji i drugi način planiranja, bliži načelu po kojem je ova knjiga napisana.
+Umjesto da se pita koliko je jedinica potrebno da bi se prešao prag, pita se
+koliko ih je potrebno da bi procjena bila dovoljno precizna. Uz raspršenost iz
+ove populacije interval razlike širok je `r hr_broj(s11$sirina_100, 2)` boda pri
+stotinu ljudi po skupini, `r hr_broj(s11$sirina_300, 2)` pri tristo i
+`r hr_broj(s11$sirina_800, 2)` pri osamsto. Istraživač koji zna da mu je za
+odluku potrebna procjena unutar pola boda odatle čita odgovor izravno, bez
+pretpostavke o tome koliki je stvarni učinak.
+
+Ta je razlika u pristupu važnija nego što izgleda. Planiranje prema snazi
+zahtijeva da se zada veličina učinka koji se traži, a upravo je ta veličina ono
+što se ne zna i zbog čega se istraživanje provodi. Uz unaprijed zadanu razinu
+pouzdanosti i pretpostavku o raspršenosti, planiranje prema preciznosti ne traži
+pretpostavku o veličini učinka, jer širina intervala ovisi o raspršenosti i
+broju jedinica. Studija planirana na taj način ne obećava da će nešto naći, nego
+da će, što god nađe, biti dovoljno precizno da se o tome može odlučivati.
 
 ## Interakcija — Istraživač snage
 
@@ -173,85 +254,47 @@ pa broj ponavljanja određuje samo Monte Carlo nesigurnost prikazane snage.
 3. Spustite prag odluke i provjerite koliko je jedinica potrebno za istu snagu.
 4. Postavite standardiziranu razliku na 0,10 i pokušajte dosegnuti 80 %.
 
-Posljednji korak ne uspijeva unutar ponuđenog raspona, i to je poanta. Za male
-učinke potreban uzorak raste brže nego što većina istraživanja može podnijeti,
-pa odluka o tome koji je učinak vrijedan traženja mora doći prije odluke o
-uzorku.
+Posljednji korak ne uspijeva unutar ponuđenog raspona. Pri standardiziranoj
+razlici 0,10 ni tristo jedinica po skupini ne doseže 80 %, pa bi za taj cilj
+trebao još veći uzorak. Odluka o tome koji je učinak vrijedan traženja zato mora
+doći prije odluke o uzorku.
 
-## Podsnažene studije pretjeruju
+**Statistika u divljini.**
+**Neuspjeh snage.** Button i suradnici pregledali su literaturu iz neuroznanosti
+i zaključili da niska prosječna snaga može pridonijeti precijenjenim objavljenim
+učincima i slabijoj ponovljivosti rezultata (Button, 2013). Naslov rada naglašava
+neuspjeh snage, ali njegov argument nije samo poziv na veće uzorke. Povezuje
+vjerojatnost otkrivanja s nesigurnošću procjene i selekcijom nalaza koji prijeđu
+prag.
 
-Uobičajena pouka o slaboj snazi glasi da se stvarni učinci propuštaju. To je
-točno, a nije najgori dio. Studija sa slabom snagom kvari i one nalaze koje
-proizvede, i to se na poznatoj populaciji može izmjeriti.
+Brojčani rezultat iz naše simulacije ne smije se preslikati na tu literaturu.
+Ovdje dvostruko pretjerivanje vrijedi za jednu simuliranu populaciju, uzorak od
+šezdeset osoba, jedan permutacijski postupak i jedan prag. Niska snaga zato nije
+automatska presuda o istinitosti pojedinoga rada. Ona je razlog da uz interval i
+veličinu uzorka provjerimo selekciju nalaza, prethodne dokaze i neovisne
+replikacije prije sadržajnoga zaključka.
 
-Ponovili smo isto pitanje na tri tisuće studija sa šezdeset osoba. Prosjek svih
-procjena iznosi `r hr_broj(s11$prosjek_svih, 2)` boda i praktički se poklapa sa
-stvarnom razlikom od `r hr_broj(s11$razlika, 2)`, dakle postupak sam po sebi
-nije pristran.
+**Pitajte model.**
+Asistent može brzo izračunati standardiziranu razliku i provesti analizu snage,
+ali ulazne odluke ne može preuzeti iz samoga računa. Prije poziva treba mu zadati
+dizajn, očekivanu raspršenost ishoda i najmanji učinak koji bi nešto značio.
+Provjera zatim obuhvaća nazivnik koji odgovara dizajnu, sadržajno opravdanje
+veličine učinka i izvor svake unaprijed zadane vrijednosti. Posebno treba odbiti
+račun u kojem je ciljna veličina učinka procijenjena iz istih podataka čiju se
+snagu zatim navodno provjerava.
 
-*Slika. Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji.*
+> Reci mi koji ulaz nedostaje prije nego što izračunaš snagu. Zatim izračunaj
+> potreban uzorak za nekoliko veličina učinka i pokaži koliko se odgovor mijenja
+> ako je stvarni učinak upola manji od pretpostavljenog.
 
-Donji panel prikazuje ono što bi se objavilo. Među studijama koje su prešle prag
-prosječna procjena iznosi `r hr_broj(s11$prosjek_znacajnih, 2)` boda, dakle
-`r hr_broj(s11$faktor, 1)` puta više od istine. Razlog je mehanički i nema veze
-s poštenjem istraživača. Uz slabu snagu prag prelaze samo uzorci u kojima je
-slučajnost razliku slučajno uvećala, jer manja procjena s ovako malim uzorkom
-prag ne može prijeći. Najmanja značajna procjena u ovoj simulaciji iznosi
-`r hr_broj(s11$najmanja_znacajna, 2)` boda.
+**Nađite grešku.**
+Nakon male studije s tridesetero ljudi po skupini asistent je uz nalaz priložio
+i ovu provjeru.
 
-Drugi smjer rjeđi je, ali nije nemoguć. Među značajnim nalazima
-`r hr_broj(s11$krivi_predznak, 2)` % ima suprotan predznak od stvarne razlike,
-dakle tvrdi da čitatelji portala imaju više povjerenja. Takav bi rad prošao
-recenziju jednako lako kao svaki drugi, jer je iznutra besprijekoran.
-
-Ista simulacija s pet stotina osoba daje procjene koje istinu premašuju za
-faktor `r hr_broj(s11$faktor_veliki, 2)`, dakle iskrivljenja praktički nema.
-Pretjerivanje nije svojstvo područja ni teme, nego posljedica toga što se prag
-primjenjuje na procjene koje su preraspršene za veličinu učinka koji se traži.
-
-Za čitatelja objavljenih radova iz toga slijedi konkretan postupak. Kad rad na
-malom uzorku izvještava o velikom učinku uz p-vrijednost tik ispod praga,
-najvjerojatnije objašnjenje nije da je učinak zaista tolik nego da je uzorak
-propustio samo one procjene koje su slučajno ispale velike. Interval to obično
-odaje, jer se u takvim radovima proteže od jedva zamjetne do nevjerojatno velike
-vrijednosti. Zato se prvo gleda koliko je jedinica bilo i koliko je interval
-širok, a tek onda što piše u zaključku.
-
-## Planiranje unatrag
-
-Iz svega prethodnog slijedi da uzorak nije stvar raspoloživosti nego odluke, i
-da ta odluka počinje na kraju.
-
-**Najmanji važan učinak** je najmanja razlika koja bi promijenila zaključak,
-odluku ili postupanje, određena sadržajno i prije prikupljanja podataka.
-
-Postavlja ga istraživač, a ne račun, i obrazlaže se troškom postupanja,
-ozbiljnošću ishoda i onim što je u istom području već izmjereno. Tek kad je
-zapisan, pitanje o veličini uzorka ima odgovor, jer se snaga uvijek računa za
-neku određenu veličinu učinka.
-
-Redoslijed je time obrnut od uobičajenog. Ne pita se koliko se ispitanika može
-prikupiti pa se nada da će biti dovoljno, nego se kreće od razlike koja bi nešto
-značila, dodaje se željena snaga, i iz toga izlazi broj jedinica. Ako je taj broj
-neizvediv, to je nalaz sam po sebi i treba ga znati prije istraživanja, a ne
-poslije.
-
-Postoji i drugi način planiranja, bliži načelu po kojem je ova knjiga napisana.
-Umjesto da se pita koliko je jedinica potrebno da bi se prešao prag, pita se
-koliko ih je potrebno da bi procjena bila dovoljno precizna. Uz raspršenost iz
-ove populacije interval razlike širok je `r hr_broj(s11$sirina_100, 2)` boda pri
-stotinu ljudi po skupini, `r hr_broj(s11$sirina_300, 2)` pri tristo i
-`r hr_broj(s11$sirina_800, 2)` pri osamsto. Istraživač koji zna da mu je za
-odluku potrebna procjena unutar pola boda odatle čita odgovor izravno, bez
-ijedne pretpostavke o tome koliki je stvarni učinak.
-
-Ta je razlika u pristupu važnija nego što izgleda. Planiranje prema snazi
-zahtijeva da se pogodi veličina učinka koji se traži, a upravo je ta veličina
-ono što se ne zna i zbog čega se istraživanje provodi. Planiranje prema
-preciznosti tu pretpostavku ne treba, jer širina intervala ovisi samo o
-raspršenosti i broju jedinica. Studija planirana na taj način ne obećava da će
-nešto naći, nego da će, što god nađe, biti dovoljno precizno da se o tome može
-odlučivati.
+Uz ispis je dodao obrazloženje. Opažena razlika daje standardiziranu razliku
+oko 0,78, a snaga izračunata za tu vrijednost i trideset ljudi po skupini iznosi
+0,84. Budući da je snaga iznad uobičajene granice, zaključuje da je studija
+bila dovoljno velika i da se procijenjenoj razlici može vjerovati.
 
 ## Razrađeni primjer
 
@@ -282,84 +325,54 @@ prikupiti stotinu, plan je i dalje moguć, ali izvještaj mora unaprijed reći d
 Račun ne odlučuje ništa od onoga što je važno. Pola boda kao granicu postavio je
 netko tko zna što se s tom razlikom radi, raspršenost je procijenjena iz ranijih
 mjerenja, a odustajanje ispitanika i kvaliteta mjerenja nisu ni ušli u simulaciju.
-Ono što račun daje jest jedini pošten oblik rečenice o uzorku, u kojem broj
-jedinica stoji uz učinak koji se njime može uočiti.
-
-**Statistika u divljini.**
-**Neuspjeh snage.** Skupina istraživača objavila je pregled u kojem tvrdi da je
-prosječna statistička snaga studija u neuroznanosti vrlo niska, i da posljedice
-toga uključuju precijenjene veličine učinka i slabu ponovljivost rezultata
-(Button, 2013). Rad je naslovljen kao neuspjeh snage i čitan je najčešće kao
-poziv na veće uzorke.
-
-Ono što se u tom čitanju gubi jest drugi dio tvrdnje. Niska snaga ne smanjuje
-samo izglede da se pravi učinak pronađe, nego smanjuje i vjerojatnost da
-statistički značajan nalaz odgovara stvarnom učinku. To je ista mehanika koju
-simulacija u prethodnom odjeljku mjeri, gdje su procjene koje su prešle prag u
-prosjeku dvostruko veće od istine. Iz toga slijedi da podsnaženo područje ne
-proizvodi samo manje nalaza nego i lošije, pa preporuka nije čitati takve radove
-opreznije, nego ne vjerovati veličini učinka koju objavljuju.
-
-**Pitajte model.**
-Asistent pouzdano izračuna standardiziranu razliku i provede analizu snage, a
-sam ne zna ono što u nju ulazi. Prije poziva mu treba dizajn, očekivana
-raspršenost ishoda i najmanji učinak koji bi nešto značio, jer bez posljednjega
-snaga nema referencu. Provjeravamo tri stvari. Prva je koristi li nazivnik koji
-odgovara dizajnu, budući da se kod uparenih mjerenja dijeli standardnom
-devijacijom razlika. Druga je uzima li konvencionalne pragove kao sadržajnu
-činjenicu i naziva li učinak malim prije nego što je pitao o čemu se radi. Treća
-je računa li snagu iz učinka koji je već opažen, što je najčešća i najskuplja
-pogreška u ovom području.
-
-> Reci mi koji ulaz nedostaje prije nego što izračunaš snagu. Zatim izračunaj
-> potreban uzorak za nekoliko veličina učinka i pokaži koliko se odgovor mijenja
-> ako je stvarni učinak upola manji od pretpostavljenog.
-
-**Nađite grešku.**
-Nakon male studije s tridesetero ljudi po skupini asistent je uz nalaz priložio
-i ovu provjeru.
-
-Uz ispis je dodao obrazloženje. Opažena razlika daje standardiziranu razliku
-oko 0,78, a snaga izračunata za tu vrijednost i trideset ljudi po skupini iznosi
-0,84. Budući da je snaga iznad uobičajene granice, zaključuje da je studija
-bila dovoljno velika i da se procijenjenoj razlici može vjerovati.
+Račun daje obranjiv oblik rečenice o uzorku, u kojem broj jedinica stoji uz
+učinak koji se njime može uočiti.
 
 ## Sažetak
 
 Veličina učinka vraća pitanju koliko je razlika velika, a standardizirana mjera
 čini je usporedivom preko različitih ljestvica. Statistička značajnost i
-praktična važnost odgovaraju na različita pitanja, pa golem uzorak proizvodi
-značajnost za razlike koje nikoga ne zanimaju, dok premali uzorak propušta one
-koje bi promijenile odluku. Snaga povezuje učinak, uzorak, raspršenost i prag, a
-mjerenje na poznatoj populaciji pokazuje koliko brzo pada kad uzorak popusti.
-Studije sa slabom snagom pritom ne griješe samo propuštanjem, jer među njihovim
-objavljenim nalazima procjene su u prosjeku dvostruko veće od istine, a poneka
-ima i pogrešan predznak. Sljedeće poglavlje pokazuje što se događa kada sustav
+praktična važnost odgovaraju na različita pitanja, pa golem uzorak može odvojiti
+od nule i razliku koja ne mijenja odluku. Snaga povezuje učinak, uzorak,
+raspršenost i prag, dok planiranje prema preciznosti polazi od potrebne širine
+intervala. U simuliranom scenariju maloga uzorka procjene koje su prešle prag u
+prosjeku su dvostruko veće od poznate razlike, ali taj broj ne vrijedi izvan
+zadanoga mehanizma. Sljedeće poglavlje pokazuje što se događa kada sustav
 nagrađuje objavljeni nalaz, a skriva cijeli put koji je do njega doveo.
 
 ## Pojmovi
 
 veličina učinka (*effect size*), standardizirana razlika (*Cohen's d*),
 praktična važnost (*practical significance*), statistička snaga (*statistical
-power*), najmanji važan učinak (*smallest effect size of interest*), planiranje
-uzorka (*sample size planning*)
+power*), precjenjivanje učinka u malim uzorcima (*effect-size exaggeration in
+small samples*), najmanji važan učinak (*smallest effect size of interest*),
+planiranje veličine uzorka (*sample size planning*), širina intervala (*interval
+width*)
 
 ## Zadaci
 
 ### Konceptualni
 
-Objasnite u jednom odlomku zašto među objavljenim nalazima podsnaženih studija
-procjene učinka sustavno premašuju istinu, iako nijedan pojedinačni istraživač
-nije napravio ništa nedopušteno. Imenujte korak u kojem nastaje iskrivljenje.
+Objasnite u jednom odlomku zašto u simulaciji ovoga poglavlja podskup procjena
+koje su prešle prag u prosjeku premašuje poznatu razliku, iako prosjek svih
+procjena ostaje blizu istini. Imenujte korak u kojem nastaje iskrivljenje i
+objasnite zašto se dobiveni faktor ne smije prenijeti na svako područje.
 
 ### Računski
 
-Dvije skupine imaju sredine 5,4 i 4,6 uz združenu standardnu devijaciju 1,9.
-Izračunajte razliku i standardiziranu razliku, a zatim ponovite račun uz
-združenu standardnu devijaciju 3,8. Objasnite koja se od dviju brojki promijenila
-i zašto. Zatim u widgetu poglavlja pronađite koliko je jedinica po skupini
-potrebno da se manja od dviju standardiziranih razlika otkrije u četiri od pet
-pokušaja.
+Iz upravljanoga agregata `data/populacija-medija-agregat.csv` uzmite retke za
+portal i tisak. U tiskanom ili dokumentnom izdanju iste su vrijednosti u tablici
+uz statični prikaz. Za svaki redak podijelite zbroj povjerenja brojem osoba,
+usporedite rezultat s pohranjenim prosjekom i izračunajte razliku prosjeka.
+Zatim za standardiziranu razliku 0,4 zabilježite snagu pri 40, 80, 160 i 300
+jedinica po skupini. U HTML-u upotrijebite widget, a u tiskanom izdanju tablicu
+sa zadanom postavkom.
+
+Vratite se objašnjenju standardne pogreške i širine intervala u poglavlju o
+procjeni. Objasnite zašto veći uzorak istodobno sužava interval i povećava snagu,
+ali ne mijenja unaprijed zadanu veličinu učinka. Predajte dva računa prosjeka,
+njihovu razliku, četiri vrijednosti snage i jedan odlomak koji povezuje preciznost
+sa snagom. Ocjenjuje se račun i tumačenje, ne pisanje koda.
 
 ### Kritički
 

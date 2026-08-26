@@ -11,11 +11,23 @@ Workflow je podešen da pri svakom pushu na `main` ponovno izgradi radnu
 stranicu; poveznica na razvojni PDF je
 [`/pdf/Statistika.pdf`](https://lusiki.github.io/statistika-knjiga/pdf/Statistika.pdf).
 
-**Stanje: sadržajni nacrt u sveobuhvatnoj reviziji.** Predgovor i svih 18
-numeriranih poglavlja imaju tekst i zajedničke strukturne sastavnice, ali svih
-19 jedinica još ima status `draft`. Mrežna inačica, PDF i DOCX razvojni su
-artefakti, a ne objavljeno izdanje. Opseg i plan knjige opisani su u
+**Stanje: sadržajni nacrt u sveobuhvatnoj reviziji.** Poglavlje 6 ostaje u
+nacrtu, a ostalih 18 jedinica čeka suautorski pregled; nijedna jedinica još
+nema završni status. Mrežna inačica, PDF i DOCX razvojni su artefakti, a ne
+objavljeno izdanje. Opseg i plan knjige opisani su u
 [notes/struktura-knjige.md](notes/struktura-knjige.md).
+
+## Putovi u radnom nacrtu
+
+Kritičko-čitalački i analitički put prolaze Poglavlja 1–18 kanonskim
+redoslijedom, ali ističu različite dionice. Sažete javne provjere za 95 zadataka
+generiraju se u `rjesenja.qmd` iz jednoga spremišta zapisa. Puni kriteriji,
+alternative i bilješke nastavniku vidljivi su samo u kolegijskom profilu, a
+stranica rješenja ne ulazi u javne AI izvoze.
+
+Samostalna R-ruta je provjerena. Put bez koda obećava samo 19 podržanih mjerila
+iz Dodatka B; sedam ograđenih mjerila nije podržano, a provjera na čistoj
+instalaciji ostaje nepotvrđena.
 
 ## Licenca
 
@@ -57,10 +69,12 @@ quarto preview
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R` | jesu li slojevi dizajna usklađeni |
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-ai-exports.R` | tekstualni izvoz knjige za AI asistente |
 | `python bookwright_plugin/bookwright/scripts/run_rscript.py R/build-concept-graph.R` | mreža pojmova za pojmovnik |
+| `python scripts/build-solution-routes.py --check` | podudara li se javna i kolegijska projekcija rješenja s kanonskim zapisima |
+| `python scripts/check-pathways.py` | čitateljski putovi, preduvjeti i granice izlaza |
 
 PDF i DOCX **ne** pokreću se golim `quarto render --profile …`. PDF omotač
 prije pokušaja uklanja obje stare kopije, provjerava kanonski popis literature
-i dodataka A–F, pokreće PDF profil te tek nakon provjere potpisa i jednakog
+i dodataka A–G, pokreće PDF profil te tek nakon provjere potpisa i jednakog
 SHA-256 sažetka kopira novi rezultat u `docs/pdf/`. Svaki neuspjeh ostavlja obje
 kopije uklonjenima. DOCX omotač tijekom rendera privremeno isključuje pre-render
 hook i zamjenjuje vrata statičkih slika; `finally` blok vraća konfiguraciju i

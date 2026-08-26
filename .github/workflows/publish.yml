@@ -70,6 +70,12 @@ jobs:
       - name: Prove book inventory drift fails closed
         run: python scripts/check-book-inventory-fixtures.py
 
+      - name: Check generated solution route and pathway contracts
+        run: |
+          python scripts/build-solution-routes.py --check
+          python scripts/check-assessment-architecture.py
+          python scripts/check-pathways.py
+
       - name: Check design token sync (design-tokens.yml vs SCSS vs LaTeX)
         run: python bookwright_plugin/bookwright/scripts/run_rscript.py scripts/check-tokens.R
 

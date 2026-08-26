@@ -170,10 +170,14 @@ def build(root: Path) -> dict[str, Any]:
     )
     chapter_count = sum(page.get("kind") in {"preface", "chapter"} for page in inventory["pages"])
     appendix_count = sum(page.get("kind") == "appendix" for page in inventory["pages"])
+    solution_count = sum(page.get("kind") == "solution" for page in inventory["pages"])
     architecture = {
         "chapters": chapter_count,
         "appendices": appendix_count,
-        "canonical_pages": len(inventory["pages"]),
+        # D10 je povijesna arhitekturna osnova prije zasebno odobrene D06
+        # projekcije rješenja. Artefakt smije osvježiti ulazne sažetke, ali ne
+        # smije prepisati broj koji je predan handoffom H-P5-G-001.
+        "canonical_pages": len(inventory["pages"]) - solution_count,
         "widgets": len(widgets),
         "widgets_with_static_twins": static_twins,
         "callout_types": 4,

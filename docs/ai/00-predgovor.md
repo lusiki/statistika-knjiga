@@ -4,26 +4,44 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/00-predgovor.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
 **Vinjeta.**
-Američko statističko udruženje moralo je objaviti posebno pojašnjenje jednog
-od najčešćih brojeva u znanstvenim radovima jer je p-vrijednost postala
-zamjena za širi sud o dokazima (Wasserstein, 2016). Problem nije pripadao samo
-specijalistima. Isti skok od broja prema presudi pojavljuje se u novinskim
-naslovima, izvještajima ustanova i odgovorima generativnih modela.
+Pri provjeri nastavnoga skupa za ovu knjigu pred nama je bilo nekoliko redaka o
+glavnom izvoru vijesti. Redak za portale bio je veći od svakoga drugog retka. Iz
+toga su nastale dvije naizgled slične rečenice. Prema prvoj je portal najčešći
+glavni izvor vijesti, a prema drugoj je portal glavni izvor vijesti većini
+generirane populacije.
 
-Čitatelj društvenih istraživanja svakodnevno susreće postotke, intervale,
-grafove i predikcije. Ne mora sam graditi svaki složeni model, ali mora znati
-koje pitanje rezultat odgovara, odakle dolazi i gdje prestaje njegova dokazna
-snaga.
+Takva razlika ne traži naprednu matematiku. Traži da se broj vrati pitanju,
+usporedbi i nazivniku prije nego što postane zaključak. Koju od dviju rečenica
+podaci doista podupiru?
 
-Koji minimum statističkog znanja pretvara pasivnog primatelja brojki u
-odgovornog čitatelja istraživanja?
+## Tvrdnja pod povećalom
 
-## Knjiga za čitatelja istraživanja
+Tablica prikazuje cijelu poznatu generiranu populaciju od 50.000 zapisa, a ne
+uzorak stvarnih ljudi (Šikić, 2026). Jedan redak predstavlja
+jednu generiranu osobu, a kategorije se međusobno isključuju.
+
+| Glavni izvor vijesti | Broj zapisa | Udio u populaciji |
+|---|---:|---:|
+| portal | 15.101 | 30,202 % |
+| društvene mreže | 13.378 | 26,756 % |
+| TV | 10.827 | 21,654 % |
+| radio | 5.839 | 11,678 % |
+| tisak | 4.855 | 9,710 % |
+
+: Izvori vijesti u poznatoj generiranoj populaciji. Izrada autora prema sikic2026.
+
+Skup je generiran upravo zato da poznajemo cijelu populaciju i možemo
+provjeriti svaki zbroj. On ne govori ništa o medijskim navikama stvarnih ljudi.
+Za početni je zadatak dovoljno pregledati sve retke, usporediti najveći
+broj s ostalima i zatim ga usporediti s polovicom ukupnoga broja zapisa. Najveći
+redak i većinski udio traže dvije različite usporedbe.
+
+## Ugovor s čitateljem
 
 Ova je knjiga namijenjena studentima društvenih znanosti koji moraju razumjeti
 istraživanje, a ne postati profesionalni analitičari. Ne pretpostavlja
@@ -31,15 +49,22 @@ programiranje ni matematiku izvan srednjoškolskog gradiva. Pretpostavlja
 spremnost da se svaka tvrdnja uspori dovoljno dugo kako bismo vidjeli podatke,
 usporedbu i neizvjesnost.
 
-Gradivo slijedi put od statističkog mišljenja preko opisivanja i uzorkovanja do
-zaključivanja, modela i algoritamskih sustava. Simulacija dolazi prije formule.
-Procjena i interval dolaze prije testa. Čitanje tuđih brojki ravnopravan je
-sadržaj, a ne motivacijska digresija.
+**Statistička pismenost** ovdje obuhvaća četiri sposobnosti. Čitatelj može
+kritički prosuditi statističku tvrdnju. Može pošteno opisati i prikazati podatke
+te čitati i skromno reproducirati temeljne inferencijalne analize. Može
+surađivati s asistentom bez predaje odgovornosti. Taj put vodi od statističkog
+mišljenja preko opisivanja i uzorkovanja do zaključivanja, modela i predviđanja.
 
-Nakon knjige čitatelj bi trebao moći kritički prosuditi statističku tvrdnju,
-pošteno opisati podatke, pratiti temeljne inferencijalne analize i surađivati s
-AI asistentom bez predaje odgovornosti. Račun se može delegirati. Izbor pitanja,
-provjera izvora i potpis pod zaključkom ostaju ljudski posao.
+**Simulacija** dolazi prije formule. Rezultat najprije promatramo dok se podaci
+ili slučajni postupak mijenjaju, a tek ga potom imenujemo. **Procjena** i njezina
+neizvjesnost dolaze prije testa jer broj čitamo zajedno s rasponom vrijednosti
+koje su spojive s podacima. Čitanje tuđih brojki ravnopravan je sadržaj, a ne
+motivacijska digresija.
+
+AI asistent može pomoći u svakom koraku, ali snižava cijenu uvjerljiva računa i
+time povećava teret neovisne provjere. Račun se može delegirati. Čovjek određuje
+pitanje, uspoređuje izlaz s izvorom i potpisuje zaključak. Tu granicu nazivamo
+**podjelom odgovornosti s asistentom**.
 
 ## Granice i putovi čitanja
 
@@ -50,92 +75,127 @@ algoritama. Granica nije tvrdnja da te teme nisu važne, nego odluka da se
 obećani put može završiti.
 
 Digitalno izdanje nosi interaktivne prikaze, a tiskano njihove statične
-blizance. Dodatci nude R praktikum, put bez koda, katalog podataka, odabir
-postupka, rječnik i protokol za rad s asistentom.
+blizance. R praktikum prati provjerenu samostalnu R-rutu, dok je put bez koda
+ograničen na 19 podržanih mjerila iz verzioniranog popisa u Dodatku B. Sedam
+ograđenih mjerila nije dio toga obećanja, a provjera na čistoj instalaciji još
+nije potvrđena. Katalog podataka pokazuje podrijetlo skupova, vodič pomaže pri
+odabiru postupka, rječnik povezuje pojmove, a protokol uređuje rad s
+asistentom.
 
-Kod se u poglavljima pojavljuje kao dokaz, a ne kao zadatak. Nijedna vježba ne
-traži da čitatelj napiše program. Razrađeni primjer svakog poglavlja pokazuje
-postupak kojim su dobivene brojke iz proze, jer tvrdnja koju nije moguće
-provjeriti nije tvrdnja. Za čitanje tih blokova dovoljna su tri znaka. Znak `|>`
-znači „pa onda" i vodi podatke iz jednog koraka u sljedeći, znak `+` dodaje još
-jedan sloj grafu, a `aes` imenuje pridruživanje varijabli vizualnim kanalima.
-Sve ostalo su imena glagola koja kažu što rade. Tko poželi i sam pisati, kroz R
-ga od instalacije vodi praktikum, a tko to ne želi, put bez koda ostaje potpun.
+### Kritičko-čitalački put
 
-Poglavlja se mogu čitati redom, ali i koristiti kao referenca. Pojmovi se
-namjerno vraćaju. Simpsonov paradoks najprije gradi statističku sumnju, zatim
-se pojavljuje u povezanosti i kategoričkim podacima. Uzročnost se sadi u
-dizajnu i vraća u regresiji. Predikcija se odvaja od objašnjenja prije nego što
-uđe u svijet algoritama.
+Poglavlja 1–18 čitaju se kanonskim redoslijedom. Poseban je naglasak na
+tvrdnjama, izvorima, grafovima i granicama tumačenja u poglavljima 1, 2, 3, 5,
+8, 10, 12, 13, 17 i 18. Naglasak usmjerava pozornost, ali ostala poglavlja
+nisu preskočiva. Živi preduvjeti vode kroz cijelu knjigu, Poglavlje 13 dolazi
+prije Poglavlja 17, a Poglavlje 18 tek nakon svih sedamnaest prethodnih.
+
+### Analitički put
+
+Poglavlja 1–18 i ovdje se čitaju kanonskim redoslijedom, uz naglasak na
+podacima, postupcima i provjerljivim rezultatima u poglavljima 1, 2, 4–11,
+13–16 i 18. Dodatak A prati provjerenu R-rutu, a Dodatak B samo svoj
+dokumentirani opseg bez koda. Oba se puta susreću u provjerljivom tragu računa
+jer se sud o tuđem rezultatu ne može trajno odvojiti od razumijevanja kako je
+nastao.
+
+Nakon vlastitog pokušaja čitatelj može otvoriti [Provjere
+rješenja](../rjesenja.qmd). Javna stranica donosi sažete provjere, dok puni
+kriteriji, prihvatljive alternative i napomene nastavniku pripadaju samo
+zaštićenom kolegijskom sloju.
+
+Svaki broj iz proze mora ostaviti **provjerljiv trag računa** do podataka i
+postupka kojim je dobiven. Predgovor i prvi dio ne prikazuju vidljivi kod, a
+nijedna ocijenjena aktivnost u knjizi ne traži njegovo pisanje. Trag računa
+ipak ne jamči da su podaci prikladni, dizajn valjan ili tumačenje pošteno. On
+omogućuje provjeru računanja, ne zamjenjuje prosudbu.
 
 **Statistika u divljini.**
-**Jedan broj ne nosi cijeli dokaz.** Izjava Američkog statističkog udruženja
-upozorila je da p-vrijednost sama ne mjeri veličinu učinka ni važnost rezultata
+**Jedan broj nije presuda.** Američko statističko udruženje u izjavi o
+p-vrijednostima razdvaja prelazak unaprijed zadanog praga od znanstvenog
+zaključka. P-vrijednost sama ne pokazuje veličinu učinka ni važnost rezultata,
+pa zaključak ne smije počivati samo na prelasku praga
 (Wasserstein, 2016).
 
-To načelo određuje ton knjige. Nijedan rezultat ne odbacujemo zbog jednog broja
-i nijedan ne prihvaćamo zbog njega. Vraćamo se pitanju, dizajnu, procjeni,
-neizvjesnosti i posljedicama.
-
 **Pitajte model.**
-Asistent u ovoj knjizi služi kao instrument za račun, objašnjenje i provjeru.
-Svaki njegov rezultat mora ostaviti vidljiv trag do podataka, koda ili izvora.
-Model ne dobiva osobne podatke ispitanika i ne navodi se kao dokaz za
-empirijsku tvrdnju.
+Asistent može provjeriti račun iz tablice, ali zadatak mora imenovati brojnik,
+nazivnik i usporedbu. Rezultat zatim uspoređujemo s izvornim retkom i ručno
+provjeravamo zaključak. Ovaj nastavni skup nema stvarne ispitanike, a stvarni
+osobni podaci ne prenose se javnom modelu.
 
-> Objasni postupak korak po korak, prikaži račun ili kod i navedi što trebam
-> ručno provjeriti. Ne izmišljaj izvore ni podatke koji nisu priloženi.
+> Izračunaj udio zapisa kojima je portal glavni izvor vijesti. Imenuj brojnik i
+> nazivnik, usporedi rezultat s polovinom populacije i napiši što iz ove
+> generirane populacije ne smijemo zaključiti o stvarnim ljudima.
 
 **Nađite grešku.**
-Asistent je dao jasan postupak, reproducibilan kod i ograničio zaključak na
-opažajni dizajn. Budući da tekst zvuči uvjerljivo, navedeni izvor nije potrebno
-otvoriti i provjeriti.
+Portal je glavni izvor vijesti za 15.101 od 50.000 zapisa, odnosno 30,202 %
+(Šikić, 2026).
+To je više nego u bilo kojoj drugoj kategoriji (Šikić, 2026), pa većina ove
+generirane populacije ima portal kao glavni izvor vijesti. Rezultat se ne odnosi
+na stvarne ljude.
 
 ## Razrađeni primjer
 
-Svako poglavlje slijedi isti mali ugovor. Stvarna vinjeta otvara pitanje.
-Proza i simulacija grade pojam. Interakcija omogućuje promjenu uvjeta, a
-„Statistika u divljini" rastavlja objavljenu tvrdnju. Dva okvira o asistentu
-pokazuju koristan postupak i jednu realističnu pogrešku.
+Tvrdnja da je portal najčešći izvor traži usporedbu njegova broja sa svakim
+drugim retkom. Broj 15.101 veći je od 13.378, 10.827, 5.839 i 4.855, pa je ta
+tvrdnja točna za poznatu generiranu populaciju (Šikić, 2026).
 
-Razrađeni primjer zatim vodi analizu od pitanja do ograničenog zaključka. Kod
-ostaje dostupan, ali proza mora stajati samostalno. Sažetak, dvojezični pojmovi
-i četiri vrste zadataka zatvaraju poglavlje. Taj ponovljeni oblik oslobađa
-čitatelja da pažnju usmjeri na ono što se u statističkom argumentu mijenja.
+Tvrdnja o većini traži drugu usporedbu. Polovina od 50.000 iznosi 25.000, a
+broj 15.101 manji je od toga (Šikić, 2026). Isti se odnos vidi u računu
+$15\,101 / 50\,000 = 0{,}30202$, odnosno 30,202 %
+(Šikić, 2026). Pošten zaključak glasi da su portali najčešća
+pojedinačna kategorija, ali nisu izvor većine zapisa.
+
+Ta usporedba razdvaja najčešću kategoriju od većine. Budući da tablica obuhvaća
+svih 50.000 zapisa poznate generirane populacije, o udjelu portala u tim
+zapisima nema uzorkovne neizvjesnosti (Šikić, 2026). Podrijetlo i konstrukcija
+skupa ipak ograničavaju tumačenje, pa nema temelja da se udio prenese na stvarne
+ljude. Poglavlje o životnom ciklusu podataka smjestit će ista pitanja u širi put
+od nastanka podatka do nadzora nad zaključkom.
 
 ## Sažetak
 
-Knjiga uči statistiku kao disciplinu povezivanja pitanja, podataka, postupka i
-ograničenog zaključka. Simulacija, procjena, provjera izvora i transparentan rad
-s asistentom njezine su stalne metode. Opseg je namjerno ograničen kako bi
-čitatelj završio put od osnovnog brojanja do kritičkog čitanja modela. Prvo
-poglavlje započinje tamo gdje broj prestaje biti dovoljan odgovor.
+Statistička pismenost povezuje pitanje, podatke, usporedbu, neizvjesnost i
+ograničen zaključak. Simulacija i procjena čine postupke vidljivima, a
+provjerljiv trag računa omogućuje da se delegirano računanje pregleda. Podjela
+odgovornosti s asistentom ostavlja pitanje, provjeru izvora i zaključak čovjeku.
+Prvo poglavlje započinje životnim ciklusom koji svakom od tih poslova određuje
+mjesto.
 
 ## Pojmovi
 
 statistička pismenost (*statistical literacy*), simulacija (*simulation*),
-procjena (*estimation*), reproducibilnost (*reproducibility*), provjera izvora
-(*source verification*)
+procjena (*estimation*), podjela odgovornosti s asistentom (*division of
+responsibility with an assistant*), provjerljiv trag računa (*auditable
+calculation trail*)
 
 ## Zadaci
 
 ### Konceptualni
 
-Opišite razliku između razumijevanja istraživanja i profesionalnog izvođenja
-analize. Predajte jedan odlomak.
+Kritičko-čitalački i analitički put različito ulaze u isti problem. U tri
+rečenice objasnite od čega svaki put polazi, gdje se susreću u provjerljivom
+tragu računa i koja odgovornost ostaje čitatelju kada račun predloži asistent.
 
 ### Računski
 
-Otvorite presavijeni blok koda u razrađenom primjeru poglavlja o sažimanju
-podataka i povežite svaki njegov korak s rečenicom iz proze. Predajte kratku
-mapu postupka, bez pisanja vlastitoga koda.
+Izračunajte udio zapisa kojima su društvene mreže glavni izvor vijesti i
+usporedite ga s udjelom portala. Predajte račun s brojnikom i nazivnikom te
+jednu rečenicu zaključka, bez pisanja koda.
 
 ### Kritički
 
-Pročitajte izjavu o p-vrijednostima i izdvojite načelo koje biste primijenili
-na novinski naslov (Wasserstein, 2016). Predajte naslov prije i nakon revizije.
+Prosudite objavljenu tvrdnju iz okvira „Jedan broj nije presuda”. Predajte dvije
+rečenice. U prvoj navedite što prelazak zadanog praga sam po sebi ne pokazuje, a
+u drugoj imenujte jedan dodatni podatak ili argument koji biste morali provjeriti
+prije znanstvenog zaključka
+(Wasserstein, 2016).
 
 ### Revizija modela
 
-Ocijenite modelsku analizu iz okvira. Imenujte tri dobre prakse, jednu pogrešku
-i točan postupak provjere izvora.
+Model predlaže ovu analizu. „Društvene mreže glavni su izvor vijesti za
+13.378 od 50.000 zapisa, odnosno 26,756 % (Šikić, 2026). Zaključak se odnosi samo
+na generiranu populaciju. Budući da je račun jasno zapisan, nije ga potrebno
+neovisno usporediti s izvornom tablicom.” Ocijenite analizu. Predajte dva točna
+elementa, jedinu pogrešku, potrebnu ljudsku provjeru i jednu rečenicu o tome što
+provjerljiv trag računa ne jamči.

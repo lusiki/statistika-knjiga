@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-08-04 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-08-26 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -27,37 +27,35 @@ tvrdnje o svijetu nego jednu tvrdnju s onim što bi slučajnost proizvela.
 
 ## Sudnica i njezina asimetrija
 
-Testiranje počinje pretpostavkom u koju nitko ne vjeruje. Postupak najprije
-opiše svijet u kojem učinka koji tražimo nema, izračuna što bi taj svijet
-proizveo, i tek onda pogleda podatke. Ako podaci u takvom svijetu izgledaju
-neobično, pretpostavka postaje neodrživa.
+Prije nego što se pokrene test, izvještaj treba pokazati koliko je opažena
+razlika velika i koliko je neizvjesna. Treba postaviti i drugo pitanje. Što bi u
+stvarnoj odluci bilo skuplje, proglasiti razliku koje nema ili propustiti onu
+koja postoji? Račun bez veličine i posljedica lako postane obred oko jednoga
+praga.
 
-**Nulta hipoteza** je precizan model postupka koji je proizveo podatke, sastavljen
-tako da u njemu nema razlike ni veze koju istražujemo.
-
-Alternativna hipoteza opisuje odstupanje koje bi nas zanimalo i namjerno je
-neodređena, jer obuhvaća sve razlike osim nulte. Te dvije tvrdnje nisu
-ravnopravne suparnice. Samo nulta hipoteza dovoljno je precizna da se iz nje
-može izračunati što će se dogoditi, i zbog toga cijeli postupak stoji na njoj.
+Tek tada počinje testiranje, pretpostavkom u koju nitko ne mora vjerovati.
+Postupak najprije opisuje svijet u kojem učinka koji tražimo nema, izračuna što
+bi taj svijet proizvodio i tek onda gleda podatke. Ako podaci u takvom svijetu
+izgledaju neobično, početna pretpostavka postaje teško održiva.
 
 Analogija sa suđenjem tu asimetriju objašnjava bolje od bilo koje formule. Sud
 polazi od pretpostavke nevinosti, a tužiteljstvo iznosi dokaze protiv nje.
 Presuda kojom optužba nije dokazana nije utvrđenje nevinosti nego izjava da
-dokazi nisu bili dovoljni. Statistički postupak radi isto, pa neodbacivanje
-nulte hipoteze nikada ne znači da je ona istinita.
+dokazi nisu bili dovoljni. Statistički postupak radi isto. Neuspjeh da se
+početna pretpostavka odbaci ne znači da je ona utvrđena kao istinita.
 
 Analogija ima i granicu koju vrijedi navesti odmah. Sud presuđuje o jednom
 događaju, a test opisuje ponašanje postupka kroz mnogo ponavljanja. Sve što
 slijedi vrijedi za postupak, a ne za pojedini rezultat, i upravo se to u
 izvještajima gubi.
 
-Zbog toga se dio odluka mora donijeti prije podataka. Nulti model treba biti
+Zbog toga se dio odluka mora donijeti prije podataka. Početni model treba biti
 zapisan tako da se iz njega može računati, mjera odstupanja odabrana, a prag uz
 koji će se rezultat čitati postavljen dok se još ne zna kako će podaci ispasti.
 Ništa od toga nije tehnička priprema. Postupak čije se komponente biraju nakon
 pogleda na podatke više nema stopu pogreške koju obećava, jer je obećanje dano
-za postupak koji se ponavlja jednak, a ne za onaj koji se dotjeruje. Koliko se
-tim putem može doći dokazuje poglavlje o krizi i obnovi.
+za postupak koji se svaki put provodi jednako, a ne za onaj koji se dotjeruje.
+Koliko se tim putem može doći dokazuje poglavlje o krizi i obnovi.
 
 ## Kako se gradi svijet bez učinka
 
@@ -71,16 +69,29 @@ iznosi `r hr_broj(s10$razlika, 2)` boda u korist tiska, uz interval pouzdanosti
 od `r hr_broj(s10$donja, 2)` do `r hr_broj(s10$gornja, 2)`. Test dolazi tek
 poslije, jer odgovara na uže pitanje, na to je li s podacima uskladiva i nula.
 
-Nulti model za ovo pitanje tvrdi da je cijela raspodjela povjerenja jednaka
-među čitateljima tiska i portala. Kad bi to vrijedilo, oznake izvora bile bi
+Sada privremeno sagradimo svijet u kojem je cijela raspodjela povjerenja jednaka
+među čitateljima tiska i portala. U takvu bi svijetu oznake izvora bile
 zamjenjive u odnosu na ishod i mogle bi se rasporediti drukčije bez promjene
-zajedničke raspodjele. Promiješamo ih stoga nasumično, izračunamo razliku
-sredina i postupak ponovimo mnogo puta. Dobiveni raspon razlika pokazuje što
-takav nulti model dopušta.
+zajedničke raspodjele. Promiješamo ih nasumično, izračunamo razliku sredina i
+postupak ponovimo mnogo puta. Dobiveni raspon razlika pokazuje što svijet bez
+veze između oznake i ishoda dopušta.
 
-Ta zamjenjivost nije dana samim podatkom da su sredine jednake. Skupine s
-jednakim sredinama, ali različitim rasponima ili oblicima raspodjele ne
-zadovoljavaju ovaj nulti model. Postupak uz to pretpostavlja da su osobe
+Tek sada taj izgrađeni svijet treba imenovati.
+
+**Nulta hipoteza** je precizan model postupka koji je proizveo podatke, sastavljen
+tako da u njemu nema razlike ni veze koju istražujemo.
+
+Alternativna hipoteza opisuje odstupanje koje bi nas zanimalo i namjerno je
+neodređena, jer obuhvaća sve razlike osim nulte. Te dvije tvrdnje nisu
+ravnopravne suparnice. Samo je nulta hipoteza ovdje dovoljno precizna da se iz
+nje može izračunati što će se dogoditi, i zbog toga testni račun stoji na njoj.
+
+Postupak nasumičnog premještanja oznaka koji smo upravo izgradili zove se
+**permutacijski test**.
+
+Zamjenjivost nultoga modela nije dana samim podatkom da su sredine jednake.
+Skupine s jednakim sredinama, ali različitim rasponima ili oblicima raspodjele
+ne zadovoljavaju ovaj nulti model. Postupak uz to pretpostavlja da su osobe
 zasebne, međusobno neovisne jedinice opažanja. Budući da izvor vijesti nije
 nasumično dodijeljen, zamjenjivost je ovdje pretpostavka modela, a ne posljedica
 istraživačkog dizajna, i test ne može poduprijeti uzročnu tvrdnju.
@@ -110,10 +121,11 @@ kao opaženo. Taj udio ima ime.
 u najmanju ruku jednako neusklađeni kao opaženi rezultat.
 
 U našem uzorku iznosi `r hr_broj(s10$p, 3)`. Rečenica koja iz toga slijedi ima
-oblik koji vrijedi zapamtiti doslovno. Kad izvor vijesti ne bi imao nikakve veze
-s povjerenjem, razliku ovoliku ili veću vidjeli bismo u otprilike
-`r hr_broj(s10$p * 100, 1)` % uzoraka. Sve što p-vrijednost kaže stoji u toj
-rečenici, i svaka tvrdnja koja iz nje izlazi mora biti opravdana posebno.
+oblik koji vrijedi zapamtiti doslovno. Zadržimo li opažene ishode i veličine
+skupina, nulti model daje apsolutnu razliku ovoliku ili veću u otprilike
+`r hr_broj(s10$p * 100, 1)` % simuliranih rasporeda oznaka. Sve što p-vrijednost
+kaže stoji u toj rečenici, i svaka tvrdnja koja iz nje izlazi mora biti
+opravdana posebno.
 
 Kad bismo pobrojili sva moguća premještanja, p-vrijednost bi bila njihov točan
 udio, uključujući opaženi raspored. Ovdje nasumično izvlačimo konačan broj
@@ -131,6 +143,9 @@ kako se p-vrijednosti raspoređuju u jednom i u drugom. Radi preglednosti korist
 normalne ishode s poznatom varijabilnošću i obostrani test. P-vrijednosti računa
 iz poznate normalne raspodjele, pa korekcija za konačan broj nasumičnih
 premještanja ne pripada ni interaktivnom prikazu ni njegovoj statičnoj inačici.
+Kontrola standardiziranu razliku izražava u jedinicama standardne devijacije i
+ovdje služi samo usporedivom pomicanju učinka. Njezino puno tumačenje pripada
+sljedećem poglavlju.
 
 *Slika. Raspodjele p-vrijednosti pod nultim modelom i pod odabranim stvarnim učinkom.*
 
@@ -141,7 +156,7 @@ premještanja ne pripada ni interaktivnom prikazu ni njegovoj statičnoj inačic
 3. Povećajte uzorak bez promjene razlike i usporedite udio rezultata ispod praga.
 4. Spustite prag s 0,05 na 0,01 i pogledajte obje raspodjele.
 
-Prvi korak otkriva svojstvo koje iznenađuje gotovo svakoga. Kad učinka nema,
+Prvi korak otkriva svojstvo koje nije intuitivno. Kad učinka nema,
 p-vrijednosti su ravnomjerno raspoređene po cijelom rasponu od nule do jedinice,
 pa je vrijednost od 0,03 pod nultim modelom jednako vjerojatna kao vrijednost od
 0,53. Prag ne odvaja obično od neobičnog nego odsijeca unaprijed određen udio te
@@ -149,13 +164,20 @@ ravnomjerne raspodjele, i taj udio je sve što prag jamči.
 
 ## Dvije vrste pogreške
 
-Postupak može pogriješiti na dva načina i nijedan se ne može ukloniti. Kad se
-odbaci nulta hipoteza koja je istinita, radi se o pogrešci prve vrste. Kad se ne
-odbaci nulta hipoteza koja je lažna, radi se o pogrešci druge vrste.
+Odluka može zakazati u oba smjera, a nijedan se rizik ne može ukloniti. Kad se
+odbaci nulta hipoteza koja je istinita, radi se o pogrešci prve vrste.
+**Pogreška druge vrste** nastaje kad se ne odbaci nulta hipoteza koja je lažna.
 
 **Pogreška prve vrste** je odbacivanje nulte hipoteze koja je istinita. Pod
 pretpostavkama modela postupak ograničava dugoročni udio takvih odbacivanja
 odabranim pragom.
+
+Zamislimo da istraživački tim mora odlučiti hoće li u izvještaju poduprijeti
+tvrdnju da se skupine razlikuju. Pogreška prve vrste ostavila bi čitateljima i
+opisanim skupinama neutemeljenu usporedbu. Pogreška druge vrste prešutjela bi
+razliku koja u populaciji postoji i mogla bi zaustaviti njezino daljnje
+istraživanje. Tim bira prag, ali posljedice ne snosi samo tim, pa izvještaj mora
+reći kojoj je pogrešci dao veću težinu i zašto.
 
 Ta se tvrdnja može izmjeriti u uvjetima u kojima znamo da vrijedi cijeli nulti
 model. Iz poznate populacije svaki put izvučemo `r s10$n` ishoda, a zatim im
@@ -177,6 +199,10 @@ postupak je pronalazi u `r hr_broj(s10$stopa_izvor, 1)` % uzoraka. U preostalih
 `r hr_broj(s10$promasaj, 1)` % istraživač bi zaključio da nema dovoljno dokaza,
 i pritom bi se pridržavao svih pravila.
 
+Sljedeća slika postavlja raspodjelu pod nultim modelom i raspodjelu procijenjene
+razlike kad učinak postoji na istu os. Taj je geometrijski prikaz potreban da se
+vidi kako iste granične crte povezuju rizike dviju pogrešaka.
+
 *Slika. Geometrija dviju pogrešaka — uvjetna nulta raspodjela iz glavnog uzorka i raspodjela procijenjene razlike kroz uzorke kad učinak postoji. Isprekidane crte prikazuju granične vrijednosti glavnog uzorka, pa plohe ne prikazuju stope iz tablice.*
 
 Slika pokazuje zašto se pomicanjem istih graničnih crta jedna pogreška ne može
@@ -195,14 +221,30 @@ dolazi iz ponovljenih uzoraka. Stvarna snaga ovisi zajedno o veličini učinka,
 varijabilnosti, veličini i dizajnu uzorka, testnoj statistici i pragu odluke.
 Kako se te sastavnice planiraju unaprijed, tema je sljedećeg poglavlja.
 
+### Referentna oznaka nije isto što i istina
+
+Simulacija ima povlasticu koju stvarno istraživanje obično nema. Odgovor je
+poznat jer smo sami zadali postupak koji stvara podatke. Izvan simulacije
+procijenjena stopa pogreške često se računa usporedbom odluke s
+**referentnom oznakom**, primjerice ručno dodijeljenom kategorijom. Ta oznaka
+nije automatski nepogrešiva. Može ovisiti o mjerenju, uputi osobi koja označava
+ili pravilu prema kojem je sporni slučaj razvrstan.
+
+Neslaganje s referentnim oznakama zato može sadržavati i pogreške postupka koji
+se ispituje i pogreške same reference. Pošten izvještaj kaže prema kojoj je
+referenci stopa procijenjena, kako su oznake nastale i jesu li neslaganja
+ponovno pregledana. To kratko ograničenje postat će važno u poglavlju o
+algoritmima, gdje velik broj precizno izračunanih pogrešaka ne može neprovjerenu
+referencu pretvoriti u istinu.
+
 ## Prag je konvencija, a ne mjera
 
-Prag od 0,05 pojavljuje se u ovom poglavlju kao zadana vrijednost, a postupak ga
-ničim ne zahtijeva. Widget dopušta da se pomakne na 0,01 ili na 0,10 i ništa se
-u računu ne buni, jer prag samo određuje koliki udio nultog modela pristajemo
-odsjeći. Odabir je stvar dogovora struke i posljedica koje pogreška nosi, pa u
-području u kojem je lažni nalaz skup ima smisla biti stroži nego u području u
-kojem je propušten nalaz skuplji.
+**Prag značajnosti** od 0,05 pojavljuje se u ovom poglavlju kao zadana
+vrijednost, a postupak ga ničim ne zahtijeva. Widget dopušta da se pomakne na
+0,01 ili na 0,10 i ništa se u računu ne buni, jer prag samo određuje koliki
+udio nultog modela pristajemo odsjeći. Odabir je stvar dogovora struke i
+posljedica koje pogreška nosi, pa u području u kojem je lažni nalaz skup ima
+smisla biti stroži nego u području u kojem je propušten nalaz skuplji.
 
 Iz toga slijedi da razlika između rezultata tik ispod praga i onoga tik iznad
 nije razlika u dokazu. Vrijednosti 0,048 i 0,052 gotovo su isti broj, a
@@ -211,8 +253,27 @@ koje u podacima nema. Upravo to je razlog zbog kojeg izjava Američkog
 statističkog udruženja traži da znanstveni zaključak ne ovisi samo o tome
 prelazi li p-vrijednost određeni prag (Wasserstein, 2016).
 
-Postoji i drugi razlog, koji se rijetko spominje, a lako se izmjeri. Ponovili
-smo pitanje o izvoru vijesti na osamsto uzoraka iz iste populacije, u kojoj
+U šest je načela izjava vezala p-vrijednost uz neusklađenost podataka s točno
+određenim modelom. Odvojila ju je od vjerojatnosti hipoteze, tvrdnje da je nalaz
+„nastao slučajno” te veličine ili važnosti učinka. Valjano zaključivanje
+povezala je s potpunim izvještavanjem, transparentnošću i drugim znanstvenim
+dokazima, a ne s jednim izdvojenim brojem (Wasserstein, 2016).
+
+Razlog za takvu izjavu nije bila nova računska pogreška. Problem je bio običaj
+da se prag pretvori u prekidač. Ispod njega rezultat dobiva oznaku
+„statistički značajan”, iznad njega gotovo nestaje iz zaključka. Time se gube i
+veličina procjene, i njezina neizvjesnost, i cijena pogrešne odluke. Upravo je
+tim trima pitanjima ovaj dio knjige započeo.
+
+Izjava nije ukinula p-vrijednost niti je jedan postupak zamijenila drugim.
+Promijenila je pravilo njezina čitanja. P-vrijednost može biti dio argumenta,
+ali ne smije sama donositi znanstveni zaključak. Za izvještaj u ovom poglavlju
+to znači da procjena i interval stoje prvi, pretpostavke su izgovorene, sama
+p-vrijednost nije pretvorena u binarnu etiketu, a posljedice obiju pogrešaka
+ostaju vidljive.
+
+Drugi se razlog može izravno izmjeriti. Ponovili smo pitanje o izvoru vijesti
+na osamsto uzoraka iz iste populacije, u kojoj
 razlika stvarno postoji i uvijek je jednaka. U polovici uzoraka p-vrijednost je
 bila ispod `r hr_broj(s10$ples_sredina, 3)`, u četvrtini iznad
 `r hr_broj(s10$ples_cetvrtina, 3)`, a u desetini iznad
@@ -220,12 +281,12 @@ bila ispod `r hr_broj(s10$ples_sredina, 3)`, u četvrtini iznad
 uzorka daju p-vrijednosti raspoređene preko dva reda veličine, pa je u
 `r hr_broj(s10$udio_iznad_deset, 1)` % uzoraka rezultat prešao i granicu od 0,10.
 
-P-vrijednost je dakle i sama statistika koja se mijenja od uzorka do uzorka, i
-to snažnije od gotovo svake druge veličine u knjizi. Izvještaj koji je navodi na
-tri decimale sugerira preciznost koju ona nema, a ponovljeno istraživanje s
-istim dizajnom lako proizvede vrijednost desetostruko drugačiju. Procjena i
-njezin interval pod ponavljanjem se ponašaju mnogo mirnije, i to je jedan od
-razloga zbog kojih u izvještaju stoje prvi.
+P-vrijednost je dakle i sama statistika koja se mijenja od uzorka do uzorka. U
+ovoj se simulaciji, pri istoj populaciji, postupku i veličini uzorka, protegnula
+preko dva reda veličine. Navođenje triju decimala ne uklanja tu uzorkovnu
+promjenjivost. Procjena i njezin interval stoje prvi zato što odgovaraju na
+glavno pitanje o veličini razlike i njezinoj neizvjesnosti, a ne zato što su
+imuni na promjenu uzorka.
 
 ## Što p-vrijednost nije
 
@@ -247,10 +308,10 @@ različite uvjetne vjerojatnosti, upravo one koje je poglavlje o vjerojatnosti
 razdvojilo, i njihova zamjena mijenja tvrdnju iz temelja.
 
 Iz iste zamjene slijede još dvije rečenice koje treba prepoznati. P-vrijednost
-nije vjerojatnost da je nalaz nastao slučajno, jer se već računa pod
-pretpostavkom da jest. I nije mjera veličine učinka, jer ovisi o uzorku jednako
-koliko i o razlici, pa dovoljno velik uzorak proizvodi male vrijednosti i za
-razlike koje nikoga ne zanimaju.
+nije vjerojatnost da je nalaz „slučajan”. Račun je uvjetovan određenim nultim
+modelom i ne pripisuje opaženom rezultatu jedan uzrok. P-vrijednost nije ni
+mjera veličine učinka, jer ovisi o uzorku jednako koliko i o razlici, pa dovoljno
+velik uzorak proizvodi male vrijednosti i za razlike koje nikoga ne zanimaju.
 
 ## Drugo pitanje i drugi račun
 
@@ -274,11 +335,11 @@ uzorkovanja ili dodjele, testnoj statistici i unaprijed zadanom postupku. Razlik
 među pristupima nije u tome ima li pretpostavki, nego koja pitanja postavljaju i
 kako provjeravaju posljedice svojih izbora.
 
-Knjiga ostaje na frekvencijskom putu jer je to jezik kojim je napisana golema
-većina istraživanja koja čitatelj mora znati pročitati. Bayesovski račun ovdje
-ostaje pogled kroz prozor, a procjena veličine učinka i njezina neizvjesnost i
-dalje vode izvještaj u oba jezika. Poglavlje o regresiji na tu razliku vraća se
-u zaključnom pogledu unaprijed.
+Knjiga ostaje na frekvencijskom putu kao kurikularnom izboru koji povezuje
+postupke u sljedećim poglavljima. Bayesovski račun ovdje ostaje pogled kroz
+prozor, a procjena veličine učinka i njezina neizvjesnost i dalje vode izvještaj
+u oba jezika. Na razliku između tih dvaju pitanja vratit ćemo se uz regresiju, u
+kratkom pogledu prema Bayesu.
 
 **Statistika u divljini.**
 **Popis od dvadeset pet.** Sedmorica statističara objavila su u recenziranom
@@ -298,14 +359,14 @@ bi se provjerila tuđa rečenica, nego da bi se prepoznalo koje pitanje analiza
 uopće može zatvoriti.
 
 **Pitajte model.**
-Asistent pouzdano provede test i ispiše p-vrijednost, a rijetko sam postavi ono
-što mu prethodi. Prije poziva treba mu reći koja je jedinica opažanja i što nulti
-model tvrdi, jer iz tablice ne može zaključiti smiju li se oznake premještati
-slobodno. Provjeravamo tri stvari u odgovoru. Prva je redoslijed, jer procjena i
-interval moraju stajati ispred testa. Druga je rečenica kojom tumači
-p-vrijednost, koju vrlo često napiše kao vjerojatnost hipoteze. Treća je
-zaključak iz velike p-vrijednosti, koji redovito pretvara u tvrdnju da razlike
-nema.
+Asistent može provesti test i ispisati p-vrijednost, a pritom preskočiti ono što
+računu prethodi ako to upit ne zahtijeva. Prije poziva treba mu reći koja je
+jedinica opažanja i što nulti model tvrdi, jer iz tablice ne može zaključiti
+smiju li se oznake premještati slobodno. Provjeravamo tri stvari u odgovoru.
+Prva je redoslijed, jer procjena i interval moraju stajati ispred testa. Druga
+je rečenica kojom tumači p-vrijednost, koja može pogrešno postati vjerojatnost
+hipoteze. Treća je zaključak iz velike p-vrijednosti, koji se ne smije pretvoriti
+u tvrdnju da razlike nema.
 
 > Imenuj nulti model i jedinicu premještanja, izgradi nultu raspodjelu
 > simulacijom i usporedi je s opaženom statistikom. Izvijesti procjenu s
@@ -343,8 +404,9 @@ Izvještaj koji iz ovoga slijedi ima tri rečenice i njihov je redoslijed obveza
 Čitatelji tiska imaju u prosjeku `r hr_broj(s10$razlika, 2)` boda više povjerenja
 od čitatelja portala, uz interval od `r hr_broj(s10$donja, 2)` do
 `r hr_broj(s10$gornja, 2)`. Razliku ovoliku ili veću nulti model proizvodi u
-`r hr_broj(s10$p * 100, 1)` % uzoraka. Podaci su promatrački i ljudi svoj izvor
-biraju sami, pa razlika opisuje dvije skupine, a ne učinak čitanja tiska.
+`r hr_broj(s10$p * 100, 1)` % simuliranih rasporeda opaženih oznaka. Podaci su
+promatrački i ljudi svoj izvor biraju sami, pa razlika opisuje dvije skupine, a
+ne učinak čitanja tiska.
 
 Posljednja rečenica nije opreznost nego točnost. Test je odgovorio na pitanje o
 usklađenosti podataka s jednim modelom i ništa više od toga nije ni mogao. Ono
@@ -368,10 +430,10 @@ učinka i snagu ispred rituala značajnosti.
 
 ## Pojmovi
 
-nulta hipoteza (*null hypothesis*), alternativna hipoteza (*alternative
-hypothesis*), permutacijski test (*permutation test*), testna statistika (*test
-statistic*), p-vrijednost (*p-value*), pogreška prve vrste (*Type I error*),
-pogreška druge vrste (*Type II error*)
+nulta hipoteza (*null hypothesis*), testna statistika (*test statistic*),
+p-vrijednost (*p-value*), pogreška prve vrste (*Type I error*), pogreška druge
+vrste (*Type II error*), prag značajnosti (*significance threshold*),
+permutacijski test (*permutation test*), referentna oznaka (*reference label*)
 
 ## Zadaci
 
@@ -385,11 +447,17 @@ druge.
 ### Računski
 
 Nulta raspodjela iz ovog poglavlja ima sredinu nula i standardnu devijaciju
-`r hr_broj(s10$sd_nulte, 2)` boda. Koristeći pravilo područja iz poglavlja o
-vjerojatnosti, procijenite koje bi razlike prelazile granicu od dviju
-standardnih devijacija, i usporedite svoju procjenu s graničnom vrijednošću
-`r hr_broj(s10$granica, 2)` koju poglavlje navodi. Zatim u widgetu poglavlja
-postavite stvarnu razliku na nulu i opišite koliko uzoraka prelazi prag.
+`r hr_broj(s10$sd_nulte, 2)` boda. Primijenite pravilo područja iz poglavlja 7
+i procijenite granice koje su dvije standardne devijacije udaljene od nule.
+Prije računa imenujte testnu statistiku i postupak kojim je nulta raspodjela
+izgrađena, pa procjenu usporedite s graničnom vrijednošću
+`r hr_broj(s10$granica, 2)`. Zatim
+pretpostavite da je isti uzorak prikupljen dobrovoljnom poveznicom na jednom
+portalu. Pozivajući se na razliku između slučajnosti uzorkovanja i selekcije iz
+poglavlja 8, odredite koju tvrdnju o populaciji ni mala p-vrijednost ne bi
+mogla opravdati. Na kraju u HTML widgetu postavite stvarnu razliku na nulu i
+zabilježite približan udio uzoraka ispod praga. U tiskanom ili dokumentnom
+izdanju očitajte odgovarajući udio iz prvoga retka tablice stopa odbacivanja.
 
 ### Kritički
 
@@ -397,7 +465,9 @@ Prosudite zašto je jednom strukovnom udruženju trebalo objaviti izjavu o
 pojedinačnom statističkom postupku, a skupini statističara popis od dvadeset pet
 pogrešnih tumačenja (Wasserstein, 2016; Greenland, 2016). Predajte kratku
 uredničku bilješku i navedite jedno pravilo izvještavanja koje bi uklonilo
-najviše pogrešaka odjednom.
+najviše pogrešaka odjednom. Dodajte tko u glavnom primjeru snosi posljedice
+svake vrste pogreške i zašto procijenjena stopa pogreške prema referentnim
+oznakama ne dokazuje da su te oznake nepogrešive.
 
 ### Revizija modela
 

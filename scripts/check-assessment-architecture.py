@@ -5422,9 +5422,16 @@ def main() -> int:
         solution_contract.get("records_authored_in_this_packet") is False,
         "The historical P2-ASSESS contract must still record that its architecture packet authored no records.",
     )
+    solution_pages = {
+        page.get("id"): page
+        for page in inventory.get("pages", [])
+        if page.get("id") in inventory.get("solution_routes", [])
+    }
     check(
-        inventory.get("solution_routes") == [],
-        "Solution routes must remain empty until the separately governed P5-ROUTES packet.",
+        inventory.get("solution_routes") == ["solutions"]
+        and solution_pages.get("solutions", {}).get("kind") == "solution"
+        and solution_pages.get("solutions", {}).get("source") == "rjesenja.qmd",
+        "P5-ROUTES must assemble exactly the generated rjesenja.qmd solution route.",
     )
     implementation = solution_contract.get("implementation_contract", {})
     check(
@@ -5505,6 +5512,10 @@ def main() -> int:
     )
 
     visibility = assessment.get("visibility_contract", {})
+    check(
+        visibility.get("implementation_pending") is False,
+        "The D06 visibility contract must record the completed P5-ROUTES implementation.",
+    )
     layers = visibility.get("layers", [])
     check(
         ids(layers)
@@ -5920,7 +5931,11 @@ def main() -> int:
     )
 
     profile_region_count = 0
-    for source_path, lines in source_lines.items():
+    profile_sources = dict(source_lines)
+    solution_source = ROOT / "rjesenja.qmd"
+    if solution_source.is_file():
+        profile_sources["rjesenja.qmd"] = solution_source.read_text(encoding="utf-8").splitlines()
+    for source_path, lines in profile_sources.items():
         regions = profile_visible_regions(lines, "kolegij")
         profile_region_count += len(regions)
         default_projection = normalize_for_leak_check(profile_projection(lines, None))
@@ -6068,7 +6083,7 @@ def main() -> int:
     print("- assessed code production: false in every stage")
     print(
         f"- solution records authored: {len(solution_records)}; "
-        f"units closed: {', '.join(sorted(records_by_unit))}; solution routes implemented: 0"
+        f"units closed: {', '.join(sorted(records_by_unit))}; solution routes implemented: 1"
     )
     print(
         f"- source anchors and prompt SHA-256 bindings: {len(seen_exercise_ids)}; "

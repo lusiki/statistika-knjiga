@@ -58,6 +58,7 @@ dir.create(output_arg, recursive = TRUE, showWarnings = FALSE)
 OUTPUT_ROOT <- normalizePath(output_arg, winslash = "/", mustWork = TRUE)
 
 QUARTO_YML    <- file.path(PROJECT_ROOT, "_quarto.yml")
+INVENTORY_JSON <- file.path(PROJECT_ROOT, "config", "book-inventory.json")
 GOVERNANCE_YML <- file.path(PROJECT_ROOT, "release", "governance.yml")
 BIB_FILE      <- file.path(PROJECT_ROOT, "references.bib")
 AI_DIR        <- file.path(OUTPUT_ROOT, "docs", "ai")
@@ -68,6 +69,7 @@ DATE_STR      <- format(Sys.Date())
 SITE_URL <- BOOK_TITLE <- BOOK_DESC <- AUTHORS <- LICENSE_LINE <- NA_character_
 AUTHOR_NAMES <- character(0)
 GOVERNANCE_STATE <- TITLE_STATE <- AUTHORSHIP_STATE <- NA_character_
+SOLUTION_SOURCES <- character(0)
 
 main <- function() {
 
@@ -94,6 +96,19 @@ main <- function() {
 
   # --- 1. redoslijed poglavlja + DIO mapiranje iz _quarto.yml --------------
   quarto <- yaml::read_yaml(QUARTO_YML)
+  inventory <- jsonlite::read_json(INVENTORY_JSON, simplifyVector = FALSE)
+  solution_ids <- unlist(inventory$solution_routes, use.names = FALSE)
+  solution_pages <- Filter(
+    function(page) page$id %in% solution_ids,
+    inventory$pages
+  )
+  solution_sources <- vapply(solution_pages, function(page) page$source, character(1))
+  if (!identical(solution_ids, vapply(solution_pages, function(page) page$id, character(1))) ||
+      length(solution_sources) != 1L ||
+      !identical(solution_sources, "rjesenja.qmd")) {
+    stop("kanonski inventar nema točno jedan očekivani odvojeni put rješenja")
+  }
+  SOLUTION_SOURCES <<- solution_sources
   book <- quarto$book$chapters
   if (is.null(book) || length(book) == 0L) {
     stop("_quarto.yml nema deklariran redoslijed poglavlja")
@@ -127,10 +142,15 @@ main <- function() {
   }
   chapters <- chapters[!missing_chapters]
   if (length(chapters) == 0L) stop("nema dostupnih poglavlja za izvoz")
+  chapter_sources <- vapply(chapters, function(c) c$file, character(1))
+  if (length(intersect(chapter_sources, solution_sources)) > 0L) {
+    stop("put rješenja ne smije biti javni ulaz izvoza poglavlja")
+  }
 
   protected_files <- unique(c(
-    vapply(chapters, function(c) c$file, character(1)),
-    relative_qmd_files(file.path(PROJECT_ROOT, "dodaci"))
+    chapter_sources,
+    relative_qmd_files(file.path(PROJECT_ROOT, "dodaci")),
+    solution_sources
   ))
   protected_regions <- collect_protected_regions(protected_files)
 
@@ -803,6 +823,10 @@ validate_public_exports <- function(chapters, dio_counter, protected_regions) {
   }
   if (length(manifest$chapters$slug) != length(chapters)) {
     stop("manifest nema točan broj poglavlja")
+  }
+  solution_bases <- tools::file_path_sans_ext(basename(SOLUTION_SOURCES))
+  if (any(manifest$chapters$slug %in% solution_bases)) {
+    stop("put rješenja ne smije ući u javni manifest poglavlja")
   }
 
   header_paths <- expected_ai

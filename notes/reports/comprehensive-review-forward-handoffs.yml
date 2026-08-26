@@ -414,7 +414,17 @@ handoffs:
           - "handoff:H-P2-SPINE-V-002-created-for-P5-ROUTES"
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Oba objavljena čitateljska puta izvedena su prema živim preduvjetima.
+          Oba sadržavaju Poglavlje 13 prije Poglavlja 17, pa ilustrativni slijed
+          iz pregleda nije mehanički preuzet.
+        evidence:
+          - "artifact:config/pathway-routes.json#reading_routes"
+          - "check:PATHWAYS_CHECK_OK-reading-routes-2-prerequisites-19"
+          - "result:chapter-13-precedes-17-in-both-routes"
 
   H-P0-REGISTER-005:
     source_packet: P0-REGISTER
@@ -1575,7 +1585,18 @@ handoffs:
     deliveries:
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          README i javne metapodatkovne tvrdnje usklađeni su s dokazanim
+          putovima. Samostalni, R, tiskani i AI-izlazni putovi opisani su prema
+          živim artefaktima, dok je put bez koda izričito sužen na 19 podržanih
+          mjera i ne tvrdi vlasničku provjeru čiste instalacije.
+        evidence:
+          - "source:README.md#putovi-u-radnom-nacrtu"
+          - "source:_quarto-kolegij.yml-95-canonical-records"
+          - "check:PATHWAYS_CHECK_OK-public-promises-reconciled"
 
   H-P1B-META-004:
     source_packet: P1B-META
@@ -2047,7 +2068,17 @@ handoffs:
           - report:notes/reports/p2-assessment-architecture-2026-08-04.md
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Završni inventar rješenja prošao je neovisnu release izgradnju,
+          post-build validaciju i negativnu probu curenja. Zaštićeni kolegijski
+          sloj isključen je strukturno, a ne nazivom rute.
+        evidence:
+          - "check:AI_EXPORT_RELEASE_VALIDATION_OK-chapters-19-protected-regions-101"
+          - "fixture:protected-content-leak-from-rjesenja.qmd-exit-1"
+          - "source:R/build-ai-exports.R-structural-solution-route-exclusion"
 
   H-P1C-EXPORT-002:
     source_packet: P1C-EXPORT
@@ -2233,7 +2264,23 @@ handoffs:
           - check:scripts/check-assessment-architecture.py-ASSESSMENT_ARCHITECTURE_OK
       - target_packet: P5-ROUTES
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        consumed_at: "2026-08-26"
+        disposition: >-
+          P5-ROUTES prihvaća ratificiranu D06 granicu prije preuzimanja paketa:
+          svih 19 jedinica čine jedan sustav, jedan kanonski zapis po vježbi
+          ostaje jedini izvor odgovora, javni sloj sadrži samo sažete provjere,
+          a puni kriteriji, alternative i bilješke nastavniku ostaju u
+          zaštićenom kolegijskom sloju i izvan javne navigacije i AI izvoza.
+          Ova potrošnja još ne tvrdi da su projekcije izrađene; tu tvrdnju može
+          dati samo zasebna provjera završenoga sustava prije zatvaranja.
+        evidence:
+          - "decision:G-A2d-D06"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.solution_records"
+          - "schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json-read-in-full"
+          - "store:assessment/solution-records-95-records-19-units-read-in-full"
+          - "check:scripts/check-assessment-architecture.py-preclaim-pass"
 
   H-G-A2D-002:
     source_packet: G-A2d
@@ -2289,7 +2336,17 @@ handoffs:
           - scope:no-clean-install-claim-in-P5-B
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Javni put bez koda ograničen je na ratificirane temeljne analize i
+          istu kanonsku osnovu kao Dodatak A. Sedam ograđenih vrijednosti ostaje
+          izvan javne tvrdnje o podršci, a čista instalacija ostaje vlasnička obveza.
+        evidence:
+          - "artifact:config/appendix-b-jamovi-route.json#scope"
+          - "check:APPENDIX_B_CHECK_OK-supported-19-guarded-7-clean-install-pending-owner"
+          - "check:PATHWAYS_CHECK_OK-no-code-supported-19-guarded-7"
 
   H-G-A2D-003:
     source_packet: G-A2d
@@ -3452,7 +3509,16 @@ handoffs:
     deliveries:
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Oba čitateljska puta provjerena su prema svih 19 živih kralježnica.
+          Kratki kritičko-čitalački put sadržava Poglavlje 13 prije Poglavlja 17.
+        evidence:
+          - "registry:bookwright_plugin/bookwright/shared/chapter-spine.json"
+          - "artifact:config/pathway-routes.json#reading_routes"
+          - "check:PATHWAYS_CHECK_OK-two-routes-all-live-prerequisites"
 
   H-G-A2B-FINALE-001:
     source_packet: G-A2b-FINALE
@@ -3798,7 +3864,17 @@ handoffs:
           - "boundary:P5-ROUTES-still-pending-and-R04-open"
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Poglavlje 18 u oba puta dolazi tek nakon svih sedamnaest prethodnih
+          numeriranih poglavlja. Time je putovni dio spojen s ranije provjerenim
+          izvornim dijelom i stavka R04-C18 prošla je zaseban točan test.
+        evidence:
+          - "artifact:config/pathway-routes.json#reading_routes"
+          - "check:CHAPTER_SPINES_OK-18-prerequisites-17"
+          - "check:PATHWAYS_CHECK_OK-chapter-18-after-all-seventeen"
 
   H-G-A2C-001:
     source_packet: G-A2c
@@ -4577,7 +4653,19 @@ handoffs:
     deliveries:
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Objavljena su dva čitateljska puta uz nepromijenjen kanonski redoslijed
+          poglavlja. Arhitektura je ponovno izmjerena na ovlaštenih 19 poglavlja,
+          7 dodataka, 39 kanonskih stranica, 1 rutu rješenja, 17 widgeta s 17
+          statičkih parnjaka i 4 vrste okvira; R23 ostaje ratificiran jer druga
+          njegova djeca ostaju otvorena.
+        evidence:
+          - "check:BOOK_INVENTORY_OK-pages-39-chapters-19-appendices-7-solutions-1"
+          - "check:PATHWAYS_CHECK_OK-retrieval-replacements-18-of-18"
+          - "boundary:parent-R23-remains-ratified"
       - target_packet: P5-CLOSURE-18
         gate: before_close
         state: consumed
@@ -4729,7 +4817,19 @@ handoffs:
           - "boundary:R04-parent-open-and-P6-VERIFY-unclaimed"
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          R04-ARCH, R04-ROUTES i R04-C18 prošli su tri zasebna točna testa.
+          Roditelj R04 namjerno ostaje ratificiran kako bi P6-VERIFY zasebno
+          potvrdio zatvaranje cijelog roditelja prema neizmijenjenom izlaznom testu.
+        evidence:
+          - "check:P5-ROUTES-eight-governed-items-tested-separately"
+          - "item:R04-ARCH-macro-order-status-accepted"
+          - "item:R04-ROUTES-two-track-map-status-accepted"
+          - "item:R04-C18-whole-prerequisites-status-accepted"
+          - "boundary:parent-R04-remains-ratified-for-P6-VERIFY"
       - target_packet: P6-VERIFY
         gate: before_close
         state: pending
@@ -8428,7 +8528,22 @@ handoffs:
           - "boundary:config/book-inventory.json-solution-routes-empty"
       - target_packet: P5-ROUTES
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        consumed_at: "2026-08-26"
+        disposition: >-
+          P5-ROUTES prihvaća zapis rješenja kao jedini izvor svih projekcija
+          prije preuzimanja paketa. Javne samostalne i tiskane provjere izvest
+          će se iz dopuštenih sastavnica zapisa, kolegijski sloj iz punih
+          kriterija, alternativa i bilježaka, a postojeći sažeti ključevi u
+          izvoru bit će pomireni bez stvaranja drugoga izvora odgovora.
+          `solution_routes` se prvi put sastavlja samo u ovom paketu.
+        evidence:
+          - "handoff:H-P5-CLOSURE-00-001-read-in-full"
+          - "registry:bookwright_plugin/bookwright/shared/conventions.json#assessment_architecture.solution_records"
+          - "schema:bookwright_plugin/bookwright/shared/schemas/solution-record.schema.json-read-in-full"
+          - "store:assessment/solution-records-95-records-19-units-sha256-50cbc8a22f1a5bcdcaf6753e126081ba5c512ec1b6c12a092352fc292e543a62"
+          - "boundary:config/book-inventory.json#solution_routes-empty-before-P5-ROUTES"
 
   H-P5-B-001:
     source_packet: P5-B
@@ -8461,7 +8576,17 @@ handoffs:
     deliveries:
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Javno obećanje ograničeno je na 19 `supported_metric_keys`. Sedam
+          ograđenih vrijednosti i vlasnička provjera čiste instalacije jasno su
+          označeni kao neisporučeni i nisu predstavljeni kao dovršen put.
+        evidence:
+          - "source:README.md#putovi-u-radnom-nacrtu"
+          - "check:APPENDIX_B_CHECK_OK-supported-19-guarded-7-clean-install-pending-owner"
+          - "item:R21-AB-public-promise-status-accepted"
 
   H-P5-D-001:
     source_packet: P5-D
@@ -8494,7 +8619,17 @@ handoffs:
     deliveries:
       - target_packet: P5-ROUTES
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Provjerivač razlikuje Quarto reference od bibliografskih ključeva.
+          Bibliografska i putovna provjera prolaze zasebno, dok negativna proba
+          i dalje odbija stvarno nepoznati ključ.
+        evidence:
+          - "check:CITATION_INTEGRITY_OK-live-keys-49-quarto-crossrefs-11"
+          - "check:PATHWAYS_CHECK_OK-xrefs-95"
+          - "fixture:unknown-bibliographic-key-integrityfixture2099-exit-1"
 
   H-P5-G-001:
     source_packet: P5-G
@@ -8532,6 +8667,84 @@ handoffs:
     deliveries:
       - target_packet: P5-ROUTES
         gate: before_close
+        state: consumed
+        acknowledged_at: "2026-08-26"
+        resolved_at: "2026-08-26"
+        disposition: >-
+          Polazište D10 potvrđeno je prije dodavanja jedne D06 rute rješenja.
+          Završna arhitektura iznosi 19 poglavlja, 7 dodataka, 39 kanonskih
+          stranica, 1 rutu rješenja, 17 widgeta sa 17 statičkih parnjaka i 4
+          vrste okvira. Ovlasti D10 i D06 zapisane su odvojeno, a R23 nije
+          zatvoren samo po brojci.
+        evidence:
+          - "authority:Gate-A2d-D10-appendix-G"
+          - "authority:Gate-A2d-D06-solution-route"
+          - "check:BOOK_INVENTORY_OK-pages-39-chapters-19-appendices-7-solutions-1"
+          - "boundary:parent-R23-remains-ratified"
+
+  H-P5-ROUTES-001:
+    source_packet: P5-ROUTES
+    created_at: "2026-08-26"
+    kind: constraint
+    refs:
+      - decision:D10
+      - decision:D06
+      - item:R23-SCOPE-no-new-chapters-widgets
+      - artifact:config/pathway-routes.json#architecture_after_solution_projection
+      - packet:P5-VERIFY
+    statement: >-
+      P5-ROUTES završava na ovlaštenoj arhitekturi od 19 poglavlja, 7 dodataka,
+      39 kanonskih stranica, 1 zasebne rute rješenja, 17 widgeta sa 17 statičkih
+      parnjaka i 4 vrste okvira. Dodatak G proizlazi iz Gate A2d / D10, a ruta
+      rješenja iz Gate A2d / D06; nijedna nije novi numerirani naslov, središnji
+      widget ni vrsta okvira.
+    required_action: >-
+      P5-VERIFY mora koristiti ovu završnu 19/7/39/1/17/17/4 osnovu, a ne
+      zastarjelu osnovu prije P5-G ili prije rute rješenja, i mora zasebno
+      provjeriti ovlasti D10 i D06 te stanje roditelja R23.
+    basis:
+      - "artifact:config/pathway-routes.json@sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
+      - "check:BOOK_INVENTORY_OK-pages-39-chapters-19-appendices-7-solutions-1"
+      - "check:PATHWAYS_CHECK_OK-widgets-17-static-twins-17-callout-types-4"
+      - "report:notes/reports/p5-routes-2026-08-26.md"
+    required: true
+    deliveries:
+      - target_packet: P5-VERIFY
+        gate: before_close
+        state: pending
+
+  H-P5-ROUTES-002:
+    source_packet: P5-ROUTES
+    created_at: "2026-08-26"
+    kind: risk
+    refs:
+      - source:chapters/16-regresija.qmd#fig-pravac
+      - check:scripts/check-figure-introductions.py
+      - packet:P5-VERIFY
+      - packet:P6-FIGURES
+    statement: >-
+      Cjeloknjižna provjera uvoda slika nakon P5-G prijavljuje postojeći slučaj
+      `chapters/16-regresija.qmd#fig-pravac`: sankcionirani rubni `podsjetnik`
+      nalazi se između uvodne proze i slike, pa deterministički provjerivač više
+      ne vidi neposredan uvodni odlomak. P5-ROUTES nije izmijenio taj dio izvora
+      i nema ovlast popravljati ga u ovom paketu.
+    required_action: >-
+      P5-VERIFY mora rizik uključiti u popis blokatora bez pripisivanja paketu
+      P5-ROUTES. P6-FIGURES mora pomiriti sankcionirani `podsjetnik` s pravilom
+      uvoda slike, zatim ponovno provesti cjeloknjižnu provjeru i njezine
+      negativne probe; ne smije ukloniti D10 sadržaj bez odgovarajuće ovlasti.
+    basis:
+      - "check:scripts/check-figure-introductions.py-exit-1-fig-pravac"
+      - "audit:HEAD-and-working-source-identical-around-fig-pravac"
+      - "source:chapters/16-regresija.qmd#sanctioned-podsjetnik-before-fig-pravac"
+      - "report:notes/reports/p5-routes-2026-08-26.md#budući-učinak"
+    required: true
+    deliveries:
+      - target_packet: P5-VERIFY
+        gate: before_close
+        state: pending
+      - target_packet: P6-FIGURES
+        gate: before_start
         state: pending
 
 packet_reviews:
@@ -12470,3 +12683,35 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P5-ROUTES is the sole next permitted packet but is not claimed inside P5-G
       - no external message push merge tag archive deployment publication independent-review author-reading or final-stage claim is made or authorised
+  P5-ROUTES:
+    reviewed_at: "2026-08-26"
+    declaration: all_future_effects_recorded
+    outgoing:
+      - H-P5-ROUTES-001
+      - H-P5-ROUTES-002
+    no_other_outgoing_reason: >-
+      P5-ROUTES je zabilježio oba novootkrivena buduća učinka: završnu
+      arhitekturnu osnovu za P5-VERIFY i postojeći sukob sankcioniranoga
+      `podsjetnika` s provjerom uvoda slike za P5-VERIFY i P6-FIGURES. Nijedan
+      drugi novi podatak, vlasnik, obveza ili vratnica nije pronađen.
+    implementation_state: "pathway-state:sha256-7e9b227de93fc3ed16f6e7d7576be0ef5c211b8cda755a5b7c69b275a5f758db"
+    checks:
+      - all 13 applicable incoming handoff deliveries were acknowledged by their gates and consumed before closeout with dispositions and evidence
+      - both reading routes cover Chapters 1 through 18 and satisfy all live prerequisites including Chapter 13 before 17 and the whole book before 18
+      - all 95 solution records in 19 units generate one public solution route and one protected kolegij projection without a second answer source
+      - public checks expose only allowed components while 95 protected rubrics alternatives and instructor notes remain outside public navigation and AI exports
+      - all 26 legacy in-source protected solution blocks were removed while stable exercise anchors prompt hashes and canonical records remain intact
+      - self-study R no-code print and AI-output routes each carry an exact tested boundary and no clean-install claim is made for the owner-pending jamovi route
+      - all 38 graded AI-output comparisons are frozen and dated 2026-08-26 with stable record and planted-error identifiers while live repetition remains optional
+      - scripts/check-pathways.py verifies two routes 19 units 95 records 95 cross-references all five path classes and the current architecture
+      - scripts/check-citations.py distinguishes Quarto cross-references from bibliography keys and its actual unknown-key fixture still fails closed
+      - the isolated public solution HTML resolves all 95 exercise links and the isolated 109-page public PDF has zero protected headings and passes bounded visual inspection
+      - the full-book PDF attempt is not claimed as proof because local rsvg-convert is absent and the isolated bounded print proof is recorded instead
+      - all four assessment architecture negative fixtures fail closed for protected export content assessed code production an invalid solution record and a protected record leak
+      - R04-ARCH R04-ROUTES R04-C18 R15-POLICY R15-BOOK R21-AB-public-promise R23-SCOPE and R24-BOOK-frozen-outputs each advance only on a separate exact test
+      - parents R15 and R21 close only after all required children pass while R04 R23 and R24 remain ratified because later verification or other children remain open
+      - H-P5-ROUTES-001 records the current 19 chapter 7 appendix 39 page 1 solution 17 widget and static twin 4 callout basis for P5-VERIFY
+      - H-P5-ROUTES-002 assigns the pre-existing Chapter 16 figure-introduction conflict to P5-VERIFY and P6-FIGURES without an out-of-scope prose repair
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P5-VERIFY is the sole next permitted packet but is not claimed inside P5-ROUTES
+      - no external message push merge tag archive deployment publication clean-install author-reading or final-stage claim is made or authorised
