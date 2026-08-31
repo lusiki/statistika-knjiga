@@ -3,9 +3,9 @@ workflow_schema_version: 1
 branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
-active_write_packet: null
+active_write_packet: P6-VERIFY
 last_completed_packet: P6-METHODS
-next_permitted_packet: P6-VERIFY
+next_permitted_packet: null
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -102,19 +102,19 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
+| Active write packet | `P6-VERIFY`; gate je zaustavljen na zasebnom assessment-arhitekturnom blockeru i ostaje zaključan |
 | Last completed packet | `P6-METHODS`; accepted on the declared 32-file state after the author-owned terminology review and recorded methods-spine disposition |
-| Next permitted packet | `P6-VERIFY` only; not claimed inside P6-METHODS |
+| Next permitted packet | None while `P6-VERIFY` holds the sole write lock |
 | Review parents | 26 ratified; 10 accepted |
 | Atomic child inventory | Complete: 371 stable children; 347 accepted, 7 deferred with reason and 17 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 162 accepted, 26 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 162 accepted, 25 ratified, 1 in progress and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | All 19 units are at `coauthor_review`; `06-povezanost` returned from `draft` only after a fresh six-role panel on its final SHA-256, with no claim of a new author reading or `final` status |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` remain revalidated. The WB-PART invalidation is now consumed: final Chapter 06 SHA-256 `0af303f…e729e` has all six perspectives, zero fatal/major findings and stage `coauthor_review` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | P6-METHODS has no unresolved in-scope blocker. P6-VERIFY owns the RDP/BDP consent-record contradiction, local solution citations, Phase-2 parent closure and architecture fail-closed proof through `H-P6-PANELS-001`, `H-P6-PANELS-002`, `H-P2-VERIFY-001` and `H-P2-VERIFY-002`; it must also preserve the stale Appendix-G invalidation in `H-P6-EVIDENCE-008`. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and the P7 delivery of `H-P6-EVIDENCE-008` |
+| Failed gates | **P6-VERIFY is stopped and P6 is not closed.** On declared source commit `2a8cb0f…`, `check-assessment-architecture.py` fails because the accepted P6-METHODS wording change in the Chapter 12 critical prompt left both `sol-12-kriticki-01`'s fingerprint and one deterministic literal stale. `H-P2-VERIFY-001/002` remain acknowledged, not consumed, because closeout was not reached. The full matrix and safest bounded next action are in `notes/reports/p6-verify-2026-08-31.md` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7944,30 +7944,29 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P6-METHODS` and
-`next_permitted_packet: P6-VERIFY`. Confirm that P6-METHODS closed only on
-`p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a`,
-that `H-P6-STYLE-007` and `H-P6-PANELS-004` are terminal, both withdrawn
-terminology asks retain `withdrawn_with_reason`, Luka Šikić is the sole
-terminology owner as author and editor, all five methods findings are repaired,
-no outgoing handoff was required and P6-VERIFY was not claimed inside the
-closeout.
+Verify that `active_write_packet.id: P6-VERIFY`,
+`last_completed_packet: P6-METHODS` and `next_permitted_packet: null`. Read the
+failed-gate record `notes/reports/p6-verify-2026-08-31.md` in full. P6-VERIFY
+was stopped because `check-assessment-architecture.py` returns exit 1 on the
+declared source commit: the accepted P6-METHODS wording change in the Chapter
+12 critical prompt left both `sol-12-kriticki-01`'s prompt fingerprint and one
+deterministic literal stale. Do not claim G-A5b or another packet.
 
-Claim and execute only `P6-VERIFY` under its `review_gate` contract. Confirm
-that `P6-METHODS` is accepted. Before claim fully read and make terminal
-`H-P6-EVIDENCE-008`, `H-P6-PANELS-001` and `H-P6-PANELS-002`; before closeout
-consume `H-P2-VERIFY-001` and `H-P2-VERIFY-002` separately on exact evidence.
-Preserve the G-A2c amendment and do not create or imply a replacement
+Resume only `P6-VERIFY`. Make the report's one bounded integration correction:
+refresh the canonical Chapter 12 prompt fingerprint and align only the stale
+checker literal with the already accepted live wording, without changing the
+exercise, numerical contract, methods spine or P6-METHODS status. Regenerate
+`rjesenja.qmd`, rerun the full assessment lane, and stop again if any named
+prerequisite fails.
+
+Then continue the still-unfinished P6 matrix. Keep the Appendix-G invalidation
+visible for its P7 clean-build owner. Recheck the RDP/BDP catalogue, both
+generated catalogue projections and both travelling notices without turning
+coauthor consent into rights-holder permission. Verify the local solution
+citations from their canonical records. Consume `H-P2-VERIFY-001` and
+`H-P2-VERIFY-002` separately only on exact R04 and fail-closed architecture
+evidence; preserve the G-A2c amendment and do not create or imply a replacement
 terminology sign-off.
-
-Keep the stale Appendix-G invalidation visible for its P7 clean-build owner.
-Reconcile the RDP/BDP catalogue, both generated catalogue projections and both
-travelling notices only against one dated verifiable coauthor-consent record;
-do not turn coauthor consent into rights-holder permission. Add the already
-valid local citation keys to the canonical solution records and regenerate
-`rjesenja.qmd` rather than editing it by hand. Prove or disposition the Phase-2
-parent closure and add fail-closed architecture-registry evidence required by
-the two P2-VERIFY handoffs.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger, dashboard and only

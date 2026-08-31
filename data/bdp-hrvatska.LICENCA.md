@@ -45,9 +45,12 @@ iznad i njih ova licenca ne mijenja.
 Ovaj paket **još nije promoviran**. Uzvodne su licence povoljne, ali sastavljena
 tablica nosi pet skupova uvjeta odjednom, a Eurostatov stupac po katalogu ove
 knjige pripada traci `portal-mediated`, u kojoj se datoteka ne pohranjuje nego se
-daje uputa za preuzimanje. Prije promocije treba (1) razriješiti Eurostatov
-stupac, (2) potvrditi uvjete MPD-a za prikaz jedne zemlje i (3) pribaviti
-suglasnost suautora projekta AI.econ za redistribuciju spojenoga niza.
+daje uputa za preuzimanje. Autor knjige 5. kolovoza 2026. zabilježio je da
+suautorska suglasnost projekta AI.econ već postoji; mjerodavni zapis jest
+`notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md`, odjeljak
+„Autorska odluka od 5. kolovoza 2026.” To nije suglasnost nositelja prava nad
+pet uzvodnih izvora. Prije promocije još treba (1) razriješiti Eurostatov
+stupac i (2) potvrditi uvjete MPD-a za prikaz jedne zemlje.
 
 Do tada su ove datoteke građa za pripremu, a ne izvor tvrdnji u knjizi.
 

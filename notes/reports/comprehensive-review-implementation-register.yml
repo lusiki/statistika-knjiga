@@ -10,9 +10,23 @@ control:
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
-  active_write_packet: null
+  active_write_packet:
+    id: "P6-VERIFY"
+    claimed_at: "2026-08-31"
+    owned_paths:
+      - "notes/reports/p6-verify-2026-08-31.md"
+      - "notes/reports/comprehensive-review-implementation-register.yml"
+      - "notes/reports/comprehensive-review-forward-handoffs.yml"
+      - "notes/reports/comprehensive-review-dashboard.md"
+      - "data/rdp-potpore.LICENCA.md"
+      - "data/bdp-hrvatska.LICENCA.md"
+      - "assessment/solution-records/unit-07/sol-07-kriticki-01.json"
+      - "assessment/solution-records/unit-08/sol-08-kriticki-01.json"
+      - "assessment/solution-records/unit-10/sol-10-kriticki-01.json"
+      - "rjesenja.qmd"
+      - "scripts/check-book-architecture.py"
   last_completed_packet: "P6-METHODS"
-  next_permitted_packet: "P6-VERIFY"
+  next_permitted_packet: null
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17836,7 +17850,15 @@ packets:
     sequence: 170
     phase: "6"
     kind: "review_gate"
-    status: "ratified"
+    status: "in_progress"
+    open_reason: >-
+      The gate is stopped on a non-aggregated prerequisite integration defect
+      reproduced at source commit 2a8cb0f3625f66fa3ca63acf2b2a983ac2af7c2e:
+      the accepted P6-METHODS wording change in the Chapter 12 critical prompt
+      left sol-12-kriticki-01's prompt fingerprint and one deterministic
+      assessment-checker literal stale, so check-assessment-architecture.py
+      exits 1. No P6 parent, chapter stage or downstream gate may advance until
+      the bounded correction passes the full assessment lane.
     requires:
       - "P6-METHODS"
     scope: "Phase 6 whole-book gate."

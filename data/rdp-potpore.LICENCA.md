@@ -38,9 +38,13 @@ a ne kao odobren nastavni skup.
 
 Uz to, agregati nisu izračunati iz javnoga sučelja registra nego iz radne kopije
 u analitičkom okruženju projekta AI.econ, u kojem autor ove knjige surađuje s
-drugim autorom. Prije nego što ijedna brojka odavde uđe u poglavlje, potreban je
-gate koji utvrđuje (1) uvjete ponovne uporabe registra i (2) suglasnost
-suautora projekta AI.econ za redistribuciju izvedenih agregata.
+drugim autorom. Autor knjige 5. kolovoza 2026. zabilježio je da suautorska
+suglasnost projekta AI.econ već postoji; mjerodavni zapis jest
+`notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md`, odjeljak
+„Autorska odluka od 5. kolovoza 2026.” To nije suglasnost nositelja prava nad
+registrom niti zamjena za njegove objavljene uvjete. Prije nego što ijedna
+brojka odavde uđe u poglavlje, još treba utvrditi uvjete ponovne uporabe
+registra.
 
 Do tada su ove datoteke građa za pripremu, a ne izvor tvrdnji u knjizi.
 

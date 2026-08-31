@@ -4914,7 +4914,14 @@ handoffs:
           - "boundary:parent-R04-remains-ratified-for-P6-VERIFY"
       - target_packet: P6-VERIFY
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-31"
+        acknowledgement: >-
+          P6-VERIFY will verify the four historically open R04 children one by
+          one, close the parent only if all 21 required children are accepted,
+          and state explicitly that this is the later closure contemplated by
+          the register rather than proof that the plan's Phase-2 timing clause
+          was achievable in Phase 2.
 
   H-P2-VERIFY-002:
     source_packet: P2-VERIFY
@@ -4953,7 +4960,13 @@ handoffs:
     deliveries:
       - target_packet: P6-VERIFY
         gate: before_close
-        state: pending
+        state: acknowledged
+        acknowledged_at: "2026-08-31"
+        acknowledgement: >-
+          P6-VERIFY accepts that a positive architecture run is not fail-closed
+          evidence. It will add a deliberate BOOK_ARCHITECTURE_NEGATIVE_FIXTURE
+          path to the owning checker and require a nonzero injected-defect run
+          before this delivery can be consumed.
 
   H-P3-CATALOG-001:
     source_packet: P3-CATALOG
@@ -10087,7 +10100,21 @@ handoffs:
     deliveries:
       - target_packet: P6-VERIFY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-VERIFY preserves the bibliography-caused Appendix-G invalidation
+          as its own verification-matrix row. The later P6-STYLE rebuild and
+          current positive checker result are recorded, but neither is treated
+          as the locked clean-state proof still owned by P7-CLEAN-BUILD; the
+          P7 delivery remains pending and is not consumed here.
+        evidence:
+          - "state:p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c"
+          - "check:scripts/check-appendix-g.py-exit-1-route-artifact-is-stale-at-P6-EVIDENCE"
+          - "commit:7542231e7d4d79e65ceebec6a7c857a11b45778f-ParlaSent-reference-type-correction"
+          - "commit:28954abc99b9867432fa7f9405f9898b611c2c43-later-P6-STYLE-rebuild-not-P7-clean-proof"
+          - "boundary:P7-CLEAN-BUILD-delivery-remains-pending"
       - target_packet: P7-CLEAN-BUILD
         gate: before_start
         state: pending
@@ -10510,7 +10537,20 @@ handoffs:
     deliveries:
       - target_packet: P6-VERIFY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-VERIFY accepts the two travelling notices as a bounded live
+          provenance contradiction. It will reconcile them to the dated
+          2026-08-05 author record already named by the canonical catalogue,
+          verify both generated projections from that catalogue, and preserve
+          every separate published-registry and rights-holder blocker.
+        evidence:
+          - "source:notes/reports/vanjski-izvori-croaicon-digikat-2026-08-05.md#autorska-odluka-od-5-kolovoza-2026-read-before-claim"
+          - "registry:data/katalog.yml#rdp-potpore-and-bdp-hrvatska-consent-records-read-before-claim"
+          - "sources:data/rdp-potpore.LICENCA.md-and-data/bdp-hrvatska.LICENCA.md-stale-clauses-read-before-claim"
+          - "boundary:coauthor-consent-is-not-rights-holder-permission"
 
   H-P6-PANELS-002:
     source_packet: P6-PANELS
@@ -10540,7 +10580,20 @@ handoffs:
     deliveries:
       - target_packet: P6-VERIFY
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-VERIFY accepts the three local traceability defects separately.
+          It will add only the already-live keys gilovich1985, miller2018,
+          squire1988, wasserstein2016 and greenland2016 to the three canonical
+          solution records, regenerate rjesenja.qmd with its sole generator and
+          rerun citation, solution, assessment and visibility checks.
+        evidence:
+          - "sources:assessment/solution-records/unit-07-sol-07-kriticki-01-unit-08-sol-08-kriticki-01-unit-10-sol-10-kriticki-01-read-before-claim"
+          - "bibliography:references.bib#gilovich1985-miller2018-squire1988-wasserstein2016-greenland2016"
+          - "generator:scripts/build-solution-routes.py"
+          - "boundary:rjesenja.qmd-not-hand-edited"
 
   H-P6-PANELS-003:
     source_packet: P6-PANELS
