@@ -4,14 +4,14 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P6-STYLE
-next_permitted_packet: P6-DATA
+last_completed_packet: P6-DATA
+next_permitted_packet: P6-PANELS
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
 forward_handoffs: 142
-last_updated: "2026-08-26"
+last_updated: "2026-08-31"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -83,6 +83,7 @@ stop and repair the control state before editing book content.
 | P6-EVIDENCE | Accepted only as a completed final-state audit, bounded bibliography/checker correction and report on `p6-evidence-state:sha256-7bfa134471cb8982abb71bdfd2eeae156a9208aa77b44eb030e0075d474c739c`; five of seven governed items pass independently, while dated product claims retain two major defects and dated legal/institutional claims retain four major defects; the incorrect public appendix count and newly invalidated Appendix-G hash also have separate downstream owners and are not represented as fixed |
 | P6-FIGURES | Accepted on `p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817`; all 43 conceptual figures, captions, alt descriptions and 17 widget/static-print pairs pass separate source-anchored checks, the Chapter 16 D10 reminder remains, seven normal streams have exact contracts and unchanged tolerances, and no project-artifact or release proof is claimed |
 | P6-STYLE | Accepted on `p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282`; all 39 canonical pages have distinct deterministic and manual H1–H10 rows, 38 ordinary pages have zero lint candidates, generated solution/catalogue findings have explicit later owners, and six final critics independently reproduce the 64-file state |
+| P6-DATA | Accepted on `p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932`; all 20 packages, 39 public pages, 19 chapter-meta records and 22 snapshots reconcile; six promotions and 20/20 routes pass, all 15 incoming deliveries are terminal, UCB/Anscombe are author-deferred for local redistribution, the DZS substitute is author-approved without a Last-Modified or permission claim, and 57 data fixtures fail closed |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -99,19 +100,19 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None |
-| Last completed packet | `P6-STYLE`; accepted on the exact 64-file final source state after all 39 pages received separate deterministic and manual H1–H10 dispositions and six critics reproduced the state |
-| Next permitted packet | `P6-DATA` only; it is not claimed in the P6-STYLE closeout |
+| Active write packet | None; P6-DATA released the sole write lock after all 15 deliveries became terminal and all exit tests passed |
+| Last completed packet | `P6-DATA`; accepted on the exact 95-file state after both author-owned dispositions, the 20-package/source matrix and all data checks were recorded |
+| Next permitted packet | `P6-PANELS` only; it is not claimed |
 | Review parents | 27 ratified; 9 accepted |
-| Atomic child inventory | Complete: 371 stable children; 338 accepted, 5 deferred with reason and 28 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 158 accepted, 30 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 341 accepted, 7 deferred with reason and 23 ratified pending their later gates; zero unmapped |
+| Exact packet catalogue | 189 packets: 159 accepted, 29 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | None in `P1-VERIFY`. P6-STYLE resolved its ten incoming findings without consuming sibling deliveries. P6-DATA still owns the P5-C invalidation, undeclared `rjesenja.qmd` catalogue consumer, three separate legal-source clusters and the two new generated-catalogue style findings. P6-PANELS owns two new AI overclaims, generated solution-register language and the interaction-hub code promise; P6-ARC owns the final 16-advisory and whole-book re-review; P6-METHODS owns the generated name form. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
+| Failed gates | None in `P1-VERIFY`. P6-DATA resolved its P5-C invalidation, undeclared `rjesenja.qmd` consumer, three legal-source clusters and both generated-catalogue style findings without claiming a full render or CI wiring. P6-PANELS owns two AI overclaims, generated solution-register language and the interaction-hub code promise; P6-ARC owns the final 16-advisory and whole-book re-review; P6-METHODS owns the generated name form. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7767,6 +7768,45 @@ the durable evidence is
   The lock is released and `P6-DATA` alone is next without being claimed. No
   push, merge, tag, archive, deployment or publication is authorised.
 
+## P6-DATA claim and closeout
+
+- The register, ledger and dashboard were re-read at the canonical
+  null/P6-STYLE/P6-DATA state on 31 August 2026. The branch is
+  `revision/comprehensive-review`, the worktree was clean before the control
+  transaction, P6-STYLE remains accepted only on
+  `p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282`,
+  and the workflow checker passed before the claim.
+- All seven required `before_start` deliveries were read and consumed
+  separately before the claim: `H-P5-VERIFY-001`,
+  `H-P6-CONTINUITY-008`, `H-P6-EVIDENCE-004`, `005`, `006`,
+  `H-P6-STYLE-003` and `004`. Their stale-artifact, consumer, three legal
+  clusters, Croatian text and H8 dispositions remain independent.
+- All eight `before_close` deliveries were acknowledged separately before the
+  first substantive edit: `H-P3-EXISTING-001`, `H-P3-EXISTING-003`,
+  `H-P3-DZS-002`, `003`, `004`, `H-P3-DIP-002`,
+  `H-P3-EUROSTAT-001` and `H-P3-TEXT-003`.
+- At claim time P6-DATA alone held the write lock; no downstream packet or
+  external action was claimed or authorised.
+- Author Luka Sikic approved both required dispositions on 31 August 2026.
+  UCBAdmissions and anscombe remain external-only and unpromoted with local
+  redistribution `deferred_v2_with_reason`; DZS `source_last_modified` remains
+  null while retrieval date and latest published observation are the approved
+  first-edition substitutes. No permission or Last-Modified value is claimed.
+- The audit is tied to
+  `p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932`
+  across 95 files: 39 public pages, 22 snapshots and 34 catalogue, licence,
+  metadata, build and check inputs. The report gives all 20 packages and all
+  19 chapter-meta records separate source-anchored dispositions.
+- All eight `before_close` deliveries are consumed separately. Catalogue,
+  Appendix C, data integrity, DIP, ESS, Eurostat, ParlaSent, citation and
+  manuscript checks pass; all 57 data negative fixtures fail closed for their
+  own defects. The full project render and blocking CI wiring are not claimed.
+- No new outgoing handoff is needed because the existing P7-CLEAN-BUILD and
+  P8-META deliveries retain those exact future effects. The workflow checker
+  and all three workflow negative fixtures pass closed. The lock is released
+  and `P6-PANELS` alone is next without being claimed. No push, merge, tag,
+  archive, deployment or publication is authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7789,43 +7829,45 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P6-STYLE` and
-`next_permitted_packet: P6-DATA`. Confirm that P6-STYLE closed only on
-`p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282`,
-that all 39 canonical pages have separate deterministic and manual H1-H10
-dispositions, that 38 ordinary pages have zero deterministic candidates, and
-that the 2,156 generated `rjesenja.qmd` candidates were routed rather than
-hidden in a generic pass. Confirm all ten P6-STYLE incoming handoffs were
-consumed separately, all eight outgoing handoffs were recorded, and sibling or
-clean-build deliveries were not consumed.
+Verify `active_write_packet: null`, `last_completed_packet: P6-DATA` and
+`next_permitted_packet: P6-PANELS`. Confirm that P6-DATA closed only on
+`p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932`,
+that all 15 incoming deliveries are terminal, both author dispositions are
+recorded without a rights-permission claim, all 20 packages and 22 snapshots
+reconcile, and P6-PANELS was not claimed inside the closeout.
 
-Claim and execute only `P6-DATA` under its `whole_book_review` contract. Its
-scope is catalogue consumers, public downloads, metadata and data evidence.
-Fully read its packet record, `data/katalog.yml`, both generated catalogue
-views, the catalogue and data-integrity builders/checkers and their negative
-fixtures, the P6-STYLE report, and every applicable incoming handoff.
+Claim and execute only `P6-PANELS` under its `whole_book_review` contract.
+Fully read its packet record, the prior panel evidence for every changed unit,
+the live chapter ledger and spines, the full six role prompts, and every
+applicable incoming handoff. Five deliveries must be terminal before claim:
+`H-P6-EVIDENCE-009`, `H-P6-STYLE-001`, `H-P6-STYLE-002`,
+`H-P6-STYLE-005` and `H-P6-STYLE-008`. Two more must be separately consumed
+before closeout: `H-P0-REGISTER-006` and `H-WB-PART-001`.
 
-Consume all seven `before_start` deliveries separately before the first
-substantive edit: `H-P5-VERIFY-001`, `H-P6-CONTINUITY-008`,
-`H-P6-EVIDENCE-004`, `H-P6-EVIDENCE-005`, `H-P6-EVIDENCE-006`,
-`H-P6-STYLE-003` and `H-P6-STYLE-004`. Do not let the stale Appendix C proof,
-the undeclared `rjesenja.qmd` consumer, any one of the three legal-source
-clusters, missing Croatian diacritics or the H8 field-label conflict discharge
-one another. Repair canonical catalogue data or generators and regenerate both
-public views together; never hand-edit generated pages and never invent a
-statute, regulator, source title, version or link.
+Prove that every substantively changed unit has all six independent critic
+perspectives against its last material state. Rerun the full parallel panel
+where P6-STYLE, P6-EVIDENCE, P6-FIGURES or P6-DATA changed material content;
+rerun only invalidated deterministic checks for mechanical changes. Wait for
+all six critics and preserve disagreements in the synthesis rather than
+averaging them away.
 
-Before closeout, separately consume the eight applicable `before_close`
-deliveries `H-P3-EXISTING-001`, `H-P3-EXISTING-003`, `H-P3-DZS-002`,
-`H-P3-DZS-003`, `H-P3-DZS-004`, `H-P3-DIP-002`, `H-P3-EUROSTAT-001` and
-`H-P3-TEXT-003` with exact rights, provenance, metadata and consumer evidence.
-Deliver a whole-book source-anchor matrix, post-change reviewer evidence and a
-resolved finding log tied to one declared state. A generic contract statement
-is not proof, and one dataset or legal disposition may not close another.
+Chapter 06-povezanost is the one unit still at draft because WB-PART appended
+the Part II verification-receipt bridge after its earlier panel and author
+decision. Run a fresh full six-critic panel on the current file and then record
+the correct stage or the exact remaining blocker; do not claim that the author
+read it or silently reuse the stale panel.
+
+Separately settle the four interface claims carried by H-P6-STYLE-001, -002,
+-005 and -008: the Uči uz AI capacity/accuracy and categorical assistant
+claims, the D06 generated solution route's mass field labels and leaked English
+maintainer text, and the interactions-hub promise that code opens inside a
+Part I chapter despite the ratified H10 progression. Preserve protected/public
+solution boundaries and do not add visible code to Part I merely to satisfy the
+hub sentence.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
-no-effect declaration; update the register, handoff ledger and dashboard
-together; run the workflow checker and all three workflow negative fixtures;
-close and locally commit P6-DATA; then stop. Do not claim P6-PANELS, push, merge,
-tag, archive, deploy or publish.
+no-effect declaration; update the register, handoff ledger, dashboard and only
+approved mutable Bookwright state together; run the workflow checker and all
+three workflow negative fixtures; close and locally commit P6-PANELS; then
+stop. Do not claim P6-ARC, push, merge, tag, archive, deploy or publish.
 ```

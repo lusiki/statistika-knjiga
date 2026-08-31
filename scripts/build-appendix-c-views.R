@@ -42,6 +42,151 @@ one_line <- function(value, empty = "nije zabilježeno") {
   gsub("[[:space:]]+", " ", text)
 }
 
+# Kanonski katalog čuva i strojne identifikatore, pa se hrvatski pravopis
+# obnavlja samo u čitateljskim poljima. Namjerno je riječ o zatvorenome popisu:
+# identifikatori, putanje, ključevi i doslovne vrijednosti podataka ne mijenjaju
+# se heuristikom.
+restore_hr_diacritics <- function(value) {
+  roots <- c(
+    "azur" = "ažur", "biljez" = "biljež", "drust" = "društ",
+    "drzav" = "držav", "danasnj" = "današnj", "dogadj" = "događ",
+    "dovrs" = "dovrš", "ekolos" = "ekološ", "godisnj" = "godišnj",
+    "gradjan" = "građan", "gresk" = "grešk", "iskljuc" = "isključ",
+    "istraz" = "istraž", "izlozen" = "izložen", "izmedj" = "izmeđ",
+    "izmislj" = "izmišlj", "izvjesc" = "izvješć", "katolick" = "katoličk",
+    "medjunar" = "međunar", "metodolos" = "metodološ", "mrez" = "mrež",
+    "navodjen" = "navođen", "nedovrs" = "nedovrš", "nerijes" = "neriješ",
+    "nevazec" = "nevažeć", "neutvrdjen" = "neutvrđen", "odredj" = "određ",
+    "omedjen" = "omeđen", "opaz" = "opaž", "osvjez" = "osvjež",
+    "oznac" = "označ", "pogres" = "pogreš", "pojedinac" = "pojedinač",
+    "ponist" = "poništ", "potvrdjen" = "potvrđen", "pracen" = "praćen",
+    "predlozen" = "predložen", "pretraz" = "pretraž", "prikvac" = "prikvač",
+    "pronadjen" = "pronađen",
+    "proracun" = "proračun", "prosiren" = "proširen", "razlicit" = "različit",
+    "rijes" = "riješ", "rjec" = "rječ", "rodjen" = "rođen",
+    "sadrz" = "sadrž", "siromast" = "siromašt", "sluz" = "služ",
+    "smjest" = "smješt", "stanovnist" = "stanovništ", "statick" = "statičk",
+    "sintetick" = "sintetičk", "sucelj" = "sučelj", "sveucilist" = "sveučilišt",
+    "tock" = "točk", "traz" = "traž", "tumac" = "tumač",
+    "tezin" = "težin", "ugradjen" = "ugrađen", "ulanc" = "ulanč", "uskladjen" = "usklađen",
+    "usporedj" = "uspoređ", "utvrdjen" = "utvrđen", "uvaz" = "uvaž",
+    "uvodjen" = "uvođen", "uzrocn" = "uzročn", "velicin" = "veličin",
+    "zabiljez" = "zabiljež", "zadrz" = "zadrž", "zakljuc" = "zaključ",
+    "zaokruz" = "zaokruž", "zavrs" = "završ"
+  )
+  words <- c(
+    "analiticar" = "analitičar", "analiticka" = "analitička", "analiticki" = "analitički",
+    "aritmeticke" = "aritmetičke", "asimetricna" = "asimetrična",
+    "biraca" = "birača", "biracu" = "biraču",
+    "buduca" = "buduća", "buduci" = "budući", "buducoj" = "budućoj",
+    "cega" = "čega", "celija" = "ćelija", "celije" = "ćelije", "cetiri" = "četiri",
+    "cetiriju" = "četiriju", "cetrnaest" = "četrnaest", "cetvrta" = "četvrta",
+    "cinjenica" = "činjenica", "cist" = "čist", "citan" = "čitan",
+    "citanja" = "čitanja", "citanje" = "čitanje", "citatelj" = "čitatelj", "citati" = "čitati",
+    "citljiv" = "čitljiv", "clan" = "član", "clanak" = "članak",
+    "clanica" = "članica", "clanka" = "članka", "clanku" = "članku",
+    "cuva" = "čuva", "datotecni" = "datotečni", "deterministicki" = "deterministički",
+    "djelomican" = "djelomičan", "domace" = "domaće", "domaci" = "domaći",
+    "dohvaca" = "dohvaća", "dopusta" = "dopušta", "dopusten" = "dopušten",
+    "dopustena" = "dopuštena", "dopustenje" = "dopuštenje", "dosao" = "došao",
+    "doseze" = "doseže", "drzi" = "drži", "dugacak" = "dugačak",
+    "inacica" = "inačica", "inacice" = "inačice", "inacicu" = "inačicu", "isporucila" = "isporučila",
+    "isporucuje" = "isporučuje", "izracun" = "izračun", "izracunat" = "izračunat",
+    "izracunati" = "izračunati", "izracunava" = "izračunava", "izracunao" = "izračunao",
+    "izricit" = "izričit", "izricita" = "izričita", "izricito" = "izričito", "izricitu" = "izričitu",
+    "izvlaci" = "izvlači", "kategoricka" = "kategorička", "kategoricki" = "kategorički",
+    "katolicka" = "katolička", "kljuc" = "ključ", "kljuca" = "ključa",
+    "kljucem" = "ključem", "kljuceva" = "ključeva", "kljucevi" = "ključevi",
+    "konacnu" = "konačnu", "koristen" = "korišten", "kucu" = "kuću",
+    "listic" = "listić", "luksemburska" = "luksemburška", "medju" = "među",
+    "mijesa" = "miješa", "mjesecna" = "mjesečna", "mjesecne" = "mjesečne",
+    "mjesecni" = "mjesečni", "mjesecnih" = "mjesečnih", "mjesecnoj" = "mjesečnoj",
+    "mjesecnom" = "mjesečnom", "mogucnost" = "mogućnost",
+    "moguce" = "moguće", "moze" = "može", "mrezni" = "mrežni", "nacin" = "način",
+    "nadleznoga" = "nadležnoga", "najkracim" = "najkraćim", "najveci" = "najveći",
+    "najvecih" = "najvećih", "najvecim" = "najvećim", "napusten" = "napušten",
+    "nasao" = "našao", "nedostajuca" = "nedostajuća", "nedostajuci" = "nedostajući",
+    "nedostajucih" = "nedostajućih", "nesigurnoscu" = "nesigurnošću",
+    "nedostajuce" = "nedostajuće", "nista" = "ništa", "nocenja" = "noćenja", "novcana" = "novčana",
+    "ocit" = "očit", "odredista" = "odredišta", "odsjecak" = "odsječak",
+    "odsjecci" = "odsječci", "odsjecka" = "odsječka", "ogranicenoga" = "ograničenoga",
+    "okruzenju" = "okruženju", "omogucuje" = "omogućuje", "opasnoscu" = "opasnošću",
+    "opazanja" = "opažanja", "opazanjem" = "opažanjem", "opazena" = "opažena",
+    "opca" = "opća", "opci" = "opći", "opcu" = "opću", "opsluzuje" = "opslužuje",
+    "opterecenju" = "opterećenju", "oznacenoga" = "označenoga", "oznacuje" = "označuje",
+    "pocetna" = "početna", "pocetnim" = "početnim", "pocinje" = "počinje",
+    "podrucja" = "područja", "podrucje" = "područje", "podrucju" = "području",
+    "pojedinacna" = "pojedinačna",
+    "pojedinacnih" = "pojedinačnih", "pojedinacnoj" = "pojedinačnoj",
+    "pojedinacnom" = "pojedinačnom", "politicka" = "politička", "polozaj" = "položaj",
+    "pomicnom" = "pomičnom", "pomijesati" = "pomiješati", "postojecim" = "postojećim",
+    "potrosaca" = "potrošača", "poucavanja" = "poučavanja", "pracenja" = "praćenja",
+    "preciznoscu" = "preciznošću", "preracunavanja" = "preračunavanja",
+    "priblizno" = "približno", "prihvacen" = "prihvaćen", "prihvaceni" = "prihvaćeni",
+    "proci" = "proći", "procitati" = "pročitati",
+    "promice" = "promiče", "proracunska" = "proračunska", "prosao" = "prošao",
+    "prosjecna" = "prosječna", "pruza" = "pruža", "pruzatelj" = "pružatelj",
+    "pruzatelja" = "pružatelja", "racunski" = "računski", "razlicit" = "različit",
+    "racuni" = "računi", "recenica" = "rečenica", "recenice" = "rečenice",
+    "recenici" = "rečenici", "recenicni" = "rečenični", "rezim" = "režim",
+    "rijec" = "riječ", "sadasnji" = "sadašnji", "sazetak" = "sažetak",
+    "sazetcima" = "sažetcima", "sazima" = "sažima",
+    "sest" = "šest", "sifra" = "šifra", "sijecanj" = "siječanj",
+    "skracen" = "skraćen", "slaze" = "slaže", "slazu" = "slažu",
+    "slucaj" = "slučaj", "slucajan" = "slučajan", "specifican" = "specifičan",
+    "sprjecava" = "sprječava", "stanovnistva" = "stanovništva", "statisticka" = "statistička",
+    "sucelja" = "sučelja", "tehnicka" = "tehnička", "tezina" = "težina",
+    "statisticke" = "statističke", "statisticki" = "statistički", "sto" = "što",
+    "tocan" = "točan", "tocna" = "točna", "tocne" = "točne", "tocni" = "točni",
+    "tocnih" = "točnih", "tocno" = "točno", "tocnoj" = "točnoj", "trece" = "treće",
+    "trosenju" = "trošenju",
+    "tumaca" = "tumača", "turisticka" = "turistička", "uci" = "uči", "ucinka" = "učinka",
+    "ucinku" = "učinku", "ukljucivanja" = "uključivanja", "ukljucuje" = "uključuje",
+    "ukljucujuci" = "uključujući", "ulancani" = "ulančani", "upucuje" = "upućuje",
+    "uopce" = "uopće", "urednicku" = "uredničku", "uzrocnost" = "uzročnost",
+    "vazeci" = "važeći", "vec" = "već", "veljaca" = "veljača", "veljacu" = "veljaču",
+    "vise" = "više", "visednevnih" = "višednevnih", "vjezba" = "vježba",
+    "vlasnicka" = "vlasnička", "vlasnicki" = "vlasnički", "vlasnickom" = "vlasničkom",
+    "vrijednoscu" = "vrijednošću", "zajednicka" = "zajednička", "zajednickoj" = "zajedničkoj",
+    "vraca" = "vraća", "zakljucak" = "zaključak", "zakljucivanja" = "zaključivanja",
+    "zakosena" = "zakošena", "zasto" = "zašto", "zavrsecima" = "završecima",
+    "zavrsetak" = "završetak", "zivoga" = "živoga", "znacenja" = "značenja",
+    "znaci" = "znači", "zupanija" = "županija", "zupanijama" = "županijama",
+    "zupanijska" = "županijska", "zupanijski" = "županijski", "zupanijskih" = "županijskih"
+  )
+  restore_piece <- function(text) {
+    for (source in names(roots)) {
+      text <- gsub(source, roots[[source]], text, fixed = TRUE)
+      text <- gsub(
+        paste0(toupper(substr(source, 1L, 1L)), substring(source, 2L)),
+        paste0(toupper(substr(roots[[source]], 1L, 1L)), substring(roots[[source]], 2L)),
+        text,
+        fixed = TRUE
+      )
+    }
+    for (source in names(words)) {
+      pattern <- paste0("(?<![[:alnum:]_])", source, "(?![[:alnum:]_])")
+      text <- gsub(pattern, words[[source]], text, perl = TRUE)
+      source_title <- paste0(toupper(substr(source, 1L, 1L)), substring(source, 2L))
+      target_title <- paste0(toupper(substr(words[[source]], 1L, 1L)), substring(words[[source]], 2L))
+      pattern_title <- paste0("(?<![[:alnum:]_])", source_title, "(?![[:alnum:]_])")
+      text <- gsub(pattern_title, target_title, text, perl = TRUE)
+    }
+    text
+  }
+  pieces <- strsplit(value, "(?=[[:space:]])|(?<=[[:space:]])", perl = TRUE)[[1]]
+  protected <- grepl(
+    paste0(
+      "https?://|^`|(?:^|[(`])",
+      "(?:data|R|scripts|notes|config|dodaci|chapters)/"
+    ),
+    pieces,
+    perl = TRUE
+  )
+  pieces[!protected] <- vapply(pieces[!protected], restore_piece, character(1))
+  paste0(pieces, collapse = "")
+}
+
 style_prose <- function(value, empty = "nije zabilježeno") {
   text <- one_line(value, empty)
   text <- gsub("Izvor: ", "Izvor je ", text, fixed = TRUE)
@@ -92,7 +237,13 @@ style_prose <- function(value, empty = "nije zabilježeno") {
     text,
     perl = TRUE
   )
-  text
+  text <- gsub(
+    "\\]\\((https?://[^)]+)\\.\\)",
+    "](\\1).",
+    text,
+    perl = TRUE
+  )
+  restore_hr_diacritics(text)
 }
 
 sentence_end <- function(value) {
@@ -216,16 +367,16 @@ file_record_blocks <- function(package, from_appendix = FALSE) {
       result,
       paste0("#### ", file_display(record$path, package$promoted, from_appendix)),
       "",
-      paste0(
-        "**Uloga i opseg.** Uloga je ", code(record$role), ", datoteka ima ",
-        record$rows, " redaka, a ključ je ", code(record$key), "."
+      table_lines(
+        c("Polje", "Vrijednost"),
+        c(
+          paste0("| Uloga | ", code(record$role), " |"),
+          paste0("| Broj redaka | ", record$rows, " |"),
+          paste0("| Ključ | ", code(record$key), " |")
+        )
       ),
       "",
-      "**Varijable.**\\",
-      paste0(
-        code(variables),
-        ifelse(seq_along(variables) == length(variables), ".", ",\\")
-      ),
+      paste0("Varijable su ", paste(code(variables), collapse = ", "), "."),
       ""
     )
   }
@@ -288,7 +439,7 @@ aggregate_tables <- function(package, prefix) {
 
   slug <- anchor_id(package$id)
   c(
-    paste0("### ", package$name, " — provjera retka {#provjera-", prefix, "-", slug, "}"),
+    paste0("### ", style_prose(package$name), " — provjera retka {#provjera-", prefix, "-", slug, "}"),
     "",
     paste0(
       "Udio u @tbl-", prefix, "-", slug,
@@ -368,18 +519,21 @@ dzs_table <- function(prefix) {
 compact_package <- function(package) {
   id <- anchor_id(package$id)
   c(
-    paste0("### ", package$name, " {#podaci-", id, "}"),
+    paste0("### ", style_prose(package$name), " {#podaci-", id, "}"),
     "",
-    paste0("**Identifikator.** ", code(package$id), "."),
-    "",
-    paste0("**Pitanje.** ", one_line(package$question)),
-    "",
-    paste0(
-      "**Status i pristup.** ", promoted_label(package), "; traka ",
-      code(package$lane), "; jedinica je ", lower_first(sentence_end(package$unit))
+    table_lines(
+      c("Polje", "Vrijednost"),
+      c(
+        paste0("| Identifikator | ", code(package$id), " |"),
+        paste0("| Pitanje | ", escape_cell(package$question), " |"),
+        paste0(
+          "| Status i pristup | ", promoted_label(package), "; traka ",
+          code(package$lane), "; jedinica je ",
+          lower_first(sentence_end(style_prose(package$unit))), " |"
+        ),
+        paste0("| Datoteke | ", download_links(package, FALSE), " |")
+      )
     ),
-    "",
-    paste0("**Datoteke.** ", download_links(package, FALSE)),
     "",
     paste0(
       "[Puni zapis u Dodatku C](dodaci/c-katalog-podataka.qmd#sec-data-",
@@ -416,49 +570,42 @@ full_package <- function(package) {
   }, character(1))
 
   result <- c(
-    paste0("## ", package$name, " {#sec-data-", id, "}"),
+    paste0("## ", style_prose(package$name), " {#sec-data-", id, "}"),
     "",
     paste0("Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-", id, ")."),
     "",
-    paste0("**Identifikator.** ", code(package$id), "."),
-    "",
-    paste0("**Status.** ", promoted_label(package), "."),
-    "",
-    paste0("**Dizajn.** ", code(package$design), "."),
-    "",
-    paste0("**Domena.** ", style_prose(package$domain), "."),
-    "",
-    paste0("**Jedinica.** ", sentence_end(style_prose(package$unit))),
-    "",
-    paste0("**Pitanje.** ", sentence_end(style_prose(package$question))),
-    "",
-    paste0("**Uloga.** ", sentence_end(style_prose(package$role))),
-    "",
-    paste0("**Potrošači.** ", style_prose(package$consumers), "."),
-    "",
-    paste0("**Traka.** ", code(package$lane), "."),
-    "",
-    paste0("**Razred osvježavanja.** ", code(package$refresh_class), "."),
-    "",
-    paste0("**Inačica.** ", sentence_end(style_prose(package$version))),
+    table_lines(
+      c("Polje", "Vrijednost"),
+      c(
+        paste0("| Identifikator | ", code(package$id), " |"),
+        paste0("| Status | ", promoted_label(package), " |"),
+        paste0("| Dizajn | ", code(package$design), " |"),
+        paste0("| Domena | ", escape_cell(package$domain), " |"),
+        paste0("| Jedinica | ", escape_cell(package$unit), " |"),
+        paste0("| Pitanje | ", escape_cell(package$question), " |"),
+        paste0("| Uloga | ", escape_cell(package$role), " |"),
+        paste0("| Potrošači | ", escape_cell(package$consumers), " |"),
+        paste0("| Traka | ", code(package$lane), " |"),
+        paste0("| Razred osvježavanja | ", code(package$refresh_class), " |"),
+        paste0("| Inačica | ", escape_cell(package$version), " |")
+      )
+    ),
     "",
     "### Izvor, prava i pristup",
     "",
-    paste0("**Izvor.** ", style_prose(package$source)),
-    "",
-    paste0("**Licenca.** ", licence),
-    "",
-    paste0("**Atribucija.** ", style_prose(package$attribution)),
-    "",
-    paste0("**Pristup.** ", style_prose(package$access)),
-    "",
-    paste0("**Redistribucija.** ", style_prose(package$redistribution)),
-    "",
-    paste0("**Zakonita zamjena.** ", style_prose(package$fallback)),
-    "",
-    paste0("**Putovnica.** ", passport, "."),
-    "",
-    paste0("**Obavijest uz snimku.** ", notice, "."),
+    table_lines(
+      c("Polje", "Vrijednost"),
+      c(
+        paste0("| Izvor | ", escape_cell(package$source), " |"),
+        paste0("| Licenca | ", gsub("\\|", "\\\\|", licence), " |"),
+        paste0("| Atribucija | ", escape_cell(package$attribution), " |"),
+        paste0("| Pristup | ", escape_cell(package$access), " |"),
+        paste0("| Redistribucija | ", escape_cell(package$redistribution), " |"),
+        paste0("| Zakonita zamjena | ", escape_cell(package$fallback), " |"),
+        paste0("| Putovnica | ", passport, " |"),
+        paste0("| Obavijest uz snimku | ", notice, " |")
+      )
+    ),
     "",
     "### Datoteke i varijable",
     "",
@@ -658,8 +805,8 @@ route_records <- lapply(packages, function(package) {
 
 artifact <- list(
   schema_version = "appendix-c-data-route-v1",
-  packet = "P5-C",
-  generated_at = "2026-08-25",
+  packet = "P6-DATA",
+  generated_at = "2026-08-31",
   canonical_catalogue = list(
     path = "data/katalog.yml",
     md5 = unname(tools::md5sum(catalogue_path)),
@@ -690,7 +837,11 @@ artifact <- list(
     measures_are_comparable_series = FALSE
   ),
   readme_status = lapply(
-    c("digikat_mediji", "rdp_potpore", "bdp_dugi_niz"),
+    c(
+      "anketa_mreze", "populacija_medija", "dzs_turizam",
+      "eurostat_drustvo", "parlasent", "digikat_mediji",
+      "rdp_potpore", "bdp_dugi_niz"
+    ),
     function(id) {
       package <- package_by_id(id)
       list(id = id, promoted = isTRUE(package$promoted), promoted_by = package$promoted_by)

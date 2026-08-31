@@ -1,7 +1,7 @@
 schema_version: 1
 ledger: comprehensive-review-forward-handoffs
 register: notes/reports/comprehensive-review-implementation-register.yml
-last_updated: "2026-08-26"
+last_updated: "2026-08-31"
 inventory_child_count: 371
 
 protocol:
@@ -5445,7 +5445,31 @@ handoffs:
           - "report:notes/reports/p5-a-2026-08-25.md"
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA will preserve UCBAdmissions and anscombe as external-only,
+          unpromoted optional routes with no local snapshot and with their
+          licence-clean mandatory fallbacks. Before closeout it will record the
+          author-owned first-edition disposition required for the two still-open
+          R25 children and will claim no rights-holder permission.
+        disposition: >-
+          Author Luka Sikic approved both recommended P6-DATA dispositions on
+          2026-08-31. Local redistribution of UCBAdmissions and anscombe is
+          deferred_v2_with_reason; both remain external-only, unpromoted and
+          without local files. Their optional local-R routes and
+          licence-cleared mandatory fallbacks remain. Availability is not
+          represented as redistribution authority and no rights-holder
+          permission is claimed.
+        evidence:
+          - "decision:P6-DATA-AUTHOR-DISPOSITIONS"
+          - "conversation:P6-DATA-both-dispositions-approved-2026-08-31-Luka-Sikic"
+          - "registry:data/katalog.yml#ucbadmissions-and-anscombe-deferred-v2-with-reason"
+          - "source:data/README.md#external-only-landmarks"
+          - "check:KATALOG_OK-packages-20-promoted-6-rights-permission-claim-false"
+          - "fixture:missing-author-defer-exit-1"
+          - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
       - target_packet: P8-META
         gate: before_close
         state: pending
@@ -5632,7 +5656,26 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA will report the catalogue and data negative-fixture lanes as
+          locally verified only. It will not claim blocking CI coverage; the
+          workflow wiring remains owned by P7-CLEAN-BUILD.
+        disposition: >-
+          Catalogue and data validation passed locally, including all 57
+          fail-closed data fixtures. P6-DATA did not edit the workflow and does
+          not claim that check-katalog.py or check-data-fixtures.py is a
+          blocking CI step. The pending P7-CLEAN-BUILD delivery remains the
+          sole owner of that wiring and clean-environment proof.
+        evidence:
+          - "check:DATA_NEGATIVE_FIXTURES_OK-cases-57"
+          - "check:KATALOG_OK-packages-20-promoted-6-snapshots-22"
+          - "audit:.github/workflows/publish.yml-unchanged-by-P6-DATA"
+          - "boundary:local-verification-only-no-CI-coverage-claim"
+          - "handoff:H-P3-EXISTING-003-P7-CLEAN-BUILD-delivery-remains-pending"
+          - "report:notes/reports/p6-data-2026-08-31.md#završne-provjere-na-sadašnjem-radnom-stanju"
       - target_packet: P7-CLEAN-BUILD
         gate: before_close
         state: pending
@@ -5829,7 +5872,32 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA rechecked the official BS_TU11, BS_TU12 and T03 PxWeb API and
+          HTML routes on 2026-08-31. All resolve, but none exposes an HTTP
+          Last-Modified/ETag value or a metadata update field. The packet will
+          not invent one; before closeout it will record the author-owned
+          disposition for the existing retrieval-date and latest-observation
+          substitutes and preserve the open attribution boundary.
+        disposition: >-
+          The official API and HTML routes resolved on 2026-08-31 but exposed
+          no Last-Modified, ETag or metadata update field. Author Luka Sikic
+          approved the recorded retrieval date and latest published
+          observation per table as the two checkable first-edition
+          substitutes. source_last_modified remains null; the catalogue and
+          travelling notice state that the value is unknown and claim no
+          separate permission.
+        evidence:
+          - "decision:P6-DATA-AUTHOR-DISPOSITIONS"
+          - "conversation:P6-DATA-both-dispositions-approved-2026-08-31-Luka-Sikic"
+          - "registry:data/katalog.yml#dzs_turizam-provenance-source_last_modified-null-and-approved-substitutes"
+          - "notice:data/dzs-turizam.LICENCA.md#dated-substitute-boundary"
+          - "check:KATALOG_OK-rights-permission-claim-false"
+          - "fixture:dzs-substitute-decision-missing-exit-1"
+          - "boundary:no-Last-Modified-value-and-no-permission-claim"
       - target_packet: P8-META
         gate: before_close
         state: pending
@@ -5978,7 +6046,28 @@ handoffs:
           - "fixture:scripts/check-data-fixtures.py-cases-51"
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA will preserve the standing six-part external-package
+          promotion contract across the full portfolio and will not relax any
+          promotion, notice, composite-key, missing-code, ratification-record
+          or bidirectional-log rule.
+        disposition: >-
+          All six inherited external-package rules remain enforced across the
+          20-package portfolio. Six promoted packages are bundled and named in
+          the bidirectional log; their own notices, composite keys, declared
+          missing codes and ratification records remain intact. No rule was
+          relaxed to admit a package, and two new decision-retention fixtures
+          extend rather than weaken the fail-closed suite.
+        evidence:
+          - "check:KATALOG_OK-packages-20-promoted-6-bundled-9-portal-2-external-9"
+          - "check:DATA_INTEGRITY_OK-snapshots-22-validated-22-undeclared-0"
+          - "fixture:DATA_NEGATIVE_FIXTURES_OK-cases-57"
+          - "registry:data/katalog.yml#promotion_contract"
+          - "schema:data/katalog.schema.json"
+          - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
 
   H-P3-DZS-004:
     source_packet: P3-DZS
@@ -6065,7 +6154,29 @@ handoffs:
           - "report:notes/reports/p5-c-2026-08-25.md"
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA will keep administrative reconciliation tolerance at zero,
+          survey tolerance at one, arrivals distinct from persons, and T03
+          survey estimates distinct from BS_TU11/BS_TU12 administrative
+          arrivals. Neither public view nor its artifact may combine them.
+        disposition: >-
+          The final catalogue, both generated views and route artifact preserve
+          arrivals as events rather than persons, keep T03 survey-estimated
+          trips separate from BS_TU11/BS_TU12 administrative arrivals and set
+          measures_are_comparable_series to false. Six administrative checks
+          retain maximum residual zero; three survey checks retain the explicit
+          rounding residual one. Published suppression and absence tokens stay
+          distinct from zero.
+        evidence:
+          - "source:podaci.qmd#sec-dzs-dvije-mjere"
+          - "source:dodaci/c-katalog-podataka.qmd#sec-dzs-dvije-mjere"
+          - "artifact:config/appendix-c-data-route.json#dzs_reconciliation-measures_are_comparable_series-false"
+          - "check:APPENDIX_C_CHECK_OK-dzs-admin-residual-0-dzs-survey-residual-1"
+          - "check:DATA_INTEGRITY_OK-reconciliations-10"
+          - "boundary:arrivals-not-persons-survey-not-administrative-suppression-not-zero"
 
   H-G-A3-DIP-001:
     source_packet: G-A3-DIP
@@ -6222,7 +6333,28 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA will preserve dip_2024 as unpromoted and portal-mediated with
+          no files, checksum, promoting gate or parity claim, while retaining
+          the inspected date and lawful fallback. No permission will be
+          inferred from technical access or the author's prior determination.
+        disposition: >-
+          dip_2024 remains portal-mediated, unpromoted and without local files,
+          checksum, promoting gate or parity claim. Four unsupported ethics
+          statements were independently narrowed to properties observable in
+          the selected official table. The portal values and denominator
+          difference reproduce exactly; technical access and published terms
+          are not represented as permission.
+        evidence:
+          - "registry:data/katalog.yml#dip_2024"
+          - "check:DIP_PORTAL_OK-denominator-3558089-approached-2216763-ballots-2215209-difference-1554"
+          - "fixture:unsupported-ethics-claim-exit-1"
+          - "check:KATALOG_OK-rights-permission-claim-false"
+          - "boundary:no-local-file-no-parity-no-permission-claim"
+          - "report:notes/reports/p6-data-2026-08-31.md#razriješeni-i-otvoreni-nalazi"
       - target_packet: P8-META
         gate: before_close
         state: pending
@@ -6725,7 +6857,28 @@ handoffs:
           - "packet_claim:WB-C06-2026-08-10"
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA will preserve the exact offline six-response Eurostat package,
+          its 162-key and 161-plus-one missing/status contract, component
+          attribution, modification statement, disclaimer and no-render-network
+          boundary. It will not refresh the package or claim permission.
+        disposition: >-
+          The pinned Eurostat package remains the exact six-response offline
+          extract with 162 country-indicator keys, 161 numeric values and one
+          explicit missing value with its source statuses. Component
+          attribution, modification statement, disclaimer, checksum and
+          no-render-network boundary remain intact. P6-DATA neither refreshed
+          the package nor claimed permission.
+        evidence:
+          - "registry:data/katalog.yml#eurostat_drustvo"
+          - "source:data/eurostat-drustvo-2025.csv"
+          - "check:EUROSTAT_EXTRACTS_OK-mode-verify-keys-162-available-161-missing-1-tolerance-0"
+          - "notice:data/eurostat-drustvo.LICENCA.md"
+          - "boundary:no-refresh-no-render-network-no-permission-claim"
+          - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
       - target_packet: P8-META
         gate: before_close
         state: pending
@@ -8032,7 +8185,28 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_close
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-DATA will reconcile data/README.md against all six accepted
+          promotions and the three access lanes, including Eurostat and
+          ParlaSent, without promoting an undeclared snapshot or claiming
+          rights-holder permission.
+        disposition: >-
+          data/README.md now names all six promoted packages, their promoting
+          packets, exact local files and travelling notices, while keeping
+          bundled, portal-mediated and external-only routes distinct. Eurostat
+          and ParlaSent are no longer omitted. ParlaSent's 2698-row output and
+          source hashes revalidate exactly; no undeclared snapshot was promoted
+          and the README explicitly denies a DZS or DIP permission claim.
+        evidence:
+          - "source:data/README.md#six-promoted-packages-and-three-access-lanes"
+          - "registry:data/katalog.yml#promotion_contract-promoted-6"
+          - "check:TEXT_PACKAGE_OK-rows-2698"
+          - "check:KATALOG_OK-promoted-6-snapshots-22-rights-permission-claim-false"
+          - "check:APPENDIX_C_CHECK_OK-readme-canonical"
+          - "report:notes/reports/p6-data-2026-08-31.md#završne-provjere-na-sadašnjem-radnom-stanju"
 
   H-P3-VERIFY-001:
     source_packet: P3-VERIFY
@@ -8948,7 +9122,21 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-DATA confirmed this as a stale-proof defect rather than a
+          catalogue-data defect. The current builder and checker both reject
+          the P5-C route artifact because its recorded catalogue MD5 differs
+          from the live canonical catalogue. P6-DATA will regenerate the two
+          public views and the route artifact together from the final catalogue
+          and will re-prove the complete P5-C contract; prior P5-C acceptance is
+          not used as freshness evidence.
+        evidence:
+          - "check:scripts/check-appendix-c.py-APPENDIX_C_CHECK_FAIL-current-catalogue-checksum"
+          - "check:scripts/build-appendix-c-views.R-check-route-artifact-stale"
+          - "boundary:separate-from-consumer-legal-style-and-clean-build-defects"
 
   H-P5-VERIFY-002:
     source_packet: P5-VERIFY
@@ -9503,7 +9691,21 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-DATA confirmed that rjesenja.qmd is an actual manuscript consumer
+          of populacija_medija and that the generated route is intentionally
+          public under D06. The final catalogue will declare that exact source,
+          and the bidirectional consumer validator will be rerun without
+          weakening its token boundary. This disposition does not address the
+          stale P5-C artifact or the independent route-hash owner.
+        evidence:
+          - "source:rjesenja.qmd-live-populacija_medija-use"
+          - "source:scripts/check-katalog.py-MANUSCRIPT_GLOBS-includes-root-qmd"
+          - "check:scripts/check-katalog.py-current-exit-1-undeclared-rjesenja-qmd-consumer"
+          - "boundary:separate-from-H-P5-VERIFY-001-and-H-P5-VERIFY-007"
 
   H-P6-EVIDENCE-001:
     source_packet: P6-EVIDENCE
@@ -9662,7 +9864,20 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-DATA will narrow all four DIP ethics statements independently to
+          properties visible in the selected official table and its recorded
+          portal route: the published denominator, aggregate unit, displayed
+          categories and absence of an individual-ballot or appeal record. No
+          statute, secrecy rule or legal procedure will be named or inferred,
+          and both public catalogue projections will be regenerated.
+        evidence:
+          - "source:data/katalog.yml#dip_2024-selected-table-source-and-ethics-fields"
+          - "source:notes/reports/p3-dip-2026-08-05.md"
+          - "boundary:no-invented-statute-title-version-link-or-legal-conclusion"
 
   H-P6-EVIDENCE-005:
     source_packet: P6-EVIDENCE
@@ -9690,7 +9905,20 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-DATA identified the unnamed-provider cluster as gfi_fina. Because
+          that candidate has no selected exact source, the ethics record will
+          say that category ownership, omission, identifiability and any appeal
+          route are not determined until a source is selected. It will not
+          attribute categories or procedure to an unnamed provider or
+          regulator, and both public projections will be regenerated.
+        evidence:
+          - "source:data/katalog.yml#gfi_fina-source-unselected-and-consumers-empty"
+          - "source:data/katalog.yml#gfi_fina-ethics-current-provider-regulator-claims"
+          - "boundary:separate-from-DIP-and-rdp_potpore"
 
   H-P6-EVIDENCE-006:
     source_packet: P6-EVIDENCE
@@ -9718,7 +9946,20 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-DATA identified the state-aid cluster as rdp_potpore. The final
+          ethics record will describe only what the derived aggregate retains
+          or omits and will state that the aggregate itself contains no appeal
+          route. It will not assign legal ownership to a regulator or European
+          framework and will not invent an external correction procedure. Both
+          public projections will be regenerated from that bounded record.
+        evidence:
+          - "source:data/katalog.yml#rdp_potpore-derived-aggregate-and-unpromoted-boundary"
+          - "source:data/katalog.yml#rdp_potpore-ethics-current-legal-attributions"
+          - "boundary:separate-from-DIP-and-gfi_fina"
 
   H-P6-EVIDENCE-007:
     source_packet: P6-EVIDENCE
@@ -9916,7 +10157,20 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-DATA confirmed that the affected text is reader-facing catalogue
+          prose, not stable machine identifiers. The canonical generator will
+          restore Croatian diacritics only while rendering reader-visible
+          fields, leaving IDs, paths, checksums, codes and source bytes
+          unchanged. Both projections will be rebuilt together and manually
+          read in Croatian after deterministic checks.
+        evidence:
+          - "source:scripts/build-appendix-c-views.R#one_line-style_prose-reader-rendering-boundary"
+          - "audit:data/katalog.yml-20-package-reader-field-inventory"
+          - "boundary:no-hand-edit-of-podaci.qmd-or-dodaci/c-katalog-podataka.qmd"
 
   H-P6-STYLE-004:
     source_packet: P6-STYLE
@@ -9947,7 +10201,19 @@ handoffs:
     deliveries:
       - target_packet: P6-DATA
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-DATA will remove the generated bold field-label pattern at the
+          generator, using genuine metadata tables or continuous prose rather
+          than bold pseudo-headings. A fail-closed Appendix-C check will reject
+          reintroduction of the known field-label forms, and both projections
+          will be regenerated together. No STYLE.md exception is created.
+        evidence:
+          - "source:scripts/build-appendix-c-views.R#compact_package-full_package-file_record_blocks"
+          - "audit:podaci-80-and-appendix-c-424-bold-field-labels"
+          - "rule:STYLE-H8"
 
   H-P6-STYLE-005:
     source_packet: P6-STYLE
@@ -14206,4 +14472,35 @@ packet_reviews:
       - H-P5-VERIFY-007 and H-P6-EVIDENCE-008 remain the sole existing clean-build and final Appendix-G owners and are not duplicated
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P6-DATA is the sole next permitted packet but is not claimed inside P6-STYLE
+      - no external message push merge tag archive deployment publication or release-proof claim is made or authorised
+  P6-DATA:
+    reviewed_at: "2026-08-31"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      P6-DATA found no new future-relevant effect without an existing owner.
+      H-P3-EXISTING-003 already assigns blocking catalogue/data fixture CI
+      wiring and clean-environment proof to P7-CLEAN-BUILD. H-P3-DZS-002
+      retains its separate P8-META delivery so no future attribution may invent
+      a Last-Modified value. The existing deliveries preserve both obligations;
+      a new handoff would duplicate their target, action and gate.
+    implementation_state: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
+    checks:
+      - the initial state was active null last P6-STYLE next P6-DATA and all seven before-start deliveries were terminal before claim
+      - all eight before-close deliveries were acknowledged before substantive work and consumed separately only after their exact final-state evidence existed
+      - author Luka Sikic approved both P6-DATA dispositions on 2026-08-31 without granting or implying rights-holder permission
+      - UCBAdmissions and anscombe remain external-only unpromoted without local files and local redistribution is deferred_v2_with_reason
+      - DZS source_last_modified remains null while the retrieval date and latest published observation are the approved first-edition substitutes
+      - the report contains separate source-anchored rows for all 20 packages and the 19-unit chapter-metadata and AI-export reconciliation
+      - exact packet-to-source consumer mapping has zero undeclared or stale manuscript consumers including rjesenja.qmd
+      - both generated catalogue views and the route artifact regenerate from the canonical catalogue with zero H8 pseudo-headings and verified Croatian reader text
+      - the six promoted packages retain all 22 checked snapshots exact local routes travelling notices and public downloads
+      - DZS arrivals remain distinct from persons and survey estimates while suppression absence and zero semantics remain distinct
+      - four DIP two provider/state-aid legal clusters are narrowed to their own observable evidence without an invented law regulator title link version or permission
+      - catalogue data integrity Appendix C DIP ESS Eurostat ParlaSent citation and manuscript checks pass on the declared state
+      - all 57 data negative fixtures including removal of either author disposition fail closed for their own injected defect
+      - full project rendering and blocking CI coverage are not claimed and remain with their existing P7 owners
+      - no new outgoing handoff is required because H-P3-EXISTING-003 and the P8-META delivery of H-P3-DZS-002 already own every observed downstream effect
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P6-PANELS is the sole next permitted packet but is not claimed inside P6-DATA
       - no external message push merge tag archive deployment publication or release-proof claim is made or authorised

@@ -13,6 +13,8 @@ njezino spremanje ili redistribuciju.
 | `widgets.json` | održava se ručno; jedini popis widgeta | da |
 | `*-mreze*.csv`, `*-medija*.csv` | snimke generiranih nastavnih skupova; piše ih `scripts/build-data-snapshots.R` | da, uz kontrolni zbroj u katalogu |
 | `dzs-*.csv` | omeđeni izvadak DZS-ove baze turizma; piše ga `scripts/build-dzs-extracts.py` | da, uz kontrolni zbroj u katalogu |
+| `eurostat-drustvo-2025.csv` | omeđeni Eurostatov izvadak; piše ga `scripts/build-eurostat-extracts.py` | da, uz kontrolni zbroj u katalogu |
+| `parlament_oznake.csv` | hrvatski rez skupa ParlaSent; piše ga `scripts/build-text-package.py` | da, uz kontrolni zbroj u katalogu |
 | `digikat-*.csv` | izvadak agregata projekta DigiKat; piše ga `scripts/build-digikat-extracts.R` | da, uz kontrolni zbroj u katalogu |
 | `rdp-potpore-*.csv`, `bdp-hrvatska-*.csv` | izvadak agregata projekta CroAIcon; piše ih `scripts/build-croaicon-extracts.py` | da, uz kontrolni zbroj u katalogu |
 | `*.LICENCA.md` | obavijest o licenci koja putuje uz svaku snimku | da |
@@ -34,6 +36,27 @@ zbog jamovija, tiska i preuzimanja, a ne zato da bi zamijenile generator:
 |---|---|---|---|
 | `anketa_mreze` | `anketa-mreze.csv` | `anketa-mreze-agregat.csv` | `anketa-mreze.LICENCA.md` |
 | `populacija_medija` | `populacija-medija.csv` | `populacija-medija-agregat.csv` | `populacija-medija.LICENCA.md` |
+
+Katalog trenutačno promiče točno šest paketa. Svi su u traci `bundled`, a
+svaka datoteka ima kontrolni zbroj, putovnicu ili obavijest uz snimku i
+imenovani paket koji je donio odluku o promociji. Tehnička dostupnost drugih
+paketa ne dodaje ih ovomu popisu.
+
+| Paket | Promovirao | Lokalne datoteke | Obavijest uz snimku |
+|---|---|---|---|
+| `anketa_mreze` | `P3-EXISTING` | `anketa-mreze.csv`, `anketa-mreze-agregat.csv` | `anketa-mreze.LICENCA.md` |
+| `populacija_medija` | `P3-EXISTING` | `populacija-medija.csv`, `populacija-medija-agregat.csv` | `populacija-medija.LICENCA.md` |
+| `dzs_turizam` | `P3-DZS` | četiri datoteke `dzs-*.csv` | `dzs-turizam.LICENCA.md` |
+| `eurostat_drustvo` | `P3-EUROSTAT` | `eurostat-drustvo-2025.csv` | `eurostat-drustvo.LICENCA.md` |
+| `parlasent` | `P3-TEXT` | `parlament_oznake.csv` | `parlament-oznake.LICENCA.md` |
+| `digikat_mediji` | `P3-DIGIKAT` | tri datoteke `digikat-*.csv` | `digikat-mediji.LICENCA.md` |
+
+DZS-ov paket čuva odvojene semantike administrativnih dolazaka i anketnih
+putovanja. Eurostatov paket čuva točan odabrani pokazatelj, prostorni obuhvat,
+godinu i statusne oznake, a ParlaSent čuva hrvatski rez, izvornu podjelu i put
+oznake. Nijedan od ta tri puta ne dohvaća podatke tijekom rendera. Za DZS i DIP
+nije traženo ni dobiveno zasebno dopuštenje nositelja prava; katalog primjenjuje
+objavljene uvjete i ne tvrdi drukčije.
 
 Uz njih od 5. kolovoza 2026. stoje i tri paketa izvedena iz autorovih vanjskih
 projekata. Sva tri su prijavljena. `digikat_mediji` promoviran je paketom
@@ -66,7 +89,10 @@ kao mjerenje.
 Ugrađeni R skupovi `UCBAdmissions` i `anscombe` **nisu** ovdje i ne smiju biti.
 Njihova traka je `external-only` jer za same skupove ne postoji obavijest o
 redistribuciji: `datasets` pod R 4.6.0 nosi samo oznaku „Part of R 4.6.0”.
-Dostupnost kroz lokalnu instalaciju nije dopuštenje.
+Dostupnost kroz lokalnu instalaciju nije dopuštenje. Autor je 31. kolovoza
+2026. lokalnu redistribuciju obaju skupova označio
+`deferred_v2_with_reason`; neobvezna vanjska ruta i licencno čiste obvezne
+zamjene ostaju.
 
 Podaci koji opisuju pojedince ne ulaze ovamo bez anonimizacije, i ne ulaze u
 razgovor s AI asistentom ni tada (Dodatak F).

@@ -6,13 +6,13 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-26"
+  last_updated: "2026-08-31"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P6-STYLE"
-  next_permitted_packet: "P6-DATA"
+  last_completed_packet: "P6-DATA"
+  next_permitted_packet: "P6-PANELS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -3449,6 +3449,33 @@ decisions:
       reply, claim an author reading, widen source or content scope, or
       authorise push, merge, tag, archive, deployment, publication or any
       external action.
+  P6-DATA-AUTHOR-DISPOSITIONS:
+    status: "accepted"
+    accepted_at: "2026-08-31"
+    author_disposition: "approved_both_as_recommended"
+    author: "Luka Sikic"
+    evidence: "conversation:P6-DATA-both-dispositions-approved-2026-08-31-Luka-Sikic"
+    accepted_dispositions:
+      ucb_and_anscombe_redistribution: >-
+        Mark local redistribution of UCBAdmissions and anscombe
+        deferred_v2_with_reason. Keep both packages external-only,
+        unpromoted and without local files; retain their optional local-R
+        routes and licence-cleared mandatory fallbacks. Technical access is
+        not redistribution authority and this disposition claims no
+        rights-holder permission.
+      dzs_last_modified_substitute: >-
+        For the first edition, accept the recorded retrieval date and latest
+        published observation per table as the two checkable substitutes for
+        the unavailable PxWeb Last-Modified field. Keep
+        source_last_modified null and state the gap openly. This is neither a
+        claim that a Last-Modified value is known nor a claim that separate
+        rights-holder permission was sought or obtained.
+    authority_boundary: >-
+      The decision closes only the two author-owned P6-DATA dispositions. It
+      promotes, retrieves and redistributes no dataset; changes no access
+      lane; grants no permission; authorises no P6-PANELS work inside
+      P6-DATA; and authorises no push, merge, tag, archive, deployment,
+      publication or other external action.
 atomic_inventory:
   status: "complete"
   completion_packet: "P0-REGISTER"
@@ -17518,7 +17545,7 @@ packets:
     sequence: 166
     phase: "6"
     kind: "whole_book_review"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P6-STYLE"
       - "P5-C"
@@ -17530,13 +17557,65 @@ packets:
       - "The review covers the final material state across all affected units."
       - "Fatal and major findings are resolved before downstream release proof."
       - "The P6-DATA packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
+      required_evidence:
+        - requirement: "whole-book source-anchor matrix"
+          artifacts:
+            - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
+            - "matrix:20-packages-six-promoted-three-access-lanes-22-snapshots"
+            - "matrix:19-unit-chapter-metadata-and-AI-export-reconciliation"
+        - requirement: "post-change reviewer evidence"
+          artifacts:
+            - "report:notes/reports/p6-data-2026-08-31.md#svježi-post-change-reviewerski-prolaz"
+            - "review:root-conductor-fresh-read-only-pass-on-all-20-packages-19-meta-records-and-generated-delta"
+            - "boundary:no-independent-human-or-terminology-review-claim"
+        - requirement: "resolved finding log"
+          artifacts:
+            - "report:notes/reports/p6-data-2026-08-31.md#razriješeni-i-otvoreni-nalazi"
+            - "resolved:F-P6D-001-through-F-P6D-011"
+            - "boundary:F-P6D-012-full-render-remains-P7-owned"
+      outputs:
+        - output: "P6-DATA final-state whole-book audit and dispositions for: Catalogue consumers, public downloads, metadata, and data evidence."
+          artifacts:
+            - "report:notes/reports/p6-data-2026-08-31.md"
+            - "registry:data/katalog.yml"
+            - "views:podaci.qmd-and-dodaci/c-katalog-podataka.qmd"
+            - "artifact:config/appendix-c-data-route.json"
+            - "decision:P6-DATA-AUTHOR-DISPOSITIONS"
+        - output: "Completion evidence is tied to the declared P6-DATA source state and bounded scope."
+          artifacts:
+            - "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
+            - "scope:95-files-39-public-pages-22-snapshots-34-governance-build-and-check-inputs"
+            - "boundary:no-full-render-no-CI-coverage-no-rights-permission-claim"
+      exit_tests:
+        - test: "The review covers the final material state across all affected units."
+          result: "passed"
+          evidence:
+            - "state:p6-data-state-sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
+            - "matrix:all-20-packages-all-39-public-pages-all-19-chapter-meta-records"
+            - "checks:catalogue-appendix-data-integrity-portals-Eurostat-ParlaSent-citations-manuscript"
+        - test: "Fatal and major findings are resolved before downstream release proof."
+          result: "passed"
+          evidence:
+            - "resolved:consumer-generated-view-legal-README-route-and-artifact-findings"
+            - "decision:UCBAdmissions-and-anscombe-deferred-v2-with-reason"
+            - "decision:DZS-two-substitutes-approved-with-null-Last-Modified-and-no-permission-claim"
+            - "boundary:full-render-and-CI-wiring-retain-existing-P7-owners"
+        - test: "The P6-DATA packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:KATALOG_OK-packages-20-promoted-6-bundled-9-portal-2-external-9-snapshots-22-rights-permission-claim-false"
+            - "check:APPENDIX_C_CHECK_OK-routes-20-of-20-h8-pseudo-headings-0-reader-diacritics-verified"
+            - "check:DATA_INTEGRITY_OK-rows-50300-snapshots-22-validated-22-undeclared-0"
+            - "fixtures:DATA_NEGATIVE_FIXTURES_OK-cases-57"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "whole_book_review"
     required_evidence:
       - "whole-book source-anchor matrix"
       - "post-change reviewer evidence"
       - "resolved finding log"
-    change_reference: null
+    change_reference: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
   P6-PANELS:
     sequence: 167
     phase: "6"
@@ -19072,8 +19151,6 @@ parents:
       - "R25-CATALOG-consumers"
       - "R25-EXISTING-anketa"
       - "R25-EXISTING-populacija"
-      - "R25-EXISTING-UCB"
-      - "R25-EXISTING-Anscombe"
       - "R25-CATALOG-public-views"
       - "R32-CATALOG-paired-views"
     completion_evidence: []
@@ -22655,7 +22732,7 @@ items:
       location: "§12 DZS"
     description: "Build bounded BS_TU11 monthly/national, BS_TU12 county, and T01–T03 long extracts with totals and suppression semantics."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -22673,11 +22750,21 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-DZS"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-data-state-sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
+      - "source:data/katalog.yml#dzs_turizam"
+      - "notice:data/dzs-turizam.LICENCA.md"
+      - "decision:P6-DATA-AUTHOR-DISPOSITIONS-dzs-last-modified-substitute"
+      - "check:APPENDIX_C_CHECK_OK-dzs-admin-residual-0-dzs-survey-residual-1"
+      - "check:DATA_INTEGRITY_OK-snapshots-22-validated-22-reconciliations-10"
+      - "fixture:dzs-substitute-decision-missing-exit-1"
+      - "boundary:arrivals-not-persons-survey-not-administrative-suppression-not-zero"
+      - "boundary:source-last-modified-null-no-permission-claim"
+      - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
   R08-DZS-second-domain:
     parents:
       - "R08"
@@ -23491,7 +23578,7 @@ items:
       location: "§12 minimal release"
     description: "Verify the bounded first portfolio across every promised route before any second wave."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -23512,11 +23599,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-DATA"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-data-state-sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
+      - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
+      - "matrix:six-promoted-packages-22-local-snapshots-and-20-of-20-public-routes"
+      - "check:KATALOG_OK-packages-20-promoted-6-snapshots-22"
+      - "check:APPENDIX_C_CHECK_OK-routes-20-of-20-readme-canonical"
+      - "check:DATA_INTEGRITY_OK-snapshots-22-validated-22-undeclared-0"
+      - "audit:11-of-11-public-http-routes-status-200"
+      - "boundary:no-full-render-or-blocking-CI-coverage-claim"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
   R09-C02-randomisation:
     parents:
       - "R09"
@@ -32131,7 +32226,7 @@ items:
       location: "§9/§12"
     description: "Reconcile declared consumers with actual source use."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -32151,11 +32246,19 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-DATA"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-data-state-sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
+      - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
+      - "source:data/katalog.yml#consumer-markers-and-consumer-sources"
+      - "check:scripts/check-katalog.py-exact-packet-to-source-mapping"
+      - "check:DATA_INTEGRITY_OK-undeclared-0"
+      - "fixture:consumer-packet-without-source-exit-1"
+      - "result:rjesenja-qmd-declared-for-populacija-medija"
+      - "result:no-undeclared-actual-or-unused-declared-consumer-remains"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
   R25-EXISTING-anketa:
     parents:
       - "R25"
@@ -32279,8 +32382,13 @@ items:
       reconcile the outcome rather than as an authority to promote.
     closure_packet: "P6-DATA"
     closure_handoff: "H-P3-EXISTING-001"
-    disposition: "accepted_first_edition"
-    status: "ratified"
+    disposition: "deferred_v2_with_reason"
+    disposition_reason: >-
+      Author Luka Sikic approved deferral on 2026-08-31 because authoritative
+      dataset-specific redistribution evidence is absent. The external-only
+      optional R route and licence-cleared mandatory fallback remain; no local
+      snapshot or permission claim is permitted in the first edition.
+    status: "deferred_v2_with_reason"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -32297,11 +32405,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EXISTING"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:P6-DATA-AUTHOR-DISPOSITIONS-ucb-and-anscombe-redistribution"
+      - "conversation:P6-DATA-both-dispositions-approved-2026-08-31-Luka-Sikic"
+      - "source:data/katalog.yml#ucbadmissions-external-only-promoted-false-files-empty"
+      - "source:data/README.md#external-only-landmarks"
+      - "fixture:missing-author-defer-exit-1"
+      - "boundary:technical-access-is-not-redistribution-authority"
+      - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
   R25-EXISTING-Anscombe:
     parents:
       - "R25"
@@ -32329,8 +32444,13 @@ items:
       deferred_v2_with_reason.
     closure_packet: "P6-DATA"
     closure_handoff: "H-P3-EXISTING-001"
-    disposition: "accepted_first_edition"
-    status: "ratified"
+    disposition: "deferred_v2_with_reason"
+    disposition_reason: >-
+      Author Luka Sikic approved deferral on 2026-08-31 because authoritative
+      dataset-specific redistribution evidence is absent. The external-only
+      optional R route and licence-cleared mandatory fallback remain; no local
+      snapshot or permission claim is permitted in the first edition.
+    status: "deferred_v2_with_reason"
     owner: "codex_data_package_owner"
     approval_owner: "author_editor_and_relevant_evidence_or_data_owner"
     scope:
@@ -32347,11 +32467,18 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P3-EXISTING"
-    completion_evidence: []
+    completion_evidence:
+      - "decision:P6-DATA-AUTHOR-DISPOSITIONS-ucb-and-anscombe-redistribution"
+      - "conversation:P6-DATA-both-dispositions-approved-2026-08-31-Luka-Sikic"
+      - "source:data/katalog.yml#anscombe-external-only-promoted-false-files-empty"
+      - "source:data/README.md#external-only-landmarks"
+      - "fixture:missing-author-defer-exit-1"
+      - "boundary:technical-access-is-not-redistribution-authority"
+      - "report:notes/reports/p6-data-2026-08-31.md#izvorišna-matrica-20-kataloških-paketa"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932"
   R25-CATALOG-public-views:
     parents:
       - "R25"

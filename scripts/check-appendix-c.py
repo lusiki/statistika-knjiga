@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Provjeri P5-C: katalog, oba generirana prikaza, rutu i rucne provjere."""
+"""Provjeri P6-DATA: katalog, oba generirana prikaza, rutu i rucne provjere."""
 
 from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -89,8 +90,8 @@ def copy_into(stage: Path, relative: str) -> None:
 def check_artifact_contract(artifact: dict) -> None:
     if artifact.get("schema_version") != "appendix-c-data-route-v1":
         fail("pogrešna je inačica route artefakta")
-    if artifact.get("packet") != "P5-C":
-        fail("route artefakt nije vezan uz P5-C")
+    if artifact.get("packet") != "P6-DATA":
+        fail("route artefakt nije vezan uz P6-DATA")
 
     source = artifact.get("canonical_catalogue", {})
     if source.get("path") != "data/katalog.yml":
@@ -263,6 +264,33 @@ def check_routes_and_links(artifact: dict, public: str, appendix: str) -> None:
                 fail(f"lokalna poveznica ne postoji u {path.name}: {target}")
 
 
+def check_projection_style(public: str, appendix: str) -> None:
+    pseudo_heading = re.compile(
+        r"\*\*(?:Identifikator|Pitanje|Status(?: i pristup)?|Datoteke|"
+        r"Dizajn|Domena|Jedinica|Uloga|Potrošači|Traka|Inačica|Izvor|"
+        r"Licenca|Atribucija|Pristup|Redistribucija|Zakonita zamjena|"
+        r"Putovnica|Obavijest uz snimku|Uloga i opseg|Varijable)\.\*\*"
+    )
+    ascii_croatian = re.compile(
+        r"\b(?:citatelj|Citatelj|citanje|drustven[a-z]*|izmedju|medju|mreze|"
+        r"mjesecni|mrezama|odredjuje|opazanj[a-z]*|podrucje|pogres[a-z]*|pojedinac[a-z]*|"
+        r"razlicit[a-z]*|recenic[a-z]*|sazetcima|sluzben[a-z]*|sto|tocno|uci|uopce|vec|vise)\b"
+    )
+    for path, source in ((PUBLIC, public), (APPENDIX, appendix)):
+        match = pseudo_heading.search(source)
+        if match:
+            fail(f"{path.name} ima H8 poljski pseudonaslov: {match.group(0)}")
+        visible = re.sub(r"`[^`]*`", "", source)
+        visible = re.sub(r"\]\([^)]+\)", "]", visible)
+        visible = re.sub(r"\{#[^}]+\}", "", visible)
+        visible = re.sub(r"@[a-z0-9-]+", "", visible)
+        match = ascii_croatian.search(visible)
+        if match:
+            fail(f"{path.name} ima ASCII hrvatski u čitateljskom tekstu: {match.group(0)}")
+        if "rećeni" in visible:
+            fail(f"{path.name} ima neispravno obnovljenu riječ s nizom rećeni")
+
+
 def check_readme(artifact: dict) -> None:
     readme = README.read_text(encoding="utf-8")
     expected = {
@@ -270,12 +298,24 @@ def check_readme(artifact: dict) -> None:
         for record in artifact.get("readme_status", [])
     }
     if expected != {
+        "anketa_mreze": (True, "P3-EXISTING"),
+        "populacija_medija": (True, "P3-EXISTING"),
+        "dzs_turizam": (True, "P3-DZS"),
+        "eurostat_drustvo": (True, "P3-EUROSTAT"),
+        "parlasent": (True, "P3-TEXT"),
         "digikat_mediji": (True, "P3-DIGIKAT"),
         "rdp_potpore": (False, None),
         "bdp_dugi_niz": (False, None),
     }:
-        fail("route artefakt ne čuva kanonske statuse triju izvedenih paketa")
+        fail("route artefakt ne čuva kanonske statuse promoviranih i izvedenih paketa")
     for fragment in (
+        "Katalog trenutačno promiče točno šest paketa.",
+        "| `anketa_mreze` | `P3-EXISTING` |",
+        "| `populacija_medija` | `P3-EXISTING` |",
+        "| `dzs_turizam` | `P3-DZS` |",
+        "| `eurostat_drustvo` | `P3-EUROSTAT` |",
+        "| `parlasent` | `P3-TEXT` |",
+        "| `digikat_mediji` | `P3-DIGIKAT` |",
         "`digikat_mediji` promoviran je paketom",
         "`P3-DIGIKAT`",
         "`rdp_potpore` i `bdp_dugi_niz` nisu promovirani",
@@ -334,6 +374,15 @@ def main() -> None:
     public = PUBLIC.read_text(encoding="utf-8")
     appendix = APPENDIX.read_text(encoding="utf-8")
 
+    fixture = os.environ.get("APPENDIX_C_NEGATIVE_FIXTURE")
+    if fixture == "bold_pseudo_heading":
+        public += "\n**Identifikator.** neispravan prikaz.\n"
+    elif fixture == "ascii_reader_prose":
+        appendix += "\nCitatelj uci sto prikaz tvrdi.\n"
+    elif fixture:
+        fail(f"nepoznata negativna fixture varijanta: {fixture}")
+
+    check_projection_style(public, appendix)
     check_artifact_contract(artifact)
     check_aggregate_contract(artifact, public, appendix)
     check_dzs(artifact, public, appendix)
@@ -345,6 +394,7 @@ def main() -> None:
         "APPENDIX_C_CHECK_OK "
         "catalogue=verified regeneration=2/2 clean_pathway=verified "
         "routes=20/20 xrefs=verified local_links=verified "
+        "reader_diacritics=verified h8_pseudo_headings=0 "
         "aggregate_rows=9 shares=14 means=23 "
         "dzs_admin_residual=0 dzs_survey_residual=1 "
         "readme=canonical print_tables=present"
