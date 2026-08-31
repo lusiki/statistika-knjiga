@@ -4,13 +4,13 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P6-DATA
-next_permitted_packet: P6-PANELS
+last_completed_packet: P6-PANELS
+next_permitted_packet: P6-ARC
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
-forward_handoffs: 142
+forward_handoffs: 146
 last_updated: "2026-08-31"
 ---
 
@@ -84,6 +84,7 @@ stop and repair the control state before editing book content.
 | P6-FIGURES | Accepted on `p6-figures-state:sha256-1dc8a87735af2d502cdff62d6fe5447db54c820dcb67b4d7fc70dd9eedde9817`; all 43 conceptual figures, captions, alt descriptions and 17 widget/static-print pairs pass separate source-anchored checks, the Chapter 16 D10 reminder remains, seven normal streams have exact contracts and unchanged tolerances, and no project-artifact or release proof is claimed |
 | P6-STYLE | Accepted on `p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282`; all 39 canonical pages have distinct deterministic and manual H1–H10 rows, 38 ordinary pages have zero lint candidates, generated solution/catalogue findings have explicit later owners, and six final critics independently reproduce the 64-file state |
 | P6-DATA | Accepted on `p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932`; all 20 packages, 39 public pages, 19 chapter-meta records and 22 snapshots reconcile; six promotions and 20/20 routes pass, all 15 incoming deliveries are terminal, UCB/Anscombe are author-deferred for local redistribution, the DZS substitute is author-approved without a Last-Modified or permission claim, and 57 data fixtures fail closed |
+| P6-PANELS | Accepted on `p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29`; all 19 chapters and nine standalone reader units have six independent perspectives after their last material change, Chapter 06 returns to `coauthor_review`, all four interface defects are repaired, no fatal or major in-scope finding remains, and four explicit handoffs preserve evidence, arc and methods dissent |
 | Gate A3-DIGIKAT | Accepted as recommended with a latest-possible-snapshot directive: the three-file `digikat_mediji` aggregate, CC BY 4.0 rights confirmed explicitly, three verified defects bound to `P3-DIGIKAT`, a named substitute for official reconciliation, `digikat_akteri` closed as abandoned, and named-actor tables excluded as a permanent rule; owner Luka Sikic; 2026-08-10 |
 | Gate A3-EUROSTAT | Accepted as recommended: six 2025 indicators for all EU-27 and `WB-C06`; official reuse terms, exact attribution/disclaimer text and the third-party-exception test; one author-approved bounded official retrieval outside rendering with query, source response, date, checksums and reconciliation retained; owner Luka Sikic; 2026-08-10 |
 | Gate A3-ESS | Accepted as recommended: ESS Round 11 edition 3.0, Croatia-only subset, exact identity/design/teaching variables, `anweight` default, bounded vote question, consumers `WC-C08` and `WD-C13`–`WD-C16`; portal-mediated, optional and unpromoted; synthetic mandatory Chapter 8 weighted table; rights ask remains open and bundling prohibited; owner Luka Sikic; 2026-08-11 |
@@ -100,19 +101,19 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | None; P6-DATA released the sole write lock after all 15 deliveries became terminal and all exit tests passed |
-| Last completed packet | `P6-DATA`; accepted on the exact 95-file state after both author-owned dispositions, the 20-package/source matrix and all data checks were recorded |
-| Next permitted packet | `P6-PANELS` only; it is not claimed |
+| Active write packet | None |
+| Last completed packet | `P6-PANELS`; accepted on the final 136-file material state after all six critics read every applicable last state |
+| Next permitted packet | `P6-ARC` only; it is not claimed |
 | Review parents | 27 ratified; 9 accepted |
-| Atomic child inventory | Complete: 371 stable children; 341 accepted, 7 deferred with reason and 23 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 159 accepted, 29 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 342 accepted, 7 deferred with reason and 22 ratified pending their later gates; zero unmapped |
+| Exact packet catalogue | 189 packets: 160 accepted, 28 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
-| Chapter stages | 1 `draft`; `00-predgovor`, `01-zasto-statistika`, `02-mjerenje-i-dizajn`, `03-kako-brojke-zavode`, `04-sazimanje-podataka`, `05-vizualizacija`, `07-vjerojatnost`, `08-uzorkovanje`, `09-procjena`, `10-logika-testiranja`, `11-velicina-ucinka-i-snaga`, `12-kriza-i-obnova`, `13-kategoricki-podaci`, `14-dvije-grupe`, `15-vise-grupa`, `16-regresija`, `17-doba-algoritama` and `18-vase-prvo-istrazivanje` at `coauthor_review`; only `06-povezanost` remains deliberately `draft` under its separate WB-PART handoff |
+| Chapter stages | All 19 units are at `coauthor_review`; `06-povezanost` returned from `draft` only after a fresh six-role panel on its final SHA-256, with no claim of a new author reading or `final` status |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
-| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` were revalidated evidence-only and remain accepted. WB-PART materially changed the accepted C06 source, so only `06-povezanost` returned to `draft`; `H-WB-PART-001` requires a fresh final-state C06 panel in `P6-PANELS` |
+| Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` remain revalidated. The WB-PART invalidation is now consumed: final Chapter 06 SHA-256 `0af303f…e729e` has all six perspectives, zero fatal/major findings and stage `coauthor_review` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | None in `P1-VERIFY`. P6-DATA resolved its P5-C invalidation, undeclared `rjesenja.qmd` consumer, three legal-source clusters and both generated-catalogue style findings without claiming a full render or CI wiring. P6-PANELS owns two AI overclaims, generated solution-register language and the interaction-hub code promise; P6-ARC owns the final 16-advisory and whole-book re-review; P6-METHODS owns the generated name form. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
+| Failed gates | P6-PANELS has no unresolved fatal or major in-scope finding. P6-ARC owns whole-book voice/recurrence dissent through `H-P6-PANELS-003`; P6-METHODS owns five methods-precision minors plus the generated name form; P6-VERIFY owns the RDP/BDP consent-record contradiction and local solution citations through `H-P6-PANELS-001` and `002`. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7807,6 +7808,45 @@ the durable evidence is
   and `P6-PANELS` alone is next without being claimed. No push, merge, tag,
   archive, deployment or publication is authorised.
 
+## P6-PANELS claim and closeout
+
+- Five required `before_start` deliveries were terminal before the claim:
+  `H-P6-EVIDENCE-009`, `H-P6-STYLE-001`, `002`, `005` and `008`. The two
+  required `before_close` deliveries, `H-P0-REGISTER-006` and
+  `H-WB-PART-001`, were acknowledged before substantive work and consumed
+  separately only after final-state evidence existed.
+- The initial parallel panel read all 19 chapters and nine standalone reader
+  units on `sha256-8867abc3…`. Every later material edit received a complete
+  six-role reread on `sha256-f68183ea…`; the final solution-route change
+  received another full-file six-role reread. Mechanical echo-only changes in
+  Chapters 02 and 11 received only the invalidated deterministic reruns, as the
+  incoming contract requires.
+- The final material state is
+  `p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29`.
+  Six separate critic reports and the synthesis preserve per-lens findings;
+  no disagreement is averaged away.
+- Chapter 06 final SHA-256 `0af303f1…e729e` has zero fatal and zero major
+  findings across all six roles. It returns only to `coauthor_review`, with
+  two nonblocking minors and no claim that the author reread it or that it is
+  final.
+- Both Uči uz AI universal product claims are narrowed to a human verification
+  workflow. The interactions hub now states the actual H10 progression. The
+  canonical solution generator produces 95 H2 task routes, 0 H3 and 0 bold
+  pseudo-headings while preserving 95 public and 95 protected projections,
+  stable IDs, 380 rubric rows and zero public leaks.
+- Four outgoing handoffs retain every future effect: the RDP/BDP consent-record
+  contradiction and local solution citations go to P6-VERIFY; voice,
+  recurrence and local style dissent goes to P6-ARC; methods-precision minors
+  go to the author's own P6-METHODS review. No handoff claims rights-holder
+  permission or an independent terminology review.
+- Solution, pathway, assessment, manuscript, citation, spine, inventory,
+  architecture and figure-introduction checks pass. The workflow checker and
+  all three workflow negative fixtures pass closed. A stalled targeted Quarto
+  attempt is not claimed as render or release proof.
+- The lock is released and `P6-ARC` alone is next without being claimed. No
+  external message, push, merge, tag, archive, deployment, publication or
+  release proof is authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7829,45 +7869,31 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P6-DATA` and
-`next_permitted_packet: P6-PANELS`. Confirm that P6-DATA closed only on
-`p6-data-state:sha256-d97769a70d73c4432b9078447e20640473a89d4fded174acc8a305f010dc2932`,
-that all 15 incoming deliveries are terminal, both author dispositions are
-recorded without a rights-permission claim, all 20 packages and 22 snapshots
-reconcile, and P6-PANELS was not claimed inside the closeout.
+Verify `active_write_packet: null`, `last_completed_packet: P6-PANELS` and
+`next_permitted_packet: P6-ARC`. Confirm that P6-PANELS closed only on
+`p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29`,
+that all seven incoming deliveries are terminal, all 19 chapters have six
+perspectives after their last material change, Chapter 06 is only at
+`coauthor_review`, all four interface defects are resolved, four outgoing
+handoffs are recorded, and P6-ARC was not claimed inside the closeout.
 
-Claim and execute only `P6-PANELS` under its `whole_book_review` contract.
-Fully read its packet record, the prior panel evidence for every changed unit,
-the live chapter ledger and spines, the full six role prompts, and every
-applicable incoming handoff. Five deliveries must be terminal before claim:
-`H-P6-EVIDENCE-009`, `H-P6-STYLE-001`, `H-P6-STYLE-002`,
-`H-P6-STYLE-005` and `H-P6-STYLE-008`. Two more must be separately consumed
-before closeout: `H-P0-REGISTER-006` and `H-WB-PART-001`.
+Claim and execute only `P6-ARC` under its `whole_book_review` contract. Fully
+read `H-P6-CONTINUITY-007`, `H-P6-STYLE-006` and the new
+`H-P6-PANELS-003`; all three must be terminal before claim. Read the six P6
+critic reports and synthesis, but do not substitute chapter-panel agreement for
+the required whole-book voice and narrative-arc judgement.
 
-Prove that every substantively changed unit has all six independent critic
-perspectives against its last material state. Rerun the full parallel panel
-where P6-STYLE, P6-EVIDENCE, P6-FIGURES or P6-DATA changed material content;
-rerun only invalidated deterministic checks for mechanical changes. Wait for
-all six critics and preserve disagreements in the synthesis rather than
-averaging them away.
-
-Chapter 06-povezanost is the one unit still at draft because WB-PART appended
-the Part II verification-receipt bridge after its earlier panel and author
-decision. Run a fresh full six-critic panel on the current file and then record
-the correct stage or the exact remaining blocker; do not claim that the author
-read it or silently reuse the stale panel.
-
-Separately settle the four interface claims carried by H-P6-STYLE-001, -002,
--005 and -008: the Uči uz AI capacity/accuracy and categorical assistant
-claims, the D06 generated solution route's mass field labels and leaked English
-maintainer text, and the interactions-hub promise that code opens inside a
-Part I chapter despite the ratified H10 progression. Preserve protected/public
-solution boundaries and do not add visible code to Part I merely to satisfy the
-hub sentence.
+Read the book as one object from the preface through Chapter 18. Verify that
+the voice holds, the three identity chapters sound like the same author, the
+four promises arrive in their stated order, and each recurrence of Berkeley,
+Anscombe, ASA, the poll card and AI boxes asks a new question. Reassess all 16
+S7 advisories together with the retained Chapter 05, 06, 08 and 18,
+interaction-hub, Appendix-A and solution-route dissent. Preserve disagreements
+as explicit editorial trade-offs; restructure only where the final arc fails.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger, dashboard and only
 approved mutable Bookwright state together; run the workflow checker and all
-three workflow negative fixtures; close and locally commit P6-PANELS; then
-stop. Do not claim P6-ARC, push, merge, tag, archive, deploy or publish.
+three workflow negative fixtures; close and locally commit P6-ARC; then stop.
+Do not claim P6-METHODS, push, merge, tag, archive, deploy or publish.
 ```

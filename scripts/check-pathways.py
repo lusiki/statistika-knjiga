@@ -60,38 +60,82 @@ def profile_projection(lines: list[str], profile: str | None) -> str:
     return "\n".join(output)
 
 
-def component_strings(record: dict[str, Any]) -> tuple[list[str], list[str]]:
+def component_strings(record: dict[str, Any], generator: Any) -> tuple[list[str], list[str]]:
     answer = record["answer_components"]
+    record_id = record["record_id"]
     public: list[str] = []
     planted = answer["planted_error"]
     if planted["applicable"]:
-        public.extend([planted["statement"], planted["why_wrong"]])
+        public.extend([
+            generator.reader_text(planted["statement"], record_id, "planted.statement"),
+            generator.reader_text(planted["why_wrong"], record_id, "planted.why_wrong"),
+        ])
     diagnostic = answer["revealing_diagnostic"]
     if diagnostic["applicable"]:
-        public.extend([diagnostic["procedure"], diagnostic["expected_evidence"]])
+        public.extend([
+            generator.reader_text(diagnostic["procedure"], record_id, "diagnostic.procedure"),
+            generator.reader_text(
+                diagnostic["expected_evidence"], record_id, "diagnostic.expected_evidence"
+            ),
+        ])
     non_answers = answer["plausible_non_answers"]
     if non_answers["applicable"]:
-        for item in non_answers["responses"]:
-            public.extend([item["response"], item["why_insufficient"]])
+        for index, item in enumerate(non_answers["responses"]):
+            public.extend([
+                generator.reader_text(item["response"], record_id, f"nonanswers.{index}.response"),
+                generator.reader_text(
+                    item["why_insufficient"], record_id, f"nonanswers.{index}.reason"
+                ),
+            ])
     model = answer["model_response_components"]
     if model["applicable"]:
-        for item in model["components"]:
-            public.extend([item["required_claim"], item["required_evidence"]])
+        for index, item in enumerate(model["components"]):
+            public.extend([
+                generator.reader_text(item["required_claim"], record_id, f"components.{index}.claim"),
+                generator.reader_text(
+                    item["required_evidence"], record_id, f"components.{index}.evidence"
+                ),
+            ])
     numerical = answer["numerical_check"]
     if numerical["applicable"]:
         public.extend([
-            numerical["expected_result"],
-            numerical["tolerance_or_acceptance_rule"],
-            numerical["independent_method"],
-            numerical["evidence_reference"],
+            generator.reader_text(
+                numerical["expected_result"], record_id, "numerical.expected_result"
+            ),
+            generator.reader_text(
+                numerical["tolerance_or_acceptance_rule"], record_id, "numerical.acceptance_rule"
+            ),
+            generator.reader_text(
+                numerical["independent_method"], record_id, "numerical.independent_method"
+            ),
+            generator.reader_text(
+                numerical["evidence_reference"], record_id, "numerical.evidence_reference"
+            ),
         ])
 
     protected: list[str] = []
-    for criterion in answer["severity_ranked_rubric"]["criteria"]:
-        protected.extend([criterion["description"], criterion["observable_evidence"]])
-    for alternative in record["alternatives"]:
-        protected.extend([alternative["description"], alternative["acceptance_boundary"]])
-    protected.extend(record["instructor_notes"])
+    for index, criterion in enumerate(answer["severity_ranked_rubric"]["criteria"]):
+        protected.extend([
+            generator.reader_text(criterion["description"], record_id, f"rubric.{index}.description"),
+            generator.reader_text(
+                criterion["observable_evidence"], record_id, f"rubric.{index}.observable_evidence"
+            ),
+        ])
+    for index, alternative in enumerate(record["alternatives"]):
+        protected.extend([
+            generator.reader_text(
+                alternative["description"], record_id, f"alternatives.{index}.description"
+            ),
+            generator.reader_text(
+                alternative["acceptance_boundary"],
+                record_id,
+                f"alternatives.{index}.acceptance_boundary",
+            ),
+        ])
+    protected.extend(
+        generator.reader_text(note, record_id, f"instructor_notes.{index}")
+        for index, note in enumerate(record["instructor_notes"])
+    )
     return public, protected
 
 
@@ -236,7 +280,7 @@ def main() -> int:
         public_text = normalize(profile_projection(route_lines, None))
         kolegij_text = normalize(profile_projection(route_lines, "kolegij"))
         for _, record in records:
-            public_strings, protected_strings = component_strings(record)
+            public_strings, protected_strings = component_strings(record, generator)
             for value in public_strings:
                 check(normalize(value) in public_text, f"javna projekcija nema sastavnicu {record['record_id']}")
             for value in protected_strings:

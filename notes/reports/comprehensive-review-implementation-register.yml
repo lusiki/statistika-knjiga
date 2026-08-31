@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P6-DATA"
-  next_permitted_packet: "P6-PANELS"
+  last_completed_packet: "P6-PANELS"
+  next_permitted_packet: "P6-ARC"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17620,7 +17620,7 @@ packets:
     sequence: 167
     phase: "6"
     kind: "whole_book_review"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P6-DATA"
     scope: "Fresh six-critic panel after every last material chapter change."
@@ -17631,13 +17631,62 @@ packets:
       - "The review covers the final material state across all affected units."
       - "Fatal and major findings are resolved before downstream release proof."
       - "The P6-PANELS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29"
+      required_evidence:
+        - requirement: "whole-book source-anchor matrix"
+          artifacts:
+            - "report:notes/reports/p6-panels-2026-08-31.md#izvorna-matrica-19-poglavlja"
+            - "matrix:19-chapters-six-perspectives-final-source-sha256"
+            - "matrix:nine-standalone-reader-units-final-source-sha256"
+        - requirement: "post-change reviewer evidence"
+          artifacts:
+            - "reports:notes/reports/p6-panels-critic-methods-2026-08-31.md-through-p6-panels-critic-structure-2026-08-31.md"
+            - "review:initial-full-six-role-panel-rerun-on-every-material-delta-and-final-rjesenja-full-file"
+            - "boundary:mechanical-echo-only-ch02-ch11-deterministic-rerun"
+        - requirement: "resolved finding log"
+          artifacts:
+            - "report:notes/reports/p6-panels-2026-08-31.md#razrijeseni-veliki-nalazi"
+            - "resolved:all-in-scope-fatal-and-major-findings"
+            - "handoffs:H-P6-PANELS-001-through-H-P6-PANELS-004"
+      outputs:
+        - output: "P6-PANELS final-state whole-book audit and dispositions for: Fresh six-critic panel after every last material chapter change."
+          artifacts:
+            - "report:notes/reports/p6-panels-2026-08-31.md"
+            - "reports:notes/reports/p6-panels-critic-methods-2026-08-31.md-through-p6-panels-critic-structure-2026-08-31.md"
+            - "ledger:bookwright_plugin/bookwright/shared/chapter-ledger.json#06-povezanost-stage-coauthor_review"
+        - output: "Completion evidence is tied to the declared P6-PANELS source state and bounded scope."
+          artifacts:
+            - "p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29"
+            - "scope:136-material-files-19-chapters-nine-standalone-reader-units-six-critic-roles"
+            - "boundary:no-full-render-clean-build-CI-release-rights-permission-or-independent-terminology-review-claim"
+      exit_tests:
+        - test: "The review covers the final material state across all affected units."
+          result: "passed"
+          evidence:
+            - "state:p6-panels-state-sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29"
+            - "matrix:all-19-chapters-and-nine-standalone-reader-units"
+            - "rerun:all-material-deltas-six-roles-final-rjesenja-six-full-file-reads"
+        - test: "Fatal and major findings are resolved before downstream release proof."
+          result: "passed"
+          evidence:
+            - "resolved:all-in-scope-fatal-and-major-findings"
+            - "routed:RDP-BDP-consent-record-contradiction-to-P6-VERIFY"
+            - "boundary:no-downstream-release-proof-claimed"
+        - test: "The P6-PANELS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:SOLUTION_ROUTES_GENERATED_OK-records-95-units-19-public-95-protected-95-drift-0"
+            - "check:PATHWAYS_CHECK_OK-public-95-protected-95-xrefs-95-print-present"
+            - "check:ASSESSMENT_ARCHITECTURE_OK-protected-regions-101-strings-1166-public-leaks-0"
+            - "checks:manuscript-citations-spines-inventory-architecture-and-figure-introductions-pass"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "whole_book_review"
     required_evidence:
       - "whole-book source-anchor matrix"
       - "post-change reviewer evidence"
       - "resolved finding log"
-    change_reference: null
+    change_reference: "p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29"
   P6-ARC:
     sequence: 168
     phase: "6"
@@ -33425,7 +33474,7 @@ items:
       location: "§16 step 37"
     description: "Require a complete six-critic report after each chapter's last material change."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -33443,11 +33492,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-PANELS"
-    completion_evidence: []
+    completion_evidence:
+      - "report:notes/reports/p6-panels-2026-08-31.md"
+      - "reports:notes/reports/p6-panels-critic-methods-2026-08-31.md-through-p6-panels-critic-structure-2026-08-31.md"
+      - "matrix:all-19-substantively-changed-chapters-have-six-perspectives-after-last-material-change"
+      - "rerun:material-changes-full-six-role-mechanical-changes-invalidated-deterministic-only"
+      - "state:p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29"
   R31-BOOK-recurrence-rule:
     parents:
       - "R31"

@@ -30,6 +30,78 @@ TASK_LABELS = {
     "kriticki": "Kritički zadatak",
     "revizija_modela": "Revizija modela",
 }
+SEVERITY_LABELS = {
+    "fatal": "Presudni nedostatak",
+    "major": "Veliki nedostatak",
+    "minor": "Manji nedostatak",
+    "useful_improvement": "Korisno poboljšanje",
+}
+PROSE_OVERRIDES = {
+    ("sol-06-konceptualni-01", "numerical.expected_result"): (
+        "Glavni par ima 27 potpunih država. Par s ranim napuštanjem obrazovanja "
+        "ima najviše 26 jer je luksemburška vrijednost označena dvotočkom, dok "
+        "hrvatskih 2,1 uz status u ostaje uključeno."
+    ),
+    ("sol-09-racunski-01", "numerical.expected_result"): (
+        "Za A širina iznosi 0,619806421393 uz 3 promašaja. Za B širina iznosi "
+        "0,814602725259 uz 0 promašaja. Za C širina iznosi 0,309903210697 uz 1 "
+        "promašaj. Analitička datoteka ima 50000 redaka; portal ima 15101 redak "
+        "od ukupno 50000, zbroj povjerenja 72101, udio 15101/50000 = 0,30202 i "
+        "prosjek 72101/15101 = 4,7745844646."
+    ),
+    ("sol-14-racunski-01", "numerical.expected_result"): (
+        "Za televiziju vrijedi 58098/10827 = 5,366029371017, a za društvene "
+        "mreže 54432/13378 = 4,068769621767. Televizija minus društvene mreže "
+        "iznosi 1,297259749250 boda; d uz SD 1,6 = 0,810787343281, a d uz SD "
+        "3,2 = 0,405393671641."
+    ),
+    ("sol-15-kriticki-01", "numerical.expected_result"): (
+        "Za televiziju vrijedi 58098/10827 = 5,366029371017, a za društvene "
+        "mreže 54432/13378 = 4,068769621767. Populacijska razlika televizije i "
+        "društvenih mreža iznosi 1,297259749250 boda. Sud o važnosti ovisi o "
+        "unaprijed zapisanu pragu, a ne o naknadnom prilagođavanju praga rezultatu."
+    ),
+    ("sol-16-callout-greska-01", "numerical.expected_result"): (
+        "Obje prijavljene veličine pripadaju istih n redaka skupa za učenje. "
+        "R-kvadrat je 1 − SSE/SST na tom skupu, a `pogreska` je sqrt(SSE/n) iz "
+        "istih reziduala. Nula redaka odvojene provjere ulazi u račun."
+    ),
+    ("sol-16-kriticki-01", "instructor_notes.0"): (
+        "Ne zahtijevati račun apsolutne vjerojatnosti jer izvadak namjerno ne "
+        "daje polazišnu vjerojatnost ni cijeli model."
+    ),
+    ("sol-16-revizija-modela-01", "diagnostic.procedure"): (
+        "Provjeriti redak po redak. Potvrditi da su formula i vremenski dostupni "
+        "prediktori dopušteni, označiti da `pogreska` uspoređuje ishod `uzorak` "
+        "s `fitted(model)` iz istoga uzorka te utvrditi što oba broja mogu i ne "
+        "mogu poduprijeti."
+    ),
+    ("sol-16-callout-greska-01", "nonanswers.0.reason"): (
+        "Broj prediktora može povećati optimizam, ali središnji nedostatak "
+        "postoji i za mali model. Ocjena je provedena na istim ishodima koji su "
+        "služili procjeni."
+    ),
+    ("sol-16-konceptualni-01", "nonanswers.2.reason"): (
+        "Nijedna skupina nema taj nagib. A raste 0,6, a B pada 0,2 po jedinici."
+    ),
+    ("sol-17-revizija-modela-01", "rubric.0.observable_evidence"): (
+        "Središnja namjerna pogreška ili granica korpusa ostaje nepopravljena."
+    ),
+    ("sol-18-revizija-modela-01", "rubric.0.observable_evidence"): (
+        "Središnja namjerna pogreška ili granica presječnoga dizajna ostaje nepopravljena."
+    ),
+    ("sol-18-revizija-modela-01", "rubric.1.observable_evidence"): (
+        "Provjera rada čovjeka i asistenta nije potpuna završna potvrda odgovornosti."
+    ),
+    ("sol-18-revizija-modela-01", "alternatives.0.acceptance_boundary"): (
+        "Mora zadržati sve brojke, ispraviti istu namjernu pogrešku, navesti jedno "
+        "određeno ograničenje, granicu sljedeće delegacije i ljudsku odgovornost."
+    ),
+}
+MAINTAINER_TERM = re.compile(
+    r"(?i)\b(?:prompt(?:a|u|om|i|e)?|callout(?:-greska)?|error_id|"
+    r"planted-error(?:\s+ID)?|human-ai|capstone)\b"
+)
 
 
 def compact(value: str) -> str:
@@ -38,6 +110,47 @@ def compact(value: str) -> str:
 
 def table_cell(value: str) -> str:
     return compact(value).replace("|", "\\|")
+
+
+def reader_text(value: str, record_id: str, field: str) -> str:
+    """Prevedi samo čitateljsku projekciju; strojni ID-jevi ostaju netaknuti."""
+    text = PROSE_OVERRIDES.get((record_id, field), value)
+    parts = re.split(
+        r"(`[^`]*`|https?://\S+|(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_./-]+"
+        r"(?:#[A-Za-z0-9_.-]+)?|#[A-Za-z0-9_.-]+)",
+        compact(text),
+    )
+    replacements = [
+        (r"(?i)\bplanted-error\s+ID\b", "identifikator namjerne pogreške"),
+        (r"(?i)\bplanted-error\b", "namjerna pogreška"),
+        (r"(?i)\berror_id\b", "identifikator pogreške"),
+        (r"\bCallout-greska\b", "Okvir s namjernom pogreškom"),
+        (r"\bcallout-greska\b", "okvir s namjernom pogreškom"),
+        (r"\bCallout\b", "Okvir"),
+        (r"\bcallout\b", "okvir"),
+        (r"\bPrompta\b", "Zadatka"),
+        (r"\bprompta\b", "zadatka"),
+        (r"\bPromptu\b", "Zadatku"),
+        (r"\bpromptu\b", "zadatku"),
+        (r"\bPromptom\b", "Zadatkom"),
+        (r"\bpromptom\b", "zadatkom"),
+        (r"\bPrompte\b", "Zadatke"),
+        (r"\bprompte\b", "zadatke"),
+        (r"\bPrompt\b", "Zadatak"),
+        (r"\bprompt\b", "zadatak"),
+        (r"(?i)\bHuman-AI\b", "provjera rada čovjeka i asistenta"),
+        (r"(?i)\bcapstone\b", "završni zadatak"),
+    ]
+    for index in range(0, len(parts), 2):
+        for pattern, replacement in replacements:
+            parts[index] = re.sub(pattern, replacement, parts[index])
+    rendered = "".join(parts)
+    visible = "".join(parts[::2])
+    if MAINTAINER_TERM.search(visible):
+        raise ValueError(f"nepreveden održavateljski izraz: {record_id} {field}")
+    if field.startswith(("planted.", "diagnostic.")) and ":" in visible:
+        raise ValueError(f"dvotočka u čitateljskoj prozi: {record_id} {field}")
+    return rendered
 
 
 def read_records(root: Path = ROOT) -> list[tuple[Path, dict[str, Any]]]:
@@ -69,81 +182,123 @@ def source_title(root: Path, relative: str) -> str:
 
 def public_projection(record: dict[str, Any]) -> list[str]:
     answer = record["answer_components"]
+    record_id = record["record_id"]
     lines: list[str] = []
 
     planted = answer["planted_error"]
     if planted["applicable"]:
         lines.extend([
-            f"**Namjerna pogreška.** {compact(planted['statement'])}",
+            "Pogreška je u sljedećoj tvrdnji.",
             "",
-            compact(planted["why_wrong"]),
+            reader_text(planted["statement"], record_id, "planted.statement"),
+            "",
+            reader_text(planted["why_wrong"], record_id, "planted.why_wrong"),
             "",
         ])
 
     diagnostic = answer["revealing_diagnostic"]
     if diagnostic["applicable"]:
         lines.extend([
-            f"**Provjera koja otkriva odgovor.** {compact(diagnostic['procedure'])}",
+            "Odgovor se provjerava ovim postupkom.",
             "",
-            f"Očekivani trag: {compact(diagnostic['expected_evidence'])}",
+            reader_text(diagnostic["procedure"], record_id, "diagnostic.procedure"),
+            "",
+            reader_text(diagnostic["expected_evidence"], record_id, "diagnostic.expected_evidence"),
             "",
         ])
 
     components = answer["model_response_components"]
     if components["applicable"]:
-        lines.extend(["**Što odgovor mora sadržavati.**", ""])
-        for component in components["components"]:
-            lines.append(
-                f"- {compact(component['required_claim'])} Trag: {compact(component['required_evidence'])}"
-            )
+        lines.extend([
+            "Odgovor mora sadržavati sljedeće sastavnice.",
+            "",
+            "| Potrebna tvrdnja | Vidljivi dokaz |",
+            "|---|---|",
+        ])
+        for index, component in enumerate(components["components"]):
+            claim = reader_text(component["required_claim"], record_id, f"components.{index}.claim")
+            evidence = reader_text(component["required_evidence"], record_id, f"components.{index}.evidence")
+            lines.append(f"| {table_cell(claim)} | {table_cell(evidence)} |")
         lines.append("")
 
     numerical = answer["numerical_check"]
     if numerical["applicable"]:
+        expected = reader_text(numerical["expected_result"], record_id, "numerical.expected_result")
+        acceptance = reader_text(
+            numerical["tolerance_or_acceptance_rule"], record_id, "numerical.acceptance_rule"
+        )
+        method = reader_text(numerical["independent_method"], record_id, "numerical.independent_method")
+        evidence = reader_text(numerical["evidence_reference"], record_id, "numerical.evidence_reference")
         lines.extend([
-            f"**Brojčana provjera.** {compact(numerical['expected_result'])}",
+            "Brojčani trag provjerava se ovako.",
             "",
-            f"Pravilo prihvaćanja: {compact(numerical['tolerance_or_acceptance_rule'])}",
-            "",
-            f"Neovisna provjera: {compact(numerical['independent_method'])}",
-            "",
-            f"Dokazni trag: {compact(numerical['evidence_reference'])}",
+            "| Stavka | Provjera |",
+            "|---|---|",
+            f"| Očekivani rezultat | {table_cell(expected)} |",
+            f"| Pravilo prihvaćanja | {table_cell(acceptance)} |",
+            f"| Neovisni postupak | {table_cell(method)} |",
+            f"| Dokazni trag | {table_cell(evidence)} |",
             "",
         ])
 
     non_answers = answer["plausible_non_answers"]
     if non_answers["applicable"]:
-        lines.extend(["**Odgovori koji nisu dovoljni.**", ""])
-        for response in non_answers["responses"]:
-            lines.append(
-                f"- {compact(response['response'])} Zašto nije dovoljno: {compact(response['why_insufficient'])}"
-            )
+        lines.extend([
+            "Sljedeći odgovori nisu dovoljni.",
+            "",
+            "| Nedovoljan odgovor | Zašto ne prolazi |",
+            "|---|---|",
+        ])
+        for index, response in enumerate(non_answers["responses"]):
+            reply = reader_text(response["response"], record_id, f"nonanswers.{index}.response")
+            reason = reader_text(response["why_insufficient"], record_id, f"nonanswers.{index}.reason")
+            lines.append(f"| {table_cell(reply)} | {table_cell(reason)} |")
         lines.append("")
     return lines
 
 
 def protected_projection(record: dict[str, Any]) -> list[str]:
     rubric = record["answer_components"]["severity_ranked_rubric"]
+    record_id = record["record_id"]
     lines = [
         '::: {.content-visible when-profile="kolegij"}',
-        "### Puna rubrika",
+        "Puna rubrika za nastavnike slijedi u tablici.",
         "",
         "| Razina | Kriterij | Vidljivi dokaz |",
         "|---|---|---|",
     ]
-    for criterion in rubric["criteria"]:
-        lines.append(
-            f"| `{criterion['severity']}` | {table_cell(criterion['description'])} | "
-            f"{table_cell(criterion['observable_evidence'])} |"
+    for index, criterion in enumerate(rubric["criteria"]):
+        description = reader_text(criterion["description"], record_id, f"rubric.{index}.description")
+        evidence = reader_text(
+            criterion["observable_evidence"], record_id, f"rubric.{index}.observable_evidence"
         )
-    lines.extend(["", "### Prihvatljive alternative", ""])
-    for alternative in record["alternatives"]:
         lines.append(
-            f"- {compact(alternative['description'])} Granica prihvaćanja: "
-            f"{compact(alternative['acceptance_boundary'])}"
+            f"| {SEVERITY_LABELS[criterion['severity']]} | {table_cell(description)} | "
+            f"{table_cell(evidence)} |"
         )
-    lines.extend(["", "### Bilješke nastavniku", ""])
-    lines.extend(f"- {compact(note)}" for note in record["instructor_notes"])
+    lines.extend([
+        "",
+        "Prihvatljive alternative prikazane su u sljedećoj tablici.",
+        "",
+        "| Prihvatljiva mogućnost | Granica prihvaćanja |",
+        "|---|---|",
+    ])
+    for index, alternative in enumerate(record["alternatives"]):
+        description = reader_text(alternative["description"], record_id, f"alternatives.{index}.description")
+        boundary = reader_text(
+            alternative["acceptance_boundary"], record_id, f"alternatives.{index}.acceptance_boundary"
+        )
+        lines.append(f"| {table_cell(description)} | {table_cell(boundary)} |")
+    lines.extend([
+        "",
+        "Bilješke nastavniku slijede u tablici.",
+        "",
+        "| Bilješka nastavniku |",
+        "|---|",
+    ])
+    for index, note in enumerate(record["instructor_notes"]):
+        rendered_note = reader_text(note, record_id, f"instructor_notes.{index}")
+        lines.append(f"| {table_cell(rendered_note)} |")
     lines.extend(["", ":::", ""])
     return lines
 

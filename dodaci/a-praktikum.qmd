@@ -626,10 +626,10 @@ anketa_mreze |>
 Funkcija `count()` prebrojava retke po kategorijama i vraća tibble. Argument
 `sort = TRUE` poreda rezultat od najčešće kategorije prema najrjeđoj.
 
-Već iz ovog ispisa vidi se oblik koji poglavlje o sažimanju podataka razrađuje.
-Prosjek dnevnih minuta veći je od medijana, što je znak raspodjele s dugim
-desnim repom, u kojoj manjina vrlo intenzivnih korisnika povlači sredinu prema
-gore.
+Već iz ovog ispisa vidi se trag koji poglavlje o sažimanju podataka razrađuje.
+Prosjek dnevnih minuta veći je od medijana, što je uskladivo s desnom
+asimetrijom, ali samo po sebi ne dokazuje dugi rep ni njegov uzrok. Oblik zato
+provjeravamo grafom i pregledom krajnjih vrijednosti.
 
 Za vektore izvan tablice korisne su još tri funkcije. Funkcija `sort()` vraća
 poredane vrijednosti, `unique()` različite vrijednosti, a `table()` tablicu
@@ -686,9 +686,9 @@ anketa_mreze |>
 ```
 
 Čest početnički promašaj jest pisanje `dobna_skupina == "18 do 24" | "25 do 34"`.
-Takav izraz ne javlja grešku, a ne radi ono što se očekuje, jer R drugi dio
-tumači kao samostalnu vrijednost koja je uvijek istinita. Operator `%in%`
-uklanja tu zamku i uz to je čitljiviji.
+Takav izraz javlja grešku jer znak `|` očekuje logičke vrijednosti, a drugi je
+dio samostalni znakovni niz. Cijelu usporedbu moguće je ponoviti s obje strane
+znaka `|`, ali operator `%in%` uklanja tu zamku i uz to je čitljiviji.
 
 Za raspone postoji `between()`.
 
@@ -1660,11 +1660,11 @@ nrow(anketa_mreze)
 round(mean(anketa_mreze$minute_dnevno), 1)
 ```
 
-Ovo je više od udobnosti. Broj prepisan rukom razilazi se s podacima čim se
-podaci promijene, a nitko to ne primijeti jer rečenica i dalje izgleda uredno.
-Broj koji dolazi iz koda ne može se raziću s tablicom iz koje je izračunat.
-Poglavlja ove knjige pisana su tako da svaka brojka u prozi dolazi iz izračuna,
-upravo zbog toga.
+Ovo je više od udobnosti. Broj prepisan rukom može se razići s podacima čim se
+podaci promijene, a rečenica i dalje izgleda uredno. Broj koji se ponovno
+izračuna iz istoga objekta smanjuje rizik takve prijepisne pogreške, ali ne
+jamči da su izvor, objekt ili postupak ispravni. Poglavlja ove knjige zato vežu
+brojke u prozi uz izračun i zasebno provjeravaju njihov podatkovni trag.
 
 Prije predaje analizu pokrenite iz čiste sesije, dakle nakon što ste obrisali
 sve objekte i ponovno pokrenuli R. Rezultati moraju nastati iz skripte, a ne iz
@@ -2082,5 +2082,6 @@ koji je slobodno dostupan i pisan u istom pristupu [@wickham2023].
 Tri navike vrijede više od svakog dodatnog paketa. Podatke pogledajte prije nego
 što ih obradite. Cjevovod gradite korak po korak i provjeravajte rezultat nakon
 svakog koraka. Analizu na kraju pokrenite iz čiste sesije. Time se uklanja
-većina problema s kojima se početnici susreću, a rad ostaje ponovljiv, što je
-jedini oblik u kojem tuđa analiza uopće može biti provjerena.
+dio problema s kojima se početnici susreću, a rad ostaje ponovljiv. Ponovljivo
+izvođenje važan je put provjere, uz ručnu kontrolu ključnih brojnosti, tablica i
+granica zaključka.
