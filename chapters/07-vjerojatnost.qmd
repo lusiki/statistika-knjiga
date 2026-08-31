@@ -774,13 +774,15 @@ pogotka iznosi
 `r hr_broj(s7$nakon_tri_20, 3)`. Postupak pritom nema nikakvu memoriju, jer smo
 ga sami napravili takvim. Odstupanje ne dolazi iz procesa nego iz odabira.
 
-Razlog je u konačnosti niza. Kad iz jednog niza izdvojimo upravo ona mjesta koja
-dolaze iza tri pogotka, sam uvjet troši pogotke. Niz s malo pogodaka rijetko
-uopće nudi takvo mjesto, a u nizu koji ga nudi tri su pogotka već potrošena na
-uvjet, pa ih je za promatrano mjesto ostalo manje nego što ih niz prosječno ima.
-Prosjek takvih udjela zato leži ispod stvarne vjerojatnosti, i to više što je niz
-kraći i uvjet dulji. Uz uvjet od samo jednog pogotka u nizu od stotinu pokušaja
-odstupanje pada na `r hr_broj(s7$nakon_jednog_100, 3)` i jedva se primjećuje.
+Razlog je u načinu na koji se iz konačnih nizova bira i prosječuje. Kad iz
+jednog niza izdvojimo mjesta iza tri pogotka, niz s malo pogodaka rijetko uopće
+nudi takvo mjesto. U nizu koji ga nudi ta su tri pogotka već dio uvjeta, pa su
+preostali ishodi koji mogu stajati na promatranome mjestu u prosjeku nešto
+siromašniji pogocima od cijeloga niza. To nije memorija procesa, nego
+kombinatoričko ograničenje uvjetnog odabira u konačnom nizu. Prosjek takvih
+udjela zato leži ispod stvarne vjerojatnosti, i to više što je niz kraći i uvjet
+dulji. Uz uvjet od samo jednog pogotka u nizu od stotinu pokušaja odstupanje
+pada na `r hr_broj(s7$nakon_jednog_100, 3)` i jedva se primjećuje.
 
 Veličina tog odstupanja nije akademska sitnica. U nizu od stotinu pokušaja ono
 iznosi oko četiri postotna boda, što je istog reda kao razlika koju bi netko

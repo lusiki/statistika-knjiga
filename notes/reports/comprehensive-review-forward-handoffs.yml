@@ -10423,7 +10423,23 @@ handoffs:
     deliveries:
       - target_packet: P6-METHODS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-METHODS accepted `Luka Šikić` as the canonical display form for
+          the sole terminology owner, changed only the checkout-local
+          terminology source of truth and regenerated both reader-visible
+          projections plus their route artifact. Neither generated page was
+          hand-edited and no `#def-` identifier changed.
+        evidence:
+          - "source:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry.review_route.owner-read-before-claim"
+          - "views:pojmovnik.qmd-and-dodaci/e-rjecnik.qmd-generated-blocks-read-before-claim"
+          - "generator:scripts/build-terminology-views.py-read-before-claim"
+          - "report:notes/reports/p6-methods-2026-08-31.md#generiranje-negativne-probe-i-granica-tvrdnje"
+          - "state:p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
+          - "check:APPENDIX_E_CHECK_OK-views-2-of-2-registry-parity-and-clean-pathway-verified"
+          - "boundary:no-hand-edit-of-generated-terminology-pages"
 
   H-P6-STYLE-008:
     source_packet: P6-STYLE
@@ -10597,7 +10613,24 @@ handoffs:
     deliveries:
       - target_packet: P6-METHODS
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        disposition: >-
+          P6-METHODS accepted the five findings as separate nonblocking
+          precision questions for the author's own methods review. Each
+          received an individual repair disposition against the final source;
+          every edit stayed inside the ratified methods spine and no substitute
+          terminology sign-off was claimed or implied.
+        evidence:
+          - "report:notes/reports/p6-panels-critic-methods-2026-08-31.md-read-before-claim"
+          - "report:notes/reports/p6-panels-2026-08-31.md#sacuvana-neslaganja-i-buduci-vlasnici-read-before-claim"
+          - "amendment:notes/reports/g-a2c-reviewer-amendment-2026-08-05.md-read-before-claim"
+          - "report:notes/reports/p6-methods-2026-08-31.md#dispozicija-pet-metodoloških-nalaza"
+          - "edits:chapters-07-12-13-14-and-dodaci-a"
+          - "checks:five-target-style-lints-and-manuscript-integrity-pass"
+          - "state:p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
+          - "boundary:author-review-not-independent-terminology-review"
 
 packet_reviews:
   G-A0:
@@ -14817,3 +14850,30 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P6-METHODS is the sole next permitted packet but is not claimed inside P6-ARC
       - no chapter prose external message push merge tag archive deployment publication render or release-proof claim is made or authorised
+  P6-METHODS:
+    reviewed_at: "2026-08-31"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      The canonical terminology map, both generated glossary projections, the
+      concept graph and all five methods-precision locations are reconciled on
+      the declared final state. The two withdrawn terminology asks retain their
+      amended terminal status and require no replacement. No newly discovered
+      constraint, evidence, risk, decision or invalidation is needed by
+      P6-VERIFY or a later packet.
+    implementation_state: "p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
+    checks:
+      - H-P6-STYLE-007 and H-P6-PANELS-004 were separately terminal before claim and consumed on final-state evidence
+      - the 2026-08-05 G-A2c amendment was read before decision and both terminology outside asks remain withdrawn_with_reason without a substitute signoff
+      - Luka Šikić completed the terminology disposition as author and editor
+      - G-A1a and G-A1b retain Luka Šikić in the recorded capacities of author and named statistical reviewer for D01 and D02
+      - the 19 chapter spines retain 168 slots and 166 distinct canonical forms with 13 gate forms 12 recognition routes 3 deliberate departures 4 meaning rules and 3 stable identifiers
+      - all 19 chapters 7 appendices 52 definitions 52 graph nodes 662 graph edges and both generated glossary views agree with their canonical registries
+      - the canonical owner changed only in conventions.json and both glossary views plus their route artifact were regenerated without hand edits or definition-ID changes
+      - the five methods-precision findings in Chapters 07 12 13 14 and Appendix A were repaired separately without changing the ratified method spine or adding a method number claim or citation
+      - terminology Appendix-E concepts spines manuscript citations inventory and architecture checks pass on the declared state
+      - all three terminology and all three Appendix-E negative fixtures fail closed for their injected defects
+      - P6-METHODS artifacts active metadata and site copy do not describe this disposition as an independent review
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P6-VERIFY is the sole next permitted packet but is not claimed inside P6-METHODS
+      - no external message push merge tag archive deployment publication render clean-build or release-proof claim is made or authorised

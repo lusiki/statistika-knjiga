@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P6-ARC
-next_permitted_packet: P6-METHODS
+last_completed_packet: P6-METHODS
+next_permitted_packet: P6-VERIFY
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -98,22 +98,23 @@ stop and repair the control state before editing book content.
 | Thread amendment C15-G-A4-17 | `A-THREAD-C15-G-A4-17-2026-08-17` is the ninth, new and distinct thread decision: strict chain `C15 -> G-A4-16 -> WD-C16 -> C16 -> G-A4-17`; every packet remains separate and committed before the next claim; C15 and C16 retain exact acceptance replies, both decision gates stop for the author, and only WD-C16 may finish unattended; all eight earlier thread chains have ended |
 | Thread amendment G-A3-TEXT-C17 | `A-THREAD-G-A3-TEXT-C17-2026-08-17` is the tenth, new and distinct thread decision: strict chain `G-A3-TEXT -> P3-TEXT -> P3-VERIFY -> WD-C17 -> C17`; every packet remains separate and committed before the next claim; G-A3-TEXT and C17 retain exact author-reply stops; all nine earlier thread chains have ended |
 | Thread amendment WD-PART-P5-CLOSURE-01 | `A-THREAD-WD-PART-P5-CLOSURE-01-2026-08-19` is the eleventh, new and distinct thread decision: strict chain `WD-PART -> WE-C18 -> C18 -> P5-CLOSURE-00 -> P5-CLOSURE-01`, exactly catalogue sequences 131–135; every packet remains separate and committed before the next claim; C18 retains the exact author-reply stop; WD-PART prefers an evidence-only closeout and WE-C18 is the only other unattended write packet; all ten earlier thread chains have ended |
+| P6-METHODS | Accepted on `p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a`; Luka Šikić completed the terminology disposition as author and editor, G-A1a/G-A1b retain the recorded capacities of author and named statistical reviewer, all 19 chapters, 7 appendices, 52 definitions, 662 concept edges and both generated glossary projections agree with the canonical map, and all five methods-precision findings are repaired without changing the ratified spine |
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P6-ARC`; accepted on the declared 23-file material state after independent whole-book voice and arc reads found zero fatal and zero major findings |
-| Next permitted packet | `P6-METHODS` only; not claimed inside P6-ARC |
-| Review parents | 27 ratified; 9 accepted |
+| Last completed packet | `P6-METHODS`; accepted on the declared 32-file state after the author-owned terminology review and recorded methods-spine disposition |
+| Next permitted packet | `P6-VERIFY` only; not claimed inside P6-METHODS |
+| Review parents | 26 ratified; 10 accepted |
 | Atomic child inventory | Complete: 371 stable children; 347 accepted, 7 deferred with reason and 17 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 161 accepted, 27 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Exact packet catalogue | 189 packets: 162 accepted, 26 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | All 19 units are at `coauthor_review`; `06-povezanost` returned from `draft` only after a fresh six-role panel on its final SHA-256, with no claim of a new author reading or `final` status |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` remain revalidated. The WB-PART invalidation is now consumed: final Chapter 06 SHA-256 `0af303f…e729e` has all six perspectives, zero fatal/major findings and stage `coauthor_review` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | P6-ARC has no unresolved fatal or major in-scope finding and records its local dissent as explicit nonblocking first-edition trade-offs. P6-METHODS owns five methods-precision minors plus the generated name form; P6-VERIFY owns the RDP/BDP consent-record contradiction and local solution citations through `H-P6-PANELS-001` and `002`. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
+| Failed gates | P6-METHODS has no unresolved in-scope blocker. P6-VERIFY owns the RDP/BDP consent-record contradiction, local solution citations, Phase-2 parent closure and architecture fail-closed proof through `H-P6-PANELS-001`, `H-P6-PANELS-002`, `H-P2-VERIFY-001` and `H-P2-VERIFY-002`; it must also preserve the stale Appendix-G invalidation in `H-P6-EVIDENCE-008`. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and the P7 delivery of `H-P6-EVIDENCE-008` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7880,6 +7881,47 @@ the durable evidence is
   No chapter prose, external message, push, merge, tag, archive, deployment,
   publication, render or release-proof claim is made or authorised.
 
+## P6-METHODS claim and closeout
+
+- `H-P6-STYLE-007` and `H-P6-PANELS-004` were read, acknowledged and made
+  terminal before claim. Their final evidence now points to the repaired source
+  state and the packet report.
+- The author amendment of 5 August 2026 was read before decision.
+  `OA-P6-TERMS-REVIEWER-RECRUIT` and `OA-P6-TERMS-SIGNOFF` remain
+  `withdrawn_with_reason`; neither was passed, substituted or implied.
+- The final judgment is tied to
+  `p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a`
+  across 19 chapters, 7 appendices, the glossary, concept graph, route artifact
+  and three canonical registries.
+- Luka Šikić completed the terminology disposition as author and editor.
+  G-A1a and G-A1b retain Luka Šikić in the recorded capacities of author and
+  named statistical reviewer for D01 and D02. One person holds the two recorded
+  capacities; P6-METHODS does not add a new reviewer or sign-off.
+- The canonical terminology owner changed only in `conventions.json`. The
+  existing generator rebuilt `pojmovnik.qmd`, `dodaci/e-rjecnik.qmd` and their
+  route artifact; no generated page was hand-edited and no `#def-` identifier
+  changed.
+- The final map carries 168 key-term slots, 166 distinct spine forms, 13 gate
+  forms, 12 recognition routes, 3 deliberate departures, 4 meaning rules,
+  3 stable identifiers and 52 live definitions. Both generated views, all
+  52 graph nodes and 662 graph edges agree with their registries.
+- The five precision findings are repaired separately in Chapters 7, 12, 13
+  and 14 and Appendix A: finite-sequence conditioning, one sensitivity branch,
+  statistic versus p-value, Welch approximation and density bandwidth. No
+  ratified method, numerical claim or citation changed.
+- P6-METHODS artifacts, active metadata and site copy do not describe this
+  disposition as an independent review. The two reader-visible disclosures say
+  that no independent terminology review was obtained, and all four structured
+  claim fields remain `false`.
+- Terminology, Appendix-E, concept, spine, manuscript, citation, inventory and
+  architecture checks pass. All three terminology and all three Appendix-E
+  negative fixtures fail closed; the workflow checker and all three required
+  workflow negative fixtures pass closed.
+- No new future-relevant effect was found, so no outgoing handoff was opened.
+  The lock is released and `P6-VERIFY` alone is next without being claimed. No
+  external message, push, merge, tag, archive, deployment, publication, render,
+  clean-build or release-proof claim is made or authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7902,34 +7944,35 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P6-ARC` and
-`next_permitted_packet: P6-METHODS`. Confirm that P6-ARC closed only on
-`p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb`,
-that its three incoming deliveries are terminal, both independent whole-book
-readers found zero fatal and zero major findings, all five inherited continuity
-defects are separately resolved, all 16 S7 advisories have final dispositions,
-no chapter prose changed, no outgoing handoff was required and P6-METHODS was
-not claimed inside the closeout.
+Verify `active_write_packet: null`, `last_completed_packet: P6-METHODS` and
+`next_permitted_packet: P6-VERIFY`. Confirm that P6-METHODS closed only on
+`p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a`,
+that `H-P6-STYLE-007` and `H-P6-PANELS-004` are terminal, both withdrawn
+terminology asks retain `withdrawn_with_reason`, Luka Šikić is the sole
+terminology owner as author and editor, all five methods findings are repaired,
+no outgoing handoff was required and P6-VERIFY was not claimed inside the
+closeout.
 
-Claim and execute only `P6-METHODS` under its `review_gate` contract. Confirm
-that `P0-OUTSIDE` and `P6-ARC` are accepted prerequisites. Fully read and make
-terminal `H-P6-STYLE-007` and `H-P6-PANELS-004` before claim. Preserve the
-G-A2c amendment: this is the author's own final terminology and methods review,
-not an independent terminology sign-off.
+Claim and execute only `P6-VERIFY` under its `review_gate` contract. Confirm
+that `P6-METHODS` is accepted. Before claim fully read and make terminal
+`H-P6-EVIDENCE-008`, `H-P6-PANELS-001` and `H-P6-PANELS-002`; before closeout
+consume `H-P2-VERIFY-001` and `H-P2-VERIFY-002` separately on exact evidence.
+Preserve the G-A2c amendment and do not create or imply a replacement
+terminology sign-off.
 
-Disposition the generated `Luka Sikić` source-of-truth mismatch without
-hand-editing generated glossary pages. Then review the five nonblocking methods
-precision findings separately: the finite hot-hand sequence in Chapter 7,
-one-versus-multiple sensitivity wording in Chapter 12,
-statistic-versus-p-value wording in Chapter 13, Welch approximation wording in
-Chapter 14 and histogram wording in Appendix A. Edit only where precision
-improves without changing the ratified method spine, introducing a new method
-or claiming an independent review.
+Keep the stale Appendix-G invalidation visible for its P7 clean-build owner.
+Reconcile the RDP/BDP catalogue, both generated catalogue projections and both
+travelling notices only against one dated verifiable coauthor-consent record;
+do not turn coauthor consent into rights-holder permission. Add the already
+valid local citation keys to the canonical solution records and regenerate
+`rjesenja.qmd` rather than editing it by hand. Prove or disposition the Phase-2
+parent closure and add fail-closed architecture-registry evidence required by
+the two P2-VERIFY handoffs.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger, dashboard and only
-approved mutable Bookwright state together; run the applicable terminology,
-concept, manuscript and workflow checks plus all three workflow negative
-fixtures; close and locally commit P6-METHODS; then stop. Do not claim
-P6-VERIFY, push, merge, tag, archive, deploy or publish.
+approved mutable Bookwright state together; run the full applicable Phase-6
+verification matrix, all required negative fixtures and the workflow checker;
+close and locally commit P6-VERIFY; then stop. Do not claim G-A5b or any Phase-7
+packet, and do not push, merge, tag, archive, deploy or publish.
 ```

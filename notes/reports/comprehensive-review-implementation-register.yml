@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P6-ARC"
-  next_permitted_packet: "P6-METHODS"
+  last_completed_packet: "P6-METHODS"
+  next_permitted_packet: "P6-VERIFY"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17759,25 +17759,79 @@ packets:
     sequence: 169
     phase: "6"
     kind: "review_gate"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P6-ARC"
       - "P0-OUTSIDE"
-    scope: "Final domestic terminology and independent methods spine sign-off."
+    scope: "Final author-owned terminology review and recorded methods-spine sign-off."
     outputs:
-      - "P6-METHODS durable artifact and evidence record for: Final domestic terminology and independent methods spine sign-off."
+      - "P6-METHODS durable artifact and evidence record for: Final author-owned terminology review and recorded methods-spine sign-off."
       - "Completion evidence is tied to the declared P6-METHODS source state and bounded scope."
     exit_tests:
       - "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
       - "The gate report is tied to one declared source state."
       - "The P6-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
+      required_evidence:
+        - requirement: "gate-specific verification matrix"
+          artifacts:
+            - "report:notes/reports/p6-methods-2026-08-31.md#matrica-završne-provjere"
+            - "matrix:19-chapters-7-appendices-52-definitions-2-generated-views-concept-graph-and-methods-spine"
+            - "authority:G-A1a-and-G-A1b-author-and-named-statistical-reviewer-Luka-Sikic"
+            - "boundary:G-A2c-amendment-author-editor-terminology-review"
+        - requirement: "source commit or state hash"
+          artifacts:
+            - "state:p6-methods-state-sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
+            - "manifest:32-files-19-chapters-7-appendices-glossary-concept-graph-route-and-three-registries"
+            - "base_commit:150b56a"
+        - requirement: "resolved blocker list"
+          artifacts:
+            - "handoff:H-P6-STYLE-007-consumed-name-source-and-generated-views-reconciled"
+            - "handoff:H-P6-PANELS-004-consumed-five-methods-precision-findings-repaired"
+            - "outside-asks:OA-P6-TERMS-REVIEWER-RECRUIT-and-OA-P6-TERMS-SIGNOFF-remain-withdrawn-with-reason"
+            - "boundary:no-substitute-signoff-or-hidden-blocker"
+      outputs:
+        - output: "P6-METHODS durable artifact and evidence record for: Final author-owned terminology review and recorded methods-spine sign-off."
+          artifacts:
+            - "report:notes/reports/p6-methods-2026-08-31.md"
+            - "registry:bookwright_plugin/bookwright/shared/conventions.json#terminology_registry"
+            - "views:dodaci/e-rjecnik.qmd-and-pojmovnik.qmd"
+            - "artifact:config/appendix-e-terminology-route.json"
+        - output: "Completion evidence is tied to the declared P6-METHODS source state and bounded scope."
+          artifacts:
+            - "p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
+            - "checks:terminology-appendix-e-concepts-spines-manuscript-citations-inventory-and-architecture-pass"
+            - "negative-fixtures:terminology-3-and-appendix-e-3-fail-closed"
+            - "boundary:no-new-method-render-clean-build-release-proof-or-external-action-claim"
+      exit_tests:
+        - test: "Every named prerequisite has its required evidence and no blocker is hidden by aggregation."
+          result: "passed"
+          evidence:
+            - "prerequisite:P6-ARC-accepted"
+            - "prerequisite:P0-OUTSIDE-accepted"
+            - "handoffs:H-P6-STYLE-007-and-H-P6-PANELS-004-terminal"
+            - "withdrawal:two-P6-terminology-outside-asks-retain-withdrawn-with-reason-status"
+        - test: "The gate report is tied to one declared source state."
+          result: "passed"
+          evidence:
+            - "state:p6-methods-state-sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
+            - "report:notes/reports/p6-methods-2026-08-31.md"
+            - "manifest:32-files"
+        - test: "The P6-METHODS packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "check:TERMINOLOGY_OK-spine-forms-166-slots-168-gate-forms-13-superseded-12-departures-3-rules-4-stable-ids-3-live-definitions-52-divergences-0"
+            - "check:APPENDIX_E_CHECK_OK-concepts-52-edges-662-views-2-of-2-registry-parity-and-clean-pathway-verified"
+            - "checks:concept-manuscript-spine-inventory-citation-and-architecture-lanes-pass"
+            - "findings:five-methods-precision-repairs-and-one-canonical-name-source-rebuild"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "review_gate"
     required_evidence:
       - "gate-specific verification matrix"
       - "source commit or state hash"
       - "resolved blocker list"
-    change_reference: null
+    change_reference: "p6-methods-state:sha256-480a5daa824b129139f1ecc2a8d187f62d05a005c5e1348047642a28a4fc7a5a"
   P6-VERIFY:
     sequence: 170
     phase: "6"
