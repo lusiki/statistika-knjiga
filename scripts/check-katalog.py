@@ -46,6 +46,13 @@ P3-DIGIKAT added the non-official-source substitute. It may be declared
 satisfied only when byte reproduction, denominator identity and recorded
 divergence are all present and passed:
     KATALOG_NEGATIVE_FIXTURE=non_official_substitute_incomplete
+
+P6-DATA added the two dated author dispositions required for its closeout. The
+landmark datasets must retain their explicit second-edition redistribution
+deferral, and the DZS record must retain the approved substitute without
+manufacturing a Last-Modified value or a permission claim:
+    KATALOG_NEGATIVE_FIXTURE=missing_author_defer
+    KATALOG_NEGATIVE_FIXTURE=dzs_substitute_decision_missing
 """
 
 from __future__ import annotations
@@ -102,6 +109,10 @@ FIXTURES = (
     "promotion_log_omits_package",
     "notice_without_own_licence",
     "non_official_substitute_incomplete",
+    "consumer_packet_without_source",
+    "unsupported_ethics_claim",
+    "missing_author_defer",
+    "dzs_substitute_decision_missing",
 )
 
 # A gate that retrieves nothing cannot verify what it would be promoting, so a
@@ -109,6 +120,32 @@ FIXTURES = (
 DECISION_GATE = re.compile(r"^G-A[0-9]")
 
 MANUSCRIPT_GLOBS = ("chapters/*.qmd", "dodaci/*.qmd", "*.qmd")
+
+CONSUMER_PACKET_SOURCES = {
+    "WA-C00": ("chapters/00-predgovor.qmd",),
+    "WA-C01": ("chapters/01-zasto-statistika.qmd",),
+    "WA-C02": ("chapters/02-mjerenje-i-dizajn.qmd",),
+    "WA-C03": ("chapters/03-kako-brojke-zavode.qmd",),
+    "WB-C04": ("chapters/04-sazimanje-podataka.qmd",),
+    "WB-C05": ("chapters/05-vizualizacija.qmd",),
+    "WB-C06": ("chapters/06-povezanost.qmd",),
+    "WC-C07": ("chapters/07-vjerojatnost.qmd",),
+    "WC-C08": ("chapters/08-uzorkovanje.qmd",),
+    "WC-C09": ("chapters/09-procjena.qmd",),
+    "WC-C10": ("chapters/10-logika-testiranja.qmd",),
+    "WC-C11": ("chapters/11-velicina-ucinka-i-snaga.qmd",),
+    "WC-C12": ("chapters/12-kriza-i-obnova.qmd",),
+    "WD-C13": ("chapters/13-kategoricki-podaci.qmd",),
+    "WD-C14": ("chapters/14-dvije-grupe.qmd",),
+    "WD-C15": ("chapters/15-vise-grupa.qmd",),
+    "WD-C16": ("chapters/16-regresija.qmd",),
+    "WD-C17": ("chapters/17-doba-algoritama.qmd",),
+    "WE-C18": ("chapters/18-vase-prvo-istrazivanje.qmd",),
+    "P5-A": ("dodaci/a-praktikum.qmd",),
+    "P5-B": ("dodaci/b-jamovi.qmd",),
+    "P5-C": ("dodaci/c-katalog-podataka.qmd", "podaci.qmd"),
+    "P5-G": ("dodaci/g-numericki-podsjetnik.qmd",),
+}
 
 
 def load_helper() -> Any:
@@ -309,6 +346,38 @@ def apply_fixture(catalogue: dict[str, Any], fixture: str) -> list[str]:
                 substitute.get("tests", {}).pop("recorded_divergence", None)
                 return []
         raise AssertionError("no package declares a non-official reconciliation substitute")
+    elif fixture == "consumer_packet_without_source":
+        for package in packages:
+            if package.get("consumer_sources") and "WD-C16" not in package.get("consumers", []):
+                package["consumers"].append("WD-C16")
+                return []
+        raise AssertionError("no consumer-bearing package exists")
+    elif fixture == "unsupported_ethics_claim":
+        for package in packages:
+            if package.get("id") == "dip_2024":
+                package["ethics"]["category_ownership"] = (
+                    "Izborne jedinice i kategorije odredjuje zakon."
+                )
+                return []
+        raise AssertionError("dip_2024 is absent")
+    elif fixture == "missing_author_defer":
+        for package in packages:
+            if package.get("id") == "ucbadmissions":
+                package["redistribution"] = "nije dokazana"
+                package["caveats"] = [
+                    caveat for caveat in package.get("caveats", [])
+                    if "deferred_v2_with_reason" not in caveat
+                ]
+                return []
+        raise AssertionError("ucbadmissions is absent")
+    elif fixture == "dzs_substitute_decision_missing":
+        for package in packages:
+            if package.get("id") == "dzs_turizam":
+                package["provenance"]["source_last_modified_note"] = (
+                    "Last-Modified nije dostupan."
+                )
+                return []
+        raise AssertionError("dzs_turizam is absent")
     else:
         raise AssertionError(f"Unknown katalog negative fixture: {fixture}")
     return []
@@ -355,6 +424,33 @@ def main() -> int:
     packages = catalogue.get("packages", [])
     ids = [p.get("id", "") for p in packages]
     check(len(ids) == len(set(ids)), f"duplicate package id: {sorted({i for i in ids if ids.count(i) > 1})}")
+    packages_by_id = {package.get("id"): package for package in packages}
+
+    # --- dated P6-DATA author dispositions ---------------------------------
+    for landmark_id in ("ucbadmissions", "anscombe"):
+        landmark = packages_by_id.get(landmark_id) or {}
+        defer_text = " ".join(
+            [str(landmark.get("redistribution", ""))]
+            + [str(value) for value in landmark.get("caveats", [])]
+        )
+        check("deferred_v2_with_reason" in defer_text,
+              f"{landmark_id}: explicit author deferred_v2_with_reason is missing.")
+        check(landmark.get("lane") == "external-only"
+              and landmark.get("promoted") is False
+              and not landmark.get("files"),
+              f"{landmark_id}: the author deferral must retain external-only, "
+              "unpromoted access with no local files.")
+
+    dzs = packages_by_id.get("dzs_turizam") or {}
+    dzs_provenance = dzs.get("provenance") or {}
+    dzs_note = str(dzs_provenance.get("source_last_modified_note", ""))
+    check(dzs_provenance.get("source_last_modified") is None,
+          "dzs_turizam: an unavailable Last-Modified value must remain null.")
+    check("31. kolovoza 2026" in dzs_note
+          and "dvije zamjene" in dzs_note
+          and "Last-Modified" in dzs_note
+          and "zasebno dopustenje" in dzs_note,
+          "dzs_turizam: the approved dated substitute decision is missing or overclaims permission.")
 
     # --- ratified data-design ids -------------------------------------------
     designs = {
@@ -608,9 +704,9 @@ def main() -> int:
     # --- declared consumers must match actual manuscript use ----------------
     #
     # consumer_sources is the exact, machine-checked half: every manuscript file
-    # that names the package must be listed, and every listed file must name it.
-    # The consumers field stays the planned list of consuming packets, which
-    # P6-DATA reconciles once the chapters are written.
+    # that names or loads the package must be listed, and every listed file must
+    # carry one of the package's exact markers. consumers is the packet-level
+    # half; P6-DATA reconciles both halves against the final manuscript.
     manuscript: dict[str, str] = {}
     for pattern in MANUSCRIPT_GLOBS:
         for path in sorted(ROOT.glob(pattern)):
@@ -618,22 +714,64 @@ def main() -> int:
             manuscript[key] = path.read_text(encoding="utf-8")
     for package in packages:
         symbol = package.get("source_symbol")
-        if not symbol:
+        markers = list(package.get("consumer_markers") or [])
+        if not markers and symbol:
+            markers = [symbol]
+        consumers = list(package.get("consumers") or [])
+        if not consumers:
             continue
         pid = package.get("id", "<missing>")
         declared_sources = list(package.get("consumer_sources") or [])
+        check(bool(markers),
+              f"{pid}: live consumers require a source symbol or consumer markers.")
         check(bool(declared_sources),
-              f"{pid}: a package that names a source symbol must declare its consumer sources.")
-        # A hyphen before or after the symbol means a different token, so
-        # `fig-anscombe` is not a use of the `anscombe` dataset.
-        needle = re.compile(rf"(?<![\w-]){re.escape(symbol)}(?![\w-])")
-        actual = sorted(name for name, text in manuscript.items() if needle.search(text))
+              f"{pid}: live consumers must declare their exact consumer sources.")
+        if package.get("consumer_markers"):
+            actual = sorted(
+                name for name, text in manuscript.items()
+                if any(marker in text for marker in markers)
+            )
+        else:
+            # A hyphen before or after the symbol means a different token, so
+            # `fig-anscombe` is not a use of the `anscombe` dataset.
+            needle = re.compile(rf"(?<![\w-]){re.escape(symbol)}(?![\w-])")
+            actual = sorted(name for name, text in manuscript.items() if needle.search(text))
         missing_sources = sorted(set(actual) - set(declared_sources))
         stale_sources = sorted(set(declared_sources) - set(actual))
         check(not missing_sources,
               f"{pid}: a manuscript source uses the package without being declared: {missing_sources}")
         check(not stale_sources,
               f"{pid}: a declared consumer source does not use the package: {stale_sources}")
+        for consumer in consumers:
+            required_sources = CONSUMER_PACKET_SOURCES.get(consumer)
+            check(required_sources is not None,
+                  f"{pid}: consumer packet {consumer} has no source-path mapping.")
+            if required_sources is not None:
+                absent = sorted(set(required_sources) - set(declared_sources))
+                check(not absent,
+                      f"{pid}: consumer packet {consumer} requires undeclared sources: {absent}")
+
+    # --- unselected sources may not manufacture legal or regulatory facts ---
+    unsupported_ethics = {
+        "dip_2024": (
+            "odredjuje zakon", "glas je tajan", "zakonski postupak",
+            "nisu u registru biraca",
+        ),
+        "gfi_fina": (
+            "pruzatelj i regulator", "bez obveze objave",
+            "poslovni subjekti su imenovani", "regulatorni postupak",
+        ),
+        "rdp_potpore": (
+            "odredjuje regulator", "europski okvir drzavnih potpora",
+            "kod nadleznoga tijela",
+        ),
+    }
+    for pid, phrases in unsupported_ethics.items():
+        package = next((item for item in packages if item.get("id") == pid), {})
+        ethics_blob = json.dumps(package.get("ethics", {}), ensure_ascii=False).casefold()
+        found = sorted(phrase for phrase in phrases if phrase in ethics_blob)
+        check(not found,
+              f"{pid}: unsupported legal or regulator claim remains in ethics: {found}")
 
     # --- rights boundary ----------------------------------------------------
     rights = catalogue.get("rights_boundary", {})

@@ -76,17 +76,15 @@ uopće ne želi pisati kod Dodatak B nudi put kroz softver s izbornicima.
 
 ## Alat i radni prostor
 
-Za rad su potrebna dva programa koja se instaliraju odvojeno. R je sam jezik i
-sustav za statističko računanje, dakle motor koji izvršava naredbe. Njegovo je
-vlastito sučelje vrlo štedljivo, pa se u praksi ne koristi izravno. Uređivačko
-okruženje daje uređivač teksta s bojanjem sintakse, konzolu u kojoj se kod
-izvršava, prozor za grafove i pregled objekata koje ste stvorili. Uobičajeni
-izbori su Positron i RStudio, oba iz istog razvojnog tima i oba besplatna.
+Za rad je potreban R, jezik i sustav za statističko računanje koji izvršava
+naredbe. Uređivačko okruženje može objediniti uređivanje skripte, konzolu,
+prikaz grafova i pregled stvorenih objekata, ali nije dio statističkoga
+postupka.
 
-Radni tok je u svakom od njih isti. Kod se piše u uređivaču, označi se redak
-ili više njih, a kombinacija tipki `Ctrl` i `Enter` šalje označeno u konzolu.
-Rezultat se ispisuje odmah ispod. Taj se postupak tijekom jedne analize ponovi
-stotinama puta i vrlo brzo postane automatski.
+U ovom praktikumu radni tok opisujemo neovisno o konkretnom sučelju. Kod se
+piše u skripti i šalje na izvođenje na način koji nudi odabrano okruženje, a
+rezultat se provjerava u konzoli ili prikazu izlaza. Taj se postupak tijekom
+analize ponavlja mnogo puta.
 
 Prije prvog koda vrijedi urediti mjesto na kojem će analiza živjeti. Analiza
 se piše u skripti, a ne kao niz naredbi koje ostaju samo u konzoli, jer se
@@ -628,10 +626,10 @@ anketa_mreze |>
 Funkcija `count()` prebrojava retke po kategorijama i vraća tibble. Argument
 `sort = TRUE` poreda rezultat od najčešće kategorije prema najrjeđoj.
 
-Već iz ovog ispisa vidi se oblik koji poglavlje o sažimanju podataka razrađuje.
-Prosjek dnevnih minuta veći je od medijana, što je znak raspodjele s dugim
-desnim repom, u kojoj manjina vrlo intenzivnih korisnika povlači sredinu prema
-gore.
+Već iz ovog ispisa vidi se trag koji poglavlje o sažimanju podataka razrađuje.
+Prosjek dnevnih minuta veći je od medijana, što je uskladivo s desnom
+asimetrijom, ali samo po sebi ne dokazuje dugi rep ni njegov uzrok. Oblik zato
+provjeravamo grafom i pregledom krajnjih vrijednosti.
 
 Za vektore izvan tablice korisne su još tri funkcije. Funkcija `sort()` vraća
 poredane vrijednosti, `unique()` različite vrijednosti, a `table()` tablicu
@@ -688,9 +686,9 @@ anketa_mreze |>
 ```
 
 Čest početnički promašaj jest pisanje `dobna_skupina == "18 do 24" | "25 do 34"`.
-Takav izraz ne javlja grešku, a ne radi ono što se očekuje, jer R drugi dio
-tumači kao samostalnu vrijednost koja je uvijek istinita. Operator `%in%`
-uklanja tu zamku i uz to je čitljiviji.
+Takav izraz javlja grešku jer znak `|` očekuje logičke vrijednosti, a drugi je
+dio samostalni znakovni niz. Cijelu usporedbu moguće je ponoviti s obje strane
+znaka `|`, ali operator `%in%` uklanja tu zamku i uz to je čitljiviji.
 
 Za raspone postoji `between()`.
 
@@ -1191,7 +1189,8 @@ jedan ili drugi. Zadanih trideset razreda gotovo nikada nije pravi izbor, pa
 vrijedi isprobati nekoliko vrijednosti i vidjeti mijenja li se oblik. Ako se
 mijenja jako, oblik nije svojstvo podataka nego izbora razreda.
 
-Krivulja gustoće daje glađu inačicu istog prikaza i ne ovisi o razredima.
+Krivulja gustoće daje zaglađen prikaz raspodjele. Ne ovisi o granicama razreda,
+ali njezin oblik ovisi o odabranoj širini pojasa zaglađivanja.
 
 ```{r}
 #| fig-alt: "Krivulja gustoće dnevnih minuta s vrhom pri manjim vrijednostima."
@@ -1662,11 +1661,11 @@ nrow(anketa_mreze)
 round(mean(anketa_mreze$minute_dnevno), 1)
 ```
 
-Ovo je više od udobnosti. Broj prepisan rukom razilazi se s podacima čim se
-podaci promijene, a nitko to ne primijeti jer rečenica i dalje izgleda uredno.
-Broj koji dolazi iz koda ne može se raziću s tablicom iz koje je izračunat.
-Poglavlja ove knjige pisana su tako da svaka brojka u prozi dolazi iz izračuna,
-upravo zbog toga.
+Ovo je više od udobnosti. Broj prepisan rukom može se razići s podacima čim se
+podaci promijene, a rečenica i dalje izgleda uredno. Broj koji se ponovno
+izračuna iz istoga objekta smanjuje rizik takve prijepisne pogreške, ali ne
+jamči da su izvor, objekt ili postupak ispravni. Poglavlja ove knjige zato vežu
+brojke u prozi uz izračun i zasebno provjeravaju njihov podatkovni trag.
 
 Prije predaje analizu pokrenite iz čiste sesije, dakle nakon što ste obrisali
 sve objekte i ponovno pokrenuli R. Rezultati moraju nastati iz skripte, a ne iz
@@ -2084,5 +2083,6 @@ koji je slobodno dostupan i pisan u istom pristupu [@wickham2023].
 Tri navike vrijede više od svakog dodatnog paketa. Podatke pogledajte prije nego
 što ih obradite. Cjevovod gradite korak po korak i provjeravajte rezultat nakon
 svakog koraka. Analizu na kraju pokrenite iz čiste sesije. Time se uklanja
-većina problema s kojima se početnici susreću, a rad ostaje ponovljiv, što je
-jedini oblik u kojem tuđa analiza uopće može biti provjerena.
+dio problema s kojima se početnici susreću, a rad ostaje ponovljiv. Ponovljivo
+izvođenje važan je put provjere, uz ručnu kontrolu ključnih brojnosti, tablica i
+granica zaključka.

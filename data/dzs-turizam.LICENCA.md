@@ -10,7 +10,7 @@ dijeljenju, preuzimanju ili prilagodbi.
 | Skup | `dzs_turizam` |
 | Izvor | Državni zavod za statistiku, područje Turizam |
 | Tablice | `BS_TU11` (Tablica 1.1), `BS_TU12` (Tablica 1.2), `T03` (Tablica 3., Turistička aktivnost stanovništva) |
-| Licenca | [Hrvatska otvorena dozvola](https://www.data.gov.hr/hr/open-license) |
+| Licenca | [Hrvatska otvorena dozvola](https://data.gov.hr/hr/open-license) |
 | Objava uvjeta | [DZS, otvoreni podaci](https://dzs.gov.hr/o-zavodu/pravo-na-pristup-informacijama/otvoreni-podaci/1812) |
 | URI izvora | <https://web.dzs.hr/PxWeb/pxweb/hr/Turizam/> (sučelje), <https://web.dzs.hr/PxWeb/api/v1/hr/Turizam> (API) |
 | Datum preuzimanja | 27. srpnja 2026. |
@@ -20,6 +20,13 @@ Primjer atribucije glasi „Izvor: Državni zavod za statistiku, područje Turiz
 tablice BS_TU11, BS_TU12 i T03, <https://web.dzs.hr/PxWeb/pxweb/hr/Turizam/>,
 stanje na dan preuzimanja 27. srpnja 2026.; Hrvatska otvorena dozvola; izmjene
 su označene.”
+
+Službeni API i HTML ponovno su provjereni 31. kolovoza 2026. i nisu izložili
+zaglavlje `Last-Modified`, `ETag` ni metapodatkovno polje posljednje izmjene.
+Autor je toga dana za prvo izdanje prihvatio dvije provjerljive zamjene: datum
+preuzimanja i najnoviju objavljenu opservaciju po tablici. To nije tvrdnja da
+je datum posljednje izmjene poznat niti tvrdnja o zasebno pribavljenom
+dopuštenju nositelja prava.
 
 ## Oznaka izmjena
 

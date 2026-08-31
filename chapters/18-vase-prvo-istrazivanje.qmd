@@ -212,9 +212,11 @@ uzročno, prediktivno ni populacijski šire zato što kasnije upotrebljavamo
 regresiju.
 
 Uz pitanje odmah zapisujemo i što će na kraju biti predano, jer rad planiramo
-polazeći od onoga što na kraju predajemo. Nastaju izvještaj koji se čita bez pristupa
-podacima, skripta koja iz podataka proizvodi svaku tablicu i svaki graf, sami podaci ako ih smijemo
-dijeliti, kratko usmeno izlaganje i osvrt na ono što bismo napravili drukčije.
+polazeći od onoga što na kraju predajemo. Nastaju izvještaj koji se čita bez
+pristupa podacima, ponovljiv zapis postupka koji iz podataka proizvodi svaku
+tablicu i svaki graf, sami podaci ako ih smijemo dijeliti, kratko usmeno
+izlaganje i osvrt na ono što bismo napravili drukčije. Zapis postupka može biti
+skripta ili dokumentirana povijest i izvoz iz alata bez koda.
 Posljednja dva dijela nisu formalnost, jer izlaganje otkriva koje rečenice ne
 možemo obraniti naglas.
 
@@ -321,7 +323,9 @@ Osjetljive varijable prepoznajemo na početku, a ne kad ustreba. Ime, kontakt,
 točna adresa, otvoreni odgovori u kojima se netko opisuje i kombinacije
 obilježja po kojima se pojedinac može prepoznati u maloj skupini traže odluku o
 tome hoće li uopće ući u analizu. Poglavlje o mjerenju i dizajnu obrazlaže zašto
-minimizacija nije formalnost, a Dodatak F daje pravila koja knjiga primjenjuje.
+minimizacija nije formalnost, a [Dodatak
+F](../dodaci/f-ai-protokol.qmd#sec-protokol-asistenta) daje pravila koja knjiga
+primjenjuje.
 
 Čišćenje je zatim niz odluka od kojih svaka mora imati razlog koji netko drugi
 može pregledati.
@@ -556,9 +560,10 @@ graf nema skraćenu os bez izričite napomene, jer poglavlje o vizualizaciji
 pokazuje da je skraćivanje osi tvrdnja o podacima.
 
 Uz izvještaj predajemo ono što je potrebno da netko drugi ponovi račun, dakle
-podatke ako ih smijemo dijeliti, opis njihova podrijetla, skriptu koja iz njih
-proizvodi svaku tablicu i svaki graf te bilješku o uporabi asistenta. Provjera
-je jednostavna, jer skripta mora proći u čistoj sesiji na tuđem računalu.
+podatke ako ih smijemo dijeliti, opis njihova podrijetla, skriptu ili
+dokumentiranu povijest postupka bez koda koja proizvodi svaku tablicu i svaki
+graf te bilješku o uporabi asistenta. Provjera počinje u čistoj R sesiji ili u
+novom projektu odabranoga alata, na računalu koje nije služilo izradi rada.
 
 Usmeno izlaganje traži drukčiji izbor od pisanog rada. U petnaest minuta stane
 pitanje, način prikupljanja, jedan graf, jedna procjena s rasponom i jedna
@@ -672,16 +677,17 @@ daje materijal za prosudbu, dok samu prosudbu i dalje mora napisati autor.
 
 ## Rad s asistentom
 
-Asistent je u ovom projektu koristan na svakom koraku i na svakom koraku
-odgovornost ostaje na osobi koja predaje rad. Ovdje primjenjujemo šest koraka.
-Dodatak F daje njihovu opću granicu za cijelu knjigu.
+U ovom projektu pojedini se koraci mogu delegirati, ali odgovornost ostaje na
+osobi koja predaje rad. Ovdje primjenjujemo šest koraka. [Dodatak
+F](../dodaci/f-ai-protokol.qmd#sec-protokol-asistenta) daje njihovu opću granicu
+za cijelu knjigu.
 
 1. Specificiramo pitanje, vrstu tvrdnje, jedinicu, granicu podataka,
    dopušten zaključak i provjerljivi izlaz.
 2. Delegiramo samo omeđeni račun, nacrt koda ili kritiku za koju su ulaz i
    očekivani oblik izlaza poznati.
-3. Reproduciramo svaki račun u čistoj lokalnoj sesiji, od učitavanja
-   dopuštenih podataka do posljednje tablice.
+3. Reproduciramo svaki račun u čistoj lokalnoj sesiji ili novom projektu alata
+   bez koda, od učitavanja dopuštenih podataka do posljednje tablice.
 4. Osporavamo rezultat jednom obranjivom alternativom i uspoređujemo procjenu,
    interval, sadržajni zaključak i dosegnutu populaciju.
 5. Dokumentiramo što je asistent vratio, što je provjereno, kako je
@@ -726,8 +732,8 @@ Empirijski dokaz o mogućnosti ponovne identifikacije tražio bi zaseban izvor i
 zasebnu procjenu; ovdje ga ne izmišljamo.
 
 ::: {.callout-model}
-Asistent može predložiti analizu, napisati kod, pronaći nedosljednost i
-kritizirati zaključak. Prije toga dobiva vrstu pitanja, dizajn, jedinicu,
+Delegirati se mogu prijedlog analize, kod, potraga za nedosljednošću i kritika
+zaključka. Prije toga asistent dobiva vrstu pitanja, dizajn, jedinicu,
 sigurnu strukturu podataka i granicu tvrdnje, a ne automatski cijelu datoteku.
 Njegov kratki analitički sažetak ocjenjujemo istim standardom kojim smo
 napisali svoj.

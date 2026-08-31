@@ -12,6 +12,7 @@ def main() -> int:
     root = Path(__file__).resolve().parent.parent
     fixtures = {
         "expected-value-regression": "[golden] w01/ojs/default.aggregate_a",
+        "w05-normal-cache-asymmetry": "[golden] w05/ojs/",
         "normal-cache-asymmetry": "[golden] w09/ojs/",
         "w10-normal-cache-asymmetry": "[golden] w10/ojs/",
         "w11-normal-cache-asymmetry": "[golden] w11/ojs/",
@@ -48,7 +49,7 @@ def main() -> int:
             )
             print(diagnostic.strip(), file=sys.stderr)
             return 1
-    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=7")
+    print("WIDGET_PARITY_NEGATIVE_FIXTURES_OK fixtures=8")
     return 0
 
 

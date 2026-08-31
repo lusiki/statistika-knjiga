@@ -228,7 +228,6 @@ packages:
       - "WB-C04"
       - "WB-C05"
       - "WB-C06"
-      - "WC-C09"
       - "WE-C18"
       - "P5-A"
       - "P5-B"
@@ -502,6 +501,7 @@ packages:
       - "dodaci/b-jamovi.qmd"
       - "dodaci/c-katalog-podataka.qmd"
       - "podaci.qmd"
+      - "rjesenja.qmd"
     source: "R/podaci-nastavni.R, funkcija simuliraj_populaciju"
     version: "50000 opazanja, sjeme 8001; inacica je deklarirano stanje izvora P1B-DATA-LIC"
     licence: "CC BY 4.0"
@@ -804,18 +804,32 @@ packages:
     role: "Orijentir za Simpsonov paradoks i za uvjetne nazivnike."
     consumers:
       - "WA-C01"
+      - "WA-C02"
+      - "WB-C06"
       - "WD-C13"
       - "P5-C"
     source_symbol: "UCBAdmissions"
+    consumer_markers:
+      - "UCBAdmissions"
+      - "Berkeley"
+      - "bickel1975"
     consumer_sources:
+      - "chapters/01-zasto-statistika.qmd"
+      - "chapters/02-mjerenje-i-dizajn.qmd"
+      - "chapters/06-povezanost.qmd"
+      - "chapters/13-kategoricki-podaci.qmd"
       - "dodaci/c-katalog-podataka.qmd"
       - "podaci.qmd"
+      - "rjesenja.qmd"
     source: "Paket datasets u R-u 4.6.0; dokumentirani izvor su podaci o prijavama na Berkeley uz @bickel1975."
     version: "R 4.6.0"
     licence: "neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0"
     attribution: "Izvorna studija @bickel1975 i sluzbena R dokumentacija; tocan dodatni licencni navod ostaje nerijesen."
     access: "Iz lokalne instalacije R-a."
-    redistribution: "nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao"
+    redistribution: >-
+      nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao; autor je
+      31. kolovoza 2026. lokalnu redistribuciju izricito odgodio za drugo
+      izdanje s tim razlogom
     lane: "external-only"
     refresh_class: "frozen"
     fallback: >-
@@ -853,6 +867,7 @@ packages:
       appeal: "Nije primjenjivo za povijesni agregat."
     caveats:
       - "Dostupnost kroz R nije dopustenje za repozitorijsku kopiju."
+      - "Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno cista obvezna zamjena ostaju."
 
   - id: "anscombe"
     name: "Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije"
@@ -877,7 +892,10 @@ packages:
     licence: "neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0"
     attribution: "F. J. Anscombe, izvorni clanak @anscombe1973 i sluzbena R dokumentacija."
     access: "Iz lokalne instalacije R-a."
-    redistribution: "nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao"
+    redistribution: >-
+      nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao; autor je
+      31. kolovoza 2026. lokalnu redistribuciju izricito odgodio za drugo
+      izdanje s tim razlogom
     lane: "external-only"
     refresh_class: "frozen"
     fallback: >-
@@ -912,6 +930,7 @@ packages:
       appeal: "Nije primjenjivo."
     caveats:
       - "Skup je konstruiran, a ne simuliran iz sjemena; nosi ulogu poznate istine bez generatora."
+      - "Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno cista obvezna zamjena ostaju."
 
   # --- predlozeni paketi ---------------------------------------------------
   - id: "dzs_turizam"
@@ -925,8 +944,7 @@ packages:
       PUTOVANJE stanovnika, ne osoba.
     question: "Kako se dolasci i nocenja mijenjaju kroz godinu i po zupanijama?"
     role: "Sluzbeni agregat s potiskivanjem, revizijama i opasnoscu dvostrukoga brojanja."
-    consumers:
-      - "WA-C03"
+    consumers: []
     source: >-
       Drzavni zavod za statistiku, podrucje Turizam; tablice BS_TU11
       (Tablica 1.1), BS_TU12 (Tablica 1.2) i T03 (Tablica 3., Turisticka
@@ -939,7 +957,7 @@ packages:
       mjesecnom nizu 2025., presjek zupanija je 2025., a anketna godina 2024.
       Preuzeto 27. srpnja 2026.
     licence: "Hrvatska otvorena dozvola"
-    licence_uri: "https://www.data.gov.hr/hr/open-license"
+    licence_uri: "https://data.gov.hr/hr/open-license"
     attribution: >-
       Izvor: Drzavni zavod za statistiku, podrucje Turizam, tablice BS_TU11,
       BS_TU12 i T03; URI https://web.dzs.hr/PxWeb/pxweb/hr/Turizam/; stanje na
@@ -972,7 +990,11 @@ packages:
         Zrcalo NIJE zabiljezilo PxWeb polje o posljednjoj izmjeni tablice, pa
         ovaj paket taj datum nema i ne izmislja ga. Umjesto njega biljezi dvije
         provjerljive zamjene: datum preuzimanja 27. srpnja 2026. i posljednje
-        objavljeno opazanje po tablici. Prazninu nosi H-P3-DZS-002.
+        objavljeno opazanje po tablici. Sluzbeni API i HTML ponovno su provjereni
+        31. kolovoza 2026. bez izlozenoga Last-Modified, ETag ili metapodatkovnog
+        polja izmjene. Autor je istoga dana prihvatio te dvije zamjene za prvo
+        izdanje. Zapis ne tvrdi da je Last-Modified poznat niti da je pribavljeno
+        zasebno dopustenje nositelja prava.
       transformations:
         - "Odabir: samo cjelovite kalendarske godine 2005.-2025. iz BS_TU11, presjek 2025. iz BS_TU12, godina 2024. iz T03."
         - "Razdvajanje: godisnji i mjesecni redci BS_TU11 stoje u dvjema datotekama i ne mogu se zbrojiti zajedno."
@@ -1642,6 +1664,18 @@ packages:
     role: "Potpuni zabiljezeni dogadjaji, brojnik i nazivnik, razlika zapisa i ljudi."
     consumers:
       - "WA-C03"
+      - "P5-C"
+      - "P5-G"
+    consumer_markers:
+      - "dip_2024"
+      - "dip2024"
+      - "DIP"
+    consumer_sources:
+      - "chapters/03-kako-brojke-zavode.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "dodaci/g-numericki-podsjetnik.qmd"
+      - "podaci.qmd"
+      - "rjesenja.qmd"
     source: >-
       Drzavno izborno povjerenstvo Republike Hrvatske, Izbori za zastupnike u
       Hrvatski sabor 2024.; sluzbeni arhiv rezultati_sabor.zip i Izvjesce o
@@ -1697,12 +1731,20 @@ packages:
       - "tvrdnja o pojedinacnom biracu"
       - "uzrocnost"
     ethics:
-      category_ownership: "Izborne jedinice i kategorije odredjuje zakon."
-      absence: "Osobe koje nisu u registru biraca ne ulaze u nazivnik."
-      identifiability: "Agregat po mjestu; pojedinacni glas je tajan i nije prikazan."
+      category_ownership: >-
+        Odabrana sluzbena tablica objavljuje imenovane prostorne jedinice i
+        kategorije; ovaj zapis ne tumaci njihovu pravnu osnovu.
+      absence: >-
+        Nazivnik u odabranoj tablici jest objavljeni broj biraca upisanih u
+        izvadak; iz tablice se ne izvodi tvrdnja o osobama izvan toga zapisa.
+      identifiability: >-
+        Tablica je agregirana po prostornoj jedinici i ne prikazuje
+        pojedinacni glas.
       beneficiaries: "Citatelj koji uci razliku brojnika i nazivnika u sluzbenom zapisu."
       error_burden: "Pogresno citanje izlaznosti pada na javnu raspravu."
-      appeal: "Izborni prigovor je zakonski postupak izvan opsega knjige."
+      appeal: >-
+        Odabrana tablica ne sadrzi put prigovora; knjiga ga iz ovoga izvora ne
+        opisuje.
 
   - id: "digikat_akteri"
     name: "DigiKat agregat aktera"
@@ -1806,6 +1848,15 @@ packages:
     role: "Usporedivost, oznake kvalitete i granica ekoloske interpretacije."
     consumers:
       - "WB-C06"
+      - "P5-C"
+    consumer_markers:
+      - "eurostat_drustvo"
+      - "eurostat-drustvo-2025.csv"
+    consumer_sources:
+      - "chapters/06-povezanost.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "podaci.qmd"
+      - "rjesenja.qmd"
     source: >-
       Eurostat Dissemination API, skupovi lfsi_emp_a, ilc_peps01n, sdg_04_20,
       edat_lfse_14, isoc_ci_ifp_iu i demo_pjanind; svi odgovori nose izvorni
@@ -2039,7 +2090,17 @@ packages:
       - "WD-C13"
       - "WD-C14"
       - "WD-C15"
-      - "WD-C16"
+      - "P5-C"
+    consumer_markers:
+      - "ESS Round 11"
+      - "anweight"
+    consumer_sources:
+      - "chapters/08-uzorkovanje.qmd"
+      - "chapters/13-kategoricki-podaci.qmd"
+      - "chapters/14-dvije-grupe.qmd"
+      - "chapters/15-vise-grupa.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "podaci.qmd"
     source: "European Social Survey, Round 11, edition 3.0, ukljucuje Hrvatsku; izdanje objavljeno 2. lipnja 2025."
     version: "Round 11, edition 3.0"
     licence: "Podaci CC BY-NC-SA 4.0; dokumentacija CC BY-SA 4.0"
@@ -2280,11 +2341,20 @@ packages:
     consumers:
       - "WD-C17"
       - "WE-C18"
+      - "P5-A"
       - "P5-B"
+      - "P5-C"
+    consumer_markers:
+      - "parlament_oznake.csv"
+      - "ParlaSent"
     consumer_sources:
       - "chapters/17-doba-algoritama.qmd"
       - "chapters/18-vase-prvo-istrazivanje.qmd"
+      - "dodaci/a-praktikum.qmd"
       - "dodaci/b-jamovi.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "podaci.qmd"
+      - "rjesenja.qmd"
     source: >-
       The multilingual sentiment dataset of parliamentary debates ParlaSent
       1.0, CLARIN.SI zapis 11356/1868; sluzbene datoteke
@@ -2533,12 +2603,14 @@ packages:
     unavailable_claims:
       - "svaka tvrdnja iz nedostupnoga zapisa"
     ethics:
-      category_ownership: "Kategorije odredjuje pruzatelj i regulator."
-      absence: "Subjekti bez obveze objave nisu u zapisu."
-      identifiability: "Poslovni subjekti su imenovani."
+      category_ownership: "Nije odredivo prije odabira izvora i njegova rjecnika kategorija."
+      absence: "Nije odredivo prije odabira izvora i dokumentiranja njegova obuhvata."
+      identifiability: "Nije odredivo prije odabira izvora i pregleda odabranih polja."
       beneficiaries: "Citatelj koji uci prepoznati nereproducibilan dokaz."
-      error_burden: "Kriv financijski zapis pada na imenovani subjekt."
-      appeal: "Regulatorni postupak izvan opsega knjige."
+      error_burden: >-
+        Pogresan zakljucak iz neodabranoga izvora pada na citatelja koji ga ne
+        moze provjeriti.
+      appeal: "Nije odredivo prije odabira izvora i provjere njegova puta ispravka."
 
   - id: "digikat_mediji"
     name: "DigiKat, agregat digitalnoga medijskog prostora"
@@ -2556,6 +2628,20 @@ packages:
       - "WB-C04"
       - "WB-C05"
       - "WB-C06"
+      - "WD-C16"
+      - "P5-C"
+    consumer_markers:
+      - "digikat-platforme"
+      - "digikat-izvori"
+      - "DigiKat"
+    consumer_sources:
+      - "chapters/04-sazimanje-podataka.qmd"
+      - "chapters/05-vizualizacija.qmd"
+      - "chapters/06-povezanost.qmd"
+      - "chapters/16-regresija.qmd"
+      - "dodaci/c-katalog-podataka.qmd"
+      - "podaci.qmd"
+      - "rjesenja.qmd"
     source: >-
       DigiKat, Prikaz i analiza katolicke tematike u digitalnom medijskom
       prostoru, Hrvatsko katolicko sveuciliste, voditelj Luka Sikic. Izvadak je
@@ -3310,8 +3396,8 @@ packages:
       - "uzrocnost"
     ethics:
       category_ownership: >-
-        Razrede velicine i vrste potpore odredjuje regulator i europski okvir
-        drzavnih potpora, a ne istrazivac.
+        Agregat zadrzava kategorije iz uzvodnoga zapisa; ovaj katalog ne
+        pripisuje njihovo autorstvo ni pravnu osnovu.
       absence: >-
         Dodjele koje u registar nisu upisane ne postoje u ovim brojkama.
         Tablica obuhvata je jedini nacin da se ta odsutnost uopce vidi.
@@ -3323,7 +3409,9 @@ packages:
       error_burden: >-
         Kriva tvrdnja o koncentraciji pada na javnu raspravu o trosenju
         proracuna i na imenovane primatelje u uzvodnom registru.
-      appeal: "Ispravak upisa vodi se kod nadleznoga tijela, izvan opsega knjige."
+      appeal: >-
+        Agregat ne sadrzi put ispravka ili prigovora; knjiga ga iz ovoga izvora
+        ne opisuje.
     caveats:
       - "Snimka za 2021. reproducira 0,93 posto sluzbenoga iznosa, a za 2023. 95,18 posto."
       - "Iznos je element potpore, ne proracunska isplata i ne mjera ucinka."

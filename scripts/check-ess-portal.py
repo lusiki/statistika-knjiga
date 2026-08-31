@@ -41,7 +41,7 @@ DESIGN_VARIABLES = (
 )
 TEACHING_VARIABLES = ("vote", "trstprl", "stflife", "gndr", "agea", "eisced")
 EXPECTED_VARIABLES = IDENTITY_VARIABLES + DESIGN_VARIABLES + TEACHING_VARIABLES
-EXPECTED_CONSUMERS = {"WC-C08", "WD-C13", "WD-C14", "WD-C15", "WD-C16"}
+EXPECTED_CONSUMERS = {"WC-C08", "WD-C13", "WD-C14", "WD-C15", "P5-C"}
 FIXTURES = {
     "",
     "local_copy_added",
@@ -137,7 +137,7 @@ def main() -> int:
                     f"ESS official reconciliation is missing: {token}")
 
     require(set(package.get("consumers") or []) == EXPECTED_CONSUMERS,
-            "ESS consumers must be exactly WC-C08 and WD-C13 through WD-C16")
+            "ESS consumers must be exactly WC-C08, WD-C13 through WD-C15, and P5-C")
     require(package.get("version") == "Round 11, edition 3.0",
             "ESS version must remain Round 11, edition 3.0")
     require(package.get("passport") == "data/ess_r11_hr/PUTOVNICA.md",

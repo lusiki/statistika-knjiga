@@ -124,7 +124,8 @@ def validate_metadata(entries: dict[str, Entry]) -> list[str]:
     type_requirements = {
         "article": {"author", "title", "journal", "volume", "number", "pages", "year", "doi"},
         "book": {"author", "title", "publisher", "year"},
-        "inproceedings": {"author", "title", "booktitle", "pages", "year", "doi"},
+        "inproceedings": {"author", "title", "booktitle", "pages", "year"},
+        "misc": {"author", "title", "note", "year", "url"},
         "unpublished": {"author", "title", "note", "year", "url"},
     }
     for key, entry in entries.items():
@@ -135,6 +136,10 @@ def validate_metadata(entries: dict[str, Entry]) -> list[str]:
         missing = sorted(required - entry.fields.keys())
         if missing:
             failures.append(f"{key}: missing required fields {missing}")
+        if entry.entry_type == "inproceedings" and not (
+            entry.fields.get("doi") or entry.fields.get("url")
+        ):
+            failures.append(f"{key}: inproceedings record requires doi or url")
         year = entry.fields.get("year", "")
         year_match = re.search(r"\b(\d{4})\b", year)
         if not year_match:

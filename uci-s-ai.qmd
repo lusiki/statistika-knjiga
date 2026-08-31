@@ -18,10 +18,9 @@ format:
 
 [Pomagalo za učenje]{.section-label}
 
-Cijelu knjigu ili pojedino poglavlje možete dati svojem asistentu i postavljati
-pitanja, tražiti sažetke ili provjeravati razumijevanje. Pripremljene su čiste
-tekstualne verzije koje asistent lako čita. Sve radi u vašem asistentu, bez
-prijave i bez troška.
+Za cijelu knjigu i svako poglavlje pripremljene su čiste tekstualne datoteke.
+Možete ih preuzeti i rabiti kao provjerljiv kontekst u alatu koji sami
+odaberete pri postavljanju pitanja, izradi sažetka ili provjeri razumijevanja.
 
 Knjiga na to gleda kao na dio gradiva, a ne kao na zaobilaženje. Asistentu se
 prepušta računanje, a zadržavaju se prosudba, provjera i odgovornost. Pravila
@@ -35,9 +34,10 @@ manifest = FileAttachment("data/ai-exports.json").json()
 
 ## Jedno poglavlje
 
-Poglavlje je dovoljno malo da stane u svaki standardni razgovor i daje točne
-odgovore jer je tekst usko vezan uz vaše pitanje. Odaberite poglavlje pa
-preuzmite tekst ili ga otvorite u asistentu.
+Tekst jednoga poglavlja daje asistentu ograničen kontekst za jedno pitanje.
+Odgovor se može usporediti s priloženim tekstom, ali sam kontekst ne jamči ni
+potpunost ni točnost. Svaki navod i račun zato treba neovisno provjeriti.
+Odaberite poglavlje pa preuzmite tekst ili ga otvorite u asistentu.
 
 ::: {.ojs-task-control data-ojs-label="Odaberi izvoz poglavlja" data-ojs-hint="otvori izbornik"}
 ```{ojs}
@@ -123,11 +123,12 @@ priložite tekst.
 }
 ```
 
-## Što asistent ne može
+## Granice odgovora i provjera
 
-Asistent ne zna ništa što nije u priloženom tekstu, pa će na pitanje o
-poglavlju koje niste priložili odgovoriti nagađanjem ako ga na to ne
-upozorite. Ne provjerava vlastite izračune ako ga ne zatražite da pokaže
-postupak. Ne zna koji su podaci vaši ni jesu li osobni, pa je to vaša
-odgovornost. Kutija „Nađite grešku" u svakom poglavlju vježba upravo tu
-razliku između odgovora koji zvuči točno i odgovora koji jest točan.
+Priloženi tekst usmjerava odgovor, ali ne jamči da su obuhvaćene sve relevantne
+informacije. Tvrdnje izvan priloženoga teksta treba provjeriti u zasebnom
+izvoru, a izračune ponoviti neovisnim postupkom. Prije dijeljenja podataka treba
+provjeriti njihovo podrijetlo, valjanost i sadrže li osobne podatke. Za te je
+odluke odgovorna osoba koja koristi asistenta. Kutija „Nađite grešku" u svakom
+poglavlju vježba razliku između uvjerljiva odgovora i odgovora koji je poduprt
+provjerom.

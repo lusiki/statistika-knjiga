@@ -272,13 +272,12 @@ sažmemo?
 
 ## Od izvora do sažetka
 
-Protokol skeptičnoga čitanja s granice Dijela I ovdje mijenja smjer rada. Više
-ne rastavljamo tuđu gotovu brojku, nego od provjerljivoga izvora gradimo vlastiti
-sažetak. [Analitička tablica]{.pojam
+U prvom smo dijelu rastavljali tuđu gotovu brojku. Sada ista pažnja prati put
+od provjerljivoga izvora do vlastitoga sažetka. [Analitička tablica]{.pojam
 def="Tablica čiji svaki red predstavlja unaprijed imenovanu jedinicu analize i nosi samo provjerene varijable potrebne za pitanje."
 en="analysis table" ch="4"} nije datoteka koju pronađemo, nego rezultat odluka
 o jedinici, ključu, spajanju, kodovima, filtrima i nedostajućim vrijednostima.
-Svaka odluka mora ostaviti trag koji druga osoba može ponoviti.
+Čitatelj mora moći pratiti i ponoviti svaku od tih odluka.
 
 ### Tri tablice, tri jedinice
 
@@ -308,11 +307,12 @@ tibble(
 ```
 :::
 
-Datoteka izvora nema zajednički ključ s platformskim datotekama i s njima se
-ne spaja. Ona će poslije odgovoriti na pitanje kako su objave raspoređene među
-imenovanim domenama. Mjesečna i godišnja datoteka mogu se povezati, ali samo na
-paru `godina + platforma`. Izostavi li se jedan dio ključa, mijenja se ono što
-redak predstavlja.
+Pitanje nije kako spojiti sve dostupne datoteke, nego koje jedinice doista
+dijele ključ. Datoteka izvora nema zajednički ključ s platformskim datotekama,
+pa će zasebno odgovoriti na pitanje kako su objave raspoređene među imenovanim
+domenama. Mjesečna i godišnja datoteka mogu se povezati samo na paru
+`godina + platforma`. Izostavi li se jedan dio ključa, mijenja se ono što redak
+predstavlja.
 
 ### Ključ prije sažetka
 
@@ -340,8 +340,8 @@ s4_spoj_audit |>
 ```
 :::
 
-Provjera nije završena time što se ukupni zbroj dviju izvornih datoteka
-poklapa. Mjesečni i godišnji izvadak razlikuju se u
+Isti ukupni zbroj može prikriti razlike u pojedinim ćelijama. Mjesečni i
+godišnji izvadak razlikuju se u
 `r hr_broj(s4_broj_odstupanja, 0)` od 49 platformskih godišnjih ćelija, premda
 se razlike ukupno poništavaju. Zato spoj ne zamjenjuje mjesečne vrijednosti
 godišnjima niti od njih gradi neprekinuti trend. Za sljedeći korak zadržava se
@@ -350,12 +350,13 @@ samo potpuna 2025. godina; rupa i lom metode u 2024. ne ulaze u usporedbu.
 ### Kada nula znači da mjera nije dostupna
 
 U presjeku 2025. svih devet platformskih redaka ima broj objava, ali za tri
-platforme pružatelj ne isporučuje usporediv doseg ni interakcije. Te su ćelije
-u izvatku zapisane nulom i označene kodom `metrika_dostupna = ne`. Analitička
-tablica zato čuva izvorne stupce, a u izvedenim stupcima te nule pretvara u
-nedostajuće vrijednosti. Time se ne izmišlja rezultat ondje gdje mjerenja nema.
+platforme pružatelj ne isporučuje usporediv doseg ni interakcije. Nula ondje
+izgleda kao mjerenje, premda kod `metrika_dostupna = ne` govori suprotno.
+Analitička tablica zato čuva izvorne stupce, a u izvedenim stupcima te nule
+pretvara u nedostajuće vrijednosti. Time se ne izmišlja rezultat ondje gdje
+mjerenja nema.
 
-Trag odluke počinje brojem označenih redaka. Tri su od devet. To su platforme
+Razmjer praznine prvo opisujemo brojem označenih redaka. Tri su od devet. To su platforme
 `reddit`, `forum` i `comment`, koje zajedno nose
 `r hr_broj(s4_2025_objave_nemjerene, 0)` objava. Njihovo podudaranje s
 metapodacima pokazuje da praznina slijedi način mjerenja, a ne slučajni propust.
@@ -381,7 +382,7 @@ s4_osjetljivost |>
 
 Procjena se mijenja s `r hr_broj(s4_medijan_sve_platforme, 1)` na
 `r hr_broj(s4_medijan_mjerene_platforme, 1)` objava, ali mijenja se i
-predstavljeni skup, od svih devet vrsta platforme prema šest vrsta s dostupnom
+predstavljeni skup, od svih devet vrsta platformi prema šest vrsta platformi s dostupnom
 metrikom angažmana. Neizvjesnost o interakcijama i dosegu preostalih triju time
 se ne smanjuje; ona ostaje granica mjerenja, a ne broj koji treba popuniti.
 
@@ -1048,12 +1049,14 @@ nje ovdje ne uspoređuju ni doseg ni interakcije.
 :::
 
 ::: {.callout-model}
-Asistent može točno računati nad pogrešno izgrađenom tablicom. Prije sažetka
-vrijedi mu zadati kontrolni ugovor. Neka imenuje jedinicu svakog izvora, očekuje
+Točan račun ne spašava pogrešno izgrađenu tablicu. Prije sažetka asistent
+dobiva kontrolni ugovor. Neka imenuje jedinicu svakog izvora, očekuje
 jedinstvenost ključa na strani šifrarnika, prijavi broj redaka i jedinstvenih
 ključeva prije i nakon spajanja te uskladi ukupni zbroj. Tek poslije toga smije
 primijeniti filtar, pravilo za nedostajuće vrijednosti i sažetak. Provjera
-oblika raspodjele ostaje odvojena od provjere aritmetike.
+oblika raspodjele ostaje odvojena od provjere aritmetike. Ta razina delegiranja
+prati [protokol za rad s asistentom](../dodaci/f-ai-protokol.qmd#sec-protokol-asistenta),
+koji čuva ulaz, provjeru i odgovornost.
 
 > Spoji mjesečnu i godišnju DigiKatovu tablicu. Prije računa napiši što
 > predstavlja redak i navedi puni ključ spajanja. Vrati broj redaka, broj

@@ -279,8 +279,8 @@ Ovdje je testna statistika sirova razlika sredina. Obostrani postupak uspoređuj
 apsolutnu opaženu razliku s apsolutnim razlikama nakon premještanja, pa jednako
 broji odstupanja u oba smjera. Takva statistika u sirovoj permutaciji ispituje
 upravo opisani nulti model cijele raspodjele, a ne samo jednakost sredina.
-Sljedeći graf prikazuje što nulti model s njome radi kroz četiri tisuće
-premještanja, a uz njega stoji razlika koju je dao stvarni raspored oznaka.
+Četiri tisuće premještanja pokazuju što nulti model radi s tom statistikom. Uz
+raspodjelu stoji razlika koju je dao stvarni raspored oznaka.
 
 ```{r}
 #| label: fig-nulta-raspodjela
@@ -329,7 +329,7 @@ procjenu pri nasumičnom uzorkovanju premještanja.
 
 ## Interakcija — Simulator p-vrijednosti
 
-Sljedeći prikaz radi ono što jedan uzorak ne može. Postupak ponavlja mnogo puta,
+Dvije usporedne raspodjele rade ono što jedan uzorak ne može. Postupak ponavlja mnogo puta,
 odvojeno u svijetu u kojem učinka nema i u svijetu u kojem ga ima, i prikazuje
 kako se p-vrijednosti raspoređuju u jednom i u drugom. Radi preglednosti koristi
 normalne ishode s poznatom varijabilnošću i obostrani test. P-vrijednosti računa
@@ -639,9 +639,9 @@ postupak je pronalazi u `r hr_broj(s10$stopa_izvor, 1)` % uzoraka. U preostalih
 `r hr_broj(s10$promasaj, 1)` % istraživač bi zaključio da nema dovoljno dokaza,
 i pritom bi se pridržavao svih pravila.
 
-Sljedeća slika postavlja raspodjelu pod nultim modelom i raspodjelu procijenjene
-razlike kad učinak postoji na istu os. Taj je geometrijski prikaz potreban da se
-vidi kako iste granične crte povezuju rizike dviju pogrešaka.
+Zajednička os uspoređuje raspodjelu pod nultim modelom s raspodjelom
+procijenjene razlike kada učinak postoji. Tako iste granične crte povezuju
+rizike dviju pogrešaka.
 
 ```{r}
 #| label: fig-dvije-pogreske
@@ -824,8 +824,8 @@ uopće može zatvoriti.
 :::
 
 ::: {.callout-model}
-Asistent može provesti test i ispisati p-vrijednost, a pritom preskočiti ono što
-računu prethodi ako to upit ne zahtijeva. Prije poziva treba mu reći koja je
+Samo traženje testa i p-vrijednosti može preskočiti ono što računu prethodi.
+Prije poziva asistentu treba reći koja je
 jedinica opažanja i što nulti model tvrdi, jer iz tablice ne može zaključiti
 smiju li se oznake premještati slobodno. Provjeravamo tri stvari u odgovoru.
 Prva je redoslijed, jer procjena i interval moraju stajati ispred testa. Druga
@@ -868,7 +868,7 @@ da vjerojatnost da između dviju skupina nema razlike iznosi
 
 ## Razrađeni primjer
 
-Cijeli se postupak može ispisati u nekoliko redaka, i vrijedi ga jednom vidjeti
+Potpuni se postupak može ispisati u nekoliko redaka i vrijedi ga jednom vidjeti
 u cjelini. Analiza najprije računa opaženu razliku, zatim gradi nultu raspodjelu
 premještanjem oznaka, i na kraju prebrojava koliko je premještanja dalo barem
 toliko veliko odstupanje.

@@ -18,7 +18,7 @@ Za javnu rutu i dokaz regeneracije služi
 
 ## Provjerljivi redci generiranih skupova {#sec-c-provjera}
 
-### Anketa o drustvenim mrezama, generirani nastavni skup — provjera retka {#provjera-c-anketa-mreze}
+### Anketa o društvenim mrežama, generirani nastavni skup — provjera retka {#provjera-c-anketa-mreze}
 
 Udio u @tbl-c-anketa-mreze-udjeli uvijek nosi vlastiti brojnik i nazivnik. Prosjek u @tbl-c-anketa-mreze-prosjeci uvijek stoji uz cjelobrojni zbroj iz iste skupine.
 
@@ -92,10 +92,10 @@ Administrativne provjere u @tbl-c-dzs imaju najveći ostatak točno `0`. Sve tri
 Provjera|Vrsta mjere|Rezultat usklađenja
 |---|---|---|
 | mjeseci-u-objavljenu-godinu | administrativno prebrojavanje | 126 usporedbi; tolerancija 0; najveći ostatak 0 |
-| domaci-i-strani-u-ukupno | administrativno prebrojavanje | 42 usporedbi; tolerancija 0; najveći ostatak 0 |
-| zupanije-u-drzavni-redak | administrativno prebrojavanje | 6 usporedbi; tolerancija 0; najveći ostatak 0 |
+| domaći-i-strani-u-ukupno | administrativno prebrojavanje | 42 usporedbi; tolerancija 0; najveći ostatak 0 |
+| zupanije-u-državni-redak | administrativno prebrojavanje | 6 usporedbi; tolerancija 0; najveći ostatak 0 |
 | zupanije-2025-u-nacionalni-ukupno | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
-| zupanije-2025-u-nacionalni-domaci | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
+| zupanije-2025-u-nacionalni-domaći | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
 | zupanije-2025-u-nacionalni-strani | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
 | anketa-odrediste | anketna procjena | 72 usporedbi; tolerancija 1; najveći ostatak 1 |
 | anketa-trajanje | anketna procjena | 72 usporedbi; tolerancija 1; najveći ostatak 1 |
@@ -106,10 +106,10 @@ Provjera|Vrsta mjere|Rezultat usklađenja
 Provjera|Datoteke
 |---|---|
 | mjeseci-u-objavljenu-godinu | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-mjesecno.csv` |
-| domaci-i-strani-u-ukupno | `data/dzs-turizam-godisnje.csv` |
-| zupanije-u-drzavni-redak | `data/dzs-turizam-zupanije-2025.csv` |
+| domaći-i-strani-u-ukupno | `data/dzs-turizam-godisnje.csv` |
+| zupanije-u-državni-redak | `data/dzs-turizam-zupanije-2025.csv` |
 | zupanije-2025-u-nacionalni-ukupno | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
-| zupanije-2025-u-nacionalni-domaci | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
+| zupanije-2025-u-nacionalni-domaći | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
 | zupanije-2025-u-nacionalni-strani | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
 | anketa-odrediste | `data/dzs-putovanja-stanovnistva-2024.csv` |
 | anketa-trajanje | `data/dzs-putovanja-stanovnistva-2024.csv` |
@@ -121,78 +121,58 @@ Provjera|Datoteke
 
 Svaki zapis u nastavku čuva isto pitanje, jedinicu, traku, status, datoteke i granice tvrdnje koje katalog vodi za taj paket.
 
-## Anketa o drustvenim mrezama, generirani nastavni skup {#sec-data-anketa-mreze}
+## Anketa o društvenim mrežama, generirani nastavni skup {#sec-data-anketa-mreze}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-anketa-mreze).
 
-**Identifikator.** `anketa_mreze`.
-
-**Status.** promoviran paketom `P3-EXISTING`.
-
-**Dizajn.** `seeded_simulation_known_population`.
-
-**Domena.** mediji i drustvene mreze.
-
-**Jedinica.** jedan ispitanik.
-
-**Pitanje.** Koliko vremena ljudi provode na mrezama i kako to ide uz povjerenje?
-
-**Uloga.** Poznata populacija za ponovljeno uzorkovanje i za citanje procjene s intervalom.
-
-**Potrošači.** WB-C04; WB-C05; WB-C06; WC-C09; WE-C18; P5-A; P5-B; P5-C.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `generated`.
-
-**Inačica.** 300 opazanja, sjeme 4001; inacica je deklarirano stanje izvora P1B-DATA-LIC.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `anketa_mreze` |
+| Status | promoviran paketom `P3-EXISTING` |
+| Dizajn | `seeded_simulation_known_population` |
+| Domena | mediji i društvene mreže |
+| Jedinica | jedan ispitanik |
+| Pitanje | Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje? |
+| Uloga | Poznata populacija za ponovljeno uzorkovanje i za čitanje procjene s intervalom. |
+| Potrošači | WB-C04; WB-C05; WB-C06; WE-C18; P5-A; P5-B; P5-C |
+| Traka | `bundled` |
+| Razred osvježavanja | `generated` |
+| Inačica | 300 opažanja, sjeme 4001; inačica je deklarirano stanje izvora P1B-DATA-LIC |
 
 ### Izvor, prava i pristup
 
-**Izvor.** R/podaci-nastavni.R, funkcija simuliraj_anketu
-
-**Licenca.** CC BY 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode))
-
-**Atribucija.** Luka Sikic; Osnove statistike za drustvene znanosti; ime skupa; generator; poveznica na licencu; oznaka izmjena.
-
-**Pristup.** Lokalno generiranje bez mreze.
-
-**Redistribucija.** provjerena
-
-**Zakonita zamjena.** Generator vec pokriva R i renderirane zadatke; buduca CC BY 4.0 snimka pokriva jamovi put i preuzimanje.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** [`data/anketa-mreze.LICENCA.md`](../data/anketa-mreze.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | R/podaci-nastavni.R, funkcija simuliraj_anketu |
+| Licenca | CC BY 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode)) |
+| Atribucija | Luka Sikic; Osnove statistike za društvene znanosti; ime skupa; generator; poveznica na licencu; oznaka izmjena. |
+| Pristup | Lokalno generiranje bez mreže. |
+| Redistribucija | provjerena |
+| Zakonita zamjena | Generator već pokriva R i renderirane zadatke; buduća CC BY 4.0 snimka pokriva jamovi put i preuzimanje. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | [`data/anketa-mreze.LICENCA.md`](../data/anketa-mreze.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### [`data/anketa-mreze.csv`](../data/anketa-mreze.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 300 redaka, a ključ je `ispitanik`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 300 |
+| Ključ | `ispitanik` |
 
-**Varijable.**\
-`ispitanik`,\
-`dob`,\
-`dobna_skupina_sifra`,\
-`dobna_skupina`,\
-`minute_dnevno`,\
-`povjerenje`.
+Varijable su `ispitanik`, `dob`, `dobna_skupina_sifra`, `dobna_skupina`, `minute_dnevno`, `povjerenje`.
 
 #### [`data/anketa-mreze-agregat.csv`](../data/anketa-mreze-agregat.csv)
 
-**Uloga i opseg.** Uloga je `aggregate`, datoteka ima 4 redaka, a ključ je `dobna_skupina_sifra`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `aggregate` |
+| Broj redaka | 4 |
+| Ključ | `dobna_skupina_sifra` |
 
-**Varijable.**\
-`dobna_skupina_sifra`,\
-`dobna_skupina`,\
-`broj`,\
-`ukupno`,\
-`udio`,\
-`zbroj_minuta`,\
-`prosjek_minuta`,\
-`zbroj_povjerenja`,\
-`prosjek_povjerenja`.
+Varijable su `dobna_skupina_sifra`, `dobna_skupina`, `broj`, `ukupno`, `udio`, `zbroj_minuta`, `prosjek_minuta`, `zbroj_povjerenja`, `prosjek_povjerenja`.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -202,17 +182,17 @@ Status|Granica tvrdnje
 | dopuštena | povezanost |
 | dopuštena | generalizacija na poznatu generiranu populaciju |
 | nedostupna | bilo kakva tvrdnja o stvarnoj hrvatskoj populaciji |
-| nedostupna | uzrocnost |
+| nedostupna | uzročnost |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije je odredio autor knjige radi poucavanja. |
-| `absence` | Nitko nije izostavljen jer nitko nije opazan; skup je generiran. |
-| `identifiability` | Nijedna osoba nije prikazana; zapisi su izmisljeni po pravilu. |
-| `beneficiaries` | Citatelj koji uci sto uzorkovanje moze i sto ne moze. |
-| `error_burden` | Nijedna stvarna osoba ne snosi posljedicu pogreske. |
+| `category_ownership` | Kategorije je odredio autor knjige radi poučavanja. |
+| `absence` | Nitko nije izostavljen jer nitko nije opažan; skup je generiran. |
+| `identifiability` | Nijedna osoba nije prikazana; zapisi su izmišljeni po pravilu. |
+| `beneficiaries` | Čitatelj koji uči što uzorkovanje može i što ne može. |
+| `error_burden` | Nijedna stvarna osoba ne snosi posljedicu pogreške. |
 | `appeal` | Nije primjenjivo jer nema klasificirane osobe. |
 
 ### Ograničenja
@@ -225,82 +205,54 @@ Redni broj|Ograničenje
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-populacija-medija).
 
-**Identifikator.** `populacija_medija`.
-
-**Status.** promoviran paketom `P3-EXISTING`.
-
-**Dizajn.** `seeded_simulation_known_population`.
-
-**Domena.** mediji i povjerenje.
-
-**Jedinica.** jedna osoba u generiranoj populaciji.
-
-**Pitanje.** Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?
-
-**Uloga.** Poznata populacija iz koje se uzorkuje, i poznati model za regresiju.
-
-**Potrošači.** WA-C00; WA-C01; WA-C03; WC-C07; WC-C08; WC-C09; WC-C10; WC-C11; WD-C13; WD-C14; WD-C15; WD-C16; P5-A; P5-B; P5-C.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `generated`.
-
-**Inačica.** 50000 opazanja, sjeme 8001; inacica je deklarirano stanje izvora P1B-DATA-LIC.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `populacija_medija` |
+| Status | promoviran paketom `P3-EXISTING` |
+| Dizajn | `seeded_simulation_known_population` |
+| Domena | mediji i povjerenje |
+| Jedinica | jedna osoba u generiranoj populaciji |
+| Pitanje | Kako se povjerenje u medije mijenja s dobi i izvorom vijesti? |
+| Uloga | Poznata populacija iz koje se uzorkuje, i poznati model za regresiju. |
+| Potrošači | WA-C00; WA-C01; WA-C03; WC-C07; WC-C08; WC-C09; WC-C10; WC-C11; WD-C13; WD-C14; WD-C15; WD-C16; P5-A; P5-B; P5-C |
+| Traka | `bundled` |
+| Razred osvježavanja | `generated` |
+| Inačica | 50000 opažanja, sjeme 8001; inačica je deklarirano stanje izvora P1B-DATA-LIC |
 
 ### Izvor, prava i pristup
 
-**Izvor.** R/podaci-nastavni.R, funkcija simuliraj_populaciju
-
-**Licenca.** CC BY 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode))
-
-**Atribucija.** Luka Sikic; Osnove statistike za drustvene znanosti; ime skupa; generator; poveznica na licencu; oznaka izmjena.
-
-**Pristup.** Lokalno generiranje bez mreze.
-
-**Redistribucija.** provjerena
-
-**Zakonita zamjena.** Generator vec pokriva R i renderirane zadatke; buduca CC BY 4.0 snimka pokriva jamovi put i preuzimanje.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** [`data/populacija-medija.LICENCA.md`](../data/populacija-medija.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | R/podaci-nastavni.R, funkcija simuliraj_populaciju |
+| Licenca | CC BY 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode)) |
+| Atribucija | Luka Sikic; Osnove statistike za društvene znanosti; ime skupa; generator; poveznica na licencu; oznaka izmjena. |
+| Pristup | Lokalno generiranje bez mreže. |
+| Redistribucija | provjerena |
+| Zakonita zamjena | Generator već pokriva R i renderirane zadatke; buduća CC BY 4.0 snimka pokriva jamovi put i preuzimanje. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | [`data/populacija-medija.LICENCA.md`](../data/populacija-medija.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### [`data/populacija-medija.csv`](../data/populacija-medija.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 50000 redaka, a ključ je `osoba`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 50000 |
+| Ključ | `osoba` |
 
-**Varijable.**\
-`osoba`,\
-`dob`,\
-`spol`,\
-`obrazovanje_sifra`,\
-`obrazovanje`,\
-`izvor_vijesti_sifra`,\
-`izvor_vijesti`,\
-`povjerenje_medijima`,\
-`minute_medija`,\
-`spremnost_platiti`.
+Varijable su `osoba`, `dob`, `spol`, `obrazovanje_sifra`, `obrazovanje`, `izvor_vijesti_sifra`, `izvor_vijesti`, `povjerenje_medijima`, `minute_medija`, `spremnost_platiti`.
 
 #### [`data/populacija-medija-agregat.csv`](../data/populacija-medija-agregat.csv)
 
-**Uloga i opseg.** Uloga je `aggregate`, datoteka ima 5 redaka, a ključ je `izvor_vijesti_sifra`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `aggregate` |
+| Broj redaka | 5 |
+| Ključ | `izvor_vijesti_sifra` |
 
-**Varijable.**\
-`izvor_vijesti_sifra`,\
-`izvor_vijesti`,\
-`broj`,\
-`ukupno`,\
-`udio`,\
-`zbroj_povjerenja`,\
-`prosjek_povjerenja`,\
-`zbroj_minuta`,\
-`prosjek_minuta`,\
-`broj_platio`,\
-`udio_platio`,\
-`zbroj_spremnosti`,\
-`prosjek_spremnosti`.
+Varijable su `izvor_vijesti_sifra`, `izvor_vijesti`, `broj`, `ukupno`, `udio`, `zbroj_povjerenja`, `prosjek_povjerenja`, `zbroj_minuta`, `prosjek_minuta`, `broj_platio`, `udio_platio`, `zbroj_spremnosti`, `prosjek_spremnosti`.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -310,17 +262,17 @@ Status|Granica tvrdnje
 | dopuštena | povezanost |
 | dopuštena | predviđanje unutar generirane populacije |
 | nedostupna | bilo kakva tvrdnja o stvarnoj hrvatskoj populaciji |
-| nedostupna | uzrocnost izvan ugradjenoga generativnog pravila |
+| nedostupna | uzročnost izvan ugrađenoga generativnog pravila |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije je odredio autor knjige radi poucavanja. |
-| `absence` | Nitko nije izostavljen jer nitko nije opazan. |
+| `category_ownership` | Kategorije je odredio autor knjige radi poučavanja. |
+| `absence` | Nitko nije izostavljen jer nitko nije opažan. |
 | `identifiability` | Nijedna osoba nije prikazana. |
-| `beneficiaries` | Citatelj koji uci razliku izmedju uzorka i populacije. |
-| `error_burden` | Nijedna stvarna osoba ne snosi posljedicu pogreske. |
+| `beneficiaries` | Čitatelj koji uči razliku između uzorka i populacije. |
+| `error_burden` | Nijedna stvarna osoba ne snosi posljedicu pogreške. |
 | `appeal` | Nije primjenjivo. |
 
 ### Ograničenja
@@ -333,45 +285,32 @@ Redni broj|Ograničenje
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-ucbadmissions).
 
-**Identifikator.** `ucbadmissions`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `administrative_or_electoral_count`.
-
-**Domena.** upisi na sveuciliste.
-
-**Jedinica.** jedna prijava, agregirana po odjelu, spolu i ishodu.
-
-**Pitanje.** Kako zbirna stopa upisa moze obrnuti predznak razlike po odjelima?
-
-**Uloga.** Orijentir za Simpsonov paradoks i za uvjetne nazivnike.
-
-**Potrošači.** WA-C01; WD-C13; P5-C.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `frozen`.
-
-**Inačica.** R 4.6.0.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `ucbadmissions` |
+| Status | nije promoviran |
+| Dizajn | `administrative_or_electoral_count` |
+| Domena | upisi na sveučilište |
+| Jedinica | jedna prijava, agregirana po odjelu, spolu i ishodu |
+| Pitanje | Kako zbirna stopa upisa može obrnuti predznak razlike po odjelima? |
+| Uloga | Orijentir za Simpsonov paradoks i za uvjetne nazivnike. |
+| Potrošači | WA-C01; WA-C02; WB-C06; WD-C13; P5-C |
+| Traka | `external-only` |
+| Razred osvježavanja | `frozen` |
+| Inačica | R 4.6.0 |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Paket datasets u R-u 4.6.0; dokumentirani izvor su podaci o prijavama na Berkeley uz @bickel1975.
-
-**Licenca.** neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0
-
-**Atribucija.** Izvorna studija @bickel1975 i sluzbena R dokumentacija; tocan dodatni licencni navod ostaje nerijesen.
-
-**Pristup.** Iz lokalne instalacije R-a.
-
-**Redistribucija.** nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao
-
-**Zakonita zamjena.** Lokalna instalacija R-a ostaje neobvezni put; obvezna kategoricka vjezba koristi populacija_medija ili njegov licencno cist agregat.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Paket datasets u R-u 4.6.0; dokumentirani izvor su podaci o prijavama na Berkeley uz @bickel1975. |
+| Licenca | neutvrđena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0 |
+| Atribucija | Izvorna studija @bickel1975 i službena R dokumentacija; točan dodatni licencni navod ostaje neriješen. |
+| Pristup | Iz lokalne instalacije R-a. |
+| Redistribucija | nije dokazana; P3-EXISTING je tražio dokaz i nije ga našao; autor je 31. kolovoza 2026. lokalnu redistribuciju izričito odgodio za drugo izdanje s tim razlogom |
+| Zakonita zamjena | Lokalna instalacija R-a ostaje neobvezni put; obvezna kategorička vježba koristi populacija_medija ili njegov licencno čist agregat. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -381,71 +320,59 @@ Paket nema materijaliziranu datoteku.
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis zabiljezenih prijava |
+| dopuštena | opis zabilježenih prijava |
 | dopuštena | povezanost uz eksplicitan nazivnik |
-| nedostupna | uzrocnost |
-| nedostupna | generalizacija na danasnje upise |
+| nedostupna | uzročnost |
+| nedostupna | generalizacija na današnje upise |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
 | `category_ownership` | Kategorije spola i odjela odredila je institucija 1973. |
-| `absence` | Prijave izvan sest najvecih odjela nisu u skupu. |
+| `absence` | Prijave izvan šest najvećih odjela nisu u skupu. |
 | `identifiability` | Podaci su agregirani i nijedna osoba nije prepoznatljiva. |
-| `beneficiaries` | Citatelj koji uci citati zbirnu i uvjetnu stopu. |
-| `error_burden` | Povijesni zapis; pogresno citanje pada na tumaca, ne na prijavitelje. |
+| `beneficiaries` | Čitatelj koji uči čitati zbirnu i uvjetnu stopu. |
+| `error_burden` | Povijesni zapis; pogrešno čitanje pada na tumača, ne na prijavitelje. |
 | `appeal` | Nije primjenjivo za povijesni agregat. |
 
 ### Ograničenja
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Dostupnost kroz R nije dopustenje za repozitorijsku kopiju. |
+| 1 | Dostupnost kroz R nije dopuštenje za repozitorijsku kopiju. |
+| 2 | Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno cista obvezna zamjena ostaju. |
 
 ## Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije {#sec-data-anscombe}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-anscombe).
 
-**Identifikator.** `anscombe`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `seeded_simulation_known_population`.
-
-**Domena.** vizualizacija i povezanost.
-
-**Jedinica.** jedan konstruirani par vrijednosti.
-
-**Pitanje.** Zasto cetiri skupa s istim sazetcima izgledaju posve razlicito?
-
-**Uloga.** Orijentir koji pokazuje da sazetak ne zamjenjuje prikaz.
-
-**Potrošači.** WB-C05; WB-C06; P5-C.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `frozen`.
-
-**Inačica.** R 4.6.0.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `anscombe` |
+| Status | nije promoviran |
+| Dizajn | `seeded_simulation_known_population` |
+| Domena | vizualizacija i povezanost |
+| Jedinica | jedan konstruirani par vrijednosti |
+| Pitanje | Zašto četiri skupa s istim sažetcima izgledaju posve različito? |
+| Uloga | Orijentir koji pokazuje da sažetak ne zamjenjuje prikaz. |
+| Potrošači | WB-C05; WB-C06; P5-C |
+| Traka | `external-only` |
+| Razred osvježavanja | `frozen` |
+| Inačica | R 4.6.0 |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Paket datasets u R-u 4.6.0; dokumentirani izvor je Anscombeov kvartet uz @anscombe1973.
-
-**Licenca.** neutvrdjena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0
-
-**Atribucija.** F. J. Anscombe, izvorni clanak @anscombe1973 i sluzbena R dokumentacija.
-
-**Pristup.** Iz lokalne instalacije R-a.
-
-**Redistribucija.** nije dokazana; P3-EXISTING je trazio dokaz i nije ga nasao
-
-**Zakonita zamjena.** Lokalna instalacija R-a ostaje neobvezni put; obvezna vjezba vizualizacije ili povezanosti koristi anketa_mreze ili njegov licencno cist agregat.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Paket datasets u R-u 4.6.0; dokumentirani izvor je Anscombeov kvartet uz @anscombe1973. |
+| Licenca | neutvrđena; lokalni opis paketa navodi samo da je paket dio R-a 4.6.0 |
+| Atribucija | F. J. Anscombe, izvorni članak @anscombe1973 i službena R dokumentacija. |
+| Pristup | Iz lokalne instalacije R-a. |
+| Redistribucija | nije dokazana; P3-EXISTING je tražio dokaz i nije ga našao; autor je 31. kolovoza 2026. lokalnu redistribuciju izričito odgodio za drugo izdanje s tim razlogom |
+| Zakonita zamjena | Lokalna instalacija R-a ostaje neobvezni put; obvezna vježba vizualizacije ili povezanosti koristi anketa_mreže ili njegov licencno čist agregat. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -462,10 +389,10 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Vrijednosti je konstruirao autor clanka radi dokaza. |
-| `absence` | Nitko nije izostavljen jer nitko nije opazan. |
+| `category_ownership` | Vrijednosti je konstruirao autor članka radi dokaza. |
+| `absence` | Nitko nije izostavljen jer nitko nije opažan. |
 | `identifiability` | Nema osoba u skupu. |
-| `beneficiaries` | Citatelj koji uci gledati prije nego sazima. |
+| `beneficiaries` | Čitatelj koji uči gledati prije nego sažima. |
 | `error_burden` | Nitko. |
 | `appeal` | Nije primjenjivo. |
 
@@ -474,180 +401,146 @@ Pitanje|Odgovor
 Redni broj|Ograničenje
 |---|---|
 | 1 | Skup je konstruiran, a ne simuliran iz sjemena; nosi ulogu poznate istine bez generatora. |
+| 2 | Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno cista obvezna zamjena ostaju. |
 
-## DZS turizam, omedjeni izvadak {#sec-data-dzs-turizam}
+## DZS turizam, omeđeni izvadak {#sec-data-dzs-turizam}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-dzs-turizam).
 
-**Identifikator.** `dzs_turizam`.
-
-**Status.** promoviran paketom `P3-DZS`.
-
-**Dizajn.** `official_aggregate_statistics`.
-
-**Domena.** turizam.
-
-**Jedinica.** Jedan objavljeni redak sluzbene tablice. U mjesecnoj i godisnjoj datoteci to je zabiljezeni DOLAZAK, ne osoba; u anketnoj datoteci procijenjeno PUTOVANJE stanovnika, ne osoba.
-
-**Pitanje.** Kako se dolasci i nocenja mijenjaju kroz godinu i po zupanijama?
-
-**Uloga.** Sluzbeni agregat s potiskivanjem, revizijama i opasnoscu dvostrukoga brojanja.
-
-**Potrošači.** WA-C03.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `pinned`.
-
-**Inačica.** Izdanje je prikvaceno posljednjim objavljenim opazanjem u trenutku preuzimanja. BS_TU11 i BS_TU12 zakljucno s 2026-05, T03 zakljucno s 2024. Izvadak uzima samo cjelovite kalendarske godine, pa je posljednja godina u mjesecnom nizu 2025., presjek zupanija je 2025., a anketna godina 2024. Preuzeto 27. srpnja 2026.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `dzs_turizam` |
+| Status | promoviran paketom `P3-DZS` |
+| Dizajn | `official_aggregate_statistics` |
+| Domena | turizam |
+| Jedinica | Jedan objavljeni redak službene tablice. U mjesečnoj i godišnjoj datoteci to je zabilježeni DOLAZAK, ne osoba; u anketnoj datoteci procijenjeno PUTOVANJE stanovnika, ne osoba. |
+| Pitanje | Kako se dolasci i noćenja mijenjaju kroz godinu i po županijama? |
+| Uloga | Službeni agregat s potiskivanjem, revizijama i opasnošću dvostrukoga brojanja. |
+| Potrošači | nije zabilježeno |
+| Traka | `bundled` |
+| Razred osvježavanja | `pinned` |
+| Inačica | Izdanje je prikvačeno posljednjim objavljenim opažanjem u trenutku preuzimanja. BS_TU11 i BS_TU12 zaključno s 2026-05, T03 zaključno s 2024. Izvadak uzima samo cjelovite kalendarske godine, pa je posljednja godina u mjesečnom nizu 2025., presjek županija je 2025., a anketna godina 2024. Preuzeto 27. srpnja 2026. |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Drzavni zavod za statistiku, podrucje Turizam; tablice BS_TU11 (Tablica 1.1), BS_TU12 (Tablica 1.2) i T03 (Tablica 3., Turisticka aktivnost stanovnistva Republike Hrvatske). Od 2017. izvor mjesecnih dolazaka i nocenja jest sustav eVisitor.
-
-**Licenca.** Hrvatska otvorena dozvola ([uvjeti licence](https://www.data.gov.hr/hr/open-license))
-
-**Atribucija.** Izvor je Drzavni zavod za statistiku, podrucje Turizam, tablice BS_TU11, BS_TU12 i T03; URI [poveznica na izvor](https://web.dzs.hr/PxWeb/pxweb/hr/Turizam/); stanje na dan preuzimanja 27. srpnja 2026.; Hrvatska otvorena dozvola; izmjene su oznacene u data/dzs-turizam.LICENCA.md.
-
-**Pristup.** Sluzbene DZS tablice i PxWeb sucelje; [poveznica na izvor](https://web.dzs.hr/PxWeb/api/v1/hr/Turizam)
-
-**Redistribucija.** provjerena
-
-**Zakonita zamjena.** Paket je prosao, pa ista provjerena snimka sada opsluzuje R, jamovi, preglednik i tisak. Do prve uporabe u poglavlju 3 obvezni zadatak i dalje smije koristiti licencno cist generirani paket ili njegov agregat.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** [`data/dzs-turizam.LICENCA.md`](../data/dzs-turizam.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | Državni zavod za statistiku, područje Turizam; tablice BS_TU11 (Tablica 1.1), BS_TU12 (Tablica 1.2) i T03 (Tablica 3., Turistička aktivnost stanovništva Republike Hrvatske). Od 2017. izvor mjesečnih dolazaka i noćenja jest sustav eVisitor. |
+| Licenca | Hrvatska otvorena dozvola ([uvjeti licence](https://data.gov.hr/hr/open-license)) |
+| Atribucija | Izvor je Državni zavod za statistiku, područje Turizam, tablice BS_TU11, BS_TU12 i T03; URI [poveznica na izvor](https://web.dzs.hr/PxWeb/pxweb/hr/Turizam/); stanje na dan preuzimanja 27. srpnja 2026.; Hrvatska otvorena dozvola; izmjene su označene u data/dzs-turizam.LICENCA.md. |
+| Pristup | Službene DZS tablice i PxWeb sučelje; [poveznica na izvor](https://web.dzs.hr/PxWeb/api/v1/hr/Turizam) |
+| Redistribucija | provjerena |
+| Zakonita zamjena | Paket je prošao, pa ista provjerena snimka sada opslužuje R, jamovi, preglednik i tisak. Do prve uporabe u poglavlju 3 obvezni zadatak i dalje smije koristiti licencno čist generirani paket ili njegov agregat. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | [`data/dzs-turizam.LICENCA.md`](../data/dzs-turizam.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### [`data/dzs-turizam-mjesecno.csv`](../data/dzs-turizam-mjesecno.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 756 redaka, a ključ je `godina+mjesec_redni+turist`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 756 |
+| Ključ | `godina+mjesec_redni+turist` |
 
-**Varijable.**\
-`godina`,\
-`mjesec_redni`,\
-`mjesec`,\
-`turist`,\
-`dolasci`,\
-`nocenja`.
+Varijable su `godina`, `mjesec_redni`, `mjesec`, `turist`, `dolasci`, `nocenja`.
 
 #### [`data/dzs-turizam-godisnje.csv`](../data/dzs-turizam-godisnje.csv)
 
-**Uloga i opseg.** Uloga je `aggregate`, datoteka ima 63 redaka, a ključ je `godina+turist`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `aggregate` |
+| Broj redaka | 63 |
+| Ključ | `godina+turist` |
 
-**Varijable.**\
-`godina`,\
-`turist`,\
-`dolasci`,\
-`nocenja`.
+Varijable su `godina`, `turist`, `dolasci`, `nocenja`.
 
 #### [`data/dzs-turizam-zupanije-2025.csv`](../data/dzs-turizam-zupanije-2025.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 66 redaka, a ključ je `zupanija+turist`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 66 |
+| Ključ | `zupanija+turist` |
 
-**Varijable.**\
-`godina`,\
-`razina`,\
-`zupanija`,\
-`turist`,\
-`dolasci`,\
-`nocenja`.
+Varijable su `godina`, `razina`, `zupanija`, `turist`, `dolasci`, `nocenja`.
 
 #### [`data/dzs-putovanja-stanovnistva-2024.csv`](../data/dzs-putovanja-stanovnistva-2024.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 72 redaka, a ključ je `dobna_skupina+tip_putovanja+destinacija+trajanje`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 72 |
+| Ključ | `dobna_skupina+tip_putovanja+destinacija+trajanje` |
 
-**Varijable.**\
-`godina`,\
-`dobna_skupina`,\
-`tip_putovanja`,\
-`destinacija`,\
-`trajanje`,\
-`putovanja`,\
-`nocenja`,\
-`izdaci_eur`,\
-`izdaci_hrk`.
+Varijable su `godina`, `dobna_skupina`, `tip_putovanja`, `destinacija`, `trajanje`, `putovanja`, `nocenja`, `izdaci_eur`, `izdaci_hrk`.
 
 ### Dopuštene i nedostupne tvrdnje
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis zabiljezenih dolazaka i nocenja |
+| dopuštena | opis zabilježenih dolazaka i noćenja |
 | dopuštena | usporedba razdoblja uz istu definiciju |
-| nedostupna | uzrocnost |
-| nedostupna | zakljucak o pojedinacnom gostu iz agregata |
-| nedostupna | usporedba koja mijesa godisnje i mjesecne retke ili dvije geografske razine bez imenovanja nazivnika |
-| nedostupna | bilo koja tvrdnja o broju OSOBA koje su posjetile Hrvatsku; tablica broji dolaske, ne razlicite osobe |
+| nedostupna | uzročnost |
+| nedostupna | zaključak o pojedinačnom gostu iz agregata |
+| nedostupna | usporedba koja miješa godišnje i mjesečne retke ili dvije geografske razine bez imenovanja nazivnika |
+| nedostupna | bilo koja tvrdnja o broju OSOBA koje su posjetile Hrvatsku; tablica broji dolaske, ne različite osobe |
 | nedostupna | spajanje anketne procjene putovanja s administrativnim brojem dolazaka kao da mjere isto |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije odredjuje sluzbena statisticka metodologija. |
-| `absence` | Potisnute celije i neobjavljene razine ostaju izvan skupa. Izvan njega ostaje i sav nekomercijalni smjestaj, pa tablica ne pokriva sav boravak, nego onaj koji je prijavljen u eVisitor. |
-| `identifiability` | Agregat; pojedinacni gost nije prepoznatljiv. |
-| `beneficiaries` | Citatelj koji uci citati sluzbenu tablicu s njezinim granicama. |
-| `error_burden` | Pogresno citanje pada na tumaca, a zapis je javan. Posljedica nije bezopasna. Broj dolazaka javno se navodi kao broj ljudi i tako ulazi u rasprave o opterecenju mjesta i o politikama. |
+| `category_ownership` | Kategorije određuje službena statistička metodologija. |
+| `absence` | Potisnute ćelije i neobjavljene razine ostaju izvan skupa. Izvan njega ostaje i sav nekomercijalni smještaj, pa tablica ne pokriva sav boravak, nego onaj koji je prijavljen u eVisitor. |
+| `identifiability` | Agregat; pojedinačni gost nije prepoznatljiv. |
+| `beneficiaries` | Čitatelj koji uči čitati službenu tablicu s njezinim granicama. |
+| `error_burden` | Pogrešno čitanje pada na tumača, a zapis je javan. Posljedica nije bezopasna. Broj dolazaka javno se navodi kao broj ljudi i tako ulazi u rasprave o opterećenju mjesta i o politikama. |
 | `appeal` | Nije primjenjivo za agregat. |
 
 ### Ograničenja
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Godisnji i mjesecni redci ne smiju se zbrajati zajedno; zato stoje u dvjema datotekama. |
-| 2 | Jedinica je DOLAZAK, ne osoba. Od 2017. izvor je eVisitor, a gost koji promijeni smjestaj prijavljuje se ponovno i broji se opet. Vrijednost za 2025. znaci 20698963 dolaska, ne 20,7 milijuna ljudi. Nocenja su stabilnija mjera obujma. |
-| 3 | REPUBLIKA HRVATSKA i zupanije stoje u istom stupcu objavljene tablice bez oznake razine; zbrajanje toga stupca dvostruko broji cijelu drzavu. |
-| 4 | Rezidentnost je u BS_TU11 pisana malim, a u BS_TU12 velikim pocetnim slovom; spajanje dviju tablica po tome stupcu trazi da se to primijeti. |
-| 5 | Anketna tablica je procjena iz uzorka, a mjesecna i zupanijska su administrativno prebrojavanje; njihove se brojke ne smiju zbrajati ni usporedjivati kao da mjere istu velicinu. |
-| 6 | U anketnoj tablici dijelovi ne daju tocno zbroj, s najvecim ostatkom 1, jer je svaka celija zasebno zaokruzena procjena. |
-| 7 | Datum posljednje izmjene izvora nije zabiljezen jer ga zrcalo nije preuzelo; zabiljezeni su datum preuzimanja i posljednje objavljeno opazanje. |
+| 1 | Godišnji i mjesečni redci ne smiju se zbrajati zajedno; zato stoje u dvjema datotekama. |
+| 2 | Jedinica je DOLAZAK, ne osoba. Od 2017. izvor je eVisitor, a gost koji promijeni smještaj prijavljuje se ponovno i broji se opet. Vrijednost za 2025. znači 20698963 dolaska, ne 20,7 milijuna ljudi. Noćenja su stabilnija mjera obujma. |
+| 3 | REPUBLIKA HRVATSKA i zupanije stoje u istom stupcu objavljene tablice bez oznake razine; zbrajanje toga stupca dvostruko broji cijelu državu. |
+| 4 | Rezidentnost je u BS_TU11 pisana malim, a u BS_TU12 velikim početnim slovom; spajanje dviju tablica po tome stupcu traži da se to primijeti. |
+| 5 | Anketna tablica je procjena iz uzorka, a mjesečna i županijska su administrativno prebrojavanje; njihove se brojke ne smiju zbrajati ni uspoređivati kao da mjere istu veličinu. |
+| 6 | U anketnoj tablici dijelovi ne daju točno zbroj, s najvećim ostatkom 1, jer je svaka ćelija zasebno zaokružena procjena. |
+| 7 | Datum posljednje izmjene izvora nije zabilježen jer ga zrcalo nije preuzelo; zabilježeni su datum preuzimanja i posljednje objavljeno opažanje. |
 
 ## Drugi DZS domen {#sec-data-dzs-drugi-domen}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-dzs-drugi-domen).
 
-**Identifikator.** `dzs_drugi_domen`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `official_aggregate_statistics`.
-
-**Domena.** neodabrana.
-
-**Jedinica.** neodabrana.
-
-**Pitanje.** Nije odredjeno jer domena i tablice nisu odabrane.
-
-**Uloga.** Nije potreban za prvo izdanje.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `external-only`.
-
-**Inačica.** neodabrana.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `dzs_drugi_domen` |
+| Status | nije promoviran |
+| Dizajn | `official_aggregate_statistics` |
+| Domena | neodabrana |
+| Jedinica | neodabrana |
+| Pitanje | Nije određeno jer domena i tablice nisu odabrane. |
+| Uloga | Nije potreban za prvo izdanje. |
+| Potrošači | nije zabilježeno |
+| Traka | `external-only` |
+| Razred osvježavanja | `external-only` |
+| Inačica | neodabrana |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Drzavni zavod za statistiku; domena, tablice i inacica nisu odabrani.
-
-**Licenca.** opca DZS obavijest postoji, ali ne postoji odredjen paket za provjeru
-
-**Atribucija.** Nije moguce dovrsiti prije odabira tablica.
-
-**Pristup.** Sluzbeni DZS izvor.
-
-**Redistribucija.** nije odobrena za neodredjeni buduci paket
-
-**Zakonita zamjena.** Nije potreban za prvo izdanje; DZS turizam, Eurostat nakon provjere ili generirani skup nose obvezni put.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Državni zavod za statistiku; domena, tablice i inačica nisu odabrani. |
+| Licenca | opća DZS obavijest postoji, ali ne postoji određen paket za provjeru |
+| Atribucija | Nije moguće dovršiti prije odabira tablica. |
+| Pristup | Službeni DZS izvor. |
+| Redistribucija | nije odobrena za neodređeni budući paket |
+| Zakonita zamjena | Nije potreban za prvo izdanje; DZS turizam, Eurostat nakon provjere ili generirani skup nose obvezni put. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -675,45 +568,32 @@ Pitanje|Odgovor
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-dip-2024).
 
-**Identifikator.** `dip_2024`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `administrative_or_electoral_count`.
-
-**Domena.** izbori.
-
-**Jedinica.** jedna izborna jedinica I.-XII. u sluzbenoj tablici odaziva; XII. jedinica za vazeci i nevazeci listic koristi zbroj sest objavljenih manjinskih redaka.
-
-**Pitanje.** Kako se izlaznost mijenja po izbornim jedinicama i sto joj je nazivnik?
-
-**Uloga.** Potpuni zabiljezeni dogadjaji, brojnik i nazivnik, razlika zapisa i ljudi.
-
-**Potrošači.** WA-C03.
-
-**Traka.** `portal-mediated`.
-
-**Razred osvježavanja.** `frozen`.
-
-**Inačica.** portal pregledan 2026-08-05; rezultati_sabor.zip Last-Modified `2024-10-07T14:53:07Z`, ETag `c4d2139fc818db1:0`, 11173400 bajtova; sluzbeno Izvjesce Last-Modified `2024-04-25T10:40:55Z`, ETag `a5d26adfd96da1:0`, 2883428 bajtova. ETag je posluziteljski identifikator, ne kontrolni zbroj lokalne kopije.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `dip_2024` |
+| Status | nije promoviran |
+| Dizajn | `administrative_or_electoral_count` |
+| Domena | izbori |
+| Jedinica | jedna izborna jedinica I.-XII. u službenoj tablici odaziva; XII. jedinica za važeći i nevažeći listić koristi zbroj šest objavljenih manjinskih redaka |
+| Pitanje | Kako se izlaznost mijenja po izbornim jedinicama i što joj je nazivnik? |
+| Uloga | Potpuni zabilježeni događaji, brojnik i nazivnik, razlika zapisa i ljudi. |
+| Potrošači | WA-C03; P5-C; P5-G |
+| Traka | `portal-mediated` |
+| Razred osvježavanja | `frozen` |
+| Inačica | portal pregledan 2026-08-05; rezultati_sabor.zip Last-Modified `2024-10-07T14:53:07Z`, ETag `c4d2139fc818db1:0`, 11173400 bajtova; službeno Izvješće Last-Modified `2024-04-25T10:40:55Z`, ETag `a5d26adfd96da1:0`, 2883428 bajtova. ETag je poslužiteljski identifikator, ne kontrolni zbroj lokalne kopije. |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Drzavno izborno povjerenstvo Republike Hrvatske, Izbori za zastupnike u Hrvatski sabor 2024.; sluzbeni arhiv rezultati_sabor.zip i Izvjesce o provedenim izborima, osobito tablica Odaziv biraca na str. 124.
-
-**Licenca.** Sluzbena stranica izvor naziva otvorenim podacima i navodi CSV/XLSX dostupnost, ali na pregledanoj stranici nije pronadjena izricita licenca ili drugi temelj za redistribuciju lokalne kopije.
-
-**Atribucija.** Izvor je Drzavno izborno povjerenstvo Republike Hrvatske, Izbori za zastupnike u Hrvatski sabor 2024., sluzbeni portal i Izvjesce o provedenim izborima; portal pregledan 5. kolovoza 2026.; obrada je prijepis objavljenih ukupnih vrijednosti samo radi uskladjenja, bez lokalne kopije.
-
-**Pristup.** Otvorite [poveznica na izvor](https://www.izbori.hr/site/UserDocsImages/479), odaberite 2024.; poveznica vodi na [poveznica na izvor](https://www.izbori.hr/site/UserDocsImages/2024/rezultati_sabor.zip.) Provjeru ukupnih vrijednosti napravite u sluzbenom Izvjescu o provedenim izborima, tablica Odaziv biraca na str. 124.
-
-**Redistribucija.** nije dokazana za lokalnu kopiju
-
-**Zakonita zamjena.** Portal je neobvezna replikacija; obvezni administrativni ili izborni zadatak koristi provjereni DZS agregat ili generirani kategoricki skup.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Državno izborno povjerenstvo Republike Hrvatske, Izbori za zastupnike u Hrvatski sabor 2024.; službeni arhiv rezultati_sabor.zip i Izvješće o provedenim izborima, osobito tablica Odaziv birača na str. 124. |
+| Licenca | Službena stranica izvor naziva otvorenim podacima i navodi CSV/XLSX dostupnost, ali na pregledanoj stranici nije pronađena izričita licenca ili drugi temelj za redistribuciju lokalne kopije. |
+| Atribucija | Izvor je Državno izborno povjerenstvo Republike Hrvatske, Izbori za zastupnike u Hrvatski sabor 2024., službeni portal i Izvješće o provedenim izborima; portal pregledan 5. kolovoza 2026.; obrada je prijepis objavljenih ukupnih vrijednosti samo radi usklađenja, bez lokalne kopije. |
+| Pristup | Otvorite [poveznica na izvor](https://www.izbori.hr/site/UserDocsImages/479), odaberite 2024.; poveznica vodi na [poveznica na izvor](https://www.izbori.hr/site/UserDocsImages/2024/rezultati_sabor.zip). Provjeru ukupnih vrijednosti napravite u službenom Izvješću o provedenim izborima, tablica Odaziv birača na str. 124. |
+| Redistribucija | nije dokazana za lokalnu kopiju |
+| Zakonita zamjena | Portal je neobvezna replikacija; obvezni administrativni ili izborni zadatak koristi provjereni DZS agregat ili generirani kategorički skup. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -723,64 +603,51 @@ Paket nema materijaliziranu datoteku.
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis zabiljezenih glasova i izlaznosti uz imenovan nazivnik |
-| nedostupna | tvrdnja o pojedinacnom biracu |
-| nedostupna | uzrocnost |
+| dopuštena | opis zabilježenih glasova i izlaznosti uz imenovan nazivnik |
+| nedostupna | tvrdnja o pojedinačnom biraču |
+| nedostupna | uzročnost |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Izborne jedinice i kategorije odredjuje zakon. |
-| `absence` | Osobe koje nisu u registru biraca ne ulaze u nazivnik. |
-| `identifiability` | Agregat po mjestu; pojedinacni glas je tajan i nije prikazan. |
-| `beneficiaries` | Citatelj koji uci razliku brojnika i nazivnika u sluzbenom zapisu. |
-| `error_burden` | Pogresno citanje izlaznosti pada na javnu raspravu. |
-| `appeal` | Izborni prigovor je zakonski postupak izvan opsega knjige. |
+| `category_ownership` | Odabrana službena tablica objavljuje imenovane prostorne jedinice i kategorije; ovaj zapis ne tumači njihovu pravnu osnovu. |
+| `absence` | Nazivnik u odabranoj tablici jest objavljeni broj birača upisanih u izvadak; iz tablice se ne izvodi tvrdnja o osobama izvan toga zapisa. |
+| `identifiability` | Tablica je agregirana po prostornoj jedinici i ne prikazuje pojedinačni glas. |
+| `beneficiaries` | Čitatelj koji uči razliku brojnika i nazivnika u službenom zapisu. |
+| `error_burden` | Pogrešno čitanje izlaznosti pada na javnu raspravu. |
+| `appeal` | Odabrana tablica ne sadrži put prigovora; knjiga ga iz ovoga izvora ne opisuje. |
 
 ## DigiKat agregat aktera {#sec-data-digikat-akteri}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-digikat-akteri).
 
-**Identifikator.** `digikat_akteri`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `digital_trace_or_selected_corpus`.
-
-**Domena.** digitalni mediji.
-
-**Jedinica.** jedan akter po platformi na odredjeni datum.
-
-**Pitanje.** Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?
-
-**Uloga.** Digitalni trag sa selekcijom u opazanje i metodoloskim rezom.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `manual-derived`.
-
-**Inačica.** komponentne inacice i prava nisu evidentirani.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `digikat_akteri` |
+| Status | nije promoviran |
+| Dizajn | `digital_trace_or_selected_corpus` |
+| Domena | digitalni mediji |
+| Jedinica | jedan akter po platformi na određeni datum |
+| Pitanje | Kako se vidljivost aktera razlikuje po platformama u jednom presjeku? |
+| Uloga | Digitalni trag sa selekcijom u opažanje i metodološkim rezom. |
+| Potrošači | nije zabilježeno |
+| Traka | `external-only` |
+| Razred osvježavanja | `manual-derived` |
+| Inačica | komponentne inačice i prava nisu evidentirani |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Predlozeni lokalni agregat iz komponenti DigiKata.
-
-**Licenca.** nema mjerodavne komponentne licencne matrice
-
-**Atribucija.** Nije moguce dovrsiti prije G-A3-DIGIKAT i P3-DIGIKAT.
-
-**Pristup.** Vanjsko projektno okruzenje.
-
-**Redistribucija.** nije dokazana
-
-**Zakonita zamjena.** Kandidat je napusten. Svu odobrenu ulogu preuzima digikat_mediji, a obvezna vjezba moze koristiti i anketa_mreze kao generiranu zamjenu.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Predloženi lokalni agregat iz komponenti DigiKata. |
+| Licenca | nema mjerodavne komponentne licencne matrice |
+| Atribucija | Nije moguće dovršiti prije G-A3-DIGIKAT i P3-DIGIKAT. |
+| Pristup | Vanjsko projektno okruzenje. |
+| Redistribucija | nije dokazana |
+| Zakonita zamjena | Kandidat je napušten. Svu odobrenu ulogu preuzima digikat_mediji, a obvezna vježba može koristiti i anketa_mreže kao generiranu zamjenu. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -790,17 +657,17 @@ Paket nema materijaliziranu datoteku.
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | nijedna dok prava komponenti nisu rijesena |
+| dopuštena | nijedna dok prava komponenti nisu riješena |
 | nedostupna | svaka tvrdnja iz lokalne kopije |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije aktera odredjuje vanjski projekt. |
-| `absence` | Akteri izvan pracenih platformi ne ulaze u presjek. |
+| `category_ownership` | Kategorije aktera određuje vanjski projekt. |
+| `absence` | Akteri izvan praćenih platformi ne ulaze u presjek. |
 | `identifiability` | Javni akteri su imenovani; privatne osobe ne ulaze. |
-| `beneficiaries` | Citatelj koji uci sto digitalni trag mjeri, a sto ne. |
+| `beneficiaries` | Čitatelj koji uči što digitalni trag mjeri, a što ne. |
 | `error_burden` | Krivo pripisana vidljivost pada na imenovanoga aktera. |
 | `appeal` | Nije uspostavljen; to je dio pouke o granicama traga. |
 
@@ -808,51 +675,38 @@ Pitanje|Odgovor
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Metodoloski rez zabranjuje usporedbu preko datuma promjene prikupljanja. |
+| 1 | Metodološki rez zabranjuje usporedbu preko datuma promjene prikupljanja. |
 
 ## Determ, puni korpus {#sec-data-determ-korpus}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-determ-korpus).
 
-**Identifikator.** `determ_korpus`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `restricted_commercial_or_administrative_source`.
-
-**Domena.** medijsko pracenje.
-
-**Jedinica.** jedna objava.
-
-**Pitanje.** Sto se moze i sto se ne moze reproducirati iz ogranicenoga komercijalnog izvora?
-
-**Uloga.** Granica izmedju zanimljivoga rezultata i onoga koji citatelj moze provjeriti.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `external-only`.
-
-**Inačica.** nije kandidat za javni repozitorij knjige.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `determ_korpus` |
+| Status | nije promoviran |
+| Dizajn | `restricted_commercial_or_administrative_source` |
+| Domena | medijsko praćenje |
+| Jedinica | jedna objava |
+| Pitanje | Što se može i što se ne može reproducirati iz ograničenoga komercijalnog izvora? |
+| Uloga | Granica između zanimljivoga rezultata i onoga koji čitatelj može provjeriti. |
+| Potrošači | nije zabilježeno |
+| Traka | `external-only` |
+| Razred osvježavanja | `external-only` |
+| Inačica | nije kandidat za javni repozitorij knjige |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Puni korpus u vanjskom projektnom okruzenju Determ.
-
-**Licenca.** ograniceni projektni materijal; nije dostavljena ovlast za javnu redistribuciju
-
-**Atribucija.** Vanjski projekt i vlasnici pojedinih komponenti prema buducoj provjeri.
-
-**Pristup.** Samo izvan repozitorija knjige.
-
-**Redistribucija.** nije dopustena
-
-**Zakonita zamjena.** Nije temelj obveznoga puta; koristi se samo vanjski opis provenijencije bez podataka.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Puni korpus u vanjskom projektnom okruženju Determ. |
+| Licenca | ograniceni projektni materijal; nije dostavljena ovlast za javnu redistribuciju |
+| Atribucija | Vanjski projekt i vlasnici pojedinih komponenti prema budućoj provjeri. |
+| Pristup | Samo izvan repozitorija knjige. |
+| Redistribucija | nije dopuštena |
+| Zakonita zamjena | Nije temelj obveznoga puta; koristi se samo vanjski opis provenijencije bez podataka. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -869,85 +723,64 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije odredjuje komercijalni pruzatelj. |
+| `category_ownership` | Kategorije određuje komercijalni pružatelj. |
 | `absence` | Izvori izvan pretplate ne ulaze u korpus. |
 | `identifiability` | Objave su javne, ali autori su imenovani. |
-| `beneficiaries` | Citatelj koji uci prepoznati nereproducibilan dokaz. |
-| `error_burden` | Krivo pripisan sadrzaj pada na imenovanoga autora. |
+| `beneficiaries` | Čitatelj koji uči prepoznati nereproducibilan dokaz. |
+| `error_burden` | Krivo pripisan sadržaj pada na imenovanoga autora. |
 | `appeal` | Nije uspostavljen. |
 
-## Eurostat, drustveni pokazatelji {#sec-data-eurostat-drustvo}
+## Eurostat, društveni pokazatelji {#sec-data-eurostat-drustvo}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-eurostat-drustvo).
 
-**Identifikator.** `eurostat_drustvo`.
-
-**Status.** promoviran paketom `P3-EUROSTAT`.
-
-**Dizajn.** `official_aggregate_statistics`.
-
-**Domena.** usporedna drustvena statistika.
-
-**Jedinica.** Jedna drzava clanica EU-a za jedan pokazatelj u jednoj, zajednickoj referentnoj godini. Redak je drzavni agregat, a ne osoba.
-
-**Pitanje.** Kako se isti pokazatelj razlikuje medju zemljama u istoj godini?
-
-**Uloga.** Usporedivost, oznake kvalitete i granica ekoloske interpretacije.
-
-**Potrošači.** WB-C06.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `pinned`.
-
-**Inačica.** Presjek 2025. preuzet 10. kolovoza 2026. Verzije struktura redom su 47.0, 80.0, 44.0, 48.0, 52.0 i 33.0; vremena azuriranja svakoga skupa stoje u data/eurostat_drustvo/USKLADJENJE.json i putovnici.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `eurostat_drustvo` |
+| Status | promoviran paketom `P3-EUROSTAT` |
+| Dizajn | `official_aggregate_statistics` |
+| Domena | usporedna društvena statistika |
+| Jedinica | Jedna država članica EU-a za jedan pokazatelj u jednoj, zajedničkoj referentnoj godini. Redak je državni agregat, a ne osoba. |
+| Pitanje | Kako se isti pokazatelj razlikuje među zemljama u istoj godini? |
+| Uloga | Usporedivost, oznake kvalitete i granica ekološke interpretacije. |
+| Potrošači | WB-C06; P5-C |
+| Traka | `bundled` |
+| Razred osvježavanja | `pinned` |
+| Inačica | Presjek 2025. preuzet 10. kolovoza 2026. Verzije struktura redom su 47.0, 80.0, 44.0, 48.0, 52.0 i 33.0; vremena ažuriranja svakoga skupa stoje u data/eurostat_drustvo/USKLADJENJE.json i putovnici. |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Eurostat Dissemination API, skupovi lfsi_emp_a, ilc_peps01n, sdg_04_20, edat_lfse_14, isoc_ci_ifp_iu i demo_pjanind; svi odgovori nose izvorni agencijski kod ESTAT i SOURCE_INSTITUTIONS = Eurostat.
-
-**Licenca.** Eurostat, Copyright notice and free re-use of data ([uvjeti licence](https://ec.europa.eu/eurostat/help/copyright-notice))
-
-**Atribucija.** Sest zasebnih recenica oblika Izvor je [Eurostat dataset datacode link], 10 August 2026., zatim tocna oznaka izmjena i disclaimer iz data/eurostat-drustvo.LICENCA.md. Nijedno dopustenje nositelja prava nije trazeno ni pripisano.
-
-**Pristup.** Jedan odobreni batch od sest GET zahtjeva prema sluzbenom Eurostatovu Dissemination API-ju, izvan rendera; tocni URL-ovi su u data/eurostat_drustvo/UPITI.json.
-
-**Redistribucija.** provjerena prema objavljenim Eurostatovim uvjetima za ovaj tocno omedjeni presjek
-
-**Zakonita zamjena.** Ista lokalna CSV snimka opsluzuje R, put bez koda i tisak. Ako se izgubi, obvezni racunski put vraca se na anketa_mreze; render nikada ne dohvaca Eurostat i ne smije tiho osvjeziti godinu ili vrijednosti.
-
-**Putovnica.** [`data/eurostat_drustvo/PUTOVNICA.md`](../data/eurostat_drustvo/PUTOVNICA.md).
-
-**Obavijest uz snimku.** [`data/eurostat-drustvo.LICENCA.md`](../data/eurostat-drustvo.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | Eurostat Dissemination API, skupovi lfsi_emp_a, ilc_peps01n, sdg_04_20, edat_lfse_14, isoc_ci_ifp_iu i demo_pjanind; svi odgovori nose izvorni agencijski kod ESTAT i SOURCE_INSTITUTIONS = Eurostat. |
+| Licenca | Eurostat, Copyright notice and free re-use of data ([uvjeti licence](https://ec.europa.eu/eurostat/help/copyright-notice)) |
+| Atribucija | Šest zasebnih rečenica oblika Izvor je [Eurostat dataset datacode link], 10 August 2026., zatim točna oznaka izmjena i disclaimer iz data/eurostat-drustvo.LICENCA.md. Nijedno dopuštenje nositelja prava nije traženo ni pripisano. |
+| Pristup | Jedan odobreni batch od šest GET zahtjeva prema službenom Eurostatovu Dissemination API-ju, izvan rendera; točni URL-ovi su u data/eurostat_drustvo/UPITI.json. |
+| Redistribucija | provjerena prema objavljenim Eurostatovim uvjetima za ovaj točno omeđeni presjek |
+| Zakonita zamjena | Ista lokalna CSV snimka opslužuje R, put bez koda i tisak. Ako se izgubi, obvezni računski put vraća se na anketa_mreže; render nikada ne dohvaća Eurostat i ne smije tiho osvježiti godinu ili vrijednosti. |
+| Putovnica | [`data/eurostat_drustvo/PUTOVNICA.md`](../data/eurostat_drustvo/PUTOVNICA.md) |
+| Obavijest uz snimku | [`data/eurostat-drustvo.LICENCA.md`](../data/eurostat-drustvo.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### [`data/eurostat-drustvo-2025.csv`](../data/eurostat-drustvo-2025.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 162 redaka, a ključ je `geo+godina+pokazatelj`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 162 |
+| Ključ | `geo+godina+pokazatelj` |
 
-**Varijable.**\
-`geo`,\
-`zemlja`,\
-`godina`,\
-`pokazatelj`,\
-`pokazatelj_hr`,\
-`eurostat_dataset`,\
-`vrijednost`,\
-`jedinica`,\
-`status_api`,\
-`obs_status`,\
-`conf_status`,\
-`vrijednost_dostupna`.
+Varijable su `geo`, `zemlja`, `godina`, `pokazatelj`, `pokazatelj_hr`, `eurostat_dataset`, `vrijednost`, `jedinica`, `status_api`, `obs_status`, `conf_status`, `vrijednost_dostupna`.
 
 ### Dopuštene i nedostupne tvrdnje
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis sest objavljenih pokazatelja medju 27 drzava clanica u zajednickoj 2025. godini uz sve izvorne statuse |
-| dopuštena | povezanost medju drzavnim agregatima i pitanje trece varijable uz izricitu granicu ekoloskoga zakljucivanja |
-| nedostupna | zakljucak o pojedincu iz drzavnoga agregata |
-| nedostupna | uzrocnost |
+| dopuštena | opis šest objavljenih pokazatelja među 27 država članica u zajedničkoj 2025. godini uz sve izvorne statuse |
+| dopuštena | povezanost među državnim agregatima i pitanje treće varijable uz izričitu granicu ekološkoga zaključivanja |
+| nedostupna | zaključak o pojedincu iz državnoga agregata |
+| nedostupna | uzročnost |
 | nedostupna | promjena kroz vrijeme iz jednoga presjeka |
 | nedostupna | popunjavanje Luksemburga drugom godinom ili nulom |
 | nedostupna | tvrdnja o zemlji izvan EU-a |
@@ -956,64 +789,51 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Definicije odredjuje europska statisticka metodologija. |
-| `absence` | Luksemburska odsutna vrijednost i svi statusi ostaju vidljivi. Oznaka `u` na hrvatskoj objavljenoj vrijednosti pokazuje zasto se zastavica ne smije automatski pretvoriti u nedostajanje. |
+| `category_ownership` | Definicije određuje europska statistička metodologija. |
+| `absence` | Luksemburška odsutna vrijednost i svi statusi ostaju vidljivi. Oznaka `u` na hrvatskoj objavljenoj vrijednosti pokazuje zašto se zastavica ne smije automatski pretvoriti u nedostajanje. |
 | `identifiability` | Agregat; nijedna osoba nije prepoznatljiva. |
-| `beneficiaries` | Citatelj koji uci usporedjivati uz istu definiciju. |
-| `error_burden` | Pogresna usporedba pada na javnu raspravu o zemlji. |
+| `beneficiaries` | Čitatelj koji uči uspoređivati uz istu definiciju. |
+| `error_burden` | Pogrešna usporedba pada na javnu raspravu o zemlji. |
 | `appeal` | Nije primjenjivo za agregat. |
 
 ### Ograničenja
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Zastavice kvalitete i nedostajuce vrijednosti moraju ostati vidljive. |
+| 1 | Zastavice kvalitete i nedostajuće vrijednosti moraju ostati vidljive. |
 | 2 | status_api je jedini doslovni status izvora; obs_status i conf_status samo su njegova dokumentirana klasifikacija. |
-| 3 | Jedan presjek drzava ne dopusta individualnu ni uzrocnu interpretaciju. |
+| 3 | Jedan presjek država ne dopušta individualnu ni uzročnu interpretaciju. |
 
 ## European Social Survey, Round 11, Hrvatska {#sec-data-ess-r11-hr}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-ess-r11-hr).
 
-**Identifikator.** `ess_r11_hr`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `probability_survey_with_weights`.
-
-**Domena.** drustveni stavovi.
-
-**Jedinica.** jedan ispitanik ESS Round 11 iz Hrvatske, s izvornim nacrtnim varijablama.
-
-**Pitanje.** Medju hrvatskim ispitanicima u sluzbenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje izmedju neponderirane procjene i procjene s anweight, te koje pogreske odabira ili mjerenja ponder ne moze ukloniti?
-
-**Uloga.** Neobvezna portalna replikacija za reprezentativnost, neodgovor, tezine i mjerenje na razini osobe; anweight je zadana analiza, a dweight, pspwght, pweight, prob, stratum i psu ostaju izlozeni radi citanja nacrta.
-
-**Potrošači.** WC-C08; WD-C13; WD-C14; WD-C15; WD-C16.
-
-**Traka.** `portal-mediated`.
-
-**Razred osvježavanja.** `pinned`.
-
-**Inačica.** Round 11, edition 3.0.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `ess_r11_hr` |
+| Status | nije promoviran |
+| Dizajn | `probability_survey_with_weights` |
+| Domena | društveni stavovi |
+| Jedinica | jedan ispitanik ESS Round 11 iz Hrvatske, s izvornim nacrtnim varijablama |
+| Pitanje | Među hrvatskim ispitanicima u službenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje između neponderirane procjene i procjene s anweight, te koje pogreške odabira ili mjerenja ponder ne može ukloniti? |
+| Uloga | Neobvezna portalna replikacija za reprezentativnost, neodgovor, težine i mjerenje na razini osobe; anweight je zadana analiza, a dweight, pspwght, pweight, prob, stratum i psu ostaju izloženi radi čitanja nacrta. |
+| Potrošači | WC-C08; WD-C13; WD-C14; WD-C15; P5-C |
+| Traka | `portal-mediated` |
+| Razred osvježavanja | `pinned` |
+| Inačica | Round 11, edition 3.0 |
 
 ### Izvor, prava i pristup
 
-**Izvor.** European Social Survey, Round 11, edition 3.0, ukljucuje Hrvatsku; izdanje objavljeno 2. lipnja 2025.
-
-**Licenca.** Podaci CC BY-NC-SA 4.0; dokumentacija CC BY-SA 4.0
-
-**Atribucija.** Propisani ESS navod, runda, izdanje, datum, licenca i oznaka izmjena.
-
-**Pristup.** ESS Data Portal; citatelj se prijavljuje kod pruzatelja, odabire ESS11 integrated main file edition 3.0 i format SAV, a zatim slijedi data/ess_r11_hr/PUTOVNICA.md. Knjiga ne preuzima datoteku.
-
-**Redistribucija.** vlasnicka odluka D08 ne odobrava bundling bez posebne pisane potvrde
-
-**Zakonita zamjena.** Empirijska ESS replikacija ostaje neobvezna. Obvezna ponderirana tablica i offline zadatak u WC-C08 koriste zasebno oznacenu sinteticku konacnu populaciju s poznatim vjerojatnostima ukljucivanja; obvezni putevi u poglavljima 13-16 koriste populacija_medija ili drugi licencno cist paket i njegov agregat.
-
-**Putovnica.** [`data/ess_r11_hr/PUTOVNICA.md`](../data/ess_r11_hr/PUTOVNICA.md).
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | European Social Survey, Round 11, edition 3.0, uključuje Hrvatsku; izdanje objavljeno 2. lipnja 2025. |
+| Licenca | Podaci CC BY-NC-SA 4.0; dokumentacija CC BY-SA 4.0 |
+| Atribucija | Propisani ESS navod, runda, izdanje, datum, licenca i oznaka izmjena. |
+| Pristup | ESS Data Portal; čitatelj se prijavljuje kod pružatelja, odabire ESS11 integrated main file edition 3.0 i format SAV, a zatim slijedi data/ess_r11_hr/PUTOVNICA.md. Knjiga ne preuzima datoteku. |
+| Redistribucija | vlasnička odluka D08 ne odobrava bundling bez posebne pisane potvrde |
+| Zakonita zamjena | Empirijska ESS replikacija ostaje neobvezna. Obvezna ponderirana tablica i offline zadatak u WC-C08 koriste zasebno označenu sintetičku konačnu populaciju s poznatim vjerojatnostima uključivanja; obvezni putevi u poglavljima 13-16 koriste populacija_medija ili drugi licencno čist paket i njegov agregat. |
+| Putovnica | [`data/ess_r11_hr/PUTOVNICA.md`](../data/ess_r11_hr/PUTOVNICA.md) |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -1023,31 +843,31 @@ Paket nema materijaliziranu datoteku.
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis uz tezine |
+| dopuštena | opis uz težine |
 | dopuštena | povezanost uz imenovanu populaciju |
 | dopuštena | generalizacija unutar granica nacrta |
-| nedostupna | uzrocnost |
+| nedostupna | uzročnost |
 | nedostupna | tvrdnja o skupini koju nacrt ne pokriva |
-| nedostupna | provjera sluzbene izlaznosti |
+| nedostupna | provjera službene izlaznosti |
 | nedostupna | tvrdnja da ponderiranje uklanja samoprijavu, neodgovor ili nepokrivenost |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije odredjuje medjunarodni upitnik. |
+| `category_ownership` | Kategorije određuje međunarodni upitnik. |
 | `absence` | Neodgovor i nepokrivenost okvira ostaju izvan podataka. |
 | `identifiability` | Mikropodaci su deidentificirani prema pravilima portala. |
-| `beneficiaries` | Citatelj koji uci citati anketu s nacrtom. |
-| `error_burden` | Pogresna generalizacija pada na skupinu o kojoj se govori. |
+| `beneficiaries` | Čitatelj koji uči čitati anketu s nacrtom. |
+| `error_burden` | Pogrešna generalizacija pada na skupinu o kojoj se govori. |
 | `appeal` | Nije primjenjivo; ispitanik nije klasificiran odlukom. |
 
 ### Ograničenja
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Nazivnik je analiticki specifican; ne postoji jedan globalni listwise-complete podskup. |
-| 2 | vote je samoprijava i nije sluzbena mjera izlaznosti. |
+| 1 | Nazivnik je analitički specifičan; ne postoji jedan globalni listwise-complete podskup. |
+| 2 | vote je samoprijava i nije službena mjera izlaznosti. |
 | 3 | pweight se ne koristi u hrvatskoj jednocountry tablici. |
 | 4 | OA-G-A3-ESS-RIGHTS ostaje otvoren; bundling je zabranjen. |
 
@@ -1055,45 +875,32 @@ Redni broj|Ograničenje
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-vdem-v16).
 
-**Identifikator.** `vdem_v16`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `expert_coded_latent_index`.
-
-**Domena.** politicka mjerenja.
-
-**Jedinica.** jedna zemlja u jednoj godini.
-
-**Pitanje.** Kako se latentni pojam poput demokracije pretvara u broj s nesigurnoscu?
-
-**Uloga.** Operacionalizacija, neslaganje kodera i nesigurnost oko ocjene.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `external-only`.
-
-**Inačica.** v16.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `vdem_v16` |
+| Status | nije promoviran |
+| Dizajn | `expert_coded_latent_index` |
+| Domena | politička mjerenja |
+| Jedinica | jedna zemlja u jednoj godini |
+| Pitanje | Kako se latentni pojam poput demokracije pretvara u broj s nesigurnošću? |
+| Uloga | Operacionalizacija, neslaganje kodera i nesigurnost oko ocjene. |
+| Potrošači | nije zabilježeno |
+| Traka | `external-only` |
+| Razred osvježavanja | `external-only` |
+| Inačica | v16 |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Sluzbena stranica navodi V-Dem Dataset v16; tocne varijable nisu odabrane.
-
-**Licenca.** na pregledanoj stranici nije utvrdjena mjerodavna licenca za planiranu datoteku
-
-**Atribucija.** Buduci tocni navod skupa v16 i njegovih autora; nije dovrsen.
-
-**Pristup.** Sluzbeni V-Dem izvor.
-
-**Redistribucija.** nije dokazana
-
-**Zakonita zamjena.** Nije temelj obveznoga puta; dopusten je samo kasnije provjeren slucaj ili izostavljanje.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Službena stranica navodi V-Dem Dataset v16; točne varijable nisu odabrane. |
+| Licenca | na pregledanoj stranici nije utvrđena mjerodavna licenca za planiranu datoteku |
+| Atribucija | Budući točni navod skupa v16 i njegovih autora; nije dovršen. |
+| Pristup | Službeni V-Dem izvor. |
+| Redistribucija | nije dokazana |
+| Zakonita zamjena | Nije temelj obveznoga puta; dopušten je samo kasnije provjeren slučaj ili izostavljanje. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -1103,63 +910,50 @@ Paket nema materijaliziranu datoteku.
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | nijedna dok skup nije odabran i licenca utvrdjena |
+| dopuštena | nijedna dok skup nije odabran i licenca utvrđena |
 | nedostupna | svaka tvrdnja iz lokalne kopije |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije odredjuje istrazivacki konzorcij i njegovi koderi. |
+| `category_ownership` | Kategorije određuje istraživacki konzorcij i njegovi koderi. |
 | `absence` | Zemlje i godine bez kodiranja nisu u skupu. |
 | `identifiability` | Agregat na razini zemlje. |
-| `beneficiaries` | Citatelj koji uci da je i ocjena mjerenje s pogreskom. |
-| `error_burden` | Niska ocjena pada na zemlju i njezine gradjane u javnoj raspravi. |
-| `appeal` | Metodoloska rasprava, ne postupak. |
+| `beneficiaries` | Čitatelj koji uči da je i ocjena mjerenje s pogreškom. |
+| `error_burden` | Niska ocjena pada na zemlju i njezine građane u javnoj raspravi. |
+| `appeal` | Metodološka rasprava, ne postupak. |
 
 ## COVIDiSTRESS II {#sec-data-covidistress-ii}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-covidistress-ii).
 
-**Identifikator.** `covidistress_ii`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `volunteer_open_survey`.
-
-**Domena.** stres i zdravlje.
-
-**Jedinica.** jedan dobrovoljni sudionik.
-
-**Pitanje.** Zasto vrlo velik dobrovoljni uzorak ne popravlja samoodabir?
-
-**Uloga.** Otvorenost nije reprezentativnost.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `external-only`.
-
-**Inačica.** neodabrana.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `covidistress_ii` |
+| Status | nije promoviran |
+| Dizajn | `volunteer_open_survey` |
+| Domena | stres i zdravlje |
+| Jedinica | jedan dobrovoljni sudionik |
+| Pitanje | Zašto vrlo velik dobrovoljni uzorak ne popravlja samoodabir? |
+| Uloga | Otvorenost nije reprezentativnost. |
+| Potrošači | nije zabilježeno |
+| Traka | `external-only` |
+| Razred osvježavanja | `external-only` |
+| Inačica | neodabrana |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Podatkovni clanak upucuje na zapis na OSF-u; tocna datoteka i inacica nisu odabrane.
-
-**Licenca.** otvoreni pristup clanku i tehnicka dostupnost zapisa ne dokazuju licencu datoteke
-
-**Atribucija.** Autori podatkovnoga skupa, tocna OSF inacica i njezina licenca; nije dovrseno.
-
-**Pristup.** Vanjski OSF zapis.
-
-**Redistribucija.** nije dokazana
-
-**Zakonita zamjena.** Nije temelj obveznoga puta; dopusten je samo kasnije provjeren slucaj ili izostavljanje.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Podatkovni članak upućuje na zapis na OSF-u; točna datoteka i inačica nisu odabrane. |
+| Licenca | otvoreni pristup članku i tehnička dostupnost zapisa ne dokazuju licencu datoteke |
+| Atribucija | Autori podatkovnoga skupa, točna OSF inačica i njezina licenca; nije dovršeno. |
+| Pristup | Vanjski OSF zapis. |
+| Redistribucija | nije dokazana |
+| Zakonita zamjena | Nije temelj obveznoga puta; dopušten je samo kasnije provjeren slučaj ili izostavljanje. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -1169,63 +963,50 @@ Paket nema materijaliziranu datoteku.
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | nijedna dok datoteka i licenca nisu utvrdjene |
-| nedostupna | generalizacija na opcu populaciju |
+| dopuštena | nijedna dok datoteka i licenca nisu utvrđene |
+| nedostupna | generalizacija na opću populaciju |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije odredjuje istrazivacki konzorcij. |
+| `category_ownership` | Kategorije određuje istraživacki konzorcij. |
 | `absence` | Tko nije vidio poziv ili nije htio sudjelovati, nije u podacima. |
-| `identifiability` | Ovisi o tocnoj OSF datoteci; nije utvrdjeno. |
-| `beneficiaries` | Citatelj koji uci da velicina ne popravlja odabir. |
-| `error_burden` | Pogresna generalizacija pada na skupine koje su slabo zastupljene. |
+| `identifiability` | Ovisi o točnoj OSF datoteci; nije utvrđeno. |
+| `beneficiaries` | Čitatelj koji uči da veličina ne popravlja odabir. |
+| `error_burden` | Pogrešna generalizacija pada na skupine koje su slabo zastupljene. |
 | `appeal` | Nije primjenjivo. |
 
 ## World Development Indicators {#sec-data-wdi}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-wdi).
 
-**Identifikator.** `wdi`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `official_aggregate_statistics`.
-
-**Domena.** razvojni pokazatelji.
-
-**Jedinica.** jedna zemlja u jednoj godini.
-
-**Pitanje.** Nije odredjeno jer pokazatelj nije odabran.
-
-**Uloga.** Neobvezno prosirenje; tekstni paket ima prednost.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `external-only`.
-
-**Inačica.** neodabrana.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `wdi` |
+| Status | nije promoviran |
+| Dizajn | `official_aggregate_statistics` |
+| Domena | razvojni pokazatelji |
+| Jedinica | jedna zemlja u jednoj godini |
+| Pitanje | Nije određeno jer pokazatelj nije odabran. |
+| Uloga | Neobvezno proširenje; tekstni paket ima prednost. |
+| Potrošači | nije zabilježeno |
+| Traka | `external-only` |
+| Razred osvježavanja | `external-only` |
+| Inačica | neodabrana |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Svjetska banka; pokazatelj, izdanje i datum nisu odabrani.
-
-**Licenca.** CC BY 4.0 kao zadani rezim za podatke koje Svjetska banka sama proizvodi, uz iznimke po skupu
-
-**Atribucija.** Svjetska banka, tocan pokazatelj, izvorna agencija, inacica, licenca i oznaka izmjena.
-
-**Pristup.** DataBank ili sluzbeni API.
-
-**Redistribucija.** nije dokazana za neodabrani pokazatelj
-
-**Zakonita zamjena.** Nije temelj obveznoga puta; DZS ili provjereni Eurostat paket nose usporedni zadatak.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Svjetska banka; pokazatelj, izdanje i datum nisu odabrani. |
+| Licenca | CC BY 4.0 kao zadani režim za podatke koje Svjetska banka sama proizvodi, uz iznimke po skupu |
+| Atribucija | Svjetska banka, točan pokazatelj, izvorna agencija, inačica, licenca i oznaka izmjena. |
+| Pristup | DataBank ili službeni API. |
+| Redistribucija | nije dokazana za neodabrani pokazatelj |
+| Zakonita zamjena | Nije temelj obveznoga puta; DZS ili provjereni Eurostat paket nose usporedni zadatak. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -1242,56 +1023,43 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Definicije odredjuje Svjetska banka i izvorne agencije. |
+| `category_ownership` | Definicije određuje Svjetska banka i izvorne agencije. |
 | `absence` | Zemlje bez objave ostaju prazne, a praznina nije nula. |
 | `identifiability` | Agregat na razini zemlje. |
-| `beneficiaries` | Citatelj koji uci usporedjivati razvojne pokazatelje. |
-| `error_burden` | Pogresna usporedba pada na zemlju u javnoj raspravi. |
+| `beneficiaries` | Čitatelj koji uči uspoređivati razvojne pokazatelje. |
+| `error_burden` | Pogrešna usporedba pada na zemlju u javnoj raspravi. |
 | `appeal` | Nije primjenjivo. |
 
 ## ParlaMint-HR 5.0 {#sec-data-parlamint-hr}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-parlamint-hr).
 
-**Identifikator.** `parlamint_hr`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `digital_trace_or_selected_corpus`.
-
-**Domena.** parlamentarni govor.
-
-**Jedinica.** jedan govor s metapodacima govornika.
-
-**Pitanje.** Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?
-
-**Uloga.** Registrirani, ali nepromovirani kandidat. Odluka A-P3-TEXT-ROUTE-2026-08-18 uklonila je govornu vezu i svaki ParlaMint-only izlaz iz prvoga izdanja tekstnoga paketa.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `pinned`.
-
-**Inačica.** 5.0.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `parlamint_hr` |
+| Status | nije promoviran |
+| Dizajn | `digital_trace_or_selected_corpus` |
+| Domena | parlamentarni govor |
+| Jedinica | jedan govor s metapodacima govornika |
+| Pitanje | Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi? |
+| Uloga | Registrirani, ali nepromovirani kandidat. Odluka A-P3-TEXT-ROUTE-2026-08-18 uklonila je govornu vezu i svaki ParlaMint-only izlaz iz prvoga izdanja tekstnoga paketa. |
+| Potrošači | nije zabilježeno |
+| Traka | `bundled` |
+| Razred osvježavanja | `pinned` |
+| Inačica | 5.0 |
 
 ### Izvor, prava i pristup
 
-**Izvor.** CLARIN.SI zapis 11356/2004, ParlaMint 5.0; hrvatska arhiva ima zasebno objavljeni MD5; izdanje 8. srpnja 2025.
-
-**Licenca.** CC BY 4.0
-
-**Atribucija.** Cjeloviti navod korpusa iz repozitorijskoga zapisa, inacica 5.0, CLARIN trajni zapis, licenca i oznaka izmjena.
-
-**Pristup.** Izravno iz sluzbenoga CLARIN.SI repozitorija.
-
-**Redistribucija.** opci temelj utvrdjen uz CC BY 4.0; tocan podskup mora proci P3-TEXT
-
-**Zakonita zamjena.** Nema potrosaca ni lokalne nastavne datoteke. ParlaSent-only paket pokriva prihvaceni recenicni put za WD-C17; ParlaMint-HR ne ulazi u taj put.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | CLARIN.SI zapis 11356/2004, ParlaMint 5.0; hrvatska arhiva ima zasebno objavljeni MD5; izdanje 8. srpnja 2025. |
+| Licenca | CC BY 4.0 |
+| Atribucija | Cjeloviti navod korpusa iz repozitorijskoga zapisa, inačica 5.0, CLARIN trajni zapis, licenca i oznaka izmjena. |
+| Pristup | Izravno iz službenoga CLARIN.SI repozitorija. |
+| Redistribucija | opći temelj utvrđen uz CC BY 4.0; točan podskup mora proći P3-TEXT |
+| Zakonita zamjena | Nema potrošača ni lokalne nastavne datoteke. ParlaSent-only paket pokriva prihvaćeni rečenični put za WD-C17; ParlaMint-HR ne ulazi u taj put. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -1301,19 +1069,19 @@ Paket nema materijaliziranu datoteku.
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis zabiljezenih govora unutar granice korpusa |
+| dopuštena | opis zabilježenih govora unutar granice korpusa |
 | dopuštena | povezanost uz imenovanu tekstnu jedinicu |
 | nedostupna | generalizacija na javno mnijenje |
-| nedostupna | uzrocnost |
+| nedostupna | uzročnost |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije govornika odredjuje parlamentarni zapis. |
-| `absence` | Govori izvan zabiljezenih sjednica i jezika nisu u korpusu. |
+| `category_ownership` | Kategorije govornika određuje parlamentarni zapis. |
+| `absence` | Govori izvan zabilježenih sjednica i jezika nisu u korpusu. |
 | `identifiability` | Govornici su javne osobe i imenovani su. |
-| `beneficiaries` | Citatelj koji uci da je korpus odabir, ne cjelina. |
+| `beneficiaries` | Čitatelj koji uči da je korpus odabir, ne cjelina. |
 | `error_burden` | Krivo pripisan stav pada na imenovanoga zastupnika. |
 | `appeal` | Ispravak zapisa je parlamentarni postupak izvan opsega knjige. |
 
@@ -1321,77 +1089,54 @@ Pitanje|Odgovor
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-parlasent).
 
-**Identifikator.** `parlasent`.
-
-**Status.** promoviran paketom `P3-TEXT`.
-
-**Dizajn.** `digital_trace_or_selected_corpus`.
-
-**Domena.** oznaceni parlamentarni govor.
-
-**Jedinica.** jedna oznacena recenica.
-
-**Pitanje.** Kako se ljudska oznaka pretvara u zabiljezeni referentni ishod, i koliko je pogresiva?
-
-**Uloga.** Okvir kodiranja, dva razlicita puta nastanka oznake i dokumentno razdvajanje bez curenja za omeđeni recenicni zadatak u poglavlju 17 te prijenos paketa dokaza u poglavlju 18 bez nove metode.
-
-**Potrošači.** WD-C17; WE-C18; P5-B.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `pinned`.
-
-**Inačica.** 1.0, izdanje 18. rujna 2023.; hrvatski ParlaSent-only izvadak P3-TEXT od 18. kolovoza 2026.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `parlasent` |
+| Status | promoviran paketom `P3-TEXT` |
+| Dizajn | `digital_trace_or_selected_corpus` |
+| Domena | označeni parlamentarni govor |
+| Jedinica | jedna označena rečenica |
+| Pitanje | Kako se ljudska oznaka pretvara u zabilježeni referentni ishod, i koliko je pogrešiva? |
+| Uloga | Okvir kodiranja, dva različita puta nastanka oznake i dokumentno razdvajanje bez curenja za omeđeni rečenični zadatak u poglavlju 17 te prijenos paketa dokaza u poglavlju 18 bez nove metode. |
+| Potrošači | WD-C17; WE-C18; P5-A; P5-B; P5-C |
+| Traka | `bundled` |
+| Razred osvježavanja | `pinned` |
+| Inačica | 1.0, izdanje 18. rujna 2023.; hrvatski ParlaSent-only izvadak P3-TEXT od 18. kolovoza 2026. |
 
 ### Izvor, prava i pristup
 
-**Izvor.** The multilingual sentiment dataset of parliamentary debates ParlaSent 1.0, CLARIN.SI zapis 11356/1868; sluzbene datoteke ParlaSent_BCS.jsonl, ParlaSent_BCS_test.jsonl i README.txt.
-
-**Licenca.** CC BY-SA 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by-sa/4.0/legalcode))
-
-**Atribucija.** Mochtak, Michal; Rupnik, Peter; Meden, Katja; Ljubesic, Nikola. The multilingual sentiment dataset of parliamentary debates ParlaSent 1.0. Jozef Stefan Institute; [poveznica na izvor](http://hdl.handle.net/11356/1868); CC BY-SA 4.0; promjene su oznacene u data/parlament-oznake.LICENCA.md.
-
-**Pristup.** Izravno iz sluzbenoga CLARIN.SI repozitorija.
-
-**Redistribucija.** provjerena prema objavljenoj CC BY-SA 4.0 licenci za tocan hrvatski izvedeni skup; izvedena tablica zadrzava ShareAlike, punu atribuciju i oznaku promjena. Nije trazeno posebno dopustenje nositelja prava.
-
-**Zakonita zamjena.** Jedna CSV datoteka pokriva isti R, no-code, tiskani, HTML, PDF i DOCX put. Svaki obvezni zadatak koristi unaprijed zadane retke ili agregate izvedene iz te iste datoteke; ne postoji portalna ni ParlaMint-only ovisnost.
-
-**Putovnica.** [`data/parlament_tekst/PUTOVNICA.md`](../data/parlament_tekst/PUTOVNICA.md).
-
-**Obavijest uz snimku.** [`data/parlament-oznake.LICENCA.md`](../data/parlament-oznake.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | The multilingual sentiment dataset of parliamentary debates ParlaSent 1.0, CLARIN.SI zapis 11356/1868; službene datoteke ParlaSent_BCS.jsonl, ParlaSent_BCS_test.jsonl i README.txt. |
+| Licenca | CC BY-SA 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by-sa/4.0/legalcode)) |
+| Atribucija | Mochtak, Michal; Rupnik, Peter; Meden, Katja; Ljubesic, Nikola. The multilingual sentiment dataset of parliamentary debates ParlaSent 1.0. Jozef Stefan Institute; [poveznica na izvor](http://hdl.handle.net/11356/1868); CC BY-SA 4.0; promjene su označene u data/parlament-oznake.LICENCA.md. |
+| Pristup | Izravno iz službenoga CLARIN.SI repozitorija. |
+| Redistribucija | provjerena prema objavljenoj CC BY-SA 4.0 licenci za točan hrvatski izvedeni skup; izvedena tablica zadržava ShareAlike, punu atribuciju i oznaku promjena. Nije traženo posebno dopuštenje nositelja prava. |
+| Zakonita zamjena | Jedna CSV datoteka pokriva isti R, no-code, tiskani, HTML, PDF i DOCX put. Svaki obvezni zadatak koristi unaprijed zadane retke ili agregate izvedene iz te iste datoteke; ne postoji portalna ni ParlaMint-only ovisnost. |
+| Putovnica | [`data/parlament_tekst/PUTOVNICA.md`](../data/parlament_tekst/PUTOVNICA.md) |
+| Obavijest uz snimku | [`data/parlament-oznake.LICENCA.md`](../data/parlament-oznake.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### [`data/parlament_oznake.csv`](../data/parlament_oznake.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 2698 redaka, a ključ je `record_id`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 2698 |
+| Ključ | `record_id` |
 
-**Varijable.**\
-`record_id`,\
-`sentence_text`,\
-`country_source`,\
-`source_role`,\
-`source_line`,\
-`source_document_id`,\
-`source_sentence_id`,\
-`source_split`,\
-`derived_split`,\
-`annotator1_raw`,\
-`annotator2_raw`,\
-`reconciliation_raw`,\
-`recorded_label`,\
-`label_path`.
+Varijable su `record_id`, `sentence_text`, `country_source`, `source_role`, `source_line`, `source_document_id`, `source_sentence_id`, `source_split`, `derived_split`, `annotator1_raw`, `annotator2_raw`, `reconciliation_raw`, `recorded_label`, `label_path`.
 
 ### Dopuštene i nedostupne tvrdnje
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis oznacenih recenica |
-| dopuštena | vrednovanje klasifikatora prema zabiljezenom referentnom ishodu |
+| dopuštena | opis označenih rečenica |
+| dopuštena | vrednovanje klasifikatora prema zabilježenom referentnom ishodu |
 | dopuštena | provjera dokumentnoga razdvajanja bez curenja |
 | nedostupna | tvrdnja da je oznaka istina |
-| nedostupna | generalizacija na neoznacene recenice |
+| nedostupna | generalizacija na neoznačene rečenice |
 | nedostupna | prevalencija sentimenta u Hrvatskome saboru |
 | nedostupna | govorni kontekst ili namjera govornika |
 
@@ -1400,9 +1145,9 @@ Status|Granica tvrdnje
 Pitanje|Odgovor
 |---|---|
 | `category_ownership` | Okvir kodiranja odredili su autori skupa. |
-| `absence` | Recenice izvan uzorka za oznacavanje nemaju oznaku. |
-| `identifiability` | Izlaz ne nosi ime, stranku, spol, godinu rodjenja ni ulogu vlasti/opozicije. Izvorni unutarnji kljucevi ostaju radi provjere razdvajanja, a tekst javnoga govora i dalje moze biti prepoznatljiv. |
-| `beneficiaries` | Citatelj koji uci da je referentna oznaka pogresiva. |
+| `absence` | Rečenice izvan uzorka za označavanje nemaju oznaku. |
+| `identifiability` | Izlaz ne nosi ime, stranku, spol, godinu rođenja ni ulogu vlasti/opozicije. Izvorni unutarnji ključevi ostaju radi provjere razdvajanja, a tekst javnoga govora i dalje može biti prepoznatljiv. |
+| `beneficiaries` | Čitatelj koji uči da je referentna oznaka pogrešiva. |
 | `error_burden` | Kriva oznaka pada na imenovanoga zastupnika. |
 | `appeal` | Nije uspostavljen u podatkovnom skupu; upravo je to pouka poglavlja 17. |
 
@@ -1410,45 +1155,32 @@ Pitanje|Odgovor
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-gfi-fina).
 
-**Identifikator.** `gfi_fina`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `restricted_commercial_or_administrative_source`.
-
-**Domena.** financijski i administrativni zapisi.
-
-**Jedinica.** jedan poslovni subjekt.
-
-**Pitanje.** Sto se smije tvrditi iz izvora koji citatelj ne moze otvoriti?
-
-**Uloga.** Granica reproducibilnosti; samo citirani objavljeni agregat ili izostavljanje.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `external-only`.
-
-**Razred osvježavanja.** `external-only`.
-
-**Inačica.** neodabrana.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `gfi_fina` |
+| Status | nije promoviran |
+| Dizajn | `restricted_commercial_or_administrative_source` |
+| Domena | financijski i administrativni zapisi |
+| Jedinica | jedan poslovni subjekt |
+| Pitanje | Što se smije tvrditi iz izvora koji čitatelj ne može otvoriti? |
+| Uloga | Granica reproducibilnosti; samo citirani objavljeni agregat ili izostavljanje. |
+| Potrošači | nije zabilježeno |
+| Traka | `external-only` |
+| Razred osvježavanja | `external-only` |
+| Inačica | neodabrana |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Predlozeni vanjski komercijalni ili administrativni izvor; nije odabran tocan skup ni inacica.
-
-**Licenca.** nema dokaza o javnoj licenci ili ovlasti za redistribuciju
-
-**Atribucija.** Moguce je samo tocno citiranje objavljenoga agregata nakon zasebne provjere.
-
-**Pristup.** Vanjski izvor prema njegovim uvjetima.
-
-**Redistribucija.** nije dopustena
-
-**Zakonita zamjena.** Nije temelj obveznoga puta; dopusten je samo provjeren citirani agregat ili izostavljanje.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** nije objavljena.
+Polje|Vrijednost
+|---|---|
+| Izvor | Predloženi vanjski komercijalni ili administrativni izvor; nije odabran točan skup ni inačica. |
+| Licenca | nema dokaza o javnoj licenci ili ovlasti za redistribuciju |
+| Atribucija | Moguće je samo točno citiranje objavljenoga agregata nakon zasebne provjere. |
+| Pristup | Vanjski izvor prema njegovim uvjetima. |
+| Redistribucija | nije dopuštena |
+| Zakonita zamjena | Nije temelj obveznoga puta; dopušten je samo provjeren citirani agregat ili izostavljanje. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | nije objavljena |
 
 ### Datoteke i varijable
 
@@ -1465,99 +1197,75 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije odredjuje pruzatelj i regulator. |
-| `absence` | Subjekti bez obveze objave nisu u zapisu. |
-| `identifiability` | Poslovni subjekti su imenovani. |
-| `beneficiaries` | Citatelj koji uci prepoznati nereproducibilan dokaz. |
-| `error_burden` | Kriv financijski zapis pada na imenovani subjekt. |
-| `appeal` | Regulatorni postupak izvan opsega knjige. |
+| `category_ownership` | Nije odredivo prije odabira izvora i njegova rječnika kategorija. |
+| `absence` | Nije odredivo prije odabira izvora i dokumentiranja njegova obuhvata. |
+| `identifiability` | Nije odredivo prije odabira izvora i pregleda odabranih polja. |
+| `beneficiaries` | Čitatelj koji uči prepoznati nereproducibilan dokaz. |
+| `error_burden` | Pogrešan zaključak iz neodabranoga izvora pada na citatelja koji ga ne može provjeriti. |
+| `appeal` | Nije odredivo prije odabira izvora i provjere njegova puta ispravka. |
 
 ## DigiKat, agregat digitalnoga medijskog prostora {#sec-data-digikat-mediji}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-digikat-mediji).
 
-**Identifikator.** `digikat_mediji`.
-
-**Status.** promoviran paketom `P3-DIGIKAT`.
-
-**Dizajn.** `digital_trace_or_selected_corpus`.
-
-**Domena.** digitalni mediji i komunikologija.
-
-**Jedinica.** Jedna celija agregata, ne jedna objava. U platformskim datotekama to je platforma u godini ili u mjesecu; u datoteci izvora jedan izvor kroz cijeli raspon korpusa. Pojedinacna objava nije u ovim datotekama i ne moze se iz njih obnoviti.
-
-**Pitanje.** Kako se objavljivanje i vidljivost razlikuju medju platformama i medju izvorima?
-
-**Uloga.** Zakosena raspodjela izvora i mjerni instrument koji ne pokriva sve platforme jednako.
-
-**Potrošači.** WB-C04; WB-C05; WB-C06.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `manual-derived`.
-
-**Inačica.** Agregati projekta na dan 22. srpnja 2026. Raspon korpusa je sijecanj 2021. do lipnja 2026. Godina 2024. nema veljacu-svibanj i sijecanj joj je djelomican; 2026. ima sest od dvanaest mjeseci. Obje su oznacene kao nepotpune, a promjene obuhvata i lom iz lipnja 2024. nose zasebnu oznaku.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `digikat_mediji` |
+| Status | promoviran paketom `P3-DIGIKAT` |
+| Dizajn | `digital_trace_or_selected_corpus` |
+| Domena | digitalni mediji i komunikologija |
+| Jedinica | Jedna ćelija agregata, ne jedna objava. U platformskim datotekama to je platforma u godini ili u mjesecu; u datoteci izvora jedan izvor kroz cijeli raspon korpusa. Pojedinačna objava nije u ovim datotekama i ne može se iz njih obnoviti. |
+| Pitanje | Kako se objavljivanje i vidljivost razlikuju među platformama i među izvorima? |
+| Uloga | Zakošena raspodjela izvora i mjerni instrument koji ne pokriva sve platforme jednako. |
+| Potrošači | WB-C04; WB-C05; WB-C06; WD-C16; P5-C |
+| Traka | `bundled` |
+| Razred osvježavanja | `manual-derived` |
+| Inačica | Agregati projekta na dan 22. srpnja 2026. Raspon korpusa je siječanj 2021. do lipnja 2026. Godina 2024. nema veljaču-svibanj i siječanj joj je djelomičan; 2026. ima šest od dvanaest mjeseci. Obje su označene kao nepotpune, a promjene obuhvata i lom iz lipnja 2024. nose zasebnu oznaku. |
 
 ### Izvor, prava i pristup
 
-**Izvor.** DigiKat, Prikaz i analiza katolicke tematike u digitalnom medijskom prostoru, Hrvatsko katolicko sveuciliste, voditelj Luka Sikic. Izvadak je izveden iz triju pracenih agregatnih tablica projekta, i to data/processed/platform_summary.rds, platform_monthly.rds i source_summary.rds. Puni korpus od priblizno 710.000 objava NIJE citan i stoji zasebno u ovom katalogu kao determ_korpus.
-
-**Licenca.** CC BY 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode))
-
-**Atribucija.** Sikic, L. i sur. (2025.-2027.). Prikaz i analiza katolicke tematike u digitalnom medijskom prostoru. Hrvatsko katolicko sveuciliste, agregati data/processed/; CC BY 4.0; izmjene su oznacene u data/digikat-mediji.LICENCA.md.
-
-**Pristup.** Repozitorij projekta; [poveznica na izvor](https://github.com/lusiki/DigiKat)
-
-**Redistribucija.** provjerena za agregatne tablice. DATA_AVAILABILITY.md projekta objavljuje data/processed/*.rds pod CC BY 4.0 uz izricitu tvrdnju da su agregat bez osobnih podataka i da se smiju redistribuirati. Autor knjige i voditelj projekta ista su osoba i ta je dispozicija potvrdjena 5. kolovoza 2026. Puni korpus ostaje izvan te dozvole.
-
-**Zakonita zamjena.** Paket je promoviran za WB-C04, WB-C05 i WB-C06. Kad zadatak ne moze nositi njegovu granicu mjerenja ili staticki put, zakonita zamjena ostaje generirani paket anketa_mreze ili njegov agregat.
-
-**Putovnica.** [`data/digikat_mediji/PUTOVNICA.md`](../data/digikat_mediji/PUTOVNICA.md).
-
-**Obavijest uz snimku.** [`data/digikat-mediji.LICENCA.md`](../data/digikat-mediji.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | DigiKat, Prikaz i analiza katoličke tematike u digitalnom medijskom prostoru, Hrvatsko katoličko sveučilište, voditelj Luka Sikic. Izvadak je izveden iz triju praćenih agregatnih tablica projekta, i to data/processed/platform_summary.rds, platform_monthly.rds i source_summary.rds. Puni korpus od približno 710.000 objava NIJE čitan i stoji zasebno u ovom katalogu kao determ_korpus. |
+| Licenca | CC BY 4.0 ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode)) |
+| Atribucija | Sikic, L. i sur. (2025.-2027.). Prikaz i analiza katoličke tematike u digitalnom medijskom prostoru. Hrvatsko katoličko sveučilište, agregati data/processed/; CC BY 4.0; izmjene su označene u data/digikat-mediji.LICENCA.md. |
+| Pristup | Repozitorij projekta; [poveznica na izvor](https://github.com/lusiki/DigiKat) |
+| Redistribucija | provjerena za agregatne tablice. DATA_AVAILABILITY.md projekta objavljuje data/processed/*.rds pod CC BY 4.0 uz izričitu tvrdnju da su agregat bez osobnih podataka i da se smiju redistribuirati. Autor knjige i voditelj projekta ista su osoba i ta je dispozicija potvrđena 5. kolovoza 2026. Puni korpus ostaje izvan te dozvole. |
+| Zakonita zamjena | Paket je promoviran za WB-C04, WB-C05 i WB-C06. Kad zadatak ne može nositi njegovu granicu mjerenja ili statički put, zakonita zamjena ostaje generirani paket anketa_mreže ili njegov agregat. |
+| Putovnica | [`data/digikat_mediji/PUTOVNICA.md`](../data/digikat_mediji/PUTOVNICA.md) |
+| Obavijest uz snimku | [`data/digikat-mediji.LICENCA.md`](../data/digikat-mediji.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### [`data/digikat-platforme-godisnje.csv`](../data/digikat-platforme-godisnje.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 49 redaka, a ključ je `godina+platforma`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 49 |
+| Ključ | `godina+platforma` |
 
-**Varijable.**\
-`godina`,\
-`platforma`,\
-`objave`,\
-`objave_godina_ukupno`,\
-`interakcije`,\
-`doseg`,\
-`metrika_dostupna`,\
-`godina_potpuna`,\
-`lom_metode`.
+Varijable su `godina`, `platforma`, `objave`, `objave_godina_ukupno`, `interakcije`, `doseg`, `metrika_dostupna`, `godina_potpuna`, `lom_metode`.
 
 #### [`data/digikat-platforme-mjesecno.csv`](../data/digikat-platforme-mjesecno.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 438 redaka, a ključ je `mjesec+platforma`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 438 |
+| Ključ | `mjesec+platforma` |
 
-**Varijable.**\
-`mjesec`,\
-`godina`,\
-`mjesec_redni`,\
-`platforma`,\
-`objave`,\
-`interakcije`,\
-`doseg`,\
-`metrika_dostupna`,\
-`lom_metode`.
+Varijable su `mjesec`, `godina`, `mjesec_redni`, `platforma`, `objave`, `interakcije`, `doseg`, `metrika_dostupna`, `lom_metode`.
 
 #### [`data/digikat-izvori.csv`](../data/digikat-izvori.csv)
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 3604 redaka, a ključ je `izvor`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 3604 |
+| Ključ | `izvor` |
 
-**Varijable.**\
-`izvor`,\
-`objave`,\
-`interakcije`,\
-`doseg`,\
-`godine_prisutnosti`.
+Varijable su `izvor`, `objave`, `interakcije`, `doseg`, `godine_prisutnosti`.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -1565,295 +1273,251 @@ Status|Granica tvrdnje
 |---|---|
 | dopuštena | opis broja objava po platformi i po izvoru unutar ovoga korpusa |
 | dopuštena | opis oblika raspodjele izvora po produktivnosti i dosegu |
-| dopuštena | usporedba platformi po objavama, uz uvazavanje stupca metrika_dostupna |
+| dopuštena | usporedba platformi po objavama, uz uvažavanje stupca metrika_dostupna |
 | nedostupna | tvrdnja o hrvatskom medijskom prostoru u cjelini |
 | nedostupna | tvrdnja o javnom mnijenju ili o stavovima ljudi |
-| nedostupna | tvrdnja o broju razlicitih osoba koje su sadrzaj vidjele |
-| nedostupna | usporedba interakcija izmedju platforme s mjerenjem i platforme bez njega |
-| nedostupna | svaka tvrdnja o pojedinacnoj objavi ili o imenovanom akteru |
-| nedostupna | rast ili trend kroz 2024., jer veljaca-svibanj nedostaju, sijecanj je djelomican i od lipnja vrijedi lom metode |
-| nedostupna | usporedba razdoblja prije i nakon lipnja 2024. bez izricito navedena loma metode |
+| nedostupna | tvrdnja o broju različitih osoba koje su sadržaj vidjele |
+| nedostupna | usporedba interakcija između platforme s mjerenjem i platforme bez njega |
+| nedostupna | svaka tvrdnja o pojedinačnoj objavi ili o imenovanom akteru |
+| nedostupna | rast ili trend kroz 2024., jer veljača-svibanj nedostaju, siječanj je djelomičan i od lipnja vrijedi lom metode |
+| nedostupna | usporedba razdoblja prije i nakon lipnja 2024. bez izričito navedena loma metode |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Vrste izvora odredjuje komercijalni pruzatelj usluge pracenja medija, a pravilo ulaska u korpus odredjuje istrazivacki tim. |
-| `absence` | Izvori koje pruzatelj ne prati ne postoje u ovim brojkama, i njihova se odsutnost iz datoteke ne vidi. |
-| `identifiability` | Nijedna imenovana osoba nije u izvatku. Zadrzane su samo organizacije prepoznate po goloj internetskoj domeni; deset uzvodnih tablica s imenovanim akterima namjerno je izostavljeno. |
-| `beneficiaries` | Citatelj koji uci sto digitalni trag mjeri, a sto ne. |
-| `error_burden` | Kriva brojka pada na imenovanu medijsku kucu, pa se izvor nikada ne prikazuje bez raspona i bez granica korpusa. |
+| `category_ownership` | Vrste izvora određuje komercijalni pružatelj usluge praćenja medija, a pravilo ulaska u korpus određuje istraživacki tim. |
+| `absence` | Izvori koje pružatelj ne prati ne postoje u ovim brojkama, i njihova se odsutnost iz datoteke ne vidi. |
+| `identifiability` | Nijedna imenovana osoba nije u izvatku. Zadržane su samo organizacije prepoznate po goloj internetskoj domeni; deset uzvodnih tablica s imenovanim akterima namjerno je izostavljeno. |
+| `beneficiaries` | Čitatelj koji uči što digitalni trag mjeri, a što ne. |
+| `error_burden` | Kriva brojka pada na imenovanu medijsku kuću, pa se izvor nikada ne prikazuje bez raspona i bez granica korpusa. |
 | `appeal` | Nije uspostavljen; to je dio pouke o granicama traga. |
 
 ### Ograničenja
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Korpus nije uzorak. Objava ulazi ako sadrzi najmanje dva razlicita katolicka pojma. |
-| 2 | Godina 2024. nema veljacu-svibanj, sijecanj je djelomican s 1911 objava, a od lipnja vrijedi lom metode; rupa mora ostati vidljiva. |
-| 3 | Godina 2026. ima sest mjeseci; lipanj s 7815 objava prema svibanjskih 20471 dosljedan je nedovrsenom zavrsnom mjesecu, ali to nije dokaz uzroka. |
-| 4 | Godisnja i mjesecna datoteka odstupaju u 17 od 49 celija, no obje zbrajaju tocno 710307 objava. |
+| 1 | Korpus nije uzorak. Objava ulazi ako sadrži najmanje dva različita katolička pojma. |
+| 2 | Godina 2024. nema veljaču-svibanj, siječanj je djelomičan s 1911 objava, a od lipnja vrijedi lom metode; rupa mora ostati vidljiva. |
+| 3 | Godina 2026. ima šest mjeseci; lipanj s 7815 objava prema svibanjskih 20471 dosljedan je nedovršenom završnom mjesecu, ali to nije dokaz uzroka. |
+| 4 | Godišnja i mjesečna datoteka odstupaju u 17 od 49 ćelija, no obje zbrajaju točno 710307 objava. |
 | 5 | Datoteka 3604 imenovanih domena nosi 551712 od 710307 objava, odnosno 77,67 posto; svaki udio iz te datoteke koristi 551712 kao nazivnik. |
-| 6 | Doseg je procjena pruzatelja, nije broj razlicitih osoba i ista se osoba moze brojiti vise puta. |
+| 6 | Doseg je procjena pružatelja, nije broj različitih osoba i ista se osoba može brojiti više puta. |
 | 7 | Nula u interakcijama i dosegu na reddit, forum i comment nije izmjerena nula. |
 | 8 | 515 izvora u datoteci izvora ima doseg 0 i za njih vrijedi ista sumnja. |
 
-## Registar drzavnih potpora, agregati koncentracije {#sec-data-rdp-potpore}
+## Registar državnih potpora, agregati koncentracije {#sec-data-rdp-potpore}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-rdp-potpore).
 
-**Identifikator.** `rdp_potpore`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `administrative_or_electoral_count`.
-
-**Domena.** javne politike i politicka ekonomija.
-
-**Jedinica.** Jedna agregatna celija. Ovisno o datoteci to je skupina primatelja, godina, razred velicine, vrsta potpore ili jedan naslovni pokazatelj. Pojedinacna dodjela i pojedinacni primatelj nisu u ovim datotekama i nijedan OIB se ne pojavljuje.
-
-**Pitanje.** Koliko je koncentrirana dodjela drzavnih potpora i koliko ju je snimka registra uopce zabiljezila?
-
-**Uloga.** Registar nije potpuni popis; prikazuje obuhvat snimke naspram sluzbenoga iznosa.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `manual-derived`.
-
-**Inačica.** Snimka registra od 19. srpnja 2026., dodjele 2017.-2025. sa statusom Ispravan i pozitivnim iznosom. Redci sa statusom Upozorenje iskljuceni su.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `rdp_potpore` |
+| Status | nije promoviran |
+| Dizajn | `administrative_or_electoral_count` |
+| Domena | javne politike i politička ekonomija |
+| Jedinica | Jedna agregatna ćelija. Ovisno o datoteci to je skupina primatelja, godina, razred veličine, vrsta potpore ili jedan naslovni pokazatelj. Pojedinačna dodjela i pojedinačni primatelj nisu u ovim datotekama i nijedan OIB se ne pojavljuje. |
+| Pitanje | Koliko je koncentrirana dodjela državnih potpora i koliko ju je snimka registra uopće zabilježila? |
+| Uloga | Registar nije potpuni popis; prikazuje obuhvat snimke naspram službenoga iznosa. |
+| Potrošači | nije zabilježeno |
+| Traka | `bundled` |
+| Razred osvježavanja | `manual-derived` |
+| Inačica | Snimka registra od 19. srpnja 2026., dodjele 2017.-2025. sa statusom Ispravan i pozitivnim iznosom. Redci sa statusom Upozorenje isključeni su. |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Registar drzavnih potpora i potpora male vrijednosti, Ministarstvo financija Republike Hrvatske, [poveznica na izvor](https://rdp.gov.hr/javno); snimka dovrsena 19. srpnja 2026. Sluzbeni godisnji iznosi za usporedbu obuhvata preuzeti su iz Godisnjega izvjesca o drzavnim potporama za 2023., str. 14. Agregate je izracunao projekt AI.econ / CroAIcon.
-
-**Licenca.** CC BY 4.0 za izvedene agregate; uvjeti ponovne uporabe izvornoga registra nisu objavljeni ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode))
-
-**Atribucija.** Registar drzavnih potpora i potpora male vrijednosti, Ministarstvo financija Republike Hrvatske, [poveznica na izvor](https://rdp.gov.hr/javno), snimka od 19. srpnja 2026.; agregati izracunati u projektu AI.econ; izmjene su oznacene u data/rdp-potpore.LICENCA.md.
-
-**Pristup.** Javno pretrazivo sucelje registra; [poveznica na izvor](https://rdp.gov.hr/javno)
-
-**Redistribucija.** nije dovrsena. Suglasnost suautora projekta AI.econ za redistribuciju izvedenih agregata autor je potvrdio 5. kolovoza 2026. Uvjeti ponovne uporabe samoga registra i dalje nisu utvrdjeni i to je jedina preostala zapreka promociji.
-
-**Zakonita zamjena.** Do promocije obvezni studentski put koristi paket dzs_turizam ili generirani paket; ovaj paket sluzi za pripremu i za prikaz.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** [`data/rdp-potpore.LICENCA.md`](../data/rdp-potpore.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | Registar državnih potpora i potpora male vrijednosti, Ministarstvo financija Republike Hrvatske, [poveznica na izvor](https://rdp.gov.hr/javno); snimka dovršena 19. srpnja 2026. Službeni godišnji iznosi za usporedbu obuhvata preuzeti su iz Godišnjega izvješća o državnim potporama za 2023., str. 14. Agregate je izračunao projekt AI.econ / CroAIcon. |
+| Licenca | CC BY 4.0 za izvedene agregate; uvjeti ponovne uporabe izvornoga registra nisu objavljeni ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode)) |
+| Atribucija | Registar državnih potpora i potpora male vrijednosti, Ministarstvo financija Republike Hrvatske, [poveznica na izvor](https://rdp.gov.hr/javno), snimka od 19. srpnja 2026.; agregati izračunati u projektu AI.econ; izmjene su označene u data/rdp-potpore.LICENCA.md. |
+| Pristup | Javno pretraživo sučelje registra; [poveznica na izvor](https://rdp.gov.hr/javno) |
+| Redistribucija | nije dovršena. Suglasnost suautora projekta AI.econ za redistribuciju izvedenih agregata autor je potvrdio 5. kolovoza 2026. Uvjeti ponovne uporabe samoga registra i dalje nisu utvrđeni i to je jedina preostala zapreka promociji. |
+| Zakonita zamjena | Do promocije obvezni studentski put koristi paket dzs_turizam ili generirani paket; ovaj paket služi za pripremu i za prikaz. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | [`data/rdp-potpore.LICENCA.md`](../data/rdp-potpore.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### `data/rdp-potpore-skupine.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 3 redaka, a ključ je `skupina`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 3 |
+| Ključ | `skupina` |
 
-**Varijable.**\
-`skupina`,\
-`redoslijed`,\
-`primatelji`,\
-`primatelji_ukupno`,\
-`udio_primatelja_pct`,\
-`iznos_eur`,\
-`iznos_ukupno_eur`,\
-`udio_iznosa_pct`.
+Varijable su `skupina`, `redoslijed`, `primatelji`, `primatelji_ukupno`, `udio_primatelja_pct`, `iznos_eur`, `iznos_ukupno_eur`, `udio_iznosa_pct`.
 
 #### `data/rdp-potpore-godisnje.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 9 redaka, a ključ je `godina`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 9 |
+| Ključ | `godina` |
 
-**Varijable.**\
-`godina`,\
-`dodjele`,\
-`primatelji`,\
-`iznos_eur`.
+Varijable su `godina`, `dodjele`, `primatelji`, `iznos_eur`.
 
 #### `data/rdp-potpore-velicina.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 5 redaka, a ključ je `velicina`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 5 |
+| Ključ | `velicina` |
 
-**Varijable.**\
-`velicina`,\
-`redoslijed`,\
-`dodjele`,\
-`primatelji`,\
-`iznos_eur`,\
-`udio_iznosa_pct`,\
-`prosjecna_dodjela_eur`.
+Varijable su `velicina`, `redoslijed`, `dodjele`, `primatelji`, `iznos_eur`, `udio_iznosa_pct`, `prosjecna_dodjela_eur`.
 
 #### `data/rdp-potpore-vrsta.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 7 redaka, a ključ je `vrsta`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 7 |
+| Ključ | `vrsta` |
 
-**Varijable.**\
-`vrsta`,\
-`dodjele`,\
-`primatelji`,\
-`iznos_eur`,\
-`udio_iznosa_pct`.
+Varijable su `vrsta`, `dodjele`, `primatelji`, `iznos_eur`, `udio_iznosa_pct`.
 
 #### `data/rdp-potpore-obuhvat.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 3 redaka, a ključ je `godina`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 3 |
+| Ključ | `godina` |
 
-**Varijable.**\
-`godina`,\
-`sluzbeni_iznos_eur`,\
-`sluzbeni_udio_bdp_pct`,\
-`registar_dodjele`,\
-`registar_iznos_eur`,\
-`analiticke_dodjele`,\
-`analiticki_iznos_eur`,\
-`registar_prema_sluzbenom_pct`,\
-`analiticki_prema_sluzbenom_pct`.
+Varijable su `godina`, `sluzbeni_iznos_eur`, `sluzbeni_udio_bdp_pct`, `registar_dodjele`, `registar_iznos_eur`, `analiticke_dodjele`, `analiticki_iznos_eur`, `registar_prema_sluzbenom_pct`, `analiticki_prema_sluzbenom_pct`.
 
 #### `data/rdp-potpore-sazetak.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 15 redaka, a ključ je `pokazatelj`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 15 |
+| Ključ | `pokazatelj` |
 
-**Varijable.**\
-`pokazatelj`,\
-`vrijednost`,\
-`jedinica`.
+Varijable su `pokazatelj`, `vrijednost`, `jedinica`.
 
 ### Dopuštene i nedostupne tvrdnje
 
 Status|Granica tvrdnje
 |---|---|
 | dopuštena | opis koncentracije dodijeljenoga iznosa unutar ove snimke registra |
-| dopuštena | usporedba medijana i aritmeticke sredine dodijeljenoga iznosa po primatelju |
-| dopuštena | opis razlike izmedju zabiljezenoga i sluzbeno objavljenoga godisnjeg iznosa |
-| nedostupna | tvrdnja da je godisnji niz nacionalna vremenska serija drzavnih potpora |
+| dopuštena | usporedba medijana i aritmetičke sredine dodijeljenoga iznosa po primatelju |
+| dopuštena | opis razlike između zabilježenoga i službeno objavljenoga godišnjeg iznosa |
+| nedostupna | tvrdnja da je godišnji niz nacionalna vremenska serija državnih potpora |
 | nedostupna | tvrdnja da je rast iznosa kroz godine rast stvarnih potpora |
-| nedostupna | tvrdnja o pojedinacnom primatelju ili o pojedinacnoj dodjeli |
-| nedostupna | tvrdnja o ucinku potpore |
-| nedostupna | uzrocnost |
+| nedostupna | tvrdnja o pojedinačnom primatelju ili o pojedinačnoj dodjeli |
+| nedostupna | tvrdnja o učinku potpore |
+| nedostupna | uzročnost |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Razrede velicine i vrste potpore odredjuje regulator i europski okvir drzavnih potpora, a ne istrazivac. |
-| `absence` | Dodjele koje u registar nisu upisane ne postoje u ovim brojkama. Tablica obuhvata je jedini nacin da se ta odsutnost uopce vidi. |
-| `identifiability` | Agregat; nijedan primatelj nije imenovan i nijedan OIB se ne pojavljuje. Uzvodni registar JEST imenovan i javan, sto je razlog vise da izvadak ostane na razini skupine. |
-| `beneficiaries` | Citatelj koji uci razlikovati okvir zapisa od pojave koju zapis mjeri. |
-| `error_burden` | Kriva tvrdnja o koncentraciji pada na javnu raspravu o trosenju proracuna i na imenovane primatelje u uzvodnom registru. |
-| `appeal` | Ispravak upisa vodi se kod nadleznoga tijela, izvan opsega knjige. |
+| `category_ownership` | Agregat zadržava kategorije iz uzvodnoga zapisa; ovaj katalog ne pripisuje njihovo autorstvo ni pravnu osnovu. |
+| `absence` | Dodjele koje u registar nisu upisane ne postoje u ovim brojkama. Tablica obuhvata je jedini način da se ta odsutnost uopće vidi. |
+| `identifiability` | Agregat; nijedan primatelj nije imenovan i nijedan OIB se ne pojavljuje. Uzvodni registar JEST imenovan i javan, što je razlog više da izvadak ostane na razini skupine. |
+| `beneficiaries` | Čitatelj koji uči razlikovati okvir zapisa od pojave koju zapis mjeri. |
+| `error_burden` | Kriva tvrdnja o koncentraciji pada na javnu raspravu o trošenju proračuna i na imenovane primatelje u uzvodnom registru. |
+| `appeal` | Agregat ne sadrži put ispravka ili prigovora; knjiga ga iz ovoga izvora ne opisuje. |
 
 ### Ograničenja
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Snimka za 2021. reproducira 0,93 posto sluzbenoga iznosa, a za 2023. 95,18 posto. |
-| 2 | Iznos je element potpore, ne proracunska isplata i ne mjera ucinka. |
-| 3 | Redci sa statusom Upozorenje iskljuceni su; najveci medju njima iznosi oko 18,7 milijardi eura. |
-| 4 | Naslovni iznos izvjesca za 2024. nije izravno usporediv s ranijim izvjescima. |
-| 5 | Velicina se odnosi na pojedinu dodjelu i moze se mijenjati kroz vrijeme. |
-| 6 | Upravljanje ostaje otvoreno. Vrata G-A3-RDP imenovana su u polju promoting_gate, ali JOS NISU upisana u notes/reports/comprehensive-review-implementation-register.yml. Ratificirani program nikada nije predvidio CroAIcon kao izvor; predvidio je samo gfi_fina, i to je zabranio. Uvodjenje tih vrata mijenja registar i trazi autorsko odobrenje na zatvaranju paketa. Dok ih nema, paket se ne moze promovirati ni pod kojim postojecim gateom. |
+| 1 | Snimka za 2021. reproducira 0,93 posto službenoga iznosa, a za 2023. 95,18 posto. |
+| 2 | Iznos je element potpore, ne proračunska isplata i ne mjera učinka. |
+| 3 | Redci sa statusom Upozorenje isključeni su; najveći među njima iznosi oko 18,7 milijardi eura. |
+| 4 | Naslovni iznos izvješća za 2024. nije izravno usporediv s ranijim izvješćima. |
+| 5 | Veličina se odnosi na pojedinu dodjelu i može se mijenjati kroz vrijeme. |
+| 6 | Upravljanje ostaje otvoreno. Vrata G-A3-RDP imenovana su u polju promoting_gate, ali JOS NISU upisana u notes/reports/comprehensive-review-implementation-register.yml. Ratificirani program nikada nije predvidio CroAIcon kao izvor; predvidio je samo gfi_fina, i to je zabranio. Uvođenje tih vrata mijenja registar i traži autorsko odobrenje na zatvaranju paketa. Dok ih nema, paket se ne može promovirati ni pod kojim postojećim gateom. |
 
 ## BDP po stanovniku, dugi niz i pet procjena {#sec-data-bdp-dugi-niz}
 
 Sažeti javni zapis nalazi se na [stranici Podaci](../podaci.qmd#podaci-bdp-dugi-niz).
 
-**Identifikator.** `bdp_dugi_niz`.
-
-**Status.** nije promoviran.
-
-**Dizajn.** `official_aggregate_statistics`.
-
-**Domena.** ekonomska povijest i usporedivost mjerenja.
-
-**Jedinica.** Jedna godina. U datoteci izvora to je godina s pet odvojenih procjena, u spojenoj datoteci godina jednoga ulancanog niza, a u datoteci razdoblja jedno imenovano razdoblje.
-
-**Pitanje.** Koliko se razlikuju objavljene procjene iste velicine i sto se dobiva kad ih se spoji u jedan niz?
-
-**Uloga.** Pet objavljenih procjena iste velicine, s razlicitim jedinicama i sa spojenim nizom.
-
-**Potrošači.** nije zabilježeno.
-
-**Traka.** `bundled`.
-
-**Razred osvježavanja.** `manual-derived`.
-
-**Inačica.** Sastav projekta AI.econ od 22. lipnja 2026. Raspon 1870.-2025.; cetiri tocke prije 1910. su pojedinacne referentne procjene, ne godisnji niz.
+Polje|Vrijednost
+|---|---|
+| Identifikator | `bdp_dugi_niz` |
+| Status | nije promoviran |
+| Dizajn | `official_aggregate_statistics` |
+| Domena | ekonomska povijest i usporedivost mjerenja |
+| Jedinica | Jedna godina. U datoteci izvora to je godina s pet odvojenih procjena, u spojenoj datoteci godina jednoga ulančanog niza, a u datoteci razdoblja jedno imenovano razdoblje. |
+| Pitanje | Koliko se razlikuju objavljene procjene iste veličine i što se dobiva kad ih se spoji u jedan niz? |
+| Uloga | Pet objavljenih procjena iste veličine, s različitim jedinicama i sa spojenim nizom. |
+| Potrošači | nije zabilježeno |
+| Traka | `bundled` |
+| Razred osvježavanja | `manual-derived` |
+| Inačica | Sastav projekta AI.econ od 22. lipnja 2026. Raspon 1870.-2025.; četiri točke prije 1910. su pojedinačne referentne procjene, ne godišnji niz. |
 
 ### Izvor, prava i pristup
 
-**Izvor.** Pet objavljenih procjena BDP-a po stanovniku za Hrvatsku. To su Eurostat nacionalni racuni nama_10_pc; Maddison Project Database 2023 (Bolt i van Zanden, 2024.); Penn World Table 10.01; Svjetska banka WDI NY.GDP.PCAP.KD; Tica, J. (2004.), Zagreb International Review of Economics and Business `7(1):103-133`. Spajanje i ulancavanje izveo je projekt AI.econ / CroAIcon; registar izvora je data/reference/gdp_sources.json u tom projektu.
-
-**Licenca.** CC BY 4.0 za sastav i spojeni niz; pet komponenti nosi vlastite uvjete ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode))
-
-**Atribucija.** Svaki stupac nosi vlastiti izvor i vlastiti citat; puna matrica pet izvora, pet jedinica i pet licenci stoji u data/bdp-hrvatska.LICENCA.md. Maddison se citira kao Bolt i van Zanden (2024.), Tica kao Tica (2004.).
-
-**Pristup.** Sluzbena sucelja pet pruzatelja; Ticina rekonstrukcija samo kao PDF na Hrcaku
-
-**Redistribucija.** nije dovrsena. Suglasnost suautora projekta AI.econ autor je potvrdio 5. kolovoza 2026. Preostaju dvije zapreke. Eurostatov stupac po ovom katalogu pripada traci portal-mediated, u kojoj se datoteka ne pohranjuje nego se daje uputa za preuzimanje, i uvjeti MPD-a za prikaz jedne zemlje nisu potvrdjeni.
-
-**Zakonita zamjena.** Do promocije obvezni studentski put koristi paket dzs_turizam ili generirani paket; ovaj paket sluzi za pripremu i za prikaz.
-
-**Putovnica.** nije objavljena.
-
-**Obavijest uz snimku.** [`data/bdp-hrvatska.LICENCA.md`](../data/bdp-hrvatska.LICENCA.md).
+Polje|Vrijednost
+|---|---|
+| Izvor | Pet objavljenih procjena BDP-a po stanovniku za Hrvatsku. To su Eurostat nacionalni računi nama_10_pc; Maddison Project Database 2023 (Bolt i van Zanden, 2024.); Penn World Table 10.01; Svjetska banka WDI NY.GDP.PCAP.KD; Tica, J. (2004.), Zagreb International Review of Economics and Business `7(1):103-133`. Spajanje i ulančavanje izveo je projekt AI.econ / CroAIcon; registar izvora je data/reference/gdp_sources.json u tom projektu. |
+| Licenca | CC BY 4.0 za sastav i spojeni niz; pet komponenti nosi vlastite uvjete ([uvjeti licence](https://creativecommons.org/licenses/by/4.0/legalcode)) |
+| Atribucija | Svaki stupac nosi vlastiti izvor i vlastiti citat; puna matrica pet izvora, pet jedinica i pet licenci stoji u data/bdp-hrvatska.LICENCA.md. Maddison se citira kao Bolt i van Zanden (2024.), Tica kao Tica (2004.). |
+| Pristup | Službena sučelja pet pružatelja; Ticina rekonstrukcija samo kao PDF na Hrcaku |
+| Redistribucija | nije dovršena. Suglasnost suautora projekta AI.econ autor je potvrdio 5. kolovoza 2026. Preostaju dvije zapreke. Eurostatov stupac po ovom katalogu pripada traci portal-mediated, u kojoj se datoteka ne pohranjuje nego se daje uputa za preuzimanje, i uvjeti MPD-a za prikaz jedne zemlje nisu potvrđeni. |
+| Zakonita zamjena | Do promocije obvezni studentski put koristi paket dzs_turizam ili generirani paket; ovaj paket služi za pripremu i za prikaz. |
+| Putovnica | nije objavljena |
+| Obavijest uz snimku | [`data/bdp-hrvatska.LICENCA.md`](../data/bdp-hrvatska.LICENCA.md) |
 
 ### Datoteke i varijable
 
 #### `data/bdp-hrvatska-izvori.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 103 redaka, a ključ je `godina`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 103 |
+| Ključ | `godina` |
 
-**Varijable.**\
-`godina`,\
-`eurostat_eur_clv`,\
-`maddison_int2011`,\
-`pwt_usd2017`,\
-`svjetska_banka_usd2015`,\
-`tica_gk1990`.
+Varijable su `godina`, `eurostat_eur_clv`, `maddison_int2011`, `pwt_usd2017`, `svjetska_banka_usd2015`, `tica_gk1990`.
 
 #### `data/bdp-hrvatska-spojeni.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 107 redaka, a ključ je `godina`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 107 |
+| Ključ | `godina` |
 
-**Varijable.**\
-`godina`,\
-`bdp_pc_eur`,\
-`segment`,\
-`granulacija`,\
-`indeks_2015_100`,\
-`prekid`.
+Varijable su `godina`, `bdp_pc_eur`, `segment`, `granulacija`, `indeks_2015_100`, `prekid`.
 
 #### `data/bdp-hrvatska-razdoblja.csv`
 
-**Uloga i opseg.** Uloga je `analysis`, datoteka ima 8 redaka, a ključ je `razdoblje`.
+Polje|Vrijednost
+|---|---|
+| Uloga | `analysis` |
+| Broj redaka | 8 |
+| Ključ | `razdoblje` |
 
-**Varijable.**\
-`razdoblje`,\
-`godina_od`,\
-`godina_do`,\
-`prosjecni_godisnji_rast_pct`,\
-`ukupna_promjena_pct`,\
-`rast`.
+Varijable su `razdoblje`, `godina_od`, `godina_do`, `prosjecni_godisnji_rast_pct`, `ukupna_promjena_pct`, `rast`.
 
 ### Dopuštene i nedostupne tvrdnje
 
 Status|Granica tvrdnje
 |---|---|
-| dopuštena | opis razlika medju pet objavljenih procjena iste velicine za istu godinu |
-| dopuštena | opis oblika spojenoga niza uz navodjenje odsjecka i oznacenoga prekida |
-| dopuštena | opis stopa rasta po imenovanim razdobljima, uz napomenu da je granice odabrao analiticar |
-| nedostupna | prosjek ili usporedba razina medju stupcima s razlicitim jedinicama |
-| nedostupna | tvrdnja da je jedna od pet procjena tocna, a ostale pogresne |
-| nedostupna | tvrdnja o opazenim razinama za godine 1991.-1995. |
-| nedostupna | uzrocnost |
+| dopuštena | opis razlika među pet objavljenih procjena iste veličine za istu godinu |
+| dopuštena | opis oblika spojenoga niza uz navođenje odsječka i označenoga prekida |
+| dopuštena | opis stopa rasta po imenovanim razdobljima, uz napomenu da je granice odabrao analitičar |
+| nedostupna | prosjek ili usporedba razina među stupcima s različitim jedinicama |
+| nedostupna | tvrdnja da je jedna od pet procjena točna, a ostale pogrešne |
+| nedostupna | tvrdnja o opaženim razinama za godine 1991.-1995. |
+| nedostupna | uzročnost |
 
 ### Etička putovnica
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Definicije i baze odredjuju europska i medjunarodna statisticka metodologija te pojedini akademski autori, a ne istrazivac. |
+| `category_ownership` | Definicije i baze određuju europska i međunarodna statistička metodologija te pojedini akademski autori, a ne istraživac. |
 | `absence` | Godine koje pojedina procjena ne pokriva ostaju vidljive kao '..', a ne popunjene interpolacijom. |
 | `identifiability` | Agregat; nijedna osoba nije prepoznatljiva. |
-| `beneficiaries` | Citatelj koji uci da jedinica i baza mjerenja nisu detalj. |
-| `error_burden` | Kriva usporedba razina pada na javnu raspravu o gospodarskoj povijesti zemlje i osobito na tumacenje devedesetih. |
+| `beneficiaries` | Čitatelj koji uči da jedinica i baza mjerenja nisu detalj. |
+| `error_burden` | Kriva usporedba razina pada na javnu raspravu o gospodarskoj povijesti zemlje i osobito na tumačenje devedesetih. |
 | `appeal` | Nije primjenjivo za agregat; ispravci idu kroz reviziju uzvodnih baza. |
 
 ### Ograničenja
@@ -1861,8 +1525,8 @@ Pitanje|Odgovor
 Redni broj|Ograničenje
 |---|---|
 | 1 | Pet stupaca nisu usporedive razine i redak se ne smije prosjeciti. |
-| 2 | Godine 1991.-1995. su rekonstruirane, a ne opazene, i oznacene su stupcem prekid. |
+| 2 | Godine 1991.-1995. su rekonstruirane, a ne opažene, i označene su stupcem prekid. |
 | 3 | Ticina rekonstrukcija je backcast; autor sam upozorava na oprez. |
-| 4 | Cetiri tocke prije 1910. su pojedinacne referentne procjene, ne godisnji niz. |
-| 5 | Granice razdoblja odabrao je analiticar i nisu svojstvo podataka. |
-| 6 | Upravljanje ostaje otvoreno. Vrata G-A3-BDP imenovana su u polju promoting_gate, ali JOS NISU upisana u notes/reports/comprehensive-review-implementation-register.yml. Vrijedi ista napomena kao za rdp_potpore; ratificirani program ne poznaje CroAIcon kao izvor, pa uvodjenje tih vrata trazi autorsko odobrenje na zatvaranju paketa. |
+| 4 | Četiri točke prije 1910. su pojedinačne referentne procjene, ne godišnji niz. |
+| 5 | Granice razdoblja odabrao je analitičar i nisu svojstvo podataka. |
+| 6 | Upravljanje ostaje otvoreno. Vrata G-A3-BDP imenovana su u polju promoting_gate, ali JOS NISU upisana u notes/reports/comprehensive-review-implementation-register.yml. Vrijedi ista napomena kao za rdp_potpore; ratificirani program ne poznaje CroAIcon kao izvor, pa uvođenje tih vrata traži autorsko odobrenje na zatvaranju paketa. |

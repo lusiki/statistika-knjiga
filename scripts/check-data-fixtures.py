@@ -65,6 +65,14 @@ CATALOGUE_CASES: tuple[tuple[str, str], ...] = (
     ("notice_without_own_licence", "no direct link to the package's own licence"),
     ("non_official_substitute_incomplete",
      "satisfied non-official substitute with all three tests"),
+    ("consumer_packet_without_source",
+     "consumer packet WD-C16 requires undeclared sources"),
+    ("unsupported_ethics_claim",
+     "unsupported legal or regulator claim remains in ethics"),
+    ("missing_author_defer",
+     "explicit author deferred_v2_with_reason is missing"),
+    ("dzs_substitute_decision_missing",
+     "approved dated substitute decision is missing or overclaims permission"),
 )
 
 TEXT_CASES: tuple[tuple[str, str], ...] = (
@@ -75,6 +83,11 @@ TEXT_CASES: tuple[tuple[str, str], ...] = (
     ("split_drift", "split hash mismatch"),
     ("fabricated_label_path", "test label path was fabricated"),
     ("output_tamper", "promoted output is not byte-for-byte reproducible"),
+)
+
+APPENDIX_CASES: tuple[tuple[str, str], ...] = (
+    ("bold_pseudo_heading", "ima H8 poljski pseudonaslov"),
+    ("ascii_reader_prose", "ima ASCII hrvatski"),
 )
 
 DZS_MONTHLY = "data/dzs-turizam-mjesecno.csv"
@@ -366,6 +379,15 @@ def main() -> int:
             )
             expect_failure(f"text:{fixture}", expected, code, output)
 
+        for fixture, expected in APPENDIX_CASES:
+            env = dict(os.environ, APPENDIX_C_NEGATIVE_FIXTURE=fixture)
+            code, output = run(
+                [sys.executable, str(ROOT / "scripts/check-appendix-c.py")],
+                ROOT,
+                env,
+            )
+            expect_failure(f"appendix-c:{fixture}", expected, code, output)
+
         with tempfile.TemporaryDirectory(prefix="statistika-podaci-") as directory:
             base = Path(directory).resolve()
             if Path(tempfile.gettempdir()).resolve() not in base.parents:
@@ -398,7 +420,10 @@ def main() -> int:
         expect_failure("podaci:in_memory_duplicate_key",
                        "contains a duplicate respondent key", code, output)
 
-        total = len(CATALOGUE_CASES) + 1 + len(TEXT_CASES) + len(DATA_CASES) + 1
+        total = (
+            len(CATALOGUE_CASES) + 1 + len(TEXT_CASES) +
+            len(APPENDIX_CASES) + len(DATA_CASES) + 1
+        )
         print(f"DATA_NEGATIVE_FIXTURES_OK cases={total}")
         return 0
     except (OSError, RuntimeError) as error:
