@@ -11,8 +11,8 @@ control:
   authoritative_item_store: "embedded_items"
 execution:
   active_write_packet: null
-  last_completed_packet: "P6-PANELS"
-  next_permitted_packet: "P6-ARC"
+  last_completed_packet: "P6-ARC"
+  next_permitted_packet: "P6-METHODS"
 authority:
   bounded_verified_local_commits: true
   push: false
@@ -17691,7 +17691,7 @@ packets:
     sequence: 168
     phase: "6"
     kind: "whole_book_review"
-    status: "ratified"
+    status: "accepted"
     requires:
       - "P6-PANELS"
     scope: "Whole-book voice and narrative-arc panel."
@@ -17702,13 +17702,59 @@ packets:
       - "The review covers the final material state across all affected units."
       - "Fatal and major findings are resolved before downstream release proof."
       - "The P6-ARC packet-specific scope is fully evidenced; no generic contract alone is used as proof."
-    completion_evidence: []
+    completion_evidence:
+      source_state: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+      required_evidence:
+        - requirement: "whole-book source-anchor matrix"
+          artifacts:
+            - "report:notes/reports/p6-arc-2026-08-31.md#matrica-cjeloknjižnih-sidara"
+            - "matrix:19-chapters-four-promises-five-part-bridges-five-recurring-motifs-and-19-AI-boxes"
+        - requirement: "post-change reviewer evidence"
+          artifacts:
+            - "review:independent-critic-voice-consistency-4-of-5-register-4-of-5-zero-fatal-zero-major"
+            - "review:independent-critic-arc-cumulative-5-of-5-order-5-of-5-repetition-4-of-5-zero-fatal-zero-major"
+            - "boundary:perspective-disagreements-preserved-not-averaged"
+        - requirement: "resolved finding log"
+          artifacts:
+            - "report:notes/reports/p6-arc-2026-08-31.md#ponovna-provjera-nalaza-p6-continuity"
+            - "findings:F-P6C-V01-through-V04-and-F-P6C-A01-resolved-separately-on-final-state"
+            - "structure:16-S7-advisories-confirmed-individually-with-no-whole-book-restructure"
+            - "tradeoffs:panel-dissent-preserved-by-lens-and-accepted-as-nonblocking-first-edition-minors"
+      outputs:
+        - output: "P6-ARC final-state whole-book audit and dispositions for: Whole-book voice and narrative-arc panel."
+          artifacts:
+            - "report:notes/reports/p6-arc-2026-08-31.md"
+            - "matrix:four-promises-five-motifs-five-part-bridges-16-S7-advisories"
+        - output: "Completion evidence is tied to the declared P6-ARC source state and bounded scope."
+          artifacts:
+            - "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+            - "scope:23-material-files-19-chapters-four-support-units-two-independent-whole-book-readers"
+            - "boundary:no-chapter-prose-render-clean-build-release-proof-or-external-action-claim"
+      exit_tests:
+        - test: "The review covers the final material state across all affected units."
+          result: "passed"
+          evidence:
+            - "state:p6-arc-material-state-sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+            - "matrix:all-19-chapters-and-four-handoff-support-units"
+            - "reviews:independent-voice-and-arc-final-state-readers"
+        - test: "Fatal and major findings are resolved before downstream release proof."
+          result: "passed"
+          evidence:
+            - "resolved:F-P6C-V01-through-V04-and-F-P6C-A01"
+            - "review:zero-fatal-zero-major-both-independent-readers"
+            - "boundary:no-downstream-release-proof-claimed"
+        - test: "The P6-ARC packet-specific scope is fully evidenced; no generic contract alone is used as proof."
+          result: "passed"
+          evidence:
+            - "report:notes/reports/p6-arc-2026-08-31.md"
+            - "checks:manuscript-style-structure-integrity-spines-inventory-architecture-and-figure-introductions-pass"
+            - "workflow:positive-and-three-negative-fixtures-pass-closed"
     contract: "whole_book_review"
     required_evidence:
       - "whole-book source-anchor matrix"
       - "post-change reviewer evidence"
       - "resolved finding log"
-    change_reference: null
+    change_reference: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
   P6-METHODS:
     sequence: 169
     phase: "6"
@@ -24816,7 +24862,7 @@ items:
       location: "§12 scope control"
     description: "When space is tight, cut repetition or mechanics before claim mapping, data construction, sensitivity, or synthesis literacy."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -24832,11 +24878,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-ARC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+      - "report:notes/reports/p6-arc-2026-08-31.md#matrica-cjeloknjižnih-sidara"
+      - "matrix:four-promises-five-part-bridges-and-final-Chapter-18-harvest"
+      - "review:two-independent-whole-book-readers-zero-fatal-zero-major"
+      - "result:judgment-claim-boundaries-and-synthesis-remain-ahead-of-repeated-mechanics"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
   R11-C02-units-eligibility:
     parents:
       - "R11"
@@ -25460,13 +25511,7 @@ items:
       location: "§12 survey realism"
     description: "Verify purposeful recurrence of the poll card."
     disposition: "accepted_first_edition"
-    status: "ratified"
-    open_reason: >-
-      P6-STYLE repaired the separately owned origin mismatch by rooting the
-      card in Chapter 2 while preserving a new purpose at each return. The item
-      remains ratified until P6-ARC rechecks the complete 2-3-8-13-16 sequence
-      on the final material state under H-P6-CONTINUITY-007 and
-      H-P6-STYLE-006.
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -25482,11 +25527,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+      - "report:notes/reports/p6-arc-2026-08-31.md#rekurentni-motivi-dug-i-nova-isplata"
+      - "source:chapters/02-mjerenje-i-dizajn.qmd:431-450-single-origin"
+      - "sources:chapters/03-kako-brojke-zavode.qmd:167-194-chapters/08-uzorkovanje.qmd:1014-1029-new-payoffs"
+      - "review:independent-arc-and-voice-readers-confirm-purposeful-recurrence"
     blocker:
       active: false
       ask_id: null
-    change_reference: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
+    change_reference: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
   R12-C08-weighted-table:
     parents:
       - "R12"
@@ -31699,12 +31749,7 @@ items:
       location: "§12 AI strand"
     description: "Replace repeated generic advice with progressive Appendix F references plus one new competence."
     disposition: "accepted_first_edition"
-    status: "ratified"
-    open_reason: >-
-      P6-STYLE added sparse anchored Appendix F links at genuine competence
-      transitions without repeating the protocol. The item remains ratified
-      until P6-ARC rechecks the full progression and absence of duplication on
-      the final material state under H-P6-CONTINUITY-007 and H-P6-STYLE-006.
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -31721,11 +31766,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+      - "report:notes/reports/p6-arc-2026-08-31.md#rekurentni-motivi-dug-i-nova-isplata"
+      - "sources:seven-progressive-links-at-chapters-03-04-09-12-16-17-18"
+      - "source:dodaci/f-ai-protokol.qmd:138-162-reader-facing-protocol-without-maintainer-register"
+      - "review:19-AI-boxes-separately-read-no-unnecessary-full-protocol-repetition"
     blocker:
       active: false
       ask_id: null
-    change_reference: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
+    change_reference: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
   R24-BOOK-frozen-outputs:
     parents:
       - "R24"
@@ -32924,13 +32974,7 @@ items:
       location: "§12 threads"
     description: "Verify all part-ending claim bridges."
     disposition: "accepted_first_edition"
-    status: "ratified"
-    open_reason: >-
-      P6-STYLE promoted the first bridge to a visible book-level boundary while
-      preserving its accepted title and content. The item remains ratified
-      until P6-ARC rechecks all five bridges and the Chapter 3 worked-example
-      rhythm on the final material state under H-P6-CONTINUITY-007 and
-      H-P6-STYLE-006.
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -32946,11 +32990,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-CONTINUITY"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+      - "report:notes/reports/p6-arc-2026-08-31.md#pet-granica-dijelova"
+      - "sources:chapters-03-06-09-12-17-five-part-ending-bridges"
+      - "finding:F-P6C-V01-resolved-Chapter-03-boundary-is-top-level-H2"
+      - "review:each-bridge-states-available-unavailable-and-next-thread"
     blocker:
       active: false
       ask_id: null
-    change_reference: "p6-style-state:sha256-804c53dbc72de0600d2fe83c593eaf26444278987247e9f810acdd7eae587282"
+    change_reference: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
   R04-C17-prerequisites:
     parents:
       - "R04"
@@ -33515,7 +33564,7 @@ items:
       location: "§10 recurring cases"
     description: "Record and verify a progressive-recurrence rule."
     disposition: "accepted_first_edition"
-    status: "ratified"
+    status: "accepted"
     owner: "root_conductor"
     approval_owner: "author_editor_and_named_reviewer"
     scope:
@@ -33532,11 +33581,16 @@ items:
       - "No unsupported empirical claim, invented number, or invented citation is introduced."
       - "The assigned packet exits cleanly without unrelated source changes."
     packet: "P6-ARC"
-    completion_evidence: []
+    completion_evidence:
+      - "state:p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+      - "report:notes/reports/p6-arc-2026-08-31.md#rekurentni-motivi-dug-i-nova-isplata"
+      - "matrix:Berkeley-Anscombe-ASA-poll-card-and-AI-boxes-with-debt-and-new-payoff"
+      - "tradeoff:Anscombe-adjacent-reuse-retained-as-purposeful-graph-to-coefficient-handoff"
+      - "review:independent-arc-reader-confirms-every-recurrence-asks-a-new-question"
     blocker:
       active: false
       ask_id: null
-    change_reference: null
+    change_reference: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
   R31-C01-Berkeley:
     parents:
       - "R30"

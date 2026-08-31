@@ -9700,7 +9700,22 @@ handoffs:
     deliveries:
       - target_packet: P6-ARC
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-ARC accepts that P6-CONTINUITY proved a completed audit rather
+          than the later repair of F-P6C-V01 through V04 and F-P6C-A01.
+        disposition: >-
+          Consumed before claim as five separate final-state review
+          obligations. P6-ARC will test the first part-boundary hierarchy, poll
+          card origin, all 19 AI-box openings, Appendix F reader register and
+          progressive Appendix F links without using either upstream packet
+          status as repair evidence.
+        evidence:
+          - "report:notes/reports/p6-continuity-2026-08-26.md-read-before-claim"
+          - "report:notes/reports/p6-style-2026-08-26.md-read-before-claim"
+          - "boundary:five-findings-remain-separate-final-state-tests"
 
   H-P6-CONTINUITY-008:
     source_packet: P6-CONTINUITY
@@ -10365,7 +10380,21 @@ handoffs:
     deliveries:
       - target_packet: P6-ARC
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-ARC accepts all 16 S7 advisories as a single whole-book arc
+          judgement that still requires one disposition per advisory.
+        disposition: >-
+          Consumed before claim with no presumption that the P6-STYLE decisions
+          are final arc evidence. Each advisory will be confirmed or changed on
+          the declared P6-ARC state, and restructuring will occur only if the
+          book-level argument fails.
+        evidence:
+          - "report:notes/reports/p6-style-2026-08-26.md#pojedinacne-presude-16-strukturnih-kandidata-read-before-claim"
+          - "finding:F-P6S-S7-01-through-F-P6S-S7-16"
+          - "boundary:no-automatic-restructuring-from-advisory-count"
 
   H-P6-STYLE-007:
     source_packet: P6-STYLE
@@ -10525,7 +10554,21 @@ handoffs:
     deliveries:
       - target_packet: P6-ARC
         gate: before_start
-        state: pending
+        state: consumed
+        acknowledged_at: "2026-08-31"
+        resolved_at: "2026-08-31"
+        acknowledgement: >-
+          P6-ARC accepts the final panel dissent as lens-specific evidence, not
+          as an averaged chapter score or a predetermined repair list.
+        disposition: >-
+          Consumed before claim with separate review obligations for the
+          Chapter 05 counter-reading, Chapter 06 retrieval and Anscombe
+          recurrence, Chapter 08 and 18 opener realism, interaction-hub voice,
+          Appendix A style details and final solution-route register.
+        evidence:
+          - "report:notes/reports/p6-panels-2026-08-31.md-read-before-claim"
+          - "reports:all-six-p6-panel-critic-reports-read-before-claim"
+          - "boundary:preserve-disagreement-by-lens-change-only-on-arc-failure"
 
   H-P6-PANELS-004:
     source_packet: P6-PANELS
@@ -14747,3 +14790,30 @@ packet_reviews:
       - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
       - P6-ARC is the sole next permitted packet but is not claimed inside P6-PANELS
       - no external message push merge tag archive deployment publication or release-proof claim is made or authorised
+  P6-ARC:
+    reviewed_at: "2026-08-31"
+    declaration: all_future_effects_recorded
+    outgoing: []
+    no_outgoing_handoff_reason: >-
+      The final whole-book state has zero fatal and zero major voice or arc
+      findings. All five inherited continuity defects are separately resolved,
+      all 16 S7 advisories are dispositioned, and the retained Anscombe,
+      opener-realism, interaction-hub, Appendix-A and solution-route objections
+      are explicitly accepted as nonblocking first-edition editorial trade-offs
+      rather than future obligations. No newly discovered constraint, evidence,
+      risk, decision or invalidation is needed by P6-METHODS or a later packet.
+    implementation_state: "p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb"
+    checks:
+      - H-P6-CONTINUITY-007 H-P6-STYLE-006 and H-P6-PANELS-003 were separately terminal before claim
+      - all 19 chapters were read as one object and the three identity chapters retain one authorial voice
+      - the four preface promises develop and close in their original order in Chapter 18
+      - all five part-ending bridges state what is available what remains unavailable and what follows
+      - Berkeley Anscombe ASA the poll card and all 19 AI boxes have a named prior debt and new payoff at every recurrence
+      - F-P6C-V01 through V04 and F-P6C-A01 are separately resolved on the declared final material state
+      - all 16 S7 advisories are individually confirmed within one whole-book arc judgement and none requires restructuring
+      - two independent final readers report zero fatal and zero major findings while preserving their lens-specific minors
+      - R10-BOOK-judgment-pruning R12-POLL-recurrence R24-BOOK-AppendixF-references R27-BOOK-part-bridges and R31-BOOK-recurrence-rule are accepted on their own evidence
+      - manuscript style structure and integrity chapter spines inventory architecture and figure-introduction checks pass
+      - scripts/check-review-workflow.R passes at closeout and all three required workflow negative fixtures fail closed for their injected defect
+      - P6-METHODS is the sole next permitted packet but is not claimed inside P6-ARC
+      - no chapter prose external message push merge tag archive deployment publication render or release-proof claim is made or authorised

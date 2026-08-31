@@ -4,8 +4,8 @@ branch: revision/comprehensive-review
 baseline_commit: c163bda524b7081ec6a41d5ab75370f1700b1748
 control_implementation_commit: b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e
 active_write_packet: null
-last_completed_packet: P6-PANELS
-next_permitted_packet: P6-ARC
+last_completed_packet: P6-ARC
+next_permitted_packet: P6-METHODS
 atomic_children: 371
 packet_count: 189
 source_coverage_sections: 18
@@ -102,18 +102,18 @@ stop and repair the control state before editing book content.
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
 | Active write packet | None |
-| Last completed packet | `P6-PANELS`; accepted on the final 136-file material state after all six critics read every applicable last state |
-| Next permitted packet | `P6-ARC` only; it is not claimed |
+| Last completed packet | `P6-ARC`; accepted on the declared 23-file material state after independent whole-book voice and arc reads found zero fatal and zero major findings |
+| Next permitted packet | `P6-METHODS` only; not claimed inside P6-ARC |
 | Review parents | 27 ratified; 9 accepted |
-| Atomic child inventory | Complete: 371 stable children; 342 accepted, 7 deferred with reason and 22 ratified pending their later gates; zero unmapped |
-| Exact packet catalogue | 189 packets: 160 accepted, 28 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
+| Atomic child inventory | Complete: 371 stable children; 347 accepted, 7 deferred with reason and 17 ratified pending their later gates; zero unmapped |
+| Exact packet catalogue | 189 packets: 161 accepted, 27 ratified and 1 descoped by author amendment, with stable IDs, typed contracts, unique sequence, and just-in-time dependencies |
 | Review source coverage | 18 exact section manifests; their fingerprint union equals all 371 children; zero uncovered actionable findings |
 | Chapter stages | All 19 units are at `coauthor_review`; `06-povezanost` returned from `draft` only after a fresh six-role panel on its final SHA-256, with no claim of a new author reading or `final` status |
 | Chapter spines | **All 19 ratified**: `00-predgovor` at `G-A2b-PREFACE`; Chapters 1–3 at `G-A2b-I`; Chapters 4–6 at `G-A2b-II`; Chapters 7–9 at `G-A2b-III`; Chapters 10–12 at `G-A2b-IV`; Chapters 13–17 at `G-A2b-V`; `18-vase-prvo-istrazivanje` at `G-A2b-FINALE`. No spine remains unratified |
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` remain revalidated. The WB-PART invalidation is now consumed: final Chapter 06 SHA-256 `0af303f…e729e` has all six perspectives, zero fatal/major findings and stage `coauthor_review` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | P6-PANELS has no unresolved fatal or major in-scope finding. P6-ARC owns whole-book voice/recurrence dissent through `H-P6-PANELS-003`; P6-METHODS owns five methods-precision minors plus the generated name form; P6-VERIFY owns the RDP/BDP consent-record contradiction and local solution citations through `H-P6-PANELS-001` and `002`. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
+| Failed gates | P6-ARC has no unresolved fatal or major in-scope finding and records its local dissent as explicit nonblocking first-edition trade-offs. P6-METHODS owns five methods-precision minors plus the generated name form; P6-VERIFY owns the RDP/BDP consent-record contradiction and local solution citations through `H-P6-PANELS-001` and `002`. Clean-build risks remain separately in `H-P5-VERIFY-006`, `H-P5-VERIFY-007` and `H-P6-EVIDENCE-008` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7847,6 +7847,39 @@ the durable evidence is
   external message, push, merge, tag, archive, deployment, publication or
   release proof is authorised.
 
+## P6-ARC claim and closeout
+
+- `H-P6-CONTINUITY-007`, `H-P6-STYLE-006` and `H-P6-PANELS-003` were read,
+  acknowledged and consumed separately before claim. P6-CONTINUITY and
+  P6-STYLE were treated as audit and repair history, not as final arc proof.
+- The final judgment is tied to
+  `p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb`
+  across all 19 chapters, the interaction hub, Appendices A and F and the
+  solution route. P6-ARC changed none of those material sources.
+- Two independent whole-book readers report zero fatal and zero major
+  findings. Voice consistency and register each score 4/5; cumulative arc and
+  ordering each score 5/5, while absence of repetition scores 4/5.
+- The four promises develop and close in the Predgovor order. All five part
+  bridges state what can now be claimed, what remains unavailable and what
+  comes next. Berkeley, Anscombe, ASA, the poll card and all 19 AI boxes each
+  receive a named new payoff.
+- `F-P6C-V01` through `V04` and `F-P6C-A01` are separately resolved on the
+  final state. All 16 S7 advisories are individually confirmed within one
+  whole-book judgment; none warrants restructuring.
+- Anscombe's adjacent return, two opener-realism objections, interaction-hub
+  product language, Appendix-A copy details and the solution-route register
+  remain visible by lens as nonblocking first-edition trade-offs. They are not
+  averaged away and are not promoted to future debt.
+- `R10-BOOK-judgment-pruning`, `R12-POLL-recurrence`,
+  `R24-BOOK-AppendixF-references`, `R27-BOOK-part-bridges` and
+  `R31-BOOK-recurrence-rule` advance separately on their own evidence.
+- Manuscript style, structure and integrity, chapter spines, inventory,
+  architecture and figure-introduction checks pass. The workflow checker and
+  all three workflow negative fixtures pass closed.
+- The lock is released and `P6-METHODS` alone is next without being claimed.
+  No chapter prose, external message, push, merge, tag, archive, deployment,
+  publication, render or release-proof claim is made or authorised.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7869,31 +7902,34 @@ canonical state. Read AGENTS.md and fully read the four canonical control
 files plus the checkout-local Bookwright instructions required by the packet.
 Do not rely on prior chat or the installed plugin cache for mutable state.
 
-Verify `active_write_packet: null`, `last_completed_packet: P6-PANELS` and
-`next_permitted_packet: P6-ARC`. Confirm that P6-PANELS closed only on
-`p6-panels-state:sha256-b8c5c4305b7cc0121c0a252e5f1a8db59ee9fd43957d0653c75d756705c93c29`,
-that all seven incoming deliveries are terminal, all 19 chapters have six
-perspectives after their last material change, Chapter 06 is only at
-`coauthor_review`, all four interface defects are resolved, four outgoing
-handoffs are recorded, and P6-ARC was not claimed inside the closeout.
+Verify `active_write_packet: null`, `last_completed_packet: P6-ARC` and
+`next_permitted_packet: P6-METHODS`. Confirm that P6-ARC closed only on
+`p6-arc-material-state:sha256-b7ac50c166b2b68cfc7506010cf377dd9922b66e962978d1a87968e90ee78deb`,
+that its three incoming deliveries are terminal, both independent whole-book
+readers found zero fatal and zero major findings, all five inherited continuity
+defects are separately resolved, all 16 S7 advisories have final dispositions,
+no chapter prose changed, no outgoing handoff was required and P6-METHODS was
+not claimed inside the closeout.
 
-Claim and execute only `P6-ARC` under its `whole_book_review` contract. Fully
-read `H-P6-CONTINUITY-007`, `H-P6-STYLE-006` and the new
-`H-P6-PANELS-003`; all three must be terminal before claim. Read the six P6
-critic reports and synthesis, but do not substitute chapter-panel agreement for
-the required whole-book voice and narrative-arc judgement.
+Claim and execute only `P6-METHODS` under its `review_gate` contract. Confirm
+that `P0-OUTSIDE` and `P6-ARC` are accepted prerequisites. Fully read and make
+terminal `H-P6-STYLE-007` and `H-P6-PANELS-004` before claim. Preserve the
+G-A2c amendment: this is the author's own final terminology and methods review,
+not an independent terminology sign-off.
 
-Read the book as one object from the preface through Chapter 18. Verify that
-the voice holds, the three identity chapters sound like the same author, the
-four promises arrive in their stated order, and each recurrence of Berkeley,
-Anscombe, ASA, the poll card and AI boxes asks a new question. Reassess all 16
-S7 advisories together with the retained Chapter 05, 06, 08 and 18,
-interaction-hub, Appendix-A and solution-route dissent. Preserve disagreements
-as explicit editorial trade-offs; restructure only where the final arc fails.
+Disposition the generated `Luka Sikić` source-of-truth mismatch without
+hand-editing generated glossary pages. Then review the five nonblocking methods
+precision findings separately: the finite hot-hand sequence in Chapter 7,
+one-versus-multiple sensitivity wording in Chapter 12,
+statistic-versus-p-value wording in Chapter 13, Welch approximation wording in
+Chapter 14 and histogram wording in Appendix A. Edit only where precision
+improves without changing the ratified method spine, introducing a new method
+or claiming an independent review.
 
 Before closeout, record every future-relevant outgoing handoff or an explicit
 no-effect declaration; update the register, handoff ledger, dashboard and only
-approved mutable Bookwright state together; run the workflow checker and all
-three workflow negative fixtures; close and locally commit P6-ARC; then stop.
-Do not claim P6-METHODS, push, merge, tag, archive, deploy or publish.
+approved mutable Bookwright state together; run the applicable terminology,
+concept, manuscript and workflow checks plus all three workflow negative
+fixtures; close and locally commit P6-METHODS; then stop. Do not claim
+P6-VERIFY, push, merge, tag, archive, deploy or publish.
 ```
