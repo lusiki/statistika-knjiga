@@ -6,7 +6,7 @@ control:
   branch: "revision/comprehensive-review"
   baseline_commit: "c163bda524b7081ec6a41d5ab75370f1700b1748"
   ratified_at: "2026-08-03"
-  last_updated: "2026-08-31"
+  last_updated: "2026-09-28"
   write_wip_limit: 1
   authoritative_item_store: "embedded_items"
 execution:
@@ -15,6 +15,7 @@ execution:
     claimed_at: "2026-08-31"
     owned_paths:
       - "notes/reports/p6-verify-2026-08-31.md"
+      - "notes/reports/p6-verify-2026-09-28.md"
       - "notes/reports/comprehensive-review-implementation-register.yml"
       - "notes/reports/comprehensive-review-forward-handoffs.yml"
       - "notes/reports/comprehensive-review-dashboard.md"
@@ -25,6 +26,8 @@ execution:
       - "assessment/solution-records/unit-10/sol-10-kriticki-01.json"
       - "rjesenja.qmd"
       - "scripts/check-book-architecture.py"
+      - "assessment/solution-records/unit-12/sol-12-kriticki-01.json"
+      - "scripts/check-assessment-architecture.py"
   last_completed_packet: "P6-METHODS"
   next_permitted_packet: null
 authority:
@@ -17852,13 +17855,13 @@ packets:
     kind: "review_gate"
     status: "in_progress"
     open_reason: >-
-      The gate is stopped on a non-aggregated prerequisite integration defect
-      reproduced at source commit 2a8cb0f3625f66fa3ca63acf2b2a983ac2af7c2e:
-      the accepted P6-METHODS wording change in the Chapter 12 critical prompt
-      left sol-12-kriticki-01's prompt fingerprint and one deterministic
-      assessment-checker literal stale, so check-assessment-architecture.py
-      exits 1. No P6 parent, chapter stage or downstream gate may advance until
-      the bounded correction passes the full assessment lane.
+      The 2026-08-31 Chapter 12 assessment integration defect has been repaired
+      and its positive and negative checks pass. The 2026-09-28 P6 exit audit
+      found a separate blocker: R30 has five required children still ratified
+      with empty completion evidence and null change references, although their
+      assigned packet P6-STYLE is accepted. R30 cannot close by aggregation or
+      status promotion without exact item evidence. No P6 parent, chapter stage
+      or downstream gate advances; see p6-verify-2026-09-28.md.
     requires:
       - "P6-METHODS"
     scope: "Phase 6 whole-book gate."

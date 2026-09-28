@@ -2976,7 +2976,7 @@ def unit_12_numerical_check(
             "dokazano da učinak ne postoji",
             "objedinjenu procjenu s intervalom",
             "što nula u prikazu znači",
-            "standardiziranu analizu osjetljivosti",
+            "standardiziranom granom provjere osjetljivosti",
             "populacijsku ili kontekstualnu granicu",
             "publikacijska pristranost",
         )

@@ -11,7 +11,7 @@ packet_count: 189
 source_coverage_sections: 18
 unmapped_actionable: 0
 forward_handoffs: 146
-last_updated: "2026-08-31"
+last_updated: "2026-09-28"
 ---
 
 # Comprehensive-review implementation dashboard
@@ -114,7 +114,7 @@ stop and repair the control state before editing book content.
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` remain revalidated. The WB-PART invalidation is now consumed: final Chapter 06 SHA-256 `0af303f…e729e` has all six perspectives, zero fatal/major findings and stage `coauthor_review` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | **P6-VERIFY is stopped and P6 is not closed.** On declared source commit `2a8cb0f…`, `check-assessment-architecture.py` fails because the accepted P6-METHODS wording change in the Chapter 12 critical prompt left both `sol-12-kriticki-01`'s fingerprint and one deterministic literal stale. `H-P2-VERIFY-001/002` remain acknowledged, not consumed, because closeout was not reached. The full matrix and safest bounded next action are in `notes/reports/p6-verify-2026-08-31.md` |
+| Failed gates | **P6-VERIFY is stopped and P6 is not closed.** The Chapter 12 assessment mismatch recorded on 2026-08-31 is repaired and the full assessment check passes. A fresh exit audit found that five required `R30` children assigned to accepted `P6-STYLE` remain `ratified` with no completion evidence. `R30` cannot close, so neither can P6. `H-P2-VERIFY-001/002` remain acknowledged, not consumed. The exact mismatch and source state are in `notes/reports/p6-verify-2026-09-28.md` |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7946,32 +7946,30 @@ Do not rely on prior chat or the installed plugin cache for mutable state.
 
 Verify that `active_write_packet.id: P6-VERIFY`,
 `last_completed_packet: P6-METHODS` and `next_permitted_packet: null`. Read the
-failed-gate record `notes/reports/p6-verify-2026-08-31.md` in full. P6-VERIFY
-was stopped because `check-assessment-architecture.py` returns exit 1 on the
-declared source commit: the accepted P6-METHODS wording change in the Chapter
-12 critical prompt left both `sol-12-kriticki-01`'s prompt fingerprint and one
-deterministic literal stale. Do not claim G-A5b or another packet.
+failed-gate records `notes/reports/p6-verify-2026-08-31.md` and
+`notes/reports/p6-verify-2026-09-28.md` in full. The Chapter 12 assessment
+integration correction and both architecture negative fixtures now pass their
+respective positive/fail-closed checks. Do not claim G-A5b or another packet.
 
-Resume only `P6-VERIFY`. Make the report's one bounded integration correction:
-refresh the canonical Chapter 12 prompt fingerprint and align only the stale
-checker literal with the already accepted live wording, without changing the
-exercise, numerical contract, methods spine or P6-METHODS status. Regenerate
-`rjesenja.qmd`, rerun the full assessment lane, and stop again if any named
-prerequisite fails.
+Resume only `P6-VERIFY`. Reconcile the five exact required R30 children still
+`ratified` with empty evidence and null change references, although their
+assigned packet `P6-STYLE` is accepted. Verify each acceptance test against the
+live source and existing P6-STYLE, P6-PANELS and P6-ARC evidence. Do not promote
+an item to make the parent pass. If any item lacks evidence, record the exact
+gap and stop again. Keep the historical Chapter 12 failure record intact.
 
-Then continue the still-unfinished P6 matrix. Keep the Appendix-G invalidation
-visible for its P7 clean-build owner. Recheck the RDP/BDP catalogue, both
-generated catalogue projections and both travelling notices without turning
-coauthor consent into rights-holder permission. Verify the local solution
-citations from their canonical records. Consume `H-P2-VERIFY-001` and
-`H-P2-VERIFY-002` separately only on exact R04 and fail-closed architecture
-evidence; preserve the G-A2c amendment and do not create or imply a replacement
-terminology sign-off.
+Only after R30 is genuinely verified may the remaining P6 matrix continue.
+Keep the Appendix-G invalidation visible for P7-CLEAN-BUILD. Recheck RDP/BDP
+catalogue entries, both generated projections and both travelling notices
+without turning coauthor consent into rights-holder permission. Verify local
+solution citations from their canonical records. Consume `H-P2-VERIFY-001`
+and `H-P2-VERIFY-002` separately only on exact R04 and fail-closed architecture
+evidence; preserve the G-A2c author amendment.
 
-Before closeout, record every future-relevant outgoing handoff or an explicit
-no-effect declaration; update the register, handoff ledger, dashboard and only
-approved mutable Bookwright state together; run the full applicable Phase-6
-verification matrix, all required negative fixtures and the workflow checker;
-close and locally commit P6-VERIFY; then stop. Do not claim G-A5b or any Phase-7
-packet, and do not push, merge, tag, archive, deploy or publish.
+Before closeout, record every outgoing handoff or an explicit no-effect
+declaration; update the register, handoff ledger and dashboard together; run
+the full applicable Phase-6 matrix, required negative fixtures and workflow
+checker; close and locally commit P6-VERIFY only if every gate passes. Do not
+claim G-A5b or any Phase-7 packet, and do not push, merge, tag, archive, deploy
+or publish.
 ```
