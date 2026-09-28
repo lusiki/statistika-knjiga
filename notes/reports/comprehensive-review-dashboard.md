@@ -102,7 +102,7 @@ stop and repair the control state before editing book content.
 | Branch | `revision/comprehensive-review` |
 | Baseline | `c163bda524b7081ec6a41d5ab75370f1700b1748` |
 | Control implementation | `b3463c7b6f7dc7e03a76f74f3a297e2e158e4c6e` |
-| Active write packet | `P6-VERIFY`; gate je zaustavljen na zasebnom assessment-arhitekturnom blockeru i ostaje zaključan |
+| Active write packet | `P6-VERIFY`; gate je zaustavljen na pet otvorenih stavki R30 i četiri nesvježa rutna dokaza Dodataka C, E, F i G; paket ostaje zaključan |
 | Last completed packet | `P6-METHODS`; accepted on the declared 32-file state after the author-owned terminology review and recorded methods-spine disposition |
 | Next permitted packet | None while `P6-VERIFY` holds the sole write lock |
 | Review parents | 26 ratified; 10 accepted |
@@ -114,7 +114,7 @@ stop and repair the control state before editing book content.
 | Open outside asks | 20 of the 87 canonical asks remain `drafted_unsent`; 61 are `done`; 6 are `withdrawn_with_reason`. `OA-C18-ACCEPTANCE` is done on the exact dated reply; `OA-C17-ACCEPTANCE` and both G-A3-TEXT asks remain done; 0 external messages sent |
 | Invalidated or reopened work | `P1A-C02` and `P1A-METHODS` remain revalidated. The WB-PART invalidation is now consumed: final Chapter 06 SHA-256 `0af303f…e729e` has all six perspectives, zero fatal/major findings and stage `coauthor_review` |
 | WC-C08 prerequisite resolution | Route A is satisfied: `G-A3-ESS` and `P3-ESS` are accepted at sequences 98 and 99, `WC-C08` is next at sequence 100 and requires both C07/P1A-C08 plus accepted P3-ESS. `H-P3-ESS-001` now carries the exact synthetic-versus-optional-ESS boundary; `OA-G-A3-ESS-RIGHTS` remains open under D08 |
-| Failed gates | **P6-VERIFY is stopped and P6 is not closed.** The Chapter 12 assessment mismatch recorded on 2026-08-31 is repaired and the full assessment check passes. A fresh exit audit found that five required `R30` children assigned to accepted `P6-STYLE` remain `ratified` with no completion evidence. `R30` cannot close, so neither can P6. `H-P2-VERIFY-001/002` remain acknowledged, not consumed. The exact mismatch and source state are in `notes/reports/p6-verify-2026-09-28.md` |
+| Failed gates | **P6-VERIFY is stopped and P6 is not closed.** The Chapter 12 assessment mismatch is repaired and its check passes. Five required `R30` children still lack individual acceptance evidence. A further live-source matrix found four failed positive route checks: Appendix C catalogue MD5, Appendix E/F conventions hashes, and Appendix G route parity. The exact mismatches are in `notes/reports/p6-verify-2026-09-28.md` and `notes/reports/p6-verify-route-stop-2026-09-28.md`. `H-P2-VERIFY-001/002` remain acknowledged, not consumed |
 | Phase 2 exit condition | The historical timing conflict remains recorded in `H-P2-VERIFY-001`. All 21 children of `R04` are now accepted, but parent `R04` deliberately remains ratified until its assigned P6-VERIFY closure test; the plan wording was not silently amended |
 
 No chapter prose was changed by `P0-OUTSIDE`.
@@ -7922,6 +7922,26 @@ the durable evidence is
   external message, push, merge, tag, archive, deployment, publication, render,
   clean-build or release-proof claim is made or authorised.
 
+## P6-VERIFY — route-check stop, 2026-09-28
+
+On source commit `8a8003a88f63b122d7aae956fb0fdab44a137a17`, the full
+assessment lane, architecture checks, 19 spines, citations, concepts,
+manuscript, figure contracts, catalogue, pathways and widget parity passed.
+Six read-only critics reread the four chapters materially changed by
+P6-METHODS; none found a fatal or major issue and all four retain
+`coauthor_review`, with minor findings retained in the stop report. Five R30
+children still require individual final evidence.
+
+The broader matrix then stopped on four positive failures: Appendix C's
+catalogue MD5, Appendix E/F's conventions hashes, and Appendix G's route
+parity. The live checkout has CRLF working-tree bytes and LF Git blobs, yet
+the stored catalogue and conventions hashes match neither current form. The
+exact saved and live values, and the Appendix G field-level differences, are
+in `notes/reports/p6-verify-route-stop-2026-09-28.md`. No checker, source,
+generated route, parent status, chapter stage or handoff disposition was
+changed to force a pass. P6-VERIFY retains the sole write lock; P6 remains
+open.
+
 ## Simple implementation order
 
 1. Control plane and baseline.
@@ -7946,19 +7966,26 @@ Do not rely on prior chat or the installed plugin cache for mutable state.
 
 Verify that `active_write_packet.id: P6-VERIFY`,
 `last_completed_packet: P6-METHODS` and `next_permitted_packet: null`. Read the
-failed-gate records `notes/reports/p6-verify-2026-08-31.md` and
-`notes/reports/p6-verify-2026-09-28.md` in full. The Chapter 12 assessment
-integration correction and both architecture negative fixtures now pass their
-respective positive/fail-closed checks. Do not claim G-A5b or another packet.
+failed-gate records `notes/reports/p6-verify-2026-08-31.md`,
+`notes/reports/p6-verify-2026-09-28.md`, and
+`notes/reports/p6-verify-route-stop-2026-09-28.md` in full. The Chapter 12
+assessment integration correction and both architecture negative fixtures pass
+their respective positive/fail-closed checks. Do not claim G-A5b or another
+packet.
 
-Resume only `P6-VERIFY`. Reconcile the five exact required R30 children still
-`ratified` with empty evidence and null change references, although their
-assigned packet `P6-STYLE` is accepted. Verify each acceptance test against the
-live source and existing P6-STYLE, P6-PANELS and P6-ARC evidence. Do not promote
-an item to make the parent pass. If any item lacks evidence, record the exact
-gap and stop again. Keep the historical Chapter 12 failure record intact.
+Resume only `P6-VERIFY`. First investigate the four failed positive route
+checks for Appendices C, E, F and G against their current canonical inputs,
+stored artifacts, and Windows checkout line endings. Do not edit a checker or
+artifact to manufacture a pass; record the exact source-bound resolution or
+stop. Then reconcile the five exact required R30 children still `ratified` with
+empty evidence and null change references, although their assigned packet
+`P6-STYLE` is accepted. Verify each acceptance test against the live source
+and existing P6-STYLE, P6-PANELS and P6-ARC evidence, including the minor
+worked-example opening repetition in Chapters 10 and 14. Do not promote an
+item to make the parent pass. Keep both historical failure records intact.
 
-Only after R30 is genuinely verified may the remaining P6 matrix continue.
+Only after the four route checks and R30 genuinely pass may the remaining P6
+matrix continue.
 Keep the Appendix-G invalidation visible for P7-CLEAN-BUILD. Recheck RDP/BDP
 catalogue entries, both generated projections and both travelling notices
 without turning coauthor consent into rights-holder permission. Verify local

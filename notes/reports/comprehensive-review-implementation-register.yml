@@ -17859,9 +17859,13 @@ packets:
       and its positive and negative checks pass. The 2026-09-28 P6 exit audit
       found a separate blocker: R30 has five required children still ratified
       with empty completion evidence and null change references, although their
-      assigned packet P6-STYLE is accepted. R30 cannot close by aggregation or
-      status promotion without exact item evidence. No P6 parent, chapter stage
-      or downstream gate advances; see p6-verify-2026-09-28.md.
+      assigned packet P6-STYLE is accepted. A further 2026-09-28 live-source
+      matrix found four positive route checks failing: Appendix C catalogue MD5,
+      Appendix E and F conventions hashes, and Appendix G route parity. The
+      source-versus-artifact mismatches are recorded in
+      p6-verify-route-stop-2026-09-28.md. R30 cannot close by aggregation or
+      status promotion without exact item evidence, and the route gates cannot
+      be bypassed. No P6 parent, chapter stage or downstream gate advances.
     requires:
       - "P6-METHODS"
     scope: "Phase 6 whole-book gate."
