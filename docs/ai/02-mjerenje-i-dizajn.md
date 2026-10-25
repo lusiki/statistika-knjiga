@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -685,9 +685,10 @@ malom pokusu skupine mogu ostati različite.
 
 ### Računski
 
-Za četvrtu tvrdnju iz razrađenog primjera zapišite kako se svaki odgovor od 1
-do 5 mijenja pri okretanju ljestvice. Zatim iz tablice odgovora uzmite prva
-tri ispitanika. Za svakoga izračunajte prosjek četiriju tvrdnji prije i nakon
+Upotrijebite tablicu povezanosti stavki iz razrađenog primjera. Za četvrtu
+tvrdnju ručno provjerite kako se svaki odgovor od 1 do 5 mijenja pri okretanju
+ljestvice i zapišite okrenute vrijednosti. Zatim iz tablice s odgovorima uzmite
+prva tri ispitanika. Za svakoga izračunajte prosjek četiriju tvrdnji prije i nakon
 okretanja. Predajte svih šest prosjeka.
 
 Jednom rečenicom objasnite zašto propušteno okretanje smanjuje razlike među

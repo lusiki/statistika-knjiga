@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/10-logika-testiranja.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -523,8 +523,8 @@ portalu. Pozivajući se na razliku između slučajnosti uzorkovanja i selekcije 
 poglavlja o uzorkovanju, odredite koju tvrdnju o populaciji ni mala p-vrijednost ne bi
 mogla opravdati. [Na kraju u HTML widgetu postavite stvarnu razliku na nulu i
 zabilježite približan udio uzoraka ispod praga.]
-[Na kraju očitajte udio iz prvoga retka tablice stopa odbacivanja, u kojem
-stvarne razlike nema.]
+[U tiskanom ili dokumentnom izdanju na kraju očitajte udio iz prvoga retka
+tablice stopa odbacivanja, u kojem stvarne razlike nema.]
 
 ### Kritički
 

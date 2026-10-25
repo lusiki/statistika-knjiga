@@ -3,7 +3,7 @@
 > Iz knjige: Statistika 101
 > Autori: Luka Šikić, Petra Palić
 > Paket poglavlja ovog dijela knjige za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 
 ---
@@ -14,7 +14,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/01-zasto-statistika.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -692,7 +692,7 @@ ispravljena analiza ne može primijeniti na stvarne stanovnike Hrvatske.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/02-mjerenje-i-dizajn.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1373,9 +1373,10 @@ malom pokusu skupine mogu ostati različite.
 
 ### Računski
 
-Za četvrtu tvrdnju iz razrađenog primjera zapišite kako se svaki odgovor od 1
-do 5 mijenja pri okretanju ljestvice. Zatim iz tablice odgovora uzmite prva
-tri ispitanika. Za svakoga izračunajte prosjek četiriju tvrdnji prije i nakon
+Upotrijebite tablicu povezanosti stavki iz razrađenog primjera. Za četvrtu
+tvrdnju ručno provjerite kako se svaki odgovor od 1 do 5 mijenja pri okretanju
+ljestvice i zapišite okrenute vrijednosti. Zatim iz tablice s odgovorima uzmite
+prva tri ispitanika. Za svakoga izračunajte prosjek četiriju tvrdnji prije i nakon
 okretanja. Predajte svih šest prosjeka.
 
 Jednom rečenicom objasnite zašto propušteno okretanje smanjuje razlike među
@@ -1412,7 +1413,7 @@ onoga što je u opisanoj anketi već učinjeno.
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -1929,11 +1930,11 @@ pogrešnog označavanja.
 ### Računski
 
 Koristite zbirnu tablicu generiranog skupa `populacija_medija` iz datoteke `data/populacija-medija-agregat.csv`
-(Šikić, 2026). Portal je glavni izvor vijesti za 15.101 od 50.000 generiranih
-osoba, a televizija za 10.827 (Šikić, 2026). Izračunajte udjele, razliku u
+(Šikić, 2026). U generiranom skupu
+portal je glavni izvor vijesti za 15.101 od 50.000 generiranih osoba, a
+televizija za 10.827 (Šikić, 2026). Izračunajte udjele, razliku u
 postotnim bodovima i relativnu razliku prema udjelu televizije. Uz rezultate
-napišite da opisuju simulaciju. Koristite kalkulator ili proračunsku tablicu,
-bez predaje koda.
+napišite da opisuju simulaciju. Dopušten je kalkulator ili proračunska tablica; ne predaje se kod.
 
 ### Kritički
 

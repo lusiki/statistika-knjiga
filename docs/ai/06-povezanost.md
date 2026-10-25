@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/06-povezanost.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -637,7 +637,7 @@ kojem smjeru. Za preostala dva para zapišite zašto se to ne može prosuditi be
 njihovih dijagrama i što bi na njima trebalo pregledati.
 [U digitalnom izdanju unesite četiri procjene u interakciju i otvorite
 rješenje.]
-Uzmite četiri zadane procjene i koeficijente iz tablice.
+U tisku uzmite četiri zadane procjene i koeficijente iz tablice.
 Za svaki oblak
 izračunajte apsolutno odstupanje procjene. Predajte tablicu sa sedam redaka i
 jednom rečenicom obrazloženja u svakom. Postupak za ponavljanje izračuna nad

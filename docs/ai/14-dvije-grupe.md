@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/14-dvije-grupe.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -537,7 +537,7 @@ Nakon vlastitog pokušaja otvorite naznake i provjere rješenja.
 
 Za tri istraživačke situacije imenujte jedinicu neovisnosti i odgovarajući
 dizajn. Prva uspoređuje prosječno povjerenje u uzorku s unaprijed zadanim pragom
-od pet bodova, druga uspoređuje dvije skupine prema glavnom izvoru vijesti, a
+od pet bodova, druga uspoređuje dvije skupine prema primarnom izvoru vijesti, a
 treća mjeri iste ispitanike prije i poslije kampanje.
 
 ### Računski

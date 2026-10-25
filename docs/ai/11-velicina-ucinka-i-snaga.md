@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/11-velicina-ucinka-i-snaga.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -497,7 +497,8 @@ uz statični prikaz. Za svaki redak podijelite zbroj povjerenja brojem osoba,
 usporedite rezultat s pohranjenim prosjekom i izračunajte razliku prosjeka.
 Zatim za standardiziranu razliku 0,4 zabilježite snagu pri 40, 80, 160 i 300
 jedinica po skupini. U HTML-u upotrijebite widget.
-Vrijednosti očitajte iz tablice sa zadanom postavkom.
+[U tiskanom izdanju tablicu sa zadanom postavkom upotrijebite kao izvor
+vrijednosti.]
 
 Vratite se objašnjenju standardne pogreške i širine intervala u poglavlju o
 procjeni. Objasnite zašto veći uzorak istodobno sužava interval i povećava snagu,

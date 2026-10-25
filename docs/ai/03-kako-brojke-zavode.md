@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/03-kako-brojke-zavode.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -521,11 +521,11 @@ pogrešnog označavanja.
 ### Računski
 
 Koristite zbirnu tablicu generiranog skupa `populacija_medija` iz datoteke `data/populacija-medija-agregat.csv`
-(Šikić, 2026). Portal je glavni izvor vijesti za 15.101 od 50.000 generiranih
-osoba, a televizija za 10.827 (Šikić, 2026). Izračunajte udjele, razliku u
+(Šikić, 2026). U generiranom skupu
+portal je glavni izvor vijesti za 15.101 od 50.000 generiranih osoba, a
+televizija za 10.827 (Šikić, 2026). Izračunajte udjele, razliku u
 postotnim bodovima i relativnu razliku prema udjelu televizije. Uz rezultate
-napišite da opisuju simulaciju. Koristite kalkulator ili proračunsku tablicu,
-bez predaje koda.
+napišite da opisuju simulaciju. Dopušten je kalkulator ili proračunska tablica; ne predaje se kod.
 
 ### Kritički
 

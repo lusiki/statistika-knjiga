@@ -4,7 +4,7 @@
 > Autori: Luka Šikić, Petra Palić
 > Izvor: https://lusiki.github.io/statistika-knjiga/chapters/05-vizualizacija.html
 > Tekstualna verzija poglavlja za korištenje s AI-asistentima.
-> Generirano: 2026-10-24 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
+> Generirano: 2026-10-25 · © 2026 Luka Šikić, Petra Palić. MIT licenca: https://github.com/lusiki/statistika-knjiga/blob/main/LICENSE
 
 ---
 
@@ -516,4 +516,5 @@ odlomak s presudom i s uvjetom pod kojim bi presuda bila suprotna.
 
 Provjerite prijedlog grafa iz okvira o pogrešci. Navedite ispravne grafičke odluke i
 izdvojite onu koja obmanjuje. Opišite što treba promijeniti da udio ponovno
-bude prikazan samo duljinom stupca. Nije potrebno pisati ili popravljati kod.
+bude prikazan samo duljinom stupca. Opis predajte bez pisanja ili popravljanja
+koda.
