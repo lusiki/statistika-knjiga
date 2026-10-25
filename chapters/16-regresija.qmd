@@ -437,7 +437,7 @@ nego za tridesetogodišnjake ne određuje odgovor konkretne osobe.
 Koeficijent za zabilježeno povjerenje iznosi `r hr_broj(s16$nagib_jedan, 4)` boda po godini. Znamo
 ga bez uzoračne nesigurnosti jer imamo cijelu populaciju. Generator je prije
 zaokruživanja i ograničavanja ishoda koristio latentni, neposredno neopaženi nagib `r hr_broj(s16$latentno_dob, 3)`.
-Razlika tih brojeva ne znači pogrešan izračun. Oni opisuju različite veličine.
+Razlika proizlazi iz toga što brojevi opisuju različite veličine.
 
 U generatoru se s dobi mijenja i izvor vijesti. Prosječna dob kreće se od
 `r hr_broj(s16$dob_mreze, 1)` godine među korisnicima društvenih mreža do `r hr_broj(s16$dob_radio, 1)` među
@@ -479,8 +479,7 @@ posredniku. Zbirni koeficijent opisuje ukupni dobni obrazac, a koeficijent pri
 jednakom izvoru uvjetni obrazac koji isključuje taj put. Nijedan ne pokazuje
 kako bi se mijenjalo povjerenje iste osobe tijekom starenja.
 
-Različiti odgovori ne nastaju zbog manjka podataka. Analiziramo svih pedeset
-tisuća osoba. Kada bismo uzeli uzorak, procjenjivali bismo iste ciljane
+Različite odgovore dobivamo i uz svih pedeset tisuća osoba jer smo postavili različita pitanja. Kada bismo uzeli uzorak, procjenjivali bismo iste ciljane
 koeficijente uz odgovarajuću nesigurnost. Interval ni tada ne bi opisivao
 udaljenost od latentnog pravila prije mjerenja.
 
@@ -503,7 +502,7 @@ Na primjer, usporedbu četrdesetogodišnjaka koji prate televiziju i portale
 možemo poduprijeti podacima ako obje skupine sadrže dovoljno ljudi blizu te
 dobi. Kad jedna skupina sadrži samo mnogo starije osobe, procjena za
 četrdesetogodišnjake produžuje pravac izvan opaženoga raspona. To zovemo
-ekstrapolacijom. Samo uključivanje dobi u formulu ne stvara nedostajuće usporedive osobe.
+ekstrapolacijom. Zato provjeravamo sadrže li podaci osobe s odgovarajućom kombinacijom dobi i izvora.
 
 Za ovaj model napišimo cijelu jednadžbu. Oznaka $I_{\mathrm{TV},i}$ ima
 vrijednost jedan za korisnika televizije i nula za ostale, a jednako
@@ -538,8 +537,7 @@ godina zbrajamo odsječak `r hr_broj(coef(m16_dva)[1], 3)`, dobni dio
 $40 \times `r hr_broj(coef(m16_dva)["dob"], 4)`$ i televizijski dodatak
 `r hr_broj(coef(m16_dva)["izvor_vijestiTV"], 3)`. Rezultat je
 `r hr_broj(predict(m16_dva, data.frame(dob = 40, izvor_vijesti = "TV")), 3)`
-boda. To je modelno predviđanje za zadana obilježja, ne odgovor određene
-osobe. Za korisnika portala iste dobi mijenja se samo dodatak izvora.
+boda. To predviđanje opisuje modelnu sredinu za osobe sa zadanim obilježjima. Za korisnika portala iste dobi mijenja se samo dodatak izvora.
 
 U modelu s dobi i izvorom nagib uz dob iznosi `r hr_broj(s16$nagib_dva, 4)`. To je uvjetni
 linearni sažetak ove populacije. Blizak je latentnom pravilu `r hr_broj(s16$latentno_dob, 3)`, ali ne
@@ -561,8 +559,7 @@ s16_mehanizam |>
 
 Stupci tablice razlikuju latentno pravilo i koeficijente zabilježene
 ljestvice. Potonji su ovdje blago manji zbog zaokruživanja i ograničavanja
-vrijednosti na jedan do deset. Ne očekujemo da budu posve jednaki brojevima
-prije tih promjena.
+vrijednosti na jedan do deset. Zaokruživanje i ograničavanje ljestvice tako ulaze i u tumačenje koeficijenata.
 
 Uvid u generator ovdje nam omogućuje usporedbu koju u stvarnom istraživanju
 obično nemamo. Bez zabilježenog izvora vijesti nagib uz dob ostao bi
@@ -678,9 +675,7 @@ može stvoriti povezanost među inače nepovezanim uzrocima. Prije izbora modela
 zato razmatramo vremenski redoslijed, kvalitetu mjerenja i ulogu svake
 varijable.
 
-Odsječak sada opisuje osobu dobi nula koja koristi portal. Takve osobe nema u
-podacima. Koeficijent je potreban za zapis modela, ali ga ne trebamo sadržajno
-tumačiti.
+Odsječak sada daje predviđanje za dob nula i izvor portal, izvan opaženog raspona odraslih osoba. Ovdje služi matematičkom zapisu pravca, dok sadržajno tumačimo predviđanja unutar poduprtog raspona.
 
 Kada dva prediktora nose gotovo istu informaciju, teško je razdvojiti njihove
 pojedinačne koeficijente. Nedostaju usporedbe u kojima se jedan mijenja, a
@@ -1112,8 +1107,7 @@ uvjetima. Zasebno provjeravamo pretpostavke i način računanja nesigurnosti.
 
 Tablica za odabir postupka u mrežnom dodatku pomaže povezati vrstu podataka i
 istraživačko pitanje. Pri tom odabiru i dalje provjeravamo ishod, prediktore, neovisnost i
-nesigurnost. Sam zapis modela ne određuje trebamo li Welchovu
-ili običnu homoskedastičnu inferenciju.
+nesigurnost. Welchovu ili običnu homoskedastičnu inferenciju biramo prema pretpostavkama o varijancama i nacrtu.
 
 Ako jedna osoba daje više redaka ili osobe dijele razred, ustanovu ili grad,
 ponovno provjeravamo jedinicu i ciljanu veličinu. Više redaka može nekim
@@ -1148,7 +1142,7 @@ ga oduzimamo od jedan. Usporedba koristi iste osobe i isti ishod.
 
 Model s dobi opisuje `r hr_broj(100 * s16$r2_jedan, 1)` % varijabilnosti povjerenja, a s dobi i izvorom
 `r hr_broj(100 * s16$r2_dva, 1)` %. Nizak udio može odražavati razlike među ljudima, mjernu pogrešku
-ili neprikladan oblik modela. Sama mjera ne razlikuje te mogućnosti. Blizina
+ili neprikladan oblik modela. Za razlikovanje tih mogućnosti trebamo provjeriti mjerenje i dijagnostičke prikaze modela. Blizina
 prilagođenog koeficijenta latentnom pravilu također ne mijenja činjenicu da su
 to različite veličine.
 
@@ -1181,7 +1175,7 @@ udjele. Za usporedbu koeficijenata trebamo provjeriti ishod, ljestvicu,
 populaciju, kodiranje i uključene prilagodbe. Kod uzoraka trebamo i intervale
 koji odgovaraju nacrtu.
 
-Ni zajednički naziv ne jamči usporedive podatke. U našoj simulaciji „medijska
+Iza zajedničkog naziva mogu stajati različiti konstrukti i jedinice. U našoj simulaciji „medijska
 aktivnost” označuje dnevne minute osobe iz konačne populacije odraslih. DigiKat obuhvaća platformske objave prema pravilima korpusa, s
 jedinicom objave ili agregata [@digikat2026]. Osobne minute ne prikazuju svako
 privatno ponašanje, a korpus ne obuhvaća sadržaj izvan svojeg izbora.
@@ -1195,8 +1189,7 @@ primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
 povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu
 i očekivana vrijednost i raspršenost.
 
-Jedan objašnjeni udio ipak ne otkriva gdje model slabije odgovara podacima. Za
-to se vraćamo pojedinačnim odstupanjima, rezidualima. U našoj populaciji
+Mjesta na kojima model slabije odgovara podacima tražimo pregledom pojedinačnih odstupanja, reziduala. Tako dopunjujemo ukupni opis objašnjenog udjela. U našoj populaciji
 linearni odnos dnevnog praćenja medija i dobi ima nagib `r hr_broj(s16$nagib_minute, 2)` minute
 po godini. Reziduali oko tog pravca nisu jednako raspršeni duž cijelog raspona,
 što možemo vidjeti na njihovu prikazu.
@@ -1223,8 +1216,7 @@ tibble(
 ```
 
 Od šestine s najnižim do šestine s najvišim predviđanjima raspršenost
-reziduala raste s `r hr_broj(s16$rasprsenost_dolje, 0)` na `r hr_broj(s16$rasprsenost_gore, 0)` minuta. Jedna ukupna mjera zato ne
-opisuje pogrešku u svakom dijelu raspona. Kada bismo imali uzorak, račun
+reziduala raste s `r hr_broj(s16$rasprsenost_dolje, 0)` na `r hr_broj(s16$rasprsenost_gore, 0)` minuta. Pogrešku zato trebamo opisati duž raspona predviđanja, uz ukupnu mjeru. Kada bismo imali uzorak, račun
 nesigurnosti trebao bi dopustiti promjenjivu varijancu. Graf otkriva problem,
 a sljedeći korak biramo prema cilju analize.
 
@@ -1235,8 +1227,7 @@ varijancom ne opisuje sve dijelove raspodjele jednako dobro. Promjena računa
 standardne pogreške može ublažiti problem nesigurnosti, ali ne ispravlja
 pogrešan oblik sredine ni predviđanja izvan mogućeg raspona.
 
-Izbor načina izražavanja nesigurnosti ne uklanja potrebu za tim pregledom
-modela. Bayesovski pristup, koji smo kratko upoznali uz testiranje, može istom
+Takav pregled modela potreban je uz svaki odabrani način izražavanja nesigurnosti. Bayesovski pristup, koji smo kratko upoznali uz testiranje, može istom
 modelu pridružiti prethodne raspodjele i dati raspodjelu nesigurnosti
 koeficijenata ili predviđanja. I tada trebamo dobro mjerenje, prikladne
 jedinice i opravdane pretpostavke. Takav račun sam ne rješava curenje
@@ -1335,18 +1326,14 @@ se slučajnim obrascima koji se ne ponavljaju u novim podacima.
 Jednostavniji model bolji je na ovom odvojenom skupu. Standardna devijacija
 povjerenja u populaciji iznosi `r hr_broj(s16$sd_ishoda, 2)` boda, a rezidualna raspršenost nakon
 uključivanja dobi i izvora `r hr_broj(s16$sd_ostatka, 2)`. Ostatak uključuje slučajnu sastavnicu
-generatora, ali možda i neprimjerenost oblika modela. Ne možemo ga proglasiti
-najmanjom pogreškom koju bi bilo koji model mogao postići.
+generatora, ali možda i neprimjerenost oblika modela. Za procjenu koliko bi se ta pogreška još mogla smanjiti trebalo bi ispitati i druge opravdane modele.
 
 Valjana provjera predviđanja zato zahtijeva odvojene podatke i prediktore
 dostupne u trenutku primjene. 
 
 ## Granica prema uzroku
 
-Konfundirajuća varijabla prethodi pretpostavljenom uzroku i ishodu. Regresija
-može za nju prilagoditi usporedbu, ali iz samog ispisa ne možemo utvrditi
-njezinu ulogu. Za to trebamo sadržajno znanje, vremenski redoslijed i nacrt
-istraživanja.
+Konfundirajuća varijabla prethodi pretpostavljenom uzroku i ishodu. Regresijom možemo prilagoditi usporedbu za tu varijablu. Njezinu ulogu pritom opravdavamo sadržajnim znanjem, vremenskim redoslijedom i nacrtom istraživanja.
 
 U našem generatoru izvor vijesti nastaje poslije dobi i prije povjerenja.
 Prilagodba za izvor zato zatvara mogući posrednički put i mijenja cilj sa
@@ -1357,8 +1344,7 @@ slaganje ne bismo mogli pretpostaviti.
 Prilagođena povezanost sama ne dokazuje uzrok. Trebamo opravdati vremenski
 red, izostanak neizmjerenih zajedničkih uzroka i izbor prilagodbi. Važni su i
 valjano mjerenje, dovoljno preklapanja usporedivih jedinica, jasno definirana
-intervencija, selekcija i oblik modela. Navođenje tih uvjeta još nije dokaz da
-su zadovoljeni.
+intervencija, selekcija i oblik modela. Za svaki uvjet trebamo pokazati na kojim dokazima počiva opravdanje.
 
 Dob je posebno zahtjevna jer nema jednostavno intervencijsko tumačenje. U
 stvarnom istraživanju ulogu dobi i izvora trebali bismo razmotriti prije
@@ -1556,10 +1542,7 @@ prediktora u stvarnom bismo istraživanju razmotrili, primjerice, obrazovanje,
 iskustvo s redakcijama ili političke sklonosti. Njihovo uključivanje moglo bi
 promijeniti ciljanu uvjetnu usporedbu i koeficijent.
 
-Ni jedan prikazani nagib ne govori kako bi se povjerenje iste osobe
-promijenilo starenjem ili promjenom izvora vijesti. Opisali smo populaciju u
-jednom trenutku. Za promjenu unutar osobe trebaju podaci koji je prate kroz
-vrijeme, a ovdje ih nemamo.
+Prikazani nagibi opisuju razlike među osobama u populaciji u jednom trenutku. Za proučavanje promjene povjerenja iste osobe tijekom starenja ili promjene izvora vijesti trebali bismo je pratiti kroz vrijeme, uz nacrt primjeren tom pitanju.
 
 ## Sažetak {.sazetak}
 

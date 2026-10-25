@@ -19,8 +19,7 @@ pristranost u samom načinu mjerenja tog obrasca (Miller, 2018).
 
 Kako procijeniti je li niz posljedica promjene u procesu ili slučajnosti?
 
-Niz pogodaka može izgledati uvjerljivije od raspršenih uspjeha, iako još ne
-znamo kakve nizove proizvodi proces koji se uopće ne mijenja. Nakon opisivanja
+Niz pogodaka može izgledati uvjerljivije od raspršenih uspjeha. Da bismo procijenili taj dojam, trebamo najprije upoznati nizove koje proizvodi proces sa stalnim izgledima za uspjeh. Nakon opisivanja
 raspodjela i povezanosti trebamo način da odredimo što bismo očekivali pod
 jasno zadanim uvjetima. Vjerojatnost će nam omogućiti da opaženi rezultat
 usporedimo s drugim rezultatima koje isti model može proizvesti.
@@ -28,9 +27,7 @@ usporedimo s drugim rezultatima koje isti model može proizvesti.
 Počet ćemo simuliranim bacanjima novčića. Jedno opažanje bit će ishod bacanja,
 a nizovi će pokazati kako se udio glava mijenja kada ponavljamo isti postupak.
 Budući da sami zadajemo izglede, možemo provjeriti koliko kratki niz odstupa
-od onoga što vrijedi za proces. To nije dokaz o ponašanju košarkaša.
-Jednostavan model daje nam usporedbu prema kojoj možemo razmotriti što bi
-stvarni sportski zapisi još trebali pokazati.
+od onoga što vrijedi za proces. Jednostavan model služi kao polazište za usporedbu. Tvrdnju o ponašanju košarkaša zatim bismo trebali provjeriti na stvarnim sportskim zapisima.
 
 Za pitanja o preklapanju događaja vratit ćemo se simuliranoj populaciji
 `populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti. Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
@@ -83,10 +80,7 @@ Zakon velikih brojeva opisuje približavanje relativne učestalosti
 vjerojatnosti kada raste broj neovisnih ponavljanja sa stabilnom
 vjerojatnošću.
 
-To ne znači da kasnija bacanja nadoknađuju ranija. Svako neovisno bacanje ima
-iste izglede bez obzira na prethodne ishode. Kako niz raste, početna
-neravnoteža čini sve manji dio ukupnog broja bacanja. Udio se može približiti
-polovini iako sljedeće bacanje ništa ne kompenzira.
+Svako neovisno bacanje zadržava iste izglede. Približavanje udjela polovini objašnjavamo rastom nazivnika. Kako niz raste, početna neravnoteža čini sve manji dio ukupnog broja bacanja. Kasniji ishodi pritom nastaju po istom pravilu kao raniji.
 
 Očekivanje da nakon četiri glave pošten novčić duguje pismo nazivamo
 kockarskom zabludom. U modelu neovisnih bacanja niz glava ne povećava ni
@@ -97,14 +91,13 @@ igru.
 
 Razlikujemo modelnu vjerojatnost, opaženu učestalost i osobnu sigurnost.
 Modelna vjerojatnost proizlazi iz pretpostavki i informacija. Učestalošću kroz
-ponavljanja možemo provjeravati model. Osobno uvjerenje ne postaje tako
-provjerena vjerojatnost samo zato što ga izrazimo postotkom.
+ponavljanja možemo provjeravati model. Za osobno uvjerenje izraženo postotkom tek treba pokazati na čemu se temelji i kako se slaže s ishodima.
 
 **Kalibrirana nesigurnost** znači da se prognozirani izgledi slažu s
 učestalostima u mnogo usporedivih prognoza. Među događajima kojima smo
 pripisali sedamdeset posto izgleda, približno sedamdeset posto trebalo bi se
 ostvariti. Za pojedinu prognozu navodimo njezine informacije i pretpostavke.
-Jedan ostvaren ili neostvaren ishod nije dovoljan za ocjenu kalibracije.
+Ocjena kalibracije stoga zahtijeva niz usporedivih prognoza i njihovih ishoda.
 
 ## Tri pravila i jedna pretpostavka
 
@@ -181,7 +174,7 @@ ostalim pokušajima.
 U hipotetskom modelu promatramo dvadeset objava. Svaka ima zadanu vjerojatnost
 od dva posto da u sedam dana prijeđe dogovoreni prag dijeljenja. Prag,
 razdoblje i broj izloženih korisnika dio su definicije viralnosti.
-Pretpostavljena vjerojatnost nije izmjereni udio. Prema binomnom modelu,
+Vjerojatnost smo zadali kao pretpostavku modela. Prema binomnom modelu,
 nijedna objava ne bi prešla prag u `r hr_broj(s7$nijedna)` % takvih zamišljenih mjeseci.
 Time opisujemo ponavljanja modela, bez jamstva za određeni mjesec.
 
@@ -193,8 +186,7 @@ događaj i računamo $1-0,98^{20}$, odnosno
 
 Prije primjene provjeravamo uvjete. Različit doseg objava može značiti
 različite vjerojatnosti uspjeha. Ako jedno dijeljenje povećava vidljivost
-sljedeće objave, pokušaji nisu neovisni. Ni dvije osobe iz istog kućanstva
-nisu neovisne samo zato što imaju zasebne retke u anketi.
+sljedeće objave, pokušaji nisu neovisni. Slično, odgovori dviju osoba iz istog kućanstva mogu biti povezani zbog zajedničkih okolnosti, premda ih zapisujemo u zasebne retke.
 
 Kada uvjeti vrijede, očekivani broj uspjeha jednak je broju pokušaja
 pomnoženom vjerojatnošću uspjeha. S više pokušaja raste raspršenost broja
@@ -208,7 +200,7 @@ stvarni rezultat imamo s čime usporediti.
 
 Sada jednu vrijednost dobivamo tek nakon cijeloga niza. Ako u mogućem
 nizu od 20 pokušaja dobijemo šest uspjeha, u histogram unosimo jedan udio
-$6/20 = 0,30$. To je ilustracija računa, ne izdvojeni rezultat simulacije.
+$6/20 = 0,30$. Taj smo niz odabrali radi ilustracije računa.
 Za svaki histogram ponavljamo cijele neovisne nizove, a vjerojatnost uspjeha
 zadržavamo. Visina stupca broji nizove čiji su udjeli u istom rasponu.
 
@@ -259,8 +251,7 @@ vrijednost govori koliko je standardnih devijacija udaljena od sredine. Na
 normalnoj krivulji taj položaj možemo povezati s udjelom površine.
 
 Svaki simulirani udio prosjek je nula za neuspjehe i jedinica za uspjehe u
-jednom nizu. Histogram stoga prikazuje raspodjelu udjela iz ponovljenih
-nizova. Ne prikazuje raspodjelu pojedinačnih nula i jedinica.
+jednom nizu. Histogram stoga prikazuje raspodjelu udjela iz ponovljenih nizova. Jedna vrijednost u njemu sažima cijeli niz pojedinačnih nula i jedinica.
 
 U našoj simulaciji pokušaji slijede isto stabilno pravilo i međusobno su
 neovisni. S duljim nizovima udjeli se manje rasipaju i njihov se histogram
@@ -272,9 +263,7 @@ Sredina i standardna devijacija potpuno određuju položaj i širinu normalne
 raspodjele. Unutar jedne standardne devijacije od sredine leži oko 68 %
 vrijednosti, unutar dvije oko 95 %, a unutar tri oko 99,7 %.
 
-Sada promatramo pojedinačne vrijednosti u poznatoj populaciji. Teorem o
-prosjecima ne jamči njihov normalan oblik. Zato zasebno provjeravamo dnevno
-vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
+S raspodjele prosjeka sada prelazimo na pojedinačne vrijednosti u poznatoj populaciji. Njihov oblik trebamo zasebno provjeriti. Pogledat ćemo dnevno vrijeme uz medije i iznos koji je osoba spremna platiti za sadržaj.
 
 *Slika. Dnevne minute uz medije i spremnost na plaćanje u simuliranoj populaciji, s isprekidanim crtama na jednoj i dvjema standardnim devijacijama od sredine. Izrada autora; podaci i postupak opisani su u tekstu.*
 
@@ -324,8 +313,7 @@ višim vrijednostima. Za spremnost na plaćanje točke najprije stoje vodoravno
 zbog nula, a zatim skreću prema gore. Nakon izdvajanja platitelja i
 logaritmiranja iznosa opet su blizu pravca.
 
-QQ prikaz pokazuje gdje podaci odstupaju od pretpostavke. Ne odlučuje sam je
-li određena analiza prikladna. Posljedice blagog odstupanja u repu ovise o
+QQ prikaz pokazuje gdje podaci odstupaju od pretpostavke. Prikladnost analize procjenjujemo prema tome koliko su ta odstupanja važna za odabrani postupak. Posljedice blagog odstupanja u repu ovise o
 ciljnoj veličini, postupku i utjecajnim opažanjima. Velika skupina nula jasno
 pokazuje da normalna raspodjela nije dobar opis sirovih iznosa.
 
@@ -373,7 +361,7 @@ jedinice. Od osam jednako vjerojatnih nizova šest ima takvo mjesto.
 To su 010, 011, 100, 101, 110 i 111. Njihovi udjeli uspjeha na odabranim
 mjestima redom su 0, 1, 0, 0, 1/2 i 1. Prosjek tih šest udjela iznosi
 5/12, približno 0,417. Nizovi s jednim i dvama odabranim mjestima dobivaju
-jednaku težinu. Ta odluka, a ne promjena novčića, spušta prosjek ispod 1/2.
+jednaku težinu. Takvo pridavanje težina spušta prosjek ispod 1/2 uz stalne izglede pri svakom bacanju.
 Pristranost je veća u kraćim nizovima i uz dulji uvjet. Nakon samo jednog
 pogotka u nizovima od stotinu pokušaja prosječni udio je `r hr_broj(s7$nakon_jednog_100, 3)`, blizu
 polovine.
@@ -404,19 +392,14 @@ može promijeniti očekivani rezultat.
 Upravo su taj problem razradili Miller i Sanjurjo. Pokazali su da je
 uobičajena mjera ovisnosti osjetljiva na pristranost odabira, a nakon
 ispravka ponovno su analizirali izvorni kontrolirani pokus i dobili
-zaključak u prilog vrućoj ruci (Miller, 2018). Ispravak nije nastao
-zato što su naknadno odlučili više vjerovati dojmu igrača. Promijenili
-su referentni račun s kojim su uspoređivali opaženi niz.
+zaključak u prilog vrućoj ruci (Miller, 2018). Do ispravka su došli promjenom referentnog računa s kojim su uspoređivali opaženi niz.
 
 Naša simulacija pokazuje kako postupak odabira i prosječenja proizvodi pomak
 iako se zadana vjerojatnost ne mijenja. Prije tumačenja stvarnih pokušaja
 zato treba provjeriti cijeli postupak na procesu čije je pravilo poznato.
 Tako znamo koliki pomak mogu proizvesti sam odabir i računanje.
 
-Za odluku na terenu ni ispravljena mjera nije potpuna uputa.
-Treba razmotriti težinu sljedećeg šuta, obranu i raspoložive
-suigrače. Moguća promjena forme nije isto što i najbolja odluka o
-dodavanju. Zato provjeravamo i dojam o vrućoj ruci i mjerni postupak kojim ga
+Odluka na terenu traži dodatnu prosudbu. Uz moguću promjenu forme treba razmotriti težinu sljedećeg šuta, obranu i raspoložive suigrače. Zato provjeravamo i dojam o vrućoj ruci i mjerni postupak kojim ga
 pokušavamo osporiti.
 
 Za planiranje kampanje zanima nas barem jedna objava koja prijeđe prag.

@@ -25,9 +25,7 @@ ponovno?
 
 Slučajnost iz prethodnog poglavlja sada ulazi u sam odabir ljudi koje
 promatramo. Ako iz iste populacije uzmemo drugi uzorak, promijenit će se
-sastav sudionika, a s njime i izračunati prosjek. Pitanje više nije samo kako
-se ljudi razlikuju. Zanima nas koliko bi se mijenjao naš odgovor na
-istraživačko pitanje kada bismo odabir mogli ponavljati.
+sastav sudionika, a s njime i izračunati prosjek. Uz razlike među ljudima sada istražujemo koliko bi se mijenjao naš odgovor na istraživačko pitanje kada bismo odabir mogli ponavljati.
 
 Za tu ćemo provjeru iskoristiti prednost nastavne simulacije. Skup
 `populacija_medija` sadrži 50.000 računalno stvorenih odraslih osoba i
@@ -94,14 +92,13 @@ jednake.
 vrijednosti koju ima cijela populacija, a nastaje zato što je izmjeren dio
 umjesto cjeline.
 
-Pogreška ovdje ne znači propust u unosu ili postavljanju pitanja. Razlika može
-nastati i uz potpuno ispravan postupak jer promatramo samo dio populacije. Tu
+Pogreška ovdje označuje razliku koja nastaje zato što promatramo samo dio populacije. Moguća je i uz potpuno ispravan unos podataka i postavljanje pitanja. Tu
 slučajnu promjenjivost treba razlikovati od sustavnog odstupanja zbog
 pristranog odabira.
 
 Pri novom odabiru ponovno je dostupna cijela populacija. Unutar jednog
 uzorka osoba ulazi najviše jednom, ali može ući u više različitih uzoraka.
-Time ne izvlačimo ponovno samo iz prethodnih 100 zapisa. Populacija i
+Svako novo izvlačenje ponovno kreće iz cijele populacije, a prethodnih 100 zapisa čini samo jedan od mogućih uzoraka. Populacija i
 pravilo odabira ostaju fiksni, mijenjaju se odabrane osobe. Tri neovisna uzorka od po
 stotinu osoba daju sredine `r hr_broj(s8$tri[1], 2)`, `r hr_broj(s8$tri[2], 2)` i `r hr_broj(s8$tri[3], 2)`. Dobivene su iz
 iste populacije istim postupkom, uz raspon od `r hr_broj(s8$raspon_tri, 2)` boda.
@@ -230,8 +227,7 @@ ovisi o obliku i repovima populacije. U našem je primjeru i pri trideset osoba
 ostalo dosta asimetrije, dok za gotovo simetričnu populaciju manji uzorak može
 biti dovoljan.
 
-Mnogi postupci zato ne zahtijevaju normalnost pojedinačnih opažanja. Ipak,
-teorem ne uklanja uvjete odabira i neovisnosti. Kod složenijeg uzorkovanja
+Mnogi se postupci zato oslanjaju na približnu normalnost raspodjele procjene, dok pojedinačna opažanja mogu imati drukčiji oblik. Primjena teorema i dalje zahtijeva odgovarajuće uvjete odabira i neovisnosti. Kod složenijeg uzorkovanja
 težine i zajednički odabir skupina mogu promijeniti i oblik i širinu
 raspodjele procjene. Račun mora pratiti taj nacrt.
 
@@ -321,12 +317,8 @@ Populacijske devijacije iznose `r hr_broj(s8$sigma, 3)` i `r hr_broj(s8$sigma_ma
 uzima u obzir i tu malu razliku te daje `r hr_broj(s8$se_velika_fpc, 4)` i `r hr_broj(s8$se_mala_fpc, 4)`, blizu
 simuliranim rezultatima.
 
-Pitanje je li tisuću ljudi dovoljno nema jedinstven odgovor. Trebamo znati
-procjenjujemo li ukupni udio, sredinu, rijetku pojavu ili razliku skupina.
-Trebamo i nacrt, način odabira i odaziva te željenu preciznost. Za podskupinu
-je važan broj njezinih članova, a ne ukupni uzorak. Oko tisuću može biti
-korisna orijentacija za jedan ukupni udio u jednostavnom nacrtu, ali nije
-jamstvo za ostale ciljeve.
+Dovoljnu veličinu uzorka određujemo prema pitanju koje istražujemo. Trebamo znati procjenjujemo li ukupni udio, sredinu, rijetku pojavu ili razliku skupina.
+Trebamo i nacrt, način odabira i odaziva te željenu preciznost. Preciznost za podskupinu ovisi o broju njezinih članova. Oko tisuću može biti korisna orijentacija za jedan ukupni udio u jednostavnom nacrtu; za ostale ciljeve veličinu određujemo zasebno.
 
 Margina pogreške opisuje promjenjivost zbog slučajnog odabira. Ne uključuje
 ljude izvan okvira, neodaziv ni učinak formulacije i redoslijeda pitanja.
@@ -369,8 +361,7 @@ a **efektivna veličina uzorka** izražava istu preciznost brojem jedinica
 takva uzorka.
 
 Pri čitanju izvještaja provjeravamo uključuje li račun nesigurnosti težine,
-skupine i slojeve. Te odluke ne uklanjaju automatski
-neodaziv ili nepotpun okvir. Neobvezni odjeljak praktikuma
+skupine i slojeve. Neodaziv i potpunost okvira zahtijevaju zasebnu provjeru i obrazložene prilagodbe. Neobvezni odjeljak praktikuma
 podrobnije objašnjava te prilagodbe.
 
 ## Pokrivenost, odabir i odaziv
@@ -385,16 +376,14 @@ U prigodnom uzorku biramo dostupne ljude, bez poznatih vjerojatnosti odabira.
 U našoj populaciji mlađih od dvadeset pet godina s višim obrazovanjem ima
 `r hr_broj(s8$prigodni_n, 0)`. Njihovo prosječno povjerenje iznosi `r hr_broj(s8$prigodni_sredina, 2)`, dok je populacijsko
 `r hr_broj(s8$mu, 2)`. Razlika nadmašuje cijelu marginu ankete s tisuću ljudi.
-Uključivanje svih članova te uske skupine ne bi uklonilo razliku prema cijeloj
-populaciji.
+Uključivanjem svih članova te uske skupine točno bismo opisali upravo nju, uz istu razliku prema cijeloj populaciji.
 
 U sljedećem modelu samoodabira ponovno razmatramo svih 50 000 osoba.
 Osobi mlađoj od 30 koja bira mreže dajemo 15 % izgleda za uključivanje,
 a ostalima te dobi 8 %. U dobi od 30 do 49 godina izgledi su 6 % za
 portal ili mreže i 3 % za ostale izvore. Od 50 godina naviše odgovarajući
 izgledi iznose 2 % i 0,5 %. Svakoj osobi zatim neovisno odredimo ulazi li
-u anketu. Ta su pravila namjerno zadana radi ilustracije, a ne procijenjena
-iz stvarne mrežne ankete.
+u anketu. Ta smo pravila zadali za ovu ilustraciju samoodabira.
 
 U dobrovoljnu mrežnu anketu ulaze ljudi koji su na internetu, vide poziv i
 odluče odgovoriti. Svaki korak može mijenjati sastav. Simulacija takvog
@@ -436,8 +425,7 @@ odnositi.
 Iste granice odabira susrećemo kada umjesto ljudi prikupljamo njihove
 tekstove. I korpus tekstova zahtijeva ciljnu populaciju. Za opis političke rasprave
 trebamo navesti uključujemo li govore, intervjue ili objave, s kojih platformi
-ili arhiva, iz kojeg razdoblja, na kojim jezicima i od kojih govornika. Svi
-dostupni tekstovi nisu dovoljna definicija populacije.
+ili arhiva, iz kojeg razdoblja, na kojim jezicima i od kojih govornika. Dostupnost tekstova tek je polazište; populaciju određujemo prema sadržajnom pitanju i navedenom obuhvatu.
 
 Obrisane i privatne objave mogu izostati iz arhiva, stariji sadržaj biti
 nedostupan, a odabrana ključna riječ propustiti relevantne tekstove. Veći broj
@@ -477,15 +465,13 @@ pogrešnoj prognozi (Squire, 1988).
 Ta je razlika važna za razumijevanje mogućeg popravka. Squireova
 analiza upućuje na to da bi potpuni odaziv izabranih primatelja,
 unatoč problemu njihova odabira, barem ispravno imenovao Roosevelta
-kao pobjednika (Squire, 1988). Zato nije dovoljno slučaj svesti na
-priču o lošem popisu adresa. Treba istražiti i razliku između onih
-koji su odgovorili i onih koji su ostali tihi.
+kao pobjednika (Squire, 1988). Uz kvalitetu popisa adresa zato treba istražiti i razliku između onih koji su odgovorili i onih koji su ostali tihi.
 
  Slanje još poziva istom vrstom kontakta može povećati broj
 odgovora, a zadržati isti problem. Korisnije bi moglo biti provjeriti
 koji dio ciljne populacije popis propušta i pokušati doznati po čemu
 se neodazvani razlikuju. Korekciju zatim treba obrazložiti dostupnim
-informacijama. Bez njih ne znamo ni koliko je popravak uspio.
+informacijama. Iste informacije omogućuju procjenu koliko je popravak uspio.
 
 Standardna pogreška iz ovog poglavlja opisuje slučajno mijenjanje
 procjene pod pretpostavljenim nacrtom. Ona ne pokriva automatski
@@ -561,8 +547,7 @@ ponavljanje postupka.
 Za računsku provjeru pretpostavimo neovisna opažanja i standardnu devijaciju
 od 12 minuta. Pri 36 opažanja standardna pogreška sredine iznosi
 $12/\sqrt{36}=2$ minute, a pri 144 opažanja jednu minutu. Raspršenost
-pojedinačnih odgovora ostaje 12 minuta. Četverostruko veći uzorak prepolovio
-je nesigurnost sredine, a nije ljude učinio sličnijima.
+pojedinačnih odgovora ostaje 12 minuta. Četverostruko veći uzorak prepolovio je nesigurnost sredine, uz istu raspršenost odgovora pojedinačnih ljudi.
 
 Približenje $1/\sqrt{n}$ za 95-postotnu marginu udjela odnosi se na
 jednostavni slučajni uzorak, malu uzoračku frakciju i najnepovoljniji udio

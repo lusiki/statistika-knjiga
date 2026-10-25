@@ -807,7 +807,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="sec-b-priprema" class="level2">
 <h2 class="anchored" data-anchor-id="sec-b-priprema">Priprema podataka</h2>
 <p>Otvorite točno jednu datoteku priloženu knjizi. Za povezanost vremena na mrežama i povjerenja skup <code>anketa_mreze</code> koristi <code>data/anketa-mreze.csv</code>. Pitanje o povjerenju, dobi i izvoru vijesti u skupu <code>populacija_medija</code> koristi <code>data/populacija-medija.csv</code>, a pregled pripremljene tekstne tablice koristi <code>data/parlament_oznake.csv</code>.</p>
-<p>Prve dvije datoteke sadrže generirane osobe. Ne daju nalaz o stvarnoj populaciji. Treća datoteka sadrži označene parlamentarne rečenice i ima vlastita pravila atribucije. Uvjeti stoje uz <a href="../data/anketa-mreze.LICENCA.md">anketu</a>, <a href="../data/populacija-medija.LICENCA.md">populaciju</a> i <a href="../data/parlament-oznake.LICENCA.md">tekstnu tablicu</a>.</p>
+<p>Prve dvije datoteke sadrže generirane osobe, pa se zaključci odnose na zadane nastavne skupove. Treća datoteka sadrži označene parlamentarne rečenice i ima vlastita pravila atribucije. Uvjeti stoje uz <a href="../data/anketa-mreze.LICENCA.md">anketu</a>, <a href="../data/populacija-medija.LICENCA.md">populaciju</a> i <a href="../data/parlament-oznake.LICENCA.md">tekstnu tablicu</a>.</p>
 <p>Nakon uvoza otvorite postavke varijabli. Identifikatore <code>ispitanik</code>, <code>osoba</code>, <code>record_id</code> i <code>source_document_id</code> postavite kao <code>ID</code>. Brojčane varijable <code>dob</code>, <code>minute_dnevno</code>, <code>povjerenje</code> i <code>povjerenje_medijima</code> postavite kao <code>Continuous</code>. Kategorijske varijable <code>obrazovanje</code>, <code>izvor_vijesti</code>, <code>derived_split</code>, <code>recorded_label</code> i <code>label_path</code> postavite kao <code>Nominal</code>. Datoteka s uputama navodi samo tipove varijabli potrebne pojedinom postupku.</p>
 <p>Nijedna od tih datoteka nema težinu uzorkovanja. Ne stvarajte prazan stupac težina i ne uključujte težine u analizi. Ta odluka dolazi iz kataloga podataka, a ne iz zadanih postavki programa.</p>
 <section id="fiksni-uzorci-i-filtri" class="level3">
@@ -962,7 +962,7 @@ Tablica&nbsp;1: Dokumentirane jamovi rute i zlatne vrijednosti Dodatka A
 <section id="regresija" class="level3">
 <h3 class="anchored" data-anchor-id="regresija">Regresija</h3>
 <p>Za <code>B-C16-REGRESIJA</code> slijedite <code>Analyses → Regression → Linear Regression</code>. Postavite <code>povjerenje_medijima</code> kao zavisnu varijablu, <code>dob</code> kao kovarijatu i <code>izvor_vijesti</code> kao faktor. Referentna kategorija mora biti <code>portal</code>. Uključite procjene koeficijenata i mjere pristajanja modela.</p>
-<p>Koeficijent dobi tumači promjenu uz isti izvor vijesti. Koeficijent društvenih mreža uspoređuje tu kategoriju s portalom uz istu dob. Ni jedan koeficijent ne dokazuje uzročnost.</p>
+<p>Koeficijent dobi tumači promjenu uz isti izvor vijesti. Koeficijent društvenih mreža uspoređuje tu kategoriju s portalom uz istu dob. Uzročno tumačenje tih koeficijenata zahtijevalo bi dodatno opravdanje iz istraživačkog nacrta.</p>
 </section>
 </section>
 <section id="pripremljena-tekstna-tablica" class="level2">

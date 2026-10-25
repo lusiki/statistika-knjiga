@@ -378,11 +378,13 @@ def validate(base: Path, fixture: str = "", check_git_boundary: bool = False) ->
     if artifact.get("chapter_18_reconciliation") != expected_reconciliation:
         fail("Chapter 18 reconciliation boundary")
     for phrase in (
-        "Politika kolegija, inačica 1.0 od 4. kolovoza 2026.",
-        "To je datirana i oprezna politika ovoga kolegija, a ne propis Hrvatskoga",
-        "sigurnu simuliranu ili agregiranu alternativu",
+        "politika kolegija uz ovaj udžbenik, inačica 1.0 od 4. kolovoza 2026.",
+        "Ta datirana politika nije propis Hrvatskoga katoličkog sveučilišta ni pravno tumačenje.",
+        "javni alati primaju dopuštene javne, simulirane ili zbirne podatke",
+        "Za dopuštene pseudonimizirane radne podatke traži se ugovorno zaštićen alat",
+        "ograničeni podaci ostaju u institucionalno odobrenom lokalnom okruženju",
     ):
-        if phrase not in chapter18:
+        if phrase not in " ".join(chapter18.split()):
             fail(f"Chapter 18 policy reconciliation={phrase}")
     if check_git_boundary:
         changed = subprocess.run(

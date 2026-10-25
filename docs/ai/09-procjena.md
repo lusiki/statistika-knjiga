@@ -50,7 +50,7 @@ ograničenja mjerenja ili odabira ljudi koja smo upoznali ranije.
 
 Iz iste simulirane populacije medijskih navika uzimamo novi uzorak od `r hr_broj(s9$n, 0)` osoba. Za svaku osobu koristimo povjerenje u
 medije na ljestvici od jedan do deset. Prosjek uzorka iznosi `r hr_broj(s9$sredina, 2)`. Tu vrijednost zovemo **točkasta procjena** (*point
-estimate*). Ona sažima rezultat, ali ne govori koliko je nesiguran. Isti
+estimate*). Ona sažima rezultat, a njegovu nesigurnost opisujemo zasebno. Isti
 prosjek možemo dobiti na dvadeset i na dvadeset tisuća ljudi, iako bi se pri
 ponovnom uzorkovanju te procjene mogle znatno različito mijenjati.
 
@@ -75,8 +75,7 @@ označili smo raspon od 1,96 njezinih standardnih pogrešaka na svaku stranu.
 Populacijska vrijednost nalazi se u `r paste0(hr_broj(s9$pokrivenost, 1), " %")` raspona. Izvan raspona ostaje u
 `r hr_broj(s9$promasaji, 0)` od `r hr_broj(s9$ponavljanja, 0)` ponavljanja. Vidimo da pojedini raspon može promašiti
 cilj, ali i da možemo pratiti koliko ga često postupak obuhvaća.
-Nijedan od 10 000 intervala nije izostavljen. Broj onih kojima donja
-granica nije iznad cilja, a gornja nije ispod njega, dijelimo s 10 000.
+U račun uključujemo svih 10 000 intervala. Broj onih čije granice obuhvaćaju cilj dijelimo s 10 000.
 Dobiveni udio nazivamo obuhvatom intervala.
 
 Središnji granični teorem pomaže objasniti taj rezultat. Pod njegovim uvjetima
@@ -115,8 +114,7 @@ Razina pouzdanosti opisuje koliko često postupak obuhvaća cilj kada se
 uzorkovanje ponavlja. Tu razliku trebamo zadržati i kada tumačimo samo jedan
 izračunati interval.
 
-Ovdje pouzdanost opisuje postupak intervalne procjene. Nije isto što i
-pouzdanost mjerenja iz poglavlja o mjerenju. Obuhvat intervala označuje
+Ovdje pouzdanost opisuje postupak intervalne procjene. U poglavlju o mjerenju ista se riječ odnosila na dosljednost mjerenja. Obuhvat intervala označuje
 koliko intervala sadrži cilj, a obuhvat okvira uzorkovanja govori tko je
 uopće mogao biti odabran.
 
@@ -161,10 +159,7 @@ već određen, čak i ako ga ne možemo vidjeti.
 
 Iz objavljenog intervala možemo čitati koje su vrijednosti uskladive s
 podacima pod pretpostavkama postupka. Njegova širina pokazuje i jesmo li
-postigli željenu preciznost, primjerice marginu manju od deset minuta. Za
-pitanje o razlici ili promjeni trebamo interval za samu razliku. Interval
-jednog parametra to ne rješava. Ne govori ni gdje će pasti rezultat sljedećeg
-istraživanja, koje će imati vlastiti uzorak i vlastiti interval.
+postigli željenu preciznost, primjerice marginu manju od deset minuta. Za pitanje o razlici ili promjeni trebamo interval za samu razliku. Predviđanje rezultata sljedećeg istraživanja zaseban je zadatak jer će ono imati vlastiti uzorak i vlastiti interval.
 
 ## Interakcija — Hvatač intervala
 
@@ -225,8 +220,7 @@ precizniju procjenu.
 
 Povećanje razine pouzdanosti djeluje drukčije. Na istim podacima tražimo češći
 obuhvat, pa raspon mora biti širi. U našem uzorku interval od 90 % širok je
-`r hr_broj(s9$razine[["90"]], 2)` boda, interval od 95 % `r hr_broj(s9$razine[["95"]], 2)`, a interval od 99 % `r hr_broj(s9$razine[["99"]], 2)`. Time
-nismo dobili precizniju procjenu, nego postavili viši zahtjev za obuhvat.
+`r hr_broj(s9$razine[["90"]], 2)` boda, interval od 95 % `r hr_broj(s9$razine[["95"]], 2)`, a interval od 99 % `r hr_broj(s9$razine[["99"]], 2)`. Viši zahtjev za obuhvat ovdje plaćamo širim rasponom, odnosno manjom preciznošću.
 
 **Preciznost** opisuje širinu procjene, a **pouzdanost** odabranu dugoročnu
 učestalost obuhvata. Za isti postupak i razinu pouzdanosti više podataka
@@ -258,8 +252,7 @@ pojedinačnih ocjena. Taj je raspon širok približno `r hr_broj(2 * s9$normalni
 pravilo ne daje takav obuhvat za izrazito asimetrične, ograničene ili
 diskretne raspodjele. Taj opisni raspon nije ni interval predviđanja za novu
 osobu, jer ne uključuje nesigurnost procjene središta i raspršenosti niti
-određuje populaciju buduće osobe. Veći uzorak sužava interval za sredinu, ali
-ne uklanja razlike među ljudima.
+određuje populaciju buduće osobe. Veći uzorak sužava interval za sredinu, dok razlike među ljudima ostaju svojstvo populacije.
 
 *Slika. Interval pouzdanosti za sredinu i opisni raspon po normalnom pravilu za pojedinačne ocjene na istom uzorku i istoj osi. Izrada autora; podaci i postupak opisani su u tekstu.*
 
@@ -295,11 +288,10 @@ raspodjele mogu oslabiti približenje. Ponavljanje odabira iz postojećih
 redaka ne dodaje ljude koji su sustavno izostali iz početnog uzorka.
 
 Sada uzimamo novi početni uzorak od 60 osoba iz iste medijske populacije.
-To nije podskup prethodnih 200 osoba, a pratimo dnevne minute umjesto
-povjerenja. U lijevoj polovici tablice vidimo prvih osam zapisa toga
+Izvlačimo ga zasebno od prethodnih 200 osoba, a pratimo dnevne minute umjesto povjerenja. U lijevoj polovici tablice vidimo prvih osam zapisa toga
 uzorka, a u desnoj prvih osam izvlačenja iz prvoga bootstrap uzorka.
 Broj retka desno upućuje na zapis u cijelom početnom uzorku od 60 osoba.
-Ponavljanje broja retka znači ponovljen odabir iste osobe, ne novu osobu.
+Svako ponavljanje broja retka upućuje na ponovljen odabir iste osobe.
 
 *Slika. Početak izvornog uzorka i prvoga ponovnog uzorka. Svaki puni uzorak ima 60 zapisa. Izrada autora.*
 
@@ -348,7 +340,7 @@ odgovara istraživačkom pojmu, trebamo razmotriti i nesigurnost mjerenja.
 
 Bootstrap redaka s gotovim oznakama mijenja sastav tekstova, ali zadržava
 njihove oznake. Uz ispravno odabranu jedinicu ponovnog uzorkovanja opisuje
-uzoračku nesigurnost. Ne provjerava valjanost kodiranja. Drugo opravdano
+uzoračku nesigurnost. Valjanost kodiranja zahtijeva zasebnu provjeru oznaka i pravila. Drugo opravdano
 pravilo moglo bi promijeniti oznake rubnih tekstova i pomaknuti procijenjeni
 udio, čak i kada oba izračuna daju uske intervale. U izvještaju zato navodimo
 jedinicu teksta, ciljnu populaciju, način odabira i pravilo kodiranja te
@@ -388,9 +380,7 @@ raspodjela pojedinačnih vremena i prag koji za tu odluku ima smisla.
 Autor zato treba imenovati veličinu koju procjenjuje i objasniti
 koju nesigurnost interval opisuje. U našem primjeru to je
 nesigurnost procjene prosječnog vremena pod uvjetima odabranog
-postupka. Prije pisanja zaključka zato provjeravamo nismo li raspon nesigurnosti
-prosjeka zamijenili rasponom pojedinačnih putovanja ili pouzdanost postupka
-vjerojatnošću da je nepoznati prosjek unutar dobivenih granica.
+postupka. Prije pisanja zaključka zato razdvajamo nesigurnost prosjeka od razlika među pojedinačnim putovanjima. Razinu pouzdanosti pritom vežemo uz dugoročni obuhvat postupka, uz fiksnu nepoznatu populacijsku sredinu.
 
 **Nađite grešku.**
 Vraćamo se uzorku od šezdeset osoba iz simuliranoga grada. Želimo
@@ -483,8 +473,7 @@ bi ograničenje moglo promijeniti konačnu rečenicu.
 : Šest revizijskih pitanja primijenjenih na procjenu iz simulirane populacije. Izrada autora.
 
 Ti odgovori ograničavaju zaključak na ono što smo doista procijenili.
-Sintetički podaci nisu empirijski dokaz, a uzorački interval ne uključuje
-automatski nesigurnost mjerenja ili kodiranja. Karta tvrdnji u nastavku
+Sintetički podaci služe provjeri postupka u zadanom modelu. Uzorački interval opisuje promjenjivost zbog odabira, dok nesigurnost mjerenja ili kodiranja treba zasebno procijeniti. Karta tvrdnji u nastavku
 pokazuje šest različitih dosega analize.
 
 | Dimenzija tvrdnje | Što ovaj dokaz dopušta |

@@ -24,8 +24,7 @@ jednoga broja automatski odlučuje postoji li učinak. Izjava je trebala
 razjasniti što taj račun dopušta zaključiti.
 
 U izvještajima se prag značajnosti često čitao kao granica između učinaka koji
-„postoje” i onih kojih „nema”. Test uspoređuje podatke s određenim modelom.
-Sam po sebi ne može opravdati takvu podjelu.
+„postoje” i onih kojih „nema”. Test uspoređuje podatke s određenim modelom, a zaključak o postojanju učinka traži i procjenu njegove veličine, nesigurnosti i ostalih dokaza.
 
 Što mala p-vrijednost govori o podacima, a što ne može reći o hipotezi?
 
@@ -93,8 +92,7 @@ Ocjene zbrajamo zasebno i dijelimo odgovarajućim brojem osoba.
 
 *Slika. Od ocjena do dviju sredina u istom uzorku. Izrada autora.*
 
-Od sredine za tisak oduzimamo sredinu za portal. Nijedno opažanje nije
-premješteno prije tog računa, pa razlika opisuje upravo izvorne skupine.
+Od sredine za tisak oduzimamo sredinu za portal. Račun zadržava izvorni raspored opažanja, pa razlika opisuje upravo te skupine.
 
 Najprije navodimo procjenu. Čitatelji tiska imaju u prosjeku `r hr_broj(s10$razlika, 2)` boda
 više povjerenja, uz interval pouzdanosti od `r hr_broj(s10$donja, 2)` do `r hr_broj(s10$gornja, 2)`. Testom
@@ -107,7 +105,7 @@ $\sqrt{s_T^2/n_T+s_P^2/n_P}$, gdje su $s_T$ i $s_P$ uzoračke standardne
 devijacije tiska i portala, a $n_T$ i $n_P$ njihove brojnosti. Razlici
 dodajemo i od nje oduzimamo $1,96$ standardnih pogrešaka. Račun traži
 neovisne osobe i dovoljno stabilnu približno normalnu raspodjelu razlike.
-To nije interval dobiven premještanjem oznaka. Za manje uzorke poglavlje
+Interval se temelji na tom približnom računu standardne pogreške; premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
 o dvjema grupama razvija t-prilagodbu i Welchove stupnjeve slobode.
 
 Pretpostavimo da je cijela raspodjela povjerenja jednaka među čitateljima
@@ -140,9 +138,7 @@ koja je od dviju hipoteza vjerojatnija.
 
 Takvo nasumično premještanje oznaka čini osnovu **permutacijskog testa**.
 
-Za ovaj postupak nije dovoljna samo jednakost sredina. Skupine s jednakim
-sredinama mogu imati različite raspršenosti ili oblike raspodjele i tada ne
-zadovoljavaju naš nulti model. Pretpostavljamo i da su osobe neovisne jedinice
+Nulti model ovog postupka pretpostavlja jednakost cijelih raspodjela, uključujući njihove sredine, raspršenosti i oblike. Pretpostavljamo i da su osobe neovisne jedinice
 opažanja. Izvor vijesti nije nasumično dodijeljen, pa zamjenjivost oznaka
 ovdje prihvaćamo kao pretpostavku modela. Iz rezultata ne možemo zaključiti da
 čitanje određenog izvora uzrokuje povjerenje.
@@ -155,8 +151,7 @@ od nultog modela u obliku usporedivom s odstupanjima koja taj model proizvodi.
 
 Kao testnu statistiku koristimo razliku sredina. Zanimaju nas oba smjera, pa
 uspoređujemo apsolutnu opaženu razliku s apsolutnim razlikama nakon
-premještanja. Ova jednostavna permutacija ispituje opisani model jednake
-cijele raspodjele, a ne samo jednakost sredina. Slika prikazuje razlike iz
+premještanja. Ova jednostavna permutacija ispituje opisani model jednakosti cijelih raspodjela, koji uključuje i njihove oblike i raspršenosti. Slika prikazuje razlike iz
 četiri tisuće premještanja i razliku iz izvornog rasporeda oznaka.
 
 *Slika. Razlike sredina kroz četiri tisuće nasumičnih premještanja oznaka skupine, uz okomitu crtu na razlici opaženoj u uzorku. Izrada autora; podaci i postupak opisani su u tekstu.*
@@ -202,7 +197,7 @@ modelu jednako generiranju svih pojedinačnih ishoda i računanju iz njih.
 Digitalni prikaz počinje s 2 000 ponavljanja po scenariju i dopušta promjenu
 veličine skupina, učinka i broja ponavljanja. Tiskani prikaz zadržava po
 60 osoba i razliku 0,35 te koristi 4 000 ponavljanja po scenariju. Svako
-ponavljanje daje jednu p-vrijednost. Nema izostavljenih rezultata.
+ponavljanje daje jednu p-vrijednost. Svi rezultati ulaze u prikaz.
 
 Dosad smo za jedan uzorak premještali oznake i promatrali raspodjelu razlika.
 Sada promatramo p-vrijednosti iz ponovljenih zamišljenih studija. U prvom
@@ -307,8 +302,7 @@ rješavanja spornih slučajeva.
 Neslaganje s referencom zato može potjecati i od postupka koji ispitujemo i od
 same reference. U izvještaju navodimo kako su referentne oznake nastale i jesu
 li neslaganja ponovno pregledana. To će biti posebno važno pri procjeni
-algoritama. Precizno izračunata stopa neslaganja ne jamči da je referenca
-točna.
+algoritama. Uz precizno izračunatu stopu neslaganja potrebna je i provjera kvalitete same reference.
 
 ## Prag je konvencija, a ne mjera
 
@@ -337,8 +331,7 @@ izgubi veličinu procjene, njezinu nesigurnost i posljedice odluke. Te
 informacije trebaju ostati vidljive bez obzira na položaj p-vrijednosti u
 odnosu na prag.
 
-P-vrijednost može pridonijeti argumentu, ali sama nije dovoljna za znanstveni
-zaključak. U našem izvještaju zato najprije navodimo procjenu i interval,
+P-vrijednost pridonosi znanstvenom argumentu zajedno s procjenom učinka, kvalitetom nacrta i ostalim dokazima. U našem izvještaju zato najprije navodimo procjenu i interval,
 objašnjavamo pretpostavke i razmatramo posljedice obiju pogrešaka.
 
 P-vrijednost se mijenja i kada ponavljamo potpuno isti postupak. Na osamsto
@@ -347,8 +340,7 @@ p-vrijednosti bila je ispod `r hr_broj(s10$ples_sredina, 3)`, četvrtina iznad `
 iznad `r hr_broj(s10$ples_gornji, 3)`. Vrijednosti su se protezale preko dva reda veličine. U
 `r hr_broj(s10$udio_iznad_deset, 1)` % uzoraka bile su veće od 0,10.
 
-Navođenje triju decimala ne uklanja tu uzoračku promjenjivost. I procjena i
-njezin interval mijenjaju se s uzorkom. Stavljamo ih na prvo mjesto jer
+Uzoračka promjenjivost ostaje prisutna i u rezultatu prikazanom na tri decimale. S uzorkom se mijenjaju i procjena i njezin interval. Stavljamo ih na prvo mjesto jer
 izravno odgovaraju na pitanje kolika je razlika i koliko smo je precizno
 procijenili.
 
@@ -404,8 +396,7 @@ za tumačenje rezultata.
 redakcija dobije istraživački izvještaj o razlici u povjerenju između
 dviju skupina čitatelja. Autor navodi malu p-vrijednost i predlaže
 naslov prema kojem je dokazao svoje objašnjenje razlike. Urednik
-treba odlučiti što od toga može prenijeti publici. Pitanje nije
-samo je li broj točno prepisan, nego što je njime provjereno.
+treba odlučiti što od toga može prenijeti publici. Uz točnost prepisanog broja urednik treba utvrditi što je njime provjereno.
 
 Greenland i suradnici sastavili su pregled dvadeset pet pogrešnih
 tumačenja p-vrijednosti, intervala i snage upravo kako bi
@@ -427,8 +418,7 @@ upozoravaju da biranje analiza prema dobivenim p-vrijednostima
 može proizvesti male vrijednosti čak i kada provjeravana nulta
 hipoteza vrijedi (Greenland, 2016). Redakcija zato ima razlog
 zatražiti podatak je li prikazana usporedba bila unaprijed
-određena i koje su druge analize provedene. To je provjera
-postupka, a ne pretpostavka da je autor postupao nepošteno.
+određena i koje su druge analize provedene. Takva provjera razjašnjava postupak odabira analize, uz otvoreno pitanje razloga autorovih odluka.
 
 Nakon toga vijest može prenijeti opaženu razliku, njezinu
 nesigurnost i ograničenje objašnjenja. Ako te informacije
@@ -484,9 +474,7 @@ uzorak. U stvarnoj anketi takva bi usporedba pokazivala razliku među skupinama.
 Za zaključak da čitanje tiska mijenja povjerenje trebali bismo i odgovarajući
 istraživački nacrt.
 
-Statistički rezultat još ne opravdava uzročni zaključak. Trebamo procijeniti
-i koliko je razlika važna za istraživačko pitanje te opravdava li neku
-odluku.
+Uzročni zaključak zahtijevao bi istraživački nacrt koji razdvaja moguća objašnjenja razlike. Zasebno procjenjujemo koliko je razlika važna za istraživačko pitanje te opravdava li neku odluku.
 
 ## Sažetak
 
@@ -563,8 +551,7 @@ slijedi i njezinu ispravljenu inačicu.
 ---
 
 Cohen je 1994. kritizirao praksu u kojoj se statistička značajnost uzima kao
-dovoljan odgovor na istraživačko pitanje (Cohen, 1994). Čitatelju treba reći i
-koliki je učinak te zašto bi bio važan. Sam test to ne može učiniti.
+dovoljan odgovor na istraživačko pitanje (Cohen, 1994). Čitatelju uz rezultat testa treba dati procjenu veličine učinka i obrazložiti njegovu važnost.
 
 Kada u radu pročitamo da je razlika značajna, još ne znamo bi li promijenila
 neku odluku. Možda je riječ o važnom pomaku, a možda o maloj razlici koju je
@@ -572,9 +559,7 @@ otkrio velik uzorak. Autor treba dati podatke iz kojih to možemo procijeniti.
 
 Koliko podataka trebamo da bismo pouzdano uočili sadržajno važan učinak?
 
-Za odluku o istraživanju nedostaje nam nešto što sama p-vrijednost ne daje.
-Trebamo odrediti koliku bi razliku vrijedilo uočiti i možemo li je planiranim
-postupkom dovoljno pouzdano razlikovati od slučajne promjenjivosti. Time
+Pri planiranju istraživanja polazimo od razlike koju bi vrijedilo uočiti. Zatim provjeravamo možemo li je planiranim postupkom dovoljno pouzdano razlikovati od slučajne promjenjivosti. Time
 pitanje iz prethodnog poglavlja okrećemo prema planiranju. Umjesto da tek
 nakon analize čitamo rezultat testa, unaprijed provjeravamo kakav bi nam
 odgovor istraživanje moglo dati.
@@ -607,8 +592,7 @@ prevelika za namjeravanu odluku.
 
 Veličina učinka brojčano opisuje razmjer razlike ili odnosa. Možemo je
 izraziti u izvornim jedinicama, kao razliku bodova, ili bez njih, kao
-standardiziranu razliku, korelaciju ili omjer. Sama ne određuje sadržajnu
-važnost, koju procjenjujemo prema pitanju i posljedicama.
+standardiziranu razliku, korelaciju ili omjer. Njezinu sadržajnu važnost procjenjujemo prema istraživačkom pitanju i posljedicama odluke.
 
 Povjerenje u medije bilježimo bodovima na ljestvici, pa razliku među
 čitateljima tiska i portala prvo čitamo u tim jedinicama.
@@ -670,19 +654,17 @@ Razliku među skupinama tako opisujemo usporedbom ljudi, što može biti
 razumljivo i čitatelju koji ne poznaje standardnu devijaciju.
 
 Sadržajnu važnost učinka procjenjujemo prema ranijim
-nalazima iz istog područja i posljedicama odluke. Standardizacija olakšava
-usporedbu različitih ljestvica, ali ne određuje što je važno.
+nalazima iz istog područja i posljedicama odluke. Standardizacija olakšava usporedbu različitih ljestvica, a prosudba važnosti ostaje vezana uz sadržaj istraživanja.
 
 ## Kad je značajno, a nije važno
 
 Rezultat nazivamo statistički značajnim kada njegova p-vrijednost ne
-prelazi unaprijed odabrani prag odluke. Statistička značajnost ne zamjenjuje
-procjenu veličine učinka. To se posebno
+prelazi unaprijed odabrani prag odluke. Uz statističku značajnost navodimo i procjenu veličine učinka kako bismo opisali razmjer razlike. To se posebno
 jasno vidi na vrlo velikom uzorku.
 
 Zamislimo pokus u kojem portal uspoređuje dvije naslovnice. Stvarna stopa
 klika prve iznosi 2,00 %, a druge 2,05 %. Svaku prikazuje pola milijuna puta.
-Podaci u nastavku simulirani su za ovaj primjer i ne opisuju stvarnu kampanju.
+Podatke u nastavku simuliramo za tu zamišljenu usporedbu.
 
 Jedno opažanje predstavlja jedan hipotetski prikaz naslovnice i njegov
 ishod, klik ili izostanak klika. Pretpostavljamo neovisne prikaze s istom
@@ -709,8 +691,7 @@ ili veća odstupanja bila bi vrlo rijetka.
 
 Dobivena razlika znači otprilike jedan dodatni klik na tisuću prikaza.
 Opravdava li promjenu naslovnice, ovisi o trošku promjene i vrijednosti klika.
-Te informacije ne dobivamo iz testa. Velik uzorak omogućio nam je razlikovati
-mali pomak od nule, ali odluku još treba obrazložiti.
+Trošak i vrijednost klika trebamo utvrditi iz dodatnih izvora. Velik uzorak omogućio nam je razlikovati mali pomak od nule, a te će informacije pomoći u obrazlaganju odluke.
 
 U malom uzorku možemo propustiti i razliku koja bi bila važna za uredničku
 odluku. Izostanak značajnosti zato ne dokazuje da je učinak nevažan. Procjenu
@@ -768,8 +749,7 @@ u približno tri od četiri studije.
 
 Snaga raste s većim učinkom i većim uzorkom. Pomažu i manja raspršenost ishoda
 te blaži prag odluke. Istraživač može planirati uzorak i prag, a nacrtom i
-kvalitetom mjerenja utjecati na raspršenost. Stvarni učinak ne može odabrati,
-pa snagu treba razmotriti za više mogućih veličina.
+kvalitetom mjerenja utjecati na raspršenost. Veličina stvarnog učinka ostaje nepoznata, pa snagu treba razmotriti za više mogućih veličina.
 
 Često se planira snaga od 80 %, ali taj izbor treba opravdati (Cohen, 1988).
 Ako bi propuštena razlika imala ozbiljne posljedice, možda trebamo višu snagu.
@@ -808,8 +788,7 @@ Donji panel zadržava samo rezultate koji su prešli prag značajnosti. Njihov
 prosjek iznosi `r hr_broj(s11$prosjek_znacajnih, 2)` boda, odnosno `r hr_broj(s11$faktor, 1)` puta onoliko koliko iznosi stvarna razlika.
 U malom uzorku prag najčešće prelaze procjene koje je slučajnost povećala.
 Najmanja apsolutna vrijednost značajne procjene u ovoj simulaciji iznosi `r hr_broj(s11$najmanja_znacajna, 2)` boda.
-Iskrivljenje nastaje odabirom rezultata i ne zahtijeva namjeru istraživača da
-išta prikrije.
+Sam odabir rezultata prema pragu može stvoriti to iskrivljenje, čak i kada istraživač postupa u dobroj vjeri.
 
 Među `r nrow(s11_znacajne)` značajnih procjena njih `r sum(s11_znacajne[, 1] < 0)` ima suprotan predznak od
 stvarne razlike. Račun može biti točan, a pojedinačni zaključak o smjeru
@@ -835,8 +814,7 @@ odrediti kolika bi razlika bila dovoljna da promijeni postupanje.
 odluku ili postupanje, određena sadržajno i prije prikupljanja podataka.
 
 Tu granicu obrazlažemo troškovima odluke, ozbiljnošću ishoda i ranijim
-nalazima iz područja. Račun je ne određuje umjesto nas. Kada je zapišemo,
-možemo procijeniti koliko je opažanja potrebno za željenu snagu.
+nalazima iz područja. Tako obrazložena granica postaje ulaz u račun potrebnog broja opažanja za željenu snagu.
 
 Polazimo od važne razlike i željene snage, pa računamo potreban broj jedinica.
 Zatim provjeravamo je li takav uzorak izvediv. Ako nije, ograničenje znamo
@@ -847,7 +825,7 @@ Koliko uzak interval trebamo da bi procjena bila korisna? Uz raspršenost iz ove
 populacije interval razlike širok je `r hr_broj(s11$sirina_100, 2)` boda pri stotinu osoba po
 skupini, `r hr_broj(s11$sirina_300, 2)` pri tristo i `r hr_broj(s11$sirina_800, 2)` pri osamsto. Margina je
 polovica ukupne širine, pa za marginu do pola boda tražimo širinu do jednoga
-boda. Za taj plan ne trebamo zadati stvarnu veličinu učinka.
+boda. Ulazi u taj plan jesu željena širina intervala, razina pouzdanosti i pretpostavljena raspršenost.
 
 Uz iste pretpostavke kao u završnom planu, poznatu standardnu devijaciju
 1,9 i dvije jednake neovisne skupine, margina do 0,5 traži
@@ -928,8 +906,7 @@ mogao bi odabrati uzorak koji ima premalu snagu za skromniji,
 ali sadržajno važan učinak. Tada neodlučan rezultat ne bi jasno
 razlikovao izostanak učinka od nedostatka informacija. Velik
 broj u prvom radu tako može dovesti do premalog plana u drugome.
-To je moguća posljedica načina planiranja, a ne opis konkretnog
-tima iz Buttonova rada.
+Zamišljeni tim ilustrira moguću posljedicu takvog planiranja.
 
 Odgovor je pregledati interval iz prethodnog istraživanja,
 neovisna ponavljanja i širi skup dostupnih nalaza. Uz njih tim
@@ -1108,12 +1085,10 @@ odlukama da bismo mogli procijeniti nalaz i njegovu replikaciju?
 Procjenu i njezin interval sada znamo čitati uz veličinu učinka, snagu i
 pogreške testiranja. Ipak, pred izvornim nalazom i njegovom replikacijom
 ostaje novo pitanje. Vidimo li sve što je istraživač mogao analizirati ili
-samo rezultat koji je na kraju odabran za objavu? Ni statistički ispravan račun ne govori zašto je istraživač za objavu
-odabrao upravo taj rezultat.
+samo rezultat koji je na kraju odabran za objavu? Razloge odabira rezultata tražimo u zapisima istraživačkih odluka, uz provjeru samoga računa.
 
 Pokus iz vinjete pratit ćemo kroz objavljene rezultate laboratorija koji su
-ponovili postupak (Wagenmakers, 2016). U tablicama s kojima radimo jedan redak
-predstavlja laboratorijski sažetak, a ne pojedinog sudionika. Uspoređivat ćemo
+ponovili postupak (Wagenmakers, 2016). U tablicama s kojima radimo jedan redak sažima rezultate jednog laboratorija. Uspoređivat ćemo
 razlike u ocjenama zabavnosti između uvjeta držanja olovke, njihove intervale
 i brojnosti skupina. To su sažeci stvarnog istraživanja. Od njih ćemo jasno
 odvojiti nastavne simulacije u kojima sami određujemo koliko se analiza
@@ -1130,10 +1105,7 @@ nalaza odabrana objavljena tvrdnja.
 Obnovu istraživačke prakse zato povezujemo s dostupnošću plana, podataka i
 analitičkih odluka. Pri čitanju laboratorijskih procjena oslanjamo se na
 intervale i veličine učinka iz prethodnih poglavlja, a u razrađenom primjeru
-uspoređujemo sirovu i standardiziranu sintezu. Pritom od jednoga novog
-rezultata ne očekujemo presudu cijeloj teoriji. Trebamo znati što je točno
-ponovljeno, koliko su procjene precizne i koje razlike u postupku još treba
-istražiti. Na toj osnovi procjenjujemo nalaz i predlažemo sljedeću provjeru,
+uspoređujemo sirovu i standardiziranu sintezu. Doseg novoga rezultata određujemo prema onome što je točno ponovljeno, preciznosti procjena i razlikama u postupku koje još treba istražiti. Na toj osnovi procjenjujemo nalaz i predlažemo sljedeću provjeru,
 uz dovoljno jasan zapis da je druga osoba može ponoviti.
 
 ## Od jedne tvrdnje do provjerljivoga pitanja
@@ -1199,16 +1171,14 @@ Pri reproduciranju ponovno izvodimo račun iz istih podataka i materijala.
 novim podacima i dovoljno usporedivim postupkom." en="replication" ch="12"}
 jest nova studija koja istu ciljnu tvrdnju provjerava novim podacima i dovoljno usporedivim postupkom. Reproduciranjem možemo ponoviti i račun temeljen na
 lošem mjerenju. Replikacija pak može dati drukčiji rezultat zbog uzoračke
-promjenjivosti ili konteksta. Obje provjere pomažu, ali nijedna sama ne jamči
-valjan zaključak.
+promjenjivosti ili konteksta. Obje provjere pridonose prosudbi zaključka, zajedno s procjenom mjerenja, nacrta i konteksta.
 
 ## Replikacija kao kumulativno mjerenje
 
 Da bismo procijenili što smo naučili iz replikacije, trebamo usporediti
 rezultate laboratorija na istoj ljestvici. Služimo se podacima iz objavljenog
 izvještaja, u kojem svaki laboratorij daje procjenu razlike između dvaju načina
-držanja olovke i njezin interval (Wagenmakers, 2016). Jedinica te usporedbe zato
-je laboratorij, a ne odgovor pojedinog sudionika.
+držanja olovke i njezin interval (Wagenmakers, 2016). Laboratorij tako postaje jedinica usporedbe.
 
 Svaki od 17 laboratorija daje procjenu i interval na istoj ljestvici
 (Wagenmakers, 2016). Devet procjena bilo je pozitivno, ali nijedan interval
@@ -1226,9 +1196,7 @@ učinak ni druge načine mjerenja facijalne povratne sprege (Wagenmakers, 2016).
 
 Najprije zato čitamo istraživačko pitanje i nacrt, zatim pojedinačne procjene
 i intervale, pa objedinjeni rezultat. Razlike među laboratorijima mogu
-potjecati od uzorkovanja, lokalnog konteksta, mjerenja ili provedbe. Iz ovog
-slučaja ne možemo utvrditi njihove uzroke. Možemo opisati rezultate i oprezno
-ih prenijeti na usporedive postupke.
+potjecati od uzorkovanja, lokalnog konteksta, mjerenja ili provedbe. Ovdje možemo opisati rezultate i oprezno ih prenijeti na usporedive postupke. Utvrđivanje uzroka razlika zahtijevalo bi dodatno istraživanje.
 
 ## Cijeli zapis u forest plotu
 
@@ -1239,8 +1207,7 @@ vrijednost." en="forest plot" ch="12"} svaki redak predstavlja jedan
 laboratorij. Točka označuje procijenjenu razliku, a vodoravna crta njezin
 95-postotni interval. Puna okomita crta označuje nulu, odnosno jednake
 prosječne ocjene. Isprekidana crta na 0,82 prikazuje izvornu procjenu za
-usporedbu (Wagenmakers, 2016). Ona nije dodatni laboratorij i ne ulazi u
-objedinjavanje.
+usporedbu (Wagenmakers, 2016). Služi kao vanjska referenca uz laboratorije uključene u objedinjavanje.
 
 Oznaka `smile` u izvornim podacima znači držanje olovke zubima, a `pout`
 držanje usnama (Wagenmakers, 2016). Pozitivna razlika `smile − pout` znači da je
@@ -1329,8 +1296,7 @@ razlike između izvornog i replikacijskog rezultata.
 Prije prihvaćanja zaključka provjeravamo jedinicu opažanja, izostavljene
 jedinice, ciljanu veličinu i vrstu tvrdnje. Pitamo koju nesigurnost interval
 uključuje, mijenja li razumna alternativa zaključak i tko snosi posljedice
-pogreške. Reformirani postupci trebaju te odgovore učiniti dostupnima za
-provjeru. Ne jamče da će svaki odgovor biti dobar.
+pogreške. Reformirani postupci trebaju te odgovore učiniti dostupnima za provjeru, a njihovu kvalitetu zatim procjenjujemo na temelju priloženih dokaza.
 
 ## Interakcija — Pješčanik p-hakiranja
 
@@ -1339,8 +1305,7 @@ broj analitičkih putova. Više ishoda, podskupina ili trenutaka provjere daje
 više prilika za rezultat ispod praga. Usporedba s korigiranim pragom pokazuje
 kako uzeti u obzir cijelu obitelj analiza.
 
-Ovdje ne generiramo odgovore sudionika ni ponovno analiziramo podatke
-laboratorija. Generiramo same p-vrijednosti. Pod idealiziranim nultim
+Za ovu zasebnu nastavnu simulaciju izravno generiramo p-vrijednosti. Pod idealiziranim nultim
 modelom svaki put daje neovisan broj jednoliko raspoređen između nule i
 jedinice. Jedno zamišljeno istraživanje s tri puta moglo bi dati 0,21,
 0,03 i 0,54. To je namjerno sastavljen primjer. Ako prijavimo najmanji
@@ -1404,11 +1369,7 @@ razlike, a ostavljaju nesigurnost oko malih razlika u oba smjera.
 
 Za istraživača koji odlučuje na čemu graditi sljedeći pokus
 to znači da treba promijeniti očekivanje o veličini nalaza.
-Nije opravdano jednostavno preuzeti izvornu procjenu kao
-pouzdanu polaznu vrijednost. Jednako tako, ovaj izvještaj ne
-daje konačan odgovor o svim načinima na koje izraz lica
-može biti povezan s doživljajem. Rezultat pripada određenoj
-manipulaciji, mjerenju i protokolu.
+Polaznu vrijednost za planiranje treba procijeniti u svjetlu novih, znatno manjih procjena. Rezultat pritom pripada određenoj manipulaciji, mjerenju i protokolu; drugi načini povezivanja izraza lica s doživljajem ostaju predmet zasebnih provjera.
 
 Pojedinačne procjene zato čitamo uz objedinjenu, a razlike
 među laboratorijima ne pretvaramo u objašnjenja bez dodatnih
@@ -1467,7 +1428,7 @@ standardnom devijacijom dviju skupina u tom laboratoriju. U prvom laboratoriju
 `r hr_broj(w12_rrr$raw_mean_difference[1], 3)` boda tako postaje
 $d = `r hr_broj(w12_rrr$cohen_d[1], 3)`$. Mijenjaju se mjerna jedinica,
 standardna pogreška i težina, a sudionici i smjer oduzimanja ostaju isti.
-Nijedan od 17 laboratorija ne isključujemo.
+U obje analize zadržavamo svih 17 laboratorija.
 
 Za objedinjavanje koristimo model slučajnih učinaka. Težina laboratorija
 prije normalizacije iznosi $w_i=1/(SE_i^2+\tau^2)$, gdje $SE_i$ opisuje
@@ -1494,13 +1455,11 @@ uz interval od `r hr_broj(w12_standardna$donja, 2)` do
 `r sum(w12_rrr$raw_mean_difference > 0)` pozitivnih procjena,
 `r sum(w12_rrr$raw_ci_low > 0)` intervala u cijelosti iznad nule i
 `r sum(w12_rrr$raw_ci_low <= 0.82 & w12_rrr$raw_ci_high >= 0.82)` intervala
-koja obuhvaćaju 0,82. Ta brojanja služe opisu, a ne glasovanju o nalazu.
+koja obuhvaćaju 0,82. Ta brojanja opisuju raspored procjena; zaključak temeljimo na njihovoj veličini i nesigurnosti.
 
 Prema zajedničkom protokolu prosječna razlika u replikacijama bila je blizu
 nule i mnogo manja od izvornih 0,82 boda (Wagenmakers, 2016). Sirovi i
-standardizirani interval iz naše rekonstrukcije obuhvaćaju male razlike u oba smjera. Rezultat ne objašnjava zašto se procjene razlikuju, ne
-obuhvaća svaki način mjerenja facijalne povratne sprege i ne dokazuje da je
-predregistracija uzrokovala dobiveni nalaz.
+standardizirani interval iz naše rekonstrukcije obuhvaćaju male razlike u oba smjera. Zaključak se odnosi na ispitani način mjerenja facijalne povratne sprege. Uzroci razlika među procjenama i eventualni utjecaj predregistracije zahtijevali bi zasebne usporedbe osmišljene upravo za ta pitanja.
 
 Takav zaključak povezuje opaženi rezultat s provedenim postupkom. Pri odluci o
 težini izvornog nalaza uzimamo u obzir obje analize, uz navedene granice

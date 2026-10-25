@@ -254,9 +254,7 @@ vrijednosti bilo koje druge jedinice u istom skupu.
 :::
 
 U našoj usporedbi dviju neovisnih skupina jedinica je osoba. Kod ponovljenog
-mjerenja osoba ostaje jedinica, ali daje dva povezana rezultata. Dvadeset
-osoba mjerenih dvaput zato daje dvadeset razlika, a ne četrdeset neovisnih
-mjerenja. Ako zanemarimo povezanost unutar para, pogrešno računamo
+mjerenja osoba ostaje jedinica, ali daje dva povezana rezultata. Za dvadeset osoba mjerenih dvaput računamo dvadeset razlika, po jednu za svaku osobu. Ako zanemarimo povezanost unutar para, pogrešno računamo
 nesigurnost. Uz pozitivnu povezanost iz primjera koji slijedi interval postaje
 nepotrebno širok.
 
@@ -265,9 +263,7 @@ biramo postupak usporedbe.
 
 Ovisnost može nastati i među različitim osobama. Učenici istog razreda ili
 članovi istog kućanstva mogu dijeliti uvjete koji utječu na rezultat. Povezani
-mogu biti i ljudi u društvenoj mreži. Tada zaseban redak u tablici ne znači
-neovisno opažanje. Trebamo zabilježiti strukturu i odabrati postupak koji je
-uvažava. Takvi modeli prelaze opseg ovog poglavlja.
+mogu biti i ljudi u društvenoj mreži. Ovisnost među njihovim zapisima trebamo zabilježiti i odabrati postupak koji uvažava tu strukturu. Takvi modeli prelaze opseg ovog poglavlja.
 
 ## Razlika prije oznake
 
@@ -280,7 +276,7 @@ Zatim prikazujemo test i standardiziranu razliku. Tako čitatelj prije odluke o
 nuli može procijeniti veličinu i nesigurnost opaženog odnosa.
 
 Nakon ograničavanja populacije na ta dva izvora izvukli smo 120 osoba bez
-ponavljanja. To je novi uzorak, ne podskup ranijih 800 osoba. Broj korisnika
+ponavljanja. Uzorak je izvučen zasebno od ranijih 800 osoba. Broj korisnika
 svakog izvora nije unaprijed zadan. Zbrajanjem njihovih odgovora i dijeljenjem
 odgovarajućim brojem osoba dobivamo dvije sredine.
 
@@ -316,7 +312,7 @@ Za interval trebamo i nesigurnost te razlike. Welchov račun zbraja dvije
 procijenjene varijance sredina, $s_T^2/n_T+s_M^2/n_M$,
 i iz njihova zbroja vadi korijen. Dobivenu standardnu pogrešku
 `r hr_broj(s14$se_welch, 3)` množimo pripadnom kritičnom t-vrijednošću i
-oduzimamo od razlike te joj dodajemo. Nema izostavljenih odgovora.
+oduzimamo od razlike te joj dodajemo. Uključeni su svi odgovori.
 
 U ovome računu Welchovi stupnjevi slobode iznose
 `r hr_broj(s14$df_welch, 3)`, a pripadna kritična vrijednost
@@ -340,12 +336,10 @@ sredina skupine društvenih mreža jednaka nuli. Ovdje uspoređujemo sredine. Ne
 testiramo jednakost cijelih raspodjela.
 
 Interval obuhvaća razlike ispod pola boda i blizu dva boda. Te vrijednosti
-mogu voditi različitim praktičnim odlukama. Sama oznaka značajnosti ne bi
-pokazala koliko je procjena još neprecizna.
+mogu voditi različitim praktičnim odlukama. Širina intervala čini tu nepreciznost vidljivom uz oznaku značajnosti.
 
 U simulaciji znamo da stvarna razlika iznosi `r hr_broj(s14$pop_razlika, 2)` boda i da je interval
-obuhvaća. Jedan pogodak nije provjera dugoročnog obuhvata. Za to su potrebna
-ponavljanja kakva smo koristili u poglavlju o procjeni.
+obuhvaća. Dugoročni obuhvat provjeravamo ponavljanjima kakva smo koristili u poglavlju o procjeni; ovaj je pogodak samo jedno od mogućih ponavljanja.
 
 ## Interakcija — Uzorkivač dviju grupa
 
@@ -360,8 +354,7 @@ Raspodjelu tih razlika ovdje stvaramo kraćim računom. Za zadani normalni
 model poznajemo njezinu sredinu i standardnu pogrešku, pa razlike izvlačimo
 izravno iz te raspodjele, bez stvaranja svih pojedinaca svakoga novog
 uzorka. Digitalni prikaz koristi 1.500 takvih razlika, a tiskani 4.000 po
-nacrtu. Nijedno ponavljanje nije izostavljeno. Njihov raspon pokazuje preciznost procjene, ne
-snagu testa ni udio intervala koji obuhvaćaju istinu. Oblik histograma može
+nacrtu. Uključena su sva ponavljanja. Njihov raspon pokazuje preciznost procjene; za snagu testa ili obuhvat intervala trebali bismo u svakom ponavljanju provesti odgovarajući dodatni račun. Oblik histograma može
 se malo promijeniti pri novom izvlačenju.
 
 Na slici uspoređujemo raspršenost pojedinačnih rezultata i preciznost
@@ -779,7 +772,7 @@ print(raz14, vp = grid::viewport(layout.pos.row = 1, layout.pos.col = 2), newpag
 Prva promjena iznosi `r hr_broj(s14_poslije[1], 2)` minus
 `r hr_broj(s14_prije[1], 2)`, odnosno `r hr_broj(s14_razlike[1], 2)`.
 Zbroj svih 60 promjena dijelimo sa 60, a njihovu standardnu devijaciju s
-$\sqrt{60}$ za standardnu pogrešku sredine. Nijedan par ne isključujemo.
+$\sqrt{60}$ za standardnu pogrešku sredine. Svi parovi ostaju uključeni.
 
 Uparena t-statistika zato je sredina promjena podijeljena sa
 $s_{\mathrm{promjena}}/\sqrt{60}$. Referentna t-raspodjela ima 59 stupnjeva
@@ -804,8 +797,7 @@ ista, ali procijenjena nesigurnost znatno se mijenja.
 
 Neovisna analiza koristi raspršenost među osobama, koja je ovdje velika.
 Uparena koristi raspršenost promjena unutar osoba, koja je manja. Budući da su
-iste osobe izmjerene dvaput, upareni postupak odgovara nacrtu istraživanja. Ne
-biramo ga prema tome daje li manju p-vrijednost.
+iste osobe izmjerene dvaput, upareni postupak odgovara nacrtu istraživanja. Nacrt stoga određuje izbor postupka prije uvida u p-vrijednost.
 
 Dobitak ovisi o varijanci razlika, a ona o raspršenosti obaju mjerenja i
 njihovoj povezanosti. Uz slične varijance veća pozitivna povezanost obično
@@ -848,8 +840,7 @@ Jednouzoračni postupak uspoređuje sredinu s vanjskom vrijednošću, a upareni
 analizira sredinu razlika unutar parova. Svi postupci daju procjenu,
 nesigurnost i usporedbu s nulom, ali njihove pretpostavke nisu iste. 
 
-Koeficijent sam po sebi ne daje uzročno značenje. Za to trebamo opravdanje iz
-nacrta i načina nastanka skupina. U našem primjeru ljudi sami biraju izvor
+Uzročno tumačenje koeficijenta zahtijeva opravdanje iz nacrta i načina nastanka skupina. U našem primjeru ljudi sami biraju izvor
 vijesti, pa koeficijent opisuje razliku među njima.
 
 ## Što razlika sama ne kaže
@@ -878,7 +869,7 @@ razlike u izvornim jedinicama. U uparenom primjeru dijelimo standardnom devijaci
 dobivamo `r hr_broj(s14$up_d, 2)`. Budući da nazivnici nisu isti, te dvije standardizirane
 mjere nisu izravno usporedive.
 
-Standardizacija ne uklanja druge razlike među skupinama. U našoj populaciji
+Pri tumačenju standardizirane razlike trebamo razmotriti i ostala obilježja po kojima se skupine razlikuju. U našoj populaciji
 korisnici društvenih mreža imaju prosječno `r hr_broj(s14$pop_dob_mreze)` godine, a korisnici
 televizije `r hr_broj(s14$pop_dob_tv)` godine. Povjerenje pritom raste s dobi.
 Dob je moguća konfundirajuća varijabla, u smislu objašnjenom u poglavlju
@@ -905,8 +896,7 @@ obrazložiti prije čitanja rezultata.
 
 Za neovisnu usporedbu provjeravamo da jedinice nisu povezane i da svaka osoba
 pripada samo jednoj skupini. Ishod treba biti ispravno kodiran, referentna
-skupina jasno određena, a uzorkovanje primjereno ciljnoj populaciji. Izbor
-testa ne može nadoknaditi probleme tih dijelova istraživanja.
+skupina jasno određena, a uzorkovanje primjereno ciljnoj populaciji. Te provjere određuju koliko se možemo pouzdati u rezultat odabranog testa.
 
 U malim uzorcima t-aproksimacija ovisi o približnoj normalnosti ishoda unutar
 skupina. U velikima su važne konačne varijance i odsutnost opažanja koje samo
@@ -976,8 +966,7 @@ Kod dviju neovisnih skupina trebamo drukčiji račun
 nesigurnosti razlike. I tu opis crtica prethodi zaključku.
 Standardna devijacija opisuje raspršenost opažanja, standardna
 pogreška nesigurnost procjene sredine, a interval pouzdanosti
-određen je postupkom s odabranom razinom pouzdanosti. Nijednu
-od tih oznaka ne smijemo prešutno zamijeniti drugom.
+određen je postupkom s odabranom razinom pouzdanosti. Svaku oznaku zato čitamo prema njezinu imenovanom značenju.
 
 Autor izvještaja može pomoći čitatelju tako da uz graf navede
 nacrt i značenje crtica te izravno prikaže procjenu razlike

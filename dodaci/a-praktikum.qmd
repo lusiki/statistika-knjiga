@@ -54,8 +54,7 @@ pretpostavlja nikakvo prethodno iskustvo s programiranjem.
 Knjiga i praktikum imaju različite zadaće i vrijedi ih držati odvojenima.
 Poglavlja uče čitanje koda, jer je čitanje način na koji tvrdnja postaje
 provjerljiva. Praktikum uči pisanje, za čitatelja koji želi analizu ponoviti
-sam. Nijedan zadatak u knjizi ne pretpostavlja da ste prošli kroz ovaj
-dodatak, pa je on ponuda, a ne uvjet.
+sam. Praktikum je dobrovoljan put za samostalno izvođenje analiza. Za zadatke u knjizi dovoljan je sadržaj poglavlja.
 
 Primjeri idu od malih objekata prema tablicama, zatim prema čišćenju,
 grupiranju, preoblikovanju i grafovima, i završavaju skriptom koju možete
@@ -64,15 +63,12 @@ predati zajedno s rezultatima. Gotovo svi rade na simuliranoj anketi
 ima 300 ispitanika i pet varijabli, a proizveden je kodom uz fiksno sjeme, pa
 nije nalaz o stvarnoj populaciji.
 
-Male vektore i tablice u nastavku zadajemo ručno radi čitanja naredbi.
-Nisu dodatni ispitanici iz ankete. Kada primjer koristi `anketa_mreze`,
+Male vektore i tablice u nastavku zadajemo ručno kao zasebne ilustracije za čitanje naredbi. Kada primjer koristi `anketa_mreze`,
 obrađuje istih 300 generiranih zapisa. Filtriranje izdvaja dio njih,
 prekodiranje mijenja vrijednost ili oznaku, a sažimanje pretvara više
 osobnih redaka u jedan skupni rezultat.
 
-Preporučeni način čitanja je uz otvoren R. Kod nemojte samo gledati nego ga
-prepišite i pokrenite, a zatim promijenite neki broj ili ime stupca i
-pogledajte što se dogodi. Razlika između čitanja i pisanja koda upravo je u
+Preporučeni način čitanja je uz otvoren R. Prepišite kod i pokrenite ga, a zatim promijenite neki broj ili ime stupca i pogledajte što se dogodi. Razlika između čitanja i pisanja koda upravo je u
 tome što se pisanje uči jedino kroz pogreške koje sami napravite i popravite.
 
 Za dublji rad s podacima izvan opsega ovog dodatka najkorisniji je slobodno
@@ -92,9 +88,7 @@ piše u skripti i šalje na izvođenje na način koji nudi odabrano okruženje, 
 rezultat se provjerava u konzoli ili prikazu izlaza. Taj se postupak tijekom
 analize ponavlja mnogo puta.
 
-Prije prvog koda vrijedi urediti mjesto na kojem će analiza živjeti. Analiza
-se piše u skripti, a ne kao niz naredbi koje ostaju samo u konzoli, jer se
-skripta može ponovno pokrenuti, poslati kolegi i priložiti uz rad. Projektna
+Prije prvog koda vrijedi urediti mjesto na kojem će analiza živjeti. Naredbe analize zapisujemo u skriptu koju možemo ponovno pokrenuti, poslati kolegi i priložiti uz rad. Projektna
 mapa drži podatke, kod i rezultate na predvidljivim mjestima.
 
 ```{r}
@@ -280,8 +274,7 @@ minute * 7
 minute - mean(minute)
 ```
 
-Kada napišete `minute / 60`, R ne dijeli vektor kao cjelinu nego svaki njegov
-element, i vraća novi vektor iste duljine. Zahvaljujući tome jedna naredba
+Kada napišete `minute / 60`, R dijeli svaki element sa šezdeset i vraća novi vektor iste duljine. Zahvaljujući tome jedna naredba
 preoblikuje tisuće vrijednosti jednako lako kao osam.
 
 Druga skupina funkcija radi obrnuto i cijeli vektor sažima u jedan broj.
@@ -373,9 +366,7 @@ obrazovanje
 levels(obrazovanje)
 ```
 
-Razina `doktor` postoji u popisu iako je nitko nema. To nije greška nego
-korisno svojstvo, jer tablica frekvencija tada pokazuje i praznu kategoriju,
-umjesto da se pravi da ne postoji.
+Razina `doktor` postoji u popisu iako je nitko nema. Zahvaljujući tom svojstvu tablica frekvencija pokazuje i praznu kategoriju.
 
 Tipove je moguće provjeriti i pretvarati.
 
@@ -546,8 +537,7 @@ R sam po sebi dolazi s temeljnim funkcijama, a najveći dio korisnog rada obavlj
 se pomoću paketa koje je razvila zajednica. Paket je zbirka funkcija, podataka i
 dokumentacije koju je netko napisao i objavio.
 
-Ovaj se dodatak oslanja na tidyverse, koji nije jedan paket nego skup paketa
-sa zajedničkom filozofijom. Među njima su ggplot2 za grafove, dplyr za obradu
+Ovaj se dodatak oslanja na tidyverse, skup paketa sa zajedničkim pristupom radu s podacima. Među njima su ggplot2 za grafove, dplyr za obradu
 podataka, tidyr za preoblikovanje, readr za uvoz, tibble za tablice, stringr za
 tekst i forcats za faktore.
 
@@ -600,9 +590,7 @@ učitavanju](#sec-a-ucitavanje). Provjera sažetka povezuje objavljenu
 datoteku sa skriptom koja ju je proizvela i kataloškim zapisom te omogućuje
 prepoznati odstupanje od dokumentirane inačice.
 
-Kada dobijete nove podatke, prvo ih pogledajte. Nikada ne počinjite analizu prije
-nego što znate koliko redaka i stupaca imate, kojeg su tipa i kako izgledaju
-prve vrijednosti.
+Kada dobijete nove podatke, prvo ih pogledajte. Utvrdite broj redaka i stupaca, njihove tipove i izgled prvih vrijednosti. Taj je pregled polazište analize.
 
 ```{r}
 glimpse(anketa_mreze)
@@ -1154,8 +1142,7 @@ briše dokaz o tome što je zapravo bilo u podacima.
 
 ## Grafovi
 
-Zašto je graf skup odluka, a ne vrsta slike, razrađuje poglavlje o
-vizualizaciji. Ovaj odjeljak uči kako se te odluke zapisuju u paketu ggplot2.
+Poglavlje o vizualizaciji razrađuje odluke kojima oblikujemo graf prema istraživačkom pitanju. Ovaj odjeljak uči kako se te odluke zapisuju u paketu ggplot2.
 Redoslijed izlaganja slijedi redoslijed odluka, pa se najprije gradi kostur, a
 zatim se dodaju geometrija, polja, ljestvice i oznake.
 
@@ -1171,9 +1158,7 @@ zapamtiti odmah, jer je zamjena tih dvaju znakova najčešća pogreška početni
 ggplot(anketa_mreze, aes(x = minute_dnevno))
 ```
 
-Poziv bez geometrije nacrta osi i ništa više. To nije greška nego točan prikaz
-onoga što je zatraženo, jer podaci i pridruživanje postoje, a odluka o obliku
-oznake nije donesena.
+Poziv bez geometrije nacrta samo osi. Time pokazuje dosad zadane dijelove grafa, podatke i pridruživanje varijabli. Oblik oznaka dodat ćemo odabirom geometrije.
 
 ## Geometrija prema vrsti podataka
 
@@ -1282,7 +1267,7 @@ ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
   labs(x = NULL, y = "Minute dnevno")
 ```
 
-Razlika prema histogramu nije kozmetička. Histogram prebrojava opažanja u razredima i tako pokazuje oblik raspodjele
+Izbor između tog prikaza i histograma mijenja informacije koje čitatelj može vidjeti. Histogram prebrojava opažanja u razredima i tako pokazuje oblik raspodjele
 uz odabranu širinu razreda. Kutijasti dijagram oblik unutar kutije više ne
 pokazuje, ali skupine uspoređuje bez napora. Svaki prikaz nešto čuva i nešto
 odbacuje, što je argument koji poglavlje o vizualizaciji razrađuje.
@@ -1329,8 +1314,7 @@ ggplot(anketa_mreze, aes(x = dob, y = minute_dnevno)) +
   labs(x = "Dob", y = "Minute dnevno")
 ```
 
-Prozirnost je ovdje nužna, a ne ukrasna. Bez nje se preklopljene točke ne
-razlikuju od pojedinačnih, pa se gustoća oblaka ne vidi.
+Prozirnost ovdje pomaže očitati gustoću oblaka. Preklopljene točke stvaraju tamnija područja koja razlikujemo od pojedinačnih opažanja.
 
 Sloj `geom_smooth()` provlači kroz oblak procijenjeni prosječni odnos.
 
@@ -1347,8 +1331,7 @@ ggplot(anketa_mreze, aes(x = dob, y = minute_dnevno)) +
 
 Argument `method = "lm"` traži pravac najmanjih kvadrata, a bez njega se crta
 prilagodljiva krivulja koja slijedi oblik podataka. Siva vrpca oko linije je
-interval pouzdanosti, i uklanja se argumentom `se = FALSE`. Ta linija je model,
-a ne podatak, pa se čita zajedno s oblakom iz kojega je izvučena. Poglavlje o
+interval pouzdanosti, i uklanja se argumentom `se = FALSE`. Ta linija nastaje prilagodbom modela, pa je čitamo zajedno s oblakom opažanja iz kojega je izračunata. Poglavlje o
 regresiji pokazuje kako nastaje.
 
 ## Pridruživanje, polja i oznake
@@ -1721,8 +1704,7 @@ mjesto stavio `NA`. Kod se izvršio do kraja, a rezultat je tiho izgubio jednu
 vrijednost. Upozorenja zato treba čitati jednako pažljivo kao greške, jer
 najčešće govore o problemu s podacima, a ne s kodom.
 
-Kada dugačak cjevovod ne radi, ne tražite grešku u cjelini. Pokrenite ga korak
-po korak i nakon svakog koraka pogledajte rezultat.
+Pogrešku u dugačkom cjevovodu tražite postupno. Pokrenite ga korak po korak i nakon svakog koraka pogledajte rezultat.
 
 ```{r}
 anketa_mreze |>
@@ -1806,7 +1788,7 @@ izvori_po_obrazovanju <- populacija_medija |>
 izvori_po_obrazovanju
 ```
 
-Zbirni udio svakog izvora nije zamjena za skupne udjele. Sljedeća usporedba
+Zbirni udio svakog izvora i udjeli po skupinama odgovaraju na pitanja različitog obuhvata. Sljedeća usporedba
 stavlja ih jedan uz drugi, pa se može provjeriti mijenja li se opis kada se
 sačuva obrazovna skupina.
 
@@ -1974,8 +1956,7 @@ anketa_mreze |>
   )
 ```
 
-Koeficijent ne zamjenjuje graf. On sažima linearnu povezanost, dok graf
-otkriva oblik, raspršenje i opažanja koja bi sažetak mogao prikriti.
+Koeficijent i graf čitamo zajedno. Koeficijent sažima linearnu povezanost, dok graf otkriva oblik, raspršenje i opažanja koja bi sažetak mogao prikriti.
 
 ## Provjerene rute iz poglavlja 6–16 {#sec-a-rute-06-16}
 

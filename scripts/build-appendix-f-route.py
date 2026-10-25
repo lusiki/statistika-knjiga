@@ -354,8 +354,11 @@ def load_records(root: Path) -> tuple[list[dict[str, Any]], str, list[dict[str, 
 
 
 def chapter18_policy_excerpt(text: str) -> str:
+    text = " ".join(text.split())
     match = re.search(
-        r"Politika kolegija, inačica 1\.0 od 4\. kolovoza 2026\.,.*?ovdje ga ne izmišljamo\.",
+        r"Kao primjer služi politika kolegija uz ovaj udžbenik, inačica 1\.0 od "
+        r"4\. kolovoza 2026\..*?Ta datirana politika nije propis Hrvatskoga "
+        r"katoličkog sveučilišta ni pravno tumačenje\.",
         text,
         flags=re.DOTALL,
     )

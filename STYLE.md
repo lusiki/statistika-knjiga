@@ -42,6 +42,7 @@ lecturer would not say it to a room, it does not belong on the page.
 | H10 | Code discipline: the reader may read code but assessed work never requires code production |
 | S8 | Simulation before formalism |
 | S9 | Honesty about uncertainty, and about the assistant |
+| S10 | Affirmative explanation and natural sentence flow |
 
 ---
 
@@ -401,6 +402,28 @@ New in this book.
 
 ---
 
+### S10 — Affirmative explanation and natural sentence flow
+
+Lead with what the data, comparison or procedure shows. Develop the explanation
+through its mechanism, then state the relevant limit and the evidence needed
+to go further. Avoid habitual chains of "ne pokazuje", "ne znači" and
+"ne dokazuje", or repeatedly defining an idea through "nije X, nego Y" and
+"X, a ne Y". Choose the sentence structure that best advances this particular
+paragraph; do not replace one repeated template with another.
+
+Keep negation when it carries a mathematical condition, corrects a specific
+misconception, states a genuine absence, or makes a necessary boundary clear.
+Preserve deliberate errors in exercises, quotations, canonical definitions,
+and the scope of empirical claims. Affirmative prose must remain precise about
+what a model assumes and what the evidence supports.
+
+For example, explain repeated observations through their relation to the unit:
+"Pri zaključivanju zato tih sedam redaka promatramo kao ponovljena opažanja
+unutar iste jedinice." This develops the reason more naturally than a detached
+warning that seven rows do not give seven independent confirmations.
+
+---
+
 ## Structural elements
 
 The sanctioned non-prose elements and their formats. Everything not listed here
@@ -636,6 +659,12 @@ written, the chapter is not done.
 ---
 
 ## Provenance
+
+- **2026-10-25** — Added S10 at the author's request after the repeated negative
+  formulations in Chapter 1 prompted a manuscript-wide editorial pass. The
+  pass changes explanatory prose while preserving statistical qualifications,
+  evidence, code, numerical results, and the assessment contract. It is separate
+  from comprehensive-review packet closure and does not change draft status.
 
 - **2026-10-23** — The author explicitly authorised implementation of the
   October PDF audits after the P6-VERIFY restriction was disclosed. This

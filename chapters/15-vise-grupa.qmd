@@ -166,9 +166,7 @@ razlike?
 
 Usporedba televizije i društvenih mreža ostavila je izvan analize korisnike
 ostalih izvora vijesti. Ako želimo obuhvatiti sve skupine, mogli bismo
-ponavljati postupak iz prethodnog poglavlja za svaki par. No tada više ne
-donosimo samo jednu odluku. Moramo razmotriti koliko prilika za lažni nalaz
-nastaje kroz sve usporedbe koje ćemo pregledati. Tu ćemo poteškoću najprije
+ponavljati postupak iz prethodnog poglavlja za svaki par. Tada donosimo niz povezanih odluka, pa moramo razmotriti koliko prilika za lažni nalaz nastaje kroz sve usporedbe koje ćemo pregledati. Tu ćemo poteškoću najprije
 ispitati u simulaciji u kojoj skupine dolaze iz iste raspodjele povjerenja.
 Svaku pronađenu razliku tada možemo prepoznati kao lažni nalaz. Povezat ćemo
 tu provjeru s onime što smo u poglavlju o krizi i obnovi naučili o odabiru
@@ -217,8 +215,7 @@ i dalje znače jedno ponavljanje s pogreškom.
 
 Ponovno izvlačimo svih pet skupina 2.000 puta, zadržavajući istu populaciju,
 veličine i pravila testiranja. Barem jedan lažni nalaz dobivamo u
-`r sum(s15_pod_nultom["barem_jedan", ])` od 2.000 ponavljanja. Svi su
-testovi definirani i nijedno ponavljanje nije izostavljeno.
+`r sum(s15_pod_nultom["barem_jedan", ])` od 2.000 ponavljanja. Svi su testovi definirani i sva ponavljanja ulaze u račun.
 
 U dvije tisuće ponavljanja barem jedna usporedba bila je značajna u `r hr_broj(s15$stopa_parne)`
 % slučajeva. Svaki test koristi prag pet posto, ali cijeli skup daje lažni
@@ -255,8 +252,7 @@ usporedbe nisu neovisne i u našoj simulaciji daju nižu stopu. Zasebna simulaci
 U zasebnom pokusu svaki od deset testova dobiva svoja dva nova uzorka po
 40 osoba, pa testovi više ne dijele iste uzorke. Od 2.000 ponavljanja
 `r sum(s15_neovisnih_deset)` sadrži barem jedno odbacivanje, bez isključenih
-ponavljanja. Uspoređujemo dvije organizacije testiranja pod nulom, a ne
-njihovu snagu. Novi niz izvlačenja dao bi malo drukčije udjele.
+ponavljanja. Uspoređujemo stope pogreške dviju organizacija testiranja pod nulom. Za usporedbu snage trebali bismo zadati model s razlikom. Novi niz izvlačenja dao bi malo drukčije udjele.
 
 Formula za neovisne testove nije opća gornja granica za ovisne usporedbe.
 Ipak, oba simulirana skupa daleko prelaze pet posto. Zato uz najmanju
@@ -286,7 +282,7 @@ Da bismo razlaganje vidjeli na manjem prikazu, prelazimo na tri skupine po
 24 točke bez stvarne mjerne jedinice. Počinjemo normalnim slučajnim
 vrijednostima, ali ih zatim u svakoj skupini centriramo i skaliramo tako da
 njihova ostvarena sredina i standardna devijacija budu točno zadane.
-To je ilustracija razlaganja, ne ponovljeno uzorkovanje za provjeru testa.
+Tako dobivamo ilustraciju razlaganja s točno zadanim sažecima.
 Pri sredinama 46, 52 i 58 zajednička je sredina 52. Skupina A pridonosi
 zbroju između skupina s $24(46-52)^2 = 864$. Isti račun radimo za B i C,
 dok unutar skupina zbrajamo kvadrate udaljenosti svake od 72 točke od
@@ -674,8 +670,7 @@ usporedbi.
 Klasični i Welchov postupak koriste iste točkaste procjene sredina, ali
 drukčije računaju nesigurnost. Klasična analiza varijance, kao obični
 homoskedastični linearni model, procjenjuje zajedničku rezidualnu varijancu.
-Welch zadržava zasebne skupne varijance i prilagođava stupnjeve slobode. Zato
-intervali i p-vrijednosti ne moraju biti jednaki.
+Welch zadržava zasebne skupne varijance i prilagođava stupnjeve slobode. Zato se njihovi intervali i p-vrijednosti mogu razlikovati.
 
 Taj model sada primjenjujemo na pojedinačne zapise iz skupa `populacija_medija`.
 Svakoj osobi pridružujemo sredinu njezina izvora vijesti, pa odstupanja oko tih
@@ -712,10 +707,7 @@ ggplot(pet_izvora, aes(izvor_vijesti, povjerenje_medijima)) +
 
 ## Nakon ukupnog testa
 
-Ukupni test ne govori koje se skupine razlikuju, za koliko i u kojem smjeru.
-Nije ni obvezan uvjet za provođenje unaprijed planirane usporedbe. Za
-sadržajni odgovor trebamo pojedine procjene s intervalima i jasan popis
-pitanja koja smo postavili.
+Za odgovor o konkretnim skupinama trebamo procjene njihovih razlika s intervalima i jasan popis pitanja koja smo postavili. Ukupni test odgovara na šire pitanje o jednakosti svih sredina. Unaprijed planiranu usporedbu možemo provesti izravno, neovisno o njegovu rezultatu.
 
 Usporedbu određenu prije pregleda rezultata zovemo **planirana usporedba**. Za
 naknadne usporedbe navodimo **post-hoc postupak** i obitelj pitanja koju
@@ -733,8 +725,7 @@ Za jedan par sada oduzmemo dvije sredine iz tablice. Razlici televizije
 prema mrežama pridružujemo marginu `r hr_broj((s15$tv_mreze_gornja - s15$tv_mreze_donja)/2, 2)`
 boda, izračunatu zajedničkom rezidualnom varijancom, brojnostima tih dviju
 skupina i Tukeyjevim pravilom za svih pet skupina. Oduzimanjem i dodavanjem
-te margine nastaju granice intervala. Svih deset usporedbi koristi iste
-izvorne odgovore, a ne deset novih uzoraka.
+te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz istoga izvornog uzorka.
 
 Među `r s15$parova` parova statistički su razlučive četiri usporedbe s društvenim
 mrežama. Televizija se od njih razlikuje za `r hr_broj(s15$tv_mreze, 2)` boda, uz istodobni
@@ -763,9 +754,7 @@ ggplot(prikaz_tukey, aes(diff, reorder(Par, diff))) +
   theme_knjiga(base_size = 10)
 ```
 
-Interval za televiziju i tisak širok je više od dva boda. Takav rezultat ne
-pokazuje da su skupine jednake. Pokazuje da procjena nije dovoljno precizna za
-razlučivanje razlike od nule.
+Interval za televiziju i tisak širok je više od dva boda. Takav rezultat ostavlja otvoren raspon razlika u oba smjera, uključujući nulu. Za njihovo razlučivanje trebala bi nam preciznija procjena.
 
 Ako nas unaprijed zanima određena usporedba, primjerice tradicionalnih i
 digitalnih izvora, možemo je izravno planirati. Tada ne štitimo obitelj od
@@ -787,8 +776,7 @@ varijance, što trebamo procijeniti iz više informacija, a ne iz jednog
 pokazatelja.
 
 Omjer najveće i najmanje skupne varijance iznosi `r hr_broj(s15$var_omjer, 2)`. Koristimo ga kao
-orijentir uz grafove, veličine skupina i način nastanka podataka. Sam ne
-potvrđuje valjanost klasičnog testa. Ako nejednake varijance izgledaju
+orijentir uz grafove, veličine skupina i način nastanka podataka. Valjanost klasičnog testa procjenjujemo iz svih tih informacija zajedno. Ako nejednake varijance izgledaju
 uvjerljivo, Welchov ukupni test zadržava njihove zasebne procjene.
 
 Welchov test daje F od `r hr_broj(s15$welch_f, 2)`, uz četiri stupnja slobode u brojniku i `r hr_broj(s15$welch_df2, 1)` u nazivniku.
@@ -837,8 +825,7 @@ usporedbu koja još nije provedena.
 Potrebno je izravno procijeniti razliku između dvaju učinaka i njezinu
 nesigurnost. Kao i pri razlikovanju ukupnog testa od pojedinačnih usporedbi,
 prvo određujemo koju razliku tvrdnja traži. Pritom treba opravdati nacrt
-unutar svake dobne skupine. Dodatni račun ne može nadoknaditi loše
-osmišljenu usporedbu.
+unutar svake dobne skupine. Smislenost dodatnog računa ovisi o kvaliteti tako osmišljene usporedbe.
 
 Ako je interval razlike učinaka širok, možda još ne
 možemo odlučiti treba li program prilagoditi dobi. To

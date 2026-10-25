@@ -165,9 +165,7 @@ Kako provesti prvo istraživanje tako da druga osoba može pratiti odluke i
 provjeriti zaključak?
 :::
 
-Pred završnim projektom više nije dovoljno prepoznati dobar ili loš tuđi
-zaključak. Sada trebamo sastaviti vlastiti postupak tako da ga druga osoba
-može pratiti. Pitanje, mjerenje, priprema podataka, graf i model moraju se
+U završnom projektu iskustvo čitanja tuđih zaključaka primjenjujemo na vlastito istraživanje. Postupak trebamo sastaviti tako da ga druga osoba može pratiti. Pitanje, mjerenje, priprema podataka, graf i model moraju se
 odnositi na istu istraživačku namjeru. Te odluke povezujemo u jednom istraživanju i ostavljamo zapis koji omogućuje
 provjeru rezultata.
 
@@ -190,8 +188,7 @@ računa.
 
 Postupak ćemo potom provjeriti na stvarnim parlamentarnim rečenicama iz
 ParlaSenta, gdje ćemo umjesto osobnih odgovora pratiti izbor tekstova i
-nastanak oznaka [@mochtak2023; @mochtakparlasent2024]. Promjena podataka
-zahtijeva novo pitanje, ne samo ponavljanje prethodnog modela.
+nastanak oznaka [@mochtak2023; @mochtakparlasent2024]. Za nove podatke oblikovat ćemo pitanje koje odgovara njihovoj jedinici i načinu nastanka.
 
 U oba primjera odlučivat ćemo što povjeriti asistentu, kako provjeriti
 njegov rad i što smijemo dijeliti. Na kraju treba biti jasno kako smo od
@@ -229,8 +226,7 @@ povjerenja dobiva određene varijable i usporedbu koju možemo izračunati.
 
 Naše pitanje odnosi se na povezanost. Razlikujemo ga od opisa podataka,
 prijenosa na populaciju, predviđanja novih opažanja, procjene uzroka i odluke
-o postupanju. Regresija koju ćemo koristiti ne proširuje automatski pitanje na
-te druge ciljeve.
+o postupanju. Regresiju ćemo tumačiti u okviru odabranog pitanja o povezanosti.
 
 Već na početku dogovaramo što će drugoj osobi trebati da razumije i provjeri
 naš rad. Samostalan izvještaj treba prenijeti pitanje i zaključak, a ponovljiv
@@ -298,8 +294,7 @@ dijelovi datirane politike kolegija, a ne opća pravna tumačenja.
 
 ## Dizajn određuje granicu zaključka
 
-Presječna anketa mjeri vrijeme uporabe i povjerenje u istom trenutku. Ne
-pokazuje što je prethodilo. Ista povezanost mogla bi nastati zato što uporaba
+Presječna anketa bilježi vrijeme uporabe i povjerenje u istom trenutku, pa njihov vremenski redoslijed ostaje otvoren. Ista povezanost mogla bi nastati zato što uporaba
 povećava povjerenje, zato što povjerenje povećava uporabu ili zato što obje
 varijable ovise o trećoj.
 
@@ -310,8 +305,7 @@ ne rješava selekciju.
 
 Mjere biramo prije prikupljanja. Dnevnu uporabu možemo mjeriti samoprocjenom,
 očitati iz izvještaja uređaja ili približno opisati brojem otvaranja
-aplikacije. Te mjere nisu jednake. Samoprocjenu je lako prikupiti, ali bez
-provjere ne znamo veličinu ni obrazac njezine pogreške. U izvještaju zato
+aplikacije. Svaka mjera zahvaća uporabu na drukčiji način. Samoprocjenu je lako prikupiti, a veličinu i obrazac njezine pogreške trebamo zasebno provjeriti. U izvještaju zato
 jasno opisujemo način mjerenja.
 
 Veličinu uzorka planiramo prema željenoj preciznosti i pretpostavkama o
@@ -376,7 +370,7 @@ Pri čišćenju za svaku promjenu zapisujemo razlog.
 
 Vraćamo se na istih 300 zapisa iz opisnih poglavlja, bez novog izvlačenja.
 Generator određuje četiri dobne skupine i unutar njih zasebno stvara minute
-i povjerenje. Ne mijenjamo zapise pri povratku na istraživačko pitanje.
+i povjerenje. Pri povratku na istraživačko pitanje zadržavamo izvorne zapise.
 Provjera pripreme zato uspoređuje izvorne vrijednosti s dopuštenim rasponima
 i potvrđuje da je u analizu ušlo svih 300 osoba.
 
@@ -517,7 +511,7 @@ rbind(
 
 Prije sažetka nagiba možemo pogledati predviđanja za tri postojeća retka
 simulirane ankete. Predviđanja obaju modela dobivamo uvrštavanjem istih
-minuta, a u primarnom modelu i dobi. To nisu novi odgovori ispitanika.
+minuta, a u primarnom modelu i dobi. Predviđanja su rezultat modela pridružen postojećim odgovorima ispitanika.
 
 ```{r}
 #| label: tbl-s18-tri-modelna-retka
@@ -540,7 +534,7 @@ pomnožene kritičnom t-vrijednošću uz `r df.residual(m18_uz_dob)` stupnjeva
 slobode. Množitelj t čitamo kao u poglavlju o dvjema grupama. On određuje
 granicu središnjih 95 % referentne raspodjele pri tim stupnjevima slobode.
 Taj račun pretpostavlja prikladan linearni model i zajedničku
-rezidualnu varijancu. Njime ne provjeravamo te pretpostavke.
+rezidualnu varijancu. Njihovu primjerenost procjenjujemo zasebnim dijagnostičkim pregledom.
 
 Prvi model uključuje dob, a drugi pokazuje kako se procjena mijenja kada je
 izostavimo. Poziv `rbind` spaja njihove rezultate u dva retka, dok
@@ -585,16 +579,11 @@ Za provjeru osjetljivosti izostavljamo dob i vraćamo se zbirnoj usporedbi, u
 kojoj se s vremenom na mrežama može mijenjati i dobni sastav. Procjena tada
 iznosi `r hr_broj(s18$zbirni_30, 2)` boda, uz 95 % interval od `r hr_broj(s18$zbirni_30_donja, 2)` do
 `r hr_broj(s18$zbirni_30_gornja, 2)`, bez nule. Isti podaci o 300 osoba daju drukčiju usporedbu.
-Alternativa pokazuje važnost uključivanja dobi za tumačenje. Nismo je odabrali
-da zamijeni primarnu analizu poželjnijim rezultatom.
+Alternativa pokazuje važnost uključivanja dobi za tumačenje. Zadržavamo je uz primarnu analizu kako bi čitatelj mogao usporediti oba pitanja i rezultata.
 
-Ovdje opisujemo povezanost uz prilagodbu za dob. Ne provjeravamo predviđanje
-novih osoba, pa ne uvodimo skupove za učenje i ispitivanje ni klasifikacijske
-pragove. Presječni nacrt također ne daje uzročno značenje prilagođenom
-koeficijentu.
+Ovdje opisujemo povezanost uz prilagodbu za dob. Predviđanje novih osoba tražilo bi zasebnu provjeru na odvojenim podacima, a uzročno tumačenje nacrt koji razdvaja moguća objašnjenja. Naša analiza ostaje u okviru presječne povezanosti.
 
-Izostavljanje dobi ispituje njezinu važnost, ali ne provjerava je li linearni
-dobni član prikladan. Zato dodajemo drugu, ciljanu provjeru. Dob zamjenjujemo
+Izostavljanjem dobi ispitali smo njezinu važnost. Sada dodajemo ciljanu provjeru prikladnosti linearnoga dobnog člana. Dob zamjenjujemo
 dobnim skupinama koje koristi generator. Svaka skupina dobiva vlastiti
 odsječak, a nagib uz minute ostaje zajednički. Ta provjera koristi poznato
 pravilo nastavnih podataka; u stvarnom istraživanju takvo pravilo ne bismo
@@ -655,8 +644,7 @@ uporabe povezano je s `r hr_broj(s18$zbirni_30, 2)` boda višim povjerenjem, uz 
 boda, uz interval od `r hr_broj(s18$uz_dob_30_donja, 2)` do `r hr_broj(s18$uz_dob_30_gornja, 2)`.
 
 Istu linearnu procjenu drugdje prikazujemo na tri decimale,
-`r hr_broj(s18$uz_dob_30, 3)`. Razlika između prikaza −0,01 i −0,008 posljedica
-je zaokruživanja iste vrijednosti, a ne novog računa.
+`r hr_broj(s18$uz_dob_30, 3)`. Prikazi −0,01 i −0,008 potječu iz istog računa, uz različit broj decimala pri zaokruživanju.
 
 Nesigurnost navodimo uz brojku. Prilagođeni interval isključuje razlike
 veličine zbirne procjene u oba smjera, ali dopušta male pozitivne i negativne
@@ -738,14 +726,11 @@ Podjela prema putu oznake poslije razdvaja ta ista brojanja prema tome je
 li oznaku dao jedan koder ili dva kodera uz usklađenje.
 
 Brojimo `r hr_broj(s18_prijenos$negativno, 0)` negativnih, `r hr_broj(s18_prijenos$neutralno, 0)` neutralnih i `r hr_broj(s18_prijenos$pozitivno, 0)` pozitivnih
-oznaka. Nazivnik je svih `r hr_broj(s18_prijenos$n, 0)` redaka paketa. Ti brojevi opisuju odabrane
-i označene rečenice. Ne procjenjuju raspoloženje parlamenta.
+oznaka. Nazivnik je svih `r hr_broj(s18_prijenos$n, 0)` redaka paketa. Ti brojevi opisuju oznake odabranih rečenica. Za zaključak o raspoloženju parlamenta trebali bismo opravdati drukčiji cilj mjerenja i odgovarajući odabir građe.
 
 Kao provjeru osjetljivosti razdvajamo načine označavanja. U dijelu s dva
 kodera i usklađenjem negativno je `r hr_broj(s18_prijenos$dva_kodera_negativno, 0)` od `r hr_broj(s18_prijenos$dva_kodera, 0)` redaka, odnosno `r hr_broj(100 * s18_prijenos$dva_kodera_negativno / s18_prijenos$dva_kodera, 1)` % redaka. U dijelu s jednim
-uvježbanim koderom negativno je `r hr_broj(s18_prijenos$jedan_koder_negativno, 0)` od `r hr_broj(s18_prijenos$jedan_koder, 0)` redaka, odnosno `r hr_broj(100 * s18_prijenos$jedan_koder_negativno / s18_prijenos$jedan_koder, 1)` %. Zbirni udio zato ne dolazi iz
-jednog mjernog postupka. Razliku ne možemo pripisati broju kodera jer se
-dijelovi razlikuju i prema dokumentima i odabiru.
+uvježbanim koderom negativno je `r hr_broj(s18_prijenos$jedan_koder_negativno, 0)` od `r hr_broj(s18_prijenos$jedan_koder, 0)` redaka, odnosno `r hr_broj(100 * s18_prijenos$jedan_koder_negativno / s18_prijenos$jedan_koder, 1)` %. Zbirni udio tako objedinjuje dva mjerna postupka. Njihova usporedba istodobno uključuje razlike u broju kodera, dokumentima i odabiru, pa doprinos samog broja kodera ostaje nerazdvojen.
 
 Ovo je opis konačnog odabranog paketa. Nismo zadali model slučajnog odabira
 neovisnih rečenica, pa uz te postotke ne prikazujemo binomne intervale niti
@@ -810,10 +795,7 @@ interval od `r hr_broj(s18$uz_dob_30_donja, 3)` do
 Drugi račun uspoređuje osobe jednake dobi pod
 pretpostavkama modela. Njegov interval obuhvaća nulu,
 ali je dovoljno uzak da isključi razlike veličine
-zbirne procjene u oba smjera. Zato ne pišemo samo da
-„nema veze”. Možemo reći da prilagođeni rezultat ne
-podupire tako veliku razliku, dok male razlike u oba
-smjera ostaju spojive s podacima i modelom.
+zbirne procjene u oba smjera. Zaključak zato temeljimo na veličinama koje interval dopušta. Male razlike u oba smjera ostaju spojive s podacima i modelom.
 
 To mijenja i odgovor koji bismo dali zamišljenom
 naručitelju zainteresiranom za povjerenje. Iz ove

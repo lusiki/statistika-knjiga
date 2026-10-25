@@ -187,8 +187,7 @@ jednoga broja automatski odlučuje postoji li učinak. Izjava je trebala
 razjasniti što taj račun dopušta zaključiti.
 
 U izvještajima se prag značajnosti često čitao kao granica između učinaka koji
-„postoje” i onih kojih „nema”. Test uspoređuje podatke s određenim modelom.
-Sam po sebi ne može opravdati takvu podjelu.
+„postoje” i onih kojih „nema”. Test uspoređuje podatke s određenim modelom, a zaključak o postojanju učinka traži i procjenu njegove veličine, nesigurnosti i ostalih dokaza.
 
 Što mala p-vrijednost govori o podacima, a što ne može reći o hipotezi?
 :::
@@ -265,8 +264,7 @@ s10_uzorak |>
   knitr::kable(col.names = c("Izvor", "Broj osoba", "Zbroj ocjena", "Sredina"))
 ```
 
-Od sredine za tisak oduzimamo sredinu za portal. Nijedno opažanje nije
-premješteno prije tog računa, pa razlika opisuje upravo izvorne skupine.
+Od sredine za tisak oduzimamo sredinu za portal. Račun zadržava izvorni raspored opažanja, pa razlika opisuje upravo te skupine.
 
 Najprije navodimo procjenu. Čitatelji tiska imaju u prosjeku `r hr_broj(s10$razlika, 2)` boda
 više povjerenja, uz interval pouzdanosti od `r hr_broj(s10$donja, 2)` do `r hr_broj(s10$gornja, 2)`. Testom
@@ -279,7 +277,7 @@ $\sqrt{s_T^2/n_T+s_P^2/n_P}$, gdje su $s_T$ i $s_P$ uzoračke standardne
 devijacije tiska i portala, a $n_T$ i $n_P$ njihove brojnosti. Razlici
 dodajemo i od nje oduzimamo $1,96$ standardnih pogrešaka. Račun traži
 neovisne osobe i dovoljno stabilnu približno normalnu raspodjelu razlike.
-To nije interval dobiven premještanjem oznaka. Za manje uzorke poglavlje
+Interval se temelji na tom približnom računu standardne pogreške; premještanje oznaka upotrijebit ćemo za test. Za manje uzorke poglavlje
 o dvjema grupama razvija t-prilagodbu i Welchove stupnjeve slobode.
 
 Pretpostavimo da je cijela raspodjela povjerenja jednaka među čitateljima
@@ -322,9 +320,7 @@ koja je od dviju hipoteza vjerojatnija.
 
 Takvo nasumično premještanje oznaka čini osnovu **permutacijskog testa**.
 
-Za ovaj postupak nije dovoljna samo jednakost sredina. Skupine s jednakim
-sredinama mogu imati različite raspršenosti ili oblike raspodjele i tada ne
-zadovoljavaju naš nulti model. Pretpostavljamo i da su osobe neovisne jedinice
+Nulti model ovog postupka pretpostavlja jednakost cijelih raspodjela, uključujući njihove sredine, raspršenosti i oblike. Pretpostavljamo i da su osobe neovisne jedinice
 opažanja. Izvor vijesti nije nasumično dodijeljen, pa zamjenjivost oznaka
 ovdje prihvaćamo kao pretpostavku modela. Iz rezultata ne možemo zaključiti da
 čitanje određenog izvora uzrokuje povjerenje.
@@ -339,8 +335,7 @@ od nultog modela u obliku usporedivom s odstupanjima koja taj model proizvodi.
 
 Kao testnu statistiku koristimo razliku sredina. Zanimaju nas oba smjera, pa
 uspoređujemo apsolutnu opaženu razliku s apsolutnim razlikama nakon
-premještanja. Ova jednostavna permutacija ispituje opisani model jednake
-cijele raspodjele, a ne samo jednakost sredina. Slika prikazuje razlike iz
+premještanja. Ova jednostavna permutacija ispituje opisani model jednakosti cijelih raspodjela, koji uključuje i njihove oblike i raspršenosti. Slika prikazuje razlike iz
 četiri tisuće premještanja i razliku iz izvornog rasporeda oznaka.
 
 ```{r}
@@ -402,7 +397,7 @@ modelu jednako generiranju svih pojedinačnih ishoda i računanju iz njih.
 Digitalni prikaz počinje s 2 000 ponavljanja po scenariju i dopušta promjenu
 veličine skupina, učinka i broja ponavljanja. Tiskani prikaz zadržava po
 60 osoba i razliku 0,35 te koristi 4 000 ponavljanja po scenariju. Svako
-ponavljanje daje jednu p-vrijednost. Nema izostavljenih rezultata.
+ponavljanje daje jednu p-vrijednost. Svi rezultati ulaze u prikaz.
 
 Dosad smo za jedan uzorak premještali oznake i promatrali raspodjelu razlika.
 Sada promatramo p-vrijednosti iz ponovljenih zamišljenih studija. U prvom
@@ -782,8 +777,7 @@ rješavanja spornih slučajeva.
 Neslaganje s referencom zato može potjecati i od postupka koji ispitujemo i od
 same reference. U izvještaju navodimo kako su referentne oznake nastale i jesu
 li neslaganja ponovno pregledana. To će biti posebno važno pri procjeni
-algoritama. Precizno izračunata stopa neslaganja ne jamči da je referenca
-točna.
+algoritama. Uz precizno izračunatu stopu neslaganja potrebna je i provjera kvalitete same reference.
 
 ## Prag je konvencija, a ne mjera
 
@@ -812,8 +806,7 @@ izgubi veličinu procjene, njezinu nesigurnost i posljedice odluke. Te
 informacije trebaju ostati vidljive bez obzira na položaj p-vrijednosti u
 odnosu na prag.
 
-P-vrijednost može pridonijeti argumentu, ali sama nije dovoljna za znanstveni
-zaključak. U našem izvještaju zato najprije navodimo procjenu i interval,
+P-vrijednost pridonosi znanstvenom argumentu zajedno s procjenom učinka, kvalitetom nacrta i ostalim dokazima. U našem izvještaju zato najprije navodimo procjenu i interval,
 objašnjavamo pretpostavke i razmatramo posljedice obiju pogrešaka.
 
 P-vrijednost se mijenja i kada ponavljamo potpuno isti postupak. Na osamsto
@@ -822,8 +815,7 @@ p-vrijednosti bila je ispod `r hr_broj(s10$ples_sredina, 3)`, četvrtina iznad `
 iznad `r hr_broj(s10$ples_gornji, 3)`. Vrijednosti su se protezale preko dva reda veličine. U
 `r hr_broj(s10$udio_iznad_deset, 1)` % uzoraka bile su veće od 0,10.
 
-Navođenje triju decimala ne uklanja tu uzoračku promjenjivost. I procjena i
-njezin interval mijenjaju se s uzorkom. Stavljamo ih na prvo mjesto jer
+Uzoračka promjenjivost ostaje prisutna i u rezultatu prikazanom na tri decimale. S uzorkom se mijenjaju i procjena i njezin interval. Stavljamo ih na prvo mjesto jer
 izravno odgovaraju na pitanje kolika je razlika i koliko smo je precizno
 procijenili.
 
@@ -879,8 +871,7 @@ za tumačenje rezultata.
 redakcija dobije istraživački izvještaj o razlici u povjerenju između
 dviju skupina čitatelja. Autor navodi malu p-vrijednost i predlaže
 naslov prema kojem je dokazao svoje objašnjenje razlike. Urednik
-treba odlučiti što od toga može prenijeti publici. Pitanje nije
-samo je li broj točno prepisan, nego što je njime provjereno.
+treba odlučiti što od toga može prenijeti publici. Uz točnost prepisanog broja urednik treba utvrditi što je njime provjereno.
 
 Greenland i suradnici sastavili su pregled dvadeset pet pogrešnih
 tumačenja p-vrijednosti, intervala i snage upravo kako bi
@@ -902,8 +893,7 @@ upozoravaju da biranje analiza prema dobivenim p-vrijednostima
 može proizvesti male vrijednosti čak i kada provjeravana nulta
 hipoteza vrijedi [@greenland2016]. Redakcija zato ima razlog
 zatražiti podatak je li prikazana usporedba bila unaprijed
-određena i koje su druge analize provedene. To je provjera
-postupka, a ne pretpostavka da je autor postupao nepošteno.
+određena i koje su druge analize provedene. Takva provjera razjašnjava postupak odabira analize, uz otvoreno pitanje razloga autorovih odluka.
 
 Nakon toga vijest može prenijeti opaženu razliku, njezinu
 nesigurnost i ograničenje objašnjenja. Ako te informacije
@@ -997,9 +987,7 @@ uzorak. U stvarnoj anketi takva bi usporedba pokazivala razliku među skupinama.
 Za zaključak da čitanje tiska mijenja povjerenje trebali bismo i odgovarajući
 istraživački nacrt.
 
-Statistički rezultat još ne opravdava uzročni zaključak. Trebamo procijeniti
-i koliko je razlika važna za istraživačko pitanje te opravdava li neku
-odluku.
+Uzročni zaključak zahtijevao bi istraživački nacrt koji razdvaja moguća objašnjenja razlike. Zasebno procjenjujemo koliko je razlika važna za istraživačko pitanje te opravdava li neku odluku.
 
 ## Sažetak {.sazetak}
 

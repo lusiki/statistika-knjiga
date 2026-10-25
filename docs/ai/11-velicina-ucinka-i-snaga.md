@@ -9,8 +9,7 @@
 ---
 
 Cohen je 1994. kritizirao praksu u kojoj se statistička značajnost uzima kao
-dovoljan odgovor na istraživačko pitanje (Cohen, 1994). Čitatelju treba reći i
-koliki je učinak te zašto bi bio važan. Sam test to ne može učiniti.
+dovoljan odgovor na istraživačko pitanje (Cohen, 1994). Čitatelju uz rezultat testa treba dati procjenu veličine učinka i obrazložiti njegovu važnost.
 
 Kada u radu pročitamo da je razlika značajna, još ne znamo bi li promijenila
 neku odluku. Možda je riječ o važnom pomaku, a možda o maloj razlici koju je
@@ -18,9 +17,7 @@ otkrio velik uzorak. Autor treba dati podatke iz kojih to možemo procijeniti.
 
 Koliko podataka trebamo da bismo pouzdano uočili sadržajno važan učinak?
 
-Za odluku o istraživanju nedostaje nam nešto što sama p-vrijednost ne daje.
-Trebamo odrediti koliku bi razliku vrijedilo uočiti i možemo li je planiranim
-postupkom dovoljno pouzdano razlikovati od slučajne promjenjivosti. Time
+Pri planiranju istraživanja polazimo od razlike koju bi vrijedilo uočiti. Zatim provjeravamo možemo li je planiranim postupkom dovoljno pouzdano razlikovati od slučajne promjenjivosti. Time
 pitanje iz prethodnog poglavlja okrećemo prema planiranju. Umjesto da tek
 nakon analize čitamo rezultat testa, unaprijed provjeravamo kakav bi nam
 odgovor istraživanje moglo dati.
@@ -53,8 +50,7 @@ prevelika za namjeravanu odluku.
 
 Veličina učinka brojčano opisuje razmjer razlike ili odnosa. Možemo je
 izraziti u izvornim jedinicama, kao razliku bodova, ili bez njih, kao
-standardiziranu razliku, korelaciju ili omjer. Sama ne određuje sadržajnu
-važnost, koju procjenjujemo prema pitanju i posljedicama.
+standardiziranu razliku, korelaciju ili omjer. Njezinu sadržajnu važnost procjenjujemo prema istraživačkom pitanju i posljedicama odluke.
 
 Povjerenje u medije bilježimo bodovima na ljestvici, pa razliku među
 čitateljima tiska i portala prvo čitamo u tim jedinicama.
@@ -116,19 +112,17 @@ Razliku među skupinama tako opisujemo usporedbom ljudi, što može biti
 razumljivo i čitatelju koji ne poznaje standardnu devijaciju.
 
 Sadržajnu važnost učinka procjenjujemo prema ranijim
-nalazima iz istog područja i posljedicama odluke. Standardizacija olakšava
-usporedbu različitih ljestvica, ali ne određuje što je važno.
+nalazima iz istog područja i posljedicama odluke. Standardizacija olakšava usporedbu različitih ljestvica, a prosudba važnosti ostaje vezana uz sadržaj istraživanja.
 
 ## Kad je značajno, a nije važno
 
 Rezultat nazivamo statistički značajnim kada njegova p-vrijednost ne
-prelazi unaprijed odabrani prag odluke. Statistička značajnost ne zamjenjuje
-procjenu veličine učinka. To se posebno
+prelazi unaprijed odabrani prag odluke. Uz statističku značajnost navodimo i procjenu veličine učinka kako bismo opisali razmjer razlike. To se posebno
 jasno vidi na vrlo velikom uzorku.
 
 Zamislimo pokus u kojem portal uspoređuje dvije naslovnice. Stvarna stopa
 klika prve iznosi 2,00 %, a druge 2,05 %. Svaku prikazuje pola milijuna puta.
-Podaci u nastavku simulirani su za ovaj primjer i ne opisuju stvarnu kampanju.
+Podatke u nastavku simuliramo za tu zamišljenu usporedbu.
 
 Jedno opažanje predstavlja jedan hipotetski prikaz naslovnice i njegov
 ishod, klik ili izostanak klika. Pretpostavljamo neovisne prikaze s istom
@@ -155,8 +149,7 @@ ili veća odstupanja bila bi vrlo rijetka.
 
 Dobivena razlika znači otprilike jedan dodatni klik na tisuću prikaza.
 Opravdava li promjenu naslovnice, ovisi o trošku promjene i vrijednosti klika.
-Te informacije ne dobivamo iz testa. Velik uzorak omogućio nam je razlikovati
-mali pomak od nule, ali odluku još treba obrazložiti.
+Trošak i vrijednost klika trebamo utvrditi iz dodatnih izvora. Velik uzorak omogućio nam je razlikovati mali pomak od nule, a te će informacije pomoći u obrazlaganju odluke.
 
 U malom uzorku možemo propustiti i razliku koja bi bila važna za uredničku
 odluku. Izostanak značajnosti zato ne dokazuje da je učinak nevažan. Procjenu
@@ -214,8 +207,7 @@ u približno tri od četiri studije.
 
 Snaga raste s većim učinkom i većim uzorkom. Pomažu i manja raspršenost ishoda
 te blaži prag odluke. Istraživač može planirati uzorak i prag, a nacrtom i
-kvalitetom mjerenja utjecati na raspršenost. Stvarni učinak ne može odabrati,
-pa snagu treba razmotriti za više mogućih veličina.
+kvalitetom mjerenja utjecati na raspršenost. Veličina stvarnog učinka ostaje nepoznata, pa snagu treba razmotriti za više mogućih veličina.
 
 Često se planira snaga od 80 %, ali taj izbor treba opravdati (Cohen, 1988).
 Ako bi propuštena razlika imala ozbiljne posljedice, možda trebamo višu snagu.
@@ -254,8 +246,7 @@ Donji panel zadržava samo rezultate koji su prešli prag značajnosti. Njihov
 prosjek iznosi `r hr_broj(s11$prosjek_znacajnih, 2)` boda, odnosno `r hr_broj(s11$faktor, 1)` puta onoliko koliko iznosi stvarna razlika.
 U malom uzorku prag najčešće prelaze procjene koje je slučajnost povećala.
 Najmanja apsolutna vrijednost značajne procjene u ovoj simulaciji iznosi `r hr_broj(s11$najmanja_znacajna, 2)` boda.
-Iskrivljenje nastaje odabirom rezultata i ne zahtijeva namjeru istraživača da
-išta prikrije.
+Sam odabir rezultata prema pragu može stvoriti to iskrivljenje, čak i kada istraživač postupa u dobroj vjeri.
 
 Među `r nrow(s11_znacajne)` značajnih procjena njih `r sum(s11_znacajne[, 1] < 0)` ima suprotan predznak od
 stvarne razlike. Račun može biti točan, a pojedinačni zaključak o smjeru
@@ -281,8 +272,7 @@ odrediti kolika bi razlika bila dovoljna da promijeni postupanje.
 odluku ili postupanje, određena sadržajno i prije prikupljanja podataka.
 
 Tu granicu obrazlažemo troškovima odluke, ozbiljnošću ishoda i ranijim
-nalazima iz područja. Račun je ne određuje umjesto nas. Kada je zapišemo,
-možemo procijeniti koliko je opažanja potrebno za željenu snagu.
+nalazima iz područja. Tako obrazložena granica postaje ulaz u račun potrebnog broja opažanja za željenu snagu.
 
 Polazimo od važne razlike i željene snage, pa računamo potreban broj jedinica.
 Zatim provjeravamo je li takav uzorak izvediv. Ako nije, ograničenje znamo
@@ -293,7 +283,7 @@ Koliko uzak interval trebamo da bi procjena bila korisna? Uz raspršenost iz ove
 populacije interval razlike širok je `r hr_broj(s11$sirina_100, 2)` boda pri stotinu osoba po
 skupini, `r hr_broj(s11$sirina_300, 2)` pri tristo i `r hr_broj(s11$sirina_800, 2)` pri osamsto. Margina je
 polovica ukupne širine, pa za marginu do pola boda tražimo širinu do jednoga
-boda. Za taj plan ne trebamo zadati stvarnu veličinu učinka.
+boda. Ulazi u taj plan jesu željena širina intervala, razina pouzdanosti i pretpostavljena raspršenost.
 
 Uz iste pretpostavke kao u završnom planu, poznatu standardnu devijaciju
 1,9 i dvije jednake neovisne skupine, margina do 0,5 traži
@@ -374,8 +364,7 @@ mogao bi odabrati uzorak koji ima premalu snagu za skromniji,
 ali sadržajno važan učinak. Tada neodlučan rezultat ne bi jasno
 razlikovao izostanak učinka od nedostatka informacija. Velik
 broj u prvom radu tako može dovesti do premalog plana u drugome.
-To je moguća posljedica načina planiranja, a ne opis konkretnog
-tima iz Buttonova rada.
+Zamišljeni tim ilustrira moguću posljedicu takvog planiranja.
 
 Odgovor je pregledati interval iz prethodnog istraživanja,
 neovisna ponavljanja i širi skup dostupnih nalaza. Uz njih tim

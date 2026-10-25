@@ -28,12 +28,10 @@ načina na koji je mjerimo. Sada ćemo tim pitanjima provjeravati tvrdnje koje
 već dolaze s gotovim brojem, grafom ili uvjerljivim objašnjenjem.
 
 Glavni primjer počiva na stvarnoj objavljenoj tablici Državnoga izbornog
-povjerenstva (Hrvatske}, 2024). Njezine stavke predstavljaju nacionalne
-zbrojeve s različitim značenjima, a ne pojedinačne zapise birača. Usporedit
+povjerenstva (Hrvatske}, 2024). Njezine stavke predstavljaju nacionalne zbrojeve s različitim značenjima. Usporedit
 ćemo broj pristupilih glasovanju, broj prema listićima i broj birača koji
 služi kao nazivnik. Cilj je utvrditi koju rečenicu možemo napisati na temelju
-tih podataka. Razliku među evidencijama nećemo pretvarati u objašnjenje
-događaja za koje nemamo dokaz.
+tih podataka. Razliku među evidencijama opisat ćemo u granicama onoga što je dokumentirano.
 
 Od provjere omjera prijeći ćemo na načine prikazivanja. Ispitat ćemo kako
 promjena osnovice ili raspona osi mijenja dojam, zašto postotna promjena nije
@@ -91,11 +89,7 @@ $$
 2\,154\,733 + 60\,476 = 2\,215\,209.
 $$
 
-Oba su računa točna, ali se odnose na različite faze postupka. Razlika od
-1.554 pokazuje da broj pristupilih nije jednak broju prema listićima, bez
-objašnjenja zašto je razlika nastala (Hrvatske}, 2024). Iz nje ne možemo
-zaključiti da evidencija sadrži pogrešku. Ni jednaki zbrojevi ne bi značili da
-dvije oznake imaju isto značenje.
+Oba su računa točna i odnose se na različite faze postupka. Razlika od 1.554 izražava odstupanje broja pristupilih od broja prema listićima (Hrvatske}, 2024). Za objašnjenje uzroka, uključujući provjeru moguće pogreške u evidenciji, trebali bismo dodatne podatke. Značenje svake oznake određuje se pravilima evidentiranja, neovisno o tome jesu li zbrojevi jednaki ili različiti.
 
 Pri pisanju naslova biramo podatke, računamo omjer i odlučujemo kako ćemo ga
 opisati. Na svakom koraku možemo promijeniti značenje, iako nismo promijenili
@@ -131,8 +125,7 @@ mogao biti sintetički.
 Udio pronađenih sintetičkih zapisa, primjerice, nije isto što i udio
 ispravnih upozorenja. Uzmimo hipotetski skup od 10.000 zapisa. Program je stvorio njih 100, a ostali
 bilježe stvarne događaje. Detektor prepoznaje 90 od tih 100 sintetičkih zapisa
-i pogrešno označava 495 ostalih. Te brojeve namjerno zadajemo za ilustraciju,
-ne dobivamo ih procjenom stvarnog sustava. Preostala mjesta dopunjavamo do
+i pogrešno označava 495 ostalih. Te brojeve namjerno zadajemo za ilustraciju rada zamišljenog sustava. Preostala mjesta dopunjavamo do
 100 sintetičkih i 9.900 ostalih zapisa.
 
 | Stvarno podrijetlo | Upozorenje | Bez upozorenja | Ukupno |
@@ -189,8 +182,7 @@ označeno kao nepoznato.
 Za administrativnu evidenciju provjeravamo koji događaji prema pravilima ulaze
 u nju, jesu li zapisi ispravni, oznake dosljedne i obrada uredna. Za anketu uz
 mjerenje provjeravamo izbor sudionika, okvir, regrutaciju i neodaziv. Anketa
-ima i promjenjivost koja nastaje odabirom uzorka. Jedna margina uz znak ± ne
-opisuje sve te izvore nesigurnosti.
+ima i promjenjivost koja nastaje odabirom uzorka. Margina uz znak ± odnosi se na određeni dio te nesigurnosti, pa ostale izvore procjenjujemo zasebno.
 
 Dobrovoljna internetska anketa može prikupiti mnogo odgovora, a ipak
 izostaviti ljude koji se sustavno razlikuju u onome što mjerimo. Manji
@@ -234,8 +226,7 @@ zbrojeva iz izvješća (Hrvatske}, 2024).
 : Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema Hrvatske}, 2024, str. 124.
 
 U odnosu na zaokruženu stopu I.–X. relativna razlika iznosi
-$(62,30-61,48)/61,48\times100\approx1,33$ %. To je usporedba dvaju
-obuhvata istih izbora, a ne rast odaziva kroz vrijeme.
+$(62,30-61,48)/61,48\times100\approx1,33$ %. Time uspoređujemo dva obuhvata istih izbora u istom razdoblju.
 
 Razlika od 0,82 postotna boda izgledala bi mala na osi od 0 % do 100 %, a
 mnogo istaknutija na osi od 61 % do 63 % (Hrvatske}, 2024). Broj i njegovo
@@ -247,7 +238,7 @@ jasno označiti i opravdati.
 U ovom prikazu udio i veličinu uzorka zadajemo izravno. Početnih 52 % može
 značiti 130 odgovora od 250 ili 520 od 1.000. Iz zadanoga udjela i veličine uzorka računamo približnu marginu koju
 oduzimamo od procjene i dodajemo procjeni.
-Postupak ne stvara niz pojedinačnih odgovora i ne ponavlja uzorkovanje. Zadanom
+Postupak radi izravno sa zadanim sažetkom ankete. Zadanom
 pristranošću odvajamo procjenu od pretpostavljene istine, pa se može vidjeti
 zašto uži interval sam ne popravlja sustavan pomak.
 
@@ -276,9 +267,7 @@ U drugoj je situaciji uzorak veći nego u prvoj, pa je interval uži. U trećoj
 veličina uzorka i procijenjeni udio ostaju kao u drugoj, ali uz
 pretpostavljenu sustavnu pristranost istinita vrijednost leži izvan intervala.
 
-Veći uzorak smanjuje slučajno rasipanje procjene. Ako postupak sustavno
-promašuje istinu, sam rast uzorka to ne ispravlja. Zato uzak interval može
-pratiti netočnu procjenu.
+Veći uzorak smanjuje slučajno rasipanje procjene. Pri sustavnom promašivanju istine veći uzorak daje uži interval oko pomaknute procjene. Preciznost tada prati pristranost.
 
 ## Podrijetlo ljudskog i strojnog broja
 
@@ -291,11 +280,9 @@ prirodnim sažetkom tog podatka. Prije objave ipak trebamo utvrditi što
 glagol glasovalo prenosi iz tablice, a što mu čitatelj može pridodati.
 
 U početnoj smo tablici već razlikovali broj pristupilih od broja birača
-prema glasačkim listićima (Hrvatske}, 2024). Te veličine ne smijemo
-zamijeniti u naslovu, a samu razliku ne možemo protumačiti bez dodatnih
-podataka.
+prema glasačkim listićima (Hrvatske}, 2024). U naslovu svaku veličinu navodimo pod njezinim izvornim nazivom, a za tumačenje razlike tražimo dodatne podatke.
 
-Za redakcijsku odluku to znači da provjera dijeljenja nije dovoljna.
+Redakcijska provjera zato uz dijeljenje obuhvaća i značenje upotrijebljenih pojmova.
 Kad bismo odaziv opisali kao udio birača koji su dali važeći glas nekoj
 listi, promijenili bismo značenje brojnika. Kad bismo nazivnik zamijenili
 svim punoljetnim stanovnicima, odgovorili bismo na drugo pitanje.
@@ -307,7 +294,7 @@ glasovanju je pristupilo 62,30 % birača na obrađenim biračkim mjestima
 (Hrvatske}, 2024). Uz poveznicu na tablicu čitatelj može provjeriti
 brojnik, nazivnik i obuhvat. Uredništvo je sačuvalo glavnu informaciju i preciziralo na što se ona odnosi.
 
-Izlaznost ne objašnjava razloge izlaska ni političke stavove birača.
+Razloge izlaska i političke stavove birača istražujemo zasebno od evidencije izlaznosti.
 
 Asistent može zbrojiti vrijednosti, usporediti nazivnike i predložiti jasniju
 rečenicu. Svaki dobiveni broj ipak povezujemo s objavom i ulaznim podacima.
@@ -341,7 +328,7 @@ provjeriti u izvoru.
 Provjera izvora potrebna je i za slike, zvuk i video. Uvjerljiv zapis može
 biti umjetno stvoren, a neobičan izgled ne mora značiti da je lažan. Zasebno
 provjeravamo odakle datoteka dolazi, je li izmijenjena i je li se prikazani
-događaj zbio. Odgovor na jedno od tih pitanja ne rješava ostala.
+događaj zbio. Za svako od tih pitanja potreban je zaseban dokaz.
 
 Za tumačenje materijala razlikujemo sljedeće četiri oznake.
 
@@ -358,8 +345,7 @@ Primjer s rijetkim sintetičkim zapisima pokazao je zašto sama oznaka
 detektora nije dovoljna. Detektor sintetičkog sadržaja također proizvodi procjenu. Ona ovisi o podacima
 na kojima je učen, inačici, postavkama i pragu. Ako je sintetički sadržaj
 rijedak, čak i umjerena stopa lažnih upozorenja može dati više pogrešnih nego
-točnih oznaka. Rezultat detektora zato je razlog za daljnju provjeru, a ne
-dovoljan dokaz podrijetla.
+točnih oznaka. Rezultat detektora zato koristimo kao poticaj za daljnju provjeru podrijetla.
 
 I autentičan zapis može imati nepotpun trag podrijetla. Snimka zaslona može
 izgubiti metapodatke, a izvorna datoteka postati nedostupna. S druge strane,
@@ -391,8 +377,7 @@ bez spremljene datoteke i njezina kontrolnog zbroja nećemo moći potvrditi
 istovjetnost s pregledanom inačicom.
 
 Tablica sadržava dvanaest redaka izbornih jedinica I.–XII. i nacionalni zbroj
-(Hrvatske}, 2024). Nacionalni redak služi provjeri zbrojeva i ne računamo
-ga kao dodatnu jedinicu. Nazivnik se odnosi na birače na obrađenim biračkim
+(Hrvatske}, 2024). Nacionalni redak služi provjeri zbrojeva, dok jedinice za usporedbu čine pojedini izborni redci. Nazivnik se odnosi na birače na obrađenim biračkim
 mjestima, pa ga ne zamjenjujemo drugim ukupnim brojem birača bez provjere
 obuhvata (Hrvatske}, 2024).
 
@@ -473,8 +458,7 @@ ili uzrocima ponašanja pojedinaca.
 
 : Šest dimenzija tvrdnje na granici Dijela I. Izrada autora.
 
-Precizan opis ne postaje time uzročno objašnjenje. Ni usporedba izbornih
-jedinica sama ne objašnjava njihove stanovnike. Za odluku uz račun trebamo
+Uzročno objašnjenje zahtijeva podatke o nastanku opaženih razlika. Za objašnjenje ponašanja stanovnika trebali bismo i podatke na razini pojedinaca. Za odluku uz račun trebamo
 razmotriti ciljeve i posljedice. Tablica je dovoljna za izbor provjerljive
 formulacije naslova, dok bi promjena izborne politike zahtijevala dodatne
 dokaze i vrijednosne kriterije.

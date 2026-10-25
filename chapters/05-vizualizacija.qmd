@@ -56,9 +56,7 @@ sažecima i jednakim prilagođenim pravcem, ali vrlo različitim grafovima
 zakrivljenost. Treći je imao utjecajnu točku, a četvrti okomit oblak uz
 jedno izdvojeno opažanje.
 
-Svi su sažeci bili ispravno izračunati. Ipak, nisu sačuvali raspored
-pojedinačnih opažanja, pa su četiri različita oblika opisali gotovo istim
-brojevima.
+Svi su sažeci bili ispravno izračunati. Četiri različita rasporeda opažanja ipak su opisali gotovo istim brojevima. Razliku među njima vidimo tek na grafovima.
 
 Što graf otkriva o podacima, a što izborom prikaza možemo sakriti?
 :::
@@ -249,9 +247,7 @@ prikaz iz kojega se tražena usporedba doista može vidjeti.
 
 Anscombeovim ćemo se skupovima iz vinjete vraćati kao provjeri onoga što
 brojčani sažetak izostavlja [@anscombe1973]. To su namjerno konstruirani
-parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav par, bez
-stvarne osobe ili društvene pojave iza njega. Zato ih koristimo za ispitivanje
-prikaza, a ne za sadržajni zaključak o nekoj populaciji. Usporedbom tablica i
+parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani par. Služe nam za ispitivanje prikaza, a doseg zaključka ograničen je na taj nastavni primjer. Usporedbom tablica i
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
 sažetke.
 
@@ -306,7 +302,7 @@ neposredno usporediti.
 
 Ako skupine razlikujemo bojom u istom polju, lako ih uspoređujemo na
 zajedničkim osima. Ako ih rasporedimo u zasebna polja, lakše pratimo obrazac
-svake skupine. Podaci se ne mijenjaju, ali naglašavamo različite usporedbe.
+svake skupine. Različitim rasporedom istih podataka naglašavamo različite usporedbe.
 
 Treba provjeriti i što je izračunato prije crtanja. Stupac koji prikazuje
 prosjek skriva raspodjelu. Okvir s brkovima ne pokazuje broj njezinih vrhova,
@@ -375,9 +371,7 @@ su potvrdili prednost položaja pred duljinom i kutom [@cleveland1984].
 Povezali su te rezultate s ranijim istraživanjima i predložili širi poredak
 kanala. Prema tom se poretku najtočnije očitava položaj na zajedničkoj osi, zatim na
 istovjetnim, ali neporavnatim osima, pa duljina, kut, nagib i površina. Obujam,
-zakrivljenost i zasićenost boje nalaze se pri dnu [@cleveland1984]. Cijeli taj
-poredak nije provjeren jednim pokusom, nego je prijedlog oslonjen na više
-izvora.
+zakrivljenost i zasićenost boje nalaze se pri dnu [@cleveland1984]. Cijeli taj poredak predstavlja sintezu više izvora, s različitim stupnjem izravne pokusne provjere pojedinih usporedbi.
 
 Za usporedbu koja određuje zaključak zato biramo kanal koji se lakše očitava.
 Boja ili površina mogu poslužiti za razlike kod kojih je dovoljna gruba
@@ -398,11 +392,8 @@ ili snalaženje na grafu.
 
 Tufteov faktor laži uspoređuje relativnu promjenu prikazanu geometrijom s
 relativnom promjenom u podacima [@tufte2001]. Kada duljina ili površina izravno
-predstavlja količinu, omjer blizu jedan pokazuje razmjerno kodiranje. Ne
-potvrđuje da je cijeli graf pošten. Skraćena os, perspektiva ili zamjena
-duljine površinom mogu povećati dojam i uz točne brojčane oznake. Ta mjera
-služi određenim geometrijskim usporedbama, a ne općem ocjenjivanju svih
-grafova.
+predstavlja količinu, omjer blizu jedan pokazuje razmjerno kodiranje. Poštenost cijeloga grafa zahtijeva i provjeru ostalih odluka pri prikazu. Skraćena os, perspektiva ili zamjena
+duljine površinom mogu povećati dojam i uz točne brojčane oznake. Doseg te mjere ograničen je na određene geometrijske usporedbe.
 
 ## Prikaz prema tvrdnji
 
@@ -431,7 +422,7 @@ Za dvije kategorijalne varijable možemo izabrati stupce jedan uz drugi,
 složene stupce ili stupce jednake ukupne visine koji prikazuju udjele.
 Usporedni stupci pokazuju apsolutne brojeve. Stupci udjela pokazuju sastav,
 ali skrivaju razliku između skupine od dvadeset i skupine od dvjesto osoba.
-Tvrdnju da je skupina brojnija zato ne možemo opravdati samo grafom udjela.
+Za usporedbu brojnosti uz udjele trebamo navesti i veličine skupina.
 
 Kod složenih stupaca samo najdonji segment ima zajedničku osnovicu. Ostali
 počinju na različitim visinama, ovisno o prethodnim segmentima. Njihove su
@@ -451,12 +442,10 @@ smo tako odredili.
 Primjer pretvorbe daje naslov *The Grammar of Graphics* [@wilkinson2005].
 Nakon pretvorbe u mala slova i razdvajanja dobivamo četiri zapisa,
 `the`, `grammar`, `of` i `graphics`. Svaki dodaje jedan svome brojaču.
-Kad tako obradimo svih šest odabranih naslova, brojimo pojavljivanja riječi,
-a ne broj knjiga. U Wickhamovu naslovu o paketu ggplot2 uklanjamo dvotočku,
+Kad tako obradimo svih šest odabranih naslova, jedinica brojanja postaje pojedino pojavljivanje riječi. U Wickhamovu naslovu o paketu ggplot2 uklanjamo dvotočku,
 ali zadržavamo `ggplot2` kao jedan oblik [@wickham2016].
 
-Graf izdvaja šest oblika koji se ponavljaju. Zadnji redak pokazuje učestalost
-svakog od preostala dvadeset dva oblika zasebno, a ne njihov zajednički zbroj.
+Graf izdvaja šest oblika koji se ponavljaju. U zadnjem retku navedena je učestalost koja vrijedi za svaki od preostala dvadeset dva oblika zasebno.
 
 ```{r}
 #| echo: false
@@ -478,8 +467,7 @@ ggplot(s5_rijeci_prikaz, aes(broj, rijec)) +
   theme_knjiga(base_size = 11)
 ```
 
-Rezultat opisuje samo odabranih šest naslova. Ne predstavlja svu literaturu o
-vizualizaciji ili znanstveno pisanje. Pri tumačenju zato navodimo jedinicu,
+Rezultat opisuje odabranih šest naslova. Za širi zaključak o literaturi o vizualizaciji ili znanstvenom pisanju trebali bismo odgovarajući izbor tekstova. Pri tumačenju zato navodimo jedinicu,
 obradu teksta, nazivnik i obuhvat. Iste ćemo odluke ponovno razmotriti kada
 tekst postane ulaz algoritma.
 
@@ -496,8 +484,7 @@ mjestu. Djelomično prozirne točke mogu pokazati gušća područja tamnijima. K
 diskretnih vrijednosti pomaže blago razmicanje točaka, a za vrlo mnogo
 opažanja možemo izravno prikazati procijenjenu gustoću.
 
-Izglađena linija na raspršenom dijagramu procijenjeni je model odnosa. Nije
-dodatno opažanje. Njezin oblik ovisi o postupku procjene i može djelovati
+Izglađenu liniju na raspršenom dijagramu dobivamo procjenom modela odnosa iz opaženih podataka. Njezin oblik ovisi o postupku procjene i može djelovati
 uvjerljivo čak i kad podaci ne podupiru stabilan obrazac. Uvijek je zato
 čitamo uz oblak točaka. U poglavlju o regresiji razradit ćemo kako se takve
 linije dobivaju i provjeravaju.
@@ -692,9 +679,7 @@ koristi i razlike u svjetlini kako bi se kategorije mogle razlikovati u sivim
 tonovima.
 
 Alternativni tekst treba prenijeti nalaz osobi koja ne vidi graf. Navodimo
-varijable, smjer veze i najizraženije obilježje obrasca. Opis da graf
-prikazuje odnos dviju varijabli nije dovoljan jer ne govori kakav je taj
-odnos.
+varijable, smjer veze i najizraženije obilježje obrasca. Opis konkretizira odnos, primjerice njegov smjer i oblik, kako bi čitatelj mogao razumjeti nalaz.
 
 Pristupačnost prikaza znači da podatke može pročitati i osoba kojoj boja ili sitan tekst nisu dostupni. Izravnim oznakama uz podatke smanjujemo potrebu za traženjem naziva u legendi.
 Pomaže i smislen redoslijed kategorija. Kada želimo usporediti veličine,
@@ -702,8 +687,7 @@ poredak po vrijednosti olakšava čitanje više od abecednog.
 
 Iste odluke provjeravamo i pri čitanju grafa. Primijenimo ih na desno polje u @fig-skraceni-raspon.
 
-Jedan stupac predstavlja dobnu skupinu. Ne prikazuje pojedinog ispitanika, pa
-iz njega ne zaključujemo o pojedincu. Skupina određuje vodoravni položaj, a
+Jedan stupac predstavlja dobnu skupinu i služi zaključivanju na toj razini. Za opis pojedinog ispitanika trebali bismo njegove odgovore. Skupina određuje vodoravni položaj, a
 prosjek duljinu stupca. Boja i širina su jednake jer ne prikazuju dodatnu
 varijablu.
 
@@ -725,9 +709,7 @@ opažanja između prvoga i trećega kvartila. U sljedećem prikazu brkovi sežu
 do najudaljenijih opažanja unutar 1,5 interkvartilnog raspona od kutije;
 udaljenija opažanja prikazuju se zasebno. Takva točka nije automatski pogreška.
 
-Sažimanje u dvije sredine skriva razlike među pojedincima. To nije isto što
-i nesigurnost procjene populacijske sredine. Za nju trebamo znati kako su
-opažanja odabrana, što ćemo razraditi uz uzorkovanje i procjenu.
+Sažimanje u dvije sredine skriva razlike među pojedincima. Zasebno pitanje jest nesigurnost procjene populacijske sredine. Nju procjenjujemo prema načinu odabira opažanja, što ćemo razraditi uz uzorkovanje i procjenu.
 
 ## Interakcija — Isti podaci, četiri grafa
 
@@ -736,8 +718,7 @@ skupinama. U svakoj ravnomjerno rasporedimo vrijednosti $x$ od 1 do 10.
 Polazište ishoda je $1,5 + 0,55x$, skupini B dodajemo 0,8, a svakoj točki
 neovisno normalno odstupanje sa sredinom nula i standardnom devijacijom
 0,85. Na primjer, pri $x=1$ polazište je 2,05 za A i 2,85 za B, prije
-slučajnog odstupanja. Varijable nemaju stvarnu mjernu jedinicu. Četiri grafa
-preoblikuju istih 72 zapisa i ne generiraju nove ishode.
+slučajnog odstupanja. Varijable nemaju stvarnu mjernu jedinicu. Četiri grafa prikazuju isti skup od 72 zapisa.
 
 Isti simulirani podaci prikazani su na četiri načina. Svaki graf
 olakšava jednu usporedbu i skriva dio drugih informacija. Raspršeni
@@ -1024,9 +1005,7 @@ prosudbu o publici i svrsi prikaza.
 
 Ustanova može izabrati stupce i objasniti zašto ih bira. Pritom treba
 imenovati broji li posjete ili različite posjetitelje, jer dobar oblik
-grafa ne popravlja nejasnu jedinicu. Prikladan graf prepoznajemo po
-usporedbi koju čini čitljivom, a ne po tome pripada li unaprijed
-odobrenoj vrsti.
+grafa ne popravlja nejasnu jedinicu. Prikladnost grafa procjenjujemo prema tome koliko jasno prikazuje usporedbu važnu za naše pitanje.
 :::
 
 

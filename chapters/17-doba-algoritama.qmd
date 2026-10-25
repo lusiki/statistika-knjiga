@@ -81,8 +81,7 @@ stopifnot(
 ParlaSent je skup rečenica iz parlamentarnih rasprava kojima su ljudi označili
 ton. Koristimo njegov hrvatski dio kako bismo pratili što
 model uči iz takvih oznaka i kako provjeravamo njegove pogreške
-[@mochtak2023]. Jedan redak sadrži jednu rečenicu i njezinu oznaku, a ne
-cijeli govor ili mišljenje zastupnika.
+[@mochtak2023]. Jedan redak sadrži jednu rečenicu i njezinu oznaku, pa se analiza odnosi na ton tog izdvojenog dijela govora.
 
 „Da li je pošteno da se ukida prethodna stopa i da se povećava u odnosu na
 prethodnu?” Tako glasi prvi hrvatski redak nastavne datoteke ParlaSent 1.0.
@@ -110,15 +109,13 @@ procijenjeni ton odlučuje koja će rečenica dobiti dodatni pregled. Za procjen
 takva sustava trebamo pratiti i nastanak oznake i posljedice pogrešne odluke.
 
 Hrvatski dio ParlaSenta sadrži stvarne parlamentarne rečenice s ljudskim
-oznakama tona [@mochtak2023]. Jedan redak predstavlja rečenicu, a ne
-zastupnika ili cijeli govor. Pratit ćemo tekst, dostupne oznake kodera i
+oznakama tona [@mochtak2023]. Rečenica je jedinica na koju se odnose zabilježene oznake i naši zaključci. Pratit ćemo tekst, dostupne oznake kodera i
 podjelu podataka. U nastavnom primjeru iz tih ćemo oznaka izvesti jednostavan
 rezultat za usporedbu pravila slanja na pregled. Time provjeravamo kako izbor
-praga mijenja odluku. Uspješnost uvježbanoga klasifikatora ovdje ne mjerimo.
+praga mijenja odluku. Uspješnost budućega uvježbanog klasifikatora zahtijevala bi zasebnu provjeru njegovih predviđanja.
 
 U tom se zadatku sastaju ranija pitanja o mjerenju, uzorkovanju i pogreškama.
-Ljudska oznaka nije nepogrešiva mjera tona, a odabrani korpus nije automatski
-slika svih parlamentarnih rasprava. Razmotrit ćemo zašto podatke razdvajamo za
+Ljudske oznake tona trebamo provjeriti prema pravilima kodiranja, a doseg korpusa prema načinu odabira rečenica. Razmotrit ćemo zašto podatke razdvajamo za
 učenje, provjeru i ispitivanje te kako prilagođavanje poznatim primjerima može
 prikriti slabo predviđanje novih. Za svaku procjenu trebamo znati na kojim je
 podacima nastala i što je već moglo utjecati na odluke o modelu.
@@ -197,8 +194,7 @@ podatkovnoj putovnici `data/parlament_tekst/PUTOVNICA.md`. Te brojnosti opisuju 
 
 ## Nastanak oznake
 
-Izdvojili smo rečenice koje možemo analizirati, ali njihova oznaka tona još
-nije sama po sebi razumljiva. [Okvir kodiranja]{.pojam def="Skup pravila po kojima se tekst pretvara u
+Nakon izbora rečenica trebamo razjasniti što njihove oznake tona znače i kako su nastale. [Okvir kodiranja]{.pojam def="Skup pravila po kojima se tekst pretvara u
 kategorije koje analiza rabi." en="coding frame" ch="17"} određuje značenje
 oznaka `Negative`, `Neutral` i `Positive`. Dodijeljena oznaka ovisi o uputama,
 prosudbi kodera i načinu rješavanja neslaganja.
@@ -244,10 +240,7 @@ Takvo preklapanje dokumenata bilo bi još jedan oblik curenja informacija.
 pristajanje njima, ali pogoršava predviđanje novih jedinica." en="overfitting"
 ch="17"} nastaje kada model nauči posebnosti viđenih podataka pa njima
 bolje pristaje, ali lošije predviđa nove jedinice. Zato ga provjeravamo
-na odvojenim jedinicama. Ta provjera
-ipak ne stvara reprezentativan uzorak. Populacijski doseg ovisi o odabiru
-podataka. Čak ni dobar rezultat na pravilno izdvojenom skupu ne opravdava
-prijenos na sve tekstove. Ovdje različit odabir i označavanje ispitnog dijela
+na odvojenim jedinicama. Populacijski doseg zasebno određujemo prema odabiru podataka. Dobar rezultat na pravilno izdvojenom skupu podržava prediktivnu uspješnost u obuhvaćenim uvjetima; prijenos na druge tekstove zahtijeva dodatnu provjeru. Ovdje različit odabir i označavanje ispitnog dijela
 dodatno ograničavaju usporedbu.
 
 ## Od vjerojatnosti do pravednosti
@@ -283,12 +276,10 @@ preciznost (*precision*), računa se kao $TP/(TP+FP)$. Točnost
 točno negativne odluke, a FP i FN lažno pozitivne i lažno negativne.
 Klasifikacijska preciznost zato nije isto što i uski interval procjene.
 
-Brojeve ćemo u razrađenom primjeru dobiti prebrojavanjem ljudskih glasova,
-a ne provjerom gotovoga algoritma. Za prag od barem jednoga negativnog
+Brojeve ćemo u razrađenom primjeru dobiti prebrojavanjem ljudskih glasova i usporedbom pravila koja se na njima temelje. Za prag od barem jednoga negativnog
 glasa tablica daje $TP=122$, $FP=16$, $FN=0$ i $TN=134$.
 Osjetljivost je $122/122$, specifičnost $134/150$, pozitivna prediktivna
-vrijednost $122/138$, a točnost $256/272$. Ti različiti nazivnici
-objašnjavaju zašto jedan postotak ne može opisati cijelu odluku.
+vrijednost $122/138$, a točnost $256/272$. Svaki nazivnik izdvaja drugu skupinu rečenica, pa zajedno daju potpuniji opis odluke.
 Lažna uzbuna podsjeća na pogrešku prve vrste iz testiranja, ali ovdje
 brojimo odluke prema referentnoj oznaci pojedinih rečenica, a ne
 odbacivanja statističke hipoteze kroz ponovljene uzorke.
@@ -304,8 +295,7 @@ Za [pogreške po podskupinama]{.pojam def="Odvojeni prikaz vrsta pogreške
 unutar unaprijed smislenih skupina." en="subgroup errors" ch="17"} trebamo
 pouzdanu skupnu varijablu. Nastavni paket takve podatke nema. Ne izvodimo ih
 nagađanjem iz teksta ili imena. Zato za prikaz koristimo izmišljene skupine A
-i B, a empirijski primjer ostaje bez podskupinske analize. To ograničenje ne
-dokazuje da su pogreške pravedno raspoređene.
+i B, a empirijski primjer ostaje bez podskupinske analize. Raspored pogrešaka među stvarnim podskupinama zato ostaje otvoreno pitanje.
 
 [Algoritamska pravednost]{.pojam def="Ocjena raspodjele koristi, pogrešaka i
 mogućnosti osporavanja u cijelom sustavu odluke." en="algorithmic fairness"
@@ -330,8 +320,7 @@ ispod praga za stopu lažno negativnih. Sve vrijednosti zadržavamo, uključuju�
 one ograničene na nulu i jedan.
 
 Skupine A i B zatim slažemo ponderiranjem istih dviju uvjetnih raspodjela,
-u prikazanoj postavci s udjelima ishoda 1 od 20 % i 45 %. Ne izvlačimo nove
-osobe za svaku skupinu. Primjerice, u A udio točno pozitivnih među svima
+u prikazanoj postavci s udjelima ishoda 1 od 20 % i 45 %. Obje se skupine temelje na istim generiranim rezultatima, uz različite težine. Primjerice, u A udio točno pozitivnih među svima
 iznosi $0,20(1-\text{stopa lažno negativnih})$, a udio lažno pozitivnih
 $0,80 \times \text{stopa lažno pozitivnih}$. Njihov zbroj nazivnik je
 pozitivne prediktivne vrijednosti. U B mijenjaju se težine u 0,45 i 0,55.
@@ -341,8 +330,7 @@ simuliranih rezultata malo bi promijenio njihove vrijednosti.
 Na slici uspoređujemo dvije simulirane skupine s različitim temeljnim stopama.
 Za isti referentni ishod raspodjele rezultata jednake su u obje skupine.
 Zajednički prag zato može dati jednake uvjetne stope pogreške, ali različitu
-točnost i prediktivnu vrijednost. Prikaz ne opisuje ParlaSent ni stvarne
-skupine ljudi.
+točnost i prediktivnu vrijednost. Zaključci prikaza odnose se na taj zaseban simulirani model.
 
 :::: {.content-visible when-format="html"}
 ::: {.widget-frame data-naslov="Istraživač pravednosti" data-oznaka="Widget 17.1 · interaktivno"}
@@ -664,8 +652,7 @@ visokorizična može utjecati na odluku koja se na nju odnosi.
 Chouldechova je u istraživanju instrumenata za procjenu
 ponavljanja kaznenog djela razmotrila kako različita mjerila
 pravednosti mogu dati različite ocjene istog sustava
-[@chouldechova2017]. Spor se ne može riješiti samo podatkom
-da je model ukupno dovoljno točan.
+[@chouldechova2017]. Procjena sustava zato zahtijeva pregled vrsta pogrešaka i njihovih posljedica uz ukupnu točnost.
 
 Jedan zahtjev polazi od značenja ocjene. Među ljudima s
 jednakom ocjenom rizika zabilježeni bi ishod trebao biti
@@ -852,8 +839,7 @@ rečenice, a ulazi jedna od 150 nenegativnih. Stope tada iznose 0,7 % i 18,0 %.
 Za izbor pravila trebamo znati kapacitet pregleda, posljedice nepotrebnog
 uključivanja i izostavljanja te mogućnost prigovora. Prije toga uredništvo
 mora opravdati izbor negativnog tona kao kriterija. Treba ga usporediti sa
-slučajnim pregledom ili kriterijem relevantnosti. Tablica pokazuje posljedice
-praga, ali ne donosi tu odluku umjesto uredništva.
+slučajnim pregledom ili kriterijem relevantnosti. Tablica pokazuje posljedice praga, a uredništvo na toj osnovi i prema svrsi pregleda obrazlaže odluku.
 
 U ispitnom dijelu nemamo drugog kodera ni usklađenje, pa pravilo dvaju glasova
 ne možemo jednako primijeniti i ocijeniti. Završnu uspješnost zato ne
@@ -883,8 +869,7 @@ doseg ovog primjera.
 
 : Šest revizijskih pitanja za odluku o ljudskom pregledu. Izrada autora prema @mochtak2023 i @mochtakparlasent2024. {#tbl-revizijska-pitanja-dio-v}
 
-Sljedeća tablica razlikuje šest vrsta tvrdnji. Svaka traži odgovarajuće dokaze, pa
-analiza ne mora niti može odgovoriti na sve.
+Sljedeća tablica razlikuje šest vrsta tvrdnji. Doseg analize određujemo prema dokazima potrebnima za svaku od njih.
 
 | Dimenzija tvrdnje | Što ovaj dokaz dopušta |
 |---|---|

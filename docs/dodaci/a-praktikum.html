@@ -954,17 +954,17 @@ window.Quarto = {
 <p>Praktikum je radni pratitelj knjige. Poglavlja se mogu čitati bez otvaranja koda, a ovaj dodatak pokazuje kako se iste analize izvode u R-u. Napisan je tako da se može čitati samostalno, od prve naredbe do gotove skripte, i ne pretpostavlja nikakvo prethodno iskustvo s programiranjem.</p>
 <section id="kako-čitati-ovaj-dodatak" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="kako-čitati-ovaj-dodatak">Kako čitati ovaj dodatak</h2>
-<p>Knjiga i praktikum imaju različite zadaće i vrijedi ih držati odvojenima. Poglavlja uče čitanje koda, jer je čitanje način na koji tvrdnja postaje provjerljiva. Praktikum uči pisanje, za čitatelja koji želi analizu ponoviti sam. Nijedan zadatak u knjizi ne pretpostavlja da ste prošli kroz ovaj dodatak, pa je on ponuda, a ne uvjet.</p>
+<p>Knjiga i praktikum imaju različite zadaće i vrijedi ih držati odvojenima. Poglavlja uče čitanje koda, jer je čitanje način na koji tvrdnja postaje provjerljiva. Praktikum uči pisanje, za čitatelja koji želi analizu ponoviti sam. Praktikum je dobrovoljan put za samostalno izvođenje analiza. Za zadatke u knjizi dovoljan je sadržaj poglavlja.</p>
 <p>Primjeri idu od malih objekata prema tablicama, zatim prema čišćenju, grupiranju, preoblikovanju i grafovima, i završavaju skriptom koju možete predati zajedno s rezultatima. Gotovo svi rade na simuliranoj anketi <code>anketa_mreze</code>, koju knjiga koristi u poglavljima o opisivanju podataka. Skup ima 300 ispitanika i pet varijabli, a proizveden je kodom uz fiksno sjeme, pa nije nalaz o stvarnoj populaciji.</p>
-<p>Male vektore i tablice u nastavku zadajemo ručno radi čitanja naredbi. Nisu dodatni ispitanici iz ankete. Kada primjer koristi <code>anketa_mreze</code>, obrađuje istih 300 generiranih zapisa. Filtriranje izdvaja dio njih, prekodiranje mijenja vrijednost ili oznaku, a sažimanje pretvara više osobnih redaka u jedan skupni rezultat.</p>
-<p>Preporučeni način čitanja je uz otvoren R. Kod nemojte samo gledati nego ga prepišite i pokrenite, a zatim promijenite neki broj ili ime stupca i pogledajte što se dogodi. Razlika između čitanja i pisanja koda upravo je u tome što se pisanje uči jedino kroz pogreške koje sami napravite i popravite.</p>
+<p>Male vektore i tablice u nastavku zadajemo ručno kao zasebne ilustracije za čitanje naredbi. Kada primjer koristi <code>anketa_mreze</code>, obrađuje istih 300 generiranih zapisa. Filtriranje izdvaja dio njih, prekodiranje mijenja vrijednost ili oznaku, a sažimanje pretvara više osobnih redaka u jedan skupni rezultat.</p>
+<p>Preporučeni način čitanja je uz otvoren R. Prepišite kod i pokrenite ga, a zatim promijenite neki broj ili ime stupca i pogledajte što se dogodi. Razlika između čitanja i pisanja koda upravo je u tome što se pisanje uči jedino kroz pogreške koje sami napravite i popravite.</p>
 <p>Za dublji rad s podacima izvan opsega ovog dodatka najkorisniji je slobodno dostupan priručnik <em>R for Data Science</em>, koji cijeli pristup tidyversea razrađuje sustavnije nego što je ovdje moguće <span class="citation" data-cites="wickham2023">(<a href="../references.html#ref-wickham2023" role="doc-biblioref">Wickham i sur. 2023.</a>)</span>. Čitatelju koji uopće ne želi pisati kod Dodatak B nudi put kroz softver s izbornicima.</p>
 <div class="no-row-height column-margin column-container"></div></section>
 <section id="alat-i-radni-prostor" class="level2">
 <h2 class="anchored" data-anchor-id="alat-i-radni-prostor">Alat i radni prostor</h2>
 <p>Za rad je potreban R, jezik i sustav za statističko računanje koji izvršava naredbe. Uređivačko okruženje može objediniti uređivanje skripte, konzolu, prikaz grafova i pregled stvorenih objekata, ali nije dio statističkoga postupka.</p>
 <p>U ovom praktikumu radni tok opisujemo neovisno o konkretnom sučelju. Kod se piše u skripti i šalje na izvođenje na način koji nudi odabrano okruženje, a rezultat se provjerava u konzoli ili prikazu izlaza. Taj se postupak tijekom analize ponavlja mnogo puta.</p>
-<p>Prije prvog koda vrijedi urediti mjesto na kojem će analiza živjeti. Analiza se piše u skripti, a ne kao niz naredbi koje ostaju samo u konzoli, jer se skripta može ponovno pokrenuti, poslati kolegi i priložiti uz rad. Projektna mapa drži podatke, kod i rezultate na predvidljivim mjestima.</p>
+<p>Prije prvog koda vrijedi urediti mjesto na kojem će analiza živjeti. Naredbe analize zapisujemo u skriptu koju možemo ponovno pokrenuti, poslati kolegi i priložiti uz rad. Projektna mapa drži podatke, kod i rezultate na predvidljivim mjestima.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jednom po novom projektu</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"data"</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
@@ -1113,7 +1113,7 @@ window.Quarto = {
 <pre><code>[1]  26,25 -46,75  43,25 -23,75   9,25 -60,75  66,25 -13,75</code></pre>
 </div>
 </div>
-<p>Kada napišete <code>minute / 60</code>, R ne dijeli vektor kao cjelinu nego svaki njegov element, i vraća novi vektor iste duljine. Zahvaljujući tome jedna naredba preoblikuje tisuće vrijednosti jednako lako kao osam.</p>
+<p>Kada napišete <code>minute / 60</code>, R dijeli svaki element sa šezdeset i vraća novi vektor iste duljine. Zahvaljujući tome jedna naredba preoblikuje tisuće vrijednosti jednako lako kao osam.</p>
 <p>Druga skupina funkcija radi obrnuto i cijeli vektor sažima u jedan broj.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(minute)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1235,7 +1235,7 @@ Levels: srednja &lt; prvostupnik &lt; magistar &lt; doktor</code></pre>
 <pre><code>[1] "srednja"     "prvostupnik" "magistar"    "doktor"     </code></pre>
 </div>
 </div>
-<p>Razina <code>doktor</code> postoji u popisu iako je nitko nema. To nije greška nego korisno svojstvo, jer tablica frekvencija tada pokazuje i praznu kategoriju, umjesto da se pravi da ne postoji.</p>
+<p>Razina <code>doktor</code> postoji u popisu iako je nitko nema. Zahvaljujući tom svojstvu tablica frekvencija pokazuje i praznu kategoriju.</p>
 <p>Tipove je moguće provjeriti i pretvarati.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>tekst_broj <span class="ot">&lt;-</span> <span class="st">"42"</span></span>
@@ -1405,7 +1405,7 @@ Levels: srednja &lt; prvostupnik &lt; magistar &lt; doktor</code></pre>
 <section id="paketi" class="level2">
 <h2 class="anchored" data-anchor-id="paketi">Paketi</h2>
 <p>R sam po sebi dolazi s temeljnim funkcijama, a najveći dio korisnog rada obavlja se pomoću paketa koje je razvila zajednica. Paket je zbirka funkcija, podataka i dokumentacije koju je netko napisao i objavio.</p>
-<p>Ovaj se dodatak oslanja na tidyverse, koji nije jedan paket nego skup paketa sa zajedničkom filozofijom. Među njima su ggplot2 za grafove, dplyr za obradu podataka, tidyr za preoblikovanje, readr za uvoz, tibble za tablice, stringr za tekst i forcats za faktore.</p>
+<p>Ovaj se dodatak oslanja na tidyverse, skup paketa sa zajedničkim pristupom radu s podacima. Među njima su ggplot2 za grafove, dplyr za obradu podataka, tidyr za preoblikovanje, readr za uvoz, tibble za tablice, stringr za tekst i forcats za faktore.</p>
 <p>Paket se instalira jednom, a učitava pri svakom pokretanju R-a. Instalacija je poput kupnje knjige, a učitavanje poput njezina otvaranja.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jednom, u konzoli</span></span>
@@ -1432,7 +1432,7 @@ Levels: srednja &lt; prvostupnik &lt; magistar &lt; doktor</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(sazetak, <span class="st">"outputs/sazetak.csv"</span>)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Ostatak dodatka koristi istu datoteku koju ste učitali u <a href="#sec-a-ucitavanje">odjeljku o učitavanju</a>. Provjera sažetka povezuje objavljenu datoteku sa skriptom koja ju je proizvela i kataloškim zapisom te omogućuje prepoznati odstupanje od dokumentirane inačice.</p>
-<p>Kada dobijete nove podatke, prvo ih pogledajte. Nikada ne počinjite analizu prije nego što znate koliko redaka i stupaca imate, kojeg su tipa i kako izgledaju prve vrijednosti.</p>
+<p>Kada dobijete nove podatke, prvo ih pogledajte. Utvrdite broj redaka i stupaca, njihove tipove i izgled prvih vrijednosti. Taj je pregled polazište analize.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(anketa_mreze)</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2069,7 +2069,7 @@ Instagram    TikTok     Other
 </section>
 <section id="grafovi" class="level2">
 <h2 class="anchored" data-anchor-id="grafovi">Grafovi</h2>
-<p>Zašto je graf skup odluka, a ne vrsta slike, razrađuje poglavlje o vizualizaciji. Ovaj odjeljak uči kako se te odluke zapisuju u paketu ggplot2. Redoslijed izlaganja slijedi redoslijed odluka, pa se najprije gradi kostur, a zatim se dodaju geometrija, polja, ljestvice i oznake.</p>
+<p>Poglavlje o vizualizaciji razrađuje odluke kojima oblikujemo graf prema istraživačkom pitanju. Ovaj odjeljak uči kako se te odluke zapisuju u paketu ggplot2. Redoslijed izlaganja slijedi redoslijed odluka, pa se najprije gradi kostur, a zatim se dodaju geometrija, polja, ljestvice i oznake.</p>
 <p>Svaki graf ima tri obavezna dijela. Funkcija <code>ggplot()</code> prima tablicu, <code>aes()</code> pridružuje varijable svojstvima grafa, a sloj <code>geom_</code> određuje oblik prikaza. Slojevi se spajaju znakom <code>+</code>, a ne cjevovodom, i to je razlika koju vrijedi zapamtiti odmah, jer je zamjena tih dvaju znakova najčešća pogreška početnika.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb216"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb216-1"><a href="#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> minute_dnevno))</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2081,7 +2081,7 @@ Instagram    TikTok     Other
 </div>
 </div>
 </div>
-<p>Poziv bez geometrije nacrta osi i ništa više. To nije greška nego točan prikaz onoga što je zatraženo, jer podaci i pridruživanje postoje, a odluka o obliku oznake nije donesena.</p>
+<p>Poziv bez geometrije nacrta samo osi. Time pokazuje dosad zadane dijelove grafa, podatke i pridruživanje varijabli. Oblik oznaka dodat ćemo odabirom geometrije.</p>
 </section>
 <section id="geometrija-prema-vrsti-podataka" class="level2">
 <h2 class="anchored" data-anchor-id="geometrija-prema-vrsti-podataka">Geometrija prema vrsti podataka</h2>
@@ -2181,7 +2181,7 @@ Instagram    TikTok     Other
 </div>
 </div>
 </div>
-<p>Razlika prema histogramu nije kozmetička. Histogram prebrojava opažanja u razredima i tako pokazuje oblik raspodjele uz odabranu širinu razreda. Kutijasti dijagram oblik unutar kutije više ne pokazuje, ali skupine uspoređuje bez napora. Svaki prikaz nešto čuva i nešto odbacuje, što je argument koji poglavlje o vizualizaciji razrađuje.</p>
+<p>Izbor između tog prikaza i histograma mijenja informacije koje čitatelj može vidjeti. Histogram prebrojava opažanja u razredima i tako pokazuje oblik raspodjele uz odabranu širinu razreda. Kutijasti dijagram oblik unutar kutije više ne pokazuje, ali skupine uspoređuje bez napora. Svaki prikaz nešto čuva i nešto odbacuje, što je argument koji poglavlje o vizualizaciji razrađuje.</p>
 <p>Ono što je kutija odbacila može se vratiti dodavanjem sloja s opažanjima.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb223"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb223-1"><a href="#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dobna_skupina, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
@@ -2226,7 +2226,7 @@ Instagram    TikTok     Other
 </div>
 </div>
 </div>
-<p>Prozirnost je ovdje nužna, a ne ukrasna. Bez nje se preklopljene točke ne razlikuju od pojedinačnih, pa se gustoća oblaka ne vidi.</p>
+<p>Prozirnost ovdje pomaže očitati gustoću oblaka. Preklopljene točke stvaraju tamnija područja koja razlikujemo od pojedinačnih opažanja.</p>
 <p>Sloj <code>geom_smooth()</code> provlači kroz oblak procijenjeni prosječni odnos.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(anketa_mreze, <span class="fu">aes</span>(<span class="at">x =</span> dob, <span class="at">y =</span> minute_dnevno)) <span class="sc">+</span></span>
@@ -2241,7 +2241,7 @@ Instagram    TikTok     Other
 </div>
 </div>
 </div>
-<p>Argument <code>method = "lm"</code> traži pravac najmanjih kvadrata, a bez njega se crta prilagodljiva krivulja koja slijedi oblik podataka. Siva vrpca oko linije je interval pouzdanosti, i uklanja se argumentom <code>se = FALSE</code>. Ta linija je model, a ne podatak, pa se čita zajedno s oblakom iz kojega je izvučena. Poglavlje o regresiji pokazuje kako nastaje.</p>
+<p>Argument <code>method = "lm"</code> traži pravac najmanjih kvadrata, a bez njega se crta prilagodljiva krivulja koja slijedi oblik podataka. Siva vrpca oko linije je interval pouzdanosti, i uklanja se argumentom <code>se = FALSE</code>. Ta linija nastaje prilagodbom modela, pa je čitamo zajedno s oblakom opažanja iz kojega je izračunata. Poglavlje o regresiji pokazuje kako nastaje.</p>
 </section>
 </section>
 <section id="pridruživanje-polja-i-oznake" class="level2">
@@ -2544,7 +2544,7 @@ Instagram    TikTok     Other
 </div>
 </div>
 <p>R je prva dva teksta pretvorio u brojeve, treći nije mogao i na njegovo je mjesto stavio <code>NA</code>. Kod se izvršio do kraja, a rezultat je tiho izgubio jednu vrijednost. Upozorenja zato treba čitati jednako pažljivo kao greške, jer najčešće govore o problemu s podacima, a ne s kodom.</p>
-<p>Kada dugačak cjevovod ne radi, ne tražite grešku u cjelini. Pokrenite ga korak po korak i nakon svakog koraka pogledajte rezultat.</p>
+<p>Pogrešku u dugačkom cjevovodu tražite postupno. Pokrenite ga korak po korak i nakon svakog koraka pogledajte rezultat.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb258"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb258-1"><a href="#cb258-1" aria-hidden="true" tabindex="-1"></a>anketa_mreze <span class="sc">|&gt;</span></span>
 <span id="cb258-2"><a href="#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dob <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
@@ -2620,7 +2620,7 @@ Instagram    TikTok     Other
 20 viša        tisak            1122 0.0948</code></pre>
 </div>
 </div>
-<p>Zbirni udio svakog izvora nije zamjena za skupne udjele. Sljedeća usporedba stavlja ih jedan uz drugi, pa se može provjeriti mijenja li se opis kada se sačuva obrazovna skupina.</p>
+<p>Zbirni udio svakog izvora i udjeli po skupinama odgovaraju na pitanja različitog obuhvata. Sljedeća usporedba stavlja ih jedan uz drugi, pa se može provjeriti mijenja li se opis kada se sačuva obrazovna skupina.</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb265"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb265-1"><a href="#cb265-1" aria-hidden="true" tabindex="-1"></a>zbirni_izvori <span class="ot">&lt;-</span> populacija_medija <span class="sc">|&gt;</span></span>
 <span id="cb265-2"><a href="#cb265-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(izvor_vijesti, <span class="at">name =</span> <span class="st">"broj"</span>) <span class="sc">|&gt;</span></span>
@@ -2843,7 +2843,7 @@ Instagram    TikTok     Other
 1   300     0.180</code></pre>
 </div>
 </div>
-<p>Koeficijent ne zamjenjuje graf. On sažima linearnu povezanost, dok graf otkriva oblik, raspršenje i opažanja koja bi sažetak mogao prikriti.</p>
+<p>Koeficijent i graf čitamo zajedno. Koeficijent sažima linearnu povezanost, dok graf otkriva oblik, raspršenje i opažanja koja bi sažetak mogao prikriti.</p>
 </section>
 </section>
 <section id="sec-a-rute-06-16" class="level2">

@@ -25,8 +25,7 @@ statističke značajnosti i veličine učinka.
 
 Takve podatke često susrećemo u društvenim znanostima. Zanima nas koji izvor
 vijesti osoba bira, kojoj obrazovnoj skupini pripada ili podržava li neki
-prijedlog. Odgovore možemo prebrojiti, ali samo brojanje još ne daje odgovor
-na istraživačko pitanje. Ako mlađi i stariji biraju različite izvore vijesti,
+prijedlog. Brojanjem dobivamo polazište za usporedbe koje odgovaraju na istraživačko pitanje. Ako mlađi i stariji biraju različite izvore vijesti,
 kako ćemo opisati tu razliku i procijeniti što nam uzorak govori o populaciji?
 
 Logika zaključivanja koju smo dosad usvojili ostaje ista. Najprije postavljamo
@@ -37,8 +36,7 @@ dalje trebamo pokazati veličinu razlike, njezinu nesigurnost i nazivnike na
 kojima se temelje prikazani udjeli.
 
 Postupak ćemo razviti na uzorku od 800 zamišljenih osoba iz već poznatog skupa
-`populacija_medija`. Riječ je o računalno stvorenim podacima za
-nastavu, pa rezultati ne opisuju stvarne medijske navike stanovnika Hrvatske.
+`populacija_medija`. Riječ je o računalno stvorenim podacima za nastavu, pa rezultate tumačimo unutar te zamišljene populacije.
 Iz svakog zapisa izdvojit ćemo dobnu skupinu i glavni izvor vijesti,
 televiziju, radio, tisak, portal ili društvene mreže. Želimo saznati kako se
 izbor izvora razlikuje među dobnim skupinama.
@@ -65,13 +63,11 @@ koga prebrojili.
 Frekvencija je broj jedinica u kategoriji. Za udio trebamo i **uvjetni
 nazivnik**, skupinu unutar koje računamo postotak. Tvrdnja da četrdeset posto
 ispitanika bira društvene mreže može se odnositi na cijeli uzorak, samo
-najmlađu dobnu skupinu ili samo osobe koje su odgovorile. Bez navedenog
-nazivnika čitatelj ne može provjeriti značenje postotka.
+najmlađu dobnu skupinu ili samo osobe koje su odgovorile. Jasno naveden nazivnik omogućuje čitatelju da provjeri na koju se skupinu postotak odnosi.
 
 Prije brojanja određujemo kategorije. Dob možemo podijeliti na različite
 skupine, a portal i društvene mreže promatrati zajedno ili odvojeno. To je dio
-operacionalizacije. Test zatim uspoređuje raspored unutar tih kategorija, ali
-ne provjerava jesmo li ih sadržajno dobro odabrali.
+operacionalizacije. Test zatim uspoređuje raspored unutar tih kategorija. Njihovu sadržajnu prikladnost obrazlažemo prema pojavi koju istražujemo.
 
 **Kontingencijska tablica** je tablica frekvencija u kojoj svaka ćelija sadrži
 broj jedinica koje istovremeno pripadaju jednoj kategoriji retka i jednoj
@@ -136,8 +132,7 @@ U istoj tablici televiziju bira ukupno `r sum(s13_tablica[, "TV"])` od
 800 osoba. Za najmlađe zato očekujemo
 $`r sum(s13_tablica[1, ])` \times `r sum(s13_tablica[, "TV"])` / 800 =
 `r hr_broj(s13_test$expected[1, "TV"], 2)`$ korisnika televizije, a opažamo
-ih `r s13_tablica[1, "TV"]`. Očekivani broj smije imati decimale jer opisuje
-modelsku referencu, a ne dodatne osobe koje smo zabilježili.
+ih `r s13_tablica[1, "TV"]`. Očekivani broj smije imati decimale jer nastaje iz modela kao referenca za usporedbu s opaženim brojem osoba.
 
 Prije nastavka možemo dopuniti isti račun za najstariju skupinu. U njoj je
 `r sum(s13_tablica[4, ])` osoba, a zajednički udio korisnika televizije i
@@ -252,14 +247,11 @@ primjereno. Usporedbom naše statistike s tom raspodjelom dobivamo p-vrijednost.
 Za jedan stupanj slobode granica na razini 0,05 iznosi `r hr_broj(s13$granica, 2)`. S više
 stupnjeva slobode granica je viša.
 
-Hi-kvadrat nam je sažeo odstupanje cijele tablice, ali iz tog broja još ne
-vidimo gdje se ono pojavljuje. Za povratak konkretnim dobnim skupinama i
-izvorima računamo rezidual svake ćelije. Budući da rubne udjele procjenjujemo
+Hi-kvadrat sažima odstupanje cijele tablice. Da bismo vidjeli gdje se ono pojavljuje, vraćamo se konkretnim dobnim skupinama i izvorima te računamo rezidual svake ćelije. Budući da rubne udjele procjenjujemo
 iz iste tablice, oni ograničavaju promjenjivost ćelija. Pri standardiziranju
 odstupanja zato uz očekivanu frekvenciju uzimamo u obzir i udjele retka i
 stupca. Ako u tablici 2 × 2 uz zadane rubove povećamo jednu ćeliju,
-preostale tri moraju se odgovarajuće promijeniti. Četiri odstupanja zato
-nisu četiri slobodna podatka.
+preostale tri moraju se odgovarajuće promijeniti. Odstupanja su stoga međusobno vezana zadanim rubnim zbrojevima.
 
 **Prilagođeni standardizirani rezidual** ćelije je razlika opažene i očekivane
 frekvencije podijeljena procijenjenom standardnom devijacijom te razlike, koja
@@ -308,8 +300,7 @@ procijeniti prema pitanju i ranijim nalazima iz istog područja.
 
 Za odluku su često jasniji postoci. Televiziju bira `r hr_broj(s13_retci["18 do 29", "TV"])` % najmlađih i
 `r hr_broj(s13_retci["60 i više", "TV"])` % najstarijih ispitanika. Uredništvo može tu razliku povezati s
-raspodjelom resursa. V sažima jačinu veze, ali ne zamjenjuje čitanje pojedinih
-udjela.
+raspodjelom resursa. Uz V kao sažetak jačine veze čitamo pojedine udjele kako bismo razumjeli obrazac.
 
 ## Referentna raspodjela je istraživačka odluka
 
@@ -406,8 +397,7 @@ doprinosa Pearsonovoj statistici iznose $4/2$, $4/18$, $4/2$ i $4/18$,
 jer je svako opažanje od svoga očekivanja udaljeno za dva. Njihov je zbroj
 `r hr_broj(unname(s13_mali_pearson$statistic), 2)`.
 
-Jedan takav ishod ne govori koliko često postupak griješi. Zato svaki
-scenarij ponavljamo 4 000 puta. Veličine skupina i vjerojatnosti ostaju
+Učestalost pogrešaka procjenjujemo ponavljanjem cijelog postupka, pa svaki scenarij ponavljamo 4 000 puta. Veličine skupina i vjerojatnosti ostaju
 zadane, a svaki put generiramo nove neovisne odgovore. Brojimo koliko puta
 Pearsonov test, odnosno test sa zbrojem (opaženo − očekivano)²/očekivano, bez korekcije kontinuiteta daje p-vrijednost manju od 0,05.
 Broj odbacivanja dijelimo s 4 000, uključujući ponavljanja bez ijednog
@@ -474,8 +464,7 @@ prve vrste niti pouzdanost pojedine odluke.
 U početnoj analizi dobi i izvora vijesti ove provjere usmjeravaju čitanje
 tablice. Najprije provjeravamo brojanja i očekivane frekvencije, zatim
 primjerenost referentnog računa, a uz test i dalje navodimo udjele, njihovu
-razliku i nesigurnost. Pouzdaniji račun p-vrijednosti ne zamjenjuje pitanje
-što kategorije predstavljaju i na koga se uzorak odnosi.
+razliku i nesigurnost. Uz pouzdaniji račun p-vrijednosti i dalje trebamo obrazložiti značenje kategorija i doseg uzorka.
 
 Odluka o spajanju kategorija traži i sadržajno opravdanje. Sljedeći
 primjer pokazuje što se pritom može izgubiti iz istraživačkog pitanja.
@@ -504,9 +493,7 @@ rasporediti tiskane obavijesti.
 Tako se tehničko pitanje o očekivanim frekvencijama pretvorilo u pitanje o
 sadržaju istraživanja. Preporuka o pragu pet služi procjeni hi-kvadrat
 aproksimacije (Cochran, 1954). Sama po sebi ne govori koje odgovore ima
-smisla spojiti niti koji je komunikacijski kanal važan za knjižnicu. Mali
-broj odgovora također ne znači da su ljudi iza tih odgovora nevažni. Znači
-da o njihovim navikama možda imamo malo informacija.
+smisla spojiti niti koji je komunikacijski kanal važan za knjižnicu. Mali broj odgovora upozorava na oskudne informacije o navikama te skupine. Važnost tih ljudi za knjižnicu prosuđujemo prema njezinoj svrsi i njihovim potrebama.
 
 Tim zato najprije treba sačuvati pregled izvornih frekvencija i udjela.
 Zatim može procijeniti prikladnost postupka, razmotriti drugi način
@@ -515,8 +502,7 @@ istraživačkom pitanju. Ako podaci nisu dovoljni za odluku o pojedinom
 kanalu, i to treba jasno napisati.
 
 Prisjetimo se simulacije iz ovoga poglavlja. Provjeravali smo i lažne uzbune
-i sposobnost otkrivanja postojeće veze. Nestanak upozorenja iz programa ne
-jamči da imamo dovoljno podataka za odgovor koji knjižnici treba.
+i sposobnost otkrivanja postojeće veze. Nakon tehničke provjere još trebamo procijeniti pružaju li podaci dovoljno informacija za odluku knjižnice.
 
 Prije spajanja kategorija zato pitajmo što ćemo nakon spajanja još moći
 saznati. U ovom slučaju to pitanje određuje hoće li slušatelji radija ostati
@@ -585,7 +571,7 @@ tradicionalne izvore. Ta podjela odgovara novom pitanju i stvara novu varijablu.
 udjele, a zatim ukupno odstupanje od nezavisnosti.
 
 Vraćamo se istim zapisima svih 800 osoba, a zasebni pokus s dvjema skupinama
-ovdje završava. Nijednu osobu ne izbacujemo. Primjerice, u najmlađem retku
+ovdje završava. Sve osobe ostaju uključene. Primjerice, u najmlađem retku
 zbrajamo `r s13_tablica[1, "portal"]` korisnika portala i
 `r s13_tablica[1, "društvene mreže"]` korisnika mreža, što daje
 `r s13_spojena[1, "digitalni"]` digitalnih korisnika. Preostali izvori daju
@@ -600,17 +586,14 @@ iznosi `r hr_broj(s13$razlika_digitalni, 1)` postotnih bodova, uz 95-postotni in
 `r hr_broj(s13$ci_digitalni[[1]], 1)` do `r hr_broj(s13$ci_digitalni[[2]], 1)`. Ukupni test, koji obuhvaća sve dobne
 skupine, odgovara na šire pitanje o povezanosti u cijeloj tablici. Hi-kvadrat
 iznosi `r hr_broj(s13$hi_spojena)`, uz `r s13$df_spojena` stupnja slobode, a V iznosi
-`r hr_broj(s13$v_spojena, 2)`. Za pet kategorija V je bio `r hr_broj(s13$v, 2)`. Razlika tih
-vrijednosti ne govori koja je podjela bolja. Prva čuva razlike među
+`r hr_broj(s13$v_spojena, 2)`. Za pet kategorija V je bio `r hr_broj(s13$v, 2)`. Prikladnost podjele prosuđujemo prema pitanju na koje želimo odgovoriti. Prva čuva razlike među
 pojedinačnim izvorima, a druga opisuje digitalno-tradicionalnu podjelu.
 Usporedba pokazuje koliko zaključak ovisi o operacionalizaciji. Interval
 razlike udjela računan je normalnom aproksimacijom s odvojenim procjenama
 varijance dvaju udjela, bez korekcije kontinuiteta. Pretpostavlja neovisne
 osobe i skupine te dovoljno velike brojnosti u svakoj od četiriju ćelija.
 
-Tablica opisuje povezanost dobi i izbora izvora. Ne utvrđuje potječe li ona od
-ranije stečenih navika, dostupnosti uređaja ili životnog razdoblja. Za
-razdvajanje tih objašnjenja trebali bismo dodatne varijable i prikladan nacrt.
+Tablica opisuje povezanost dobi i izbora izvora. Među mogućim objašnjenjima jesu ranije stečene navike, dostupnost uređaja i životno razdoblje. Za njihovo razdvajanje trebali bismo dodatne varijable i prikladan nacrt.
 U poglavlju o regresiji naučit ćemo zajedno razmatrati više varijabli.
 
 Iz dobivenih rezultata sada možemo sastaviti kratak izvještaj.

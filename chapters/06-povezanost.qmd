@@ -340,7 +340,7 @@ dviju sredina iznose `r hr_broj(s6_dob[1] - mean(s6_dob), 2)` godina i
 `r hr_broj(s6_minute[1] - mean(s6_minute), 2)` minuta. Njihov je umnožak
 `r hr_broj((s6_dob[1] - mean(s6_dob)) * (s6_minute[1] - mean(s6_minute)), 2)`.
 Račun ponavljamo na svih 300 parova, zbrajamo umnoške i dijelimo s 299.
-Nema nedostajućih parova, a dob jedne osobe uvijek ostaje uz njezine minute.
+Svi su parovi potpuni, a dob jedne osobe uvijek ostaje uz njezine minute.
 
 Veličina kovarijance ovisi o mjernim jedinicama. Za dob i dnevne minute ovdje
 iznosi `r hr_broj(s6_kov, 1)`. Ako iste minute pretvorimo u sate, dobivamo `r hr_broj(s6_kov_sati, 1)`,
@@ -353,8 +353,7 @@ Za usporedbu različitih parova potrebna nam je mjera neovisna o jedinicama.
 ## Od standardizacije do matrice
 
 Standardizacijom vrijednosti pretvaramo u broj standardnih devijacija od
-sredine. Ako to učinimo s objema varijablama prije množenja, minute ili sati
-više ne utječu na rezultat.
+sredine. Ako to učinimo s objema varijablama prije množenja, račun daje jednak rezultat za vrijeme izraženo u minutama i u satima.
 
 ::: {#def-korelacija}
 **Pearsonova korelacija** uzorka jest zbroj umnožaka uzorački standardiziranih
@@ -386,13 +385,10 @@ ostaje `r hr_broj(s6_r_sati, 3)`. Kovarijanca se pri toj promjeni jedinice promi
 
 Kada je korelacija $+1$, sve točke leže na uzlaznom pravcu, a pri $-1$ na
 silaznom. Vrijednost nula znači da nema linearne veze. Međuvrijednosti opisuju
-koliko raspored točaka prati pravac. Korelacija ne daje njegov nagib. Iz
-vrijednosti `r hr_broj(s6_r, 2)` ne saznajemo za koliko se minuta vrijeme korištenja
-mijenja uz jednu godinu dobi. To ćemo procijeniti regresijom.
+koliko raspored točaka prati pravac. Nagib pravca odgovara na zasebno pitanje, za koliko se minuta vrijeme korištenja mijenja uz jednu godinu dobi. Uz korelaciju `r hr_broj(s6_r, 2)` za taj ćemo opis trebati i regresiju.
 
 Cohen je kao orijentaciju u društvenim znanostima predložio korelacije oko
-0,10, 0,30 i 0,50 za male, srednje i velike odnose [@cohen1988]. Te
-vrijednosti nisu univerzalna pravila za procjenu važnosti nalaza.
+0,10, 0,30 i 0,50 za male, srednje i velike odnose [@cohen1988]. Služe kao početna orijentacija koju prilagođavamo području i istraživačkom pitanju.
 
 Cohen ih preporučuje kada nemamo bolju osnovu u poznavanju područja
 [@cohen1988]. Važnost koeficijenta zato procjenjujemo prema pojavi, načinu
@@ -431,15 +427,11 @@ anketa_mreze |>
 ## Matrica, kodovi i rangovi
 
 Matrica olakšava pregled, ali i traženje slučajno velikih koeficijenata. Tri
-varijable daju tri para, a deset ih daje četrdeset pet. Hipoteza koju
-osmislimo nakon traženja najvećeg broja nije isto što i unaprijed postavljena
-hipoteza. Posljedice za testiranje razmotrit ćemo u poglavlju o krizi i
+varijable daju tri para, a deset ih daje četrdeset pet. Hipoteza nastala traženjem najvećeg broja ima istraživački status, različit od hipoteze postavljene prije pregleda rezultata. Posljedice za testiranje razmotrit ćemo u poglavlju o krizi i
 obnovi. Svaki par koji namjeravamo tumačiti najprije prikazujemo raspršenim
 dijagramom.
 
-Par koji uspoređujemo ne mora početi dvama brojčanim mjerenjima. Brojčanu
-varijablu možemo dobiti i kodiranjem teksta, uz pravila mjerenja koja smo već
-upoznali. **Kodirana kategorija
+U usporedbu možemo uključiti i tekst pretvoren u brojčanu varijablu kodiranjem, uz pravila mjerenja koja smo već upoznali. **Kodirana kategorija
 teksta** ovisi o pravilu koje smo odabrali. Za šest namjerno izabranih naslova
 iz poglavlja o vizualizaciji dodjeljujemo jedan ako naslov sadržava `graphs`,
 `graphical` ili `graphics`, a inače nulu. Pet naslova dobiva jedan, a jedan nulu.
@@ -451,8 +443,7 @@ vrijeme.
 Ako pravilu dodamo oblik `visual`, svih šest naslova dobiva jedan i
 korelacija se više ne može izračunati jer nema razlika u kodu [@anscombe1973;
 @cleveland1984; @tufte2001; @wilkinson2005; @wickham2016; @matejka2017].
-Tekstovi su isti, a mjera se promijenila. Pravilo je sastavio autor poglavlja,
-ne autori citiranih naslova. Zato uz kod navodimo pravilo, osobu koja ga je
+Tekstovi su isti, a mjera se promijenila. Autor poglavlja sastavio je pravilo za potrebe ovog primjera. Zato uz kod navodimo pravilo, osobu koja ga je
 odredila i tekstove na koje je primijenjen. Kasnije ćemo takve kategorije
 proučavati u tablicama i razmotriti što se mijenja kada ih dodjeljuje
 algoritam.
@@ -499,8 +490,7 @@ i silazni dio tada se u koeficijentu poništavaju, iako graf pokazuje odnos.
 
 ## Ograničenje raspona i odabir
 
-Izbor prikladnog koeficijenta još ne rješava pitanje koga smo uključili u
-usporedbu. Na korelaciju utječe i izbor opažanja. U približno linearnoj vezi sa sličnom
+Uz izbor koeficijenta važno je razmotriti i izbor opažanja jer oba utječu na opis povezanosti. U približno linearnoj vezi sa sličnom
 raspršenošću ishoda, odabir prema užem rasponu jedne varijable često smanjuje
 apsolutnu korelaciju. Raspon koji nosi signal postaje manji, dok preostalo
 rasipanje može ostati slično.
@@ -515,7 +505,7 @@ pravilu odabira.
 Za čist prikaz slabljenja konstruirajmo 27 parova. Svaku vrijednost x od
 jedan do devet ponovimo triput, a y dobijemo dodavanjem −2, 0 i 2. Unutar
 svake vrijednosti x rasipanje je zato isto. Potom zadržimo samo x od četiri
-do šest. Uklanjamo dio raspona, a ne mijenjamo pravilo nastanka y.
+do šest. Tako sužavamo raspon uz očuvano pravilo nastanka y.
 
 ```{r}
 #| echo: false
@@ -546,9 +536,7 @@ skupine, ali unutar najmlađe minute ne ovise o točnoj dobi. Populacijska
 korelacija unutar nje zato je nula, a opaženih `r hr_broj(s6_r_uzak, 2)` proizlazi iz
 promjenjivosti uzorka od `r s6_n_uzak` osoba.
 
-Najmlađa skupina odgovara na uže pitanje i njezin nalaz ne opovrgava vezu u
-cijelom skupu. Slično, istraživanje jedne studentske generacije nije dovoljno
-za zaključak o dobi u cijeloj odrasloj populaciji. Za primljene kandidate,
+Nalaz za najmlađu skupinu i veza u cijelom skupu odgovaraju na pitanja različitog obuhvata. Slično, istraživanje jedne studentske generacije opisuje uzak raspon dobi, dok zaključak o cijeloj odrasloj populaciji traži širi obuhvat. Za primljene kandidate,
 zaposlene radnike ili preživjela poduzeća trebamo provjeriti kako je odabir
 promijenio raspon, oblik i sastav opažanja.
 
@@ -632,7 +620,7 @@ Europske unije, objavljuje pokazatelje kojima uspoređujemo obrazovanje,
 zaposlenost, siromaštvo, uporabu interneta i dobnu strukturu stanovništva
 [@eurostatemployment2026; @eurostatpoverty2026; @eurostattertiary2026;
 @eurostatearlyleaving2026; @eurostatinternet2026; @eurostatpopulation2026].
-Koristimo objavljene vrijednosti, a ne simulaciju. U izvornoj tablici jedan
+Analiza se ovdje oslanja na objavljene vrijednosti. U izvornoj tablici jedan
 redak pripada jednom pokazatelju za jednu državu i godinu. Kada pokazatelje
 spojimo za graf, jedna točka predstavlja državu.
 
@@ -782,7 +770,7 @@ povezanosti, ali sama ta promjena ne dokazuje uzročnost. O neizmjerenom
 Isti koeficijent može odgovarati različitim objašnjenjima. Prva varijabla može
 utjecati na drugu ili obrnuto, obje mogu ovisiti o trećoj, a obrazac može
 nastati slučajnom promjenjivošću uzorka. Za razlikovanje tih mogućnosti
-trebamo istraživački dizajn. Sam izračun ne određuje smjer uzroka.
+trebamo istraživački dizajn. Smjer uzroka procjenjujemo na temelju takvog dizajna i znanja o pojavi.
 
 ## Interakcija — Pogodi korelaciju
 
@@ -792,8 +780,7 @@ nula i standardnom devijacijom jedan. Prva postaje $x$, a $y$ dobivamo
 miješanjem dijela prvoga izvlačenja i dijela drugoga. Više zajedničkoga
 dijela znači jaču vezu, a negativan predznak zajedničkoga dijela silaznu vezu.
 Generator zadaje četiri različite populacijske korelacije, dok koeficijent
-svakog konačnog oblaka računamo iz njegovih 54 para. To nisu točno iste
-veličine. Promjenom svoje procjene ne mijenjamo točke.
+svakog konačnog oblaka računamo iz njegovih 54 para. Uzorački koeficijenti pritom mogu odstupati od zadanih populacijskih vrijednosti. Točke ostaju iste dok čitatelj iskušava vlastite procjene.
 
 Četiri raspršena oblaka omogućuju usporedbu smjera i jačine
 povezanosti. Najprije promatramo oblik svakog oblaka. Tablica koja slijedi
@@ -1056,8 +1043,7 @@ Usporedite oblake A i D prema apsolutnoj vrijednosti korelacije. Za svaki oblak 
 :::
 
 Predznak je lakše uočiti nego točnu jačinu veze. Pri usporedbi oblaka A i D
-trebamo i jednake ljestvice. Ni dobro pogođen koeficijent ne zamjenjuje
-pregled oblika.
+trebamo i jednake ljestvice. Uz dobro procijenjen koeficijent potreban je i pregled oblika oblaka.
 
 ::: {.callout-divljina}
 **Dinosaur s urednim sažetkom.** Zamislimo da na pregled dobijemo analizu
@@ -1071,8 +1057,7 @@ izostaviti. Njihov postupak sitnim pomacima točaka mijenja izgled skupa,
 a zadane sažetke čuva do druge decimale [@matejka2017]. Polazeći od
 Cairova obrisa dinosaura, proizveli su skupove koji izgledaju poput
 zvijezde, kruga ili nizova crta, uz iste zaokružene sredine,
-standardne devijacije i korelaciju [@matejka2017]. To su namjerno
-konstruirani podaci, a ne opažanja neke društvene pojave.
+standardne devijacije i korelaciju [@matejka2017]. Podaci su namjerno konstruirani za tu demonstraciju.
 
 Takva demonstracija mijenja našu procjenu izvještaja. Podudaranje
 sažetaka potvrđuje da smo ponovili račun, ali ne potvrđuje da je
@@ -1085,8 +1070,7 @@ U zamišljenoj analizi zato bismo zatražili raspršeni dijagram svih
 parova. Ako on pokaže zakrivljenost, rečenicu o slaboj vezi trebali
 bismo ograničiti na linearnu povezanost. Ako pokaže skupine ili
 izdvojena opažanja, provjerili bismo što predstavljaju prije
-izračunavanja novih koeficijenata. Ne bismo ih uklonili samo da graf
-postane uredniji.
+izračunavanja novih koeficijenata. Njihovo bi eventualno uklanjanje zahtijevalo obrazloženje povezano s kvalitetom podataka ili istraživačkim pitanjem.
 
 Dinosaur je pamtljiv zato što radikalno razdvaja ono što vidimo od
 onoga što koeficijent sažima. U stvarnim podacima raspored će rijetko
@@ -1187,9 +1171,7 @@ o povezanosti i što usput treba provjeriti.
 : Šest revizijskih pitanja primijenjenih na povezanost službenih agregata. Izrada autora prema Eurostatu [@eurostattertiary2026; @eurostatinternet2026; @eurostatpopulation2026].
 
 Promjena jedinice mijenja i ono što procjenjujemo, moguća objašnjenja te
-posljedice zaključka. Statusna oznaka također traži prosudbu. Nije automatski
-razlog za izbacivanje retka, pa svako takvo pravilo unaprijed obrazlažemo i
-navodimo u izvještaju.
+posljedice zaključka. Statusna oznaka također traži prosudbu. O uključivanju retka odlučujemo prema značenju oznake; pravilo unaprijed obrazlažemo i navodimo u izvještaju.
 
 **Granica tvrdnje o povezanosti** ovisi o jedinici, obuhvatu i načinu
 mjerenja. Sljedeća tablica pokazuje koje vrste tvrdnji ti podaci podupiru.

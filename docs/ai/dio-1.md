@@ -45,16 +45,13 @@ U knjizi ćemo učiti pratiti put od istraživačkog pitanja do zaključka. Rač
 će nam pomoći opisati podatke, usporediti skupine i procijeniti nesigurnost,
 ali morat ćemo odlučiti odgovara li na pitanje koje smo postavili. Za početak
 su nam dovoljni poznati postoci, jednostavne tablice i spremnost da provjerimo
-što stoji iza broja. Ne trebamo znati programirati. Trebamo moći objasniti
-zašto smo nešto podijelili, koga smo izostavili i dokle dobiveni odgovor
-vrijedi.
+što stoji iza broja. U središtu je sposobnost da objasnimo zašto smo nešto podijelili, koga smo izostavili i dokle dobiveni odgovor vrijedi. To možemo vježbati uz prikazane račune.
 
 Uz stvarni slučaj prijava koristit ćemo autorski skup `populacija_medija`,
 računalno stvorenu populaciju odraslih osoba iz zamišljenoga grada. Jedan zapis predstavlja jednu zamišljenu osobu. U prvom ćemo
 računu povezati njezin glavni izvor vijesti sa spremnošću na plaćanje vijesti.
 Usporedit ćemo broj osoba koje bi platile s njihovim udjelom unutar pojedinog
-izvora. Tako možemo pratiti svaki korak bez tvrdnje da opisujemo stvarnu
-medijsku publiku.
+izvora. Tako možemo pratiti svaki korak na populaciji čiji su odnosi unaprijed zadani.
 
 Prijave na studij i spremnost na plaćanje vijesti različite su pojave, ali
 pred nas postavljaju sličan problem. Broj dobiva značenje tek kada znamo koje
@@ -67,8 +64,7 @@ medijski naslov ili odgovor asistenta.
 
 Zbirna stopa govori tko je češće primljen među svim prijavljenim kandidatima.
 Stope po odjelima govore kako su prolazili kandidati koji su se prijavili na
-isti odjel. Za zaključak moramo znati koju od tih usporedbi trebamo. Sama
-računska točnost to ne određuje.
+isti odjel. Izbor usporedbe ovisi o pitanju koje istražujemo. Računom zatim provjeravamo rezultat te odabrane usporedbe.
 
 Da bismo procijenili pravednost upisa, morali bismo poznavati i kriterije
 odlučivanja te okolnosti koje tablica ne bilježi. Zasad možemo provjeriti kako
@@ -81,16 +77,13 @@ dovesti do pogrešnog zaključka i kada u računanju nema propusta.
 
 Najprije utvrđujemo što predstavlja jedan zapis. U zbirnoj tablici prijava
 redak opisuje više prijava iste vrste. U tablici pojedinačnih odgovora redak
-može opisivati jednu osobu. Broj redaka zato ne mora biti jednak broju ljudi,
-događaja ili neovisnih opažanja.
+može opisivati jednu osobu. Veza između broja redaka i broja ljudi, događaja ili neovisnih opažanja ovisi o načinu bilježenja podataka.
 
 **Jedinica analize** je ono o čemu donosimo zaključak, primjerice osoba,
 kućanstvo, organizacija ili objava. Jedan redak tablice ne mora predstavljati
 jednu neovisnu jedinicu.
 
-Ako istu osobu pitamo za mišljenje svakoga od sedam dana, dobivamo sedam
-redaka, ali jednu osobu. Njezini odgovori mogu biti slični upravo zato što
-pripadaju istoj osobi. Sedam redaka zato ne daje sedam neovisnih potvrda.
+Ako istu osobu pitamo za mišljenje svakoga od sedam dana, dobivamo sedam zapisa o jednoj osobi. Njezini odgovori mogu biti slični upravo zato što potječu od iste osobe. Pri zaključivanju zato tih sedam redaka promatramo kao ponovljena opažanja unutar iste jedinice.
 
 **Podsjetnik.** Postotci i postotni bodovi
 
@@ -116,8 +109,7 @@ Prva tri retka pokazuju kako taj skup izgleda prije sažimanja. Svaki redak
 Broj osobe služi povezivanju njezinih odgovora. Vrijednost u stupcu izvora
 vijesti jedna je kategorija, povjerenje je ocjena, a spremnost na plaćanje
 u ovoj je tablici prikazana odgovorom da ili ne.
-Kada poslije nacrtamo graf ili izvučemo uzorak, mijenjamo način uporabe tih
-zapisa, a ne njihovo podrijetlo.
+Grafom prikazujemo te zapise, a uzorkovanjem odabiremo dio njih. U oba postupka zadržavamo podatak o tome kako su nastali.
 
 Iz takvih zapisa možemo prebrojiti osobe spremne platiti vijesti. Želimo li
 usporediti izvore s različitim brojem korisnika, trebamo i **nazivnik**,
@@ -306,12 +298,9 @@ s ostalim mogućim nizovima, pohvale aplikacije s iskustvima šire publike, a
 posjete portalima uzimajući u obzir njihovu veličinu. Time postaje vidljivo na
 čemu se zaključak temelji.
 
-Velik broj zapisa ne može zamijeniti tu provjeru. Portal može zabilježiti
-milijune interakcija, a i dalje ništa ne znati o ljudima koji ga ne posjećuju.
+Provjera obuhvata potrebna je i pri velikom broju zapisa. Milijuni interakcija na portalu opisuju zabilježene aktivnosti njegovih posjetitelja; za upoznavanje ostale publike trebalo bi prikupiti dodatne podatke.
 Odgovori većega broja zasebno odabranih ljudi obično daju stabilniji
-postotak od odgovora male skupine. Ponavljanje istih odgovora ne donosi
-istu korist. Sustavno izostavljanje
-dijela publike pritom ostaje.
+postotak od odgovora male skupine. Korist je manja kada se isti odgovori ponavljaju, a sustavno izostavljen dio publike ostaje izvan obuhvata.
 
 Unatoč tim ograničenjima možemo donositi korisne zaključke. Statistički
 postupci, kada su njihove pretpostavke opravdane, omogućuju da izračunamo dio
@@ -320,7 +309,7 @@ ograničavamo na određene uvjete.
 
 ## Signal u promjenjivom svijetu
 
-Čak i kada dobro odaberemo usporedbu, opažanja se neće savršeno slagati.
+I unutar dobro odabrane usporedbe opažanja se međusobno razlikuju.
 Dvije osobe mogu različito reagirati na istu poruku. Ista anketa na drugom
 uzorku dat će nešto drukčije postotke, a ponašanje jedne osobe može se
 mijenjati s vremenom. Statistika nam pomaže proučavati društvene pojave uz tu
@@ -342,16 +331,12 @@ tih izbora izdvaja drugi dio promjenjivosti. Zbog toga se nalazi o istoj
 pojavi mogu razlikovati i kada su svi računi točni. Pri čitanju istraživanja
 treba provjeriti koja su obilježja uključena u usporedbu.
 
-Jedan student koji se mnogo koristi društvenim mrežama i slabo prati vijesti
-nije dovoljan dokaz o povezanosti tih navika. Ni student s drukčijim navikama
-sam ne opovrgava tu povezanost. Osoba je jedinica analize, ali obrazac
-procjenjujemo usporedbom većeg broja osoba.
+Povezanost korištenja društvenih mreža i praćenja vijesti procjenjujemo usporedbom većeg broja studenata. Navike pojedinog studenta mogu se uklapati u zajednički obrazac ili odstupati od njega. Osoba je jedinica analize, a obrazac opisuje odnos u promatranoj skupini.
 
 Važni su i broj opažanja i način na koji su nastala. Uz isti postupak
 prikupljanja i dovoljno neovisne jedinice, razlika među desetak ljudi lakše
 može nastati slučajnim rasipanjem nego jednaka razlika među tisućama.
-Ponavljanje istih zapisa ili dodavanje snažno povezanih opažanja ne donosi
-jednaku količinu nove informacije.
+Ponavljanje istih zapisa ili dodavanje snažno povezanih opažanja donosi manje nove informacije nego uključivanje dodatnih neovisnih jedinica.
 
 Za tumačenje rasta, pada ili razlike trebamo znati s čime uspoređujemo
 rezultat. To može biti druga skupina, ranije razdoblje ili raspon vrijednosti
@@ -364,11 +349,9 @@ tražimo. Opis govori što smo zabilježili, a
 povezanost kako se pojave mijenjaju zajedno. Generalizacijom nalaz prenosimo
 na jedinice koje nismo promatrali. Predviđanjem procjenjujemo nove ishode, dok
 uzročna tvrdnja govori što bi određena promjena proizvela. Odluka uz nalaz
-uključuje i procjenu mogućih postupaka te njihovih posljedica. Broj koji dobro
-opisuje podatke zato ne mora biti dovoljan za uzročni zaključak.
+uključuje i procjenu mogućih postupaka te njihovih posljedica. Prijelaz od opisa podataka do uzročnog zaključka traži dodatno obrazloženje načina na koji je usporedba nastala.
 
-Za isti skup podataka možemo postaviti različita pitanja. Sljedeće su
-formulacije primjeri vrsta tvrdnji, a ne dodatni empirijski nalazi.
+Za isti skup podataka možemo postaviti različita pitanja. Sljedećim zamišljenim formulacijama ilustriramo vrste tvrdnji.
 
 | Vrsta tvrdnje | Primjer pitanja |
 |---|---|
@@ -402,8 +385,7 @@ ljudi koji su odlučivali ili posljedice drukčijih kriterija trebali bismo
 dodatne podatke.
 
 Odgovori na šest pitanja pomažu odrediti što podaci podupiru i koja
-pretpostavka traži najviše provjere. To ne jamči da ćemo biti u pravu, ali
-omogućuje da drugi razumiju i provjere naš zaključak.
+pretpostavka traži najviše provjere. Tako drugi mogu razumjeti na čemu zaključak počiva, provjeriti ga i uočiti moguću pogrešku.
 
 ## Zbirna slika i skrivena struktura
 
@@ -452,7 +434,7 @@ Portal B objavljuje 10 videozapisa s prosjekom od 220 reakcija i 100 tekstova
 s prosjekom od 60. Za A zato najprije računamo ukupne reakcije,
 $100 \times 200 + 10 \times 50 = 20\,500$, pa dijelimo sa 110 objava.
 Za B račun glasi $(10 \times 220 + 100 \times 60)/110$.
-Ne dijelimo zbroj dvaju prosjeka s dva jer formati nemaju jednak broj objava.
+Pri računanju svaki prosjek važemo brojem objava pripadajućeg formata.
 B postiže bolji rezultat u svakom formatu, ali njegov
 ukupni prosjek iznosi približno `r hr_broj(s1$b_zbirno, 0)`, naspram približno
 `r hr_broj(s1$a_zbirno, 0)` reakcija po objavi na
@@ -460,9 +442,7 @@ portalu A.
 
 Ukupni prosjek računamo preko svih objava, pa format s više objava ima veću
 težinu. Videozapisi čine `r hr_broj(s1$udio_videa_a, 0)` % objava portala A i samo `r hr_broj(s1$udio_videa_b, 0)` %
-objava portala B. A zato ima veći udio formata koji privlači više reakcija. Iz
-njegova višeg ukupnog prosjeka ne možemo zaključiti da je bolji u svakom
-formatu.
+objava portala B. A zato ima veći udio formata koji privlači više reakcija. Viši ukupni prosjek ovdje proizlazi iz sastava objava, dok usporedbu uspješnosti po formatu čitamo iz zasebnih prosjeka.
 
 Podjela na podskupine mora odgovarati istraživačkom pitanju. Ako podatke
 dijelimo na mnogo proizvoljnih načina, možemo naići na uvjerljiv obrazac koji
@@ -515,11 +495,7 @@ Promatramo kako njihov različit sastav mijenja smjer zbirne razlike.
 4. Postavite obje zastupljenosti na istu vrijednost i provjerite je li obrat
    tada uopće moguć.
 
-Kada su skupine jednako raspoređene po podskupinama, takav obrat nije moguć.
-Zbirna usporedba tada zadržava smjer razlike unutar podskupina. Za obrat je
-potreban i drukčiji sastav skupina, pa bez razdvajanja podataka ne možemo
-odrediti koliko ukupnoj razlici pridonose stope uspjeha, a koliko
-zastupljenost podskupina.
+Kada su skupine jednako raspoređene po podskupinama, zbirna usporedba zadržava smjer razlike unutar podskupina. Za obrat je potreban drukčiji sastav skupina. Razdvajanjem podataka možemo utvrditi koliko ukupnoj razlici pridonose stope uspjeha, a koliko zastupljenost podskupina.
 
 **Statistika u divljini.**
 **Zbirna stopa i sumnja u pristranost.** Iza Berkeleyjske tablice stajalo
@@ -540,8 +516,7 @@ U izvornom slučaju žene su se češće prijavljivale na odjele koji su primali
 manji udio kandidata obaju spolova (Bickel, 1975). Zato ukupni postotak
 istodobno opisuje postupanje odjela i raspored prijava među njima.
 Razdvajanjem tih sastavnica mijenja se ono što možemo tvrditi o radu
-upisnih povjerenstava. Pritom ne nestaje pitanje zašto su prijave bile tako
-raspoređene ni jesu li kandidati imali jednake mogućnosti prije prijave.
+upisnih povjerenstava. Otvorenima ostaju pitanja zašto su prijave bile tako raspoređene i jesu li kandidati imali jednake mogućnosti prije prijave.
 
 Dobar bi izvještaj zato zadržao oba pogleda. Zbirne stope pokazuju ukupnu
 razliku u ishodima, a odjelne usporedbe približavaju nas odluci koja nas
@@ -600,14 +575,7 @@ skupina i najveća. Dijeljenjem s 15.101 dobivamo udio od 23,27 %.
 Za tisak dijelimo 1.289 s 4.855 i dobivamo 26,55 %. Portal ima
 više osoba spremnih platiti, a tisak njihov veći udio.
 
-Pri tumačenju polazimo od toga da imamo cijelu generiranu populaciju. U
-tih 50.000 zapisa nema nesigurnosti koja bi nastala odabirom uzorka. Ipak, ne znamo bi li pravilo kojim su podaci generirani bilo
-korisno za neku drugu svrhu. Iz ovih udjela ne zaključujemo o stvarnoj
-publici, uzrocima razlika ili odluci koju bi trebalo donijeti. Budući da ne
-istražujemo uzrok, ne biramo ni među mogućim uzročnim objašnjenjima. Ovdje
-pogrešno tumačenje ne pogađa stvarne ljude, ali u stvarnoj bi analizi zamjena
-broja udjelom mogla usmjeriti resurse prema većoj skupini samo zbog njezine
-veličine.
+Pri tumačenju polazimo od cijele generirane populacije od 50.000 zapisa, pa udjele poznajemo točno za taj skup. Njihov se doseg završava opisom simulacije. Primjena na stvarnu publiku zahtijevala bi stvarne podatke i provjeru prikladnosti postupka, a objašnjenje uzroka odgovarajući istraživački dizajn. Nastavni primjer omogućuje da razmotrimo i posljedice tumačenja. U stvarnoj bi analizi zamjena broja udjelom mogla usmjeriti resurse prema većoj skupini samo zbog njezine veličine.
 
 Zaključak stoga glasi da u generiranoj populaciji tisak ima najveći udio osoba
 spremnih platiti vijesti, a portal najveći broj takvih osoba. Pri
@@ -708,9 +676,7 @@ razumjeti?
 
 Povjerenje u medije možemo pokušati mjeriti anketnim odgovorom, a izloženost
 medijima vremenom provedenim uz sadržaj. Prije nego što usporedimo takve
-brojeve, moramo odlučiti što bi oni trebali predstavljati. Ako dvije osobe pod
-povjerenjem razumiju različite stvari, uredno popunjena tablica još ne jamči
-usporediva mjerenja. U ovom ćemo poglavlju istražiti kako od društvenog
+brojeve, moramo odlučiti što bi oni trebali predstavljati. Ako dvije osobe pod povjerenjem razumiju različite stvari, njihovi uredno zabilježeni odgovori mogu predstavljati različite pojave. U ovom ćemo poglavlju istražiti kako od društvenog
 pitanja dolazimo do opažanja koja na njega mogu odgovoriti.
 
 U poglavlju o statističkom mišljenju tražili smo jedinicu analize, nazivnik i
@@ -737,9 +703,7 @@ koga bi se on mogao odnositi.
 
 ## Od pojma do podatka
 
-Povjerenje, političku otuđenost ili osjećaj sigurnosti ne možemo izravno
-izvagati ili prebrojiti. Najprije moramo odrediti po kojim ćemo opažanjima
-prepoznati te pojave. Isto vrijedi i za naizgled jednostavan pojam poput
+Povjerenje, političku otuđenost ili osjećaj sigurnosti proučavamo putem odabranih opažanja. Zato najprije određujemo po čemu ćemo te pojave prepoznati. Isto vrijedi i za naizgled jednostavan pojam poput
 izloženosti medijima.
 
 **Operacionalizacija** je postupak kojim određujemo kako ćemo mjeriti
@@ -755,14 +719,12 @@ pojave, a druge dijelove izostavlja.
 
 Kada koristimo više tvrdnji, njihove odgovore možemo sažeti u jedan rezultat.
 Tako pojedina formulacija manje utječe na ukupnu mjeru, koja može postati
-dosljednija. Dobiveni rezultat ipak nema značenje jednog pitanja. Treba ga
-tumačiti prema sadržaju svih uključenih tvrdnji.
+dosljednija. Dobiveni rezultat tumačimo prema sadržaju svih uključenih tvrdnji, kao zajedničku mjeru.
 
 Povjerenje u medije, primjerice, razlikuje se od odgovora na pitanje koliko
 netko vjeruje nekom izvoru na ljestvici od 1 do 10. Odgovor je nesavršena
 mjera povjerenja. Kvaliteta istraživanja ovisi o tome koliko dobro ta mjera
-odgovara pojmu koji proučavamo. Ni boljim instrumentom razlika između pojma i
-mjere ne nestaje potpuno.
+odgovara pojmu koji proučavamo. I uz kvalitetan instrument mjera ostaje odabrani prikaz širega pojma.
 
 Zamislimo dva istraživanja društvenih mreža i političke polarizacije. Jedno
 polarizaciju mjeri razlikama u stavovima pristaša stranaka, a drugo
@@ -777,15 +739,12 @@ dnevno provode na mrežama, imamo 300 opažanja jedne varijable. Postavimo li
 svakome 10 pitanja, imamo 300 opažanja za svaku od 10 varijabli. Odabirom
 pitanja određujemo koje ćemo razlike među ljudima moći proučavati.
 
-Te odluke donosimo prije prikupljanja podataka. Odgovor na ljestvici s pet
-stupnjeva ne otkriva što bi osoba odabrala na ljestvici s deset stupnjeva. Ako
-nismo zabilježili mjesto stanovanja, naknadno ne možemo usporediti grad i
-selo. Mogućnosti analize ovise o onome što smo prikupili.
+Te odluke donosimo prije prikupljanja podataka. Ljestvica s pet stupnjeva čuva odgovore u pet ponuđenih kategorija; za razlikovanje deset stupnjeva trebalo bi primijeniti drukčiju ljestvicu. Usporedba grada i sela zahtijeva zabilježeno mjesto stanovanja. Mogućnosti analize ovise o onome što smo prikupili.
 
 Pri čitanju istraživanja zato najprije tražimo opis mjerenja i jedinicu
 analize. Treba znati odnosi li se nalaz na osobu, objavu, kućanstvo ili,
 primjerice, sat gledanja. Metodološki odjeljak objašnjava i što odabrana mjera
-obuhvaća, a što izostavlja. Naziv varijable sam po sebi nije dovoljan.
+obuhvaća, a što izostavlja. Puno značenje varijable dobivamo iz toga opisa.
 
 U anketi na mjerenje utječu formulacija, ponuđeni odgovori i redoslijed
 pitanja. Zamislimo osobu koja je upravo odgovorila na niz pitanja o
@@ -846,10 +805,8 @@ podacima i kako može odustati. Pristanak mora biti dobrovoljan, bez pritiska
 nastavnika, poslodavca ili druge osobe o kojoj sudionik ovisi. Potrebno
 odobrenje i posebne uvjete provjeravamo prema pravilima ustanove prije rada.
 
-Uklanjanje imena ne jamči anonimnost. Kombinacija dobi, maloga mjesta i
-rijetkoga zanimanja može otkriti osobu. Prikupljamo samo potrebna obilježja, ograničavamo pristup i unaprijed
-određujemo kako ćemo podatke čuvati i kada ih izbrisati. Zamjena imena
-šifrom uz sačuvan ključ jest pseudonimizacija, a ne anonimnost. Prije objave
+Pri zaštiti anonimnosti razmatramo i kombinacije obilježja. Dob, malo mjesto i rijetko zanimanje zajedno mogu otkriti osobu i nakon uklanjanja imena. Prikupljamo samo potrebna obilježja, ograničavamo pristup i unaprijed
+određujemo kako ćemo podatke čuvati i kada ih izbrisati. Zamjena imena šifrom uz sačuvan ključ jest pseudonimizacija. Ključ i dalje omogućuje povezivanje zapisa s osobom. Prije objave
 tablice provjeravamo otkrivaju li male ćelije pojedince. Ako se identifikacija
 ne može razumno spriječiti, mijenjamo način dijeljenja ili prikazujemo
 agregate. Ista zaštita vrijedi pri uporabi asistenta.
@@ -857,8 +814,7 @@ agregate. Ista zaštita vrijedi pri uporabi asistenta.
 ## Razine mjerenja
 
 Kada svakom opažanju pridružimo vrijednost, još trebamo znati što s tim
-vrijednostima možemo smisleno uspoređivati. Oznaka izvora vijesti ne govori
-isto što i broj minuta provedenih uz taj izvor. Stevens je predložio
+vrijednostima možemo smisleno uspoređivati. Oznakom izvora vijesti razlikujemo kategorije, a brojem minuta mjerimo trajanje uporabe. Stevens je predložio
 podjelu na četiri razine mjerenja, koja razlikuje oznake, poredak, jednake
 razmake i smislenu nulu (Stevens, 1946). Ta nam podjela pomaže razumjeti
 varijablu, premda sama ne određuje sve dopuštene analize.
@@ -880,27 +836,23 @@ koristi samo poredak. Razliku od dvije desetine boda tako tumačimo uz
 pretpostavku o ljestvici.
 
 Varijable mogu biti i diskretne ili kontinuirane. Diskretna varijabla ima
-odvojene moguće vrijednosti. Broj komentara, primjerice, ne može iznositi tri
-i pol. Kontinuirana varijabla poput vremena na stranici može poprimiti bilo
+odvojene moguće vrijednosti. Broj komentara, primjerice, poprima cjelobrojne vrijednosti. Kontinuirana varijabla poput vremena na stranici može poprimiti bilo
 koju vrijednost unutar raspona. Ta razlika utječe na izbor grafa i analize.
 Diskretne varijable s mnogo mogućih vrijednosti, poput broja bodova na nekim
 testovima, u praksi se katkad analiziraju kao kontinuirane.
 
-Sažimanjem podataka gubimo pojedinosti koje kasnije ne možemo vratiti. Iz dobi
-u godinama možemo napraviti dobne skupine, ali iz skupine ne možemo saznati
-točnu dob. Isto vrijedi za pretvaranje minuta uporabe u kategorije čestih i
+Sažimanjem podataka zadržavamo odabranu razinu pojedinosti. Dob u godinama možemo razvrstati u dobne skupine; nakon takva razvrstavanja sama oznaka skupine govori samo raspon dobi. Isto vrijedi za pretvaranje minuta uporabe u kategorije čestih i
 rijetkih korisnika. Ako anketa od početka nudi samo razrede, točne vrijednosti
 ostaju nepoznate.
 
 Mjerenje zato planiramo prema istraživačkom pitanju i čuvamo potrebne
 pojedinosti. Za izbor analize zatim uz razinu mjerenja razmatramo dizajn,
 raspodjelu podataka, način izgradnje ljestvice i pretpostavke postupka.
-Stevensova podjela usmjerava tumačenje, ali ne zamjenjuje tu prosudbu.
+Stevensova podjela pruža polazište za tu širu prosudbu.
 
 ## Pouzdanost i valjanost
 
-Poznavanje razine mjerenja još nam ne govori koliko se u mjeru možemo
-pouzdati. Od nje očekujemo dosljednost i smislen sadržaj. Vaga koja pri uzastopnom
+Uz razinu mjerenja procjenjujemo i kvalitetu mjere. Od nje očekujemo dosljednost i smislen sadržaj. Vaga koja pri uzastopnom
 vaganju iste osobe pokazuje različite težine upozorava na problem
 dosljednosti.
 
@@ -924,9 +876,7 @@ mjerenja.
 U radu s višestavčanom ljestvicom zato tražimo prikladnu mjeru interne
 konzistentnosti. U analizi sadržaja tražimo mjeru slaganja kodera i broj
 jedinica na kojima je izračunata. Indeks koji namjerno spaja različite
-sastavnice može zahtijevati drukčiju provjeru. Nedostaju li ti podaci, ne
-možemo provjeriti dosljednost mjerenja. To je razlog za oprez, ali nije samo
-po sebi dokaz da je mjera loša.
+sastavnice može zahtijevati drukčiju provjeru. Kad izvještaj izostavi te podatke, dosljednost mjerenja ostaje otvoreno pitanje koje traži dodatnu provjeru.
 
 Razlika između ponovljenih mjerenja može nastati i zbog stvarne promjene.
 Nakon velikog medijskog skandala povjerenje u medije moglo bi pasti i uz posve
@@ -990,16 +940,14 @@ Ta objašnjenja traže različite provjere. Za obrnuti smjer djelovanja korisno
 je poznavati vremenski redoslijed mjerenja. Za pristranost odabira
 provjeravamo kako su sudionici ušli u uzorak i razlikuju li se od populacije.
 Kod konfundiranja razmatramo zajednički uzrok. Ako je izmjeren, njegov utjecaj
-možemo pokušati uzeti u obzir u analizi. Samo dodavanje varijabli u model ne
-rješava sva ta pitanja.
+možemo pokušati uzeti u obzir u analizi. Izbor varijabli za model zato povezujemo s provjerom svakoga od tih mogućih objašnjenja.
 
 Ulogu treće varijable određujemo prema vremenskom redoslijedu i znanju o
 pojavi. **Medijator** nastaje djelovanjem pretpostavljenog uzroka i prenosi
 dio njegova djelovanja na ishod. Uključivanjem medijatora u prilagodbu
 mijenjamo pitanje o učinku. **Kolider** je u najjednostavnijem slučaju zajednička posljedica
 pretpostavljenog uzroka i ishoda. Prilagodba ili odabir prema njemu može
-stvoriti novu vezu. Iz same tablice zato ne možemo odrediti koje varijable
-treba kontrolirati. Računski ćemo postupak učiti u poglavlju o regresiji, gdje ćemo i dalje
+stvoriti novu vezu. Izbor varijabli koje treba kontrolirati zato temeljimo i na poznavanju procesa koji proučavamo. Računski ćemo postupak učiti u poglavlju o regresiji, gdje ćemo i dalje
 morati obrazložiti izbor varijabli.
 
 U zamišljenom primjeru izoliranost može prethoditi i uporabi mreža i
@@ -1032,13 +980,10 @@ skupine kako se učinak naslova ne bi pomiješao s tim okolnostima.
 
 Kad bi čitatelji sami birali naslov, skupine bi se mogle razlikovati već po
 sklonosti zaoštrenom sadržaju. Razlika u otvaranju tada bi mogla odražavati i
-naslov i sastav publike. Veći broj zapisa ne bi sam uklonio taj problem. Za
+naslov i sastav publike. I uz veći broj zapisa ostala bi potreba da razdvojimo učinak naslova od razlika u sastavu publike. Za
 tumačenje je presudno kako su skupine nastale.
 
-Mnoge pojave ne možemo proučavati nasumičnom dodjelom. Ne možemo jednostavno
-dodijeliti obrazovanje, odrastanje u siromaštvu ili godine provedene na
-platformi, a neke bi intervencije bile neetične. Tada koristimo opažački
-dizajn i zaključke prilagođavamo načinu na koji su skupine nastale.
+Za proučavanje obrazovanja, odrastanja u siromaštvu ili godina provedenih na platformi često koristimo opažački dizajn. Te životne okolnosti zatičemo kod sudionika, a mogućnosti istraživačke intervencije ograničene su i etičkim razlozima. Zaključke tada prilagođavamo načinu na koji su skupine nastale.
 
 Interna valjanost odnosi se na to koliko uvjerljivo razliku u ishodu možemo
 pripisati ispitivanom uzroku. U eksperimentu je mogu ugroziti događaji nakon
@@ -1069,8 +1014,7 @@ značenja, procesa i iskustva. Mogu također osporiti korištene kategorije ili
 predložiti hipotezu za drugi dizajn.
 
 U anketi uz sadržaj upitnika treba provjeriti **okvir uzorkovanja**, skup iz
-kojeg se jedinice mogu odabrati. Ako on sustavno izostavlja dio populacije,
-veći broj odgovora ne nadoknađuje te izostavljene ljude. Taj ćemo problem
+kojeg se jedinice mogu odabrati. Ako on sustavno izostavlja dio populacije, i veći broj odgovora opisivat će samo obuhvaćeni dio. Taj ćemo problem
 razraditi u poglavlju o uzorkovanju.
 
 Treba znati i tko se od pozvanih nije odazvao. Neodaziv može stvoriti
@@ -1098,9 +1042,7 @@ provjeriti, bez pretpostavke da je istraživanje na tom mjestu pogrešno.
 : Kartica za čitanje ankete. Izrada autora.
 
 Uzoračku pogrešku odvajamo od ostalih izvora nesigurnosti. Veći uzorak može
-smanjiti rasipanje zbog slučajnog odabira. Ne rješava različito razumijevanje
-pitanja, nepotpun okvir ili sustavan neodaziv. Navedena margina pogreške zato
-ne obuhvaća svu nesigurnost ankete.
+smanjiti rasipanje zbog slučajnog odabira. Različito razumijevanje pitanja, nepotpun okvir i sustavan neodaziv zahtijevaju zasebnu procjenu. Navedena margina pogreške opisuje samo dio nesigurnosti ankete.
 
 ## Doseg zaključka
 
@@ -1133,7 +1075,7 @@ neodaziv.
 
 Kasniji računi obuhvatit će dio nesigurnosti povezane s uzorkom i modelom. Uz
 interval ili test ipak ostaje provjera mjerenja, dizajna i odabira jedinica.
-Uži interval ne uklanja ograničenja koja izračun nije obuhvatio.
+Ograničenja izvan dosega izračuna ostaju važna i uz uži interval.
 
 ## Interakcija — Prikaz konfundirajuće varijable
 
@@ -1154,8 +1096,7 @@ Izloženost i ishod u oba prikaza imaju isto značenje. Razlikuje se ono što
 uspoređujemo. Zbirni pravac koristi sva opažanja, a razdvojeni pravci jedinice
 iste razine treće varijable.
 
-Iz grafa ne možemo ustanoviti je li treća varijabla zajednički uzrok. Za to
-trebamo vremenski redoslijed i znanje o pojavi. Prikaz pokazuje moguću
+Moguću ulogu treće varijable kao zajedničkog uzroka procjenjujemo prema vremenskom redoslijedu i znanju o pojavi. Prikaz pokazuje moguću
 posljedicu zanemarivanja takvog čimbenika.
 
 *Slika. Ista opažanja prikazana zbirno i prema trećoj varijabli u konstruiranom primjeru.*
@@ -1190,8 +1131,7 @@ upisa. Ako nas zanima postupanje povjerenstva, trebali bismo znati koje je
 kriterije koristilo i jesu li uspoređene prijave bile slične po tim
 kriterijima. Ako nas zanima dostupnost studija, trebali bismo pratiti i
 ljude koji se nisu prijavili te razloge zbog kojih neki studij nisu
-razmatrali. Ti ljudi ne pojavljuju se među odbijenim prijavama. Tablica
-ih uopće ne vidi.
+razmatrali. Za njihov bismo put trebali zasebne podatke, izvan tablice podnesenih prijava.
 
 Važna je i jedinica zapisa. Berkeleyjska analiza polazi od prijava
 koje su nakon povlačenja ili preusmjeravanja ostale u postupku do
@@ -1203,9 +1143,7 @@ utvrditi što se s njima dalje dogodilo.
 Statistička teškoća ovdje prethodi izboru testa. Pojam pravednosti treba
 povezati s opažanjima koja ga mogu poduprijeti ili osporiti. U zamišljenom
 prijedlogu možemo opisati razlike koje tablica pokazuje i navesti koje bi
-dodatne informacije omogućile provjeru postupka. Ne trebamo praznine
-popuniti pretpostavkom da nejednakost sigurno postoji ili da je sigurno
-nema.
+dodatne informacije omogućile provjeru postupka. Praznine bilježimo kao otvorena pitanja za daljnje istraživanje nejednakosti.
 
 Koristan rezultat takve analize može biti preciznije sljedeće pitanje.
 Treba li pregledati kriterije povjerenstva, savjetovanje prije prijave ili
@@ -1315,9 +1253,7 @@ Sve bi tvrdnje mogle bilježiti, primjerice, sklonost slaganju umjesto
 povjerenja. Zato uz dosljednost razmatramo njihov sadržaj, način na koji ih
 ispitanici razumiju i odnos s drugim opravdanim mjerama.
 
-Ovaj primjer ne govori tko bi sudjelovao u stvarnom istraživanju, tko bi odbio
-poziv ni kako bi ljudi razumjeli tvrdnje. Sadržava samo jedno mjerenje. Te
-okolnosti određuju doseg zaključka, iako ne mijenjaju račun u tablici. Zbog
+Primjer se odnosi na jedno konstruirano mjerenje. Za primjenu u stvarnom istraživanju trebalo bi dodatno proučiti sudjelovanje, odbijanje poziva i razumijevanje tvrdnji. Te okolnosti određuju doseg zaključka uz prikazani račun. Zbog
 toga pri čitanju nalaza uvijek trebamo i opis postupka.
 
 ## Sažetak
@@ -1326,8 +1262,7 @@ Mjerenjem pretvaramo teorijski pojam u opažanja, a pravilima ulaska,
 isključenja i postupanja s nedostajućim odgovorima određujemo koga ona
 predstavljaju. Na primjeru niječne tvrdnje vidjeli smo zašto prije sažimanja
 treba provjeriti značenje odgovora, pa tek zatim dosljednost i valjanost mjere.
-Dobro mjerenje još ne opravdava uzročni zaključak, za koji trebamo odgovarajući
-dizajn. Randomizacija uravnotežuje skupine u očekivanju, ali i dalje treba
+Uz dobro mjerenje, uzročni zaključak zahtijeva i odgovarajući dizajn. Randomizacija uravnotežuje skupine u očekivanju, ali i dalje treba
 provjeriti provedbu, pridržavanje dodjele, osipanje, prelijevanje i
 mjerenje. Ta pitanja ostaju važna i uz interval ili test. Već u sljedećem poglavlju
 poslužit će nam za čitanje tvrdnji koje prešućuju kako su nastali njihovi
@@ -1434,12 +1369,10 @@ načina na koji je mjerimo. Sada ćemo tim pitanjima provjeravati tvrdnje koje
 već dolaze s gotovim brojem, grafom ili uvjerljivim objašnjenjem.
 
 Glavni primjer počiva na stvarnoj objavljenoj tablici Državnoga izbornog
-povjerenstva (Hrvatske}, 2024). Njezine stavke predstavljaju nacionalne
-zbrojeve s različitim značenjima, a ne pojedinačne zapise birača. Usporedit
+povjerenstva (Hrvatske}, 2024). Njezine stavke predstavljaju nacionalne zbrojeve s različitim značenjima. Usporedit
 ćemo broj pristupilih glasovanju, broj prema listićima i broj birača koji
 služi kao nazivnik. Cilj je utvrditi koju rečenicu možemo napisati na temelju
-tih podataka. Razliku među evidencijama nećemo pretvarati u objašnjenje
-događaja za koje nemamo dokaz.
+tih podataka. Razliku među evidencijama opisat ćemo u granicama onoga što je dokumentirano.
 
 Od provjere omjera prijeći ćemo na načine prikazivanja. Ispitat ćemo kako
 promjena osnovice ili raspona osi mijenja dojam, zašto postotna promjena nije
@@ -1497,11 +1430,7 @@ $$
 2\,154\,733 + 60\,476 = 2\,215\,209.
 $$
 
-Oba su računa točna, ali se odnose na različite faze postupka. Razlika od
-1.554 pokazuje da broj pristupilih nije jednak broju prema listićima, bez
-objašnjenja zašto je razlika nastala (Hrvatske}, 2024). Iz nje ne možemo
-zaključiti da evidencija sadrži pogrešku. Ni jednaki zbrojevi ne bi značili da
-dvije oznake imaju isto značenje.
+Oba su računa točna i odnose se na različite faze postupka. Razlika od 1.554 izražava odstupanje broja pristupilih od broja prema listićima (Hrvatske}, 2024). Za objašnjenje uzroka, uključujući provjeru moguće pogreške u evidenciji, trebali bismo dodatne podatke. Značenje svake oznake određuje se pravilima evidentiranja, neovisno o tome jesu li zbrojevi jednaki ili različiti.
 
 Pri pisanju naslova biramo podatke, računamo omjer i odlučujemo kako ćemo ga
 opisati. Na svakom koraku možemo promijeniti značenje, iako nismo promijenili
@@ -1537,8 +1466,7 @@ mogao biti sintetički.
 Udio pronađenih sintetičkih zapisa, primjerice, nije isto što i udio
 ispravnih upozorenja. Uzmimo hipotetski skup od 10.000 zapisa. Program je stvorio njih 100, a ostali
 bilježe stvarne događaje. Detektor prepoznaje 90 od tih 100 sintetičkih zapisa
-i pogrešno označava 495 ostalih. Te brojeve namjerno zadajemo za ilustraciju,
-ne dobivamo ih procjenom stvarnog sustava. Preostala mjesta dopunjavamo do
+i pogrešno označava 495 ostalih. Te brojeve namjerno zadajemo za ilustraciju rada zamišljenog sustava. Preostala mjesta dopunjavamo do
 100 sintetičkih i 9.900 ostalih zapisa.
 
 | Stvarno podrijetlo | Upozorenje | Bez upozorenja | Ukupno |
@@ -1595,8 +1523,7 @@ označeno kao nepoznato.
 Za administrativnu evidenciju provjeravamo koji događaji prema pravilima ulaze
 u nju, jesu li zapisi ispravni, oznake dosljedne i obrada uredna. Za anketu uz
 mjerenje provjeravamo izbor sudionika, okvir, regrutaciju i neodaziv. Anketa
-ima i promjenjivost koja nastaje odabirom uzorka. Jedna margina uz znak ± ne
-opisuje sve te izvore nesigurnosti.
+ima i promjenjivost koja nastaje odabirom uzorka. Margina uz znak ± odnosi se na određeni dio te nesigurnosti, pa ostale izvore procjenjujemo zasebno.
 
 Dobrovoljna internetska anketa može prikupiti mnogo odgovora, a ipak
 izostaviti ljude koji se sustavno razlikuju u onome što mjerimo. Manji
@@ -1640,8 +1567,7 @@ zbrojeva iz izvješća (Hrvatske}, 2024).
 : Sastavnice odaziva za provjeru zbrojeva. Izrada autora prema Hrvatske}, 2024, str. 124.
 
 U odnosu na zaokruženu stopu I.–X. relativna razlika iznosi
-$(62,30-61,48)/61,48\times100\approx1,33$ %. To je usporedba dvaju
-obuhvata istih izbora, a ne rast odaziva kroz vrijeme.
+$(62,30-61,48)/61,48\times100\approx1,33$ %. Time uspoređujemo dva obuhvata istih izbora u istom razdoblju.
 
 Razlika od 0,82 postotna boda izgledala bi mala na osi od 0 % do 100 %, a
 mnogo istaknutija na osi od 61 % do 63 % (Hrvatske}, 2024). Broj i njegovo
@@ -1653,7 +1579,7 @@ jasno označiti i opravdati.
 U ovom prikazu udio i veličinu uzorka zadajemo izravno. Početnih 52 % može
 značiti 130 odgovora od 250 ili 520 od 1.000. Iz zadanoga udjela i veličine uzorka računamo približnu marginu koju
 oduzimamo od procjene i dodajemo procjeni.
-Postupak ne stvara niz pojedinačnih odgovora i ne ponavlja uzorkovanje. Zadanom
+Postupak radi izravno sa zadanim sažetkom ankete. Zadanom
 pristranošću odvajamo procjenu od pretpostavljene istine, pa se može vidjeti
 zašto uži interval sam ne popravlja sustavan pomak.
 
@@ -1682,9 +1608,7 @@ U drugoj je situaciji uzorak veći nego u prvoj, pa je interval uži. U trećoj
 veličina uzorka i procijenjeni udio ostaju kao u drugoj, ali uz
 pretpostavljenu sustavnu pristranost istinita vrijednost leži izvan intervala.
 
-Veći uzorak smanjuje slučajno rasipanje procjene. Ako postupak sustavno
-promašuje istinu, sam rast uzorka to ne ispravlja. Zato uzak interval može
-pratiti netočnu procjenu.
+Veći uzorak smanjuje slučajno rasipanje procjene. Pri sustavnom promašivanju istine veći uzorak daje uži interval oko pomaknute procjene. Preciznost tada prati pristranost.
 
 ## Podrijetlo ljudskog i strojnog broja
 
@@ -1697,11 +1621,9 @@ prirodnim sažetkom tog podatka. Prije objave ipak trebamo utvrditi što
 glagol glasovalo prenosi iz tablice, a što mu čitatelj može pridodati.
 
 U početnoj smo tablici već razlikovali broj pristupilih od broja birača
-prema glasačkim listićima (Hrvatske}, 2024). Te veličine ne smijemo
-zamijeniti u naslovu, a samu razliku ne možemo protumačiti bez dodatnih
-podataka.
+prema glasačkim listićima (Hrvatske}, 2024). U naslovu svaku veličinu navodimo pod njezinim izvornim nazivom, a za tumačenje razlike tražimo dodatne podatke.
 
-Za redakcijsku odluku to znači da provjera dijeljenja nije dovoljna.
+Redakcijska provjera zato uz dijeljenje obuhvaća i značenje upotrijebljenih pojmova.
 Kad bismo odaziv opisali kao udio birača koji su dali važeći glas nekoj
 listi, promijenili bismo značenje brojnika. Kad bismo nazivnik zamijenili
 svim punoljetnim stanovnicima, odgovorili bismo na drugo pitanje.
@@ -1713,7 +1635,7 @@ glasovanju je pristupilo 62,30 % birača na obrađenim biračkim mjestima
 (Hrvatske}, 2024). Uz poveznicu na tablicu čitatelj može provjeriti
 brojnik, nazivnik i obuhvat. Uredništvo je sačuvalo glavnu informaciju i preciziralo na što se ona odnosi.
 
-Izlaznost ne objašnjava razloge izlaska ni političke stavove birača.
+Razloge izlaska i političke stavove birača istražujemo zasebno od evidencije izlaznosti.
 
 Asistent može zbrojiti vrijednosti, usporediti nazivnike i predložiti jasniju
 rečenicu. Svaki dobiveni broj ipak povezujemo s objavom i ulaznim podacima.
@@ -1747,7 +1669,7 @@ provjeriti u izvoru.
 Provjera izvora potrebna je i za slike, zvuk i video. Uvjerljiv zapis može
 biti umjetno stvoren, a neobičan izgled ne mora značiti da je lažan. Zasebno
 provjeravamo odakle datoteka dolazi, je li izmijenjena i je li se prikazani
-događaj zbio. Odgovor na jedno od tih pitanja ne rješava ostala.
+događaj zbio. Za svako od tih pitanja potreban je zaseban dokaz.
 
 Za tumačenje materijala razlikujemo sljedeće četiri oznake.
 
@@ -1764,8 +1686,7 @@ Primjer s rijetkim sintetičkim zapisima pokazao je zašto sama oznaka
 detektora nije dovoljna. Detektor sintetičkog sadržaja također proizvodi procjenu. Ona ovisi o podacima
 na kojima je učen, inačici, postavkama i pragu. Ako je sintetički sadržaj
 rijedak, čak i umjerena stopa lažnih upozorenja može dati više pogrešnih nego
-točnih oznaka. Rezultat detektora zato je razlog za daljnju provjeru, a ne
-dovoljan dokaz podrijetla.
+točnih oznaka. Rezultat detektora zato koristimo kao poticaj za daljnju provjeru podrijetla.
 
 I autentičan zapis može imati nepotpun trag podrijetla. Snimka zaslona može
 izgubiti metapodatke, a izvorna datoteka postati nedostupna. S druge strane,
@@ -1797,8 +1718,7 @@ bez spremljene datoteke i njezina kontrolnog zbroja nećemo moći potvrditi
 istovjetnost s pregledanom inačicom.
 
 Tablica sadržava dvanaest redaka izbornih jedinica I.–XII. i nacionalni zbroj
-(Hrvatske}, 2024). Nacionalni redak služi provjeri zbrojeva i ne računamo
-ga kao dodatnu jedinicu. Nazivnik se odnosi na birače na obrađenim biračkim
+(Hrvatske}, 2024). Nacionalni redak služi provjeri zbrojeva, dok jedinice za usporedbu čine pojedini izborni redci. Nazivnik se odnosi na birače na obrađenim biračkim
 mjestima, pa ga ne zamjenjujemo drugim ukupnim brojem birača bez provjere
 obuhvata (Hrvatske}, 2024).
 
@@ -1879,8 +1799,7 @@ ili uzrocima ponašanja pojedinaca.
 
 : Šest dimenzija tvrdnje na granici Dijela I. Izrada autora.
 
-Precizan opis ne postaje time uzročno objašnjenje. Ni usporedba izbornih
-jedinica sama ne objašnjava njihove stanovnike. Za odluku uz račun trebamo
+Uzročno objašnjenje zahtijeva podatke o nastanku opaženih razlika. Za objašnjenje ponašanja stanovnika trebali bismo i podatke na razini pojedinaca. Za odluku uz račun trebamo
 razmotriti ciljeve i posljedice. Tablica je dovoljna za izbor provjerljive
 formulacije naslova, dok bi promjena izborne politike zahtijevala dodatne
 dokaze i vrijednosne kriterije.
