@@ -93,7 +93,7 @@ def validate(root: Path, fixture: str = "") -> dict[str, int]:
 
     references = (root / builder.REFERENCES).read_text(encoding="utf-8")
     citation_keys = set(re.findall(r"@([A-Za-z0-9:_-]+)", appendix))
-    if citation_keys != {"dip2024", "sikic2026"}:
+    if citation_keys != {"dip2024"}:
         fail(f"Appendix G citation set={sorted(citation_keys)}")
     for key in citation_keys:
         if not re.search(rf"^@\w+\{{{re.escape(key)},", references, re.MULTILINE):
