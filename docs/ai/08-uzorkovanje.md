@@ -31,7 +31,7 @@ istraživačko pitanje kada bismo odabir mogli ponavljati.
 
 Za tu ćemo provjeru iskoristiti prednost nastavne simulacije. Skup
 `populacija_medija` sadrži 50.000 računalno stvorenih odraslih osoba i
-omogućuje nam da poznajemo cijelu populaciju (Šikić, 2026). Jedan redak
+omogućuje nam da poznajemo cijelu populaciju. Jedan redak
 predstavlja jednu osobu, a pratit ćemo povjerenje u medije, dnevno praćenje
 medija, izvor vijesti i spremnost na plaćanje. To je ista zamišljena
 populacija kojom smo se već služili, odvojena od manje ankete `anketa_mreze`.

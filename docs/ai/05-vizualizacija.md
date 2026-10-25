@@ -35,7 +35,7 @@ grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
 sažetke.
 
 Poznatu simuliranu anketu `anketa_mreze` iskoristit ćemo za prikaz dnevnih
-minuta na društvenim mrežama po dobnim skupinama (Šikić, 2026). Uz nju ćemo
+minuta na društvenim mrežama po dobnim skupinama. Uz nju ćemo
 čitati i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
 njihovu obuhvatu (Šikić, 2026). Primjeri se mijenjaju jer nas zanima ista
 odluka u različitim situacijama. Prije čitanja oznake trebamo znati
@@ -98,7 +98,7 @@ prethodni račun i pravilo ljestvice. Ta pitanja možemo postaviti svakom grafu,
 bez pristupa programu u kojem je izrađen.
 
 Na sljedećem prikazu jedan stupac predstavlja dobnu skupinu iz simulirane
-ankete `anketa_mreze` (Šikić, 2026). Vodoravni položaj označuje skupinu,
+ankete `anketa_mreze`. Vodoravni položaj označuje skupinu,
 a okomiti položaj vrha prosječne dnevne minute, izračunate prije crtanja.
 Stupac zato sažima više osoba i ne pokazuje raspodjelu njihovih odgovora.
 Lijevo os počinje od nule, a desno je skraćena. Uspoređujemo iste prosjeke,
@@ -225,8 +225,7 @@ linije dobivaju i provjeravaju.
 ## Poštena ljestvica
 
 Vraćamo se simuliranoj anketi `anketa_mreze` iz poglavlja o sažimanju.
-Prikazujemo prosječne dnevne minute na društvenim mrežama po dobnim skupinama
-(Šikić, 2026). Raspon osi može znatno promijeniti dojam. Prosjeci se ovdje
+Prikazujemo prosječne dnevne minute na društvenim mrežama po dobnim skupinama. Raspon osi može znatno promijeniti dojam. Prosjeci se ovdje
 razlikuju za `r hr_broj(s5_raspon_prosjeka, 1)` minuta, odnosno `r paste0(hr_broj(100 * s5_udio_raspona, 1), " %")` najvećeg prosjeka. Ta je
 razlika stalna, ali njezina veličina na stranici ovisi o osi.
 

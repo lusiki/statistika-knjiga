@@ -33,8 +33,7 @@ Jednostavan model daje nam usporedbu prema kojoj možemo razmotriti što bi
 stvarni sportski zapisi još trebali pokazati.
 
 Za pitanja o preklapanju događaja vratit ćemo se simuliranoj populaciji
-`populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti
-(Šikić, 2026). Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
+`populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti. Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
 uvjet ili oba. Tako ćemo provjeriti kada smijemo zbrajati ili množiti
 vjerojatnosti i zašto poznavanje jednog obilježja može promijeniti izglede za
 drugo. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
@@ -123,12 +122,12 @@ pomnožiti njihove pojedinačne vjerojatnosti. Na izboru izvora vijesti vidjet
 
 Brojnosti u tablici omogućuju da nazivnike provjerimo prije računanja
 postotaka. Retci razlikuju dob do 29 godina od ostalih, a stupci glavni
-izvor vijesti u poznatoj simuliranoj populaciji (Šikić, 2026).
+izvor vijesti u poznatoj simuliranoj populaciji.
 
-*Slika. Dob i glavni izvor vijesti u simuliranoj populaciji. Izrada autora prema @sikic2026.*
+*Slika. Dob i glavni izvor vijesti u simuliranoj populaciji. Izrada autora.*
 
 U simuliranoj populaciji `populacija_medija` portal bira `r hr_broj(s7$p_portal)` % ljudi, a do
-dvadeset devet godina ima ih `r hr_broj(s7$p_mlad)` % (Šikić, 2026). Zbrajanjem dobivamo
+dvadeset devet godina ima ih `r hr_broj(s7$p_mlad)` %. Zbrajanjem dobivamo
 `r hr_broj(s7$p_zbroj)` %. No udio ljudi koji su mladi ili biraju portal jest `r hr_broj(s7$p_portal_ili_mlad)` %.
 Razlika nastaje jer je `r hr_broj(s7$p_portal_i_mlad)` % ljudi istodobno mlado i bira portal, pa smo
 ih u zbroju računali dvaput.

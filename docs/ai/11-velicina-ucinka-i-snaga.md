@@ -27,8 +27,7 @@ odgovor istraživanje moglo dati.
 
 Zadržavamo usporedbu povjerenja u medije među korisnicima tiska i portala.
 Ovaj put koristimo cijelu simuliranu populaciju `populacija_medija`, u kojoj
-je svaki zapis jedna zamišljena osoba s izvorom vijesti i ocjenom povjerenja
-(Šikić, 2026). Poznata razlika među skupinama poslužit će nam kao cilj pri
+je svaki zapis jedna zamišljena osoba s izvorom vijesti i ocjenom povjerenja. Poznata razlika među skupinama poslužit će nam kao cilj pri
 ponovljenom izvlačenju uzoraka. Tako možemo prebrojiti koliko je često
 postupak uočava, umjesto da njegov uspjeh procjenjujemo prema jednom
 istraživanju.

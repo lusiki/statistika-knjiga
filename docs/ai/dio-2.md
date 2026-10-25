@@ -52,7 +52,7 @@ nepromijenjeno i koje vrijednosti možemo uključiti u sažetak.
 Ponašanje pojedinih mjera zatim ćemo istražiti na skupu `anketa_mreze`,
 zasebnoj simuliranoj anketi u kojoj jedan redak predstavlja zamišljenu osobu s
 dobi, dnevnim minutama na društvenim mrežama i ocjenom povjerenja u tamošnji
-sadržaj (Šikić, 2026). Taj skup nije uzorak iz ranije uvedene populacije
+sadržaj. Taj skup nije uzorak iz ranije uvedene populacije
 medijskih navika. Na njemu možemo usporediti različite opise istih odgovora,
 bez predstavljanja tih odgovora kao nalaza o stvarnim korisnicima.
 
@@ -169,9 +169,9 @@ udjele objava među tim domenama zato koristimo nazivnik 551.712. Nazivnik
 
 Ponašanje sredine i drugih mjera lakše ćemo pratiti na tablici pojedinačnih
 odgovora. Zato prelazimo na skup `anketa_mreze`, simuliranu anketu s `r s4$n`
-ispitanika (Šikić, 2026). Jedan redak predstavlja jednu zamišljenu osobu. Za
+ispitanika. Jedan redak predstavlja jednu zamišljenu osobu. Za
 nju su zadani dob, dnevne minute na društvenim mrežama i povjerenje u tamošnji
-sadržaj na ljestvici od 1 do 10 (Šikić, 2026). To je zaseban skup, a ne uzorak
+sadržaj na ljestvici od 1 do 10. To je zaseban skup, a ne uzorak
 iz ranije uvedene populacije medijskih navika.
 
 Generator je zadao četiri dobne skupine s 90, 84, 66 i 60 osoba. Unutar
@@ -179,17 +179,17 @@ svake dob je slučajno odabrana iz njezina raspona, a minute nastaju zasebnim
 izvlačenjem pozitivnih, desno asimetričnih vrijednosti. Tipična vrijednost
 minuta niža je u starijim skupinama. Zaokruživanjem zadržavamo barem jednu
 minutu. Povjerenju također zadajemo niže prosjeke u starijim skupinama, uz
-slučajna odstupanja i granice ljestvice od 1 do 10 (Šikić, 2026).
+slučajna odstupanja i granice ljestvice od 1 do 10.
 
 Nekoliko pojedinačnih zapisa omogućuje da prije prosjeka vidimo što se
 zbraja. Oznaka ispitanika služi razlikovanju redaka; dnevne minute i ocjena
-povjerenja dvije su odvojene varijable (Šikić, 2026).
+povjerenja dvije su odvojene varijable.
 
-*Slika. Tri zapisa iz zasebne simulirane ankete o društvenim mrežama. Izrada autora prema @sikicanketa2026.*
+*Slika. Tri zapisa iz zasebne simulirane ankete o društvenim mrežama. Izrada autora.*
 
 Na istoj ćemo anketi poslije usporediti grafove, izračunati povezanost i
 sastaviti završno istraživanje. Vrijednosti su stvorene tako da većina osoba
-provodi kraće vrijeme na mrežama, a manji dio znatno dulje (Šikić, 2026). Takav
+provodi kraće vrijeme na mrežama, a manji dio znatno dulje. Takav
 oblik omogućuje da vidimo zašto sredina i medijan daju različite opise. Ne
 predstavlja nalaz o stvarnim medijskim navikama.
 
@@ -400,7 +400,7 @@ Omjeri 20 prema 10 i 120 prema 60 zato imaju isti razmak. Nulu ne možemo
 logaritmirati. Dodavanje jedinice svim vrijednostima mijenja analizu i traži
 obrazloženje.
 
-*Slika. Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom. Logaritamska ljestvica sažima dugi desni rep. Izrada autora prema @sikicanketa2026.*
+*Slika. Dnevno vrijeme korištenja u izvornim jedinicama i na logaritamskoj ljestvici, sa sredinom i medijanom. Logaritamska ljestvica sažima dugi desni rep. Izrada autora.*
 
 Isti se odgovor sada zapisuje na drugoj ljestvici. Prvih
 `r s4_minute[1]` minuta postaje $\ln(`r s4_minute[1]`) =
@@ -435,7 +435,7 @@ najstariju skupinu sredina iznosi
 `r hr_broj(mean(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
 minute, a standardna devijacija
 `r hr_broj(sd(anketa_mreze$minute_dnevno[anketa_mreze$dobna_skupina == "45 i više"]), 4)`
-minuta; račun koristi nezaokružene vrijednosti (Šikić, 2026).
+minuta; račun koristi nezaokružene vrijednosti.
 
 *Slika. Tri ispitanika iz najstarije skupine, standardizirani u cijelom uzorku i unutar vlastite skupine. Izrada autora.*
 
@@ -678,7 +678,7 @@ grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
 sažetke.
 
 Poznatu simuliranu anketu `anketa_mreze` iskoristit ćemo za prikaz dnevnih
-minuta na društvenim mrežama po dobnim skupinama (Šikić, 2026). Uz nju ćemo
+minuta na društvenim mrežama po dobnim skupinama. Uz nju ćemo
 čitati i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
 njihovu obuhvatu (Šikić, 2026). Primjeri se mijenjaju jer nas zanima ista
 odluka u različitim situacijama. Prije čitanja oznake trebamo znati
@@ -741,7 +741,7 @@ prethodni račun i pravilo ljestvice. Ta pitanja možemo postaviti svakom grafu,
 bez pristupa programu u kojem je izrađen.
 
 Na sljedećem prikazu jedan stupac predstavlja dobnu skupinu iz simulirane
-ankete `anketa_mreze` (Šikić, 2026). Vodoravni položaj označuje skupinu,
+ankete `anketa_mreze`. Vodoravni položaj označuje skupinu,
 a okomiti položaj vrha prosječne dnevne minute, izračunate prije crtanja.
 Stupac zato sažima više osoba i ne pokazuje raspodjelu njihovih odgovora.
 Lijevo os počinje od nule, a desno je skraćena. Uspoređujemo iste prosjeke,
@@ -868,8 +868,7 @@ linije dobivaju i provjeravaju.
 ## Poštena ljestvica
 
 Vraćamo se simuliranoj anketi `anketa_mreze` iz poglavlja o sažimanju.
-Prikazujemo prosječne dnevne minute na društvenim mrežama po dobnim skupinama
-(Šikić, 2026). Raspon osi može znatno promijeniti dojam. Prosjeci se ovdje
+Prikazujemo prosječne dnevne minute na društvenim mrežama po dobnim skupinama. Raspon osi može znatno promijeniti dojam. Prosjeci se ovdje
 razlikuju za `r hr_broj(s5_raspon_prosjeka, 1)` minuta, odnosno `r paste0(hr_broj(100 * s5_udio_raspona, 1), " %")` najvećeg prosjeka. Ta je
 razlika stalna, ali njezina veličina na stranici ovisi o osi.
 
@@ -1189,8 +1188,7 @@ dob često promatrali odvojeno. Zanima nas i njihov odnos. Želimo ga opisati
 usporedivim brojem, a pritom sačuvati ono što smo iz grafova naučili o
 zakrivljenosti, podskupinama i izdvojenim opažanjima.
 
-Glavni primjer ostaje simulirana anketa `anketa_mreze` iz prethodnih poglavlja
-(Šikić, 2026). Jedan redak predstavlja jednu zamišljenu osobu, pa njezinu dob
+Glavni primjer ostaje simulirana anketa `anketa_mreze` iz prethodnih poglavlja. Jedan redak predstavlja jednu zamišljenu osobu, pa njezinu dob
 povezujemo s njezinim dnevnim vremenom na društvenim mrežama. Za pregled više
 parova uključit ćemo i povjerenje u sadržaj. Podaci su konstruirani za
 nastavu. Na njima učimo opisivati odnos, bez zaključka o stvarnim navikama ili
@@ -1221,7 +1219,7 @@ Koeficijent blizu nule može značiti slabu linearnu vezu, ali pritom može
 postojati zakrivljen odnos.
 
 Na grafu dobi i dnevnih minuta iz ankete `anketa_mreze` svaka točka povezuje
-vrijednosti iste zamišljene osobe (Šikić, 2026). Točke tvore silazni oblak.
+vrijednosti iste zamišljene osobe. Točke tvore silazni oblak.
 Pad je strmiji među mlađima i poslije se izravnava. Graf nam pokazuje taj
 oblik prije računanja koeficijenta.
 
@@ -1649,7 +1647,7 @@ propustio kada bismo mu pokazali samo taj broj.
 
 **Nađite grešku.**
 U simuliranoj anketi od 300 osoba provjeravamo odnos dobi i dnevnih
-minuta na društvenim mrežama (Šikić, 2026). Asistentu je postavljeno
+minuta na društvenim mrežama. Asistentu je postavljeno
 pitanje o cijelom uzorku. Vratio je ovaj račun.
 
 Za provjeru su dostupni isti sažeci koje smo usporedili uz raspršeni
@@ -1660,7 +1658,7 @@ dijagram. Pearsonov koeficijent u tablici opisuje linearnu povezanost.
 | Cijeli simulirani uzorak | 300 | −0,56 |
 | Osobe od 18 do 24 godine | `r s6_n_uzak` | `r hr_broj(s6_r_uzak, 2)` |
 
-: Dob i dnevno vrijeme u dvama obuhvatima. Izrada autora prema sikicanketa2026.
+: Dob i dnevno vrijeme u dvama obuhvatima. Izrada autora.
 
 > Račun daje korelaciju `r hr_broj(s6_r_uzak, 2)` uz `r s6_n_uzak`
 > ispitanika. Prema tome, dob i vrijeme korištenja nisu negativno

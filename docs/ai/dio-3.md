@@ -43,8 +43,7 @@ Jednostavan model daje nam usporedbu prema kojoj možemo razmotriti što bi
 stvarni sportski zapisi još trebali pokazati.
 
 Za pitanja o preklapanju događaja vratit ćemo se simuliranoj populaciji
-`populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti
-(Šikić, 2026). Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
+`populacija_medija`, koristeći dob osobe i njezin glavni izvor vijesti. Tu možemo prebrojiti koliko osoba zadovoljava jedan uvjet, drugi
 uvjet ili oba. Tako ćemo provjeriti kada smijemo zbrajati ili množiti
 vjerojatnosti i zašto poznavanje jednog obilježja može promijeniti izglede za
 drugo. U hipotetskoj kampanji e-biltena promatrat ćemo otvaranje poruke kao
@@ -133,12 +132,12 @@ pomnožiti njihove pojedinačne vjerojatnosti. Na izboru izvora vijesti vidjet
 
 Brojnosti u tablici omogućuju da nazivnike provjerimo prije računanja
 postotaka. Retci razlikuju dob do 29 godina od ostalih, a stupci glavni
-izvor vijesti u poznatoj simuliranoj populaciji (Šikić, 2026).
+izvor vijesti u poznatoj simuliranoj populaciji.
 
-*Slika. Dob i glavni izvor vijesti u simuliranoj populaciji. Izrada autora prema @sikic2026.*
+*Slika. Dob i glavni izvor vijesti u simuliranoj populaciji. Izrada autora.*
 
 U simuliranoj populaciji `populacija_medija` portal bira `r hr_broj(s7$p_portal)` % ljudi, a do
-dvadeset devet godina ima ih `r hr_broj(s7$p_mlad)` % (Šikić, 2026). Zbrajanjem dobivamo
+dvadeset devet godina ima ih `r hr_broj(s7$p_mlad)` %. Zbrajanjem dobivamo
 `r hr_broj(s7$p_zbroj)` %. No udio ljudi koji su mladi ili biraju portal jest `r hr_broj(s7$p_portal_ili_mlad)` %.
 Razlika nastaje jer je `r hr_broj(s7$p_portal_i_mlad)` % ljudi istodobno mlado i bira portal, pa smo
 ih u zbroju računali dvaput.
@@ -592,7 +591,7 @@ istraživačko pitanje kada bismo odabir mogli ponavljati.
 
 Za tu ćemo provjeru iskoristiti prednost nastavne simulacije. Skup
 `populacija_medija` sadrži 50.000 računalno stvorenih odraslih osoba i
-omogućuje nam da poznajemo cijelu populaciju (Šikić, 2026). Jedan redak
+omogućuje nam da poznajemo cijelu populaciju. Jedan redak
 predstavlja jednu osobu, a pratit ćemo povjerenje u medije, dnevno praćenje
 medija, izvor vijesti i spremnost na plaćanje. To je ista zamišljena
 populacija kojom smo se već služili, odvojena od manje ankete `anketa_mreze`.
@@ -1240,7 +1239,7 @@ njegova procjena mogla promijeniti s drugim sudionicima. Standardna pogreška
 iz prethodnog poglavlja daje nam polazište za takav opis nesigurnosti.
 
 Nastavljamo s populacijom `populacija_medija`, iz koje ćemo sada uzeti uzorak
-za procjenu prosječnog povjerenja u medije (Šikić, 2026). Svako opažanje
+za procjenu prosječnog povjerenja u medije. Svako opažanje
 pripada jednoj računalno stvorenoj osobi i sadrži njezinu ocjenu povjerenja.
 Populaciju poznajemo samo zato što je riječ o nastavi. Pri izgradnji pojedine
 procjene koristit ćemo uzorak, a poznatu populacijsku vrijednost zatim
@@ -1255,7 +1254,7 @@ odvojiti nesigurnost procijenjenog prosjeka od razlika među pojedinačnim
 odgovorima.
 
 Za procjenu medijana dnevnog praćenja medija poslužit će nam drugi, manji
-uzorak iz iste simulirane populacije (Šikić, 2026). Njegove ćemo zapise ponovno
+uzorak iz iste simulirane populacije. Njegove ćemo zapise ponovno
 izvlačiti, dopuštajući da ista osoba bude odabrana više puta. Taj postupak,
 bootstrap, omogućit će nam procijeniti promjenjivost i kada ne polazimo od
 gotove formule za odabranu mjeru. Razmotrit ćemo koliko takva provjera ovisi o
@@ -1267,7 +1266,7 @@ ograničenja mjerenja ili odabira ljudi koja smo upoznali ranije.
 
 ## Od točke prema rasponu
 
-Iz iste simulirane populacije medijskih navika uzimamo novi uzorak od `r hr_broj(s9$n, 0)` osoba (Šikić, 2026). Za svaku osobu koristimo povjerenje u
+Iz iste simulirane populacije medijskih navika uzimamo novi uzorak od `r hr_broj(s9$n, 0)` osoba. Za svaku osobu koristimo povjerenje u
 medije na ljestvici od jedan do deset. Prosjek uzorka iznosi `r hr_broj(s9$sredina, 2)`. Tu vrijednost zovemo **točkasta procjena** (*point
 estimate*). Ona sažima rezultat, ali ne govori koliko je nesiguran. Isti
 prosjek možemo dobiti na dvadeset i na dvadeset tisuća ljudi, iako bi se pri
@@ -1355,7 +1354,7 @@ spremnosti na plaćanje iz prethodnog poglavlja. Iz nje smo
 `r hr_broj(length(s9_asimetricni_obuhvat), 0)` puta izvukli po 20 osoba i svaki
 put izračunali isti interval za sredinu. Poznatu populacijsku sredinu
 obuhvatilo je `r hr_broj(sum(s9_asimetricni_obuhvat), 0)` intervala, odnosno
-`r hr_broj(100 * mean(s9_asimetricni_obuhvat), 1)` % (Šikić, 2026). U malom
+`r hr_broj(100 * mean(s9_asimetricni_obuhvat), 1)` %. U malom
 uzorku iz takve raspodjele normalno približenje i procjena standardne
 pogreške nisu dovoljno pouzdani da bi postupak postigao zadanu razinu od 95 %.
 
@@ -1621,7 +1620,7 @@ Izračunani medijan uzorka iznosi `r hr_broj(median(s9_mali$minute_medija), 1)`
 minuta, a granice intervala
 `r hr_broj(quantile(s9_boot_medijan, .025), 0)` i
 `r hr_broj(quantile(s9_boot_medijan, .975), 0)` minuta. To su rezultati
-nastavne simulacije (Šikić, 2026). Uz njih stoji asistentovo objašnjenje.
+nastavne simulacije. Uz njih stoji asistentovo objašnjenje.
 
 > U svakom ponavljanju uzorkujemo s vraćanjem isti broj osoba i računamo
 > medijan. Granice izdvajaju središnjih 95 % bootstrap medijana.

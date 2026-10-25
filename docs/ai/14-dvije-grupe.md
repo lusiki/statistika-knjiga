@@ -27,7 +27,7 @@ povezanosti time dobiva drukčiji oblik podataka i drukčiji račun.
 
 U glavnom primjeru koristimo uzorak od 120 zamišljenih osoba iz skupa
 `populacija_medija` kojima su televizija ili društvene mreže glavni izvor
-vijesti (Šikić, 2026). Svaki redak predstavlja jednu osobu s ocjenom povjerenja
+vijesti. Svaki redak predstavlja jednu osobu s ocjenom povjerenja
 u medije. Time mijenjamo skupine u odnosu na usporedbu tiska i portala iz
 poglavlja o testiranju. Podaci i dalje pripadaju nastavnoj simulaciji. Na njima možemo usporediti postupke za isti jasno određen odnos.
 
@@ -435,7 +435,7 @@ kao televizija minus društvene mreže. Svaka osoba pripada jednoj skupini.
 | Procijenjena razlika sredina | 0,77 boda |
 | Welchov 95-postotni interval razlike | od −0,34 do 1,88 boda |
 
-: Usporedba dviju skupina u simuliranom uzorku. Izrada autora prema sikic2026.
+: Usporedba dviju skupina u simuliranom uzorku. Izrada autora.
 
 Asistentov osvrt na postupak i rezultat glasi ovako.
 
@@ -471,8 +471,7 @@ Za glavni zaključak zadržavamo Welchov postupak, dok drugi redak pokazuje
 U izvještaju možemo navesti da u uzorku od 120 simuliranih osoba
 korisnici televizije imaju prosječno `r hr_broj(s14$razlika, 2)` boda više
 povjerenja od korisnika društvenih mreža, uz Welchov 95-postotni interval
-od `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)` boda
-(Šikić, 2026). To je razlika među skupinama koje same biraju izvor vijesti.
+od `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)` boda. To je razlika među skupinama koje same biraju izvor vijesti.
 Nije procjena promjene povjerenja koju bi izazvalo prebacivanje iste osobe
 na televiziju. Cijeli interval ostaje ispod dva boda, pa podaci ne podupiru
 odluku koja zahtijeva najmanje toliku razliku.
