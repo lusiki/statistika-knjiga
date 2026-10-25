@@ -202,7 +202,7 @@ raspored razlikuje od onoga koji bismo očekivali bez povezanosti. Bi li sam
 nalaz povezanosti bio dovoljan za zaključak o pravednosti upisa?
 :::
 
-Zbirne i odjelne stope prijma na Sveučilište Berkeley pokazale su koliko
+Isti zapisi prijava i odluka o prijmu na Sveučilište Berkeley, prema spolu i odjelu, pokazali su koliko
 tumačenje postotka ovisi o nazivniku i okolnostima nastanka podataka
 [@bickel1975]. Za analizu kategorija trebamo povezati taj uvid s opisom
 raspodjele i povezanosti, procjenom nesigurnosti te razlikom između
@@ -222,11 +222,13 @@ provesti na frekvencijama u kontingencijskoj tablici. Uz rezultat testa i
 dalje trebamo pokazati veličinu razlike, njezinu nesigurnost i nazivnike na
 kojima se temelje prikazani udjeli.
 
-Postupak ćemo razviti na uzorku od 800 zamišljenih osoba iz već poznatog skupa
-`populacija_medija`. Riječ je o računalno stvorenim podacima za nastavu, pa rezultate tumačimo unutar te zamišljene populacije.
-Iz svakog zapisa izdvojit ćemo dobnu skupinu i glavni izvor vijesti,
-televiziju, radio, tisak, portal ili društvene mreže. Želimo saznati kako se
-izbor izvora razlikuje među dobnim skupinama.
+Usporedbom tiska i portala procjenjivali smo razliku u povjerenju i njezinu
+nesigurnost. Sada nas zanima kako se sam izbor izvora vijesti razlikuje s dobi.
+
+Za tu usporedbu zasebno izvlačimo uzorak od 800 osoba iz poznate nastavne
+populacije `populacija_medija`. Svaki zapis pripada zamišljenoj osobi s dobnom
+skupinom i glavnim izvorom vijesti. Nalaz ostaje opis računalno stvorene
+populacije, bez zaključka o stvarnim stanovnicima.
 
 Najprije ćemo prebrojiti odgovore i usporediti postotke unutar skupina. Potom
 ćemo izračunati očekivane frekvencije pod pretpostavkom nezavisnosti i
@@ -729,7 +731,7 @@ raspodjelom resursa. Uz V kao sažetak jačine veze čitamo pojedine udjele kako
 
 ## Referentna raspodjela je istraživačka odluka
 
-Dosad smo uspoređivali dob i izvor vijesti. Na istih 800 zapisa možemo
+Dosad smo uspoređivali dob i izvor vijesti. Na istom uzorku od 800 osoba možemo
 postaviti drukčije pitanje, odgovara li sastav uzorka prema obrazovanju
 poznatom sastavu naše simulirane populacije. Zadržavamo osobe, ali sada
 brojimo samo razine obrazovanja. Za svaku razinu očekivani broj dobivamo
@@ -778,7 +780,7 @@ kategorije nastale i koji je nazivnik svakog udjela.
 
 ## Kad je aproksimacija tanka
 
-U prethodnoj analizi 800 simuliranih osoba najmanja očekivana frekvencija
+U uzorku od 800 osoba najmanja očekivana frekvencija
 iznosi `r hr_broj(s13$min_ocekivana)` pa nijedna ćelija nije osobito rijetka.
 Da bismo vidjeli što se događa kada očekivani brojevi postanu mali, privremeno
 napuštamo taj uzorak i pojednostavljujemo pitanje. U zasebnom nastavnom
@@ -1009,7 +1011,7 @@ društvene mreže svrstavamo u digitalne, a televiziju, tisak i radio u
 tradicionalne izvore. Ta podjela odgovara novom pitanju i stvara novu varijablu. Najprije ćemo pročitati njezine
 udjele, a zatim ukupno odstupanje od nezavisnosti.
 
-Vraćamo se istim zapisima svih 800 osoba, a zasebni pokus s dvjema skupinama
+Vraćamo se istom uzorku od 800 osoba, a zasebni pokus s dvjema skupinama
 ovdje završava. Sve osobe ostaju uključene. Primjerice, u najmlađem retku
 zbrajamo `r s13_tablica[1, "portal"]` korisnika portala i
 `r s13_tablica[1, "društvene mreže"]` korisnika mreža, što daje
@@ -1089,7 +1091,7 @@ Kod preuzima uzorak i učitane pakete iz već pripremljene analize poglavlja. U 
 `chisq.test` sažima odstupanje od nezavisnosti u hi-kvadrat, određuje
 stupnjeve slobode i računa p-vrijednost prema referentnoj raspodjeli. Za tablicu 2 × 2 R zadano primjenjuje korekciju kontinuiteta, koja ublažava prijelaz s diskretnih brojanja na kontinuiranu krivulju. Za ovdje opisani nekorigirani račun treba navesti `correct = FALSE`.
 
-Vratimo se Berkeleyju. Zbirna tablica pokazivala je povezanost spola i ishoda
+Vratimo se istim berkeleyjskim prijavama. Zbirna tablica pokazivala je povezanost spola i ishoda
 prijave [@bickel1975]. Hi-kvadrat, V i reziduali mogli bi opisati taj obrazac,
 ali ne i objasniti ga. Nedostajao je odjel prijave. Muškarci i žene nisu se
 jednako raspoređivali po odjelima, a odjeli su imali različite stope prijma. U

@@ -198,13 +198,17 @@ p-vrijednost. Da bismo taj broj mogli pročitati, trebamo promijeniti pitanje.
 Umjesto traženja raspona za nepoznatu veličinu, pitat ćemo kakve bi rezultate
 proizvodio određeni model u kojem nema povezanosti koju istražujemo.
 
-Uzimamo uzorak osoba iz poznate simulirane populacije `populacija_medija`
-kojima su tisak ili portal glavni izvor vijesti. Jedan redak
-pripada jednoj zamišljenoj osobi, a uspoređujemo njezinu ocjenu povjerenja u
-medije s ocjenama osoba iz druge skupine. Najprije ćemo prikazati opaženu
-razliku i njezin interval. Potom ćemo privremeno pretpostaviti da je
-raspodjela povjerenja jednaka među skupinama i provjeriti što bismo očekivali
-kada oznake izvora ne bi bile povezane s odgovorima.
+Pri procjeni povjerenja promatrali smo populaciju kao cjelinu. Sada nas zanima
+koliko se prosječno povjerenje razlikuje između čitatelja tiska i portala te
+koliko je ta procjena nesigurna.
+
+Uzorak od 300 čitatelja tiska i portala izvlačimo zasebno iz nastavne
+populacije `populacija_medija`, nakon ograničavanja na ta dva izvora. Svaki
+redak predstavlja zamišljenu osobu s izvorom vijesti i povjerenjem na ljestvici
+od jedan do deset, bez tvrdnje o stvarnim stanovnicima. Najprije ćemo
+prikazati razliku i njezin interval. Potom ćemo pretpostaviti jednaku
+raspodjelu povjerenja među skupinama i provjeriti što bismo očekivali kada
+oznake izvora ne bi bile povezane s odgovorima.
 
 I u ovoj usporedbi ponavljamo postupak, ali drukčije nego pri uzorkovanju
 ili bootstrapu. Ocjene ostaju zabilježene, a oznake skupina
@@ -244,9 +248,8 @@ Posljedice takvih prilagodbi razmotrit ćemo u poglavlju o krizi i obnovi.
 
 ## Kako se gradi svijet bez učinka
 
-U uzorku za usporedbu tiska i portala imamo `r s10$n` osoba iz
-`populacija_medija`. Njihove ocjene povjerenja najprije čitamo uz
-izvorne oznake skupina, prije bilo kakva premještanja.
+Uzorak od 300 čitatelja tiska i portala zadržava izvorne oznake skupina.
+Njihove ocjene povjerenja najprije čitamo prije bilo kakva premještanja.
 
 Odabir smo najprije ograničili na osobe kojima je glavni izvor tisak ili
 portal, a iz njih izabrali 300 zapisa bez vraćanja. Druge izvore nismo
@@ -286,7 +289,7 @@ odnosu na ishod. Možemo ih nasumično premjestiti među osobama, ponovno
 izračunati razliku sredina i to ponoviti mnogo puta. Dobivene razlike pokazuju
 što bismo mogli očekivati pod modelom u kojem oznaka nije povezana s ishodom.
 
-U tablici je prvih šest osoba iz istog uzorka prije i nakon prvoga
+U tablici je prvih šest osoba iz uzorka od 300 čitatelja tiska i portala prije i nakon prvoga
 nasumičnog preslagivanja svih 300 oznaka. Ocjena prvog retka ostaje
 `r s10_ishod[1]`, a uz nju sada stoji oznaka
 „`r s10_prva_permutacija[1]`”. Za novi račun grupiramo ocjene prema desnom
@@ -373,7 +376,7 @@ nazivniku račun postaje
 $(`r sum(abs(s10_nulte) >= abs(s10_razlika))` + 1)/(4\,000 + 1)$.
 Sva su preslagivanja valjana jer se brojnost obiju skupina čuva.
 
-U našem uzorku p-vrijednost iznosi `r hr_broj(s10$p, 3)`. To znači da, uz iste opažene
+U uzorku od 300 čitatelja tiska i portala p-vrijednost iznosi `r hr_broj(s10$p, 3)`. To znači da, uz iste opažene
 ishode i veličine skupina, nulti model daje apsolutnu razliku ovoliku ili veću
 u otprilike `r hr_broj(s10$p * 100, 1)` % simuliranih rasporeda oznaka. U tumačenju moramo
 zadržati uvjet da vrijedi nulti model.
@@ -723,8 +726,7 @@ razlika prema izvoru vijesti iznosi `r hr_broj(s10$istina_izvor, 2)` boda. Postu
 za odbacivanje nulte hipoteze, iako razlika postoji.
 
 Na zajedničkoj osi prikazane su raspodjela pod nultim modelom i raspodjela
-procijenjene razlike kada učinak postoji. Iste granične crte određuju odluku u
-oba slučaja.
+procijenjene razlike kada učinak postoji. Prva premješta oznake u istom uzorku od 300 čitatelja tiska i portala, a druga nastaje novim izvlačenjima iz iste podpopulacije. Iste granične crte određuju odluku u oba slučaja.
 
 ```{r}
 #| label: fig-dvije-pogreske
@@ -821,7 +823,7 @@ procijenili.
 
 ## Što p-vrijednost nije
 
-U zasebnom uzorku pogledajmo nasumično dodijeljene oznake. Razlika iznosi
+Za kalibraciju zasebno uzimamo 300 vrijednosti povjerenja iz cijele simulirane populacije i nasumično im dodjeljujemo oznake A i B. Te oznake nisu izvori vijesti. Razlika iznosi
 `r hr_broj(s10$razlika_nulta, 2)` boda, interval ide od `r hr_broj(s10$donja_nulta, 2)` do `r hr_broj(s10$gornja_nulta, 2)`, a p-vrijednost je
 `r hr_broj(s10$p_nulta, 2)`. U ovoj simulaciji znamo da nulti model vrijedi jer oznake nastaju
 neovisno o ishodu.
@@ -940,7 +942,7 @@ uzročnog tumačenja.
 
 ## Razrađeni primjer
 
-Usporedbu povjerenja čitatelja tiska i portala sada možemo provesti od opažene
+Na istom uzorku od 300 čitatelja tiska i portala usporedbu povjerenja provodimo od opažene
 razlike do njezina položaja u nultoj raspodjeli. Najprije računamo razliku
 sredina s izvornim oznakama. Zatim zadržavamo ocjene, premještamo oznake
 skupina i svaki put računamo istu razliku. Prebrojavanjem odstupanja barem

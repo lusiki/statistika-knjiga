@@ -173,12 +173,14 @@ tu provjeru s onime što smo u poglavlju o krizi i obnovi naučili o odabiru
 rezultata. Ovdje je skup usporedbi unaprijed poznat, pa možemo tražiti
 postupak koji uvažava cijeli skup odluka.
 
-Za glavnu analizu uzimamo 300 zamišljenih osoba iz `populacija_medija` i
-zadržavamo izvor vijesti zadan pri stvaranju podataka. Jedan
-redak sadrži osobu, njezin izvor i ocjenu povjerenja. Skupine televizije,
-radija, tiska, portala i društvenih mreža zato se sada mogu razlikovati. Ti
-rezultati opisuju nastavni skup i služe učenju usporedbe, bez tvrdnje o
-stvarnoj publici.
+Usporedba televizije i društvenih mreža opisala je jednu razliku u povjerenju.
+Sada nas zanimaju razlike među svim izvorima i nesigurnost tih procjena.
+
+Uzorak od 300 osoba s pet izvora vijesti zasebno izvlačimo iz nastavne
+populacije `populacija_medija`. To je novo izvlačenje, a ne podskup ranijeg
+uzorka. Jedan redak predstavlja zamišljenu osobu s glavnim izvorom vijesti i
+povjerenjem na ljestvici od jedan do deset. Rezultati opisuju taj nastavni
+skup, bez tvrdnje o stvarnoj publici.
 
 Umjesto jedne razlike sredina sada ispitujemo jesu li sve skupinske sredine
 jednake. Razlaganjem varijabilnosti usporedit ćemo razmake među sredinama s
@@ -579,8 +581,7 @@ izvora vijesti zadane pri stvaranju podataka i uspoređujemo povjerenje
 njihovih korisnika. Skupine zato mogu imati različite prosjeke
 i prije uzorkovanja.
 
-Uzorak od 300 osoba izvukli smo bez vraćanja iz pune populacije, zasebno
-od uzorka prethodnog poglavlja. @tbl-s15-skupne-sredine pokazuje broj odgovora i sredinu
+Uzorak od 300 osoba s pet izvora vijesti izvukli smo bez vraćanja iz pune populacije, zasebno od uzorka od 120 korisnika televizije i društvenih mreža. @tbl-s15-skupne-sredine pokazuje broj odgovora i sredinu
 koju model pridružuje svakoj osobi iste skupine.
 
 ```{r}
@@ -672,7 +673,7 @@ drukčije računaju nesigurnost. Klasična analiza varijance, kao obični
 homoskedastični linearni model, procjenjuje zajedničku rezidualnu varijancu.
 Welch zadržava zasebne skupne varijance i prilagođava stupnjeve slobode. Zato se njihovi intervali i p-vrijednosti mogu razlikovati.
 
-Taj model sada primjenjujemo na pojedinačne zapise iz skupa `populacija_medija`.
+Taj model primjenjujemo na isti uzorak od 300 osoba s pet izvora vijesti.
 Svakoj osobi pridružujemo sredinu njezina izvora vijesti, pa odstupanja oko tih
 pet sredina uspoređujemo s odstupanjima oko jedne zajedničke sredine.
 
@@ -725,7 +726,7 @@ Za jedan par sada oduzmemo dvije sredine iz tablice. Razlici televizije
 prema mrežama pridružujemo marginu `r hr_broj((s15$tv_mreze_gornja - s15$tv_mreze_donja)/2, 2)`
 boda, izračunatu zajedničkom rezidualnom varijancom, brojnostima tih dviju
 skupina i Tukeyjevim pravilom za svih pet skupina. Oduzimanjem i dodavanjem
-te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz istoga izvornog uzorka.
+te margine nastaju granice intervala. Svih deset usporedbi temelji se na odgovorima iz uzorka od 300 osoba s pet izvora vijesti.
 
 Među `r s15$parova` parova statistički su razlučive četiri usporedbe s društvenim
 mrežama. Televizija se od njih razlikuje za `r hr_broj(s15$tv_mreze, 2)` boda, uz istodobni
@@ -868,7 +869,7 @@ Sačuvajte ispravno određene skupine i broj usporedbi. Ne pišite zamjenski kod
 
 ## Razrađeni primjer
 
-U povjerenju korisnika pet izvora vijesti želimo razdvojiti dva pitanja. Prvo
+Na istom uzorku od 300 osoba s pet izvora vijesti želimo razdvojiti dva pitanja o povjerenju. Prvo
 se odnosi na ukupan obrazac skupnih sredina, a drugo na veličinu konkretnih
 razlika među izvorima. Najprije ćemo prikazati veličinu učinka i ukupni test, a
 zatim parne razlike s istodobnim intervalima. Tako će uz svaku usporedbu ostati

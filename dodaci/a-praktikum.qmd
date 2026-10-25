@@ -136,7 +136,7 @@ library(readr)
 Primjeri ne ovise o objektima koji su ostali nakon čitanja nekog poglavlja.
 Preuzmite [anketu o mrežama](../data/anketa-mreze.csv) i [sintetičku populaciju
 medijskih navika](../data/populacija-medija.csv) zajedno s projektnim mapama,
-a zatim ih na početku nove sesije učitajte ovim kodom.
+a zatim ih na početku nove sesije učitajte ovim kodom. Oba su skupa autorske nastavne simulacije u kojima jedan redak predstavlja jednu zamišljenu osobu.
 
 ```{r}
 anketa_mreze <- read_csv(
@@ -1811,7 +1811,7 @@ tvrdnje o stvarnoj populaciji.
 
 Poglavlje o mjerenju okreće ljestvicu niječno formulirane tvrdnje i provjerava
 slaže li se svaka tvrdnja s ostatkom instrumenta. Postupak se lako primjenjuje na
-bilo koji upitnik.
+bilo koji upitnik. Ovdje koristimo samo prvih šest ručno sastavljenih odgovora iz poglavlja o mjerenju i dizajnu, pa koeficijenti nisu isti kao u njegovu računu svih 12 osoba. Svaki redak predstavlja jednoga zamišljenog ispitanika.
 
 ```{r}
 odgovori <- tribble(
@@ -1837,8 +1837,6 @@ stavka_ukupno <- function(podaci, stavke) {
 round(stavka_ukupno(odgovori, stavke), 2)
 ```
 
-Ovdje koristimo samo prvih šest ručno sastavljenih odgovora iz poglavlja 2,
-pa koeficijenti nisu isti kao u njegovu računu svih 12 osoba.
 Iz sadržaja četvrte tvrdnje znamo da je niječna. Negativna korelacija sama
 ne bi opravdala okretanje odgovora. Ljestvica
 se okreće tako da se odgovor oduzme od najveće moguće vrijednosti uvećane za
@@ -1988,8 +1986,8 @@ stopifnot(status == 0)
 Ruta koristi `anketa_mreze` za povezanost iz poglavlja 6 te
 `populacija_medija` za vjerojatnost, uzorkovanje, procjenu, testiranje,
 veličinu učinka, kategorijalnu analizu, dvije i više grupa te regresiju. Za
-poglavlje 12 čita provjereni dokazni paket
-`notes/reports/p3-evidence12-rrr-lab-effects.csv`, izračunava sirovu i
+primjer replikacija čita provjereni dokazni zapis
+`notes/reports/p3-evidence12-rrr-lab-effects.csv`. Jedan redak sažima rezultate jednoga laboratorija, a račun povezuje iste laboratorije koje smo razmatrali u poglavlju o krizi i obnovi istraživanja [@wagenmakers2016]. Izračunava sirovu i
 standardiziranu granu te odgovara na pitanje koliko iznosi zajednički učinak
 laboratorijskih replikacija RRR-a. Imena datoteka, varijabli i istraživačka
 pitanja zapisana su u izlazu, pa se mogu usporediti s katalogom bez
@@ -2062,7 +2060,7 @@ ili očekivana vrijednost, skripta prekida rad umjesto da prikaže stari rezulta
 ## Reprodukcija tekstne tablice {#sec-a-tekst-transformacija}
 
 Pripremljena tablica `data/parlament_oznake.csv` potječe iz hrvatskih zapisa
-skupa ParlaSent 1.0. Sirove datoteke nisu dio knjige. One se preuzimaju od
+skupa ParlaSent 1.0. Jedan redak pripremljene tablice predstavlja jednu označenu parlamentarnu rečenicu. Sirove datoteke nisu dio knjige. One se preuzimaju od
 izdavača pod uvjetima koje dokumentira [putovnica
 podataka](../data/parlament_tekst/PUTOVNICA.md) i spremaju u mapu
 `data/_kandidat/p3-text`. Time se ne pretvara vanjski skup u distribuirani

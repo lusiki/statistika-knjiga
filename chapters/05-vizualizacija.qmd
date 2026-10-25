@@ -251,8 +251,9 @@ parovi brojčanih vrijednosti. Jedna točka predstavlja jedan takav konstruirani
 grafova provjerit ćemo što možemo previdjeti kada preuzmemo samo gotove
 sažetke.
 
-Poznatu simuliranu anketu `anketa_mreze` iskoristit ćemo za prikaz dnevnih
-minuta na društvenim mrežama po dobnim skupinama. Uz nju ćemo
+Vraćamo se istim zamišljenim osobama iz autorske simulacije `anketa_mreze`,
+uvedene pri sažimanju podataka. Svaki redak ostaje jedna osoba, a prikaz dnevnih
+minuta na društvenim mrežama po dobnim skupinama opisuje taj nastavni skup. Uz nju ćemo
 čitati i prikaze stvarnih zbirnih podataka projekta DigiKat, vodeći računa o
 njihovu obuhvatu [@digikat2026]. Primjeri se mijenjaju jer nas zanima ista
 odluka u različitim situacijama. Prije čitanja oznake trebamo znati
@@ -431,7 +432,7 @@ duljine točne, ali ih je teže usporediti bez zajedničkog početka
 prikazati zasebno.
 
 I riječi možemo uspoređivati kao kategorije, ali tek nakon što odredimo što
-ćemo smatrati istom riječju. U šest odabranih naslova o vizualizaciji ukupno je
+ćemo smatrati istom riječju. Usporedit ćemo riječi u namjerno odabranim naslovima. Za širi zaključak o literaturi o vizualizaciji ili znanstvenom pisanju trebali bismo odgovarajući izbor tekstova. U šest odabranih naslova o vizualizaciji ukupno je
 36 riječi i 28 različitih oblika [@anscombe1973; @cleveland1984; @tufte2001;
 @wilkinson2005; @wickham2016; @matejka2017]. Do tih brojeva dolazimo tako da
 sva slova pretvorimo u mala i uklonimo interpunkciju. Riječi ne svodimo na
@@ -467,7 +468,7 @@ ggplot(s5_rijeci_prikaz, aes(broj, rijec)) +
   theme_knjiga(base_size = 11)
 ```
 
-Rezultat opisuje odabranih šest naslova. Za širi zaključak o literaturi o vizualizaciji ili znanstvenom pisanju trebali bismo odgovarajući izbor tekstova. Pri tumačenju zato navodimo jedinicu,
+Pri tumačenju zato navodimo jedinicu,
 obradu teksta, nazivnik i obuhvat. Iste ćemo odluke ponovno razmotriti kada
 tekst postane ulaz algoritma.
 
@@ -526,8 +527,8 @@ Stupce zato crtamo od nule. Oznaka skraćene osi otkriva zahvat, ali ne vraća
 ispravan odnos duljina. Za linije i točke uži raspon može pomoći čitanju, uz
 jasno vidljiv početak i ljestvicu osi.
 
-Za sljedeći prikaz vraćamo se DigiKatovoj tablici internetskih domena. Svaki
-redak sadrži ukupan broj objava jedne domene u odabranom korpusu. Tablica ima
+Za sljedeći prikaz vraćamo se istim zapisima iz DigiKatove tablice internetskih domena koju smo upoznali pri sažimanju podataka. Svaki
+redak sadrži ukupan broj objava jedne domene u odabranom korpusu. Opisujemo samo domene u ovom korpusu, bez zaključivanja o svim hrvatskim medijima, korisnicima ili pojedinačnim objavama. Tablica ima
 `r hr_broj(s5_izvori_sazetak$izvora, 0)` domene i `r hr_broj(s5_izvori_sazetak$objava, 0)` objava [@digikat2026]. Medijan je `r hr_broj(s5_izvori_sazetak$medijan, 0)` objave po domeni, a najveći broj `r hr_broj(s5_izvori_sazetak$najvise, 0)`. Na linearnoj bi osi većina domena bila
 stisnuta uz početak. [Logaritamska os](#fig-digikat-log) omogućuje da se bolje
 vide i manje vrijednosti jer jednak prostor dodjeljuje jednakim omjerima.
@@ -561,8 +562,7 @@ ggplot(s5_digikat_izvori, aes(objave)) +
 Na logaritamskoj osi pomak od 10 do 100 jednak je pomaku od 100 do 1.000.
 Uspoređujemo omjere, dok apsolutne razlike nisu jednako velike. Promjena osi
 ne mijenja zapise, ali mijenja vizualni oblik raspodjele, pa je treba
-označiti. I dalje opisujemo samo domene u ovom korpusu, bez zaključivanja o
-svim hrvatskim medijima, korisnicima ili pojedinačnim objavama.
+označiti.
 
 ## Mala višestruka polja
 
@@ -580,7 +580,7 @@ Za usporedbu razina polja trebaju zajedničku ljestvicu. Ako svako ima svoj
 raspon, male i velike razlike mogu izgledati jednako. Različite osi mogu biti
 prikladne za usporedbu oblika, ali tu odluku treba jasno navesti.
 
-U DigiKatovu mjesečnom izvatku za 2024. nedostaju retci od veljače do svibnja.
+Iz iste mjesečne tablice projekta DigiKat izdvajamo zapise za promatranje prekida u mjerenju. U DigiKatovu mjesečnom izvatku za 2024. nedostaju retci od veljače do svibnja.
 Siječanj je djelomičan, a lipanj donosi promjenu metode i obuhvata
 [@digikat2026]. Prazninu ne pretvaramo u nule niti linijom spajamo siječanj i
 lipanj. U tablici zadržavamo svih 12 mjeseci kako bi nedostajanje bilo

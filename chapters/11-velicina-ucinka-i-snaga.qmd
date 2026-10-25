@@ -200,12 +200,15 @@ pitanje iz prethodnog poglavlja okrećemo prema planiranju. Umjesto da tek
 nakon analize čitamo rezultat testa, unaprijed provjeravamo kakav bi nam
 odgovor istraživanje moglo dati.
 
-Zadržavamo usporedbu povjerenja u medije među korisnicima tiska i portala.
-Ovaj put koristimo cijelu simuliranu populaciju `populacija_medija`, u kojoj
-je svaki zapis jedna zamišljena osoba s izvorom vijesti i ocjenom povjerenja. Poznata razlika među skupinama poslužit će nam kao cilj pri
-ponovljenom izvlačenju uzoraka. Tako možemo prebrojiti koliko je često
-postupak uočava, umjesto da njegov uspjeh procjenjujemo prema jednom
-istraživanju.
+Razliku u povjerenju čitatelja tiska i portala već smo procijenili s
+intervalom. Sada nas zanima njezina veličina i koliko je često uzorak može
+uočiti. Za poznatu referencu služe svi čitatelji tiska i portala u populaciji
+`populacija_medija`, umjesto prethodnog uzorka od 300 čitatelja tiska i portala.
+
+Svaki redak predstavlja jednu zamišljenu osobu s izvorom vijesti i povjerenjem
+na ljestvici od jedan do deset. Podaci su stvoreni za nastavu i ne opisuju
+stvarne stanovnike. Poznatu razliku uspoređujemo s rezultatima ponovljenih
+izvlačenja kako bismo prebrojili koliko je često postupak uočava.
 
 Razliku najprije izražavamo u bodovima povjerenja, a zatim je uspoređujemo s
 raspršenošću odgovora i opisujemo Cohenovim d. Sredina i standardna
@@ -233,8 +236,8 @@ standardiziranu razliku, korelaciju ili omjer. Njezinu sadržajnu važnost procj
 Povjerenje u medije bilježimo bodovima na ljestvici, pa razliku među
 čitateljima tiska i portala prvo čitamo u tim jedinicama.
 
-Za ovu referencu zadržavamo sve zapise tiska i portala iz populacije,
-ukupno `r s11_N` osoba, a ne samo prethodni uzorak od 300. Zbroj ocjena
+Za ovu referencu služe svi čitatelji tiska i portala u populaciji,
+ukupno `r s11_N` osoba. Zbroj ocjena
 među `r s11_n2` čitatelja tiska iznosi
 `r sum(s11_skupine[["tisak"]])`, a među `r s11_n1` korisnika portala
 `r sum(s11_skupine[["portal"]])`. Dijeljenjem svakog zbroja njegovim
@@ -360,8 +363,7 @@ usporediti za nekoliko veličina uzorka.
 Zadržavamo permutacijski test iz prethodnog poglavlja. Nulti model
 pretpostavlja jednaku cijelu raspodjelu povjerenja u objema skupinama, pa su
 oznake zamjenjive u odnosu na ishod. Statistika je apsolutna razlika sredina,
-a osobe smatramo neovisnim jedinicama. Iz konačne simulirane populacije s
-postojećom razlikom izvlačimo uzorke bez vraćanja. Za svaku veličinu provodimo
+a osobe smatramo neovisnim jedinicama. Iz podskupa koji čine svi čitatelji tiska i portala u populaciji izvlačimo uzorke bez vraćanja. Za svaku veličinu provodimo
 tristo zamišljenih studija. U svakoj koristimo dvjesto nasumičnih premještanja
 i korekciju $(b + 1)/(B + 1)$, gdje je $B$ broj premještanja, a $b$ broj barem
 toliko ekstremnih rezultata kao opaženi. Krivulja procjenjuje snagu za taj
@@ -415,7 +417,7 @@ procjena koje objavljujemo ako zadržavamo samo značajne rezultate. To možemo
 provjeriti u simulaciji s poznatom populacijom.
 
 Za sljedeću usporedbu ponovno izvlačimo uzorke iz istoga podskupa
-tiska i portala. Svaka studija daje jednu procjenu razlike i jednu
+tiska i portala, svaki put po 60 osoba. Svaka studija daje jednu procjenu razlike i jednu
 permutacijsku p-vrijednost. Tablica donosi prvih pet valjanih studija u
 redoslijedu generiranja. Oznaka u posljednjem stupcu pokazuje bi li studija bila objavljena kada
 bismo zadržali samo rezultate ispod 0,05.
@@ -434,7 +436,7 @@ prosjek svih studija. U prosjek odabranih ulazi samo ako zadovolji prag.
 Od 3 000 pokušaja neprimjenjivo je `r s11_male_izostavljene`, pa prosjek
 svih računamo na `r nrow(s11_male)` valjanih studija, a prosjek značajnih
 na `r nrow(s11_znacajne)`. Isti manji nazivnik koristimo za udio značajnih
-procjena s pogrešnim predznakom. Kod zasebnih 1 000 većih studija
+procjena s pogrešnim predznakom. Kod zasebnih 1 000 studija s po 500 osoba
 izostavljeno je `r s11_velike_izostavljene`, a prag prolazi
 `r nrow(s11_znacajne_velike)` studija.
 
