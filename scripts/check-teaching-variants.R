@@ -11,6 +11,8 @@ chapter_values <- function(path, label) {
   finish <- which(seq_along(lines) > start & lines == "```")[[1]]
   eval(parse(text = lines[(start + 1L):(finish - 1L)]), envir = .GlobalEnv)
 }
+chapter_values("chapters/10-logika-testiranja.qmd", "s10-vrijednosti")
+chapter_values("chapters/11-velicina-ucinka-i-snaga.qmd", "s11-vrijednosti")
 chapter_values("chapters/13-kategoricki-podaci.qmd", "s13-vrijednosti")
 chapter_values("chapters/14-dvije-grupe.qmd", "s14-vrijednosti")
 chapter_values("chapters/15-vise-grupa.qmd", "s15-vrijednosti")
@@ -22,6 +24,8 @@ ids <- vapply(variants, function(v) v$id, character(1))
 stopifnot(!anyDuplicated(ids))
 observed <- list(
   "anketa-300" = nrow(anketa_mreze), "c18-anketa-300" = nrow(anketa_mreze),
+  "c10-300" = nrow(s10_uzorak), "c10-kalibracija-300" = length(s10_ishod_nulta),
+  "c11-tisak-portal" = nrow(s11_pod), "c14-dob-30-49" = nrow(s14_uzak),
   "mediji-50000" = nrow(populacija_medija), "c13-800" = nrow(s13_uzorak),
   "c13-digitalni" = sum(s13_spojena), "c14-120" = nrow(dvije_skupine),
   "c14-parovi-60" = length(s14_prije), "c15-300" = nrow(pet_izvora),
@@ -32,8 +36,13 @@ observed <- list(
 stopifnot(setequal(ids, names(observed)))
 for (variant in variants) {
   stopifnot(file.exists(variant$source), observed[[variant$id]] == variant$rows)
+  stopifnot(is.character(variant$prose_name), nzchar(variant$prose_name))
   if (!is.null(variant$parent)) stopifnot(variant$parent %in% ids)
 }
+stopifnot(all(s10_uzorak$izvor %in% c("portal", "tisak")),
+          length(s10_skupina_nulta) == 300L, all(table(s10_skupina_nulta) == 150L),
+          nrow(s11_pod) == sum(populacija_medija$izvor_vijesti %in% c("portal", "tisak")),
+          identical(s14_uzak$osoba, dvije_skupine$osoba[dvije_skupine$dob >= 30 & dvije_skupine$dob <= 49]))
 stopifnot(identical(s16_dvije, dvije_skupine), identical(s16_pet, pet_izvora))
 stopifnot(sum(s13_tablica) == sum(s13_spojena),
           identical(unname(rowSums(s13_tablica)), unname(rowSums(s13_spojena))),
