@@ -14,6 +14,8 @@ local map = {
   -- zatvarajući blok poglavlja
   ["primjer"]          = "calloutprimjer",
   ["sazetak"]          = "calloutsazetak",
+  -- definicije: print-edition.lua pretvara #def- divove u .print-definition
+  ["print-definition"] = "calloutdefinicija",
 }
 
 function Div(el)
@@ -35,6 +37,43 @@ function Div(el)
       return out
     end
   end
+  return nil
+end
+
+-- Sažetak je odjeljak „## Sažetak {.sazetak}", ne div. Naslov odjeljka već
+-- nosi crtu od 1,2 pt; tijelo do sljedećeg naslova iste ili više razine
+-- omata se u calloutsazetaktijelo, koje ga zatvara vlas linijom (sustav Zvono).
+-- Podnaslov poglavlja obrađuje pdf-filters/chapter-lead.lua (post-render).
+function Blocks(blocks)
+  if not (FORMAT:match("latex") or FORMAT:match("pdf")) then
+    return nil
+  end
+  local out = pandoc.List({})
+  local changed = false
+  local i = 1
+  while i <= #blocks do
+    local b = blocks[i]
+    out:insert(b)
+    if b.t == "Header" and b.classes:includes("sazetak") then
+      local body = pandoc.List({})
+      local j = i + 1
+      while j <= #blocks
+        and not (blocks[j].t == "Header" and blocks[j].level <= b.level) do
+        body:insert(blocks[j])
+        j = j + 1
+      end
+      if #body > 0 then
+        out:insert(pandoc.RawBlock("latex", "\\begin{calloutsazetaktijelo}"))
+        out:extend(body)
+        out:insert(pandoc.RawBlock("latex", "\\end{calloutsazetaktijelo}"))
+        changed = true
+      end
+      i = j
+    else
+      i = i + 1
+    end
+  end
+  if changed then return out end
   return nil
 end
 

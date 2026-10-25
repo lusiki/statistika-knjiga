@@ -1,0 +1,74 @@
+% =====================================================================
+%  korica.tex — prednja korica u boji (sustav Zvono, kompozicija 02 Zvono)
+% =====================================================================
+%  Samostalan dokument u formatu bloka B5 (176 × 250 mm), bez napusta za
+%  obrez i bez hrpta. Iz korijena projekta, dva prolaza (overlay traži .aux):
+%
+%      xelatex -output-directory=<privremena mapa> tex/korica.tex
+%
+%  pa dobiveni PDF kopirati u images/korica.pdf. tex/theme.tex ga stavlja
+%  kao prvu stranicu PDF-a; images/cover.png je njegova rasterska inačica.
+%
+%  Boje su brand-* vrijednosti iz design-tokens.yml (naslovna zona, iste u
+%  obje teme). Ovdje namjerno nemaju oznake za scripts/check-tokens.R jer
+%  ova datoteka nije sloj tokena; mijenjaju se zajedno s design-tokens.yml.
+%  Mjere su preslikane s korice 600 × 900 px: vodoravno 176/600 mm po
+%  pikselu (i za veličinu oblika), okomito 250/900 mm po pikselu.
+%  Ishodište je donji lijevi kut stranice; y raste prema gore.
+% =====================================================================
+\documentclass{article}
+\usepackage[paperwidth=176mm, paperheight=250mm, margin=0mm]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{tikz}
+\pagestyle{empty}
+
+\newfontfamily\jost{Jost-Regular.ttf}[
+  Path=fonts/print/,
+  BoldFont=Jost-Medium.ttf,
+  Ligatures=TeX ]
+
+\definecolor{brandmustard}{HTML}{E8B343}
+\definecolor{brandnavy}{HTML}{1E3F7A}
+\definecolor{brandcream}{HTML}{F2E8D5}
+\definecolor{brandred}{HTML}{D1472F}
+\definecolor{brandink}{HTML}{1B1A17}
+
+\begin{document}
+\begin{tikzpicture}[remember picture, overlay, x=1mm, y=1mm,
+    shift={(current page.south west)}]
+  % polje
+  \fill[brandmustard] (0,0) rectangle (176,250);
+
+  % naslov i podnaslov (vrh teksta: 14,2 mm i 44,4 mm od gornjeg ruba)
+  \node[anchor=north west, inner sep=0pt, text=brandink,
+        font=\jost\fontsize{66.5}{66.5}\selectfont] at (13.6,235.8) {statistika};
+  \node[anchor=north west, inner sep=0pt, text=brandink, text width=90mm,
+        align=left, font=\jost\fontsize{20}{26}\selectfont] at (14.1,205.6)
+        {intuitivni uvod u analizu\\podataka};
+
+  % disk s brojem (središte 76,3 mm od gornjeg ruba)
+  \fill[brandink] (140.8,173.7) circle[radius=23.47];
+  \node[inner sep=0pt, text=brandmustard,
+        font=\jost\bfseries\fontsize{53}{53}\selectfont] at (140.8,173.7) {101};
+
+  % tri ugniježđene kupole na osnovici (227,8 mm od gornjeg ruba)
+  \fill[brandnavy]  (11.73,22.2) arc[start angle=180, end angle=0, radius=76.27] -- cycle;
+  \fill[brandcream] (41.07,22.2) arc[start angle=180, end angle=0, radius=46.93] -- cycle;
+  \fill[brandred]   (70.40,22.2) arc[start angle=180, end angle=0, radius=17.60] -- cycle;
+
+  % os kroz sredinu i dvije točke na jednoj standardnoj devijaciji
+  \fill[brandink] (87.71,22.2) rectangle (88.29,133.3);
+  \fill[brandink] (49.0,109.1) circle[radius=2.05];
+  \fill[brandink] (127.0,109.1) circle[radius=2.05];
+
+  % osnovica
+  \fill[brandink] (11.73,20.73) rectangle (164.27,22.2);
+
+  % autori
+  \node[anchor=north west, inner sep=0pt, text=brandink,
+        font=\jost\bfseries\fontsize{11.6}{14}\selectfont\addfontfeature{LetterSpace=8}]
+        at (14.1,14.6) {luka šikić · petra palić};
+\end{tikzpicture}
+\null
+\end{document}

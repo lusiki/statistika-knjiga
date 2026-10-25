@@ -380,20 +380,27 @@ wrapped into a collapsible `<details>` and given a reset button automatically by
 
 ## Design
 
-The book's visual identity is **airy editorial**: warm paper, one ochre accent,
-a book-grade serif, and a black-and-white print block. The full specification is
-[DESIGN.md](DESIGN.md); read it before touching anything visual. The reference
-package it was mapped from is kept in `knjiga-stil/`.
+The book's visual identity is **Zvono** (experiment branch `experiment/zvono`):
+the Bauhaus geometry of the 02 Zvono cover — a bell-curve dome over a baseline,
+a numbered disc, a thin axis, lowercase display type in Jost, Literata body text
+and a black-and-white print block. The full specification is
+[DESIGN.md](DESIGN.md); read it before touching anything visual. The same system
+is published as the Claude Design System "Sustav Zvono". The previous "airy
+editorial" package is kept in `knjiga-stil/` as reference only.
 
 Five principles, binding on every element:
 
-1. **Air is the material.** Hairlines and whitespace separate sections — never
-   a box, a shadow or a rounded card.
-2. **Ochre means touch.** The one accent is reserved for interaction and
-   wayfinding. Never decoration, never a data colour.
-3. **Black and white first.** Meaning is carried by rule weight, position and
+1. **Shape carries meaning.** Dome = the book's mark, disc = a number, axis =
+   connection and the mean, baseline = closure. No fifth shape, no ornament.
+2. **Colour is a job.** Ochre (`accent`) means touch and wayfinding, navy
+   (`concept`) builds concepts, red (`error`) marks the planted error. None is
+   decoration in the reading zone and none is a data colour. Only the title
+   zone (cover, landing hero, part pages) uses the palette as fields, through
+   the theme-independent `brand-*` tokens.
+3. **Black and white first.** Meaning is carried by shape, rule weight and
    label. Every element must survive having its colour removed.
-4. **Numerals are monospace**, tabular and lining, everywhere.
+4. **Numerals are monospace**, tabular and lining, everywhere except the
+   number inside a disc.
 5. **Measure before width.** The text column never exceeds 66 characters.
 
 Mechanically: design lives in exactly four files (`design-tokens.yml` is the

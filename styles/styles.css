@@ -83,47 +83,50 @@ h4:hover a.anchorjs-link { opacity: 1; }
 
 /* --- AI izbornik u podnožju poglavlja ----------------------------
    Sve je ovdje dodirljivo, pa sve smije nositi oker (DESIGN.md, načelo 2).
-   Oblik prati ostatak sustava: mono verzal, gotovo pravi kut, bez sjene. */
-.ai-cta { margin: 0; font-family: var(--tok-font-mono); }
+   Sustav Zvono: gumb s pravim kutom i rubom od 2 px; tekst na okeru je
+   uvijek on-accent (krem na okeru ima samo 1,6 : 1). */
+.ai-cta { margin: 0; font-family: var(--tok-font-sans); }
 .ai-cta > summary {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  min-height: var(--tok-touch);
   cursor: pointer;
   list-style: none;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--tok-accent-deep);
-  border: 1px solid var(--tok-rule);
-  border-radius: var(--tok-radius);
-  padding: 0.45rem 0.8rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--tok-ink);
+  border: var(--tok-rule-width) solid var(--tok-ink);
+  border-radius: 0;
+  padding: 0 1.1rem;
   width: max-content;
 }
 .ai-cta > summary::-webkit-details-marker { display: none; }
 .ai-cta > summary:hover,
 .ai-cta[open] > summary {
   background: var(--tok-accent);
-  color: var(--tok-surface);
-  border-color: var(--tok-accent);
+  color: var(--tok-on-accent);
+  border-color: var(--tok-on-accent);
 }
-.ai-cta-menu { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.55rem; }
+.ai-cta-menu { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem; }
 .ai-cta-menu a,
 .ai-cta-pm {
-  font-family: var(--tok-font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
+  font-family: var(--tok-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0;
   text-decoration: none;
-  color: var(--tok-accent-deep);
-  border: 1px solid var(--tok-rule);
-  border-radius: var(--tok-radius);
-  padding: 0.4rem 0.72rem;
+  color: var(--tok-ink);
+  border: var(--tok-rule-width) solid var(--tok-ink);
+  border-radius: 0;
+  padding: 0.55rem 0.9rem;
   line-height: 1.2;
 }
 .ai-cta-menu a:hover,
 .ai-cta-pm:hover {
   background: var(--tok-accent);
-  color: var(--tok-surface);
-  border-color: var(--tok-accent);
+  color: var(--tok-on-accent);
+  border-color: var(--tok-on-accent);
 }
 .ai-cta-pm { display: inline-flex; align-items: center; gap: 0.4rem; }

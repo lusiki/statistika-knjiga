@@ -6,10 +6,11 @@
 //  book-include.html asinkrono omata u sklopivi <details> i dodaje gumb za
 //  povratak na početne vrijednosti, pa .qmd izvor ostaje čist.
 //
-//  Widget je JEDINI element koji „pluta" iznad papira: bijela ploha u vlas
-//  okviru. Sve ostalo u knjizi leži na papiru. Kontrole stoje na papirnatoj
-//  podlozi ispod grafa, odvojene linijom, jer su drugi red — graf je sadržaj,
-//  kontrole su sučelje.
+//  Sustav Zvono: widget je ploča paper-soft s osnovicom od 6 px u tinti na
+//  vrhu. Zaglavlje nosi disk s brojem widgeta, naslov i oznaku; gradi ga
+//  book-include.html (.widget-glava), a pseudo-elementi ostaju rezerva bez
+//  JS-a. Kontrole stoje ispod grafa, odvojene vlas linijom — graf je
+//  sadržaj, kontrole su sučelje.
 //
 //  U .qmd-u:
 //    ::: {.widget-frame data-naslov="Stroj za CLT" data-oznaka="Widget 08.1 · interaktivno"}
@@ -64,9 +65,10 @@ body.quarto-dark {
   --widget-emphasis: var(--tok-accent);
   --widget-grid: var(--tok-rule);
 
-  background: $tok-surface;
+  background: $tok-paper-soft;
   color: $tok-ink-soft;
-  border: 1px solid $tok-rule;
+  border: 0;
+  border-top: $tok-baseline-width solid $tok-ink;
   border-radius: 0;
   box-shadow: none;
   padding: 0;
@@ -78,13 +80,13 @@ body.quarto-dark {
 body.quarto-light .widget-frame { color-scheme: light; }
 body.quarto-dark .widget-frame { color-scheme: dark; }
 
-// Zaglavlje: naslov lijevo, oznaka widgeta desno u okeru.
+// Rezervno zaglavlje bez JS-a: naslov i oznaka iz atributa.
 .widget-frame::before {
   content: attr(data-naslov);
   display: block;
-  font-family: $tok-font-display;
-  font-size: 1.125rem;
-  font-weight: 400;
+  font-family: $tok-font-sans;
+  font-size: 1.25rem;
+  font-weight: 500;
   color: $tok-ink;
   padding: 1.25rem 1.5rem 0;
 }
@@ -93,18 +95,59 @@ body.quarto-dark .widget-frame { color-scheme: dark; }
   display: block;
   font-family: $tok-font-mono;
   font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: $tok-accent-deep;
+  letter-spacing: 0.06em;
+  color: $tok-ink-faint;
   padding: 0.35rem 1.5rem 1.25rem;
-  border-bottom: 1px solid $tok-rule-soft;
+  border-bottom: 1px solid $tok-rule;
   margin-bottom: 1.5rem;
+}
+.widget-frame.zv-widget-glava::before,
+.widget-frame.zv-widget-glava::after { content: none; }
+
+// Zaglavlje sustava Zvono: disk s brojem, naslov, oznaka desno.
+.widget-glava {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.875rem;
+  padding: 1.25rem 1.5rem !important;
+  margin: 0 0 1.5rem;
+  border-bottom: 1px solid $tok-rule;
+}
+.widget-glava__disk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: $tok-ink;
+  color: $tok-paper;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.widget-glava__naslov {
+  font-family: $tok-font-sans;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: $tok-ink;
+}
+.widget-glava__oznaka {
+  margin-left: auto;
+  font-family: $tok-font-mono;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: $tok-ink-faint;
 }
 
 // Bez oznake zaglavlje i dalje mora imati donju crtu.
 .widget-frame:not([data-oznaka])::before {
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid $tok-rule-soft;
+  border-bottom: 1px solid $tok-rule;
   margin-bottom: 1.5rem;
 }
 .widget-frame:not([data-naslov])::before { content: none; }
@@ -120,12 +163,12 @@ body.quarto-dark .widget-frame { color-scheme: dark; }
 
 // Zadržana klasa iz ranijeg kostura: naslov upisan u .qmd-u.
 .widget-frame .widget-naslov {
-  font-family: $tok-font-mono;
-  font-size: 0.6875rem;
+  font-family: $tok-font-sans;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: $tok-accent-deep;
+  color: $tok-ink;
   margin-bottom: 0.6rem;
 }
 
@@ -138,7 +181,7 @@ body.quarto-dark .widget-frame { color-scheme: dark; }
   gap: 1rem;
   padding: 0.875rem 1.5rem;
   margin: 0;
-  border-top: 1px solid $tok-rule-soft;
+  border-top: 1px solid $tok-rule;
   font-family: $tok-font-mono;
   font-size: 0.78rem;
   line-height: 1.55;
@@ -149,9 +192,9 @@ body.quarto-dark .widget-frame { color-scheme: dark; }
 // Na papirnatoj podlozi, odvojena linijom: kontrole su ispod sadržaja.
 details.ojs-collapsible {
   border: 0;
-  border-top: 1px solid $tok-rule-soft;
+  border-top: 1px solid $tok-rule;
   border-radius: 0;
-  background: $tok-paper;
+  background: transparent;
   margin: 1.5rem 0 0;
 }
 
@@ -162,23 +205,25 @@ details.ojs-collapsible {
   gap: 0.5rem;
   cursor: pointer;
   list-style: none;
-  padding: 0.7rem 1.5rem;
-  font-family: $tok-font-mono;
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $tok-accent-deep;
+  min-height: $tok-touch;
+  padding: 0.5rem 1.5rem;
+  font-family: $tok-font-sans;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: $tok-ink;
 
   &::-webkit-details-marker { display: none; }
   &:focus-visible {
-    outline: 2px solid $tok-accent;
+    outline: $tok-rule-width solid $tok-ink;
     outline-offset: -2px;
   }
 }
 
 .ojs-collapsible-icon {
   width: 0; height: 0;
-  border-left: 5px solid $tok-accent;
+  border-left: 6px solid $tok-ink;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   transition: transform 0.15s ease;
@@ -190,8 +235,9 @@ details[open] > .ojs-collapsible-summary .ojs-collapsible-icon {
 .ojs-collapsible-label { font-weight: 500; }
 .ojs-collapsible-hint {
   color: $tok-ink-mute;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0;
   text-transform: none;
 }
 
@@ -206,14 +252,14 @@ form[class^="oi-"] {
   max-width: 100%;
 }
 
-// Natpis kontrole je oznaka, ne proza: mono verzal.
+// Natpis kontrole: Jost 500, rečenično pismo.
 form[class^="oi-"] label,
 .widget-frame form label {
-  font-family: $tok-font-mono;
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: $tok-ink-mute;
+  font-family: $tok-font-sans;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: $tok-ink;
   font-weight: 500;
 }
 
@@ -222,36 +268,38 @@ form[class^="oi-"] input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   width: min(100%, 24rem);
-  height: 2px;
+  height: 4px;
   border-radius: 0;
+  // Staza: tinta do vrijednosti, vlas linija poslije. Palac je oker disk
+  // s rubom u on-accent, pa stanje ne ovisi samo o okeru (1,6 : 1).
   background: linear-gradient(
     to right,
-    #{$tok-accent} 0%,
-    #{$tok-accent} var(--fill, 0%),
+    #{$tok-ink} 0%,
+    #{$tok-ink} var(--fill, 0%),
     #{$tok-rule} var(--fill, 0%),
     #{$tok-rule} 100%
   );
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 13px; height: 13px;
+    width: 20px; height: 20px;
     border-radius: 50%;
     background: $tok-accent;
-    border: 2px solid $tok-surface;
-    box-shadow: 0 0 0 1px $tok-rule;
+    border: $tok-rule-width solid $tok-on-accent;
+    box-shadow: none;
     cursor: pointer;
   }
   &::-moz-range-thumb {
-    width: 11px; height: 11px;
+    width: 16px; height: 16px;
     border-radius: 50%;
     background: $tok-accent;
-    border: 2px solid $tok-surface;
+    border: $tok-rule-width solid $tok-on-accent;
     cursor: pointer;
   }
 
   &:focus-visible {
-    outline: 2px solid $tok-accent;
-    outline-offset: 5px;
+    outline: $tok-rule-width solid $tok-ink;
+    outline-offset: 6px;
   }
 }
 
@@ -262,15 +310,15 @@ form[class^="oi-"] input[type="text"] {
   font-variant-numeric: tabular-nums lining-nums;
   font-size: 0.8rem;
   background: $tok-surface;
-  border: 1px solid $tok-rule;
-  border-radius: $tok-radius;
+  border: 1px solid $tok-ink-mute;
+  border-radius: 0;
   color: $tok-ink;
   padding: 0.1rem 0.35rem;
 
   &:focus-visible {
-    outline: 2px solid $tok-accent;
+    outline: $tok-rule-width solid $tok-ink;
     outline-offset: 1px;
-    border-color: $tok-accent;
+    border-color: $tok-ink;
   }
 }
 
@@ -278,15 +326,15 @@ form[class^="oi-"] select {
   font-family: $tok-font-sans;
   font-size: 0.8rem;
   background: $tok-surface;
-  border: 1px solid $tok-rule;
-  border-radius: $tok-radius;
+  border: 1px solid $tok-ink-mute;
+  border-radius: 0;
   color: $tok-ink;
   padding: 0.15rem 0.35rem;
 
   &:focus-visible {
-    outline: 2px solid $tok-accent;
+    outline: $tok-rule-width solid $tok-ink;
     outline-offset: 1px;
-    border-color: $tok-accent;
+    border-color: $tok-ink;
   }
 }
 
@@ -363,7 +411,7 @@ form[class^="oi-"] :disabled {
 .ojs-pulse { animation: ojs-pulse 0.4s ease; }
 @keyframes ojs-pulse {
   0%   { background: $tok-accent-wash; }
-  100% { background: $tok-surface; }
+  100% { background: transparent; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ojs-pulse { animation: none; }
@@ -371,22 +419,24 @@ form[class^="oi-"] :disabled {
 
 // Gumb za povratak na početne vrijednosti (ubacuje ga book-include.html).
 .ojs-reset {
-  font-family: $tok-font-mono;
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  color: $tok-ink-mute;
+  display: inline-flex;
+  align-items: center;
+  min-height: $tok-touch;
+  font-family: $tok-font-sans;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: $tok-ink;
   background: transparent;
-  border: 1px solid $tok-rule;
-  border-radius: $tok-radius;
-  padding: 0.28rem 0.6rem;
+  border: $tok-rule-width solid $tok-ink;
+  border-radius: 0;
+  padding: 0 1.1rem;
   margin: 0 1.5rem 1rem;
   cursor: pointer;
 
-  &:hover { color: $tok-accent-deep; border-color: $tok-accent; }
+  &:hover { background: $tok-accent-wash; }
   &:focus-visible {
-    color: $tok-accent-deep;
-    border-color: $tok-accent;
-    outline: 2px solid $tok-accent;
+    outline: $tok-rule-width solid $tok-ink;
     outline-offset: 2px;
   }
 }
@@ -402,6 +452,15 @@ form[class^="oi-"] :disabled {
   .widget-frame:not([data-oznaka])::before {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .widget-glava {
+    padding: 1rem !important;
+  }
+
+  .widget-glava__oznaka {
+    flex-basis: 100%;
+    margin-left: 0;
   }
 
   .widget-frame > *:not(details) {
@@ -453,8 +512,9 @@ form[class^="oi-"] :disabled {
 @media print {
   .ojs-collapsible,
   .widget-foot,
-  .widget-frame[data-oznaka]::after { display: none; }
-  .widget-frame { border: 1px solid $tok-rule; }
+  .widget-frame[data-oznaka]::after,
+  .widget-glava__oznaka { display: none; }
+  .widget-frame { border-top: $tok-baseline-width solid $tok-ink; }
   body.quarto-dark .figure-theme-light,
   .figure-theme-light { display: block; }
   body.quarto-dark .figure-theme-dark,

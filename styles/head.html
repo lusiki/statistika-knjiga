@@ -1,31 +1,30 @@
 <!-- =====================================================================
-     head.html — pisma knjige (include-in-header)
+     head.html — pisma knjige (include-in-header), sustav Zvono
      ---------------------------------------------------------------------
-     Četiri obitelji, sve s Google Fontsa, sve s punom hrvatskom
+     Tri obitelji, sve s Google Fontsa, sve s punom hrvatskom
      dijakritikom (č ć đ š ž):
 
-       Newsreader      displej — naslovi, otvaranje poglavlja, navodi
+       Jost            displej, naslovi, sučelje, potpisi
        Literata        tijelo teksta
-       Public Sans     sučelje, potpisi, margina, izvori, glave tablica
-       JetBrains Mono  kod, brojke, oznake, „eyebrow"
+       JetBrains Mono  kod, brojke, oznake widgeta
 
      Imena pisama žive u styles/_tokens.scss; ovdje su samo poveznice na
-     datoteke. Za PDF ih treba instalirati lokalno — tex/theme.tex ih traži
-     u sustavu i tiho pada na Latin Modern ako ih nema.
+     datoteke. PDF i R grafovi učitavaju statičke instance iz fonts/print/.
 
      ŠESTI NOSITELJ BOJE. `theme-color` ne može se izraziti tokenom jer ga
-     čita preglednik, ne stranica. Vrijednost je token:paper i mijenja se
-     zajedno s njim (vidi DESIGN.md).
+     čita preglednik, ne stranica. Vrijednosti su token:paper svijetle i
+     tamne teme i mijenjaju se zajedno s njima (vidi DESIGN.md).
      ================================================================== -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&family=Public+Sans:ital,wght@0,400..700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;1,400&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&family=JetBrains+Mono:wght@400;500;600&display=swap">
 
-<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F2E8D5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191814" media="(prefers-color-scheme: dark)">
 
-<!-- Oznaka stranice: tri rastuća stupca, s okerom kao signalom navođenja. -->
+<!-- Oznaka stranice: kupola u tinti s modrom unutarnjom kupolom nad osnovicom
+     (token:brand-ink, token:brand-navy). -->
 <link rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 26 A14 14 0 0 1 30 26 Z' fill='%231B1A17'/%3E%3Cpath d='M9 26 A7 7 0 0 1 23 26 Z' fill='%231E3F7A'/%3E%3Crect x='1' y='26' width='30' height='3' fill='%231B1A17'/%3E%3C/svg%3E">

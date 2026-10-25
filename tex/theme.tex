@@ -5,9 +5,10 @@
 %  Preslikava design-tokens.yml i styles/_tokens.scss. Provjera sinkronizacije:
 %      Rscript scripts/check-tokens.R
 %
-%  TISKANI BLOK JE CRNO-BIJEL. Tokeni ispod postoje da bi sloj bio usklađen
-%  s izvorom istine, ali ih raspored NE koristi u boji: oker degradira u
-%  tintu, ispune u 4 % sivu, paleta podataka u pet razlučivih sivih. To nije
+%  SUSTAV ZVONO. TISKANI BLOK JE CRNO-BIJEL. Tokeni ispod postoje da bi sloj
+%  bio usklađen s izvorom istine, ali ih raspored NE koristi u boji: oker,
+%  modra i crvena degradiraju u tintu, ispune u 4 % sivu, paleta podataka u
+%  pet razlučivih sivih. Jedina tiskana ploha u boji je korica (brand-*). To nije
 %  osiromašenje nego uvjet — svaki element knjige mora ostati razumljiv kad
 %  se boja oduzme, pa se značenje nosi debljinom crte, položajem i oznakom.
 %
@@ -16,25 +17,34 @@
 % =====================================================================
 
 % ---- paleta (JEDINO mjesto s bojama u tiskarskom sloju) -------------
-\definecolor{paper}{HTML}{FBFAF6}       % token:paper
-\definecolor{papersoft}{HTML}{F3EFE6}   % token:paper-soft
-\definecolor{surface}{HTML}{FFFFFF}     % token:surface
-\definecolor{ink}{HTML}{16150F}         % token:ink
-\definecolor{inksoft}{HTML}{33322A}     % token:ink-soft
-\definecolor{inkmute}{HTML}{6E6C61}     % token:ink-mute
-\definecolor{inkfaint}{HTML}{9B9789}    % token:ink-faint
-\definecolor{rulecol}{HTML}{E4DFD2}     % token:rule
-\definecolor{rulesoft}{HTML}{EFEBE0}    % token:rule-soft
-\definecolor{accent}{HTML}{C08A16}      % token:accent
-\definecolor{accentdeep}{HTML}{8A6212}  % token:accent-deep
-\definecolor{accentdark}{HTML}{5C4109}  % token:accent-dark
-\definecolor{accentwash}{HTML}{FAF2DE}  % token:accent-wash
-\definecolor{dataone}{HTML}{16150F}     % token:data-1
-\definecolor{datatwo}{HTML}{40566B}     % token:data-2
-\definecolor{datathree}{HTML}{8A6212}   % token:data-3
-\definecolor{datafour}{HTML}{9B9789}    % token:data-4
-\definecolor{datafive}{HTML}{C9C2B0}    % token:data-5
-\definecolor{alert}{HTML}{8A2A12}       % token:alert
+\definecolor{paper}{HTML}{F2E8D5}       % token:paper
+\definecolor{papersoft}{HTML}{E6D9BC}   % token:paper-soft
+\definecolor{surface}{HTML}{FAF5EA}     % token:surface
+\definecolor{ink}{HTML}{1B1A17}         % token:ink
+\definecolor{inksoft}{HTML}{2F2D28}     % token:ink-soft
+\definecolor{inkmute}{HTML}{4F4A3F}     % token:ink-mute
+\definecolor{inkfaint}{HTML}{625B4B}    % token:ink-faint
+\definecolor{rulecol}{HTML}{CDBF9C}     % token:rule
+\definecolor{rulesoft}{HTML}{DDD0B2}    % token:rule-soft
+\definecolor{accent}{HTML}{E8B343}      % token:accent
+\definecolor{onaccent}{HTML}{1B1A17}    % token:on-accent
+\definecolor{accentdeep}{HTML}{7A5A0F}  % token:accent-deep
+\definecolor{accentdark}{HTML}{4F3A08}  % token:accent-dark
+\definecolor{accentwash}{HTML}{F6E6BE}  % token:accent-wash
+\definecolor{concept}{HTML}{1E3F7A}     % token:concept
+\definecolor{errorcol}{HTML}{D1472F}    % token:error
+\definecolor{alert}{HTML}{9E2F1C}       % token:alert
+\definecolor{dataone}{HTML}{1B1A17}     % token:data-1
+\definecolor{datatwo}{HTML}{1E3F7A}     % token:data-2
+\definecolor{datathree}{HTML}{7F6234}   % token:data-3
+\definecolor{datafour}{HTML}{998F7B}    % token:data-4
+\definecolor{datafive}{HTML}{D2C4A2}    % token:data-5
+% Naslovna zona: korica je jedina tiskana ploha u boji.
+\definecolor{brandmustard}{HTML}{E8B343} % token:brand-mustard
+\definecolor{brandnavy}{HTML}{1E3F7A}    % token:brand-navy
+\definecolor{brandcream}{HTML}{F2E8D5}   % token:brand-cream
+\definecolor{brandred}{HTML}{D1472F}     % token:brand-red
+\definecolor{brandink}{HTML}{1B1A17}     % token:brand-ink
 
 % ---- izvedene tiskarske vrijednosti ---------------------------------
 % Ove, a ne one gore, ulaze u raspored. Ovdje se boja gasi.
@@ -64,16 +74,17 @@
   Numbers={Proportional,OldStyle},
   WordSpace={1,1,0},
   Ligatures=TeX ]
-\newfontfamily\bkdisplay{Newsreader-Light.ttf}[
+% Jost nosi displej (rez 400), naslove i sučelje (rez 500 kao "bold").
+\newfontfamily\bkdisplay{Jost-Regular.ttf}[
   Path=fonts/print/,
-  BoldFont=Newsreader-Regular.ttf,
-  ItalicFont=Newsreader-LightItalic.ttf,
-  BoldItalicFont=Newsreader-LightItalic.ttf,
+  BoldFont=Jost-Medium.ttf,
+  ItalicFont=Jost-Italic.ttf,
+  BoldItalicFont=Jost-Italic.ttf,
   Ligatures=TeX ]
-\setsansfont{PublicSans-Regular.ttf}[
+\setsansfont{Jost-Regular.ttf}[
   Path=fonts/print/,
-  BoldFont=PublicSans-Bold.ttf,
-  ItalicFont=PublicSans-Italic.ttf,
+  BoldFont=Jost-Medium.ttf,
+  ItalicFont=Jost-Italic.ttf,
   Ligatures=TeX ]
 % Ligature u kodu iskljucene su kako bi se svaki znak mogao prepisati.
 \setmonofont{JetBrainsMono-Regular.ttf}[
@@ -87,7 +98,10 @@
 \newcommand{\bkls}[1]{{\addfontfeature{LetterSpace=14}#1}}
 % Ne sabijati razmake medu rijecima ni rastezati odlomke do dna stranice.
 \AtBeginDocument{\raggedbottom}
-\newcommand{\eyebrow}[2][bkink]{{\ttfamily\fontsize{7.5pt}{9pt}\selectfont\color{#1}\bkls{#2}}}
+% Oznaka (eyebrow): Jost Medium, razmaknuta. Natpisi se predaju vec velikim
+% slovima, bez \MakeUppercase (vidi napomenu o slovu Đ kod kutija).
+\newcommand{\bklabelfont}{\sffamily\bfseries\fontsize{7.5pt}{9pt}\selectfont}
+\newcommand{\eyebrow}[2][bkink]{{\bklabelfont\color{#1}\bkls{#2}}}
 
 % ---- poveznice: tinta, nikad plavo ----------------------------------
 \AtBeginDocument{\hypersetup{
@@ -96,21 +110,84 @@
   urlcolor=bkink, filecolor=bkink }}
 
 % =====================================================================
-%  NASLOVI — displejni serif, svijetli rez, nikad bold
+%  OBLICI SUSTAVA ZVONO — kupola, disk, os, osnovica
+%  U tisku su svi u tinti; razliku nosi oblik, ne boja.
+% =====================================================================
+\usepackage{tikz}
+% Kupola: polukrug na osnovici. #1 boja, #2 sirina.
+\newcommand{\bkdome}[2][bkink]{\tikz[baseline=0pt]{\fill[#1] (0,0) arc[start angle=180, end angle=0, radius=#2/2] -- cycle;}}
+% Obrnuta kupola (zdjelica): znak okvira Nađite grešku.
+\newcommand{\bkbowl}[2][bkink]{\tikz[baseline=-#2/2]{\fill[#1] (0,0) arc[start angle=180, end angle=360, radius=#2/2] -- cycle;}}
+% Disk u retku oznake.
+\newcommand{\bkdot}[2][bkink]{\tikz[baseline=-0.35ex]{\fill[#1] (0,0) circle[radius=#2/2];}}
+% Prsten: obrubljeni disk (Pitajte model).
+\newcommand{\bkring}[2][bkink]{\tikz[baseline=-0.35ex]{\draw[#1, line width=0.6pt] (0,0) circle[radius=#2/2-0.3pt];}}
+% Redak oznake: znak, razmak, natpis.
+\newcommand{\bklabelrow}[2]{{\noindent#1\hspace{5pt}\eyebrow{#2}\par}\vspace{7pt}}
+
+% =====================================================================
+%  NASLOVI — Jost; displejni registar malim slovima, rez 400
 % =====================================================================
 
+% Ime dijela razdvaja se na broj („DIO III") i naziv; otvaranje poglavlja
+% ponavlja oba u oznaci iznad naslova.
+\ExplSyntaxOn
+\tl_new:N \g_bk_partnum_tl
+\tl_new:N \g_bk_partname_tl
+\cs_generate_variant:Nn \seq_set_split:Nnn { NV }
+\NewDocumentCommand{\bkpartsplit}{m}{
+  \seq_set_split:NVn \l_tmpa_seq \c_colon_str {#1}
+  \int_compare:nNnTF { \seq_count:N \l_tmpa_seq } > { 1 }
+    {
+      \tl_gset:Nx \g_bk_partnum_tl { \seq_item:Nn \l_tmpa_seq { 1 } }
+      \tl_gset:Nx \g_bk_partname_tl { \seq_item:Nn \l_tmpa_seq { 2 } }
+    }
+    {
+      \tl_gclear:N \g_bk_partnum_tl
+      \tl_gset:Nn \g_bk_partname_tl {#1}
+    }
+}
+% Expandabilne inačice, da \MakeLowercase vidi stvarni tekst.
+\cs_new:Npn \bkpartnum {\tl_use:N \g_bk_partnum_tl}
+\cs_new:Npn \bkpartname {\tl_use:N \g_bk_partname_tl}
+\NewDocumentCommand{\bkifpartnum}{+m+m}{\tl_if_empty:NTF \g_bk_partnum_tl {#2} {#1}}
+\NewDocumentCommand{\bkifpart}{+m}{\tl_if_empty:NF \g_bk_partname_tl {#1}}
+\ExplSyntaxOff
+
 % ---- DIO (part) -----------------------------------------------------
+% Stranica dijela: tri ugniježđene kupole (tinta, bijela, siva) nad
+% osnovicom od 2,4 pt, broj dijela kao oznaka, naziv malim slovima.
 \setkomafont{part}{\normalfont\color{bkink}}
 \renewcommand*{\partformat}{}
-\renewcommand*{\partheadstartvskip}{\null\vskip 8em}
+\renewcommand*{\partheadstartvskip}{\null\vskip 4em}
 \renewcommand*{\partheadendvskip}{\vfil\newpage}
 \input{tex/part-introductions.tex}
+\newcommand{\BookPartDomes}{%
+  \begin{tikzpicture}[x=1mm, y=1mm]
+    \fill[bkink] (0,0) arc[start angle=180, end angle=0, radius=28] -- cycle;
+    \fill[white] (18,0) arc[start angle=180, end angle=0, radius=10] -- cycle;
+    \fill[bkink!45] (25,0) arc[start angle=180, end angle=0, radius=3] -- cycle;
+    \draw[bkink, line width=0.8pt] (28,0) -- (28,38);
+    \fill[bkink] (0,-0.85) rectangle (\linewidth,0);
+  \end{tikzpicture}}
+% KOMA predaje oblikovani naslov (u vitičastoj zagradi), pa se izvorni
+% naslov dijela hvata omotačem oko \part i tek onda razdvaja.
+\newcommand{\bkrawpart}{}
+\AtBeginDocument{%
+  \let\bkorigpart\part
+  \RenewDocumentCommand{\part}{s o m}{%
+    \gdef\bkrawpart{#3}%
+    \IfBooleanTF{#1}{\bkorigpart*{#3}}{%
+      \IfNoValueTF{#2}{\bkorigpart{#3}}{\bkorigpart[#2]{#3}}}}%
+}
 \newcommand{\BookPartHead}[1]{%
+  \expandafter\bkpartsplit\expandafter{\bkrawpart}%
   \raggedright
-  {\color{bkink}\rule{\linewidth}{1.2pt}}\par
-  \vskip 1.1em
-  {\bkdisplay\mdseries\color{bkink}\fontsize{30}{34}\selectfont #1\par}%
-  \vskip 1.1em
+  \noindent\BookPartDomes\par
+  \vskip 2.2em
+  \bkifpartnum{{\eyebrow{\bkpartnum}\par}\vskip 0.9em}{}%
+  {\bkdisplay\mdseries\color{bkink}\fontsize{30}{33}\selectfont\MakeLowercase{\bkpartname}\par}%
+  \vskip 1.2em
   {\color{bkrule}\rule{\linewidth}{0.4pt}}\par
   \vskip 1.5em
   {\normalfont\normalsize\color{bkink}\BookPartIntro{#1}\par}%
@@ -118,9 +195,10 @@
 \renewcommand{\partlineswithprefixformat}[3]{\BookPartHead{#3}}
 
 % ---- POGLAVLJE ------------------------------------------------------
-% Otvaranje: oznaka POGLAVLJE u monou, naslov u displejnom serifu na
-% najviše ~14 znakova širine, pa vlas linija. Bez slike, bez broja kao
-% ukrasa. Natpis se gasi u dodacima da literatura ne bude krivo označena.
+% Otvaranje: crni disk s dvoznamenkastim brojem, os od 0,8 pt spušta se do
+% oznake dijela, naslov malim slovima u Jostu, zatvara crta od 1,2 pt.
+% Natpis se gasi u dodacima da literatura ne bude krivo označena; poglavlja
+% bez broja (predgovor, literatura) nemaju ni disk.
 \newif\ifbookeyebrow \bookeyebrowtrue
 \newif\ifbklabeled \bklabeledfalse
 \newcommand{\bkchapterid}{}
@@ -128,17 +206,45 @@
 \renewcommand{\appendix}{\bookoldappendix\bookeyebrowfalse}
 \setkomafont{chapter}{\bkdisplay\mdseries\color{bkink}}
 \renewcommand*{\chapterformat}{}
-\renewcommand*{\chapterheadstartvskip}{\null\vskip 6em}
-\renewcommand*{\chapterheadendvskip}{\vskip 2.4em}
+\renewcommand*{\chapterheadstartvskip}{\null\vskip 1.5em}
+\renewcommand*{\chapterheadendvskip}{\vskip 0.9em}
+\newcommand{\BookChapDisc}{%
+  \begin{tikzpicture}[x=1mm, y=1mm]
+    \fill[bkink] (11,0) circle[radius=11];
+    \node[text=white, inner sep=0pt, font=\sffamily\bfseries\fontsize{26}{26}\selectfont] at (11,0.2) {\bkchapterid};
+    \draw[bkink, line width=0.8pt] (11,-11) -- (11,-25);
+  \end{tikzpicture}}
+\newcommand{\bkchaptitle}[1]{%
+  {\usekomafont{chapter}\fontsize{30}{32}\selectfont\MakeLowercase{#1}\par}}
+% Numerirana poglavlja zatvaraju crtom tek ispod podnaslova (bkchapterlead,
+% koje omata book-callouts.lua); ostala zatvaraju crtom odmah ispod naslova.
+\newcommand{\bkchapclose}{%
+  \vskip 1.1em
+  {\color{bkink}\rule{\linewidth}{1.2pt}}\par
+  \vskip 1.3em}
 \newcommand{\BookChapHead}[1]{%
   \raggedright
   \ifbookeyebrow\ifbklabeled
-    {\eyebrow{POGLAVLJE \bkchapterid}\par}\vskip 1.3em
-  \fi\fi
-  {\usekomafont{chapter}\fontsize{32}{35}\selectfont #1\par}%
-  \vskip 1.1em
-  {\color{bkrule}\rule{\linewidth}{0.4pt}}%
+    \noindent\BookChapDisc\par
+    \vskip 0.9em
+    \bkifpart{{\eyebrow[bkmuted]{\bkifpartnum{\bkpartnum\ ·\ }{}\bkpartname}\par}\vskip 0.8em}%
+    \bkchaptitle{#1}%
+  \else
+    \vskip 3.2em
+    \bkchaptitle{#1}\bkchapclose
+  \fi\else
+    \vskip 3.2em
+    \bkchaptitle{#1}\bkchapclose
+  \fi
 }
+% Podnaslov poglavlja (YAML subtitle): Literata kurziv, prigušen, pa crta od
+% 1,2 pt. Vinjeta koja odmah slijedi ne ponavlja svoju gornju crtu.
+\newif\ifbkafterlead \bkafterleadfalse
+\newenvironment{bkchapterlead}{%
+  \par\raggedright\itshape\fontsize{13pt}{17.5pt}\selectfont\color{bkmuted}%
+}{%
+  \par\vspace{1.1em}{\color{bkink}\hrule height 1.2pt}\vspace{1.2em}%
+  \normalfont\normalsize\color{bktext}\global\bkafterleadtrue}
 \renewcommand{\chapterlinesformat}[3]{\BookChapHead{#3}}
 \renewcommand{\chapterlineswithprefixformat}[3]{\BookChapHead{#3}}
 
@@ -158,32 +264,43 @@
   \vspace{1.1\baselineskip}%
 }
 
-% Uvodna rečenica ispod naslova poglavlja.
+% Uvodna rečenica ispod naslova poglavlja: Literata kurziv.
 \newcommand{\bklead}[1]{%
   \vskip 0.3\baselineskip
-  {\fontsize{12.5pt}{17pt}\selectfont\color{bktext}\raggedright #1\par}%
+  {\itshape\fontsize{12.5pt}{17pt}\selectfont\color{bkmuted}\raggedright #1\par}%
   \vskip 1.2\baselineskip}
 
 % ---- ODJELJCI -------------------------------------------------------
-\setkomafont{section}{\bkdisplay\mdseries\fontsize{17}{21}\selectfont\color{bkink}}
-\setkomafont{subsection}{\bkdisplay\mdseries\fontsize{13.5}{17}\selectfont\color{bkink}}
-\setkomafont{subsubsection}{\sffamily\bfseries\color{bktext}}
+% Odjeljak: Jost Medium, crta od 1,2 pt u tinti iznad naslova.
+% Pododjeljak: Jost Medium, manji, bez crte.
+\setkomafont{section}{\sffamily\bfseries\fontsize{15}{19}\selectfont\color{bkink}}
+\setkomafont{subsection}{\sffamily\bfseries\fontsize{12}{15}\selectfont\color{bkink}}
+\setkomafont{subsubsection}{\sffamily\bfseries\fontsize{10.5}{13}\selectfont\color{bktext}}
 \setkomafont{paragraph}{\sffamily\bfseries\color{bktext}}
+\makeatletter
+\renewcommand{\sectionlinesformat}[4]{%
+  \Ifstr{#1}{section}{%
+    \parbox[b]{\linewidth}{%
+      {\color{bkink}\rule{\linewidth}{1.2pt}}\par\vspace{6pt}%
+      \raggedright\hskip #2#3#4}%
+  }{\@hangfrom{\hskip #2#3}{#4}}%
+}
+\makeatother
 
 % ---- sadržaj --------------------------------------------------------
 \setkomafont{partentry}{\bkdisplay\mdseries\color{bkink}}
-\setkomafont{chapterentry}{\color{bkink}}
+\setkomafont{chapterentry}{\sffamily\bfseries\color{bkink}}
 
 % =====================================================================
-%  ŽIVA PAGINA — mono, prigušena, bez crte u boji
+%  ŽIVA PAGINA — Jost za naslov, mono za broj stranice
 % =====================================================================
 \usepackage[automark]{scrlayer-scrpage}
 \clearpairofpagestyles
 \automark[section]{chapter}
 \setkomafont{pagehead}{\normalfont}
 \setkomafont{pagenumber}{\normalfont}
-\lehead{{\ttfamily\addfontfeatures{Ligatures=TeX}\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\leftmark}}
-\rohead{{\ttfamily\addfontfeatures{Ligatures=TeX}\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\rightmark}}
+\lehead{{\sffamily\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\leftmark}}
+\rohead{{\sffamily\fontsize{7.5pt}{9pt}\selectfont\color{bkfaint}\rightmark}}
 \cfoot*{{\ttfamily\fontsize{8pt}{10pt}\selectfont\color{bkmuted}\thepage}}
 \KOMAoptions{headsepline=off}
 \pagestyle{scrheadings}
@@ -205,13 +322,15 @@
 % =====================================================================
 %  PEDAGOŠKE KUTIJE  (omata ih pdf-filters/book-callouts.lua)
 % =====================================================================
-%  Svaka kutija razlikuje se CRTOM I OZNAKOM, ne ispunom u boji:
+%  Sustav Zvono: svaka kutija razlikuje se CRTOM I ZNAKOM, ne ispunom:
 %
-%    Vinjeta            1,2 pt gornja crta + vlas donja, displejni kurziv
-%    Statistika u divljini   bijela ploha u 1,6 pt crnom okviru
-%    Pitajte model      točkasti okvir, upit u monou na 4 % sivoj
-%    Nađite grešku      2,4 pt gornja crta, bez ispune
-%    Razrađeni primjer  viseći mono brojevi koraka
+%    Vinjeta            0,8 pt gornja crta + mala kupola, vlas donja, bez oznake
+%    Statistika u divljini   2,4 pt gornja traka + disk u oznaci, vlas donja
+%    Pitajte model      0,8 pt točkasta crta + prsten u oznaci
+%    Nađite grešku      0,8 pt gornja crta + obrnuta kupola u oznaci
+%    Razrađeni primjer  disk u oznaci
+%    Sažetak            1,2 pt gornja crta (naslov odjeljka) + vlas donja
+%    Definicija         1,6 pt lijeva os, pojam u Jostu, bez ispune
 %
 %  Natpisi se predaju VEĆ VELIKIM SLOVIMA, bez \MakeUppercase. Razlog je Đ:
 %  automatsko povećavanje slova ispisalo ga je kao goli D („NADITE GREŠKU"),
@@ -225,50 +344,49 @@
 
 \newcommand{\bklbl}[1]{{\eyebrow{#1}\par}\vspace{7pt}}
 
-% Vinjeta
+% Vinjeta — modra kupola weba u tisku je crna; bez natpisa.
 \newenvironment{calloutvinjeta}{%
-  \par\vspace{6pt}{\color{bkink}\hrule height 1.2pt}\vspace{11pt}%
-  \bkdisplay\itshape\fontsize{13pt}{18pt}\selectfont\color{bkink}\raggedright
+  \par
+  \ifbkafterlead
+    \global\bkafterleadfalse
+  \else
+    \vspace{8pt}{\color{bkink}\hrule height 0.8pt}\vspace{9pt}%
+  \fi
+  {\noindent\bkdome{16pt}\par}\vspace{7pt}%
+  \normalfont\color{bktext}%
 }{%
-  \par\vspace{11pt}{\color{bkrule}\hrule height 0.4pt}\vspace{16pt}\normalfont\color{bktext}%
+  \par\vspace{10pt}{\color{bkrule}\hrule height 0.4pt}\vspace{16pt}\normalfont\color{bktext}%
 }
 
-% Statistika u divljini — na zaslonu obrnuta tamna traka; u tisku bi puna
-% crna ploha progutala tekst i papir, pa se obrće u okvir.
+% Statistika u divljini — na zaslonu puna tamna ploha; u tisku bi crna ploha
+% progutala tekst, pa ostaje teška gornja traka i vlas donja crta.
 \newenvironment{calloutdivljina}{%
-  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=1.6pt,
-    colframe=bkink, colback=white,
-    left=14pt, right=14pt, top=13pt, bottom=13pt,
-    before skip=16pt, after skip=16pt]
-  \bklbl{STATISTIKA U DIVLJINI}%
+  \par\vspace{14pt}{\color{bkink}\hrule height 2.4pt}\vspace{9pt}%
+  \bklabelrow{\bkdot{6.5pt}}{STATISTIKA U DIVLJINI}%
   \fontsize{9.5pt}{13.5pt}\selectfont
-}{\end{tcolorbox}}
+}{\par\vspace{10pt}{\color{bkrule}\hrule height 0.4pt}\vspace{14pt}\normalfont\normalsize}
 
-% Pitajte model — točkasti okvir, glas stroja
+% Pitajte model — točkasta crta i prsten: glas stroja
 \newenvironment{calloutmodel}{%
-  \begin{tcolorbox}[breakable, enhanced, sharp corners, frame hidden,
-    boxrule=0pt, colback=white,
-    borderline={0.6pt}{0pt}{bkmuted, dotted},
-    left=12pt, right=12pt, top=11pt, bottom=11pt,
-    before skip=16pt, after skip=16pt]
-  \bklbl{PITAJTE MODEL}%
+  \par\vspace{14pt}{\noindent\color{bkmuted}\leaders\hbox to 2.4pt{\hss\rule{1.2pt}{0.8pt}\hss}\hfill\par}\vspace{9pt}%
+  \bklabelrow{\bkring{6.5pt}}{PITAJTE MODEL}%
   \fontsize{9.5pt}{13.5pt}\selectfont
-}{\end{tcolorbox}}
+}{\par\vspace{10pt}{\color{bkrule}\hrule height 0.4pt}\vspace{14pt}\normalfont\normalsize}
 
-% Nađite grešku — teška gornja crta, bez ispune
+% Nađite grešku — gornja crta i obrnuta kupola (crvena na zaslonu, crna u tisku)
 \newenvironment{calloutgreska}{%
-  \par\vspace{14pt}{\color{bkink}\hrule height 2.4pt}\vspace{10pt}%
-  \bklbl{NAĐITE GREŠKU}%
+  \par\vspace{14pt}{\color{bkink}\hrule height 0.8pt}\vspace{9pt}%
+  \bklabelrow{\bkbowl{11pt}}{NAĐITE GREŠKU}%
   \fontsize{9.5pt}{13.5pt}\selectfont
-}{\par\vspace{14pt}\normalfont\normalsize}
+}{\par\vspace{10pt}{\color{bkrule}\hrule height 0.4pt}\vspace{14pt}\normalfont\normalsize}
 
 % Dulji slučaj s dvjema tablicama u 13. poglavlju: malo gušći slog drži
 % dokaze i sva tri pitanja na istoj stranici bez promjene teksta.
 \newenvironment{calloutgreskaduga}{%
-  \par\vspace{14pt}{\color{bkink}\hrule height 2.4pt}\vspace{10pt}%
-  \bklbl{NAĐITE GREŠKU}%
+  \par\vspace{14pt}{\color{bkink}\hrule height 0.8pt}\vspace{9pt}%
+  \bklabelrow{\bkbowl{11pt}}{NAĐITE GREŠKU}%
   \fontsize{9pt}{12pt}\selectfont
-}{\par\vspace{14pt}\normalfont\normalsize}
+}{\par\vspace{10pt}{\color{bkrule}\hrule height 0.4pt}\vspace{14pt}\normalfont\normalsize}
 
 % Kratki zadaci čiji se podaci i pitanje trebaju čitati na istoj stranici.
 \newenvironment{calloutgreskazadrzi}{%
@@ -277,39 +395,45 @@
 
 % Razrađeni primjer
 \newenvironment{calloutprimjer}{%
-  \par\vspace{16pt}\bklbl{RAZRAĐENI PRIMJER}%
+  \par\vspace{16pt}\bklabelrow{\bkdot{6.5pt}}{RAZRAĐENI PRIMJER}%
   \fontsize{9.5pt}{13.5pt}\selectfont
 }{\par\vspace{14pt}\normalfont\normalsize}
 
-% Sažetak — uvučena traka
+% Sažetak kao zaseban blok (div .sazetak): crta, oznaka, vlas donja.
 \newenvironment{calloutsazetak}{%
-  \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=0pt, colback=bkwash,
-    left=14pt, right=14pt, top=13pt, bottom=13pt,
-    before skip=18pt, after skip=14pt]
+  \par\vspace{16pt}{\color{bkink}\hrule height 1.2pt}\vspace{9pt}%
   \bklbl{SAŽETAK POGLAVLJA}%
   \fontsize{9.5pt}{13.5pt}\selectfont
-}{\end{tcolorbox}}
+}{\par\vspace{10pt}{\color{bkrule}\hrule height 0.4pt}\vspace{14pt}\normalfont\normalsize}
 
-% Definicija — 1,6 pt lijeva crta + 4 % siva ispuna. Quarto sam ispisuje
-% oznaku „Definicija 1", pa je ovdje nema.
+% Tijelo odjeljka „Sažetak {.sazetak}": naslov odjeljka već nosi crtu od
+% 1,2 pt, pa tijelo dobiva samo završnu vlas liniju.
+\newenvironment{calloutsazetaktijelo}{%
+  \par
+}{\par\vspace{8pt}{\color{bkrule}\hrule height 0.4pt}\vspace{12pt}}
+
+% Definicija — 1,6 pt lijeva os u tinti, bez ispune; pojam u Jostu Medium.
+% Quarto sam ne ispisuje oznaku: print-edition.lua pretvara #def- u
+% .print-definition, a book-callouts.lua ga omata ovdje.
 \newenvironment{calloutdefinicija}{%
   \begin{tcolorbox}[breakable, enhanced, sharp corners, boxrule=0pt,
-    leftrule=1.6pt, colframe=bkink, colback=bkwash,
-    left=12pt, right=12pt, top=11pt, bottom=11pt,
-    before skip=14pt, after skip=14pt]
-  \fontsize{9.5pt}{13.5pt}\selectfont
+    frame hidden, colback=white,
+    borderline west={1.6pt}{0pt}{bkink},
+    left=10pt, right=0pt, top=2pt, bottom=2pt,
+    before skip=12pt, after skip=12pt]
+  \renewcommand{\textbf}[1]{{\sffamily\bfseries ##1}}%
 }{\end{tcolorbox}}
 
 % =====================================================================
-%  TABLICE — bez okomitih linija, bez zebre
+%  TABLICE — bez okomitih linija, bez zebre; glava i dno crtom od 0,8 pt
 % =====================================================================
-\setlength{\heavyrulewidth}{0.9pt}
+\setlength{\heavyrulewidth}{0.8pt}
 \setlength{\lightrulewidth}{0.4pt}
 \renewcommand{\arraystretch}{1.22}
 
 % =====================================================================
 %  OPISI SLIKA I TABLICA
-%  Oznaka u monou, rečenica u sansu, oboje prigušeno.
+%  Oznaka u monou, rečenica u Jostu, oboje prigušeno.
 % =====================================================================
 \setkomafont{caption}{\sffamily\fontsize{9pt}{12pt}\selectfont\color{bkmuted}}
 \setkomafont{captionlabel}{\ttfamily\fontsize{7.5pt}{10pt}\selectfont\color{bkink}}
@@ -322,37 +446,54 @@
 \clubpenalty=10000
 
 % =====================================================================
-%  NASLOVNICA (nadjačava \maketitle; ide prije sadržaja)
+%  KORICA I NASLOVNICA (nadjačava \maketitle; ide prije sadržaja)
+%  Stranica 1 je korica u boji (images/korica.pdf, izvor tex/korica.tex),
+%  stranica 2 prazna, a naslovnica u crno-bijelom Zvonu ostaje na desnoj.
 % =====================================================================
+\usepackage{pdfpages}
 \makeatletter
+% Autori poravnati lijevo, jedan ispod drugoga (Jost je širi od prethodnog
+% pisma, pa dva stupca lome afilijacije).
 \newcommand{\bkcoverauthor}[2]{%
-  \begin{minipage}[t]{0.44\textwidth}%
-    \centering
-    {\sffamily\large\color{bkink}#1\par}%
-    \vskip 0.35em
-    {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}#2\par}%
-  \end{minipage}%
+  {\sffamily\large\color{bkink}#1\par}%
+  \vskip 0.2em
+  {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}#2\par}%
 }
+% Kompozicija naslovnice: tri ugniježđene kupole (tinta, siva, bijela s
+% obrubom) nad osnovicom, os kroz sredinu i disk s brojem „101".
+\newcommand{\BookTitleArt}{%
+  \begin{tikzpicture}[x=1mm, y=1mm]
+    \fill[bkink] (2,0) arc[start angle=180, end angle=0, radius=58] -- cycle;
+    \fill[bkink!45] (24,0) arc[start angle=180, end angle=0, radius=36] -- cycle;
+    \filldraw[fill=white, draw=bkink, line width=0.8pt] (47,0) arc[start angle=180, end angle=0, radius=13] -- cycle;
+    \draw[bkink, line width=0.8pt] (60,0) -- (60,88);
+    \fill[bkink] (101,80) circle[radius=17];
+    \node[text=white, inner sep=0pt, font=\sffamily\bfseries\fontsize{25}{25}\selectfont] at (101,80.3) {101};
+    \fill[bkink] (0,-0.85) rectangle (120,0);
+  \end{tikzpicture}}
 \renewcommand{\maketitle}{%
+  \IfFileExists{images/korica.pdf}{%
+    \includepdf[pages=1, fitpaper=false, noautoscale=false]{images/korica.pdf}%
+    \thispagestyle{empty}\null\clearpage
+  }{}%
   \begin{titlepage}%
-  \newgeometry{inner=26mm, outer=26mm, top=30mm, bottom=26mm}%
+  \newgeometry{inner=26mm, outer=26mm, top=28mm, bottom=24mm}%
+  % Quarto postavlja \parskip; na naslovnici razmake nose samo \vskip.
+  \setlength{\parskip}{0pt}%
   \raggedright
-  \null\vskip 5em
-  \eyebrow[bkfaint]{UDŽBENIK STATISTIKE}\par
-  \vskip 1.1em
-  {\color{bkink}\rule{\linewidth}{1.2pt}}\par
-  \vskip 2em
-  {\bkdisplay\mdseries\color{bkink}\fontsize{38}{41}\selectfont \@title\par}%
+  \eyebrow[bkfaint]{UDŽBENIK}\par
+  \vskip 1.4em
+  {\bkdisplay\mdseries\color{bkink}\fontsize{44}{44}\selectfont\MakeLowercase{\@title}\par}%
   \ifx\@subtitle\@empty\else
-    \vskip 1em
-    {\itshape\fontsize{14}{19}\selectfont\color{bktext}\@subtitle\par}%
+    \vskip 0.9em
+    {\bkdisplay\mdseries\fontsize{15}{19}\selectfont\color{bkink}\MakeLowercase{\@subtitle}\par}%
   \fi
   \vfill
-  {\color{bkrule}\rule{\linewidth}{0.4pt}}\par
-  \vskip 1.4em
-  \noindent
-  \bkcoverauthor{Luka Šikić}{Doc. dr. sc. · Sveučilišni odjel za komunikologiju}\hfill
-  \bkcoverauthor{Petra Palić}{Izv. prof. dr. sc. · Sveučilišni odjel za sociologiju}\par
+  \noindent\BookTitleArt\par
+  \vskip 2.2em
+  \bkcoverauthor{Luka Šikić}{Doc. dr. sc. · Sveučilišni odjel za komunikologiju}%
+  \vskip 0.9em
+  \bkcoverauthor{Petra Palić}{Izv. prof. dr. sc. · Sveučilišni odjel za sociologiju}%
   \vskip 1.4em
   {\sffamily\fontsize{7pt}{9pt}\selectfont\color{bkmuted}%
     Hrvatsko katoličko sveučilište\par}%

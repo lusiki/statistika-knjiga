@@ -19,9 +19,34 @@ local function layout_script()
   );
   var title = document.querySelector("#title-block-header h1.title");
   if (chapterMatch && title && !title.parentNode.querySelector(".chapter-kicker")) {
+    // Sustav Zvono: disk s brojem i os lijevo, oznaka dijela iznad naslova.
+    var header = document.getElementById("title-block-header");
+    if (header) header.classList.add("zv-opener");
+
+    var rail = document.createElement("span");
+    rail.className = "zv-rail";
+    rail.setAttribute("aria-hidden", "true");
+    var disc = document.createElement("span");
+    disc.className = "zv-rail__disc";
+    disc.textContent = chapterMatch[1];
+    rail.appendChild(disc);
+    title.parentNode.insertBefore(rail, title.parentNode.firstChild);
+
+    var partLink = document.querySelector(
+      "#title-block-header .breadcrumb .breadcrumb-item:first-child a"
+    );
+    var partName = "";
+    if (partLink) {
+      var raw = partLink.textContent.trim();
+      var m = raw.match(/^DIO ([IVX]+):\s*(.+)$/);
+      partName = m
+        ? "Dio " + m[1] + " · " + m[2].charAt(0) + m[2].slice(1).toLowerCase()
+        : raw.charAt(0) + raw.slice(1).toLowerCase();
+    }
     var kicker = document.createElement("span");
     kicker.className = "kicker chapter-kicker";
-    kicker.textContent = "POGLAVLJE " + chapterMatch[1];
+    kicker.textContent = "Poglavlje " + parseInt(chapterMatch[1], 10) +
+      (partName ? " · " + partName : "");
     title.parentNode.insertBefore(kicker, title);
   }
 

@@ -16,8 +16,8 @@ project:
 citeproc: false
 
 book:
-  title: "Osnove statistike za društvene znanosti"
-  subtitle: "Udžbenik za studente koji moraju razumjeti istraživanje"
+  title: "Statistika 101"
+  subtitle: "Intuitivni uvod u analizu podataka"
   output-file: "Statistika"
 
 format:
@@ -92,5 +92,9 @@ filters:
   # tcolorbox okruženja definirana u tex/theme.tex; bez ovoga bi u PDF-u
   # ispale kao obični pasusi.
   - pdf-filters/book-callouts.lua
+  # Podnaslov poglavlja Quarto umeće kasno; filter ga omata u bkchapterlead
+  # (sustav Zvono: kurziv ispod naslova, pa crta od 1,2 pt).
+  - path: pdf-filters/chapter-lead.lua
+    at: post-render
   - path: pdf-filters/continued-tables.lua
     at: post-render
