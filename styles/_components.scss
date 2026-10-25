@@ -648,6 +648,71 @@ h3.autor-ime {
 }
 
 // --- razdjelnik odjeljaka -------------------------------------------
+.interaction-gallery {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.interaction-card {
+  padding: 1rem 0 1.5rem;
+  gap: 0.75rem;
+  &:hover { background: transparent; }
+  .hub-name {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 1.375rem;
+    text-transform: none;
+  }
+  .hub-num { font-size: 0.75rem; letter-spacing: 0.06em; }
+  > p.interaction-question {
+    display: block;
+    font-family: $tok-font-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0 0 0.5rem;
+    hyphens: none;
+  }
+}
+.interaction-preview {
+  display: grid;
+  place-items: center;
+  background: $tok-paper-soft;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border: 0;
+  svg { display: block; width: 100%; height: 8rem; }
+  &:hover { background: $tok-accent-wash; }
+}
+.gallery-primary { fill: var(--tok-data-2); }
+.gallery-secondary { fill: var(--tok-data-4); }
+.gallery-axis { stroke: var(--tok-ink); stroke-width: 1; fill: none; }
+.gallery-interval { stroke: var(--tok-data-2); stroke-width: 3; }
+.gallery-curve, .gallery-curve-secondary { fill: none; stroke-width: 3; }
+.gallery-curve { stroke: var(--tok-data-2); }
+.gallery-curve-secondary { stroke: var(--tok-data-4); stroke-dasharray: 5 3; }
+.interaction-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: auto;
+}
+.interaction-chapter {
+  display: inline-flex;
+  align-items: center;
+  min-height: $tok-touch;
+  font-family: $tok-font-sans;
+  font-size: 0.875rem;
+  text-underline-offset: 0.2em;
+}
+.interaction-count {
+  font-family: $tok-font-sans;
+  font-size: 0.875rem;
+  color: $tok-ink-mute;
+  margin: 1.25rem 0 0;
+}
+
 .razdjelnik {
   text-align: center;
   color: $tok-ink-faint;

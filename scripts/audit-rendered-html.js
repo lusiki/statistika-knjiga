@@ -414,7 +414,8 @@ function evaluateFailures(result, failures) {
 
   if (isNumberedChapter(result.route)) {
     if (!result.subtitleCount) add("missing subtitle");
-    if (!result.metaCount) add("missing chapter meta");
+    // DESIGN.md §5 explicitly excludes the retired chapter metadata strip.
+    if (result.metaCount) add("unexpected chapter meta strip");
     if (!result.kickerCount) add("missing chapter kicker");
   }
   if (needsWidget(result.route)) {
@@ -692,10 +693,14 @@ async function runSmokeAudit() {
 
     await figure.waitFor({ state: "visible", timeout: 20000 });
     await summary.waitFor({ state: "visible", timeout: 10000 });
-    if (await details.evaluate((element) => element.open)) {
-      throw new Error("widget control panel must start collapsed");
+    if (!(await details.evaluate((element) => element.open))) {
+      throw new Error("widget control panel must start open");
     }
     await summary.focus();
+    await page.keyboard.press("Enter");
+    await details.evaluate((element) => {
+      if (element.open) throw new Error("keyboard did not close control panel");
+    });
     await page.keyboard.press("Enter");
     await details.evaluate((element) => {
       if (!element.open) throw new Error("keyboard did not open control panel");
@@ -734,6 +739,11 @@ async function runSmokeAudit() {
     if (await slider.inputValue() !== initialValue) {
       throw new Error("keyboard reset did not restore the initial value");
     }
+    if (outDir) {
+      fs.mkdirSync(outDir, {recursive: true});
+      await widget.evaluate((element) => element.scrollIntoView({block: "start"}));
+      await page.screenshot({path: path.join(outDir, "simulation-desktop.png")});
+    }
 
     const themeToggle = page.locator(".quarto-color-scheme-toggle").first();
     await themeToggle.waitFor({ state: "visible", timeout: 10000 });
@@ -765,9 +775,105 @@ async function runSmokeAudit() {
         `responsive overflow at 390px: document=${responsive.documentWidth} widgetRight=${responsive.right}`
       );
     }
+    if (outDir) {
+      await widget.evaluate((element) => element.scrollIntoView({block: "start"}));
+      await page.screenshot({path: path.join(outDir, "simulation-mobile-dark.png")});
+    }
     if (pageErrors.length) {
       throw new Error(`browser page error: ${[...new Set(pageErrors)].join(" | ")}`);
     }
+
+    // Gallery destinations must exist in generated HTML, including before JS.
+    const registry = JSON.parse(fs.readFileSync(path.join(root, "data/widgets.json"), "utf8"));
+    for (const entry of registry.widgets) {
+      const chapterHtml = fs.readFileSync(path.join(renderedRoot,
+        entry.poglavlje.replace(/\.qmd$/, ".html")), "utf8");
+      if (!chapterHtml.includes(`id="interakcija-${entry.id}"`)) {
+        throw new Error(`missing simulation destination: ${entry.id}`);
+      }
+    }
+    const glossary = page.locator(".ai-cta-pm");
+    const glossaryUrl = new URL(await glossary.getAttribute("href"), page.url());
+    if (glossaryUrl.pathname !== "/pojmovnik.html" ||
+        (await context.request.get(glossaryUrl.href)).status() !== 200) {
+      throw new Error("chapter glossary link does not resolve within the book");
+    }
+
+    await page.goto(`${baseUrl}/interakcije.html`, {waitUntil: "domcontentloaded"});
+    await page.waitForFunction(() => document.querySelectorAll(".interaction-card").length === 17);
+    for (const width of [320, 390, 1280]) {
+      await page.setViewportSize({width, height: 900});
+      if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) {
+        throw new Error(`interaction gallery overflows at ${width}px`);
+      }
+      if (outDir && width === 390) {
+        await page.locator(".interaction-gallery").evaluate((element) => element.scrollIntoView({block: "start"}));
+        await page.screenshot({path: path.join(outDir, "gallery-mobile-dark.png")});
+      }
+    }
+    if (outDir) {
+      await page.locator(".quarto-color-scheme-toggle").first().click();
+      await page.waitForFunction(() => document.body.classList.contains("quarto-light"));
+      await page.locator(".interaction-gallery").evaluate((element) => element.scrollIntoView({block: "start"}));
+      await page.screenshot({path: path.join(outDir, "gallery-desktop.png")});
+    }
+    const filter = page.locator(".ojs-task-control details.ojs-collapsible");
+    await filter.locator("summary").click();
+    await filter.locator("select").selectOption({label: "Od uzorka do populacije"});
+    await page.waitForFunction(() => document.querySelectorAll(".interaction-card").length === 3);
+    await page.getByRole("link", {name: "Isprobaj: CLT stroj", exact: true}).last().click();
+    await page.locator("#interakcija-w08 .widget-controls").waitFor({state: "visible"});
+    if (new URL(page.url()).hash !== "#interakcija-w08") {
+      throw new Error("gallery did not navigate directly to the simulation");
+    }
+    const clt = page.locator("#interakcija-w08");
+    const sampleSize = clt.getByLabel("Veličina uzorka", {exact: true});
+    const beforeClt = await clt.locator(".widget-foot").innerText();
+    await sampleSize.fill("100");
+    await sampleSize.press("Tab");
+    await clt.getByText("Sredine uzoraka · n = 100", {exact: true}).waitFor({state: "visible"});
+    await page.waitForFunction((before) =>
+      document.querySelector("#interakcija-w08 .widget-foot").textContent.trim() !== before,
+      beforeClt);
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({width, height: 900});
+      await page.waitForTimeout(250);
+      const workbenchLayout = await clt.evaluate(element => ({
+        width: element.clientWidth,
+        display: getComputedStyle(element.querySelector(".widget-workbench")).display
+      }));
+      if (workbenchLayout.width >= 520 && workbenchLayout.display !== "grid") {
+        throw new Error("wide CLT workbench did not place controls beside the chart");
+      }
+      if (await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)) {
+        throw new Error(`CLT workbench overflows at ${width}px`);
+      }
+      const clipped = await clt.locator('input[type="number"]').evaluateAll(inputs =>
+        inputs.some(input => input.clientWidth < 70));
+      if (clipped) throw new Error(`CLT numeric values are cramped at ${width}px`);
+      if (outDir) {
+        await clt.evaluate(element => element.scrollIntoView({block: "start"}));
+        await page.screenshot({path: path.join(outDir, `clt-${width}.png`)});
+      }
+    }
+    await clt.locator("button.ojs-reset").click();
+    if (await sampleSize.inputValue() !== "25") throw new Error("CLT reset failed");
+    // Emulate GitHub project Pages on the same server, including relative assets.
+    await context.route(`${baseUrl}/statistika-knjiga/**`, async (route) => {
+      const response = await route.fetch({url: route.request().url().replace(
+        "/statistika-knjiga/", "/")});
+      await route.fulfill({response});
+    });
+    await page.goto(`${baseUrl}/statistika-knjiga${smokeRoute}`, {waitUntil: "domcontentloaded"});
+    const mountedGlossary = page.locator(".ai-cta-pm");
+    await mountedGlossary.waitFor();
+    if (!(await mountedGlossary.getAttribute("href")).startsWith(`${baseUrl}/statistika-knjiga/pojmovnik.html`)) {
+      throw new Error("chapter glossary link loses the project Pages mount point");
+    }
+    await mountedGlossary.click();
+    await page.waitForURL(`${baseUrl}/statistika-knjiga/pojmovnik.html?*`);
+    await page.locator("h1").waitFor({state: "visible"});
+    if (pageErrors.length) throw new Error(`gallery page error: ${pageErrors.join(" | ")}`);
 
     console.log(
       "BROWSER_RUNTIME_OK " +
@@ -777,7 +883,7 @@ async function runSmokeAudit() {
     console.log(
       "BROWSER_SMOKE_OK " +
       `route=${smokeRoute} widths=1280,390 themes=light,dark ` +
-      "keyboard=pass reset=pass live_region=pass publish=false"
+      "keyboard=pass reset=pass live_region=pass gallery=17 filter=pass deep_links=17 publish=false"
     );
     await context.close();
   } finally {

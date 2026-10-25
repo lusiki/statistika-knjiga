@@ -453,6 +453,10 @@
 
       var details = document.createElement("details");
       details.className = "ojs-collapsible";
+      // Simulation controls are part of the initial learning experience.
+      // Auxiliary filters elsewhere on the site retain their folded state.
+      var inWidget = !!panel.closest(".widget-frame");
+      details.open = inWidget;
       var summary = document.createElement("summary");
       summary.className = "ojs-collapsible-summary";
       summary.innerHTML =
@@ -461,6 +465,17 @@
         '<span class="ojs-collapsible-hint"></span>';
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
+      if (inWidget) {
+        var hint = summary.querySelector(".ojs-collapsible-hint");
+        function updateHint() {
+          hint.textContent = details.open ? "sakrij postavke" : "prikaži postavke";
+        }
+        details.addEventListener("toggle", updateHint);
+        updateHint();
+        panel.classList.add("widget-controls");
+        var controlCell = panel.closest(".cell");
+        if (controlCell) controlCell.classList.add("widget-control-cell");
+      }
 
       parent.insertBefore(details, panel);
       details.appendChild(summary);
@@ -542,6 +557,31 @@
         }
         frame.insertBefore(glava, frame.firstChild);
         frame.classList.add("zv-widget-glava");
+        var figure = frame.querySelector('[id^="fig-w"]');
+        if (figure && figure.closest(".cell")) {
+          figure.closest(".cell").classList.add("widget-chart-cell");
+        }
+        // Reuse the chapter's approved first experiment instead of inventing
+        // a second set of teaching instructions in the presentation layer.
+        var section = frame.closest("section");
+        var experiment = section && section.querySelector(".ojs-collapsible-prose li");
+        if (!experiment && section) {
+          section.querySelectorAll("p > strong:first-child").forEach(function (strong) {
+            if (strong.textContent.trim() === "Što isprobati.") {
+              var list = strong.parentElement.nextElementSibling;
+              if (list && list.matches("ol")) experiment = list.querySelector("li");
+            }
+          });
+        }
+        if (experiment) {
+          var prompt = document.createElement("p");
+          prompt.className = "widget-first-step";
+          var label = document.createElement("strong");
+          label.textContent = "Prvi pokus. ";
+          prompt.appendChild(label);
+          prompt.appendChild(document.createTextNode(experiment.textContent.trim()));
+          glava.insertAdjacentElement("afterend", prompt);
+        }
       });
     }
     function queueScan() {
@@ -618,10 +658,14 @@
     if (document.querySelector(".ai-cta")) return;
     var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
-    var mdHref  = zapis.ai;
-    var uciHref = PUTOVI_STRANICA.ai;
-    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
-    var absMd   = location.origin + mdHref;
+    // The route inventory is root-relative; resolve it against the book's
+    // actual mount point (GitHub project Pages or a local preview root).
+    var bookRoot = new URL("../", location.href);
+    var mdHref  = new URL(zapis.ai.replace(/^\//, ""), bookRoot).href;
+    var uciHref = new URL(PUTOVI_STRANICA.ai.replace(/^\//, ""), bookRoot).href;
+    var pmHref  = new URL(PUTOVI_STRANICA.glossary.replace(/^\//, ""), bookRoot).href +
+      "?poglavlje=" + encodeURIComponent(slug);
+    var absMd   = mdHref;
     var q = encodeURIComponent(
       UPUTA +
       "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +

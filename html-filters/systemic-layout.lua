@@ -123,6 +123,20 @@ local function layout_script()
 ]])
 end
 
+-- Stable, server-rendered destinations include the controls as well as the plot.
+function Div(el)
+  if el.classes:includes("widget-frame") and el.identifier == "" then
+    local number = (el.attributes["data-oznaka"] or ""):match("(%d+)%.%d+")
+    if number then el.identifier = "interakcija-w" .. number end
+    if number == "08" then
+      el.content = pandoc.Blocks({
+        pandoc.Div(el.content, pandoc.Attr("", {"widget-workbench"}))
+      })
+    end
+    return el
+  end
+end
+
 function Pandoc(doc)
   doc.blocks:insert(1, layout_script())
   return doc

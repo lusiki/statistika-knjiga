@@ -57,6 +57,7 @@ body.quarto-dark {
 
 // --- okvir grafa -----------------------------------------------------
 .widget-frame {
+  scroll-margin-top: 5rem;
   // JS i SVG mogu čitati ista semantička imena u oba načina prikaza.
   --widget-ink: var(--tok-data-1);
   --widget-ink-secondary: var(--tok-data-2);
@@ -508,8 +509,75 @@ form[class^="oi-"] :disabled {
 }
 
 // --- tisak -----------------------------------------------------------
+.widget-first-step {
+  font-family: $tok-font-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 0 1.5rem 1rem;
+  padding: 0.75rem 1rem !important;
+  border-left: $tok-heading-width solid $tok-ink;
+  background: $tok-accent-wash;
+  strong { font-family: $tok-font-sans; font-weight: 500; }
+}
+.widget-control-cell {
+  details.ojs-collapsible { margin-top: 0; }
+  .widget-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem 1.25rem;
+    padding: 0.75rem 0 1rem;
+    > form {
+      flex: 1 1 14rem;
+      display: block;
+      min-width: 0;
+      padding: 0;
+      margin: 0;
+      > label { display: block; width: auto; margin: 0 0 0.4rem; }
+      > div[class$="-input"] {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        width: 100%;
+      }
+      input[type="number"] { flex: 0 0 5rem; width: 5rem; }
+      input[type="range"] { flex: 1 1 auto; width: 100%; min-width: 0; }
+      > select { width: 100%; max-width: 100%; }
+    }
+    > .ojs-reset { margin: 0; }
+  }
+  .ojs-collapsible-summary { padding-inline: 0; }
+}
+.widget-glava { margin-bottom: 1rem; }
+#interakcija-w08 { container-type: inline-size; }
+.widget-frame > .widget-workbench {
+  padding: 0;
+  > .cell { padding-inline: 1.5rem; }
+}
+// The CLT workbench keeps controls and both histograms together when the
+// reading column has room. Equal tracks preserve the chart's existing
+// measurement of the first cell; no statistical or plotting code changes.
+@container (min-width: 520px) {
+  .widget-workbench {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    > .cell { grid-column: 2; min-width: 0; }
+    > .cell:first-child { grid-column: 1; grid-row: 1 / span 10; }
+    > .cell:has(#fig-w08) { grid-column: 2; grid-row: 1; }
+    .widget-controls > form { flex-basis: 100%; }
+  }
+}
+@media (max-width: 600px) {
+  .widget-first-step { margin-inline: 1rem; }
+  .widget-control-cell .widget-controls { gap: 0.75rem; }
+  .widget-frame > .widget-workbench > .cell { padding-inline: 1rem; }
+}
+
 // Widget zamjenjuje statični blizanac (filter chain); kontrole nestaju.
 @media print {
+  .widget-workbench { display: block; }
+  .widget-first-step { display: none; }
   .ojs-collapsible,
   .widget-foot,
   .widget-frame[data-oznaka]::after,

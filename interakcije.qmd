@@ -16,25 +16,20 @@ format:
   Stranica radi i dok su svi widgeti u statusu „planiran".
 ===================================================================== -->
 
-Poglavlja 1–17 nose po jedan interaktivni graf. Grafovi nisu ukras uz tekst
-nego dio argumenta. Ideja se najprije vidi, pa tek onda imenuje. Ovdje su svi
-na jednom mjestu, pa se mogu koristiti i odvojeno od poglavlja, na predavanju
-ili pri ponavljanju.
-
-Četiri grafa nose glavnu argumentaciju knjige i grade se prvi. To su stroj
-središnjeg graničnog teorema, hvatač intervala, simulator p-vrijednosti i
-pješčanik p-hakiranja.
+Istražite 17 interaktivnih grafova. Odaberite pitanje, promijenite jednu
+postavku i promatrajte rezultat.
 
 ```{ojs}
 //| echo: false
 inventar = FileAttachment("data/widgets.json").json()
+import {question, topic, preview} from "./widgets/gallery.js"
 ```
 
-::: {.ojs-task-control data-ojs-label="Filtriraj interakcije" data-ojs-hint="otvori filtar"}
+::: {.ojs-task-control data-ojs-label="Odaberi dio knjige" data-ojs-hint="otvori filtar"}
 ```{ojs}
 //| echo: false
-viewof filtar = Inputs.radio(["svi", "nosivi", "planirani", "gotovi"], {
-  label: "Vrsta interakcije", value: "svi"
+viewof filtar = Inputs.select(["Svi dijelovi", ...new Set(inventar.widgets.map(x => topic(x.id)))], {
+  label: "Dio knjige", value: "Svi dijelovi"
 })
 ```
 :::
@@ -43,26 +38,34 @@ viewof filtar = Inputs.radio(["svi", "nosivi", "planirani", "gotovi"], {
 //| echo: false
 {
   const svi = inventar.widgets;
-  const w = svi.filter(x =>
-    filtar === "svi" ? true :
-    filtar === "nosivi" ? x.prioritet === "nosivi" :
-    filtar === "planirani" ? x.status === "planiran" :
-    x.status === "gotov");
+  const w = svi.filter(x => filtar === "Svi dijelovi" || topic(x.id) === filtar);
 
-  const kartica = (x) => htl.html`<a class="hub-card" href="${
-      x.poglavlje.replace(/^chapters\//, "chapters/").replace(/\.qmd$/, ".html")
-    }">
-    <span class="hub-num">${x.id}</span>
-    <span class="hub-name">${x.naziv}</span>
-    <span class="hub-desc">${x.naslovPoglavlja}</span>
-    <span class="hub-znak">${x.prioritet === "nosivi" ? "nosivi · " : ""}${x.status}</span>
-  </a>`;
+  const kartica = (x) => {
+    const chapter = x.poglavlje.replace(/\.qmd$/, ".html");
+    return htl.html`<article class="hub-card interaction-card">
+      <a class="interaction-preview" href="${chapter}#interakcija-${x.id}"
+         aria-label="Isprobaj: ${x.naziv}" tabindex="-1">${preview(x.id)}</a>
+      <span class="hub-num">Poglavlje ${x.id.slice(1)} · ${x.naslovPoglavlja}</span>
+      <h2 class="hub-name">${x.naziv}</h2>
+      <p class="interaction-question">${question(x.id)}</p>
+      <div class="interaction-actions">
+        <a class="btn-knjiga primarni" href="${chapter}#interakcija-${x.id}"
+           aria-label="Isprobaj: ${x.naziv}">Isprobaj →</a>
+        <a class="interaction-chapter" href="${chapter}"
+           aria-label="Pročitaj poglavlje: ${x.naslovPoglavlja}">Pročitaj poglavlje</a>
+      </div>
+    </article>`;
+  };
 
-  return htl.html`<div class="hub-grid">${w.map(kartica)}</div>`;
+  return htl.html`<div><p class="interaction-count" role="status">Prikazano: ${w.length} od ${svi.length} interakcija</p><div class="hub-grid interaction-gallery">${w.map(kartica)}</div></div>`;
 }
 ```
 
 ## Kako su grafovi napravljeni
+
+Mali prikazi na karticama shematski su putokazi, a ne rezultati analiza.
+Svako poglavlje od 1. do 17. ima jedan interaktivni graf; ovdje su svi na
+jednom mjestu za samostalno istraživanje, predavanje ili ponavljanje.
 
 Grafovi se izvršavaju u pregledniku, u Observableu, i ne traže ni instalaciju
 ni račun. Svaki ima statičkog blizanca koji se ispisuje u tiskanom izdanju, pa
@@ -71,6 +74,6 @@ vidljivoga koda. U poglavljima Dijela II kratki se račun može otvoriti u
 odjeljku Razrađeni primjer, dok pogonski kod samoga widgeta u knjižnom izdanju
 ostaje skriven.
 
-Na predavanju je dovoljno otvoriti poglavlje, raširiti upravljačku ploču i
+Na predavanju je dovoljno otvoriti interakciju i
 mijenjati jednu postavku odjednom. Gumb za vraćanje početnih vrijednosti
 omogućuje da svaki novi pokus počne iz istoga stanja.
