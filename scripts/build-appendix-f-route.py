@@ -228,10 +228,20 @@ def canonical_prompt(lines: list[str], anchor: str) -> str:
         if not heading:
             raise ValueError(f"source anchor {anchor!r} is not on a fenced div or heading")
         level = len(heading.group(1))
+        # A heading-owned prompt ends at the next heading of the same or a
+        # higher level, or at a closing fence that belongs to an enclosing
+        # block (for example a format-visibility wrapper around the section).
+        depth = 0
         for line in lines[start + 1 :]:
             following = re.match(r"^(#+)\s", line)
             if following and len(following.group(1)) <= level:
                 break
+            if re.match(r"^:::+\s*\{", line):
+                depth += 1
+            elif re.match(r"^:::+\s*$", line):
+                if depth == 0:
+                    break
+                depth -= 1
             raw_prompt.append(line)
     prompt = without_profile_regions(raw_prompt, anchor)
     while prompt and not prompt[0].strip():
