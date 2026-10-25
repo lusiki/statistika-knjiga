@@ -199,6 +199,27 @@ s6_eu <- s6_eurostat |>
     )
   )
 
+# Druga usporedba koristi iste države i godinu, uz status obaju pokazatelja.
+s6_soc <- s6_eu |>
+  select(geo, zemlja, stopa_zaposlenosti_20_64, rizik_siromastva_ili_iskljucenosti) |>
+  left_join(s6_eurostat |>
+    filter(eurostat_dataset == "lfsi_emp_a") |>
+    select(geo, status_zaposlenosti = status_api), by = "geo") |>
+  left_join(s6_eurostat |>
+    filter(eurostat_dataset == "ilc_peps01n") |>
+    select(geo, status_siromastva = status_api), by = "geo") |>
+  mutate(status = factor(paste(status_zaposlenosti, status_siromastva, sep = "/"),
+    levels = c("bez_objavljene_oznake/bez_objavljene_oznake",
+               "d/bez_objavljene_oznake", "bez_objavljene_oznake/p",
+               "bez_objavljene_oznake/b"),
+    labels = c("Bez oznake", "d · zaposlenost", "p · siromaštvo", "b · siromaštvo")))
+s6_dob_zaposlenosti <- as.integer(strsplit(sub("stopa_zaposlenosti_", "",
+  grep("^stopa_zaposlenosti_", names(s6_soc), value = TRUE)), "_")[[1]])
+stopifnot(nrow(s6_soc) == n_distinct(s6_eurostat$geo),
+          !anyDuplicated(s6_soc$geo), all(complete.cases(s6_soc)),
+          all(s6_eurostat$vrijednost_dostupna[
+            s6_eurostat$eurostat_dataset %in% c("lfsi_emp_a", "ilc_peps01n")] == "da"))
+
 s6_r_eu <- cor(
   s6_eu$tercijarno_obrazovanje_25_34,
   s6_eu$uporaba_interneta_16_74
@@ -761,16 +782,43 @@ varijablama i razmotriti dizajn koji odvaja moguća objašnjenja. Ovaj presjek n
 trend, uzrok, odnos među pojedincima ili nalaz izvan EU-27
 [@eurostatpopulation2026; @eurostattertiary2026; @eurostatinternet2026].
 
+Iste države možemo usporediti prema zaposlenosti te riziku siromaštva ili
+socijalne isključenosti. Zaposlenost obuhvaća osobe od
+`r s6_dob_zaposlenosti[[1]]` do `r s6_dob_zaposlenosti[[2]]` godine, a rizik
+stanovništvo svih dobi [@eurostatemployment2026; @eurostatpoverty2026].
+Sljedeći graf prikazuje `r nrow(s6_soc)` potpunih parova, po jednu točku za
+državu, uz izvorne oznake obaju pokazatelja [@eurostatemployment2026;
+@eurostatpoverty2026]. Oblaci državnih udjela opisuju razlike među zemljama;
+za vezu zaposlenosti i siromaštva pojedine osobe trebali bismo individualne
+podatke, a za uzročni zaključak odgovarajući dizajn.
+
+```{r}
+#| label: fig-eurostat-zaposlenost-siromastvo
+#| fig-cap: "Zaposlenost i rizik siromaštva ili socijalne isključenosti. Oznake d, p i b označavaju različitu definiciju, privremenu vrijednost i prekid serije [@eurostatemployment2026; @eurostatpoverty2026]. Izrada autora."
+#| fig-alt: "Državni udjeli tvore raspršen, pretežno silazan oblak. Francuska i Španjolska imaju oznaku d za zaposlenost, a Litva p i Luksemburg b za siromaštvo. Oblik točke čuva oznaku."
+#| fig-width: 6.6
+#| fig-height: 4.2
+
+ggplot(s6_soc, aes(stopa_zaposlenosti_20_64,
+                   rizik_siromastva_ili_iskljucenosti, shape = status)) +
+  geom_point(colour = tok_boja("data-1"), size = 2.8, stroke = 0.8) +
+  geom_text(data = filter(s6_soc, status != "Bez oznake" | geo == "HR"),
+            aes(label = geo), nudge_y = 0.7, size = 3, show.legend = FALSE) +
+  scale_shape_manual(values = c(16, 1, 17, 2), drop = FALSE) +
+  scale_x_continuous(labels = function(x) hr_broj(x, 0)) +
+  scale_y_continuous(labels = function(x) hr_broj(x, 0)) +
+  labs(x = "Zaposlenost, od 20 do 64 godine (%)",
+       y = "Rizik siromaštva ili isključenosti (%)", shape = NULL) +
+  theme_knjiga(base_size = 11, mreza = "oboje") +
+  guides(shape = guide_legend(nrow = 2, byrow = TRUE)) +
+  theme(legend.position = "top")
+```
+
 Moguća konfundirajuća varijabla mora prethoditi objema pojavama i utjecati na
 njih. To prosuđujemo prema sadržaju i dizajnu. U konstruiranom primjeru odjel
 tako oblikuje staž i zadovoljstvo. Razdvajanjem odjela vidimo promjenu
 povezanosti, ali sama ta promjena ne dokazuje uzročnost. O neizmjerenom
 čimbeniku koeficijent ne daje izravnu obavijest.
-
-Isti koeficijent može odgovarati različitim objašnjenjima. Prva varijabla može
-utjecati na drugu ili obrnuto, obje mogu ovisiti o trećoj, a obrazac može
-nastati slučajnom promjenjivošću uzorka. Za razlikovanje tih mogućnosti
-trebamo istraživački dizajn. Smjer uzroka procjenjujemo na temelju takvog dizajna i znanja o pojavi.
 
 ## Interakcija — Pogodi korelaciju
 
