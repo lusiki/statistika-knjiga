@@ -47,7 +47,7 @@ dalje trebamo pokazati veličinu razlike, njezinu nesigurnost i nazivnike na
 kojima se temelje prikazani udjeli.
 
 Postupak ćemo razviti na uzorku od 800 zamišljenih osoba iz već poznatog skupa
-`populacija_medija` (Šikić, 2026). Riječ je o računalno stvorenim podacima za
+`populacija_medija`. Riječ je o računalno stvorenim podacima za
 nastavu, pa rezultati ne opisuju stvarne medijske navike stanovnika Hrvatske.
 Iz svakog zapisa izdvojit ćemo dobnu skupinu i glavni izvor vijesti,
 televiziju, radio, tisak, portal ili društvene mreže. Želimo saznati kako se
@@ -112,7 +112,7 @@ svih korisnika televizije. Promijenilo se pitanje, pa isti zapisi traže
 postotak po stupcu. Duljine stupaca na sljedećoj slici ipak prikazuju prvo
 pitanje, udjele izvora unutar svake dobne skupine.
 
-*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama; udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora prema @sikic2026.*
+*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama; udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora.*
 
 Društvene mreže bira `r hr_broj(s13_retci["18 do 29", "društvene mreže"])` % osoba od 18 do 29 godina, a `r hr_broj(s13_retci["60 i više", "društvene mreže"])` % osoba
 od 60 i više godina. Televiziju bira `r hr_broj(s13_retci["18 do 29", "TV"])` % najmlađih i `r hr_broj(s13_retci["60 i više", "TV"])` %
@@ -554,7 +554,7 @@ Poslala vam je sažetak rezultata.
 | p-vrijednost | < 0,001 |
 | Cramérovo V | 0,25 |
 
-: Sažetak analize simuliranog uzorka. Izrada autora prema sikic2026.
+: Sažetak analize simuliranog uzorka. Izrada autora.
 
 U izvještaju je zadržala i dio opisa koji čitatelju pokazuje kako se
 skupine razlikuju.
@@ -564,7 +564,7 @@ skupine razlikuju.
 | Od 18 do 29 godina | 12,2 % | 42,1 % |
 | 60 i više godina | 45,2 % | 2,2 % |
 
-: Dio postotaka po dobnim skupinama. Izrada autora prema sikic2026.
+: Dio postotaka po dobnim skupinama. Izrada autora.
 
 Postoci su izračunani unutar svake dobne skupine. Prikazana su dva od pet
 izvora, pa se postoci u retku ne zbrajaju do sto.
@@ -626,8 +626,7 @@ U poglavlju o regresiji naučit ćemo zajedno razmatrati više varijabli.
 Iz dobivenih rezultata sada možemo sastaviti kratak izvještaj.
 
 > U slučajnom uzorku od 800 osoba iz nastavne simulacije usporedili smo
-> izbor digitalnih i tradicionalnih izvora među dobnim skupinama
-> (Šikić, 2026). Digitalne izvore bira
+> izbor digitalnih i tradicionalnih izvora među dobnim skupinama. Digitalne izvore bira
 > `r hr_broj(s13_digitalni[["18 do 29"]])` % osoba od 18 do 29 godina i
 > `r hr_broj(s13_digitalni[["60 i više"]])` % osoba od 60 i više godina. Razlika iznosi
 > `r hr_broj(s13$razlika_digitalni, 1)` postotnih bodova uz 95-postotni
@@ -760,7 +759,7 @@ povezanosti time dobiva drukčiji oblik podataka i drukčiji račun.
 
 U glavnom primjeru koristimo uzorak od 120 zamišljenih osoba iz skupa
 `populacija_medija` kojima su televizija ili društvene mreže glavni izvor
-vijesti (Šikić, 2026). Svaki redak predstavlja jednu osobu s ocjenom povjerenja
+vijesti. Svaki redak predstavlja jednu osobu s ocjenom povjerenja
 u medije. Time mijenjamo skupine u odnosu na usporedbu tiska i portala iz
 poglavlja o testiranju. Podaci i dalje pripadaju nastavnoj simulaciji. Na njima možemo usporediti postupke za isti jasno određen odnos.
 
@@ -1168,7 +1167,7 @@ kao televizija minus društvene mreže. Svaka osoba pripada jednoj skupini.
 | Procijenjena razlika sredina | 0,77 boda |
 | Welchov 95-postotni interval razlike | od −0,34 do 1,88 boda |
 
-: Usporedba dviju skupina u simuliranom uzorku. Izrada autora prema sikic2026.
+: Usporedba dviju skupina u simuliranom uzorku. Izrada autora.
 
 Asistentov osvrt na postupak i rezultat glasi ovako.
 
@@ -1204,8 +1203,7 @@ Za glavni zaključak zadržavamo Welchov postupak, dok drugi redak pokazuje
 U izvještaju možemo navesti da u uzorku od 120 simuliranih osoba
 korisnici televizije imaju prosječno `r hr_broj(s14$razlika, 2)` boda više
 povjerenja od korisnika društvenih mreža, uz Welchov 95-postotni interval
-od `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)` boda
-(Šikić, 2026). To je razlika među skupinama koje same biraju izvor vijesti.
+od `r hr_broj(s14$donja, 2)` do `r hr_broj(s14$gornja, 2)` boda. To je razlika među skupinama koje same biraju izvor vijesti.
 Nije procjena promjene povjerenja koju bi izazvalo prebacivanje iste osobe
 na televiziju. Cijeli interval ostaje ispod dva boda, pa podaci ne podupiru
 odluku koja zahtijeva najmanje toliku razliku.
@@ -1338,7 +1336,7 @@ rezultata. Ovdje je skup usporedbi unaprijed poznat, pa možemo tražiti
 postupak koji uvažava cijeli skup odluka.
 
 Za glavnu analizu uzimamo 300 zamišljenih osoba iz `populacija_medija` i
-zadržavamo izvor vijesti zadan pri stvaranju podataka (Šikić, 2026). Jedan
+zadržavamo izvor vijesti zadan pri stvaranju podataka. Jedan
 redak sadrži osobu, njezin izvor i ocjenu povjerenja. Skupine televizije,
 radija, tiska, portala i društvenih mreža zato se sada mogu razlikovati. Ti
 rezultati opisuju nastavni skup i služe učenju usporedbe, bez tvrdnje o
@@ -1500,7 +1498,7 @@ $$\eta^2 = \frac{SS_{\text{između}}}{SS_{\text{ukupno}}}$$
 Sada prelazimo s početne simulacije nasumično sastavljenih skupina na uzorak
 iz poznate simulirane populacije medijskih navika. Zadržavamo oznake pet
 izvora vijesti zadane pri stvaranju podataka i uspoređujemo povjerenje
-njihovih korisnika (Šikić, 2026). Skupine zato mogu imati različite prosjeke
+njihovih korisnika. Skupine zato mogu imati različite prosjeke
 i prije uzorkovanja.
 
 Uzorak od 300 osoba izvukli smo bez vraćanja iz pune populacije, zasebno
@@ -1604,7 +1602,7 @@ Oblik razlika provjeravamo na samim odgovorima. Kutije prikazuju srednjih
 50 % vrijednosti, vodoravna crta medijan, a točke pojedinačne odgovore.
 Raspršenost i preklapanje ostaju vidljivi uz razlike sredina.
 
-*Slika. Povjerenje po glavnom izvoru vijesti u istom nastavnom uzorku. Izrada autora prema simuliranom skupu @sikic2026.*
+*Slika. Povjerenje po glavnom izvoru vijesti u istom nastavnom uzorku. Izrada autora.*
 
 ## Nakon ukupnog testa
 
@@ -1731,8 +1729,7 @@ traži procjenu razlike o kojoj stvarno odlučujemo.
 
 **Nađite grešku.**
 Nakon ukupnog testa razlika u povjerenju među korisnicima pet izvora
-vijesti tim želi pregledati sve parove. Podaci su iz poznate simulacije
-(Šikić, 2026). U ovoj nastavnoj provjeri pretpostavke o neovisnosti,
+vijesti tim želi pregledati sve parove. Podaci su iz poznate simulacije. U ovoj nastavnoj provjeri pretpostavke o neovisnosti,
 raspodjelama i jednakim varijancama smatramo zadovoljenima. Zadatak je
 procijeniti postupak donošenja odluka o parovima.
 
@@ -1886,8 +1883,7 @@ dizajnu pritom ostaje otvoreno. Trebamo procijeniti opisuje li model odnos ili
 imamo i razloge za uzročno tumačenje.
 
 Polazimo od svih 50.000 zamišljenih odraslih osoba u skupu
-`populacija_medija`, koristeći dob, glavni izvor vijesti i povjerenje u medije
-(Šikić, 2026). Jedan zapis pripada jednoj osobi. Budući da za ovaj opis
+`populacija_medija`, koristeći dob, glavni izvor vijesti i povjerenje u medije. Jedan zapis pripada jednoj osobi. Budući da za ovaj opis
 koristimo cijelu konačnu simuliranu populaciju, ne procjenjujemo nepoznatu
 vrijednost iz uzorka. Koeficijenti će sažeti zabilježene odgovore, a od njih
 ćemo odvojiti pravila kojima su ti odgovori stvoreni. Pri povratku ranijim
@@ -1908,7 +1904,7 @@ dodatni dokaz podupro jači zaključak.
 ## Pravac kao tvrdnja o prosjeku
 
 Povjerenje u medije bilježimo na ljestvici od jedan do deset, a dob u
-godinama (Šikić, 2026). Korelacija bi sažela jačinu linearne veze. Regresijski
+godinama. Korelacija bi sažela jačinu linearne veze. Regresijski
 pravac omogućuje da za odabranu razliku u godinama očitamo modelom
 predviđenu razliku u bodovima povjerenja.
 
@@ -2286,8 +2282,7 @@ populaciju, kodiranje i uključene prilagodbe. Kod uzoraka trebamo i intervale
 koji odgovaraju nacrtu.
 
 Ni zajednički naziv ne jamči usporedive podatke. U našoj simulaciji „medijska
-aktivnost” označuje dnevne minute osobe iz konačne populacije odraslih
-(Šikić, 2026). DigiKat obuhvaća platformske objave prema pravilima korpusa, s
+aktivnost” označuje dnevne minute osobe iz konačne populacije odraslih. DigiKat obuhvaća platformske objave prema pravilima korpusa, s
 jedinicom objave ili agregata (Šikić, 2026). Osobne minute ne prikazuju svako
 privatno ponašanje, a korpus ne obuhvaća sadržaj izvan svojeg izbora.
 Regresija objava zato ne opisuje osobnu uporabu, a skupni obrazac ne možemo
@@ -2298,7 +2293,7 @@ Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo osobe od
 30 do 50 godina, a ne podskup prethodnih 200. Za sljedeći dijagnostički
 primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
 povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu
-i očekivana vrijednost i raspršenost (Šikić, 2026).
+i očekivana vrijednost i raspršenost.
 
 Jedan objašnjeni udio ipak ne otkriva gdje model slabije odgovara podacima. Za
 to se vraćamo pojedinačnim odstupanjima, rezidualima. U našoj populaciji
@@ -2512,7 +2507,7 @@ odobrenje autora ni PLOS-a.
 Tim želi provjeriti predviđa li model povjerenje kod novih korisnika
 uz korijen srednje kvadratne pogreške manji od dva boda. To je unaprijed
 zadan kriterij ove nastavne vježbe. Za prilagodbu je uzeto prvih 200
-zapisa simulirane populacije (Šikić, 2026). U zamišljenoj primjeni svi
+zapisa simulirane populacije. U zamišljenoj primjeni svi
 prediktori dostupni su prije odgovora o povjerenju.
 
 Asistentov račun rabi naziv `uzorak` za tih istih 200 zapisa.

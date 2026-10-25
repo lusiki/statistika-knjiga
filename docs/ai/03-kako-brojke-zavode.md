@@ -520,10 +520,9 @@ pogrešnog označavanja.
 
 ### Računski
 
-Koristite zbirnu tablicu generiranog skupa `populacija_medija` iz datoteke `data/populacija-medija-agregat.csv`
-(Šikić, 2026). U generiranom skupu
+Koristite zbirnu tablicu generiranog skupa `populacija_medija` iz datoteke `data/populacija-medija-agregat.csv`. U generiranom skupu
 portal je glavni izvor vijesti za 15.101 od 50.000 generiranih osoba, a
-televizija za 10.827 (Šikić, 2026). Izračunajte udjele, razliku u
+televizija za 10.827. Izračunajte udjele, razliku u
 postotnim bodovima i relativnu razliku prema udjelu televizije. Uz rezultate
 napišite da opisuju simulaciju. Dopušten je kalkulator ili proračunska tablica; ne predaje se kod.
 

@@ -37,7 +37,7 @@ dalje trebamo pokazati veličinu razlike, njezinu nesigurnost i nazivnike na
 kojima se temelje prikazani udjeli.
 
 Postupak ćemo razviti na uzorku od 800 zamišljenih osoba iz već poznatog skupa
-`populacija_medija` (Šikić, 2026). Riječ je o računalno stvorenim podacima za
+`populacija_medija`. Riječ je o računalno stvorenim podacima za
 nastavu, pa rezultati ne opisuju stvarne medijske navike stanovnika Hrvatske.
 Iz svakog zapisa izdvojit ćemo dobnu skupinu i glavni izvor vijesti,
 televiziju, radio, tisak, portal ili društvene mreže. Želimo saznati kako se
@@ -102,7 +102,7 @@ svih korisnika televizije. Promijenilo se pitanje, pa isti zapisi traže
 postotak po stupcu. Duljine stupaca na sljedećoj slici ipak prikazuju prvo
 pitanje, udjele izvora unutar svake dobne skupine.
 
-*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama; udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora prema @sikic2026.*
+*Slika. Udio pojedinog izvora vijesti unutar svake dobne skupine u simuliranom uzorku od osamsto osoba. Raspodjele izvora razlikuju se među dobnim skupinama; udjeli se unutar svake skupine zbrajaju do 100 %. Izrada autora.*
 
 Društvene mreže bira `r hr_broj(s13_retci["18 do 29", "društvene mreže"])` % osoba od 18 do 29 godina, a `r hr_broj(s13_retci["60 i više", "društvene mreže"])` % osoba
 od 60 i više godina. Televiziju bira `r hr_broj(s13_retci["18 do 29", "TV"])` % najmlađih i `r hr_broj(s13_retci["60 i više", "TV"])` %
@@ -544,7 +544,7 @@ Poslala vam je sažetak rezultata.
 | p-vrijednost | < 0,001 |
 | Cramérovo V | 0,25 |
 
-: Sažetak analize simuliranog uzorka. Izrada autora prema sikic2026.
+: Sažetak analize simuliranog uzorka. Izrada autora.
 
 U izvještaju je zadržala i dio opisa koji čitatelju pokazuje kako se
 skupine razlikuju.
@@ -554,7 +554,7 @@ skupine razlikuju.
 | Od 18 do 29 godina | 12,2 % | 42,1 % |
 | 60 i više godina | 45,2 % | 2,2 % |
 
-: Dio postotaka po dobnim skupinama. Izrada autora prema sikic2026.
+: Dio postotaka po dobnim skupinama. Izrada autora.
 
 Postoci su izračunani unutar svake dobne skupine. Prikazana su dva od pet
 izvora, pa se postoci u retku ne zbrajaju do sto.
@@ -616,8 +616,7 @@ U poglavlju o regresiji naučit ćemo zajedno razmatrati više varijabli.
 Iz dobivenih rezultata sada možemo sastaviti kratak izvještaj.
 
 > U slučajnom uzorku od 800 osoba iz nastavne simulacije usporedili smo
-> izbor digitalnih i tradicionalnih izvora među dobnim skupinama
-> (Šikić, 2026). Digitalne izvore bira
+> izbor digitalnih i tradicionalnih izvora među dobnim skupinama. Digitalne izvore bira
 > `r hr_broj(s13_digitalni[["18 do 29"]])` % osoba od 18 do 29 godina i
 > `r hr_broj(s13_digitalni[["60 i više"]])` % osoba od 60 i više godina. Razlika iznosi
 > `r hr_broj(s13$razlika_digitalni, 1)` postotnih bodova uz 95-postotni

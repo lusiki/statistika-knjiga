@@ -35,8 +35,7 @@ dizajnu pritom ostaje otvoreno. Trebamo procijeniti opisuje li model odnos ili
 imamo i razloge za uzročno tumačenje.
 
 Polazimo od svih 50.000 zamišljenih odraslih osoba u skupu
-`populacija_medija`, koristeći dob, glavni izvor vijesti i povjerenje u medije
-(Šikić, 2026). Jedan zapis pripada jednoj osobi. Budući da za ovaj opis
+`populacija_medija`, koristeći dob, glavni izvor vijesti i povjerenje u medije. Jedan zapis pripada jednoj osobi. Budući da za ovaj opis
 koristimo cijelu konačnu simuliranu populaciju, ne procjenjujemo nepoznatu
 vrijednost iz uzorka. Koeficijenti će sažeti zabilježene odgovore, a od njih
 ćemo odvojiti pravila kojima su ti odgovori stvoreni. Pri povratku ranijim
@@ -57,7 +56,7 @@ dodatni dokaz podupro jači zaključak.
 ## Pravac kao tvrdnja o prosjeku
 
 Povjerenje u medije bilježimo na ljestvici od jedan do deset, a dob u
-godinama (Šikić, 2026). Korelacija bi sažela jačinu linearne veze. Regresijski
+godinama. Korelacija bi sažela jačinu linearne veze. Regresijski
 pravac omogućuje da za odabranu razliku u godinama očitamo modelom
 predviđenu razliku u bodovima povjerenja.
 
@@ -435,8 +434,7 @@ populaciju, kodiranje i uključene prilagodbe. Kod uzoraka trebamo i intervale
 koji odgovaraju nacrtu.
 
 Ni zajednički naziv ne jamči usporedive podatke. U našoj simulaciji „medijska
-aktivnost” označuje dnevne minute osobe iz konačne populacije odraslih
-(Šikić, 2026). DigiKat obuhvaća platformske objave prema pravilima korpusa, s
+aktivnost” označuje dnevne minute osobe iz konačne populacije odraslih. DigiKat obuhvaća platformske objave prema pravilima korpusa, s
 jedinicom objave ili agregata (Šikić, 2026). Osobne minute ne prikazuju svako
 privatno ponašanje, a korpus ne obuhvaća sadržaj izvan svojeg izbora.
 Regresija objava zato ne opisuje osobnu uporabu, a skupni obrazac ne možemo
@@ -447,7 +445,7 @@ Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo osobe od
 30 do 50 godina, a ne podskup prethodnih 200. Za sljedeći dijagnostički
 primjer ponovno koristimo svih 50.000 osoba, ali mijenjamo ishod iz
 povjerenja u dnevne minute. Te su minute generirane tako da s dobi rastu
-i očekivana vrijednost i raspršenost (Šikić, 2026).
+i očekivana vrijednost i raspršenost.
 
 Jedan objašnjeni udio ipak ne otkriva gdje model slabije odgovara podacima. Za
 to se vraćamo pojedinačnim odstupanjima, rezidualima. U našoj populaciji
@@ -661,7 +659,7 @@ odobrenje autora ni PLOS-a.
 Tim želi provjeriti predviđa li model povjerenje kod novih korisnika
 uz korijen srednje kvadratne pogreške manji od dva boda. To je unaprijed
 zadan kriterij ove nastavne vježbe. Za prilagodbu je uzeto prvih 200
-zapisa simulirane populacije (Šikić, 2026). U zamišljenoj primjeni svi
+zapisa simulirane populacije. U zamišljenoj primjeni svi
 prediktori dostupni su prije odgovora o povjerenju.
 
 Asistentov račun rabi naziv `uzorak` za tih istih 200 zapisa.

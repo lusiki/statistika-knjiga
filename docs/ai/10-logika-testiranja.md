@@ -26,7 +26,7 @@ Umjesto traženja raspona za nepoznatu veličinu, pitat ćemo kakve bi rezultate
 proizvodio određeni model u kojem nema povezanosti koju istražujemo.
 
 Uzimamo uzorak osoba iz poznate simulirane populacije `populacija_medija`
-kojima su tisak ili portal glavni izvor vijesti (Šikić, 2026). Jedan redak
+kojima su tisak ili portal glavni izvor vijesti. Jedan redak
 pripada jednoj zamišljenoj osobi, a uspoređujemo njezinu ocjenu povjerenja u
 medije s ocjenama osoba iz druge skupine. Najprije ćemo prikazati opaženu
 razliku i njezin interval. Potom ćemo privremeno pretpostaviti da je
@@ -72,7 +72,7 @@ Posljedice takvih prilagodbi razmotrit ćemo u poglavlju o krizi i obnovi.
 ## Kako se gradi svijet bez učinka
 
 U uzorku za usporedbu tiska i portala imamo `r s10$n` osoba iz
-`populacija_medija` (Šikić, 2026). Njihove ocjene povjerenja najprije čitamo uz
+`populacija_medija`. Njihove ocjene povjerenja najprije čitamo uz
 izvorne oznake skupina, prije bilo kakva premještanja.
 
 Odabir smo najprije ograničili na osobe kojima je glavni izvor tisak ili
@@ -431,15 +431,13 @@ p-vrijednost ne sadrži.
 Provjerite odlomak o razlici povjerenja između čitatelja tiska i
 portala u poznatoj simuliranoj populaciji. U uzorku je procjena razlike
 tisak minus portal `r hr_broj(s10$razlika, 2)` boda, uz 95 % interval
-od `r hr_broj(s10$donja, 2)` do `r hr_broj(s10$gornja, 2)`
-(Šikić, 2026). Osobe su zasebne jedinice opažanja.
+od `r hr_broj(s10$donja, 2)` do `r hr_broj(s10$gornja, 2)`. Osobe su zasebne jedinice opažanja.
 
 Za test se zadaje nulti model jednake pune raspodjele povjerenja, pod
 kojim su oznake skupina zamjenjive. Asistentov zapis postupka glasi ovako.
 
 Od 4.000 premještanja njih 64 daje apsolutnu razliku barem toliko veliku
-kao opažena. Korigirani račun zato daje 65 / 4.001, približno 0,016
-(Šikić, 2026). U izvještaju je asistent napisao sljedeće.
+kao opažena. Korigirani račun zato daje 65 / 4.001, približno 0,016. U izvještaju je asistent napisao sljedeće.
 
 > Pod zadanim nultim modelom opažena je razlika neuobičajena. Skupine
 > su promatračke, pa rezultat ne pokazuje uzrok razlike. P-vrijednost

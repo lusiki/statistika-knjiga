@@ -33,7 +33,7 @@ rezultata. Ovdje je skup usporedbi unaprijed poznat, pa možemo tražiti
 postupak koji uvažava cijeli skup odluka.
 
 Za glavnu analizu uzimamo 300 zamišljenih osoba iz `populacija_medija` i
-zadržavamo izvor vijesti zadan pri stvaranju podataka (Šikić, 2026). Jedan
+zadržavamo izvor vijesti zadan pri stvaranju podataka. Jedan
 redak sadrži osobu, njezin izvor i ocjenu povjerenja. Skupine televizije,
 radija, tiska, portala i društvenih mreža zato se sada mogu razlikovati. Ti
 rezultati opisuju nastavni skup i služe učenju usporedbe, bez tvrdnje o
@@ -195,7 +195,7 @@ $$\eta^2 = \frac{SS_{\text{između}}}{SS_{\text{ukupno}}}$$
 Sada prelazimo s početne simulacije nasumično sastavljenih skupina na uzorak
 iz poznate simulirane populacije medijskih navika. Zadržavamo oznake pet
 izvora vijesti zadane pri stvaranju podataka i uspoređujemo povjerenje
-njihovih korisnika (Šikić, 2026). Skupine zato mogu imati različite prosjeke
+njihovih korisnika. Skupine zato mogu imati različite prosjeke
 i prije uzorkovanja.
 
 Uzorak od 300 osoba izvukli smo bez vraćanja iz pune populacije, zasebno
@@ -299,7 +299,7 @@ Oblik razlika provjeravamo na samim odgovorima. Kutije prikazuju srednjih
 50 % vrijednosti, vodoravna crta medijan, a točke pojedinačne odgovore.
 Raspršenost i preklapanje ostaju vidljivi uz razlike sredina.
 
-*Slika. Povjerenje po glavnom izvoru vijesti u istom nastavnom uzorku. Izrada autora prema simuliranom skupu @sikic2026.*
+*Slika. Povjerenje po glavnom izvoru vijesti u istom nastavnom uzorku. Izrada autora.*
 
 ## Nakon ukupnog testa
 
@@ -426,8 +426,7 @@ traži procjenu razlike o kojoj stvarno odlučujemo.
 
 **Nađite grešku.**
 Nakon ukupnog testa razlika u povjerenju među korisnicima pet izvora
-vijesti tim želi pregledati sve parove. Podaci su iz poznate simulacije
-(Šikić, 2026). U ovoj nastavnoj provjeri pretpostavke o neovisnosti,
+vijesti tim želi pregledati sve parove. Podaci su iz poznate simulacije. U ovoj nastavnoj provjeri pretpostavke o neovisnosti,
 raspodjelama i jednakim varijancama smatramo zadovoljenima. Zadatak je
 procijeniti postupak donošenja odluka o parovima.
 

@@ -40,8 +40,7 @@ zašto smo nešto podijelili, koga smo izostavili i dokle dobiveni odgovor
 vrijedi.
 
 Uz stvarni slučaj prijava koristit ćemo autorski skup `populacija_medija`,
-računalno stvorenu populaciju odraslih osoba iz zamišljenoga grada
-(Šikić, 2026). Jedan zapis predstavlja jednu zamišljenu osobu. U prvom ćemo
+računalno stvorenu populaciju odraslih osoba iz zamišljenoga grada. Jedan zapis predstavlja jednu zamišljenu osobu. U prvom ćemo
 računu povezati njezin glavni izvor vijesti sa spremnošću na plaćanje vijesti.
 Usporedit ćemo broj osoba koje bi platile s njihovim udjelom unutar pojedinog
 izvora. Tako možemo pratiti svaki korak bez tvrdnje da opisujemo stvarnu
@@ -86,7 +85,7 @@ pripadaju istoj osobi. Sedam redaka zato ne daje sedam neovisnih potvrda.
 **Podsjetnik.** Postotci i postotni bodovi
 
 U skupu `populacija_medija` imamo zapise za 50.000 zamišljenih odraslih
-stanovnika (Šikić, 2026). Uz izvor vijesti i spremnost na plaćanje, za svaku su
+stanovnika. Uz izvor vijesti i spremnost na plaćanje, za svaku su
 osobu zabilježeni dob, obrazovanje, povjerenje u medije na ljestvici od 1
 do 10 i dnevno praćenje medija. Istom ćemo
 se populacijom služiti pri uzorkovanju, usporedbama skupina i regresiji, kako
@@ -97,12 +96,12 @@ i izvor vijesti, čije se vjerojatnosti mijenjaju s dobi. Povjerenje ovisi o
 dobi i izvoru uz slučajno odstupanje, a spremnost na plaćanje o povjerenju i
 obrazovanju. Tako nastaju namjerno povezane varijable. Jedna osoba može
 odstupati od zadanoga obrasca, a cjelina od 50.000 osoba pokazuje obrazac koji
-je autor ugradio u generator (Šikić, 2026).
+je autor ugradio u generator.
 
 Prva tri retka pokazuju kako taj skup izgleda prije sažimanja. Svaki redak
-čuva više obilježja iste generirane osobe (Šikić, 2026).
+čuva više obilježja iste generirane osobe.
 
-*Slika. Tri zapisa iz generirane populacije medijskih navika. Izrada autora prema @sikic2026.*
+*Slika. Tri zapisa iz generirane populacije medijskih navika. Izrada autora.*
 
 Broj osobe služi povezivanju njezinih odgovora. Vrijednost u stupcu izvora
 vijesti jedna je kategorija, povjerenje je ocjena, a spremnost na plaćanje
@@ -115,15 +114,14 @@ usporediti izvore s različitim brojem korisnika, trebamo i **nazivnik**,
 količinu s kojom dijelimo brojnik. Brojnik je broj slučajeva koji
 zadovoljavaju uvjet, ovdje osoba spremnih platiti vijesti.
 Među 4.855 osoba kojima je tisak glavni izvor vijesti njih 1.289 spremno je
-platiti vijesti. Među 15.101 korisnikom portala spremnih je 3.514
-(Šikić, 2026). U većoj skupini takvih osoba ima više, ali tek dijeljenjem
+platiti vijesti. Među 15.101 korisnikom portala spremnih je 3.514. U većoj skupini takvih osoba ima više, ali tek dijeljenjem
 možemo usporediti udjele. Jednako treba znati prema kojoj količini računamo
 stopu ili prosjek.
 
 Provjeravamo i **podrijetlo podataka**. Treba znati tko ih je proizveo, kojim
 postupkom, koju inačicu koristimo i koja su njezina ograničenja. Za naš je
 nastavni skup poznat postupak stvaranja i njegovo sjeme, početna postavka koja
-omogućuje ponavljanje iste simulacije (Šikić, 2026). Zato možemo provjeriti
+omogućuje ponavljanje iste simulacije. Zato možemo provjeriti
 račun i tumačenje. Za tvrdnju o hrvatskoj publici trebali bismo podatke
 prikupljene od stvarnih ljudi.
 
@@ -551,7 +549,7 @@ spremnih platiti vijesti i njihova udjela unutar izvora.
 **Nađite grešku.**
 U usporedbi izvora vijesti zanima nas koliko je njihovih korisnika
 spremno platiti vijesti. Sljedeći izvadak iz poznate simulacije daje
-brojnosti potrebne za provjeru asistentove bilješke (Šikić, 2026). Svaka
+brojnosti potrebne za provjeru asistentove bilješke. Svaka
 zamišljena osoba pripada samo jednom retku.
 
 | Glavni izvor | Osobe | Spremni platiti |
@@ -559,7 +557,7 @@ zamišljena osoba pripada samo jednom retku.
 | TV i radio zajedno | 16.666 | 4.301 |
 | Tisak | 4.855 | 1.289 |
 
-: Spremnost na plaćanje u dvjema odvojenim skupinama izvora. Izrada autora prema sikic2026.
+: Spremnost na plaćanje u dvjema odvojenim skupinama izvora. Izrada autora.
 
 > Među korisnicima tiska spremno je platiti 1.289 od 4.855 osoba, odnosno
 > 26,55 %. Televizija i radio zajedno imaju 4.301 takvih osoba, više nego tisak. Prema tome,
@@ -573,7 +571,7 @@ tisak nije dovoljan za njezin zaključak.
 ## Razrađeni primjer
 
 Razliku između broja i udjela možemo provjeriti za sve izvore vijesti u
-poznatoj autorskoj simulaciji od 50.000 osoba (Šikić, 2026). Za svaki izvor
+poznatoj autorskoj simulaciji od 50.000 osoba. Za svaki izvor
 pitamo koliki je udio njegovih korisnika spreman platiti vijesti. Jedinica
 analize ostaje generirana osoba, a veličina skupine daje nazivnik. Time
 povezujemo pitanje s računom koji na njega odgovara. Rezultat će opisivati
@@ -584,17 +582,16 @@ Za svaki izvor tablica sadržava broj osoba, broj onih koji bi platili vijesti
 i njihov udio. Stupac `Osobe` daje nazivnik, a `Spremni platiti` brojnik. Redoslijed
 izvora određen je udjelom.
 
-*Slika. Spremnost platiti prema glavnom izvoru vijesti u generiranoj populaciji. Izrada autora prema @sikic2026.*
+*Slika. Spremnost platiti prema glavnom izvoru vijesti u generiranoj populaciji. Izrada autora.*
 
 Među osobama kojima je portal glavni izvor vijesti njih 3.514 spremno je
-platiti vijesti, što je najveći broj među skupinama (Šikić, 2026). No ta je
-skupina i najveća. Dijeljenjem s 15.101 dobivamo udio od 23,27 % (Šikić, 2026).
-Za tisak dijelimo 1.289 s 4.855 i dobivamo 26,55 % (Šikić, 2026). Portal ima
+platiti vijesti, što je najveći broj među skupinama. No ta je
+skupina i najveća. Dijeljenjem s 15.101 dobivamo udio od 23,27 %.
+Za tisak dijelimo 1.289 s 4.855 i dobivamo 26,55 %. Portal ima
 više osoba spremnih platiti, a tisak njihov veći udio.
 
 Pri tumačenju polazimo od toga da imamo cijelu generiranu populaciju. U
-tih 50.000 zapisa nema nesigurnosti koja bi nastala odabirom uzorka
-(Šikić, 2026). Ipak, ne znamo bi li pravilo kojim su podaci generirani bilo
+tih 50.000 zapisa nema nesigurnosti koja bi nastala odabirom uzorka. Ipak, ne znamo bi li pravilo kojim su podaci generirani bilo
 korisno za neku drugu svrhu. Iz ovih udjela ne zaključujemo o stvarnoj
 publici, uzrocima razlika ili odluci koju bi trebalo donijeti. Budući da ne
 istražujemo uzrok, ne biramo ni među mogućim uzročnim objašnjenjima. Ovdje
@@ -603,7 +600,7 @@ broja udjelom mogla usmjeriti resurse prema većoj skupini samo zbog njezine
 veličine.
 
 Zaključak stoga glasi da u generiranoj populaciji tisak ima najveći udio osoba
-spremnih platiti vijesti, a portal najveći broj takvih osoba (Šikić, 2026). Pri
+spremnih platiti vijesti, a portal najveći broj takvih osoba. Pri
 usporedbi udjela uzimamo u obzir veličinu svake skupine. Pri usporedbi brojeva
 promatramo samo brojnike.
 
@@ -654,7 +651,7 @@ Upotrijebite tablicu spremnosti na plaćanje. Za portal i tisak ručno
 podijelite vrijednost `Spremni platiti` s vrijednošću `Osobe` te rezultat
 pretvorite u postotak. Predajte dva razlomka, dva postotka i jednu rečenicu koja
 objašnjava zašto portal ima veći broj, a tisak veći udio. Zatim usporedite tisak
-s društvenim mrežama i razliku zaokružite na dvije decimale (Šikić, 2026).
+s društvenim mrežama i razliku zaokružite na dvije decimale.
 
 U simulaciji su stope skupine A u pristupačnijoj i zahtjevnijoj podskupini 80 %
 i 20 %, a stope skupine B 90 % i 30 %. Pretpostavite da obje skupine imaju po
