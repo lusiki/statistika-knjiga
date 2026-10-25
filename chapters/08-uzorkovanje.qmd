@@ -496,7 +496,7 @@ ggplot(s8_clt_okvir, aes(vrijednost)) +
   ) +
   facet_wrap(~ panel, ncol = 1, scales = "free") +
   scale_x_continuous(labels = hr_broj) +
-  labs(x = "Spremnost na plaćanje (kn mjesečno)", y = "Broj") +
+  labs(x = "Spremnost na plaćanje (eura mjesečno)", y = "Broj") +
   theme_knjiga(base_size = 11)
 ```
 
@@ -1102,8 +1102,8 @@ formule opisivat će ili približno izražavati rezultat takvog ponavljanja unut
 određenog modela.
 
 Jedan korak možemo pratiti na zasebnoj, namjerno sastavljenoj ilustraciji
-s iznosima 0, 0, 10, 20 i 70 kuna. Sredina je $100/5 = 20$
-kuna. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
+s iznosima 0, 0, 10, 20 i 70 eura. Sredina je $100/5 = 20$
+eura. U ponavljanju zamjenjujemo cijeli uzorak, uključujući moguće nule,
 novim odabirom iz svih 50 000 osoba. Svaki novi uzorak ostavlja samo
 jednu sredinu u raspodjeli koju uspoređujemo.
 
@@ -1146,8 +1146,8 @@ s8_p$omjer <- s8_p$se5 / s8_p$se60
 ```
 
 `replicate` ponavlja izraz i sprema rezultate. Prosjek četiri tisuće sredina iz
-uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` kuna, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
-kuna. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` kuna. Obje veličine uzorka daju
+uzoraka od pet osoba je `r hr_broj(s8_p$m5, 2)` eura, a iz uzoraka od šezdeset `r hr_broj(s8_p$m60, 2)`
+eura. Populacijska sredina je `r hr_broj(s8_p$mu, 2)` eura. Obje veličine uzorka daju
 procjene usredotočene blizu nje, u skladu s nepristranošću.
 
 Standardna pogreška pada s `r hr_broj(s8_p$se5, 2)` za pet osoba na `r hr_broj(s8_p$se60, 2)` za šezdeset,
