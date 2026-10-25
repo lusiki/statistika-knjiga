@@ -339,3 +339,13 @@ protumačene postavke. Poveznica s parametrom `pokus` nosi verziju, postavke i
 postojeće fiksno sjeme; nikada ne uključuje zapisano predviđanje. Poveznica
 ima prednost pred lokalnim pamćenjem. Vođeni putovi pojmovnika odvojeni su
 od bridova supojavljivanja. Dodatak se nalazi u `learning-include.html`.
+
+### Profili autora
+
+Samostalne stranice `cv-luka.qmd` i `cv-petra.qmd` čuvaju sadržaj izvornih
+životopisa iz projekta Javne politike. Luka ima modru naslovnu plohu i portret
+u kupoli, a Petra oker plohu i kružni portret. Kontrola „Presloži oblike”
+mijenja samo naslovnu geometriju; tekst ostaje na mjestu. Poveznice na odjeljke
+omogućuju brz pregled. Stilovi su u `_author-profiles.scss` i koriste tokene.
+Profili su u inventaru kao dvije dodatne samostalne stranice, izvan povijesne
+osnove nastavnih putova od 39 stranica.

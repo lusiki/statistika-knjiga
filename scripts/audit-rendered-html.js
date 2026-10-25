@@ -879,7 +879,7 @@ async function runSmokeAudit() {
     const landingSlider = page.locator('#landing-sample-size');
     await landingSlider.waitFor({state: 'visible'});
     const signatures = await page.locator('.landing-authors a').evaluateAll(links => links.map(a => ({name: a.textContent.trim(), href: a.getAttribute('href')})));
-    if (signatures.length !== 2 || signatures[0].name !== 'sikic' || signatures[1].name !== 'palic' || !signatures[0].href.endsWith('/cv-luka.html') || !signatures[1].href.endsWith('/cv-petra.html')) {
+    if (signatures.length !== 2 || signatures[0].name !== 'sikic' || signatures[1].name !== 'palic' || !signatures[0].href.endsWith('cv-luka.html') || !signatures[1].href.endsWith('cv-petra.html')) {
       throw new Error('landing author signature is incorrect');
     }
     if (!(await page.locator('.nav-footer-center').innerText()).includes('© 2026 · Statistika 101')) {

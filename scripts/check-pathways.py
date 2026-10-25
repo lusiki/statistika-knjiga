@@ -323,6 +323,10 @@ def main() -> int:
             "retrieval nije zasebno dokazan kroz svih 13 reach-back zadataka i pet samoprovjera",
         )
 
+        # Author biographies are supplemental site pages, outside the historical
+        # teaching-route baseline. Keep every chapter/appendix/assessment count exact.
+        author_pages = [page for page in inventory["pages"] if page["id"] in {"author-luka", "author-petra"}]
+        check(all(page["kind"] == "standalone" and page["standalone"] for page in author_pages), "profili autora moraju biti samostalne stranice")
         architecture = routes["architecture"]
         pre = architecture["post_p5_g_basis"]
         post = architecture["after_solution_route"]
@@ -332,7 +336,7 @@ def main() -> int:
         check(
             len(chapter_pages(inventory, include_landing=False)) == post["chapters"]
             and len(appendix_pages(inventory)) == post["appendices"]
-            and len(inventory["pages"]) == post["canonical_pages"]
+            and len(inventory["pages"]) - len(author_pages) == post["canonical_pages"]
             and len(solutions) == post["solution_routes"]
             and len(widgets.get("widgets", [])) == post["widgets"] == post["static_twins"]
             and len(set(callout_labels)) == post["callout_types"]
@@ -367,7 +371,7 @@ def main() -> int:
             "PATHWAYS_CHECK_OK "
             "reading_routes=2 prerequisites=19 units=19 records=95 "
             "public_checks=95 protected_rubrics=95 legacy_answer_sources=0 "
-            "routes=self-study,R,no-code,print,AI-output pages=39 solutions=1 "
+            f"routes=self-study,R,no-code,print,AI-output pages={len(inventory['pages'])} solutions=1 "
             "no_code_supported=19 guarded=7 clean_install=pending-owner "
             "frozen_outputs=38 dated=2026-08-26 live_repetition=optional "
             "retrieval_replacements=18/18 public_promises=reconciled "
