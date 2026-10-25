@@ -273,7 +273,7 @@ obilježje ili obuhvaćaju iste osobe. Brojčani kodovi kategorija služe
 razmjeni datoteka i ne pretvaraju kategorije u brojčane mjere.
 
 Anketa o društvenim mrežama ima 300 zapisa u datoteci
-`data/anketa-mreze.csv` [@sikicanketa2026].
+`data/anketa-mreze.csv`.
 
 | Varijabla | Značenje |
 |---|---|
@@ -286,7 +286,7 @@ Anketa o društvenim mrežama ima 300 zapisa u datoteci
 \Needspace{12\baselineskip}
 
 Populacija medijskih navika ima 50 000 zapisa u datoteci
-`data/populacija-medija.csv` [@sikic2026]. Iz nje iznova izvlačimo uzorke
+`data/populacija-medija.csv`. Iz nje iznova izvlačimo uzorke
 jer znamo vrijednosti za cijelu nastavnu populaciju.
 
 | Varijabla | Značenje |

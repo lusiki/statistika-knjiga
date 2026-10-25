@@ -160,6 +160,12 @@ literature, or cut.
 distrust unsourced numbers cannot itself carry any. A fabricated citation here
 is not a style slip; it is a contradiction of the book's subject.
 
+For the author-generated teaching datasets, retain the explicit simulation
+label, dataset name and reproducible provenance in the data catalogue. Do not
+add author-year self-citations to their descriptions, calculated values or
+captions (author decision, 25 October 2026). External empirical sources retain
+the citation requirement above.
+
 ### H8 — Bold discipline
 
 Bold is kept for exactly two jobs: the **first-mention concept anchor** and the
