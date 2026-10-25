@@ -3,7 +3,7 @@ title: "Provjere rješenja"
 subtitle: "Naznake, obrazloženja i primjeri odgovora"
 ---
 
-<!-- GENERATED: scripts/build-solution-routes.py records-sha256=c87411621da412929d7f756261dec30c19a849aab638f9a81fc87323232b95ea -->
+<!-- GENERATED: scripts/build-solution-routes.py records-sha256=ab73be3ddf10c1c4fd1fb13477d2a78f31e7ac106c050539268589d15357cd5a -->
 
 Ova je stranica odvojena od zadataka u glavnom slijedu knjige. Uz
 odabrane zadatke prvo otvorite naznaku, pokušajte ponovno pa tek onda
@@ -3312,14 +3312,14 @@ Bilješke nastavniku slijede u tablici.
 <details>
 <summary>Naznaka za početak</summary>
 
-Za prvi interval odvojite prosjek, standardnu pogrešku i marginu. Za ručni bootstrap prepišite zadane retke, uključujući ponovljeni redak, pa ponovno poredajte vrijednosti. Za svaku postavku odvojeno zapišite kritičnu vrijednost i broj opažanja. Između A i B mijenja se razina pouzdanosti, a između A i C veličina uzorka. Za portal zadržite ukupan broj redaka kao nazivnik udjela, a broj korisnika portala kao nazivnik njihova prosjeka.
+Za prvi interval odvojite prosjek, standardnu pogrešku i marginu. Za ručni bootstrap prepišite zadane retke, uključujući ponovljeni redak, pa ponovno poredajte vrijednosti. Prije računanja predvidite poredak širina i obuhvat. Usporedite predviđanje s rezultatima i razdvojite dugoročni obuhvat od promašaja u prikazanom nizu. Za portal zadržite ukupan broj redaka kao nazivnik udjela, a broj korisnika portala kao nazivnik njihova prosjeka.
 
 </details>
 
 <details>
 <summary>Primjer odgovora i objašnjenje</summary>
 
-Širine intervala dobivene izrazom iz zadatka približno su 0,619806 za A, 0,814603 za B i 0,309903 za C. Viša razina pouzdanosti u B širi interval. Četverostruko veći uzorak u C prepolovljuje širinu u odnosu na A. U prikazanom nizu zabilježena su tri promašaja za A, nijedan za B i jedan za C. Taj jedan niz ne utvrđuje dugoročni obuhvat postupka.
+Predviđamo poredak širina B > A > C, a račun daje približno 0,814603, 0,619806 i 0,309903. Dugoročni obuhvat iznosi 99 % za B te 95 % za A i C. Četverostruki uzorak u C prepolovljuje širinu u odnosu na A. U prikazanom nizu A ima tri promašaja, B nijedan, a C jedan. Taj jedan niz ne utvrđuje dugoročni obuhvat postupka.
 
 Tiskana tablica zadaje ukupno 50.000 osoba, 15.101 korisnika portala i njihov zbroj povjerenja od 72.101. Udio je 15.101/50.000 = 0,30202, odnosno 30,202 %. Prosjek povjerenja korisnika portala jest 72.101/15.101, približno 4,774584 boda. Ti brojevi odgovaraju agregatu. Ako radimo samo s tiskanom tablicom, možemo provjeriti dijeljenja, ali ne tvrdimo da smo provjerili retke analitičke datoteke.
 
@@ -3334,16 +3334,16 @@ Odgovor odvaja promjenu preciznosti od obuhvata i provjerava brojnik i nazivnik 
 
 Odgovor se provjerava ovim postupkom.
 
-Izračunati 2z*/sqrt(n) za A, B i C te iz tiskane tablice 15101/50000 i 72101/15101. Usporediti zaokružene rezultate i navesti da agregat ne potvrđuje pojedinačne zapise.
+Prije čitanja rezultata zapisati predviđeni poredak širina i dugoročni obuhvat za A, B i C. Izračunati 2z*/sqrt(n), usporediti predviđanje s računom i očitanim promašajima te obrazložiti eventualnu ispravku. Iz tiskane agregatne tablice izračunati 15101/50000 i 72101/15101 te objasniti granicu provjere pojedinačnih zapisa.
 
-Širine su približno 0,620, 0,815 i 0,310. Iz zadanih brojnika i nazivnika dobivamo 0,30202 i 4,77458. Tiskana tablica omogućuje provjeru dijeljenja, a ne rekonstrukciju pojedinačnih zapisa.
+Poredak širina je B > A > C, s približnim vrijednostima 0,815, 0,620 i 0,310. U zadanoj normalnoj populaciji dugoročni obuhvat iznosi 99 % za B te 95 % za A i C. Promašaji A=3, B=0 i C=1 pripadaju nizu od 50 ponavljanja. Omjeri iznose 0,30202 i 4,77458. Slaganje dijeljenja s agregatom ne potvrđuje nastanak pojedinačnih zapisa.
 
 Odgovor mora sadržavati sljedeće sastavnice.
 
 | Potrebna tvrdnja | Vidljivi dokaz |
 |---|---|
 | Širine A, B i C iznose približno 0,620, 0,815 i 0,310. | Izračuni su 2*1,960/sqrt(40), 2*2,576/sqrt(40) i 2*1,960/sqrt(160). |
-| A prema B izolira višu razinu pouzdanosti i širi interval, dok A prema C izolira četverostruko veći n i prepolovljuje širinu. | A i B dijele n=40; A i C dijele z*=1,960, a sqrt(160)=2*sqrt(40). Objavljeni promašaji su A=3, B=0 i C=1. |
+| Početno predviđanje uspoređeno je s rezultatima. Ispravan poredak širina jest B > A > C. A prema B izolira višu razinu pouzdanosti i širi interval, dok A prema C izolira četverostruko veći n i prepolovljuje širinu uz istu razinu od 95 %. | A i B dijele n=40; A i C dijele z*=1,960, a sqrt(160)=2*sqrt(40). Dugoročni obuhvat uz zadane pretpostavke jest 95 %, 99 % i 95 % za A, B i C. Objavljeni promašaji A=3, B=0 i C=1 pripadaju nizu od 50 ponavljanja. Manje promašaja u C ne mijenja njegovu zadanu razinu pouzdanosti. Pogrešno početno predviđanje prihvatljivo je ako je nakon provjere obrazloženo ispravljeno. |
 | Iz prikazanih agregata udio korisnika portala iznosi 15101/50000 = 0,30202, a prosjek povjerenja 72101/15101, približno 4,77458. | Dva dijeljenja s različitim nazivnicima iz tiskane tablice. |
 | Računi se slažu s prikazanim agregatnim vrijednostima, ali time nisu provjereni pojedinačni zapisi ni tvrdnje o stvarnim stanovnicima. | Izrečena razlika između provjere aritmetike agregata i provjere njegova nastanka. |
 | Točkasta procjena ovdje je prosjek 4,815. Standardna pogreška iznosi 2,093/√200 ≈ 0,148, a margina približno 0,290 boda. Granice su približno 4,525 i 5,105. Razina od 95 % odnosi se na dugoročni obuhvat postupka kada vrijede njegove pretpostavke. Početni medijan pet vrijednosti jest 134 minute. Ponovni uzorak glasi 83, 83, 82, 139, 164 i ima medijan 83 minute. | Poredani početni niz jest 82, 83, 134, 139, 164. Ponavljanje i izostavljanje zapisa mijenjaju medijan. Za percentilni interval trebali bismo mnogo takvih ponovnih uzoraka; ova demonstracija s pet vrijednosti ne zamjenjuje raniji račun na svih 60 osoba. |
@@ -3353,7 +3353,7 @@ Brojčani trag provjerava se ovako.
 | Stavka | Provjera |
 |---|---|
 | Očekivani rezultat | A: širina 0,619806421393 i 3 promašaja. B: širina 0,814602725259 i 0 promašaja. C: širina 0,309903210697 i 1 promašaj. Analitička datoteka ima 50000 redaka; portal ima 15101 redak od ukupno 50000, zbroj povjerenja 72101, udio 15101/50000 = 0,30202 i prosjek 72101/15101 = 4,7745844646. Točkasta procjena ovdje je prosjek 4,815. Standardna pogreška iznosi 2,093/√200 ≈ 0,148, a margina približno 0,290 boda. Granice su približno 4,525 i 5,105. Razina od 95 % odnosi se na dugoročni obuhvat postupka kada vrijede njegove pretpostavke. Početni medijan pet vrijednosti jest 134 minute. Ponovni uzorak glasi 83, 83, 82, 139, 164 i ima medijan 83 minute. |
-| Pravilo prihvaćanja | Širine zaokružiti na najmanje tri decimale; 0,30202 i 4,77458 na pet. Traže se dva ispravna nazivnika, usporedbe postavki i granica provjere. Prebrojavanje pojedinačnih zapisa i ponavljanje simulacije nisu obvezni. |
+| Pravilo prihvaćanja | Širine zaokružiti na najmanje tri decimale; 0,30202 i 4,77458 na pet. Predati početno predviđanje i usporedbu s rezultatima. Završno obrazloženje mora razlikovati dugoročni obuhvat od ostvarenih promašaja, zadržati dva ispravna nazivnika i granicu agregatne provjere. Obrazložena ispravka početnog predviđanja prihvatljiva je. Prebrojavanje pojedinačnih zapisa i ponavljanje simulacije nisu obvezni. |
 | Neovisni postupak | Tri širine izračunati iz formule i zadanih kritičnih vrijednosti, a dva omjera iz cjelobrojnih ulaza tiskane tablice. Provjera CSV-a i ponavljanje simulacije dodatni su autorski kontrolni postupci, a nisu uvjet studentskoga odgovora. Poredani početni niz jest 82, 83, 134, 139, 164. Ponavljanje i izostavljanje zapisa mijenjaju medijan. Za percentilni interval trebali bismo mnogo takvih ponovnih uzoraka; ova demonstracija s pet vrijednosti ne zamjenjuje raniji račun na svih 60 osoba. |
 | Dokazni trag | chapters/09-procjena.qmd#tbl-w09-tiskani-preseti; chapters/09-procjena.qmd#tbl-w09-agregat-portal; data/populacija-medija.csv; data/populacija-medija-agregat.csv |
 
@@ -3365,6 +3365,7 @@ Sljedeći odgovori nisu dovoljni.
 | Četverostruko veći uzorak čini interval četiri puta užim. | Širina se mijenja s 1/sqrt(n), pa rast s 40 na 160 opažanja prepolovljuje širinu. |
 | Prosječno povjerenje korisnika portala dobiva se kao 72101/50000. | Prosjek među korisnicima portala dijeli zbroj 72101 brojem korisnika portala 15101; nazivnik 50000 služi udjelu portala. |
 | Slaganje agregata dokazuje empirijski nalaz o stvarnim stanovnicima. | Datoteke opisuju sintetičku populaciju i provjeravaju podatkovni postupak, ne stvarnu populacijsku tvrdnju. |
+| Postavka C ima višu razinu pouzdanosti od A jer je u tablici promašila samo jednom. | A i C imaju istu zadanu razinu od 95 %. Tri odnosno jedan promašaj ostvareni su u konačnom nizu od 50 ponavljanja; veći uzorak u C sužava interval uz isti dugoročni obuhvat. |
 
 </details>
 
@@ -3374,7 +3375,7 @@ Puna rubrika za nastavnike slijedi u tablici.
 | Razina | Kriterij | Vidljivi dokaz |
 |---|---|---|
 | Presudni nedostatak | Odgovor zamijeni nazivnike udjela i prosjeka ili sintetičko slaganje pretvori u empirijsku tvrdnju o stvarnoj populaciji. | Računa 72101/50000 kao prosjek portala, 15101/15101 kao udio ili izvodi nedopuštenu stvarnu generalizaciju. |
-| Veliki nedostatak | Nedostaje neka širina, usporedba A–B/A–C, jedan od dvaju omjera ili granica provjere iz agregata. | Jedan od dvaju nosivih računa nema potpun i provjerljiv rezultat. |
+| Veliki nedostatak | Nedostaje neka širina, predviđanje i njegova provjera, usporedba A–B/A–C, jedan od dvaju omjera ili granica provjere iz agregata. Završno tumačenje pogrešno poistovjećuje ostvarene promašaje s dugoročnim obuhvatom. | Odgovor nema potpun račun i usporedbu s početnim predviđanjem ili iz manjeg broja promašaja u C izvodi višu razinu pouzdanosti. Početno pogrešno predviđanje koje je nakon provjere ispravno obrazloženo nije razlog za umanjenje ocjene. |
 | Manji nedostatak | Račun i tumačenje su ispravni, ali zaokruživanje nije jasno označeno. | Lokalna brojčana dopuna dovoljna je bez promjene zaključka. |
 | Korisno poboljšanje | Odgovor dodatno pokazuje zašto četverostruki n prepolovljuje širinu preko omjera kvadratnih korijena. | Dodatni račun pojašnjava mehanizam, ali nije zamjena za sve tražene vrijednosti. |
 
@@ -3391,6 +3392,7 @@ Bilješke nastavniku slijede u tablici.
 | Obvezni zadatak u cijelosti se rješava iz tiskanih tablica uz kalkulator. |
 | Provjera pojedinačnih CSV zapisa dobrovoljna je mrežna nadogradnja; njezin izostanak ne smanjuje ocjenu. |
 | Broj promašaja pripada fiksnom nizu, a nije teorijsko očekivanje. |
+| Najprije zatražiti predviđanje iz veličine uzorka i razine pouzdanosti, zatim usporedbu s rezultatima. Vrednuje se završno razumijevanje i obrazložena ispravka, a ne točnost prvog predviđanja sama za sebe. |
 
 :::
 

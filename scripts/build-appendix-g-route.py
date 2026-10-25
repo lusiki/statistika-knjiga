@@ -31,7 +31,7 @@ TOPICS = (
         "appendix_anchor": "sec-ag-postotci-postotni-bodovi",
         "first_use_path": "chapters/01-zasto-statistika.qmd",
         "reminder_anchor": "podsjetnik-postotci-postotni-bodovi",
-        "first_use_marker": "Bez imenovanoga nazivnika postotak nema potpuno značenje.",
+        "first_use_marker": "količinu s kojom dijelimo brojnik. Brojnik je broj slučajeva koji",
     },
     {
         "id": "proportions_rates",
@@ -58,7 +58,7 @@ TOPICS = (
         "appendix_anchor": "sec-ag-logaritamska-skala",
         "first_use_path": "chapters/04-sazimanje-podataka.qmd",
         "reminder_anchor": "podsjetnik-logaritamska-skala",
-        "first_use_marker": "Kada strogo pozitivne vrijednosti imaju takav oblik",
+        "first_use_marker": "Za strogo pozitivne vrijednosti možemo razmotriti logaritamsku ljestvicu.",
     },
 )
 
