@@ -41,6 +41,17 @@ subtitle: "Od društvene pojave do opravdanog zaključka"
 #| include: false
 #| cache: false
 source("R/setup.R")
+
+# Lokalni izvadak DZS tablica BS_TU11 i T03, snimka 2026-07-27.
+s2_dzs_dolasci <- read.csv("data/dzs-turizam-godisnje.csv", fileEncoding = "UTF-8") |>
+  filter(godina == 2024L, turist == "domaći")
+s2_dzs_putovanja <- read.csv("data/dzs-putovanja-stanovnistva-2024.csv", fileEncoding = "UTF-8") |>
+  filter(godina == 2024L, dobna_skupina == "Ukupno", tip_putovanja == "Privatno",
+         destinacija == "Hrvatska", trajanje == "1 i više noćenja")
+# Dobni prag iz metodologije TUR-2025-4-1; nije izveden iz agregatnih redaka.
+s2_dzs_dob_min <- 15L
+stopifnot(nrow(s2_dzs_dolasci) == 1L, nrow(s2_dzs_putovanja) == 1L,
+          s2_dzs_dolasci$godina == s2_dzs_putovanja$godina)
 ```
 
 ::: {.callout-vinjeta}
@@ -147,13 +158,18 @@ neku inače prihvatljivu jedinicu ipak ne analiziramo. Filtrom ta pravila
 primjenjujemo na zapise. Time određujemo na koju će se populaciju moći
 odnositi zaključak.
 
-Pritom razlikujemo ono što je opaženo od onoga o čemu zaključujemo. Jedna
-osoba može dati više odgovora, jedna objava sadržavati više izjava, a
-kućanstvo imati više članova. Pet redaka s odgovorima iste osobe i dalje
-opisuje jednu osobu. Ako želimo zaključivati o ljudima, moramo objasniti kako
-njihove odgovore povezujemo. Pri izradi analitičke tablice svaki redak zato
-mora imati jasno značenje i pravilo po kojem je uključen. Taj ćemo postupak
-razraditi u poglavlju o sažimanju podataka.
+Na turizmu možemo vidjeti kako nastaju različite mjere iste šire pojave.
+U lokalnom administrativnom izvatku Državnog zavoda za statistiku (DZS) za
+`r s2_dzs_dolasci$godina`. domaćim turistima pripada
+`r hr_broj(s2_dzs_dolasci$dolasci, 0)` dolazaka u komercijalni smještaj
+[@dzsturizam2026]. Izvadak anketne tablice T03 za istu godinu daje procjenu od
+`r hr_broj(s2_dzs_putovanja$putovanja, 0)` privatnih putovanja s noćenjem
+unutar Hrvatske [@dzsturizam2026]. Anketa obuhvaća stanovnike od
+`r s2_dzs_dob_min` godina naviše u privatnim kućanstvima, a putovanja uključuju
+i nekomercijalni smještaj [@dzstravel2025]. Dolazak nastaje prijavom u smještaj,
+pa promjena objekta može istoga gosta ponovno ubrojiti [@dzsturizam2026].
+Brojevi zato opisuju različite jedinice i obuhvate. Prije usporedbe trebamo
+zapisati koji se događaj broji, koga izvor obuhvaća i kako podatak nastaje.
 
 Zamislimo plan istraživanja televizijskih vijesti o prosvjedu. To je primjer
 planiranja, bez stvarnog nalaza. Ovisno o pitanju, možemo proučavati priloge,
