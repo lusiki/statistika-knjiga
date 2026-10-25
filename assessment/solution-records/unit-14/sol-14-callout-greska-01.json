@@ -8,7 +8,7 @@
     "anchor": "ex-14-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:b656d8abd1de7f66314840df87debbfc3d7ad999666140eebf1ec592ad3e1ee8",
+  "prompt_fingerprint": "sha256:bc699b0a1e5e6c26b55b76f40186cbd821a3f1a8cd402e18a393a581192aca66",
   "answer_components": {
     "planted_error": {
       "applicable": true,
@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Odvojiti provjeru dizajna i postupka od završnoga zaključka, zatim neovisno obnoviti Welchov interval za osobe od 30 do 49 godina i provjeriti koje razlike interval još dopušta.",
-      "expected_evidence": "Jedinica neovisnosti, referentna skupina, pregled raspodjela i izbor Welcha ispravni su. Poduzorak ima 55 osoba, procijenjena razlika TV minus društvene mreže iznosi 0,770270 boda, a 95-postotni interval od −0,335616 do 1,876157 obuhvaća nulu i sadržajno pozitivne vrijednosti."
+      "expected_evidence": "Ispravno su određene jedinica neovisnosti, referentna skupina i činjenica da Welchov postupak ne traži jednake varijance. U podskupini od 55 osoba razlika je 0,77 boda uz interval od −0,34 do 1,88. U njemu su, primjerice, i −0,20 i 1,00 boda, pa obuhvaćanje nule ne dokazuje jednakost skupina. Druge dvije vrijednosti iz intervala jednako su prihvatljive. Za procjenu praktične važnosti treba unaprijed obrazložena važna razlika, a za uži interval prikladno planirani dodatni podaci.\n\nJedna moguća zamjena glasi ovako.\n\nU simuliranom poduzorku procijenjeno povjerenje u TV skupini veće je za 0,77 boda, uz 95 % interval od −0,34 do 1,88. Procjena je neprecizna i dopušta razlike u oba smjera, pa ne možemo tvrditi da su sredine jednake.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,6 +64,11 @@
           "component_id": "replace-overclaim",
           "required_claim": "U dobnoj podskupini podaci ne razlučuju razliku od nule dovoljno precizno, pa ne podupiru tvrdnju ni o odsutnosti ni o točnoj veličini veze.",
           "required_evidence": "Zamjenska rečenica mora opisati nepreciznost procjene, a ne proglasiti jednakost skupina."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "U simuliranom poduzorku procijenjeno povjerenje u TV skupini veće je za 0,77 boda, uz 95 % interval od −0,34 do 1,88. Procjena je neprecizna i dopušta razlike u oba smjera, pa ne možemo tvrditi da su sredine jednake.",
+          "required_evidence": "Ispravno su određene jedinica neovisnosti, referentna skupina i činjenica da Welchov postupak ne traži jednake varijance. U podskupini od 55 osoba razlika je 0,77 boda uz interval od −0,34 do 1,88. U njemu su, primjerice, i −0,20 i 1,00 boda, pa obuhvaćanje nule ne dokazuje jednakost skupina. Druge dvije vrijednosti iz intervala jednako su prihvatljive. Za procjenu praktične važnosti treba unaprijed obrazložena važna razlika, a za uži interval prikladno planirani dodatni podaci."
         }
       ]
     },
@@ -71,12 +76,17 @@
       "applicable": true,
       "not_applicable_reason": null,
       "expected_result": "Za 55 osoba od 30 do 49 godina procjena TV minus društvene mreže iznosi 0,770270270270 boda, a Welchov 95-postotni interval [−0,335616307975; 1,876156848515]. Stvarna razlika u simuliranoj populaciji toga raspona iznosi 0,900295271035 boda.",
-      "tolerance_or_acceptance_rule": "Prihvatiti procjenu i granice unutar 0,000001. Zaključak mora navesti da interval obuhvaća nulu i pozitivne razlike; ne smije ga tumačiti kao dokaz jednakosti ili odsutnosti povezanosti.",
+      "tolerance_or_acceptance_rule": "Za čitateljski odgovor prihvatiti 0,77 te −0,34 do 1,88 na dvije decimale. Neovisna provjera punih vrijednosti koristi toleranciju 0,000001. Dvije nenulte vrijednosti moraju biti unutar intervala, a zaključak ne smije dokazivati jednakost.",
       "independent_method": "Ponovno izdvojiti iste jedinice iz lokalnoga simuliranog skupa, ručno izračunati dvije sredine, zasebne varijance, Welchovu standardnu pogrešku i Satterthwaiteove stupnjeve slobode te interval usporediti s poznatom populacijskom razlikom.",
       "evidence_reference": "chapters/14-dvije-grupe.qmd#ex-14-callout-greska-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-absence-claim",

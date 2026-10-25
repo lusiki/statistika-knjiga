@@ -8,7 +8,7 @@
     "anchor": "ex-11-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:0a3ed56abe16037cff9410ac51f4b93ae07aee40d6204d0d190a32a36188bbb3",
+  "prompt_fingerprint": "sha256:3ad8a28922560d3e2ab7ddd7a0c41c4e6d2e6500e0584b5d7dc4f835f21b4763",
   "answer_components": {
     "planted_error": {
       "applicable": true,
@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Povezati svaki argument poziva s njegovim izvorom i pitati je li vrijednost bila dostupna prije prikupljanja podataka. Zatim zamijeniti opaženi učinak unaprijed opravdanim najmanjim važnim učinkom i usporediti zaključak o potrebnom uzorku.",
-      "expected_evidence": "Argument `delta = d_opazeni` preuzima procjenu iz istih trideset jedinica po skupini. Kada se umjesto nje uporabi najmanja važna razlika od 0,5 boda uz standardnu devijaciju 1,9 boda, ciljni standardizirani učinak iznosi približno 0,263, a za 80 % snage treba 228 ljudi po skupini."
+      "expected_evidence": "Poziv pravilno rabi standardiziranu skalu i uz d = 0,78 vraća približno 0,84. To je snaga hipotetskog plana kad bi stvarni učinak bio upravo toliko velik. Opaženi učinak iz iste završene studije nije neovisna potvrda njezine primjerenosti. Za unaprijed zadani cilj treba rabiti 0,5/1,9, približno 0,263; za 80 % snage uz te pretpostavke treba 228 osoba po skupini. Za završeni nalaz još treba zatražiti interval procjene i provjeriti dizajn.\n\nJedna moguća zamjena glasi ovako.\n\nRačun od 0,84 ne potvrđuje da je provedena studija bila dovoljno velika za unaprijed zadano pitanje. Novu studiju planirat ćemo za standardiziranu razliku približno 0,263, uz provjeru pretpostavljene raspršenosti, a preciznost završene procjene opisati njezinim intervalom.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -52,7 +52,7 @@
         },
         {
           "component_id": "locate-circular-input",
-          "required_claim": "Kružnost je u argumentu `delta = d_opazeni`, a ulazi retkom koji `d_opazeni` računa iz istih podataka.",
+          "required_claim": "Kružnost je u argumentu `delta = d_opazeni`, a ulazi retkom koji `d_opazeni` preuzima iz iste završene studije.",
           "required_evidence": "Brojnik koristi sredine `tisak` i `portal`, a nazivnik `sd_zdruzena` iz završene studije."
         },
         {
@@ -64,6 +64,11 @@
           "component_id": "separate-estimate-trust-from-power",
           "required_claim": "Post hoc snaga ne potvrđuje pouzdanost opažene procjene.",
           "required_evidence": "Završena procjena traži interval, provjeru dizajna i neovisne dokaze, dok snaga opisuje plan pod unaprijed zadanim učinkom."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Račun od 0,84 ne potvrđuje da je provedena studija bila dovoljno velika za unaprijed zadano pitanje. Novu studiju planirat ćemo za standardiziranu razliku približno 0,263, uz provjeru pretpostavljene raspršenosti, a preciznost završene procjene opisati njezinim intervalom.",
+          "required_evidence": "Poziv pravilno rabi standardiziranu skalu i uz d = 0,78 vraća približno 0,84. To je snaga hipotetskog plana kad bi stvarni učinak bio upravo toliko velik. Opaženi učinak iz iste završene studije nije neovisna potvrda njezine primjerenosti. Za unaprijed zadani cilj treba rabiti 0,5/1,9, približno 0,263; za 80 % snage uz te pretpostavke treba 228 osoba po skupini. Za završeni nalaz još treba zatražiti interval procjene i provjeriti dizajn."
         }
       ]
     },
@@ -76,7 +81,12 @@
       "evidence_reference": "chapters/11-velicina-ucinka-i-snaga.qmd#ex-11-callout-greska-01; chapters/11-velicina-ucinka-i-snaga.qmd#s11-vrijednosti"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-accepts-observed-effect-power",

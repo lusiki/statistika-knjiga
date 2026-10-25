@@ -8,20 +8,20 @@
     "anchor": "ex-17-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:4ebcf5b254ecd8e49cd57d0cac40907aa48606da61f70c620ac87d4824bf42ad",
+  "prompt_fingerprint": "sha256:56c84935162c16c04f5743d051b1649140edbf9367d1072e76b65d79715e4b72",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "held-out-label-accuracy-treated-as-construct-validity",
-      "statement": "Visoka točnost na izdvojenom skupu prema zabilježenim oznakama dokazuje da klasifikator ispravno mjeri ton.",
+      "statement": "Ako model na izdvojenom skupu postigne visoku točnost prema zabilježenim oznakama, time će dokazati da ispravno mjeri ton rečenica.",
       "why_wrong": "Izdvajanje štiti procjenu predviđanja od uporabe istih jedinica za učenje i vrednovanje, ali ne čini zabilježeni referentni ishod nepogrešivim niti dokazuje valjanost konstrukta. Model može vrlo dobro reproducirati sustav oznaka koji je dvosmislen, pristran ili neusporediv s postupkom u primjeni."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Odvojeno provjeriti što dokazuje izdvojeni skup i kako je nastao zabilježeni referentni ishod. Zatim tražiti dokaz da okvir kodiranja, koderi, usklađenje i vanjska provjera doista mjere ciljani ton.",
-      "expected_evidence": "Izdvojena točnost može poduprijeti uspješnost prema zabilježenim oznakama samo uz zaključan model, prag i usporediv postupak mjerenja. ParlaSent pritom izričito pokazuje da oznaka nastaje kodiranjem i da se put oznake razlikuje između izvornoga skupa za učenje i ispitivanje."
+      "procedure": "Razdvojiti zapisane oznake, buduće predviđanje tih oznaka i mjerenje tona. Usporediti dokaz koji plan prikuplja s tvrdnjom koju želi izvesti.",
+      "expected_evidence": "Plan pravilno razdvaja dokumente i predviđa zaključavanje modela i praga. Buduća točnost može opisati slaganje sa zabilježenim oznakama u tom ispitnom dijelu, ali ne dokazuje valjanost mjerenja tona. Za nju treba zasebno ispitati primjerenost uputa i referentnih oznaka. Neovisni koderi mogli bi, bez uvida u modelove odluke, ponovno označiti dio rečenica te obrazložiti neslaganja i ulogu konteksta. To može pokazati nejasne kategorije čak i uz visoku modelovu podudarnost. Različit put oznake i odabir korpusa i dalje ograničavaju prijenos.\n\nJedna moguća zamjena glasi ovako.\n\nIzdvojenim ispitivanjem procijenit ćemo koliko se zaključani model slaže sa zabilježenim oznakama odabranih rečenica. Zasebnom provjerom kodiranja ispitat ćemo koliko te oznake odgovaraju namjeravanom značenju tona; rezultat te provjere još nije poznat.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,19 +64,29 @@
           "component_id": "retain-human-judgment",
           "required_claim": "Čovjek ostaje odgovoran za cilj, prag, provjeru valjanosti i posljedice slanja rečenice u pregled.",
           "required_evidence": "Prediktivno mjerilo ne odlučuje je li negativan ton legitiman kriterij uredničke pozornosti."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Izdvojenim ispitivanjem procijenit ćemo koliko se zaključani model slaže sa zabilježenim oznakama odabranih rečenica. Zasebnom provjerom kodiranja ispitat ćemo koliko te oznake odgovaraju namjeravanom značenju tona; rezultat te provjere još nije poznat.",
+          "required_evidence": "Plan pravilno razdvaja dokumente i predviđa zaključavanje modela i praga. Buduća točnost može opisati slaganje sa zabilježenim oznakama u tom ispitnom dijelu, ali ne dokazuje valjanost mjerenja tona. Za nju treba zasebno ispitati primjerenost uputa i referentnih oznaka. Neovisni koderi mogli bi, bez uvida u modelove odluke, ponovno označiti dio rečenica te obrazložiti neslaganja i ulogu konteksta. To može pokazati nejasne kategorije čak i uz visoku modelovu podudarnost. Različit put oznake i odabir korpusa i dalje ograničavaju prijenos."
         }
       ]
     },
     "numerical_check": {
       "applicable": false,
-      "not_applicable_reason": "Prompt ne daje klasifikacijsku tablicu, prag, konkretnu točnost ni predviđanja iz kojih bi se mogla reproducirati brojka. Pogreška je prijelaz između dviju vrsta dokaza, a ne račun.",
+      "not_applicable_reason": "Plan tek predviđa račun točnosti. Nema izmjerenih predviđanja ni brojke uspješnosti; ocjenjuje se odnos budućeg dokaza i tvrdnje o mjerenju.",
       "expected_result": null,
       "tolerance_or_acceptance_rule": null,
       "independent_method": null,
       "evidence_reference": null
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-accepts-validity-proof",

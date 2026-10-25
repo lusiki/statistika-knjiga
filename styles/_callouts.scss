@@ -1,5 +1,5 @@
 // =====================================================================
-//  _callouts.scss — pedagoške kutije knjige
+//  _callouts.scss — pedagoške kutije knjige (sustav Zvono)
 // =====================================================================
 //  Četiri prepoznatljiva signala koja se ponavljaju u svakom poglavlju
 //  (vidi kostur poglavlja u CLAUDE.md i STYLE.md):
@@ -11,26 +11,29 @@
 //
 //  plus zatvarajući blok poglavlja: .primjer, .sazetak, .pojmovi, .zadaci-razina.
 //
-//  PRAVILO SUSTAVA. Svaki tip kutije razlikuje se CRTOM I OZNAKOM, nikad
-//  bojom pozadine. Tiskani blok je jednobojan; kad se boja oduzme, kutije
-//  moraju ostati međusobno razlučive. Zato: vinjeta ima 2 px gornju crtu,
-//  divljina je obrnuta traka, „pitajte model" ima točkasti okvir, a greška
-//  3 px gornju crtu bez ispune.
+//  PRAVILO SUSTAVA. Svaki tip kutije razlikuje se OBLIKOM, CRTOM I OZNAKOM.
+//  Boja pojačava, ali ne nosi razliku: tiskani blok je jednobojan.
+//    vinjeta   modra kupola, modra gornja crta, bez oznake
+//    divljina  puna ploha u tinti, krem disk u oznaci
+//    model     točkasti okvir, upit u monou
+//    greška    crvena obrnuta kupola (zdjelica), crvena gornja crta
 //
 //  Naziv kategorije ispisuje CSS (::before), ne autor — kutija u .qmd-u
-//  sadrži samo sadržaj. Za PDF isti se divovi omataju u tcolorbox preko
+//  sadrži samo sadržaj. Znak oblika crta se gradijentom iz tokena, pa ni
+//  ovdje nema sirove boje. Za PDF isti se divovi omataju u tcolorbox preko
 //  pdf-filters/book-callouts.lua i tex/theme.tex.
 // =====================================================================
 
-// Zajednička oznaka kategorije: mono verzal s razmaknutim slovima.
+// Zajednička oznaka kategorije: Jost 500 verzal s razmaknutim slovima.
 %oznaka-kutije {
   display: block;
-  font-family: $tok-font-mono;
-  font-size: 0.6875rem;
-  font-weight: 600;
+  font-family: $tok-font-sans;
+  font-size: 0.75rem;
+  font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  margin-bottom: 1rem;
 }
 
 .callout-vinjeta,
@@ -46,7 +49,7 @@
 
   p { max-width: none; }
 
-  // Svaka kutija ispisuje vlastitu oznaku ispod (načelo: oznaka, ne boja).
+  // Svaka kutija ispisuje vlastitu oznaku (načelo: oblik i oznaka, ne boja).
   &::before { @extend %oznaka-kutije; }
 }
 
@@ -61,62 +64,110 @@
 
 // ---------------------------------------------------------------------
 //  Vinjeta — otvarajući slučaj
-//  2 px gornja crta, vlas donja, tekst u displejnom kurzivu.
+//  Modra gornja crta, vlas donja, mala modra kupola umjesto oznake.
+//  Posljednji odlomak (pitanje vinjete) u Jostu 500.
 // ---------------------------------------------------------------------
 .callout-vinjeta {
   background: transparent;
   border: 0;
-  border-top: $tok-rule-width solid $tok-ink;
+  border-top: $tok-rule-width solid $tok-concept;
   border-bottom: 1px solid $tok-rule;
-  padding: 1.75rem 0 2rem;
+  padding: 1.25rem 0 1.75rem;
   margin: 0 0 3.5rem;
 
-  &::before { content: "Vinjeta"; color: $tok-ink-mute; }
+  &::before {
+    content: "";
+    width: 28px;
+    height: 14px;
+    margin-bottom: 1.1rem;
+    border-radius: $tok-radius-dome $tok-radius-dome 0 0;
+    background: $tok-concept;
+  }
 
   p {
-    font-family: $tok-font-display;
-    font-size: 1.375rem;
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1.45;
+    font-family: $tok-font-serif;
+    font-size: 1.0625rem;
+    line-height: 1.62;
+    color: $tok-ink-soft;
+    max-width: $tok-measure;
+  }
+
+  > p:last-child {
+    font-family: $tok-font-sans;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.4;
     color: $tok-ink;
-    max-width: 52ch;
   }
 }
 
 // ---------------------------------------------------------------------
-//  Statistika u divljini — obrnuta tamna traka
-//  Jedini element koji obrće papir. Tvrdnja stoji kao navod, rastavljanje
-//  ispod nje u prigušenom tonu.
+//  Statistika u divljini — puna ploha u tinti
+//  Jedini element koji obrće papir, uvijek unutar stupca teksta.
 // ---------------------------------------------------------------------
 .callout-divljina {
   background: $tok-ink;
-  color: $tok-paper-soft;
+  color: $tok-paper;
   border: 0;
-  padding: 2.25rem 2.5rem;
+  padding: 1.75rem 2rem 2rem;
   margin: 3.5rem 0;
   width: 100%;
   max-width: $tok-measure;
 
-  &::before { content: "Statistika u divljini"; color: $tok-accent; }
+  &::before {
+    content: "Statistika u divljini";
+    color: $tok-paper;
+    padding-left: 26px;
+    background: radial-gradient(circle at 8px 50%, $tok-paper 7.5px, transparent 8px) no-repeat;
+  }
 
-  p, li { color: $tok-paper-soft; max-width: 60ch; }
-  a { color: $tok-accent; text-decoration-color: rgba($tok-accent, 0.6); }
+  p, li { color: $tok-paper; max-width: none; }
+  a { color: $tok-accent; text-decoration-color: $tok-accent; }
   a:hover { color: $tok-accent-wash; }
-  code { background: transparent; color: $tok-accent-wash; }
+  code { background: transparent; color: $tok-accent; }
+
+  // Nested tables keep the callout's width, including on narrow screens.
+  .quarto-float {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-inline: 0;
+  }
+
+  .quarto-float-tbl > .quarto-float-caption {
+    color: $tok-rule;
+    margin-inline: 0;
+  }
+
+  table,
+  .table {
+    --bs-table-color: #{$tok-paper};
+    --bs-table-striped-color: #{$tok-paper};
+  }
+  thead th { color: $tok-paper; border-bottom-color: $tok-paper; }
+  tbody td { color: $tok-paper; border-bottom-color: $tok-ink-mute; }
+  tbody tr:last-child td { border-bottom-color: $tok-paper; }
+
+  .table-scrollable th:first-child,
+  .table-scrollable td:first-child {
+    background: $tok-ink;
+  }
+
+  @media (max-width: 600px) {
+    table { min-width: 34rem; }
+  }
 }
 
-// Naslov slučaja postaje sam navod: displejni kurziv na bijelom.
+// Naslov slučaja: Jost 500 na tamnoj plohi.
 .callout-divljina > p:first-of-type > strong:first-child {
   display: block;
-  font-family: $tok-font-display;
-  font-size: 1.375rem;
-  font-style: italic;
-  font-weight: 300;
-  line-height: 1.35;
-  color: $tok-surface;
+  font-family: $tok-font-sans;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: $tok-paper;
   max-width: 46ch;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 // ---------------------------------------------------------------------
@@ -151,25 +202,33 @@
 }
 
 // ---------------------------------------------------------------------
-//  Nađite grešku — AI analiza s točno jednom greškom
-//  3 px gornja crta, bez ispune. Oznaka podcrtana okerom: greška je
-//  zadatak, a zadatak je nešto što čitatelj dodiruje.
+//  Nađite grešku — analiza s točno jednom greškom
+//  Crvena gornja crta i crvena zdjelica. Tekst oznake ostaje u tinti:
+//  crvena kao tekst ima samo 3,7 : 1.
 // ---------------------------------------------------------------------
 .callout-greska {
   background: transparent;
   border: 0;
-  border-top: 3px solid $tok-ink;
-  padding: 1rem 0 0;
+  border-top: $tok-rule-width solid $tok-error;
+  border-bottom: 1px solid $tok-rule;
+  padding: 1rem 0 1.5rem;
   margin: 3rem 0;
 
   &::before {
     content: "Nađite grešku";
     color: $tok-ink;
     width: max-content;
-    text-decoration: underline;
-    text-decoration-color: $tok-accent;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
+    padding-left: 32px;
+    background: radial-gradient(circle at 11px 0, $tok-error 10.5px, transparent 11px) 0 50% / 22px 11px no-repeat;
+  }
+
+  blockquote {
+    font-family: $tok-font-serif;
+    font-style: italic;
+    color: $tok-ink-mute;
+    border-left: $tok-rule-width solid $tok-ink;
+    padding: 0.2rem 0 0.2rem 1rem;
+    margin: 1.25rem 0;
   }
 }
 
@@ -181,7 +240,7 @@
 }
 
 // =====================================================================
-//  Razrađeni primjer — viseći mono brojevi koraka
+//  Razrađeni primjer — koraci s diskom
 //  ::: {.primjer}  s podnaslovima ### Pitanje / ### Podaci / ### Model
 // =====================================================================
 .primjer {
@@ -191,65 +250,78 @@
   &::before {
     @extend %oznaka-kutije;
     content: "Razrađeni primjer";
-    color: $tok-accent-deep;
+    color: $tok-ink;
   }
 
   > h3,
   > .level3 > h3 {
     counter-increment: korak;
     display: grid;
-    grid-template-columns: 3rem 1fr;
+    grid-template-columns: 1.75rem 1fr;
     gap: 1rem;
-    align-items: baseline;
-    font-family: $tok-font-display;
+    align-items: center;
+    font-family: $tok-font-sans;
     font-size: 1.125rem;
-    font-weight: 400;
+    font-weight: 500;
     color: $tok-ink;
-    border-top: 1px solid $tok-rule-soft;
-    padding-top: 1.15rem;
+    border-top: 1px solid $tok-rule;
+    padding-top: 1rem;
     margin: 0 0 0.5rem;
 
     &::before {
-      content: counter(korak, decimal-leading-zero);
-      font-family: $tok-font-mono;
+      content: counter(korak);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: $tok-ink;
+      color: $tok-paper;
+      font-family: $tok-font-sans;
       font-size: 0.8125rem;
-      color: $tok-accent-deep;
+      font-weight: 500;
+      font-variant-numeric: lining-nums tabular-nums;
     }
   }
 
   > h3 + p,
   > h3 + p + p,
   > .level3 > h3 + p,
-  > .level3 > h3 + p + p { margin-left: 4rem; }
+  > .level3 > h3 + p + p { margin-left: 2.75rem; }
 }
 
 // =====================================================================
-//  Sažetak — uvučena traka
+//  Sažetak — uvučena ploha s crtom u tinti
 //  Piše se kao ## Sažetak {.sazetak}; klasa sjedi i na naslovu i na
-//  odjeljku koji Quarto oko njega omota, pa traka obuhvaća oboje.
+//  odjeljku koji Quarto oko njega omota, pa ploha obuhvaća oboje.
 // =====================================================================
 section.sazetak {
   background: $tok-paper-soft;
-  padding: 2.25rem 2.5rem;
+  border-top: $tok-heading-width solid $tok-ink;
+  padding: 1.75rem 2rem 2rem;
   margin: 4.5rem 0 2rem;
   max-width: none;
 
   > *:last-child { margin-bottom: 0; }
 
-  p, ul, ol { max-width: 58ch; }
+  p, ul, ol { max-width: $tok-measure; }
 
-  // Strelice umjesto točaka: sažetak vodi dalje, ne nabraja.
+  // Mali disk u tinti umjesto točke: oblik sustava, ne ukras.
   ul {
     list-style: none;
-    padding-left: 1.5rem;
+    padding-left: 1.25rem;
 
     li { position: relative; }
     li::before {
-      content: "→";
+      content: "";
       position: absolute;
-      left: -1.5rem;
-      color: $tok-accent-deep;
-      font-family: $tok-font-mono;
+      left: -1.25rem;
+      top: 0.6em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: $tok-ink;
     }
   }
 }
@@ -257,8 +329,8 @@ section.sazetak {
 h2.sazetak,
 h2.pojmovi {
   @extend %oznaka-kutije;
-  font-size: 0.6875rem;
-  color: $tok-ink-mute;
+  font-size: 0.75rem;
+  color: $tok-ink;
   border-top: 0;
   padding-top: 0;
   margin: 0 0 1.25rem;
@@ -271,8 +343,8 @@ h2.pojmovi {
 // =====================================================================
 section.pojmovi {
   margin: 3rem 0;
-  border-top: 1px solid $tok-rule;
-  padding-top: 1.75rem;
+  border-top: $tok-heading-width solid $tok-ink;
+  padding-top: 1.25rem;
 }
 
 .terminology-list {
@@ -307,10 +379,10 @@ section.pojmovi {
 }
 
 .terminology-list dd {
-  font-family: $tok-font-sans;
-  font-size: 0.8125rem;
+  font-family: $tok-font-serif;
+  font-size: 0.9375rem;
   font-style: italic;
-  color: $tok-ink-mute;
+  color: $tok-ink-faint;
   text-align: right;
 }
 
@@ -322,6 +394,7 @@ section.pojmovi {
 .terminology-list__chapter {
   display: block;
   margin-top: 0.2rem;
+  font-family: $tok-font-mono;
   font-size: 0.6875rem;
   font-style: normal;
   color: $tok-ink-faint;
@@ -346,8 +419,10 @@ section.pojmovi {
 
 // =====================================================================
 //  Zadaci — četiri razine na kraju poglavlja
-//  ### Konceptualni {.zadaci-razina} …
+//  ### Konceptualni {.zadaci-razina} …  Razina nosi disk s rednim brojem.
 // =====================================================================
+#quarto-document-content { counter-reset: razina; }
+
 section.zadaci-razina {
   border-top: 0;
   padding: 0 0 1.5rem;
@@ -370,36 +445,58 @@ section.zadaci-razina {
     &::before {
       content: counter(zadatak, decimal-leading-zero);
       font-family: $tok-font-mono;
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       color: $tok-ink-faint;
-      padding-top: 0.25rem;
+      padding-top: 0.2rem;
+      font-variant-numeric: tabular-nums lining-nums;
     }
   }
 }
 
 h3.zadaci-razina {
-  @extend %oznaka-kutije;
-  font-size: 0.6875rem;
-  color: $tok-accent-deep;
+  counter-increment: razina;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: $tok-font-sans;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: $tok-ink;
   border-top: 1px solid $tok-rule;
-  padding-top: 1.5rem;
+  padding-top: 1.25rem;
   margin: 0 0 0.75rem;
+
+  &::before {
+    content: counter(razina);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: $tok-ink;
+    color: $tok-paper;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
 }
 
 // Na telefonu oznaka uvijek dobiva vlastiti redak, a kutije čuvaju mjeru
 // smanjivanjem uvlake umjesto smanjivanjem čitateljskog teksta.
 @media (max-width: 600px) {
   .callout-vinjeta {
-    padding-top: 1.25rem;
+    padding-top: 1rem;
     margin-bottom: 2.75rem;
   }
 
-  .callout-vinjeta::before,
   .callout-divljina::before,
   .callout-model::before,
   .callout-greska::before {
     display: block;
-    width: 100%;
     margin-bottom: 0.875rem;
   }
 
@@ -409,7 +506,7 @@ h3.zadaci-razina {
   }
 
   section.sazetak {
-    padding: 1.75rem 1.25rem;
+    padding: 1.5rem 1.25rem;
   }
 }
 
@@ -419,7 +516,7 @@ h3.zadaci-razina {
 .var {
   font-size: 0.88em;
   background: $tok-accent-wash;
-  border-radius: $tok-radius;
+  border-radius: 0;
   padding: 0.05em 0.32em;
-  color: $tok-accent-deep;
+  color: $tok-ink;
 }

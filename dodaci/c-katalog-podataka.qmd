@@ -4,16 +4,16 @@ title: "Katalog podataka"
 
 <!-- Generira scripts/build-appendix-c-views.R iz data/katalog.yml. -->
 
-Dodatak C je čitateljski prikaz kanonskoga kataloga podataka. Paket bez
-provjerljivoga podrijetla, licence, pristupne trake i granice tvrdnje ne
-postaje obvezni podatkovni put. Strojno čitljiv izvor ostaje isključivo
-`data/katalog.yml`; ovaj se dodatak i stranica Podaci regeneriraju zajedno.
+Katalog navodi podrijetlo skupova, uvjete njihove uporabe, način pristupa
+i zaključke koje mogu poduprijeti. Skup se može koristiti u obveznom
+zadatku tek kada su ti podaci provjereni. Ovaj dodatak i stranica Podaci
+nastaju zajedno iz zapisa `data/katalog.yml`.
 
 ## Kako čitati katalog {#sec-c-kako-citati}
 
-Traka `bundled` znači da se deklarirane datoteke smiju isporučiti uz zabilježene uvjete. `portal-mediated` vodi čitatelja službenomu izvoru, a `external-only` ostavlja paket izvan repozitorija. Ni jedna traka sama po sebi nije promocija.
+Oznaka `bundled` znači da se navedene datoteke smiju priložiti knjizi pod zabilježenim uvjetima. Oznaka `portal-mediated` upućuje na službeni izvor, a `external-only` znači da datoteke nisu priložene knjizi. Način pristupa sam ne određuje je li skup odabran za obvezne zadatke.
 
-Za javnu rutu i dokaz regeneracije služi
+Zapis za provjeru podrijetla i ponovne izrade ovoga kataloga nalazi se u datoteci
 [`config/appendix-c-data-route.json`](../config/appendix-c-data-route.json).
 
 ## Provjerljivi redci generiranih skupova {#sec-c-provjera}
@@ -93,10 +93,10 @@ Provjera|Vrsta mjere|Rezultat usklađenja
 |---|---|---|
 | mjeseci-u-objavljenu-godinu | administrativno prebrojavanje | 126 usporedbi; tolerancija 0; najveći ostatak 0 |
 | domaći-i-strani-u-ukupno | administrativno prebrojavanje | 42 usporedbi; tolerancija 0; najveći ostatak 0 |
-| zupanije-u-državni-redak | administrativno prebrojavanje | 6 usporedbi; tolerancija 0; najveći ostatak 0 |
-| zupanije-2025-u-nacionalni-ukupno | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
-| zupanije-2025-u-nacionalni-domaći | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
-| zupanije-2025-u-nacionalni-strani | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
+| županije-u-državni-redak | administrativno prebrojavanje | 6 usporedbi; tolerancija 0; najveći ostatak 0 |
+| županije-2025-u-nacionalni-ukupno | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
+| županije-2025-u-nacionalni-domaći | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
+| županije-2025-u-nacionalni-strani | administrativno prebrojavanje | 2 usporedbi; tolerancija 0; najveći ostatak 0 |
 | anketa-odrediste | anketna procjena | 72 usporedbi; tolerancija 1; najveći ostatak 1 |
 | anketa-trajanje | anketna procjena | 72 usporedbi; tolerancija 1; najveći ostatak 1 |
 | anketa-dobne-skupine | anketna procjena | 54 usporedbi; tolerancija 1; najveći ostatak 1 |
@@ -107,10 +107,10 @@ Provjera|Datoteke
 |---|---|
 | mjeseci-u-objavljenu-godinu | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-mjesecno.csv` |
 | domaći-i-strani-u-ukupno | `data/dzs-turizam-godisnje.csv` |
-| zupanije-u-državni-redak | `data/dzs-turizam-zupanije-2025.csv` |
-| zupanije-2025-u-nacionalni-ukupno | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
-| zupanije-2025-u-nacionalni-domaći | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
-| zupanije-2025-u-nacionalni-strani | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
+| županije-u-državni-redak | `data/dzs-turizam-zupanije-2025.csv` |
+| županije-2025-u-nacionalni-ukupno | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
+| županije-2025-u-nacionalni-domaći | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
+| županije-2025-u-nacionalni-strani | `data/dzs-turizam-godisnje.csv`, `data/dzs-turizam-zupanije-2025.csv` |
 | anketa-odrediste | `data/dzs-putovanja-stanovnistva-2024.csv` |
 | anketa-trajanje | `data/dzs-putovanja-stanovnistva-2024.csv` |
 | anketa-dobne-skupine | `data/dzs-putovanja-stanovnistva-2024.csv` |
@@ -119,7 +119,7 @@ Provjera|Datoteke
 
 ## Zapisi paketa {#sec-c-paketi}
 
-Svaki zapis u nastavku čuva isto pitanje, jedinicu, traku, status, datoteke i granice tvrdnje koje katalog vodi za taj paket.
+Uz svaki skup navodimo istraživačko pitanje, jedinicu, način pristupa, status uporabe, datoteke i granice zaključivanja. Podaci se preuzimaju iz zajedničkog kataloga.
 
 ## Anketa o društvenim mrežama, generirani nastavni skup {#sec-data-anketa-mreze}
 
@@ -134,9 +134,9 @@ Polje|Vrijednost
 | Jedinica | jedan ispitanik |
 | Pitanje | Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje? |
 | Uloga | Poznata populacija za ponovljeno uzorkovanje i za čitanje procjene s intervalom. |
-| Potrošači | WB-C04; WB-C05; WB-C06; WE-C18; P5-A; P5-B; P5-C |
-| Traka | `bundled` |
-| Razred osvježavanja | `generated` |
+| Uporaba u knjizi | WB-C04; WB-C05; WB-C06; WE-C18; P5-A; P5-B; P5-C |
+| Način pristupa | `bundled` |
+| Osvježavanje | `generated` |
 | Inačica | 300 opažanja, sjeme 4001; inačica je deklarirano stanje izvora P1B-DATA-LIC |
 
 ### Izvor, prava i pristup
@@ -214,9 +214,9 @@ Polje|Vrijednost
 | Jedinica | jedna osoba u generiranoj populaciji |
 | Pitanje | Kako se povjerenje u medije mijenja s dobi i izvorom vijesti? |
 | Uloga | Poznata populacija iz koje se uzorkuje, i poznati model za regresiju. |
-| Potrošači | WA-C00; WA-C01; WA-C03; WC-C07; WC-C08; WC-C09; WC-C10; WC-C11; WD-C13; WD-C14; WD-C15; WD-C16; P5-A; P5-B; P5-C |
-| Traka | `bundled` |
-| Razred osvježavanja | `generated` |
+| Uporaba u knjizi | WA-C00; WA-C01; WA-C03; WC-C07; WC-C08; WC-C09; WC-C10; WC-C11; WD-C13; WD-C14; WD-C15; WD-C16; P5-A; P5-B; P5-C |
+| Način pristupa | `bundled` |
+| Osvježavanje | `generated` |
 | Inačica | 50000 opažanja, sjeme 8001; inačica je deklarirano stanje izvora P1B-DATA-LIC |
 
 ### Izvor, prava i pristup
@@ -294,9 +294,9 @@ Polje|Vrijednost
 | Jedinica | jedna prijava, agregirana po odjelu, spolu i ishodu |
 | Pitanje | Kako zbirna stopa upisa može obrnuti predznak razlike po odjelima? |
 | Uloga | Orijentir za Simpsonov paradoks i za uvjetne nazivnike. |
-| Potrošači | WA-C01; WA-C02; WB-C06; WD-C13; P5-C |
-| Traka | `external-only` |
-| Razred osvježavanja | `frozen` |
+| Uporaba u knjizi | WA-C01; WA-C02; WB-C06; WD-C13; P5-C |
+| Način pristupa | `external-only` |
+| Osvježavanje | `frozen` |
 | Inačica | R 4.6.0 |
 
 ### Izvor, prava i pristup
@@ -314,7 +314,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -341,7 +341,7 @@ Pitanje|Odgovor
 Redni broj|Ograničenje
 |---|---|
 | 1 | Dostupnost kroz R nije dopuštenje za repozitorijsku kopiju. |
-| 2 | Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno cista obvezna zamjena ostaju. |
+| 2 | Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno čista obvezna zamjena ostaju. |
 
 ## Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije {#sec-data-anscombe}
 
@@ -356,9 +356,9 @@ Polje|Vrijednost
 | Jedinica | jedan konstruirani par vrijednosti |
 | Pitanje | Zašto četiri skupa s istim sažetcima izgledaju posve različito? |
 | Uloga | Orijentir koji pokazuje da sažetak ne zamjenjuje prikaz. |
-| Potrošači | WB-C05; WB-C06; P5-C |
-| Traka | `external-only` |
-| Razred osvježavanja | `frozen` |
+| Uporaba u knjizi | WB-C05; WB-C06; P5-C |
+| Način pristupa | `external-only` |
+| Osvježavanje | `frozen` |
 | Inačica | R 4.6.0 |
 
 ### Izvor, prava i pristup
@@ -376,7 +376,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -401,7 +401,7 @@ Pitanje|Odgovor
 Redni broj|Ograničenje
 |---|---|
 | 1 | Skup je konstruiran, a ne simuliran iz sjemena; nosi ulogu poznate istine bez generatora. |
-| 2 | Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno cista obvezna zamjena ostaju. |
+| 2 | Autorska dispozicija deferred_v2_with_reason odnosi se samo na lokalnu redistribuciju; neobvezna vanjska ruta i licencno čista obvezna zamjena ostaju. |
 
 ## DZS turizam, omeđeni izvadak {#sec-data-dzs-turizam}
 
@@ -416,9 +416,9 @@ Polje|Vrijednost
 | Jedinica | Jedan objavljeni redak službene tablice. U mjesečnoj i godišnjoj datoteci to je zabilježeni DOLAZAK, ne osoba; u anketnoj datoteci procijenjeno PUTOVANJE stanovnika, ne osoba. |
 | Pitanje | Kako se dolasci i noćenja mijenjaju kroz godinu i po županijama? |
 | Uloga | Službeni agregat s potiskivanjem, revizijama i opasnošću dvostrukoga brojanja. |
-| Potrošači | nije zabilježeno |
-| Traka | `bundled` |
-| Razred osvježavanja | `pinned` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `bundled` |
+| Osvježavanje | `pinned` |
 | Inačica | Izdanje je prikvačeno posljednjim objavljenim opažanjem u trenutku preuzimanja. BS_TU11 i BS_TU12 zaključno s 2026-05, T03 zaključno s 2024. Izvadak uzima samo cjelovite kalendarske godine, pa je posljednja godina u mjesečnom nizu 2025., presjek županija je 2025., a anketna godina 2024. Preuzeto 27. srpnja 2026. |
 
 ### Izvor, prava i pristup
@@ -505,7 +505,7 @@ Redni broj|Ograničenje
 |---|---|
 | 1 | Godišnji i mjesečni redci ne smiju se zbrajati zajedno; zato stoje u dvjema datotekama. |
 | 2 | Jedinica je DOLAZAK, ne osoba. Od 2017. izvor je eVisitor, a gost koji promijeni smještaj prijavljuje se ponovno i broji se opet. Vrijednost za 2025. znači 20698963 dolaska, ne 20,7 milijuna ljudi. Noćenja su stabilnija mjera obujma. |
-| 3 | REPUBLIKA HRVATSKA i zupanije stoje u istom stupcu objavljene tablice bez oznake razine; zbrajanje toga stupca dvostruko broji cijelu državu. |
+| 3 | REPUBLIKA HRVATSKA i županije stoje u istom stupcu objavljene tablice bez oznake razine; zbrajanje toga stupca dvostruko broji cijelu državu. |
 | 4 | Rezidentnost je u BS_TU11 pisana malim, a u BS_TU12 velikim početnim slovom; spajanje dviju tablica po tome stupcu traži da se to primijeti. |
 | 5 | Anketna tablica je procjena iz uzorka, a mjesečna i županijska su administrativno prebrojavanje; njihove se brojke ne smiju zbrajati ni uspoređivati kao da mjere istu veličinu. |
 | 6 | U anketnoj tablici dijelovi ne daju točno zbroj, s najvećim ostatkom 1, jer je svaka ćelija zasebno zaokružena procjena. |
@@ -524,9 +524,9 @@ Polje|Vrijednost
 | Jedinica | neodabrana |
 | Pitanje | Nije određeno jer domena i tablice nisu odabrane. |
 | Uloga | Nije potreban za prvo izdanje. |
-| Potrošači | nije zabilježeno |
-| Traka | `external-only` |
-| Razred osvježavanja | `external-only` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `external-only` |
+| Osvježavanje | `external-only` |
 | Inačica | neodabrana |
 
 ### Izvor, prava i pristup
@@ -544,7 +544,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -577,9 +577,9 @@ Polje|Vrijednost
 | Jedinica | jedna izborna jedinica I.-XII. u službenoj tablici odaziva; XII. jedinica za važeći i nevažeći listić koristi zbroj šest objavljenih manjinskih redaka |
 | Pitanje | Kako se izlaznost mijenja po izbornim jedinicama i što joj je nazivnik? |
 | Uloga | Potpuni zabilježeni događaji, brojnik i nazivnik, razlika zapisa i ljudi. |
-| Potrošači | WA-C03; P5-C; P5-G |
-| Traka | `portal-mediated` |
-| Razred osvježavanja | `frozen` |
+| Uporaba u knjizi | WA-C03; P5-C; P5-G |
+| Način pristupa | `portal-mediated` |
+| Osvježavanje | `frozen` |
 | Inačica | portal pregledan 2026-08-05; rezultati_sabor.zip Last-Modified `2024-10-07T14:53:07Z`, ETag `c4d2139fc818db1:0`, 11173400 bajtova; službeno Izvješće Last-Modified `2024-04-25T10:40:55Z`, ETag `a5d26adfd96da1:0`, 2883428 bajtova. ETag je poslužiteljski identifikator, ne kontrolni zbroj lokalne kopije. |
 
 ### Izvor, prava i pristup
@@ -597,7 +597,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -631,9 +631,9 @@ Polje|Vrijednost
 | Jedinica | jedan akter po platformi na određeni datum |
 | Pitanje | Kako se vidljivost aktera razlikuje po platformama u jednom presjeku? |
 | Uloga | Digitalni trag sa selekcijom u opažanje i metodološkim rezom. |
-| Potrošači | nije zabilježeno |
-| Traka | `external-only` |
-| Razred osvježavanja | `manual-derived` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `external-only` |
+| Osvježavanje | `manual-derived` |
 | Inačica | komponentne inačice i prava nisu evidentirani |
 
 ### Izvor, prava i pristup
@@ -643,7 +643,7 @@ Polje|Vrijednost
 | Izvor | Predloženi lokalni agregat iz komponenti DigiKata. |
 | Licenca | nema mjerodavne komponentne licencne matrice |
 | Atribucija | Nije moguće dovršiti prije G-A3-DIGIKAT i P3-DIGIKAT. |
-| Pristup | Vanjsko projektno okruzenje. |
+| Pristup | Vanjsko projektno okruženje. |
 | Redistribucija | nije dokazana |
 | Zakonita zamjena | Kandidat je napušten. Svu odobrenu ulogu preuzima digikat_mediji, a obvezna vježba može koristiti i anketa_mreže kao generiranu zamjenu. |
 | Putovnica | nije objavljena |
@@ -651,7 +651,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -690,9 +690,9 @@ Polje|Vrijednost
 | Jedinica | jedna objava |
 | Pitanje | Što se može i što se ne može reproducirati iz ograničenoga komercijalnog izvora? |
 | Uloga | Granica između zanimljivoga rezultata i onoga koji čitatelj može provjeriti. |
-| Potrošači | nije zabilježeno |
-| Traka | `external-only` |
-| Razred osvježavanja | `external-only` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `external-only` |
+| Osvježavanje | `external-only` |
 | Inačica | nije kandidat za javni repozitorij knjige |
 
 ### Izvor, prava i pristup
@@ -700,7 +700,7 @@ Polje|Vrijednost
 Polje|Vrijednost
 |---|---|
 | Izvor | Puni korpus u vanjskom projektnom okruženju Determ. |
-| Licenca | ograniceni projektni materijal; nije dostavljena ovlast za javnu redistribuciju |
+| Licenca | ograničeni projektni materijal; nije dostavljena ovlast za javnu redistribuciju |
 | Atribucija | Vanjski projekt i vlasnici pojedinih komponenti prema budućoj provjeri. |
 | Pristup | Samo izvan repozitorija knjige. |
 | Redistribucija | nije dopuštena |
@@ -710,7 +710,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -743,9 +743,9 @@ Polje|Vrijednost
 | Jedinica | Jedna država članica EU-a za jedan pokazatelj u jednoj, zajedničkoj referentnoj godini. Redak je državni agregat, a ne osoba. |
 | Pitanje | Kako se isti pokazatelj razlikuje među zemljama u istoj godini? |
 | Uloga | Usporedivost, oznake kvalitete i granica ekološke interpretacije. |
-| Potrošači | WB-C06; P5-C |
-| Traka | `bundled` |
-| Razred osvježavanja | `pinned` |
+| Uporaba u knjizi | WB-C06; P5-C |
+| Način pristupa | `bundled` |
+| Osvježavanje | `pinned` |
 | Inačica | Presjek 2025. preuzet 10. kolovoza 2026. Verzije struktura redom su 47.0, 80.0, 44.0, 48.0, 52.0 i 33.0; vremena ažuriranja svakoga skupa stoje u data/eurostat_drustvo/USKLADJENJE.json i putovnici. |
 
 ### Izvor, prava i pristup
@@ -817,9 +817,9 @@ Polje|Vrijednost
 | Jedinica | jedan ispitanik ESS Round 11 iz Hrvatske, s izvornim nacrtnim varijablama |
 | Pitanje | Među hrvatskim ispitanicima u službenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje između neponderirane procjene i procjene s anweight, te koje pogreške odabira ili mjerenja ponder ne može ukloniti? |
 | Uloga | Neobvezna portalna replikacija za reprezentativnost, neodgovor, težine i mjerenje na razini osobe; anweight je zadana analiza, a dweight, pspwght, pweight, prob, stratum i psu ostaju izloženi radi čitanja nacrta. |
-| Potrošači | WC-C08; WD-C13; WD-C14; WD-C15; P5-C |
-| Traka | `portal-mediated` |
-| Razred osvježavanja | `pinned` |
+| Uporaba u knjizi | WC-C08; P5-C |
+| Način pristupa | `portal-mediated` |
+| Osvježavanje | `pinned` |
 | Inačica | Round 11, edition 3.0 |
 
 ### Izvor, prava i pristup
@@ -837,7 +837,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -884,9 +884,9 @@ Polje|Vrijednost
 | Jedinica | jedna zemlja u jednoj godini |
 | Pitanje | Kako se latentni pojam poput demokracije pretvara u broj s nesigurnošću? |
 | Uloga | Operacionalizacija, neslaganje kodera i nesigurnost oko ocjene. |
-| Potrošači | nije zabilježeno |
-| Traka | `external-only` |
-| Razred osvježavanja | `external-only` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `external-only` |
+| Osvježavanje | `external-only` |
 | Inačica | v16 |
 
 ### Izvor, prava i pristup
@@ -904,7 +904,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -917,7 +917,7 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije određuje istraživacki konzorcij i njegovi koderi. |
+| `category_ownership` | Kategorije određuje istraživački konzorcij i njegovi koderi. |
 | `absence` | Zemlje i godine bez kodiranja nisu u skupu. |
 | `identifiability` | Agregat na razini zemlje. |
 | `beneficiaries` | Čitatelj koji uči da je i ocjena mjerenje s pogreškom. |
@@ -937,9 +937,9 @@ Polje|Vrijednost
 | Jedinica | jedan dobrovoljni sudionik |
 | Pitanje | Zašto vrlo velik dobrovoljni uzorak ne popravlja samoodabir? |
 | Uloga | Otvorenost nije reprezentativnost. |
-| Potrošači | nije zabilježeno |
-| Traka | `external-only` |
-| Razred osvježavanja | `external-only` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `external-only` |
+| Osvježavanje | `external-only` |
 | Inačica | neodabrana |
 
 ### Izvor, prava i pristup
@@ -957,7 +957,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -970,7 +970,7 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Kategorije određuje istraživacki konzorcij. |
+| `category_ownership` | Kategorije određuje istraživački konzorcij. |
 | `absence` | Tko nije vidio poziv ili nije htio sudjelovati, nije u podacima. |
 | `identifiability` | Ovisi o točnoj OSF datoteci; nije utvrđeno. |
 | `beneficiaries` | Čitatelj koji uči da veličina ne popravlja odabir. |
@@ -990,9 +990,9 @@ Polje|Vrijednost
 | Jedinica | jedna zemlja u jednoj godini |
 | Pitanje | Nije određeno jer pokazatelj nije odabran. |
 | Uloga | Neobvezno proširenje; tekstni paket ima prednost. |
-| Potrošači | nije zabilježeno |
-| Traka | `external-only` |
-| Razred osvježavanja | `external-only` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `external-only` |
+| Osvježavanje | `external-only` |
 | Inačica | neodabrana |
 
 ### Izvor, prava i pristup
@@ -1010,7 +1010,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -1043,9 +1043,9 @@ Polje|Vrijednost
 | Jedinica | jedan govor s metapodacima govornika |
 | Pitanje | Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi? |
 | Uloga | Registrirani, ali nepromovirani kandidat. Odluka A-P3-TEXT-ROUTE-2026-08-18 uklonila je govornu vezu i svaki ParlaMint-only izlaz iz prvoga izdanja tekstnoga paketa. |
-| Potrošači | nije zabilježeno |
-| Traka | `bundled` |
-| Razred osvježavanja | `pinned` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `bundled` |
+| Osvježavanje | `pinned` |
 | Inačica | 5.0 |
 
 ### Izvor, prava i pristup
@@ -1063,7 +1063,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -1098,9 +1098,9 @@ Polje|Vrijednost
 | Jedinica | jedna označena rečenica |
 | Pitanje | Kako se ljudska oznaka pretvara u zabilježeni referentni ishod, i koliko je pogrešiva? |
 | Uloga | Okvir kodiranja, dva različita puta nastanka oznake i dokumentno razdvajanje bez curenja za omeđeni rečenični zadatak u poglavlju 17 te prijenos paketa dokaza u poglavlju 18 bez nove metode. |
-| Potrošači | WD-C17; WE-C18; P5-A; P5-B; P5-C |
-| Traka | `bundled` |
-| Razred osvježavanja | `pinned` |
+| Uporaba u knjizi | WD-C17; WE-C18; P5-A; P5-B; P5-C |
+| Način pristupa | `bundled` |
+| Osvježavanje | `pinned` |
 | Inačica | 1.0, izdanje 18. rujna 2023.; hrvatski ParlaSent-only izvadak P3-TEXT od 18. kolovoza 2026. |
 
 ### Izvor, prava i pristup
@@ -1164,9 +1164,9 @@ Polje|Vrijednost
 | Jedinica | jedan poslovni subjekt |
 | Pitanje | Što se smije tvrditi iz izvora koji čitatelj ne može otvoriti? |
 | Uloga | Granica reproducibilnosti; samo citirani objavljeni agregat ili izostavljanje. |
-| Potrošači | nije zabilježeno |
-| Traka | `external-only` |
-| Razred osvježavanja | `external-only` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `external-only` |
+| Osvježavanje | `external-only` |
 | Inačica | neodabrana |
 
 ### Izvor, prava i pristup
@@ -1184,7 +1184,7 @@ Polje|Vrijednost
 
 ### Datoteke i varijable
 
-Paket nema materijaliziranu datoteku.
+Datoteka ovoga skupa nije priložena knjizi.
 
 ### Dopuštene i nedostupne tvrdnje
 
@@ -1201,7 +1201,7 @@ Pitanje|Odgovor
 | `absence` | Nije odredivo prije odabira izvora i dokumentiranja njegova obuhvata. |
 | `identifiability` | Nije odredivo prije odabira izvora i pregleda odabranih polja. |
 | `beneficiaries` | Čitatelj koji uči prepoznati nereproducibilan dokaz. |
-| `error_burden` | Pogrešan zaključak iz neodabranoga izvora pada na citatelja koji ga ne može provjeriti. |
+| `error_burden` | Pogrešan zaključak iz neodabranoga izvora pada na čitatelja koji ga ne može provjeriti. |
 | `appeal` | Nije odredivo prije odabira izvora i provjere njegova puta ispravka. |
 
 ## DigiKat, agregat digitalnoga medijskog prostora {#sec-data-digikat-mediji}
@@ -1217,9 +1217,9 @@ Polje|Vrijednost
 | Jedinica | Jedna ćelija agregata, ne jedna objava. U platformskim datotekama to je platforma u godini ili u mjesecu; u datoteci izvora jedan izvor kroz cijeli raspon korpusa. Pojedinačna objava nije u ovim datotekama i ne može se iz njih obnoviti. |
 | Pitanje | Kako se objavljivanje i vidljivost razlikuju među platformama i među izvorima? |
 | Uloga | Zakošena raspodjela izvora i mjerni instrument koji ne pokriva sve platforme jednako. |
-| Potrošači | WB-C04; WB-C05; WB-C06; WD-C16; P5-C |
-| Traka | `bundled` |
-| Razred osvježavanja | `manual-derived` |
+| Uporaba u knjizi | WB-C04; WB-C05; WB-C06; WD-C16; P5-C |
+| Način pristupa | `bundled` |
+| Osvježavanje | `manual-derived` |
 | Inačica | Agregati projekta na dan 22. srpnja 2026. Raspon korpusa je siječanj 2021. do lipnja 2026. Godina 2024. nema veljaču-svibanj i siječanj joj je djelomičan; 2026. ima šest od dvanaest mjeseci. Obje su označene kao nepotpune, a promjene obuhvata i lom iz lipnja 2024. nose zasebnu oznaku. |
 
 ### Izvor, prava i pristup
@@ -1286,7 +1286,7 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Vrste izvora određuje komercijalni pružatelj usluge praćenja medija, a pravilo ulaska u korpus određuje istraživacki tim. |
+| `category_ownership` | Vrste izvora određuje komercijalni pružatelj usluge praćenja medija, a pravilo ulaska u korpus određuje istraživački tim. |
 | `absence` | Izvori koje pružatelj ne prati ne postoje u ovim brojkama, i njihova se odsutnost iz datoteke ne vidi. |
 | `identifiability` | Nijedna imenovana osoba nije u izvatku. Zadržane su samo organizacije prepoznate po goloj internetskoj domeni; deset uzvodnih tablica s imenovanim akterima namjerno je izostavljeno. |
 | `beneficiaries` | Čitatelj koji uči što digitalni trag mjeri, a što ne. |
@@ -1319,9 +1319,9 @@ Polje|Vrijednost
 | Jedinica | Jedna agregatna ćelija. Ovisno o datoteci to je skupina primatelja, godina, razred veličine, vrsta potpore ili jedan naslovni pokazatelj. Pojedinačna dodjela i pojedinačni primatelj nisu u ovim datotekama i nijedan OIB se ne pojavljuje. |
 | Pitanje | Koliko je koncentrirana dodjela državnih potpora i koliko ju je snimka registra uopće zabilježila? |
 | Uloga | Registar nije potpuni popis; prikazuje obuhvat snimke naspram službenoga iznosa. |
-| Potrošači | nije zabilježeno |
-| Traka | `bundled` |
-| Razred osvježavanja | `manual-derived` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `bundled` |
+| Osvježavanje | `manual-derived` |
 | Inačica | Snimka registra od 19. srpnja 2026., dodjele 2017.-2025. sa statusom Ispravan i pozitivnim iznosom. Redci sa statusom Upozorenje isključeni su. |
 
 ### Izvor, prava i pristup
@@ -1447,9 +1447,9 @@ Polje|Vrijednost
 | Jedinica | Jedna godina. U datoteci izvora to je godina s pet odvojenih procjena, u spojenoj datoteci godina jednoga ulančanog niza, a u datoteci razdoblja jedno imenovano razdoblje. |
 | Pitanje | Koliko se razlikuju objavljene procjene iste veličine i što se dobiva kad ih se spoji u jedan niz? |
 | Uloga | Pet objavljenih procjena iste veličine, s različitim jedinicama i sa spojenim nizom. |
-| Potrošači | nije zabilježeno |
-| Traka | `bundled` |
-| Razred osvježavanja | `manual-derived` |
+| Uporaba u knjizi | nije zabilježeno |
+| Način pristupa | `bundled` |
+| Osvježavanje | `manual-derived` |
 | Inačica | Sastav projekta AI.econ od 22. lipnja 2026. Raspon 1870.-2025.; četiri točke prije 1910. su pojedinačne referentne procjene, ne godišnji niz. |
 
 ### Izvor, prava i pristup
@@ -1513,7 +1513,7 @@ Status|Granica tvrdnje
 
 Pitanje|Odgovor
 |---|---|
-| `category_ownership` | Definicije i baze određuju europska i međunarodna statistička metodologija te pojedini akademski autori, a ne istraživac. |
+| `category_ownership` | Definicije i baze određuju europska i međunarodna statistička metodologija te pojedini akademski autori, a ne istraživač. |
 | `absence` | Godine koje pojedina procjena ne pokriva ostaju vidljive kao '..', a ne popunjene interpolacijom. |
 | `identifiability` | Agregat; nijedna osoba nije prepoznatljiva. |
 | `beneficiaries` | Čitatelj koji uči da jedinica i baza mjerenja nisu detalj. |
@@ -1524,7 +1524,7 @@ Pitanje|Odgovor
 
 Redni broj|Ograničenje
 |---|---|
-| 1 | Pet stupaca nisu usporedive razine i redak se ne smije prosjeciti. |
+| 1 | Pet stupaca nisu usporedive razine i redak se ne smije prosječiti. |
 | 2 | Godine 1991.-1995. su rekonstruirane, a ne opažene, i označene su stupcem prekid. |
 | 3 | Ticina rekonstrukcija je backcast; autor sam upozorava na oprez. |
 | 4 | Četiri točke prije 1910. su pojedinačne referentne procjene, ne godišnji niz. |

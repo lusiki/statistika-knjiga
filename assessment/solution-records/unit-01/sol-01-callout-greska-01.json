@@ -8,27 +8,27 @@
     "anchor": "ex-01-callout-greska-01"
   },
   "task_class": "callout_greska",
-  "prompt_fingerprint": "sha256:a26b0f860b2080439a6ce07af470068fead1292ce6da77ee2d6909a10153add5",
+  "prompt_fingerprint": "sha256:b7d63c920335f9dbb399a5968478a7d594f75e7990c57668adfa2814e4d0e94d",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "count-substituted-for-within-group-share",
-      "statement": "Iz većega broja osoba spremnih platiti na portalima izvedeno je da portal ima i veći udio takvih osoba.",
-      "why_wrong": "Brojevi 3.514 i 1.289 imaju različite nazivnike. Portal ima 3.514 od 15.101, odnosno 23,27 %, a tisak 1.289 od 4.855, odnosno 26,55 %, pa portal ima veći broj, ali manji udio."
+      "statement": "Iz većega broja osoba spremnih platiti u televizijskoj i radijskoj skupini zajedno izvedeno je da televizija i radio zajedno imaju i veći udio takvih osoba.",
+      "why_wrong": "Brojevi 4.301 i 1.289 imaju različite nazivnike. Televizija i radio zajedno imaju 4.301 od 16.666, odnosno 25,81 %, a tisak 1.289 od 4.855, odnosno 26,55 %, pa televizija i radio zajedno imaju veći broj, ali manji udio."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Za portal i tisak zasebno podijeliti broj osoba spremnih platiti ukupnim brojem osoba u toj skupini, a zatim usporediti dobivene udjele umjesto brojnika.",
-      "expected_evidence": "3.514 / 15.101 = 23,27 %, dok je 1.289 / 4.855 = 26,55 %; smjer usporedbe udjela suprotan je usporedbi brojeva."
+      "procedure": "Za televiziju i radio zajedno te za tisak zasebno podijeliti broj osoba spremnih platiti ukupnim brojem osoba u toj skupini, a zatim usporediti dobivene udjele umjesto brojnika.",
+      "expected_evidence": "Točni su udio tiska od 26,55 % i podatak da televizija i radio zajedno imaju više osoba spremnih platiti. Za udio televizije i radija zajedno treba podijeliti 4.301 s 16.666, pa dobivamo 25,81 %. Za usporedbu tih dviju skupina tablica je dovoljna; ne objašnjava zašto se skupine razlikuju.\n\nJedna moguća zamjena glasi ovako.\n\nTelevizija i radio zajedno imaju više osoba spremnih platiti nego tisak, 4.301 prema 1.289. Među njihovim je korisnicima, međutim, manji udio spremnih platiti, 25,81 % prema 26,55 %; oba opisa vrijede za zadanu simulaciju.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
       "not_applicable_reason": null,
       "responses": [
         {
-          "response": "Portal ima više osoba spremnih platiti, pa je zaključak točan.",
+          "response": "Televizija i radio zajedno imaju više osoba spremnih platiti, pa je zaključak točan.",
           "why_insufficient": "Ponavlja usporedbu brojnika i ne izračunava udio unutar skupine koji posljednja rečenica tvrdi."
         },
         {
@@ -37,7 +37,7 @@
         },
         {
           "response": "Tisak ima udio od 26,55 %.",
-          "why_insufficient": "Navodi samo jedan rezultat i ne pokazuje zašto veći portalni broj ne znači veći portalni udio."
+          "why_insufficient": "Navodi samo jedan rezultat i ne pokazuje zašto veći broj u televizijskoj i radijskoj skupini ne znači veći portalni udio."
         }
       ]
     },
@@ -47,8 +47,8 @@
       "components": [
         {
           "component_id": "portal-numerator-denominator-share",
-          "required_claim": "Portal ima 3.514 spremnih platiti među 15.101 osobom, odnosno 23,27 %.",
-          "required_evidence": "Redak portal u prikazanoj tablici i neovisni račun 3.514 / 15.101."
+          "required_claim": "Televizija i radio zajedno imaju 4.301 spremnih platiti među 16.666 osobom, odnosno 25,81 %.",
+          "required_evidence": "Redak TV i radio zajedno u prikazanoj tablici i neovisni račun 4.301 / 16.666."
         },
         {
           "component_id": "print-numerator-denominator-share",
@@ -57,23 +57,28 @@
         },
         {
           "component_id": "name-and-correct-only-error",
-          "required_claim": "Jedina je pogreška zamjena većega broja većim udjelom; ispravno je reći da portal ima veći broj, a tisak veći udio.",
+          "required_claim": "Jedina je pogreška zamjena većega broja većim udjelom; ispravno je reći da televizija i radio zajedno imaju veći broj, a tisak veći udio.",
           "required_evidence": "Usporedba dvaju brojnika odvojena od usporedbe dvaju omjera."
         },
         {
           "component_id": "preserve-generated-population-boundary",
           "required_claim": "Ispravljeni opis vrijedi samo za poznatu generiranu populaciju i ne opisuje stvarne stanovnike Hrvatske.",
           "required_evidence": "Deklarirano podrijetlo skupa u okviru modela i razrađenom primjeru."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Televizija i radio zajedno imaju više osoba spremnih platiti nego tisak, 4.301 prema 1.289. Među njihovim je korisnicima, međutim, manji udio spremnih platiti, 25,81 % prema 26,55 %; oba opisa vrijede za zadanu simulaciju.",
+          "required_evidence": "Točni su udio tiska od 26,55 % i podatak da televizija i radio zajedno imaju više osoba spremnih platiti. Za udio televizije i radija zajedno treba podijeliti 4.301 s 16.666, pa dobivamo 25,81 %. Za usporedbu tih dviju skupina tablica je dovoljna; ne objašnjava zašto se skupine razlikuju."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "3.514 / 15.101 = 0,2326998212 = 23,27 %; 1.289 / 4.855 = 0,2654994851 = 26,55 %; 23,27 % < 26,55 %",
-      "tolerance_or_acceptance_rule": "Brojnici i nazivnici moraju biti točni; prihvaćaju se udjeli 23,27 % i 26,55 % ili dosljedno prikazane preciznije vrijednosti uz ispravan smjer usporedbe.",
+      "expected_result": "4.301 / 16.666 = 0,2580703228 = 25,81 %; 1.289 / 4.855 = 0,2654994851 = 26,55 %; 25,81 % < 26,55 %",
+      "tolerance_or_acceptance_rule": "Brojnici i nazivnici moraju biti točni; prihvaćaju se udjeli 25,81 % i 26,55 % ili dosljedno prikazane preciznije vrijednosti uz ispravan smjer usporedbe.",
       "independent_method": "Ponovno izračunati oba omjera iz cjelobrojnih stupaca broj_platio i broj u izvornom CSV-u, bez preuzimanja zapisanoga udjela ili rješenja.",
-      "evidence_reference": "data/populacija-medija-agregat.csv, retci portal i tisak; chapters/01-zasto-statistika.qmd#ex-01-callout-greska-01"
+      "evidence_reference": "data/populacija-medija-agregat.csv, zbrojeni retci TV i radio te zasebni redak tisak; chapters/01-zasto-statistika.qmd#ex-01-callout-greska-01"
     },
     "severity_ranked_rubric": {
       "severity_order": [

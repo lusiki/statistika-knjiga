@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Označiti valjane dizajnerske argumente poziva, pratiti podrijetlo `d_opazeni` do prvoga retka i zatim ponovno postaviti pitanje s vrijednošću koja je mogla biti opravdana prije podataka.",
-      "expected_evidence": "`n = 30`, `sd = 1`, `sig.level = 0.05` i `type = \"two.sample\"` opisuju zadani standardizirani plan. Kružnost ulazi preko `delta = d_opazeni`, pri čemu prvi red računa `d_opazeni` iz sredina i združene standardne devijacije iste studije."
+      "expected_evidence": "Poziv pravilno rabi standardiziranu skalu i uz d = 0,78 vraća približno 0,84. To je snaga hipotetskog plana kad bi stvarni učinak bio upravo toliko velik. Opaženi učinak iz iste završene studije nije neovisna potvrda njezine primjerenosti. Za unaprijed zadani cilj treba rabiti 0,5/1,9, približno 0,263; za 80 % snage uz te pretpostavke treba 228 osoba po skupini. Za završeni nalaz još treba zatražiti interval procjene i provjeriti dizajn.\n\nJedna moguća zamjena glasi ovako.\n\nRačun od 0,84 ne potvrđuje da je provedena studija bila dovoljno velika za unaprijed zadano pitanje. Novu studiju planirat ćemo za standardiziranu razliku približno 0,263, uz provjeru pretpostavljene raspršenosti, a preciznost završene procjene opisati njezinim intervalom.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -57,13 +57,18 @@
         },
         {
           "component_id": "locate-origin-line",
-          "required_claim": "Kružnost ulazi prvim retkom, koji iz istih podataka računa `d_opazeni`.",
+          "required_claim": "Kružnost ulazi prvim retkom, koji u `d_opazeni` upisuje opaženi rezultat iste studije.",
           "required_evidence": "Redak oduzima dvije opažene sredine i dijeli rezultat opaženom združenom standardnom devijacijom."
         },
         {
           "component_id": "supply-defensible-replacement",
           "required_claim": "`delta` treba zamijeniti unaprijed opravdanim najmanjim važnim standardiziranim učinkom, a zaključak o završnoj procjeni temeljiti na intervalu i dizajnu.",
           "required_evidence": "Primjer pola boda uz 1,9 bodova raspršenosti daje d približno 0,263 i plan od 228 ljudi po skupini za 80 % snage."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Račun od 0,84 ne potvrđuje da je provedena studija bila dovoljno velika za unaprijed zadano pitanje. Novu studiju planirat ćemo za standardiziranu razliku približno 0,263, uz provjeru pretpostavljene raspršenosti, a preciznost završene procjene opisati njezinim intervalom.",
+          "required_evidence": "Poziv pravilno rabi standardiziranu skalu i uz d = 0,78 vraća približno 0,84. To je snaga hipotetskog plana kad bi stvarni učinak bio upravo toliko velik. Opaženi učinak iz iste završene studije nije neovisna potvrda njezine primjerenosti. Za unaprijed zadani cilj treba rabiti 0,5/1,9, približno 0,263; za 80 % snage uz te pretpostavke treba 228 osoba po skupini. Za završeni nalaz još treba zatražiti interval procjene i provjeriti dizajn."
         }
       ]
     },
@@ -76,7 +81,12 @@
       "evidence_reference": "chapters/11-velicina-ucinka-i-snaga.qmd#ex-11-callout-greska-01; chapters/11-velicina-ucinka-i-snaga.qmd#def-najmanji-vazan-ucinak"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-post-hoc-confirmation",

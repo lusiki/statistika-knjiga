@@ -65,9 +65,9 @@ s11_agregat_preset <- s11_agregat |>
   filter(izvor_vijesti %in% c("portal", "tisak")) |>
   transmute(
     Skupina = izvor_vijesti,
-    Broj = broj,
-    `Zbroj povjerenja` = zbroj_povjerenja,
-    `Prosjek povjerenja` = prosjek_povjerenja
+    Broj = hr_broj(as.numeric(broj), 0),
+    `Zbroj povjerenja` = hr_broj(as.numeric(zbroj_povjerenja), 0),
+    `Prosjek povjerenja` = hr_broj(as.numeric(prosjek_povjerenja), 5)
   )
 
 s11_skupine <- split(s11_pod$povjerenje_medijima, s11_pod$izvor)
@@ -101,24 +101,28 @@ s11_studija <- function(velicina, permutacija = 200) {
 }
 
 set.seed(1111)
-s11_krivulja <- tibble(n = c(60, 100, 200, 300, 500, 800)) |>
-  rowwise() |>
-  mutate(
-    snaga = {
-      rezultati <- t(replicate(300, s11_studija(n)))
-      mean(rezultati[, 2] < 0.05, na.rm = TRUE) * 100
-    }
-  ) |>
-  ungroup()
+s11_krivulja <- bind_rows(lapply(c(60, 100, 200, 300, 500, 800), function(n) {
+  rezultati <- t(replicate(300, s11_studija(n)))
+  valjana_studija <- is.finite(rezultati[, 2])
+  broj_valjanih <- sum(valjana_studija)
+  broj_otkrivenih <- sum(rezultati[valjana_studija, 2] < 0.05)
+  stopifnot(broj_valjanih > 0L, broj_otkrivenih <= broj_valjanih)
+  tibble(n = n, pokusaji = nrow(rezultati), valjani = broj_valjanih,
+    izostavljeni = sum(!valjana_studija),
+    odbacivanja = broj_otkrivenih,
+    snaga = 100 * broj_otkrivenih / broj_valjanih)
+}))
 
 # Male studije, i ono što od njih preživi prag.
 set.seed(1112)
 s11_male <- t(replicate(3000, s11_studija(60)))
+s11_male_izostavljene <- sum(is.na(s11_male[, 2]))
 s11_male <- s11_male[!is.na(s11_male[, 2]), , drop = FALSE]
 s11_znacajne <- s11_male[s11_male[, 2] < 0.05, , drop = FALSE]
 
 set.seed(1113)
 s11_velike <- t(replicate(1000, s11_studija(500)))
+s11_velike_izostavljene <- sum(is.na(s11_velike[, 2]))
 s11_velike <- s11_velike[!is.na(s11_velike[, 2]), , drop = FALSE]
 s11_znacajne_velike <- s11_velike[s11_velike[, 2] < 0.05, , drop = FALSE]
 
@@ -180,44 +184,76 @@ s11 <- list(
 )
 ```
 
-::: {.chapter-meta}
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 22 min | Istraživač snage | simulirana populacija | pogl. 9, 10 |
-:::
-
 ::: {.callout-vinjeta}
-Cohen je 1994. objavio kritiku prakse u kojoj je statistička značajnost
-zamijenila razmišljanje o veličini i važnosti učinka, pod naslovom koji je
-podsjećao da neke tvrdnje ne trebaju test [@cohen1994]. Nije prigovarao računu.
-Prigovarao je tome što je jedan broj preuzeo posao prosudbe.
+Cohen je 1994. kritizirao praksu u kojoj se statistička značajnost uzima kao
+dovoljan odgovor na istraživačko pitanje [@cohen1994]. Čitatelju treba reći i
+koliki je učinak te zašto bi bio važan. Sam test to ne može učiniti.
 
-Prigovor je imao vrlo konkretan oblik. Recenzent koji pročita da je razlika
-značajna ne doznaje je li riječ o pomaku koji bi promijenio nečiju odluku ili o
-razlici koju je otkrio samo dovoljno velik uzorak. Autor mu tu informaciju nije
-uskratio namjerno, nego zato što obrazac izvještavanja nije tražio da je napiše.
+Kada u radu pročitamo da je razlika značajna, još ne znamo bi li promijenila
+neku odluku. Možda je riječ o važnom pomaku, a možda o maloj razlici koju je
+otkrio velik uzorak. Autor treba dati podatke iz kojih to možemo procijeniti.
 
-Koliko podataka trebamo da bismo pouzdano uočili učinak koji je vrijedan
-uočavanja?
+Koliko podataka trebamo da bismo pouzdano uočili sadržajno važan učinak?
 :::
+
+Za odluku o istraživanju nedostaje nam nešto što sama p-vrijednost ne daje.
+Trebamo odrediti koliku bi razliku vrijedilo uočiti i možemo li je planiranim
+postupkom dovoljno pouzdano razlikovati od slučajne promjenjivosti. Time
+pitanje iz prethodnog poglavlja okrećemo prema planiranju. Umjesto da tek
+nakon analize čitamo rezultat testa, unaprijed provjeravamo kakav bi nam
+odgovor istraživanje moglo dati.
+
+Zadržavamo usporedbu povjerenja u medije među korisnicima tiska i portala.
+Ovaj put koristimo cijelu simuliranu populaciju `populacija_medija`, u kojoj
+je svaki zapis jedna zamišljena osoba s izvorom vijesti i ocjenom povjerenja
+[@sikic2026]. Poznata razlika među skupinama poslužit će nam kao cilj pri
+ponovljenom izvlačenju uzoraka. Tako možemo prebrojiti koliko je često
+postupak uočava, umjesto da njegov uspjeh procjenjujemo prema jednom
+istraživanju.
+
+Razliku najprije izražavamo u bodovima povjerenja, a zatim je uspoređujemo s
+raspršenošću odgovora i opisujemo Cohenovim d. Sredina i standardna
+devijacija iz opisne statistike tako zajedno daju standardiziranu veličinu
+učinka. Važnost pomaka ipak trebamo obrazložiti sadržajem pitanja i mogućim
+posljedicama odluke. Vrlo malen pomak može postati statistički značajan uz
+dovoljno opažanja, što ćemo provjeriti simulacijom dviju naslovnica.
+
+Snagu ćemo proučavati mijenjanjem učinka, veličine uzorka, raspršenosti i
+praga odluke. Provjerit ćemo i što se događa kada iz malih istraživanja
+zadržimo samo značajne rezultate.
+
+Planirati možemo i unatrag, od razlike na koju bi zamišljeno uredništvo
+reagiralo prema potrebnom broju osoba. Drugi je mogući cilj prihvatljiva
+širina intervala. Usporedba tih ciljeva pomaže nam obrazložiti što od uzorka
+očekujemo prije nego što vidimo nalaz i prepoznati kada je nesigurnost
+prevelika za namjeravanu odluku.
 
 ## Razlika koja nešto znači
 
-Poglavlje nastavlja usporedbu iz prethodnog. Isti simulirani stanovnici, isto
-pitanje o povjerenju u medije među čitateljima tiska i portala, ali sada s
-punom populacijom umjesto uzorka, jer nas zanima što je istina, a ne kako je
-pogađamo.
+Veličina učinka brojčano opisuje razmjer razlike ili odnosa. Možemo je
+izraziti u izvornim jedinicama, kao razliku bodova, ili bez njih, kao
+standardiziranu razliku, korelaciju ili omjer. Sama ne određuje sadržajnu
+važnost, koju procjenjujemo prema pitanju i posljedicama.
 
-Razlika iznosi `r hr_broj(s11$razlika, 2)` boda na ljestvici od jedan do deset.
-Ta brojka je najvažniji rezultat cijele usporedbe i mora stajati u izvornim
-jedinicama, jer se samo tako o njoj može odlučivati. Uredništvo koje razmišlja o
-preraspodjeli sadržaja treba znati govori li se o tri četvrtine boda ili o tri
-boda.
+Povjerenje u medije bilježimo bodovima na ljestvici, pa razliku među
+čitateljima tiska i portala prvo čitamo u tim jedinicama.
 
-Sama razlika ipak ne kaže koliko je velika u odnosu na to kako su ljudi
-raspoređeni. Bod razlike znači jedno kad su svi odgovori zbijeni oko sredine, a
-nešto posve drugo kad se protežu preko cijele ljestvice. Standardizirana mjera
-tu usporedbu ugrađuje u sam broj.
+Za ovu referencu zadržavamo sve zapise tiska i portala iz populacije,
+ukupno `r s11_N` osoba, a ne samo prethodni uzorak od 300. Zbroj ocjena
+među `r s11_n2` čitatelja tiska iznosi
+`r sum(s11_skupine[["tisak"]])`, a među `r s11_n1` korisnika portala
+`r sum(s11_skupine[["portal"]])`. Dijeljenjem svakog zbroja njegovim
+brojem osoba dobivamo sredine `r hr_broj(mean(s11_skupine[["tisak"]]), 3)`
+i `r hr_broj(mean(s11_skupine[["portal"]]), 3)`, pa ih možemo oduzeti.
+
+Razlika iznosi `r hr_broj(s11$razlika, 2)` boda na ljestvici od jedan do deset. Navodimo je u
+izvornim jedinicama kako bismo je mogli povezati s odlukom. Uredništvu koje
+razmatra preraspodjelu sadržaja nije svejedno razlikuju li se skupine za tri
+četvrtine boda ili za tri boda.
+
+Razliku možemo usporediti i s raspršenošću odgovora. Jedan bod izgleda
+drukčije kada su odgovori zbijeni oko sredine nego kada zauzimaju cijelu
+ljestvicu. Standardizirana mjera izražava taj odnos.
 
 ::: {#def-standardizirana-razlika}
 **Standardizirana razlika** je razlika dviju sredina podijeljena združenom
@@ -226,71 +262,98 @@ umjesto u izvornim jedinicama.
 
 $$d = \frac{\bar{x}_2 - \bar{x}_1}{s_{\text{zdr}}}$$
 
-Oznaka $s_{\text{zdr}}$ stoji za združenu standardnu devijaciju, dakle za
-zajedničku mjeru raspršenosti unutar obiju skupina.
+Oznakom $s_{\text{zdr}}$ označavamo združenu standardnu devijaciju, zajedničku
+mjeru raspršenosti unutar dviju skupina.
 :::
 
-Povjerenje se u ovoj populaciji raspršuje sa združenom standardnom devijacijom
-od `r hr_broj(s11$zdruzena, 2)` boda, pa razlika od `r hr_broj(s11$razlika, 2)`
-boda daje standardiziranu razliku od `r hr_broj(s11$d, 2)`. Dvije skupine dakle
-dijeli nešto više od trećine standardne devijacije, što znači da se njihove
-raspodjele u najvećem dijelu preklapaju i da po jednom ispitaniku ne bi bilo
-moguće pogoditi odakle se informira.
+Za zajedničku raspršenost povezujemo dvije varijance. Svaka dobiva težinu
+jednaku broju osoba u skupini umanjenom za jedan, pa veća skupina više
+pridonosi. Tek nakon toga vadimo korijen. Skupina 1 ovdje je portal, a
+skupina 2 tisak. Brojeve osoba označavamo s $n_1$ i $n_2$, a standardne
+devijacije s $s_1$ i $s_2$. Za dva uzorka račun glasi
 
-Standardna devijacija kao mjerna jedinica ipak ostaje apstraktna, pa isti učinak
-vrijedi izraziti i na način koji se može zamisliti. Izvučemo li nasumce jednog
-čitatelja tiska i jednog čitatelja portala, prvi ima strogo više povjerenja u
-`r hr_broj(s11$nadmoc_stroga, 1)` % parova, dok je
-`r hr_broj(s11$izjednaceno, 1)` % parova izjednačeno. Ako se izjednačenja
-nasumično razriješe, prilagođena vjerojatnost nadmoći iznosi
-`r hr_broj(s11$nadmoc, 1)` %. Kad razlike u raspodjelama ne bi bilo, ta bi mjera
-iznosila pedeset posto. Rečenica tog oblika prolazi kroz uredničku raspravu bolje
-od bilo koje standardizirane mjere, jer nitko ne mora znati što je standardna
-devijacija da bi razumio ishod.
+$$s_{\mathrm{zdr}}=\sqrt{\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}}.$$
 
-Orijentacijske vrijednosti za takve mjere postoje i najčešće se navode prema
-Cohenu, koji ih je ponudio kao pomoć u odsutnosti boljeg oslonca, a ne kao
-ljestvicu za očitavanje [@cohen1988]. Što je učinak ove veličine sadržajno,
-odlučuje usporedba s drugim učincima u istom području i cijena postupanja, a ne
-tablica pragova. Standardizacija služi tome da se ta usporedba uopće može
-napraviti, jer razlike izmjerene u minutama, bodovima i postocima inače nemaju
-zajednički jezik.
+U ovom primjeru račun obavljamo na cijeloj poznatoj sintetičkoj populaciji.
+Zato dobivena razlika i njezina standardizacija opisuju te zapise bez
+uzoračke nesigurnosti; uzoračka procjena iste veličine zahtijevala bi i
+interval. U brojnik ulazi
+$(`r s11_n1`-1)\times `r hr_broj(var(s11_skupine[["portal"]]),3)` +
+(`r s11_n2`-1)\times `r hr_broj(var(s11_skupine[["tisak"]]),3)`$,
+a nazivnik je `r s11_n1+s11_n2-2`. Račun koristi nezaokružene varijance.
+
+Združena standardna devijacija u ovoj populaciji iznosi `r hr_broj(s11$zdruzena, 2)` boda.
+Razlika od `r hr_broj(s11$razlika, 2)` boda zato daje standardiziranu razliku od `r hr_broj(s11$d, 2)`.
+Skupine dijeli nešto više od trećine standardne devijacije, a njihove se
+raspodjele velikim dijelom preklapaju. Ista ocjena povjerenja može pripadati korisnicima obaju izvora, pa ona
+sama ne određuje izvor vijesti pojedine osobe.
+
+Preklapanje raspodjela možemo približiti i pitanjem o nasumično izabranom paru
+osoba. Čitatelj tiska ima strogo više povjerenja od čitatelja portala u
+`r hr_broj(s11$nadmoc_stroga, 1)` % parova, dok je `r hr_broj(s11$izjednaceno, 1)` % parova izjednačeno. Kada
+polovicu izjednačenja pripišemo svakoj strani, prilagođena vjerojatnost nadmoći
+iznosi `r hr_broj(s11$nadmoc, 1)` %. Za jednake raspodjele iznosila bi pedeset posto.
+Razliku među skupinama tako opisujemo usporedbom ljudi, što može biti
+razumljivo i čitatelju koji ne poznaje standardnu devijaciju.
+
+Sadržajnu važnost učinka procjenjujemo prema ranijim
+nalazima iz istog područja i posljedicama odluke. Standardizacija olakšava
+usporedbu različitih ljestvica, ali ne određuje što je važno.
 
 ## Kad je značajno, a nije važno
 
-Test odgovara na pitanje je li s podacima uskladiva i nula. To pitanje s
-veličinom učinka ima manje veze nego što se pretpostavlja, i najlakše se to vidi
-kad je uzorak vrlo velik.
+Rezultat nazivamo statistički značajnim kada njegova p-vrijednost ne
+prelazi unaprijed odabrani prag odluke. Statistička značajnost ne zamjenjuje
+procjenu veličine učinka. To se posebno
+jasno vidi na vrlo velikom uzorku.
 
-Zamislimo portal koji uspoređuje dvije naslovnice. Prva ima stvarnu stopu klika
-od 2,00 %, druga od 2,05 %, a svaka je prikazana pola milijuna puta. Podaci
-ispod su konstruirani za ovu svrhu i nisu nalaz ni o kojoj stvarnoj kampanji.
+Zamislimo pokus u kojem portal uspoređuje dvije naslovnice. Stvarna stopa
+klika prve iznosi 2,00 %, a druge 2,05 %. Svaku prikazuje pola milijuna puta.
+Podaci u nastavku simulirani su za ovaj primjer i ne opisuju stvarnu kampanju.
 
-U simuliranom pokusu prva je naslovnica postigla `r hr_broj(s11$ab_a, 3)` %, a
-druga `r hr_broj(s11$ab_b, 3)` %. Razlika iznosi
-`r hr_broj(s11$ab_razlika, 3)` postotnog boda uz interval od
-`r hr_broj(s11$ab_donja, 3)` do `r hr_broj(s11$ab_gornja, 3)`, a p-vrijednost
-je `r formatC(s11$ab_p, format = "f", digits = 5, decimal.mark = ",")`. Po
-svakom kriteriju iz prethodnog poglavlja rezultat je jasan, jer nulti model
-ovakvu razliku gotovo nikada ne proizvodi.
+Jedno opažanje predstavlja jedan hipotetski prikaz naslovnice i njegov
+ishod, klik ili izostanak klika. Pretpostavljamo neovisne prikaze s istom
+vjerojatnošću unutar naslovnice. Račun generira zbroj klikova u svakoj od
+dviju skupina od 500 000 prikaza. Za prvu dobivamo
+`r round(s11_ab_a * s11_ab_n)` klikova, a za drugu
+`r round(s11_ab_b * s11_ab_n)`. Dijeljenjem svakog broja s 500 000 nastaju
+stope koje uspoređujemo. Ovo je jedan simulirani pokus, ne procjena snage
+preko ponovljenih pokusa.
 
-Prevedeno natrag u odluku, dobitak je jedan dodatni klik na otprilike tisuću
-prikaza. Isplati li se zbog toga mijenjati naslovnicu, ovisi o trošku promjene i
-o tome što jedan klik vrijedi, a ni jedno ni drugo nije u podacima. Statistička
-značajnost ovdje govori samo to da je uzorak bio dovoljno velik da razliku ove
-veličine odvoji od nule.
+Prikazani 95-postotni interval i p-vrijednost koriste normalni Waldov
+račun za razliku dvaju neovisnih udjela, s procijenjenim varijancama obiju
+skupina. Ostvarena razlika veća je od zadane razlike od 0,05 postotnih
+bodova. To je slučajno precjenjivanje u ovome pokusu, a ne promjena
+poznatoga učinka. Značajnost ovog jednog rezultata ne mjeri snagu nacrta.
 
-Ista logika radi i u suprotnom smjeru. Razlika koja bi promijenila uredničku
-odluku može ostati neznačajna ako je uzorak malen, i tada izostanak značajnosti
-ne govori o svijetu nego o količini prikupljenih podataka. Zbog toga se
-značajnost i važnost izvještavaju odvojeno, i zbog toga procjena s intervalom
-uvijek stoji ispred testa.
+Uz zadane stope i broj prikaza normalno približenje daje snagu od oko 43 %.
+Otkrivanje stvarnoga pomaka zato je u ovom nacrtu rjeđe od njegova propuštanja.
+
+U simulaciji prva naslovnica postiže `r hr_broj(s11$ab_a, 3)` %, a druga `r hr_broj(s11$ab_b, 3)` % klikova.
+Procijenjena razlika iznosi `r hr_broj(s11$ab_razlika, 3)` postotnog boda, uz interval od `r hr_broj(s11$ab_donja, 3)`
+do `r hr_broj(s11$ab_gornja, 3)`. P-vrijednost iznosi `r formatC(s11$ab_p, format = "f", digits = 5, decimal.mark = ",")`. Pod nultim modelom ovako velika
+ili veća odstupanja bila bi vrlo rijetka.
+
+Dobivena razlika znači otprilike jedan dodatni klik na tisuću prikaza.
+Opravdava li promjenu naslovnice, ovisi o trošku promjene i vrijednosti klika.
+Te informacije ne dobivamo iz testa. Velik uzorak omogućio nam je razlikovati
+mali pomak od nule, ali odluku još treba obrazložiti.
+
+U malom uzorku možemo propustiti i razliku koja bi bila važna za uredničku
+odluku. Izostanak značajnosti zato ne dokazuje da je učinak nevažan. Procjenu
+i interval izvještavamo prije testa kako bi čitatelj mogao razmotriti i
+veličinu i nesigurnost rezultata.
 
 ## Snaga kao svojstvo plana
 
-Vjerojatnost da postupak pronađe učinak koji postoji nije svojstvo dobivenoga
-rezultata. Pripada cijelom planu, koji povezuje postupak, veličinu učinka,
-uzorak, raspršenost i prag prije nego što su podaci prikupljeni.
+Prije prikupljanja podataka možemo procijeniti koliko bi često naš plan otkrio
+zadani učinak. Za to trebamo odrediti postupak, veličinu učinka, uzorak,
+raspršenost i prag odluke.
+
+Ako nakon istraživanja opaženi učinak proglasimo stvarnim i iz njega
+izračunamo snagu, račun je kružan. Uz isti uzorak i prag takva snaga prati
+već opaženu testnu statistiku i ne daje neovisnu provjeru je li dizajn mogao
+otkriti unaprijed važan učinak.
 
 ::: {#def-statisticka-snaga}
 **Statistička snaga** je vjerojatnost da postupak odbaci nultu hipotezu kad je
@@ -298,66 +361,99 @@ ona lažna, dakle udio ponavljanja u kojima bi učinak zadane veličine bio
 otkriven.
 :::
 
-Prethodno je poglavlje na ovoj populaciji izmjerilo da postupak stvarnu razliku
-pronalazi u otprilike četiri od pet uzoraka od tristo osoba. Ta brojka upravo je
-snaga, i sada je vrijedi izmjeriti na više veličina uzorka.
+U prethodnom poglavlju postupak je otkrio stvarnu razliku u otprilike četiri
+od pet uzoraka od tristo osoba. Taj udio procjenjuje snagu. Sada ćemo ga
+usporediti za nekoliko veličina uzorka.
 
-Mjerenje zadržava permutacijski postupak iz prethodnog poglavlja i njegove
-granice. Nulti model tvrdi da je cijela raspodjela povjerenja jednaka u objema
-skupinama, tako da su oznake izvora zamjenjive u odnosu na ishod. Obostrana
-testna statistika jest apsolutna sirova razlika sredina. Osobe se tretiraju kao
-zasebne jedinice bez zajedničke ovisnosti, dok simulacija bez ponavljanja izvlači
-uzorke iz jedne konačne simulirane populacije u kojoj razlika po izvoru postoji.
-Svaka točka krivulje obuhvaća tristo zamišljenih studija. U svakoj se
-p-vrijednost procjenjuje iz dvjesto nasumičnih premještanja uz korekciju
-$(b + 1)/(B + 1)$. Pritom $B$ predstavlja broj premještanja, a $b$ broj rezultata
-barem toliko ekstremnih kao opaženi. Krivulja zato procjenjuje snagu samo za taj
-mehanizam podataka i taj postupak, a ne opće svojstvo uzorka određene veličine.
+Zadržavamo permutacijski test iz prethodnog poglavlja. Nulti model
+pretpostavlja jednaku cijelu raspodjelu povjerenja u objema skupinama, pa su
+oznake zamjenjive u odnosu na ishod. Statistika je apsolutna razlika sredina,
+a osobe smatramo neovisnim jedinicama. Iz konačne simulirane populacije s
+postojećom razlikom izvlačimo uzorke bez vraćanja. Za svaku veličinu provodimo
+tristo zamišljenih studija. U svakoj koristimo dvjesto nasumičnih premještanja
+i korekciju $(b + 1)/(B + 1)$, gdje je $B$ broj premještanja, a $b$ broj barem
+toliko ekstremnih rezultata kao opaženi. Krivulja procjenjuje snagu za taj
+postupak i način nastanka podataka.
+
+Veličina uzorka u ovoj tablici jest ukupan broj osoba iz obiju skupina,
+čije brojnosti nisu unaprijed izjednačene. Kasniji plan s jednakim skupinama
+navodi broj po skupini. Uz 200 permutacija moguće p-vrijednosti razlikuju
+se za 1/201, približno 0,005. Odluka neposredno uz prag zato može ovisiti
+o slučajnom izboru premještanja.
+
+U svakom retku brojimo studije s p-vrijednošću koja ne prelazi 0,05 i dijelimo
+brojem valjanih studija. Ako bi uzorak sadržavao samo jednu skupinu, test
+ne bi bio definiran i studiju bismo isključili, uz prikazan broj isključenja.
+U ovoj izvedbi takvih studija ima `r sum(s11_krivulja$izostavljeni)`.
+Tristo ponavljanja daje razmjerno grubu procjenu snage. Oko snage od 80 %
+simulacijska standardna pogreška iznosi približno 2,3 postotna boda.
 
 ```{r}
 #| label: tbl-krivulja-snage
-#| tbl-cap: "Udio uzoraka u kojima permutacijski postupak prelazi prag od 0,05 pri stvarnoj razlici od 0,74 boda. Tristo simuliranih studija po retku. Izrada autora."
+#| tbl-cap: "Udio uzoraka u kojima permutacijska p-vrijednost ne prelazi prag od 0,05 pri stvarnoj razlici od 0,74 boda. Tristo simuliranih studija po retku. Izrada autora."
 
 s11_krivulja |>
   transmute(
-    `Jedinica u uzorku` = hr_broj(n, 0),
+    `Ukupno osoba` = hr_broj(n, 0),
+    `Otkriveno` = odbacivanja,
+    `Valjane studije` = valjani,
+    `Izostavljene` = izostavljeni,
     `Snaga` = paste0(hr_broj(snaga, 1), " %")
   ) |>
-  knitr::kable(align = c("r", "r"))
+  knitr::kable(align = "r")
 ```
 
-Rast nije ravnomjeran i to je najvažnije u tablici. Podizanje uzorka sa
-šezdeset na tristo osoba snagu diže s `r hr_broj(s11$snaga_60, 1)` % na
-`r hr_broj(s11$snaga_300, 1)` %, a svako daljnje ulaganje kupuje sve manje, jer
-je udio ograničen odozgo. Pri šezdeset osoba ovaj bi postupak stvarnu razliku
-propustio u približno tri od četiri zamišljene studije.
+Kada povećamo uzorak sa šezdeset na tristo osoba, procijenjena snaga raste s
+`r hr_broj(s11$snaga_60, 1)` % na `r hr_broj(s11$snaga_300, 1)` %. Rast se postupno usporava kako se približavamo
+gornjoj granici. Sa šezdeset osoba ovaj bi postupak propustio stvarnu razliku
+u približno tri od četiri studije.
 
-Četiri stvari određuju gdje se na toj krivulji nalazimo. Veći stvarni učinak
-lakše se otkriva, veći uzorak daje precizniju procjenu, manja raspršenost ishoda
-čisti signal, a blaži prag propušta više rezultata. Plan izravno određuje uzorak
-i prag, dok dizajn i kvaliteta mjerenja mogu utjecati na raspršenost. Stvarni
-učinak nije upravljačka postavka, nego veličina za koju se snaga mora zasebno
-procijeniti.
+Snaga raste s većim učinkom i većim uzorkom. Pomažu i manja raspršenost ishoda
+te blaži prag odluke. Istraživač može planirati uzorak i prag, a nacrtom i
+kvalitetom mjerenja utjecati na raspršenost. Stvarni učinak ne može odabrati,
+pa snagu treba razmotriti za više mogućih veličina.
 
-Uobičajeno polazište od 80 % nije univerzalno pravilo [@cohen1988]. Ako
-propuštena razlika nosi ozbiljnu posljedicu, osamdeset posto može biti premalo,
-a ako je istraživanje prvo u nizu i služi kao provjera izvedivosti, može biti
-više nego što je potrebno.
+Često se planira snaga od 80 %, ali taj izbor treba opravdati [@cohen1988].
+Ako bi propuštena razlika imala ozbiljne posljedice, možda trebamo višu snagu.
+Istraživanje izvedivosti može imati drukčiji cilj i zahtjeve.
 
-## Podsnažene studije pretjeruju
+## Odabir značajnih nalaza pri niskoj snazi
 
-Uobičajena pouka o slaboj snazi glasi da se stvarni učinci propuštaju. To je
-točno, ali nije cijela posljedica. Slaba snaga mijenja i skup procjena koje
-prežive prag, a na poznatoj populaciji taj se selekcijski učinak može izmjeriti.
+Slaba snaga povećava broj propuštenih učinaka. Može utjecati i na veličinu
+procjena koje objavljujemo ako zadržavamo samo značajne rezultate. To možemo
+provjeriti u simulaciji s poznatom populacijom.
 
-Ponovili smo isto pitanje na tri tisuće studija sa šezdeset osoba. Prosjek svih
-procjena iznosi `r hr_broj(s11$prosjek_svih, 2)` boda i praktički se poklapa sa
-stvarnom razlikom od `r hr_broj(s11$razlika, 2)`, pa postupak prije primjene
-praga nije pristran u ovoj simulaciji.
+Za sljedeću usporedbu ponovno izvlačimo uzorke iz istoga podskupa
+tiska i portala. Svaka studija daje jednu procjenu razlike i jednu
+permutacijsku p-vrijednost. Tablica donosi prvih pet valjanih studija u
+redoslijedu generiranja. Oznaka u posljednjem stupcu pokazuje bi li studija bila objavljena kada
+bismo zadržali samo rezultate ispod 0,05.
+
+```{r}
+#| label: tbl-s11-odabir-studija
+#| tbl-cap: "Pet simuliranih studija prije odabira prema pragu. Izrada autora."
+knitr::kable(data.frame(Studija = 1:5,
+  Razlika = hr_broj(s11_male[1:5, 1], 3),
+  p = hr_broj(s11_male[1:5, 2], 4),
+  Zadržana = ifelse(s11_male[1:5, 2] < 0.05, "da", "ne")))
+```
+
+Prva procjena iznosi `r hr_broj(s11_male[1, 1], 3)` boda i ulazi u
+prosjek svih studija. U prosjek odabranih ulazi samo ako zadovolji prag.
+Od 3 000 pokušaja neprimjenjivo je `r s11_male_izostavljene`, pa prosjek
+svih računamo na `r nrow(s11_male)` valjanih studija, a prosjek značajnih
+na `r nrow(s11_znacajne)`. Isti manji nazivnik koristimo za udio značajnih
+procjena s pogrešnim predznakom. Kod zasebnih 1 000 većih studija
+izostavljeno je `r s11_velike_izostavljene`, a prag prolazi
+`r nrow(s11_znacajne_velike)` studija.
+
+Proveli smo tri tisuće zamišljenih studija sa šezdeset osoba. Prosjek svih
+procjena iznosi `r hr_broj(s11$prosjek_svih, 2)` boda, blizu stvarne razlike od `r hr_broj(s11$razlika, 2)`. Prije
+odabira prema pragu procjene u ovoj simulaciji ne pokazuju pristranost.
 
 ```{r}
 #| label: fig-pretjerivanje
-#| fig-cap: "Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji."
+#| fig-cap: "Procijenjena razlika u tri tisuće studija sa šezdeset osoba, sve zajedno i samo one koje su prešle prag. Okomita crta označuje stvarnu razliku u populaciji. Izrada autora; podaci i postupak opisani su u tekstu."
 #| fig-alt: "Gornji histogram obuhvaća sve studije i centriran je na stvarnoj razlici. Donji obuhvaća samo studije koje su prešle prag i ima dva odvojena nakupljanja, veliko desno od stvarne razlike i vrlo malo lijevo od nule."
 
 s11_usporedba <- bind_rows(
@@ -381,84 +477,97 @@ ggplot(s11_usporedba, aes(procjena)) +
   theme_knjiga(base_size = 12)
 ```
 
-Donji panel prikazuje odabrani podskup koji je u ovoj simulaciji prešao prag.
-Prosječna procjena u tom podskupu iznosi
-`r hr_broj(s11$prosjek_znacajnih, 2)` boda, odnosno
-`r hr_broj(s11$faktor, 1)` puta više od istine. Razlog je mehanički i ne ovisi o
-namjeri istraživača. Uz slabu snagu prag uglavnom prelaze uzorci u kojima je
-slučajnost razliku uvećala, jer manja procjena s ovako malim uzorkom najčešće ne
-može prijeći prag. Najmanja značajna procjena u ovoj simulaciji iznosi
-`r hr_broj(s11$najmanja_znacajna, 2)` boda.
+Donji panel zadržava samo rezultate koji su prešli prag značajnosti. Njihov
+prosjek iznosi `r hr_broj(s11$prosjek_znacajnih, 2)` boda, odnosno `r hr_broj(s11$faktor, 1)` puta onoliko koliko iznosi stvarna razlika.
+U malom uzorku prag najčešće prelaze procjene koje je slučajnost povećala.
+Najmanja apsolutna vrijednost značajne procjene u ovoj simulaciji iznosi `r hr_broj(s11$najmanja_znacajna, 2)` boda.
+Iskrivljenje nastaje odabirom rezultata i ne zahtijeva namjeru istraživača da
+išta prikrije.
 
-Drugi je smjer rjeđi, ali nije nemoguć. Među procjenama koje su u ovoj
-simulaciji prešle prag `r hr_broj(s11$krivi_predznak, 2)` % ima suprotan
-predznak od stvarne razlike. Takav nalaz ne sadržava računsku pogrešku, ali bi
-izolirano vodio pogrešnom sadržajnom zaključku.
+Među `r nrow(s11_znacajne)` značajnih procjena njih `r sum(s11_znacajne[, 1] < 0)` ima suprotan predznak od
+stvarne razlike. Račun može biti točan, a pojedinačni zaključak o smjeru
+učinka pogrešan.
 
-Kad istu simulaciju ponovimo s pet stotina osoba, odabrane procjene istinu
-premašuju za faktor `r hr_broj(s11$faktor_veliki, 2)`. U tom scenariju
-iskrivljenja gotovo nema. Brojčani faktori vrijede samo za ovdje zadanu
-populaciju, veličine uzoraka, postupak i prag. Ne opisuju svako istraživačko
-područje ni svaki nalaz iz maloga uzorka.
+S pet stotina osoba značajne procjene premašuju stvarnu razliku za faktor
+`r hr_broj(s11$faktor_veliki, 2)`, pa je iskrivljenje mnogo manje. Ti brojevi vrijede za ovu
+populaciju, uzorke, postupak i prag. Ne možemo ih prenijeti na svaki nalaz iz
+maloga uzorka.
 
-Za čitanje objavljenoga rada zato nije dovoljna presuda da mu je uzorak malen.
-Velik učinak uz p-vrijednost tik ispod praga sam po sebi ne dokazuje
-precjenjivanje, ali traži provjeru širine intervala, načina odabira nalaza i
-usklađenosti s prethodnim dokazima. Povjerenje u veličinu procjene raste ako je
-sličan rezultat dobiven u neovisnoj replikaciji. Niska snaga tako usmjerava
-pozornost na nesigurnost i selekciju, a ne daje automatsku odluku o tome je li
-tvrdnja istinita.
+Pri čitanju rada zato provjeravamo širinu intervala, način odabira rezultata i
+odnos prema ranijim dokazima. Velik učinak uz p-vrijednost blizu praga sam po
+sebi ne dokazuje precjenjivanje. Sličan rezultat iz neovisne replikacije daje
+dodatni razlog za povjerenje u procjenu. Niska snaga upozorava na nesigurnost
+i moguću selekciju nalaza.
 
 ## Planiranje unatrag
 
-Uzorak nije samo stvar raspoloživosti. Odluka o njegovoj veličini počinje
-razlikom koja bi bila dovoljno važna da promijeni postupanje.
+Veličinu uzorka planiramo prema pitanju koje želimo riješiti. Najprije trebamo
+odrediti kolika bi razlika bila dovoljna da promijeni postupanje.
 
 ::: {#def-najmanji-vazan-ucinak}
 **Najmanji važan učinak** je najmanja razlika koja bi promijenila zaključak,
 odluku ili postupanje, određena sadržajno i prije prikupljanja podataka.
 :::
 
-Postavlja ga istraživač, a ne račun, i obrazlaže se troškom postupanja,
-ozbiljnošću ishoda i onim što je u istom području već izmjereno. Tek kad je
-zapisan, pitanje o veličini uzorka ima odgovor, jer se snaga uvijek računa za
-neku određenu veličinu učinka.
+Tu granicu obrazlažemo troškovima odluke, ozbiljnošću ishoda i ranijim
+nalazima iz područja. Račun je ne određuje umjesto nas. Kada je zapišemo,
+možemo procijeniti koliko je opažanja potrebno za željenu snagu.
 
-Redoslijed je time obrnut od uobičajenog. Ne pita se koliko se ispitanika može
-prikupiti pa se nada da će biti dovoljno, nego se kreće od razlike koja bi nešto
-značila, dodaje se željena snaga i iz toga izlazi broj jedinica. Ako je taj broj
-neizvediv, to je nalaz sam po sebi i treba ga znati prije istraživanja, a ne
-poslije.
+Polazimo od važne razlike i željene snage, pa računamo potreban broj jedinica.
+Zatim provjeravamo je li takav uzorak izvediv. Ako nije, ograničenje znamo
+prije prikupljanja podataka i možemo prilagoditi plan ili doseg istraživanja.
 
-Postoji i drugi način planiranja, bliži načelu po kojem je ova knjiga napisana.
-Umjesto da se pita koliko je jedinica potrebno da bi se prešao prag, pita se
-koliko ih je potrebno da bi procjena bila dovoljno precizna. Uz raspršenost iz
-ove populacije interval razlike širok je `r hr_broj(s11$sirina_100, 2)` boda pri
-stotinu ljudi po skupini, `r hr_broj(s11$sirina_300, 2)` pri tristo i
-`r hr_broj(s11$sirina_800, 2)` pri osamsto. Istraživač koji zna da mu je za
-odluku potrebna procjena unutar pola boda odatle čita odgovor izravno, bez
-pretpostavke o tome koliki je stvarni učinak.
+Veličinu uzorka možemo odrediti i vraćanjem na pitanje iz poglavlja o procjeni.
+Koliko uzak interval trebamo da bi procjena bila korisna? Uz raspršenost iz ove
+populacije interval razlike širok je `r hr_broj(s11$sirina_100, 2)` boda pri stotinu osoba po
+skupini, `r hr_broj(s11$sirina_300, 2)` pri tristo i `r hr_broj(s11$sirina_800, 2)` pri osamsto. Margina je
+polovica ukupne širine, pa za marginu do pola boda tražimo širinu do jednoga
+boda. Za taj plan ne trebamo zadati stvarnu veličinu učinka.
 
-Ta je razlika u pristupu važnija nego što izgleda. Planiranje prema snazi
-zahtijeva da se zada veličina učinka koji se traži, a upravo je ta veličina ono
-što se ne zna i zbog čega se istraživanje provodi. Uz unaprijed zadanu razinu
-pouzdanosti i pretpostavku o raspršenosti, planiranje prema preciznosti ne traži
-pretpostavku o veličini učinka, jer širina intervala ovisi o raspršenosti i
-broju jedinica. Studija planirana na taj način ne obećava da će nešto naći, nego
-da će, što god nađe, biti dovoljno precizno da se o tome može odlučivati.
+Uz iste pretpostavke kao u završnom planu, poznatu standardnu devijaciju
+1,9 i dvije jednake neovisne skupine, margina do 0,5 traži
+$n\geq 2(1,96\times1,9/0,5)^2$, odnosno
+`r ceiling(2*(qnorm(.975)*1.9/.5)^2)` osoba po skupini. Za otkrivanje
+razlike od 0,5 uz snagu oko 80 % normalno približenje daje
+$n\approx2[(1,96+0,842)1,9/0,5]^2$, približno
+`r ceiling(2*((qnorm(.975)+qnorm(.8))*1.9/.5)^2)` osoba po skupini.
+Broj 0,842 jest kvantil standardne normalne raspodjele ispod kojega leži
+80 % površine. U ovoj približnoj planskoj formuli odgovara ciljanoj snazi
+od 80 %, dok 1,96 dolazi iz obostranoga testa na razini 5 %. Ta dva plana
+odgovaraju na različita pitanja pod jednakim pretpostavkama.
+
+Planiranje prema snazi zahtijeva pretpostavljeni učinak, koji još ne znamo. U
+ovom modelu planiranje prema preciznosti polazi od razine pouzdanosti,
+pretpostavljene raspršenosti i prihvatljive širine intervala. Cilj je dovoljno
+precizna procjena, bez obzira na to gdje će se nalaziti. Ostvarena preciznost
+ipak ovisi o tome koliko su planske pretpostavke odgovarale podacima.
 
 ## Interakcija — Istraživač snage
 
-Istraživač snage odvaja tri odluke koje se u praksi donose zajedno. Čitatelj
-mijenja stvarnu veličinu učinka, broj jedinica i prag, svaki put samo jedno, i
-prati kako se pomiče udio uzoraka u kojima bi postupak nešto našao.
+Dosad smo mijenjali veličinu uzorka iz populacije sa zadanom razlikom. Sada
+želimo vidjeti i što se događa kada pretpostavimo manji ili veći učinak. Zato
+prelazimo na jednostavan model u kojem učinak možemo mijenjati, a raspršenost
+zadržati jednakom. Krivulje prikazuju snagu za različite uzorke i zadane
+učinke. Za isti učinak veći uzorak povećava vjerojatnost otkrivanja, dok je uz
+isti uzorak manji učinak teže otkriti.
 
-Prikaz koristi idealizirani model u kojem nulta hipoteza postavlja
-standardiziranu razliku na nulu. Testna statistika je apsolutna z-vrijednost, a
-postupak je obostran. Model pretpostavlja dvije neovisne skupine jednake
-veličine, neovisne normalne ishode i zajedničku poznatu standardnu devijaciju.
-Za svaku točku izravno simulira z-vrijednosti iz pripadne normalne raspodjele,
-pa broj ponavljanja određuje samo Monte Carlo nesigurnost prikazane snage.
+Jedna točka krivulje sažima zamišljene studije za zadani učinak
+i broj osoba po skupini. [Digitalni prikaz počinje s 1 500 ponavljanja po
+točki, učinkom 0,35 i odabranim uzorkom od po 80 osoba. Sve te postavke
+možemo mijenjati.]{.content-visible when-format="html"} Tiskani prikaz koristi 2 000 ponavljanja po točki i
+učinke 0,2, 0,4 i 0,6. Primjerice, za razliku 0,4 i po 100 osoba
+standardna je pogreška razlike $\sqrt{2/100}$ kada je poznata standardna
+devijacija ishoda jedan. Svaka studija daje razliku podijeljenu tom
+pogreškom. Broj rezultata kojima je apsolutna vrijednost iznad 1,96
+dijelimo s brojem ponavljanja za tu točku. Svi rezultati ulaze u nazivnik. Krivulja ne broji
+pojedinačne osobe, a njezina mala kolebanja potječu od simulacije.
+
+Prikaz pretpostavlja dvije neovisne skupine jednake veličine, neovisne
+normalne ishode i zajedničku poznatu standardnu devijaciju. Nulta hipoteza
+zadaje standardiziranu razliku nula. Obostrani test koristi apsolutnu
+z-vrijednost. Za svaku točku simuliramo z-vrijednosti iz odgovarajuće normalne
+raspodjele. Više ponavljanja daje manju simulacijsku nesigurnost procjene
+snage.
 
 :::: {.content-visible when-format="html"}
 
@@ -627,7 +736,7 @@ viewof w11_par = Inputs.form({
 #| echo: false
 #| cache: false
 #| label: fig-w11-print
-#| fig-cap: "Simulirana snaga kroz veličine uzorka pri trima standardiziranim razlikama."
+#| fig-cap: "Simulirana snaga kroz veličine uzorka pri trima standardiziranim razlikama. Izrada autora; podaci i postupak opisani su u tekstu."
 #| fig-alt: "Tri rastuće krivulje pokazuju da veća stvarna razlika postiže jednaku snagu s manjim uzorkom."
 #| fig-width: 6.6
 #| fig-height: 4.8
@@ -670,23 +779,24 @@ ggplot(w11_snaga, aes(n, snaga, colour = ucinak, linetype = ucinak)) +
   theme(legend.position = "bottom")
 ```
 
-Tiskano izdanje polazi od dvaju redaka upravljanoga agregata
-`data/populacija-medija-agregat.csv`. Brojevi, zbrojevi i prosjeci u sljedećoj
-tablici učitani su kao tekst, pa nijedna pohranjena vrijednost nije ponovno
-izračunana ni zaokružena radi prikaza.
+Za računski zadatak na kraju poglavlja trebaju nam i vrijednosti iz populacije
+koju smo dosad uspoređivali. Tablica donosi dva retka iz datoteke
+`data/populacija-medija-agregat.csv`. Brojevi osoba i zbrojevi preneseni su točno, a prosjeci su zaokruženi
+na pet decimala. Dijeljenjem zbroja brojem osoba možemo provjeriti
+prikazani prosjek.
 
 ```{r}
 #| echo: false
 #| label: tbl-w11-print-agregat
-#| tbl-cap: "Točne vrijednosti upravljanoga agregata za dvije uspoređene skupine. Izrada autora."
+#| tbl-cap: "Brojnosti, zbrojevi i zaokruženi prosjeci za dvije uspoređene skupine. Izrada autora."
 
 s11_agregat_preset |>
   knitr::kable(align = c("l", "r", "r", "r"))
 ```
 
-Srednja krivulja na statičnom prikazu odgovara standardiziranoj razlici 0,4,
-koja je najbliža ponuđena postavka učinku u simuliranoj populaciji. Četiri točke
-ispod omogućuju očitavanje bez grafa.
+Srednja krivulja odgovara standardiziranoj razlici 0,4, najbližoj ponuđenoj
+vrijednosti učinku u našoj simuliranoj populaciji. Četiri vrijednosti u
+nastavku omogućuju usporedbu i bez očitavanja grafa.
 
 ```{r}
 #| echo: false
@@ -697,93 +807,124 @@ w11_snaga_preset <- w11_snaga |>
   filter(d == 0.4, n %in% c(40, 80, 160, 300)) |>
   transmute(
     `Jedinica po skupini` = hr_broj(n, 0),
-    Snaga = paste0(hr_broj(100 * snaga, 1), " %")
+    Snaga = paste0(hr_broj(floor(1000 * snaga + 0.5 + 1e-9) / 10, 1), " %")
   )
 
 w11_snaga_preset |>
-  knitr::kable(align = c("r", "r"))
+  knitr::kable(align = "r")
 ```
 :::
 
+::: {.content-visible when-format="html"}
 **Što isprobati.**
 
 1. Zadržite učinak jednakim i povećavajte uzorak.
 2. Zadržite uzorak jednakim i smanjujte učinak.
 3. Spustite prag odluke i provjerite koliko je jedinica potrebno za istu snagu.
 4. Postavite standardiziranu razliku na 0,10 i pokušajte dosegnuti 80 %.
+:::
 
-Posljednji korak ne uspijeva unutar ponuđenog raspona. Pri standardiziranoj
-razlici 0,10 ni tristo jedinica po skupini ne doseže 80 %, pa bi za taj cilj
-trebao još veći uzorak. Odluka o tome koji je učinak vrijedan traženja zato mora
-doći prije odluke o uzorku.
+Za najmanju prikazanu standardiziranu razliku, 0,2, tristo jedinica po
+skupini još ne daje snagu od 80 %. Trebao bi veći uzorak. Zato pri planiranju moramo jasno reći koju
+veličinu učinka želimo moći otkriti.
 
 ::: {.callout-divljina}
-**Neuspjeh snage.** Button i suradnici pregledali su literaturu iz neuroznanosti
-i zaključili da niska prosječna snaga može pridonijeti precijenjenim objavljenim
-učincima i slabijoj ponovljivosti rezultata [@button2013]. Naslov rada naglašava
-neuspjeh snage, ali njegov argument nije samo poziv na veće uzorke. Povezuje
-vjerojatnost otkrivanja s nesigurnošću procjene i selekcijom nalaza koji prijeđu
-prag.
+**Velik objavljeni učinak i plan male studije.** Za novi istraživački
+projekt privlačno je uzeti učinak iz prethodnog rada i prema njemu
+odrediti potreban broj sudionika. Ako je objavljena razlika velika,
+plan može izgledati izvedivo i uz skroman uzorak. No prije nego
+što tu brojku pretvorimo u obećanje budućeg istraživanja, trebamo
+razmotriti kako je dospjela u literaturu.
 
-Brojčani rezultat iz naše simulacije ne smije se preslikati na tu literaturu.
-Ovdje dvostruko pretjerivanje vrijedi za jednu simuliranu populaciju, uzorak od
-šezdeset osoba, jedan permutacijski postupak i jedan prag. Niska snaga zato nije
-automatska presuda o istinitosti pojedinoga rada. Ona je razlog da uz interval i
-veličinu uzorka provjerimo selekciju nalaza, prethodne dokaze i neovisne
-replikacije prije sadržajnoga zaključka.
+Button i suradnici analizirali su problem niske snage u
+neuroznanosti. Pokazali su da mala istraživanja ne propuštaju
+samo postojeće učinke. Kada se nalazi odabiru prema značajnosti,
+objavljene procjene mogu precjenjivati njihovu veličinu
+[@button2013]. U takvom izboru lakše prolaze rezultati koji su,
+uz postojeći učinak, dobili i povoljan slučajni pomak.
+
+Zamislimo tim koji na temelju jednoga takvog nalaza planira
+ponavljanje. Ako precijenjenu razliku prihvati kao realan cilj,
+mogao bi odabrati uzorak koji ima premalu snagu za skromniji,
+ali sadržajno važan učinak. Tada neodlučan rezultat ne bi jasno
+razlikovao izostanak učinka od nedostatka informacija. Velik
+broj u prvom radu tako može dovesti do premalog plana u drugome.
+To je moguća posljedica načina planiranja, a ne opis konkretnog
+tima iz Buttonova rada.
+
+Odgovor je pregledati interval iz prethodnog istraživanja,
+neovisna ponavljanja i širi skup dostupnih nalaza. Uz njih tim
+treba odrediti najmanju razliku koja bi promijenila njegov
+sadržajni zaključak te ispitati koliko sudionika treba za
+nekoliko uvjerljivih veličina učinka. Ako izvediv uzorak ne
+može dovoljno precizno odgovoriti na pitanje, korisno je to
+znati prije prikupljanja.
+
+Naša simulacija pokazala je mehanizam odabira, ali njezin faktor
+precjenjivanja vrijedi za zadanu populaciju i postupak. Ne
+možemo njime korigirati sve objavljene radove. Za planiranje
+je korisnija promjena polaznog pitanja. Umjesto da pitamo
+koliko je ljudi dovoljno za objavljenu brojku, pitamo kakav
+nam je uzorak potreban da razlučimo mogućnosti koje su važne
+za naše istraživanje.
 :::
 
-::: {.callout-model}
-Analiza snage počinje ulaznim odlukama koje se ne mogu preuzeti iz samoga
-računa. Asistentu treba zadati
-dizajn, očekivanu raspršenost ishoda i najmanji učinak koji bi nešto značio.
-Provjera zatim obuhvaća nazivnik koji odgovara dizajnu, sadržajno opravdanje
-veličine učinka i izvor svake unaprijed zadane vrijednosti. Posebno treba odbiti
-račun u kojem je ciljna veličina učinka procijenjena iz istih podataka čiju se
-snagu zatim navodno provjerava.
 
-> Reci mi koji ulaz nedostaje prije nego što izračunaš snagu. Zatim izračunaj
-> potreban uzorak za nekoliko veličina učinka i pokaži koliko se odgovor mijenja
-> ako je stvarni učinak upola manji od pretpostavljenog.
-:::
+::: {#ex-11-callout-greska-01 .callout-greska .greska-zadrzi}
+Pregledavate završni izvještaj male studije. Za ovu je vježbu
+konstruiran nalaz standardizirane razlike od 0,78 uz trideset osoba po
+skupini. Prije prikupljanja tim je kao najmanju važnu razliku odredio
+0,5 boda i za planiranje pretpostavio standardnu devijaciju od 1,9 boda.
+Te su vrijednosti pretpostavke nastavnog primjera, a ne objavljen nalaz.
 
-::: {#ex-11-callout-greska-01 .callout-greska}
-Nakon male studije s tridesetero ljudi po skupini asistent je uz nalaz priložio
-i ovu provjeru.
+Asistent je nakon uvida u rezultat izračunao sljedeće.
 
 ```r
-d_opazeni <- (mean(tisak) - mean(portal)) / sd_zdruzena
-
+d_opazeni <- 0.78
 power.t.test(n = 30, delta = d_opazeni, sd = 1,
              sig.level = 0.05, type = "two.sample")
 ```
 
-Uz ispis je dodao obrazloženje. Opažena razlika daje standardiziranu razliku
-oko 0,78, a snaga izračunata za tu vrijednost i trideset ljudi po skupini iznosi
-0,84. Budući da je snaga iznad uobičajene granice, zaključuje da je studija
-bila dovoljno velika i da se procijenjenoj razlici može vjerovati.
+Za zadane ulaze poziv vraća snagu približno 0,84. Uz ispis stoji
+obrazloženje.
+
+> Opaženu standardiziranu razliku unijeli smo kao `delta`, a
+> standardnu devijaciju postavili na jedan jer računamo na
+> standardiziranoj skali. Dobivena snaga veća je od 0,80, pa potvrđuje
+> da je završena studija bila dovoljno velika za naše pitanje.
+
+Sastavite odgovor timu. Objasnite što račun od 0,84 vrijedi uz zadane
+ulaze, a što iz njega ne slijedi. Predložite vrijednost učinka za
+planiranje nove studije na temelju prethodno određenog cilja i navedite
+koji biste podatak iz završene analize još tražili za prosudbu preciznosti.
 
 :::
 
 ## Razrađeni primjer
 
-Pretpostavimo da bi uredništvo reagiralo na razliku od pola boda i da očekuje
-raspršenost sličnu onoj u ovoj populaciji. Analiza ispod za nekoliko veličina
-uzorka broji u kolikom udjelu simuliranih studija bi takva razlika bila
-otkrivena.
+Planiranje unatrag sada možemo provesti za konkretnu uredničku odluku.
+Pretpostavimo da bi uredništvo reagiralo na razliku od pola boda, uz očekivanu
+raspršenost sličnu onoj u našoj populaciji. Ta je granica pretpostavka primjera
+koju bi u stvarnom istraživanju trebalo opravdati. Za nekoliko veličina uzorka
+procijenit ćemo koliko bi često simulirana studija otkrila zadanu razliku.
 
-Nulta hipoteza u ovom računu tvrdi da je razlika sredina nula, a testna
-statistika dijeli opaženu razliku poznatom standardnom pogreškom. Simulacija
-pretpostavlja dvije neovisne skupine, neovisne normalne ishode, jednaku i poznatu
-standardnu devijaciju od 1,9 boda te obostrani z-postupak s pragom 0,05. Za svaku
-veličinu uzorka proizvodi dvije tisuće novih parova skupina. Izračunana snaga
-vrijedi samo pod tim pretpostavkama i za unaprijed zadanu razliku od pola boda.
+Nulta hipoteza zadaje razliku sredina nula, a testna statistika dijeli opaženu
+razliku poznatom standardnom pogreškom. Pretpostavljamo dvije neovisne
+skupine, neovisne normalne ishode i jednaku poznatu standardnu devijaciju od
+1,9 boda. Koristimo obostrani z-test s pragom 0,05. Za svaku veličinu uzorka
+simuliramo dvije tisuće parova skupina. Dobivena snaga vrijedi za te uvjete i
+zadanu razliku od pola boda.
 
 ```{r}
 #| echo: false
 
+set.seed(1115)
 najmanji_ucinak <- 0.5
 rasprsenost <- 1.9
+s11_plan_seed <- .Random.seed
+s11_plan_prva <- rnorm(100, 0, rasprsenost)
+s11_plan_druga <- rnorm(100, najmanji_ucinak, rasprsenost)
+.Random.seed <- s11_plan_seed
 
 snaga_za <- function(n) {
   mean(replicate(2000, {
@@ -795,13 +936,24 @@ snaga_za <- function(n) {
 }
 
 plan <- sapply(c(100, 150, 200, 250), snaga_za)
-plan
+invisible(plan)
 ```
 
-Funkcija `replicate` ponavlja cijelu zamišljenu studiju dvije tisuće puta, a
-`sapply` isti račun provodi za svaku ponuđenu veličinu uzorka. Granica 1,96
-dolazi iz standardne normalne raspodjele i pripada upravo opisanom obostranom
-z-postupku, a ne permutacijskom postupku iz prvog prikaza snage.
+Prva studija s po 100 opažanja počinje vrijednostima
+`r paste(hr_broj(s11_plan_prva[1:3], 2), collapse = ", ")` u prvoj skupini
+i `r paste(hr_broj(s11_plan_druga[1:3], 2), collapse = ", ")` u drugoj.
+To su generirani ishodi na centriranoj, neograničenoj normalnoj ljestvici,
+pa nisu doslovne ocjene od jedan do deset. Iz svih 100 vrijednosti po
+skupini dobivamo sredine `r hr_broj(mean(s11_plan_prva), 3)` i
+`r hr_broj(mean(s11_plan_druga), 3)`. Njihovu razliku dijelimo s
+$1,9\sqrt{2/100}$ i uspoređujemo apsolutni rezultat s 1,96.
+Svako novo ponavljanje generira svih 200 ishoda iznova. Broj otkrivenih
+razlika dijelimo s 2 000, bez isključenih studija.
+
+Za svaku ponuđenu veličinu uzorka ponavljamo studiju dvije tisuće puta.
+Granica 1,96 dolazi iz
+standardne normalne raspodjele. Pripada ovom obostranom z-testu, a ne
+permutacijskom testu iz prvog prikaza snage.
 
 ```{r}
 #| label: tbl-plan-uzorka
@@ -809,40 +961,40 @@ z-postupku, a ne permutacijskom postupku iz prvog prikaza snage.
 
 tibble(
   `Jedinica po skupini` = hr_broj(c(100, 150, 200, 250), 0),
+  `Otkrivanja od 2 000` = as.integer(round(plan * 2000)),
   `Snaga` = paste0(hr_broj(plan * 100, 1), " %")
 ) |>
-  knitr::kable(align = c("r", "r"))
+  knitr::kable(align = "r")
 ```
 
-Za razliku od pola boda treba između dvjesto i dvjesto pedeset ljudi po skupini
-da bi se dosegla uobičajena granica od osamdeset posto. Ako uredništvo može
-prikupiti stotinu, plan je i dalje moguć, ali izvještaj mora unaprijed reći da
-će studija razliku te veličine propustiti u više od polovice slučajeva.
+Za snagu od približno 80 % pri razlici od pola boda potrebno je između dvjesto
+i dvjesto pedeset osoba po skupini. Ako je izvedivo samo stotinu, istraživanje
+možemo provesti uz jasno ograničenje. Pod planskim pretpostavkama propustilo
+bi takvu razliku u više od polovice ponavljanja.
 
-Račun ne odlučuje ništa od onoga što je važno. Pola boda kao granicu postavio je
-netko tko zna što se s tom razlikom radi, raspršenost je procijenjena iz ranijih
-mjerenja, a odustajanje ispitanika i kvaliteta mjerenja nisu ni ušli u simulaciju.
-Račun daje obranjiv oblik rečenice o uzorku, u kojem broj jedinica stoji uz
-učinak koji se njime može uočiti.
+Račun povezuje planirani uzorak s učinkom koji želimo otkriti. Granicu od pola
+boda trebamo opravdati sadržajno, a očekivanu raspršenost ranijim mjerenjima.
+Simulacija ovdje ne uključuje odustajanje ispitanika ni probleme mjerenja, pa
+i njih treba razmotriti pri konačnom planiranju.
 
 ## Sažetak {.sazetak}
 
-Veličina učinka vraća pitanju koliko je razlika velika, a standardizirana mjera
-čini je usporedivom preko različitih ljestvica. Statistička značajnost i
-praktična važnost odgovaraju na različita pitanja, pa golem uzorak može odvojiti
-od nule i razliku koja ne mijenja odluku. Snaga povezuje učinak, uzorak,
-raspršenost i prag, dok planiranje prema preciznosti polazi od potrebne širine
-intervala. U simuliranom scenariju maloga uzorka procjene koje su prešle prag u
-prosjeku su dvostruko veće od poznate razlike, ali taj broj ne vrijedi izvan
-zadanoga mehanizma. Sljedeće poglavlje pokazuje što se događa kada sustav
-nagrađuje objavljeni nalaz, a skriva cijeli put koji je do njega doveo.
+Da bismo planirali istraživanje, trebamo odrediti koliku bi razliku vrijedilo
+uočiti, jer statistička značajnost sama ne govori je li ona važna.
+Standardizacija pomaže usporediti veličine učinka na različitim ljestvicama,
+a njihovo sadržajno značenje prosuđujemo zasebno. Snaga povezuje zadani učinak,
+uzorak, raspršenost i prag, dok planiranje prema preciznosti pita koliko nam
+uzak interval treba. Velik uzorak može otkriti i vrlo malu razliku, a u našoj simulaciji maloga uzorka procjene odabrane prema značajnosti bile
+su u prosjeku dvostruko veće od stvarne razlike. Taj faktor opisuje odabir prema pragu u prikazanom
+scenariju i ne prenosimo ga na druga istraživanja. U poglavlju o krizi i obnovi
+vidjet ćemo kako istraživačke odluke i objavljivanje dodatno oblikuju nalaze
+koje čitatelj uopće može vidjeti.
 
 ## Pojmovi {.pojmovi}
 
 veličina učinka (*effect size*), standardizirana razlika (*Cohen's d*),
-praktična važnost (*practical significance*), statistička snaga (*statistical
-power*), precjenjivanje učinka u malim uzorcima (*effect-size exaggeration in
-small samples*), najmanji važan učinak (*smallest effect size of interest*),
+sadržajna važnost (*practical significance*), statistička snaga (*statistical
+power*), precjenjivanje pri odabiru značajnih nalaza (*selection-induced effect-size exaggeration*), najmanji važan učinak (*smallest effect size of interest*),
 planiranje veličine uzorka (*sample size planning*), širina intervala (*interval
 width*)
 
@@ -862,8 +1014,8 @@ portal i tisak. U tiskanom ili dokumentnom izdanju iste su vrijednosti u tablici
 uz statični prikaz. Za svaki redak podijelite zbroj povjerenja brojem osoba,
 usporedite rezultat s pohranjenim prosjekom i izračunajte razliku prosjeka.
 Zatim za standardiziranu razliku 0,4 zabilježite snagu pri 40, 80, 160 i 300
-jedinica po skupini. U HTML-u upotrijebite widget, a u tiskanom izdanju tablicu
-sa zadanom postavkom.
+jedinica po skupini. [U HTML-u upotrijebite widget.]{.content-visible when-format="html"}
+[Vrijednosti očitajte iz tablice sa zadanom postavkom.]{.content-hidden when-format="html"}
 
 Vratite se objašnjenju standardne pogreške i širine intervala u poglavlju o
 procjeni. Objasnite zašto veći uzorak istodobno sužava interval i povećava snagu,

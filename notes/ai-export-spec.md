@@ -48,7 +48,7 @@ koji ovaj izvoz obvezno odbacuje.
 
 Ostaje proza, naslovi, tablice, formule, definicijski divovi i sadržaj
 pedagoških kutija. Kutije zadržavaju svoju oznaku kao podebljani uvod
-(**Vinjeta.**, **Statistika u divljini.**, **Pitajte model.**, **Nađite
+(**Vinjeta.**, **Statistika u divljini.**, **Nađite
 grešku.**), pa asistent zna da čita primjer, a ne argument.
 
 Citati `[@kljuc]` razrješavaju se u „Prezime, godina" iz `references.bib`.

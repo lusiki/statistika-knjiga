@@ -14,14 +14,14 @@
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "preregistration-treated-as-validity-guarantee",
-      "statement": "Predregistracija nužno čini zaključak valjanim.",
+      "statement": "Predregistracija je dovoljan razlog da prihvatimo zaključak bez usporedbe provedene analize s planom.",
       "why_wrong": "Predregistracija daje vremenski označen trag planiranih odluka i omogućuje provjeru odstupanja, ali ne jamči ispravnost mjerenja, uzorka, provedbe, modela, ciljane tvrdnje ni prijenosa na druge kontekste. Valjanost se prosuđuje tim zasebnim dokazima, a ne statusom plana."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Ispuniti četiri tražena polja odvojeno. Najprije sačuvati provjerene brojke, zatim označiti samo posljednju rečenicu, napisati zaključak koji predregistraciji daje ulogu traga umjesto jamstva i imenovati točan dokument ili redak kojim bi se usporedili plan i provedba.",
-      "expected_evidence": "Brojke 0,03 [−0,11; 0,16] ostaju nepromijenjene. Ispravak navodi da plan povećava vidljivost, ali da zaključak o maloj razlici vrijedi samo za provjereni postupak i ostaje ovisan o dizajnu, mjerenju, analizi i dosegu."
+      "expected_evidence": "Valjani su podatak o unaprijed određenoj analizi i procjena od 0,03 boda uz interval od −0,11 do 0,16. Pogreška je zaključak da predregistracija zamjenjuje provjeru provedbe. Možemo, primjerice, usporediti popis uključenih laboratorija i razloge isključenja s pravilima u planu ili provjeriti je li prikazani ishod doista primarni. Registrirani izvještaj daje i uvid u prethodno recenzirani protokol, ali ne jamči da je svaka kasnija odluka valjana. Nema osnove unaprijed tvrditi da su autori odstupili od plana.\n\nJedna moguća zamjena glasi ovako.\n\nPredregistracija nam omogućuje usporediti provedenu analizu s unaprijed određenim postupkom. Prije prihvaćanja zaključka provjerit ćemo njihovo slaganje, mjerenje i pretpostavke analize; samu registraciju nećemo smatrati potvrdom tih provjera.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -64,6 +64,11 @@
           "component_id": "field-four-audit-target",
           "required_claim": "Prije prihvaćanja treba usporediti registrirani plan i kod s konačnim pravilima uključivanja, primarnim izlazom i rukopisom te označiti svako odstupanje.",
           "required_evidence": "Registrirani izvještaj čini vrijeme odluka i kasnije promjene vidljivima jer se pitanje i metoda vrednuju prije poznatoga glavnoga rezultata."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Predregistracija nam omogućuje usporediti provedenu analizu s unaprijed određenim postupkom. Prije prihvaćanja zaključka provjerit ćemo njihovo slaganje, mjerenje i pretpostavke analize; samu registraciju nećemo smatrati potvrdom tih provjera.",
+          "required_evidence": "Valjani su podatak o unaprijed određenoj analizi i procjena od 0,03 boda uz interval od −0,11 do 0,16. Pogreška je zaključak da predregistracija zamjenjuje provjeru provedbe. Možemo, primjerice, usporediti popis uključenih laboratorija i razloge isključenja s pravilima u planu ili provjeriti je li prikazani ishod doista primarni. Registrirani izvještaj daje i uvid u prethodno recenzirani protokol, ali ne jamči da je svaka kasnija odluka valjana. Nema osnove unaprijed tvrditi da su autori odstupili od plana."
         }
       ]
     },
@@ -76,7 +81,12 @@
       "evidence_reference": "scripts/check-p3-evidence12.py; notes/reports/p3-evidence12-rrr-lab-effects.csv; chapters/12-kriza-i-obnova.qmd#ex-12-revizija-modela-01"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-or-replaces-core-error",

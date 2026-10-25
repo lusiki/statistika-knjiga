@@ -152,9 +152,8 @@ recording the decision in STYLE.md.
    edition and its static twin in print (see the twin pattern below).
 4. **Statistika u divljini** — `::: {.callout-divljina}`. A genuine published
    claim, poll, headline or chart, dissected.
-5. **Pitajte model** — `::: {.callout-model}` for how to use an assistant on
-   this chapter's task, then `::: {.callout-greska}` with a short AI-produced
-   analysis containing exactly one realistic mistake the reader must find.
+5. **Nađite grešku** — `::: {.callout-greska}` contains short analytical work
+   with inspectable evidence and exactly one realistic mistake to find and repair.
 6. **Razrađeni primjer** — one complete analysis, narrated, code folded.
 7. **Sažetak i pojmovi** — closing summary `{.sazetak}`, key terms in Croatian
    and English `{.pojmovi}`, then four exercise tiers: konceptualni, računski,
@@ -281,30 +280,21 @@ Otvarajući slučaj poglavlja.
 **Naslov slučaja.** Rastavljena objavljena tvrdnja.
 :::
 
-::: {.callout-model}
-Kako se ovaj zadatak radi s asistentom, što tražiti i što provjeriti.
-
-> Sam upit, kao obični blok citat — CSS ga pretvara u mono traku.
-:::
-
 ::: {.callout-greska}
-Kratka AI-analiza s jednom greškom koju čitatelj mora naći.
+Kratka analiza s provjerljivim podacima i jednom greškom koju čitatelj mora pronaći i ispraviti.
 :::
 ```
 
-The category label is drawn by CSS. Do not type it into the box, and never
+Category labels are drawn by CSS; the opening vignette has no visible label.
+Do not type labels into the box, and never
 write a raw `<div>` or an inline style — if an element does not exist, ask for
 the system to be extended rather than improvising one.
 
-Three further authoring affordances, all specified in DESIGN.md §5:
+Chapters have no reading-time, data or prerequisite metadata strip. Introduce
+each dataset in prose before using it, with its source, unit and relevant
+variables. Two further authoring affordances are specified in DESIGN.md §5:
 
 ```markdown
-::: {.chapter-meta}
-| Vrijeme čitanja | Widget | Podaci | Preduvjet |
-|---|---|---|---|
-| 28 min | Stroj za CLT | ESS HR 2023 | pogl. 4, 7 |
-:::
-
 …počiva cijelo [statističko zaključivanje]{.pojam
   def="Izvođenje tvrdnji o populaciji na temelju uzorka."
   en="statistical inference" ch="8"}.
@@ -390,20 +380,27 @@ wrapped into a collapsible `<details>` and given a reset button automatically by
 
 ## Design
 
-The book's visual identity is **airy editorial**: warm paper, one ochre accent,
-a book-grade serif, and a black-and-white print block. The full specification is
-[DESIGN.md](DESIGN.md); read it before touching anything visual. The reference
-package it was mapped from is kept in `knjiga-stil/`.
+The book's visual identity is **Zvono** (experiment branch `experiment/zvono`):
+the Bauhaus geometry of the 02 Zvono cover — a bell-curve dome over a baseline,
+a numbered disc, a thin axis, lowercase display type in Jost, Literata body text
+and a black-and-white print block. The full specification is
+[DESIGN.md](DESIGN.md); read it before touching anything visual. The same system
+is published as the Claude Design System "Sustav Zvono". The previous "airy
+editorial" package is kept in `knjiga-stil/` as reference only.
 
 Five principles, binding on every element:
 
-1. **Air is the material.** Hairlines and whitespace separate sections — never
-   a box, a shadow or a rounded card.
-2. **Ochre means touch.** The one accent is reserved for interaction and
-   wayfinding. Never decoration, never a data colour.
-3. **Black and white first.** Meaning is carried by rule weight, position and
+1. **Shape carries meaning.** Dome = the book's mark, disc = a number, axis =
+   connection and the mean, baseline = closure. No fifth shape, no ornament.
+2. **Colour is a job.** Ochre (`accent`) means touch and wayfinding, navy
+   (`concept`) builds concepts, red (`error`) marks the planted error. None is
+   decoration in the reading zone and none is a data colour. Only the title
+   zone (cover, landing hero, part pages) uses the palette as fields, through
+   the theme-independent `brand-*` tokens.
+3. **Black and white first.** Meaning is carried by shape, rule weight and
    label. Every element must survive having its colour removed.
-4. **Numerals are monospace**, tabular and lining, everywhere.
+4. **Numerals are monospace**, tabular and lining, everywhere except the
+   number inside a disc.
 5. **Measure before width.** The text column never exceeds 66 characters.
 
 Mechanically: design lives in exactly four files (`design-tokens.yml` is the

@@ -233,10 +233,45 @@ packages:
       - "P5-B"
       - "P5-C"
     source_symbol: "anketa_mreze"
+    teaching_variants:
+      [
+        {
+          "id": "anketa-300",
+          "source": "R/podaci-nastavni.R",
+          "symbol": "anketa_mreze",
+          "kind": "sample",
+          "rows": 300,
+          "seed": 4001,
+          "transformation": "simuliraj_anketu(n = 300, sjeme = 4001); zasebno generirana nastavna anketa, nije podskup populacija_medija. Jedan redak je zamišljena osoba.",
+          "variables": [
+            "ispitanik",
+            "dob",
+            "dobna_skupina",
+            "minute_dnevno",
+            "povjerenje"
+          ]
+        },
+        {
+          "id": "c18-anketa-300",
+          "source": "chapters/18-vase-prvo-istrazivanje.qmd",
+          "symbol": "anketa_mreze",
+          "kind": "reuse",
+          "parent": "anketa-300",
+          "rows": 300,
+          "transformation": "Isti zapisi i iste varijable iz poglavlja 4–6; modeli povjerenje ~ minute_dnevno i povjerenje ~ minute_dnevno + dob ne mijenjaju osobe.",
+          "variables": [
+            "ispitanik",
+            "dob",
+            "minute_dnevno",
+            "povjerenje"
+          ]
+        }
+      ]
     consumer_sources:
       - "chapters/04-sazimanje-podataka.qmd"
       - "chapters/05-vizualizacija.qmd"
       - "chapters/06-povezanost.qmd"
+      - "chapters/08-uzorkovanje.qmd"
       - "chapters/18-vase-prvo-istrazivanje.qmd"
       - "dodaci/a-praktikum.qmd"
       - "dodaci/b-jamovi.qmd"
@@ -484,6 +519,172 @@ packages:
       - "P5-B"
       - "P5-C"
     source_symbol: "populacija_medija"
+    teaching_variants:
+      [
+        {
+          "id": "mediji-50000",
+          "source": "R/podaci-nastavni.R",
+          "symbol": "populacija_medija",
+          "kind": "population",
+          "rows": 50000,
+          "seed": 8001,
+          "transformation": "simuliraj_populaciju(N = 50000, sjeme = 8001); konačna generirana populacija. Jedan redak je zamišljena osoba. Nazivi i šifre analitičke CSV snimke opisani su u file_records.",
+          "variables": [
+            "dob",
+            "izvor_vijesti",
+            "povjerenje_medijima",
+            "obrazovanje",
+            "minute_medija"
+          ]
+        },
+        {
+          "id": "c13-800",
+          "source": "chapters/13-kategoricki-podaci.qmd",
+          "symbol": "s13_uzorak",
+          "kind": "sample",
+          "parent": "mediji-50000",
+          "rows": 800,
+          "seed": 1313,
+          "transformation": "slice_sample(populacija_medija, n = 800), bez vraćanja; cut(dob, c(17,29,44,59,Inf)) daje četiri dobne skupine.",
+          "variables": [
+            "dob",
+            "dobna_skupina",
+            "izvor_vijesti",
+            "obrazovanje"
+          ]
+        },
+        {
+          "id": "c13-digitalni",
+          "source": "chapters/13-kategoricki-podaci.qmd",
+          "symbol": "s13_uzorak",
+          "kind": "recoding",
+          "parent": "c13-800",
+          "rows": 800,
+          "transformation": "Osobe i redci ostaju isti. Portal i društvene mreže postaju digitalni, a TV, radio i tisak tradicionalni u novoj varijabli skupina_medija. Izvorna varijabla ostaje.",
+          "variables": [
+            "dobna_skupina",
+            "izvor_vijesti",
+            "skupina_medija"
+          ]
+        },
+        {
+          "id": "c14-120",
+          "source": "chapters/14-dvije-grupe.qmd",
+          "symbol": "dvije_skupine",
+          "kind": "sample",
+          "parent": "mediji-50000",
+          "rows": 120,
+          "seed": 1414,
+          "transformation": "Najprije filter na TV i društvene mreže, zatim slice_sample(n = 120) bez vraćanja. Novi uzorak, nije podskup c13-800. Droplevels uklanja neupotrijebljene kategorije.",
+          "variables": [
+            "dob",
+            "izvor",
+            "povjerenje_medijima"
+          ]
+        },
+        {
+          "id": "c14-parovi-60",
+          "source": "chapters/14-dvije-grupe.qmd",
+          "symbol": "s14_prije / s14_poslije",
+          "kind": "separate_simulation",
+          "rows": 60,
+          "seed": 1415,
+          "transformation": "Zasebne osobe i neograničeni normalni ishodi. Osnova N(5,1.6²), dva neovisna odstupanja N(0,0.7²), pomak poslije 0.45; nisu podskup c14-120 ni ljestvica povjerenja. Jedna osoba nosi par mjerenja.",
+          "variables": [
+            "s14_prije",
+            "s14_poslije",
+            "s14_razlike"
+          ]
+        },
+        {
+          "id": "c15-300",
+          "source": "chapters/15-vise-grupa.qmd",
+          "symbol": "pet_izvora",
+          "kind": "sample",
+          "parent": "mediji-50000",
+          "rows": 300,
+          "seed": 1515,
+          "transformation": "slice_sample(populacija_medija, n = 300) bez vraćanja. Novi uzorak iz svih pet izvora, nije anketa-300 unatoč jednakom broju redaka.",
+          "variables": [
+            "izvor_vijesti",
+            "povjerenje_medijima"
+          ]
+        },
+        {
+          "id": "c16-populacija",
+          "source": "chapters/16-regresija.qmd",
+          "symbol": "populacija_medija",
+          "kind": "reuse",
+          "parent": "mediji-50000",
+          "rows": 50000,
+          "transformation": "Glavni zbirni i prilagođeni model opisuju cijelu konačnu populaciju; nisu procjene iz novog uzorka.",
+          "variables": [
+            "dob",
+            "izvor_vijesti",
+            "povjerenje_medijima"
+          ]
+        },
+        {
+          "id": "c16-dvije",
+          "source": "chapters/16-regresija.qmd",
+          "symbol": "s16_dvije",
+          "kind": "reuse",
+          "parent": "c14-120",
+          "rows": 120,
+          "seed": 1414,
+          "transformation": "Ponavlja isti filter i izvlačenje kao c14-120 s istim sjemenom; moraju biti iste osobe i isti redoslijed.",
+          "variables": [
+            "izvor_vijesti",
+            "povjerenje_medijima"
+          ]
+        },
+        {
+          "id": "c16-pet",
+          "source": "chapters/16-regresija.qmd",
+          "symbol": "s16_pet",
+          "kind": "reuse",
+          "parent": "c15-300",
+          "rows": 300,
+          "seed": 1515,
+          "transformation": "Ponavlja isti izvlak kao c15-300 s istim sjemenom.",
+          "variables": [
+            "izvor_vijesti",
+            "povjerenje_medijima"
+          ]
+        },
+        {
+          "id": "c16-ucenje",
+          "source": "chapters/16-regresija.qmd",
+          "symbol": "s16_ucenje",
+          "kind": "sample",
+          "parent": "mediji-50000",
+          "rows": 150,
+          "seed": 1618,
+          "transformation": "sample(nrow(populacija_medija), 150), zatim 25 zasebno generiranih prediktora šuma. Služi učenju, ne završnoj procjeni prediktivne pogreške.",
+          "variables": [
+            "dob",
+            "izvor_vijesti",
+            "povjerenje_medijima",
+            "z1–z25"
+          ]
+        },
+        {
+          "id": "c16-provjera",
+          "source": "chapters/16-regresija.qmd",
+          "symbol": "s16_provjera",
+          "kind": "sample",
+          "parent": "mediji-50000",
+          "rows": 2000,
+          "seed": 1618,
+          "transformation": "Nastavak istog toka generatora nakon c16-ucenje; 2000 osoba uzorkuje se isključivo iz ostatka populacije. Nema preklapanja osoba s učenjem.",
+          "variables": [
+            "dob",
+            "izvor_vijesti",
+            "povjerenje_medijima",
+            "z1–z25"
+          ]
+        }
+      ]
     consumer_sources:
       - "chapters/00-predgovor.qmd"
       - "chapters/01-zasto-statistika.qmd"
@@ -2087,18 +2288,12 @@ packages:
       pweight, prob, stratum i psu ostaju izlozeni radi citanja nacrta.
     consumers:
       - "WC-C08"
-      - "WD-C13"
-      - "WD-C14"
-      - "WD-C15"
       - "P5-C"
     consumer_markers:
       - "ESS Round 11"
       - "anweight"
     consumer_sources:
       - "chapters/08-uzorkovanje.qmd"
-      - "chapters/13-kategoricki-podaci.qmd"
-      - "chapters/14-dvije-grupe.qmd"
-      - "chapters/15-vise-grupa.qmd"
       - "dodaci/c-katalog-podataka.qmd"
       - "podaci.qmd"
     source: "European Social Survey, Round 11, edition 3.0, ukljucuje Hrvatsku; izdanje objavljeno 2. lipnja 2025."

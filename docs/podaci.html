@@ -2,17 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hr-HR" xml:lang="hr-HR"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Udžbenik statistike za društvene znanosti — statističko mišljenje, opisivanje podataka, uzorkovanje i procjena, zaključivanje, linearni modeli i statistika u doba algoritama.">
 
-<title>Podaci – Osnove statistike za društvene znanosti</title>
+<title>Podaci – Statistika 101</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,61 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -87,20 +30,17 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d863536a35c72399060ca13ea1ba5060.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d863536a35c72399060ca13ea1ba5060.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1cc29e0bfa4db480e39bd5d9581edf95.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f736e697f19f6ba2e3029018030b82fa.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -129,260 +69,39 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- =====================================================================
-
-     head.html — pisma knjige (include-in-header)
-
+     head.html — pisma knjige (include-in-header), sustav Zvono
      ---------------------------------------------------------------------
-
-     Četiri obitelji, sve s Google Fontsa, sve s punom hrvatskom
-
+     Tri obitelji, sve s Google Fontsa, sve s punom hrvatskom
      dijakritikom (č ć đ š ž):
 
-
-
-       Newsreader      displej — naslovi, otvaranje poglavlja, navodi
-
+       Jost            displej, naslovi, sučelje, potpisi
        Literata        tijelo teksta
-
-       Public Sans     sučelje, potpisi, margina, izvori, glave tablica
-
-       JetBrains Mono  kod, brojke, oznake, „eyebrow"
-
-
+       JetBrains Mono  kod, brojke, oznake widgeta
 
      Imena pisama žive u styles/_tokens.scss; ovdje su samo poveznice na
-
-     datoteke. Za PDF ih treba instalirati lokalno — tex/theme.tex ih traži
-
-     u sustavu i tiho pada na Latin Modern ako ih nema.
-
-
+     datoteke. PDF i R grafovi učitavaju statičke instance iz fonts/print/.
 
      ŠESTI NOSITELJ BOJE. `theme-color` ne može se izraziti tokenom jer ga
-
-     čita preglednik, ne stranica. Vrijednost je token:paper i mijenja se
-
-     zajedno s njim (vidi DESIGN.md).
-
+     čita preglednik, ne stranica. Vrijednosti su token:paper svijetle i
+     tamne teme i mijenjaju se zajedno s njima (vidi DESIGN.md).
      ================================================================== -->
 
-
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;1,400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=Public+Sans:ital,wght@0,400..700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<meta name="theme-color" content="#F2E8D5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191814" media="(prefers-color-scheme: dark)">
 
+<!-- Oznaka stranice: kupola u tinti s modrom unutarnjom kupolom nad osnovicom
+     (token:brand-ink, token:brand-navy). -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 26 A14 14 0 0 1 30 26 Z' fill='%231B1A17'/%3E%3Cpath d='M9 26 A7 7 0 0 1 23 26 Z' fill='%231E3F7A'/%3E%3Crect x='1' y='26' width='30' height='3' fill='%231B1A17'/%3E%3C/svg%3E">
 
-
-<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
-
-<meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
-
-
-
-<!-- Oznaka stranice: tri rastuća stupca, s okerom kao signalom navođenja. -->
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
-
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles/styles.css">
 </head>
 
-<body class="nav-fixed standalone-page support-page podaci-page quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-fixed standalone-page support-page podaci-page">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -390,7 +109,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Osnove statistike za društvene znanosti</span>
+    <span class="navbar-title">Statistika 101</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Prikaži ili sakrij navigaciju" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -488,10 +207,46 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Sadržaj</h2>
+   
+  <ul>
+  <li><a href="#sec-podaci-stanje" id="toc-sec-podaci-stanje" class="nav-link active" data-scroll-target="#sec-podaci-stanje">Stanje kataloga</a></li>
+  <li><a href="#sec-podaci-provjera" id="toc-sec-podaci-provjera" class="nav-link" data-scroll-target="#sec-podaci-provjera">Provjerljivi redci generiranih skupova</a>
+  <ul class="collapse">
+  <li><a href="#provjera-podaci-anketa-mreze" id="toc-provjera-podaci-anketa-mreze" class="nav-link" data-scroll-target="#provjera-podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup — provjera retka</a></li>
+  <li><a href="#provjera-podaci-populacija-medija" id="toc-provjera-podaci-populacija-medija" class="nav-link" data-scroll-target="#provjera-podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup — provjera retka</a></li>
+  </ul></li>
+  <li><a href="#sec-dzs-dvije-mjere" id="toc-sec-dzs-dvije-mjere" class="nav-link" data-scroll-target="#sec-dzs-dvije-mjere">Dvije DZS-ove mjere nisu jedna serija</a></li>
+  <li><a href="#sec-podaci-svi" id="toc-sec-podaci-svi" class="nav-link" data-scroll-target="#sec-podaci-svi">Svi paketi</a>
+  <ul class="collapse">
+  <li><a href="#podaci-anketa-mreze" id="toc-podaci-anketa-mreze" class="nav-link" data-scroll-target="#podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup</a></li>
+  <li><a href="#podaci-populacija-medija" id="toc-podaci-populacija-medija" class="nav-link" data-scroll-target="#podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup</a></li>
+  <li><a href="#podaci-ucbadmissions" id="toc-podaci-ucbadmissions" class="nav-link" data-scroll-target="#podaci-ucbadmissions">UCBAdmissions, zamrznuti orijentir iz R-ove distribucije</a></li>
+  <li><a href="#podaci-anscombe" id="toc-podaci-anscombe" class="nav-link" data-scroll-target="#podaci-anscombe">Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije</a></li>
+  <li><a href="#podaci-dzs-turizam" id="toc-podaci-dzs-turizam" class="nav-link" data-scroll-target="#podaci-dzs-turizam">DZS turizam, omeđeni izvadak</a></li>
+  <li><a href="#podaci-dzs-drugi-domen" id="toc-podaci-dzs-drugi-domen" class="nav-link" data-scroll-target="#podaci-dzs-drugi-domen">Drugi DZS domen</a></li>
+  <li><a href="#podaci-dip-2024" id="toc-podaci-dip-2024" class="nav-link" data-scroll-target="#podaci-dip-2024">DIP, izbori za Hrvatski sabor 2024.</a></li>
+  <li><a href="#podaci-digikat-akteri" id="toc-podaci-digikat-akteri" class="nav-link" data-scroll-target="#podaci-digikat-akteri">DigiKat agregat aktera</a></li>
+  <li><a href="#podaci-determ-korpus" id="toc-podaci-determ-korpus" class="nav-link" data-scroll-target="#podaci-determ-korpus">Determ, puni korpus</a></li>
+  <li><a href="#podaci-eurostat-drustvo" id="toc-podaci-eurostat-drustvo" class="nav-link" data-scroll-target="#podaci-eurostat-drustvo">Eurostat, društveni pokazatelji</a></li>
+  <li><a href="#podaci-ess-r11-hr" id="toc-podaci-ess-r11-hr" class="nav-link" data-scroll-target="#podaci-ess-r11-hr">European Social Survey, Round 11, Hrvatska</a></li>
+  <li><a href="#podaci-vdem-v16" id="toc-podaci-vdem-v16" class="nav-link" data-scroll-target="#podaci-vdem-v16">V-Dem Dataset v16</a></li>
+  <li><a href="#podaci-covidistress-ii" id="toc-podaci-covidistress-ii" class="nav-link" data-scroll-target="#podaci-covidistress-ii">COVIDiSTRESS II</a></li>
+  <li><a href="#podaci-wdi" id="toc-podaci-wdi" class="nav-link" data-scroll-target="#podaci-wdi">World Development Indicators</a></li>
+  <li><a href="#podaci-parlamint-hr" id="toc-podaci-parlamint-hr" class="nav-link" data-scroll-target="#podaci-parlamint-hr">ParlaMint-HR 5.0</a></li>
+  <li><a href="#podaci-parlasent" id="toc-podaci-parlasent" class="nav-link" data-scroll-target="#podaci-parlasent">ParlaSent 1.0</a></li>
+  <li><a href="#podaci-gfi-fina" id="toc-podaci-gfi-fina" class="nav-link" data-scroll-target="#podaci-gfi-fina">GFI/FINA</a></li>
+  <li><a href="#podaci-digikat-mediji" id="toc-podaci-digikat-mediji" class="nav-link" data-scroll-target="#podaci-digikat-mediji">DigiKat, agregat digitalnoga medijskog prostora</a></li>
+  <li><a href="#podaci-rdp-potpore" id="toc-podaci-rdp-potpore" class="nav-link" data-scroll-target="#podaci-rdp-potpore">Registar državnih potpora, agregati koncentracije</a></li>
+  <li><a href="#podaci-bdp-dugi-niz" id="toc-podaci-bdp-dugi-niz" class="nav-link" data-scroll-target="#podaci-bdp-dugi-niz">BDP po stanovniku, dugi niz i pet procjena</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
-
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -500,7 +255,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -519,9 +274,34 @@ window.Quarto = {
   );
   var title = document.querySelector("#title-block-header h1.title");
   if (chapterMatch && title && !title.parentNode.querySelector(".chapter-kicker")) {
+    // Sustav Zvono: disk s brojem i os lijevo, oznaka dijela iznad naslova.
+    var header = document.getElementById("title-block-header");
+    if (header) header.classList.add("zv-opener");
+
+    var rail = document.createElement("span");
+    rail.className = "zv-rail";
+    rail.setAttribute("aria-hidden", "true");
+    var disc = document.createElement("span");
+    disc.className = "zv-rail__disc";
+    disc.textContent = chapterMatch[1];
+    rail.appendChild(disc);
+    title.parentNode.insertBefore(rail, title.parentNode.firstChild);
+
+    var partLink = document.querySelector(
+      "#title-block-header .breadcrumb .breadcrumb-item:first-child a"
+    );
+    var partName = "";
+    if (partLink) {
+      var raw = partLink.textContent.trim();
+      var m = raw.match(/^DIO ([IVX]+):\s*(.+)$/);
+      partName = m
+        ? "Dio " + m[1] + " · " + m[2].charAt(0) + m[2].slice(1).toLowerCase()
+        : raw.charAt(0) + raw.slice(1).toLowerCase();
+    }
     var kicker = document.createElement("span");
     kicker.className = "kicker chapter-kicker";
-    kicker.textContent = "POGLAVLJE " + chapterMatch[1];
+    kicker.textContent = "Poglavlje " + parseInt(chapterMatch[1], 10) +
+      (partName ? " · " + partName : "");
     title.parentNode.insertBefore(kicker, title);
   }
 
@@ -535,10 +315,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -592,2357 +376,2814 @@ window.Quarto = {
 }());
 </script>
 
-<!-- =====================================================================
-  Pregled skupova podataka koje knjiga koristi. Održava se zajedno s
-  Dodatkom C (dodaci/c-katalog-podataka.qmd), koji nosi puni katalog s
-  licencama i opisom varijabli, i s R/fetch-podaci.R, koji ih dohvaća.
-
-  Privremeno stanje prikazano je kao namjerna prazna stranica dok se svaki
-  skup ne provjeri; ne vraćati prijašnji prazan obrazac.
-===================================================================== -->
-<p>Svaki skup podataka koji se pojavljuje u knjizi javno je dostupan, imenovan i citiran. Nijedna vježba ne počiva na podacima koje čitatelj ne može sam preuzeti i provjeriti. Puni katalog s licencama i opisom varijabli je Dodatak C.</p>
-<p>Jezgru čine Europsko društveno istraživanje u hrvatskim valovima, Državni zavod za statistiku i Eurostat.</p>
-<section id="popis" class="level2">
-<h2 class="anchored" data-anchor-id="popis">Popis</h2>
-<div class="empty-state">
-<div class="empty-state-title">
-<p>Katalog je u pripremi</p>
+<!-- Generira scripts/build-appendix-c-views.R iz data/katalog.yml. -->
+<p>Ovdje su sažeti podaci o skupovima koji se koriste ili razmatraju za knjigu. Svaki zapis vodi do podrobnijega opisa u Dodatku C. Oba se prikaza grade iz istog kataloga <code>data/katalog.yml</code>, koji bilježi odabir skupa za uporabu, način pristupa, datoteke i granice zaključivanja.</p>
+<section id="sec-podaci-stanje" class="level2">
+<h2 class="anchored" data-anchor-id="sec-podaci-stanje">Stanje kataloga</h2>
+<p>Katalog sadrži 20 paketa. Među njima je 9 u traci <code>bundled</code>, 2 u traci <code>portal-mediated</code> i 9 u traci <code>external-only</code>. Promovirano ih je 6. Promocija je zasebna odluka; sama dostupnost datoteke ne mijenja status.</p>
+<div id="tbl-podaci-paketi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-paketi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;1: Sažeti popis paketa iz kanonskoga kataloga.
+</figcaption>
+<div aria-describedby="tbl-podaci-paketi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Skup</th>
+<th>Način pristupa</th>
+<th>Status</th>
+<th>Pitanje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-EXISTING</code></td>
+<td>Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-EXISTING</code></td>
+<td>Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-ucbadmissions">UCBAdmissions, zamrznuti orijentir iz R-ove distribucije</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Kako zbirna stopa upisa može obrnuti predznak razlike po odjelima?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-anscombe">Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Zašto četiri skupa s istim sažetcima izgledaju posve različito?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-dzs-turizam">DZS turizam, omeđeni izvadak</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-DZS</code></td>
+<td>Kako se dolasci i noćenja mijenjaju kroz godinu i po županijama?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-dzs-drugi-domen">Drugi DZS domen</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Nije određeno jer domena i tablice nisu odabrane.</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-dip-2024">DIP, izbori za Hrvatski sabor 2024.</a></td>
+<td><code>portal-mediated</code></td>
+<td>nije promoviran</td>
+<td>Kako se izlaznost mijenja po izbornim jedinicama i što joj je nazivnik?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-digikat-akteri">DigiKat agregat aktera</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-determ-korpus">Determ, puni korpus</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Što se može i što se ne može reproducirati iz ograničenoga komercijalnog izvora?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-eurostat-drustvo">Eurostat, društveni pokazatelji</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-EUROSTAT</code></td>
+<td>Kako se isti pokazatelj razlikuje među zemljama u istoj godini?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-ess-r11-hr">European Social Survey, Round 11, Hrvatska</a></td>
+<td><code>portal-mediated</code></td>
+<td>nije promoviran</td>
+<td>Među hrvatskim ispitanicima u službenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje između neponderirane procjene i procjene s anweight, te koje pogreške odabira ili mjerenja ponder ne može ukloniti?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-vdem-v16">V-Dem Dataset v16</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Kako se latentni pojam poput demokracije pretvara u broj s nesigurnošću?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-covidistress-ii">COVIDiSTRESS II</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Zašto vrlo velik dobrovoljni uzorak ne popravlja samoodabir?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-wdi">World Development Indicators</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Nije određeno jer pokazatelj nije odabran.</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-parlamint-hr">ParlaMint-HR 5.0</a></td>
+<td><code>bundled</code></td>
+<td>nije promoviran</td>
+<td>Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-parlasent">ParlaSent 1.0</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-TEXT</code></td>
+<td>Kako se ljudska oznaka pretvara u zabilježeni referentni ishod, i koliko je pogrešiva?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-gfi-fina">GFI/FINA</a></td>
+<td><code>external-only</code></td>
+<td>nije promoviran</td>
+<td>Što se smije tvrditi iz izvora koji čitatelj ne može otvoriti?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-digikat-mediji">DigiKat, agregat digitalnoga medijskog prostora</a></td>
+<td><code>bundled</code></td>
+<td>promoviran paketom <code>P3-DIGIKAT</code></td>
+<td>Kako se objavljivanje i vidljivost razlikuju među platformama i među izvorima?</td>
+</tr>
+<tr class="odd">
+<td><a href="#podaci-rdp-potpore">Registar državnih potpora, agregati koncentracije</a></td>
+<td><code>bundled</code></td>
+<td>nije promoviran</td>
+<td>Koliko je koncentrirana dodjela državnih potpora i koliko ju je snimka registra uopće zabilježila?</td>
+</tr>
+<tr class="even">
+<td><a href="#podaci-bdp-dugi-niz">BDP po stanovniku, dugi niz i pet procjena</a></td>
+<td><code>bundled</code></td>
+<td>nije promoviran</td>
+<td>Koliko se razlikuju objavljene procjene iste veličine i što se dobiva kad ih se spoji u jedan niz?</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>Popis će biti objavljen kada svaki skup dobije provjeren izvor, licencu i poveznicu za preuzimanje. Do tada se ovdje ne prikazuje prazan obrazac koji bi mogao izgledati kao gotov katalog.</p>
+</figure>
 </div>
 </section>
-<section id="kako-se-podaci-dohvaćaju" class="level2">
-<h2 class="anchored" data-anchor-id="kako-se-podaci-dohvaćaju">Kako se podaci dohvaćaju</h2>
-<p>Skripta <code>R/fetch-podaci.R</code> dohvaća sve skupove iz javnih izvora i sprema ih u <code>data/</code>. Pokreće se ručno, ne pri svakom renderu, jer izvori mijenjaju adrese sporije nego što se knjiga gradi.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/fetch-podaci.R</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="sec-podaci-provjera" class="level2">
+<h2 class="anchored" data-anchor-id="sec-podaci-provjera">Provjerljivi redci generiranih skupova</h2>
+<p>Agregatne datoteke dvaju generiranih nastavnih skupova omogućuju provjeru bez analitičkoga softvera. Vrijednosti ispod prepisuju se kao znakovni zapisi iz datoteka koje katalog izrijekom proglašava agregatnim prikazima.</p>
+<section id="provjera-podaci-anketa-mreze" class="level3">
+<h3 class="anchored" data-anchor-id="provjera-podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup — provjera retka</h3>
+<p>Udio u <a href="#tbl-podaci-anketa-mreze-udjeli" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-anketa-mreze-udjeli</span></a> uvijek nosi vlastiti brojnik i nazivnik. Prosjek u <a href="#tbl-podaci-anketa-mreze-prosjeci" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-anketa-mreze-prosjeci</span></a> uvijek stoji uz cjelobrojni zbroj iz iste skupine.</p>
+<div id="tbl-podaci-anketa-mreze-udjeli" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-anketa-mreze-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;2: Udio s brojnikom i nazivnikom.
+</figcaption>
+<div aria-describedby="tbl-podaci-anketa-mreze-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Udio</th>
+<th>Brojnik / nazivnik = točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>18 do 24</td>
+<td><code>udio</code></td>
+<td><code>90</code> / <code>300</code> = <code>0.3</code></td>
+</tr>
+<tr class="even">
+<td>25 do 34</td>
+<td><code>udio</code></td>
+<td><code>84</code> / <code>300</code> = <code>0.28</code></td>
+</tr>
+<tr class="odd">
+<td>35 do 44</td>
+<td><code>udio</code></td>
+<td><code>66</code> / <code>300</code> = <code>0.22</code></td>
+</tr>
+<tr class="even">
+<td>45 i više</td>
+<td><code>udio</code></td>
+<td><code>60</code> / <code>300</code> = <code>0.2</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-podaci-anketa-mreze-prosjeci" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-anketa-mreze-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;3: Prosjek s pripadajućim cjelobrojnim zbrojem.
+</figcaption>
+<div aria-describedby="tbl-podaci-anketa-mreze-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Prosjek</th>
+<th>Cjelobrojni zbroj i točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>18 do 24</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>7339</code>; prosjek <code>81.54444444444445</code></td>
+</tr>
+<tr class="even">
+<td>25 do 34</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>4567</code>; prosjek <code>54.36904761904762</code></td>
+</tr>
+<tr class="odd">
+<td>35 do 44</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>2139</code>; prosjek <code>32.40909090909091</code></td>
+</tr>
+<tr class="even">
+<td>45 i više</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>974</code>; prosjek <code>16.233333333333334</code></td>
+</tr>
+<tr class="odd">
+<td>18 do 24</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>574</code>; prosjek <code>6.377777777777778</code></td>
+</tr>
+<tr class="even">
+<td>25 do 34</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>467</code>; prosjek <code>5.559523809523809</code></td>
+</tr>
+<tr class="odd">
+<td>35 do 44</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>323</code>; prosjek <code>4.893939393939394</code></td>
+</tr>
+<tr class="even">
+<td>45 i više</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>270</code>; prosjek <code>4.5</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </section>
-<section id="pravila" class="level2">
-<h2 class="anchored" data-anchor-id="pravila">Pravila</h2>
-<p>Podaci koji opisuju ljude ne ulaze u razgovor s AI asistentom. To vrijedi i za podatke prikupljene u studentskim projektima, koliko god djelovali bezazleno. Postupak je opisan u Dodatku F.</p>
+<section id="provjera-podaci-populacija-medija" class="level3">
+<h3 class="anchored" data-anchor-id="provjera-podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup — provjera retka</h3>
+<p>Udio u <a href="#tbl-podaci-populacija-medija-udjeli" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-populacija-medija-udjeli</span></a> uvijek nosi vlastiti brojnik i nazivnik. Prosjek u <a href="#tbl-podaci-populacija-medija-prosjeci" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-populacija-medija-prosjeci</span></a> uvijek stoji uz cjelobrojni zbroj iz iste skupine.</p>
+<div id="tbl-podaci-populacija-medija-udjeli" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-populacija-medija-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;4: Udio s brojnikom i nazivnikom.
+</figcaption>
+<div aria-describedby="tbl-podaci-populacija-medija-udjeli-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Udio</th>
+<th>Brojnik / nazivnik = točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>portal</td>
+<td><code>udio</code></td>
+<td><code>15101</code> / <code>50000</code> = <code>0.30202</code></td>
+</tr>
+<tr class="even">
+<td>društvene mreže</td>
+<td><code>udio</code></td>
+<td><code>13378</code> / <code>50000</code> = <code>0.26756</code></td>
+</tr>
+<tr class="odd">
+<td>TV</td>
+<td><code>udio</code></td>
+<td><code>10827</code> / <code>50000</code> = <code>0.21654</code></td>
+</tr>
+<tr class="even">
+<td>radio</td>
+<td><code>udio</code></td>
+<td><code>5839</code> / <code>50000</code> = <code>0.11678</code></td>
+</tr>
+<tr class="odd">
+<td>tisak</td>
+<td><code>udio</code></td>
+<td><code>4855</code> / <code>50000</code> = <code>0.0971</code></td>
+</tr>
+<tr class="even">
+<td>portal</td>
+<td><code>udio_platio</code></td>
+<td><code>3514</code> / <code>15101</code> = <code>0.2326998212038938</code></td>
+</tr>
+<tr class="odd">
+<td>društvene mreže</td>
+<td><code>udio_platio</code></td>
+<td><code>2841</code> / <code>13378</code> = <code>0.212363582000299</code></td>
+</tr>
+<tr class="even">
+<td>TV</td>
+<td><code>udio_platio</code></td>
+<td><code>2773</code> / <code>10827</code> = <code>0.2561189618546227</code></td>
+</tr>
+<tr class="odd">
+<td>radio</td>
+<td><code>udio_platio</code></td>
+<td><code>1528</code> / <code>5839</code> = <code>0.26168864531597874</code></td>
+</tr>
+<tr class="even">
+<td>tisak</td>
+<td><code>udio_platio</code></td>
+<td><code>1289</code> / <code>4855</code> = <code>0.2654994850669413</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-podaci-populacija-medija-prosjeci" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-populacija-medija-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;5: Prosjek s pripadajućim cjelobrojnim zbrojem.
+</figcaption>
+<div aria-describedby="tbl-podaci-populacija-medija-prosjeci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Skupina</th>
+<th>Prosjek</th>
+<th>Cjelobrojni zbroj i točna vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>portal</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>72101</code>; prosjek <code>4.774584464604993</code></td>
+</tr>
+<tr class="even">
+<td>društvene mreže</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>54432</code>; prosjek <code>4.06876962176708</code></td>
+</tr>
+<tr class="odd">
+<td>TV</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>58098</code>; prosjek <code>5.366029371016902</code></td>
+</tr>
+<tr class="even">
+<td>radio</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>32614</code>; prosjek <code>5.585545470114746</code></td>
+</tr>
+<tr class="odd">
+<td>tisak</td>
+<td><code>prosjek_povjerenja</code></td>
+<td>zbroj <code>26791</code>; prosjek <code>5.518228630278064</code></td>
+</tr>
+<tr class="even">
+<td>portal</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>2589478</code>; prosjek <code>171.47725316204225</code></td>
+</tr>
+<tr class="odd">
+<td>društvene mreže</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>2217273</code>; prosjek <code>165.74024517865152</code></td>
+</tr>
+<tr class="even">
+<td>TV</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>1978691</code>; prosjek <code>182.75524152581508</code></td>
+</tr>
+<tr class="odd">
+<td>radio</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>1058774</code>; prosjek <code>181.32796711765712</code></td>
+</tr>
+<tr class="even">
+<td>tisak</td>
+<td><code>prosjek_minuta</code></td>
+<td>zbroj <code>882321</code>; prosjek <code>181.73450051493305</code></td>
+</tr>
+<tr class="odd">
+<td>portal</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>88920</code>; prosjek <code>5.888351764783789</code></td>
+</tr>
+<tr class="even">
+<td>društvene mreže</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>74065</code>; prosjek <code>5.536328300194349</code></td>
+</tr>
+<tr class="odd">
+<td>TV</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>71225</code>; prosjek <code>6.578461254271728</code></td>
+</tr>
+<tr class="even">
+<td>radio</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>39563</code>; prosjek <code>6.775646514814181</code></td>
+</tr>
+<tr class="odd">
+<td>tisak</td>
+<td><code>prosjek_spremnosti</code></td>
+<td>zbroj <code>32560</code>; prosjek <code>6.70648815653965</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-dzs-dvije-mjere" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dzs-dvije-mjere">Dvije DZS-ove mjere nisu jedna serija</h2>
+<p>Tablice BS_TU11 i BS_TU12 bilježe administrativne eVisitor dolaske, dok je T03 uzoračka anketa o procijenjenim putovanjima stanovnika. Dolazak nije osoba, a putovanje nije dolazak; te se brojke ne zbrajaju i ne prikazuju kao usporedive serije.</p>
+<p>Administrativne provjere u <a href="#tbl-podaci-dzs" class="quarto-xref">Tablica&nbsp;<span class="quarto-unresolved-ref">tbl-podaci-dzs</span></a> imaju najveći ostatak točno <code>0</code>. Sve tri anketne razgradnje, koje obuhvaćaju odredište, trajanje i dobnu skupinu, imaju najveći ostatak točno <code>1</code>, jer su objavljene ćelije zasebno zaokružene procjene.</p>
+<div id="tbl-podaci-dzs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-dzs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;6: Usklađenja dviju različitih DZS-ovih mjera.
+</figcaption>
+<div aria-describedby="tbl-podaci-dzs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Provjera</th>
+<th>Vrsta mjere</th>
+<th>Rezultat usklađenja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mjeseci-u-objavljenu-godinu</td>
+<td>administrativno prebrojavanje</td>
+<td>126 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="even">
+<td>domaći-i-strani-u-ukupno</td>
+<td>administrativno prebrojavanje</td>
+<td>42 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="odd">
+<td>županije-u-državni-redak</td>
+<td>administrativno prebrojavanje</td>
+<td>6 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-ukupno</td>
+<td>administrativno prebrojavanje</td>
+<td>2 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="odd">
+<td>županije-2025-u-nacionalni-domaći</td>
+<td>administrativno prebrojavanje</td>
+<td>2 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-strani</td>
+<td>administrativno prebrojavanje</td>
+<td>2 usporedbi; tolerancija 0; najveći ostatak 0</td>
+</tr>
+<tr class="odd">
+<td>anketa-odrediste</td>
+<td>anketna procjena</td>
+<td>72 usporedbi; tolerancija 1; najveći ostatak 1</td>
+</tr>
+<tr class="even">
+<td>anketa-trajanje</td>
+<td>anketna procjena</td>
+<td>72 usporedbi; tolerancija 1; najveći ostatak 1</td>
+</tr>
+<tr class="odd">
+<td>anketa-dobne-skupine</td>
+<td>anketna procjena</td>
+<td>54 usporedbi; tolerancija 1; najveći ostatak 1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-podaci-dzs-datoteke" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-podaci-dzs-datoteke-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tablica&nbsp;7: Datoteke uključene u DZS-ova usklađenja.
+</figcaption>
+<div aria-describedby="tbl-podaci-dzs-datoteke-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Provjera</th>
+<th>Datoteke</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mjeseci-u-objavljenu-godinu</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-mjesecno.csv</code></td>
+</tr>
+<tr class="even">
+<td>domaći-i-strani-u-ukupno</td>
+<td><code>data/dzs-turizam-godisnje.csv</code></td>
+</tr>
+<tr class="odd">
+<td>županije-u-državni-redak</td>
+<td><code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-ukupno</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="odd">
+<td>županije-2025-u-nacionalni-domaći</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="even">
+<td>županije-2025-u-nacionalni-strani</td>
+<td><code>data/dzs-turizam-godisnje.csv</code>, <code>data/dzs-turizam-zupanije-2025.csv</code></td>
+</tr>
+<tr class="odd">
+<td>anketa-odrediste</td>
+<td><code>data/dzs-putovanja-stanovnistva-2024.csv</code></td>
+</tr>
+<tr class="even">
+<td>anketa-trajanje</td>
+<td><code>data/dzs-putovanja-stanovnistva-2024.csv</code></td>
+</tr>
+<tr class="odd">
+<td>anketa-dobne-skupine</td>
+<td><code>data/dzs-putovanja-stanovnistva-2024.csv</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-podaci-svi" class="level2">
+<h2 class="anchored" data-anchor-id="sec-podaci-svi">Svi paketi</h2>
+<section id="podaci-anketa-mreze" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-anketa-mreze">Anketa o društvenim mrežama, generirani nastavni skup</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>anketa_mreze</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Koliko vremena ljudi provode na mrežama i kako to ide uz povjerenje?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-EXISTING</code>; traka <code>bundled</code>; jedinica je jedan ispitanik.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/anketa-mreze.csv"><code>data/anketa-mreze.csv</code></a>, <a href="data/anketa-mreze-agregat.csv"><code>data/anketa-mreze-agregat.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-anketa-mreze">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-populacija-medija" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-populacija-medija">Populacija medijskih navika, generirani nastavni skup</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>populacija_medija</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se povjerenje u medije mijenja s dobi i izvorom vijesti?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-EXISTING</code>; traka <code>bundled</code>; jedinica je jedna osoba u generiranoj populaciji.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/populacija-medija.csv"><code>data/populacija-medija.csv</code></a>, <a href="data/populacija-medija-agregat.csv"><code>data/populacija-medija-agregat.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-populacija-medija">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-ucbadmissions" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-ucbadmissions">UCBAdmissions, zamrznuti orijentir iz R-ove distribucije</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>ucbadmissions</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako zbirna stopa upisa može obrnuti predznak razlike po odjelima?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna prijava, agregirana po odjelu, spolu i ishodu.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-ucbadmissions">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-anscombe" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-anscombe">Anscombeov kvartet, zamrznuti orijentir iz R-ove distribucije</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>anscombe</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Zašto četiri skupa s istim sažetcima izgledaju posve različito?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan konstruirani par vrijednosti.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-anscombe">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-dzs-turizam" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-dzs-turizam">DZS turizam, omeđeni izvadak</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>dzs_turizam</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se dolasci i noćenja mijenjaju kroz godinu i po županijama?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-DZS</code>; traka <code>bundled</code>; jedinica je jedan objavljeni redak službene tablice. U mjesečnoj i godišnjoj datoteci to je zabilježeni DOLAZAK, ne osoba; u anketnoj datoteci procijenjeno PUTOVANJE stanovnika, ne osoba.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/dzs-turizam-mjesecno.csv"><code>data/dzs-turizam-mjesecno.csv</code></a>, <a href="data/dzs-turizam-godisnje.csv"><code>data/dzs-turizam-godisnje.csv</code></a>, <a href="data/dzs-turizam-zupanije-2025.csv"><code>data/dzs-turizam-zupanije-2025.csv</code></a>, <a href="data/dzs-putovanja-stanovnistva-2024.csv"><code>data/dzs-putovanja-stanovnistva-2024.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-dzs-turizam">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-dzs-drugi-domen" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-dzs-drugi-domen">Drugi DZS domen</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>dzs_drugi_domen</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Nije određeno jer domena i tablice nisu odabrane.</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je neodabrana.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-dzs-drugi-domen">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-dip-2024" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-dip-2024">DIP, izbori za Hrvatski sabor 2024.</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>dip_2024</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se izlaznost mijenja po izbornim jedinicama i što joj je nazivnik?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>portal-mediated</code>; jedinica je jedna izborna jedinica I.-XII. u službenoj tablici odaziva; XII. jedinica za važeći i nevažeći listić koristi zbroj šest objavljenih manjinskih redaka.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-dip-2024">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-digikat-akteri" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-digikat-akteri">DigiKat agregat aktera</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>digikat_akteri</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se vidljivost aktera razlikuje po platformama u jednom presjeku?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan akter po platformi na određeni datum.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-digikat-akteri">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-determ-korpus" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-determ-korpus">Determ, puni korpus</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>determ_korpus</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Što se može i što se ne može reproducirati iz ograničenoga komercijalnog izvora?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna objava.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-determ-korpus">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-eurostat-drustvo" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-eurostat-drustvo">Eurostat, društveni pokazatelji</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>eurostat_drustvo</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se isti pokazatelj razlikuje među zemljama u istoj godini?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-EUROSTAT</code>; traka <code>bundled</code>; jedinica je jedna država članica EU-a za jedan pokazatelj u jednoj, zajedničkoj referentnoj godini. Redak je državni agregat, a ne osoba.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/eurostat-drustvo-2025.csv"><code>data/eurostat-drustvo-2025.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-eurostat-drustvo">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-ess-r11-hr" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-ess-r11-hr">European Social Survey, Round 11, Hrvatska</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>ess_r11_hr</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Među hrvatskim ispitanicima u službenom nazivniku varijable vote, koliko se prijavljeni udio glasalih razlikuje između neponderirane procjene i procjene s anweight, te koje pogreške odabira ili mjerenja ponder ne može ukloniti?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>portal-mediated</code>; jedinica je jedan ispitanik ESS Round 11 iz Hrvatske, s izvornim nacrtnim varijablama.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-ess-r11-hr">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-vdem-v16" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-vdem-v16">V-Dem Dataset v16</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>vdem_v16</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se latentni pojam poput demokracije pretvara u broj s nesigurnošću?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna zemlja u jednoj godini.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-vdem-v16">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-covidistress-ii" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-covidistress-ii">COVIDiSTRESS II</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>covidistress_ii</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Zašto vrlo velik dobrovoljni uzorak ne popravlja samoodabir?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan dobrovoljni sudionik.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-covidistress-ii">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-wdi" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-wdi">World Development Indicators</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>wdi</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Nije određeno jer pokazatelj nije odabran.</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedna zemlja u jednoj godini.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-wdi">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-parlamint-hr" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-parlamint-hr">ParlaMint-HR 5.0</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>parlamint_hr</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se iz korpusa govora gradi mjerenje, i tko u njega ulazi?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>bundled</code>; jedinica je jedan govor s metapodacima govornika.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-parlamint-hr">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-parlasent" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-parlasent">ParlaSent 1.0</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>parlasent</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se ljudska oznaka pretvara u zabilježeni referentni ishod, i koliko je pogrešiva?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-TEXT</code>; traka <code>bundled</code>; jedinica je jedna označena rečenica.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/parlament_oznake.csv"><code>data/parlament_oznake.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-parlasent">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-gfi-fina" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-gfi-fina">GFI/FINA</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>gfi_fina</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Što se smije tvrditi iz izvora koji čitatelj ne može otvoriti?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>external-only</code>; jedinica je jedan poslovni subjekt.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-gfi-fina">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-digikat-mediji" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-digikat-mediji">DigiKat, agregat digitalnoga medijskog prostora</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>digikat_mediji</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Kako se objavljivanje i vidljivost razlikuju među platformama i među izvorima?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>promoviran paketom <code>P3-DIGIKAT</code>; traka <code>bundled</code>; jedinica je jedna ćelija agregata, ne jedna objava. U platformskim datotekama to je platforma u godini ili u mjesecu; u datoteci izvora jedan izvor kroz cijeli raspon korpusa. Pojedinačna objava nije u ovim datotekama i ne može se iz njih obnoviti.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td><a href="data/digikat-platforme-godisnje.csv"><code>data/digikat-platforme-godisnje.csv</code></a>, <a href="data/digikat-platforme-mjesecno.csv"><code>data/digikat-platforme-mjesecno.csv</code></a>, <a href="data/digikat-izvori.csv"><code>data/digikat-izvori.csv</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-digikat-mediji">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-rdp-potpore" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-rdp-potpore">Registar državnih potpora, agregati koncentracije</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>rdp_potpore</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Koliko je koncentrirana dodjela državnih potpora i koliko ju je snimka registra uopće zabilježila?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>bundled</code>; jedinica je jedna agregatna ćelija. Ovisno o datoteci to je skupina primatelja, godina, razred veličine, vrsta potpore ili jedan naslovni pokazatelj. Pojedinačna dodjela i pojedinačni primatelj nisu u ovim datotekama i nijedan OIB se ne pojavljuje.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-rdp-potpore">Puni zapis u Dodatku C</a>.</p>
+</section>
+<section id="podaci-bdp-dugi-niz" class="level3">
+<h3 class="anchored" data-anchor-id="podaci-bdp-dugi-niz">BDP po stanovniku, dugi niz i pet procjena</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Polje</th>
+<th>Vrijednost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Identifikator</td>
+<td><code>bdp_dugi_niz</code></td>
+</tr>
+<tr class="even">
+<td>Pitanje</td>
+<td>Koliko se razlikuju objavljene procjene iste veličine i što se dobiva kad ih se spoji u jedan niz?</td>
+</tr>
+<tr class="odd">
+<td>Status i pristup</td>
+<td>nije promoviran; traka <code>bundled</code>; jedinica je jedna godina. U datoteci izvora to je godina s pet odvojenih procjena, u spojenoj datoteci godina jednoga ulančanog niza, a u datoteci razdoblja jedno imenovano razdoblje.</td>
+</tr>
+<tr class="even">
+<td>Datoteke</td>
+<td>Nema javne lokalne datoteke. Paket nije promoviran.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="./dodaci/c-katalog-podataka.html#sec-data-bdp-dugi-niz">Puni zapis u Dodatku C</a>.</p>
 
 
-
+</section>
 </section>
 
 </main> <!-- /main -->
 <script>
-
 /* =====================================================================
-
    book-include.html — ponašanje stranice (include-after-body)
-
    ---------------------------------------------------------------------
-
    Sve vizualno živi u styles/ (SCSS + styles.css). Ovdje nema boja ni
-
    pisama; moduli samo dodaju elemente i klase koje CSS zna stilizirati.
 
-
-
    Moduli
-
      1. traka napretka čitanja
-
      2. pregled na prijelaz za unutarnje poveznice
-
      3. dinkus (*** u prozi -> stilizirani razdjelnik)
-
      4. sidra uz naslove
-
      5. samostalne stranice bez knjižnog okvira
-
      5a. aktivno stanje roditelja izbornika Nastava
-
      6. čišćenje sidebara
-
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
-
      8. sklopivi prozni blokovi („Što isprobati")
-
      9. AI izbornik u podnožju poglavlja
-
      10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
-
      11. traka metapodataka na otvaranju poglavlja
-
      12. pamćenje stanja widgeta po stranici
-
      13. organizacija mobilne navigacije
-
      14. lokalni oporavak resursa stranice 404
-
      15. uklanjanje oznake vanjske poveznice s istog izvorišta
-
      16. pristupačno vodoravno pomicanje širokih tablica
-
      17. hrvatski pristupačni nazivi pretraživanja
-
    ===================================================================== */
-
 (function () {
-
   "use strict";
 
-
-
   // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
-
   // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
-
   // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
-
   function seedPojmovnikSearch() {
-
     if (!document.body.classList.contains("pojmovnik-page")) return;
-
     if (document.getElementById("quarto-search")) return;
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var host = document.createElement("div");
-
     host.id = "quarto-search";
-
     host.title = "Pretraži knjigu";
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     if (tools) tools.appendChild(host);
-
     else navbar.querySelector(".navbar-container").appendChild(host);
-
   }
-
-
 
   seedPojmovnikSearch();
 
-
-
-  // -------------------------------------------------------------------
-
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
-
-  // -------------------------------------------------------------------
-
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
+  // BEGIN GENERATED: book-inventory runtime-routes
   var SAMOSTALNE = [
-
     "/index.html",
-
-    "/pojmovnik.html",
-
     "/interakcije.html",
-
+    "/pojmovnik.html",
     "/podaci.html",
-
-    "/resursi.html",
-
     "/uci-s-ai.html",
-
     "/predavanja.html",
-
     "/silabus.html",
-
     "/raspored.html",
-
+    "/resursi.html",
+    "/rjesenja.html",
+    "/errata.html",
     "/404.html"
-
   ];
-
-
+  var NAVBAR_SKUPINE = [
+    {
+      "id": "nav-menu-nastava",
+      "routes": [
+        "/predavanja.html",
+        "/silabus.html",
+        "/raspored.html"
+      ]
+    }
+  ];
+  var PUTOVI_STRANICA = {
+    "landing": "/index.html",
+    "ch00": "/chapters/00-predgovor.html",
+    "ch01": "/chapters/01-zasto-statistika.html",
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+    "ch05": "/chapters/05-vizualizacija.html",
+    "ch06": "/chapters/06-povezanost.html",
+    "ch07": "/chapters/07-vjerojatnost.html",
+    "ch08": "/chapters/08-uzorkovanje.html",
+    "ch09": "/chapters/09-procjena.html",
+    "ch10": "/chapters/10-logika-testiranja.html",
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+    "ch14": "/chapters/14-dvije-grupe.html",
+    "ch15": "/chapters/15-vise-grupa.html",
+    "ch16": "/chapters/16-regresija.html",
+    "ch17": "/chapters/17-doba-algoritama.html",
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+    "references": "/references.html",
+    "app-a": "/dodaci/a-praktikum.html",
+    "app-b": "/dodaci/b-jamovi.html",
+    "app-c": "/dodaci/c-katalog-podataka.html",
+    "app-d": "/dodaci/d-koji-test.html",
+    "app-e": "/dodaci/e-rjecnik.html",
+    "app-f": "/dodaci/f-ai-protokol.html",
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+    "interactions": "/interakcije.html",
+    "glossary": "/pojmovnik.html",
+    "data": "/podaci.html",
+    "ai": "/uci-s-ai.html",
+    "lectures": "/predavanja.html",
+    "syllabus": "/silabus.html",
+    "schedule": "/raspored.html",
+    "resources": "/resursi.html",
+    "solutions": "/rjesenja.html",
+    "errata": "/errata.html",
+    "not-found": "/404.html"
+  };
+  var AI_PUTOVI_POGLAVLJA = [
+    {
+      "route": "/chapters/00-predgovor.html",
+      "ai": "/ai/00-predgovor.md"
+    },
+    {
+      "route": "/chapters/01-zasto-statistika.html",
+      "ai": "/ai/01-zasto-statistika.md"
+    },
+    {
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+    },
+    {
+      "route": "/chapters/03-kako-brojke-zavode.html",
+      "ai": "/ai/03-kako-brojke-zavode.md"
+    },
+    {
+      "route": "/chapters/04-sazimanje-podataka.html",
+      "ai": "/ai/04-sazimanje-podataka.md"
+    },
+    {
+      "route": "/chapters/05-vizualizacija.html",
+      "ai": "/ai/05-vizualizacija.md"
+    },
+    {
+      "route": "/chapters/06-povezanost.html",
+      "ai": "/ai/06-povezanost.md"
+    },
+    {
+      "route": "/chapters/07-vjerojatnost.html",
+      "ai": "/ai/07-vjerojatnost.md"
+    },
+    {
+      "route": "/chapters/08-uzorkovanje.html",
+      "ai": "/ai/08-uzorkovanje.md"
+    },
+    {
+      "route": "/chapters/09-procjena.html",
+      "ai": "/ai/09-procjena.md"
+    },
+    {
+      "route": "/chapters/10-logika-testiranja.html",
+      "ai": "/ai/10-logika-testiranja.md"
+    },
+    {
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+    },
+    {
+      "route": "/chapters/12-kriza-i-obnova.html",
+      "ai": "/ai/12-kriza-i-obnova.md"
+    },
+    {
+      "route": "/chapters/13-kategoricki-podaci.html",
+      "ai": "/ai/13-kategoricki-podaci.md"
+    },
+    {
+      "route": "/chapters/14-dvije-grupe.html",
+      "ai": "/ai/14-dvije-grupe.md"
+    },
+    {
+      "route": "/chapters/15-vise-grupa.html",
+      "ai": "/ai/15-vise-grupa.md"
+    },
+    {
+      "route": "/chapters/16-regresija.html",
+      "ai": "/ai/16-regresija.md"
+    },
+    {
+      "route": "/chapters/17-doba-algoritama.html",
+      "ai": "/ai/17-doba-algoritama.md"
+    },
+    {
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+    }
+  ];
+  // END GENERATED: book-inventory runtime-routes
 
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
-
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
-
   var UPUTA =
-
-    "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
-
+    "Ti si moj mentor za udžbenik „Statistika 101: Intuitivni uvod u analizu podataka”. " +
     "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
-
     "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
-
     "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
-
     "gradi intuiciju prije formule, prilagodi se mojoj razini i na zahtjev sažmi " +
-
     "gradivo, izradi kviz, kartice ili plan učenja. Na početku me pitaj što učim " +
-
     "i koji mi je cilj.";
 
-
-
   // -------------------------------------------------------------------
-
   // 1. Traka napretka čitanja
-
   // -------------------------------------------------------------------
-
   function setupProgressBar() {
-
     if (document.getElementById("reading-progress")) return;
-
     var bar = document.createElement("div");
-
     bar.id = "reading-progress";
-
     document.body.appendChild(bar);
 
-
-
     var ticking = false;
-
     function update() {
-
       var doc = document.documentElement;
-
       var scrollTop = window.scrollY || doc.scrollTop;
-
       var max = (doc.scrollHeight - doc.clientHeight) || 1;
-
       var pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
-
       bar.style.width = pct + "%";
-
       ticking = false;
-
     }
-
     window.addEventListener("scroll", function () {
-
       if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-
     }, { passive: true });
-
     update();
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 2. Pregled na prijelaz za unutarnje poveznice (#sidra u dokumentu)
-
   // -------------------------------------------------------------------
-
   function setupInternalHover() {
-
     var tip = null, hideTimer = null;
 
-
-
     function ensureTip() {
-
       if (tip) return tip;
-
       tip = document.createElement("div");
-
       tip.className = "internal-hover-preview";
-
       document.body.appendChild(tip);
-
       return tip;
-
     }
-
-
 
     function show(target, text, title) {
-
       var t = ensureTip();
-
       t.innerHTML = "";
-
       if (title) {
-
         var h = document.createElement("div");
-
         h.className = "ihp-title";
-
         h.textContent = title;
-
         t.appendChild(h);
-
       }
-
       var body = document.createElement("div");
-
       body.textContent = text;
-
       t.appendChild(body);
 
-
-
       var rect = target.getBoundingClientRect();
-
       var left = window.scrollX + rect.left;
-
       var maxLeft = window.scrollX + document.documentElement.clientWidth - 400;
-
       if (left > maxLeft) left = maxLeft;
-
       if (left < 8) left = 8;
-
       t.style.top = (window.scrollY + rect.bottom + 8) + "px";
-
       t.style.left = left + "px";
-
       t.classList.add("visible");
-
     }
-
-
 
     function hide() { if (tip) tip.classList.remove("visible"); }
 
-
-
     document.addEventListener("mouseover", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       if (a.classList.contains("citation") || a.classList.contains("footnote-ref")) return;
-
       if (a.closest(".sidebar, nav, .toc, #TOC, .quarto-secondary-nav")) return;
 
-
-
       var hash = a.getAttribute("href").slice(1);
-
       if (!hash) return;
-
       var tgt = document.getElementById(hash);
-
       if (!tgt) return;
 
-
-
       var titleEl = tgt.querySelector("h1, h2, h3, h4") ||
-
                     (tgt.tagName.match(/^H[1-6]$/) ? tgt : null);
-
       var title = titleEl ? titleEl.textContent.trim() : "";
-
       var ctx = (tgt.textContent || "").trim().replace(/\s+/g, " ");
-
       if (title) ctx = ctx.replace(title, "").trim();
-
       ctx = ctx.slice(0, 280) + (ctx.length > 280 ? "…" : "");
 
-
-
       clearTimeout(hideTimer);
-
       show(a, ctx, title);
-
     });
-
-
 
     document.addEventListener("mouseout", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       hideTimer = setTimeout(hide, 120);
-
     });
-
-
 
     window.addEventListener("scroll", hide, { passive: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 3. Dinkus — pasus koji je samo "***" postaje razdjelnik
-
   // -------------------------------------------------------------------
-
   function setupDinkus() {
-
     document.querySelectorAll("main p").forEach(function (p) {
-
       var t = p.textContent.trim();
-
       if (t === "***" || t === "* * *" || t === "◆ ◆ ◆") {
-
         var div = document.createElement("div");
-
         div.className = "dinkus";
-
         p.parentNode.replaceChild(div, p);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 4. Sidra uz naslove
-
   // -------------------------------------------------------------------
-
   function setupAnchorLinks() {
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
-
       if (h.classList.contains("title")) return;
-
       if (h.querySelector("a.anchorjs-link")) return;
-
       var link = document.createElement("a");
-
       link.className = "anchorjs-link";
-
       link.href = "#" + h.id;
-
       link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
-
       h.appendChild(link);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5. Samostalne stranice — bez knjižnog okvira
-
   // -------------------------------------------------------------------
-
   function setupStandalonePages() {
-
     var path = location.pathname;
-
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
-
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
     var isStandalone =
-
       document.body.classList.contains("standalone-page") ||
-
       document.body.classList.contains("not-found-page") ||
-
       SAMOSTALNE.some(function (p) { return normalized.endsWith(p); });
-
     if (!isStandalone) return;
-
-
 
     document.body.classList.add("standalone-page");
 
-
-
     var sb = document.getElementById("quarto-sidebar");
-
     if (sb) sb.style.display = "none";
-
     var msb = document.getElementById("quarto-margin-sidebar");
-
     if (msb) msb.style.display = "none";
-
     document.querySelectorAll(".quarto-page-breadcrumbs").forEach(function (el) { el.remove(); });
 
-
-
     // Quarto dodaje "Appendix A — " prefiks dodacima; na hub stranicama smeta.
-
     var strip = function (s) {
-
       return s.replace(/^Appendix\s+\S*\s*[—–-]\s*/i, "").replace(/^\s*[—–-]\s+/, "").trim();
-
     };
-
     var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
-
     if (titleEl) titleEl.textContent = strip(titleEl.textContent);
-
     document.title = strip(document.title);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
-
   // -------------------------------------------------------------------
-
   function setupNastavaActiveState() {
-
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
-
-    var isNastava = pages.some(function (page) {
-
-      return location.pathname.endsWith(page);
-
-    });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
-
-  }
-
-
-
-  // -------------------------------------------------------------------
-
-  // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
-
-  //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
-
-  //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
-
-  // -------------------------------------------------------------------
-
-  function removePrunedItems() {
-
-    var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
-
-    document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
-
-      .forEach(function (a) {
-
-        var href = a.getAttribute("href") || "";
-
-        var hide = endings.some(function (e) { return href.endsWith(e); });
-
-        if (hide) {
-
-          a.style.display = "none";
-
-          var li = a.closest(".sidebar-item");
-
-          if (li) li.style.display = "none";
-
-        }
-
+    NAVBAR_SKUPINE.forEach(function (skupina) {
+      var aktivna = skupina.routes.some(function (put) {
+        return location.pathname.endsWith(put);
       });
-
+      if (!aktivna) return;
+      var parent = document.getElementById(skupina.id);
+      if (!parent) return;
+      parent.classList.add("active", "section-active");
+      parent.setAttribute("aria-current", "true");
+    });
   }
 
-
+  // -------------------------------------------------------------------
+  // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
+  //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
+  //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
+  // -------------------------------------------------------------------
+  function removePrunedItems() {
+    var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
+    document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
+      .forEach(function (a) {
+        var href = a.getAttribute("href") || "";
+        var hide = endings.some(function (e) { return href.endsWith(e); });
+        if (hide) {
+          a.style.display = "none";
+          var li = a.closest(".sidebar-item");
+          if (li) li.style.display = "none";
+        }
+      });
+  }
 
   function pruneSidebar() {
-
     removePrunedItems();
-
     setTimeout(removePrunedItems, 200);
-
     setTimeout(removePrunedItems, 800);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 7. Upravljačke ploče interaktivnih grafova
-
   //    Observable rendira kontrole asinkrono, pa MutationObserver hvata
-
   //    njihovo pojavljivanje. Ploča se sklapa u <details>, klizači dobiju
-
   //    ispunu trake (--fill) i gumb za povratak na početne vrijednosti.
-
   // -------------------------------------------------------------------
-
   function setupOjsPanels() {
-
     function paintFill(r) {
-
       var min = parseFloat(r.min), max = parseFloat(r.max);
-
       if (!isFinite(min)) min = 0;
-
       if (!isFinite(max)) max = 100;
-
       var pct = max > min ? ((r.value - min) / (max - min)) * 100 : 0;
-
       r.style.setProperty("--fill", pct.toFixed(2) + "%");
-
     }
-
-
 
     function enhanceRange(r) {
-
       if (r.dataset.ojsEnhanced) return;
-
       r.dataset.ojsEnhanced = "1";
-
       r.dataset.ojsInitial = r.value;
-
       paintFill(r);
-
       r.addEventListener("input", function () {
-
         paintFill(r);
-
         var num = r.parentElement && r.parentElement.querySelector('input[type="number"]');
-
         if (num) {
-
           num.classList.remove("ojs-pulse");
-
           void num.offsetWidth;
-
           num.classList.add("ojs-pulse");
-
         }
-
       });
-
     }
-
-
 
     function panelMeta(panel) {
-
       var host = panel.closest && panel.closest("[data-ojs-label]");
-
       var widget = panel.closest && panel.closest(".widget-frame[data-naslov]");
-
       var widgetTitle = widget && widget.getAttribute("data-naslov");
-
       return {
-
         label: host && host.getAttribute("data-ojs-label") ||
-
           (widgetTitle ? "Postavke: " + widgetTitle : "Parametri simulacije"),
-
         hint: host && host.getAttribute("data-ojs-hint") ||
-
           "otvori za promjenu vrijednosti"
-
       };
-
     }
-
-
 
     function collapsePanel(panel) {
-
       if (panel.dataset.ojsCollapsed) return;
-
       var parent = panel.parentElement;
-
       if (!parent) return;
-
       panel.dataset.ojsCollapsed = "1";
-
       var meta = panelMeta(panel);
 
-
-
       var details = document.createElement("details");
-
       details.className = "ojs-collapsible";
-
       var summary = document.createElement("summary");
-
       summary.className = "ojs-collapsible-summary";
-
       summary.innerHTML =
-
         '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
         '<span class="ojs-collapsible-label"></span>' +
-
         '<span class="ojs-collapsible-hint"></span>';
-
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
-
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
 
-
-
       parent.insertBefore(details, panel);
-
       details.appendChild(summary);
-
       details.appendChild(panel);
-
     }
-
-
 
     function enhancePanel(panel) {
-
       if (panel.dataset.ojsPanel) return;
-
       panel.dataset.ojsPanel = "1";
-
       panel.querySelectorAll("input, select, textarea").forEach(function (el) {
-
         if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
-
         if (el.type === "checkbox" || el.type === "radio") {
-
           el.dataset.ojsInitialChecked = el.checked ? "1" : "0";
-
         }
-
       });
-
       var btn = document.createElement("button");
-
       btn.type = "button";
-
       btn.className = "ojs-reset";
-
       btn.textContent = "↺ početne vrijednosti";
-
       btn.title = "Vrati početne vrijednosti";
-
       btn.addEventListener("click", function () {
-
         panel.querySelectorAll('input[type="range"]').forEach(function (r) {
-
           if (r.dataset.ojsInitial === undefined) return;
-
           r.value = r.dataset.ojsInitial;
-
           r.dispatchEvent(new Event("input", { bubbles: true }));
-
         });
-
         panel.querySelectorAll(
-
           'input:not([type="range"]), select, textarea'
-
         ).forEach(function (el) {
-
           if (el.dataset.ojsInitial === undefined) return;
-
           if (el.type === "checkbox" || el.type === "radio") {
-
             el.checked = el.dataset.ojsInitialChecked === "1";
-
           } else {
-
             el.value = el.dataset.ojsInitial;
-
           }
-
           el.dispatchEvent(new Event("input", { bubbles: true }));
-
           el.dispatchEvent(new Event("change", { bubbles: true }));
-
         });
-
       });
-
       panel.appendChild(btn);
-
       collapsePanel(panel);
-
     }
-
-
 
     var scanQueued = false;
-
     function scan() {
-
       scanQueued = false;
-
       document.querySelectorAll('form[class^="oi-"] input[type="range"]').forEach(enhanceRange);
-
       document.querySelectorAll('form[class^="oi-"]').forEach(function (f) {
-
         if (f.classList.contains("quarto-ojs-table-fixup")) return;
-
         var p = f.parentElement;
-
         if (p && p.tagName === "DIV") enhancePanel(p);
-
       });
-
       document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
-
         if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
-
         if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
-
       });
-
+      // Sustav Zvono: zaglavlje widgeta s diskom, naslovom i oznakom.
+      document.querySelectorAll(".widget-frame[data-naslov]:not(.zv-widget-glava)").forEach(function (frame) {
+        var oznaka = frame.getAttribute("data-oznaka") || "";
+        var broj = (oznaka.match(/(\d+\.\d+)/) || [])[1] || "";
+        var glava = document.createElement("div");
+        glava.className = "widget-glava";
+        if (broj) {
+          var disk = document.createElement("span");
+          disk.className = "widget-glava__disk";
+          disk.setAttribute("aria-hidden", "true");
+          disk.textContent = broj;
+          glava.appendChild(disk);
+        }
+        var naslov = document.createElement("span");
+        naslov.className = "widget-glava__naslov";
+        naslov.textContent = frame.getAttribute("data-naslov");
+        glava.appendChild(naslov);
+        if (oznaka) {
+          var lbl = document.createElement("span");
+          lbl.className = "widget-glava__oznaka";
+          lbl.textContent = oznaka.toLowerCase();
+          glava.appendChild(lbl);
+        }
+        frame.insertBefore(glava, frame.firstChild);
+        frame.classList.add("zv-widget-glava");
+      });
     }
-
     function queueScan() {
-
       if (scanQueued) return;
-
       scanQueued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     new MutationObserver(queueScan).observe(document.body, { childList: true, subtree: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
-
   // -------------------------------------------------------------------
-
   function wrapCollapsible(node, label, hint) {
-
     if (node.dataset.ojsCollapsibleWrapped) return null;
-
     var parent = node.parentElement;
-
     if (!parent) return null;
-
     node.dataset.ojsCollapsibleWrapped = "1";
 
-
-
     var details = document.createElement("details");
-
     details.className = "ojs-collapsible ojs-collapsible-prose";
-
     var summary = document.createElement("summary");
-
     summary.className = "ojs-collapsible-summary";
-
     summary.innerHTML =
-
       '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
       '<span class="ojs-collapsible-label"></span>' +
-
       '<span class="ojs-collapsible-hint"></span>';
-
     summary.querySelector(".ojs-collapsible-label").textContent = label;
-
     summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
 
-
-
     var body = document.createElement("div");
-
     body.className = "ojs-collapsible-body";
 
-
-
     parent.insertBefore(details, node);
-
     details.appendChild(summary);
-
     details.appendChild(body);
-
     body.appendChild(node);
-
     return body;
-
   }
-
-
 
   function setupProseCollapsibles() {
-
     var main = document.querySelector("main.content") || document.querySelector("main");
-
     if (!main) return;
 
-
-
     main.querySelectorAll("p").forEach(function (p) {
-
       if (p.dataset.ojsCollapsibleWrapped) return;
-
       var strong = p.querySelector(":scope > strong:first-child");
-
       if (!strong) return;
-
       if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
-
       var next = p.nextElementSibling;
-
       strong.remove();
-
       if (p.firstChild && p.firstChild.nodeType === 3) {
-
         p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
-
       }
-
       var body = wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
-
       if (body && next && (next.matches("ol") || next.matches("ul"))) {
-
         body.appendChild(next);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 9. AI izbornik u podnožju poglavlja
-
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
-
-  //    koji generira R/build-ai-exports.R.
-
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
+  //    generira R/build-ai-exports.R.
   // -------------------------------------------------------------------
-
   function setupChapterAI() {
-
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
-
-    if (!m) return;
-
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
+      return location.pathname.endsWith(kandidat.route);
+    });
+    if (!zapis) return;
     if (document.querySelector(".ai-cta")) return;
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
-    var slug = m[1];
-
-
-
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
-
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
-
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
-
+    var mdHref  = zapis.ai;
+    var uciHref = PUTOVI_STRANICA.ai;
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
     var absMd   = location.origin + mdHref;
-
     var q = encodeURIComponent(
-
       UPUTA +
-
       "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
-
       absMd);
 
-
-
     var box = document.createElement("div");
-
     box.className = "ai-cta-foot";
 
-
-
     var det = document.createElement("details");
-
     det.className = "ai-cta";
-
     det.innerHTML =
-
       "<summary>🤖 Pitaj AI o ovom poglavlju</summary>" +
-
       '<div class="ai-cta-menu">' +
-
         '<a href="' + mdHref + '" download>⬇ Preuzmi tekst (.md)</a>' +
-
         '<a href="https://claude.ai/new?q=' + q + '" target="_blank" rel="noopener">Otvori u Claudeu</a>' +
-
         '<a href="https://chatgpt.com/?q=' + q + '" target="_blank" rel="noopener">Otvori u ChatGPT-u</a>' +
-
         '<a href="' + uciHref + '">Sve opcije i cijela knjiga →</a>' +
-
       "</div>";
 
-
-
     var pm = document.createElement("a");
-
     pm.className = "ai-cta-pm";
-
     pm.href = pmHref;
-
     pm.innerHTML = "🕸 Pojmovi ovog poglavlja u mreži";
 
-
-
     box.appendChild(det);
-
     box.appendChild(pm);
 
-
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     var fn = article.querySelector("section.footnotes, #refs, section#footnotes");
-
     if (fn) fn.parentNode.insertBefore(box, fn);
-
     else article.appendChild(box);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 10. Pojmovi na dodir
-
   //     [statističko zaključivanje]{.pojam def="…" en="…" ch="8"}
-
   //     Pandoc atribute prenosi doslovno na <span>, pa oblačić gradimo
-
   //     odavde. Izgled je u styles/_base.scss (.pojam__oblacic).
-
   // -------------------------------------------------------------------
-
   function setupPojmovi() {
-
     var pojmovi = document.querySelectorAll("span.pojam");
-
     if (!pojmovi.length) return;
 
-
-
     pojmovi.forEach(function (el) {
-
       if (el.dataset.pojamSpreman) return;
-
       el.dataset.pojamSpreman = "1";
 
-
-
       var def = el.getAttribute("def") || "";
-
       var en  = el.getAttribute("en")  || "";
-
       var ch  = el.getAttribute("ch")  || "";
-
       if (!def && !en && !ch) return;
-
-
 
       el.setAttribute("tabindex", "0");
 
-
-
       var tip = document.createElement("span");
-
       tip.className = "pojam__oblacic";
-
       tip.setAttribute("role", "tooltip");
 
-
-
       var glava = document.createElement("span");
-
       glava.className = "pojam__glava";
-
       glava.textContent = el.textContent.trim();
-
       tip.appendChild(glava);
 
-
-
       if (def) tip.appendChild(document.createTextNode(def));
-
       if (en) {
-
         var e = document.createElement("em");
-
         e.className = "pojam__en";
-
         e.textContent = " " + en;
-
         tip.appendChild(e);
-
       }
-
       if (ch) {
-
         var c = document.createElement("span");
-
         c.className = "pojam__pogl";
-
         c.textContent = "→ pogl. " + ch;
-
         tip.appendChild(c);
-
       }
-
       el.appendChild(tip);
-
     });
-
-
 
     // Dodir i tipkovnica: klik otvara, klik izvan zatvara (CSS pokriva miš).
-
     document.addEventListener("click", function (e) {
-
       var t = e.target.closest && e.target.closest("span.pojam");
-
       document.querySelectorAll("span.pojam.je-otvoren").forEach(function (o) {
-
         if (o !== t) o.classList.remove("je-otvoren");
-
       });
-
       if (t) { t.classList.toggle("je-otvoren"); e.stopPropagation(); }
-
     });
-
     document.addEventListener("keydown", function (e) {
-
       if (e.key !== "Escape") return;
-
       document.querySelectorAll("span.pojam.je-otvoren")
-
         .forEach(function (o) { o.classList.remove("je-otvoren"); });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 11. Traka metapodataka na otvaranju poglavlja
-
   //     U .qmd-u se piše kao obična tablica unutar ::: {.chapter-meta};
-
   //     ovdje postaje jedan redak parova natpis / vrijednost.
-
   // -------------------------------------------------------------------
-
   function setupChapterMeta() {
-
     document.querySelectorAll(".chapter-meta").forEach(function (box) {
-
       var table = box.querySelector("table");
-
       if (!table || box.dataset.metaSpremna) return;
-
       box.dataset.metaSpremna = "1";
 
-
-
       var glave = [].map.call(table.querySelectorAll("thead th"),
-
         function (th) { return th.textContent.trim(); });
-
       var polja = [].map.call(table.querySelectorAll("tbody tr:first-child td"),
-
         function (td) { return td.textContent.trim(); });
-
       if (!glave.length) return;
 
-
-
       var red = document.createElement("div");
-
       red.className = "chapter-meta__row";
-
       glave.forEach(function (g, i) {
-
         var cell = document.createElement("div");
-
         var k = document.createElement("span");
-
         k.className = "chapter-meta__key";
-
         k.textContent = g;
-
         cell.appendChild(k);
-
         cell.appendChild(document.createTextNode(polja[i] || "—"));
-
         red.appendChild(cell);
-
       });
-
-
 
       var wrap = table.closest(".table, figure") || table;
-
       wrap.parentNode.replaceChild(red, wrap);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 12. Pamćenje stanja widgeta
-
   //     Čitatelj koji odscrola i vrati se ne gubi svoje istraživanje.
-
   //     Ključ je po stranici; vrijednosti su samo brojevi i nizovi iz
-
   //     kontrola, pa localStorage ne nosi ništa osobno.
-
   // -------------------------------------------------------------------
-
   function setupWidgetMemory() {
-
     var kljuc = "statistika:widget:" + location.pathname;
-
     var IZBOR = ".widget-frame input, .widget-frame select, " +
-
                 'form[class^="oi-"] input, form[class^="oi-"] select';
 
-
-
     function spremi() {
-
       var s = {};
-
       document.querySelectorAll(IZBOR).forEach(function (el, i) {
-
         if (el.type === "checkbox" || el.type === "radio") s[i] = el.checked;
-
         else s[i] = el.value;
-
       });
-
       try { localStorage.setItem(kljuc, JSON.stringify(s)); } catch (e) {}
-
     }
-
-
 
     function vrati() {
-
       var s;
-
       try { s = JSON.parse(localStorage.getItem(kljuc) || "null"); } catch (e) { return; }
-
       if (!s) return;
-
       var polja = document.querySelectorAll(IZBOR);
-
       if (!polja.length) return;
-
       polja.forEach(function (el, i) {
-
         if (!(i in s)) return;
-
         if (el.type === "checkbox" || el.type === "radio") el.checked = !!s[i];
-
         else el.value = s[i];
-
         el.dispatchEvent(new Event("input", { bubbles: true }));
-
         el.dispatchEvent(new Event("change", { bubbles: true }));
-
       });
-
     }
-
-
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
-
     // je dovoljan jer se stanje pamti na svaku promjenu.
-
     window.setTimeout(vrati, 600);
-
     document.addEventListener("input", function (e) {
-
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 13. Mobilna navigacija
-
   //     Zatvoreno zaglavlje ostaje jedan redak. Pretraga, bočni izbornik
-
   //     i hamburger čine jednu skupinu, a sekundarni alati sele u otvoreni
-
   //     glavni izbornik. Na širokom zaslonu sve se vraća na Quartova mjesta.
-
   // -------------------------------------------------------------------
-
   function setupMobileNavbar() {
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var container = navbar.querySelector(".navbar-container");
-
     var collapse = navbar.querySelector(".navbar-collapse");
-
     var toggler = navbar.querySelector(".navbar-toggler");
-
     if (!container || !collapse || !toggler) return;
 
-
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
-
     var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
-
     var searchButton = secondary && secondary.querySelector(".quarto-search-button");
-
     if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
-
       var searchHost = navbar.querySelector("#quarto-search");
-
       if (searchHost) searchHost.hidden = true;
-
       searchButton = document.createElement("button");
-
       searchButton.type = "button";
-
       searchButton.className = "btn quarto-search-button";
-
       searchButton.setAttribute("aria-label", "Pretraži knjigu");
-
       searchButton.setAttribute("title", "Pretraži knjigu");
-
       searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
-
       searchButton.addEventListener("click", function () {
-
         if (window.quartoOpenSearch) window.quartoOpenSearch();
-
       });
-
       if (tools) tools.appendChild(searchButton);
-
       else container.insertBefore(searchButton, toggler);
-
     }
-
     var brandTitle = navbar.querySelector(".navbar-title");
-
     var fullBrand = brandTitle ? brandTitle.textContent.trim() : "";
-
     var actions = null;
 
-
-
     function markerFor(el, name) {
-
       if (!el) return null;
-
       var marker = document.createComment("navbar-" + name);
-
       el.parentNode.insertBefore(marker, el);
-
       return marker;
-
     }
-
-
 
     var positions = [
-
       { node: toggler, marker: markerFor(toggler, "toggler") },
-
       { node: tools, marker: markerFor(tools, "tools") },
-
       { node: sidebarButton, marker: markerFor(sidebarButton, "sidebar") },
-
       { node: searchButton, marker: markerFor(searchButton, "search") }
-
     ];
 
-
-
     function restore(item) {
-
       if (item.node && item.marker && item.marker.parentNode) {
-
         item.marker.parentNode.insertBefore(item.node, item.marker);
-
       }
-
     }
 
-
-
     function localize() {
-
       toggler.setAttribute("aria-label", "Otvori navigaciju");
-
       if (sidebarButton) {
-
         sidebarButton.setAttribute("aria-label", "Otvori sadržaj knjige");
-
       }
-
       if (searchButton) {
-
         var searchControl = searchButton.matches("button")
-
           ? searchButton
-
           : searchButton.querySelector("button");
-
         if (searchControl) {
-
           searchControl.setAttribute("aria-label", "Pretraži knjigu");
-
           searchControl.setAttribute("title", "Pretraži knjigu");
-
         }
-
       }
-
-
 
       var labels = {
-
         "Source Code": "Izvorni kod",
-
         "Share": "Podijeli",
-
         "Toggle dark mode": "Promijeni temu",
-
         "Toggle light mode": "Promijeni temu",
-
         "Toggle reader mode": "Način čitanja"
-
       };
-
       navbar.querySelectorAll(".quarto-navigation-tool").forEach(function (a) {
-
         var source = a.getAttribute("title") || a.getAttribute("aria-label") || "";
-
         if (!labels[source]) return;
-
         a.setAttribute("title", labels[source]);
-
         a.setAttribute("aria-label", labels[source]);
-
       });
-
     }
-
-
 
     function organize(mobile) {
-
       document.body.classList.toggle("navbar-mobile-organized", mobile);
-
       if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
-
-      if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
-
-
+      if (brandTitle) brandTitle.textContent = fullBrand;  // „Statistika 101" stane i na telefon
 
       if (mobile) {
-
         if (!actions) {
-
           actions = document.createElement("div");
-
           actions.className = "mobile-navbar-actions";
-
           container.insertBefore(actions, collapse);
-
         }
-
         if (sidebarButton) actions.appendChild(sidebarButton);
-
         if (searchButton) actions.appendChild(searchButton);
-
         actions.appendChild(toggler);
-
         if (tools) collapse.appendChild(tools);
-
       } else {
-
         positions.forEach(restore);
-
         if (actions) {
-
           actions.remove();
-
           actions = null;
-
         }
-
       }
-
     }
 
-
-
     localize();
-
     var mq = window.matchMedia("(max-width: 991.98px)");
-
     organize(mq.matches);
-
     var onChange = function (e) { organize(e.matches); };
-
     if (mq.addEventListener) mq.addEventListener("change", onChange);
-
     else mq.addListener(onChange);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 14. Stranica 404 pri lokalnom posluživanju iz korijena
-
   //     Lokalni resursi ugrađuju se nakon rendera, ali navigacijske poveznice
-
   //     i dalje nose produkcijski podput. Izvan tog podputa vraćamo ih na
-
   //     lokalni korijen; na GitHub Pagesu ostaju netaknute.
-
   // -------------------------------------------------------------------
-
   function setupNotFoundFallback() {
-
     if (!document.body.classList.contains("not-found-page")) return;
-
     var offset = document.querySelector('meta[name="quarto:offset"]');
-
     var prefix = offset ? (offset.getAttribute("content") || "") : "";
-
     prefix = prefix.replace(/\/+$/, "");
-
     if (!prefix || prefix === "/" ||
-
         location.pathname === prefix ||
-
         location.pathname.indexOf(prefix + "/") === 0) return;
 
-
-
     document.querySelectorAll("[href], [src]").forEach(function (el) {
-
       ["href", "src"].forEach(function (attr) {
-
         var value = el.getAttribute(attr);
-
         if (!value || value.indexOf(prefix + "/") !== 0) return;
-
         el.setAttribute(attr, value.slice(prefix.length));
-
       });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 15. Poveznice s istog izvorišta
-
   //     Quarto ih u lokalnom pregledu katkad označi kao vanjske prije nego
-
   //     što razriješi adresu. `no-external` sprečava naknadno ukrašavanje,
-
   //     a već dodani znak i otvaranje u novoj kartici uklanjaju se.
-
   // -------------------------------------------------------------------
-
   function setupSameOriginLinks() {
-
     var queued = false;
-
-
 
     function clean() {
-
       queued = false;
-
       document.querySelectorAll("a[href]").forEach(function (a) {
-
         var url;
-
         try { url = new URL(a.getAttribute("href"), location.href); }
-
         catch (e) { return; }
-
         if (url.origin !== location.origin) return;
 
-
-
         a.classList.add("no-external");
-
         a.classList.remove("external", "external-link");
-
         a.removeAttribute("data-external");
-
         if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
 
-
-
         var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean)
-
           .filter(function (token) {
-
             return token !== "external" && token !== "noopener" &&
-
               token !== "noreferrer";
-
           });
-
         if (rel.length) a.setAttribute("rel", rel.join(" "));
-
         else a.removeAttribute("rel");
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(clean);
-
     }
-
-
 
     clean();
-
     window.setTimeout(clean, 250);
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 16. Široke tablice
-
   //     Vodoravno pomicanje dobiva tipkovni fokus, jasan naziv i vidljivu
-
   //     uputu samo kada je tablica doista šira od raspoloživog prostora.
-
   // -------------------------------------------------------------------
-
   function setupAccessibleTables() {
-
     var nextId = 0;
-
     var queued = false;
-
     var resizeObserver = typeof ResizeObserver === "function"
-
       ? new ResizeObserver(queueScan)
-
       : null;
 
-
-
     function tableLabel(table) {
-
       var caption = table.querySelector("caption");
-
       var figure = table.closest("figure");
-
       if (!caption && figure) caption = figure.querySelector("figcaption");
-
       var text = caption && caption.textContent
-
         ? caption.textContent.trim().replace(/\s+/g, " ")
-
         : "";
-
       return text ? "Tablica: " + text : "Tablica s vodoravnim pomicanjem";
-
     }
-
-
 
     function wrapperFor(table) {
-
       var parent = table.parentElement;
-
       if (parent && (
-
         parent.classList.contains("table-responsive") ||
-
         parent.classList.contains("cell-output-display")
-
       )) {
-
         return parent;
-
       }
-
-
 
       var wrapper = document.createElement("div");
-
       wrapper.className = "table-responsive";
-
       table.parentNode.insertBefore(wrapper, table);
-
       wrapper.appendChild(table);
-
       return wrapper;
-
     }
-
-
 
     function update(table, scroller, hint) {
-
       if (!table.isConnected || !scroller.isConnected) return;
-
       var overflows = table.scrollWidth > scroller.clientWidth + 1;
-
       scroller.classList.toggle("table-scrollable", overflows);
-
       hint.hidden = !overflows;
 
-
-
       if (overflows) {
-
         if (!scroller.hasAttribute("tabindex")) {
-
           scroller.tabIndex = 0;
-
           scroller.dataset.tableManagedTabindex = "1";
-
         }
-
         if (!scroller.hasAttribute("role")) {
-
           scroller.setAttribute("role", "region");
-
           scroller.dataset.tableManagedRole = "1";
-
         }
-
         if (!scroller.hasAttribute("aria-label")) {
-
           scroller.setAttribute("aria-label", tableLabel(table));
-
           scroller.dataset.tableManagedLabel = "1";
-
         }
-
         var describedBy = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean);
-
         if (describedBy.indexOf(hint.id) === -1) describedBy.push(hint.id);
-
         scroller.setAttribute("aria-describedby", describedBy.join(" "));
-
       } else {
-
         if (scroller.dataset.tableManagedTabindex) {
-
           scroller.removeAttribute("tabindex");
-
           delete scroller.dataset.tableManagedTabindex;
-
         }
-
         if (scroller.dataset.tableManagedRole) {
-
           scroller.removeAttribute("role");
-
           delete scroller.dataset.tableManagedRole;
-
         }
-
         if (scroller.dataset.tableManagedLabel) {
-
           scroller.removeAttribute("aria-label");
-
           delete scroller.dataset.tableManagedLabel;
-
         }
-
         var remaining = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean)
-
           .filter(function (id) { return id !== hint.id; });
-
         if (remaining.length) {
-
           scroller.setAttribute("aria-describedby", remaining.join(" "));
-
         } else {
-
           scroller.removeAttribute("aria-describedby");
-
         }
-
       }
-
     }
-
-
 
     function prepare(table) {
-
       if (table.dataset.tableScrollerReady || table.closest(".chapter-meta")) {
-
         return;
-
       }
-
       table.dataset.tableScrollerReady = "1";
-
       var scroller = wrapperFor(table);
-
       var hint = document.createElement("p");
-
       hint.className = "table-scroll-hint";
-
       hint.id = "table-scroll-hint-" + (++nextId);
-
       hint.textContent = "↔ Pomaknite tablicu za preostale stupce";
-
       hint.hidden = true;
-
       scroller.insertAdjacentElement("afterend", hint);
 
-
-
       var refresh = function () {
-
         window.requestAnimationFrame(function () {
-
           update(table, scroller, hint);
-
         });
-
       };
-
       refresh();
-
       table.addEventListener("load", refresh, true);
-
       if (resizeObserver) resizeObserver.observe(scroller);
-
     }
-
-
 
     function scan() {
-
       queued = false;
-
       document.querySelectorAll("main table, #quarto-content table")
-
         .forEach(prepare);
-
     }
-
-
 
     function queueScan() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     window.addEventListener("load", queueScan);
-
     window.addEventListener("resize", queueScan);
-
     new MutationObserver(queueScan).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 17. Pretraživanje
-
   //     Quarto prevodi vidljivi tekst iz `language`, ali Algolijina ovojnica
-
   //     zadržava nekoliko engleskih pristupačnih naziva. Prevodimo i početne
-
   //     elemente i kontrole koje se umeću tek kada se pretraživanje otvori.
-
   // -------------------------------------------------------------------
-
   function setupSearchLocalization() {
-
     var translations = {
-
       "Search": "Pretraži",
-
       "Clear": "Očisti pretraživanje",
-
       "Cancel": "Odustani",
-
       "Submit": "Pretraži",
-
       "Close": "Zatvori",
-
       "Reset": "Vrati početno"
-
     };
-
     var queued = false;
 
-
-
     function localize() {
-
       queued = false;
-
       document.querySelectorAll(
-
         ".aa-Autocomplete, .aa-DetachedSearchButton, " +
-
         ".aa-DetachedOverlay [aria-label], " +
-
         ".aa-DetachedOverlay [title], " +
-
         ".aa-DetachedOverlay [placeholder]"
-
       ).forEach(function (element) {
-
         ["aria-label", "title", "placeholder"].forEach(function (attribute) {
-
           var value = element.getAttribute(attribute);
-
           if (value && translations[value]) {
-
             element.setAttribute(attribute, translations[value]);
-
           }
-
         });
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(localize);
-
     }
-
-
 
     localize();
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
-
-
 
   // -------------------------------------------------------------------
-
   function init() {
-
     try { setupProgressBar(); } catch (e) {}
-
     try { setupInternalHover(); } catch (e) {}
-
     try { setupDinkus(); } catch (e) {}
-
     try { setupAnchorLinks(); } catch (e) {}
-
     try { setupStandalonePages(); } catch (e) {}
-
     try { setupNastavaActiveState(); } catch (e) {}
-
     try { pruneSidebar(); } catch (e) {}
-
     try { setupOjsPanels(); } catch (e) {}
-
     try { setupProseCollapsibles(); } catch (e) {}
-
     try { setupChapterAI(); } catch (e) {}
-
     try { setupPojmovi(); } catch (e) {}
-
     try { setupChapterMeta(); } catch (e) {}
-
     try { setupWidgetMemory(); } catch (e) {}
-
     try { setupMobileNavbar(); } catch (e) {}
-
     try { setupNotFoundFallback(); } catch (e) {}
-
     try { setupSameOriginLinks(); } catch (e) {}
-
     try { setupAccessibleTables(); } catch (e) {}
-
     try { setupSearchLocalization(); } catch (e) {}
-
   }
-
-
 
   if (document.readyState === "loading") {
-
     document.addEventListener("DOMContentLoaded", init);
-
   } else {
-
     init();
-
   }
-
 })();
-
 </script>
-
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Kopirano");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Kopirano");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopirano");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopirano");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -2950,161 +3191,185 @@ window.Quarto = {
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -3154,6 +3419,16 @@ window.Quarto = {
     <li class="nav-item">
     <a class="nav-link" href="./resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

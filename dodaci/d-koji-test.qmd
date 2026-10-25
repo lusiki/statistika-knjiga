@@ -5,8 +5,7 @@ title: "Koji test kada"
 Odabir postupka ne počinje nazivom testa ni vrstom jedne varijable. Počinje
 istraživačkim pitanjem, jedinicom koju svaki redak predstavlja i veličinom koju
 želimo procijeniti. Tek zatim gledamo vrstu ishoda, raspored skupina ili
-prediktora, pretpostavke postupka i doseg tvrdnje. Ovaj dodatak zato nudi
-početnu rutu, a ne automatski odgovor.
+prediktora, pretpostavke postupka i doseg tvrdnje. Ovaj dodatak pomaže odabrati početni postupak, ali odluku treba obrazložiti.
 
 Stablo ne može popraviti loše mjerenje, izostavljenu populaciju ili pogrešno
 spojene retke. Ne može ni stvoriti neovisna opažanja. Ako pitanje i dizajn nisu
@@ -15,7 +14,20 @@ jasno zapisani, ispravan je korak zaustaviti izbor postupka i vratiti se
 
 ## Redoslijed odluka
 
-Šest odluka čuva isti redoslijed u stablu i brzom pregledu. Vrsta ishoda jest
+Promjenu postupka lakše razumijemo kada zadržimo temu i promijenimo samo
+jedno obilježje pitanja ili nacrta. U sljedećim usporedbama naziv metode
+slijedi iz razloga za promjenu.
+
+| Što se promijenilo | Posljedica za analizu |
+|---|---|
+| Umjesto različitih osoba iste osobe mjerimo dvaput | Najprije računamo promjenu unutar osobe. Upareni postupak čuva vezu mjerenja, dok je analiza kao dviju neovisnih skupina gubi. |
+| Umjesto izvora koji bira određena dobna skupina pitamo tko čini publiku jednog izvora | U tablici dobi po retcima i izvora po stupcima prelazimo s nazivnika retka na nazivnik stupca. Podaci ostaju isti, a postotak odgovara drugom pitanju. |
+| Umjesto povezanosti dviju kategorija provjeravamo jednu raspodjelu prema zadanim udjelima | Test prilagodbe računa očekivanja iz vanjske reference. Test nezavisnosti računa ih iz rubnih zbrojeva dviju varijabli. |
+| Umjesto opisa poznatih opažanja želimo predvidjeti novi slučaj | Pogrešku provjeravamo na podacima koji nisu sudjelovali u prilagodbi ni odabiru modela. Dobro pristajanje poznatim podacima nije ta provjera. |
+
+: Promjena pitanja ili nacrta i razlog promjene analize. Izrada autora. {#tbl-d-promjena-pitanja}
+
+U stablu i brzom pregledu slijedimo istih šest odluka istim redom. Vrsta ishoda jest
 važna, ali sama nikada ne određuje postupak.
 
 | Korak | Odluka koju treba zapisati | Provjera prije nastavka |
@@ -31,8 +43,7 @@ važna, ali sama nikada ne određuje postupak.
 
 ## Stablo odluke i oporavka
 
-Stablo prikazuje dvije vrste završetka. Tanka ruta vodi do postupka koji knjiga
-doista poučava, dok debela crta zaustavljanja znači da treba sačuvati pitanje i
+Stablo prikazuje dvije vrste završetka. Tanka crta vodi do postupka koji se poučava u knjizi, dok debela crta zaustavljanja znači da treba sačuvati pitanje i
 strukturu podataka, ali metodu potražiti izvan ove knjige. Posebna uparena ruta
 vrijedi samo kada svaka jedinica nosi točno dva pravilno spojena brojčana
 mjerenja.
@@ -48,9 +59,8 @@ i [sadržajnu veličinu](../chapters/11-velicina-ucinka-i-snaga.qmd#razlika-koja
 
 ## Pravilo ovisnosti
 
-Jedinicu neovisnosti treba moći imenovati jednom rečenicom. Kada svaka osoba,
-škola, organizacija, mjesto ili drugi entitet pridonosi jednom međusobno
-nevezanom retku, možemo nastaviti prema rutama za neovisne jedinice. Kada ista
+Jedinicu neovisnosti treba moći imenovati jednom rečenicom. Kada svaka osoba, škola, organizacija, mjesto ili druga jedinica pridonosi
+jednim retkom koji nije povezan s ostalima, možemo nastaviti prema rutama za neovisne jedinice. Kada ista
 jedinica nosi točno dva pravilno spojena brojčana mjerenja, knjiga podupire
 usporedbu razlika unutar parova u
 [poglavlju o dvjema grupama](../chapters/14-dvije-grupe.qmd#ista-razlika-dva-dizajna).

@@ -65,6 +65,14 @@ def table_cell(value: object) -> str:
     return text.replace("|", "\\|")
 
 
+def reader_reason(entry: dict[str, Any]) -> str:
+    """Keep decision history in the registry; render its reader-facing explanation."""
+    value = entry.get("reader_reason", entry["reason"])
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("terminology reader_reason must be non-empty text")
+    return table_cell(value)
+
+
 def require_list(registry: dict[str, Any], key: str) -> list[dict[str, Any]]:
     value = registry.get(key)
     if not isinstance(value, list) or not value:
@@ -105,7 +113,7 @@ def render_routes(registry: dict[str, Any]) -> str:
                 form=table_cell(entry["form"]),
                 canonical=table_cell(entry["canonical"]),
                 permitted=table_cell(permitted),
-                reason=table_cell(entry["reason"]),
+                reason=reader_reason(entry),
             )
         )
     lines.extend(
@@ -127,7 +135,7 @@ def render_routes(registry: dict[str, Any]) -> str:
             "| {form} | *{english}* | {reason} |".format(
                 form=table_cell(entry["form"]),
                 english=table_cell(entry["en"]),
-                reason=table_cell(entry["reason"]),
+                reason=reader_reason(entry),
             )
         )
     lines.extend(
@@ -151,7 +159,7 @@ def render_routes(registry: dict[str, Any]) -> str:
                 term=table_cell(rule["term"]),
                 reserved=table_cell(rule["reserved_for"]),
                 forbidden=table_cell(rule["forbidden_use"]),
-                reason=table_cell(rule["reason"]),
+                reason=reader_reason(rule),
             )
         )
     owner = table_cell(review.get("owner", "autor i urednik"))
@@ -245,11 +253,11 @@ def render_appendix(concepts: str, routes: str, count: int) -> str:
             "===================================================================== -->",
             "",
             "Rječnik uparuje hrvatske nazive s engleskim terminima pod kojima će ih",
-            "čitatelj najčešće pronaći u međunarodnoj literaturi. Kanonski hrvatski",
-            "oblik vodi, a poveznica uz svaki od {count} formalno definiranih pojmova".format(
+            "čitatelj najčešće pronaći u međunarodnoj literaturi. Najprije je naveden",
+            "hrvatski naziv. Poveznica uz svaki od {count} formalno definiranih pojmova".format(
                 count=count
             ),
-            "vodi do definicijskoga mjesta u knjizi. Popis nastaje iz istih",
+            "vodi do njegove definicije u knjizi. Popis nastaje iz istih",
             "definicijskih blokova i registara iz kojih nastaje mrežni Pojmovnik.",
             "",
             "## Kanonski pojmovi {#sec-rjecnik-kanonski-pojmovi}",

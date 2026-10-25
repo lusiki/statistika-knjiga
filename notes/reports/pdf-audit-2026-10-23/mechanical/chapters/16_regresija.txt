@@ -1,0 +1,1090 @@
+<<<<< STRANICA 377 >>>>>
+POGLAVLJE 16
+
+Regresija — opći okvir
+
+Od pravca do općeg linearnog modela
+
+Breiman je 2001. opisao dva pristupa statističkom
+modeliranju (Breiman 2001.). U prvome istraživač
+postavlja model nastanka podataka i tumači njegove
+parametre. U drugome postupak procjenjuje prema tome
+koliko dobro predviđa nove ishode.
+Upozorio je da dobro pristajanje opaženim podacima nije
+dovoljno za procjenu modela. Model može dobro opisati
+postojeći skup, a slabo predviđati nove rezultate ili pogrešno
+prikazivati mehanizam nastanka podataka.
+Istom jednadžbom možemo opisivati odnos, predviđati novu
+osobu ili pokušati procijeniti uzročni učinak. Za ta tri cilja
+trebaju različiti dokazi. Kako prepoznati što model doista
+omogućuje?
+
+                                                                         377
+<<<<< STRANICA 378 >>>>>
+Regresija — opći okvir
+
+Uspoređivali smo prosječno povjerenje među korisnicima razli-
+čitih izvora vijesti. Sada nas zanima kako se ono razlikuje s dobi,
+bez razvrstavanja ljudi u dobne skupine. Možemo postaviti pra-
+vac koji za svaku dob daje predviđeni prosjek i zatim provjeriti
+što takav opis propušta.
+
+Regresija povezuje nekoliko postupaka koje već poznajemo. Ko-
+relacija nas je naučila čitati smjer i jačinu linearne veze, a uspo-
+redbe dviju i više skupina pokazale su kako oznake skupina ulaze
+u linearni model. Sada ćemo brojčani i kategorički prediktor pro-
+matrati zajedno. Pitanje iz poglavlja o mjerenju i dizajnu pritom
+ostaje otvoreno. Trebamo procijeniti opisuje li model odnos ili
+imamo i razloge za uzročno tumačenje.
+
+Polazimo od svih 50 000 zamišljenih odraslih osoba u skupu
+populacija_medija, koristeći dob, glavni izvor vijesti i povjerenje
+u medije (Šikić 2026.b). Jedan zapis pripada jednoj osobi. Budući
+da za ovaj opis koristimo cijelu konačnu simuliranu populaciju,
+ne procjenjujemo nepoznatu vrijednost iz uzorka. Koeficijenti
+će sažeti zabilježene odgovore, a od njih ćemo odvojiti pravila
+kojima su ti odgovori stvoreni. Pri povratku ranijim uzorcima
+ponovno ćemo razmotriti i njihovu nesigurnost.
+
+Odabrani pravac usporedit ćemo s opažanjima preko njihovih
+odstupanja, reziduala. Tako ćemo razumjeti metodu najmanjih
+kvadrata prije tumačenja koeficijenata. Dodavanjem izvora
+vijesti usporedit ćemo zbirni odnos dobi i povjerenja s odnosom
+pri jednakom izvoru, a interakcijom dopustiti da nagib ovisi o
+drugoj varijabli. Grafovi reziduala pomoći će nam provjeriti
+prilagodbu.
+
+Model ćemo na kraju prosuđivati prema svrsi. Dobar opis opaže-
+nih odgovora, uspješno predviđanje nove osobe i objašnjenje uz-
+roka traže različite provjere. Trebamo znati što koeficijent uspo-
+ređuje, što je ostalo izvan modela i koji bi dodatni dokaz podupro
+jači zaključak.
+
+                                                                         378
+<<<<< STRANICA 379 >>>>>
+                                                                                                             Pravac kao tvrdnja o prosjeku
+
+Pravac kao tvrdnja o prosjeku
+
+Povjerenje u medije bilježimo na ljestvici od jedan do deset, a dob
+u godinama (Šikić 2026.b). Korelacija bi sažela jačinu linearne
+veze. Regresijski pravac omogućuje da za odabranu razliku u
+godinama očitamo modelom predviđenu razliku u bodovima
+povjerenja.
+
+Cilj analize je linearni sažetak zabilježenih odgovora svih pedeset                                                                         Podsjetnik.
+tisuća osoba. Budući da analiziramo cijelu zadanu populaciju,                                                                               Nagib
+nema nesigurnosti zbog uzorkovanja. Pravilo kojim su podaci
+generirani odnosi se na vrijednosti prije zaokruživanja i ograni-
+čavanja ljestvice. Njegove koeficijente trebamo razlikovati od
+koeficijenata za zabilježene odgovore. Procjenjivane veličine
+u ovom su poglavlju koeficijenti najmanjih kvadrata za cijelu
+konačnu populaciju.
+
+Slika 1: Prosječno povjerenje po godini dobi u simuliranoj populaciji, s pravcem naj-
+           manjih kvadrata izračunatim na svih pedeset tisuća pojedinačnih odgovora.
+           Izrada autora; podaci i postupak opisani su u tekstu.
+
+Na slici jedna točka sažima sve osobe iste cijele godine dobi. Za
+nju zbrajamo njihove ocjene i dijelimo njihovim brojem. Pravac
+
+                                                                         379
+<<<<< STRANICA 380 >>>>>
+Regresija — opći okvir
+
+ipak računamo iz svih pojedinačnih odgovora, pa dob s više
+osoba nosi veću težinu. Ne prilagođavamo ga dobnim prosjecima
+kojima bismo dali jednaku težinu.
+Pravac biramo jasnim pravilom. Za svaki odsječak i nagib mo-
+žemo izračunati odstupanje svakog opažanja od pravca. Tražimo
+kombinaciju koja daje najmanji zbroj kvadrata tih odstupanja.
+Rezidual je razlika između opažene vrijednosti ishoda kod poje-
+dine jedinice i vrijednosti koju za nju predviđa model, dakle onaj
+dio ishoda koji model nije objasnio.
+
+Rezidual osobe 𝑖 označujemo s 𝑒𝑖, opaženi ishod s 𝑦𝑖, a modelom
+predviđenu vrijednost s 𝑦\ud835̂\udc56. Kapica označuje vrijednost dobivenu
+
+prilagodbom modela. U konačnoj populaciji možemo je izra-
+
+čunati bez uzorkovanja. Rezidual 𝑒𝑖 opaženo je odstupanje od
+prilagođenog pravca, dok 𝜀𝑖 označuje neopaženo odstupanje od
+
+pretpostavljene populacijske regresijske sredine.
+
+                                𝑒𝑖 = 𝑦𝑖 − 𝑦\ud835̂\udc56
+
+Sami reziduali mogu se poništiti jer su jedni pozitivni, a drugi
+negativni. Zato ih kvadriramo prije zbrajanja. Kvadrat daje veću
+težinu velikim odstupanjima, pa krajnja opažanja mogu snažno
+utjecati na odabrani pravac.
+Metoda najmanjih kvadrata bira koeficijente modela tako da
+zbroj kvadriranih reziduala bude najmanji mogući za zadane
+podatke.
+Ovdje računamo koeficijente najmanjih kvadrata za cijelu ko-
+načnu populaciju. Model ima poznati oblik iz usporedbe skupina.
+
+Ishod 𝑦𝑖 opisujemo odsječkom 𝛽0, nagibom 𝛽1 pomnoženim s
+prediktorom 𝑥𝑖 i odstupanjem 𝜀𝑖.
+
+                           𝑦𝑖 = 𝛽0 + 𝛽1𝑥𝑖 + 𝜀𝑖
+
+Model s jednim brojčanim prediktorom zovemo jednostavna li-
+nearna regresija.
+
+                                                                         380
+<<<<< STRANICA 381 >>>>>
+               Pravac kao tvrdnja o prosjeku
+
+Odsječak 𝛽0 daje modelsku vrijednost ishoda kada je prediktor
+nula. Ovdje 𝛽0 i 𝛽1 pripadaju cijeloj fiksnoj populaciji, a 𝑒𝑖 je
+
+izračunati rezidual osobe. Kada bismo koristili uzorak, procjene
+ciljnih koeficijenata označili bismo kapicama i prikazali njihovu
+
+nesigurnost. Za razliku od binarne usporedbe skupina, 𝑥𝑖 sada
+
+predstavlja izmjeren broj.
+
+Pogledajmo tri pojedinačna zapisa prije tumačenja koeficijenata.
+Stupac predviđanja dobivamo uvrštavanjem dobi u izračunati
+pravac, a rezidual oduzimanjem toga predviđanja od zabilježe-
+noga odgovora.
+
+Tablica 1: Prva tri opažanja i njihovi reziduali u zbirnom modelu dobi. Izrada autora.
+
+Osoba Dob Opaženo Predviđeno Rezidual
+
+1 59  4 5,496  −1,496
+2 50  4 5,166  −1,166
+3 45  6 4,982  1,018
+
+Za prvu osobu račun glasi 3,3294 + 0,0367 × 59, približno
+
+5,496 boda. Kvadrat njezina reziduala, 2,238, jedan je od 50 000
+članova zbroja koji smo minimizirali. Za račun koristimo neza-
+okružene koeficijente.
+
+Nagib iznosi 0,0367 boda po godini. Deset godina veća dob pove-
+zana je s modelskom razlikom od 0,37 boda povjerenja. Odsječak
+3,33 odnosio bi se na dob nula, izvan naših podataka. Možemo
+ga učiniti razumljivijim ako od dobi oduzmemo njezinu sredinu.
+Tada odsječak opisuje osobu prosječne dobi, a nagib ostaje isti.
+
+Pravac sažima prosječan odnos. Točke na slici predstavljaju
+prosjeke nekoliko stotina ljudi iste dobi i leže blizu pravca. Po-
+jedinačni odgovori ipak odstupaju po nekoliko bodova. Viši
+predviđeni prosjek za pedesetogodišnjake nego za tridesetogodiš-
+njake ne određuje odgovor konkretne osobe.
+
+      381
+<<<<< STRANICA 382 >>>>>
+Regresija — opći okvir
+
+Nagib koji nosi tuđu priču
+
+Koeficijent za zabilježeno povjerenje iznosi 0,0367 boda po go-
+dini. Znamo ga bez uzoračne nesigurnosti jer imamo cijelu
+populaciju. Generator je prije zaokruživanja i ograničavanja
+ishoda koristio latentni, neposredno neopaženi nagib 0,028. Raz-
+lika tih brojeva ne znači pogrešan izračun. Oni opisuju različite
+veličine.
+U generatoru se s dobi mijenja i izvor vijesti. Prosječna dob
+kreće se od 33,4 godine među korisnicima društvenih mreža do
+47,9 među slušateljima radija. Povjerenje ovisi o oba obilježja.
+Zbirni nagib uz dob zato uključuje i razlike povezane s izborom
+izvora.
+Provjerimo odnos unutar svakog izvora. Generator zadaje isti la-
+tentni dobni nagib svim skupinama. Očekujemo da će njihovi za-
+sebni nagibi biti manji od zbirnoga jer unutar skupine izvor os-
+taje isti.
+
+                                                                         382
+<<<<< STRANICA 383 >>>>>
+                                 Nagib koji nosi tuđu priču
+
+Tablica 2: Nagib uz dob izračunat zasebno među korisnicima svakog izvora vijesti, uz
+              zbirni konačnopopulacijski nagib i latentno pravilo prije mjerenja. Izrada
+              autora.
+
+Izvor vijesti                    Broj ljudi Nagib uz dob
+
+portal                            15 101  0,0269
+društvene mreže                   13 378  0,0258
+TV                                10 827  0,0281
+radio                              5 839  0,0268
+tisak                              4 855  0,0255
+Svi zajedno                      50 000   0,0367
+Latentno pravilo prije mjerenja            0,028
+                                       —
+
+Skupni nagibi kreću se od 0,0255 do 0,0281. Zbirni nagib veći je
+od svakoga. Blizina skupnih nagiba latentnom pravilu pomaže
+provjeriti generator, ali to su i dalje koeficijenti zabilježenih
+odgovora. Kao u poglavlju o povezanosti, odnos unutar skupina
+razlikuje se od ukupnog odnosa.
+
+Izvor ovdje nije konfundirajuća varijabla u strogom uzročnom
+smislu. U poznatom generatoru nastaje nakon dobi i prije povje-
+renja, pa nalikuje posredniku. Zbirni koeficijent opisuje ukupni
+dobni obrazac, a koeficijent pri jednakom izvoru uvjetni obrazac
+koji isključuje taj put. Nijedan ne pokazuje kako bi se mijenjalo
+povjerenje iste osobe tijekom starenja.
+
+Različiti odgovori ne nastaju zbog manjka podataka. Anali-
+ziramo svih pedeset tisuća osoba. Kada bismo uzeli uzorak,
+procjenjivali bismo iste ciljane koeficijente uz odgovarajuću nesi-
+gurnost. Interval ni tada ne bi opisivao udaljenost od latentnog
+pravila prije mjerenja.
+
+               383
+<<<<< STRANICA 384 >>>>>
+Regresija — opći okvir
+
+Prilagodba i ono što je čini mogućom
+
+Zasebni nagibi pokazali su nam odnos dobi i povjerenja unutar
+svakog izvora. Ako dob i izvor uključimo u isti model, možemo
+zajedno izračunati dobni nagib pri jednakom izvoru i razlike
+među izvorima pri jednakoj dobi. Time pitanje o zbirnom
+odnosu pretvaramo u skup uvjetnih usporedbi.
+Višestruka regresija procjenjuje modelnu povezanost svakog
+prediktora s ishodom pri zadanim jednakim vrijednostima svih
+ostalih prediktora u modelu. Koeficijent je uvjetna usporedba
+koju zadaje model; kao usporedba podataka obranjiv je samo
+ondje gdje postoji dovoljno potpore i preklapanja, pa ne mora
+označavati stvarno uparene jedinice.
+Na primjer, usporedbu četrdesetogodišnjaka koji prate televi-
+ziju i portale možemo poduprijeti podacima ako obje skupine
+sadrže dovoljno ljudi blizu te dobi. Kad jedna skupina sadrži
+samo mnogo starije osobe, procjena za četrdesetogodišnjake
+produžuje pravac izvan opaženoga raspona. To zovemo ekstrapo-
+lacijom. Uključivanje dobi u formulu samo ne stvara nedostajuće
+usporedive osobe.
+
+Za ovaj model napišimo cijelu jednadžbu. Oznaka 𝐼TV,𝑖 ima vri-
+
+jednost jedan za korisnika televizije i nula za ostale, a jednako de-
+finiramo indikatore radija, tiska i društvenih mreža. Portal je re-
+ferenca za koju su sva četiri indikatora nula.
+
+𝑦𝑖 = 𝛽0 + 𝛽1 dob𝑖 + 𝛽2𝐼TV,𝑖 + 𝛽3𝐼radio,𝑖 + 𝛽4𝐼tisak,𝑖 + 𝛽5𝐼mreže,𝑖 + 𝜀𝑖.
+
+Koeficijenti daju konkretan račun za svih pedeset tisuća simulira-
+nih osoba. Ovdje su opis konačne populacije, pa im ne pridružu-
+jemo interval uzorkovanja.
+
+                                                                         384
+<<<<< STRANICA 385 >>>>>
+               Prilagodba i ono što je čini mogućom
+
+Tablica 3: Svi koeficijenti modela s dobi i glavnim izvorom vijesti. Portal je referenca.
+              Izrada autora.
+
+Dio            Koeficijent
+
+Odsječak       3,7035
+
+Dob            0,0269
+
+Društvene mreže −0,5335
+
+TV             0,3116
+
+Radio          0,5951
+
+Tisak          0,4864
+
+Svaka osoba ostaje u istom retku, ali pravac sada dobiva i doda-
+tak za njezin izvor. Za portal je dodatak nula. Za korisnika televi-
+
+zije od 40 godina zbrajamo odsječak 3,704, dobni dio 40 × 0,0269
+
+i televizijski dodatak 0,312. Rezultat je 5,091 boda. To je modelno
+predviđanje za zadana obilježja, ne odgovor određene osobe. Za
+korisnika portala iste dobi mijenja se samo dodatak izvora.
+
+U modelu s dobi i izvorom nagib uz dob iznosi 0,0269. To je
+uvjetni linearni sažetak ove populacije. Blizak je latentnom
+pravilu 0,028, ali ne procjenjuje istu veličinu. Slaganje koristimo
+samo za zasebnu provjeru poznatog generatora.
+
+          385
+<<<<< STRANICA 386 >>>>>
+Regresija — opći okvir
+
+Tablica 4: Konačnopopulacijski koeficijenti izvora vijesti uz jednaku dob, uz latentna
+              pravila prije mjerenja. Portal je referentna skupina. Izrada autora.
+
+Izvor vijesti           Latentno prije       Koeficijent zabilježenog
+                               mjerenja                              ishoda
+društvene                            −0,55                              −0,53
+mreže
+TV                                     0,35                               0,31
+radio                                 0,60                               0,60
+tisak                                 0,50                               0,49
+
+Stupci tablice razlikuju latentno pravilo i koeficijente zabilježene
+ljestvice. Potonji su ovdje blago manji zbog zaokruživanja i ogra-
+ničavanja vrijednosti na jedan do deset. Ne očekujemo da budu
+posve jednaki brojevima prije tih promjena.
+
+Uvid u generator ovdje nam omogućuje usporedbu koju u stvar-
+nom istraživanju obično nemamo. Bez zabilježenog izvora vijesti
+nagib uz dob ostao bi 0,0367. Ispis sam ne bi objasnio da taj broj
+odgovara zbirnom, a ne uvjetnom pitanju.
+
+„Kontrola” u regresiji znači usporedbu pri jednakim vrijednos-
+tima uključenih varijabli. Ona nije zamjena za randomizaciju.
+U pokusu randomizacija čini dodjelu neovisnom o početnim
+obilježjima i uravnotežuje skupine u očekivanju. U konkretnom
+uzorku mogu ostati slučajne razlike, a provedba i osipanje mogu
+narušiti usporedbu.
+
+Koeficijent možemo opisati ovako. Ondje gdje podaci podu-
+piru usporedbu, deset godina veća dob uz jednak izvor vijesti
+povezana je s modelskim prosjekom povjerenja višim za 0,27
+boda. Naveli smo jedinicu prediktora, jedinicu ishoda i uvjet
+usporedbe. Za kategorički prediktor navodimo i referentnu
+skupinu.
+
+Mogli bismo sada pomisliti da će uključivanje svake dostupne
+varijable dati bolju usporedbu. No već je izvor vijesti promijenio
+
+                        386
+<<<<< STRANICA 387 >>>>>
+                                                                                                Prilagodba i ono što je čini mogućom
+
+pitanje na koje odgovara dobni koeficijent. Prije sljedeće pri-
+lagodbe zato trebamo razmotriti ulogu te varijable u nastanku
+podataka. Dijagram razlikuje tri uloge zbog kojih ista računska
+radnja može imati različite posljedice.
+
+Slika 2: Tri uloge treće varijable u uzročnom dijagramu. Prilagodba za zajednički
+           uzrok može zatvoriti neuzročni put, prilagodba za posrednika mijenja cilj s
+           ukupne na izravnu vezu, a prilagodba za kolider može otvoriti novu pristra-
+           nost. Izrada autora.
+
+                                                                         387
+<<<<< STRANICA 388 >>>>>
+Regresija — opći okvir
+
+Zajednički uzrok prethodi izloženosti i ishodu te može opravdati
+prilagodbu. Posrednik nastaje nakon izloženosti, pa njego-
+vim uključivanjem mijenjamo ukupnu usporedbu. Kolider je
+posljedica obiju varijabli. Uvjetovanje na njega može stvoriti
+povezanost među inače nepovezanim uzrocima. Prije izbora mo-
+dela zato razmatramo vremenski redoslijed, kvalitetu mjerenja i
+ulogu svake varijable.
+
+Odsječak sada opisuje osobu dobi nula koja koristi portal. Takve
+osobe nema u podacima. Koeficijent je potreban za zapis modela,
+ali ga ne trebamo sadržajno tumačiti.
+
+Kada dva prediktora nose gotovo istu informaciju, teško je raz-
+dvojiti njihove pojedinačne koeficijente. Nedostaju usporedbe u
+kojima se jedan mijenja, a drugi ostaje isti. Male promjene po-
+dataka tada mogu znatno promijeniti koeficijente, iako njihova
+zajednička predviđanja ostaju slična.
+
+Interakcija i regresijski pravac
+
+U dosadašnjem modelu s dobi i izvorom vijesti nagib uz dob
+jednak je za sve izvore. Ako nas zanima razlikuje li se nagib među
+skupinama, trebamo modelu dopustiti i tu mogućnost. To čini
+interakcija, kojom nagib jednog prediktora može ovisiti o dru-
+gome. Za planiranu provjeru unaprijed navodimo modifikator,
+kodiranje, kontrast i postupak zaključivanja, a kod usmjerene
+hipoteze i očekivani smjer. Naknadno uočena razlika među
+podskupinama može dati novo pitanje, ali zahtijeva neovisnu
+provjeru. Modifikator je varijabla prema kojoj se nagib razlikuje.
+Kodiranje određuje njezin brojčani zapis, a kontrast konkretnu
+razliku koju uspoređujemo.
+
+Sljedeće dvije linije namjerno konstruiramo izvan medijske po-
+
+pulacije. Za svaku cjelobrojnu vrijednost 𝑥 od 0 do 10 upisujemo
+2 + 0,6𝑥 u A i 8 − 0,2𝑥 u B, bez slučajnog odstupanja. Pri 𝑥 = 5
+vrijednosti su 5 i 7. Od 𝑥 = 5 do 𝑥 = 6 prva raste za 0,6, a druga
+pada za 0,2. Jednako mnogo točaka na istim vrijednostima 𝑥
+
+daje zbirnom pravcu prosjek tih nagiba.
+
+                                                                         388
+<<<<< STRANICA 389 >>>>>
+                                                                                                       Interakcija i regresijski pravac
+
+U prikazu smo skupini A zadali nagib 0,6, a skupini B −0,2.
+Zbirni nagib iznosi 0,2 i ne opisuje nijednu skupinu zasebno.
+Dvije linije prikazuju razliku koju bi zajednički koeficijent sakrio.
+
+Ako je 𝐵 = 1 za drugu skupinu, a 𝐵 = 0 za prvu, obje zapisujemo
+jednadžbom 𝑦̂ = 2 + 0,6𝑥 + 6𝐵 − 0,8𝑥𝐵. Član 𝑥𝐵 mijenja nagib
+
+iz 0,6 u −0,2. Taj namjerno izražen primjer služi učenju interak-
+cije; ne tvrdi da su takve razlike nagiba prisutne u prethodnoj
+medijskoj populaciji.
+
+Slika 3: Predviđene vrijednosti u simuliranom primjeru s različitim skupnim nagibima.
+            Deblja zbirna linija opisuje prosjek koji ne vrijedi ni za jednu skupinu. Izrada
+            autora.
+
+Interakciju čitamo kroz skupne nagibe ili predviđene vrijednosti.
+Značajan nagib u jednoj i neznačajan u drugoj skupini ne doka-
+zuje da se nagibi razlikuju. Potrebna je izravna procjena interak-
+cije s nesigurnošću (Nieuwenhuis i sur. 2011.). Ovaj determinis-
+tički primjer pokazuje oblik odnosa. U stvarnoj analizi trebalo bi
+prikazati i interval za razliku nagiba.
+Za pomicanje pravca stvaramo drugi nastavni skup od 52 zapisa,
+s vremenom, angažmanom i prethodnim interesom. Interes
+generiramo normalno sa sredinom nula i standardnom devijaci-
+
+jom jedan. Vrijeme nastaje kao 5 + 1,8 puta interes, uz neovisno
+
+                                                                         389
+<<<<< STRANICA 390 >>>>>
+Regresija — opći okvir
+
+odstupanje standardne devijacije 1,5 i donju granicu nula. An-
+
+gažman je 20 + 2,3 puta vrijeme +7 puta interes, uz drugo
+
+neovisno odstupanje standardne devijacije 4,5. Zato prethodni
+interes ovdje prethodi objema varijablama i utječe na obje. To je
+drukčije pravilo od dobnog puta preko izvora vijesti u glavnom
+primjeru.
+Sljedeći prikaz povezuje položaj pravca i duljinu reziduala. Za-
+dani pravac uspoređujemo s pravcem najmanjih kvadrata i s
+pravcem prilagođenim za prethodni interes. Koristimo manji
+simulirani skup kako bismo mogli vidjeti pojedinačna odstupa-
+nja.
+
+Slika 4: Regresijski pravac — reziduali zbirnog modela, jedan neoptimalni kandidat i
+            blaži prilagođeni nagib pri jednakom prethodnom interesu. Crtkani kandidat
+            gotovo se podudara s punim pravcem najmanjih kvadrata. Izrada autora; po-
+            daci i postupak opisani su u tekstu.
+
+Crtkani kandidat s odsječkom 10 i nagibom 4,5 daje zbroj kva-
+drata 2 575,9. Puni zbirni pravac postiže minimum 2 561,1. Pra-
+vac pri jednakom prethodnom interesu blaži je od zbirnoga.
+
+                                                                         390
+<<<<< STRANICA 391 >>>>>
+                                                                                                       Isti model iza ranijih poglavlja
+
+Blizu minimuma manji pomaci pravca mogu samo malo povećati
+zbroj kvadrata. Kod uzorka je taj odnos dio računa nesigurnosti
+koeficijenata. Ovaj prikaz sam ne daje interval ni procjenu uzo-
+račne nesigurnosti.
+Prije nastavka vratite se glavnom primjeru s povjerenjem. Po-
+kušajte bez ponovnog čitanja objasniti koju veličinu ondje
+računamo, što mjeri rezidual, kako biramo pravac i što bi bilo
+potrebno za uzročni zaključak.
+
+Isti model iza ranijih poglavlja
+
+Model s binarnim prediktorom daje razliku dviju sredina. Mo-
+del s više kategorija daje razlike prema referentnoj skupini.
+Sada smo dodali brojčani prediktor. Provjerimo vezu s ranijim
+računima.
+Uzorak od sto dvadeset osoba iz poglavlja o dvjema grupama daje
+razliku sredina 1,19 boda. Koeficijent uz izvor u modelu iznosi
+1,19. To su dva zapisa iste točkaste procjene.
+Omjer koeficijenta i obične homoskedastične standardne po-
+greške iznosi 3,21. Jednak je združenom Studentovu t-testu s
+postavkom var.equal = TRUE. Oba koriste zajedničku rezidualnu
+varijancu i 118 stupnjeva slobode. Welchov postupak dopušta
+različite varijance te daje t od 3,18 i 102,471 stupnja slobode.
+Procijenjena razlika ostaje jednaka, ali račun nesigurnosti se
+mijenja.
+Na tristo osoba iz poglavlja o više skupina klasični model daje F
+od 8,38, uz 4 i 295 stupnjeva slobode. To je isti homoskedastični
+postupak kao aov iz poglavlja Više grupa. Welch daje F od 7,32, uz
+4 i 112,4 stupnja slobode. Zajednički model sredina ne znači jed-
+nak test. Objašnjeni udio varijabilnosti u klasičnom modelu iz-
+nosi 10,2 %, koliko i prethodno izračunati eta-kvadrat.
+T-test, analiza varijance i regresija zato mogu dijeliti model sre-
+dina. U svakom izvještaju pitamo koja je jedinica, što se uspore-
+
+                                                                         391
+<<<<< STRANICA 392 >>>>>
+Regresija — opći okvir
+
+đuje i pod kojim uvjetima. Zasebno provjeravamo pretpostavke i
+način računanja nesigurnosti.
+
+Tablica za odabir postupka u mrežnom dodatku pomaže povezati
+vrstu podataka i istraživačko pitanje. Iza nje ostaju ista pitanja
+o ishodu, prediktorima, neovisnosti i nesigurnosti. Sam zapis
+modela ne određuje trebamo li Welchovu ili običnu homoskedas-
+tičnu inferenciju.
+
+Ako jedna osoba daje više redaka ili osobe dijele razred, usta-
+novu ili grad, ponovno provjeravamo jedinicu i ciljanu veličinu.
+Više redaka može nekim osobama dati veću težinu, a uobiča-
+jena nesigurnost više nema opravdanje neovisnosti. Trebamo
+postupak koji uvažava tu strukturu. Takve modele ovdje ne
+procjenjujemo.
+
+Pristajanje i njegove granice
+
+Vezu regresije s analizom varijance možemo iskoristiti i za pro-
+cjenu pristajanja. Ondje nas je zanimalo koliki dio varijabilnosti
+opisuju skupne sredine. Sada isto pitanje postavljamo za vrijed-
+nosti koje predviđa cijeli model, neovisno o tome sadrži li oznake
+skupina ili brojčane prediktore.
+
+Koeficijent determinacije je udio ukupne varijabilnosti ishoda
+u promatranom skupu podataka koji je model objasnio, izraču-
+nat kao jedan minus omjer zbroja kvadrata reziduala i zbroja
+kvadrata odstupanja od zajedničke sredine.
+
+Mjeru označujemo s 𝑅2. U formuli je 𝑒𝑖 rezidual, 𝑦𝑖 opaženi is-
+hod, a 𝑦̄ njegova zajednička sredina.
+
+𝑅2  =  1  −      ∑ 𝑒2𝑖
+              ∑(𝑦𝑖 − 𝑦)̄ 2
+
+Za model s dobi zbroj kvadrata 50 000 reziduala iznosi 179 511,3.
+Bez prediktora svakoj bismo osobi dodijelili zajednički prosjek.
+Zbroj kvadrata odstupanja od njega iznosi 196 832,6. Dijeljenjem
+
+              392
+<<<<< STRANICA 393 >>>>>
+                                                                                                             Pristajanje i njegove granice
+
+prvoga zbroja drugim dobivamo preostali dio varijabilnosti,
+pa ga oduzimamo od jedan. Usporedba koristi iste osobe i isti
+ishod.
+
+Model s dobi opisuje 8,8 % varijabilnosti povjerenja, a s dobi i iz-
+vorom 12,2 %. Nizak udio može odražavati razlike među ljudima,
+mjernu pogrešku ili neprikladan oblik modela. Sama mjera
+ne razlikuje te mogućnosti. Blizina prilagođenog koeficijenta
+latentnom pravilu također ne mijenja činjenicu da su to različite
+veličine.
+
+Za sljedeću provjeru uzimamo novi slučajni uzorak od 200 osoba
+bez vraćanja iz te populacije. Svakoj dodajemo pet neovisnih nor-
+malnih brojeva sa sredinom nula i standardnom devijacijom je-
+dan. Ti stupci po pravilu nastanka nemaju vezu s povjerenjem,
+iako je u konačnom uzorku mogu slučajno pokazati. Uspoređu-
+jemo dva modela na istih 200 potpunih redaka.
+
+U toj usporedbi osnovni model sadrži dob i glavni izvor vijesti.
+Prošireni model istim prediktorima dodaje pet neovisno gene-
+riranih normalnih slučajnih varijabli, označenih sum1 do sum5.
+Oba se prilagođavaju istim dvjema stotinama osoba. Dodatne
+varijable nemaju sadržajno opravdanje.
+
+Na istim redcima i istom ishodu dodavanje prediktora ne sma-
+njuje obični objašnjeni udio. U uzorku od dvjesto osoba pet
+slučajnih stupaca povećava ga s 8,1 % na 9,1 %. Prilagođeni ko-
+eficijent determinacije uzima u obzir broj prediktora i pada s
+5,8 % na 4,3 %. Ta prilagodba pomaže pri usporedbi, ali sama ne
+provjerava predviđanje, uzročnost ni sadržajnu valjanost.
+
+Ograničenje raspona također mijenja ovu mjeru. Među osobama
+od trideset do pedeset godina nagib iznosi 0,0385, gotovo kao
+prije. Objašnjeni udio ipak pada s 8,8 % na 1,4 % u skupu od
+24 282 ljudi. Koeficijent determinacije zato ovisi o populaciji i
+rasponu podataka.
+
+Slični nagibi u različitim populacijama mogu imati vrlo različite
+objašnjene udjele. Za usporedbu koeficijenata trebamo provjeriti
+ishod, ljestvicu, populaciju, kodiranje i uključene prilagodbe.
+Kod uzoraka trebamo i intervale koji odgovaraju nacrtu.
+
+                                                                         393
+<<<<< STRANICA 394 >>>>>
+Regresija — opći okvir
+
+Ni zajednički naziv ne jamči usporedive podatke. U našoj si-
+mulaciji „medijska aktivnost” označuje dnevne minute osobe iz
+konačne populacije odraslih (Šikić 2026.b). DigiKat obuhvaća
+platformske objave prema pravilima korpusa, s jedinicom objave
+ili agregata (Šikić i sur. 2026.). Osobne minute ne prikazuju
+svako privatno ponašanje, a korpus ne obuhvaća sadržaj izvan
+svojeg izbora. Regresija objava zato ne opisuje osobnu uporabu,
+a skupni obrazac ne možemo pripisati pojedincu. Trebamo
+usporediti konstrukt, jedinicu, populaciju i obuhvat mjerenja.
+Pri sužavanju dobi vraćamo se cijeloj populaciji i zadržavamo
+osobe od 30 do 50 godina, a ne podskup prethodnih 200. Za
+sljedeći dijagnostički primjer ponovno koristimo svih 50 000
+osoba, ali mijenjamo ishod iz povjerenja u dnevne minute. Te su
+minute generirane tako da s dobi rastu i očekivana vrijednost i
+raspršenost (Šikić 2026.b).
+Jedan objašnjeni udio ipak ne otkriva gdje model slabije odgo-
+vara podacima. Za to se vraćamo pojedinačnim odstupanjima,
+rezidualima. U našoj populaciji linearni odnos dnevnog praćenja
+medija i dobi ima nagib 1,05 minute po godini. Reziduali oko tog
+pravca nisu jednako raspršeni duž cijelog raspona, što možemo
+vidjeti na njihovu prikazu.
+
+                                                                         394
+<<<<< STRANICA 395 >>>>>
+                                                                                                             Pristajanje i njegove granice
+
+Slika 5: Reziduali modela za dnevno vrijeme uz medije nasuprot vrijednostima koje
+            model predviđa, na slučajnom podskupu od dvije tisuće osoba. Izrada autora;
+            podaci i postupak opisani su u tekstu.
+
+Od šestine s najnižim do šestine s najvišim predviđanjima ras-
+pršenost reziduala raste s 57 na 77 minuta. Jedna ukupna mjera
+zato ne opisuje pogrešku u svakom dijelu raspona. Kada bismo
+imali uzorak, račun nesigurnosti trebao bi dopustiti promjenjivu
+varijancu. Graf otkriva problem, a sljedeći korak biramo prema
+cilju analize.
+Vrijeme ne može pasti ispod nule. Zbog te granice donji rub
+ostataka slijedi kosu crtu, a osobe s nulom gomilaju se na njoj.
+Zakrivljenost oblaka i širenje ostatka prema većim predviđa-
+njima upozoravaju da jedan pravac sa stalnom varijancom ne
+opisuje sve dijelove raspodjele jednako dobro. Promjena računa
+standardne pogreške može ublažiti problem nesigurnosti, ali ne
+ispravlja pogrešan oblik sredine ni predviđanja izvan mogućeg
+raspona.
+Izbor načina izražavanja nesigurnosti ne uklanja potrebu za tim
+pregledom modela. Bayesovski pristup, koji smo kratko upoznali
+uz testiranje, može istom modelu pridružiti prethodne raspo-
+djele i dati raspodjelu nesigurnosti koeficijenata ili predviđanja.
+
+                                                                         395
+<<<<< STRANICA 396 >>>>>
+Regresija — opći okvir
+
+I tada trebamo dobro mjerenje, prikladne jedinice i opravdane
+pretpostavke. Takav račun sam ne rješava curenje informacija
+ni uzročno zaključivanje, a ovdje ostajemo na tom kratkom
+osvrtu.
+
+Objašnjenje i predviđanje
+
+Za opis odnosa tražimo sadržajno smislen i razumljiv model.
+Za predviđanje tražimo malu pogrešku na novim jedinicama.
+Uzročno objašnjenje zahtijeva dodatno opravdanje iz nacrta i
+identifikacijskih pretpostavki, uvjeta pod kojima opažene odnose
+možemo pripisati pretpostavljenom uzroku. Shmueli pokazuje
+da se ti ciljevi razlikuju već pri izboru mjera i varijabli (Shmueli
+2010.). Model dobar za jedan cilj može biti loš za drugi.
+
+U sljedećim primjerima povjerenje predviđamo neposredno
+prije nego što nova osoba odgovori na pitanje o povjerenju. Tada
+znamo dob i izvor vijesti. Slučajni stupci kojima ćemo pokazati
+preprilagodbu također su dostupni prije odgovora i jednako
+definirani u oba skupa. Informacije koje nastaju poslije ishoda
+ne smijemo koristiti.
+
+Spremnost na plaćanje vijesti u generatoru nastaje nakon po-
+vjerenja i pod njegovim utjecajem. Ako je dodamo modelu
+povjerenja, objašnjeni udio raste s 12,2 % na 13,2 %. Za naš tre-
+nutak primjene to je curenje informacija. Prediktor tada još nije
+dostupan, pa poboljšanje na postojećim podacima nije valjan
+prediktivni dobitak.
+
+Sada izvlačimo zasebnih 150 osoba za učenje, a iz preostalih
+osoba 2 000 za provjeru. Skupovi se ne preklapaju. Svakom
+skupu dodajemo 25 neovisnih normalnih stupaca sa sredinom
+nula i standardnom devijacijom jedan. To je novi pokus, različit
+od prethodnih pet stupaca na 200 osoba. Složeniji model koristi
+svih 25 dodataka, a jednostavniji samo dob i izvor. Oba procje-
+njujemo na 150 osoba. Dobivene koeficijente zatim zamrzavamo
+prije predviđanja za 2 000 odvojenih osoba.
+
+                                                                         396
+<<<<< STRANICA 397 >>>>>
+                        Objašnjenje i predviđanje
+
+Predviđanje provjeravamo na podacima odvojenima prije pro-
+cjene modela. Pogrešku mjerimo srodno ranijem računu rezidu-
+ala. Odstupanja opaženih odgovora od predviđanja kvadriramo,
+izračunamo njihovu sredinu i izvadimo korijen kako bismo se
+vratili u bodove povjerenja. Tako možemo usporediti pogrešku
+na podacima za učenje s pogreškom na odvojenim osobama. Ov-
+dje je to interna provjera istog simuliranog mehanizma koja ne
+dokazuje prijenos u drugo vrijeme, sustav ili populaciju. Oba us-
+poređena modela koriste samo informacije dostupne do zadanog
+trenutka.
+
+Prva tri zapisa iz skupa za provjeru pokazuju kako nastaje nje-
+gova pogreška. Svako predviđanje dobiveno je bez uporabe
+odgovora te osobe pri procjeni koeficijenata. Takvo predviđa-
+nje za osobe koje nisu sudjelovale u prilagodbi modela zovemo
+predviđanjem izvan uzorka.
+
+Tablica 5: Odvojene osobe, predviđanja jednostavnijeg modela i kvadrirane pogreške.
+              Izrada autora.
+
+Osoba Opaženo Predviđeno Kvadrat pogreške
+
+30952  2 5,188  10,162
+31037  9 5,662  11,143
+36739  3 3,999  0,997
+
+Prvi kvadrat ulazi u zbroj s još 1 999 takvih kvadrata. Zbroj dije-
+limo s 2 000 i vadimo korijen. Za učenje je nazivnik 150. Svi su
+odgovori i predviđanja definirani, pa nema izostavljanja. Tablica
+koja slijedi sažima iste račune za oba modela i za predviđanje pro-
+sjekom skupa za učenje.
+
+       397
+<<<<< STRANICA 398 >>>>>
+Regresija — opći okvir
+
+Tablica 6: Prosječna pogreška predviđanja dvaju modela na podacima na kojima su
+              procijenjeni i na odvojenom skupu, u bodovima povjerenja. Izrada autora.
+
+Model                           Na skupu za       Na odvojenom
+                                       učenje                 skupu
+Dob i izvor vijesti
+Dob, izvor i 25 slučajnih                   1,78                 1,88
+brojeva                                     1,65                2,06
+Sama sredina učenja
+                                —                 1,99
+
+Na skupu za učenje od 150 osoba složeniji model opisuje 25,4 %
+varijabilnosti, a jednostavniji 13,1 %. Na tih istih podacima slo-
+ženiji griješi manje. Na odvojenih 2 000 osoba griješi više od
+jednostavnijeg modela, pa i od predviđanja zajedničkim prosje-
+kom skupa za učenje. Prilagodio se slučajnim obrascima koji se
+ne ponavljaju u novim podacima.
+
+Jednostavniji model bolji je na ovom odvojenom skupu. Stan-
+dardna devijacija povjerenja u populaciji iznosi 1,98 boda, a
+rezidualna raspršenost nakon uključivanja dobi i izvora 1,86.
+Ostatak uključuje slučajnu sastavnicu generatora, ali možda i
+neprimjerenost oblika modela. Ne možemo ga proglasiti najma-
+njom pogreškom koju bi bilo koji model mogao postići.
+
+Valjana provjera predviđanja zato zahtijeva odvojene podatke i
+prediktore dostupne u trenutku primjene. U sljedećem poglavlju
+te ćemo zahtjeve primijeniti na algoritme koji rangiraju sadržaj i
+sudjeluju u odlukama o ljudima.
+
+Granica prema uzroku
+
+Konfundirajuća varijabla prethodi pretpostavljenom uzroku
+i ishodu. Regresija može za nju prilagoditi usporedbu, ali iz
+samog ispisa ne možemo utvrditi njezinu ulogu. Za to trebamo
+sadržajno znanje, vremenski redoslijed i nacrt istraživanja.
+
+                           398
+<<<<< STRANICA 399 >>>>>
+                                                                                                                             Granica prema uzroku
+
+U našem generatoru izvor vijesti nastaje poslije dobi i prije po-
+vjerenja. Prilagodba za izvor zato zatvara mogući posrednički
+put i mijenja cilj sa zbirnog na uvjetni odnos. Blizinu prilago-
+đenog koeficijenta latentnom izravnom pravilu razumijemo jer
+poznajemo generator. U stvarnom istraživanju takvo slaganje ne
+bismo mogli pretpostaviti.
+Prilagođena povezanost sama ne dokazuje uzrok. Trebamo
+opravdati vremenski red, izostanak neizmjerenih zajedničkih
+uzroka i izbor prilagodbi. Važni su i valjano mjerenje, dovoljno
+preklapanja usporedivih jedinica, jasno definirana intervencija,
+selekcija i oblik modela. Navođenje tih uvjeta još nije dokaz da su
+zadovoljeni.
+Dob je posebno zahtjevna jer nema jednostavno intervencijsko
+tumačenje. U stvarnom istraživanju ulogu dobi i izvora tre-
+bali bismo razmotriti prije računanja. Modelni ispis ne može
+potvrditi te pretpostavke.
+Zato u izvještaju opisujemo usporedbu koju smo doista napravili.
+Tvrdnja o tome što bi se dogodilo kada bismo nešto promijenili
+traži nacrt i pretpostavke koji opravdavaju takvu promjenu.
+Prije riječi „učinak” korisno je zapisati koja bi druga objašnjenja
+proizvela isti obrazac i kako ih nacrt isključuje. Ako se ključna
+pretpostavka ne može provjeriti ovim podacima, trebamo je
+jasno navesti uz zaključak.
+
+        STATISTIKA U DIVLJINI
+
+      Od omjera do dopuštene rečenice. Školski stručni tim mogao bi
+      iz istraživanja o društvenim mrežama pokušati zaključiti bi li ogra-
+      ničenje vremena uporabe smanjilo simptome depresije. U toj za-
+      mišljenoj primjeni nalaz treba pročitati prije nego što ga pretvo-
+      rimo u preporuku. Kleppang i suradnici analizirali su samoprijav-
+      ljene presječne podatke istraživanja Ungdata iz 2018., koji obuhva-
+      ćaju 12 353 norveških adolescenata od 15 do 16 godina, uz ukupni
+
+                                                                         399
+<<<<< STRANICA 400 >>>>>
+Regresija — opći okvir
+
+     odaziv od 85 % (Kleppang i sur. 2021.). Njihov je predmet poveza-
+     nost uporabe medija i simptoma, a ne učinak provedene zabrane.
+     Ishod u modelu razlikuje rezultat na mjeri simptoma depresije na
+     ili iznad 80. percentila od nižih rezultata (Kleppang i sur. 2021.).
+     To nije isto što i klinička dijagnoza. Sljedeći izvadak prikazuje
+     kako se omjeri mijenjaju kada se društvene mreže i igranje uključe
+     zasebno ili zajedno.
+
+                                                                         400
+<<<<< STRANICA 401 >>>>>
+                                                   Granica prema uzroku
+
+Tablica 7: Prilagođeni omjeri izgleda za simptome depresije prema uporabi
+              društvenih mreža i igranju. Sadržajno skraćena, preoblikovana i
+              na hrvatski prevedena prilagodba Tablice 3 iz rada Kleppang i su-
+              radnika (Kleppang i sur. 2021.).
+
+             Model 1,                              Model 3, oba
+
+             društvene              Model 2,       prediktora
+
+Prediktor i  mreže AOR              igranje AOR    AOR (95 %
+
+kategorija   (95 % interval) (95 % interval)       interval)
+
+Društvene    1 (ref.) nije u modelu                1 (ref.)
+mreže, do 3
+sata
+
+Društvene    1,60 (1,43–1,80)       nije u modelu  1,51 (1,34–1,70)
+mreže, više
+od 3 sata
+
+Igranje, do  nije u modelu          1 (ref.)       1 (ref.)
+3 sata
+
+Igranje,     nije u modelu 1,57 (1,36–1,80) 1,38 (1,19–1,59)
+više od 3
+sata
+
+Binarni ishod u ovome radu analizira se logističkom regresijom.
+Taj model povezuje prediktore s logaritmom izgleda, a ne s neo-
+graničenom sredinom binarnoga ishoda. Izgledi su omjer vjerojat-
+nosti ishoda i vjerojatnosti njegova izostanka. Eksponiranjem od-
+govarajućega koeficijenta dobiva se omjer izgleda uz ostale predik-
+tore u modelu. Ovdje učimo čitati objavljeni rezultat; prilagodba i
+provjera logističkog modela izvan su opsega knjige (Kleppang i sur.
+2021.).
+AOR označuje prilagođeni omjer izgleda. Sva tri modela uključuju
+rod ili spol, imanje prijatelja, pušenje, visoko obrazovanje roditelja
+i obiteljsko materijalno stanje (Kleppang i sur. 2021.). Model 3 is-
+todobno uključuje obje aktivnosti, pa je omjer za mreže prilagođen
+i za igranje, a omjer za igranje i za uporabu mreža. Referentne su
+skupine označene jedinicom. Prije čitanja nalaza treba razlikovati
+izglede od vjerojatnosti. U zamišljenoj skupini u kojoj ishod ima
+
+                               401
+<<<<< STRANICA 402 >>>>>
+Regresija — opći okvir
+
+     20 od 100 osoba, vjerojatnost je 0,20, a izgledi su 20 prema 80, od-
+
+    nosno 0,25. Za vjerojatnost 𝑝 isti račun zapisujemo kao 𝑝/(1 − 𝑝).
+
+     Omjer izgleda uspoređuje te izglede, a omjer rizika uspoređuje vje-
+     rojatnosti. Nijedan nije razlika u postotnim bodovima.
+     U Modelu 1 procijenjeni izgledi za ishod kod uporabe mreža dulje
+     od tri sata iznose 1,60 puta izglede referentne skupine, uz inter-
+     val od 1,43 do 1,80 (Kleppang i sur. 2021.). Vrijednosti iznad jedan
+     znače veće, a ispod jedan manje izglede. Interval koji obuhvaća je-
+     dan dopušta i jednake izglede. Tim stoga ne može nalaz prepričati
+     kao povećanje vjerojatnosti za 60 postotnih bodova ili kao dokaz
+     da će ograničenje uporabe ukloniti odgovarajući dio simptoma.
+     Za predviđenu vjerojatnost trebaju odsječak, ostali koeficijenti i
+     vrijednosti prediktora. Izvadak ne daje nazivnike modela, mjere
+     pristajanja ni dijagnostiku, pa ne omogućuje provjeru gubitka
+     redaka i pristajanja. Koeficijenti prilagodbenih varijabli nisu
+     automatski njihovi uzročni učinci (Westreich i Greenland 2013.).
+     Učimo čitati objavljeni model. Njegova procjena i dijagnostika iz-
+     van su opsega knjige.
+     Školskom timu nalaz pokazuje povezanost vrijednu daljnjeg pro-
+     učavanja. Presječni nacrt, samoprijava i mogući neizmjereni čim-
+     benici ne dopuštaju uzročni zaključak (Kleppang i sur. 2021.). Ta-
+     blica tako čuva opaženi nalaz, a pokazuje koji dokaz još nedostaje
+     za odluku o ograničavanju uporabe.
+     Izvor su Annette Løvheim Kleppang, Anne Mari Steigen, Li Ma,
+     Hanne Søberg Finbråten i Curt Hagquist, „Electronic media use
+     and symptoms of depression among adolescents in Norway”, PLOS
+     ONE 16(7), e0254197, 2021, članak i izvorna Tablica 3. Licenca je CC
+     BY 4.0. Tablica je skraćena, preoblikovana i prevedena na hrvat-
+     ski. Brojevi i granice intervala sačuvani su. Prilagodba ne podra-
+     zumijeva odobrenje autora ni PLOS-a.
+
+                                                                         402
+<<<<< STRANICA 403 >>>>>
+                                                                                                                                   Razrađeni primjer
+
+NAĐITE GREŠKU
+
+Tim želi provjeriti predviđa li model povjerenje kod novih korisnika uz ko-
+rijen srednje kvadratne pogreške manji od dva boda. To je unaprijed zadan
+kriterij ove nastavne vježbe. Za prilagodbu je uzeto prvih 200 zapisa simu-
+lirane populacije (Šikić 2026.b). U zamišljenoj primjeni svi prediktori dos-
+tupni su prije odgovora o povjerenju.
+Asistentov račun rabi naziv uzorak za tih istih 200 zapisa.
+
+model <- lm(povjerenje_medijima ~ dob + izvor_vijesti + obrazovanje +
+                         minute_medija + spol, data = uzorak)
+
+pogreska <- sqrt(mean((uzorak$povjerenje_medijima - fitted(model))^2))
+c(r2 = summary(model)$r.squared, pogreska = pogreska)
+
+Ispis daje 𝑅2 = 0,12 i korijen srednje kvadratne pogreške 1,78 boda na ljes-
+
+tvici povjerenja od jedan do deset. U zapisu nema drugog skupa podataka.
+Asistent zaključuje sljedeće.
+
+        Izračunane vrijednosti opisuju pristajanje modela navedenim
+        zapisima. Pogreška je manja od dva boda, pa je zadani kriterij
+        za nove korisnike zadovoljen i model možemo preporučiti za
+        primjenu.
+Pratite iz kojih redaka dolaze koeficijenti, a iz kojih pogreške. Napišite
+što ovaj ispis već podupire i koju provjeru treba provesti prije odluke o
+primjeni. Vaša preporuka treba odrediti kako bi se novi rezultat usporedio
+s unaprijed zadanim kriterijem.
+
+Razrađeni primjer
+
+Vratimo se pitanju s početka poglavlja. Koliko se povjerenje razli-
+kuje s dobi i što se u tom odgovoru promijeni kada uspoređujemo
+osobe s jednakim izvorom vijesti? Izračunat ćemo oba nagiba na
+istim zabilježenim odgovorima svih pedeset tisuća osoba. Tako
+
+                                                                         403
+<<<<< STRANICA 404 >>>>>
+Regresija — opći okvir
+
+razliku među koeficijentima možemo povezati s promjenom pita-
+nja, bez promjene analizirane populacije.
+
+zbirni <- lm(povjerenje_medijima ~ dob, data = populacija_medija)
+prilagodeni <- lm(
+
+   povjerenje_medijima ~ dob + izvor_vijesti,
+   data = populacija_medija
+)
+c(zbirni = coef(zbirni)[["dob"]],
+   prilagodeni = coef(prilagodeni)[["dob"]])
+
+       zbirni prilagodeni
+0,03672382 0,02688517
+
+Funkcija lm ovdje računa opis cijele konačne populacije. Zato ne
+koristimo confint za uzoračne intervale. Uobičajeni interval te
+funkcije odnosio bi se na drugi modelni ili nadpopulacijski cilj.
+To znači zaključivanje o zamišljenom procesu koji bi stvarao i
+druge populacije, a taj cilj ovdje nismo odabrali.
+
+     Tablica 8: Konačnopopulacijski nagib uz dob u dvama modelima za zabilježeni ishod.
+                   Izrada autora.
+
+Model                Konačnopopulacijski nagib Uzoračna nesigurnost
+
+Samo dob                        0,0367 nema
+Dob i izvor vijesti             0,0269 nema
+
+Oba nagiba znamo točno za zadanu populaciju. Zbirni uključuje
+dobni obrazac povezan s izborom izvora, dok prilagođeni uspore-
+đuje pri jednakom izvoru. Različite brojke proizlaze iz različitih
+pitanja. Izvještaj mora pokazati koje je pitanje postavljeno.
+
+U zbirnom modelu deset godina veća dob povezana je s predviđe-
+nim prosjekom povjerenja višim za 0,37 boda. Uz jednak izvor
+razlika iznosi 0,27 boda. Prva rečenica opisuje ukupni, a druga
+uvjetni linearni odnos.
+
+                           404
+<<<<< STRANICA 405 >>>>>
+                                                                                                                                                     Sažetak
+
+Ovim smo koeficijentima opisali cijelu zadanu populaciju, pa im
+ne pridružujemo uzoračni interval. Kada bismo istu usporedbu
+procjenjivali iz uzorka, trebali bismo odgovarajuću nesigurnost.
+Za predviđanje odgovora nove osobe trebali bismo i provjeru
+na odvojenim podacima, uz prediktore dostupne u trenutku
+primjene. Uzročna tvrdnja tražila bi dodatno opravdanje izvan
+ovog računa.
+
+Granica našeg opisa ovisi i o onome što smo uključili u model.
+Uz dva odabrana prediktora u stvarnom bismo istraživanju
+razmotrili, primjerice, obrazovanje, iskustvo s redakcijama ili
+političke sklonosti. Njihovo uključivanje moglo bi promijeniti
+ciljanu uvjetnu usporedbu i koeficijent.
+
+Ni jedan prikazani nagib ne govori kako bi se povjerenje iste
+osobe promijenilo starenjem ili promjenom izvora vijesti. Opi-
+sali smo populaciju u jednom trenutku. Za promjenu unutar
+osobe trebaju podaci koji je prate kroz vrijeme, a ovdje ih ne-
+mamo.
+
+Sažetak
+
+Regresiju možemo čitati kao nastavak ranijih usporedbi, u ko-
+jem najmanji kvadrati biraju koeficijente prema odstupanjima
+opažanja od predviđenih vrijednosti. Dodavanjem prediktora
+prelazimo na uvjetne usporedbe, a interakcijom dopuštamo da
+se nagibi razlikuju. Naš je primjer pokazao zašto koeficijente
+zabilježenih odgovora, nakon zaokruživanja i ograničavanja
+ljestvice, trebamo razlikovati od pravila kojima smo podatke
+stvorili. Reziduali pomažu pregledati pristajanje, ali ni veći
+objašnjeni udio, koji mogu povećati i slučajni prediktori, ne
+jamči bolje predviđanje novih osoba. Zato predviđanje provje-
+ravamo na odvojenim jedinicama uz informacije dostupne u
+trenutku primjene, dok uzročno tumačenje prilagođene poveza-
+nosti traži dodatno opravdanje. S tom razlikom između opisa,
+predviđanja i uzroka možemo u sljedećem poglavlju prosuditi
+kako se modeli koriste u odlukama o ljudima.
+
+                                                                         405
+<<<<< STRANICA 406 >>>>>
+Regresija — opći okvir
+
+Pojmovi
+
+linearna regresija (linear regression), procjenjivana veličina (es-
+timand), rezidual (residual), metoda najmanjih kvadrata (least
+squares), višestruka regresija (multiple regression), prilagođena
+povezanost (adjusted association), koeficijent determinacije
+(R-squared), interakcija (interaction), curenje informacija (in-
+formation leakage), predviđanje izvan uzorka (out-of-sample
+prediction), izgledi (odds), omjer izgleda (odds ratio)
+
+Zadaci
+
+Konceptualni
+
+Objasnite u jednom odlomku zašto se nagib uz dob mijenja kada
+u model uđe izvor vijesti, a nijedan podatak o dobi pritom nije
+promijenjen. Imenujte pitanje na koje odgovara svaki od dvaju
+nagiba. Na prikazu interakcije zatim odredite koji nagib opi-
+suje skupinu A, koji skupinu B i zašto zbirni nagib ne opisuje
+nijednu.
+
+Računski
+
+Zbirni nagib iznosi 0,0367 boda po godini. Izračunajte modelom
+predviđenu razliku prosjeka između dobi od 25 i 55 godina, a
+zatim isti račun ponovite s prilagođenim nagibom 0,0269 uz
+jednak izvor vijesti. Predajte obje brojke i objasnite zašto nijedna
+ne određuje ostvarenu razliku dviju konkretnih osoba.
+
+Kritički
+
+Vratite se poglavlju o mjerenju i dizajnu radi operacionalizacije i
+vremenskog reda te poglavlju o tome kako brojke zavode radi raz-
+like između točne brojke i preširoke tvrdnje. U prilagođenoj ta-
+
+                                                                         406
+<<<<< STRANICA 407 >>>>>
+                                                                                                                                                      Zadaci
+
+blici iz okvira odredite što je mjereno, koja je referentna skupina,
+koju količinu podupire ćelija 1,60 i koja bi dodatna količina tre-
+bala za tvrdnju o apsolutnoj vjerojatnosti. Zatim preuredite nas-
+lov „Više od tri sata na društvenim mrežama povećava depresiju
+za 60 %” u jednu rečenicu koju presječni nacrt i prikazani omjer
+izgleda doista podupiru.
+
+Revizija modela
+
+Ocijenite račun i zaključak iz okvira o pogrešci. Imenujte što je
+u kodu ispravno i povežite obje prijavljene veličine sa skupom na
+kojem su dobivene. Napišite zaključak koji bi isti ispis podnio te
+opišite provjeru potrebnu za nove korisnike. Objasnite zašto una-
+prijed dostupni prediktori sami ne potvrđuju uspješnost predvi-
+đanja na novim podacima.
+
+                                                                         407
+<<<<< STRANICA 408 >>>>>

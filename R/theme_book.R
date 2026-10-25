@@ -13,6 +13,7 @@
 #      li serija više od pet razina, mijenja se oblik točke ili uzorak ispune.
 #   2. Oker NIJE boja podataka. On znači „ovo se može dodirnuti" i u grafu se
 #      pojavljuje samo kad se jedna serija namjerno ističe — skala_naglasak().
+#      Crvena (token error) nikad ne ulazi u graf: u sustavu Zvono znači grešku.
 #
 # Učitava se automatski preko R/setup.R.
 # ---------------------------------------------------------------------------
@@ -23,25 +24,33 @@ suppressPackageStartupMessages(library(grid))
 # --- tokeni iz design-tokens.yml -------------------------------------------
 .ucitaj_tokene <- function() {
   rezerva <- c(
-    paper         = "#FBFAF6",
-    `paper-soft`  = "#F3EFE6",
-    surface       = "#FFFFFF",
-    ink           = "#16150F",
-    `ink-soft`    = "#33322A",
-    `ink-mute`    = "#6E6C61",
-    `ink-faint`   = "#9B9789",
-    rule          = "#E4DFD2",
-    `rule-soft`   = "#EFEBE0",
-    accent        = "#C08A16",
-    `accent-deep` = "#8A6212",
-    `accent-dark` = "#5C4109",
-    `accent-wash` = "#FAF2DE",
-    `data-1`      = "#16150F",
-    `data-2`      = "#40566B",
-    `data-3`      = "#8A6212",
-    `data-4`      = "#9B9789",
-    `data-5`      = "#C9C2B0",
-    alert         = "#8A2A12"
+    paper           = "#F2E8D5",
+    `paper-soft`    = "#E6D9BC",
+    surface         = "#FAF5EA",
+    ink             = "#1B1A17",
+    `ink-soft`      = "#2F2D28",
+    `ink-mute`      = "#4F4A3F",
+    `ink-faint`     = "#625B4B",
+    rule            = "#CDBF9C",
+    `rule-soft`     = "#DDD0B2",
+    accent          = "#E8B343",
+    `on-accent`     = "#1B1A17",
+    `accent-deep`   = "#7A5A0F",
+    `accent-dark`   = "#4F3A08",
+    `accent-wash`   = "#F6E6BE",
+    concept         = "#1E3F7A",
+    error           = "#D1472F",
+    alert           = "#9E2F1C",
+    `data-1`        = "#1B1A17",
+    `data-2`        = "#1E3F7A",
+    `data-3`        = "#7F6234",
+    `data-4`        = "#998F7B",
+    `data-5`        = "#D2C4A2",
+    `brand-mustard` = "#E8B343",
+    `brand-navy`    = "#1E3F7A",
+    `brand-cream`   = "#F2E8D5",
+    `brand-red`     = "#D1472F",
+    `brand-ink`     = "#1B1A17"
   )
   put <- file.path(getwd(), "design-tokens.yml")
   if (!requireNamespace("yaml", quietly = TRUE) || !file.exists(put)) return(rezerva)
@@ -92,7 +101,7 @@ tok_boja <- function(ime, varijanta = c("svijetla", "tamna")) {
 }
 
 # --- pisma ------------------------------------------------------------------
-# Newsreader (naslovi) · Public Sans (osi i legende) · JetBrains Mono (brojke).
+# Jost (naslovi, osi i legende) · JetBrains Mono (brojke).
 # Ako showtext/sysfonts nisu dostupni ili pismo ne uspije registrirati, tema
 # tiho pada na sistemska pisma. Graf se uvijek nacrta.
 .st_fontovi <- new.env(parent = emptyenv())
@@ -103,7 +112,21 @@ ucitaj_fontove <- function(google = TRUE) {
   if (!requireNamespace("showtext", quietly = TRUE) ||
       !requireNamespace("sysfonts", quietly = TRUE)) return(invisible(FALSE))
 
-  trazena <- c("Newsreader", "Public Sans", "JetBrains Mono")
+  trazena <- c("Jost", "JetBrains Mono")
+  # Prefer the licensed local print fonts; rendering must not require Google.
+  lokalna <- c("Jost-Regular.ttf", "JetBrainsMono-Regular.ttf")
+  podebljana <- c("Jost-Medium.ttf", "JetBrainsMono-Bold.ttf")
+  for (i in seq_along(trazena)) {
+    put <- file.path("fonts", "print", lokalna[[i]])
+    put_b <- file.path("fonts", "print", podebljana[[i]])
+    if (!trazena[[i]] %in% sysfonts::font_families() && file.exists(put)) {
+      if (file.exists(put_b)) {
+        sysfonts::font_add(trazena[[i]], regular = put, bold = put_b)
+      } else {
+        sysfonts::font_add(trazena[[i]], regular = put)
+      }
+    }
+  }
   if (google) {
     for (f in trazena) {
       if (f %in% sysfonts::font_families()) next
@@ -123,21 +146,21 @@ ucitaj_fontove <- function(google = TRUE) {
   uloga <- match.arg(uloga)
   if (!.st_fontovi$ok) return("")
   switch(uloga,
-         displej = "Newsreader",
-         sucelje = "Public Sans",
+         displej = "Jost",
+         sucelje = "Jost",
          mono    = "JetBrains Mono")
 }
 
 # --- paleta za grafove ------------------------------------------------------
-# Poredana po svjetlini da preživi pretvorbu u sivo. Automatska paleta je
-# namjerno neutralna: data-3 je oker i zato ostaje izvan običnog kodiranja
-# kategorija. Oker ulazi samo kroz skala_naglasak().
+# Poredana po svjetlini da preživi pretvorbu u sivo (L* 9, 27, 44, 60, 79).
+# U sustavu Zvono data-3 je zemljani oker, a ne akcent, pa ulazi u obično
+# kodiranje kategorija. Pravi oker (accent) ulazi samo kroz skala_naglasak().
 .paleta_diskretna <- function(varijanta = c("svijetla", "tamna")) {
   varijanta <- match.arg(varijanta)
   c(
     tinta      = tok_boja("data-1", varijanta),
-    skriljevac = tok_boja("data-2", varijanta),
-    prigusena  = tok_boja("ink-mute", varijanta),
+    modra      = tok_boja("data-2", varijanta),
+    zemlja     = tok_boja("data-3", varijanta),
     siva       = tok_boja("data-4", varijanta),
     blijeda    = tok_boja("data-5", varijanta)
   )
@@ -316,7 +339,7 @@ hr_broj <- function(x, decimala = 1) {
   format(
     round(x, decimala),
     scientific = FALSE,
-    big.mark = "\u202f",
+    big.mark = " ",
     decimal.mark = ",",
     trim = TRUE,
     nsmall = as.integer(decimala)

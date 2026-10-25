@@ -85,7 +85,12 @@
       "evidence_reference": null
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-confuses-split-roles-or-denominators",
@@ -130,5 +135,10 @@
     "judgment_owner": "student_or_submitting_author",
     "verification_required": true,
     "code_production_assessed": false
+  },
+  "self_study": {
+    "hint": "Pratite kada se svaki skup smije upotrijebiti i može li isti dokument prenijeti informacije preko granice skupova. Za svaku stopu pogreške odredite nazivnik, a za odluku pravilo kojim nastaje iz predviđene vjerojatnosti.",
+    "worked_answer": "Podacima iz skupa za učenje prilagođavamo model, pomoću skupa za provjeru biramo postupak i prag, a skup za ispitivanje čuvamo za jednu završnu procjenu. Ispitni ishodi ne smiju sudjelovati u učenju ni izboru modela ili praga. Ako rečenice istoga dokumenta rasporedimo u različite skupove, one mogu prenijeti temu, stil i kontekst između njih te uljepšati procjenu na navodno novom tekstu. Jedinica razdvajanja mora biti cijeli povezani dokument, ne pojedinačna rečenica.\n\nTablica zabune jest kontingencijska tablica koja križa odluku i zabilježeni referentni ishod. Četiri ćelije TP, FP, FN i TN nastaju križanjem dviju binarnih varijabli. FPR dijeli FP s FP + TN, a FNR dijeli FN s FN + TP. Prvi nazivnik obuhvaća sve zabilježeno nenegativne, a drugi sve zabilježeno negativne slučajeve.\n\nPredviđena vjerojatnost postaje odluka tek nakon unaprijed obrazložena klasifikacijskog praga i pravila postupanja. Vrijednosti tik ispod i iznad praga mogu proizvesti različito postupanje iako su numerički vrlo bliske.",
+    "why_adequate": "Odgovor razdvaja uloge skupova, poštuje dokument kao jedinicu razdvajanja, imenuje nazivnike stopa pogreške i razlikuje vjerojatnost od odluke. Formulacija može biti drukčija ako ostaju isti račun i obrazloženje."
   }
 }

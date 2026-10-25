@@ -8,36 +8,36 @@
     "anchor": "ex-13-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:76c6db4a2402e0e49f4e37a754390471a2e3f703f29cec3357f132ae662a8e86",
+  "prompt_fingerprint": "sha256:35c97a2998b6bbe63adff2e53e928509ef7896f1b3254b4d02e2ad7603ea1f76",
   "answer_components": {
     "planted_error": {
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "small-p-treated-as-strong-association",
-      "statement": "Značajnost ispod jedan promil znači da je veza vrlo snažna.",
-      "why_wrong": "P-vrijednost odgovara na pitanje o kompatibilnosti podataka s nezavisnošću i mijenja se s veličinom uzorka. Za jačinu treba navesti Cramérovo V i sadržajne razlike uvjetnih udjela, a ne veličinu p-vrijednosti."
+      "statement": "Budući da je p-vrijednost tako mala, povezanost dobi i izvora vijesti vrlo je snažna.",
+      "why_wrong": "Pogreška je u završnoj rečenici. Mala p-vrijednost ne pokazuje da je povezanost vrlo snažna. Ona proizlazi iz usporedbe opaženih podataka s modelom nezavisnosti, a ovisi i o veličini uzorka. Cramérovo V služi opisu jačine povezanosti, dok udjeli pokazuju kako se izbor izvora razlikuje među skupinama."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
-      "procedure": "Razdvojiti tri već provedena koraka od završnoga suda. Sačuvati provjeru očekivanih frekvencija i lociranje odstupanja rezidualima, označiti rečenicu koja iz p-vrijednosti izvodi jačinu te zahtijevati Cramérovo V uz postotke po retku.",
-      "expected_evidence": "Ispravna revizija navodi da su očekivane ćelije provjerene, da reziduali imenuju najizraženija odstupanja i da p-vrijednost podupire nesklad s nezavisnošću. Samo je tvrdnja o vrlo snažnoj vezi nevaljana bez V i sadržajnih razlika udjela."
+      "procedure": "Povezati najmanju očekivanu frekvenciju s provjerom aproksimacije, p-vrijednost s odstupanjem od nezavisnosti, a Cramérovo V i postotke po retku s opisom povezanosti.",
+      "expected_evidence": "Provjera očekivanih frekvencija relevantna je za procjenu aproksimacije, ali sama ne potvrđuje sve pretpostavke analize. Također ne opravdava zaključak o jačini veze.\n\nJedna moguća zamjena završne rečenice glasi ovako.\n\nCramérovo V iznosi 0,25. Za tumačenje te vrijednosti pogledajmo i razlike u udjelima. Televiziju kao glavni izvor navodi 12,2 % najmlađih i 45,2 % najstarijih osoba u simuliranom uzorku. Važnost tih razlika procjenjujemo prema istraživačkom pitanju.\n\nPrihvatljive su i druge formulacije koje razlikuju rezultat testa od veličine povezanosti. Vrijednost V ne treba automatski zamijeniti univerzalnom oznakom „slaba”, „umjerena” ili „snažna” bez obrazloženog konteksta. Za provjeru ostalih pretpostavki trebali bismo opis odabira osoba i potvrdu neovisnosti opažanja."
     },
     "plausible_non_answers": {
       "applicable": true,
       "not_applicable_reason": null,
       "responses": [
         {
-          "response": "Sve je ispravno jer je p-vrijednost vrlo mala.",
-          "why_insufficient": "Time se ponavlja posađena pogreška i ne razlikuje odluka testa od procjene jačine."
+          "response": "Treba samo dodati Cramérovo V.",
+          "why_insufficient": "V je već prikazano. Zadatak traži njegovo tumačenje uz udjele i popravak rečenice."
         },
         {
-          "response": "Greška je uporaba reziduala nakon ukupnoga testa.",
-          "why_insufficient": "Prilagođeni standardizirani reziduali primjereno lociraju ćelijska odstupanja, uz oprez pri mnogim naknadnim usporedbama."
+          "response": "V = 0,25 uvijek znači slabu povezanost.",
+          "why_insufficient": "Univerzalna oznaka bez sadržajnog konteksta nije zamjena za tumačenje udjela."
         },
         {
-          "response": "Izvještaj mora sadržavati samo još precizniju p-vrijednost.",
-          "why_insufficient": "Više decimala ne pretvara p-vrijednost u mjeru jačine. Potrebni su V i uvjetni postotci."
+          "response": "Prva rečenica potvrđuje sve pretpostavke testa.",
+          "why_insufficient": "Provjerene su očekivane frekvencije, a ne neovisnost osoba ili način odabira."
         }
       ]
     },
@@ -46,37 +46,47 @@
       "not_applicable_reason": null,
       "components": [
         {
-          "component_id": "identify-correct-diagnostics",
-          "required_claim": "Ispravno su provjerene očekivane frekvencije i upotrijebljeni prilagođeni standardizirani reziduali za lociranje odstupanja.",
-          "required_evidence": "Prvi korak procjenjuje primjerenost aproksimacije, a drugi čita koje su ćelije iznad ili ispod očekivanja."
+          "component_id": "preserve-diagnostics",
+          "required_claim": "Provjera očekivanih frekvencija i zaključak o odstupanju od nezavisnosti ostaju valjani.",
+          "required_evidence": "Najmanja očekivana frekvencija iznosi 14,3, a p-vrijednost je manja od 0,001."
         },
         {
-          "component_id": "name-single-error",
-          "required_claim": "Pogrešan je samo zaključak da razina značajnosti ispod jedan promil znači vrlo snažnu vezu.",
-          "required_evidence": "P-vrijednost se mijenja s veličinom uzorka i nije ljestvica veličine učinka."
+          "component_id": "separate-strength",
+          "required_claim": "Vrlo mala p-vrijednost ne mjeri jačinu povezanosti.",
+          "required_evidence": "U tablici su zasebno navedeni Cramérovo V = 0,25 i udjeli unutar dobnih skupina."
         },
         {
-          "component_id": "require-cramer-v",
-          "required_claim": "Izvještaj mora sadržavati Cramérovo V kao globalnu mjeru jačine.",
-          "required_evidence": "V standardizira hi-kvadrat prema veličini uzorka i dimenziji tablice."
+          "component_id": "repair-conclusion",
+          "required_claim": "Zamjena povezuje V s razlikama udjela i istraživačkim pitanjem, bez univerzalne oznake jačine.",
+          "required_evidence": "Televiziju navodi 12,2 % najmlađih i 45,2 % najstarijih; društvene mreže 42,1 % i 2,2 %."
         },
         {
-          "component_id": "require-readable-percentages",
-          "required_claim": "Uz V treba navesti uvjetne postotke i njihov nazivnik kako bi se jačina mogla sadržajno protumačiti.",
-          "required_evidence": "Postotci pokazuju kolike su stvarne razlike među dobnim skupinama i koji se smjer obrasca krije iza globalne mjere."
+          "component_id": "bound-assumptions",
+          "required_claim": "Provjera očekivanih frekvencija nije provjera neovisnosti opažanja ni uzoračkog nacrta.",
+          "required_evidence": "Broj očekivanih zapisa u ćeliji ne govori kako su osobe odabrane."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Cramérovo V iznosi 0,25. Za tumačenje te vrijednosti pogledajmo i razlike u udjelima. Televiziju kao glavni izvor navodi 12,2 % najmlađih i 45,2 % najstarijih osoba u simuliranom uzorku. Važnost tih razlika procjenjujemo prema istraživačkom pitanju.",
+          "required_evidence": "Provjera očekivanih frekvencija relevantna je za procjenu aproksimacije, ali sama ne potvrđuje sve pretpostavke analize. Također ne opravdava zaključak o jačini veze."
         }
       ]
     },
     "numerical_check": {
-      "applicable": false,
-      "not_applicable_reason": "Revizija traži identifikaciju ispravnih koraka, jednoga pogrešnog zaključka i naziva potrebne mjere; prompt ne daje tablicu za neovisan brojčani izračun V.",
-      "expected_result": null,
-      "tolerance_or_acceptance_rule": null,
-      "independent_method": null,
-      "evidence_reference": null
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "N = 800; najmanja očekivana frekvencija 14,34375; hi-kvadrat 149,784; df = 12; p < 0,001; V = 0,24982. Udjeli TV 12,2 % i 45,2 %, mreže 42,1 % i 2,2 %.",
+      "tolerance_or_acceptance_rule": "Prihvatiti prikazani V = 0,25 i ostala zaokruživanja iz okvira, uz točno imenovane nazivnike.",
+      "independent_method": "Iz obnovljenog uzorka sa sjemenom 1313 izračunati ćelijske frekvencije, očekivanja iz rubnih zbrojeva, hi-kvadrat, V i postotke po retku.",
+      "evidence_reference": "scripts/check-error-exercises.R"
     },
     "severity_ranked_rubric": {
-      "severity_order": ["fatal", "major", "minor", "useful_improvement"],
+      "severity_order": [
+        "fatal",
+        "major",
+        "minor",
+        "useful_improvement"
+      ],
       "criteria": [
         {
           "criterion_id": "fatal-retains-strength-claim",
@@ -87,14 +97,14 @@
         {
           "criterion_id": "major-missing-deliverable",
           "severity": "major",
-          "description": "Nedostaju ispravni dijagnostički koraci, jedna pogrešna rečenica ili Cramérovo V kao potrebna mjera.",
-          "observable_evidence": "Jedan od triju izričitih dijelova zadatka nije zatvoren."
+          "description": "Nedostaje uporaba već navedenog V ili usporedba udjela pri popravku zaključka.",
+          "observable_evidence": "Odgovor samo traži broj koji tablica već sadržava."
         },
         {
           "criterion_id": "minor-omits-readable-scale",
           "severity": "minor",
-          "description": "V je imenovan i pogreška uklonjena, ali odgovor ne navodi uvjetne postotke ili njihov nazivnik za sadržajno tumačenje.",
-          "observable_evidence": "Globalna mjera ostaje bez čitljive skale i smjera obrasca."
+          "description": "Glavna pogreška je popravljena, ali nije jasno razdvojena provjera aproksimacije od ostalih pretpostavki.",
+          "observable_evidence": "Provjera očekivanih frekvencija opisuje se preširoko."
         },
         {
           "criterion_id": "useful-adds-association-boundary",
@@ -107,14 +117,14 @@
   },
   "alternatives": [
     {
-      "alternative_id": "percent-difference-primary",
-      "description": "Prihvatljiva revizija može prvo tražiti razlike postotaka po retku, a zatim Cramérovo V kao sažetu globalnu mjeru.",
-      "acceptance_boundary": "Mora sačuvati ispravne dijagnostičke korake, zatvoriti isti planted-error ID i izričito odbiti p-vrijednost kao mjeru jačine."
+      "alternative_id": "contextual-percentages",
+      "description": "Odgovor može prvo usporediti televiziju ili društvene mreže, a potom navesti globalnu mjeru.",
+      "acceptance_boundary": "Mora zadržati V = 0,25, nazivnik dobne skupine i razliku između jačine i rezultata testa."
     }
   ],
   "instructor_notes": [
-    "Callout i revizija moraju zatvoriti isti `small-p-treated-as-strong-association`. Ne dodavati uzročnu tvrdnju kao drugu pogrešku jer je izvorna analiza ne iznosi.",
-    "Nije potreban brojčani V. Zadatak ocjenjuje izbor i tumačenje mjere, a ne proizvodnju koda ili ponovno izvršavanje skrivenoga računa."
+    "Ocjenjuje se jedna pogreška, zamjena rezultata testa jačinom povezanosti. U novom okviru nema reziduala niti ih se traži u odgovoru.",
+    "Vrijednost V i uvjetni postotci već su dostupni. Prihvatiti sadržajno utemeljene formulacije bez univerzalnih oznaka jačine."
   ],
   "visibility_contract": "D06-two-layer-v1",
   "human_responsibility": {

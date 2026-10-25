@@ -14,14 +14,14 @@
       "applicable": true,
       "not_applicable_reason": null,
       "error_id": "smaller-standard-error-implies-smaller-individual-variation",
-      "statement": "Druga rečenica pogrešno prenosi manju standardnu pogrešku uzoračke sredine na veću međusobnu sličnost pojedinačnih vrijednosti.",
+      "statement": "Standardna pogreška pada s četiri na dvije minute, pa se i vremena pojedinaca u većem uzorku međusobno razlikuju upola manje.",
       "why_wrong": "Veličina uzorka mijenja raspodjelu procjene kroz ponovljena uzorkovanja, a ne populacijsku raspodjelu pojedinaca. Uz istu populaciju standardna devijacija pojedinačnih vrijednosti ostaje približno ista, dok standardna pogreška sredine pada."
     },
     "revealing_diagnostic": {
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Prvu rečenicu označiti kao tvrdnju o distribuciji uzoračkih sredina, drugu rastaviti na premisu o standardnoj pogrešci i zaključak o pojedincima te za svaku imenovati odgovarajuću raspodjelu i mjeru širine.",
-      "expected_evidence": "Veći nasumični uzorak doista daje užu distribuciju sredina. Ne slijedi da su pojedinci sličniji, jer njihova očekivana raspršenost i dalje dolazi iz iste populacije. Ispravljena druga rečenica mora zadržati manju standardnu pogrešku i odbaciti zaključak o individualnoj sličnosti."
+      "expected_evidence": "Oba računa standardne pogreške točna su, 20 / √25 = 4 i 20 / √100 = 2 minute. Stupac standardne devijacije odnosi se na pojedince u istoj populaciji, a stupac standardne pogreške na sredine kroz ponovljene uzorke. Manja nesigurnost sredine ne prepolovljuje raspršenost pojedinaca. Za popravak ove tvrdnje tablica i zadani model dovoljni su.\n\nJedna moguća zamjena glasi ovako.\n\nStandardna pogreška sredine pada s četiri na dvije minute, pa se sredine ponovljenih uzoraka manje razlikuju. Populacijska standardna devijacija pojedinačnih vremena ostaje dvadeset minuta.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -68,16 +68,21 @@
           "component_id": "write-corrected-second-sentence",
           "required_claim": "Budući da je standardna pogreška manja, uzoračke će sredine kroz ponovljena uzorkovanja biti zbijenije, dok očekivana raspršenost pojedinačnih vrijednosti ostaje ista.",
           "required_evidence": "Zamjenska rečenica čuva manju standardnu pogrešku, ali je veže samo uz stabilnost procjene."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Standardna pogreška sredine pada s četiri na dvije minute, pa se sredine ponovljenih uzoraka manje razlikuju. Populacijska standardna devijacija pojedinačnih vremena ostaje dvadeset minuta.",
+          "required_evidence": "Oba računa standardne pogreške točna su, 20 / √25 = 4 i 20 / √100 = 2 minute. Stupac standardne devijacije odnosi se na pojedince u istoj populaciji, a stupac standardne pogreške na sredine kroz ponovljene uzorke. Manja nesigurnost sredine ne prepolovljuje raspršenost pojedinaca. Za popravak ove tvrdnje tablica i zadani model dovoljni su."
         }
       ]
     },
     "numerical_check": {
-      "applicable": false,
-      "not_applicable_reason": "Revizija traži ocjenu, pojmovnu dijagnozu i ispravljenu rečenicu bez obveznoga novog brojčanog računa.",
-      "expected_result": null,
-      "tolerance_or_acceptance_rule": null,
-      "independent_method": null,
-      "evidence_reference": null
+      "applicable": true,
+      "not_applicable_reason": null,
+      "expected_result": "20 / √25 = 4 minute; 20 / √100 = 2 minute; populacijska standardna devijacija ostaje 20 minuta.",
+      "tolerance_or_acceptance_rule": "Prihvatiti točno 4 i 2 minute uz ispravno imenovanje razine varijabilnosti.",
+      "independent_method": "Neovisno izračunati korijene veličina uzorka i podijeliti zadanu populacijsku standardnu devijaciju.",
+      "evidence_reference": "scripts/check-error-exercises.R"
     },
     "severity_ranked_rubric": {
       "severity_order": [

@@ -22,8 +22,8 @@ Use concrete paths in commands. Run R checks through
 ## Modes
 
 - `scan` — Run `structure_scan.R` over `chapters/*.qmd`. Report
-  `callout-vinjeta`, `#def-` definitions, figures, `callout-divljina`, the two AI
-  boxes (`callout-model` and `callout-greska`), and all four exercise tiers.
+  `callout-vinjeta`, `#def-` definitions, figures, `callout-divljina`, the AI
+  error-finding box (`callout-greska`), and all four exercise tiers.
   Compare counts with `shared/conventions.json`. Starting bands are provisional
   until four or five chapters contain real prose.
 - `rhythm` — Run `structure_lint.R` over the requested chapters and report its

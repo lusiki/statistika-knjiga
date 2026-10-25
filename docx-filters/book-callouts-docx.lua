@@ -6,7 +6,6 @@
 -- Samo DOCX (zrcali pdf-filters/book-callouts.lua).
 
 local labels = {
-  ["callout-vinjeta"]  = "VINJETA",
   ["callout-divljina"] = "STATISTIKA U DIVLJINI",
   ["callout-model"]    = "PITAJTE MODEL",
   ["callout-greska"]   = "NAĐITE GREŠKU",
@@ -17,6 +16,9 @@ local labels = {
 function Div(el)
   if not FORMAT:match("docx") then
     return nil
+  end
+  if el.classes:includes("callout-vinjeta") then
+    return pandoc.BlockQuote(el.content)
   end
   for _, cls in ipairs(el.classes) do
     local label = labels[cls]

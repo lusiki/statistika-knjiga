@@ -2,17 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="hr-HR" xml:lang="hr-HR"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Udžbenik statistike za društvene znanosti — statističko mišljenje, opisivanje podataka, uzorkovanje i procjena, zaključivanje, linearni modeli i statistika u doba algoritama.">
 
-<title>Uči uz AI – Osnove statistike za društvene znanosti</title>
+<title>Uči uz AI – Statistika 101</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -25,9 +22,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -38,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -59,26 +55,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -87,20 +64,17 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bd4d6380dd2295d6b595412a5acdd4af.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d863536a35c72399060ca13ea1ba5060.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d863536a35c72399060ca13ea1ba5060.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e63a9c80f34520f5efc7444c33da8f3f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-81d7a557e939cf3316db7ecf90d3ec57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1cc29e0bfa4db480e39bd5d9581edf95.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f736e697f19f6ba2e3029018030b82fa.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -129,262 +103,41 @@ div.csl-indent {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <!-- =====================================================================
-
-     head.html — pisma knjige (include-in-header)
-
+     head.html — pisma knjige (include-in-header), sustav Zvono
      ---------------------------------------------------------------------
-
-     Četiri obitelji, sve s Google Fontsa, sve s punom hrvatskom
-
+     Tri obitelji, sve s Google Fontsa, sve s punom hrvatskom
      dijakritikom (č ć đ š ž):
 
-
-
-       Newsreader      displej — naslovi, otvaranje poglavlja, navodi
-
+       Jost            displej, naslovi, sučelje, potpisi
        Literata        tijelo teksta
-
-       Public Sans     sučelje, potpisi, margina, izvori, glave tablica
-
-       JetBrains Mono  kod, brojke, oznake, „eyebrow"
-
-
+       JetBrains Mono  kod, brojke, oznake widgeta
 
      Imena pisama žive u styles/_tokens.scss; ovdje su samo poveznice na
-
-     datoteke. Za PDF ih treba instalirati lokalno — tex/theme.tex ih traži
-
-     u sustavu i tiho pada na Latin Modern ako ih nema.
-
-
+     datoteke. PDF i R grafovi učitavaju statičke instance iz fonts/print/.
 
      ŠESTI NOSITELJ BOJE. `theme-color` ne može se izraziti tokenom jer ga
-
-     čita preglednik, ne stranica. Vrijednost je token:paper i mijenja se
-
-     zajedno s njim (vidi DESIGN.md).
-
+     čita preglednik, ne stranica. Vrijednosti su token:paper svijetle i
+     tamne teme i mijenjaju se zajedno s njima (vidi DESIGN.md).
      ================================================================== -->
 
-
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;1,400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&amp;family=Public+Sans:ital,wght@0,400..700;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<meta name="theme-color" content="#F2E8D5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191814" media="(prefers-color-scheme: dark)">
 
-
-
-<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
-
-<meta name="theme-color" content="#14130E" media="(prefers-color-scheme: dark)">
-
-
-
-<!-- Oznaka stranice: tri rastuća stupca, s okerom kao signalom navođenja. -->
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' fill='%2316150F'/%3E%3Crect x='13' y='11' width='6' height='18' fill='%2316150F'/%3E%3Crect x='23' y='3' width='6' height='26' fill='%23C08A16'/%3E%3C/svg%3E">
-
+<!-- Oznaka stranice: kupola u tinti s modrom unutarnjom kupolom nad osnovicom
+     (token:brand-ink, token:brand-navy). -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 26 A14 14 0 0 1 30 26 Z' fill='%231B1A17'/%3E%3Cpath d='M9 26 A7 7 0 0 1 23 26 Z' fill='%231E3F7A'/%3E%3Crect x='1' y='26' width='30' height='3' fill='%231B1A17'/%3E%3C/svg%3E">
 <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles/styles.css">
 </head>
 
-<body class="nav-fixed standalone-page support-page uci-ai-page quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-fixed standalone-page support-page uci-ai-page">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -392,7 +145,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Osnove statistike za društvene znanosti</span>
+    <span class="navbar-title">Statistika 101</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Prikaži ili sakrij navigaciju" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -494,7 +247,6 @@ window.Quarto = {
 <!-- main -->
 <main class="content column-page" id="quarto-document-content">
 
-
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Uči uz AI</h1>
@@ -521,9 +273,34 @@ window.Quarto = {
   );
   var title = document.querySelector("#title-block-header h1.title");
   if (chapterMatch && title && !title.parentNode.querySelector(".chapter-kicker")) {
+    // Sustav Zvono: disk s brojem i os lijevo, oznaka dijela iznad naslova.
+    var header = document.getElementById("title-block-header");
+    if (header) header.classList.add("zv-opener");
+
+    var rail = document.createElement("span");
+    rail.className = "zv-rail";
+    rail.setAttribute("aria-hidden", "true");
+    var disc = document.createElement("span");
+    disc.className = "zv-rail__disc";
+    disc.textContent = chapterMatch[1];
+    rail.appendChild(disc);
+    title.parentNode.insertBefore(rail, title.parentNode.firstChild);
+
+    var partLink = document.querySelector(
+      "#title-block-header .breadcrumb .breadcrumb-item:first-child a"
+    );
+    var partName = "";
+    if (partLink) {
+      var raw = partLink.textContent.trim();
+      var m = raw.match(/^DIO ([IVX]+):\s*(.+)$/);
+      partName = m
+        ? "Dio " + m[1] + " · " + m[2].charAt(0) + m[2].slice(1).toLowerCase()
+        : raw.charAt(0) + raw.slice(1).toLowerCase();
+    }
     var kicker = document.createElement("span");
     kicker.className = "kicker chapter-kicker";
-    kicker.textContent = "POGLAVLJE " + chapterMatch[1];
+    kicker.textContent = "Poglavlje " + parseInt(chapterMatch[1], 10) +
+      (partName ? " · " + partName : "");
     title.parentNode.insertBefore(kicker, title);
   }
 
@@ -537,10 +314,14 @@ window.Quarto = {
 
     document.querySelectorAll(selector).forEach(function (callout) {
       callout.classList.remove("page-full", "page-columns");
+      // A cited table can carry its own nested page grid. Keep its caption and
+      // cells in the callout's reading column as well.
+      callout.querySelectorAll(".page-full, .page-columns").forEach(function (node) {
+        node.classList.remove("page-full", "page-columns");
+      });
 
       var insertionPoint = callout;
-      Array.from(callout.children).forEach(function (child) {
-        if (!child.classList.contains("column-margin")) return;
+      callout.querySelectorAll(".column-margin").forEach(function (child) {
         insertionPoint.parentNode.insertBefore(child, insertionPoint.nextSibling);
         insertionPoint = child;
       });
@@ -600,12 +381,12 @@ window.Quarto = {
   prazna sjemenska inačica, pa se stranica renderira i prije prvog izvoza.
 ===================================================================== -->
 <p><span class="section-label">Pomagalo za učenje</span></p>
-<p>Cijelu knjigu ili pojedino poglavlje možete dati svojem asistentu i postavljati pitanja, tražiti sažetke ili provjeravati razumijevanje. Pripremljene su čiste tekstualne verzije koje asistent lako čita. Sve radi u vašem asistentu, bez prijave i bez troška.</p>
-<p>Knjiga na to gleda kao na dio gradiva, a ne kao na zaobilaženje. Asistentu se prepušta računanje, a zadržavaju se prosudba, provjera i odgovornost. Pravila te suradnje skupljena su u Dodatku F, a svako poglavlje ima vlastitu kutiju „Pitajte model” s uputom za svoj zadatak.</p>
+<p>Za cijelu knjigu i svako poglavlje pripremljene su čiste tekstualne datoteke. Možete ih preuzeti i rabiti kao provjerljiv kontekst u alatu koji sami odaberete pri postavljanju pitanja, izradi sažetka ili provjeri razumijevanja.</p>
+<p>Knjiga na to gleda kao na dio gradiva, a ne kao na zaobilaženje. Asistentu se prepušta računanje, a zadržavaju se prosudba, provjera i odgovornost. Pravila te suradnje skupljena su u Dodatku F. Svako poglavlje ima i primjer u kojem čitatelj provjerava pogrešku u odgovoru asistenta.</p>
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="32" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 31;"><span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/ai-exports.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="31" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 30;"><span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/ai-exports.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
@@ -615,14 +396,14 @@ window.Quarto = {
 </div>
 <section id="jedno-poglavlje" class="level2">
 <h2 class="anchored" data-anchor-id="jedno-poglavlje">Jedno poglavlje</h2>
-<p>Poglavlje je dovoljno malo da stane u svaki standardni razgovor i daje točne odgovore jer je tekst usko vezan uz vaše pitanje. Odaberite poglavlje pa preuzmite tekst ili ga otvorite u asistentu.</p>
+<p>Tekst jednoga poglavlja daje asistentu ograničen kontekst za jedno pitanje. Odgovor se može usporediti s priloženim tekstom, ali sam kontekst ne jamči ni potpunost ni točnost. Svaki navod i račun zato treba neovisno provjeriti. Odaberite poglavlje pa preuzmite tekst ili ga otvorite u asistentu.</p>
 <div class="ojs-task-control" data-ojs-label="Odaberi izvoz poglavlja" data-ojs-hint="otvori izbornik">
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="44" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 43;"><span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>viewof poglavlje <span class="op">=</span> manifest<span class="op">.</span><span class="at">chapters</span><span class="op">.</span><span class="at">length</span></span>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="44" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 43;"><span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>viewof poglavlje <span class="op">=</span> manifest<span class="op">.</span><span class="at">chapters</span><span class="op">.</span><span class="at">length</span></span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  <span class="op">?</span> Inputs<span class="op">.</span><span class="fu">select</span>(manifest<span class="op">.</span><span class="at">chapters</span><span class="op">,</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Poglavlje"</span><span class="op">,</span> <span class="dt">format</span><span class="op">:</span> c <span class="kw">=&gt;</span> c<span class="op">.</span><span class="at">title</span> })</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>([{<span class="dt">title</span><span class="op">:</span> <span class="st">"(izvoz još nije generiran)"</span>}]<span class="op">,</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Poglavlje"</span> })</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  <span class="op">:</span> Inputs<span class="op">.</span><span class="fu">select</span>([{<span class="dt">title</span><span class="op">:</span> <span class="st">"(izvoz još nije generiran)"</span>}]<span class="op">,</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Poglavlje"</span> })</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
@@ -634,7 +415,7 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="52" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 51;"><span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="52" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 51;"><span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> c <span class="op">=</span> poglavlje<span class="op">;</span></span>
 <span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>c <span class="op">||</span> <span class="op">!</span>c<span class="op">.</span><span class="at">slug</span>) {</span>
 <span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;p&gt;&lt;em&gt;Izvoz još nije generiran. Pokreni</span></span>
@@ -658,7 +439,7 @@ window.Quarto = {
 <span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;a class="btn-knjiga" href="https://chatgpt.com/?q=</span><span class="sc">${</span>q<span class="sc">}</span><span class="vs">" target="_blank" rel="noopener"&gt;↗ ChatGPT&lt;/a&gt;</span></span>
 <span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;button class="btn-knjiga" onclick=</span><span class="sc">${</span>(e) <span class="kw">=&gt;</span> <span class="fu">kopiraj</span>(c<span class="op">.</span><span class="at">mdUrl</span><span class="op">,</span> e<span class="op">.</span><span class="at">currentTarget</span>)<span class="sc">}</span><span class="vs">&gt;⧉ kopiraj poveznicu&lt;/button&gt;</span></span>
 <span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="expression">
@@ -673,7 +454,7 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="87" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 86;"><span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="87" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 86;"><span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> []<span class="op">;</span></span>
 <span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> d <span class="kw">of</span> manifest<span class="op">.</span><span class="at">dios</span> <span class="op">||</span> []) {</span>
 <span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span><span class="fu">push</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a class="btn-knjiga" href="ai/dio-</span><span class="sc">${</span>d<span class="op">.</span><span class="at">n</span><span class="sc">}</span><span class="vs">.md" download&gt;↓ </span><span class="sc">${</span>d<span class="op">.</span><span class="at">label</span><span class="sc">}</span><span class="vs">&lt;/a&gt;`</span>)<span class="op">;</span></span>
@@ -681,7 +462,7 @@ window.Quarto = {
 <span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="fu">push</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a class="btn-knjiga primarni" href="llms-full.txt" download&gt;↓ cijela knjiga&lt;/a&gt;`</span>)<span class="op">;</span></span>
 <span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>  r<span class="op">.</span><span class="fu">push</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a class="btn-knjiga" href="llms.txt"&gt;karta izvoza (llms.txt)&lt;/a&gt;`</span>)<span class="op">;</span></span>
 <span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div class="hero-cta"&gt;</span><span class="sc">${</span>r<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-4" data-nodetype="expression">
@@ -696,7 +477,7 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold hidden">
 <summary>Prikaži kod</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="106" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 105;"><span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="106" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 105;"><span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> kopiraj <span class="op">=</span> (txt<span class="op">,</span> btn) <span class="kw">=&gt;</span> {</span>
 <span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>    <span class="bu">navigator</span><span class="op">.</span><span class="at">clipboard</span><span class="op">.</span><span class="fu">writeText</span>(txt)<span class="op">;</span></span>
 <span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> staro <span class="op">=</span> btn<span class="op">.</span><span class="at">textContent</span><span class="op">;</span></span>
@@ -712,7 +493,7 @@ window.Quarto = {
 <span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="vs">      &lt;pre&gt;</span><span class="sc">${</span>manifest<span class="op">.</span><span class="at">prompt</span><span class="sc">}</span><span class="vs">&lt;/pre&gt;</span></span>
 <span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;/details&gt;</span></span>
 <span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Kopiraj" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="expression">
@@ -721,2075 +502,1204 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="što-asistent-ne-može" class="level2">
-<h2 class="anchored" data-anchor-id="što-asistent-ne-može">Što asistent ne može</h2>
-<p>Asistent ne zna ništa što nije u priloženom tekstu, pa će na pitanje o poglavlju koje niste priložili odgovoriti nagađanjem ako ga na to ne upozorite. Ne provjerava vlastite izračune ako ga ne zatražite da pokaže postupak. Ne zna koji su podaci vaši ni jesu li osobni, pa je to vaša odgovornost. Kutija „Nađite grešku” u svakom poglavlju vježba upravo tu razliku između odgovora koji zvuči točno i odgovora koji jest točan.</p>
-
+<section id="granice-odgovora-i-provjera" class="level2">
+<h2 class="anchored" data-anchor-id="granice-odgovora-i-provjera">Granice odgovora i provjera</h2>
+<p>Priloženi tekst usmjerava odgovor, ali ne jamči da su obuhvaćene sve relevantne informacije. Tvrdnje izvan priloženoga teksta treba provjeriti u zasebnom izvoru, a izračune ponoviti neovisnim postupkom. Prije dijeljenja podataka treba provjeriti njihovo podrijetlo, valjanost i sadrže li osobne podatke. Za te je odluke odgovorna osoba koja koristi asistenta. Kutija „Nađite grešku” u svakom poglavlju vježba razliku između uvjerljiva odgovora i odgovora koji je poduprt provjerom.</p>
 
 
 </section>
 
 </main> <!-- /main -->
 <script>
-
 /* =====================================================================
-
    book-include.html — ponašanje stranice (include-after-body)
-
    ---------------------------------------------------------------------
-
    Sve vizualno živi u styles/ (SCSS + styles.css). Ovdje nema boja ni
-
    pisama; moduli samo dodaju elemente i klase koje CSS zna stilizirati.
 
-
-
    Moduli
-
      1. traka napretka čitanja
-
      2. pregled na prijelaz za unutarnje poveznice
-
      3. dinkus (*** u prozi -> stilizirani razdjelnik)
-
      4. sidra uz naslove
-
      5. samostalne stranice bez knjižnog okvira
-
      5a. aktivno stanje roditelja izbornika Nastava
-
      6. čišćenje sidebara
-
      7. upravljačke ploče interaktivnih grafova (sklapanje + gumb ↺)
-
      8. sklopivi prozni blokovi („Što isprobati")
-
      9. AI izbornik u podnožju poglavlja
-
      10. pojmovi na dodir — [pojam]{.pojam def="…" en="…" ch="8"}
-
      11. traka metapodataka na otvaranju poglavlja
-
      12. pamćenje stanja widgeta po stranici
-
      13. organizacija mobilne navigacije
-
      14. lokalni oporavak resursa stranice 404
-
      15. uklanjanje oznake vanjske poveznice s istog izvorišta
-
      16. pristupačno vodoravno pomicanje širokih tablica
-
      17. hrvatski pristupačni nazivi pretraživanja
-
    ===================================================================== */
-
 (function () {
-
   "use strict";
 
-
-
   // Samostalni Pojmovnik nema knjižni sidebar u koji Quarto inače umeće
-
   // pretragu. Daj njegovu navbaru standardni Quarto host prije DOMContentLoaded
-
   // kako bi izvorni modul izgradio funkcionalan i pristupačan overlay.
-
   function seedPojmovnikSearch() {
-
     if (!document.body.classList.contains("pojmovnik-page")) return;
-
     if (document.getElementById("quarto-search")) return;
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var host = document.createElement("div");
-
     host.id = "quarto-search";
-
     host.title = "Pretraži knjigu";
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     if (tools) tools.appendChild(host);
-
     else navbar.querySelector(".navbar-container").appendChild(host);
-
   }
-
-
 
   seedPojmovnikSearch();
 
-
-
-  // -------------------------------------------------------------------
-
-  // Konfiguracija stranica. Uredi kad se doda ili preimenuje stranica.
-
-  // -------------------------------------------------------------------
-
+  // Putovi se projiciraju iz config/book-inventory.json. Ne uređujte popise
+  // ručno; pokrenite python scripts/check-book-inventory.py --write.
+  // BEGIN GENERATED: book-inventory runtime-routes
   var SAMOSTALNE = [
-
     "/index.html",
-
-    "/pojmovnik.html",
-
     "/interakcije.html",
-
+    "/pojmovnik.html",
     "/podaci.html",
-
-    "/resursi.html",
-
     "/uci-s-ai.html",
-
     "/predavanja.html",
-
     "/silabus.html",
-
     "/raspored.html",
-
+    "/resursi.html",
+    "/rjesenja.html",
+    "/errata.html",
     "/404.html"
-
   ];
-
-
+  var NAVBAR_SKUPINE = [
+    {
+      "id": "nav-menu-nastava",
+      "routes": [
+        "/predavanja.html",
+        "/silabus.html",
+        "/raspored.html"
+      ]
+    }
+  ];
+  var PUTOVI_STRANICA = {
+    "landing": "/index.html",
+    "ch00": "/chapters/00-predgovor.html",
+    "ch01": "/chapters/01-zasto-statistika.html",
+    "ch02": "/chapters/02-mjerenje-i-dizajn.html",
+    "ch03": "/chapters/03-kako-brojke-zavode.html",
+    "ch04": "/chapters/04-sazimanje-podataka.html",
+    "ch05": "/chapters/05-vizualizacija.html",
+    "ch06": "/chapters/06-povezanost.html",
+    "ch07": "/chapters/07-vjerojatnost.html",
+    "ch08": "/chapters/08-uzorkovanje.html",
+    "ch09": "/chapters/09-procjena.html",
+    "ch10": "/chapters/10-logika-testiranja.html",
+    "ch11": "/chapters/11-velicina-ucinka-i-snaga.html",
+    "ch12": "/chapters/12-kriza-i-obnova.html",
+    "ch13": "/chapters/13-kategoricki-podaci.html",
+    "ch14": "/chapters/14-dvije-grupe.html",
+    "ch15": "/chapters/15-vise-grupa.html",
+    "ch16": "/chapters/16-regresija.html",
+    "ch17": "/chapters/17-doba-algoritama.html",
+    "ch18": "/chapters/18-vase-prvo-istrazivanje.html",
+    "references": "/references.html",
+    "app-a": "/dodaci/a-praktikum.html",
+    "app-b": "/dodaci/b-jamovi.html",
+    "app-c": "/dodaci/c-katalog-podataka.html",
+    "app-d": "/dodaci/d-koji-test.html",
+    "app-e": "/dodaci/e-rjecnik.html",
+    "app-f": "/dodaci/f-ai-protokol.html",
+    "app-g": "/dodaci/g-numericki-podsjetnik.html",
+    "interactions": "/interakcije.html",
+    "glossary": "/pojmovnik.html",
+    "data": "/podaci.html",
+    "ai": "/uci-s-ai.html",
+    "lectures": "/predavanja.html",
+    "syllabus": "/silabus.html",
+    "schedule": "/raspored.html",
+    "resources": "/resursi.html",
+    "solutions": "/rjesenja.html",
+    "errata": "/errata.html",
+    "not-found": "/404.html"
+  };
+  var AI_PUTOVI_POGLAVLJA = [
+    {
+      "route": "/chapters/00-predgovor.html",
+      "ai": "/ai/00-predgovor.md"
+    },
+    {
+      "route": "/chapters/01-zasto-statistika.html",
+      "ai": "/ai/01-zasto-statistika.md"
+    },
+    {
+      "route": "/chapters/02-mjerenje-i-dizajn.html",
+      "ai": "/ai/02-mjerenje-i-dizajn.md"
+    },
+    {
+      "route": "/chapters/03-kako-brojke-zavode.html",
+      "ai": "/ai/03-kako-brojke-zavode.md"
+    },
+    {
+      "route": "/chapters/04-sazimanje-podataka.html",
+      "ai": "/ai/04-sazimanje-podataka.md"
+    },
+    {
+      "route": "/chapters/05-vizualizacija.html",
+      "ai": "/ai/05-vizualizacija.md"
+    },
+    {
+      "route": "/chapters/06-povezanost.html",
+      "ai": "/ai/06-povezanost.md"
+    },
+    {
+      "route": "/chapters/07-vjerojatnost.html",
+      "ai": "/ai/07-vjerojatnost.md"
+    },
+    {
+      "route": "/chapters/08-uzorkovanje.html",
+      "ai": "/ai/08-uzorkovanje.md"
+    },
+    {
+      "route": "/chapters/09-procjena.html",
+      "ai": "/ai/09-procjena.md"
+    },
+    {
+      "route": "/chapters/10-logika-testiranja.html",
+      "ai": "/ai/10-logika-testiranja.md"
+    },
+    {
+      "route": "/chapters/11-velicina-ucinka-i-snaga.html",
+      "ai": "/ai/11-velicina-ucinka-i-snaga.md"
+    },
+    {
+      "route": "/chapters/12-kriza-i-obnova.html",
+      "ai": "/ai/12-kriza-i-obnova.md"
+    },
+    {
+      "route": "/chapters/13-kategoricki-podaci.html",
+      "ai": "/ai/13-kategoricki-podaci.md"
+    },
+    {
+      "route": "/chapters/14-dvije-grupe.html",
+      "ai": "/ai/14-dvije-grupe.md"
+    },
+    {
+      "route": "/chapters/15-vise-grupa.html",
+      "ai": "/ai/15-vise-grupa.md"
+    },
+    {
+      "route": "/chapters/16-regresija.html",
+      "ai": "/ai/16-regresija.md"
+    },
+    {
+      "route": "/chapters/17-doba-algoritama.html",
+      "ai": "/ai/17-doba-algoritama.md"
+    },
+    {
+      "route": "/chapters/18-vase-prvo-istrazivanje.html",
+      "ai": "/ai/18-vase-prvo-istrazivanje.md"
+    }
+  ];
+  // END GENERATED: book-inventory runtime-routes
 
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
-
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
-
   var UPUTA =
-
-    "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
-
+    "Ti si moj mentor za udžbenik „Statistika 101: Intuitivni uvod u analizu podataka”. " +
     "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
-
     "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
-
     "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
-
     "gradi intuiciju prije formule, prilagodi se mojoj razini i na zahtjev sažmi " +
-
     "gradivo, izradi kviz, kartice ili plan učenja. Na početku me pitaj što učim " +
-
     "i koji mi je cilj.";
 
-
-
   // -------------------------------------------------------------------
-
   // 1. Traka napretka čitanja
-
   // -------------------------------------------------------------------
-
   function setupProgressBar() {
-
     if (document.getElementById("reading-progress")) return;
-
     var bar = document.createElement("div");
-
     bar.id = "reading-progress";
-
     document.body.appendChild(bar);
 
-
-
     var ticking = false;
-
     function update() {
-
       var doc = document.documentElement;
-
       var scrollTop = window.scrollY || doc.scrollTop;
-
       var max = (doc.scrollHeight - doc.clientHeight) || 1;
-
       var pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
-
       bar.style.width = pct + "%";
-
       ticking = false;
-
     }
-
     window.addEventListener("scroll", function () {
-
       if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
-
     }, { passive: true });
-
     update();
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 2. Pregled na prijelaz za unutarnje poveznice (#sidra u dokumentu)
-
   // -------------------------------------------------------------------
-
   function setupInternalHover() {
-
     var tip = null, hideTimer = null;
 
-
-
     function ensureTip() {
-
       if (tip) return tip;
-
       tip = document.createElement("div");
-
       tip.className = "internal-hover-preview";
-
       document.body.appendChild(tip);
-
       return tip;
-
     }
-
-
 
     function show(target, text, title) {
-
       var t = ensureTip();
-
       t.innerHTML = "";
-
       if (title) {
-
         var h = document.createElement("div");
-
         h.className = "ihp-title";
-
         h.textContent = title;
-
         t.appendChild(h);
-
       }
-
       var body = document.createElement("div");
-
       body.textContent = text;
-
       t.appendChild(body);
 
-
-
       var rect = target.getBoundingClientRect();
-
       var left = window.scrollX + rect.left;
-
       var maxLeft = window.scrollX + document.documentElement.clientWidth - 400;
-
       if (left > maxLeft) left = maxLeft;
-
       if (left < 8) left = 8;
-
       t.style.top = (window.scrollY + rect.bottom + 8) + "px";
-
       t.style.left = left + "px";
-
       t.classList.add("visible");
-
     }
-
-
 
     function hide() { if (tip) tip.classList.remove("visible"); }
 
-
-
     document.addEventListener("mouseover", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       if (a.classList.contains("citation") || a.classList.contains("footnote-ref")) return;
-
       if (a.closest(".sidebar, nav, .toc, #TOC, .quarto-secondary-nav")) return;
 
-
-
       var hash = a.getAttribute("href").slice(1);
-
       if (!hash) return;
-
       var tgt = document.getElementById(hash);
-
       if (!tgt) return;
 
-
-
       var titleEl = tgt.querySelector("h1, h2, h3, h4") ||
-
                     (tgt.tagName.match(/^H[1-6]$/) ? tgt : null);
-
       var title = titleEl ? titleEl.textContent.trim() : "";
-
       var ctx = (tgt.textContent || "").trim().replace(/\s+/g, " ");
-
       if (title) ctx = ctx.replace(title, "").trim();
-
       ctx = ctx.slice(0, 280) + (ctx.length > 280 ? "…" : "");
 
-
-
       clearTimeout(hideTimer);
-
       show(a, ctx, title);
-
     });
-
-
 
     document.addEventListener("mouseout", function (e) {
-
       var a = e.target.closest && e.target.closest("a[href^='#']");
-
       if (!a) return;
-
       hideTimer = setTimeout(hide, 120);
-
     });
-
-
 
     window.addEventListener("scroll", hide, { passive: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 3. Dinkus — pasus koji je samo "***" postaje razdjelnik
-
   // -------------------------------------------------------------------
-
   function setupDinkus() {
-
     document.querySelectorAll("main p").forEach(function (p) {
-
       var t = p.textContent.trim();
-
       if (t === "***" || t === "* * *" || t === "◆ ◆ ◆") {
-
         var div = document.createElement("div");
-
         div.className = "dinkus";
-
         p.parentNode.replaceChild(div, p);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 4. Sidra uz naslove
-
   // -------------------------------------------------------------------
-
   function setupAnchorLinks() {
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     article.querySelectorAll("h2[id], h3[id], h4[id]").forEach(function (h) {
-
       if (h.classList.contains("title")) return;
-
       if (h.querySelector("a.anchorjs-link")) return;
-
       var link = document.createElement("a");
-
       link.className = "anchorjs-link";
-
       link.href = "#" + h.id;
-
       link.setAttribute("aria-label", "Poveznica na ovaj odjeljak");
-
       h.appendChild(link);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5. Samostalne stranice — bez knjižnog okvira
-
   // -------------------------------------------------------------------
-
   function setupStandalonePages() {
-
     var path = location.pathname;
-
-    var normalized = path.endsWith("/") ? path + "index.html" : path;
-
+    var naslovnica = PUTOVI_STRANICA.landing.replace(/^\//, "");
+    var normalized = path.endsWith("/") ? path + naslovnica : path;
     var isStandalone =
-
       document.body.classList.contains("standalone-page") ||
-
       document.body.classList.contains("not-found-page") ||
-
       SAMOSTALNE.some(function (p) { return normalized.endsWith(p); });
-
     if (!isStandalone) return;
-
-
 
     document.body.classList.add("standalone-page");
 
-
-
     var sb = document.getElementById("quarto-sidebar");
-
     if (sb) sb.style.display = "none";
-
     var msb = document.getElementById("quarto-margin-sidebar");
-
     if (msb) msb.style.display = "none";
-
     document.querySelectorAll(".quarto-page-breadcrumbs").forEach(function (el) { el.remove(); });
 
-
-
     // Quarto dodaje "Appendix A — " prefiks dodacima; na hub stranicama smeta.
-
     var strip = function (s) {
-
       return s.replace(/^Appendix\s+\S*\s*[—–-]\s*/i, "").replace(/^\s*[—–-]\s+/, "").trim();
-
     };
-
     var titleEl = document.querySelector("#title-block-header h1.title, h1.title");
-
     if (titleEl) titleEl.textContent = strip(titleEl.textContent);
-
     document.title = strip(document.title);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 5a. Nastava ostaje vidljivo označena na svim stranicama podizbornika
-
   // -------------------------------------------------------------------
-
   function setupNastavaActiveState() {
-
-    var pages = ["/predavanja.html", "/silabus.html", "/raspored.html"];
-
-    var isNastava = pages.some(function (page) {
-
-      return location.pathname.endsWith(page);
-
-    });
-
-    if (!isNastava) return;
-
-
-
-    var parent = document.getElementById("nav-menu-nastava");
-
-    if (!parent) return;
-
-    parent.classList.add("active", "section-active");
-
-    parent.setAttribute("aria-current", "true");
-
-  }
-
-
-
-  // -------------------------------------------------------------------
-
-  // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
-
-  //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
-
-  //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
-
-  // -------------------------------------------------------------------
-
-  function removePrunedItems() {
-
-    var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
-
-    document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
-
-      .forEach(function (a) {
-
-        var href = a.getAttribute("href") || "";
-
-        var hide = endings.some(function (e) { return href.endsWith(e); });
-
-        if (hide) {
-
-          a.style.display = "none";
-
-          var li = a.closest(".sidebar-item");
-
-          if (li) li.style.display = "none";
-
-        }
-
+    NAVBAR_SKUPINE.forEach(function (skupina) {
+      var aktivna = skupina.routes.some(function (put) {
+        return location.pathname.endsWith(put);
       });
-
+      if (!aktivna) return;
+      var parent = document.getElementById(skupina.id);
+      if (!parent) return;
+      parent.classList.add("active", "section-active");
+      parent.setAttribute("aria-current", "true");
+    });
   }
 
-
+  // -------------------------------------------------------------------
+  // 6. Čišćenje sidebara — samostalne stranice se ne prikazuju u stablu
+  //    knjige (dohvaćaju se iz navbara). MutationObserver nije potreban;
+  //    tri prolaza pobjeđuju Quartov vlastiti render sidebara.
+  // -------------------------------------------------------------------
+  function removePrunedItems() {
+    var endings = SAMOSTALNE.map(function (p) { return p.replace(/^\//, ""); });
+    document.querySelectorAll("#quarto-sidebar a.sidebar-link, #quarto-sidebar a.sidebar-item-text")
+      .forEach(function (a) {
+        var href = a.getAttribute("href") || "";
+        var hide = endings.some(function (e) { return href.endsWith(e); });
+        if (hide) {
+          a.style.display = "none";
+          var li = a.closest(".sidebar-item");
+          if (li) li.style.display = "none";
+        }
+      });
+  }
 
   function pruneSidebar() {
-
     removePrunedItems();
-
     setTimeout(removePrunedItems, 200);
-
     setTimeout(removePrunedItems, 800);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 7. Upravljačke ploče interaktivnih grafova
-
   //    Observable rendira kontrole asinkrono, pa MutationObserver hvata
-
   //    njihovo pojavljivanje. Ploča se sklapa u <details>, klizači dobiju
-
   //    ispunu trake (--fill) i gumb za povratak na početne vrijednosti.
-
   // -------------------------------------------------------------------
-
   function setupOjsPanels() {
-
     function paintFill(r) {
-
       var min = parseFloat(r.min), max = parseFloat(r.max);
-
       if (!isFinite(min)) min = 0;
-
       if (!isFinite(max)) max = 100;
-
       var pct = max > min ? ((r.value - min) / (max - min)) * 100 : 0;
-
       r.style.setProperty("--fill", pct.toFixed(2) + "%");
-
     }
-
-
 
     function enhanceRange(r) {
-
       if (r.dataset.ojsEnhanced) return;
-
       r.dataset.ojsEnhanced = "1";
-
       r.dataset.ojsInitial = r.value;
-
       paintFill(r);
-
       r.addEventListener("input", function () {
-
         paintFill(r);
-
         var num = r.parentElement && r.parentElement.querySelector('input[type="number"]');
-
         if (num) {
-
           num.classList.remove("ojs-pulse");
-
           void num.offsetWidth;
-
           num.classList.add("ojs-pulse");
-
         }
-
       });
-
     }
-
-
 
     function panelMeta(panel) {
-
       var host = panel.closest && panel.closest("[data-ojs-label]");
-
       var widget = panel.closest && panel.closest(".widget-frame[data-naslov]");
-
       var widgetTitle = widget && widget.getAttribute("data-naslov");
-
       return {
-
         label: host && host.getAttribute("data-ojs-label") ||
-
           (widgetTitle ? "Postavke: " + widgetTitle : "Parametri simulacije"),
-
         hint: host && host.getAttribute("data-ojs-hint") ||
-
           "otvori za promjenu vrijednosti"
-
       };
-
     }
-
-
 
     function collapsePanel(panel) {
-
       if (panel.dataset.ojsCollapsed) return;
-
       var parent = panel.parentElement;
-
       if (!parent) return;
-
       panel.dataset.ojsCollapsed = "1";
-
       var meta = panelMeta(panel);
 
-
-
       var details = document.createElement("details");
-
       details.className = "ojs-collapsible";
-
       var summary = document.createElement("summary");
-
       summary.className = "ojs-collapsible-summary";
-
       summary.innerHTML =
-
         '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
         '<span class="ojs-collapsible-label"></span>' +
-
         '<span class="ojs-collapsible-hint"></span>';
-
       summary.querySelector(".ojs-collapsible-label").textContent = meta.label;
-
       summary.querySelector(".ojs-collapsible-hint").textContent = meta.hint;
 
-
-
       parent.insertBefore(details, panel);
-
       details.appendChild(summary);
-
       details.appendChild(panel);
-
     }
-
-
 
     function enhancePanel(panel) {
-
       if (panel.dataset.ojsPanel) return;
-
       panel.dataset.ojsPanel = "1";
-
       panel.querySelectorAll("input, select, textarea").forEach(function (el) {
-
         if (el.dataset.ojsInitial === undefined) el.dataset.ojsInitial = el.value;
-
         if (el.type === "checkbox" || el.type === "radio") {
-
           el.dataset.ojsInitialChecked = el.checked ? "1" : "0";
-
         }
-
       });
-
       var btn = document.createElement("button");
-
       btn.type = "button";
-
       btn.className = "ojs-reset";
-
       btn.textContent = "↺ početne vrijednosti";
-
       btn.title = "Vrati početne vrijednosti";
-
       btn.addEventListener("click", function () {
-
         panel.querySelectorAll('input[type="range"]').forEach(function (r) {
-
           if (r.dataset.ojsInitial === undefined) return;
-
           r.value = r.dataset.ojsInitial;
-
           r.dispatchEvent(new Event("input", { bubbles: true }));
-
         });
-
         panel.querySelectorAll(
-
           'input:not([type="range"]), select, textarea'
-
         ).forEach(function (el) {
-
           if (el.dataset.ojsInitial === undefined) return;
-
           if (el.type === "checkbox" || el.type === "radio") {
-
             el.checked = el.dataset.ojsInitialChecked === "1";
-
           } else {
-
             el.value = el.dataset.ojsInitial;
-
           }
-
           el.dispatchEvent(new Event("input", { bubbles: true }));
-
           el.dispatchEvent(new Event("change", { bubbles: true }));
-
         });
-
       });
-
       panel.appendChild(btn);
-
       collapsePanel(panel);
-
     }
-
-
 
     var scanQueued = false;
-
     function scan() {
-
       scanQueued = false;
-
       document.querySelectorAll('form[class^="oi-"] input[type="range"]').forEach(enhanceRange);
-
       document.querySelectorAll('form[class^="oi-"]').forEach(function (f) {
-
         if (f.classList.contains("quarto-ojs-table-fixup")) return;
-
         var p = f.parentElement;
-
         if (p && p.tagName === "DIV") enhancePanel(p);
-
       });
-
       document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
-
         if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
-
         if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
-
       });
-
+      // Sustav Zvono: zaglavlje widgeta s diskom, naslovom i oznakom.
+      document.querySelectorAll(".widget-frame[data-naslov]:not(.zv-widget-glava)").forEach(function (frame) {
+        var oznaka = frame.getAttribute("data-oznaka") || "";
+        var broj = (oznaka.match(/(\d+\.\d+)/) || [])[1] || "";
+        var glava = document.createElement("div");
+        glava.className = "widget-glava";
+        if (broj) {
+          var disk = document.createElement("span");
+          disk.className = "widget-glava__disk";
+          disk.setAttribute("aria-hidden", "true");
+          disk.textContent = broj;
+          glava.appendChild(disk);
+        }
+        var naslov = document.createElement("span");
+        naslov.className = "widget-glava__naslov";
+        naslov.textContent = frame.getAttribute("data-naslov");
+        glava.appendChild(naslov);
+        if (oznaka) {
+          var lbl = document.createElement("span");
+          lbl.className = "widget-glava__oznaka";
+          lbl.textContent = oznaka.toLowerCase();
+          glava.appendChild(lbl);
+        }
+        frame.insertBefore(glava, frame.firstChild);
+        frame.classList.add("zv-widget-glava");
+      });
     }
-
     function queueScan() {
-
       if (scanQueued) return;
-
       scanQueued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     new MutationObserver(queueScan).observe(document.body, { childList: true, subtree: true });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 8. Sklopivi prozni blokovi — „Što isprobati" uz interaktivni graf
-
   // -------------------------------------------------------------------
-
   function wrapCollapsible(node, label, hint) {
-
     if (node.dataset.ojsCollapsibleWrapped) return null;
-
     var parent = node.parentElement;
-
     if (!parent) return null;
-
     node.dataset.ojsCollapsibleWrapped = "1";
 
-
-
     var details = document.createElement("details");
-
     details.className = "ojs-collapsible ojs-collapsible-prose";
-
     var summary = document.createElement("summary");
-
     summary.className = "ojs-collapsible-summary";
-
     summary.innerHTML =
-
       '<span class="ojs-collapsible-icon" aria-hidden="true"></span>' +
-
       '<span class="ojs-collapsible-label"></span>' +
-
       '<span class="ojs-collapsible-hint"></span>';
-
     summary.querySelector(".ojs-collapsible-label").textContent = label;
-
     summary.querySelector(".ojs-collapsible-hint").textContent = hint || "otvori za prikaz";
 
-
-
     var body = document.createElement("div");
-
     body.className = "ojs-collapsible-body";
 
-
-
     parent.insertBefore(details, node);
-
     details.appendChild(summary);
-
     details.appendChild(body);
-
     body.appendChild(node);
-
     return body;
-
   }
-
-
 
   function setupProseCollapsibles() {
-
     var main = document.querySelector("main.content") || document.querySelector("main");
-
     if (!main) return;
 
-
-
     main.querySelectorAll("p").forEach(function (p) {
-
       if (p.dataset.ojsCollapsibleWrapped) return;
-
       var strong = p.querySelector(":scope > strong:first-child");
-
       if (!strong) return;
-
       if (strong.textContent.trim().replace(/[.:]\s*$/, "") !== "Što isprobati") return;
-
       var next = p.nextElementSibling;
-
       strong.remove();
-
       if (p.firstChild && p.firstChild.nodeType === 3) {
-
         p.firstChild.nodeValue = p.firstChild.nodeValue.replace(/^[\s.:]+/, "");
-
       }
-
       var body = wrapCollapsible(p, "Što isprobati", "otvori za upute uz graf");
-
       if (body && next && (next.matches("ol") || next.matches("ul"))) {
-
         body.appendChild(next);
-
       }
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 9. AI izbornik u podnožju poglavlja
-
-  //    Radi samo na /chapters/<slug>.html i preslikava URL u /ai/<slug>.md
-
-  //    koji generira R/build-ai-exports.R.
-
+  //    Radi samo na kanonskim putovima poglavlja i koristi tekstove koje
+  //    generira R/build-ai-exports.R.
   // -------------------------------------------------------------------
-
   function setupChapterAI() {
-
-    var m = location.pathname.match(/\/chapters\/([^/]+)\.html$/);
-
-    if (!m) return;
-
+    var zapis = AI_PUTOVI_POGLAVLJA.find(function (kandidat) {
+      return location.pathname.endsWith(kandidat.route);
+    });
+    if (!zapis) return;
     if (document.querySelector(".ai-cta")) return;
+    var slug = zapis.ai.replace(/^.*\//, "").replace(/\.md$/, "");
 
-    var slug = m[1];
-
-
-
-    var mdHref  = location.pathname.replace(/\/chapters\/([^/]+)\.html$/, "/ai/$1.md");
-
-    var uciHref = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/uci-s-ai.html");
-
-    var pmHref  = location.pathname.replace(/\/chapters\/[^/]+\.html$/, "/pojmovnik.html") +
-
-                  "?poglavlje=" + encodeURIComponent(slug);
-
+    var mdHref  = zapis.ai;
+    var uciHref = PUTOVI_STRANICA.ai;
+    var pmHref  = PUTOVI_STRANICA.glossary + "?poglavlje=" + encodeURIComponent(slug);
     var absMd   = location.origin + mdHref;
-
     var q = encodeURIComponent(
-
       UPUTA +
-
       "\n\nTekst poglavlja nalazi se na ovoj poveznici, pročitaj ga i odgovaraj na temelju njega: " +
-
       absMd);
 
-
-
     var box = document.createElement("div");
-
     box.className = "ai-cta-foot";
 
-
-
     var det = document.createElement("details");
-
     det.className = "ai-cta";
-
     det.innerHTML =
-
       "<summary>🤖 Pitaj AI o ovom poglavlju</summary>" +
-
       '<div class="ai-cta-menu">' +
-
         '<a href="' + mdHref + '" download>⬇ Preuzmi tekst (.md)</a>' +
-
         '<a href="https://claude.ai/new?q=' + q + '" target="_blank" rel="noopener">Otvori u Claudeu</a>' +
-
         '<a href="https://chatgpt.com/?q=' + q + '" target="_blank" rel="noopener">Otvori u ChatGPT-u</a>' +
-
         '<a href="' + uciHref + '">Sve opcije i cijela knjiga →</a>' +
-
       "</div>";
 
-
-
     var pm = document.createElement("a");
-
     pm.className = "ai-cta-pm";
-
     pm.href = pmHref;
-
     pm.innerHTML = "🕸 Pojmovi ovog poglavlja u mreži";
 
-
-
     box.appendChild(det);
-
     box.appendChild(pm);
 
-
-
     var article = document.querySelector("main.content") || document.querySelector("main");
-
     if (!article) return;
-
     var fn = article.querySelector("section.footnotes, #refs, section#footnotes");
-
     if (fn) fn.parentNode.insertBefore(box, fn);
-
     else article.appendChild(box);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 10. Pojmovi na dodir
-
   //     [statističko zaključivanje]{.pojam def="…" en="…" ch="8"}
-
   //     Pandoc atribute prenosi doslovno na <span>, pa oblačić gradimo
-
   //     odavde. Izgled je u styles/_base.scss (.pojam__oblacic).
-
   // -------------------------------------------------------------------
-
   function setupPojmovi() {
-
     var pojmovi = document.querySelectorAll("span.pojam");
-
     if (!pojmovi.length) return;
 
-
-
     pojmovi.forEach(function (el) {
-
       if (el.dataset.pojamSpreman) return;
-
       el.dataset.pojamSpreman = "1";
 
-
-
       var def = el.getAttribute("def") || "";
-
       var en  = el.getAttribute("en")  || "";
-
       var ch  = el.getAttribute("ch")  || "";
-
       if (!def && !en && !ch) return;
-
-
 
       el.setAttribute("tabindex", "0");
 
-
-
       var tip = document.createElement("span");
-
       tip.className = "pojam__oblacic";
-
       tip.setAttribute("role", "tooltip");
 
-
-
       var glava = document.createElement("span");
-
       glava.className = "pojam__glava";
-
       glava.textContent = el.textContent.trim();
-
       tip.appendChild(glava);
 
-
-
       if (def) tip.appendChild(document.createTextNode(def));
-
       if (en) {
-
         var e = document.createElement("em");
-
         e.className = "pojam__en";
-
         e.textContent = " " + en;
-
         tip.appendChild(e);
-
       }
-
       if (ch) {
-
         var c = document.createElement("span");
-
         c.className = "pojam__pogl";
-
         c.textContent = "→ pogl. " + ch;
-
         tip.appendChild(c);
-
       }
-
       el.appendChild(tip);
-
     });
-
-
 
     // Dodir i tipkovnica: klik otvara, klik izvan zatvara (CSS pokriva miš).
-
     document.addEventListener("click", function (e) {
-
       var t = e.target.closest && e.target.closest("span.pojam");
-
       document.querySelectorAll("span.pojam.je-otvoren").forEach(function (o) {
-
         if (o !== t) o.classList.remove("je-otvoren");
-
       });
-
       if (t) { t.classList.toggle("je-otvoren"); e.stopPropagation(); }
-
     });
-
     document.addEventListener("keydown", function (e) {
-
       if (e.key !== "Escape") return;
-
       document.querySelectorAll("span.pojam.je-otvoren")
-
         .forEach(function (o) { o.classList.remove("je-otvoren"); });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 11. Traka metapodataka na otvaranju poglavlja
-
   //     U .qmd-u se piše kao obična tablica unutar ::: {.chapter-meta};
-
   //     ovdje postaje jedan redak parova natpis / vrijednost.
-
   // -------------------------------------------------------------------
-
   function setupChapterMeta() {
-
     document.querySelectorAll(".chapter-meta").forEach(function (box) {
-
       var table = box.querySelector("table");
-
       if (!table || box.dataset.metaSpremna) return;
-
       box.dataset.metaSpremna = "1";
 
-
-
       var glave = [].map.call(table.querySelectorAll("thead th"),
-
         function (th) { return th.textContent.trim(); });
-
       var polja = [].map.call(table.querySelectorAll("tbody tr:first-child td"),
-
         function (td) { return td.textContent.trim(); });
-
       if (!glave.length) return;
 
-
-
       var red = document.createElement("div");
-
       red.className = "chapter-meta__row";
-
       glave.forEach(function (g, i) {
-
         var cell = document.createElement("div");
-
         var k = document.createElement("span");
-
         k.className = "chapter-meta__key";
-
         k.textContent = g;
-
         cell.appendChild(k);
-
         cell.appendChild(document.createTextNode(polja[i] || "—"));
-
         red.appendChild(cell);
-
       });
-
-
 
       var wrap = table.closest(".table, figure") || table;
-
       wrap.parentNode.replaceChild(red, wrap);
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 12. Pamćenje stanja widgeta
-
   //     Čitatelj koji odscrola i vrati se ne gubi svoje istraživanje.
-
   //     Ključ je po stranici; vrijednosti su samo brojevi i nizovi iz
-
   //     kontrola, pa localStorage ne nosi ništa osobno.
-
   // -------------------------------------------------------------------
-
   function setupWidgetMemory() {
-
     var kljuc = "statistika:widget:" + location.pathname;
-
     var IZBOR = ".widget-frame input, .widget-frame select, " +
-
                 'form[class^="oi-"] input, form[class^="oi-"] select';
 
-
-
     function spremi() {
-
       var s = {};
-
       document.querySelectorAll(IZBOR).forEach(function (el, i) {
-
         if (el.type === "checkbox" || el.type === "radio") s[i] = el.checked;
-
         else s[i] = el.value;
-
       });
-
       try { localStorage.setItem(kljuc, JSON.stringify(s)); } catch (e) {}
-
     }
-
-
 
     function vrati() {
-
       var s;
-
       try { s = JSON.parse(localStorage.getItem(kljuc) || "null"); } catch (e) { return; }
-
       if (!s) return;
-
       var polja = document.querySelectorAll(IZBOR);
-
       if (!polja.length) return;
-
       polja.forEach(function (el, i) {
-
         if (!(i in s)) return;
-
         if (el.type === "checkbox" || el.type === "radio") el.checked = !!s[i];
-
         else el.value = s[i];
-
         el.dispatchEvent(new Event("input", { bubbles: true }));
-
         el.dispatchEvent(new Event("change", { bubbles: true }));
-
       });
-
     }
-
-
 
     // Observable rendira kontrole asinkrono; jedan pokušaj nakon učitavanja
-
     // je dovoljan jer se stanje pamti na svaku promjenu.
-
     window.setTimeout(vrati, 600);
-
     document.addEventListener("input", function (e) {
-
       if (e.target.closest && e.target.closest('.widget-frame, form[class^="oi-"]')) spremi();
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 13. Mobilna navigacija
-
   //     Zatvoreno zaglavlje ostaje jedan redak. Pretraga, bočni izbornik
-
   //     i hamburger čine jednu skupinu, a sekundarni alati sele u otvoreni
-
   //     glavni izbornik. Na širokom zaslonu sve se vraća na Quartova mjesta.
-
   // -------------------------------------------------------------------
-
   function setupMobileNavbar() {
-
     var navbar = document.querySelector("#quarto-header .navbar");
-
     if (!navbar) return;
-
     var container = navbar.querySelector(".navbar-container");
-
     var collapse = navbar.querySelector(".navbar-collapse");
-
     var toggler = navbar.querySelector(".navbar-toggler");
-
     if (!container || !collapse || !toggler) return;
 
-
-
     var tools = navbar.querySelector(".quarto-navbar-tools");
-
     var secondary = document.querySelector("#quarto-header .quarto-secondary-nav");
-
     var sidebarButton = secondary && secondary.querySelector(".quarto-btn-toggle");
-
     var searchButton = secondary && secondary.querySelector(".quarto-search-button");
-
     if (!searchButton && document.body.classList.contains("pojmovnik-page")) {
-
       var searchHost = navbar.querySelector("#quarto-search");
-
       if (searchHost) searchHost.hidden = true;
-
       searchButton = document.createElement("button");
-
       searchButton.type = "button";
-
       searchButton.className = "btn quarto-search-button";
-
       searchButton.setAttribute("aria-label", "Pretraži knjigu");
-
       searchButton.setAttribute("title", "Pretraži knjigu");
-
       searchButton.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i>';
-
       searchButton.addEventListener("click", function () {
-
         if (window.quartoOpenSearch) window.quartoOpenSearch();
-
       });
-
       if (tools) tools.appendChild(searchButton);
-
       else container.insertBefore(searchButton, toggler);
-
     }
-
     var brandTitle = navbar.querySelector(".navbar-title");
-
     var fullBrand = brandTitle ? brandTitle.textContent.trim() : "";
-
     var actions = null;
 
-
-
     function markerFor(el, name) {
-
       if (!el) return null;
-
       var marker = document.createComment("navbar-" + name);
-
       el.parentNode.insertBefore(marker, el);
-
       return marker;
-
     }
-
-
 
     var positions = [
-
       { node: toggler, marker: markerFor(toggler, "toggler") },
-
       { node: tools, marker: markerFor(tools, "tools") },
-
       { node: sidebarButton, marker: markerFor(sidebarButton, "sidebar") },
-
       { node: searchButton, marker: markerFor(searchButton, "search") }
-
     ];
 
-
-
     function restore(item) {
-
       if (item.node && item.marker && item.marker.parentNode) {
-
         item.marker.parentNode.insertBefore(item.node, item.marker);
-
       }
-
     }
 
-
-
     function localize() {
-
       toggler.setAttribute("aria-label", "Otvori navigaciju");
-
       if (sidebarButton) {
-
         sidebarButton.setAttribute("aria-label", "Otvori sadržaj knjige");
-
       }
-
       if (searchButton) {
-
         var searchControl = searchButton.matches("button")
-
           ? searchButton
-
           : searchButton.querySelector("button");
-
         if (searchControl) {
-
           searchControl.setAttribute("aria-label", "Pretraži knjigu");
-
           searchControl.setAttribute("title", "Pretraži knjigu");
-
         }
-
       }
-
-
 
       var labels = {
-
         "Source Code": "Izvorni kod",
-
         "Share": "Podijeli",
-
         "Toggle dark mode": "Promijeni temu",
-
         "Toggle light mode": "Promijeni temu",
-
         "Toggle reader mode": "Način čitanja"
-
       };
-
       navbar.querySelectorAll(".quarto-navigation-tool").forEach(function (a) {
-
         var source = a.getAttribute("title") || a.getAttribute("aria-label") || "";
-
         if (!labels[source]) return;
-
         a.setAttribute("title", labels[source]);
-
         a.setAttribute("aria-label", labels[source]);
-
       });
-
     }
-
-
 
     function organize(mobile) {
-
       document.body.classList.toggle("navbar-mobile-organized", mobile);
-
       if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
-
-      if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
-
-
+      if (brandTitle) brandTitle.textContent = fullBrand;  // „Statistika 101" stane i na telefon
 
       if (mobile) {
-
         if (!actions) {
-
           actions = document.createElement("div");
-
           actions.className = "mobile-navbar-actions";
-
           container.insertBefore(actions, collapse);
-
         }
-
         if (sidebarButton) actions.appendChild(sidebarButton);
-
         if (searchButton) actions.appendChild(searchButton);
-
         actions.appendChild(toggler);
-
         if (tools) collapse.appendChild(tools);
-
       } else {
-
         positions.forEach(restore);
-
         if (actions) {
-
           actions.remove();
-
           actions = null;
-
         }
-
       }
-
     }
 
-
-
     localize();
-
     var mq = window.matchMedia("(max-width: 991.98px)");
-
     organize(mq.matches);
-
     var onChange = function (e) { organize(e.matches); };
-
     if (mq.addEventListener) mq.addEventListener("change", onChange);
-
     else mq.addListener(onChange);
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 14. Stranica 404 pri lokalnom posluživanju iz korijena
-
   //     Lokalni resursi ugrađuju se nakon rendera, ali navigacijske poveznice
-
   //     i dalje nose produkcijski podput. Izvan tog podputa vraćamo ih na
-
   //     lokalni korijen; na GitHub Pagesu ostaju netaknute.
-
   // -------------------------------------------------------------------
-
   function setupNotFoundFallback() {
-
     if (!document.body.classList.contains("not-found-page")) return;
-
     var offset = document.querySelector('meta[name="quarto:offset"]');
-
     var prefix = offset ? (offset.getAttribute("content") || "") : "";
-
     prefix = prefix.replace(/\/+$/, "");
-
     if (!prefix || prefix === "/" ||
-
         location.pathname === prefix ||
-
         location.pathname.indexOf(prefix + "/") === 0) return;
 
-
-
     document.querySelectorAll("[href], [src]").forEach(function (el) {
-
       ["href", "src"].forEach(function (attr) {
-
         var value = el.getAttribute(attr);
-
         if (!value || value.indexOf(prefix + "/") !== 0) return;
-
         el.setAttribute(attr, value.slice(prefix.length));
-
       });
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 15. Poveznice s istog izvorišta
-
   //     Quarto ih u lokalnom pregledu katkad označi kao vanjske prije nego
-
   //     što razriješi adresu. `no-external` sprečava naknadno ukrašavanje,
-
   //     a već dodani znak i otvaranje u novoj kartici uklanjaju se.
-
   // -------------------------------------------------------------------
-
   function setupSameOriginLinks() {
-
     var queued = false;
-
-
 
     function clean() {
-
       queued = false;
-
       document.querySelectorAll("a[href]").forEach(function (a) {
-
         var url;
-
         try { url = new URL(a.getAttribute("href"), location.href); }
-
         catch (e) { return; }
-
         if (url.origin !== location.origin) return;
 
-
-
         a.classList.add("no-external");
-
         a.classList.remove("external", "external-link");
-
         a.removeAttribute("data-external");
-
         if (a.getAttribute("target") === "_blank") a.removeAttribute("target");
 
-
-
         var rel = (a.getAttribute("rel") || "").split(/\s+/).filter(Boolean)
-
           .filter(function (token) {
-
             return token !== "external" && token !== "noopener" &&
-
               token !== "noreferrer";
-
           });
-
         if (rel.length) a.setAttribute("rel", rel.join(" "));
-
         else a.removeAttribute("rel");
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(clean);
-
     }
-
-
 
     clean();
-
     window.setTimeout(clean, 250);
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 16. Široke tablice
-
   //     Vodoravno pomicanje dobiva tipkovni fokus, jasan naziv i vidljivu
-
   //     uputu samo kada je tablica doista šira od raspoloživog prostora.
-
   // -------------------------------------------------------------------
-
   function setupAccessibleTables() {
-
     var nextId = 0;
-
     var queued = false;
-
     var resizeObserver = typeof ResizeObserver === "function"
-
       ? new ResizeObserver(queueScan)
-
       : null;
 
-
-
     function tableLabel(table) {
-
       var caption = table.querySelector("caption");
-
       var figure = table.closest("figure");
-
       if (!caption && figure) caption = figure.querySelector("figcaption");
-
       var text = caption && caption.textContent
-
         ? caption.textContent.trim().replace(/\s+/g, " ")
-
         : "";
-
       return text ? "Tablica: " + text : "Tablica s vodoravnim pomicanjem";
-
     }
-
-
 
     function wrapperFor(table) {
-
       var parent = table.parentElement;
-
       if (parent && (
-
         parent.classList.contains("table-responsive") ||
-
         parent.classList.contains("cell-output-display")
-
       )) {
-
         return parent;
-
       }
-
-
 
       var wrapper = document.createElement("div");
-
       wrapper.className = "table-responsive";
-
       table.parentNode.insertBefore(wrapper, table);
-
       wrapper.appendChild(table);
-
       return wrapper;
-
     }
-
-
 
     function update(table, scroller, hint) {
-
       if (!table.isConnected || !scroller.isConnected) return;
-
       var overflows = table.scrollWidth > scroller.clientWidth + 1;
-
       scroller.classList.toggle("table-scrollable", overflows);
-
       hint.hidden = !overflows;
 
-
-
       if (overflows) {
-
         if (!scroller.hasAttribute("tabindex")) {
-
           scroller.tabIndex = 0;
-
           scroller.dataset.tableManagedTabindex = "1";
-
         }
-
         if (!scroller.hasAttribute("role")) {
-
           scroller.setAttribute("role", "region");
-
           scroller.dataset.tableManagedRole = "1";
-
         }
-
         if (!scroller.hasAttribute("aria-label")) {
-
           scroller.setAttribute("aria-label", tableLabel(table));
-
           scroller.dataset.tableManagedLabel = "1";
-
         }
-
         var describedBy = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean);
-
         if (describedBy.indexOf(hint.id) === -1) describedBy.push(hint.id);
-
         scroller.setAttribute("aria-describedby", describedBy.join(" "));
-
       } else {
-
         if (scroller.dataset.tableManagedTabindex) {
-
           scroller.removeAttribute("tabindex");
-
           delete scroller.dataset.tableManagedTabindex;
-
         }
-
         if (scroller.dataset.tableManagedRole) {
-
           scroller.removeAttribute("role");
-
           delete scroller.dataset.tableManagedRole;
-
         }
-
         if (scroller.dataset.tableManagedLabel) {
-
           scroller.removeAttribute("aria-label");
-
           delete scroller.dataset.tableManagedLabel;
-
         }
-
         var remaining = (scroller.getAttribute("aria-describedby") || "")
-
           .split(/\s+/).filter(Boolean)
-
           .filter(function (id) { return id !== hint.id; });
-
         if (remaining.length) {
-
           scroller.setAttribute("aria-describedby", remaining.join(" "));
-
         } else {
-
           scroller.removeAttribute("aria-describedby");
-
         }
-
       }
-
     }
-
-
 
     function prepare(table) {
-
       if (table.dataset.tableScrollerReady || table.closest(".chapter-meta")) {
-
         return;
-
       }
-
       table.dataset.tableScrollerReady = "1";
-
       var scroller = wrapperFor(table);
-
       var hint = document.createElement("p");
-
       hint.className = "table-scroll-hint";
-
       hint.id = "table-scroll-hint-" + (++nextId);
-
       hint.textContent = "↔ Pomaknite tablicu za preostale stupce";
-
       hint.hidden = true;
-
       scroller.insertAdjacentElement("afterend", hint);
 
-
-
       var refresh = function () {
-
         window.requestAnimationFrame(function () {
-
           update(table, scroller, hint);
-
         });
-
       };
-
       refresh();
-
       table.addEventListener("load", refresh, true);
-
       if (resizeObserver) resizeObserver.observe(scroller);
-
     }
-
-
 
     function scan() {
-
       queued = false;
-
       document.querySelectorAll("main table, #quarto-content table")
-
         .forEach(prepare);
-
     }
-
-
 
     function queueScan() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(scan);
-
     }
-
-
 
     scan();
-
     window.addEventListener("load", queueScan);
-
     window.addEventListener("resize", queueScan);
-
     new MutationObserver(queueScan).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
 
-
-
   // -------------------------------------------------------------------
-
   // 17. Pretraživanje
-
   //     Quarto prevodi vidljivi tekst iz `language`, ali Algolijina ovojnica
-
   //     zadržava nekoliko engleskih pristupačnih naziva. Prevodimo i početne
-
   //     elemente i kontrole koje se umeću tek kada se pretraživanje otvori.
-
   // -------------------------------------------------------------------
-
   function setupSearchLocalization() {
-
     var translations = {
-
       "Search": "Pretraži",
-
       "Clear": "Očisti pretraživanje",
-
       "Cancel": "Odustani",
-
       "Submit": "Pretraži",
-
       "Close": "Zatvori",
-
       "Reset": "Vrati početno"
-
     };
-
     var queued = false;
 
-
-
     function localize() {
-
       queued = false;
-
       document.querySelectorAll(
-
         ".aa-Autocomplete, .aa-DetachedSearchButton, " +
-
         ".aa-DetachedOverlay [aria-label], " +
-
         ".aa-DetachedOverlay [title], " +
-
         ".aa-DetachedOverlay [placeholder]"
-
       ).forEach(function (element) {
-
         ["aria-label", "title", "placeholder"].forEach(function (attribute) {
-
           var value = element.getAttribute(attribute);
-
           if (value && translations[value]) {
-
             element.setAttribute(attribute, translations[value]);
-
           }
-
         });
-
       });
-
     }
-
-
 
     function queue() {
-
       if (queued) return;
-
       queued = true;
-
       window.requestAnimationFrame(localize);
-
     }
 
-
-
     localize();
-
     new MutationObserver(queue).observe(document.body, {
-
       childList: true,
-
       subtree: true
-
     });
-
   }
-
-
 
   // -------------------------------------------------------------------
-
   function init() {
-
     try { setupProgressBar(); } catch (e) {}
-
     try { setupInternalHover(); } catch (e) {}
-
     try { setupDinkus(); } catch (e) {}
-
     try { setupAnchorLinks(); } catch (e) {}
-
     try { setupStandalonePages(); } catch (e) {}
-
     try { setupNastavaActiveState(); } catch (e) {}
-
     try { pruneSidebar(); } catch (e) {}
-
     try { setupOjsPanels(); } catch (e) {}
-
     try { setupProseCollapsibles(); } catch (e) {}
-
     try { setupChapterAI(); } catch (e) {}
-
     try { setupPojmovi(); } catch (e) {}
-
     try { setupChapterMeta(); } catch (e) {}
-
     try { setupWidgetMemory(); } catch (e) {}
-
     try { setupMobileNavbar(); } catch (e) {}
-
     try { setupNotFoundFallback(); } catch (e) {}
-
     try { setupSameOriginLinks(); } catch (e) {}
-
     try { setupAccessibleTables(); } catch (e) {}
-
     try { setupSearchLocalization(); } catch (e) {}
-
   }
-
-
 
   if (document.readyState === "loading") {
-
     document.addEventListener("DOMContentLoaded", init);
-
   } else {
-
     init();
-
   }
-
 })();
-
 </script>
-
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im1hbmlmZXN0ID0gRmlsZUF0dGFjaG1lbnQoXCJkYXRhL2FpLWV4cG9ydHMuanNvblwiKS5qc29uKClcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHBvZ2xhdmxqZSA9IG1hbmlmZXN0LmNoYXB0ZXJzLmxlbmd0aFxyXG4gID8gSW5wdXRzLnNlbGVjdChtYW5pZmVzdC5jaGFwdGVycywgeyBsYWJlbDogXCJQb2dsYXZsamVcIiwgZm9ybWF0OiBjID0+IGMudGl0bGUgfSlcclxuICA6IElucHV0cy5zZWxlY3QoW3t0aXRsZTogXCIoaXp2b3ogam/FoSBuaWplIGdlbmVyaXJhbilcIn1dLCB7IGxhYmVsOiBcIlBvZ2xhdmxqZVwiIH0pXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcclxuICBjb25zdCBjID0gcG9nbGF2bGplO1xyXG4gIGlmICghYyB8fCAhYy5zbHVnKSB7XHJcbiAgICByZXR1cm4gaHRsLmh0bWxgPHA+PGVtPkl6dm96IGpvxaEgbmlqZSBnZW5lcmlyYW4uIFBva3JlbmlcclxuICAgICAgPGNvZGU+UnNjcmlwdCBSL2J1aWxkLWFpLWV4cG9ydHMuUjwvY29kZT4gaWxpIDxjb2RlPnF1YXJ0byByZW5kZXI8L2NvZGU+LjwvZW0+PC9wPmA7XHJcbiAgfVxyXG4gIGNvbnN0IHVwdXRhID0gbWFuaWZlc3QucHJvbXB0U2hvcnQ7XHJcbiAgY29uc3QgcmVsID0gXCJhaS9cIiArIGMuc2x1ZyArIFwiLm1kXCI7XHJcbiAgY29uc3QgcSA9IGVuY29kZVVSSUNvbXBvbmVudChcclxuICAgIHVwdXRhICtcclxuICAgIFwiXFxuXFxuVGVrc3QgcG9nbGF2bGphIG5hbGF6aSBzZSBuYSBvdm9qIHBvdmV6bmljaSwgcHJvxI1pdGFqIGdhIGkgb2Rnb3ZhcmFqIG5hIHRlbWVsanUgbmplZ2E6IFwiICtcclxuICAgIGMubWRVcmwpO1xyXG4gIGNvbnN0IGtvcGlyYWogPSAodHh0LCBidG4pID0+IHtcclxuICAgIG5hdmlnYXRvci5jbGlwYm9hcmQud3JpdGVUZXh0KHR4dCk7XHJcbiAgICBjb25zdCBzdGFybyA9IGJ0bi50ZXh0Q29udGVudDtcclxuICAgIGJ0bi50ZXh0Q29udGVudCA9IFwia29waXJhbm8g4pyTXCI7XHJcbiAgICBzZXRUaW1lb3V0KCgpID0+IHsgYnRuLnRleHRDb250ZW50ID0gc3Rhcm87IH0sIDE0MDApO1xyXG4gIH07XHJcbiAgcmV0dXJuIGh0bC5odG1sYDxkaXYgY2xhc3M9XCJoZXJvLWN0YVwiPlxyXG4gICAgPGEgY2xhc3M9XCJidG4ta25qaWdhIHByaW1hcm5pXCIgaHJlZj1cIiR7cmVsfVwiIGRvd25sb2FkPuKGkyBwcmV1em1pIC5tZCDCtyB+JHtNYXRoLnJvdW5kKGMudG9rZW5zQXBwcm94LzEwMDApfWsgdG9rLjwvYT5cclxuICAgIDxhIGNsYXNzPVwiYnRuLWtuamlnYVwiIGhyZWY9XCJodHRwczovL2NsYXVkZS5haS9uZXc/cT0ke3F9XCIgdGFyZ2V0PVwiX2JsYW5rXCIgcmVsPVwibm9vcGVuZXJcIj7ihpcgQ2xhdWRlPC9hPlxyXG4gICAgPGEgY2xhc3M9XCJidG4ta25qaWdhXCIgaHJlZj1cImh0dHBzOi8vY2hhdGdwdC5jb20vP3E9JHtxfVwiIHRhcmdldD1cIl9ibGFua1wiIHJlbD1cIm5vb3BlbmVyXCI+4oaXIENoYXRHUFQ8L2E+XHJcbiAgICA8YnV0dG9uIGNsYXNzPVwiYnRuLWtuamlnYVwiIG9uY2xpY2s9JHsoZSkgPT4ga29waXJhaihjLm1kVXJsLCBlLmN1cnJlbnRUYXJnZXQpfT7ip4kga29waXJhaiBwb3Zlem5pY3U8L2J1dHRvbj5cclxuICA8L2Rpdj5gO1xyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcclxuICBjb25zdCByID0gW107XHJcbiAgZm9yIChjb25zdCBkIG9mIG1hbmlmZXN0LmRpb3MgfHwgW10pIHtcclxuICAgIHIucHVzaChodGwuaHRtbGA8YSBjbGFzcz1cImJ0bi1rbmppZ2FcIiBocmVmPVwiYWkvZGlvLSR7ZC5ufS5tZFwiIGRvd25sb2FkPuKGkyAke2QubGFiZWx9PC9hPmApO1xyXG4gIH1cclxuICByLnB1c2goaHRsLmh0bWxgPGEgY2xhc3M9XCJidG4ta25qaWdhIHByaW1hcm5pXCIgaHJlZj1cImxsbXMtZnVsbC50eHRcIiBkb3dubG9hZD7ihpMgY2lqZWxhIGtuamlnYTwvYT5gKTtcclxuICByLnB1c2goaHRsLmh0bWxgPGEgY2xhc3M9XCJidG4ta25qaWdhXCIgaHJlZj1cImxsbXMudHh0XCI+a2FydGEgaXp2b3phIChsbG1zLnR4dCk8L2E+YCk7XHJcbiAgcmV0dXJuIGh0bC5odG1sYDxkaXYgY2xhc3M9XCJoZXJvLWN0YVwiPiR7cn08L2Rpdj5gO1xyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcclxuICBjb25zdCBrb3BpcmFqID0gKHR4dCwgYnRuKSA9PiB7XHJcbiAgICBuYXZpZ2F0b3IuY2xpcGJvYXJkLndyaXRlVGV4dCh0eHQpO1xyXG4gICAgY29uc3Qgc3Rhcm8gPSBidG4udGV4dENvbnRlbnQ7XHJcbiAgICBidG4udGV4dENvbnRlbnQgPSBcImtvcGlyYW5vIOKck1wiO1xyXG4gICAgc2V0VGltZW91dCgoKSA9PiB7IGJ0bi50ZXh0Q29udGVudCA9IHN0YXJvOyB9LCAxNDAwKTtcclxuICB9O1xyXG4gIHJldHVybiBodGwuaHRtbGA8ZGl2PlxyXG4gICAgPGRpdiBjbGFzcz1cImhlcm8tY3RhXCI+PGJ1dHRvbiBjbGFzcz1cImJ0bi1rbmppZ2EgcHJpbWFybmlcIlxyXG4gICAgICBvbmNsaWNrPSR7KGUpID0+IGtvcGlyYWoobWFuaWZlc3QucHJvbXB0LCBlLmN1cnJlbnRUYXJnZXQpfT7ip4kga29waXJhaiB1cHV0dTwvYnV0dG9uPjwvZGl2PlxyXG4gICAgPHAgY2xhc3M9XCJwcm9tcHQtcHJldmlld1wiPiR7bWFuaWZlc3QucHJvbXB0U2hvcnR9PC9wPlxyXG4gICAgPGRldGFpbHMgY2xhc3M9XCJwcm9tcHQtZGlzY2xvc3VyZVwiPlxyXG4gICAgICA8c3VtbWFyeT5QcmlrYcW+aSBjaWplbHUgdXB1dHU8L3N1bW1hcnk+XHJcbiAgICAgIDxwcmU+JHttYW5pZmVzdC5wcm9tcHR9PC9wcmU+XHJcbiAgICA8L2RldGFpbHM+XHJcbiAgPC9kaXY+YDtcclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3BvZ2xhdmxqZScpIn1dfQ==
 </script>
@@ -2802,263 +1712,387 @@ window._ojs.selfContained = false;
 window._ojs.runtime.interpretFromScriptTags();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Kopirano");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Kopirano");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopirano");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopirano");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/lusiki\.github\.io\/statistika-knjiga\/");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -3066,161 +2100,185 @@ window._ojs.runtime.interpretFromScriptTags();
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -3270,6 +2328,16 @@ window._ojs.runtime.interpretFromScriptTags();
     <li class="nav-item">
     <a class="nav-link" href="./resursi.html">
 <p>Resursi</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./rjesenja.html">
+<p>Provjere rješenja</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./errata.html">
+<p>Ispravci</p>
 </a>
   </li>  
 </ul>

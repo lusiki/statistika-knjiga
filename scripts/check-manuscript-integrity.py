@@ -83,7 +83,9 @@ def check_structure(root: Path) -> None:
             failures.append(f"{name}: vinjeta missing or empty ({record['vinjeta']})")
         if record["divljina"] != "1":
             failures.append(f"{name}: callout-divljina count/content is {record['divljina']}")
-        if record["ai"] != "2":
+        # Current AGENTS.md fixed core requires one analytical error exercise.
+        # The former pair of AI boxes was retired in the October manuscript.
+        if record["ai"] != "1":
             failures.append(f"{name}: model/error callout count/content is {record['ai']}")
         if record["tasks"] != "4/4":
             failures.append(f"{name}: exercise tiers are {record['tasks']}")

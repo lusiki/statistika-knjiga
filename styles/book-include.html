@@ -197,7 +197,7 @@
   // Kratka mentorska uputa za duboke poveznice (mora ostati kratka jer
   // ide u URL). DRŽI U SKLADU s `promptShort` u R/build-ai-exports.R.
   var UPUTA =
-    "Ti si moj mentor za udžbenik „Osnove statistike za društvene znanosti”. " +
+    "Ti si moj mentor za udžbenik „Statistika 101: Intuitivni uvod u analizu podataka”. " +
     "Oslanjaj se isključivo na priloženi tekst, poglavlja imenuj riječima, a ne " +
     "brojem, i jasno reci „Toga nema u priloženom tekstu” kad odgovora nema; ne " +
     "izmišljaj brojke, izvore ni citate. Objašnjavaj korak po korak na hrvatskom, " +
@@ -516,6 +516,32 @@
       document.querySelectorAll(".widget-frame .widget-foot").forEach(function (foot) {
         if (!foot.hasAttribute("role")) foot.setAttribute("role", "status");
         if (!foot.hasAttribute("aria-live")) foot.setAttribute("aria-live", "polite");
+      });
+      // Sustav Zvono: zaglavlje widgeta s diskom, naslovom i oznakom.
+      document.querySelectorAll(".widget-frame[data-naslov]:not(.zv-widget-glava)").forEach(function (frame) {
+        var oznaka = frame.getAttribute("data-oznaka") || "";
+        var broj = (oznaka.match(/(\d+\.\d+)/) || [])[1] || "";
+        var glava = document.createElement("div");
+        glava.className = "widget-glava";
+        if (broj) {
+          var disk = document.createElement("span");
+          disk.className = "widget-glava__disk";
+          disk.setAttribute("aria-hidden", "true");
+          disk.textContent = broj;
+          glava.appendChild(disk);
+        }
+        var naslov = document.createElement("span");
+        naslov.className = "widget-glava__naslov";
+        naslov.textContent = frame.getAttribute("data-naslov");
+        glava.appendChild(naslov);
+        if (oznaka) {
+          var lbl = document.createElement("span");
+          lbl.className = "widget-glava__oznaka";
+          lbl.textContent = oznaka.toLowerCase();
+          glava.appendChild(lbl);
+        }
+        frame.insertBefore(glava, frame.firstChild);
+        frame.classList.add("zv-widget-glava");
       });
     }
     function queueScan() {
@@ -858,7 +884,7 @@
     function organize(mobile) {
       document.body.classList.toggle("navbar-mobile-organized", mobile);
       if (secondary) secondary.classList.toggle("mobile-nav-relocated", mobile);
-      if (brandTitle) brandTitle.textContent = mobile ? "Osnove statistike" : fullBrand;
+      if (brandTitle) brandTitle.textContent = fullBrand;  // „Statistika 101" stane i na telefon
 
       if (mobile) {
         if (!actions) {

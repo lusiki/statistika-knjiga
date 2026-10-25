@@ -593,6 +593,71 @@
         "snapshot_notice": {"type": "string", "minLength": 1},
         "passport": {"type": "string", "minLength": 1},
         "abandonment": {"$ref": "#/$defs/abandonment"},
+        "teaching_variants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "source",
+              "symbol",
+              "kind",
+              "rows",
+              "transformation",
+              "variables"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "symbol": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "population",
+                  "sample",
+                  "recoding",
+                  "separate_simulation",
+                  "reuse",
+                  "subset"
+                ]
+              },
+              "parent": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rows": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "transformation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "variables": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        },
         "source_symbol": {"type": "string", "minLength": 1},
         "consumer_markers": {
           "description": "Exact source fragments whose union identifies every final manuscript consumer when one source symbol is insufficient.",

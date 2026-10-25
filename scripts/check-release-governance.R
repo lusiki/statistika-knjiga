@@ -46,7 +46,7 @@ check(identical(governance$schema_version, 1L),
 check(identical(governance$current_state, "pre_release"),
       "Canonical release state must remain pre_release.")
 check(identical(governance$book$working_title,
-                "Osnove statistike za društvene znanosti"),
+                "Statistika 101"),
       "D14 working title has drifted.")
 check(identical(governance$book$title_state, "working_not_frozen"),
       "Title must remain explicitly unfrozen.")

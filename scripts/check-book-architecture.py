@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -132,6 +133,13 @@ def main() -> int:
 
     errors.extend(validate_schema(conventions, schema, schema))
     architecture = conventions.get("intellectual_architecture", {})
+
+    # Exercise the real validation path with an in-memory defect.
+    fixture = os.environ.get("BOOK_ARCHITECTURE_NEGATIVE_FIXTURE", "")
+    if fixture == "missing_claim_dimension":
+        architecture.get("claim_registry", {}).get("dimensions", []).pop(0)
+    elif fixture:
+        errors.append(f"Unknown book architecture negative fixture: {fixture}")
 
     expected_items = [
         "R08-DESIGN-policy",

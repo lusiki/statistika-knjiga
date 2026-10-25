@@ -13,7 +13,7 @@ reviser review a chapter.
 4. `critic-evidence` — citation integrity, source verification, and empirical
    support.
 5. `critic-style` — manuscript qualities the linter cannot judge.
-6. `critic-structure` — spine fit, vignette, definitions, figures, AI boxes, and
+6. `critic-structure` — spine fit, vignette, definitions, figures, error-finding box, and
    exercises.
 
 Each critic returns scores, strengths, concerns with

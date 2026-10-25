@@ -152,7 +152,11 @@ restore_hr_diacritics <- function(value) {
     "zakosena" = "zakošena", "zasto" = "zašto", "zavrsecima" = "završecima",
     "zavrsetak" = "završetak", "zivoga" = "živoga", "znacenja" = "značenja",
     "znaci" = "znači", "zupanija" = "županija", "zupanijama" = "županijama",
-    "zupanijska" = "županijska", "zupanijski" = "županijski", "zupanijskih" = "županijskih"
+    "zupanijska" = "županijska", "zupanijski" = "županijski", "zupanijskih" = "županijskih",
+    "istraživacki" = "istraživački", "istraživac" = "istraživač",
+    "citatelja" = "čitatelja", "prosjeciti" = "prosječiti",
+    "okruzenje" = "okruženje", "ograniceni" = "ograničeni",
+    "cista" = "čista", "zupanije" = "županije"
   )
   restore_piece <- function(text) {
     for (source in names(roots)) {
@@ -313,7 +317,7 @@ file_summary_rows <- function(package, from_appendix = FALSE) {
     if (!length(paths)) return("| nema datoteke | nije primjenjivo |")
     return(vapply(paths, function(path) {
       paste0("| ", file_display(path, package$promoted, from_appendix),
-             " | nije materijalizirana javna ruta |")
+             " | datoteka nije dostupna za javno preuzimanje |")
     }, character(1)))
   }
   vapply(records, function(record) {
@@ -347,14 +351,14 @@ file_record_blocks <- function(package, from_appendix = FALSE) {
   records <- package$file_records
   if (is.null(records) || !length(records)) {
     paths <- unlist(package$files, use.names = FALSE)
-    if (!length(paths)) return("Paket nema materijaliziranu datoteku.")
+    if (!length(paths)) return("Datoteka ovoga skupa nije priložena knjizi.")
     result <- character()
     for (path in paths) {
       result <- c(
         result,
         paste0("#### ", code(path)),
         "",
-        "Datoteka nije materijalizirana kao javna ruta.",
+        "Datoteka nije dostupna za javno preuzimanje.",
         ""
       )
     }
@@ -584,9 +588,9 @@ full_package <- function(package) {
         paste0("| Jedinica | ", escape_cell(package$unit), " |"),
         paste0("| Pitanje | ", escape_cell(package$question), " |"),
         paste0("| Uloga | ", escape_cell(package$role), " |"),
-        paste0("| Potrošači | ", escape_cell(package$consumers), " |"),
-        paste0("| Traka | ", code(package$lane), " |"),
-        paste0("| Razred osvježavanja | ", code(package$refresh_class), " |"),
+        paste0("| Uporaba u knjizi | ", escape_cell(package$consumers), " |"),
+        paste0("| Način pristupa | ", code(package$lane), " |"),
+        paste0("| Osvježavanje | ", code(package$refresh_class), " |"),
         paste0("| Inačica | ", escape_cell(package$version), " |")
       )
     ),
@@ -666,9 +670,10 @@ public_lines <- c(
   "",
   "<!-- Generira scripts/build-appendix-c-views.R iz data/katalog.yml. -->",
   "",
-  "Ovo je sažeti javni prikaz kanonskoga kataloga podataka. Svaki zapis vodi",
-  "do punoga zapisa u Dodatku C; status promocije, pristupna traka, datoteke i",
-  "granice tvrdnji dolaze iz `data/katalog.yml`, a ne iz zasebno održavanoga popisa.",
+  "Ovdje su sažeti podaci o skupovima koji se koriste ili razmatraju za knjigu.",
+  "Svaki zapis vodi do podrobnijega opisa u Dodatku C. Oba se prikaza grade iz",
+  "istog kataloga `data/katalog.yml`, koji bilježi odabir skupa za uporabu,",
+  "način pristupa, datoteke i granice zaključivanja.",
   "",
   "## Stanje kataloga {#sec-podaci-stanje}",
   "",
@@ -682,7 +687,7 @@ public_lines <- c(
   ),
   "",
   table_lines(
-    c("Skup", "Traka", "Status", "Pitanje"),
+    c("Skup", "Način pristupa", "Status", "Pitanje"),
     overview_rows,
     ": Sažeti popis paketa iz kanonskoga kataloga. {#tbl-podaci-paketi}"
   ),
@@ -713,21 +718,21 @@ appendix_lines <- c(
   "",
   "<!-- Generira scripts/build-appendix-c-views.R iz data/katalog.yml. -->",
   "",
-  "Dodatak C je čitateljski prikaz kanonskoga kataloga podataka. Paket bez",
-  "provjerljivoga podrijetla, licence, pristupne trake i granice tvrdnje ne",
-  "postaje obvezni podatkovni put. Strojno čitljiv izvor ostaje isključivo",
-  "`data/katalog.yml`; ovaj se dodatak i stranica Podaci regeneriraju zajedno.",
+  "Katalog navodi podrijetlo skupova, uvjete njihove uporabe, način pristupa",
+  "i zaključke koje mogu poduprijeti. Skup se može koristiti u obveznom",
+  "zadatku tek kada su ti podaci provjereni. Ovaj dodatak i stranica Podaci",
+  "nastaju zajedno iz zapisa `data/katalog.yml`.",
   "",
   "## Kako čitati katalog {#sec-c-kako-citati}",
   "",
   paste(
-    "Traka `bundled` znači da se deklarirane datoteke smiju isporučiti uz",
-    "zabilježene uvjete. `portal-mediated` vodi čitatelja službenomu izvoru, a",
-    "`external-only` ostavlja paket izvan repozitorija. Ni jedna traka sama po",
-    "sebi nije promocija."
+    "Oznaka `bundled` znači da se navedene datoteke smiju priložiti knjizi pod",
+    "zabilježenim uvjetima. Oznaka `portal-mediated` upućuje na službeni izvor, a",
+    "`external-only` znači da datoteke nisu priložene knjizi. Način pristupa sam",
+    "ne određuje je li skup odabran za obvezne zadatke."
   ),
   "",
-  "Za javnu rutu i dokaz regeneracije služi",
+  "Zapis za provjeru podrijetla i ponovne izrade ovoga kataloga nalazi se u datoteci",
   "[`config/appendix-c-data-route.json`](../config/appendix-c-data-route.json).",
   "",
   "## Provjerljivi redci generiranih skupova {#sec-c-provjera}",
@@ -741,8 +746,9 @@ appendix_lines <- c(
   "## Zapisi paketa {#sec-c-paketi}",
   "",
   paste(
-    "Svaki zapis u nastavku čuva isto pitanje, jedinicu, traku, status,",
-    "datoteke i granice tvrdnje koje katalog vodi za taj paket."
+    "Uz svaki skup navodimo istraživačko pitanje, jedinicu, način pristupa,",
+    "status uporabe, datoteke i granice zaključivanja.",
+    "Podaci se preuzimaju iz zajedničkog kataloga."
   ),
   ""
 )

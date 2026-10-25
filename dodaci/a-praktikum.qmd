@@ -64,6 +64,12 @@ predati zajedno s rezultatima. Gotovo svi rade na simuliranoj anketi
 ima 300 ispitanika i pet varijabli, a proizveden je kodom uz fiksno sjeme, pa
 nije nalaz o stvarnoj populaciji.
 
+Male vektore i tablice u nastavku zadajemo ručno radi čitanja naredbi.
+Nisu dodatni ispitanici iz ankete. Kada primjer koristi `anketa_mreze`,
+obrađuje istih 300 generiranih zapisa. Filtriranje izdvaja dio njih,
+prekodiranje mijenja vrijednost ili oznaku, a sažimanje pretvara više
+osobnih redaka u jedan skupni rezultat.
+
 Preporučeni način čitanja je uz otvoren R. Kod nemojte samo gledati nego ga
 prepišite i pokrenite, a zatim promijenite neki broj ili ime stupca i
 pogledajte što se dogodi. Razlika između čitanja i pisanja koda upravo je u
@@ -208,7 +214,7 @@ zaokružuje na zadani broj decimala, a `log()` bez drugog argumenta računa
 prirodni logaritam. Logaritam se u knjizi pojavljuje u poglavlju o sažimanju
 podataka, gdje raspodjelu s dugim desnim repom pretvara u simetričniju.
 
-Prava snaga počinje kada rezultat pohranimo i upotrijebimo poslije. Pohranjena
+Rezultat računa možemo pohraniti i upotrijebiti poslije. Pohranjena
 vrijednost naziva se objektom, a stvara se operatorom pridruživanja `<-`, koji
 se čita kao „spremi desnu stranu pod imenom s lijeve strane".
 
@@ -237,8 +243,7 @@ jer objekt tada zaklanja funkciju i proizvodi poruke o greškama koje je teško
 razumjeti. Rezervirane riječi jezika, među kojima su `TRUE`, `FALSE`, `NULL`,
 `NA`, `if`, `else` i `function`, uopće se ne mogu upotrijebiti kao imena.
 
-Jedna osobina zaslužuje oprez. Nova dodjela postojećem imenu briše staru
-vrijednost bez ikakva upozorenja.
+Nova dodjela postojećem imenu zamjenjuje staru vrijednost bez upozorenja.
 
 ```{r}
 temperatura <- 22
@@ -267,8 +272,7 @@ skupine
 
 Tekstualne vrijednosti pišu se u navodnicima, brojčane ne.
 
-Najvažnije svojstvo vektora jest to što se operacija automatski primjenjuje na
-svaki element. To se naziva vektorizacijom.
+Operacija nad vektorom automatski se primjenjuje na svaki njegov element. To se naziva vektorizacijom.
 
 ```{r}
 minute / 60
@@ -393,8 +397,8 @@ Stvarni podaci gotovo nikada nisu potpuni. Ispitanik preskoči pitanje, uređaj 
 zabilježi mjerenje, datoteka dođe s praznom ćelijom. R za to ima posebnu oznaku
 `NA`, koja se ponaša drukčije od svega ostaloga i zaslužuje pažnju od prvog dana.
 
-Pravilo je jednostavno i nemilosrdno, jer svaka operacija koja uključuje `NA`
-vraća `NA`.
+Uobičajeno zbrajanje i računanje sredine s vrijednošću `NA` vraćaju `NA`,
+jer za traženi rezultat nedostaje jedan podatak.
 
 ```{r}
 ocjene <- c(4, 5, NA, 3, 4)
@@ -502,7 +506,7 @@ anketa$minute
 mean(anketa$minute)
 ```
 
-Time dolazimo do jednog od najvažnijih obrazaca u cijelom pristupu. Operator
+ Operator
 `|>`, koji se naziva cjevovodom, uzima rezultat lijeve strane i predaje ga kao
 prvi argument funkciji s desne strane. Čita se kao „pa onda".
 
@@ -591,10 +595,10 @@ protumačila stupce. Spremanje ide obrnutim putem funkcijom `write_csv()`, pri
 write_csv(sazetak, "outputs/sazetak.csv")
 ```
 
-Skup na kojem radi ostatak ovog dodatka dolazi iz iste kanonske datoteke koju
-ste učitali u [odjeljku o učitavanju](#sec-a-ucitavanje). Skripta koja ga
-proizvodi, kataloški zapis i datoteka usklađeni su provjerom sažetka, pa se
-objavljeni primjer ne može tiho odvojiti od svoje dokumentirane inačice.
+Ostatak dodatka koristi istu datoteku koju ste učitali u [odjeljku o
+učitavanju](#sec-a-ucitavanje). Provjera sažetka povezuje objavljenu
+datoteku sa skriptom koja ju je proizvela i kataloškim zapisom te omogućuje
+prepoznati odstupanje od dokumentirane inačice.
 
 Kada dobijete nove podatke, prvo ih pogledajte. Nikada ne počinjite analizu prije
 nego što znate koliko redaka i stupaca imate, kojeg su tipa i kako izgledaju
@@ -626,7 +630,7 @@ anketa_mreze |>
 Funkcija `count()` prebrojava retke po kategorijama i vraća tibble. Argument
 `sort = TRUE` poreda rezultat od najčešće kategorije prema najrjeđoj.
 
-Već iz ovog ispisa vidi se trag koji poglavlje o sažimanju podataka razrađuje.
+
 Prosjek dnevnih minuta veći je od medijana, što je uskladivo s desnom
 asimetrijom, ali samo po sebi ne dokazuje dugi rep ni njegov uzrok. Oblik zato
 provjeravamo grafom i pregledom krajnjih vrijednosti.
@@ -651,7 +655,8 @@ u kategorijalnom stupcu, poput iste kategorije napisane na tri načina.
 
 ## Glagoli obrade podataka
 
-Obrada podataka u dpljru svodi se na nekoliko glagola koji se slažu cjevovodom.
+Podatke u paketu dplyr obrađujemo s pomoću nekoliko glagola koje povezujemo
+cjevovodom.
 Svaki uzima tablicu i vraća tablicu, zbog čega se mogu nizati bez ograničenja.
 
 Glagol `filter()` bira retke koji zadovoljavaju uvjet.
@@ -773,7 +778,7 @@ obzira na smjer. To je namjerno, jer se za njih ne zna kamo pripadaju.
 
 ## Grupiranje i sažimanje
 
-Najvažniji obrazac u cijeloj obradi podataka spaja dva glagola. Funkcija
+Za sažimanje po skupinama povezujemo dvije funkcije. Funkcija
 `group_by()` dijeli tablicu u skupine, a `summarise()` za svaku skupinu računa
 sažetak.
 
@@ -994,8 +999,8 @@ anketa_mreze |>
 ```
 
 Ovaj poredak nastaje iz podataka, prema medijanu minuta u svakoj skupini, i
-najčešće se koristi neposredno prije crtanja, jer graf s poredanim kategorijama
-gotovo uvijek čita se lakše od grafa s abecednim.
+najčešće se koristi neposredno prije crtanja, jer graf s poredanim kategorijama gotovo se uvijek čita lakše od grafa s
+abecednim.
 
 Kada kategorija ima previše, rijetke se mogu spojiti u zajedničku.
 
@@ -1019,7 +1024,13 @@ sadrže razmake i zagrade, kategorije su upisane na nekoliko načina, a brojčan
 stupci sadrže riječi. Ovaj odjeljak prolazi kroz tipične probleme redom kojim se
 obično pojavljuju.
 
-Prvi je problem imena stupaca. Ime s razmakom ili zagradom mora se u kodu pisati
+Za sljedeća četiri retka namjerno smo unijeli nekoliko tipičnih nepravilnosti.
+To je zasebna ilustracija, bez veze s izvornim zapisima ankete. Primjerice,
+redak 2 prije čišćenja nosi tekst `ne gledam`, a poslije broj 0. Redak 4
+ima prazan odgovor i ostaje nedostajući. Prosjek triju poznatih vremena
+zato bi bio $(90+0+45)/3 = 45$ minuta, uz jedan nedostajući odgovor.
+
+Prvo uređujemo imena stupaca. Ime s razmakom ili zagradom mora se u kodu pisati
 unutar obrnutih navodnika, što je nezgodno, pa se imena obično odmah srede.
 
 ```{r}
@@ -1239,7 +1250,7 @@ kategorije po brojčanoj veličini umjesto po abecedi. I kategorijalna varijabla
 stavljena je na okomitu os, čime se dobiva vodoravni prikaz, koji duga imena
 kategorija podnosi bez zakretanja teksta.
 
-Kada kategorija ima dvije, druga ulazi kroz ispunu.
+Kada prikazujemo dvije kategorijalne varijable, drugu pridružujemo ispuni.
 
 ```{r}
 #| fig-alt: "Grupirani stupčasti prikaz razine povjerenja po dobnim skupinama."
@@ -1271,8 +1282,8 @@ ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
   labs(x = NULL, y = "Minute dnevno")
 ```
 
-Razlika prema histogramu nije kozmetička. Histogram čuva oblik cijele raspodjele
-i ne računa ništa prije crtanja. Kutijasti dijagram oblik unutar kutije više ne
+Razlika prema histogramu nije kozmetička. Histogram prebrojava opažanja u razredima i tako pokazuje oblik raspodjele
+uz odabranu širinu razreda. Kutijasti dijagram oblik unutar kutije više ne
 pokazuje, ali skupine uspoređuje bez napora. Svaki prikaz nešto čuva i nešto
 odbacuje, što je argument koji poglavlje o vizualizaciji razrađuje.
 
@@ -1288,8 +1299,7 @@ ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
   labs(x = NULL, y = "Minute dnevno")
 ```
 
-Funkcija `geom_jitter()` točkama dodaje mali slučajni pomak, jer bi inače sve
-opažanja iste skupine pala na isti okomiti pravac. Argument `width` zadaje
+Funkcija `geom_jitter()` točkama dodaje mali slučajni pomak, jer bi inače sva opažanja iste skupine pala na isti okomiti pravac. Argument `width` zadaje
 koliko se smije pomaknuti, a vrijednost veća od polovine razmaka među
 kategorijama počinje miješati skupine. Argument `outlier.shape = NA` uklanja
 točke koje kutija sama crta, jer bi se inače udvostručile. Redoslijed slojeva je
@@ -1308,7 +1318,7 @@ ggplot(anketa_mreze, aes(x = dobna_skupina, y = minute_dnevno)) +
 
 ### Dvije brojčane varijable
 
-Raspršeni dijagram jedini je prikaz koji ne mora ništa izračunati.
+Raspršeni dijagram prikazuje parove vrijednosti bez prethodnog sažimanja.
 
 ```{r}
 #| fig-alt: "Raspršeni dijagram dobi i dnevnih minuta s prozirnim oznakama."
@@ -1345,8 +1355,8 @@ regresiji pokazuje kako nastaje.
 
 ### Pridruživanje unutar i izvan aes()
 
-Ovo je mjesto na kojem se griješi najčešće i na kojem poruka o grešci najmanje
-pomaže. Pravilo ima jednu rečenicu. Unutar `aes()` ide ime varijable, izvan
+Pridruživanje varijable treba razlikovati od zadavanja jednake vrijednosti
+za sve oznake. Unutar `aes()` ide ime varijable, izvan
 `aes()` ide zadana vrijednost.
 
 ```{r}
@@ -1481,8 +1491,8 @@ anketa_mreze |>
   labs(x = NULL, y = "Prosječne minute dnevno")
 ```
 
-Jedan par argumenata zaslužuje posebnu pozornost, jer izgledaju zamjenjivo, a
-nisu. Argument `limits` unutar ljestvice odbacuje opažanja izvan raspona prije
+Raspon osi možemo ograničiti na dva načina, s različitim posljedicama za
+izračun. Argument `limits` unutar ljestvice odbacuje opažanja izvan raspona prije
 crtanja, pa se s njima gubi i sve što se iz njih računa, uključujući pravce i
 prosjeke. Funkcija `coord_cartesian()` mijenja samo prikazani izrez i sva
 opažanja zadržava u izračunu.
@@ -1661,7 +1671,7 @@ nrow(anketa_mreze)
 round(mean(anketa_mreze$minute_dnevno), 1)
 ```
 
-Ovo je više od udobnosti. Broj prepisan rukom može se razići s podacima čim se
+ Broj prepisan rukom može se razići s podacima čim se
 podaci promijene, a rečenica i dalje izgleda uredno. Broj koji se ponovno
 izračuna iz istoga objekta smanjuje rizik takve prijepisne pogreške, ali ne
 jamči da su izvor, objekt ili postupak ispravni. Poglavlja ove knjige zato vežu
@@ -1686,10 +1696,8 @@ sjeme, u reprodukcijski zapis pripadaju i verzije paketa te izvor podataka.
 
 ## Greške i dijagnostika
 
-Greške su uobičajen dio rada s kodom. Razlika između početnika i iskusnog
-korisnika nije u tome koliko ih rade nego u tome koliko brzo ih prepoznaju.
-Prvi i najvažniji korak jest pročitati poruku, jer je gotovo uvijek
-informativna.
+Greške su uobičajen dio rada s kodom. Poruka o grešci obično upućuje na
+njezin uzrok, pa najprije pročitajte što javlja.
 
 Poruka `object 'x' not found` znači da objekt s tim imenom ne postoji. Uzrok je
 najčešće tipfeler u imenu, nepokrenut raniji redak ili pokretanje koda izvan
@@ -1741,9 +1749,38 @@ korisniji od opisa.
 vignette("dplyr")
 ```
 
-Kada pomoć ne pomogne, potraga na internetu gotovo uvijek uspije, uz jedan
-savjet. Pretrazi dodajte riječ `tidyverse` ili ime paketa, jer ćete inače
+Ako objašnjenje nije dovoljno, potražite istu poruku ili primjer na
+internetu. Pretrazi dodajte riječ `tidyverse` ili ime paketa, jer ćete inače
 dobiti odgovore u drukčijoj sintaksi od one koju ovdje koristimo.
+
+## Neobvezna dopuna o složenim uzorcima {#sec-a-slozeni-uzorci}
+
+Ova dopuna proširuje odjeljak o nacrtu uzorka iz poglavlja o uzorkovanju.
+Za obvezne računske zadatke u tom poglavlju dovoljni su ondje prikazani
+jednostavni uzorci i mala tablica poznatih težina.
+
+Težine se mogu prilagoditi neodazivu i zatim **kalibrirati**. Kalibracijom
+usklađujemo ponderirane zbrojeve pomoćnih obilježja, primjerice dobnih
+skupina, s poznatim populacijskim zbrojevima. To može pomoći ako ta obilježja
+objašnjavaju relevantne razlike. Ne uklanja neizmjerene razlike između
+odazvanih i neodazvanih, nepotpun okvir ili loše pitanje.
+
+Pri **grupnom uzorkovanju** najprije biramo kućanstva, škole ili naselja, a
+zatim jedinice unutar njih. Time smanjujemo trošak terenskog rada. Ako su
+osobe iste skupine sličnije, stotinu ljudi iz nekoliko skupina donosi manje
+neovisne informacije nego stotinu raspršenih po populaciji. Jednostavna
+formula s korijenom iz $n$ tada podcjenjuje nesigurnost.
+
+**Učinak nacrta** omjer je varijance procjene prema stvarnom nacrtu i
+varijance za jednostavni slučajni uzorak iste veličine. **Efektivna veličina
+uzorka** izražava tu preciznost kao veličinu odgovarajućeg jednostavnog
+slučajnog uzorka. Grupiranje i vrlo različite težine mogu je smanjiti, a dobro
+raslojavanje povećati. Učinak se odnosi na određenu procjenu i može biti
+različit za više pokazatelja iste ankete.
+
+Za složeni nacrt račun procjene i nesigurnosti mora uključiti težine, skupine
+i slojeve. Pri čitanju izvještaja tražimo opis tog računa. Jednostavne formule
+iz ovog poglavlja ne prenosimo automatski na takav uzorak.
 
 ## Postupci iz poglavlja
 
@@ -1784,9 +1821,9 @@ izvori_po_obrazovanju |>
   mutate(razlika = udio - udio_zbirno)
 ```
 
-Ovaj je skup zakonita knjižna zamjena za vanjski primjer. Putanja ostaje
-ponovljiva iz distribuiranih datoteka, a izračun ne tvrdi ništa o stvarnoj
-populaciji.
+Ovaj skup smijemo priložiti knjizi i koristiti umjesto vanjskog primjera.
+Analizu možemo ponoviti iz priloženih datoteka, a rezultat ne podupire
+tvrdnje o stvarnoj populaciji.
 
 ### Provjera instrumenta iz poglavlja 2
 
@@ -1818,7 +1855,10 @@ stavka_ukupno <- function(podaci, stavke) {
 round(stavka_ukupno(odgovori, stavke), 2)
 ```
 
-Negativna vrijednost kod četvrte tvrdnje znak je niječne formulacije. Ljestvica
+Ovdje koristimo samo prvih šest ručno sastavljenih odgovora iz poglavlja 2,
+pa koeficijenti nisu isti kao u njegovu računu svih 12 osoba.
+Iz sadržaja četvrte tvrdnje znamo da je niječna. Negativna korelacija sama
+ne bi opravdala okretanje odgovora. Ljestvica
 se okreće tako da se odgovor oduzme od najveće moguće vrijednosti uvećane za
 jedan, dakle od šest za ljestvicu od 1 do 5.
 
@@ -1910,8 +1950,8 @@ anketa_mreze |>
   summarise(prosjek = round(mean(minute_dnevno), 1), .groups = "drop")
 ```
 
-Histogram i raspršeni prikaz ne računaju ništa od toga, jer crtaju pojedinačna
-opažanja ili njihove razrede. Usporedba pokazuje koliko se informacije gubi na
+Histogram računa broj opažanja u razredima, a raspršeni prikaz čuva
+pojedinačne parove vrijednosti. Nijedan ne zamjenjuje skupinu njezinom sredinom. Usporedba pokazuje koliko se informacije gubi na
 putu od svih opažanja do jednog stupca po skupini.
 
 Obvezna vježba vizualizacije i povezanosti ostaje na distribuiranoj anketi.
@@ -2047,10 +2087,12 @@ podataka](../data/parlament_tekst/PUTOVNICA.md) i spremaju u mapu
 `data/_kandidat/p3-text`. Time se ne pretvara vanjski skup u distribuirani
 knjižni podatak.
 
-Kanonski graditelj zatim bira samo zapise na hrvatskom, izvodi dokumentirani
-razlaz na skup za učenje i provjeru te zapisuje tablicu s pitanjem „Kako se ton
-parlamentarnih iskaza razlikuje s obzirom na stranačku pripadnost?”. Iz R-a ga
-možete pozvati ovako; za ovaj dodatni reprodukcijski korak potreban je i Python.
+Skripta za pripremu zatim bira samo zapise na hrvatskom, provodi opisano
+razdvajanje na skup za učenje i provjeru te zapisuje tablicu za usporedbu
+oznaka tona.
+Ta tablica nema stranačku pripadnost, pa iz nje ne možemo izračunati razlike
+među strankama. Tu skriptu možete pokrenuti iz R-a sljedećim pozivom.
+Za ovaj dodatni reprodukcijski korak potreban je i Python.
 
 ```{r}
 #| eval: false
@@ -2066,12 +2108,13 @@ status <- system2(
 stopifnot(status == 0)
 ```
 
-Graditelj provjerava nazive i sažetke sirovih datoteka te očekuje 2698 redaka
+Skripta za pripremu provjerava nazive i sažetke sirovih datoteka te očekuje 2698 redaka
 i SHA-256 izlaza
 `0f5b4221b583c54fa6996efb33e07541896a83219541029f4c677b56fae5f0ef`.
-[Samostalna ruta](#sec-a-rute-06-16) ima i mogućnost `--text-candidate`. U
-privremenu datoteku pokreće isti graditelj, uspoređuje izlaz i briše ga nakon
-provjere. Tako se provjerava transformacija bez prepisivanja distribuirane
+[Samostalna ruta](#sec-a-rute-06-16) ima i mogućnost `--text-candidate`.
+Skriptu za pripremu pokreće tako da ona zapiše izlaz u privremenu datoteku,
+zatim uspoređuje izlaz i briše datoteku nakon provjere.
+Tako se provjerava transformacija bez prepisivanja distribuirane
 tablice.
 
 ## Kamo dalje
@@ -2080,7 +2123,7 @@ Ovdje prikazano dovoljno je za opisnu analizu, čišćenje podataka i pripremu
 tablica koje knjiga koristi. Za sve dalje najkorisniji je *R for Data Science*,
 koji je slobodno dostupan i pisan u istom pristupu [@wickham2023].
 
-Tri navike vrijede više od svakog dodatnog paketa. Podatke pogledajte prije nego
+Pri samostalnom radu oslonite se na tri navike. Podatke pogledajte prije nego
 što ih obradite. Cjevovod gradite korak po korak i provjeravajte rezultat nakon
 svakog koraka. Analizu na kraju pokrenite iz čiste sesije. Time se uklanja
 dio problema s kojima se početnici susreću, a rad ostaje ponovljiv. Ponovljivo

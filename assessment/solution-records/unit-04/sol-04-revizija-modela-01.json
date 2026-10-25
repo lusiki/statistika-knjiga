@@ -8,7 +8,7 @@
     "anchor": "ex-04-revizija-modela-01"
   },
   "task_class": "revizija_modela",
-  "prompt_fingerprint": "sha256:33fe7343676657a914fdf0c8a3247a8b7a8f5ca951df8d3c7a33c5b8455c5067",
+  "prompt_fingerprint": "sha256:0686f4e01dc7c033c26b7f36b8bae50e088f563500bf0ab722df0affa5e0a078",
   "answer_components": {
     "planted_error": {
       "applicable": true,
@@ -21,7 +21,7 @@
       "applicable": true,
       "not_applicable_reason": null,
       "procedure": "Potvrditi modelov zbroj nad proizvedenom tablicom, zatim usporediti ukupne retke s različitim mjesečnim ključevima, provjeriti jedinstvenost godišnjega ključa i ponoviti spoj na paru godina plus platforma.",
-      "expected_evidence": "Pogrešna tablica doista zbraja 5.959.081 objava, ali 3.571 redak nosi samo 438 različitih mjesečnih ključeva; ispravan spoj zadržava 438 redaka i 710.307 objava."
+      "expected_evidence": "Točno je da je svih 438 početnih mjesečnih ključeva ostalo prisutno i da se novi zbroj može dobiti zbrajanjem dobivenih redaka. No 3.571 redak uz samo 438 ključeva otkriva ponavljanje jedinica. Godina se u godišnjoj tablici ponavlja po platformama. Potpuni ključ povezivanja jest godina i platforma, a nakon ispravnog spoja ostaju 438 redaka, 438 različitih mjesečnih ključeva i 710.307 objava. Godišnje ukupne brojnosti ne zbrajamo preko mjesečnih ponavljanja.\n\nJedna moguća zamjena glasi ovako.\n\nPrije sažimanja treba ponoviti spoj po godini i platformi te potvrditi jedinstvenost mjesečne jedinice i zbroj od 710.307 objava. Točan zbroj umnoženih redaka nije potvrda valjanog spajanja.\n\nPrihvatljive su i druge formulacije koje zadržavaju poduprte dijelove i obrazlažu istu granicu zaključka."
     },
     "plausible_non_answers": {
       "applicable": true,
@@ -73,6 +73,11 @@
           "component_id": "close-arithmetic-boundary",
           "required_claim": "Točna aritmetika odgovara samo na pitanje o tablici koja joj je predana i ne može sama potvrditi da redak predstavlja ispravnu jedinicu.",
           "required_evidence": "Istodobna točnost zbroja 5.959.081 i nevaljanost many-to-many strukture."
+        },
+        {
+          "component_id": "usable-repair-2026",
+          "required_claim": "Prije sažimanja treba ponoviti spoj po godini i platformi te potvrditi jedinstvenost mjesečne jedinice i zbroj od 710.307 objava. Točan zbroj umnoženih redaka nije potvrda valjanog spajanja.",
+          "required_evidence": "Točno je da je svih 438 početnih mjesečnih ključeva ostalo prisutno i da se novi zbroj može dobiti zbrajanjem dobivenih redaka. No 3.571 redak uz samo 438 ključeva otkriva ponavljanje jedinica. Godina se u godišnjoj tablici ponavlja po platformama. Potpuni ključ povezivanja jest godina i platforma, a nakon ispravnog spoja ostaju 438 redaka, 438 različitih mjesečnih ključeva i 710.307 objava. Godišnje ukupne brojnosti ne zbrajamo preko mjesečnih ponavljanja."
         }
       ]
     },

@@ -132,7 +132,7 @@ def main() -> int:
             copy_export_sources(metadata_root)
             quarto_path = metadata_root / "_quarto.yml"
             quarto = quarto_path.read_text(encoding="utf-8")
-            original = '  title: "Osnove statistike za društvene znanosti"'
+            original = '  title: "Statistika 101"'
             drifted = '  title: "Namjerni metapodatkovni nesklad"'
             if quarto.count(original) != 1:
                 raise RuntimeError("metadata fixture could not find the canonical title")

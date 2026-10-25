@@ -1,20 +1,28 @@
-# fonts/print/
+# Pisma za tiskani PDF
 
-Statičke instance pisama za PDF (xelatex ne voli varijabilne fontove).
+Ove statičke instance dio su izvora knjige. `tex/theme.tex` i `tex/korica.tex`
+učitavaju ih po nazivu datoteke iz ovoga direktorija, a `R/theme_book.R` ih
+registrira za grafove. PDF zato ima ista pisma na svakom stroju i ne može
+neopaženo pasti na Latin Modern.
 
-Prazno je dok tipografija nije odabrana. Do tada `tex/theme.tex` ne poziva
-`\setmainfont`, pa se PDF gradi s Latin Modernom na svakom stroju bez ijednog
-preuzimanja.
+Sustav Zvono koristi tri obitelji:
 
-Kad pisma budu odabrana:
+| Obitelj | Uloga | Datoteke | Izvor |
+|---|---|---|---|
+| Literata | proza | `Literata-*.ttf` | <https://github.com/google/fonts/tree/main/ofl/literata> |
+| Jost | displej, naslovi, oznake, potpisi, korica | `Jost-Regular.ttf`, `Jost-Medium.ttf`, `Jost-Italic.ttf` | <https://github.com/google/fonts/tree/main/ofl/jost> |
+| JetBrains Mono | kod i brojevi | `JetBrainsMono-*.ttf` | <https://github.com/google/fonts/tree/main/ofl/jetbrainsmono> |
 
-1. Stavite statičke `.ttf` instance ovamo (Regular, Italic, SemiBold/Bold,
-   BoldItalic za serif; Regular, Italic, Bold za sans; Regular, Bold za mono).
-2. Otključajte blok `\setmainfont` / `\setsansfont` / `\setmonofont` u
-   `tex/theme.tex` i upišite imena datoteka.
-3. Uskladite `design-tokens.yml` i `styles/_tokens.scss`, pa pokrenite
-   `Rscript scripts/check-tokens.R`.
+Sve su obitelji dostupne pod licencijom SIL Open Font License 1.1. Tekst licence
+za svaku obitelj stoji uz instance (`OFL-*.txt`). Izvorni varijabilni fontovi
+pretvoreni su pomoću `fontTools.varLib.instancer`. Literata je instancirana na
+`opsz=11`, a rezovi prema nazivima datoteka na `wght=400` ili `700`. Jost je
+instanciran iz `Jost[wght].ttf` na `wght=400` (Regular) i `wght=500` (Medium) te
+iz `Jost-Italic[wght].ttf` na `wght=400` (Italic); sve tri instance sadrže
+č ć đ š ž i hrvatske navodnike. JetBrains Mono ima samo os `wght`.
 
-`.gitignore` prati **samo** ovaj poddirektorij (`fonts/*` je ignoriran,
-`!fonts/print/` je iznimka), jer su ove datoteke ulaz u build, a ne
-regenerabilan otpad.
+Newsreader i Public Sans pripadali su prethodnom identitetu („prozračni
+uredništveni”). Tiskarski sloj i R tema više ih ne učitavaju; datoteke su
+zadržane samo radi usporedbe sa starijim izdanjima i mogu se ukloniti.
+
+Prije pakiranja PDF-a provjerite da su sva tri registra ugrađena u PDF.

@@ -605,7 +605,7 @@ strip_chapter <- function(lines, bib_map, xref_map) {
   fnote_def_re <- "^\\[\\^([^\\]]+)\\]:\\s*(.*)$"
 
   label_for <- function(attrs) {
-    if (str_detect(attrs, "callout-vinjeta"))  return("**Vinjeta.**")
+    if (str_detect(attrs, "callout-vinjeta"))  return("")
     if (str_detect(attrs, "callout-divljina")) return("**Statistika u divljini.**")
     if (str_detect(attrs, "callout-model"))    return("**Pitajte model.**")
     if (str_detect(attrs, "callout-greska"))   return("**Nađite grešku.**")

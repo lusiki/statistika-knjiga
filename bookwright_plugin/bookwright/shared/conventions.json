@@ -1,5 +1,5 @@
 {
-  "note": "Strukturne konvencije knjige. Brojčani pojasevi početne su pretpostavke, a ne mjerenja. Nakon što četiri ili pet poglavlja dobije stvarnu prozu, pokreni book-continuity scan i rhythm, izmjeri raspodjelu i ratificiraj nove pojaseve. TODO komentari, prazni kosturi i statički blizanci ne računaju se kao dovršen sadržaj. Fiksni kostur opisan je u AGENTS.md.",
+  "note": "Strukturne konvencije knjige. Brojčani pojasevi početne su pretpostavke, a ne mjerenja. Nakon što četiri ili pet poglavlja dobije stvarnu prozu, pokreni book-continuity scan i rhythm, izmjeri raspodjelu i ratificiraj nove pojaseve. TODO komentari, prazni kosturi i statički blizanci ne računaju se kao dovršen sadržaj. Fiksni kostur opisan je u AGENTS.md. Oznaka callout_ai ostaje samo zbog starijeg arhitekturnog ugovora; čitateljski rukopis ima jedan okvir callout-greska po poglavlju.",
   "labels": {
     "opener": "callout-vinjeta",
     "figure_prefix": "fig-",
@@ -58,8 +58,8 @@
       2
     ],
     "callout_ai_per_chapter": [
-      2,
-      2
+      1,
+      1
     ],
     "exercises_min": 4
   },
@@ -1875,62 +1875,74 @@
       {
         "form": "skup za treniranje",
         "canonical": "skup za učenje",
+        "reader_reason": "Naziv skup za učenje označuje podatke na kojima se model prilagođava, odvojeno od podataka za izbor postupka i završno ispitivanje.",
         "reason": "Živa proza poglavlja 17 nosi dvodijelno razdvajanje, a ratificirana kralježnica trodijelno."
       },
       {
         "form": "skup za testiranje",
         "canonical": "skup za ispitivanje",
+        "reader_reason": "Skup za ispitivanje čuvamo za završnu procjenu modela, nakon izbora postupka.",
         "reason": "Ista razlika prema ratificiranoj kralježnici poglavlja 17."
       },
       {
         "form": "predikcija",
         "canonical": "predviđanje",
         "permitted_only_in": "sustav predikcije",
+        "reader_reason": "Za pojedinačno predviđanje i njegov rezultat rabimo hrvatski naziv. Izraz sustav predikcije zadržavamo samo kao naziv vrste sustava.",
         "reason": "Kao samostalna imenica nije kanonska; ostaje samo unutar ratificirane sintagme koja imenuje vrstu sustava, ne pojedinačan ishod."
       },
       {
         "form": "predikcijski model",
         "canonical": "model za predviđanje",
+        "reader_reason": "Naziv model za predviđanje slijedi isti izbor riječi kao naziv predviđanje.",
         "reason": "Izvedenica oblika koji nije kanonski."
       },
       {
         "form": "curenje podataka",
         "canonical": "curenje informacija",
+        "reader_reason": "Naziv curenje informacija odnosi se na podatke koji nedopušteno utječu na učenje ili provjeru modela. Razlikujemo ga od otkrivanja zaštićenih podataka.",
         "reason": "Za statističku pojavu. Svakodnevno značenje ispada podataka u poglavlju 2 nije ista stvar i namjerno ostaje netaknuto."
       },
       {
         "form": "curenje cilja",
         "canonical": "curenje informacija",
+        "reader_reason": "Vremensku granicu objašnjavamo u opisu postupka, uz zajednički naziv curenje informacija.",
         "reason": "Vremenska granica pripada rečenici, a ne nazivu pojave."
       },
       {
         "form": "težina uzorka",
         "canonical": "težina uzorkovanja",
+        "reader_reason": "Težina se odnosi na način uzorkovanja i doprinos jedinice procjeni.",
         "reason": "Ratificirana kralježnica poglavlja 8 nosi težinu uzorkovanja."
       },
       {
         "form": "ponderiranje",
         "canonical": "procjena s težinama",
+        "reader_reason": "Nazivi procjena s težinama i težina uzorkovanja pokazuju kako pojedine jedinice pridonose procjeni.",
         "reason": "Knjiga drži jednu obitelj oblika oko težine uzorkovanja."
       },
       {
         "form": "neponderirana procjena",
         "canonical": "procjena bez težina",
+        "reader_reason": "Naziv izravno pokazuje da pri procjeni ne primjenjujemo težine.",
         "reason": "Ista obitelj oblika."
       },
       {
         "form": "standardizirani rezidual",
         "canonical": "prilagođeni standardizirani rezidual",
+        "reader_reason": "Pridjev prilagođeni razlikuje ovu veličinu od Pearsonova reziduala, koji se računa drukčije.",
         "reason": "Pearsonov oblik koji je ispravak poglavlja 13 uklonio; naziv više ne imenuje ovu veličinu."
       },
       {
         "form": "matrica zabune",
         "canonical": "tablica zabune",
+        "reader_reason": "Naziv tablica povezuje ovaj prikaz s kontingencijskim tablicama i njihovim uvjetnim nazivnicima.",
         "reason": "Isti je objekt u poglavlju 13 ratificiran kao kontingencijska tablica s uvjetnim nazivnicima."
       },
       {
         "form": "istina",
         "canonical": "zabilježeni referentni ishod",
+        "reader_reason": "Referentna oznaka služi usporedbi s predviđanjem, ali i sama može biti pogrešna.",
         "reason": "Ni istina ni ground truth ne smiju imenovati referentni ishod ni referentnu oznaku; to je izravna obveza stavke R24-C17-recorded-reference."
       }
     ],
@@ -1938,16 +1950,19 @@
       {
         "form": "tablica zabune",
         "en": "confusion matrix",
+        "reader_reason": "Isti prikaz već smo upoznali kao kontingencijsku tablicu, pa zadržavamo naziv tablica.",
         "reason": "Hrvatski naziv je tablica jer je isti objekt u poglavlju 13 ratificiran kao kontingencijska tablica; dva bi imena stvorila dva izvora istine o jednom objektu."
       },
       {
         "form": "kolider",
         "en": "collider",
+        "reader_reason": "Naziv zadržava vezu s engleskim terminom i upotrebljava se uz medijator i konfundirajuću varijablu u opisima uzročnih odnosa.",
         "reason": "Prijenos engleskoga naziva zadržan je jer ga tako nosi ratificirana kralježnica poglavlja 2, uz medijator i konfundirajuću varijablu, kao jedan rječnik dijagrama."
       },
       {
         "form": "izgledi",
         "en": "odds",
+        "reader_reason": "Naziv izgledi omogućuje da i izvedeni naziv omjer izgleda povežemo s engleskim izrazom.",
         "reason": "Bira se tako da izvedeni omjer izgleda ostane prepoznatljiv u obama smjerovima."
       }
     ],
@@ -1956,24 +1971,28 @@
         "term": "osjetljivost",
         "reserved_for": "otpornost zaključka na obranjivu drukčiju odluku u analizi",
         "forbidden_use": "stopa točno prepoznatih pozitivnih slučajeva iz tablice zabune",
+        "reader_reason": "Provjera osjetljivosti zaključka i stopa prepoznavanja pozitivnih slučajeva različiti su pojmovi.",
         "reason": "Dvije nepovezane veličine pod jednim imenom, uz izravan sukob sa zabranom svođenja pravednosti na jedno mjerilo iz brifa c17."
       },
       {
         "term": "kalibrirana nesigurnost",
         "reserved_for": "vjerojatnosno značenje kalibracije u poglavlju 7, uz kalibraciju stope pogreške prve vrste u poglavlju 13",
         "forbidden_use": "samostalan pojam kalibracija bez svojega predmeta",
+        "reader_reason": "Vjerojatnosti i stope pogreške testa različiti su predmeti provjere. Uz kalibraciju zato uvijek navodimo što se provjerava.",
         "reason": "Vjerojatnosno i testno značenje su različita, a živa proza poglavlja 13 već piše pojam s predmetom."
       },
       {
         "term": "predviđanje",
         "reserved_for": "čin predviđanja i njegov rezultat",
         "forbidden_use": "zamjena oblikom predikcija izvan ratificirane sintagme sustav predikcije",
+        "reader_reason": "Predviđanje označuje radnju i rezultat. Izraz sustav predikcije ostaje naziv vrste sustava, uključujući jezični model.",
         "reason": "Time ostaje netaknut ratificirani pojam poglavlja 17 jezični model kao sustav predikcije."
       },
       {
         "term": "zabilježeni referentni ishod",
         "reserved_for": "objekt prema kojem se klasifikator vrednuje u poglavlju 17, uz referentnu oznaku koju sadi poglavlje 10",
         "forbidden_use": "istina ili ground truth",
+        "reader_reason": "Referentna oznaka može sadržavati pogrešku, pa je ne poistovjećujemo s poznatom istinom.",
         "reason": "Izravna obveza stavke R24-C17-recorded-reference; referentna je oznaka pogrešiva."
       }
     ],

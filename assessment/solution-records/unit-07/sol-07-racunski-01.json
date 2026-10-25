@@ -8,7 +8,7 @@
     "anchor": "ex-07-racunski-01"
   },
   "task_class": "racunski",
-  "prompt_fingerprint": "sha256:87951b43cf39136768324a739a18cdb4aaf6182ac9e49cccb15b56d29cb2d555",
+  "prompt_fingerprint": "sha256:338c0b291c0a5b9bcf336e0c2574045a416be417095d88bd859998a6cb322e5c",
   "answer_components": {
     "planted_error": {
       "applicable": false,
@@ -68,15 +68,20 @@
           "component_id": "state-two-bounded-sentences",
           "required_claim": "Prva rečenica razlikuje pronalaženje cilja od vjerodostojnosti upozorenja, a druga zadržava hipotetsku i neempirijsku granicu primjera.",
           "required_evidence": "Izvještaj ne naziva provjeru empirijski pouzdanom i ne skriva pogrešna upozorenja."
+        },
+        {
+          "component_id": "october-final-complement",
+          "required_claim": "Vjerojatnost bez uspjeha iznosi 0,98^20 = 0,667608, pa je vjerojatnost barem jednoga uspjeha 1 − 0,98^20 = 0,332392, približno 33,2 %.",
+          "required_evidence": "Umnožak pretpostavlja neovisne pokušaje i jednaku zadanu vjerojatnost. Kod ovisnih objava trebali bismo znati uvjetne vjerojatnosti."
         }
       ]
     },
     "numerical_check": {
       "applicable": true,
       "not_applicable_reason": null,
-      "expected_result": "90/100 = 90 %; 90/(90 + 495) = 90/585 = 0,153846..., odnosno 15,4 %; 100/10.000 = 1 %. Preostale ćelije tablice jesu 10 propuštenih ciljeva i 9.405 ispravno neupozorenih zapisa.",
+      "expected_result": "90/100 = 90 %; 90/(90 + 495) = 90/585 = 0,153846..., odnosno 15,4 %; 100/10.000 = 1 %. Preostale ćelije tablice jesu 10 propuštenih ciljeva i 9.405 ispravno neupozorenih zapisa. Vjerojatnost bez uspjeha iznosi 0,98^20 = 0,667608, pa je vjerojatnost barem jednoga uspjeha 1 − 0,98^20 = 0,332392, približno 33,2 %.",
       "tolerance_or_acceptance_rule": "Prvi i treći udio moraju biti točno 90 % i 1 %, a drugi se prihvaća kao 15,4 % na jednu decimalu ili 15,3846 % uz više preciznosti; sva tri moraju imati ispravan nazivnik.",
-      "independent_method": "Rekonstruirati cjelovitu tablicu 2 × 2 iz brojnosti u chapters/03-kako-brojke-zavode.qmd i iz nje neovisno izračunati osjetljivost, udio ciljeva među upozorenjima i temeljnu stopu.",
+      "independent_method": "Rekonstruirati cjelovitu tablicu 2 × 2 iz brojnosti u chapters/03-kako-brojke-zavode.qmd i iz nje neovisno izračunati osjetljivost, udio ciljeva među upozorenjima i temeljnu stopu. Umnožak pretpostavlja neovisne pokušaje i jednaku zadanu vjerojatnost. Kod ovisnih objava trebali bismo znati uvjetne vjerojatnosti.",
       "evidence_reference": "chapters/03-kako-brojke-zavode.qmd#def-temeljna-stopa"
     },
     "severity_ranked_rubric": {
@@ -130,5 +135,10 @@
     "judgment_owner": "student_or_submitting_author",
     "verification_required": true,
     "code_production_assessed": false
+  },
+  "self_study": {
+    "hint": "Najprije utvrdite nazivnik svakog od triju udjela. Za dvadeset objava krenite od vjerojatnosti da nijedna ne uspije i tek zatim upotrijebite komplement. Provjerite pretpostavku neovisnosti.",
+    "worked_answer": "90/100 = 90 %; 90/(90 + 495) = 90/585 = 0,153846..., odnosno 15,4 %; 100/10.000 = 1 %. Preostale ćelije tablice jesu 10 propuštenih ciljeva i 9.405 ispravno neupozorenih zapisa. Vjerojatnost bez uspjeha iznosi $0,98^{20}$ = 0,667608, pa je vjerojatnost barem jednoga uspjeha 1 − $0,98^{20}$ = 0,332392, približno 33,2 %.",
+    "why_adequate": "Odgovor razlikuje nazivnike i navodi pretpostavku koja opravdava množenje vjerojatnosti. Umnožak pretpostavlja neovisne pokušaje i jednaku zadanu vjerojatnost. Kod ovisnih objava trebali bismo znati uvjetne vjerojatnosti."
   }
 }
