@@ -685,6 +685,20 @@ usage_map <- function(prefix) {
       caption = ": Karta uporabe registriranih skupova. {tbl-colwidths=\"[28,28,44]\"}"), "")
 }
 
+# P5: zasebna urednička poveznica, bez novog paketa ili promjene portfelja.
+editorial_note <- function(prefix) {
+  target <- paste0(if (identical(prefix, "c")) "../" else "",
+                   "notes/reports/p3-evidence12-2026-08-13.md")
+  c(paste0(
+    "Laboratorijski zapis replikacijskog izvještaja Wagenmakersa i suradnika ",
+    "služi uredničkoj provjeri prikaza u poglavlju o krizi i obnovi ",
+    "[@wagenmakers2016]. Sadrži izvedene sažetke laboratorija, dok izvorni ",
+    "sudionički podaci ostaju kod pružatelja. Njegovo podrijetlo, granice ",
+    "uporabe i neovisna provjera dokumentirani su u [dokaznom izvještaju](",
+    target, "). Taj zapis ostaje izvan kataloga podatkovnih paketa."
+  ), "")
+}
+
 public_lines <- c(
   "---",
   "title: \"Podaci\"",
@@ -723,6 +737,7 @@ public_lines <- c(
   ),
   "",
   usage_map("podaci"),
+  editorial_note("podaci"),
   "## Provjerljivi redci generiranih skupova {#sec-podaci-provjera}",
   "",
   paste(
@@ -767,6 +782,7 @@ appendix_lines <- c(
   "[`config/appendix-c-data-route.json`](../config/appendix-c-data-route.json).",
   "",
   usage_map("c"),
+  editorial_note("c"),
   "## Provjerljivi redci generiranih skupova {#sec-c-provjera}",
   "",
   aggregate_tables(package_by_id("anketa_mreze"), "c"),
