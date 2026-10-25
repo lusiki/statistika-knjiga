@@ -45,7 +45,9 @@ def main() -> None:
     for number in range(19):
         unit = f'{number:02d}'
         path = ROOT/f'assessment/solution-records/unit-{unit}/sol-{unit}-callout-greska-01.json'
-        raw = path.read_bytes(); digest.update(raw)
+        raw = path.read_bytes(); digest.update(raw.replace(b"
+", b"
+"))
         record = json.loads(raw)
         if number:
             story.append(PageBreak())
